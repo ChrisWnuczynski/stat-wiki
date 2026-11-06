@@ -348,7 +348,7 @@ Lost working hours averaged 91 per month over 50 months after a safety programme
 ::: {#ex-inf-variance-ratio-interval .exercise}
 ## Checking equal variances
 
-For the two samples in the previous exercise, give a 95% confidence interval for $\sigma_1^2/\sigma_2^2$, using $F_{49,49;0.975}=1.762$. Does it support pooling?
+Lost working hours averaged 91 per month, with standard deviation 14.1, over 50 months after a safety programme, and 108 per month, with standard deviation 14.3, over the 50 months before. Assuming two independent normal samples, give a 95% confidence interval for $\sigma_1^2/\sigma_2^2$, using $F_{49,49;0.975}=1.762$. Does it support pooling?
 
 [Solution](#sol-inf-variance-ratio-interval)
 

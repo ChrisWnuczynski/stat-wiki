@@ -111,11 +111,132 @@ If $M$ exists in an open interval around $0$, it determines the distribution, an
 
 ## Named distributions
 
-The formulas below that are also on the [common distributions](../reference/distributions.qmd) page are not repeated. What matters here is the experiment.
+A handful of distributions recur because a handful of experiments recur. Each is listed with the experiment it describes, and its mean and variance are derived from the generating functions above, so the formulas on the [common distributions](../reference/distributions.qmd) page can be rebuilt rather than memorised.
 
-A Bernoulli trial records success as $1$ and failure as $0$, with success probability $p$. A binomial count is the number of successes in $n$ independent Bernoulli trials with the same $p$. The coin-toss derivation is in [Random experiments and probability](prob-01-experiments.qmd). A geometric count is the trial number of the first success in an unlimited sequence of such trials, so the values start at $1$ and the mass function is $p(1-p)^{x-1}$.
+![Three discrete laws: the number of successes in 10 trials with success probability 0.7, the trial of the first success when each trial succeeds with probability 0.3, and a Poisson count with mean 10.](../figures/prob-discrete-pmfs.pdf){#fig-prob-discrete-pmfs}
 
-A Poisson count with mean $\lambda>0$ is the limit of a binomial count in which $n$ grows, $p$ shrinks, and $np\to\lambda$. It is the usual model for the number of rare events in a fixed interval of time or space, when the events arrive separately. The mass function, mean and variance are on the distribution sheet: the mean and the variance are both $\lambda$.
+### Bernoulli and binomial
+
+::: {#def-bernoulli-distribution .definition}
+## Bernoulli distribution
+
+$X$ has the Bernoulli distribution with success probability $p\in[0,1]$, written $X\sim\Bern(p)$, when $\Pr(X=1)=p$ and $\Pr(X=0)=1-p$. Then $\E X=p$ and $\Var(X)=p(1-p)$.
+
+:::
+
+A Bernoulli variable records a single trial: success as $1$, failure as $0$. Because $X^2=X$, $\E X^2=p$ and $\Var(X)=p-p^2$. The variance is largest, $1/4$, at $p=1/2$, where the outcome is least predictable.
+
+::: {#def-binomial-distribution .definition}
+## Binomial distribution
+
+$X$ has the binomial distribution with $n$ trials and success probability $p$, written $X\sim\Bin(n,p)$, when
+
+$$
+\Pr(X=x)=\binom nx p^x(1-p)^{n-x},\qquad x=0,1,\ldots,n.
+$$
+
+It is the number of successes in $n$ independent $\Bern(p)$ trials. Then $\E X=np$ and $\Var(X)=np(1-p)$.
+
+:::
+
+The mass function is the coin-toss count of [Random experiments and probability](prob-01-experiments.qmd): each sequence with $x$ successes has probability $p^x(1-p)^{n-x}$, and there are $\binom nx$ of them. The moments are quickest from the generating function. Writing $X=X_1+\cdots+X_n$ for the $n$ independent trials, each with generating function $1-p+pz$,
+
+$$
+G(z)=(1-p+pz)^n,\qquad G'(1)=np,\qquad G''(1)=n(n-1)p^2,
+$$
+
+so $\E X=np$ and $\Var(X)=n(n-1)p^2+np-n^2p^2=np(1-p)$. The same answer follows without generating functions: the mean of a sum is the sum of the means, and the variance of a sum of independent terms is the sum of the variances.
+
+::: {#exm-defective-items-in-a-box .example}
+## Defective items in a box
+
+Each item from a production line is defective with probability $0.05$, independently of the others. A box holds 20 items.
+
+**Question.** Find the expected number of defective items in a box, and the probability that a box has at most one.
+
+**Solution.** The number of defectives is $X\sim\Bin(20,0.05)$, so $\E X=20\times0.05=1$. Then
+
+$$
+\Pr(X\le1)=0.95^{20}+20\times0.05\times0.95^{19}=0.358+0.377=0.736.
+$$
+
+Although the average is exactly one defective, more than a quarter of boxes have two or more.
+
+:::
+
+### Geometric
+
+::: {#def-geometric-distribution .definition}
+## Geometric distribution
+
+$X$ has the geometric distribution with success probability $p\in(0,1]$, written $X\sim\Geom(p)$, when
+
+$$
+\Pr(X=x)=(1-p)^{x-1}p,\qquad x=1,2,\ldots
+$$
+
+It is the trial on which the first success occurs, in a sequence of independent $\Bern(p)$ trials. Then $\E X=1/p$ and $\Var(X)=(1-p)/p^2$.
+
+:::
+
+The first success is at trial $x$ exactly when the first $x-1$ trials fail and trial $x$ succeeds, which gives the mass function, and $\Pr(X>x)=(1-p)^x$ because that happens when the first $x$ trials fail. With $q=1-p$ the generating function is a geometric series,
+
+$$
+G(z)=\sum_{x=1}^\infty q^{x-1}p\,z^x=\frac{pz}{1-qz},\qquad G'(z)=\frac{p}{(1-qz)^2},\qquad G''(z)=\frac{2pq}{(1-qz)^3}.
+$$
+
+So $\E X=G'(1)=1/p$ and $\Var(X)=2q/p^2+1/p-1/p^2=q/p^2$. A fair die needs six throws on average to show its first six. Some books count the failures before the first success instead, $X-1$, which has mean $(1-p)/p$; the two conventions differ by exactly one.
+
+### Poisson
+
+::: {#def-poisson-distribution .definition}
+## Poisson distribution
+
+$X$ has the Poisson distribution with mean $\lambda>0$, written $X\sim\Poisson(\lambda)$, when
+
+$$
+\Pr(X=x)=e^{-\lambda}\frac{\lambda^x}{x!},\qquad x=0,1,2,\ldots
+$$
+
+Then $\E X=\Var(X)=\lambda$.
+
+:::
+
+::: {#thm-poisson-limit-of-the-binomial .theorem}
+## Poisson limit of the binomial
+
+If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$
+
+:::
+
+Write $p_n=\lambda_n/n$ with $\lambda_n\to\lambda$. Then
+
+$$
+\binom nx p_n^x(1-p_n)^{n-x}=\frac{\lambda_n^x}{x!}\cdot\frac{n(n-1)\cdots(n-x+1)}{n^x}\cdot\Bigl(1-\frac{\lambda_n}n\Bigr)^n\Bigl(1-\frac{\lambda_n}n\Bigr)^{-x}.
+$$
+
+As $n\to\infty$ the second factor tends to $1$, the third to $e^{-\lambda}$ and the fourth to $1$. That is why the Poisson law models the number of rare events in a fixed interval of time or space: many independent chances, each small, with a steady average number of successes. Calls to an exchange, decays of a radioactive sample and typing errors on a page are the standard examples.
+
+The generating function is $G(z)=\sum_x e^{-\lambda}(\lambda z)^x/x!=e^{\lambda(z-1)}$. Then $G'(1)=\lambda$ and $G''(1)=\lambda^2$, so the mean is $\lambda$ and the variance is $\lambda^2+\lambda-\lambda^2=\lambda$. Equal mean and variance is the signature of a Poisson count, and data whose variance is well above the mean are called overdispersed; see [Standard errors, and models for counts](02-inference-and-counts.qmd).
+
+::: {#exm-a-rare-fault .example}
+## A rare fault
+
+A machine makes 1000 parts a day, and each part has a fault with probability $0.002$, independently.
+
+**Question.** Find the probability that a day has at most one faulty part, exactly and by the Poisson approximation.
+
+**Solution.** The exact count is $\Bin(1000,0.002)$, and $\Pr(X\le1)=0.998^{1000}+1000\times0.002\times0.998^{999}=0.4057$. The Poisson approximation uses $\lambda=1000\times0.002=2$:
+
+$$
+\Pr(X\le1)\approx e^{-2}(1+2)=0.4060.
+$$
+
+The two agree to three decimal places. The approximation is good whenever $n$ is large and $p$ is small, and it needs only the product $np$.
+
+:::
+
+### Hypergeometric
 
 ::: {#def-hypergeometric-distribution .definition}
 ## Hypergeometric distribution
@@ -134,7 +255,26 @@ $$
 
 :::
 
-The mean matches the with-replacement, binomial, experiment. The variance is smaller by the factor $(N-n)/(N-1)$, which is the effect of not putting items back. Five cards from a deck of 52, asking for the number of aces, is hypergeometric with $N=52$, $r=4$ and $n=5$.
+The mass function counts the ways to choose $x$ of the marked items and $n-x$ of the others, over the ways to choose any $n$. The mean matches the with-replacement, binomial, experiment. The variance is smaller by the factor $(N-n)/(N-1)$, which is the effect of not putting items back. When the population is much larger than the sample, the factor is close to 1 and the binomial is a good approximation.
+
+::: {#exm-aces-in-a-hand .example}
+## Aces in a hand
+
+Five cards are dealt from a well-shuffled deck of 52.
+
+**Question.** Find the distribution of the number of aces, and compare it with the binomial count for five draws with replacement.
+
+**Solution.** The number of aces is hypergeometric with $N=52$, $r=4$ and $n=5$. For example,
+
+$$
+\Pr(X=1)=\frac{\binom41\binom{48}4}{\binom{52}5}=\frac{4\times194580}{2598960}=0.2995.
+$$
+
+The full distribution is $0.6588$, $0.2995$, $0.0399$, $0.0017$ and $0.00002$ for 0 to 4 aces. The binomial count $\Bin(5,1/13)$ gives $0.6702$, $0.2792$ and $0.0465$ for 0 to 2. Both have mean $5/13=0.385$, but without replacement each ace drawn makes the next less likely, so the hypergeometric count is less spread out.
+
+:::
+
+### Uniform
 
 ::: {#def-uniform-distribution .definition}
 ## Uniform distribution
@@ -143,11 +283,18 @@ $X$ is uniform on the interval $[a,b]$, written $X\sim\operatorname{U}[a,b]$, wh
 
 :::
 
-The continuous analogue of an equally likely finite set is the uniform distribution: probability is proportional to length. The distribution function rises linearly from $0$ to $1$ across $[a,b]$.
+The continuous analogue of an equally likely finite set is the uniform distribution: probability is proportional to length. The distribution function rises linearly from $0$ to $1$ across $[a,b]$. For the moments, $\E X^2=\int_a^bx^2\,\dd x/(b-a)=(a^2+ab+b^2)/3$, and subtracting $((a+b)/2)^2$ leaves $(b-a)^2/12$. The uniform law on $[0,1]$ is the raw material of [simulation](prob-03-simulation.qmd).
 
-An exponential random variable with rate $\lambda>0$ has density $\lambda e^{-\lambda x}$ for $x>0$. It is the usual model for a waiting time that does not age. A gamma random variable with shape $\alpha>0$ and the same rate has density proportional to $x^{\alpha-1}e^{-\lambda x}$ on $(0,\infty)$. The exponential law is the gamma law with shape $1$. A sum of $k$ independent exponential variables with rate $\lambda$ is gamma with shape $k$ and rate $\lambda$; the moment generating function $M(s)=(\lambda/(\lambda-s))^k$ for $s<\lambda$ is the short proof. A chi-squared variable with $k$ degrees of freedom is the gamma law with shape $k/2$ and rate $1/2$.
+### Exponential
 
-A normal random variable with mean $\mu$ and variance $\sigma^2$ has the density on the distribution sheet. The standard normal distribution function is written $\Phi$. An affine image of a normal variable is normal: if $X\sim\Normal(\mu,\sigma^2)$ and $a\ne 0$, then $aX+b\sim\Normal(a\mu+b,a^2\sigma^2)$. The moment generating function $M(s)=\exp(\mu s+\sigma^2 s^2/2)$ makes this immediate, and it is proved again from the transformation rule in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).
+::: {#def-exponential-distribution .definition}
+## Exponential distribution
+
+$X$ has the exponential distribution with rate $\lambda>0$, written $X\sim\Exp(\lambda)$, when its density is $\lambda e^{-\lambda x}$ for $x>0$. Its distribution function is $1-e^{-\lambda x}$, its mean is $1/\lambda$ and its variance is $1/\lambda^2$.
+
+:::
+
+The moment generating function is $M(s)=\int_0^\infty e^{sx}\lambda e^{-\lambda x}\dd x=\lambda/(\lambda-s)$ for $s<\lambda$. Then $M'(0)=1/\lambda$ and $M''(0)=2/\lambda^2$, so the variance is $2/\lambda^2-1/\lambda^2=1/\lambda^2$. The exponential law is the usual model for a waiting time that does not age, and its defining property is the next theorem.
 
 ::: {#thm-memoryless .theorem}
 ## Memoryless property
@@ -164,7 +311,76 @@ The geometric calculation is the same with $(1-p)^{s+t}$ in place of $e^{-\lambd
 
 :::
 
-Memorylessness is a modelling claim. A component whose lifetime is exponential does not become more likely to fail as it gets older. The failure rate is constant. Lifetime models that do age are on the [reliability](prob-07-reliability.qmd) page.
+Memorylessness is a modelling claim. A component whose lifetime is exponential does not become more likely to fail as it gets older. The failure rate is constant. A bulb with exponential lifetime of mean 1000 hours that has already burned for 1000 hours survives another 500 with probability $e^{-500/1000}=0.607$, the same as a new bulb. Lifetime models that do age are on the [reliability](prob-07-reliability.qmd) page.
+
+### Normal
+
+::: {#def-normal-distribution .definition}
+## Normal distribution
+
+$X$ has the normal distribution with mean $\mu$ and variance $\sigma^2>0$, written $X\sim\Normal(\mu,\sigma^2)$, when its density is
+
+$$
+\frac1{\sigma\sqrt{2\pi}}\exp\Bigl\{-\frac{(x-\mu)^2}{2\sigma^2}\Bigr\},\qquad x\in\R.
+$$
+
+The standard normal distribution is $\Normal(0,1)$, with distribution function written $\Phi$.
+
+:::
+
+The density is a bell centred at $\mu$, with inflection points at $\mu\pm\sigma$. An affine image of a normal variable is normal: if $X\sim\Normal(\mu,\sigma^2)$ and $a\ne 0$, then $aX+b\sim\Normal(a\mu+b,a^2\sigma^2)$. The moment generating function $M(s)=\exp(\mu s+\sigma^2 s^2/2)$ makes this immediate, and it is proved again from the transformation rule in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).
+
+The practical consequence is standardisation. If $X\sim\Normal(\mu,\sigma^2)$ then $Z=(X-\mu)/\sigma$ is standard normal, so every normal probability is a value of $\Phi$:
+
+$$
+\Pr(a<X\le b)=\Phi\Bigl(\frac{b-\mu}\sigma\Bigr)-\Phi\Bigl(\frac{a-\mu}\sigma\Bigr).
+$$
+
+By symmetry $\Phi(-z)=1-\Phi(z)$, so tables list only $z\ge0$. A normal variable falls within one standard deviation of its mean with probability $0.683$, within two with probability $0.954$, and within three with probability $0.997$.
+
+::: {#exm-iq-scores .example}
+## IQ scores
+
+Suppose IQ scores are $\Normal(100,16^2)$.
+
+**Question.** What fraction of people score between 90 and 110, and what fraction above 130?
+
+**Solution.** Standardise: $(90-100)/16=-0.625$ and $(110-100)/16=0.625$, so
+
+$$
+\Pr(90<X\le110)=\Phi(0.625)-\Phi(-0.625)=2\Phi(0.625)-1=0.468.
+$$
+
+Above 130, $z=1.875$ and $\Pr(X>130)=1-\Phi(1.875)=0.030$, about one person in 33. These are the class probabilities used to sort recruits in [Chi-squared tests](inf-05-chi-square.qmd).
+
+:::
+
+![Densities of three exponential laws, with rates 0.5, 1 and 2, and of three normal laws. The normal curves with standard deviations 0.5, 1 and 2 share a mean; the widest is the flattest because each must enclose area one.](../figures/prob-continuous-densities.pdf){#fig-prob-continuous-densities}
+
+### Gamma and chi-squared
+
+::: {#def-gamma-distribution .definition}
+## Gamma distribution
+
+$X$ has the gamma distribution with shape $\alpha>0$ and rate $\lambda>0$, written $X\sim\GammaDist(\alpha,\lambda)$, when its density is
+
+$$
+\frac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}{\Gamma(\alpha)},\qquad x>0,
+$$
+
+where $\Gamma(\alpha)=\int_0^\infty u^{\alpha-1}e^{-u}\dd u$. Then $\E X=\alpha/\lambda$ and $\Var(X)=\alpha/\lambda^2$.
+
+:::
+
+Integration by parts gives $\Gamma(\alpha+1)=\alpha\Gamma(\alpha)$, and $\Gamma(1)=1$, so $\Gamma(k)=(k-1)!$ for whole numbers $k$; also $\Gamma(1/2)=\sqrt\pi$. The exponential law is the gamma law with shape $1$. The moment generating function is $M(s)=(\lambda/(\lambda-s))^\alpha$ for $s<\lambda$, so independent gamma variables with a common rate add their shapes. In particular, a sum of $k$ independent $\Exp(\lambda)$ waiting times is $\GammaDist(k,\lambda)$, the time of the $k$th event. A chi-squared variable with $k$ degrees of freedom, used throughout [Statistical inference](inf-01-statistical-inference.qmd#def-chi-squared-distribution), is the gamma law with shape $k/2$ and rate $1/2$.
+
+The time $S_k$ of the $k$th event is longer than $t$ exactly when fewer than $k$ events have happened by time $t$. With events arriving at rate $\lambda$, that count is $\Poisson(\lambda t)$, so
+
+$$
+\Pr(S_k>t)=\sum_{j=0}^{k-1}e^{-\lambda t}\frac{(\lambda t)^j}{j!}.
+$$
+
+For three events at rate 2 per hour, the probability that the third takes more than 2 hours is $e^{-4}(1+4+8)=0.238$.
 
 ::: {.callout-note}
 ## Key idea
@@ -438,6 +654,8 @@ Two fair dice are thrown and $Z$ is the sum of the faces.
 
 (c) A player is paid $(Z-7)^2$ and pays 5 to play. Find the expected profit from 100 independent plays.
 
+[Solution](#sol-prob-dice-sum-game)
+
 :::
 
 ::: {#ex-prob-two-lifetimes .exercise}
@@ -448,6 +666,8 @@ Two components each have expected lifetime 3 years. The first lifetime is expone
 (a) Find the probability that the first still works after 4.5 years, given that it works after 4 years.
 
 (b) Find the probability that the second still works after 4.5 years, given that it works after 4 years.
+
+[Solution](#sol-prob-two-lifetimes)
 
 :::
 
@@ -461,5 +681,7 @@ Two fair dice are thrown and $Z$ is the smaller face.
 (b) Calculate $\E(1/Z)$.
 
 (c) A player is paid $Z$ and pays 3 to play. Find the expected profit from 100 independent plays.
+
+[Solution](#sol-prob-min-dice-game)
 
 :::

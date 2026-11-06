@@ -17,6 +17,8 @@ The structure function $\varphi:\{0,1\}^n\to\{0,1\}$ equals $1$ when the system 
 
 A series system works only when every component works, so $\varphi(\mathbf{x})=\prod_{i=1}^n x_i$. A parallel system works when at least one component works, so $\varphi(\mathbf{x})=1-\prod_{i=1}^n(1-x_i)$. A $k$-out-of-$n$ system works when at least $k$ components work, so $\varphi(\mathbf{x})=1$ if $\sum_i x_i\ge k$ and $0$ otherwise. Series is $n$-out-of-$n$. Parallel is $1$-out-of-$n$.
 
+![Three systems drawn as networks: the system works when a path of working components joins the left end to the right end. Series (top left) needs every component; parallel (bottom left) needs one; the bridge (right) has a cross link, component 3, that neither arrangement can express.](../figures/prob-systems.pdf){#fig-prob-systems}
+
 A system built by nesting series and parallel pieces can be reduced one module at a time. If component $1$ stands in series with a parallel module whose two branches are the series pairs $(x_2,x_3)$ and $(x_4,x_5)$, then
 
 $$
@@ -72,6 +74,29 @@ r(\mathbf{p})
 
 For a large system the exact polynomial can be out of reach. If $E_j$ is the event that every component in the minimal cut $K_j$ has failed, then $r(\mathbf{p})=1-\Pr(\bigcup_j E_j)$. Inclusion–exclusion expands the union. Truncating after the first term, $\sum_j \Pr(E_j)$, is the rare-event approximation, and it is accurate when every $p_i$ is close to $1$ and the cuts are unlikely.
 
+::: {#exm-a-bridge-of-reliable-links .example}
+## A bridge of reliable links
+
+Each of the five components of the bridge works with probability $p=0.9$, independently.
+
+**Question.** Find the reliability of the bridge exactly, and by the rare-event approximation.
+
+**Solution.** With every $p_i=p$ the polynomial above collapses to
+
+$$
+r(p)=2p^2+2p^3-5p^4+2p^5,
+$$
+
+so $r(0.9)=1.62+1.458-3.2805+1.181=0.9785$. For the approximation, the minimal cuts $\{1,2\}$ and $\{4,5\}$ each fail with probability $0.1^2=0.01$, and $\{1,3,5\}$ and $\{2,3,4\}$ each with $0.1^3=0.001$, so
+
+$$
+r\approx1-(0.01+0.01+0.001+0.001)=0.978.
+$$
+
+The approximation is good to three decimal places, because with reliable components two cuts almost never fail together. It also shows where the risk is: the two-component cuts at each end contribute ten times as much as the three-component cuts through the cross link. For comparison, two parallel series paths without the cross link have reliability $1-(1-0.81)^2=0.964$, so the link removes about 40% of the failure probability.
+
+:::
+
 ## Lifetimes
 
 Give each component a lifetime $T_i$ with distribution function $F_i$, and assume the lifetimes are independent. The component is working at time $t$ when $T_i>t$, so its reliability at time $t$ is $1-F_i(t)$. The system lifetime $T$ satisfies
@@ -81,6 +106,31 @@ $$
 $$
 
 A string of bulbs in series fails at the first bulb failure. If 20 bulbs have independent exponential lifetimes with mean 1000 hours, the rate of each bulb is $1/1000$, the minimum is exponential with rate $20/1000$, and the expected life of the string is 50 hours. That is the series formula $r(\mathbf{p})=\prod p_i$ with $p_i=e^{-t/1000}$.
+
+::: {#exm-mean-lifetimes-of-redundant-systems .example}
+## Mean lifetimes of redundant systems
+
+Components have independent exponential lifetimes with rate $\lambda$, so each has mean $1/\lambda$.
+
+**Question.** Compare the mean lifetimes of one component, two components in parallel, and a 2-out-of-3 system.
+
+**Solution.** The mean is the integral of the survival function. With $q(t)=e^{-\lambda t}$, two in parallel survive with probability $1-(1-q)^2=2q-q^2$, so
+
+$$
+\E T=\int_0^\infty\bigl(2e^{-\lambda t}-e^{-2\lambda t}\bigr)\dd t=\frac2\lambda-\frac1{2\lambda}=\frac3{2\lambda}.
+$$
+
+A 2-out-of-3 system survives with probability $3q^2(1-q)+q^3=3q^2-2q^3$, so
+
+$$
+\E T=\int_0^\infty\bigl(3e^{-2\lambda t}-2e^{-3\lambda t}\bigr)\dd t=\frac3{2\lambda}-\frac2{3\lambda}=\frac5{6\lambda}.
+$$
+
+The 2-out-of-3 system lives on average *less* long than a single component, even though at $p=0.9$ its reliability, $0.972$, beats a single component's $0.9$. Redundancy helps while components are likely to be working, early on, and hurts later, when the system needs two survivors out of a shrinking pool. A reliability at one time and a mean lifetime answer different questions.
+
+:::
+
+![Survival functions for exponential components with mean 1: one component, two in parallel, two in series and a 2-out-of-3 system. The 2-out-of-3 curve starts above the single component and crosses below it at $t=\log2=0.69$, which is why its mean lifetime is shorter.](../figures/prob-system-survival.pdf){#fig-prob-system-survival}
 
 ## Hazard and the Weibull law
 
@@ -123,6 +173,10 @@ The shape $\beta=1$ is the exponential distribution with rate $\lambda$.
 
 The Weibull hazard is $h(t)=\lambda\beta(\lambda t)^{\beta-1}$. It increases when $\beta>1$ and decreases when $\beta<1$. Shape is the ageing parameter. Rate sets the time scale.
 
+![Weibull hazard rates with rate $\lambda=1$. Shape $\beta<1$ gives a falling hazard, as when weak units fail early; $\beta=1$ is the constant exponential hazard; $\beta>1$ gives wear-out. Real equipment often shows all three phases in turn, the bathtub curve.](../figures/prob-weibull-hazards.pdf){#fig-prob-weibull-hazards}
+
+A Weibull lifetime with shape $\beta=2$ and rate $\lambda=0.001$ per hour has mean $\Gamma(1.5)/0.001=886$ hours, and its hazard grows linearly in time: at 1000 hours it is $2\times0.001\times1=0.002$ per hour, twice what it was at 500 hours.
+
 ::: {.callout-note}
 ## Key idea
 Write the binary function that says when the system works, reduce it to a multilinear polynomial, and under independence replace each component indicator by its reliability. Put survival probabilities in place of those reliabilities to get the lifetime of a system that is not repaired.
@@ -144,12 +198,16 @@ Components 1, 2 and 3 fail independently with probability $0.1$ each. The system
 
 Write the structure function of a system that works if and only if at least $k$ of its $n$ components work.
 
+[Solution](#sol-prob-k-out-of-n)
+
 :::
 
 ::: {#ex-prob-bridge-pivot .exercise}
 ## Pivoting the bridge
 
 In the bridge with side paths $1$–$4$ and $2$–$5$ and cross link $3$, the structure function has the form $\varphi(\mathbf{x})=x_3 z_1+(1-x_3)z_2$. Find $z_1$ and $z_2$.
+
+[Solution](#sol-prob-bridge-pivot)
 
 :::
 
@@ -158,12 +216,16 @@ In the bridge with side paths $1$–$4$ and $2$–$5$ and cross link $3$, the st
 
 The bridge has minimal path sets $\{1,4\}$, $\{2,5\}$, $\{1,3,5\}$ and $\{2,3,4\}$. Write the structure function by the path formula, and expand it far enough to see the four path monomials. Say how the same system is drawn as a series arrangement of parallel modules, and as a parallel arrangement of series modules, if components may be duplicated in the drawing.
 
+[Solution](#sol-prob-bridge-paths)
+
 :::
 
 ::: {#ex-prob-christmas-lights .exercise}
 ## A string of twenty bulbs
 
 Twenty bulbs are wired in series, so the string fails when the first bulb fails. Each bulb's lifetime is exponential with expectation 1000 hours, and the lifetimes are independent. Find the distribution of the lifetime of the string, and its expectation.
+
+[Solution](#sol-prob-christmas-lights)
 
 :::
 
@@ -172,11 +234,15 @@ Twenty bulbs are wired in series, so the string fails when the first bulb fails.
 
 Let $T\ge 0$ have survival function $R$. Show that $\E T=\int_0^{\infty} R(t)\,\dd t$, assuming the integral is finite.
 
+[Solution](#sol-prob-mttf-integral)
+
 :::
 
 ::: {#ex-prob-hazard-survival .exercise}
 ## Survival from the hazard
 
 Let $T$ have density $f$, survival function $R$ and hazard $h=f/R$. Show that $R(t)=\exp\bigl(-\int_0^t h(u)\,\dd u\bigr)$ for $t\ge 0$.
+
+[Solution](#sol-prob-hazard-survival)
 
 :::

@@ -34,6 +34,26 @@ Continuous random variables with joint density $f$ are independent when $f(x_1,\
 
 Independence of the random variables is independence of the events $\{X_i\in A_i\}$ for every choice of measurable sets $A_i$. It is a property of the joint distribution, and it is usually put in as a modelling assumption. A box of dice, one of which is biased, does not give independent rolls if the die is first chosen at random and then rolled twice: the first roll carries information about which die was chosen. Two rolls of a single fair die are independent.
 
+::: {#exm-a-box-of-three-dice .example}
+## A box of three dice
+
+A box holds three dice. Die 1 is ordinary. Die 2 has no six but two fives. Die 3 has no five but two sixes. A die is chosen at random and thrown. Let $X$ be the number of the die and $Y$ the face shown.
+
+**Question.** Find the joint mass function and both marginals. Are $X$ and $Y$ independent?
+
+**Solution.** Each die is chosen with probability $1/3$, and each of its six faces then shows with probability $1/6$, so each face position has probability $1/18$. A value printed on two faces gets $2/18=1/9$.
+
+| | $y=1$ | $y=2$ | $y=3$ | $y=4$ | $y=5$ | $y=6$ | $f_X(x)$ |
+|---|---|---|---|---|---|---|---|
+| $x=1$ | $1/18$ | $1/18$ | $1/18$ | $1/18$ | $1/18$ | $1/18$ | $1/3$ |
+| $x=2$ | $1/18$ | $1/18$ | $1/18$ | $1/18$ | $1/9$ | $0$ | $1/3$ |
+| $x=3$ | $1/18$ | $1/18$ | $1/18$ | $1/18$ | $0$ | $1/9$ | $1/3$ |
+| $f_Y(y)$ | $1/6$ | $1/6$ | $1/6$ | $1/6$ | $1/6$ | $1/6$ | $1$ |
+
+The marginals are the row and column sums. Remarkably, $Y$ is uniform on $\{1,\ldots,6\}$, exactly as for a single fair die. Yet $X$ and $Y$ are not independent: $\Pr(X=2,Y=6)=0$, while $f_X(2)f_Y(6)=1/18$. Seeing a six rules out die 2. The marginals alone cannot reveal the dependence; only the joint table can.
+
+:::
+
 The multinomial distribution is the joint law of independent trials with several outcomes. In $n$ independent trials, each falling in category $k$ with probability $p_k$, the vector of counts is multinomial. Its mass function, mean and coordinate-wise variance are on the distribution sheet. One coordinate of a multinomial vector is binomial, because collapsing every other category leaves a single success probability.
 
 ::: {#def-joint-density .definition}
@@ -84,6 +104,19 @@ Independent variables with finite variances are uncorrelated: their covariance i
 
 The correlation $\rho(X,Y)=\Cov(X,Y)/\sqrt{\Var(X)\Var(Y)}$ lies in $[-1,1]$ whenever the variances are positive and finite. Equality to $\pm 1$ means that one variable is an affine function of the other. The bound is the Cauchy–Schwarz inequality applied to the centred variables, or equivalently the fact that $\Var(X+tY)\ge 0$ for every real $t$.
 
+::: {#exm-uncorrelated-but-dependent .example}
+## Uncorrelated but dependent
+
+Let $X$ be uniform on $\{-1,0,1\}$ and $Y=X^2$.
+
+**Question.** Find $\Cov(X,Y)$. Are $X$ and $Y$ independent?
+
+**Solution.** $\E X=0$ and $XY=X^3=X$, so $\Cov(X,Y)=\E(XY)-\E X\,\E Y=\E X-0=0$. The variables are uncorrelated. They are far from independent: $Y$ is a function of $X$, and $\Pr(X=0,Y=1)=0$ while $\Pr(X=0)\Pr(Y=1)=\tfrac13\cdot\tfrac23$. Covariance measures only linear dependence, and this dependence is symmetric, so it cancels.
+
+:::
+
+![Two hundred draws from standard bivariate normal laws with correlation 0, 0.4, 0.7 and $-0.9$. As the correlation moves away from zero the cloud narrows along a line, rising for positive correlation and falling for negative.](../figures/prob-correlation.pdf){#fig-prob-correlation}
+
 A binomial variance is $np(1-p)$ because the Bernoulli indicators are independent, so the covariances vanish and the variances $p(1-p)$ add. A hypergeometric variance keeps the non-zero covariances of the without-replacement indicators, and they produce the finite-population correction.
 
 ::: {#def-covariance-matrix .definition}
@@ -124,6 +157,35 @@ $$
 
 The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under that conditional distribution. As a function of the random point $X$ it is a random variable, written $\E(Y\given X)$.
 
+::: {#exm-a-uniform-point-on-a-triangle .example}
+## A uniform point on a triangle
+
+A point $(X,Y)$ is drawn uniformly from the 10 lattice points with $1\le x\le y\le4$, so each has probability $1/10$.
+
+**Question.** Find the marginals, the conditional distribution of $Y$ given $X=x$, and $\E(Y\given X)$. Check the tower property, and find the correlation.
+
+**Solution.** For a given $x$ there are $5-x$ admissible values of $y$, and for a given $y$ there are $y$ values of $x$, so
+
+$$
+f_X(x)=\frac{5-x}{10},\qquad f_Y(y)=\frac{y}{10},\qquad x,y\in\{1,2,3,4\}.
+$$
+
+$X$ and $Y$ are dependent: given $X=2$, $Y$ can only be 2, 3 or 4. The conditional mass function is
+
+$$
+f_{Y\given X}(y\given x)=\frac{1/10}{(5-x)/10}=\frac1{5-x},\qquad y=x,\ldots,4,
+$$
+
+uniform on the admissible values. So $\E(Y\given X=x)=(x+4)/2$. Averaging over $X$,
+
+$$
+\E\bigl(\E(Y\given X)\bigr)=\tfrac52\cdot\tfrac4{10}+3\cdot\tfrac3{10}+\tfrac72\cdot\tfrac2{10}+4\cdot\tfrac1{10}=3,
+$$
+
+which agrees with $\E Y=(1+4+9+16)/10=3$. For the correlation, $\E X=2$, $\E(XY)=13/2$ and both variances are 1, so $\Cov(X,Y)=13/2-6=1/2$ and $\rho(X,Y)=1/2$. A larger $X$ forces a larger $Y$.
+
+:::
+
 ::: {#thm-tower-property .theorem}
 ## Tower property
 
@@ -132,6 +194,23 @@ If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$. More general
 :::
 
 The tower property is the calculation that justifies "first condition, then average". A random sum is the standard example. Let $N$ be a count with a finite mean, and given $N=n$ let $Y=X_1+\cdots+X_n$ with the $X_i$ independent of $N$ and of each other, each with mean $\mu$. Then $\E(Y\given N)=N\mu$, so $\E Y=\mu\,\E N$. The same conditioning gives $\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2$ when the variances exist.
+
+::: {#exm-a-day-of-takings .example}
+## A day of takings
+
+A shop has $N\sim\Poisson(20)$ customers a day. Customers spend independently of one another and of $N$, each with mean 30 dollars and standard deviation 10 dollars.
+
+**Question.** Find the mean and standard deviation of the day's takings.
+
+**Solution.** The takings are a random sum $Y=X_1+\cdots+X_N$. By the tower property, $\E Y=\mu\,\E N=30\times20=600$ dollars. For the variance, $\Var(N)=20$ for a Poisson count, so
+
+$$
+\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2=20\times100+20\times900=20000,
+$$
+
+and the standard deviation is $141$ dollars. Most of the variability comes from the number of customers, not from what each one spends: if $N$ were fixed at 20, the standard deviation would be only $\sqrt{2000}=45$ dollars.
+
+:::
 
 ::: {.callout-note}
 ## Key idea
@@ -235,6 +314,8 @@ A point $(X,Y)$ is drawn from the triangle with vertices $(0,0)$, $(1,0)$ and $(
 
 (c) Find the marginal density of $Y$.
 
+[Solution](#sol-prob-triangle-conditional)
+
 :::
 
 ::: {#ex-prob-sign-covariance .exercise}
@@ -245,5 +326,7 @@ Let $U$ and $V$ be independent, with $\Pr(U=1)=\Pr(V=1)=1/4$ and $\Pr(U=-1)=\Pr(
 (a) Give the joint probability mass function of $(X,Y)$.
 
 (b) Calculate $\Cov(X,Y)$.
+
+[Solution](#sol-prob-sign-covariance)
 
 :::

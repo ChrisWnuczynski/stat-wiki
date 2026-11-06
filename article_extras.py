@@ -349,3 +349,134 @@ for _table, _extra in (
 ):
     for _name, _items in _extra.items():
         _table.setdefault(_name, []).extend(i for i in _items if i not in _table[_name])
+
+
+# ---------------------------------------------------------------------------
+# Probability. Merged into the tables above in the same way.
+# ---------------------------------------------------------------------------
+
+_PROBABILITY_PROPERTIES = {
+    "probability-measure": ["properties-of-a-probability", "equally-likely-outcomes"],
+    "sample-space": ["equally-likely-outcomes", "four-ways-of-counting-draws"],
+    "event": ["properties-of-a-probability"],
+    "conditional-probability": ["product-rule", "law-of-total-probability"],
+    "independent-events": ["product-rule"],
+    "random-variable": ["expectation-of-a-function"],
+    "expectation": ["expectation-of-a-function", "tower-property"],
+    "binomial-distribution": ["poisson-limit-of-the-binomial", "central-limit-theorem"],
+    "poisson-distribution": ["poisson-limit-of-the-binomial"],
+    "exponential-distribution": ["memoryless-property"],
+    "geometric-distribution": ["memoryless-property"],
+    "uniform-distribution": ["inverse-transform-method"],
+    "cumulative-distribution-function": ["inverse-transform-method"],
+    "joint-probability-mass-function": ["tower-property"],
+    "joint-probability-density": ["transformation-rule"],
+    "conditional-distribution": ["tower-property"],
+    "covariance": ["affine-images-of-normal-vectors"],
+    "multivariate-normal-distribution": ["affine-images-of-normal-vectors"],
+    "finite-state-markov-chain": ["limiting-distribution"],
+    "structure-function": [],
+    "survival-function": [],
+    "weibull-distribution": [],
+}
+
+_PROBABILITY_EXAMPLES = {
+    "sample-space": ["ex-prob-three-tosses", "ex-prob-three-toss-weights"],
+    "four-ways-of-counting-draws": ["ex-prob-urn-combinations", "ex-prob-three-cards", "ex-prob-ten-balls-three-boxes"],
+    "equally-likely-outcomes": ["ex-prob-two-dice-faces", "ex-prob-four-honours"],
+    "conditional-probability": ["ex-prob-second-die", "ex-prob-binary-channel"],
+    "law-of-total-probability": ["ex-prob-channel-quarter", "ex-prob-channel-zero"],
+    "independent-events": ["ex-prob-series-parallel"],
+    "properties-of-a-probability": ["ex-prob-intersection-bound"],
+    "discrete-distribution": ["ex-prob-dice-sum-pmf", "ex-prob-min-dice"],
+    "continuous-distribution": ["ex-prob-cubic-cdf", "ex-prob-uniform-interval"],
+    "cumulative-distribution-function": ["ex-prob-cubic-cdf", "ex-prob-cdf-of-maximum"],
+    "expectation": ["ex-prob-three-point-expectation", "ex-prob-red-balls-expectation", "ex-prob-dice-sum-game"],
+    "expectation-of-a-function": ["ex-prob-min-dice-game", "ex-prob-squared-heads"],
+    "variance": ["ex-prob-uniform-variance", "ex-prob-dice-sum-game"],
+    "moment-generating-function": ["ex-prob-exp-moments", "ex-prob-second-moment"],
+    "binomial-distribution": ["ex-prob-twenty-heads", "ex-prob-votes"],
+    "geometric-distribution": ["ex-prob-wait-for-twelve", "ex-prob-double-six-wait"],
+    "poisson-distribution": ["ex-prob-radioactive"],
+    "hypergeometric-distribution": ["ex-prob-five-evens-no-replace"],
+    "exponential-distribution": ["ex-prob-component-five-years", "ex-prob-memoryless-component"],
+    "memoryless-property": ["ex-prob-two-lifetimes", "ex-prob-memoryless-component"],
+    "normal-distribution": ["ex-prob-standard-normal-probs", "ex-prob-normal-shift"],
+    "gamma-distribution": ["ex-prob-ten-components"],
+    "inverse-transform-method": ["ex-prob-generate-exp", "ex-prob-shifted-exp-generate"],
+    "joint-probability-mass-function": ["ex-prob-joint-table", "ex-prob-sign-covariance"],
+    "joint-probability-density": ["ex-prob-region-probability", "ex-prob-independent-exponentials"],
+    "conditional-distribution": ["ex-prob-triangle-conditional"],
+    "covariance": ["ex-prob-sign-covariance"],
+    "transformation-rule": ["ex-prob-exponential-ratio", "ex-prob-quadratic-transform", "ex-prob-random-radius"],
+    "affine-images-of-normal-vectors": ["ex-prob-partial-sums", "ex-prob-circuit-board"],
+    "law-of-large-numbers": ["ex-prob-voltage-mean"],
+    "central-limit-theorem": ["ex-prob-clt-binomial-tail", "ex-prob-blueberry-sieve", "ex-prob-lift"],
+    "finite-state-markov-chain": ["ex-prob-markov-two-steps", "ex-prob-markov-random-walk"],
+    "limiting-distribution": ["ex-prob-markov-limit", "ex-prob-markov-two-state", "ex-prob-markov-periodic", "ex-prob-markov-reflecting"],
+    "structure-function": ["ex-prob-k-out-of-n", "ex-prob-bridge-pivot", "ex-prob-bridge-paths"],
+    "reliability-function": ["ex-prob-series-parallel"],
+    "survival-function": ["ex-prob-mttf-integral", "ex-prob-christmas-lights"],
+    "hazard-rate": ["ex-prob-hazard-survival"],
+}
+
+_PROBABILITY_BOOK_EXAMPLES = {
+    "exm-a-four-engine-aeroplane": ["independent-events", "event"],
+    "exm-the-birthday-problem": ["four-ways-of-counting-draws", "equally-likely-outcomes"],
+    "exm-the-monty-hall-problem": ["conditional-probability"],
+    "exm-three-factories": ["law-of-total-probability", "conditional-probability"],
+    "exm-defective-items-in-a-box": ["binomial-distribution"],
+    "exm-a-rare-fault": ["poisson-limit-of-the-binomial", "poisson-distribution"],
+    "exm-aces-in-a-hand": ["hypergeometric-distribution"],
+    "exm-iq-scores": ["normal-distribution"],
+    "exm-rejection-for-a-beta-density": ["acceptance-rejection-method"],
+    "exm-a-box-of-three-dice": ["joint-probability-mass-function", "independent-random-variables"],
+    "exm-uncorrelated-but-dependent": ["covariance", "independent-random-variables"],
+    "exm-a-uniform-point-on-a-triangle": ["conditional-distribution", "tower-property"],
+    "exm-a-day-of-takings": ["tower-property"],
+    "exm-the-square-of-a-standard-normal": ["transformation-rule", "chi-squared-distribution"],
+    "exm-a-series-of-exponential-components": ["exponential-distribution"],
+    "exm-the-sum-of-two-uniforms": ["uniform-distribution"],
+    "exm-ball-bearings-and-a-sieve": ["affine-images-of-normal-vectors"],
+    "exm-normal-approximation-to-a-binomial": ["central-limit-theorem", "binomial-distribution"],
+    "exm-six-stepping-stones": ["finite-state-markov-chain", "limiting-distribution"],
+    "exm-a-two-state-weather-chain": ["limiting-distribution"],
+    "exm-a-bridge-of-reliable-links": ["reliability-function", "structure-function"],
+    "exm-mean-lifetimes-of-redundant-systems": ["survival-function", "reliability-function"],
+}
+
+_PROBABILITY_FIGURES = {
+    "probability-measure": ["prob-coin-averages.png"],
+    "law-of-large-numbers": ["prob-coin-averages.png"],
+    "four-ways-of-counting-draws": ["prob-birthday.png"],
+    "binomial-distribution": ["prob-discrete-pmfs.png", "prob-binomial-normal.png"],
+    "geometric-distribution": ["prob-discrete-pmfs.png"],
+    "poisson-distribution": ["prob-discrete-pmfs.png"],
+    "discrete-distribution": ["prob-discrete-pmfs.png"],
+    "exponential-distribution": ["prob-continuous-densities.png"],
+    "normal-distribution": ["prob-continuous-densities.png"],
+    "continuous-distribution": ["prob-continuous-densities.png"],
+    "inverse-transform-method": ["prob-inverse-transform.png"],
+    "cumulative-distribution-function": ["prob-inverse-transform.png"],
+    "acceptance-rejection-method": ["prob-acceptance-rejection.png"],
+    "covariance": ["prob-correlation.png"],
+    "multivariate-normal-distribution": ["prob-correlation.png"],
+    "central-limit-theorem": ["prob-clt.png", "prob-binomial-normal.png"],
+    "finite-state-markov-chain": ["prob-stepping-stones.png", "prob-random-walk.png"],
+    "limiting-distribution": ["prob-stepping-stones.png"],
+    "structure-function": ["prob-systems.png"],
+    "reliability-function": ["prob-systems.png", "prob-system-survival.png"],
+    "survival-function": ["prob-system-survival.png"],
+    "hazard-rate": ["prob-weibull-hazards.png"],
+    "weibull-distribution": ["prob-weibull-hazards.png"],
+}
+
+for _table, _extra in (
+    (PROPERTIES, _PROBABILITY_PROPERTIES),
+    (EXAMPLES, _PROBABILITY_EXAMPLES),
+    (BOOK_EXAMPLES, _PROBABILITY_BOOK_EXAMPLES),
+    (FIGURES, _PROBABILITY_FIGURES),
+):
+    for _name, _items in _extra.items():
+        if _items:
+            _table.setdefault(_name, []).extend(i for i in _items if i not in _table[_name])

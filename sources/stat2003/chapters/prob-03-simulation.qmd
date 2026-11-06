@@ -2,7 +2,26 @@
 
 Simulation turns a supply of uniform random numbers into draws from a distribution that has been specified. The two general constructions are the inverse-transform method, which reads the distribution function backwards, and acceptance–rejection, which keeps the draws that land under the target density. Particular families then have shorter algorithms. The families themselves are on the [common distributions](../reference/distributions.qmd) page, together with the uniform and hypergeometric laws in [Random variables and distributions](prob-02-random-variables.qmd).
 
-A uniform generator returns numbers that behave as independent draws from $\operatorname{U}[0,1]$. Setting a seed makes the sequence repeatable: the same seed produces the same stream. Every method below assumes such a stream and nothing else.
+## Random numbers
+
+Coins, dice and roulette wheels were the first random number generators, and physical devices such as noise diodes and Geiger counters followed. Simulation abandoned them: they are slow, their output cannot be reproduced, and their numbers turn out to be biased and dependent. Almost every generator in use today is a short deterministic recursion whose output passes the statistical tests a truly random sequence would. Such numbers are called pseudorandom.
+
+::: {#def-linear-congruential-generator .definition}
+## Linear congruential generator
+
+A linear congruential generator produces integers by the recursion
+
+$$
+X_{i+1}=(aX_i+c)\bmod m,
+$$
+
+starting from a seed $X_0$, with positive integer multiplier $a$, increment $c$ and modulus $m$. The pseudorandom numbers are $U_i=X_i/m$. With $c=0$ it is a multiplicative congruential generator.
+
+:::
+
+Each $X_i$ lies in $\{0,1,\ldots,m-1\}$, so the sequence must repeat within $m$ steps: its period is at most $m$. With $a=c=X_0=3$ and $m=5$, the recursion gives $3,2,4,0,3,\ldots$, with period 4. Only carefully chosen constants give long periods and good statistical behaviour; a classic choice for 32-bit arithmetic is the multiplicative generator with $m=2^{31}-1$, a prime, and $a=7^5=16807$. Modern libraries use longer recursions with periods far beyond any simulation's needs.
+
+A uniform generator, then, returns numbers that behave as independent draws from $\operatorname{U}[0,1]$. Setting a seed makes the sequence repeatable: the same seed produces the same stream, which is what lets a simulation be checked and its bugs reproduced. In Python, `np.random.seed(1234)` followed by `np.random.rand(5)` returns the same five numbers every time. Every method below assumes such a stream and nothing else.
 
 ## Inverse transform
 
@@ -13,7 +32,9 @@ Let $F$ be a distribution function and define $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ fo
 
 :::
 
-The proof is one line when $F$ is continuous and strictly increasing: $\Pr(F^{-1}(U)\le x)=\Pr(U\le F(x))=F(x)$. The general definition, with the infimum, covers flat stretches and jumps. Operationally the algorithm is: draw $U$ from $\operatorname{U}[0,1]$, and return $F^{-1}(U)$.
+The proof is one line when $F$ is continuous and strictly increasing: $\Pr(F^{-1}(U)\le x)=\Pr(U\le F(x))=F(x)$.
+
+![The inverse-transform method. A uniform draw $U$ on the vertical axis is carried across to the graph of $F$ and down to the horizontal axis, giving $X=F^{-1}(U)$. Steep parts of $F$ catch many values of $U$, so $X$ lands there often: that is where the density is large.](../figures/prob-inverse-transform.pdf){#fig-prob-inverse-transform} The general definition, with the infimum, covers flat stretches and jumps. Operationally the algorithm is: draw $U$ from $\operatorname{U}[0,1]$, and return $F^{-1}(U)$.
 
 A density $f(x)=2x$ on $[0,1]$ has distribution function $F(x)=x^2$ there, so the inverse transform returns $\sqrt{U}$.
 
@@ -34,7 +55,20 @@ The pair $(X,Y)$ is uniform on the rectangle $[a,b]\times[0,c]$. Keeping the pai
 
 The same idea works with a proposal density $g$ that is easy to sample, provided a constant $C\ge 1$ majorises the target: $f(x)\le C\,g(x)$ for every $x$. Draw $X$ from $g$ and, independently, $Y$ uniformly from $[0, C g(X)]$. Accept $X$ when $Y\le f(X)$. The probability of acceptance is $1/C$, the ratio of the area under $f$ to the area under $C g$. A useful proposal is easy to sample and has $C$ close to $1$.
 
+![Acceptance–rejection for the density $f(x)=6x(1-x)$ on the unit interval, with uniform proposals under the bound $c=1.5$. Of 600 proposed points, those under the curve (dark) are kept and the rest (light) are rejected. About two thirds are kept, the area under $f$ over the area of the box.](../figures/prob-acceptance-rejection.pdf){#fig-prob-acceptance-rejection}
+
 The number of trials until the first acceptance is geometric, starting at $1$, with success probability $1/C$. For the triangular density $f(x)=2x$ on $[0,1]$, the proposal $g=1$ on $[0,1]$ needs $C=2$. Half of the proposals are rejected. The inverse-transform method is the better algorithm for that particular density; rejection is the method that remains when the inverse is unavailable.
+
+::: {#exm-rejection-for-a-beta-density .example}
+## Rejection for a beta density
+
+The density $f(x)=6x(1-x)$ on $[0,1]$ is the $\BetaDist(2,2)$ law.
+
+**Question.** Describe a rejection sampler with uniform proposals, find its efficiency, and find the expected number of uniform random numbers it uses per accepted draw.
+
+**Solution.** The density is largest at $x=1/2$, where $f=1.5$, so take $c=1.5$. Draw $X\sim\operatorname{U}[0,1]$ and $Y\sim\operatorname{U}[0,1.5]$, and accept $X$ if $Y\le6X(1-X)$. The acceptance probability is the area under $f$, which is $1$, over the area of the box, $1.5$, so the efficiency is $2/3$. The number of proposals until acceptance is geometric with mean $1.5$, and each proposal uses two uniforms, so on average 3 uniforms are spent per accepted draw.
+
+:::
 
 ## Draws from the usual families
 
@@ -103,5 +137,7 @@ A density is $f(x)=4e^{-4(x-1)}$ for $x\ge 1$, and $f(x)=0$ otherwise.
 (a) Find the expectation of a random variable with this density.
 
 (b) Explain how to generate such a random variable from a single uniform draw on $[0,1]$.
+
+[Solution](#sol-prob-shifted-exp-generate)
 
 :::

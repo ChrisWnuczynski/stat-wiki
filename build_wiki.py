@@ -1523,7 +1523,7 @@ D = "Data analysis"
 TERMS = [
     # Probability. Scoped so a phrase already owned by a later chapter
     # (Bayes' rule, a named distribution, MCMC) keeps that target.
-    (r"conditional probability", "P1", "def-conditional-probability", {P}),
+    (r"conditional probabilit(?:y|ies)", "P1", "def-conditional-probability", {P, I, D}),
     (r"sample spaces?", "P1", "def-sample-space", {P}),
     (r"laws? of total probability", "P1", "thm-total-probability", {P}),
     (r"probability generating functions?", "P2", "def-probability-generating-function", {P}),
@@ -1581,6 +1581,35 @@ TERMS = [
     (r"contrasts?", "I7", "def-contrast", {I, D}),
     (r"Tukey(?:'s)? (?:intervals?|method|comparisons?)", "I7", "def-tukey-intervals", None),
     (r"randomi[sz]ed block designs?|block designs?", "I7", "def-randomised-block-design", None),
+    # Probability terms that are more general than the inference phrases above.
+    (r"joint (?:probability )?mass functions?", "P4", "def-joint-pmf", None),
+    (r"joint (?:probability )?densit(?:y|ies)|joint density functions?", "P4", "def-joint-density", None),
+    (r"independent random variables", "P4", "def-independent-random-variables", None),
+    (r"independent events", "P1", "def-independent-events", None),
+    (r"probability measures?", "P1", "def-probability-measure", {P}),
+    (r"product rule", "P1", "thm-product-rule", {P, I, D}),
+    (r"equally likely outcomes", "P1", "thm-equilikely", {P}),
+    (r"random variables?", "P2", "def-random-variable", {P, I, D}),
+    (r"cumulative distribution functions?|distribution functions?|cdfs?", "P2", "def-cdf", {P, I, D}),
+    (r"probability mass functions?|mass functions?|pmfs?", "P2", "def-discrete-distribution", {P, I, D}),
+    (r"probability density functions?|density functions?|pdfs?", "P2", "def-continuous-distribution", {P, I, D}),
+    (r"expectations?|expected values?", "P2", "def-expectation", {P, I, D}),
+    (r"Bernoulli (?:trials?|distributions?|variables?)", "P2", "def-bernoulli-distribution", None),
+    (r"Poisson (?:limit|approximation)s?", "P2", "thm-poisson-limit-of-the-binomial", None),
+    (r"memoryless(?: property)?|lack of memory", "P2", "thm-memoryless", None),
+    (r"linear congruential generators?|pseudorandom numbers?|random number generators?", "P3", "def-linear-congruential-generator", None),
+    (r"Box(?:--|–|-)Muller(?: method| transform)?", "P3", "Draws from the usual families", None),
+    (r"expectation vectors?", "P4", "def-covariance-matrix", None),
+    (r"conditional distributions?|conditional densit(?:y|ies)", "P4", "def-conditional-distribution", {P, I, D}),
+    (r"tower property|law of (?:total|iterated) expectation", "P4", "thm-tower-property", None),
+    (r"transformation rule|Jacobians?", "P5", "thm-transformation-rule", {P, I, D}),
+    (r"convolutions?", "P5", "One variable, and a sum", None),
+    (r"multivariate normal(?: distributions?)?|bivariate normal(?: distributions?)?|jointly normal", "P5", "def-multivariate-normal", None),
+    (r"continuity corrections?", "P5", "Limit theorems", None),
+    (r"limiting distributions?", "P6", "thm-limiting-distribution", None),
+    (r"transition matri(?:x|ces)", "P6", "def-finite-state-markov-chain", None),
+    (r"survival functions?|mean time to failure|MTTF", "P7", "def-survival", None),
+    (r"series systems?|parallel systems?|k-out-of-n systems?|minimal (?:path|cut) sets?", "P7", "def-structure-function", {P}),
     (r"observational studies?", "D1", "def-observational-study", None),
     (r"designed experiments?|randomised experiments?|randomized experiments?", "D1", "def-designed-experiment", None),
     (r"interquartile ranges?|IQRs?", "D2", "def-interquartile-range", None),
@@ -3503,6 +3532,12 @@ def main() -> None:
         r"|\bat the back\b|\?\?|\bMinitab\b|\bin lectures?\b|\bthe slides\b",
         re.I,
     )
+    # A control character in a source file is almost always a lost backslash,
+    # such as \b in \bmod turned into a backspace by a script.
+    for path in sorted(SOURCES.rglob("*.qmd")):
+        bad = re.search(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", path.read_text(encoding="utf-8"))
+        if bad:
+            raise SystemExit(f"Control character {bad.group(0)!r} in {path.relative_to(WIKI)}")
     cited = []
     for folder in ("notes", "questions", "articles", "reference"):
         for path in sorted((WIKI / folder).rglob("*.qmd")):
