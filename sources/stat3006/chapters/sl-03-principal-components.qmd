@@ -1,0 +1,398 @@
+# Principal component analysis
+
+An iris flower has four measured coordinates. A two-dimensional display that keeps as much of the data's variation as possible has to choose two directions. Picking two original measurements is one option. A combination of measurements may describe the cloud better. Principal component analysis chooses those combinations by solving an optimisation problem.
+
+A [linear regression](inf-06-regression.qmd) line is chosen to predict a response. A principal axis is chosen to describe the spread of the explanatory measurements. The two lines answer different questions, and neither is a substitute for the other. On [Covariance and the multivariate normal](sl-01-multivariate-normal.qmd) the conditional-mean line, the reverse regression, and a principal axis were already three different lines through a bivariate cloud. This page derives the principal axis: the Lagrange multiplier argument, the reconstruction criterion, and the singular-value connection. The iris calculation compares the analysis with and without scaling.
+
+The derivation maximises the variance retained by a projection, and it minimises the squared error of reconstructing the centred observations. The two criteria agree. Neither asks which direction predicts a response or represents a causal mechanism. If the scores are used before a later predictor, the centring, the scaling and the directions have to be estimated inside the training sample, just as the predictor itself is.
+
+## Directions and scores
+
+A direction needs both an orientation and a scale convention. Without the scale convention every projected score could be made more variable by multiplying its coefficients. The comparison is therefore among unit vectors. After the first direction is found, the next one is required to be orthogonal to it. Otherwise the same solution would be selected again. In every score formula below, the observations are centred unless a mean is written explicitly.
+
+::: {#def-sl-03-principal-components .definition}
+## Principal component directions and scores
+
+The first principal component direction is the unit vector $\mathbf{a}_1\in\R^p$ along which the sample variance of the data is largest. The first principal component scores are the projections of the observations onto $\mathbf{a}_1$, the dot products $\mathbf{a}_1^\top\mathbf{x}_i$. The second principal component direction $\mathbf{a}_2$ is the unit vector orthogonal to $\mathbf{a}_1$ along which the sample variance is largest subject to that constraint. The third is orthogonal to the first two, and so on until $p$ directions, and the $p$ corresponding sets of scores, are defined.
+
+:::
+
+A direction is a vector of $p$ coefficients. A score is the number obtained by projecting one observation onto that direction. A matrix of directions transforms a data matrix into a matrix of scores. In `prcomp` the coefficient matrix is called `rotation` and the score matrix is called `x`.
+
+In practice the scores are used for dimension reduction. The $p$ original coordinates are replaced by the first few scores when those scores carry enough variance for the question in hand. Whether they carry the scientifically important information is a separate question. A coordinate with little variation is often dropped in the hope that it has little to contribute. That hope is not implied by the definition. The exercise on a low-variance predictor is a case in which the largest-variance direction of the explanatory variables carries none of the response.
+
+## Derivation by Lagrange multipliers
+
+Let $\mathbf{x}_1,\ldots,\mathbf{x}_n\in\R^p$ have sample mean $\bar{\mathbf{x}}$ and sample covariance $S$. The first direction is the coefficient vector of a linear combination whose sample variance is as large as possible. The combination is
+
+$$
+Y_1=a_{11}X_1+\cdots+a_{p1}X_p=\mathbf{a}_1^\top\mathbf{X}.
+$$
+
+The sample version of $\Var(\mathbf{a}^\top\mathbf{X})=\mathbf{a}^\top\Sigma\mathbf{a}$, with $S$ in place of $\Sigma$, writes that variance as a quadratic form,
+
+$$
+s^2_{Y_1}=\sum_{j=1}^p\sum_{k=1}^p a_{j1}a_{k1}s_{jk}=\mathbf{a}_1^\top S\mathbf{a}_1.
+$$
+
+If there is a direction with positive variance, the unconstrained optimisation has no finite answer. Replace $\mathbf{a}_1$ by $c\mathbf{a}_1$ and the variance becomes $c^2$ times as large. That is a change of ruler, not a better summary. Fix $\mathbf{a}_1^\top\mathbf{a}_1=1$ so that orientations can be compared. A Lagrange multiplier enforces the constraint:
+
+$$
+u_1=\mathbf{a}_1^\top S\mathbf{a}_1-\lambda(\mathbf{a}_1^\top\mathbf{a}_1-1).
+$$
+
+Differentiate in the direction. For symmetric $S$ the gradient of $\mathbf{a}^\top S\mathbf{a}$ is $2S\mathbf{a}$, so
+
+$$
+\frac{\partial u_1}{\partial\mathbf{a}_1}=2S\mathbf{a}_1-2\lambda\mathbf{a}_1.
+$$
+
+Set the gradient to zero:
+
+$$
+S\mathbf{a}_1=\lambda\mathbf{a}_1.
+$$
+
+The stationary points are the eigenvectors of $S$, and the multipliers are the eigenvalues. Substitute a stationary point back into the objective:
+
+$$
+\mathbf{a}_1^\top S\mathbf{a}_1=\lambda\,\mathbf{a}_1^\top\mathbf{a}_1=\lambda.
+$$
+
+At a unit eigenvector, the objective equals its eigenvalue. The objective is continuous and the unit sphere is compact, so a maximum exists. The largest eigenvalue gives it. If that eigenvalue is repeated, several directions are equally good. Even with a unique largest eigenvalue, $\mathbf{a}_1$ and $-\mathbf{a}_1$ describe the same axis.
+
+A second direction that is not constrained will select the same eigenvector again. Later directions are required to be orthogonal to those already chosen. One construction removes the first component from the centred data and repeats the maximisation on what remains. The theorem reaches the same directions in one induction. Any unit vector is written in the eigenbasis of $S$, so its sample variance becomes a weighted average of the eigenvalues. Orthogonality to the first $k-1$ eigenvectors sets the first $k-1$ weights to zero, and the largest remaining eigenvalue is then the maximum.
+
+::: {#thm-sl-03-principal-axes .theorem}
+## Principal component directions
+
+Let $S=\Gamma\Lambda\Gamma^\top$ with $\lambda_1\ge\cdots\ge\lambda_p\ge 0$ and $\Gamma=(\boldsymbol{\gamma}_1,\ldots,\boldsymbol{\gamma}_p)$ orthogonal. The $j$th principal component direction is $\mathbf{a}_j=\boldsymbol{\gamma}_j$. The $j$th principal component $Y_j=\boldsymbol{\gamma}_j^\top\mathbf{X}$ has sample variance $\lambda_j$. Distinct components are uncorrelated, and the total variance is preserved:
+
+$$
+\sum_{j=1}^p\Var(Y_j)=\sum_{j=1}^p\lambda_j=\operatorname{tr}(S)=\sum_{j=1}^p s_{jj}.
+$$
+
+:::
+
+Any unit vector can be written $\mathbf{a}=\Gamma\mathbf{b}$ with $\mathbf{b}=\Gamma^\top\mathbf{a}$ and $\mathbf{b}^\top\mathbf{b}=1$. Then
+
+$$
+\mathbf{a}^\top S\mathbf{a}=\mathbf{b}^\top\Gamma^\top\Gamma\Lambda\Gamma^\top\Gamma\mathbf{b}=\sum_{j=1}^p\lambda_j b_j^2.
+$$
+
+For $j=1$ the right-hand side is a weighted average of the $\lambda_j$ with weights $b_j^2$ that sum to one, so it is at most $\lambda_1$, with equality for $\mathbf{b}=\mathbf{e}_1$, that is $\mathbf{a}=\boldsymbol{\gamma}_1$. Suppose $\mathbf{a}_1=\boldsymbol{\gamma}_1,\ldots,\mathbf{a}_{k-1}=\boldsymbol{\gamma}_{k-1}$. Orthogonality of $\mathbf{a}$ to these directions means $b_1=\cdots=b_{k-1}=0$, so
+
+$$
+\mathbf{a}^\top S\mathbf{a}=\sum_{j\ge k}\lambda_j b_j^2\le\lambda_k,
+$$
+
+again attained at $\mathbf{b}=\mathbf{e}_k$. By induction $\mathbf{a}_j=\boldsymbol{\gamma}_j$ for every $j$. The variance of $Y_j$ is $\boldsymbol{\gamma}_j^\top S\boldsymbol{\gamma}_j=\lambda_j$. For $j\neq k$,
+
+$$
+\Cov(Y_j,Y_k)=\boldsymbol{\gamma}_j^\top S\boldsymbol{\gamma}_k=\lambda_k\boldsymbol{\gamma}_j^\top\boldsymbol{\gamma}_k=0.
+$$
+
+Finally $\sum_j\lambda_j=\operatorname{tr}(\Lambda)=\operatorname{tr}(\Gamma^\top S\Gamma)=\operatorname{tr}(S\Gamma\Gamma^\top)=\operatorname{tr}(S)$, where the trace cycles.
+
+The calculation has diagonalised the sample covariance. It guarantees zero sample covariance between different score columns. It does not give independence, and it does not give zero covariance for arbitrary future observations. In the theorem, $\Var$ and $\Cov$ are the empirical score variances and covariances computed with divisor $n-1$. For a population analysis, repeat the argument with $\Sigma$ in place of $S$. Under an additional Gaussian population model, the population principal components are independent, because they are uncorrelated linear images of a normal vector. Without normality, uncorrelated is the conclusion the argument has earned.
+
+The proportion of variance explained by the first $k$ components is
+
+$$
+\frac{\sum_{j\le k}\lambda_j}{\sum_{j\le p}\lambda_j}.
+$$
+
+### Reconstruction
+
+The sum of all component variances equals $\operatorname{tr}(S)$, which does not depend on the basis. Maximising the variance kept by the first $k$ components is therefore the same problem as minimising the variance left out. Let $\Gamma_k=(\boldsymbol{\gamma}_1,\ldots,\boldsymbol{\gamma}_k)$. Replacing each centred observation by its projection $\Gamma_k\Gamma_k^\top(\mathbf{x}_i-\bar{\mathbf{x}})$ leaves residuals whose total squared length, divided by $n-1$, equals
+
+$$
+\sum_{j=k+1}^p\lambda_j.
+$$
+
+That value is the smallest residual attainable by any rank-$k$ linear approximation. The leading components are at once the highest-variance coordinates and the best linear summary of the cloud in squared error. A later autoencoder network generalises the second description: a hidden layer smaller than the input tries to reproduce the input after passing through a lower-dimensional representation. Factor analysis and non-negative matrix factorisation are further representations, with different constraints.
+
+## Choosing components
+
+The proportion of variance explained by component $j$ is $\lambda_j/\sum_k\lambda_k$, and the proportion explained by the first $k$ components is the corresponding partial sum. A common rule keeps the smallest $k$ that reaches a stated fraction of the total, for example $90\%$, $95\%$, or $99\%$. The fraction is a choice about residual squared error. The rule is computed from the explanatory covariance alone.
+
+A component can explain little predictor variance and still be highly predictive of the response. The exercise on a low-variance predictor constructs exactly that situation. Variance explained is a reconstruction criterion, not a general measure of predictive usefulness. If prediction is the goal, choose the number of components using validation inside the modelling pipeline. Estimate all preprocessing on the training folds, and leave the final test set for assessment.
+
+::: {#rem-sl-03-scaling .remark}
+## Scaling
+
+Changing metres to millimetres multiplies a coordinate by $1000$ and its variance by $10^6$. Covariance principal components can therefore change even though the physical observations have not changed. Standardising each nonconstant coordinate to unit variance gives correlation principal components. This chooses equal weight per standardised coordinate, which may or may not suit the scientific question. It is a modelling choice. Record the choice, and reuse the training means and scales for new observations.
+
+:::
+
+::: {#exm-sl-03-twelve-subjects .example}
+## Principal components of the twelve paired measurements
+
+Return to the twelve pairs $(x_1,x_2)$ of the [Hotelling example](sl-02-normal-inference.qmd#exm-sl-02-twelve-subjects), with
+
+$$
+S=\begin{pmatrix}5.9097&3.9964\\3.9964&3.2402\end{pmatrix}.
+$$
+
+**Question.** Find the principal component directions, the variance each one carries, and the proportion explained by the first. Repeat the calculation on the correlation matrix.
+
+**Solution.** The characteristic equation is
+
+$$
+\lambda^2-\operatorname{tr}(S)\lambda+|S|=\lambda^2-9.1499\lambda+3.1778=0.
+$$
+
+The roots are $\lambda_1=8.788$ and $\lambda_2=0.362$. For $\lambda_1$, $(S-\lambda_1 I)\mathbf{a}=\mathbf{0}$ gives
+
+$$
+(5.9097-8.788)a_1+3.9964 a_2=0,
+$$
+
+so $a_2=0.7202\,a_1$. The unit eigenvector is
+
+$$
+\mathbf{a}_1=(0.8114,\ 0.5845)^\top,
+\qquad
+\mathbf{a}_2=(-0.5845,\ 0.8114)^\top,
+$$
+
+the second being orthogonal to the first. The first component is
+
+$$
+Y_1=0.8114 X_1+0.5845 X_2,
+$$
+
+roughly a weighted average of the two measurements. Its variance is $8.788$, which is
+
+$$
+8.788/9.150=96.05\%
+$$
+
+of the total variance $\operatorname{tr}(S)=9.150$, while
+
+$$
+Y_2=-0.5845 X_1+0.8114 X_2
+$$
+
+contributes only $3.95\%$. Direct computation of the scores confirms that the sample variances of $Y_1$ and $Y_2$ equal $8.788$ and $0.362$, and that their sample covariance is zero up to rounding. The sample mean $\bar{\mathbf{x}}=(0.87,-0.58)^\top$ points mostly along the second direction, with absolute cosine $0.94$, where the data hardly vary. That geometry is why the $T^2$ test rejects while neither marginal $t$ test does.
+
+If the variables are standardised first, the covariance matrix becomes the correlation matrix
+
+$$
+R=\begin{pmatrix}1&0.9133\\0.9133&1\end{pmatrix},
+$$
+
+with eigenvalues $1+r=1.913$ and $1-r=0.087$ and directions exactly $(1,1)^\top/\sqrt{2}$ and $(1,-1)^\top/\sqrt{2}$. The first component now explains $1.913/2=95.7\%$. The directions differ from the unscaled analysis because the two variables have different variances, $5.91$ and $3.24$.
+
+:::
+
+### How many components, on a correlation with no response
+
+An eight-dimensional correlation with no response attached asks only how fast the cumulative proportion grows. Take the AR$(1)$ correlation $R_{ij}=0.6^{|i-j|}$ for $i,j=1,\ldots,8$. Its eigenvalues and cumulative proportions are
+
+```r
+lambda <- eigen(0.6^abs(outer(1:8, 1:8, "-")), symmetric = TRUE)$values
+data.frame(
+  Component = 1:8,
+  Eigenvalue = round(lambda, 3),
+  Cumulative_percent = round(100 * cumsum(lambda) / sum(lambda), 1)
+)
+```
+
+```text
+Component  Eigenvalue  Cumulative percent
+        1       3.151                39.4
+        2       1.832                62.3
+        3       1.035                75.2
+        4       0.644                83.3
+        5       0.448                88.9
+        6       0.344                93.2
+        7       0.287                96.8
+        8       0.259               100.0
+```
+
+A rule that keeps $90\%$ of the variance keeps six components, because the cumulative proportion first exceeds $90$ at component $6$ ($88.9$ then $93.2$). A rule that keeps $75\%$ keeps three. Keeping every eigenvalue above the average, here $1$, also keeps three, since the trace of a correlation matrix equals its dimension and the average eigenvalue is $1$. None of these cutoffs is best for every purpose, and none of them sees a response. Each of them answers the reconstruction problem, with a chosen fraction of $\operatorname{tr}(S)$.
+
+A scree plot offers a visual heuristic: look for a point after which additional eigenvalues contribute relatively little. The cumulative percentages on this correlation are about $39$, $62$, $75$, $83$, $89$, $93$, $97$ and $100$. A bend can be ambiguous or absent, and it does not validate a predictive model. For prediction, select the number of components using a validation set or an inner cross-validation. Keep the final test set untouched. Using the same observations both to choose the number of components and to assess the fit leaves no untouched assessment sample.
+
+## The singular value decomposition
+
+Forming $S=\mathbf{X}^\top\mathbf{X}/(n-1)$ and then computing its eigenvectors repeats information that the singular value decomposition of the centred data matrix already contains. The decomposition is also the stable computation, including when $n<p$. Centre each column and write $\mathbf{X}$ for the centred $n\times p$ matrix, so that
+
+$$
+S=\frac{1}{n-1}\mathbf{X}^\top\mathbf{X}
+$$
+
+agrees with the sample covariance already used. The singular value decomposition writes
+
+$$
+\mathbf{X}=UEV^\top.
+$$
+
+Use a compact decomposition with $r=\operatorname{rank}(\mathbf{X})$: $U$ is $n\times r$, $E$ is the $r\times r$ diagonal matrix of positive singular values $e_j$, and $V$ is $p\times r$. Both $U^\top U$ and $V^\top V$ equal $I_r$. This works whether or not $n$ exceeds $p$. Substituting gives
+
+$$
+S=\frac{1}{n-1}V E U^\top U E V^\top=\frac{1}{n-1}V E^2 V^\top.
+$$
+
+Thus the nonzero eigenvalues of $S$ are $e_j^2/(n-1)$, and their directions are the columns of $V$. If $r<p$, complete these columns to an orthonormal basis of the zero-variance directions when a full $p$-dimensional basis is wanted. The nonzero score columns are
+
+$$
+\mathbf{X}V=UEV^\top V=UE.
+$$
+
+This is also the computation used by `prcomp`: it applies the singular value decomposition directly to the centred, and optionally scaled, data, and it uses divisor $n-1$ for the reported variances. The signs of directions may differ between implementations. Compare the axes or the reconstructions, rather than treating a sign reversal as a disagreement.
+
+In a full decomposition the square matrices $U$ and $V$ are orthogonal. In a compact decomposition their columns are orthonormal, while $UU^\top$ and $VV^\top$ are projections onto their column spaces. The two factors do not have interchangeable dimensions. The distinction is unavoidable when there are more variables than observations.
+
+Whitening takes one more step: divide each nonzero principal-component score by its standard deviation. For positive definite $S$ this gives identity sample covariance. If $S$ is singular, only the $r$ positive-variance directions can be whitened this way. Division by a zero eigenvalue is undefined. Identity covariance makes Gaussian contours spherical. It does not make an arbitrary distribution Gaussian or spherically symmetric.
+
+A principal direction and a prediction of a response answer different questions. If the goal is to predict a response, the object to report is that prediction. An axis of the explanatory cloud summarises the explanatory variables, and the variance-maximising theorem is computed from those variables alone. The [least-squares line](inf-06-regression.qmd#def-least-squares-line) minimises squared error in a named response. The principal axis maximises variance among the explanatory coordinates. The two coincide only in special cases, such as an uncorrelated cloud whose larger variance is horizontal.
+
+The fragment below reads the singular-value route from a `prcomp` object: squared singular values scaled by $n-1$, directions in the rotation matrix, and scores in the coordinates.
+
+```r
+pc <- prcomp(x, center = TRUE, scale. = FALSE)  # SVD of the centred data
+pc$sdev^2                                        # eigenvalues e_j^2/(n-1)
+pc$rotation                                      # columns are the directions a_j
+head(pc$x)                                       # the scores X V = U E
+summary(pc)$importance["Proportion of Variance", ]
+```
+
+## Iris, with and without scaling
+
+The fit uses every iris flower, and it is descriptive. Species labels colour the plot after the fit. They do not enter $S$. Correlation principal components standardise each measurement to unit variance before the eigendecomposition. Covariance principal components keep the original variances, so a measurement with larger sample variance takes a larger share of the first direction. That is the unit dependence in the scaling remark: petal length, whose sample variance in the pooled covariance is about $3.12$, dominates a covariance analysis, while standardisation gives each measurement the same marginal scale.
+
+```r
+iris_x <- iris[, 1:4]
+iris_y <- iris$Species
+pc_cov <- prcomp(iris_x, center = TRUE, scale. = FALSE)
+pc_cor <- prcomp(iris_x, center = TRUE, scale. = TRUE)
+round(rbind(Covariance = pc_cov$sdev^2 / sum(pc_cov$sdev^2),
+            Correlation = pc_cor$sdev^2 / sum(pc_cor$sdev^2)), 3)
+round(pc_cor$rotation[, 1:2], 3)
+stopifnot(max(abs(cov(pc_cor$x) - diag(pc_cor$sdev^2))) < 1e-10)
+plot(pc_cor$x[, 1:2], col = as.integer(iris_y), pch = 19,
+     xlab = "PC1 score", ylab = "PC2 score")
+```
+
+The proportions of variance are
+
+```text
+              PC1   PC2   PC3   PC4
+Covariance  0.925 0.053 0.017 0.005
+Correlation 0.730 0.229 0.037 0.005
+```
+
+The first two standardised components explain $95.8\%$ of the total standardised variance: the partial sum of the eigenvalues, divided by the trace, before the row is rounded for display. The leading two correlation loadings, rounded to three decimals, are
+
+```text
+                PC1     PC2
+Sepal.Length  0.521  -0.377
+Sepal.Width  -0.269  -0.923
+Petal.Length  0.580  -0.024
+Petal.Width   0.565  -0.067
+```
+
+The sign of a loading may be flipped without changing the line it spans or the variance it carries. The check `cov(pc_cor$x)` against `diag(pc_cor$sdev^2)` confirms that the sample covariance of the scores is diagonal, with the reported component variances on the diagonal. The score plot colours each flower by species after the fit. Separation of species in that plot describes this sample. A prediction experiment has to estimate the centring, the scaling, and the directions inside each training fold, and apply that transformation unchanged to the validation rows.
+
+::: {.callout-note}
+## Key idea
+
+The principal component directions are the eigenvectors of the sample covariance, ordered by eigenvalue. The $j$th eigenvalue is the sample variance of the $j$th component, so the proportion of variance explained by the first $k$ components is $\sum_{j\le k}\lambda_j\big/\sum_{j\le p}\lambda_j$. The same directions are the right singular vectors of the centred data matrix. Scaling changes the matrix being diagonalised, and a principal axis is not a regression line: the axis maximises explanatory variance, while a regression line minimises squared error in a response.
+:::
+
+## Exercises
+
+::: {#ex-sl-03-1 .exercise}
+## A two-variable analysis
+
+For
+
+$$
+S=\begin{pmatrix}3&1\\1&3\end{pmatrix},
+$$
+
+find the principal component directions, the variances of the two components, and the proportion of variance explained by the first.
+
+[Solution](#sol-sl-03-1)
+
+:::
+
+::: {#ex-sl-03-2 .exercise}
+## Properties of the components
+
+Using $S=\Gamma\Lambda\Gamma^\top$, show that the covariance matrix of the full vector of components $\mathbf{Y}=\Gamma^\top(\mathbf{X}-\bar{\mathbf{x}})$ is $\Lambda$, and that the generalised variance $|S|$ equals $\prod_j\lambda_j$.
+
+[Solution](#sol-sl-03-2)
+
+:::
+
+::: {#ex-sl-03-3 .exercise}
+## The effect of correlation
+
+For $p=2$ and correlation matrix
+
+$$
+R=\begin{pmatrix}1&r\\r&1\end{pmatrix}
+$$
+
+with $r>0$, show that the eigenvalues are $1\pm r$ for every $r$, and that the eigenvectors do not depend on $r$. What happens to the proportion of variance explained by the first component as $r\to 0$ and as $r\to 1$?
+
+[Solution](#sol-sl-03-3)
+
+:::
+
+::: {#ex-sl-03-4 .exercise}
+## Principal components through the singular values
+
+The centred data matrix
+
+$$
+\mathbf{X}=\begin{pmatrix}2&1\\-2&-1\\1&-1\\-1&1\end{pmatrix}
+$$
+
+has
+
+$$
+\mathbf{X}^\top\mathbf{X}=\begin{pmatrix}10&2\\2&4\end{pmatrix}.
+$$
+
+Find the eigenvalues of $\mathbf{X}^\top\mathbf{X}$, the singular values $e_1,e_2$ of $\mathbf{X}$, and the eigenvalues $\lambda_i=e_i^2/(n-1)$ of the sample covariance matrix. Check that $\sum_i\lambda_i=\operatorname{tr}(S)$.
+
+[Solution](#sol-sl-03-4)
+
+:::
+
+::: {#ex-sl-03-5 .exercise}
+## How many components
+
+A sample covariance matrix has eigenvalues $5.87$, $1.81$ and $1.32$. Find the proportion of variance explained by each component and the cumulative proportions. How many components are needed to reach $80\%$?
+
+[Solution](#sol-sl-03-5)
+
+:::
+
+::: {#ex-sl-03-6 .exercise}
+## A low-variance predictor
+
+Let $X_1\sim\Normal(0,100)$ and $X_2\sim\Normal(0,1)$ be independent, and let the response be $Y=X_2$ exactly. An analyst reduces the explanatory variables to their first principal component and regresses $Y$ on it. What is the first principal direction, in the population version, and what proportion of the variance of $Y$ can the regression explain? What does this show about using principal components before regression?
+
+[Solution](#sol-sl-03-6)
+
+:::
+
+::: {#ex-sl-03-7 .exercise}
+## Principal components as a modelling step
+
+A student wants to classify iris species from four measurements. They propose retaining the first two principal components of the standardised measurements.
+
+(a) Explain how the principal directions and component scores are obtained. Distinguish a direction from a score.
+
+(b) Explain what changes if centimetres are converted to millimetres for just one variable before covariance-based principal components, and why correlation-based principal components avoid this issue.
+
+(c) Explain why retaining the two components with largest variance is not guaranteed to give the best classifier. Describe where the transformation must be fitted during cross-validation.
+
+[Solution](#sol-sl-03-7)
+
+:::

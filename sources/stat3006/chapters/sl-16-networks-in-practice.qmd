@@ -1,0 +1,309 @@
+# Networks in practice
+
+The gradient of a network is derived on [backpropagation](sl-15-backpropagation.qmd). That settles the derivative. It leaves the practical question: which fitted network should be trusted on new observations? Backpropagation computes a gradient. The optimiser decides how to use it. A step that reduces training loss can make prediction worse by fitting accidental features of the sample.
+
+Initialisation and the scale of the inputs decide whether the sigmoid starts on its steep part, where the chain rule has a slope to multiply. Validation, early stopping, and weight decay decide how far that slope is followed. Architecture, decay, and the stopping rule are chosen on training and validation data. The assessment data are reserved for the procedure once those choices are frozen.
+
+The choices below are how to initialise the weights, whether to update after every pattern or after every epoch, how to present data, how to encode classes and obtain probabilities, how to limit specialisation while training, how to check a trained network, and where the same ideas have been used. The last section is the set of changes that lead to deep networks. A sigmoid output with no hidden layer is the log-odds map of [logistic regression](sl-10-logistic-regression.qmd). This page adds hidden layers, the softmax, and the cross-entropy gradient.
+
+## What has to be settled before a step
+
+Several quantities have to be settled before a gradient step is worth taking:
+
+- weight initialisation, typically small random values with mean $0$;
+- batch or online updates;
+- the learning rate $\varepsilon>0$, chosen for the scaling of the loss and the inputs;
+- the stopping criterion;
+- the number of layers;
+- the number of nodes in hidden layers;
+- the number of input–output examples.
+
+A learning rate of $0.1$ is an example of a step size. It is not a distinguished constant. The step size is a tuning choice. If the error oscillates, take a smaller step. If the weights barely move, a larger step may be tried.
+
+## Weight initialisation
+
+A sigmoid has its largest slope near zero. Far into either tail, its derivative is small, so the chain rule transmits little change back through that unit. Initial net inputs should therefore be of moderate size. Different hidden units should start differently: units with identical incoming and outgoing weights remain interchangeable under deterministic symmetric updates, as shown for the batch rule on the backpropagation page. Independent random initialisation breaks that symmetry. Standardising predictors using training-set means and standard deviations makes a common initialisation scale more meaningful. It does not guarantee that every net input stays near zero. The variance calculation below is the scaling argument.
+
+### A variance argument
+
+Let each non-bias input have mean zero and variance one, and initialise the weights independently as $w_{jq}\sim\Normal(0,\sigma^2)$, independently of the inputs. Write $u_{iq}=\sum_{j=0}^{p} w_{jq} x_{ij}$, where $x_{i0}=1$. Each summand has mean zero and second moment $\sigma^2$. Cross terms vanish because distinct weights are independent and centred:
+
+$$
+\E\bigl(w_{jq} w_{kq} x_{ij} x_{ik}\bigr)=0\qquad(j\neq k).
+$$
+
+The inputs themselves need not be uncorrelated. Consequently
+
+$$
+\Var(u_{iq})=(p+1)\sigma^2.
+$$
+
+Choosing $\sigma=(p+1)^{-1/2}$ makes this marginal variance one. That is a scale calculation, not yet a tail-probability calculation. Conditional on a particular input vector, Gaussian weights give
+
+$$
+u_{iq}\given x_i\sim\Normal\bigl(0,\,\sigma^2[1+\lVert x_i\rVert^2]\bigr).
+$$
+
+For an input with $\lVert x_i\rVert^2=p$, the proposed scale gives $\Pr(|u_{iq}|\le 2\given x_i)=2\Phi(2)-1\approx 0.9545$. Across random inputs, the distribution is generally a mixture of normals with different variances. Unit marginal variance alone does not justify that same $95\%$ statement. Fan-in scaling is a useful starting point. Activation choice and depth still matter.
+
+## Batch and online learning
+
+The backpropagation update is in batch mode: the sums over patterns require all $n_{\mathrm{tr}}$ training patterns to be fed in, and the hidden and output activations recorded, before any weight changes.
+
+A full gradient requires work over all training examples. With a large sample, more frequent and cheaper updates may be preferable. Online stochastic gradient descent samples an index $i$ uniformly and uses its loss gradient. If $E=\sum_i E_i$, then
+
+$$
+\E\bigl[n_{\mathrm{tr}}\nabla E_i\bigr]=\nabla E.
+$$
+
+This expectation is conditional on the current weights and on uniform sampling of the index. The gradient estimate is unbiased. Each proposed step need not reduce the full loss. For the average loss $E/n_{\mathrm{tr}}$, use $\nabla E_i$ without the factor $n_{\mathrm{tr}}$. Confusing these two conventions changes the effective learning rate.
+
+- **Cost per update.** One example requires less work than a full pass, so an online method can update weights sooner. A mini-batch shares this benefit while averaging some of the sampling noise.
+- **Noise and convergence.** A noisy gradient can help leave some shallow regions, and it gives no general escape guarantee. With a fixed learning rate, fluctuations may persist near a solution. Convergence results require assumptions on the objective, the sampling, and the step sizes. Rare examples may be absent from short random runs. Shuffling each epoch ensures every training example is used during that epoch.
+
+A compromise in common use is the mini-batch: the gradient is averaged over a small random subset of patterns. Batch mode uses the full sample gradient. Online mode uses one observation.
+
+## Preparing the data
+
+Consider a table of patient attributes such as age, blood pressure, chest-pain category, and a recorded diagnosis. The example is about encoding. A numeric code must not invent a geometry that the variable does not have.
+
+- **Nominal attributes**, such as chest-pain type: use separate binary input nodes, dummy variables. Coding categories $1,2,3$ as a single numeric input would impose an ordering and distances between the categories that are not in the data.
+- **Numeric attributes**: normalise to a common scale, for example mean $0$ and variance $1$, which also helps initialisation.
+- **Missing values**: choose an imputation rule fitted on the training data, and apply that fitted rule to validation and test data. A training mean is a simple baseline. Zero has a meaningful interpretation only after the coding and scaling are specified. If missingness itself is informative, consider an indicator and assess the complete procedure by validation.
+
+## Output coding, softmax, and cross-entropy
+
+Separate sigmoid outputs, one per class, need not sum to $1$. They are scores. A probability model for a single class label needs a distribution. For $v$ classes, the simplest coding still uses $v$ output units: for each pattern, output $k$ is $1$ if the pattern is in class $k$ and $0$ otherwise. This treats each class equally. On test data, and often on training data, every output lies in $(0,1)$. The usual prediction is the class of the largest output.
+
+When the outputs are meant to be class probabilities, they have to add to one. The softmax of Bridle (1990) exponentiates and then normalises:
+
+$$
+s_k=\frac{e^{z_k}}{\sum_{l=1}^{m} e^{z_l}},\qquad k=1,\ldots,m.
+$$
+
+Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label. Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
+
+Let the target be a one-hot vector $y$, with $y_k=1$ for the true class $c$, and let the loss be
+
+$$
+E=-\sum_{k=1}^{m} y_k\ln s_k=-\ln s_c.
+$$
+
+Differentiate $-\ln s_c$ through $s_k=e^{z_k}/\sum_l e^{z_l}$, using $\partial s_k/\partial z_j=s_k(\delta_{kj}-s_j)$. The factor $1/s_k$ from the logarithm cancels the $s_k$ in the softmax Jacobian:
+
+$$
+\begin{aligned}
+\frac{\partial E}{\partial z_j}
+&=-\sum_{k=1}^{m} y_k\frac{1}{s_k}\,s_k(\delta_{kj}-s_j)
+=-\sum_{k=1}^{m} y_k(\delta_{kj}-s_j)\\
+&=-y_j+s_j\sum_{k=1}^{m} y_k
+=s_j-y_j.
+\end{aligned}
+$$
+
+The result is $\partial E/\partial z_j=s_j-y_j$. The calculation only needs $\sum_k y_k=1$, so it also works for probability-valued target vectors. There is no additional sigmoid-slope factor at this layer. A confidently correct prediction can, and should, have a small gradient. A confidently wrong prediction retains an error signal. Earlier hidden layers still contribute their own derivatives during backpropagation. The saturation exercise on the backpropagation page is the comparison with squared error.
+
+::: {#thm-sl-16-softmax-logistic .theorem}
+## Softmax is multinomial logistic regression
+
+With no hidden layer, $z_k=\beta_k^\top x$ and softmax gives
+
+$$
+\tau_k(x)=\frac{e^{\beta_k^\top x}}{\sum_l e^{\beta_l^\top x}},
+$$
+
+which is the multinomial logistic model. The reference class is absorbed by setting $\beta_1=0$. Softmax is unchanged when the same vector is added to every $\beta_k$. Minimising the cross-entropy over the training set is maximising the multinomial likelihood. That likelihood, for one linear score per class, is [logistic regression](sl-10-logistic-regression.qmd). For two classes, softmax reduces to the sigmoid:
+
+$$
+\frac{e^{z_1}}{e^{z_1}+e^{z_2}}=g(z_1-z_2).
+$$
+
+A network with a softmax output layer is therefore multinomial logistic regression on learned features $h$. The hidden layers, and the gradient through them, are the addition on this page.
+
+:::
+
+::: {#exm-sl-16-softmax .example}
+## Softmax and its gradient
+
+**Question.** Three output activations are $z=(2,1,0.1)$ and the true class is $1$. Compute the softmax probabilities, the cross-entropy, and the error signals $s-y$.
+
+**Solution.** $e^{z}=(7.389,2.718,1.105)$ with sum $11.213$, so $s=(0.659,0.242,0.099)$. These sum to $1$. The cross-entropy is $-\ln 0.659=0.417$ and the error signals are $s-y=(-0.341,0.242,0.099)$. The correct class's activation is pushed up and the others down, each in proportion to its probability. Adding a constant to all of $z$ leaves $s$ unchanged, which is why software subtracts $\max_k z_k$ before exponentiating, to prevent overflow.
+
+:::
+
+## Constructing and training a network
+
+To construct a neural network: choose a network topology; determine the number of hidden units, if any; create the network; learn the weight parameters; and evaluate the trained network through testing.
+
+### Generalisation
+
+Minimising the error on the training set is a strategy for obtaining good performance on new data. It does not always work, for two reasons that show up as different shapes of the training loss.
+
+**Overfitting.** The model is a very good fit to the training data. It may have modelled some useful structure and has also modelled many irrelevant aspects. This is common with overly complex models.
+
+**Underfitting.** The model is not a good fit to the training data. The size of $E$ is a good indication. The model may be too simple, there may not be enough data, or the data may be so noisy that the output can never be predicted very accurately.
+
+A common pattern is that training loss keeps falling after validation loss begins to rise. Early stopping selects a point along the optimisation path before the training objective is fully minimised. It restricts the fit indirectly. It is not generally equivalent to a specified $L^2$ penalty, and memorisation does not require every weight to be large. Its effect depends on the architecture, the initialisation, and the optimiser. More observations can help, although their usefulness depends on how they cover the prediction task.
+
+The curve used for stopping is a validation curve. A test curve used to stop training has been spent as a tuning device, and it can no longer serve as an untouched assessment.
+
+An explicit simulation with $20$ observations and a $1$–$40$–$1$ sigmoid network makes the pattern visible. Training runs for $30{,}000$ epochs. Weight decay is $0$ or $0.01$. The training mean squared error keeps moving after the expected noisy-response error, averaged over a fixed uniform predictor grid, has stopped improving. The decay run stays closer to the known signal than the undecayed run.
+
+### Training, validation, and test sets
+
+To control generalisation the data are divided into a training set, a validation set, and a test set.
+
+- The training set is used to optimise the weights.
+- The validation set is monitored during or after training to choose when to stop, the number of nodes or weights, the learning rate, and the other tuning choices.
+- The test set is used to assess how well the final model performs.
+
+This is the same discipline as nested cross-validation. Anything chosen by looking at data is part of model building and must be assessed on data that played no part. Early stopping uses the validation error: stop at the epoch where it is smallest.
+
+### Regularisation and weight decay
+
+A weight penalty changes the objective itself. With $L^2$ regularisation one charges for large squared weights, just as ridge regression does for linear coefficients. This is a modelling preference for smaller parameter values in the chosen representation. Equivalent reparameterisations need not receive the same penalty. Under ordinary gradient descent, the resulting update contains a literal multiplicative decay. That equivalence should not be transferred automatically to an adaptive optimiser.
+
+$L^2$ regularisation, also called weight decay, ridge regression (Hoerl and Kennard, 1970), or Tikhonov regularisation, adds a penalty proportional to the sum of squares of the weights. Optimise $E+\lambda\lVert w\rVert^2$ with $\lambda>0$ chosen by the user. After rescaling the tuning parameter, write the penalty as $E+\tfrac{\lambda}{2}\lVert w\rVert^2$. The gradient step becomes
+
+$$
+w\leftarrow w-\varepsilon\Bigl(\frac{\partial E}{\partial w}+\lambda w\Bigr)
+=(1-\varepsilon\lambda)\,w-\varepsilon\frac{\partial E}{\partial w}.
+$$
+
+When $0\le\varepsilon\lambda\le 1$, the factor $1-\varepsilon\lambda$ shrinks a weight towards zero without reversing its sign. With no data-gradient term, $t$ steps multiply it by $(1-\varepsilon\lambda)^t$. For $\varepsilon=0.1$, $\lambda=0.5$ and $t=10$, this factor is $0.95^{10}\approx 0.599$. A step size is part of the statement: an excessive value can cause oscillation or divergence even in this simple recurrence. The penalty encourages small weights. It does not have the lasso's thresholding mechanism. That mechanism is derived on [high-dimensional analysis](sl-18-high-dimensional.qmd).
+
+$L^1$ regularisation uses $E+\lambda\sum|w|$. The derivative at zero is replaced by a subgradient or a proximal update. Such algorithms can produce exact zeros. The non-differentiability changes the optimisation method. It does not make the penalty unusable.
+
+### NETtalk
+
+NETtalk is an early example of learning a mapping from written context to a pronunciation code (Sejnowski and Rosenberg, 1986). A window of letters supplies the input and the central letter supplies the prediction target. The architecture with $203$ inputs, $80$ hidden units and $26$ outputs has
+
+$$
+(203+1)\,80+(80+1)\,26=18426
+$$
+
+weights including biases. This count illustrates how quickly connections accumulate. Weight-decay experiments such as Krogh and Hertz (1992) motivate regularisation. A successful setting in one experiment is not a transferable value of $\lambda$.
+
+## Evaluating the network
+
+A trained network can be evaluated in three ways.
+
+- Record generalisation performance on different test sets. This provides no model-specific explanation.
+- Inspect internal activations, for example by visualising the spatial similarity between hidden-unit activations for different inputs. This provides knowledge on the effect of different inputs on the model.
+- Study the network weights, for example with a Hinton diagram that shows, by the size and colour of boxes, how the weights are used and which units are relevant. This provides knowledge on the decisions made in the model.
+
+Training loss, held-out classification error, and stability across starts answer different questions. In particular, the smallest training sum of squares need not identify the smallest future classification error: the losses differ, and training data have already influenced the fit. Compare repeated starts within the training and validation procedure and report the variability relevant to the claim. If the test set is repeatedly used to pick a seed, it has become another validation set (Cawley and Talbot, 2010). Examine errors by class and by relevant subgroups as well as reporting a single average.
+
+## Applications
+
+**Steering from a road image.** Pomerleau (1989) used a network, ALVINN, to steer a car. The input is a $30\times 32$-pixel digitised picture of the driver's view and the $30$ outputs represent the steering direction. The output is a steering signal and a confidence. The weights are sometimes interpretable: shown at the position of the corresponding image pixel, with box size indicating magnitude and colour the sign, they reveal which parts of the road image influence the steering.
+
+**Reading handwritten ZIP codes.** Handwritten-digit recognition provides a concrete reason for weight sharing. A detector for a short stroke should be useful in more than one image location. Convolutional architectures apply shared filters to local patches, then combine the resulting features. LeCun, Bottou, Bengio and Haffner (1998) describe this approach and evaluate document-recognition systems. Any quoted accuracy must specify the test population and whether uncertain cases are rejected. Accuracy among accepted cases and accuracy on every submitted digit are different quantities.
+
+## Changes that lead to deep networks
+
+Deep networks compose many learned transformations. The rectifier $g(z)=\max(0,z)$ has derivative one for $z>0$ and zero for $z<0$. That avoids sigmoid saturation on its positive branch, while allowing inactive units on the negative branch. Convolutional networks share local filters. Recurrent networks reuse a state update across a sequence. Autoencoders learn to reconstruct their inputs. These are changes to the architecture and the objective. They are not exemptions from validation.
+
+For a centred data matrix, a linear autoencoder with a bottleneck of dimension $q$ and squared reconstruction loss has a global optimum spanning a leading $q$-dimensional principal subspace, provided no additional constraints change the problem. This follows from the same best-rank-$q$ approximation argument as [principal components](sl-03-principal-components.qmd). The weights need not be the individual principal directions, and tied eigenvalues make the optimal subspace non-unique. Nonlinear autoencoders solve a broader problem. Calling their output a principal-component analysis would lose the distinction.
+
+## A small softmax network for iris
+
+Use scaled predictors, one hidden layer, three output classes and weight decay. Architecture and decay are fixed for this illustration. A production comparison would tune these choices inside training data, by the validation discipline above. The objects `train`, `test` and `iris_scaled` are the training flowers, the test flowers, and their scaled predictors.
+
+```r
+set.seed(16006)
+y_onehot <- nnet::class.ind(train$Species)
+net <- nnet::nnet(iris_scaled$train, y_onehot,
+                  size = 3, softmax = TRUE, decay = 0.1,
+                  maxit = 1000, trace = FALSE)
+prob <- predict(net, iris_scaled$test, type = "raw")
+pred <- factor(colnames(y_onehot)[max.col(prob)],
+               levels = levels(train$Species))
+c(convergence_code = net$convergence,
+  test_error = mean(pred != test$Species),
+  max_probability_sum_error = max(abs(rowSums(prob) - 1)))
+#>           convergence_code                test_error
+#>                    0.000e+00                 8.889e-02
+#> max_probability_sum_error
+#>                    2.220e-16
+stopifnot(net$convergence == 0,
+          max(abs(rowSums(prob) - 1)) < 1e-8)
+```
+
+The convergence code reports the optimiser's stopping status. It is not a proof that the global optimum was found. Weight decay shrinks weights. The species probabilities must sum to one for each flower, which the explicit check verifies. The reported test error is $0.08889$, and the largest departure of a probability row from summing to $1$ is $2.220\times 10^{-16}$.
+
+::: {.callout-note}
+## Key idea
+Initialise with small random weights scaled by the fan-in, normalise the inputs, and use cross-entropy with softmax for classification. Choose when to stop, how many hidden units, and how much weight decay by a validation set. Then report performance on a test set that was not used in any of those choices.
+:::
+
+## Exercises
+
+::: {#ex-sl-16-1 .exercise}
+## Initial weights
+
+A hidden layer has fan-in $p+1=26$ ($25$ standardised inputs plus bias). What standard deviation should the initial weights have so that the net input has unit variance? What is the variance of the net input if the weights have standard deviation $0.5$? For a fixed input with squared norm $25$ and independent Gaussian initial weights, how likely is $|u|>2$?
+
+[Solution](#sol-sl-16-1)
+
+:::
+
+::: {#ex-sl-16-2 .exercise}
+## Softmax gradient
+
+Verify $\partial E/\partial z_j=s_j-y_j$ for two classes and show that it reduces to $\partial E/\partial z=o-y$ for the sigmoid output with cross-entropy loss, where $o=g(z_1-z_2)$.
+
+[Solution](#sol-sl-16-2)
+
+:::
+
+::: {#ex-sl-16-3 .exercise}
+## Weight decay
+
+A weight $w=2$ has $\partial E/\partial w=0.4$, with $\varepsilon=0.1$ and $\lambda=0.5$ in the decay update. Compute the updated weight with and without decay. What value of $w$ makes the net update zero?
+
+[Solution](#sol-sl-16-3)
+
+:::
+
+::: {#ex-sl-16-4 .exercise}
+## Online versus batch
+
+For $n_{\mathrm{tr}}=5000$ patterns, each forward–backward pass costing one unit per pattern, compare the cost of $10{,}000$ epochs of batch learning with $10{,}000$ online iterations (one randomly chosen pattern each). What do the $10{,}000$ online iterations amount to in epochs, and what does this suggest about when online learning is attractive?
+
+[Solution](#sol-sl-16-4)
+
+:::
+
+::: {#ex-sl-16-5 .exercise}
+## Sum of squares versus accuracy
+
+Explain how a network can have a smaller sum of squared errors than another but a lower classification accuracy. Think of outputs close to $0.5$ and a threshold at $0.5$. Why is classification accuracy on the validation set a more direct criterion for early stopping in a classification problem, and what is its disadvantage?
+
+[Solution](#sol-sl-16-5)
+
+:::
+
+::: {#ex-sl-16-6 .exercise}
+## Counting for NETtalk
+
+Verify the $18{,}426$ weights of NETtalk. How many weights would a network with $50$ hidden units have? If the training set has $5000$ patterns and $26$ outputs, how many numbers (targets) is it trying to fit, and what does the ratio of weights to targets suggest about overfitting?
+
+[Solution](#sol-sl-16-6)
+
+:::
+
+::: {#ex-sl-16-7 .exercise}
+## Complexity and early stopping
+
+A network uses four inputs, six sigmoid hidden units and three softmax outputs. Every non-input unit has a bias.
+
+(a) Count the fitted weights and biases, showing how the total is obtained.
+
+(b) Explain how a validation set can select the stopping epoch and why its best recorded score is not an independent performance estimate.
+
+(c) Explain how an $L^2$ weight penalty changes training and why it does not usually produce exact zero weights.
+
+[Solution](#sol-sl-16-7)
+
+:::
