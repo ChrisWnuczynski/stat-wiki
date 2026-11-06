@@ -990,18 +990,19 @@ FINAL_TOPICS = {
 }
 
 SOURCES = {
-    "book": "Book exercise",
+    "book": "Exercise",
     "practice": "Practice set",
     "final": "Final preparation",
     "concepts": "Concept check",
 }
 SOURCE_ORDER = ["book", "practice", "final", "concepts"]
+SOURCE_ANCHOR = {"book": "exercises", "practice": "practice", "final": "final", "concepts": "concepts"}
 
 SOURCE_BLURB = {
-    "book": "Exercises from *Problems and Applications in Modern Statistics*. The applied exercises have worked answers. The shorter ones are questions only.",
+    "book": "Applied exercises have worked answers. The shorter ones are questions only.",
     "practice": "Fifty-nine exam-style problems from the final-exam practice set, each with a worked answer.",
-    "final": "The twenty-two questions from the Semester 2, 2026 final-preparation booklet, with answers.",
-    "concepts": "Fifty short recall questions across the course, each with a model answer.",
+    "final": "The twenty-two questions from the Semester 2, 2026 final preparation, with answers.",
+    "concepts": "Fifty short recall questions across the topics, each with a model answer.",
 }
 
 
@@ -1024,7 +1025,7 @@ def assign_topics(questions: list[dict]) -> None:
 
 def source_label(q: dict) -> str:
     if q["group"] == "book":
-        return "Book, applied" if q.get("applied") else "Book exercise"
+        return "Applied exercise" if q.get("applied") else "Exercise"
     return SOURCES[q["group"]]
 
 
@@ -2070,7 +2071,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 "practice": f"Practice set, question {q.get('n')} of {len(seq)}",
                 "concepts": f"Concept check {q.get('n')} of {len(seq)}",
                 "final": f"Final preparation, question {q.get('n')} of {len(seq)}",
-                "book": f"Book exercise from *{q.get('chapter', '')}*",
+                "book": f"Exercise on *{q.get('chapter', '')}*",
             }[group]
             hat = (
                 "::: {.hatnote}\n"
@@ -2092,7 +2093,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                     (False, "answer-close", "\n::::::::\n"),
                 ]
             elif group == "book":
-                blocks.append((False, "no-answer", "\n\n::: {.callout-note appearance=\"minimal\"}\nThe source book has no worked answer for this exercise.\n:::\n"))
+                blocks.append((False, "no-answer", "\n\n::: {.callout-note appearance=\"minimal\"}\nThis exercise has no worked answer.\n:::\n"))
             add_page(q["path"], q["title"], topic.get("part"), "question", blocks, {"toc": "false"})
 
     # Articles: one per named box, merged with any distribution card of the same name.
@@ -2209,7 +2210,7 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
             groups.setdefault(q["group"], []).append((q.get("n", 0), f'[{cell(label)}]({href(path, target)} "{cell(title)}"){note}'))
         total = sum(len(v) for v in groups.values())
         out.append(f"**Questions and answers** ({total})\n\n")
-        names = {"book": "Book exercises", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept checks"}
+        names = {"book": "Exercises", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept checks"}
         for group in SOURCE_ORDER:
             if group in groups:
                 items = [text for _, text in sorted(groups[group], key=lambda t: t[0])]
@@ -2228,7 +2229,7 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
         )
     if card:
         where = f"[distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
-        hat.append(("Also on the " if box else "From the course ") + where)
+        hat.append(("Also on the " if box else "From the ") + where)
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n")]
 
     if box:
@@ -2255,7 +2256,7 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
             (
                 False,
                 "lead",
-                f"The {card['name'].lower()} distribution as the course distribution sheet gives it: "
+                f"The {card['name'].lower()} distribution: "
                 "parameters, support, probability function, mean and variance.\n\n",
             )
         )
@@ -2285,7 +2286,7 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
         items = [f"[{title}]({href(path, p)})" for p, title in sorted(pages_seen.items(), key=lambda kv: order.get(kv[0], 999))]
         lines.append("- **Also used in** " + " · ".join(items) + "\n")
     if asked:
-        names = {"book": "book", "practice": "practice set", "final": "final preparation", "concepts": "concept checks"}
+        names = {"book": "exercises", "practice": "practice set", "final": "final preparation", "concepts": "concept checks"}
         groups: dict[str, list] = {}
         for qpath, where in asked.items():
             q = by_q.get(qpath)
@@ -2475,7 +2476,7 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
         blocks.append((True, "example", demote_headings(copy_for_article("\n".join(box["lines"]), box["chapter"], path)) + "\n\n"))
     for qid in asked:
         q = qmap[qid]
-        source = {"book": "Book exercise", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept check"}[q["group"]]
+        source = {"book": "Exercise", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept check"}[q["group"]]
         blocks.append(
             (
                 False,
@@ -2586,7 +2587,7 @@ def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict]
         counts = {}
         for q in own:
             counts[q["group"]] = counts.get(q["group"], 0) + 1
-        names = {"book": "book", "practice": "practice", "final": "final prep", "concepts": "concept"}
+        names = {"book": "exercise", "practice": "practice", "final": "final prep", "concepts": "concept"}
         detail = ", ".join(f"{counts[g]} {names[g]}" for g in SOURCE_ORDER if g in counts)
         rows.append(("Questions", f"[{len(own)}](#questions-on-this-topic) ({detail})"))
     defs = [a for a in own_articles if a["box"]["kind"] == "definition"]
@@ -2661,7 +2662,7 @@ def write_glossary(questions: list[dict]) -> None:
         text = re.sub(r"\[\^[^\]]+\]", "", text)
         def eq_number(ident: str | None) -> str:
             n = EQ_NUMBERS.get(ident or "")
-            return f"equation ({n}) of the chapter" if n else "an equation in the chapter"
+            return f"equation ({n})" if n else "a displayed equation"
 
         text = re.sub(r"\\eqref\{([^{}]+)\}", lambda m: eq_number(EQ_LABELS.get(m.group(1), (None,))[0]), text)
         text = re.sub(r"@(eq-[\w-]+)", lambda m: eq_number(m.group(1)), text)
@@ -2689,7 +2690,7 @@ def write_glossary(questions: list[dict]) -> None:
     jump = " · ".join(f"[{l}](#letter-{l.lower() if l != '#' else 'other'})" for l in letters)
     n_articles = len(ARTICLES)
     lines = [
-        f"Every named idea in the course, A to Z: {len(seen)} entries. "
+        f"Every named idea, A to Z: {len(seen)} entries. "
         f"The {n_articles} definitions, theorems, remarks and distributions each have an article of their own; "
         "sections link into their chapter, concept checks to their question, and redirects to the entry they stand for. "
         "Hover over a link to preview it.",
@@ -2730,7 +2731,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     # Topics: a contents page for the whole book.
     topics_path = WIKI / "notes" / "index.qmd"
     lines = [
-        "Every chapter is an article. Each one ends with a table of the questions on its topic, drawn from the book, the practice set, the final-preparation booklet and the concept checks.",
+        "Every chapter is an article. Each one ends with a table of the questions on its topic, drawn from the exercises, the practice set, the final preparation and the concept checks.",
         "",
     ]
     for part, members in parts.items():
@@ -2742,7 +2743,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     lines += ["## Final preparation {#final-preparation}", ""]
     for note in final_notes:
         lines.append(f"- [{note['title']}]({href(topics_path, note['path'])})")
-    lines += ["", "## About the book", "", strip_first_heading(notes["index.qmd"]["prose"]).split("\n## On this site")[0].strip()]
+    lines += ["", "## How the topics fit together", "", strip_first_heading(notes["index.qmd"]["prose"]).split("\n## On this site")[0].strip()]
     body = prepare("\n".join(lines), "../figures")
     topics_path.write_text(f"---\ntitle: \"Topics\"\n---\n\n{body}\n", encoding="utf-8")
 
@@ -2750,7 +2751,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     q_index = WIKI / "questions" / "index.qmd"
     lines = [
         f"All {len(questions)} questions, filed under the chapter they test. {n_answers} have a worked answer, folded away at the bottom of the question page. "
-        f"To browse booklet by booklet instead, see [questions by source](by-source.qmd). Or try a [random question](#random).",
+        f"To browse set by set instead, see [questions by source](by-source.qmd). Or try a [random question](#random).",
         "",
         filter_box("Filter questions, e.g. gibbs, poisson, deviance"),
         "",
@@ -2768,15 +2769,15 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     # Question bank, by source.
     s_index = WIKI / "questions" / "by-source.qmd"
     lines = [
-        "The same questions, booklet by booklet and in their original order. To see them grouped by chapter, go to the [question bank](index.qmd).",
+        "The same questions, set by set and in their original order. To see them grouped by topic, go to the [question bank](index.qmd).",
         "",
         filter_box("Filter questions"),
         "",
     ]
     for group in SOURCE_ORDER:
         qs = by_source[group]
-        heading = {"book": "Book exercises", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept checks"}[group]
-        lines += [f"## {heading} {{#{group}}}", "", SOURCE_BLURB[group], "", question_table(qs, s_index, with_topic=True, with_source=group == "book"), ""]
+        heading = {"book": "Exercises", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept checks"}[group]
+        lines += [f"## {heading} {{#{SOURCE_ANCHOR[group]}}}", "", SOURCE_BLURB[group], "", question_table(qs, s_index, with_topic=True, with_source=group == "book"), ""]
     s_index.write_text(f"---\ntitle: \"Questions by source\"\n---\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 
     # Reference landing page and the distribution sheet.
@@ -2786,8 +2787,8 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         """Three lookup pages sit beside the chapters.
 
 - [Glossary and index](glossary.qmd), every defined term, theorem and section from A to Z.
-- [Common distributions](distributions.qmd), the corrected sheet from the final-preparation booklet.
-- [Formula lookup](formulas.qmd), the kernel table and problem-solving workflow from the course book.
+- [Common distributions](distributions.qmd), with the parameterisation used on these pages.
+- [Formula lookup](formulas.qmd), the kernel table and the problem-solving workflow.
 """,
     )
     def card_link(match: re.Match) -> str:
@@ -2814,7 +2815,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         + f"\n\n[{len(by_source['final'])} questions →]({href(home, s_index)}#final){{.portal-more}}\n:::\n"
     )
     source_items = "\n".join(
-        f"- [{ {'book': 'Book exercises', 'practice': 'Practice set', 'final': 'Final preparation', 'concepts': 'Concept checks'}[g] }]({href(home, s_index)}#{g}) ({len(by_source[g])})"
+        f"- [{ {'book': 'Exercises', 'practice': 'Practice set', 'final': 'Final preparation', 'concepts': 'Concept checks'}[g] }]({href(home, s_index)}#{SOURCE_ANCHOR[g]}) ({len(by_source[g])})"
         for g in SOURCE_ORDER
     )
     boxes.append(
@@ -2829,7 +2830,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     n_chapters = len(chapters)
     home.write_text(
         f"""---
-title: "STAT3500 course wiki"
+title: "STAT3500 wiki"
 toc: false
 ---
 
@@ -2846,7 +2847,7 @@ A study wiki for STAT3500/7500: **{n_chapters} chapters** and **{len(questions)}
 1. Read a chapter. The contents on the right jump between its sections.
 2. Scroll to **Questions on this topic** at the end and open one.
 3. Attempt it, then open **Worked answer** at the bottom of the question page.
-4. Use **‹ previous** and **next ›** at the top of a question to move through the same booklet.
+4. Use **‹ previous** and **next ›** at the top of a question to move through the same set.
 
 The source is on [GitHub]({REPO_URL}). Every change pushed there rebuilds this site.
 """,
@@ -2959,7 +2960,7 @@ format:
 
 def distributions_body() -> str:
     return r"""
-The distributions below are the corrected STAT3500/7500 sheet from the final-preparation booklet. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page.
+The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page.
 
 ## Discrete
 
@@ -3150,8 +3151,8 @@ def main() -> None:
                     "notes_path": path,
                     "answer_id": solution_link(body),
                     "applied": applied,
-                    "description": f"Book exercise · {title}",
-                    "categories": ["Book exercises", part, title],
+                    "description": f"Exercise · {title}",
+                    "categories": ["Exercises", part, title],
                 }
                 questions.append(record)
                 book_questions_by_id[ex_id] = record
@@ -3180,7 +3181,7 @@ def main() -> None:
                 "question_path": q["path"] if q else None,
                 "notes_path": q["notes_path"] if q else None,
                 "description": "Worked answer · " + (q["chapter"] if q else "Applied exercise"),
-                "categories": ["Book answers", q["part"] if q else "Bayesian statistics"],
+                "categories": ["Exercise answers", q["part"] if q else "Bayesian statistics"],
             }
         )
 

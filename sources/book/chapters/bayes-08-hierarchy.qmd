@@ -250,7 +250,7 @@ Let study $j$ contribute $y_j$ tumour-bearing rats from $n_j$ animals. The hiera
 
 :::
 
-Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows the account in Gelman's book.[^b08-hierarchy-4]
+Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows Gelman's presentation of the Dempster, Selwyn, and Weeks analysis.[^b08-hierarchy-4]
 
 ## Exchangeability
 

@@ -619,7 +619,7 @@ $$
 
 ::: {.callout-warning}
 ## Parameterisation check
-The main book writes $\GammaDist(a,b)$ in shape--rate form, whereas this exercise explicitly declares scale parameters. If the proposal's second argument $\gamma/\alpha$ were instead read as a rate, its kernel would be $z^{\gamma-1}e^{-(\gamma/\alpha)z}$ and the final exponential coefficient would be $\gamma/\alpha-1/\beta$. The algorithm is not defined numerically until that convention is fixed.
+On these pages $\GammaDist(a,b)$ means shape $a$ and rate $b$, with density proportional to $z^{a-1}e^{-bz}$. This exercise explicitly declares scale parameters. If the proposal's second argument $\gamma/\alpha$ were instead read as a rate, its kernel would be $z^{\gamma-1}e^{-(\gamma/\alpha)z}$ and the final exponential coefficient would be $\gamma/\alpha-1/\beta$. The algorithm is not defined numerically until that convention is fixed.
 
 :::
 
@@ -855,7 +855,7 @@ $$
 $$
 
 
- Write this model in the chapter's $a(\theta)$, $b(x)$, $c(\theta)$, $T(x)$ form and use that form to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$.
+ Write the sampling density in the form $p(x\given\theta)=b(x)\exp\{c(\theta)T(x)\}/a(\theta)$, identify $a(\theta)$, $b(x)$, $c(\theta)$ and $T(x)$, and use the conjugate prior kernel $p(\theta\given\alpha,\beta)\propto\exp\{c(\theta)\alpha\}/a(\theta)^\beta$ to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$.
 
 **Solution.** For one observation, 
 
@@ -876,7 +876,7 @@ $$
 $$
 
 
- The chapter's generic conjugate-prior kernel is therefore \begin{align*}
+ The conjugate prior kernel for this form is therefore \begin{align*}
  p(\theta\given\alpha,\beta)
  &\propto
  \frac{\exp\{c(\theta)\alpha\}}{a(\theta)^\beta}\\
@@ -889,7 +889,7 @@ $$
 $$
 
 
- in the book's shape--rate convention.
+ in the shape--rate convention: shape $\beta+1$ and rate $\alpha$.
 
 For an iid sample let $S(\xvec)=\sum_{i=1}^n x_i$. Then \begin{align*}
  p(\theta\given\xvec)
@@ -925,7 +925,7 @@ $$
 $$
 
 
- Use the exponential-family form to find a conjugate prior and derive its posterior parameters.
+ Write one observation in the form $p(x\given\theta)=b(x)\exp\{c(\theta)T(x)\}/a(\theta)$ and use the conjugate prior kernel $p(\theta\given\alpha,\beta)\propto\exp\{c(\theta)\alpha\}/a(\theta)^\beta$ to find a conjugate prior and derive its posterior parameters.
 
 **Solution.** Now 
 

@@ -1,8 +1,6 @@
 # Introduction to generalised linear models
 
-The usual first regression course rests on three habits: normality, linearity, and independence. Logistic regression has already appeared in the Bayesian part of this book, and it steps outside the first of those. The rest of this book relaxes all three. We begin with generalised linear models. Dependence, in time or within a cluster, comes later; a GLM still treats the responses as independent once the covariates are given.
-
-The recommended reference for this material is McCullagh and Nelder, *Generalized Linear Models* (1989). It was the first book awarded the Karl Pearson Prize, in 2013, for a contribution to the practice of statistics.
+A first regression model rests on three habits: normality, linearity, and independence. A binary response steps outside the first of those: the observation is $0$ or $1$, and the mean is a probability. Generalised linear models are the way to leave normality while keeping a linear predictor. Dependence, in time or within a cluster, is a separate question; a GLM still treats the responses as independent once the covariates are given.
 
 ## What a regression statement is hiding
 
@@ -71,11 +69,11 @@ provided $\vect{X}^\top\boldsymbol{\beta}>0$. If the linear predictor is allowed
 
 The two links agree that a large dose of clotting agent can drive the mean time down towards zero. They disagree at the other end. As the linear predictor in @eq-inverse-link approaches zero, the mean time goes to infinity. The log link, for any finite predictor, stays finite. So the modelling question is biological, not a default in the software. If there were truly no plasma, would the blood never clot, or would it clot after a long but finite time? Nobody in the experiment has zero plasma. A person with very little plasma does eventually clot, though a haemophiliac may bleed out first. That leans towards a finite mean, and so towards the log link. The inverse link is the honest model of the hypothetical with no plasma at all. Either is allowed. They can be paired later with whatever response distribution we choose. The link is not dictated by the distribution.
 
-The times themselves are continuous and strictly positive, so they are not normal. A gamma distribution is a reasonable start: it is supported on $(0,\infty)$ and it extends the exponential. A gamma law has a second parameter, a dispersion, which plays the role that $\sigma^2$ plays for the normal and can be chosen separately from the mean. In the shape-and-rate parameterisation used in this book, a $\mathrm{Gamma}(\alpha,\alpha/\mu)$ random variable has mean $\mu$ and variance $\mu^2/\alpha$. The model is the mean and the variance:
+The times themselves are continuous and strictly positive, so they are not normal. A gamma distribution is a reasonable start: it is supported on $(0,\infty)$ and it extends the exponential. A gamma law has a second parameter, a dispersion, which plays the role that $\sigma^2$ plays for the normal and can be chosen separately from the mean. In the shape-and-rate parameterisation, a $\mathrm{Gamma}(\alpha,\alpha/\mu)$ random variable has mean $\mu$ and variance $\mu^2/\alpha$. The model is the mean and the variance:
 $$
 Y_i\mid \vect{X}_i\ind \mathrm{Gamma}\!\left(\mu_i=\exp(\vect{X}_i^\top\boldsymbol{\beta}),\ \mathrm{Var}=\phi\mu_i^2\right).
 $$
-Here $\phi$ is the dispersion. The variance grows with the square of the mean, which is a stronger mean–variance relationship than the Poisson's $\mathrm{Var}=\mu$. It is the same shape you see in the data: times near zero have little room to vary, and large mean times can vary a lot. If you prefer the book convention written out in full, this is shape $1/\phi$ and rate $1/(\phi\mu)$, because then the mean is $\mu$ and the variance is $\phi\mu^2$.
+Here $\phi$ is the dispersion. The variance grows with the square of the mean, which is a stronger mean–variance relationship than the Poisson's $\mathrm{Var}=\mu$. It is the same shape you see in the data: times near zero have little room to vary, and large mean times can vary a lot. Written out in full, this is shape $1/\phi$ and rate $1/(\phi\mu)$, because then the mean is $\mu$ and the variance is $\phi\mu^2$.
 
 ### Disease and cholesterol
 
@@ -176,7 +174,7 @@ f(y;\theta)=\exp\left\{\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)\right\},
 $$
 in which $b(\theta)=\theta^2/2$ and $a(\phi)=\sigma^2$. Then $\mathrm{E}(Y)=b'(\theta)$ and $\mathrm{Var}(Y)=b''(\theta)\,a(\phi)$, with no minus signs. In this chapter $c(\theta)$ is the negative of that $b(\theta)$. Both are the normal density. The sign convention used here is the one carried into the mean and variance formulae below. If you differentiate the other convention, the minus signs are absorbed into the definition of $b$ and the means match.
 
-The normal model is used for three good reasons, and then it is used too often. Some measurements really are normal: measurement error is the usual example. Even when the individual responses are skewed, a group average is approximately normal for a large enough group, by the central limit theorem, and sometimes the data we receive are already averages. And a great deal of exact theory has been built for the normal, so people reach for it because they know what the inference will look like. That last reason is also why it is overused. A five-point or seven-point agreement scale is an ordered category. Averaging "strongly disagree" through "strongly agree" and calling the result normal pretends that the gaps between categories are equal numbers. A grade of $7$ is not a number of which a grade of $1$ is one seventh. We will treat ordered categories as categories later in this book, rather than as a normal response.^[The same habit shows up in grade-point averages. The point of the example is the scale.]
+The normal model is used for three good reasons, and then it is used too often. Some measurements really are normal: measurement error is the usual example. Even when the individual responses are skewed, a group average is approximately normal for a large enough group, by the central limit theorem, and sometimes the data we receive are already averages. And a great deal of exact theory has been built for the normal, so people reach for it because they know what the inference will look like. That last reason is also why it is overused. A five-point or seven-point agreement scale is an ordered category. Averaging "strongly disagree" through "strongly agree" and calling the result normal pretends that the gaps between categories are equal numbers. A grade of $7$ is not a number of which a grade of $1$ is one seventh. Treat the labels as an ordered categorical response, not as a normal measurement.^[The same habit shows up in grade-point averages. The point of the example is the scale.]
 
 If both $\mu$ and $\sigma^2$ are parameters of interest, the normal is a two-parameter exponential family. The sufficient statistic is then $(Y,Y^2)$, not $Y$ alone: the sample variance needs the squares. If $\sigma^2$ is only a nuisance and the mean is the target, $Y$ itself carries the information about $\mu$.^[This is the multiparameter extension of the one-parameter exponential family. For the GLM below, the dispersion stays a nuisance and the mean is the parameter in the linear predictor.]
 
@@ -195,7 +193,7 @@ which is @eq-lef with $e(\phi)=\phi=1$, $c(\theta)=-e^{\theta}$ and $d(y;\phi)=-
 
 The natural parameter is $\log\lambda$, not $\lambda$. The exponential family has told us the scale on which this parameter wants to live: $\lambda$ itself must be positive, while $\log\lambda$ can be any real number and can therefore be a linear predictor. That is why @eq-log-link was the Poisson model in the running example, rather than a straight line for $\lambda$.
 
-Use a Poisson model for a count of events in a fixed interval of time or space: reported medical conditions, epileptic episodes in a year, cyclones in a season, spelling mistakes on a newspaper page. It is a pure count process. Non-overlapping intervals are independent, and the rate is constant. Those assumptions are strong. One seizure may make another more likely, and one cyclone may change the chance of the next, and either dependence takes you outside the Poisson. The newspaper example is kinder than it first looks, because different articles on the same page are written by different people, so a mistake in one corner need not share a cause with a mistake in another. Even then the rate need not be the same author to author. Later in this book we will relax the Poisson so that the variance is no longer forced to equal the mean. Not in this chapter.
+Use a Poisson model for a count of events in a fixed interval of time or space: reported medical conditions, epileptic episodes in a year, cyclones in a season, spelling mistakes on a newspaper page. It is a pure count process. Non-overlapping intervals are independent, and the rate is constant. Those assumptions are strong. One seizure may make another more likely, and one cyclone may change the chance of the next, and either dependence takes you outside the Poisson. The newspaper example is kinder than it first looks, because different articles on the same page are written by different people, so a mistake in one corner need not share a cause with a mistake in another. Even then the rate need not be the same author to author. The variance can be freed from the mean by multiplying it by a dispersion, or by adding a second positive term, as in the quasi-Poisson and negative binomial models. The Poisson mass function in this section keeps $\mathrm{Var}(Y)=\mu$.
 
 ### The binomial distribution
 
@@ -312,7 +310,7 @@ A GLM is an exponential family, a linear predictor, and a link, chosen independe
 
 ## Binary responses
 
-A binary GLM is the case for the rest of this chapter. Logistic regression has already appeared in the Bayesian part of this book; the aim here is the frequentist reading of the same likelihood. The response is $0$ or $1$. The mean is the success probability, and $g(p_i)=\vect{X}_i^\top\boldsymbol{\beta}$ for a link $g$ we choose. The Bernoulli distribution handles the zeroes and ones. The covariates, through the inverse link, handle the mean:
+A binary GLM is the case for the rest of this chapter. The likelihood is Bernoulli, the same likelihood obtained when the success probability is given a prior; the reading here is frequentist. The response is $0$ or $1$. The mean is the success probability, and $g(p_i)=\vect{X}_i^\top\boldsymbol{\beta}$ for a link $g$ we choose. The Bernoulli distribution handles the zeroes and ones. The covariates, through the inverse link, handle the mean:
 $$
 Y_i\mid \vect{X}_i\ind \mathrm{Bernoulli}\!\left(p_i=\mu(\vect{X}_i^\top\boldsymbol{\beta})\right),
 $$
@@ -445,7 +443,7 @@ After the score equation, the program is only evaluating @eq-fisher. For a binar
 ```r
 chol_file <- "data/cholest.csv"
 if (!file.exists(chol_file)) {
-  stop("Could not find data/cholest.csv. Set the working directory to the book folder.")
+  stop("Could not find data/cholest.csv. Set the working directory to the folder that contains it.")
 }
 chol <- read.csv(chol_file)
 fit <- glm(disease ~ gender + cholesterol, data = chol, family = binomial)

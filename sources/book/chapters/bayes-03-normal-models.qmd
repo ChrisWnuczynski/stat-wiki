@@ -223,7 +223,7 @@ The natural candidates can be rejected or repaired one at a time. An exponential
 ::: {#def-inverse-gamma-distribution .definition}
 ## Inverse-Gamma distribution
 
-Under the book's convention, 
+In the shape--rate convention, 
 
 $$
  \sigma^2\sim\InvGamma(\alpha_0,\beta_0),
@@ -352,7 +352,7 @@ With both parameters unknown, the joint posterior is \begin{align}
                     {\sigma^2}
               -\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right].
  \label{eq:joint-normal-post}
-\end{align} This joint density is not a product of independent posterior marginals. It is also not the most common textbook normal--inverse-Gamma family, because that family usually scales the prior variance of $\mu$ by $\sigma^2$. Nevertheless, both full conditional distributions are standard.
+\end{align} This joint density is not a product of independent posterior marginals. It is also not the normal--inverse-Gamma family in which the prior variance of $\mu$ is a multiple of $\sigma^2$. Here that prior variance stays $\sigma_0^2$, independent of $\sigma^2$. Nevertheless, both full conditional distributions are standard.
 
 ::: {#prp-full-conditionals-under-independent-priors .proposition}
 ## Full conditionals under independent priors

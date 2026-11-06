@@ -440,7 +440,7 @@ Integrating the coefficient kernel over $\R^p$ contributes \begin{align*}
  \exp\!\left\{-\frac{\operatorname{SSE}}{2\sigma^2}\right\}\\
  &=(\sigma^2)^{-\{(n-p)/2+1\}}
  \exp\!\left\{-\frac{\operatorname{SSE}/2}{\sigma^2}\right\}.
-\end{align*} Under the book's inverse-Gamma convention,
+\end{align*} Under the shape--rate convention, $\InvGamma(a,b)$ has kernel $(\sigma^2)^{-a-1}\exp(-b/\sigma^2)$. Matching the powers gives
 
 ::: {#prp-marginal-variance-posterior .proposition}
 ## Marginal variance posterior

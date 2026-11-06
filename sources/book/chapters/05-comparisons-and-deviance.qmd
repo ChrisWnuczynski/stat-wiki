@@ -98,7 +98,7 @@ Sex drops out, as we already found. Cholesterol alone, three links:
 ```r
 chol_file <- "data/cholest.csv"
 if (!file.exists(chol_file)) {
-  stop("Could not find data/cholest.csv. Set the working directory to the book folder.")
+  stop("Could not find data/cholest.csv. Set the working directory to the folder that contains it.")
 }
 chol <- read.csv(chol_file)
 for (lnk in c("logit", "probit", "cloglog")) {

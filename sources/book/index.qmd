@@ -1,8 +1,8 @@
-# How to use this book {.unnumbered}
+# How the topics fit together {.unnumbered}
 
-This book is a self-contained course in modern applied statistics for advanced undergraduates and beginning postgraduates. It assumes a working knowledge of probability, the linear model, and elementary calculus, and it is written so that a careful reader can reconstruct every calculation.
+These pages develop modern applied statistics for advanced undergraduates and beginning postgraduates. They assume a working knowledge of probability, the linear model, and elementary calculus, and a careful reader can reconstruct every calculation from what is written.
 
-The book has five parts. The first develops Bayesian inference from first principles: credible intervals, conjugate updating, Markov chain Monte Carlo, categorical models, hypothesis comparison, exponential families, hierarchical models, and Bayesian linear regression. The later parts leave the normal linear model. Generalised linear models separate the mean, the variance, and the link. Smoothing replaces a straight line with a function the data are allowed to bend. Models for correlated data then drop independence, first with random effects and then with marginal estimating equations. The last part treats dependence along a time series, and forecasting from that dependence.
+There are five parts. The first develops Bayesian inference from first principles: credible intervals, conjugate updating, Markov chain Monte Carlo, categorical models, hypothesis comparison, exponential families, hierarchical models, and Bayesian linear regression. The later parts leave the normal linear model. Generalised linear models separate the mean, the variance, and the link. Smoothing replaces a straight line with a function the data are allowed to bend. Models for correlated data then drop independence, first with random effects and then with marginal estimating equations. The last part treats dependence along a time series, and forecasting from that dependence.
 
 Two conventions hold throughout.
 
@@ -15,7 +15,7 @@ Two conventions hold throughout.
 
 Software comes after the probability target is already clear. When a fit is shown, it is in R. The code is a translation of a derivation, not a substitute for it.
 
-Each chapter ends with exercises. Applied problems are gathered with the chapter that supplies the method, and worked solutions are collected in one place at the end of the Bayesian part. A solution link after an applied problem jumps to that solution; the solution title jumps back to the problem.
+Each topic ends with exercises. Applied problems are gathered with the topic that supplies the method, and the worked solutions sit with those problems. A solution link after an applied problem jumps to that solution; the solution title jumps back to the problem.
 
 ## What is written
 
@@ -30,8 +30,8 @@ Each chapter ends with exercises. Applied problems are gathered with the chapter
 - **Exponential families and conjugacy.** Sufficiency, the natural exponential family, and the generic conjugate update.
 - **Hierarchical Bayes.** Exchangeability, partial pooling, and a grid approximation for a hyperposterior.
 - **Bayesian linear regression.** The reference prior, direct simulation, and posterior prediction.
-- **Reference formulas and a problem-solving workflow.** The distribution kernels used in the Bayesian chapters, gathered in one place.
-- **Solutions to the applied exercises.** Worked solutions, placed with the chapter that supplies the method.
+- **Reference formulas and a problem-solving workflow.** The distribution kernels and the problem-solving workflow, gathered in one place.
+- **Solutions to the applied exercises.** Worked solutions, placed with the topic that supplies the method.
 
 ### Generalised linear models
 
@@ -57,4 +57,4 @@ Each chapter ends with exercises. Applied problems are gathered with the chapter
 ### Time series
 
 - **Dependence along a series.** Autoregression, moving averages, stationarity, and the Wold decomposition.
-- **Forecasting.** Automatic selection for a seasonal series and for a wandering count of server traffic. Models for changing variance, and for counts, are named and left for later work.
+- **Forecasting.** Automatic selection for a seasonal series and for a wandering count of server traffic. A model for changing variance puts the series on the variance rather than only on the mean. A count-valued series is not a mean plus an innovation that can be separated off, so it is not given an autoregressive forecast.
