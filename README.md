@@ -8,7 +8,7 @@ The site: <https://chriswnuczynski.github.io/stat3500-wiki/>
 
 `build_wiki.py` turns the course files in `sources/` into the wiki's pages. `quarto render` then turns those pages into the website in `_site/`.
 
-On every push to `main`, GitHub runs both steps and publishes the result. It takes about 15 minutes, and progress shows in the [Actions tab](https://github.com/ChrisWnuczynski/stat3500-wiki/actions). The generated pages are not stored in the repository.
+On every push to `main`, GitHub runs both steps and publishes the result. It takes about 4 minutes, and progress shows in the [Actions tab](https://github.com/ChrisWnuczynski/stat3500-wiki/actions). The generated pages are not stored in the repository.
 
 ## What to edit
 
