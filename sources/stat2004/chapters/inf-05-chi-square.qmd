@@ -46,6 +46,8 @@ The same table can be read as a response model, with one factor the response and
 Expected counts come from the hypothesis. The Pearson statistic is the sum of squared differences divided by those expectations. The degrees of freedom are the number of free cells left after every estimated parameter has been counted.
 :::
 
+Numerical examples are in [Chi-squared examples](da-09-chi-square-examples.qmd).
+
 ## Exercises
 
 ::: {#ex-inf-frizzle .exercise}

@@ -1,0 +1,83 @@
+# Testing examples
+
+The null hypothesis, the test statistic, the p-value, and the type I and type II errors are defined in [Hypothesis tests](inf-04-hypothesis-tests.qmd). A p-value is not the probability that the null hypothesis is true. That probability, when it is the quantity wanted, is a posterior probability, computed in [Bayesian hypotheses and model comparison](bayes-06-testing.qmd).
+
+The examples here are the one-sample $t$ test, the one-sample test for a proportion, and the two-sample versions of both. The interval that often sits next to the test is the one in [Confidence intervals](inf-03-confidence-intervals.qmd).
+
+## Exercises
+
+::: {#ex-da-caffeine-cola .exercise}
+## Caffeine in a cola
+
+A brand of cola is sampled $n=40$ times. The mean caffeine is 19.57 mg per 6 oz serving and the sample standard deviation is 1.40 mg. The claim under test is that the mean is 19 mg, against the alternative that it is higher.
+
+(a) State the model and the two hypotheses.
+
+(b) Give the test statistic and its null distribution.
+
+(c) Compute the observed statistic, the one-sided p-value, and the decision at level 0.05. Use the fact that the upper tail of $t_{39}$ beyond 2.57 is about 0.007.
+
+[Solution](#sol-da-caffeine-cola)
+
+:::
+
+::: {#ex-da-brexit-poll .exercise}
+## A later poll on leaving
+
+A referendum split 51.9% leave and 48.1% remain. A later sample of 500 people has 54% preferring to remain, so 46% preferring to leave. Test whether the leave proportion is still 0.519, against a two-sided alternative.
+
+The standardised statistic is $z=-2.64$, and the two-sided standard-normal tail beyond 2.64 is about 0.0082. Also give an approximate 95% confidence interval for the leave proportion in the later poll.
+
+[Solution](#sol-da-brexit-poll)
+
+:::
+
+::: {#ex-da-steel-rods .exercise}
+## Steel rod diameters
+
+Rods should be at least 6 cm in diameter. A sample of 100 rods has mean 6.1 cm and standard deviation 0.1 cm. Assume a normal model.
+
+(a) Estimate the probability that a single rod is thinner than 6 cm.
+
+(b) If the standard deviation stays 0.1 cm, what mean diameter makes 99% of rods at least 6 cm? Use $z_{0.99}=2.326$.
+
+(c) Test $H_0:\mu=6$ against $H_1:\mu>6$. The observed $t$ statistic on 99 degrees of freedom is enormous. What is the conclusion?
+
+[Solution](#sol-da-steel-rods)
+
+:::
+
+::: {#ex-da-shuffle .exercise}
+## A shuffling machine
+
+Twenty fresh packs are shuffled. Seventeen have a red card on top. Test whether the top card is still equally likely to be red or black, against the alternative that red is more likely than $1/2$. The one-sided binomial p-value is 0.00174.
+
+[Solution](#sol-da-shuffle)
+
+:::
+
+::: {#ex-da-two-proportions .exercise}
+## Two proportions
+
+Independent samples give $\widehat p_X$ and $\widehat p_Y$. The test of $H_0:p_X=p_Y$ against $H_1:p_X>p_Y$ has p-value 0.23. An approximate 99% confidence interval for $p_X-p_Y$ is $(-0.067,\,0.121)$.
+
+(a) State the hypotheses.
+
+(b) What does the p-value say at level 0.05?
+
+(c) Does the interval contain 0?
+
+[Solution](#sol-da-two-proportions)
+
+:::
+
+::: {#ex-da-home-ground .exercise}
+## Home-ground wins
+
+Of 25 home games, 20 were wins. Of 75 away games, 55 were wins. Each game is an independent Bernoulli trial, with a probability that depends only on home or away. The two-sample test of equal win probabilities has p-value 0.2526.
+
+State the hypotheses and the conclusion at level 0.05.
+
+[Solution](#sol-da-home-ground)
+
+:::

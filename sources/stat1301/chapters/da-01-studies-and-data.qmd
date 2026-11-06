@@ -1,0 +1,126 @@
+# Studies, data, and evidence
+
+A statistical study turns a question about the world into data, a model, and a conclusion. The model is a probability description of how the data arose. The calculations that follow, estimation, tests, and linear models, are in [Statistical inference](inf-01-statistical-inference.qmd) and the chapters after it. This page is about the study itself: what was controlled, what was only observed, and what sort of claim the design can support.
+
+The probability language for a single sample is in [Random experiments and probability](prob-01-experiments.qmd) and [Random variables and distributions](prob-02-random-variables.qmd). Putting a probability on an unknown parameter after the data are seen is [Bayesian foundations](bayes-01-foundations.qmd).
+
+## A model for the sample
+
+The smallest model is a random sample: $X_1,\ldots,X_n$ independent, with a common distribution that still contains unknown parameters. Heights of 300 men aged 40 to 50 can be modelled as independent $\Normal(\mu,\sigma^2)$ draws. Then $\mu$ and $\sigma^2$ are the population mean and variance, and the job of the analysis is to say something about them.
+
+Two groups give two samples. Preferences for two colas, recorded as Bernoulli indicators in 100 boys and 100 girls, are independent $\operatorname{Bern}(p_1)$ and $\operatorname{Bern}(p_2)$ samples, or equivalently two independent binomial counts. Heights of men whose mothers did or did not smoke during pregnancy are two independent normal samples, and the comparison of interest is $\mu_1-\mu_2$. The intervals and tests for those comparisons are in [Confidence intervals](inf-03-confidence-intervals.qmd) and [Hypothesis tests](inf-04-hypothesis-tests.qmd). Worked numerical versions are in [Estimation examples](da-04-estimation-examples.qmd) and [Testing examples](da-05-testing-examples.qmd).
+
+Every such model is an approximation. Heights are recorded on a discrete scale and cannot be negative, while a normal draw can be. The normal law is still useful when simulated samples look like the data and the mathematical summaries are tractable. A model that cannot reproduce the rough shape of the data is not a basis for a conclusion. Checking that shape is part of [Descriptive statistics](da-02-descriptive-statistics.qmd).
+
+## Observational studies and experiments
+
+Data often arrive as a spreadsheet: one row per unit, one column per variable. Units are the people, plants, households, or objects that were measured.
+
+::: {#def-observational-study .definition}
+## Observational study
+
+In an observational study the investigator does not assign the conditions being compared. A survey is the usual case. Repeating the study would produce new values in every column, because a new set of units is encountered and nothing was fixed by design.
+
+:::
+
+::: {#def-designed-experiment .definition}
+## Designed experiment
+
+In a designed experiment some columns are controlled. Treatments are assigned to units, often at random, and those assignments stay the same if the measurements are repeated. The response column changes; the treatment column does not.
+
+:::
+
+The variables one hopes to explain are the response, also called the outcome. The variables used to explain it are explanatory variables, also called covariates or factors. A randomised design assigns each unit one of a small number of treatments with equal probability. After a large enough randomisation, the treatment groups agree, before treatment, on the distribution of every variable, measured or not. A difference that then appears in the response is evidence about the treatments, not about who happened to land in which group.
+
+That is why a randomised comparison can support a causal sentence and an observational comparison usually cannot. In the smoking-and-height example the mothers were not assigned to smoke. A difference in sons' heights is compatible with an effect of smoking and also with diet, income, or anything else that differs between the two groups of mothers. Randomisation is what blocks that reading.
+
+Blinding keeps the assignment from leaking into the response. In a blind experiment the unit does not know which treatment it received. In a double-blind experiment the person who measures the response does not know either. A placebo, an inactive treatment that otherwise resembles the active one, is what makes that possible when the act of being treated itself changes the response.
+
+Alice's caffeine comparison is the picture. Heart rate is measured, a drink is taken, and heart rate is measured again. The response is the change. Comparing a caffeinated diet cola with a decaffeinated diet cola holds the sugar and the flavour roughly fixed, so the contrast is closer to caffeine than to "cola versus water". Using friends as the subjects, or a sample of convenience more generally, does not. A convenience sample takes whoever is at hand. A self-selected sample takes whoever volunteers, as in a telephone poll of viewers. Neither is a random sample from the population the conclusion is about, and both tend to bias the estimate. The bias is not fixed by a larger sample of the same kind.
+
+A study that does not need every covariate recorded is one that randomised. Age, diet, and fitness still affect blood pressure, but if the drug and the control were assigned at random they are balanced across those variables, including the ones nobody wrote down. An observational study of the same question has to measure them, or the comparison stays confounded.
+
+::: {.callout-note}
+## Key idea
+Write down the response, the explanatory variables, and whether the explanatory variables were assigned or only observed. Random assignment is what turns a difference between groups into evidence about the treatment.
+:::
+
+## Exercises
+
+::: {#ex-da-alice-layout .exercise}
+## Alice's heart-rate changes
+
+The change in heart rate after a caffeinated diet cola was
+
+$$
+17,\;22,\;21,\;16,\;6,\;-2,\;27,\;15,\;16,\;20
+$$
+
+and after a decaffeinated diet cola was
+
+$$
+4,\;10,\;7,\;-9,\;5,\;4,\;5,\;7,\;6,\;12.
+$$
+
+Write the measurements as a table with one row per subject and say which column is the response and which is the treatment.
+
+:::
+
+::: {#ex-da-random-split .exercise}
+## Randomising twenty people
+
+Twenty people are split at random into a test group and a control group of ten. How many different test groups are possible?
+
+:::
+
+::: {#ex-da-blood-pressure-covariates .exercise}
+## What a randomised trial does not need to record
+
+A trial of a new blood-pressure drug against an existing one will recruit at least 1000 adults aged 30 to 60 with systolic pressure at least 140 mm Hg, of any sex, fitness, occupation, or diet. The only columns required for the comparison are the assigned drug and the blood pressure before and after treatment. Why can age, sex, fitness, occupation, and diet be left unrecorded?
+
+:::
+
+::: {#ex-da-devil-tumours .exercise}
+## Facial tumours in Tasmanian devils
+
+Thirty devils with facial tumours are split into two groups of 15. One group receives a new medicine and the other is untreated. Tumour size is recorded at the start and after 12 weeks.
+
+(a) Is this an observational study or a designed experiment? What is missing from the description before the quality of the comparison can be judged?
+
+(b) Which variable is the response, and what type of variable is it?
+
+(c) Which variable is explanatory, and what type of variable is it?
+
+:::
+
+::: {#ex-da-motn-insomnia .exercise}
+## A dose comparison for middle-of-the-night insomnia
+
+Twenty-four patients with middle-of-the-night insomnia are randomly allocated to placebo, a low dose of triazolam, or a high dose. After two weeks, both active doses show a longer total sleep time than placebo.
+
+(a) What type of study is this?
+
+(b) What values can total sleep time take, and what type of variable is it?
+
+(c) What values can dosage take, and what type of variable is it?
+
+(d) Which variable is the response, and why?
+
+:::
+
+::: {#ex-da-alcohol-attendance .exercise}
+## Alcohol and school attendance
+
+A sample of 7874 adolescents is linked to a school registry. Frequent intoxication is recorded as a yes-or-no classification, collapsed from a five-point question. After accounting for age, sex, socio-economic status, and mental health, adolescents who were frequently intoxicated missed more hours of school.
+
+(a) Is this an observational study or a designed experiment?
+
+(b) What values can frequent intoxication take, and what type of variable is it?
+
+(c) What values can hours missed take, and what type of variable is it?
+
+(d) Which variable is the response, and why?
+
+(e) Which variables are explanatory?
+
+:::

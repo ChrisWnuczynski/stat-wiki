@@ -1,0 +1,76 @@
+# Descriptive statistics
+
+Descriptive statistics summarise a sample before a model is fitted. They show the range, the shape, the odd points, and which variables move together. They do not by themselves test a hypothesis or produce a confidence interval. Those steps are in [Statistical inference](inf-01-statistical-inference.qmd). The shapes being summarised are the laws on the [common distributions](../reference/distributions.qmd) page. How the sample was obtained, and whether a pattern can be read causally, is in [Studies, data, and evidence](da-01-studies-and-data.qmd).
+
+The calculations below are the ones a data frame supports directly. Reading the table and drawing the plots in R is in [Using R](da-03-using-r.qmd).
+
+## The table
+
+One row is one unit. One column is one variable. An identifier column names the unit. In a designed experiment some columns record the assignment and stay fixed if the measurements are repeated. The remaining columns are what the study measured.
+
+Variables come in two broad types.
+
+- A categorical variable takes values in a set of labels. Nominal labels have no order, such as a drug name. Ordinal labels do, such as a frequency running from "never" to "every day".
+- A quantitative variable takes numerical values. A count is discrete. A length or a concentration is treated as continuous even though it is recorded to a finite precision.
+
+The response and the explanatory variables of [Studies, data, and evidence](da-01-studies-and-data.qmd) can be either type. The summary changes with the type. A categorical column becomes a table of counts. A quantitative column becomes a centre, a spread, and a picture of the shape.
+
+## One quantitative variable
+
+The sample mean $\overline x$ and the bias-corrected sample variance $s^2$ are the same statistics as in [Estimation](inf-02-estimation.qmd). The sample standard deviation is $s$. Two further summaries ignore the tails in a different way. The median is the middle value of the ordered sample, or the average of the two middle values when $n$ is even. The quartiles cut the ordered sample into four equal pieces.
+
+::: {#def-interquartile-range .definition}
+## Interquartile range
+
+The interquartile range is the difference between the third and first quartiles. It is the width of the central half of the sample.
+
+:::
+
+The range, the maximum minus the minimum, uses only the two extremes and moves as soon as one point does. The interquartile range does not. A boxplot draws the median as a line, the quartiles as the ends of a box, and whiskers out to the last points that are not judged extreme. Points beyond the whiskers are plotted singly. That picture is the first check for a long tail or a stray measurement.
+
+A histogram bins the same numbers. The height of a bin is the count, or the count divided by $n$ and by the bin width if a density scale is wanted. The histogram is a picture of the sample, not of the population density. A symmetric unimodal histogram is consistent with a normal sample. It does not prove the normal model.
+
+## One categorical variable
+
+Counts and proportions are enough. A bar chart draws one bar per label, with a gap between bars so that the axis is not read as continuous. The mode is the most common label. Two categorical variables together form a contingency table. The test of independence for that table is the chi-squared test in [Chi-squared tests](inf-05-chi-square.qmd), with numerical examples in [Chi-squared examples](da-09-chi-square-examples.qmd).
+
+## One of each, or two quantitative variables
+
+A quantitative response and a categorical explanatory variable are compared by a boxplot in each group, or by the group means and standard deviations. A visible shift between boxes is a reason to fit the two-sample model or the [analysis of variance](inf-07-anova.qmd). It is not yet the test.
+
+Two quantitative variables are drawn as a scatterplot. The sample correlation
+
+$$
+r=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sqrt{\sum_{i=1}^n(x_i-\overline x)^2\sum_{i=1}^n(y_i-\overline y)^2}}
+$$
+
+lies in $[-1,1]$. It measures linear association only. A correlation near zero can hide a curve, and a correlation near $\pm 1$ can be produced by a single distant point. The line that the correlation is describing is fitted in [Linear regression](inf-06-regression.qmd). A scatterplot matrix shows every pair at once. The matrix is symmetric, so one triangle is enough.
+
+On a set of clinical measurements from patients admitted with heart failure, the strongest linear association among the laboratory numbers was a correlation of about $-0.26$ between $\log_{10}$ serum creatinine and serum sodium, and about $0.23$ between $\log_{10}$ serum creatinine and age. Neither is strong. The plots are still worth drawing, because a later regression will assume a form those plots can contradict.
+
+::: {.callout-note}
+## Key idea
+Match the summary to the variable. Counts for categories, a centre and a spread for numbers, a scatterplot before a correlation. None of these is a conclusion about a parameter.
+:::
+
+## Exercises
+
+::: {#ex-da-nutrition-types .exercise}
+## Classifying variables in a nutrition survey
+
+A survey of elderly people records, among other columns: gender (male or female), family situation (single, living with a spouse, living with family, or living with someone else), cups of tea per day, cups of coffee per day, height in centimetres, weight in kilograms, age in years, and how often meat is eaten (never, less than once a week, once a week, two or three times a week, four to six times a week, or every day).
+
+Classify each variable as nominal, ordinal, or quantitative.
+
+:::
+
+::: {#ex-da-correlation-reading .exercise}
+## Reading a correlation
+
+The sample correlation between $\log_{10}$ serum creatinine and serum sodium in a heart-failure cohort is $-0.26$, and the correlation between $\log_{10}$ serum creatinine and age is $0.23$.
+
+(a) Which pair moves together, and which pair moves in opposite directions?
+
+(b) Why is neither correlation, by itself, a reason to conclude that one variable causes the other?
+
+:::

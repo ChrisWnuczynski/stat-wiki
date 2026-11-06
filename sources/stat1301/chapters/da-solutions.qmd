@@ -1,0 +1,161 @@
+# Worked answers
+
+[]{#sol-da-normal-ten} **[Ten normal observations](#ex-da-normal-ten).**
+
+The sample mean is $4.642$ and the bias-corrected sample standard deviation is $1.306$. Then
+
+$$
+4.642\pm 2.262\times\frac{1.306}{\sqrt{10}}=4.642\pm 0.935,
+$$
+
+which is $(3.71,\,5.58)$.
+
+[]{#sol-da-melbourne-oil} **[Household spending on fuel](#ex-da-melbourne-oil).**
+
+$$
+1136\pm 2.678\times\frac{178}{\sqrt{51}}=1136\pm 66.8,
+$$
+
+which is $(1069.2,\,1202.8)$.
+
+[]{#sol-da-pilot-width} **[Narrowing a pilot interval](#ex-da-pilot-width).**
+
+The pilot half-width is $(82.5-59.3)/2=11.6$ kg at $n=100$. The margin scales as $1/\sqrt n$, so a margin of 1 kg needs
+
+$$
+n\ge 100\times 11.6^2=13456.
+$$
+
+Recovering the pilot standard deviation with a $t_{99}$ quantile near $1.98$ and then planning the new interval with $z_{0.975}=1.96$ lowers the requirement to $13188$. Either figure is a sample of more than thirteen thousand.
+
+[]{#sol-da-paper-thickness} **[Printer paper](#ex-da-paper-thickness).**
+
+The mean is $101$ and the bias-corrected standard deviation is $3.916$. Then
+
+$$
+101\pm 2.262\times\frac{3.916}{\sqrt{10}}=101\pm 2.80,
+$$
+
+which is $(98.2,\,103.8)$, matching $(98.1,\,103.9)$ at the rounding of $s$. The interval contains 100, so these ten sheets do not show that the mean thickness differs from the advertised value.
+
+[]{#sol-da-sleep-sample-size} **[Hours of sleep](#ex-da-sleep-sample-size).**
+
+The pilot margin is $7.39=t_{3,\,0.975}\,s/\sqrt{4}$ with $t_{3,\,0.975}\approx 3.182$, so $s\approx 4.65$. A future sample of size $n$ has margin $t_{n-1,\,0.975}\,s/\sqrt n$. The smallest $n$ for which this is at most 2 is $n=24$: $t_{23,\,0.975}\approx 2.07$ and $2.07\times 4.65/\sqrt{24}\approx 1.96<2$, while $n=23$ is just over 2.
+
+[]{#sol-da-shady-poll} **[A difference of proportions](#ex-da-shady-poll).**
+
+$\widehat p_W=350/980=0.3571$ and $\widehat p_M=420/1108=0.3791$. The difference is $-0.0219$ and the estimated standard error is $0.0211$. Then
+
+$$
+-0.0219\pm 1.645\times 0.0211=(-0.057,\,0.013).
+$$
+
+[]{#sol-da-juice-variance} **[Variance of a fill volume](#ex-da-juice-variance).**
+
+$(n-1)s^2=26\times 5.86^2=893.0$. The interval is
+
+$$
+\left(\frac{893.0}{41.92},\,\frac{893.0}{13.84}\right)=(21.3,\,64.5).
+$$
+
+[]{#sol-da-caffeine-cola} **[Caffeine in a cola](#ex-da-caffeine-cola).**
+
+The model is an independent normal sample. The hypotheses are $H_0:\mu=19$ against $H_1:\mu>19$. The statistic $(\overline X-19)/(s/\sqrt n)$ is $t_{39}$ under $H_0$. The observed value is
+
+$$
+\frac{19.57-19}{1.40/\sqrt{40}}=2.57.
+$$
+
+The one-sided p-value is 0.007, so $H_0$ is rejected at level 0.05. The mean caffeine in this brand is higher than 19 mg per serving.
+
+[]{#sol-da-brexit-poll} **[A later poll on leaving](#ex-da-brexit-poll).**
+
+$H_0:p=0.519$ against $H_1:p\neq 0.519$. The observed leave proportion is 0.46. The statistic $z=-2.64$ has two-sided p-value about 0.0082, so the poll is not consistent with an unchanged leave proportion at level 0.05. An approximate 95% interval for the leave proportion is $(0.42,\,0.50)$.
+
+[]{#sol-da-steel-rods} **[Steel rod diameters](#ex-da-steel-rods).**
+
+(a) $(6-6.1)/0.1=-1$, and $\Phi(-1)=0.1587$, about 0.159.
+
+(b) The 0.01 quantile of a normal law sits $2.326$ standard deviations below the mean, so the mean must be $6+2.326\times 0.1=6.23$ cm.
+
+(c) $t=(6.1-6)/(0.1/\sqrt{100})=10$ on 99 degrees of freedom. The one-sided p-value is negligible, so the mean diameter is greater than 6 cm.
+
+[]{#sol-da-shuffle} **[A shuffling machine](#ex-da-shuffle).**
+
+$H_0:p=1/2$ against $H_1:p>1/2$, with $X\sim\Bin(20,p)$ the number of red top cards. The observed value is 17. The p-value $\Pr(X\ge 17\mid p=1/2)=0.00174$, so the machine is not consistent with a fair top card.
+
+[]{#sol-da-two-proportions} **[Two proportions](#ex-da-two-proportions).**
+
+$H_0:p_X=p_Y$ against $H_1:p_X>p_Y$. The p-value 0.23 does not reject at level 0.05. The interval $(-0.067,\,0.121)$ contains 0, which is the same conclusion.
+
+[]{#sol-da-home-ground} **[Home-ground wins](#ex-da-home-ground).**
+
+$H_0$ is equal home and away win probabilities. $H_1$ is that they differ. The p-value 0.2526 does not reject equality at level 0.05. These games do not show a home-ground advantage.
+
+[]{#sol-da-sickle-anova} **[Haemoglobin and sickle-cell type](#ex-da-sickle-anova).**
+
+$H_0$ is equal mean haemoglobin in the three disease types. $H_1$ is that the means are not all equal. The degrees of freedom are $3-1=2$ and $41-3=38$. The $F$ statistic is
+
+$$
+F=\frac{99.89/2}{1.00}=49.95.
+$$
+
+The p-value is about $2.3\times 10^{-11}$, so the means differ at level 0.05. The $F$ test assumes independent normal observations with a common variance.
+
+[]{#sol-da-bonferroni} **[Five treatments, ten pairs](#ex-da-bonferroni).**
+
+Each of the 10 pairs is tested at level $0.05/10=0.005$.
+
+[]{#sol-da-pine-trees} **[Height and age of pine trees](#ex-da-pine-trees).**
+
+The fitted line is $\widehat{\mathrm{height}}=5.599+3.395\times\mathrm{age}$. At age 4 the prediction is $5.599+3.3949\times 4=19.18$ metres. The slope's p-value is far below 0.05, so the fit shows a linear association between age and height.
+
+[]{#sol-da-birth-weight} **[Birth weight and mother's age](#ex-da-birth-weight).**
+
+At age 15 the fitted mean is $3204.23-18.84\times 15=2921$ g. At age 35 it is $3204.23-18.84\times 35=2544$ g. The slope's p-value is 0.1102, so the decrease is not distinguishable from zero at level 0.05.
+
+[]{#sol-da-orange-yield} **[Rain, food, and orange yield](#ex-da-orange-yield).**
+
+$$
+99.504+0.01763\times 1000+0.04020\times 500=137.3
+$$
+
+kilograms. A prediction interval covers a new tree, which still has variance $\sigma^2$ even if the mean yield were known. A confidence interval covers only the mean, so it is shorter.
+
+[]{#sol-da-shark-swim} **[How far sharks swim](#ex-da-shark-swim).**
+
+(a) The margin scales as $1/\sqrt n$. Cutting it by four multiplies the sample size by 16, so $151\times 16=2416$ females.
+
+(b) $H_0$ is equal mean weights. The two-sided alternative is that the means differ. The p-value 0.00164 rejects equality at level 0.05.
+
+(c) A 100 kg female is predicted to swim $2.631+0.0937\times 100=12.0$ km. A 100 kg male is predicted to swim $12.0-1.966=10.0$ km.
+
+[]{#sol-da-isotopia-wages} **[Wages, class, and gender](#ex-da-isotopia-wages).**
+
+(a) A working-class man is estimated at $93.242-4.247=88.995$, about 89 thousand dollars.
+
+(b) The coefficient 3.927 is the estimated difference, in thousands of dollars, between women and men of the same class. The sign says women are estimated higher.
+
+(c) The gender row has p-value 0.01029, so the difference is distinguishable from zero at level 0.05. The gender mean square is $3194/1$ and the residual mean square is 102, so $F=3194/102=31.3$, which is the square of the $t$ statistic and gives the same conclusion.
+
+[]{#sol-da-possums} **[Possums in five areas](#ex-da-possums).**
+
+The total is 1380, so each expected count is $1380/5=276$. The Pearson statistic is
+
+$$
+\sum\frac{(O_i-276)^2}{276}=15.63.
+$$
+
+The approximate null distribution is $\chi^2_4$. The p-value 0.0036 rejects equal attractiveness at level 0.05. Some areas are preferred.
+
+[]{#sol-da-fruit-flies} **[Genotype and mating success](#ex-da-fruit-flies).**
+
+Row totals are 12, 29 and 9. Column totals are 23 and 27. The grand total is 50. Expected counts are the products of the margins divided by 50:
+
+| | No | Yes |
+|---|---:|---:|
+| AA | 5.52 | 6.48 |
+| AB | 13.34 | 15.66 |
+| BB | 4.14 | 4.86 |
+
+The p-value 0.2853 does not reject independence at level 0.05. These trials do not show an association between genotype and mating success.

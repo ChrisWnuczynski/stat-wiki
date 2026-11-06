@@ -64,6 +64,8 @@ With two treatments the differences within blocks are a single sample, and the t
 Compare the variance of the group means with the variance inside the groups. Under equal means the ratio is an $F$ statistic. Blocking pulls a known source of variation out of the error before that comparison is made.
 :::
 
+A Bonferroni comparison and a worked haemoglobin table are in [Analysis of variance examples](da-06-anova-examples.qmd).
+
 ## Exercises
 
 ::: {#ex-inf-heart-rate .exercise}

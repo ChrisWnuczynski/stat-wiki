@@ -26,6 +26,7 @@ PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
 REPO_URL = "https://github.com/ChrisWnuczynski/stat-wiki"
 PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
 INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
+DATA = SOURCES / "stat1301"  # studies, description, R, and examples that point at inference
 
 PARTS = [
     (
@@ -50,6 +51,20 @@ PARTS = [
             ("inf-05-chi-square.qmd", "notes"),
             ("inf-06-regression.qmd", "notes"),
             ("inf-07-anova.qmd", "notes"),
+        ],
+    ),
+    (
+        "Data analysis",
+        [
+            ("da-01-studies-and-data.qmd", "notes"),
+            ("da-02-descriptive-statistics.qmd", "notes"),
+            ("da-03-using-r.qmd", "notes"),
+            ("da-04-estimation-examples.qmd", "notes"),
+            ("da-05-testing-examples.qmd", "notes"),
+            ("da-06-anova-examples.qmd", "notes"),
+            ("da-07-regression-examples.qmd", "notes"),
+            ("da-08-linear-model-examples.qmd", "notes"),
+            ("da-09-chi-square-examples.qmd", "notes"),
         ],
     ),
     (
@@ -960,6 +975,15 @@ CHAPTER_CODES = {
     "I5": "inf-05-chi-square.qmd",
     "I6": "inf-06-regression.qmd",
     "I7": "inf-07-anova.qmd",
+    "D1": "da-01-studies-and-data.qmd",
+    "D2": "da-02-descriptive-statistics.qmd",
+    "D3": "da-03-using-r.qmd",
+    "D4": "da-04-estimation-examples.qmd",
+    "D5": "da-05-testing-examples.qmd",
+    "D6": "da-06-anova-examples.qmd",
+    "D7": "da-07-regression-examples.qmd",
+    "D8": "da-08-linear-model-examples.qmd",
+    "D9": "da-09-chi-square-examples.qmd",
     "B1": "bayes-01-foundations.qmd",
     "B2": "bayes-02-beta-binomial.qmd",
     "B3": "bayes-03-normal-models.qmd",
@@ -1492,6 +1516,7 @@ def index_chapter(note: dict, part: str, body: str) -> str:
 B, G, S, C, T = "Bayesian statistics", "Generalised linear models", "Smoothing", "Correlated data", "Time series"
 P = "Probability"
 I = "Statistical inference"
+D = "Data analysis"
 TERMS = [
     # Probability. Scoped so a phrase already owned by a later chapter
     # (Bayes' rule, a named distribution, MCMC) keeps that target.
@@ -1521,6 +1546,9 @@ TERMS = [
     (r"type I errors?|type II errors?", "I4", "def-type-i-and-type-ii-errors", {I}),
     (r"goodness-of-fit tests?|contingency tables?", "I5", "def-pearson-statistic", {I}),
     (r"analysis of variance|ANOVA", "I7", "def-one-way-anova", None),
+    (r"observational studies?", "D1", "def-observational-study", None),
+    (r"designed experiments?|randomised experiments?|randomized experiments?", "D1", "def-designed-experiment", None),
+    (r"interquartile ranges?|IQRs?", "D2", "def-interquartile-range", None),
     # Bayesian foundations
     (r"highest[- ](?:posterior[- ])?density (?:intervals?|regions?)|HPD (?:intervals?|regions?)", "B1", "def-credible-region-constructions", None),
     (r"equal-tailed (?:credible )?intervals?", "B1", "def-credible-region-constructions", None),
@@ -2776,7 +2804,8 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     lines = [
         "Every chapter is an article. Each one ends with a table of the questions on its topic. "
         "The Probability section is the common language for the later chapters: experiments, random variables, simulation, dependence, limits, Markov chains and reliability. "
-        "Statistical inference then turns a random sample into an estimate, an interval, or a test.",
+        "Statistical inference then turns a random sample into an estimate, an interval, or a test. "
+        "Data analysis is where a study, a table of summaries, and an R calculation meet those methods.",
         "",
     ]
     for part, members in parts.items():
@@ -2862,7 +2891,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for probability, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -2985,7 +3014,7 @@ format:
 
 def distributions_body() -> str:
     return r"""
-The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page.
+The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page. How a sample from one of these laws is summarised before a model is fitted is on [Descriptive statistics](../notes/da-02-descriptive-statistics.qmd).
 
 ## Discrete
 
@@ -3127,7 +3156,7 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 
 def chapter_source(filename: str) -> Path:
     """Chapter files live with the book, except the probability notes."""
-    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters"):
+    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters"):
         path = folder / filename
         if path.exists():
             return path
@@ -3196,6 +3225,7 @@ def main() -> None:
         BOOK / "chapters" / "bayes-11-solutions.qmd",
         PROBABILITY / "chapters" / "prob-solutions.qmd",
         INFERENCE / "chapters" / "inf-solutions.qmd",
+        DATA / "chapters" / "da-solutions.qmd",
     ):
         solutions = sol_path.read_text(encoding="utf-8")
         matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))
