@@ -1635,6 +1635,23 @@ TERMS = [
     (r"limiting distributions?", "P6", "thm-limiting-distribution", None),
     (r"transition matri(?:x|ces)", "P6", "def-finite-state-markov-chain", None),
     (r"survival functions?|mean time to failure|MTTF", "P7", "def-survival", None),
+    # Data analysis.
+    (r"randomi[sz]ed controlled trials?|RCTs?", "D1", "def-randomised-controlled-trial", None),
+    (r"confound(?:ing|ers?|ed)(?: variables?)?", "D1", "def-confounding-variable", None),
+    (r"double-blind|blind(?:ed)? (?:experiments?|trials?)|placebos?", "D1", "def-blinding-and-placebo", None),
+    (r"simple random samples?", "D1", "def-simple-random-sample", None),
+    (r"stratified sampl(?:e|es|ing)|cluster sampl(?:e|es|ing)", "D1", "def-stratified-and-cluster-sampling", None),
+    (r"sample quantiles?|percentiles?|quartiles?", "D2", "def-sample-quantile", {P, I, D}),
+    (r"sample variances?|sample standard deviations?", "D2", "def-sample-variance-and-standard-deviation", {D}),
+    (r"five-number summar(?:y|ies)|box ?plots?", "D2", "def-five-number-summary-and-boxplot", None),
+    (r"normal quantile plots?|Q-Q plots?|QQ plots?", "D2", "def-normal-quantile-plot", None),
+    (r"margins? of error", "D4", "def-margin-of-error", None),
+    (r"Welch(?:'s)? (?:intervals?|t[- ]tests?|tests?)|Welch(?:--|–|-)Satterthwaite", "D4", "def-welch-interval", None),
+    (r"Bonferroni(?: corrections?| methods?)?", "D6", "def-bonferroni-correction", None),
+    (r"interactions?", "D6", "def-interaction", {D, I}),
+    (r"multiple (?:linear )?regressions?", "D7", "def-multiple-linear-regression", {D, I}),
+    (r"adjusted R-squared|adjusted \$R\^2\$", "D7", "def-adjusted-r-squared", None),
+    (r"dummy variables?|indicator variables?|reference levels?", "D8", "def-dummy-variable-coding", {D, I}),
     (r"series systems?|parallel systems?|k-out-of-n systems?|minimal (?:path|cut) sets?", "P7", "def-structure-function", {P}),
     (r"observational studies?", "D1", "def-observational-study", None),
     (r"designed experiments?|randomised experiments?|randomized experiments?", "D1", "def-designed-experiment", None),
@@ -1727,7 +1744,9 @@ TERMS = [
     (r"PIT residuals?|probability-integral(?:[- ]transform)? residuals?|randomi[sz]ed quantile residuals?", "G6", "", None),
     # Smoothing
     (r"roughness penalty|smoothing parameters?|penali[sz]ed (?:regression )?splines?|cubic splines?|regression splines?|splines?", "S1", "A roughness penalty", None),
-    (r"effective degrees of freedom|additive models?", "S2", "Sums of smooth functions", None),
+    # "Additive model" also means "no interaction" in an analysis of variance, and
+    # Welch's test has effective degrees of freedom too, so this stays with smoothing.
+    (r"effective degrees of freedom|additive models?", "S2", "Sums of smooth functions", {S, G, C, T}),
     # Correlated data
     (r"random intercepts?|linear mixed models?|mixed models?", "C1", "A random intercept", None),
     (r"fixed effects?|random effects?", "C1", "What is fixed, and what is random", None),
@@ -3204,7 +3223,8 @@ format:
       method: katex
       url: /katex/
     smooth-scroll: true
-    code-overflow: wrap
+    # Scroll, not wrap: R output is aligned in columns.
+    code-overflow: scroll
     link-external-newwindow: true
     include-after-body: _random.html
     # The site is published on GitHub Pages; ask search engines not to list it.

@@ -1,8 +1,152 @@
 # Estimation examples
 
-The definitions of an estimator, maximum likelihood, bias, and a confidence interval are in [Estimation](inf-02-estimation.qmd) and [Confidence intervals](inf-03-confidence-intervals.qmd). A confidence interval is not a [credible interval](bayes-01-foundations.qmd#def-bayesian-credible-interval): after the sample is observed the endpoints are numbers, and the confidence is a property of the procedure. This page keeps numerical examples of those procedures.
+The definitions of an estimator, maximum likelihood, bias, and a confidence interval are in [Estimation](inf-02-estimation.qmd) and [Confidence intervals](inf-03-confidence-intervals.qmd). A confidence interval is not a [credible interval](bayes-01-foundations.qmd#def-bayesian-credible-interval): after the sample is observed the endpoints are numbers, and the confidence is a property of the procedure. This page works the procedures on data, with the R that does the arithmetic, and adds the one interval the inference chapters leave out: Welch's interval for two means with unequal variances.
 
-For a normal sample with unknown variance the interval for the mean is $\overline x\pm t_{n-1,\,1-\alpha/2}\,s/\sqrt n$. For a large sample the same form with a normal quantile is the approximate interval, and it is the one used for a difference of proportions. The sample size that cuts a margin of error down to a chosen width follows because the margin is proportional to $1/\sqrt n$.
+## From data to an estimate
+
+::: {#exm-a-biased-coin .example}
+## A biased coin
+
+A coin is tossed 1000 times and shows 570 heads.
+
+**Question.** Estimate the probability of heads, and say whether $p=0.5$ is plausible.
+
+**Solution.** Model the count as $X\sim\Bin(1000,p)$ with $p$ unknown. The probability $p$ will never be known; the data give an estimate, $\widehat p=570/1000=0.570$. Its standard error is $\sqrt{0.57\times0.43/1000}=0.0157$, and the approximate 95% interval is
+
+$$
+0.570\pm1.96\times0.0157=(0.539,\ 0.601).
+$$
+
+R's exact binomial interval agrees to three decimal places:
+
+```r
+binom.test(570, 1000)$conf.int     # 0.5386 0.6009
+```
+
+The interval excludes $0.5$, so a fair coin is not a plausible explanation of 570 heads.
+
+:::
+
+::: {#exm-ten-normal-measurements .example}
+## Ten normal measurements
+
+Ten measurements, modelled as a $\Normal(\mu,\sigma^2)$ sample, are
+
+$$
+77.01,\ 71.37,\ 77.15,\ 79.89,\ 76.46,\ 78.10,\ 77.18,\ 74.08,\ 75.88,\ 72.63.
+$$
+
+**Question.** Estimate $\mu$ and $\sigma$, and give a 95% interval for $\mu$.
+
+**Solution.**
+
+```r
+x <- c(77.01, 71.37, 77.15, 79.89, 76.46, 78.10, 77.18, 74.08, 75.88, 72.63)
+mean(x); sd(x)              # 75.975  2.581
+t.test(x)$conf.int          # 74.13  77.82
+```
+
+The estimates are $\widehat\mu=\overline x=75.975$ and $s=2.58$. The $t$ interval uses $t_{9;0.975}=2.262$: $75.975\pm2.262\times2.58/\sqrt{10}=(74.13,\ 77.82)$. With only ten values the $t$ quantile matters; the normal quantile 1.96 would give an interval about 13% too short.
+
+:::
+
+## Large samples
+
+When the data are not known to be normal, the central limit theorem still makes $\overline X$ approximately normal for a large sample, and $s$ is close to $\sigma$.
+
+::: {#def-margin-of-error .definition}
+## Margin of error
+
+For a random sample with mean $\mu$ and finite variance, the approximate confidence interval for $\mu$ with confidence $1-\alpha$ is $\overline X\pm z_{1-\alpha/2}\,s/\sqrt n$. Its half-width, $z_{1-\alpha/2}\,s/\sqrt n$, is the margin of error.
+
+:::
+
+The approximation needs care when the sample is small or the data are heavily skewed, which is what a histogram or a [normal quantile plot](da-02-descriptive-statistics.qmd#def-normal-quantile-plot) checks. For a household fuel survey with $n=51$, $\overline x=1136$ and $s=178$ dollars, the approximate 95% interval is $1136\pm1.96\times178/\sqrt{51}=(1087,\ 1185)$. The exact normal-theory interval, with $t_{50;0.975}=2.009$, is $(1086,\ 1186)$; at $n=51$ the two hardly differ.
+
+The margin of error shrinks like $1/\sqrt n$, so planning a sample size is a matter of solving for $n$: halving the margin takes four times the data. The calculation is in [Confidence intervals](inf-03-confidence-intervals.qmd).
+
+## Small normal samples
+
+::: {#exm-the-volume-of-a-drop .example}
+## The volume of a drop
+
+A burette reads 25.36 mL, then 22.84 mL after 50 drops, then 20.36 mL after another 50.
+
+**Question.** Give a 95% interval for the volume of one drop.
+
+**Solution.** The two batches of 50 drops have volumes $x_1=2.52$ and $x_2=2.48$ mL. Model them as a $\Normal(\mu,\sigma^2)$ sample of size $n=2$, where $\mu$ is the expected volume of 50 drops. Then $\overline x=2.50$, $s=0.02\sqrt2$, and the standard error is $s/\sqrt2=0.02$. With one degree of freedom $t_{1;0.975}=12.71$, so the interval for $\mu$ is
+
+$$
+2.50\pm12.71\times0.02=(2.25,\ 2.75).
+$$
+
+Dividing by 50, a monotone change of scale, gives a 95% interval for one drop of $(0.045,\ 0.055)$ mL. The huge quantile 12.71 is the price of estimating a standard deviation from two numbers.
+
+:::
+
+The $t$ and chi-squared quantiles come from R:
+
+```r
+qt(0.975, df = c(1, 2, 5, 50, 100))   # 12.71  4.30  2.57  2.01  1.98
+qchisq(c(0.025, 0.975), df = 24)      # 12.40  39.36
+```
+
+The $t$ quantiles fall quickly towards the normal 1.96 as the degrees of freedom grow. The chi-squared quantiles give the interval for a variance, as in the aspirin example of [Confidence intervals](inf-03-confidence-intervals.qmd#exm-aspirin-tablet-weights).
+
+## Two samples with unequal variances
+
+The pooled interval for $\mu_X-\mu_Y$ assumes the two populations have the same variance. Without that assumption, $\overline X-\overline Y$ is still approximately normal with variance $\sigma_X^2/n_1+\sigma_Y^2/n_2$, and replacing each variance by its sample estimate gives a statistic close to a $t$ distribution with fractional degrees of freedom.
+
+::: {#def-welch-interval .definition}
+## Welch interval
+
+For independent normal samples of sizes $n_1$ and $n_2$ with sample variances $s_X^2$ and $s_Y^2$, the Welch interval for $\mu_X-\mu_Y$ with approximate confidence $1-\alpha$ is
+
+$$
+\overline x-\overline y\pm t_{\mathrm{df};\,1-\alpha/2}\sqrt{\frac{s_X^2}{n_1}+\frac{s_Y^2}{n_2}},
+\qquad
+\mathrm{df}=\frac{\bigl(s_X^2/n_1+s_Y^2/n_2\bigr)^2}{\dfrac{(s_X^2/n_1)^2}{n_1-1}+\dfrac{(s_Y^2/n_2)^2}{n_2-1}}.
+$$
+
+The degrees of freedom are the Welch–Satterthwaite approximation.
+
+:::
+
+The effective degrees of freedom lie between the smaller of $n_1-1$ and $n_2-1$ and the pooled $n_1+n_2-2$. For non-normal data the interval is still approximately right when both samples are reasonably large, say 30 or more; for small, skewed samples a rank-based method such as the Wilcoxon rank-sum test is safer.
+
+::: {#exm-first-and-third-year-weights .example}
+## First- and third-year weights
+
+15 first-year students have mean weight 62.0 kg and standard deviation 15 kg; 10 third-year students have mean 71.5 kg and standard deviation 12 kg.
+
+**Question.** Give a 95% interval for the difference in mean weights without assuming equal variances.
+
+**Solution.** The standard error is $\sqrt{15^2/15+12^2/10}=5.422$, and the effective degrees of freedom are $22.10$, so $t_{22.10;0.975}=2.073$. The interval is
+
+$$
+-9.5\pm2.073\times5.422=(-20.74,\ 1.74).
+$$
+
+It contains 0, so the data do not show a difference in mean weight. The pooled interval, which assumes equal variances, is $(-21.24,\ 2.24)$ on 23 degrees of freedom, a little wider here because the larger sample has the larger variance. With the raw data, `t.test(x, y)` gives the Welch interval, R's default, and `t.test(x, y, var.equal = TRUE)` the pooled one.
+
+:::
+
+## Proportions
+
+For a count $X\sim\Bin(n,p)$, the [Wald interval](inf-03-confidence-intervals.qmd#def-wald-interval) $\widehat p\pm z_{1-\alpha/2}\sqrt{\widehat p(1-\widehat p)/n}$ is reasonable when there are at least 5 successes and 5 failures. In a poll of 1000 voters, 227 support a party: $\widehat p=0.227$, comfortably above the threshold, and the 95% interval is $(0.20,\ 0.25)$. For two groups, the interval for $p_X-p_Y$ adds the two variances. For the nightmare survey, 55 of 160 men and 60 of 192 women, it is $(-0.067,\ 0.130)$.
+
+R's `prop.test` does these calculations, but by default it applies a continuity correction, which widens the interval slightly:
+
+```r
+prop.test(c(55, 60), c(160, 192), correct = FALSE)$conf.int   # -0.067  0.130
+```
+
+With `correct = FALSE` it reproduces the Wald interval for a difference.
+
+::: {.callout-note}
+## Key idea
+An estimate is a number; its interval says how far it could plausibly be from the parameter. Use the $t$ quantile for a small normal sample, the normal quantile for a large one, Welch's interval when two variances may differ, and check the success and failure counts before trusting an interval for a proportion.
+:::
 
 ## Exercises
 

@@ -18,7 +18,8 @@ On every push to `main`, GitHub runs both steps and publishes the result. It tak
 | Article properties, examples and pictures | `article_extras.py` |
 | Page layout, links and infoboxes | `build_wiki.py` |
 | Colours, fonts and dark mode | `styles.css` |
-| Figures for the probability and inference chapters | `make_figures.py` in `sources/stat2003/figures` or `sources/stat2004/figures`, then commit the PDFs it writes |
+| Figures for the probability, inference and data analysis chapters | `make_figures.py` in `sources/stat2003/figures`, `sources/stat2004/figures` or `sources/stat1301/figures`, then commit the PDFs it writes. A `.tex` file beside a PDF is its TikZ source. |
+| Data behind the data analysis figures | `sources/stat1301/data` (heart-failure records and `birthwt`) |
 
 The build reads only the copies in `sources/`:
 

@@ -10,6 +10,8 @@ The smallest model is a random sample: $X_1,\ldots,X_n$ independent, with a comm
 
 Two groups give two samples. Preferences for two colas, recorded as Bernoulli indicators in 100 boys and 100 girls, are independent $\operatorname{Bern}(p_1)$ and $\operatorname{Bern}(p_2)$ samples, or equivalently two independent binomial counts. Heights of men whose mothers did or did not smoke during pregnancy are two independent normal samples, and the comparison of interest is $\mu_1-\mu_2$. The intervals and tests for those comparisons are in [Confidence intervals](inf-03-confidence-intervals.qmd) and [Hypothesis tests](inf-04-hypothesis-tests.qmd). Worked numerical versions are in [Estimation examples](da-04-estimation-examples.qmd) and [Testing examples](da-05-testing-examples.qmd).
 
+![Simulated heights from a two-sample normal model, 60 sons of mothers who smoked with $\mu_1=170$ and $\sigma_1^2=200$, and 140 sons of mothers who did not with $\mu_2=175$ and $\sigma_2^2=100$. The groups overlap heavily even though their means differ by 5 cm.](../figures/da-two-sample-heights.pdf){#fig-da-two-sample-heights}
+
 Every such model is an approximation. Heights are recorded on a discrete scale and cannot be negative, while a normal draw can be. The normal law is still useful when simulated samples look like the data and the mathematical summaries are tractable. A model that cannot reproduce the rough shape of the data is not a basis for a conclusion. Checking that shape is part of [Descriptive statistics](da-02-descriptive-statistics.qmd).
 
 ## Observational studies and experiments
@@ -32,13 +34,115 @@ In a designed experiment some columns are controlled. Treatments are assigned to
 
 The variables one hopes to explain are the response, also called the outcome. The variables used to explain it are explanatory variables, also called covariates or factors. A randomised design assigns each unit one of a small number of treatments with equal probability. After a large enough randomisation, the treatment groups agree, before treatment, on the distribution of every variable, measured or not. A difference that then appears in the response is evidence about the treatments, not about who happened to land in which group.
 
+Measurements vary for more than one reason. Most of the variation in heights is natural diversity between people, from genetics, diet and environment. Some is measurement error. Later models try to explain part of the variation by other variables, such as sex or shoe size. What no variable in the model explains is the residual variability, and a good model leaves little of it while still predicting new data well. One or more measurements are taken on each experimental unit: a person, a plant, a plot of land, a household, a star or a manufactured object.
+
+::: {#def-randomised-controlled-trial .definition}
+## Randomised controlled trial
+
+In a randomised controlled trial each experimental unit receives one of several treatments, chosen at random with equal probability, and one of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.
+
+:::
+
+::: {#def-confounding-variable .definition}
+## Confounding variable
+
+A confounding variable affects both the explanatory variable and the response, so that an association between those two can appear, disappear or reverse when the confounder is taken into account.
+
+:::
+
+Taller people tend to have shorter hair. Within each sex there may be no relationship at all: women are on average shorter than men and on average have longer hair, and sex drives both. Sex confounds the comparison of height and hair length. In a well-run randomised experiment confounding cannot arise in this way, because the treatment groups have similar distributions of every variable.
+
+Observational studies are retrospective when they analyse data that already exist, collected for some other purpose, and prospective when they are planned and the measurements follow. Neither assigns treatments. Many attributes cannot be assigned, for physical or ethical reasons: sex, age and beliefs are examples. A comparison between groups defined by such an attribute can show association with the response, but by itself not causation.
+
 That is why a randomised comparison can support a causal sentence and an observational comparison usually cannot. In the smoking-and-height example the mothers were not assigned to smoke. A difference in sons' heights is compatible with an effect of smoking and also with diet, income, or anything else that differs between the two groups of mothers. Randomisation is what blocks that reading.
 
 Blinding keeps the assignment from leaking into the response. In a blind experiment the unit does not know which treatment it received. In a double-blind experiment the person who measures the response does not know either. A placebo, an inactive treatment that otherwise resembles the active one, is what makes that possible when the act of being treated itself changes the response.
 
-Alice's caffeine comparison is the picture. Heart rate is measured, a drink is taken, and heart rate is measured again. The response is the change. Comparing a caffeinated diet cola with a decaffeinated diet cola holds the sugar and the flavour roughly fixed, so the contrast is closer to caffeine than to "cola versus water". Using friends as the subjects, or a sample of convenience more generally, does not. A convenience sample takes whoever is at hand. A self-selected sample takes whoever volunteers, as in a telephone poll of viewers. Neither is a random sample from the population the conclusion is about, and both tend to bias the estimate. The bias is not fixed by a larger sample of the same kind.
+::: {#def-blinding-and-placebo .definition}
+## Blinding and placebo
+
+In a blind experiment the units do not know which treatment they received. In a double-blind experiment the people who give the treatments and measure the responses do not know either. A placebo is a control treatment that resembles the active one in every manageable way but lacks the active ingredient.
+
+:::
+
+Blinding matters because knowledge of the treatment can change the response. Patients given an inactive sugar pill sometimes report less pain; that is the placebo effect, and only a comparison against a placebo can separate it from the effect of the drug.
+
+::: {#exm-alices-caffeine-experiment .example}
+## Alice's caffeine experiment
+
+Alice asks whether caffeinated cola raises the heart rate more than decaffeinated cola. She measures the heart rates of 20 friends, gives 10 of them 250 mL of caffeinated diet cola and 10 caffeine-free diet cola, waits half an hour, and measures again. The changes in beats per minute are
+
+| | | | | | | | | | | |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Caffeinated | 17 | 22 | 21 | 16 | 6 | −2 | 27 | 15 | 16 | 20 |
+| Decaf | 4 | 10 | 7 | −9 | 5 | 4 | 5 | 7 | 6 | 12 |
+
+**Question.** Identify the response, the explanatory variable and the design choices, and summarise the data.
+
+**Solution.** The experimental units are the 20 friends. The response is the change in heart rate, and the explanatory variable is caffeine, a factor with two levels. Several choices protect the comparison. Diet cola is compared with decaf diet cola because the two differ only in caffeine; regular and decaf regular cola also differ in sugar, energy and sodium. Half an hour is roughly the time caffeine takes to be absorbed. Choosing the 10 caffeine drinkers at random, rather than as, say, the 10 women, prevents a difference in heart rate from being a difference between the groups. Not telling the friends which drink they had, and ideally not telling whoever reads the pulse meter, prevents expectations from moving the response. Using friends at all limits the conclusion to people like Alice's friends.
+
+The decaf group's mean change is $5.1$ beats per minute and the caffeinated group's is $15.8$, a difference of $10.7$. In a spreadsheet the data should be in standard form, one row per friend, with a column for the change and a column for the caffeine level:
+
+```r
+alice <- data.frame(
+  pb = c(17, 22, 21, 16, 6, -2, 27, 15, 16, 20, 4, 10, 7, -9, 5, 4, 5, 7, 6, 12),
+  Caffeine = rep(c("Yes", "No"), each = 10)
+)
+tapply(alice$pb, alice$Caffeine, mean)
+```
+
+Whether a difference of 10.7 could easily arise by chance, with no effect of caffeine, is the question of the [two-sample t test](inf-04-hypothesis-tests.qmd#def-two-sample-t-test), worked in [Testing examples](da-05-testing-examples.qmd).
+
+:::
+
+![Alice's caffeine data as a strip plot, one dot per friend, with the group means marked. Every caffeinated drinker but one gained more than the decaf group's mean.](../figures/da-alice-strip.pdf){#fig-da-alice-strip}
 
 A study that does not need every covariate recorded is one that randomised. Age, diet, and fitness still affect blood pressure, but if the drug and the control were assigned at random they are balanced across those variables, including the ones nobody wrote down. An observational study of the same question has to measure them, or the comparison stays confounded.
+
+## Sampling from a population
+
+Most methods in this section assume a simple random sample. Collecting data costs time and money per unit, so the sampling design is usually a compromise between that cost and how representative the sample is.
+
+::: {#def-simple-random-sample .definition}
+## Simple random sample
+
+A simple random sample of size $n$ from a finite population of size $N$ is drawn without replacement so that every subset of $n$ members is equally likely to be the sample. In particular, every member has the same probability $n/N$ of being included.
+
+:::
+
+If each unit can be measured remotely, by phone or online, a simple random sample is easy to draw. Number the population and let the computer choose:
+
+```r
+chosen <- sample(1:100000, 200)
+```
+
+Each run gives a different set of 200 indices. The numbers come from a pseudorandom generator, which for this purpose behaves like true randomness; see [Simulation](prob-03-simulation.qmd).
+
+When units must be visited in person, a simple random sample scattered over a whole country is slow and expensive. Two classic designs keep the randomness and cut the cost.
+
+::: {#def-stratified-and-cluster-sampling .definition}
+## Stratified and cluster sampling
+
+In stratified sampling the population is split into subgroups called strata, and a simple random sample is drawn from each, usually of size $nN_s/N$ for a stratum of size $N_s$. In cluster sampling the population is split into many small clusters, a few clusters are chosen at random, and every unit in each chosen cluster is measured, or a simple random sample is taken within it.
+
+:::
+
+A stratum can be oversampled when it needs more precise estimates; stratifying needs accurate population counts for each stratum. Both designs weaken the independence of the observations a little, since units in one cluster or stratum share something the rest of the population does not, and that tends to raise the variance of estimates somewhat. Being able to afford more observations for the same cost usually more than makes up for it.
+
+::: {#exm-sampling-ten-villages .example}
+## Sampling ten villages
+
+A population lives in 10 small villages: 5 eastern villages of 50 people and 5 western villages of 100 people, so $N=750$. A sample of $n=100$ is wanted.
+
+**Question.** How would a stratified sample and a cluster sample be drawn?
+
+**Solution.** Stratify by east and west, of sizes 250 and 500. The eastern share is $100\times250/750=33.3$, so take a simple random sample of 33 eastern villagers and 67 western ones. That will almost certainly reach every village, which is fair and representative but means a lot of travel.
+
+For a cluster sample, make each eastern village a cluster of 50, and split each western village into two clusters of 50, giving 15 clusters. Choosing 2 clusters at random and measuring everyone in them gives the 100 observations with at most two villages visited, but most of the variety between villages is never seen. A middle course chooses 4 clusters and takes a random half of each, $4\times25=100$, at the cost of visiting up to four villages. Stratifying into east and west first and then clustering within each would guarantee both regions appear.
+
+:::
+
+Many data are collected in ways far from random. A convenience sample takes whoever is available, and generalises only if the available units resemble the population. A self-selected sample takes whoever chooses to take part, as in a television phone-in poll; it rarely represents even the show's viewers, and a keen caller may vote twice. In both, units are not sampled independently with equal probability, which biases estimates, and a larger sample of the same kind does not remove the bias.
 
 ![Left: in an observational study, diet and income can affect both whether a mother smokes and her son's height, so an association between the two need not be causal. Right: in a designed experiment the drug is assigned at random, so the assignment cannot depend on age, diet or fitness, and those cannot explain a difference in blood pressure.](../figures/da-01-studies-and-data-assignment.pdf){#fig-da-assignment}
 
@@ -66,6 +170,8 @@ $$
 
 Write the measurements as a table with one row per subject and say which column is the response and which is the treatment.
 
+[Solution](#sol-da-alice-layout)
+
 :::
 
 ::: {#ex-da-random-split .exercise}
@@ -73,12 +179,16 @@ Write the measurements as a table with one row per subject and say which column 
 
 Twenty people are split at random into a test group and a control group of ten. How many different test groups are possible?
 
+[Solution](#sol-da-random-split)
+
 :::
 
 ::: {#ex-da-blood-pressure-covariates .exercise}
 ## What a randomised trial does not need to record
 
 A trial of a new blood-pressure drug against an existing one will recruit at least 1000 adults aged 30 to 60 with systolic pressure at least 140 mm Hg, of any sex, fitness, occupation, or diet. The only columns required for the comparison are the assigned drug and the blood pressure before and after treatment. Why can age, sex, fitness, occupation, and diet be left unrecorded?
+
+[Solution](#sol-da-blood-pressure-covariates)
 
 :::
 
@@ -92,6 +202,8 @@ Thirty devils with facial tumours are split into two groups of 15. One group rec
 (b) Which variable is the response, and what type of variable is it?
 
 (c) Which variable is explanatory, and what type of variable is it?
+
+[Solution](#sol-da-devil-tumours)
 
 :::
 
@@ -107,6 +219,8 @@ Twenty-four patients with middle-of-the-night insomnia are randomly allocated to
 (c) What values can dosage take, and what type of variable is it?
 
 (d) Which variable is the response, and why?
+
+[Solution](#sol-da-motn-insomnia)
 
 :::
 
@@ -124,5 +238,7 @@ A sample of 7874 adolescents is linked to a school registry. Frequent intoxicati
 (d) Which variable is the response, and why?
 
 (e) Which variables are explanatory?
+
+[Solution](#sol-da-alcohol-attendance)
 
 :::

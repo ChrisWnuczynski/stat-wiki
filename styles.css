@@ -663,3 +663,10 @@ a.file-link img {
   max-height: 100%;
   object-fit: contain;
 }
+
+/* Long names in inline code, such as a figure's source file, may break
+   anywhere rather than widen the page on a phone. */
+main p code,
+main li code {
+  overflow-wrap: anywhere;
+}

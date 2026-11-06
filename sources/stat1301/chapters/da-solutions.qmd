@@ -159,3 +159,77 @@ Row totals are 12, 29 and 9. Column totals are 23 and 27. The grand total is 50.
 | BB | 4.14 | 4.86 |
 
 The p-value 0.2853 does not reject independence at level 0.05. These trials do not show an association between genotype and mating success.
+
+[]{#sol-da-alice-layout} **[Alice's heart-rate changes](#ex-da-alice-layout).**
+
+In standard form each of the 20 subjects is one row, with the change in heart rate in one column and the drink in another:
+
+| Subject | pb | Caffeine |
+|---|---|---|
+| 1 | 17 | Yes |
+| 2 | 22 | Yes |
+| ⋮ | ⋮ | ⋮ |
+| 10 | 20 | Yes |
+| 11 | 4 | No |
+| ⋮ | ⋮ | ⋮ |
+| 20 | 12 | No |
+
+The response is `pb`, the change in heart rate, a quantitative variable. The treatment is `Caffeine`, a factor with two levels. Saved as `alice.csv`, the table is read with `alice <- read.csv("alice.csv")`, and `alice$Caffeine <- factor(alice$Caffeine)` makes sure R treats the drink as categorical.
+
+[]{#sol-da-random-split} **[Randomising twenty people](#ex-da-random-split).**
+
+A test group is an unordered choice of 10 people from 20, so there are
+
+$$
+\binom{20}{10}=\frac{20!}{10!\,10!}=184\,756
+$$
+
+possible test groups. Randomisation picks one of them with equal probability, for example with `sample(1:20, 10)`.
+
+[]{#sol-da-blood-pressure-covariates} **[What a randomised trial does not need to record](#ex-da-blood-pressure-covariates).**
+
+Because the drug is assigned at random, the two treatment groups have, apart from chance, the same distribution of age, sex, fitness, occupation and diet, and of every other variable, measured or not. None of them can then explain a difference in blood pressure between the groups: any systematic difference must be due to the drug. With 1000 or more subjects, chance imbalances are small. The other variables would still be useful for finding out whether the drug works better for some people than others, or for making the comparison more precise, but they are not needed for a valid comparison.
+
+[]{#sol-da-devil-tumours} **[Facial tumours in Tasmanian devils](#ex-da-devil-tumours).**
+
+(a) It is a designed experiment: the investigators decided which devils got the medicine. Before judging it we would want to know whether the groups were formed at random, whether whoever measured the tumours knew which devils were treated, whether the untreated group received a placebo or at least the same handling, and how comparable the devils were at the start in age, sex and tumour size. Fifteen per group is small, so a modest effect could be missed. Tumour size alone may also miss what matters, such as survival.
+
+(b) The response is the change in tumour size over the 12 weeks, or the size at 12 weeks adjusted for the starting size. It is quantitative and continuous. The question is whether the medicine changes it.
+
+(c) The explanatory variable is the treatment, medicine or none. It is categorical, a factor with two levels, and it is set by the investigators.
+
+[]{#sol-da-motn-insomnia} **[A dose comparison for middle-of-the-night insomnia](#ex-da-motn-insomnia).**
+
+(a) A randomised designed experiment, a randomised controlled trial with a placebo arm.
+
+(b) Total sleep time is a duration, any non-negative number of minutes, so it is quantitative and continuous, though recorded to the nearest minute.
+
+(c) Dosage takes three values: placebo, low and high. It is categorical and ordinal, since the levels have a natural order. If the actual doses in milligrams were used, it could also be treated as quantitative.
+
+(d) Total sleep time is the response, because it is the outcome the drug is meant to change, and the dose is what the investigators set.
+
+[]{#sol-da-alcohol-attendance} **[Alcohol and school attendance](#ex-da-alcohol-attendance).**
+
+(a) Observational: nobody assigned the adolescents to be frequently intoxicated or not. The association with absence, even after adjustment, may be due to variables that were not recorded.
+
+(b) Two values, yes or no, so it is a binary categorical variable. It was collapsed from a five-point ordinal question, which throws away some information.
+
+(c) Hours missed can be any non-negative number, so it is quantitative. Recorded in whole hours it is discrete, and it is likely to be right-skewed, with many students missing little school and a few missing a lot.
+
+(d) Hours missed is the response, because the study asks whether intoxication goes with more missed school.
+
+(e) Frequent intoxication is the explanatory variable of interest. Age, sex, socio-economic status and mental health are also explanatory variables, included to adjust for possible confounding.
+
+[]{#sol-da-nutrition-types} **[Classifying variables in a nutrition survey](#ex-da-nutrition-types).**
+
+- Gender: nominal.
+- Family situation: nominal; the four categories have no natural order.
+- Cups of tea per day and cups of coffee per day: quantitative and discrete, since they are counts.
+- Height, weight and age: quantitative and continuous, though recorded to whole units.
+- How often meat is eaten: ordinal; the six categories run from never to every day but are not equally spaced in frequency.
+
+[]{#sol-da-correlation-reading} **[Reading a correlation](#ex-da-correlation-reading).**
+
+(a) Serum creatinine and age move together: the correlation $0.23$ is positive, so older patients tend to have somewhat higher creatinine. Creatinine and sodium move in opposite directions: the correlation $-0.26$ is negative. Both are weak; a correlation of about $\pm0.25$ means a straight line accounts for only about 6% of the variance of either variable.
+
+(b) A correlation measures linear association in this sample only. It can arise because a third variable drives both, here perhaps overall illness or kidney function, because the causal arrow points the other way, or by chance. These are observational data, so nothing was assigned and no causal reading follows from the correlation alone.
