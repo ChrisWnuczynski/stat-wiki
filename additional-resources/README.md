@@ -1,0 +1,21 @@
+# Additional figures
+
+TikZ figures for pages where a diagram carries an idea the prose only describes. Nothing here is linked from the site. The `.tex` file is the source. From `tikz/`, `pdflatex <file>.tex` rebuilds the PDF; the PNG beside it is a 150–160 dpi rendering of that PDF.
+
+| File | Page | Idea |
+|---|---|---|
+| `prob-01-experiments-total-probability` | [Random experiments and probability](https://chriswnuczynski.github.io/stat-wiki/notes/prob-01-experiments.html) | For the three factories, area is $\mathbb{P}(A\cap B_i)$, and Bayes' rule is one area divided by the sum $0.029$. |
+| `prob-02-random-variables-distribution-function` | [Random variables and distributions](https://chriswnuczynski.github.io/stat-wiki/notes/prob-02-random-variables.html) | A die's mass function is the jump of a right-continuous $F$; an exponential probability is an area under $f$ and a difference of $F$. |
+| `prob-03-simulation-acceptance-rejection` | [Simulation](https://chriswnuczynski.github.io/stat-wiki/notes/prob-03-simulation.html) | For $f(x)=2x$ on $[0,1]$, with $g=1$ and $C=2$, the accepted points are those under $f$, and the chance of acceptance is $1/C$. |
+| `prob-04-joint-distributions-conditional-slice` | [Joint distributions](https://chriswnuczynski.github.io/stat-wiki/notes/prob-04-joint-distributions.html) | After drawing $X$ uniformly and then $Y$ uniformly on $[0,X]$, the conditional distribution is the vertical slice of the triangle. |
+| `prob-05-transforms-and-limits-central-limit` | [Functions of random variables and limit theorems](https://chriswnuczynski.github.io/stat-wiki/notes/prob-05-transforms-and-limits.html) | The density of $(S_n-n\mu)/(\sigma\sqrt{n})$ for exponential summands approaches the $\operatorname{N}(0,1)$ density. |
+| `prob-06-markov-chains-reflected-walk` | [Markov chains](https://chriswnuczynski.github.io/stat-wiki/notes/prob-06-markov-chains.html) | The reflected walk's limiting weights are geometric, and they sum to $1$ only when $p<q$. |
+| `prob-07-reliability-bridge` | [Reliability](https://chriswnuczynski.github.io/stat-wiki/notes/prob-07-reliability.html) | The bridge, with side paths $1$–$4$ and $2$–$5$ and cross link $3$, together with its minimal paths. |
+| `prob-07-reliability-weibull-hazard` | [Reliability](https://chriswnuczynski.github.io/stat-wiki/notes/prob-07-reliability.html) | Weibull shape $\beta$ makes the hazard decrease, stay constant, or increase. |
+| `inf-03-confidence-intervals-coverage` | [Confidence intervals](https://chriswnuczynski.github.io/stat-wiki/notes/inf-03-confidence-intervals.html) | $\mu$ stays put; the interval $\overline{X}\pm z_{0.975}\,\sigma/\sqrt{n}$ moves, and some draws miss. |
+| `inf-04-hypothesis-tests-errors` | [Hypothesis tests](https://chriswnuczynski.github.io/stat-wiki/notes/inf-04-hypothesis-tests.html) | Under $H_0$ the critical region and the two-sided $p$-value are tail areas; under an alternative those same cutoffs split power from a type II error. |
+| `inf-06-regression-mean-and-prediction` | [Linear regression](https://chriswnuczynski.github.io/stat-wiki/notes/inf-06-regression.html) | The $t$ interval for a new observation is wider than the interval for the mean response by the extra $1$ under the square root. |
+| `inf-07-anova-sums-of-squares` | [Analysis of variance](https://chriswnuczynski.github.io/stat-wiki/notes/inf-07-anova.html) | $\mathrm{SS}_{\mathrm{treatment}}$ and $\mathrm{SS}_{\mathrm{error}}$ are the squared gaps between level means and the grand mean, and between observations and their level mean. |
+| `da-01-studies-and-data-assignment` | [Studies, data, and evidence](https://chriswnuczynski.github.io/stat-wiki/notes/da-01-studies-and-data.html) | Diet and income can move both smoking and height; random assignment of a drug does not depend on age, diet, or fitness. |
+| `08-random-intercepts-shared-intercept` | [Random intercepts](https://chriswnuczynski.github.io/stat-wiki/notes/08-random-intercepts.html) | A shared $\alpha_j$ shifts parallel lines, and the within-block correlation is $\sigma_A^2/(\sigma_A^2+\sigma^2)$. |
+| `06-smooth-means-roughness-penalty` | [Smooth means](https://chriswnuczynski.github.io/stat-wiki/notes/06-smooth-means.html) | As $\lambda\to\infty$ the penalised fit becomes a straight line; as $\lambda\to 0$ the cubic spline interpolates. |
