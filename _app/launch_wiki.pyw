@@ -1,4 +1,4 @@
-"""Open the STAT3500 wiki in its own window.
+"""Open the stat wiki in its own window.
 
 Double-click this file, or the desktop shortcut that points at it. It serves
 the built site (the _site folder) on this computer only, opens it in an Edge
@@ -19,7 +19,7 @@ from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent / "_site"
 PORT = 4150
-TITLE = "STAT3500 wiki"
+TITLE = "stat wiki"
 EDGE_PATHS = [
     Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "Microsoft/Edge/Application/msedge.exe",
     Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Microsoft/Edge/Application/msedge.exe",
