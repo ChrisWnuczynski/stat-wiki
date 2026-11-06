@@ -1,0 +1,170 @@
+# Poisson processes
+
+A Poisson process is a model for events that occur at a given average rate, with independent counts on disjoint intervals. It is a model for the events, not automatically for the number of customers present. That distinction is the modelling checklist on [Stochastic processes](sp-01-stochastic-processes.qmd), and it is the reason a queue needs its own page.
+
+The [Poisson distribution](../reference/distributions.qmd) is the one-dimensional law used for a count. The [exponential distribution](../reference/distributions.qmd) is the law of a single wait, and its [memoryless property](prob-02-random-variables.qmd#thm-memoryless) is why the elapsed wait can be left out of the state. The limit that turns a binomial count of rare slots into a Poisson count is the [Poisson limit of the binomial](prob-02-random-variables.qmd#thm-poisson-limit-of-the-binomial). This page builds the process: the equivalence of counts and exponential waits, non-constant rates, superposition, thinning, and the same construction in the plane.
+
+## Homogeneous counts and waiting times
+
+::: {#def-sp-poisson-process .definition}
+## Homogeneous Poisson process
+
+A homogeneous Poisson process $N(t)$ of rate $\lambda>0$ has $N(0)=0$, independent and stationary increments, and
+
+$$
+N(t+h)-N(t)\sim\mathrm{Poisson}(\lambda h), \qquad t,h\ge 0.
+$$
+
+:::
+
+Stationary increments and independent increments are defined on [Stochastic processes](sp-01-stochastic-processes.qmd#def-sp-increments). A change over an interval of length $h$ has a law that depends only on $h$. The level still depends on $t$: $\E N(t)=\Var\bigl(N(t)\bigr)=\lambda t$, and
+
+$$
+\Pr\{N(t)=n\}=e^{-\lambda t}\frac{(\lambda t)^n}{n!}.
+$$
+
+Let $T_1$ be the time of the first event. The event $\{T_1>t\}$ is exactly $\{N(t)=0\}$, so
+
+$$
+\Pr(T_1>t)=e^{-\lambda t}.
+$$
+
+Thus $T_1$ is exponential with rate $\lambda$, in the parameterisation on the distribution sheet: density $\lambda e^{-\lambda t}$ on $(0,\infty)$, mean $1/\lambda$. Independent increments make the later interarrival times $W_1,W_2,\ldots$ independent copies of that exponential law. The arrival times are the partial sums $T_n=\sum_{i=1}^n W_i$. The construction runs in reverse as well. Independent exponential interarrival times of rate $\lambda$ produce a Poisson process of rate $\lambda$.
+
+The memoryless identity $\Pr(W>s+t\given W>s)=\Pr(W>t)$ is why, in the basic Markov models, the time already spent waiting need not be stored in the state.
+
+## Forward equations, and a rare-event limit
+
+Let $p_n(t)=\Pr\{N(t)=n\}$. In a short interval of length $h$ the probability of one event is $\lambda h+o(h)$, and the probability of two or more is $o(h)$. Conditioning on the count at time $t$ and sending $h\to 0$ gives the forward equations
+
+$$
+p_0'(t)=-\lambda p_0(t),
+\qquad
+p_n'(t)=\lambda p_{n-1}(t)-\lambda p_n(t)\quad(n\ge 1),
+$$
+
+with $p_0(0)=1$ and $p_n(0)=0$ for $n\ge 1$. The Poisson probabilities solve this system. For $n=0$ the solution is $e^{-\lambda t}$. If $p_{n-1}$ is the Poisson probability with index $n-1$, the equation for $p_n$ is a linear ODE whose solution is the Poisson probability with index $n$.
+
+A second construction divides $[0,t]$ into $m$ slots and puts an event in each slot with probability $\lambda t/m$, independently. The count is binomial. As $m\to\infty$ that binomial law converges to $\mathrm{Poisson}(\lambda t)$, which is the theorem linked above. The limit is a reason to consider the model. It does not check, in a real event stream, that disjoint intervals are independent or that the rate is constant.
+
+The path $N(t)$ is a right-continuous step function. It starts at $0$ and jumps by $1$ at each arrival. The gaps between jumps are the interarrival times.
+
+## Conditional arrival times
+
+Conditional on $N(t)=n$, the $n$ unordered event times are independent and uniform on $(0,t)$. The ordered times are the order statistics of that sample.
+
+The reason is a comparison of small intervals. Split $(0,t)$ into tiny bins. Given that exactly $n$ events fall in the whole interval, the chance of any particular placement of those $n$ events into distinct bins is proportional to $\lambda^n$ times the bin widths, the same proportionality for every placement, because every bin of equal width has the same rate and the forbidden extra events have been conditioned out. Equal weight on every placement is the uniform distribution on the simplex $0<t_1<\cdots<t_n<t$, which is the law of $n$ independent $\mathrm{Uniform}(0,t)$ variables placed in order.
+
+::: {#exm-sp-two-before-half .example}
+## Both events in the first half
+
+**Question.** Given exactly two events of a homogeneous Poisson process in $(0,t]$, find the probability that both occur before $t/2$.
+
+**Solution.** Conditional on $N(t)=2$, the two unordered times are independent and uniform on $(0,t)$. Each falls in $(0,t/2)$ with probability $1/2$, so both do with probability $(1/2)^2=1/4$. Unconditionally, the two arrival times are not uniform on a fixed interval, because the interval on which they sit is itself random. The conditioning is what makes the interval fixed.
+
+:::
+
+## Changing rates
+
+A non-homogeneous Poisson process has a deterministic rate $\lambda(u)\ge 0$, locally integrable. The cumulative intensity is $\Lambda(t)=\int_0^t \lambda(u)\,du$. Increments over disjoint intervals stay independent. Their means are differences of $\Lambda$, and stationarity of increments fails as soon as $\lambda$ is not constant:
+
+$$
+N(t)-N(s)\sim\mathrm{Poisson}\Bigl(\int_s^t \lambda(u)\,du\Bigr).
+$$
+
+The waiting time $W$ after time $s$ has survival probability
+
+$$
+\Pr(W>w)=\exp\Bigl(-\int_s^{s+w}\lambda(u)\,du\Bigr).
+$$
+
+This is exponential in $w$ only when $\lambda$ is constant on the range of the integral. Successive waits, measured in calendar time, need not share a distribution.
+
+One simulation draws a unit-rate Poisson process and reads it through the inverse of $\Lambda$, when that inverse exists. Another draws a homogeneous process of rate high enough to dominate $\lambda(u)$, and keeps each point independently with probability $\lambda(u)$ over that dominating rate. The second construction is thinning.
+
+::: {#exm-sp-linear-rate .example}
+## A rate that grows with the hour
+
+Suppose $\lambda(t)=2+t$ events per hour for $t\ge 0$.
+
+**Question.** Find the law of $N(2)$, the expected count from hour $1$ to hour $2$, and a draw of the first arrival time.
+
+**Solution.** The cumulative intensity is $\Lambda(t)=2t+t^2/2$. Then $\Lambda(2)=4+2=6$ and $\Lambda(1)=2.5$, so $N(2)\sim\mathrm{Poisson}(6)$ and $\Pr\{N(2)=0\}=e^{-6}$. The increment from $1$ to $2$ is $\mathrm{Poisson}(6-2.5)=\mathrm{Poisson}(3.5)$. A homogeneous process that kept the initial rate $2$ would predict mean $2$ on that hour, which is the right calculation for a different rate function.
+
+To draw the first arrival, take $E\sim\mathrm{Exp}(1)$ and solve $\Lambda(T_1)=E$:
+
+$$
+2T_1+\frac{T_1^2}{2}=E
+\qquad\Longrightarrow\qquad
+T_1=-2+\sqrt{4+2E},
+$$
+
+the positive root. Later arrivals add independent unit-rate exponential amounts on the $\Lambda$ scale and invert again. The clock that is homogeneous is $\Lambda(t)$, not calendar time.
+
+:::
+
+## Superposition and thinning
+
+Independent Poisson processes of rates $\lambda_1$ and $\lambda_2$ superpose to a Poisson process of rate $\lambda_1+\lambda_2$. The sum of independent Poisson counts is Poisson with the summed mean, and the independent-increments property passes to the sum.
+
+If each event of a rate-$\lambda$ process is kept independently with probability $r$, the kept process is Poisson of rate $r\lambda$, and the kept and discarded processes are independent. If the retention probability is a function $r(t)$, the kept intensity is $r(t)\lambda(t)$.
+
+The independence uses an independent mark on each event. A shock that makes many events of the same kind at once is a dependent mark. Ordinary thinning does not describe that stream.
+
+## A Poisson process in the plane
+
+A homogeneous spatial Poisson process of intensity $\lambda$ assigns to each bounded region $A$ a $\mathrm{Poisson}(\lambda|A|)$ count, and assigns independent counts to disjoint regions. Here $\lambda$ is in points per unit area.
+
+Let $R$ be the distance from a fixed origin to the nearest point, and let $B_r$ be the disk of radius $r$. The event $\{R>r\}$ is the event that $B_r$ is empty:
+
+$$
+\Pr(R>r)=\Pr\{N(B_r)=0\}=e^{-\lambda\pi r^2}, \qquad r\ge 0,
+$$
+
+so the distribution function is $F_R(r)=1-e^{-\lambda\pi r^2}$. For a varying spatial intensity $\lambda(x)$, replace $\lambda|A|$ by $\int_A\lambda(x)\,dx$. The void probability is still the exponential of minus that integral.
+
+The same marking idea used in time works in space. If points of intensity $\lambda$ are kept independently with probability $r(x)$, the kept intensity is $\lambda r(x)$, and the mean count in $A$ is $\int_A\lambda r(x)\,dx$. That is a model for a detection probability that varies across a survey region. Clustering in the original pattern is a different departure from the Poisson process, and thinning does not remove it.
+
+## Counts and waits are one path
+
+The event $\{N(t)\ge n\}$ is exactly the event $\{T_n\le t\}$: the $n$th arrival has occurred by $t$ if and only if at least $n$ arrivals lie in $(0,t]$. Therefore
+
+$$
+\Pr(T_n\le t)=\Pr\{N(t)\ge n\}=1-\sum_{k=0}^{n-1}e^{-\lambda t}\frac{(\lambda t)^k}{k!}.
+$$
+
+The sum $T_n$ of $n$ independent $\mathrm{Exp}(\lambda)$ waits is $\mathrm{Gamma}(n,\lambda)$ in the shape–rate parameterisation on the [distribution sheet](../reference/distributions.qmd). The Poisson tail and the gamma distribution function are two formulas for one path. The probability that the third event occurs by time $t$ equals the probability of at least three events by time $t$.
+
+::: {.callout-note}
+## Key idea
+A homogeneous Poisson process is determined by independent exponential waits of rate $\lambda$, or equivalently by Poisson counts of mean $\lambda$ times length on disjoint intervals. Conditioning on the count in a fixed window makes the event times uniform in that window. A rate that changes with time keeps independent increments and replaces $\lambda t$ by the cumulative intensity $\Lambda(t)$.
+:::
+
+## Exercises
+
+::: {#ex-sp-poisson-half-hour .exercise}
+## Counts and a first wait
+
+A Poisson process has rate $\lambda=3$ per hour. Find the probability of exactly two events in $30$ minutes, and the probability that the first wait exceeds $20$ minutes.
+
+[Solution](#sol-sp-poisson-half-hour)
+
+:::
+
+::: {#ex-sp-conditional-times .exercise}
+## Three events in two hours
+
+Given $N(2)=3$, find the probability that all three events occurred in the first hour. State the conditioning.
+
+[Solution](#sol-sp-conditional-times)
+
+:::
+
+::: {#ex-sp-nearest-point .exercise}
+## Distance to the nearest point
+
+A homogeneous planar Poisson process has intensity $2$ points per square kilometre. Find the median distance from a fixed location to the nearest point.
+
+[Solution](#sol-sp-nearest-point)
+
+:::

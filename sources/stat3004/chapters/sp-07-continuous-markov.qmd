@@ -1,0 +1,143 @@
+# Continuous-time Markov chains
+
+In a continuous-time Markov chain the state holds for a random time and then jumps. Transitions are not tied to a discrete clock. The generator records the rates of those jumps. Its rows sum to $0$. A transition matrix, by contrast, has rows that sum to $1$.
+
+The discrete-time chain, including the jump chain embedded in the continuous-time process, is on [Discrete-time Markov chains](sp-04-discrete-markov.qmd) and [Markov chains](prob-06-markov-chains.qmd). Holding times are exponential, so they use the [memoryless property](prob-02-random-variables.qmd#thm-memoryless). The Poisson process of the previous page is the continuous-time chain that only steps upward.
+
+## Holding times, the jump chain, and the generator
+
+::: {#def-sp-generator .definition}
+## Generator
+
+For a finite-state continuous-time Markov chain, let $q_{ij}\ge 0$ for $j\neq i$ be the rate of moving from $i$ to $j$, and set $q_{ii}=-\sum_{j\neq i} q_{ij}$. The matrix $Q=(q_{ij})$ is the generator. The exit rate from $i$ is $\nu_i=-q_{ii}$.
+
+:::
+
+In state $i$ the holding time is exponential with rate $\nu_i$. If $\nu_i>0$, the next state is $j$ with probability $k_{ij}=q_{ij}/\nu_i$. The matrix $K=(k_{ij})$ is the embedded jump chain, a discrete-time transition matrix. An absorbing state has $\nu_i=0$: the chain never leaves.
+
+The short-time rules that define the rates are
+
+$$
+\begin{aligned}
+\Pr\bigl(X(t+h)=j\given X(t)=i\bigr)&=q_{ij}h+o(h) &&(j\neq i),\\
+\Pr\bigl(X(t+h)=i\given X(t)=i\bigr)&=1-\nu_i h+o(h).
+\end{aligned}
+$$
+
+On a finite state space the rates are bounded, so the chain is non-explosive: infinitely many jumps cannot accumulate in a finite time. A chain on a countable state space needs a separate check. The pure-birth process that jumps from $n$ to $n+1$ at rate $2^n$, for example, can explode. The models on this page and the next are non-explosive.
+
+A rate diagram labels arrows with $q_{ij}$, not with probabilities. A rate has units of inverse time and is allowed to exceed $1$. The probability $k_{ij}$ is what is at most $1$.
+
+The same drawing is a race of clocks. From state $i$, start an independent exponential clock of rate $q_{ij}$ for each $j\neq i$. The minimum of independent exponential clocks is exponential with rate equal to the sum of the rates, which is $\nu_i$, and the probability that clock $j$ rings first is $q_{ij}/\nu_i$. That is the holding time and the jump chain together.
+
+## Evolution equations
+
+Let $P(t)=\bigl(p_{ij}(t)\bigr)$ with $p_{ij}(t)=\Pr\bigl(X(t)=j\given X(0)=i\bigr)$. The Chapman–Kolmogorov identity is the continuous-time product $P(s+t)=P(s)P(t)$: to be at $j$ at time $s+t$, the chain is somewhere at time $s$ and then moves for time $t$. Differentiating at $t=0$ from the right, and using the short-time rules, gives Kolmogorov's equations
+
+$$
+P'(t)=P(t)Q \quad\text{(forward)},
+\qquad
+P'(t)=QP(t) \quad\text{(backward)},
+\qquad
+P(0)=I.
+$$
+
+The forward equation conditions on the state just before time $t$. The backward equation conditions on the first jump after time $0$. For a finite-state homogeneous chain the unique solution is the matrix exponential
+
+$$
+P(t)=e^{tQ}=\sum_{n=0}^{\infty}\frac{(tQ)^n}{n!}.
+$$
+
+The forward and backward products agree because this series is a power series in the single matrix $Q$.
+
+## The two-state chain
+
+Suppose the chain moves from $0$ to $1$ at rate $\alpha>0$ and from $1$ to $0$ at rate $\beta>0$. Then
+
+$$
+Q=\begin{pmatrix}-\alpha & \alpha\\ \beta & -\beta\end{pmatrix},
+\qquad
+\pi=\Bigl(\frac{\beta}{\alpha+\beta},\frac{\alpha}{\alpha+\beta}\Bigr).
+$$
+
+Let $u(t)=\Pr\bigl(X(t)=1\given X(0)=0\bigr)$. In a short interval the chain in $0$ enters $1$ at rate $\alpha$, and the chain in $1$ leaves at rate $\beta$, so
+
+$$
+u'(t)=\alpha\bigl(1-u(t)\bigr)-\beta u(t)=\alpha-(\alpha+\beta)u(t),
+$$
+
+with $u(0)=0$. The equilibrium of the ODE is $\alpha/(\alpha+\beta)$. The deviation from that equilibrium decays as $e^{-(\alpha+\beta)t}$:
+
+$$
+u(t)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr).
+$$
+
+Differentiating the formula recovers the ODE, and the value at $0$ is $0$. The stationary probability of state $1$ is the limit as $t\to\infty$.
+
+This finite irreducible chain converges even though its jump chain alternates between the two states. The jump chain is the periodic discrete chain with $a=b=1$ on [Discrete-time Markov chains](sp-04-discrete-markov.qmd). Random holding times destroy the parity: the chain does not switch at every integer, so the continuous-time law cannot oscillate forever between the two states.
+
+## Stationarity, balance, and recurrence
+
+A probability row vector is stationary when $\pi Q=0$. Detailed balance is the pairwise rate equation $\pi_i q_{ij}=\pi_j q_{ji}$ for $i\neq j$. Summing on $i$ recovers $\pi Q=0$, by the same cancellation as in discrete time. The process reading of detailed balance, including reversibility and cycles, is on [Classes, recurrence, and reversibility](sp-05-classes-and-reversibility.qmd). The sampler reading is on [Markov chains, Gibbs sampling, and Metropolis--Hastings](bayes-04-mcmc.qmd#def-stationarity-and-detailed-balance).
+
+In a finite irreducible continuous-time chain the stationary law is unique, and $P(t)$ converges to the matrix with every row equal to $\pi$ as $t\to\infty$. Aperiodicity is not an extra hypothesis: exponential holds remove the discrete period. On a countably infinite state space, positive recurrence and non-explosion are part of the hypothesis. A formal solution of $\pi Q=0$ still has to be non-negative and summable.
+
+The Poisson process is the continuous-time chain on $\{0,1,2,\ldots\}$ with $q_{n,n+1}=\lambda$ and $q_{nn}=-\lambda$. Its count drifts to infinity and does not return, so it has no stationary probability distribution. The equation $\pi Q=0$ has no summable non-negative solution other than $0$.
+
+## Building a sample path
+
+The rate diagram is a simulation algorithm. At the current state $i$, draw $H\sim\mathrm{Exp}(\nu_i)$ and, independently, draw the next state from the probabilities $k_{ij}=q_{ij}/\nu_i$. Advance the clock by $H$, move, and repeat. Memorylessness says that the residual hold, given the current state, has the same exponential law no matter how long the chain has already stayed.
+
+Let $\mu_j(t)=\Pr\{X(t)=j\}$ for a fixed initial distribution. The forward equation state by state is
+
+$$
+\mu_j'(t)=\sum_{i\neq j}\mu_i(t) q_{ij}-\mu_j(t)\sum_{k\neq j} q_{jk}.
+$$
+
+The first sum is probability flow into $j$. The second is flow out. Summing over $j$ gives zero, because every departure from one state is an arrival at another, so total probability stays equal to $1$. For the two-state chain, $\mu_1'=\alpha\mu_0-\beta\mu_1$ and $\mu_0=1-\mu_1$, which is the ODE solved above.
+
+At stationarity the derivative is zero and the flow equations reduce to $\pi Q=0$. Those are global balance equations. A chain can satisfy them and still carry a circulation around a directed cycle. Pairwise balance is the stronger condition, exactly as in discrete time.
+
+## Uniformisation
+
+Choose $\gamma\ge\max_i\nu_i$ and set $R=I+Q/\gamma$. Then $R$ is a transition matrix. Its off-diagonal entries $q_{ij}/\gamma$ are non-negative, its diagonal entries are $1-\nu_i/\gamma\ge 0$, and its rows sum to $1$ because the rows of $Q$ sum to $0$. Since $Q=\gamma(R-I)$,
+
+$$
+e^{tQ}=e^{-\gamma t}\sum_{n=0}^{\infty}\frac{(\gamma t)^n}{n!} R^n.
+$$
+
+A finite continuous-time transition law is a Poisson mixture of the discrete-time powers of $R$. Some steps of $R$ are self-transitions inserted so that every state has the same potential exit rate $\gamma$. Those self-transitions are not the jumps of the embedded chain $K$. The matrix $K$ is used when a jump actually occurs. The matrix $R$ is used to write $e^{tQ}$ as an average of discrete chains, which is a practical way to compute $P(t)$ and a precise link between Poisson clocks and continuous-time chains.
+
+::: {.callout-note}
+## Key idea
+The generator $Q$ stores jump rates, with $q_{ii}=-\nu_i$ so that each row sums to $0$. The chain waits an $\mathrm{Exp}(\nu_i)$ time and then jumps with probabilities $q_{ij}/\nu_i$. On a finite irreducible state space, $P(t)=e^{tQ}$ converges to the unique solution of $\pi Q=0$.
+:::
+
+## Exercises
+
+::: {#ex-sp-two-state-ctmc .exercise}
+## A two-state chain in continuous time
+
+For the two-state chain with $\alpha=2$ and $\beta=3$, find the stationary distribution and $\Pr\bigl(X(t)=1\given X(0)=0\bigr)$.
+
+[Solution](#sol-sp-two-state-ctmc)
+
+:::
+
+::: {#ex-sp-jump-chain .exercise}
+## Generator and jump chain
+
+States $\{0,1,2\}$ have rates $0\to 1$ equal to $2$, $1\to 0$ equal to $1$, $1\to 2$ equal to $3$, and $2\to 1$ equal to $4$. Write the generator and the jump-chain probabilities.
+
+[Solution](#sol-sp-jump-chain)
+
+:::
+
+::: {#ex-sp-generator-rows .exercise}
+## Why a generator row sums to zero
+
+Explain why the diagonal of a generator is non-positive and why each row sums to zero.
+
+[Solution](#sol-sp-generator-rows)
+
+:::

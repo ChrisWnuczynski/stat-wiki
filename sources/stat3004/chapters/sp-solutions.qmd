@@ -1,0 +1,264 @@
+# Worked answers
+
+[]{#sol-sp-same-marginals} **[Same marginals, different joints](#ex-sp-same-marginals).**
+
+Let $B\sim\mathrm{Bernoulli}(p)$ and set $X_n=B$ for every $n$. Let $Y_n$ be independent Bernoulli$(p)$ variables. Each one-time marginal is Bernoulli$(p)$. The joints at times $1$ and $2$ differ:
+
+$$
+\Pr(X_1=X_2)=1,
+\qquad
+\Pr(Y_1=Y_2)=p^2+(1-p)^2.
+$$
+
+The second probability is the chance that two independent bits agree, either both $1$ or both $0$.
+
+[]{#sol-sp-increments-and-levels} **[Stationary increments are not a fixed level](#ex-sp-increments-and-levels).**
+
+Stationary increments fix the law of $N(t+h)-N(t)$ for a given length $h$. They do not force the levels $N(t)$ to share one distribution. A homogeneous Poisson process of rate $\lambda$ has stationary increments, and $N(t)\sim\mathrm{Poisson}(\lambda t)$ still depends on $t$.
+
+## Chapter 2
+
+[]{#sol-sp-critical-extinction} **[A critical offspring law](#ex-sp-critical-extinction).**
+
+The mean is
+
+$$
+m=0\cdot\frac{2}{5}+1\cdot\frac{1}{5}+2\cdot\frac{2}{5}=1.
+$$
+
+The probability generating function is $f(s)=2/5+s/5+2s^2/5$. The equation $f(s)=s$ is $2s^2-4s+2=0$, or $(s-1)^2=0$. The only root in $[0,1]$ is $1$, so the extinction probability is $1$. The offspring law is non-degenerate and $p_0=2/5>0$, so the critical case of the extinction criterion applies.
+
+[]{#sol-sp-many-ancestors} **[Several ancestors](#ex-sp-many-ancestors).**
+
+Each of the $r$ ancestors starts an independent copy of the one-ancestor process. The whole population dies out only when every copy dies out, which has probability $q^r$.
+
+[]{#sol-sp-variance-recurrence} **[The variance recurrence](#ex-sp-variance-recurrence).**
+
+Conditional on $Z_n$, the next generation is a sum of $Z_n$ independent offspring, so its conditional mean is $m Z_n$ and its conditional variance is $\sigma^2 Z_n$. The law of total variance gives
+
+$$
+\Var(Z_{n+1})=\E(\sigma^2 Z_n)+\Var(m Z_n)=\sigma^2 m^n+m^2\Var(Z_n),
+$$
+
+which is the recurrence $v_{n+1}=\sigma^2 m^n+m^2 v_n$. At $m=1$ it reduces to $v_{n+1}=v_n+\sigma^2$ with $v_0=0$, so $v_n=n\sigma^2$. For the $m\neq 1$ formula, $(m^n-1)/(m-1)\to n$ as $m\to 1$, and $\sigma^2 m^{n-1}\to\sigma^2$, so the product tends to $n\sigma^2$.
+
+## Chapter 3
+
+[]{#sol-sp-fair-ruin} **[A fair walk between 0 and 8](#ex-sp-fair-ruin).**
+
+Fair steps give hitting probability $h_x=x/d$ and expected duration $e_x=x(d-x)$. Here $d=8$ and $x=5$, so the probability of reaching $8$ before $0$ is $5/8$, and the expected number of steps is $5(8-5)=15$.
+
+[]{#sol-sp-biased-goal} **[A biased walk on four steps](#ex-sp-biased-goal).**
+
+Here $q=1/3$ and $q/p=1/2$, so
+
+$$
+h_1=\frac{1-(1/2)}{1-(1/2)^4}=\frac{1/2}{15/16}=\frac{8}{15}.
+$$
+
+The fair-walk value at the same point is $1/4$. Since $8/15>1/4$, the upward drift lifts the hitting probability above the fair line, as the sign check requires when $p>q$.
+
+[]{#sol-sp-duration-identity} **[Checking the duration formula](#ex-sp-duration-identity).**
+
+Let $e_x=x(d-x)$. Then $e_0=0$ and $e_d=0$. For the interior,
+
+$$
+\frac{e_{x+1}+e_{x-1}}{2}
+=\frac{(x+1)(d-x-1)+(x-1)(d-x+1)}{2}
+=x(d-x)-1
+=e_x-1.
+$$
+
+Rearrangement is $e_x=1+(e_{x+1}+e_{x-1})/2$, which is the fair recurrence $e_x=1+\tfrac12 e_{x+1}+\tfrac12 e_{x-1}$.
+
+## Chapter 4
+
+[]{#sol-sp-weather-two-step} **[Two steps and the stationary law](#ex-sp-weather-two-step).**
+
+The $(1,2)$ entry of $P^2$ sums the routes through state $1$ and state $2$:
+
+$$
+(P^2)_{12}=0.9\cdot 0.1+0.1\cdot 0.6=0.15.
+$$
+
+Global balance of the single cut is $0.1\pi_1=0.4\pi_2$, so $\pi_1=4\pi_2$. With $\pi_1+\pi_2=1$, the stationary distribution is $(0.8,0.2)$.
+
+[]{#sol-sp-deterministic-cycle} **[A deterministic three-cycle](#ex-sp-deterministic-cycle).**
+
+The matrix is a permutation matrix, hence doubly stochastic, so the uniform row $(1/3,1/3,1/3)$ is stationary. Started at $1$, the chain is at $1$ when $n$ is a multiple of $3$, and otherwise it is not. Thus $\Pr(X_n=1\given X_0=1)$ equals $1$ when $3$ divides $n$ and equals $0$ otherwise. The sequence has no limit. The chain has period $3$.
+
+[]{#sol-sp-doubly-stochastic} **[A doubly stochastic matrix](#ex-sp-doubly-stochastic).**
+
+Let $P$ be $m\times m$, with every column summing to $1$, and let $\pi$ be the row with every entry $1/m$. Then
+
+$$
+(\pi P)_j=\sum_{i=1}^m \frac{1}{m}p_{ij}=\frac{1}{m}\sum_{i=1}^m p_{ij}=\frac{1}{m}=\pi_j,
+$$
+
+because column $j$ sums to $1$. So $\pi P=\pi$.
+
+## Chapter 5
+
+[]{#sol-sp-closed-classes} **[One closed class](#ex-sp-closed-classes).**
+
+The transition matrix is
+
+$$
+P=\begin{pmatrix}0&1&0\\ 1/2&0&1/2\\ 0&0&1\end{pmatrix}.
+$$
+
+States $1$ and $2$ communicate: each is one step from the other. State $3$ is accessible from $2$, and nothing leaves $3$, so $3$ is not accessible back to $\{1,2\}$. The communicating classes are $\{1,2\}$ and $\{3\}$. Only $\{3\}$ is closed. States $1$ and $2$ are transient. The only stationary distribution is $(0,0,1)$, the point mass on the single closed class.
+
+[]{#sol-sp-path-graph} **[A walk on a path of four vertices](#ex-sp-path-graph).**
+
+The degrees are $(1,2,2,1)$, and there are three edges, so $2|E|=6$. The stationary distribution of the simple random walk is $\pi=(1,2,2,1)/6$. The path is bipartite, with parts $\{1,3\}$ and $\{2,4\}$, so every return has even length and the period is $2$. The powers $P^n$ alternate between the two parts and do not converge. The time-average occupation still converges to $\pi$.
+
+[]{#sol-sp-birth-death-pi} **[Birth–death balance on three states](#ex-sp-birth-death-pi).**
+
+Local balance gives $\pi_0 p_0=\pi_1 q_1$ and $\pi_1 p_1=\pi_2 q_2$. The first equation is $\pi_0=\pi_1/3$. The second is $(2/3)\pi_1=\pi_2$. The weights $(1,3,2)$ satisfy both, and they sum to $6$, so $\pi=(1,3,2)/6$.
+
+## Chapter 6
+
+[]{#sol-sp-poisson-half-hour} **[Counts and a first wait](#ex-sp-poisson-half-hour).**
+
+Thirty minutes is half an hour, so the mean count is $3/2$. Therefore
+
+$$
+\Pr\{N(1/2)=2\}=e^{-3/2}\frac{(3/2)^2}{2}.
+$$
+
+Twenty minutes is $1/3$ hour, so $\Pr(T_1>1/3)=e^{-\lambda/3}=e^{-1}$.
+
+[]{#sol-sp-conditional-times} **[Three events in two hours](#ex-sp-conditional-times).**
+
+Conditional on $N(2)=3$, the three unordered event times are independent and uniform on $(0,2)$. Each falls in the first hour with probability $1/2$, independently, so the probability that all three do is $(1/2)^3=1/8$.
+
+[]{#sol-sp-nearest-point} **[Distance to the nearest point](#ex-sp-nearest-point).**
+
+The void probability is $\Pr(R>r)=e^{-2\pi r^2}$. The median solves $\Pr(R\le r)=1/2$, so $e^{-2\pi r^2}=1/2$. Then $2\pi r^2=\log 2$ and
+
+$$
+r=\sqrt{\frac{\log 2}{2\pi}}
+$$
+
+kilometres.
+
+## Chapter 7
+
+[]{#sol-sp-two-state-ctmc} **[A two-state chain in continuous time](#ex-sp-two-state-ctmc).**
+
+The stationary distribution on states $(0,1)$ is
+
+$$
+\pi=\Bigl(\frac{\beta}{\alpha+\beta},\frac{\alpha}{\alpha+\beta}\Bigr)=\Bigl(\frac{3}{5},\frac{2}{5}\Bigr).
+$$
+
+Starting from $0$,
+
+$$
+\Pr\bigl(X(t)=1\given X(0)=0\bigr)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr)=\frac{2}{5}\bigl(1-e^{-5t}\bigr).
+$$
+
+[]{#sol-sp-jump-chain} **[Generator and jump chain](#ex-sp-jump-chain).**
+
+Exit rates are $\nu_0=2$, $\nu_1=1+3=4$, and $\nu_2=4$. The generator and the non-zero jump probabilities are
+
+$$
+Q=\begin{pmatrix}-2&2&0\\ 1&-4&3\\ 0&4&-4\end{pmatrix},
+\qquad
+k_{01}=1,\quad k_{10}=\frac14,\quad k_{12}=\frac34,\quad k_{21}=1.
+$$
+
+[]{#sol-sp-generator-rows} **[Why a generator row sums to zero](#ex-sp-generator-rows).**
+
+Off-diagonal rates $q_{ij}$ for $j\neq i$ are non-negative: they are rates of jumps. The diagonal entry is defined to be minus their sum, $q_{ii}=-\nu_i\le 0$, which is the rate of leaving $i$. Each row then sums to $\sum_{j\neq i}q_{ij}+q_{ii}=0$. A row of probabilities would sum to $1$. A row of rates sums to $0$ because the outflow is recorded on the diagonal with a minus sign.
+
+## Chapter 8
+
+[]{#sol-sp-mm1-numbers} **[An M/M/1 queue](#ex-sp-mm1-numbers).**
+
+The load is $\rho=2/3<1$, so $\pi_0=1-\rho=1/3$ and $\Pr(N\ge 3)=\rho^3=8/27$. The mean number in system is $L=\rho/(1-\rho)=2$. Little's law uses the arrival rate $\lambda=2$, so the mean time in system is $W=L/\lambda=1$ hour. The same time is $1/(\mu-\lambda)=1$.
+
+[]{#sol-sp-mminf-numbers} **[An M/M/∞ system](#ex-sp-mminf-numbers).**
+
+The stationary number is Poisson with mean $\lambda/\mu=3$. The probability of an empty system is the Poisson probability at $0$, which is $e^{-3}$.
+
+[]{#sol-sp-repair-equal} **[Two machines, equal rates](#ex-sp-repair-equal).**
+
+When $\lambda=\mu$ the unnormalised weights are $(1,2,2)$, which sum to $5$. The stationary distribution is $(1/5,2/5,2/5)$. Both machines are operating in state $0$, which has probability $1/5$.
+
+## Chapter 9
+
+[]{#sol-sp-generated-algebra} **[The algebra generated by two sets](#ex-sp-generated-algebra).**
+
+The four atoms are $A\cap B=\{2\}$, $A\cap B^c=\{1\}$, $A^c\cap B=\{3\}$, and $A^c\cap B^c=\{4\}$. Every singleton is an atom, so every subset of $\Omega$ is a union of atoms. Thus $\sigma(A,B)$ is the power set of $\{1,2,3,4\}$.
+
+[]{#sol-sp-borel-cantelli} **[Two series of events](#ex-sp-borel-cantelli).**
+
+The harmonic series $\sum 1/n$ diverges, and the events are independent, so the second Borel–Cantelli lemma gives $\mathrm{P}(A_n\text{ infinitely often})=1$. The series $\sum 1/n^2$ converges, so the first lemma gives probability $0$ of infinitely many occurrences. The first lemma does not use independence.
+
+[]{#sol-sp-continuity-above} **[Continuity from above](#ex-sp-continuity-above).**
+
+If $A_n\downarrow A$, then $A_n^c\uparrow A^c$. Continuity from below gives $\mathrm{P}(A_n^c)\uparrow\mathrm{P}(A^c)$. Subtract from $1$:
+
+$$
+\mathrm{P}(A_n)=1-\mathrm{P}(A_n^c)\downarrow 1-\mathrm{P}(A^c)=\mathrm{P}(A).
+$$
+
+## Chapter 10
+
+[]{#sol-sp-three-point} **[Positive and negative parts](#ex-sp-three-point).**
+
+The distribution function is $0$ for $x<-2$, equals $1/4$ for $-2\le x<0$, equals $3/4$ for $0\le x<3$, and equals $1$ for $x\ge 3$. The positive part is $3$ with probability $1/4$ and $0$ otherwise, so $\E X^+=3/4$. The negative part is $2$ with probability $1/4$ and $0$ otherwise, so $\E X^-=1/2$. Therefore $\E X=3/4-1/2=1/4$. The direct sum $-2\cdot(1/4)+0\cdot(1/2)+3\cdot(1/4)=1/4$ agrees.
+
+[]{#sol-sp-bernoulli-pairs} **[Same margins, two joints](#ex-sp-bernoulli-pairs).**
+
+Let $X$ and $Y$ be independent Bernoulli$(1/2)$. Then $\mathrm{P}(X=Y)=1/2$. The pair $(X,X)$ has the same margins, and $\mathrm{P}(X=X)=1$.
+
+[]{#sol-sp-right-continuous} **[A function that is not a distribution function](#ex-sp-right-continuous).**
+
+The proposed $F$ has $F(0)=0$ and $F(0+)=1$, so it is not right-continuous at $0$. A distribution function satisfies $F(x)=\mathrm{P}(X\le x)$ and therefore includes an atom in the value at the atom. Set $F(x)=0$ for $x<0$ and $F(x)=1$ for $x\ge 0$. That function is the distribution function of a point mass at $0$.
+
+## Chapter 11
+
+[]{#sol-sp-l2-markov} **[L2 convergence and probability](#ex-sp-l2-markov).**
+
+Markov's inequality applied to $|X_n-X|^2$ gives, for every $\varepsilon>0$,
+
+$$
+\mathrm{P}(|X_n-X|>\varepsilon)\le\frac{\E|X_n-X|^2}{\varepsilon^2}.
+$$
+
+If the numerator tends to $0$, the probability tends to $0$.
+
+[]{#sol-sp-spike} **[A spike that keeps its mean](#ex-sp-spike).**
+
+For $n>\varepsilon$, the event $\{X_n>\varepsilon\}$ is $\{U\le 1/n\}$, so $\mathrm{P}(X_n>\varepsilon)=1/n\to 0$. Also $\E X_n=1$ and $\E X_n^2=n^2\cdot(1/n)=n$. The sequence converges to $0$ in probability and almost surely. It does not converge to $0$ in $L^1$ or in $L^2$, because those expectations do not tend to $0$.
+
+[]{#sol-sp-proportion-bound} **[A bound for a sample proportion](#ex-sp-proportion-bound).**
+
+A Bernoulli$(p)$ variable has variance $p(1-p)$, so $\overline Y_n$ has mean $p$ and variance $p(1-p)/n$. Chebyshev's inequality gives
+
+$$
+\mathrm{P}(|\overline Y_n-p|>\varepsilon)\le\frac{p(1-p)}{n\varepsilon^2}.
+$$
+
+## Chapter 12
+
+[]{#sol-sp-uniform-max} **[The expected maximum of $n$ uniforms](#ex-sp-uniform-max).**
+
+On $[0,1]$, $F_{M_n}(x)=x^n$, so the density is $n x^{n-1}$. Therefore
+
+$$
+\E M_n=\int_0^1 x\cdot n x^{n-1}\,dx=\frac{n}{n+1}.
+$$
+
+As $n\to\infty$, this tends to $1$, the upper endpoint.
+
+[]{#sol-sp-gumbel-scale} **[Scaling an exponential maximum](#ex-sp-gumbel-scale).**
+
+For an exponential rate $\lambda$ the centring $(\log n)/\lambda$ and the scale $1/\lambda$ produce the Gumbel limit. Here $\lambda=2$, so $b_n=(\log n)/2$ and $a_n=1/2$.
+
+[]{#sol-sp-pareto-factor} **[A heavier sample and its maximum](#ex-sp-pareto-factor).**
+
+The Fréchet scale for exponent $\alpha=2$ is $n^{1/2}$. Replacing $n$ by $4n$ multiplies the scale by $\sqrt{4}=2$.

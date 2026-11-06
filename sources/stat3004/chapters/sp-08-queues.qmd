@@ -1,0 +1,152 @@
+# Birth–death chains and queues
+
+A birth–death chain changes its state by one unit at a time. In a queue the state is the number of customers present, including any in service. A birth is an arrival. A death is a departure. The long-run question is whether service can keep up with arrivals.
+
+The generator, holding times, and the equation $\pi Q=0$ are on [Continuous-time Markov chains](sp-07-continuous-markov.qmd). Arrivals in the models below are the [Poisson process](sp-06-poisson-processes.qmd). Service times are exponential, with the constant [hazard](prob-07-reliability.qmd#def-hazard-rate) of that lifetime: an operating server or an operating machine fails, or finishes, at a constant rate, independently of age. The stationary weights are the same product that detailed balance gave for a discrete birth–death chain on [Classes, recurrence, and reversibility](sp-05-classes-and-reversibility.qmd).
+
+## Birth–death balance
+
+For states $n=0,1,2,\ldots$, let $\lambda_n$ be the birth rate in state $n$ and let $\mu_n$ be the death rate in state $n\ge 1$, with $\mu_0=0$. The generator has $q_{n,n+1}=\lambda_n$, $q_{n,n-1}=\mu_n$, and $q_{nn}=-(\lambda_n+\mu_n)$. Local balance equates the flow across the cut between $n$ and $n+1$:
+
+$$
+\pi_n\lambda_n=\pi_{n+1}\mu_{n+1},
+\qquad
+\pi_n=\pi_0\prod_{k=0}^{n-1}\frac{\lambda_k}{\mu_{k+1}}.
+$$
+
+These weights are a probability distribution when they can be normalised:
+
+$$
+\pi_0=\Biggl(1+\sum_{n=1}^{\infty}\prod_{k=0}^{n-1}\frac{\lambda_k}{\mu_{k+1}}\Biggr)^{-1},
+$$
+
+provided the sum is finite. A finite sum is a stability condition. It is the statement that the chain returns often enough to have a stationary probability, not a bookkeeping step after the fact.
+
+## One server: M/M/1
+
+Arrivals are Poisson of rate $\lambda$. Service times are independent $\mathrm{Exp}(\mu)$, and a single server works whenever the system is non-empty. Then $\lambda_n=\lambda$ for every $n$, and $\mu_n=\mu$ for $n\ge 1$. Set $\rho=\lambda/\mu$. The product for the weights is $\pi_n=\pi_0\rho^n$. The geometric series $\sum_{n=0}^{\infty}\rho^n$ converges if and only if $\rho<1$, in which case $\pi_0=1-\rho$ and
+
+$$
+\pi_n=(1-\rho)\rho^n, \qquad n\ge 0.
+$$
+
+If $\rho\ge 1$ the weights cannot be normalised. The queue length drifts to infinity and there is no stationary probability distribution.
+
+The mean number in system, when $\rho<1$, is
+
+$$
+L=\sum_{n=0}^{\infty} n(1-\rho)\rho^n=(1-\rho)\rho\sum_{n=1}^{\infty} n\rho^{n-1}=\frac{\rho}{1-\rho},
+$$
+
+using $\sum_{n\ge 1} n r^{n-1}=1/(1-r)^2$ at $r=\rho$. The tail is geometric as well: $\Pr(N\ge k)=\rho^k$.
+
+If arrivals see the time-average distribution, which Poisson arrivals do when the arrival process is independent of the past of the queue in the usual way, Little's law gives the mean time in system $W=L/\lambda$. Substituting $L$ produces
+
+$$
+W=\frac{\rho}{\lambda(1-\rho)}=\frac{1}{\mu-\lambda}.
+$$
+
+The mean wait diverges as $\lambda$ approaches $\mu$ from below. Spare capacity is then small, and the random fluctuations of arrivals and service produce long busy periods even while the mean arrival rate is still below the mean service rate.
+
+## Unlimited servers: M/M/∞
+
+With infinitely many servers, every customer starts service at once. In state $n$ there are $n$ independent services in progress, so the departure rate is $\mu_n=n\mu$. Local balance gives
+
+$$
+\pi_n=\pi_0\prod_{k=0}^{n-1}\frac{\lambda}{(k+1)\mu}=\pi_0\frac{(\lambda/\mu)^n}{n!}.
+$$
+
+The series is the exponential series, so $\pi_0=e^{-\lambda/\mu}$ and the stationary number in system is $\mathrm{Poisson}(\lambda/\mu)$. There is no finite-server overload threshold, because the total service rate grows without bound as $n$ grows. The mean is $\lambda/\mu$ for every $\lambda>0$ and $\mu>0$.
+
+## Several servers, and a finite waiting room
+
+With $c$ parallel servers and one shared queue, the departure rate is $\mu_n=\min(n,c)\mu$, and the birth rate stays $\lambda$. Up through state $c-1$ each new customer adds a server, so the product is the same Poisson-style ratio $(\lambda/\mu)^n/n!$ that appears for M/M/∞. From $n\ge c$ every further step multiplies the weight by $\lambda/(c\mu)$ and by nothing else, a geometric ratio. The geometric tail sums if and only if $\lambda<c\mu$. A stationary probability exists precisely in that case. The normalising constant adds the finite sum up to $c-1$ to the closed form of the tail:
+
+$$
+\pi_0^{-1}=\sum_{n=0}^{c-1}\frac{(\lambda/\mu)^n}{n!}+\frac{(\lambda/\mu)^c}{c!}\cdot\frac{1}{1-\lambda/(c\mu)}.
+$$
+
+The first sum covers the states in which at least one server is idle. The second term sums the geometric tail from $c$ onward.
+
+An M/M/$c$/$K$ system stops at state $K$. An arrival that finds $K$ customers present is blocked and does not enter. The state space is finite and irreducible for $\lambda>0$ and $\mu>0$, so a stationary distribution exists for every positive load, including $\lambda\ge c\mu$. The chain cannot drift to infinity because the state cannot pass $K$. The cost is lost arrivals. Throughput, the long-run rate of accepted arrivals, is $\lambda(1-\pi_K)$, not the offered rate $\lambda$.
+
+For the single-server finite system M/M/$1$/$K$ with $\rho\neq 1$,
+
+$$
+\pi_n=\frac{(1-\rho)\rho^n}{1-\rho^{K+1}}, \qquad 0\le n\le K.
+$$
+
+At $\rho=1$ the weights are constant and $\pi_n=1/(K+1)$. Blocking probability $\pi_K$ increases with $\rho$. The stationary law exists on both sides of $\rho=1$ because the room is finite.
+
+## A repair model
+
+Two identical machines each fail, while operating, at rate $\lambda$. One repairer works at rate $\mu$. Let $n$ be the number of failed machines, so the states are $0,1,2$. Only operating machines can fail, and only one repair can run at a time, so the birth rates are $\lambda_0=2\lambda$ and $\lambda_1=\lambda$, and the death rates are $\mu_1=\mu_2=\mu$. Local balance gives the unnormalised weights
+
+$$
+1,\qquad \frac{2\lambda}{\mu},\qquad 2\Bigl(\frac{\lambda}{\mu}\Bigr)^2.
+$$
+
+Check the second weight: $\pi_0\cdot 2\lambda=\pi_1\mu$. Check the third: $\pi_1\cdot\lambda=\pi_2\mu$, so $\pi_2=\pi_0\cdot 2(\lambda/\mu)^2$. The state space is finite, so the weights can always be normalised. The rate of new failures drops as machines fail, because a failed machine is not exposed to failure. A single component's lifetime distribution, and the constant hazard of an exponential life, are on [Reliability](prob-07-reliability.qmd). The chain here tracks how many of the two machines are down.
+
+## Three capacity rules
+
+The three basic queues share the arrival rate $\lambda$ and differ in the departure rate:
+
+| Model | Departure rate in state $n$ |
+|---|---|
+| M/M/1 | $\mu$ when $n\ge 1$, and $0$ when $n=0$ |
+| M/M/$c$ | $\min(n,c)\,\mu$ |
+| M/M/∞ | $n\mu$ |
+
+In M/M/1, once the server is busy, further customers do not increase the service rate. In M/M/$c$ the rate increases until all $c$ servers are busy and then stops increasing. In M/M/∞ it keeps increasing. The stability conditions are the statement that the birth–death series of weights converges, read off this tail.
+
+Take $\lambda=4$ and $\mu=3$ per hour. One server is overloaded because $4>3$. Two servers have maximum departure rate $6$, so M/M/$2$ is stable. The infinite-server system is stable with Poisson mean $4/3$. The three answers describe three different amounts of service capacity.
+
+## Blocking, throughput, and Little's law
+
+For a finite room of size $K$, offered arrivals still occur at rate $\lambda$. An arrival that finds the system full does not enter. Under Poisson arrivals the long-run fraction blocked is $\pi_K$, and the accepted throughput is $\lambda(1-\pi_K)$. In equilibrium the long-run departure rate equals the accepted throughput. It equals $\lambda$ only when nothing is blocked.
+
+::: {#def-sp-littles-law .definition}
+## Little's law
+
+In a stable system, $L=\lambda_{\mathrm{eff}} W$, where $L$ is the mean number in the system, $\lambda_{\mathrm{eff}}$ is the mean arrival rate of the customers counted in $L$, and $W$ is their mean time in the system.
+
+:::
+
+The relation is an accounting identity between those three averages. It does not require exponential service. The arrival rate has to be the rate of the population being counted. For a blocking queue, use the accepted throughput, not the offered rate. For the queue excluding service, use the mean number waiting $L_q$ together with the mean waiting time $W_q$. Mixing $L_q$ with the total time in system pairs two different populations.
+
+A service operation can have a rate that changes with the hour, several customer classes, balking, priorities, service laws other than exponential, and servers who are not independent. Each of those changes the generator. The first check is whether the state and the constant rates are credible for the decision at hand. Near a stability boundary, $\rho$ close to $1$, the mean $L=\rho/(1-\rho)$ moves sharply when $\lambda$ or $\mu$ moves a little, so that boundary deserves a direct look.
+
+::: {.callout-note}
+## Key idea
+Local balance gives $\pi_n$ as a product of birth rates over death rates. The product is a probability when its sum converges. For M/M/1 that happens exactly when $\lambda<\mu$, and then the number present is geometric with mean $\rho/(1-\rho)$. Finite capacity restores a stationary law at every load by refusing arrivals, and the throughput falls below the offered rate.
+:::
+
+## Exercises
+
+::: {#ex-sp-mm1-numbers .exercise}
+## An M/M/1 queue
+
+An M/M/1 queue has $\lambda=2$ and $\mu=3$ per hour. Find $\pi_0$, $\Pr(N\ge 3)$, the mean number in system, and the mean time in system.
+
+[Solution](#sol-sp-mm1-numbers)
+
+:::
+
+::: {#ex-sp-mminf-numbers .exercise}
+## An M/M/∞ system
+
+An M/M/∞ system has $\lambda=6$ and $\mu=2$ per hour. Find the stationary mean and the probability that the system is empty.
+
+[Solution](#sol-sp-mminf-numbers)
+
+:::
+
+::: {#ex-sp-repair-equal .exercise}
+## Two machines, equal rates
+
+Normalise the two-machine repair model when $\lambda=\mu$, and find the stationary probability that both machines are operating.
+
+[Solution](#sol-sp-repair-equal)
+
+:::

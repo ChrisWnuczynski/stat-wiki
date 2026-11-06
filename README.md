@@ -29,6 +29,7 @@ The build reads only the copies in `sources/`:
 - `sources/stat2003` holds the probability notes. The chapters are `sources/stat2003/chapters`, and the PDF copy is `sources/stat2003/notes.pdf`.
 - `sources/stat2004` holds the inference notes. Only the inference part is turned into chapters; the probability part links to `sources/stat2003`. The PDF copy is `sources/stat2004/notes.pdf`.
 - `sources/stat1301` holds the data-analysis notes. Studies, description, and R become chapters. Repeated inference chapters keep their examples and exercises and link to `sources/stat2004`. The PDF copy is `sources/stat1301/notes.pdf`.
+- `sources/stat3004` holds the stochastic-process notes. The chapters are `sources/stat3004/chapters`, and the PDF copy is `sources/stat3004/notes.pdf`. Where a chapter continues a probability page, it links to that page and develops the further argument.
 
 Edits to the original folders do not reach the wiki until they are copied into `sources/`.
 

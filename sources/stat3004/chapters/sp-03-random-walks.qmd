@@ -1,0 +1,151 @@
+# Random walks and first passage
+
+A random walk adds independent increments. In a gambling reading the state is current capital. The question is often not the value at one fixed time. It is which of two barriers the path hits first.
+
+An unrestricted walk on the integers, and a walk on the non-negative integers that reflects at $0$, are on [Markov chains](prob-06-markov-chains.qmd). The position at a large fixed time is described by the [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers) and the [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem). This page keeps those facts for scale, and then solves the first-passage problem on a finite interval: the probability of hitting one barrier before the other, and the expected number of steps until a barrier is hit.
+
+## Accumulation and scale
+
+Let $Y_1,Y_2,\ldots$ be independent and identically distributed increments, and let $S_n=x+\sum_{i=1}^n Y_i$. If $\mu=\E Y_1$ and $\sigma^2=\Var(Y_1)$ are finite, then
+
+$$
+\E S_n=x+n\mu, \qquad \Var(S_n)=n\sigma^2.
+$$
+
+The strong law gives $(S_n-x)/n\to\mu$ with probability $1$ when the mean exists. The central limit theorem gives, when $0<\sigma^2<\infty$,
+
+$$
+\frac{S_n-x-n\mu}{\sigma\sqrt{n}}\;\xrightarrow{d}\; \mathrm{N}(0,1).
+$$
+
+Drift accumulates like $n$. Typical fluctuations are of order $\sqrt{n}$. Neither statement is a first-passage probability. A first-passage event depends on the whole path, not on the single variable $S_n$. The four modes of the arrow $\xrightarrow{d}$, and the conditions under which a limit of distributions controls an expectation, are on [Expectation and convergence](sp-11-convergence.qmd).
+
+## Gambler's ruin
+
+Take steps of size $1$: $\Pr(Y_i=+1)=p$ and $\Pr(Y_i=-1)=q=1-p$. Fix barriers at $0$ and $d$, and a starting state $x\in\{0,1,\ldots,d\}$. Let
+
+$$
+\tau=\inf\{n\ge 0: S_n\in\{0,d\}\}
+$$
+
+be the first time the walk is absorbed, and write $h_x=\Pr_x(S_\tau=d)$ for the probability of hitting $d$ before $0$ from $x$. The subscript records the starting state. Conditioning on the first step gives the boundary-value recurrence
+
+$$
+h_x=p\,h_{x+1}+q\,h_{x-1}, \qquad 1\le x\le d-1,
+$$
+
+with $h_0=0$ and $h_d=1$. From an interior point the walk moves to $x+1$ or $x-1$, and then the conditional probability of eventual success is the value of $h$ at the new point.
+
+If $p=q=1/2$, the equation says $h_{x+1}-h_x=h_x-h_{x-1}$. The first differences are constant, so $h_x$ is linear. The boundary values force
+
+$$
+h_x=\frac{x}{d}.
+$$
+
+If $p\neq q$, substitute $h_x=r^x$. The characteristic equation is $p r^2-r+q=0$, with roots $r=1$ and $r=q/p$. The general solution is $A+B(q/p)^x$, and the boundary values give
+
+$$
+h_x=\frac{1-(q/p)^x}{1-(q/p)^d}.
+$$
+
+As $p\to q$ this expression tends to $x/d$, which is the fair-walk formula. A biased walk with $p>q$ satisfies $h_x>x/d$: the upward drift makes the upper barrier more likely than the fair proportion of the distance. If $p<q$, then $h_x<x/d$.
+
+## Expected duration
+
+Let $e_x=\E_x\tau$. One step is used at once, and then the walk restarts from the neighbour it stepped to, so
+
+$$
+e_x=1+p\,e_{x+1}+q\,e_{x-1}, \qquad 1\le x\le d-1,
+$$
+
+with $e_0=e_d=0$. Absorption at either barrier stops the clock.
+
+In the symmetric case a quadratic trial function works. The equation becomes $e_{x+1}-2e_x+e_{x-1}=-2$, a constant second difference, which is what a quadratic has. The boundary conditions $e_0=e_d=0$ give
+
+$$
+e_x=x(d-x).
+$$
+
+The expected duration is largest near the middle of the interval, where both barriers are far, and it is zero at either barrier.
+
+If $p\neq q$, a particular solution is the linear function $x/(q-p)$, and the homogeneous solutions are again $1$ and $(q/p)^x$. Fitting $e_0=e_d=0$ gives
+
+$$
+e_x=\frac{x}{q-p}-\frac{d}{q-p}\cdot\frac{1-(q/p)^x}{1-(q/p)^d}.
+$$
+
+The expression has a removable singularity at $p=q$. At equal probabilities, use $x(d-x)$.
+
+::: {#exm-sp-fair-ten .example}
+## Three steps from ruin, ten from the start
+
+A fair walk is absorbed at $0$ and at $10$, and it starts at $3$.
+
+**Question.** Find the probability of hitting $10$ before $0$, and the expected number of steps until absorption.
+
+**Solution.** Fair steps give $h_3=3/10$. The expected duration is $e_3=3(10-3)=21$. The probability $3/10$ and the expected time $21$ answer different questions. A likely ruin, here probability $7/10$, can still take many steps when the interval is long.
+
+:::
+
+::: {.callout-warning}
+## Watch the assumption
+The formulas use absorption at both ends and steps of size exactly one. On the unbounded integer line, return times, recurrence, and drift are a different problem. That walk is the one on [Markov chains](prob-06-markov-chains.qmd).
+:::
+
+## Solving the recurrences from scratch
+
+Rearrange the hitting equation as
+
+$$
+p(h_{x+1}-h_x)=q(h_x-h_{x-1}).
+$$
+
+The successive differences $\Delta_x=h_x-h_{x-1}$ form a geometric sequence with ratio $q/p$: $\Delta_{x+1}=(q/p)\Delta_x$. Summing from $1$ to $x$ and using $h_0=0$ gives
+
+$$
+h_x=\Delta_1\sum_{k=0}^{x-1}\Bigl(\frac{q}{p}\Bigr)^k.
+$$
+
+The condition $h_d=1$ fixes $\Delta_1$. When $p=q$ every difference equals $\Delta_1$, the sum is $x\Delta_1$, and $h_d=1$ forces $\Delta_1=1/d$, so $h_x=x/d$. When $p\neq q$ the geometric sum is $\bigl(1-(q/p)^x\bigr)/\bigl(1-q/p\bigr)$, and the same boundary condition recovers the closed form above.
+
+For the fair duration, the rearranged equation is $e_{x+1}-2e_x+e_{x-1}=-2$. Try $e_x=Ax^2+Bx+C$. The second difference of $x^2$ is $2$, so $2A=-2$ and $A=-1$. The boundary $e_0=0$ gives $C=0$. The boundary $e_d=0$ gives $-d^2+Bd=0$, so $B=d$. Therefore $e_x=x(d-x)$. The shape of the difference equation suggests the trial solution. The boundary values fix the constants.
+
+## Why the boundary problem is well posed
+
+There are $d-1$ interior states. From any one of them, $d$ consecutive upward steps reach $d$, and $d$ consecutive downward steps reach $0$. If $0<p<1$, each of those runs has probability at least $\min(p,q)^d>0$, whatever the current interior state is. Split time into blocks of $d$ steps. The probability of still being inside after $m$ blocks is at most $(1-\min(p,q)^d)^m$, a geometric tail. Absorption occurs with probability $1$, and $\E\tau<\infty$, because a geometric number of blocks has finite mean. That finiteness is what justifies writing the equation for $e_x$ and solving it inside a finite linear system.
+
+The formulas can be checked without repeating the derivation. At $x=0$ the hitting formula gives $0$, and at $x=d$ it gives $1$. If $p>q$ the hitting probability sits above the fair line $x/d$. If $p<q$ it sits below. The duration is zero at both ends and positive in between.
+
+::: {.callout-note}
+## Key idea
+Condition on the first step. The probability of hitting the upper barrier, and the expected time until absorption, each satisfy a linear recurrence on the interior with known values at $0$ and at $d$. Fair steps make the hitting probability the relative distance $x/d$ and the expected duration $x(d-x)$.
+:::
+
+## Exercises
+
+::: {#ex-sp-fair-ruin .exercise}
+## A fair walk between 0 and 8
+
+A fair walk is absorbed at $0$ and at $8$, and starts at $5$. Find the probability of reaching $8$ before $0$, and the expected absorption time.
+
+[Solution](#sol-sp-fair-ruin)
+
+:::
+
+::: {#ex-sp-biased-goal .exercise}
+## A biased walk on four steps
+
+Take $p=2/3$, $d=4$, and $x=1$. Compute the probability of hitting $4$ before $0$, and compare it with the fair-walk value.
+
+[Solution](#sol-sp-biased-goal)
+
+:::
+
+::: {#ex-sp-duration-identity .exercise}
+## Checking the duration formula
+
+Show directly that $e_x=x(d-x)$ satisfies the symmetric expected-duration recurrence and both boundary conditions.
+
+[Solution](#sol-sp-duration-identity)
+
+:::

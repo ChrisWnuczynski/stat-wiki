@@ -1,0 +1,150 @@
+# Classes, recurrence, and reversibility
+
+Solving $\pi P=\pi$ is not yet a long-run claim. A chain can have several closed regions, or it can cycle with a fixed rhythm. The class structure and the period say which conclusions are available.
+
+The limit of $P^n$ for an irreducible aperiodic finite chain, and the two-state alternation that has a stationary law and no limit, are on [Markov chains](prob-06-markov-chains.qmd#thm-limiting-distribution). The fixed-point equation $\pi P=\pi$, hitting times, and the two-state eigenvalue are on [Discrete-time Markov chains](sp-04-discrete-markov.qmd). The pairwise balance used to build a sampler is the [detailed balance](bayes-04-mcmc.qmd#def-stationarity-and-detailed-balance) condition on that page. This page is the process theory around those equations: communication, recurrence, period, reversibility, and the chains whose stationary law is not unique.
+
+## Communication and closed classes
+
+State $j$ is accessible from $i$, written $i\to j$, when $p_{ij}^{(n)}>0$ for some $n\ge 0$. The case $n=0$ counts: every state is accessible from itself. States $i$ and $j$ communicate when each is accessible from the other. Communication is an equivalence relation, so it partitions $S$ into classes. A class is closed when no transition leaves it. A chain with a single communicating class is irreducible. An absorbing state is a closed class of one state, with $p_{ii}=1$.
+
+On a finite set, the states that can still reach a given closed class, and are not in it, are on their way out. They are visited only finitely often.
+
+## Return and period
+
+Let $T_i^+=\inf\{n\ge 1: X_n=i\}$ be the first return time to $i$.
+
+::: {#def-sp-recurrence .definition}
+## Recurrence and period
+
+State $i$ is recurrent when $\Pr_i(T_i^+<\infty)=1$, and transient otherwise. A recurrent state is positive recurrent when $\E_i T_i^+<\infty$, and null recurrent when the return time is almost surely finite and has infinite mean. The period of $i$ is
+
+$$
+d(i)=\gcd\{n\ge 1: p_{ii}^{(n)}>0\}.
+$$
+
+Period $1$ means aperiodic.
+
+:::
+
+Communicating states share a period. In a finite chain, every state in a closed irreducible class is positive recurrent, and every state that lies in no closed class is transient. A self-loop forces period $1$ in its class. Aperiodicity does not require a self-loop at every state: two return lengths with gcd $1$ are enough. The stepping-stone chain on [Markov chains](prob-06-markov-chains.qmd) is aperiodic because it can return to stone $1$ in both $2$ and $3$ steps.
+
+::: {#thm-sp-finite-irreducible .theorem}
+## Finite irreducible chains
+
+A finite irreducible chain has a unique stationary distribution, and every entry of that distribution is strictly positive. If the chain is also aperiodic, then $p_{ij}^{(n)}\to\pi_j$ for every $i$ and $j$.
+
+:::
+
+Aperiodicity belongs to the limit, not to the existence of $\pi$. Deterministic alternation between two states has $\pi=(1/2,1/2)$ and $P^n$ oscillating. The same split is the content of the limiting-distribution theorem on [Markov chains](prob-06-markov-chains.qmd): irreducibility and aperiodicity on a finite set are the hypotheses that turn $\pi=\pi P$ into $\lim_n (P^n)_{ij}=\pi_j$.
+
+## Global balance and detailed balance
+
+The stationarity equation at state $j$,
+
+$$
+\pi_j=\sum_i \pi_i p_{ij},
+$$
+
+equates the probability mass at $j$ with the mass that one step of $P$ brings into $j$. That is global balance.
+
+::: {#def-sp-detailed-balance .definition}
+## Detailed balance
+
+A probability $\pi$ and a transition matrix $P$ satisfy detailed balance when
+
+$$
+\pi_i p_{ij}=\pi_j p_{ji}\qquad\text{for all }i,j.
+$$
+
+:::
+
+Sum the pairwise equations over $i$. The right-hand side becomes $\pi_j\sum_i p_{ji}=\pi_j$, and the left-hand side becomes $\sum_i\pi_i p_{ij}$. Detailed balance implies global balance, and therefore stationarity. The same implication for a general transition kernel is on [Markov chains, Gibbs sampling, and Metropolis--Hastings](bayes-04-mcmc.qmd#thm-detailed-balance-implies-stationarity). What this page adds is the process reading: time reversal, the cycle test, and the chains that are stationary without being reversible.
+
+A chain that satisfies detailed balance is reversible when it is started in $\pi$. A stationary path has the same distribution when time is read backwards. Stationarity alone does not give reversibility. If $\pi_i>0$, the reversed transition probabilities are
+
+$$
+p_{ij}^*=\frac{\pi_j p_{ji}}{\pi_i}.
+$$
+
+Detailed balance says $P^*=P$.
+
+For a finite irreducible chain, Kolmogorov's cycle criterion is an equivalent test that does not require $\pi$ in advance. Around every directed cycle, the product of the transition probabilities equals the product around the reversed cycle. A missing reverse edge counts as probability $0$, and then a positive forward cycle product fails the test.
+
+## Two families with an explicit stationary law
+
+On an undirected graph, the simple random walk steps from $i$ to a uniformly chosen neighbour, so $p_{ij}=1/\deg(i)$ when $\{i,j\}$ is an edge. The weights $\pi_i=\deg(i)/(2|E|)$ satisfy detailed balance: on every edge,
+
+$$
+\pi_i p_{ij}=\frac{\deg(i)}{2|E|}\cdot\frac{1}{\deg(i)}=\frac{1}{2|E|}=\pi_j p_{ji}.
+$$
+
+Long-run occupancy follows degree. It is uniform only when the graph is regular.
+
+On a nearest-neighbour birth–death chain, let $p_i$ be the probability of a step from $i$ to $i+1$ and $q_i$ the probability of a step from $i$ to $i-1$. Local balance $\pi_i p_i=\pi_{i+1} q_{i+1}$ iterates to
+
+$$
+\pi_n=\pi_0\prod_{k=0}^{n-1}\frac{p_k}{q_{k+1}},
+$$
+
+provided the positive weights have a finite sum, so that they can be normalised to a probability. A formal solution whose total mass is infinite is not a stationary probability distribution. The reflected walk on [Markov chains](prob-06-markov-chains.qmd) is this product: $\pi_j=(p/q)^j\pi_0$, normalisable precisely when $p<q$.
+
+## When a stationary law fails to be unique
+
+Suppose states $0$ and $1$ are both absorbing, with no transition between them. Both point masses $\delta_0$ and $\delta_1$ are stationary, and so is every mixture $a\delta_0+(1-a)\delta_1$. From a given start, the long-run law is the class the path enters. A finite chain has a unique stationary distribution only when its closed-class structure supports one.
+
+Each finite closed irreducible class has its own unique stationary law, by the theorem above. Any stationary law on the whole chain is a mixture of those class laws, with zero mass on the transient states. That decomposition solves the stationary equations before any linear algebra, and it explains why eigenvalue $1$ of $P$ can have more than one independent left eigenvector.
+
+## Period and time averages
+
+A deterministic three-cycle has period $3$. Started at state $1$, its distribution cycles through the three point masses. Over each complete set of three steps it spends exactly one third of its time in each state.
+
+For a finite irreducible chain, the empirical frequency of visits to $j$ along one path converges to $\pi_j$, even when the one-time probabilities $p_{ij}^{(n)}$ oscillate. Two limits are in play. One is a time average along a path. The other is the distribution at one distant time. The path average is the law of large numbers for a dependent sequence, already used on [Markov chains](prob-06-markov-chains.qmd) to justify estimating $\pi$ by a long run. Period blocks the second limit and leaves the first intact.
+
+In a finite irreducible chain the stationary weight is the reciprocal mean return time,
+
+$$
+\pi_i=\frac{1}{\E_i T_i^+}.
+$$
+
+A state that is visited often has a short mean return. On the graph walk, a high-degree vertex carries more stationary mass and so has the shorter mean return. The identity is a check on a stationary distribution that was solved another way.
+
+## Testing reversibility with a cycle
+
+The deterministic cycle $1\to 2\to 3\to 1$ has uniform stationary law $(1/3,1/3,1/3)$, because it is a permutation and the matrix is doubly stochastic. It is not reversible. The forward product around the cycle is $1$. The reverse product is $0$, since none of the reverse edges exist. Global balance holds at every state: mass $1/3$ arrives and mass $1/3$ leaves. A net circulation remains around the cycle.
+
+A tree has no cycle that can carry such a current. An irreducible nearest-neighbour walk on a finite undirected tree is reversible: assign the detailed-balance weights along the edges and normalise. A birth–death chain has a path as its graph, which is why local balance determines $\pi$ there.
+
+::: {.callout-note}
+## Key idea
+Communication classes and the period decide what $\pi P=\pi$ is allowed to mean. A finite irreducible chain has one stationary distribution with every entry positive. Aperiodicity is what makes $P^n$ converge to it. Detailed balance is stronger than stationarity: it removes net circulation around cycles, and it is the condition for the stationary path to look the same forwards and backwards.
+:::
+
+## Exercises
+
+::: {#ex-sp-closed-classes .exercise}
+## One closed class
+
+A chain on $\{1,2,3\}$ moves from $1$ to $2$ with probability $1$, from $2$ to $1$ with probability $1/2$ and from $2$ to $3$ with probability $1/2$, and from $3$ to $3$ with probability $1$. Find the communicating classes, the closed classes, and the stationary distributions.
+
+[Solution](#sol-sp-closed-classes)
+
+:::
+
+::: {#ex-sp-path-graph .exercise}
+## A walk on a path of four vertices
+
+A simple random walk moves on the path graph with vertices $1-2-3-4$. Find the stationary distribution and the period. Does $P^n$ converge?
+
+[Solution](#sol-sp-path-graph)
+
+:::
+
+::: {#ex-sp-birth-death-pi .exercise}
+## Birth–death balance on three states
+
+A birth–death chain on $\{0,1,2\}$ has $p_0=1$, $q_1=1/3$, $p_1=2/3$, and $q_2=1$. Use detailed balance to find the stationary distribution.
+
+[Solution](#sol-sp-birth-death-pi)
+
+:::

@@ -1,0 +1,208 @@
+# Expectation and convergence
+
+A sequence of random variables can converge in several ways. The distinction is practical. A small probability of a very large value can disappear from a probability statement and still keep the expectation large. A limit theorem has to say which mode it uses, and whether the limit may pass inside the expectation.
+
+The weak law under a finite variance, and the central limit theorem for a sum of independent copies, are on [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd). Chebyshev's inequality and Markov's inequality are derived on [Stochastic processes](sp-01-stochastic-processes.qmd) and used there. This page separates the four modes, gives the counter-examples that show which implications fail, proves a strong law under a fourth-moment assumption by Borel–Cantelli, and names uniform integrability as the condition that lets a limit pass inside the expectation. The Borel–Cantelli lemmas are on [Probability spaces and events](sp-09-probability-spaces.qmd#thm-sp-borel-cantelli).
+
+## Inequalities, and passing a limit inside the expectation
+
+Expectation is linear on integrable variables, and it is monotone: $X\le Y$ implies $\E X\le\E Y$ when both expectations exist. If $\varphi$ is convex and $X$ is integrable, with $\varphi(X)$ integrable as well, Jensen's inequality says
+
+$$
+\varphi(\E X)\le\E\varphi(X).
+$$
+
+For $\varphi(x)=x^2$ this is $(\E X)^2\le\E X^2$, which rearranges to $\Var(X)\ge 0$.
+
+::: {#thm-sp-convergence-theorems .theorem}
+## Monotone convergence, Fatou, and dominated convergence
+
+If $0\le X_n\uparrow X$ with probability $1$, the monotone convergence theorem gives $\E X_n\uparrow\E X$, and the limit may be infinite. If $X_n\ge 0$, Fatou's lemma gives $\E(\liminf_n X_n)\le\liminf_n\E X_n$. If $X_n\to X$ with probability $1$ and $|X_n|\le Y$ for every $n$, with $\E Y<\infty$, the dominated convergence theorem gives $\E X_n\to\E X$.
+
+:::
+
+The hypotheses differ. An integrable bound that dominates every $X_n$ stops probability mass from escaping into spikes that get rarer and taller. Without that bound, a limit of the variables need not be the limit of the expectations.
+
+::: {#exm-sp-spike .example}
+## A spike of height $n$ and width $1/n$
+
+Let $U$ be uniform on $(0,1)$ and let $X_n=n\,1_{\{U\le 1/n\}}$.
+
+**Question.** Find the almost-sure limit and the expectations $\E X_n$.
+
+**Solution.** If $U(\omega)=u>0$, then $u>1/n$ for every $n>1/u$, so $X_n(\omega)=0$ from that index on. The single point $U=0$ has probability $0$. Thus $X_n\to 0$ with probability $1$. The expectation does not follow:
+
+$$
+\E X_n=n\cdot\Pr(U\le 1/n)=n\cdot\frac{1}{n}=1
+$$
+
+for every $n$. There is no integrable $Y$ with $|X_n|\le Y$ for all $n$. Any such $Y$ would have to be at least $n$ on a set of probability $1/n$, for every $n$, and those spikes force $\E Y=\infty$.
+
+:::
+
+## Four modes
+
+::: {#def-sp-modes .definition}
+## Modes of convergence
+
+- $X_n\to X$ almost surely when $\mathrm{P}\{\omega: X_n(\omega)\to X(\omega)\}=1$.
+- $X_n\to X$ in probability when $\mathrm{P}(|X_n-X|>\varepsilon)\to 0$ for every $\varepsilon>0$.
+- $X_n\to X$ in $L^p$, for $p\ge 1$, when $\E|X_n-X|^p\to 0$.
+- $X_n\to X$ in distribution when $F_{X_n}(x)\to F_X(x)$ at every continuity point $x$ of $F_X$.
+
+:::
+
+The arrows that hold in general are
+
+$$
+L^p \;\Rightarrow\; \text{in probability} \;\Rightarrow\; \text{in distribution},
+\qquad
+\text{almost surely} \;\Rightarrow\; \text{in probability}.
+$$
+
+$L^p$ convergence implies convergence in probability by Markov's inequality applied to $|X_n-X|^p$:
+
+$$
+\mathrm{P}(|X_n-X|>\varepsilon)\le\frac{\E|X_n-X|^p}{\varepsilon^p}.
+$$
+
+Almost-sure convergence implies convergence in probability because the event $\{|X_n-X|>\varepsilon\text{ infinitely often}\}$ is a tail event of probability $0$, so the probability of the $n$th deviation tends to $0$. Convergence in probability implies convergence in distribution. The reverse arrows fail in general, and the examples below locate the missing assumption.
+
+One reverse arrow does hold. If $X_n$ converges in distribution to a constant $c$, then $X_n$ converges to $c$ in probability. A distributional limit that is not a constant is a statement about laws, not about closeness of $X_n(\omega)$ and $X(\omega)$ on a shared sample space. A copy $X_n$ with exactly the same distribution as $X$, built independently of $X$, converges in distribution to $X$ and does not converge to $X$ in probability.
+
+::: {.callout-warning}
+## Watch the assumption
+Convergence in distribution moves probability on the line. It does not say that $X_n-X$ is small. Convergence of expectations needs a separate hypothesis. Dominated convergence and uniform integrability are two such hypotheses.
+:::
+
+## Where the reverse implications fail
+
+The spike $X_n=n\,1_{\{U\le 1/n\}}$ converges almost surely to $0$, and $\E|X_n|=1$ does not tend to $0$. Almost-sure convergence does not imply $L^1$ convergence.
+
+$L^1$ convergence does not imply almost-sure convergence. Enumerate the dyadic intervals of $(0,1]$ level by level: at level $k=0,1,2,\ldots$ the intervals are $((j-1)2^{-k},\, j 2^{-k}]$ for $j=1,\ldots,2^k$. Let $X_n$ be the indicator of the $n$th interval in this list. The length of the interval at level $k$ is $2^{-k}$, which tends to $0$ as $n$ runs through the later levels, so $\E|X_n|\to 0$. Every point of $(0,1]$ lies in exactly one interval at each level, so $X_n(\omega)=1$ for infinitely many $n$. The indicators do not converge to $0$ at any $\omega$.
+
+$L^1$ controls the average size of the error at each $n$. Almost-sure convergence asks whether one path eventually settles. A summable series of tail probabilities joins the two: if $\sum_n\mathrm{P}(|X_n-X|>\varepsilon)<\infty$ for every $\varepsilon>0$, the first Borel–Cantelli lemma gives almost-sure convergence.
+
+## Laws of large numbers
+
+Let $Y_1,Y_2,\ldots$ be independent and identically distributed, with $\E Y_i=\mu$, and write $\overline Y_n=n^{-1}\sum_{i=1}^n Y_i$.
+
+::: {#thm-sp-strong-law .theorem}
+## Strong law
+
+If $\E|Y_1|<\infty$, then $\overline Y_n\to\mu$ almost surely.
+
+:::
+
+This is the strong law stated on [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers). The proof under only $\E|Y_1|<\infty$ needs more than the fourth-moment argument below. What that page already shows, and what is repeated here because the mode matters, is the weak law under a finite variance. If $\Var(Y_i)=\sigma^2<\infty$, Chebyshev's inequality gives
+
+$$
+\mathrm{P}(|\overline Y_n-\mu|>\varepsilon)\le\frac{\sigma^2}{n\varepsilon^2}\to 0.
+$$
+
+The bound proves convergence in probability. It does not prove almost-sure convergence: $\sum_n n^{-1}$ diverges, so the first Borel–Cantelli lemma cannot be applied to these bounds.
+
+The [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem) is a refinement of the same average. It describes the distribution of $\sqrt{n}\,(\overline Y_n-\mu)$, not the expectation of a function of that average, unless a further integrability condition is added.
+
+## Characteristic functions
+
+The characteristic function $\varphi_X(t)=\E e^{itX}$ exists for every real $t$, because $|e^{itX}|=1$. It determines the distribution. For independent random variables the characteristic function of a sum is the product of the characteristic functions, the same formal convenience that [moment generating functions](prob-02-random-variables.qmd#def-moment-generating-function) give on the set where they exist. The characteristic function exists without that restriction.
+
+Lévy's continuity theorem says that if $\varphi_{X_n}(t)\to\varphi(t)$ for every $t$, and $\varphi$ is continuous at $0$ and is itself a characteristic function, then $X_n$ converges in distribution to the law with characteristic function $\varphi$. This is one route to the central limit theorem: the characteristic function of the standardised sum converges to $e^{-t^2/2}$. Convergence of characteristic functions does not, by itself, give convergence of moments.
+
+## A fourth-moment route to the strong law
+
+Assume $\E|Y_1-\mu|^4<\infty$, and write $Z_i=Y_i-\mu$, so $\E Z_i=0$. Let $\mu_4=\E Z_1^4$ and $\sigma^2=\E Z_1^2$. Expand $\E\bigl(\sum_{i=1}^n Z_i\bigr)^4$ by writing the fourth power as a sum over four indices. Independence and the mean-zero assumption kill every term in which some index appears only once: the expectation factors, and a single factor $\E Z_i$ is zero. The surviving terms are those in which every index appears two or four times.
+
+- One index repeated four times: there are $n$ choices, each contributing $\mu_4$.
+- Two distinct indices, each repeated twice: there are $\binom{n}{2}$ choices of the indices, and $\binom{4}{2}=6$ ways to place the two copies of the first index among the four factors. Each such term equals $(\E Z_1^2)^2=\sigma^4$. The count is $6\cdot n(n-1)/2=3n(n-1)$.
+
+Therefore
+
+$$
+\E\Bigl(\sum_{i=1}^n Z_i\Bigr)^4=n\mu_4+3n(n-1)\sigma^4=O(n^2).
+$$
+
+Divide by $n^4$:
+
+$$
+\E|\overline Y_n-\mu|^4=O(n^{-2}).
+$$
+
+Markov's inequality at the fourth power gives, for a constant $C$ that depends on $\mu_4$ and $\sigma^2$,
+
+$$
+\mathrm{P}(|\overline Y_n-\mu|>\varepsilon)\le\frac{C}{n^2\varepsilon^4}.
+$$
+
+The right-hand side is summable in $n$. Borel–Cantelli implies that for each fixed $\varepsilon>0$, only finitely many of these deviations occur, with probability $1$. Apply that conclusion to $\varepsilon=1/m$ for each positive integer $m$, and intersect the countably many probability-$1$ sets. On the intersection, for every $m$ one has $|\overline Y_n-\mu|\le 1/m$ for all large $n$, so $\overline Y_n\to\mu$ almost surely.
+
+The argument shows the mechanism: a bound of order $1/n$ is not summable, and a bound of order $1/n^2$ is. The general strong law assumes only $\E|Y_1|<\infty$ and uses a different proof.
+
+## What each mode controls
+
+| Mode | What becomes small | A typical route |
+|---|---|---|
+| Almost sure | The error along almost every full path | Borel–Cantelli, the strong law |
+| In probability | The probability of an error larger than a fixed $\varepsilon$ | Markov or Chebyshev |
+| $L^p$ | The expected $p$th power of the error | A moment bound, or dominated convergence |
+| In distribution | $F_{X_n}(x)-F_X(x)$ at continuity points of $F_X$ | Characteristic functions, or a direct distribution function |
+
+A proof that controls only a distribution function has not controlled an expected error. A proof that controls a moment does control a probability, by Markov's inequality. A proof of almost-sure convergence says nothing by itself about expectations, because a rare large value can survive in the mean. The spike is that situation.
+
+## Uniform integrability
+
+::: {#def-sp-uniform-integrability .definition}
+## Uniform integrability
+
+A family $\{X_n\}$ is uniformly integrable when
+
+$$
+\lim_{K\to\infty}\sup_n \E\bigl(|X_n|\,1_{\{|X_n|>K\}}\bigr)=0.
+$$
+
+:::
+
+The contribution of the far tail to the expectation is then small uniformly in $n$. The spike fails the test. For any $K$, choose $n>K$. On $\{U\le 1/n\}$ one has $X_n=n>K$, and
+
+$$
+\E\bigl(|X_n|\,1_{\{|X_n|>K\}}\bigr)=n\cdot\frac{1}{n}=1,
+$$
+
+so the supremum over $n$ is at least $1$ for every $K$.
+
+If $X_n\to X$ in probability and $\{X_n\}$ is uniformly integrable, then $\E X_n\to\E X$, and in fact $X_n\to X$ in $L^1$. An integrable dominant $Y$ is a convenient sufficient condition, because $|X_n|\le Y$ implies uniform integrability: the tail $\E\bigl(Y\,1_{\{Y>K\}}\bigr)$ tends to $0$ and does not depend on $n$. Dominated convergence is the almost-sure case of this bridge. Uniform integrability is what the spike lacks.
+
+::: {.callout-note}
+## Key idea
+Almost-sure convergence, convergence in probability, $L^p$ convergence, and convergence in distribution are different statements. $L^p$ and almost-sure convergence both imply convergence in probability, and convergence in probability implies convergence in distribution. Expectations follow when the family is uniformly integrable. The spike $n\,1_{\{U\le 1/n\}}$ converges almost surely to $0$ and keeps expectation $1$.
+:::
+
+## Exercises
+
+::: {#ex-sp-l2-markov .exercise}
+## L2 convergence and probability
+
+Use Markov's inequality to show that $L^2$ convergence implies convergence in probability.
+
+[Solution](#sol-sp-l2-markov)
+
+:::
+
+::: {#ex-sp-spike .exercise}
+## A spike that keeps its mean
+
+For $X_n=n\,1_{\{U\le 1/n\}}$ with $U$ uniform on $(0,1)$, compute $\mathrm{P}(X_n>\varepsilon)$, $\E X_n$, and $\E X_n^2$. Which modes of convergence to $0$ hold?
+
+[Solution](#sol-sp-spike)
+
+:::
+
+::: {#ex-sp-proportion-bound .exercise}
+## A bound for a sample proportion
+
+Let $\overline Y_n$ be the sample proportion in $n$ independent Bernoulli$(p)$ trials. Use Chebyshev's inequality to bound $\mathrm{P}(|\overline Y_n-p|>\varepsilon)$.
+
+[Solution](#sol-sp-proportion-bound)
+
+:::

@@ -27,6 +27,7 @@ REPO_URL = "https://github.com/ChrisWnuczynski/stat-wiki"
 PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
 INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
 DATA = SOURCES / "stat1301"  # studies, description, R, and examples that point at inference
+STOCHASTIC = SOURCES / "stat3004"  # stochastic processes, then measure and convergence
 
 PARTS = [
     (
@@ -39,6 +40,23 @@ PARTS = [
             ("prob-05-transforms-and-limits.qmd", "notes"),
             ("prob-06-markov-chains.qmd", "notes"),
             ("prob-07-reliability.qmd", "notes"),
+        ],
+    ),
+    (
+        "Stochastic processes",
+        [
+            ("sp-01-stochastic-processes.qmd", "notes"),
+            ("sp-02-branching.qmd", "notes"),
+            ("sp-03-random-walks.qmd", "notes"),
+            ("sp-04-discrete-markov.qmd", "notes"),
+            ("sp-05-classes-and-reversibility.qmd", "notes"),
+            ("sp-06-poisson-processes.qmd", "notes"),
+            ("sp-07-continuous-markov.qmd", "notes"),
+            ("sp-08-queues.qmd", "notes"),
+            ("sp-09-probability-spaces.qmd", "notes"),
+            ("sp-10-random-variables.qmd", "notes"),
+            ("sp-11-convergence.qmd", "notes"),
+            ("sp-12-extremes.qmd", "notes"),
         ],
     ),
     (
@@ -1036,6 +1054,18 @@ CHAPTER_CODES = {
     "C4": "10-plants-and-series.qmd",
     "T1": "12-time-series.qmd",
     "T2": "11-forecasting.qmd",
+    "SP1": "sp-01-stochastic-processes.qmd",
+    "SP2": "sp-02-branching.qmd",
+    "SP3": "sp-03-random-walks.qmd",
+    "SP4": "sp-04-discrete-markov.qmd",
+    "SP5": "sp-05-classes-and-reversibility.qmd",
+    "SP6": "sp-06-poisson-processes.qmd",
+    "SP7": "sp-07-continuous-markov.qmd",
+    "SP8": "sp-08-queues.qmd",
+    "SP9": "sp-09-probability-spaces.qmd",
+    "SP10": "sp-10-random-variables.qmd",
+    "SP11": "sp-11-convergence.qmd",
+    "SP12": "sp-12-extremes.qmd",
 }
 
 # Practice questions 1-59, in order.
@@ -1681,10 +1711,17 @@ TERMS = [
     (r"Normal(?:--|–|-)inverse(?:--|–|-| )Gamma", "B9", "thm-normal-inverse-gamma-conjugacy", None),
     (r"inverse[- ]Gamma(?: distributions?| priors?)?", "B3", "def-inverse-gamma-distribution", None),
     (r"precision[- ]weight(?:ing|ed)", "B3", "rem-precision-weighting", None),
+    # On the stochastic-process pages the stationary law and detailed balance are
+    # developed for the process. The same phrases elsewhere stay with the sampler.
+    (r"stationary distributions?", "SP4", "def-sp-stationary-distribution", {"Stochastic processes"}),
+    (r"detailed balance", "SP5", "def-sp-detailed-balance", {"Stochastic processes"}),
+    (r"Poisson processes?", "SP6", "def-sp-poisson-process", {"Stochastic processes"}),
+    (r"Borel(?:--|–|-)Cantelli(?: lemmas?)?", "SP9", "thm-sp-borel-cantelli", {"Stochastic processes"}),
+    (r"uniform integrability", "SP11", "def-sp-uniform-integrability", {"Stochastic processes"}),
     # MCMC
     # "Markov chain" on a probability page points at the finite-state chapter.
     # Elsewhere it stays with the Monte Carlo chapter. "MCMC" always does.
-    (r"Markov chains?", "P6", "def-finite-state-markov-chain", {P}),
+    (r"Markov chains?", "P6", "def-finite-state-markov-chain", {P, "Stochastic processes"}),
     (r"Markov chains?|MCMC", "B4", "def-markov-chain", {B, G, S, C, T, "Final preparation"}),
     (r"detailed balance", "B4", "def-stationarity-and-detailed-balance", None),
     (r"stationary distributions?", "B4", "def-stationarity-and-detailed-balance", None),
@@ -2998,6 +3035,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     lines = [
         "Every chapter is an article. Each one ends with a table of the questions on its topic. "
         "The Probability section is the common language for the later chapters: experiments, random variables, simulation, dependence, limits, Markov chains and reliability. "
+        "Stochastic processes continues from there: branching and first passage, Markov chains in discrete and continuous time, Poisson processes and queues, then sigma-algebras, modes of convergence, and maxima. "
         "Statistical inference then turns a random sample into an estimate, an interval, or a test. "
         "Data analysis is where a study, a table of summaries, and an R calculation meet those methods.",
         "",
@@ -3085,7 +3123,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, stochastic processes, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -3378,7 +3416,7 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 
 def chapter_source(filename: str) -> Path:
     """Chapter files live with the book, except the probability notes."""
-    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters"):
+    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters", STOCHASTIC / "chapters"):
         path = folder / filename
         if path.exists():
             return path
@@ -3448,6 +3486,7 @@ def main() -> None:
         PROBABILITY / "chapters" / "prob-solutions.qmd",
         INFERENCE / "chapters" / "inf-solutions.qmd",
         DATA / "chapters" / "da-solutions.qmd",
+        STOCHASTIC / "chapters" / "sp-solutions.qmd",
     ):
         solutions = sol_path.read_text(encoding="utf-8")
         matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))
