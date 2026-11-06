@@ -2,7 +2,32 @@
 
 A chi-squared statistic compares observed counts with the counts a model expected. It is the large-sample test for a fully specified discrete distribution, for a discrete distribution with a few unknown parameters, and for independence in a contingency table. The likelihood-ratio version of a comparison between nested models is the deviance, developed with [paired comparisons and deviance](05-comparisons-and-deviance.qmd). A contingency table is also the data layout of a [categorical response](04-categorical-responses.qmd).
 
-The counts themselves are multinomial. That joint distribution is on the [common distributions](../reference/distributions.qmd) page, and the underlying independence of trials is in [Joint distributions](prob-04-joint-distributions.qmd).
+The counts themselves are multinomial. That joint distribution is on the [common distributions](../reference/distributions.qmd) page, and the underlying independence of trials is in [Joint distributions](prob-04-joint-distributions.qmd). The chi-squared law is defined in [Statistical inference](inf-01-statistical-inference.qmd#def-chi-squared-distribution).
+
+## Counts in categories
+
+Throw $n$ balls independently into $k$ urns, each ball landing in urn $i$ with probability $p_i$. The numbers $(X_1,\ldots,X_k)$ in the urns are multinomial:
+
+$$
+\Pr(X_1=x_1,\ldots,X_k=x_k)=\frac{n!}{x_1!\cdots x_k!}\,p_1^{x_1}\cdots p_k^{x_k},\qquad x_1+\cdots+x_k=n.
+$$
+
+Each $X_i$ is $\Bin(n,p_i)$ on its own, so $\E X_i=np_i$. The counts are not independent, because they must add to $n$. Data become multinomial whenever individuals are sorted into classes.
+
+::: {#exm-army-recruits-by-iq-class .example}
+## Army recruits by IQ class
+
+Suppose recruits' IQ scores are $\Normal(100,16^2)$, and recruits are classed as 1 (IQ at most 90), 2 (between 90 and 110) or 3 (above 110).
+
+**Question.** Of 7 new recruits, what is the probability that 2 are in class 1, 4 in class 2 and 1 in class 3?
+
+**Solution.** The class probabilities are $p_1=\Phi\{(90-100)/16\}=\Phi(-0.625)=0.266$, $p_3=0.266$ by symmetry, and $p_2=0.468$. The class counts are $\Mult(7;\,0.266,0.468,0.266)$, so
+
+$$
+\Pr(X_1=2,X_2=4,X_3=1)=\frac{7!}{2!\,4!\,1!}\,0.266^2\times0.468^4\times0.266=0.095.
+$$
+
+:::
 
 ## Known cell probabilities
 
@@ -19,27 +44,134 @@ where $O_i$ is the observed count and $E_i=n\pi_i$ is the expected count.
 
 :::
 
-Under the hypothesis $p_i=\pi_i$ for every $i$, $T$ is approximately chi-squared with $k-1$ degrees of freedom once $n$ is large. One degree of freedom is lost because the counts sum to $n$, so the cells are not $k$ independent Poisson variables. A usual rule of thumb asks for every expected count to be at least about $5$ before the approximation is trusted. The level-$\alpha$ test rejects when $T$ exceeds the chi-squared quantile $\chi^2_{k-1,\,1-\alpha}$.
+::: {#thm-pearson-chi-squared-approximation .theorem}
+## Pearson chi-squared approximation
 
-For three phenotypes in the proportions $1:2:1$, the reference probabilities are $1/4$, $1/2$ and $1/4$, and the null distribution has $3-1=2$ degrees of freedom. The quantile $\chi^2_{2,\,0.95}$ is $5.991$.
+If $p_i=\pi_i$ for every $i$, the Pearson statistic $T$ has approximately the $\chi^2_{k-1}$ distribution for large $n$.
+
+:::
+
+The case $k=2$ shows where the $k-1$ comes from. With two cells, $X_2=n-X_1$ and $\pi_2=1-\pi_1$, so $X_2-n\pi_2=-(X_1-n\pi_1)$, and
+
+$$
+T=(X_1-n\pi_1)^2\Bigl(\frac1{n\pi_1}+\frac1{n(1-\pi_1)}\Bigr)=\frac{(X_1-n\pi_1)^2}{n\pi_1(1-\pi_1)}=Z^2,
+$$
+
+where $Z$ is the standardised binomial count. By the central limit theorem $Z$ is approximately standard normal, so $T$ is approximately $\chi^2_1$. Two cells give one free squared normal, because the constraint $X_1+X_2=n$ ties the second cell to the first. For general $k$, the vector of standardised counts is approximately normal by the multivariate central limit theorem, and the constraint $\sum X_i=n$ confines it to a $(k-1)$-dimensional subspace; the sum of squares there is $\chi^2_{k-1}$.
+
+The approximation needs every expected count to be large. A usual rule of thumb asks for $E_i\ge5$ in every cell. Classes with small expected counts are merged before the test is done. The test rejects for large $T$: at level $\alpha$, when $T\ge\chi^2_{k-1;1-\alpha}$. The alternative is simply that the reference probabilities are wrong, in any way at all.
+
+::: {#exm-frizzled-chickens .example}
+## Frizzled chickens
+
+Genetic theory predicts that chickens of types FF, Ff and ff, which are extremely frizzled, slightly frizzled and normal, occur in proportions $1:2:1$. Of 93 chickens, 23, 50 and 20 are of the three types.
+
+**Question.** Are the counts consistent with the theory, at level $0.05$?
+
+**Solution.** The counts are $\Mult(93;\,p_1,p_2,p_3)$. Test $H_0:(p_1,p_2,p_3)=(1/4,1/2,1/4)$. The expected counts are $23.25$, $46.5$ and $23.25$, and
+
+$$
+T=\frac{(23-23.25)^2}{23.25}+\frac{(50-46.5)^2}{46.5}+\frac{(20-23.25)^2}{23.25}=0.003+0.263+0.454=0.72,
+$$
+
+on $3-1=2$ degrees of freedom. The critical value is $\chi^2_{2;0.95}=5.991$, and the $p$-value is $0.70$. The counts are consistent with the $1:2:1$ theory.
+
+:::
 
 ## Estimated parameters
 
-If the cell probabilities depend on an unknown $r$-dimensional parameter, $p_i=p_i(\theta)$, replace $\pi_i$ by the fitted probability $p_i(\widehat\theta)$ from the maximum likelihood estimator of $\theta$. The Pearson statistic with those fitted expectations is approximately chi-squared with $k-1-r$ degrees of freedom under the model. Each freely estimated parameter spends a degree of freedom. Using $k-1$ instead, as though $\theta$ were known, makes the test too reluctant to reject.
+Often the model fixes the form of the cell probabilities but not their values. A count of houses per plot might be Poisson with unknown mean. Then $p_i=p_i(\theta)$ for an unknown $r$-dimensional parameter $\theta$, and the expected counts must themselves be estimated.
 
-A count of events in equal time bins, fitted by a Poisson distribution, is the usual example. The Poisson mean is estimated by the sample mean, so $r=1$, and the degrees of freedom are the number of bins minus $2$.
+::: {#thm-pearson-test-with-estimated-parameters .theorem}
+## Pearson test with estimated parameters
+
+Let $(X_1,\ldots,X_k)$ be multinomial with cell probabilities $p_i(\theta)$, where $\theta$ has $r$ free coordinates. If $\widehat\theta$ is the maximum likelihood estimator of $\theta$ from the counts and $\widehat p_i=p_i(\widehat\theta)$, then
+
+$$
+\sum_{i=1}^k\frac{(X_i-n\widehat p_i)^2}{n\widehat p_i}
+$$
+
+is approximately $\chi^2_{k-1-r}$ for large $n$.
+
+:::
+
+Each freely estimated parameter spends a degree of freedom. The fitted expectations are pulled towards the observed counts by the estimation, so the statistic is smaller than it would be with the true $\theta$. Using $k-1$ degrees of freedom anyway, as though $\theta$ were known, makes the test too reluctant to reject.
+
+::: {#exm-houses-on-a-village-grid .example}
+## Houses on a village grid
+
+A village of 12 square kilometres is divided into 1200 plots, and the 911 houses are counted plot by plot. If houses are placed at random, the count on a plot should be Poisson.
+
+| Houses on a plot | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Plots | 584 | 398 | 168 | 35 | 9 | 4 | 0 | 1 | 0 | 1 |
+
+**Question.** Test whether the counts per plot are Poisson.
+
+**Solution.** The maximum likelihood estimate of the Poisson mean is the average count, $\widehat\mu=911/1200=0.7592$. The fitted expected number of plots with $i$ houses is $1200\,e^{-\widehat\mu}\widehat\mu^{\,i}/i!$: $561.67$, $426.40$, $161.85$ and $40.96$ for 0 to 3 houses, then $7.77$, $1.18$ and less than $0.2$ after that. To keep every expectation at least 5, merge 4 or more houses into one class, with observed count $15$ and expected count $9.12$. With $k=5$ classes and $r=1$ estimated parameter,
+
+$$
+T=\frac{(584-561.67)^2}{561.67}+\frac{(398-426.40)^2}{426.40}+\frac{(168-161.85)^2}{161.85}+\frac{(35-40.96)^2}{40.96}+\frac{(15-9.12)^2}{9.12}=7.67
+$$
+
+on $5-1-1=3$ degrees of freedom. Since $\chi^2_{3;0.95}=7.815$, the test just fails to reject at the 5% level; the $p$-value is $0.053$. Most of the statistic comes from the merged tail class: there are more crowded plots, and fewer plots with a single house, than a Poisson law allows. The evidence that houses are not placed at random is suggestive, not conclusive.
+
+:::
+
+![Observed numbers of plots with each count of houses, against the fitted Poisson expectations. The fit is close at 0 and 2 houses. It is short of plots with 1 house and of plots with 4 or more.](../figures/inf-houses-poisson.pdf){#fig-inf-houses-poisson}
 
 ## Contingency tables
 
-A contingency table classifies $n$ individuals by two factors, with $r$ rows and $c$ columns. Write $O_{ij}$ for the count in row $i$ and column $j$, $R_i$ for the row total and $C_j$ for the column total. Independence of the two factors says that the cell probability factors into a row probability times a column probability. The maximum likelihood fitted count is
+A contingency table classifies $n$ individuals by two factors, with $r$ rows and $c$ columns. Write $O_{ij}$ for the count in row $i$ and column $j$, $R_i$ for the row total and $C_j$ for the column total. If the individuals are sampled independently, the $rc$ cell counts are multinomial with cell probabilities $p_{ij}$.
+
+Independence of the two factors says that each cell probability factors into a row probability times a column probability, $H_0:p_{ij}=a_ib_j$ for all $i,j$. The maximum likelihood estimates are the row and column proportions, $\widehat a_i=R_i/n$ and $\widehat b_j=C_j/n$, so the fitted count under independence is
 
 $$
-E_{ij}=\frac{R_i\,C_j}{n}.
+E_{ij}=n\,\widehat a_i\widehat b_j=\frac{R_i\,C_j}{n}.
 $$
 
-The Pearson statistic $\sum(O_{ij}-E_{ij})^2/E_{ij}$ is then approximately chi-squared with $(r-1)(c-1)$ degrees of freedom. The row probabilities and the column probabilities are estimated, and both sets sum to one, which is why the degrees of freedom take that product form. A large statistic is evidence against independence.
+::: {#def-chi-squared-test-of-independence .definition}
+## Chi-squared test of independence
 
-The same table can be read as a response model, with one factor the response and the other the covariate. The saturated log-linear or multinomial-logit fit, and the likelihood-ratio comparison with the independence model, are the categorical and deviance chapters rather than a second copy of this statistic.
+For an $r\times c$ contingency table with fitted counts $E_{ij}=R_iC_j/n$, the statistic
+
+$$
+T=\sum_{i=1}^r\sum_{j=1}^c\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
+$$
+
+is approximately $\chi^2_{(r-1)(c-1)}$ when the row and column factors are independent. Large values are evidence against independence.
+
+:::
+
+The degrees of freedom are counted as before. There are $rc$ cells, so $rc-1$ to start with. The row probabilities sum to one, so $r-1$ of them are free, and similarly $c-1$ column probabilities. That leaves $rc-1-(r-1)-(c-1)=(r-1)(c-1)$.
+
+::: {#exm-belief-in-esp .example}
+## Belief in ESP
+
+A survey asks 114 artists and 344 non-artists how strongly they believe in extra-sensory perception.
+
+| | Strong | Moderate | None | Total |
+|---|---|---|---|---|
+| Artists | 67 | 41 | 6 | 114 |
+| Non-artists | 129 | 183 | 32 | 344 |
+| Total | 196 | 224 | 38 | 458 |
+
+**Question.** Is belief in ESP independent of being an artist?
+
+**Solution.** The fitted counts are $R_iC_j/458$. For artists with strong belief, $114\times196/458=48.79$; the six fitted counts are
+
+| | Strong | Moderate | None |
+|---|---|---|---|
+| Artists | 48.79 | 55.76 | 9.46 |
+| Non-artists | 147.21 | 168.24 | 28.54 |
+
+The six contributions $(O_{ij}-E_{ij})^2/E_{ij}$ are $6.80$, $3.91$, $1.27$, $2.25$, $1.29$ and $0.42$, so $T=15.94$ on $(2-1)(3-1)=2$ degrees of freedom. The $p$-value is $0.0003$. Independence is firmly rejected. The largest contributions come from artists: more of them hold strong belief, and fewer moderate belief, than independence predicts.
+
+:::
+
+A $2\times2$ table is a comparison of two proportions. With rows as groups and columns as success and failure, the Pearson statistic equals the square of the [two-proportion z statistic](inf-04-hypothesis-tests.qmd#def-two-proportion-z-test) with the pooled standard error, and $\chi^2_1$ is the law of a squared standard normal. The two tests are the same test, except that the chi-squared version is automatically two-sided.
+
+The same table can be read as a response model, with one factor the response and the other the covariate. The saturated log-linear or multinomial-logit fit, and the likelihood-ratio comparison with the independence model, belong to the categorical and deviance chapters rather than to a second copy of this statistic.
 
 ::: {.callout-note}
 ## Key idea
@@ -53,8 +185,35 @@ Numerical examples are in [Chi-squared examples](da-09-chi-square-examples.qmd).
 ::: {#ex-inf-frizzle .exercise}
 ## A 1:2:1 phenotype ratio
 
-Complete dominance predicts phenotype probabilities $1/4$, $1/2$ and $1/4$. In a sample of 93 animals the counts are 23, 50 and 20. Compute the Pearson statistic, and test the prediction at level $0.05$. Use $\chi^2_{2,\,0.95}=5.991$.
+Of 93 chickens, 23 are extremely frizzled, 50 slightly frizzled and 20 normal. Test the genetic prediction that the three types occur in the ratio $1:2:1$, at level $0.05$. Use $\chi^2_{2;0.95}=5.991$.
 
 [Solution](#sol-inf-frizzle)
+
+:::
+
+::: {#ex-inf-die-fairness .exercise}
+## Is the die fair?
+
+A die is rolled 120 times, giving faces 1 to 6 with frequencies 14, 22, 16, 25, 19 and 24. Test whether the die is fair at level $0.05$. Use $\chi^2_{5;0.95}=11.07$.
+
+[Solution](#sol-inf-die-fairness)
+
+:::
+
+::: {#ex-inf-two-by-two .exercise}
+## A two-by-two table is a two-proportion test
+
+Of 70 viewers of one channel, 40 are left-wing; of 100 viewers of another, 50 are. Compute the Pearson statistic for independence of channel and allegiance, and check that it equals the square of the pooled two-proportion $z$ statistic, $0.918$.
+
+[Solution](#sol-inf-two-by-two)
+
+:::
+
+::: {#ex-inf-degrees-of-freedom .exercise}
+## Counting degrees of freedom
+
+Give the degrees of freedom of the Pearson statistic in each case. (a) A $4\times5$ contingency table tested for independence. (b) Counts in 8 classes compared with a binomial distribution $\Bin(7,p)$, with $p$ estimated. (c) Counts in 10 classes compared with a normal distribution whose mean and variance are both estimated. (d) The same, with the mean and variance known.
+
+[Solution](#sol-inf-degrees-of-freedom)
 
 :::

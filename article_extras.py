@@ -235,3 +235,117 @@ FIGURES = {
 CHAPTER_FIGURES = {
     "bayes-05-categorical.qmd": "part1-fig-05-dirichlet-simplex.png",
 }
+
+
+# ---------------------------------------------------------------------------
+# Statistical inference. Kept in one block and merged into the tables above,
+# so an article that already has Bayesian material keeps it.
+# ---------------------------------------------------------------------------
+
+_INFERENCE_PROPERTIES = {
+    "random-sample": ["moments-of-the-sample-mean-and-variance", "normal-sample-theorem"],
+    "statistic": ["moments-of-the-sample-mean-and-variance", "normal-sample-theorem"],
+    "normal-distribution": ["normal-sample-theorem"],
+    "chi-squared-distribution": ["normal-sample-theorem", "pearson-chi-squared-approximation", "pearson-test-with-estimated-parameters"],
+    "student-t-distribution": ["one-sample-t-pivot", "two-sample-t-pivot", "slope-t-pivot"],
+    "f-distribution": ["variance-ratio-f-pivot", "anova-f-distribution"],
+    "likelihood-function": ["invariance-of-maximum-likelihood"],
+    "maximum-likelihood": ["invariance-of-maximum-likelihood"],
+    "unbiased-estimator": ["moments-of-the-sample-mean-and-variance", "least-squares-estimators-are-unbiased"],
+    "confidence-interval": ["one-sample-t-pivot", "two-sample-t-pivot", "variance-ratio-f-pivot", "slope-t-pivot"],
+    "pivot": ["one-sample-t-pivot", "two-sample-t-pivot", "variance-ratio-f-pivot", "slope-t-pivot"],
+    "pooled-variance": ["two-sample-t-pivot"],
+    "one-sample-t-test": ["one-sample-t-pivot"],
+    "two-sample-t-test": ["two-sample-t-pivot"],
+    "f-test-for-equal-variances": ["variance-ratio-f-pivot"],
+    "pearson-statistic": ["pearson-chi-squared-approximation", "pearson-test-with-estimated-parameters"],
+    "chi-squared-test-of-independence": ["pearson-test-with-estimated-parameters"],
+    "simple-linear-regression": [
+        "least-squares-estimators-are-unbiased",
+        "sampling-distribution-of-the-regression-estimators",
+        "slope-t-pivot",
+    ],
+    "least-squares-line": ["least-squares-estimators-are-unbiased"],
+    "prediction-interval": ["sampling-distribution-of-the-regression-estimators"],
+    "one-way-analysis-of-variance": ["anova-sum-of-squares-decomposition", "anova-f-distribution"],
+    "randomised-block-design": ["anova-f-distribution"],
+}
+
+_INFERENCE_EXAMPLES = {
+    "statistic": ["ex-inf-which-are-statistics"],
+    "pivot": ["ex-inf-which-are-statistics", "ex-inf-mean-pivot"],
+    "student-t-distribution": ["ex-inf-t-squared-is-f"],
+    "f-distribution": ["ex-inf-t-squared-is-f", "ex-inf-variance-ratio-interval"],
+    "maximum-likelihood": ["ex-inf-normal-mle", "ex-inf-exponential-mle", "ex-inf-poisson-mle"],
+    "invariance-of-maximum-likelihood": ["ex-inf-exponential-mle"],
+    "unbiased-estimator": ["ex-inf-variance-bias", "ex-inf-expected-sample-variance"],
+    "mean-squared-error": ["ex-inf-shrunk-mean"],
+    "consistent-estimator": ["ex-inf-poisson-mle"],
+    "confidence-interval": ["ex-inf-two-standard-errors", "ex-inf-mean-pivot"],
+    "pooled-variance": ["ex-inf-safety-interval"],
+    "wald-interval": ["ex-inf-green-voters", "ex-inf-poll-size"],
+    "critical-region": ["ex-inf-blood-pressure-region"],
+    "power-function": ["ex-inf-serve-power", "ex-inf-fork-critical-value"],
+    "one-sample-t-test": ["ex-inf-tyre-wear"],
+    "sign-test": ["ex-inf-sign-test-one-sided"],
+    "pearson-statistic": ["ex-inf-die-fairness"],
+    "two-proportion-z-test": ["ex-inf-two-by-two"],
+    "chi-squared-test-of-independence": ["ex-inf-two-by-two", "ex-inf-degrees-of-freedom"],
+    "least-squares-line": ["ex-inf-normal-equations", "ex-inf-line-through-origin"],
+    "coefficient-of-determination": ["ex-inf-advertising-r2"],
+    "prediction-interval": ["ex-inf-prediction-width"],
+    "sample-correlation-coefficient": ["ex-inf-correlation-t"],
+    "one-way-analysis-of-variance": ["ex-inf-heart-rate", "ex-inf-anova-two-groups"],
+    "contrast": ["ex-inf-corn-contrast"],
+    "tukey-intervals": ["ex-inf-tukey-corn"],
+    "randomised-block-design": ["ex-inf-hardness", "ex-inf-paired-f"],
+}
+
+_INFERENCE_BOOK_EXAMPLES = {
+    "exm-ten-thermometers": ["estimator"],
+    "exm-two-variance-estimators": ["mean-squared-error", "unbiased-estimator"],
+    "exm-two-estimators-of-a-uniform-endpoint": ["mean-squared-error", "maximum-likelihood", "method-of-moments"],
+    "exm-household-fuel-spending": ["confidence-interval", "one-sample-t-pivot"],
+    "exm-aspirin-tablet-weights": ["chi-squared-distribution", "confidence-interval"],
+    "exm-nightmares-in-two-groups": ["wald-interval"],
+    "exm-a-gene-in-lake-fish": ["binomial-test", "p-value"],
+    "exm-caffeine-in-cola": ["one-sample-t-test", "p-value", "critical-region"],
+    "exm-tuning-fork-variability": ["chi-squared-distribution", "critical-region"],
+    "exm-army-recruits-by-iq-class": ["multinomial-distribution"],
+    "exm-frizzled-chickens": ["pearson-statistic", "pearson-chi-squared-approximation"],
+    "exm-houses-on-a-village-grid": ["pearson-test-with-estimated-parameters", "poisson-distribution"],
+    "exm-belief-in-esp": ["chi-squared-test-of-independence"],
+    "exm-advertising-and-sales": ["least-squares-line"],
+    "exm-melanoma-and-latitude": ["least-squares-line"],
+    "exm-heart-rate-and-oxygen-intake": ["simple-linear-regression", "slope-t-pivot", "prediction-interval"],
+    "exm-testing-a-correlation": ["sample-correlation-coefficient"],
+    "exm-five-varieties-of-corn": ["one-way-analysis-of-variance", "anova-f-distribution", "tukey-intervals"],
+}
+
+_INFERENCE_FIGURES = {
+    "confidence-interval": ["inf-coverage.png"],
+    "student-t-distribution": ["inf-t-densities.png"],
+    "one-sample-t-pivot": ["inf-t-densities.png"],
+    "p-value": ["inf-p-value.png"],
+    "one-sample-t-test": ["inf-p-value.png"],
+    "critical-region": ["inf-p-value.png"],
+    "power-function": ["inf-power-curve.png"],
+    "type-i-and-type-ii-errors": ["inf-power-curve.png"],
+    "neyman-pearson-approach": ["inf-power-curve.png"],
+    "pearson-test-with-estimated-parameters": ["inf-houses-poisson.png"],
+    "simple-linear-regression": ["inf-heart-oxygen.png", "inf-regression-effect.png"],
+    "prediction-interval": ["inf-heart-oxygen.png"],
+    "least-squares-line": ["inf-regression-effect.png"],
+    "randomised-block-design": ["inf-hardness-blocks.png"],
+    "one-way-analysis-of-variance": ["inf-corn-groups.png"],
+    "tukey-intervals": ["inf-corn-groups.png"],
+}
+
+for _table, _extra in (
+    (PROPERTIES, _INFERENCE_PROPERTIES),
+    (EXAMPLES, _INFERENCE_EXAMPLES),
+    (BOOK_EXAMPLES, _INFERENCE_BOOK_EXAMPLES),
+    (FIGURES, _INFERENCE_FIGURES),
+):
+    for _name, _items in _extra.items():
+        _table.setdefault(_name, []).extend(i for i in _items if i not in _table[_name])

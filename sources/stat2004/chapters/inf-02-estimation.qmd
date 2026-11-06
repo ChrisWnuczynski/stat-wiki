@@ -1,29 +1,119 @@
 # Estimation
 
-An estimator is a statistic used as a guess at a parameter. The number it produces on the observed sample is the estimate. The two are written with the same symbol, and the distinction is whether the sample is still random. $\widehat\theta(X_1,\ldots,X_n)$ has a sampling distribution. $\widehat\theta(x_1,\ldots,x_n)$ is a number.
+An estimator is a statistic used as a guess at a parameter. The number it produces on the observed sample is the estimate. The two are written with the same symbol, and the difference is whether the sample is still random. $\widehat\theta(X_1,\ldots,X_n)$ has a sampling distribution. $\widehat\theta(x_1,\ldots,x_n)$ is a number.
 
-The families below are the ones on the [common distributions](../reference/distributions.qmd) page, reached through a [random sample](inf-01-statistical-inference.qmd#def-random-sample).
+The families below are the ones on the [common distributions](../reference/distributions.qmd) page, reached through a [random sample](inf-01-statistical-inference.qmd#def-random-sample). The two systematic ways of building an estimator are the method of moments and maximum likelihood. Once there are candidates, they are compared by bias, variance and mean squared error.
+
+## Estimates and estimators
+
+For the milk cartons in [Statistical inference](inf-01-statistical-inference.qmd), the model is a normal random sample with unknown mean $\mu$. The mean will never be known. It is plausible that $\mu$ is close to the sample mean, $1.0512$, but the sample median, $1.0460$, is just as much a function of the data. Which is the better guess is a question about the two sampling distributions, not about these two numbers.
+
+::: {#def-estimator .definition}
+## Estimator
+
+An estimator of $\theta$ is a statistic $T=T(X_1,\ldots,X_n)$ whose value is used as a guess at $\theta$. Its observed value $t=T(x_1,\ldots,x_n)$ is the estimate.
+
+:::
+
+The definition is deliberately broad. Any statistic is an estimator, and most are bad ones. The one requirement is that it can be computed from the data alone. For a Bernoulli sample with $\Pr(X_i=1)=p$, $(X_1+X_4)/2$ is an estimator of $p$, though a wasteful one. $(X_1+\E X_4)/2$ is not an estimator, because $\E X_4=p$ is unknown.
+
+::: {#exm-ten-thermometers .example}
+## Ten thermometers
+
+Ten thermometers are drawn at random from a large stock and tested. The results are $0,1,1,0,1,0,0,1,0,0$, where $1$ means the thermometer meets the standard.
+
+**Question.** Write down a model and an estimate of the proportion $p$ of compliant thermometers in the stock.
+
+**Solution.** Let $X_i=1$ if the $i$th thermometer works. Drawing at random from a large stock makes the $X_i$ close to independent, with $\Pr(X_i=1)=p$. The natural estimator is the sample proportion
+
+$$
+\widehat p=\frac1{10}\sum_{i=1}^{10}X_i,
+$$
+
+and its observed value is $4/10=0.4$. The estimator is the recipe that would be applied to tomorrow's ten thermometers. The estimate is the number $0.4$ from today's.
+
+:::
 
 ## Method of moments
 
 ::: {#def-method-of-moments .definition}
 ## Method of moments
 
-Suppose the first $k$ population moments exist and determine $\theta=(\theta_1,\ldots,\theta_k)$. The method of moments matches them to the corresponding sample moments and solves for $\theta$.
+Suppose the first $k$ population moments exist and determine $\theta=(\theta_1,\ldots,\theta_k)$. The method of moments matches them to the corresponding sample moments,
+
+$$
+\E_\theta(X^r)=\frac1n\sum_{i=1}^n x_i^r,\qquad r=1,\ldots,k,
+$$
+
+and solves the $k$ equations for $\theta$.
 
 :::
+
+The population moments are functions of $\theta$, and the sample moments are numbers, so this is $k$ equations in $k$ unknowns. They are often nonlinear and solved numerically.
 
 For a single mean, the first moment gives $\widehat\mu=\overline X$. For a mean and a variance together, $\E X_i^2=\mu^2+\sigma^2$, so the second sample moment produces
 
 $$
-\widetilde\sigma^2=\frac1n\sum_{i=1}^n (X_i-\overline X)^2=\frac{n-1}{n}s^2.
+\widetilde\sigma^2=\frac1n\sum_{i=1}^n x_i^2-\overline x^2=\frac1n\sum_{i=1}^n (x_i-\overline x)^2=\frac{n-1}{n}s^2.
 $$
 
-For independent Bernoulli trials with success probability $p$, the first moment is $p$ itself, so the moment estimator is the sample proportion $\overline X$. The same matching idea estimates a correlation by the sample correlation of the pairs $(X_i,Y_i)$.
+For independent Bernoulli trials with success probability $p$, the first moment is $p$ itself, so the moment estimator is the sample proportion, as in the thermometer example.
 
-Moment estimators are easy to write down and often consistent. They are not, in general, the estimators with the smallest variance.
+::: {#def-sample-correlation-coefficient .definition}
+## Sample correlation coefficient
+
+For pairs $(x_1,y_1),\ldots,(x_n,y_n)$, the sample correlation coefficient is
+
+$$
+r=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sqrt{\sum_{i=1}^n(x_i-\overline x)^2}\,\sqrt{\sum_{i=1}^n(y_i-\overline y)^2}}.
+$$
+
+It lies in $[-1,1]$, by the Cauchy–Schwarz inequality.
+
+:::
+
+The sample correlation is a moment estimator. The population correlation is
+
+$$
+\rho=\frac{\E(XY)-\mu_X\mu_Y}{\sigma_X\sigma_Y}.
+$$
+
+Replace $\E(XY)$ by $\frac1n\sum x_iy_i$, the means by sample means, and each variance by its divide-by-$n$ moment estimator. The numerator becomes $\frac1n\sum x_iy_i-\overline x\,\overline y=\frac1n\sum(x_i-\overline x)(y_i-\overline y)$, and the factors of $1/n$ cancel to give $r$. The same statistic returns in [Linear regression](inf-06-regression.qmd), where $r^2$ is the proportion of variation explained by a fitted line.
+
+Moment estimators are easy to write down and are consistent whenever the moments are continuous functions of $\theta$. They are not, in general, the estimators with the smallest variance, and they can fall outside the parameter space.
 
 ## Maximum likelihood
+
+Ten spark plugs are drawn from a large batch and two are defective. The obvious estimate of the defective proportion is $2/10$. Maximum likelihood is a systematic route to that answer that also works when there is no obvious one.
+
+Model the count as $X\sim\Bin(10,p)$. The probability of what was observed, as a function of $p$, is
+
+$$
+f(2;p)=\binom{10}{2}p^2(1-p)^8.
+$$
+
+At $p=0.4$ this is $0.121$. At $p=0.3$ it is $0.233$, almost twice as large, and at $p=0.2$ it is $0.302$. Some values of $p$ make the observation more probable than others. Maximum likelihood picks the value that makes it most probable. Setting the derivative of $\log f(2;p)=\text{const}+2\log p+8\log(1-p)$ to zero gives $2/p-8/(1-p)=0$, that is $\widehat p=0.2$.
+
+::: {#def-likelihood-function .definition}
+## Likelihood function
+
+Let $X_1,\ldots,X_n$ have joint mass or density function $f(x_1,\ldots,x_n;\theta)$, and let $x_1,\ldots,x_n$ be the observed values. The likelihood function is
+
+$$
+L(\theta)=L(\theta;x_1,\ldots,x_n)=f(x_1,\ldots,x_n;\theta),\qquad \theta\in\Theta.
+$$
+
+:::
+
+The formula is the same as the joint density. What changes is which argument varies. The density is a function of the data for a fixed parameter. The likelihood is a function of the parameter for the fixed, observed data. It is not a density in $\theta$ and need not integrate to one.
+
+For continuous data the probability of the exact observation is zero for every $\theta$, so the density takes its place. Suppose daily output of a chemical plant is $\Normal(\mu,50)$ tonnes with $\mu$ unknown, and only the mean over 50 days, $\overline x=871$, is recorded. Then $\overline X\sim\Normal(\mu,1)$, and the likelihood is the density of $\overline X$ at $871$,
+
+$$
+L(\mu)=\frac1{\sqrt{2\pi}}\exp\bigl\{-\tfrac12(871-\mu)^2\bigr\},
+$$
+
+which is largest at $\mu=871$. Here the likelihood of a single summary is enough, because for a normal mean with known variance the sample mean carries all the information in the sample about $\mu$; that is the idea of a [sufficient statistic](bayes-07-exponential-families.qmd#def-sufficient-statistic).
 
 ::: {#def-maximum-likelihood .definition}
 ## Maximum likelihood
@@ -38,41 +128,90 @@ A maximum likelihood estimate is a value $\widehat\theta$ that maximises $L$. Th
 
 :::
 
-The logarithm is strictly increasing, so $\log L$ has the same maximiser, and a sum is easier to differentiate than a product. For a scalar parameter the likelihood equation is $\partial\log L/\partial\theta=0$, provided the maximum is interior and the derivative exists. For a vector parameter there is one equation per coordinate.
+The logarithm is strictly increasing, so $\log L$ has the same maximiser, and a sum is easier to differentiate than a product:
 
-A single $\Bin(n,p)$ count $X=x$ has log-likelihood $x\log p+(n-x)\log(1-p)$, up to a constant. Setting the derivative to zero gives $\widehat p=x/n$.
+$$
+\log L(\theta)=\sum_{i=1}^n\log f(x_i;\theta).
+$$
+
+For a scalar parameter the likelihood equation is $\partial\log L/\partial\theta=0$, provided the maximum is interior and the derivative exists. For a vector parameter there is one equation per coordinate, $\partial\log L/\partial\theta_j=0$. A solution of the likelihood equations should still be checked to be a maximum rather than a minimum or a saddle.
+
+### Binomial
+
+A single $\Bin(n,p)$ count $X=x$ has log-likelihood $x\log p+(n-x)\log(1-p)$, up to a constant. The likelihood equation is
+
+$$
+\frac xp-\frac{n-x}{1-p}=0,
+$$
+
+so $\widehat p=x/n$, and the estimator is $X/n$. Maximum likelihood gives back the common-sense estimator.
+
+### Normal
 
 For $X_1,\ldots,X_n$ independent and $\Normal(\mu,\sigma^2)$,
 
 $$
-\log L(\mu,\sigma^2)=-\frac1{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2-\frac n2\log\sigma^2,
+\log L(\mu,\sigma^2)=-\frac1{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2-\frac n2\log\sigma^2-\frac n2\log(2\pi).
 $$
 
-up to a constant. The likelihood equations return $\widehat\mu=\overline x$ and
+The two likelihood equations are
+
+$$
+\frac{\partial\log L}{\partial\mu}=\frac1{\sigma^2}\sum_{i=1}^n(x_i-\mu)=0,
+\qquad
+\frac{\partial\log L}{\partial\sigma^2}=\frac1{2\sigma^4}\sum_{i=1}^n(x_i-\mu)^2-\frac n{2\sigma^2}=0.
+$$
+
+The first gives $\widehat\mu=\overline x$ whatever the value of $\sigma^2$. Substituting into the second gives
 
 $$
 \widehat\sigma^2=\frac1n\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-So the normal mean is estimated by the sample mean, and the maximum likelihood estimator of the variance divides by $n$, not by $n-1$.
+So the normal mean is estimated by the sample mean, and the maximum likelihood estimator of the variance divides by $n$, not by $n-1$. The two estimators coincide with the moment estimators. The derivative was taken with respect to $\sigma^2$, treated as the parameter; the next result shows that working with $\sigma$ instead gives the same answer.
 
-The maximiser transforms with the parameter. If $\widehat\theta$ maximises $L$ and $g$ is a one-to-one reparameterisation, then $g(\widehat\theta)$ maximises the likelihood written in the new parameter. Estimating $\sigma$ by the square root of $\widehat\sigma^2$ is the case people use.
+### When the likelihood equation fails
+
+Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$. Each density is $1/\theta$ on $(0,\theta)$, so
+
+$$
+L(\theta)=\theta^{-n}\quad\text{if }\theta\ge\max_i x_i,\qquad L(\theta)=0\quad\text{otherwise}.
+$$
+
+$L$ is decreasing wherever it is positive, so its maximum is at the boundary, $\widehat\theta=\max_i X_i$. The derivative is never zero. The likelihood equation finds interior critical points only, and a maximum at the edge of the allowed region has to be found by looking at $L$ directly. The moment estimator is different: $\E X=\theta/2$ gives $\widetilde\theta=2\overline X$, which can be smaller than the largest observation, an impossible value.
+
+::: {#prp-invariance-of-maximum-likelihood .proposition}
+## Invariance of maximum likelihood
+
+If $\widehat\theta$ is the maximum likelihood estimator of $\theta$ and $g$ is a function, then the maximum likelihood estimator of $g(\theta)$ is $g(\widehat\theta)$.
+
+:::
+
+For a one-to-one $g$, write $\nu=g(\theta)$ and reparameterise the likelihood as $\widetilde L(\nu)=L(g^{-1}(\nu))$. Because $L$ is largest at $\theta=\widehat\theta$, $\widetilde L$ is largest where $g^{-1}(\nu)=\widehat\theta$, that is at $\nu=g(\widehat\theta)$. For a $g$ that is not one-to-one the statement is taken as the definition of the estimator of $g(\theta)$: maximise the largest likelihood over all $\theta$ with $g(\theta)=\nu$, which again puts the maximum at $g(\widehat\theta)$. Estimating $\sigma$ by $\sqrt{\widehat\sigma^2}$, or a probability $e^{-\lambda}$ by $e^{-\widehat\lambda}$, are the cases met most often.
 
 ## Comparing estimators
 
 ::: {#def-unbiased-estimator .definition}
 ## Unbiased estimator
 
-An estimator $T$ of $\theta$ is unbiased when $\E T=\theta$ for every $\theta$ in the parameter space. The bias is $\E T-\theta$.
+An estimator $T$ of $\theta$ is unbiased when $\E_\theta T=\theta$ for every $\theta$ in the parameter space. The bias is $\E_\theta T-\theta$.
 
 :::
 
-The sample mean is unbiased for $\mu$, by linearity, whenever the mean exists. The bias-corrected sample variance $s^2$ is unbiased for $\sigma^2$. The maximum likelihood estimator $\widehat\sigma^2=((n-1)/n)s^2$ has bias $-\sigma^2/n$. Unbiasedness is not free: removing that bias can raise the variance.
+The sample mean is unbiased for $\mu$, by linearity, whenever the mean exists:
+
+$$
+\E\overline X=\frac1n\bigl(\E X_1+\cdots+\E X_n\bigr)=\frac1n\,n\mu=\mu.
+$$
+
+The bias-corrected sample variance $s^2$ is unbiased for $\sigma^2$, as shown in [Statistical inference](inf-01-statistical-inference.qmd#prp-moments-of-the-sample-mean-and-variance). The maximum likelihood estimator $\widehat\sigma^2=((n-1)/n)s^2$ therefore has expectation $((n-1)/n)\sigma^2$ and bias $-\sigma^2/n$.
+
+Unbiasedness says the estimator is right on average. It says nothing about how far a single estimate is likely to fall from $\theta$. A measure of that is the mean squared error.
 
 ::: {#def-mean-squared-error .definition}
 ## Mean squared error
 
-The mean squared error of an estimator $T$ of $\theta$ is $\E(T-\theta)^2$. It splits as
+The mean squared error of an estimator $T$ of $\theta$ is $\operatorname{MSE}(T)=\E(T-\theta)^2$. It splits as
 
 $$
 \E(T-\theta)^2=\Var(T)+(\E T-\theta)^2.
@@ -80,13 +219,74 @@ $$
 
 :::
 
-The split is the variance–bias tradeoff. An estimator with a small bias can have a smaller mean squared error than an unbiased competitor, if the unbiased one is much more variable. One estimator is more efficient than another when its mean squared error is smaller at every parameter value.
+To see the split, add and subtract $\E T$:
 
-For a large sample the leading question is whether the estimator settles on $\theta$. The [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers) says that the sample mean does, and the same limit passes to continuous functions of a consistent estimator. Maximum likelihood estimators are consistent in the regular models used here.
+$$
+\E(T-\theta)^2=\E\{T-\E T\}^2+2\{\E T-\theta\}\,\E\{T-\E T\}+\{\E T-\theta\}^2.
+$$
+
+The middle term is zero because $\E\{T-\E T\}=0$, which leaves the variance plus the squared bias.
+
+The split is the variance–bias tradeoff. Removing a bias often raises the variance, and sometimes by more than the squared bias that was removed. An estimator with a small bias can then have a smaller mean squared error than an unbiased competitor. One estimator is more efficient than another when its mean squared error is no larger at every parameter value, and smaller at some.
+
+::: {#exm-two-variance-estimators .example}
+## Two variance estimators
+
+Let $X_1,\ldots,X_n$ be a normal random sample with $n\ge 2$.
+
+**Question.** Compare the mean squared errors of $s^2$ and $\widehat\sigma^2=((n-1)/n)s^2$ as estimators of $\sigma^2$.
+
+**Solution.** By the [normal sample theorem](inf-01-statistical-inference.qmd#thm-normal-sample-theorem), $V=(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, so $\Var V=2(n-1)$ and
+
+$$
+\Var(s^2)=\frac{\sigma^4}{(n-1)^2}\,2(n-1)=\frac{2\sigma^4}{n-1}.
+$$
+
+$s^2$ is unbiased, so this is its mean squared error. For $\widehat\sigma^2$, the variance is $((n-1)/n)^2$ times as large and the bias is $-\sigma^2/n$:
+
+$$
+\operatorname{MSE}(\widehat\sigma^2)=\frac{(n-1)^2}{n^2}\cdot\frac{2\sigma^4}{n-1}+\frac{\sigma^4}{n^2}=\frac{(2n-1)\sigma^4}{n^2}.
+$$
+
+Since $(2n-1)(n-1)=2n^2-3n+1<2n^2$, the biased estimator has the smaller mean squared error for every $n$ and every $\sigma^2$. With $n=10$ the two are $0.222\,\sigma^4$ and $0.190\,\sigma^4$. The unbiased estimator is preferred for other reasons: it is the one whose distribution gives the exact $t$ and chi-squared pivots.
+
+:::
+
+::: {#exm-two-estimators-of-a-uniform-endpoint .example}
+## Two estimators of a uniform endpoint
+
+Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$, and let $M=\max_i X_i$.
+
+**Question.** Compare the mean squared errors of the moment estimator $2\overline X$ and the maximum likelihood estimator $M$.
+
+**Solution.** $2\overline X$ is unbiased, and $\Var X_i=\theta^2/12$, so
+
+$$
+\operatorname{MSE}(2\overline X)=4\cdot\frac{\theta^2}{12n}=\frac{\theta^2}{3n}.
+$$
+
+For the maximum, $\Pr(M\le m)=(m/\theta)^n$ on $(0,\theta)$, so $M$ has density $nm^{n-1}/\theta^n$. Then $\E M=n\theta/(n+1)$ and $\E M^2=n\theta^2/(n+2)$, and
+
+$$
+\operatorname{MSE}(M)=\E M^2-2\theta\E M+\theta^2=\frac{2\theta^2}{(n+1)(n+2)}.
+$$
+
+The maximum is biased low, because it can never exceed $\theta$, but its mean squared error falls like $1/n^2$ rather than $1/n$. With $n=10$ the two are $0.033\,\theta^2$ and $0.015\,\theta^2$. The rescaled maximum $(n+1)M/n$ is unbiased and has mean squared error $\theta^2/\{n(n+2)\}$, smaller still.
+
+:::
+
+::: {#def-consistent-estimator .definition}
+## Consistent estimator
+
+A sequence of estimators $T_n$, one for each sample size $n$, is consistent for $\theta$ when $\Pr_\theta(|T_n-\theta|>\varepsilon)\to0$ as $n\to\infty$, for every $\varepsilon>0$ and every $\theta$.
+
+:::
+
+For a large sample the leading question is whether the estimator settles on $\theta$. If the mean squared error tends to zero, the estimator is consistent, by Chebyshev's inequality: $\Pr(|T_n-\theta|>\varepsilon)\le\operatorname{MSE}(T_n)/\varepsilon^2$. The [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers) says that the sample mean is consistent for $\mu$, and the same limit passes to continuous functions of a consistent estimator, which is why moment estimators are usually consistent. Both estimators in each example above are consistent. Maximum likelihood estimators are consistent in the regular models used here.
 
 ::: {.callout-note}
 ## Key idea
-Match moments, or maximise the likelihood. Then judge the estimator by its sampling distribution: bias, variance, and the sum of the variance and the squared bias.
+Match moments, or maximise the likelihood. Then judge the estimator by its sampling distribution: bias, variance, and their combination, the mean squared error. Unbiased is not the same as best.
 :::
 
 ## Exercises
@@ -106,5 +306,42 @@ Let $X_1,\ldots,X_n$ be independent and $\Normal(\mu,\sigma^2)$, with both param
 Let $X_1,\ldots,X_n$ be a random sample with variance $\sigma^2$, and write $s^2$ for the bias-corrected sample variance. The maximum likelihood estimator of $\sigma^2$ in the normal model is $\widehat\sigma^2=((n-1)/n)s^2$. Find the bias of $\widehat\sigma^2$, taking as known that $\E s^2=\sigma^2$.
 
 [Solution](#sol-inf-variance-bias)
+
+:::
+
+::: {#ex-inf-exponential-mle .exercise}
+## An exponential rate
+
+Let $X_1,\ldots,X_n$ be a random sample from the exponential distribution with rate $\lambda$, density $\lambda e^{-\lambda x}$ for $x>0$.
+
+(a) Find the maximum likelihood estimator of $\lambda$, and check that it is a maximum.
+
+(b) Find the method-of-moments estimator of $\lambda$.
+
+(c) Use invariance to find the maximum likelihood estimator of the median lifetime $(\log 2)/\lambda$.
+
+[Solution](#sol-inf-exponential-mle)
+
+:::
+
+::: {#ex-inf-poisson-mle .exercise}
+## A Poisson mean
+
+Let $X_1,\ldots,X_n$ be a random sample from $\Poisson(\theta)$. Find the maximum likelihood estimator of $\theta$, show that it is unbiased, and find its mean squared error. Is it consistent?
+
+[Solution](#sol-inf-poisson-mle)
+
+:::
+
+::: {#ex-inf-shrunk-mean .exercise}
+## A shrunken sample mean
+
+Let $X_1,\ldots,X_n$ be a random sample with mean $\mu$ and variance $\sigma^2$, and consider $T_c=c\overline X$ for a constant $0<c\le1$.
+
+(a) Find the bias, variance and mean squared error of $T_c$.
+
+(b) For which values of $\mu$ does $T_c$ with $c<1$ have a smaller mean squared error than $\overline X$? Why does this not make $T_c$ a better estimator?
+
+[Solution](#sol-inf-shrunk-mean)
 
 :::

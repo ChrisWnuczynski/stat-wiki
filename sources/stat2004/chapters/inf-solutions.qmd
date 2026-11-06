@@ -1,5 +1,61 @@
 # Worked answers
 
+[]{#sol-inf-milk-summaries} **[Summaries of ten cartons](#ex-inf-milk-summaries).**
+
+The sum of the ten volumes is $10.512$, so $\overline x=1.0512$. Sorted, the values are
+
+$$
+0.998,\ 1.019,\ 1.035,\ 1.037,\ 1.041,\ 1.051,\ 1.068,\ 1.077,\ 1.084,\ 1.102.
+$$
+
+With $n=10$ even, the median is the average of the 5th and 6th values, $(1.041+1.051)/2=1.046$. The lower quartile is the median of the five values below the median, $1.035$, and the upper quartile is the median of the five above it, $1.077$.
+
+The squared deviations from $1.0512$ sum to $0.009039$, so
+
+$$
+s^2=\frac{0.009039}{9}=0.001004,\qquad s=0.0317.
+$$
+
+The standard error of the mean is $s/\sqrt{10}=0.0100$. The standard deviation describes the spread of single cartons; the standard error describes the uncertainty in $\overline x$ as an estimate of $\mu$.
+
+[]{#sol-inf-which-are-statistics} **[Which of these are statistics?](#ex-inf-which-are-statistics).**
+
+$\overline X$, $\max_iX_i-\min_iX_i$ and $\sum_iX_i^2$ are statistics: each can be computed from the data alone.
+
+$\overline X-\mu$ is not a statistic, because it contains $\mu$. Its distribution, $\Normal(0,\sigma^2/n)$, still depends on the unknown $\sigma^2$.
+
+$(\overline X-\mu)/(s/\sqrt n)$ is not a statistic either, for the same reason. Its distribution, however, is $t_{n-1}$ whatever $\mu$ and $\sigma^2$ are. That combination, a function of data and parameter with a known distribution, is a pivot, and it is what makes the $t$ interval possible.
+
+[]{#sol-inf-expected-sample-variance} **[The expectation of the sample variance](#ex-inf-expected-sample-variance).**
+
+Write $X_i-\overline X=(X_i-\mu)-(\overline X-\mu)$ and expand:
+
+$$
+\sum_{i=1}^n(X_i-\overline X)^2=\sum_{i=1}^n(X_i-\mu)^2-2(\overline X-\mu)\sum_{i=1}^n(X_i-\mu)+n(\overline X-\mu)^2.
+$$
+
+Since $\sum(X_i-\mu)=n(\overline X-\mu)$, the middle term is $-2n(\overline X-\mu)^2$, which leaves $\sum(X_i-\mu)^2-n(\overline X-\mu)^2$.
+
+Now $\E(X_i-\mu)^2=\sigma^2$ and $\E(\overline X-\mu)^2=\Var\overline X=\sigma^2/n$. Hence
+
+$$
+\E\sum_{i=1}^n(X_i-\overline X)^2=n\sigma^2-n\cdot\frac{\sigma^2}{n}=(n-1)\sigma^2,
+$$
+
+and $\E s^2=\sigma^2$.
+
+[]{#sol-inf-t-squared-is-f} **[A squared t variable](#ex-inf-t-squared-is-f).**
+
+Write $T=Z/\sqrt{V/m}$ with $Z$ standard normal, $V\sim\chi^2_m$ and the two independent. Then
+
+$$
+T^2=\frac{Z^2/1}{V/m}.
+$$
+
+$Z^2$ is $\chi^2_1$ by definition, and it is independent of $V$, so $T^2$ is $F_{1,m}$.
+
+The two-sided $t$ test rejects when $|T|\ge t_{m;1-\alpha/2}$, that is when $T^2\ge t_{m;1-\alpha/2}^2$. Because $\Pr(T^2\le c^2)=\Pr(-c\le T\le c)$, the quantile $F_{1,m;1-\alpha}$ equals $t_{m;1-\alpha/2}^2$. For example, $t_{4;0.975}^2=2.776^2=7.71=F_{1,4;0.95}$. The two tests reject on the same samples.
+
 []{#sol-inf-normal-mle} **[Normal maximum likelihood estimates](#ex-inf-normal-mle).**
 
 Up to a constant,
@@ -14,7 +70,7 @@ $$
 \widehat\sigma^2=\frac1n\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-The Hessian, or the known shape of the normal likelihood, confirms that this critical point is a maximum.
+To check that this is a maximum, note that for fixed $\sigma^2$ the log-likelihood is a downward parabola in $\mu$, largest at $\overline x$ whatever $\sigma^2$ is. With $\mu=\overline x$ and $v=\sigma^2$, the profile $-A/(2v)-\tfrac n2\log v$ with $A=\sum(x_i-\overline x)^2$ has derivative $A/(2v^2)-n/(2v)$, positive for $v<A/n$ and negative after. So $(\overline x,\widehat\sigma^2)$ is the global maximum.
 
 []{#sol-inf-variance-bias} **[Bias of the two variance estimators](#ex-inf-variance-bias).**
 
@@ -23,6 +79,42 @@ $$
 $$
 
 The bias is $\E\widehat\sigma^2-\sigma^2=-\sigma^2/n$.
+
+[]{#sol-inf-exponential-mle} **[An exponential rate](#ex-inf-exponential-mle).**
+
+(a) The log-likelihood is
+
+$$
+\log L(\lambda)=n\log\lambda-\lambda\sum_{i=1}^nx_i.
+$$
+
+Its derivative $n/\lambda-\sum x_i$ is zero at $\lambda=n/\sum x_i=1/\overline x$. The second derivative, $-n/\lambda^2$, is negative, so this is a maximum. The estimator is $\widehat\lambda=1/\overline X$.
+
+(b) $\E X=1/\lambda$. Setting $1/\lambda=\overline x$ gives the same estimator, $1/\overline X$.
+
+(c) The median lifetime $m$ solves $1-e^{-\lambda m}=1/2$, so $m=(\log2)/\lambda$. By invariance its maximum likelihood estimator is $(\log2)/\widehat\lambda=\overline X\log2$.
+
+[]{#sol-inf-poisson-mle} **[A Poisson mean](#ex-inf-poisson-mle).**
+
+The log-likelihood is $\sum x_i\log\theta-n\theta-\sum\log x_i!$, with derivative $\sum x_i/\theta-n$. Setting it to zero gives $\widehat\theta=\overline X$; the second derivative $-\sum x_i/\theta^2$ is negative, so it is a maximum. (If every $x_i=0$ the likelihood $e^{-n\theta}$ is largest at $\theta=0$, which is again $\overline x$.)
+
+$\E\overline X=\theta$, so the estimator is unbiased, and its mean squared error is its variance, $\Var\overline X=\theta/n$, because a Poisson variance equals its mean. That tends to zero, so $\overline X$ is consistent, by Chebyshev's inequality or by the law of large numbers.
+
+[]{#sol-inf-shrunk-mean} **[A shrunken sample mean](#ex-inf-shrunk-mean).**
+
+(a) $\E T_c=c\mu$, so the bias is $(c-1)\mu$. The variance is $c^2\sigma^2/n$. Hence
+
+$$
+\operatorname{MSE}(T_c)=\frac{c^2\sigma^2}{n}+(1-c)^2\mu^2.
+$$
+
+(b) $\overline X$ is the case $c=1$, with mean squared error $\sigma^2/n$. $T_c$ is better when
+
+$$
+(1-c)^2\mu^2<(1-c^2)\frac{\sigma^2}{n},\qquad\text{that is}\qquad \mu^2<\frac{1+c}{1-c}\cdot\frac{\sigma^2}{n}.
+$$
+
+So $T_c$ wins when $\mu$ is close to zero and loses when $\mu$ is far from it. Since $\mu$ is unknown, $T_c$ is not better uniformly. It is better only if there is prior reason to think $\mu$ is near $0$, which is the idea behind shrinkage towards a prior mean in the Bayesian chapters.
 
 []{#sol-inf-green-voters} **[A proportion in a poll](#ex-inf-green-voters).**
 
@@ -36,11 +128,57 @@ The interval is $0.227\pm 1.960\times 0.01325$, that is $(0.201,\,0.253)$.
 
 []{#sol-inf-mean-pivot} **[The interval for a normal mean](#ex-inf-mean-pivot).**
 
-$T\sim t_{n-1}$, so $\Pr(-t_{n-1,\,1-\alpha/2}\le T\le t_{n-1,\,1-\alpha/2})=1-\alpha$. Substituting $T=(\overline X-\mu)/(s/\sqrt n)$ and solving for $\mu$ gives
+$T\sim t_{n-1}$, so $\Pr(-t_{n-1;\,1-\alpha/2}\le T\le t_{n-1;\,1-\alpha/2})=1-\alpha$. Substituting $T=(\overline X-\mu)/(s/\sqrt n)$ and solving for $\mu$ gives
 
 $$
-\overline X\pm t_{n-1,\,1-\alpha/2}\,\frac{s}{\sqrt n}.
+\overline X\pm t_{n-1;\,1-\alpha/2}\,\frac{s}{\sqrt n}.
 $$
+
+[]{#sol-inf-two-standard-errors} **[Two standard errors](#ex-inf-two-standard-errors).**
+
+$\sqrt n(\overline X-\mu)$ is standard normal, so
+
+$$
+\Pr\bigl(\overline X-2/\sqrt n<\mu<\overline X+2/\sqrt n\bigr)=\Pr(-2<Z<2)=2\Phi(2)-1=0.9545.
+$$
+
+For exactly 99%, $2\Phi(c)-1=0.99$, so $\Phi(c)=0.995$ and $c=z_{0.995}=2.576$.
+
+[]{#sol-inf-safety-interval} **[Lost hours after a safety programme](#ex-inf-safety-interval).**
+
+(a) The pooled variance is
+
+$$
+s_p^2=\frac{49\times14.1^2+49\times14.3^2}{98}=\frac{14.1^2+14.3^2}{2}=201.65,\qquad s_p=14.20.
+$$
+
+The standard error of $\overline X_1-\overline X_2$ is $14.20\sqrt{1/50+1/50}=14.20/5=2.84$. The 95% interval is
+
+$$
+-17\pm1.984\times2.84=-17\pm5.64=(-22.6,\ -11.4).
+$$
+
+(b) $-17\pm2.84$ is the estimate plus or minus one standard error. With 98 degrees of freedom the coverage is $\Pr(|T|<1)$ for $T\sim t_{98}$, about $0.68$. It is a 68% interval, not a 95% one.
+
+[]{#sol-inf-variance-ratio-interval} **[Checking equal variances](#ex-inf-variance-ratio-interval).**
+
+$s_1^2/s_2^2=14.1^2/14.3^2=0.972$. Both samples have 49 degrees of freedom, so the two $F$ quantiles in the interval are the same, $1.762$, and the interval is
+
+$$
+\Bigl(\frac{0.972}{1.762},\ 0.972\times1.762\Bigr)=(0.552,\ 1.713).
+$$
+
+It contains 1. At the 95% level the data are consistent with equal variances, so pooling is reasonable.
+
+[]{#sol-inf-poll-size} **[Sizing a poll](#ex-inf-poll-size).**
+
+The half-width is $1.96\sqrt{p(1-p)/n}$. Since $p(1-p)\le1/4$ for every $p$, requiring $1.96\sqrt{1/(4n)}\le0.02$ guarantees the bound:
+
+$$
+n\ge\frac{1.96^2}{4\times0.02^2}=2401.
+$$
+
+If $p$ is near $0.1$, then $p(1-p)\approx0.09$, and $n\ge1.96^2\times0.09/0.02^2=865$ is enough. Knowing the proportion is far from $1/2$ cuts the required sample by almost two thirds, but if the guess is wrong the interval will be wider than planned.
 
 []{#sol-inf-blood-pressure-region} **[A critical region for a known variance](#ex-inf-blood-pressure-region).**
 
@@ -50,7 +188,7 @@ $$
 |\overline X-127|\ge 1.960\times 0.6965\approx 1.365.
 $$
 
-Reject when $\overline X\le 125.635$ or $\overline X\ge 128.365$.
+Reject when $\overline X\le 125.635$ or $\overline X\ge 128.365$. The observed mean of 130 is well inside the region.
 
 []{#sol-inf-serve-power} **[Power of a serve test](#ex-inf-serve-power).**
 
@@ -66,7 +204,51 @@ $$
 \mathrm{Power}(p)=\sum_{k=13}^{15}\binom{15}{k}p^k(1-p)^{15-k}.
 $$
 
-At $p=0.9$ the power is about $0.816$.
+At $p=0.9$ the power is about $0.816$. At $p=0.8$ it is only $0.398$: with 15 serves, a real improvement from 60% to 80% would be missed more often than not.
+
+[]{#sol-inf-fork-critical-value} **[How small a variance?](#ex-inf-fork-critical-value).**
+
+The test rejects when $6s^2/1.1\le1.635$, that is when $s^2\le1.635\times1.1/6=0.300$.
+
+If the true variance is $0.3$, then $6s^2/0.3\sim\chi^2_6$, and the power is
+
+$$
+\Pr(s^2\le0.300)=\Pr\Bigl(\frac{6s^2}{0.3}\le\frac{6\times0.300}{0.3}\Bigr)=\Pr(\chi^2_6\le5.995)\approx0.58.
+$$
+
+Even a reduction of the variance to less than a third of its old value is detected only a little more than half the time with 7 forks.
+
+[]{#sol-inf-paired-or-not} **[Paired or two-sample?](#ex-inf-paired-or-not).**
+
+(a) Paired: each patient gives a before and an after reading, and patients differ greatly in baseline blood pressure.
+
+(b) Two-sample: the 24 plots are distinct, and no plot of A is matched with a plot of B.
+
+(c) Paired: each driver is measured in both conditions.
+
+(d) Paired: twins share genes and upbringing, so the two scores in a pair are dependent, and the pair is the natural block.
+
+In each paired case the analysis is a one-sample test on the within-pair differences.
+
+[]{#sol-inf-tyre-wear} **[Tyre wear on five cars](#ex-inf-tyre-wear).**
+
+The differences A minus B are $0.4$, $0.4$, $0.5$, $0.6$ and $0.5$, with mean $\overline d=0.48$ and standard deviation $s_d=0.0837$. Model them as a normal random sample with mean $\mu_D$, and test $H_0:\mu_D=0$ against $\mu_D\neq0$:
+
+$$
+t=\frac{0.48}{0.0837/\sqrt5}=\frac{0.48}{0.0374}=12.8.
+$$
+
+Since $12.8>t_{4;0.975}=2.776$, reject $H_0$; the two-sided $p$-value is $0.0002$. Type A keeps more tread. Ignoring the pairing and comparing the two columns as independent samples would be wrong: the variation between cars, from 8.3 to 12.3, is far larger than the difference between tyres.
+
+[]{#sol-inf-sign-test-one-sided} **[A one-sided sign test](#ex-inf-sign-test-one-sided).**
+
+Under $H_0$, $N\sim\Bin(12,1/2)$, and large $N$ is evidence that the second examiner is more generous. The $p$-value is
+
+$$
+\Pr(N\ge8)=\frac1{2^{12}}\Bigl[\binom{12}8+\binom{12}9+\binom{12}{10}+\binom{12}{11}+\binom{12}{12}\Bigr]=\frac{495+220+66+12+1}{4096}=\frac{794}{4096}=0.194.
+$$
+
+There is still no evidence of a difference.
 
 []{#sol-inf-frizzle} **[A 1:2:1 phenotype ratio](#ex-inf-frizzle).**
 
@@ -77,6 +259,44 @@ T=\frac{(23-23.25)^2}{23.25}+\frac{(50-46.5)^2}{46.5}+\frac{(20-23.25)^2}{23.25}
 $$
 
 There are $3-1=2$ degrees of freedom. Since $0.720<5.991$, the test does not reject the predicted proportions at level $0.05$.
+
+[]{#sol-inf-die-fairness} **[Is the die fair?](#ex-inf-die-fairness).**
+
+Under $H_0$ each face has probability $1/6$, so each expected count is $120/6=20$. Then
+
+$$
+T=\frac{(14-20)^2+(22-20)^2+(16-20)^2+(25-20)^2+(19-20)^2+(24-20)^2}{20}=\frac{36+4+16+25+1+16}{20}=4.90,
+$$
+
+on $6-1=5$ degrees of freedom. Since $4.90<11.07$, the test does not reject fairness; the $p$-value is $0.43$.
+
+[]{#sol-inf-two-by-two} **[A two-by-two table is a two-proportion test](#ex-inf-two-by-two).**
+
+The table and its fitted counts $R_iC_j/170$ are
+
+| | Left | Not left | Total |
+|---|---|---|---|
+| Channel 1 | 40 (37.06) | 30 (32.94) | 70 |
+| Channel 2 | 50 (52.94) | 50 (47.06) | 100 |
+| Total | 90 | 80 | 170 |
+
+Every cell differs from its fitted count by $2.94$ in absolute value, so
+
+$$
+T=2.94^2\Bigl(\frac1{37.06}+\frac1{32.94}+\frac1{52.94}+\frac1{47.06}\Bigr)=0.843.
+$$
+
+The pooled two-proportion statistic is $z=0.918$, and $0.918^2=0.843$. The two statistics agree, and $\chi^2_1$ is the law of the square of a standard normal. The chi-squared $p$-value, $0.36$, is the two-sided $z$ test's; the one-sided $z$ test halves it.
+
+[]{#sol-inf-degrees-of-freedom} **[Counting degrees of freedom](#ex-inf-degrees-of-freedom).**
+
+(a) $(4-1)(5-1)=12$.
+
+(b) $8-1-1=6$: eight classes, one estimated parameter.
+
+(c) $10-1-2=7$.
+
+(d) $10-1=9$: nothing is estimated.
 
 []{#sol-inf-normal-equations} **[Normal equations for a straight line](#ex-inf-normal-equations).**
 
@@ -94,6 +314,44 @@ $$
 
 The second-derivative matrix of $L$ is positive definite when the $x_i$ are not all equal, so the critical point is a minimum.
 
+[]{#sol-inf-line-through-origin} **[A line through the origin](#ex-inf-line-through-origin).**
+
+$L(b)=\sum(y_i-bx_i)^2$ has derivative $-2\sum x_i(y_i-bx_i)$, which is zero at $b=\sum x_iy_i/\sum x_i^2$. The second derivative $2\sum x_i^2$ is positive, so this is the minimum.
+
+The estimator is $\widehat\beta=\sum x_iY_i/\sum x_i^2$, a fixed linear combination of the $Y_i$. Its mean is $\sum x_i(\beta x_i)/\sum x_i^2=\beta$, so it is unbiased, and its variance is
+
+$$
+\Var\widehat\beta=\frac{\sum x_i^2\sigma^2}{\left(\sum x_i^2\right)^2}=\frac{\sigma^2}{\sum x_i^2}.
+$$
+
+[]{#sol-inf-advertising-r2} **[How much do the ads explain?](#ex-inf-advertising-r2).**
+
+$$
+R^2=\frac{S_{xy}^2}{S_{xx}S_{yy}}=\frac{23.34^2}{0.444\times1600.9}=0.766.
+$$
+
+The line accounts for about 77% of the variation in sales. The residual sum of squares is $S_{yy}(1-R^2)=374.0$, so $S^2=374.0/8=46.75$ and $S=6.84$. The standard error of the slope is $S/\sqrt{S_{xx}}=6.84/0.666=10.26$, and the 95% interval for the slope is
+
+$$
+52.6\pm2.306\times10.26=(28.9,\ 76.2).
+$$
+
+[]{#sol-inf-prediction-width} **[Where is the prediction interval narrowest?](#ex-inf-prediction-width).**
+
+The half-width is $t_{n-2;1-\alpha/2}\,S\sqrt{1+1/n+(x-\overline x)^2/S_{xx}}$, which is smallest when $(x-\overline x)^2=0$, at $x=\overline x$. There it is $t_{n-2;1-\alpha/2}\,S\sqrt{1+1/n}$.
+
+As $n\to\infty$, $t_{n-2;1-\alpha/2}\to z_{1-\alpha/2}$, $S\to\sigma$ and $1/n\to0$, so the half-width tends to $z_{1-\alpha/2}\,\sigma$, not to zero. However much data there is, a single new response still varies about the line with standard deviation $\sigma$.
+
+[]{#sol-inf-correlation-t} **[The correlation test is the slope test](#ex-inf-correlation-t).**
+
+Start from $\widehat\beta_1/S_1=\widehat\beta_1\sqrt{S_{xx}}/S$. Square it and use the two identities:
+
+$$
+\frac{\widehat\beta_1^2S_{xx}}{S^2}=\frac{R^2S_{YY}}{S_{YY}(1-R^2)/(n-2)}=\frac{(n-2)R^2}{1-R^2}.
+$$
+
+$\widehat\beta_1$ and $R$ have the same sign, both being $S_{xY}$ divided by something positive. Taking square roots, $\widehat\beta_1/S_1=R\sqrt{n-2}/\sqrt{1-R^2}$. Testing $\beta_1=0$ in the fixed-$x$ model and testing $\rho=0$ in the bivariate normal model use the same statistic and the same $t_{n-2}$ reference distribution.
+
 []{#sol-inf-heart-rate} **[Heart rates in four age groups](#ex-inf-heart-rate).**
 
 The grand total is $309+275+295+282=1161$, so the grand mean is $1161/40=29.025$. The group means are $30.9$, $27.5$, $29.5$ and $28.2$. With 10 observations in each group,
@@ -106,34 +364,84 @@ $$
 F=\frac{67.475/3}{935.500/36}=\frac{22.492}{25.986}\approx 0.866.
 $$
 
-This is smaller than $2.87$, so the test does not reject equal mean increases at level $0.05$.
+This is smaller than $2.87$, so the test does not reject equal mean increases at level $0.05$. The $p$-value is $0.47$.
 
 []{#sol-inf-tukey-corn} **[A Tukey interval for two varieties](#ex-inf-tukey-corn).**
 
 The estimated difference is $59.800-48.300=11.5$. The half-width is
 
 $$
-4.65\sqrt{\frac{10.6}{3}}=4.65\sqrt{3.5333}\approx 8.74.
+4.654\sqrt{\frac{10.57}{3}}=4.654\times1.877\approx 8.74.
 $$
 
 The interval is $11.5\pm 8.74$, that is $(2.76,\,20.24)$. It excludes zero, so the two variety means are declared different at familywise level $0.05$.
 
 []{#sol-inf-hardness} **[Tips and coupons](#ex-inf-hardness).**
 
-The grand mean of the 16 readings is $9.625$. The tip means are $9.400$, $9.425$, $9.725$ and $9.950$, and
+The grand mean of the 16 readings is $9.625$. The tip means, the column means, are $9.575$, $9.600$, $9.450$ and $9.875$, so
 
 $$
-\mathrm{SS}_{\mathrm{tip}}=4\sum(\overline y_{i\cdot}-9.625)^2=0.825,
+\mathrm{SS}_{\mathrm{tip}}=4\sum_j(\overline y_{\cdot j}-9.625)^2=0.385,
 \qquad
-\mathrm{MS}_{\mathrm{tip}}=0.825/3=0.275.
+\mathrm{MS}_{\mathrm{tip}}=0.385/3=0.1283.
 $$
 
-The coupon means are $9.575$, $9.600$, $9.450$ and $9.875$, and $\mathrm{SS}_{\mathrm{coupon}}=0.385$, so $\mathrm{MS}_{\mathrm{coupon}}=0.1283$. The error sum of squares is $1.290-0.825-0.385=0.080$, on $(4-1)(4-1)=9$ degrees of freedom, so $\mathrm{MS}_{\mathrm{error}}=0.008889$.
+The coupon means, the row means, are $9.400$, $9.425$, $9.725$ and $9.950$, and $\mathrm{SS}_{\mathrm{coupon}}=0.825$, so $\mathrm{MS}_{\mathrm{coupon}}=0.275$. The total sum of squares is $1.290$, so the error sum of squares is $1.290-0.385-0.825=0.080$, on $(4-1)(4-1)=9$ degrees of freedom, and $\mathrm{MS}_{\mathrm{error}}=0.008889$.
 
 $$
-F_{\mathrm{tip}}=\frac{0.275}{0.008889}\approx 30.94,
+F_{\mathrm{tip}}=\frac{0.1283}{0.008889}\approx 14.44,
 \qquad
-F_{\mathrm{coupon}}=\frac{0.1283}{0.008889}\approx 14.44.
+F_{\mathrm{coupon}}=\frac{0.275}{0.008889}\approx 30.94.
 $$
 
-Both exceed $3.86$. At level $0.05$ the test rejects equal tip means and rejects equal coupon means.
+Both exceed $3.86$. At level $0.05$ the test rejects equal tip means, and the coupons also differ, which shows that blocking on the coupon removed a large source of variation from the error.
+
+[]{#sol-inf-paired-f} **[Two treatments in blocks](#ex-inf-paired-f).**
+
+Let $D_i=Y_{i1}-Y_{i2}$ for block $i=1,\ldots,b$, with mean $\overline D$ and variance $s_D^2$. The paired statistic is $T=\overline D/(s_D/\sqrt b)$, on $b-1$ degrees of freedom.
+
+The treatment means are $\overline Y_{\cdot1}$ and $\overline Y_{\cdot2}$, with $\overline Y_{\cdot1}-\overline Y_{\cdot2}=\overline D$ and grand mean halfway between them. So
+
+$$
+\mathrm{SS}_{\mathrm{treatment}}=b\Bigl[\bigl(\tfrac{\overline D}2\bigr)^2+\bigl(\tfrac{\overline D}2\bigr)^2\Bigr]=\frac{b\overline D^2}{2},
+$$
+
+on $t-1=1$ degree of freedom. The error residual in block $i$ for treatment 1 is $Y_{i1}-\overline Y_{i\cdot}-\overline Y_{\cdot1}+\overline Y_{\cdot\cdot}=\tfrac12(D_i-\overline D)$, and for treatment 2 it is the negative of that. Hence
+
+$$
+\mathrm{SS}_{\mathrm{error}}=\sum_{i=1}^b2\cdot\tfrac14(D_i-\overline D)^2=\frac{(b-1)s_D^2}{2},
+$$
+
+on $(b-1)(2-1)=b-1$ degrees of freedom, so $\mathrm{MS}_{\mathrm{error}}=s_D^2/2$. Then
+
+$$
+F=\frac{b\overline D^2/2}{s_D^2/2}=\frac{\overline D^2}{s_D^2/b}=T^2.
+$$
+
+$F$ is $F_{1,b-1}$ and $T$ is $t_{b-1}$, and $F_{1,b-1;1-\alpha}=t_{b-1;1-\alpha/2}^2$, so $F\ge F_{1,b-1;1-\alpha}$ exactly when $|T|\ge t_{b-1;1-\alpha/2}$. The two level-$\alpha$ tests reject on the same data. For the tyres, $T=12.83$ and $F=164.6=12.83^2$.
+
+[]{#sol-inf-corn-contrast} **[A contrast among the corn varieties](#ex-inf-corn-contrast).**
+
+The contrast is $C=\mu_2-(\mu_1+\mu_4)/2$, with coefficients $(-\tfrac12,1,0,-\tfrac12,0)$, which sum to zero. Its estimate is
+
+$$
+\widehat C=55.07-\frac{48.93+48.30}{2}=6.45,
+\qquad
+\sum_j\frac{c_j^2}{n_j}=\frac{\tfrac14+1+\tfrac14}{3}=0.5.
+$$
+
+So $\mathrm{SS}_C=6.45^2/0.5=83.2$ and $F=83.2/10.57=7.87$ on $(1,10)$ degrees of freedom. Since $7.87>4.96$, reject $H_0:C=0$ at level $0.05$; the $p$-value is $0.019$. This contrast is valid only if the comparison was planned before the yields were seen.
+
+[]{#sol-inf-anova-two-groups} **[Two groups](#ex-inf-anova-two-groups).**
+
+With two groups, the grand mean is $\overline Y_{\cdot\cdot}=(n_1\overline Y_1+n_2\overline Y_2)/n$, so $\overline Y_1-\overline Y_{\cdot\cdot}=n_2(\overline Y_1-\overline Y_2)/n$ and $\overline Y_2-\overline Y_{\cdot\cdot}=-n_1(\overline Y_1-\overline Y_2)/n$. Then
+
+$$
+\mathrm{SS}_{\mathrm{treatment}}=\frac{n_1n_2^2+n_2n_1^2}{n^2}(\overline Y_1-\overline Y_2)^2=\frac{n_1n_2}{n}(\overline Y_1-\overline Y_2)^2=\frac{(\overline Y_1-\overline Y_2)^2}{1/n_1+1/n_2},
+$$
+
+on 1 degree of freedom. The error mean square is $\mathrm{SS}_{\mathrm{error}}/(n-2)=s_p^2$, the pooled variance. So
+
+$$
+F=\frac{(\overline Y_1-\overline Y_2)^2}{s_p^2(1/n_1+1/n_2)}=T^2.
+$$

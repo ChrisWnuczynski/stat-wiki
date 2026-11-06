@@ -737,6 +737,9 @@ def convert_figures() -> None:
     # Sorted, so Windows and Linux builds list the figures in the same order.
     sources = sorted((BOOK / "figures").glob("*.pdf"))
     sources += sorted((PREP / "figures").glob("*.pdf"))
+    # Figures drawn by make_figures.py in each notes folder.
+    for notes in (PROBABILITY, INFERENCE, DATA):
+        sources += sorted((notes / "figures").glob("*.pdf"))
     print(f"Converting {len(sources)} figures")
     for src in sources:
         if src.stem in FIGURE_PAGES:
@@ -1546,6 +1549,38 @@ TERMS = [
     (r"type I errors?|type II errors?", "I4", "def-type-i-and-type-ii-errors", {I}),
     (r"goodness-of-fit tests?|contingency tables?", "I5", "def-pearson-statistic", {I}),
     (r"analysis of variance|ANOVA", "I7", "def-one-way-anova", None),
+    (r"random samples?", "I1", "def-random-sample", {P, I, D}),
+    (r"chi-squared distributions?|chi-square distributions?", "I1", "def-chi-squared-distribution", None),
+    (r"Student(?:'s)? t[- ]distributions?|t[- ]distributions?", "I1", "def-student-t-distribution", None),
+    (r"F[- ]distributions?", "I1", "def-f-distribution", None),
+    (r"normal sample theorem", "I1", "thm-normal-sample-theorem", None),
+    (r"likelihood functions?", "I2", "def-likelihood-function", {P, I, D}),
+    (r"invariance of (?:the )?maximum likelihood(?: estimators?)?", "I2", "prp-invariance-of-maximum-likelihood", None),
+    (r"mean squared errors?", "I2", "def-mean-squared-error", None),
+    (r"consistent estimators?", "I2", "def-consistent-estimator", None),
+    (r"sample correlations?(?: coefficients?)?", "I2", "def-sample-correlation-coefficient", None),
+    (r"pivots?|pivotal quantit(?:y|ies)", "I3", "def-pivot", {I, D}),
+    (r"pooled (?:sample )?variances?", "I3", "def-pooled-variance", None),
+    (r"Wald intervals?", "I3", "def-wald-interval", {I, D}),
+    (r"null hypothes[ie]s|alternative hypothes[ie]s", "I4", "def-null-and-alternative-hypotheses", {P, I, D}),
+    (r"critical regions?|rejection regions?", "I4", "def-critical-region", None),
+    (r"power functions?|power curves?", "I4", "def-power-function", None),
+    (r"Neyman(?:--|–|-)Pearson(?: approach| lemma)?", "I4", "def-neyman-pearson-approach", None),
+    (r"one-sample t[- ]tests?", "I4", "def-one-sample-t-test", None),
+    (r"two-sample t[- ]tests?", "I4", "def-two-sample-t-test", None),
+    (r"paired t[- ]tests?|paired samples?", "I4", "Paired samples", None),
+    (r"F[- ]tests? for (?:equal|the equality of) variances", "I4", "def-f-test-for-equal-variances", None),
+    (r"binomial tests?", "I4", "def-binomial-test", None),
+    (r"two-proportion z[- ]tests?|tests? for (?:two )?proportions", "I4", "def-two-proportion-z-test", None),
+    (r"sign tests?", "I4", "def-sign-test", None),
+    (r"chi-squared tests? of independence|tests? of independence", "I5", "def-chi-squared-test-of-independence", None),
+    (r"least-squares lines?|lines? of best fit", "I6", "def-least-squares-line", None),
+    (r"coefficients? of determination", "I6", "def-coefficient-of-determination", None),
+    (r"prediction intervals?", "I6", "def-prediction-interval", {I, D}),
+    (r"regression effect|regression (?:towards?|to) (?:the mean|mediocrity)", "I6", "The regression effect", None),
+    (r"contrasts?", "I7", "def-contrast", {I, D}),
+    (r"Tukey(?:'s)? (?:intervals?|method|comparisons?)", "I7", "def-tukey-intervals", None),
+    (r"randomi[sz]ed block designs?|block designs?", "I7", "def-randomised-block-design", None),
     (r"observational studies?", "D1", "def-observational-study", None),
     (r"designed experiments?|randomised experiments?|randomized experiments?", "D1", "def-designed-experiment", None),
     (r"interquartile ranges?|IQRs?", "D2", "def-interquartile-range", None),
@@ -3458,6 +3493,25 @@ def main() -> None:
         print("LaTeX macros still present in:")
         for name in leftover[:20]:
             print(" ", name)
+
+    # The wiki teaches each idea on its own pages. It does not send the reader
+    # to a numbered section, a supplement or a set of notes somewhere else.
+    outside = re.compile(
+        r"\b(?:Example|Exercise|Section|Chapter|Theorem|Remark|Definition|Figure|Table|Supplement|Appendix|Lemma"
+        r"|Corollary|Proposition)s? \d+\.\d+"
+        r"|\bsupplement(?:ary)? notes?\b|\b(?:these|the|lecture|course) notes\b|\btextbook\b|\bthe book\b"
+        r"|\bat the back\b|\?\?|\bMinitab\b|\bin lectures?\b|\bthe slides\b",
+        re.I,
+    )
+    cited = []
+    for folder in ("notes", "questions", "articles", "reference"):
+        for path in sorted((WIKI / folder).rglob("*.qmd")):
+            pieces = re.split(r"(```.*?```)", path.read_text(encoding="utf-8"), flags=re.S)
+            for piece in pieces:
+                if not piece.startswith("```"):
+                    cited += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in outside.finditer(piece)]
+    if cited:
+        raise SystemExit("Pages point at outside material:\n  " + "\n  ".join(cited[:20]))
 
     print(f"Chapter pages: {len([n for n in notes.values() if n['kind'] == 'notes'])}")
     print(f"Question pages: {len(questions)}, with answers: {sum(1 for q in questions if q.get('answer'))}")
