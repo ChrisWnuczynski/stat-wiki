@@ -14,7 +14,7 @@ A moving window is the first smoother you are likely to have seen. In @fig-lidar
 
 ## A roughness penalty
 
-Green and Silverman's formulation is the clean one, even though we no longer compute it with a knot at every $x$. Keep the exponential family. Replace the linear predictor by an unknown smooth function $g(x)$, and keep the canonical link, so the mean is $-c'(g(x))$ in the sign convention of the first chapter. For the normal that is $g(x)$ itself. For the Poisson it is $\exp(g(x))$, which stays positive whatever $g$ does. For the Bernoulli it is the expit of $g(x)$, which stays inside $(0,1)$. For the gamma the canonical choice is $1/g(x)$, and that still requires $g$ not to change sign. You may use a log link for the gamma instead. Nothing forces the canonical link once you have decided the mean is smooth rather than linear.
+Green and Silverman's formulation is the clean one, even though we no longer compute it with a knot at every $x$. Keep the exponential family. Replace the linear predictor by an unknown smooth function $g(x)$, and keep the canonical link, so the mean is $-c'(g(x))$. For the normal that is $g(x)$ itself. For the Poisson it is $\exp(g(x))$, which stays positive whatever $g$ does. For the Bernoulli it is the expit of $g(x)$, which stays inside $(0,1)$. For the gamma the canonical choice is $1/g(x)$, and that still requires $g$ not to change sign. You may use a log link for the gamma instead. Nothing forces the canonical link once you have decided the mean is smooth rather than linear.
 
 Maximise the log-likelihood and charge for curvature:
 $$

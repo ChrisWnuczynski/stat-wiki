@@ -15,7 +15,7 @@ Two conventions hold throughout.
 
 Software comes after the probability target is already clear. When a fit is shown, it is in R. The code is a translation of a derivation, not a substitute for it.
 
-Each topic ends with exercises. Applied problems are gathered with the topic that supplies the method, and the worked solutions sit with those problems. A solution link after an applied problem jumps to that solution; the solution title jumps back to the problem.
+Each topic ends with exercises. The problems are gathered with the topic that supplies the method, and the worked solutions sit with those problems. A solution link after a problem jumps to that solution; the solution title jumps back to the problem.
 
 ## What is written
 
@@ -31,7 +31,7 @@ Each topic ends with exercises. Applied problems are gathered with the topic tha
 - **Hierarchical Bayes.** Exchangeability, partial pooling, and a grid approximation for a hyperposterior.
 - **Bayesian linear regression.** The reference prior, direct simulation, and posterior prediction.
 - **Reference formulas and a problem-solving workflow.** The distribution kernels and the problem-solving workflow, gathered in one place.
-- **Solutions to the applied exercises.** Worked solutions, placed with the topic that supplies the method.
+- **Worked solutions.** Placed with the topic that supplies the method.
 
 ### Generalised linear models
 

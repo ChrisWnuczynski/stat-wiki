@@ -13,7 +13,7 @@ A probability-integral residual asks whether each observation sits where the fit
 
 Bend the line and the fit is wrong in a readable way. If the plotted residuals bow above the diagonal through the middle of the sample, the middle observations are larger than the fitted distribution expected: the mean is too low in the middle of the range. The opposite bow means the fit is too high there. Either shape is a reason to change the mean, not to stare harder at a banded Pearson plot.
 
-![Left: probability-integral residuals from the gamma clotting fit, plotted against equally spaced uniform quantiles. The dashed line is what an adequate fit looks like; eighteen points still wiggle around it. Right: the bow drawn in the text, not a fit to a data set. Above the diagonal through the middle means the middle observations are larger than the fitted distribution expected.](../figures/pit.pdf){#fig-pit}
+![Left: probability-integral residuals from the gamma clotting fit, plotted against equally spaced uniform quantiles. The dashed line is what an adequate fit looks like; eighteen points still wiggle around it. Right: the bow described above, not a fit to a data set. Above the diagonal through the middle means the middle observations are larger than the fitted distribution expected.](../figures/pit.pdf){#fig-pit}
 
 The same construction works when the data really are normal. $F$ is then a normal distribution function, and the uniform plot is that normal probability transformed one more time. The classical residual plots remain the right tool when $Y$ is continuous and the variance function is the thing in doubt.
 
