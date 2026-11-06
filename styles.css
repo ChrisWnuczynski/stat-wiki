@@ -668,5 +668,6 @@ a.file-link img {
    anywhere rather than widen the page on a phone. */
 main p code,
 main li code {
+  white-space: normal;
   overflow-wrap: anywhere;
 }
