@@ -2,22 +2,50 @@
 
 Descriptive statistics summarise a sample before a model is fitted. They show the range, the shape, the odd points, and which variables move together. They do not by themselves test a hypothesis or produce a confidence interval. Those steps are in [Statistical inference](inf-01-statistical-inference.qmd). The shapes being summarised are the laws on the [common distributions](../reference/distributions.qmd) page. How the sample was obtained, and whether a pattern can be read causally, is in [Studies, data, and evidence](da-01-studies-and-data.qmd).
 
-The calculations below are the ones a data frame supports directly. Reading the table and drawing the plots in R is in [Using R](da-03-using-r.qmd).
+The running example is a study of 299 patients after heart failure, all with severe weakness of the left ventricle, admitted to one hospital and followed for up to a year. For each patient there are 13 measurements, and the questions are which of them go with death during follow-up, and which go with the ejection fraction, the fraction of the blood in the left ventricle pumped out at each beat. The R code that produces each summary is shown with it; reading data and drawing plots in R is covered in [Using R](da-03-using-r.qmd).
 
 ## The table
 
 One row is one unit. One column is one variable. An identifier column names the unit. In a designed experiment some columns record the assignment and stay fixed if the measurements are repeated. The remaining columns are what the study measured.
 
-Variables come in two broad types.
+| Variable | Meaning | Type |
+|---|---|---|
+| `age` | age in years | quantitative |
+| `anaemia` | low red blood cell count, 1 = yes | categorical |
+| `cp` | creatine phosphokinase in the blood, mcg/L | quantitative |
+| `diabetes` | diabetes, 1 = yes | categorical |
+| `ejection_fraction` | percentage of blood leaving the heart at each beat | quantitative |
+| `hbp` | high blood pressure, 1 = yes | categorical |
+| `platelets` | platelets in the blood, kiloplatelets/mL | quantitative |
+| `serum_creatinine` | creatinine in the blood, mg/dL | quantitative |
+| `serum_sodium` | sodium in the blood, mEq/L | quantitative |
+| `sex` | 1 = male, 0 = female | categorical |
+| `smoking` | smoker, 1 = yes | categorical |
+| `time` | follow-up period, days | quantitative |
+| `death` | died during follow-up, 1 = yes | categorical |
 
-- A categorical variable takes values in a set of labels. Nominal labels have no order, such as a drug name. Ordinal labels do, such as a frequency running from "never" to "every day".
-- A quantitative variable takes numerical values. A count is discrete. A length or a concentration is treated as continuous even though it is recorded to a finite precision.
+The follow-up time is not a variable to explain death with. A patient who died was recorded at the time of death, so `time` is partly determined by the outcome itself; using it to predict death would be circular. It is left out of the analysis.
 
-The response and the explanatory variables of [Studies, data, and evidence](da-01-studies-and-data.qmd) can be either type. The summary changes with the type. A categorical column becomes a table of counts. A quantitative column becomes a centre, a spread, and a picture of the shape.
+Variables come in two broad types. Quantitative variables are numbers on a scale where arithmetic makes sense: they are discrete when they count something and continuous when they measure. Categorical variables, called factors in R, put each unit in one of a fixed set of classes; they are ordinal when the classes have a natural order, such as "mild, moderate, severe", and nominal otherwise. A categorical variable coded as 0 and 1 is still categorical, and R must be told so, or it will happily compute the mean of `sex`:
 
-## One quantitative variable
+```r
+heart <- read.csv("heart.csv")
+heart$anaemia <- factor(heart$anaemia)   # and likewise for the other 0/1 columns
+str(heart)                               # 299 obs. of 13 variables
+```
 
-The sample mean $\overline x$ and the bias-corrected sample variance $s^2$ are the same statistics as in [Estimation](inf-02-estimation.qmd). The sample standard deviation is $s$. Two further summaries ignore the tails in a different way. The median is the middle value of the ordered sample, or the average of the two middle values when $n$ is even. The quartiles cut the ordered sample into four equal pieces.
+## Summary statistics
+
+For data $x_1,\ldots,x_n$, the sample mean $\overline x=\frac1n\sum x_i$ is the average and the sample median is the middle value of the sorted data, or the average of the two middle values when $n$ is even. The median is robust: a single wild value can move the mean anywhere but barely moves the median.
+
+::: {#def-sample-quantile .definition}
+## Sample quantile
+
+A sample $p$-quantile, for $0<p<1$, is a value $q_p$ such that a fraction $p$ of the data is at most $q_p$. The $0.25$, $0.5$ and $0.75$ quantiles are the first quartile, the median and the third quartile; the $p$-quantile is also the $100p$th percentile.
+
+:::
+
+When no data value sits exactly at the fraction $p$, software interpolates between neighbours. R's default, used throughout, puts $q_p$ at position $1+(n-1)p$ of the sorted data, interpolating linearly.
 
 ::: {#def-interquartile-range .definition}
 ## Interquartile range
@@ -26,27 +54,129 @@ The interquartile range is the difference between the third and first quartiles.
 
 :::
 
-The range, the maximum minus the minimum, uses only the two extremes and moves as soon as one point does. The interquartile range does not. A boxplot draws the median as a line, the quartiles as the ends of a box, and whiskers out to the last points that are not judged extreme. Points beyond the whiskers are plotted singly. That picture is the first check for a long tail or a stray measurement.
+::: {#def-sample-variance-and-standard-deviation .definition}
+## Sample variance and standard deviation
 
-A histogram bins the same numbers. The height of a bin is the count, or the count divided by $n$ and by the bin width if a density scale is wanted. The histogram is a picture of the sample, not of the population density. A symmetric unimodal histogram is consistent with a normal sample. It does not prove the normal model.
+The sample variance is $s^2=\frac1{n-1}\sum_{i=1}^n(x_i-\overline x)^2$, and the sample standard deviation is $s=\sqrt{s^2}$, in the units of the data.
 
-## One categorical variable
+:::
 
-Counts and proportions are enough. A bar chart draws one bar per label, with a gap between bars so that the axis is not read as continuous. The mode is the most common label. Two categorical variables together form a contingency table. The test of independence for that table is the chi-squared test in [Chi-squared tests](inf-05-chi-square.qmd), with numerical examples in [Chi-squared examples](da-09-chi-square-examples.qmd).
+The divisor $n-1$ makes $s^2$ an unbiased estimator of the population variance; the reason is in [Statistical inference](inf-01-statistical-inference.qmd#prp-moments-of-the-sample-mean-and-variance). The range, largest minus smallest, is the crudest measure of spread, and it can only grow as more data arrive.
 
-## One of each, or two quantitative variables
+::: {#exm-the-ages-of-299-patients .example}
+## The ages of 299 patients
 
-A quantitative response and a categorical explanatory variable are compared by a boxplot in each group, or by the group means and standard deviations. A visible shift between boxes is a reason to fit the two-sample model or the [analysis of variance](inf-07-anova.qmd). It is not yet the test.
+**Question.** Summarise the patients' ages.
 
-Two quantitative variables are drawn as a scatterplot. The sample correlation
+**Solution.**
 
-$$
-r=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sqrt{\sum_{i=1}^n(x_i-\overline x)^2\sum_{i=1}^n(y_i-\overline y)^2}}
-$$
+```r
+mean(heart$age); median(heart$age)     # 60.83  60
+quantile(heart$age, c(0.25, 0.75))     # 51  70
+IQR(heart$age)                          # 19
+sd(heart$age)                           # 11.89
+range(heart$age)                        # 40  95
+```
 
-lies in $[-1,1]$. It measures linear association only. A correlation near zero can hide a curve, and a correlation near $\pm 1$ can be produced by a single distant point. The line that the correlation is describing is fitted in [Linear regression](inf-06-regression.qmd). A scatterplot matrix shows every pair at once. The matrix is symmetric, so one triangle is enough.
+The patients are aged 40 to 95. The mean and median are close, 60.8 and 60, so the ages are roughly symmetric. The middle half lies between 51 and 70, an interquartile range of 19 years, and the standard deviation is 11.9 years. For a roughly normal sample the interquartile range is about $1.35$ standard deviations; here $19/11.9=1.6$, so the ages are a little flatter than normal.
 
-On a set of clinical measurements from patients admitted with heart failure, the strongest linear association among the laboratory numbers was a correlation of about $-0.26$ between $\log_{10}$ serum creatinine and serum sodium, and about $0.23$ between $\log_{10}$ serum creatinine and age. Neither is strong. The plots are still worth drawing, because a later regression will assume a form those plots can contradict.
+:::
+
+## One categorical variable, and two
+
+A categorical variable is summarised by counts, or by proportions. Of the 299 patients, 96 died during follow-up, a proportion of $0.32$.
+
+Two categorical variables are summarised by a contingency table: counts for every combination of categories.
+
+::: {#exm-anaemia-and-death .example}
+## Anaemia and death
+
+**Question.** Did patients with anaemia die more often?
+
+**Solution.**
+
+```r
+table(heart$anaemia, heart$death, dnn = c("anaemia", "death"))
+proportions(table(heart$anaemia, heart$death), margin = 1)
+```
+
+| | Survived | Died | Proportion died |
+|---|---|---|---|
+| No anaemia | 120 | 50 | 0.294 |
+| Anaemia | 83 | 46 | 0.357 |
+
+Row proportions, `margin = 1`, compare the death rate within each anaemia group: 29.4% without anaemia and 35.7% with it. The difference is six percentage points. Whether that is more than chance would produce with groups this size is a [chi-squared test of independence](inf-05-chi-square.qmd#def-chi-squared-test-of-independence), and it is not: the $p$-value is $0.25$. High blood pressure gives 29.4% against 37.1%, with $p$-value $0.17$, while for diabetes, sex and smoking the rates in the two groups differ by less than two percentage points.
+
+:::
+
+![Deaths during follow-up by anaemia status: counts (left) and the proportion who died in each group (right). The counts are hard to compare because the groups differ in size; the proportions are not.](../figures/da-anaemia-death.pdf){#fig-da-anaemia-death}
+
+A bar plot shows counts or proportions by bars of proportional length. Side-by-side bars of counts mislead when the groups are of different sizes, which is why the proportions within each group are usually the plot to draw. A pie chart shows the same proportions as angles, which the eye compares less accurately than lengths.
+
+## One quantitative variable
+
+A quantitative variable is summarised by its shape as well as its centre and spread. The serum creatinine levels, a measure of kidney function, show why.
+
+::: {#def-five-number-summary-and-boxplot .definition}
+## Five-number summary and boxplot
+
+The five-number summary of a sample is its minimum, first quartile, median, third quartile and maximum. A boxplot draws the box from the first to the third quartile with a line at the median, and whiskers out to the most extreme data within $1.5$ interquartile ranges of the box. Points beyond the whiskers are drawn individually as possible outliers.
+
+:::
+
+```r
+summary(heart$serum_creatinine)
+#  Min. 1st Qu. Median   Mean 3rd Qu.   Max.
+#  0.50    0.90   1.10   1.39    1.40   9.40
+```
+
+The mean is pulled above the median by a long right tail: the largest value, 9.4, is more than six times the median. The interquartile range is $1.4-0.9=0.5$, so the upper whisker stops at the largest value below $1.4+1.5\times0.5=2.15$, and 29 patients lie beyond it.
+
+A histogram counts the data in a set of bins and draws a bar for each; its look depends on the choice of bins. A kernel density estimate smooths the data instead, placing a small bump at each observation and adding them up; its look depends on the width of the bumps, the bandwidth. Both show the same thing here: most patients near 1 mg/dL and a thin tail stretching to 9.
+
+![Serum creatinine for the 299 patients. Left: a boxplot, with 29 points beyond the upper whisker. Middle: a histogram with a kernel density estimate. Right: the same data on a logarithmic scale, which pulls in the long right tail.](../figures/da-creatinine-shape.pdf){#fig-da-creatinine-shape}
+
+### Transformations
+
+Strongly skewed data are often easier to summarise, and to model, after a transformation. A logarithm turns ratios into differences, so it spreads out the bunched values near zero and draws in the far tail. For serum creatinine the skewness, a measure of asymmetry that is zero for symmetric data, falls from $4.4$ to $1.6$ on the log scale. The reciprocal, $1/x$, brings it to about zero. Transformations do not change the data, only the scale they are viewed on; the order of the patients stays the same, so the median of the transformed data is the transform of the median.
+
+::: {#def-normal-quantile-plot .definition}
+## Normal quantile plot
+
+A normal quantile plot, or Q–Q plot, plots the sorted data against the quantiles of the standard normal distribution at the same fractions. If the data come from a normal distribution, the points lie close to a straight line, whose intercept and slope estimate the mean and standard deviation.
+
+:::
+
+Curvature in a Q–Q plot is how a model check sees skewness. A right-skewed sample bends upwards at the right end; heavy tails bend away from the line at both ends.
+
+![Normal quantile plots of serum creatinine (left) and its reciprocal (right). The raw values bend sharply upwards at the right; the reciprocals lie close to the straight line, apart from the discreteness of values recorded to one decimal place.](../figures/da-creatinine-qq.pdf){#fig-da-creatinine-qq}
+
+## One categorical and one quantitative variable
+
+To compare a quantitative variable across groups, draw one boxplot or density per group on a common scale.
+
+```r
+boxplot(serum_creatinine ~ death, data = heart, log = "y")
+```
+
+The median serum creatinine is 1.0 mg/dL for patients who survived and 1.3 for those who died, and the means are 1.19 and 1.84. On the log scale the boxes overlap a good deal, but the whole distribution for those who died sits higher. High creatinine, a sign of poor kidney function, goes with death in this sample.
+
+![Serum creatinine on a log scale, by survival. Patients who died had higher creatinine on the whole, though the two groups overlap.](../figures/da-creatinine-by-death.pdf){#fig-da-creatinine-by-death}
+
+## Two quantitative variables
+
+Two quantitative variables are plotted against each other in a scatterplot, and their linear association is summarised by the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient).
+
+The ejection fraction was recorded in steps of 5 percentage points or so, with only 17 distinct values, and serum sodium as whole numbers. Many patients therefore share exactly the same point, and a plain scatterplot hides how many. Jittering, adding a small random amount to each coordinate before plotting, separates them; it changes the picture, not the data.
+
+```r
+plot(jitter(serum_sodium) ~ jitter(ejection_fraction), data = heart)
+cor(heart$serum_sodium, heart$ejection_fraction)   # 0.176
+```
+
+The correlation is $0.18$: a weak tendency for patients with a higher ejection fraction to have more sodium. A correlation measures only linear association, and only in this sample; it does not say that one causes the other. Among the six quantitative measurements the largest correlation in absolute value is $0.19$, between serum creatinine and sodium, so no pair moves strongly together.
+
+![Serum sodium against ejection fraction, plain (left) and jittered (right). In the plain plot many patients sit on the same points; jittering shows where the data are dense.](../figures/da-sodium-jitter.pdf){#fig-da-sodium-jitter}
 
 ::: {.callout-note}
 ## Key idea
@@ -62,6 +192,8 @@ A survey of elderly people records, among other columns: gender (male or female)
 
 Classify each variable as nominal, ordinal, or quantitative.
 
+[Solution](#sol-da-nutrition-types)
+
 :::
 
 ::: {#ex-da-correlation-reading .exercise}
@@ -72,5 +204,7 @@ The sample correlation between $\log_{10}$ serum creatinine and serum sodium in 
 (a) Which pair moves together, and which pair moves in opposite directions?
 
 (b) Why is neither correlation, by itself, a reason to conclude that one variable causes the other?
+
+[Solution](#sol-da-correlation-reading)
 
 :::

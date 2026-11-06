@@ -480,3 +480,91 @@ for _table, _extra in (
     for _name, _items in _extra.items():
         if _items:
             _table.setdefault(_name, []).extend(i for i in _items if i not in _table[_name])
+
+
+# TikZ diagrams. The first figure of an article is its infobox image, so a
+# diagram that explains the idea directly goes to the front of the list.
+_DIAGRAMS_FIRST = {
+    "law-of-total-probability": ["prob-01-experiments-total-probability.png"],
+    "cumulative-distribution-function": ["prob-02-random-variables-distribution-function.png"],
+    "discrete-distribution": ["prob-02-random-variables-distribution-function.png"],
+    "conditional-distribution": ["prob-04-joint-distributions-conditional-slice.png"],
+    "type-i-and-type-ii-errors": ["inf-04-hypothesis-tests-errors.png"],
+    "anova-sum-of-squares-decomposition": ["inf-07-anova-sums-of-squares.png"],
+    "observational-study": ["da-01-studies-and-data-assignment.png"],
+    "designed-experiment": ["da-01-studies-and-data-assignment.png"],
+}
+_DIAGRAMS_AFTER = {
+    "conditional-probability": ["prob-01-experiments-total-probability.png"],
+    "continuous-distribution": ["prob-02-random-variables-distribution-function.png"],
+    "limiting-distribution": ["prob-06-markov-chains-reflected-walk.png"],
+    "power-function": ["inf-04-hypothesis-tests-errors.png"],
+    "p-value": ["inf-04-hypothesis-tests-errors.png"],
+    "one-way-analysis-of-variance": ["inf-07-anova-sums-of-squares.png"],
+}
+for _name, _items in _DIAGRAMS_FIRST.items():
+    _rest = [f for f in FIGURES.get(_name, []) if f not in _items]
+    FIGURES[_name] = _items + _rest
+for _name, _items in _DIAGRAMS_AFTER.items():
+    FIGURES.setdefault(_name, []).extend(i for i in _items if i not in FIGURES[_name])
+
+
+# ---------------------------------------------------------------------------
+# Data analysis.
+# ---------------------------------------------------------------------------
+
+_DATA_EXAMPLES = {
+    "observational-study": ["ex-da-alcohol-attendance", "ex-da-devil-tumours"],
+    "designed-experiment": ["ex-da-motn-insomnia", "ex-da-devil-tumours"],
+    "randomised-controlled-trial": ["ex-da-blood-pressure-covariates", "ex-da-random-split"],
+    "confounding-variable": ["ex-da-correlation-reading"],
+    "sample-correlation-coefficient": ["ex-da-correlation-reading"],
+    "simple-random-sample": ["ex-da-random-split"],
+    "margin-of-error": ["ex-da-pilot-width", "ex-da-sleep-sample-size"],
+}
+
+_DATA_BOOK_EXAMPLES = {
+    "exm-alices-caffeine-experiment": ["designed-experiment", "randomised-controlled-trial", "blinding-and-placebo"],
+    "exm-sampling-ten-villages": ["stratified-and-cluster-sampling", "simple-random-sample"],
+    "exm-the-ages-of-299-patients": ["sample-quantile", "interquartile-range", "sample-variance-and-standard-deviation"],
+    "exm-anaemia-and-death": ["chi-squared-test-of-independence"],
+    "exm-a-biased-coin": ["wald-interval", "binomial-test"],
+    "exm-ten-normal-measurements": ["one-sample-t-pivot"],
+    "exm-the-volume-of-a-drop": ["one-sample-t-pivot", "student-t-distribution"],
+    "exm-first-and-third-year-weights": ["welch-interval", "pooled-variance"],
+    "exm-simulating-the-power-of-a-t-test": ["power-function", "one-sample-t-test"],
+    "exm-a-new-sweetener": ["binomial-test"],
+    "exm-alices-caffeine-test": ["two-sample-t-test", "welch-interval"],
+    "exm-two-labs-on-the-same-patients": ["one-sample-t-test"],
+    "exm-five-treatments-for-cold-sores": ["one-way-analysis-of-variance", "bonferroni-correction", "tukey-intervals"],
+    "exm-wheat-in-four-regions": ["interaction"],
+    "exm-pesticide-and-fertilizer": ["interaction"],
+    "exm-height-and-shoe-size": ["simple-linear-regression", "coefficient-of-determination"],
+    "exm-predicting-a-students-height": ["prediction-interval"],
+    "exm-height-shoe-size-and-weight": ["multiple-linear-regression", "adjusted-r-squared"],
+    "exm-explaining-birth-weight": ["dummy-variable-coding", "multiple-linear-regression"],
+    "exm-age-and-smoking-interact": ["interaction", "dummy-variable-coding"],
+    "exm-a-hundred-balls-in-ten-boxes": ["pearson-chi-squared-approximation"],
+}
+
+_DATA_FIGURES = {
+    "randomised-controlled-trial": ["da-01-studies-and-data-assignment.png", "da-alice-strip.png"],
+    "confounding-variable": ["da-01-studies-and-data-assignment.png"],
+    "sample-quantile": ["da-creatinine-shape.png"],
+    "five-number-summary-and-boxplot": ["da-creatinine-shape.png", "da-creatinine-by-death.png"],
+    "interquartile-range": ["da-creatinine-shape.png"],
+    "normal-quantile-plot": ["da-creatinine-qq.png", "da-birthwt-residuals.png"],
+    "sample-correlation-coefficient": ["da-sodium-jitter.png", "da-pairs.png"],
+    "power-function": ["da-power-by-n.png"],
+    "one-way-analysis-of-variance": ["da-coldsore.png"],
+    "bonferroni-correction": ["da-coldsore.png"],
+    "interaction": ["da-interaction.png", "da-birthwt-interaction.png"],
+    "dummy-variable-coding": ["da-birthwt-interaction.png"],
+    "multiple-linear-regression": ["da-pairs.png", "da-birthwt-residuals.png"],
+    "pearson-chi-squared-approximation": ["da-chisq-simulation.png"],
+    "chi-squared-test-of-independence": ["da-anaemia-death.png"],
+}
+
+for _table, _extra in ((EXAMPLES, _DATA_EXAMPLES), (BOOK_EXAMPLES, _DATA_BOOK_EXAMPLES), (FIGURES, _DATA_FIGURES)):
+    for _name, _items in _extra.items():
+        _table.setdefault(_name, []).extend(i for i in _items if i not in _table[_name])

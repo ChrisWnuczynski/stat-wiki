@@ -282,6 +282,8 @@ The same calculation gives $0.0175/0.029=0.603$ for factory 2 and $0.010/0.029=0
 
 :::
 
+![The three factories as areas. Left: each factory's share of production is a width, its defective rate a height, so each block's area is $\Pr(A\cap B_i)$ and the blocks add to $\Pr(A)=0.029$. Right: Bayes' rule divides each area by that total, giving $0.052$, $0.603$ and $0.345$.](../figures/prob-01-experiments-total-probability.pdf){#fig-prob-total-probability}
+
 ## Independence
 
 ::: {#def-independent-events .definition}

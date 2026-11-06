@@ -73,6 +73,8 @@ $$
 
 because deviations from a group mean sum to zero within that group. $\mathrm{SS}_{\mathrm{treatment}}$ measures variation between the groups and $\mathrm{SS}_{\mathrm{error}}$ measures variation within them.
 
+![One factor at three levels. Each observation's gap from its level mean, $Y_{ij}-\overline Y_{\cdot j}$, goes into $\mathrm{SS}_{\mathrm{error}}$. Each level mean's gap from the grand mean, $\overline Y_{\cdot j}-\overline Y$, counted once per observation, goes into $\mathrm{SS}_{\mathrm{treatment}}$.](../figures/inf-07-anova-sums-of-squares.pdf){#fig-inf-anova-sums-of-squares}
+
 ::: {#thm-anova-f-distribution .theorem}
 ## ANOVA F distribution
 

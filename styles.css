@@ -612,3 +612,61 @@ nav#TOC h2 {
 .katex {
   position: relative;
 }
+
+/* Figures open their file page, as on Wikipedia. */
+a.file-link img {
+  cursor: zoom-in;
+}
+
+.file-page {
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-panel);
+  padding: 0.75rem;
+  margin: 0.5rem 0 1rem;
+  text-align: center;
+}
+
+.file-page img {
+  max-width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+.file-page p:last-child {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+}
+
+.file-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.file-gallery p {
+  display: contents;
+}
+
+.file-gallery a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--wiki-border);
+  background: #fff;
+  padding: 0.3rem;
+}
+
+.file-gallery img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Long names in inline code, such as a figure's source file, may break
+   anywhere rather than widen the page on a phone. */
+main p code,
+main li code {
+  overflow-wrap: anywhere;
+}

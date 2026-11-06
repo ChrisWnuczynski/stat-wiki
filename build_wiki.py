@@ -160,6 +160,7 @@ ONE_ARG = {
 }
 
 FIGURE_PAGES: dict[str, list[str]] = {}
+FIGURE_FILES: dict[str, dict] = {}  # PNG name -> the PDF, source and how it was drawn
 
 EX_OPEN = re.compile(r"^::: \{#([\w:-]+)\s+\.exercise\}\s*$")
 ANY_OPEN = re.compile(r"^:::\s*\{")
@@ -442,7 +443,7 @@ def href(from_qmd: Path, to_qmd: Path) -> str:
 
 def rewrite_images(text: str, prefix: str) -> str:
     pattern = re.compile(
-        r"!\[([^\]]*)\]\((?:\.\./)*figures/([^)/\s]+)\.pdf\)(\{[^}]*\})?"
+        r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\((?:\.\./)*figures/([^)/\s]+)\.pdf\)(\{[^}]*\})?"
     )
 
     def repl(match: re.Match) -> str:
@@ -741,6 +742,7 @@ def convert_figures() -> None:
     for notes in (PROBABILITY, INFERENCE, DATA):
         sources += sorted((notes / "figures").glob("*.pdf"))
     print(f"Converting {len(sources)} figures")
+    scripts_copied: set[Path] = set()
     for src in sources:
         if src.stem in FIGURE_PAGES:
             raise SystemExit(f"Two figures share the name {src.stem}")
@@ -768,6 +770,30 @@ def convert_figures() -> None:
                 capture_output=True,
             )
             FIGURE_PAGES[src.stem] = [f"{src.stem}-{i}.png" for i in range(1, pages + 1)]
+        # The file page offers the original PDF and whatever drew it.
+        shutil.copy2(src, dest / src.name)
+        tex, script = src.with_suffix(".tex"), src.parent / "make_figures.py"
+        if tex.exists():
+            shutil.copy2(tex, dest / tex.name)
+            made = {"source": tex.name, "how": "Drawn in TikZ. The source is a standalone LaTeX file."}
+        elif script.exists():
+            published = f"{src.parent.parent.name}-make_figures.py"
+            if script not in scripts_copied:
+                shutil.copy2(script, dest / published)
+                scripts_copied.add(script)
+            made = {"source": published, "how": "Drawn with Python and matplotlib from the example data. One script draws every figure in its section."}
+        else:
+            made = {"source": "", "how": "A figure from the course chapter."}
+        # A high-resolution copy for the file page, as Wikipedia offers the original.
+        full = f"{src.stem}-full.png"
+        if pages == 1 and not (dest / full).exists():
+            subprocess.run(
+                ["pdftocairo", "-png", "-r", "300", "-singlefile", str(src), str(dest / Path(full).stem)],
+                check=True,
+                capture_output=True,
+            )
+        for png in FIGURE_PAGES[src.stem]:
+            FIGURE_FILES[png] = {"pdf": src.name, "pages": pages, "full": full if pages == 1 else "", **made}
 
 
 def pandoc_many(fragments: dict[str, str]) -> dict[str, str]:
@@ -935,7 +961,7 @@ def self_test() -> None:
 
 
 def clean_output() -> None:
-    for name in ("notes", "questions", "answers", "reference", "articles"):
+    for name in ("notes", "questions", "answers", "reference", "articles", "files"):
         path = WIKI / name
         if not path.exists():
             continue
@@ -1609,6 +1635,23 @@ TERMS = [
     (r"limiting distributions?", "P6", "thm-limiting-distribution", None),
     (r"transition matri(?:x|ces)", "P6", "def-finite-state-markov-chain", None),
     (r"survival functions?|mean time to failure|MTTF", "P7", "def-survival", None),
+    # Data analysis.
+    (r"randomi[sz]ed controlled trials?|RCTs?", "D1", "def-randomised-controlled-trial", None),
+    (r"confound(?:ing|ers?|ed)(?: variables?)?", "D1", "def-confounding-variable", None),
+    (r"double-blind|blind(?:ed)? (?:experiments?|trials?)|placebos?", "D1", "def-blinding-and-placebo", None),
+    (r"simple random samples?", "D1", "def-simple-random-sample", None),
+    (r"stratified sampl(?:e|es|ing)|cluster sampl(?:e|es|ing)", "D1", "def-stratified-and-cluster-sampling", None),
+    (r"sample quantiles?|percentiles?|quartiles?", "D2", "def-sample-quantile", {P, I, D}),
+    (r"sample variances?|sample standard deviations?", "D2", "def-sample-variance-and-standard-deviation", {D}),
+    (r"five-number summar(?:y|ies)|box ?plots?", "D2", "def-five-number-summary-and-boxplot", None),
+    (r"normal quantile plots?|Q-Q plots?|QQ plots?", "D2", "def-normal-quantile-plot", None),
+    (r"margins? of error", "D4", "def-margin-of-error", None),
+    (r"Welch(?:'s)? (?:intervals?|t[- ]tests?|tests?)|Welch(?:--|–|-)Satterthwaite", "D4", "def-welch-interval", None),
+    (r"Bonferroni(?: corrections?| methods?)?", "D6", "def-bonferroni-correction", None),
+    (r"interactions?", "D6", "def-interaction", {D, I}),
+    (r"multiple (?:linear )?regressions?", "D7", "def-multiple-linear-regression", {D, I}),
+    (r"adjusted R-squared|adjusted \$R\^2\$", "D7", "def-adjusted-r-squared", None),
+    (r"dummy variables?|indicator variables?|reference levels?", "D8", "def-dummy-variable-coding", {D, I}),
     (r"series systems?|parallel systems?|k-out-of-n systems?|minimal (?:path|cut) sets?", "P7", "def-structure-function", {P}),
     (r"observational studies?", "D1", "def-observational-study", None),
     (r"designed experiments?|randomised experiments?|randomized experiments?", "D1", "def-designed-experiment", None),
@@ -1701,7 +1744,9 @@ TERMS = [
     (r"PIT residuals?|probability-integral(?:[- ]transform)? residuals?|randomi[sz]ed quantile residuals?", "G6", "", None),
     # Smoothing
     (r"roughness penalty|smoothing parameters?|penali[sz]ed (?:regression )?splines?|cubic splines?|regression splines?|splines?", "S1", "A roughness penalty", None),
-    (r"effective degrees of freedom|additive models?", "S2", "Sums of smooth functions", None),
+    # "Additive model" also means "no interaction" in an analysis of variance, and
+    # Welch's test has effective degrees of freedom too, so this stays with smoothing.
+    (r"effective degrees of freedom|additive models?", "S2", "Sums of smooth functions", {S, G, C, T}),
     # Correlated data
     (r"random intercepts?|linear mixed models?|mixed models?", "C1", "A random intercept", None),
     (r"fixed effects?|random effects?", "C1", "What is fixed, and what is random", None),
@@ -2552,6 +2597,91 @@ def figure_md(file: str, page: Path, short: bool = False, credit: bool = True) -
     return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)})"
 
 
+def png_size(path: Path) -> tuple[int, int]:
+    """Width and height from a PNG header."""
+    head = path.read_bytes()[:24]
+    return int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")
+
+
+def kilobytes(path: Path) -> str:
+    return f"{max(1, round(path.stat().st_size / 1024))} KB"
+
+
+def write_file_pages() -> None:
+    """One page per figure, as on Wikipedia: the image, what it shows, downloads, and where it is used."""
+    figures_dir, files_dir = WIKI / "figures", WIKI / "files"
+    files_dir.mkdir(exist_ok=True)
+    usage: dict[str, list[tuple[str, Path]]] = {}
+    alt_text: dict[str, str] = {}
+    image = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\s]*figures/([^)\s/]+\.png)\)")
+    for folder in ("notes", "articles", "questions", "reference"):
+        for page in sorted((WIKI / folder).rglob("*.qmd")):
+            text = page.read_text(encoding="utf-8")
+            found = image.findall(text)
+            if not found:
+                continue
+            title = re.search(r'^title:\s*"?(.*?)"?\s*$', text, re.M)
+            name = title.group(1).replace('\\"', '"') if title else page.stem
+            for alt, png in found:
+                alt_text.setdefault(png, alt)
+                if (name, page) not in usage.setdefault(png, []):
+                    usage[png].append((name, page))
+    gallery: dict[str, list[str]] = {}
+    # Chapter order, as in the sidebar; figures that no chapter shows come last.
+    order = {png: i for i, png in enumerate(FIGURE_INFO)}
+    for png, made in sorted(FIGURE_FILES.items(), key=lambda item: (order.get(item[0], len(order)), item[0])):
+        path = files_dir / f"{Path(png).stem}.qmd"
+        info = FIGURE_INFO.get(png)
+        if info:
+            caption = rebase_links(info["caption"], info["chapter"], path)
+            home = f"[{info['chapter_title']}]({href(path, info['chapter'])}{'#' + info['id'] if info['id'] else ''})"
+        else:
+            caption = re.sub(r"\s*\*From \[.*$", "", alt_text.get(png, "")).strip()
+            home = ""
+        width, height = png_size(figures_dir / png)
+        lines = [
+            '::: {.file-page}',
+            f"[![{caption}]({href(path, figures_dir / png)})]({href(path, figures_dir / (made['full'] or png))})",
+            "",
+            f"*Size of this preview: {width} × {height} pixels. Select it to open the high-resolution file.*",
+            ":::",
+            "",
+            "## Summary",
+            "",
+            f"**Description.** {caption}" if caption else "**Description.** None recorded.",
+            "",
+        ]
+        if home:
+            lines += [f"**Appears in.** {home}", ""]
+        lines += [f"**Made by.** {made['how']}", "", "## Download", ""]
+        if made["full"]:
+            full_w, full_h = png_size(figures_dir / made["full"])
+            lines.append(f"- [PNG, high resolution]({href(path, figures_dir / made['full'])}) ({full_w} × {full_h} pixels, {kilobytes(figures_dir / made['full'])})")
+        lines.append(f"- [PNG, as shown on the wiki]({href(path, figures_dir / png)}) ({width} × {height} pixels, {kilobytes(figures_dir / png)})")
+        pdf = figures_dir / made["pdf"]
+        pages = f", {made['pages']} pages" if made["pages"] > 1 else ""
+        lines.append(f"- [PDF, vector, prints at any size]({href(path, pdf)}) ({kilobytes(pdf)}{pages})")
+        if made["source"]:
+            kind = "TikZ source" if made["source"].endswith(".tex") else "Python script"
+            lines.append(f"- [{kind}]({href(path, figures_dir / made['source'])}) (`{made['source']}`)")
+        lines += ["", "## File usage", ""]
+        used = usage.get(png, [])
+        if used:
+            lines.append(f"{'This page shows' if len(used) == 1 else f'These {len(used)} pages show'} the file:")
+            lines.append("")
+            lines += [f"- [{name}]({href(path, page)})" for name, page in sorted(used, key=lambda u: u[0].lower())]
+        else:
+            lines.append("No page shows this file yet.")
+        write_qmd(path, f"File:{png}", "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else 'stat wiki'}")
+        group = info["chapter_title"] if info else "Other figures"
+        # An empty caption keeps a lone thumbnail from becoming a captioned figure.
+        gallery.setdefault(group, []).append(f'[![]({href(files_dir / "index.qmd", figures_dir / png)}){{fig-alt="{Path(png).stem}"}}]({href(files_dir / "index.qmd", path)})')
+    body = ["Select a figure to open its file page, with a larger view, a description, downloads, and the pages that use it.", ""]
+    for group, thumbs in gallery.items():
+        body += [f"## {group}", "", "::: {.file-gallery}", *thumbs, ":::", ""]
+    write_qmd(files_dir / "index.qmd", "All figures", "\n".join(body), description="Every figure on the wiki")
+
+
 def check_extras(qmap: dict) -> None:
     problems = []
     for table, name in ((PROPERTIES, "PROPERTIES"), (EXAMPLES, "EXAMPLES"), (FIGURES, "FIGURES")):
@@ -2975,11 +3105,33 @@ The source is on [GitHub]({REPO_URL}). Every change pushed there rebuilds this s
     )
 
 
+# Every figure opens its file page, as an image does on Wikipedia. The file
+# page itself links its image to the full PNG instead.
+FILE_LINK_JS = """
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("main img").forEach((img) => {
+    const src = img.getAttribute("src") || "";
+    const m = src.match(/^(.*?)figures\\/([^\\/?#]+)\\.png$/);
+    if (!m || img.closest("a")) return;
+    const link = document.createElement("a");
+    link.href = m[1] + "files/" + m[2] + ".html";
+    link.className = "file-link";
+    link.title = "Open the file page: larger view, downloads, and where it is used";
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  });
+});
+</script>
+"""
+
+
 def write_config(chapters, final_notes, questions) -> None:
     question_paths = [q["path"].relative_to(WIKI).with_suffix(".html").as_posix() for q in questions]
     (WIKI / "_random.html").write_text(
         RANDOM_AND_FILTER_JS.replace("__QUESTIONS__", "[" + ",".join(f'"{p}"' for p in question_paths) + "]")
-        + PREVIEW_JS,
+        + PREVIEW_JS
+        + FILE_LINK_JS,
         encoding="utf-8",
     )
 
@@ -3002,6 +3154,10 @@ def write_config(chapters, final_notes, questions) -> None:
     - "!sources/"
   resources:
     - katex/
+    - figures/*.pdf
+    - figures/*.tex
+    - figures/*.py
+    - figures/*-full.png
 
 website:
   title: "stat wiki"
@@ -3046,6 +3202,7 @@ website:
           - reference/glossary.qmd
           - reference/distributions.qmd
           - reference/formulas.qmd
+          - files/index.qmd
   page-navigation: true
   page-footer:
     center: "stat wiki. [Source on GitHub]({REPO_URL})"
@@ -3066,7 +3223,8 @@ format:
       method: katex
       url: /katex/
     smooth-scroll: true
-    code-overflow: wrap
+    # Scroll, not wrap: R output is aligned in columns.
+    code-overflow: scroll
     link-external-newwindow: true
     include-after-body: _random.html
     # The site is published on GitHub Pages; ask search engines not to list it.
@@ -3509,6 +3667,7 @@ def main() -> None:
     }
 
     write_pages(notes, questions, answers)
+    write_file_pages()
 
     leftover = []
     banned = re.compile(r"\\(vect|mat|BetaDist|GammaDist|InvGamma|xvec|betavec|thetavec|given|ind|eqref|label)\b")
