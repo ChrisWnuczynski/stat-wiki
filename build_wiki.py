@@ -28,6 +28,7 @@ PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked sol
 INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
 DATA = SOURCES / "stat1301"  # studies, description, R, and examples that point at inference
 STOCHASTIC = SOURCES / "stat3004"  # stochastic processes, then measure and convergence
+LEARNING = SOURCES / "stat3006"  # statistical learning, including the R calculations
 
 PARTS = [
     (
@@ -116,6 +117,30 @@ PARTS = [
         [
             ("06-smooth-means.qmd", "notes"),
             ("07-additive-and-mixed.qmd", "notes"),
+        ],
+    ),
+    (
+        "Statistical learning",
+        [
+            ("sl-01-multivariate-normal.qmd", "notes"),
+            ("sl-02-normal-inference.qmd", "notes"),
+            ("sl-03-principal-components.qmd", "notes"),
+            ("sl-04-kmeans.qmd", "notes"),
+            ("sl-05-mixtures-em.qmd", "notes"),
+            ("sl-06-model-selection.qmd", "notes"),
+            ("sl-07-linkage-and-density.qmd", "notes"),
+            ("sl-08-discriminant-analysis.qmd", "notes"),
+            ("sl-09-error-rates.qmd", "notes"),
+            ("sl-10-logistic-regression.qmd", "notes"),
+            ("sl-11-nearest-neighbours.qmd", "notes"),
+            ("sl-12-classification-trees.qmd", "notes"),
+            ("sl-13-ensembles.qmd", "notes"),
+            ("sl-14-neural-units.qmd", "notes"),
+            ("sl-15-backpropagation.qmd", "notes"),
+            ("sl-16-networks-in-practice.qmd", "notes"),
+            ("sl-17-support-vectors.qmd", "notes"),
+            ("sl-18-high-dimensional.qmd", "notes"),
+            ("sl-19-graphical-models.qmd", "notes"),
         ],
     ),
     (
@@ -1066,6 +1091,25 @@ CHAPTER_CODES = {
     "SP10": "sp-10-random-variables.qmd",
     "SP11": "sp-11-convergence.qmd",
     "SP12": "sp-12-extremes.qmd",
+    "L1": "sl-01-multivariate-normal.qmd",
+    "L2": "sl-02-normal-inference.qmd",
+    "L3": "sl-03-principal-components.qmd",
+    "L4": "sl-04-kmeans.qmd",
+    "L5": "sl-05-mixtures-em.qmd",
+    "L6": "sl-06-model-selection.qmd",
+    "L7": "sl-07-linkage-and-density.qmd",
+    "L8": "sl-08-discriminant-analysis.qmd",
+    "L9": "sl-09-error-rates.qmd",
+    "L10": "sl-10-logistic-regression.qmd",
+    "L11": "sl-11-nearest-neighbours.qmd",
+    "L12": "sl-12-classification-trees.qmd",
+    "L13": "sl-13-ensembles.qmd",
+    "L14": "sl-14-neural-units.qmd",
+    "L15": "sl-15-backpropagation.qmd",
+    "L16": "sl-16-networks-in-practice.qmd",
+    "L17": "sl-17-support-vectors.qmd",
+    "L18": "sl-18-high-dimensional.qmd",
+    "L19": "sl-19-graphical-models.qmd",
 }
 
 # Practice questions 1-59, in order.
@@ -3036,6 +3080,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         "Every chapter is an article. Each one ends with a table of the questions on its topic. "
         "The Probability section is the common language for the later chapters: experiments, random variables, simulation, dependence, limits, Markov chains and reliability. "
         "Stochastic processes continues from there: branching and first passage, Markov chains in discrete and continuous time, Poisson processes and queues, then sigma-algebras, modes of convergence, and maxima. "
+        "Statistical learning builds classifiers, clusters, and high-dimensional fits on top of the regression, GLM, and smoothing chapters. "
         "Statistical inference then turns a random sample into an estimate, an interval, or a test. "
         "Data analysis is where a study, a table of summaries, and an R calculation meet those methods.",
         "",
@@ -3123,7 +3168,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, stochastic processes, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -3416,7 +3461,7 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 
 def chapter_source(filename: str) -> Path:
     """Chapter files live with the book, except the probability notes."""
-    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters", STOCHASTIC / "chapters"):
+    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters", STOCHASTIC / "chapters", LEARNING / "chapters"):
         path = folder / filename
         if path.exists():
             return path
@@ -3487,6 +3532,7 @@ def main() -> None:
         INFERENCE / "chapters" / "inf-solutions.qmd",
         DATA / "chapters" / "da-solutions.qmd",
         STOCHASTIC / "chapters" / "sp-solutions.qmd",
+        LEARNING / "chapters" / "sl-solutions.qmd",
     ):
         solutions = sol_path.read_text(encoding="utf-8")
         matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))

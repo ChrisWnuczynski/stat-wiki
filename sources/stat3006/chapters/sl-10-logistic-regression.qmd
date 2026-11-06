@@ -1,0 +1,492 @@
+# Logistic regression
+
+Classification needs the probabilities of the labels given the measurements. Linear discriminant analysis obtains them by modelling the measurements within each class. Logistic regression specifies the conditional class probability directly. That avoids a distributional model for the predictors, and it still imposes a structure on how the predictors enter the response. The object is
+
+$$
+\Pr(Y=g\given X=x),\qquad g=1,\ldots,G.
+$$
+
+If these conditional probabilities were available directly, the class densities would not be needed, and neither would a second application of Bayes' theorem. The equal-cost Bayes classifier that uses them, predicting a class of largest posterior, is on [Linear discriminant analysis](sl-08-discriminant-analysis.qmd#thm-sl-08-bayes-rule).
+
+For two classes, logistic regression makes the log odds linear in the predictors. That gives probabilities between zero and one without making the probability itself a straight line. The log-odds model for categories is introduced on [Categorical responses](04-categorical-responses.qmd). This page derives the Bernoulli likelihood, the score equations, the odds interpretation, the decision boundary, and the multinomial logit. A coefficient describes a conditional association under the model. A causal reading needs further assumptions.
+
+The most familiar conditional model is the linear model for a quantitative response. A linear equation for a probability will not do, because a probability has to stay between $0$ and $1$, and a line does not. The modification below keeps the linear piece and changes the scale on which it is linear.
+
+## From a linear model to class probabilities
+
+Take two classes, coded $0$ and $1$. The probability to be predicted is the conditional probability of class $1$, which is also the conditional mean of a binary response:
+
+$$
+\tau_1(x)=\Pr(Y=1\given X=x),\qquad \tau_0(x)=1-\tau_1(x).
+$$
+
+A line fitted to $y_i\in\{0,1\}$ can predict values below $0$ or above $1$, and those values are not probabilities. A generalised linear model keeps a linear predictor and passes it through an inverse link to produce a mean. For a binary response the mean is the probability, so the distribution around that mean is Bernoulli: each $y_i$ is a single trial with success probability $p_i$.
+
+The link is the function that is assumed linear. Augment the predictor vector with a leading $1$, so that $x$ has length $p+1$ and $\beta_0$ is an intercept. Then
+
+$$
+h\bigl(\tau_1(x)\bigr)=\beta^\top x=\beta_0+\beta_1 x_1+\cdots+\beta_p x_p.
+$$
+
+The inverse link has to return values in $(0,1)$, and it has to be non-decreasing, so that a larger linear predictor means a larger probability of class $1$. The standard normal distribution function $\Phi$ meets both requirements and gives probit regression: the inverse link is $\Phi$, the distribution function of $\Normal(0,1)$. The logistic function is the usual choice, because its inverse is the log odds and the derivatives needed for fitting stay simple. Write $\sigma(\eta)=1/(1+e^{-\eta})$. The model probability is
+
+$$
+\tau_1(x)=\sigma(\beta^\top x)=\frac{1}{1+e^{-\beta^\top x}}.
+$$
+
+Solving $\tau_1=1/(1+e^{-\eta})$ for the linear predictor $\eta$ gives the link. From $e^{-\eta}=(1-\tau_1)/\tau_1$,
+
+$$
+\eta=\log\frac{\tau_1}{1-\tau_1}=\log\frac{\tau_1}{\tau_0}.
+$$
+
+So the link is the log odds of class $1$,
+
+$$
+h(\tau_1)=\log\frac{\tau_1}{1-\tau_1}=\log\frac{\tau_1}{\tau_0},
+$$
+
+also called the logit, and the model statement is $h(\tau_1)=\beta^\top x$. The probability is nonlinear in $x$. The log odds are linear in $x$. That split is why a one-unit change in a predictor multiplies the odds by a constant and does not add a constant to the probability.
+
+### Logistic and probit
+
+Both links are smooth curves from $0$ to $1$, so the choice is not forced by the range of a probability. The scale of the linear predictor can be absorbed into $\beta$, which means the two curves should be compared after they are given the same slope at $0$.
+
+Differentiate $\sigma(\eta)=(1+e^{-\eta})^{-1}$. The chain rule gives
+
+$$
+\sigma'(\eta)
+=(1+e^{-\eta})^{-2}\,e^{-\eta}
+=\frac{1}{1+e^{-\eta}}\cdot\frac{e^{-\eta}}{1+e^{-\eta}}
+=\sigma(\eta)\bigl(1-\sigma(\eta)\bigr),
+$$
+
+because $1-\sigma(\eta)=e^{-\eta}/(1+e^{-\eta})$. Hence $\sigma'(0)=\sigma(0)(1-\sigma(0))=(1/2)(1/2)=1/4$. The same identity gives the symmetry $\sigma(-\eta)=1-\sigma(\eta)$, since
+
+$$
+\sigma(-\eta)=\frac{1}{1+e^{\eta}}=\frac{e^{-\eta}}{e^{-\eta}+1}=1-\sigma(\eta).
+$$
+
+The rescaled normal distribution function $\Phi(c\eta)$ has slope $c\,\varphi(0)$ at $0$, where $\varphi(0)=1/\sqrt{2\pi}$ is the standard normal density. Equating the slopes,
+
+$$
+\frac{c}{\sqrt{2\pi}}=\frac14,
+\qquad
+c=\frac{\sqrt{2\pi}}{4}=\sqrt{\frac{\pi}{8}},
+$$
+
+the last step because $(\sqrt{2\pi}/4)^2=2\pi/16=\pi/8$. With that scaling the curves nearly agree. The logistic function approaches $0$ and $1$ a little more slowly, so it is the heavier-tailed of the two links. The later algebra uses the logistic derivative $\sigma(1-\sigma)$, which is why the logistic link is the one carried forward.
+
+## Likelihood, score, and fitting
+
+During fitting, $\beta$ is the candidate parameter and $p_i=\sigma(\beta^\top x_i)$ is its model probability, not yet an estimated probability. Treat the design vectors, including their intercept entries, as fixed. Conditional independence of the responses then gives one Bernoulli factor per observation: $p_i$ if the label is one and $1-p_i$ if it is zero.
+
+::: {#def-sl-10-logistic .definition}
+## Binary logistic regression
+
+The Bernoulli likelihood and log-likelihood are
+
+\begin{align*}
+L(\beta)&=\prod_{i=1}^n p_i^{y_i}(1-p_i)^{1-y_i},\\
+\ell(\beta)&=\sum_{i=1}^n\bigl\{y_i\log p_i+(1-y_i)\log(1-p_i)\bigr\},
+\end{align*}
+
+with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}$.
+
+:::
+
+The log-likelihood is the object to maximise. The logit link says $\log(p_i/(1-p_i))=\beta^\top x_i=:\eta_i$. Solving for the two log probabilities,
+
+$$
+\log p_i=\eta_i-\log(1+e^{\eta_i}),
+\qquad
+\log(1-p_i)=-\log(1+e^{\eta_i}),
+$$
+
+because $p_i=e^{\eta_i}/(1+e^{\eta_i})$ and $1-p_i=1/(1+e^{\eta_i})$. Substituting those expressions removes $p_i$ from the criterion:
+
+\begin{align*}
+\ell(\beta)
+&=\sum_{i=1}^n\Bigl\{y_i\bigl(\eta_i-\log(1+e^{\eta_i})\bigr)+(1-y_i)\bigl(-\log(1+e^{\eta_i})\bigr)\Bigr\}\\
+&=\sum_{i=1}^n\bigl\{y_i\eta_i-\log(1+e^{\eta_i})\bigr\}.
+\end{align*}
+
+### Score and Hessian
+
+There is no closed form for the maximiser, so the next step is the derivative. Differentiate the reduced log-likelihood with $\partial\eta_i/\partial\beta=x_i$ and
+
+$$
+\frac{\partial}{\partial\eta_i}\log(1+e^{\eta_i})=\frac{e^{\eta_i}}{1+e^{\eta_i}}=p_i.
+$$
+
+The score, a vector of length $p+1$, is
+
+$$
+\frac{\partial\ell}{\partial\beta}
+=\sum_{i=1}^n(y_i-p_i)\,x_i
+=X^\top(y-p),
+$$
+
+where $X$ is the $n\times(p+1)$ design matrix, $y$ is the vector of labels, and $p$ is the vector of fitted probabilities. Differentiating again, $\partial p_i/\partial\beta=p_i(1-p_i)\,x_i$ by the logistic derivative $\sigma'(\eta_i)=p_i(1-p_i)$. The Hessian, of size $(p+1)\times(p+1)$, is therefore
+
+$$
+\frac{\partial^2\ell}{\partial\beta\,\partial\beta^\top}
+=-\sum_{i=1}^n p_i(1-p_i)\,x_i x_i^\top
+=-X^\top W X,
+$$
+
+where $W=\mathrm{diag}\bigl(p_i(1-p_i)\bigr)$. The identity $p_i(1-p_i)=\sigma'(\eta_i)$ is what puts the weights on the diagonal of $W$.
+
+::: {#thm-sl-10-concave .theorem}
+## A finite stationary point is a global maximiser
+
+At every finite coefficient vector the weights $p_i(1-p_i)$ are positive. The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave. If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser.
+
+:::
+
+Concavity does not prove that a finite stationary point exists, and it does not prove that an unguarded numerical iteration will find one.
+
+Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0$. Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector. The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate. Check convergence and separation before interpreting standard errors.
+
+### Iteratively reweighted least squares
+
+Newton–Raphson updates
+
+$$
+\beta\leftarrow\beta+(X^\top W X)^{-1}X^\top(y-p).
+$$
+
+The update is the normal equation of a weighted least-squares problem, so each iteration can be computed by a regression routine. Define the working response
+
+$$
+z=X\beta+W^{-1}(y-p).
+$$
+
+Then
+
+\begin{align*}
+X^\top W z
+&=X^\top W X\,\beta+X^\top(y-p),\\
+(X^\top W X)^{-1}X^\top W z
+&=\beta+(X^\top W X)^{-1}X^\top(y-p),
+\end{align*}
+
+which is exactly the Newton step. Each step is a weighted least-squares fit of $z$ on $X$, with weights $p_i(1-p_i)$. The weights are functions of the current $\beta$, through $p_i$, and they are recomputed every iteration. This is iteratively reweighted least squares. It typically converges in a handful of iterations.
+
+For logistic regression, Fisher scoring and Newton–Raphson coincide, because the Hessian $-X^\top W X$ does not depend on $y$ except through the current probabilities, and those probabilities are functions of $\beta$ and $X$. The expected Hessian and the observed Hessian are the same matrix once the variance of a Bernoulli trial is taken to be $p_i(1-p_i)$. The working response is a device that makes one Newton step look like weighted least squares. It is recomputed from the current fit, and it is not itself the binary observation.
+
+::: {#exm-sl-10-newton .example}
+## Newton's method on four points
+
+**Question.** Fit $\log(p/(1-p))=\beta_0+\beta_1 x$ to $x=(0,1,2,3)$ and $y=(0,1,0,1)$.
+
+**Solution.** The design matrix has rows $(1,x_i)$. Start at $\beta=0$: every $p_i=1/2$, $W=(1/4)I$, and $y-p=(-1/2,1/2,-1/2,1/2)$. The score is
+
+$$
+X^\top(y-p)
+=\begin{pmatrix}
+-1/2+1/2-1/2+1/2\\
+0\cdot(-1/2)+1\cdot(1/2)+2\cdot(-1/2)+3\cdot(1/2)
+\end{pmatrix}
+=\begin{pmatrix}0\\1\end{pmatrix}.
+$$
+
+Also $X^\top X=\begin{pmatrix}4&6\\6&14\end{pmatrix}$, so
+
+$$
+X^\top W X=\frac14 X^\top X=\begin{pmatrix}1&1.5\\1.5&3.5\end{pmatrix}.
+$$
+
+The determinant is $3.5-2.25=1.25$, and
+
+$$
+(X^\top W X)^{-1}
+=\frac{1}{1.25}\begin{pmatrix}3.5&-1.5\\-1.5&1\end{pmatrix}.
+$$
+
+The Newton step is that inverse times $(0,1)^\top$,
+
+$$
+\Delta\beta=\frac{1}{1.25}\begin{pmatrix}-1.5\\1\end{pmatrix}
+=\begin{pmatrix}-1.2\\0.8\end{pmatrix}.
+$$
+
+After this first step $\beta=(-1.2,0.8)^\top$. The log-likelihood has risen from $4\log(1/2)=-2.7726$ to $-2.3526$. Two more steps give $(-1.356,0.904)^\top$ and $(-1.3623,0.9082)^\top$, with $\ell=-2.3475$, after which the score is zero to four decimal places. The asymptotic standard errors, the square roots of the diagonal of $(X^\top W X)^{-1}$ at the solution, are $1.97$ and $1.09$. With four observations, nothing is distinguishable from zero at the usual scale.
+
+:::
+
+## Interpretation and the decision boundary
+
+The fitted model is linear on the log-odds scale, which is the scale the link was chosen to linearise. From $\tau_1=1/(1+e^{-\beta^\top x})$ and $\tau_0=1-\tau_1$,
+
+$$
+\frac{\tau_1(x)}{\tau_0(x)}
+=\frac{1/(1+e^{-\beta^\top x})}{e^{-\beta^\top x}/(1+e^{-\beta^\top x})}
+=e^{\beta^\top x},
+$$
+
+so
+
+$$
+\log\frac{\tau_1(x)}{\tau_0(x)}=\beta^\top x.
+$$
+
+Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}$. The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
+
+The same one-unit reading can be derived for the linear discriminant log-odds score, since under a shared covariance that score is also linear in $x$. A coefficient remains a conditional association inside the fitted model. It does not, by itself, measure the effect of intervening on $x_j$.
+
+The equal-cost Bayes rule predicts class $1$ when $\tau_1(x)\ge 1/2$. Under the logistic model that event is the event that the odds are at least $1$, which is the event that the log odds are at least $0$:
+
+$$
+\beta^\top x=0.
+$$
+
+The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary. The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
+
+$$
+\eta(\beta)=
+\begin{cases}
+1,&\beta^\top x\ge 0,\\
+0,&\beta^\top x<0.
+\end{cases}
+$$
+
+Changing the decision threshold changes the trade-off between false positives and false negatives while leaving the fitted scores fixed. An ROC curve plots these two class-conditional operating characteristics over thresholds. Under pure prior shift, with the class-conditional score distributions unchanged, the ROC curve remains the same, although predictive values and the cost-optimal threshold can change.
+
+Products and powers such as $x_1$, $x_1^2$, and $x_1 x_2$ can be added to the linear compound. The log odds stay linear in the coefficients, and the boundary in the original predictors becomes curved. The one-unit odds interpretation is then an interpretation in the expanded predictors.
+
+### Linear discriminant analysis implies a logistic model
+
+Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model. Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
+
+The algebra is Bayes' theorem plus cancellation of the quadratic terms. Let $X\given Y=1\sim\Normal(\mu_1,\Sigma)$ and $X\given Y=0\sim\Normal(\mu_0,\Sigma)$, with priors $\pi_1$ and $\pi_0$. Then
+
+$$
+\log\frac{\tau_1(x)}{\tau_0(x)}
+=\log\frac{\pi_1}{\pi_0}+\log\frac{f_1(x)}{f_0(x)}.
+$$
+
+The normal log-density ratio, with the common quadratic form $x^\top\Sigma^{-1}x$ cancelling, is
+
+\begin{align*}
+\log\frac{f_1(x)}{f_0(x)}
+&=-\tfrac12(x-\mu_1)^\top\Sigma^{-1}(x-\mu_1)
++\tfrac12(x-\mu_0)^\top\Sigma^{-1}(x-\mu_0)\\
+&=x^\top\Sigma^{-1}(\mu_1-\mu_0)
+-\tfrac12(\mu_1+\mu_0)^\top\Sigma^{-1}(\mu_1-\mu_0).
+\end{align*}
+
+The second line uses symmetry of $\Sigma^{-1}$: $\mu_1^\top\Sigma^{-1}\mu_1-\mu_0^\top\Sigma^{-1}\mu_0=(\mu_1+\mu_0)^\top\Sigma^{-1}(\mu_1-\mu_0)$. Therefore
+
+$$
+\log\frac{\tau_1(x)}{\tau_0(x)}=\alpha_0+\beta^\top x,
+$$
+
+with
+
+$$
+\beta=\Sigma^{-1}(\mu_1-\mu_0),
+\qquad
+\alpha_0=\log\frac{\pi_1}{\pi_0}-\tfrac12(\mu_1+\mu_0)^\top\Sigma^{-1}(\mu_1-\mu_0).
+$$
+
+That is a logistic model. Linear discriminant analysis estimates these coefficients from the class means, the pooled covariance, and the priors. Logistic regression estimates them from the conditional likelihood.
+
+Under pure prior shift the slopes can stay and the intercept can be adjusted. If $f(x\given Y)$ stays fixed and the source and target class-one prevalences are $\pi_s$ and $\pi_t$, the log density ratio does not change, and the prior contribution changes by $\mathrm{logit}\,\pi_t-\mathrm{logit}\,\pi_s$:
+
+$$
+\mathrm{logit}\,p_t(x)=\mathrm{logit}\,p_s(x)+\mathrm{logit}\,\pi_t-\mathrm{logit}\,\pi_s.
+$$
+
+A correctly specified logistic model then needs an intercept adjustment and no refit of the slopes. This conclusion depends on stable class-conditional distributions and on valid source probabilities. An arbitrary shift of the joint distribution does not satisfy it.
+
+## More than two classes
+
+Two classes were enough to fix the link. With $G>2$ nominal classes, a single log odds no longer describes the conditional distribution. The baseline-category logit on [Categorical responses](04-categorical-responses.qmd) is this model: one class is the reference, and each remaining class has its own linear predictor. Take the reference to be class $1$. Each remaining class gets its own coefficient vector $\beta_g$, $g\in\{2,\ldots,G\}$, and the model is linear in the log odds against the reference, the same comparison linear discriminant analysis makes one pair at a time:
+
+$$
+\log\frac{\tau_g(x)}{\tau_1(x)}=\beta_g^\top x.
+$$
+
+Exponentiate and use $\sum_{g=1}^G\tau_g(x)=1$, which the binary model obtained from $\tau_0=1-\tau_1$. Exponentiating gives $\tau_g(x)=\tau_1(x)\,e^{\beta_g^\top x}$ for $g\ge 2$. Substituting into the sum-to-one constraint,
+
+\begin{align*}
+\tau_1(x)
+&=1-\sum_{g=2}^G\tau_g(x)
+=1-\tau_1(x)\sum_{g=2}^G e^{\beta_g^\top x},\\
+\tau_1(x)\Biggl(1+\sum_{g=2}^G e^{\beta_g^\top x}\Biggr)
+&=1,
+\end{align*}
+
+so
+
+$$
+\tau_1(x)=\frac{1}{1+\sum_{g=2}^G e^{\beta_g^\top x}},
+\qquad
+\tau_g(x)=\frac{e^{\beta_g^\top x}}{1+\sum_{g'=2}^G e^{\beta_{g'}^\top x}},
+\quad g\ge 2.
+$$
+
+The algebra uses the linear log-odds specification together with the requirement that the fitted probabilities sum to $1$. The reference class is a labelling choice: a different reference reparameterises the same family of conditional distributions. The coefficient vectors are estimated jointly by maximum likelihood, or by an extension of the binary iteratively reweighted least-squares iteration. The map from linear predictors to probabilities is the softmax. An ordered response can use a multinomial model, at some loss of efficiency, because that model ignores the order. Models that use the order make further assumptions and are not developed here.
+
+## Inference, deviance, and model comparison
+
+At a regular finite logistic maximum likelihood estimate, invert $X^\top W X$ and take square roots of its diagonal entries to obtain asymptotic standard errors. The Wald statistic divides an estimated coefficient by its standard error. This is an approximation justified by sampling behaviour under the model, not a guarantee supplied by the numerical inverse. The Wald interval and the deviance comparison both assume that a finite maximum was attained. Under complete separation the coefficients diverge and those standard errors are not meaningful.
+
+A comparison of two nested models uses the likelihood ratio rather than a single coefficient. Deviance, as a comparison of a fitted model with the saturated model, is on [Paired comparisons, and how far a fit is from the data](05-comparisons-and-deviance.qmd). For binary data the saturated model, with a free probability at each case, has log-likelihood $0$: a fitted probability of $1$ on a label $1$, or $0$ on a label $0$, contributes $\log 1=0$. The deviance of a fitted model is therefore simply $D=-2\ell$. The null deviance $D_0=-2\ell$ is the deviance of the model with only an intercept, and the residual deviance $D=-2\ell$ is the deviance of the model with the full $\beta$. A higher likelihood is a smaller deviance. The drop $D_0-D$ measures the improvement from the explanatory variables, and under the null that those variables have coefficients zero it is approximately $\chi^2$ with degrees of freedom equal to the number of coefficients added.
+
+Which model to keep can also be decided by AIC or BIC, which penalise the likelihood by the number of parameters rather than by a significance cutoff. Those penalties are on [Model selection for stochastic models](sl-06-model-selection.qmd#def-sl-06-aic). For this binomial fit, where the deviance is $-2\ell$,
+
+$$
+\mathrm{AIC}=D+2k,
+$$
+
+with $k$ the number of fitted coefficients, intercept included. A categorical explanatory variable with $m$ levels enters as $m-1$ binary indicators, the dummy-variable coding, with the all-zero pattern as the reference level. Continuous, binary, and categorical predictors are therefore all admissible in the same linear predictor.
+
+::: {#exm-sl-10-heart .example}
+## Survival after heart failure
+
+The following output is a supplied fit of death during follow-up on age and high-blood-pressure status, for $299$ patients. Follow-up time is stored separately, so the outcome is not a common one-year event. The printed coefficients are the numbers to be interpreted. They are not re-estimated here.
+
+**Question.** Read the odds ratios, the age interval, the deviance drop, and the AIC from the printed fit.
+
+**Solution.** The supplied summary is
+
+```r
+fit <- glm(death ~ age + hbp, data = heart, family = "binomial")
+summary(fit)
+#> Coefficients:
+#>             Estimate Std. Error z value Pr(>|z|)
+#> (Intercept) -3.70568    0.71072  -5.214 1.85e-07
+#> age          0.04618    0.01110   4.159 3.20e-05
+#> hbp          0.26920    0.26487   1.016    0.309
+#> Null deviance: 375.35 on 298 degrees of freedom
+#> Residual deviance: 354.97 on 296 degrees of freedom
+#> AIC: 360.97
+#> Number of Fisher Scoring iterations: 4
+confint(fit)
+#>                  2.5 %      97.5 %
+#> (Intercept) -5.14257577 -2.34844333
+#> age          0.02483923  0.06851426
+#> hbp         -0.25344324  0.78698218
+```
+
+Increasing age by one year at fixed blood-pressure status multiplies the modelled odds by $e^{0.04618}=1.0473$. Ten years multiply them by $e^{0.4618}=1.59$. These are odds ratios. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$. The printed age interval, exponentiated, gives an annual odds-ratio interval of approximately $(e^{0.02484},e^{0.06851})=(1.025,1.071)$. For high blood pressure, the interval $(e^{-0.2534},e^{0.7870})=(0.78,2.20)$ includes one. It does not establish that the association is exactly zero.
+
+The deviance reduction is $375.35-354.97=20.38$ on two degrees of freedom. The printed AIC is the residual deviance plus twice the number of coefficients,
+
+$$
+354.97+2(3)=360.97.
+$$
+
+These calculations check the interpretation of the supplied numbers. They are not causal effects, and they are not probabilities of death inside a fixed horizon.
+
+:::
+
+## Laboratory: odds and probabilities for two iris species
+
+Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves.
+
+```r
+btrain <- droplevels(subset(train, Species != "setosa"))
+btest <- droplevels(subset(test, Species != "setosa"))
+btrain$y <- as.integer(btrain$Species == "virginica")
+logit_fit <- glm(y ~ Sepal.Length, data = btrain, family = binomial())
+round(coef(summary(logit_fit)), 4)
+#>              Estimate Std. Error z value Pr(>|z|)
+#> (Intercept)   -12.446     3.3824  -3.680    2e-04
+#> Sepal.Length    1.995     0.5439   3.669    2e-04
+exp(coef(logit_fit)["Sepal.Length"])
+#> Sepal.Length
+#>        7.355
+prob <- predict(logit_fit, btest, type = "response")
+truth <- as.integer(btest$Species == "virginica")
+c(test_error = mean((prob >= 0.5) != truth),
+  Brier_score = mean((prob - truth)^2))
+#> test_error Brier_score
+#>     0.2000      0.1844
+```
+
+The estimated odds multiplier for one additional centimetre of sepal length is $7.35$. That number multiplies the odds. It does not add $7.35$, or $1.995$, to the probability, because the logistic curve is nonlinear. The Brier score averages the squared difference between the fitted probability and the binary label, so two classifiers can make the same hard decisions at the threshold $1/2$ and still receive different Brier scores when their probabilities differ. On these held-out flowers the threshold-$1/2$ error is $0.2000$ and the Brier score is $0.1844$.
+
+::: {.callout-note}
+## Key idea
+Logistic regression models the log odds as $\beta^\top x$, fits $\beta$ by the Bernoulli score $X^\top(y-p)=0$, and classifies by the sign of that linear predictor when the threshold is $1/2$. A coefficient multiplies the odds. The probability moves by $ap/(1-p+ap)$, which depends on where the curve already sits.
+:::
+
+## Exercises
+
+::: {#ex-sl-10-1 .exercise}
+## Derivative of the logistic function
+
+Show $\sigma'(\eta)=\sigma(\eta)\bigl(1-\sigma(\eta)\bigr)$ for $\sigma(\eta)=1/(1+e^{-\eta})$, and that $\sigma(-\eta)=1-\sigma(\eta)$. Use the first fact to confirm the Hessian $-X^\top W X$.
+
+[Solution](#sol-sl-10-1)
+
+:::
+
+::: {#ex-sl-10-2 .exercise}
+## Odds ratios
+
+Using the heart-failure output, find the odds ratio for a $10$-year increase in age and its $95\%$ interval, from the profile-likelihood interval for the age coefficient. By how much does the predicted probability of death change for a $60$-year-old without high blood pressure compared with a $70$-year-old? Compute both probabilities.
+
+[Solution](#sol-sl-10-2)
+
+:::
+
+::: {#ex-sl-10-3 .exercise}
+## Linear discriminant analysis implies a logistic model
+
+For two normal classes with common covariance matrix $\Sigma$, means $\mu_1$, $\mu_0$ and priors $\pi_1$, $\pi_0$, show that $\log(\tau_1(x)/\tau_0(x))=\alpha_0+\beta^\top x$ and identify $\alpha_0$ and $\beta$.
+
+[Solution](#sol-sl-10-3)
+
+:::
+
+::: {#ex-sl-10-4 .exercise}
+## Multinomial probabilities
+
+With three classes and class $1$ as the reference, suppose at some $x$ that $\beta_2^\top x=0.5$ and $\beta_3^\top x=-0.2$. Find $\tau_1$, $\tau_2$, $\tau_3$ and the log odds of class $3$ against class $2$.
+
+[Solution](#sol-sl-10-4)
+
+:::
+
+::: {#ex-sl-10-5 .exercise}
+## Complete separation
+
+For $x=(1,2,3,4)$ and $y=(0,0,1,1)$, show that $\ell(\beta_0,\beta_1)$ increases to $0$ along $\beta_1=s$, $\beta_0=-2.5s$ as $s\to\infty$, so no maximum exists. What does this say about the claim that the log-likelihood has a single maximum?
+
+[Solution](#sol-sl-10-5)
+
+:::
+
+::: {#ex-sl-10-6 .exercise}
+## Reading the deviance
+
+In the heart-failure output, the Wald statistic for `hbp` is $z=1.016$. For a single coefficient the likelihood-ratio statistic for dropping it is approximately $z^2$. What residual deviance would you therefore expect for the age-only model, and with how many degrees of freedom? Compare with the $\chi^2_1$ critical value $3.84$ at the $5\%$ level and state the conclusion. Separately, test the full model against the null model using the two deviances printed.
+
+[Solution](#sol-sl-10-6)
+
+:::
+
+::: {#ex-sl-10-7 .exercise}
+## A logistic rule in an unfamiliar setting
+
+A fitted binary logistic model is
+
+$$
+\log\frac{\Pr(Y=1\given x)}{\Pr(Y=0\given x)}=-3+0.8x_1-0.4x_2.
+$$
+
+Assume $Y=1$ is the positive class.
+
+(a) Find the probability at $x=(4,2)^\top$ and give its classification under a probability threshold of $0.5$.
+
+(b) Give the decision-boundary equation and interpret the coefficient of $x_1$ with $x_2$ fixed.
+
+(c) Explain two modelling differences between logistic regression and linear discriminant analysis.
+
+[Solution](#sol-sl-10-7)
+
+:::

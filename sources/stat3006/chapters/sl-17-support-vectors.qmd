@@ -1,0 +1,561 @@
+# Support vector machines
+
+Suppose several lines separate the two training classes perfectly. Their training error is identical, so that criterion cannot choose between them. A support vector machine adds a geometric preference: leave the widest possible slab between the classes. The margin is derived first, then its maximisation is translated into a convex optimisation problem. Convexity rules out nonglobal local optima. Numerical accuracy and stopping still belong to the solver.
+
+The same programme only ever sees the data through inner products. Replacing those inner products by a kernel is how a linear margin in a new feature space becomes a nonlinear boundary in the original one. The kernel, the scaling of the inputs, the cost $C$, and any kernel width are part of the model together. A large margin in one feature space need not be a large margin in another.
+
+The kernel-based maximum-margin construction appears in Boser, Guyon and Vapnik (1992). The appeal here is the connection between geometry, optimisation and prediction. Whether it outperforms another classifier on a particular data set is an empirical question about the complete fitting and assessment procedure. The perceptron on [neural units](sl-14-neural-units.qmd) can stop at any separating hyperplane. The margin is the preference that rule lacks. XOR, which no hyperplane separates, returns as a kernel example.
+
+## Linear separators and the margin
+
+Binary classification can be viewed as separating the classes in feature space. Assume $p$ input variables drawn from two classes encoded as $+1$ and $-1$. The decision function, as for the threshold unit but with $\pm 1$ coding, is
+
+$$
+f(x)=\operatorname{sign}(w^\top x+b),
+$$
+
+where $w$ is the weight vector, $x$ the input vector, and $b$ the bias (called $w_0$ for the threshold unit). The hyperplane $w^\top x+b=0$ separates the region $w^\top x+b>0$ from the region $w^\top x+b<0$.
+
+### Distance to a hyperplane
+
+::: {#thm-sl-17-signed-distance .theorem}
+## Signed distance
+
+For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm. In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert$.
+
+:::
+
+The hyperplane $w\cdot x=0$ goes through the origin, so $w$ is normal to it. The hyperplane $w\cdot x=c$ with $c>0$ is parallel to it, and $w$ is normal to this also. Let $x_1$ be a point on $w\cdot x=0$. Follow a normal until it meets the second hyperplane: find $x_2=x_1+aw$ with $w\cdot x_2=c$. Then $w\cdot x_1+a\,w\cdot w=c$, so $a=c/\lVert w\rVert^2$ and the distance between $x_1$ and $x_2$ is $\lVert aw\rVert=c/\lVert w\rVert$. That is the distance between the hyperplanes.
+
+Likewise the hyperplanes $w^\top x+b=\mp\rho/2$ are $\rho/\lVert w\rVert$ apart. The offset $b$ only translates them. Dividing $w$ and $b$ by $\rho/2$ turns this into $w^\top x+b=\mp 1$, a distance of $2/\lVert w\rVert$ apart. For the signed distance of an arbitrary point, write $x=x_\perp+r\,w/\lVert w\rVert$ with $x_\perp$ on the hyperplane. Then
+
+$$
+w^\top x+b=w^\top x_\perp+b+r\lVert w\rVert=r\lVert w\rVert,
+$$
+
+so $r=(w^\top x+b)/\lVert w\rVert$.
+
+Rescaling $(w,b)$ by a positive constant leaves the separating plane unchanged. It also rescales the numerator and denominator of the distance formula by the same factor. A functional score $w^\top x+b$ is not itself a geometric distance until the norm of $w$ has been accounted for.
+
+The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho$. For hard-margin separation, only the points on the margin determine the solution. Moving a point that is strictly beyond the margin, without crossing it, does not change the optimum.
+
+### Why maximise the margin?
+
+A large margin gives a training point some tolerance to perturbation along the normal before its classification changes. Learning theory also relates margins to the richness of a class of decision rules. A set is shattered if every binary labelling of it can be realised by the class. The VC dimension is the largest size of any shattered set. General position is not part of the definition. Affine half-spaces in $\mathbb{R}^p$ have VC dimension $p+1$. Some smaller degenerate configurations fail to be shattered, which is compatible with that maximum. The four XOR corners are one such configuration: half-spaces in the plane have VC dimension $3$, and those four points are not shattered.
+
+The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D$ (Burges, 1998).
+
+::: {#thm-sl-17-vapnik .theorem}
+## Vapnik's radius–margin bound
+
+For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0$. The classical radius–margin bound is
+
+$$
+h\le\min\Bigl\{\Bigl\lfloor\frac{D^2}{\rho^2}\Bigr\rfloor,\, p+1\Bigr\}.
+$$
+
+:::
+
+Here $D/\rho$ is the same ratio as ball radius divided by distance from the boundary to the nearest class. This is a margin-restricted capacity statement. The ordinary class of all linear decision boundaries does not acquire a smaller VC dimension merely because one fitted boundary happens to have a large training margin.
+
+For example, $D=10$, $\rho=2$ and $p=1000$ give $h\le 26$. Compare this with the ordinary half-space VC dimension $1001$. The restriction to labellings attainable with that margin is doing the work. It motivates a preference for large margins. It does not by itself supply a numerical test-error guarantee for one observed training set.
+
+## The hard-margin quadratic programme
+
+For linearly separable data there are no slack variables. The construction chooses the orientation of the hyperplane so that the gap is as large as possible, with the support vectors on the boundary of that gap. The algebra that turns the largest gap into the smallest $\lVert w\rVert$ is the derivation below. A factor $\tfrac12$ in front of $\lVert w\rVert^2$ does not move the hard-margin minimiser. It makes the derivative of the objective equal to $w$, which is the form the Lagrange multiplier step wants.
+
+Let the training set $\{(x_i,y_i)\}_{i=1}^{n}$, with $x_i\in\mathbb{R}^p$ and $y_i\in\{-1,1\}$, be separated by a hyperplane with margin $\rho$. Take a linear classifier with $\lVert w\rVert=1$. Then for each training example,
+
+$$
+\begin{aligned}
+w^\top x_i+b&\le -\rho/2 &&\text{if }y_i=-1,\\
+w^\top x_i+b&\ge \rho/2 &&\text{if }y_i=1,
+\end{aligned}
+$$
+
+which is the same statement as $y_i(w^\top x_i+b)\ge\rho/2$. The constraint is a Euclidean width only together with a convention for $\lVert w\rVert$. With $\lVert w\rVert=1$, $\rho$ is the full distance between the parallel planes $y(w^\top x+b)=\pm\rho/2$. Without that normalisation the same algebra describes the width $\rho/\lVert w\rVert$.
+
+For every support vector $x_s$ the inequality is an equality. After rescaling, dividing $w$ and $b$ by $\rho/2$, which does not alter the decision boundary, the distance between each $x_s$ and the hyperplane is
+
+$$
+r=\frac{y_s(w^\top x_s+b)}{\lVert w\rVert}=\frac{1}{\lVert w\rVert},
+$$
+
+and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2$.
+
+::: {#def-sl-17-hard-margin .definition}
+## Hard-margin primal
+
+Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to
+
+$$
+y_i(w^\top x_i+b)\ge 1,\qquad i=1,\ldots,n.
+$$
+
+:::
+
+An equivalent convention writes the objective as $w^\top w$ without the factor $\tfrac12$, and in the soft-margin case as $w^\top w+C\sum_i\xi_i$, while quoting the dual $Q(\alpha)=\sum_i\alpha_i-\tfrac12\sum_{i,j}\alpha_i\alpha_j y_i y_j x_i^\top x_j$ and the solution $w=\sum_i\alpha_i y_i x_i$. Those correspond to the objective $\tfrac12 w^\top w$ used here. In the separable case the factor does not change the minimiser, so the two forms are equivalent. In the soft-margin case it only rescales $C$: minimising $w^\top w+C\sum_i\xi_i$ gives $w=\tfrac12\sum_i\alpha_i y_i x_i$ with $0\le\alpha_i\le C$, which equals the $\tfrac12 w^\top w+C'\sum_i\xi_i$ problem with $C'=C/2$. The factor $\tfrac12$ is used so that the primal and the dual match.
+
+The feasible set is convex and the objective is strictly convex in $w$. Thus the optimal weight vector is unique when the hard-margin problem is feasible, and every local optimum is global. Strict convexity in $w$ does not establish uniqueness of all dual multipliers: several representations can give the same vector. The intercept is also unpenalised. These distinctions matter when comparing numerical output from different solvers.
+
+### The dual
+
+The primal minimises a quadratic in $w$ subject to one linear inequality per training point. Associate a Lagrange multiplier $\alpha_i\ge 0$ with each inequality. The Lagrangian is
+
+$$
+L(w,b,\alpha)=\frac12 w^\top w-\sum_{i=1}^{n}\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr].
+$$
+
+Set the derivatives in the primal variables to zero:
+
+$$
+\frac{\partial L}{\partial w}=w-\sum_{i=1}^{n}\alpha_i y_i x_i=0
+\quad\Rightarrow\quad
+w=\sum_{i=1}^{n}\alpha_i y_i x_i,
+$$
+
+$$
+\frac{\partial L}{\partial b}=-\sum_{i=1}^{n}\alpha_i y_i=0
+\quad\Rightarrow\quad
+\sum_{i=1}^{n}\alpha_i y_i=0.
+$$
+
+Substitute back. Then $\tfrac12 w^\top w=\tfrac12\sum_{i,j}\alpha_i\alpha_j y_i y_j x_i^\top x_j$, the linear term $\sum_i\alpha_i y_i w^\top x_i$ equals that same double sum, and $b\sum_i\alpha_i y_i=0$. What remains is a function of the multipliers alone.
+
+::: {#def-sl-17-hard-dual .definition}
+## Hard-margin dual
+
+$$
+\begin{aligned}
+\text{maximise}\quad
+Q(\alpha)&=\sum_{i=1}^{n}\alpha_i-\frac12\sum_{i=1}^{n}\sum_{j=1}^{n}\alpha_i\alpha_j y_i y_j x_i^\top x_j\\
+\text{subject to}\quad
+\sum_{i=1}^{n}\alpha_i y_i&=0,\qquad \alpha_i\ge 0.
+\end{aligned}
+$$
+
+:::
+
+This is again a quadratic programme, now in $\alpha$. It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
+
+The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector, and
+
+$$
+w=\sum_i\alpha_i y_i x_i,
+\qquad
+b=y_k-\sum_i\alpha_i y_i x_i^\top x_k
+\quad\text{for any }k\text{ with }\alpha_k>0.
+$$
+
+For a support vector, $y_k(w^\top x_k+b)=1$, and since $y_k^2=1$, $b=y_k-w^\top x_k$. The classifying function is
+
+$$
+f(x)=\operatorname{sign}\Biggl(\sum_i\alpha_i y_i x_i^\top x+b\Biggr),
+$$
+
+and one does not need $w$ explicitly. It relies on an inner product between the test point $x$ and the support vectors $x_i$, and solving the optimisation problem involved the inner products $x_i^\top x_j$ between all training points. Both facts are the key to nonlinear support vector machines.
+
+Strong duality holds: at the optimum $Q(\alpha)=\tfrac12\lVert w\rVert^2$. Strong duality is the convexity of the programme together with the existence of a strictly feasible point when the classes are linearly separable with a positive margin. The dual maximum equals the primal minimum. Complementary slackness identifies the support vectors. A multiplier that is zero drops its training point out of $w$.
+
+::: {#exm-sl-17-three-points .example}
+## Three points
+
+**Question.** Find the maximum-margin separator of $x_1=(1,0)$ with $y_1=-1$ and $x_2=(3,1)$, $x_3=(3,-1)$ with $y_2=y_3=+1$.
+
+**Solution.** By symmetry, guess that all three are support vectors, so each constraint is an equality:
+
+$$
+-(w_1+b)=1,\qquad 3w_1+w_2+b=1,\qquad 3w_1-w_2+b=1.
+$$
+
+The last two give $w_2=0$, and then $3w_1+b=1$ with $w_1+b=-1$ gives $w_1=1$, $b=-2$. So $w=(1,0)^\top$, the boundary is $x_1=2$, and the margin is $\rho=2/\lVert w\rVert=2$.
+
+To find $\alpha$ use $w=\sum_i\alpha_i y_i x_i$:
+
+$$
+-\alpha_1(1,0)+\alpha_2(3,1)+\alpha_3(3,-1)=(1,0)
+$$
+
+gives $\alpha_2=\alpha_3$ and $-\alpha_1+6\alpha_2=1$. The constraint $\sum_i\alpha_i y_i=0$ gives $-\alpha_1+2\alpha_2=0$. Hence $\alpha_1=2\alpha_2$ and $4\alpha_2=1$, so $\alpha=\bigl(\tfrac12,\tfrac14,\tfrac14\bigr)>0$. All three are support vectors. The dual objective is $Q=1-\tfrac12\lVert w\rVert^2=\tfrac12$, equal to the primal value $\tfrac12\lVert w\rVert^2=\tfrac12$. Checking the intercept formula, $b=y_1-\sum_i\alpha_i y_i x_i^\top x_1=-1-(1,0)\cdot(1,0)=-2$. Primal feasibility, dual feasibility, and equality of the two objectives certify the proposed optimum.
+
+:::
+
+## Soft-margin slack variables
+
+Overlapping classes can make the hard-margin constraints infeasible. Introduce a slack $\xi_i\ge 0$ to measure how much observation $i$ falls short of functional margin one. The linear penalty $C\sum_i\xi_i$ prices those violations against $\tfrac12\lVert w\rVert^2$. It leads to a particularly simple change in the dual: each multiplier is bounded above by $C$. A squared-slack penalty gives a different quadratic term in the dual.
+
+::: {#def-sl-17-soft-margin .definition}
+## Soft-margin primal
+
+Find $w$ and $b$ minimising
+
+$$
+\Phi(w,\xi)=\frac12 w^\top w+C\sum_{i=1}^{n}\xi_i
+$$
+
+subject to $y_i(w^\top x_i+b)\ge 1-\xi_i$ and $\xi_i\ge 0$ for all $i=1,\ldots,n$.
+
+:::
+
+Small $C$ gives a relatively strong preference for a small weight norm. Large $C$ places more emphasis on avoiding margin violations. For separable data, a sufficiently large $C$ recovers a hard-margin solution. For inseparable data, increasing $C$ cannot make a nonexistent hard-margin solution appear. Select the trade-off by validation.
+
+Introduce multipliers $\alpha_i\ge 0$ for the margin constraints and $\mu_i\ge 0$ for $\xi_i\ge 0$:
+
+$$
+L=\frac12 w^\top w+C\sum_i\xi_i
+-\sum_i\alpha_i\bigl[y_i(w^\top x_i+b)-1+\xi_i\bigr]
+-\sum_i\mu_i\xi_i.
+$$
+
+The derivatives with respect to $w$ and $b$ are as before, and $\partial L/\partial\xi_i=C-\alpha_i-\mu_i=0$. Since $\mu_i\ge 0$ this gives $\alpha_i\le C$, and the $\xi$-terms cancel on substitution. The dual problem is identical to the separable case except that the multipliers are bounded:
+
+$$
+\begin{aligned}
+\text{maximise}\quad
+Q(\alpha)&=\sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_j y_i y_j x_i^\top x_j\\
+\text{subject to}\quad
+\sum_i\alpha_i y_i&=0,\qquad 0\le\alpha_i\le C.
+\end{aligned}
+$$
+
+With squared slack, stationarity gives a relation involving $\xi_i$ rather than the same constant upper bound on $\alpha_i$. The issue is the changed objective. In the linear-slack problem, nonzero $\alpha_i$ identify support vectors, and
+
+$$
+w=\sum_i\alpha_i y_i x_i,
+\qquad
+b=y_k(1-\xi_k)-\sum_i\alpha_i y_i x_i^\top x_k
+\quad\text{for any }k\text{ with }\alpha_k>0,
+$$
+
+and $f(x)=\sum_i\alpha_i y_i x_i^\top x+b$, with no need to compute $w$ explicitly. In the intercept formula, $\xi_k$ is not known in advance. Complementary slackness gives $\mu_k\xi_k=0$, and $\mu_k=C-\alpha_k>0$ whenever $\alpha_k<C$, so $\xi_k=0$ for any $k$ with $0<\alpha_k<C$. Such a margin support vector gives $b=y_k-\sum_i\alpha_i y_i x_i^\top x_k$, as in the separable case.
+
+### What the multipliers say
+
+Complementary slackness gives three cases for a training point.
+
+| Multiplier | Position | Slack |
+|---|---|---|
+| $\alpha_i=0$ | $y_i f(x_i)\ge 1$: outside the margin or on it, correctly classified | $\xi_i=0$ |
+| $0<\alpha_i<C$ | $y_i f(x_i)=1$: exactly on the margin, a free support vector | $\xi_i=0$ |
+| $\alpha_i=C$ | $y_i f(x_i)\le 1$: inside the margin or misclassified, a bound support vector | $\xi_i=1-y_i f(x_i)\ge 0$ |
+
+Only points on or inside the margin influence the fit. On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
+
+### The hinge loss
+
+At the optimum each $\xi_i$ is as small as the constraints allow, so $\xi_i=\max\{0,\,1-y_i f(x_i)\}$. Substituting that value removes the slacks and leaves
+
+$$
+\sum_{i=1}^{n}\max\{0,\,1-y_i f(x_i)\}+\frac{1}{2C}\lVert w\rVert^2,
+$$
+
+a hinge loss plus a ridge penalty on $w$. Compare weight decay on [networks in practice](sl-16-networks-in-practice.qmd). The hinge is zero once the margin exceeds $1$: a point that is correctly classified and far from the boundary does not pull the fit. Squared error would keep pulling. The binomial deviance penalises errors roughly linearly, as the hinge does, and it never becomes exactly zero. The factor $1/(2C)$ plays the role of the regularisation parameter $\lambda$ in weight decay: small $C$ is strong regularisation.
+
+## The kernel trick
+
+A margin in the original coordinates cannot separate XOR, and it cannot separate a one-dimensional sample whose middle values belong to one class and whose two tails belong to the other. A map into a higher-dimensional feature space can turn either problem into a linear one. In one dimension, mapping $x\mapsto(x,x^2)$ separates the sandwiched classes with a line: the middle class sits at small $x^2$ and the two tails sit at large $x^2$. For a finite training set in which no two identical inputs carry opposite labels, some feature map makes the training set linearly separable. The general construction is a map $\phi:x\mapsto\phi(x)$.
+
+Both the dual and the classifier involve the data only through inner products. If every observation is mapped by $\phi$, the inner product becomes $\phi(x_i)^\top\phi(x_j)$, and any function $K$ that equals such an inner product can be written down without writing $\phi$.
+
+::: {#def-sl-17-kernel .definition}
+## Kernel
+
+A kernel is a function equivalent to an inner product in some feature space,
+
+$$
+K(x_i,x_j)=\phi(x_i)^\top\phi(x_j).
+$$
+
+The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points. The feature map is never computed.
+
+:::
+
+::: {#exm-sl-17-quadratic-kernel .example}
+## The quadratic kernel
+
+**Question.** For two-dimensional vectors $x=(x_1,x_2)^\top$, expand $K(x_i,x_j)=(1+x_i^\top x_j)^2$ as an inner product, and check it on $x=(1,2)$ and $x'=(3,1)$.
+
+**Solution.** Expanding,
+
+$$
+\begin{aligned}
+K(x_i,x_j)
+&=1+x_{i1}^2 x_{j1}^2+2 x_{i1}x_{j1}x_{i2}x_{j2}+x_{i2}^2 x_{j2}^2+2x_{i1}x_{j1}+2x_{i2}x_{j2}\\
+&=\phi(x_i)^\top\phi(x_j),
+\end{aligned}
+$$
+
+where
+
+$$
+\phi(x)=\bigl(1,\, x_1^2,\, \sqrt{2}\,x_1 x_2,\, x_2^2,\, \sqrt{2}\,x_1,\, \sqrt{2}\,x_2\bigr)^\top.
+$$
+
+Numerically, $K=(1+3+2)^2=36$, and
+
+$$
+\phi(x)=(1,1,2.83,4,1.41,2.83),\qquad \phi(x')=(1,9,4.24,1,4.24,1.41)
+$$
+
+have inner product $1+9+12+4+6+4=36$.
+
+:::
+
+### Which functions are kernels?
+
+A proposed similarity is not automatically an inner product. The necessary and sufficient condition is symmetry and positive semidefiniteness of every finite Gram matrix. This yields a representation in a Hilbert feature space. Mercer's spectral theorem adds regularity and domain assumptions. The finite-Gram criterion is the condition needed for the convex dual:
+
+$$
+\sum_{i=1}^{n}\sum_{j=1}^{n} c_i c_j K(x_i,x_j)\ge 0
+$$
+
+for every finite choice of input points and every real vector $c$. Equivalently, the Gram matrix $K_S=(K(x_i,x_j))_{ij}$ must be positive semidefinite. Checking one training Gram matrix checks that particular optimisation problem, not validity of the function on every possible data set.
+
+If $K_1$ and $K_2$ are kernels in this sense, so are $\alpha K_1+\beta K_2$ for $\alpha,\beta\ge 0$, the product $K_1 K_2$, and the powers $K^d$ for $d\in\mathbb{N}$. The product statement is the Schur product theorem for entrywise products of positive semi-definite matrices. These closure properties let new kernels be built from old ones.
+
+### Common kernels
+
+- **Linear.** $K(x_i,x_j)=x_i^\top x_j$, with $\phi(x)=x$ itself.
+- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}$. For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
+- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
+
+$$
+\begin{aligned}
+e^{-\lVert x-x'\rVert^2/(2\sigma^2)}
+&=e^{-\lVert x\rVert^2/(2\sigma^2)}\,e^{-\lVert x'\rVert^2/(2\sigma^2)}\,e^{x^\top x'/\sigma^2}\\
+&=e^{-\lVert x\rVert^2/(2\sigma^2)}\,e^{-\lVert x'\rVert^2/(2\sigma^2)}
+\sum_{n=0}^{\infty}\frac{(x^\top x')^n}{\sigma^{2n}\,n!}.
+\end{aligned}
+$$
+
+This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]$. The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
+
+### The nonlinear programme
+
+Replace each inner product by $K(x_i,x_j)$. The feature space may be infinite-dimensional, but the dual still has $n$ coefficients. The computational cost depends on evaluating kernels, the sample size, and the optimisation algorithm. Explicit feature coordinates have been avoided. Training cost has not been made independent of the kernel.
+
+$$
+\begin{aligned}
+Q(\alpha)&=\sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_j y_i y_j K(x_i,x_j)\\
+\text{subject to}\quad
+&\sum_i\alpha_i y_i=0,\qquad 0\le\alpha_i\le C.
+\end{aligned}
+$$
+
+The hard-margin version uses $\alpha_i\ge 0$. Combining it with the soft-margin approach adds the bound $C$. The solution is
+
+$$
+f(x)=\sum_i\alpha_i y_i K(x_i,x)+b,
+\qquad
+b=y_k-\sum_i\alpha_i y_i K(x_i,x_k)
+$$
+
+for any $k$ with $0<\alpha_k<C$. The optimisation techniques for finding the $\alpha_i$ remain the same.
+
+::: {#exm-sl-17-xor-kernel .example}
+## XOR with the quadratic kernel
+
+**Question.** Return to XOR with labels $y=\pm 1$ and points $x_1=(-1,-1)$ ($y=-1$), $x_2=(-1,1)$ ($+1$), $x_3=(1,-1)$ ($+1$), $x_4=(1,1)$ ($-1$). Use $K(x,x')=(1+x^\top x')^2$ and the hard-margin dual.
+
+**Solution.** The Gram matrix has $K_{ii}=(1+2)^2=9$ on the diagonal and, for $i\neq j$, $x_i^\top x_j\in\{0,-2\}$ so $K_{ij}=1$:
+
+$$
+K_S=\begin{pmatrix}
+9&1&1&1\\
+1&9&1&1\\
+1&1&9&1\\
+1&1&1&9
+\end{pmatrix}.
+$$
+
+By symmetry take all $\alpha_i=\alpha$. The constraint $\sum_i\alpha_i y_i=0$ holds because two labels are $+1$ and two are $-1$. Then
+
+$$
+\sum_{i,j} y_i y_j K_{ij}
+=4\cdot 9+\sum_{i\neq j} y_i y_j
+=36+\Bigl(\bigl(\sum_i y_i\bigr)^2-4\Bigr)
+=36+(0-4)=32,
+$$
+
+so $Q=4\alpha-16\alpha^2$, maximised at $\alpha=\tfrac18$. The decision function is $f(x)=\tfrac18\sum_i y_i K(x_i,x)+b$. Using the feature map above,
+
+$$
+w=\frac18\bigl(-\phi(x_1)+\phi(x_2)+\phi(x_3)-\phi(x_4)\bigr)
+=\frac18\bigl(0,0,-4\sqrt{2},0,0,0\bigr)^\top
+=\bigl(0,0,-\tfrac{\sqrt{2}}{2},0,0,0\bigr)^\top,
+$$
+
+because only the cross-product coordinate $\sqrt{2}\,x_1 x_2$ differs in sign between the classes: $\sqrt{2}\,x_1 x_2=+\sqrt{2}$ for $x_1,x_4$ and $-\sqrt{2}$ for $x_2,x_3$. Then
+
+$$
+f(x)=-\frac{\sqrt{2}}{2}\cdot\sqrt{2}\,x_1 x_2+b=-x_1 x_2+b.
+$$
+
+The support-vector condition $y_1 f(x_1)=1$ with $x_1=(-1,-1)$ gives $-(-1+b)=1$, so $b=0$. Hence $f(x)=-x_1 x_2$, which classifies all four XOR points correctly with functional margin exactly $1$. All four are support vectors. Since $\lVert w\rVert=1/\sqrt{2}$, the geometric distance to the separating hyperplane in feature space is $\sqrt{2}$ and the full slab width is $2\sqrt{2}$. The rule classifies a new point $(0.5,-0.5)$ as $+1$ ($f=0.25$) and $(2,2)$ as $-1$ ($f=-4$). The hand-built hidden layers on the neural-units page compute AND and OR. The kernel supplies, in the cross-product coordinate, exactly the feature that makes XOR linearly separable. The KKT equalities and the positive multipliers verify the solution directly. The zero contours of $-x_1 x_2$ are the coordinate axes.
+
+:::
+
+## Practice, computation, and extensions
+
+Decomposition methods optimise subsets of the dual coefficients while preserving feasibility. Sequential minimal optimisation updates a pair at a time, which allows the equality $\sum_i\alpha_i y_i=0$ to be maintained (Platt, 1999). A fully stored Gram matrix uses $n^2$ entries, but implementations can cache or recompute selected entries. Quadratic storage is a property of full-matrix storage, not a requirement of every implementation.
+
+Tune the kernel, $C$, and any kernel width inside the training data. Refit scaling within each validation fold because distances and inner products depend on units. For the Gaussian kernel, $\gamma=1/(2\sigma^2)$: small $\sigma$ makes similarity local. As $\sigma\to\infty$ at fixed inputs, $K(x,x')\to 1$, the constant kernel. A centred and rescaled leading-order expansion contains a linear inner product, but that is a different limiting argument and can require rescaling $C$. The unqualified statement that the radial kernel tends to the linear kernel is incorrect.
+
+Kernels can encode similarities for sequences, graphs, and other structured inputs, provided the resulting kernel meets the positivity condition. Related constructions include support vector regression and kernel principal components (Schölkopf, Smola and Müller, 1999; Burges, 1998). Comparative accuracy must be assessed for the actual representation, tuning procedure, and target population.
+
+The convex support-vector objective and a network's nonconvex objective have different optimisation geometry. Convexity does not make a fitted classifier insensitive to data or kernel choices, so ensembles can still differ through resampling, features, and tuning. A support vector machine produces a decision score. Its sign gives a binary label. For a linear machine with $w\neq 0$, divide the score by $\lVert w\rVert$ to obtain signed distance. A probability requires a separate calibration model assessed on data not used to fit that calibration. Multiclass fitting also requires a construction, such as one-versus-rest or pairwise classifiers.
+
+On the iris petal measurements, a linear kernel, a degree-two polynomial kernel, and a radial kernel, each at a fixed illustrative setting, cut the plane differently. That comparison is descriptive. It is not a tuned assessment.
+
+## Tune a radial kernel inside the training data
+
+Cross a small grid of costs and kernel widths. Standardisation is recomputed in each fold and internal scaling is disabled so the transformation is explicit. The held-out fold is used only to score a candidate $(C,\gamma)$. The labels that assess a setting are not the labels that train it. The helpers draw five stratified folds with seed $17006$ and scale each test fold with the training-fold means and standard deviations. The objects `train`, `test` and `iris_scaled` are the same iris split as on the networks page.
+
+```r
+fold <- stratified_folds(train$Species, 5, 17006)
+grid <- expand.grid(cost = c(0.1, 1, 10), gamma = c(0.1, 0.5, 2))
+grid$CV_error <- apply(grid, 1, function(pars) {
+  pred <- character(nrow(train))
+  for (f in 1:5) {
+    a <- fold != f
+    zz <- scale_train(train[a, 1:4], train[!a, 1:4])
+    fit <- e1071::svm(zz$train, train$Species[a], kernel = "radial",
+                      cost = pars[1], gamma = pars[2], scale = FALSE)
+    pred[!a] <- as.character(predict(fit, zz$test))
+  }
+  mean(pred != train$Species)
+})
+print(grid)
+#>    cost gamma CV_error
+#> 1   0.1   0.1  0.15238
+#> 2   1.0   0.1  0.03810
+#> 3  10.0   0.1  0.04762
+#> 4   0.1   0.5  0.07619
+#> 5   1.0   0.5  0.02857
+#> 6  10.0   0.5  0.02857
+#> 7   0.1   2.0  0.07619
+#> 8   1.0   2.0  0.04762
+#> 9  10.0   2.0  0.06667
+best <- grid[which.min(grid$CV_error), ]
+svm_fit <- e1071::svm(iris_scaled$train, train$Species,
+  kernel = "radial", cost = best$cost, gamma = best$gamma, scale = FALSE)
+mean(predict(svm_fit, iris_scaled$test) != test$Species)
+#> [1] 0.06667
+```
+
+The grid is intentionally modest. Two cells tie at cross-validated error $0.02857$; `which.min` keeps the first, cost $1$ and $\gamma=0.5$. The tuning score estimates a procedure trained on less data than the final fit, and minimising it adds selection optimism. The reported test error of the refit is $0.06667$. A kernel decision score is not automatically a calibrated probability.
+
+::: {.callout-note}
+## Key idea
+The support vector machine chooses the separating hyperplane with the largest margin $2/\lVert w\rVert$. The solution is a combination $\sum_i\alpha_i y_i x_i$ of the training points whose multipliers are nonzero, found from a convex quadratic programme that involves the data only through inner products. Replacing those inner products by a kernel $K(x,x')$ gives nonlinear classifiers in the original coordinates. The constant $C$ prices margin violations against the squared norm.
+:::
+
+## Exercises
+
+::: {#ex-sl-17-1 .exercise}
+## Distance to a hyperplane
+
+For $w=(3,4)^\top$ and $b=-5$, compute the signed distance of $(2,1)$ and $(0,0)$ from the hyperplane $w^\top x+b=0$, and the margin between $w^\top x+b=\pm 1$.
+
+[Solution](#sol-sl-17-1)
+
+:::
+
+::: {#ex-sl-17-2 .exercise}
+## A two-point machine
+
+Points $x_1=(3,3)$ with $y_1=+1$ and $x_2=(1,1)$ with $y_2=-1$. Solve the hard-margin dual: find $\alpha_1=\alpha_2$, $w$, $b$, and the margin. Verify that the margin equals the distance between the points.
+
+[Solution](#sol-sl-17-2)
+
+:::
+
+::: {#ex-sl-17-3 .exercise}
+## Which points matter?
+
+In the three-point example, add a fourth point $x_4=(6,0)$ with $y_4=+1$. Does the separator change? What are the new support vectors and $\alpha_4$?
+
+[Solution](#sol-sl-17-3)
+
+:::
+
+::: {#ex-sl-17-4 .exercise}
+## Kernel as an inner product
+
+Show that $K(x,x')=(1+xx')^2$ for scalars equals $\phi(x)^\top\phi(x')$ with $\phi(x)=(1,\sqrt{2}\,x,x^2)$. Using it, map the one-dimensional sandwiched data (middle class with $|x|\le 0.9$, tail class with $|x|\ge 1.5$) to $(\phi_2,\phi_3)$ and explain why a linear classifier in $\phi$-space can separate the classes.
+
+[Solution](#sol-sl-17-4)
+
+:::
+
+::: {#ex-sl-17-5 .exercise}
+## A Gram matrix
+
+For the Gaussian kernel with $\sigma=1$ and the points $0,1,2$ in one dimension, compute the Gram matrix and show that it is positive semi-definite by checking that its leading principal minors are positive, or that its eigenvalues are nonnegative.
+
+[Solution](#sol-sl-17-5)
+
+:::
+
+::: {#ex-sl-17-6 .exercise}
+## Interpreting multipliers
+
+In a soft-margin machine with $C=2$, three training points have $\alpha=0$, $\alpha=1.3$, and $\alpha=2$. For each, state where the point is relative to the margin and its slack. Which can be used to compute $b$?
+
+[Solution](#sol-sl-17-6)
+
+:::
+
+::: {#ex-sl-17-7 .exercise}
+## A tempting wrong turn
+
+A practitioner fits a Gaussian-kernel machine with a very large $\gamma$ and $C$ and reports $100\%$ training accuracy, concluding the problem is solved. Explain what has probably happened and how to check it.
+
+[Solution](#sol-sl-17-7)
+
+:::
+
+::: {#ex-sl-17-8 .exercise}
+## Read the geometry
+
+A hard-margin linear machine uses the canonical constraints $y_i(w^\top x_i+b)\ge 1$. For a fitted model, $w=(3,4)^\top$ and $b=-10$.
+
+(a) Explain $w$ and $b$, and give the decision-boundary equation.
+
+(b) Find the full distance between the two margin hyperplanes.
+
+(c) Explain what distinguishes support vectors and determine whether a positive observation at $(2,1)^\top$ satisfies the hard-margin constraint.
+
+[Solution](#sol-sl-17-8)
+
+:::
+
+::: {#ex-sl-17-9 .exercise}
+## A unit-norm constraint
+
+For two linearly separable classes, suppose $\lVert w\rVert=1$, $y_i\in\{-1,+1\}$ and $y_i(w^\top x_i+b)\ge\rho/2$ with $\rho>0$. The unit-norm convention is explicit.
+
+(a) Explain the geometric meaning of $w$, $b$ and $\rho$.
+
+(b) Give the equation of the decision boundary and the prediction rule away from it.
+
+(c) Explain what distinguishes support vectors from the remaining training observations and how they relate to the maximum margin.
+
+[Solution](#sol-sl-17-9)
+
+:::
+
+::: {#ex-sl-17-10 .exercise}
+## Nonlinear separation of XOR
+
+The four XOR observations $(0,0)$, $(1,0)$, $(0,1)$, $(1,1)$ are labelled $-1$, $+1$, $+1$, $-1$. Consider the feature map $\phi(x)=(x_1,x_2,x_1 x_2)^\top$.
+
+(a) Explain why a linear separator in the original two predictors is impossible.
+
+(b) Show that $f(x)=x_1+x_2-2x_1 x_2-1/2$ correctly classifies the four observations by its sign.
+
+(c) Explain how a linear separator in feature space can have a nonlinear boundary in the original space, and what a kernel supplies.
+
+[Solution](#sol-sl-17-10)
+
+:::

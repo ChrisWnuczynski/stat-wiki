@@ -1,0 +1,438 @@
+# Backpropagation
+
+A network output is determined once its weights are given. Learning reverses the task: change the weights to reduce a loss. With nonlinear hidden units, the gradient equations generally do not reduce to a solvable linear system. Derivatives have to be computed efficiently, and a separate rule has to turn those derivatives into a weight update.
+
+Backpropagation computes derivatives by applying the chain rule through the network in reverse order. Gradient descent uses those derivatives to take a step. The two ideas stay separate, so a change of optimiser can keep the same derivative calculation. Store the forward values and use the same weights throughout one backward pass.
+
+At a point with nonzero gradient, a sufficiently small step in the negative gradient direction decreases a differentiable objective. This is a local statement. It does not say that a chosen fixed step size always works, or that the eventual limit is a global minimum. Saturation can make the gradient tiny. A large step can overshoot or increase the loss.
+
+The objects below are the squared error, gradient descent for a single sigmoid layer, then the same calculation for a network with a hidden layer, a complete numerical step with a numerical check of the gradient, and the behaviour of learning on XOR. The units themselves are on [neural units](sl-14-neural-units.qmd). A sigmoid unit is the same log-odds map as [logistic regression](sl-10-logistic-regression.qmd). This page adds the hidden layer and the gradient calculation through it.
+
+## The error
+
+For classification the aim is a low error rate, or a related loss. For regression the aim is a small squared error. The performance measure used with the networks on this page is the sum of squared errors on the training data. Squared error is differentiable. It treats a numeric target the same way whether the target is a measurement or a class code. Any constant multiplier is absorbed into the learning rate, so the fitted direction does not depend on writing $\tfrac12$ in front of the sum. This page omits that factor. The omission is why a $2$ appears in every gradient.
+
+$$
+E=\sum_{i=1}^{n_{\mathrm{tr}}}\sum_{k=1}^{m} E_{ik}
+=\sum_{i=1}^{n_{\mathrm{tr}}}\sum_{k=1}^{m}\bigl(y_{ik}-f_{\mathrm{network},k}(x_i)\bigr)^2
+=\sum_{i=1}^{n_{\mathrm{tr}}}\sum_{k=1}^{m}\bigl(y_{ik}-o_{ik}\bigr)^2,
+$$
+
+where $y_{ik}$ is the $k$th correct output for pattern $i$ and $o_{ik}$ is the $k$th network output. Dividing by $m n_{\mathrm{tr}}$ gives the mean squared error, which does not affect the optimisation. The loss treats an error of a given size on each output as equally important. If that is the wrong weighting, the terms can be scaled by output.
+
+For targets in $\{0,1\}$, squared error on a single output equals absolute error when the prediction is also in $\{0,1\}$, because the nonzero difference is $1$. The display above is wider than that special case. With a sigmoid the output lies strictly between $0$ and $1$, and $(y_{ik}-o_{ik})^2$ is not a count of mistakes.
+
+The free parameters are the weights and biases, and possibly the number of hidden units. The bias weights are connected to every hidden and output unit. Each is a weight from an extra input $x_0$ that is always $1$.
+
+Fix the architecture while differentiating. Its size is a separate choice. The weights form a vector in parameter space, and $\nabla E$ collects one partial derivative per coordinate. In the Euclidean geometry of that space, $-\nabla E$ is the direction of steepest local decrease for a fixed step length. If only one coordinate is changed, move opposite the sign of that coordinate's derivative.
+
+## Gradient descent
+
+::: {#def-sl-15-gradient-descent .definition}
+## Basic gradient-descent learning
+
+1. Choose a random set of initial weights, for example from the uniform distribution on $[-0.5,0.5]$.
+2. Repeat:
+   - Run every input training pattern through the network and record the output values of the hidden and output units.
+   - Calculate $E$ for the current weights.
+   - Update every weight by
+   $$
+   w'=w-\varepsilon\frac{\partial E}{\partial w}=w+\Delta w,
+   $$
+   until a stopping condition holds: the performance is acceptable, or the weights are barely changing.
+
+:::
+
+The learning rate $\varepsilon>0$ is the step size along minus the gradient. The value $0.1$ is an example of a step size. It is not a distinguished constant.
+
+In one dimension the error is a curve in the single weight. The update subtracts $\varepsilon$ times the derivative, so the step length is $\varepsilon$ times the slope. A steep region takes a longer step, and a large $\varepsilon$ can jump over a valley. A flat region, where the derivative is near zero, barely moves. A start in one basin stays in that basin under a small enough step. Momentum adds a fraction of the previous step and can cross a flat ridge. A mini-batch replaces the full gradient by an average over a random subset and so adds noise to the gradient. A line search spends several evaluations of the loss on one step. A second-order step uses the Hessian and costs more per iteration.
+
+A randomly sampled mini-batch can give an unbiased estimate of the gradient of the mean loss. That expectation, with the current weights held fixed, is the relevant property. The angle of one noisy draw is not a convergence argument. Its variance and the learning-rate schedule still affect the trajectory. One pass through all the training patterns is an epoch. NETtalk, on [networks in practice](sl-16-networks-in-practice.qmd), is the count used later.
+
+For checking a gradient, perturb one weight at a time and compare the analytical derivative with $[E(w+\delta)-E(w-\delta)]/(2\delta)$. A very large $\delta$ causes approximation error. A very small one causes cancellation in floating-point arithmetic. Try a small range of steps and compare absolute as well as relative discrepancies, especially near zero derivatives. This check is expensive for training and useful for finding a missing sign or factor.
+
+To first order, $E(w+\Delta w)\approx E(w)+(\partial E/\partial w)\,\Delta w$, which is decreased most for a given step length by taking $\Delta w$ proportional to $-\partial E/\partial w$. What this establishes is a descent direction. The assumption that does the work is that the step is small enough for the remainder to stay smaller than the linear term. The XOR runs below show what the same update does when that assumption fails.
+
+## A single layer of sigmoid units
+
+Consider a network with only one layer of weights and no hidden units, with sigmoid outputs $o_{ik}=g(z_{ik})$ and $z_{ik}=\sum_{j=0}^{p} w_{jk} x_{ij}$. Differentiate one weight $w_{ab}$, from input $a$ to output $b$. Differentiate the sum of squares, keep the single output that depends on this weight, and multiply by the sigmoid slope and by $\partial z_{ib}/\partial w_{ab}=x_{ia}$.
+
+$$
+\frac{\partial E}{\partial w_{ab}}
+=\sum_{i=1}^{n_{\mathrm{tr}}}\sum_{k=1}^{m}
+-2\bigl(y_{ik}-o_{ik}\bigr)\frac{\partial o_{ik}}{\partial w_{ab}}.
+$$
+
+Only $o_{ib}$ depends on $w_{ab}$, so the inner sum over outputs collapses to the term $k=b$. The sigmoid derivative $g'(z)=e^{-z}g(z)^2$ is the identity on the [neural units](sl-14-neural-units.qmd) page, and $\partial z_{ib}/\partial w_{ab}=x_{ia}$, so
+
+$$
+\frac{\partial o_{ib}}{\partial w_{ab}}=g'(z_{ib})\,x_{ia}=e^{-z_{ib}} o_{ib}^2\, x_{ia}.
+$$
+
+The gradient and the descent step are
+
+$$
+\frac{\partial E}{\partial w_{ab}}
+=-2\sum_{i=1}^{n_{\mathrm{tr}}}\bigl(y_{ib}-o_{ib}\bigr)\,e^{-z_{ib}} o_{ib}^2\, x_{ia},
+\qquad
+\Delta w_{ab}
+=2\varepsilon\sum_{i=1}^{n_{\mathrm{tr}}}\bigl(y_{ib}-o_{ib}\bigr)\,e^{-z_{ib}} o_{ib}^2\, x_{ia}.
+$$
+
+Including the bias weights as $w_{0k}$ means $x_{i0}=1$ for all patterns. The three displays are $\partial E/\partial w_{ab}$ for squared error without a leading $\tfrac12$, under a logistic activation. The factor $2$ is the derivative of a square. The factor $e^{-z_{ib}}$ is the numerator of $g'$.
+
+A common slip drops that numerator and writes $\partial o/\partial w_{ab}=x_{ia}/(1+e^{-\sum_j w_{jk}x_{ij}})^2$, concluding $\Delta w_{ab}=2\varepsilon\sum_i [y_{ib}-o_{ib}]\,o_{ib}^2 x_{ia}$ with no factor $e^{-z_{ib}}$. The derivative of the logistic function is $e^{-z}/(1+e^{-z})^2$, so the numerator $e^{-z}$ has been dropped. The correct result is the display above. The hidden–output update derived next contains $e^{-z_{ic}}$, and the two agree once the factor is restored. The error matters numerically: in the worked step below, the formula without the factor overstates a gradient component by $e^{z}\approx 1.35$ and fails the numerical gradient check.
+
+::: {#thm-sl-15-logistic-link .theorem}
+## Squared error is not the logistic likelihood
+
+For one sigmoid output, squared-error fitting and Bernoulli likelihood fitting are different optimisation problems. The squared-error gradient includes the factor $o_i(1-o_i)$, which becomes small at saturation. The gradient of the negative log-likelihood is $\sum_i (o_i-y_i)x_{ia}$, without that extra factor. The score of the positive log-likelihood has the opposite sign. Distinguish the gradient from the descent update. The likelihood itself is the [logistic regression](sl-10-logistic-regression.qmd) fit. The calculation here is the squared-error gradient, including through hidden layers.
+
+:::
+
+## Backpropagation through one hidden layer
+
+For a network with one hidden layer, learning has three phases: a feed-forward phase, an error calculation, and a weight modification. The algebra is the chain rule written along those phases. The object to keep is the update for one weight.
+
+**Feed forward.** For each pattern $i$, with $g(u)=1/(1+e^{-u})$,
+
+$$
+u_{iq}=\sum_{j=0}^{p} w_{jq} x_{ij},\qquad
+h_{iq}=g(u_{iq}),\qquad
+z_{ik}=\sum_{q=0}^{l} w_{qk} h_{iq},\qquad
+o_{ik}=g(z_{ik}),
+$$
+
+with $x_{i0}=h_{i0}=1$.
+
+**Error.** $E_{ik}=[y_{ik}-o_{ik}]^2$ and $E=\sum_i\sum_k E_{ik}$.
+
+**Weight modification.** $w=w_{\mathrm{old}}+\Delta w$ with $\Delta w=-\varepsilon\,\partial E/\partial w$.
+
+Start at the loss and work backwards through each dependency. A hidden unit influences several outputs, so its derivative sums the contributions along all outgoing paths. This is sensitivity accounting. Once those sensitivities have been computed, gradient descent or another optimiser can use them.
+
+### Hidden–output weights
+
+Let $w_{bc}$ connect hidden unit $b\in\{0,\ldots,l\}$ to output $c\in\{1,\ldots,m\}$, so $b=0$ is the output bias. Only the term $E_{ic}$ depends on $w_{bc}$. The sigmoid slope contributes $e^{-z_{ic}}o_{ic}^2$, and the signal on this connection is the hidden activation $h_{ib}$.
+
+$$
+\begin{aligned}
+\Delta w_{bc}
+&=-\varepsilon\frac{\partial E}{\partial w_{bc}}
+=-\varepsilon\sum_{i=1}^{n_{\mathrm{tr}}}\frac{\partial E_{ic}}{\partial w_{bc}},\\
+\frac{\partial E_{ic}}{\partial w_{bc}}
+&=-2[y_{ic}-o_{ic}]\frac{\partial o_{ic}}{\partial w_{bc}},\\
+\frac{\partial o_{ic}}{\partial w_{bc}}
+&=g'(z_{ic})\frac{\partial z_{ic}}{\partial w_{bc}}
+=e^{-z_{ic}} o_{ic}^2\, h_{ib}.
+\end{aligned}
+$$
+
+Hence
+
+$$
+\Delta w_{bc}
+=2\varepsilon\sum_{i=1}^{n_{\mathrm{tr}}}\bigl(y_{ic}-o_{ic}\bigr)\,e^{-z_{ic}} o_{ic}^2\, h_{ib},
+$$
+
+where $h_{i0}=1$ for the bias. The factor $e^{-z}o^2$ is again $g'(z)$.
+
+### Input–hidden weights
+
+Let $w_{ab}$ connect input $a\in\{0,\ldots,p\}$ to hidden unit $b\in\{1,\ldots,l\}$. This weight affects every output, because every output depends on $h_{ib}$. The chain rule therefore sums over outputs. Each contribution is a residual, times the output slope, times the outgoing weight $w_{bk}$ that carried this hidden unit into that output, times the hidden slope, times the input $x_{ia}$.
+
+$$
+\begin{aligned}
+\frac{\partial E_{ik}}{\partial w_{ab}}
+&=-2[y_{ik}-o_{ik}]\frac{\partial o_{ik}}{\partial w_{ab}},\\
+\frac{\partial o_{ik}}{\partial w_{ab}}
+&=e^{-z_{ik}} o_{ik}^2\frac{\partial z_{ik}}{\partial w_{ab}}
+=e^{-z_{ik}} o_{ik}^2\, w_{bk}\,\frac{\partial h_{ib}}{\partial w_{ab}},\\
+\frac{\partial h_{ib}}{\partial w_{ab}}
+&=g'(u_{ib})\frac{\partial u_{ib}}{\partial w_{ab}}
+=e^{-u_{ib}} h_{ib}^2\, x_{ia}.
+\end{aligned}
+$$
+
+Summing over $k$ and $i$,
+
+$$
+\Delta w_{ab}
+=2\varepsilon\sum_{i=1}^{n_{\mathrm{tr}}}\sum_{k=1}^{m}
+\bigl(y_{ik}-o_{ik}\bigr)\,e^{-z_{ik}} o_{ik}^2\, w_{bk}\, e^{-u_{ib}} h_{ib}^2\, x_{ia}.
+$$
+
+This is the update $-\varepsilon\,\partial E/\partial w_{ab}$, not the derivative itself. Its factors trace every path from the input weight to the loss. All are evaluated at the weights used in the forward pass. Mixing old activations with newly updated outgoing weights would not evaluate one gradient.
+
+Pulling out the factors that do not depend on $k$,
+
+$$
+\Delta w_{ab}
+=2\varepsilon\sum_{i=1}^{n_{\mathrm{tr}}}
+e^{-u_{ib}} h_{ib}^2\, x_{ia}
+\Biggl(\sum_{k=1}^{m}\bigl(y_{ik}-o_{ik}\bigr)\,e^{-z_{ik}} o_{ik}^2\, w_{bk}\Biggr).
+$$
+
+The inner sum is the share of the output error that belongs to hidden unit $b$. Factoring it out does not change the value. It shows which pieces depend on the output index and which pieces are local to the hidden unit.
+
+### The delta form
+
+Both updates have the structure "input signal times local derivative times error signal". Using $g'(z)=g(z)\bigl(1-g(z)\bigr)$, which is the same identity as $e^{-z}g(z)^2$, define for pattern $i$ the error signals
+
+$$
+\delta_{ik}^{(o)}=-2\bigl(y_{ik}-o_{ik}\bigr)\,o_{ik}\bigl(1-o_{ik}\bigr),
+\qquad
+\delta_{iq}^{(h)}=h_{iq}\bigl(1-h_{iq}\bigr)\sum_{k=1}^{m} w_{qk}\,\delta_{ik}^{(o)}.
+$$
+
+Then
+
+$$
+\frac{\partial E}{\partial w_{qk}}=\sum_{i}\delta_{ik}^{(o)} h_{iq},
+\qquad
+\frac{\partial E}{\partial w_{jq}}=\sum_{i}\delta_{iq}^{(h)} x_{ij},
+$$
+
+and the update is $\Delta w=-\varepsilon\,\partial E/\partial w$. Because $e^{-z}o^2=o(1-o)$,
+
+$$
+\delta_{ik}^{(o)}=-2[y_{ik}-o_{ik}]\,e^{-z_{ik}} o_{ik}^2,
+$$
+
+and $\delta_{iq}^{(h)}$ equals the bracketed sum in the factored input–hidden update, times $-2$, times $e^{-u}h^2$. The output error is propagated backwards through the weights $w_{qk}$, and each hidden unit receives its share. That backward pass is where the name comes from.
+
+::: {#def-sl-15-backprop .definition}
+## Backpropagation, batch form
+
+For one pass through the data with current weights:
+
+1. Forward: for every pattern compute and store $u_{iq}$, $h_{iq}$, $z_{ik}$, $o_{ik}$.
+2. Output deltas: $\delta_{ik}^{(o)}$ from the definition above.
+3. Backward: hidden deltas $\delta_{iq}^{(h)}$ from the definition above.
+4. Gradients: $G_{qk}=\sum_i \delta_{ik}^{(o)} h_{iq}$ and $G_{jq}=\sum_i \delta_{iq}^{(h)} x_{ij}$, with $h_{i0}=x_{i0}=1$.
+5. Update: $w\leftarrow w-\varepsilon G$ for every weight.
+
+:::
+
+The forward phase stores, for each training input, the hidden and output values and the weighted inputs that produced them. The backward phase multiplies those stored values by the deltas. Nothing in the algorithm minimises $E$ in closed form. Each pass is one gradient step.
+
+::: {#exm-sl-15-one-step .example}
+## One backpropagation step, checked numerically
+
+**Question.** A network has $p=2$ inputs, $l=2$ hidden sigmoid units, and $m=1$ sigmoid output. For the single training pattern $x=(1,0)$, $y=1$ the weights are, with the first index $0$ for the bias,
+
+$$
+\begin{aligned}
+w_{01}&=0.1,& w_{11}&=0.4,& w_{21}&=-0.3,\\
+w_{02}&=-0.2,& w_{12}&=0.3,& w_{22}&=0.2,\\
+w_{01}^{\mathrm{out}}&=0.2,& w_{11}^{\mathrm{out}}&=0.5,& w_{21}^{\mathrm{out}}&=-0.4.
+\end{aligned}
+$$
+
+Here $w_{jq}$ is the weight from input $j$ to hidden unit $q$, and $w_{q1}^{\mathrm{out}}$ is the weight from hidden unit $q$ (or the bias, $q=0$) to the output. Perform one gradient step with $\varepsilon=0.5$.
+
+**Solution.** Forward. $u_1=0.1+0.4(1)+(-0.3)(0)=0.5$ and $u_2=-0.2+0.3(1)+0.2(0)=0.1$, so $h_1=g(0.5)=0.6225$ and $h_2=g(0.1)=0.5250$. Then
+
+$$
+z=0.2+0.5(0.6225)-0.4(0.5250)=0.3012
+$$
+
+and $o=g(0.3012)=0.5748$. The error is $E=(1-0.5748)^2=0.1808$.
+
+Output delta. $\delta^{(o)}=-2(1-0.5748)(0.5748)(0.4252)=-0.2079$. Gradients of the output weights are $\delta^{(o)}\times(1,h_1,h_2)=(-0.2079,-0.1294,-0.1091)$.
+
+Hidden deltas.
+
+$$
+\delta_1^{(h)}=h_1(1-h_1)\,w_{11}^{\mathrm{out}}\,\delta^{(o)}
+=0.2350\times 0.5\times(-0.2079)=-0.02443,
+$$
+
+$$
+\delta_2^{(h)}=0.2494\times(-0.4)\times(-0.2079)=+0.02074.
+$$
+
+The gradients of the input–hidden weights are $\delta_q^{(h)}\times(1,x_1,x_2)=\delta_q^{(h)}\times(1,1,0)$: $(-0.02443,-0.02443,0)$ for unit $1$ and $(0.02074,0.02074,0)$ for unit $2$. The weights from the second input have zero gradient because $x_2=0$.
+
+Check. Central differences with $\delta=10^{-6}$ for all nine weights agree with these analytical gradients to $2\times 10^{-11}$.
+
+Update with $\varepsilon=0.5$:
+
+$$
+\begin{aligned}
+w_{01}&=0.1+0.5(0.02443)=0.1122, & w_{11}&=0.4122,\\
+w_{02}&=-0.2104, & w_{12}&=0.2896,
+\end{aligned}
+$$
+
+and the output weights become $0.2+0.5(0.2079)=0.3039$, $0.5+0.5(0.1294)=0.5647$, $-0.4+0.5(0.1091)=-0.3454$. The new output is $o=0.6175$ and the error has fallen from $0.1808$ to $0.1463$.
+
+:::
+
+Automatic differentiation applies the chain rule to the elementary operations of the computation. It evaluates the same derivative the algebra above organises by hand. The central-difference check is a separate numerical test of that derivative.
+
+## How many weights?
+
+A hidden layer that sees every input, and an output layer that sees every hidden unit, produces one weight per connection, plus a bias on every unit. The count is
+
+$$
+(p+1)\,l+(l+1)\,m.
+$$
+
+NETtalk had $p=7\times 29=203$ inputs, $l=80$ hidden units and $m=26$ output units: $204\times 80+81\times 26=16320+2106=18426$ weights. The search for a global minimum of $E$ is a search in that dimension.
+
+A large parameter count raises estimation and optimisation questions. It does not prove that useful prediction is impossible. Symmetries can make individual weights non-identifiable even when the fitted function is well determined. A smaller network reduces one source of flexibility, and it can underfit or be harder to optimise. Compare functions and validation performance.
+
+::: {#thm-sl-15-symmetry .theorem}
+## Local minima, plateaus, and symmetry
+
+The loss is generally nonconvex. A run can approach a local minimum, a saddle or a nearly flat region, or fail to settle. Permuting hidden units and their incident weights preserves the function. There are up to $l!$ distinct permutations, fewer if some units coincide. Fully symmetric hidden-unit initialisation preserves that symmetry under deterministic gradient updates. Random initialisation breaks it. For sigmoids, replacing $g(u)$ by $g(-u)=1-g(u)$ also requires compensating outgoing weights and biases to preserve the function.
+
+:::
+
+The loss need not be convex, so a run can stop at a local minimum. The symmetry repeats each minimum, and a constant initialisation never breaks that symmetry. The start matters. The practical obstruction is often a flat region of the loss surface, where the gradient is near zero without the point being a minimiser. Saturation of a sigmoid is one way to land in such a region: $g'$ is then close to zero, and the chain rule multiplies every upstream weight by that small factor.
+
+## Behaviour on XOR
+
+Training a $2$–$2$–$1$ sigmoid network on XOR is where the learning rate and the random start stop being abstract. Some runs can remain on a plateau. Large steps can cause saturation or unstable updates. A finite trajectory is evidence about one implementation and one starting point. It is not a general convergence guarantee.
+
+Eight random starts and five learning rates, recomputed for a seeded implementation, produce total squared-error curves on a logarithmic scale. The paths differ. Rates $0.1$, $0.5$, $2$, $8$ and $32$ do not trace the same curve. The hidden units learn a nonlinear representation in which the output can separate the classes. Hidden units may swap, change sign with compensating weights, or find different valid representations. Their particular weights are not unique scientific parameters. The existence of several representations is the same symmetry as above.
+
+The batch update below is logistic units, squared error with no factor $\tfrac12$, and one gradient step per epoch. The laboratory underneath is the numerical check.
+
+```r
+# Batch backpropagation for one hidden layer, logistic units,
+# squared error with no factor 1/2.
+g <- function(z) 1 / (1 + exp(-z))
+backprop <- function(X, Y, l = 2, eps = 0.5, epochs = 5000, seed = 1) {
+  set.seed(seed)
+  X1 <- cbind(1, X)                                    # bias input x0 = 1
+  W1 <- matrix(runif((ncol(X) + 1) * l, -0.5, 0.5), ncol(X) + 1, l)
+  W2 <- matrix(runif((l + 1) * ncol(Y), -0.5, 0.5), l + 1, ncol(Y))
+  sse <- numeric(epochs)
+  for (e in 1:epochs) {
+    H <- g(X1 %*% W1); H1 <- cbind(1, H)               # feed forward
+    O <- g(H1 %*% W2)
+    sse[e] <- sum((Y - O)^2)                           # error
+    dO <- -2 * (Y - O) * O * (1 - O)                   # output deltas
+    dH <- (dO %*% t(W2[-1, , drop = FALSE])) * H * (1 - H)  # hidden deltas
+    W2 <- W2 - eps * crossprod(H1, dO)                 # weight updates
+    W1 <- W1 - eps * crossprod(X1, dH)
+  }
+  list(W1 = W1, W2 = W2, sse = sse)
+}
+X <- rbind(c(0, 0), c(0, 1), c(1, 0), c(1, 1))
+Y <- matrix(c(0, 1, 1, 0), ncol = 1)
+fit <- backprop(X, Y)
+tail(fit$sse, 1)                                       # near 0 for most seeds
+```
+
+## A numerical gradient check
+
+Before trusting a training run, compare the analytic gradient with central finite differences at a fixed set of weights that are not saturated. Both gradients refer to the same total squared-error objective, with no factor of $\tfrac12$. Agreement at one point checks the implemented derivative. It does not prove that training will converge, and it does not speak to generalisation.
+
+The objects `xor_x` and `xor_y` are the four XOR inputs and the labels $(0,1,1,0)$. The function `backprop_r` is the same batch update, returning a loss vector.
+
+```r
+X <- cbind(1, xor_x); Y <- matrix(xor_y, ncol = 1)
+w <- seq(-0.4, 0.4, length.out = 9)
+loss_grad <- function(w) {
+  W1 <- matrix(w[1:6], 3, 2); W2 <- matrix(w[7:9], 3, 1)
+  H <- plogis(X %*% W1); Hb <- cbind(1, H)
+  O <- plogis(Hb %*% W2)
+  dO <- 2 * (O - Y) * O * (1 - O)
+  dH <- (dO %*% t(W2[-1, , drop = FALSE])) * H * (1 - H)
+  list(value = sum((O - Y)^2),
+       gradient = c(crossprod(X, dH), crossprod(Hb, dO)))
+}
+h <- 1e-5
+numeric_grad <- sapply(seq_along(w), function(j) {
+  plus <- minus <- w; plus[j] <- plus[j] + h; minus[j] <- minus[j] - h
+  (loss_grad(plus)$value - loss_grad(minus)$value) / (2 * h)
+})
+max_error <- max(abs(numeric_grad - loss_grad(w)$gradient))
+max_error
+#> [1] 1.885e-11
+stopifnot(max_error < 1e-7)
+trained <- backprop_r(seed = 1, epochs = 6000)
+tail(trained$loss, 1)
+#> [1] 0.0009966
+```
+
+The maximum absolute discrepancy is $1.885\times 10^{-11}$. This checks the implemented derivative at this point. The learning curves use R's random-number generator, so their trajectories need not match an earlier implementation in another language.
+
+::: {.callout-note}
+## Key idea
+Backpropagation evaluates the gradient by reusing local derivatives. The forward pass supplies activations. The backward pass carries sensitivities through outgoing weights. The optimiser then updates parameters. Numerical gradient checks verify that calculation. They do not certify the model, the optimiser's global success, or its performance on new observations.
+:::
+
+## Exercises
+
+::: {#ex-sl-15-1 .exercise}
+## Forward pass
+
+For the network of the worked backpropagation step, compute the output for the pattern $x=(0,1)$.
+
+[Solution](#sol-sl-15-1)
+
+:::
+
+::: {#ex-sl-15-2 .exercise}
+## A gradient by hand
+
+A single sigmoid unit has $z=w_0+w_1 x$, $w_0=0$, $w_1=1$, and a single pattern $x=2$, $y=0$. Compute $E=(y-o)^2$, $\partial E/\partial w_1$ using the single-layer formula, and the same derivative by a central difference with $\delta=0.001$. Then show that the formula without the factor $e^{-z}$ would give a different answer.
+
+[Solution](#sol-sl-15-2)
+
+:::
+
+::: {#ex-sl-15-3 .exercise}
+## Counting weights
+
+Use $(p+1)l+(l+1)m$ to count the weights of a network with $p=10$ inputs, $l=5$ hidden units, and $m=3$ outputs. Compare with the number of parameters of a multinomial logistic regression on the same inputs and outputs.
+
+[Solution](#sol-sl-15-3)
+
+:::
+
+::: {#ex-sl-15-4 .exercise}
+## Symmetric start
+
+Show that if all hidden units of a network start with identical incoming weights and identical outgoing weights, then batch gradient descent keeps them identical for all time. What does this say about initialising all weights at $0$?
+
+[Solution](#sol-sl-15-4)
+
+:::
+
+::: {#ex-sl-15-5 .exercise}
+## Delta form
+
+Verify that the input–hidden update equals $-\varepsilon\sum_i \delta_{ib}^{(h)} x_{ia}$ with $\delta^{(h)}$ as defined above.
+
+[Solution](#sol-sl-15-5)
+
+:::
+
+::: {#ex-sl-15-6 .exercise}
+## Saturation
+
+For a sigmoid output unit with squared-error loss, a pattern with target $y=1$ has net input $z=-8$. Compute the output and the gradient $\partial E/\partial z$, and compare with the gradient at $z=-1$. What does this say about recovering from a confidently wrong prediction, and how does cross-entropy loss change the picture?
+
+[Solution](#sol-sl-15-6)
+
+:::
+
+::: {#ex-sl-15-7 .exercise}
+## One backpropagation update
+
+A one-input network has $h=g(ax+c)$, $o=g(vh+b)$ and loss $L=\tfrac12(o-y)^2$, where $g(z)=1/(1+e^{-z})$.
+
+(a) Derive $\partial L/\partial v$ and $\partial L/\partial b$.
+
+(b) Derive $\partial L/\partial a$, identifying the factors contributed by the chain rule.
+
+(c) Explain the sign and the role of the learning rate in one gradient-descent update.
+
+[Solution](#sol-sl-15-7)
+
+:::

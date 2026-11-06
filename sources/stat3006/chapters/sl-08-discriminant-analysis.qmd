@@ -1,0 +1,581 @@
+# Statistical classifiers and discriminant analysis
+
+Suppose a new iris flower arrives with four measurements and no species label. Labelled flowers are available, so the task is to predict an existing class. Even with good measurements, species can overlap. Classification therefore needs two ingredients: information about which labels are plausible, and a rule for deciding what to do with that information.
+
+The route on this page is to model the distribution of the predictors inside each class and then apply Bayes' theorem. If $f_g$ is the density of class $g$ and $\pi_g$ is the probability of that class before the measurements are seen, the probability of class $g$ given the measurements is proportional to $\pi_g f_g(\mathbf{x})$. Linear discriminant analysis takes each class to be multivariate normal and forces those normals to share one covariance. Quadratic discriminant analysis estimates a separate covariance in each class. The extra matrices can follow shapes that one shared matrix cannot. They are also estimated from smaller samples, so a more flexible covariance buys a reduction in structural bias and pays for it in estimation noise, especially when a class is small.
+
+The same mathematics can be used for documents, manufactured parts, or diagnostic measurements, and the meaning of a mistake changes with the application. Choosing a class label and assessing its consequences are separate steps. The first loss treated below counts every wrong label as equally costly. Unequal costs come immediately after that rule.
+
+The outcome has to be defined before modelling. A current condition and an event over a specified future period are different labels. A dataset whose follow-up varies between observations cannot simply be relabelled as a common fixed-horizon outcome. The probability model answers the question encoded in its response variable.
+
+The linear log-odds model, $\log(p_1/p_0)=\beta_0+\mathbf{x}^\top\boldsymbol\beta$, is a direct model for class probabilities. It is derived on [Categorical responses](04-categorical-responses.qmd). This page derives the Bayes classifier from class-conditional densities, and then the normal discriminant rules: linear and quadratic discriminant analysis, Fisher's discriminant, and the mixture and kernel-density versions. The Bayes rule below is the classifier one would use if the class densities and the class probabilities were known. The rest of the page estimates those densities. Estimating the error of a fitted rule on fresh observations is a separate calculation, on [Estimating error rates](sl-09-error-rates.qmd). Classifiers that model the posterior directly, or that avoid a probability model for the predictors, are a different construction from the plug-in rules derived here.
+
+## The classification problem
+
+The object is a rule that reads a new measurement vector and returns a class. A density estimator returns a density. A clustering method invents groups rather than using labels already in hand. The rule has to be a function of the new vector and of the labelled training set.
+
+::: {#def-sl-08-classifier .definition}
+## Training data and classifier
+
+The training data consist of multivariate observations $\mathbf{x}_1,\ldots,\mathbf{x}_n\in\R^p$ of $p$ predictor variables, stored as the rows of a data matrix $X_{\mathrm{all}}$, together with class labels $\mathbf{y}_{\mathrm{all}}=(y_1,\ldots,y_n)^\top$, $y_i\in\{1,\ldots,G\}$, where $G$ is the number of classes. A classifier is a function
+
+$$
+\eta^{(X_{\mathrm{all}},\mathbf{y}_{\mathrm{all}})}(\mathbf{x})\in\{1,\ldots,G\}
+$$
+
+of a new observation $\mathbf{X}=\mathbf{x}$ and the training set.
+
+:::
+
+Assume initially that the labelled pairs are independent draws from a target population. Its class probabilities are $\pi_1,\ldots,\pi_G$, summing to one. These are called prior class probabilities because they describe an item before its measurements are observed. A prior distribution on an unknown parameter is a different object. Representative training proportions estimate them by
+
+$$
+\widehat\pi_g=\frac1n\sum_{i=1}^{n}\mathbf{1}\{y_i=g\}.
+$$
+
+Those proportions estimate the population priors when each case was drawn from the target distribution without fixing the class sizes in advance. A case–control sample that enrols equal numbers of cases and controls has class counts chosen by the design. Its proportions describe the sample. The priors then have to come from outside the training counts. External prevalence estimates are useful when they refer to the population in which the rule will be used.
+
+## Posterior probabilities and the Bayes rule
+
+The class density $f_g(\mathbf{x})$ answers how the measurements are distributed once the class is known. The measurements are observed and the class is what is wanted. A rare class can have a high density at $\mathbf{x}$ and still be unlikely. Bayes' theorem is the conversion, with the class in the role of the discrete variable and the measurement vector in the role of the continuous one. If the joint distribution of $(X,Y)$ were known, the conversion would be exact:
+
+$$
+\Pr(Y=g\given X=\mathbf{x})
+=\frac{f_g(\mathbf{x})\,\pi_g}{f_X(\mathbf{x})},
+$$
+
+where $f_g(\mathbf{x})$ is the density of class $g$ and $f_X(\mathbf{x})$ is the marginal density of the measurements. The marginal is the mixture of the class densities,
+
+$$
+f_X(\mathbf{x})=\sum_{g=1}^{G}\pi_g f_g(\mathbf{x}).
+$$
+
+That is the mixture on [Mixtures and the EM algorithm](sl-05-mixtures-em.qmd), with one difference that matters for estimation: here the component label is observed on every training case, so the fit does not have to infer which component produced which point. Each class density below is a [multivariate normal distribution](prob-05-transforms-and-limits.qmd#def-multivariate-normal), possibly after a mixture or a kernel has been substituted for that normal.
+
+::: {#def-sl-08-posterior .definition}
+## Posterior class probability
+
+The posterior probability of class $g$ given $\mathbf{x}$ is
+
+$$
+\tau_g(\mathbf{x})
+=\frac{\pi_g f_g(\mathbf{x})}{\sum_{g'=1}^{G}\pi_{g'} f_{g'}(\mathbf{x})}.
+$$
+
+:::
+
+The class that this posterior says is most probable is
+
+$$
+B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x})
+=\arg\max_{g\in\{1,\ldots,G\}}\pi_g f_g(\mathbf{x}).
+$$
+
+The second equality holds because the marginal density $f_X(\mathbf{x})$ is the same for every class, so it cannot change which class wins. When the densities and the priors are the true ones, this rule has the lowest expected zero–one risk. The plug-in rule keeps the same comparison and replaces each unknown quantity by an estimate from the training sample:
+
+$$
+\eta^{(X_{\mathrm{all}},\mathbf{y}_{\mathrm{all}})}(\mathbf{x})
+=\arg\max_{g}\widehat\tau_g(\mathbf{x})
+=\arg\max_{g}\widehat\pi_g\widehat f_g(\mathbf{x}).
+$$
+
+## Error rates and optimal classifiers
+
+Imagine two normal class distributions with overlapping support, both having positive prior probability. At a measurement where their weighted densities agree, the posterior probabilities are both $1/2$. Every rule using only that measurement has conditional error $1/2$ there. More training observations can improve the estimates of the distributions. The overlap of the two class distributions remains. Additional informative measurements can change the problem. Bayes error is the floor for the information currently available.
+
+A rule $\eta$ always returns a class, and that class may be the wrong one. For $G$ classes there are $G^2-G$ ordered pairs of distinct classes, and each pair is a different kind of mistake. Let $R_h\subset\R^p$ be the region that the rule assigns to class $h$. The regions are disjoint and cover the space. The rate at which the rule predicts class $h$ when the true class is $g$ is
+
+$$
+e_{gh}(\eta)=\Pr\bigl(\eta(X)=h\bigm|Y=g\bigr)
+=\int_{R_h}f_g(\mathbf{x})\,d\nu,
+\qquad g,h\in\{1,\ldots,G\},
+$$
+
+where $\nu$ is the appropriate measure on $\R^p$. Adding the mistakes that leave class $g$ gives the class-specific error rate,
+
+$$
+\mathrm{Err}_g(\eta)
+=\Pr\bigl(\eta(X)\ne g\bigm|Y=g\bigr)
+=\int_{\cup_{h\ne g}R_h}f_g(\mathbf{x})\,d\nu
+=1-\int_{R_g}f_g(\mathbf{x})\,d\nu.
+$$
+
+To average class-specific errors, weight by the target prevalences: $\mathrm{Err}(\eta)=\sum_g\pi_g\mathrm{Err}_g(\eta)$. For a fixed rule and fixed class-conditional distributions, changing only the prevalences leaves the class-specific rates unchanged. If the rule is also changed to reflect the new prevalences, its decision regions move and those rates can change. Keep the rule fixed when making the first comparison.
+
+To decide which rule is best, specify a loss. Write $c_{gh}$ for the cost of predicting class $h$ when the true class is $g$, with $c_{gg}=0$, so a correct label is costless. The first choice treats every mistake as equally unwanted: $c_{gh}=1$ whenever $g\ne h$. Under that choice the overall error rate is the risk, up to the unit of cost. Multiplying every cost by the same positive constant multiplies every risk by that constant and does not change which class is chosen. The unit cost is the wrong loss when one mistake is several times as costly as another. That case is taken up once the equal-cost rule is in hand.
+
+The true class is coded as a binary vector $\mathbf{y}$ of length $G$, with a $1$ in the position of the true class, so the second of three classes is $\mathbf{y}=(0,1,0)^\top$. Write $y_g$ for its $g$th element, and write $Q[g,h]=0$ when $g=h$ and $Q[g,h]=1$ otherwise.
+
+::: {#def-sl-08-zero-one .definition}
+## Zero–one loss and risk
+
+Let $(X,Y)$ be a new point drawn from the target distribution. The zero–one loss of the classifier is
+
+$$
+l\bigl(Y,\eta(X)\bigr)
+=
+\begin{cases}
+0, & \eta(X)=Y,\\
+1, & \eta(X)\ne Y,
+\end{cases}
+=\sum_{g=1}^{G} Y_g\, Q\bigl[g,\eta(X)\bigr].
+$$
+
+The conditional risk at $X=\mathbf{x}$ is the expected loss over $Y$ drawn from its conditional distribution, which is multinomial with a single trial and probabilities $\tau_1(\mathbf{x}),\ldots,\tau_G(\mathbf{x})$.
+
+:::
+
+Under zero–one loss the sum over classes charges $0$ to the predicted class and $1$ to every other class, and $\E(Y_g\given\mathbf{x})=\tau_g(\mathbf{x})$ because $Y_g$ is the indicator of class $g$. The expectation therefore collapses to one minus the posterior of the class that was chosen:
+
+\begin{align*}
+\E\bigl[l\bigl(Y,\eta(\mathbf{x})\bigr)\bigm|X=\mathbf{x}\bigr]
+&=\sum_{g=1}^{G}\tau_g(\mathbf{x})\,Q\bigl[g,\eta(\mathbf{x})\bigr]\\
+&=\sum_{g\ne\eta(\mathbf{x})}\tau_g(\mathbf{x})
+=1-\tau_{\eta(\mathbf{x})}(\mathbf{x}).
+\end{align*}
+
+The conditional risk equals the posterior probability that the predicted class is wrong. Zero–one loss did that work: every wrong class contributes its posterior, and the correct class contributes nothing. No normality was used. In most cases every class density is positive at $\mathbf{x}$, so every posterior is positive and every rule has some conditional risk there. The rule itself is deterministic, so at each $\mathbf{x}$ it names one class.
+
+::: {#thm-sl-08-bayes-rule .theorem}
+## Bayes-optimal rule
+
+A rule that minimises the conditional risk for every $\mathbf{x}$ is a Bayes rule, also called a Bayes-optimal or minimum-risk rule. Under zero–one loss it is
+
+$$
+\eta(\mathbf{x})=B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x}).
+$$
+
+:::
+
+At a fixed $\mathbf{x}$, predicting $h$ incurs conditional error $1-\tau_h(\mathbf{x})$. Choose a largest posterior to make this as small as possible. Integrating that pointwise inequality over $X$ proves optimality for overall error as well. Ties can be resolved by any fixed convention; the risk is the same.
+
+This result concerns the true joint distribution and the specified loss. A fitted classifier uses estimated probabilities and need not attain the bound. Its training error can fall below the Bayes risk, because training error reuses the observations that built the rule. The bound concerns a fresh observation.
+
+### Unequal costs
+
+When a missed case and a false alarm are different events, the loss has to say so. A correct classification is still taken to cost nothing. What moves the rule is the ratio of the costs of the two mistakes. Scaling every cost by the same positive constant scales the risk and leaves the minimiser unchanged, so a false negative several times as costly as a false positive is fully described by that ratio.
+
+For general costs $c_{gh}$, with $c_{gg}=0$, the loss on a new observation $(\mathbf{x},\mathbf{y})$ is $l(\mathbf{y},\eta(\mathbf{x}))=\sum_g y_g\, c_{g,\eta(\mathbf{x})}$. The same expectation as before, now with cost $c_{gh}$ in place of $1$, gives the conditional risk
+
+$$
+\E\bigl[l\bigl(Y,\eta(\mathbf{x})\bigr)\bigm|X=\mathbf{x}\bigr]
+=\sum_{g\ne\eta(\mathbf{x})}\tau_g(\mathbf{x})\,c_{g,\eta(\mathbf{x})}.
+$$
+
+At each $\mathbf{x}$, choose the predicted class that makes this sum smallest:
+
+$$
+\eta(\mathbf{x})=B(\mathbf{x})
+=\arg\min_{h\in\{1,\ldots,G\}}\sum_{g\ne h}\tau_g(\mathbf{x})\,c_{gh}.
+$$
+
+For two classes the comparison simplifies. The rule predicts class $1$ when $\tau_2(\mathbf{x})\,c_{21}<\tau_1(\mathbf{x})\,c_{12}$, which is $\tau_1(\mathbf{x})/\tau_2(\mathbf{x})>c_{21}/c_{12}$. The threshold on the posterior odds moves toward the class whose misclassification costs more. Equal costs put the threshold at $1$ and recover the maximum-posterior rule. The posteriors themselves still come from Bayes' theorem. Only the cutoff has changed.
+
+## Linear discriminant analysis
+
+LDA supplies the missing class densities by assuming $X\given Y=g\sim\Normal_p(\boldsymbol\mu_g,\Sigma)$, with one covariance shared across classes. This is a distribution conditional on a class label. Different means move the class centres. The common covariance gives them the same shape and orientation. The reward for that restriction is a linear log-odds comparison (Hastie, Tibshirani, and Friedman, 2009).
+
+The labels are known, so the training sample splits into classes and each piece can be estimated on its own. The priors are the training proportions above, unless the design fixed the class sizes or a better external estimate exists. The mean of each class is the ordinary sample mean of its own observations. The common covariance centres every observation by its own class mean, pools the cross-products, and divides by $n-G$. That divisor is the unbiased one: one degree of freedom is spent on each of the $G$ estimated means,
+
+$$
+\widehat\Sigma
+=\frac{1}{n-G}\sum_{g=1}^{G}\sum_{i:y_i=g}
+(\mathbf{x}_i-\widehat{\boldsymbol\mu}_g)(\mathbf{x}_i-\widehat{\boldsymbol\mu}_g)^\top.
+$$
+
+### The discriminant boundary
+
+Assume equal costs, so the plug-in rule ties two classes where their weighted densities are equal. That tie is the decision boundary. Substitute the two normal densities, cancel every factor that does not depend on the class, take logarithms, and expand the quadratic forms. The shared inverse covariance is the assumption that makes the terms in $\mathbf{x}^\top\widehat\Sigma^{-1}\mathbf{x}$ cancel.
+
+The boundary between classes $j$ and $l$ is $\widehat\pi_j\widehat f_j(\mathbf{x})=\widehat\pi_l\widehat f_l(\mathbf{x})$, that is
+
+$$
+\frac{\widehat\pi_j}{(2\pi)^{p/2}\,|\widehat\Sigma|^{1/2}}
+\exp\Bigl(-\tfrac12(\mathbf{x}-\widehat{\boldsymbol\mu}_j)^\top\widehat\Sigma^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_j)\Bigr)
+=
+\frac{\widehat\pi_l}{(2\pi)^{p/2}\,|\widehat\Sigma|^{1/2}}
+\exp\Bigl(-\tfrac12(\mathbf{x}-\widehat{\boldsymbol\mu}_l)^\top\widehat\Sigma^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_l)\Bigr).
+$$
+
+The factor $(2\pi)^{p/2}\,|\widehat\Sigma|^{1/2}$ is the same on both sides because the covariance was forced to be common, so it cancels. The logarithms turn the remaining ratio into a difference of quadratic forms. Write $q_g=(\mathbf{x}-\widehat{\boldsymbol\mu}_g)^\top\widehat\Sigma^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_g)$. Then
+
+$$
+\log\frac{\widehat\pi_j}{\widehat\pi_l}
+=\frac12\bigl(q_j-q_l\bigr),
+$$
+
+and the plug-in log posterior odds are $\log(\widehat\pi_j\widehat f_j/\widehat\pi_l\widehat f_l)=\log(\widehat\pi_j/\widehat\pi_l)-\tfrac12(q_j-q_l)$. Expand each quadratic form. Symmetry of $\widehat\Sigma^{-1}$ gives $\mathbf{a}^\top\widehat\Sigma^{-1}\mathbf{b}=\mathbf{b}^\top\widehat\Sigma^{-1}\mathbf{a}$, so
+
+$$
+q_j-q_l
+=-2\mathbf{x}^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_j
++\widehat{\boldsymbol\mu}_j^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_j
++2\mathbf{x}^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_l
+-\widehat{\boldsymbol\mu}_l^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_l.
+$$
+
+The two copies of $\mathbf{x}^\top\widehat\Sigma^{-1}\mathbf{x}$ cancel. Therefore
+
+$$
+\log\frac{\widehat\pi_j\widehat f_j(\mathbf{x})}{\widehat\pi_l\widehat f_l(\mathbf{x})}
+=\mathbf{x}^\top\widehat\Sigma^{-1}(\widehat{\boldsymbol\mu}_j-\widehat{\boldsymbol\mu}_l)
++\log\frac{\widehat\pi_j}{\widehat\pi_l}
++\frac12\bigl(
+\widehat{\boldsymbol\mu}_l^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_l
+-\widehat{\boldsymbol\mu}_j^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_j
+\bigr).
+$$
+
+Had the two classes used different covariances, the quadratic terms would have carried different matrices and would have survived. That is the calculation in the next section. Define
+
+\begin{align*}
+\boldsymbol\beta
+&=\widehat\Sigma^{-1}(\widehat{\boldsymbol\mu}_j-\widehat{\boldsymbol\mu}_l),\\
+\alpha
+&=\log\frac{\widehat\pi_j}{\widehat\pi_l}
++\frac12(\widehat{\boldsymbol\mu}_l+\widehat{\boldsymbol\mu}_j)^\top
+\widehat\Sigma^{-1}(\widehat{\boldsymbol\mu}_l-\widehat{\boldsymbol\mu}_j).
+\end{align*}
+
+The identity $(\mathbf{a}+\mathbf{b})^\top M(\mathbf{a}-\mathbf{b})=\mathbf{a}^\top M\mathbf{a}-\mathbf{b}^\top M\mathbf{b}$, for symmetric $M$, rewrites the difference of quadratic mean terms as the second summand in $\alpha$. The log posterior odds are exactly $\alpha+\mathbf{x}^\top\boldsymbol\beta$, so the boundary is the hyperplane
+
+$$
+\alpha+\mathbf{x}^\top\boldsymbol\beta=0.
+$$
+
+Predicting the class with the larger weighted density is the sign rule
+
+$$
+\eta(\mathbf{x})=
+\begin{cases}
+j, & \alpha+\mathbf{x}^\top\boldsymbol\beta\ge 0,\\
+l, & \alpha+\mathbf{x}^\top\boldsymbol\beta<0.
+\end{cases}
+$$
+
+What the cancellation establishes is the shape of the boundary. Under the shared-covariance assumption the log posterior odds are linear in $\mathbf{x}$, so the comparison of two classes is a single number, the projection $\alpha+\mathbf{x}^\top\boldsymbol\beta$, and the boundary in that one-dimensional projection is a point. With more than two classes there is one such score for each pair, and the predicted class is the one that wins the comparisons it enters. The regions of the partition are bounded by pieces of these hyperplanes, so the boundary is piecewise linear.
+
+Two equivalent forms are useful. First, define the linear discriminant score
+
+$$
+\delta_g(\mathbf{x})
+=\mathbf{x}^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_g
+-\tfrac12\widehat{\boldsymbol\mu}_g^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_g
++\log\widehat\pi_g.
+$$
+
+The rule is $\arg\max_g\delta_g(\mathbf{x})$, which avoids writing every pair when $G>2$. The difference $\delta_j-\delta_l$ equals $\alpha+\mathbf{x}^\top\boldsymbol\beta$. Second, with equal priors the rule assigns $\mathbf{x}$ to the class whose mean is nearest in [squared Mahalanobis distance](sl-01-multivariate-normal.qmd#def-sl-01-mahalanobis) $(\mathbf{x}-\widehat{\boldsymbol\mu}_g)^\top\widehat\Sigma^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_g)$. Unequal priors shift each boundary parallel to itself through the term $\log(\widehat\pi_j/\widehat\pi_l)$ in $\alpha$.
+
+::: {#exm-sl-08-two-class .example}
+## A two-class LDA by hand
+
+**Question.** Class $1$ has observations $(3,3)$, $(1,1)$, $(3,2)$, $(1,2)$ and class $2$ has $(6,5)$, $(4,3)$, $(6,4)$, $(4,4)$. Find the LDA rule with equal priors and classify the point $(5,1.4)$.
+
+**Solution.** The class means are $\widehat{\boldsymbol\mu}_1=(2,2)^\top$ and $\widehat{\boldsymbol\mu}_2=(5,4)^\top$, and $\widehat\pi_1=\widehat\pi_2=\tfrac12$. The centred observations of class $1$ are $(1,1)$, $(-1,-1)$, $(1,0)$, $(-1,0)$, and class $2$ has exactly the same deviations. Each outer product contributes
+
+$$
+\begin{pmatrix}1\\1\end{pmatrix}\begin{pmatrix}1&1\end{pmatrix}
+=\begin{pmatrix}1&1\\1&1\end{pmatrix},
+\quad
+\begin{pmatrix}1\\0\end{pmatrix}\begin{pmatrix}1&0\end{pmatrix}
+=\begin{pmatrix}1&0\\0&0\end{pmatrix},
+$$
+
+and the two negative deviations repeat those matrices, so each class has scatter
+
+$$
+A_g=\begin{pmatrix}4&2\\2&2\end{pmatrix}.
+$$
+
+The pooled covariance uses divisor $n-G=8-2=6$:
+
+$$
+\widehat\Sigma
+=\frac{1}{6}(A_1+A_2)
+=\frac{1}{6}\begin{pmatrix}8&4\\4&4\end{pmatrix}
+=\begin{pmatrix}4/3&2/3\\2/3&2/3\end{pmatrix}.
+$$
+
+The determinant is $(4/3)(2/3)-(2/3)^2=8/9-4/9=4/9$. The inverse is
+
+$$
+\widehat\Sigma^{-1}
+=\frac{9}{4}\begin{pmatrix}2/3&-2/3\\-2/3&4/3\end{pmatrix}
+=\begin{pmatrix}1.5&-1.5\\-1.5&3\end{pmatrix}.
+$$
+
+With $j=1$ and $l=2$,
+
+$$
+\boldsymbol\beta
+=\widehat\Sigma^{-1}(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2)
+=\widehat\Sigma^{-1}\begin{pmatrix}-3\\-2\end{pmatrix}
+=\begin{pmatrix}-1.5\\-1.5\end{pmatrix}.
+$$
+
+Equal priors make the log-weight term zero. The second form of the intercept uses $\widehat{\boldsymbol\mu}_2+\widehat{\boldsymbol\mu}_1=(7,6)^\top$ and $\widehat{\boldsymbol\mu}_2-\widehat{\boldsymbol\mu}_1=(3,2)^\top$:
+
+$$
+\widehat\Sigma^{-1}\begin{pmatrix}3\\2\end{pmatrix}
+=\begin{pmatrix}1.5\\1.5\end{pmatrix},
+\qquad
+\alpha=\frac12\bigl(7\cdot 1.5+6\cdot 1.5\bigr)=\frac12\cdot 19.5=9.75.
+$$
+
+The boundary is $9.75-1.5x_1-1.5x_2=0$, that is $x_1+x_2=6.5$, which passes through the midpoint $(3.5,3)$ of the means. The rule predicts class $1$ when $x_1+x_2\le 6.5$. For $(5,1.4)$, the sum is $6.4<6.5$, so the point is class $1$.
+
+The Euclidean bisector of the means is the set of $\mathbf{x}$ with $(\mathbf{x}-\mathbf{m})^\top(\widehat{\boldsymbol\mu}_2-\widehat{\boldsymbol\mu}_1)=0$, where $\mathbf{m}=(3.5,3)^\top$ is the midpoint. That is $3(x_1-3.5)+2(x_2-3)=0$, or $3x_1+2x_2=16.5$. At the query point, $3(5)+2(1.4)=17.8>16.5$, which puts the point on the class-$2$ side of the Euclidean bisector. The squared Mahalanobis distances agree with LDA. For class $1$, $\mathbf{x}-\widehat{\boldsymbol\mu}_1=(3,-0.6)^\top$ and
+
+$$
+\widehat\Sigma^{-1}\begin{pmatrix}3\\-0.6\end{pmatrix}
+=\begin{pmatrix}5.4\\-6.3\end{pmatrix},
+\qquad
+3\cdot 5.4+(-0.6)(-6.3)=16.2+3.78=19.98.
+$$
+
+For class $2$, $\mathbf{x}-\widehat{\boldsymbol\mu}_2=(0,-2.6)^\top$ and
+
+$$
+\widehat\Sigma^{-1}\begin{pmatrix}0\\-2.6\end{pmatrix}
+=\begin{pmatrix}3.9\\-7.8\end{pmatrix},
+\qquad
+(-2.6)(-7.8)=20.28.
+$$
+
+The nearer mean in Mahalanobis distance is $\widehat{\boldsymbol\mu}_1$. The covariance tilts the boundary: its normal is $(1,1)$ rather than $(3,2)$. The within-class scatter is largest along the leading eigenvector of $\widehat\Sigma$. The larger eigenvalue is $1+\sqrt{5}/3$, and the matching direction satisfies $v_1/v_2=(1+\sqrt{5})/2$, so the axis is proportional to $(1,(\sqrt{5}-1)/2)\approx(1,0.62)^\top$. That direction is close to $(3,2)^\top$, the direction joining the means, so a displacement along the line of the means is less informative than its Euclidean length suggests.
+
+:::
+
+## Quadratic discriminant analysis
+
+To allow different class shapes, estimate a separate covariance for each class. QDA makes that change and retains Gaussian class densities. The pairwise score difference becomes a polynomial of degree at most two. It can describe curved boundaries, though special parameter choices give degenerate or empty boundaries. The next display shows exactly which cancellation LDA loses.
+
+The tie $\widehat\pi_j\widehat f_j(\mathbf{x})=\widehat\pi_l\widehat f_l(\mathbf{x})$ is now
+
+$$
+\frac{\widehat\pi_j}{(2\pi)^{p/2}\,|\widehat\Sigma_j|^{1/2}}
+\exp\Bigl(-\tfrac12(\mathbf{x}-\widehat{\boldsymbol\mu}_j)^\top\widehat\Sigma_j^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_j)\Bigr)
+=
+\frac{\widehat\pi_l}{(2\pi)^{p/2}\,|\widehat\Sigma_l|^{1/2}}
+\exp\Bigl(-\tfrac12(\mathbf{x}-\widehat{\boldsymbol\mu}_l)^\top\widehat\Sigma_l^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_l)\Bigr).
+$$
+
+The common factor $(2\pi)^{p/2}$ still cancels. The determinants do not, because each class now has its own covariance. Taking logarithms leaves them on the boundary:
+
+$$
+\log\frac{\widehat\pi_j\,|\widehat\Sigma_l|^{1/2}}{\widehat\pi_l\,|\widehat\Sigma_j|^{1/2}}
+=\frac12\Bigl[
+(\mathbf{x}-\widehat{\boldsymbol\mu}_j)^\top\widehat\Sigma_j^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_j)
+-(\mathbf{x}-\widehat{\boldsymbol\mu}_l)^\top\widehat\Sigma_l^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_l)
+\Bigr].
+$$
+
+The quadratic terms are $\mathbf{x}^\top\widehat\Sigma_j^{-1}\mathbf{x}$ and $\mathbf{x}^\top\widehat\Sigma_l^{-1}\mathbf{x}$. They cancel only if the two inverses agree. Once the covariances differ, the difference $\mathbf{x}^\top(\widehat\Sigma_j^{-1}-\widehat\Sigma_l^{-1})\mathbf{x}$ survives, and the boundary is quadratic in $\mathbf{x}$. The class regions therefore have piecewise quadratic edges. The same comparison can be written as a score for each class,
+
+$$
+\delta_g(\mathbf{x})
+=-\tfrac12\log|\widehat\Sigma_g|
+-\tfrac12(\mathbf{x}-\widehat{\boldsymbol\mu}_g)^\top\widehat\Sigma_g^{-1}(\mathbf{x}-\widehat{\boldsymbol\mu}_g)
++\log\widehat\pi_g,
+$$
+
+and the rule predicts the class with the largest score. What changed relative to LDA is the covariance assumption. Normality and equal costs are still in force.
+
+QDA can represent class shapes that a single covariance cannot, and it estimates more parameters from the same sample. LDA has
+
+$$
+Gp+\frac{p(p+1)}{2}+(G-1)
+$$
+
+free parameters. QDA has
+
+$$
+Gp+G\frac{p(p+1)}{2}+(G-1).
+$$
+
+Each class covariance is estimated from that class alone, so its sampling variability is larger, especially when a class is small or $p$ is large. If a common covariance is a reasonable approximation and the sample is limited, LDA can have the smaller error on new observations. The extra flexibility has then been spent on variation in the training sample that does not repeat. That is overfitting. How large a sample is enough depends on $p$: the parameter counts grow like $p^2$, and faster for QDA. Bivariate or trivariate marginal plots are the practical check on whether one covariance is plausible for the classes at hand. Descriptive LDA and QDA regions fitted to the two iris petal measurements illustrate the shapes. Those pictures are training-data illustrations. The laboratory below classifies flowers that were held out of the fit.
+
+## Fisher's linear discriminant analysis
+
+LDA obtained a linear boundary by assuming normal classes with a shared covariance. Many labelled samples are not normal, and writing down a density may be more than the problem requires. Fisher asked a different question for two classes (Fisher, 1936). Among all one-dimensional projections, which direction separates the two class means the most, relative to the scatter within the classes? Fisher's linear discriminant analysis maximises that ratio. A hyperplane perpendicular to the maximising direction is then the boundary. The criterion uses the class means and a pooled covariance. It does not assume normality, and it does not require the population covariances to be equal. The pooled matrix $S$ is still a constraint: the denominator treats the two classes as having a common scatter. That constraint is why the direction will match the vector $\boldsymbol\beta$ of normal LDA, even though the two derivations start from different places.
+
+Let the sample means be $\widehat{\boldsymbol\mu}_1$ and $\widehat{\boldsymbol\mu}_2$, and let $S$ be their pooled sample covariance. A projection direction is a vector $\mathbf{a}\in\R^p$. Its length will not matter, because the ratio below is unchanged if $\mathbf{a}$ is rescaled. In the projected space the class means are the scalars $\mathbf{a}^\top\widehat{\boldsymbol\mu}_1$ and $\mathbf{a}^\top\widehat{\boldsymbol\mu}_2$. Each class mean, measured from the midpoint of the two projected means, is
+
+$$
+\mathbf{a}^\top\widehat{\boldsymbol\mu}_1-\tfrac12\mathbf{a}^\top(\widehat{\boldsymbol\mu}_1+\widehat{\boldsymbol\mu}_2)
+=\tfrac12\mathbf{a}^\top(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2),
+$$
+
+and the other class contributes the negative of the same quantity. The sum of the two squared deviations is the between-class variance
+
+$$
+2\Bigl(\tfrac12\mathbf{a}^\top(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2)\Bigr)^2
+=\tfrac12\bigl(\mathbf{a}^\top\widehat{\boldsymbol\mu}_1-\mathbf{a}^\top\widehat{\boldsymbol\mu}_2\bigr)^2.
+$$
+
+The within-class variance in the projected space is $\mathbf{a}^\top S\mathbf{a}$. Using a pooled $S$ here is a summary of scatter. It adds squared distances from each observation to its own class mean and multiplies by a constant. The ratio to be maximised is
+
+$$
+\frac{\bigl(\mathbf{a}^\top\widehat{\boldsymbol\mu}_1-\mathbf{a}^\top\widehat{\boldsymbol\mu}_2\bigr)^2}{2\,\mathbf{a}^\top S\mathbf{a}}.
+$$
+
+The ratio depends on the direction of $\mathbf{a}$ and not on its length. One route constrains $\mathbf{a}^\top S\mathbf{a}=1$ and differentiates $(\mathbf{a}^\top\mathbf{d})^2$ with a Lagrange multiplier for that constraint, where $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2$. The stationary equation is $(\mathbf{a}^\top\mathbf{d})\,\mathbf{d}=\lambda S\mathbf{a}$, so $\mathbf{a}$ is proportional to $S^{-1}\mathbf{d}$. The same direction falls out of Cauchy–Schwarz, and that argument makes the positive-definiteness assumption easy to see.
+
+::: {#thm-sl-08-fisher .theorem}
+## Fisher's direction
+
+Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}$. If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
+
+:::
+
+Positive-definiteness of $S$ supplies the square-root factors. Write $\mathbf{a}^\top\mathbf{d}=(S^{1/2}\mathbf{a})^\top(S^{-1/2}\mathbf{d})$. Then
+
+$$
+(\mathbf{a}^\top\mathbf{d})^2\le(\mathbf{a}^\top S\mathbf{a})\,(\mathbf{d}^\top S^{-1}\mathbf{d}),
+$$
+
+so the ratio is at most $\mathbf{d}^\top S^{-1}\mathbf{d}/2$, with equality if and only if $S^{1/2}\mathbf{a}$ is proportional to $S^{-1/2}\mathbf{d}$, that is $\mathbf{a}\propto S^{-1}\mathbf{d}$. Cauchy–Schwarz did the work, and it needed $S$ positive definite so that $S^{1/2}$ exists. The maximal value of the ratio is $\mathbf{d}^\top S^{-1}\mathbf{d}/2$.
+
+The discriminant function is the projection $\mathbf{a}^\top\mathbf{x}=\mathbf{x}^\top S^{-1}(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2)$. The ratio fixes the direction. The threshold is a separate choice. The boundary is a hyperplane $\mathbf{a}^\top\mathbf{x}-a_0=0$ orthogonal to $\mathbf{a}$. A common choice is the midpoint of the two projected class means, $a_0=\mathbf{a}^\top(\widehat{\boldsymbol\mu}_1+\widehat{\boldsymbol\mu}_2)/2$. If a normal model is then placed on each class, the threshold can instead sit where the posterior densities are equal, which returns the LDA intercept.
+
+Fisher's direction $\mathbf{a}\propto S^{-1}(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2)$ is exactly the vector $\boldsymbol\beta$ of normal LDA. Fisher arrived at it without a normality assumption by maximising separation. The normal model supplies the same direction, and the intercept, as a Bayes rule. With equal priors and the midpoint threshold the two rules coincide: the LDA calculation above put the boundary through the midpoint $(3.5,3)$ when the priors were equal.
+
+## Mixture discriminant analysis
+
+A single Gaussian density cannot represent a ring-shaped concentration of observations. A quadratic boundary can still be circular, so QDA can separate a ring from a central group. Density fit and classification boundary are different questions. Mixture discriminant analysis gives each class a more flexible density by combining Gaussian components (Hastie and Tibshirani, 1996; Fraley and Raftery, 2002). Its benefit should be assessed on the actual prediction task, since estimating more components also costs data.
+
+The number of components is not fixed by the geometry. More data can support more of them, and BIC or AIC, from [Model selection](sl-06-model-selection.qmd), is the criterion already used for that choice, typically applied separately in each class. If one class is too thin for those components, a kernel density follows the same curve, and it is the estimator that fails first as the dimension grows. When the geometry does not decide between the methods, the comparison is an error rate on observations the fit did not see.
+
+The plug-in step is the Bayes rule with each true class density replaced by its fitted mixture. For each of the $G$ classes, fit a normal mixture to the observations from that class. For a new $\mathbf{x}$, evaluate the mixture density of each class, weight by the class probability, known or estimated, and assign $\mathbf{x}$ to the class with the largest weighted density:
+
+$$
+g^*=\arg\max_g \pi_g\widehat f_g(\mathbf{x}),
+\qquad
+\widehat f_g(\mathbf{x})=\sum_{h=1}^{H_g}\lambda_{gh}\widehat f_{gh}(\mathbf{x}),
+$$
+
+where $\pi_g$ is the prior probability of class $g$, $\lambda_{gh}$ is the probability of component $h$ within the mixture for class $g$, $\widehat f_{gh}$ is the fitted density of that component, and $H_g$ is the number of components fitted to class $g$, chosen separately or jointly. Ordinary LDA and QDA are the special cases $H_g=1$, with a common covariance or a covariance of their own.
+
+## Kernel density discriminant analysis
+
+Kernel discriminant analysis replaces each class density by a kernel estimate from [Hierarchical clustering and kernel density estimation](sl-07-linkage-and-density.qmd). This avoids choosing a finite component count, and it introduces bandwidths and still needs enough observations locally. Its difficulty grows with dimension. Six is a software limit in some implementations. The same weighted-density rule can be written in more dimensions when the sample supports the bandwidths. Choose bandwidths inside each training split, then apply the same weighted-density rule:
+
+$$
+g^*=\arg\max_g \pi_g\widehat f_g(\mathbf{x}),
+\qquad
+\widehat f_g(\mathbf{x})=\frac{1}{n_g}\sum_{i:y_i=g}K_{H_g}(\mathbf{x}-\mathbf{x}_i),
+$$
+
+where $\pi_g$ is the prior probability of class $g$ and $H_g$ is the bandwidth matrix of class $g$. As with kernel density estimation, the method is practical in a few dimensions.
+
+## LDA and QDA on held-out iris flowers
+
+The split holds out $15$ flowers of each species and trains on the remaining $35$, so both fits below see the same four predictors and the same $105$ labelled flowers. The held-out set has $45$ flowers. LDA forces one covariance. QDA estimates one per species. That is the only difference between the two rules being compared. The data frames `train` and `test` carry `Species` and the four iris measurements.
+
+```r
+lda_fit <- MASS::lda(Species ~ ., data = train)
+qda_fit <- MASS::qda(Species ~ ., data = train)
+lda_pred <- predict(lda_fit, test)$class
+qda_pred <- predict(qda_fit, test)$class
+table(Observed = test$Species, Predicted = lda_pred)
+#>             Predicted
+#> Observed     setosa versicolor virginica
+#>   setosa         15          0         0
+#>   versicolor      0         13         2
+#>   virginica       0          1        14
+c(LDA_test_error = mean(lda_pred != test$Species),
+  QDA_test_error = mean(qda_pred != test$Species))
+#> LDA_test_error QDA_test_error
+#>        0.06667        0.06667
+```
+
+LDA misclassifies two versicolor flowers as virginica and one virginica flower as versicolor: $3$ mistakes in $45$, and $3/45=0.06667$. The QDA test error on the same split is also $0.06667$. One test flower changes the error by $1/45$, about $2.2$ percentage points, so a sample of $45$ held-out flowers makes a coarse comparison. Equal class counts describe one assessment population. A different prevalence, or a different cost of mistakes, changes which accuracy matters, as in the unequal-cost rule.
+
+::: {.callout-note}
+## Key idea
+A statistical classifier estimates the class probabilities $\pi_g$ and the class densities $f_g$, converts them to posterior probabilities $\tau_g(\mathbf{x})$, and plugs those probabilities into the Bayes rule. Equal costs choose the largest posterior. Unequal costs choose the class with the smallest expected loss. The Bayes risk is a floor for a fresh observation from the true distribution. Under a shared normal covariance the log posterior odds are linear in $\mathbf{x}$, which is LDA. Separate covariances leave a quadratic boundary, which is QDA. Fisher's direction $\mathbf{a}\propto S^{-1}(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2)$ is the same vector, obtained by maximising separation of the class means relative to pooled within-class scatter.
+:::
+
+## Exercises
+
+::: {#ex-sl-08-1 .exercise}
+## A Bayes rule in one dimension
+
+Class $1$ is $\Normal(0,1)$ with prior $0.7$ and class $2$ is $\Normal(2,1)$ with prior $0.3$. Find the Bayes decision boundary and the Bayes error rate $\sum_g\pi_g\mathrm{Err}_g$.
+
+[Solution](#sol-sl-08-1)
+
+:::
+
+::: {#ex-sl-08-2 .exercise}
+## Unequal costs
+
+A test has posterior probability $\tau_1(x)=0.3$ of disease. Missing a case costs $c_{12}=5$ and a false alarm costs $c_{21}=1$. Which class does the unequal-cost Bayes rule choose? At which value of $\tau_1$ does the decision switch?
+
+[Solution](#sol-sl-08-2)
+
+:::
+
+::: {#ex-sl-08-3 .exercise}
+## LDA with unequal priors
+
+Redo the two-class LDA example with priors $\widehat\pi_1=\tfrac23$ and $\widehat\pi_2=\tfrac13$. Give the new boundary and classify $(3.4,3.2)$.
+
+[Solution](#sol-sl-08-3)
+
+:::
+
+::: {#ex-sl-08-4 .exercise}
+## A quadratic boundary
+
+Class $1$ is $\Normal(0,1)$ and class $2$ is $\Normal(0,4)$ with equal priors. Find the QDA decision boundary and explain why LDA cannot separate these classes at all.
+
+[Solution](#sol-sl-08-4)
+
+:::
+
+::: {#ex-sl-08-5 .exercise}
+## Parameter counts
+
+For $p=10$ and $G=3$, count the free parameters of LDA and of QDA. How large must the training set be, at least, for each of the three QDA class covariance matrices to be nonsingular?
+
+[Solution](#sol-sl-08-5)
+
+:::
+
+::: {#ex-sl-08-6 .exercise}
+## Fisher's direction
+
+For the data of the two-class LDA example, compute Fisher's direction $S^{-1}(\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2)$ and the value of the separation ratio for it and for the naive direction $\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2$. Which is larger?
+
+[Solution](#sol-sl-08-6)
+
+:::
+
+::: {#ex-sl-08-7 .exercise}
+## The fitted LDA model
+
+Iris setosa and versicolor are to be classified using sepal length and sepal width.
+
+(a) State the two-class LDA model, its unknown parameters, and how they are ordinarily estimated from labelled training data.
+
+(b) Explain why the equal-cost LDA decision boundary is linear.
+
+(c) Explain how unequal class frequencies or unequal error costs can affect the rule.
+
+[Solution](#sol-sl-08-7)
+
+:::
+
+::: {#ex-sl-08-8 .exercise}
+## LDA and principal components
+
+Give mathematical explanations, defining the quantities you use.
+
+(a) Explain the two-class LDA model and how its parameters and classification rule are obtained from labelled observations.
+
+(b) Explain the main concepts and mathematical construction of principal component analysis, including principal directions, scores, and variance explained. The derivation is on [Principal component analysis](sl-03-principal-components.qmd#def-sl-03-principal-components).
+
+[Solution](#sol-sl-08-8)
+
+:::

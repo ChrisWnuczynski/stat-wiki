@@ -1,0 +1,260 @@
+# Nearest neighbours
+
+Instead of fitting a global boundary, look near the point to be classified. Which labels occur among nearby training points? The nearest-neighbour rule uses the closest label. The $k$-nearest-neighbour rule uses a vote among the closest $k$. There is no fitted coefficient vector. There are still assumptions: the distance must make nearby measurements informative about nearby class probabilities.
+
+Two choices carry the assumptions that a density model would have carried explicitly. The metric decides which differences count as large, so a change of units can change the neighbours unless the predictors are put on a common scale first. That scaling has to be learned from the training cases alone. A scale computed from the whole sample, test cases included, leaks the test set into the fit. In high dimension an irrelevant predictor adds a coordinate that moves the distances without moving the class, and it can overwhelm the coordinates that were actually close. Ties, the choice of $k$, and the sense in which the rule approaches the Bayes rule are the remaining questions. The neighbourhood size $k$ is chosen by the cross-validation on [Estimating error rates](sl-09-error-rates.qmd), because the apparent error always prefers $k=1$.
+
+The equal-cost Bayes classifier predicts a class of largest posterior probability $\tau_g(x)=\Pr(Y=g\given X=x)$. Its risk is a floor for zero–one loss. That rule, and the reason no classifier undercuts it, are on [Linear discriminant analysis](sl-08-discriminant-analysis.qmd#thm-sl-08-bayes-rule).
+
+## Distance and scale
+
+The rule is only as good as its notion of closeness. Any metric that matches the closeness that matters can be used. The usual default is Euclidean distance, the $L_2$ norm, because it is the ordinary geometric distance once the coordinates are on comparable scales:
+
+$$
+\|x-x_i\|_2
+=\sqrt{(x-x_i)\cdot(x-x_i)}
+=\sqrt{(x_1-x_{i1})^2+\cdots+(x_p-x_{ip})^2}.
+$$
+
+Euclidean distance depends on scale. Changing metres to centimetres multiplies a coordinate's squared contribution by $10^4$, because each difference is multiplied by $100$ and then squared. Subtracting a common mean leaves every distance exactly unchanged, because the mean cancels inside $x_j-x_{ij}$. Standardisation divides by a training-sample measure of spread and therefore changes the metric. Use the same fitted transformation on new observations. Recomputing it with held-out data changes the procedure being assessed.
+
+::: {#exm-sl-11-rescale .example}
+## Rescaling one coordinate
+
+Take two classes of ten points each, class $1$ at $(x,x)$ and class $2$ at $(x+3.5,x)$ for $x=1,\ldots,10$.
+
+**Question.** What happens to leave-one-out $1$-nearest-neighbour accuracy if the first coordinate is multiplied by $10$?
+
+**Solution.** In the original units the two clouds are separated along a diagonal band. Leaving each point out in turn, all $20$ are classified correctly, so the leave-one-out accuracy is $1$. Multiply the first coordinate by $10$. Distances are now dominated by differences in $x_1$, so a point's nearest neighbours are points with similar $x_1$ regardless of class. The leave-one-out accuracy falls to $0.30$. Both comparisons can be drawn in the original coordinates. The second classifier multiplies the first coordinate by ten only when it computes distance. Neither choice of units is the correct one by itself. The classifier depends on that choice.
+
+:::
+
+Describing the same observations in different units need not leave the classifier unchanged. Scaling is one way to specify what comparable differences mean. A standard deviation uses second moments and can be unstable for heavy tails. An interquartile range uses a different notion of spread. Neither makes an irrelevant predictor useful. The scientific question still has to determine which differences should count.
+
+### A rank distance
+
+Ranks offer a different trade-off. They preserve order while discarding spacing, so a very large value is simply the largest rank rather than an arbitrarily distant point. A strictly increasing coordinate transformation leaves the ranks unchanged. This is useful when order is meaningful and spacing is unreliable, and it loses information when actual distances matter.
+
+The rank distance of Olshen (1977) and Devroye (1978) does this one coordinate at a time. For each predictor, the training values and the new observation's value are ranked from $1$ to $n+1$, from smallest to largest. Let $r_i^{(j)}$ be the rank of the $j$th component of the $i$th training observation, and let $r^{(j)}$ be the rank of the $j$th component of the new observation.
+
+::: {#def-sl-11-rank-distance .definition}
+## Rank distance
+
+The empirical distance uses the worst coordinate, the $L_\infty$ distance on the ranks:
+
+$$
+\rho(x,x_i)=\max_{1\le j\le p}\bigl|r_i^{(j)}-r^{(j)}\bigr|.
+$$
+
+:::
+
+Any strictly increasing transformation of a single coordinate, including a change of units, leaves the ranks unchanged, so it leaves $\rho$ unchanged. The distances are integers, so ties are common. They are usually broken by a uniform random ordering among the tied neighbours. The metric has bought invariance by throwing away spacing. If the spacing is real information, for instance if two units of $x_1$ are known to be equivalent to one unit of $x_2$, the ranks are the wrong summary. Use the information: replace $x_1$ by $x_1'=x_1/2$ so that one unit means the same thing on both axes, and then compute an ordinary distance. Scaling, ranks, and a subject-matter equivalence are three answers to the same difficulty, and they are answers about the metric, not about $k$.
+
+## Ties and the choice of $k$
+
+::: {#def-sl-11-knn .definition}
+## $k$-nearest neighbours
+
+Given a metric, order the training points by increasing distance from a query $x$. The $1$-nearest-neighbour rule predicts the label of the closest training point. The $k$-nearest-neighbour rule predicts the majority label among the $k$ closest. A soft version uses the class proportions in that neighbourhood as an estimate of $\tau_g(x)$.
+
+:::
+
+There are two kinds of ties. Several observations can be equally distant, and several classes can receive the same vote. With exactly $k$ voters and two classes, odd $k$ rules out a vote tie. Software that includes every observation tied at the $k$th distance can use more than $k$ voters, so that shortcut may no longer apply. Record the tie convention, and the seed, when random tie breaking is used.
+
+The neighbourhood size is a bias–variance choice, and the apparent error cannot make it. The neighbours of a new $x$ are useful when they carry the class probabilities that hold at $x$. If the regions where one class has the highest true posterior are large and roughly spherical in the scaled predictor space, a $k$ with $k/n$ not tiny can be used: many neighbours still lie inside the region. If those regions are small or winding, a large neighbourhood mixes in the other class, and a smaller $k$ is required. The smallest choice is $k=1$. Nothing guarantees that the single nearest training point is close enough to $x$ to say anything useful, particularly in high dimension, where most neighbours of a point are far away.
+
+Small $k$ produces a jagged boundary, flexible and variable from sample to sample. Large $k$ produces a smooth boundary, stable and biased toward the majority. At $k=n$ every query has the same neighbours, the whole sample, and the rule always predicts the majority class. On the iris petal plane the regions for $k=1$ follow the local labels closely, the regions for a moderate $k$ such as $7$ smooth the boundary, and a neighbourhood as large as $35$ pulls the decision toward the majority species. In practice $k$ is chosen by cross-validation. The apparent error always prefers $k=1$, for the same reason the $1$-nearest-neighbour apparent error is zero: each training point is its own nearest neighbour.
+
+Small neighbourhoods follow local noise. Large ones can smooth away a real minority-class pocket. Only a held-out comparison can tell whether added detail improves prediction. The iris picture illustrates the geometry. It does not claim that the true iris Bayes boundary is known.
+
+## Consistency and the factor of two
+
+::: {#thm-sl-11-consistency .theorem}
+## Bayes consistency of $k$-nearest neighbours
+
+In fixed-dimensional Euclidean space, the standard independent identically distributed $k$-nearest-neighbour rule is weakly universally consistent when $k=k_n\to\infty$ and $k_n/n\to 0$, with appropriate tie handling: its expected risk approaches the Bayes risk. More neighbours reduce voting noise. A vanishing sample fraction keeps the neighbourhood local.
+
+:::
+
+Fixed-$k$ bounds, including the factor-two bound for one neighbour, concern asymptotic risk under their stated conditions. They are not finite-sample upper bounds for an arbitrary metric, and they are not a promise about one iris split.
+
+The factor of two has a short argument for two classes. As $n\to\infty$, the nearest neighbour of a fixed $x$ converges to $x$, so its label is an independent draw from the same conditional distribution that produced the label $Y$ of a fresh point at $x$. Write $\tau=\tau_1(x)$. The two labels differ with probability
+
+$$
+2\tau(1-\tau):
+$$
+
+either the new point is class $1$ and the neighbour is class $0$, which has probability $\tau(1-\tau)$, or the reverse, which has the same probability. The Bayes rule, which knows $\tau(x)$, errs with conditional probability
+
+$$
+r(x)=\min(\tau,1-\tau).
+$$
+
+The identity $\tau(1-\tau)=r(1-r)$ rewrites the nearest-neighbour conditional error as $2r(1-r)$. To see the identity, take $\tau\le 1/2$, so $r=\tau$ and $\tau(1-\tau)=r(1-r)$. If instead $\tau>1/2$, then $r=1-\tau$ and $\tau(1-\tau)=(1-r)r$ again.
+
+Taking the expectation, the asymptotic nearest-neighbour error is
+
+$$
+\E\bigl[2r(X)\bigl(1-r(X)\bigr)\bigr]\le 2\E\bigl[r(X)\bigr]=2R^*,
+$$
+
+where $R^*=\E[r(X)]$ is the Bayes risk, because $1-r\le 1$. Jensen's inequality, using the concavity of $u\mapsto u(1-u)$ on $[0,1]$ together with $\E[r(X)]=R^*$, gives the sharper Cover–Hart bound
+
+$$
+\E\bigl[2r(1-r)\bigr]\le 2R^*(1-R^*).
+$$
+
+Concavity says $\E[r(1-r)]\le R^*(1-R^*)$, and the factor $2$ remains. The assumption that did the work is the convergence of the neighbour to $x$, which makes the neighbour's label a fresh draw from $\tau(x)$ rather than a draw from some other region. No parametric model was used. Even $k=1$, which stores the sample and estimates nothing else, pays at most twice the minimum possible error in the limit, and at most $2R^*(1-R^*)$.
+
+The universal-consistency conditions ask for more. The neighbourhood size $k$ must grow, so that the vote estimates $\tau(x)$ rather than merely sampling it once, and $k/n$ must shrink, so that the estimate is local. Finite-sample error can still be far from the Bayes error when the dimension is high or the sample is small. Consistency is a limit, not a statement about one finite sample.
+
+A coarser fixed-$k$ comparison multiplies the Bayes risk by $1+\sqrt{2/k}$. At $k=1$ that multiplier is $1+\sqrt{2}\approx 2.41$, larger than the factor two already proved, so the Cover–Hart bound is the sharper statement for a single neighbour. The multiplier falls toward $1$ as $k$ grows. Growing $k$ all the way to the sample size is a different regime: the rule then predicts the majority class, and the conditions $k_n\to\infty$ and $k_n/n\to 0$ both fail.
+
+A call that assesses a pre-specified $k$, with scaling fit on the training rows only, is
+
+```r
+scaled <- scale_train(x[tr, ], x[te, ])
+pred <- knn(train = scaled$train, test = scaled$test, cl = y[tr], k = 7)
+mean(pred != y[te])
+```
+
+If the scaling is itself estimated, `scale_train` has to be refit inside every cross-validation fold. That is the laboratory on [Estimating error rates](sl-09-error-rates.qmd).
+
+## Laboratory: what a distance metric changes
+
+The comparison holds $k$ fixed at $7$, chosen in advance, so the test set is not used to retune the neighbourhood. One classifier uses the raw predictors. The other standardises from the training flowers only and applies that same shift and scale to the test flowers. Any change in the predictions is then a change in the metric. `iris_scaled` stores that training-only standardisation.
+
+```r
+raw_pred <- class::knn(train[, 1:4], test[, 1:4], train$Species, k = 7)
+std_pred <- class::knn(iris_scaled$train, iris_scaled$test,
+                        train$Species, k = 7)
+c(raw_test_error = mean(raw_pred != test$Species),
+  scaled_test_error = mean(std_pred != test$Species),
+  changed_predictions = sum(raw_pred != std_pred))
+#>     raw_test_error scaled_test_error changed_predictions
+#>            0.06667           0.06667                   2
+d <- sqrt(rowSums(sweep(iris_scaled$train, 2,
+                         iris_scaled$test[1, ])^2))
+data.frame(Species = train$Species[order(d)[1:7]],
+           Distance = round(sort(d)[1:7], 3))
+#>   Species Distance
+#>   setosa     0.225
+#>   setosa     0.444
+#>   setosa     0.503
+#>   setosa     0.554
+#>   setosa     0.600
+#>   setosa     0.652
+#>   setosa     0.906
+```
+
+Both versions have test error $0.06667$, and two predictions change. Similar accuracy can sit on different neighbours, which is why the laboratory also prints the seven nearest training flowers to the first held-out flower under the standardised metric. All seven are setosa, at standardised distances $0.225$, $0.444$, $0.503$, $0.554$, $0.600$, $0.652$, and $0.906$. Standardisation gives the four measurements a common marginal scale. It does not make them equally relevant, it does not remove correlation, and it does not produce an optimal metric. An irrelevant predictor, scaled to unit variance, still moves the distances.
+
+::: {.callout-note}
+## Key idea
+The rule replaces a coefficient fit by stored observations, a metric, and a neighbourhood size. That simplicity does not remove model selection. Choose preprocessing and $k$ within training data, and inspect whether the resulting neighbours are meaningful. Consistency describes an infinite-data limit, not the adequacy of a particular sample.
+:::
+
+## Exercises
+
+::: {#ex-sl-11-1 .exercise}
+## Neighbours by hand
+
+Training data on a line: $x=1$ (class A), $2$ (A), $3$ (B), $6$ (B), $7$ (A). Classify $x=4$ with $k=1$, $3$, and $5$. How is the tie at the third neighbour handled for $k=3$?
+
+[Solution](#sol-sl-11-1)
+
+:::
+
+::: {#ex-sl-11-2 .exercise}
+## Changing units
+
+The query is $(0,0)$ and the training points are $a=(1,10)$ and $b=(3,1)$. Which is nearer in Euclidean distance? Divide the second coordinate by $10$ and repeat. What does this say about scale invariance?
+
+[Solution](#sol-sl-11-2)
+
+:::
+
+::: {#ex-sl-11-3 .exercise}
+## Rank distance
+
+Three training points are $(1,10)$, $(3,200)$, $(2.5,40)$ and the new point is $(2,50)$. Compute the ranks, from $1$ to $n+1=4$, in each coordinate and the rank distances. Which training point is the nearest neighbour? Show that the answer is unchanged if the second coordinate is replaced by its logarithm.
+
+[Solution](#sol-sl-11-3)
+
+:::
+
+::: {#ex-sl-11-4 .exercise}
+## The factor of two
+
+If $\tau_1(x)=0.9$ at a point, find the conditional Bayes error and the asymptotic nearest-neighbour error. Compare the multiplier $1+\sqrt{2/k}$ for $k=1$, $7$, and $50$.
+
+[Solution](#sol-sl-11-4)
+
+:::
+
+::: {#ex-sl-11-5 .exercise}
+## A tempting wrong turn
+
+A student chooses $k$ by minimising the training-set error of the $k$-nearest-neighbour classifier over $k=1,\ldots,50$, counting each training point as its own neighbour. What happens, and what should be done instead?
+
+[Solution](#sol-sl-11-5)
+
+:::
+
+::: {#ex-sl-11-6 .exercise}
+## Normalisation and nearest neighbours
+
+A nearest-neighbour classifier uses height in millimetres and a proportion between $0$ and $1$. An analyst proposes standardising the predictors before selecting $k$.
+
+(a) Explain why their relative scales matter and state one suitable transformation.
+
+(b) Describe how to choose $k$ using a validation set without contaminating a final test set.
+
+(c) Explain why standardisation does not guarantee that the two predictors become equally informative.
+
+[Solution](#sol-sl-11-6)
+
+:::
+
+::: {#ex-sl-11-7 .exercise}
+## Tuning a nearest-neighbour classifier
+
+A dataset contains labelled measurements of two plant species. Predictor variables use different units. There are enough observations for separate training, validation, and test sets. You want to select $k$ and estimate the accuracy of the resulting nearest-neighbour procedure.
+
+(a) Explain what normalising the predictors means here and why it is desirable. Specify which data determine the transformation.
+
+(b) Describe how all three sets should be used, including candidate choices, selection, optional refitting, and final evaluation.
+
+(c) Across many independent repetitions, selected validation accuracy tends to exceed test accuracy. Explain the mechanism.
+
+(d) Would a validation set also be useful for a decision tree? Give a reason and a concrete example.
+
+[Solution](#sol-sl-11-7)
+
+:::
+
+::: {#ex-sl-11-8 .exercise}
+## What an accuracy table does and does not say
+
+An untouched test set gives the following confusion matrix for a tuned classifier. Rows are true classes and columns are predicted classes.
+
+| true / predicted | class 1 | class 2 |
+|---|---:|---:|
+| class 1 | 18 | 2 |
+| class 2 | 8 | 32 |
+
+The chosen model had validation accuracy $0.93$.
+
+(a) Calculate the overall and both class-specific test error rates.
+
+(b) Explain why the validation accuracy may exceed test accuracy, without assuming that the data-generating distribution changed.
+
+(c) Describe a valid cross-validation design for choosing both scaling and $k$ in a nearest-neighbour classifier.
+
+(d) A colleague compares $50$ further settings using this same test set. Explain how the status of that set changes.
+
+(e) Would classifying everyone as class $2$ be a useful baseline? Calculate its overall accuracy on this set and explain the limitation of that metric.
+
+[Solution](#sol-sl-11-8)
+
+:::
