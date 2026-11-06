@@ -1,0 +1,82 @@
+# Estimation examples
+
+The definitions of an estimator, maximum likelihood, bias, and a confidence interval are in [Estimation](inf-02-estimation.qmd) and [Confidence intervals](inf-03-confidence-intervals.qmd). A confidence interval is not a [credible interval](bayes-01-foundations.qmd#def-bayesian-credible-interval): after the sample is observed the endpoints are numbers, and the confidence is a property of the procedure. This page keeps numerical examples of those procedures.
+
+For a normal sample with unknown variance the interval for the mean is $\overline x\pm t_{n-1,\,1-\alpha/2}\,s/\sqrt n$. For a large sample the same form with a normal quantile is the approximate interval, and it is the one used for a difference of proportions. The sample size that cuts a margin of error down to a chosen width follows because the margin is proportional to $1/\sqrt n$.
+
+## Exercises
+
+::: {#ex-da-normal-ten .exercise}
+## Ten normal observations
+
+These numbers are a normal sample with unknown mean and variance:
+
+$$
+2.86,\;4.16,\;6.35,\;3.92,\;5.96,\;5.12,\;6.43,\;3.03,\;4.80,\;3.79.
+$$
+
+Give a 95% confidence interval for the mean. Use $t_{9,\,0.975}=2.262$.
+
+[Solution](#sol-da-normal-ten)
+
+:::
+
+::: {#ex-da-melbourne-oil .exercise}
+## Household spending on fuel
+
+A sample of 51 households spends \$1136 a year on petrol and heating oil on average, with sample standard deviation \$178. Construct a 99% confidence interval for the mean annual spending. Use $t_{50,\,0.995}=2.678$.
+
+[Solution](#sol-da-melbourne-oil)
+
+:::
+
+::: {#ex-da-pilot-width .exercise}
+## Narrowing a pilot interval
+
+A pilot sample of 100 elderly people in nursing homes gave a 95% confidence interval $(59.3,\,82.5)$ kg for the mean weight. What sample size is needed for a 95% margin of error of 1 kg?
+
+[Solution](#sol-da-pilot-width)
+
+:::
+
+::: {#ex-da-paper-thickness .exercise}
+## Printer paper
+
+Ten sheets advertised as 100 µm thick measure
+
+$$
+97,\;102,\;104,\;96,\;108,\;105,\;101,\;99,\;96,\;102
+$$
+
+micrometres. Give a 95% confidence interval for the mean thickness, using $t_{9,\,0.975}=2.262$. Does the interval suggest the paper is not as advertised?
+
+[Solution](#sol-da-paper-thickness)
+
+:::
+
+::: {#ex-da-sleep-sample-size .exercise}
+## Hours of sleep
+
+Four students produced a 95% confidence interval $16.753\pm 7.39$ hours for the mean hours slept over a weekend. What is the smallest sample size that would bring the margin of error down to 2 hours, keeping the same estimated standard deviation and the same normal approximation to the critical value?
+
+[Solution](#sol-da-sleep-sample-size)
+
+:::
+
+::: {#ex-da-shady-poll .exercise}
+## A difference of proportions
+
+In a poll, 350 of 980 women and 420 of 1108 men said they would vote for a given candidate. Give a 90% confidence interval for the difference between the women's proportion and the men's proportion. Use $z_{0.95}=1.645$.
+
+[Solution](#sol-da-shady-poll)
+
+:::
+
+::: {#ex-da-juice-variance .exercise}
+## Variance of a fill volume
+
+Twenty-seven bottles of juice have sample standard deviation 5.86 ml. Give a 95% confidence interval for the variance $\sigma^2$. Use $\chi^2_{26,\,0.975}=41.92$ and $\chi^2_{26,\,0.025}=13.84$.
+
+[Solution](#sol-da-juice-variance)
+
+:::

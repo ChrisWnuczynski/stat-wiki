@@ -1,0 +1,58 @@
+# Regression examples
+
+Least squares, the normal linear model, the $t$ test for a slope, and the distinction between a confidence interval for the mean response and a prediction interval for a new observation are in [Linear regression](inf-06-regression.qmd). The same line with a prior on the coefficients is [Bayesian linear regression](bayes-09-linear-regression.qmd). Replacing the normal response by another exponential family is the [introduction to generalised linear models](01-introduction-to-glms.qmd).
+
+A fitted line is read from the coefficient table: the intercept and the slope, the residual standard error, and $R^2$. A quantile plot of the residuals is a check of the normal-error assumption. A straight plot supports it. A curve does not.
+
+## Exercises
+
+::: {#ex-da-pine-trees .exercise}
+## Height and age of pine trees
+
+A fit of height in metres on age in years for 50 trees gives intercept 5.5990 (standard error omitted, $t=6.082$) and slope 3.3949 with standard error 0.3899.
+
+(a) Write the fitted line and the predicted height at age 4.
+
+(b) The $t$ statistic for the slope is $3.3949/0.3899$. On 48 degrees of freedom its two-sided p-value is about $1.92\times 10^{-11}$. Is there a linear association?
+
+[Solution](#sol-da-pine-trees)
+
+:::
+
+::: {#ex-da-birth-weight .exercise}
+## Birth weight and mother's age
+
+For 74 babies whose mothers smoked, a fit of birth weight in grams on the mother's age gives
+
+$$
+\widehat{\mathrm{weight}}=3204.23-18.84\times\mathrm{age}.
+$$
+
+The p-value for the slope is 0.1102.
+
+(a) Predict the mean birth weight at ages 15 and 35.
+
+(b) Is the slope distinguishable from zero at level 0.05?
+
+[Solution](#sol-da-birth-weight)
+
+:::
+
+::: {#ex-da-orange-yield .exercise}
+## Rain, food, and orange yield
+
+A fit of yield in kilograms on rainfall in millimetres and citrus-food supplement in grams is
+
+$$
+\widehat{\mathrm{yield}}=99.504+0.01763\times\mathrm{rainfall}+0.04020\times\mathrm{food},
+$$
+
+with residual standard error 4.991 on 97 degrees of freedom and $R^2=0.454$.
+
+(a) Predict the yield at 1000 mm of rain and 500 g of food.
+
+(b) A 95% prediction interval at that point is $(127.38,\,147.18)$. Why is this wider than a confidence interval for the mean yield at the same point?
+
+[Solution](#sol-da-orange-yield)
+
+:::

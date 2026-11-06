@@ -28,7 +28,7 @@ A type I error rejects $H_0$ when $H_0$ is true. A type II error accepts $H_0$ w
 
 The two errors compete. Enlarging the critical region raises the power and also raises the type I error. The Neyman–Pearson choice is to fix the type I error at a chosen $\alpha$, and then to spend the remaining freedom on power. The power curve is the power as a function of the alternative.
 
-A test, written out in full, has eight steps: the model, the two hypotheses, the statistic, its null distribution, the observed value, the $p$-value or the critical region, the decision, and a sentence in the language of the original question.
+Numerical examples of the tests below are in [Testing examples](da-05-testing-examples.qmd). A test, written out in full, has eight steps: the model, the two hypotheses, the statistic, its null distribution, the observed value, the $p$-value or the critical region, the decision, and a sentence in the language of the original question.
 
 ## Tests for a normal mean and variance
 

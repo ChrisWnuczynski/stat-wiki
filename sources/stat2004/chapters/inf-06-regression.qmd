@@ -80,6 +80,8 @@ If the pairs $(X_i,Y_i)$ are themselves a random sample from a bivariate normal 
 Least squares chooses the line. The normal model gives the line a sampling distribution, and from that a $t$ interval for the slope, a shorter interval for the mean response, and a longer interval for a new observation.
 :::
 
+Further numerical fits, including a regression with two covariates, are in [Regression examples](da-07-regression-examples.qmd).
+
 ## Exercises
 
 ::: {#ex-inf-normal-equations .exercise}

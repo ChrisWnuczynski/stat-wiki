@@ -1,0 +1,41 @@
+# Chi-squared examples
+
+The Pearson statistic, the chi-squared limit for a fully specified multinomial, and the degrees of freedom $(r-1)(c-1)$ for a contingency table are in [Chi-squared tests](inf-05-chi-square.qmd). A table of two categorical variables is also the layout in [Descriptive statistics](da-02-descriptive-statistics.qmd). The likelihood-ratio comparison of the same independence model is part of [paired comparisons and deviance](05-comparisons-and-deviance.qmd).
+
+Under equal cell probabilities the expected count in each cell is $n/k$. Under independence the expected count is the product of the margins divided by $n$. The test rejects for large values of $\sum(O-E)^2/E$.
+
+## Exercises
+
+::: {#ex-da-possums .exercise}
+## Possums in five areas
+
+Counts of possums in five areas of similar size and habitat are 234, 301, 256, 315 and 274.
+
+(a) What are the expected counts if every area is equally attractive?
+
+(b) Compute the Pearson statistic.
+
+(c) Under the null hypothesis the statistic is approximately $\chi^2_4$. The upper tail beyond 15.63 is 0.0036. What is the conclusion at level 0.05?
+
+[Solution](#sol-da-possums)
+
+:::
+
+::: {#ex-da-fruit-flies .exercise}
+## Genotype and mating success
+
+Fifty mating trials cross genotype (AA, AB, BB) with mating success (no, yes):
+
+| | No | Yes |
+|---|---:|---:|
+| AA | 6 | 6 |
+| AB | 15 | 14 |
+| BB | 2 | 7 |
+
+(a) Find the expected counts under independence.
+
+(b) The Pearson statistic has p-value 0.2853. Is there evidence of an association at level 0.05?
+
+[Solution](#sol-da-fruit-flies)
+
+:::

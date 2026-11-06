@@ -5,7 +5,7 @@
 ::: {#def-posterior-hypothesis-probability .definition}
 ## Posterior hypothesis probability
 
-Suppose a parameter space $\Omega$ is partitioned into regions $\Omega_0$ and $\Omega_1$. The posterior hypothesis probabilities are \begin{align*}
+Suppose a parameter space $\Omega$ is partitioned into regions $\Omega_0$ and $\Omega_1$. A test that instead reports a long-run $p$-value under a null sampling model is a [hypothesis test](inf-04-hypothesis-tests.qmd). Numerical examples of those tests are in [Testing examples](da-05-testing-examples.qmd). The posterior hypothesis probabilities are \begin{align*}
  \Pr(H_0\given x)
  &=\Pr(\theta\in\Omega_0\given x)
  =\int_{\Omega_0}p(\theta\given x)\dd\theta,\\
