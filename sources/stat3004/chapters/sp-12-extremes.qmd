@@ -1,0 +1,106 @@
+# A first look at extremes
+
+An average is pulled by many observations. A maximum is pulled by the upper tail. The scaling that produces a non-degenerate limit for the maximum is therefore different from the $\sqrt{n}$ scaling in the [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem).
+
+For independent copies, $\mathrm{P}(M_n\le x)=F(x)^n$ is also the starting point of the distribution of a coordinatewise maximum. The transformation rule and the distribution of a function of one variable are on [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd). This page computes that power exactly for three tails, reads the scaling off the tail, and records what dependence does to the count of independent chances.
+
+## The exact distribution of a maximum
+
+Let $X_1,\ldots,X_n$ be independent with common distribution function $F$, and let $M_n=\max_i X_i$. Independence factors the joint event:
+
+$$
+\mathrm{P}(M_n\le x)=\mathrm{P}(X_1\le x,\ldots,X_n\le x)=F(x)^n.
+$$
+
+If $F(x)<1$, this tends to $0$ as $n$ grows: the maximum eventually exceeds any fixed level that is not an upper endpoint of the distribution. A non-degenerate limit needs a centring sequence $b_n$ and a scale $a_n>0$ such that $(M_n-b_n)/a_n$ has a distribution function that settles somewhere other than $0$ and $1$. The sequences depend on the tail of $F$.
+
+## Three tails
+
+### Exponential tails, and the Gumbel law
+
+Let $X_i$ be exponential with rate $\lambda$, so $\mathrm{P}(X>x)=e^{-\lambda x}$ for $x>0$. Set $b_n=(\log n)/\lambda$ and $a_n=1/\lambda$. Then
+
+$$
+\mathrm{P}\Bigl(\frac{M_n-b_n}{a_n}\le x\Bigr)
+=\Bigl(1-e^{-\lambda(b_n+a_n x)}\Bigr)^n
+=\Bigl(1-\frac{e^{-x}}{n}\Bigr)^n
+\to e^{-e^{-x}}.
+$$
+
+The limit is the Gumbel distribution function. The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. Light tails of exponential type fall into this family under suitable conditions on $F$.
+
+### Power-law tails, and the Fréchet law
+
+Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail. Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$,
+
+$$
+\mathrm{P}(M_n/a_n\le x)=\bigl(1-(n^{1/\alpha}x)^{-\alpha}\bigr)^n=\Bigl(1-\frac{x^{-\alpha}}{n}\Bigr)^n\to e^{-x^{-\alpha}}.
+$$
+
+The limit is the Fréchet distribution function. The heavy tail changes the scale from $\log n$ to a power of $n$. Multiplying the sample size by a constant multiplies this scale by that constant to the power $1/\alpha$.
+
+### A finite endpoint, and a Weibull extreme-value law
+
+Let $X_i$ be uniform on $(0,1)$, so the upper endpoint is $1$. Set $Y_n=n(1-M_n)$. For $y\ge 0$ and $n>y$,
+
+$$
+\mathrm{P}(Y_n>y)=\mathrm{P}(M_n<1-y/n)=\Bigl(1-\frac{y}{n}\Bigr)^n\to e^{-y}.
+$$
+
+Equivalently, $n(M_n-1)$ converges in distribution to a reversed exponential law supported on $(-\infty,0]$. This is an example of the Weibull extreme-value type. The name is the extreme-value type, not the [Weibull distribution](prob-07-reliability.qmd#def-weibull-distribution) used there as a lifetime model. A finite endpoint changes both the centring, which approaches the endpoint, and the support of the limit, which lies on one side of $0$.
+
+The three limits correspond to three upper-tail structures: a finite endpoint, a light unbounded tail, and a heavy unbounded tail.
+
+## What the classification says
+
+Any non-degenerate limit of an affinely normalised maximum of independent copies, when such a limit exists, belongs to one of these three types. The classification does not say that every distribution has such a limit. It does not identify the tail from a short sample. Dependence, a distribution that changes with time, a measurement ceiling, and the choice of threshold can all dominate the numerical approximation. The calculations above are the exact limits for three specific laws. They are not an estimation procedure for a tail index.
+
+## Reading a scale off the tail
+
+A level $u_n$ at which about one exceedance is expected in $n$ observations satisfies
+
+$$
+n\,\mathrm{P}(X>u_n)\approx 1.
+$$
+
+For an exponential tail $e^{-\lambda u}$ this gives $u_n\approx(\log n)/\lambda$, the centring used above. For a Pareto tail $u^{-\alpha}$ it gives $u_n\approx n^{1/\alpha}$. For a distribution with finite upper endpoint $x_F$ it gives a level approaching $x_F$ from below. The heuristic suggests a normalisation. The limit still has to be computed from $F(b_n+a_n x)^n$, as in the three examples.
+
+The same tail arithmetic is why an average and a maximum answer different questions about risk. A finite-variance central limit theorem describes fluctuations of order $\sqrt{n}$ around the mean. It does not describe a high quantile driven by a heavy tail. An extreme-value approximation describes that upper tail. Using it as a statement about the mean still requires the mean to exist. A Pareto law with $\alpha\le 1$ has an infinite mean, and the maximum scaling $n^{1/\alpha}$ is then a statement about a variable whose expectation is already infinite.
+
+## Dependence changes the number of independent chances
+
+The identity $\mathrm{P}(M_n\le x)=F(x)^n$ uses independence. If $X_1=\cdots=X_n$ exactly, then $M_n=X_1$ and the maximum does not grow with $n$. Weak dependence can still leave an extreme-value limit in place, often with a factor that accounts for clusters of exceedances. That factor is not automatic. Measurements taken close together in time or in space can share one excursion. Treating them as independent counts each excursion many times and overstates the number of independent chances for an extreme.
+
+::: {.callout-note}
+## Key idea
+For independent copies, $\mathrm{P}(M_n\le x)=F(x)^n$. An exponential tail produces a Gumbel limit after centring at $(\log n)/\lambda$. A Pareto tail of index $\alpha$ produces a Fréchet limit on the scale $n^{1/\alpha}$. A uniform sample produces a Weibull extreme-value limit for the gap $n(1-M_n)$. Dependence replaces $n$ by a smaller count of independent chances.
+:::
+
+## Exercises
+
+::: {#ex-sp-uniform-max .exercise}
+## The expected maximum of $n$ uniforms
+
+For $n$ independent $\mathrm{Uniform}(0,1)$ variables, find $\E M_n$ and show that it tends to the upper endpoint.
+
+[Solution](#sol-sp-uniform-max)
+
+:::
+
+::: {#ex-sp-gumbel-scale .exercise}
+## Scaling an exponential maximum
+
+For independent $\mathrm{Exp}(2)$ variables, give $a_n$ and $b_n$ that produce the Gumbel limit.
+
+[Solution](#sol-sp-gumbel-scale)
+
+:::
+
+::: {#ex-sp-pareto-factor .exercise}
+## A heavier sample and its maximum
+
+A Pareto upper tail has exponent $\alpha=2$. By what factor does the scale of the typical maximum change when the sample size is multiplied by $4$?
+
+[Solution](#sol-sp-pareto-factor)
+
+:::

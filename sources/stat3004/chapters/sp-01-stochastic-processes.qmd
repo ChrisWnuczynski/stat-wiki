@@ -1,0 +1,134 @@
+# Stochastic processes
+
+A stochastic process is a family of random variables indexed by time, or by some other parameter. The index says when the process is observed. The random variable says what is seen then. A random walk records a position after each step, a branching process records a population by generation, and a queue records how many customers are present at each instant. These are different models because the state, the clock, and the dependence are different.
+
+A single random variable, its expectation, and its variance are on [Random variables and distributions](prob-02-random-variables.qmd). The inequalities used below to turn a mean into a probability bound are the ones behind the [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers). What this page adds is the object those tools are applied to: a whole collection $\{X_t:t\in T\}$, and the modelling choices that decide which later theorem is allowed to run.
+
+## The object being modelled
+
+::: {#def-sp-stochastic-process .definition}
+## Stochastic process
+
+A stochastic process on a probability space $(\Omega,\mathcal{F},\mathrm{P})$, with state space $S$ and index set $T$, is a family $\{X_t:t\in T\}$ of $S$-valued random variables. If $T=\{0,1,2,\ldots\}$, time is discrete. If $T=[0,\infty)$, time is continuous.
+
+:::
+
+One outcome $\omega$ produces the function $t\mapsto X_t(\omega)$. That function is a sample path. The distribution of the single variable $X_t$ is a marginal distribution. The joint distributions of $(X_{t_1},\ldots,X_{t_k})$, for every finite list of times, are the finite-dimensional distributions. The marginals do not determine those joints, so they do not determine the dependence across time.
+
+::: {#exm-sp-repeated-bit .example}
+## One bit, or a fresh bit every time
+
+Let $B$ be a fair Bernoulli variable, so $\Pr(B=1)=\Pr(B=0)=1/2$.
+
+**Question.** Compare the process $X_n=B$ for every $n$ with a process $Y_n$ of independent fair Bernoulli variables.
+
+**Solution.** At each fixed time both processes are Bernoulli$(1/2)$. The joints disagree. The repeated bit satisfies $\Pr(X_1=X_2)=1$. The independent bits satisfy
+
+$$
+\Pr(Y_1=Y_2)=\Pr(Y_1=Y_2=0)+\Pr(Y_1=Y_2=1)=\tfrac12\cdot\tfrac12+\tfrac12\cdot\tfrac12=\tfrac12.
+$$
+
+A model for repeated observations has to say how the observations are coupled. Matching every marginal is not enough.
+
+:::
+
+## State, clock, and assumptions
+
+Name the state $X_t$ before any calculation: what it measures, its units, and the set $S$ it lives in. Then name the clock. A generation in a branching process is not elapsed time, and the number of arrivals at a desk is not the number of calls still waiting. Then say which increments, individuals, or waiting times are independent. Those three choices decide which theorems apply.
+
+Two properties are about shifts of the clock.
+
+::: {#def-sp-increments .definition}
+## Stationary and independent increments
+
+The process has stationary increments when the difference $X_{t+h}-X_t$ has a distribution that depends on the length $h$ and not on the time $t$. It has independent increments when increments over disjoint intervals are independent.
+
+:::
+
+Neither property says that the levels $X_t$ are identically distributed. Stationary increments fix the law of a change over an interval of length $h$. The level $X_t$ can still spread out as $t$ grows, which is what a Poisson count and a random walk both do.
+
+## A small toolkit
+
+For integrable random variables, expectation adds whether or not the variables are independent:
+
+$$
+\E(X+Y)=\E X+\E Y.
+$$
+
+Independence is the extra assumption that makes variances add: $\Var(X+Y)=\Var(X)+\Var(Y)$. The conditional versions separate two sources of variation. If the expectations exist,
+
+$$
+\E X=\E\bigl\{\E(X\given Y)\bigr\},
+\qquad
+\Var(X)=\E\bigl\{\Var(X\given Y)\bigr\}+\Var\bigl\{\E(X\given Y)\bigr\}.
+$$
+
+The first identity is the [tower property](prob-04-joint-distributions.qmd#thm-tower-property). The second is the law of total variance: average the conditional variance, then add the variance of the conditional mean. Branching populations and random walks both use this split, because the next step is easy to describe once the present state is known.
+
+For a non-negative random variable and $a>0$, Markov's inequality is the comparison $X\ge a\,1_{\{X\ge a\}}$. Taking expectations gives $a\Pr(X\ge a)\le\E X$, so
+
+$$
+\Pr(X\ge a)\le\frac{\E X}{a}.
+$$
+
+If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality:
+
+$$
+\Pr\bigl(|X-\E X|\ge\varepsilon\bigr)\le\frac{\Var(X)}{\varepsilon^2}.
+$$
+
+Both are bounds. They are useful when a mean or a variance is easy and the full distribution is not. They are the bounds that turn a finite variance into the weak law on [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers).
+
+## A modelling checklist
+
+Consider a help desk. Let $N(t)$ count calls received by time $t$, and let $Q(t)$ count calls that are waiting or being served at time $t$. The first path is non-decreasing. The second rises when a call arrives and falls when a call finishes. A Poisson model for $N$ does not make $Q$ Poisson. A model for $Q$ also needs the service durations and a rule for what happens when calls overlap.
+
+The state may be a number or a vector. If service times are exponential and there is one server, the current count can be a Markov state, because an exponential clock has no memory of how long it has already run. That memoryless property is on [Random variables and distributions](prob-02-random-variables.qmd#thm-memoryless). If instead every service lasts exactly ten minutes, knowing that one call is in service does not say whether it departs in one second or in ten minutes. The state has to be enlarged by the elapsed service time, or by the remaining service time. The Markov property is a statement about a chosen state, not a property of the physical system on its own. The finite-state case of that property is on [Markov chains](prob-06-markov-chains.qmd). The hitting calculations, the class structure, and the continuous-time generator are developed later in this section.
+
+Stationary increments and independent increments come apart in the same way. A random walk with independent identically distributed steps has both. A Poisson process whose rate changes with calendar time keeps independent increments over disjoint intervals, and loses stationary increments, because an interval at a busy hour is not distributed as an interval of the same length at a quiet hour. The repeated bit $X_n=B$ has increments equal to zero after time $0$, so the increments are simple, while the levels are perfectly dependent. Naming the property selects the theorem.
+
+::: {#exm-sp-hundred-steps .example}
+## A walk after one hundred steps
+
+Suppose the daily increments $Y_i$ are independent, with $\Pr(Y_i=1)=0.6$ and $\Pr(Y_i=-1)=0.4$, and $S_0=0$.
+
+**Question.** Find the mean and standard deviation of $S_{100}$. Say what that calculation does not answer.
+
+**Solution.** Each step has mean $\E Y_i=0.6-0.4=0.2$ and second moment $\E Y_i^2=1$, so
+
+$$
+\Var(Y_i)=1-(0.2)^2=0.96.
+$$
+
+Independence gives $\E S_{100}=100\times 0.2=20$ and $\Var(S_{100})=100\times 0.96=96$, so the standard deviation is $\sqrt{96}\approx 9.80$. A normal approximation, from the [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem), describes the position at the fixed time $n=100$. It does not say whether the path $S_0,S_1,\ldots,S_{100}$ ever fell below $-5$. That is a question about the whole path. First-passage calculations for a walk are on [Random walks and first passage](sp-03-random-walks.qmd).
+
+:::
+
+## What a model can identify
+
+A full model specifies a joint law for the observations that the question actually uses. The calculations can be exact while the observations still fail to identify the assumptions. A short sequence of arrival counts can agree with a constant-rate Poisson process and with a process whose rate drifts slowly. The two models predict different clustering and different counts from one period to the next, so those features discriminate more sharply than a single overall average. The same gap, between a mathematical consequence and what a record can identify, returns for extinction probabilities, for stationary distributions, and for limits of maxima.
+
+::: {.callout-note}
+## Key idea
+A stochastic process is the whole family $\{X_t\}$, not one marginal. State, clock, and independence have to be named before a theorem applies. Stationary increments fix changes over an interval of a given length. They do not freeze the distribution of the level $X_t$.
+:::
+
+## Exercises
+
+::: {#ex-sp-same-marginals .exercise}
+## Same marginals, different joints
+
+Construct two processes that are Bernoulli$(p)$ at every time and that have different joint distributions at times $1$ and $2$. Compute $\Pr(X_1=X_2)$ for each.
+
+[Solution](#sol-sp-same-marginals)
+
+:::
+
+::: {#ex-sp-increments-and-levels .exercise}
+## Stationary increments are not a fixed level
+
+A process $N(t)$ counts arrivals during $(0,t]$. Explain why stationary increments do not imply that $N(t)$ has a distribution free of $t$.
+
+[Solution](#sol-sp-increments-and-levels)
+
+:::

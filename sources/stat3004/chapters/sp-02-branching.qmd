@@ -1,0 +1,185 @@
+# Galton–Watson branching
+
+Each individual independently produces a random number of offspring, from one common distribution. The next generation is the sum of those offspring counts. The local rule is simple. The global question is sharp: does the lineage die out?
+
+The offspring law is a distribution on the non-negative integers, packaged by its [probability generating function](prob-02-random-variables.qmd#def-probability-generating-function). The sheet writes that transform as $G(z)$. Here it is written $f(s)$, because the calculation iterates $f$ once per generation. The count $Z_n$ is also a Markov chain on $\{0,1,2,\ldots\}$, in the sense of [Markov chains](prob-06-markov-chains.qmd), but the step $Z_{n+1}-Z_n$ depends on how large $Z_n$ already is, so the process is not a random walk.
+
+## Definition and the probability generating function
+
+Let $Z_0=1$. For $n\ge 0$,
+
+$$
+Z_{n+1}=\sum_{i=1}^{Z_n}\xi_{n,i},
+$$
+
+where the offspring variables $\xi_{n,i}$ are independent and identically distributed non-negative integers, with $\Pr(\xi=k)=p_k$, mean $m$, and variance $\sigma^2$. The empty sum is $0$, so the state $0$ is absorbing: once the lineage is extinct it stays extinct.
+
+::: {#def-sp-offspring-pgf .definition}
+## Offspring probability generating function
+
+The offspring probability generating function is
+
+$$
+f(s)=\E(s^{\xi})=\sum_{k\ge 0}p_k s^k, \qquad 0\le s\le 1.
+$$
+
+It satisfies $f(1)=1$. If the mean is finite, $f'(1-)=m$. If $\E[\xi(\xi-1)]$ is finite, $f''(1-)=\E[\xi(\xi-1)]$.
+
+:::
+
+Condition on the present generation. Each of the $Z_n$ individuals contributes an independent factor $f(s)$, so
+
+$$
+\E(s^{Z_{n+1}}\given Z_n)=f(s)^{Z_n}.
+$$
+
+Write $f_n(s)=\E(s^{Z_n})$. Taking the expectation of the display gives $f_{n+1}(s)=f_n\bigl(f(s)\bigr)$. With $f_0(s)=s$, the transform $f_n$ is the $n$-fold composition $f\circ f\circ\cdots\circ f$. Composition, rather than multiplication, is the generating-function expression of generations nested inside generations. A sum of a fixed number of independent copies would multiply the transforms. Here the number of copies is itself the previous generation.
+
+## Mean and variance by generation
+
+Conditional on $Z_n$, the next generation is a sum of $Z_n$ independent copies of $\xi$, so its conditional mean is $m Z_n$ and its conditional variance is $\sigma^2 Z_n$. The [tower property](prob-04-joint-distributions.qmd#thm-tower-property) and the law of total variance from [Stochastic processes](sp-01-stochastic-processes.qmd) therefore give $\E Z_{n+1}=m\,\E Z_n$ and
+
+$$
+v_{n+1}=m^2 v_n+\sigma^2 m^n,
+$$
+
+where $v_n=\Var(Z_n)$ and $v_0=0$. The mean iteration starts at $\E Z_0=1$, so
+
+$$
+\E Z_n=m^n.
+$$
+
+Unfold the recurrence. The step from $n-1$ contributes $\sigma^2 m^{n-1}$, the step from $n-2$ is multiplied by $m^2$ once it has entered, and so on back to $v_0=0$:
+
+$$
+v_n=\sum_{j=0}^{n-1} m^{2j}\,\sigma^2 m^{n-1-j}=\sigma^2 m^{n-1}\sum_{j=0}^{n-1} m^j.
+$$
+
+For $m\neq 1$ the geometric sum is $(m^n-1)/(m-1)$, so
+
+$$
+\Var(Z_n)=\sigma^2 m^{n-1}\frac{m^n-1}{m-1}\qquad(m\neq 1),
+$$
+
+and $\Var(Z_n)=n\sigma^2$ when $m=1$. The formula stays non-negative when $m<1$, because $m^n-1$ and $m-1$ have the same sign. The critical case is the limit of the same expression: $(m^n-1)/(m-1)\to n$ as $m\to 1$, so $\sigma^2 m^{n-1}$ times that ratio tends to $n\sigma^2$.
+
+One check at $n=1$: the variance should be $\sigma^2$. The formula gives $\sigma^2 m^{0}(m-1)/(m-1)=\sigma^2$.
+
+## Extinction as a fixed point
+
+Let $q_n=\Pr(Z_n=0)=f_n(0)$. Because $0$ is absorbing, $\{Z_n=0\}\subset\{Z_{n+1}=0\}$, so the sequence $q_n$ increases. It is bounded by $1$, so it has a limit $q=\Pr(Z_n=0\text{ for some }n)$, the probability of eventual extinction. The generating function is continuous on $[0,1]$, and $q_{n+1}=f(q_n)$, so the limit satisfies $q=f(q)$. Starting the iteration at $0$ shows that $q$ is the smallest fixed point of $f$ in $[0,1]$.
+
+::: {#thm-sp-extinction .theorem}
+## Extinction criterion
+
+For a non-degenerate Galton–Watson process with $p_0>0$, the extinction probability is $q=1$ when $m\le 1$, and $q<1$ when $m>1$. If $p_0=0$, extinction is impossible and $q=0$. The deterministic law $\xi\equiv 1$ has mean $m=1$ and extinction probability $q=0$.
+
+:::
+
+The generating function of a non-negative integer law is increasing and convex on $[0,1]$, with $f(1)=1$ and left derivative $m$ at $1$. Suppose $m>1$ and $p_0>0$. Then $f(0)=p_0>0$, so $f(s)-s$ is positive at $s=0$. The slope at $1$ is greater than $1$, so just to the left of $1$ the graph of $f$ lies below the diagonal. A smaller root of $f(s)=s$ therefore exists in $(0,1)$, and the extinction probability is that root.
+
+Suppose $m\le 1$, the law is not concentrated at a single point, and $p_0>0$. Convexity puts the graph of $f$ strictly above the diagonal on $[0,1)$: the slope coming into $1$ is at most $1$, and the graph is not the diagonal itself. There is then no fixed point below $1$, so $q=1$. The deterministic one-child law is the excluded case. Its generating function is $f(s)=s$, every point is a fixed point, and the iteration that starts at $0$ stays at $0$.
+
+::: {.callout-warning}
+## Watch the assumption
+The mean decides which side of the threshold the process is on. It does not, by itself, give the numerical value of $q$. Two supercritical offspring laws with the same mean can have very different extinction probabilities, because $q$ is a fixed point of the whole function $f$.
+:::
+
+::: {#exm-sp-two-or-none .example}
+## Two offspring or none
+
+Suppose $\Pr(\xi=0)=1/4$ and $\Pr(\xi=2)=3/4$.
+
+**Question.** Find the mean, the offspring generating function, and the extinction probability.
+
+**Solution.** The mean is $m=0\cdot(1/4)+2\cdot(3/4)=3/2>1$, so the process is supercritical and $q<1$. The generating function is
+
+$$
+f(s)=\tfrac14+\tfrac34 s^2.
+$$
+
+The fixed-point equation $s=1/4+(3/4)s^2$ rearranges to $3s^2-4s+1=0$, or $(3s-1)(s-1)=0$. The roots are $s=1/3$ and $s=1$. The smallest root in $[0,1]$ is $q=1/3$. The lineage survives with probability $2/3$, while the expected population still grows as $(3/2)^n$.
+
+:::
+
+## Subcritical decay, and what the model leaves out
+
+If $m<1$, Markov's inequality applies to the non-negative variable $Z_n$:
+
+$$
+\Pr(Z_n>0)=\Pr(Z_n\ge 1)\le\E Z_n=m^n.
+$$
+
+The bound tends to $0$, which is a second proof that extinction has probability $1$, and it is a concrete upper bound on survival to generation $n$. At criticality the same bound is $1$, which says nothing. Extinction at $m=1$ comes from the shape of $f$, under the non-degeneracy assumption in the theorem, not from Markov's inequality.
+
+The model assumes independent, identically distributed reproduction and no limit on resources. A density-dependent population, in which a large generation produces fewer offspring per individual, is a different drift and can have a different long-run behaviour.
+
+## Other offspring laws
+
+If $\xi\sim\mathrm{Poisson}(\lambda)$, the [Poisson distribution](../reference/distributions.qmd) has generating function $f(s)=e^{\lambda(s-1)}$. The mean is $\lambda$. The extinction probability is the smallest solution of $q=e^{\lambda(q-1)}$. There is no elementary closed form in general. The iteration $q_{n+1}=f(q_n)$ with $q_0=0$ is still the probability of extinction by generation $n$. For $\lambda\le 1$ the limit is $1$. For $\lambda>1$ the limit is strictly less than $1$.
+
+For a geometric offspring law supported on $\{0,1,2,\ldots\}$,
+
+$$
+\Pr(\xi=k)=(1-r)r^k, \qquad k\ge 0,\quad 0<r<1,
+$$
+
+the generating function is $f(s)=(1-r)/(1-rs)$ and the mean is $m=r/(1-r)$. This is not the geometric law on the [common distributions](../reference/distributions.qmd) sheet. That law is the number of trials until the first success, supported on $\{1,2,\ldots\}$. The offspring law here counts children and includes $0$.
+
+The fixed-point equation $q=(1-r)/(1-rq)$ rearranges to $rq^2-q+(1-r)=0$. One root is $q=1$. Factoring out $(1-q)$ leaves the second root $q=(1-r)/r$. If $r>1/2$, then $m>1$ and $(1-r)/r<1$, so $q=(1-r)/r$. If $r\le 1/2$, then $m\le 1$ and the admissible extinction probability is $1$. The threshold is the same mean condition $m=1$. The number $q$ comes from the whole generating function.
+
+## Total family size
+
+Let $T=\sum_{n\ge 0} Z_n$, including the initial ancestor. If $m<1$, the partial sums increase to $T$. The monotone convergence theorem, stated on [Expectation and convergence](sp-11-convergence.qmd), lets the expectation pass inside the sum:
+
+$$
+\E T=\sum_{n\ge 0}\E Z_n=\sum_{n\ge 0}m^n=\frac{1}{1-m}.
+$$
+
+At $m\ge 1$ the geometric series diverges, so the expected total size is infinite. An infinite expectation does not mean that an infinite family tree occurs with positive probability. In the critical non-degenerate case, extinction is certain, and the total family size still has infinite mean. An infinite expectation is not a typical outcome.
+
+The same subcritical formula comes from a first-generation decomposition. Let $T_1,T_2,\ldots$ be independent copies of $T$, one from each child of the ancestor. Then
+
+$$
+T\;\stackrel{d}{=}\; 1+\sum_{i=1}^{\xi} T_i.
+$$
+
+If the expectation is finite, $\E T=1+m\,\E T$, so $\E T=1/(1-m)$. The algebra uses a finite expectation. At $m\ge 1$ that step would treat an infinite number as if it were finite.
+
+## Generations and dependence
+
+Under independent identical reproduction, $Z_n$ is a Markov chain: the next generation depends on the past only through the current number of individuals. It is not a random walk. The law of $Z_{n+1}-Z_n$ depends on $Z_n$, because more individuals mean more independent offspring draws. The conditional mean drift is $(m-1)Z_n$, which grows with the population. A density-dependent process would change that drift again, often by making a large population less productive per individual.
+
+::: {.callout-note}
+## Key idea
+The extinction probability is the smallest root of $f(s)=s$ in $[0,1]$. For a non-degenerate offspring law with $p_0>0$, that root is $1$ when the mean is at most $1$, and it is strictly smaller when the mean is greater than $1$. The mean sets the threshold. The root uses the whole offspring law.
+:::
+
+## Exercises
+
+::: {#ex-sp-critical-extinction .exercise}
+## A critical offspring law
+
+For the offspring law $\Pr(\xi=0)=2/5$, $\Pr(\xi=1)=1/5$, $\Pr(\xi=2)=2/5$, find the mean, the probability generating function, and the extinction probability. Explain the result.
+
+[Solution](#sol-sp-critical-extinction)
+
+:::
+
+::: {#ex-sp-many-ancestors .exercise}
+## Several ancestors
+
+Starting from $Z_0=r$ independent ancestors, express the extinction probability in terms of the one-ancestor extinction probability $q$.
+
+[Solution](#sol-sp-many-ancestors)
+
+:::
+
+::: {#ex-sp-variance-recurrence .exercise}
+## The variance recurrence
+
+Derive $\Var(Z_{n+1})=m^2\Var(Z_n)+\sigma^2 m^n$ from the law of total variance, and check that the critical-case formula is the limit of the $m\neq 1$ formula as $m\to 1$.
+
+[Solution](#sol-sp-variance-recurrence)
+
+:::

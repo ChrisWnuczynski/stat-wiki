@@ -1,0 +1,165 @@
+# Random variables and laws
+
+A random variable is a measurable map from outcomes to numbers. Its distribution is the probability it induces on the line. Two variables defined on different sample spaces can share a distribution. Two variables with the same marginal distributions can still depend on each other in different ways.
+
+The elementary definition, the probability mass function, the density, expectation as a sum or an integral, and the named families are on [Random variables and distributions](prob-02-random-variables.qmd). Joint laws and independence of random variables are on [Joint distributions](prob-04-joint-distributions.qmd). This page supplies the measure-theoretic layer those calculations sit on: measurability, the construction of expectation from simple variables, the existence of a law and of a process, and the care with endpoints of a distribution function. The probability space $(\Omega,\mathcal{F},\mathrm{P})$ is the one on [Probability spaces and events](sp-09-probability-spaces.qmd).
+
+## Measurability and the distribution
+
+::: {#def-sp-measurable-rv .definition}
+## Measurable random variable
+
+A map $X:\Omega\to\mathbb{R}$ is a random variable when $\{\omega: X(\omega)\le x\}\in\mathcal{F}$ for every $x\in\mathbb{R}$. Its cumulative distribution function is $F_X(x)=\mathrm{P}(X\le x)$.
+
+:::
+
+It is enough to check the inverse images of the generating intervals $(-\infty,x]$. The sigma-algebra property then puts the inverse image of every Borel set into $\mathcal{F}$. The induced law is $\mathrm{P}_X(B)=\mathrm{P}(X\in B)$ for $B\in\mathcal{B}(\mathbb{R})$.
+
+The distribution function is non-decreasing and right-continuous, with limit $0$ at $-\infty$ and limit $1$ at $+\infty$. Right-continuity is the convention $F_X(x)=\mathrm{P}(X\le x)$: the value at $x$ includes the atom at $x$. The jump at $x$ equals that atom,
+
+$$
+\mathrm{P}(X=x)=F_X(x)-F_X(x-).
+$$
+
+A distribution function may jump, increase continuously, or do both.
+
+For a pair, the joint distribution function is $F_{X,Y}(x,y)=\mathrm{P}(X\le x,\,Y\le y)$. Independence means $\mathrm{P}(X\in A,\,Y\in B)=\mathrm{P}(X\in A)\mathrm{P}(Y\in B)$ for all Borel $A$ and $B$, which for these variables is equivalent to $F_{X,Y}(x,y)=F_X(x)F_Y(y)$ for all $x$ and $y$. The two marginals do not determine the joint law. That fact is already visible in a $2\times 2$ table on [Joint distributions](prob-04-joint-distributions.qmd#def-independent-random-variables). The example below is the same fact in the notation of a single bit.
+
+::: {#exm-sp-linked-bits .example}
+## Two pairings of the same bits
+
+Let $U$ be Bernoulli$(1/2)$. Set $X=U$ and $Y=1-U$ in one pairing, and set $X=U$ and $Y=U$ in another.
+
+**Question.** Compare the marginals and the joints.
+
+**Solution.** In both pairings each margin is Bernoulli$(1/2)$. In the first, $\mathrm{P}(X=1,Y=1)=0$. Independence would require $1/4$. In the second, $\mathrm{P}(X=1,Y=1)=1/2$, and $\mathrm{P}(X=Y)=1$. The same margins support a perfect negative association, a perfect positive association, and, with a different construction of two independent bits, the independent pairing $\mathrm{P}(X=Y)=1/2$.
+
+:::
+
+A distribution function with jumps of size $1/3$ at $-1$ and $2/3$ at $2$ is the law $\mathrm{P}(X=-1)=1/3$, $\mathrm{P}(X=2)=2/3$. It equals $0$ for $x<-1$, equals $1/3$ for $-1\le x<2$, and equals $1$ for $x\ge 2$. The height of each jump is the point mass.
+
+## Simple variables and expectation
+
+A non-negative simple random variable takes finitely many non-negative values. Write
+
+$$
+X=\sum_{i=1}^m a_i\, 1_{A_i}
+$$
+
+with the $A_i$ disjoint and measurable and $a_i\ge 0$. Define $\E X=\sum_i a_i\mathrm{P}(A_i)$. For a general non-negative measurable $X$, choose simple $X_n$ with $0\le X_n\uparrow X$ and define $\E X=\lim_n\E X_n$, allowing the value $+\infty$. The limit does not depend on the approximating sequence. This is the integral of $X$ with respect to $\mathrm{P}$.
+
+For a real-valued $X$, split $X=X^+-X^-$ with $X^+=\max(X,0)$ and $X^-=\max(-X,0)$, so $|X|=X^++X^-$. If $\E|X|<\infty$, both parts have finite expectation and
+
+$$
+\E X=\E X^+-\E X^-
+$$
+
+is a finite, unambiguous number. If both parts have infinite expectation, the difference of the two infinities is not defined. The elementary formulas, a sum against a mass function and an integral against a density, are the special cases on [Random variables and distributions](prob-02-random-variables.qmd#def-expectation). In general, when the integral exists,
+
+$$
+\E g(X)=\int_\Omega g\bigl(X(\omega)\bigr)\,\mathrm{d}\mathrm{P}(\omega)=\int_{\mathbb{R}} g(x)\,\mathrm{d}F_X(x).
+$$
+
+A mass function turns the second integral into a sum. A density $f$ turns it into $\int g(x)f(x)\,dx$.
+
+## Existence of a law, and of a process
+
+A non-decreasing function is a distribution function when it is right-continuous and has limits $0$ and $1$ at $\pm\infty$. Each such function defines a probability on the Borel sets. Assign to each half-open interval $(a,b]$ the mass $F(b)-F(a)$. These assignments are consistent under unions and differences of intervals. The Carathéodory extension theorem extends that premeasure from the algebra of finite unions of such intervals to a measure on $\sigma$ of that algebra, which is the Borel sigma-algebra.
+
+A consistent family of finite-dimensional distributions defines a stochastic process on a product space, under the hypotheses of the Kolmogorov extension theorem. The theorem is an existence result. It does not by itself produce continuous sample paths, or any other regularity the model may need. A Poisson process and a queue are built from the explicit clocks on [Poisson processes](sp-06-poisson-processes.qmd) and [Birth–death chains and queues](sp-08-queues.qmd), which is a stronger description than consistency of the finite-dimensional laws alone.
+
+## From a distribution function to an interval probability
+
+For $a<b$,
+
+$$
+\mathrm{P}(a<X\le b)=F_X(b)-F_X(a).
+$$
+
+The endpoints matter when $X$ has atoms. For a continuous distribution every point has probability $0$, so an open or closed endpoint does not change the value. For a discrete distribution it can.
+
+::: {#exm-sp-two-atoms .example}
+## An interval that includes one atom
+
+Let $\mathrm{P}(X=-1)=1/3$ and $\mathrm{P}(X=2)=2/3$.
+
+**Question.** Compute $\mathrm{P}(-1<X\le 2)$ and $\mathrm{P}(-1\le X\le 2)$.
+
+**Solution.** The distribution function equals $0$ below $-1$, equals $1/3$ on $[-1,2)$, and equals $1$ from $2$ upward. Therefore
+
+$$
+\mathrm{P}(-1<X\le 2)=F_X(2)-F_X(-1)=1-\tfrac13=\tfrac23,
+$$
+
+while $\mathrm{P}(-1\le X\le 2)=1$. The first interval excludes the atom at $-1$. The second includes both atoms.
+
+:::
+
+If $X$ has a density $f$, then $F_X(x)=\int_{-\infty}^x f(u)\,du$, and $F_X'(x)=f(x)$ at points where the derivative exists. A density is allowed to exceed $1$. Its integral over the line equals $1$. A law can also mix atoms with a density. The distribution function then has jumps and continuously increasing pieces. The Lebesgue decomposition splits a general law into a discrete part, an absolutely continuous part, and a singular continuous part.
+
+## Transformations and joints
+
+For a measurable $g$, the law of $Y=g(X)$ is determined by inverse images:
+
+$$
+\mathrm{P}(Y\in B)=\mathrm{P}\bigl(X\in g^{-1}(B)\bigr).
+$$
+
+The one-dimensional change-of-variable formula, with the absolute derivative of the inverse, is the [transformation rule](prob-05-transforms-and-limits.qmd#thm-transformation-rule). It has to be applied on each branch of $g$.
+
+::: {#exm-sp-square-of-uniform .example}
+## The square of a uniform variable on $(-1,1)$
+
+Let $X$ be uniform on $(-1,1)$, and let $Y=X^2$.
+
+**Question.** Find the distribution function and the density of $Y$ on $(0,1)$.
+
+**Solution.** For $0\le y\le 1$,
+
+$$
+F_Y(y)=\mathrm{P}(X^2\le y)=\mathrm{P}(-\sqrt{y}\le X\le\sqrt{y})=\sqrt{y},
+$$
+
+because $X$ has density $1/2$ on an interval of length $2$, so the probability of an interval of length $2\sqrt{y}$ is $\sqrt{y}$. Differentiating gives $f_Y(y)=1/(2\sqrt{y})$ on $(0,1)$. The density is unbounded near $0$ and still integrates to $1$, since $\int_0^1 y^{-1/2}\,dy=2$. A one-branch change of variables that kept only $+\sqrt{y}$ and forgot $-\sqrt{y}$ would keep only half of the probability.
+
+:::
+
+The joint law determines each marginal by summing or integrating out the other coordinate. The reverse step is not unique. With Bernoulli$(1/2)$ margins, $\mathrm{P}(X=Y)$ equals $0$ for $Y=1-X$, equals $1$ for $Y=X$, and equals $1/2$ for an independent pairing. A model that specifies only the margins does not determine a probability of a simultaneous event.
+
+## Why the definition asks for measurability
+
+The symbol $\mathrm{P}(X\le x)$ refers to a set, $\{\omega: X(\omega)\le x\}$. That set has to lie in $\mathcal{F}$, or the probability is not defined. Once the inequality holds for every $x$, the inverse image of every Borel set is measurable, because the Borel sigma-algebra is generated by the intervals $(-\infty,x]$ and $\mathcal{F}$ is a sigma-algebra. Sums, products, limits, and continuous functions of random variables stay measurable. Expectation and the convergence theorems on [Expectation and convergence](sp-11-convergence.qmd) can then be stated for those variables without a separate check of each event.
+
+::: {.callout-note}
+## Key idea
+A random variable is a measurable real-valued function on the probability space, and its law is the probability it pushes forward to the line. The distribution function determines interval probabilities once endpoints are read against the atoms. Margins do not determine a joint law. Expectation of a non-negative variable is the limit of the expectations of simple variables increasing to it.
+:::
+
+## Exercises
+
+::: {#ex-sp-three-point .exercise}
+## Positive and negative parts
+
+Let $X$ take the values $-2$, $0$, and $3$ with probabilities $1/4$, $1/2$, and $1/4$. Find $F_X$, $\E X^+$, $\E X^-$, and $\E X$.
+
+[Solution](#sol-sp-three-point)
+
+:::
+
+::: {#ex-sp-bernoulli-pairs .exercise}
+## Same margins, two joints
+
+Construct two pairs $(X,Y)$ with Bernoulli$(1/2)$ margins, one independent and one dependent. Compare $\mathrm{P}(X=Y)$.
+
+[Solution](#sol-sp-bernoulli-pairs)
+
+:::
+
+::: {#ex-sp-right-continuous .exercise}
+## A function that is not a distribution function
+
+Explain why $F(x)=0$ for $x\le 0$ and $F(x)=1$ for $x>0$ is not a distribution function. Change one inequality so that it becomes one.
+
+[Solution](#sol-sp-right-continuous)
+
+:::
