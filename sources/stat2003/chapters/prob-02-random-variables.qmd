@@ -46,6 +46,8 @@ $X$ is continuous when its distribution function can be written $F(x)=\int_{-\in
 
 A density is not a probability. The probability of an infinitesimal interval $(x,x+\dd x)$ is about $f(x)\,\dd x$. A single point still has probability zero. Drawing uniformly from $[0,1]$ has density $f(x)=1$ on that interval and distribution function $F(x)=x$ there.
 
+![Mass, density and distribution function. Left: a fair die's mass function, and its distribution function, a right-continuous staircase whose jumps are the masses. Right: an $\Exp(1)$ density, with $\Pr(0.5<X\le1.6)$ as the area under it, and the same probability as the rise $F(1.6)-F(0.5)$ of the distribution function.](../figures/prob-02-random-variables-distribution-function.pdf){#fig-prob-distribution-function}
+
 ## Expectation and variance
 
 ::: {#def-expectation .definition}

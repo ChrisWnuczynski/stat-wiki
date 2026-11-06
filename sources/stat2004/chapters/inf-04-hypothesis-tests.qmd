@@ -85,6 +85,8 @@ A type I error rejects $H_0$ when $H_0$ is true. A type II error accepts $H_0$ w
 
 The two errors compete. Enlarging the critical region raises the power and also raises the type I error. Shrinking it does the reverse. The two hypotheses are not treated alike: a false rejection of $H_0$ is regarded as the more serious error.
 
+![Left: a two-sided $z$ test of size $0.05$. Under $H_0$ the statistic is $\Normal(0,1)$, the critical region is the two tails beyond $\pm1.960$, and an observed $z=2.30$ has $p$-value $0.021$. Right: under the alternative $Z\sim\Normal(2,1)$ the same cutoffs split the density into the power, the part beyond them, and the type II error, the part between.](../figures/inf-04-hypothesis-tests-errors.pdf){#fig-inf-errors}
+
 ::: {#def-neyman-pearson-approach .definition}
 ## Neyman–Pearson approach
 

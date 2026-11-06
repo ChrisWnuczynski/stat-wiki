@@ -149,6 +149,8 @@ $$
 
 In the discrete case this is ordinary conditional probability: $\Pr(Y=y\given X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$. In the continuous case the same ratio is the density of the conditional distribution function $\Pr(Y\le y\given x<X\le x+h)$ as $h\downarrow 0$.
 
+![Draw $X$ uniformly on $[0,1]$, then $Y$ uniformly on $[0,X]$. The pair lies in the triangle below the diagonal. The conditional distribution of $Y$ given $X=x$ lives on the vertical slice at $x$, here $x=0.72$, and is uniform along it.](../figures/prob-04-joint-distributions-conditional-slice.pdf){#fig-prob-conditional-slice}
+
 Rearrangement is the product rule for densities, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)$. Integrating out $x$ is the law of total probability for densities,
 
 $$

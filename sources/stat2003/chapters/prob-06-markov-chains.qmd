@@ -119,6 +119,8 @@ The limiting distribution also describes a single long path. For an irreducible 
 
 A random walk on the non-negative integers, with reflection at $0$, shows when a limit exists on an infinite space. From $0$ the walk steps to $1$ with probability $p$ and stays with probability $q=1-p$. From $j\ge 1$ it steps to $j+1$ with probability $p$ and to $j-1$ with probability $q$. The balance equations $\boldsymbol\pi=\boldsymbol\pi P$ give $\pi_j=(p/q)^j \pi_0$ for $j\ge 0$. These numbers can be scaled to sum to $1$ if and only if $p<q$, in which case $\pi_0=1-p/q$ and $\pi_j=(1-p/q)(p/q)^j$. If $p\ge q$ the walk drifts to infinity and no probability vector satisfies the balance equations. The chain still has the Markov property. It simply has no limiting distribution.
 
+![The walk with a floor at 0. Top: its transition graph. Bottom: the limiting weights when $p/q=1/2$, which are $\pi_j=(1/2)^{j+1}$, a geometric distribution that sums to 1.](../figures/prob-06-markov-chains-reflected-walk.pdf){#fig-prob-reflected-walk}
+
 ::: {.callout-note}
 ## Key idea
 The next state is drawn from a row of $P$ that depends only on the current state. After many steps an irreducible aperiodic finite chain forgets where it started, and the probability of each state settles on the unique row vector $\boldsymbol\pi=\boldsymbol\pi P$.

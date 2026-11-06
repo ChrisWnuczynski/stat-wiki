@@ -480,3 +480,30 @@ for _table, _extra in (
     for _name, _items in _extra.items():
         if _items:
             _table.setdefault(_name, []).extend(i for i in _items if i not in _table[_name])
+
+
+# TikZ diagrams. The first figure of an article is its infobox image, so a
+# diagram that explains the idea directly goes to the front of the list.
+_DIAGRAMS_FIRST = {
+    "law-of-total-probability": ["prob-01-experiments-total-probability.png"],
+    "cumulative-distribution-function": ["prob-02-random-variables-distribution-function.png"],
+    "discrete-distribution": ["prob-02-random-variables-distribution-function.png"],
+    "conditional-distribution": ["prob-04-joint-distributions-conditional-slice.png"],
+    "type-i-and-type-ii-errors": ["inf-04-hypothesis-tests-errors.png"],
+    "anova-sum-of-squares-decomposition": ["inf-07-anova-sums-of-squares.png"],
+    "observational-study": ["da-01-studies-and-data-assignment.png"],
+    "designed-experiment": ["da-01-studies-and-data-assignment.png"],
+}
+_DIAGRAMS_AFTER = {
+    "conditional-probability": ["prob-01-experiments-total-probability.png"],
+    "continuous-distribution": ["prob-02-random-variables-distribution-function.png"],
+    "limiting-distribution": ["prob-06-markov-chains-reflected-walk.png"],
+    "power-function": ["inf-04-hypothesis-tests-errors.png"],
+    "p-value": ["inf-04-hypothesis-tests-errors.png"],
+    "one-way-analysis-of-variance": ["inf-07-anova-sums-of-squares.png"],
+}
+for _name, _items in _DIAGRAMS_FIRST.items():
+    _rest = [f for f in FIGURES.get(_name, []) if f not in _items]
+    FIGURES[_name] = _items + _rest
+for _name, _items in _DIAGRAMS_AFTER.items():
+    FIGURES.setdefault(_name, []).extend(i for i in _items if i not in FIGURES[_name])

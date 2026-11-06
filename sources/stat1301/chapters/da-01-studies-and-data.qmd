@@ -40,6 +40,8 @@ Alice's caffeine comparison is the picture. Heart rate is measured, a drink is t
 
 A study that does not need every covariate recorded is one that randomised. Age, diet, and fitness still affect blood pressure, but if the drug and the control were assigned at random they are balanced across those variables, including the ones nobody wrote down. An observational study of the same question has to measure them, or the comparison stays confounded.
 
+![Left: in an observational study, diet and income can affect both whether a mother smokes and her son's height, so an association between the two need not be causal. Right: in a designed experiment the drug is assigned at random, so the assignment cannot depend on age, diet or fitness, and those cannot explain a difference in blood pressure.](../figures/da-01-studies-and-data-assignment.pdf){#fig-da-assignment}
+
 ::: {.callout-note}
 ## Key idea
 Write down the response, the explanatory variables, and whether the explanatory variables were assigned or only observed. Random assignment is what turns a difference between groups into evidence about the treatment.

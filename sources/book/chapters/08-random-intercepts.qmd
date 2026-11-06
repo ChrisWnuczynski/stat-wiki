@@ -25,6 +25,8 @@ $$
 $$
 The correlation is between $0$ and $1$. If the blocks are identical, $\sigma_A^2\to 0$ and the correlation vanishes: it was one big sample. If the block effect swamps the person-to-person noise, the correlation tends to $1$: everyone in the hospital looks the same. A linear mixed model of this form cannot produce a negative within-block correlation.
 
+![A random intercept. Each block's line is the population line $\beta_0+\beta_1x$ (dashed) shifted by its own $\alpha_j$, so the lines are parallel. Observations in one block share that shift, which is the source of the within-block correlation $\sigma_A^2/(\sigma_A^2+\sigma^2)$.](../figures/08-random-intercepts-shared-intercept.pdf){#fig-shared-intercept}
+
 Negative dependence does happen, when units in a block compete for a fixed resource. It is an awkward correlation to write down for every pair at once. A $3\times 3$ equicorrelation matrix is positive definite for any correlation in $[0,1)$, but if every pair has correlation $-\rho$, the matrix is only valid for $\rho\le 1/2$. In a block of size $K$ the lower bound is $-1/(K-1)$. Add one more person to the block and a correlation that used to be legal becomes illegal. That dependence on the block size is why the random-intercept model's refusal of negative correlations is acceptable. Competition can be modelled later by letting some pairs differ. A single negative number for every pair in a large block is not a structure worth having.
 
 ## What is fixed, and what is random
