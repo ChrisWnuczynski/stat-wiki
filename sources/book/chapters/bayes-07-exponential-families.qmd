@@ -1,6 +1,6 @@
 # Exponential families and conjugacy
 
-The conjugate calculations in the Beta--Binomial, Normal--Normal, and Gamma--Poisson models are not isolated coincidences. They are instances of a general pattern: the likelihood compresses the observations into sufficient statistics, and a matching prior allows those statistics to update a fixed number of hyperparameters. This chapter isolates that algebraic mechanism before the book turns to the different idea of linking related groups through a hierarchy.[^b07-exponential-families-1]
+The conjugate calculations in the Beta--Binomial, Normal--Normal, and Gamma--Poisson models are not isolated coincidences. They are instances of a general pattern: the likelihood compresses the observations into sufficient statistics, and a matching prior allows those statistics to update a fixed number of hyperparameters. This page isolates that algebraic mechanism. Linking related groups through a hierarchy is a different idea: the prior parameters become uncertain population parameters, and the update has to carry that extra uncertainty.[^b07-exponential-families-1]
 
 ## Statistics and inferential reduction
 
@@ -502,7 +502,19 @@ $$
 $$
 
 
- Write this model in the chapter's $a(\theta)$, $b(x)$, $c(\theta)$, $T(x)$ form and use that form to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$. 
+ Write the sampling density in the form
+
+$$
+ p(x\given\theta)=\frac{b(x)\exp\{c(\theta)T(x)\}}{a(\theta)},
+$$
+
+ identify $a(\theta)$, $b(x)$, $c(\theta)$ and $T(x)$, and use the conjugate prior kernel
+
+$$
+ p(\theta\given\alpha,\beta)\propto\frac{\exp\{c(\theta)\alpha\}}{a(\theta)^\beta}
+$$
+
+ to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$. 
 
 [Solution](#sol-applied-exp-rate)
 
@@ -518,7 +530,19 @@ $$
 $$
 
 
- Use the exponential-family form to find a conjugate prior and derive its posterior parameters. 
+ Write one observation in the form
+
+$$
+ p(x\given\theta)=\frac{b(x)\exp\{c(\theta)T(x)\}}{a(\theta)}
+$$
+
+ and use the conjugate prior kernel
+
+$$
+ p(\theta\given\alpha,\beta)\propto\frac{\exp\{c(\theta)\alpha\}}{a(\theta)^\beta}
+$$
+
+ to find a conjugate prior and derive its posterior parameters. 
 
 [Solution](#sol-applied-exp-scale)
 

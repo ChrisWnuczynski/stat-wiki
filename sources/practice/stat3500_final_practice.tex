@@ -1596,7 +1596,7 @@ y_i^{k-1}\exp\left(-\frac{ky_i}{\mu_i}\right),
 where $\mu_i>0$ and $k>0$.
 
 \begin{enumerate}[label=(\alph*)]
-  \item Express the density in the course form
+  \item Express the density in the form
         \[
         f(y;\theta,\phi)
         =\exp\left\{
@@ -2384,7 +2384,7 @@ where $p_k=\mathbb{P}(Y=k\mid x)$ and $k\ne0$.
 \end{conceptanswer}
 
 \begin{conceptanswer}{25}{Proportional odds}
-For ordered categories $1,\ldots,K$, use the lecture's upper-tail
+For ordered categories $1,\ldots,K$, use the upper-tail
 convention $\gamma_k(x)=\mathbb{P}(Y\ge k\mid x)$ and
 $\operatorname{logit}\gamma_k(x)=a_k+x^\top\beta$, $k=2,\ldots,K$.
 The slope vector $\beta$ is common to all cutpoints, so a unit change
@@ -2424,7 +2424,7 @@ A saturated mean model fits each observed response exactly
 ($\tilde\mu_i=y_i$, possibly as a boundary limit); at common dispersion
 $\phi$, the scaled deviance is
 $D/\phi=2\{\ell(\tilde\mu;y,\phi)-\ell(\hat\mu;y,\phi)\}$.
-Thus the lecture's unscaled deviance $D$ is $\phi$ times that
+Thus the unscaled deviance $D$ is $\phi$ times that
 log-likelihood-ratio discrepancy, and equals the scaled deviance when
 $\phi=1$.
 \end{conceptanswer}
@@ -2632,7 +2632,7 @@ For observed $\xvec=(x_1,\ldots,x_n)$, $L(\theta;\xvec)$ is the sampling density
 \]
 with shape $a$ and inverse-Gamma scale $b$. The Rayleigh observations are conditionally iid and positive.
 
-The general exponential-family form used in the course is
+The general exponential-family form used here is
 \[
   f(x\given\theta)
   =b(x)\frac{\exp\{c(\theta)T(x)\}}{a(\theta)},
@@ -5553,7 +5553,7 @@ f(x\mid v)
 \dfrac{(\log x-\mu)^2}{2}\right\}}{\sqrt v},
 \qquad x>0,\quad v>0.
 \]
-Comparing with the course's form
+Comparing with the form
 \[
 f(x\mid v)=b(x)\frac{\exp\{c(v)T(x)\}}{a(v)},
 \]
@@ -6995,7 +6995,7 @@ $M_1$ with the probability after allowing both models.
 
 \studyheading{Definitions}
 A Gamma variable with shape $k$ and rate $k/\mu$ has mean $\mu$ and variance $\mu^2/k$; set $\phi=1/k$.
-In the course's exponential-family form, $b(\theta)$ is the coefficient paired with the statistic $a(y)$ after division by $e(\phi)$.
+In the exponential-family form of part (a), $b(\theta)$ is the coefficient paired with the statistic $a(y)$ after division by $e(\phi)$.
 For regression, $\mathbf X_i=(1,x_i)^\top$, $\boldsymbol\beta=(\beta_0,\beta_1)^\top$, and $\mu_i=e^{\mathbf X_i^\top\boldsymbol\beta}$.
 Responses are independent and covariates fixed; the score calculation holds $k>0$ known.
 

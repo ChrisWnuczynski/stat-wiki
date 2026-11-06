@@ -768,7 +768,7 @@ The target is proper: summing its kernel over $x$ leaves $y^{\alpha-1}(1-y)^\bet
 \Needspace{8\baselineskip}
 ```
 
-**(i)** Put $v=\sigma^2$. In the course's exponential-family form $f(x\given v)=b(x)\exp\{c(v)T(x)\}/a(v)$, take
+**(i)** Put $v=\sigma^2$. In the exponential-family form $f(x\given v)=b(x)\exp\{c(v)T(x)\}/a(v)$, take
 
 $$
 b(x)=\frac1{x\sqrt{2\pi}},\qquad

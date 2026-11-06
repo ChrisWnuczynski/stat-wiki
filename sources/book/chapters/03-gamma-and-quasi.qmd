@@ -31,7 +31,7 @@ $$
 $$
 times as many bids. The ratio of estimate to standard error is $2.18$, which clears $2$ and so sits past the usual two-sided 5% cutoff on the $z$ scale. The same reading applies to every other row. Size enters as a curve: the linear term is positive and the square is negative, so the mean rises with book value and then bends back. A one-line slope for size would hide that bend.
 
-Why the underdispersion is plausible is the same selection story as the mines, in a different market. A private person cannot bid for a large firm. The pool of possible bidders shrinks as the target grows, and for the largest targets the count is often zero or one. Conditionally on the covariates, the count is more deterministic than a Poisson process. Later in this book, $\nu=1$ will be tested formally. For now the point is that the mean is on the same scale as a Poisson log-linear model, so the coefficient $0.2679$ means the same kind of thing.
+Why the underdispersion is plausible is the same selection story as the mines, in a different market. A private person cannot bid for a large firm. The pool of possible bidders shrinks as the target grows, and for the largest targets the count is often zero or one. Conditionally on the covariates, the count is more deterministic than a Poisson process. The Poisson model is the boundary case $\nu=1$. The fitted $\hat\nu=1.754$ lies above that boundary, which is the comparison a test of $\nu=1$ makes. The point to keep is that the mean is on the same scale as a Poisson log-linear model, so the coefficient $0.2679$ means the same kind of thing.
 
 ## Positive continuous responses
 

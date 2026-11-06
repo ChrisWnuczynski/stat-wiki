@@ -2,7 +2,7 @@
 
 ## What is random?
 
-Statistical inference is not exhausted by a contest between two schools. At least three traditions are worth distinguishing at the outset: classical or frequentist, Bayesian, and fiducial inference. Fiducial statistics takes a different route again to statements about unknown parameters, but it is now a much quieter and more specialised field. It is named here so that a useful comparison between frequentist and Bayesian reasoning is not mistaken for an exhaustive classification; we shall not develop fiducial methods in this book.
+Statistical inference is not exhausted by a contest between two schools. At least three traditions are worth distinguishing at the outset: classical or frequentist, Bayesian, and fiducial inference. Fiducial statistics takes a different route again to statements about unknown parameters, but it is now a much quieter and more specialised field. It is named here so that a useful comparison between frequentist and Bayesian reasoning is not mistaken for an exhaustive classification; fiducial methods are not developed here.
 
 In a frequentist model the unknown parameter is fixed, while data are random under repeated sampling. For example, if 
 

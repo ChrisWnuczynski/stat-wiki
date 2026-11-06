@@ -1,9 +1,9 @@
 # Reference formulas and problem-solving workflow
 
 ::: {#rem-how-to-use-this-chapter .remark}
-## How to use this chapter
+## How to use these formulas
 
-This chapter is a lookup guide rather than a replacement for the derivations. Use it to identify a kernel or choose a calculation, then return to the cited chapter when a parameter convention or assumption matters.
+A kernel is the part of a density that depends on the variable being updated, and it is enough to name a posterior once the powers and the exponential terms match. The parameterisation is part of the kernel. $\GammaDist(a,b)$ means shape $a$ and rate $b$, with density proportional to $t^{a-1}e^{-bt}$ for $t>0$. $\InvGamma(a,b)$ means $1/T\sim\GammaDist(a,b)$, so the density is proportional to $t^{-a-1}e^{-b/t}$. Where a row cites an equation, that equation restores the normalising constant of the same update. The kernel on this page is the part the calculation needs.
 
 :::
 
@@ -76,7 +76,7 @@ Kernels can be rebuilt. The transferable skill is to write the density, identify
 
 1.  In the mode-based pseudo-count convention, $\BetaDist(5,5)$ contributes four heads and four tails relative to $\BetaDist(1,1)$: eight trials in total.
 
-2.  Under the stated shape--rate prior $\GammaDist(12,1)$, the fruit posterior is $\GammaDist(189,21)$. The quoted probability $0.9232$ instead corresponds to $\GammaDist(190,21)$; see the convention check in Chapter 6.
+2.  Under the stated shape--rate prior $\GammaDist(12,1)$, the fruit posterior is $\GammaDist(189,21)$. A $\GammaDist(a,b)$ density carries the power $a-1$, so a prior kernel $p(\theta)\propto\theta^{12}e^{-\theta}$ is $\GammaDist(13,1)$, not $\GammaDist(12,1)$. That alternative updates to $\GammaDist(190,21)$, and the probability $0.9232$ belongs to $\GammaDist(190,21)$.
 
 3.  Equal-tailed, minimum-width, and highest-density intervals are different constructions unless symmetry makes them coincide.
 
@@ -94,7 +94,7 @@ Kernels can be rebuilt. The transferable skill is to write the density, identify
 
 ## Where the argument has been
 
-The chapters form one connected argument:
+The argument runs in this order:
 
 ::: {#rem-a-road-map .remark}
 ## A road map
