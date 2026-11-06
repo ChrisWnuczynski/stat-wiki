@@ -1,0 +1,45 @@
+# Linear model examples
+
+A normal linear model is $Y=X\beta+\varepsilon$ with independent normal errors of constant variance. Simple regression is the case with a column of ones and a column of the covariate. A factor becomes a set of indicator columns, one fewer than the number of levels, so that the intercept can absorb the baseline. The least-squares fit, the $t$ statistics, and $R^2$ are the same objects as in [Linear regression](inf-06-regression.qmd) and [Analysis of variance](inf-07-anova.qmd). The exponential-family extension, which drops normality, is the [introduction to generalised linear models](01-introduction-to-glms.qmd). The geometry of the least-squares fit with a prior is [Bayesian linear regression](bayes-09-linear-regression.qmd).
+
+On the log scale a coefficient is multiplicative. If $\log Y=\beta_0+\beta_1 x+\varepsilon$, then a unit increase in $x$ multiplies the median of $Y$ by $e^{\beta_1}$. The residual plots are still read on the scale that was fitted.
+
+## Exercises
+
+::: {#ex-da-shark-swim .exercise}
+## How far sharks swim
+
+A sample of 151 female sharks has mean weight 103.6 kg. The 95% confidence interval for the mean weight was $(102.1,\,105.1)$, so the margin of error is 1.5 kg.
+
+A two-sample comparison of female and male mean weights has $t=3.178$ on 296 degrees of freedom. The fit of weekly swimming distance on weight and sex is
+
+$$
+\widehat{\mathrm{distance}}=2.631+0.0937\times\mathrm{weight}-1.966\times\mathbf{1}_{\{\mathrm{male}\}},
+$$
+
+with residual standard error 0.99 on 297 degrees of freedom.
+
+(a) How many females would be needed to cut the margin of error on the mean weight by a factor of four?
+
+(b) State the hypotheses for the two-sample test and the conclusion at level 0.05. The two-sided p-value is 0.00164.
+
+(c) Predict the distance for a 100 kg female and a 100 kg male.
+
+[Solution](#sol-da-shark-swim)
+
+:::
+
+::: {#ex-da-isotopia-wages .exercise}
+## Wages, class, and gender
+
+A linear model for yearly wages, in thousands of dollars, uses social class and gender. The intercept, for upper-class men, is 93.242. The working-class coefficient is $-4.247$. The coefficient on the indicator for women is 3.927, with $t$ statistic corresponding to p-value 0.01029 on the gender row. The gender sum of squares in the analysis of variance is 3194 on 1 degree of freedom, and the residual mean square is 102.
+
+(a) Estimate the expected wage of a working-class man.
+
+(b) What does the coefficient 3.927 mean?
+
+(c) Does the fit indicate that women earn more than men, on average, after class is accounted for?
+
+[Solution](#sol-da-isotopia-wages)
+
+:::

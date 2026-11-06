@@ -1,6 +1,6 @@
 # Introduction to generalised linear models
 
-A first regression model rests on three habits: normality, linearity, and independence. A binary response steps outside the first of those: the observation is $0$ or $1$, and the mean is a probability. Generalised linear models are the way to leave normality while keeping a linear predictor. Dependence, in time or within a cluster, is a separate question; a GLM still treats the responses as independent once the covariates are given.
+A first regression model rests on three habits: normality, linearity, and independence. Summaries of a sample before that model is fitted are in [Descriptive statistics](da-02-descriptive-statistics.qmd). The normal linear model written with a design matrix, and the examples that go with it, are in [Linear model examples](da-08-linear-model-examples.qmd). A binary response steps outside normality: the observation is $0$ or $1$, and the mean is a probability. Generalised linear models are the way to leave normality while keeping a linear predictor. Dependence, in time or within a cluster, is a separate question; a GLM still treats the responses as independent once the covariates are given.
 
 ## What a regression statement is hiding
 

@@ -1,0 +1,409 @@
+# Functions of random variables and limit theorems
+
+A function of a random variable is another random variable. Its distribution can be read off the original distribution by inverting the function, by a linear change of variables, or by the Jacobian formula in several dimensions. The same calculus gives the joint normal family and the normal linear model. Limit theorems say what happens to an average as the number of terms grows: it settles on the mean, and the fluctuations around the mean become normal.
+
+The one-dimensional families used here are on the [common distributions](../reference/distributions.qmd) page. Generating a variable by inverting its distribution function is the [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform). Estimation for the normal linear model, including the least-squares geometry and the posterior, is on [Bayesian linear regression](bayes-09-linear-regression.qmd). This chapter stops at the probability model.
+
+## One variable, and a sum
+
+Let $X$ be continuous with density $f_X$, and let $Y=g(X)$ with $g$ strictly monotone and differentiable. Then
+
+$$
+f_Y(y)=f_X\bigl(g^{-1}(y)\bigr)\,\bigl|\tfrac{d}{dy}g^{-1}(y)\bigr|.
+$$
+
+An affine map $Y=aX+b$ with $a\ne 0$ is the case everyone uses: $f_Y(y)=f_X((y-b)/a)/|a|$. If $X$ is standard normal and $Y=1+2X$, then $Y\sim\Normal(1,4)$. If $X\sim\Exp(\lambda)$ and $Y=1+2X$, the same formula shifts and stretches the exponential density.
+
+The square of a standard normal variable is chi-squared with one degree of freedom, which is the gamma law with shape $1/2$ and rate $1/2$. The distribution function of $Y=X^2$ is $\Pr(-\sqrt{y}\le X\le\sqrt{y})$ for $y>0$, and differentiating produces the density.
+
+For a maximum or a minimum the distribution function is easier than the density. If $X_1,\ldots,X_n$ are independent with distribution function $F$ and survival function $1-F$, then
+
+$$
+\Pr(\max_i X_i\le x)=F(x)^n, \qquad \Pr(\min_i X_i>x)=(1-F(x))^n.
+$$
+
+The density follows by differentiation. This is why the minimum of $n$ independent exponential variables with rate $\lambda$ is exponential with rate $n\lambda$.
+
+The sum of two independent continuous variables has density equal to the convolution
+
+$$
+f_{X+Y}(z)=\int_{-\infty}^{\infty} f_X(x)\,f_Y(z-x)\,\dd x.
+$$
+
+Two independent uniform variables on $[0,1]$ have a triangular sum: the density of the sum is $z$ on $(0,1)$ and $2-z$ on $(1,2)$. The moment generating function is usually faster when the sum stays in a named family. Independent gamma variables with the same rate were added that way in [Joint distributions](prob-04-joint-distributions.qmd).
+
+## The transformation rule
+
+::: {#thm-transformation-rule .theorem}
+## Transformation rule
+
+Let $\mathbf{X}$ take values in an open set of $\R^n$ with density $f_{\mathbf{X}}$, and let $\mathbf{Z}=g(\mathbf{X})$ where $g$ is a smooth bijection onto its image, with inverse $g^{-1}$ and Jacobian determinant $J$ that does not vanish. The density of $\mathbf{Z}$ is
+
+$$
+f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}\bigl(g^{-1}(\mathbf{z})\bigr)\,\bigl|\det Dg^{-1}(\mathbf{z})\bigr|.
+$$
+
+Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage. For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.
+
+:::
+
+The absolute value of the Jacobian is the local change in volume. Probability in a small region is density times volume, so the density must be divided by that factor.
+
+Box–Muller is this rule in the plane. Let $U,V$ be independent and uniform on $(0,1)$, and set
+
+$$
+Z_1=\sqrt{-2\log U}\,\cos(2\pi V), \qquad Z_2=\sqrt{-2\log U}\,\sin(2\pi V).
+$$
+
+Passing to polar-type coordinates and computing the Jacobian shows that $(Z_1,Z_2)$ has joint density $(2\pi)^{-1}\exp(-(z_1^2+z_2^2)/2)$ on $\R^2$, the product of two standard normal densities. The construction is the one used in [Simulation](prob-03-simulation.qmd) when a normal generator has to be built from uniforms.
+
+A second standard example splits a pair of independent exponential variables. Let $X$ and $Y$ be independent and exponential with rate $1$, and set $U=X+Y$ and $V=X/(X+Y)$. The map $(u,v)\mapsto(uv,\,u(1-v))$ has Jacobian determinant of absolute value $u$. The joint density of $(U,V)$ is $u e^{-u}$ on $u>0$, $0<v<1$, which factors into a $\operatorname{Gamma}(2,1)$ density for $U$ and a uniform density for $V$. So $U$ and $V$ are independent.
+
+## Jointly normal variables
+
+::: {#def-multivariate-normal .definition}
+## Multivariate normal distribution
+
+A random vector $\mathbf{Z}$ in $\R^n$ is multivariate normal with mean $\boldsymbol\mu$ and covariance matrix $\Sigma$, when $\Sigma$ is positive definite and the density is
+
+$$
+f(\mathbf{z})=(2\pi)^{-n/2}\,|\Sigma|^{-1/2}\,\exp\Bigl(-\tfrac12(\mathbf{z}-\boldsymbol\mu)^\top\Sigma^{-1}(\mathbf{z}-\boldsymbol\mu)\Bigr).
+$$
+
+If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution. The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
+
+:::
+
+In two dimensions, with means $\mu_1,\mu_2$, variances $\sigma_1^2,\sigma_2^2$ and correlation $\rho$, the density has level sets that are ellipses tilted by $\rho$. The case $\rho=0$ is independence. That is special to the normal family: for jointly normal coordinates, zero covariance is independence, because the quadratic form in the exponent then splits into a sum.
+
+::: {#thm-affine-normal .theorem}
+## Affine images of normal vectors
+
+If $X_i\sim\Normal(\mu_i,\sigma_i^2)$ are independent and $a,b_1,\ldots,b_n$ are constants, then
+
+$$
+a+\sum_{i=1}^n b_i X_i \sim \Normal\Bigl(a+\sum_{i=1}^n b_i\mu_i,\;\sum_{i=1}^n b_i^2\sigma_i^2\Bigr).
+$$
+
+The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.
+
+:::
+
+A machine that produces diameters $X\sim\Normal(1,0.01)$ and then records $a+bX$ is still producing a normal measurement. The mean and variance are the only things the affine map can change.
+
+## The normal linear model
+
+::: {#def-normal-linear-model .definition}
+## Normal linear model
+
+A normal linear model for a response vector $\mathbf{Y}\in\R^n$ says
+
+$$
+\mathbf{Y}=A\boldsymbol\beta+\boldsymbol\varepsilon, \qquad \boldsymbol\varepsilon\sim\Normal(\mathbf{0},\,\sigma^2 I_n),
+$$
+
+with $A$ a known $n\times p$ matrix of full column rank, $\boldsymbol\beta\in\R^p$ an unknown coefficient vector, and $\sigma^2>0$.
+
+:::
+
+The coordinates of $\mathbf{Y}$ are independent and normal. The $i$th coordinate has mean equal to the $i$th row of $A$ times $\boldsymbol\beta$, and every coordinate has variance $\sigma^2$. The multiple linear regression model is the case in which the $i$th row of $A$ is $(1, x_{i1},\ldots,x_{i,p-1})$, so the mean is an intercept plus a linear function of the covariates.
+
+This is a probability statement about $\mathbf{Y}$ once $\boldsymbol\beta$ and $\sigma^2$ are fixed. It is not yet an estimate of $\boldsymbol\beta$. Fitting, the geometry of least squares, and the posterior under a prior on $(\boldsymbol\beta,\sigma^2)$ are developed on [Bayesian linear regression](bayes-09-linear-regression.qmd).
+
+## Limit theorems
+
+Let $X_1,X_2,\ldots$ be independent, identically distributed, with $\E X_i=\mu$, and write $S_n=X_1+\cdots+X_n$.
+
+::: {#thm-law-of-large-numbers .theorem}
+## Law of large numbers
+
+If the mean $\mu$ exists, the strong law says
+
+$$
+\Pr\Bigl(\lim_{n\to\infty} S_n/n=\mu\Bigr)=1.
+$$
+
+If in addition the variance is finite, the weak law says that for every $\varepsilon>0$,
+
+$$
+\lim_{n\to\infty}\Pr\bigl(|S_n/n-\mu|>\varepsilon\bigr)=0.
+$$
+
+The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero.
+
+:::
+
+The sample average converges to the expectation. That is the justification for estimating an unknown mean by the average of repeated measurements, and for reading a long-run relative frequency as a probability. The weak law says the probability of a large error disappears. The strong law says the error itself disappears, except on a set of outcomes of probability zero.
+
+Chebyshev's inequality, used above, is the general bound $\Pr(|X-\E X|\ge \varepsilon)\le \Var(X)/\varepsilon^2$, and Markov's inequality is $\Pr(X\ge x)\le \E X/x$ for a non-negative $X$ and $x>0$.
+
+::: {#thm-central-limit-theorem .theorem}
+## Central limit theorem
+
+If the $X_i$ are independent and identically distributed with mean $\mu$ and variance $\sigma^2\in(0,\infty)$, then for every $x$
+
+$$
+\lim_{n\to\infty}\Pr\Bigl(\frac{S_n-n\mu}{\sigma\sqrt{n}}\le x\Bigr)=\Phi(x),
+$$
+
+where $\Phi$ is the standard normal distribution function.
+
+:::
+
+The shape of the parent distribution washes out of the centred and scaled sum. What remains is the standard normal distribution. For large $n$, $S_n$ is approximately $\Normal(n\mu, n\sigma^2)$, and the sample average is approximately $\Normal(\mu,\sigma^2/n)$.
+
+A binomial count $X\sim\Bin(n,p)$ is a sum of $n$ Bernoulli trials, so for large $n$
+
+$$
+\Pr(X\le k)\approx \Phi\Bigl(\frac{k-np}{\sqrt{np(1-p)}}\Bigr).
+$$
+
+The same approximation, applied to a sum of independent uniforms or to a sum of independent exponential variables, is how a probability about an average is evaluated when the exact distribution is awkward. The distribution function $\Phi$ is the one attached to the normal law on the [common distributions](../reference/distributions.qmd) page.
+
+::: {.callout-note}
+## Key idea
+Monotone maps change the density by the derivative of the inverse. Smooth maps in several dimensions change it by the absolute value of the Jacobian. Averages of independent copies converge to the mean, and the scaled fluctuation converges to a standard normal variable.
+:::
+
+## Exercises
+
+::: {#ex-prob-square-binomial .exercise}
+## The square of a binomial count
+
+Let $X\sim\Bin(4,1/2)$ and $Y=X^2$. Give the probability mass function of $Y$.
+
+[Solution](#sol-prob-square-binomial)
+
+:::
+
+::: {#ex-prob-square-uniform .exercise}
+## The square of a uniform variable
+
+Let $X$ be uniform on $[0,1]$ and $Y=X^2$. Find the density of $Y$.
+
+[Solution](#sol-prob-square-uniform)
+
+:::
+
+::: {#ex-prob-affine-normal .exercise}
+## An affine image of a standard normal
+
+Let $X\sim\Normal(0,1)$ and $Y=1+2X$. What is the distribution of $Y$?
+
+[Solution](#sol-prob-affine-normal)
+
+:::
+
+::: {#ex-prob-standard-normal-probs .exercise}
+## Two standard normal probabilities
+
+Let $X$ be standard normal. Using $\Phi(1.3)\approx 0.9032$ and $\Phi(1.4)\approx 0.9192$, evaluate $\Pr(X\le 1.4)$ and $\Pr(X>-1.3)$.
+
+[Solution](#sol-prob-standard-normal-probs)
+
+:::
+
+::: {#ex-prob-normal-shift .exercise}
+## Probabilities for a shifted normal
+
+Let $Y\sim\Normal(1,4)$. Using $\Phi(0.5)\approx 0.6915$ and $\Phi(1)\approx 0.8413$, evaluate $\Pr(Y\le 3)$ and $\Pr(-1\le Y\le 2)$.
+
+[Solution](#sol-prob-normal-shift)
+
+:::
+
+::: {#ex-prob-affine-exponential .exercise}
+## An affine image of an exponential density
+
+Let $X\sim\Exp(1/2)$ and $Y=1+2X$. Find the density of $Y$ and say where it is positive.
+
+[Solution](#sol-prob-affine-exponential)
+
+:::
+
+::: {#ex-prob-clt-binomial-band .exercise}
+## A normal approximation on an interval
+
+Let $X\sim\Bin(100,1/4)$. Approximate $\Pr(20\le X\le 30)$ by a normal probability. Use $\Phi(1.15)\approx 0.875$.
+
+[Solution](#sol-prob-clt-binomial-band)
+
+:::
+
+::: {#ex-prob-exponential-ratio .exercise}
+## Sum and proportion of two exponentials
+
+Let $X$ and $Y$ be independent and exponential with rate $1$. Set $U=X+Y$ and $V=X/(X+Y)$, so that $X=UV$ and $Y=U(1-V)$.
+
+(a) Find the absolute value of the Jacobian determinant of $(u,v)\mapsto(x,y)$.
+
+(b) Find the joint density of $(U,V)$.
+
+(c) Show that $U$ and $V$ are independent, and name their marginal distributions.
+
+[Solution](#sol-prob-exponential-ratio)
+
+:::
+
+::: {#ex-prob-voltage-mean .exercise}
+## The mean of repeated voltage readings
+
+Voltage readings $X_1,\ldots,X_n$ are independent and $\Normal(\mu,\sigma^2)$, with $\mu$ and $\sigma^2$ unknown. Let $\overline X=(X_1+\cdots+X_n)/n$, and suppose $x_1,\ldots,x_n$ are the observed values.
+
+(a) What function of the observations estimates $\mu$?
+
+(b) Show that $\E\overline X=\mu$.
+
+(c) Show that $\Var(\overline X)\to 0$ as $n\to\infty$.
+
+(d) State the distribution of $\overline X$.
+
+(e) What do (b) and (c) say about the estimate in (a)?
+
+[Solution](#sol-prob-voltage-mean)
+
+:::
+
+::: {#ex-prob-clt-binomial-tail .exercise}
+## A normal approximation in the tail
+
+Let $X\sim\Bin(100,1/2)$. Approximate $\Pr(X\ge 60)$ by a normal probability. Use $\Phi(2)\approx 0.97725$.
+
+[Solution](#sol-prob-clt-binomial-tail)
+
+:::
+
+::: {#ex-prob-quadratic-transform .exercise}
+## A quadratic function of a uniform variable
+
+Let $X$ be uniform on $[1,3]$ and set $Y=X^2-4$. Find the density of $Y$, including the set on which it is zero.
+
+[Solution](#sol-prob-quadratic-transform)
+
+:::
+
+::: {#ex-prob-uniform-affine .exercise}
+## An affine image of a uniform variable
+
+Let $X$ be uniform on $[1,3]$ and set $Y=4X+5$. What is the distribution of $Y$?
+
+[Solution](#sol-prob-uniform-affine)
+
+:::
+
+::: {#ex-prob-normal-sketch .exercise}
+## A normal law with mean 2
+
+Let $Y\sim\Normal(2,5)$.
+
+(a) Describe the density and the distribution function: centre, spread, and the limits at $\pm\infty$.
+
+(b) Calculate $\Pr(Y\le 5)$. Use $\Phi(1.34)\approx 0.910$.
+
+(c) Let $Z=3Y-4$. Calculate $\Pr(1\le Z\le 5)$. Use $\Phi(0.15)\approx 0.560$ and $\Phi(0.45)\approx 0.674$.
+
+[Solution](#sol-prob-normal-sketch)
+
+:::
+
+::: {#ex-prob-name-the-laws .exercise}
+## State the probability functions
+
+(a) State the probability mass function of the binomial, geometric and Poisson distributions, in the parameterisation of the [common distributions](../reference/distributions.qmd) page. The geometric law starts at $1$.
+
+(b) State the densities of the uniform distribution on $[a,b]$, the exponential distribution with rate $\lambda$, and the standard normal distribution.
+
+(c) For each law in (a) and (b), name an experiment that produces it.
+
+[Solution](#sol-prob-name-the-laws)
+
+:::
+
+::: {#ex-prob-partial-sums .exercise}
+## Partial sums of standard normals
+
+Let $X_1,X_2,\ldots$ be independent and standard normal, and set $Y_n=X_1+\cdots+X_n$, with $Y_1=X_1$.
+
+(a) Describe a typical path of $X_1,\ldots,X_n$ and of $Y_1,\ldots,Y_n$ for large $n$.
+
+(b) Find $\E Y_n$ and $\Var(Y_n)$.
+
+(c) Find $\Cov(Y_m,Y_n)$ for $m\le n$.
+
+[Solution](#sol-prob-partial-sums)
+
+:::
+
+::: {#ex-prob-lift .exercise}
+## A lift and a weight limit
+
+A lift carries at most 650 kg. A person's weight is $\Normal(75, 10^2)$, and weights are independent. Let $Z_n$ be the total weight of $n$ people.
+
+(a) Find $\Pr(Z_8\ge 650)$. Use $\Phi(1.77)\approx 0.962$.
+
+(b) Find the largest $n$ such that $\Pr(Z_n\ge 650)\le 0.01$.
+
+[Solution](#sol-prob-lift)
+
+:::
+
+::: {#ex-prob-circuit-board .exercise}
+## Thickness of a circuit board
+
+Boards should have thickness between $0.146$ cm and $0.154$ cm. A machine produces thickness $X\sim\Normal(0.151, 0.003^2)$.
+
+(a) Find the probability that one board meets the specification. Use $\Phi(1)\approx 0.8413$ and $\Phi(1.67)\approx 0.9525$.
+
+(b) Let $\overline X$ be the mean thickness of 25 independent boards from this machine. Find the probability that the batch mean meets the same specification.
+
+[Solution](#sol-prob-circuit-board)
+
+:::
+
+::: {#ex-prob-sum-of-uniforms .exercise}
+## The sum of uniform draws
+
+Numbers are drawn independently from the uniform distribution on $[0,1]$, and $S_n$ is their sum.
+
+(a) Describe the density of $S_2$.
+
+(b) Give the normal approximation to the distribution of $S_{20}$.
+
+(c) Approximate the probability that the average of the 20 numbers exceeds $0.6$. Use $\Phi(1.55)\approx 0.9394$.
+
+[Solution](#sol-prob-sum-of-uniforms)
+
+:::
+
+::: {#ex-prob-squared-heads .exercise}
+## Paying the square of the number of heads
+
+Ten fair coins are tossed, and the payout is the square of the number of heads. What stake makes the game fair, in the sense that the expected profit is zero?
+
+[Solution](#sol-prob-squared-heads)
+
+:::
+
+::: {#ex-prob-blueberry-sieve .exercise}
+## A sieve for blueberries
+
+Blueberry diameters are $\Normal(1, 0.1^2)$, in centimetres. A sieve of diameter $d$ classifies a berry as large when its diameter exceeds $d$.
+
+(a) Choose $d$ so that 30% of berries are large. Use the standard normal quantile $z_{0.7}\approx 0.524$, that is the point with $\Phi(z_{0.7})=0.7$.
+
+(b) With that choice of $d$, approximate the probability that fewer than 280 of 1000 independent berries are large.
+
+:::
+
+::: {#ex-prob-ten-components .exercise}
+## Ten successive exponential components
+
+A component has an exponential lifetime with expectation $1/2$ year. On failure it is replaced at once by an identical new component. Ten components are used this way, and $T$ is the time at which the tenth fails.
+
+(a) Find $\E T$ and $\Var(T)$.
+
+(b) Approximate $\Pr(T>6)$ with the central limit theorem.
+
+(c) Name the exact distribution of $T$.
+
+:::

@@ -1,0 +1,118 @@
+# Analysis of variance
+
+Analysis of variance compares several means by splitting the total sum of squares into a part between groups and a part within groups. With two groups the resulting $F$ statistic is the square of the two-sample $t$ statistic from [Hypothesis tests](inf-04-hypothesis-tests.qmd). With a non-normal response the parallel comparison of fitted models is an [analysis of deviance](05-comparisons-and-deviance.qmd). The normal linear model underneath both is the one in [Linear regression](inf-06-regression.qmd) and, with a prior, in [Bayesian linear regression](bayes-09-linear-regression.qmd).
+
+## One factor
+
+::: {#def-one-way-anova .definition}
+## One-way analysis of variance
+
+In a completely randomised one-factor design, responses at level $j=1,\ldots,k$ follow
+
+$$
+Y_{ij}=\mu_j+\varepsilon_{ij},
+\qquad
+\varepsilon_{ij}\ \text{independent}\ \Normal(0,\sigma^2),
+$$
+
+with $n_j$ observations at level $j$ and $n=\sum_j n_j$. The levels are the treatments. The hypothesis of equal means is $H_0:\mu_1=\cdots=\mu_k$.
+
+:::
+
+Write $\overline Y_{\cdot j}$ for the mean at level $j$ and $\overline Y_{\cdot\cdot}$ for the grand mean. The sums of squares
+
+$$
+\mathrm{SS}_{\mathrm{treatment}}=\sum_{j=1}^k n_j(\overline Y_{\cdot j}-\overline Y_{\cdot\cdot})^2,
+\qquad
+\mathrm{SS}_{\mathrm{error}}=\sum_{j=1}^k\sum_{i=1}^{n_j}(Y_{ij}-\overline Y_{\cdot j})^2
+$$
+
+add to the total sum of squares about the grand mean. Under equal means, $\mathrm{SS}_{\mathrm{treatment}}/\sigma^2$ is chi-squared with $k-1$ degrees of freedom, $\mathrm{SS}_{\mathrm{error}}/\sigma^2$ is chi-squared with $n-k$ degrees of freedom, and the two are independent. Therefore
+
+$$
+F=\frac{\mathrm{SS}_{\mathrm{treatment}}/(k-1)}{\mathrm{SS}_{\mathrm{error}}/(n-k)}=\frac{\mathrm{MS}_{\mathrm{treatment}}}{\mathrm{MS}_{\mathrm{error}}}
+$$
+
+has an $F_{k-1,\,n-k}$ distribution under $H_0$. The level-$\alpha$ test rejects for large $F$, above the quantile $F_{k-1,\,n-k,\,1-\alpha}$. A large $F$ means the group means differ by more than the within-group scatter accounts for.
+
+With $k=2$ this $F$ equals the square of the pooled two-sample $t$ statistic, and the test is the same test.
+
+A contrast is a linear combination $C=\sum_j c_j\mu_j$ whose coefficients sum to zero. It is estimated by $\widehat C=\sum_j c_j\overline Y_{\cdot j}$, with variance $\sigma^2\sum_j c_j^2/n_j$. The ratio of $\widehat C^2$ to that variance, with $\sigma^2$ replaced by $\mathrm{MS}_{\mathrm{error}}$, is an $F_{1,\,n-k}$ statistic for $H_0:C=0$. Contrasts that were chosen because the data suggested them do not keep that null distribution. A contrast has to be chosen from the scientific question, not from the ranking of the observed means.
+
+Comparing every pair of means inflates the chance that some interval misses. Tukey's intervals control that simultaneous error. When every group has the same size $r$, the probability is $1-\alpha$ that every difference $\mu_i-\mu_j$ satisfies
+
+$$
+\overline Y_{\cdot i}-\overline Y_{\cdot j}\pm Q_{k,\,n-k,\,1-\alpha}\sqrt{\frac{\mathrm{MS}_{\mathrm{error}}}{r}},
+$$
+
+where $Q$ is the quantile of the studentised range for $k$ groups and $n-k$ residual degrees of freedom. A pair whose interval excludes zero is declared different at familywise level $\alpha$.
+
+## Blocks
+
+A randomised block design measures every treatment once in each block, so that a block effect can be removed from the error. With $t$ treatments and $b$ blocks,
+
+$$
+Y_{ij}=\mu+\tau_i+\beta_j+\varepsilon_{ij},
+$$
+
+where $\sum_i\tau_i=0$, $\sum_j\beta_j=0$, and the errors are independent and $\Normal(0,\sigma^2)$. The treatment sum of squares and the block sum of squares are the one-way sums of squares for the treatment means and the block means, each multiplied by the number of observations in that mean. The error sum of squares is what remains of the total. The treatment $F$ statistic is $\mathrm{MS}_{\mathrm{treatment}}/\mathrm{MS}_{\mathrm{error}}$ on $(t-1)$ and $(b-1)(t-1)$ degrees of freedom. The block statistic is the same with the block sum of squares and $b-1$ degrees of freedom.
+
+With two treatments the differences within blocks are a single sample, and the treatment $F$ test is the paired $t$ test on those differences. The completely randomised design is the several-group version of the two-sample $t$ test. The block design is the several-treatment version of the paired $t$ test.
+
+::: {.callout-note}
+## Key idea
+Compare the variance of the group means with the variance inside the groups. Under equal means the ratio is an $F$ statistic. Blocking pulls a known source of variation out of the error before that comparison is made.
+:::
+
+A Bonferroni comparison and a worked haemoglobin table are in [Analysis of variance examples](da-06-anova-examples.qmd).
+
+## Exercises
+
+::: {#ex-inf-heart-rate .exercise}
+## Heart rates in four age groups
+
+Four age groups each have 10 measurements of the increase in heart rate. The group totals are 309, 275, 295 and 282. The error sum of squares about the four group means is 935.500.
+
+(a) Compute the treatment sum of squares and the $F$ statistic for equal means.
+
+(b) The $0.95$ quantile of $F_{3,36}$ is about $2.87$. What does the test conclude at level $0.05$?
+
+[Solution](#sol-inf-heart-rate)
+
+:::
+
+::: {#ex-inf-tukey-corn .exercise}
+## A Tukey interval for two varieties
+
+Five corn varieties are grown in $r=3$ plots each. The variety means include $\overline y_3=59.800$ and $\overline y_4=48.300$. The residual mean square on 10 degrees of freedom is $10.6$. The studentised-range quantile $Q_{5,10,\,0.95}$ is $4.65$.
+
+Compute the Tukey interval for $\mu_3-\mu_4$ at familywise level $0.05$, and say whether the test declares the two means different.
+
+[Solution](#sol-inf-tukey-corn)
+
+:::
+
+::: {#ex-inf-hardness .exercise}
+## Tips and coupons
+
+Hardness readings for four tips on four metal coupons are
+
+|  | Coupon 1 | Coupon 2 | Coupon 3 | Coupon 4 |
+|---|---:|---:|---:|---:|
+| Tip 1 | 9.3 | 9.4 | 9.2 | 9.7 |
+| Tip 2 | 9.4 | 9.3 | 9.4 | 9.6 |
+| Tip 3 | 9.6 | 9.8 | 9.5 | 10.0 |
+| Tip 4 | 10.0 | 9.9 | 9.7 | 10.2 |
+
+Treat tips and coupons as the two factors of a randomised block design, with one observation per cell. Compute the two $F$ statistics and state the conclusion of each test at level $0.05$. The $0.95$ quantile of $F_{3,9}$ is about $3.86$.
+
+[Solution](#sol-inf-hardness)
+
+:::
+
+::: {#ex-inf-paired-f .exercise}
+## Two treatments in blocks
+
+In a randomised block design with $t=2$ treatments, the treatment $F$ test and the paired $t$ test on the within-block differences are equivalent. Show that the $F$ statistic is the square of that paired $t$ statistic, and that the level-$\alpha$ critical regions agree.
+
+:::

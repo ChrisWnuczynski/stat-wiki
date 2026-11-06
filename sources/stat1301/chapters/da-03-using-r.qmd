@@ -1,0 +1,72 @@
+# Using R
+
+R is the language used here to hold a data table, summarise it, draw it, and fit the models in the inference chapters. The objects below are enough to reproduce the summaries in [Descriptive statistics](da-02-descriptive-statistics.qmd) and to call the procedures behind [Estimation examples](da-04-estimation-examples.qmd), [Testing examples](da-05-testing-examples.qmd), and [Linear model examples](da-08-linear-model-examples.qmd).
+
+R is installed from the Comprehensive R Archive Network. An editor that sends a script to an R session is convenient. The calculations do not depend on which editor is used. Help for a function is `help("mean")` or `?mean`.
+
+## Values, vectors, and assignment
+
+A name is bound with `<-` or `=`.
+
+```r
+xx <- 10
+xx
+```
+
+The printed `[1]` is the position of the first element, not part of the value. Character data use quotes. `mean("I like R")` fails because the mean is defined for numbers.
+
+`c()` builds a vector. Arithmetic and most summaries act elementwise or on the whole vector.
+
+```r
+x <- c(2.86, 4.16, 6.35, 3.92, 5.96)
+mean(x)
+sd(x)
+median(x)
+length(x)
+```
+
+`sd` is the bias-corrected sample standard deviation, the $s$ of [Estimation](inf-02-estimation.qmd). `seq(1, 10)` and `rep(0, 5)` build regular vectors. `1:10` is the same idea.
+
+A logical comparison such as `x > 4` returns a vector of `TRUE` and `FALSE`. Summing it counts the true entries, because `TRUE` is coerced to 1.
+
+## Data frames
+
+A data frame is the spreadsheet of [Descriptive statistics](da-02-descriptive-statistics.qmd): one column per variable, one row per unit. Columns can have different types.
+
+```r
+alice <- data.frame(
+  change = c(17, 22, 21, 16, 6, -2, 27, 15, 16, 20,
+             4, 10, 7, -9, 5, 4, 5, 7, 6, 12),
+  drink = rep(c("caffeinated", "decaf"), each = 10)
+)
+str(alice)
+head(alice)
+```
+
+`alice$change` extracts a column. `alice[alice$drink == "decaf", ]` keeps the rows that match. `summary(alice)` prints a numeric summary of each numeric column and a count of each label.
+
+A file of comma-separated values is read with `read.csv("heart.csv")`. The working directory is `getwd()`, and `setwd()` changes it. `write.csv(alice, "alice.csv", row.names = FALSE)` writes a frame back out.
+
+`table(alice$drink)` is the count table of a categorical column. `tapply(alice$change, alice$drink, mean)` applies `mean` inside each group.
+
+## Plots and model fits
+
+`hist(x)` draws a histogram. `boxplot(change ~ drink, data = alice)` draws one box per group. `plot(x, y)` is a scatterplot, and `pairs(qvars)` is the scatterplot matrix. `barplot(table(alice$drink))` draws the bars.
+
+A normal quantile is `qnorm(0.975)`. A $t$ quantile on 9 degrees of freedom is `qt(0.975, df = 9)`. `pnorm` and `pt` are the corresponding distribution functions. Random draws are `rnorm(n, mean, sd)` and `runif(n)`.
+
+The fitted line and the analysis of variance are `lm` and `anova`. The formulas and the reading of the coefficients are in [Linear regression](inf-06-regression.qmd) and [Analysis of variance](inf-07-anova.qmd), not in the function names.
+
+```r
+fit <- lm(change ~ drink, data = alice)
+summary(fit)
+```
+
+`lm` treats the first level of a factor as the baseline. The intercept is the mean of that level. Each further coefficient is a difference from it. That is the design-matrix form in [Linear model examples](da-08-linear-model-examples.qmd).
+
+A one-sample $t$ procedure is `t.test(x, mu = 0)`. A two-sample procedure is `t.test(change ~ drink, data = alice)`. A proportion test is `prop.test`. These functions implement the tests on [Hypothesis tests](inf-04-hypothesis-tests.qmd). The printed p-value is the one defined there, not a posterior probability. The posterior calculation is in [Bayesian hypotheses and model comparison](bayes-06-testing.qmd).
+
+::: {.callout-note}
+## Key idea
+Put each unit in a row and each variable in a column. `mean`, `sd`, `table`, and `boxplot` describe the sample. `lm` and `t.test` fit the models already defined in the inference chapters.
+:::

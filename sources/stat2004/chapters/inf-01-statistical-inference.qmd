@@ -1,0 +1,50 @@
+# Statistical inference
+
+A probability model says what a sample would look like if the parameters were known. Inference runs the other way: the sample is in hand, and the parameter is not. The tools are an estimator, a confidence interval, and a test. Each one is a function of the data, and each one has a long-run property that can be calculated from the model.
+
+The probability of the sample is already fixed in the Probability section. [Random experiments and probability](prob-01-experiments.qmd) builds the sample space. [Random variables and distributions](prob-02-random-variables.qmd) names the families used below, and the formulas sit on the [common distributions](../reference/distributions.qmd) page. [Joint distributions](prob-04-joint-distributions.qmd) is where independence and covariance are defined. The [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem) is what makes a normal approximation honest for a large sample.
+
+## From a sample to a parameter
+
+::: {#def-random-sample .definition}
+## Random sample
+
+$X_1,\ldots,X_n$ are a random sample from a distribution $F$ when they are independent and each has distribution $F$. The joint density or mass function is then the product of the marginals.
+
+:::
+
+The unknown part of $F$ is the parameter, written $\theta$. It may be a number, such as a mean or a binomial probability, or a vector, such as $(\mu,\sigma^2)$. The set of values $\theta$ is allowed to take is the parameter space. A model is the pair: the family of distributions, and which parts of it are known.
+
+Data are the observed numbers $x_1,\ldots,x_n$. The corresponding capital letters $X_1,\ldots,X_n$ are the random variables before the sample is drawn. Keeping the two apart matters. An average of the numbers $x_i$ is a fixed summary of this sample. The same formula with $X_i$ in place of $x_i$ is a random variable, and it has a sampling distribution.
+
+::: {#def-statistic .definition}
+## Statistic
+
+A statistic is a function of the sample that does not depend on the unknown parameter. Its sampling distribution is the distribution of that function when the sample is still random.
+
+:::
+
+The sample mean and the bias-corrected sample variance are the two statistics used constantly:
+
+$$
+\overline X=\frac1n\sum_{i=1}^n X_i,
+\qquad
+s^2=\frac1{n-1}\sum_{i=1}^n (X_i-\overline X)^2.
+$$
+
+If the $X_i$ have mean $\mu$ and variance $\sigma^2$, then $\E\overline X=\mu$ and $\Var(\overline X)=\sigma^2/n$, whether or not the distribution is normal. The factor $n-1$ in $s^2$ is what makes $\E s^2=\sigma^2$. Dividing by $n$ instead produces a slightly smaller statistic, with expectation $((n-1)/n)\sigma^2$.
+
+A normal sample has a stronger summary. If $X_i$ are independent and $\Normal(\mu,\sigma^2)$, then $\overline X$ is exactly $\Normal(\mu,\sigma^2/n)$, the variable $(n-1)s^2/\sigma^2$ is chi-squared with $n-1$ degrees of freedom, and $\overline X$ is independent of $s^2$. Those three facts are the engine of the $t$ interval and the $t$ test. The chi-squared law here is the gamma law with shape $(n-1)/2$ and rate $1/2$, in the parameterisation on the distribution sheet.
+
+For a large sample that is not normal, the central limit theorem replaces the exact normal law of $\overline X$ by an approximation. That is enough for the approximate intervals and tests for a proportion.
+
+## What the rest of this section does
+
+Estimation turns a statistic into a guess at $\theta$, and compares guesses by bias and mean squared error. A confidence interval is a random set that covers $\theta$ with a chosen long-run probability. A hypothesis test decides whether the data are surprising under a stated value of $\theta$. Chi-squared statistics compare observed counts with expected counts. Regression and analysis of variance are the normal linear model with one continuous covariate, and with a categorical factor.
+
+None of these procedures puts a probability on $\theta$ after the data are seen. A probability for the parameter, given the data, is a different calculation. It starts from a prior and is carried out in the Bayesian chapters, beginning with [Bayesian foundations](bayes-01-foundations.qmd).
+
+::: {.callout-note}
+## Key idea
+Write the sample as independent copies from a distribution that still contains an unknown parameter. Every later procedure is a statistic, and its justification is a property of the sampling distribution of that statistic.
+:::

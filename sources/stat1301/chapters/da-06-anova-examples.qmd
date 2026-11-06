@@ -1,0 +1,33 @@
+# Analysis of variance examples
+
+The one-factor model, the treatment and error sums of squares, and the $F$ test of equal means are in [Analysis of variance](inf-07-anova.qmd). With two groups that $F$ statistic is the square of the two-sample $t$ statistic in [Hypothesis tests](inf-04-hypothesis-tests.qmd). A non-normal response uses an [analysis of deviance](05-comparisons-and-deviance.qmd) instead of an $F$ ratio of variances.
+
+When the $F$ test rejects, it does not say which means differ. Repeating a $t$ test on every pair inflates the type I error. The Bonferroni correction carries out $m$ comparisons at level $\alpha/m$ each, so that the probability of any false rejection is at most $\alpha$. It is simple and conservative. Tukey's intervals, which use the studentised range, are the alternative stated in the analysis of variance chapter.
+
+Haemoglobin was measured for three forms of sickle-cell disease. The group sizes are 16 (HbSS), 15 (HbST) and 10 (HbSC). An analysis of variance reports a treatment sum of squares 99.89 and an error mean square 1.00. The p-value of the corresponding $F$ statistic is about $2.3\times 10^{-11}$.
+
+## Exercises
+
+::: {#ex-da-sickle-anova .exercise}
+## Haemoglobin and sickle-cell type
+
+Three groups have sizes 16, 15 and 10. The treatment sum of squares is 99.89 and the error mean square is 1.00.
+
+(a) State the null and alternative hypotheses for a one-factor analysis of variance.
+
+(b) Complete the degrees of freedom and the $F$ statistic.
+
+(c) The p-value is about $2.3\times 10^{-11}$. What is the conclusion at level 0.05, and which assumptions does the $F$ test use?
+
+[Solution](#sol-da-sickle-anova)
+
+:::
+
+::: {#ex-da-bonferroni .exercise}
+## Five treatments, ten pairs
+
+Five treatments are compared in pairs after a significant analysis of variance, so there are $\binom{5}{2}=10$ comparisons. The familywise level is 0.05. What significance level does the Bonferroni correction give each pair?
+
+[Solution](#sol-da-bonferroni)
+
+:::

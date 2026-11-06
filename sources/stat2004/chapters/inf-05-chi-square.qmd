@@ -1,0 +1,60 @@
+# Chi-squared tests
+
+A chi-squared statistic compares observed counts with the counts a model expected. It is the large-sample test for a fully specified discrete distribution, for a discrete distribution with a few unknown parameters, and for independence in a contingency table. The likelihood-ratio version of a comparison between nested models is the deviance, developed with [paired comparisons and deviance](05-comparisons-and-deviance.qmd). A contingency table is also the data layout of a [categorical response](04-categorical-responses.qmd).
+
+The counts themselves are multinomial. That joint distribution is on the [common distributions](../reference/distributions.qmd) page, and the underlying independence of trials is in [Joint distributions](prob-04-joint-distributions.qmd).
+
+## Known cell probabilities
+
+::: {#def-pearson-statistic .definition}
+## Pearson statistic
+
+Let $(X_1,\ldots,X_k)$ be multinomial with $n$ trials and cell probabilities $p_1,\ldots,p_k$. For reference probabilities $\pi_1,\ldots,\pi_k$ the Pearson statistic is
+
+$$
+T=\sum_{i=1}^k\frac{(X_i-n\pi_i)^2}{n\pi_i}=\sum_{i=1}^k\frac{(O_i-E_i)^2}{E_i},
+$$
+
+where $O_i$ is the observed count and $E_i=n\pi_i$ is the expected count.
+
+:::
+
+Under the hypothesis $p_i=\pi_i$ for every $i$, $T$ is approximately chi-squared with $k-1$ degrees of freedom once $n$ is large. One degree of freedom is lost because the counts sum to $n$, so the cells are not $k$ independent Poisson variables. A usual rule of thumb asks for every expected count to be at least about $5$ before the approximation is trusted. The level-$\alpha$ test rejects when $T$ exceeds the chi-squared quantile $\chi^2_{k-1,\,1-\alpha}$.
+
+For three phenotypes in the proportions $1:2:1$, the reference probabilities are $1/4$, $1/2$ and $1/4$, and the null distribution has $3-1=2$ degrees of freedom. The quantile $\chi^2_{2,\,0.95}$ is $5.991$.
+
+## Estimated parameters
+
+If the cell probabilities depend on an unknown $r$-dimensional parameter, $p_i=p_i(\theta)$, replace $\pi_i$ by the fitted probability $p_i(\widehat\theta)$ from the maximum likelihood estimator of $\theta$. The Pearson statistic with those fitted expectations is approximately chi-squared with $k-1-r$ degrees of freedom under the model. Each freely estimated parameter spends a degree of freedom. Using $k-1$ instead, as though $\theta$ were known, makes the test too reluctant to reject.
+
+A count of events in equal time bins, fitted by a Poisson distribution, is the usual example. The Poisson mean is estimated by the sample mean, so $r=1$, and the degrees of freedom are the number of bins minus $2$.
+
+## Contingency tables
+
+A contingency table classifies $n$ individuals by two factors, with $r$ rows and $c$ columns. Write $O_{ij}$ for the count in row $i$ and column $j$, $R_i$ for the row total and $C_j$ for the column total. Independence of the two factors says that the cell probability factors into a row probability times a column probability. The maximum likelihood fitted count is
+
+$$
+E_{ij}=\frac{R_i\,C_j}{n}.
+$$
+
+The Pearson statistic $\sum(O_{ij}-E_{ij})^2/E_{ij}$ is then approximately chi-squared with $(r-1)(c-1)$ degrees of freedom. The row probabilities and the column probabilities are estimated, and both sets sum to one, which is why the degrees of freedom take that product form. A large statistic is evidence against independence.
+
+The same table can be read as a response model, with one factor the response and the other the covariate. The saturated log-linear or multinomial-logit fit, and the likelihood-ratio comparison with the independence model, are the categorical and deviance chapters rather than a second copy of this statistic.
+
+::: {.callout-note}
+## Key idea
+Expected counts come from the hypothesis. The Pearson statistic is the sum of squared differences divided by those expectations. The degrees of freedom are the number of free cells left after every estimated parameter has been counted.
+:::
+
+Numerical examples are in [Chi-squared examples](da-09-chi-square-examples.qmd).
+
+## Exercises
+
+::: {#ex-inf-frizzle .exercise}
+## A 1:2:1 phenotype ratio
+
+Complete dominance predicts phenotype probabilities $1/4$, $1/2$ and $1/4$. In a sample of 93 animals the counts are 23, 50 and 20. Compute the Pearson statistic, and test the prediction at level $0.05$. Use $\chi^2_{2,\,0.95}=5.991$.
+
+[Solution](#sol-inf-frizzle)
+
+:::

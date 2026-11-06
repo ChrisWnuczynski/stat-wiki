@@ -4,7 +4,7 @@ Linear regression extends the earlier normal model with unknown mean and varianc
 
 This chapter develops the model, the least-squares reference calculation, the improper-prior posterior kernel and its quadratic decomposition, the conditional posterior families, and independent informative priors, and then carries the marginalisation, simulation, and prediction arguments through in full.
 
-Least squares is the reference calculation to learn first. It is fast, widely available, and provides the least-squares coordinates and checks used below. Bayesian regression retains that sampling model and adds probability distributions for the unknown coefficients and variance.[^b09-linear-regression-1]
+Least squares is the reference calculation to learn first. It is fast, widely available, and provides the least-squares coordinates and checks used below. Sampling-theory intervals for the same line are in [Linear regression](inf-06-regression.qmd). Further numerical fits are in [Regression examples](da-07-regression-examples.qmd). Bayesian regression retains that sampling model and adds probability distributions for the unknown coefficients and variance.[^b09-linear-regression-1]
 
 ## The Gaussian linear model
 

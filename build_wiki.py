@@ -1,4 +1,4 @@
-"""Build the stat wiki from the course book, final booklet, and practice set.
+"""Build the stat wiki from the course book, final booklet, practice set, and probability notes.
 
 Run from this folder: python build_wiki.py
 Then: quarto preview
@@ -24,8 +24,49 @@ BOOK = SOURCES / "book"  # the lecture book (index, chapters, figures)
 PREP = SOURCES / "prep"  # the final-exam booklet (index, chapters, figures)
 PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
 REPO_URL = "https://github.com/ChrisWnuczynski/stat-wiki"
+PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
+INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
+DATA = SOURCES / "stat1301"  # studies, description, R, and examples that point at inference
 
 PARTS = [
+    (
+        "Probability",
+        [
+            ("prob-01-experiments.qmd", "notes"),
+            ("prob-02-random-variables.qmd", "notes"),
+            ("prob-03-simulation.qmd", "notes"),
+            ("prob-04-joint-distributions.qmd", "notes"),
+            ("prob-05-transforms-and-limits.qmd", "notes"),
+            ("prob-06-markov-chains.qmd", "notes"),
+            ("prob-07-reliability.qmd", "notes"),
+        ],
+    ),
+    (
+        "Statistical inference",
+        [
+            ("inf-01-statistical-inference.qmd", "notes"),
+            ("inf-02-estimation.qmd", "notes"),
+            ("inf-03-confidence-intervals.qmd", "notes"),
+            ("inf-04-hypothesis-tests.qmd", "notes"),
+            ("inf-05-chi-square.qmd", "notes"),
+            ("inf-06-regression.qmd", "notes"),
+            ("inf-07-anova.qmd", "notes"),
+        ],
+    ),
+    (
+        "Data analysis",
+        [
+            ("da-01-studies-and-data.qmd", "notes"),
+            ("da-02-descriptive-statistics.qmd", "notes"),
+            ("da-03-using-r.qmd", "notes"),
+            ("da-04-estimation-examples.qmd", "notes"),
+            ("da-05-testing-examples.qmd", "notes"),
+            ("da-06-anova-examples.qmd", "notes"),
+            ("da-07-regression-examples.qmd", "notes"),
+            ("da-08-linear-model-examples.qmd", "notes"),
+            ("da-09-chi-square-examples.qmd", "notes"),
+        ],
+    ),
     (
         "Bayesian statistics",
         [
@@ -920,6 +961,29 @@ def clean_output() -> None:
 # ---------------------------------------------------------------------------
 
 CHAPTER_CODES = {
+    "P1": "prob-01-experiments.qmd",
+    "P2": "prob-02-random-variables.qmd",
+    "P3": "prob-03-simulation.qmd",
+    "P4": "prob-04-joint-distributions.qmd",
+    "P5": "prob-05-transforms-and-limits.qmd",
+    "P6": "prob-06-markov-chains.qmd",
+    "P7": "prob-07-reliability.qmd",
+    "I1": "inf-01-statistical-inference.qmd",
+    "I2": "inf-02-estimation.qmd",
+    "I3": "inf-03-confidence-intervals.qmd",
+    "I4": "inf-04-hypothesis-tests.qmd",
+    "I5": "inf-05-chi-square.qmd",
+    "I6": "inf-06-regression.qmd",
+    "I7": "inf-07-anova.qmd",
+    "D1": "da-01-studies-and-data.qmd",
+    "D2": "da-02-descriptive-statistics.qmd",
+    "D3": "da-03-using-r.qmd",
+    "D4": "da-04-estimation-examples.qmd",
+    "D5": "da-05-testing-examples.qmd",
+    "D6": "da-06-anova-examples.qmd",
+    "D7": "da-07-regression-examples.qmd",
+    "D8": "da-08-linear-model-examples.qmd",
+    "D9": "da-09-chi-square-examples.qmd",
     "B1": "bayes-01-foundations.qmd",
     "B2": "bayes-02-beta-binomial.qmd",
     "B3": "bayes-03-normal-models.qmd",
@@ -1450,7 +1514,41 @@ def index_chapter(note: dict, part: str, body: str) -> str:
 # Term links: (pattern, chapter code, heading text or box id, parts where it applies).
 # Order matters: a longer or more specific phrase must come before a shorter one.
 B, G, S, C, T = "Bayesian statistics", "Generalised linear models", "Smoothing", "Correlated data", "Time series"
+P = "Probability"
+I = "Statistical inference"
+D = "Data analysis"
 TERMS = [
+    # Probability. Scoped so a phrase already owned by a later chapter
+    # (Bayes' rule, a named distribution, MCMC) keeps that target.
+    (r"conditional probability", "P1", "def-conditional-probability", {P}),
+    (r"sample spaces?", "P1", "def-sample-space", {P}),
+    (r"laws? of total probability", "P1", "thm-total-probability", {P}),
+    (r"probability generating functions?", "P2", "def-probability-generating-function", {P}),
+    (r"moment generating functions?", "P2", "def-moment-generating-function", {P}),
+    (r"hypergeometric distributions?", "P2", "def-hypergeometric-distribution", None),
+    (r"uniform distributions?", "P2", "def-uniform-distribution", None),
+    (r"inverse[- ]transform methods?", "P3", "def-inverse-transform", None),
+    (r"acceptance(?:-|–)rejection methods?", "P3", "def-acceptance-rejection", None),
+    (r"covariance matrices|covariances?", "P4", "def-covariance", {P}),
+    (r"central limit theorems?|CLT", "P5", "thm-central-limit-theorem", None),
+    (r"laws? of large numbers|LLN", "P5", "thm-law-of-large-numbers", None),
+    (r"finite[- ]state Markov chains?", "P6", "def-finite-state-markov-chain", None),
+    (r"structure functions?", "P7", "def-structure-function", {P}),
+    (r"reliability functions?", "P7", "def-reliability-function", {P}),
+    (r"hazard rates?|failure rates?", "P7", "def-hazard-rate", None),
+    (r"Weibull distributions?", "P7", "def-weibull-distribution", None),
+    # Inference. Phrases already owned elsewhere (least squares, deviance, Bayes' rule) keep those targets.
+    (r"maximum likelihood (?:estimates?|estimators?)|MLEs?", "I2", "def-maximum-likelihood", None),
+    (r"methods? of moments", "I2", "def-method-of-moments", {I}),
+    (r"unbiased estimators?", "I2", "def-unbiased-estimator", {I}),
+    (r"confidence intervals?", "I3", "def-confidence-interval", None),
+    (r"p-values?", "I4", "def-p-value", {I}),
+    (r"type I errors?|type II errors?", "I4", "def-type-i-and-type-ii-errors", {I}),
+    (r"goodness-of-fit tests?|contingency tables?", "I5", "def-pearson-statistic", {I}),
+    (r"analysis of variance|ANOVA", "I7", "def-one-way-anova", None),
+    (r"observational studies?", "D1", "def-observational-study", None),
+    (r"designed experiments?|randomised experiments?|randomized experiments?", "D1", "def-designed-experiment", None),
+    (r"interquartile ranges?|IQRs?", "D2", "def-interquartile-range", None),
     # Bayesian foundations
     (r"highest[- ](?:posterior[- ])?density (?:intervals?|regions?)|HPD (?:intervals?|regions?)", "B1", "def-credible-region-constructions", None),
     (r"equal-tailed (?:credible )?intervals?", "B1", "def-credible-region-constructions", None),
@@ -1477,7 +1575,10 @@ TERMS = [
     (r"inverse[- ]Gamma(?: distributions?| priors?)?", "B3", "def-inverse-gamma-distribution", None),
     (r"precision[- ]weight(?:ing|ed)", "B3", "rem-precision-weighting", None),
     # MCMC
-    (r"Markov chains?|MCMC", "B4", "def-markov-chain", None),
+    # "Markov chain" on a probability page points at the finite-state chapter.
+    # Elsewhere it stays with the Monte Carlo chapter. "MCMC" always does.
+    (r"Markov chains?", "P6", "def-finite-state-markov-chain", {P}),
+    (r"Markov chains?|MCMC", "B4", "def-markov-chain", {B, G, S, C, T, "Final preparation"}),
     (r"detailed balance", "B4", "def-stationarity-and-detailed-balance", None),
     (r"stationary distributions?", "B4", "def-stationarity-and-detailed-balance", None),
     (r"full conditionals?(?: distributions?)?|Gibbs sampl(?:ers?|ing)", "B4", "def-systematic-scan-gibbs-sampler", None),
@@ -2701,7 +2802,10 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     # Topics: a contents page for the whole book.
     topics_path = WIKI / "notes" / "index.qmd"
     lines = [
-        "Every chapter is an article. Each one ends with a table of the questions on its topic.",
+        "Every chapter is an article. Each one ends with a table of the questions on its topic. "
+        "The Probability section is the common language for the later chapters: experiments, random variables, simulation, dependence, limits, Markov chains and reliability. "
+        "Statistical inference then turns a random sample into an estimate, an interval, or a test. "
+        "Data analysis is where a study, a table of summaries, and an R calculation meet those methods.",
         "",
     ]
     for part, members in parts.items():
@@ -2787,7 +2891,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -2910,7 +3014,7 @@ format:
 
 def distributions_body() -> str:
     return r"""
-The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page.
+The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page. How a sample from one of these laws is summarised before a model is fitted is on [Descriptive statistics](../notes/da-02-descriptive-statistics.qmd).
 
 ## Discrete
 
@@ -3050,6 +3154,15 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 """
 
 
+def chapter_source(filename: str) -> Path:
+    """Chapter files live with the book, except the probability notes."""
+    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters"):
+        path = folder / filename
+        if path.exists():
+            return path
+    raise SystemExit(f"Missing chapter: {filename}")
+
+
 def main() -> None:
     self_test()
     if not BOOK.exists():
@@ -3067,7 +3180,7 @@ def main() -> None:
     print("Reading the course book")
     for part, files in PARTS:
         for filename, kind in files:
-            raw = (BOOK / "chapters" / filename).read_text(encoding="utf-8")
+            raw = chapter_source(filename).read_text(encoding="utf-8")
             title = first_heading(raw)
             prose, exercises = extract_exercises(raw)
             if kind == "reference":
@@ -3108,32 +3221,38 @@ def main() -> None:
                 book_questions_by_id[ex_id] = record
                 note["exercises"].append(record)
 
-    solutions = (BOOK / "chapters" / "bayes-11-solutions.qmd").read_text(encoding="utf-8")
-    matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))
-    for i, match in enumerate(matches):
-        sol_id = match.group(1)
-        end = matches[i + 1].start() if i + 1 < len(matches) else len(solutions)
-        body = solutions[match.end() : end]
-        body = re.sub(r"(?m)^## Chapter [^\n]*\n", "", body)
-        linked = re.search(r"\(#(ex-[\w-]+)\)", body)
-        ex_id = linked.group(1) if linked else None
-        body = re.sub(r"\*\*\[[^\]]*\]\(#ex-[\w-]+\)\.\*\*", "", body, count=1)
-        q = book_questions_by_id.get(ex_id or "")
-        title = "Answer: " + (q["title"] if q else sol_id)
-        answers.append(
-            {
-                "group": "book",
-                "id": sol_id,
-                "title": title,
-                "body": body.strip(),
-                "path": WIKI / "answers" / "book" / f"{sol_id}.qmd",
-                "question_id": ex_id,
-                "question_path": q["path"] if q else None,
-                "notes_path": q["notes_path"] if q else None,
-                "description": "Worked answer · " + (q["chapter"] if q else "Applied exercise"),
-                "categories": ["Exercise answers", q["part"] if q else "Bayesian statistics"],
-            }
-        )
+    for sol_path in (
+        BOOK / "chapters" / "bayes-11-solutions.qmd",
+        PROBABILITY / "chapters" / "prob-solutions.qmd",
+        INFERENCE / "chapters" / "inf-solutions.qmd",
+        DATA / "chapters" / "da-solutions.qmd",
+    ):
+        solutions = sol_path.read_text(encoding="utf-8")
+        matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))
+        for i, match in enumerate(matches):
+            sol_id = match.group(1)
+            end = matches[i + 1].start() if i + 1 < len(matches) else len(solutions)
+            body = solutions[match.end() : end]
+            body = re.sub(r"(?m)^## Chapter [^\n]*\n", "", body)
+            linked = re.search(r"\(#(ex-[\w-]+)\)", body)
+            ex_id = linked.group(1) if linked else None
+            body = re.sub(r"\*\*\[[^\]]*\]\(#ex-[\w-]+\)\.\*\*", "", body, count=1)
+            q = book_questions_by_id.get(ex_id or "")
+            title = "Answer: " + (q["title"] if q else sol_id)
+            answers.append(
+                {
+                    "group": "book",
+                    "id": sol_id,
+                    "title": title,
+                    "body": body.strip(),
+                    "path": WIKI / "answers" / "book" / f"{sol_id}.qmd",
+                    "question_id": ex_id,
+                    "question_path": q["path"] if q else None,
+                    "notes_path": q["notes_path"] if q else None,
+                    "description": "Worked answer · " + (q["chapter"] if q else "Applied exercise"),
+                    "categories": ["Exercise answers", q["part"] if q else "Bayesian statistics"],
+                }
+            )
 
     print("Reading the final-preparation booklet")
     guide = (PREP / "index.qmd").read_text(encoding="utf-8")

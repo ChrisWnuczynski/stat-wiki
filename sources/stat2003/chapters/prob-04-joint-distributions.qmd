@@ -1,0 +1,249 @@
+# Joint distributions
+
+Two or more random variables on the same experiment have a joint distribution. The joint distribution determines the individual distributions, the probability of any region in the plane or in a higher dimension, and the conditional distribution of one variable given the others. Independence is the special case in which the joint distribution is the product of the marginals.
+
+Conditional probability for events is in [Random experiments and probability](prob-01-experiments.qmd). The density form used to update a prior is [Bayes' rule](bayes-01-foundations.qmd#thm-bayes-rule). The named one-dimensional families are on the [common distributions](../reference/distributions.qmd) page.
+
+## Joint distributions and independence
+
+::: {#def-joint-pmf .definition}
+## Joint probability mass function
+
+Discrete random variables $X$ and $Y$ have joint probability mass function $f_{X,Y}(x,y)=\Pr(X=x,Y=y)$. The marginal mass functions are the row and column sums,
+
+$$
+f_X(x)=\sum_y f_{X,Y}(x,y), \qquad f_Y(y)=\sum_x f_{X,Y}(x,y).
+$$
+
+:::
+
+For any set $B$ of pairs, $\Pr((X,Y)\in B)=\sum_{(x,y)\in B}f_{X,Y}(x,y)$. The definition extends to any finite collection by using the probability of the whole tuple.
+
+::: {#def-independent-random-variables .definition}
+## Independent random variables
+
+Discrete random variables $X_1,\ldots,X_n$ are independent when the joint mass function factors for every point:
+
+$$
+\Pr(X_1=x_1,\ldots,X_n=x_n)=\prod_{k=1}^n \Pr(X_k=x_k).
+$$
+
+Continuous random variables with joint density $f$ are independent when $f(x_1,\ldots,x_n)=\prod_{k=1}^n f_{X_k}(x_k)$. An infinite sequence is independent when every finite subcollection is.
+
+:::
+
+Independence of the random variables is independence of the events $\{X_i\in A_i\}$ for every choice of measurable sets $A_i$. It is a property of the joint distribution, and it is usually put in as a modelling assumption. A box of dice, one of which is biased, does not give independent rolls if the die is first chosen at random and then rolled twice: the first roll carries information about which die was chosen. Two rolls of a single fair die are independent.
+
+The multinomial distribution is the joint law of independent trials with several outcomes. In $n$ independent trials, each falling in category $k$ with probability $p_k$, the vector of counts is multinomial. Its mass function, mean and coordinate-wise variance are on the distribution sheet. One coordinate of a multinomial vector is binomial, because collapsing every other category leaves a single success probability.
+
+::: {#def-joint-density .definition}
+## Joint probability density
+
+Continuous random variables $X$ and $Y$ have joint density $f$ when, for every reasonable region $B$,
+
+$$
+\Pr((X,Y)\in B)=\iint_B f(x,y)\,\dd x\,\dd y.
+$$
+
+The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.
+
+:::
+
+Probability is volume under the surface $f$. A point drawn uniformly from a region of area $a$ has joint density $1/a$ on that region. Two independent uniform draws on $[0,1]$ have joint density $1$ on the unit square, which is the product of the marginal densities.
+
+A random sample of size $n$ from a density $f$ is exactly this product situation: $X_1,\ldots,X_n$ independent, each with density $f$, so the joint density is $\prod_{i=1}^n f(x_i)$.
+
+## Expectation, covariance and matrices
+
+For a function $g$ of a discrete pair, $\E g(X,Y)=\sum_{x,y} g(x,y)\,f_{X,Y}(x,y)$. For a continuous pair the sum is an integral against the joint density. In particular, expectation is still linear without any independence assumption:
+
+$$
+\E(aX+bY)=a\,\E X+b\,\E Y.
+$$
+
+The product factors only under independence: if $X$ and $Y$ are independent and the expectations exist, then $\E(XY)=(\E X)(\E Y)$.
+
+This is why a binomial expectation is $np$. Write the count as a sum of $n$ independent Bernoulli indicators. Each has expectation $p$, and linearity gives $np$. The same argument gives the hypergeometric mean $np$, with $p=r/N$, even though those indicators are dependent: linearity does not ask them to be independent. The variance does feel the dependence, which is why the hypergeometric variance carries the factor $(N-n)/(N-1)$.
+
+Sums stay inside several families, and the moment generating function is the clean way to see it. If $X\sim\Poisson(\lambda)$ and $Y\sim\Poisson(\mu)$ are independent, then $M_X(s)=\exp(\lambda(e^s-1))$ and $M_{X+Y}(s)=\exp((\lambda+\mu)(e^s-1))$, which is the transform of $\Poisson(\lambda+\mu)$. Independent gamma variables with a common rate $\lambda$ and shapes $\alpha$ and $\beta$ add to a gamma variable with shape $\alpha+\beta$ and the same rate, because the transforms $(\lambda/(\lambda-s))^{\alpha}$ multiply.
+
+::: {#def-covariance .definition}
+## Covariance
+
+The covariance of $X$ and $Y$ is $\Cov(X,Y)=\E\bigl((X-\E X)(Y-\E Y)\bigr)$, when the expectation exists. Equivalently, $\Cov(X,Y)=\E(XY)-(\E X)(\E Y)$.
+
+:::
+
+Covariance is bilinear and symmetric, and $\Cov(X,X)=\Var(X)$. The variance of a sum expands as
+
+$$
+\Var(X+Y)=\Var(X)+\Var(Y)+2\Cov(X,Y).
+$$
+
+Independent variables with finite variances are uncorrelated: their covariance is zero. The converse is false. Uncorrelated variables can be dependent. For jointly normal variables the converse does hold, which is proved with the transformation rule in the next chapter.
+
+The correlation $\rho(X,Y)=\Cov(X,Y)/\sqrt{\Var(X)\Var(Y)}$ lies in $[-1,1]$ whenever the variances are positive and finite. Equality to $\pm 1$ means that one variable is an affine function of the other. The bound is the Cauchy–Schwarz inequality applied to the centred variables, or equivalently the fact that $\Var(X+tY)\ge 0$ for every real $t$.
+
+A binomial variance is $np(1-p)$ because the Bernoulli indicators are independent, so the covariances vanish and the variances $p(1-p)$ add. A hypergeometric variance keeps the non-zero covariances of the without-replacement indicators, and they produce the finite-population correction.
+
+::: {#def-covariance-matrix .definition}
+## Expectation vector and covariance matrix
+
+For a random column vector $\mathbf{X}=(X_1,\ldots,X_n)^\top$ the expectation vector is $\boldsymbol\mu=\E\mathbf{X}$, taken coordinate-wise, and the covariance matrix $\Sigma$ has entries $\Sigma_{ij}=\Cov(X_i,X_j)$.
+
+:::
+
+The matrix $\Sigma$ is symmetric. It is positive semidefinite: for every constant vector $\mathbf{u}$,
+
+$$
+\mathbf{u}^\top\Sigma\mathbf{u}=\Var(\mathbf{u}^\top\mathbf{X})\ge 0.
+$$
+
+In matrix form, $\Sigma=\E\bigl((\mathbf{X}-\boldsymbol\mu)(\mathbf{X}-\boldsymbol\mu)^\top\bigr)$.
+
+## Conditional distributions
+
+::: {#def-conditional-distribution .definition}
+## Conditional distribution
+
+If $X$ and $Y$ are both discrete or both continuous, and $f_X(x)>0$, the conditional mass function or density of $Y$ given $X=x$ is
+
+$$
+f_{Y\given X}(y\given x)=\frac{f_{X,Y}(x,y)}{f_X(x)}.
+$$
+
+:::
+
+In the discrete case this is ordinary conditional probability: $\Pr(Y=y\given X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$. In the continuous case the same ratio is the density of the conditional distribution function $\Pr(Y\le y\given x<X\le x+h)$ as $h\downarrow 0$.
+
+Rearrangement is the product rule for densities, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)$. Integrating out $x$ is the law of total probability for densities,
+
+$$
+f_Y(y)=\int f_{Y\given X}(y\given x)\,f_X(x)\,\dd x.
+$$
+
+The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under that conditional distribution. As a function of the random point $X$ it is a random variable, written $\E(Y\given X)$.
+
+::: {#thm-tower-property .theorem}
+## Tower property
+
+If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$. More generally, $\E\bigl(\E(Y\given X,Z)\given X\bigr)=\E(Y\given X)$.
+
+:::
+
+The tower property is the calculation that justifies "first condition, then average". A random sum is the standard example. Let $N$ be a count with a finite mean, and given $N=n$ let $Y=X_1+\cdots+X_n$ with the $X_i$ independent of $N$ and of each other, each with mean $\mu$. Then $\E(Y\given N)=N\mu$, so $\E Y=\mu\,\E N$. The same conditioning gives $\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2$ when the variances exist.
+
+::: {.callout-note}
+## Key idea
+The joint distribution is the whole model. Marginals are sums or integrals of it. Independence is factorisation. Covariance is the numerical trace of dependence that variance of a sum can see, and conditional distributions are the joint divided by the marginal.
+:::
+
+## Exercises
+
+::: {#ex-prob-min-and-mean .exercise}
+## Minimum and average of uniform draws
+
+Numbers $X_1,\ldots,X_n$ are drawn independently from the uniform distribution on $[0,1]$. Let $M=\min(X_1,\ldots,X_n)$ and let $\overline X=(X_1+\cdots+X_n)/n$.
+
+(a) Express $M$ and $\overline X$ in terms of $X_1,\ldots,X_n$.
+
+(b) Find the density of $M$.
+
+(c) Find $\E\overline X$ and $\Var(\overline X)$.
+
+[Solution](#sol-prob-min-and-mean)
+
+:::
+
+::: {#ex-prob-joint-table .exercise}
+## A joint table
+
+The joint probability mass function of $X$ and $Y$ is
+
+| $x\backslash y$ | 1 | 3 | 6 | 8 |
+|---:|---:|---:|---:|---:|
+| 2 | 0 | 0.1 | 0.1 | 0 |
+| 5 | 0.2 | 0 | 0 | 0 |
+| 6 | 0 | 0.2 | 0.1 | 0.3 |
+
+(a) Find the marginal mass functions of $X$ and of $Y$.
+
+(b) Are $X$ and $Y$ independent?
+
+(c) Calculate $\E(X^2 Y)$.
+
+[Solution](#sol-prob-joint-table)
+
+:::
+
+::: {#ex-prob-region-probability .exercise}
+## A probability as an integral
+
+Explain how to calculate
+
+$$
+\Pr\Bigl(\frac{X_1^2+\sin X_2}{X_1^2 X_2}>1\Bigr)
+$$
+
+from the joint density of $(X_1,X_2)$. Assume the expression under the probability is defined.
+
+[Solution](#sol-prob-region-probability)
+
+:::
+
+::: {#ex-prob-cdf-of-maximum .exercise}
+## Distribution function of a maximum
+
+Let $X_1,\ldots,X_n$ be independent with distribution functions $F_1,\ldots,F_n$. Express the distribution function of $M=\max(X_1,\ldots,X_n)$ in terms of $F_1,\ldots,F_n$.
+
+[Solution](#sol-prob-cdf-of-maximum)
+
+:::
+
+::: {#ex-prob-six-weights .exercise}
+## One weight, or six weights
+
+The weights of people in a large population are modelled as normal with mean 75 kg and standard deviation 10 kg. Let $X_1,\ldots,X_6$ be the weights of six people drawn independently, and set $Y_1=6X_1$ and $Y_2=X_1+\cdots+X_6$.
+
+What do $Y_1$ and $Y_2$ represent? Why do they have different distributions? Which has the smaller variance? State both distributions.
+
+[Solution](#sol-prob-six-weights)
+
+:::
+
+::: {#ex-prob-independent-exponentials .exercise}
+## A product density
+
+A pair $(X,Y)$ has joint density $f(x,y)=2e^{-x-2y}$ for $x>0$ and $y>0$.
+
+(a) Calculate $\E(XY)$.
+
+(b) Calculate $\Cov(X+Y, X-Y)$.
+
+[Solution](#sol-prob-independent-exponentials)
+
+:::
+
+::: {#ex-prob-triangle-conditional .exercise}
+## A point in a triangle
+
+A point $(X,Y)$ is drawn from the triangle with vertices $(0,0)$, $(1,0)$ and $(1,1)$ by this rule: draw $X$ uniformly from $[0,1]$, then draw $Y$ uniformly from $[0,X]$.
+
+(a) Give the conditional density of $Y$ given $X=x$, and say where it is zero.
+
+(b) Find the joint density of $(X,Y)$.
+
+(c) Find the marginal density of $Y$.
+
+:::
+
+::: {#ex-prob-sign-covariance .exercise}
+## Signs and their sum
+
+Let $U$ and $V$ be independent, with $\Pr(U=1)=\Pr(V=1)=1/4$ and $\Pr(U=-1)=\Pr(V=-1)=3/4$. Set $X=U/V$ and $Y=U+V$.
+
+(a) Give the joint probability mass function of $(X,Y)$.
+
+(b) Calculate $\Cov(X,Y)$.
+
+:::

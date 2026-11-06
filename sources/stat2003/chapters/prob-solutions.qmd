@@ -1,0 +1,494 @@
+# Worked answers
+
+[]{#sol-prob-three-tosses} **[Three coin tosses](#ex-prob-three-tosses).**
+
+(a) The sample space is every sequence of length 3 with coordinates in $\{0,1\}$:
+
+$$
+\Omega=\{(0,0,0),(0,0,1),(0,1,0),(0,1,1),(1,0,0),(1,0,1),(1,1,0),(1,1,1)\}.
+$$
+
+(b) If only the number of heads is kept, $\Omega=\{0,1,2,3\}$.
+
+[]{#sol-prob-three-toss-weights} **[Weights on the two coin spaces](#ex-prob-three-toss-weights).**
+
+(a) Independence and fairness give probability $1/8$ to each of the eight sequences.
+
+(b) The number of heads is binomial. $\Pr(\{0\})=\Pr(\{3\})=1/8$ and $\Pr(\{1\})=\Pr(\{2\})=3/8$.
+
+[]{#sol-prob-urn-365} **[Drawing from 365 balls](#ex-prob-urn-365).**
+
+(a) Each of three ordered draws has 365 choices, so $|\Omega|=365^3$.
+
+(b) Without replacement, $|\Omega|=365\times 364\times 363$.
+
+(c) The first draw may be anything. The next two must match it, which has probability $1/365\times 1/365$. Equivalently, $365/365^3=1/365^2$.
+
+[]{#sol-prob-intersection-bound} **[A lower bound on an intersection](#ex-prob-intersection-bound).**
+
+The union formula rearranges to $\Pr(A\cap B)=\Pr(A)+\Pr(B)-\Pr(A\cup B)$. The union has probability at most 1, so
+
+$$
+\Pr(A\cap B)\ge 0.9+0.8-1=0.7.
+$$
+
+[]{#sol-prob-birthday-54} **[Fifty-four distinct birthdays](#ex-prob-birthday-54).**
+
+$$
+\Pr(\text{all different})=\frac{365\times 364\times\cdots\times 312}{365^{54}}\approx 0.016.
+$$
+
+[]{#sol-prob-two-dice-faces} **[Matching faces](#ex-prob-two-dice-faces).**
+
+(a) The first face may be anything. The second matches it with probability $1/6$. There are 6 matching pairs out of 36.
+
+(b) Let $A$ be the event that the faces agree, and let $B$ be the event that the sum is at most 4. Then
+
+$$
+B=\{(1,1),(1,2),(1,3),(2,1),(2,2),(3,1)\}, \qquad A\cap B=\{(1,1),(2,2)\}.
+$$
+
+Every ordered pair is equally likely, so $\Pr(A\given B)=2/6=1/3$.
+
+[]{#sol-prob-three-cards} **[Three cards in order](#ex-prob-three-cards).**
+
+(a) $\Omega$ is the set of ordered triples of distinct labels from 1 to 52. The draw is without replacement and no card is preferred, so the outcomes are equally likely.
+
+(b) $4\times 3\times 2/(52\times 51\times 50)$.
+
+(c) The first card may be any of the 12 aces, kings or queens, the second any of the 8 cards in the two ranks still missing, and the third any of the 4 cards in the last rank: $12\times 8\times 4/(52\times 51\times 50)$.
+
+(d) There are 36 cards that are not aces, kings, queens or jacks, so the probability is $36\times 35\times 34/(52\times 51\times 50)$.
+
+[]{#sol-prob-uniform-interval} **[A point drawn from the unit interval](#ex-prob-uniform-interval).**
+
+(a) The length of $[0,1/2)$ is $1/2$.
+
+(b) The length of $[1/3,3/4]$ is $3/4-1/3=5/12$.
+
+(c) The two draws are uniform on the unit square. The corner $\{(x,y):x\ge 0,\,y\ge 0,\,x+y\le 1/2\}$ is a right triangle of area $(1/2)\times(1/2)\times(1/2)=1/8$. The complementary probability is $1-1/8=7/8$.
+
+[]{#sol-prob-three-birthdays} **[Three people, one birthday](#ex-prob-three-birthdays).**
+
+The first birthday is free. Each of the other two matches it with probability $1/365$. The probability is $1/365^2$, the same count as three identical labels drawn with replacement from 365 labels.
+
+[]{#sol-prob-four-honours} **[One of each court card](#ex-prob-four-honours).**
+
+The sample space has $\binom{52}{4}$ equally likely hands. The favourable hands choose one card from each of the four ranks, so there are $4^4$ of them. The probability is $4^4/\binom{52}{4}$.
+
+[]{#sol-prob-three-brothers} **[Three brothers in a random split](#ex-prob-three-brothers).**
+
+Choose 10 of the 20 people for one group; the rest form the other. There are $\binom{20}{10}$ ways to do this. For all three siblings to sit in the chosen group, the other 7 members are chosen from the other 17 people, in $\binom{17}{7}$ ways. The same count applies to the other group. The two groups are labelled by the choice of the first group in this counting, so
+
+$$
+\Pr=\frac{2\binom{17}{7}}{\binom{20}{10}}=\frac{4}{19}\approx 0.211.
+$$
+
+[]{#sol-prob-binary-vectors} **[Binary vectors with five ones](#ex-prob-binary-vectors).**
+
+Choose the five coordinates that equal 1: $\binom{20}{5}$.
+
+[]{#sol-prob-urn-combinations} **[Five balls out of twenty](#ex-prob-urn-combinations).**
+
+$\binom{20}{5}$.
+
+[]{#sol-prob-binary-channel} **[A one received on a noisy channel](#ex-prob-binary-channel).**
+
+Let $B$ be the event that a 1 was sent and $A$ the event that a 1 was received. Then $\Pr(A\given B)=0.95$, $\Pr(A\given B^c)=0.10$, $\Pr(B)=2/3$ and $\Pr(B^c)=1/3$. Bayes' rule for events gives
+
+$$
+\Pr(B\given A)=\frac{0.95\times 2/3}{0.95\times 2/3+0.10\times 1/3}=\frac{1.9}{2}=0.95.
+$$
+
+[]{#sol-prob-channel-zero} **[A zero received](#ex-prob-channel-zero).**
+
+Let $B$ be the event that a 1 was sent and $A$ the event that a 0 was received. Then $\Pr(A\given B)=0.01$, $\Pr(A\given B^c)=0.95$ and both inputs have probability $1/2$, so
+
+$$
+\Pr(B\given A)=\frac{0.01\times 1/2}{0.01\times 1/2+0.95\times 1/2}=\frac{0.01}{0.96}=\frac{1}{96}.
+$$
+
+[]{#sol-prob-second-die} **[Information about one die](#ex-prob-second-die).**
+
+(a) The pairs with sum 6 are $(1,5),(2,4),(3,3),(4,2),(5,1)$. Exactly one of the five has second coordinate 3, so the conditional probability is $1/5$.
+
+(b) The faces are independent, so the probability is $(1/6)\times(5/6)=5/36$.
+
+[]{#sol-prob-min-dice} **[The smaller face](#ex-prob-min-dice).**
+
+(a) There are 36 equally likely ordered pairs. The number of pairs whose minimum is $z$ is $11,9,7,5,3,1$ for $z=1,\ldots,6$: the pairs in which both faces are at least $z$, minus the pairs in which both are at least $z+1$.
+
+| $z$ | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---:|---:|---:|---:|---:|---:|
+| $\Pr(Z=z)$ | $11/36$ | $9/36$ | $7/36$ | $5/36$ | $3/36$ | $1/36$ |
+
+(b) $\E Z=(1\cdot 11+2\cdot 9+3\cdot 7+4\cdot 5+5\cdot 3+6\cdot 1)/36=91/36$.
+
+[]{#sol-prob-votes} **[Ten voters](#ex-prob-votes).**
+
+The number who vote for A is $\Bin(10,0.4)$, so the probability of exactly four is $\binom{10}{4}(0.4)^4(0.6)^6$.
+
+[]{#sol-prob-unit-square-max} **[The larger coordinate](#ex-prob-unit-square-max).**
+
+For $z\in[0,1]$ the event $\{Z\le z\}$ is the square $[0,z]^2$, which has area $z^2$. Thus $F(z)=0$ for $z<0$, $F(z)=z^2$ for $0\le z\le 1$, and $F(z)=1$ for $z>1$. Differentiating on $(0,1)$ gives the density $f(z)=2z$ there, and $f(z)=0$ elsewhere.
+
+[]{#sol-prob-cubic-cdf} **[A cubic distribution function](#ex-prob-cubic-cdf).**
+
+(a) $f(x)=F'(x)=3x^2$ for $0<x<1$, and $f(x)=0$ elsewhere.
+
+(b) $\Pr(1/2<X<3/4)=F(3/4)-F(1/2)=(3/4)^3-(1/2)^3=19/64$.
+
+(c) $\E X=\int_0^1 x\cdot 3x^2\,\dd x=3/4$.
+
+[]{#sol-prob-twenty-heads} **[Twenty fair tosses](#ex-prob-twenty-heads).**
+
+The number of heads is $\Bin(20,1/2)$.
+
+(a) $\binom{20}{10}/2^{20}\approx 0.176$.
+
+(b) $\sum_{k=15}^{20}\binom{20}{k}/2^{20}\approx 0.0207$.
+
+[]{#sol-prob-wait-for-twelve} **[Waiting for double six](#ex-prob-wait-for-twelve).**
+
+A throw shows double six with probability $1/36$. The number of throws required is geometric, starting at 1.
+
+(a) $(35/36)^9(1/36)\approx 0.0216$.
+
+(b) The probability that the first 100 throws all fail is $(35/36)^{100}$, so the probability of success by throw 100 is $1-(35/36)^{100}\approx 0.940$.
+
+[]{#sol-prob-ten-balls-three-boxes} **[Ten balls in three boxes](#ex-prob-ten-balls-three-boxes).**
+
+(a) The count vector is multinomial:
+
+$$
+\frac{10!}{2!\,5!\,3!}\Bigl(\frac14\Bigr)^2\Bigl(\frac12\Bigr)^5\Bigl(\frac14\Bigr)^3=\frac{315}{4096}\approx 0.0769.
+$$
+
+(b) Each ball misses box 1 with probability $3/4$, independently, so the probability is $(3/4)^{10}\approx 0.0563$.
+
+[]{#sol-prob-dice-sum-pmf} **[The sum of two dice](#ex-prob-dice-sum-pmf).**
+
+(a) On the sample space $\{1,\ldots,6\}^2$, $Z(x,y)=x+y$.
+
+(b) The value $z\in\{2,\ldots,12\}$ occurs in $6-|z-7|$ of the 36 pairs, so $\Pr(Z=z)=(6-|z-7|)/36$.
+
+[]{#sol-prob-wait-pmf} **[The waiting time itself](#ex-prob-wait-pmf).**
+
+$\Pr(X=x)=(35/36)^{x-1}(1/36)$ for $x=1,2,\ldots$.
+
+[]{#sol-prob-random-radius} **[Distance to the centre](#ex-prob-random-radius).**
+
+(a) The disc has area $16\pi$ and the disc of radius 2 has area $4\pi$, so $\Pr(R>2)=(16\pi-4\pi)/(16\pi)=3/4$.
+
+(b) For $0<r<4$, $\Pr(R\le r)=\pi r^2/(16\pi)=r^2/16$. Differentiating gives $f(r)=r/8$ on $(0,4)$, and $f(r)=0$ elsewhere.
+
+[]{#sol-prob-five-evens-replace} **[Five draws with replacement](#ex-prob-five-evens-replace).**
+
+Each draw is even with probability $1/2$, independently. The number of evens is $\Bin(5,1/2)$, and $\Pr(X=3)=\binom{5}{3}/32=5/16$.
+
+[]{#sol-prob-five-evens-no-replace} **[Five draws without replacement](#ex-prob-five-evens-no-replace).**
+
+The draw is hypergeometric: 5 items from 100, of which 50 are even. 
+
+$$
+\Pr(X=3)=\frac{\binom{50}{3}\binom{50}{2}}{\binom{100}{5}}\approx 0.319.
+$$
+
+[]{#sol-prob-radioactive} **[Particles in an hour](#ex-prob-radioactive).**
+
+The exact count is $\Bin(3600,1/100)$. The Poisson approximation has mean $3600/100=36$.
+
+[]{#sol-prob-component-five-years} **[Five years of an exponential lifetime](#ex-prob-component-five-years).**
+
+$\Pr(X>5)=e^{-(1/10)\cdot 5}=e^{-1/2}\approx 0.607$.
+
+[]{#sol-prob-three-point-expectation} **[Three-point expectation](#ex-prob-three-point-expectation).**
+
+$\E X=0\cdot(1/2)+2\cdot(1/3)+5\cdot(1/6)=4/6+5/6=3/2$.
+
+[]{#sol-prob-second-moment} **[Recovering the second moment](#ex-prob-second-moment).**
+
+$\E X^2=\Var(X)+(\E X)^2=1+4=5$.
+
+[]{#sol-prob-red-balls-expectation} **[Expected number of red balls](#ex-prob-red-balls-expectation).**
+
+With replacement the count is $\Bin(10,1/4)$. Without replacement it is hypergeometric, 10 draws from 100 balls of which 25 are red. The distributions differ. The expectation is $10\times(25/100)=2.5$ in both cases, by linearity applied to the ten indicator variables. Dependence changes the variance, not the mean.
+
+[]{#sol-prob-uniform-variance} **[Variance on the unit interval](#ex-prob-uniform-variance).**
+
+By symmetry $\E X=1/2$. And $\E X^2=\int_0^1 x^2\,\dd x=1/3$, so $\Var(X)=1/3-1/4=1/12$.
+
+[]{#sol-prob-affine-uniform-mean} **[An affine image of a uniform variable](#ex-prob-affine-uniform-mean).**
+
+$\E Y=10+2\E X=10+2\cdot(1/2)=11$.
+
+[]{#sol-prob-double-six-wait} **[Expected wait for double six](#ex-prob-double-six-wait).**
+
+The number of throws is geometric, starting at 1, with success probability $1/36$. The expectation is 36.
+
+[]{#sol-prob-brisbane-groups} **[Groups of three](#ex-prob-brisbane-groups).**
+
+One million is not divisible by 3, so there are $333333$ groups and one person left over. The probability that three independent birthdays coincide is $1/365^2$.
+
+(a) The number $N$ of matching groups is $\Bin(333333, 1/365^2)$, so $\E N=333333/365^2\approx 2.50$.
+
+(b) $\Pr(N>0)=1-(1-1/365^2)^{333333}\approx 0.92$. The same figure comes from the Poisson approximation with mean $2.5$: $1-e^{-2.5}\approx 0.918$.
+
+[]{#sol-prob-memoryless-component} **[A memoryless component](#ex-prob-memoryless-component).**
+
+The mean is 2, so the rate is $\lambda=1/2$.
+
+(a) $\Pr(X>2)=e^{-1}\approx 0.368$.
+
+(b) Memorylessness gives $\Pr(X>10\given X>7)=\Pr(X>3)=e^{-3/2}\approx 0.223$.
+
+[]{#sol-prob-normal-variance} **[Why a normal variance is $\sigma^2$](#ex-prob-normal-variance).**
+
+The standard normal density satisfies $\varphi'(x)=-x\varphi(x)$, and $\E X=0$, so $\Var(X)=\E X^2$. Integrate by parts with $u=x$ and $\dd v=x\varphi(x)\,\dd x$, so $v=-\varphi(x)$. The boundary term $x\varphi(x)$ vanishes at both infinities, and
+
+$$
+\E X^2=\int_{-\infty}^{\infty}\varphi(x)\,\dd x=1.
+$$
+
+If $Y=\mu+\sigma X$ with the same $X$, then $\Var(Y)=\sigma^2\Var(X)=\sigma^2$.
+
+[]{#sol-prob-exp-moments} **[Exponential moments from the transform](#ex-prob-exp-moments).**
+
+The moment generating function of the rate-1 exponential law is $M(s)=1/(1-s)$ for $s<1$. Differentiating $n$ times gives $M^{(n)}(s)=n!/(1-s)^{n+1}$. The moment formula $M^{(n)}(0)=\E X^n$ therefore yields $n!$.
+
+[]{#sol-prob-generate-exp} **[Draws from an exponential law](#ex-prob-generate-exp).**
+
+Draw $U\sim\operatorname{U}[0,1]$ and return $X=-\log(U)/10$. This is the inverse-transform method: the distribution function $1-e^{-10x}$ inverts to $-\log(1-u)/10$, and $1-U$ has the same distribution as $U$.
+
+[]{#sol-prob-generate-uniform} **[Draws from a uniform interval](#ex-prob-generate-uniform).**
+
+Draw $U\sim\operatorname{U}[0,1]$ and return $X=10+5U$.
+
+[]{#sol-prob-generate-normal} **[Rescaling a standard normal draw](#ex-prob-generate-normal).**
+
+The target variance is 9, so the scale is 3. Draw $X\sim\Normal(0,1)$ and return $Y=3+3X$.
+
+[]{#sol-prob-min-and-mean} **[Minimum and average of uniform draws](#ex-prob-min-and-mean).**
+
+(a) $M=\min(X_1,\ldots,X_n)$ and $\overline X=(X_1+\cdots+X_n)/n$.
+
+(b) For $0\le x\le 1$, independence gives $\Pr(M>x)=(1-x)^n$. The distribution function is $1-(1-x)^n$ on that interval, and the density is $n(1-x)^{n-1}$.
+
+(c) $\E\overline X=\E X_1=1/2$. Independence gives $\Var(\overline X)=n^{-1}\Var(X_1)=1/(12n)$.
+
+[]{#sol-prob-joint-table} **[A joint table](#ex-prob-joint-table).**
+
+(a) Row sums: $\Pr(X=2)=0.2$, $\Pr(X=5)=0.2$, $\Pr(X=6)=0.6$. Column sums: $\Pr(Y=1)=0.2$, $\Pr(Y=3)=0.3$, $\Pr(Y=6)=0.2$, $\Pr(Y=8)=0.3$.
+
+(b) They are not independent. For example $\Pr(X=2,Y=1)=0$, while $\Pr(X=2)\Pr(Y=1)=0.04$.
+
+(c) Only the six positive cells contribute:
+
+$$
+\begin{aligned}
+\E(X^2 Y)
+&=0.1\cdot 4\cdot 3+0.1\cdot 4\cdot 6+0.2\cdot 25\cdot 1\\
+&\quad+0.2\cdot 36\cdot 3+0.1\cdot 36\cdot 6+0.3\cdot 36\cdot 8\\
+&=138.2.
+\end{aligned}
+$$
+
+[]{#sol-prob-region-probability} **[A probability as an integral](#ex-prob-region-probability).**
+
+Integrate the joint density over the region where $(x_1^2+\sin x_2)/(x_1^2 x_2)>1$.
+
+[]{#sol-prob-cdf-of-maximum} **[Distribution function of a maximum](#ex-prob-cdf-of-maximum).**
+
+The maximum is at most $m$ when every variable is at most $m$. Independence factors the probability:
+
+$$
+\Pr(M\le m)=F_1(m)\cdots F_n(m).
+$$
+
+[]{#sol-prob-six-weights} **[One weight, or six weights](#ex-prob-six-weights).**
+
+$Y_2$ is the total weight of six people. $Y_1$ is six times the weight of one person. Both have mean $6\times 75=450$. The variance of $Y_1$ is $36\times 100=3600$. The variance of $Y_2$ is $6\times 100=600$, six times smaller, because the six weights are independent. So $Y_1\sim\Normal(450,3600)$ and $Y_2\sim\Normal(450,600)$.
+
+[]{#sol-prob-independent-exponentials} **[A product density](#ex-prob-independent-exponentials).**
+
+The joint density factors as $e^{-x}\cdot 2e^{-2y}$ on the positive quadrant, so $X\sim\Exp(1)$ and $Y\sim\Exp(2)$ are independent.
+
+(a) $\E(XY)=(\E X)(\E Y)=1\times 1/2=1/2$.
+
+(b) The cross covariances cancel:
+
+$$
+\Cov(X+Y,X-Y)=\Var(X)-\Var(Y)=1-\frac14=\frac34.
+$$
+
+[]{#sol-prob-square-binomial} **[The square of a binomial count](#ex-prob-square-binomial).**
+
+$Y$ takes the values $0,1,4,9,16$, and $\Pr(Y=k^2)=\Pr(X=k)=\binom{4}{k}/16$ for $k=0,1,2,3,4$.
+
+[]{#sol-prob-square-uniform} **[The square of a uniform variable](#ex-prob-square-uniform).**
+
+For $0<y\le 1$, $\Pr(Y\le y)=\Pr(X\le\sqrt{y})=\sqrt{y}$. Differentiating gives $f_Y(y)=1/(2\sqrt{y})$ on $(0,1]$, and $0$ elsewhere.
+
+[]{#sol-prob-affine-normal} **[An affine image of a standard normal](#ex-prob-affine-normal).**
+
+An affine image of a normal variable is normal. The mean is $1$ and the variance is $4$, so $Y\sim\Normal(1,4)$.
+
+[]{#sol-prob-standard-normal-probs} **[Two standard normal probabilities](#ex-prob-standard-normal-probs).**
+
+$\Pr(X\le 1.4)=\Phi(1.4)\approx 0.9192$. The standard normal density is symmetric, so $\Pr(X>-1.3)=\Pr(X<1.3)=\Phi(1.3)\approx 0.9032$.
+
+[]{#sol-prob-normal-shift} **[Probabilities for a shifted normal](#ex-prob-normal-shift).**
+
+Write $Y=1+2X$ with $X$ standard normal. Then $\Pr(Y\le 3)=\Pr(X\le 1)=\Phi(1)\approx 0.8413$, and
+
+$$
+\Pr(-1\le Y\le 2)=\Pr(-1\le X\le 1/2)=\Phi(1/2)-(1-\Phi(1))\approx 0.6915-0.1587=0.5328.
+$$
+
+[]{#sol-prob-affine-exponential} **[An affine image of an exponential density](#ex-prob-affine-exponential).**
+
+The density of $X$ is $(1/2)e^{-x/2}$ for $x>0$. The map $y=1+2x$ has inverse $(y-1)/2$ and derivative factor $1/2$, so for $y\ge 1$
+
+$$
+f_Y(y)=\frac{1}{2}\cdot\frac12\exp\bigl(-(y-1)/4\bigr)=\frac14\exp\bigl(-(y-1)/4\bigr).
+$$
+
+The density is zero for $y<1$.
+
+[]{#sol-prob-clt-binomial-band} **[A normal approximation on an interval](#ex-prob-clt-binomial-band).**
+
+The mean is $25$ and the variance is $100\cdot(1/4)\cdot(3/4)=75/4$, so the standard deviation is $\sqrt{75/4}\approx 4.330$. With $Y\sim\Normal(25,75/4)$,
+
+$$
+\Pr(20\le Y\le 30)=\Pr(-1.155\le Z\le 1.155)\approx 2\Phi(1.15)-1\approx 0.75,
+$$
+
+where $Z$ is standard normal. The exact binomial probability is about $0.797$; the normal approximation here is a little low because no continuity correction was used.
+
+[]{#sol-prob-exponential-ratio} **[Sum and proportion of two exponentials](#ex-prob-exponential-ratio).**
+
+(a) $x=uv$ and $y=u(1-v)$. The Jacobian matrix is $\begin{pmatrix} v & u \\ 1-v & -u \end{pmatrix}$, with determinant $-u$. Its absolute value is $u$ for $u>0$.
+
+(b) The joint density of $(X,Y)$ is $e^{-(x+y)}=e^{-u}$ on the positive quadrant. Multiplying by the absolute Jacobian gives $f_{U,V}(u,v)=u e^{-u}$ for $u>0$ and $0<v<1$.
+
+(c) Integrating in $u$ leaves $f_V(v)=1$ on $[0,1]$. Integrating in $v$ leaves $f_U(u)=u e^{-u}$ for $u>0$, which is $\operatorname{Gamma}(2,1)$ in the shape–rate parameterisation. The joint density is the product, so $U$ and $V$ are independent. $V$ is uniform on $[0,1]$.
+
+[]{#sol-prob-voltage-mean} **[The mean of repeated voltage readings](#ex-prob-voltage-mean).**
+
+(a) Use the sample average $\overline x=(x_1+\cdots+x_n)/n$.
+
+(b) $\E\overline X=n^{-1}(\E X_1+\cdots+\E X_n)=\mu$.
+
+(c) Independence gives $\Var(\overline X)=\sigma^2/n$, which tends to $0$.
+
+(d) An affine image of independent normals is normal, so $\overline X\sim\Normal(\mu,\sigma^2/n)$.
+
+(e) The estimate is unbiased at every $n$, and its variance disappears as more readings are taken, so $\overline x$ concentrates on $\mu$.
+
+[]{#sol-prob-clt-binomial-tail} **[A normal approximation in the tail](#ex-prob-clt-binomial-tail).**
+
+The approximating normal has mean $50$ and variance $25$. 
+
+$$
+\Pr(Y\ge 60)=\Pr\bigl(Z\ge (60-50)/5\bigr)=\Pr(Z\ge 2)=1-\Phi(2)\approx 0.0228.
+$$
+
+[]{#sol-prob-quadratic-transform} **[A quadratic function of a uniform variable](#ex-prob-quadratic-transform).**
+
+On $[1,3]$ the map $x\mapsto x^2-4$ increases from $-3$ to $5$. For $y$ in that range,
+
+$$
+\Pr(Y\le y)=\Pr\bigl(X\le\sqrt{y+4}\bigr)=F_X(\sqrt{y+4}).
+$$
+
+The uniform density on $[1,3]$ is $1/2$, so
+
+$$
+f_Y(y)=\frac{1}{2}\cdot\frac{1}{2\sqrt{y+4}}=\frac{1}{4\sqrt{y+4}}, \qquad -3<y<5,
+$$
+
+and $f_Y(y)=0$ otherwise.
+
+[]{#sol-prob-uniform-affine} **[An affine image of a uniform variable](#ex-prob-uniform-affine).**
+
+$Y$ is uniform on $[4\cdot 1+5,\,4\cdot 3+5]=[9,17]$.
+
+[]{#sol-prob-normal-sketch} **[A normal law with mean 2](#ex-prob-normal-sketch).**
+
+(a) The density is symmetric about 2, positive on the whole line, and highest at 2. The standard deviation is $\sqrt{5}\approx 2.24$, so the inflection points sit near $2\pm 2.24$. The distribution function increases from 0 to 1, with its steepest slope at 2.
+
+(b) $\Pr(Y\le 5)=\Phi((5-2)/\sqrt{5})=\Phi(3/\sqrt{5})\approx\Phi(1.34)\approx 0.910$.
+
+(c) $Z\sim\Normal(2, 45)$. Standardising the endpoints gives
+
+$$
+\Pr(1\le Z\le 5)=\Phi(3/\sqrt{45})-\bigl(1-\Phi(1/\sqrt{45})\bigr)\approx 0.674-(1-0.560)=0.234.
+$$
+
+[]{#sol-prob-name-the-laws} **[State the probability functions](#ex-prob-name-the-laws).**
+
+(a) Binomial, $x=0,\ldots,n$: $\binom{n}{x}p^x(1-p)^{n-x}$. Geometric, $x=1,2,\ldots$: $p(1-p)^{x-1}$. Poisson, $x=0,1,\ldots$: $e^{-\lambda}\lambda^x/x!$.
+
+(b) Uniform on $[a,b]$: density $1/(b-a)$ on that interval. Exponential rate $\lambda$: density $\lambda e^{-\lambda x}$ for $x>0$. Standard normal: density $(2\pi)^{-1/2}\exp(-x^2/2)$ on $\R$.
+
+(c) The binomial count is the number of successes in $n$ independent trials. The geometric count is the trial number of the first success. The Poisson count is the limit of a binomial count with mean held fixed while $n$ grows, and it models rare events in a fixed window. The uniform law is a point drawn so that probability equals length. The exponential law is a waiting time that does not age. The standard normal law is the limit of a centred and scaled sum of independent copies with mean 0 and variance 1.
+
+[]{#sol-prob-partial-sums} **[Partial sums of standard normals](#ex-prob-partial-sums).**
+
+(a) The $X_i$ fluctuate about 0 and do not wander. The partial sums $Y_n$ form a random walk: the path is continuous only in the discrete-time sense of successive additions, and it drifts away from 0 on the scale $\sqrt{n}$.
+
+(b) $\E Y_n=0$ and $\Var(Y_n)=n$.
+
+(c) For $m\le n$, $Y_n=Y_m+X_{m+1}+\cdots+X_n$. The extra sum is independent of $Y_m$ and has mean 0, so $\Cov(Y_m,Y_n)=\Var(Y_m)=m$.
+
+[]{#sol-prob-lift} **[A lift and a weight limit](#ex-prob-lift).**
+
+(a) $Z_8\sim\Normal(600, 800)$. 
+
+$$
+\Pr(Z_8\ge 650)=1-\Phi\bigl((650-600)/\sqrt{800}\bigr)=1-\Phi(1.768)\approx 1-0.962=0.038.
+$$
+
+(b) $Z_n\sim\Normal(75n, 100n)$, so $\Pr(Z_n\ge 650)=1-\Phi\bigl((650-75n)/(10\sqrt{n})\bigr)$. At $n=8$ the probability is about $0.038$. At $n=7$ the standardised point is $(650-525)/(10\sqrt{7})\approx 4.72$, and $1-\Phi(4.72)$ is far below $0.01$. The largest such $n$ is 7.
+
+[]{#sol-prob-circuit-board} **[Thickness of a circuit board](#ex-prob-circuit-board).**
+
+(a) Standardise the limits $0.146$ and $0.154$ with mean $0.151$ and standard deviation $0.003$:
+
+$$
+\Pr(0.146\le X\le 0.154)=\Phi(1)-\bigl(1-\Phi(1.667)\bigr)\approx 0.8413-(1-0.9525)=0.794.
+$$
+
+(b) The batch mean is $\Normal(0.151, 0.003^2/25)$. The standardised limits are $-8.33$ and $5$. Both are so far into the tails that the probability is $1$ for any ordinary purpose.
+
+[]{#sol-prob-sum-of-uniforms} **[The sum of uniform draws](#ex-prob-sum-of-uniforms).**
+
+(a) The density of $S_2$ is the triangular function $f(s)=s$ for $0<s<1$ and $f(s)=2-s$ for $1\le s<2$, and zero elsewhere. It rises linearly from 0 to 1 and falls linearly from 1 to 2.
+
+(b) Each uniform draw has mean $1/2$ and variance $1/12$, so $S_{20}$ is approximately $\Normal(10, 20/12)$.
+
+(c) The average exceeds $0.6$ when $S_{20}>12$. With $Y\sim\Normal(10,20/12)$,
+
+$$
+\Pr(Y>12)=1-\Phi\bigl((12-10)/\sqrt{20/12}\bigr)=1-\Phi(1.549)\approx 1-0.9394=0.0606.
+$$
+
+[]{#sol-prob-squared-heads} **[Paying the square of the number of heads](#ex-prob-squared-heads).**
+
+Let $X\sim\Bin(10,1/2)$. The payout is $X^2$, and
+
+$$
+\E X^2=\Var(X)+(\E X)^2=10\cdot\tfrac12\cdot\tfrac12+5^2=2.5+25=27.5.
+$$
+
+A stake of $27.5$ makes the expected profit zero. Any smaller stake has positive expected profit for the player.
+
+[]{#sol-prob-series-parallel} **[Three components, one of them essential](#ex-prob-series-parallel).**
+
+Let $A_i$ be the event that component $i$ works, so $\Pr(A_i)=0.9$. The system works on $A_1\cap(A_2\cup A_3)$. Independence gives
+
+$$
+\Pr(A_2\cup A_3)=0.9+0.9-0.9^2=0.99,
+$$
+
+and the system probability is $0.9\times 0.99=0.891$.

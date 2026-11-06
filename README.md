@@ -24,6 +24,9 @@ The build reads only the copies in `sources/`:
 - `sources/book` comes from the lecture book (the Alan Book folder).
 - `sources/prep` comes from the final-exam booklet (FINAL PREP).
 - `sources/practice` comes from the practice set (Codex Notes).
+- `sources/stat2003` holds the probability notes. The chapters are `sources/stat2003/chapters`, and the PDF copy is `sources/stat2003/notes.pdf`.
+- `sources/stat2004` holds the inference notes. Only the inference part is turned into chapters; the probability part links to `sources/stat2003`. The PDF copy is `sources/stat2004/notes.pdf`.
+- `sources/stat1301` holds the data-analysis notes. Studies, description, and R become chapters. Repeated inference chapters keep their examples and exercises and link to `sources/stat2004`. The PDF copy is `sources/stat1301/notes.pdf`.
 
 Edits to the original folders do not reach the wiki until they are copied into `sources/`.
 

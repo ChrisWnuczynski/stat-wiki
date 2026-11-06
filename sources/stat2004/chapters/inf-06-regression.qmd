@@ -1,0 +1,100 @@
+# Linear regression
+
+Regression fits a line, then gives that line a probability model so that a slope, a mean response and a new observation can have standard errors. The geometry of least squares and the normal-linear posterior are worked out in [Bayesian linear regression](bayes-09-linear-regression.qmd). What changes there is the prior and the inferential sentence, not the fitted line. Replacing the normal response and the identity link by another exponential family is the [introduction to generalised linear models](01-introduction-to-glms.qmd). Counts along that line are in [Standard errors, and models for counts](02-inference-and-counts.qmd).
+
+The errors below are independent and normal. That joint distribution, and the fact that an affine image of a normal vector is normal, are in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).
+
+## Least squares
+
+Given points $(x_1,y_1),\ldots,(x_n,y_n)$, the least-squares line $y=b_0+b_1 x$ minimises
+
+$$
+L(b_0,b_1)=\sum_{i=1}^n (y_i-b_0-b_1 x_i)^2.
+$$
+
+Differentiating and solving the normal equations gives
+
+$$
+b_1=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sum_{i=1}^n(x_i-\overline x)^2},
+\qquad
+b_0=\overline y-b_1\overline x.
+$$
+
+The line is best only for squared vertical deviations. Absolute deviations, or horizontal deviations, produce a different line. Least squares at this stage is a fit to numbers. It becomes inference when the numbers are treated as a sample.
+
+A curved relationship is sometimes linear after a transformation. Fitting $\log y$ against $x$, or $y$ against $\log x$, is still least squares on the transformed scale. The interpretation of the slope belongs to that scale.
+
+## The normal linear model
+
+::: {#def-simple-linear-regression .definition}
+## Simple linear regression
+
+The simple linear regression model says
+
+$$
+Y_i=\beta_0+\beta_1 x_i+\varepsilon_i,
+\qquad
+\varepsilon_i\ \text{independent}\ \Normal(0,\sigma^2),
+$$
+
+with the $x_i$ treated as fixed and not all equal. Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.
+
+:::
+
+Write $S_{xx}=\sum(x_i-\overline x)^2$, $S_{xy}=\sum(x_i-\overline x)(Y_i-\overline Y)$ and $S_{yy}=\sum(Y_i-\overline Y)^2$. The least-squares estimators $\widehat\beta_1=S_{xy}/S_{xx}$ and $\widehat\beta_0=\overline Y-\widehat\beta_1\overline x$ are also the maximum likelihood estimators of the coefficients. They are unbiased, $\widehat\beta_1$ has variance $\sigma^2/S_{xx}$, and
+
+$$
+\widehat\sigma^2=\frac1{n-2}\sum_{i=1}^n\bigl(Y_i-\widehat\beta_0-\widehat\beta_1 x_i\bigr)^2
+$$
+
+is unbiased for $\sigma^2$. The maximum likelihood estimator of $\sigma^2$ divides by $n$ rather than by $n-2$, the same distinction as in [Estimation](inf-02-estimation.qmd).
+
+The residual $y_i-\widehat y_i$, with $\widehat y_i=\widehat\beta_0+\widehat\beta_1 x_i$, is the vertical miss. The coefficient of determination
+
+$$
+R^2=\frac{\widehat\beta_1^2 S_{xx}}{S_{yy}}
+$$
+
+is the fraction of $\sum(y_i-\overline y)^2$ accounted for by the line. It lies in $[0,1]$. It is the square of the sample correlation between $x$ and $y$.
+
+Under the model, $(\widehat\beta_1-\beta_1)/(S/\sqrt{S_{xx}})$ has a $t$ distribution with $n-2$ degrees of freedom, where $S^2$ is the unbiased residual variance. A confidence interval for the slope follows at once. The same $t$ law, applied to $\widehat\beta_0+\widehat\beta_1 x$, gives a confidence interval for the mean response at a chosen $x$:
+
+$$
+\widehat y \pm t_{n-2,\,1-\alpha/2}\,S\sqrt{\frac1n+\frac{(x-\overline x)^2}{S_{xx}}}.
+$$
+
+A prediction interval for a new response at that $x$ is wider, because the new response adds its own variance $\sigma^2$:
+
+$$
+\widehat y \pm t_{n-2,\,1-\alpha/2}\,S\sqrt{1+\frac1n+\frac{(x-\overline x)^2}{S_{xx}}}.
+$$
+
+The interval for the mean response gets short as $n$ grows. The prediction interval does not: even with the line known exactly, a new $Y$ still has variance $\sigma^2$.
+
+## A bivariate normal sample
+
+If the pairs $(X_i,Y_i)$ are themselves a random sample from a bivariate normal distribution, the conditional distribution of $Y$ given $X=x$ is normal with mean linear in $x$. The slope of that conditional mean is $\rho\,\sigma_Y/\sigma_X$, and the conditional variance is $\sigma_Y^2(1-\rho^2)$. Conditioning on the observed $x_i$ brings this model back to simple linear regression. The least-squares slope estimates that conditional slope. The joint normal calculation is the one in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).
+
+::: {.callout-note}
+## Key idea
+Least squares chooses the line. The normal model gives the line a sampling distribution, and from that a $t$ interval for the slope, a shorter interval for the mean response, and a longer interval for a new observation.
+:::
+
+Further numerical fits, including a regression with two covariates, are in [Regression examples](da-07-regression-examples.qmd).
+
+## Exercises
+
+::: {#ex-inf-normal-equations .exercise}
+## Normal equations for a straight line
+
+Let $L(b_0,b_1)=\sum_{i=1}^n(y_i-b_0-b_1 x_i)^2$, with not all $x_i$ equal. Show that the minimiser satisfies
+
+$$
+b_1=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sum_{i=1}^n(x_i-\overline x)^2},
+\qquad
+b_0=\overline y-b_1\overline x.
+$$
+
+[Solution](#sol-inf-normal-equations)
+
+:::

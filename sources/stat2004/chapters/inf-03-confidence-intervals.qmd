@@ -1,0 +1,134 @@
+# Confidence intervals
+
+A point estimate does not say how far it might fall from the parameter. A confidence interval attaches a long-run coverage probability to a random interval built from the sample. After the sample is observed the endpoints are numbers. The confidence, say 95%, is a property of the procedure that produced them, not a probability that the parameter lies in that particular interval.
+
+That last distinction is the same one drawn for a [credible interval](bayes-01-foundations.qmd#def-bayesian-credible-interval). A credible interval puts the probability on the parameter, given the data. A confidence interval puts the probability on the interval, given the parameter.
+
+The normal, chi-squared, $t$ and binomial calculations below use the sampling facts in [Statistical inference](inf-01-statistical-inference.qmd) and the [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem).
+
+## Coverage
+
+::: {#def-confidence-interval .definition}
+## Confidence interval
+
+Let $L$ and $U$ be statistics. The random interval $(L,U)$ is a confidence interval for $\theta$ with confidence $1-\alpha$ when
+
+$$
+\Pr(L<\theta<U)=1-\alpha
+$$
+
+for every $\theta$. A one-sided interval leaves one endpoint infinite.
+
+:::
+
+Smaller $\alpha$ means a wider interval. The usual choices are $0.01$, $0.05$ and $0.10$, that is 99%, 95% and 90% confidence. The recipe is always the same. Find a pivot, a function of the data and of $\theta$ whose distribution does not depend on $\theta$. Place that pivot between two quantiles. Solve the inequality for $\theta$.
+
+## One normal sample
+
+Let $X_1,\ldots,X_n$ be independent and $\Normal(\mu,\sigma^2)$.
+
+If $\sigma$ is known,
+
+$$
+Z=\frac{\overline X-\mu}{\sigma/\sqrt n}
+$$
+
+is standard normal. Writing $z_{1-\alpha/2}$ for the standard normal quantile of order $1-\alpha/2$,
+
+$$
+\overline X\pm z_{1-\alpha/2}\,\frac{\sigma}{\sqrt n}
+$$
+
+is a confidence interval for $\mu$ with confidence $1-\alpha$.
+
+If $\sigma$ is unknown, replace it by $s$. The pivot is no longer normal.
+
+::: {#thm-one-sample-t .theorem}
+## One-sample t pivot
+
+If $X_1,\ldots,X_n$ are independent and $\Normal(\mu,\sigma^2)$, then
+
+$$
+T=\frac{\overline X-\mu}{s/\sqrt n}
+$$
+
+has a Student $t$ distribution with $n-1$ degrees of freedom. A Student variable with $m$ degrees of freedom is $Z/\sqrt{V/m}$ where $Z$ is standard normal, $V$ is chi-squared with $m$ degrees of freedom, and $Z$ and $V$ are independent.
+
+:::
+
+The interval is $\overline X\pm t_{n-1,\,1-\alpha/2}\,s/\sqrt n$, where $t_{m,q}$ is the quantile of order $q$ of the $t$ distribution with $m$ degrees of freedom. For large $n$ this quantile is close to the corresponding normal quantile, because $s$ is then close to $\sigma$.
+
+The variance uses the chi-squared pivot $(n-1)s^2/\sigma^2$. If $\chi^2_{m,q}$ is the quantile of order $q$ of the chi-squared law with $m$ degrees of freedom, a confidence interval for $\sigma^2$ with confidence $1-\alpha$ is
+
+$$
+\left(\frac{(n-1)s^2}{\chi^2_{n-1,\,1-\alpha/2}},\;\frac{(n-1)s^2}{\chi^2_{n-1,\,\alpha/2}}\right).
+$$
+
+The upper quantile sits in the lower endpoint, because the pivot has $\sigma^2$ in the denominator.
+
+## Two normal samples
+
+Let the first sample have size $n_1$, mean $\overline X_1$ and variance $s_1^2$, and the second sample size $n_2$, mean $\overline X_2$ and variance $s_2^2$. The samples are independent, the first is $\Normal(\mu_1,\sigma_1^2)$, and the second is $\Normal(\mu_2,\sigma_2^2)$.
+
+For the difference of means when the variances are equal, pool the variances:
+
+$$
+s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}.
+$$
+
+Then
+
+$$
+\frac{(\overline X_1-\overline X_2)-(\mu_1-\mu_2)}{s_p\sqrt{1/n_1+1/n_2}}
+$$
+
+has a $t$ distribution with $n_1+n_2-2$ degrees of freedom, and the confidence interval for $\mu_1-\mu_2$ is the estimate plus or minus that quantile times the estimated standard error.
+
+The ratio of variances has an $F$ pivot. If $F_{d_1,d_2}$ denotes the distribution of $(V_1/d_1)/(V_2/d_2)$ for independent chi-squared variables with those degrees of freedom, then $(s_1^2/\sigma_1^2)/(s_2^2/\sigma_2^2)$ has that law with $(n_1-1,n_2-1)$. Rearrangement gives a confidence interval for $\sigma_1^2/\sigma_2^2$. An interval that contains $1$ is compatible with equal variances at that confidence.
+
+## A proportion
+
+Let $X\sim\Bin(n,p)$ and $\widehat p=X/n$. For large $n$ the central limit theorem gives
+
+$$
+\frac{\widehat p-p}{\sqrt{p(1-p)/n}}\approx\Normal(0,1).
+$$
+
+Replacing the unknown standard error by $\sqrt{\widehat p(1-\widehat p)/n}$ produces the Wald interval
+
+$$
+\widehat p\pm z_{1-\alpha/2}\sqrt{\frac{\widehat p(1-\widehat p)}{n}}.
+$$
+
+It is an approximation. It behaves badly when $n$ is small or $\widehat p$ is near $0$ or $1$, because the estimated standard error is then a poor stand-in and the normal shape has not set in.
+
+For two independent samples the same approximation applies to $\widehat p_1-\widehat p_2$. The standard error is estimated by
+
+$$
+\sqrt{\frac{\widehat p_1(1-\widehat p_1)}{n_1}+\frac{\widehat p_2(1-\widehat p_2)}{n_2}}.
+$$
+
+::: {.callout-note}
+## Key idea
+A confidence interval is a pivot solved for the parameter. The coverage probability is computed before the data are seen. The numerical interval reported afterwards is not assigned that probability.
+:::
+
+## Exercises
+
+::: {#ex-inf-green-voters .exercise}
+## A proportion in a poll
+
+In a sample of 1000 registered voters, 227 say they will vote for a given party. Using the Wald approximation and $z_{0.975}=1.960$, give an approximate 95% confidence interval for the population proportion.
+
+[Solution](#sol-inf-green-voters)
+
+:::
+
+::: {#ex-inf-mean-pivot .exercise}
+## The interval for a normal mean
+
+Let $X_1,\ldots,X_n$ be independent and $\Normal(\mu,\sigma^2)$ with $\sigma$ unknown. Starting from the $t$ pivot $(\overline X-\mu)/(s/\sqrt n)$, derive the confidence interval for $\mu$ with confidence $1-\alpha$.
+
+[Solution](#sol-inf-mean-pivot)
+
+:::
