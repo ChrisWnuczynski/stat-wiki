@@ -1,0 +1,450 @@
+# Conjugate analysis for normal models
+
+## Unknown mean, known variance
+
+::: {#def-normal-normal-model .definition}
+## Normal--Normal model
+
+Assume 
+
+$$
+  X_1,\ldots,X_n\given\mu
+  \stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2),
+$$
+
+
+ where $\sigma^2$ is known, and use the prior 
+
+$$
+  \mu\sim\Normal(\mu_0,\sigma_0^2).
+$$
+
+
+:::
+
+The normal prior respects the fact that $\mu$ may be positive or negative. A log-normal prior would impose positivity, while a bounded uniform prior would assign permanent posterior probability zero outside its bounds. The normal prior can be badly centred, but its nonzero tails allow enough data eventually to overcome that error. It is often convenient to work in precisions $\sigma^{-2}$ and $\sigma_0^{-2}$ because independent information then adds.[^b03-normal-models-1]
+
+When the aim is to be weakly informative, it is safer to give the model room to recover than to impose a hard boundary that cannot be defended. A broad normal prior may put too much mass in uninteresting regions, but it does not make a plausible value impossible. A bounded prior that misses the truth cannot be repaired by any amount of data. Weak information is therefore about scale and support, not simply about making a variance enormous.
+
+::: {#rem-a-proper-approximation-to-the-flat-prior .remark}
+## A proper approximation to the flat prior
+
+The honest bounded version of the improper kernel $p(\mu)\propto1$ is 
+
+$$
+ p_C(\mu)=\frac1{2C}\mathbf{1}\{-C\leq\mu\leq C\}.
+$$
+
+
+ Taking, for example, $C=10^4$ makes this density nearly constant over an ordinary data range while keeping it proper. It also exposes what "very diffuse" means. For any fixed $0<M<C$, 
+
+$$
+ \Pr_C(|\mu|\leq M)=\int_{-M}^{M}\frac1{2C}\dd\mu=\frac MC
+ \longrightarrow0
+ \qquad(C\longrightarrow\infty).
+$$
+
+
+ Thus the limiting sequence puts essentially all of its probability beyond every fixed finite range; it does not converge to a uniform probability distribution on $\R$. Human height makes the point concrete: no observed person is three metres tall, yet a sufficiently broad uniform prior assigns almost no mass to the entire range of heights that have actually been encountered.
+
+:::
+
+The likelihood is \begin{align*}
+  p(\xvec\given\mu)
+  &=\prod_{i=1}^n
+    \frac{1}{\sqrt{2\pi\sigma^2}}
+    \exp\!\left[-\frac{(x_i-\mu)^2}{2\sigma^2}\right]\\
+  &=(2\pi\sigma^2)^{-n/2}
+    \exp\!\left[-\frac{1}{2\sigma^2}
+      \sum_{i=1}^n(x_i-\mu)^2\right].
+\end{align*} The prior density is 
+
+$$
+  p(\mu)=(2\pi\sigma_0^2)^{-1/2}
+  \exp\!\left[-\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right].
+$$
+
+
+ Dropping factors that do not depend on $\mu$, \begin{align*}
+  p(\mu\given\xvec)
+  &\propto p(\xvec\given\mu)p(\mu)\\
+  &\propto
+  \exp\!\left\{-\frac12\left[
+    \frac1{\sigma^2}\sum_{i=1}^n(x_i-\mu)^2
+    +\frac1{\sigma_0^2}(\mu-\mu_0)^2
+  \right]\right\}.
+\end{align*}
+
+To identify the density, expand every square: \begin{align*}
+ \frac1{\sigma^2}\sum_{i=1}^n(x_i-\mu)^2
+ &=\frac1{\sigma^2}\sum_{i=1}^n
+   (x_i^2-2x_i\mu+\mu^2)\\
+ &=\frac1{\sigma^2}\sum_{i=1}^nx_i^2
+   -2\mu\frac{\sum_i x_i}{\sigma^2}
+   +\mu^2\frac{n}{\sigma^2},\\[3pt]
+ \frac1{\sigma_0^2}(\mu-\mu_0)^2
+ &=\frac{\mu^2}{\sigma_0^2}
+   -2\mu\frac{\mu_0}{\sigma_0^2}
+   +\frac{\mu_0^2}{\sigma_0^2}.
+\end{align*} Collect the coefficients that involve $\mu$: 
+
+$$
+ A\mu^2-2B\mu+C,
+ \qquad
+ A=\frac{n}{\sigma^2}+\frac1{\sigma_0^2},
+ \quad
+ B=\frac{\sum_i x_i}{\sigma^2}+\frac{\mu_0}{\sigma_0^2},
+$$
+
+
+ where $C$ contains no variable $\mu$. Completing the square, \begin{align*}
+ A\mu^2-2B\mu+C
+ &=A\left(\mu^2-2\frac BA\mu\right)+C\\
+ &=A\left[\left(\mu-\frac BA\right)^2
+           -\left(\frac BA\right)^2\right]+C\\
+ &=A\left(\mu-\frac BA\right)^2
+   +C-\frac{B^2}{A}.
+\end{align*} The last two terms are constant in $\mu$. Hence 
+
+$$
+  p(\mu\given\xvec)
+  \propto
+  \exp\!\left[-\frac{A}{2}
+    \left(\mu-\frac BA\right)^2\right],
+$$
+
+
+ Therefore:
+
+::: {#prp-normal-normal-conjugacy .proposition}
+## Normal--Normal conjugacy
+
+\begin{equation}
+  \boxed{
+  \mu\given\xvec\sim\Normal(\mu_1,\sigma_1^2)},
+  \label{eq:normal-mean-posterior}
+\end{equation} with \begin{align}
+ \sigma_1^2
+ &=\frac1A
+ =\left(\frac n{\sigma^2}+\frac1{\sigma_0^2}\right)^{-1}
+ =\frac{\sigma^2\sigma_0^2}{n\sigma_0^2+\sigma^2},
+ \label{eq:normal-post-var}\\
+ \mu_1
+ &=\frac BA
+ =\frac{\sum_i x_i/\sigma^2+\mu_0/\sigma_0^2}
+        {n/\sigma^2+1/\sigma_0^2}\\
+ &=\frac{n\overline x\,\sigma_0^2+\mu_0\sigma^2}
+        {n\sigma_0^2+\sigma^2}.
+ \label{eq:normal-post-mean}
+\end{align}
+
+:::
+
+::: {#rem-precision-weighting .remark}
+## Precision weighting
+
+Writing 
+
+$$
+ w=\frac{\sigma^2}{n\sigma_0^2+\sigma^2}
+$$
+
+
+ turns \eqref{eq:normal-post-mean} into 
+
+$$
+ \mu_1=(1-w)\overline x+w\mu_0.
+$$
+
+
+ The posterior mean is therefore a precision-weighted average. Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then 
+
+$$
+ \mu_1=\frac{n\overline x+\kappa_0\mu_0}{n+\kappa_0}.
+$$
+
+
+ Thus the prior behaves like $\kappa_0$ observations whose mean is $\mu_0$. In the special case $\sigma_0^2=\sigma^2$, it behaves like one extra observation at $\mu_0$.
+
+:::
+
+The limiting cases check the algebra: \begin{align*}
+ n=0
+ &\quad\Longrightarrow\quad
+ \mu_1=\mu_0,
+ \quad \sigma_1^2=\sigma_0^2,\\
+ \sigma_0^2\to\infty
+ &\quad\Longrightarrow\quad
+ \mu_1\to\overline x,
+ \quad \sigma_1^2\to\frac{\sigma^2}{n},\\
+ \sigma^2\to0
+ &\quad\Longrightarrow\quad
+ \mu_1\to\overline x,
+ \quad \sigma_1^2\to0,\\
+ \sigma_0^2\to0
+ &\quad\Longrightarrow\quad
+ \mu_1\to\mu_0,
+ \quad \sigma_1^2\to0.
+\end{align*}
+
+## Unknown variance, known mean
+
+Now assume $\mu$ is known and $\sigma^2$ is unknown. Define 
+
+$$
+  S_\mu=\sum_{i=1}^n(x_i-\mu)^2.
+$$
+
+
+ The likelihood as a function of $\sigma^2$ is \begin{align*}
+ p(\xvec\given\sigma^2)
+ &=(2\pi\sigma^2)^{-n/2}
+   \exp\!\left(-\frac{S_\mu}{2\sigma^2}\right)\\
+ &\propto
+   (\sigma^2)^{-n/2}
+ \exp\!\left(-\frac{S_\mu}{2\sigma^2}\right).
+\end{align*}
+
+### Finding the conjugate family by inspection
+
+It is more useful to see how one might discover the prior than simply to be given its name. The unknown $\sigma^2$ is positive and continuous, and the likelihood kernel contains two distinctive pieces: 
+
+$$
+ (\sigma^2)^{-n/2}
+ \quad\text{and}\quad
+ \exp\!\left\{-\frac{S_\mu/2}{\sigma^2}\right\}.
+$$
+
+
+ We therefore want a positive continuous density that already contains a power of $\sigma^2$ and an exponential in $1/\sigma^2$.
+
+The natural candidates can be rejected or repaired one at a time. An exponential density is positive and continuous, but its kernel $e^{-\lambda\sigma^2}$ has $\sigma^2$, rather than $1/\sigma^2$, in the exponent; with one rate parameter it also has its mode fixed at zero. A $\chi^2$ distribution is only a special Gamma distribution. A Gamma density for $\sigma^2$ contains $(\sigma^2)^{a-1}e^{-b\sigma^2}$, so both appearances of $\sigma^2$ point the wrong way. A Gamma density for the precision $\tau=1/\sigma^2$, however, has exactly the required structure. Transforming back gives the inverse-Gamma family.
+
+::: {#def-inverse-gamma-distribution .definition}
+## Inverse-Gamma distribution
+
+Under the book's convention, 
+
+$$
+ \sigma^2\sim\InvGamma(\alpha_0,\beta_0),
+$$
+
+
+ means that $\sigma^2>0$ has density 
+
+$$
+ p(\sigma^2)
+ =\frac{\beta_0^{\alpha_0}}{\Gamma(\alpha_0)}
+  (\sigma^2)^{-\alpha_0-1}
+ \exp\!\left(-\frac{\beta_0}{\sigma^2}\right).
+$$
+
+
+:::
+
+This follows directly from the transformation $\tau=1/\sigma^2\sim\GammaDist(\alpha_0,\beta_0)$. Indeed, 
+
+$$
+ \frac{\dd\tau}{\dd\sigma^2}=-\frac1{(\sigma^2)^2},
+ \qquad
+ \left|\frac{\dd\tau}{\dd\sigma^2}\right|
+ =\frac1{(\sigma^2)^2},
+$$
+
+
+ and therefore \begin{align*}
+ p(\sigma^2)
+ &=p_\tau(1/\sigma^2)
+   \left|\frac{\dd\tau}{\dd\sigma^2}\right|\\
+ &=\frac{\beta_0^{\alpha_0}}{\Gamma(\alpha_0)}
+   (1/\sigma^2)^{\alpha_0-1}
+   e^{-\beta_0/\sigma^2}
+   \frac1{(\sigma^2)^2}\\
+ &=\frac{\beta_0^{\alpha_0}}{\Gamma(\alpha_0)}
+   (\sigma^2)^{-\alpha_0-1}e^{-\beta_0/\sigma^2}.
+\end{align*}
+
+The posterior kernel is \begin{align*}
+ p(\sigma^2\given\xvec)
+ &\propto p(\xvec\given\sigma^2)p(\sigma^2)\\
+ &\propto
+ (\sigma^2)^{-n/2}
+ e^{-S_\mu/(2\sigma^2)}
+ (\sigma^2)^{-\alpha_0-1}
+ e^{-\beta_0/\sigma^2}\\
+ &=(\sigma^2)^{-(\alpha_0+n/2)-1}
+ \exp\!\left[-\frac{\beta_0+S_\mu/2}{\sigma^2}\right].
+\end{align*}
+
+::: {#prp-normal-inverse-gamma-variance-update .proposition}
+## Normal--inverse-Gamma variance update
+
+Hence \begin{equation}
+ \boxed{
+ \sigma^2\given\xvec
+ \sim\InvGamma\!\left(
+   \alpha_0+\frac n2,
+   \beta_0+\frac12S_\mu
+ \right)}.
+ \label{eq:inv-gamma-update}
+\end{equation}
+
+:::
+
+For $T\sim\InvGamma(a,b)$, 
+
+$$
+  \E(T)=\frac b{a-1}\quad(a>1),
+  \qquad
+  \operatorname{mode}(T)=\frac b{a+1}.
+$$
+
+
+ The posterior mode is therefore \begin{align*}
+ \widehat{\sigma^2}_{\mathrm{MAP}}
+ &=\frac{\beta_0+S_\mu/2}{\alpha_0+n/2+1}\\
+ &=\frac{2\beta_0+S_\mu}{2(\alpha_0+1)+n}\\
+ &=\frac{2(\alpha_0+1)}{2(\alpha_0+1)+n}
+    \frac{\beta_0}{\alpha_0+1}
+  +\frac{n}{2(\alpha_0+1)+n}
+    \frac{S_\mu}{n}.
+\end{align*} Thus, for the mode, the prior is equivalent to $2(\alpha_0+1)$ squared-deviation observations with total sum of squares $2\beta_0$.
+
+Always check the parameterisation before trusting a Gamma or inverse-Gamma formula. Shape--rate, shape--scale, variance, standard deviation, and precision conventions can produce expressions that look nearly identical while meaning different things. This is not a notational nuisance to wave away: it changes the numerical posterior.
+
+## Both normal parameters unknown
+
+Consider the independent prior 
+
+$$
+  \mu\sim\Normal(\mu_0,\sigma_0^2),
+  \qquad
+  \sigma^2\sim\InvGamma(\alpha_0,\beta_0),
+  \qquad \mu\perp\sigma^2.
+$$
+
+
+ This prior has two coordinates, so a request to software for its mean should return two numbers, not four. When $\alpha_0>1$, 
+
+$$
+ \E\!\begin{pmatrix}\mu\\ \sigma^2\end{pmatrix}
+ =\begin{pmatrix}\mu_0\\ \beta_0/(\alpha_0-1)\end{pmatrix}.
+$$
+
+
+ If the required second moments exist, the covariance matrix is diagonal under the prior because $\mu$ and $\sigma^2$ are independent. This statement does not survive the update: the joint posterior in \eqref{eq:joint-normal-post} couples them.
+
+With both parameters unknown, the joint posterior is \begin{align}
+ p(\mu,\sigma^2\given\xvec)
+ &\propto p(\xvec\given\mu,\sigma^2)
+          p(\mu)p(\sigma^2)\\
+ &\propto
+ (\sigma^2)^{-n/2}
+ \exp\!\left[-\frac1{2\sigma^2}
+   \sum_{i=1}^n(x_i-\mu)^2\right]\\
+ &\qquad\times
+ \exp\!\left[-\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right]
+ (\sigma^2)^{-\alpha_0-1}
+ \exp\!\left(-\frac{\beta_0}{\sigma^2}\right)\\
+ &\propto
+ (\sigma^2)^{-(\alpha_0+n/2)-1}
+ \exp\!\left[-\frac{\beta_0+\frac12\sum_i(x_i-\mu)^2}
+                    {\sigma^2}
+              -\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right].
+ \label{eq:joint-normal-post}
+\end{align} This joint density is not a product of independent posterior marginals. It is also not the most common textbook normal--inverse-Gamma family, because that family usually scales the prior variance of $\mu$ by $\sigma^2$. Nevertheless, both full conditional distributions are standard.
+
+::: {#prp-full-conditionals-under-independent-priors .proposition}
+## Full conditionals under independent priors
+
+Holding $\sigma^2$ fixed, the calculation from \eqref{eq:normal-mean-posterior} applies verbatim: \begin{equation}
+ \boxed{
+ \mu\given\sigma^2,\xvec
+ \sim\Normal\!\left(
+ \frac{n\overline x\,\sigma_0^2+\mu_0\sigma^2}
+      {n\sigma_0^2+\sigma^2},
+ \frac{\sigma^2\sigma_0^2}{n\sigma_0^2+\sigma^2}
+ \right)}.
+ \label{eq:full-cond-mu}
+\end{equation} Holding $\mu$ fixed, the calculation from \eqref{eq:inv-gamma-update} applies: \begin{equation}
+ \boxed{
+ \sigma^2\given\mu,\xvec
+ \sim\InvGamma\!\left(
+ \alpha_0+\frac n2,
+ \beta_0+\frac12\sum_{i=1}^n(x_i-\mu)^2
+ \right)}.
+ \label{eq:full-cond-sigma}
+\end{equation}
+
+:::
+
+These two conditionals lead directly to the Gibbs sampler in the next chapter.
+
+## Exercises
+
+::: {#exr-four-limiting-checks .exercise}
+## Four limiting checks
+
+Without consulting the displayed answers, determine the limits of $(\mu_1,\sigma_1^2)$ as (i) $n\to0$, (ii) $\sigma_0^2\to\infty$, (iii) $\sigma^2\to0$, and (iv) $\sigma_0^2\to0$. Explain each limit before performing the algebra.
+
+:::
+
+::: {#exr-where-did-the-probability-go .exercise}
+## Where did the probability go?
+
+For $\mu\sim\operatorname{Unif}(-C,C)$, compute $\Pr(|\mu|\leq M)$ for fixed $M<C$. Show that it tends to zero as $C\to\infty$ and explain why the improper flat kernel is not a probability distribution obtained by taking an ordinary weak limit.
+
+:::
+
+::: {#exr-find-the-prior-rather-than-recalling-it .exercise}
+## Find the prior rather than recalling it
+
+Start only with the likelihood kernel $(\sigma^2)^{-n/2}\exp\{-S/(2\sigma^2)\}$. Test exponential, $\chi^2$, and Gamma candidates against its support and algebra. Show why a Gamma prior for $1/\sigma^2$, rather than for $\sigma^2$, produces conjugacy.
+
+:::
+
+::: {#exr-how-many-summaries .exercise}
+## How many summaries?
+
+Let $\mu\perp\sigma^2$ with the independent priors used above. Write the mean vector and covariance matrix of $(\mu,\sigma^2)^{\mathsf T}$, stating the moment conditions. Explain why a software command returning the mean should return two numbers, while a general covariance matrix would have four entries even though two off-diagonal entries are zero.
+
+:::
+
+::: {#exr-full-conditionals .exercise}
+## Full conditionals
+
+Starting from \eqref{eq:joint-normal-post}, retain every term involving $\mu$ and complete the square to obtain \eqref{eq:full-cond-mu}. Then retain every term involving $\sigma^2$ and identify \eqref{eq:full-cond-sigma}.
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-normal-invchisq .exercise}
+## Normal--inverse-$\chi^2$ conjugacy
+
+A pair $(r,s)$ has a normal--inverse-$\chi^2$ distribution, written $(r,s)\sim N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta)$, if 
+
+$$
+ p(r,s)\propto
+ s^{-(\gamma+3)/2}
+ \exp\!\left[-\frac{\beta(r-\alpha)^2+\gamma\delta}{2s}\right],
+ \qquad r\in\R,\quad s>0,
+$$
+
+
+ where $\beta,\gamma,\delta>0$. Let $X_i\mid\mu,\sigma^2\stackrel{\mathrm{iid}}{\sim}
+\Normal(\mu,\sigma^2)$ for $i=1,\ldots,n$ and put the prior 
+
+$$
+ (\mu,\sigma^2)\sim
+ N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta).
+$$
+
+
+ Show that the joint posterior has the same family and identify all four updated parameters. Your derivation should explicitly complete the two weighted squares in $\mu$. 
+
+[Solution](#sol-applied-normal-invchisq)
+
+:::
+
+[^b03-normal-models-1]: Some Bayesian software prefers precision to variance or standard deviation. Precision is a natural parameter in graphical models, but the convention can still throw an unsuspecting calculation.

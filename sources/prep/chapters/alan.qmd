@@ -1,0 +1,264 @@
+# Alan's Half {#sec-alan}
+
+These four cases move from count regression to smoothing and repeated measurements. Read the exhibits before interpreting the coefficients: the response scale, the shape of a relationship, and the unit on which observations repeat determine what a fitted model can mean. Questions 19--20 are from the 2024 examination and Questions 21--22 from the 2025 examination. The plots below are reproduced from those papers.
+
+::: {#ex-fish-poisson .exercise}
+## Question 19. Poisson regression for fish species
+
+**2024 examination, Question 3 (20 marks).**
+
+Barbour and Brown recorded the number $Y_i$ of fish species in $n=70$ lakes, together with latitude and area. The scatterplots show the observed counts against the two covariates.
+
+![Species counts against latitude and log lake area, as shown in the 2024 examination.](../figures/fish-scatterplots-2024.pdf){width=92%}
+
+Consider
+
+$$
+Y_i\given X_i\ind\Poisson(\mu_i=\exp(X_i^{\top}\beta)),
+\qquad
+X_i^{\top}\beta=\beta_0+\beta_1\,\mathrm{latitude}_i+\beta_2\log(\mathrm{area}_i).
+$$
+
+**(a) [1 mark]** Briefly argue why $\log(\mathrm{area}_i)$ is preferable to $\mathrm{area}_i$ in the linear predictor.
+
+```{=latex}
+\Needspace{9\baselineskip}
+```
+
+**(b) [2 marks]** Show that the log-likelihood is
+
+$$
+\ell(\beta\given X,Y)=\sum_{i=1}^{n}\bigl\{Y_i(X_i^{\top}\beta)-\exp(X_i^{\top}\beta)\bigr\}+\text{constant}.
+$$
+
+**(c) [2 marks]** Derive the score and show that
+
+$$
+S(\beta)=\sum_{i=1}^{n}\frac{Y_i-\mu_i(X_i^{\top}\beta)}{\Var(Y_i\given X_i)}\,\mu_i'(X_i^{\top}\beta)\,X_i.
+$$
+
+**(d) [1 mark]** Show that $S(\beta)$ is unbiased.
+
+**(e) [2 marks]** Verify $\Var(S(\beta))=-\E[\partial S(\beta)/\partial\beta]$.
+
+The first statistician fits the linear Poisson model:
+
+```text
+fit1 = glm(species ~ latitude + log(area), family=poisson)
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)
+(Intercept)  2.5949644  0.0668158   38.84   <2e-16 ***
+latitude    -0.0149475  0.0008788  -17.01   <2e-16 ***
+log(area)    0.2092975  0.0068808   30.42   <2e-16 ***
+
+(Dispersion parameter for poisson family taken to be 1)
+Null deviance:     2646.1 on 69 degrees of freedom
+Residual deviance: 1249.9 on 67 degrees of freedom
+AIC: 1616.4
+```
+
+**(f) [5 marks]** Interpret the intercept, the latitude and $\log(\mathrm{area})$ coefficients, the null deviance and the residual deviance.
+
+The second statistician replaces the latitude slope with a smooth:
+
+```text
+library(mgcv)
+fit2 = gam(species ~ s(latitude) + log(area), family=poisson)
+
+Parametric coefficients:
+             Estimate Std. Error z value Pr(>|z|)
+(Intercept)  2.064885   0.065793   31.39   <2e-16 ***
+log(area)    0.202381   0.007701   26.28   <2e-16 ***
+
+Approximate significance of smooth terms:
+             edf Ref.df Chi.sq p-value
+s(latitude) 8.881  8.996  463.2  <2e-16 ***
+```
+
+![Fitted latitude smooth and uncertainty bands from the 2024 examination.](../figures/fish-latitude-smooth-2024.pdf){width=84%}
+
+**(g) [1 mark]** Interpret the edf value $8.881$.
+
+**(h) [2 marks]** Comparing the two fits, is a linear function of latitude enough after accounting for lake area?
+
+**(i) [4 marks]** Summarise the main findings in one short paragraph.
+
+[Solution](#sol-fish-poisson)
+:::
+
+```{=latex}
+\clearpage
+```
+
+::: {#ex-toenail-glmm .exercise}
+## Question 20. Toenail infection GLMM
+
+**2024 examination, Question 4 (20 marks).**
+
+In this trial, 294 patients were randomised to terbinafine (250 mg/day) or itraconazole (200 mg/day), and assessed at weeks $0,4,8,12,24,36,48$. The binary outcome is moderate or severe onycholysis ($1$) versus none or mild ($0$). The command and summary output for the first fit are reproduced below.
+
+```text
+fit1 = glmer(outcome ~ treatment*weeks + (1|patientID), family=binomial)
+
+Random effects:
+ Groups     Name        Variance Std.Dev.
+ patientID  (Intercept)   21.05    4.588
+Number of obs: 1908, groups: patientID, 294
+
+Fixed effects:
+                              Estimate Std. Error z value Pr(>|z|)
+(Intercept)                   -2.54669    0.78251  -3.255  0.00114 **
+treatmentTerbinafine          -0.25799    0.69136  -0.373  0.70902
+weeks                         -0.10343    0.01214  -8.517   <2e-16 ***
+treatmentTerbinafine:weeks    -0.04059    0.01840  -2.207  0.02735 *
+```
+
+**(a) [2 marks]** Why is a patient-specific random intercept sensible?
+
+**(b) [6 marks]** Write the GLMM corresponding to the first command.
+
+**(c) [5 marks]** Interpret the five reported values, on the scale of the model.
+
+**(d) [2 marks]** Is there a treatment difference in the first fit, and which treatment looks better?
+
+The second fit allows a patient-specific week slope:
+
+```text
+fit2 = glmer(outcome ~ treatment*weeks + (weeks|patientID), family=binomial)
+
+Random effects:
+ Groups     Name        Variance Std.Dev. Corr
+ patientID  (Intercept) 7380.733   85.911
+            weeks          9.124    3.021 -0.30
+Number of obs: 1908, groups: patientID, 294
+
+Fixed effects:
+                              Estimate Std. Error z value Pr(>|z|)
+(Intercept)                  -12.68683    1.21837 -10.413   <2e-16 ***
+treatmentterbinafine          -0.06899    1.56848  -0.044    0.965
+weeks                         -2.80367    0.31638  -8.862   <2e-16 ***
+treatmentterbinafine:weeks    -0.27229    0.27409  -0.993    0.321
+```
+
+**(e) [2 marks]** How does the second model differ from the first?
+
+**(f) [3 marks]** Does the second fit show a treatment difference? How can the two conclusions be reconciled? [Solution](#sol-toenail-glmm)
+:::
+
+```{=latex}
+\clearpage
+```
+
+::: {#ex-cholesterol-gam .exercise}
+## Question 21. Cholesterol and heart disease
+
+**2025 examination, Question 3 (20 marks).**
+
+The heart-disease GAM is fitted by the following command, with the output shown below.
+
+```text
+library(mgcv)
+fit.sm1 = gam(disease ~ gender + s(cholesterol), family=binomial)
+
+Parametric coefficients:
+             Estimate Std. Error z value Pr(>|z|)
+(Intercept)  -0.12716    0.32518  -0.391    0.696
+gender       -0.08167    0.49478  -0.165    0.869
+
+Approximate significance of smooth terms:
+                edf Ref.df Chi.sq p-value
+s(cholesterol) 2.011  2.537  18.21 0.00036 ***
+```
+
+![Fitted cholesterol smooth on the link scale from the 2025 examination.](../figures/cholesterol-smooth-2025.pdf){width=84%}
+
+**(a) [4 marks]** Write the model statement for this command.
+
+**(b) [2 marks]** Interpret the edf of $2.011$.
+
+**(c) [2 marks]** Test for a gender difference after accounting for cholesterol.
+
+**(d) [2 marks]** Test whether a simple linear logistic regression on cholesterol is adequate.
+
+```{=latex}
+\clearpage
+```
+
+**(e) [3 marks]** In light of (c) and (d), how would you simplify the model? Give the R command.
+
+Another statistician instead fits
+
+```text
+fit.sm2 = gam(disease ~ s(cholesterol), family=binomial(link="probit"))
+```
+
+**(f) [3 marks]** Write the statistical model corresponding to this command.
+
+The dashed curve below is the probit fit from (f); the solid curve is the simplified logit fit from (e).
+
+![Comparison of probit and logit fitted probabilities from the 2025 examination.](../figures/cholesterol-links-2025.pdf){width=84%}
+
+**(g) [4 marks]** Comment on the comparison and why the two fits look that way.
+
+[Solution](#sol-cholesterol-gam)
+:::
+
+```{=latex}
+\clearpage
+```
+
+::: {#ex-orthodont-lmm .exercise}
+## Question 22. Orthodontic growth curves
+
+**2025 examination, Question 4 (20 marks).**
+
+Distance from pituitary to pterygomaxillary fissure was measured every two years from age $8$ to $14$ on $27$ subjects. The individual trajectories are shown below.
+
+![Individual orthodontic trajectories from the 2025 examination.](../figures/orthodont-trajectories-2025.pdf){width=92%}
+
+The random-slope fit `fit1 = lmer(distance ~ age + Sex + (age|Subject))` has the following summary output:
+
+```text
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr
+ Subject  (Intercept)  7.82249   2.7969
+          age          0.05126   0.2264 -0.77
+ Residual              1.71621   1.3100
+Number of obs: 108, groups: Subject, 27
+
+Fixed effects:
+             Estimate Std. Error t value
+(Intercept)  17.63518    0.88623  19.899
+age           0.66019    0.07125   9.265
+SexFemale    -2.14544    0.75746  -2.832
+```
+
+**(a) [6 marks]** Write the statistical model for the random-slope command.
+
+**(b) [6 marks]** Interpret the three fixed-effect estimates and the three standard deviations above.
+
+```text
+ranef(fit1)$Subject
+       (Intercept)         age
+M16     -0.96698456 -0.06544230
+F10     -2.31273350 -0.13319695
+```
+
+**(c) [4 marks]** Interpret the two pairs of predicted random effects.
+
+```text
+fit2 = lmer(distance ~ age + Sex + (1|Subject))
+anova(fit2, fit1)
+
+      npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)
+fit2     5 444.86 458.27 -217.43   434.86
+fit1     7 446.84 465.61 -216.42   432.84 2.0213  2     0.364
+```
+
+**(d) [2 marks]** Write the model for `distance ~ age + Sex + (1|Subject)`.
+
+**(e) [2 marks]** Is the random-intercept model an acceptable simplification?
+
+[Solution](#sol-orthodont-lmm)
+:::

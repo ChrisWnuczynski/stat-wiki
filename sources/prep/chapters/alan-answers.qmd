@@ -1,0 +1,513 @@
+# Alan's Half Answers {#sec-alan-answers}
+
+## Question 19. Poisson regression for fish species {#sol-fish-poisson}
+
+[Question 19](#ex-fish-poisson)
+
+**Definitions.** $Y_i$ is the species count in lake $i$, and $X_i=(1,\mathrm{latitude}_i,\log\mathrm{area}_i)^\top$ is its fixed covariate vector. The model assumes independent $Y_i\sim\Poisson(\mu_i)$ with $\mu_i=\exp(X_i^\top\beta)$. Thus $\E(Y_i\given X_i)=\Var(Y_i\given X_i)=\mu_i$, with dispersion fixed at one. The score is the gradient of the log-likelihood, and Fisher information measures its expected curvature, or equivalently its covariance under the model.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** $\log(\mathrm{area})$ transforms a covariate; the log link transforms the response mean. These are separate choices. Logging area compresses its range and represents multiplicative area comparisons by additive differences: one unit of $\log(\mathrm{area})$ multiplies area by $e$. With a log link and a log-area predictor,
+
+$$
+\mu_i=e^{\beta_0+\beta_1\mathrm{latitude}_i}\,
+\mathrm{area}_i^{\beta_2}.
+$$
+
+This is a power-law area effect, whereas using raw area in the same log-link GLM gives an exponential area effect. The observed plot and scientific context should guide that choice; logging a covariate does not by itself establish model adequacy. Neither choice requires taking $\log Y_i$, so zero species counts pose no transformation problem for the response.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** The Poisson log-likelihood contribution is $Y_i\log\mu_i-\mu_i-\log(Y_i!)$. The factorial term does not depend on $\beta$. With the log link, $\log\mu_i=X_i^{\top}\beta$ and $\mu_i=\exp(X_i^{\top}\beta)$, so
+
+$$
+\ell(\beta\given X,Y)
+=
+\sum_{i=1}^{n}\bigl\{Y_i(X_i^{\top}\beta)-\exp(X_i^{\top}\beta)\bigr\}
++\text{constant}.
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** Differentiate (b). Since $\partial\mu_i/\partial\beta=\mu_i X_i$,
+
+$$
+S(\beta)
+=
+\sum_{i=1}^{n}(Y_i-\mu_i)X_i.
+$$
+
+For every GLM the score is the same residual, reweighted by the variance and by the slope of the mean:
+
+$$
+S(\beta)
+=
+\sum_{i=1}^{n}
+\frac{Y_i-\mu_i}{\Var(Y_i\given X_i)}
+\,\mu_i'(X_i^{\top}\beta)\,X_i.
+$$
+
+Here $\Var(Y_i\given X_i)=\mu_i$. Under the log link, $\mu_i'=\mu_i$, so the weight equals $1$ and the general score reduces to the sum above. Setting $S(\beta)=0$ is still nonlinear in $\beta$, because $\mu_i=\exp(X_i^{\top}\beta)$. The fit is Fisher scoring of that equation, not a closed form.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** At the $\beta$ in the model, $\E(Y_i\given X_i)=\mu_i$. Each summand then has conditional mean zero, and $\E[S(\beta)]=0$.
+
+Explicitly, with the design held fixed,
+
+$$
+\E\{S(\beta)\given X\}
+=\sum_iX_i\{\E(Y_i\given X)-\mu_i\}=0.
+$$
+
+This identity concerns repeated samples at the true parameter. The fitted score $S(\hat\beta)=0$ instead follows from maximising the observed likelihood; the two zeroes arise for different reasons.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** From the reduced score and $\partial\mu_i/\partial\beta^{\top}=\mu_i X_i^{\top}$,
+
+$$
+\frac{\partial S(\beta)}{\partial\beta}
+=
+-\sum_{i=1}^{n}\mu_i X_iX_i^{\top}.
+$$
+
+The right-hand side does not depend on $Y$, so
+
+$$
+-\E\!\left[\frac{\partial S(\beta)}{\partial\beta}\right]
+=
+\sum_{i=1}^{n}\mu_i X_iX_i^{\top}.
+$$
+
+Calculate the score covariance separately. Conditional independence removes cross-covariances, and the Poisson variance is $\Var(Y_i\given X)=\mu_i$, so
+
+$$
+\Var\{S(\beta)\given X\}
+=\sum_{i=1}^{n}\Var(Y_i\given X)X_iX_i^{\top}
+=\sum_{i=1}^{n}\mu_iX_iX_i^{\top}.
+$$
+
+This matches the negative expected Hessian above. The common matrix is the Fisher information. For the Poisson log link the observed and expected information agree; overdispersion or dependence would change the score covariance even if the mean formula remained correct.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** The intercept $2.595$ is the log mean at latitude $0$ (the equator) and $\log(\mathrm{area})=0$ (unit area), so the fitted mean there is $\exp(2.595)\approx 13.4$ species. This is the model's reference lake, not a general mean for the sampled lakes.
+
+The latitude coefficient $-0.01495$ is a multiplicative effect at fixed log area. One extra degree away from the equator multiplies the mean count by $\exp(-0.01495)\approx 0.985$. A degree is a small unit: ten degrees multiply the mean by $\exp(-0.1495)\approx 0.861$. Those are the same fit. The coefficient looks small because the unit is one degree.
+
+The coefficient $0.2093$ is the effect of one unit of $\log(\mathrm{area})$ at fixed latitude. Multiplying area by $e$ multiplies the mean count by $\exp(0.2093)\approx 1.233$.
+
+For any positive multiplier $c$, the fitted mean ratio is $c^{0.2093}$. Doubling area therefore multiplies the fitted mean by about $1.16$, rather than by $1.23$. The coefficient is an elasticity: a small $1\%$ increase in area corresponds to approximately a $0.2093\%$ increase in the expected count, holding latitude fixed.
+
+The null deviance $2646.1$ on $69$ degrees of freedom is the deviance of the intercept-only model, one mean for every lake. The deviance is twice the drop in log-likelihood from the saturated fit to the model under discussion,
+
+$$
+D(Y;\hat\mu)=2\bigl\{\ell(Y;Y)-\ell(\hat\mu;Y)\bigr\},
+$$
+
+with Poisson dispersion fixed at $1$. The degrees of freedom are $n-1=69$.
+
+The residual deviance $1249.9$ on $67$ degrees of freedom is the deviance of the fitted three-parameter model, $n-3=67$. For the Poisson,
+
+$$
+D
+=
+2\sum_{i=1}^{n}
+\left\{
+Y_i\log\frac{Y_i}{\hat\mu_i}-(Y_i-\hat\mu_i)
+\right\}.
+$$
+
+The value is about $19$ times its degrees of freedom, so the Poisson model fits poorly relative to its stated mean--variance assumptions. This can reflect overdispersion, a misspecified mean function, influential lakes or dependence; the deviance alone does not identify which. A quasi-Poisson fit with $\Var(Y_i\given X_i)=\phi\mu_i$ would retain these fitted coefficients while adjusting their standard errors, but it would not repair a wrong mean function.
+
+The saturated fit has one fitted mean per observation, $\hat\mu_i=Y_i$, and hence no residual degrees of freedom. The null and residual degrees of freedom reveal $n=70$ and three fitted regression coefficients. In the deviance formula use $0\log(0/\hat\mu_i)=0$ when $Y_i=0$. Comparing deviance to degrees of freedom is a diagnostic, not a proof that one particular assumption failed; sparse counts can also make a nominal chi-squared approximation inaccurate.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(g)** The value $8.881$ is the effective degrees of freedom of the fitted latitude smooth. It measures the smooth's effective flexibility after penalisation, roughly comparable to a high-order polynomial fit; the fitted function is not literally a polynomial of degree $8.881$. A value near $1$ would indicate an approximately straight effect on the log-mean scale. Here the fitted effect is substantially more flexible.
+
+The GAM keeps the Poisson response distribution and log link but replaces $\beta_1\mathrm{latitude}$ by a fitted function $g(\mathrm{latitude})$. A smooth can be represented by basis functions with a penalty discouraging excessive wiggliness. The edf describes the flexibility remaining after that penalty, rather than the number of knots or an ordinary polynomial degree. The plotted ordinate is the smooth's contribution to the log mean; obtaining a predicted count also requires the intercept and log-area contribution.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(h)** The plotted effect of latitude rises and falls several times, so a single straight line on the log-mean scale misses its shape. The edf of $8.881$ is also far above the near-linear value of $1$. The printed $\chi^2$ test concerns whether the smooth is absent, not specifically whether it departs from a line. A direct formal comparison of linear and smooth latitude fits would address that narrower hypothesis. The log-area coefficient is similar in the two fits, $0.209$ and $0.202$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** At a fixed latitude, multiplying lake area by $e$ multiplies the fitted mean species count by about $1.23$; the log-area coefficient stays close to $0.20$ in the GAM. The smooth suggests high diversity near the equator, a dip around $20$--$25$ degrees away, a rise around $30$--$40$ degrees, and lower diversity towards the poles. A single latitude slope misses this pattern. The linear Poisson fit reduces deviance from $2646.1$ to $1249.9$, but the residual deviance remains far above $67$ degrees of freedom. Check the mean function, the Poisson variance assumption and influential lakes before relying on its printed standard errors and $z$ tests.
+
+```{=latex}
+\clearpage
+```
+
+## Question 20. Toenail infection GLMM {#sol-toenail-glmm}
+
+[Question 20](#ex-toenail-glmm)
+
+**Definitions.** Let $j$ index patients, $i$ index visits, $t_{ji}$ be week, and $T_j=1$ for terbinafine or $0$ for itraconazole. The response $Y_{ji}=1$ indicates moderate or severe onycholysis. The conditional probability is $p_{ji}(\alpha_j)=\Pr(Y_{ji}=1\given T_j,t_{ji},\alpha_j)$. The logit is $\log\{p/(1-p)\}$ and its inverse is $\operatorname{expit}(\eta)=e^\eta/(1+e^\eta)$. Fixed effects describe the population predictor; random effects describe patient departures from it.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Each patient is assessed at seven visits, so the responses are repeated measures on the same person. A patient intercept is a draw from a population of patients: one variance, rather than a separate mean for each of the $294$ named people. The trial is about the treatments in that population. Two visits on the same patient share the intercept, so they are dependent. Conditional on the intercept they are independent. Assigning the treatment at random does not remove that dependence.
+
+For two distinct visits on the same patient, the law of total covariance gives
+
+$$
+\begin{aligned}
+\Cov(Y_{ji},Y_{jk}\given X)
+&=\E\{\Cov(Y_{ji},Y_{jk}\given\alpha_j,X)\given X\}\\
+&\quad+\Cov\{p_{ji}(\alpha_j),p_{jk}(\alpha_j)\given X\}.
+\end{aligned}
+$$
+
+The first term is zero under conditional independence. The second is generally nonzero because both probabilities change with the same latent intercept. This is the mechanism by which the model accounts for repeated-measure dependence.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** Let $T_j=1$ for terbinafine and $T_j=0$ for itraconazole, and let visit $i$ of patient $j$ have response $Y_{ji}$. Naming `binomial` and not naming a link selects the logit. The model is
+
+$$
+\begin{aligned}
+Y_{ji}\given \alpha_j
+&\sim
+\operatorname{Bernoulli}(p_{ji}),\\
+\operatorname{logit}(p_{ji})
+&=
+\beta_0+\beta_1 T_j+\beta_2\,\mathrm{weeks}_{ji}
++\beta_3 T_j\,\mathrm{weeks}_{ji}+\alpha_j,\\
+\alpha_j
+&\stackrel{\mathrm{iid}}{\sim}
+\Normal(0,\sigma_A^2),
+\end{aligned}
+$$
+
+with visits conditionally independent given $\alpha_j$, patients independent of one another, and random intercepts independent of the assigned treatment. Equivalently, $p_{ji}$ is the expit of the linear predictor. The normal distribution is a model for a latent intercept on the log-odds scale. It is not a claim that a normal measurement was observed. The likelihood integrates $\alpha_j$ out, and there is no closed form.
+
+For patient $j$ the likelihood contribution is the one-dimensional integral of the product of the visit-specific Bernoulli masses against the normal random-intercept density. Integration is performed once per patient, since all visits share that intercept. Similarly, the population-averaged probability is $\E_{\alpha_j}\{p_{ji}(\alpha_j)\}$. Because expit is nonlinear, this generally differs from setting $\alpha_j=0$ in the predictor.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** Every coefficient below holds the patient's intercept fixed. A unit change is a change in log-odds, and $\exp(\beta)$ multiplies the odds. It is not a change in probability.
+
+The standard deviation $4.588$ is the standard deviation of $\alpha_j$ on the log-odds scale. Holding fixed covariates constant, a one-standard-deviation increase in the latent intercept multiplies conditional odds by $\exp(4.588)\approx98$. It is a scale of between-patient heterogeneity, not a standard deviation of observed binary responses or disease probabilities.
+
+The intercept $-2.547$ is the log-odds for a typical patient, $\alpha_j=0$, on itraconazole at week $0$. Week $0$ is a real visit. The probability is
+
+$$
+\frac{\exp(-2.547)}{1+\exp(-2.547)}\approx 0.073.
+$$
+
+The terbinafine coefficient $-0.258$ is the week-$0$ contrast for a given patient. Terbinafine multiplies the odds of moderate or severe onycholysis by $\exp(-0.258)\approx 0.77$ relative to itraconazole. The $z$ statistic is $-0.37$ and $p=0.71$, so this is not a detected difference.
+
+The weeks coefficient $-0.103$ is the per-week change for a patient on itraconazole. One extra week multiplies the odds by $\exp(-0.103)\approx 0.90$, at that patient's intercept. The $z$ statistic is $-8.5$.
+
+The interaction $-0.0406$ is the extra weekly change under terbinafine. Each extra week multiplies the terbinafine-versus-itraconazole odds ratio by $\exp(-0.0406)\approx 0.96$. The weekly multiplier itself is $\exp(-0.144)\approx 0.87$ on terbinafine and $\exp(-0.103)\approx 0.90$ on itraconazole. The $z$ statistic is $-2.21$ and $p=0.027$, past the usual $5\%$ line.
+
+One can obtain all these interpretations by writing the two fitted predictors separately:
+
+$$
+\eta_I(t,\alpha)=-2.547-0.103t+\alpha,\qquad
+\eta_T(t,\alpha)=-2.805-0.144t+\alpha.
+$$
+
+Subtracting them at a common week and random-intercept value gives $\log\operatorname{OR}_{T:I}(t)=\beta_1+\beta_3t$. Differentiating with respect to week gives the two log-odds slopes and their difference $\beta_3$. This avoids confusing a baseline contrast, a time slope and a difference in slopes.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** There is evidence of a difference in the rate, with a steeper decline under terbinafine. The week-$0$ contrast has $p=0.71$ and describes baseline differences before treatment, not the difference in improvement. The treatment-by-weeks interaction has $p=0.027$ and addresses that difference. At week $48$, which is a visit in the trial, the subject-specific log-odds contrast is
+
+$$
+-0.258+48(-0.0406)=-2.21,
+$$
+
+so the odds of moderate or severe onycholysis under terbinafine are $\exp(-2.21)\approx 0.11$ times the odds under itraconazole, for a given patient.
+
+This is a fitted contrast, not a significance test at week $48$. Its standard error would require $\Var(\hat\beta_1)+48^2\Var(\hat\beta_3)+96\Cov(\hat\beta_1,\hat\beta_3)$, and the covariance is not printed. The interaction test itself is $H_0:\beta_3=0$; equality of the treatment predictors at every week would require the joint null $\beta_1=\beta_3=0$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** `(weeks|patientID)` adds a random slope on weeks and a covariance between that slope and the intercept. In the notation of (b),
+
+$$
+\operatorname{logit}(p_{ji})
+=
+X_{ji}^{\top}\beta+Z_{ji}^{\top}\alpha_j,
+\qquad
+\alpha_j\sim \Normal(0,\Sigma_A),
+$$
+
+where $Z_{ji}=(1,\mathrm{weeks}_{ji})^{\top}$ and $\Sigma_A$ holds two variances and one covariance. The first model is the special case with the slope variance equal to zero. Patients may then differ in baseline and in rate. The fixed effects remain the population constants. The $\alpha_j$ are draws.
+
+Writing $\alpha_j=(\alpha_{0j},\alpha_{1j})^\top$, patient $j$'s log-odds slope is $\beta_2+\beta_3T_j+\alpha_{1j}$. If the two random-effect variances are $\tau_0^2,\tau_1^2$ and their covariance is $\tau_{01}$, the covariance between the random parts of that patient's predictors at weeks $s,t$ is $\tau_0^2+(s+t)\tau_{01}+st\tau_1^2$. The model therefore changes the time-dependent covariance structure as well as allowing different trajectories.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** In the second fit the treatment coefficient has $p=0.965$ and the treatment-by-weeks interaction has $p=0.321$. It therefore gives no clear evidence that the two drugs differ in either baseline log-odds or rate of change. Both fitted weekly slopes are negative, but this alone does not establish a causal improvement for either drug. The first fit forces all patients in a treatment group to share a time slope; the second allows patient-specific slopes. Some variation attributed to the fixed interaction in the first fit can instead be represented by those individual trajectories. The interaction standard error rises from $0.018$ to $0.274$, so the second estimate is much less precise.
+
+The fitted intercept--slope correlation is $-0.30$. On the model's log-odds scale, patients with a higher random intercept tend to have a **more negative** random slope, hence a steeper decline; the association is modest and does not itself explain a treatment contrast. Alan's central point is that allowing different patient trajectories changes the treatment comparison. The very large fitted random-effect standard deviations also warrant a fit check. Neither fit proves that the drugs are equally effective.
+
+For example, an approximate $95\%$ Wald interval for the second interaction is $-0.27229\pm1.96(0.27409)$, or about $(-0.810,0.265)$. It includes zero and substantial nonzero differences in slopes. The changed conclusion is therefore about the precision of the treatment comparison under a different dependence model. Adding random slopes does not universally increase every standard error, and the change in a $p$-value alone does not establish which random-effects structure is adequate.
+
+```{=latex}
+\clearpage
+```
+
+## Question 21. Cholesterol and heart disease {#sol-cholesterol-gam}
+
+[Question 21](#ex-cholesterol-gam)
+
+**Definitions.** $Y_i$ is the disease indicator, $c_i$ is cholesterol and $G_i$ is the recorded gender covariate. The response probability is $p_i=\Pr(Y_i=1\given c_i,G_i)$. A GAM adds a fitted smooth to the linear predictor while retaining a response distribution and link function. Effective degrees of freedom describe the smooth's flexibility after penalisation; they are not the polynomial degree.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Naming `binomial` and not naming a link selects the logit. Let $G_i$ denote the gender covariate as coded in the fitted dataset; the printed output does not identify its reference category.
+
+$$
+\begin{aligned}
+Y_i\given X_i
+&\sim
+\operatorname{Bernoulli}(p_i),\\
+\operatorname{logit}(p_i)
+&=
+\beta_0+\beta_1 G_i+g(\mathrm{cholesterol}_i).
+\end{aligned}
+$$
+
+The function $g$ is a centred penalised smooth. Thus $\beta_0$ is the log-odds for the reference gender at zero contribution from the fitted smooth, not necessarily at a particular observed cholesterol value. Conditional on the covariates, responses are modelled as independent Bernoulli variables. The smooth replaces a single cholesterol slope.
+
+For an ordinary smooth, a constraint such as $\sum_i g(c_i)=0$ separates it from the intercept. Without a constraint, adding a constant to $g$ and subtracting that constant from $\beta_0$ would give the same fitted predictor. The plotted smooth is on the log-odds scale. To obtain a probability, form the entire predictor $\eta_i=\beta_0+\beta_1G_i+g(c_i)$ and then calculate $p_i=\operatorname{expit}(\eta_i)$; $g(c_i)$ alone is neither a probability nor a probability difference.[^gam-centring]
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** The edf $2.011$ measures the effective flexibility of the fitted cholesterol effect after penalisation. A value near $1$ would be nearly linear on the logit scale; $2.011$ suggests curvature. It does not mean that the fit is a quadratic polynomial. The reference df $2.537$ belongs to the approximate test of the smooth term and is not another measure of its shape.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** The gender coefficient is $-0.0817$, with $z=-0.165$ and $p=0.869$. At a common cholesterol level, the fitted odds for the category coded $1$ are $\exp(-0.0817)\approx 0.92$ times those for the reference category, assuming a $0/1$ coding. The output does not show which category is coded $1$. There is no evidence here of a gender difference after accounting for cholesterol.
+
+The hypotheses are $H_0:\beta_1=0$ and $H_1:\beta_1\ne0$. The Wald statistic is the estimate divided by its standard error, and the two-sided normal-reference $p$-value is $2\{1-\Phi(|z|)\}$. Since $0.869>0.05$, do not reject the null at the $5\%$ level. This is insufficient evidence of an adjusted gender difference, rather than evidence that the difference is exactly zero.
+
+```{=latex}
+\Needspace{0.33\textheight}
+```
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** The printed $\chi^2=18.21$ and $p=0.00036$ test whether the cholesterol smooth is absent; they do **not** test whether it is linear.[^gam-tests] The two null hypotheses are different:
+
+$$
+H_{0,\mathrm{absent}}:g(c)\equiv0,\qquad
+H_{0,\mathrm{linear}}:g(c)\text{ is a straight-line function of }c.
+$$
+
+A nonzero straight line violates the first null but satisfies the second. Thus the small printed $p$-value establishes evidence of a cholesterol contribution under the model, while the curved plot and edf $2.011$ suggest departures from linearity. A formal test of that narrower claim needs an appropriately calibrated comparison or decomposition of the nonlinear part. Keep the other covariates fixed in that comparison: the linear counterpart to the supplied model is `glm(disease ~ gender + cholesterol, family=binomial)`. The required comparison statistic is not printed, so a formal $p$-value for nonlinearity cannot be supplied from this output alone.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** The gender term can be dropped for a simpler description of these data, while the plotted curvature supports retaining the cholesterol smooth. The simplified logit model is
+
+`gam(disease ~ s(cholesterol), family=binomial)`.
+
+This is a parsimonious description supported by the supplied results, rather than proof of a unique correct model. It retains the Bernoulli assumptions and logit link. Removing the smooth instead would assert no cholesterol effect, contrary to its strong reported evidence.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** The probit link replaces the logistic curve by the standard normal distribution function $\Phi$:
+
+$$
+\begin{aligned}
+Y_i\given x_i
+&\sim
+\operatorname{Bernoulli}(p_i),\\
+\Phi^{-1}(p_i)
+&=
+\widetilde\beta_0+\widetilde g(\mathrm{cholesterol}_i),
+\end{aligned}
+$$
+
+with $\widetilde g$ centred and with no gender term. Here $\Phi$ is the standard normal CDF, so equivalently $p_i=\Phi\{\widetilde\beta_0+\widetilde g(c_i)\}$. The tildes emphasise that the intercept and smooth are fitted again under the new link; their numerical values need not match the logit fit. Changing the link leaves the Bernoulli response distribution unchanged.
+
+```{=latex}
+\Needspace{0.60\textheight}
+```
+
+**(g)** Both curves estimate disease probability as a smooth function of cholesterol alone. Logistic and normal CDFs are both sigmoid-shaped and symmetric about probability one half, although their numerical predictor scales and tail behaviour differ. Refitting the intercept and smooth can absorb much of that scale difference, explaining the very similar fitted probabilities over the observed cholesterol range. The curves need not agree when the same numerical predictor is inserted into each inverse link, or when extrapolated beyond the data.
+
+The simplified logit and probit fits have the same covariates, so their displayed difference reflects the choice of link together with refitting under that link. A routine nested-model likelihood-ratio reference is not justified by treating one link as a parameter restriction of the other. AIC or an appropriate predictive comparison can be used if a formal model choice is required. The figure alone supplies little reason to prefer the probit fit.
+
+The logit has a convenient interpretation: at two cholesterol values $c_1,c_2$, the fitted odds ratio is $\exp\{g(c_2)-g(c_1)\}$. With a smooth there is no single constant cholesterol odds ratio per unit increase; it depends on the two cholesterol values compared. This interpretability, together with the close fitted curves, supports reporting the logit model here.
+
+[^gam-centring]: The ordinary smooth constraint is described in the [mgcv identifiability documentation](https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html).
+
+[^gam-tests]: The [mgcv summary documentation](https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html) defines smooth-term tests and explains the approximate nature of their $p$-values.
+
+```{=latex}
+\clearpage
+```
+
+## Question 22. Orthodontic growth curves {#sol-orthodont-lmm}
+
+[Question 22](#ex-orthodont-lmm)
+
+**Definitions.** $Y_{ji}$ is the orthodontic distance in millimetres for child $j$ at occasion $i$, and age is in years. Set $F_j=1$ for female and $0$ for male. A random-intercept-and-slope model has a child-specific pair $(\alpha_{0j},\alpha_{1j})$ with mean zero and covariance $\Sigma_A$. The residual error represents occasion-specific variation after the child's own line has been accounted for. All variance components have units determined by the quantity they vary.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Index the subject by $j$ and the occasion by $i$. Male is the reference level of sex. The command `(age|Subject)` is a random intercept and a random slope on age, with a covariance between them:
+
+$$
+\begin{aligned}
+Y_{ji}
+&=
+\beta_0+\beta_1\,\mathrm{age}_{ji}+\beta_2\,\mathrm{Female}_j
++
+\alpha_{0j}+\alpha_{1j}\,\mathrm{age}_{ji}
++\varepsilon_{ji},\\[4pt]
+\begin{pmatrix}\alpha_{0j}\\ \alpha_{1j}\end{pmatrix}
+&\sim
+\Normal(0,\Sigma_A),
+\qquad
+\varepsilon_{ji}\sim \Normal(0,\sigma^2),
+\end{aligned}
+$$
+
+independently across subjects, with the errors independent of the random effects. From the fit,
+
+$$
+\Sigma_A
+=
+\begin{pmatrix}
+7.822 & -0.488\\
+-0.488 & 0.0513
+\end{pmatrix},
+\qquad
+\sigma=1.310,
+$$
+
+where $-0.488\approx-0.77\times2.797\times0.226$. Fixed effects are unknown population constants; random effects are realised child-specific departures modelled as draws from a population distribution. A new sample of children would have new realised departures, while the model's population parameters describe the same population. The fit estimates both the mean structure and its variance components, using restricted maximum likelihood for the displayed fit.
+
+The correlation $-0.77$ says that a child with a higher intercept tends to have a flatter slope. The intercept in this parameterisation is the value at age $0$.
+
+For distinct occasions at ages $s$ and $t$ on the same child, the model implies
+
+$$
+\Cov\{Y_j(s),Y_j(t)\}
+=\tau_0^2+(s+t)\tau_{01}+st\tau_1^2,
+$$
+
+where $\tau_0^2,\tau_1^2,\tau_{01}$ are the entries of $\Sigma_A$. At a single occasion the variance additionally includes $\sigma^2$. This follows by expanding $\Cov(\alpha_{0j}+s\alpha_{1j},\alpha_{0j}+t\alpha_{1j})$; independent residual errors contribute no covariance between distinct occasions. It explains why ordinary independent-error regression is not the stated model.
+
+```{=latex}
+\Needspace{0.28\textheight}
+```
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** These six numbers are statements about the population, not about the $27$ children in the file.
+
+The intercept $17.635$ mm is the extrapolated male mean at age $0$. The measured ages run from $8$ to $14$, so this is outside the observed age range and should not be presented as a typical observed distance. At age $12$, for example, the fitted male population mean is $17.635+0.660(12)=25.555$ mm, a comparison within the measured range.
+
+The age coefficient $0.660$ mm per year is the population mean change for one extra year of age, the same slope for both sexes. The female coefficient $-2.145$ mm is the female mean minus the male mean at the same age.
+
+The intercept standard deviation $2.797$ mm says that a typical child sits about $2.8$ mm away from the population intercept. That intercept is the age-$0$ value. The age standard deviation $0.226$ mm per year says that a typical slope sits about $0.23$ mm per year away from $0.660$. The residual standard deviation $1.310$ mm is the within-child scatter about that child's own line.
+
+The first two standard deviations describe between-child heterogeneity in line parameters; the last describes variation of measurements around a given child's line. They are not standard errors of the fixed effects. Recentring age at $12$ would make the intercept refer to a meaningful age and would change the random-intercept variance and intercept--slope correlation, while leaving fitted trajectories unchanged. Consequently the negative correlation must be interpreted with its age-$0$ reference in mind.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** The pairs $(-0.967,-0.065)$ and $(-2.313,-0.133)$ are predicted random effects for the sampled children. With the variances estimated, they are empirical best linear unbiased predictors. These values are departures from the appropriate population intercept and slope, so they must be added to the fixed part before a child's fitted line is obtained.
+
+For M16 the predicted line lies $0.967$ mm below the male population intercept and $0.065$ mm per year below the population slope:
+
+$$
+(17.635-0.967)+(0.660-0.065)\,\mathrm{age}
+=
+16.67+0.595\,\mathrm{age}.
+$$
+
+For F10 the sex contrast is already in the fixed part. The predicted line lies a further $2.313$ mm below the female intercept and $0.133$ mm per year below the population slope:
+
+$$
+(17.635-2.145-2.313)+(0.660-0.133)\,\mathrm{age}
+=
+13.18+0.527\,\mathrm{age}.
+$$
+
+These predictions pool each child's measurements with the population model, shrinking poorly determined individual departures towards zero. They are not four additional fixed-effect coefficients. The fitted line predicts the child's conditional mean; a future observed distance also has residual variation with standard deviation $\sigma$ and uncertainty in the predicted line.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** Dropping the random slope leaves a common age slope and one random intercept:
+
+$$
+Y_{ji}
+=
+\beta_0+\beta_1\,\mathrm{age}_{ji}+\beta_2\,\mathrm{Female}_j
++\alpha_{0j}+\varepsilon_{ji},
+$$
+
+with $\alpha_{0j}\sim \Normal(0,\sigma_A^2)$ and $\varepsilon_{ji}\sim \Normal(0,\sigma^2)$, independent across subjects. Two occasions on the same child then have covariance $\sigma_A^2$.
+
+The corresponding within-child correlation is $\sigma_A^2/(\sigma_A^2+\sigma^2)$ and is constant across pairs of distinct ages. Removing the random slope therefore imposes both a common age slope and a simpler covariance pattern. It still allows children to have persistently higher or lower distances through their random intercepts.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** Start from the larger model and delete. The likelihood-ratio statistic for the random slope and its covariance is $2.02$ on $2$ degrees of freedom, and the printed tail probability is $0.364$. The random-intercept model has the smaller AIC, $444.86$ against $446.84$.
+
+The null sets a variance to zero, a boundary of the parameter space, so the ordinary chi-squared reference used for the printed $p$-value is only approximate here. The large printed value and the lower AIC of the simpler model both support using the random-intercept model as an acceptable simplification for these data. This is not evidence that every subject has exactly the same age slope.
+
+The larger model adds a slope variance and its covariance with the intercept, accounting for the two-parameter difference in the printed comparison. Both models must be fitted to the same observations and use a comparable likelihood criterion. Here the fixed-effects structure is the same, which permits a REML comparison of their random-effects structures. If fixed effects were being changed, the models should instead be compared using maximum likelihood. The statistical conclusion is that the extra random-slope structure is not sufficiently supported by these data, rather than that individual growth rates are known to be identical.

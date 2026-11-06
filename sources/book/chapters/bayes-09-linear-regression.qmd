@@ -1,0 +1,1001 @@
+# Bayesian linear regression
+
+Linear regression extends the earlier normal model with unknown mean and variance. Instead of giving every observation the same mean $\mu$, it gives observation $i$ the mean $\xvec_i^\top\betavec$. The central calculations are therefore familiar normal--inverse-Gamma calculations, but now in $p$ dimensions and with the geometry of least squares doing the algebraic work.
+
+This chapter develops the model, the least-squares reference calculation, the improper-prior posterior kernel and its quadratic decomposition, the conditional posterior families, and independent informative priors, and then carries the marginalisation, simulation, and prediction arguments through in full.
+
+Least squares is the reference calculation to learn first. It is fast, widely available, and provides the least-squares coordinates and checks used below. Bayesian regression retains that sampling model and adds probability distributions for the unknown coefficients and variance.[^b09-linear-regression-1]
+
+## The Gaussian linear model
+
+Regression allows the mean response to change with measured predictors. Let there be $n$ observations and $k$ measured predictors, together with an intercept. There are therefore $p=k+1$ regression coefficients. For observation $i$, the scalar model is \begin{equation}
+ Y_i
+ =x_{i1}\beta_1+\cdots+x_{ik}\beta_k+\beta_0+\varepsilon_i.
+ \label{eq:lm-scalar-model}
+\end{equation} Here $x_{ij}$ is the recorded value of predictor $j$ for observation $i$. Before the response is observed, $Y_i$ is random; the $x_{ij}$ are known numbers in the model; and the coefficients $\beta_0,\ldots,\beta_k$ are unknown. The term $\varepsilon_i$ represents the part of the response not explained by its mean.
+
+Stacking the scalar equations introduces no new statistical assumption. It is bookkeeping that lets one equation describe all $n$ observations. Using the convention that the intercept comes last, define 
+
+$$
+ \mat X=
+ \begin{pmatrix}
+  x_{11}&x_{12}&\cdots&x_{1k}&1\\
+  x_{21}&x_{22}&\cdots&x_{2k}&1\\
+  \vdots&\vdots&\ddots&\vdots&\vdots\\
+  x_{n1}&x_{n2}&\cdots&x_{nk}&1
+ \end{pmatrix},
+ \qquad
+ \betavec=
+ \begin{pmatrix}
+  \beta_1\\ \beta_2\\ \vdots\\ \beta_k\\ \beta_0
+ \end{pmatrix}.
+$$
+
+
+ Thus $\mat X\in\R^{n\times p}$ is known, while $\betavec\in\R^p$ is unknown. The column of ones supplies the intercept in every row. Placing that column first, and $\beta_0$ first in $\betavec$, changes only the ordering of the coefficients.
+
+Now stack the random responses and errors: 
+
+$$
+ \vect Y=
+ \begin{pmatrix}Y_1\\ \vdots\\Y_n\end{pmatrix},
+ \qquad
+ \vect\varepsilon=
+ \begin{pmatrix}\varepsilon_1\\ \vdots\\\varepsilon_n\end{pmatrix}.
+$$
+
+
+ Matrix multiplication produces the complete vector of true mean responses: \begin{align*}
+ \mat X\betavec
+ &=
+ \begin{pmatrix}
+  \beta_0+x_{11}\beta_1+\cdots+x_{1k}\beta_k\\
+  \beta_0+x_{21}\beta_1+\cdots+x_{2k}\beta_k\\
+  \vdots\\
+  \beta_0+x_{n1}\beta_1+\cdots+x_{nk}\beta_k
+ \end{pmatrix}\\
+ &=\E(\vect Y\given\betavec,\sigma^2,\mat X).
+\end{align*} The adjective *true* here means "under the model at the unknown parameter value." It does not mean that these means have been observed.
+
+::: {#def-gaussian-linear-model .definition}
+## Gaussian linear model
+
+Let $\xvec_i^\top$ denote row $i$ of $\mat X$. The Gaussian linear model is \begin{equation}
+ \vect Y=\mat X\betavec+\vect\varepsilon,
+ \qquad
+ \vect\varepsilon\given\sigma^2
+ \sim\Normal_n(\vect0,\sigma^2\mat I_n),
+ \label{eq:lm-matrix-model}
+\end{equation} and hence \begin{equation}
+ \vect Y\given\betavec,\sigma^2,\mat X
+ \sim\Normal_n(\mat X\betavec,\sigma^2\mat I_n).
+ \label{eq:lm-sampling-distribution}
+\end{equation} Equivalently, the errors are independent with $\varepsilon_i\sim\Normal(0,\sigma^2)$, so every response has variance $\sigma^2$ and distinct responses have zero covariance.
+
+The design matrix is conditioned on and treated as fixed. This does not claim that its entries were never measured; it says that their uncertainty is not part of this particular model.
+
+:::
+
+### From random responses to fitted values
+
+Once the responses have been observed, their realised values are written without capital letters and without hats: 
+
+$$
+ \yvec=
+ \begin{pmatrix}y_1\\y_2\\\vdots\\y_n\end{pmatrix}.
+$$
+
+
+ These are the actual measured responses. We use $\mat X$ and $\yvec$ to estimate the unknown coefficient vector, obtaining 
+
+$$
+ \widehat\betavec=
+ \begin{pmatrix}
+  \widehat\beta_1\\ \widehat\beta_2\\ \vdots\\
+  \widehat\beta_k\\ \widehat\beta_0
+ \end{pmatrix}.
+$$
+
+
+ The fitted mean responses are then \begin{equation}
+ \widehat{\yvec}=\mat X\widehat\betavec,
+ \qquad
+ \widehat y_i
+ =x_{i1}\widehat\beta_1+\cdots+x_{ik}\widehat\beta_k
+  +\widehat\beta_0.
+ \label{eq:lm-fitted-values-intro}
+\end{equation} No new noise is added to these fitted means: $\widehat{\yvec}$ estimates the conditional mean $\mat X\betavec$, not a new random response. Notice also that $\mat X$ still has no hat. We use the same recorded predictors after fitting that we used to specify the model.
+
+Subtracting fitted responses from measured responses gives the residual vector \begin{equation}
+ \widehat{\vect e}
+ =\yvec-\widehat{\yvec}
+ =\yvec-\mat X\widehat\betavec
+ =
+ \begin{pmatrix}
+  y_1-\widehat y_1\\ y_2-\widehat y_2\\ \vdots\\
+  y_n-\widehat y_n
+ \end{pmatrix}.
+ \label{eq:lm-residual-vector-intro}
+\end{equation} The two equations worth keeping side by side are 
+
+$$
+ \boxed{
+ \begin{aligned}
+  \vect Y&=\mat X\betavec+\vect\varepsilon
+   &&\text{(probability model)},\\[2pt]
+  \yvec&=\mat X\widehat\betavec+\widehat{\vect e}
+   &&\text{(observed data = fitted means + residuals)}.
+ \end{aligned}}
+$$
+
+
+ The first equation contains the unknown true coefficients and random errors. The second contains estimated coefficients and calculated residuals, and it holds exactly because of the definition $\widehat{\vect e}=\yvec-\mat X\widehat\betavec$.
+
+### Errors are not residuals
+
+::: {#def-error-and-residual .definition}
+## Error and residual
+
+The true error is 
+
+$$
+ \varepsilon_i=Y_i-\xvec_i^\top\betavec,
+$$
+
+
+ which contains the unknown true coefficient vector. After fitting the model, the residual is 
+
+$$
+ e_i=y_i-\xvec_i^\top\widehat\betavec.
+$$
+
+
+ Errors are independent model variables under \eqref{eq:lm-scalar-model}; residuals are observable functions of the entire fitted dataset and are not iid. The conventional name "sum of squared errors" is therefore slightly loose: the fitted quantity is a sum of squared residuals.
+
+:::
+
+::: {.callout-note}
+## Key idea
+Whenever $\betavec$ is still a free argument, $\sum_i(y_i-\xvec_i^\top\betavec)^2$ is a function of $\betavec$. It becomes the fitted residual sum of squares only after setting $\betavec=\widehat\betavec$.
+
+:::
+
+## Classical calculations as a reference
+
+In the repeated-sampling argument, $\betavec$ denotes the fixed, true coefficient vector. The conditioning bar shows when that vector is treated as fixed.
+
+For a proposed coefficient vector $\vect b$, define \begin{align}
+ \operatorname{SSE}(\vect b)
+ &=\sum_{i=1}^n(y_i-\xvec_i^\top\vect b)^2\notag\\
+ &=(\yvec-\mat X\vect b)^\top
+    (\yvec-\mat X\vect b)\notag\\
+ &=\lVert\yvec-\mat X\vect b\rVert_2^2.
+ \label{eq:lm-sse-candidate}
+\end{align} Multiplying out every term gives \begin{align*}
+ \operatorname{SSE}(\vect b)
+ &=\yvec^\top\yvec
+   -\yvec^\top\mat X\vect b
+   -\vect b^\top\mat X^\top\yvec
+   +\vect b^\top\mat X^\top\mat X\vect b\\
+ &=\yvec^\top\yvec
+   -2\vect b^\top\mat X^\top\yvec
+   +\vect b^\top\mat X^\top\mat X\vect b,
+\end{align*} because the two middle terms are equal scalars. Differentiating with respect to $\vect b$, 
+
+$$
+ \frac{\partial}{\partial\vect b}
+ \operatorname{SSE}(\vect b)
+ =-2\mat X^\top\yvec+2\mat X^\top\mat X\vect b.
+$$
+
+
+ At the minimiser this gradient is zero, so the normal equations are 
+
+$$
+ \mat X^\top\mat X\widehat\betavec
+ =\mat X^\top\yvec.
+$$
+
+
+::: {#prp-ordinary-least-squares .proposition}
+## Ordinary least squares
+
+Assume that $\operatorname{rank}(\mat X)=p$. Then $\mat X^\top\mat X$ is invertible and \begin{equation}
+ \boxed{\widehat\betavec
+  =(\mat X^\top\mat X)^{-1}\mat X^\top\yvec.}
+ \label{eq:lm-ols}
+\end{equation} The fitted residual vector and residual sum of squares are \begin{equation}
+ \widehat{\vect e}=\yvec-\mat X\widehat\betavec,
+ \qquad
+ \operatorname{SSE}
+ =\widehat{\vect e}^{\top}\widehat{\vect e}
+ =\lVert\widehat{\vect e}\rVert_2^2
+ =\operatorname{SSE}(\widehat\betavec).
+ \label{eq:lm-fitted-sse}
+\end{equation}
+
+The maximum-likelihood estimator of $\sigma^2$ is $\operatorname{SSE}/n$. Estimating $p$ coefficients consumes $p$ degrees of freedom, so the usual unbiased estimator is \begin{equation}
+ s^2=\widehat\sigma^2=\frac{\operatorname{SSE}}{n-p}.
+ \label{eq:lm-s2}
+\end{equation}
+
+:::
+
+To see the sampling distribution of the OLS estimator, substitute $\vect Y=\mat X\betavec+\vect\varepsilon$ into \eqref{eq:lm-ols}: \begin{align*}
+ \widehat\betavec
+ &=(\mat X^\top\mat X)^{-1}\mat X^\top
+   (\mat X\betavec+\vect\varepsilon)\\
+ &=(\mat X^\top\mat X)^{-1}\mat X^\top\mat X\betavec
+   +(\mat X^\top\mat X)^{-1}\mat X^\top
+     \vect\varepsilon\\
+ &=\betavec+(\mat X^\top\mat X)^{-1}\mat X^\top
+     \vect\varepsilon.
+\end{align*} It is a linear transformation of a normal vector. Its expectation is $\betavec$, and its covariance is \begin{align*}
+ \Cov(\widehat\betavec\given\betavec,\sigma^2)
+ &=(\mat X^\top\mat X)^{-1}\mat X^\top
+   (\sigma^2\mat I_n)\mat X
+   (\mat X^\top\mat X)^{-1}\\
+ &=\sigma^2(\mat X^\top\mat X)^{-1}.
+\end{align*} Therefore the following result holds.
+
+::: {#prp-sampling-distribution-of-the-ols-estimator .proposition}
+## Sampling distribution of the OLS estimator
+
+\begin{equation}
+ \widehat\betavec\given\betavec,\sigma^2,\mat X
+ \sim\Normal_p\!\left(
+   \betavec,\sigma^2(\mat X^\top\mat X)^{-1}\right).
+ \label{eq:lm-frequentist-beta-law}
+\end{equation} Also, \begin{equation}
+ \frac{\operatorname{SSE}}{\sigma^2}\sim\chi^2_{n-p},
+ \qquad
+ \widehat\betavec\ \text{is independent of }\operatorname{SSE}.
+ \label{eq:lm-classical-pivots}
+\end{equation}
+
+:::
+
+If $c_{jj}=[(\mat X^\top\mat X)^{-1}]_{jj}$, then
+
+::: {#cor-studentised-coefficient-pivot .corollary}
+## Studentised coefficient pivot
+
+\begin{equation}
+ \frac{\widehat\beta_j-\beta_j}{s\sqrt{c_{jj}}}
+ \sim t_{n-p}.
+ \label{eq:lm-student-pivot}
+\end{equation} Thus $\widehat\betavec$ itself has the normal distribution \eqref{eq:lm-frequentist-beta-law}; the Student distribution appears only after replacing the unknown $\sigma$ by $s$ and standardising.
+
+:::
+
+## Likelihood and reference prior
+
+Conditional independence in \eqref{eq:lm-scalar-model} gives \begin{align}
+ p(\yvec\given\betavec,\sigma^2,\mat X)
+ &=\prod_{i=1}^n
+   \frac1{\sqrt{2\pi\sigma^2}}
+   \exp\!\left\{-\frac{(y_i-\xvec_i^\top\betavec)^2}
+                         {2\sigma^2}\right\}\notag\\
+ &=(2\pi\sigma^2)^{-n/2}
+   \exp\!\left\{-\frac{\operatorname{SSE}(\betavec)}
+                         {2\sigma^2}\right\}.
+ \label{eq:lm-likelihood}
+\end{align} The standard improper reference prior is \begin{equation}
+ p(\betavec,\sigma^2)\propto\frac1{\sigma^2},
+ \qquad \betavec\in\R^p,\quad\sigma^2>0.
+ \label{eq:lm-reference-prior}
+\end{equation} It is flat in $\betavec$ and flat in $\log\sigma^2$, since $\dd(\log\sigma^2)=\dd\sigma^2/\sigma^2$. Neither factor integrates to one, so "uninformative" is a modelling convention, not the absence of assumptions.
+
+An improper reference prior is usable only when the posterior is proper. Here that requires enough information to identify all $p$ regression coefficients, including full column rank and, in the ordinary derivation, $n>p$. The prior is a limiting device rather than a population from which parameters could literally be simulated, so prior prediction is unavailable under it even when posterior inference is valid.
+
+Bayes' rule gives the joint posterior kernel \begin{equation}
+ p(\betavec,\sigma^2\given\yvec,\mat X)
+ \propto
+ (\sigma^2)^{-(n/2+1)}
+ \exp\!\left\{-\frac{\operatorname{SSE}(\betavec)}
+                         {2\sigma^2}\right\}.
+ \label{eq:lm-joint-posterior-before-split}
+\end{equation} This kernel defines a proper posterior when 
+
+$$
+ \operatorname{rank}(\mat X)=p,
+ \qquad n>p,
+ \qquad \operatorname{SSE}>0.
+$$
+
+
+ For continuous Gaussian data, the last condition holds with probability one under full rank and $n>p$.
+
+## The residual sum-of-squares decomposition
+
+The key step is to rewrite $\operatorname{SSE}(\betavec)$ around its minimiser. The point is to turn the "sum of squares for a potential model" into the fitted residual sum of squares plus a nonnegative quadratic penalty for moving away from $\widehat\betavec$.
+
+For any coefficient displacement $\vect\delta$, full column rank gives the equivalent readings \begin{equation}
+ \vect\delta^\top\mat X^\top\mat X\vect\delta
+ =\lVert\vect\delta\rVert_{\mat X^\top\mat X}^2
+ =\lVert\mat X\vect\delta\rVert_2^2.
+ \label{eq:lm-coefficient-geometry}
+\end{equation} Thus $\mat X^\top\mat X$ measures separation between coefficient vectors by the separation they produce between fitted mean vectors. Directions in which the fitted surface changes rapidly are geometrically longer.
+
+Begin with the candidate residual vector: \begin{align*}
+ \yvec-\mat X\betavec
+ &=\yvec-\mat X\widehat\betavec
+   +\mat X\widehat\betavec-\mat X\betavec\\
+ &=\widehat{\vect e}
+   +\mat X(\widehat\betavec-\betavec).
+\end{align*} Its squared length is \begin{align*}
+ \operatorname{SSE}(\betavec)
+ &=\left[\widehat{\vect e}
+    +\mat X(\widehat\betavec-\betavec)\right]^\top
+   \left[\widehat{\vect e}
+    +\mat X(\widehat\betavec-\betavec)\right]\\
+ &=\left\lVert\widehat{\vect e}
+    +\mat X(\widehat\betavec-\betavec)\right\rVert_2^2\\
+ &=\widehat{\vect e}^{\top}\widehat{\vect e}
+   +\widehat{\vect e}^{\top}\mat X
+      (\widehat\betavec-\betavec)
+   +(\widehat\betavec-\betavec)^\top\mat X^\top
+      \widehat{\vect e}\\
+ &\qquad
+   +(\widehat\betavec-\betavec)^\top\mat X^\top\mat X
+      (\widehat\betavec-\betavec)\\
+ &=\operatorname{SSE}
+   +2\widehat{\vect e}^{\top}\mat X
+      (\widehat\betavec-\betavec)
+   +(\widehat\betavec-\betavec)^\top\mat X^\top\mat X
+      (\widehat\betavec-\betavec).
+\end{align*} The normal equations imply 
+
+$$
+ \mat X^\top\widehat{\vect e}
+ =\mat X^\top(\yvec-\mat X\widehat\betavec)
+ =\vect0,
+$$
+
+
+ so $\widehat{\vect e}^{\top}\mat X=\vect0^\top$ and the cross-term is zero. Consequently,
+
+::: {#thm-least-squares-decomposition .theorem}
+## Least-squares decomposition
+
+\begin{equation}
+ \boxed{
+ \begin{aligned}
+ \operatorname{SSE}(\betavec)
+ &=\operatorname{SSE}
+ +(\betavec-\widehat\betavec)^\top\mat X^\top\mat X
+  (\betavec-\widehat\betavec)\\
+ &=\operatorname{SSE}
+  +\lVert\betavec-\widehat\betavec\rVert_{\mat X^\top\mat X}^2\\
+ &=\operatorname{SSE}
+  +\lVert\mat X(\betavec-\widehat\betavec)\rVert_2^2.
+ \end{aligned}}
+ \label{eq:lm-sse-decomposition}
+\end{equation} The second term is nonnegative because $\mat X^\top\mat X$ is positive definite. This both proves that OLS minimises the SSE and separates the posterior's coefficient uncertainty from its fitted residual variation. Geometrically, $\widehat{\vect e}$ is orthogonal to the column space of $\mat X$, while $\mat X(\widehat\betavec-\betavec)$ lies in that column space. The theorem is therefore the Pythagorean theorem for those two orthogonal components of the candidate residual vector.
+
+:::
+
+## Recognising the posterior distributions
+
+Substituting \eqref{eq:lm-sse-decomposition} into \eqref{eq:lm-joint-posterior-before-split} yields \begin{align}
+ p(\betavec,\sigma^2\given\yvec,\mat X)
+ \propto{}& (\sigma^2)^{-(n/2+1)}
+ \exp\!\left\{-\frac{\operatorname{SSE}}{2\sigma^2}\right\}\notag\\
+ &\times
+ \exp\!\left\{-\frac{
+  (\betavec-\widehat\betavec)^\top\mat X^\top\mat X
+  (\betavec-\widehat\betavec)}{2\sigma^2}\right\}.
+ \label{eq:lm-joint-posterior-split}
+\end{align} In norm notation, the quadratic exponent in the second factor is 
+
+$$
+ -\frac{
+ \lVert\betavec-\widehat\betavec\rVert_{\mat X^\top\mat X}^2}
+ {2\sigma^2}.
+$$
+
+
+ Its level sets are ellipsoids centred at $\widehat\betavec$; the $\mat X^\top\mat X$ geometry determines their directions and relative widths. These two factors are an inverse-Gamma-looking variance term and a multivariate-normal coefficient term. That recognition is correct in spirit, but the normalising power of $\sigma^2$ determines whether the variance distribution is conditional or marginal. We therefore restore that power explicitly in the next two steps.
+
+### Conditional posterior of the coefficients
+
+Holding $\sigma^2$ fixed, the terms involving $\betavec$ have a multivariate normal kernel. In fact,
+
+::: {#prp-conditional-coefficient-posterior .proposition}
+## Conditional coefficient posterior
+
+\begin{equation}
+ \boxed{
+ \betavec\given\sigma^2,\yvec,\mat X
+ \sim\Normal_p\!\left(
+ \widehat\betavec,
+ \sigma^2(\mat X^\top\mat X)^{-1}\right).}
+ \label{eq:lm-beta-given-sigma}
+\end{equation} To check the normalising factor, set $\mat C=(\mat X^\top\mat X)^{-1}$. Then 
+
+$$
+ |\sigma^2\mat C|^{-1/2}
+ =(\sigma^2)^{-p/2}|\mat X^\top\mat X|^{1/2},
+$$
+
+
+ and $(\sigma^2\mat C)^{-1}
+=\sigma^{-2}\mat X^\top\mat X$, exactly matching \eqref{eq:lm-joint-posterior-split}.
+
+:::
+
+### Marginal posterior of the variance
+
+Integrating the coefficient kernel over $\R^p$ contributes \begin{align*}
+ &\int_{\R^p}
+ \exp\!\left\{-\frac{
+  (\betavec-\widehat\betavec)^\top\mat X^\top\mat X
+  (\betavec-\widehat\betavec)}{2\sigma^2}\right\}\dd\betavec\\
+ &\qquad=(2\pi\sigma^2)^{p/2}
+ |\mat X^\top\mat X|^{-1/2}.
+\end{align*} The determinant does not depend on $\sigma^2$, while the power $(\sigma^2)^{p/2}$ changes the variance kernel to \begin{align*}
+ p(\sigma^2\given\yvec,\mat X)
+ &\propto
+ (\sigma^2)^{-(n/2+1)}(\sigma^2)^{p/2}
+ \exp\!\left\{-\frac{\operatorname{SSE}}{2\sigma^2}\right\}\\
+ &=(\sigma^2)^{-\{(n-p)/2+1\}}
+ \exp\!\left\{-\frac{\operatorname{SSE}/2}{\sigma^2}\right\}.
+\end{align*} Under the book's inverse-Gamma convention,
+
+::: {#prp-marginal-variance-posterior .proposition}
+## Marginal variance posterior
+
+\begin{equation}
+ \boxed{
+ \sigma^2\given\yvec,\mat X
+ \sim\InvGamma\!\left(
+ \frac{n-p}{2},\frac{\operatorname{SSE}}2\right).}
+ \label{eq:lm-sigma-marginal}
+\end{equation} The $p/2$ from the normalising constant is subtracted from $n/2$; it is not added. Equivalently, \begin{equation}
+ \frac{\operatorname{SSE}}{\sigma^2}\given\yvec,\mat X
+ \sim\chi^2_{n-p}.
+ \label{eq:lm-posterior-chi-square}
+\end{equation} If $n>p+2$, the posterior mean exists and is 
+
+$$
+ \E(\sigma^2\given\yvec,\mat X)
+ =\frac{\operatorname{SSE}}{n-p-2}
+ =\frac{n-p}{n-p-2}s^2.
+$$
+
+
+ The posterior mode is $\operatorname{SSE}/(n-p+2)$. Thus the unbiased estimator $s^2$ is generally neither the posterior mean nor the posterior mode; calling any one quantity "the estimate" implicitly chooses a loss function.
+
+:::
+
+### Marginal posterior of the coefficients
+
+Let $\nu=n-p$, $\mat C=(\mat X^\top\mat X)^{-1}$, and \begin{align*}
+ Q(\betavec)
+ &=(\betavec-\widehat\betavec)^\top
+ \mat C^{-1}(\betavec-\widehat\betavec)\\
+ &=\lVert\betavec-\widehat\betavec\rVert_{\mat C^{-1}}^2\\
+ &=\lVert\mat X(\betavec-\widehat\betavec)\rVert_2^2.
+\end{align*} Thus $Q(\betavec)$ is squared distance from the least-squares centre in the coefficient geometry induced by the design. Multiplying the normal density in \eqref{eq:lm-beta-given-sigma} by the inverse-Gamma density in \eqref{eq:lm-sigma-marginal} and integrating gives \begin{align*}
+ p(\betavec\given\yvec,\mat X)
+ &\propto\int_0^\infty
+ (\sigma^2)^{-\{(p+\nu)/2+1\}}
+ \exp\!\left\{-\frac{\operatorname{SSE}+Q(\betavec)}
+                         {2\sigma^2}\right\}\dd\sigma^2.
+\end{align*} For $a,c>0$, 
+
+$$
+ \int_0^\infty u^{-(a+1)}e^{-c/u}\dd u=\Gamma(a)c^{-a}.
+$$
+
+
+ Using $a=(p+\nu)/2$ and $c=\{\operatorname{SSE}+Q(\betavec)\}/2$ therefore yields \begin{align*}
+ p(\betavec\given\yvec,\mat X)
+ &\propto
+ \{\operatorname{SSE}+Q(\betavec)\}^{-(p+\nu)/2}\\
+ &\propto
+ \left\{1+\frac{Q(\betavec)}{\nu s^2}\right\}^{-(p+\nu)/2},
+\end{align*} because $\operatorname{SSE}=\nu s^2$. This is the multivariate Student distribution
+
+::: {#cor-marginal-student-posterior .corollary}
+## Marginal Student posterior
+
+\begin{equation}
+ \boxed{
+ \betavec\given\yvec,\mat X
+ \sim t_{n-p}\!\left(
+ \widehat\betavec,
+ s^2(\mat X^\top\mat X)^{-1}\right),}
+ \label{eq:lm-beta-marginal-t}
+\end{equation} where the displayed matrix is the multivariate $t$ scale matrix. In particular, \begin{equation}
+ \beta_j\given\yvec,\mat X
+ \sim t_{n-p}\!\left(\widehat\beta_j,s\sqrt{c_{jj}}\right),
+ \label{eq:lm-coefficient-marginal}
+\end{equation} so an equal-tailed $100(1-\alpha)\%$ credible interval is \begin{equation}
+ \widehat\beta_j\ \pm\ t_{1-\alpha/2,n-p}s\sqrt{c_{jj}}.
+ \label{eq:lm-coefficient-ci}
+\end{equation} Its endpoints coincide with the usual classical interval under this reference prior. The interpretations do not coincide: the Bayesian statement concerns posterior uncertainty about $\beta_j$ for the observed data, whereas the frequentist statement concerns repeated-sample coverage by a random interval.
+
+:::
+
+## Direct simulation and genuine Gibbs sampling
+
+The posterior factorisation 
+
+$$
+ p(\betavec,\sigma^2\given\yvec)
+ =p(\betavec\given\sigma^2,\yvec)
+  p(\sigma^2\given\yvec)
+$$
+
+
+ gives direct ancestral simulation. For $m=1,\ldots,M$:
+
+::: {#prp-direct-posterior-simulation .proposition}
+## Direct posterior simulation
+
+1.  draw 
+
+$$
+  \sigma^{2(m)}\sim\InvGamma\!\left(
+  \frac{n-p}{2},\frac{\operatorname{SSE}}2\right);
+$$
+
+
+2.  conditional on that draw, draw 
+
+$$
+  \betavec^{(m)}\sim\Normal_p\!\left(
+  \widehat\betavec,
+  \sigma^{2(m)}(\mat X^\top\mat X)^{-1}\right).
+$$
+
+
+The resulting pairs are iid joint-posterior draws. There is no burn-in, serial dependence, or convergence diagnostic.
+
+:::
+
+The following base-R calculation implements the proposition. The design matrix `X` includes the intercept column and `y` is the response vector. The derivation has already supplied the inverse-Gamma parameters and the coefficient covariance; the computer now performs the random generation and the matrix arithmetic. The final two lines produce the posterior predictive distribution at $\widetilde x=4.5$ by adding a new observation's noise to every coefficient draw.
+
+```r
+fit <- lm.fit(X, y)
+beta_hat <- fit$coefficients
+SSE <- sum(fit$residuals^2)
+p <- ncol(X)
+nu <- nrow(X) - p
+XtX_inv <- solve(crossprod(X))
+
+set.seed(3500)
+M <- 10000L
+sigma2 <- 1 / rgamma(M, shape = nu / 2, rate = SSE / 2)
+Z <- matrix(rnorm(M * p), M, p)
+beta <- sweep(Z %*% chol(XtX_inv), 1, sqrt(sigma2), "*")
+beta <- sweep(beta, 2, beta_hat, "+")
+
+x_new <- c(1, 4.5)
+mu_new <- drop(beta %*% x_new)
+y_new <- rnorm(M, mean = mu_new, sd = sqrt(sigma2))
+quantile(y_new, c(0.025, 0.5, 0.975))
+```
+
+These are independent ancestral draws. Running generic MCMC here would add dependence and convergence questions to a problem that already has a direct solution. The distinction is computationally important as well as terminological.
+
+If one deliberately constructs a Gibbs sampler, the variance must instead be conditioned on the current coefficient vector. From \eqref{eq:lm-joint-posterior-before-split}, \begin{equation}
+ \sigma^2\given\betavec,\yvec,\mat X
+ \sim\InvGamma\!\left(
+ \frac n2,\frac{\operatorname{SSE}(\betavec)}2\right).
+ \label{eq:lm-sigma-full-conditional}
+\end{equation} A Gibbs sweep alternates \eqref{eq:lm-beta-given-sigma} and \eqref{eq:lm-sigma-full-conditional}. For this model the direct sampler is simpler. The two variance distributions should not be confused:
+
+| Posterior | Shape | Sum of squares |
+|---|---|---|
+| $\sigma^2\given\yvec$ | $(n-p)/2$ | fitted $\operatorname{SSE}$ |
+| $\sigma^2\given\betavec,\yvec$ | $n/2$ | $\operatorname{SSE}(\betavec)$ |
+
+## Informative priors and regularisation
+
+The independent priors are 
+
+$$
+ \betavec\sim\Normal_p(\vect m_0,\mat V_0),
+ \qquad
+ \sigma^2\sim\InvGamma(a_0,b_0).
+$$
+
+
+ Under this specification the model is conditionally conjugate. Collecting quadratic terms in $\betavec$ gives \begin{align*}
+ \mat V_\beta^{-1}
+ &=\frac{\mat X^\top\mat X}{\sigma^2}+\mat V_0^{-1},\\
+ \vect m_\beta
+ &=\mat V_\beta\left(
+   \frac{\mat X^\top\yvec}{\sigma^2}
+   +\mat V_0^{-1}\vect m_0\right),
+\end{align*} and hence \begin{align}
+ \betavec\given\sigma^2,\yvec
+ &\sim\Normal_p(\vect m_\beta,\mat V_\beta),
+ \label{eq:lm-independent-prior-beta-cond}\\
+ \sigma^2\given\betavec,\yvec
+ &\sim\InvGamma\!\left(
+  a_0+\frac n2,
+  b_0+\frac12\operatorname{SSE}(\betavec)\right).
+ \label{eq:lm-independent-prior-sigma-cond}
+\end{align} These full conditionals define a Gibbs sampler, but prior independence is not the usual jointly conjugate normal--inverse-Gamma family.
+
+::: {#def-normal-inverse-gamma-prior .definition}
+## Normal--inverse-Gamma prior
+
+Full joint conjugacy is obtained from the scaled prior \begin{equation}
+ \betavec\given\sigma^2
+ \sim\Normal_p(\vect m_0,\sigma^2\mat V_0),
+ \qquad
+ \sigma^2\sim\InvGamma(a_0,b_0).
+ \label{eq:lm-nig-prior}
+\end{equation}
+
+:::
+
+Define \begin{align}
+ \mat V_n^{-1}&=\mat V_0^{-1}+\mat X^\top\mat X,
+ \label{eq:lm-nig-vn}\\
+ \vect m_n&=\mat V_n
+ (\mat V_0^{-1}\vect m_0+\mat X^\top\yvec).
+ \label{eq:lm-nig-mn}
+\end{align} The two quadratic forms combine as \begin{align*}
+ &(\yvec-\mat X\betavec)^\top(\yvec-\mat X\betavec)
+ +(\betavec-\vect m_0)^\top\mat V_0^{-1}
+  (\betavec-\vect m_0)\\
+ &\quad=\yvec^\top\yvec+\vect m_0^\top\mat V_0^{-1}
+ \vect m_0
+ -2\betavec^\top(\mat X^\top\yvec+\mat V_0^{-1}\vect m_0)
+ +\betavec^\top\mat V_n^{-1}\betavec\\
+ &\quad=(\betavec-\vect m_n)^\top\mat V_n^{-1}
+ (\betavec-\vect m_n)
+ +\yvec^\top\yvec+\vect m_0^\top\mat V_0^{-1}\vect m_0
+ -\vect m_n^\top\mat V_n^{-1}\vect m_n.
+\end{align*} The first line has the geometric reading 
+
+$$
+ \lVert\yvec-\mat X\betavec\rVert_2^2
+ +\lVert\betavec-\vect m_0\rVert_{\mat V_0^{-1}}^2.
+$$
+
+
+ It adds squared data-space misfit to squared distance from the prior centre, measured in the prior-precision geometry. After completing the square, the coefficient-dependent term on the final line is $\lVert\betavec-\vect m_n\rVert_{\mat V_n^{-1}}^2$. Therefore, with \begin{align*}
+ a_n&=a_0+\frac n2,\\
+ b_n&=b_0+\frac12\left(
+ \yvec^\top\yvec
+ +\vect m_0^\top\mat V_0^{-1}\vect m_0
+ -\vect m_n^\top\mat V_n^{-1}\vect m_n
+ \right),
+\end{align*} the posterior remains normal--inverse-Gamma.
+
+::: {#thm-normal-inverse-gamma-conjugacy .theorem}
+## Normal--inverse-Gamma conjugacy
+
+\begin{equation}
+ \betavec\given\sigma^2,\yvec
+ \sim\Normal_p(\vect m_n,\sigma^2\mat V_n),
+ \qquad
+ \sigma^2\given\yvec\sim\InvGamma(a_n,b_n).
+ \label{eq:lm-nig-posterior}
+\end{equation}
+
+:::
+
+A centred normal prior also explains ridge regularisation. If $\sigma^2$ is fixed and $\betavec\sim\Normal_p(\vect0,\tau^2\mat I_p)$, then \begin{align*}
+ -2\sigma^2\log p(\betavec\given\yvec)
+ &=\operatorname{SSE}(\betavec)
+   +\frac{\sigma^2}{\tau^2}\lVert\betavec\rVert^2
+   +\text{a constant}\\
+ &=\lVert\yvec-\mat X\betavec\rVert_2^2
+   +\frac{\sigma^2}{\tau^2}\lVert\betavec\rVert_2^2
+   +\text{the same constant}.
+\end{align*} The MAP therefore minimises a ridge objective: Euclidean data-space error is balanced against squared Euclidean distance of the coefficient vector from the prior centre, here $\vect0$. A Laplace prior similarly produces an $L^1$ penalty related to the lasso. MAP keeps only the posterior mode; full Bayes retains coefficient uncertainty and averages predictions over the posterior.
+
+In machine learning, priors are often introduced mainly as regularisers. That is a legitimate computational use, but it changes the emphasis: the MAP acts like a penalised estimate, while the rest of the posterior may be ignored. For statistical inference the posterior is reported, rather than only a penalised point estimate, because coefficient uncertainty and its dependence feed directly into predictions.
+
+## Posterior prediction
+
+::: {#def-posterior-predictive-target .definition}
+## Posterior predictive target
+
+Prediction requires a new random quantity; estimating a fitted mean and predicting a new observation are not the same problem. For a new predictor vector $\widetilde\xvec$, suppose \begin{equation}
+ \widetilde Y\given\betavec,\sigma^2,\widetilde\xvec
+ \sim\Normal(\widetilde\xvec^\top\betavec,\sigma^2).
+ \label{eq:lm-new-observation}
+\end{equation} The posterior predictive density is \begin{equation}
+ p(\widetilde y\given\yvec,\mat X,\widetilde\xvec)
+ =\int_0^\infty\int_{\R^p}
+ p(\widetilde y\given\betavec,\sigma^2,\widetilde\xvec)
+ p(\betavec,\sigma^2\given\yvec,\mat X)
+ \dd\betavec\dd\sigma^2.
+ \label{eq:lm-predictive-integral}
+\end{equation}
+
+:::
+
+If the goal is a new response, posterior prediction is not optional decoration. A fitted mean describes uncertainty about the regression surface; a future observation also contains a new error term. Averaging over $(\betavec,\sigma^2)$ carries both sources of uncertainty forward, which is why a predictive interval is wider than an interval for the mean response at the same predictor value.
+
+Let 
+
+$$
+ h(\widetilde\xvec)
+ =\widetilde\xvec^\top(\mat X^\top\mat X)^{-1}
+  \widetilde\xvec
+ =\lVert\widetilde\xvec\rVert_{(\mat X^\top\mat X)^{-1}}^2.
+$$
+
+
+ Thus leverage is the squared length of the new predictor in the covariance geometry of the fitted coefficients, before multiplying by $\sigma^2$. By the linear-transformation rule applied to \eqref{eq:lm-beta-given-sigma}, \begin{equation}
+ \widetilde\xvec^\top\betavec\given\sigma^2,\yvec,\mat X
+ \sim\Normal\!\left(
+ \widetilde\xvec^\top\widehat\betavec,
+ \sigma^2h(\widetilde\xvec)\right).
+ \label{eq:lm-mean-given-sigma}
+\end{equation} For a future response, the independent new error contributes another $\sigma^2$, so integrating $\betavec$ first gives \begin{equation}
+ \widetilde Y\given\sigma^2,\yvec,\mat X,\widetilde\xvec
+ \sim\Normal\!\left(
+ \widetilde\xvec^\top\widehat\betavec,
+ \sigma^2\{1+h(\widetilde\xvec)\}\right).
+ \label{eq:lm-predictive-given-sigma}
+\end{equation} Finally integrate $\sigma^2$ using \eqref{eq:lm-sigma-marginal}. The same normal--inverse-Gamma mixture that produced \eqref{eq:lm-beta-marginal-t} gives
+
+::: {#thm-posterior-prediction-under-the-reference-prior .theorem}
+## Posterior prediction under the reference prior
+
+\begin{equation}
+ \boxed{
+ \widetilde Y\given\yvec,\mat X,\widetilde\xvec
+ \sim t_{n-p}\!\left(
+ \widetilde\xvec^\top\widehat\betavec,
+ s\sqrt{1+h(\widetilde\xvec)}\right).}
+ \label{eq:lm-posterior-predictive}
+\end{equation} For the unknown mean response itself, there is no new observational error: \begin{equation}
+ \widetilde\xvec^\top\betavec\given\yvec,\mat X
+ \sim t_{n-p}\!\left(
+ \widetilde\xvec^\top\widehat\betavec,
+ s\sqrt{h(\widetilde\xvec)}\right).
+ \label{eq:lm-mean-response-posterior}
+\end{equation}
+
+:::
+
+The distinction is summarised by the scale terms.
+
+| Target | Posterior centre | Squared scale |
+|---|---|---|
+| Coefficient $\beta_j$ | $\widehat\beta_j$ | $s^2 c_{jj}$ |
+| Mean at $\widetilde\xvec$ | $\widetilde\xvec^\top\widehat\betavec$ | $s^2 h(\widetilde\xvec)$ |
+| New response at $\widetilde\xvec$ | $\widetilde\xvec^\top\widehat\betavec$ | $s^2\{1+h(\widetilde\xvec)\}$ |
+
+The extra $1$ is irreducible future observational noise. The leverage term $h(\widetilde\xvec)$ measures uncertainty about the fitted line and typically grows during extrapolation. Posterior predictive simulation provides the same answer without closed-form algebra: for every posterior draw, generate 
+
+$$
+ \widetilde Y^{(m)}\sim\Normal\!\left(
+ \widetilde\xvec^\top\betavec^{(m)},\sigma^{2(m)}\right).
+$$
+
+
+ The empirical distribution of these values approximates the posterior predictive distribution and directly supplies predictive means, quantiles, and intervals.
+
+## Worked regression example
+
+::: {#exm-eight-point-regression .example}
+## Eight-point regression
+
+Consider $n=8$ observations with one predictor and an intercept: 
+
+$$
+ \xvec=(1,2,3,4,5,6,7,8)^{\mathsf T},
+ \qquad
+ \yvec=(2.05,3.40,4.55,5.10,7.20,8.05,9.60,10.80)^\top.
+$$
+
+
+ **Question.** Under the reference-prior analysis developed above, compute $\widehat\betavec$, the fitted sum of squared errors, the posterior distributions of $\sigma^2$ and $\betavec$, and marginal $95\%$ credible intervals for the two regression coefficients. Then derive posterior predictive distributions at $\widetilde x=4.5$ and $\widetilde x=10$ and explain the effect of extrapolation.
+
+**Solution.** For this example put the intercept first, so the $i$th row of $\mat X$ is $(1,x_i)$. Direct summation gives 
+
+$$
+ \sum_i y_i=50.75,
+ \qquad
+ \sum_i x_i y_i=280.80,
+ \qquad
+ \sum_i y_i^2=387.9175.
+$$
+
+
+ Therefore 
+
+$$
+ \mat X^\top\mat X=
+ \begin{pmatrix}8&36\\36&204\end{pmatrix},
+ \qquad
+ \mat X^\top\yvec=
+ \begin{pmatrix}50.75\\280.80\end{pmatrix}.
+$$
+
+
+ The determinant is $8(204)-36^2=336$, so 
+
+$$
+ (\mat X^\top\mat X)^{-1}
+ =\frac1{336}\begin{pmatrix}204&-36\\-36&8\end{pmatrix}
+ =\begin{pmatrix}
+ 0.607143&-0.107143\\
+ -0.107143&0.023810
+ \end{pmatrix}.
+$$
+
+
+ Multiplying by $\mat X^\top\yvec$, \begin{align*}
+ \widehat\betavec
+ &=\frac1{336}
+ \begin{pmatrix}204&-36\\-36&8\end{pmatrix}
+ \begin{pmatrix}50.75\\280.80\end{pmatrix}\\
+ &=\frac1{336}
+ \begin{pmatrix}
+ 204(50.75)-36(280.80)\\
+ -36(50.75)+8(280.80)
+ \end{pmatrix}\\
+ &=\begin{pmatrix}0.726786\\1.248214\end{pmatrix}.
+\end{align*} The fitted SSE can be calculated without listing every residual: \begin{align*}
+ \operatorname{SSE}
+ &=\yvec^\top\yvec-\widehat\betavec^\top\mat X^\top\yvec\\
+ &=387.9175
+ -\frac{244.2}{336}(50.75)-\frac{419.4}{336}(280.80)\\
+ &\approx0.534554.
+\end{align*} The exact coefficients are kept here rather than the six-figure decimals printed above. The subtraction cancels almost everything: two quantities near $387.9$ leave a remainder near $0.53$, so rounding $\widehat\betavec$ first costs about four significant figures in $\operatorname{SSE}$. Summing the squared residuals directly avoids the cancellation entirely.
+
+Thus $n-p=6$ and 
+
+$$
+ s^2=\frac{0.534554}{6}\approx0.089092.
+$$
+
+
+ Under the reference prior, \begin{align*}
+ \sigma^2\given\yvec
+ &\sim\InvGamma(3,0.267277),\\
+ \betavec\given\yvec
+ &\sim t_6\!\left(
+ \begin{pmatrix}0.726786\\1.248214\end{pmatrix},
+ 0.089092
+ \begin{pmatrix}
+ 0.607143&-0.107143\\
+ -0.107143&0.023810
+ \end{pmatrix}\right).
+\end{align*} The variance summaries illustrate why the loss function matters: 
+
+$$
+ \E(\sigma^2\given\yvec)=\frac{0.267277}{3-1}=0.133638,
+ \qquad
+ \operatorname{mode}(\sigma^2\given\yvec)
+ =\frac{0.267277}{3+1}=0.066819,
+$$
+
+
+ while $s^2=0.089092$. Using $t_{0.975,6}\approx2.447$, the marginal $95\%$ credible intervals are approximately 
+
+$$
+ \beta_0\given\yvec:\ (0.158,1.296),
+ \qquad
+ \beta_1\given\yvec:\ (1.136,1.361).
+$$
+
+
+At $\widetilde x=4.5$, take $\widetilde\xvec=(1,4.5)^\top$. Matrix multiplication gives 
+
+$$
+ h(\widetilde\xvec)
+ =(1,4.5)(\mat X^\top\mat X)^{-1}
+ \begin{pmatrix}1\\4.5\end{pmatrix}=0.125,
+$$
+
+
+ and the predicted centre is 
+
+$$
+ \widetilde\xvec^\top\widehat\betavec
+ =0.726786+4.5(1.248214)=6.34375.
+$$
+
+
+ Consequently, 
+
+$$
+ \widetilde Y\given\yvec,\widetilde x=4.5
+ \sim t_6\!\left(6.34375,
+ \sqrt{0.089092(1.125)}\right)
+ \approx t_6(6.344,0.317).
+$$
+
+
+ At $\widetilde x=10$, the centre is about $13.209$ and $h(\widetilde\xvec)\approx0.845$, giving predictive scale about $0.405$. The increase from $0.317$ is the uncertainty cost of extrapolating beyond the observed predictor range.
+
+![The eight observations, the fitted line, and the two bands. The inner band is for the mean response and the outer for a new observation; the gap between them is the extra $1$ in the predictive scale, which is why they never meet however small the leverage term becomes. The vertical rules mark the two predictions computed above, at $\widetilde x=4.5$ inside the data and $\widetilde x=10$ beyond it. Both bands are narrowest near $\overline x$ and flare outward, so the cost of extrapolation is a feature of the geometry rather than a separate warning to remember.](../figures/part1-fig-09-regression-bands.pdf){#fig-regression-bands}
+
+:::
+
+## Three corrections and a problem-solving checklist
+
+Three distinctions are worth making explicit.
+
+::: {#rem-three-easy-confusions .remark}
+## Three easy confusions
+
+1.  $\widehat\betavec$ has an exact normal sampling distribution when $\sigma^2$ is known. The $t$ distribution applies after studentisation by $s$.
+
+2.  The marginal variance posterior has inverse-Gamma shape $(n-p)/2$, not $(n+p)/2$. The $p/2$ belongs to the coefficient normalising constant and must be subtracted from the original power.
+
+3.  Drawing first from $p(\sigma^2\given\yvec)$ and then from $p(\betavec\given\sigma^2,\yvec)$ produces iid posterior draws. A genuine Gibbs sampler instead uses $p(\sigma^2\given\betavec,\yvec)$ and therefore produces a Markov chain.
+
+:::
+
+For an unseen problem, the reliable route is:
+
+1.  state the model using errors, and state whether $\mat X$ is fixed;
+
+2.  check $\operatorname{rank}(\mat X)=p$ and $n>p$;
+
+3.  form the likelihood using the free $\betavec$, not $\widehat\betavec$;
+
+4.  decompose the candidate SSE with \eqref{eq:lm-sse-decomposition};
+
+5.  read off \eqref{eq:lm-beta-given-sigma} and derive \eqref{eq:lm-sigma-marginal} by accounting for the normalising power;
+
+6.  decide whether the target is a coefficient, a fitted mean, or a future response; and
+
+7.  use direct posterior simulation when it is available rather than introducing unnecessary MCMC dependence.
+
+::: {.callout-note}
+## Key idea
+Bayesian linear regression is the unknown-mean normal model in $p$ dimensions. Least-squares geometry supplies the quadratic decomposition; Bayesian conditioning turns it into normal, inverse-Gamma, and Student posteriors; and posterior prediction adds future observational noise to parameter uncertainty.
+
+:::
+
+## Exercises
+
+::: {#exr-errors-and-residuals .exercise}
+## Errors and residuals
+
+Starting from $\yvec=\mat X\betavec+\vect\varepsilon$, define the true error vector and the fitted residual vector. Which is observable after fitting the model? Show that the residuals are generally correlated even though the model errors are iid.
+
+:::
+
+::: {#exr-normal-before-student .exercise}
+## Normal before Student
+
+Derive the exact sampling distribution of $\widehat\betavec$ when $\sigma^2$ is known. Then show which replacement and standardisation produce the univariate Student pivot in \eqref{eq:lm-frequentist-beta-law}--\eqref{eq:lm-student-pivot}. State clearly why $\widehat\betavec$ itself has not thereby become Student distributed.
+
+:::
+
+::: {#exr-the-inverse-gamma-shape-trap .exercise}
+## The inverse-Gamma shape trap
+
+Begin with the joint posterior kernel \eqref{eq:lm-joint-posterior-before-split}. Integrate the Gaussian coefficient kernel over $\R^p$, retaining its power of $\sigma^2$, and derive the marginal inverse-Gamma shape $(n-p)/2$. Explain exactly why adding $p/2$ gives the wrong answer.
+
+:::
+
+::: {#exr-direct-sampling-or-gibbs .exercise}
+## Direct sampling or Gibbs?
+
+Write one algorithm using $p(\sigma^2\given\yvec)p(\betavec\given\sigma^2,\yvec)$ and another alternating the two full conditionals. For each algorithm state whether the output pairs are iid or form a Markov chain, and identify the appropriate inverse-Gamma shape and sum of squares.
+
+:::
+
+::: {#exr-mean-response-or-new-response .exercise}
+## Mean response or new response?
+
+At a new predictor vector $\widetilde\xvec$, derive the posterior distribution of the fitted mean $\widetilde\xvec^{\mathsf T}\betavec$ and the posterior predictive distribution of a new response. Account for the extra $1$ in the new-response squared scale.
+
+:::
+
+::: {#exr-independent-and-scaled-priors .exercise}
+## Independent and scaled priors
+
+Compare the independent prior in Section 9.7 with the scaled normal--inverse-Gamma prior. Derive the coefficient full conditional under each and explain why only the scaled form yields a normal--inverse-Gamma joint posterior directly.
+
+:::
+
+[^b09-linear-regression-1]: This ordering is pedagogical, not philosophical. Least squares is quicker to fit and gives a set of results against which the Bayesian algebra should be checked.

@@ -1,0 +1,721 @@
+# Hierarchical Bayes
+
+This chapter develops Bayesian models for related groups. The central idea is not conjugacy: a hierarchy can be conjugate or nonconjugate. Its defining feature is that group-specific parameters are connected through a shared population distribution, allowing partial pooling while preserving genuine between-group variation.
+
+## Why hierarchical Bayes?
+
+::: {#def-hierarchical-bayesian-model .definition}
+## Hierarchical Bayesian model
+
+Hierarchical Bayes is ordinary Bayes for data that arrive in related groups. Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution. This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
+
+:::
+
+### From one tutorial class to many
+
+For one tutorial class, let $Y_i$ be the mark of student $i$ and let $\theta$ be the class's unknown true mean. With a known within-class variance $\sigma^2$, an ordinary Bayesian model is 
+
+$$
+ Y_i\given\theta\sim\Normal(\theta,\sigma^2),
+ \qquad
+ \theta\sim\Normal(\mu_0,\tau_0^2).
+$$
+
+
+ The sampling distribution describes variation between students, whereas the prior describes uncertainty about the class mean. Bayes' rule combines the two sources of information.
+
+Now suppose there are $J$ tutorial classes. Give class $j$ its own mean $\theta_j$: \begin{equation}
+ Y_{ij}\given\theta_j,\sigma^2
+ \sim\Normal(\theta_j,\sigma^2),
+ \qquad i=1,\ldots,n_j,\qquad j=1,\ldots,J.
+ \label{eq:tutorial-observation-level}
+\end{equation} Estimating every $\theta_j$ separately ignores that all the classes belong to the same course. A second level connects them: \begin{equation}
+ \theta_j\given\mu,\tau^2
+ \stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\tau^2),
+ \qquad j=1,\ldots,J.
+ \label{eq:tutorial-group-level}
+\end{equation} Here $\mu$ is the overall course mean and $\tau^2$ measures genuine between-class variation. The hierarchy is 
+
+$$
+ (\mu,\tau^2)\longrightarrow\theta_j\longrightarrow Y_{ij}.
+$$
+
+
+ The first arrow describes variation between class means; the second describes variation between students within a class. Confusing these two levels would attribute sampling noise among students to real differences among classes.
+
+::: {#def-hyperparameter .definition}
+## Hyperparameter
+
+For a fully Bayesian analysis, the population-level quantities are also unknown and receive priors, for example 
+
+$$
+ \mu\sim\Normal(m_0,s_0^2),
+ \qquad
+ \tau^2\sim\InvGamma(a,b).
+$$
+
+
+ The quantities controlling the distribution of the $\theta_j$'s are called *hyperparameters*, or higher-level parameters. Once priors are assigned to them, their uncertainty is propagated into every class-specific posterior.
+
+:::
+
+### Complete pooling, no pooling, and partial pooling
+
+The modelling choice can be organised into three cases.
+
+| Approach | Assumption and consequence |
+|---|---|
+| Complete pooling | Set $\theta_1=\cdots=\theta_J=\theta$ and analyse all students as though every class has exactly the same mean. |
+| No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
+| Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
+
+Hierarchical Bayes produces partial pooling. A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre. This movement is called *shrinkage* or *borrowing strength*.
+
+### Where the shrinkage weight comes from
+
+Condition for the moment on known $\mu$, $\tau^2$, and $\sigma^2$. The sample mean in class $j$ satisfies 
+
+$$
+ \overline Y_j\given\theta_j
+ \sim\Normal\!\left(\theta_j,\frac{\sigma^2}{n_j}\right).
+$$
+
+
+ After observing $\overline y_j$, multiply its likelihood by the second-level prior: \begin{align*}
+ p(\theta_j\given\overline y_j,\mu,\tau^2,\sigma^2)
+ &\propto
+ \exp\!\left\{-\frac{n_j}{2\sigma^2}
+       (\overline y_j-\theta_j)^2\right\}
+ \exp\!\left\{-\frac{1}{2\tau^2}
+       (\theta_j-\mu)^2\right\}\\
+ &=\exp\!\left\{-\frac12\left[
+    \frac{n_j}{\sigma^2}(\theta_j^2-2\overline y_j\theta_j
+       +\overline y_j^2)
+   +\frac1{\tau^2}(\theta_j^2-2\mu\theta_j+\mu^2)
+   \right]\right\}\\
+ &\propto\exp\!\left\{-\frac12\left[
+   \left(\frac{n_j}{\sigma^2}+\frac1{\tau^2}\right)\theta_j^2
+   -2\left(\frac{n_j\overline y_j}{\sigma^2}
+            +\frac\mu{\tau^2}\right)\theta_j
+   \right]\right\}.
+\end{align*} Set 
+
+$$
+ A_j=\frac{n_j}{\sigma^2}+\frac1{\tau^2},
+ \qquad
+ B_j=\frac{n_j\overline y_j}{\sigma^2}+\frac\mu{\tau^2}.
+$$
+
+
+ Completing the square gives \begin{align*}
+ A_j\theta_j^2-2B_j\theta_j
+ &=A_j\left(\theta_j^2-2\frac{B_j}{A_j}\theta_j\right)\\
+ &=A_j\left[
+   \left(\theta_j-\frac{B_j}{A_j}\right)^2
+   -\left(\frac{B_j}{A_j}\right)^2
+   \right].
+\end{align*}
+
+::: {#prp-normal-hierarchical-shrinkage .proposition}
+## Normal hierarchical shrinkage
+
+The final term is constant in $\theta_j$. The remaining kernel is normal, so \begin{equation}
+ \theta_j\given\overline y_j,\mu,\tau^2,\sigma^2
+ \sim\Normal\!\left(
+   \frac{B_j}{A_j},\frac1{A_j}\right).
+ \label{eq:normal-hierarchy-conditional-posterior}
+\end{equation} Its variance is \begin{align*}
+ \frac1{A_j}
+ &=\frac1{n_j/\sigma^2+1/\tau^2}\\
+ &=\frac{\sigma^2\tau^2}{\sigma^2+n_j\tau^2},
+\end{align*} and its mean can be rearranged without omitting any terms: \begin{align*}
+ \frac{B_j}{A_j}
+ &=\frac{n_j\overline y_j/\sigma^2+\mu/\tau^2}
+         {n_j/\sigma^2+1/\tau^2}\\
+ &=\frac{n_j\tau^2\overline y_j+\sigma^2\mu}
+         {\sigma^2+n_j\tau^2}\\
+ &=\frac{n_j\tau^2}{\sigma^2+n_j\tau^2}\overline y_j
+   +\frac{\sigma^2}{\sigma^2+n_j\tau^2}\mu\\
+ &=w_j\overline y_j+(1-w_j)\mu,
+\end{align*} where \begin{equation}
+ w_j=\frac{n_j\tau^2}{\sigma^2+n_j\tau^2},
+ \qquad
+ 1-w_j=\frac{\sigma^2}{\sigma^2+n_j\tau^2}.
+ \label{eq:normal-hierarchy-shrinkage-weight}
+\end{equation} Thus 
+
+$$
+ \E(\theta_j\given\overline y_j,\mu,\tau^2,\sigma^2)
+ =w_j\overline y_j+(1-w_j)\mu.
+$$
+
+
+:::
+
+If $n_j$ is large, then $w_j$ is close to one and class $j$ mainly trusts its own data. If $n_j$ is small, then $w_j$ is smaller and the estimate moves toward $\mu$. If the class means are genuinely heterogeneous, then $\tau^2$ is large and the model shrinks less. In a full Bayesian fit, the data from all classes learn $\mu$ and $\tau^2$, so the amount of sharing is itself uncertain rather than fixed in advance.
+
+::: {#exm-large-and-small-tutorial-classes .example}
+## Large and small tutorial classes
+
+Suppose the overall mean is $\mu=70$, the within-class standard deviation is $\sigma=10$, and the between-class standard deviation is $\tau=5$. Class A has $100$ students and $\overline y_A=75$, while Class B has only two students and $\overline y_B=95$.
+
+**Question.** Compute the two shrinkage weights and posterior means, treating $\mu$, $\sigma^2$, and $\tau^2$ as fixed, and explain why the more extreme sample mean need not produce the more extreme posterior mean.
+
+**Solution.** For Class A, \begin{align*}
+ w_A&=\frac{100(25)}{100+100(25)}=\frac{25}{26}\approx0.962,\\
+ \E(\theta_A\given\overline y_A,\mu,\tau^2,\sigma^2)
+ &=\frac{25}{26}(75)+\frac1{26}(70)\approx74.81.
+\end{align*} For Class B, \begin{align*}
+ w_B&=\frac{2(25)}{100+2(25)}=\frac13,\\
+ \E(\theta_B\given\overline y_B,\mu,\tau^2,\sigma^2)
+ &=\frac13(95)+\frac23(70)\approx78.33.
+\end{align*} The extreme average from the small class is not ignored, but it is recognised as much less precise.
+
+:::
+
+::: {.callout-note}
+## Key idea
+Each group gets its own parameter, while the group parameters come from a shared population distribution. Information does not pass directly from one class to another. Every class helps learn the common population quantities, and those quantities then influence every group-specific posterior. Groups therefore learn from their own data while borrowing strength from the others.
+
+:::
+
+"Borrowing strength" can sound more mysterious than it is. Class A does not hand observations directly to Class B. Both classes help estimate the shared population distribution, and that distribution changes what is plausible for each class. The gain is largest for small groups, but the same mechanism can over-shrink genuinely unusual groups if the population model is too rigid. Partial pooling is powerful because it compromises; the adequacy of that compromise still has to be checked.
+
+## A first hierarchy: TG5 cattle studies
+
+Genetics is among the most statistically sophisticated applied fields, but that sophistication is often hidden behind software. A scientist may be using a recently developed Monte Carlo method because it has appeared in a software package, without knowing how the method works. Someone nevertheless has to establish that the computation and its assumptions are sound. That is a fairly concrete use for statistical expertise. [^b08-hierarchy-1]
+
+The practical difficulty begins even earlier. A proper meta-analysis tries to find every relevant study, including studies with small or null effects that were never published. In this case much of the material was unpublished, and the data were obtainable largely because a company already had commercial relationships with the breeders. The available records were study summaries rather than the complete farm-level records. Commercial questions and scientific questions were not always the same. Getting the data is not as easy as it sounds.
+
+::: {#exm-tg5-cattle-hierarchy .example}
+## TG5 cattle hierarchy
+
+A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling. The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.
+
+The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation. A schematic version of the hierarchy is \begin{align*}
+ y_{ij}\given\delta_i,w_{ij}
+ &\sim\Normal(\delta_i,w_{ij}^{-1}),\\
+ \delta_i\given\mu_{b(i)},\tau_{\mathrm{study}}
+ &\sim\Normal(\mu_{b(i)},\tau_{\mathrm{study}}^{-1}),\\
+ \mu_b\given\mu_0,\tau_{\mathrm{breed}}
+ &\sim\Normal(\mu_0,\tau_{\mathrm{breed}}^{-1}),\\
+ \mu_0&\sim\Normal(0,\xi^2),
+ \qquad \xi^2\text{ large}.
+\end{align*} Here $w_{ij}$ records the within-study information, $\delta_i$ is a study effect, and $\mu_b$ is a breed-group effect. Precision parameters were given diffuse scaled inverse-$\chi^2$-type priors in the applied analysis. The diagrammatic flow is 
+
+$$
+ \text{overall effect}\longrightarrow
+ \text{breed effect}\longrightarrow
+ \text{study effect}\longrightarrow
+ \text{observed contrast}.
+$$
+
+
+ The hierarchy performs partial pooling at more than one level. The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy, but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.
+
+:::
+
+## Rat tumours: why a hierarchy?
+
+::: {#exm-rat-tumour-hierarchy .example}
+## Rat-tumour hierarchy
+
+Tumour rates in female F344 rats supply a second hierarchical example. In a current control study, $y=4$ of $n=14$ rats developed one or more tumours over two years.[^b08-hierarchy-3] A one-study model is 
+
+$$
+ Y\given\theta\sim\Bin(14,\theta),
+ \qquad
+ \theta\sim\BetaDist(\alpha,\beta),
+$$
+
+
+ giving 
+
+$$
+ \theta\given Y=4
+ \sim\BetaDist(\alpha+4,\beta+10).
+$$
+
+
+ The question is how to choose $(\alpha,\beta)$ when 70 earlier control studies are available.
+
+Let study $j$ contribute $y_j$ tumour-bearing rats from $n_j$ animals. The hierarchical model is \begin{equation}
+ Y_j\given\theta_j,n_j\sim\Bin(n_j,\theta_j),
+ \qquad
+ \theta_j\given\alpha,\beta
+ \stackrel{\mathrm{iid}}{\sim}\BetaDist(\alpha,\beta),
+ \quad j=1,\ldots,J.
+ \label{eq:rat-hierarchy}
+\end{equation} Each study has its own rate, but all study rates are drawn from a common population distribution.
+
+:::
+
+Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows the account in Gelman's book.[^b08-hierarchy-4]
+
+## Exchangeability
+
+::: {#def-exchangeability .definition}
+## Exchangeability
+
+The parameters $\theta_1,\ldots,\theta_J$ are exchangeable if their joint density is invariant to every permutation $\pi$: 
+
+$$
+ p(\theta_1,\ldots,\theta_J)
+ =p(\theta_{\pi(1)},\ldots,\theta_{\pi(J)}).
+$$
+
+
+ Conditional iid sampling from a common Beta distribution implies exchangeability: 
+
+$$
+ p(\thetavec\given\alpha,\beta)
+ =\prod_{j=1}^Jp(\theta_j\given\alpha,\beta).
+$$
+
+
+ The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition. The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
+
+:::
+
+Exchangeability is a judgement made before seeing the outcomes, not permission to ignore everything known about the groups. If laboratory, breed, protocol, or calendar time plausibly changes the rates, that information should enter the hierarchy rather than be hidden by a common label. We assume exchangeability when the remaining labels carry no reason for a systematic ordering; learning more about the data can reveal that a richer grouping is needed.
+
+## Empirical hyperparameters by moment matching
+
+::: {#def-empirical-bayes .definition}
+## Empirical Bayes
+
+An *empirical Bayes* analysis estimates prior or population-level hyperparameters from data and then treats those estimates as fixed in a lower-level Bayesian update. A full Bayesian analysis instead assigns the hyperparameters a prior and propagates their posterior uncertainty.
+
+:::
+
+The observed historical proportions $\widehat\theta_j=y_j/n_j$ had empirical mean $m=0.136$ and standard deviation $s=0.103$. A $\BetaDist(\alpha,\beta)$ variable has 
+
+$$
+ m=\frac\alpha{\alpha+\beta},
+ \qquad
+ s^2=\frac{\alpha\beta}
+ {(\alpha+\beta)^2(\alpha+\beta+1)}.
+$$
+
+
+ Let $t=\alpha+\beta$. Since $\alpha=mt$ and $\beta=(1-m)t$, \begin{align*}
+ s^2
+ &=\frac{(mt)((1-m)t)}{t^2(t+1)}\\
+ &=\frac{m(1-m)}{t+1}.
+\end{align*} Solving, \begin{align*}
+ s^2(t+1)&=m(1-m),\\
+ t+1&=\frac{m(1-m)}{s^2},\\
+ t&=\frac{m(1-m)}{s^2}-1,\\
+ \alpha&=mt,
+ \qquad
+ \beta=(1-m)t.
+\end{align*} Substituting $m=0.136$ and $s=0.103$ gives approximately 
+
+$$
+ (\alpha,\beta)\approx(1.37,8.7).
+$$
+
+
+ The values $(1.370,8.693)$ differ slightly from that approximation; the difference is attributable to rounding in the reported historical standard deviation.
+
+Using these values as if known gives the current-study posterior 
+
+$$
+ \theta_{\mathrm{current}}\given y=4,n=14
+ \sim\BetaDist(5.370,18.693),
+$$
+
+
+ with mean 
+
+$$
+ \frac{5.370}{5.370+18.693}
+ \approx0.223.
+$$
+
+
+ This lies between the historical mean $0.136$ and the current proportion $4/14\approx0.286$. That movement is partial pooling.
+
+The plug-in calculation has three limitations:
+
+1.  the empirical variance of $y_j/n_j$ contains both real between-study variation and binomial sampling variation;
+
+2.  treating estimated $(\alpha,\beta)$ as known omits hyperparameter uncertainty; and
+
+3.  historical and current studies may not be exchangeable.
+
+There are two related but distinct reuse issues. For the 70 historical studies, empirical Bayes estimates $(\alpha,\beta)$ from the same $y_j$ values whose study rates are then re-estimated, so treating the fitted hyperparameters as fixed understates uncertainty. Applying that historical fit to a separate current $4/14$ study does not literally reuse the current data, but it still ignores uncertainty in the population distribution. Full Bayes repairs both calculations by propagating the posterior uncertainty in $(\alpha,\beta)$.
+
+Empirical Bayes is often a sensible first analysis, but its apparent precision can be deceptive. Once estimated hyperparameters are treated as fixed, the lower-level posterior forgets that the population distribution was itself learned from finite data. A full Bayesian model restores that uncertainty. The trade-off is computational rather than philosophical: we gain a coherent uncertainty calculation at the cost of a larger joint posterior.
+
+## Full Bayesian treatment
+
+Let $\vect{\phi}=(\alpha,\beta)^{\mathsf T}$. A full Bayesian model assigns a hyperprior $p(\alpha,\beta)$ and uses \begin{align*}
+ p(\thetavec,\alpha,\beta)
+ &=p(\alpha,\beta)
+   \prod_{j=1}^Jp(\theta_j\given\alpha,\beta),\\
+ p(\vect y\given\thetavec,\alpha,\beta)
+ &=p(\vect y\given\thetavec)
+ =\prod_{j=1}^Jp(y_j\given\theta_j).
+\end{align*} The second equality follows because the data are conditionally independent of the hyperparameters given the study rates. Therefore \begin{align}
+ p(\thetavec,\alpha,\beta\given\vect y)
+ &\propto
+ p(\alpha,\beta)
+ \prod_{j=1}^J
+ p(y_j\given\theta_j)
+ p(\theta_j\given\alpha,\beta).
+ \label{eq:joint-hyper-post}
+\end{align}
+
+For one study, the two factors are \begin{align*}
+ p(y_j\given\theta_j)
+ &=\binom{n_j}{y_j}
+   \theta_j^{y_j}(1-\theta_j)^{n_j-y_j},\\
+ p(\theta_j\given\alpha,\beta)
+ &=\frac{\Gamma(\alpha+\beta)}
+        {\Gamma(\alpha)\Gamma(\beta)}
+   \theta_j^{\alpha-1}(1-\theta_j)^{\beta-1}.
+\end{align*} Holding $(\alpha,\beta)$ fixed and multiplying powers, \begin{align*}
+ p(\theta_j\given\alpha,\beta,\vect y)
+ &\propto
+ \theta_j^{y_j+\alpha-1}
+ (1-\theta_j)^{n_j-y_j+\beta-1}.
+\end{align*}
+
+::: {#prp-study-rate-full-conditional .proposition}
+## Study-rate full conditional
+
+Normalising gives \begin{equation}
+ \boxed{
+ \theta_j\given\alpha,\beta,\vect y
+ \sim\BetaDist(y_j+\alpha,n_j-y_j+\beta)}.
+ \label{eq:theta-full-cond-hierarchy}
+\end{equation} Conditional on the hyperparameters, the study rates are independent, so the joint conditional is the product of these $J$ Beta densities.
+
+:::
+
+## Integrating out the study rates
+
+To obtain the marginal posterior for $(\alpha,\beta)$, integrate \eqref{eq:joint-hyper-post} over every $\theta_j$. For one study, \begin{align*}
+ &\int_0^1p(y_j\given\theta_j)
+            p(\theta_j\given\alpha,\beta)\dd\theta_j\\
+ &\quad=
+ \binom{n_j}{y_j}
+ \frac{\Gamma(\alpha+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)}
+ \int_0^1
+ \theta_j^{y_j+\alpha-1}
+ (1-\theta_j)^{n_j-y_j+\beta-1}\dd\theta_j\\
+ &\quad=
+ \binom{n_j}{y_j}
+ \frac{\Gamma(\alpha+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)}
+ B(y_j+\alpha,n_j-y_j+\beta)\\
+ &\quad=
+ \binom{n_j}{y_j}
+ \frac{\Gamma(\alpha+\beta)
+       \Gamma(y_j+\alpha)
+       \Gamma(n_j-y_j+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)
+       \Gamma(n_j+\alpha+\beta)}.
+\end{align*}
+
+::: {#prp-marginal-hyperposterior .proposition}
+## Marginal hyperposterior
+
+The binomial coefficient does not depend on $(\alpha,\beta)$, so the hyperposterior kernel is \begin{equation}
+ \boxed{
+ p(\alpha,\beta\given\vect y)
+ \propto p(\alpha,\beta)
+ \prod_{j=1}^J
+ \frac{\Gamma(\alpha+\beta)
+       \Gamma(y_j+\alpha)
+       \Gamma(n_j-y_j+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)
+       \Gamma(n_j+\alpha+\beta)}}.
+ \label{eq:hyperposterior}
+\end{equation} This expression is available pointwise but is not a familiar normalised density.
+
+:::
+
+## Hyperprior and transformations
+
+One proper choice is independent exponential hyperpriors, 
+
+$$
+ \alpha\sim\Exp(\lambda),
+ \qquad
+ \beta\sim\Exp(\lambda),
+ \qquad
+ \alpha\perp\beta.
+$$
+
+
+ The choice $\lambda=1$ is a plain starting point. Its implications are clearer after writing 
+
+$$
+ u=\frac{\alpha}{\alpha+\beta},
+ \qquad t=\alpha+\beta,
+ \qquad
+ \alpha=ut,
+ \qquad \beta=(1-u)t.
+$$
+
+
+ Because 
+
+$$
+ \left|\frac{\partial(\alpha,\beta)}{\partial(u,t)}\right|=t,
+$$
+
+
+ the transformed density is \begin{align*}
+ p(u,t)
+ &=\lambda^2e^{-\lambda t}t\\
+ &=\mathbf{1}\{0<u<1\}
+   \frac{\lambda^2}{\Gamma(2)}t^{2-1}e^{-\lambda t}.
+\end{align*} Thus $u\sim\operatorname{Uniform}(0,1)$, $t\sim\GammaDist(2,\lambda)$, and $u\perp t$. The prior is proper and its rate has an interpretable effect: $\E(t)=2/\lambda$. Calling a smaller rate "more diffuse" is incomplete, because it also favours larger total concentration and therefore more tightly clustered study rates conditional on $u$.
+
+Gelman's alternative improper prior is \begin{equation}
+ p(\alpha,\beta)\propto(\alpha+\beta)^{-5/2},
+ \qquad \alpha,\beta>0.
+ \label{eq:gelman-hyperprior}
+\end{equation} It can be motivated by a uniform prior on 
+
+$$
+ u=\frac{\alpha}{\alpha+\beta},
+ \qquad
+ v=\frac1{\sqrt{\alpha+\beta}}.
+$$
+
+
+ Let $t=\alpha+\beta$. The forward derivatives are 
+
+$$
+ \frac{\partial u}{\partial\alpha}=\frac\beta{t^2},
+ \quad
+ \frac{\partial u}{\partial\beta}=-\frac\alpha{t^2},
+ \quad
+ \frac{\partial v}{\partial\alpha}
+ =\frac{\partial v}{\partial\beta}
+ =-\frac12t^{-3/2}.
+$$
+
+
+ Hence \begin{align*}
+ \left|\frac{\partial(u,v)}{\partial(\alpha,\beta)}\right|
+ &=\left|
+ \frac\beta{t^2}\left(-\frac12t^{-3/2}\right)
+ -\left(-\frac\alpha{t^2}\right)
+  \left(-\frac12t^{-3/2}\right)
+ \right|\\
+ &=\frac{\alpha+\beta}{2t^{7/2}}\\
+ &=\frac12t^{-5/2}.
+\end{align*} A constant density in $(u,v)$ therefore transforms to $p(\alpha,\beta)\propto t^{-5/2}$, as claimed. Because the prior is improper, posterior propriety must be established for the data configuration being analysed.
+
+The transformation is derived here. It does not make an improper prior uniquely noninformative, and it does not remove the need to state the domain.
+
+::: {#rem-uniformity-depends-on-a-domain .remark}
+## Uniformity depends on a domain
+
+The Jacobian calculation is local; calling the prior "uniform in $(u,v)$" also requires a stated domain. Over an unbounded or boundary-touching domain the density is improper, so the transformed expression is a modelling choice, not an automatic noninformative prior.
+
+:::
+
+The grid calculation uses 
+
+$$
+ z_1=\log(\alpha/\beta),
+ \qquad
+ z_2=\log(\alpha+\beta).
+$$
+
+
+ Let $t=e^{z_2}$ and $r=e^{z_1}$. Solving $\alpha/\beta=r$ and $\alpha+\beta=t$ gives \begin{equation}
+ \alpha=t\frac{r}{1+r},
+ \qquad
+ \beta=t\frac1{1+r}.
+ \label{eq:log-transform-inverse}
+\end{equation} Equivalently, let $m=r/(1+r)$. The Jacobians are 
+
+$$
+ \left|\frac{\partial(\alpha,\beta)}{\partial(m,t)}\right|=t,
+ \qquad
+ \left|\frac{\partial(m,t)}{\partial(z_1,z_2)}\right|
+ =m(1-m)t.
+$$
+
+
+ Therefore \begin{align*}
+ \left|\frac{\partial(\alpha,\beta)}
+              {\partial(z_1,z_2)}\right|
+ &=t^2m(1-m)\\
+ &=(tm)(t(1-m))\\
+ &=\alpha\beta.
+\end{align*} Under \eqref{eq:gelman-hyperprior}, the transformed prior is therefore \begin{equation}
+ p(z_1,z_2)
+ \propto \alpha\beta(\alpha+\beta)^{-5/2},
+ \label{eq:transformed-hyperprior}
+\end{equation} where $(\alpha,\beta)$ are obtained from \eqref{eq:log-transform-inverse}.
+
+## Grid approximation and posterior simulation
+
+The calculation begins with a rectangular grid over $(z_1,z_2)$, evaluates the unnormalised transformed hyperposterior at each cell, and expands the grid if substantial mass lies against an edge. The first trial used approximately 
+
+$$
+ z_1\in[-2.5,-1],
+ \qquad
+ z_2\in[1.5,3],
+$$
+
+
+ and clipped part of the high-density region. An illustrative adjusted range was approximately 
+
+$$
+ z_1\in[-2.35,0.3],
+ \qquad
+ z_2\in[1,5].
+$$
+
+
+The grid method is deliberately visible. Modern MCMC software can hide much of this computation, but it still faces the same posterior geometry. A grid forces us to inspect the transformed scale, the Jacobian, the region carrying mass, and whether density is being clipped at a boundary. In two dimensions that transparency is often worth more than a more sophisticated black box.
+
+::: {#def-grid-monte-carlo-approximation .definition}
+## Grid Monte Carlo approximation
+
+Let $w_{ab}$ be the unnormalised hyperposterior value at grid cell $(a,b)$, including the Jacobian $\alpha\beta$. The discrete approximation is 
+
+$$
+ \widehat p_{ab}=\frac{w_{ab}}{\sum_{r,s}w_{rs}}.
+$$
+
+
+ Sampling from the approximate full posterior proceeds as follows.
+
+1.  Flatten the grid weights into a one-dimensional list, form cumulative probabilities, draw $U\sim\operatorname{Uniform}(0,1)$, and select the first cell whose cumulative probability exceeds $U$. Equivalently, draw a grid cell $(Z_1,Z_2)$ with probabilities $\widehat p_{ab}$. Optionally add independent uniform jitter within the selected cell.
+
+2.  Transform $(Z_1,Z_2)$ to $(\alpha,\beta)$ using \eqref{eq:log-transform-inverse}.
+
+3.  For each study, draw independently 
+
+$$
+  \theta_j\sim\BetaDist(y_j+\alpha,n_j-y_j+\beta)
+$$
+
+
+ using \eqref{eq:theta-full-cond-hierarchy}.
+
+4.  Repeat to obtain $(\alpha^{(l)},\beta^{(l)},\thetavec^{(l)})$, $l=1,\ldots,L$.
+
+These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo. A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
+
+:::
+
+Here is the corresponding calculation. The vectors `y` and `n_trials` contain the tumour counts $y_j$ and sample sizes $n_j$ for the 71 studies. The logarithmic calculation is important: subtracting the largest log weight before exponentiating prevents numerical underflow without changing the normalised probabilities.
+
+```r
+z <- expand.grid(
+  z1 = seq(-2.35, 0.30, length.out = 100),
+  z2 = seq( 1.00, 5.00, length.out = 100)
+)
+total <- exp(z$z2)
+mean_rate <- plogis(z$z1)
+z$alpha <- total * mean_rate
+z$beta  <- total * (1 - mean_rate)
+
+log_w <- vapply(seq_len(nrow(z)), function(k) {
+  a <- z$alpha[k]
+  b <- z$beta[k]
+  -2.5 * log(a + b) +
+    sum(lbeta(y + a, n_trials - y + b) - lbeta(a, b)) +
+    log(a) + log(b)              # Jacobian alpha * beta
+}, numeric(1))
+
+prob <- exp(log_w - max(log_w))
+prob <- prob / sum(prob)
+
+set.seed(3500)
+M <- 1000L
+cell <- sample.int(nrow(z), M, replace = TRUE, prob = prob)
+alpha <- z$alpha[cell]
+beta  <- z$beta[cell]
+theta <- vapply(seq_along(y), function(j) {
+  rbeta(M, y[j] + alpha, n_trials[j] - y[j] + beta)
+}, numeric(M))
+```
+
+Each row of `theta` is one draw of all 71 study rates. Summarising a column marginalises $(\alpha,\beta)$ automatically because the corresponding hyperparameter draws are simply not retained in that summary. Before using the result, plot the grid weights and check that appreciable mass does not meet an edge; a grid whose boundary cuts through the density fails precisely that check.
+
+![Contours of the rat-tumour hyperposterior in the transformed $(z_1,z_2)$ coordinates, including the Jacobian $\alpha\beta$. The dashed outline marks a grid whose boundary cuts through the density. Its upper edge cuts through appreciable density, so enlarging the numerical domain is part of the calculation rather than a plotting preference. The gold point is the largest evaluated grid value on the expanded domain.](../figures/part1-fig-08-hyperposterior-grid.pdf){#fig-08-hyperposterior-grid}
+
+For a posterior expectation, 
+
+$$
+ \E(\alpha\given\vect y)
+ \approx\frac1L\sum_{l=1}^L\alpha^{(l)}.
+$$
+
+
+ If the inferential target is only $\thetavec$, marginalise the hyperparameters by ignoring their sampled coordinates and summarising $\thetavec^{(1)},\ldots,\thetavec^{(L)}$. This is Monte Carlo marginalisation, not a claim that hyperparameter uncertainty is absent.
+
+Study-specific posterior medians and $95\%$ intervals, ordered by the raw rates $y_j/n_j$, do not follow the 45-degree line: small and noisy studies move toward the population centre. This is *shrinkage*, also called borrowing strength. No observation is literally passed from one study to another. All studies help estimate the shared population quantities, and those quantities then influence every study-specific posterior. The model does not force the rates to be equal; the amount of movement is learned from the between-study spread and each study's sample size.
+
+Compared with plugging in one estimate of $(\alpha,\beta)$, full Bayes usually widens the marginal intervals for $\theta_j$ because it adds the variance due to hyperparameter uncertainty. Omitting that variance component makes the intervals over-precise.
+
+::: {.callout-note}
+## Key idea
+The hierarchy shares information without forcing all studies to have the same rate. Full Bayes propagates uncertainty in the population of rates into every study-specific posterior. The grid sampler works because only two hyperparameters require numerical integration; in higher dimensions one would normally return to Gibbs or Metropolis--Hastings.
+
+:::
+
+![Raw rates and marginal posterior medians under the full grid approximation. Segments show movement from the no-shrinkage line; the current $4/14$ study is red and point size records $n_j$.](../figures/part1-fig-08-shrinkage.pdf){#fig-08-shrinkage}
+
+## Exercises
+
+::: {#exr-pooling .exercise}
+## Pooling
+
+For the tutorial-class model, write down complete-pooling, no-pooling, and partial-pooling versions. State one assumption made by each and one way each can fail.
+
+:::
+
+::: {#exr-derive-the-shrinkage-weight .exercise}
+## Derive the shrinkage weight
+
+Starting from $\overline Y_j\given\theta_j\sim\Normal(\theta_j,\sigma^2/n_j)$ and $\theta_j\given\mu,\tau^2\sim\Normal(\mu,\tau^2)$, complete the square and derive the posterior mean as $w_j\overline y_j+(1-w_j)\mu$. Check its limits as $n_j$, $\tau^2$, and $\sigma^2$ vary.
+
+:::
+
+::: {#exr-exchangeability-is-a-scientific-claim .exercise}
+## Exchangeability is a scientific claim
+
+Give two design features that would make the rat-study rates nonexchangeable. Explain how one of them could be incorporated by adding a level or predictor to the hierarchy rather than abandoning the data.
+
+:::
+
+::: {#exr-two-hyperpriors .exercise}
+## Two hyperpriors
+
+Transform independent $\Exp(\lambda)$ priors on $(\alpha,\beta)$ to $(u,t)=(\alpha/(\alpha+\beta),\alpha+\beta)$. Then transform $p(\alpha,\beta)\propto(\alpha+\beta)^{-5/2}$ to the same coordinates. Compare properness, the induced prior on $u$, and the behaviour near $t=0$ and $t=\infty$.
+
+:::
+
+::: {#exr-sample-from-a-grid .exercise}
+## Sample from a grid
+
+You are given a $100\times100$ table of nonnegative unnormalised heights. Describe an exact algorithm for drawing $100$ independent cells from the corresponding discrete approximation using one uniform random variable per draw. Explain how optional within-cell jitter changes the approximation but not the cell probabilities.
+
+:::
+
+::: {#exr-full-bayes-and-interval-width .exercise}
+## Full Bayes and interval width
+
+Use the law of total variance to explain why integrating over uncertainty in $(\alpha,\beta)$ generally gives wider marginal intervals for $\theta_j$ than plugging in a single estimate. Identify the variance term omitted by the plug-in analysis.
+
+:::
+
+[^b08-hierarchy-1]: The connection between statistics and genetics is not accidental: Fisher's statistical and genetic work belonged to the same programme.
+
+[^b08-hierarchy-3]: The historical controls came from a United States National Cancer Institute programme in the 1970s. Two years is most of a laboratory rat's lifespan, so the time horizon is part of the scientific definition of the rate.
+
+[^b08-hierarchy-4]: The underlying analysis is due to Dempster, Selwyn, and Weeks, presented in 1980 and published in the *Journal of the American Statistical Association* in 1983.

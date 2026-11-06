@@ -1,0 +1,21 @@
+# Made by build_wiki.py. GitHub rebuilds these on every push.
+/notes/
+/questions/
+/answers/
+/reference/
+/articles/
+/figures/
+/index.qmd
+/_quarto.yml
+/_random.html
+/_build/
+__pycache__/
+
+# Made by quarto render
+/_site/
+/.quarto/
+
+# Local only
+/_publish/
+/_screenshots/
+/.claude/

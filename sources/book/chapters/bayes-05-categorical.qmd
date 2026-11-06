@@ -1,0 +1,408 @@
+# Categorical data and the Dirichlet distribution
+
+## From two categories to many
+
+::: {#def-categorical-and-multinomial-models .definition}
+## Categorical and multinomial models
+
+For two categories, a Bernoulli trial has probabilities $(p,1-p)$ and an aggregated count has a binomial distribution. For $K$ categories, let 
+
+$$
+ \pvec=(p_1,\ldots,p_K)^{\mathsf T},
+ \qquad p_k\geq0,
+ \qquad \sum_{k=1}^Kp_k=1.
+$$
+
+
+ A single observation $Y_i\in\{1,\ldots,K\}$ has 
+
+$$
+ \Pr(Y_i=k\given\pvec)=p_k.
+$$
+
+
+ For $n$ conditionally independent observations define 
+
+$$
+ X_k=\sum_{i=1}^n\mathbf{1}\{Y_i=k\}.
+$$
+
+
+ Then $\sum_kX_k=n$ and 
+
+$$
+ \xvec\given\pvec\sim\Mult(n,\pvec).
+$$
+
+
+:::
+
+To derive its mass function, first choose which $x_1$ positions receive category 1, then which $x_2$ of the remaining positions receive category 2, and so on: \begin{align*}
+ \binom{n}{x_1}
+ \binom{n-x_1}{x_2}\cdots
+ \binom{x_{K-1}+x_K}{x_{K-1}}
+ &=\frac{n!}{x_1!(n-x_1)!}
+   \frac{(n-x_1)!}{x_2!(n-x_1-x_2)!}\cdots\\
+ &=\frac{n!}{x_1!\cdots x_K!}.
+\end{align*} Every one of those sequences has probability $\prod_kp_k^{x_k}$, so \begin{equation}
+ p(\xvec\given\pvec)
+ =\frac{n!}{\prod_{k=1}^Kx_k!}
+  \prod_{k=1}^Kp_k^{x_k}.
+ \label{eq:multinomial-pmf-book}
+\end{equation} As a likelihood in $\pvec$, 
+
+$$
+ L(\pvec;\xvec)\propto\prod_{k=1}^Kp_k^{x_k}.
+$$
+
+
+## The Dirichlet prior
+
+::: {#def-dirichlet-distribution .definition}
+## Dirichlet distribution
+
+The conjugate prior for $\pvec$ is the Dirichlet distribution. Write 
+
+$$
+ \alpha_0=\sum_{k=1}^K\alpha_k,
+ \qquad \alpha_k>0.
+$$
+
+
+ The multivariate Beta function is 
+
+$$
+ B(\vect\alpha)
+ =\frac{\prod_{k=1}^K\Gamma(\alpha_k)}
+        {\Gamma(\alpha_0)}.
+$$
+
+
+ Then \begin{equation}
+ p(\pvec\given\vect\alpha)
+ =\frac1{B(\vect\alpha)}
+   \prod_{k=1}^Kp_k^{\alpha_k-1},
+ \qquad \pvec\in\mathcal S_{K-1},
+ \label{eq:dirichlet-density-book}
+\end{equation} where 
+
+$$
+ \mathcal S_{K-1}
+ =\left\{\pvec:p_k\geq0,\ \sum_{k=1}^Kp_k=1\right\}
+$$
+
+
+ is the probability simplex.
+
+:::
+
+::: {#prp-the-beta-distribution-is-the-two-category-dirichlet .proposition}
+## The Beta distribution is the two-category Dirichlet
+
+When $K=2$, write $p_1=p$ and $p_2=1-p$. Restricting the Dirichlet density to the one-dimensional simplex gives 
+
+$$
+ p(p\given\alpha_1,\alpha_2)
+ =\frac{\Gamma(\alpha_1+\alpha_2)}
+        {\Gamma(\alpha_1)\Gamma(\alpha_2)}
+   p^{\alpha_1-1}(1-p)^{\alpha_2-1},
+$$
+
+
+ which is exactly $\BetaDist(\alpha_1,\alpha_2)$. The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.
+
+:::
+
+The prior cannot itself be multinomial. A multinomial distribution is a discrete distribution for a vector of counts, whereas the unknown $\pvec$ varies continuously over the simplex. The likelihood may be discrete in the data while the prior and posterior are continuous in the parameter; these are different arguments of the same Bayesian calculation.
+
+For $K=3$ the simplex is a triangle. Beginning with three categories and a triangle is easier than beginning with the general simplex, although the triangle eventually has to give way.
+
+![The three-category probability simplex.](../figures/part1-inline-simplex.pdf){#fig-inline-simplex}
+
+If all $\alpha_k=1$, the density in \eqref{eq:dirichlet-density-book} is constant on the simplex. This means uniform density over valid probability vectors. It does not force $p_1=\cdots=p_K=1/K$.
+
+For the Dirichlet distribution, separate location from concentration. The ratios $\alpha_k/\alpha_0$ describe the centre of the prior, while $\alpha_0=\sum_k\alpha_k$ controls how tightly probability vectors cluster around it. Multiplying every $\alpha_k$ by the same constant keeps the centre but changes the strength of the prior. That is a more useful way to reason about these parameters than trying to picture a high-dimensional density one coordinate at a time.
+
+When every $\alpha_k<1$, the density favours sparse probability vectors near the boundary. For $\alpha_1=\cdots=\alpha_K=0.1$, typical draws put most of their mass on one category: a "winner takes all" prior. The density is singular along the boundary, so the careful statement is about the distribution of draws, not a finite interior mode located at a corner.
+
+![Draws from three symmetric Dirichlet distributions. The uniform $\Dir(1,1,1)$ fills the triangle; increasing the common concentration to $5$ pulls probability vectors toward $(1/3,1/3,1/3)$; reducing it to $0.1$ puts most draws near an edge or corner. Symmetry fixes the same centre in all three panels, so the visible change is concentration rather than location.](../figures/part1-fig-05-dirichlet-simplex.pdf){#fig-05-dirichlet-simplex}
+
+One should be prepared to abandon a visualisation that is not helping.
+
+::: {#prp-multinomial-central-limit-theorem .proposition}
+## Multinomial central limit theorem
+
+Let $\xvec\sim\Mult(n,\pvec)$ and $\widehat\pvec=\xvec/n$. For fixed interior $\pvec$, define the covariance matrix 
+
+$$
+ \mat{\Sigma}(\pvec)
+ =\operatorname{diag}(\pvec)-\pvec\pvec^{\mathsf T}.
+$$
+
+
+ Then 
+
+$$
+ \sqrt n\,(\widehat\pvec-\pvec)
+ \xrightarrow{\mathcal D}
+ \Normal_K\!\left(
+  \vect 0,
+  \mat{\Sigma}(\pvec)
+ \right).
+$$
+
+
+ The covariance matrix is singular because the components of $\widehat\pvec-\pvec$ sum to zero. On the $(K-1)$-dimensional simplex, the count cloud therefore tightens at the usual $n^{-1/2}$ rate and becomes locally normal.
+
+:::
+
+## Moments and the mode
+
+::: {#prp-dirichlet-moments .proposition}
+## Dirichlet moments
+
+Standard Dirichlet integrals give \begin{align*}
+ \E(P_k)&=\frac{\alpha_k}{\alpha_0},\\
+ \E(P_k^2)&=\frac{\alpha_k(\alpha_k+1)}
+                  {\alpha_0(\alpha_0+1)},\\
+ \E(P_jP_k)&=\frac{\alpha_j\alpha_k}
+                  {\alpha_0(\alpha_0+1)},\qquad j\neq k.
+\end{align*}
+
+:::
+
+Therefore \begin{align*}
+ \Var(P_k)
+ &=\E(P_k^2)-\E(P_k)^2\\
+ &=\frac{\alpha_k(\alpha_k+1)}
+          {\alpha_0(\alpha_0+1)}
+   -\frac{\alpha_k^2}{\alpha_0^2}\\
+ &=\frac{\alpha_k\alpha_0(\alpha_k+1)
+          -\alpha_k^2(\alpha_0+1)}
+         {\alpha_0^2(\alpha_0+1)}\\
+ &=\frac{\alpha_k(\alpha_0-\alpha_k)}
+         {\alpha_0^2(\alpha_0+1)},\\[4pt]
+ \Cov(P_j,P_k)
+ &=\E(P_jP_k)-\E(P_j)\E(P_k)\\
+ &=\frac{\alpha_j\alpha_k}{\alpha_0(\alpha_0+1)}
+   -\frac{\alpha_j\alpha_k}{\alpha_0^2}\\
+ &=-\frac{\alpha_j\alpha_k}
+          {\alpha_0^2(\alpha_0+1)}.
+\end{align*} The negative covariance is forced by the sum-to-one constraint.
+
+To derive the interior mode, maximise 
+
+$$
+ \ell(\pvec)=\sum_{k=1}^K(\alpha_k-1)\log p_k
+$$
+
+
+ subject to $\sum_kp_k=1$. The Lagrangian is 
+
+$$
+ \mathcal L(\pvec,\lambda)
+ =\sum_{k=1}^K(\alpha_k-1)\log p_k
+  +\lambda\left(\sum_{k=1}^Kp_k-1\right).
+$$
+
+
+ Differentiating, 
+
+$$
+ \frac{\partial\mathcal L}{\partial p_k}
+ =\frac{\alpha_k-1}{p_k}+\lambda=0
+ \quad\Longrightarrow\quad
+ p_k=-\frac{\alpha_k-1}{\lambda}.
+$$
+
+
+ Summing over $k$ and imposing the constraint gives 
+
+$$
+ 1=\sum_kp_k
+ =-\frac1\lambda\sum_k(\alpha_k-1)
+ =-\frac{\alpha_0-K}{\lambda},
+$$
+
+
+ so $\lambda=-(\alpha_0-K)$.
+
+::: {#prp-interior-dirichlet-mode .proposition}
+## Interior Dirichlet mode
+
+Consequently, \begin{equation}
+ \operatorname{mode}(P_k)
+ =\frac{\alpha_k-1}{\alpha_0-K}.
+ \label{eq:dir-mode-book}
+\end{equation} This derivation requires every $\alpha_k>1$. Otherwise the mode may lie on a face or corner of the simplex.
+
+:::
+
+## Dirichlet--Multinomial conjugacy
+
+Multiply the fully normalised likelihood and prior: \begin{align*}
+ p(\xvec\given\pvec)p(\pvec)
+ &=\frac{n!}{\prod_kx_k!}
+   \prod_kp_k^{x_k}
+   \frac1{B(\vect\alpha)}
+   \prod_kp_k^{\alpha_k-1}\\
+ &=\frac{n!}{\prod_kx_k!B(\vect\alpha)}
+   \prod_kp_k^{x_k+\alpha_k-1}.
+\end{align*} The integral over the simplex of the product is $B(\vect\alpha+\xvec)$, so \begin{align*}
+ p(\xvec)
+ &=\frac{n!}{\prod_kx_k!}
+   \frac{B(\vect\alpha+\xvec)}
+        {B(\vect\alpha)}\\
+ &=\frac{n!}{\prod_kx_k!}
+   \frac{\Gamma(\alpha_0)}{\Gamma(\alpha_0+n)}
+   \prod_{k=1}^K
+   \frac{\Gamma(\alpha_k+x_k)}{\Gamma(\alpha_k)}.
+ \label{eq:dir-mult-evidence-book}
+\end{align*}
+
+::: {#thm-dirichlet-multinomial-conjugacy .theorem}
+## Dirichlet--Multinomial conjugacy
+
+After division by this evidence, \begin{equation}
+ \boxed{
+ \pvec\given\xvec
+ \sim\Dir(\alpha_1+x_1,\ldots,\alpha_K+x_K)}.
+ \label{eq:dir-mult-post-book}
+\end{equation}
+
+:::
+
+The posterior mean is \begin{align*}
+ \E(P_k\given\xvec)
+ &=\frac{\alpha_k+x_k}{\alpha_0+n}\\
+ &=\frac{\alpha_0}{\alpha_0+n}
+    \frac{\alpha_k}{\alpha_0}
+  +\frac n{\alpha_0+n}\frac{x_k}{n}.
+\end{align*} The posterior mode, when every $\alpha_k+x_k>1$, is 
+
+$$
+ \widehat p_{k,\mathrm{MAP}}
+ =\frac{x_k+\alpha_k-1}{n+\alpha_0-K}.
+$$
+
+
+ Thus $\alpha_k$ behaves like a pseudo-count for the mean and $\alpha_k-1$ for the mode.
+
+For a new categorical observation, \begin{align*}
+ \Pr(Y_{n+1}=k\given\xvec)
+ &=\int\Pr(Y_{n+1}=k\given\pvec)
+       p(\pvec\given\xvec)\dd\pvec\\
+ &=\int p_kp(\pvec\given\xvec)\dd\pvec\\
+ &=\E(P_k\given\xvec)\\
+ &=\frac{\alpha_k+x_k}{\alpha_0+n}.
+\end{align*}
+
+## Advertising-response table
+
+::: {#exm-advertising-responses .example}
+## Advertising responses
+
+The following table classifies $501$ people by gender and response to an advertising campaign:
+
+|  | Negative | Neutral | Positive | Total |
+|---|---:|---:|---:|---:|
+| Male | 53 | 57 | 147 | 257 |
+| Female | 93 | 38 | 113 | 244 |
+| Total | 146 | 95 | 260 | 501 |
+
+**Question.** Use an unrestricted six-cell multinomial with the uniform prior 
+
+$$
+ \pvec\sim\Dir(1,1,1,1,1,1).
+$$
+
+
+ Find the posterior distribution and the posterior mean and MAP estimate of the male-negative cell probability.
+
+**Solution.** The conjugate update gives 
+
+$$
+ \pvec\given\xvec
+ \sim\Dir(54,58,148,94,39,114).
+$$
+
+
+ For the male-negative cell, 
+
+$$
+ \E(P_{11}\given\xvec)=\frac{54}{501+6}=\frac{54}{507}
+ \approx0.1065,
+$$
+
+
+ while 
+
+$$
+ \widehat p_{11,\mathrm{MAP}}
+ =\frac{54-1}{507-6}=\frac{53}{501}
+ \approx0.1058.
+$$
+
+
+ The MAP equals the maximum-likelihood cell proportion because every prior parameter equals one.
+
+:::
+## Exercises
+
+::: {#exr-beta-hidden-inside-dirichlet .exercise}
+## Beta hidden inside Dirichlet
+
+Set $K=2$ in the Dirichlet normalising constant and substitute $p_2=1-p_1$. Recover the complete Beta density, including its normalising constant.
+
+:::
+
+::: {#exr-why-not-a-multinomial-prior .exercise}
+## Why not a multinomial prior?
+
+A student proposes a multinomial prior for $\pvec$. State the support and type of a multinomial random variable and of $\pvec$, then explain precisely why the proposal assigns probability to the wrong kind of object.
+
+:::
+
+::: {#exr-small-concentrations .exercise}
+## Small concentrations
+
+For $K=3$ compare $\Dir(1,1,1)$, $\Dir(5,5,5)$, and $\Dir(0.1,0.1,0.1)$. Give their common centre, compare their total concentrations, and describe where a typical draw lies. Why is "all categories are near zero" impossible?
+
+:::
+
+::: {#exr-the-simplex-clt .exercise}
+## The simplex CLT
+
+Starting from $\Cov(X_j,X_k)=-np_jp_k$ for $j\neq k$ and $\Var(X_k)=np_k(1-p_k)$, derive the covariance matrix of $\sqrt n(\widehat\pvec-\pvec)$. Show that multiplication by the all-ones vector gives zero.
+
+:::
+
+::: {#exr-dirichlet-updating .exercise}
+## Dirichlet updating
+
+Beginning with \eqref{eq:multinomial-pmf-book} and \eqref{eq:dirichlet-density-book}, retain every factor involving $\pvec$ and derive the posterior parameters. Then derive the posterior predictive probability that one new observation falls in category $k$.
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-restaurant .exercise}
+## Restaurant ordering methods
+
+A restaurant observed the following numbers of orders yesterday:
+
+|  | Dine-in | Take-away | Pick-up | Delivery |
+|---|---:|---:|---:|---:|
+| Count | 63 | 19 | 3 | 38 |
+
+Let $\pvec=(p_1,p_2,p_3,p_4)$ be the corresponding population proportions.
+
+1.  With $\xvec\given\pvec\sim\Mult(123,\pvec)$ and $\pvec\sim\Dir(\alpha_1,\ldots,\alpha_4)$, identify the posterior.
+
+2.  Last week's percentages were $44.79\%$, $27.60\%$, $7.36\%$, and $20.25\%$. Explain how to use these proportions to choose the direction of $\vect\alpha$, and how a chosen total concentration records the weight given to last week.
+
+3.  Using a prior equivalent, for posterior-mean purposes, to last week's proportions plus one baseline count in each category, report posterior means and equal-tailed $95\%$ credible intervals for $p_1$, $p_4$, $p_1+p_2+p_3$, and $p_1-p_4$.
+
+[Solution](#sol-applied-restaurant)
+
+:::

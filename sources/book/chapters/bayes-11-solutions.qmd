@@ -1,0 +1,998 @@
+# Solutions to the applied exercises {#solutions-to-the-applied-class-exercises .unnumbered}
+
+The applied exercises are ordered by the chapter that supplies their methods. Where a worked solution was already available, the algebra and numerical work have been checked and expanded; the remaining solutions are derived here. A Gamma parameterisation is always stated explicitly before it is used.
+
+## Chapter 1: Bayesian foundations {#chapter-1-bayesian-foundations .unnumbered}
+
+[]{#sol-applied-mmse} **[Posterior mean under squared-error loss](#ex-applied-mmse).**
+
+**Question.** For observed data $\xvec$, consider the posterior mean squared error of a point estimate $d=d(\xvec)$, 
+
+$$
+ R(d\given\xvec)=\E\bigl[(d-\theta)^2\given\xvec\bigr].
+$$
+
+
+ Show, without omitting the quadratic expansion or the minimisation step, that the posterior mean $d=\E(\theta\given\xvec)$ is the minimum-mean-square-error estimator of $\theta$.
+
+**Solution.** Once $\xvec$ has been observed, $d=d(\xvec)$ is a fixed number and only $\theta$ is random under the posterior. Therefore \begin{align*}
+ R(d\given\xvec)
+ &=\E\bigl[(d-\theta)^2\given\xvec\bigr]\\
+ &=\E\bigl[d^2-2d\theta+\theta^2\given\xvec\bigr]\\
+ &=d^2-2d\E(\theta\given\xvec)+\E(\theta^2\given\xvec).
+\end{align*} Put $m=\E(\theta\given\xvec)$. Adding and subtracting $m^2$ gives \begin{align*}
+ R(d\given\xvec)
+ &=d^2-2dm+m^2+\E(\theta^2\given\xvec)-m^2\\
+ &=(d-m)^2+\Var(\theta\given\xvec).
+\end{align*} The posterior variance does not depend on $d$, and $(d-m)^2\geq0$ with equality exactly when $d=m$. Equivalently, 
+
+$$
+ \frac{\partial R}{\partial d}=2d-2m,
+ \qquad
+ \frac{\partial^2 R}{\partial d^2}=2>0.
+$$
+
+
+ Thus the unique minimiser is 
+
+$$
+ \boxed{d_{\mathrm{MMSE}}(\xvec)=\E(\theta\given\xvec)}.
+$$
+
+
+## Chapter 2: The Beta--Binomial model {#chapter-2-the-betabinomial-model .unnumbered}
+
+[]{#sol-applied-geometric} **[A geometric observation and a uniform prior](#ex-applied-geometric).**
+
+**Question.** Let $X$ be the number of coin tosses up to and including the first head. Thus 
+
+$$
+ \Pr(X=x\given\theta)=\theta(1-\theta)^{x-1},
+ \qquad x=1,2,\ldots,
+$$
+
+
+ where $\theta$ is the probability of a head. Use the prior $\theta\sim\operatorname{Unif}(0,1)$.
+
+1.  Find and identify $p(\theta\given x)$.
+
+2.  Discuss whether the prior was intended to be informative and whether it is conjugate.
+
+3.  Find the posterior mode.
+
+4.  Find $\E(\theta\given x)$.
+
+5.  Express the posterior mean as a convex combination of the prior mean and the maximum-likelihood estimate of $\theta$.
+
+6.  Give an equivalent-prior-observations interpretation, and state which pseudo-count convention you are using.
+
+**Solution.**
+
+1.  The prior density is one on $(0,1)$, so Bayes' rule gives \begin{align*}
+ p(\theta\given x)
+ &\propto \Pr(X=x\given\theta)p(\theta)\\
+ &=\theta(1-\theta)^{x-1}\\
+ &=\theta^{2-1}(1-\theta)^{x-1}.
+\end{align*} The normalising integral is 
+
+$$
+ \int_0^1\theta(1-\theta)^{x-1}\dd\theta
+ =B(2,x)
+ =\frac{\Gamma(2)\Gamma(x)}{\Gamma(x+2)}
+ =\frac{1}{x(x+1)}.
+$$
+
+
+ Consequently 
+
+$$
+ p(\theta\given x)=x(x+1)\theta(1-\theta)^{x-1},
+ \qquad
+ \boxed{\theta\given x\sim\BetaDist(2,x)}.
+$$
+
+
+2.  The uniform prior was chosen to give equal density to equal-length intervals of $\theta$, so it was intended as a non-informative prior on this particular scale. That description is not invariant under a transformation of $\theta$. Since $\operatorname{Unif}(0,1)=\BetaDist(1,1)$ and the Beta family is conjugate to this geometric likelihood, the prior is conjugate.
+
+3.  A $\BetaDist(a,b)$ density has interior mode $(a-1)/(a+b-2)$ when $a,b>1$. Here this gives 
+
+$$
+ \operatorname{mode}(\theta\given x)
+ =\frac{2-1}{2+x-2}=\boxed{\frac1x}.
+$$
+
+
+ For $x=1$ this is the boundary mode at one.
+
+4.  The posterior mean is 
+
+$$
+ \boxed{\E(\theta\given x)=\frac{2}{x+2}}.
+$$
+
+
+5.  The prior mean is $1/2$. To obtain the maximum-likelihood estimator, differentiate the log likelihood: \begin{align*}
+ \ell(\theta)&=\log\theta+(x-1)\log(1-\theta),\\
+ \ell'(\theta)&=\frac1\theta-\frac{x-1}{1-\theta}.
+\end{align*} Setting $\ell'(\theta)=0$ gives $1-\theta=(x-1)\theta$, hence $\widehat\theta_{\mathrm{MLE}}=1/x$. With $w=2/(x+2)$, \begin{align*}
+ w\E(\theta)+(1-w)\widehat\theta_{\mathrm{MLE}}
+ &=\frac{2}{x+2}\frac12
+   +\left(1-\frac{2}{x+2}\right)\frac1x\\
+ &=\frac1{x+2}+\frac{x}{x+2}\frac1x\\
+ &=\frac2{x+2}\\
+ &=\E(\theta\given x).
+\end{align*}
+
+6.  Under the posterior-mean concentration convention, $\BetaDist(1,1)$ has total prior weight two with one prior head and one prior tail: it behaves like one head among two prior tosses. Under the kernel exponent convention, however, the prior contributes $\alpha-1=0$ powers of $\theta$ and $\beta-1=0$ powers of $1-\theta$. These are two different pseudo-count conventions; the first is the one used in the requested linear combination.
+
+[]{#sol-applied-logitnormal-prior} **[A logit-normal prior for a coin](#ex-applied-logitnormal-prior).**
+
+**Question.** Suppose $X\given\theta\sim\Bin(n,\theta)$ and prior knowledge favours heads. Consider the logit-normal prior 
+
+$$
+ p(\theta)=
+ \frac{1}{\sqrt{2\pi}\,\theta(1-\theta)}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right],
+ \qquad 0<\theta<1,
+$$
+
+
+ where $\operatorname{logit}(\theta)=\log\{\theta/(1-\theta)\}$.
+
+1.  Plot the prior on a grid and describe its shape.
+
+2.  Generate $100{,}000$ prior draws by taking $Y\sim\Normal(1,1)$ and $\theta=\exp(Y)/\{1+\exp(Y)\}$. Add a kernel-density estimate from the draws to the exact prior curve.
+
+3.  Explain how the draws approximate the prior mean.
+
+4.  After observing $x$ heads in $n$ tosses, show that 
+
+$$
+ p(\theta\given x)\propto
+ \theta^{x-1}(1-\theta)^{n-x-1}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right].
+$$
+
+
+ Explain why this posterior is not Beta.
+
+**Solution.** Let $Y=\operatorname{logit}(\theta)$. Then 
+
+$$
+ \theta=\frac{e^Y}{1+e^Y},
+ \qquad
+ \frac{\dd Y}{\dd\theta}
+ =\frac1\theta+\frac1{1-\theta}
+ =\frac1{\theta(1-\theta)}.
+$$
+
+
+ Transforming $Y\sim\Normal(1,1)$ therefore produces exactly the stated prior.
+
+1.  The density is unimodal, concentrated above $1/2$, and has a longer left tail than right tail. Its mode is near $0.84$. The exact curve and a simulation check can be produced together by the following code.
+
+```r
+dlogitnormal <- function(theta) {
+  ok <- theta > 0 & theta < 1
+  ans <- numeric(length(theta))
+  ans[ok] <- dnorm(qlogis(theta[ok]), mean = 1, sd = 1) /
+             (theta[ok] * (1 - theta[ok]))
+  ans
+}
+
+set.seed(3500)
+theta_grid <- seq(0.001, 0.999, length.out = 1000)
+theta_draw <- plogis(rnorm(100000, mean = 1, sd = 1))
+
+plot(theta_grid, dlogitnormal(theta_grid), type = "l",
+     xlab = expression(theta), ylab = expression(p(theta)))
+lines(density(theta_draw, from = 0, to = 1), col = "steelblue")
+```
+
+2.  The overlaid kernel-density estimate should follow the exact curve. Agreement is a useful check both of the transformation and of the Jacobian in the displayed density.
+
+3.  By the law of large numbers, 
+
+$$
+ \widehat{\E(\theta)}
+ =\frac1L\sum_{l=1}^L\theta^{(l)}
+ \longrightarrow \E(\theta).
+$$
+
+
+ For $L=100{,}000$ the answer varies slightly with the seed; numerical integration gives $\E(\theta)\approx0.6967$.
+
+4.  The binomial likelihood kernel is 
+
+$$
+ p(x\given\theta)\propto\theta^x(1-\theta)^{n-x}.
+$$
+
+
+ Multiplying by the prior gives \begin{align*}
+ p(\theta\given x)
+ &\propto p(x\given\theta)p(\theta)\\
+ &\propto
+ \theta^x(1-\theta)^{n-x}
+ \frac1{\theta(1-\theta)}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right]\\
+ &=\boxed{
+ \theta^{x-1}(1-\theta)^{n-x-1}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right]}.
+\end{align*} A Beta kernel consists only of powers of $\theta$ and $1-\theta$. The extra factor involving the squared logit cannot be absorbed into those powers, so the posterior is not Beta.
+
+## Chapter 3: Conjugate analysis for normal models {#chapter-3-conjugate-analysis-for-normal-models .unnumbered}
+
+[]{#sol-applied-normal-invchisq} **[Normal--inverse-$\chi^2$ conjugacy](#ex-applied-normal-invchisq).**
+
+**Question.** A pair $(r,s)$ has a normal--inverse-$\chi^2$ distribution, written $(r,s)\sim N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta)$, if 
+
+$$
+ p(r,s)\propto
+ s^{-(\gamma+3)/2}
+ \exp\!\left[-\frac{\beta(r-\alpha)^2+\gamma\delta}{2s}\right],
+ \qquad r\in\R,\quad s>0,
+$$
+
+
+ where $\beta,\gamma,\delta>0$. Let $X_i\mid\mu,\sigma^2\stackrel{\mathrm{iid}}{\sim}
+\Normal(\mu,\sigma^2)$ for $i=1,\ldots,n$ and put the prior 
+
+$$
+ (\mu,\sigma^2)\sim
+ N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta).
+$$
+
+
+ Show that the joint posterior has the same family and identify all four updated parameters. Your derivation should explicitly complete the two weighted squares in $\mu$.
+
+**Solution.** Write 
+
+$$
+ \overline x=\frac1n\sum_{i=1}^n x_i,
+ \qquad
+ s_x^2=\frac1{n-1}\sum_{i=1}^n(x_i-\overline x)^2.
+$$
+
+
+ The sum-of-squares decomposition is 
+
+$$
+ \sum_{i=1}^n(x_i-\mu)^2
+ =(n-1)s_x^2+n(\overline x-\mu)^2.
+$$
+
+
+ Hence the likelihood kernel is \begin{align*}
+ p(\xvec\given\mu,\sigma^2)
+ &\propto(\sigma^2)^{-n/2}
+ \exp\!\left[-\frac{1}{2\sigma^2}
+ \sum_{i=1}^n(x_i-\mu)^2\right]\\
+ &=(\sigma^2)^{-n/2}
+ \exp\!\left[-\frac{(n-1)s_x^2+n(\overline x-\mu)^2}
+ {2\sigma^2}\right].
+\end{align*} Multiplication by the prior gives \begin{align*}
+ p(\mu,\sigma^2\given\xvec)
+ &\propto
+ (\sigma^2)^{-n/2}
+ \exp\!\left[-\frac{(n-1)s_x^2+n(\overline x-\mu)^2}
+ {2\sigma^2}\right]\\
+ &\quad\times
+ (\sigma^2)^{-(\gamma+3)/2}
+ \exp\!\left[-\frac{\beta(\mu-\alpha)^2+\gamma\delta}
+ {2\sigma^2}\right]\\
+ &=(\sigma^2)^{-(n+\gamma+3)/2}
+ \exp\!\left[-\frac{
+ (n-1)s_x^2+n(\mu-\overline x)^2+
+ \beta(\mu-\alpha)^2+\gamma\delta}
+ {2\sigma^2}\right].
+\end{align*}
+
+For positive $u,v$, direct expansion verifies 
+
+$$
+ u(z-r)^2+v(z-t)^2
+ =(u+v)\left(z-\frac{ur+vt}{u+v}\right)^2
+ +\frac{uv}{u+v}(r-t)^2.
+$$
+
+
+ Taking $u=n$, $v=\beta$, $z=\mu$, $r=\overline x$, and $t=\alpha$ yields \begin{align*}
+ n(\mu-\overline x)^2+\beta(\mu-\alpha)^2
+ &=(n+\beta)(\mu-\alpha^\ast)^2
+ +\frac{n\beta}{n+\beta}(\overline x-\alpha)^2,
+\end{align*} where 
+
+$$
+ \alpha^\ast=\frac{n\overline x+\beta\alpha}{n+\beta}.
+$$
+
+
+ Define \begin{align*}
+ \beta^\ast&=\beta+n,\\
+ \gamma^\ast&=\gamma+n,\\
+ \delta^\ast
+ &=\frac1{\gamma^\ast}\left[
+ \gamma\delta+(n-1)s_x^2
+ +\frac{n\beta}{n+\beta}(\overline x-\alpha)^2
+ \right].
+\end{align*} Then the posterior kernel becomes 
+
+$$
+ p(\mu,\sigma^2\given\xvec)
+ \propto
+ (\sigma^2)^{-(\gamma^\ast+3)/2}
+ \exp\!\left[-\frac{
+ \beta^\ast(\mu-\alpha^\ast)^2+\gamma^\ast\delta^\ast}
+ {2\sigma^2}\right].
+$$
+
+
+ Thus 
+
+$$
+ \boxed{(\mu,\sigma^2)\given\xvec
+ \sim N\text{-}\chi^{-2}
+ (\alpha^\ast,\beta^\ast,\gamma^\ast,\delta^\ast)}.
+$$
+
+
+## Chapter 4: Markov chains, Gibbs sampling, and Metropolis--Hastings {#chapter-4-markov-chains-gibbs-sampling-and-metropolishastings .unnumbered}
+
+[]{#sol-applied-bvn-gibbs} **[A bivariate-normal Gibbs sampler](#ex-applied-bvn-gibbs).**
+
+**Question.** Let $\Xvec=(X_1,X_2)^{\mathsf T}$ have a bivariate normal distribution with mean zero, unit marginal variances, and correlation $\rho$, so that 
+
+$$
+ \Xvec\sim\Normal_2\!\left(
+ \begin{bmatrix}0\\0\end{bmatrix},
+ \begin{bmatrix}1&\rho\\ \rho&1\end{bmatrix}
+ \right),\qquad |\rho|<1.
+$$
+
+
+1.  Derive the conditional distributions of $X_1\given X_2$ and $X_2\given X_1$.
+
+2.  Write pseudocode for a systematic-scan Gibbs sampler.
+
+3.  Implement it in R or Python.
+
+4.  From a chosen initial vector, generate $10{,}000$ dependent draws for $\rho=0$, $0.7$, and $0.97$. Plot the draws and explain how $\rho$ affects serial movement even though the stationary marginal variance remains one.
+
+**Solution.** The joint density has kernel 
+
+$$
+ p(x_1,x_2)\propto
+ \exp\!\left[-\frac{x_1^2-2\rho x_1x_2+x_2^2}
+ {2(1-\rho^2)}\right].
+$$
+
+
+ When $x_2$ is held fixed, \begin{align*}
+ x_1^2-2\rho x_1x_2+x_2^2
+ &=(x_1-\rho x_2)^2-\rho^2x_2^2+x_2^2\\
+ &=(x_1-\rho x_2)^2+(1-\rho^2)x_2^2.
+\end{align*} The final term is constant as a function of $x_1$, so \begin{align*}
+ p(x_1\given x_2)
+ &\propto
+ \exp\!\left[-\frac{(x_1-\rho x_2)^2}{2(1-\rho^2)}\right],\\
+ &\boxed{X_1\given X_2=x_2\sim\Normal(\rho x_2,1-\rho^2)}.
+\end{align*} Symmetry gives 
+
+$$
+ \boxed{X_2\given X_1=x_1\sim\Normal(\rho x_1,1-\rho^2)}.
+$$
+
+
+Starting from $(x_1^{(0)},x_2^{(0)})$, one systematic Gibbs sweep is \begin{align*}
+ x_1^{(t)}&\sim\Normal\!\left(\rho x_2^{(t-1)},1-\rho^2\right),\\
+ x_2^{(t)}&\sim\Normal\!\left(\rho x_1^{(t)},1-\rho^2\right).
+\end{align*} The newest available coordinate is used in the second update.
+
+```r
+gibbs_bvn <- function(rho, iterations = 10000, initial = c(1, 1)) {
+  stopifnot(abs(rho) < 1)
+  out <- matrix(NA_real_, iterations, 2,
+                dimnames = list(NULL, c("x1", "x2")))
+  out[1, ] <- initial
+  conditional_sd <- sqrt(1 - rho^2)
+
+  for (t in 2:iterations) {
+    out[t, 1] <- rnorm(1, rho * out[t - 1, 2], conditional_sd)
+    out[t, 2] <- rnorm(1, rho * out[t, 1], conditional_sd)
+  }
+  out
+}
+
+set.seed(3500)
+par(mfrow = c(1, 3))
+for (rho in c(0, 0.7, 0.97)) {
+  z <- gibbs_bvn(rho)
+  plot(z, pch = 20, cex = 0.35,
+       xlab = expression(x[1]), ylab = expression(x[2]),
+       main = bquote(rho == .(rho)))
+}
+par(mfrow = c(1, 1))
+```
+
+When $\rho=0$, each conditional is $\Normal(0,1)$ and a sweep produces a new independent pair. When $\rho=0.97$, the conditional variance is 
+
+$$
+ 1-0.97^2=1-0.9409=0.0591,
+$$
+
+
+ far smaller than the marginal variance one. The chain therefore moves in small, strongly correlated steps along the narrow diagonal ellipse. The stationary marginal distributions remain $\Normal(0,1)$; what deteriorates is the effective information per iteration.
+
+[]{#sol-applied-logitnormal-mh} **[Metropolis--Hastings for the logit-normal posterior](#ex-applied-logitnormal-mh).**
+
+**Question.** For $0<\theta<1$, take the posterior target 
+
+$$
+ \pi(\theta\given x,n)\propto
+ \theta^{x-1}(1-\theta)^{n-x-1}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right].
+$$
+
+
+1.  For $n=40$ and $x=16$, use a Metropolis--Hastings algorithm to retain $10{,}000$ draws after a burn-in of $1{,}000$. Plot a kernel-density estimate and describe it.
+
+2.  Estimate the posterior mean, compare it with the prior mean, and explain how the data have changed the distribution.
+
+3.  Estimate and interpret an equal-tailed $95\%$ credible interval.
+
+4.  Repeat the numerical summaries for $n=400$ and $x=160$. Explain why ten times as much data changes the spread far more than the centre.
+
+**Solution.** For numerical stability define the log of the unnormalised target by 
+
+$$
+ \ell(\theta;x,n)
+ =(x-1)\log\theta+(n-x-1)\log(1-\theta)
+ -\frac12\{\operatorname{logit}(\theta)-1\}^2.
+$$
+
+
+ Use an independent $\BetaDist(A,B)$ proposal with density $g$. Since this is not a random walk, the proposal terms do not cancel. For current state $\theta$ and proposal $y$, \begin{align*}
+ r(\theta,y)
+ &=\frac{\pi(y)g(\theta)}{\pi(\theta)g(y)},\\
+ \log r(\theta,y)
+ &=\ell(y;x,n)-\ell(\theta;x,n)
+   +\log g(\theta)-\log g(y),\\
+ a(\theta,y)&=\min\{1,r(\theta,y)\}.
+\end{align*} The following implementation uses $\BetaDist(4,6)$ for $(x,n)=(16,40)$ and $\BetaDist(40,60)$ for $(160,400)$.
+
+```r
+log_posterior <- function(theta, x, n) {
+  ifelse(theta <= 0 | theta >= 1, -Inf,
+         (x - 1) * log(theta) +
+         (n - x - 1) * log1p(-theta) -
+         0.5 * (qlogis(theta) - 1)^2)
+}
+independent_mh <- function(x, n, A, B, keep = 10000, burn = 1000) {
+  total <- keep + burn
+  out <- numeric(total)
+  out[1] <- x / n
+  for (t in 2:total) {
+    proposed <- rbeta(1, A, B)
+    log_ratio <-
+      log_posterior(proposed, x, n) -
+      log_posterior(out[t - 1], x, n) +
+      dbeta(out[t - 1], A, B, log = TRUE) -
+      dbeta(proposed, A, B, log = TRUE)
+    if (log(runif(1)) < min(0, log_ratio)) {
+      out[t] <- proposed
+    } else {
+      out[t] <- out[t - 1]
+    }
+  }
+  out[(burn + 1):total]
+}
+set.seed(3500)
+draw40  <- independent_mh(16,  40,  4,  6)
+draw400 <- independent_mh(160, 400, 40, 60)
+mean(draw40)
+quantile(draw40, c(0.025, 0.975))
+mean(draw400)
+quantile(draw400, c(0.025, 0.975))
+plot(density(draw40, from = 0, to = 1),
+     xlab = expression(theta), main = "n = 40")
+```
+
+For the displayed seed, the $n=40$ run gives 
+
+$$
+ \widehat{\E(\theta\given x)}=0.432,
+ \qquad
+ \text{$95\%$ interval }(0.294,0.578).
+$$
+
+
+ Direct numerical integration gives $0.4320$ and $(0.291,0.579)$, so the Monte Carlo discrepancy is of the expected size. The prior mean is approximately $0.6967$: observing only $16/40=0.4$ heads moves the posterior sharply towards $0.4$ and makes it appreciably more concentrated. The interval means that, under the model and prior, the posterior probability that $\theta$ lies between the reported endpoints is approximately $0.95$.
+
+For $n=400$ and $x=160$, the same seed gives 
+
+$$
+ \widehat{\E(\theta\given x)}=0.404,
+ \qquad
+ \text{$95\%$ interval }(0.355,0.453),
+$$
+
+
+ while numerical integration gives $0.4035$ and $(0.356,0.452)$. Both data sets have empirical proportion $0.4$, so the centre changes little. The ten-fold increase in sample size makes the likelihood much more concentrated and leaves the prior with much less leverage.
+
+The function `dbeta` in the Hastings ratio is essential: $g$ is a proposal *density*. Replacing it by the distribution function `pbeta` changes the invariant distribution and produces incorrect posterior summaries.
+
+[]{#sol-applied-bvn-rwmh} **[Random-walk Metropolis for a correlated normal](#ex-applied-bvn-rwmh).**
+
+**Question.** Let the target be the bivariate normal distribution 
+
+$$
+ \vect Z\sim\Normal_2\!\left(
+ \begin{bmatrix}0\\0\end{bmatrix},
+ \begin{bmatrix}1&\rho\\ \rho&1\end{bmatrix}
+ \right),\qquad |\rho|<1.
+$$
+
+
+ Describe a random-walk Metropolis--Hastings sampler using increments 
+
+$$
+ \vect\varepsilon\sim\Normal_2(\vect0,\mat{\Psi}),
+ \qquad
+ \mat{\Psi}=
+ \begin{bmatrix}a^2&0\\0&b^2\end{bmatrix}.
+$$
+
+
+ Give the proposal, the acceptance probability in explicit quadratic form and its equivalent norm/distance reading, and the accept--reject update. Discuss what $a$ and $b$ control.
+
+**Solution.** Let $\vect z_t=(x_t,y_t)^{\mathsf T}$. Generate an increment 
+
+$$
+ \vect\varepsilon_t\sim
+ \Normal_2(\vect0,\mat{\Psi}),
+ \qquad
+ \vect z^\ast=\vect z_t+\vect\varepsilon_t.
+$$
+
+
+ The proposal density satisfies $q(\vect z^\ast\given\vect z_t)
+=q(\vect z_t\given\vect z^\ast)$, so the Hastings correction cancels. Since 
+
+$$
+ \mat{\Sigma}^{-1}
+ =\frac1{1-\rho^2}
+ \begin{bmatrix}1&-\rho\\-\rho&1\end{bmatrix},
+$$
+
+
+ For a generic state $\vect z=(x,y)^{\mathsf T}$, define \begin{align*}
+ Q(x,y)
+ &=\frac{x^2-2\rho xy+y^2}{1-\rho^2}\\
+ &=\vect z^\top\mat{\Sigma}^{-1}\vect z\\
+ &=\lVert\vect z\rVert_{\mat{\Sigma}^{-1}}^2.
+\end{align*} The same scalar is therefore the explicit coordinate quadratic, the matrix quadratic form, and squared Mahalanobis distance from the origin. Its level sets are the target's elliptical density contours. The target ratio is \begin{align*}
+ \frac{\pi(\vect z^\ast)}{\pi(\vect z_t)}
+ &=\frac{\exp\{-Q(x^\ast,y^\ast)/2\}}
+ {\exp\{-Q(x_t,y_t)/2\}}\\
+ &=\exp\!\left[-\frac12
+ \{Q(x^\ast,y^\ast)-Q(x_t,y_t)\}\right]\\
+ &=\exp\!\left[-\frac12\left\{
+ \lVert\vect z^\ast\rVert_{\mat{\Sigma}^{-1}}^2
+ -\lVert\vect z_t\rVert_{\mat{\Sigma}^{-1}}^2
+ \right\}\right].
+\end{align*} Thus 
+
+$$
+ a(\vect z_t,\vect z^\ast)
+ =\min\!\left(1,
+ \exp\!\left[-\frac12
+ \{Q(x^\ast,y^\ast)-Q(x_t,y_t)\}\right]
+ \right).
+$$
+
+
+ Draw $U\sim\operatorname{Unif}(0,1)$; set $\vect z_{t+1}=\vect z^\ast$ if $U<a$, and otherwise repeat the current state. The constants $a$ and $b$ are the proposal standard deviations in the two coordinate directions. If they are too small, acceptance is high but travel is slow; if too large, rejections dominate. For $|\rho|$ near one, a diagonal proposal also ignores the target's rotated geometry, so a proposal covariance aligned with $\mat{\Sigma}$ can be much more efficient.
+
+[]{#sol-applied-gamma-mh} **[An independent Gamma proposal](#ex-applied-gamma-mh).**
+
+**Question.** Suppose the target is $\operatorname{Gamma}_{\mathrm{sc}}(\alpha,\beta)$ with shape $\alpha$ and *scale* $\beta$. Describe an independent Metropolis--Hastings sampler using the proposal $\operatorname{Gamma}_{\mathrm{sc}}(\gamma,\gamma/\alpha)$. Derive the Hastings ratio rather than merely quoting the generic formula.
+
+**Solution.** Under the shape--scale convention, the target and proposal densities have kernels \begin{align*}
+ \pi(z)&\propto z^{\alpha-1}e^{-z/\beta},\\
+ g(z)&\propto z^{\gamma-1}e^{-z/\lambda},
+ \qquad \lambda=\frac{\gamma}{\alpha},
+\end{align*} for $z>0$. The proposal does not depend on the current state, so this is an independence sampler. If the current state is $x$ and $Y\sim g$ is proposed, then \begin{align*}
+ r(x,Y)
+ &=\frac{\pi(Y)g(x)}{\pi(x)g(Y)}\\
+ &=\frac{Y^{\alpha-1}e^{-Y/\beta}}
+ {x^{\alpha-1}e^{-x/\beta}}
+ \frac{x^{\gamma-1}e^{-x/\lambda}}
+ {Y^{\gamma-1}e^{-Y/\lambda}}\\
+ &=\left(\frac{Y}{x}\right)^{\alpha-\gamma}
+ \exp\!\left[(Y-x)\left(\frac1\lambda-\frac1\beta\right)\right]\\
+ &=\boxed{
+ \left(\frac{Y}{x}\right)^{\alpha-\gamma}
+ \exp\!\left[(Y-x)\left(\frac{\alpha}{\gamma}
+ -\frac1\beta\right)\right]}.
+\end{align*} Accept $Y$ with probability $\min\{1,r(x,Y)\}$; otherwise retain $x$.
+
+::: {.callout-warning}
+## Parameterisation check
+The main book writes $\GammaDist(a,b)$ in shape--rate form, whereas this exercise explicitly declares scale parameters. If the proposal's second argument $\gamma/\alpha$ were instead read as a rate, its kernel would be $z^{\gamma-1}e^{-(\gamma/\alpha)z}$ and the final exponential coefficient would be $\gamma/\alpha-1/\beta$. The algorithm is not defined numerically until that convention is fixed.
+
+:::
+
+## Chapter 5: Categorical data and the Dirichlet distribution {#chapter-5-categorical-data-and-the-dirichlet-distribution .unnumbered}
+
+[]{#sol-applied-restaurant} **[Restaurant ordering methods](#ex-applied-restaurant).**
+
+**Question.** A restaurant observed the following numbers of orders yesterday:
+
+|  | Dine-in | Take-away | Pick-up | Delivery |
+|---|---:|---:|---:|---:|
+| Count | 63 | 19 | 3 | 38 |
+
+Let $\pvec=(p_1,p_2,p_3,p_4)$ be the corresponding population proportions.
+
+1.  With $\xvec\given\pvec\sim\Mult(123,\pvec)$ and $\pvec\sim\Dir(\alpha_1,\ldots,\alpha_4)$, identify the posterior.
+
+2.  Last week's percentages were $44.79\%$, $27.60\%$, $7.36\%$, and $20.25\%$. Explain how to use these proportions to choose the direction of $\vect\alpha$, and how a chosen total concentration records the weight given to last week.
+
+3.  Using a prior equivalent, for posterior-mean purposes, to last week's proportions plus one baseline count in each category, report posterior means and equal-tailed $95\%$ credible intervals for $p_1$, $p_4$, $p_1+p_2+p_3$, and $p_1-p_4$.
+
+**Solution.**
+
+1.  The Dirichlet--Multinomial update adds the observed cell counts to the corresponding concentration parameters. Since $63+19+3+38=123$, \begin{align*}
+ \pvec&\sim\Dir(\alpha_1,\alpha_2,\alpha_3,\alpha_4),\\
+ \xvec\given\pvec&\sim\Mult(123,\pvec),\\
+ &\boxed{\pvec\given\xvec
+ \sim\Dir(63+\alpha_1,19+\alpha_2,3+\alpha_3,38+\alpha_4)}.
+\end{align*}
+
+2.  Write last week's proportions as 
+
+$$
+ \vect q=(0.4479,0.2760,0.0736,0.2025).
+$$
+
+
+ A Dirichlet prior centred exactly at $\vect q$ can be written $\vect\alpha=\kappa\vect q$, where $\kappa>0$ is the total prior concentration. Increasing $\kappa$ preserves the prior mean but increases the weight assigned to last week.
+
+The construction used here instead combines $100$ fractional counts with one baseline count in each category: 
+
+$$
+ \vect\alpha
+ =(44.79,27.60,7.36,20.25)+(1,1,1,1)
+ =(45.79,28.60,8.36,21.25).
+$$
+
+
+ Its concentration is $104$ and its mean is $\vect\alpha/104$, which is slightly closer to $(1/4,1/4,1/4,1/4)$ than $\vect q$. Thus the direction and concentration should both be reported; percentages alone determine only the direction.
+
+3.  The posterior parameters are \begin{align*}
+ \vect\alpha^\ast
+ &=(63,19,3,38)+(45.79,28.60,8.36,21.25)\\
+ &=\boxed{(108.79,47.60,11.36,59.25)},
+\end{align*} with total concentration $\alpha_0^\ast=108.79+47.60+11.36+59.25=227$. Thus 
+
+$$
+ \E(P_1\given\xvec)=\frac{108.79}{227}=0.4793,
+ \qquad
+ \E(P_4\given\xvec)=\frac{59.25}{227}=0.2610.
+$$
+
+
+ Also, 
+
+$$
+ \E(P_1+P_2+P_3\given\xvec)=1-\E(P_4\given\xvec)=0.7390
+$$
+
+
+ and 
+
+$$
+ \E(P_1-P_4\given\xvec)
+ =\frac{108.79-59.25}{227}=0.2182.
+$$
+
+
+The Dirichlet marginal results give \begin{align*}
+ P_1\given\xvec&\sim\BetaDist(108.79,118.21),\\
+ P_4\given\xvec&\sim\BetaDist(59.25,167.75),\\
+ P_1+P_2+P_3\given\xvec&\sim\BetaDist(167.75,59.25).
+\end{align*} Their intervals can therefore be obtained with Beta quantiles. The difference $P_1-P_4$ has no such Beta form, so simulation handles all four quantities uniformly:
+
+```r
+rdirichlet_base <- function(n, alpha) {
+  z <- sapply(alpha, function(a) rgamma(n, shape = a, rate = 1))
+  z / rowSums(z)
+}
+
+set.seed(3500)
+alpha_post <- c(108.79, 47.60, 11.36, 59.25)
+p <- rdirichlet_base(100000, alpha_post)
+summaries <- cbind(
+  p1 = p[, 1],
+  p4 = p[, 4],
+  p123 = rowSums(p[, 1:3]),
+  difference = p[, 1] - p[, 4]
+)
+rbind(
+  mean = colMeans(summaries),
+  lower = apply(summaries, 2, quantile, 0.025),
+  upper = apply(summaries, 2, quantile, 0.975)
+)
+```
+
+For the displayed seed, rounding to three decimals gives
+
+| Quantity | Posterior mean | 2.5% | 97.5% |
+|---|---:|---:|---:|
+| $p_1$ | 0.479 | 0.415 | 0.544 |
+| $p_4$ | 0.261 | 0.206 | 0.320 |
+| $p_1+p_2+p_3$ | 0.739 | 0.680 | 0.794 |
+| $p_1-p_4$ | 0.218 | 0.109 | 0.325 |
+
+The first three intervals agree, apart from Monte Carlo rounding, with the corresponding exact Beta quantiles.
+
+## Chapter 6: Bayesian hypotheses and model comparison {#chapter-6-bayesian-hypotheses-and-model-comparison .unnumbered}
+
+[]{#sol-applied-iq} **[An IQ threshold](#ex-applied-iq).**
+
+**Question.** Model population IQ by $\mu\sim\Normal(100,15^2)$. Conditional on a person's true IQ $\mu$, a standardised test score satisfies $X\given\mu\sim\Normal(\mu,10^2)$. A candidate obtains $x=135$, and the classification threshold for "gifted" is $130$.
+
+1.  Find an equal-tailed $95\%$ posterior credible interval for $\mu$.
+
+2.  For $H_0:\mu<130$ and $H_1:\mu\geq130$, calculate the posterior odds $\Pr(H_0\given x)/\Pr(H_1\given x)$ and state which hypothesis they favour.
+
+3.  Calculate $\BF_{01}$ and reconcile its direction with that of the posterior odds by examining the prior odds.
+
+**Solution.** The normal prior and likelihood give posterior precision 
+
+$$
+ \frac1{v_1}=\frac1{15^2}+\frac1{10^2}
+ =\frac1{225}+\frac1{100}
+ =\frac{325}{22500}.
+$$
+
+
+ Hence 
+
+$$
+ v_1=\frac{22500}{325}=69.2308.
+$$
+
+
+ The posterior mean is \begin{align*}
+ m_1
+ &=v_1\left(\frac{100}{15^2}+\frac{135}{10^2}\right)\\
+ &=\frac{15^2(135)+10^2(100)}{15^2+10^2}\\
+ &=\frac{30375+10000}{325}\\
+ &=124.2308.
+\end{align*} Therefore 
+
+$$
+ \boxed{\mu\given x=135\sim\Normal(124.2308,69.2308)}.
+$$
+
+
+1.  The posterior standard deviation is $\sqrt{69.2308}=8.3205$. Thus the equal-tailed interval is \begin{align*}
+ m_1\pm z_{0.975}\sqrt{v_1}
+ &=124.2308\pm1.959964(8.3205)\\
+ &=\boxed{(107.923,140.539)}.
+\end{align*}
+
+2.  Under the posterior, \begin{align*}
+ \Pr(H_0\given x)
+ &=\Pr(\mu<130\given x)\\
+ &=\Phi\!\left(\frac{130-124.2308}{8.3205}\right)\\
+ &=0.7560,
+\end{align*} so $\Pr(H_1\given x)=1-0.7560=0.2440$. The posterior odds are 
+
+$$
+ \boxed{
+ \frac{\Pr(H_0\given x)}{\Pr(H_1\given x)}
+ =\frac{0.7560}{0.2440}=3.0977}.
+$$
+
+
+ On posterior odds alone, $H_0$ is favoured by about $3.1:1$.
+
+3.  Under the prior, \begin{align*}
+ \Pr(H_0)
+ &=\Pr(\mu<130)\\
+ &=\Phi\!\left(\frac{130-100}{15}\right)\\
+ &=\Phi(2)=0.97725.
+\end{align*} The prior odds are therefore 
+
+$$
+ \frac{\Pr(H_0)}{\Pr(H_1)}
+ =\frac{0.97725}{1-0.97725}
+ =42.9558.
+$$
+
+
+ Consequently \begin{align*}
+ \BF_{01}
+ &=\frac{\text{posterior odds for $H_0$}}
+ {\text{prior odds for $H_0$}}\\
+ &=\frac{3.0977}{42.9558}\\
+ &=\boxed{0.0721}.
+\end{align*} Equivalently, $\BF_{10}=1/0.0721\approx13.87$: the score is about fourteen times more probable under $H_1$ than under $H_0$ after averaging within each hypothesis. The posterior nevertheless favours $H_0$ because the prior odds favoured it by about $43:1$. The Bayes factor records the movement supplied by the data; the posterior odds also contain the starting odds.
+
+## Chapter 7: Exponential families and conjugacy {#chapter-7-exponential-families-and-conjugacy .unnumbered}
+
+[]{#sol-applied-sufficiency-posterior} **[Sufficiency and the posterior](#ex-applied-sufficiency-posterior).**
+
+**Question.** Let $\Xvec=(X_1,\ldots,X_n)^{\mathsf T}$ have likelihood $p(\xvec\given\theta)$ and prior $p(\theta)$. If $U(\Xvec)$ is sufficient for $\theta$, use the Fisher--Neyman factorisation theorem and Bayes' rule to show that the posterior depends on the observed sample only through $U(\xvec)$. Retain the normalising integral in the derivation.
+
+**Solution.** By the Fisher--Neyman factorisation theorem, sufficiency of $U(\Xvec)$ implies that there are nonnegative functions $g$ and $h$ such that 
+
+$$
+ p(\xvec\given\theta)=g\{U(\xvec),\theta\}h(\xvec),
+$$
+
+
+ where $h$ does not depend on $\theta$. Bayes' rule, including its normalising integral, gives \begin{align*}
+ p(\theta\given\xvec)
+ &=\frac{p(\xvec\given\theta)p(\theta)}
+ {\displaystyle\int p(\xvec\given t)p(t)\dd t}\\
+ &=\frac{g\{U(\xvec),\theta\}h(\xvec)p(\theta)}
+ {\displaystyle\int g\{U(\xvec),t\}h(\xvec)p(t)\dd t}\\
+ &=\boxed{
+ \frac{g\{U(\xvec),\theta\}p(\theta)}
+ {\displaystyle\int g\{U(\xvec),t\}p(t)\dd t}}.
+\end{align*} Every occurrence of the observed sample is through $U(\xvec)$; the factor $h(\xvec)$ cancels because it is constant with respect to the integration variable and the parameter.
+
+[]{#sol-applied-exp-rate} **[Exponential observations parameterised by rate](#ex-applied-exp-rate).**
+
+**Question.** For $X\given\theta\sim\Exp(\theta)$, take $\theta$ to be the rate, so that 
+
+$$
+ p(x\given\theta)=\theta e^{-\theta x}\mathbf{1}_{\{x\geq0\}}.
+$$
+
+
+ Write this model in the chapter's $a(\theta)$, $b(x)$, $c(\theta)$, $T(x)$ form and use that form to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$.
+
+**Solution.** For one observation, 
+
+$$
+ p(x\given\theta)=\theta e^{-\theta x}\mathbf{1}_{\{x\geq0\}}
+ =\frac{b(x)\exp\{c(\theta)T(x)\}}{a(\theta)}
+$$
+
+
+ with 
+
+$$
+ \boxed{
+ b(x)=\mathbf{1}_{\{x\geq0\}},\quad
+ T(x)=x,\quad
+ c(\theta)=-\theta,\quad
+ a(\theta)=\frac1\theta}.
+$$
+
+
+ The chapter's generic conjugate-prior kernel is therefore \begin{align*}
+ p(\theta\given\alpha,\beta)
+ &\propto
+ \frac{\exp\{c(\theta)\alpha\}}{a(\theta)^\beta}\\
+ &=\frac{e^{-\alpha\theta}}{(1/\theta)^\beta}\\
+ &=\theta^\beta e^{-\alpha\theta}.
+\end{align*} For $\alpha>0$ and $\beta>-1$, this is 
+
+$$
+ \theta\sim\GammaDist(\beta+1,\alpha)
+$$
+
+
+ in the book's shape--rate convention.
+
+For an iid sample let $S(\xvec)=\sum_{i=1}^n x_i$. Then \begin{align*}
+ p(\theta\given\xvec)
+ &\propto
+ \left\{\prod_{i=1}^n\theta e^{-\theta x_i}\right\}
+ \theta^\beta e^{-\alpha\theta}\\
+ &=\theta^n e^{-\theta S(\xvec)}
+ \theta^\beta e^{-\alpha\theta}\\
+ &=\theta^{\beta+n}
+ e^{-\{\alpha+S(\xvec)\}\theta}.
+\end{align*} Thus 
+
+$$
+ \boxed{\theta\given\xvec
+ \sim\GammaDist\bigl(\beta+n+1,\alpha+S(\xvec)\bigr)}.
+$$
+
+
+ Equivalently, if the prior is written in the standard shape--rate form $\GammaDist(a_0,b_0)$, then 
+
+$$
+ \theta\given\xvec\sim
+ \GammaDist\bigl(a_0+n,b_0+S(\xvec)\bigr).
+$$
+
+
+[]{#sol-applied-exp-scale} **[Exponential observations parameterised by mean](#ex-applied-exp-scale).**
+
+**Question.** Let $X_1,\ldots,X_n$ be iid $\Exp(1/\theta)$ observations, so that $\theta>0$ is the mean and 
+
+$$
+ p(x_i\given\theta)=\theta^{-1}e^{-x_i/\theta}\mathbf{1}_{\{x_i\geq0\}}.
+$$
+
+
+ Use the exponential-family form to find a conjugate prior and derive its posterior parameters.
+
+**Solution.** Now 
+
+$$
+ p(x\given\theta)=\theta^{-1}e^{-x/\theta}\mathbf{1}_{\{x\geq0\}}
+ =\frac{b(x)\exp\{c(\theta)T(x)\}}{a(\theta)}
+$$
+
+
+ with 
+
+$$
+ \boxed{
+ b(x)=\mathbf{1}_{\{x\geq0\}},\quad
+ T(x)=x,\quad
+ c(\theta)=-\frac1\theta,\quad
+ a(\theta)=\theta}.
+$$
+
+
+ The generic prior kernel becomes \begin{align*}
+ p(\theta\given\alpha,\beta)
+ &\propto
+ \frac{\exp(-\alpha/\theta)}{\theta^\beta}\\
+ &=\theta^{-\beta}e^{-\alpha/\theta}.
+\end{align*} Since an $\InvGamma(a,b)$ density has kernel $\theta^{-a-1}e^{-b/\theta}$, this prior is 
+
+$$
+ \theta\sim\InvGamma(\beta-1,\alpha),
+ \qquad \alpha>0,\quad\beta>1.
+$$
+
+
+ The sample likelihood is 
+
+$$
+ p(\xvec\given\theta)
+ \propto\theta^{-n}
+ \exp\!\left[-\frac{S(\xvec)}{\theta}\right].
+$$
+
+
+ Therefore \begin{align*}
+ p(\theta\given\xvec)
+ &\propto
+ \theta^{-n}e^{-S(\xvec)/\theta}
+ \theta^{-\beta}e^{-\alpha/\theta}\\
+ &=\theta^{-(\beta+n)}
+ \exp\!\left[-\frac{\alpha+S(\xvec)}{\theta}\right],
+\end{align*} and hence 
+
+$$
+ \boxed{\theta\given\xvec
+ \sim\InvGamma\bigl(\beta+n-1,\alpha+S(\xvec)\bigr)}.
+$$
+
+
+ Equivalently, a standard prior $\InvGamma(a_0,b_0)$ updates to 
+
+$$
+ \theta\given\xvec\sim
+ \InvGamma\bigl(a_0+n,b_0+S(\xvec)\bigr).
+$$
+
+
+::: {.callout-warning}
+## Parameterisation check
+$\Exp(\theta)$ in the preceding exercise used $\theta$ as a rate, whereas $\Exp(1/\theta)$ here makes $\theta$ the mean. The first likelihood is conjugate to a Gamma prior for $\theta$; the second is conjugate to an inverse-Gamma prior. Interchanging rate and mean without rewriting the density would interchange the two answers.
+
+:::

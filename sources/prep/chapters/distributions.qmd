@@ -1,0 +1,113 @@
+# Common distributions {.unnumbered #sec-distributions}
+
+```{=latex}
+\begingroup
+\raggedbottom
+\noindent The distributions below are the corrected STAT3500/7500 sheet. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$.
+
+\distgroup{Discrete}
+
+\begin{distcard}{Binomial}{Discrete \textperiodcentered\ Finite}
+\distrow{Distribution}{$x\sim\Bin(n,p)$}
+\distrow{Parameters}{$n\in\mathbb{Z}^{+}$, $p\in[0,1]$}
+\distrow{Support}{$x=0,1,\ldots,n$}
+\distformula{Probability mass function}{
+  p(x)=\binom{n}{x}p^{x}(1-p)^{n-x}
+}
+\distmoments{x}{np}{x}{np(1-p)}
+\end{distcard}
+
+\begin{distcard}{Geometric}{Discrete \textperiodcentered\ Unbounded}
+\distrow{Distribution}{$x\sim\Geom(p)$}
+\distrow{Parameters}{$p\in(0,1]$}
+\distrow{Support}{$x=1,2,3,\ldots$}
+\distformula{Probability mass function}{
+  p(x)=p(1-p)^{x-1}
+}
+\distmoments{x}{\frac{1}{p}}{x}{\frac{1-p}{p^{2}}}
+\end{distcard}
+
+\begin{distcard}{Multinomial}{Discrete \textperiodcentered\ Finite}
+\distrow{Distribution}{$x\sim\operatorname{Mult}(n,p)$}
+\distrow{Parameters}{$n\in\mathbb{Z}^{+}$, $p\in[0,1]^{K}$ with $\sum_{k=1}^{K}p_k=1$}
+\distrow{Support}{$x_k\in\{0,1,\ldots,n\}$, $\sum_k x_k=n$}
+\distformula{Probability mass function}{
+  p(x)=\frac{n!}{x_1!\cdots x_K!}p_1^{x_1}\cdots p_K^{x_K}
+}
+\distmoments{x}{np}{x_k}{np_k(1-p_k)}
+\end{distcard}
+
+\begin{distcard}{Poisson}{Discrete \textperiodcentered\ Unbounded}
+\distrow{Distribution}{$x\sim\Po(\theta)$}
+\distrow{Parameters}{$\theta>0$}
+\distrow{Support}{$x=0,1,2,\ldots$}
+\distformula{Probability mass function}{
+  p(x)=e^{-\theta}\theta^{x}/x!
+}
+\distmoments{x}{\theta}{x}{\theta}
+\end{distcard}
+
+\distgroup{Continuous}
+
+\begin{distcard}{Beta}{Continuous \textperiodcentered\ Bounded}
+\distrow{Distribution}{$x\sim\BetaDist(\alpha,\beta)$}
+\distrow{Parameters}{$\alpha,\beta>0$}
+\distrow{Support}{$0<x<1$}
+\distformula{Probability density}{
+  p(x)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}
+}
+\distmoments{x}{\frac{\alpha}{\alpha+\beta}}{x}{\frac{\alpha\beta}{(\alpha+\beta)^{2}(\alpha+\beta+1)}}
+\end{distcard}
+
+\begin{distcard}{Dirichlet}{Continuous \textperiodcentered\ Simplex}
+\distrow{Distribution}{$x\sim\operatorname{Dir}(\alpha)$}
+\distrow{Parameters}{$\alpha\in\R_{+}^{K}$, $\alpha_0=\sum_{k=1}^{K}\alpha_k$}
+\distrow{Support}{$x_k>0$, $\sum_{k=1}^{K}x_k=1$}
+\distformula{Probability density}{
+  p(x)=\frac{\Gamma(\alpha_0)}{\prod_{k=1}^{K}\Gamma(\alpha_k)}\prod_{k=1}^{K}x_k^{\alpha_k-1}
+}
+\distmoments{x}{\frac{\alpha}{\alpha_0}}{x_k}{\frac{\alpha_k(\alpha_0-\alpha_k)}{\alpha_0^{2}(\alpha_0+1)}}
+\end{distcard}
+
+\begin{distcard}{Exponential}{Continuous \textperiodcentered\ Positive}
+\distrow{Distribution}{$x\sim\Exp(\lambda)$}
+\distrow{Parameters}{$\lambda>0$}
+\distrow{Support}{$x>0$}
+\distformula{Probability density}{
+  p(x)=\lambda e^{-\lambda x}
+}
+\distmoments{x}{\frac{1}{\lambda}}{x}{\frac{1}{\lambda^{2}}}
+\end{distcard}
+
+\begin{distcard}{Gamma}{Continuous \textperiodcentered\ Positive}
+\distrow{Distribution}{$x\sim\GammaDist(\alpha,\beta)$}
+\distrow{Parameters}{$\alpha,\beta>0$, shape--rate}
+\distrow{Support}{$x>0$}
+\distformula{Probability density}{
+  p(x)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}
+}
+\distmoments{x}{\frac{\alpha}{\beta}}{x}{\frac{\alpha}{\beta^{2}}}
+\end{distcard}
+
+\begin{distcard}{Inverse gamma}{Continuous \textperiodcentered\ Positive}
+\distrow{Distribution}{$x\sim\InvGamma(\alpha,\beta)$}
+\distrow{Parameters}{$\alpha,\beta>0$}
+\distrow{Support}{$x>0$}
+\distformula{Probability density}{
+  p(x)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{-\alpha-1}e^{-\beta/x}
+}
+\distmoments{x}{\frac{\beta}{\alpha-1}\;(\alpha>1)}{x}{\frac{\beta^{2}}{(\alpha-1)^{2}(\alpha-2)}\;(\alpha>2)}
+\distnote{The mode is $\beta/(\alpha+1)$, which is not the variance.}
+\end{distcard}
+
+\begin{distcard}{Normal}{Continuous \textperiodcentered\ Unbounded}
+\distrow{Distribution}{$X\sim\Normal(\mu,\sigma^{2})$}
+\distrow{Parameters}{$\mu\in\R$, $\sigma>0$}
+\distrow{Support}{$x\in\R$}
+\distformula{Probability density}{
+  p(x)=\frac{1}{\sqrt{2\pi}\,\sigma}\exp\Bigl(-\frac{(x-\mu)^{2}}{2\sigma^{2}}\Bigr)
+}
+\distmoments{X}{\mu}{X}{\sigma^{2}}
+\end{distcard}
+\endgroup
+```

@@ -1,0 +1,370 @@
+# Bayesian hypotheses and model comparison
+
+## Probability statements and decisions
+
+::: {#def-posterior-hypothesis-probability .definition}
+## Posterior hypothesis probability
+
+Suppose a parameter space $\Omega$ is partitioned into regions $\Omega_0$ and $\Omega_1$. The posterior hypothesis probabilities are \begin{align*}
+ \Pr(H_0\given x)
+ &=\Pr(\theta\in\Omega_0\given x)
+ =\int_{\Omega_0}p(\theta\given x)\dd\theta,\\
+ \Pr(H_1\given x)
+ &=\Pr(\theta\in\Omega_1\given x)
+ =\int_{\Omega_1}p(\theta\given x)\dd\theta.
+\end{align*} If the two regions exhaust the support, the probabilities sum to one.
+
+:::
+
+::: {#prp-bayes-action-for-two-hypotheses .proposition}
+## Bayes action for two hypotheses
+
+These probabilities do not by themselves define an action. If choosing action $a_0$ when $H_1$ is true costs $L_{01}$ and choosing $a_1$ when $H_0$ is true costs $L_{10}$, the posterior expected losses are 
+
+$$
+ \rho(a_0\given x)=L_{01}\Pr(H_1\given x),
+ \qquad
+ \rho(a_1\given x)=L_{10}\Pr(H_0\given x).
+$$
+
+
+ Choose $a_0$ when \begin{align*}
+ L_{01}\Pr(H_1\given x)
+ &<L_{10}\Pr(H_0\given x)\\
+ \Longleftrightarrow\quad
+ \frac{\Pr(H_0\given x)}{\Pr(H_1\given x)}
+ &>\frac{L_{01}}{L_{10}}.
+\end{align*} Equal losses reduce the threshold to one. This separates the probability calculation from the decision rule.
+
+:::
+
+The Bayesian calculation need not force an all-or-nothing verdict. A useful practice is to report the posterior support for each hypothesis and to let the action depend on the real consequences of being wrong. If a decision is compulsory, losses provide the threshold. Reporting evidence and choosing an action are related tasks, but they are not the same task. This is also why Bayesians are often less enthusiastic about compulsory model selection than about reporting posterior model probabilities.[^b06-testing-1]
+
+In frequentist design, type-I and type-II error rates $\alpha$ and $\beta$ are properties of repeated use of a test. Values such as $0.05$ and $0.20$ are planning choices, not scientific constants, and sample-size calculations also require an effect size worth detecting.
+
+## Poisson imperfect-fruit example
+
+::: {#exm-imperfect-fruit-decision .example}
+## Imperfect-fruit decision
+
+Let $X_i$ be the number of imperfect pieces in box $i$, with about 100 pieces per box. "Imperfect" must be defined before the data are collected so that producer and analyst classify fruit in the same way. The model is 
+
+$$
+ X_i\given\theta\stackrel{\mathrm{iid}}{\sim}\Poisson(\theta),
+ \qquad
+ H_0:\theta\leq10,
+ \quad H_1:\theta>10.
+$$
+
+
+ For the observed sample, $n=20$ and $S=\sum_i x_i=177$; the stated prior is $\theta\sim\GammaDist(12,1)$ in shape--rate form.
+
+**Question.** Find the posterior distribution, the posterior probabilities and odds for $H_0$ and $H_1$, and an equal-tailed $95\%$ credible interval. Explain why the interval may cross $10$ even when most posterior mass lies below it.
+
+**Solution.** Because the posterior for $\theta$ is continuous, 
+
+$$
+ \Pr(\theta=10\given\xvec)=0.
+$$
+
+
+ Consequently it makes no numerical difference whether equality is assigned to $H_0$ or $H_1$. This is a statement about the continuous parameter, even though the observed fruit counts are discrete.
+
+For $n$ boxes and $S=\sum_i x_i$, the likelihood is \begin{align*}
+ p(\xvec\given\theta)
+ &=\prod_{i=1}^n\frac{e^{-\theta}\theta^{x_i}}{x_i!}\\
+ &=\left(\prod_{i=1}^n\frac1{x_i!}\right)
+   e^{-n\theta}\theta^{\sum_i x_i}\\
+ &\propto e^{-n\theta}\theta^S.
+ \label{eq:poisson-like-book}
+\end{align*} The working total is $S=177$ for $n=20$.
+
+The stated prior is $\theta\sim\GammaDist(12,1)$ in the standard shape--rate convention, so 
+
+$$
+ p(\theta)=\frac1{\Gamma(12)}\theta^{12-1}e^{-\theta}
+ \propto\theta^{11}e^{-\theta}.
+$$
+
+
+ Multiplying by the likelihood gives \begin{align*}
+ p(\theta\given\xvec)
+ &\propto
+ \theta^S e^{-n\theta}\theta^{11}e^{-\theta}\\
+ &=\theta^{S+11}e^{-(n+1)\theta}\\
+ &=\theta^{189-1}e^{-21\theta}.
+\end{align*} Therefore the internally consistent shape--rate update is \begin{equation}
+ \boxed{\theta\given\xvec\sim\GammaDist(189,21)}.
+ \label{eq:fruit-posterior-standard}
+\end{equation} Its posterior mean is 
+
+$$
+ \E(\theta\given\xvec)=\frac{189}{21}=9.
+$$
+
+
+ The MLE is $S/n=177/20=8.85$. Although the prior mean 12 lies above the boundary 10, the data move the posterior centre below it.
+
+Let $\gamma(a,z)=\int_0^zt^{a-1}e^{-t}\dd t$ be the lower incomplete Gamma function. If $T\sim\GammaDist(a,b)$, then 
+
+$$
+ \Pr(T\leq t)=\frac{\gamma(a,bt)}{\Gamma(a)}.
+$$
+
+
+ Consequently, \begin{align*}
+ \Pr(H_0\given\xvec)
+ &=\Pr(\theta\leq10\given\xvec)\\
+ &=\frac{\gamma(189,21\cdot10)}{\Gamma(189)}\\
+ &=0.93298381,\\
+ \Pr(H_1\given\xvec)&=1-0.93298381=0.06701619.
+\end{align*} The posterior odds are 
+
+$$
+ \frac{\Pr(H_0\given\xvec)}{\Pr(H_1\given\xvec)}
+ =\frac{0.93298381}{0.06701619}
+ \approx13.92.
+$$
+
+
+ The equal-tailed $95\%$ credible interval is approximately $(7.76,10.33)$. It crosses 10, while $93.3\%$ of posterior mass lies at or below 10. These are different summaries: interval inclusion does not produce a general accept/reject rule for an interval hypothesis.
+
+![The fruit posterior $\GammaDist(189,21)$, with the region $\theta\leq10$ shaded. The two summaries disagree in appearance only. The equal-tailed interval must leave $2.5\%$ in each tail, so its upper endpoint is pushed past $10$; the shaded area answers a different question and puts $93.3\%$ of the mass at or below the boundary. Reading the crossing as a rejection substitutes one summary for the other.](../figures/part1-fig-06-fruit-posterior.pdf){#fig-fruit-posterior}
+
+::: {.callout-warning}
+## Parameterisation check
+A convention check uses the other Gamma convention. Writing a prior kernel $p(\theta)\propto\theta^\alpha e^{-\beta\theta}$ with $\alpha=12$ describes $\GammaDist(13,1)$, not the stated $\GammaDist(12,1)$. That alternative gives $\theta\given x\sim\GammaDist(190,21)$, posterior mean $190/21\approx9.05$, $\Pr(\theta\leq10\given x)=0.92320087$, odds $12.02$, and interval $(7.81,10.38)$. The main calculation above follows the stated shape--rate prior; the alternative is retained here so that neither that result nor the convention error is hidden.
+
+:::
+
+:::
+
+## Posterior odds and Bayes factors
+
+::: {#thm-posterior-odds-factorisation .theorem}
+## Posterior-odds factorisation
+
+For two models $M_1$ and $M_2$, Bayes' rule gives 
+
+$$
+ \Pr(M_j\given x)
+ =\frac{p(x\given M_j)\Pr(M_j)}{p(x)}.
+$$
+
+
+ Taking the ratio cancels the common evidence $p(x)$: \begin{align*}
+ \frac{\Pr(M_1\given x)}{\Pr(M_2\given x)}
+ &=\frac{p(x\given M_1)\Pr(M_1)/p(x)}
+         {p(x\given M_2)\Pr(M_2)/p(x)}\\
+ &=\underbrace{\frac{p(x\given M_1)}{p(x\given M_2)}}_{
+      \BF_{12}}
+   \underbrace{\frac{\Pr(M_1)}{\Pr(M_2)}}_{
+      \text{prior odds}}.
+ \label{eq:posterior-odds-book}
+\end{align*}
+
+:::
+
+::: {#def-marginal-likelihood-and-bayes-factor .definition}
+## Marginal likelihood and Bayes factor
+
+The marginal likelihood in model $M_j$ is \begin{equation}
+ p(x\given M_j)
+ =\int p(x\given\theta_j,M_j)
+       p(\theta_j\given M_j)\dd\theta_j.
+ \label{eq:marginal-model-book}
+\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum. The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.
+
+:::
+
+A Bayes factor compares whole models, not merely their best-fitting parameter values. The marginal likelihood averages over each model's prior parameter space, so diffuse priors can spread support across many poor explanations and change the comparison. Equal prior model probabilities are a transparent modelling choice, not a mathematical requirement. Model probabilities, parameter priors, and the set of models under consideration must all be stated before a numerical ratio can be interpreted responsibly.
+
+::: {#rem-a-hypothesis-region-is-not-a-separate-model .remark}
+## A hypothesis region is not a separate model
+
+Two constructions must not be confused:
+
+1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.
+
+2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood. A continuous prior on the larger space assigns probability zero to a lower-dimensional surface.
+
+The fruit example is the first construction. Independence in the advertising table is the second.
+
+:::
+
+## Bayes factor for independence in the $2\times3$ table
+
+Let $M_1$ be the unrestricted six-cell multinomial and $M_2$ impose independence of gender and response. We assign equal model probabilities, so the prior odds are one. This is a stated modelling choice, not an automatic default.
+
+### Unrestricted model $M_1$
+
+Under 
+
+$$
+ \pvec\given M_1\sim\Dir(1,1,1,1,1,1),
+$$
+
+
+ the prior density is 
+
+$$
+ \frac{\Gamma(6)}{\Gamma(1)^6}=120.
+$$
+
+
+ The fact that a uniform density equals 120 rather than 1 reflects the volume of the five-dimensional simplex.
+
+Let $C=501!/\prod_{k=1}^6x_k!$ be the multinomial coefficient. Then \begin{align*}
+ p(\xvec\given M_1)
+ &=\int C\prod_{k=1}^6p_k^{x_k}\,120\dd\pvec\\
+ &=120C\,B(x_1+1,\ldots,x_6+1)\\
+ &=120\frac{501!}{\prod_kx_k!}
+   \frac{\prod_k\Gamma(x_k+1)}{\Gamma(501+6)}\\
+ &=120\frac{501!}{\prod_kx_k!}
+   \frac{\prod_kx_k!}{\Gamma(507)}\\
+ &=\frac{501!\Gamma(6)}{\Gamma(507)}\\
+ &=\binom{506}{5}^{-1}\\
+ &=3.690091\times10^{-12}.
+ \label{eq:m1-evidence-book}
+\end{align*} The cell factorials cancel, so this prior predictive probability is the same for every six-cell count vector with total 501.
+
+### Independence model $M_2$
+
+Write 
+
+$$
+ p_{ij}=r_i c_j,
+ \qquad r_1+r_2=1,
+ \qquad c_1+c_2+c_3=1.
+$$
+
+
+ Use independent uniform priors 
+
+$$
+ (r_1,r_2)\sim\Dir(1,1),
+ \qquad
+ (c_1,c_2,c_3)\sim\Dir(1,1,1).
+$$
+
+
+ Their joint density is 
+
+$$
+ \frac{\Gamma(2)}{\Gamma(1)^2}
+ \frac{\Gamma(3)}{\Gamma(1)^3}=1\cdot2=2.
+$$
+
+
+ Substituting $p_{ij}=r_ic_j$ into the cell likelihood and grouping row and column exponents gives \begin{align*}
+ \prod_{i=1}^2\prod_{j=1}^3p_{ij}^{x_{ij}}
+ &=\prod_{i,j}(r_ic_j)^{x_{ij}}\\
+ &=\prod_i r_i^{\sum_jx_{ij}}
+   \prod_j c_j^{\sum_ix_{ij}}\\
+ &=r_1^{257}r_2^{244}
+   c_1^{146}c_2^{95}c_3^{260}.
+\end{align*} The marginal likelihood separates into two Dirichlet integrals: \begin{align*}
+ p(\xvec\given M_2)
+ &=2C
+   \int r_1^{257}r_2^{244}\dd\vect r
+   \int c_1^{146}c_2^{95}c_3^{260}\dd\vect c\\
+ &=2C\,B(258,245)B(147,96,261)\\
+ &=9.212201\times10^{-15}.
+ \label{eq:m2-evidence-book}
+\end{align*}
+
+The Bayes factor is therefore \begin{align*}
+ \BF_{12}
+ &=\frac{3.690091\times10^{-12}}
+         {9.212201\times10^{-15}}\\
+ &=400.57.
+\end{align*} With equal prior odds, the posterior odds are $400.57:1$, giving 
+
+$$
+ \Pr(M_1\given\xvec)
+ =\frac{400.57}{1+400.57}\approx0.9975,
+ \qquad
+ \Pr(M_2\given\xvec)\approx0.0025.
+$$
+
+
+ Under the specified models and priors, the table is strong evidence that response depends on gender.
+
+A frequentist likelihood-ratio or Pearson $\chi^2$ analysis of the same table would probably reach the same qualitative conclusion by different workings. A frequentist comparison is not carried out here, so this is calibration, not a claim that the two inferential statements or their assumptions are identical.
+
+The departure is visible in the raw rates: 
+
+$$
+ \frac{147}{257}\approx0.572,
+ \qquad
+ \frac{113}{244}\approx0.463.
+$$
+
+
+ Under independence, the expected male-negative count based on observed margins is 
+
+$$
+ \frac{257\cdot146}{501}\approx74.9,
+$$
+
+
+ compared with 53 observed.
+
+Bayes factors automatically average over unused parameter space, creating a complexity penalty. They are also sensitive to parameter priors because \eqref{eq:marginal-model-book} averages over the whole prior. A responsible model comparison therefore checks defensible alternatives such as uniform, Jeffreys, and weakly informative Dirichlet concentrations.
+
+## Exercises
+
+::: {#exr-who-owns-the-boundary .exercise}
+## Who owns the boundary?
+
+For a continuous posterior density, prove that assigning the boundary point $10$ to $H_0$ rather than $H_1$ leaves both posterior hypothesis probabilities unchanged. Give a contrasting example with a discrete parameter for which the choice would matter.
+
+:::
+
+::: {#exr-fruit-posterior .exercise}
+## Fruit posterior
+
+Using $n=20$, $S=177$, and the stated shape--rate prior $\GammaDist(12,1)$, derive every exponent and rate in the posterior kernel. Compute the posterior mean and check that it lies between the prior mean and the maximum-likelihood estimate.
+
+:::
+
+::: {#exr-probability-is-not-action .exercise}
+## Probability is not action
+
+Suppose $\Pr(H_0\given x)=0.92$. Derive the loss ratio at which the preferred action switches. Explain why reporting $0.92$ and choosing an action are different tasks.
+
+:::
+
+::: {#exr-make-the-simplex-integral-equal-one .exercise}
+## Make the simplex integral equal one
+
+For the unrestricted $2\times3$ table model, write the marginal likelihood as an integral over the five-dimensional simplex. Multiply and divide by the normalising constant of the resulting Dirichlet kernel, and hence recover the closed form without evaluating a multidimensional integral directly.
+
+:::
+
+::: {#exr-two-routes-to-the-same-table .exercise}
+## Two routes to the same table
+
+Compute a Pearson $\chi^2$ statistic for the advertising-response table and compare its qualitative conclusion with the Bayes factor. List at least two ways in which the numerical evidence and its interpretation are not the same.
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-iq .exercise}
+## An IQ threshold
+
+Model population IQ by $\mu\sim\Normal(100,15^2)$. Conditional on a person's true IQ $\mu$, a standardised test score satisfies $X\given\mu\sim\Normal(\mu,10^2)$. A candidate obtains $x=135$, and the classification threshold for "gifted" is $130$.
+
+1.  Find an equal-tailed $95\%$ posterior credible interval for $\mu$.
+
+2.  For $H_0:\mu<130$ and $H_1:\mu\geq130$, calculate the posterior odds $\Pr(H_0\given x)/\Pr(H_1\given x)$ and state which hypothesis they favour.
+
+3.  Calculate $\BF_{01}$ and reconcile its direction with that of the posterior odds by examining the prior odds.
+
+[Solution](#sol-applied-iq)
+
+:::
+
+[^b06-testing-1]: If an action really must be taken, the consequences belong in the loss function. A threshold smuggled in after the probability calculation is still a decision rule; it is merely a less candid one.
+

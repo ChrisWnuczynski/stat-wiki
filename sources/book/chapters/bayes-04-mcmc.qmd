@@ -1,0 +1,647 @@
+# Markov chains, Gibbs sampling, and Metropolis--Hastings
+
+## Markov chains and equilibrium
+
+::: {#def-markov-chain .definition}
+## Markov chain
+
+A stochastic process $X_0,X_1,\ldots$ is a Markov chain if \begin{equation}
+ \Pr(X_{t+1}\in A\given X_t,X_{t-1},\ldots,X_0)
+ =\Pr(X_{t+1}\in A\given X_t)
+ \label{eq:markov-property}
+\end{equation} for every measurable set $A$. In a discrete state space, write $q(y\given x)$ for the transition probability from $x$ to $y$; in a continuous state space it is a transition density.
+
+:::
+
+::: {#def-stationarity-and-detailed-balance .definition}
+## Stationarity and detailed balance
+
+A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition. The global balance equation is \begin{equation}
+ \pi(y)=\sum_x\pi(x)q(y\given x)
+ \quad\text{or}\quad
+ \pi(y)=\int\pi(x)q(y\given x)\dd x.
+ \label{eq:global-balance}
+\end{equation} A stronger sufficient condition is detailed balance: \begin{equation}
+ \pi(x)q(y\given x)=\pi(y)q(x\given y)
+ \quad\text{for all }x,y.
+ \label{eq:detailed-balance}
+\end{equation}
+
+:::
+
+::: {#thm-detailed-balance-implies-stationarity .theorem}
+## Detailed balance implies stationarity
+
+If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.
+
+:::
+
+::: {.proof}
+*Proof.* Integrate both sides of \eqref{eq:detailed-balance} in $x$: \begin{align*}
+ \int\pi(x)q(y\given x)\dd x
+ &=\int\pi(y)q(x\given y)\dd x\\
+ &=\pi(y)\int q(x\given y)\dd x\\
+ &=\pi(y).
+\end{align*} The last equality holds because a transition density integrates to one.
+
+:::
+
+Stationarity alone is not enough for simulation. One also needs conditions such as irreducibility and aperiodicity so that the chain can reach the whole target support and converge to its stationary distribution. These are grouped informally under *ergodicity* in this chapter.
+
+MCMC is not intrinsically Bayesian. It is a general method for sampling difficult distributions, and it has deep roots in statistical physics as well as major uses in machine learning. Bayesian posterior calculation is one particularly natural application. The practical migration came at about 1990: methods long used in statistical physics, particularly condensed-matter problems involving large interacting systems, were taken up for posterior calculations that had previously been restricted largely to analytically convenient models. The recipe is to construct a chain whose equilibrium distribution is the posterior, then use its dependent output as a Monte Carlo sample.[^b04-mcmc-1]
+
+## A four-state random walk
+
+::: {#exm-four-state-random-walk .example}
+## Four-state random walk
+
+**Question.** Consider states $1,2,3,4$ arranged in a line. At every state the chain stays put with probability $1/2$. From an endpoint it moves to the only neighbour with probability $1/2$; from an interior state it moves left or right with probability $1/4$ each. With columns indexing the current state and rows the next state, construct the transition matrix and find the stationary distribution.
+
+**Solution.** The transition matrix is 
+
+$$
+ \mat Q=
+ \begin{pmatrix}
+ 1/2&1/4&0&0\\
+ 1/2&1/2&1/4&0\\
+ 0&1/4&1/2&1/2\\
+ 0&0&1/4&1/2
+ \end{pmatrix}.
+$$
+
+
+ Detailed balance between states 1 and 2 requires 
+
+$$
+ \pi_1\frac12=\pi_2\frac14
+ \quad\Longrightarrow\quad
+ \pi_2=2\pi_1.
+$$
+
+
+ Similarly, 
+
+$$
+ \pi_2\frac14=\pi_3\frac14
+ \Longrightarrow\pi_3=\pi_2,
+ \qquad
+ \pi_3\frac14=\pi_4\frac12
+ \Longrightarrow\pi_3=2\pi_4.
+$$
+
+
+ Hence 
+
+$$
+ \vect{\pi}=(\pi_1,\pi_2,\pi_3,\pi_4)^{\mathsf T}
+ \propto(1,2,2,1)^{\mathsf T}.
+$$
+
+
+ Normalising by $1+2+2+1=6$ gives 
+
+$$
+ \boxed{\vect{\pi}=(1/6,2/6,2/6,1/6)^{\mathsf T}}.
+$$
+
+
+:::
+
+## Gibbs sampling
+
+::: {#def-systematic-scan-gibbs-sampler .definition}
+## Systematic-scan Gibbs sampler
+
+Suppose the target is a joint density $\pi(x_1,\ldots,x_p)$ that is difficult to sample from directly, while every full conditional is available. One Gibbs sweep updates coordinates in order: \begin{align*}
+ X_1^{(t+1)}&\sim
+ \pi(x_1\given X_2^{(t)},\ldots,X_p^{(t)}),\\
+ X_2^{(t+1)}&\sim
+ \pi(x_2\given X_1^{(t+1)},X_3^{(t)},\ldots,X_p^{(t)}),\\
+ &\ \vdots\\
+ X_p^{(t+1)}&\sim
+ \pi(x_p\given X_1^{(t+1)},\ldots,X_{p-1}^{(t+1)}).
+\end{align*} Each update uses the newest available coordinate values. Under standard ergodicity conditions, $X^{(t)}$ converges in distribution to $\pi$. For a full conditional, the other coordinates are held fixed. Therefore 
+
+$$
+ \pi(x_i\given x_{-i})
+ =\frac{\pi(x_i,x_{-i})}{\pi(x_{-i})}
+ \propto\pi(x_i,x_{-i})
+ \quad\text{as a function of }x_i.
+$$
+
+
+ Terms involving only $x_{-i}$ may be dropped, but any term that still contains $x_i$ must remain. Gibbs accepts every coordinate draw because it samples from the exact conditional rather than proposing and rejecting a candidate.
+
+:::
+
+### Bivariate exponential example
+
+::: {#exm-bivariate-exponential-target .example}
+## Bivariate exponential target
+
+The target is 
+
+$$
+ \pi(x_1,x_2)\propto
+ e^{-x_1x_2-x_1-x_2},
+ \qquad x_1,x_2\geq0.
+$$
+
+
+ **Question.** Derive both full conditional distributions and use them to specify a systematic-scan Gibbs sampler.
+
+**Solution.** To obtain $X_1\given X_2=x_2$, hold $x_2$ fixed: \begin{align*}
+ \pi(x_1\given x_2)
+ &\propto\pi(x_1,x_2)\\
+ &\propto e^{-x_1x_2-x_1-x_2}\\
+ &\propto e^{-x_1(x_2+1)},
+ \qquad x_1\geq0.
+\end{align*} The omitted factor $e^{-x_2}$ is constant in $x_1$. Normalising gives 
+
+$$
+ \pi(x_1\given x_2)=(x_2+1)e^{-(x_2+1)x_1},
+$$
+
+
+ so 
+
+$$
+ X_1\given X_2=x_2\sim\Exp(x_2+1).
+$$
+
+
+ By symmetry, 
+
+$$
+ X_2\given X_1=x_1\sim\Exp(x_1+1).
+$$
+
+
+ Starting from any nonnegative pair $(x_1^{(0)},x_2^{(0)})$, the sampler is \begin{align*}
+ x_1^{(t+1)}&\sim\Exp(x_2^{(t)}+1),\\
+ x_2^{(t+1)}&\sim\Exp(x_1^{(t+1)}+1).
+\end{align*}
+
+:::
+
+### Running the Gibbs sampler
+
+The full conditionals above are the part to derive. Once they are correct, the sampler itself is a short computation. The newest value of $x_1$ must be used in the update of $x_2$; using the old value in both lines would define a different transition rule.
+
+```r
+gibbs_exp <- function(iterations) {
+  out <- matrix(0, iterations, 2)  # start at (0, 0)
+  for (t in 2:iterations) {
+    out[t, 1] <- rexp(1, rate = out[t - 1, 2] + 1)
+    out[t, 2] <- rexp(1, rate = out[t, 1] + 1)
+  }
+  out
+}
+set.seed(3500)
+draw <- gibbs_exp(20000)
+keep <- draw[-seq_len(1000), ]
+matplot(keep, type = "l", lty = 1)
+acf(keep[, 1])
+```
+
+The trace plot and autocorrelation function are not substitutes for the stationarity argument. They address the separate practical question of whether this finite run appears to have explored the target well enough for the posterior summary at hand.
+
+### Normal mean and variance example
+
+::: {#exm-normal-mean-and-variance .example}
+## Normal mean and variance
+
+**Question.** For the joint normal-model posterior in \eqref{eq:joint-normal-post}, describe a systematic Gibbs sampler and state how retained draws estimate the posterior mean of $\mu$.
+
+**Solution.** For the joint posterior in \eqref{eq:joint-normal-post}, alternate \begin{align*}
+ \mu^{(t+1)}&\sim
+ p(\mu\given\sigma^{2(t)},\xvec)
+ \quad\text{using \eqref{eq:full-cond-mu}},\\
+ \sigma^{2(t+1)}&\sim
+ p(\sigma^2\given\mu^{(t+1)},\xvec)
+ \quad\text{using \eqref{eq:full-cond-sigma}}.
+\end{align*} After discarding a warm-up segment, Monte Carlo estimates use the retained draws. For example, 
+
+$$
+ \widehat{\E}(\mu\given\xvec)
+ =\frac1L\sum_{t=B+1}^{B+L}\mu^{(t)},
+$$
+
+
+ where $B$ is the number of discarded iterations. Because the draws are dependent, $L$ correlated draws contain less information than $L$ independent draws. Autocorrelation, trace plots, multiple chains, and effective sample size are therefore part of a serious analysis.
+
+:::
+
+### Initialisation, warm-up, and dependence
+
+::: {#rem-warm-up-is-not-a-convergence-proof .remark}
+## Warm-up is not a convergence proof
+
+The chain should be initialised in a plausible region when one is available. A start many standard deviations from the typical set can require a long time to return, while a start at the mean of a separated mixture can lie in a low-density gap. Multiple dispersed chains help reveal failure to explore all modes; they do not repair it automatically.
+
+Discarding early draws is called warm-up or burn-in. It limits dependence on the chosen initial state, but it is not a proof of convergence. Strong posterior correlation produces staircase-like Gibbs paths and high autocorrelation. Separated modes are harder still because a coordinate-wise move may have to cross a low-density barrier.
+
+Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information. Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size. Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
+
+:::
+
+![One Gibbs path through a bivariate normal target with correlation $0.95$. Updating $X_1\given X_2$ moves horizontally and updating $X_2\given X_1$ moves vertically. The narrow diagonal target therefore turns exact conditional simulation into a staircase: every update is valid, but successive states remain strongly dependent.](../figures/part1-fig-04-gibbs-staircase.pdf){#fig-04-gibbs-staircase}
+
+Burn-in is a practical attempt to reduce the memory of a poor starting point; it is not a theorem that the retained chain has converged. A very long run can make an initial mistake negligible, but separated modes may still defeat a sampler that never travels between them. The central question is not merely how many iterations were produced, but whether the chain explored every region whose posterior mass matters often enough to estimate their relative weights.
+
+The deliberately absurd comparison is between $100{,}000$ draws and $100$ billion draws. A fixed number of poor initial draws becomes negligible as a proportion of an enormous run. That arithmetic does not help if an important remote mode is never visited: the question is whether such a region would appear in a run of that length, not merely whether the denominator is large.
+
+Raising a target density to a power, $\pi(x)^c$, sharpens it for $c>1$ and flattens it for $0<c<1$. Simulated annealing gradually changes such a power or temperature so that sampling increasingly resembles optimisation. [^b04-mcmc-2]
+
+## Metropolis--Hastings
+
+### Why another sampler is needed
+
+Gibbs sampling is wonderfully direct when every full conditional is a distribution from which we can simulate. Often it is not. The logit-normal coin model in [the logit-normal Metropolis--Hastings exercise](#ex-applied-logitnormal-mh), for example, has posterior kernel 
+
+$$
+ f(\theta)
+ =\theta^{x-1}(1-\theta)^{n-x-1}
+   \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right],
+ \qquad 0<\theta<1.
+$$
+
+
+ This is not a Beta kernel, nor another standard density from which we can draw directly. We can nevertheless evaluate $f(\theta)$ at any admissible value. Writing 
+
+$$
+ \pi(\theta)=\frac{f(\theta)}{C},
+ \qquad
+ C=\int_0^1 f(t)\dd t,
+$$
+
+
+ makes the computational problem precise: we want draws from $\pi$ using pointwise evaluations of $f$, without first calculating the intractable normalising constant $C$.
+
+The Metropolis--Hastings strategy is to construct a Markov chain whose stationary distribution is $\pi$. After warm-up, its dependent states can be used to estimate posterior quantities. The design problem is therefore not to sample from $\pi$ in one step, but to devise a transition rule that preserves $\pi$.
+
+### Deriving the acceptance probability
+
+Begin with any proposal density $q(y\given x)$ that is easy to simulate. It will not generally satisfy detailed balance for $\pi$: 
+
+$$
+ \pi(x)q(y\given x)\neq \pi(y)q(x\given y).
+$$
+
+
+ We correct the imbalance by accepting a proposed move $x\to y$ with probability $a(x,y)$. For $y\neq x$, the resulting transition density is 
+
+$$
+ q_{\mathrm{MH}}(y\given x)=q(y\given x)a(x,y).
+$$
+
+
+ Detailed balance will hold if 
+
+$$
+ \pi(x)q(y\given x)a(x,y)
+ =\pi(y)q(x\given y)a(y,x).
+$$
+
+
+ Consequently the paired acceptance probabilities must obey \begin{equation}
+ \frac{a(x,y)}{a(y,x)}
+ =\frac{\pi(y)q(x\given y)}{\pi(x)q(y\given x)}
+ =:r(x,y).
+ \label{eq:mh-ratio-condition}
+\end{equation} Only their ratio is prescribed. Since rejection wastes a possible move, take the largest probabilities compatible with \eqref{eq:mh-ratio-condition} and with $0\leq a\leq1$. If $r(x,y)\leq1$, set $a(x,y)=r(x,y)$ and $a(y,x)=1$; if $r(x,y)>1$, set $a(x,y)=1$ and $a(y,x)=1/r(x,y)$. Both cases are \begin{equation}
+ a(x,y)=\min\!\left\{
+  1,
+  \frac{\pi(y)q(x\given y)}{\pi(x)q(y\given x)}
+ \right\}.
+ \label{eq:mh-accept}
+\end{equation}
+
+::: {#def-metropolis-hastings-update .definition}
+## Metropolis--Hastings update
+
+Let $\pi(x)$ be a target density known only up to proportionality. Given $X_t=x$:
+
+1.  propose $Y=y$ from a proposal density $q(y\given x)$;
+
+2.  calculate $r(x,y)$ from \eqref{eq:mh-ratio-condition} and put $a(x,y)=\min\{1,r(x,y)\}$;
+
+3.  draw $U\sim\operatorname{Unif}(0,1)$ and set 
+
+$$
+  X_{t+1}=
+  \begin{cases}
+   y,&U\leq a(x,y),\\
+   x,&U>a(x,y).
+  \end{cases}
+$$
+
+
+If $\pi(x)=f(x)/C$ for unknown $C$, then 
+
+$$
+ \frac{\pi(y)}{\pi(x)}
+ =\frac{f(y)/C}{f(x)/C}
+ =\frac{f(y)}{f(x)},
+$$
+
+
+ so the normalising constant cancels.
+
+:::
+
+For a posterior, the evidence $p(\text{data})$ is precisely such a constant, so the ratio needs only likelihood times prior. In computation we normally evaluate the log ratio and accept when 
+
+$$
+ \log U\leq \min\{0,\log r(x,y)\}.
+$$
+
+
+ This avoids numerical underflow when an unnormalised target is a product of many small terms.
+
+This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations, making its partition function impractical to sum, but ratios of unnormalised target weights are immediate. The original Metropolis algorithm used symmetric proposals; Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.[^b04-mcmc-3]
+
+The wartime history surrounding Los Alamos also includes Leó Szilárd.[^b04-mcmc-4]
+
+For $y\neq x$, the Metropolis--Hastings transition density is 
+
+$$
+ q_{\mathrm{MH}}(y\given x)=q(y\given x)a(x,y).
+$$
+
+
+ For $y=x$, the transition probability includes the total rejection probability: 
+
+$$
+ q_{\mathrm{MH}}(x\given x)
+ =1-\int_{z\neq x}q(z\given x)a(x,z)\dd z.
+$$
+
+
+ Thus a rejected proposal is not thrown away in search of another proposal: the current value is recorded again. If instead we redraw until a proposal is accepted, the transition density becomes 
+
+$$
+ \widetilde q(y\given x)
+ =\frac{q(y\given x)a(x,y)}{A(x)},
+ \qquad
+ A(x)=\int q(z\given x)a(x,z)\dd z.
+$$
+
+
+ The extra normaliser depends on the current state. This altered chain is in detailed balance with a density proportional to $\pi(x)A(x)$, not generally with $\pi(x)$, and therefore targets the wrong distribution.
+
+### Detailed-balance proof without skipped cases
+
+::: {#thm-metropolis-hastings-invariance .theorem}
+## Metropolis--Hastings invariance
+
+The Metropolis--Hastings transition defined by \eqref{eq:mh-accept} satisfies detailed balance with respect to $\pi$. Consequently, $\pi$ is stationary.
+
+:::
+
+::: {.proof}
+*Proof.* Let 
+
+$$
+ r(x,y)=\frac{\pi(y)q(x\given y)}
+              {\pi(x)q(y\given x)}.
+$$
+
+
+ For $y\neq x$, \begin{align*}
+ \pi(x)q_{\mathrm{MH}}(y\given x)
+ &=\pi(x)q(y\given x)\min\{r(x,y),1\}.
+\end{align*} There are two cases.
+
+If $r(x,y)\leq1$, then \begin{align*}
+ \pi(x)q_{\mathrm{MH}}(y\given x)
+ &=\pi(x)q(y\given x)r(x,y)\\
+ &=\pi(x)q(y\given x)
+   \frac{\pi(y)q(x\given y)}{\pi(x)q(y\given x)}\\
+ &=\pi(y)q(x\given y).
+\end{align*} Since $r(y,x)=1/r(x,y)\geq1$, the reverse move is accepted with probability one, so 
+
+$$
+ \pi(y)q_{\mathrm{MH}}(x\given y)
+ =\pi(y)q(x\given y).
+$$
+
+
+If $r(x,y)>1$, then the forward move is accepted with probability one: 
+
+$$
+ \pi(x)q_{\mathrm{MH}}(y\given x)=\pi(x)q(y\given x).
+$$
+
+
+ Now $r(y,x)<1$, so \begin{align*}
+ \pi(y)q_{\mathrm{MH}}(x\given y)
+ &=\pi(y)q(x\given y)r(y,x)\\
+ &=\pi(y)q(x\given y)
+   \frac{\pi(x)q(y\given x)}{\pi(y)q(x\given y)}\\
+ &=\pi(x)q(y\given x).
+\end{align*} Thus detailed balance holds in both cases. For $x=y$, both sides of the detailed-balance equation are identical. Therefore $\pi$ is stationary. 
+
+:::
+
+The theorem establishes invariance, not convergence from an arbitrary starting value and not efficiency. The ergodicity conditions stated earlier are still needed for convergence, while proposal design determines how much useful information the dependent output contains.
+
+## Random-walk and independent proposals
+
+For a random-walk proposal $Y=x+Z$ with a distribution symmetric about zero, 
+
+$$
+ q(y\given x)=q(x\given y),
+$$
+
+
+ so \eqref{eq:mh-accept} reduces to 
+
+$$
+ a(x,y)=\min\!\left\{1,\frac{\pi(y)}{\pi(x)}\right\}.
+$$
+
+
+ Every proposed move to higher target density is accepted; a move to a point with two-thirds as much density is accepted with probability $2/3$.
+
+For an independent proposal $q(y\given x)=g(y)$, 
+
+$$
+ a(x,y)=\min\!\left\{
+ 1,\frac{\pi(y)g(x)}{\pi(x)g(y)}
+ \right\}.
+$$
+
+
+ Equivalently, with $w(z)=\pi(z)/g(z)$, 
+
+$$
+ a(x,y)=\min\!\left\{1,\frac{w(y)}{w(x)}\right\}.
+$$
+
+
+ The Hastings factor $g(x)/g(y)$ corrects for the fact that $g$ may propose some regions too often and others too rarely. It must not be discarded merely because the proposal is independent of the current state. An independent proposal can jump between separated modes, but it performs poorly if $g$ under-covers a region where $\pi$ is large. A local random walk can represent local shape well but may become trapped in one mode. Proposal scale is therefore a genuine tuning decision, not a cosmetic one.
+
+### Gibbs sampling as an always-accepted MH update
+
+The connection with Gibbs sampling can be made exact. Suppose the current state is $\xvec=(x_1,x_2)^{\mathsf T}$ and we update only the first coordinate by proposing 
+
+$$
+ \yvec=(y_1,x_2)^{\mathsf T},
+ \qquad
+ y_1\sim\pi(\,\cdot\given x_2).
+$$
+
+
+ Then 
+
+$$
+ q(\yvec\given\xvec)=\pi(y_1\given x_2),
+ \qquad
+ q(\xvec\given\yvec)=\pi(x_1\given x_2).
+$$
+
+
+ Using joint equals conditional times marginal, the Hastings ratio is \begin{align*}
+ r(\xvec,\yvec)
+ &=\frac{\pi(y_1,x_2)\pi(x_1\given x_2)}
+         {\pi(x_1,x_2)\pi(y_1\given x_2)}\\
+ &=\frac{\pi(y_1\given x_2)\pi(x_2)
+          \pi(x_1\given x_2)}
+         {\pi(x_1\given x_2)\pi(x_2)
+          \pi(y_1\given x_2)}\\
+ &=1.
+\end{align*} Every Gibbs coordinate proposal is therefore accepted. This does not imply that every Gibbs sampler moves efficiently. In the bivariate-normal example, as $|\rho|\to1$ the conditional standard deviation $\sqrt{1-\rho^2}$ tends to zero: acceptance remains one while successive states move only a very short distance.
+
+Proposal design is an art because local and global exploration pull in different directions. Tiny random-walk steps are accepted but travel slowly; huge steps travel far but are mostly rejected. An independent proposal can jump between modes, yet it wastes effort if it puts mass where the target has almost none. The Hastings correction guarantees the right equilibrium under the required conditions; it does not guarantee an efficient journey there.
+
+![Three random-walk Metropolis chains with the same $\Normal(0,1)$ target and different proposal standard deviations $s_q$. The tiny proposal is accepted almost every time but advances slowly; the huge proposal repeats its current value through long runs of rejections. A moderate acceptance rate is useful only because it accompanies larger moves and much weaker autocorrelation. The displayed acceptance rate is $a$.](../figures/part1-fig-04-proposal-scale.pdf){#fig-04-proposal-scale}
+
+### Pilot adaptation and a fixed proposal
+
+Adaptive proposals are a practical response to this tuning problem. A conservative version has two stages:
+
+1.  run a pilot calculation to learn a plausible centre, scale, or covariance for the proposal;
+
+2.  discard the pilot output, fix the learned proposal, restart the chain, and use only the second-stage draws for inference.
+
+Conditional on the now-fixed proposal, the ordinary Metropolis--Hastings invariance argument applies to the retained chain.
+
+Some adaptive schemes retain the history and continue changing the proposal during the run. Then the transition rule depends on time and on more than the current state, so the fixed-kernel proof given above no longer establishes the result. Such methods can be valid, but they require additional conditions and theory. Validity does not follow merely from the fact that the proposal seems to improve.
+
+## Exercises
+
+::: {#exr-detailed-balance .exercise}
+## Detailed balance
+
+For a two-state chain with transition probabilities $P_{12}=a$ and $P_{21}=b$, solve for its stationary distribution and verify detailed balance directly. State what changes when one of $a,b$ is zero.
+
+:::
+
+::: {#exr-a-long-run-and-a-missed-mode .exercise}
+## A long run and a missed mode
+
+Suppose the first $B$ draws are badly influenced by initialisation. Compare their proportion in runs of length $100{,}000$ and $100$ billion. Then construct a two-mode example in which increasing the run length does not help on any practical time scale because the chain never crosses the low-density gap.
+
+:::
+
+::: {#exr-posterior-summaries-with-dependence .exercise}
+## Posterior summaries with dependence
+
+Explain why the sample mean of retained MCMC draws can still estimate a posterior mean although the draws are dependent. Why is the nominal count $L$ not the appropriate measure of information? Name three diagnostics or summaries that address this problem.
+
+:::
+
+::: {#exr-random-walk-scale .exercise}
+## Random-walk scale
+
+For a normal random-walk proposal $Y=X+Z$, compare qualitatively the cases in which the standard deviation of $Z$ is far smaller than, comparable to, and far larger than the target's scale. Discuss movement, acceptance, and serial dependence in each case.
+
+:::
+
+::: {#exr-adapt-discard-fix .exercise}
+## Adapt, discard, fix
+
+Write pseudocode for a pilot-adapted MH analysis. Discard the pilot and fix the proposal before retaining draws. Identify the step that lets the fixed-proposal invariance proof apply, and explain why continual adaptation is not covered by that proof.
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-bvn-gibbs .exercise}
+## A bivariate-normal Gibbs sampler
+
+Let $\Xvec=(X_1,X_2)^{\mathsf T}$ have a bivariate normal distribution with mean zero, unit marginal variances, and correlation $\rho$, so that 
+
+$$
+ \Xvec\sim\Normal_2\!\left(
+ \begin{bmatrix}0\\0\end{bmatrix},
+ \begin{bmatrix}1&\rho\\ \rho&1\end{bmatrix}
+ \right),\qquad |\rho|<1.
+$$
+
+
+1.  Derive the conditional distributions of $X_1\given X_2$ and $X_2\given X_1$.
+
+2.  Write pseudocode for a systematic-scan Gibbs sampler.
+
+3.  Implement it in R or Python.
+
+4.  From a chosen initial vector, generate $10{,}000$ dependent draws for $\rho=0$, $0.7$, and $0.97$. Plot the draws and explain how $\rho$ affects serial movement even though the stationary marginal variance remains one.
+
+[Solution](#sol-applied-bvn-gibbs)
+
+:::
+
+::: {#ex-applied-logitnormal-mh .exercise}
+## Metropolis--Hastings for the logit-normal posterior
+
+Use the posterior kernel in [the logit-normal prior exercise](#ex-applied-logitnormal-prior).
+
+1.  For $n=40$ and $x=16$, use a Metropolis--Hastings algorithm to retain $10{,}000$ draws after a burn-in of $1{,}000$. Plot a kernel-density estimate and describe it.
+
+2.  Estimate the posterior mean, compare it with the prior mean, and explain how the data have changed the distribution.
+
+3.  Estimate and interpret an equal-tailed $95\%$ credible interval.
+
+4.  Repeat the numerical summaries for $n=400$ and $x=160$. Explain why ten times as much data changes the spread far more than the centre.
+
+[Solution](#sol-applied-logitnormal-mh)
+
+:::
+
+::: {#ex-applied-bvn-rwmh .exercise}
+## Random-walk Metropolis for a correlated normal
+
+For the bivariate-normal target of [the bivariate-normal Gibbs exercise](#ex-applied-bvn-gibbs), describe a random-walk Metropolis--Hastings sampler using increments 
+
+$$
+ \vect\varepsilon\sim\Normal_2(\vect0,\mat{\Psi}),
+ \qquad
+ \mat{\Psi}=
+ \begin{bmatrix}a^2&0\\0&b^2\end{bmatrix}.
+$$
+
+
+ Give the proposal, the acceptance probability in explicit quadratic form and its equivalent norm/distance reading, and the accept--reject update. Discuss what $a$ and $b$ control. 
+
+[Solution](#sol-applied-bvn-rwmh)
+
+:::
+
+::: {#ex-applied-gamma-mh .exercise}
+## An independent Gamma proposal
+
+Suppose the target is $\operatorname{Gamma}_{\mathrm{sc}}(\alpha,\beta)$ with shape $\alpha$ and *scale* $\beta$. Describe an independent Metropolis--Hastings sampler using the proposal $\operatorname{Gamma}_{\mathrm{sc}}(\gamma,\gamma/\alpha)$. Derive the Hastings ratio rather than merely quoting the generic formula. 
+
+[Solution](#sol-applied-gamma-mh)
+
+:::
+
+[^b04-mcmc-1]: The systematic-scan method below became known as Gibbs sampling after the 1984 image-restoration paper of Stuart and Donald Geman. The name Monte Carlo refers to the casino in Monaco; the method needs randomness, but it need not involve a Markov chain.
+
+[^b04-mcmc-2]: This physics language is not ornamental. The algorithms were built to handle enormous systems of interacting particles before statisticians found them useful for posterior distributions.
+
+[^b04-mcmc-3]: The 1953 paper lists Nicholas Metropolis, Arianna and Marshall Rosenbluth, and Augusta and Edward Teller. Rosenbluth later gave an account assigning himself and Arianna much of the algorithmic work. The story is contested; see J. E. Gubernatis, "Marshall Rosenbluth and the Metropolis algorithm," *Physics of Plasmas* 12, 057303 (2005), [doi:10.1063/1.1887186](https://doi.org/10.1063/1.1887186).
+
+[^b04-mcmc-4]: Leó Szilárd helped prompt the United States atomic-bomb programme and later argued for restraint in the use of the weapon. See the [United States National Park Service biographical note](https://www.nps.gov/people/manhattan-project-scientists-leo-szilard.htm).

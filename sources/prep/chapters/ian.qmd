@@ -1,0 +1,658 @@
+# Ian's Half {#sec-ian}
+
+::: {#ex-norm-mean .exercise}
+## Question 1. Normal mean, known variance
+
+Let
+
+$$
+X_i\given\mu\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2),
+$$
+
+with $\sigma^2$ known and $\mu\sim \Normal(\mu_0,\sigma_0^2)$.
+
+**(a)** Using only the precision-addition rule and the precision-weighted mean, write the two updated parameters of the posterior for $\mu$.
+
+**(b)** Define the prior equivalent sample size, and state what it counts.
+
+**(c)** Explain why the posterior mean is a precision-weighted average of the prior mean and the sample mean.
+
+**(d)** State and interpret the limiting posterior mean and variance as $n\to\infty$, with the prior parameters fixed and $\bar X_n\to\mu^{\ast}$.
+
+**(e)** State the posterior predictive distribution of one new observation $X_{\mathrm{new}}$, conditionally independent of the sample given $\mu$.
+
+**(f)** Explain why the posterior predictive variance is larger than the posterior variance of $\mu$.
+
+[Solution](#sol-norm-mean)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-norm-var .exercise}
+## Question 2. Normal variance, known mean
+
+Let
+
+$$
+X_i\given\sigma^2\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2),
+$$
+
+with $\mu$ known and
+
+$$
+\sigma^2\sim\InvGamma(\alpha_0,\beta_0),
+$$
+
+in the shape--rate parameterisation
+
+$$
+f(\sigma^2)\propto(\sigma^2)^{-\alpha_0-1}\exp(-\beta_0/\sigma^2).
+$$
+
+**(a)** Write the posterior distribution of $\sigma^2$, and state what is added to each parameter.
+
+**(b)** State the posterior mean and mode of $\sigma^2$, including the conditions under which each exists.
+
+**(c)** Explain why that mean and mode generally differ.
+
+**(d)** Explain why the variance update uses squared deviations from the known mean $\mu$, rather than from $\bar x$.
+
+[Solution](#sol-norm-var)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-norm-both .exercise}
+## Question 3. Normal mean and variance
+
+Let $X_i\given\mu,\sigma^2\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2)$, with independent priors
+
+$$
+\mu\sim \Normal(\mu_0,\sigma_0^2),
+\qquad
+\sigma^2\sim\InvGamma(\alpha_0,\beta_0).
+$$
+
+**(a)** Does the joint posterior have this same product form?
+
+**(b)** Write the full conditional distributions of $\mu$ and of $\sigma^2$.
+
+**(c)** Which updating algorithm uses these two distributions as its steps?
+
+**(d)** Explain why independent priors for $\mu$ and $\sigma^2$ do not generally give independent posteriors.
+
+**(e)** Distinguish a full conditional posterior from a marginal posterior.
+
+**(f)** Explain why a standard full conditional distribution does not imply that the corresponding marginal posterior belongs to the same family.
+
+**(g)** Explain how a Gibbs sampler uses these full conditional distributions.
+
+[Solution](#sol-norm-both)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-norm-nig .exercise}
+## Question 4. Jointly conjugate normal--inverse-gamma
+
+Let $X_i\given\mu,\sigma^2\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2)$, with the jointly conjugate prior
+
+$$
+\mu\given\sigma^2\sim \Normal(\mu_0,\sigma^2/\kappa_0),
+\qquad
+\sigma^2\sim\InvGamma(\alpha_0,\beta_0),
+$$
+
+where $\kappa_0,\alpha_0,\beta_0>0$. The inverse-gamma kernel is $(\sigma^2)^{-\alpha_0-1}\exp(-\beta_0/\sigma^2)$.
+
+**(a)** How does the jointly conjugate prior for $(\mu,\sigma^2)$ differ from independent normal and inverse-gamma priors?
+
+**(b)** What remains in the same family after updating, and what is the marginal posterior distribution of $\mu$?
+
+**(c)** What has to be checked before an inverse-gamma moment, or a software default, is used?
+
+**(d)** State the four updated posterior hyperparameters $\kappa_n$, $\mu_n$, $\alpha_n$, and $\beta_n$.
+
+**(e)** State the joint posterior family and the conditional posterior of $\mu\given\sigma^2,\xvec$.
+
+**(f)** State the marginal posterior of $\sigma^2$.
+
+**(g)** State the marginal posterior of $\mu$, including its degrees of freedom, location, and scale.
+
+**(h)** Explain why integrating out $\sigma^2$ produces a Student-$t$ distribution rather than a normal distribution.
+
+**(i)** Interpret $\kappa_0$ and the weighted-average form of the posterior mean.
+
+**(j)** Explain how this model differs from the independent-prior model in [Question 3](#ex-norm-both).
+
+[Solution](#sol-norm-nig)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-reg-nichisq .exercise}
+## Question 5. Normal--inverse-$\chi^2$ regression
+
+Suppose
+
+$$
+y\given\beta,\sigma^2,X\sim \Normal_n(X\beta,\sigma^2 I_n),
+$$
+
+with prior
+
+$$
+\beta\given\sigma^2\sim \Normal_p(\beta_0,\sigma^2\Sigma_0),
+\qquad
+\sigma^2\sim\operatorname{Inv\text{-}\chi^2}(\mu_0,\sigma_0^2).
+$$
+
+Here $X$ is known, $\Sigma_0$ is positive definite, and $\mu_0,\sigma_0^2>0$. The inverse-$\chi^2$ convention is
+
+$$
+\frac{\mu_0\sigma_0^2}{\sigma^2}\sim\chi^2_{\mu_0}.
+$$
+
+**(a)** State the inverse-$\chi^2$ prior kernel and its equivalent inverse-gamma parameters.
+
+**(b)** State the updated parameters $\Sigma_n$ and $\beta_n$.
+
+**(c)** State the updated parameters $\mu_n$ and $\sigma_n^2$.
+
+**(d)** Express the joint posterior through a conditional posterior for $\beta$ and a marginal posterior for $\sigma^2$.
+
+**(e)** Express the updated scale using a residual sum of squares and a prior penalty. Explain why it is positive.
+
+**(f)** Is $\Sigma_n$ the conditional covariance matrix of $\beta$? Is $\sigma_n^2$ the posterior mean of $\sigma^2$? Give the correct expressions and the posterior mode of $\sigma^2$.
+
+**(g)** State the full conditional posterior of $\sigma^2\given\beta,y,X$. How does it differ from its marginal posterior?
+
+**(h)** Without consulting the updates, complete the square to reconstruct them. Explain why the marginal degrees of freedom are $\mu_0+n$.
+
+[Solution](#sol-reg-nichisq)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-gibbs-geom .exercise}
+## Question 6. Geometric--beta Gibbs sampler
+
+Consider $X$ and $Y$ with joint density
+
+$$
+f(x,y)\propto y^{\alpha}(1-y)^{x+\beta-1},
+$$
+
+for $x=1,2,3,\ldots$ and $0<y<1$, where $\alpha>0$ and $\beta>0$. Describe a Gibbs sampler for this joint density.
+
+[Solution](#sol-gibbs-geom)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-lognormal-var .exercise}
+## Question 7. Lognormal variance
+
+The size $X$ of a particle has density
+
+$$
+f(x\given\mu,\sigma^{2})
+=
+\frac{1}{x\sigma\sqrt{2\pi}}
+\exp\Bigl(-\frac{1}{2\sigma^{2}}(\log x-\mu)^{2}\Bigr),
+\quad x>0.
+$$
+
+If $X\sim\operatorname{logN}(\mu,\sigma^{2})$, then $\log X\sim \Normal(\mu,\sigma^{2})$. Assume $\mu$ is known, and let $x_1,\ldots,x_n$ be an iid sample.
+
+**(i)** Show that this lognormal model belongs to the exponential family. [4 marks]
+
+**(ii)** Find the form of the conjugate prior for $\sigma^{2}$ and identify the distribution. [4 marks]
+
+**(iii)** Find the posterior distribution of $\sigma^{2}$. [5 marks]
+
+**(iv)** State, without derivation, the posterior mean and the posterior mode. Explain their behaviour as $n\to\infty$. [4 marks]
+
+**(v)** Briefly describe how you would construct a $90\%$ credible interval for $\sigma^{2}$. [3 marks]
+
+[Solution](#sol-lognormal-var)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-device-bf .exercise}
+## Question 8. Exponential versus gamma lifetimes
+
+The lifetimes of $n$ devices are $\xvec=(x_1,\ldots,x_n)$. Two models are proposed,
+
+$$
+M_1\colon X\sim\Exp(\lambda),
+\qquad
+M_2\colon X\sim\GammaDist(3,\theta),
+$$
+
+with priors $\lambda\sim\GammaDist(1,3)$ and $\theta\sim\GammaDist(1,1)$. Gamma and exponential distributions use the shape--rate sheet: a $\GammaDist(3,\theta)$ density is $\theta^{3}x^{2}e^{-\theta x}/2$.
+
+**(i)** Find the marginal likelihood $f(\xvec\given M_1)$. [6 marks]
+
+**(ii)** Find the marginal likelihood $f(\xvec\given M_2)$. [6 marks]
+
+**(iii)** Obtain $BF_{12}=f(\xvec\given M_1)/f(\xvec\given M_2)$. For these data $BF_{12}=1.347$. Interpret this number and state which model it prefers. [4 marks]
+
+**(iv)** The researchers believe $M_2$ is three times as likely as $M_1$ a priori. What are the posterior odds? Which model is preferred? [4 marks]
+
+[Solution](#sol-device-bf)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-gibbs-mh .exercise}
+## Question 9. Gibbs and random-walk Metropolis--Hastings
+
+Consider the joint density on $x>0$, $y>0$,
+
+$$
+f(x,y)\propto x^{3}ye^{-xy-2x-3y}.
+$$
+
+**(a)** Describe a Gibbs sampler for this density. [10 marks]
+
+**(b)** Describe a random-walk Metropolis--Hastings algorithm with increment distribution $\Normal(0,\sigma^{2}I_2)$. [10 marks]
+
+**(c)** Describe how to obtain a $95\%$ confidence interval for $\E(Y)$. [5 marks]
+
+[Solution](#sol-gibbs-mh)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-downtime .exercise}
+## Question 10. Beta downtime
+
+The proportion of downtime has density
+
+$$
+f(x\given\theta)=\theta(1-x)^{\theta-1},
+\quad 0<x<1,\ \theta>0,
+$$
+
+and $\theta\sim\GammaDist(\alpha,\beta)$ with density $\beta^{\alpha}\theta^{\alpha-1}e^{-\beta\theta}/\Gamma(\alpha)$. Let $x_1,\ldots,x_n$ be an iid sample.
+
+**(a)** State the prior mean. [1 mark]
+
+**(b)** Obtain the posterior distribution of $\theta$ and identify it. [8 marks]
+
+**(c)** State the posterior mean. [2 marks]
+
+**(d)** Explain the posterior mean as $n\to\infty$; as $\alpha,\beta\to 0$; and as $\alpha,\beta\to\infty$ with $\alpha/\beta$ fixed. [9 marks]
+
+**(e)** Complete the sentence: "The effect of the prior hyperparameters $\alpha$ and $\beta$ on the posterior mean of $\theta$ is like..." [5 marks]
+
+[Solution](#sol-downtime)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-geom-beta .exercise}
+## Question 11. Geometric success probability
+
+Let $x_1,\ldots,x_n$ be iid with
+
+$$
+f(x\given p)=(1-p)^{x}p,
+\quad x=0,1,2,\ldots,
+$$
+
+and $p\sim\BetaDist(\alpha,\beta)$.
+
+**(i)** Find the posterior distribution of $p$ and identify it. [3 marks]
+
+**(ii)** Is this prior conjugate? [1 mark]
+
+**(iii)** Show that a $\BetaDist(a,b)$ mean equals $a/(a+b)$. [2 marks]
+
+**(iv)** Hence show that $\E(p\given\xvec)=(\alpha+n)/(\alpha+\beta+n+n\bar x)$. [1 mark]
+
+**(v)** What happens to the posterior mean as $n\to\infty$? [1 mark]
+
+**(vi)** What happens if $\alpha,\beta\to 0$? [1 mark]
+
+**(vii)** Complete: "The effect of the prior hyperparameters $\alpha,\beta$ on the posterior mean of $p$ is like..." [2 marks]
+
+[Solution](#sol-geom-beta)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-improper-normal .exercise}
+## Question 12. Improper prior for a normal sample
+
+The prior and the sample are
+
+$$
+f(\mu,\sigma^{2})\propto 1/\sigma^{2},
+\qquad
+x_1,\ldots,x_n\given\mu,\sigma^{2}\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^{2}),
+$$
+
+with $n\geq 2$.
+
+**(i)** Derive the joint posterior kernel of $(\mu,\sigma^{2})$. [2 marks]
+
+**(ii)** Show that $\sum_{i=1}^{n}(x_i-\mu)^{2}=\sum_{i=1}^{n}(x_i-\bar x)^{2}+n(\mu-\bar x)^{2}$. [2 marks]
+
+**(iii)** Show that $\mu\given\sigma^{2},\xvec$ is normal, and give its mean and variance. [2 marks]
+
+**(iv)** Show that $\sigma^{2}\given\mu,\xvec$ is inverse-gamma, and give its shape and rate. [2 marks]
+
+**(v)** Describe how to sample from the joint posterior. [4 marks]
+
+**(vi)** Describe $90\%$ posterior credible intervals for $\mu$ and for $\sigma^{2}$. [2 marks]
+
+[Solution](#sol-improper-normal)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-binom-beta-joint .exercise}
+## Question 13. Binomial--beta Gibbs sampler
+
+For $x=0,1,\ldots,n$ and $0\leq\theta\leq 1$, with $\alpha,\beta>0$,
+
+$$
+f(x,\theta)
+=
+\binom{n}{x}\theta^{x+\alpha-1}(1-\theta)^{n-x+\beta-1}.
+$$
+
+**(i)** Find and name the conditional distribution of $x\given\theta$. The kernel is enough. [4 marks]
+
+**(ii)** Find and name the conditional distribution of $\theta\given x$. The kernel is enough. [4 marks]
+
+**(iii)** Describe a Gibbs sampler for $f(x,\theta)$. [7 marks]
+
+[Solution](#sol-binom-beta-joint)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-mammal-ig .exercise}
+## Question 14. Inverse-gamma waiting time
+
+The waiting time until the $m$th animal at location $i$ has density
+
+$$
+f(x_i\given\theta)
+=
+\frac{1}{\Gamma(m)\,\theta^{m}}x_i^{m-1}e^{-x_i/\theta},
+\quad x_i>0,
+$$
+
+so $\theta>0$ is a scale. The prior is
+
+$$
+f(\theta)
+=
+\frac{\beta_0^{\alpha_0}}{\Gamma(\alpha_0)}\theta^{-\alpha_0-1}e^{-\beta_0/\theta},
+\quad\alpha_0>0,\ \beta_0>0.
+$$
+
+The exam states that the maximum likelihood estimator is $\hat\theta=\bar x/m$.
+
+**(i)** State the prior mean. [1 mark]
+
+**(ii)** Find and identify the posterior distribution of $\theta$. [5 marks]
+
+**(iii)** State the posterior mean, and show that it is a weighted sum of the prior mean and $\hat\theta$. [5 marks]
+
+**(iv)** What happens to the posterior mean as $m\to\infty$? [2 marks]
+
+**(v)** What happens if $\alpha_0,\beta_0\to 0$? [2 marks]
+
+**(vi)** Complete: "The effect of the prior hyperparameters $\alpha_0$ and $\beta_0$ on the posterior mean of $\theta$ is like..." [2 marks]
+
+**(vii)** Describe a posterior $100(1-\alpha)\%$ credible interval for $\theta$. [5 marks]
+
+[Solution](#sol-mammal-ig)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-battery-bf .exercise}
+## Question 15. Battery lifetimes and a Bayes factor
+
+Researchers are attempting to determine the distribution of lifetimes of a type of battery. They have measured the lifetimes (years) of $n$ of these batteries, recorded as $x_1,\ldots,x_n$, which we assume were the result of a random sample and we will assume that the observations could be considered independent and identically distributed. Two models were proposed:
+
+$$
+M_1\colon x\sim\Exp(\theta)
+\qquad\text{and}\qquad
+M_2\colon x\sim\Weibull(5,\theta).
+$$
+
+This Weibull density is given by
+
+$$
+f(x)=5\theta x^{4}e^{-\theta x^{5}},
+\qquad\text{for }x>0.
+$$
+
+Consider the prior distribution $\theta\sim\Exp(1)$.
+
+**(a)** Find the marginal likelihood under model $M_1$. [3 marks]
+
+**(b)** Find the marginal likelihood under model $M_2$. [3 marks]
+
+**(c)** Obtain an expression for the Bayes factor comparing $M_1$ to $M_2$. [2 marks]
+
+[Solution](#sol-battery-bf)
+:::
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+::: {#ex-mixed-gibbs .exercise}
+## Question 16. Mixed binomial--beta Gibbs sampler
+
+Consider the mixed probability function
+
+$$
+f(x,y,z)\propto
+\binom{n}{x}\binom{m}{y}
+z^{x+y+\alpha-1}(1-z)^{n+m-x-y+\beta-1}
+\gamma^{m-y}(1-\gamma)^{n-x}\delta^{x}(1-\delta)^{y},
+$$
+
+for $x=0,1,\ldots,n$, $y=0,1,\ldots,m$, and $0<z<1$, where $\alpha,\beta>0$ and $0<\gamma,\delta<1$. Identify the full conditionals and give a Gibbs sampler; implement and run it for $100{,}000$ iterations, reporting marginal plots and summaries; and, for $\alpha=2$, $\beta=4$, $\gamma=0.3$, $\delta=0.6$, $n=10$, and $m=20$, apply conditional-mode updates until they no longer change.
+
+[Solution](#sol-mixed-gibbs)
+:::
+
+```{=latex}
+\clearpage
+```
+
+::: {#ex-pois-hier .exercise}
+## Question 17. Hierarchical Poisson model
+
+Suppose $J$ factories manufacture components. Factory $j$ produces $n_j$ observations of the number of defective components per batch.
+
+Assume
+
+$$
+Y_{ij}\given\theta_j\ind\Poisson(\theta_j),
+\qquad i=1,\ldots,n_j,\quad j=1,\ldots,J.
+$$
+
+Here, $\theta_j>0$ represents the expected number of defects per batch in factory $j$.
+
+Rather than modelling the factory rates independently, we assume
+
+$$
+\theta_j\given\lambda\overset{\text{iid}}{\sim}\GammaDist(a,\lambda),
+$$
+
+where $a>0$ is known and $\lambda>0$ is an unknown common hyperparameter.
+
+Finally, assign the hyperprior
+
+$$
+\lambda\sim\GammaDist(c,d),
+$$
+
+where $c,d>0$ are known.
+
+All Gamma distributions use the shape--rate parameterisation:
+
+$$
+f(x\given a,b)=\frac{b^{a}}{\Gamma(a)}x^{a-1}e^{-bx},
+\qquad x>0.
+$$
+
+**(a)** Write down the joint density $p(\Yvec,\thetavec,\lambda)$ up to proportionality in the unknown parameters.
+
+**(b)** Derive the full conditional distribution $p(\theta_j\given\lambda,\Yvec)$ for each factory $j$. Identify its distribution and parameters.
+
+**(c)** Derive the full conditional distribution $p(\lambda\given\thetavec,\Yvec)$. Identify its distribution and parameters.
+
+**(d)** Using your results from (b) and (c), describe a Gibbs sampling algorithm targeting $p(\thetavec,\lambda\given\Yvec)$.
+
+**(e)** Explain how the hierarchical model allows observations from one factory to influence inference about another factory's defect rate.
+
+[Solution](#sol-pois-hier)
+:::
+
+```{=latex}
+\clearpage
+```
+
+::: {#ex-model-selection .exercise}
+## Question 18. Bayesian model selection
+
+Suppose $Y_1,\ldots,Y_n$ are independent observations, with observed data $\yvec=(y_1,\ldots,y_n)$. A researcher wishes to compare two competing models.
+
+Under model $M_1$,
+
+$$
+Y_i\given\theta,M_1\stackrel{\mathrm{iid}}{\sim}\Normal(\theta,1),
+$$
+
+where the unknown mean has prior distribution
+
+$$
+\theta\given M_1\sim \Normal(0,\tau^2).
+$$
+
+Under model $M_2$,
+
+$$
+Y_i\given\mu,\sigma^2,M_2\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2),
+$$
+
+where the unknown mean and variance have prior distributions
+
+$$
+\mu\given\sigma^2,M_2\sim \Normal\Bigl(0,\frac{\sigma^2}{\kappa}\Bigr),
+\qquad
+\sigma^2\given M_2\sim\InvGamma(\alpha,\beta).
+$$
+
+Assume that $n\geq 2$, and $\tau^2,\kappa,\alpha,\beta$ are known positive constants.
+
+The inverse-gamma distribution is parameterised by
+
+$$
+f(v;a,b)=\frac{b^{a}}{\Gamma(a)}v^{-a-1}\exp\Bigl(-\frac{b}{v}\Bigr),
+\qquad v>0.
+$$
+
+Define
+
+$$
+\bar y=\frac1n\sum_{i=1}^{n}y_i,
+\qquad
+S=\sum_{i=1}^{n}(y_i-\bar y)^{2}.
+$$
+
+You may use the identity
+
+$$
+\sum_{i=1}^{n}(y_i-\eta)^{2}=S+n(\bar y-\eta)^{2}
+$$
+
+and the result
+
+$$
+\int_{0}^{\infty}v^{-a-1}e^{-b/v}\,dv=\frac{\Gamma(a)}{b^{a}},
+\qquad a,b>0.
+$$
+
+**(a)** Write down the likelihood functions $L_1(\theta;\yvec)$ and $L_2(\mu,\sigma^2;\yvec)$ under models $M_1$ and $M_2$, respectively. [2 marks]
+
+**(b)** Using the prior distribution of $\theta$, derive an expression for the marginal likelihood $p(\yvec\given M_1)$. The derivation should explicitly show the integration over $\theta$, including any completion of the square required. [5 marks]
+
+**(c)** The marginal likelihood under model $M_2$ is given by
+
+$$
+p(\yvec\given M_2)
+=
+\int_0^{\infty}\int_{-\infty}^{\infty}
+p(\yvec\given\mu,\sigma^2,M_2)\,
+p(\mu\given\sigma^2,M_2)\,
+p(\sigma^2\given M_2)\,d\mu\,d\sigma^2.
+$$
+
+**(i)** Integrate out $\mu$ to obtain an expression for $p(\yvec\given\sigma^2,M_2)$. [4 marks]
+
+**(ii)** Hence integrate out $\sigma^2$ to derive the marginal likelihood $p(\yvec\given M_2)$. [4 marks]
+
+**(d)**
+
+**(i)** Obtain an expression for the Bayes factor
+
+$$
+B_{12}=\frac{p(\yvec\given M_1)}{p(\yvec\given M_2)}.
+$$
+
+**(ii)** Suppose the prior model probabilities are $P(M_1)=0.25$ and $P(M_2)=0.75$. Express the posterior odds in favour of $M_1$ in terms of $B_{12}$.
+
+[3 marks]
+
+**(e)**
+
+**(i)** Explain why normalising constants that do not depend on the unknown parameters must nevertheless be retained when calculating marginal likelihoods.
+
+**(ii)** State the conditions under which the Bayes factor is well-defined. Explain briefly why replacing the proper parameter priors with unspecified improper priors can cause difficulties in Bayesian model comparison.
+
+[2 marks]
+
+[Solution](#sol-model-selection)
+:::

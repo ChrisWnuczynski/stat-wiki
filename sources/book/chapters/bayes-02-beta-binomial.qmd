@@ -1,0 +1,511 @@
+# The Beta--Binomial model
+
+## Coin tossing and the likelihood
+
+Let $Y_i=1$ denote a head on toss $i$ and $Y_i=0$ a tail. Conditional on the unknown probability $\theta$, 
+
+$$
+  Y_i\given\theta\stackrel{\mathrm{iid}}{\sim}\Bern(\theta),
+  \qquad 0\leq\theta\leq1.
+$$
+
+
+ For an observed sequence $y_1,\ldots,y_n$ with $x=\sum_{i=1}^ny_i$ heads, \begin{align*}
+  p(y_1,\ldots,y_n\given\theta)
+  &=\prod_{i=1}^n\theta^{y_i}(1-\theta)^{1-y_i}\\
+  &=\theta^{\sum_i y_i}(1-\theta)^{\sum_i(1-y_i)}\\
+  &=\theta^x(1-\theta)^{n-x}.
+\end{align*} If only the count $X=\sum_iY_i$ is observed, then all $\binom{n}{x}$ sequences with $x$ heads are collected together: \begin{equation}
+  p(x\given\theta)=\binom{n}{x}\theta^x(1-\theta)^{n-x}.
+  \label{eq:binomial-likelihood}
+\end{equation} The combinatorial term matters for probabilities of $X$, but it is constant in $\theta$ and can be removed from the likelihood kernel.
+
+## The Beta prior
+
+::: {#def-beta-distribution .definition}
+## Beta distribution
+
+For $\alpha,\beta>0$, the Beta density is \begin{equation}
+  p(\theta\given\alpha,\beta)
+  =\frac{1}{B(\alpha,\beta)}
+   \theta^{\alpha-1}(1-\theta)^{\beta-1},
+  \qquad 0<\theta<1,
+  \label{eq:beta-density}
+\end{equation} where 
+
+$$
+  B(\alpha,\beta)
+  =\int_0^1t^{\alpha-1}(1-t)^{\beta-1}\dd t
+  =\frac{\Gamma(\alpha)\Gamma(\beta)}
+         {\Gamma(\alpha+\beta)}.
+$$
+
+
+:::
+
+Three symmetric priors make the contrast concrete:
+
+-   $\BetaDist(5,5)$, concentrated around $1/2$;
+
+-   $\BetaDist(1,1)$, uniform on $[0,1]$; and
+
+-   $\BetaDist(0.6,0.6)$, with greater density near 0 and 1.
+
+For an ordinary circulating coin, $\BetaDist(5,5)$ is the most defensible of these three: manufacturing makes values near $1/2$ more plausible than values near 0 or 1, while symmetry does not favour heads over tails. If the experiment itself supplies no preferred face, that symmetry is the stable description. A uniform prior assigns equal mass to every interval of the same width, including physically extreme intervals near the endpoints. The U-shaped prior instead represents suspicion that the coin is strongly biased, not ignorance in a neutral sense.
+
+There is no context-free "correct prior for a coin." The population of coins matters. A newly minted circulating coin, a stage magician's coin, and a coin selected because it behaved strangely are different prior problems. Calling a prior neutral does not make it so: even the uniform prior gives substantial weight to physically extreme biases. The defensible choice is the one whose implications match how the object entered the experiment.
+
+Persi Diaconis made the same contextual point with a mechanical coin-flipping machine: what looks random at one level may be largely determined once the initial conditions are controlled.[^b02-beta-binomial-3]
+
+Rare data remain possible. Under a fair coin, ten heads in ten tosses has probability $2^{-10}=1/1024$; it is surprising, not logically impossible. For $\alpha,\beta>1$, 
+
+$$
+  \E(\theta)=\frac{\alpha}{\alpha+\beta},
+  \qquad
+  \operatorname{mode}(\theta)
+  =\frac{\alpha-1}{\alpha+\beta-2},
+$$
+
+
+ and for all $\alpha,\beta>0$, 
+
+$$
+  \Var(\theta)
+  =\frac{\alpha\beta}
+  {(\alpha+\beta)^2(\alpha+\beta+1)}.
+$$
+
+
+## Conjugate update with every constant shown
+
+Multiplying \eqref{eq:binomial-likelihood} and \eqref{eq:beta-density} gives \begin{align*}
+  p(x\given\theta)p(\theta)
+  &=\binom{n}{x}\theta^x(1-\theta)^{n-x}
+    \frac{\theta^{\alpha-1}(1-\theta)^{\beta-1}}
+         {B(\alpha,\beta)}\\
+  &=\frac{\binom{n}{x}}{B(\alpha,\beta)}
+    \theta^{x+\alpha-1}
+    (1-\theta)^{n-x+\beta-1}.
+\end{align*} The integral of the last two factors is $B(x+\alpha,n-x+\beta)$, so the evidence is \begin{align}
+  p(x)
+  &=\int_0^1p(x\given\theta)p(\theta)\dd\theta\\
+  &=\binom{n}{x}
+    \frac{B(x+\alpha,n-x+\beta)}{B(\alpha,\beta)}.
+  \label{eq:beta-binomial-evidence}
+\end{align} Dividing by this evidence cancels the binomial coefficient and the old Beta constant: \begin{align*}
+  p(\theta\given x)
+  &=\frac{p(x\given\theta)p(\theta)}{p(x)}\\
+  &=\frac{
+    \theta^{x+\alpha-1}(1-\theta)^{n-x+\beta-1}}
+    {B(x+\alpha,n-x+\beta)}.
+\end{align*}
+
+::: {#prp-beta-binomial-conjugacy .proposition}
+## Beta--Binomial conjugacy
+
+Therefore \begin{equation}
+  \boxed{
+  \theta\given x\sim
+  \BetaDist(\alpha+x,\beta+n-x)}.
+  \label{eq:beta-binomial-posterior}
+\end{equation}
+
+:::
+
+::: {.callout-note}
+## Key idea
+The update is "prior successes plus observed successes" and "prior failures plus observed failures." The Beta family is conjugate to the binomial likelihood because the posterior is another Beta density.
+
+:::
+
+## Worked prior-sensitivity calculation
+
+For $n=10$ tosses and $x=3$ heads, these three priors give \begin{align*}
+  \BetaDist(5,5)&\longrightarrow\BetaDist(8,12),\\
+  \BetaDist(1,1)&\longrightarrow\BetaDist(4,8),\\
+  \BetaDist(0.6,0.6)&\longrightarrow\BetaDist(3.6,7.6).
+\end{align*} For example, under the uniform prior, 
+
+$$
+  \E(\theta\given x)=\frac4{12}=\frac13,
+  \qquad
+  \widehat\theta_{\mathrm{MAP}}
+  =\frac{4-1}{4+8-2}=\frac3{10}=0.3.
+$$
+
+
+ The posterior probability of downward bias is 
+
+$$
+  \Pr(\theta<0.5\given x)
+  =\int_0^{0.5}\frac{\theta^3(1-\theta)^7}{B(4,8)}\dd\theta.
+$$
+
+
+With $n=100$ and $x=30$ heads, the same priors give \begin{align*}
+  \BetaDist(5,5)&\longrightarrow\BetaDist(35,75),\\
+  \BetaDist(1,1)&\longrightarrow\BetaDist(31,71),\\
+  \BetaDist(0.6,0.6)&\longrightarrow\BetaDist(30.6,70.6).
+\end{align*} The relative effect of the prior is smaller because the data contribute 100 counts while the first prior contributes a fixed amount.
+
+![The three priors, then the posteriors they produce on the two datasets above. Both datasets have the same observed proportion $0.3$, marked by the dashed vertical line, so moving to the right changes only how much weight the data carry. Ten tosses leave three visibly different posteriors; one hundred leave three that have nearly closed on each other and on $x/n$. Disagreement about the prior is a disagreement about small samples. The $\BetaDist(0.6,0.6)$ prior is unbounded at $0$ and $1$, so its curve leaves the top of the first panel.](../figures/part1-fig-02-prior-sensitivity.pdf){#fig-prior-sensitivity}
+
+::: {.callout-warning}
+## Parameterisation check
+Direct substitution of $x=30$ in \eqref{eq:beta-binomial-posterior} gives the first shape parameters $35$, $31$, and $30.6$ written above. The values $36$, $32$, and $31.6$ are one unit larger and do not follow from that substitution. The second shape parameters that match $x=30$ are $75$, $71$, and $70.6$.
+
+:::
+
+## Pseudo-counts and sequential updating
+
+The posterior mean is \begin{align*}
+  \E(\theta\given x)
+  &=\frac{x+\alpha}{n+\alpha+\beta}\\
+  &=\frac{n}{n+\alpha+\beta}\frac{x}{n}
+    +\frac{\alpha+\beta}{n+\alpha+\beta}
+      \frac{\alpha}{\alpha+\beta}.
+\end{align*} Thus $\alpha+\beta$ acts as a prior sample size for the posterior mean, with $\alpha$ prior heads and $\beta$ prior tails.
+
+For the posterior mode, \begin{align*}
+  \widehat\theta_{\mathrm{MAP}}
+  &=\frac{x+\alpha-1}{n+\alpha+\beta-2}\\
+  &=\frac{n}{n+\alpha+\beta-2}\frac{x}{n}
+    +\frac{\alpha+\beta-2}{n+\alpha+\beta-2}
+     \frac{\alpha-1}{\alpha+\beta-2},
+\end{align*} provided the updated parameters exceed one. Hence $\alpha-1$ and $\beta-1$ are the natural pseudo-counts for mode calculations. The two conventions do not contradict each other; they correspond to different posterior summaries.
+
+::: {#rem-two-pseudo-count-conventions .remark}
+## Two pseudo-count conventions
+
+For posterior means, $(\alpha,\beta)$ act as prior success and failure counts. For an interior posterior mode, the corresponding counts are $(\alpha-1,\beta-1)$. A pseudo-count statement is incomplete unless the posterior summary being interpreted is also named.
+
+:::
+
+::: {.callout-warning}
+## Parameterisation check
+Relative to $\BetaDist(1,1)$, the prior $\BetaDist(5,5)$ contributes four additional heads *and* four additional tails in the mode-based convention. That is eight prior trials, not "four heads in four trials."
+
+:::
+
+::: {#prp-sequential-coherence .proposition}
+## Sequential coherence
+
+Sequential updating is exact. If data arrive in batches $(x_1,n_1)$ and $(x_2,n_2)$, then \begin{align*}
+  \theta\given x_1
+  &\sim\BetaDist(\alpha+x_1,\beta+n_1-x_1),\\
+  \theta\given x_1,x_2
+  &\sim\BetaDist(\alpha+x_1+x_2,
+                 \beta+n_1+n_2-x_1-x_2),
+\end{align*} which is the same posterior obtained by combining both batches first.
+
+:::
+
+## Nonconjugate priors
+
+::: {#rem-conjugacy-is-optional .remark}
+## Conjugacy is optional
+
+Conjugacy is convenient, not compulsory. A prior concentrated around $1/2$ could be obtained by truncating a Laplace density: 
+
+$$
+  p(\theta)\propto
+  \exp\!\left(-\frac{|\theta-1/2|}{b}\right)
+  \mathbf{1}\{0\leq\theta\leq1\}.
+$$
+
+
+ The posterior kernel is then 
+
+$$
+ p(\theta\given x)
+ \propto
+ \theta^x(1-\theta)^{n-x}
+ \exp\!\left(-\frac{|\theta-1/2|}{b}\right)
+ \mathbf{1}\{0\leq\theta\leq1\}.
+$$
+
+
+ If equality rather than proportionality is needed, symmetry supplies the normalising constant without numerical integration: \begin{align*}
+ \int_0^1\exp\!\left(-\frac{|\theta-1/2|}{b}\right)\dd\theta
+ &=2\int_0^{1/2}\exp\!\left(-\frac{1/2-\theta}{b}\right)\dd\theta\\
+ &=2\left[b\exp\!\left(-\frac{1/2-\theta}{b}\right)\right]_{\theta=0}^{1/2}\\
+ &=2b\left(1-e^{-1/(2b)}\right).
+\end{align*} Thus the proper truncated-Laplace prior has multiplier \([2b\{1-e^{-1/(2b)}\}]^{-1}\). The resulting posterior is not a named standard density, so its normalising integral and summaries must be evaluated numerically. The later MCMC chapters provide a general route when direct integration becomes difficult.
+
+:::
+
+The difficulty scales with dimension. A one-dimensional posterior can be normalised by quadrature; a direct grid with $m$ points in each of $d$ coordinates requires $m^d$ evaluations. This exponential growth is the computational reason that nonconjugate multiparameter models lead to Monte Carlo methods.
+
+Conjugacy is a computational convenience, not a modelling command. It was especially attractive when integration and simulation were expensive, and it remains valuable because it exposes the update algebra. But if a scientifically sensible prior is nonconjugate, the right response is usually to improve the computation rather than replace the prior merely to obtain a named posterior. Likewise, the MAP can be useful, particularly in optimisation, but one point is not a substitute for the posterior uncertainty that motivated Bayesian analysis in the first place.
+
+## Beta--Binomial prediction
+
+The prior predictive probability of $X=x$ is already given by \eqref{eq:beta-binomial-evidence}. Expanding the Beta functions gives the Beta--Binomial mass function: 
+
+$$
+  p(x)
+  =\binom{n}{x}
+   \frac{\Gamma(x+\alpha)\Gamma(n-x+\beta)}
+        {\Gamma(n+\alpha+\beta)}
+   \frac{\Gamma(\alpha+\beta)}
+        {\Gamma(\alpha)\Gamma(\beta)}.
+$$
+
+
+For one future toss $\widetilde Y$, conditional independence gives \begin{align*}
+  \Pr(\widetilde Y=1\given x)
+  &=\int_0^1\Pr(\widetilde Y=1\given\theta)
+     p(\theta\given x)\dd\theta\\
+  &=\int_0^1\theta p(\theta\given x)\dd\theta\\
+  &=\E(\theta\given x)\\
+  &=\frac{x+\alpha}{n+\alpha+\beta}.
+\end{align*} For $m$ future tosses and $\widetilde X$ future heads, \begin{align*}
+  p(\widetilde x\given x)
+  &=\int_0^1
+    \binom{m}{\widetilde x}
+    \theta^{\widetilde x}(1-\theta)^{m-\widetilde x}
+    \frac{\theta^{x+\alpha-1}
+          (1-\theta)^{n-x+\beta-1}}
+         {B(x+\alpha,n-x+\beta)}\dd\theta\\
+  &=\binom{m}{\widetilde x}
+    \frac{B(\widetilde x+x+\alpha,
+            m-\widetilde x+n-x+\beta)}
+         {B(x+\alpha,n-x+\beta)}.
+\end{align*} This is a Beta--Binomial posterior predictive distribution.
+
+::: {#prp-beta-binomial-posterior-prediction .proposition}
+## Beta--Binomial posterior prediction
+
+If $\theta\given x\sim\BetaDist(a,b)$ and, conditionally on $\theta$, $\widetilde X\sim\Bin(m,\theta)$, then 
+
+$$
+ \Pr(\widetilde X=k\given x)
+ =\binom mk\frac{B(k+a,m-k+b)}{B(a,b)},
+ \qquad k=0,\ldots,m.
+$$
+
+
+ For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.
+
+:::
+
+### Numerical example: five future tosses
+
+::: {#exm-five-future-tosses .example}
+## Five future tosses
+
+Suppose the prior is $\theta\sim\BetaDist(2,2)$ and the observed data contain $x=8$ heads in $n=10$ tosses.
+
+**Question.** Find the posterior predictive probability of a head on the next toss and the probability of at least four heads in five future tosses. Derive the predictive variance for the five-toss count and compare it with the variance obtained by plugging the posterior mean of $\theta$ into a Binomial model.
+
+**Solution.** The posterior calculation gives 
+
+$$
+ \theta\given x
+ \sim\BetaDist(2+8,2+10-8)
+ =\BetaDist(10,4).
+$$
+
+
+ For the very next toss, \begin{align*}
+ \Pr(\widetilde Y=1\given x)
+ &=\E(\theta\given x)\\
+ &=\frac{10}{10+4}\\
+ &=\frac57\\
+ &\approx0.714.
+\end{align*} The raw sample proportion is $8/10=0.8$. The prediction is less extreme because it averages over the posterior produced by the data and the $\BetaDist(2,2)$ prior.
+
+Now let $\widetilde X$ be the number of heads in $m=5$ future tosses. With $a=10$, $b=4$, and $T=a+b=14$, \begin{equation}
+ \Pr(\widetilde X=k\given x)
+ =\binom5k\frac{B(k+a,5-k+b)}{B(a,b)},
+ \qquad k=0,\ldots,5.
+ \label{eq:five-toss-beta-binomial}
+\end{equation} For the rising factorial 
+
+$$
+ (c)^{\overline r}
+ =c(c+1)\cdots(c+r-1),
+ \qquad
+ (c)^{\overline 0}=1,
+$$
+
+
+ the Beta-function ratio satisfies 
+
+$$
+ \frac{B(k+a,5-k+b)}{B(a,b)}
+ =\frac{(a)^{\overline k}(b)^{\overline{5-k}}}
+       {(a+b)^{\overline5}}.
+$$
+
+
+ Therefore the probability of at least four heads is \begin{align*}
+ \Pr(\widetilde X\geq4\given x)
+ &=\Pr(\widetilde X=4\given x)
+   +\Pr(\widetilde X=5\given x)\\
+ &=\frac{
+   \binom54(10)^{\overline4}(4)^{\overline1}
+   +\binom55(10)^{\overline5}(4)^{\overline0}}
+   {(14)^{\overline5}}\\
+ &=\frac{
+   5(10\cdot11\cdot12\cdot13)(4)
+   +(10\cdot11\cdot12\cdot13\cdot14)}
+   {14\cdot15\cdot16\cdot17\cdot18}\\
+ &=\frac{583440}{1028160}\\
+ &\approx0.567.
+\end{align*}
+
+This example also shows exactly why posterior prediction is more dispersed than a plug-in Binomial distribution. Conditional on $\theta$, 
+
+$$
+ \E(\widetilde X\given\theta)=5\theta,
+ \qquad
+ \Var(\widetilde X\given\theta)=5\theta(1-\theta).
+$$
+
+
+ For $\theta\given x\sim\BetaDist(a,b)$ with $T=a+b$, 
+
+$$
+ \E(\theta\given x)=\frac aT,
+ \qquad
+ \Var(\theta\given x)=\frac{ab}{T^2(T+1)}.
+$$
+
+
+ Moreover, \begin{align*}
+ \E\{\theta(1-\theta)\given x\}
+ &=\E(\theta\given x)-\E(\theta^2\given x)\\
+ &=\frac aT-\frac{a(a+1)}{T(T+1)}\\
+ &=\frac{a(T+1)-a(a+1)}{T(T+1)}\\
+ &=\frac{a(T-a)}{T(T+1)}\\
+ &=\frac{ab}{T(T+1)}.
+\end{align*} Applying \eqref{eq:posterior-predictive-total-variance}, \begin{align*}
+ \Var(\widetilde X\given x)
+ &=\E\{5\theta(1-\theta)\given x\}
+   +\Var(5\theta\given x)\\
+ &=\frac{5ab}{T(T+1)}
+   +\frac{25ab}{T^2(T+1)}\\
+ &=\frac{5ab(T+5)}{T^2(T+1)}\\
+ &=\frac{5(10)(4)(19)}{14^2(15)}\\
+ &=\frac{190}{147}\\
+ &\approx1.293.
+\end{align*} If one instead plugs in the posterior mean $\widehat\theta=10/14$, the variance would be only 
+
+$$
+ 5\widehat\theta(1-\widehat\theta)
+ =5\left(\frac{10}{14}\right)\left(\frac4{14}\right)
+ =\frac{50}{49}
+ \approx1.020.
+$$
+
+
+ The difference is the second term in \eqref{eq:posterior-predictive-total-variance}: uncertainty about $\theta$.
+
+:::
+
+## Exercises
+
+::: {#exr-the-pseudo-count-trap .exercise}
+## The pseudo-count trap
+
+Compare $\BetaDist(5,5)$ with $\BetaDist(1,1)$. How many prior trials and how many prior heads separate the two priors? Explain why "four additional trials" is impossible even though each Beta parameter has increased by four.
+
+:::
+
+::: {#exr-symmetry-and-context .exercise}
+## Symmetry and context
+
+Show that a prior density satisfying $p(\theta)=p(1-\theta)$ has $\E(\theta)=1/2$ whenever the expectation exists. Explain why this symmetry may be defensible for a newly minted coin but not for a coin selected because it repeatedly behaved strangely.
+
+:::
+
+::: {#exr-a-proper-nonconjugate-prior .exercise}
+## A proper nonconjugate prior
+
+Derive the truncated-Laplace normalising constant above. Multiply its density by the binomial likelihood and identify which part prevents the posterior from being a Beta density.
+
+:::
+
+::: {#exr-sequential-updating .exercise}
+## Sequential updating
+
+Starting from $\BetaDist(\alpha,\beta)$, update with two independent batches $(x_1,n_1)$ and $(x_2,n_2)$. Show algebraically that the answer is unchanged if the batches are combined before updating.
+
+:::
+
+::: {#exr-a-future-run-of-tosses .exercise}
+## A future run of tosses
+
+For the posterior $\BetaDist(10,4)$ and $m=5$ future tosses, derive the full Beta--Binomial predictive mass function, its mean, and its variance. Compare the variance with the binomial plug-in variance obtained from $\widehat\theta=10/14$.
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-geometric .exercise}
+## A geometric observation and a uniform prior
+
+Let $X$ be the number of coin tosses up to and including the first head. Thus 
+
+$$
+ \Pr(X=x\given\theta)=\theta(1-\theta)^{x-1},
+ \qquad x=1,2,\ldots,
+$$
+
+
+ where $\theta$ is the probability of a head. Use the prior $\theta\sim\operatorname{Unif}(0,1)$.
+
+1.  Find and identify $p(\theta\given x)$.
+
+2.  Discuss whether the prior was intended to be informative and whether it is conjugate.
+
+3.  Find the posterior mode.
+
+4.  Find $\E(\theta\given x)$.
+
+5.  Express the posterior mean as a convex combination of the prior mean and the maximum-likelihood estimate of $\theta$.
+
+6.  Give an equivalent-prior-observations interpretation, and state which pseudo-count convention you are using.
+
+[Solution](#sol-applied-geometric)
+
+:::
+
+::: {#ex-applied-logitnormal-prior .exercise}
+## A logit-normal prior for a coin
+
+Suppose $X\given\theta\sim\Bin(n,\theta)$ and prior knowledge favours heads. Consider the logit-normal prior 
+
+$$
+ p(\theta)=
+ \frac{1}{\sqrt{2\pi}\,\theta(1-\theta)}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right],
+ \qquad 0<\theta<1,
+$$
+
+
+ where $\operatorname{logit}(\theta)=\log\{\theta/(1-\theta)\}$.
+
+1.  Plot the prior on a grid and describe its shape.
+
+2.  Generate $100{,}000$ prior draws by taking $Y\sim\Normal(1,1)$ and $\theta=\exp(Y)/\{1+\exp(Y)\}$. Add a kernel-density estimate from the draws to the exact prior curve.
+
+3.  Explain how the draws approximate the prior mean.
+
+4.  After observing $x$ heads in $n$ tosses, show that 
+
+$$
+ p(\theta\given x)\propto
+ \theta^{x-1}(1-\theta)^{n-x-1}
+ \exp\!\left[-\frac12\{\operatorname{logit}(\theta)-1\}^2\right].
+$$
+
+
+ Explain why this posterior is not Beta.
+
+[Solution](#sol-applied-logitnormal-prior)
+
+:::
+
+[^b02-beta-binomial-3]: Persi Diaconis, who worked as a magician before becoming a mathematician and statistician at Stanford, is the source of this mechanical coin-flipping discussion; see the [Stanford Mathematics profile](https://mathematics.stanford.edu/people/persi-diaconis).

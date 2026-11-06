@@ -1,0 +1,60 @@
+# How to use this book {.unnumbered}
+
+This book is a self-contained course in modern applied statistics for advanced undergraduates and beginning postgraduates. It assumes a working knowledge of probability, the linear model, and elementary calculus, and it is written so that a careful reader can reconstruct every calculation.
+
+The book has five parts. The first develops Bayesian inference from first principles: credible intervals, conjugate updating, Markov chain Monte Carlo, categorical models, hypothesis comparison, exponential families, hierarchical models, and Bayesian linear regression. The later parts leave the normal linear model. Generalised linear models separate the mean, the variance, and the link. Smoothing replaces a straight line with a function the data are allowed to bend. Models for correlated data then drop independence, first with random effects and then with marginal estimating equations. The last part treats dependence along a time series, and forecasting from that dependence.
+
+Two conventions hold throughout.
+
+1. Scalars are ordinary italic ($a$, $\theta$, $\sigma^2$). Vectors are bold black ($\vect{x}$, $\boldsymbol{\beta}$). Matrices are bold blue ($\mat{X}$). A component such as $\beta_j$ or $X_{ij}$ is a scalar again. The covariate vector of one unit is $\vect{X}_i$, and $\mat{X}$ is the matrix with $i$th row $\vect{X}_i^\top$.
+2. $\mathrm{Gamma}(a,b)$ means shape $a$ and rate $b$,
+   $$
+   f(t)=\frac{b^a}{\Gamma(a)}t^{a-1}e^{-bt},\qquad t>0,
+   $$
+   unless a displayed convention is labelled otherwise. The mean is then $a/b$ and the variance is $a/b^2$. $\mathrm{InvGamma}(a,b)$ means $1/T\sim\mathrm{Gamma}(a,b)$. Where another parameterisation appears, it is named before it is used.
+
+Software comes after the probability target is already clear. When a fit is shown, it is in R. The code is a translation of a derivation, not a substitute for it.
+
+Each chapter ends with exercises. Applied problems are gathered with the chapter that supplies the method, and worked solutions are collected in one place at the end of the Bayesian part. A solution link after an applied problem jumps to that solution; the solution title jumps back to the problem.
+
+## What is written
+
+### Bayesian statistics
+
+- **Bayesian foundations.** What a credible interval says, Bayes' rule for densities, and prior and posterior prediction.
+- **The Beta--Binomial model.** Conjugacy, pseudo-counts, prior sensitivity, and prediction of further tosses.
+- **Conjugate analysis for normal models.** A normal mean, an inverse-Gamma variance, and the two full conditionals.
+- **Markov chains, Gibbs sampling, and Metropolis--Hastings.** Detailed balance, then two samplers worth implementing.
+- **Categorical data and the Dirichlet distribution.** The simplex, Dirichlet--Multinomial conjugacy, and the multinomial central limit theorem.
+- **Bayesian hypotheses and model comparison.** Posterior odds, Bayes factors, and the imperfect-fruit calculation.
+- **Exponential families and conjugacy.** Sufficiency, the natural exponential family, and the generic conjugate update.
+- **Hierarchical Bayes.** Exchangeability, partial pooling, and a grid approximation for a hyperposterior.
+- **Bayesian linear regression.** The reference prior, direct simulation, and posterior prediction.
+- **Reference formulas and a problem-solving workflow.** The distribution kernels used in the Bayesian chapters, gathered in one place.
+- **Solutions to the applied exercises.** Worked solutions, placed with the chapter that supplies the method.
+
+### Generalised linear models
+
+- **Introduction to generalised linear models.** Exponential families, the three components, binary links, and Fisher scoring.
+- **Standard errors, and models for counts.** Standard errors, dose--response data, Poisson and quasi-Poisson fits, the negative binomial, and the two Conway--Maxwell--Poisson parameterisations.
+- **Underdispersion, positive responses, and quasi-likelihood.** Gamma and inverse-Gaussian models for positive measurements, and a variance function that is not an exponential-family variance.
+- **Categorical responses.** Proportional odds, proportional hazards, and the baseline-category logit.
+- **Paired comparisons and deviance.** Odds ratios, the Bradley--Terry model, and deviance residuals.
+- **Probability-integral residuals.** A uniform plot that does not require a normal residual.
+
+### Smoothing
+
+- **Smooth means.** The roughness penalty, and a smooth for a probability that need not be monotone.
+- **Additive smooths.** Several smooth functions of one covariate at a time, including a partially linear model.
+
+### Correlated data
+
+- **Random intercepts.** Blocks, the induced correlation, and fixed versus random effects.
+- **Random slopes, and a binary mixed model.** A slope that varies between subjects, and a logit with random effects.
+- **Marginal models.** Population averages, working correlation, and sandwich standard errors.
+- **Several responses on one unit.** A multivariate margin, and why the sandwich interval is not a rectangle.
+
+### Time series
+
+- **Dependence along a series.** Autoregression, moving averages, stationarity, and the Wold decomposition.
+- **Forecasting.** Automatic selection for a seasonal series and for a wandering count of server traffic. Models for changing variance, and for counts, are named and left for later work.

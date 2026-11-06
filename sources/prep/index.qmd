@@ -1,0 +1,20 @@
+# How to use this book {.unnumbered}
+
+This booklet covers the main methods in STAT3500/7500. The first set of questions develops Bayesian updating, simulation and model comparison. The second set puts generalised linear models, smooths and mixed models to work on the applied cases from the 2024 and 2025 examinations. The questions come first; worked answers are collected afterwards so that you can attempt a complete argument before reading one.
+
+## A route through the material
+
+Start with the [common distributions](#sec-distributions) when you need to check a parameterisation, support or moment. For Questions 1--18, work from the sampling model and prior to the posterior kernel, then decide whether the requested object is a conditional distribution, a marginal distribution, a prediction or a model comparison.
+
+Questions 19--22 cover count regression and deviance, smoothing, and dependent data. Each case gives the same kind of evidence you must read in an examination: a plot, fitted R output and a sequence of linked tasks. For a coefficient, name the scale and the comparison; for a diagnostic, say what it can and cannot establish; for repeated measurements, specify which observations share a random effect.
+
+| Questions | Main idea |
+|:--|:--|
+| [1--5](#ex-norm-mean) | Normal models and conjugacy |
+| [6--18](#ex-gibbs-geom) | Sampling, hierarchical models and Bayes factors |
+| [19](#ex-fish-poisson) | Poisson regression, deviance and a smooth |
+| [20](#ex-toenail-glmm) | Binary repeated measures |
+| [21](#ex-cholesterol-gam) | Binomial GAM and link comparison |
+| [22](#ex-orthodont-lmm) | Random intercepts and slopes |
+
+The [Bayesian questions](#sec-ian) and [applied modelling questions](#sec-alan) have matching [Bayesian answers](#sec-ian-answers) and [applied modelling answers](#sec-alan-answers). The solution link after each question jumps to its answer, and the link under each answer heading returns to the question.

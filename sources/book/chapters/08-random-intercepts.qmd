@@ -1,0 +1,48 @@
+# Random intercepts
+
+Every model so far has taken the responses to be independent given the covariates. Clustering, proximity in space or time, and repeated measures on the same person all break that. Two trees in the same soil can be positively dependent because they share conditions, or negatively dependent because they compete. The negative case is real and, as a correlation matrix for a whole block, surprisingly rigid.
+
+We generate the dependence with a mixed model rather than write down a correlation matrix and stop. A correlation matrix describes association. For a normal response, a mean and a covariance do define a distribution. For a Poisson or a binomial they do not: there is no unique multivariate Poisson with a given set of correlations. A mixed model gives a mechanism. The price is that the correlations it can produce are a narrower set.
+
+## A random intercept
+
+Index the block by $j$ and the unit inside the block by $i$:
+$$
+Y_{ji}=\beta_0+\vect{X}_{ji}^\top\boldsymbol{\beta}+\alpha_j+\varepsilon_{ji},
+$$
+$$
+\alpha_j\ind\mathrm{N}(0,\sigma_A^2),
+\qquad
+\varepsilon_{ji}\ind\mathrm{N}(0,\sigma^2),
+$$
+with the block effects independent of the residuals. Drop the distribution of $\alpha_j$ and this is an ordinary model with a separate intercept for each block. The extra line says those intercepts are themselves a sample from a population of blocks.
+
+The mean is still the straight line, because both $\alpha_j$ and $\varepsilon_{ji}$ have mean zero. The variance of one response is $\sigma_A^2+\sigma^2$. Two people in different blocks share nothing, so their covariance is zero. Two people in the same block share $\alpha_j$, so
+$$
+\mathrm{Cov}(Y_{ji},Y_{ji'})=\sigma_A^2,
+\qquad
+\mathrm{Corr}=\frac{\sigma_A^2}{\sigma_A^2+\sigma^2}.
+$$
+The correlation is between $0$ and $1$. If the blocks are identical, $\sigma_A^2\to 0$ and the correlation vanishes: it was one big sample. If the block effect swamps the person-to-person noise, the correlation tends to $1$: everyone in the hospital looks the same. A linear mixed model of this form cannot produce a negative within-block correlation.
+
+Negative dependence does happen, when units in a block compete for a fixed resource. It is an awkward correlation to write down for every pair at once. A $3\times 3$ equicorrelation matrix is positive definite for any correlation in $[0,1)$, but if every pair has correlation $-\rho$, the matrix is only valid for $\rho\le 1/2$. In a block of size $K$ the lower bound is $-1/(K-1)$. Add one more person to the block and a correlation that used to be legal becomes illegal. That dependence on the block size is why the random-intercept model's refusal of negative correlations is acceptable. Competition can be modelled later by letting some pairs differ. A single negative number for every pair in a large block is not a structure worth having.
+
+## What is fixed, and what is random
+
+There is no theorem that sorts the factors. The question is whether the blocks in the study are a sample from a larger population of blocks that need not be named, or whether these particular blocks are the ones to compare.
+
+Seven hospitals, twenty patients each, two treatments for skin cancer. If those seven were a draw from the hospitals in the region that could have run the trial, the hospital intercepts are random: one variance, not seven means, and the target is the treatment contrast in that population of hospitals. If they are the seven largest hospitals and the point of the study is to compare them, the intercepts are fixed. The first line of the model is the same either way. The second line is the decision.
+
+Five fertilisers and six species, on three blocks of land, balanced so that every species meets every fertiliser once in each block. The blocks of land are almost always random. The trial did not set out to compare those three rectangles of soil, and next year it will move. The fertilisers are fixed if the point is to compare those five. They would be random only if five had been drawn from a long catalogue and the catalogue, not the five, was the target. The species are fixed if they are the six being sold, and random if they are six for which seed happened to be on hand. The data set does not answer that. It is a question to ask before the model is written.
+
+Ten jokes, told to eight people in each of five ethnicity groups. The five ethnicity labels exhaust the classification used in the study, and the comparison across them is the point, so those effects are fixed. The jokes, if they were a sample from a book rather than the ten chosen as the funniest, are random: which joke is funnier is not the question. Each person also hears all ten jokes, so a person effect, nested inside ethnicity, belongs in the model as well. A person who does not laugh at the first joke may simply not be a laugher. That is a second random intercept, not a residual.
+
+The estimation, for a normal mixed model, is not the closed form $\hat{\boldsymbol{\beta}}=(\mat{X}^\top\mat{X})^{-1}\mat{X}^\top\vect{y}$, because the covariance is not a multiple of the identity and it depends on variance parameters that themselves depend on $\boldsymbol{\beta}$. Restricted maximum likelihood, which removes the fixed mean before estimating the variances, is the stable version of that loop. The next chapter is the one in which we fit the model and read the variances.
+
+## Exercises
+
+1. From the random-intercept model, derive $\mathrm{Corr}(Y_{ji},Y_{ji'})$ for $i\neq i'$ in the same block, and check that it lies in $[0,1)$.
+
+2. A $3\times 3$ correlation matrix with every off-diagonal entry equal to $-\rho$ is positive definite only for $\rho\le 1/2$. Give the reason, in terms of three people who are all negatively correlated with each other, without a matrix calculation.
+
+3. For the skin-cancer trial in seven hospitals, state one sampling story that makes the hospital effect random and one that makes it fixed. The treatment contrast is in the model either way.

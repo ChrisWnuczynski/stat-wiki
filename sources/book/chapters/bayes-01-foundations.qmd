@@ -1,0 +1,420 @@
+# Bayesian foundations
+
+## What is random?
+
+Statistical inference is not exhausted by a contest between two schools. At least three traditions are worth distinguishing at the outset: classical or frequentist, Bayesian, and fiducial inference. Fiducial statistics takes a different route again to statements about unknown parameters, but it is now a much quieter and more specialised field. It is named here so that a useful comparison between frequentist and Bayesian reasoning is not mistaken for an exhaustive classification; we shall not develop fiducial methods in this book.
+
+In a frequentist model the unknown parameter is fixed, while data are random under repeated sampling. For example, if 
+
+$$
+  X_1,\ldots,X_n\stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2),
+$$
+
+
+ then the sample mean and sample variance are random variables, 
+
+$$
+  \overline X=\frac1n\sum_{i=1}^nX_i,
+  \qquad
+  S^2=\frac1{n-1}\sum_{i=1}^n(X_i-\overline X)^2,
+$$
+
+
+ but $\mu$ is not. A theoretical $95\%$ confidence statement is 
+
+$$
+ \Pr_{\mu}\!\left(
+   \overline X-t_{0.975,n-1}\frac{S}{\sqrt n}
+   <\mu<
+   \overline X+t_{0.975,n-1}\frac{S}{\sqrt n}
+ \right)=0.95.
+$$
+
+
+ The randomness in this statement comes from repeating the entire sampling procedure. After observing $x_1,\ldots,x_n$, the realised interval is fixed; the frequentist statement is about the long-run coverage of the procedure.
+
+A frequentist hypothesis test likewise refers to repeated sampling. Under a null hypothesis $H_0$, a $p$-value is the probability of obtaining a test statistic at least as extreme as the observed value: 
+
+$$
+ p_{\mathrm{value}}
+ =\Pr_{H_0}\{T(X)\text{ is at least as extreme as }T(x)\}.
+$$
+
+
+ It is not $\Pr(H_0\given x)$. Conventional design values such as type-I error $0.05$ and type-II error $0.20$ are choices about long-run performance, not probabilities that the realised decision is correct.
+
+Bayesian and frequentist inference are not a contest for a single universal winner. Frequentist procedures often have excellent theory and fast computation; Bayesian statements are often easier to explain because they put probability directly on the uncertain quantity. A statistician should understand both languages well enough to say exactly what a reported interval or probability means. Statistics is usually a helper discipline, and an answer that cannot be communicated accurately to the scientist or decision-maker has not finished its job.
+
+::: {#def-bayesian-credible-interval .definition}
+## Bayesian credible interval
+
+Bayesian analysis introduces a probability distribution for the unknown parameter. Conditional on observed data $x$, a statement such as 
+
+$$
+  \Pr\!\left(a(x)<\mu<b(x)\given x\right)=0.95
+$$
+
+
+ is meaningful. The interval $(a(x),b(x))$ is a $95\%$ *credible interval*. This is not a reworded confidence interval: the two calculations can coincide in large samples, but their probability statements condition on different objects.
+
+:::
+
+## Bayes' rule for densities
+
+::: {#thm-bayes-rule .theorem}
+## Bayes' rule
+
+For events $A$ and $B$ with $\Pr(B)>0$, 
+
+$$
+  \Pr(A\given B)=\frac{\Pr(B\given A)\Pr(A)}{\Pr(B)}.
+$$
+
+
+ The density version follows from two factorizations of a joint density: 
+
+$$
+  p(x,\theta)=p(x\given\theta)p(\theta)
+             =p(\theta\given x)p(x).
+$$
+
+
+ Equating the right-hand sides and dividing by $p(x)$ gives \begin{equation}
+  p(\theta\given x)
+  =\frac{p(x\given\theta)p(\theta)}{p(x)}.
+  \label{eq:bayes-density}
+\end{equation}
+
+:::
+
+Here
+
+-   $p(x\given\theta)$ is the sampling density, viewed as a likelihood in $\theta$ after $x$ is observed;
+
+-   $p(\theta)$ is the prior density;
+
+-   $p(\theta\given x)$ is the posterior density; and
+
+-   $p(x)$ is the marginal likelihood, or evidence.
+
+The evidence is the constant that normalises the posterior. For a continuous parameter, \begin{align*}
+  p(x)
+  &=\int p(x,\theta)\dd\theta\\
+  &=\int p(x\given\theta)p(\theta)\dd\theta.
+\end{align*} For a discrete parameter taking values $\theta_1,\ldots,\theta_m$, 
+
+$$
+  p(x)=\sum_{j=1}^mp(x\given\theta_j)p(\theta_j).
+$$
+
+
+ When only the posterior's shape is needed, the denominator in \eqref{eq:bayes-density} does not depend on $\theta$, so \begin{equation}
+  p(\theta\given x)\propto p(x\given\theta)p(\theta).
+  \label{eq:posterior-kernel}
+\end{equation}
+
+::: {.callout-note}
+## Key idea
+Bayesian calculation is the controlled multiplication of a likelihood by a prior, followed by normalisation or recognition of a known density kernel. The proportionality symbol removes constants in the variable being analysed, not arbitrary terms that still depend on that variable.
+
+:::
+
+## Priors and transparency
+
+::: {#def-proper-prior-and-proper-posterior .definition}
+## Proper prior and proper posterior
+
+A prior is *proper* if it is a probability distribution, so its total mass is one. A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant. An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.
+
+:::
+
+A subjective prior encodes stated beliefs or expert information. An objective or weakly informative prior tries to limit the prior's influence while still producing a mathematically usable model. Neither label removes judgement. Support, scale, invariance, tail behaviour, and parameterisation all matter. In particular, a prior that is exactly zero on part of the parameter space can never be rescued there by data: 
+
+$$
+ p(\theta\given x)\propto p(x\given\theta)p(\theta)=0
+ \quad\text{whenever }p(\theta)=0.
+$$
+
+
+ A diffuse normal prior may be badly centred but still has nonzero tails; a bounded uniform prior that excludes the true value rules it out forever.
+
+A prior does not remove judgement; it makes judgement visible. That is both a strength and a danger. The prior should be chosen before looking at the data being analysed, its scientific basis should be stated, and conclusions that move under other reasonable priors should be reported as sensitive. Prior influence is strongest precisely when the data are weakest, which is when good prior information can help most and an indefensible prior can do most damage. Formal expert elicitation is a standing reminder of the same caution: prior information is a double-edged sword, neither a defect nor an automatic virtue.
+
+The practical discipline is:
+
+1.  state the prior family and every hyperparameter;
+
+2.  explain the scale on which it is intended to be weak or informative;
+
+3.  check whether it is proper, meaning that it integrates to one;
+
+4.  check whether the resulting posterior is proper; and
+
+5.  report sensitivity to other defensible priors when the conclusion depends materially on the choice.
+
+## Posterior summaries
+
+::: {#def-posterior-point-summaries .definition}
+## Posterior point summaries
+
+For a scalar parameter, common point summaries include 
+
+$$
+  \E(\theta\given x)=\int\theta p(\theta\given x)\dd\theta,
+  \qquad
+  \widehat\theta_{\mathrm{MAP}}
+  =\argmax_{\theta}p(\theta\given x),
+$$
+
+
+ the posterior median, and posterior quantiles. These summaries need not agree for a skewed distribution.
+
+:::
+
+::: {#def-credible-region-constructions .definition}
+## Credible-region constructions
+
+Three interval constructions are worth distinguishing. An equal-tailed $95\%$ credible interval $(l,u)$ satisfies 
+
+$$
+  \Pr(\theta<l\given x)=0.025,
+  \qquad
+  \Pr(\theta>u\given x)=0.025.
+$$
+
+
+ The minimum-width interval solves 
+
+$$
+ \min_{l<u}(u-l)
+ \quad\text{subject to}\quad
+ \int_l^u p(\theta\given x)\dd\theta=0.95.
+$$
+
+
+ A highest-posterior-density set chooses a level $c$ so that 
+
+$$
+ \mathcal H_c=\{\theta:p(\theta\given x)\geq c\},
+ \qquad
+ \int_{\mathcal H_c}p(\theta\given x)\dd\theta=0.95.
+$$
+
+
+ Every included point then has density at least as large as every excluded point. For a continuous unimodal posterior this gives the minimum-width interval; for a multimodal posterior the highest-density set can be disjoint. For a symmetric unimodal density, the mean, median, and mode coincide and the common interval constructions often agree.
+
+:::
+
+![Two $95\%$ summaries of the same skewed $\BetaDist(3,9)$ posterior. Equal tails force $2.5\%$ of the probability to each side. The minimum-width interval shifts toward the high-density part of the posterior; because this density is continuous and unimodal, it is also the HPD set and its two endpoints have equal density.](../figures/part1-fig-01-credible-regions.pdf){#fig-01-credible-regions}
+
+The MAP is a useful point, but a point alone discards the uncertainty that the posterior was introduced to represent. A posterior sample converts most summaries into ordinary sample calculations.
+
+::: {#prp-posterior-summaries-from-draws .proposition}
+## Posterior summaries from draws
+
+Let $\theta^{(1)},\ldots,\theta^{(L)}$ be posterior draws and let $\theta_{(1)}\leq\cdots\leq\theta_{(L)}$ be their order statistics. Then \begin{align*}
+ \widehat{\E}(\theta\given x)
+ &=\frac1L\sum_{l=1}^L\theta^{(l)},\\
+ \widehat{\Var}(\theta\given x)
+ &=\frac1{L-1}\sum_{l=1}^L
+   \left(\theta^{(l)}-\overline\theta\right)^2,\\
+ \widehat{\Pr}(\theta<c\given x)
+ &=\frac1L\sum_{l=1}^L\mathbf{1}\{\theta^{(l)}<c\}.
+\end{align*} The posterior median and equal-tailed interval are estimated by the corresponding empirical quantiles. With $L=1000$, the median can be estimated by the average of $\theta_{(500)}$ and $\theta_{(501)}$, and a direct $95\%$ interval approximation by $[\theta_{(25)},\theta_{(975)}]$. The precise indices vary slightly with a software package's quantile convention.
+
+:::
+
+The mode is the exception. It is not an order statistic and, for continuous draws, looking for the most frequently repeated value is generally useless. One should maximise the posterior density or log-posterior, or deliberately construct and optimise a density estimate if the density itself is unavailable.
+
+::: {#rem-r-s-distribution-interface .remark}
+## R's distribution interface
+
+For a common distribution, R prefixes the distribution name by `d` for density, `p` for cumulative probability, `q` for quantile, and `r` for random generation. These are numerical calculations to run once the posterior distribution has been derived. For the $\BetaDist(3,9)$ posterior in @fig-01-credible-regions, the following commands compute its median, a posterior probability, an equal-tailed interval, and Monte Carlo versions of the same summaries.
+
+:::
+
+```r
+# theta | x ~ Beta(3, 9)
+qbeta(0.5, shape1 = 3, shape2 = 9)       # posterior median
+pbeta(0.5, shape1 = 3, shape2 = 9)       # P(theta <= 0.5 | x)
+qbeta(c(0.025, 0.975), 3, 9)             # equal-tailed interval
+
+set.seed(3500)
+theta <- rbeta(1000, shape1 = 3, shape2 = 9)
+c(mean = mean(theta),
+  median = median(theta),
+  Pr_below_half = mean(theta < 0.5))
+quantile(theta, c(0.025, 0.975))
+```
+
+The first three lines use the known Beta posterior directly and are preferable when the required function is available. The simulated calculation is the version that survives when the posterior is accessible only through a sampler. Increasing the number of draws reduces Monte Carlo error; it does not repair a sampler that targets the wrong distribution.
+
+## Prior and posterior prediction
+
+The posterior $p(\theta\given x)$ describes uncertainty about an unknown parameter. Many scientific questions instead concern an observable outcome: the next patient's response, tomorrow's demand, the number of defects in a future batch, or the mean mark in a future class. These are not questions about $\theta$ itself. They require a distribution for a future random quantity $\widetilde X$.
+
+Prediction moves posterior uncertainty back onto the scale of the data. It serves at least three purposes:
+
+1.  forecasting future observations or future aggregates;
+
+2.  supporting decisions whose consequences depend on what will be observed, rather than on the parameter alone; and
+
+3.  checking whether replicated data generated by the fitted model resemble the observations that motivated the model.
+
+The predictive target must be stated. The distribution of one new observation, a future sample mean, and a future count over $m$ trials are different even when they use the same posterior for $\theta$.
+
+### Prior predictive and posterior predictive distributions
+
+::: {#def-prior-and-posterior-predictive-distributions .definition}
+## Prior and posterior predictive distributions
+
+Before data are observed, a new observation $\widetilde x$ is generated by first drawing $\theta$ from its prior and then drawing $\widetilde x$ from the sampling model. Marginalising $\theta$ gives the prior predictive density: \begin{align*}
+  p(\widetilde x)
+  &=\int p(\widetilde x,\theta)\dd\theta\\
+  &=\int p(\widetilde x\given\theta)p(\theta)\dd\theta.
+\end{align*}
+
+After observing $x$, the analogous calculation uses the posterior: \begin{align*}
+  p(\widetilde x\given x)
+  &=\int p(\widetilde x,\theta\given x)\dd\theta\\
+  &=\int p(\widetilde x\given\theta,x)p(\theta\given x)\dd\theta\\
+  &=\int p(\widetilde x\given\theta)p(\theta\given x)\dd\theta.
+\end{align*} The last equality uses conditional independence of future and observed data given $\theta$. Prediction therefore averages the sampling model over parameter uncertainty instead of plugging in a single estimate.
+
+The prior predictive distribution asks what data the complete model regarded as plausible before seeing the observations. It is therefore useful for study design and for detecting a prior that places most of its mass on scientifically absurd data. The posterior predictive distribution asks what future data are plausible after learning from $x$. It is used for forecasting and for posterior predictive model checks. Although both are mixtures of the sampling distribution, they mix with different distributions for $\theta$: $p(\theta)$ before the data and $p(\theta\given x)$ after the data.
+
+:::
+
+One of the best ways to understand a probabilistic model is to run it in both directions. Fitting asks what parameter values are plausible after seeing the data; generation asks what data those parameter values would produce. Prior and posterior predictive simulation turn an abstract hierarchy of densities into observable consequences, which is why prediction is also a powerful model-checking habit.
+
+### Why a plug-in prediction is incomplete
+
+Replacing $\theta$ by one estimate $\widehat\theta$ gives the plug-in distribution $p(\widetilde x\given\widehat\theta)$. This treats $\widehat\theta$ as known and therefore omits parameter uncertainty. The omitted contribution is visible from the laws of total expectation and total variance. Define 
+
+$$
+ m(\theta)=\E(\widetilde X\given\theta),
+ \qquad
+ v(\theta)=\Var(\widetilde X\given\theta).
+$$
+
+
+ Conditional independence gives \begin{align*}
+ \E(\widetilde X\given x)
+ &=\E\!\left\{\E(\widetilde X\given\theta,x)\given x\right\}\\
+ &=\E\!\left\{\E(\widetilde X\given\theta)\given x\right\}\\
+ &=\E\{m(\theta)\given x\}.
+\end{align*} To derive the variance decomposition, let $M=\E(\widetilde X\given x)$. Then 
+
+$$
+ \widetilde X-M
+ =\{\widetilde X-m(\theta)\}+\{m(\theta)-M\}.
+$$
+
+
+ Squaring and taking the posterior-predictive expectation gives \begin{align*}
+ \Var(\widetilde X\given x)
+ &=\E\!\left[\{\widetilde X-m(\theta)\}^2\given x\right]
+   +\E\!\left[\{m(\theta)-M\}^2\given x\right]\\
+ &\quad
+   +2\E\!\left[
+      \{\widetilde X-m(\theta)\}\{m(\theta)-M\}\given x
+   \right].
+\end{align*} The cross-term is zero because \begin{align*}
+ &\E\!\left[
+ \{\widetilde X-m(\theta)\}\{m(\theta)-M\}\given x
+ \right]\\
+ &\quad=
+ \E\!\left[
+ \E\{\widetilde X-m(\theta)\given\theta,x\}
+ \{m(\theta)-M\}\given x
+ \right]\\
+ &\quad=0.
+\end{align*}
+
+::: {#prp-predictive-variance-decomposition .proposition}
+## Predictive-variance decomposition
+
+Under the conditional-independence assumption above, \begin{equation}
+ \boxed{
+ \Var(\widetilde X\given x)
+ =\underbrace{\E\{v(\theta)\given x\}}_{\textnormal{future-observation noise}}
+ +\underbrace{\Var\{m(\theta)\given x\}}_{\textnormal{parameter uncertainty}}.}
+ \label{eq:posterior-predictive-total-variance}
+\end{equation}
+
+:::
+
+A plug-in distribution keeps only the first kind of variation evaluated at $\widehat\theta$. Its intervals are therefore commonly too narrow. A credible interval for $\theta$ and a predictive interval for $\widetilde X$ answer different questions; the latter is usually wider because it must include the randomness of a new observation as well.
+
+### Prediction by simulation
+
+A finite mixture provides a useful way to remember the simulation. To sample from a mixture, first select a component and then sample within that component. For a predictive distribution the parameter draw plays the role of the component: first select one plausible data-generating model, then generate an observation from it. The integral gives the same two-stage recipe:
+
+1.  before data, draw $\theta^{(l)}\sim p(\theta)$; after data, draw $\theta^{(l)}\sim p(\theta\given x)$;
+
+2.  draw $\widetilde x^{(l)}\sim p(\widetilde x\given\theta^{(l)})$;
+
+3.  summarise the $\widetilde x^{(l)}$ values.
+
+The simulated future observations are not fed back into the posterior because they are not observed data. This algorithm remains valid when the predictive integral has no closed form and when $\widetilde X$ is multivariate.
+
+::: {.callout-note}
+## Key idea
+The posterior predictive distribution is the Bayesian answer to *what might we observe next?* It averages over every plausible parameter value instead of behaving as though one estimate were exact. Its uncertainty contains both irreducible future-observation noise and uncertainty about the data-generating parameter.
+
+:::
+
+## Exercises
+
+::: {#exr-confidence-procedures .exercise}
+## Confidence procedures
+
+Write a definition of a $95\%$ confidence procedure that makes clear what is random before the data are observed. Then explain why, after observing one interval, the statement "there is probability $0.95$ that $\mu$ lies in this interval" is not the usual frequentist interpretation.
+
+:::
+
+::: {#exr-what-makes-a-hypothesis-test .exercise}
+## What makes a hypothesis test?
+
+For $H_0:\mu=0$ against $H_1:\mu>0$, list the ingredients required to construct a frequentist test: a statistic, its null distribution, a direction of more extreme evidence, and a decision threshold. Define a one-sided $p$-value of $0.04$ without saying that $H_0$ has probability $0.04$.
+
+:::
+
+::: {#exr-one-thousand-posterior-draws .exercise}
+## One thousand posterior draws
+
+Suppose $\theta^{(1)},\ldots,\theta^{(1000)}$ are posterior draws. State how you would estimate the posterior mean, median, variance, $\Pr(\theta<0.5\given x)$, and an equal-tailed $95\%$ interval. Which requested summary cannot be recovered merely by selecting an order statistic, and what calculation should replace that attempt?
+
+:::
+
+::: {#exr-prediction-is-not-estimation .exercise}
+## Prediction is not estimation
+
+Give one scientific question whose target is a parameter and another whose target is a future observation. Write the integral defining the latter's posterior predictive density and its two-stage simulation algorithm.
+
+:::
+
+::: {#exr-the-missing-variance .exercise}
+## The missing variance
+
+Starting from the law of total variance, derive \eqref{eq:posterior-predictive-total-variance}. Identify exactly which term is lost when $p(\widetilde x\given x)$ is replaced by $p(\widetilde x\given\widehat\theta)$.
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-mmse .exercise}
+## Posterior mean under squared-error loss
+
+For observed data $\xvec$, consider the posterior mean squared error of a point estimate $d=d(\xvec)$, 
+
+$$
+ R(d\given\xvec)=\E\bigl[(d-\theta)^2\given\xvec\bigr].
+$$
+
+
+ Show, without omitting the quadratic expansion or the minimisation step, that the posterior mean $d=\E(\theta\given\xvec)$ is the minimum-mean-square-error estimator of $\theta$. 
+
+[Solution](#sol-applied-mmse)
+
+:::

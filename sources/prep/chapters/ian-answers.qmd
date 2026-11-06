@@ -1,0 +1,2209 @@
+# Ian's Half Answers {#sec-ian-answers}
+
+## Question 1. Normal mean, known variance {#sol-norm-mean}
+
+[Question 1](#ex-norm-mean)
+
+**Definitions.** Write $\bar x=n^{-1}\sum_i x_i$. A normal distribution $\Normal(m,v)$ has mean $m$ and variance $v$; its precision is $1/v$. Here $\sigma^2$ is the known observation variance, $\sigma_0^2$ is the prior variance of the unknown mean, and $\sigma_1^2$ will be its posterior variance. These are variances of different objects.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** The data precision of $n$ observations is $n/\sigma^2$, and the prior precision is $1/\sigma_0^2$. Precision addition gives
+
+$$
+\frac1{\sigma_1^2}
+=
+\frac n{\sigma^2}+\frac1{\sigma_0^2}.
+$$
+
+The posterior mean is the precision-weighted average of $\bar x$ and $\mu_0$:
+
+$$
+\mu_1
+=
+\frac{(n/\sigma^2)\bar x+(1/\sigma_0^2)\mu_0}{n/\sigma^2+1/\sigma_0^2}
+=
+\frac{n\bar x\,\sigma_0^2+\mu_0\sigma^2}{n\sigma_0^2+\sigma^2}.
+$$
+
+$$
+\boxed{\mu\given x\sim \Normal(\mu_1,\sigma_1^2).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)**
+
+$$
+\kappa_0=\frac{\sigma^2}{\sigma_0^2}.
+$$
+
+It counts how many observations of variance $\sigma^2$ have the same precision as the prior, since $1/\sigma_0^2=\kappa_0/\sigma^2$.
+
+Consequently, $\mu_1=(n\bar x+\kappa_0\mu_0)/(n+\kappa_0)$ and $\sigma_1^2=\sigma^2/(n+\kappa_0)$. The equivalent sample size measures information about the common mean. It need not be an integer or represent actual previous observations.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** Up to an additive constant free of $\mu$, the log posterior is
+
+$$
+-\frac{n}{2\sigma^2}(\bar x-\mu)^2-\frac{1}{2\sigma_0^2}(\mu-\mu_0)^2.
+$$
+
+Its derivative is $(n/\sigma^2)(\bar x-\mu)-(1/\sigma_0^2)(\mu-\mu_0)$. Setting the derivative equal to zero balances the two pulls, so
+
+$$
+\mu_1
+=
+\frac{(n/\sigma^2)\bar x+(1/\sigma_0^2)\mu_0}{n/\sigma^2+1/\sigma_0^2}.
+$$
+
+The second derivative is $-n/\sigma^2-1/\sigma_0^2<0$, so this stationary point is the unique posterior mode. The posterior is normal, hence its mode equals its mean. This derives the weighting rule: moving away from a more precise source incurs a larger quadratic penalty. The two weights are nonnegative and sum to one, so the posterior mean lies between $\bar x$ and $\mu_0$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** Let $w_n=(n/\sigma^2)/(n/\sigma^2+1/\sigma_0^2)$. Then $w_n\to 1$ and
+
+$$
+\mu_1=w_n\bar X_n+(1-w_n)\mu_0\to\mu^{\ast},
+\qquad
+\sigma_1^2=\Bigl(\frac n{\sigma^2}+\frac1{\sigma_0^2}\Bigr)^{-1}\to 0.
+$$
+
+With the prior held fixed, the data precision dominates. The posterior concentrates at the limiting sample mean.
+
+This conclusion uses the stated convergence $\bar X_n\to\mu^\ast$. Under the iid normal model with true mean $\mu^\ast$, that convergence follows from the law of large numbers. A fixed prior contributes a fixed amount of precision, while the likelihood contributes an amount growing linearly with $n$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** Given $\mu$, $X_{\mathrm{new}}$ is independent of the sample and $X_{\mathrm{new}}\given\mu\sim \Normal(\mu,\sigma^2)$. Since $\mu\given\xvec\sim \Normal(\mu_1,\sigma_1^2)$,
+
+$$
+\boxed{X_{\mathrm{new}}\given\xvec\sim \Normal(\mu_1,\sigma^2+\sigma_1^2).}
+$$
+
+To see the distributional result, write $X_{\mathrm{new}}=\mu+\varepsilon_{\mathrm{new}}$, where $\varepsilon_{\mathrm{new}}\sim\Normal(0,\sigma^2)$ is independent of the posterior draw of $\mu$. Conditional on the observed sample, this is a sum of two independent normal variables. Merely replacing $\mu$ by $\mu_1$ would omit uncertainty about the unknown mean.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** By the law of total variance,
+
+$$
+\Var(X_{\mathrm{new}}\given\xvec)
+=
+\E[\sigma^2\given\xvec]+\Var(\mu\given\xvec)
+=
+\sigma^2+\sigma_1^2.
+$$
+
+The term $\sigma_1^2$ is uncertainty about $\mu$. The term $\sigma^2$ is the variance of a new observation even if $\mu$ is known. Both are positive, so the predictive variance exceeds the posterior variance of $\mu$.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 2. Normal variance, known mean {#sol-norm-var}
+
+[Question 2](#ex-norm-var)
+
+**Definitions.** Put $v=\sigma^2$ and $Q_\mu=\sum_i(x_i-\mu)^2$, with $\mu$ known. Our $\InvGamma(a,b)$ convention has density $b^a v^{-a-1}e^{-b/v}/\Gamma(a)$ for $v>0$. Equivalently, $1/v\sim\GammaDist(a,b)$ in shape--rate form. Specifying the kernel avoids ambiguity about the second parameter.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Independence gives the likelihood kernel $L(v)\propto v^{-n/2}e^{-Q_\mu/(2v)}$. Multiplication by the prior gives
+
+$$
+p(v\given\xvec)\propto
+v^{-n/2}e^{-Q_\mu/(2v)}v^{-\alpha_0-1}e^{-\beta_0/v}
+=v^{-(\alpha_0+n/2)-1}e^{-(\beta_0+Q_\mu/2)/v}.
+$$
+
+Let $\alpha_n=\alpha_0+n/2$ and $\beta_n=\beta_0+Q_\mu/2$. Recognising this kernel,
+
+$$
+\boxed{
+\sigma^2\given\xvec
+\sim
+\InvGamma(\alpha_n,\beta_n).
+}
+$$
+
+Each observation adds $1/2$ to the shape. Half the sum of squared deviations from the known mean is added to the rate.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** For this shape--rate kernel, and for $\beta_n>0$,
+
+$$
+\E(\sigma^2\given\xvec)=\frac{\beta_n}{\alpha_n-1}
+\quad\text{when }\alpha_n>1,
+\qquad
+\operatorname{mode}(\sigma^2\given\xvec)=\frac{\beta_n}{\alpha_n+1}
+\quad\text{when }\alpha_n>0.
+$$
+
+The mode solves $(-\alpha_n-1)/v+\beta_n/v^2=0$. The mean is the gamma integral of $v\cdot v^{-\alpha_n-1}e^{-\beta_n/v}$, which converges only for $\alpha_n>1$.
+
+More explicitly, substituting $u=\beta_n/v$ into the expectation gives $\E(v\given\xvec)=\beta_n\Gamma(\alpha_n-1)/\Gamma(\alpha_n)=\beta_n/(\alpha_n-1)$. When $0<\alpha_n\le1$, the posterior is still a proper distribution, but its right tail is too heavy to have a finite mean. Posterior propriety and existence of a posterior moment are separate requirements.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** For $\alpha_n>1$,
+
+$$
+\frac{\beta_n}{\alpha_n-1}-\frac{\beta_n}{\alpha_n+1}
+=
+\frac{2\beta_n}{(\alpha_n-1)(\alpha_n+1)}>0.
+$$
+
+The inverse-gamma density is right-skewed, so the long right tail pulls the mean above the mode.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** Under the sampling model, $\Var(X_i\given\sigma^2)=\E[(X_i-\mu)^2\given\sigma^2]$. The sufficient statistic for $\sigma^2$, with $\mu$ known, is $\sum(x_i-\mu)^2$. Since
+
+$$
+\sum_{i=1}^n(x_i-\bar x)^2
+=
+\sum_{i=1}^n(x_i-\mu)^2-n(\bar x-\mu)^2,
+$$
+
+centring at $\bar x$ omits the term $n(\bar x-\mu)^2$.
+
+When the mean is known, departures of the sample mean from that value are evidence about the observation variance too. For example, a tightly clustered sample far from the known mean has small $\sum_i(x_i-\bar x)^2$ but large $Q_\mu$. Replacing $Q_\mu$ by the centred sum of squares would discard that evidence and change the likelihood.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 3. Normal mean and variance {#sol-norm-both}
+
+[Question 3](#ex-norm-both)
+
+**Definitions.** Write $v=\sigma^2$, $S=\sum_i(x_i-\bar x)^2$, and use $\InvGamma(a,b)$ with kernel $v^{-a-1}e^{-b/v}$. Prior independence means $p(\mu,v)=p(\mu)p(v)$. A full conditional fixes the other unknown parameter; a marginal posterior averages over its posterior uncertainty.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** No. After the data are observed, $\mu$ and $\sigma^2$ are dependent, so the joint posterior is not an independent normal times an independent inverse-gamma.
+
+Bayes' theorem gives the joint kernel
+
+$$
+p(\mu,v\given\xvec)\propto
+v^{-(\alpha_0+n/2)-1}
+\exp\left\{-\frac{\beta_0+\{S+n(\mu-\bar x)^2\}/2}{v}
+-\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right\}.
+$$
+
+The term $(\mu-\bar x)^2/v$ couples the two unknowns. The same discrepancy between $\mu$ and the data is more plausible when the observation variance is larger.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** With the other parameter held fixed, the updates are the univariate conjugate posteriors:
+
+$$
+\begin{aligned}
+\mu\given\sigma^2,x
+&\sim
+N\Biggl(
+\frac{n\bar x\,\sigma_0^2+\mu_0\sigma^2}{n\sigma_0^2+\sigma^2},\;
+\frac{\sigma^2\sigma_0^2}{n\sigma_0^2+\sigma^2}
+\Biggr),\\[4pt]
+\sigma^2\given\mu,x
+&\sim
+\InvGamma\Bigl(
+\alpha_0+\frac n2,\;
+\beta_0+\frac12\sum_{i=1}^n(x_i-\mu)^2
+\Bigr).
+\end{aligned}
+$$
+
+The normal variance equals $\sigma_1^2$ from the known-variance update, because
+
+$$
+\Bigl(\frac n{\sigma^2}+\frac1{\sigma_0^2}\Bigr)^{-1}
+=
+\frac{\sigma^2\sigma_0^2}{n\sigma_0^2+\sigma^2}.
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** A Gibbs sampler uses these two distributions. Choose $v^{(0)}>0$. At sweep $t$, draw $\mu^{(t)}$ from the normal full conditional using $v^{(t-1)}$, then draw $v^{(t)}$ from the inverse-gamma full conditional using $\mu^{(t)}$. Record the completed pair. The second draw uses the newly updated mean, rather than its value from the previous sweep.
+
+For compact notation in the algorithm, define
+
+$$
+\begin{aligned}
+m(v)&=\frac{n\bar x/v+\mu_0/\sigma_0^2}{n/v+1/\sigma_0^2},
+&V(v)&=\left(\frac n v+\frac1{\sigma_0^2}\right)^{-1},\\
+b(\mu)&=\beta_0+\frac12\sum_i(x_i-\mu)^2.
+\end{aligned}
+$$
+
+```{=latex}
+\begin{pseudocode}{Independent-prior normal model: Gibbs}
+\textbf{Input:} integers $T>B\ge0$; sample and prior parameters.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} $v^{(0)}>0$; set the retained list to empty.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $\mu^{(t)}\sim\Normal(m(v^{(t-1)}),V(v^{(t-1)}))$.\\
+\> \textbf{Draw} $v^{(t)}\sim\InvGamma(\alpha_0+n/2,b(\mu^{(t)}))$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(\mu^{(t)},v^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained posterior pairs.
+\end{pseudocode}
+```
+
+Here $B$ is the number of initial sweeps discarded as warm-up, not a guarantee of convergence. Assess mixing from multiple valid starting values, trace plots and autocorrelation, and account for dependence when computing Monte Carlo error. An exact full-conditional draw needs no Metropolis acceptance step.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** The prior density factors as $p(\mu)\,p(\sigma^2)$. The likelihood does not. The factor $\sigma^{-2}\sum_{i=1}^n(x_i-\mu)^2$ depends on both parameters, so
+
+$$
+p(\mu,\sigma^2\given\xvec)
+$$
+
+does not factor into a function of $\mu$ alone times a function of $\sigma^2$ alone.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** A full conditional treats the other parameter as known:
+
+$$
+p(\mu\given\sigma^2,\xvec)
+\quad\text{and}\quad
+p(\sigma^2\given\mu,\xvec).
+$$
+
+The marginal posteriors integrate that parameter out,
+
+$$
+p(\mu\given\xvec)
+=
+\int p(\mu\given\sigma^2,\xvec)\,p(\sigma^2\given\xvec)\,d\sigma^2,
+\qquad
+p(\sigma^2\given\xvec)
+=
+\int p(\sigma^2\given\mu,\xvec)\,p(\mu\given\xvec)\,d\mu.
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** The full conditional $p(\mu\given\sigma^2,\xvec)$ is normal at each fixed $\sigma^2$. The marginal $p(\mu\given\xvec)$ mixes those normals over the posterior distribution of $\sigma^2$; a mixture need not belong to the component family. Here, integrating the joint kernel over $v$ gives
+
+$$
+p(\mu\given\xvec)\propto
+\exp\left\{-\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right\}
+\left\{\beta_0+\frac{S+n(\mu-\bar x)^2}{2}\right\}^{-(\alpha_0+n/2)}.
+$$
+
+This is generally neither a normal nor a Student-$t$ kernel. Likewise, the marginal variance posterior is a mixture of inverse-gamma full conditionals and is not generally inverse-gamma. Substituting a point estimate for the other unknown does not perform the required integration.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(g)** Each Gibbs step draws from one full conditional, using the most recent value of the conditioned parameter. The stationary distribution of the pair is the joint posterior $p(\mu,\sigma^2\given\xvec)$. A marginal posterior is represented by the simulated values of one coordinate, not by a single full-conditional distribution.
+
+After suitable convergence assessment and warm-up, averages of functions of the retained pairs approximate joint-posterior expectations. Keeping only the $\mu$ coordinate approximates its marginal posterior automatically: uncertainty in $v$ has been propagated through the chain. Successive draws are generally correlated, so Monte Carlo standard errors must account for that dependence.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 4. Jointly conjugate normal--inverse-gamma {#sol-norm-nig}
+
+[Question 4](#ex-norm-nig)
+
+**Definitions.** Let $v=\sigma^2$, $S=\sum_i(x_i-\bar x)^2$, and $\kappa_0>0$. The normal--inverse-gamma family is defined by the factorisation $p(\mu,v)=p(v)p(\mu\given v)$, with $v\sim\InvGamma(\alpha_0,\beta_0)$ and $\mu\given v\sim\Normal(\mu_0,v/\kappa_0)$. A Student-$t$ location--scale distribution $t_\nu(m,s)$ means $m+sT$ with $T\sim t_\nu$; $s$ is a scale.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** The jointly conjugate prior scales the prior variance of the mean by the unknown variance:
+
+$$
+\mu\given\sigma^2\sim \Normal(\mu_0,\sigma^2/\kappa_0),
+\qquad
+\sigma^2\sim\InvGamma(\alpha_0,\beta_0).
+$$
+
+The independent prior uses a fixed $\sigma_0^2$, not $\sigma^2/\kappa_0$.
+
+Thus this prior already makes the uncertainty in $\mu$ depend on $v$: larger observation variance brings larger conditional prior variance for the mean. Conjugacy concerns this dependent joint family. It does not mean that updating preserves independence.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** The joint posterior stays normal--inverse-gamma. The marginal posterior of $\mu$ is a Student-$t$ distribution.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** Match the density in use,
+
+$$
+f(\sigma^2)\propto(\sigma^2)^{-\alpha-1}\exp(-\beta/\sigma^2),
+$$
+
+before a moment or a software default is used. Packages do not all take $(\alpha,\beta)$ in this shape--rate order.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** Let $S=\sum_{i=1}^n(x_i-\bar x)^2$. The updated hyperparameters are
+
+$$
+\begin{aligned}
+\kappa_n&=\kappa_0+n,\\
+\mu_n&=\frac{\kappa_0\mu_0+n\bar x}{\kappa_0+n},\\
+\alpha_n&=\alpha_0+\frac n2,\\
+\beta_n
+&=
+\beta_0+\frac12 S+\frac{\kappa_0 n}{2(\kappa_0+n)}(\bar x-\mu_0)^2.
+\end{aligned}
+$$
+
+The update follows by combining the two quadratic penalties. The useful identity is
+
+$$
+n(\mu-\bar x)^2+\kappa_0(\mu-\mu_0)^2
+=\kappa_n(\mu-\mu_n)^2
++\frac{\kappa_0n}{\kappa_n}(\bar x-\mu_0)^2.
+$$
+
+The last term records disagreement between the prior centre and the sample mean. This disagreement adds to the posterior scale for $v$, alongside the within-sample scatter $S$. Ignoring it would understate uncertainty when the prior centre and data differ.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** Multiplying the likelihood by the joint prior and using that identity gives
+
+$$
+p(\mu,v\given\xvec)\propto
+v^{-(\alpha_n+3/2)}
+\exp\left\{-\frac{\beta_n+\kappa_n(\mu-\mu_n)^2/2}{v}\right\}.
+$$
+
+This factors into a normal density in $\mu\given v$ and an inverse-gamma density in $v$, so the joint posterior remains normal--inverse-gamma. Conditionally,
+
+$$
+\mu\given\sigma^2,\xvec
+\sim
+\Normal\bigl(\mu_n,\sigma^2/\kappa_n\bigr).
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** Integrating out $\mu$ leaves the inverse-gamma factor,
+
+$$
+\sigma^2\given\xvec\sim\InvGamma(\alpha_n,\beta_n).
+$$
+
+The integral of the conditional normal density is one. Equivalently, integrating its unnormalised exponential kernel contributes $\sqrt{2\pi v/\kappa_n}$, cancelling the extra factor $v^{-1/2}$ in the joint kernel. This is why the marginal shape is $\alpha_n$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(g)** The marginal posterior is Student-$t$, with $2\alpha_n$ degrees of freedom, location $\mu_n$, and scale $\sqrt{\beta_n/(\alpha_n\kappa_n)}$:
+
+$$
+\mu\given\xvec
+\sim
+t_{2\alpha_n}\!\left(\mu_n,\sqrt{\frac{\beta_n}{\alpha_n\kappa_n}}\right).
+$$
+
+The second argument is a scale, not a standard deviation.
+
+When $\alpha_n>1$, its variance is $\beta_n/[\kappa_n(\alpha_n-1)]$, which is larger than the squared scale. The marginal mean equals $\mu_n$ when $2\alpha_n>1$; when this moment does not exist, $\mu_n$ is still the distribution's location and symmetry centre.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(h)** Given $\sigma^2$, $\mu$ is normal with variance proportional to $\sigma^2$. Mixing that normal over the inverse-gamma posterior of $\sigma^2$ gives the Student-$t$ kernel
+
+$$
+\left(1+\frac{\kappa_n(\mu-\mu_n)^2}{2\beta_n}\right)^{-(2\alpha_n+1)/2}.
+$$
+
+Uncertainty in $\sigma^2$ produces heavier tails than a normal distribution with the same location and scale.
+
+Indeed, the integral over $v$ is proportional to
+$[\beta_n+\kappa_n(\mu-\mu_n)^2/2]^{-(\alpha_n+1/2)}$.
+Matching this with $[1+(\mu-m)^2/(\nu s^2)]^{-(\nu+1)/2}$ gives $\nu=2\alpha_n$ and $s^2=\beta_n/(\alpha_n\kappa_n)$. A plug-in normal posterior at an estimated variance would not reproduce these tails.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** The weight $\kappa_0$ is the prior equivalent sample size: $\mu_0$ is weighted as $\kappa_0$ observations. Thus
+
+$$
+\mu_n=\frac{\kappa_0\mu_0+n\bar x}{\kappa_0+n}
+$$
+
+is the sample-size-weighted average of the prior location and the sample mean. The prior location is also its marginal mean when that mean exists.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(j)** In [Question 3](#ex-norm-both) the prior variance of $\mu$ is a fixed $\sigma_0^2$, and the joint posterior does not stay normal--inverse-gamma. Here the prior variance is $\sigma^2/\kappa_0$, so the joint posterior stays in that family. Both marginals are then available in closed form: inverse-gamma for $\sigma^2$, and Student-$t$ for $\mu$.
+
+The distinction is visible in the conditional update: in the independent-prior model the relative weights depend on the current $v$, whereas here both precision contributions share the factor $1/v$. That factor cancels from $\mu_n$, leaving fixed weights $n$ and $\kappa_0$.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 5. Normal--inverse-$\chi^2$ regression {#sol-reg-nichisq}
+
+[Question 5](#ex-reg-nichisq)
+
+**Definitions.** There are $n$ responses and $p$ regression coefficients; $X$ is an $n\times p$ known design matrix. Write $v=\sigma^2$. The matrix $\Sigma_0$ scales the conditional prior covariance $v\Sigma_0$. In this question $\mu_0$ denotes prior degrees of freedom, not a normal mean. Our $\operatorname{Inv\text{-}\chi^2}(\nu,s^2)$ convention means $\nu s^2/v\sim\chi^2_\nu$, or equivalently $v\sim\InvGamma(\nu/2,\nu s^2/2)$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** The transformation $\mu_0\sigma_0^2/\sigma^2\sim\chi^2_{\mu_0}$ has kernel
+
+$$
+\pi(\sigma^2)
+\propto
+(\sigma^2)^{-\mu_0/2-1}
+\exp\Bigl(-\frac{\mu_0\sigma_0^2}{2\sigma^2}\Bigr),
+\qquad\sigma^2>0.
+$$
+
+Matching $(\sigma^2)^{-a-1}\exp(-b/\sigma^2)$ gives $a=\mu_0/2$ and $b=\mu_0\sigma_0^2/2$.
+
+For completeness, if $U=\mu_0\sigma_0^2/v$, then $|dU/dv|=\mu_0\sigma_0^2/v^2$. Multiplying the $\chi^2_{\mu_0}$ density at $U$ by this Jacobian gives the displayed inverse-gamma kernel. The Jacobian supplies the power $v^{-2}$ and must be retained.
+
+$$
+\boxed{
+\sigma^2\sim\InvGamma\Bigl(\frac{\mu_0}{2},\frac{\mu_0\sigma_0^2}{2}\Bigr).
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** Since $\Sigma_0^{-1}$ is positive definite and $X^\top X$ is positive semidefinite, $\Sigma_n^{-1}$ is positive definite. Precision addition gives
+
+$$
+\boxed{\Sigma_n^{-1}=X^\top X+\Sigma_0^{-1},}
+\qquad
+\boxed{\beta_n=\Sigma_n(X^\top y+\Sigma_0^{-1}\beta_0).}
+$$
+
+The data and prior precision contributions add, and their combined precision determines the posterior centre.
+
+At fixed $v$, the likelihood contributes $X^\top X/v$ to the precision of $\beta$, and the prior contributes $\Sigma_0^{-1}/v$. Their sum is $\Sigma_n^{-1}/v$. A proper positive-definite prior therefore gives a proper conditional update even if $X$ is not of full column rank; an unregularised least-squares inverse $(X^\top X)^{-1}$ is not needed.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)**
+
+$$
+\boxed{\mu_n=\mu_0+n,}
+\qquad
+\boxed{
+\sigma_n^2
+=
+\frac{
+\mu_0\sigma_0^2+y^\top y+\beta_0^\top\Sigma_0^{-1}\beta_0
+-\beta_n^\top\Sigma_n^{-1}\beta_n
+}{\mu_n}.
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)**
+
+$$
+\boxed{\beta\given\sigma^2,y,X\sim \Normal_p(\beta_n,\sigma^2\Sigma_n),}
+\qquad
+\boxed{\sigma^2\given y,X\sim\operatorname{Inv\text{-}\chi^2}(\mu_n,\sigma_n^2).}
+$$
+
+Together these specify a normal--inverse-$\chi^2$ joint posterior.
+
+This is a conditional--marginal factorisation. To draw an independent posterior pair, draw $v$ from the marginal inverse-$\chi^2$ distribution and then $\beta$ from its normal distribution conditional on that $v$. The components within a pair are dependent through the conditional covariance, even though different pairs can be generated independently.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** Equivalently,
+
+$$
+\mu_n\sigma_n^2
+=
+\mu_0\sigma_0^2
++(y-X\beta_n)^\top(y-X\beta_n)
++(\beta_n-\beta_0)^\top\Sigma_0^{-1}(\beta_n-\beta_0).
+$$
+
+Both quadratic forms are nonnegative and $\mu_0\sigma_0^2>0$, so $\sigma_n^2>0$. The algebra is completed in (h).
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(f)** No. The conditional covariance is $\sigma^2\Sigma_n$, not $\Sigma_n$:
+
+$$
+\boxed{\Var(\beta\given\sigma^2,y,X)=\sigma^2\Sigma_n.}
+$$
+
+The parameter $\sigma_n^2$ is a scale. By the inverse-gamma equivalence in (a),
+
+$$
+\boxed{
+\E(\sigma^2\given y,X)
+=
+\frac{\mu_n\sigma_n^2}{\mu_n-2},
+\qquad\mu_n>2,
+}
+$$
+
+and
+
+$$
+\boxed{
+\operatorname{mode}(\sigma^2\given y,X)
+=
+\frac{\mu_n\sigma_n^2}{\mu_n+2}.
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(g)**
+
+$$
+\boxed{
+\sigma^2\given\beta,y,X
+\sim
+\operatorname{Inv\text{-}\chi^2}\!\left(
+\mu_n+p,\;
+\frac{\mu_n\sigma_n^2+(\beta-\beta_n)^\top\Sigma_n^{-1}(\beta-\beta_n)}{\mu_n+p}
+\right).
+}
+$$
+
+The full conditional fixes $\beta$. The marginal posterior integrates $\beta$ out, which removes $p$ from the degrees of freedom.
+
+The difference comes from the normal density's factor $v^{-p/2}$. It remains when $\beta$ is fixed and therefore adds $p/2$ to the inverse-gamma shape. Integrating over $\beta$ instead contributes a factor $v^{p/2}$, cancelling it. Substituting $\beta=\beta_n$ in the full conditional would leave the wrong degrees of freedom.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(h)** Expand the likelihood quadratic and the prior quadratic:
+
+$$
+\begin{aligned}
+&(y-X\beta)^\top(y-X\beta)
++(\beta-\beta_0)^\top\Sigma_0^{-1}(\beta-\beta_0)\\
+&\quad=
+\beta^\top(X^\top X+\Sigma_0^{-1})\beta
+-2\beta^\top(X^\top y+\Sigma_0^{-1}\beta_0)
++y^\top y+\beta_0^\top\Sigma_0^{-1}\beta_0\\
+&\quad=
+(\beta-\beta_n)^\top\Sigma_n^{-1}(\beta-\beta_n)
++y^\top y+\beta_0^\top\Sigma_0^{-1}\beta_0
+-\beta_n^\top\Sigma_n^{-1}\beta_n.
+\end{aligned}
+$$
+
+Adding $\mu_0\sigma_0^2$, the terms free of $\beta$ are the numerator of $\mu_n\sigma_n^2$ in (c), with $\mu_n=\mu_0+n$. Thus
+
+$$
+\boxed{
+Q(\beta)
+=
+(\beta-\beta_n)^\top\Sigma_n^{-1}(\beta-\beta_n)
++\mu_n\sigma_n^2.
+}
+$$
+
+The joint posterior kernel is
+
+$$
+(\sigma^2)^{-(\mu_0+n+p)/2-1}
+\exp\Bigl(-\frac{Q(\beta)}{2\sigma^2}\Bigr).
+$$
+
+The integral over $\beta$ of the normal kernel equals $(2\pi\sigma^2)^{p/2}|\Sigma_n|^{1/2}$. The remaining power of $\sigma^2$ is
+
+$$
+-\frac{\mu_0+n+p}{2}-1+\frac p2
+=
+-\frac{\mu_0+n}{2}-1.
+$$
+
+$$
+\therefore
+\text{the marginal inverse-}\chi^2\text{ degrees of freedom are }\mu_0+n.
+$$
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 6. Geometric--beta Gibbs sampler {#sol-gibbs-geom}
+
+[Question 6](#ex-gibbs-geom)
+
+**Definitions.** This target has one discrete coordinate $X\in\{1,2,\ldots\}$ and one continuous coordinate $Y\in(0,1)$. Here $\Geom(p)$ counts trials up to and including the first success, with mass $p(1-p)^{x-1}$. A $\BetaDist(a,b)$ density is proportional to $y^{a-1}(1-y)^{b-1}$. When finding a full conditional, keep all factors involving the coordinate being updated and normalise over that coordinate's support.
+
+For $0<y<1$, the factors in $x$ are $(1-y)^{x-1}$. For $r=1-y\in(0,1)$,
+
+$$
+\sum_{x=1}^{\infty}r^{x-1}=\frac{1}{1-r}=\frac{1}{y},
+$$
+
+so
+
+$$
+X\given y\sim\Geom(y),
+\qquad
+\Pr(X=x\given y)=y(1-y)^{x-1},\quad x=1,2,\ldots.
+$$
+
+The factors in $y$ are $y^{(\alpha+1)-1}(1-y)^{(x+\beta)-1}$, so
+
+$$
+Y\given x\sim\BetaDist(\alpha+1,\,x+\beta).
+$$
+
+```{=latex}
+\begin{pseudocode}{Geometric--beta Gibbs sampler}
+\textbf{Input:} $\alpha,\beta>0$ and integers $T>B\ge0$.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} $Y^{(0)}\in(0,1)$; retained list empty.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $X^{(t)}\sim\Geom(Y^{(t-1)})$ on $1,2,\ldots$.\\
+\> \textbf{Draw} $Y^{(t)}\sim\BetaDist(\alpha+1,X^{(t)}+\beta)$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(X^{(t)},Y^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained joint draws.
+\end{pseudocode}
+```
+
+Record the completed pair. Each draw is from an exact full conditional, so there is no acceptance step. To see why an update preserves the joint target, suppose a pair already has density $f$: leaving $Y$ unchanged and redrawing $X$ from $f(x\given Y)$ gives $f_Y(y)f(x\given y)=f(x,y)$ again. The same reasoning applies to the other coordinate and hence to their composition. Convergence from the chosen start still needs assessment, and successive sweeps are generally dependent.
+
+The target is proper: summing its kernel over $x$ leaves $y^{\alpha-1}(1-y)^\beta$, which has a finite beta integral for the stated positive parameters. In fact, this also identifies $Y\sim\BetaDist(\alpha,\beta+1)$ marginally. It provides a useful check on a Gibbs simulation; it is different from the full conditional $Y\given X$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**Support and mixing checks.** Correct full conditionals alone do not guarantee useful exploration. For example, take a target uniform on the two disjoint squares $(0,1)^2$ and $(2,3)^2$. Updating one coordinate while holding the other fixed cannot leave the current square, so a single-coordinate Gibbs chain cannot explore the whole target. The present geometric--beta target is positive over its product support and has no such hard separation. Strong dependence can nevertheless make exploration slow; a longer discarded prefix does not fix poor mixing. If implementing the first draw with R's `rgeom`, add one because R counts failures before success.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 7. Lognormal variance {#sol-lognormal-var}
+
+[Question 7](#ex-lognormal-var)
+
+**Definitions.** The unknown $v=\sigma^2$ is the variance of $\log X$, not the variance of $X$. The value $\mu$ is known. Write $Q=\sum_i(\log x_i-\mu)^2$ and use the inverse-gamma kernel $v^{-a-1}e^{-b/v}$ on $v>0$. All observed $x_i$ must be positive.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** Put $v=\sigma^2$. In the course's exponential-family form $f(x\given v)=b(x)\exp\{c(v)T(x)\}/a(v)$, take
+
+$$
+b(x)=\frac1{x\sqrt{2\pi}},\qquad
+T(x)=\frac{(\log x-\mu)^2}{2},\qquad
+c(v)=-\frac1v,\qquad a(v)=\sqrt v.
+$$
+
+The known $\mu$ makes $T(x)$ a statistic, and the support $x>0$ is independent of $v$. This is a one-parameter exponential family.
+
+The same structure can be seen by setting $Z_i=\log X_i$. Then $Z_i\sim\Normal(\mu,v)$, so inference about $v$ is a normal known-mean variance problem on the log scale. The factor $1/x$ in the lognormal density is the transformation Jacobian; it depends on the data, so it does not change the posterior kernel in $v$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)** For an iid sample the likelihood is
+
+$$
+L(\sigma^{2})
+\propto
+(\sigma^{2})^{-n/2}
+\exp\Bigl(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{n}(\log x_i-\mu)^{2}\Bigr).
+$$
+
+The general conjugate kernel from (i) is $a(v)^{-\kappa}\exp\{\eta c(v)\}=v^{-\kappa/2}e^{-\eta/v}$. Matching it to $(\sigma^{2})^{-a-1}\exp(-b/\sigma^{2})$ gives $a=\kappa/2-1$ and $b=\eta$. Thus $\InvGamma(a,b)$, with $a,b>0$, is a proper conjugate prior on the **variance**, not on the standard deviation.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iii)** Let $Q=\sum_{i=1}^{n}(\log x_i-\mu)^{2}$. Then
+
+$$
+\begin{aligned}
+p(v\given\xvec)
+&\propto v^{-n/2}e^{-Q/(2v)}v^{-a-1}e^{-b/v}\\
+&=v^{-(a+n/2)-1}e^{-(b+Q/2)/v}.
+\end{aligned}
+$$
+
+Recognising the inverse-gamma kernel,
+
+$$
+\boxed{\sigma^{2}\given\xvec\sim\InvGamma\bigl(a+n/2,\; b+Q/2\bigr).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iv)** With $\alpha_n=a+n/2$ and $\beta_n=b+Q/2$,
+
+$$
+\E(\sigma^{2}\given\xvec)=\frac{\beta_n}{\alpha_n-1}\quad(\alpha_n>1),
+\qquad
+\operatorname{mode}(\sigma^{2}\given\xvec)=\frac{\beta_n}{\alpha_n+1}.
+$$
+
+As $n\to\infty$ with fixed prior parameters, both are asymptotic to $Q/n$, the maximum likelihood estimator of $\sigma^{2}$. If the data come from this model at variance $v_0$, the law of large numbers gives $Q/n\to v_0$; the prior's influence vanishes.
+
+For finite $n$ the posterior mean exceeds the mode whenever the mean exists, reflecting the inverse-gamma right tail. The two become close as the shape grows. In the large-sample statement, $Q$ grows with the sample; it is $Q/n$, rather than a fixed observed $Q$, that converges to the true log-scale variance.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(v)** Take the $0.05$ and $0.95$ quantiles of this inverse-gamma posterior. That interval is a central $90\%$ credible interval for the unknown variance. Equivalently, if $W=1/\sigma^2\given\xvec\sim\GammaDist(\alpha_n,\beta_n)$ in shape--rate form and $q_u$ is its $u$-quantile, the interval is $[1/q_{0.95},\,1/q_{0.05}]$. Taking reciprocals reverses the order of the endpoints.
+
+Conditional on the observed sample and the model, the posterior probability between these endpoints is $0.90$, with $0.05$ in each tail. These are quantiles of the parameter posterior; quantiles of lognormal observations would answer a predictive question instead. If an interval for $\sigma$ is wanted, take square roots of both endpoints.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 8. Exponential versus gamma lifetimes {#sol-device-bf}
+
+[Question 8](#ex-device-bf)
+
+**Definitions.** Write $S=\sum_i x_i$ and $Q=\prod_i x_i^2$. Both $\lambda$ and $\theta$ are rates. The marginal likelihood $f(\xvec\given M_k)$ is the prior predictive density of the entire observed sample under model $M_k$. The Bayes factor $BF_{12}$ is the ratio of these densities, in the stated order.
+
+A marginal likelihood integrates the **normalised** likelihood against the **normalised** parameter prior, so factors involving only the data must be retained. Both integrations use $\int_0^\infty t^{A-1}e^{-Bt}\,dt=\Gamma(A)/B^A$ for $A,B>0$. This identity follows by setting $u=Bt$ in the defining gamma integral.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** The $\Exp(\lambda)$ likelihood is $\lambda^{n}e^{-\lambda\sum x_i}$, and the $\GammaDist(1,3)$ prior density is $3e^{-3\lambda}$. Hence
+
+$$
+f(\xvec\given M_1)
+=
+3\int_0^{\infty}\lambda^{n}e^{-\lambda(\sum x_i+3)}\,d\lambda
+=
+\boxed{\dfrac{3\,n!}{\bigl(3+\sum_{i=1}^{n}x_i\bigr)^{n+1}}.}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+```{=latex}
+\Needspace{0.30\textheight}
+```
+
+**(ii)** A $\GammaDist(3,\theta)$ observation has density $\theta^{3}x^{2}e^{-\theta x}/2$. The prior density of $\theta$ is $e^{-\theta}$. Therefore
+
+$$
+\begin{aligned}
+f(\xvec\given M_2)
+&=
+\frac{\prod_{i=1}^{n}x_i^{2}}{2^{n}}
+\int_0^{\infty}\theta^{3n}e^{-\theta(\sum x_i+1)}\,d\theta\\
+&=
+\boxed{\dfrac{\bigl(\prod_{i=1}^{n}x_i^{2}\bigr)\,\Gamma(3n+1)}{2^{n}\bigl(1+\sum_{i=1}^{n}x_i\bigr)^{3n+1}}.}
+\end{aligned}
+$$
+
+```{=latex}
+\Needspace{0.24\textheight}
+```
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iii)** Substituting (i) and (ii) into $BF_{12}=f(\xvec\given M_1)/f(\xvec\given M_2)$ gives
+
+$$
+\boxed{BF_{12}
+=\frac{3\,2^n\Gamma(n+1)(S+1)^{3n+1}}
+{\Gamma(3n+1)(S+3)^{n+1}Q}.}
+$$
+
+For the observed sample this is $1.347$: the marginal likelihood under $M_1$ is $1.347$ times that under $M_2$. The data therefore favour $M_1$, but only slightly. The Bayes factor is not a posterior model probability.
+
+For a continuous sample these are densities, not probabilities of the exact observed vector. Their ratio compares how strongly the two prior predictive distributions support the same observed data. Optimising each likelihood and taking the ratio would instead compare maximised likelihoods and would not calculate this Bayes factor.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iv)** Prior odds of $M_1$ to $M_2$ are $1/3$. Posterior odds of $M_1$ to $M_2$ are $BF_{12}/3=1.347/3=0.449:1$, or about $2.23:1$ in favour of $M_2$. Thus $M_2$ is preferred once the prior odds are included.
+
+The governing identity is posterior odds $=$ Bayes factor $\times$ prior odds. The data shift the odds towards $M_1$, but the shift is too small to overcome the prior preference for $M_2$. If these are the only two models under consideration, their posterior probabilities are approximately $0.310$ and $0.690$, respectively.
+
+```{=latex}
+\Needspace{0.42\textheight}
+```
+
+## Question 9. Gibbs and random-walk Metropolis--Hastings {#sol-gibbs-mh}
+
+[Question 9](#ex-gibbs-mh)
+
+**Definitions.** The target is the normalised version of $q(x,y)=x^3y\exp(-xy-2x-3y)$ on the positive quadrant. A $\GammaDist(a,b)$ full conditional has shape $a$ and rate $b$. Gibbs sampling redraws coordinates from exact full conditionals; Metropolis--Hastings proposes a move and corrects it with an acceptance probability. In part (c), the target is the fixed expectation $\mu_Y=\E_f(Y)$, and the interval measures numerical error in estimating it.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Given $x$, the factors in $y$ are $y\,e^{-(x+3)y}$, so
+
+$$
+Y\given x\sim\GammaDist(2,\,x+3).
+$$
+
+Given $y$, the factors in $x$ are $x^{3}e^{-(y+2)x}$, so
+
+$$
+X\given y\sim\GammaDist(4,\,y+2).
+$$
+
+```{=latex}
+\begin{pseudocode}{Positive-quadrant target: Gibbs}
+\textbf{Input:} integers $T>B\ge0$.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} $(X^{(0)},Y^{(0)})\in(0,\infty)^2$.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $X^{(t)}\sim\GammaDist(4,Y^{(t-1)}+2)$.\\
+\> \textbf{Draw} $Y^{(t)}\sim\GammaDist(2,X^{(t)}+3)$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(X^{(t)},Y^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained pairs; assess mixing.
+\end{pseudocode}
+```
+
+Each draw uses the newest available value and comes from an exact full conditional, so it needs no acceptance step. The pairs across sweeps are generally dependent. Both gamma distributions use rates, not scales.
+
+```{=latex}
+\Needspace{0.26\textheight}
+```
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** From the current point $(x,y)$, draw an increment $Z\sim \Normal(0,\sigma^{2}I_2)$ and set $(x',y')=(x,y)+Z$. This proposal is symmetric. If $x'\leq 0$ or $y'\leq 0$, reject. Otherwise accept with probability
+
+$$
+\min\Bigl(1,\frac{f(x',y')}{f(x,y)}\Bigr)
+=
+\min\Bigl(1,\frac{(x')^{3}y'}{x^{3}y}
+\exp\bigl(-(x'y'-xy)-2(x'-x)-3(y'-y)\bigr)\Bigr).
+$$
+
+Draw an independent $U\sim\operatorname{Uniform}(0,1)$ and accept the valid proposal if $U$ is no greater than this probability; otherwise retain and record the current point. A proposal outside the support is rejected, not redrawn until positive, because repeated redrawing would change the proposal kernel. The target's unknown normalising constant cancels from the ratio.
+
+Symmetry means equality of the forward and reverse density values: a centred normal increment has the same density at $Z$ and $-Z$. Hence the proposal ratio in the general Metropolis--Hastings formula is one. The scale $\sigma^2$ affects exploration, not the target distribution: very small moves can mix slowly, while very large moves can cause many rejections. Repeated states after rejection are part of the chain and must be retained in averages.
+
+For a general proposal density $g(u'\given u)$, the acceptance ratio includes $g(u\given u')/g(u'\given u)$. The following algorithm uses the symmetric proposal in this question, so that factor cancels. Define the log kernel $h(x,y)=3\log x+\log y-xy-2x-3y$ on the positive quadrant. Evaluating acceptance on the log scale avoids exponentiating a potentially extreme density ratio.
+
+```{=latex}
+\begin{pseudocode}{Random-walk Metropolis--Hastings}
+\textbf{Input:} $\sigma>0$ and integers $T>B\ge0$.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} current state $(x,y)\in(0,\infty)^2$.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $Z\sim\Normal_2(0,\sigma^2 I_2)$.\\
+\> \textbf{Propose} $(x',y')\leftarrow(x,y)+Z$.\\
+\> \textbf{If} $x'>0$ and $y'>0$ \textbf{then}\\
+\>\> $\Delta\leftarrow h(x',y')-h(x,y)$.\\
+\>\> \textbf{Draw} $U\sim\operatorname{Uniform}(0,1)$.\\
+\>\> \textbf{If} $\log U\le\min(0,\Delta)$, set $(x,y)\leftarrow(x',y')$.\\
+\> \textbf{End if}\\
+\> \textbf{If} $t>B$, \textbf{record the current} $(x,y)$.\\
+\textbf{End for}\\
+\textbf{Return} all $T-B$ retained states, including repeats.
+\end{pseudocode}
+```
+
+An invalid proposal or failed acceptance test leaves the current state unchanged. In particular, do not keep proposing until a move is accepted, and do not save only accepted moves: either action changes the sampling procedure. Check traces, exploration and autocorrelation before using the retained states in part (c).
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** After checking convergence and allowing suitable warm-up, retain $N=ab$ draws of $Y$ in $a$ non-overlapping batches of length $b$. Let $\bar Y_N$ be their overall mean and $\bar Y_k^{\mathrm{batch}}$ the mean in batch $k$. With
+
+$$
+s_B^2=\frac{1}{a-1}\sum_{k=1}^a
+\bigl(\bar Y_k^{\mathrm{batch}}-\bar Y_N\bigr)^2,
+\qquad
+\widehat{\operatorname{MCSE}}(\bar Y_N)=\frac{s_B}{\sqrt a},
+$$
+
+an approximate $95\%$ confidence interval for the fixed target $\E(Y)$ is $\bar Y_N\pm t_{0.975,a-1}s_B/\sqrt a$ (or $1.96$ in place of the $t$ quantile for many batches). Batches must be long enough to weaken within-chain dependence. The iid standard error $s_Y/\sqrt N$ ignores autocorrelation, and quantiles of the $Y$-draws describe $Y$, not uncertainty in its mean.
+
+The reason for batching is that Monte Carlo uncertainty depends on the whole autocovariance sequence. Under a stationary Markov-chain central limit theorem,
+
+$$
+\sqrt N(\bar Y_N-\mu_Y)\ \overset{d}{\longrightarrow}\ \Normal(0,\tau_Y^2),
+\qquad
+\tau_Y^2=\gamma_0+2\sum_{k=1}^{\infty}\gamma_k,
+$$
+
+where $\gamma_k=\Cov(Y_t,Y_{t+k})$. Batch means estimates $\tau_Y^2$ by $bs_B^2$, giving $\sqrt{bs_B^2/N}=s_B/\sqrt a$. There must be enough batches to estimate their variance and enough observations within each batch to account for dependence. Check that the reported error is reasonably stable as the simulation and batch length are increased; discarding warm-up alone does not remove autocorrelation.
+
+```{=latex}
+\Needspace{0.42\textheight}
+```
+
+## Question 10. Beta downtime {#sol-downtime}
+
+[Question 10](#ex-downtime)
+
+**Definitions.** The observations are downtime proportions, while $\theta>0$ is the unknown shape parameter. The prior $\GammaDist(\alpha,\beta)$ uses rate $\beta$, so its mean is $\alpha/\beta$ and variance $\alpha/\beta^2$. Define the transformed exposure $S=-\sum_i\log(1-x_i)>0$; it is not the sum of the original downtime proportions.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)**
+
+$$
+\E(\theta)=\alpha/\beta.
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** The likelihood is $\theta^{n}\exp\bigl(\theta\sum_{i=1}^{n}\log(1-x_i)\bigr)$ times a factor free of $\theta$. Multiplying by the gamma prior gives
+
+$$
+\theta^{\alpha+n-1}
+\exp\Bigl(-\theta\Bigl(\beta-\sum_{i=1}^{n}\log(1-x_i)\Bigr)\Bigr).
+$$
+
+Since $\log(1-x_i)<0$, the rate is positive.
+
+$$
+\boxed{\theta\given\xvec\sim\GammaDist\Bigl(\alpha+n,\;\beta-\sum_{i=1}^{n}\log(1-x_i)\Bigr).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)**
+
+$$
+\E(\theta\given\xvec)
+=
+\frac{\alpha+n}{\beta-\sum_{i=1}^{n}\log(1-x_i)}.
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** Write $S_n=-\sum_{i=1}^n\log(1-x_i)>0$. The log-likelihood is $n\log\theta-S_n\theta+\text{constant}$, whose derivative gives $\hat\theta_{\mathrm{MLE}}=n/S_n$. The posterior mean is
+
+$$
+\frac{\alpha+n}{\beta+S_n}
+=\frac{1+\alpha/n}{S_n/n+\beta/n}.
+$$
+
+If observations come from the stated model at $\theta_0>0$, the transformed values $-\log(1-X_i)$ are iid $\Exp(\theta_0)$, so $S_n/n\to1/\theta_0$ and the posterior mean tends to $\theta_0$, as does the MLE. With the observed data fixed, $\alpha,\beta\to0$ gives $n/S_n$; this is a limit of proper priors, whose limiting kernel $1/\theta$ is improper. If $\alpha,\beta\to\infty$ while $\alpha/\beta\to m>0$, the posterior mean tends to $m$, the limiting prior mean. Without a limit for $\alpha/\beta$, there is no unique limiting posterior mean.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** The effect is like adding $\alpha$ to the observation count and $\beta$ to the transformed total exposure $S=-\sum\log(1-x_i)$, not to the raw downtime sum. Indeed,
+
+$$
+\boxed{
+\E(\theta\given\xvec)
+=\frac{\beta}{\beta+S}\frac{\alpha}{\beta}
++\frac{S}{\beta+S}\frac nS.}
+$$
+
+The prior mean $\alpha/\beta$ and the MLE $n/S$ therefore receive nonnegative weights that sum to one.
+
+The transformation explains the form of the update. For $Z=-\log(1-X)$, we have $x=1-e^{-z}$ and $dx/dz=e^{-z}$, so
+
+$$
+f_Z(z\given\theta)
+=\theta(e^{-z})^{\theta-1}e^{-z}
+=\theta e^{-\theta z},\qquad z>0.
+$$
+
+Thus the problem is exponential-rate inference on the transformed scale: $n$ counts observations and $S$ is their total exposure. The prior adds information in exactly those two positions. In the strong-prior limit with $\alpha/\beta=m$ fixed, the prior variance is $m/\beta\to0$, explaining why the posterior mean is forced towards $m$.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 11. Geometric success probability {#sol-geom-beta}
+
+[Question 11](#ex-geom-beta)
+
+**Definitions.** Here $X_i$ counts failures before the first success, so its support begins at zero. Each observation represents one success and $x_i$ failures. Put $F=\sum_i x_i=n\bar x$. The beta density is $p^{\alpha-1}(1-p)^{\beta-1}/B(\alpha,\beta)$ on $0<p<1$. This geometric convention differs from the trial-count convention in Question 6 by one.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** The likelihood is $p^{n}(1-p)^{\sum x_i}$. The beta prior contributes $p^{\alpha-1}(1-p)^{\beta-1}$, so
+
+$$
+\boxed{p\given\xvec\sim\BetaDist\bigl(\alpha+n,\;\beta+\textstyle\sum_{i=1}^{n}x_i\bigr).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)** Yes. The posterior is beta, the same family as the prior.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iii)** For $a>0$ and $b>0$, the expectation integral is
+
+$$
+\E(P)=\frac1{B(a,b)}\int_0^1 p^a(1-p)^{b-1}\,dp
+=\frac{B(a+1,b)}{B(a,b)}.
+$$
+
+Using $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a+b)$ and $\Gamma(a+1)=a\Gamma(a)$,
+
+$$
+\frac{B(a+1,b)}{B(a,b)}
+=
+\frac{\Gamma(a+1)\Gamma(a+b)}{\Gamma(a)\Gamma(a+b+1)}
+=
+\frac{a}{a+b},
+$$
+
+and this ratio is the beta mean.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iv)** By (i) and (iii),
+
+$$
+\E(p\given\xvec)
+=
+\frac{\alpha+n}{\alpha+\beta+n+n\bar x}.
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(v)** Divide the numerator and denominator by $n$:
+
+$$
+\E(p\given\xvec)=\frac{1+\alpha/n}{1+\bar x+(\alpha+\beta)/n}.
+$$
+
+For fixed prior parameters this approaches the data-based estimate $1/(1+\bar x)$. The log-likelihood is $n\log p+F\log(1-p)$, and setting its derivative to zero gives $\hat p=n/(n+F)$ when $F>0$. If the data come from the model at $p_0$, then $\bar X_n\to(1-p_0)/p_0$ and both estimates converge to $p_0$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(vi)** If $\alpha,\beta\to 0$, the posterior mean tends to $n/(n+n\bar x)=1/(1+\bar x)$. The prior drops out.
+
+This is a limit of proper beta priors, not substitution of $\alpha=\beta=0$ into a proper prior density. If $F=0$, the limiting estimate is the boundary value $1$ and the limiting beta kernel is not a proper density; the posteriors for positive hyperparameters remain proper.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(vii)** The effect is like $\alpha$ prior successes and $\beta$ prior failures, added to the $n$ observed successes and $\sum x_i$ observed failures.
+
+An exact weighted-average expression makes that interpretation explicit:
+
+$$
+\E(p\given\xvec)
+=\frac{\alpha+\beta}{\alpha+\beta+n+F}\frac{\alpha}{\alpha+\beta}
++\frac{n+F}{\alpha+\beta+n+F}\frac{n}{n+F}.
+$$
+
+The beta prior mean and the observed success fraction are weighted by their respective total counts. These pseudo-counts describe the posterior-mean update; the powers in the prior density itself are $\alpha-1$ and $\beta-1$.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 12. Improper prior for a normal sample {#sol-improper-normal}
+
+[Question 12](#ex-improper-normal)
+
+**Definitions.** Write $v=\sigma^2$, $\bar x=n^{-1}\sum_i x_i$ and $S=\sum_i(x_i-\bar x)^2$, the unnormalised sum of squares. The prior $p(\mu,v)\propto1/v$ is a density kernel relative to $d\mu\,dv$, and $\InvGamma(a,b)$ has kernel $v^{-a-1}e^{-b/v}$. Take the observed sample to be nonconstant ($S>0$), as required for a proper posterior with this improper prior.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** The likelihood contributes $(\sigma^{2})^{-n/2}\exp\bigl(-\sum(x_i-\mu)^{2}/(2\sigma^{2})\bigr)$, and the prior contributes $\sigma^{-2}$. For $\sigma^{2}>0$,
+
+$$
+f(\mu,\sigma^{2}\given\xvec)
+\propto
+(\sigma^{2})^{-n/2-1}
+\exp\Bigl(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{n}(x_i-\mu)^{2}\Bigr).
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)**
+
+$$
+\sum_{i=1}^{n}(x_i-\mu)^{2}
+=
+\sum_{i=1}^{n}(x_i-\bar x+\bar x-\mu)^{2}
+=
+\sum_{i=1}^{n}(x_i-\bar x)^{2}+n(\mu-\bar x)^{2},
+$$
+
+because $\sum(x_i-\bar x)=0$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iii)** Let $S=\sum(x_i-\bar x)^{2}$. By (ii), the kernel in $\mu$ is $\exp\bigl(-n(\mu-\bar x)^{2}/(2\sigma^{2})\bigr)$. Thus
+
+$$
+\mu\given\sigma^{2},\xvec\sim \Normal(\bar x,\,\sigma^{2}/n).
+$$
+
+```{=latex}
+\Needspace{0.22\textheight}
+```
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iv)** The kernel in $\sigma^{2}$ is
+
+$$
+(\sigma^{2})^{-(n/2)-1}
+\exp\Bigl(-\frac{1}{2\sigma^{2}}\sum_{i=1}^{n}(x_i-\mu)^{2}\Bigr).
+$$
+
+$$
+\boxed{\sigma^{2}\given\mu,\xvec
+\sim
+\InvGamma\Bigl(\frac n2,\;\frac12\sum_{i=1}^{n}(x_i-\mu)^{2}\Bigr).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(v)** The two full conditionals give a valid Gibbs sampler, but direct independent draws are available. Integrate the joint kernel over $\mu$. By (ii), the normal integral contributes $\sqrt{2\pi v/n}$, so
+
+$$
+\begin{aligned}
+p(v\given\xvec)
+&\propto v^{-n/2-1}e^{-S/(2v)}
+\int_{-\infty}^{\infty}e^{-n(\mu-\bar x)^2/(2v)}\,d\mu\\
+&\propto v^{-(n-1)/2-1}e^{-S/(2v)}.
+\end{aligned}
+$$
+
+Thus $v\given\xvec\sim\InvGamma((n-1)/2,S/2)$ when $S>0$. For each independent posterior pair, draw $v$ from this marginal and then $\mu\given v,\xvec\sim\Normal(\bar x,v/n)$. This samples $p(\mu,v\given\xvec)=p(v\given\xvec)p(\mu\given v,\xvec)$ exactly, with no burn-in. The pairs are independent across draws, though $\mu$ and $v$ within a pair are dependent. The marginal shape $(n-1)/2$ differs from the full-conditional shape $n/2$ because integrating over $\mu$ contributes $v^{1/2}$.
+
+```{=latex}
+\begin{pseudocode}{Direct posterior sampling}
+\textbf{Input:} $n\ge2$, $S>0$, $\bar x$ and integer $N\ge1$.\\
+\textbf{For} $r=1,\ldots,N$ \textbf{do}\\
+\> \textbf{Draw} $v_r\sim\InvGamma((n-1)/2,S/2)$.\\
+\> \textbf{Draw} $\mu_r\sim\Normal(\bar x,v_r/n)$ using fresh randomness.\\
+\> \textbf{Record} $(\mu_r,v_r)$.\\
+\textbf{End for}\\
+\textbf{Return} the $N$ independent posterior pairs; no warm-up.
+\end{pseudocode}
+```
+
+If using Gibbs instead, use the two full conditionals:
+
+```{=latex}
+\begin{pseudocode}{Improper-prior normal model: Gibbs}
+\textbf{Input:} $n\ge2$, $S>0$, $\bar x$; integers $T>B\ge0$.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} $v^{(0)}>0$.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $\mu^{(t)}\sim\Normal(\bar x,v^{(t-1)}/n)$.\\
+\> \textbf{Draw} $v^{(t)}\sim\InvGamma(n/2,\{S+n(\mu^{(t)}-\bar x)^2\}/2)$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(\mu^{(t)},v^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained pairs; assess mixing.
+\end{pseudocode}
+```
+
+These are dependent Markov-chain draws, so convergence must be assessed. Setting $\mu=\bar x$ in the variance full conditional would not give the marginal variance posterior: it would still have shape $n/2$ and would miss the integration factor above.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(vi)** Let $F_{\mathrm{IG}}$ be the CDF of $\InvGamma((n-1)/2,S/2)$. A central $90\%$ credible interval for $v=\sigma^2$ is $[F_{\mathrm{IG}}^{-1}(0.05),F_{\mathrm{IG}}^{-1}(0.95)]$. Integrating $v$ out gives $\mu\given\xvec$ a Student-$t$ distribution with $n-1$ degrees of freedom, centre $\bar x$ and scale $\sqrt{S/[n(n-1)]}$. Hence its central $90\%$ interval is
+
+$$
+\boxed{\bar x\ \pm\ t_{0.95,n-1}\sqrt{\frac{S}{n(n-1)}}.}
+$$
+
+Empirical $5\%$ and $95\%$ quantiles of the direct draws are an alternative approximation to these intervals.
+
+```{=latex}
+\Needspace{0.42\textheight}
+```
+
+## Question 13. Binomial--beta Gibbs sampler {#sol-binom-beta-joint}
+
+[Question 13](#ex-binom-beta-joint)
+
+**Definitions.** The target is a joint distribution of a count $X\in\{0,\ldots,n\}$ and a probability $\theta\in(0,1)$. For positive $\alpha,\beta$, the kernel factors as a $\Bin(n,\theta)$ mass times a $\BetaDist(\alpha,\beta)$ kernel. In finding $X\given\theta$, normalisation is a sum over counts; for $\theta\given X$, it is an integral over $(0,1)$.
+
+The displayed joint expression is a kernel: summing it over $x$ gives $\theta^{\alpha-1}(1-\theta)^{\beta-1}$, whose integral is $B(\alpha,\beta)$. The normalising factor $1/B(\alpha,\beta)$ cancels from both full conditionals.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** With $\theta$ fixed, $\theta^{\alpha-1}(1-\theta)^{\beta-1}$ is constant in $x$, but $\binom{n}{x}$ is not. The remaining kernel is $\binom{n}{x}\theta^x(1-\theta)^{n-x}$. Therefore
+
+$$
+x\given\theta\sim\Bin(n,\theta).
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)** The factors in $\theta$ are $\theta^{x+\alpha-1}(1-\theta)^{n-x+\beta-1}$. Therefore
+
+$$
+\theta\given x\sim\BetaDist(x+\alpha,\,n-x+\beta).
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iii)** Use the two full conditionals in the following order.
+
+```{=latex}
+\begin{pseudocode}{Binomial--beta Gibbs sampler}
+\textbf{Input:} $n\ge1$, $\alpha,\beta>0$; integers $T>B\ge0$.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} $\theta^{(0)}\in(0,1)$.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $X^{(t)}\sim\Bin(n,\theta^{(t-1)})$.\\
+\> \textbf{Draw} $\theta^{(t)}\sim\BetaDist(\alpha+X^{(t)},\beta+n-X^{(t)})$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(X^{(t)},\theta^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained joint draws.
+\end{pseudocode}
+```
+
+The second update uses the **new** count. Each exact full-conditional update preserves the joint target, so no Metropolis acceptance step is needed; successive recorded pairs are generally dependent. Assess convergence and mixing before using the retained output.
+
+The target also admits a useful simulation check. Its marginal for $\theta$ is $\BetaDist(\alpha,\beta)$, because summing the binomial mass over $x$ gives one. Drawing $\theta$ from this marginal and then $X\given\theta$ would generate independent joint pairs directly. The Gibbs algorithm answers the question using full conditionals, but its long-run $\theta$ histogram should agree with that beta marginal.
+
+```{=latex}
+\Needspace{0.70\textheight}
+```
+
+## Question 14. Inverse-gamma waiting time {#sol-mammal-ig}
+
+[Question 14](#ex-mammal-ig)
+
+**Definitions.** Here $m$ is a known gamma shape and $\theta$ is its unknown scale: the sampling kernel in $\theta$ is $\theta^{-m}\exp(-x/\theta)$. This differs from a gamma rate parameterisation. Write $T=\sum_i x_i$ and use $\InvGamma(\alpha_0,\beta_0)$ with kernel $\theta^{-\alpha_0-1}e^{-\beta_0/\theta}$. The estimator $\hat\theta=T/(nm)$ has the same units as $\theta$.
+
+The sampling density is gamma with shape $m$ and scale $\theta$, so $\E(X_i\given\theta)=m\theta$ and the supplied estimator $\hat\theta=\bar x/m$ is the maximum likelihood estimator.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** For $\alpha_0>1$,
+
+$$
+\E(\theta)=\beta_0/(\alpha_0-1).
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)** The likelihood contributes
+
+$$
+\theta^{-nm}\exp\bigl(-(\textstyle\sum_i x_i)/\theta\bigr).
+$$
+
+The prior contributes
+
+$$
+\theta^{-\alpha_0-1}\exp(-\beta_0/\theta).
+$$
+
+Hence
+
+$$
+\boxed{\theta\given\xvec
+\sim\InvGamma(\alpha_0+nm,\;\beta_0+\textstyle\sum_i x_i).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iii)** For $\alpha_0+nm>1$,
+
+$$
+\E(\theta\given\xvec)
+=
+\frac{\beta_0+\sum x_i}{\alpha_0+nm-1}
+=
+\frac{(\alpha_0-1)\,\E(\theta)+nm\,\hat\theta}{(\alpha_0-1)+nm}.
+$$
+
+Writing the mean explicitly as a convex combination gives
+
+$$
+\E(\theta\given\xvec)
+=\underbrace{\frac{\alpha_0-1}{\alpha_0+nm-1}}_{w_0}\E(\theta)
++\underbrace{\frac{nm}{\alpha_0+nm-1}}_{w_n}\hat\theta.
+$$
+
+For $\alpha_0>1$, both weights are nonnegative and $w_0+w_n=1$. The data contribution is $nm$, the total number of captured animals across the $n$ locations.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(iv)** With $n$ and the prior fixed, $m\to\infty$ makes $w_0\to0$ and $w_n\to1$. If $\hat\theta=\bar x/m$ remains bounded, as it does in probability under the stated sampling model at a fixed true scale, the posterior mean approaches $\hat\theta$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(v)** Taking $\alpha_0,\beta_0\to0$ in the **posterior** expression gives $\sum_i x_i/(nm-1)=\{nm/(nm-1)\}\hat\theta$, provided $nm>1$. It is close to, but not exactly, the MLE. This is a formal weak-prior limit: the proper inverse-gamma prior's mean does not exist along the path once $\alpha_0\leq1$, so the weighted-average formula involving that mean cannot be used to take this limit.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(vi)** When $\alpha_0>1$, the hyperparameters act like prior information that pulls the MLE toward the prior mean $\beta_0/(\alpha_0-1)$, with weight $w_0$. In the posterior-mean ratio, $\alpha_0-1$ plays a pseudo-count role beside the observed $nm$, and $\beta_0$ plays a prior total-waiting-time role beside $\sum_i x_i$. These need not represent literal extra animals.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(vii)** Let $a=\alpha_0+nm$ and $b=\beta_0+\sum x_i$. The central credible interval is the $\alpha/2$ and $1-\alpha/2$ quantiles of $\InvGamma(a,b)$.
+
+Equivalently, let $q_u$ be the $u$-quantile of $\GammaDist(a,b)$ in shape--rate form. Since $1/\theta$ has this gamma posterior, the interval is $[1/q_{1-\alpha/2},1/q_{\alpha/2}]$. The reversal of endpoints follows because taking reciprocals is decreasing. Conditional on the data and model, the interval contains posterior probability $1-\alpha$; it describes uncertainty about the common scale, not the waiting time of a future animal.
+
+```{=latex}
+\Needspace{0.60\textheight}
+```
+
+## Question 15. Battery lifetimes and a Bayes factor {#sol-battery-bf}
+
+[Question 15](#ex-battery-bf)
+
+**Definitions.** Under $M_1$, $\theta$ is an exponential rate. Under $M_2$, its meaning is fixed by the supplied Weibull density $5\theta x^4e^{-\theta x^5}$, rather than by a software scale convention. In both models the prior density is $e^{-\theta}$ on $\theta>0$. Write $S_1=\sum_i x_i$, $S_5=\sum_i x_i^5$ and $P_4=\prod_i x_i^4$. The marginal likelihood averages a sampling density over the specified parameter prior.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Let $S_1=\sum_{i=1}^{n}x_i$. Independence gives, for $\theta>0$,
+
+$$
+p(\xvec\given\theta,M_1)
+=
+\prod_{i=1}^{n}\theta e^{-\theta x_i}
+=
+\theta^{n}e^{-\theta S_1}.
+$$
+
+Since $S_1+1>0$,
+
+$$
+p(\xvec\given M_1)
+=
+\int_0^{\infty}\theta^{n}e^{-\theta(S_1+1)}\,d\theta.
+$$
+
+Put $u=(S_1+1)\theta$. Then $d\theta=du/(S_1+1)$ and $u$ runs over $(0,\infty)$, so
+
+$$
+\begin{aligned}
+p(\xvec\given M_1)
+&=
+(S_1+1)^{-(n+1)}\int_0^{\infty}u^{n}e^{-u}\,du
+=
+\frac{\Gamma(n+1)}{(S_1+1)^{n+1}}.
+\end{aligned}
+$$
+
+Here $n$ is a positive integer, so $\Gamma(n+1)=n!$.
+
+$$
+\boxed{p(\xvec\given M_1)
+=
+\dfrac{n!}{\bigl(1+\sum_{i=1}^{n}x_i\bigr)^{n+1}}.}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** Let $P_4=\prod_{i=1}^{n}x_i^{4}$ and $S_5=\sum_{i=1}^{n}x_i^{5}$. The given density and independence give
+
+$$
+p(\xvec\given\theta,M_2)
+=
+\prod_{i=1}^{n}5\theta x_i^{4}e^{-\theta x_i^{5}}
+=
+5^{n}\theta^{n}P_4 e^{-\theta S_5},
+\qquad\theta>0.
+$$
+
+Thus
+
+$$
+p(\xvec\given M_2)
+=
+5^{n}P_4\int_0^{\infty}\theta^{n}e^{-(S_5+1)\theta}\,d\theta.
+$$
+
+Now $S_5+1>0$. The same substitution as in (a) gives $\int_0^{\infty}\theta^{n}e^{-(S_5+1)\theta}\,d\theta=n!/(S_5+1)^{n+1}$. The factor $5^{n}P_4$ does not depend on $\theta$, but it belongs to the normalised sampling density, so it remains in the marginal likelihood.
+
+$$
+\boxed{p(\xvec\given M_2)
+=
+\dfrac{5^{n}\,n!\prod_{i=1}^{n}x_i^{4}}{\bigl(1+\sum_{i=1}^{n}x_i^{5}\bigr)^{n+1}}.}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** By (a) and (b),
+
+$$
+\begin{aligned}
+\BF_{12}
+&=
+\frac{p(\xvec\given M_1)}{p(\xvec\given M_2)}
+=
+\frac{n!/(1+S_1)^{n+1}}{5^{n}n!\,P_4/(1+S_5)^{n+1}}
+=
+\frac{1}{5^{n}P_4}
+\Biggl(\frac{1+S_5}{1+S_1}\Biggr)^{n+1}.
+\end{aligned}
+$$
+
+$$
+\boxed{\BF_{12}
+=
+\dfrac{1}{5^{n}\prod_{i=1}^{n}x_i^{4}}
+\Biggl(
+\dfrac{1+\sum_{i=1}^{n}x_i^{5}}{1+\sum_{i=1}^{n}x_i}
+\Biggr)^{n+1}.}
+$$
+
+Thus $\BF_{12}>1$ favours $M_1$, and $\BF_{12}<1$ favours $M_2$.
+
+The transformation $U=X^5$ clarifies the second integration: under $M_2$, $U\given\theta\sim\Exp(\theta)$. However, the observed data are the $x_i$, so the transformation Jacobian $\prod_i5x_i^4=5^nP_4$ remains in their likelihood. Dropping it would compare densities expressed for different observed variables. In posterior inference within $M_2$ it is constant in $\theta$ and can be omitted; in this model comparison it cannot.
+
+The prior in each model must also be normalised. Using a density proportional to one on the positive line in place of $\Exp(1)$ would introduce an unspecified multiplicative constant into each marginal likelihood. The stated proper priors avoid that ambiguity. Posterior model odds are obtained only after multiplying $BF_{12}$ by the prior model odds.
+
+```{=latex}
+\Needspace{0.40\textheight}
+```
+
+## Question 16. Mixed binomial--beta Gibbs sampler {#sol-mixed-gibbs}
+
+[Question 16](#ex-mixed-gibbs)
+
+**Definitions.** $X$ and $Y$ are bounded counts, while $Z$ is a probability in $(0,1)$. The positive values $\alpha,\beta$ and probabilities $\gamma,\delta$ are fixed hyperparameters. A full conditional holds the other two coordinates fixed. A conditional mode maximises that conditional distribution; replacing random draws by modes produces a deterministic optimisation procedure rather than a sampler.
+
+The question gives numerical values only for the mode updates, and it gives no initial state. The run and the mode iteration below use those values and the initial state $(x,y,z)=(5,10,1/2)$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**Full conditionals.** Write $q$ for the displayed kernel, so $f=q/C$ on $x\in\{0,\ldots,n\}$, $y\in\{0,\ldots,m\}$ and $z\in(0,1)$. A full conditional is $q$ renormalised in the target coordinate. Factors free of that coordinate cancel.
+
+For $x$, split $(1-z)^{n+m-x-y+\beta-1}=(1-z)^{n-x}(1-z)^{m-y+\beta-1}$. The factors containing $x$ are
+
+$$
+\binom{n}{x}(z\delta)^{x}\bigl[(1-z)(1-\gamma)\bigr]^{n-x}.
+$$
+
+For $z\in(0,1)$ and $\gamma,\delta\in(0,1)$, both $A_x=z\delta$ and $B_x=(1-z)(1-\gamma)$ are positive. Then
+
+$$
+\binom{n}{x}A_x^{x}B_x^{n-x}
+=
+(A_x+B_x)^{n}
+\binom{n}{x}p_x^{x}(1-p_x)^{n-x},
+\quad
+p_x=\frac{A_x}{A_x+B_x},
+$$
+
+and $(A_x+B_x)^{n}$ does not depend on $x$. Therefore
+
+$$
+\boxed{X\given y,z
+\sim
+\Bin\!\left(n,\
+\frac{z\delta}{z\delta+(1-z)(1-\gamma)}\right).}
+$$
+
+This conditional does not depend on $y$.
+
+For $y$, split $(1-z)^{n+m-x-y+\beta-1}=(1-z)^{m-y}(1-z)^{n-x+\beta-1}$. The factors containing $y$ are
+
+$$
+\binom{m}{y}\bigl[z(1-\delta)\bigr]^{y}\bigl[(1-z)\gamma\bigr]^{m-y}.
+$$
+
+The same binomial argument, with both bases positive, gives
+
+$$
+\boxed{Y\given x,z
+\sim
+\Bin\!\left(m,\
+\frac{z(1-\delta)}{z(1-\delta)+(1-z)\gamma}\right).}
+$$
+
+This conditional does not depend on $x$.
+
+For $z$, the factors containing $z$ are $z^{x+y+\alpha-1}(1-z)^{n+m-x-y+\beta-1}$ on $(0,1)$. Since $\alpha,\beta>0$ and $0\le x\le n$, $0\le y\le m$,
+
+$$
+a_z:=x+y+\alpha>0,
+\qquad
+b_z:=n+m-x-y+\beta>0.
+$$
+
+This is the $\BetaDist(a_z,b_z)$ kernel, whose integral is the beta function $\mathrm{B}(a_z,b_z)$. Hence
+
+$$
+\boxed{Z\given x,y
+\sim
+\BetaDist(x+y+\alpha,\ n+m-x-y+\beta).}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**Gibbs sampler.** Let $p_X(z)$ and $p_Y(z)$ be the success probabilities derived above.
+
+```{=latex}
+\begin{pseudocode}{Mixed binomial--beta Gibbs sampler}
+\textbf{Input:} model parameters and integers $T>B\ge0$.\\
+\textbf{Run lengths:} $T$ iterations; discard the first $B$ as warm-up.\\
+\textbf{Initialise:} valid $(X^{(0)},Y^{(0)},Z^{(0)})$, with $0<Z^{(0)}<1$.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{Draw} $X^{(t)}\sim\Bin(n,p_X(Z^{(t-1)}))$.\\
+\> \textbf{Draw} $Y^{(t)}\sim\Bin(m,p_Y(Z^{(t-1)}))$.\\
+\> $a_t\leftarrow X^{(t)}+Y^{(t)}+\alpha$.\\
+\> $b_t\leftarrow n+m-X^{(t)}-Y^{(t)}+\beta$.\\
+\> \textbf{Draw} $Z^{(t)}\sim\BetaDist(a_t,b_t)$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(X^{(t)},Y^{(t)},Z^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained triples.
+\end{pseudocode}
+```
+
+The two binomial draws both use the previous sweep's $z$, and neither uses the other count. The beta draw uses both new counts. This is consistent with sequential Gibbs updating because the count conditionals do not depend on each other. Each draw stays within its stated support. Check mixing before summarising the retained triples; the deterministic mode updates below do not replace this sampling step.
+
+In fact, $X$ and $Y$ are conditionally independent given $Z$: at a fixed $z$, the joint kernel factors into a function of $x$ and a function of $y$. They need not be independent marginally, since both success probabilities vary with the shared $Z$. Recording only one coordinate from the joint chain approximates its marginal distribution, automatically averaging over the other coordinates.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**Run.** Use $\alpha=2$, $\beta=4$, $\gamma=0.3$, $\delta=0.6$, $n=10$, $m=20$, and the sweeps above, for $100{,}000$ iterations from $(5,10,1/2)$, with generator seed $3500$. Discard the first $1{,}000$ iterations. The marginal summaries of the remaining $99{,}000$ draws are
+
+              mean        sd   $2.5\%$    $50\%$   $97.5\%$
+  ----- ---------- --------- --------- --------- ----------
+  $x$      $4.498$   $2.349$       $0$       $4$        $9$
+  $y$     $10.880$   $4.264$       $2$      $11$       $18$
+  $z$      $0.483$   $0.186$   $0.119$   $0.487$    $0.822$
+
+![](../figures/q3-marginals.pdf){fig-align="center" width="100%"}
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**Conditional modes.** For $0<p<1$ and $k=1,\ldots,n$,
+
+$$
+\frac{\Pr(W=k)}{\Pr(W=k-1)}
+=
+\frac{n-k+1}{k}\cdot\frac{p}{1-p}
+\ge 1
+\iff
+k\le (n+1)p,
+$$
+
+when $W\sim\Bin(n,p)$. Thus the pmf is maximised at $\lfloor(n+1)p\rfloor$. If $(n+1)p$ is an integer, that value and the integer one smaller are both modes.
+
+For the beta coordinate, $a=x+y+\alpha\ge 2>1$ and $b=n+m-x-y+\beta\ge 4>1$ at these parameter values, for every feasible $(x,y)$. The log conditional density has derivative $(a-1)/z-(b-1)/(1-z)$ and second derivative $-(a-1)/z^{2}-(b-1)/(1-z)^{2}<0$, so the conditional mode is
+
+$$
+z=\frac{a-1}{a+b-2}
+=
+\frac{x+y+\alpha-1}{n+m+\alpha+\beta-2}
+=
+\frac{x+y+1}{34}.
+$$
+
+Update in the Gibbs order, using the latest value of each conditioning variable. At a binomial tie, take the larger mode $\lfloor(n+1)p\rfloor$. Starting at $(5,10,1/2)$, with $\delta=3/5$ and $\gamma=3/10$,
+
+$$
+p_X(1/2)=\frac{6}{13},
+\qquad
+11\cdot\frac{6}{13}=\frac{66}{13}\notin\mathbb{Z},
+$$
+
+so the $x$-mode is $5$. Also
+
+$$
+p_Y(1/2)=\frac{4}{7},
+\qquad
+21\cdot\frac{4}{7}=12\in\mathbb{Z},
+$$
+
+so $y$ has modes $11$ and $12$. The larger mode is $12$, and then
+
+$$
+z=\frac{5+12+1}{34}=\frac{9}{17}.
+$$
+
+At this state,
+
+$$
+p_X(9/17)=\frac{27}{55},
+\quad
+11\cdot\frac{27}{55}=\frac{27}{5},
+\quad
+\lfloor 27/5\rfloor=5,
+$$
+
+and
+
+$$
+p_Y(9/17)=\frac{3}{5},
+\quad
+21\cdot\frac{3}{5}=\frac{63}{5},
+\quad
+\lfloor 63/5\rfloor=12,
+$$
+
+neither success probability giving an integer $(n+1)p$. The beta mode is again $9/17$.
+
+$$
+\therefore
+\text{the iteration stops at }
+\Bigl(5,\ 12,\ \tfrac{9}{17}\Bigr).
+$$
+
+Note: selecting the smaller $y$-mode at the tie stops at $(5,11,1/2)$ instead. Other initial states can stop at other conditional-mode fixed points.
+
+Each mode update can only increase or preserve the joint density with the other coordinates fixed. That explains the coordinate-ascent interpretation, but it does not prove that the terminal point is a global joint mode. More importantly, these terminal values do not quantify marginal uncertainty: the simulated spread and quantiles above come from random full-conditional draws, not from the mode iteration. Warm-up removal is a starting-point precaution; trace plots and autocorrelation checks are still needed to assess the simulation.
+
+```{=latex}
+\clearpage
+```
+
+## Question 17. Hierarchical Poisson model {#sol-pois-hier}
+
+[Question 17](#ex-pois-hier)
+
+**Definitions.** $Y_{ij}$ is the count from batch $i$ in factory $j$, $\theta_j$ is that factory's mean count, and $\lambda$ is a shared unknown gamma rate. The known shape is $a$, while $c,d$ define the shape--rate gamma hyperprior on $\lambda$. Write $s_j=\sum_iY_{ij}$ and $\bar Y_j=s_j/n_j$. The conditional hierarchy is $\lambda\longrightarrow\thetavec\longrightarrow\Yvec$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** Let $s_j=\sum_{i=1}^{n_j}Y_{ij}$. Since $\Yvec\perp\lambda\given\thetavec$,
+
+$$
+p(\Yvec,\thetavec,\lambda)
+=
+p(\Yvec\given\thetavec)\,p(\thetavec\given\lambda)\,p(\lambda).
+$$
+
+For $\theta_j>0$ and $\lambda>0$,
+
+$$
+\begin{aligned}
+p(\Yvec\given\thetavec)
+&=
+\Biggl(\prod_{j=1}^{J}\prod_{i=1}^{n_j}\frac{1}{Y_{ij}!}\Biggr)
+\prod_{j=1}^{J}e^{-n_j\theta_j}\theta_j^{s_j},\\
+p(\thetavec\given\lambda)
+&=
+\Biggl(\frac{\lambda^{a}}{\Gamma(a)}\Biggr)^{J}
+\prod_{j=1}^{J}\theta_j^{a-1}e^{-\lambda\theta_j},\\
+p(\lambda)
+&=
+\frac{d^{c}}{\Gamma(c)}\lambda^{c-1}e^{-d\lambda}.
+\end{aligned}
+$$
+
+The factors $1/Y_{ij}!$, $\Gamma(a)^{-J}$ and $d^{c}/\Gamma(c)$ do not depend on $(\thetavec,\lambda)$. Dropping them leaves
+
+$$
+\boxed{
+p(\Yvec,\thetavec,\lambda)
+\propto
+\lambda^{aJ+c-1}e^{-d\lambda}
+\prod_{j=1}^{J}
+\theta_j^{s_j+a-1}e^{-(n_j+\lambda)\theta_j}.
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** In the kernel from (a), the factors containing $\theta_j$ are
+
+$$
+\theta_j^{s_j+a-1}e^{-(n_j+\lambda)\theta_j}
+=
+\theta_j^{(s_j+a)-1}e^{-(n_j+\lambda)\theta_j},
+\qquad\theta_j>0.
+$$
+
+No other rate appears. Here $s_j+a>0$ because $a>0$ and $s_j\ge 0$, and $n_j+\lambda>0$ because $\lambda>0$. This is a shape--rate gamma kernel, so
+
+$$
+\boxed{
+\theta_j\given\lambda,\Yvec
+\sim
+\GammaDist\!\left(a+\sum_{i=1}^{n_j}Y_{ij},\ n_j+\lambda\right).
+}
+$$
+
+```{=latex}
+\Needspace{0.30\textheight}
+```
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)** In the kernel from (a), the factors containing $\lambda$ are
+
+$$
+\lambda^{aJ+c-1}
+\exp\Bigl(-\lambda\sum_{j=1}^{J}\theta_j\Bigr)e^{-d\lambda}
+=
+\lambda^{(aJ+c)-1}
+\exp\Bigl(-\Bigl(d+\sum_{j=1}^{J}\theta_j\Bigr)\lambda\Bigr),
+$$
+
+for $\lambda>0$. Given $\thetavec$, the observations do not appear. The shape $aJ+c>0$, and the rate $d+\sum_j\theta_j>0$ because $d>0$. Thus
+
+$$
+\boxed{
+\lambda\given\thetavec,\Yvec
+\sim
+\GammaDist\!\left(c+aJ,\ d+\sum_{j=1}^{J}\theta_j\right).
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)** By (b) and (c), alternate a block of factory-rate draws with a shared-rate draw. Recall $s_j=\sum_iY_{ij}$.
+
+```{=latex}
+\begin{pseudocode}{Hierarchical Poisson Gibbs sampler}
+\textbf{Input:} $a,c,d>0$, $n_j,s_j$; integers $T>B\ge0$.\\
+\textbf{Initialise:} $\lambda^{(0)}>0$; discard the first $B$ sweeps.\\
+\textbf{For} $t=1,\ldots,T$ \textbf{do}\\
+\> \textbf{For} $j=1,\ldots,J$ \textbf{do}\\
+\>\> \textbf{Draw} $\theta_j^{(t)}\sim\GammaDist(a+s_j,n_j+\lambda^{(t-1)})$.\\
+\> \textbf{End for}\\
+\> \textbf{Draw} $\lambda^{(t)}\sim\GammaDist(c+aJ,d+\sum_j\theta_j^{(t)})$.\\
+\> \textbf{If} $t>B$, \textbf{record} $(\thetavec^{(t)},\lambda^{(t)})$.\\
+\textbf{End for}\\
+\textbf{Return} the $T-B$ retained joint-posterior draws.
+\end{pseudocode}
+```
+
+All gamma distributions in the algorithm use rates. The $J$ factory draws are conditionally independent given the previous $\lambda$, so their order does not matter. The final draw uses **all newly updated** rates. These exact full-conditional updates preserve $p(\thetavec,\lambda\given\Yvec)$; assess convergence and mixing before using the retained output.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)** By (b), $\theta_j$ depends on the other factories only through $\lambda$. Counts from factory $k$ update $\theta_k$, and by (c) every rate enters the conditional distribution of the shared $\lambda$. That $\lambda$ is the second parameter of $\theta_j$. This dependence through the common hyperparameter is borrowing strength: observations from one factory inform the defect rate at another.
+
+At a fixed $\lambda$, the conditional posterior mean makes the shrinkage explicit:
+
+$$
+\E(\theta_j\given\lambda,\Yvec)
+=\frac{s_j+a}{n_j+\lambda}
+=\frac{n_j}{n_j+\lambda}\bar Y_j
++\frac{\lambda}{n_j+\lambda}\frac a\lambda.
+$$
+
+This averages factory $j$'s sample mean and the common prior mean $a/\lambda$. For a given $\lambda$, smaller factories receive more pooling. The marginal posterior mean averages this expression over $p(\lambda\given\Yvec)$, which is informed by all factories. Fixing $\lambda$ externally removes this route for other factories' data to influence $\theta_j$. Integrating over a shared uncertain $\lambda$ also generally makes the factory rates dependent in the joint posterior.
+
+```{=latex}
+\clearpage
+```
+
+## Question 18. Bayesian model selection {#sol-model-selection}
+
+[Question 18](#ex-model-selection)
+
+**Definitions.** $\Normal(\eta,v)$ has mean $\eta$ and variance $v$. Write $\bar y=n^{-1}\sum_i y_i$ and $S=\sum_i(y_i-\bar y)^2$. Model $M_1$ has known variance one and unknown mean $\theta$; $M_2$ has unknown mean and variance with a dependent normal--inverse-gamma prior. The quantity $B_{12}=p(\yvec\given M_1)/p(\yvec\given M_2)$ compares prior predictive densities of the same data, and each parameter prior is distinct from the prior probability of its model.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(a)** By the given sum-of-squares identity, for $\theta\in\R$,
+
+$$
+\boxed{
+L_1(\theta;\yvec)
+=
+(2\pi)^{-n/2}
+\exp\Bigl(-\tfrac12\bigl[S+n(\bar y-\theta)^{2}\bigr]\Bigr).
+}
+$$
+
+For $\mu\in\R$ and $\sigma^{2}>0$,
+
+$$
+\boxed{
+L_2(\mu,\sigma^{2};\yvec)
+=
+(2\pi\sigma^{2})^{-n/2}
+\exp\Bigl(-\frac{S+n(\bar y-\mu)^{2}}{2\sigma^{2}}\Bigr).
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(b)** The $\Normal(0,\tau^{2})$ prior has density $(2\pi\tau^{2})^{-1/2}\exp(-\theta^{2}/(2\tau^{2}))$. Thus
+
+$$
+\begin{aligned}
+p(\yvec\given M_1)
+&=
+\int_{-\infty}^{\infty}L_1(\theta;\yvec)\,(2\pi\tau^{2})^{-1/2}e^{-\theta^{2}/(2\tau^{2})}\,d\theta\\
+&=
+(2\pi)^{-n/2}(2\pi\tau^{2})^{-1/2}e^{-S/2}
+\int_{-\infty}^{\infty}
+\exp\Bigl(-\tfrac12\Bigl[n(\bar y-\theta)^{2}+\frac{\theta^{2}}{\tau^{2}}\Bigr]\Bigr)\,d\theta.
+\end{aligned}
+$$
+
+The expression in brackets is
+
+$$
+n(\bar y-\theta)^{2}+\frac{\theta^{2}}{\tau^{2}}
+=
+\Bigl(n+\frac1{\tau^{2}}\Bigr)\theta^{2}-2n\bar y\,\theta+n\bar y^{2}.
+$$
+
+Set $A=n+1/\tau^{2}$. Then $A>0$, because $n\geq 2$ and $\tau^{2}>0$, and $\tau^{2}A=1+n\tau^{2}$. Completing the square,
+
+$$
+\begin{aligned}
+A\theta^{2}-2n\bar y\,\theta+n\bar y^{2}
+&=
+A\Bigl(\theta-\frac{n\bar y}{A}\Bigr)^{2}
++n\bar y^{2}\frac{A-n}{A}\\
+&=
+A\Bigl(\theta-\frac{n\bar y}{A}\Bigr)^{2}
++\frac{n\bar y^{2}}{1+n\tau^{2}},
+\end{aligned}
+$$
+
+where $A-n=1/\tau^{2}$. The integral equals
+
+$$
+\exp\Bigl(-\frac{n\bar y^{2}}{2(1+n\tau^{2})}\Bigr)
+\int_{-\infty}^{\infty}
+\exp\Bigl(-\frac A2\Bigl(\theta-\frac{n\bar y}{A}\Bigr)^{2}\Bigr)\,d\theta
+=
+\exp\Bigl(-\frac{n\bar y^{2}}{2(1+n\tau^{2})}\Bigr)
+\sqrt{\frac{2\pi}{A}},
+$$
+
+since $A>0$. The remaining normalising factors simplify by $\tau^{2}A=1+n\tau^{2}$:
+
+$$
+(2\pi\tau^{2})^{-1/2}\sqrt{2\pi/A}=(1+n\tau^{2})^{-1/2}.
+$$
+
+$$
+\boxed{
+p(\yvec\given M_1)
+=
+(2\pi)^{-n/2}(1+n\tau^{2})^{-1/2}
+\exp\Bigl(-\frac12\Bigl[S+\frac{n\bar y^{2}}{1+n\tau^{2}}\Bigr]\Bigr).
+}
+$$
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(c)**
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** The conditional prior of $\mu$ has density $(\kappa/(2\pi\sigma^{2}))^{1/2}\exp(-\kappa\mu^{2}/(2\sigma^{2}))$. Therefore
+
+$$
+\begin{aligned}
+p(\yvec\given\sigma^{2},M_2)
+&=
+(2\pi\sigma^{2})^{-n/2}\Bigl(\frac{\kappa}{2\pi\sigma^{2}}\Bigr)^{1/2}e^{-S/(2\sigma^{2})}\\
+&\qquad\times
+\int_{-\infty}^{\infty}
+\exp\Bigl(-\frac{n(\bar y-\mu)^{2}+\kappa\mu^{2}}{2\sigma^{2}}\Bigr)\,d\mu.
+\end{aligned}
+$$
+
+Since $n+\kappa>0$,
+
+$$
+\begin{aligned}
+n(\bar y-\mu)^{2}+\kappa\mu^{2}
+&=
+(n+\kappa)\Bigl(\mu-\frac{n\bar y}{n+\kappa}\Bigr)^{2}
++n\bar y^{2}\frac{\kappa}{n+\kappa}.
+\end{aligned}
+$$
+
+The integral is
+
+$$
+\exp\Bigl(-\frac{n\kappa\bar y^{2}}{2\sigma^{2}(n+\kappa)}\Bigr)
+\sqrt{\frac{2\pi\sigma^{2}}{n+\kappa}}.
+$$
+
+Multiplying by the constant prefactor, the factors $(2\pi\sigma^{2})^{\pm 1/2}$ cancel, and
+
+$$
+\boxed{
+p(\yvec\given\sigma^{2},M_2)
+=
+(2\pi\sigma^{2})^{-n/2}\Bigl(\frac{\kappa}{n+\kappa}\Bigr)^{1/2}
+\exp\Bigl(-\frac{Q}{2\sigma^{2}}\Bigr),
+}
+$$
+
+where $Q=S+n\kappa\bar y^{2}/(n+\kappa)$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)** By (i) and the inverse-gamma prior,
+
+$$
+\begin{aligned}
+p(\yvec\given M_2)
+&=
+(2\pi)^{-n/2}\Bigl(\frac{\kappa}{n+\kappa}\Bigr)^{1/2}
+\frac{\beta^{\alpha}}{\Gamma(\alpha)}\\
+&\qquad\times
+\int_0^{\infty}
+(\sigma^{2})^{-(\alpha+n/2)-1}
+\exp\Bigl(-\frac{\beta+Q/2}{\sigma^{2}}\Bigr)\,d\sigma^{2}.
+\end{aligned}
+$$
+
+Here $\alpha+n/2>0$ because $\alpha>0$ and $n\geq 2$, and $\beta+Q/2>0$ because $\beta>0$ and $Q\geq 0$. The given integral with these values yields
+
+$$
+\boxed{
+p(\yvec\given M_2)
+=
+(2\pi)^{-n/2}\Bigl(\frac{\kappa}{n+\kappa}\Bigr)^{1/2}
+\frac{\beta^{\alpha}\,\Gamma(\alpha+n/2)}{\Gamma(\alpha)\,(\beta+Q/2)^{\alpha+n/2}},
+}
+$$
+
+with $Q$ as in (i).
+
+The two integrations under $M_2$ have different roles. Integrating over $\mu$ combines the sampling information about the mean with its conditional normal prior, producing the adjustment $n\kappa\bar y^2/(n+\kappa)$. Integrating over $\sigma^2$ then averages over uncertainty in the common variance. Neither step replaces an unknown by its maximum likelihood estimate. The factor $\sqrt{\kappa/(n+\kappa)}$ is one of the normalisation factors that would be lost by keeping only an exponential kernel.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(d)**
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** By (b) and (c)(ii), the factors $(2\pi)^{-n/2}$ cancel, so
+
+$$
+\boxed{
+B_{12}
+=
+(1+n\tau^{2})^{-1/2}
+\exp\Bigl(-\frac12\Bigl[S+\frac{n\bar y^{2}}{1+n\tau^{2}}\Bigr]\Bigr)
+\Bigl(\frac{n+\kappa}{\kappa}\Bigr)^{1/2}
+\frac{\Gamma(\alpha)\,(\beta+Q/2)^{\alpha+n/2}}{\beta^{\alpha}\,\Gamma(\alpha+n/2)},
+}
+$$
+
+where $Q=S+n\kappa\bar y^{2}/(n+\kappa)$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)**
+
+$$
+\frac{\Pr(M_1\given\yvec)}{\Pr(M_2\given\yvec)}
+=
+B_{12}\,\frac{\Pr(M_1)}{\Pr(M_2)}
+=
+B_{12}\,\frac{0.25}{0.75}
+=
+\frac{B_{12}}{3}.
+$$
+
+$$
+\therefore
+\text{the posterior odds in favour of }M_1\text{ are }B_{12}/3.
+$$
+
+Therefore the posterior favours $M_1$ only if $B_{12}>3$, rather than merely $B_{12}>1$. If the two models exhaust the alternatives, $\Pr(M_1\given\yvec)=B_{12}/(B_{12}+3)$. A Bayes factor above one says that the data shift the odds towards $M_1$; it need not make $M_1$ the more probable model after accounting for the prior odds.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(e)**
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** A constant free of the parameters cancels in the posterior distribution within one model. It does not cancel between $M_1$ and $M_2$, because the two marginal likelihoods need not contain the same constant. Those factors remain in $B_{12}$.
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(ii)** $B_{12}$ is well-defined when $0<p(\yvec\given M_k)<\infty$ for $k=1,2$. That holds here: both parameter priors are proper, $n\geq 2$, and $\tau^{2},\kappa,\alpha,\beta>0$, so the integrals in (b) and (c) converge. An unspecified improper prior is determined only up to an arbitrary positive multiple. That multiple remains in the marginal likelihood, so the Bayes factor is not uniquely defined.
+
+A marginal likelihood is a prior-weighted average of likelihood values, so it depends on both fit and how much prior mass lies in parameter regions that fit the data. Broadening a proper prior can change this average even when the posterior within a model changes little. Sensitivity to the stated prior scales is therefore part of interpreting the model comparison; a proper posterior by itself does not justify a Bayes factor based on an unspecified improper prior.

@@ -1,0 +1,527 @@
+# Exponential families and conjugacy
+
+The conjugate calculations in the Beta--Binomial, Normal--Normal, and Gamma--Poisson models are not isolated coincidences. They are instances of a general pattern: the likelihood compresses the observations into sufficient statistics, and a matching prior allows those statistics to update a fixed number of hyperparameters. This chapter isolates that algebraic mechanism before the book turns to the different idea of linking related groups through a hierarchy.[^b07-exponential-families-1]
+
+## Statistics and inferential reduction
+
+::: {#def-statistic-and-estimator .definition}
+## Statistic and estimator
+
+Write the complete sample as $\Xvec=(X_1,\ldots,X_n)$ and its realised value as $\xvec=(x_1,\ldots,x_n)$. A *statistic* is any function 
+
+$$
+ T=T(\Xvec)
+$$
+
+
+ of the random data alone. It cannot contain an unknown parameter. An *estimator* is a statistic used to estimate a parameter or a function of one, so every estimator is a statistic but not every statistic is introduced for estimation. For example, $\overline X$, $\max_iX_i$, and $\sum_i(X_i-\overline X)^2$ are all statistics.
+
+:::
+
+The same mathematical expression $p(\xvec\given\theta)$ is viewed in two different ways:
+
+-   as a sampling density, $\xvec$ varies and $\theta$ is fixed;
+
+-   as a likelihood, the observed $\xvec$ is fixed and $\theta$ varies.
+
+The likelihood is therefore a function of $\theta$; it is not generally a probability density in $\theta$. A prior is required before it can be normalised to form a posterior.
+
+Statistical reduction asks whether the full data vector can be replaced by a lower-dimensional statistic without losing information about $\theta$ under the assumed model. This is the role of sufficiency.
+
+Sufficiency is not a claim that the discarded features are useless for every purpose. It says they add no information about the named parameter within the assumed model. Residual patterns can still be vital for checking that model. The parameter, the model, and the inferential purpose therefore belong in any careful statement that a statistic is sufficient.
+
+## Sufficiency and the Fisher--Neyman theorem
+
+::: {#def-definition .definition}
+A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.
+
+:::
+
+Once $T$ is known, the remaining details of the sample may still be useful for checking the model or answering other questions, but they contain no further information about $\theta$ *within that model*. Sufficiency is therefore model-relative. A statistic sufficient when a nuisance parameter is known need not remain sufficient when that parameter is also unknown.
+
+The conditional definition is conceptually clean but awkward to verify directly. The standard practical tool is the following theorem.
+
+::: {#thm-fisher-neyman-factorisation .theorem}
+## Fisher--Neyman factorisation
+
+Suppose the family $\{p(\xvec\given\theta):\theta\in\Omega\}$ is dominated by a common measure. Then $T(\Xvec)$ is sufficient for $\theta$ if and only if there are nonnegative functions $g_\theta$ and $h$ such that \begin{equation}
+ p(\xvec\given\theta)
+ =g_\theta\{T(\xvec)\}h(\xvec),
+ \qquad \theta\in\Omega,
+ \label{eq:fisher-neyman-factorisation}
+\end{equation} where $h$ does not depend on $\theta$.
+
+:::
+
+The factorisation says that every part of the likelihood that depends on $\theta$ must pass through $T(\xvec)$. For a discrete sample, the easy direction of the theorem can be seen directly. If $T(\xvec)=t$, then \begin{align*}
+ \Pr_\theta(\Xvec=\xvec\given T=t)
+ &=\frac{p(\xvec\given\theta)}
+         {\sum_{\vect u:T(\vect u)=t}
+          p(\vect u\given\theta)}\\
+ &=\frac{g_\theta(t)h(\xvec)}
+         {\sum_{\vect u:T(\vect u)=t}
+          g_\theta(t)h(\vect u)}\\
+ &=\frac{h(\xvec)}
+         {\sum_{\vect u:T(\vect u)=t}h(\vect u)}.
+\end{align*} The final expression contains no $\theta$. The measure-theoretic theorem extends the same cancellation to continuous and mixed models.
+
+The Bayesian consequence is immediate. If the prior density is $\pi(\theta)$, then \begin{align*}
+ p(\theta\given\xvec)
+ &\propto p(\xvec\given\theta)\pi(\theta)\\
+ &=g_\theta\{T(\xvec)\}h(\xvec)\pi(\theta)\\
+ &\propto g_\theta\{T(\xvec)\}\pi(\theta),
+\end{align*} because $h(\xvec)$ is constant in $\theta$. Thus two samples having the same sufficient statistic produce the same posterior under the same prior. This is why conjugate updates can often be written using only a count, a sum, or a pair of sums.
+
+## Worked factorisation: a normal mean
+
+::: {#exm-sufficiency-for-a-normal-mean .example}
+## Sufficiency for a normal mean
+
+Suppose 
+
+$$
+ X_1,\ldots,X_n\given\mu
+ \stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\sigma^2),
+ \qquad \sigma^2\text{ known}.
+$$
+
+
+ **Question.** Use the Fisher--Neyman factorisation theorem to find a sufficient statistic for $\mu$. Then identify a sufficient statistic when both $\mu$ and $\sigma^2$ are unknown.
+
+**Solution.** The joint density is \begin{align*}
+ p(\xvec\given\mu)
+ &=(2\pi\sigma^2)^{-n/2}
+   \exp\!\left\{-\frac1{2\sigma^2}
+   \sum_{i=1}^n(x_i-\mu)^2\right\}.
+\end{align*} Expand the quadratic: \begin{align*}
+ \sum_{i=1}^n(x_i-\mu)^2
+ &=\sum_{i=1}^n(x_i^2-2\mu x_i+\mu^2)\\
+ &=\sum_{i=1}^nx_i^2
+   -2\mu\sum_{i=1}^nx_i
+   +n\mu^2.
+\end{align*} Substitution gives \begin{align*}
+ p(\xvec\given\mu)
+ &=\underbrace{
+   (2\pi\sigma^2)^{-n/2}
+   \exp\!\left\{-\frac1{2\sigma^2}\sum_{i=1}^nx_i^2\right\}}
+   _{h(\xvec)}\\
+ &\quad\times
+   \underbrace{
+   \exp\!\left\{
+    \frac{\mu}{\sigma^2}\sum_{i=1}^nx_i
+    -\frac{n\mu^2}{2\sigma^2}\right\}}
+   _{g_\mu\{T(\xvec)\}}.
+\end{align*} All dependence on $\mu$ passes through 
+
+$$
+ T(\xvec)=\sum_{i=1}^nx_i.
+$$
+
+
+ The factorisation theorem therefore proves that $\sum_iX_i$ is sufficient for $\mu$. Since $\overline X=T/n$ is a one-to-one function of $T$ when $n$ is fixed, $\overline X$ is equivalent and is also sufficient.
+
+If both $\mu$ and $\sigma^2$ are unknown, the displayed factorisation no longer isolates all parameter dependence through $\sum_iX_i$. A sufficient statistic for $(\mu,\sigma^2)$ is instead 
+
+$$
+ \left(\sum_{i=1}^nX_i,\sum_{i=1}^nX_i^2\right),
+$$
+
+
+ or equivalently 
+
+$$
+ \left(\overline X,\sum_{i=1}^n(X_i-\overline X)^2\right).
+$$
+
+
+ This is the nuisance-parameter warning in concrete form.
+
+:::
+
+## Minimal sufficiency, completeness, and ancillarity
+
+::: {#def-minimal-sufficiency .definition}
+## Minimal sufficiency
+
+Sufficiency alone does not guarantee the greatest possible compression: the entire sample is trivially sufficient. A statistic $T$ is *minimal sufficient* if it is a function of every other sufficient statistic.
+
+:::
+
+Under common-support regularity conditions, a useful likelihood-ratio criterion is \begin{equation}
+ \frac{p(\xvec\given\theta)}{p(\vect y\given\theta)}
+ \text{ is constant in }\theta
+ \quad\Longleftrightarrow\quad
+ T(\xvec)=T(\vect y).
+ \label{eq:minimal-sufficiency-ratio}
+\end{equation}
+
+For the known-variance normal model, \begin{align*}
+ \frac{p(\xvec\given\mu)}{p(\vect y\given\mu)}
+ &=\exp\!\left\{
+ -\frac{\sum_i x_i^2-\sum_i y_i^2}{2\sigma^2}
+ +\frac{\mu}{\sigma^2}
+  \left(\sum_i x_i-\sum_i y_i\right)
+ \right\}.
+\end{align*} The first term is independent of $\mu$. The second is independent of $\mu$ if and only if $\sum_i x_i=\sum_i y_i$. Therefore $\sum_iX_i$, or equivalently $\overline X$, is minimal sufficient for $\mu$.
+
+::: {#def-definition-2 .definition}
+A statistic $T$ is *complete* for a family if 
+
+$$
+\E_\theta\{q(T)\}=0,\qquad \theta\in\Omega,
+$$
+
+
+ implies $q(T)=0$ almost surely for every $\theta\in\Omega$.
+
+:::
+
+Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. A complete sufficient statistic is minimal sufficient. The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target.
+
+Completeness must not be claimed merely because a model has been written in exponential-family notation. For a full-rank exponential family whose natural parameter space contains an open set of the appropriate dimension, the natural sufficient statistic is complete under standard integrability conditions. Curved or restricted subfamilies need not inherit this property.
+
+::: {#def-ancillary-statistic .definition}
+## Ancillary statistic
+
+A statistic $A(\Xvec)$ is *ancillary* if its sampling distribution does not depend on $\theta$.
+
+:::
+
+::: {#thm-basu-s-theorem .theorem}
+## Basu's theorem
+
+A complete sufficient statistic is independent of every ancillary statistic.
+
+:::
+
+In the normal model with known $\sigma^2$, $\overline X$ carries the information about $\mu$ while the centred residual pattern $(X_1-\overline X,\ldots,X_n-\overline X)$ is ancillary for $\mu$. The distinction helps separate parameter information from model-diagnostic variation.
+
+## Why exponential families keep appearing
+
+::: {#def-natural-exponential-family .definition}
+## Natural exponential family
+
+In the $a$--$b$--$c$--$T$ notation used here, the natural or canonical form of an exponential-family density is \begin{equation}
+ p(x\given\theta)
+ =\frac{b(x)\exp\{c(\theta)^{\mathsf T}T(x)\}}
+        {a(\theta)},
+ \label{eq:abcT-exponential-family}
+\end{equation} where $c(\theta)$ is the natural or canonical parameter, $T(x)$ is the natural statistic, $b(x)$ does not depend on $\theta$, and $a(\theta)$ is the normalising function.
+
+:::
+
+::: {#rem-translation-to-another-common-notation .remark}
+## Translation to another common notation
+
+Some books write the same density as 
+
+$$
+ p(x\given\vect\eta)
+ =h(x)\exp\{\vect\eta^{\mathsf T}T(x)-A(\vect\eta)\}.
+$$
+
+
+ This is only a change of names: $\vect\eta=c(\theta)$, $h(x)=b(x)$, and $A(\vect\eta)=\log a(\theta)$. We retain the $a(\theta)$--$b(x)$--$c(\theta)$--$T(x)$ notation from this point onward.
+
+:::
+
+For an independent sample, define once and for all \begin{equation}
+ S(\Xvec)=\sum_{i=1}^nT(X_i).
+ \label{eq:exp-family-sufficient-statistic}
+\end{equation} Then \begin{align*}
+ p(\xvec\given\theta)
+ &=\prod_{i=1}^n
+   \frac{b(x_i)\exp\{c(\theta)^{\mathsf T}T(x_i)\}}
+        {a(\theta)}\\
+ &=\left\{\prod_{i=1}^n b(x_i)\right\}
+   \frac{\exp\{c(\theta)^{\mathsf T}S(\xvec)\}}
+        {a(\theta)^n}.
+\end{align*} The Fisher--Neyman theorem therefore gives the fixed-dimensional sufficient statistic $S(\Xvec)$. Its dimension does not grow with the sample size.
+
+This is why exponential families keep reappearing in elementary Bayesian calculations. They turn an ever-growing data set into a fixed collection of updated totals, and conjugate priors update those totals by addition. The pattern explains the familiar formulas; it does not imply that every useful model must be exponential-family or that a nonconjugate prior is somehow illegitimate.
+
+::: {#prp-log-partition-moment-identities .proposition}
+## Log-partition moment identities
+
+Whenever $c(\theta)$ can be used as a local parameter and differentiation under the normalising integral is valid, 
+
+$$
+ \nabla_c\log a(\theta)
+ =\E_\theta\{T(X)\},
+ \qquad
+ \nabla_c^2\log a(\theta)
+ =\Cov_\theta\{T(X)\}.
+$$
+
+
+ Here derivatives are taken with respect to $c=c(\theta)$, so $a(\theta)$ is regarded as a function of $c$ through the chosen parametrisation. Consequently $\log a(\theta)$ is convex as a function of $c$, and the one-observation Fisher information in the natural parameter is $\nabla_c^2\log a(\theta)$.
+
+:::
+
+The density must integrate to one, so the normalising function is 
+
+$$
+ a(\theta)
+ =\int b(x)\exp\{c(\theta)^{\mathsf T}T(x)\}\dd x.
+$$
+
+
+ Assuming differentiation under the integral is valid, \begin{align*}
+ \nabla_c\log a(\theta)
+ &=\frac{\nabla_ca(\theta)}{a(\theta)}\\
+ &=\frac{
+   \int T(x)b(x)
+   \exp\{c(\theta)^{\mathsf T}T(x)\}\dd x}
+   {a(\theta)}\\
+ &=\E_\theta\{T(X)\}.
+\end{align*} Differentiating once more, \begin{align*}
+ \nabla_c^2\log a(\theta)
+ &=\E_\theta\{T(X)T(X)^{\mathsf T}\}
+   -\E_\theta\{T(X)\}
+    \E_\theta\{T(X)\}^{\mathsf T}\\
+ &=\Cov_\theta\{T(X)\}.
+\end{align*} Consequently $\log a(\theta)$ is convex as a function of $c$. For an iid sample the log-likelihood, score, and Fisher information in the natural parameter are \begin{align*}
+ \ell(\theta;\xvec)
+ &=c(\theta)^{\mathsf T}S(\xvec)
+   -n\log a(\theta)+\text{constant},\\
+ \nabla_c\ell(\theta;\xvec)
+ &=S(\xvec)-n\nabla_c\log a(\theta),\\
+ \mathcal I_n(c)
+ &=-\E_\theta
+   \{\nabla_c^2\ell(\theta;\Xvec)\}\\
+ &=n\nabla_c^2\log a(\theta)\\
+ &=n\Cov_\theta\{T(X)\}.
+\end{align*} The likelihood equations therefore match the observed sufficient statistic to its model expectation: 
+
+$$
+ S(\xvec)=n\E_{\widehat\theta}\{T(X)\}.
+$$
+
+
+::: {#thm-pitman-koopman-darmois-informal-form .theorem}
+## Pitman--Koopman--Darmois, informal form
+
+For regular iid models with parameter-independent support, the theorem says, roughly, that the existence for every $n$ of a sufficient statistic whose dimension stays fixed essentially characterises exponential families. The support condition matters: models such as $\operatorname{Uniform}(0,\theta)$ can have a fixed-dimensional sufficient statistic without having the regular form \eqref{eq:abcT-exponential-family}.
+
+:::
+
+## Conjugate priors from the exponential-family form
+
+Not every likelihood has a useful finite-dimensional conjugate family. A large and important class that does is the exponential family. Keeping the same notation, one observation has density or mass function \begin{equation}
+ p(x\given\theta)
+ =\frac{b(x)\exp\{c(\theta)^{\mathsf T}T(x)\}}
+        {a(\theta)},
+ \label{eq:exp-family-board}
+\end{equation} where $T(x)$ is the one-observation natural statistic, $c(\theta)$ is the canonical parameter, $b(x)$ does not depend on $\theta$, and $a(\theta)$ is the normalising function from \eqref{eq:abcT-exponential-family}.
+
+Choose the prior kernel, where $\alpha$ has the same dimension as $c(\theta)$ and $\beta$ is scalar, \begin{equation}
+ p(\theta\given\alpha,\beta)
+ \propto
+ \frac{\exp\{c(\theta)^{\mathsf T}\alpha\}}
+      {a(\theta)^\beta}.
+ \label{eq:generic-conjugate}
+\end{equation} For independent data $x_1,\ldots,x_n$, the likelihood is \begin{align*}
+ p(\xvec\given\theta)
+ &=\prod_{i=1}^n
+   \frac{b(x_i)\exp\{c(\theta)^{\mathsf T}T(x_i)\}}
+        {a(\theta)}\\
+ &=\left(\prod_{i=1}^nb(x_i)\right)
+   \frac{
+   \exp\{c(\theta)^{\mathsf T}S(\xvec)\}}
+   {a(\theta)^n}.
+\end{align*} Multiplying by the prior gives \begin{align*}
+ p(\theta\given\xvec)
+ &\propto
+ \frac{\exp\{c(\theta)^{\mathsf T}S(\xvec)\}}
+      {a(\theta)^n}
+ \frac{\exp\{c(\theta)^{\mathsf T}\alpha\}}
+      {a(\theta)^\beta}\\
+ &=\frac{
+   \exp\{c(\theta)^{\mathsf T}
+     (\alpha+S(\xvec))\}}
+   {a(\theta)^{\beta+n}}.
+\end{align*}
+
+::: {#prp-generic-exponential-family-conjugate-update .proposition}
+## Generic exponential-family conjugate update
+
+Thus the hyperparameters update as \begin{equation}
+ \boxed{
+ \alpha\leftarrow
+ \alpha+S(\xvec),
+ \qquad
+ \beta\leftarrow\beta+n.}
+ \label{eq:generic-update}
+\end{equation}
+
+:::
+
+## Poisson example and Gamma conventions
+
+::: {#exm-poisson-natural-form-and-gamma-conjugacy .example}
+## Poisson natural form and Gamma conjugacy
+
+**Question.** For iid Poisson observations with mean $\theta$, write the model in the $a(\theta)$, $b(x)$, $c(\theta)$, $T(x)$ form, identify the sufficient statistic, and derive the corresponding conjugate prior and posterior update.
+
+**Solution.** For one Poisson observation, \begin{align*}
+ p(x\given\theta)
+ &=\frac{e^{-\theta}\theta^x}{x!}\\
+ &=\frac1{x!}\exp\{x\log\theta\}e^{-\theta}\\
+ &=\frac{b(x)\exp\{c(\theta)T(x)\}}{a(\theta)},
+\end{align*} with 
+
+$$
+ b(x)=\frac1{x!},
+ \qquad c(\theta)=\log\theta,
+ \qquad T(x)=x,
+ \qquad a(\theta)=e^\theta.
+$$
+
+
+ For the Poisson model, the definition \eqref{eq:exp-family-sufficient-statistic} gives $S(\xvec)=\sum_i x_i$. The joint likelihood is \begin{align*}
+ p(\xvec\given\theta)
+ &=\prod_{i=1}^n\frac{e^{-\theta}\theta^{x_i}}{x_i!}\\
+ &=\left(\prod_{i=1}^n\frac1{x_i!}\right)
+   \exp\{(\log\theta)S(\xvec)-n\theta\}.
+\end{align*} The factorisation theorem shows that $S(\Xvec)$ is sufficient for $\theta$. It is also minimal sufficient by the likelihood-ratio criterion. Because the natural parameter $c(\theta)=\log\theta$ ranges over the open set $\R$, $S(\Xvec)$ is complete as well.
+
+The generic prior \eqref{eq:generic-conjugate} becomes \begin{align*}
+ p(\theta\given\alpha,\beta)
+ &\propto
+ \frac{\exp\{\alpha\log\theta\}}{(e^\theta)^\beta}\\
+ &=\theta^\alpha e^{-\beta\theta}.
+\end{align*} This is the kernel of $\GammaDist(\alpha+1,\beta)$, not $\GammaDist(\alpha,\beta)$. Using the sufficient statistic $S(\xvec)$, \begin{align*}
+ p(\theta\given\xvec)
+ &\propto
+ \theta^{S(\xvec)} e^{-n\theta}\theta^\alpha e^{-\beta\theta}\\
+ &=\theta^{S(\xvec)+\alpha}e^{-(n+\beta)\theta},
+\end{align*} so \begin{equation}
+ \boxed{
+ \theta\given\xvec
+ \sim\GammaDist(\alpha+S(\xvec)+1,\beta+n)}.
+ \label{eq:poisson-gamma-board-update}
+\end{equation} Its posterior mean is \begin{align*}
+ \E(\theta\given\xvec)
+ &=\frac{\alpha+S(\xvec)+1}{\beta+n}\\
+ &=\frac{(\alpha+1)+n\overline x}{\beta+n}\\
+ &=\frac\beta{\beta+n}\frac{\alpha+1}{\beta}
+  +\frac n{\beta+n}\overline x.
+\end{align*} The prior therefore behaves, for the mean, as $\beta$ prior observations with total count $\alpha+1$.
+
+:::
+
+::: {.callout-warning}
+## Parameterisation check
+In this exponent convention, letting $\alpha\to0$ and $\beta\to0$ produces the improper flat kernel $p(\theta)\propto1$. The Poisson Jeffreys prior is $p(\theta)\propto\theta^{-1/2}$, corresponding to $\alpha=-1/2,\beta=0$. The scale-invariant kernel $p(\theta)\propto1/\theta$ corresponds to $\alpha=-1,\beta=0$. These three improper priors are different and lead to Gamma shapes $S+1$, $S+1/2$, and $S$, respectively.
+
+:::
+
+Improper priors can be useful limiting devices, but they create enough risks that posterior propriety must be checked rather than admired.
+
+::: {.callout-note}
+## Key idea
+Conjugacy in an exponential family updates a fixed number of hyperparameters with sufficient statistics. Hierarchical Bayes, developed next, addresses a separate modelling problem: how to represent and learn from variation among related groups.
+
+:::
+
+## Exercises
+
+::: {#exr-factorisation-and-data-reduction .exercise}
+## Factorisation and data reduction
+
+For iid Bernoulli observations, apply the Fisher--Neyman theorem to prove that $S(\xvec)=\sum_i x_i$ is sufficient. Then use the likelihood-ratio criterion to show that it is minimal sufficient.
+
+:::
+
+::: {#exr-a-normal-statistic .exercise}
+## A normal statistic
+
+For iid $\Normal(\mu,\sigma^2)$ observations with both parameters unknown, factor the joint density and show that $(\sum_iX_i,\sum_iX_i^2)$ is sufficient. Rewrite this statistic in terms of $(\overline X,\sum_i(X_i-\overline X)^2)$ and prove that the two versions contain the same information.
+
+:::
+
+::: {#exr-reading-conjugacy-from-a-kernel .exercise}
+## Reading conjugacy from a kernel
+
+Given a one-parameter exponential-family likelihood 
+
+$$
+ L(\theta)
+ \propto
+ \frac{\exp\{c(\theta)^{\mathsf T}S(\xvec)\}}
+      {a(\theta)^n},
+$$
+
+
+ and prior kernel 
+
+$$
+ p(\theta\given\alpha,\beta)
+ \propto
+ \frac{\exp\{c(\theta)^{\mathsf T}\alpha\}}
+      {a(\theta)^\beta},
+$$
+
+
+ derive the update from $(\alpha,\beta)$ to $(\alpha+S(\xvec),\beta+n)$. Identify the two sufficient summaries of the data that enter the posterior.
+
+:::
+
+::: {#exr-three-different-flat-poisson-priors .exercise}
+## Three different "flat" Poisson priors
+
+Under the exponent convention used in the chapter, derive the posterior Gamma shape produced by each of $p(\theta)\propto1$, $p(\theta)\propto\theta^{-1/2}$, and $p(\theta)\propto1/\theta$. State which is Jeffreys' prior and which is scale-invariant.
+
+:::
+
+::: {#exr-conjugacy-is-not-guaranteed-by-a-name .exercise}
+## Conjugacy is not guaranteed by a name
+
+Explain why support compatibility is necessary but not sufficient for a prior to be conjugate. Given an unfamiliar likelihood, write a practical sequence for searching its kernel for a conjugate family. What computational options remain if no useful standard conjugate family is available?
+
+:::
+
+**Applied problems.**
+
+::: {#ex-applied-sufficiency-posterior .exercise}
+## Sufficiency and the posterior
+
+Let $\Xvec=(X_1,\ldots,X_n)^{\mathsf T}$ have likelihood $p(\xvec\given\theta)$ and prior $p(\theta)$. If $U(\Xvec)$ is sufficient for $\theta$, use the Fisher--Neyman factorisation theorem and Bayes' rule to show that the posterior depends on the observed sample only through $U(\xvec)$. Retain the normalising integral in the derivation. 
+
+[Solution](#sol-applied-sufficiency-posterior)
+
+:::
+
+::: {#ex-applied-exp-rate .exercise}
+## Exponential observations parameterised by rate
+
+For $X\given\theta\sim\Exp(\theta)$, take $\theta$ to be the rate, so that 
+
+$$
+ p(x\given\theta)=\theta e^{-\theta x}\mathbf{1}_{\{x\geq0\}}.
+$$
+
+
+ Write this model in the chapter's $a(\theta)$, $b(x)$, $c(\theta)$, $T(x)$ form and use that form to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$. 
+
+[Solution](#sol-applied-exp-rate)
+
+:::
+
+::: {#ex-applied-exp-scale .exercise}
+## Exponential observations parameterised by mean
+
+Let $X_1,\ldots,X_n$ be iid $\Exp(1/\theta)$ observations, so that $\theta>0$ is the mean and 
+
+$$
+ p(x_i\given\theta)=\theta^{-1}e^{-x_i/\theta}\mathbf{1}_{\{x_i\geq0\}}.
+$$
+
+
+ Use the exponential-family form to find a conjugate prior and derive its posterior parameters. 
+
+[Solution](#sol-applied-exp-scale)
+
+:::
+
+[^b07-exponential-families-1]: Conjugacy is not needed for Bayesian inference. Metropolis--Hastings mostly asks for ratios of target densities; Gibbs sampling benefits more directly from named full conditional distributions. That computational distinction is a better reason to value conjugacy than mere nostalgia for closed forms.

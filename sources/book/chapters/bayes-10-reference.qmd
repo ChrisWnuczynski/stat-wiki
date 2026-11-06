@@ -1,0 +1,116 @@
+# Reference formulas and problem-solving workflow
+
+::: {#rem-how-to-use-this-chapter .remark}
+## How to use this chapter
+
+This chapter is a lookup guide rather than a replacement for the derivations. Use it to identify a kernel or choose a calculation, then return to the cited chapter when a parameter convention or assumption matters.
+
+:::
+
+## Distribution kernels
+
+::: {#def-distribution-kernel .definition}
+## Distribution kernel
+
+For a variable of interest $z$, a kernel is the part of a density or mass function that depends on $z$. Thus $f(z)\propto k(z)$ means $f(z)=c\,k(z)$ for a constant $c$ that does not depend on $z$. A factor that is constant for one calculation may need to be retained in another.
+
+:::
+
+| Distribution | Density or mass function | Main summaries |
+|---|---|---|
+| $\Bern(p)$ | $p^y(1-p)^{1-y}$, $y\in\{0,1\}$ | $\E(Y)=p$, $\Var(Y)=p(1-p)$ |
+| $\Bin(n,p)$ | $\binom{n}{x}p^x(1-p)^{n-x}$ | $\E(X)=np$, $\Var(X)=np(1-p)$ |
+| $\BetaDist(a,b)$ | $\dfrac{t^{a-1}(1-t)^{b-1}}{B(a,b)}$ | mean $a/(a+b)$; mode $(a-1)/(a+b-2)$ |
+| $\Normal(\mu,\sigma^2)$ | $\dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/(2\sigma^2)}$ | mean $\mu$; variance $\sigma^2$ |
+| $\GammaDist(a,b)$ shape--rate | $\dfrac{b^a}{\Gamma(a)}t^{a-1}e^{-bt}$ | mean $a/b$; mode $(a-1)/b$ |
+| $\InvGamma(a,b)$ | $\dfrac{b^a}{\Gamma(a)}t^{-a-1}e^{-b/t}$ | mean $b/(a-1)$; mode $b/(a+1)$ |
+| $\Poisson(\theta)$ | $e^{-\theta}\theta^x/x!$ | mean and variance $\theta$ |
+| $\Dir(\vect\alpha)$ | $B(\vect\alpha)^{-1}\prod_k p_k^{\alpha_k-1}$ | mean $\alpha_k/\alpha_0$; mode $(\alpha_k-1)/(\alpha_0-K)$ |
+| $\Mult(n,\pvec)$ | $\dfrac{n!}{\prod_k x_k!}\prod_k p_k^{x_k}$ | $\E(X_k)=np_k$ |
+
+## Conjugate update map
+
+::: {#def-conjugate-prior-family .definition}
+## Conjugate prior family
+
+A prior family is conjugate for a likelihood family when the posterior belongs to the same family as the prior for every admissible dataset.
+
+:::
+
+| Likelihood | Prior | Posterior |
+|---|---|---|
+| $X\given p\sim\Bin(n,p)$ | $p\sim\BetaDist(a,b)$ | $p\given x\sim\BetaDist(a+x,b+n-x)$ |
+| $\xvec\given\pvec\sim\Mult(n,\pvec)$ | $\pvec\sim\Dir(\vect\alpha)$ | $\pvec\given\xvec\sim\Dir(\vect\alpha+\xvec)$ |
+| $X_i\given\mu\sim\Normal(\mu,\sigma^2)$ | $\mu\sim\Normal(\mu_0,\sigma_0^2)$ | equations \eqref{eq:normal-post-var}--\eqref{eq:normal-post-mean} |
+| $X_i\given\sigma^2\sim\Normal(\mu,\sigma^2)$ | $\sigma^2\sim\InvGamma(a,b)$ | $\InvGamma(a+n/2,b+S_\mu/2)$ |
+| $X_i\given\theta\sim\Poisson(\theta)$ | $\theta\sim\GammaDist(a,b)$ | $\GammaDist(a+\sum_i x_i,b+n)$ |
+| $\yvec\given\betavec,\sigma^2\sim\Normal_n(\mat X\betavec,\sigma^2\mat I)$ | $p(\betavec,\sigma^2)\propto 1/\sigma^2$ | equations \eqref{eq:lm-beta-given-sigma}--\eqref{eq:lm-beta-marginal-t} | 
+## A workflow for an unseen Bayesian problem
+
+1.  State the sampling model, its support, and the conditional independence assumptions.
+
+2.  Write the likelihood with all constants once. Then mark which factors are constant in the parameter currently being analysed.
+
+3.  State the prior and its parameterisation. Check support and propriety.
+
+4.  Multiply likelihood and prior. Combine exponents before naming a distribution.
+
+5.  If a known kernel appears, restore its normalising constant and state the posterior. Otherwise decide whether quadrature, Gibbs sampling, or Metropolis--Hastings is appropriate.
+
+6.  For a marginal likelihood, keep constants that depend on the model even when they do not depend on the model's parameter.
+
+7.  Distinguish a region of one parameter space from a separate model of lower dimension.
+
+8.  Match the posterior summary to the scientific question: mean, MAP, credible interval, tail probability, predictive probability, or decision under a stated loss.
+
+9.  Check limiting cases, dimensions, and parameter conventions. A one-unit error in a Gamma or Beta shape is usually an exponent error.
+
+10. If using MCMC, inspect convergence, dependence, effective sample size, and sensitivity to initialisation and tuning.
+
+Kernels can be rebuilt. The transferable skill is to write the density, identify what is fixed, combine the powers and exponential terms, and recognise the resulting kernel. Recognising the distribution is part of the calculation; memorising its normalising constant is not. If the kernel is unfamiliar, the same setup still tells us what must be integrated or sampled. A formula forgotten under pressure can be rebuilt; a confused conditioning argument cannot.
+
+## Corrections and distinctions
+
+::: {#rem-corrections-and-distinctions .remark}
+## Corrections and distinctions
+
+1.  In the mode-based pseudo-count convention, $\BetaDist(5,5)$ contributes four heads and four tails relative to $\BetaDist(1,1)$: eight trials in total.
+
+2.  Under the stated shape--rate prior $\GammaDist(12,1)$, the fruit posterior is $\GammaDist(189,21)$. The quoted probability $0.9232$ instead corresponds to $\GammaDist(190,21)$; see the convention check in Chapter 6.
+
+3.  Equal-tailed, minimum-width, and highest-density intervals are different constructions unless symmetry makes them coincide.
+
+4.  A continuous MAP estimate is obtained by optimisation, not by taking the most common MCMC draw.
+
+5.  Empirical Bayes fixes estimated hyperparameters and is therefore often over-precise. Full Bayes integrates over their posterior uncertainty.
+
+6.  Uniform Dirichlet density means uniform over the simplex; it does not mean that the probability vector is fixed at its barycentre.
+
+7.  Gibbs uses exact full conditionals and accepts every update. Metropolis--Hastings accepts or rejects proposals and requires proposal-scale tuning. Grid Monte Carlo uses independent draws from a discretised density and is not MCMC.
+
+8.  In Gaussian regression, $\widehat\betavec$ is normally distributed before studentisation, the marginal posterior shape for $\sigma^2$ is $(n-p)/2$, and drawing from $p(\sigma^2\given\yvec)p(\betavec\given\sigma^2,\yvec)$ is direct iid simulation rather than Gibbs sampling.
+
+:::
+
+## Where the argument has been
+
+The chapters form one connected argument:
+
+::: {#rem-a-road-map .remark}
+## A road map
+
+1.  Bayes' rule turns priors and likelihoods into posterior distributions.
+
+2.  Conjugate families make several important updates analytic.
+
+3.  Nonconjugate and multiparameter models motivate Markov-chain Monte Carlo.
+
+4.  Posterior probabilities handle regions of one parameter space, while Bayes factors compare genuinely different models through marginal likelihoods.
+
+5.  Exponential families explain why many conjugate updates have the same algebra.
+
+6.  Hierarchical models turn prior parameters into uncertain population parameters and use MCMC or numerical integration to propagate that extra uncertainty.
+
+7.  Bayesian linear regression lifts the normal model to a vector of means, with least-squares geometry producing analytic coefficient, variance, and predictive distributions.
+
+:::
