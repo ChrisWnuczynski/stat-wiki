@@ -16,6 +16,29 @@ An affine map $Y=aX+b$ with $a\ne 0$ is the case everyone uses: $f_Y(y)=f_X((y-b
 
 The square of a standard normal variable is chi-squared with one degree of freedom, which is the gamma law with shape $1/2$ and rate $1/2$. The distribution function of $Y=X^2$ is $\Pr(-\sqrt{y}\le X\le\sqrt{y})$ for $y>0$, and differentiating produces the density.
 
+::: {#exm-the-square-of-a-standard-normal .example}
+## The square of a standard normal
+
+Let $X\sim\Normal(0,1)$ and $Y=X^2$.
+
+**Question.** Find the density of $Y$.
+
+**Solution.** The map $x\mapsto x^2$ is not monotone, so work with the distribution function. For $y>0$,
+
+$$
+F_Y(y)=\Pr(-\sqrt y\le X\le\sqrt y)=\Phi(\sqrt y)-\Phi(-\sqrt y)=2\Phi(\sqrt y)-1.
+$$
+
+Differentiating, with $\Phi'=\varphi$ the standard normal density,
+
+$$
+f_Y(y)=2\varphi(\sqrt y)\cdot\frac1{2\sqrt y}=\frac{1}{\sqrt{2\pi}}\,y^{-1/2}e^{-y/2},\qquad y>0.
+$$
+
+That is the $\GammaDist(1/2,1/2)$ density, the chi-squared law with one degree of freedom, since $\Gamma(1/2)=\sqrt\pi$.
+
+:::
+
 For a maximum or a minimum the distribution function is easier than the density. If $X_1,\ldots,X_n$ are independent with distribution function $F$ and survival function $1-F$, then
 
 $$
@@ -24,6 +47,23 @@ $$
 
 The density follows by differentiation. This is why the minimum of $n$ independent exponential variables with rate $\lambda$ is exponential with rate $n\lambda$.
 
+::: {#exm-a-series-of-exponential-components .example}
+## A series of exponential components
+
+A system has five components in series, so it fails as soon as one component fails. The components' lifetimes are independent and exponential with mean 1000 hours.
+
+**Question.** Find the distribution and the mean of the system lifetime.
+
+**Solution.** The system lifetime is $T=\min_iX_i$. Each $X_i$ has survival function $e^{-x/1000}$, so
+
+$$
+\Pr(T>t)=\bigl(e^{-t/1000}\bigr)^5=e^{-t/200}.
+$$
+
+$T$ is exponential with rate $5/1000$, and its mean is 200 hours. Five components in series fail five times as fast as one. The maximum, which is the lifetime of the same five components in parallel, has distribution function $(1-e^{-t/1000})^5$ and is not exponential.
+
+:::
+
 The sum of two independent continuous variables has density equal to the convolution
 
 $$
@@ -31,6 +71,23 @@ f_{X+Y}(z)=\int_{-\infty}^{\infty} f_X(x)\,f_Y(z-x)\,\dd x.
 $$
 
 Two independent uniform variables on $[0,1]$ have a triangular sum: the density of the sum is $z$ on $(0,1)$ and $2-z$ on $(1,2)$. The moment generating function is usually faster when the sum stays in a named family. Independent gamma variables with the same rate were added that way in [Joint distributions](prob-04-joint-distributions.qmd).
+
+::: {#exm-the-sum-of-two-uniforms .example}
+## The sum of two uniforms
+
+Let $X$ and $Y$ be independent and uniform on $[0,1]$, and $Z=X+Y$.
+
+**Question.** Find the density of $Z$.
+
+**Solution.** By the convolution formula, $f_Z(z)=\int f_X(x)f_Y(z-x)\dd x$. The integrand is $1$ when both $0\le x\le1$ and $0\le z-x\le1$, that is when $\max(0,z-1)\le x\le\min(1,z)$, and $0$ otherwise. The length of that interval is $z$ for $0\le z\le1$ and $2-z$ for $1\le z\le2$, so
+
+$$
+f_Z(z)=\begin{cases}z,&0\le z\le1,\\ 2-z,&1\le z\le2.\end{cases}
+$$
+
+The sum of two flat densities is a triangle. Adding more uniforms rounds the shape off further, towards the normal curve of the central limit theorem below.
+
+:::
 
 ## The transformation rule
 
@@ -90,6 +147,23 @@ The same conclusion holds for a jointly normal vector and any affine image, with
 :::
 
 A machine that produces diameters $X\sim\Normal(1,0.01)$ and then records $a+bX$ is still producing a normal measurement. The mean and variance are the only things the affine map can change.
+
+::: {#exm-ball-bearings-and-a-sieve .example}
+## Ball bearings and a sieve
+
+Ball bearings have diameters $X\sim\Normal(1,0.01)$ cm. They are dropped through a sieve whose holes have diameters $Y\sim\Normal(1.1,0.04)$ cm, independent of the balls.
+
+**Question.** What is the probability that a ball falls through a hole?
+
+**Solution.** The ball falls through when $Y>X$. Because $X$ and $Y$ are independent normals, $Y-X$ is normal with mean $1.1-1=0.1$ and variance $0.04+0.01=0.05$. So
+
+$$
+\Pr(Y-X>0)=\Pr\Bigl(Z>\frac{-0.1}{\sqrt{0.05}}\Bigr)=\Phi(0.447)=0.67.
+$$
+
+The variances add even though the variable is a difference.
+
+:::
 
 ## The normal linear model
 
@@ -157,6 +231,33 @@ A binomial count $X\sim\Bin(n,p)$ is a sum of $n$ Bernoulli trials, so for large
 $$
 \Pr(X\le k)\approx \Phi\Bigl(\frac{k-np}{\sqrt{np(1-p)}}\Bigr).
 $$
+
+![The central limit theorem at work. Histograms of the standardised sum of $n$ independent uniforms (top) and of $n$ independent exponentials (bottom), for $n=1$, $2$ and $10$, each from 20 000 simulated sums, with the standard normal density overlaid. The symmetric uniform is close to normal by $n=10$. The skewed exponential still leans to the right.](../figures/prob-clt.pdf){#fig-prob-clt}
+
+::: {#exm-normal-approximation-to-a-binomial .example}
+## Normal approximation to a binomial
+
+Let $X\sim\Bin(20,1/2)$.
+
+**Question.** Approximate $\Pr(X\le8)$ by the central limit theorem, with and without a continuity correction, and compare with the exact value.
+
+**Solution.** Here $np=10$ and $np(1-p)=5$. The exact probability is $0.2517$. The plain approximation gives
+
+$$
+\Pr(X\le8)\approx\Phi\Bigl(\frac{8-10}{\sqrt5}\Bigr)=\Phi(-0.894)=0.186,
+$$
+
+which is poor. $X$ is integer-valued, so $\Pr(X\le8)=\Pr(X\le8.5)$, and the normal curve should be read at the midpoint between 8 and 9:
+
+$$
+\Pr(X\le8)\approx\Phi\Bigl(\frac{8.5-10}{\sqrt5}\Bigr)=\Phi(-0.671)=0.251,
+$$
+
+almost exact. A usual rule of thumb asks for both $np$ and $n(1-p)$ to be above 5.
+
+:::
+
+![The distribution function of $\Bin(20,1/2)$, a staircase, against the $\Normal(10,5)$ distribution function. The normal curve passes through the middle of each step, which is why the continuity correction reads it half a unit to the right.](../figures/prob-binomial-normal.pdf){#fig-prob-binomial-normal}
 
 The same approximation, applied to a sum of independent uniforms or to a sum of independent exponential variables, is how a probability about an average is evaluated when the exact distribution is awkward. The distribution function $\Phi$ is the one attached to the normal law on the [common distributions](../reference/distributions.qmd) page.
 
@@ -393,6 +494,8 @@ Blueberry diameters are $\Normal(1, 0.1^2)$, in centimetres. A sieve of diameter
 
 (b) With that choice of $d$, approximate the probability that fewer than 280 of 1000 independent berries are large.
 
+[Solution](#sol-prob-blueberry-sieve)
+
 :::
 
 ::: {#ex-prob-ten-components .exercise}
@@ -405,5 +508,7 @@ A component has an exponential lifetime with expectation $1/2$ year. On failure 
 (b) Approximate $\Pr(T>6)$ with the central limit theorem.
 
 (c) Name the exact distribution of $T$.
+
+[Solution](#sol-prob-ten-components)
 
 :::

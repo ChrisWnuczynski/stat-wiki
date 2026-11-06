@@ -4,6 +4,37 @@ A random experiment is a procedure whose outcome is not fixed in advance, but wh
 
 The same conditional-probability identity, written for densities and read as a rule for updating a prior, is [Bayes' rule](bayes-01-foundations.qmd#thm-bayes-rule) on the Bayesian foundations page. This chapter keeps the event form.
 
+## Randomness as a model
+
+Toss a fair coin 100 times and record a 1 for heads and a 0 for tails. Nobody can say in advance what the sequence will be. Yet the proportion of heads after $n$ tosses behaves in a predictable way: it wanders a good deal for small $n$ and settles near $1/2$ as $n$ grows. Probability is the mathematics of experiments like this one, whose single outcomes are unpredictable but whose long-run behaviour is not.
+
+![Twenty simulated runs of 100 tosses of a fair coin. Each line is the proportion of heads after $n$ tosses. Early on the runs disagree wildly; by 100 tosses they have closed in on $1/2$, though not exactly onto it.](../figures/prob-coin-averages.pdf){#fig-prob-coin-averages}
+
+The same shape of question turns up far from coins. A factory weighs 10 bags of sugar each hour and raises an alarm when the average crosses a control limit; where to put the limits depends on how much the hourly average varies when nothing is wrong. Engineers watch 1000 components for 50 000 hours and tabulate the fraction failed by each time; the question is which continuous lifetime distribution that table is a noisy picture of. Each of these is a random experiment, and each needs the three pieces below: the outcomes, the events, and the probabilities.
+
+::: {#exm-a-four-engine-aeroplane .example}
+## A four-engine aeroplane
+
+An aeroplane has engines 1 and 2 on the left wing and 3 and 4 on the right. It can fly as long as at least one engine on each wing works. Each engine fails during a flight with probability $q$, independently of the others.
+
+**Question.** Describe the sample space and the event that the aeroplane can fly, and find its probability.
+
+**Solution.** Record which engines work: an outcome is a vector in $\{0,1\}^4$, so there are $2^4=16$ outcomes. Let $A_i$ be the event that engine $i$ works. The aeroplane can fly on the event
+
+$$
+(A_1\cup A_2)\cap(A_3\cup A_4).
+$$
+
+A wing fails only if both its engines fail, with probability $q^2$, so by independence of the two wings
+
+$$
+\Pr\{(A_1\cup A_2)\cap(A_3\cup A_4)\}=(1-q^2)^2.
+$$
+
+With $q=0.1$ that is $0.9801$. A single engine fails one flight in ten, but the aeroplane only about one flight in fifty. Redundancy turns unreliable parts into a reliable system, which is the subject of [Reliability](prob-07-reliability.qmd).
+
+:::
+
 ## Outcomes and events
 
 ::: {#def-sample-space .definition}
@@ -42,6 +73,14 @@ $$
 $$
 
 Read the first one as a reliability statement. If $A_i$ means that component $i$ works, the left-hand side is "the parallel system of those components has failed", and the right-hand side is "every component has failed".
+
+Systems of three components show how events are built from simpler ones. Let $A_i$ be the event that component $i$ works. A series system works only if every component works, the event $A_1\cap A_2\cap A_3$. A parallel system works if at least one does, $A_1\cup A_2\cup A_3$. A 2-out-of-3 system works if at least two do,
+
+$$
+(A_1\cap A_2)\cup(A_1\cap A_3)\cup(A_2\cap A_3).
+$$
+
+By De Morgan's laws, the series system fails on $A_1^c\cup A_2^c\cup A_3^c$, when any component fails, and the parallel system fails on $A_1^c\cap A_2^c\cap A_3^c$, when all of them do.
 
 ## Probability
 
@@ -124,13 +163,26 @@ A multiple-choice paper with 20 questions and 3 answers each is the first row: $
 
 Two counting facts are used often enough to keep them separate. The number of ways to arrange $n$ distinct objects is $n!$. If a word has repeated letters, divide by the factorial of each repetition: "arrange" has 7 letters with "a" and "r" doubled, so it has $7!/(2!\,2!)$ distinct rearrangements.
 
-The birthday count is the second row against the first. In a group of $n$ people, with 365 days and no leap day, the probability that all birthdays differ is
+::: {#exm-the-birthday-problem .example}
+## The birthday problem
+
+A group has $n$ people. Ignore leap days and assume each birthday is equally likely to be any of 365 days, independently.
+
+**Question.** What is the probability that at least two people share a birthday?
+
+**Solution.** The birthday count is the second row of the table against the first. The probability that all birthdays differ is
 
 $$
 \frac{365\times 364\times\cdots\times(365-n+1)}{365^n},
 $$
 
-provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. For $n=23$ the probability of no shared birthday is already below one half. The complementary probability, that at least two share a birthday, is therefore already above one half.
+provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. The probability of a shared birthday is one minus this. It passes one half at $n=23$, where it is $0.507$, and reaches $0.891$ at $n=40$ and $0.970$ at $n=50$.
+
+The surprise comes from counting the wrong thing. 23 people seem few against 365 days, but they form $\binom{23}{2}=253$ pairs, and any one of those pairs can match.
+
+:::
+
+![The probability that at least two people in a group of $n$ share a birthday. It crosses one half at 23 people and is above 0.99 by 57.](../figures/prob-birthday.pdf){#fig-prob-birthday}
 
 ## Conditional probability
 
@@ -149,13 +201,24 @@ Conditioning on $B$ replaces the sample space by $B$ and renormalises. In the eq
 
 Two dice are thrown and the sum is 10, so $B=\{(4,6),(5,5),(6,4)\}$. Exactly one six has been thrown on the event $A\cap B=\{(4,6),(6,4)\}$. Every ordered pair is equally likely, so $\Pr(A\given B)=2/3$.
 
-The same definition settles the Monty Hall problem without a story about psychology. A prize is equally likely behind curtain $A$, $B$ or $C$. The contestant picks $A$. The host, who knows where the prize is, always opens a different curtain that has no prize, choosing at random when both remaining curtains are empty. Suppose the host opens $B$. The four atoms that can occur, with their probabilities, are: prize behind $A$ and host opens $B$ ($1/6$), prize behind $A$ and host opens $C$ ($1/6$), prize behind $B$ and host opens $C$ ($1/3$), prize behind $C$ and host opens $B$ ($1/3$). The observed event is the two atoms in which $B$ is opened, with total probability $1/6+1/3=1/2$. The prize is behind $A$ in only the first of those atoms, so
+::: {#exm-the-monty-hall-problem .example}
+## The Monty Hall problem
+
+A prize is equally likely behind curtain $A$, $B$ or $C$. The contestant picks $A$. The host, who knows where the prize is, always opens a different curtain that has no prize, choosing at random when both remaining curtains are empty.
+
+**Question.** Suppose the host opens $B$. Should the contestant switch to $C$?
+
+**Solution.** The definition of conditional probability settles it without any story about psychology. The four atoms that can occur, with their probabilities, are: prize behind $A$ and host opens $B$ ($1/6$), prize behind $A$ and host opens $C$ ($1/6$), prize behind $B$ and host opens $C$ ($1/3$), prize behind $C$ and host opens $B$ ($1/3$). The observed event is the two atoms in which $B$ is opened, with total probability $1/6+1/3=1/2$. The prize is behind $A$ in only the first of those atoms, so
 
 $$
 \Pr(\text{prize behind }A\given \text{host opens }B)=\frac{1/6}{1/2}=\frac13,
 $$
 
 and the probability it is behind $C$ is $2/3$. Switching wins with probability $2/3$.
+
+The tempting answer, one half each, forgets that the host's choice depends on where the prize is. When the contestant's first pick is wrong, which happens two times in three, the host is forced to reveal the only other empty curtain.
+
+:::
 
 ::: {#thm-product-rule .theorem}
 ## Product rule
@@ -200,13 +263,24 @@ $$
 
 provided the denominator is positive. This is the same algebra as the density form on [Bayesian foundations](bayes-01-foundations.qmd#thm-bayes-rule). The difference is the object that carries the probability. Here it is an event. There it is an unknown parameter, and the factors are a likelihood and a prior.
 
-A chip is made in factory 1, 2 or 3 with probabilities $0.15$, $0.35$ and $0.50$, and the defective rates are $0.01$, $0.05$ and $0.02$. A chip in hand is defective. The probability it came from factory 1 is
+::: {#exm-three-factories .example}
+## Three factories
+
+A chip is made in factory 1, 2 or 3 with probabilities $0.15$, $0.35$ and $0.50$, and the defective rates are $0.01$, $0.05$ and $0.02$.
+
+**Question.** A chip in hand is defective. What is the probability that it came from factory 1?
+
+**Solution.** By Bayes' rule, the probability it came from factory 1 is
 
 $$
 \frac{0.15\times 0.01}{0.15\times 0.01+0.35\times 0.05+0.50\times 0.02}=\frac{0.0015}{0.029}\approx 0.052.
 $$
 
 The rare factory is unlikely to be the source, because the two larger factories produce more defectives in total even though each chip from factory 1 is less often defective.
+
+The same calculation gives $0.0175/0.029=0.603$ for factory 2 and $0.010/0.029=0.345$ for factory 3. The denominator, $0.029$, is the overall defective rate, from the law of total probability.
+
+:::
 
 ## Independence
 
@@ -424,5 +498,7 @@ A binary channel sends a $1$ with probability $1/4$ and a $0$ with probability $
 (a) Find the probability that a $1$ is received.
 
 (b) Given that a $1$ is received, find the probability that a $1$ was sent.
+
+[Solution](#sol-prob-channel-quarter)
 
 :::

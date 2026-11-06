@@ -21,7 +21,45 @@ It is time-homogeneous when the right-hand side does not depend on $n$. The tran
 
 Each row of $P$ is a probability distribution: the entries are non-negative and sum to $1$. If the row vector $\boldsymbol\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\boldsymbol\pi^{(0)} P^n$. The Chapman–Kolmogorov equations are the matrix product $P^{m+n}=P^m P^n$: the way to be at $j$ after $m+n$ steps is to be somewhere after $m$ steps and then travel for $n$ more.
 
-A walk on five stepping stones is the picture. From an end stone the walker must move inward. From a middle stone the walker moves left or right with specified probabilities, or stays. The transition matrix is the table of those probabilities. A path of length $n$ has probability equal to the product of the $n$ transition probabilities along it, times the probability of the starting stone. That product is the Markov property written out by the chain rule.
+A path of length $n$ has probability equal to the product of the $n$ transition probabilities along it, times the probability of the starting state. That product is the Markov property written out by the chain rule. A chain is conveniently drawn as a transition graph: one node per state, and an arrow from $i$ to $j$, labelled $P_{ij}$, whenever $P_{ij}>0$.
+
+::: {#exm-six-stepping-stones .example}
+## Six stepping stones
+
+A frog hops between six stepping stones. From each stone it jumps to one of the stones joined to it, choosing uniformly among them, except that from stone 4 it always goes to stone 6. The transition matrix, with rows and columns in the order of the stones, is
+
+$$
+P=\begin{pmatrix}
+0&1/3&0&1/3&1/3&0\\
+1/2&0&1/2&0&0&0\\
+1/2&0&0&1/2&0&0\\
+0&0&0&0&0&1\\
+0&0&0&1/2&0&1/2\\
+0&0&1/2&0&1/2&0
+\end{pmatrix}.
+$$
+
+**Question.** Starting on stone 1, find the distribution after two steps, and the long-run proportion of time spent on each stone.
+
+**Solution.** The distribution after two steps is the first row of $P^2$:
+
+$$
+(1/6,\ 0,\ 1/6,\ 1/6,\ 0,\ 1/2).
+$$
+
+For example, stone 6 is reached in two steps through stone 4 or stone 5, with probability $\tfrac13\cdot1+\tfrac13\cdot\tfrac12=\tfrac12$. Stones 2 and 5 cannot be reached from stone 1 in exactly two steps. After ten steps the probability of being back on stone 1 is $0.1049$, and by $n=100$ every row of $P^n$ agrees to four decimal places.
+
+The chain is irreducible, and it is aperiodic because it can return to stone 1 in both 2 and 3 steps, which have greatest common divisor 1. Solving $\boldsymbol\pi=\boldsymbol\pi P$ with $\sum_j\pi_j=1$ gives
+
+$$
+\boldsymbol\pi=\frac1{119}(12,\ 4,\ 20,\ 25,\ 22,\ 36)=(0.101,\ 0.034,\ 0.168,\ 0.210,\ 0.185,\ 0.303).
+$$
+
+The first equation, $\pi_2=\pi_1/3$, says that stone 2 is entered only from stone 1, a third of the time. In the long run the frog spends 30% of its time on stone 6 and only 3% on stone 2, whichever stone it started from.
+
+:::
+
+![Left: the first 60 hops of a simulated frog, starting on stone 1. Right: the probability of being on each stone after $n$ steps from stone 1, settling on the limiting distribution (dashed) within about 20 steps.](../figures/prob-stepping-stones.pdf){#fig-prob-stepping-stones}
 
 A random walk on the integers, moving one step right with probability $p$ and one step left with probability $q=1-p$, is the same definition on a countably infinite state space. The one-step matrix is no longer a finite array, but the $n$-step probabilities are binomial: after $n$ steps the displacement is $2K-n$ if $K\sim\Bin(n,p)$ is the number of steps to the right.
 
@@ -50,11 +88,106 @@ Every row of $P^n$ converges to $\boldsymbol\pi$. The equations $\boldsymbol\pi=
 
 The vector $\boldsymbol\pi$ is the distribution that is unchanged by one more step. Irreducibility keeps the chain from getting stuck in a subset of states. Aperiodicity keeps the distribution from oscillating between two or more patterns; a deterministic two-cycle is irreducible and has no limiting distribution, even though it has a stationary one.
 
-On a small state space the linear system $(P^\top-I)\boldsymbol\pi^\top=\mathbf{0}$ is solved directly, and the solution is scaled so that its entries sum to $1$. A null-space routine does the same arithmetic. For the stepping-stone walk the resulting vector is the long-run proportion of visits to each stone, and it does not depend on the stone where the walk began.
+On a small state space the linear system $(P^\top-I)\boldsymbol\pi^\top=\mathbf{0}$ is solved directly, and the solution is scaled so that its entries sum to $1$. A null-space routine does the same arithmetic. For the stepping stones this is the vector found above.
+
+::: {#exm-a-two-state-weather-chain .example}
+## A two-state weather chain
+
+Each day is dry or wet. A dry day is followed by a dry day with probability $0.8$, and a wet day by a wet day with probability $0.6$.
+
+**Question.** Find the limiting distribution, and the probability that it is dry two days after a wet day.
+
+**Solution.** With the states in the order dry, wet,
+
+$$
+P=\begin{pmatrix}0.8&0.2\\0.4&0.6\end{pmatrix}.
+$$
+
+The balance equation for the dry state is $\pi_1=0.8\pi_1+0.4\pi_2$, so $0.2\pi_1=0.4\pi_2$ and $\pi_1=2\pi_2$. With $\pi_1+\pi_2=1$, $\boldsymbol\pi=(2/3,1/3)$: in the long run two days in three are dry. Two days after a wet day, the probability of a dry day is the (wet, dry) entry of $P^2$,
+
+$$
+0.4\times0.8+0.6\times0.4=0.56.
+$$
+
+For any two-state chain with switching probabilities $a$ (dry to wet) and $b$ (wet to dry), the limit is $(b,a)/(a+b)$, and $P^n$ approaches it geometrically fast, at rate $(1-a-b)^n$. Here $1-a-b=0.4$, so after a week the starting state has almost no influence.
+
+:::
+
+The limiting distribution also describes a single long path. For an irreducible chain on a finite set, the fraction of the first $n$ steps spent in state $j$ converges to $\pi_j$ with probability one, whatever the start. This is a law of large numbers for a dependent sequence. It is what justifies estimating $\pi$ by running one long simulation and counting visits, and it is the fact that Markov chain Monte Carlo rests on.
+
+![A simulated symmetric random walk on the integers, $p=q=1/2$, for 500 steps. It wanders far from zero and returns, with no tendency to settle. On the integers the symmetric walk has no limiting distribution.](../figures/prob-random-walk.pdf){#fig-prob-random-walk}
 
 A random walk on the non-negative integers, with reflection at $0$, shows when a limit exists on an infinite space. From $0$ the walk steps to $1$ with probability $p$ and stays with probability $q=1-p$. From $j\ge 1$ it steps to $j+1$ with probability $p$ and to $j-1$ with probability $q$. The balance equations $\boldsymbol\pi=\boldsymbol\pi P$ give $\pi_j=(p/q)^j \pi_0$ for $j\ge 0$. These numbers can be scaled to sum to $1$ if and only if $p<q$, in which case $\pi_0=1-p/q$ and $\pi_j=(1-p/q)(p/q)^j$. If $p\ge q$ the walk drifts to infinity and no probability vector satisfies the balance equations. The chain still has the Markov property. It simply has no limiting distribution.
 
 ::: {.callout-note}
 ## Key idea
 The next state is drawn from a row of $P$ that depends only on the current state. After many steps an irreducible aperiodic finite chain forgets where it started, and the probability of each state settles on the unique row vector $\boldsymbol\pi=\boldsymbol\pi P$.
+:::
+
+## Exercises
+
+::: {#ex-prob-markov-two-steps .exercise}
+## Two steps of a three-state chain
+
+A chain on $\{1,2,3\}$ has transition matrix
+
+$$
+P=\begin{pmatrix}0.5&0.5&0\\0.25&0.5&0.25\\0&0.5&0.5\end{pmatrix}.
+$$
+
+Starting from state 1, find the distribution of $X_2$, and the probability that $X_1=2$ and $X_2=3$.
+
+[Solution](#sol-prob-markov-two-steps)
+
+:::
+
+::: {#ex-prob-markov-limit .exercise}
+## The limit of the three-state chain
+
+A chain on $\{1,2,3\}$ has transition matrix
+
+$$
+P=\begin{pmatrix}0.5&0.5&0\\0.25&0.5&0.25\\0&0.5&0.5\end{pmatrix}.
+$$
+
+Show that it is irreducible and aperiodic, and find its limiting distribution.
+
+[Solution](#sol-prob-markov-limit)
+
+:::
+
+::: {#ex-prob-markov-two-state .exercise}
+## Any two-state chain
+
+A chain on two states moves from state 1 to state 2 with probability $a$ and from state 2 to state 1 with probability $b$, where $0<a,b<1$. Show that its limiting distribution is $(b,a)/(a+b)$.
+
+[Solution](#sol-prob-markov-two-state)
+
+:::
+
+::: {#ex-prob-markov-periodic .exercise}
+## A chain that never settles
+
+A chain on $\{1,2\}$ moves to the other state at every step. Find $P^n$ for every $n$, and a probability vector $\boldsymbol\pi$ with $\boldsymbol\pi=\boldsymbol\pi P$. Explain why $P^n$ has no limit.
+
+[Solution](#sol-prob-markov-periodic)
+
+:::
+
+::: {#ex-prob-markov-reflecting .exercise}
+## A walk with a floor
+
+A walk on $\{0,1,2,\ldots\}$ steps up with probability $p=0.3$ and down with probability $q=0.7$, except that from 0 it stays at 0 instead of stepping down. Find the limiting probability that the walk is at 0, and its long-run mean position.
+
+[Solution](#sol-prob-markov-reflecting)
+
+:::
+
+::: {#ex-prob-markov-random-walk .exercise}
+## Where a random walk can be
+
+A random walk on the integers starts at 0 and steps $+1$ with probability $p$ and $-1$ with probability $q=1-p$. Find $\Pr(X_n=k)$. Why is $\Pr(X_n=0)=0$ when $n$ is odd?
+
+[Solution](#sol-prob-markov-random-walk)
+
 :::
