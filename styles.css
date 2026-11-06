@@ -1,0 +1,588 @@
+/* STAT3500 wiki. Laid out after Wikipedia: serif headings with a rule
+   beneath, sans-serif text, a hatnote under each title, compact tables. */
+
+:root {
+  --wiki-text: #202122;
+  --wiki-muted: #54595d;
+  --wiki-link: #3366cc;
+  --wiki-link-hover: #2a4b8d;
+  --wiki-border: #a2a9b1;
+  --wiki-rule: #c8ccd1;
+  --wiki-panel: #f8f9fa;
+  --wiki-panel-head: #eaecf0;
+  --wiki-bg: #ffffff;
+  --wiki-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  --wiki-matrix: #1f4fc1;
+}
+
+/* Dark mode, after Wikipedia's night theme. Quarto adds .quarto-dark to the
+   body when the toggle in the top bar is switched on. */
+body.quarto-dark {
+  --wiki-text: #eaecf0;
+  --wiki-muted: #a2a9b1;
+  --wiki-link: #88a3e8;
+  --wiki-link-hover: #b0c2f2;
+  --wiki-border: #54595d;
+  --wiki-rule: #404244;
+  --wiki-panel: #1b1e22;
+  --wiki-panel-head: #27292d;
+  --wiki-bg: #101418;
+  --wiki-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  --wiki-matrix: #8fb0ff;
+  background-color: var(--wiki-bg);
+}
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--wiki-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+body.quarto-dark .navbar,
+body.quarto-dark .sidebar,
+body.quarto-dark #quarto-sidebar,
+body.quarto-dark .nav-footer {
+  background-color: var(--wiki-panel) !important;
+}
+
+body.quarto-dark .navbar,
+body.quarto-dark .navbar .nav-link,
+body.quarto-dark .navbar-title {
+  color: var(--wiki-text) !important;
+}
+
+body.quarto-dark .navbar .nav-link.active {
+  color: var(--wiki-link) !important;
+}
+
+/* The dark theme's accent is teal; keep the wiki's blue for links. */
+body.quarto-dark .sidebar-link.active,
+body.quarto-dark .sidebar-link.active .menu-text,
+body.quarto-dark .sidebar-navigation a:hover,
+body.quarto-dark #TOC a.active,
+body.quarto-dark #TOC a:hover,
+body.quarto-dark .breadcrumb a {
+  color: var(--wiki-link) !important;
+}
+
+body.quarto-dark #TOC a.active {
+  border-left-color: var(--wiki-link) !important;
+}
+
+body.quarto-dark .sidebar-item-text,
+body.quarto-dark .sidebar-link {
+  color: #c8ccd1;
+}
+
+body.quarto-dark .aa-Form,
+body.quarto-dark .aa-Input,
+body.quarto-dark #quarto-search input {
+  background-color: var(--wiki-bg) !important;
+  color: var(--wiki-text) !important;
+  border-color: var(--wiki-border) !important;
+}
+
+/* The book draws matrices in blue; keep them readable on a dark page. */
+.katex [style*="color:blue"],
+.katex [style*="color: blue"] {
+  color: var(--wiki-matrix) !important;
+}
+
+/* Figures are drawn on white. Give them a light frame in dark mode
+   rather than inverting them, which would change the plot colours. */
+body.quarto-dark #quarto-document-content img {
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 4px;
+}
+
+#quarto-document-content {
+  max-width: 52rem;
+}
+
+/* Headings */
+
+h1.title,
+#quarto-document-content h2,
+.portal-box h3 {
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-weight: normal;
+}
+
+h1.title {
+  font-size: 2rem;
+  border-bottom: 1px solid var(--wiki-border);
+  padding-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
+}
+
+#quarto-document-content h2 {
+  font-size: 1.55rem;
+  border-bottom: 1px solid var(--wiki-border);
+  padding-bottom: 0.15rem;
+  margin-top: 1.8rem;
+}
+
+#quarto-document-content h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.3rem;
+}
+
+/* A callout's own title is not a section heading. */
+.callout h2,
+.callout .callout-title-container {
+  border-bottom: 0 !important;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  margin-top: 0 !important;
+}
+
+/* Links */
+
+a {
+  color: var(--wiki-link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--wiki-link-hover);
+  text-decoration: underline;
+}
+
+code, pre, kbd, samp, .sourceCode {
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+
+/* Hatnote: the italic line under the title on Wikipedia. */
+
+.hatnote {
+  color: var(--wiki-muted);
+  font-size: 0.92rem;
+  padding: 0 0 0.6rem 1.6rem;
+  margin: 0 0 1rem;
+  border-bottom: 1px solid var(--wiki-panel-head);
+  line-height: 1.7;
+}
+
+.hatnote p {
+  margin: 0;
+}
+
+.hatnote a.qnav {
+  display: inline-block;
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-panel);
+  border-radius: 2px;
+  padding: 0 0.5rem;
+  margin-left: 0.35rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.hatnote a.qnav:hover {
+  background: var(--wiki-panel-head);
+  text-decoration: none;
+}
+
+/* Question tables */
+
+.qtable table {
+  font-size: 0.93rem;
+  width: 100% !important;
+  border: 1px solid var(--wiki-border);
+  border-collapse: collapse;
+  margin: 0.4rem 0 1.2rem;
+}
+
+.qtable th {
+  background: var(--wiki-panel-head);
+  font-weight: 600;
+}
+
+.qtable th,
+.qtable td {
+  border: 1px solid var(--wiki-rule);
+  padding: 0.28rem 0.6rem;
+  vertical-align: top;
+}
+
+.qtable tbody tr:nth-child(even) {
+  background: var(--wiki-panel);
+}
+
+.qtable td:last-child,
+.qtable th:last-child {
+  width: 4.5rem;
+  text-align: center;
+}
+
+.qfilter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.8rem 0 0.4rem;
+}
+
+.qfilter input {
+  flex: 1;
+  max-width: 28rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  font: inherit;
+  background: var(--wiki-bg);
+  color: var(--wiki-text);
+}
+
+.qfilter-count {
+  color: var(--wiki-muted);
+  font-size: 0.9rem;
+}
+
+/* Term links: a link to where a term is defined. */
+
+a.term {
+  color: inherit;
+  text-decoration: underline dotted var(--wiki-link);
+  text-underline-offset: 0.2em;
+}
+
+a.term:hover {
+  color: var(--wiki-link);
+}
+
+/* Link preview card */
+
+#wiki-preview {
+  position: fixed;
+  z-index: 2000;
+  width: min(26rem, calc(100vw - 24px));
+  max-height: 22rem;
+  overflow: hidden;
+  background: var(--wiki-bg);
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  box-shadow: var(--wiki-shadow);
+  padding: 0.7rem 0.9rem 0.6rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+#wiki-preview .wp-title {
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+  color: var(--wiki-text);
+}
+
+#wiki-preview .wp-hat,
+#wiki-preview .wp-note {
+  color: var(--wiki-muted);
+  font-size: 0.82rem;
+  margin-bottom: 0.4rem;
+  padding: 0;
+  border: 0;
+}
+
+#wiki-preview .wp-body {
+  max-height: 17.5rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent);
+  mask-image: linear-gradient(to bottom, #000 80%, transparent);
+}
+
+#wiki-preview p {
+  margin: 0 0 0.45rem;
+}
+
+#wiki-preview img {
+  max-width: 100%;
+  max-height: 9rem;
+}
+
+#wiki-preview img.wp-thumb {
+  float: right;
+  width: 9.5rem;
+  max-height: 8rem;
+  object-fit: contain;
+  margin: 0 0 0.4rem 0.6rem;
+  background: #ffffff;
+  border: 1px solid var(--wiki-rule);
+}
+
+#wiki-preview .katex-display {
+  margin: 0.3rem 0;
+  overflow: hidden;
+}
+
+#wiki-preview .wp-title .wp-note {
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0.1rem 0 0;
+}
+
+#wiki-preview table {
+  font-size: 0.8rem;
+}
+
+/* Infobox: the summary box at the top right of an article or chapter. */
+
+.infobox {
+  float: right;
+  clear: right;
+  width: 21rem;
+  margin: 0.2rem 0 1rem 1.4rem;
+  padding: 0.25rem 0.45rem 0.45rem;
+  background: var(--wiki-panel);
+  border: 1px solid var(--wiki-border);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.infobox-title {
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.25rem 0.3rem 0.35rem;
+}
+
+.infobox .quarto-figure,
+.infobox figure {
+  margin: 0 0 0.45rem;
+  text-align: center;
+}
+
+.infobox img {
+  max-width: 100%;
+  height: auto;
+  background: #ffffff;
+}
+
+.infobox figcaption {
+  font-size: 0.78rem;
+  color: var(--wiki-muted);
+  margin-top: 0.2rem;
+  text-align: center;
+}
+
+#quarto-document-content .infobox table {
+  display: table;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  font-size: 0.85rem;
+}
+
+.infobox thead {
+  display: none;
+}
+
+.infobox td {
+  border: 0 !important;
+  border-top: 1px solid var(--wiki-rule) !important;
+  padding: 0.28rem 0.3rem !important;
+  vertical-align: top;
+  background: transparent !important;
+}
+
+.infobox td:first-child {
+  font-weight: 600;
+  width: 34%;
+  white-space: normal;
+}
+
+.infobox .katex {
+  font-size: 1em;
+}
+
+.infobox-note {
+  color: var(--wiki-muted);
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.infobox-note p {
+  margin: 0 0 0.25rem;
+}
+
+/* Wide blocks beside the infobox give way to it rather than run under it. */
+#quarto-document-content .callout,
+#quarto-document-content .theorem,
+#quarto-document-content .qtable {
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .infobox {
+    float: none;
+    width: auto;
+    margin: 0 0 1rem;
+  }
+}
+
+/* "Main article:" under a Properties or Examples heading. */
+
+.mainarticle {
+  font-style: italic;
+  color: var(--wiki-muted);
+  padding-left: 1.6rem;
+  margin: -0.2rem 0 0.6rem;
+  font-size: 0.92rem;
+}
+
+.mainarticle p {
+  margin: 0;
+}
+
+/* A chapter box or distribution card points up to its article. */
+
+p:has(> a.box-article) {
+  text-align: right;
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+}
+
+a.box-article {
+  color: var(--wiki-muted);
+}
+
+a.box-article:hover {
+  color: var(--wiki-link);
+}
+
+/* Glossary */
+
+.glossary-jump {
+  font-size: 1.05rem;
+  margin: 0.6rem 0 0.4rem;
+  word-spacing: 0.1rem;
+}
+
+.qtable.glossary td:last-child,
+.qtable.glossary th:last-child {
+  width: 14rem;
+  text-align: left;
+}
+
+.qtable.glossary td:first-child {
+  width: 15rem;
+}
+
+.gtype {
+  display: block;
+  color: var(--wiki-muted);
+  font-size: 0.78rem;
+}
+
+/* Worked answer: folded away until asked for. */
+
+#worked-answer {
+  margin-top: 2rem;
+}
+
+/* Main page portal */
+
+.portal-intro {
+  background: var(--wiki-panel);
+  border: 1px solid var(--wiki-border);
+  padding: 0.8rem 1rem;
+  margin: 0.4rem 0 1.2rem;
+}
+
+.portal-intro p {
+  margin: 0;
+}
+
+.portal {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.portal-box {
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-bg);
+}
+
+.portal-box h3 {
+  background: var(--wiki-panel-head);
+  border-bottom: 1px solid var(--wiki-border);
+  font-size: 1.15rem;
+  margin: 0 !important;
+  padding: 0.35rem 0.75rem;
+}
+
+.portal-box ul {
+  margin: 0.55rem 0 0.4rem;
+  padding-left: 1.9rem;
+  font-size: 0.93rem;
+}
+
+.portal-box li {
+  margin: 0.12rem 0;
+}
+
+.portal-box p {
+  margin: 0 0.75rem 0.55rem;
+  font-size: 0.9rem;
+}
+
+.portal-more {
+  font-weight: 600;
+}
+
+/* Sidebar and contents, kept quiet. */
+
+.sidebar-navigation .sidebar-item {
+  font-size: 0.9rem;
+}
+
+#TOC .toc-actions,
+nav#TOC h2 {
+  font-family: inherit;
+}
+
+/* Distribution sheet */
+
+.dist-card {
+  border: 1px solid var(--wiki-border);
+  padding: 0.2rem 1rem 0.3rem;
+  margin: 0 0 0.9rem;
+  background: var(--wiki-bg);
+}
+
+.dist-card h3 {
+  margin-top: 0.85rem;
+}
+
+/* Wide tables and equations scroll inside the page on small screens. */
+
+#quarto-document-content table {
+  display: block;
+  overflow-x: auto;
+}
+
+.qtable table {
+  display: table;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.1rem 0;
+}
+
+@media (max-width: 767px) {
+  .hatnote {
+    padding-left: 0;
+  }
+
+  .qtable td:last-child,
+  .qtable th:last-child {
+    width: 3rem;
+  }
+}

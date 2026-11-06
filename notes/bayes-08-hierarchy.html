@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Hierarchical Bayes – STAT3500 wiki</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notes/bayes-09-linear-regression.html" rel="next">
+<link href="../notes/bayes-07-exponential-families.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5d26e6cd17f97c1dae0eb4b1a17e6f50.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-46371810f5d5e513cdfc6852f1465107.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="robots" content="noindex, nofollow">
+
+  <script defer="" src="../katex/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="../katex/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">STAT3500 wiki</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Main page</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../notes/index.html"> 
+<span class="menu-text">Topics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../questions/index.html"> 
+<span class="menu-text">Question bank</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/glossary.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/index.html"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html#random"> 
+<span class="menu-text">Random question</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/index.html">Topics</a></li><li class="breadcrumb-item"><a href="../notes/bayes-01-foundations.html">Bayesian statistics</a></li><li class="breadcrumb-item"><a href="../notes/bayes-08-hierarchy.html">Hierarchical Bayes</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Main page</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html#random" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random question</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../notes/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bayesian statistics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-01-foundations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian foundations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-02-beta-binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Beta–Binomial model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-03-normal-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conjugate analysis for normal models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-04-mcmc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov chains, Gibbs sampling, and Metropolis–Hastings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-05-categorical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical data and the Dirichlet distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-06-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian hypotheses and model comparison</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-07-exponential-families.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exponential families and conjugacy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-08-hierarchy.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Hierarchical Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-09-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian linear regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Generalised linear models</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/01-introduction-to-glms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to generalised linear models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/02-inference-and-counts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standard errors, and models for counts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/03-gamma-and-quasi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underdispersion, positive responses, and quasi-likelihood</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/04-categorical-responses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical responses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/05-comparisons-and-deviance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Paired comparisons, and how far a fit is from the data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/06-pit-residuals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability-integral residuals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Smoothing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/06-smooth-means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Smooth means</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/07-additive-and-mixed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additive smooths</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Correlated data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/08-random-intercepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random intercepts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/08-slopes-and-glmms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random slopes, and a binary mixed model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/09-marginal-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal models, and two responses at once</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/10-plants-and-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Three species on one hillside</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Time series</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/12-time-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dependence along a series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/11-forecasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Forecasting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Final preparation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/final-preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use the final preparation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/final-bayesian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian final questions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/final-applied.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applied final questions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../questions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Question bank</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../questions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By topic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../questions/by-source.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By source</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary and index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Common distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference formulas and problem-solving workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#s-why-hierarchical-bayes" id="toc-s-why-hierarchical-bayes" class="nav-link active" data-scroll-target="#s-why-hierarchical-bayes">Why hierarchical Bayes?</a></li>
+  <li><a href="#s-a-first-hierarchy-tg5-cattle-studies" id="toc-s-a-first-hierarchy-tg5-cattle-studies" class="nav-link" data-scroll-target="#s-a-first-hierarchy-tg5-cattle-studies">A first hierarchy: TG5 cattle studies</a></li>
+  <li><a href="#s-rat-tumours-why-a-hierarchy" id="toc-s-rat-tumours-why-a-hierarchy" class="nav-link" data-scroll-target="#s-rat-tumours-why-a-hierarchy">Rat tumours: why a hierarchy?</a></li>
+  <li><a href="#s-exchangeability" id="toc-s-exchangeability" class="nav-link" data-scroll-target="#s-exchangeability">Exchangeability</a></li>
+  <li><a href="#s-empirical-hyperparameters-by-moment-matching" id="toc-s-empirical-hyperparameters-by-moment-matching" class="nav-link" data-scroll-target="#s-empirical-hyperparameters-by-moment-matching">Empirical hyperparameters by moment matching</a></li>
+  <li><a href="#s-full-bayesian-treatment" id="toc-s-full-bayesian-treatment" class="nav-link" data-scroll-target="#s-full-bayesian-treatment">Full Bayesian treatment</a></li>
+  <li><a href="#s-integrating-out-the-study-rates" id="toc-s-integrating-out-the-study-rates" class="nav-link" data-scroll-target="#s-integrating-out-the-study-rates">Integrating out the study rates</a></li>
+  <li><a href="#s-hyperprior-and-transformations" id="toc-s-hyperprior-and-transformations" class="nav-link" data-scroll-target="#s-hyperprior-and-transformations">Hyperprior and transformations</a></li>
+  <li><a href="#s-grid-approximation-and-posterior-simulation" id="toc-s-grid-approximation-and-posterior-simulation" class="nav-link" data-scroll-target="#s-grid-approximation-and-posterior-simulation">Grid approximation and posterior simulation</a></li>
+  <li><a href="#questions-on-this-topic" id="toc-questions-on-this-topic" class="nav-link" data-scroll-target="#questions-on-this-topic">Questions on this topic</a></li>
+  <li><a href="#what-links-here" id="toc-what-links-here" class="nav-link" data-scroll-target="#what-links-here">What links here</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See also</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/index.html">Topics</a></li><li class="breadcrumb-item"><a href="../notes/bayes-01-foundations.html">Bayesian statistics</a></li><li class="breadcrumb-item"><a href="../notes/bayes-08-hierarchy.html">Hierarchical Bayes</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Hierarchical Bayes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hatnote">
+<p>Part of <strong>Bayesian statistics</strong> · <a href="#questions-on-this-topic">9 questions on this topic</a> · <a href="#what-links-here">What links here</a></p>
+</div>
+<div class="infobox">
+<div class="infobox-title">
+<p>Hierarchical Bayes</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/part1-fig-08-hyperposterior-grid.png" class="img-fluid figure-img"></p>
+<figcaption>Contours of the rat-tumour hyperposterior in the transformed <span class="math inline">(z_1,z_2)</span> coordinates, including the Jacobian <span class="math inline">\alpha\beta</span>.</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Part</td>
+<td style="text-align: left;">Bayesian statistics</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chapter</td>
+<td style="text-align: left;">8 of 9 in this part</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Previous</td>
+<td style="text-align: left;"><a href="../notes/bayes-07-exponential-families.html">Exponential families and conjugacy</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Next</td>
+<td style="text-align: left;"><a href="../notes/bayes-09-linear-regression.html">Bayesian linear regression</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Questions</td>
+<td style="text-align: left;"><a href="#questions-on-this-topic">9</a> (6 book, 1 practice, 1 final prep, 1 concept)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Definitions</td>
+<td style="text-align: left;"><a href="../articles/hierarchical-bayesian-model.html">Hierarchical Bayesian model</a> · <a href="../articles/hyperparameter.html">Hyperparameter</a> · <a href="../articles/exchangeability.html">Exchangeability</a> · <a href="../articles/empirical-bayes.html">Empirical Bayes</a> · <a href="../articles/grid-monte-carlo-approximation.html">Grid Monte Carlo approximation</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Results</td>
+<td style="text-align: left;"><a href="../articles/normal-hierarchical-shrinkage.html">Normal hierarchical shrinkage</a> · <a href="../articles/study-rate-full-conditional.html">Study-rate full conditional</a> · <a href="../articles/marginal-hyperposterior.html">Marginal hyperposterior</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Figures</td>
+<td style="text-align: left;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This chapter develops Bayesian models for related groups. The central idea is not <a href="../articles/generic-exponential-family-conjugate-update.html" class="term">conjugacy</a>: a hierarchy can be conjugate or nonconjugate. Its defining feature is that group-specific parameters are connected through a shared population distribution, allowing partial pooling while preserving genuine between-group variation.</p>
+<section id="s-why-hierarchical-bayes" class="level2">
+<h2 class="anchored" data-anchor-id="s-why-hierarchical-bayes">Why hierarchical Bayes?</h2>
+<div id="def-hierarchical-bayesian-model" class="definition theorem">
+<p><span class="theorem-title"><strong>Definition 1 (Hierarchical Bayesian model)</strong></span> Hierarchical Bayes is ordinary Bayes for data that arrive in related groups. Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution. This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.</p>
+<p><a href="../articles/hierarchical-bayesian-model.html" class="box-article">Article: Hierarchical Bayesian model →</a></p>
+</div>
+<section id="s-from-one-tutorial-class-to-many" class="level3">
+<h3 class="anchored" data-anchor-id="s-from-one-tutorial-class-to-many">From one tutorial class to many</h3>
+<p>For one tutorial class, let <span class="math inline">Y_i</span> be the mark of student <span class="math inline">i</span> and let <span class="math inline">\theta</span> be the class’s unknown true mean. With a known within-class variance <span class="math inline">\sigma^2</span>, an ordinary Bayesian model is</p>
+<p><span class="math display">
+Y_i\mid\theta\sim\operatorname{N}(\theta,\sigma^2),
+\qquad
+\theta\sim\operatorname{N}(\mu_0,\tau_0^2).
+</span></p>
+<p>The sampling distribution describes variation between students, whereas the prior describes uncertainty about the class mean. <a href="../articles/bayes-rule.html" class="term">Bayes’ rule</a> combines the two sources of information.</p>
+<p>Now suppose there are <span class="math inline">J</span> tutorial classes. Give class <span class="math inline">j</span> its own mean <span class="math inline">\theta_j</span>: <span id="eq-tutorial-observation-level"><span class="math display">
+Y_{ij}\mid\theta_j,\sigma^2
+\sim\operatorname{N}(\theta_j,\sigma^2),
+\qquad i=1,\ldots,n_j,\qquad j=1,\ldots,J.
+\qquad(1)</span></span> Estimating every <span class="math inline">\theta_j</span> separately ignores that all the classes belong to the same course. A second level connects them: <span id="eq-tutorial-group-level"><span class="math display">
+\theta_j\mid\mu,\tau^2
+\stackrel{\mathrm{iid}}{\sim}\operatorname{N}(\mu,\tau^2),
+\qquad j=1,\ldots,J.
+\qquad(2)</span></span> Here <span class="math inline">\mu</span> is the overall course mean and <span class="math inline">\tau^2</span> measures genuine between-class variation. The hierarchy is</p>
+<p><span class="math display">
+(\mu,\tau^2)\longrightarrow\theta_j\longrightarrow Y_{ij}.
+</span></p>
+<p>The first arrow describes variation between class means; the second describes variation between students within a class. Confusing these two levels would attribute sampling noise among students to real differences among classes.</p>
+<div id="def-hyperparameter" class="definition theorem">
+<p><span class="theorem-title"><strong>Definition 2 (Hyperparameter)</strong></span> For a fully Bayesian analysis, the population-level quantities are also unknown and receive priors, for example</p>
+<p><span class="math display">
+\mu\sim\operatorname{N}(m_0,s_0^2),
+\qquad
+\tau^2\sim\operatorname{InvGamma}(a,b).
+</span></p>
+<p>The quantities controlling the distribution of the <span class="math inline">\theta_j</span>’s are called <em>hyperparameters</em>, or higher-level parameters. Once priors are assigned to them, their uncertainty is propagated into every class-specific posterior.</p>
+<p><a href="../articles/hyperparameter.html" class="box-article">Article: Hyperparameter →</a></p>
+</div>
+</section>
+<section id="s-complete-pooling-no-pooling-and-partial-pooling" class="level3">
+<h3 class="anchored" data-anchor-id="s-complete-pooling-no-pooling-and-partial-pooling">Complete pooling, no pooling, and partial pooling</h3>
+<p>The modelling choice can be organised into three cases.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Approach</th>
+<th>Assumption and consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Complete pooling</td>
+<td>Set <span class="math inline">\theta_1=\cdots=\theta_J=\theta</span> and analyse all students as though every class has exactly the same mean.</td>
+</tr>
+<tr class="even">
+<td>No pooling</td>
+<td>Estimate each <span class="math inline">\theta_j</span> from class <span class="math inline">j</span> alone; information from the other classes is discarded.</td>
+</tr>
+<tr class="odd">
+<td>Partial pooling</td>
+<td>Retain distinct <span class="math inline">\theta_j</span>’s but connect them through the shared distribution in <a href="#eq-tutorial-group-level" class="quarto-xref">Equation&nbsp;2</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Hierarchical Bayes produces partial pooling. A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre. This movement is called <em>shrinkage</em> or <em>borrowing strength</em>.</p>
+</section>
+<section id="s-where-the-shrinkage-weight-comes-from" class="level3">
+<h3 class="anchored" data-anchor-id="s-where-the-shrinkage-weight-comes-from">Where the shrinkage weight comes from</h3>
+<p>Condition for the moment on known <span class="math inline">\mu</span>, <span class="math inline">\tau^2</span>, and <span class="math inline">\sigma^2</span>. The sample mean in class <span class="math inline">j</span> satisfies</p>
+<p><span class="math display">
+\overline Y_j\mid\theta_j
+\sim\operatorname{N}\!\left(\theta_j,\frac{\sigma^2}{n_j}\right).
+</span></p>
+<p>After observing <span class="math inline">\overline y_j</span>, multiply its likelihood by the second-level prior: <span class="math display">\begin{align*}
+p(\theta_j\mid\overline y_j,\mu,\tau^2,\sigma^2)
+&amp;\propto
+\exp\!\left\{-\frac{n_j}{2\sigma^2}
+       (\overline y_j-\theta_j)^2\right\}
+\exp\!\left\{-\frac{1}{2\tau^2}
+       (\theta_j-\mu)^2\right\}\\
+&amp;=\exp\!\left\{-\frac12\left[
+    \frac{n_j}{\sigma^2}(\theta_j^2-2\overline y_j\theta_j
+       +\overline y_j^2)
+   +\frac1{\tau^2}(\theta_j^2-2\mu\theta_j+\mu^2)
+   \right]\right\}\\
+&amp;\propto\exp\!\left\{-\frac12\left[
+   \left(\frac{n_j}{\sigma^2}+\frac1{\tau^2}\right)\theta_j^2
+   -2\left(\frac{n_j\overline y_j}{\sigma^2}
+            +\frac\mu{\tau^2}\right)\theta_j
+   \right]\right\}.
+\end{align*}</span> Set</p>
+<p><span class="math display">
+A_j=\frac{n_j}{\sigma^2}+\frac1{\tau^2},
+\qquad
+B_j=\frac{n_j\overline y_j}{\sigma^2}+\frac\mu{\tau^2}.
+</span></p>
+<p>Completing the square gives <span class="math display">\begin{align*}
+A_j\theta_j^2-2B_j\theta_j
+&amp;=A_j\left(\theta_j^2-2\frac{B_j}{A_j}\theta_j\right)\\
+&amp;=A_j\left[
+   \left(\theta_j-\frac{B_j}{A_j}\right)^2
+   -\left(\frac{B_j}{A_j}\right)^2
+   \right].
+\end{align*}</span></p>
+<div id="prp-normal-hierarchical-shrinkage" class="proposition theorem">
+<p><span class="theorem-title"><strong>Proposition 1 (Normal hierarchical shrinkage)</strong></span> The final term is constant in <span class="math inline">\theta_j</span>. The remaining kernel is normal, so <span id="eq-normal-hierarchy-conditional-posterior"><span class="math display">
+\theta_j\mid\overline y_j,\mu,\tau^2,\sigma^2
+\sim\operatorname{N}\!\left(
+   \frac{B_j}{A_j},\frac1{A_j}\right).
+\qquad(3)</span></span> Its variance is <span class="math display">\begin{align*}
+\frac1{A_j}
+&amp;=\frac1{n_j/\sigma^2+1/\tau^2}\\
+&amp;=\frac{\sigma^2\tau^2}{\sigma^2+n_j\tau^2},
+\end{align*}</span> and its mean can be rearranged without omitting any terms: <span class="math display">\begin{align*}
+\frac{B_j}{A_j}
+&amp;=\frac{n_j\overline y_j/\sigma^2+\mu/\tau^2}
+         {n_j/\sigma^2+1/\tau^2}\\
+&amp;=\frac{n_j\tau^2\overline y_j+\sigma^2\mu}
+         {\sigma^2+n_j\tau^2}\\
+&amp;=\frac{n_j\tau^2}{\sigma^2+n_j\tau^2}\overline y_j
+   +\frac{\sigma^2}{\sigma^2+n_j\tau^2}\mu\\
+&amp;=w_j\overline y_j+(1-w_j)\mu,
+\end{align*}</span> where <span id="eq-normal-hierarchy-shrinkage-weight"><span class="math display">
+w_j=\frac{n_j\tau^2}{\sigma^2+n_j\tau^2},
+\qquad
+1-w_j=\frac{\sigma^2}{\sigma^2+n_j\tau^2}.
+\qquad(4)</span></span> Thus</p>
+<p><span class="math display">
+\mathbb{E}(\theta_j\mid\overline y_j,\mu,\tau^2,\sigma^2)
+=w_j\overline y_j+(1-w_j)\mu.
+</span></p>
+<p><a href="../articles/normal-hierarchical-shrinkage.html" class="box-article">Article: Normal hierarchical shrinkage →</a></p>
+</div>
+<p>If <span class="math inline">n_j</span> is large, then <span class="math inline">w_j</span> is close to one and class <span class="math inline">j</span> mainly trusts its own data. If <span class="math inline">n_j</span> is small, then <span class="math inline">w_j</span> is smaller and the estimate moves toward <span class="math inline">\mu</span>. If the class means are genuinely heterogeneous, then <span class="math inline">\tau^2</span> is large and the model shrinks less. In a full Bayesian fit, the data from all classes learn <span class="math inline">\mu</span> and <span class="math inline">\tau^2</span>, so the amount of sharing is itself uncertain rather than fixed in advance.</p>
+<div id="exm-large-and-small-tutorial-classes" class="example theorem">
+<p><span class="theorem-title"><strong>Example 1 (Large and small tutorial classes)</strong></span> Suppose the overall mean is <span class="math inline">\mu=70</span>, the within-class standard deviation is <span class="math inline">\sigma=10</span>, and the between-class standard deviation is <span class="math inline">\tau=5</span>. Class A has <span class="math inline">100</span> students and <span class="math inline">\overline y_A=75</span>, while Class B has only two students and <span class="math inline">\overline y_B=95</span>.</p>
+<p><strong>Question.</strong> Compute the two shrinkage weights and posterior means, treating <span class="math inline">\mu</span>, <span class="math inline">\sigma^2</span>, and <span class="math inline">\tau^2</span> as fixed, and explain why the more extreme sample mean need not produce the more extreme posterior mean.</p>
+<p><strong>Solution.</strong> For Class A, <span class="math display">\begin{align*}
+w_A&amp;=\frac{100(25)}{100+100(25)}=\frac{25}{26}\approx0.962,\\
+\mathbb{E}(\theta_A\mid\overline y_A,\mu,\tau^2,\sigma^2)
+&amp;=\frac{25}{26}(75)+\frac1{26}(70)\approx74.81.
+\end{align*}</span> For Class B, <span class="math display">\begin{align*}
+w_B&amp;=\frac{2(25)}{100+2(25)}=\frac13,\\
+\mathbb{E}(\theta_B\mid\overline y_B,\mu,\tau^2,\sigma^2)
+&amp;=\frac13(95)+\frac23(70)\approx78.33.
+\end{align*}</span> The extreme average from the small class is not ignored, but it is recognised as much less precise.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key idea
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Each group gets its own parameter, while the group parameters come from a shared population distribution. Information does not pass directly from one class to another. Every class helps learn the common population quantities, and those quantities then influence every group-specific posterior. Groups therefore learn from their own data while borrowing strength from the others.</p>
+</div>
+</div>
+<p>“Borrowing strength” can sound more mysterious than it is. Class A does not hand observations directly to Class B. Both classes help estimate the shared population distribution, and that distribution changes what is plausible for each class. The gain is largest for small groups, but the same mechanism can over-shrink genuinely unusual groups if the population model is too rigid. Partial pooling is powerful because it compromises; the adequacy of that compromise still has to be checked.</p>
+</section>
+</section>
+<section id="s-a-first-hierarchy-tg5-cattle-studies" class="level2">
+<h2 class="anchored" data-anchor-id="s-a-first-hierarchy-tg5-cattle-studies">A first hierarchy: TG5 cattle studies</h2>
+<p>Genetics is among the most statistically sophisticated applied fields, but that sophistication is often hidden behind software. A scientist may be using a recently developed Monte Carlo method because it has appeared in a software package, without knowing how the method works. Someone nevertheless has to establish that the computation and its assumptions are sound. That is a fairly concrete use for statistical expertise. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The practical difficulty begins even earlier. A proper meta-analysis tries to find every relevant study, including studies with small or null effects that were never published. In this case much of the material was unpublished, and the data were obtainable largely because a company already had commercial relationships with the breeders. The available records were study summaries rather than the complete farm-level records. Commercial questions and scientific questions were not always the same. Getting the data is not as easy as it sounds.</p>
+<div id="exm-tg5-cattle-hierarchy" class="example theorem">
+<p><span class="theorem-title"><strong>Example 2 (TG5 cattle hierarchy)</strong></span> A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling. The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.</p>
+<p>The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation. A schematic version of the hierarchy is <span class="math display">\begin{align*}
+y_{ij}\mid\delta_i,w_{ij}
+&amp;\sim\operatorname{N}(\delta_i,w_{ij}^{-1}),\\
+\delta_i\mid\mu_{b(i)},\tau_{\mathrm{study}}
+&amp;\sim\operatorname{N}(\mu_{b(i)},\tau_{\mathrm{study}}^{-1}),\\
+\mu_b\mid\mu_0,\tau_{\mathrm{breed}}
+&amp;\sim\operatorname{N}(\mu_0,\tau_{\mathrm{breed}}^{-1}),\\
+\mu_0&amp;\sim\operatorname{N}(0,\xi^2),
+\qquad \xi^2\text{ large}.
+\end{align*}</span> Here <span class="math inline">w_{ij}</span> records the within-study information, <span class="math inline">\delta_i</span> is a study effect, and <span class="math inline">\mu_b</span> is a breed-group effect. Precision parameters were given diffuse scaled inverse-<span class="math inline">\chi^2</span>-type priors in the applied analysis. The diagrammatic flow is</p>
+<p><span class="math display">
+\text{overall effect}\longrightarrow
+\text{breed effect}\longrightarrow
+\text{study effect}\longrightarrow
+\text{observed contrast}.
+</span></p>
+<p>The hierarchy performs partial pooling at more than one level. The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy, but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to <a href="../notes/08-random-intercepts.html#s-a-random-intercept" class="term">mixed models</a>. The analysis was fitted in WinBUGS using a <a href="../articles/systematic-scan-gibbs-sampler.html" class="term">Gibbs sampler</a>; the “GS” in the software name stands for Gibbs sampling.</p>
+</div>
+</section>
+<section id="s-rat-tumours-why-a-hierarchy" class="level2">
+<h2 class="anchored" data-anchor-id="s-rat-tumours-why-a-hierarchy">Rat tumours: why a hierarchy?</h2>
+<div id="exm-rat-tumour-hierarchy" class="example theorem">
+<p><span class="theorem-title"><strong>Example 3 (Rat-tumour hierarchy)</strong></span> Tumour rates in female F344 rats supply a second hierarchical example. In a current control study, <span class="math inline">y=4</span> of <span class="math inline">n=14</span> rats developed one or more tumours over two years.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> A one-study model is</p>
+<p><span class="math display">
+Y\mid\theta\sim\operatorname{Bin}(14,\theta),
+\qquad
+\theta\sim\operatorname{Beta}(\alpha,\beta),
+</span></p>
+<p>giving</p>
+<p><span class="math display">
+\theta\mid Y=4
+\sim\operatorname{Beta}(\alpha+4,\beta+10).
+</span></p>
+<p>The question is how to choose <span class="math inline">(\alpha,\beta)</span> when 70 earlier control studies are available.</p>
+<p>Let study <span class="math inline">j</span> contribute <span class="math inline">y_j</span> tumour-bearing rats from <span class="math inline">n_j</span> animals. The hierarchical model is <span id="eq-rat-hierarchy"><span class="math display">
+Y_j\mid\theta_j,n_j\sim\operatorname{Bin}(n_j,\theta_j),
+\qquad
+\theta_j\mid\alpha,\beta
+\stackrel{\mathrm{iid}}{\sim}\operatorname{Beta}(\alpha,\beta),
+\quad j=1,\ldots,J.
+\qquad(5)</span></span> Each study has its own rate, but all study rates are drawn from a common population distribution.</p>
+</div>
+<p>Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of <a href="../notes/08-random-intercepts.html#s-what-is-fixed-and-what-is-random" class="term">random effects</a> added after the fact. The version of the rat example used here follows the account in Gelman’s book.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</section>
+<section id="s-exchangeability" class="level2">
+<h2 class="anchored" data-anchor-id="s-exchangeability">Exchangeability</h2>
+<div id="def-exchangeability" class="definition theorem">
+<p><span class="theorem-title"><strong>Definition 3 (Exchangeability)</strong></span> The parameters <span class="math inline">\theta_1,\ldots,\theta_J</span> are exchangeable if their joint density is invariant to every permutation <span class="math inline">\pi</span>:</p>
+<p><span class="math display">
+p(\theta_1,\ldots,\theta_J)
+=p(\theta_{\pi(1)},\ldots,\theta_{\pi(J)}).
+</span></p>
+<p>Conditional iid sampling from a common <a href="../articles/beta-distribution.html" class="term">Beta distribution</a> implies exchangeability:</p>
+<p><span class="math display">
+p({\boldsymbol{\theta}}\mid\alpha,\beta)
+=\prod_{j=1}^Jp(\theta_j\mid\alpha,\beta).
+</span></p>
+<p>The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition. The sample sizes <span class="math inline">n_j</span> may differ; exchangeability requires the latent rates not to be systematically related to those sizes.</p>
+<p><a href="../articles/exchangeability.html" class="box-article">Article: Exchangeability →</a></p>
+</div>
+<p>Exchangeability is a judgement made before seeing the outcomes, not permission to ignore everything known about the groups. If laboratory, breed, protocol, or calendar time plausibly changes the rates, that information should enter the hierarchy rather than be hidden by a common label. We assume exchangeability when the remaining labels carry no reason for a systematic ordering; learning more about the data can reveal that a richer grouping is needed.</p>
+</section>
+<section id="s-empirical-hyperparameters-by-moment-matching" class="level2">
+<h2 class="anchored" data-anchor-id="s-empirical-hyperparameters-by-moment-matching">Empirical hyperparameters by moment matching</h2>
+<div id="def-empirical-bayes" class="definition theorem">
+<p><span class="theorem-title"><strong>Definition 4 (Empirical Bayes)</strong></span> An <em>empirical Bayes</em> analysis estimates prior or population-level hyperparameters from data and then treats those estimates as fixed in a lower-level Bayesian update. A full Bayesian analysis instead assigns the hyperparameters a prior and propagates their posterior uncertainty.</p>
+<p><a href="../articles/empirical-bayes.html" class="box-article">Article: Empirical Bayes →</a></p>
+</div>
+<p>The observed historical proportions <span class="math inline">\widehat\theta_j=y_j/n_j</span> had empirical mean <span class="math inline">m=0.136</span> and standard deviation <span class="math inline">s=0.103</span>. A <span class="math inline">\operatorname{Beta}(\alpha,\beta)</span> variable has</p>
+<p><span class="math display">
+m=\frac\alpha{\alpha+\beta},
+\qquad
+s^2=\frac{\alpha\beta}
+{(\alpha+\beta)^2(\alpha+\beta+1)}.
+</span></p>
+<p>Let <span class="math inline">t=\alpha+\beta</span>. Since <span class="math inline">\alpha=mt</span> and <span class="math inline">\beta=(1-m)t</span>, <span class="math display">\begin{align*}
+s^2
+&amp;=\frac{(mt)((1-m)t)}{t^2(t+1)}\\
+&amp;=\frac{m(1-m)}{t+1}.
+\end{align*}</span> Solving, <span class="math display">\begin{align*}
+s^2(t+1)&amp;=m(1-m),\\
+t+1&amp;=\frac{m(1-m)}{s^2},\\
+t&amp;=\frac{m(1-m)}{s^2}-1,\\
+\alpha&amp;=mt,
+\qquad
+\beta=(1-m)t.
+\end{align*}</span> Substituting <span class="math inline">m=0.136</span> and <span class="math inline">s=0.103</span> gives approximately</p>
+<p><span class="math display">
+(\alpha,\beta)\approx(1.37,8.7).
+</span></p>
+<p>The values <span class="math inline">(1.370,8.693)</span> differ slightly from that approximation; the difference is attributable to rounding in the reported historical standard deviation.</p>
+<p>Using these values as if known gives the current-study posterior</p>
+<p><span class="math display">
+\theta_{\mathrm{current}}\mid y=4,n=14
+\sim\operatorname{Beta}(5.370,18.693),
+</span></p>
+<p>with mean</p>
+<p><span class="math display">
+\frac{5.370}{5.370+18.693}
+\approx0.223.
+</span></p>
+<p>This lies between the historical mean <span class="math inline">0.136</span> and the current proportion <span class="math inline">4/14\approx0.286</span>. That movement is partial pooling.</p>
+<p>The plug-in calculation has three limitations:</p>
+<ol type="1">
+<li><p>the empirical variance of <span class="math inline">y_j/n_j</span> contains both real between-study variation and binomial sampling variation;</p></li>
+<li><p>treating estimated <span class="math inline">(\alpha,\beta)</span> as known omits hyperparameter uncertainty; and</p></li>
+<li><p>historical and current studies may not be exchangeable.</p></li>
+</ol>
+<p>There are two related but distinct reuse issues. For the 70 historical studies, empirical Bayes estimates <span class="math inline">(\alpha,\beta)</span> from the same <span class="math inline">y_j</span> values whose study rates are then re-estimated, so treating the fitted hyperparameters as fixed understates uncertainty. Applying that historical fit to a separate current <span class="math inline">4/14</span> study does not literally reuse the current data, but it still ignores uncertainty in the population distribution. Full Bayes repairs both calculations by propagating the posterior uncertainty in <span class="math inline">(\alpha,\beta)</span>.</p>
+<p>Empirical Bayes is often a sensible first analysis, but its apparent precision can be deceptive. Once estimated hyperparameters are treated as fixed, the lower-level posterior forgets that the population distribution was itself learned from finite data. A full Bayesian model restores that uncertainty. The trade-off is computational rather than philosophical: we gain a coherent uncertainty calculation at the cost of a larger joint posterior.</p>
+</section>
+<section id="s-full-bayesian-treatment" class="level2">
+<h2 class="anchored" data-anchor-id="s-full-bayesian-treatment">Full Bayesian treatment</h2>
+<p>Let <span class="math inline">{\boldsymbol{\phi}}=(\alpha,\beta)^{\mathsf T}</span>. A full Bayesian model assigns a hyperprior <span class="math inline">p(\alpha,\beta)</span> and uses <span class="math display">\begin{align*}
+p({\boldsymbol{\theta}},\alpha,\beta)
+&amp;=p(\alpha,\beta)
+   \prod_{j=1}^Jp(\theta_j\mid\alpha,\beta),\\
+p({\boldsymbol{y}}\mid{\boldsymbol{\theta}},\alpha,\beta)
+&amp;=p({\boldsymbol{y}}\mid{\boldsymbol{\theta}})
+=\prod_{j=1}^Jp(y_j\mid\theta_j).
+\end{align*}</span> The second equality follows because the data are conditionally independent of the hyperparameters given the study rates. Therefore <span id="eq-joint-hyper-post"><span class="math display">
+\begin{aligned}
+p({\boldsymbol{\theta}},\alpha,\beta\mid{\boldsymbol{y}})
+&amp;\propto
+p(\alpha,\beta)
+\prod_{j=1}^J
+p(y_j\mid\theta_j)
+p(\theta_j\mid\alpha,\beta).
+\end{aligned}
+\qquad(6)</span></span></p>
+<p>For one study, the two factors are <span class="math display">\begin{align*}
+p(y_j\mid\theta_j)
+&amp;=\binom{n_j}{y_j}
+   \theta_j^{y_j}(1-\theta_j)^{n_j-y_j},\\
+p(\theta_j\mid\alpha,\beta)
+&amp;=\frac{\Gamma(\alpha+\beta)}
+        {\Gamma(\alpha)\Gamma(\beta)}
+   \theta_j^{\alpha-1}(1-\theta_j)^{\beta-1}.
+\end{align*}</span> Holding <span class="math inline">(\alpha,\beta)</span> fixed and multiplying powers, <span class="math display">\begin{align*}
+p(\theta_j\mid\alpha,\beta,{\boldsymbol{y}})
+&amp;\propto
+\theta_j^{y_j+\alpha-1}
+(1-\theta_j)^{n_j-y_j+\beta-1}.
+\end{align*}</span></p>
+<div id="prp-study-rate-full-conditional" class="proposition theorem">
+<p><span class="theorem-title"><strong>Proposition 2 (Study-rate full conditional)</strong></span> Normalising gives <span id="eq-theta-full-cond-hierarchy"><span class="math display">
+\boxed{
+\theta_j\mid\alpha,\beta,{\boldsymbol{y}}
+\sim\operatorname{Beta}(y_j+\alpha,n_j-y_j+\beta)}.
+\qquad(7)</span></span> Conditional on the hyperparameters, the study rates are independent, so the joint conditional is the product of these <span class="math inline">J</span> Beta densities.</p>
+<p><a href="../articles/study-rate-full-conditional.html" class="box-article">Article: Study-rate full conditional →</a></p>
+</div>
+</section>
+<section id="s-integrating-out-the-study-rates" class="level2">
+<h2 class="anchored" data-anchor-id="s-integrating-out-the-study-rates">Integrating out the study rates</h2>
+<p>To obtain the marginal posterior for <span class="math inline">(\alpha,\beta)</span>, integrate <a href="#eq-joint-hyper-post" class="quarto-xref">Equation&nbsp;6</a> over every <span class="math inline">\theta_j</span>. For one study, <span class="math display">\begin{align*}
+&amp;\int_0^1p(y_j\mid\theta_j)
+            p(\theta_j\mid\alpha,\beta)\,\mathrm{d}\theta_j\\
+&amp;\quad=
+\binom{n_j}{y_j}
+\frac{\Gamma(\alpha+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)}
+\int_0^1
+\theta_j^{y_j+\alpha-1}
+(1-\theta_j)^{n_j-y_j+\beta-1}\,\mathrm{d}\theta_j\\
+&amp;\quad=
+\binom{n_j}{y_j}
+\frac{\Gamma(\alpha+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)}
+B(y_j+\alpha,n_j-y_j+\beta)\\
+&amp;\quad=
+\binom{n_j}{y_j}
+\frac{\Gamma(\alpha+\beta)
+       \Gamma(y_j+\alpha)
+       \Gamma(n_j-y_j+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)
+       \Gamma(n_j+\alpha+\beta)}.
+\end{align*}</span></p>
+<div id="prp-marginal-hyperposterior" class="proposition theorem">
+<p><span class="theorem-title"><strong>Proposition 3 (Marginal hyperposterior)</strong></span> The binomial coefficient does not depend on <span class="math inline">(\alpha,\beta)</span>, so the hyperposterior kernel is <span id="eq-hyperposterior"><span class="math display">
+\boxed{
+p(\alpha,\beta\mid{\boldsymbol{y}})
+\propto p(\alpha,\beta)
+\prod_{j=1}^J
+\frac{\Gamma(\alpha+\beta)
+       \Gamma(y_j+\alpha)
+       \Gamma(n_j-y_j+\beta)}
+      {\Gamma(\alpha)\Gamma(\beta)
+       \Gamma(n_j+\alpha+\beta)}}.
+\qquad(8)</span></span> This expression is available pointwise but is not a familiar normalised density.</p>
+<p><a href="../articles/marginal-hyperposterior.html" class="box-article">Article: Marginal hyperposterior →</a></p>
+</div>
+</section>
+<section id="s-hyperprior-and-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="s-hyperprior-and-transformations">Hyperprior and transformations</h2>
+<p>One proper choice is independent exponential hyperpriors,</p>
+<p><span class="math display">
+\alpha\sim\operatorname{Exp}(\lambda),
+\qquad
+\beta\sim\operatorname{Exp}(\lambda),
+\qquad
+\alpha\perp\beta.
+</span></p>
+<p>The choice <span class="math inline">\lambda=1</span> is a plain starting point. Its implications are clearer after writing</p>
+<p><span class="math display">
+u=\frac{\alpha}{\alpha+\beta},
+\qquad t=\alpha+\beta,
+\qquad
+\alpha=ut,
+\qquad \beta=(1-u)t.
+</span></p>
+<p>Because</p>
+<p><span class="math display">
+\left|\frac{\partial(\alpha,\beta)}{\partial(u,t)}\right|=t,
+</span></p>
+<p>the transformed density is <span class="math display">\begin{align*}
+p(u,t)
+&amp;=\lambda^2e^{-\lambda t}t\\
+&amp;=\mathbf{1}\{0&lt;u&lt;1\}
+   \frac{\lambda^2}{\Gamma(2)}t^{2-1}e^{-\lambda t}.
+\end{align*}</span> Thus <span class="math inline">u\sim\operatorname{Uniform}(0,1)</span>, <span class="math inline">t\sim\operatorname{Gamma}(2,\lambda)</span>, and <span class="math inline">u\perp t</span>. The prior is proper and its rate has an interpretable effect: <span class="math inline">\mathbb{E}(t)=2/\lambda</span>. Calling a smaller rate “more diffuse” is incomplete, because it also favours larger total concentration and therefore more tightly clustered study rates conditional on <span class="math inline">u</span>.</p>
+<p>Gelman’s alternative <a href="../articles/proper-prior-and-proper-posterior.html" class="term">improper prior</a> is <span id="eq-gelman-hyperprior"><span class="math display">
+p(\alpha,\beta)\propto(\alpha+\beta)^{-5/2},
+\qquad \alpha,\beta&gt;0.
+\qquad(9)</span></span> It can be motivated by a uniform prior on</p>
+<p><span class="math display">
+u=\frac{\alpha}{\alpha+\beta},
+\qquad
+v=\frac1{\sqrt{\alpha+\beta}}.
+</span></p>
+<p>Let <span class="math inline">t=\alpha+\beta</span>. The forward derivatives are</p>
+<p><span class="math display">
+\frac{\partial u}{\partial\alpha}=\frac\beta{t^2},
+\quad
+\frac{\partial u}{\partial\beta}=-\frac\alpha{t^2},
+\quad
+\frac{\partial v}{\partial\alpha}
+=\frac{\partial v}{\partial\beta}
+=-\frac12t^{-3/2}.
+</span></p>
+<p>Hence <span class="math display">\begin{align*}
+\left|\frac{\partial(u,v)}{\partial(\alpha,\beta)}\right|
+&amp;=\left|
+\frac\beta{t^2}\left(-\frac12t^{-3/2}\right)
+-\left(-\frac\alpha{t^2}\right)
+  \left(-\frac12t^{-3/2}\right)
+\right|\\
+&amp;=\frac{\alpha+\beta}{2t^{7/2}}\\
+&amp;=\frac12t^{-5/2}.
+\end{align*}</span> A constant density in <span class="math inline">(u,v)</span> therefore transforms to <span class="math inline">p(\alpha,\beta)\propto t^{-5/2}</span>, as claimed. Because the prior is improper, posterior propriety must be established for the data configuration being analysed.</p>
+<p>The transformation is derived here. It does not make an improper prior uniquely noninformative, and it does not remove the need to state the domain.</p>
+<div id="rem-uniformity-depends-on-a-domain" class="proof remark">
+<p><span class="proof-title"><em>Remark 1</em> (Uniformity depends on a domain). </span>The Jacobian calculation is local; calling the prior “uniform in <span class="math inline">(u,v)</span>” also requires a stated domain. Over an unbounded or boundary-touching domain the density is improper, so the transformed expression is a modelling choice, not an automatic noninformative prior.</p>
+<p><a href="../articles/uniformity-depends-on-a-domain.html" class="box-article">Article: Uniformity depends on a domain →</a></p>
+</div>
+<p>The grid calculation uses</p>
+<p><span class="math display">
+z_1=\log(\alpha/\beta),
+\qquad
+z_2=\log(\alpha+\beta).
+</span></p>
+<p>Let <span class="math inline">t=e^{z_2}</span> and <span class="math inline">r=e^{z_1}</span>. Solving <span class="math inline">\alpha/\beta=r</span> and <span class="math inline">\alpha+\beta=t</span> gives <span id="eq-log-transform-inverse"><span class="math display">
+\alpha=t\frac{r}{1+r},
+\qquad
+\beta=t\frac1{1+r}.
+\qquad(10)</span></span> Equivalently, let <span class="math inline">m=r/(1+r)</span>. The Jacobians are</p>
+<p><span class="math display">
+\left|\frac{\partial(\alpha,\beta)}{\partial(m,t)}\right|=t,
+\qquad
+\left|\frac{\partial(m,t)}{\partial(z_1,z_2)}\right|
+=m(1-m)t.
+</span></p>
+<p>Therefore <span class="math display">\begin{align*}
+\left|\frac{\partial(\alpha,\beta)}
+              {\partial(z_1,z_2)}\right|
+&amp;=t^2m(1-m)\\
+&amp;=(tm)(t(1-m))\\
+&amp;=\alpha\beta.
+\end{align*}</span> Under <a href="#eq-gelman-hyperprior" class="quarto-xref">Equation&nbsp;9</a>, the transformed prior is therefore <span id="eq-transformed-hyperprior"><span class="math display">
+p(z_1,z_2)
+\propto \alpha\beta(\alpha+\beta)^{-5/2},
+\qquad(11)</span></span> where <span class="math inline">(\alpha,\beta)</span> are obtained from <a href="#eq-log-transform-inverse" class="quarto-xref">Equation&nbsp;10</a>.</p>
+</section>
+<section id="s-grid-approximation-and-posterior-simulation" class="level2">
+<h2 class="anchored" data-anchor-id="s-grid-approximation-and-posterior-simulation">Grid approximation and posterior simulation</h2>
+<p>The calculation begins with a rectangular grid over <span class="math inline">(z_1,z_2)</span>, evaluates the unnormalised transformed hyperposterior at each cell, and expands the grid if substantial mass lies against an edge. The first trial used approximately</p>
+<p><span class="math display">
+z_1\in[-2.5,-1],
+\qquad
+z_2\in[1.5,3],
+</span></p>
+<p>and clipped part of the high-density region. An illustrative adjusted range was approximately</p>
+<p><span class="math display">
+z_1\in[-2.35,0.3],
+\qquad
+z_2\in[1,5].
+</span></p>
+<p>The grid method is deliberately visible. Modern <a href="../articles/markov-chain.html" class="term">MCMC</a> software can hide much of this computation, but it still faces the same posterior geometry. A grid forces us to inspect the transformed scale, the Jacobian, the region carrying mass, and whether density is being clipped at a boundary. In two dimensions that transparency is often worth more than a more sophisticated black box.</p>
+<div id="def-grid-monte-carlo-approximation" class="definition theorem">
+<p><span class="theorem-title"><strong>Definition 5 (Grid Monte Carlo approximation)</strong></span> Let <span class="math inline">w_{ab}</span> be the unnormalised hyperposterior value at grid cell <span class="math inline">(a,b)</span>, including the Jacobian <span class="math inline">\alpha\beta</span>. The discrete approximation is</p>
+<p><span class="math display">
+\widehat p_{ab}=\frac{w_{ab}}{\sum_{r,s}w_{rs}}.
+</span></p>
+<p>Sampling from the approximate full posterior proceeds as follows.</p>
+<ol type="1">
+<li><p>Flatten the grid weights into a one-dimensional list, form cumulative probabilities, draw <span class="math inline">U\sim\operatorname{Uniform}(0,1)</span>, and select the first cell whose cumulative probability exceeds <span class="math inline">U</span>. Equivalently, draw a grid cell <span class="math inline">(Z_1,Z_2)</span> with probabilities <span class="math inline">\widehat p_{ab}</span>. Optionally add independent uniform jitter within the selected cell.</p></li>
+<li><p>Transform <span class="math inline">(Z_1,Z_2)</span> to <span class="math inline">(\alpha,\beta)</span> using <a href="#eq-log-transform-inverse" class="quarto-xref">Equation&nbsp;10</a>.</p></li>
+<li><p>For each study, draw independently</p></li>
+</ol>
+<p><span class="math display">
+  \theta_j\sim\operatorname{Beta}(y_j+\alpha,n_j-y_j+\beta)
+</span></p>
+<p>using <a href="#eq-theta-full-cond-hierarchy" class="quarto-xref">Equation&nbsp;7</a>.</p>
+<ol start="4" type="1">
+<li>Repeat to obtain <span class="math inline">(\alpha^{(l)},\beta^{(l)},{\boldsymbol{\theta}}^{(l)})</span>, <span class="math inline">l=1,\ldots,L</span>.</li>
+</ol>
+<p>These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo. A <span class="math inline">100\times100</span> grid has <span class="math inline">10^4</span> cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all <span class="math inline">J+2</span> unknowns would be impossible.</p>
+<p><a href="../articles/grid-monte-carlo-approximation.html" class="box-article">Article: Grid Monte Carlo approximation →</a></p>
+</div>
+<p>Here is the corresponding calculation. The vectors <code>y</code> and <code>n_trials</code> contain the tumour counts <span class="math inline">y_j</span> and sample sizes <span class="math inline">n_j</span> for the 71 studies. The logarithmic calculation is important: subtracting the largest log weight before exponentiating prevents numerical underflow without changing the normalised probabilities.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">z1 =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">2.35</span>, <span class="fl">0.30</span>, <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">z2 =</span> <span class="fu">seq</span>( <span class="fl">1.00</span>, <span class="fl">5.00</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">exp</span>(z<span class="sc">$</span>z2)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>mean_rate <span class="ot">&lt;-</span> <span class="fu">plogis</span>(z<span class="sc">$</span>z1)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>z<span class="sc">$</span>alpha <span class="ot">&lt;-</span> total <span class="sc">*</span> mean_rate</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>z<span class="sc">$</span>beta  <span class="ot">&lt;-</span> total <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> mean_rate)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>log_w <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(z)), <span class="cf">function</span>(k) {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> z<span class="sc">$</span>alpha[k]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> z<span class="sc">$</span>beta[k]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="fl">2.5</span> <span class="sc">*</span> <span class="fu">log</span>(a <span class="sc">+</span> b) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">lbeta</span>(y <span class="sc">+</span> a, n_trials <span class="sc">-</span> y <span class="sc">+</span> b) <span class="sc">-</span> <span class="fu">lbeta</span>(a, b)) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">log</span>(a) <span class="sc">+</span> <span class="fu">log</span>(b)              <span class="co"># Jacobian alpha * beta</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">exp</span>(log_w <span class="sc">-</span> <span class="fu">max</span>(log_w))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> prob <span class="sc">/</span> <span class="fu">sum</span>(prob)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3500</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">1000</span>L</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>cell <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(<span class="fu">nrow</span>(z), M, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> prob)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> z<span class="sc">$</span>alpha[cell]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>beta  <span class="ot">&lt;-</span> z<span class="sc">$</span>beta[cell]</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="fu">seq_along</span>(y), <span class="cf">function</span>(j) {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbeta</span>(M, y[j] <span class="sc">+</span> alpha, n_trials[j] <span class="sc">-</span> y[j] <span class="sc">+</span> beta)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>}, <span class="fu">numeric</span>(M))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each row of <code>theta</code> is one draw of all 71 study rates. Summarising a column marginalises <span class="math inline">(\alpha,\beta)</span> automatically because the corresponding hyperparameter draws are simply not retained in that summary. Before using the result, plot the grid weights and check that appreciable mass does not meet an edge; a grid whose boundary cuts through the density fails precisely that check.</p>
+<div id="fig-08-hyperposterior-grid" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-08-hyperposterior-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/part1-fig-08-hyperposterior-grid.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-08-hyperposterior-grid-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Contours of the rat-tumour hyperposterior in the transformed <span class="math inline">(z_1,z_2)</span> coordinates, including the Jacobian <span class="math inline">\alpha\beta</span>. The dashed outline marks a grid whose boundary cuts through the density. Its upper edge cuts through appreciable density, so enlarging the numerical domain is part of the calculation rather than a plotting preference. The gold point is the largest evaluated grid value on the expanded domain.
+</figcaption>
+</figure>
+</div>
+<p>For a posterior expectation,</p>
+<p><span class="math display">
+\mathbb{E}(\alpha\mid{\boldsymbol{y}})
+\approx\frac1L\sum_{l=1}^L\alpha^{(l)}.
+</span></p>
+<p>If the inferential target is only <span class="math inline">{\boldsymbol{\theta}}</span>, marginalise the hyperparameters by ignoring their sampled coordinates and summarising <span class="math inline">{\boldsymbol{\theta}}^{(1)},\ldots,{\boldsymbol{\theta}}^{(L)}</span>. This is Monte Carlo marginalisation, not a claim that hyperparameter uncertainty is absent.</p>
+<p>Study-specific posterior medians and <span class="math inline">95\%</span> intervals, ordered by the raw rates <span class="math inline">y_j/n_j</span>, do not follow the 45-degree line: small and noisy studies move toward the population centre. This is <em>shrinkage</em>, also called borrowing strength. No observation is literally passed from one study to another. All studies help estimate the shared population quantities, and those quantities then influence every study-specific posterior. The model does not force the rates to be equal; the amount of movement is learned from the between-study spread and each study’s sample size.</p>
+<p>Compared with plugging in one estimate of <span class="math inline">(\alpha,\beta)</span>, full Bayes usually widens the marginal intervals for <span class="math inline">\theta_j</span> because it adds the variance due to hyperparameter uncertainty. Omitting that variance component makes the intervals over-precise.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key idea
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The hierarchy shares information without forcing all studies to have the same rate. Full Bayes propagates uncertainty in the population of rates into every study-specific posterior. The grid sampler works because only two hyperparameters require numerical integration; in higher dimensions one would normally return to Gibbs or <a href="../articles/metropolis-hastings-update.html" class="term">Metropolis–Hastings</a>.</p>
+</div>
+</div>
+<div id="fig-08-shrinkage" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-08-shrinkage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/part1-fig-08-shrinkage.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-08-shrinkage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Raw rates and marginal posterior medians under the full grid approximation. Segments show movement from the no-shrinkage line; the current <span class="math inline">4/14</span> study is red and point size records <span class="math inline">n_j</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="questions-on-this-topic" class="level2">
+<h2 class="anchored" data-anchor-id="questions-on-this-topic">Questions on this topic</h2>
+<p>Open a question to attempt it. Its worked answer is folded away at the bottom of the page.</p>
+<div class="qtable">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Question</th>
+<th style="text-align: left;">Source</th>
+<th style="text-align: center;">Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/book/exr-pooling.html">Pooling</a></td>
+<td style="text-align: left;">Book exercise</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../questions/book/exr-derive-the-shrinkage-weight.html">Derive the shrinkage weight</a></td>
+<td style="text-align: left;">Book exercise</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/book/exr-exchangeability-is-a-scientific-claim.html">Exchangeability is a scientific claim</a></td>
+<td style="text-align: left;">Book exercise</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../questions/book/exr-two-hyperpriors.html">Two hyperpriors</a></td>
+<td style="text-align: left;">Book exercise</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/book/exr-sample-from-a-grid.html">Sample from a grid</a></td>
+<td style="text-align: left;">Book exercise</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../questions/book/exr-full-bayes-and-interval-width.html">Full Bayes and interval width</a></td>
+<td style="text-align: left;">Book exercise</td>
+<td style="text-align: center;">–</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/practice/q-23.html">Q23. Rat-tumour studies and hierarchical shrinkage</a></td>
+<td style="text-align: left;">Practice set</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../questions/final/ex-pois-hier.html">Question 17. Hierarchical Poisson model</a></td>
+<td style="text-align: left;">Final preparation</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/concepts/c-09.html">C9. Pooling</a></td>
+<td style="text-align: left;">Concept check</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="what-links-here" class="level2">
+<h2 class="anchored" data-anchor-id="what-links-here">What links here</h2>
+<p><strong>Pages</strong> (6)</p>
+<ul>
+<li><a href="../notes/bayes-01-foundations.html">Bayesian foundations</a> — via <em>hyperparameter</em></li>
+<li><a href="../notes/bayes-07-exponential-families.html">Exponential families and conjugacy</a> — via <em>hyperparameters</em>, <em>Hierarchical Bayes</em></li>
+<li><a href="../notes/04-categorical-responses.html">Categorical responses</a> — via <em>exchangeable</em></li>
+<li><a href="../notes/09-marginal-models.html">Marginal models, and two responses at once</a> — via <em>exchangeable</em></li>
+<li><a href="../notes/final-preparation.html">How to use the final preparation</a> — via <em>hierarchical models</em></li>
+<li><a href="../reference/formulas.html">Reference formulas and problem-solving workflow</a> — via <em>Empirical Bayes</em>, <em>hyperparameters</em>, <em>Hierarchical models</em></li>
+</ul>
+<p><strong>Questions and answers</strong> (16)</p>
+<ul>
+<li>Practice set: <a href="../questions/practice/q-02.html" title="Q2. Gamma waiting times with an inverse-Gamma prior">Q2</a> (answer) · <a href="../questions/practice/q-17.html" title="Q17. Choosing a conjugate prior">Q17</a> (answer) · <a href="../questions/practice/q-23.html" title="Q23. Rat-tumour studies and hierarchical shrinkage">Q23</a> · <a href="../questions/practice/q-27.html" title="Q27. Machine downtime and a Gamma prior">Q27</a> · <a href="../questions/practice/q-49.html" title="Q49. A Gibbs full conditional under independent priors">Q49</a> · <a href="../questions/practice/q-53.html" title="Q53. Poisson flaws and posterior odds">Q53</a> (answer) · <a href="../questions/practice/q-58.html" title="Q58. Joint Normal conjugacy and exact sampling">Q58</a></li>
+<li>Final preparation: <a href="../questions/final/ex-norm-nig.html" title="Question 4. Jointly conjugate normal--inverse-gamma">Question 4</a> · <a href="../questions/final/ex-downtime.html" title="Question 10. Beta downtime">Question 10</a> · <a href="../questions/final/ex-geom-beta.html" title="Question 11. Geometric success probability">Question 11</a> · <a href="../questions/final/ex-mammal-ig.html" title="Question 14. Inverse-gamma waiting time">Question 14</a> · <a href="../questions/final/ex-mixed-gibbs.html" title="Question 16. Mixed binomial--beta Gibbs sampler">Question 16</a> (answer) · <a href="../questions/final/ex-pois-hier.html" title="Question 17. Hierarchical Poisson model">Question 17</a></li>
+<li>Concept checks: <a href="../questions/concepts/c-02.html" title="C2. Conjugacy">C2</a> (answer) · <a href="../questions/concepts/c-09.html" title="C9. Pooling">C9</a> · <a href="../questions/concepts/c-39.html" title="C39. Working correlation">C39</a> (answer)</li>
+</ul>
+</section>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See also</h2>
+<ul>
+<li>Articles from this chapter: <a href="../articles/hierarchical-bayesian-model.html">Hierarchical Bayesian model</a> · <a href="../articles/hyperparameter.html">Hyperparameter</a> · <a href="../articles/normal-hierarchical-shrinkage.html">Normal hierarchical shrinkage</a> · <a href="../articles/exchangeability.html">Exchangeability</a> · <a href="../articles/empirical-bayes.html">Empirical Bayes</a> · <a href="../articles/study-rate-full-conditional.html">Study-rate full conditional</a> · <a href="../articles/marginal-hyperposterior.html">Marginal hyperposterior</a> · <a href="../articles/uniformity-depends-on-a-domain.html">Uniformity depends on a domain</a> · <a href="../articles/grid-monte-carlo-approximation.html">Grid Monte Carlo approximation</a></li>
+<li><a href="../notes/index.html#bayesian-statistics">All bayesian statistics chapters</a></li>
+<li><a href="../reference/glossary.html">Glossary and index</a></li>
+<li><a href="../reference/distributions.html">Distribution sheet</a> and <a href="../reference/formulas.html">formula lookup</a></li>
+</ul>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The connection between statistics and genetics is not accidental: Fisher’s statistical and genetic work belonged to the same programme.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The historical controls came from a United States National Cancer Institute programme in the 1970s. Two years is most of a laboratory rat’s lifespan, so the time horizon is part of the scientific definition of the rate.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The underlying analysis is due to Dempster, Selwyn, and Weeks, presented in 1980 and published in the <em>Journal of the American Statistical Association</em> in 1983.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script>
+
+(function () {
+
+  var Q = ["questions/book/exr-confidence-procedures.html","questions/book/exr-what-makes-a-hypothesis-test.html","questions/book/exr-one-thousand-posterior-draws.html","questions/book/exr-prediction-is-not-estimation.html","questions/book/exr-the-missing-variance.html","questions/book/ex-applied-mmse.html","questions/book/exr-the-pseudo-count-trap.html","questions/book/exr-symmetry-and-context.html","questions/book/exr-a-proper-nonconjugate-prior.html","questions/book/exr-sequential-updating.html","questions/book/exr-a-future-run-of-tosses.html","questions/book/ex-applied-geometric.html","questions/book/ex-applied-logitnormal-prior.html","questions/book/exr-four-limiting-checks.html","questions/book/exr-where-did-the-probability-go.html","questions/book/exr-find-the-prior-rather-than-recalling-it.html","questions/book/exr-how-many-summaries.html","questions/book/exr-full-conditionals.html","questions/book/ex-applied-normal-invchisq.html","questions/book/exr-detailed-balance.html","questions/book/exr-a-long-run-and-a-missed-mode.html","questions/book/exr-posterior-summaries-with-dependence.html","questions/book/exr-random-walk-scale.html","questions/book/exr-adapt-discard-fix.html","questions/book/ex-applied-bvn-gibbs.html","questions/book/ex-applied-logitnormal-mh.html","questions/book/ex-applied-bvn-rwmh.html","questions/book/ex-applied-gamma-mh.html","questions/book/exr-beta-hidden-inside-dirichlet.html","questions/book/exr-why-not-a-multinomial-prior.html","questions/book/exr-small-concentrations.html","questions/book/exr-the-simplex-clt.html","questions/book/exr-dirichlet-updating.html","questions/book/ex-applied-restaurant.html","questions/book/exr-who-owns-the-boundary.html","questions/book/exr-fruit-posterior.html","questions/book/exr-probability-is-not-action.html","questions/book/exr-make-the-simplex-integral-equal-one.html","questions/book/exr-two-routes-to-the-same-table.html","questions/book/ex-applied-iq.html","questions/book/exr-factorisation-and-data-reduction.html","questions/book/exr-a-normal-statistic.html","questions/book/exr-reading-conjugacy-from-a-kernel.html","questions/book/exr-three-different-flat-poisson-priors.html","questions/book/exr-conjugacy-is-not-guaranteed-by-a-name.html","questions/book/ex-applied-sufficiency-posterior.html","questions/book/ex-applied-exp-rate.html","questions/book/ex-applied-exp-scale.html","questions/book/exr-pooling.html","questions/book/exr-derive-the-shrinkage-weight.html","questions/book/exr-exchangeability-is-a-scientific-claim.html","questions/book/exr-two-hyperpriors.html","questions/book/exr-sample-from-a-grid.html","questions/book/exr-full-bayes-and-interval-width.html","questions/book/exr-errors-and-residuals.html","questions/book/exr-normal-before-student.html","questions/book/exr-the-inverse-gamma-shape-trap.html","questions/book/exr-direct-sampling-or-gibbs.html","questions/book/exr-mean-response-or-new-response.html","questions/book/exr-independent-and-scaled-priors.html","questions/final/ex-norm-mean.html","questions/final/ex-norm-var.html","questions/final/ex-norm-both.html","questions/final/ex-norm-nig.html","questions/final/ex-reg-nichisq.html","questions/final/ex-gibbs-geom.html","questions/final/ex-lognormal-var.html","questions/final/ex-device-bf.html","questions/final/ex-gibbs-mh.html","questions/final/ex-downtime.html","questions/final/ex-geom-beta.html","questions/final/ex-improper-normal.html","questions/final/ex-binom-beta-joint.html","questions/final/ex-mammal-ig.html","questions/final/ex-battery-bf.html","questions/final/ex-mixed-gibbs.html","questions/final/ex-pois-hier.html","questions/final/ex-model-selection.html","questions/final/ex-fish-poisson.html","questions/final/ex-toenail-glmm.html","questions/final/ex-cholesterol-gam.html","questions/final/ex-orthodont-lmm.html","questions/concepts/c-01.html","questions/concepts/c-02.html","questions/concepts/c-03.html","questions/concepts/c-04.html","questions/concepts/c-05.html","questions/concepts/c-06.html","questions/concepts/c-07.html","questions/concepts/c-08.html","questions/concepts/c-09.html","questions/concepts/c-10.html","questions/concepts/c-11.html","questions/concepts/c-12.html","questions/concepts/c-13.html","questions/concepts/c-14.html","questions/concepts/c-15.html","questions/concepts/c-16.html","questions/concepts/c-17.html","questions/concepts/c-18.html","questions/concepts/c-19.html","questions/concepts/c-20.html","questions/concepts/c-21.html","questions/concepts/c-22.html","questions/concepts/c-23.html","questions/concepts/c-24.html","questions/concepts/c-25.html","questions/concepts/c-26.html","questions/concepts/c-27.html","questions/concepts/c-28.html","questions/concepts/c-29.html","questions/concepts/c-30.html","questions/concepts/c-31.html","questions/concepts/c-32.html","questions/concepts/c-33.html","questions/concepts/c-34.html","questions/concepts/c-35.html","questions/concepts/c-36.html","questions/concepts/c-37.html","questions/concepts/c-38.html","questions/concepts/c-39.html","questions/concepts/c-40.html","questions/concepts/c-41.html","questions/concepts/c-42.html","questions/concepts/c-43.html","questions/concepts/c-44.html","questions/concepts/c-45.html","questions/concepts/c-46.html","questions/concepts/c-47.html","questions/concepts/c-48.html","questions/concepts/c-49.html","questions/concepts/c-50.html","questions/practice/q-01.html","questions/practice/q-02.html","questions/practice/q-03.html","questions/practice/q-04.html","questions/practice/q-05.html","questions/practice/q-06.html","questions/practice/q-07.html","questions/practice/q-08.html","questions/practice/q-09.html","questions/practice/q-10.html","questions/practice/q-11.html","questions/practice/q-12.html","questions/practice/q-13.html","questions/practice/q-14.html","questions/practice/q-15.html","questions/practice/q-16.html","questions/practice/q-17.html","questions/practice/q-18.html","questions/practice/q-19.html","questions/practice/q-20.html","questions/practice/q-21.html","questions/practice/q-22.html","questions/practice/q-23.html","questions/practice/q-24.html","questions/practice/q-25.html","questions/practice/q-26.html","questions/practice/q-27.html","questions/practice/q-28.html","questions/practice/q-29.html","questions/practice/q-30.html","questions/practice/q-31.html","questions/practice/q-32.html","questions/practice/q-33.html","questions/practice/q-34.html","questions/practice/q-35.html","questions/practice/q-36.html","questions/practice/q-37.html","questions/practice/q-38.html","questions/practice/q-39.html","questions/practice/q-40.html","questions/practice/q-41.html","questions/practice/q-42.html","questions/practice/q-43.html","questions/practice/q-44.html","questions/practice/q-45.html","questions/practice/q-46.html","questions/practice/q-47.html","questions/practice/q-48.html","questions/practice/q-49.html","questions/practice/q-50.html","questions/practice/q-51.html","questions/practice/q-52.html","questions/practice/q-53.html","questions/practice/q-54.html","questions/practice/q-55.html","questions/practice/q-56.html","questions/practice/q-57.html","questions/practice/q-58.html","questions/practice/q-59.html"];
+
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+
+  var offset = meta ? meta.getAttribute("content") : "./";
+
+  document.addEventListener("click", function (event) {
+
+    var link = event.target.closest ? event.target.closest("a") : null;
+
+    if (!link) return;
+
+    var target = link.getAttribute("href") || "";
+
+    if (target.slice(-7) !== "#random") return;
+
+    event.preventDefault();
+
+    window.location.href = offset + Q[Math.floor(Math.random() * Q.length)];
+
+  });
+
+  // Highlight the top-bar section for this page's folder.
+
+  var here = window.location.pathname.replace(/\\/g, "/");
+
+  var section = /\/notes\//.test(here) ? "notes/index.html"
+
+    : /\/questions\//.test(here) ? "questions/index.html"
+
+    : /\/reference\/glossary|\/articles\//.test(here) ? "reference/glossary.html"
+
+    : /\/reference\//.test(here) ? "reference/index.html"
+
+    : "index.html";
+
+  document.querySelectorAll("#navbarCollapse .nav-link").forEach(function (link) {
+
+    var target = (link.getAttribute("href") || "").replace(/^(\.\.\/|\.\/)+/, "");
+
+    var on = target === section;
+
+    link.classList.toggle("active", on);
+
+    if (on) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
+
+  });
+
+  window.wikiFilter = function (text) {
+
+    var words = text.toLowerCase().split(/\s+/).filter(Boolean);
+
+    var shown = 0;
+
+    document.querySelectorAll(".qtable tbody tr").forEach(function (row) {
+
+      var hay = row.textContent.toLowerCase();
+
+      var ok = words.every(function (w) { return hay.indexOf(w) >= 0; });
+
+      row.style.display = ok ? "" : "none";
+
+      if (ok) shown += 1;
+
+    });
+
+    document.querySelectorAll("main section.level2, main section.level3").forEach(function (sec) {
+
+      var rows = sec.querySelectorAll(".qtable tbody tr");
+
+      if (!rows.length) return;
+
+      var any = Array.prototype.some.call(rows, function (r) { return r.style.display !== "none"; });
+
+      sec.style.display = any || !words.length ? "" : "none";
+
+    });
+
+    var count = document.querySelector(".qfilter-count");
+
+    if (count) count.textContent = words.length ? shown + " shown" : "";
+
+  };
+
+})();
+
+</script>
+
+<div id="wiki-preview" role="tooltip" hidden=""></div>
+
+<script>
+
+// Link previews: hover over a link to another page to see what is there.
+
+(function () {
+
+  if (window.matchMedia && !window.matchMedia("(hover: hover)").matches) return;
+
+  var box = document.getElementById("wiki-preview");
+
+  var cache = {}, showTimer = null, hideTimer = null, current = null;
+
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+
+  var offset = meta ? meta.getAttribute("content") : "./";
+
+
+
+  function getDoc(url) {
+
+    if (!cache[url]) {
+
+      cache[url] = fetch(url).then(function (r) {
+
+        if (!r.ok) throw new Error(r.status);
+
+        return r.text();
+
+      }).then(function (html) { return new DOMParser().parseFromString(html, "text/html"); });
+
+    }
+
+    return cache[url];
+
+  }
+
+
+
+  function ensureKatex() {
+
+    if (window.katex) return Promise.resolve();
+
+    if (!ensureKatex.p) {
+
+      ensureKatex.p = new Promise(function (done) {
+
+        var css = document.createElement("link");
+
+        // Relative to the site root, which may be a subfolder (GitHub Pages).
+
+        css.rel = "stylesheet"; css.href = offset + "katex/katex.min.css";
+
+        document.head.appendChild(css);
+
+        var js = document.createElement("script");
+
+        js.src = offset + "katex/katex.min.js"; js.onload = done; js.onerror = done;
+
+        document.head.appendChild(js);
+
+      });
+
+    }
+
+    return ensureKatex.p;
+
+  }
+
+
+
+  function renderMath(root) {
+
+    root.querySelectorAll("span.math").forEach(function (el) {
+
+      var tex = el.textContent.trim().replace(/^\\[\(\[]/, "").replace(/\\[\)\]]$/, "");
+
+      try {
+
+        window.katex.render(tex, el, { displayMode: el.classList.contains("display"), throwOnError: false });
+
+      } catch (e) {}
+
+    });
+
+  }
+
+
+
+  // Up to `limit` characters of blocks from a list of elements.
+
+  function excerpt(nodes, limit) {
+
+    var out = document.createElement("div"), used = 0;
+
+    for (var i = 0; i < nodes.length && used < limit; i++) {
+
+      var n = nodes[i];
+
+      if (n.nodeType !== 1) continue;
+
+      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, script, nav, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
+
+      if (!n.textContent.trim() && !n.querySelector("img, .math")) continue;
+
+      out.appendChild(n.cloneNode(true));
+
+      used += n.textContent.length;
+
+    }
+
+    return out;
+
+  }
+
+
+
+  function build(doc, url, hash) {
+
+    var wrap = document.createElement("div");
+
+    var titleEl = doc.querySelector("h1.title");
+
+    var title = titleEl ? titleEl.textContent.trim() : doc.title;
+
+    var head = document.createElement("div");
+
+    head.className = "wp-title";
+
+    var body = null;
+
+    if (hash === "worked-answer") {
+
+      head.textContent = title;
+
+      body = document.createElement("p");
+
+      body.className = "wp-note";
+
+      body.textContent = "Worked answer, folded away on the question page. Open the page to reveal it.";
+
+    } else if (hash) {
+
+      var el = doc.getElementById(hash);
+
+      if (el && /^(eq-)/.test(hash)) {
+
+        head.textContent = "Equation in " + title;
+
+        body = document.createElement("div");
+
+        body.appendChild(el.cloneNode(true));
+
+      } else if (el && el.tagName === "SECTION") {
+
+        var h = el.querySelector("h2, h3, h4");
+
+        head.textContent = (h ? h.textContent.trim() : hash) + " — " + title;
+
+        body = excerpt(Array.prototype.slice.call(el.children), 700);
+
+      } else if (el) {
+
+        body = el.cloneNode(true);
+
+        var label = body.querySelector(".theorem-title, .proof-title");
+
+        if (label) {
+
+          // "Definition 1 (Beta distribution)" -> heading "Beta distribution",
+
+          // with "Definition in <chapter>" beneath. Numbers belong to the other page.
+
+          var m = label.textContent.trim().match(/^(\w+)\s*[\d.]*\s*(?:\((.*)\))?\.?$/);
+
+          head.textContent = m ? (m[2] || m[1]) : label.textContent.trim();
+
+          var sub = document.createElement("div");
+
+          sub.className = "wp-note";
+
+          sub.textContent = (m ? m[1] : "Box") + " in " + title;
+
+          head.appendChild(sub);
+
+          label.remove();
+
+        } else {
+
+          var inner = body.querySelector("h2, h3");
+
+          head.textContent = inner ? inner.textContent.trim() : title;
+
+          if (inner) inner.remove();
+
+        }
+
+      }
+
+    }
+
+    if (!body) {
+
+      head.textContent = title;
+
+      var main = doc.querySelector("main#quarto-document-content") || doc.querySelector("main");
+
+      var hat = main && main.querySelector(".hatnote");
+
+      body = document.createElement("div");
+
+      if (hat && /\/questions\//.test(url)) {
+
+        var line = hat.cloneNode(true);
+
+        line.querySelectorAll(".qnav").forEach(function (a) { a.remove(); });
+
+        line.className = "wp-hat";
+
+        body.appendChild(line);
+
+      }
+
+      var kids = main ? Array.prototype.slice.call(main.children) : [];
+
+      var flat = [];
+
+      kids.forEach(function (k) {
+
+        if (k.tagName === "SECTION") flat = flat.concat(Array.prototype.slice.call(k.children));
+
+        else flat.push(k);
+
+      });
+
+      // The infobox picture, if there is one, rides along as a thumbnail.
+
+      var pic = main && main.querySelector(".infobox img");
+
+      if (pic) {
+
+        var thumb = document.createElement("img");
+
+        thumb.className = "wp-thumb";
+
+        thumb.alt = pic.getAttribute("alt") || "";
+
+        thumb.src = pic.getAttribute("src");
+
+        body.appendChild(thumb);
+
+      }
+
+      body.appendChild(excerpt(flat, 600));
+
+    }
+
+    // Fix relative links and images, and strip ids so nothing clashes with this page.
+
+    body.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+
+    body.querySelectorAll("img").forEach(function (img) { img.src = new URL(img.getAttribute("src"), url).href; });
+
+    body.querySelectorAll("a[href]").forEach(function (a) { a.href = new URL(a.getAttribute("href"), url).href; });
+
+    body.querySelectorAll(".footnote-ref, sup").forEach(function (n) { n.remove(); });
+
+    wrap.appendChild(head);
+
+    body.classList.add("wp-body");
+
+    wrap.appendChild(body);
+
+    return wrap;
+
+  }
+
+
+
+  function place(link) {
+
+    var r = link.getBoundingClientRect();
+
+    box.style.left = "0px"; box.style.top = "0px";
+
+    box.hidden = false;
+
+    var w = box.offsetWidth, h = box.offsetHeight;
+
+    var left = Math.min(Math.max(8, r.left), window.innerWidth - w - 12);
+
+    var top = r.bottom + 8;
+
+    if (top + h > window.innerHeight - 8 && r.top - h - 8 > 8) top = r.top - h - 8;
+
+    box.style.left = left + "px";
+
+    box.style.top = top + "px";
+
+  }
+
+
+
+  function show(link) {
+
+    var u = new URL(link.href, location.href);
+
+    var page = u.origin + u.pathname;
+
+    var hash = decodeURIComponent(u.hash.slice(1));
+
+    current = link;
+
+    Promise.all([getDoc(page), ensureKatex()]).then(function (res) {
+
+      if (current !== link) return;
+
+      box.innerHTML = "";
+
+      box.appendChild(build(res[0], page, hash));
+
+      renderMath(box);
+
+      place(link);
+
+    }).catch(function () {});
+
+  }
+
+
+
+  function hide() {
+
+    current = null;
+
+    box.hidden = true;
+
+  }
+
+
+
+  function previewable(a) {
+
+    if (!a || !a.href || a.closest("#wiki-preview, .sidebar, nav, #TOC, .navbar, .pagination-link, .glossary-jump")) return false;
+
+    var u = new URL(a.href, location.href);
+
+    if (u.origin !== location.origin || u.hash === "#random") return false;
+
+    if (u.pathname === location.pathname) return false;
+
+    if (!/\.html$/.test(u.pathname)) return false;
+
+    return !/(\/index|by-source|glossary)\.html$/.test(u.pathname);
+
+  }
+
+
+
+  document.addEventListener("mouseover", function (e) {
+
+    var a = e.target.closest ? e.target.closest("a") : null;
+
+    if (e.target.closest && e.target.closest("#wiki-preview")) { clearTimeout(hideTimer); return; }
+
+    if (!previewable(a)) return;
+
+    clearTimeout(hideTimer);
+
+    clearTimeout(showTimer);
+
+    showTimer = setTimeout(function () { show(a); }, 350);
+
+  });
+
+  document.addEventListener("mouseout", function (e) {
+
+    var a = e.target.closest ? e.target.closest("a, #wiki-preview") : null;
+
+    if (!a) return;
+
+    clearTimeout(showTimer);
+
+    hideTimer = setTimeout(hide, 250);
+
+  });
+
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(); });
+
+  window.addEventListener("scroll", hide, { passive: true });
+
+})();
+
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../notes/bayes-07-exponential-families.html" class="pagination-link" aria-label="Exponential families and conjugacy">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exponential families and conjugacy</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../notes/bayes-09-linear-regression.html" class="pagination-link" aria-label="Bayesian linear regression">
+        <span class="nav-page-text">Bayesian linear regression</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Local study site. It stays on this computer.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

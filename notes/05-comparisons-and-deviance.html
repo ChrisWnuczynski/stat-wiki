@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Paired comparisons, and how far a fit is from the data – STAT3500 wiki</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../notes/06-pit-residuals.html" rel="next">
+<link href="../notes/04-categorical-responses.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5d26e6cd17f97c1dae0eb4b1a17e6f50.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-46371810f5d5e513cdfc6852f1465107.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<meta name="robots" content="noindex, nofollow">
+
+  <script defer="" src="../katex/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet" href="../katex/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">STAT3500 wiki</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Main page</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../notes/index.html"> 
+<span class="menu-text">Topics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../questions/index.html"> 
+<span class="menu-text">Question bank</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/glossary.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/index.html"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html#random"> 
+<span class="menu-text">Random question</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/index.html">Topics</a></li><li class="breadcrumb-item"><a href="../notes/01-introduction-to-glms.html">Generalised linear models</a></li><li class="breadcrumb-item"><a href="../notes/05-comparisons-and-deviance.html">Paired comparisons, and how far a fit is from the data</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Main page</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html#random" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random question</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../notes/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Bayesian statistics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-01-foundations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian foundations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-02-beta-binomial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Beta–Binomial model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-03-normal-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conjugate analysis for normal models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-04-mcmc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov chains, Gibbs sampling, and Metropolis–Hastings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-05-categorical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical data and the Dirichlet distribution</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-06-testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian hypotheses and model comparison</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-07-exponential-families.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exponential families and conjugacy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-08-hierarchy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Hierarchical Bayes</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/bayes-09-linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian linear regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Generalised linear models</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/01-introduction-to-glms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to generalised linear models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/02-inference-and-counts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Standard errors, and models for counts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/03-gamma-and-quasi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underdispersion, positive responses, and quasi-likelihood</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/04-categorical-responses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Categorical responses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/05-comparisons-and-deviance.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Paired comparisons, and how far a fit is from the data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/06-pit-residuals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probability-integral residuals</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Smoothing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/06-smooth-means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Smooth means</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/07-additive-and-mixed.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additive smooths</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Correlated data</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/08-random-intercepts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random intercepts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/08-slopes-and-glmms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Random slopes, and a binary mixed model</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/09-marginal-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Marginal models, and two responses at once</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/10-plants-and-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Three species on one hillside</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Time series</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/12-time-series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dependence along a series</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/11-forecasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Forecasting</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Final preparation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/final-preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use the final preparation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/final-bayesian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bayesian final questions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/final-applied.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applied final questions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../questions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Question bank</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../questions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By topic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../questions/by-source.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">By source</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossary and index</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Common distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference formulas and problem-solving workflow</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#s-reading-the-addiction-model" id="toc-s-reading-the-addiction-model" class="nav-link active" data-scroll-target="#s-reading-the-addiction-model">Reading the addiction model</a></li>
+  <li><a href="#s-bradley-terry" id="toc-s-bradley-terry" class="nav-link" data-scroll-target="#s-bradley-terry">Bradley–Terry</a></li>
+  <li><a href="#s-deviance" id="toc-s-deviance" class="nav-link" data-scroll-target="#s-deviance">Deviance</a></li>
+  <li><a href="#s-analysis-of-deviance" id="toc-s-analysis-of-deviance" class="nav-link" data-scroll-target="#s-analysis-of-deviance">Analysis of deviance</a></li>
+  <li><a href="#s-residuals-are-not" id="toc-s-residuals-are-not" class="nav-link" data-scroll-target="#s-residuals-are-not">Residuals are not <span class="math inline">y-\mu</span></a></li>
+  <li><a href="#questions-on-this-topic" id="toc-questions-on-this-topic" class="nav-link" data-scroll-target="#questions-on-this-topic">Questions on this topic</a></li>
+  <li><a href="#what-links-here" id="toc-what-links-here" class="nav-link" data-scroll-target="#what-links-here">What links here</a></li>
+  <li><a href="#see-also" id="toc-see-also" class="nav-link" data-scroll-target="#see-also">See also</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/index.html">Topics</a></li><li class="breadcrumb-item"><a href="../notes/01-introduction-to-glms.html">Generalised linear models</a></li><li class="breadcrumb-item"><a href="../notes/05-comparisons-and-deviance.html">Paired comparisons, and how far a fit is from the data</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Paired comparisons, and how far a fit is from the data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hatnote">
+<p>Part of <strong>Generalised linear models</strong> · <a href="#questions-on-this-topic">4 questions on this topic</a> · <a href="#what-links-here">What links here</a></p>
+</div>
+<div class="infobox">
+<div class="infobox-title">
+<p>Paired comparisons, and how far a fit is from the data</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figures/cholesterol-links.png" class="img-fluid figure-img"></p>
+<figcaption>The same cholesterol data under three links.</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Part</td>
+<td style="text-align: left;">Generalised linear models</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chapter</td>
+<td style="text-align: left;">5 of 6 in this part</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Previous</td>
+<td style="text-align: left;"><a href="../notes/04-categorical-responses.html">Categorical responses</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Next</td>
+<td style="text-align: left;"><a href="../notes/06-pit-residuals.html">Probability-integral residuals</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Questions</td>
+<td style="text-align: left;"><a href="#questions-on-this-topic">4</a> (1 practice, 3 concept)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Figures</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The addiction fit from the previous chapter is two <a href="../notes/01-introduction-to-glms.html#s-the-three-components-of-a-glm" class="term">linear predictors</a> against the weak-willed baseline. This chapter reads those coefficients, then uses the same binary building block for matches between two teams, and then asks the question the deviance is for: how far are the fitted means from the observations, and when is a simpler model enough.</p>
+<section id="s-reading-the-addiction-model" class="level2">
+<h2 class="anchored" data-anchor-id="s-reading-the-addiction-model">Reading the addiction model</h2>
+<p>Category <span class="math inline">0</span> is weak-willed, category <span class="math inline">1</span> is addiction by disease, category <span class="math inline">2</span> is both. From the fitted predictors, <span class="math display">\begin{align*}
+\log\frac{\hat p_1}{\hat p_0}
+&amp;=-1.161+0.437\,\mathrm{female}+0.0299\,\mathrm{age}+1.622\,\mathrm{university},\\
+\log\frac{\hat p_2}{\hat p_0}
+&amp;=-2.016+0.288\,\mathrm{female}+0.0421\,\mathrm{age}+1.067\,\mathrm{university}.
+\end{align*}</span> A female, relative to a male with the same age and the same university status, has odds of disease-versus-weak-willed multiplied by <span class="math inline">\exp(0.437)=1.55</span>. The <span class="math inline">z</span> statistic is <span class="math inline">2.25</span>, so that contrast is past the usual 5% line. The same comparison for both-versus-weak-willed is <span class="math inline">\exp(0.288)=1.33</span>, with <span class="math inline">z=1.30</span>, which we would not call a detected sex difference.</p>
+<p>Age is a per-year coefficient. <span class="math inline">\exp(0.0299)=1.03</span> looks small until you remember that the unit is one year. Ten years is <span class="math inline">10\times 0.0299=0.299</span> on the log-odds scale, and <span class="math inline">\exp(0.299)\approx 1.35</span>, not <span class="math inline">1.03</span>. Both age slopes are clearly away from zero (<span class="math inline">z=4.80</span> and <span class="math inline">6.17</span>). The per-year sentence and the per-decade sentence are the same fit.</p>
+<p>Being a university academic multiplies the odds of disease-versus-weak-willed by <span class="math inline">\exp(1.622)=5.06</span>, and the odds of both-versus-weak-willed by <span class="math inline">\exp(1.067)=2.91</span>. Those are the largest contrasts in the table (<span class="math inline">z=6.40</span> and <span class="math inline">3.69</span>).</p>
+<p>Any other pair is the difference of two rows. The log-odds of both versus disease alone use <span class="math display">
+\log\frac{p_2}{p_1}
+=(-2.016+1.161)+(0.288-0.437)\,\mathrm{female}+(0.0421-0.0299)\,\mathrm{age}+(1.067-1.622)\,\mathrm{university}.
+</span> You do not refit. The multinomial dispersion stays <span class="math inline">1</span> as long as each person makes one independent choice of one category.</p>
+</section>
+<section id="s-bradley-terry" class="level2">
+<h2 class="anchored" data-anchor-id="s-bradley-terry">Bradley–Terry</h2>
+<p>A head-to-head result is still a binary outcome. The Bradley–Terry model gives team <span class="math inline">j</span> a skill <span class="math inline">\lambda_j</span> and says <span class="math display">
+\mathrm{odds}(j\text{ beats }k)=\exp(\lambda_j-\lambda_k).
+</span> Swap the labels and the odds invert: <span class="math display">
+\mathrm{odds}(k\text{ beats }j)=\exp(\lambda_k-\lambda_j)=\frac{1}{\exp(\lambda_j-\lambda_k)}.
+</span> The model is forced by that consistency. Only differences of skills are identified, so one team can be set to zero and everyone else is measured from them. Software often sets the alphabetically first team to zero. We fit that, then shift the origin so the weakest team is zero. The ranking is unchanged.</p>
+<p>Home advantage, or White moving first in chess, is one extra parameter <span class="math inline">\alpha</span> on the log-odds of the home side: <span class="math display">
+\mathrm{odds}(j\text{ beats }k\text{ at home})=\exp(\lambda_j-\lambda_k+\alpha),
+</span> and the away fixture puts <span class="math inline">-\alpha</span> on <span class="math inline">j</span>. Each match contributes a Bernoulli likelihood with success probability given by that odds. Maximum likelihood is ordinary.</p>
+<p>The 2024 NRL table, regular season through 11 September, with the Tigers shifted to zero, is</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>team</th>
+<th style="text-align: right;"><span class="math inline">\hat\lambda</span></th>
+<th>team</th>
+<th style="text-align: right;"><span class="math inline">\hat\lambda</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Storm</td>
+<td style="text-align: right;">2.587</td>
+<td>Knights</td>
+<td style="text-align: right;">1.222</td>
+</tr>
+<tr class="even">
+<td>Panthers</td>
+<td style="text-align: right;">2.192</td>
+<td>Dragons</td>
+<td style="text-align: right;">1.053</td>
+</tr>
+<tr class="odd">
+<td>Roosters</td>
+<td style="text-align: right;">1.962</td>
+<td>Dolphins</td>
+<td style="text-align: right;">0.985</td>
+</tr>
+<tr class="even">
+<td>Cowboys</td>
+<td style="text-align: right;">1.738</td>
+<td>Broncos</td>
+<td style="text-align: right;">0.881</td>
+</tr>
+<tr class="odd">
+<td>Sharks</td>
+<td style="text-align: right;">1.669</td>
+<td>Warriors</td>
+<td style="text-align: right;">0.827</td>
+</tr>
+<tr class="even">
+<td>Bulldogs</td>
+<td style="text-align: right;">1.594</td>
+<td>Rabbitohs</td>
+<td style="text-align: right;">0.510</td>
+</tr>
+<tr class="odd">
+<td>Eagles</td>
+<td style="text-align: right;">1.430</td>
+<td>Titans</td>
+<td style="text-align: right;">0.483</td>
+</tr>
+<tr class="even">
+<td>Raiders</td>
+<td style="text-align: right;">1.253</td>
+<td>Eels</td>
+<td style="text-align: right;">0.310</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td style="text-align: right;"></td>
+<td>Tigers</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>Home advantage is <span class="math inline">\hat\alpha=0.3957</span>. The odds of winning at home, for any team against a given opponent, are <span class="math inline">\exp(0.3957)=1.49</span> times the odds of winning the same match away. That gap is large enough to overturn some neighbouring pairs. The Dolphins sit above the Broncos by <span class="math inline">0.985-0.881=0.10</span>, which is less than <span class="math inline">0.40</span>, so the Broncos at home are the favourites against the Dolphins. The same arithmetic applies to the Warriors at home against the Broncos.</p>
+<p>The odds that the Panthers beat the Roosters at home are <span class="math display">
+\exp(2.1915-1.9623+0.3957)=\exp(0.625)=1.87.
+</span> Odds of <span class="math inline">1.87</span> are a probability of <span class="math inline">1.87/(1+1.87)\approx 0.65</span>. The official ladder had the Sharks above the Cowboys on for-and-against. This fit has the Cowboys above the Sharks, because it credits who was beaten, not only how many. That is the point of a skill parameter.</p>
+<p>A draw can be coded as half a win and half a loss, which says the two teams were equal that day, without adding a third multinomial outcome. If the competition itself scores a draw as one point and a win as three, as in the English Premier League, the honest code is one third of a win rather than one half. We will not build the three-outcome model unless draws are common and meaningful.</p>
+</section>
+<section id="s-deviance" class="level2">
+<h2 class="anchored" data-anchor-id="s-deviance">Deviance</h2>
+<p>McCullagh and Nelder’s sentence is the right one: fitting a model replaces the data <span class="math inline">y_1,\ldots,y_n</span> by fitted means <span class="math inline">\hat\mu_1,\ldots,\hat\mu_n</span> that depend on fewer parameters than there are observations. A model with <span class="math inline">n</span> parameters can repeat the sample exactly and then cannot predict anything else. The saturated fit is the baseline you compare with, not the fit you report.</p>
+<p>The deviance is twice the drop in log-likelihood from the saturated fit to the model you actually fitted: <span class="math display">
+D({\boldsymbol{y}};\hat{\boldsymbol{\mu}})=2\bigl\{\ell({\boldsymbol{y}};{\boldsymbol{y}})-\ell(\hat{\boldsymbol{\mu}};{\boldsymbol{y}})\bigr\},
+</span> up to the dispersion, which scales it. On the observation scale a residual of <span class="math inline">5</span> is not the same thing for a Poisson mean of <span class="math inline">2</span> and a Poisson mean of <span class="math inline">50</span>. The likelihood already knows that. For the families we have been using, the deviance contributions add up as follows. For the normal, <span class="math inline">\phi=\sigma^2</span>, <span class="math display">
+D=\sum_{i=1}^n(y_i-\hat\mu_i)^2,
+</span> the residual sum of squares, because the factor of <span class="math inline">2</span> cancels the <span class="math inline">\tfrac12</span> in the normal log-density. For the Poisson, <span class="math display">
+D=2\sum_{i=1}^n\left\{y_i\log\frac{y_i}{\hat\mu_i}-(y_i-\hat\mu_i)\right\}.
+</span> For a binomial count of <span class="math inline">y_i</span> successes out of <span class="math inline">m_i</span>, with fitted mean count <span class="math inline">m_i\hat p_i</span>, <span class="math display">
+D=2\sum_{i=1}^n\left\{y_i\log\frac{y_i}{m_i\hat p_i}+(m_i-y_i)\log\frac{m_i-y_i}{m_i(1-\hat p_i)}\right\}.
+</span> The gamma deviance, in the mean-and-variance parameterisation <span class="math inline">\mathrm{Var}=\phi\mu^2</span>, is <span class="math display">
+D=2\sum_{i=1}^n\left\{-\log\frac{y_i}{\hat\mu_i}+\frac{y_i-\hat\mu_i}{\hat\mu_i}\right\}.
+</span> These are not interchangable across families. A smaller deviance is a closer fit only inside one family. Two non-nested models, such as a logit and a <a href="../notes/01-introduction-to-glms.html#s-three-links" class="term">probit</a>, have no likelihood-ratio test. AIC is the comparison that remains: deviance plus twice the number of parameters, up to the usual constants.</p>
+<section id="s-three-links-one-cholesterol-slope" class="level3">
+<h3 class="anchored" data-anchor-id="s-three-links-one-cholesterol-slope">Three links, one cholesterol slope</h3>
+<p>Sex drops out, as we already found. Cholesterol alone, three links:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chol_file <span class="ot">&lt;-</span> <span class="st">"data/cholest.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(chol_file)) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">"Could not find data/cholest.csv. Set the working directory to the book folder."</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>chol <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(chol_file)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (lnk <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"logit"</span>, <span class="st">"probit"</span>, <span class="st">"cloglog"</span>)) {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(disease <span class="sc">~</span> cholesterol, <span class="at">data =</span> chol, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> lnk))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(lnk, <span class="st">"null"</span>, fit<span class="sc">$</span>null.deviance, <span class="st">"on"</span>, fit<span class="sc">$</span>df.null, <span class="st">"df,"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"residual"</span>, fit<span class="sc">$</span>deviance, <span class="st">"on"</span>, fit<span class="sc">$</span>df.residual, <span class="st">"df,"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">"AIC"</span>, <span class="fu">AIC</span>(fit), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>binomial logit:    null 137.63 on 99 df,  residual 114.04 on 98 df,  AIC 118.04
+binomial probit:   null 137.63 on 99 df,  residual 114.12 on 98 df,  AIC 118.12
+binomial cloglog:  null 137.63 on 99 df,  residual 111.90 on 98 df,  AIC 115.90</code></pre>
+<p>The null deviance does not depend on the link. It is the intercept-only model, one probability for everyone. Logit and probit are not separable on this sample.</p>
+<div id="fig-chol-links" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chol-links-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figures/cholesterol-links.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chol-links-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The same cholesterol data under three links. The logit and the probit sit on each other. Complementary log-log stays a little lower through the middle and then climbs more steeply through the high-cholesterol cases.
+</figcaption>
+</figure>
+</div>
+<p>In <a href="#fig-chol-links" class="quarto-xref">Figure&nbsp;1</a> the solid and dashed curves sit on each other. Complementary log-log has the smaller deviance and the smaller AIC. It rises more slowly and then more steeply, and it picks up the high-cholesterol ones a little better. We cannot test that improvement. The models are not nested. There is no constraint on the logit coefficients that turns the fitted curve into a probit.</p>
+</section>
+</section>
+<section id="s-analysis-of-deviance" class="level2">
+<h2 class="anchored" data-anchor-id="s-analysis-of-deviance">Analysis of deviance</h2>
+<p>For nested models the difference in scaled deviance, deviance divided by <span class="math inline">\phi</span>, is referred to a chi-squared law if <span class="math inline">\phi</span> is known, and to an <span class="math inline">F</span> law if <span class="math inline">\phi</span> is estimated from the same data. That is the <a href="../articles/generalised-linear-model.html" class="term">GLM</a> version of ANOVA, and <code>anova</code> on a <code>glm</code> object is doing it even though the name still says ANOVA. If the columns of <span class="math inline">{\color{blue}\boldsymbol{X}}</span> are not orthogonal, the order of entry matters. A sequential <span class="math inline">p</span>-value is the test of dropping that term while keeping everything listed above it, and nothing listed below it.</p>
+<p>Myers and Montgomery’s wafer experiment is a <span class="math inline">2^4</span> factorial with no replication: sixteen runs, resistivity, which is positive and right-skewed. The family is gamma and the link is log, not the canonical inverse, because no corner of the design should send resistivity to infinity. A four-factor interaction would use sixteen parameters and fit the sample perfectly. The largest model we can actually look at stops at the three-factor interactions:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>need <span class="ot">&lt;-</span> <span class="cf">function</span>(pkg) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(pkg, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(pkg, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">need</span>(<span class="st">"faraway"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(wafer, <span class="at">package =</span> <span class="st">"faraway"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>wafer<span class="sc">$</span>y <span class="ot">&lt;-</span> wafer<span class="sc">$</span>resist</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">*</span> x2 <span class="sc">*</span> x3 <span class="sc">*</span> x4 <span class="sc">-</span> x1<span class="sc">:</span>x2<span class="sc">:</span>x3<span class="sc">:</span>x4,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> wafer, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> (x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> wafer, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit2, fit3, <span class="at">test =</span> <span class="st">"F"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> wafer, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit1, fit2, <span class="at">test =</span> <span class="st">"F"</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> wafer, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(fit0))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The sequential table is not how we choose the model. The last three-factor term has a sequential <span class="math inline">p</span>-value of <span class="math inline">0.69</span>, but that number is only the test of that one interaction with every earlier term retained. We do not want to keep one three-factor interaction and delete its neighbours. We want all four of them in, or all four out.</p>
+<p>The three-factor model has residual deviance <span class="math inline">0.0084</span> on <span class="math inline">1</span> degree of freedom. The two-factor model has residual deviance <span class="math inline">0.0339</span> on <span class="math inline">5</span> degrees of freedom. The difference is <span class="math inline">0.0255</span> on <span class="math inline">4</span> and <span class="math inline">1</span> degrees of freedom: <span class="math display">
+F=0.76,\qquad p=0.68.
+</span> The three-factor terms can go. Comparing main effects with the two-factor model gives <span class="math inline">F=2.23</span> on <span class="math inline">6</span> and <span class="math inline">5</span> degrees of freedom, <span class="math inline">p=0.20</span>. The pairwise products can go as well. Among the four main effects, <span class="math inline">x_4</span> has <span class="math inline">t=-1.10</span>. Dropping it leaves</p>
+<pre><code>(Intercept)  5.4155
+x1+          0.1211
+x2+         -0.2998
+x3+          0.1824</code></pre>
+<p>so the fitted mean, with each <span class="math inline">x</span> coded <span class="math inline">+1</span> at its high level, is <span class="math display">
+\hat\mu=\exp(5.4155+0.1211\,x_1-0.2998\,x_2+0.1824\,x_3).
+</span> A quoted value of the <span class="math inline">x_2</span> coefficient is <span class="math inline">-0.2981</span>. The coefficient table, which is the fit, says <span class="math inline">-0.2998</span>. We use the table.</p>
+<p>We go backwards on purpose. Forward selection can drop <span class="math inline">x_4</span> at the first step because its main effect is small, and then never see that <span class="math inline">x_4</span> changes the effect of the others. Starting from the largest model you can fit, and deleting groups of terms, is the protection against that.</p>
+</section>
+<section id="s-residuals-are-not" class="level2">
+<h2 class="anchored" data-anchor-id="s-residuals-are-not">Residuals are not <span class="math inline">y-\mu</span></h2>
+<p>A coin with <span class="math inline">p=0.7</span> that lands heads did not commit an error of <span class="math inline">0.3</span>. A fair coin commits an “error” of <span class="math inline">0.5</span> no matter which face appears, if error means <span class="math inline">y-\mu</span>. And a count of <span class="math inline">7</span> when you expected <span class="math inline">2</span> is not the same failure as a count of <span class="math inline">45</span> when you expected <span class="math inline">50</span>, even though both are five away. The likelihood of a Poisson <span class="math inline">2</span> producing a <span class="math inline">7</span> is not the likelihood of a Poisson <span class="math inline">50</span> producing a <span class="math inline">45</span>.</p>
+<p>The Pearson residual divides by the estimated standard deviation: <span class="math display">
+r_P=\frac{y-\hat\mu}{\sqrt{\hat\phi\, V(\hat\mu)}}.
+</span> For a binary observation with <span class="math inline">\hat p=0.7</span>, <span class="math display">
+\frac{1-0.7}{\sqrt{0.7\times 0.3}}=0.655,
+\qquad
+\frac{0-0.7}{\sqrt{0.7\times 0.3}}=-1.53.
+</span> Landing tails is the larger Pearson residual. At <span class="math inline">\hat p=0.5</span> the two residuals are <span class="math inline">+1</span> and <span class="math inline">-1</span>. For Poisson counts, with <span class="math inline">\phi=1</span>, expecting <span class="math inline">2</span> and seeing <span class="math inline">7</span> gives <span class="math inline">(7-2)/\sqrt{2}=3.54</span>. Expecting <span class="math inline">50</span> and seeing <span class="math inline">45</span> gives <span class="math inline">(45-50)/\sqrt{50}=-0.71</span>. The unit is fairer. The sign is still symmetric: <span class="math inline">55</span> instead of <span class="math inline">45</span> would flip the sign and keep the magnitude, and a <a href="../articles/poisson-distribution.html" class="term">Poisson distribution</a> is not symmetric.</p>
+<p>The deviance residual takes one observation’s contribution <span class="math inline">d_i</span> to <span class="math inline">D</span> and attaches the sign of <span class="math inline">y_i-\hat\mu_i</span>: <span class="math display">
+r_D=\mathrm{sign}(y_i-\hat\mu_i)\sqrt{d_i}.
+</span> At <span class="math inline">\hat p=0.7</span> the binary deviance residuals are <span class="math inline">+0.844</span> and <span class="math inline">-1.55</span>. At <span class="math inline">\hat p=0.5</span> they are <span class="math inline">\pm 1.177</span>, not <span class="math inline">\pm 1</span>. For the Poisson, seeing <span class="math inline">7</span> when expecting <span class="math inline">2</span> gives <span class="math display">
+\sqrt{2\bigl\{7\log(7/2)-(7-2)\bigr\}}=2.75,
+</span> and seeing <span class="math inline">45</span> when expecting <span class="math inline">50</span> gives <span class="math inline">-0.72</span>. The two deviations of five are no longer equal in magnitude once the likelihood, rather than the variance alone, is scoring them. That is the reason to prefer <span class="math inline">r_D</span> when the distribution is skewed.</p>
+<p>Plot either residual against the linear predictor, or against the fitted mean. For a continuous response you are looking for a flat, pattern-free scatter. For a binary response you will not get one. Every success lies on the curve <span class="math inline">1-\hat p</span>, and every failure lies on <span class="math inline">-\hat p</span>, so the plot is two bands. A Poisson plot bands once for each integer that appears in the sample. The bands are the support of the distribution, not a missed covariate. Training your eye to ignore them is possible and unreliable. The <a href="../notes/06-pit-residuals.html" class="term">probability-integral-transform residual</a>, which turns a discrete fitted distribution back toward a uniform sample, is the next chapter.</p>
+<ol type="1">
+<li><p>Compute <span class="math inline">\exp(\hat\lambda_{\mathrm{Storm}}-\hat\lambda_{\mathrm{Sharks}}+\hat\alpha)</span> from the table above, and convert the odds to a probability. Do the same for the Cowboys at home against the Knights.</p></li>
+<li><p>Explain why the logit, probit, and complementary log-log cholesterol fits cannot be compared by a likelihood-ratio test, and what the three AIC values are allowed to say instead.</p></li>
+<li><p>In the wafer analysis, the sequential <span class="math inline">p</span>-value on <code>x2:x3:x4</code> is <span class="math inline">0.69</span>. Say precisely which model is being compared with which, and why that is not the test of “are the three-factor interactions needed?”.</p></li>
+<li><p>For a Poisson mean of <span class="math inline">50</span>, the Pearson residual of <span class="math inline">y=55</span> is <span class="math inline">+0.71</span>. Explain why the deviance residual of <span class="math inline">y=55</span> is not <span class="math inline">+0.72</span>.</p></li>
+</ol>
+</section>
+<section id="questions-on-this-topic" class="level2">
+<h2 class="anchored" data-anchor-id="questions-on-this-topic">Questions on this topic</h2>
+<p>Open a question to attempt it. Its worked answer is folded away at the bottom of the page.</p>
+<div class="qtable">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Question</th>
+<th style="text-align: left;">Source</th>
+<th style="text-align: center;">Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/practice/q-34.html">Q34. Deviance and model adequacy</a></td>
+<td style="text-align: left;">Practice set</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../questions/concepts/c-26.html">C26. Bradley–Terry</a></td>
+<td style="text-align: left;">Concept check</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="../questions/concepts/c-29.html">C29. Saturated model and deviance</a></td>
+<td style="text-align: left;">Concept check</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../questions/concepts/c-30.html">C30. Significance is not adequacy</a></td>
+<td style="text-align: left;">Concept check</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="what-links-here" class="level2">
+<h2 class="anchored" data-anchor-id="what-links-here">What links here</h2>
+<p><strong>Pages</strong> (3)</p>
+<ul>
+<li><a href="../notes/01-introduction-to-glms.html">Introduction to generalised linear models</a> — via <em>deviance</em></li>
+<li><a href="../notes/04-categorical-responses.html">Categorical responses</a> — via <em>residual deviance</em></li>
+<li><a href="../notes/final-preparation.html">How to use the final preparation</a> — via <em>deviance</em></li>
+</ul>
+<p><strong>Questions and answers</strong> (4)</p>
+<ul>
+<li>Practice set: <a href="../questions/practice/q-34.html" title="Q34. Deviance and model adequacy">Q34</a></li>
+<li>Final preparation: <a href="../questions/final/ex-fish-poisson.html" title="Question 19. Poisson regression for fish species">Question 19</a></li>
+<li>Concept checks: <a href="../questions/concepts/c-26.html" title="C26. Bradley--Terry">C26</a> · <a href="../questions/concepts/c-29.html" title="C29. Saturated model and deviance">C29</a></li>
+</ul>
+</section>
+<section id="see-also" class="level2">
+<h2 class="anchored" data-anchor-id="see-also">See also</h2>
+<ul>
+<li><a href="../notes/index.html#generalised-linear-models">All generalised linear models chapters</a></li>
+<li><a href="../reference/glossary.html">Glossary and index</a></li>
+<li><a href="../reference/distributions.html">Distribution sheet</a> and <a href="../reference/formulas.html">formula lookup</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+
+(function () {
+
+  var Q = ["questions/book/exr-confidence-procedures.html","questions/book/exr-what-makes-a-hypothesis-test.html","questions/book/exr-one-thousand-posterior-draws.html","questions/book/exr-prediction-is-not-estimation.html","questions/book/exr-the-missing-variance.html","questions/book/ex-applied-mmse.html","questions/book/exr-the-pseudo-count-trap.html","questions/book/exr-symmetry-and-context.html","questions/book/exr-a-proper-nonconjugate-prior.html","questions/book/exr-sequential-updating.html","questions/book/exr-a-future-run-of-tosses.html","questions/book/ex-applied-geometric.html","questions/book/ex-applied-logitnormal-prior.html","questions/book/exr-four-limiting-checks.html","questions/book/exr-where-did-the-probability-go.html","questions/book/exr-find-the-prior-rather-than-recalling-it.html","questions/book/exr-how-many-summaries.html","questions/book/exr-full-conditionals.html","questions/book/ex-applied-normal-invchisq.html","questions/book/exr-detailed-balance.html","questions/book/exr-a-long-run-and-a-missed-mode.html","questions/book/exr-posterior-summaries-with-dependence.html","questions/book/exr-random-walk-scale.html","questions/book/exr-adapt-discard-fix.html","questions/book/ex-applied-bvn-gibbs.html","questions/book/ex-applied-logitnormal-mh.html","questions/book/ex-applied-bvn-rwmh.html","questions/book/ex-applied-gamma-mh.html","questions/book/exr-beta-hidden-inside-dirichlet.html","questions/book/exr-why-not-a-multinomial-prior.html","questions/book/exr-small-concentrations.html","questions/book/exr-the-simplex-clt.html","questions/book/exr-dirichlet-updating.html","questions/book/ex-applied-restaurant.html","questions/book/exr-who-owns-the-boundary.html","questions/book/exr-fruit-posterior.html","questions/book/exr-probability-is-not-action.html","questions/book/exr-make-the-simplex-integral-equal-one.html","questions/book/exr-two-routes-to-the-same-table.html","questions/book/ex-applied-iq.html","questions/book/exr-factorisation-and-data-reduction.html","questions/book/exr-a-normal-statistic.html","questions/book/exr-reading-conjugacy-from-a-kernel.html","questions/book/exr-three-different-flat-poisson-priors.html","questions/book/exr-conjugacy-is-not-guaranteed-by-a-name.html","questions/book/ex-applied-sufficiency-posterior.html","questions/book/ex-applied-exp-rate.html","questions/book/ex-applied-exp-scale.html","questions/book/exr-pooling.html","questions/book/exr-derive-the-shrinkage-weight.html","questions/book/exr-exchangeability-is-a-scientific-claim.html","questions/book/exr-two-hyperpriors.html","questions/book/exr-sample-from-a-grid.html","questions/book/exr-full-bayes-and-interval-width.html","questions/book/exr-errors-and-residuals.html","questions/book/exr-normal-before-student.html","questions/book/exr-the-inverse-gamma-shape-trap.html","questions/book/exr-direct-sampling-or-gibbs.html","questions/book/exr-mean-response-or-new-response.html","questions/book/exr-independent-and-scaled-priors.html","questions/final/ex-norm-mean.html","questions/final/ex-norm-var.html","questions/final/ex-norm-both.html","questions/final/ex-norm-nig.html","questions/final/ex-reg-nichisq.html","questions/final/ex-gibbs-geom.html","questions/final/ex-lognormal-var.html","questions/final/ex-device-bf.html","questions/final/ex-gibbs-mh.html","questions/final/ex-downtime.html","questions/final/ex-geom-beta.html","questions/final/ex-improper-normal.html","questions/final/ex-binom-beta-joint.html","questions/final/ex-mammal-ig.html","questions/final/ex-battery-bf.html","questions/final/ex-mixed-gibbs.html","questions/final/ex-pois-hier.html","questions/final/ex-model-selection.html","questions/final/ex-fish-poisson.html","questions/final/ex-toenail-glmm.html","questions/final/ex-cholesterol-gam.html","questions/final/ex-orthodont-lmm.html","questions/concepts/c-01.html","questions/concepts/c-02.html","questions/concepts/c-03.html","questions/concepts/c-04.html","questions/concepts/c-05.html","questions/concepts/c-06.html","questions/concepts/c-07.html","questions/concepts/c-08.html","questions/concepts/c-09.html","questions/concepts/c-10.html","questions/concepts/c-11.html","questions/concepts/c-12.html","questions/concepts/c-13.html","questions/concepts/c-14.html","questions/concepts/c-15.html","questions/concepts/c-16.html","questions/concepts/c-17.html","questions/concepts/c-18.html","questions/concepts/c-19.html","questions/concepts/c-20.html","questions/concepts/c-21.html","questions/concepts/c-22.html","questions/concepts/c-23.html","questions/concepts/c-24.html","questions/concepts/c-25.html","questions/concepts/c-26.html","questions/concepts/c-27.html","questions/concepts/c-28.html","questions/concepts/c-29.html","questions/concepts/c-30.html","questions/concepts/c-31.html","questions/concepts/c-32.html","questions/concepts/c-33.html","questions/concepts/c-34.html","questions/concepts/c-35.html","questions/concepts/c-36.html","questions/concepts/c-37.html","questions/concepts/c-38.html","questions/concepts/c-39.html","questions/concepts/c-40.html","questions/concepts/c-41.html","questions/concepts/c-42.html","questions/concepts/c-43.html","questions/concepts/c-44.html","questions/concepts/c-45.html","questions/concepts/c-46.html","questions/concepts/c-47.html","questions/concepts/c-48.html","questions/concepts/c-49.html","questions/concepts/c-50.html","questions/practice/q-01.html","questions/practice/q-02.html","questions/practice/q-03.html","questions/practice/q-04.html","questions/practice/q-05.html","questions/practice/q-06.html","questions/practice/q-07.html","questions/practice/q-08.html","questions/practice/q-09.html","questions/practice/q-10.html","questions/practice/q-11.html","questions/practice/q-12.html","questions/practice/q-13.html","questions/practice/q-14.html","questions/practice/q-15.html","questions/practice/q-16.html","questions/practice/q-17.html","questions/practice/q-18.html","questions/practice/q-19.html","questions/practice/q-20.html","questions/practice/q-21.html","questions/practice/q-22.html","questions/practice/q-23.html","questions/practice/q-24.html","questions/practice/q-25.html","questions/practice/q-26.html","questions/practice/q-27.html","questions/practice/q-28.html","questions/practice/q-29.html","questions/practice/q-30.html","questions/practice/q-31.html","questions/practice/q-32.html","questions/practice/q-33.html","questions/practice/q-34.html","questions/practice/q-35.html","questions/practice/q-36.html","questions/practice/q-37.html","questions/practice/q-38.html","questions/practice/q-39.html","questions/practice/q-40.html","questions/practice/q-41.html","questions/practice/q-42.html","questions/practice/q-43.html","questions/practice/q-44.html","questions/practice/q-45.html","questions/practice/q-46.html","questions/practice/q-47.html","questions/practice/q-48.html","questions/practice/q-49.html","questions/practice/q-50.html","questions/practice/q-51.html","questions/practice/q-52.html","questions/practice/q-53.html","questions/practice/q-54.html","questions/practice/q-55.html","questions/practice/q-56.html","questions/practice/q-57.html","questions/practice/q-58.html","questions/practice/q-59.html"];
+
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+
+  var offset = meta ? meta.getAttribute("content") : "./";
+
+  document.addEventListener("click", function (event) {
+
+    var link = event.target.closest ? event.target.closest("a") : null;
+
+    if (!link) return;
+
+    var target = link.getAttribute("href") || "";
+
+    if (target.slice(-7) !== "#random") return;
+
+    event.preventDefault();
+
+    window.location.href = offset + Q[Math.floor(Math.random() * Q.length)];
+
+  });
+
+  // Highlight the top-bar section for this page's folder.
+
+  var here = window.location.pathname.replace(/\\/g, "/");
+
+  var section = /\/notes\//.test(here) ? "notes/index.html"
+
+    : /\/questions\//.test(here) ? "questions/index.html"
+
+    : /\/reference\/glossary|\/articles\//.test(here) ? "reference/glossary.html"
+
+    : /\/reference\//.test(here) ? "reference/index.html"
+
+    : "index.html";
+
+  document.querySelectorAll("#navbarCollapse .nav-link").forEach(function (link) {
+
+    var target = (link.getAttribute("href") || "").replace(/^(\.\.\/|\.\/)+/, "");
+
+    var on = target === section;
+
+    link.classList.toggle("active", on);
+
+    if (on) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
+
+  });
+
+  window.wikiFilter = function (text) {
+
+    var words = text.toLowerCase().split(/\s+/).filter(Boolean);
+
+    var shown = 0;
+
+    document.querySelectorAll(".qtable tbody tr").forEach(function (row) {
+
+      var hay = row.textContent.toLowerCase();
+
+      var ok = words.every(function (w) { return hay.indexOf(w) >= 0; });
+
+      row.style.display = ok ? "" : "none";
+
+      if (ok) shown += 1;
+
+    });
+
+    document.querySelectorAll("main section.level2, main section.level3").forEach(function (sec) {
+
+      var rows = sec.querySelectorAll(".qtable tbody tr");
+
+      if (!rows.length) return;
+
+      var any = Array.prototype.some.call(rows, function (r) { return r.style.display !== "none"; });
+
+      sec.style.display = any || !words.length ? "" : "none";
+
+    });
+
+    var count = document.querySelector(".qfilter-count");
+
+    if (count) count.textContent = words.length ? shown + " shown" : "";
+
+  };
+
+})();
+
+</script>
+
+<div id="wiki-preview" role="tooltip" hidden=""></div>
+
+<script>
+
+// Link previews: hover over a link to another page to see what is there.
+
+(function () {
+
+  if (window.matchMedia && !window.matchMedia("(hover: hover)").matches) return;
+
+  var box = document.getElementById("wiki-preview");
+
+  var cache = {}, showTimer = null, hideTimer = null, current = null;
+
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+
+  var offset = meta ? meta.getAttribute("content") : "./";
+
+
+
+  function getDoc(url) {
+
+    if (!cache[url]) {
+
+      cache[url] = fetch(url).then(function (r) {
+
+        if (!r.ok) throw new Error(r.status);
+
+        return r.text();
+
+      }).then(function (html) { return new DOMParser().parseFromString(html, "text/html"); });
+
+    }
+
+    return cache[url];
+
+  }
+
+
+
+  function ensureKatex() {
+
+    if (window.katex) return Promise.resolve();
+
+    if (!ensureKatex.p) {
+
+      ensureKatex.p = new Promise(function (done) {
+
+        var css = document.createElement("link");
+
+        // Relative to the site root, which may be a subfolder (GitHub Pages).
+
+        css.rel = "stylesheet"; css.href = offset + "katex/katex.min.css";
+
+        document.head.appendChild(css);
+
+        var js = document.createElement("script");
+
+        js.src = offset + "katex/katex.min.js"; js.onload = done; js.onerror = done;
+
+        document.head.appendChild(js);
+
+      });
+
+    }
+
+    return ensureKatex.p;
+
+  }
+
+
+
+  function renderMath(root) {
+
+    root.querySelectorAll("span.math").forEach(function (el) {
+
+      var tex = el.textContent.trim().replace(/^\\[\(\[]/, "").replace(/\\[\)\]]$/, "");
+
+      try {
+
+        window.katex.render(tex, el, { displayMode: el.classList.contains("display"), throwOnError: false });
+
+      } catch (e) {}
+
+    });
+
+  }
+
+
+
+  // Up to `limit` characters of blocks from a list of elements.
+
+  function excerpt(nodes, limit) {
+
+    var out = document.createElement("div"), used = 0;
+
+    for (var i = 0; i < nodes.length && used < limit; i++) {
+
+      var n = nodes[i];
+
+      if (n.nodeType !== 1) continue;
+
+      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, script, nav, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
+
+      if (!n.textContent.trim() && !n.querySelector("img, .math")) continue;
+
+      out.appendChild(n.cloneNode(true));
+
+      used += n.textContent.length;
+
+    }
+
+    return out;
+
+  }
+
+
+
+  function build(doc, url, hash) {
+
+    var wrap = document.createElement("div");
+
+    var titleEl = doc.querySelector("h1.title");
+
+    var title = titleEl ? titleEl.textContent.trim() : doc.title;
+
+    var head = document.createElement("div");
+
+    head.className = "wp-title";
+
+    var body = null;
+
+    if (hash === "worked-answer") {
+
+      head.textContent = title;
+
+      body = document.createElement("p");
+
+      body.className = "wp-note";
+
+      body.textContent = "Worked answer, folded away on the question page. Open the page to reveal it.";
+
+    } else if (hash) {
+
+      var el = doc.getElementById(hash);
+
+      if (el && /^(eq-)/.test(hash)) {
+
+        head.textContent = "Equation in " + title;
+
+        body = document.createElement("div");
+
+        body.appendChild(el.cloneNode(true));
+
+      } else if (el && el.tagName === "SECTION") {
+
+        var h = el.querySelector("h2, h3, h4");
+
+        head.textContent = (h ? h.textContent.trim() : hash) + " — " + title;
+
+        body = excerpt(Array.prototype.slice.call(el.children), 700);
+
+      } else if (el) {
+
+        body = el.cloneNode(true);
+
+        var label = body.querySelector(".theorem-title, .proof-title");
+
+        if (label) {
+
+          // "Definition 1 (Beta distribution)" -> heading "Beta distribution",
+
+          // with "Definition in <chapter>" beneath. Numbers belong to the other page.
+
+          var m = label.textContent.trim().match(/^(\w+)\s*[\d.]*\s*(?:\((.*)\))?\.?$/);
+
+          head.textContent = m ? (m[2] || m[1]) : label.textContent.trim();
+
+          var sub = document.createElement("div");
+
+          sub.className = "wp-note";
+
+          sub.textContent = (m ? m[1] : "Box") + " in " + title;
+
+          head.appendChild(sub);
+
+          label.remove();
+
+        } else {
+
+          var inner = body.querySelector("h2, h3");
+
+          head.textContent = inner ? inner.textContent.trim() : title;
+
+          if (inner) inner.remove();
+
+        }
+
+      }
+
+    }
+
+    if (!body) {
+
+      head.textContent = title;
+
+      var main = doc.querySelector("main#quarto-document-content") || doc.querySelector("main");
+
+      var hat = main && main.querySelector(".hatnote");
+
+      body = document.createElement("div");
+
+      if (hat && /\/questions\//.test(url)) {
+
+        var line = hat.cloneNode(true);
+
+        line.querySelectorAll(".qnav").forEach(function (a) { a.remove(); });
+
+        line.className = "wp-hat";
+
+        body.appendChild(line);
+
+      }
+
+      var kids = main ? Array.prototype.slice.call(main.children) : [];
+
+      var flat = [];
+
+      kids.forEach(function (k) {
+
+        if (k.tagName === "SECTION") flat = flat.concat(Array.prototype.slice.call(k.children));
+
+        else flat.push(k);
+
+      });
+
+      // The infobox picture, if there is one, rides along as a thumbnail.
+
+      var pic = main && main.querySelector(".infobox img");
+
+      if (pic) {
+
+        var thumb = document.createElement("img");
+
+        thumb.className = "wp-thumb";
+
+        thumb.alt = pic.getAttribute("alt") || "";
+
+        thumb.src = pic.getAttribute("src");
+
+        body.appendChild(thumb);
+
+      }
+
+      body.appendChild(excerpt(flat, 600));
+
+    }
+
+    // Fix relative links and images, and strip ids so nothing clashes with this page.
+
+    body.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+
+    body.querySelectorAll("img").forEach(function (img) { img.src = new URL(img.getAttribute("src"), url).href; });
+
+    body.querySelectorAll("a[href]").forEach(function (a) { a.href = new URL(a.getAttribute("href"), url).href; });
+
+    body.querySelectorAll(".footnote-ref, sup").forEach(function (n) { n.remove(); });
+
+    wrap.appendChild(head);
+
+    body.classList.add("wp-body");
+
+    wrap.appendChild(body);
+
+    return wrap;
+
+  }
+
+
+
+  function place(link) {
+
+    var r = link.getBoundingClientRect();
+
+    box.style.left = "0px"; box.style.top = "0px";
+
+    box.hidden = false;
+
+    var w = box.offsetWidth, h = box.offsetHeight;
+
+    var left = Math.min(Math.max(8, r.left), window.innerWidth - w - 12);
+
+    var top = r.bottom + 8;
+
+    if (top + h > window.innerHeight - 8 && r.top - h - 8 > 8) top = r.top - h - 8;
+
+    box.style.left = left + "px";
+
+    box.style.top = top + "px";
+
+  }
+
+
+
+  function show(link) {
+
+    var u = new URL(link.href, location.href);
+
+    var page = u.origin + u.pathname;
+
+    var hash = decodeURIComponent(u.hash.slice(1));
+
+    current = link;
+
+    Promise.all([getDoc(page), ensureKatex()]).then(function (res) {
+
+      if (current !== link) return;
+
+      box.innerHTML = "";
+
+      box.appendChild(build(res[0], page, hash));
+
+      renderMath(box);
+
+      place(link);
+
+    }).catch(function () {});
+
+  }
+
+
+
+  function hide() {
+
+    current = null;
+
+    box.hidden = true;
+
+  }
+
+
+
+  function previewable(a) {
+
+    if (!a || !a.href || a.closest("#wiki-preview, .sidebar, nav, #TOC, .navbar, .pagination-link, .glossary-jump")) return false;
+
+    var u = new URL(a.href, location.href);
+
+    if (u.origin !== location.origin || u.hash === "#random") return false;
+
+    if (u.pathname === location.pathname) return false;
+
+    if (!/\.html$/.test(u.pathname)) return false;
+
+    return !/(\/index|by-source|glossary)\.html$/.test(u.pathname);
+
+  }
+
+
+
+  document.addEventListener("mouseover", function (e) {
+
+    var a = e.target.closest ? e.target.closest("a") : null;
+
+    if (e.target.closest && e.target.closest("#wiki-preview")) { clearTimeout(hideTimer); return; }
+
+    if (!previewable(a)) return;
+
+    clearTimeout(hideTimer);
+
+    clearTimeout(showTimer);
+
+    showTimer = setTimeout(function () { show(a); }, 350);
+
+  });
+
+  document.addEventListener("mouseout", function (e) {
+
+    var a = e.target.closest ? e.target.closest("a, #wiki-preview") : null;
+
+    if (!a) return;
+
+    clearTimeout(showTimer);
+
+    hideTimer = setTimeout(hide, 250);
+
+  });
+
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(); });
+
+  window.addEventListener("scroll", hide, { passive: true });
+
+})();
+
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../notes/04-categorical-responses.html" class="pagination-link" aria-label="Categorical responses">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Categorical responses</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../notes/06-pit-residuals.html" class="pagination-link" aria-label="Probability-integral residuals">
+        <span class="nav-page-text">Probability-integral residuals</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Local study site. It stays on this computer.</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
