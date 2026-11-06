@@ -1,0 +1,107 @@
+# Simulation
+
+Simulation turns a supply of uniform random numbers into draws from a distribution that has been specified. The two general constructions are the inverse-transform method, which reads the distribution function backwards, and acceptance–rejection, which keeps the draws that land under the target density. Particular families then have shorter algorithms. The families themselves are on the [common distributions](../reference/distributions.qmd) page, together with the uniform and hypergeometric laws in [Random variables and distributions](prob-02-random-variables.qmd).
+
+A uniform generator returns numbers that behave as independent draws from $\operatorname{U}[0,1]$. Setting a seed makes the sequence repeatable: the same seed produces the same stream. Every method below assumes such a stream and nothing else.
+
+## Inverse transform
+
+::: {#def-inverse-transform .definition}
+## Inverse-transform method
+
+Let $F$ be a distribution function and define $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ for $u\in(0,1)$. If $U\sim\operatorname{U}[0,1]$, then $X=F^{-1}(U)$ has distribution function $F$.
+
+:::
+
+The proof is one line when $F$ is continuous and strictly increasing: $\Pr(F^{-1}(U)\le x)=\Pr(U\le F(x))=F(x)$. The general definition, with the infimum, covers flat stretches and jumps. Operationally the algorithm is: draw $U$ from $\operatorname{U}[0,1]$, and return $F^{-1}(U)$.
+
+A density $f(x)=2x$ on $[0,1]$ has distribution function $F(x)=x^2$ there, so the inverse transform returns $\sqrt{U}$.
+
+For a discrete variable on points $x_1<x_2<\cdots$ with masses $p_i$, the distribution function is a step function. Draw $U$ and return the first $x_k$ whose step has reached $U$, that is the smallest $k$ with $U\le F(x_k)$. If the masses are stored in a vector $p$, one draw is the first index at which the cumulative sum exceeds $U$.
+
+The method needs a usable inverse. The exponential, uniform, Weibull, logistic and Cauchy distribution functions invert in closed form. Many others do not, and even a closed inverse can be a poor algorithm if it is expensive to evaluate.
+
+## Acceptance and rejection
+
+::: {#def-acceptance-rejection .definition}
+## Acceptance–rejection method
+
+Suppose the target density $f$ is zero outside a finite interval $[a,b]$ and bounded by $c=\max f$. Draw $X$ uniformly from $[a,b]$ and, independently, $Y$ uniformly from $[0,c]$. If $Y\le f(X)$, return $X$. Otherwise repeat.
+
+:::
+
+The pair $(X,Y)$ is uniform on the rectangle $[a,b]\times[0,c]$. Keeping the pairs that fall under the graph of $f$ makes the retained $X$ have density proportional to that graph, which is $f$ itself because $f$ integrates to one.
+
+The same idea works with a proposal density $g$ that is easy to sample, provided a constant $C\ge 1$ majorises the target: $f(x)\le C\,g(x)$ for every $x$. Draw $X$ from $g$ and, independently, $Y$ uniformly from $[0, C g(X)]$. Accept $X$ when $Y\le f(X)$. The probability of acceptance is $1/C$, the ratio of the area under $f$ to the area under $C g$. A useful proposal is easy to sample and has $C$ close to $1$.
+
+The number of trials until the first acceptance is geometric, starting at $1$, with success probability $1/C$. For the triangular density $f(x)=2x$ on $[0,1]$, the proposal $g=1$ on $[0,1]$ needs $C=2$. Half of the proposals are rejected. The inverse-transform method is the better algorithm for that particular density; rejection is the method that remains when the inverse is unavailable.
+
+## Draws from the usual families
+
+**Exponential.** If $X\sim\Exp(\lambda)$, then $F(x)=1-e^{-\lambda x}$ for $x>0$, so $F^{-1}(u)=-\lambda^{-1}\log(1-u)$. Because $1-U$ is again uniform on $[0,1]$, the draw $X=-\lambda^{-1}\log U$ has the same distribution. In Python, with `numpy` imported as `np`,
+
+```python
+u = np.random.rand()
+x = -np.log(u) / lam
+```
+
+**Uniform on an interval.** If $U\sim\operatorname{U}[0,1]$, then $a+(b-a)U$ is uniform on $[a,b]$. This is the inverse transform of the linear distribution function, and it is also an affine image of a uniform variable.
+
+**Normal.** There is no elementary inverse of $\Phi$. If a standard normal draw $Z$ is already available, then $\mu+\sigma Z$ is $\Normal(\mu,\sigma^2)$. Two independent standard normals can be made from two independent uniforms $(U,V)$ by the Box–Muller map
+
+$$
+Z_1=\sqrt{-2\log U}\,\cos(2\pi V), \qquad Z_2=\sqrt{-2\log U}\,\sin(2\pi V).
+$$
+
+The Jacobian of that transformation is checked in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd). The two coordinates come out independent and standard normal.
+
+**Bernoulli and binomial.** A Bernoulli trial with success probability $p$ is the indicator $\mathbf{1}\{U\le p\}$. A binomial count is the sum of $n$ independent copies. That uses the representation of the binomial distribution as a sum of Bernoulli trials, rather than an inverse of its distribution function.
+
+**Geometric and Poisson.** A geometric count starting at $1$, with success probability $p$, is the number of Bernoulli trials until the first success, which is $\lfloor \log U/\log(1-p)\rfloor+1$. A Poisson count can be built from exponential spacings: if $E_i$ are independent exponential variables with rate $1$, the largest $n$ with $E_1+\cdots+E_n\le\lambda$ is Poisson with mean $\lambda$. Both constructions are consequences of the [memoryless property](prob-02-random-variables.qmd#thm-memoryless) and of the gamma–Poisson relationship, not new definitions of the laws.
+
+**Discrete distributions in general.** Stack the masses into a cumulative sum and apply the discrete inverse transform. That one algorithm covers every finite support, including an empirical distribution read off a table.
+
+::: {.callout-note}
+## Key idea
+One uniform draw, passed through $F^{-1}$, has distribution function $F$. When the inverse is awkward, propose from a density that sits above $f$ and keep the proposals that fall underneath it. The chance of keeping a proposal is $1/C$.
+:::
+
+## Exercises
+
+::: {#ex-prob-generate-exp .exercise}
+## Draws from an exponential law
+
+Explain how to generate a draw from the exponential distribution with rate $10$, starting from a uniform draw on $[0,1]$.
+
+[Solution](#sol-prob-generate-exp)
+
+:::
+
+::: {#ex-prob-generate-uniform .exercise}
+## Draws from a uniform interval
+
+Explain how to generate a draw from the uniform distribution on $[10,15]$, starting from a uniform draw on $[0,1]$.
+
+[Solution](#sol-prob-generate-uniform)
+
+:::
+
+::: {#ex-prob-generate-normal .exercise}
+## Rescaling a standard normal draw
+
+Draws from the standard normal distribution are available. Explain how to turn one of them into a draw from $\Normal(3,9)$.
+
+[Solution](#sol-prob-generate-normal)
+
+:::
+
+::: {#ex-prob-shifted-exp-generate .exercise}
+## A shifted exponential density
+
+A density is $f(x)=4e^{-4(x-1)}$ for $x\ge 1$, and $f(x)=0$ otherwise.
+
+(a) Find the expectation of a random variable with this density.
+
+(b) Explain how to generate such a random variable from a single uniform draw on $[0,1]$.
+
+:::

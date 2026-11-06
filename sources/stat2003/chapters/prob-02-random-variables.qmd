@@ -1,0 +1,465 @@
+# Random variables and distributions
+
+A random variable is a numerical summary of an experiment. Once the sample space and the probability are fixed, the distribution of that summary is enough for any question that depends on the experiment only through the summary. Means, variances and the named families on the [common distributions](../reference/distributions.qmd) page are all statements about such summaries. This chapter says which experiment produces which family. The sheet records the probability function, the mean and the variance in the parameterisation used here. The second gamma parameter on that sheet is a rate. The geometric law there starts at $1$.
+
+Two families are not on the sheet, so their formulas are written out below: the uniform distribution on an interval, and the hypergeometric distribution.
+
+## Random variables
+
+::: {#def-random-variable .definition}
+## Random variable
+
+A random variable is a function $X$ from the sample space $\Omega$ to the real numbers. The event $\{X\le x\}$ is the set of outcomes $\omega$ with $X(\omega)\le x$.
+
+:::
+
+Two dice have sample space $\{1,\ldots,6\}^2$. Their sum $X(i,j)=i+j$ is a random variable with values in $\{2,\ldots,12\}$. The number of heads in $n$ coin tosses is a random variable on $\{0,1\}^n$. The modelling gain is that later calculations can ignore the underlying outcomes and work with $X$ alone.
+
+::: {#def-cdf .definition}
+## Cumulative distribution function
+
+The cumulative distribution function of $X$ is $F(x)=\Pr(X\le x)$, for $x\in\R$.
+
+:::
+
+Every distribution function is non-decreasing, tends to $0$ as $x\to-\infty$ and to $1$ as $x\to\infty$, and is right-continuous. Conversely, any function with those properties is the distribution function of some random variable. For $a<b$,
+
+$$
+\Pr(a<X\le b)=F(b)-F(a).
+$$
+
+::: {#def-discrete-distribution .definition}
+## Discrete distribution
+
+$X$ is discrete when it takes values in a countable set $S$. Its probability mass function is $f(x)=\Pr(X=x)$ for $x\in S$, and $\Pr(X\in B)=\sum_{x\in B}f(x)$.
+
+:::
+
+A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function determines the distribution function by adding the atoms up to $x$, and the jumps of the distribution function are the atoms.
+
+::: {#def-continuous-distribution .definition}
+## Continuous distribution
+
+$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$. The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $f=F'$ at every point where $F$ is differentiable.
+
+:::
+
+A density is not a probability. The probability of an infinitesimal interval $(x,x+\dd x)$ is about $f(x)\,\dd x$. A single point still has probability zero. Drawing uniformly from $[0,1]$ has density $f(x)=1$ on that interval and distribution function $F(x)=x$ there.
+
+## Expectation and variance
+
+::: {#def-expectation .definition}
+## Expectation
+
+If $X$ is discrete with mass function $f$, its expectation is $\E X=\sum_x x\,f(x)$, when the sum converges absolutely. If $X$ is continuous with density $f$, $\E X=\int_{-\infty}^{\infty} x\,f(x)\,\dd x$, when the integral converges absolutely.
+
+:::
+
+The expectation is a centre of mass: point masses $f(x)$ placed at the positions $x$ balance at $\E X$. A symmetric mass function therefore has expectation at the centre of symmetry, when the expectation exists. The expectation need not be a value that $X$ can take. A fair die has expectation $7/2$.
+
+::: {#thm-expectation-of-a-function .theorem}
+## Expectation of a function
+
+If $g$ is a real function and $X$ is discrete with mass function $f$, then $\E g(X)=\sum_x g(x)\,f(x)$. If $X$ is continuous with density $f$, then $\E g(X)=\int_{-\infty}^{\infty} g(x)\,f(x)\,\dd x$, whenever the sum or integral converges absolutely.
+
+In the discrete case, group the outcomes on which $g$ takes the value $y$. The mass at $y$ is $\sum_{x:g(x)=y}f(x)$, so $\E g(X)=\sum_y y\sum_{x:g(x)=y}f(x)=\sum_x g(x)\,f(x)$.
+
+:::
+
+Linearity is the useful consequence. For constants $a$ and $b$, and functions $g$ and $h$ whose expectations exist,
+
+$$
+\E(aX+b)=a\,\E X+b, \qquad \E\bigl(g(X)+h(X)\bigr)=\E g(X)+\E h(X).
+$$
+
+No independence is required. Linearity is why a sum of indicators has expectation equal to the sum of the probabilities, even when the indicators are dependent.
+
+::: {#def-variance .definition}
+## Variance
+
+The variance of $X$ is $\Var(X)=\E(X-\E X)^2$, when that expectation exists. Equivalently, $\Var(X)=\E X^2-(\E X)^2$. The standard deviation is the square root of the variance.
+
+:::
+
+Variance measures spread about the expectation. It scales by the square of a constant: $\Var(aX+b)=a^2\Var(X)$. The shift $b$ does not appear, because variance ignores location.
+
+## Transforms
+
+::: {#def-probability-generating-function .definition}
+## Probability generating function
+
+If $N$ takes values in $\{0,1,2,\ldots\}$, its probability generating function is $G(z)=\E z^N=\sum_{n=0}^{\infty}\Pr(N=n)\,z^n$, for $|z|\le 1$.
+
+:::
+
+The mass function can be recovered by differentiation at the origin: $\Pr(N=n)=G^{(n)}(0)/n!$. The mean and variance sit at the other endpoint, when they exist:
+
+$$
+\E N=G'(1), \qquad \Var(N)=G''(1)+G'(1)-\bigl(G'(1)\bigr)^2.
+$$
+
+For a fair comparison with the sheet, the generating functions of the named non-negative integer laws are $(1-p+zp)$ for a Bernoulli trial, $(1-p+zp)^n$ for a binomial count, $zp/(1-(1-p)z)$ for a geometric count that starts at $1$, and $e^{\lambda(z-1)}$ for a Poisson count.
+
+::: {#def-moment-generating-function .definition}
+## Moment generating function
+
+The moment generating function of $X$ is $M(s)=\E e^{sX}$, for those $s$ at which the expectation exists.
+
+:::
+
+If $M$ exists in an open interval around $0$, it determines the distribution, and the moments are derivatives at the origin: $\E X^n=M^{(n)}(0)$. The practical use is addition. If $X$ and $Y$ are independent, then $M_{X+Y}(s)=M_X(s)M_Y(s)$ wherever both factors exist. That is often the shortest proof that a sum stays inside a family.
+
+## Named distributions
+
+The formulas below that are also on the [common distributions](../reference/distributions.qmd) page are not repeated. What matters here is the experiment.
+
+A Bernoulli trial records success as $1$ and failure as $0$, with success probability $p$. A binomial count is the number of successes in $n$ independent Bernoulli trials with the same $p$. The coin-toss derivation is in [Random experiments and probability](prob-01-experiments.qmd). A geometric count is the trial number of the first success in an unlimited sequence of such trials, so the values start at $1$ and the mass function is $p(1-p)^{x-1}$.
+
+A Poisson count with mean $\lambda>0$ is the limit of a binomial count in which $n$ grows, $p$ shrinks, and $np\to\lambda$. It is the usual model for the number of rare events in a fixed interval of time or space, when the events arrive separately. The mass function, mean and variance are on the distribution sheet: the mean and the variance are both $\lambda$.
+
+::: {#def-hypergeometric-distribution .definition}
+## Hypergeometric distribution
+
+A hypergeometric count draws $n$ items without replacement from a population of size $N$ that contains $r$ marked items. If $X$ is the number of marked items in the draw, then
+
+$$
+\Pr(X=x)=\frac{\binom{r}{x}\binom{N-r}{n-x}}{\binom{N}{n}},
+$$
+
+for every integer $x$ with $\max(0,n-(N-r))\le x\le\min(n,r)$. Write $p=r/N$. Then $\E X=np$ and
+
+$$
+\Var(X)=np(1-p)\frac{N-n}{N-1}.
+$$
+
+:::
+
+The mean matches the with-replacement, binomial, experiment. The variance is smaller by the factor $(N-n)/(N-1)$, which is the effect of not putting items back. Five cards from a deck of 52, asking for the number of aces, is hypergeometric with $N=52$, $r=4$ and $n=5$.
+
+::: {#def-uniform-distribution .definition}
+## Uniform distribution
+
+$X$ is uniform on the interval $[a,b]$, written $X\sim\operatorname{U}[a,b]$, when its density is $1/(b-a)$ on that interval and zero elsewhere. Then $\E X=(a+b)/2$ and $\Var(X)=(b-a)^2/12$.
+
+:::
+
+The continuous analogue of an equally likely finite set is the uniform distribution: probability is proportional to length. The distribution function rises linearly from $0$ to $1$ across $[a,b]$.
+
+An exponential random variable with rate $\lambda>0$ has density $\lambda e^{-\lambda x}$ for $x>0$. It is the usual model for a waiting time that does not age. A gamma random variable with shape $\alpha>0$ and the same rate has density proportional to $x^{\alpha-1}e^{-\lambda x}$ on $(0,\infty)$. The exponential law is the gamma law with shape $1$. A sum of $k$ independent exponential variables with rate $\lambda$ is gamma with shape $k$ and rate $\lambda$; the moment generating function $M(s)=(\lambda/(\lambda-s))^k$ for $s<\lambda$ is the short proof. A chi-squared variable with $k$ degrees of freedom is the gamma law with shape $k/2$ and rate $1/2$.
+
+A normal random variable with mean $\mu$ and variance $\sigma^2$ has the density on the distribution sheet. The standard normal distribution function is written $\Phi$. An affine image of a normal variable is normal: if $X\sim\Normal(\mu,\sigma^2)$ and $a\ne 0$, then $aX+b\sim\Normal(a\mu+b,a^2\sigma^2)$. The moment generating function $M(s)=\exp(\mu s+\sigma^2 s^2/2)$ makes this immediate, and it is proved again from the transformation rule in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).
+
+::: {#thm-memoryless .theorem}
+## Memoryless property
+
+A positive random variable $X$ is memoryless when $\Pr(X>s+t\given X>s)=\Pr(X>t)$ for all $s,t>0$. The exponential distributions are the continuous memoryless laws, and the geometric distributions are the discrete ones.
+
+For the exponential law with rate $\lambda$, the survival probability is $e^{-\lambda x}$, so
+
+$$
+\Pr(X>s+t\given X>s)=\frac{e^{-\lambda(s+t)}}{e^{-\lambda s}}=e^{-\lambda t}.
+$$
+
+The geometric calculation is the same with $(1-p)^{s+t}$ in place of $e^{-\lambda(s+t)}$.
+
+:::
+
+Memorylessness is a modelling claim. A component whose lifetime is exponential does not become more likely to fail as it gets older. The failure rate is constant. Lifetime models that do age are on the [reliability](prob-07-reliability.qmd) page.
+
+::: {.callout-note}
+## Key idea
+The distribution is the probability of the events $\{X\in B\}$. Discrete distributions are specified by a mass function, continuous distributions by a density. The expectation of a function is the average of that function against the mass or the density, and linearity does not need independence.
+:::
+
+## Exercises
+
+::: {#ex-prob-min-dice .exercise}
+## The smaller face
+
+Two fair dice are thrown and $Z$ is the smaller of the two faces.
+
+(a) Give the probability mass function of $Z$ in a table.
+
+(b) Calculate $\E Z$.
+
+[Solution](#sol-prob-min-dice)
+
+:::
+
+::: {#ex-prob-votes .exercise}
+## Ten voters
+
+In a large population, 40% vote for candidate A. Ten people are drawn independently. Find the probability that exactly four of them vote for A.
+
+[Solution](#sol-prob-votes)
+
+:::
+
+::: {#ex-prob-unit-square-max .exercise}
+## The larger coordinate
+
+A point $(X,Y)$ is drawn uniformly from the unit square $[0,1]^2$. Let $Z=\max(X,Y)$. Find the distribution function and the density of $Z$.
+
+[Solution](#sol-prob-unit-square-max)
+
+:::
+
+::: {#ex-prob-cubic-cdf .exercise}
+## A cubic distribution function
+
+A continuous random variable $X$ has distribution function $F(x)=0$ for $x<0$, $F(x)=x^3$ for $x\in[0,1]$, and $F(x)=1$ for $x>1$.
+
+(a) Find the density of $X$.
+
+(b) Calculate $\Pr(1/2<X<3/4)$.
+
+(c) Calculate $\E X$.
+
+[Solution](#sol-prob-cubic-cdf)
+
+:::
+
+::: {#ex-prob-twenty-heads .exercise}
+## Twenty fair tosses
+
+A fair coin is tossed 20 times.
+
+(a) Find the probability of exactly 10 heads.
+
+(b) Find the probability of 15 or more heads.
+
+[Solution](#sol-prob-twenty-heads)
+
+:::
+
+::: {#ex-prob-wait-for-twelve .exercise}
+## Waiting for double six
+
+Two fair dice are thrown repeatedly until their sum is 12.
+
+(a) Find the probability that this takes exactly 10 throws.
+
+(b) Find the probability that it takes at most 100 throws.
+
+[Solution](#sol-prob-wait-for-twelve)
+
+:::
+
+::: {#ex-prob-ten-balls-three-boxes .exercise}
+## Ten balls in three boxes
+
+Ten balls are thrown independently into boxes 1, 2 and 3, with probabilities $1/4$, $1/2$ and $1/4$.
+
+(a) Find the probability that the counts are $(2,5,3)$.
+
+(b) Find the probability that box 1 is empty.
+
+[Solution](#sol-prob-ten-balls-three-boxes)
+
+:::
+
+::: {#ex-prob-dice-sum-pmf .exercise}
+## The sum of two dice
+
+Two fair dice are thrown in order, and $Z$ is their sum.
+
+(a) Write $Z$ as a function on the sample space.
+
+(b) Give the probability mass function of $Z$.
+
+[Solution](#sol-prob-dice-sum-pmf)
+
+:::
+
+::: {#ex-prob-wait-pmf .exercise}
+## The waiting time itself
+
+Two fair dice are thrown until the sum is 12, and $X$ is the number of throws required. Give the probability mass function of $X$.
+
+[Solution](#sol-prob-wait-pmf)
+
+:::
+
+::: {#ex-prob-random-radius .exercise}
+## Distance to the centre
+
+A point is drawn uniformly from the disc of radius 4. Let $R$ be its distance to the centre.
+
+(a) Find $\Pr(R>2)$.
+
+(b) Find the density of $R$.
+
+[Solution](#sol-prob-random-radius)
+
+:::
+
+::: {#ex-prob-five-evens-replace .exercise}
+## Five draws with replacement
+
+Five numbers are drawn with replacement from $\{1,\ldots,100\}$, each draw independent and uniform. Find the probability that exactly three of the five numbers are even.
+
+[Solution](#sol-prob-five-evens-replace)
+
+:::
+
+::: {#ex-prob-five-evens-no-replace .exercise}
+## Five draws without replacement
+
+Five numbers are drawn without replacement from $\{1,\ldots,100\}$. Find the probability that exactly three of them are even.
+
+[Solution](#sol-prob-five-evens-no-replace)
+
+:::
+
+::: {#ex-prob-radioactive .exercise}
+## Particles in an hour
+
+A source emits a particle in a given second with probability $1/100$, independently across seconds. Let $X$ be the number of particles emitted in one hour of 3600 seconds. Give the Poisson parameter that approximates the distribution of $X$.
+
+[Solution](#sol-prob-radioactive)
+
+:::
+
+::: {#ex-prob-component-five-years .exercise}
+## Five years of an exponential lifetime
+
+A component has an exponential lifetime with rate $\lambda=1/10$ per year. Find the probability that it is still working after 5 years.
+
+[Solution](#sol-prob-component-five-years)
+
+:::
+
+::: {#ex-prob-three-point-expectation .exercise}
+## Three-point expectation
+
+A random variable takes the values $0$, $2$ and $5$ with probabilities $1/2$, $1/3$ and $1/6$. Find its expectation.
+
+[Solution](#sol-prob-three-point-expectation)
+
+:::
+
+::: {#ex-prob-second-moment .exercise}
+## Recovering the second moment
+
+A random variable has expectation $2$ and variance $1$. Find $\E X^2$.
+
+[Solution](#sol-prob-second-moment)
+
+:::
+
+::: {#ex-prob-red-balls-expectation .exercise}
+## Expected number of red balls
+
+Ten balls are drawn from an urn with 25 red balls and 75 white balls. Find the expected number of red balls in the draw. Does the answer change if the draw is without replacement rather than with replacement?
+
+[Solution](#sol-prob-red-balls-expectation)
+
+:::
+
+::: {#ex-prob-uniform-variance .exercise}
+## Variance on the unit interval
+
+Let $X$ be uniform on $[0,1]$. Calculate $\Var(X)$.
+
+[Solution](#sol-prob-uniform-variance)
+
+:::
+
+::: {#ex-prob-affine-uniform-mean .exercise}
+## An affine image of a uniform variable
+
+Let $X$ be uniform on $[0,1]$ and set $Y=10+2X$. Find $\E Y$.
+
+[Solution](#sol-prob-affine-uniform-mean)
+
+:::
+
+::: {#ex-prob-double-six-wait .exercise}
+## Expected wait for double six
+
+Two fair dice are thrown until both faces are six. Find the expected number of throws.
+
+[Solution](#sol-prob-double-six-wait)
+
+:::
+
+::: {#ex-prob-brisbane-groups .exercise}
+## Groups of three
+
+One million people are divided, as far as possible, into disjoint groups of three. Birthdays are independent and uniform on 365 days.
+
+(a) How many groups are expected to have all three birthdays equal?
+
+(b) Approximate the probability that at least one such group occurs.
+
+[Solution](#sol-prob-brisbane-groups)
+
+:::
+
+::: {#ex-prob-memoryless-component .exercise}
+## A memoryless component
+
+A component has an exponential lifetime with expectation 2 years.
+
+(a) Find the probability that it still works after 2 years.
+
+(b) Find the probability that it still works after 10 years, given that it still works after 7 years.
+
+[Solution](#sol-prob-memoryless-component)
+
+:::
+
+::: {#ex-prob-normal-variance .exercise}
+## Why a normal variance is $\sigma^2$
+
+Let $X$ be standard normal. Show that $\Var(X)=1$, and deduce $\Var(Y)=\sigma^2$ for $Y\sim\Normal(\mu,\sigma^2)$.
+
+[Solution](#sol-prob-normal-variance)
+
+:::
+
+::: {#ex-prob-exp-moments .exercise}
+## Exponential moments from the transform
+
+Let $X$ be exponential with rate $1$. Use the moment generating function to show that $\E X^n=n!$.
+
+[Solution](#sol-prob-exp-moments)
+
+:::
+
+::: {#ex-prob-dice-sum-game .exercise}
+## A game on the sum of two dice
+
+Two fair dice are thrown and $Z$ is the sum of the faces.
+
+(a) Give the probability mass function of $Z$.
+
+(b) Calculate $\Var(Z)$.
+
+(c) A player is paid $(Z-7)^2$ and pays 5 to play. Find the expected profit from 100 independent plays.
+
+:::
+
+::: {#ex-prob-two-lifetimes .exercise}
+## Two components with the same mean life
+
+Two components each have expected lifetime 3 years. The first lifetime is exponential. The second is normal with standard deviation $1/2$ year.
+
+(a) Find the probability that the first still works after 4.5 years, given that it works after 4 years.
+
+(b) Find the probability that the second still works after 4.5 years, given that it works after 4 years.
+
+:::
+
+::: {#ex-prob-min-dice-game .exercise}
+## A game on the smaller face
+
+Two fair dice are thrown and $Z$ is the smaller face.
+
+(a) Give the probability mass function of $Z$.
+
+(b) Calculate $\E(1/Z)$.
+
+(c) A player is paid $Z$ and pays 3 to play. Find the expected profit from 100 independent plays.
+
+:::

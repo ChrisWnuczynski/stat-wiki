@@ -24,6 +24,7 @@ The build reads only the copies in `sources/`:
 - `sources/book` comes from the lecture book (the Alan Book folder).
 - `sources/prep` comes from the final-exam booklet (FINAL PREP).
 - `sources/practice` comes from the practice set (Codex Notes).
+- `sources/stat2003` holds the probability notes. The chapters are `sources/stat2003/chapters`, and the PDF copy is `sources/stat2003/notes.pdf`.
 
 Edits to the original folders do not reach the wiki until they are copied into `sources/`.
 

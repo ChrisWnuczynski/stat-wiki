@@ -1,0 +1,60 @@
+# Markov chains
+
+A Markov chain is a random process with a short memory: the next state depends on the past only through the present state. On a finite set of states the whole process is a transition matrix. Powers of that matrix give the distribution after many steps, and for a chain that can reach every state and is not periodic, those powers settle on a single row vector, the limiting distribution.
+
+Using a chain as a device for sampling from a target distribution is a different construction. That use, including the Gibbs sampler and Metropolis–Hastings, is on [Markov chains, Gibbs sampling, and Metropolis--Hastings](bayes-04-mcmc.qmd). The vector called a limiting distribution here is called a [stationary distribution](bayes-04-mcmc.qmd) there. This chapter stays with the process itself.
+
+## The Markov property
+
+::: {#def-finite-state-markov-chain .definition}
+## Finite-state Markov chain
+
+Let $E$ be a finite set of states and let $X_0,X_1,X_2,\ldots$ take values in $E$. The process is a Markov chain when, for every $n$ and every choice of states,
+
+$$
+\Pr(X_{n+1}=j\given X_n=i, X_{n-1}=i_{n-1},\ldots,X_0=i_0)=\Pr(X_{n+1}=j\given X_n=i).
+$$
+
+It is time-homogeneous when the right-hand side does not depend on $n$. The transition matrix $P$ then has entries $P_{ij}=\Pr(X_{n+1}=j\given X_n=i)$.
+
+:::
+
+Each row of $P$ is a probability distribution: the entries are non-negative and sum to $1$. If the row vector $\boldsymbol\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\boldsymbol\pi^{(0)} P^n$. The Chapman–Kolmogorov equations are the matrix product $P^{m+n}=P^m P^n$: the way to be at $j$ after $m+n$ steps is to be somewhere after $m$ steps and then travel for $n$ more.
+
+A walk on five stepping stones is the picture. From an end stone the walker must move inward. From a middle stone the walker moves left or right with specified probabilities, or stays. The transition matrix is the table of those probabilities. A path of length $n$ has probability equal to the product of the $n$ transition probabilities along it, times the probability of the starting stone. That product is the Markov property written out by the chain rule.
+
+A random walk on the integers, moving one step right with probability $p$ and one step left with probability $q=1-p$, is the same definition on a countably infinite state space. The one-step matrix is no longer a finite array, but the $n$-step probabilities are binomial: after $n$ steps the displacement is $2K-n$ if $K\sim\Bin(n,p)$ is the number of steps to the right.
+
+States $i$ and $j$ communicate when each can be reached from the other with positive probability in some number of steps. A chain on a finite set is irreducible when every pair communicates. A state is periodic with period $d>1$ when returns are possible only at multiples of $d$; otherwise it is aperiodic. In an irreducible chain every state has the same period.
+
+## Simulation
+
+One step of a finite-state chain is a discrete draw from the row $P_{i,\cdot}$, which is the discrete [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform) applied to that row. A path is the iteration: given $X_n=i$, draw $X_{n+1}$ from row $i$, independently of the earlier past.
+
+A random walk on the integers is even simpler. Draw independent steps $\xi_k\in\{-1,+1\}$ with $\Pr(\xi_k=+1)=p$, and set $X_n=X_0+\xi_1+\cdots+\xi_n$. The partial-sum representation makes the binomial count of rightward steps obvious.
+
+## The limiting distribution
+
+::: {#thm-limiting-distribution .theorem}
+## Limiting distribution
+
+Suppose $P$ is the transition matrix of an irreducible aperiodic chain on a finite set. Then there is a unique probability row vector $\boldsymbol\pi$ with $\boldsymbol\pi=\boldsymbol\pi P$, and for every start $i$ and every state $j$,
+
+$$
+\lim_{n\to\infty}(P^n)_{ij}=\pi_j.
+$$
+
+Every row of $P^n$ converges to $\boldsymbol\pi$. The equations $\boldsymbol\pi=\boldsymbol\pi P$ together with $\sum_j \pi_j=1$ determine $\boldsymbol\pi$.
+
+:::
+
+The vector $\boldsymbol\pi$ is the distribution that is unchanged by one more step. Irreducibility keeps the chain from getting stuck in a subset of states. Aperiodicity keeps the distribution from oscillating between two or more patterns; a deterministic two-cycle is irreducible and has no limiting distribution, even though it has a stationary one.
+
+On a small state space the linear system $(P^\top-I)\boldsymbol\pi^\top=\mathbf{0}$ is solved directly, and the solution is scaled so that its entries sum to $1$. A null-space routine does the same arithmetic. For the stepping-stone walk the resulting vector is the long-run proportion of visits to each stone, and it does not depend on the stone where the walk began.
+
+A random walk on the non-negative integers, with reflection at $0$, shows when a limit exists on an infinite space. From $0$ the walk steps to $1$ with probability $p$ and stays with probability $q=1-p$. From $j\ge 1$ it steps to $j+1$ with probability $p$ and to $j-1$ with probability $q$. The balance equations $\boldsymbol\pi=\boldsymbol\pi P$ give $\pi_j=(p/q)^j \pi_0$ for $j\ge 0$. These numbers can be scaled to sum to $1$ if and only if $p<q$, in which case $\pi_0=1-p/q$ and $\pi_j=(1-p/q)(p/q)^j$. If $p\ge q$ the walk drifts to infinity and no probability vector satisfies the balance equations. The chain still has the Markov property. It simply has no limiting distribution.
+
+::: {.callout-note}
+## Key idea
+The next state is drawn from a row of $P$ that depends only on the current state. After many steps an irreducible aperiodic finite chain forgets where it started, and the probability of each state settles on the unique row vector $\boldsymbol\pi=\boldsymbol\pi P$.
+:::

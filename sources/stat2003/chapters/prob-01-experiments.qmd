@@ -1,0 +1,428 @@
+# Random experiments and probability
+
+A random experiment is a procedure whose outcome is not fixed in advance, but which can still be described exactly enough that probabilities can be calculated. Tossing a coin, recording a lifetime, or drawing a sample are experiments of this kind. The model has three pieces: the set of outcomes that can occur, the events one might ask about, and a probability for each event.
+
+The same conditional-probability identity, written for densities and read as a rule for updating a prior, is [Bayes' rule](bayes-01-foundations.qmd#thm-bayes-rule) on the Bayesian foundations page. This chapter keeps the event form.
+
+## Outcomes and events
+
+::: {#def-sample-space .definition}
+## Sample space
+
+The sample space $\Omega$ of a random experiment is the set of all outcomes that experiment can produce.
+
+:::
+
+The sample space is a modelling choice, not a fact about the apparatus. Three tosses of a coin can be recorded as the sequence of faces, so $\Omega=\{0,1\}^3$, or only as the number of heads, so $\Omega=\{0,1,2,3\}$. Both descriptions are correct. They answer different questions.
+
+A few standard spaces:
+
+- two dice in order, $\Omega=\{1,\ldots,6\}^2$;
+- a lifetime in days, $\Omega=[0,\infty)$;
+- the number of calls in a fixed interval, $\Omega=\{0,1,2,\ldots\}$;
+- the heights of ten people, $\Omega=\R^{10}$.
+
+A space is discrete when its outcomes can be listed, finite or countably infinite. It is continuous when they cannot, as with an interval of real numbers.
+
+::: {#def-event .definition}
+## Event
+
+An event is a subset of the sample space. The event occurs when the outcome lies in that subset.
+
+:::
+
+If $A$ and $B$ are events, then $A\cup B$ occurs when at least one of them does, $A\cap B$ occurs when both do, and the complement $A^c$ occurs when $A$ does not. The empty set is the impossible event and $\Omega$ is the certain event. $A\subset B$ means that $A$ cannot occur unless $B$ does.
+
+For any collection of events, De Morgan's laws swap unions and intersections under complements:
+
+$$
+\Bigl(\bigcup_i A_i\Bigr)^c=\bigcap_i A_i^c,
+\qquad
+\Bigl(\bigcap_i A_i\Bigr)^c=\bigcup_i A_i^c.
+$$
+
+Read the first one as a reliability statement. If $A_i$ means that component $i$ works, the left-hand side is "the parallel system of those components has failed", and the right-hand side is "every component has failed".
+
+## Probability
+
+::: {#def-probability-measure .definition}
+## Probability measure
+
+A probability $\Pr$ assigns a number to each event and satisfies three axioms: $\Pr(A)\ge 0$, $\Pr(\Omega)=1$, and for any sequence of disjoint events,
+
+$$
+\Pr\Bigl(\bigcup_i A_i\Bigr)=\sum_i \Pr(A_i).
+$$
+
+:::
+
+The third axiom is the sum rule. If an event can happen in mutually exclusive ways, its probability is the sum of those ways. Area on a page works the same way: the area of a union of non-overlapping regions is the sum of the areas. Probability is that kind of measure, with total measure one.
+
+::: {#thm-probability-properties .theorem}
+## Properties of a probability
+
+For events $A$ and $B$,
+
+1. $\Pr(\emptyset)=0$.
+2. $A\subset B$ implies $\Pr(A)\le \Pr(B)$.
+3. $\Pr(A)\le 1$.
+4. $\Pr(A^c)=1-\Pr(A)$.
+5. $\Pr(A\cup B)=\Pr(A)+\Pr(B)-\Pr(A\cap B)$.
+
+The empty set is disjoint from $\Omega$, so the sum rule gives $\Pr(\Omega)=\Pr(\Omega)+\Pr(\emptyset)$. The complement formula is the sum rule on the disjoint union $\Omega=A\cup A^c$. For the union formula, write $A\cup B$ as the disjoint union of $A$ and $B\cap A^c$, and write $B$ as the disjoint union of $A\cap B$ and $B\cap A^c$. Subtracting the two expansions cancels $\Pr(B\cap A^c)$.
+
+:::
+
+On a discrete space $\Omega=\{a_1,a_2,\ldots\}$ it is enough to give a weight $p_i=\Pr(\{a_i\})$ to each outcome, with $p_i\ge 0$ and $\sum_i p_i=1$. An event then has probability equal to the total weight of the outcomes it contains. On a continuous space this fails: each single point must have probability zero, or an uncountable sum of equal positive weights could not be one. Probabilities are assigned to intervals, or to other sets with a length or a volume.
+
+::: {#thm-equilikely .theorem}
+## Equally likely outcomes
+
+If $\Omega$ is finite and every outcome has the same probability, then for every event $A$
+
+$$
+\Pr(A)=\frac{|A|}{|\Omega|}.
+$$
+
+:::
+
+A fair die is the model case: $\Omega=\{1,\ldots,6\}$ and $\Pr(A)=|A|/6$. Drawing a point "at random" from $[0,1]$ is the continuous analogue. The sample space is the interval, and
+
+$$
+\Pr([a,b])=b-a, \qquad 0\le a\le b\le 1.
+$$
+
+The probability of a set is its length. A single point has length zero, so it has probability zero, even though it is a possible outcome.
+
+## Counting
+
+When outcomes are equally likely, a probability is a ratio of two counts. Many counts are one of four urn problems. An urn holds $n$ distinct balls, and $k$ of them are drawn. The draw may or may not record order, and it may or may not replace each ball.
+
+::: {#prp-four-counts .proposition}
+## Four ways of counting draws
+
+| Order recorded | Replacement | Number of outcomes |
+|---|---|---|
+| yes | yes | $n^k$ |
+| yes | no | $n!/(n-k)!$ |
+| no | no | $\binom{n}{k}$ |
+| no | yes | $\binom{n+k-1}{k}$ |
+
+Ordered outcomes are written as vectors, so $(1,2,3)\ne(3,2,1)$. Unordered outcomes are written as sets, so $\{1,2,3\}=\{3,2,1\}$.
+
+:::
+
+The first row fills $k$ positions, each with $n$ choices. The second row is the same except that a ball already drawn is no longer available: $n(n-1)\cdots(n-k+1)$. The third row forgets the order, and each unordered set of size $k$ corresponds to $k!$ ordered draws, so the count is divided by $k!$. That quotient is the binomial coefficient
+
+$$
+\binom{n}{k}=\frac{n!}{k!\,(n-k)!}.
+$$
+
+The fourth row, unordered draws with replacement, counts the multisets of size $k$ from $n$ labels. It is less common in the calculations below; the first three rows cover sequences, permutations and combinations.
+
+A multiple-choice paper with 20 questions and 3 answers each is the first row: $3^{20}$ scripts. The number of ways to award first, second and third place among 8 horses is the second row: $8\times 7\times 6$. The number of ways to choose 3 discs from 20, order irrelevant, is $\binom{20}{3}$.
+
+Two counting facts are used often enough to keep them separate. The number of ways to arrange $n$ distinct objects is $n!$. If a word has repeated letters, divide by the factorial of each repetition: "arrange" has 7 letters with "a" and "r" doubled, so it has $7!/(2!\,2!)$ distinct rearrangements.
+
+The birthday count is the second row against the first. In a group of $n$ people, with 365 days and no leap day, the probability that all birthdays differ is
+
+$$
+\frac{365\times 364\times\cdots\times(365-n+1)}{365^n},
+$$
+
+provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. For $n=23$ the probability of no shared birthday is already below one half. The complementary probability, that at least two share a birthday, is therefore already above one half.
+
+## Conditional probability
+
+::: {#def-conditional-probability .definition}
+## Conditional probability
+
+If $\Pr(B)>0$, the conditional probability of $A$ given $B$ is
+
+$$
+\Pr(A\given B)=\frac{\Pr(A\cap B)}{\Pr(B)}.
+$$
+
+:::
+
+Conditioning on $B$ replaces the sample space by $B$ and renormalises. In the equally likely case this is just the count of outcomes in $A\cap B$ divided by the count of outcomes in $B$.
+
+Two dice are thrown and the sum is 10, so $B=\{(4,6),(5,5),(6,4)\}$. Exactly one six has been thrown on the event $A\cap B=\{(4,6),(6,4)\}$. Every ordered pair is equally likely, so $\Pr(A\given B)=2/3$.
+
+The same definition settles the Monty Hall problem without a story about psychology. A prize is equally likely behind curtain $A$, $B$ or $C$. The contestant picks $A$. The host, who knows where the prize is, always opens a different curtain that has no prize, choosing at random when both remaining curtains are empty. Suppose the host opens $B$. The four atoms that can occur, with their probabilities, are: prize behind $A$ and host opens $B$ ($1/6$), prize behind $A$ and host opens $C$ ($1/6$), prize behind $B$ and host opens $C$ ($1/3$), prize behind $C$ and host opens $B$ ($1/3$). The observed event is the two atoms in which $B$ is opened, with total probability $1/6+1/3=1/2$. The prize is behind $A$ in only the first of those atoms, so
+
+$$
+\Pr(\text{prize behind }A\given \text{host opens }B)=\frac{1/6}{1/2}=\frac13,
+$$
+
+and the probability it is behind $C$ is $2/3$. Switching wins with probability $2/3$.
+
+::: {#thm-product-rule .theorem}
+## Product rule
+
+If $\Pr(A_1\cap\cdots\cap A_{n-1})>0$, then
+
+$$
+\Pr(A_1\cap\cdots\cap A_n)
+=\Pr(A_1)\,\Pr(A_2\given A_1)\,\Pr(A_3\given A_1\cap A_2)\cdots\Pr(A_n\given A_1\cap\cdots\cap A_{n-1}).
+$$
+
+Each factor is the definition of conditional probability, and the intermediate intersections cancel.
+
+:::
+
+Three black balls drawn without replacement from an urn with 5 black and 5 white balls have probability
+
+$$
+\frac{5}{10}\times\frac{4}{9}\times\frac{3}{8}=\frac{1}{12}.
+$$
+
+The birthday probability above is the same rule. Let $A_k$ be the event that the first $k$ birthdays are all different. Then $A_n=A_1\cap\cdots\cap A_n$ and $\Pr(A_k\given A_{k-1})=(365-k+1)/365$.
+
+::: {#thm-total-probability .theorem}
+## Law of total probability
+
+If $B_1,\ldots,B_n$ are disjoint and their union is $\Omega$, then for every event $A$
+
+$$
+\Pr(A)=\sum_{i=1}^n \Pr(A\given B_i)\,\Pr(B_i).
+$$
+
+The events $A\cap B_i$ are disjoint and exhaust $A$, so the sum rule applies, and each term is the product rule.
+
+:::
+
+Dividing one term by the sum is Bayes' rule for events. For each $j$,
+
+$$
+\Pr(B_j\given A)=\frac{\Pr(A\given B_j)\,\Pr(B_j)}{\sum_{i=1}^n \Pr(A\given B_i)\,\Pr(B_i)},
+$$
+
+provided the denominator is positive. This is the same algebra as the density form on [Bayesian foundations](bayes-01-foundations.qmd#thm-bayes-rule). The difference is the object that carries the probability. Here it is an event. There it is an unknown parameter, and the factors are a likelihood and a prior.
+
+A chip is made in factory 1, 2 or 3 with probabilities $0.15$, $0.35$ and $0.50$, and the defective rates are $0.01$, $0.05$ and $0.02$. A chip in hand is defective. The probability it came from factory 1 is
+
+$$
+\frac{0.15\times 0.01}{0.15\times 0.01+0.35\times 0.05+0.50\times 0.02}=\frac{0.0015}{0.029}\approx 0.052.
+$$
+
+The rare factory is unlikely to be the source, because the two larger factories produce more defectives in total even though each chip from factory 1 is less often defective.
+
+## Independence
+
+::: {#def-independent-events .definition}
+## Independent events
+
+Events $A_1,A_2,\ldots$ are mutually independent when, for every finite subcollection,
+
+$$
+\Pr(A_{i_1}\cap\cdots\cap A_{i_k})=\Pr(A_{i_1})\cdots\Pr(A_{i_k}).
+$$
+
+:::
+
+For two events with positive probability this is the same as $\Pr(A\given B)=\Pr(A)$: learning that $B$ occurred does not change the probability of $A$. The product form is the one to use in calculations, and it still makes sense if one of the events is empty. Pairwise products are not enough for three or more events. Mutual independence asks for every subcollection.
+
+Independence is usually an assumption of the model, not a theorem about the apparatus. It says which probability measure is being used.
+
+A coin with heads-probability $p$ is tossed $n$ times, and the tosses are independent. The sample space is $\{0,1\}^n$. Any particular sequence with $k$ heads and $n-k$ tails has probability $p^k(1-p)^{n-k}$. There are $\binom{n}{k}$ such sequences, so the probability of exactly $k$ heads is
+
+$$
+\binom{n}{k}p^k(1-p)^{n-k}, \qquad k=0,1,\ldots,n.
+$$
+
+That is the binomial distribution. Its mean, variance and the rest of the named distributions are on the [common distributions](../reference/distributions.qmd) page. Tossing until the first head, with the same independence, gives the geometric distribution on $\{1,2,\ldots\}$: the first head arrives at toss $k$ with probability $(1-p)^{k-1}p$.
+
+::: {.callout-note}
+## Key idea
+Specify the outcomes, the events, and the probability. Equally likely finite spaces reduce the probability to a count. Conditioning replaces the space by the event that was observed. Independence is the assumption that lets a joint probability factor into a product.
+:::
+
+## Exercises
+
+::: {#ex-prob-three-tosses .exercise}
+## Three coin tosses
+
+A fair coin is tossed three times.
+
+(a) List the sample space if the whole sequence of heads and tails is recorded. Write heads as $1$ and tails as $0$.
+
+(b) List the sample space if only the number of heads is recorded.
+
+[Solution](#sol-prob-three-tosses)
+
+:::
+
+::: {#ex-prob-three-toss-weights .exercise}
+## Weights on the two coin spaces
+
+A fair coin is tossed three times, and the tosses are independent. Assign a probability to every outcome of each of these two sample spaces: the set of sequences in $\{0,1\}^3$, and the set $\{0,1,2,3\}$ of possible numbers of heads.
+
+[Solution](#sol-prob-three-toss-weights)
+
+:::
+
+::: {#ex-prob-urn-365 .exercise}
+## Drawing from 365 balls
+
+Three balls are drawn from an urn of 365 balls labelled $1,\ldots,365$, and the order is recorded.
+
+(a) How many outcomes are there if each ball is replaced before the next draw?
+
+(b) How many outcomes are there if the balls are not replaced?
+
+(c) In the experiment with replacement, what is the probability that all three draws show the same label?
+
+[Solution](#sol-prob-urn-365)
+
+:::
+
+::: {#ex-prob-intersection-bound .exercise}
+## A lower bound on an intersection
+
+Let $\Pr(A)=0.9$ and $\Pr(B)=0.8$. Show that $\Pr(A\cap B)\ge 0.7$.
+
+[Solution](#sol-prob-intersection-bound)
+
+:::
+
+::: {#ex-prob-birthday-54 .exercise}
+## Fifty-four distinct birthdays
+
+Fifty-four people are in a room. Birthdays are independent and uniformly distributed over 365 days. What is the probability that no two share a birthday? A numerical value to three decimal places is enough, together with the exact product it approximates.
+
+[Solution](#sol-prob-birthday-54)
+
+:::
+
+::: {#ex-prob-two-dice-faces .exercise}
+## Matching faces
+
+Two fair dice are thrown, and the ordered pair is recorded.
+
+(a) Find the probability that the two faces agree.
+
+(b) Find the same probability given that the sum of the faces is at most 4.
+
+[Solution](#sol-prob-two-dice-faces)
+
+:::
+
+::: {#ex-prob-three-cards .exercise}
+## Three cards in order
+
+Three cards are drawn in order, without replacement, from a deck of 52. The cards are labelled $1,\ldots,52$.
+
+(a) Describe the sample space. Are the outcomes equally likely?
+
+(b) Find the probability that the three cards are three aces.
+
+(c) Find the probability that the three cards are one ace, one king and one queen, in any order.
+
+(d) Find the probability that none of the three cards is an ace, king, queen or jack.
+
+[Solution](#sol-prob-three-cards)
+
+:::
+
+::: {#ex-prob-uniform-interval .exercise}
+## A point drawn from the unit interval
+
+A point is drawn from $[0,1]$ so that probabilities are lengths.
+
+(a) Find the probability that the point is less than $1/2$.
+
+(b) Find the probability that it lies between $1/3$ and $3/4$.
+
+(c) The draw is repeated independently. Find the probability that the sum of the two points exceeds $1/2$.
+
+[Solution](#sol-prob-uniform-interval)
+
+:::
+
+::: {#ex-prob-three-birthdays .exercise}
+## Three people, one birthday
+
+Three people are drawn from a large population, so that their birthdays are independent and uniform on 365 days. Find the probability that all three birthdays coincide.
+
+[Solution](#sol-prob-three-birthdays)
+
+:::
+
+::: {#ex-prob-four-honours .exercise}
+## One of each court card
+
+Four cards are drawn at once from a deck of 52, so the hand is an unordered set. Find the probability that the hand consists of one king, one queen, one jack and one ace.
+
+[Solution](#sol-prob-four-honours)
+
+:::
+
+::: {#ex-prob-three-brothers .exercise}
+## Three brothers in a random split
+
+Twenty people include three siblings. The twenty are split at random into two unlabelled groups of ten. Find the probability that all three siblings land in the same group.
+
+[Solution](#sol-prob-three-brothers)
+
+:::
+
+::: {#ex-prob-binary-vectors .exercise}
+## Binary vectors with five ones
+
+How many binary vectors of length 20 have exactly five coordinates equal to 1?
+
+[Solution](#sol-prob-binary-vectors)
+
+:::
+
+::: {#ex-prob-urn-combinations .exercise}
+## Five balls out of twenty
+
+Five balls are drawn from an urn of 20 distinct balls, without replacement and without regard to order. How many outcomes are there?
+
+[Solution](#sol-prob-urn-combinations)
+
+:::
+
+::: {#ex-prob-binary-channel .exercise}
+## A one received on a noisy channel
+
+A binary channel sends a $1$ with probability $2/3$ and a $0$ with probability $1/3$. A sent $1$ is received as $1$ with probability $0.95$. A sent $0$ is received as $0$ with probability $0.90$. A $1$ is received. Find the probability that a $1$ was sent.
+
+[Solution](#sol-prob-binary-channel)
+
+:::
+
+::: {#ex-prob-channel-zero .exercise}
+## A zero received
+
+Zeros and ones are sent with equal probability. A sent $0$ is received as $0$ with probability $0.95$, and a sent $1$ is received as $1$ with probability $0.99$. A $0$ is received. Find the probability that a $1$ was sent.
+
+[Solution](#sol-prob-channel-zero)
+
+:::
+
+::: {#ex-prob-second-die .exercise}
+## Information about one die
+
+Two fair dice are thrown in order.
+
+(a) Find the probability that the second face is 3, given that the sum is 6.
+
+(b) Find the probability that the first face is 3 and the second face is not 3.
+
+[Solution](#sol-prob-second-die)
+
+:::
+
+::: {#ex-prob-channel-quarter .exercise}
+## A channel with unequal inputs
+
+A binary channel sends a $1$ with probability $1/4$ and a $0$ with probability $3/4$. A sent $1$ is received as $1$ with probability $0.90$, and a sent $0$ is received as $0$ with probability $0.95$.
+
+(a) Find the probability that a $1$ is received.
+
+(b) Given that a $1$ is received, find the probability that a $1$ was sent.
+
+:::
