@@ -989,21 +989,7 @@ FINAL_TOPICS = {
     "ex-orthodont-lmm": "C2",
 }
 
-SOURCES = {
-    "book": "Exercise",
-    "practice": "Practice set",
-    "final": "Final preparation",
-    "concepts": "Concept check",
-}
 SOURCE_ORDER = ["book", "practice", "final", "concepts"]
-SOURCE_ANCHOR = {"book": "exercises", "practice": "practice", "final": "final", "concepts": "concepts"}
-
-SOURCE_BLURB = {
-    "book": "Applied exercises have worked answers. The shorter ones are questions only.",
-    "practice": "Fifty-nine exam-style problems from the final-exam practice set, each with a worked answer.",
-    "final": "The twenty-two questions from the Semester 2, 2026 final preparation, with answers.",
-    "concepts": "Fifty short recall questions across the topics, each with a model answer.",
-}
 
 
 def assign_topics(questions: list[dict]) -> None:
@@ -1023,12 +1009,6 @@ def assign_topics(questions: list[dict]) -> None:
             q["topic"] = CHAPTER_CODES[code]
 
 
-def source_label(q: dict) -> str:
-    if q["group"] == "book":
-        return "Applied exercise" if q.get("applied") else "Exercise"
-    return SOURCES[q["group"]]
-
-
 def short_label(q: dict) -> str:
     """A short name for previous/next links."""
     if q["group"] == "practice":
@@ -1044,18 +1024,14 @@ def cell(text: str) -> str:
     return text.replace("|", "\\|")
 
 
-def question_table(questions: list[dict], page: Path, with_topic: bool = False, with_source: bool = True) -> str:
+def question_table(questions: list[dict], page: Path, with_topic: bool = False) -> str:
     head = ["Question"]
-    if with_source:
-        head.append("Source")
     if with_topic:
         head.append("Topic")
     head.append("Answer")
     rows = ["| " + " | ".join(head) + " |", "|" + "|".join([":--"] * (len(head) - 1) + [":-:"]) + "|"]
     for q in questions:
         bits = [f"[{cell(q['title'])}]({href(page, q['path'])})"]
-        if with_source:
-            bits.append(source_label(q))
         if with_topic:
             topic = q["topic_note"]
             bits.append(f"[{cell(topic['title'])}]({href(page, topic['path'])})")
@@ -1944,6 +1920,10 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
 
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
+    ids = [q["id"] for q in questions]
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    if dupes:
+        raise SystemExit(f"Question ids collide: {dupes}")
     chapters = [(part, notes[name]) for part, files in PARTS for name, kind in files if kind == "notes"]
     final_notes = [notes[name] for name in ("final-preparation.qmd", "final-bayesian.qmd", "final-applied.qmd")]
 
@@ -2050,51 +2030,48 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         blocks = [(True, "prose", body)]
         own = [q for q in by_source["final"] if q["notes_path"] == note["path"]]
         if own:
-            blocks.append((False, "questions", "\n\n## Questions\n\n" + question_table(own, note["path"], with_topic=True, with_source=False)))
+            blocks.append((False, "questions", "\n\n## Questions\n\n" + question_table(own, note["path"], with_topic=True)))
         add_page(note["path"], note["title"], None, "final", blocks)
 
-    # Questions.
-    for group in SOURCE_ORDER:
-        seq = by_source[group]
+    # Questions. Previous and next walk the other questions on the same topic.
+    neighbors: dict[int, tuple[dict | None, dict | None]] = {}
+    for seq in by_topic.values():
         for i, q in enumerate(seq):
-            notes_href = href(q["path"], q["notes_path"]) if q.get("notes_path") else None
-            use_refs = notes_href if group == "book" else None
-            body = prepare(q["body"], "../../figures", use_refs, page=q["path"])
-            body = re.sub(r"\[Solution\]\(#sol-[\w-]+\)", "", body).strip()
-            topic = q["topic_note"]
-            nav = []
-            if i > 0:
-                nav.append(f"[‹ {cell(short_label(seq[i - 1]))}]({href(q['path'], seq[i - 1]['path'])}){{.qnav}}")
-            if i + 1 < len(seq):
-                nav.append(f"[{cell(short_label(seq[i + 1]))} ›]({href(q['path'], seq[i + 1]['path'])}){{.qnav}}")
-            where = {
-                "practice": f"Practice set, question {q.get('n')} of {len(seq)}",
-                "concepts": f"Concept check {q.get('n')} of {len(seq)}",
-                "final": f"Final preparation, question {q.get('n')} of {len(seq)}",
-                "book": f"Exercise on *{q.get('chapter', '')}*",
-            }[group]
-            hat = (
-                "::: {.hatnote}\n"
-                f"**Topic:** [{topic['title']}]({href(q['path'], topic['path'])}) · "
-                f"[more questions on this topic]({href(q['path'], topic['path'])}#questions-on-this-topic)  \n"
-                f"**Source:** {where}"
-                + (" " + " ".join(nav) if nav else "")
-                + "\n:::\n\n"
-            )
-            blocks = [(False, "hatnote", hat), (True, "question", body)]
-            q["prepared_body"] = body  # reused when the question is an example on an article
-            answer = q["answer"]
-            if answer:
-                answer_body = prepare(answer["body"], "../../figures", page=q["path"])
-                q["prepared_answer"] = answer_body
-                blocks += [
-                    (False, "answer-open", "\n\n:::::::: {#worked-answer .callout-tip collapse=\"true\"}\n## Worked answer (click to show)\n\n"),
-                    (True, "answer", answer_body),
-                    (False, "answer-close", "\n::::::::\n"),
-                ]
-            elif group == "book":
-                blocks.append((False, "no-answer", "\n\n::: {.callout-note appearance=\"minimal\"}\nThis exercise has no worked answer.\n:::\n"))
-            add_page(q["path"], q["title"], topic.get("part"), "question", blocks, {"toc": "false"})
+            neighbors[id(q)] = (seq[i - 1] if i else None, seq[i + 1] if i + 1 < len(seq) else None)
+    for q in questions:
+        group = q["group"]
+        prev_q, next_q = neighbors[id(q)]
+        notes_href = href(q["path"], q["notes_path"]) if q.get("notes_path") else None
+        use_refs = notes_href if group == "book" else None
+        body = prepare(q["body"], "../figures", use_refs, page=q["path"])
+        body = re.sub(r"\[Solution\]\(#sol-[\w-]+\)", "", body).strip()
+        topic = q["topic_note"]
+        nav = []
+        if prev_q:
+            nav.append(f"[‹ {cell(short_label(prev_q))}]({href(q['path'], prev_q['path'])}){{.qnav}}")
+        if next_q:
+            nav.append(f"[{cell(short_label(next_q))} ›]({href(q['path'], next_q['path'])}){{.qnav}}")
+        hat = (
+            "::: {.hatnote}\n"
+            f"**Topic:** [{topic['title']}]({href(q['path'], topic['path'])}) · "
+            f"[more questions on this topic]({href(q['path'], topic['path'])}#questions-on-this-topic)"
+            + (("  \n" + " ".join(nav)) if nav else "")
+            + "\n:::\n\n"
+        )
+        blocks = [(False, "hatnote", hat), (True, "question", body)]
+        q["prepared_body"] = body  # reused when the question is an example on an article
+        answer = q["answer"]
+        if answer:
+            answer_body = prepare(answer["body"], "../figures", page=q["path"])
+            q["prepared_answer"] = answer_body
+            blocks += [
+                (False, "answer-open", "\n\n:::::::: {#worked-answer .callout-tip collapse=\"true\"}\n## Worked answer (click to show)\n\n"),
+                (True, "answer", answer_body),
+                (False, "answer-close", "\n::::::::\n"),
+            ]
+        elif group == "book":
+            blocks.append((False, "no-answer", "\n\n::: {.callout-note appearance=\"minimal\"}\nThis exercise has no worked answer.\n:::\n"))
+        add_page(q["path"], q["title"], topic.get("part"), "question", blocks, {"toc": "false"})
 
     # Articles: one per named box, merged with any distribution card of the same name.
     register_card_articles()
@@ -2210,11 +2187,12 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
             groups.setdefault(q["group"], []).append((q.get("n", 0), f'[{cell(label)}]({href(path, target)} "{cell(title)}"){note}'))
         total = sum(len(v) for v in groups.values())
         out.append(f"**Questions and answers** ({total})\n\n")
-        names = {"book": "Exercises", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept checks"}
+        items = []
         for group in SOURCE_ORDER:
             if group in groups:
-                items = [text for _, text in sorted(groups[group], key=lambda t: t[0])]
-                out.append(f"- {names[group]}: " + " · ".join(items) + "\n")
+                items.extend(text for _, text in sorted(groups[group], key=lambda t: t[0]))
+        if items:
+            out.append("- " + " · ".join(items) + "\n")
     return "".join(out)
 
 
@@ -2286,7 +2264,6 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
         items = [f"[{title}]({href(path, p)})" for p, title in sorted(pages_seen.items(), key=lambda kv: order.get(kv[0], 999))]
         lines.append("- **Also used in** " + " · ".join(items) + "\n")
     if asked:
-        names = {"book": "exercises", "practice": "practice set", "final": "final preparation", "concepts": "concept checks"}
         groups: dict[str, list] = {}
         for qpath, where in asked.items():
             q = by_q.get(qpath)
@@ -2296,12 +2273,11 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
             note = " (answer)" if where == {"answer"} else ""
             title = q["title"].replace('"', "'")
             groups.setdefault(q["group"], []).append((q.get("n", 0), f'[{cell(label)}]({href(path, qpath)} "{cell(title)}"){note}'))
-        parts = []
+        items = []
         for group in SOURCE_ORDER:
             if group in groups:
-                parts.append(f"{names[group]}: " + " · ".join(t for _, t in sorted(groups[group], key=lambda t: t[0])))
-        total = sum(len(v) for v in groups.values())
-        lines.append(f"- **Questions that use it** ({total}) — " + "; ".join(parts) + "\n")
+                items.extend(t for _, t in sorted(groups[group], key=lambda t: t[0]))
+        lines.append(f"- **Questions that use it** ({len(items)}) — " + " · ".join(items) + "\n")
     if box:
         n = len(by_topic.get(box["chapter"].name, []))
         if n:
@@ -2476,12 +2452,11 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
         blocks.append((True, "example", demote_headings(copy_for_article("\n".join(box["lines"]), box["chapter"], path)) + "\n\n"))
     for qid in asked:
         q = qmap[qid]
-        source = {"book": "Exercise", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept check"}[q["group"]]
         blocks.append(
             (
                 False,
                 "example-head",
-                f"### {source}: {q['title']} {{#example-{qid}}}\n\n"
+                f"### {q['title']} {{#example-{qid}}}\n\n"
                 f"::: {{.mainarticle}}\nQuestion page: [{q['title']}]({href(path, q['path'])})\n:::\n\n",
             )
         )
@@ -2584,12 +2559,7 @@ def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict]
     if i + 1 < len(siblings):
         rows.append(("Next", f"[{siblings[i + 1]['title']}]({href(path, siblings[i + 1]['path'])})"))
     if own:
-        counts = {}
-        for q in own:
-            counts[q["group"]] = counts.get(q["group"], 0) + 1
-        names = {"book": "exercise", "practice": "practice", "final": "final prep", "concepts": "concept"}
-        detail = ", ".join(f"{counts[g]} {names[g]}" for g in SOURCE_ORDER if g in counts)
-        rows.append(("Questions", f"[{len(own)}](#questions-on-this-topic) ({detail})"))
+        rows.append(("Questions", f"[{len(own)}](#questions-on-this-topic)"))
     defs = [a for a in own_articles if a["box"]["kind"] == "definition"]
     results = [a for a in own_articles if a["box"]["kind"] in {"theorem", "proposition", "corollary"}]
     if defs:
@@ -2633,10 +2603,10 @@ def write_glossary(questions: list[dict]) -> None:
             entries.append(
                 {
                     "term": re.sub(r"^C\d+\.\s*", "", q["title"]),
-                    "kind": "concept check",
+                    "kind": "question",
                     "page": q["path"],
                     "anchor": "",
-                    "where": f"Concept check C{q['n']}",
+                    "where": q["topic_note"]["title"] if q.get("topic_note") else "Question bank",
                     "snippet": "",
                 }
             )
@@ -2692,7 +2662,7 @@ def write_glossary(questions: list[dict]) -> None:
     lines = [
         f"Every named idea, A to Z: {len(seen)} entries. "
         f"The {n_articles} definitions, theorems, remarks and distributions each have an article of their own; "
-        "sections link into their chapter, concept checks to their question, and redirects to the entry they stand for. "
+        "sections link into their chapter, questions link to their page, and redirects to the entry they stand for. "
         "Hover over a link to preview it.",
         "",
         filter_box("Filter the glossary, e.g. prior, deviance, stationary"),
@@ -2731,7 +2701,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     # Topics: a contents page for the whole book.
     topics_path = WIKI / "notes" / "index.qmd"
     lines = [
-        "Every chapter is an article. Each one ends with a table of the questions on its topic, drawn from the exercises, the practice set, the final preparation and the concept checks.",
+        "Every chapter is an article. Each one ends with a table of the questions on its topic.",
         "",
     ]
     for part, members in parts.items():
@@ -2750,8 +2720,8 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     # Question bank, by topic.
     q_index = WIKI / "questions" / "index.qmd"
     lines = [
-        f"All {len(questions)} questions, filed under the chapter they test. {n_answers} have a worked answer, folded away at the bottom of the question page. "
-        f"To browse set by set instead, see [questions by source](by-source.qmd). Or try a [random question](#random).",
+        f"All {len(questions)} questions, grouped by topic. {n_answers} have a worked answer, folded away at the bottom of the question page. "
+        f"Or try a [random question](#random).",
         "",
         filter_box("Filter questions, e.g. gibbs, poisson, deviance"),
         "",
@@ -2765,20 +2735,6 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             lines += [f"### [{note['title']}]({href(q_index, note['path'])})", "", question_table(qs, q_index), ""]
     body = "\n".join(lines)
     q_index.write_text(f"---\ntitle: \"Question bank\"\ntoc-depth: 3\n---\n\n{body}\n", encoding="utf-8")
-
-    # Question bank, by source.
-    s_index = WIKI / "questions" / "by-source.qmd"
-    lines = [
-        "The same questions, set by set and in their original order. To see them grouped by topic, go to the [question bank](index.qmd).",
-        "",
-        filter_box("Filter questions"),
-        "",
-    ]
-    for group in SOURCE_ORDER:
-        qs = by_source[group]
-        heading = {"book": "Exercises", "practice": "Practice set", "final": "Final preparation", "concepts": "Concept checks"}[group]
-        lines += [f"## {heading} {{#{SOURCE_ANCHOR[group]}}}", "", SOURCE_BLURB[group], "", question_table(qs, s_index, with_topic=True, with_source=group == "book"), ""]
-    s_index.write_text(f"---\ntitle: \"Questions by source\"\n---\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
 
     # Reference landing page and the distribution sheet.
     write_qmd(
@@ -2812,15 +2768,11 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     final_items = "\n".join(f"- [{n['title']}]({href(home, n['path'])})" for n in final_notes)
     boxes.append(
         "::: {.portal-box}\n### Final preparation\n\n" + final_items
-        + f"\n\n[{len(by_source['final'])} questions →]({href(home, s_index)}#final){{.portal-more}}\n:::\n"
-    )
-    source_items = "\n".join(
-        f"- [{ {'book': 'Exercises', 'practice': 'Practice set', 'final': 'Final preparation', 'concepts': 'Concept checks'}[g] }]({href(home, s_index)}#{SOURCE_ANCHOR[g]}) ({len(by_source[g])})"
-        for g in SOURCE_ORDER
+        + f"\n\n[{len(by_source['final'])} questions →]({href(home, WIKI / 'notes' / 'final-preparation.qmd')}){{.portal-more}}\n:::\n"
     )
     boxes.append(
         "::: {.portal-box}\n### Question bank\n\n"
-        f"- [By topic]({href(home, q_index)})\n{source_items}\n- [Random question](#random)\n:::\n"
+        f"- [By topic]({href(home, q_index)})\n- [Random question](#random)\n:::\n"
     )
     boxes.append(
         "::: {.portal-box}\n### Reference\n\n"
@@ -2847,7 +2799,7 @@ A study wiki for STAT3500/7500: **{n_chapters} chapters** and **{len(questions)}
 1. Read a chapter. The contents on the right jump between its sections.
 2. Scroll to **Questions on this topic** at the end and open one.
 3. Attempt it, then open **Worked answer** at the bottom of the question page.
-4. Use **‹ previous** and **next ›** at the top of a question to move through the same set.
+4. Use **‹ previous** and **next ›** at the top of a question to move through the questions on the same topic.
 
 The source is on [GitHub]({REPO_URL}). Every change pushed there rebuilds this site.
 """,
@@ -2920,8 +2872,6 @@ website:
         contents:
           - text: By topic
             href: questions/index.qmd
-          - text: By source
-            href: questions/by-source.qmd
       - section: Reference
         href: reference/index.qmd
         contents:
@@ -3137,7 +3087,7 @@ def main() -> None:
             for lead, ex_id, body in exercises:
                 applied = applied or "Applied" in lead
                 q_title = exercise_title(body)
-                q_path = WIKI / "questions" / "book" / f"{ex_id}.qmd"
+                q_path = WIKI / "questions" / f"{ex_id}.qmd"
                 record = {
                     "group": "book",
                     "id": ex_id,
@@ -3237,7 +3187,7 @@ def main() -> None:
                 "id": ex_id,
                 "title": q_title,
                 "body": without_title(body),
-                "path": WIKI / "questions" / "final" / f"{ex_id}.qmd",
+                "path": WIKI / "questions" / f"{ex_id}.qmd",
                 "lead": lead,
                 "part": "Final preparation",
                 "chapter": title,
@@ -3309,12 +3259,12 @@ def main() -> None:
                 "id": f"c-{n:02d}",
                 "title": title,
                 "body": converted[f"cq{n:02d}"],
-                "path": WIKI / "questions" / "concepts" / f"c-{n:02d}.qmd",
+                "path": WIKI / "questions" / f"c-{n:02d}.qmd",
                 "notes_path": None,
                 "answer_id": f"c-{n:02d}",
                 "description": "Concept check · " + item["topic"],
                 "categories": ["Concept checks", item["topic"] or "Concept checks"],
-                "question_path_for_answer": WIKI / "questions" / "concepts" / f"c-{n:02d}.qmd",
+                "question_path_for_answer": WIKI / "questions" / f"c-{n:02d}.qmd",
             }
         )
     for item in concept_as:
@@ -3326,7 +3276,7 @@ def main() -> None:
                 "title": f"Answer C{n}. {item['title']}",
                 "body": converted[f"ca{n:02d}"],
                 "path": WIKI / "answers" / "concepts" / f"c-{n:02d}.qmd",
-                "question_path": WIKI / "questions" / "concepts" / f"c-{n:02d}.qmd",
+                "question_path": WIKI / "questions" / f"c-{n:02d}.qmd",
                 "notes_path": None,
                 "description": "Concept-check answer · " + item["topic"],
                 "categories": ["Concept-check answers", item["topic"] or "Concept checks"],
@@ -3341,7 +3291,7 @@ def main() -> None:
                 "id": f"q-{n:02d}",
                 "title": f"Q{n}. {label}",
                 "body": converted[f"pq{n:02d}"],
-                "path": WIKI / "questions" / "practice" / f"q-{n:02d}.qmd",
+                "path": WIKI / "questions" / f"q-{n:02d}.qmd",
                 "notes_path": None,
                 "answer_id": f"a-{n:02d}",
                 "description": "Practice question",
@@ -3357,7 +3307,7 @@ def main() -> None:
                 "title": f"Answer {n}. {item['title']}",
                 "body": converted[f"pa{n:02d}"],
                 "path": WIKI / "answers" / "practice" / f"a-{n:02d}.qmd",
-                "question_path": WIKI / "questions" / "practice" / f"q-{n:02d}.qmd",
+                "question_path": WIKI / "questions" / f"q-{n:02d}.qmd",
                 "notes_path": None,
                 "description": "Practice answer",
                 "categories": ["Practice answers"],

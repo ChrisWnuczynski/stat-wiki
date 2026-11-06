@@ -1,6 +1,6 @@
 # Solutions to the applied exercises {#solutions-to-the-applied-class-exercises .unnumbered}
 
-The applied exercises are ordered by the chapter that supplies their methods. Where a worked solution was already available, the algebra and numerical work have been checked and expanded; the remaining solutions are derived here. A Gamma parameterisation is always stated explicitly before it is used.
+The worked solutions sit with the topic that supplies their methods. Where a worked solution was already available, the algebra and numerical work have been checked and expanded; the remaining solutions are derived here. A Gamma parameterisation is always stated explicitly before it is used.
 
 ## Chapter 1: Bayesian foundations {#chapter-1-bayesian-foundations .unnumbered}
 

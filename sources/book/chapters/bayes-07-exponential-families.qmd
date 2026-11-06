@@ -470,7 +470,7 @@ $$
 ::: {#exr-three-different-flat-poisson-priors .exercise}
 ## Three different "flat" Poisson priors
 
-Under the exponent convention used in the chapter, derive the posterior Gamma shape produced by each of $p(\theta)\propto1$, $p(\theta)\propto\theta^{-1/2}$, and $p(\theta)\propto1/\theta$. State which is Jeffreys' prior and which is scale-invariant.
+A Poisson prior written $p(\theta)\propto\theta^{\alpha}e^{-\beta\theta}$ is $\GammaDist(\alpha+1,\beta)$ in the shape--rate convention: the power of $\theta$ is one less than the shape. For an iid sample with sum $S$ and size $n$, the likelihood contributes $\theta^{S}e^{-n\theta}$. Derive the posterior Gamma shape produced by each of $p(\theta)\propto1$, $p(\theta)\propto\theta^{-1/2}$, and $p(\theta)\propto1/\theta$. State which is Jeffreys' prior and which is scale-invariant.
 
 :::
 
