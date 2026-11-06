@@ -1,4 +1,4 @@
-"""Build the STAT3500 wiki from the course book, final booklet, and practice set.
+"""Build the stat wiki from the course book, final booklet, and practice set.
 
 Run from this folder: python build_wiki.py
 Then: quarto preview
@@ -23,7 +23,7 @@ SOURCES = WIKI / "sources"
 BOOK = SOURCES / "book"  # the lecture book (index, chapters, figures)
 PREP = SOURCES / "prep"  # the final-exam booklet (index, chapters, figures)
 PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
-REPO_URL = "https://github.com/ChrisWnuczynski/stat3500-wiki"
+REPO_URL = "https://github.com/ChrisWnuczynski/stat-wiki"
 
 PARTS = [
     (
@@ -2782,7 +2782,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     n_chapters = len(chapters)
     home.write_text(
         f"""---
-title: "STAT3500 wiki"
+title: "stat wiki"
 toc: false
 ---
 
@@ -2836,7 +2836,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - katex/
 
 website:
-  title: "STAT3500 wiki"
+  title: "stat wiki"
   description: "Study wiki for STAT3500/7500"
   search:
     location: navbar
@@ -2880,7 +2880,7 @@ website:
           - reference/formulas.qmd
   page-navigation: true
   page-footer:
-    center: "STAT3500 study wiki. [Source on GitHub]({REPO_URL})"
+    center: "stat wiki. [Source on GitHub]({REPO_URL})"
 
 format:
   html:

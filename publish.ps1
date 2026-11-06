@@ -1,6 +1,6 @@
 # Publish local edits to the wiki: commit everything here and push it to GitHub.
-# GitHub then rebuilds https://chriswnuczynski.github.io/stat3500-wiki/
-# (about 4 minutes; progress at https://github.com/ChrisWnuczynski/stat3500-wiki/actions).
+# GitHub then rebuilds https://chriswnuczynski.github.io/stat-wiki/
+# (about 4 minutes; progress at https://github.com/ChrisWnuczynski/stat-wiki/actions).
 #
 #   powershell -ExecutionPolicy Bypass -File publish.ps1 "What changed"
 #
@@ -28,4 +28,4 @@ $ahead = git rev-list --count "@{u}..HEAD"
 if ($ahead -eq "0") { "Nothing new to publish."; exit 0 }
 git push -q
 if ($LASTEXITCODE -ne 0) { throw "Push failed." }
-"Pushed. GitHub is rebuilding the site: https://github.com/ChrisWnuczynski/stat3500-wiki/actions"
+"Pushed. GitHub is rebuilding the site: https://github.com/ChrisWnuczynski/stat-wiki/actions"
