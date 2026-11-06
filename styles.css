@@ -180,6 +180,11 @@ code, pre, kbd, samp, .sourceCode {
   font-size: 0.85rem;
   line-height: 1.5;
   white-space: nowrap;
+  /* A long title is cut short with an ellipsis rather than widening the page. */
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
 }
 
 .hatnote a.qnav:hover {
@@ -585,4 +590,25 @@ nav#TOC h2 {
   .qtable th:last-child {
     width: 3rem;
   }
+}
+
+/* A wide data table scrolls inside its own box on a narrow screen,
+   so the page itself never scrolls sideways. */
+@media (max-width: 767px) {
+  main table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  main .infobox table,
+  main .qtable table {
+    display: table;
+  }
+}
+
+/* KaTeX keeps a hidden MathML copy of each formula for screen readers. It is
+   absolutely positioned, so without a positioned ancestor it can stretch the
+   page sideways on a phone. */
+.katex {
+  position: relative;
 }

@@ -18,6 +18,7 @@ On every push to `main`, GitHub runs both steps and publishes the result. It tak
 | Article properties, examples and pictures | `article_extras.py` |
 | Page layout, links and infoboxes | `build_wiki.py` |
 | Colours, fonts and dark mode | `styles.css` |
+| Figures for the inference chapters | `sources/stat2004/figures/make_figures.py`, then commit the PDFs it writes |
 
 The build reads only the copies in `sources/`:
 

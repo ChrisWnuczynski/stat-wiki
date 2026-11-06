@@ -20,12 +20,12 @@ For a variable of interest $z$, a kernel is the part of a density or mass functi
 |---|---|---|
 | $\Bern(p)$ | $p^y(1-p)^{1-y}$, $y\in\{0,1\}$ | $\E(Y)=p$, $\Var(Y)=p(1-p)$ |
 | $\Bin(n,p)$ | $\binom{n}{x}p^x(1-p)^{n-x}$ | $\E(X)=np$, $\Var(X)=np(1-p)$ |
-| $\BetaDist(a,b)$ | $\dfrac{t^{a-1}(1-t)^{b-1}}{B(a,b)}$ | mean $a/(a+b)$; mode $(a-1)/(a+b-2)$ |
+| $\BetaDist(a,b)$ | $\dfrac{t^{a-1}(1-t)^{b-1}}{B(a,b)}$ | mean $a/(a+b)$; mode $(a-1)/(a+b-2)$ for $a,b>1$ |
 | $\Normal(\mu,\sigma^2)$ | $\dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/(2\sigma^2)}$ | mean $\mu$; variance $\sigma^2$ |
-| $\GammaDist(a,b)$ shape--rate | $\dfrac{b^a}{\Gamma(a)}t^{a-1}e^{-bt}$ | mean $a/b$; mode $(a-1)/b$ |
+| $\GammaDist(a,b)$ shape--rate | $\dfrac{b^a}{\Gamma(a)}t^{a-1}e^{-bt}$ | mean $a/b$; mode $(a-1)/b$ for $a\ge 1$ |
 | $\InvGamma(a,b)$ | $\dfrac{b^a}{\Gamma(a)}t^{-a-1}e^{-b/t}$ | mean $b/(a-1)$; mode $b/(a+1)$ |
 | $\Poisson(\theta)$ | $e^{-\theta}\theta^x/x!$ | mean and variance $\theta$ |
-| $\Dir(\vect\alpha)$ | $B(\vect\alpha)^{-1}\prod_k p_k^{\alpha_k-1}$ | mean $\alpha_k/\alpha_0$; mode $(\alpha_k-1)/(\alpha_0-K)$ |
+| $\Dir(\vect\alpha)$ | $B(\vect\alpha)^{-1}\prod_k p_k^{\alpha_k-1}$ | mean $\alpha_k/\alpha_0$; mode $(\alpha_k-1)/(\alpha_0-K)$ when every $\alpha_k>1$ |
 | $\Mult(n,\pvec)$ | $\dfrac{n!}{\prod_k x_k!}\prod_k p_k^{x_k}$ | $\E(X_k)=np_k$ |
 
 ## Conjugate update map

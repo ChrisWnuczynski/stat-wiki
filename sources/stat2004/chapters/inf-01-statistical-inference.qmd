@@ -1,8 +1,39 @@
 # Statistical inference
 
-A probability model says what a sample would look like if the parameters were known. Inference runs the other way: the sample is in hand, and the parameter is not. The tools are an estimator, a confidence interval, and a test. Each one is a function of the data, and each one has a long-run property that can be calculated from the model.
+A probability model says what a sample would look like if the parameters were known. Inference runs the other way. The sample is in hand and the parameter is not. The tools are an estimator, a confidence interval and a test. Each is a function of the data, and each has a long-run property that can be calculated from the model.
+
+Statistics has three broad branches. Data analysis summarises the numbers so that the main structure is visible, and is the subject of [Descriptive statistics](da-02-descriptive-statistics.qmd). Classical statistics, the subject of this section, treats the data as the outcome of a random experiment whose distribution contains unknown parameters, and judges procedures by how they behave over repeated samples. Bayesian statistics treats the parameters themselves as uncertain, puts a distribution on them, and updates it with the data by Bayes' rule; it starts at [Bayesian foundations](bayes-01-foundations.qmd).
 
 The probability of the sample is already fixed in the Probability section. [Random experiments and probability](prob-01-experiments.qmd) builds the sample space. [Random variables and distributions](prob-02-random-variables.qmd) names the families used below, and the formulas sit on the [common distributions](../reference/distributions.qmd) page. [Joint distributions](prob-04-joint-distributions.qmd) is where independence and covariance are defined. The [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem) is what makes a normal approximation honest for a large sample.
+
+## A running example: milk cartons
+
+A machine fills cartons that must legally hold at least 1 litre. Filling always varies, so the machine is set to a target of $1.10$ litres. Were it set to exactly 1 litre, about half the cartons would be under-filled. To check whether the machine is still on target, 10 cartons are chosen at random and measured, in litres:
+
+| Cartons 1–5 | 1.035 | 1.019 | 1.068 | 1.084 | 1.077 |
+|---|---|---|---|---|---|
+| Cartons 6–10 | 0.998 | 1.041 | 1.037 | 1.051 | 1.102 |
+
+The sample mean is $\overline x=1.0512$, the sample median is $1.0460$, and the bias-corrected sample standard deviation is $s=0.0317$. The range is $1.102-0.998=0.104$. Sorted, the ten values are 0.998, 1.019, 1.035, 1.037, 1.041, 1.051, 1.068, 1.077, 1.084 and 1.102, so the lower quartile, the median of the five values below the median, is $1.035$, and the upper quartile is $1.077$.
+
+Do these numbers show that the machine is off target? Every one of them would change if another 10 cartons were measured. The question cannot be answered from the numbers alone. It needs a model for how the numbers came about.
+
+## From reality to a model and back
+
+Inference goes through four stages.
+
+1. Reality and data. There is a question about the world, here whether the machine fills to $1.10$ litres on average, and a set of measurements.
+2. A model for the data. The measurements are treated as outcomes of random variables whose joint distribution encodes what is known about how the data were produced.
+3. Analysis within the model. Calculations give conclusions about the model's parameters.
+4. Conclusions about reality. Those conclusions are translated back into the language of the original question.
+
+For the milk cartons, write $X_1,\ldots,X_{10}$ for the volumes of 10 cartons not yet measured. The cartons are chosen at random from a long production run, so it is reasonable to assume that the $X_i$ are independent and have the same distribution. A histogram of a larger batch of cartons looks bell-shaped, which suggests a normal sampling distribution. The model is therefore
+
+$$
+X_1,\ldots,X_{10}\ \text{independent, each}\ \Normal(\mu,\sigma^2),\qquad \mu,\sigma^2\ \text{unknown}.
+$$
+
+It would be wrong to set $\mu=1.0512$. A second batch of 10 cartons would give a different sample mean, and the model must describe both batches. The parameters stay unknown, and the data are used to learn about them. Two questions now make sense: estimate $\mu$ and $\sigma^2$, and decide whether $\mu=1.10$.
 
 ## From a sample to a parameter
 
@@ -13,9 +44,11 @@ $X_1,\ldots,X_n$ are a random sample from a distribution $F$ when they are indep
 
 :::
 
-The unknown part of $F$ is the parameter, written $\theta$. It may be a number, such as a mean or a binomial probability, or a vector, such as $(\mu,\sigma^2)$. The set of values $\theta$ is allowed to take is the parameter space. A model is the pair: the family of distributions, and which parts of it are known.
+The unknown part of $F$ is the parameter, written $\theta$. It may be a number, such as a mean or a binomial probability, or a vector, such as $\theta=(\mu,\sigma^2)$. The set $\Theta$ of values $\theta$ is allowed to take is the parameter space. A statistical model is a family of distributions $\{\Pr_\theta:\theta\in\Theta\}$ for the data, one for each parameter value.
 
-Data are the observed numbers $x_1,\ldots,x_n$. The corresponding capital letters $X_1,\ldots,X_n$ are the random variables before the sample is drawn. Keeping the two apart matters. An average of the numbers $x_i$ is a fixed summary of this sample. The same formula with $X_i$ in place of $x_i$ is a random variable, and it has a sampling distribution.
+Every probability about the sample depends on $\theta$. To make that visible, write $\Pr_\theta$ and $\E_\theta$. For instance, $\Pr_\theta(X_1\le 3,\ X_2+X_3>5)$ is a number for each $\theta$, and a different number for a different $\theta$.
+
+Data are the observed numbers $x_1,\ldots,x_n$. The corresponding capital letters $X_1,\ldots,X_n$ are the random variables before the sample is drawn. Think of them as the measurements that would be made if the experiment were run tomorrow. Keeping the two apart matters. An average of the numbers $x_i$ is a fixed summary of this sample. The same formula with $X_i$ in place of $x_i$ is a random variable, and it has a sampling distribution.
 
 ::: {#def-statistic .definition}
 ## Statistic
@@ -32,19 +65,140 @@ $$
 s^2=\frac1{n-1}\sum_{i=1}^n (X_i-\overline X)^2.
 $$
 
-If the $X_i$ have mean $\mu$ and variance $\sigma^2$, then $\E\overline X=\mu$ and $\Var(\overline X)=\sigma^2/n$, whether or not the distribution is normal. The factor $n-1$ in $s^2$ is what makes $\E s^2=\sigma^2$. Dividing by $n$ instead produces a slightly smaller statistic, with expectation $((n-1)/n)\sigma^2$.
+$\overline X-\mu$ is not a statistic, because it contains $\mu$. $(X_1+X_4)/2$ is a statistic, however poor.
 
-A normal sample has a stronger summary. If $X_i$ are independent and $\Normal(\mu,\sigma^2)$, then $\overline X$ is exactly $\Normal(\mu,\sigma^2/n)$, the variable $(n-1)s^2/\sigma^2$ is chi-squared with $n-1$ degrees of freedom, and $\overline X$ is independent of $s^2$. Those three facts are the engine of the $t$ interval and the $t$ test. The chi-squared law here is the gamma law with shape $(n-1)/2$ and rate $1/2$, in the parameterisation on the distribution sheet.
+::: {#prp-moments-of-the-sample-mean-and-variance .proposition}
+## Moments of the sample mean and variance
 
-For a large sample that is not normal, the central limit theorem replaces the exact normal law of $\overline X$ by an approximation. That is enough for the approximate intervals and tests for a proportion.
+If $X_1,\ldots,X_n$ are a random sample from a distribution with mean $\mu$ and variance $\sigma^2$, then
+
+$$
+\E\overline X=\mu,\qquad \Var(\overline X)=\frac{\sigma^2}{n},\qquad \E s^2=\sigma^2.
+$$
+
+No normality is needed.
+
+:::
+
+The first two follow from linearity and independence: $\E\overline X=\frac1n\sum\E X_i=\mu$ and $\Var(\overline X)=\frac1{n^2}\sum\Var X_i=\sigma^2/n$. For the third, expand around $\mu$:
+
+$$
+\sum_{i=1}^n(X_i-\overline X)^2=\sum_{i=1}^n(X_i-\mu)^2-n(\overline X-\mu)^2.
+$$
+
+Taking expectations, $\E\sum(X_i-\overline X)^2=n\sigma^2-n\cdot\sigma^2/n=(n-1)\sigma^2$. Dividing by $n-1$ gives $\E s^2=\sigma^2$. Dividing by $n$ instead gives a statistic with expectation $((n-1)/n)\sigma^2$, slightly too small on average. The square root $s$ is the sample standard deviation. The standard error of $\overline X$ is its estimated standard deviation, $s/\sqrt n$. For the milk cartons that is $0.0317/\sqrt{10}=0.0100$.
+
+## Three distributions built from normal variables
+
+Normal samples lead to three families that are used for every interval and test in this section.
+
+::: {#def-chi-squared-distribution .definition}
+## Chi-squared distribution
+
+If $Z_1,\ldots,Z_m$ are independent standard normal variables, then $V=Z_1^2+\cdots+Z_m^2$ has the chi-squared distribution with $m$ degrees of freedom, written $\chi^2_m$. It is the gamma law with shape $m/2$ and rate $1/2$, so $\E V=m$ and $\Var V=2m$.
+
+:::
+
+The gamma identification follows from the one-variable case. For $Z$ standard normal and $v>0$, $\Pr(Z^2\le v)=2\Phi(\sqrt v)-1$, and differentiating gives the density $v^{-1/2}e^{-v/2}/\sqrt{2\pi}$, the $\GammaDist(1/2,1/2)$ density. Independent gamma variables with a common rate add their shapes, which can be checked with [moment generating functions](prob-02-random-variables.qmd#def-moment-generating-function).
+
+::: {#def-student-t-distribution .definition}
+## Student t distribution
+
+If $Z$ is standard normal, $V$ is $\chi^2_m$, and $Z$ and $V$ are independent, then $T=Z/\sqrt{V/m}$ has the Student $t$ distribution with $m$ degrees of freedom, written $t_m$.
+
+:::
+
+The $t_m$ density is symmetric about $0$ and has heavier tails than the normal. As $m\to\infty$, $V/m\to1$ by the [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers), so $t_m$ approaches the standard normal. The name comes from W. S. Gosset, who published it under the pseudonym "Student".
+
+::: {#def-f-distribution .definition}
+## F distribution
+
+If $U$ is $\chi^2_{m_1}$, $V$ is $\chi^2_{m_2}$, and $U$ and $V$ are independent, then $F=(U/m_1)/(V/m_2)$ has the $F$ distribution with $(m_1,m_2)$ degrees of freedom, written $F_{m_1,m_2}$.
+
+:::
+
+Two consequences follow directly from the definition. $1/F$ has the $F_{m_2,m_1}$ distribution, because it swaps the two ratios. And the square of a $t_m$ variable is $F_{1,m}$, because $Z^2$ is $\chi^2_1$.
+
+The quantile of order $q$ of each law is written with the degrees of freedom first: $z_q$ for the standard normal, $t_{m;q}$, $\chi^2_{m;q}$ and $F_{m_1,m_2;q}$. So $\Pr(T\le t_{m;q})=q$ for $T\sim t_m$. The reciprocal rule for $F$ becomes a rule for quantiles,
+
+$$
+F_{m_1,m_2;\,q}=\frac1{F_{m_2,m_1;\,1-q}},
+$$
+
+which is how a lower $F$ quantile is found from a table of upper ones.
+
+## The sampling distribution of a normal sample
+
+::: {#thm-normal-sample-theorem .theorem}
+## Normal sample theorem
+
+If $X_1,\ldots,X_n$ are a random sample from $\Normal(\mu,\sigma^2)$, then
+
+1. $\overline X$ is $\Normal(\mu,\sigma^2/n)$,
+2. $(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, and
+3. $\overline X$ and $s^2$ are independent.
+
+:::
+
+Part 1 holds because a linear combination of independent normal variables is normal; see [affine images of normal vectors](prob-05-transforms-and-limits.qmd#thm-affine-normal). Parts 2 and 3 come from a rotation. Let $Z_i=(X_i-\mu)/\sigma$, so that $\vect Z=(Z_1,\ldots,Z_n)^{\mathsf T}$ is a vector of independent standard normals. Choose an orthogonal $n\times n$ matrix $A$ whose first row is $(1/\sqrt n,\ldots,1/\sqrt n)$, and set $\vect W=A\vect Z$. Then $\vect W$ is normal with mean $\vect 0$ and covariance matrix $AA^{\mathsf T}=I$, so $W_1,\ldots,W_n$ are again independent standard normals. The first coordinate is $W_1=\sqrt n\,\overline Z$. Because $A$ preserves length,
+
+$$
+\sum_{i=2}^n W_i^2=\sum_{i=1}^n Z_i^2-W_1^2=\sum_{i=1}^n Z_i^2-n\overline Z^2=\sum_{i=1}^n (Z_i-\overline Z)^2=\frac{(n-1)s^2}{\sigma^2}.
+$$
+
+The right side is a sum of $n-1$ independent squared standard normals, so it is $\chi^2_{n-1}$. It is a function of $W_2,\ldots,W_n$ only, while $\overline X=\mu+\sigma W_1/\sqrt n$ is a function of $W_1$ only. Independence of the coordinates gives independence of $\overline X$ and $s^2$.
+
+The one degree of freedom lost is the coordinate $W_1$ spent on estimating the mean. That accounting reappears in every chi-squared statistic later in the section: each estimated mean parameter removes one squared normal from the sum.
+
+The theorem is exact only for normal samples. For a large sample that is not normal, the central limit theorem gives $\overline X$ an approximately normal law, and $s^2$ is close to $\sigma^2$ by the law of large numbers. That is enough for the approximate intervals and tests for a proportion and for a mean.
 
 ## What the rest of this section does
 
-Estimation turns a statistic into a guess at $\theta$, and compares guesses by bias and mean squared error. A confidence interval is a random set that covers $\theta$ with a chosen long-run probability. A hypothesis test decides whether the data are surprising under a stated value of $\theta$. Chi-squared statistics compare observed counts with expected counts. Regression and analysis of variance are the normal linear model with one continuous covariate, and with a categorical factor.
+[Estimation](inf-02-estimation.qmd) turns a statistic into a guess at $\theta$, and compares guesses by bias and mean squared error. A [confidence interval](inf-03-confidence-intervals.qmd) is a random set that covers $\theta$ with a chosen long-run probability. A [hypothesis test](inf-04-hypothesis-tests.qmd) decides whether the data are surprising under a stated value of $\theta$. [Chi-squared tests](inf-05-chi-square.qmd) compare observed counts with expected counts. [Linear regression](inf-06-regression.qmd) and the [analysis of variance](inf-07-anova.qmd) are the normal linear model with a continuous covariate, and with a categorical factor.
 
-None of these procedures puts a probability on $\theta$ after the data are seen. A probability for the parameter, given the data, is a different calculation. It starts from a prior and is carried out in the Bayesian chapters, beginning with [Bayesian foundations](bayes-01-foundations.qmd).
+For the milk cartons, the end of that road is a one-sample $t$ test. With $\overline x=1.0512$, $s=0.0317$ and $n=10$, the statistic $(\overline x-1.10)/(s/\sqrt{10})=-4.87$ is far in the tail of the $t_9$ distribution, with two-sided $p$-value $0.0009$. The machine is filling below its target, although every one of the ten cartons is still above 1 litre.
+
+None of these procedures puts a probability on $\theta$ after the data are seen. A probability for the parameter, given the data, is a different calculation. It starts from a prior and is carried out in the Bayesian chapters.
 
 ::: {.callout-note}
 ## Key idea
-Write the sample as independent copies from a distribution that still contains an unknown parameter. Every later procedure is a statistic, and its justification is a property of the sampling distribution of that statistic.
+Write the sample as independent copies from a distribution that still contains an unknown parameter. Every later procedure is a statistic, and its justification is a property of the sampling distribution of that statistic. For a normal sample, that property comes from three facts: $\overline X$ is normal, $(n-1)s^2/\sigma^2$ is chi-squared, and the two are independent.
+:::
+
+## Exercises
+
+::: {#ex-inf-milk-summaries .exercise}
+## Summaries of ten cartons
+
+For the ten milk-carton volumes in litres, 1.035, 1.019, 1.068, 1.084, 1.077, 0.998, 1.041, 1.037, 1.051 and 1.102, compute the sample mean, the median, the quartiles, the bias-corrected sample standard deviation and the standard error of the mean.
+
+[Solution](#sol-inf-milk-summaries)
+
+:::
+
+::: {#ex-inf-which-are-statistics .exercise}
+## Which of these are statistics?
+
+Let $X_1,\ldots,X_n$ be a random sample from $\Normal(\mu,\sigma^2)$ with both parameters unknown. Which of the following are statistics: $\overline X$; $\overline X-\mu$; $\max_i X_i-\min_i X_i$; $(\overline X-\mu)/(s/\sqrt n)$; $\sum_i X_i^2$? For each one that is not a statistic, say whether its distribution still depends on unknown parameters.
+
+[Solution](#sol-inf-which-are-statistics)
+
+:::
+
+::: {#ex-inf-expected-sample-variance .exercise}
+## The expectation of the sample variance
+
+Let $X_1,\ldots,X_n$ be a random sample with mean $\mu$ and variance $\sigma^2$. Show that $\sum_i (X_i-\overline X)^2=\sum_i (X_i-\mu)^2-n(\overline X-\mu)^2$, and deduce that $\E s^2=\sigma^2$.
+
+[Solution](#sol-inf-expected-sample-variance)
+
+:::
+
+::: {#ex-inf-t-squared-is-f .exercise}
+## A squared t variable
+
+Using only the definitions of the $t$ and $F$ distributions, show that if $T\sim t_m$ then $T^2\sim F_{1,m}$. Hence explain why a two-sided $t$ test at level $\alpha$ and an $F$ test with one numerator degree of freedom reject on the same samples.
+
+[Solution](#sol-inf-t-squared-is-f)
+
 :::
