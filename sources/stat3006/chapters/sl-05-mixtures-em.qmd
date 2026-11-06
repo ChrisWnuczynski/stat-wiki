@@ -1,0 +1,558 @@
+# Mixtures and the EM algorithm
+
+A point near a cluster boundary need not belong entirely to one group. A mixture draws an unobserved component label and then draws the measurements from that component. The measurements are kept and the label is lost. Summing over the label produces the observed density, and estimating the missing memberships produces the EM algorithm.
+
+Each component density on this page is a [multivariate normal distribution](prob-05-transforms-and-limits.qmd#def-multivariate-normal). The fitting principle is [maximum likelihood](inf-02-estimation.qmd#def-maximum-likelihood): the same principle that, for a single normal sample, returns the sample mean and the covariance divided by the sample size. An increase in the observed likelihood at every iteration describes that iteration. Calling the limit a global maximum needs a further argument. For an unconstrained Gaussian mixture the likelihood can diverge, because a component covariance can collapse onto one or more sample points.
+
+Choosing how many components to keep is a different question, taken up on [Model selection](sl-06-model-selection.qmd).
+
+## Finite mixture models
+
+::: {#def-sl-05-finite-mixture .definition}
+## Finite mixture model
+
+A finite mixture model gives the data a density that is a finite weighted sum of component densities,
+
+$$
+f(x)=\sum_{h=1}^{H}\pi_h f_h(x),
+\qquad
+0\le\pi_h\le 1,
+\qquad
+\sum_{h=1}^{H}\pi_h=1.
+$$
+
+Here $H$ is the number of components, $\pi_h$ is the probability that an observation is drawn from component $h$, and $f_h$ is the density of that component. Equivalently, each observation comes from one of a finite collection of parametric distributions.
+
+:::
+
+The weights are probabilities of a latent component, so they lie in $[0,1]$ and sum to one. The component densities used below are multivariate normal, which keeps the complete-data step inside ordinary normal maximum likelihood. Other families are possible. Mixtures of $t$ distributions, of beta distributions, and of generalised linear models are surveyed by McLachlan and Peel (2000).
+
+A binary coordinate sits outside the Gaussian density used here. The model on this page is for continuous measurements. One joint extension, the location model, fits a separate mixture at each value of a binary variable and multiplies by the probability of that value. Comparing the continuous distributions in the two binary groups asks whether the binary split corresponds to different clouds. The split multiplies the parameter count, and it shares no parameter across the two values. Several binary variables multiply the number of cells.
+
+Two interpretations are worth keeping separate. Components may represent populations one hopes to identify, or they may be convenient pieces of a flexible density. A good fit supports the density approximation. Whether those components match a label such as species is checked afterwards, against the labels. The Gaussian mixture on this page is fitted without those labels.
+
+For fixed $H$ and a specified component family, a finite mixture is a parametric model. Allowing $H$ to increase with the sample size gives an increasingly flexible family. The distinction depends on the sequence of models. Here $H$ is held fixed while the fit is derived.
+
+## The likelihood of a normal mixture
+
+Fix $H$. The observations are continuous and $p$-dimensional, and each component is multivariate normal. Let $\{\mathbf{x}_1,\ldots,\mathbf{x}_n\}$ be an iid sample from the mixture, stored as an $n\times p$ matrix $X_{\mathrm{all}}$. Collect the component parameters and the weights in one vector $\Psi$. The constraint $\sum_h\pi_h=1$ leaves only $\pi_1,\ldots,\pi_{H-1}$ free. For normal components,
+
+$$
+\Psi=(\boldsymbol\mu_1^\top,\ldots,\boldsymbol\mu_H^\top,\boldsymbol\xi^\top,\pi_1,\ldots,\pi_{H-1})^\top,
+$$
+
+where $\boldsymbol\xi$ holds the distinct entries of $\Sigma_1,\ldots,\Sigma_H$. A symmetric $p\times p$ covariance has $p(p+1)/2$ distinct entries, so the number of free parameters is
+
+$$
+d=Hp+H\frac{p(p+1)}{2}+(H-1).
+$$
+
+For $p=2$ and $H=3$ the count is $6+9+2=17$: three means of length $2$, three covariance matrices with three distinct entries each, and two free weights.
+
+The [multivariate normal](prob-05-transforms-and-limits.qmd#def-multivariate-normal) density of component $h$ is
+
+$$
+f_h(\mathbf{x})
+=(2\pi)^{-p/2}\,|\Sigma_h|^{-1/2}
+\exp\Bigl(-\tfrac12(\mathbf{x}-\boldsymbol\mu_h)^\top\Sigma_h^{-1}(\mathbf{x}-\boldsymbol\mu_h)\Bigr).
+$$
+
+The observed likelihood multiplies the mixture densities. The component label has been summed out inside each factor, so every factor is a sum,
+
+$$
+L(\Psi;X_{\mathrm{all}})=\prod_{i=1}^{n}\sum_{h=1}^{H}\pi_h f_h(\mathbf{x}_i),
+$$
+
+and the log-likelihood is the sum of the logarithms of those sums,
+
+\begin{align*}
+\ell(\Psi;X_{\mathrm{all}})
+&=\sum_{i=1}^{n}\ln\Biggl(\sum_{h=1}^{H}\pi_h f_h(\mathbf{x}_i)\Biggr)\\
+&=\sum_{i=1}^{n}\ln\Biggl(
+\sum_{h=1}^{H}
+\frac{\pi_h}{(2\pi)^{p/2}\,|\Sigma_h|^{1/2}}
+\exp\Bigl(-\tfrac12(\mathbf{x}_i-\boldsymbol\mu_h)^\top\Sigma_h^{-1}(\mathbf{x}_i-\boldsymbol\mu_h)\Bigr)
+\Biggr).
+\end{align*}
+
+The logarithm of a sum does not become a sum of logarithms, so the observed log-likelihood does not separate across components. Newton–Raphson on $\ell$ is a different algorithm: every derivative has to pass through the sum. EM replaces $\ell$ by an expected complete-data log-likelihood, for which the normal formulas apply with weights.
+
+## What the stationary equations suggest
+
+At an interior maximum the derivative of the observed log-likelihood is zero. For mixtures, the solutions of interest are off the boundary of the parameter space. Write $\pi_H=1-\sum_{j=1}^{H-1}\pi_j$ and differentiate in a free weight $\pi_j$. The derivative of the sum inside the $i$th logarithm contributes $f_j(\mathbf{x}_i)-f_H(\mathbf{x}_i)$, so
+
+$$
+\frac{\partial\ell}{\partial\pi_j}
+=\sum_{i=1}^{n}
+\frac{f_j(\mathbf{x}_i)-f_H(\mathbf{x}_i)}{\sum_{m=1}^{H}\pi_m f_m(\mathbf{x}_i)}.
+$$
+
+::: {#def-sl-05-responsibility .definition}
+## Posterior membership
+
+The posterior probability that observation $\mathbf{x}$ came from component $h$, evaluated at $\Psi$, is
+
+$$
+\tau_h(\mathbf{x};\Psi)
+=\frac{\pi_h f_h(\mathbf{x};\theta_h)}{\sum_{m=1}^{H}\pi_m f_m(\mathbf{x};\theta_m)},
+$$
+
+where $\theta_h$ holds the mean and covariance of component $h$. These probabilities are the responsibilities. They are nonnegative and sum to one over $h$.
+
+:::
+
+Because $\tau_h(\mathbf{x}_i;\Psi)/\pi_h=f_h(\mathbf{x}_i)/\sum_m\pi_m f_m(\mathbf{x}_i)$, the score in $\pi_j$ is $\sum_i\bigl(\tau_j(\mathbf{x}_i)/\pi_j-\tau_H(\mathbf{x}_i)/\pi_H\bigr)$. Setting it to zero forces $\sum_i\tau_h(\mathbf{x}_i)=c\,\pi_h$ for every $h$, with the same $c$. Summing over $h$ gives $c=n$, and therefore a maximum likelihood estimate $\widehat\Psi$ satisfies the fixed-point equation
+
+$$
+\widehat\pi_h=\frac1n\sum_{i=1}^{n}\tau_h(\mathbf{x}_i;\widehat\Psi),
+\qquad h=1,\ldots,H.
+$$
+
+The display is a fixed point. The weights $\widehat\pi_h$ appear on the right-hand side through $\tau_h$, which depends on the whole of $\widehat\Psi$. The equation does identify the missing data: the weights it asks for are the conditional probabilities of the component indicators.
+
+## The complete-data likelihood
+
+Give observation $i$ a latent vector $\mathbf{z}_i$ of length $H$, containing a single $1$ and otherwise zeros. The indicator $z_{ih}$ equals $1$ when component $h$ generated that observation. For continuous $\mathbf{X}_i$ the following expression is a joint density in $\mathbf{x}_i$ and a probability mass in $\mathbf{z}_i$. The product selects the active component:
+
+$$
+f(\mathbf{x}_i,\mathbf{z}_i;\Psi)
+=\Pr(\mathbf{Z}_i=\mathbf{z}_i;\Psi)\,f(\mathbf{x}_i\given\mathbf{Z}_i=\mathbf{z}_i;\Psi)
+=\prod_{h=1}^{H}\pi_h^{z_{ih}}f_h(\mathbf{x}_i)^{z_{ih}}.
+$$
+
+Every coordinate of $\mathbf{z}_i$ but one is zero, so every factor raised to the power $0$ equals $1$. The product keeps the component that generated $\mathbf{x}_i$.
+
+::: {#def-sl-05-complete-likelihood .definition}
+## Complete-data likelihood
+
+The complete likelihood and its logarithm are
+
+\begin{align*}
+L_C(\Psi;X_{\mathrm{all}},Z)
+&=\prod_{i=1}^{n}\prod_{h=1}^{H}\bigl(\pi_h f_h(\mathbf{x}_i)\bigr)^{z_{ih}},\\
+\ell_C(\Psi;X_{\mathrm{all}},Z)
+&=\sum_{i=1}^{n}\sum_{h=1}^{H}z_{ih}\bigl[\ln\pi_h+\ln f_h(\mathbf{x}_i;\theta_h)\bigr].
+\end{align*}
+
+:::
+
+For normal components, substitute the normal log-density:
+
+$$
+\ell_C
+=\sum_{i=1}^{n}\sum_{h=1}^{H}z_{ih}
+\Biggl(
+\ln\pi_h-\frac{p}{2}\ln(2\pi)-\frac12\ln|\Sigma_h|
+-\frac12(\mathbf{x}_i-\boldsymbol\mu_h)^\top\Sigma_h^{-1}(\mathbf{x}_i-\boldsymbol\mu_h)
+\Biggr).
+$$
+
+Compare this with the observed log-likelihood. There is no logarithm of a sum, and the expression is linear in the indicators $z_{ih}$. Linearity is what lets the E step replace each unobserved indicator by its conditional expectation.
+
+## The E and M steps
+
+Let $\Psi^{(k)}$ be the parameter at iteration $k$. The update maximises the conditional expected complete log-likelihood. The expectation is over the latent indicators, drawn from their conditional distribution at $\Psi^{(k)}$, with the observations held fixed. That expectation is the $Q$ function,
+
+$$
+Q(\Psi;\Psi^{(k)})
+=\E_{Z;\Psi^{(k)}}\bigl[\ell_C(\Psi)\bigm|X_{\mathrm{all}}\bigr].
+$$
+
+The two arguments of $Q$ have different jobs. The current value $\Psi^{(k)}$ determines the distribution of the missing labels. The candidate $\Psi$ is what varies during maximisation. Compute the memberships once in the E step, hold them fixed in the M step, then recompute them at the new parameter. Updating the memberships inside the M-step derivatives would be a different calculation.
+
+### The E step
+
+The complete log-likelihood is linear in the indicators, so the conditional expectation passes inside the sum. The expectation of a binary indicator is the probability that it equals one. Bayes' rule for a discrete label and a continuous measurement identifies that probability with the posterior membership, evaluated at the current parameter:
+
+\begin{align*}
+Q(\Psi;\Psi^{(k)})
+&=\E\Biggl[
+\sum_{i=1}^{n}\sum_{h=1}^{H}Z_{ih}\bigl[\ln\pi_h+\ln f_h(\mathbf{x}_i;\theta_h)\bigr]
+\Bigm|X_{\mathrm{all}}
+\Biggr]\\
+&=\sum_{i=1}^{n}\sum_{h=1}^{H}
+\E(Z_{ih}\given\mathbf{x}_i)\,
+\bigl[\ln\pi_h+\ln f_h(\mathbf{x}_i;\theta_h)\bigr]\\
+&=\sum_{i=1}^{n}\sum_{h=1}^{H}
+\tau_h(\mathbf{x}_i;\Psi^{(k)})\,
+\bigl[\ln\pi_h+\ln f_h(\mathbf{x}_i;\theta_h)\bigr].
+\end{align*}
+
+The current parameter $\Psi^{(k)}$ is held fixed inside $\tau_h$. The free parameter $\Psi$ remains in $\ln\pi_h+\ln f_h$, which is what the M step maximises. Explicitly,
+
+$$
+\tau_h\bigl(\mathbf{x}_i;\Psi^{(k)}\bigr)
+=\frac{\pi_h^{(k)}f_h\bigl(\mathbf{x}_i;\theta_h^{(k)}\bigr)}
+{\sum_{m=1}^{H}\pi_m^{(k)}f_m\bigl(\mathbf{x}_i;\theta_m^{(k)}\bigr)}.
+$$
+
+### The M step
+
+Maximise $Q$ in $\Psi$, with the weights $\tau_{ih}:=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ held at the values just computed. The objective separates into a term in the weights $\pi_h$ and a weighted normal log-likelihood for each component. Write $N_h=\sum_i\tau_{ih}$ for the effective sample size of component $h$.
+
+**Weights.** Maximise $\sum_h N_h\ln\pi_h$ subject to $\sum_h\pi_h=1$. The Lagrangian $\sum_h N_h\ln\pi_h-\kappa\bigl(\sum_h\pi_h-1\bigr)$ has derivative $N_h/\pi_h-\kappa$. Set the derivative to zero, so $\pi_h=N_h/\kappa$. Sum over $h$. The identity $\sum_h N_h=\sum_i\sum_h\tau_{ih}=n$ forces $\kappa=n$, and therefore
+
+$$
+\pi_h^{(k+1)}
+=\frac1n\sum_{i=1}^{n}\tau_h\bigl(\mathbf{x}_i;\Psi^{(k)}\bigr)
+=\frac{N_h}{n}.
+$$
+
+**Means.** The terms of $Q$ that involve $\boldsymbol\mu_h$ are $-\tfrac12\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)^\top\Sigma_h^{-1}(\mathbf{x}_i-\boldsymbol\mu_h)$. The gradient in $\boldsymbol\mu_h$ is $\Sigma_h^{-1}\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)$. Set it to zero and multiply by $\Sigma_h$, which is positive definite at an interior point. The solution is the weighted mean,
+
+$$
+\boldsymbol\mu_h^{(k+1)}
+=\frac{\sum_{i=1}^{n}\tau_{ih}\mathbf{x}_i}{\sum_{i=1}^{n}\tau_{ih}}.
+$$
+
+**Covariance matrices.** Pass to the precision $\Theta_h=\Sigma_h^{-1}$. The terms that involve $\Theta_h$ are $\tfrac12 N_h\ln|\Theta_h|-\tfrac12\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)^\top\Theta_h(\mathbf{x}_i-\boldsymbol\mu_h)$. The matrix derivatives $\partial\ln|\Theta|/\partial\Theta=\Theta^{-1}$ and $\partial(\mathbf{v}^\top\Theta\mathbf{v})/\partial\Theta=\mathbf{v}\mathbf{v}^\top$ produce
+
+$$
+\frac12 N_h\Theta_h^{-1}
+-\frac12\sum_{i=1}^{n}\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)(\mathbf{x}_i-\boldsymbol\mu_h)^\top.
+$$
+
+Set the derivative to zero and insert the updated mean. Then $\Theta_h^{-1}$ equals the weighted matrix of squares and products, so
+
+$$
+\Sigma_h^{(k+1)}
+=\frac{\sum_{i=1}^{n}\tau_{ih}
+\bigl(\mathbf{x}_i-\boldsymbol\mu_h^{(k+1)}\bigr)
+\bigl(\mathbf{x}_i-\boldsymbol\mu_h^{(k+1)}\bigr)^\top}
+{\sum_{i=1}^{n}\tau_{ih}}.
+$$
+
+The formulas now have a familiar shape: proportions, means, and covariance matrices, with fractional membership replacing a hard group label. The divisor is $N_h$. Likelihood maximisation uses $N_h$ in the denominator; an unbiased sample covariance would subtract one from a hard group size, and that correction is a different estimator. These updates require $N_h>0$ and positive definite updated covariance matrices. A collapsed component is a failure of those conditions.
+
+::: {#def-sl-05-em-algorithm .definition}
+## EM for a normal mixture
+
+Choose initial values $\Psi^{(0)}$. For $k=0,1,2,\ldots$:
+
+1. E step: compute $\tau_{ih}=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ for all $i,h$.
+2. M step: compute $\pi_h^{(k+1)}$, $\boldsymbol\mu_h^{(k+1)}$, and $\Sigma_h^{(k+1)}$ from the three updates above.
+3. Stop when the change in $\ell(\Psi^{(k)};X_{\mathrm{all}})$ is smaller than a threshold.
+
+:::
+
+$Q(\Psi;\Psi^{(k)})$, plus a constant independent of $\Psi$, is a lower bound on the observed log-likelihood, touching it at the current parameter. The constant matters for the touching statement, and it does not change the maximiser. EM is the minorisation–maximisation step for that bound (Lange, 2013).
+
+## Why the likelihood never decreases
+
+::: {#thm-sl-05-em-monotone .theorem}
+## Monotonicity of EM
+
+An exact EM step cannot decrease the observed log-likelihood (Dempster, Laird, and Rubin, 1977). Convergence of the likelihood values requires an upper bound. Convergence of the parameters requires further conditions. Under the regularity conditions studied by Wu (1983), limit points are stationary. A stationary point of a mixture likelihood can fail to be a global maximum.
+
+:::
+
+Write the observed log-density by splitting off the conditional probability of the latent labels,
+
+$$
+\ln f(X_{\mathrm{all}};\Psi)
+=\ell_C(\Psi;X_{\mathrm{all}},Z)-\ln\Pr(Z\given X_{\mathrm{all}};\Psi).
+$$
+
+Take the expectation over $Z$ drawn from the conditional distribution at the current parameter $\Psi^{(k)}$. The first term becomes $Q$, and the second becomes a function $G$:
+
+$$
+\ell(\Psi)=Q(\Psi;\Psi^{(k)})-G(\Psi;\Psi^{(k)}),
+\qquad
+G(\Psi;\Psi^{(k)})
+=\E_{\Psi^{(k)}}\bigl[\ln\Pr(Z\given X_{\mathrm{all}};\Psi)\bigm|X_{\mathrm{all}}\bigr].
+$$
+
+Gibbs' inequality is nonnegativity of Kullback–Leibler divergence, so $G(\Psi;\Psi^{(k)})\le G(\Psi^{(k)};\Psi^{(k)})$ for every $\Psi$. Split the change in the observed log-likelihood:
+
+\begin{align*}
+\ell(\Psi^{(k+1)})-\ell(\Psi^{(k)})
+&=
+\underbrace{Q(\Psi^{(k+1)};\Psi^{(k)})-Q(\Psi^{(k)};\Psi^{(k)})}_{\ge 0\text{ (M step)}}\\
+&\qquad+
+\underbrace{G(\Psi^{(k)};\Psi^{(k)})-G(\Psi^{(k+1)};\Psi^{(k)})}_{\ge 0\text{ (Gibbs)}}.
+\end{align*}
+
+Both terms are nonnegative. Increasing $Q$ is enough; finding its exact maximum is sufficient and stronger than necessary. An algorithm that only increases $Q$ is generalised EM. At a differentiable interior fixed point, with differentiation under the expectation justified, the score of $G$ vanishes and the score of $\ell$ equals the score of $Q$. Such a fixed point is stationary. The interior and smoothness qualifications matter near zero weights or singular covariances.
+
+The lower-bound form is the same identity rearranged. Because $G(\Psi;\Psi^{(k)})\le G(\Psi^{(k)};\Psi^{(k)})$,
+
+$$
+\ell(\Psi)\ge Q(\Psi;\Psi^{(k)})-G(\Psi^{(k)};\Psi^{(k)}),
+$$
+
+with equality at $\Psi=\Psi^{(k)}$. The right-hand side differs from $Q$ by a constant, so the M step maximises a surface that touches $\ell$ at the current parameter.
+
+::: {#exm-sl-05-six-points .example}
+## Two iterations on six points
+
+**Question.** Take the one-dimensional data $x=(-1.2,-0.4,0.3,2.1,2.8,3.5)$ and a two-component normal mixture with starting values $\pi=(0.5,0.5)$, $\mu=(0,3)$, $\sigma^2=(1,1)$. Perform the E and M steps.
+
+**Solution.** E step. The component densities and responsibilities, with $\varphi(\cdot;\mu,\sigma^2)$ the $\Normal(\mu,\sigma^2)$ density, are
+
+| $x_i$ | $-1.2$ | $-0.4$ | $0.3$ | $2.1$ | $2.8$ | $3.5$ |
+|---|---:|---:|---:|---:|---:|---:|
+| $f_1(x_i)=\varphi(x_i;0,1)$ | $0.1942$ | $0.3683$ | $0.3814$ | $0.0440$ | $0.0079$ | $0.0009$ |
+| $f_2(x_i)=\varphi(x_i;3,1)$ | $0.0001$ | $0.0012$ | $0.0104$ | $0.2661$ | $0.3910$ | $0.3521$ |
+| $\tau_{i1}$ | $0.9997$ | $0.9967$ | $0.9734$ | $0.1419$ | $0.0198$ | $0.0025$ |
+| $\tau_{i2}=1-\tau_{i1}$ | $0.0003$ | $0.0033$ | $0.0266$ | $0.8581$ | $0.9802$ | $0.9975$ |
+
+For the fourth point,
+
+$$
+\tau_{41}
+=\frac{0.5\times 0.0440}{0.5\times 0.0440+0.5\times 0.2661}
+=\frac{0.0220}{0.15505}
+=0.1419.
+$$
+
+The mixture densities $0.5f_1+0.5f_2$ are $0.09715$, $0.18475$, $0.19590$, $0.15505$, $0.19945$, $0.17650$. Their logarithms are $-2.3315$, $-1.6888$, $-1.6302$, $-1.8640$, $-1.6122$, $-1.7344$, and
+
+$$
+\ell=\sum_i\ln\bigl(0.5f_1(x_i)+0.5f_2(x_i)\bigr)=-10.861.
+$$
+
+M step. The four-decimal memberships in the table sum to $3.1340$ and $2.8660$. The effective sizes used for the update, before that rounding, are $N_1=\sum_i\tau_{i1}=3.1339$ and $N_2=2.8661$, so
+
+$$
+\pi^{(1)}=\Bigl(\frac{3.1339}{6},\frac{2.8661}{6}\Bigr)=(0.5223,0.4777).
+$$
+
+The weighted sum for the first mean is
+
+\begin{align*}
+\sum_i\tau_{i1}x_i
+&=0.9997(-1.2)+0.9967(-0.4)+0.9734(0.3)\\
+&\qquad+0.1419(2.1)+0.0198(2.8)+0.0025(3.5)\\
+&=-0.94412,
+\end{align*}
+
+so $\mu_1^{(1)}=-0.94412/3.1339=-0.3013$. The same calculation for component $2$ gives $\mu_2^{(1)}=2.8067$. The weighted variances about these new means are $\sigma_1^{2(1)}=0.7063$ and $\sigma_2^{2(1)}=0.3888$.
+
+The log-likelihood at the next iteration is $-9.808$, and the one after that is $-9.539$. After three iterations the estimates are $\pi\to(0.5002,0.4998)$, $\mu\to(-0.4323,2.8002)$, $\sigma^2\to(0.378,0.327)$. The observed log-likelihood is non-decreasing, as the argument above guarantees.
+
+:::
+
+The fragment implements the normal-mixture iteration just derived. It normalises log densities after subtracting their row maximum, which avoids many underflow problems. The returned responsibilities and final likelihood are recomputed at the returned parameters. This is an educational unconstrained fit: it stops if a covariance loses positive definiteness or a component has zero numerical weight. It does not silently replace the model with a regularised one.
+
+```r
+em_mixture <- function(x, mu, Sigma, pi, iters = 100L) {
+  x <- as.matrix(x); n <- nrow(x); H <- length(pi)
+  stopifnot(iters >= 0, iters == as.integer(iters),
+            H == length(mu), H == length(Sigma),
+            all(pi > 0), abs(sum(pi) - 1) < 1e-8)
+  expectation <- function() {
+    # Cholesky fails explicitly if a covariance is not positive definite.
+    invisible(lapply(Sigma, chol))
+    ld <- vapply(seq_len(H), function(h)
+      log(pi[h]) + mvtnorm::dmvnorm(x, mu[[h]], Sigma[[h]], log = TRUE),
+      numeric(n))
+    a <- apply(ld, 1, max)
+    stopifnot(all(is.finite(a)))
+    e <- exp(ld - a) # subtract before exponentiating
+    z <- rowSums(e)
+    list(tau = e / z, ll = sum(a + log(z)))
+  }
+  state <- expectation()
+  loglik <- c(state$ll, numeric(iters))
+  for (it in seq_len(iters)) {
+    tau <- state$tau
+    Nh <- colSums(tau)
+    stopifnot(all(Nh > 0))
+    pi <- Nh / n
+    for (h in seq_len(H)) {
+      mu[[h]] <- colSums(tau[, h] * x) / Nh[h]
+      xc <- sweep(x, 2, mu[[h]])
+      Sigma[[h]] <- crossprod(xc * tau[, h], xc) / Nh[h]
+    }
+    state <- expectation() # evaluate the updated parameters
+    loglik[it + 1L] <- state$ll
+  }
+  list(pi = pi, mu = mu, Sigma = Sigma,
+       tau = state$tau, loglik = loglik)
+}
+```
+
+## Pathologies and practical advice
+
+**Unbounded likelihood.** For $H\ge 2$, keep one component broad, with positive density at every observation. Place another mean exactly on one observation and let its covariance be $\varepsilon^2 I$. Its density at that point grows as $\varepsilon^{-p}$, while the broad component keeps every other likelihood factor positive. The likelihood therefore diverges as $\varepsilon\downarrow 0$. This construction proves unboundedness. The boundary does not contain an ordinary finite maximum that the divergence is approaching.
+
+The same divergence occurs when a component is supported on too few points to determine a positive definite covariance. Two points can pin a component in the plane, three points in three dimensions, and so on. The remaining components are left to describe the rest of the sample, while the collapsed component is made narrower. Starting a component at one point with a very small variance is enough to begin the collapse.
+
+In one dimension, stop and restart if a component variance falls below a threshold. In two dimensions the analogous failure is a component collapsing toward a line. A singular covariance is the algebraic form of that failure: the determinant is $0$, and the precision in the normal density does not exist. The eigenvalues of a component covariance are the variances along its elliptical axes. Positive definiteness requires every one of them to be positive. If an eigenvalue becomes small, stop. A variance on its way to $0$ is a failure of the unconstrained fit.
+
+**Label switching.** Renaming components changes the parameter vector and leaves the density unchanged. Finite Gaussian mixtures with distinct components and positive weights are identifiable up to this permutation. Coincident components or zero weights introduce further non-identifiability (McLachlan and Peel, 2000). Before comparing component parameters across fits, decide how to match labels. Ordering means can help in one dimension. The order becomes unstable when means are close.
+
+Nothing in the model says that the component on the left is component $1$. A start with $\mu_1$ to the right of $\mu_2$ returns the swapped labelling, and the weights and covariances move with the labels. Averaging parameters across restarts, as if the subscript $1$ named the same component every time, mixes distinct components.
+
+**Initialisation.** The observed likelihood on one sample can have two local modes. An exact fixed point in the regular interior satisfies the stationary likelihood equations. A small numerical update is weaker evidence of stationarity, and a further argument is required before that point is called a global mode. One start can finish with components of different shapes and little overlap, and another start can finish at a different stationary point. Further iteration from a stopped update stays at that point: given the current parameter, the map is deterministic.
+
+Different valid starts can enter different regions of the likelihood surface. Monotonicity controls the likelihood along a run. A run can still approach a singular boundary and miss every finite stationary point. Inspect the likelihood, the component weights, and the smallest covariance eigenvalues together.
+
+One possible start assigns observations at random and fits each resulting group. Its means lie in the sample convex hull, and its covariances need not be well conditioned: a small group can already be singular. Random allocation also tends to place the means near the overall mean, giving weak initial separation. Check group sizes and covariance eigenvalues before calling EM.
+
+A common alternative runs $K$-means with $K=H$, then uses the group proportions, means, and covariances as initial values. This often gives more separated means. The $K$-means criterion does not make every realised group spherical. A small or nearly collinear group can still produce a singular covariance. Initialisation supplies a feasible starting point. Whether the mixture is a good description of the data is a separate question.
+
+Use several starts, and report how degeneracy is handled. An eigenvalue constraint or a covariance penalty changes the fitted optimisation problem and should be stated explicitly. Keeping the largest finite value encountered is a computational choice. A separate argument is required before that value is treated as an unconstrained maximum.
+
+**Spurious solutions.** A component covariance on its way to zero makes the density, and therefore the log-likelihood, numerically unstable. Discard those runs. A run can also place a few points in a component whose covariance is still positive definite. The likelihood is then finite, and the component may still fail to describe a subgroup one is willing to interpret. Penalising small variances would move every component, including those that have not collapsed. A hard floor on the variances fails in both directions: a floor that is too low lets the iteration reach the undesirable mode and remain there, and a floor that is too high blocks legitimate components and blocks intermediate values the iteration may need. Requiring a minimum total weight $\sum_i\tau_{ih}$, with the floor set above $1$, changes the algorithm, so the monotonicity argument no longer applies as stated. The eigenvalues of the component covariances, rather than a single variance, detect a collapse toward a lower-dimensional subspace. In practice the best finite solutions often have to be compared by hand. If the only aim is density estimation, a small component that improves the approximation may be kept.
+
+## Clustering with a fitted mixture
+
+With a fitted parameter $\widehat\Psi$ in hand, assign a point $\mathbf{x}$ to the component with the largest posterior probability. Under the fitted model that is the same as the component with the largest weighted density, which is the Bayes rule for $0$–$1$ loss when the parameter is treated as known:
+
+$$
+C(\mathbf{x};\widehat\Psi)
+=\arg\max_{h\in\{1,\ldots,H\}}\widehat\tau_h(\mathbf{x})
+=\arg\max_{h\in\{1,\ldots,H\}}\widehat\pi_h f_h(\mathbf{x};\widehat\theta_h).
+$$
+
+The components may differ in weight, orientation, and shape. $K$-means, with one spherical covariance, cannot represent that. The number $1-\max_h\widehat\tau_h(\mathbf{x})$ measures the uncertainty of the assigned label. It is computed at $\widehat\Psi$, so it is uncertainty about membership given the fitted parameter. Uncertainty about $\Psi$ itself is the bootstrap calculation below.
+
+### $K$-means as a limiting case
+
+Restrict every component to a common spherical covariance $\Sigma_h=\sigma^2 I$, and give the components equal weights. Substitute those restrictions into the E step. The posterior membership then depends on $\mathbf{x}_i$ only through squared Euclidean distance to the component means,
+
+$$
+\tau_{ih}
+=\frac{\exp\bigl\{-\lVert\mathbf{x}_i-\boldsymbol\mu_h\rVert^2/(2\sigma^2)\bigr\}}
+{\sum_m\exp\bigl\{-\lVert\mathbf{x}_i-\boldsymbol\mu_m\rVert^2/(2\sigma^2)\bigr\}}.
+$$
+
+Send $\sigma^2\to 0$. For each $i$ the sum is dominated by the smallest distance, so $\tau_{ih}\to 1$ for a nearest mean and $\tau_{ih}\to 0$ otherwise, ties aside. The E step becomes the hard assignment of $K$-means, and the weighted mean becomes the ordinary cluster mean. $K$-means, in the form of [Lloyd's algorithm](sl-04-kmeans.qmd#def-sl-04-lloyd), is this small-variance, equal-weight, spherical limit of EM. The three restrictions are what replace ellipsoidal components by Voronoi cells.
+
+A three-component univariate Gaussian mixture can be fitted to iris petal length by the same iteration. The path of the observed log-likelihood is the practical check of monotonicity: each accepted step should sit at least as high as the step before it.
+
+## Uncertainty about the parameters
+
+Standard errors can be built from the observed information $I(\widehat\Psi;X_{\mathrm{all}})$, expressed through the complete-data information and the complete and incomplete scores (McLachlan and Peel, 2000). The algebra is heavy, and it still replaces the expected information by an observed-information approximation.
+
+A Bayesian analysis assigns a distribution to the unknown parameters and updates it with the likelihood. Its influence depends on the prior, the amount of information in the data, and the model geometry. There is no general rule that a prior equals one extra observation. Mixtures require particular care around weakly identified components. Integration against a prior is also the starting point for the model-comparison criterion on the [model-selection](sl-06-model-selection.qmd) page.
+
+The parametric bootstrap asks what would happen if the fitted mixture generated a new sample of the same size. Refit to each simulated sample and examine the variation in the estimates. This conditions on the chosen family and on $H$. Resimulating a mistaken component model does not detect the mistake. Near singular fits, ordinary bootstrap uncertainty summaries also need care.
+
+Draw $B$ bootstrap samples $X^{(1)},\ldots,X^{(B)}$, each of size $n$, from the fitted mixture. For each observation, draw a component label with probabilities $\widehat\pi_h$, then draw the observation from that component's normal distribution. Fit EM to each bootstrap sample. The fits are $B$ parameter vectors $\widehat\Psi^{(1)},\ldots,\widehat\Psi^{(B)}$.
+
+The bootstrap covariance is the sample covariance of those vectors,
+
+$$
+\widehat{\mathrm{Cov}}_B(\widehat\Psi)
+=\frac{1}{B-1}\sum_{b=1}^{B}
+\bigl(\widehat\Psi^{(b)}-\overline\Psi\bigr)
+\bigl(\widehat\Psi^{(b)}-\overline\Psi\bigr)^\top,
+\qquad
+\overline\Psi=\frac1B\sum_{b=1}^{B}\widehat\Psi^{(b)}.
+$$
+
+The labels are defined only up to the permutation above. Before the bootstrap vectors enter the covariance, match the components of each bootstrap fit to the components of $\widehat\Psi$, for example by closeness of the means. Without that match, label switching inflates the covariance: the average mixes different components.
+
+## Iris membership
+
+The fit below is a three-component Gaussian mixture on the two petal measurements, with $H$ held fixed. Fixing $H$ separates the membership probabilities from the choice of how many components to use. Let `iris_x` be the $150\times 4$ matrix of iris measurements in the usual order (sepal length, sepal width, petal length, petal width), and let `iris_y` be the species labels. Columns $3$ and $4$ are the petal measurements. The name `VVV` asks each component for its own unconstrained covariance, which is the normal mixture derived above.
+
+```r
+set.seed(5006)
+mix <- mclust::Mclust(iris_x[, 3:4], G = 3,
+                      modelNames = "VVV", verbose = FALSE)
+table(Component = mix$classification, Species = iris_y)
+#>           Species
+#> Component setosa versicolor virginica
+#>         1      50          0         0
+#>         2       0         49         3
+#>         3       0          1        47
+round(head(mix$z), 3)
+#>      [,1] [,2] [,3]
+#> [1,]    1     0    0
+#> [2,]    1     0    0
+#> [3,]    1     0    0
+#> [4,]    1     0    0
+#> [5,]    1     0    0
+#> [6,]    1     0    0
+summary(1 - apply(mix$z, 1, max))
+#>    Min. 1st Qu. Median   Mean 3rd Qu.   Max.
+#>  0.0000  0.0000 0.0003 0.0310  0.0175 0.4596
+stopifnot(max(abs(rowSums(mix$z) - 1)) < 1e-10)
+```
+
+Each row of `mix$z` is the posterior membership at the fitted parameter. The classification table counts $50$ setosa in component $1$, $49$ versicolor and $3$ virginica in component $2$, and $1$ versicolor and $47$ virginica in component $3$. One minus the largest membership has minimum $0$, median $0.0003$, mean $0.0310$, and maximum $0.4596$. That summary is the uncertainty of the assigned component given the fitted parameter and given $H=3$. It leaves out uncertainty about $\Psi$ and about $H$. Permuting the component labels leaves the fitted density unchanged, which is why bootstrap components have to be matched before their parameters are averaged.
+
+::: {.callout-note}
+## Key idea
+EM replaces a log-of-a-sum by the expected complete-data log-likelihood. The E step computes the soft memberships $\tau_{ih}$. The M step is the weighted sample proportion, mean, and covariance. An exact step cannot decrease the observed-data log-likelihood. The same unconstrained likelihood is unbounded: a component covariance can collapse onto sample points, so a rising likelihood is checked against the smallest covariance eigenvalues and is not, by itself, a global maximum.
+:::
+
+## Exercises
+
+::: {#ex-sl-05-1 .exercise}
+## Mean and variance of a mixture
+
+For the mixture with component means $\mu_h$ and variances $\sigma_h^2$ in one dimension, show that $\E X=\sum_h\pi_h\mu_h=:\bar\mu$ and
+
+$$
+\Var X=\sum_h\pi_h\sigma_h^2+\sum_h\pi_h(\mu_h-\bar\mu)^2.
+$$
+
+Evaluate for $\pi=(0.3,0.7)$, $\mu=(0,4)$, $\sigma^2=(1,4)$.
+
+[Solution](#sol-sl-05-1)
+
+:::
+
+::: {#ex-sl-05-2 .exercise}
+## An E step
+
+For the mixture of the previous exercise, compute $\tau_1(x)$ at $x=1$ and at $x=3$.
+
+[Solution](#sol-sl-05-2)
+
+:::
+
+::: {#ex-sl-05-3 .exercise}
+## An M step
+
+Using the two responsibility values from the previous exercise as the memberships of the two data points $x=1$ and $x=3$, carry out the M step for $\pi$, $\mu$, and $\sigma^2$.
+
+[Solution](#sol-sl-05-3)
+
+:::
+
+::: {#ex-sl-05-4 .exercise}
+## An unbounded likelihood
+
+Take $H=2$, $p=1$, with $\mu_1=x_1$ and $\sigma_1^2\to 0$, and the other component fixed at some $\Normal(\mu_2,\sigma_2^2)$ with $\pi_1=\pi_2=\tfrac12$. Show that $\ell\to\infty$.
+
+[Solution](#sol-sl-05-4)
+
+:::
+
+::: {#ex-sl-05-5 .exercise}
+## Counting parameters
+
+Using $d=Hp+Hp(p+1)/2+(H-1)$, find the number of free parameters for $H=3$ components in $p=2$ and $p=5$ dimensions. How many if the covariance matrices are constrained to be diagonal, and how many if they are all equal to one common full matrix?
+
+[Solution](#sol-sl-05-5)
+
+:::
+
+::: {#ex-sl-05-6 .exercise}
+## Label switching
+
+Show that the two-component parameter vectors $(\pi,\mu_1,\sigma_1^2,\mu_2,\sigma_2^2)$ and $(1-\pi,\mu_2,\sigma_2^2,\mu_1,\sigma_1^2)$ give the same density. Why does this complicate averaging the parameters across bootstrap fits?
+
+[Solution](#sol-sl-05-6)
+
+:::
+
+::: {#ex-sl-05-7 .exercise}
+## Mixtures versus $K$-means
+
+Two analysts cluster the same two-dimensional data. One fits $K$-means. The other fits a three-component Gaussian mixture with unrestricted component covariance matrices.
+
+(a) Explain two important differences between the fitted models. For each difference, explain its practical consequence.
+
+(b) Write the posterior probability that an observation belongs to mixture component $k$, defining every quantity.
+
+(c) If the fitted mixture has three components, must there be three biological populations? Explain.
+
+[Solution](#sol-sl-05-7)
+
+:::

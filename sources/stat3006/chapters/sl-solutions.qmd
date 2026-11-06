@@ -1,0 +1,2277 @@
+# Worked answers
+
+## Chapter 1
+
+[]{#sol-sl-01-1} **[Why a covariance is positive semi-definite](#ex-sl-01-1).**
+
+Turn the matrix expression into the variance of a scalar. That gives a nonnegative quantity without an eigenvalue calculation. The proposed correlation matrix can then be checked separately.
+
+For any fixed $\mathbf{z}$,
+
+$$
+\mathbf{z}^\top\Sigma\mathbf{z}
+=\E\bigl[\mathbf{z}^\top(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top\mathbf{z}\bigr]
+=\E\bigl[(\mathbf{z}^\top(\mathbf{X}-\boldsymbol{\mu}))^2\bigr]
+=\Var(\mathbf{z}^\top\mathbf{X})\ge 0.
+$$
+
+Taking $\mathbf{z}$ with only entries $j$ and $k$ nonzero shows that the $2\times 2$ matrix
+
+$$
+\begin{pmatrix}\sigma_{jj}&\sigma_{jk}\\\sigma_{jk}&\sigma_{kk}\end{pmatrix}
+$$
+
+is positive semi-definite, so its determinant satisfies $\sigma_{jj}\sigma_{kk}-\sigma_{jk}^2\ge 0$, which is $|\sigma_{jk}|\le\sqrt{\sigma_{jj}\sigma_{kk}}$.
+
+For the matrix given, the leading minors are $1$, $1-0.81=0.19$, and
+
+$$
+\begin{aligned}
+\det
+&=1(1-0.81)-0.9\bigl(0.9-(-0.9)(0.9)\bigr)+0.9\bigl(0.9(-0.9)-0.9\bigr)\\
+&=0.19-0.9(1.71)+0.9(-1.71)\\
+&=0.19-1.539-1.539=-2.888<0.
+\end{aligned}
+$$
+
+The determinant is negative, so the matrix is not positive semi-definite and cannot be a correlation matrix. The pattern is impossible: $X_1$ cannot be strongly positively correlated with both $X_2$ and $X_3$ while $X_2$ and $X_3$ are strongly negatively correlated.
+
+[]{#sol-sl-01-2} **[Variances of linear combinations](#ex-sl-01-2).**
+
+Write the coefficients of each linear combination as a vector. The covariance matrix then handles both the diagonal variance terms and the cross terms. The cross terms are counted twice in a variance.
+
+With $\mathbf{a}=(1,-2,1)^\top$,
+
+$$
+\begin{aligned}
+\Var(\mathbf{a}^\top\mathbf{X})
+&=\sum_{j,k}a_j a_k\sigma_{jk}\\
+&=1\cdot 4+4\cdot 3+1\cdot 2+2\bigl[(1)(-2)(2)+(1)(1)(1)+(-2)(1)(0.5)\bigr]\\
+&=18+2(-4+1-1)=10.
+\end{aligned}
+$$
+
+With $\mathbf{a}=(1,1,0)^\top$ and $\mathbf{b}=(0,1,-1)^\top$, $\Cov(\mathbf{a}^\top\mathbf{X},\mathbf{b}^\top\mathbf{X})=\mathbf{a}^\top\Sigma\mathbf{b}$. First
+
+$$
+\Sigma\mathbf{b}=(2-1,\ 3-0.5,\ 0.5-2)^\top=(1,\ 2.5,\ -1.5)^\top,
+$$
+
+so the covariance is $1+2.5=3.5$.
+
+[]{#sol-sl-01-3} **[Uncorrelated but dependent](#ex-sl-01-3).**
+
+The example has to pass two tests: its covariance must vanish, and its joint distribution must still contain dependence. Symmetry settles the first. The deterministic relation settles the second.
+
+$$
+\Cov(X,X^2)=\E(X^3)-\E(X)\E(X^2)=0-0=0,
+$$
+
+because the third moment of a symmetric distribution about zero vanishes. Yet $Y=X^2$ is completely determined by $X$. In particular $\Pr(|X|>1\given Y\le 1)=0$ while $\Pr(|X|>1)>0$, so $X$ and $Y$ are not independent. Zero covariance rules out a nonzero linear association. It does not rule out nonlinear dependence.
+
+[]{#sol-sl-01-4} **[Axes of a contour](#ex-sl-01-4).**
+
+Diagonalisation identifies the directions. The contour level determines how far to travel along them. The probability content is chosen after those two geometric steps.
+
+The characteristic equation is $(2-\lambda)^2-1=0$, so $\lambda_1=3$ and $\lambda_2=1$. Solving $(\Sigma-\lambda I)\mathbf{v}=\mathbf{0}$ gives
+
+$$
+\boldsymbol{\gamma}_1=(1,1)^\top/\sqrt{2},
+\qquad
+\boldsymbol{\gamma}_2=(1,-1)^\top/\sqrt{2}.
+$$
+
+The contour $\mathbf{x}^\top\Sigma^{-1}\mathbf{x}=C$ has semi-axes of length $\sqrt{C\lambda_j}$ along $\boldsymbol{\gamma}_j$.
+
+The squared Mahalanobis distance of a $\Normal_2(\mathbf{0},\Sigma)$ vector is $\chi^2_2$, so probability $0.95$ requires the upper $5\%$ point
+
+$$
+C=\chi^2_{2;\,0.05}=-2\log 0.05=5.991.
+$$
+
+The semi-axes are then $\sqrt{5.991\times 3}=4.24$ along $(1,1)$ and $\sqrt{5.991\times 1}=2.45$ along $(1,-1)$.
+
+[]{#sol-sl-01-5} **[Normal marginals without joint normality](#ex-sl-01-5).**
+
+Checking the two marginal distributions cannot settle joint normality. Find a linear combination that a jointly Gaussian vector could not produce.
+
+For any $y$,
+
+$$
+\Pr(Y\le y)=\tfrac12\Pr(X\le y)+\tfrac12\Pr(-X\le y)=\Phi(y),
+$$
+
+because $-X\sim\Normal(0,1)$ as well. So $Y\sim\Normal(0,1)$. The covariance is
+
+$$
+\E(XY)=\E(WX^2)=\E(W)\E(X^2)=0.
+$$
+
+Now $X+Y=(1+W)X$ equals $2X$ with probability $\tfrac12$ and $0$ with probability $\tfrac12$. It therefore has an atom at $0$ of mass $\tfrac12$. A linear combination of a bivariate normal vector is normal. A degenerate normal has no atom unless the combination is identically zero. So $(X,Y)$ cannot be bivariate normal. The pair has normal margins and zero covariance, and it is dependent because $|Y|=|X|$.
+
+[]{#sol-sl-01-6} **[The bivariate conditional](#ex-sl-01-6).**
+
+Keep the prediction direction fixed while comparing lines. Predicting the first variable from the second, and solving the reverse prediction equation, are different operations.
+
+With $A=\{1\}$ and $B=\{2\}$, $\Sigma_{AB}=\rho\sigma_1\sigma_2$, $\Sigma_{BB}=\sigma_2^2$ and $\Sigma_{AB}\Sigma_{BB}^{-1}=\rho\sigma_1/\sigma_2$. The conditional mean is $\mu_1+\rho(\sigma_1/\sigma_2)(x_2-\mu_2)$ and the conditional variance is
+
+$$
+\sigma_1^2-(\rho\sigma_1\sigma_2)^2/\sigma_2^2=\sigma_1^2(1-\rho^2).
+$$
+
+The regression of $X_1$ on $X_2$ predicts $x_1$ from $x_2$ and has slope $\rho\sigma_1/\sigma_2$ in the $(x_2,x_1)$ plane. The regression of $X_2$ on $X_1$ is $x_2=\mu_2+\rho(\sigma_2/\sigma_1)(x_1-\mu_1)$. Solving it for $x_1$ gives
+
+$$
+x_1=\mu_1+\frac{\sigma_1}{\rho\sigma_2}(x_2-\mu_2),
+$$
+
+with slope $\sigma_1/(\rho\sigma_2)$ in the same plane. For $\rho\neq 0$ the ratio of the two slopes is $\rho^2$, so the regression lines agree only in the degenerate limit $\rho^2=1$. When $\rho=0$ they are the horizontal and vertical lines through the mean. A principal axis may coincide with one of these lines when the covariance is diagonal, and there is no unique principal axis when the covariance is proportional to the identity. Each line answers a different conditional question. The least-squares line and the conditional mean of an unconstrained bivariate normal fitted to the same pairs coincide. The second line here is the inverse regression, solved for the other coordinate.
+
+[]{#sol-sl-01-7} **[A Schur-complement check](#ex-sl-01-7).**
+
+The determinant factorisation is easiest to check by calculating its two sides independently. The same arithmetic checks the conditional covariance from the trivariate example.
+
+Expanding along the first row,
+
+$$
+\begin{aligned}
+|\Sigma|
+&=4(3\cdot 2-0.25)-2(2\cdot 2-0.5)+1(1-3)\\
+&=4(5.75)-2(3.5)-2=23-7-2=14.
+\end{aligned}
+$$
+
+Also $|\Sigma_{BB}|=2$ and
+
+$$
+|\Sigma_{A\given B}|=3.5\times 2.875-1.75^2=10.0625-3.0625=7,
+$$
+
+so $|\Sigma_{BB}|\,|\Sigma_{A\given B}|=14$, as required.
+
+[]{#sol-sl-01-8} **[Conditional normal prediction](#ex-sl-01-8).**
+
+Use the Gaussian block formula for the conditional distribution, then define the residual by subtracting that conditional mean. Independence requires one more argument than a zero covariance.
+
+(a) The blocks are $\mu_A=2$, $\mu_B=-1$, $\Sigma_{AA}=9$, $\Sigma_{AB}=3$ and $\Sigma_{BB}=4$. The conditional mean is
+
+$$
+2+(3/4)(3-(-1))=2+(3/4)(4)=5,
+$$
+
+and the conditional variance is
+
+$$
+9-3\cdot(1/4)\cdot 3=9-9/4=27/4.
+$$
+
+Thus $X_1\given(X_2=3)\sim\Normal(5,\ 27/4)$.
+
+(b) The residual is the linear transformation
+
+$$
+R=X_1-2-\tfrac34(X_2+1)
+$$
+
+of a jointly normal vector, so $R\sim\Normal(0,\ 27/4)$. Moreover
+
+$$
+\Cov(R,X_2)=3-\tfrac34\cdot 4=0.
+$$
+
+Joint normality turns this zero covariance into independence.
+
+(c) With only means and covariances, the analogous linear residual is uncorrelated with $X_2$. Conditional expectations need not be linear, and uncorrelated variables need not be independent.
+
+## Chapter 2
+
+[]{#sol-sl-02-1} **[Where the $n-1$ comes from](#ex-sl-02-1).**
+
+The sample mean is random, so centring at it changes the expected scatter. Isolate that change before taking expectations.
+
+Write $\mathbf{X}_i-\boldsymbol{\mu}=(\mathbf{X}_i-\overline{\mathbf{X}})+(\overline{\mathbf{X}}-\boldsymbol{\mu})$ and expand the outer product. The cross terms are
+
+$$
+\sum_i(\mathbf{X}_i-\overline{\mathbf{X}})(\overline{\mathbf{X}}-\boldsymbol{\mu})^\top=\mathbf{0}\,(\overline{\mathbf{X}}-\boldsymbol{\mu})^\top=\mathbf{0}
+$$
+
+and its transpose, so
+
+$$
+\sum_i(\mathbf{X}_i-\boldsymbol{\mu})(\mathbf{X}_i-\boldsymbol{\mu})^\top
+=A+n(\overline{\mathbf{X}}-\boldsymbol{\mu})(\overline{\mathbf{X}}-\boldsymbol{\mu})^\top.
+$$
+
+Take expectations. The left side has expectation $n\Sigma$. For the last term,
+
+$$
+\E\bigl[(\overline{\mathbf{X}}-\boldsymbol{\mu})(\overline{\mathbf{X}}-\boldsymbol{\mu})^\top\bigr]
+=\Var(\overline{\mathbf{X}})=\Sigma/n,
+$$
+
+which uses uncorrelatedness of the $\mathbf{X}_i$:
+
+$$
+\Var(\overline{\mathbf{X}})=n^{-2}\sum_{i,l}\Cov(\mathbf{X}_i,\mathbf{X}_l)=n^{-2}\cdot n\Sigma=\Sigma/n.
+$$
+
+Hence $n\Sigma=\E(A)+n\cdot(\Sigma/n)$, that is $\E(A)=(n-1)\Sigma$. Normality is not used. The proof uses a common mean, a common covariance, and uncorrelated observations.
+
+[]{#sol-sl-02-2} **[Pooling two groups](#ex-sl-02-2).**
+
+Pooling within groups and ignoring the group labels answer different questions. The common covariance is meant to describe the within-group scatter.
+
+With $n=25$, $G=2$ and $n-G=23$,
+
+$$
+S=\frac{1}{23}\left(
+\begin{pmatrix}18&6\\6&12\end{pmatrix}
++\begin{pmatrix}30&-9\\-9&24\end{pmatrix}
+\right)
+=\frac{1}{23}\begin{pmatrix}48&-3\\-3&36\end{pmatrix}
+=\begin{pmatrix}2.087&-0.130\\-0.130&1.565\end{pmatrix}.
+$$
+
+For the combined sample, $\bar{\mathbf{x}}_1-\bar{\mathbf{x}}_2=(2,1)^\top$ and $n_1 n_2/n=150/25=6$, so
+
+$$
+A_{\mathrm{total}}
+=\begin{pmatrix}48&-3\\-3&36\end{pmatrix}
++6\begin{pmatrix}4&2\\2&1\end{pmatrix}
+=\begin{pmatrix}48&-3\\-3&36\end{pmatrix}
++\begin{pmatrix}24&12\\12&6\end{pmatrix}
+=\begin{pmatrix}72&9\\9&42\end{pmatrix}.
+$$
+
+Dividing by $n-1=24$,
+
+$$
+\frac{A_{\mathrm{total}}}{24}=\begin{pmatrix}3&0.375\\0.375&1.75\end{pmatrix}.
+$$
+
+The combined-sample estimate is larger on the diagonal and has the opposite sign for the covariance. It mixes the within-group scatter, which is what $\Sigma$ describes, with the between-group scatter caused by the different means, which $\Sigma$ does not describe. Pooling centres each group at its own mean first.
+
+[]{#sol-sl-02-3} **[Two factors of one covariance](#ex-sl-02-3).**
+
+A simulation factor need only satisfy the required matrix product. Different valid factors can map the same normal draw to different points without changing the resulting distribution.
+
+The Cholesky factor has the form
+
+$$
+L=\begin{pmatrix}l_{11}&0\\ l_{21}&l_{22}\end{pmatrix}
+$$
+
+with $l_{11}^2=4$, $l_{11}l_{21}=2$ and $l_{21}^2+l_{22}^2=3$. So $l_{11}=2$, $l_{21}=1$ and $l_{22}=\sqrt{2}$:
+
+$$
+L=\begin{pmatrix}2&0\\1&1.414\end{pmatrix},
+\qquad
+LL^\top=\begin{pmatrix}4&2\\2&1+2\end{pmatrix}=\Sigma.
+$$
+
+For the spectral factor, the eigenvalues solve $\lambda^2-7\lambda+8=0$, so
+
+$$
+\lambda_1=(7+\sqrt{17})/2=5.562,
+\qquad
+\lambda_2=(7-\sqrt{17})/2=1.438,
+$$
+
+with unit eigenvectors $\boldsymbol{\gamma}_1=(0.788,\ 0.615)^\top$ and $\boldsymbol{\gamma}_2=(-0.615,\ 0.788)^\top$. Then
+
+$$
+B=\Gamma\Lambda^{1/2}=\begin{pmatrix}1.859&-0.738\\1.451&0.945\end{pmatrix}.
+$$
+
+For either factor $M\in\{L,B\}$,
+
+$$
+\Var(M\mathbf{Z})=MIM^\top=MM^\top=\Sigma.
+$$
+
+The factors differ because $MM^\top=\Sigma$ determines $M$ only up to a right multiplication by an orthogonal matrix $Q$: $(MQ)(MQ)^\top=MM^\top$. The simulated vectors differ draw by draw and have the same distribution.
+
+[]{#sol-sl-02-4} **[A determinant identity](#ex-sl-02-4).**
+
+Compute the rank-one update directly, then use the inverse formula as an independent check.
+
+$$
+|A|=12-1=11.
+$$
+
+Here
+
+$$
+\mathbf{d}\mathbf{d}^\top=\begin{pmatrix}1&2\\2&4\end{pmatrix},
+\qquad
+A+\mathbf{d}\mathbf{d}^\top=\begin{pmatrix}5&3\\3&7\end{pmatrix},
+$$
+
+with determinant $35-9=26$. Also
+
+$$
+A^{-1}=\frac{1}{11}\begin{pmatrix}3&-1\\-1&4\end{pmatrix},
+$$
+
+so
+
+$$
+\mathbf{d}^\top A^{-1}\mathbf{d}=\frac{1}{11}(3-4+16)=\frac{15}{11}
+$$
+
+and
+
+$$
+|A|\bigl(1+\mathbf{d}^\top A^{-1}\mathbf{d}\bigr)=11\bigl(1+15/11\bigr)=11+15=26.
+$$
+
+The two sides agree.
+
+[]{#sol-sl-02-5} **[A small $T^2$ test](#ex-sl-02-5).**
+
+The quadratic form measures the observed displacement. Its reference distribution belongs to the random statistic under the null, rather than to the numerical value obtained after observing the sample.
+
+Here $n=6$ and $p=2$. Then $|S|=4-1=3$ and
+
+$$
+S^{-1}=\frac13\begin{pmatrix}1&-1\\-1&4\end{pmatrix}.
+$$
+
+The quadratic form is
+
+$$
+\bar{\mathbf{x}}^\top S^{-1}\bar{\mathbf{x}}
+=\frac13\bigl(1\cdot 4-2\cdot 2\cdot 1+4\cdot 1\bigr)=\frac43,
+$$
+
+so $T^2=6\cdot(4/3)=8$. Under $H_0$ and the independent Gaussian assumptions, the random scaled statistic has an $F_{2,4}$ distribution. Its observed value is
+
+$$
+F_{\mathrm{obs}}=\frac{n-p}{p(n-1)}T^2=\frac{4}{2\cdot 5}\cdot 8=\frac{4}{10}\cdot 8=3.2.
+$$
+
+Since $3.2<6.944$, $H_0$ is not rejected at the $5\%$ level. The $p$-value is about $0.15$. This non-rejection does not establish the null. Power would require a specified alternative mean and covariance.
+
+[]{#sol-sl-02-6} **[A two-sample statistic](#ex-sl-02-6).**
+
+Pool the within-group information, form the mean difference and apply the two-sample scaling. The reference distribution requires independent Gaussian samples with a common covariance.
+
+$$
+S^{-1}=\frac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix}.
+$$
+
+With $\mathbf{d}=(1.5,1)^\top$,
+
+$$
+\mathbf{d}^\top S^{-1}\mathbf{d}
+=\frac13\bigl(2\cdot 2.25-2\cdot 1.5\cdot 1+2\cdot 1\bigr)=\frac{3.5}{3}=1.1667.
+$$
+
+The factor is $n_1 n_2/(n_1+n_2)=100/20=5$, so $T^2=5\times 1.1667=5.8333$. Then
+
+$$
+F=\frac{n_1+n_2-p-1}{(n_1+n_2-2)p}\,T^2
+=\frac{17}{36}\times 5.8333=2.755.
+$$
+
+The null reference distribution is $F_{2,17}$. Since $2.755<3.592$, $H_0:\boldsymbol{\mu}_1=\boldsymbol{\mu}_2$ is not rejected at the $5\%$ level. The $p$-value is about $0.09$.
+
+[]{#sol-sl-02-7} **[Whitening and its limits](#ex-sl-02-7).**
+
+Whitening is an exact statement about the covariance used in the transformation. Work through the matrix identity before deciding what it says about a population distribution.
+
+(a) From $S=U\Lambda U^\top$ with positive eigenvalues and an orthonormal eigenbasis,
+
+$$
+S^{-1/2}=U\operatorname{diag}(\lambda_1^{-1/2},\ldots,\lambda_4^{-1/2})U^\top.
+$$
+
+(b) The transformed sample mean is $\bar{\mathbf{z}}=S^{-1/2}(\bar{\mathbf{x}}-\bar{\mathbf{x}})=\mathbf{0}$. With the same $n-1$ covariance divisor,
+
+$$
+S_z=\frac{1}{n-1}\sum_i S^{-1/2}(\mathbf{x}_i-\bar{\mathbf{x}})(\mathbf{x}_i-\bar{\mathbf{x}})^\top S^{-1/2}
+=S^{-1/2}SS^{-1/2}=I_4.
+$$
+
+(c) These are empirical first- and second-moment statements. A linear transform does not generally make a non-normal distribution normal, and zero sample correlations do not establish population independence. When $p=100$ and $n=80$, $\operatorname{rank}(S)\le 79$, so an ordinary inverse square root in all $100$ dimensions does not exist. Reduction to the positive-eigenvalue subspace, or a regularisation, changes the construction.
+
+[]{#sol-sl-02-8} **[Normal conditioning and whitening](#ex-sl-02-8).**
+
+Identify the response block and the conditioning block first. The subtraction in the conditional variance is the reduction supplied by the observed coordinate.
+
+(a) Here $\Sigma_{AB}=2$ and $\Sigma_{BB}=9$. The conditional mean is
+
+$$
+1+\frac{2}{9}(5-2)=\frac53,
+$$
+
+and the conditional variance is
+
+$$
+4-\frac{2^2}{9}=\frac{32}{9}.
+$$
+
+Hence $X_1\given(X_2=5)\sim\Normal(5/3,\ 32/9)$.
+
+(b) The residual is a linear combination of jointly normal variables, with mean zero and variance $32/9$. Its covariance with $X_2$ is $2-(2/9)\cdot 9=0$, so it is independent of $X_2$. The conditional residual variance therefore does not depend on the observed $x_2$. This uses the specified Gaussian model. It is not a property of residuals from every fitted model.
+
+(c) The empirical mean is zero and the empirical covariance is $I_p$, using the same covariance divisor before and after the transformation.
+
+[]{#sol-sl-02-9} **[A transformation is not a distributional assumption](#ex-sl-02-9).**
+
+A linear image of a jointly normal vector is normal. Its mean and variance identify the resulting univariate distribution. Whitening asks a separate question about a whole coordinate system.
+
+(a) With $\mathbf{a}=(1,-2)^\top$,
+
+$$
+\E(Y)=0-2\cdot 2=-4,
+\qquad
+\Var(Y)=2+4\cdot 3-4\cdot 1=10.
+$$
+
+The cross term in the variance is $2 a_1 a_2\sigma_{12}=2(1)(-2)(1)=-4$. Linear combinations of a jointly normal vector are normal, so $Y\sim\Normal(-4,\ 10)$.
+
+(b) Orthogonal eigenvectors give the principal axes. An ellipsoid $(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=c$ has semi-axis lengths $\sqrt{c\lambda_j}$. Larger eigenvalues mean more spread. The mean translates the centre and does not change the orientation.
+
+(c) Whitening controls empirical first and second moments. It does not determine the shape of the population distribution, establish independence between coordinates, or make observations independent across rows. Even whitened jointly normal population coordinates would need the population transformation for that exact population claim.
+
+## Chapter 3
+
+[]{#sol-sl-03-1} **[A two-variable analysis](#ex-sl-03-1).**
+
+The symmetric covariance treats the two coordinates equally, which suggests the sum and difference directions. The eigenvalue calculation confirms which direction has greater variance.
+
+The characteristic equation is $(3-\lambda)^2-1=0$, so $\lambda_1=4$ and $\lambda_2=2$. Solving $(S-4I)\mathbf{a}=\mathbf{0}$ gives $a_1=a_2$, so
+
+$$
+\mathbf{a}_1=(1,1)^\top/\sqrt{2},
+$$
+
+and the orthogonal direction is $\mathbf{a}_2=(1,-1)^\top/\sqrt{2}$. The component variances are $4$ and $2$, and the first explains
+
+$$
+4/(4+2)=2/3\approx 66.7\%
+$$
+
+of the total variance.
+
+[]{#sol-sl-03-2} **[Properties of the components](#ex-sl-03-2).**
+
+Express the scores as an orthogonal change of coordinates. The covariance then becomes diagonal because the chosen directions diagonalise the same matrix used to define the components.
+
+$$
+\Cov(\mathbf{Y})=\Gamma^\top S\Gamma=\Gamma^\top\Gamma\Lambda\Gamma^\top\Gamma=\Lambda,
+$$
+
+by the linear transformation rule for covariances with coefficient matrix $\Gamma^\top$, and by orthogonality of $\Gamma$. The components are uncorrelated, with variances $\lambda_j$. For the determinant,
+
+$$
+|S|=|\Gamma|\,|\Lambda|\,|\Gamma^\top|=|\Gamma|^2\prod_j\lambda_j=\prod_j\lambda_j,
+$$
+
+since $|\Gamma|^2=|\Gamma^\top\Gamma|=1$.
+
+[]{#sol-sl-03-3} **[The effect of correlation](#ex-sl-03-3).**
+
+For positive correlation, the sum direction collects shared variation. The limiting cases say what happens when that shared variation disappears or becomes perfect.
+
+$$
+|R-\lambda I|=(1-\lambda)^2-r^2=0
+$$
+
+gives $\lambda=1\pm r$. Since
+
+$$
+R(1,1)^\top=(1+r)(1,1)^\top,
+\qquad
+R(1,-1)^\top=(1-r)(1,-1)^\top,
+$$
+
+the eigenvectors are $(1,1)^\top/\sqrt{2}$ and $(1,-1)^\top/\sqrt{2}$ for every $r>0$. The proportion explained by the first component is $(1+r)/2$. As $r\to 0$ it tends to $1/2$: with $R\to I$ no direction is preferred, every direction is an eigenvector, and the first component is determined only by how ties are broken. As $r\to 1$ it tends to $1$: the two standardised variables become the same variable and one component carries all the variance.
+
+[]{#sol-sl-03-4} **[Principal components through the singular values](#ex-sl-03-4).**
+
+The squared singular values belong to the cross-product matrix. Divide by the covariance divisor before reporting principal-component variances.
+
+The eigenvalues of $\bigl(\begin{smallmatrix}10&2\\2&4\end{smallmatrix}\bigr)$ solve $\lambda^2-14\lambda+36=0$, so
+
+$$
+\lambda=7\pm\sqrt{13}=10.606,\ 3.394.
+$$
+
+The singular values of $\mathbf{X}$ are $e_1=\sqrt{10.606}=3.257$ and $e_2=\sqrt{3.394}=1.842$. With $n=4$, the sample-covariance eigenvalues are
+
+$$
+e_i^2/3=3.535\quad\text{and}\quad 1.131.
+$$
+
+Their sum is $4.667$. The sample covariance is
+
+$$
+S=\frac13\begin{pmatrix}10&2\\2&4\end{pmatrix},
+$$
+
+with trace $(10+4)/3=4.667$.
+
+[]{#sol-sl-03-5} **[How many components](#ex-sl-03-5).**
+
+Use the cumulative explained variance for the requested threshold. The individual percentages alone do not say how many components must be retained.
+
+The total is $5.87+1.81+1.32=9.00$. The proportions are $0.652$, $0.201$ and $0.147$, and the cumulative proportions are $65.2\%$, $85.3\%$ and $100\%$. Two components are needed to reach $80\%$.
+
+[]{#sol-sl-03-6} **[A low-variance predictor](#ex-sl-03-6).**
+
+Predictor variance and predictive relevance can point in different directions. One case of that disagreement is enough to reject a claim that principal components always preserve the useful information.
+
+$\Var(X_1)=100$ and $\Var(X_2)=1$ with zero covariance, so $\Sigma=\operatorname{diag}(100,1)$ and the first principal direction is $\mathbf{a}_1=(1,0)^\top$: the first component is $X_1$ itself. But $Y=X_2$ is uncorrelated with $X_1$, so a regression of $Y$ on the first component explains $R^2=0$ of the variance of $Y$, even though $Y$ is perfectly predictable from $X_2$. This is a statement about population linear-regression $R^2$. Independence of the coordinates was an extra assumption of the construction. Principal components choose directions by the variance of the explanatory variables alone, so a low-variance direction can carry all of the predictive information. Selecting components should be checked against the response, for example by cross-validation, rather than assumed to preserve predictive power.
+
+[]{#sol-sl-03-7} **[Principal components as a modelling step](#ex-sl-03-7).**
+
+Directions, scores and variance fractions are related objects with different dimensions and different roles. The place where the transformation was fitted is part of the answer.
+
+(a) Centre the variables and, here, divide by the training standard deviations. Diagonalise their covariance matrix $S=U\Lambda U^\top$, sorting eigenvalues from largest to smallest. A direction $\mathbf{u}_j$ is a unit vector in predictor space. A score for observation $\mathbf{x}_i$ is $t_{ij}=\mathbf{u}_j^\top\mathbf{z}_i$. The first direction maximises score variance subject to unit norm. Subsequent directions impose orthogonality. The retained variance fraction is $(\lambda_1+\lambda_2)/\sum_j\lambda_j$.
+
+(b) Multiplying one variable by $10$ changes its covariance contributions, so the covariance-based directions can change. Standardisation cancels a positive change of measurement unit and makes the correlation-based analysis invariant to that change.
+
+(c) The decomposition ignores the labels. A low-variance direction can separate classes. Fit the centring, the scaling and the eigendecomposition on each training fold, and apply that fitted transform to its validation fold. Choose the component count and the classifier settings within the training data, leaving the final test set untouched.
+
+## Chapter 4
+
+[]{#sol-sl-04-1} **[Pairs and means](#ex-sl-04-1).**
+
+Subtract the common mean inside each pairwise difference. The cross term vanishes only after summing, which is the step that converts pairwise scatter into scatter around a centre.
+
+Add and subtract $\bar{\mathbf{x}}$:
+
+$$
+\|\mathbf{x}_i-\mathbf{x}_l\|^2
+=\|\mathbf{x}_i-\bar{\mathbf{x}}\|^2+\|\mathbf{x}_l-\bar{\mathbf{x}}\|^2
+-2(\mathbf{x}_i-\bar{\mathbf{x}})^\top(\mathbf{x}_l-\bar{\mathbf{x}}).
+$$
+
+Sum over all $N^2$ pairs. The first term sums to $N\sum_i\|\mathbf{x}_i-\bar{\mathbf{x}}\|^2$, because each $i$ appears with $N$ values of $l$. The second term sums to the same quantity. The cross term sums to
+
+$$
+-2\Bigl(\sum_i(\mathbf{x}_i-\bar{\mathbf{x}})\Bigr)^\top\Bigl(\sum_l(\mathbf{x}_l-\bar{\mathbf{x}})\Bigr)=0.
+$$
+
+So the total is $2N\sum_i\|\mathbf{x}_i-\bar{\mathbf{x}}\|^2$. Apply this inside each cluster $k$, with $N=N_k$, and multiply by $\tfrac12$. The pairwise definition of $W(C)$ becomes
+
+$$
+W(C)=\sum_k N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2.
+$$
+
+[]{#sol-sl-04-2} **[Counting partitions](#ex-sl-04-2).**
+
+Cluster labels are arbitrary, so swapping the two sides does not create a new partition. Enumerating this small case makes the division by label permutations concrete.
+
+The partitions into two non-empty clusters are
+
+$$
+\begin{aligned}
+&\{1\}\mid\{2,3,4\},
+\quad\{2\}\mid\{1,3,4\},
+\quad\{3\}\mid\{1,2,4\},
+\quad\{4\}\mid\{1,2,3\},\\
+&\{1,2\}\mid\{3,4\},
+\quad\{1,3\}\mid\{2,4\},
+\quad\{1,4\}\mid\{2,3\}.
+\end{aligned}
+$$
+
+There are seven. The formula gives
+
+$$
+S(4,2)=\frac12\Bigl[(-1)^1\binom{2}{1}1^4+(-1)^0\binom{2}{2}2^4\Bigr]
+=\frac12(-2+16)=7.
+$$
+
+For ten observations and three clusters,
+
+$$
+\begin{aligned}
+S(10,3)
+&=\frac{1}{6}\Bigl[\binom{3}{1}1^{10}-\binom{3}{2}2^{10}+\binom{3}{3}3^{10}\Bigr]\\
+&=\frac{1}{6}(3-3072+59049)=\frac{55980}{6}=9330.
+\end{aligned}
+$$
+
+[]{#sol-sl-04-3} **[K-means by hand](#ex-sl-04-3).**
+
+Alternate two operations: assign using the current centres, then recompute means using the new assignments. Evaluate the objective after the mean update.
+
+Pass $1$, centres $0$ and $1$. The point $0$ goes to cluster $1$. The points $1,3,8,9,11$ go to cluster $2$. For $x=3$ the squared distances are $9$ versus $4$, so $3$ joins the centre at $1$. The partition is $\{0\}$ and $\{1,3,8,9,11\}$, with means $0$ and $6.4$. Its unweighted sum of squares is
+
+$$
+\widetilde W=0+(5.4^2+3.4^2+1.6^2+2.6^2+4.6^2)
+=0+(29.16+11.56+2.56+6.76+21.16)=71.2.
+$$
+
+Pass $2$, centres $0$ and $6.4$. Compare squared distances: $x=1$ gives $1$ versus $29.16$, so cluster $1$; $x=3$ gives $9$ versus $11.56$, so cluster $1$; $x=8$ gives $64$ versus $2.56$, so cluster $2$. The partition is $\{0,1,3\}$ and $\{8,9,11\}$, with means $4/3$ and $28/3$.
+
+Pass $3$. For $x=3$,
+
+$$
+(3-4/3)^2=25/9\approx 2.78,
+\qquad
+(3-28/3)^2\approx 40.1,
+$$
+
+so $x=3$ stays in cluster $1$. For $x=8$, $44.4$ versus $1.78$, so $x=8$ stays in cluster $2$. No assignment changes, and the algorithm stops. The final value is
+
+$$
+\widetilde W=\frac{16+1+25}{9}+\frac{16+1+25}{9}=\frac{84}{9}=9.33.
+$$
+
+The criterion fell from $71.2$ to $9.33$.
+
+[]{#sol-sl-04-4} **[A Voronoi boundary](#ex-sl-04-4).**
+
+Equal squared distances cancel the quadratic terms in the observation. What remains is linear, so each pair of centres supplies a perpendicular bisector.
+
+For $(0,0)$ and $(4,2)$:
+
+$$
+2(4,2)^\top\mathbf{x}=\|(4,2)\|^2-0,
+$$
+
+that is $8x_1+4x_2=20$, or $2x_1+x_2=5$. For $(0,0)$ and $(0,4)$: $8x_2=16$, so $x_2=2$. For $(4,2)$ and $(0,4)$:
+
+$$
+2(-4,2)^\top\mathbf{x}=16-20,
+$$
+
+that is $-8x_1+4x_2=-4$, or $2x_1-x_2=1$. The first two meet where $x_2=2$ and $2x_1=3$, so at $(1.5,\ 2)$. The third equation gives $2(1.5)-2=1$, which holds. The circumradius is the distance to any centre:
+
+$$
+\sqrt{1.5^2+2^2}=2.5.
+$$
+
+The distances to $(4,2)$ and $(0,4)$ are $\sqrt{2.5^2+0}=2.5$ and $\sqrt{1.5^2+2^2}=2.5$.
+
+[]{#sol-sl-04-5} **[Reading the gap statistic](#ex-sl-04-5).**
+
+Apply the stopping rule in increasing order of the number of clusters. The selected value need not maximise the numerical gap.
+
+Check $\operatorname{Gap}(k)\ge\operatorname{Gap}(k+1)-s'(k+1)$ in order.
+
+- $k=1$: $0.30\ge 0.70-0.05=0.65$? No.
+- $k=2$: $0.70\ge 1.10-0.06=1.04$? No.
+- $k=3$: $1.10\ge 1.15-0.06=1.09$? Yes.
+
+So $k^*=3$, even though the gap is numerically largest at $k=4$. The increase from $3$ to $4$ is only $0.05$, which is smaller than $s'(4)=0.06$.
+
+[]{#sol-sl-04-6} **[The within-cluster sum cannot choose $K$](#ex-sl-04-6).**
+
+Ask what the unpenalised objective would prefer if every observation were allowed its own cluster. That limiting case shows why raw training fit cannot select complexity.
+
+The globally minimised within-cluster sum of squares never increases as clusters are added, because any partition into $K$ clusters can be refined into $K+1$ clusters without raising the criterion, and it equals $0$ when every point is its own cluster. Finite runs from poor starts need not follow this ordering, but the global objective favours the largest $K$ tried. The comparison says nothing about structure. Use a criterion that accounts for how much improvement is expected by chance, or that penalises complexity. The gap statistic compares $\log W$ with its value under a structureless reference. A plot of $W$ against $K$ asks where the decrease levels off. For a mixture model, a penalised likelihood such as BIC, or a likelihood computed on held-out observations, plays the analogous role.
+
+[]{#sol-sl-04-7} **[What a K-means diagram must show](#ex-sl-04-7).**
+
+A bisector is only a candidate boundary. Keep the part where neither of the other centres is closer, then connect this geometry to the least-squares objective.
+
+(a) Points are assigned to their nearest centre. Equality of squared distances to $\mathbf{m}_j$ and $\mathbf{m}_k$ gives
+
+$$
+2(\mathbf{m}_k-\mathbf{m}_j)^\top\mathbf{x}=\|\mathbf{m}_k\|^2-\|\mathbf{m}_j\|^2,
+$$
+
+a straight perpendicular bisector. The active portions form convex Voronoi cells. A full bisector need not be an actual boundary where a third centre is closer. A valid sketch has three labelled centres, data near them, and the appropriate clipped bisectors. For centres $(0,0)$, $(4,0)$ and $(0,4)$, the active boundaries are $x_1=2$ for $x_2\le 2$, $x_2=2$ for $x_1\le 2$, and $x_1=x_2$ for $x_1\ge 2$.
+
+(b) The algorithm minimises
+
+$$
+\sum_{k=1}^3\sum_{i\in C_k}\|\mathbf{x}_i-\mathbf{m}_k\|^2.
+$$
+
+For fixed nonempty assignments, each updated centre is the arithmetic mean of its assigned observations.
+
+(c) The joint optimisation is non-convex, so alternating assignment and updating can stop at different local solutions. Use multiple sensible starts, compare objective values, and inspect stability. Multiple starts do not prove global optimality.
+
+[]{#sol-sl-04-8} **[Euclidean clusters and mixture components](#ex-sl-04-8).**
+
+Compare both the assignment rule and the object being fitted. Hard clusters and mixture components differ even when a picture makes their groups look similar.
+
+(a) Nearest-centre assignment gives convex Voronoi cells. Pairwise boundaries are active segments or rays of perpendicular bisectors, with equation
+
+$$
+2(\mathbf{m}_k-\mathbf{m}_j)^\top\mathbf{x}=\|\mathbf{m}_k\|^2-\|\mathbf{m}_j\|^2.
+$$
+
+The sketch must include three centres, data and valid nearest-centre regions. The three-centre construction in [What a K-means diagram must show](#ex-sl-04-7) supplies one exact picture: centres $(0,0)$, $(4,0)$ and $(0,4)$, with active boundaries $x_1=2$ for $x_2\le 2$, $x_2=2$ for $x_1\le 2$, and $x_1=x_2$ for $x_1\ge 2$. Collinear centres, producing parallel boundaries, are also valid.
+
+(b) Two differences: hard assignments against posterior membership probabilities, and one Euclidean distance against component densities that may have different covariances and weights. The consequences include a representation of uncertainty, ellipsoidal or differently oriented components, and curved boundaries for the maximum-a-posteriori assignment. Both are fitted summaries. Neither automatically discovers biological classes.
+
+## Mixtures and the EM algorithm
+
+[]{#sol-sl-05-1} **[Mean and variance of a mixture](#ex-sl-05-1).**
+
+Condition on the component label. There is variation inside each component and variation between its mean and the overall mean. Both contribute.
+
+$$
+\E X=\sum_h\pi_h\mu_h.
+$$
+
+For the variance use $\E X^2=\sum_h\pi_h(\sigma_h^2+\mu_h^2)$, so
+
+$$
+\Var X
+=\sum_h\pi_h\sigma_h^2+\sum_h\pi_h\mu_h^2-\bar\mu^2
+=\sum_h\pi_h\sigma_h^2+\sum_h\pi_h(\mu_h-\bar\mu)^2.
+$$
+
+The last step expands $\sum_h\pi_h(\mu_h-\bar\mu)^2=\sum_h\pi_h\mu_h^2-\bar\mu^2$. This is the law of total variance with the component label as the conditioning variable: within-component variance plus between-component variance.
+
+Numerically $\bar\mu=0.3\cdot 0+0.7\cdot 4=2.8$ and
+
+$$
+\Var X
+=(0.3\cdot 1+0.7\cdot 4)+0.3\cdot 2.8^2+0.7\cdot 1.2^2
+=3.1+(2.352+1.008)
+=6.46.
+$$
+
+[]{#sol-sl-05-2} **[An E step](#ex-sl-05-2).**
+
+A responsibility is a normalised weighted density. Pass the standard deviation, rather than the variance, when a normal density routine is parameterised by the standard deviation. Component $1$ is $\Normal(0,1)$ and component $2$ is $\Normal(4,4)$, so the second standard deviation is $2$.
+
+At $x=1$: $f_1=\varphi(1)=0.2420$ and $f_2=\varphi(-1.5)/2=0.1295/2=0.0648$. The weighted values are $0.3\times 0.2420=0.0726$ and $0.7\times 0.0648=0.0453$, so
+
+$$
+\tau_1(1)=\frac{0.0726}{0.1179}=0.6156.
+$$
+
+At $x=3$: $f_1=\varphi(3)=0.00443$ and $f_2=\varphi(-0.5)/2=0.3521/2=0.1760$. The weighted values are $0.3\times 0.00443=0.00133$ and $0.7\times 0.1760=0.1232$, so
+
+$$
+\tau_1(3)=\frac{0.00133}{0.1246}=0.0107.
+$$
+
+[]{#sol-sl-05-3} **[An M step](#ex-sl-05-3).**
+
+Hold the E-step responsibilities fixed throughout this M step. They act like fractional counts when updating weights, means, and variances.
+
+The memberships are $\tau_{\cdot 1}=(0.6156,0.0107)$ and $\tau_{\cdot 2}=(0.3844,0.9893)$. Then $N_1=0.6263$, $N_2=1.3737$ and
+
+$$
+\pi=(N_1,N_2)/2=(0.3131,0.6869).
+$$
+
+The means are
+
+$$
+\mu_1=\frac{0.6156\cdot 1+0.0107\cdot 3}{0.6263}=1.034,
+\qquad
+\mu_2=\frac{0.3844\cdot 1+0.9893\cdot 3}{1.3737}=2.440.
+$$
+
+The variances about those means are
+
+\begin{align*}
+\sigma_1^2
+&=\frac{0.6156(1-1.034)^2+0.0107(3-1.034)^2}{0.6263}
+=0.067,\\
+\sigma_2^2
+&=\frac{0.3844(1-2.440)^2+0.9893(3-2.440)^2}{1.3737}
+=0.806.
+\end{align*}
+
+With only two points the first component is essentially pinned on $x=1$, and its variance shrinks toward zero. That is a miniature of the singularity of an unconstrained normal mixture.
+
+[]{#sol-sl-05-4} **[An unbounded likelihood](#ex-sl-05-4).**
+
+Make one component concentrate on a single observation while the other retains positive density at every remaining observation. A lower bound is enough to show divergence. The log-likelihood contains the term for observation $1$,
+
+$$
+\ln\Biggl(\frac12\cdot\frac{1}{\sqrt{2\pi\sigma_1^2}}+\frac12 f_2(x_1)\Biggr)
+\ge -\ln 2-\frac12\ln(2\pi\sigma_1^2),
+$$
+
+using $\varphi(x_1;x_1,\sigma_1^2)=(2\pi\sigma_1^2)^{-1/2}$. For $i\ge 2$,
+
+$$
+\ln\Bigl(\tfrac12 f_1(x_i)+\tfrac12 f_2(x_i)\Bigr)
+\ge\ln\bigl(\tfrac12 f_2(x_i)\bigr),
+$$
+
+a finite constant that does not depend on $\sigma_1$. So
+
+$$
+\ell\ge C-\tfrac12\ln(2\pi\sigma_1^2)\to\infty
+\qquad\text{as}\qquad\sigma_1^2\to 0.
+$$
+
+[]{#sol-sl-05-5} **[Counting parameters](#ex-sl-05-5).**
+
+Count means, covariance entries, and independent mixing weights separately. Symmetry reduces a full covariance count, and the weights lose one degree of freedom because they sum to one.
+
+For $p=2$ and $H=3$, the unrestricted count is $6+3\cdot 3+2=17$. For $p=5$ and $H=3$ it is $15+3\cdot 15+2=62$.
+
+Diagonal covariances replace $p(p+1)/2$ by $p$ per component: $6+6+2=14$ when $p=2$, and $15+15+2=32$ when $p=5$.
+
+A common full matrix has $p(p+1)/2$ covariance parameters in total: $6+3+2=11$ when $p=2$, and $15+15+2=32$ when $p=5$.
+
+[]{#sol-sl-05-6} **[Label switching](#ex-sl-05-6).**
+
+Write the density before interpreting the component names. A permutation changes the parameter labels and leaves the sum, and therefore the likelihood, unchanged. The density is
+
+$$
+\pi\,\varphi(x;\mu_1,\sigma_1^2)+(1-\pi)\,\varphi(x;\mu_2,\sigma_2^2).
+$$
+
+Swapping the labels and the weights, $\pi\leftrightarrow 1-\pi$, reorders the two summands. The likelihood is the same for both parameter vectors, and the data cannot distinguish them.
+
+If two bootstrap fits have swapped labels, an average of their parameters, for example of the two values called $\mu_1$, mixes the means of different components and lands between them. The bootstrap covariance is inflated by that artificial spread. Components must be matched across fits first.
+
+[]{#sol-sl-05-7} **[Mixtures versus $K$-means](#ex-sl-05-7).**
+
+(a) One distinction is hard nearest-centre assignment against probabilistic membership from a density model. The mixture reports a responsibility for an observation that sits between components, so an overlap is visible as a probability rather than as a forced label. Another distinction is Euclidean nearest-centre geometry against component-specific covariances and mixing weights. The mixture can give the components different orientations, spreads, and prevalences, and the maximum-a-posteriori boundary can be curved.
+
+(b) With component probability $\pi_k$, mean $\boldsymbol\mu_k$, and covariance $\Sigma_k$,
+
+$$
+\tau_k(\mathbf{x})
+=\frac{\pi_k\,\varphi_p(\mathbf{x};\boldsymbol\mu_k,\Sigma_k)}
+{\sum_h\pi_h\,\varphi_p(\mathbf{x};\boldsymbol\mu_h,\Sigma_h)},
+\qquad
+\pi_k\ge 0,
+\qquad
+\sum_k\pi_k=1.
+$$
+
+The denominator is the mixture density. The probabilities sum to one.
+
+(c) Components are terms in an approximation to the observed density. Several components can represent one non-normal population, and overlap or misspecification can obscure distinct populations. A biological reading needs evidence beyond the component count.
+
+## Model selection
+
+[]{#sol-sl-06-1} **[Posterior odds](#ex-sl-06-1).**
+
+Bayes factors multiply odds. Convert the prior to odds first and convert back only after applying the evidence factor. The prior odds are $0.25/0.75=1/3$, so the posterior odds are
+
+$$
+B_{12}\times\frac{\Pr(M_1)}{\Pr(M_2)}=6\times\frac13=2.
+$$
+
+The posterior probability of $M_1$ is $2/(1+2)=2/3\approx 0.667$.
+
+[]{#sol-sl-06-2} **[BIC and AIC by hand](#ex-sl-06-2).**
+
+Use one sign convention for every candidate. Here smaller is better. Then compare the improvement in fit with the extra parameter charge. With $\log 300=5.7038$,
+
+\begin{align*}
+\mathrm{BIC}(H=2)&=2200+11\times 5.7038=2262.7,\\
+\mathrm{AIC}(H=2)&=2200+22=2222,\\
+\mathrm{BIC}(H=3)&=2100+17\times 5.7038=2197.0,\\
+\mathrm{AIC}(H=3)&=2100+34=2134.
+\end{align*}
+
+Both criteria select $H=3$. The gain of $100$ in $-2\ell$ more than pays for the six extra parameters under either penalty: $6\times 5.7038=34.2$ for BIC and $12$ for AIC.
+
+[]{#sol-sl-06-3} **[The Laplace integral in one dimension](#ex-sl-06-3).**
+
+The integrand is $\sqrt{2\pi/h}$ times the $\Normal(\widetilde\theta,1/h)$ density, which integrates to $1$. Hence
+
+$$
+\int_{-\infty}^{\infty}\exp\bigl\{-\tfrac12 h(\theta-\widetilde\theta)^2\bigr\}\,d\theta=\sqrt{2\pi/h}.
+$$
+
+The curvature $h$ has to be positive for the integral to be finite. In the Laplace approximation with $d_k=1$ and $H=h$, the factor $(2\pi)^{1/2}h^{-1/2}$ is the same quantity. If $h=n I_1$, then
+
+$$
+-\tfrac12\log h=-\tfrac12\log n-\tfrac12\log I_1,
+$$
+
+and the second term is a constant, that is $O(1)$.
+
+[]{#sol-sl-06-4} **[KL divergence](#ex-sl-06-4).**
+
+Set $u=\widehat f/f$. The inequality $\ln u\le u-1$ gives
+
+$$
+D(f\Vert\widehat f)
+=-\int f\ln(\widehat f/f)
+\ge -\int f\bigl(\widehat f/f-1\bigr)
+=-\int\widehat f+\int f
+=0,
+$$
+
+because both densities integrate to one. Equality in $\ln u\le u-1$ holds only at $u=1$, so $\widehat f=f$ almost everywhere. Splitting the logarithm, $\ln(f/\widehat f)=\ln f-\ln\widehat f$, gives
+
+$$
+D(f\Vert\widehat f)=\int f\ln f-\E\bigl[\ln\widehat f(X)\bigr].
+$$
+
+The first term does not depend on the fitted model, so maximising $\E[\ln\widehat f(X)]$ over models is the same as minimising $D$. The comparison selects the fitted density closest to $f$ in Kullback–Leibler divergence.
+
+[]{#sol-sl-06-5} **[A tempting wrong turn](#ex-sl-06-5).**
+
+If the candidate parameter spaces are nested, the supremum of the training log-likelihood cannot decrease as $H$ increases. It need not strictly increase at every step. For unrestricted Gaussian mixtures with at least two components, the supremum is already infinite by the covariance-collapse construction: a component can be pinned on one observation while another component keeps the remaining likelihood factors positive. A numerical finite local fit does not remove that pathology. Meaningful comparisons require a stated fitting or constraint convention.
+
+Two changes address the selection. A complexity criterion such as BIC or AIC charges a penalty that grows with the parameter count. A held-out log-likelihood scores observations that were excluded from the fit. The two targets differ: BIC approximates a marginal likelihood in regular models, and held-out log-likelihood estimates predictive performance. The ordinary Laplace justification of BIC needs qualification for singular mixtures (Drton and Plummer, 2017).
+
+[]{#sol-sl-06-6} **[Choosing model complexity](#ex-sl-06-6).**
+
+(a) With $\log 100=4.605170$,
+
+\begin{align*}
+\mathrm{BIC}(A)&=360+5\log 100=383.026,\\
+\mathrm{BIC}(B)&=340+9\log 100=381.447,\\
+\mathrm{BIC}(C)&=332+14\log 100=396.472.
+\end{align*}
+
+Model B has the smallest BIC, so B is preferred.
+
+(b) Extra flexibility can fit random sample variation. In nested models the global maximised likelihood cannot decrease as the model class expands, so the training likelihood contains no explicit cost for extra parameters. BIC trades fit against a $d\log n$ penalty. A finite optimisation run, or a singular mixture fit, can complicate this ideal comparison.
+
+(c) The quantity $2\ell-d\log n$ is the negative of this BIC. Negation reverses the ordering, so the preferred model is the one with the largest reported value. The preferred statistical model is unchanged when the optimisation direction changes consistently.
+
+[]{#sol-sl-06-7} **[Mixture selection and uncertainty](#ex-sl-06-7).**
+
+(a) Compute $\pi_k\varphi(\mathbf{x};\boldsymbol\mu_k,\Sigma_k)$ for each component and divide by the sum of those weighted densities. The weight $\pi_k$, the component mean and covariance, and the normalising mixture density are the ingredients. A hard label retains only the maximum. The probability vector distinguishes a near tie from a confident assignment.
+
+(b) With $\log 80=4.382027$,
+
+\begin{align*}
+\mathrm{BIC}&=280+11\log 80=328.202,\\
+\mathrm{BIC}&=266+17\log 80=340.494.
+\end{align*}
+
+The first model has the smaller BIC, so it is the one selected.
+
+(c) A larger training likelihood is a statement about the sample already used to fit the model. Flexibility can fit noise. A comparison on new observations, or an explicit complexity penalty, is what speaks to prediction. A numerical likelihood value alone also does not prove that the optimisation found a global maximum.
+
+## Hierarchical clustering and kernel density estimation
+
+[]{#sol-sl-07-1} **[Linkage by hand](#ex-sl-07-1).**
+
+After every merge, recompute the distance between clusters using the chosen linkage. The same observations can produce different merge heights even when the merge order agrees.
+
+Single linkage merges $\{1,2\}$ at $1$ and $\{6,8\}$ at $2$, then merges $\{1,2\}$ with $\{6,8\}$ at $4$ (the closest pair is $2$ and $6$), then attaches $15$ at $7$ (the closest pair is $8$ and $15$). The heights are $1,2,4,7$.
+
+Complete linkage makes the same first two merges, at heights $1$ and $2$. The union $\{1,2\}\cup\{6,8\}$ then has maximum cross distance $8-1=7$, and $15$ joins at $15-1=14$. The heights are $1,2,7,14$.
+
+Average linkage again merges $\{1,2\}$ at $1$ and $\{6,8\}$ at $2$. The mean of the cross distances $(5,7,4,6)$ between $\{1,2\}$ and $\{6,8\}$ is $5.5$. The mean of the distances $(14,13,9,7)$ from $15$ to $\{1,2,6,8\}$ is $10.75$. The heights are $1,2,5.5,10.75$.
+
+The merge order and the groupings are the same for all three: $\{1,2\}$, $\{6,8\}$, then their union, then $15$. Only the heights differ, with single linkage at most average linkage, and average linkage at most complete linkage, at every merge.
+
+[]{#sol-sl-07-2} **[Number of merges](#ex-sl-07-2).**
+
+Each merge reduces the number of clusters by one, so going from $n$ clusters to $1$ takes $n-1$ merges. The hierarchy contains the clusterings with $n,n-1,\ldots,1$ clusters: $n$ levels, including the singletons and the single cluster at the top. The dendrogram has $n$ leaves and $n-1$ internal nodes.
+
+[]{#sol-sl-07-3} **[Kernel density by hand](#ex-sl-07-3).**
+
+With $h=1$, each observation contributes a standard normal density centred at that observation, and the estimate averages the three contributions:
+
+$$
+\widehat f(0)
+=\frac13\bigl[\varphi(0-(-1))+\varphi(0-0)+\varphi(0-2)\bigr]
+=\frac13\bigl[\varphi(1)+\varphi(0)+\varphi(2)\bigr].
+$$
+
+Using $\varphi(1)=0.24197$, $\varphi(0)=0.39894$, and $\varphi(2)=0.05399$,
+
+$$
+\widehat f(0)=\frac{0.24197+0.39894+0.05399}{3}=\frac{0.69490}{3}=0.2316.
+$$
+
+[]{#sol-sl-07-4} **[A kernel is a density](#ex-sl-07-4).**
+
+The bandwidth stretches the kernel, so the factor $|H|^{-1/2}$ cancels the Jacobian. For each sample point,
+
+$$
+\int K_H(\mathbf{x}-\mathbf{x}_i)\,d\mathbf{x}
+=|H|^{-1/2}\int K\bigl(H^{-1/2}(\mathbf{x}-\mathbf{x}_i)\bigr)\,d\mathbf{x}.
+$$
+
+Put $\mathbf{u}=H^{-1/2}(\mathbf{x}-\mathbf{x}_i)$. Then $d\mathbf{x}=|H|^{1/2}\,d\mathbf{u}$, because the Jacobian determinant of $\mathbf{x}=H^{1/2}\mathbf{u}+\mathbf{x}_i$ is $|H|^{1/2}$. The integral becomes $\int K(\mathbf{u})\,d\mathbf{u}=1$. Each of the $n$ terms integrates to $1$, and the factor $1/n$ gives total mass $1$.
+
+[]{#sol-sl-07-5} **[A tempting wrong turn](#ex-sl-07-5).**
+
+At a training observation, the density includes a kernel centred exactly on that observation. For a univariate kernel scaled as $K_h(u)=h^{-1}K(u/h)$, that self-contribution is $(1/n)K(0)/h$, which diverges as $h\to 0$. The training criterion increases without bound as $h\to 0$ and selects a spiky estimate that reproduces the sample, the same singularity as a mixture component collapsing on a data point.
+
+The criterion should evaluate each point under a density that does not use it: the leave-one-out log-likelihood
+
+$$
+\sum_i\log\widehat f_{-i}(x_i;h),
+\qquad
+\widehat f_{-i}(x_i;h)=\frac{1}{n-1}\sum_{l\ne i}K_h(x_i-x_l),
+$$
+
+or the likelihood on a held-out validation set.
+
+[]{#sol-sl-07-6} **[Clustering and smoothing choices](#ex-sl-07-6).**
+
+(a) Single linkage uses the smallest inter-cluster distance, so a chain of short links can join distant dense regions. Complete linkage uses the largest inter-cluster distance and favours clusters of smaller diameter. Neither method is guaranteed to recover the groups that generated the sample.
+
+(b) Bandwidth sets the smoothing scale. In the isotropic form,
+
+$$
+\widehat f_h(\mathbf{x})=n^{-1}\sum_{i=1}^{n}h^{-p}K\bigl((\mathbf{x}-\mathbf{x}_i)/h\bigr).
+$$
+
+A very small $h$ produces noisy peaks around observations. A very large $h$ can merge features and hide modes. The two regimes are the two sides of the bias–variance trade-off in mean integrated squared error.
+
+(c) Peaks depend on the smoothing choice and on sample variability. A multimodal population, or two overlapping populations, breaks a reading in which each peak is its own generating population.
+
+## Discriminant analysis
+
+[]{#sol-sl-08-1} **[A Bayes rule in one dimension](#ex-sl-08-1).**
+
+At the boundary the two posterior numerators tie. Solve that equality, check which class wins on each side, and then integrate the two error regions. The boundary solves $\pi_1 f_1(x)=\pi_2 f_2(x)$:
+
+$$
+0.7\,e^{-x^2/2}=0.3\,e^{-(x-2)^2/2}.
+$$
+
+Taking logarithms,
+
+$$
+\ln(0.7/0.3)
+=\tfrac12\bigl[x^2-(x-2)^2\bigr]
+=\tfrac12(4x-4)
+=2x-2,
+$$
+
+so
+
+$$
+x^*=1+\tfrac12\ln(7/3)=1.4236.
+$$
+
+Class $1$ is predicted for $x<x^*$. The error rate is
+
+\begin{align*}
+\sum_g\pi_g\mathrm{Err}_g
+&=0.7\,\Pr(X>x^*\given Y=1)+0.3\,\Pr(X<x^*\given Y=2)\\
+&=0.7\bigl[1-\Phi(1.4236)\bigr]+0.3\,\Phi(1.4236-2)\\
+&=0.7\times 0.0773+0.3\times 0.2822
+=0.0541+0.0847
+=0.139.
+\end{align*}
+
+The unequal priors move the boundary away from the midpoint $1$, toward the less probable class.
+
+[]{#sol-sl-08-2} **[Unequal costs](#ex-sl-08-2).**
+
+Compare posterior expected losses. The more probable class need not be the cheaper decision when the costs differ. Predicting class $1$, with $\tau_1=0.3$ and $\tau_2=0.7$, has expected cost
+
+$$
+\tau_2 c_{21}=0.7\times 1=0.7.
+$$
+
+Predicting class $2$ has expected cost
+
+$$
+\tau_1 c_{12}=0.3\times 5=1.5.
+$$
+
+Class $1$ is chosen, even though it is the less probable class. The decision switches when $\tau_2 c_{21}=\tau_1 c_{12}$, that is $1-\tau_1=5\tau_1$, so $\tau_1=1/6\approx 0.167$. Class $1$ is predicted whenever $\tau_1>1/6$.
+
+[]{#sol-sl-08-3} **[LDA with unequal priors](#ex-sl-08-3).**
+
+A change in priors shifts the intercept and leaves the shared-covariance slope unchanged. Now
+
+$$
+\alpha=\log 2+9.75=0.693+9.75=10.443,
+$$
+
+and $\boldsymbol\beta$ is unchanged, so the boundary is $10.443-1.5(x_1+x_2)=0$, that is
+
+$$
+x_1+x_2=6.962.
+$$
+
+The boundary has moved away from class $1$, the more probable class, by $6.962-6.5=0.462$. For $(3.4,3.2)$ the sum is $6.6<6.962$, so the point is class $1$. Under equal priors, $6.6>6.5$ gave class $2$. The prior changes the decision at this point.
+
+[]{#sol-sl-08-4} **[A quadratic boundary](#ex-sl-08-4).**
+
+Equal means do not make the two distributions equal. The variance difference makes the centre favour one class and both tails favour the other. Equal priors and standard deviations $1$ and $2$ give
+
+$$
+e^{-x^2/2}=\tfrac12 e^{-x^2/8},
+$$
+
+so $-x^2/2+x^2/8=-\ln 2$, that is $3x^2/8=\ln 2$ and
+
+$$
+x^2=\tfrac83\ln 2=1.848,
+\qquad |x|=1.360.
+$$
+
+QDA predicts class $1$ for $|x|<1.36$ and class $2$ otherwise: two boundary points. LDA assumes a common variance, and the class means are equal, so $\boldsymbol\beta=S^{-1}(\boldsymbol\mu_1-\boldsymbol\mu_2)=\mathbf{0}$. The linear discriminant function is constant and cannot separate the classes. All of the information is in the variance.
+
+[]{#sol-sl-08-5} **[Parameter counts](#ex-sl-08-5).**
+
+A covariance shared across classes and a covariance estimated separately in each class change both the parameter count and the rank requirement.
+
+$$
+\text{LDA: }
+Gp+\frac{p(p+1)}{2}+(G-1)=30+55+2=87,
+$$
+
+$$
+\text{QDA: }
+30+3\times 55+2=197.
+$$
+
+A class sample covariance matrix has rank at most $n_g-1$, so nonsingularity needs $n_g-1\ge p$, that is $n_g\ge 11$ in each class and at least $33$ observations in total. A nearly singular matrix is already unreliable, so a practical fit uses more.
+
+[]{#sol-sl-08-6} **[Fisher's direction](#ex-sl-08-6).**
+
+The optimal direction uses the covariance to reweight the mean difference. Compare the same scale-invariant separation ratio for each proposed direction. Here $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2=(-3,-2)^\top$ and
+
+$$
+S^{-1}\mathbf{d}=(-1.5,-1.5)^\top\propto(1,1)^\top.
+$$
+
+For $\mathbf{a}=(1,1)^\top$, one has $\mathbf{a}^\top\mathbf{d}=-5$ and
+
+$$
+\mathbf{a}^\top S\mathbf{a}
+=\tfrac43+2\cdot\tfrac23+\tfrac23
+=\tfrac{10}{3},
+\qquad
+\frac{(-5)^2}{2\cdot 10/3}
+=\frac{25}{20/3}
+=3.75.
+$$
+
+For the naive direction $\mathbf{a}=\mathbf{d}$, one has $\mathbf{a}^\top\mathbf{d}=13$ and
+
+$$
+\mathbf{a}^\top S\mathbf{a}
+=9\cdot\tfrac43+2\cdot 6\cdot\tfrac23+4\cdot\tfrac23
+=22.67,
+\qquad
+\frac{169}{2\times 22.67}
+=\frac{169}{45.33}
+=3.728.
+$$
+
+Fisher's direction attains the maximum $\mathbf{d}^\top S^{-1}\mathbf{d}/2=7.5/2=3.75$. The naive direction is slightly lower because the mean difference is already nearly along the leading axis of $S$.
+
+[]{#sol-sl-08-7} **[The fitted LDA model](#ex-sl-08-7).**
+
+(a) Write $\Pr(Y=k)=\pi_k$ and $X\given Y=k\sim\Normal_2(\boldsymbol\mu_k,\Sigma)$ for $k=1,2$, with one shared positive definite covariance. Estimate the class means by the within-class averages, the covariance by the pooled within-class variation, and the priors by the training proportions when those proportions represent the deployment prevalence. For the usual unbiased pool,
+
+$$
+S_p
+=\frac{1}{n-2}\sum_{k=1}^{2}\sum_{i:y_i=k}
+(\mathbf{x}_i-\bar{\mathbf{x}}_k)(\mathbf{x}_i-\bar{\mathbf{x}}_k)^\top.
+$$
+
+A likelihood convention uses divisor $n$.
+
+(b) The common term $\mathbf{x}^\top\Sigma^{-1}\mathbf{x}$ cancels from the log-density difference. The remaining discriminant is affine in $\mathbf{x}$:
+
+$$
+\delta_k(\mathbf{x})
+=\mathbf{x}^\top\Sigma^{-1}\boldsymbol\mu_k
+-\tfrac12\boldsymbol\mu_k^\top\Sigma^{-1}\boldsymbol\mu_k
++\log\pi_k.
+$$
+
+(c) Priors alter the intercept of the log posterior odds. Unequal misclassification losses change the posterior-odds threshold: choose the class with the smaller expected loss. Sampling proportions should be replaced by known target-population priors when those priors are known and the sample was not drawn with the target class frequencies.
+
+[]{#sol-sl-08-8} **[LDA and principal components](#ex-sl-08-8).**
+
+(a) State $\Pr(Y=k)=\pi_k$ and $X\given Y=k\sim\Normal_p(\boldsymbol\mu_k,\Sigma)$ with a shared covariance. Estimate the means from the class samples, the common covariance from the pooled within-class scatter, and the priors from suitable class proportions or from an external prevalence. Apply Bayes' rule and choose the largest posterior under equal losses. Equivalent discriminants are
+
+$$
+\delta_k(\mathbf{x})
+=\mathbf{x}^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_k
+-\tfrac12\widehat{\boldsymbol\mu}_k^\top\widehat\Sigma^{-1}\widehat{\boldsymbol\mu}_k
++\log\widehat\pi_k.
+$$
+
+The common quadratic terms cancel, so the boundary is linear.
+
+(b) Centre the predictors, and standardise them when the units require it. Compute the eigendecomposition of the covariance, or of the correlation matrix if the columns were standardised. The principal directions are orthonormal eigenvectors ordered by decreasing eigenvalue. They arise by maximising projected variance subject to a unit-length constraint and to orthogonality with the directions already chosen. The scores are the projections of the centred observations onto these directions. The eigenvalues are the variances of those scores, so the ratio of an eigenvalue to the trace is the proportion of variance explained by that component. The construction uses the predictors alone. It does not use a response label.
+
+[]{#sol-sl-09-1} **[A confusion matrix](#ex-sl-09-1).**
+
+Overall error uses the full sample size. A class-specific error uses its own class denominator. The off-diagonal total is $12+16=28$, so $\widehat{\mathrm{Err}}=28/200=0.14$. By rows, $\widehat{\mathrm{Err}}_1=12/120=0.10$ and $\widehat{\mathrm{Err}}_2=16/80=0.20$. The test-set class proportions are $120/200=0.6$ and $80/200=0.4$, and
+
+$$
+0.6(0.10)+0.4(0.20)=0.06+0.08=0.14,
+$$
+
+which equals $\widehat{\mathrm{Err}}$.
+
+[]{#sol-sl-09-2} **[Test-set size](#ex-sl-09-2).**
+
+The half-width equation, for independent test outcomes and an error probability near the planning value, is
+
+$$
+1.96\sqrt{\frac{p(1-p)}{n}}=0.02.
+$$
+
+With $p=0.10$,
+
+$$
+n=\frac{1.96^2\,(0.10)(0.90)}{0.02^2}
+=\frac{3.8416\times 0.09}{0.0004}
+=864.36,
+$$
+
+so about $865$ observations. The requirement grows like the inverse square of the half-width.
+
+[]{#sol-sl-09-3} **[The $0.632$ rule](#ex-sl-09-3).**
+
+A point is absent from a bootstrap sample only if every draw misses it. For $n=5$,
+
+$$
+1-\Bigl(1-\frac15\Bigr)^5=1-(0.8)^5=1-0.32768=0.672.
+$$
+
+For $n=20$,
+
+$$
+1-\Bigl(1-\frac{1}{20}\Bigr)^{20}=1-(0.95)^{20}=0.642.
+$$
+
+Since $(1-1/n)^n\to e^{-1}$, the inclusion probability tends to $1-e^{-1}=0.632$. The $.632$ estimate is
+
+$$
+0.368(0.05)+0.632(0.20)=0.0184+0.1264=0.145.
+$$
+
+[]{#sol-sl-09-4} **[Jackknife of the mean](#ex-sl-09-4).**
+
+Leaving out $x_i$ gives
+
+$$
+\hat\theta_{(i)}=\frac{n\bar x-x_i}{n-1}
+=\bar x+\frac{\bar x-x_i}{n-1},
+$$
+
+because $n\bar x-x_i=(n-1)\bar x+(\bar x-x_i)$. Averaging over $i$, $\sum_i(\bar x-x_i)=0$, so $\hat\theta_{(\cdot)}=\bar x=\hat\theta$ and
+
+$$
+\widehat{\mathrm{bias}}_{\mathrm{jack}}=(n-1)(\hat\theta_{(\cdot)}-\hat\theta)=0.
+$$
+
+Next,
+
+$$
+\sum_{i=1}^n\bigl(\hat\theta_{(i)}-\hat\theta_{(\cdot)}\bigr)^2
+=\sum_{i=1}^n\frac{(\bar x-x_i)^2}{(n-1)^2}
+=\frac{(n-1)s^2}{(n-1)^2}
+=\frac{s^2}{n-1},
+$$
+
+where $\sum_i(\bar x-x_i)^2=(n-1)s^2$. The jackknife standard error is
+
+$$
+\widehat{\mathrm{se}}_{\mathrm{jack}}
+=\Biggl(\frac{n-1}{n}\cdot\frac{s^2}{n-1}\Biggr)^{1/2}
+=\frac{s}{\sqrt{n}}.
+$$
+
+The jackknife reproduces the usual standard error of the mean.
+
+[]{#sol-sl-09-5} **[Costs of cross-validation](#ex-sl-09-5).**
+
+Leave-one-out cross-validation trains $n=1000$ classifiers. Ten-fold cross-validation trains $10$. For nested cross-validation with $m=10$, each outer iteration runs $9\times 5=45$ inner fits to compare the candidates and one refit of the chosen model on the training and validation data, $46$ in all, so $10\times 46=460$. The final classifier needs its own selection, taken here as $10$-fold cross-validation over $5$ candidates, hence $50$ fits, plus one fit on all the data: $51$. The total is $460+51=511$. The full procedure requires about fifty times as many fits as one ten-fold calculation. That cost is specific to these loop sizes. The assessment benefit comes from keeping selection inside each outer training set.
+
+[]{#sol-sl-09-6} **[A tempting wrong turn](#ex-sl-09-6).**
+
+Selection favours candidates with favourable estimation noise. The minimum inner cross-validation score is not an independent estimate of the chosen procedure's prediction error, so the reported $8.0\%$ can be optimistic. Its bias relative to a particular full-sample target also involves training-size effects, so there is no guaranteed numerical ordering on every split. Outer cross-validation repeats selection using only each outer training set, then evaluates the selected fit on the omitted fold. It estimates performance at that outer training size.
+
+[]{#sol-sl-09-7} **[Separate tuning from evaluation](#ex-sl-09-7).**
+
+(a) Validation results vary because of sampling noise. Selecting the largest value favours candidates with favourable noise as well as genuinely good performance. Reporting that selected value creates optimistic selection bias. It need not exceed test accuracy in every realised split.
+
+(b) Fit preprocessing and candidate models on training data. Apply the fitted transforms to the validation data and choose settings using a stated criterion. Freeze those choices. Optionally refit the chosen procedure, including preprocessing, on the training data plus the validation data. Evaluate that fixed fitted procedure once on the independent test set, and state the metric and the sample size. Further choices based on the test results would use up its independence.
+
+(c) Each fold has its own fitted preprocessing and model. Cross-validation can tune, and the best cross-validation score is still selected. Use an external test set, or an outer cross-validation loop, for evaluation. An outer loop must repeat all inner choices.
+
+[]{#sol-sl-10-1} **[Derivative of the logistic function](#ex-sl-10-1).**
+
+$$
+\sigma'(\eta)
+=\frac{e^{-\eta}}{(1+e^{-\eta})^2}
+=\frac{1}{1+e^{-\eta}}\cdot\frac{e^{-\eta}}{1+e^{-\eta}}
+=\sigma(\eta)\bigl(1-\sigma(\eta)\bigr),
+$$
+
+since $1-\sigma(\eta)=e^{-\eta}/(1+e^{-\eta})$. Also
+
+$$
+\sigma(-\eta)=\frac{1}{1+e^{\eta}}=\frac{e^{-\eta}}{e^{-\eta}+1}=1-\sigma(\eta).
+$$
+
+The score has $i$th contribution $(y_i-p_i)x_i$, with $p_i=\sigma(\eta_i)$ and $\eta_i=\beta^\top x_i$. Differentiating again, $\partial p_i/\partial\beta=p_i(1-p_i)x_i$, so the Hessian is
+
+$$
+-\sum_{i=1}^n p_i(1-p_i)\,x_i x_i^\top=-X^\top W X.
+$$
+
+Concavity follows from that negative semi-definite Hessian. Existence of a finite optimum needs separate conditions.
+
+[]{#sol-sl-10-2} **[Odds ratios](#ex-sl-10-2).**
+
+For ten years the log odds rise by $10\times 0.04618=0.4618$, and the odds ratio is $e^{0.4618}=1.587$, reported as $1.59$. Scaling the profile interval endpoints by $10$ gives $(0.2484,0.6851)$, and
+
+$$
+e^{0.2484}=1.282,\qquad e^{0.6851}=1.984.
+$$
+
+The odds ratio for ten years is $1.59$ with $95\%$ interval $(1.28,1.98)$. For a $60$-year-old with high blood pressure equal to $0$,
+
+$$
+\eta=-3.70568+0.04618(60)=-0.9349,
+\qquad
+\hat p=\frac{1}{1+e^{0.9349}}=0.282.
+$$
+
+For age $70$, $\eta=-0.4731$ and $\hat p=1/(1+e^{0.4731})=0.384$. Under this reported fitted association, the predicted probability of recorded death during follow-up changes from about $28\%$ to $38\%$. The ratio $0.384/0.282=1.36$ is smaller than the odds ratio $1.59$, because the probabilities are not small.
+
+[]{#sol-sl-10-3} **[Linear discriminant analysis implies a logistic model](#ex-sl-10-3).**
+
+$$
+\log\frac{\tau_1}{\tau_0}
+=\log\frac{\pi_1}{\pi_0}+\log\frac{f_1(x)}{f_0(x)}.
+$$
+
+With the common covariance the quadratic terms cancel:
+
+\begin{align*}
+\log\frac{f_1}{f_0}
+&=-\tfrac12(x-\mu_1)^\top\Sigma^{-1}(x-\mu_1)
++\tfrac12(x-\mu_0)^\top\Sigma^{-1}(x-\mu_0)\\
+&=x^\top\Sigma^{-1}(\mu_1-\mu_0)
+-\tfrac12(\mu_1+\mu_0)^\top\Sigma^{-1}(\mu_1-\mu_0).
+\end{align*}
+
+So $\beta=\Sigma^{-1}(\mu_1-\mu_0)$ and
+
+$$
+\alpha_0=\log\frac{\pi_1}{\pi_0}-\tfrac12(\mu_1+\mu_0)^\top\Sigma^{-1}(\mu_1-\mu_0).
+$$
+
+This is a logistic model with those parameters.
+
+[]{#sol-sl-10-4} **[Multinomial probabilities](#ex-sl-10-4).**
+
+The common denominator is
+
+$$
+1+e^{0.5}+e^{-0.2}=1+1.6487+0.8187=3.4674.
+$$
+
+So $\tau_1=1/3.4674=0.288$, $\tau_2=1.6487/3.4674=0.476$, and $\tau_3=0.8187/3.4674=0.236$, which sum to $1.000$. The log odds of class $3$ against class $2$ are
+
+$$
+\log\frac{\tau_3}{\tau_2}=(\beta_3-\beta_2)^\top x=-0.2-0.5=-0.7.
+$$
+
+The common denominator cancels in the pairwise comparison.
+
+[]{#sol-sl-10-5} **[Complete separation](#ex-sl-10-5).**
+
+With $\beta_1=s$ and $\beta_0=-2.5s$,
+
+$$
+\eta_i=s(x_i-2.5)=(-1.5s,-0.5s,0.5s,1.5s).
+$$
+
+For $y_i=0$ the summand of $\ell$ is $-\log(1+e^{\eta_i})=-\log(1+e^{-|\eta_i|})$. For $y_i=1$ it is
+
+$$
+\eta_i-\log(1+e^{\eta_i})=-\log(1+e^{-\eta_i})=-\log(1+e^{-|\eta_i|}).
+$$
+
+Each term is negative and tends to $0$ as $s\to\infty$, so $\ell\uparrow 0$. Since $\ell<0$ for every finite $\beta$, each probability being strictly below $1$, the supremum $0$ is never attained. There is no maximum, and the estimates diverge. Concavity alone does not establish a finite maximum likelihood estimate. Complete or quasi-complete separation, and rank deficiency, need separate checks.
+
+[]{#sol-sl-10-6} **[Reading the deviance](#ex-sl-10-6).**
+
+The supplied Wald value gives $z^2=1.016^2\approx 1.03$. Under the usual large-sample regularity conditions, this can approximate the likelihood-ratio statistic for removing high blood pressure, suggesting a reduced-model deviance near
+
+$$
+354.97+1.03=356.0
+$$
+
+on $297$ degrees of freedom, one more than the full model's $296$. It is not a calculation of that model's actual likelihood ratio: refitting the reduced model is needed for the exact observed difference. The approximate one-degree-of-freedom comparison is not significant at $5\%$, because $1.03<3.84$.
+
+For the full model against the intercept-only model, both reported deviances are available. Their difference is $375.35-354.97=20.38$ on two degrees of freedom, giving the regular asymptotic $\chi^2_2$ comparison and $p\approx 3.8\times 10^{-5}$. This supports improved fit from the included predictors jointly. It is not a causal conclusion about age or blood pressure.
+
+[]{#sol-sl-10-7} **[A logistic rule in an unfamiliar setting](#ex-sl-10-7).**
+
+(a) The linear predictor is $-3+0.8(4)-0.4(2)=-3+3.2-0.8=-0.6$. Thus
+
+$$
+p=\frac{1}{1+e^{0.6}}=0.354,
+$$
+
+and the prediction at threshold $0.5$ is class $0$.
+
+(b) The boundary is $-3+0.8x_1-0.4x_2=0$. Increasing $x_1$ by one unit multiplies the conditional odds by $e^{0.8}=2.226$, holding $x_2$ fixed. It does not add $0.8$ to the probability.
+
+(c) Logistic regression specifies $\Pr(Y\given X)$ directly and does not require Gaussian class-conditional predictor distributions. Linear discriminant analysis specifies Gaussian $X\given Y$ with a shared covariance and class priors, then derives posterior probabilities. Both give linear log odds under these forms. Their assumptions and estimation procedures differ.
+
+[]{#sol-sl-11-1} **[Neighbours by hand](#ex-sl-11-1).**
+
+Distances from $4$: $x=3$ is at distance $1$; $x=2$ and $x=6$ are at distance $2$; $x=1$ and $x=7$ are at distance $3$. For $k=1$ the nearest point is $x=3$, class B, so the prediction is B. For $k=3$ the nearest is $3$, then $2$ and $6$ tie at distance $2$ for the second and third places. Exactly two points are tied for the last two slots, so both are included. The three neighbours are $3$, $2$, and $6$, with votes B, A, B, so the prediction is B. If a tie straddles the cutoff, the result depends on the convention: one implementation includes all distance ties, and another selects enough tied points at random. For $k=5$ every point votes, A, A, B, B, A, so A wins by $3$ votes to $2$. The prediction changes from B to A as $k$ grows.
+
+[]{#sol-sl-11-2} **[Changing units](#ex-sl-11-2).**
+
+In the original units,
+
+$$
+d(0,a)=\sqrt{1+100}=\sqrt{101}=10.05,
+\qquad
+d(0,b)=\sqrt{9+1}=\sqrt{10}=3.16,
+$$
+
+so $b$ is nearer. After dividing the second coordinate by $10$, $a'=(1,1)$ and $b'=(3,0.1)$, and
+
+$$
+d(0,a')=\sqrt{2}=1.41,
+\qquad
+d(0,b')=\sqrt{9+0.01}=3.00,
+$$
+
+so now $a$ is nearer. The nearest neighbour, and hence the classification, depends on the units. Euclidean distance is not scale invariant.
+
+[]{#sol-sl-11-3} **[Rank distance](#ex-sl-11-3).**
+
+Coordinate $1$, the values $\{1,3,2.5\}$ plus the new value $2$, sorts as $1<2<2.5<3$. The ranks are $1\mapsto 1$, new $\mapsto 2$, $2.5\mapsto 3$, $3\mapsto 4$. Coordinate $2$, the values $\{10,200,40\}$ plus the new value $50$, sorts as $10<40<50<200$. The ranks are $10\mapsto 1$, $40\mapsto 2$, new $\mapsto 3$, $200\mapsto 4$. Rank pairs: $(1,10)$ is $(1,1)$; $(3,200)$ is $(4,4)$; $(2.5,40)$ is $(3,2)$; the new point is $(2,3)$. The distances are
+
+\begin{align*}
+\rho\bigl((1,10)\bigr)&=\max(|1-2|,|1-3|)=2,\\
+\rho\bigl((3,200)\bigr)&=\max(|4-2|,|4-3|)=2,\\
+\rho\bigl((2.5,40)\bigr)&=\max(|3-2|,|2-3|)=1.
+\end{align*}
+
+The nearest neighbour is $(2.5,40)$, with $\rho=1$. Taking logarithms of coordinate $2$ does not change the ordering, hence not the ranks, hence not the distances.
+
+[]{#sol-sl-11-4} **[The factor of two](#ex-sl-11-4).**
+
+The conditional Bayes error is $r=\min(0.9,0.1)=0.1$. The asymptotic nearest-neighbour error is
+
+$$
+2\tau(1-\tau)=2(0.9)(0.1)=0.18,
+$$
+
+which is $1.8$ times the Bayes error and below the factor-two bound. The multiplier $1+\sqrt{2/k}$ is $2.41$ for $k=1$, $1.53$ for $k=7$, and $1.20$ for $k=50$. For $k=1$ the sharper Cover–Hart bound $2R^*(1-R^*)$ is tighter than $1+\sqrt{2}$. This is a large-sample comparison for the stated nearest-neighbour setting. Bayes consistency of a sequence $k_n$ requires conditions such as $k_n\to\infty$ and $k_n/n\to 0$. Increasing $k$ to the full sample size is not that regime.
+
+[]{#sol-sl-11-5} **[A tempting wrong turn](#ex-sl-11-5).**
+
+If each training point may be its own neighbour, then for $k=1$ each point with a unique predictor vector is classified correctly, at distance $0$ from itself, so the training error is $0$. Then $k=1$ is always chosen. The apparent error is minimised by the most flexible classifier and says nothing about performance on new data. Use leave-one-out or $K$-fold cross-validation, with the $i$th point excluded from its own neighbour list, or a separate validation set, to choose $k$. For a final error estimate use a test set or nested cross-validation.
+
+[]{#sol-sl-11-6} **[Normalisation and nearest neighbours](#ex-sl-11-6).**
+
+(a) Euclidean distances sum squared differences in the chosen units, so height can dominate solely through its scale. Fit $z_j=(x_j-\bar x_{j,\mathrm{train}})/s_{j,\mathrm{train}}$ on the training data and reuse those constants. A constant predictor must be removed or handled separately.
+
+(b) For a prespecified set of $k$ values, predict validation labels using training neighbours and the training-fitted scaling. Choose $k$ from the validation errors, optionally refit on the training data plus the validation data, and assess the frozen rule on the untouched test set. No test observation is a neighbour during fitting or tuning.
+
+(c) Equalising numerical variance does not create signal, remove correlation, or assign an optimal metric. A pure-noise predictor still affects distance after standardisation. Normalisation here is not a transformation of every marginal into a normal distribution.
+
+[]{#sol-sl-11-7} **[Tuning a nearest-neighbour classifier](#ex-sl-11-7).**
+
+(a) Different units can dominate squared distances. Subtract each training mean and divide by its training standard deviation, then apply the same transform to held-out points. This makes differences comparable in standard-deviation units. It does not guarantee equal predictive relevance, and it does not make the marginals Gaussian.
+
+(b) Prespecify plausible candidate values of $k$ and a metric. Fit the preprocessing on the training data. For each $k$, predict the validation observations from the training neighbours. Select the best $k$ by the validation criterion, with a stated tie rule. Optionally refit the preprocessing and the neighbour reference set on the training data plus the validation data, with $k$ fixed. Estimate accuracy on the untouched test set, without making new choices from its results. State whether the report is overall or class-specific accuracy. A later refit on all the data is possible for deployment. The test score evaluated the preceding procedure and is not a new independent test of that final refit.
+
+(c) The best observed validation result benefits from favourable validation noise as well as from true performance. Selection therefore induces optimism. Independent test outcomes do not share that same selection event. This is a repeated-sampling tendency, not a guaranteed ordering on every split.
+
+(d) A validation set is useful for a tree. Choose a pruning penalty, a depth limit, or a leaf-size restriction from training-fitted candidates, using validation loss. A fully grown tree can isolate training noise. Preserve a separate final evaluation.
+
+[]{#sol-sl-11-8} **[What an accuracy table does and does not say](#ex-sl-11-8).**
+
+(a) The overall error is $(2+8)/60=1/6=0.1667$. The class-$1$ error is $2/20=0.10$. The class-$2$ error is $8/40=0.20$. The class denominators are the row totals.
+
+(b) Validation-driven selection favours favourable noise, and the independent test sample has different noise. Sampling variation alone can also cause a difference, so a single gap is not a proof of selection bias or of a change in the data-generating distribution.
+
+(c) Keep an outer test split, or outer cross-validation folds, separate from selection. For every candidate pipeline in the inner cross-validation, fit its scaling, and any feature selection, on the inner training fold. Predict that fold's validation observations from its training neighbours. Select the candidate using the aggregated inner loss, then refit on the outer training data and evaluate externally.
+
+(d) Once the former test set is used to choose settings, it is part of model selection. The best score on it is selected and is no longer an independent final assessment. Use genuinely fresh test data, or an assessment design that repeats the selection within outer training folds. Renaming the reused data does not repair the problem.
+
+(e) Always predicting class $2$ gives $40/60=2/3$ accuracy and is a useful no-feature baseline. It misses every class-$1$ observation. Overall accuracy hides that failure, so report class-specific errors and consider the losses and the prevalence that the deployment actually uses.
+
+[]{#sol-sl-12-1} **[Three impurities](#ex-sl-12-1).**
+
+The proportions are $\hat p=(0.6,0.2,0.2)$. Cross-entropy, with the natural logarithm and the convention $0\log 0=0$, is
+
+$$
+-(0.6\log 0.6+2\cdot 0.2\log 0.2)=0.3065+0.6438=0.950.
+$$
+
+The Gini index is
+
+$$
+0.6(0.4)+2(0.2)(0.8)=0.24+0.32=0.56.
+$$
+
+The misclassification rate is $1-0.6=0.4$. For the identity,
+
+$$
+\sum_g\hat p_g(1-\hat p_g)
+=\sum_g\hat p_g-\sum_g\hat p_g^2
+=1-\sum_g\hat p_g^2,
+$$
+
+since the proportions sum to $1$. The check is $1-(0.36+0.04+0.04)=0.56$.
+
+[]{#sol-sl-12-2} **[Which split is better?](#ex-sl-12-2).**
+
+The parent is $(400,400)$, with misclassification $0.5$, Gini index $0.5$, and cross-entropy $\log 2=0.693$.
+
+Misclassification. Split A: both children have error $100/400=0.25$, so the weighted impurity is $0.25$ and $\Delta I=0.25$. Split B: the child $(200,400)$ has error $200/600=1/3$ and weight $0.75$; the child $(200,0)$ has error $0$; the weighted impurity is $0.25$ and $\Delta I=0.25$. The two splits agree.
+
+Gini. Split A: each child has $2(0.75)(0.25)=0.375$, so $\Delta I=0.5-0.375=0.125$. Split B:
+
+$$
+0.75\cdot 2\cdot\tfrac13\cdot\tfrac23=0.75\cdot\tfrac49=0.333,
+\qquad
+\Delta I=0.5-0.333=0.1667.
+$$
+
+Cross-entropy. Split A: each child has $-(0.75\log 0.75+0.25\log 0.25)=0.562$, so $\Delta I=0.693-0.562=0.131$. Split B: the impure child has entropy $0.6365$, the weighted impurity is $0.75\times 0.6365=0.477$, and $\Delta I=0.693-0.477=0.216$. Both smooth criteria prefer B.
+
+A pure child is a finished leaf that classifies perfectly, while the remaining child $(200,400)$ can still be split further. Split A leaves two moderately impure nodes, and the misclassification rate does not register that B has made progress. The strict concavity of the Gini index and of entropy rewards that purity.
+
+[]{#sol-sl-12-3} **[A tree by hand](#ex-sl-12-3).**
+
+The ordered data, with class in parentheses, are $2(1)$, $3(1)$, $4(2)$, $5(2)$, $6(2)$, $10(1)$, $12(2)$. The parent has $3$ observations of class $1$ and $4$ of class $2$, so
+
+$$
+I_G=2\cdot\frac37\cdot\frac47=\frac{24}{49}=0.490.
+$$
+
+Only cuts between consecutive distinct observed values need checking. The reductions are $0.109$ at $2.5$, $0.261$ at $3.5$, $0.085$ at $4.5$, $0.014$ at $5.5$, $0.004$ at $8$, and $0.061$ at $11$. The cut at $3.5$ puts the pure class-$1$ group $\{2,3\}$ on the left. The right child has one class-$1$ observation and four class-$2$ observations, so its Gini index is $2(1/5)(4/5)=0.32$, and
+
+$$
+\Delta I=0.490-\frac57(0.32)=0.261.
+$$
+
+The first split is $x<3.5$.
+
+[]{#sol-sl-12-4} **[Affine invariance](#ex-sl-12-4).**
+
+For a monotone increasing map $x_j\mapsto ax_j+b$ with $a>0$, the set of observations with $x_j<\lambda$ is the set with $ax_j+b<a\lambda+b$. Every split partitions the data identically and has the same child compositions, hence the same $\Delta I$. The best split is at the transformed cut. If $a<0$, the left and right children swap, and $\Delta I$ is symmetric in the two children, with $\hat p_L$ exchanged for $1-\hat p_L$, so the reduction is unchanged. A rotation does not preserve this. A split on a single coordinate after rotation is a split on a linear combination before the rotation, which an axis-aligned tree cannot reproduce, so the trees and their accuracy can change. Training partitions are preserved by strictly monotone coordinate transformations, up to ties and equivalent cuts. Predictions between observed values can differ when a nonlinear transformation changes the midpoint convention.
+
+[]{#sol-sl-12-5} **[Penalised impurity](#ex-sl-12-5).**
+
+Tree $1$ has leaf-impurity sum $0.30+0.20=0.50$, plus $2\alpha$. Tree $2$ has leaf-impurity sum $0.05+0.05+0.10+0+0.10=0.30$, plus $5\alpha$. At $\alpha=0.15$, tree $1$ scores $0.80$ and tree $2$ scores $1.05$, so tree $1$ is preferred. At $\alpha=0.05$, tree $1$ scores $0.60$ and tree $2$ scores $0.55$, so tree $2$ is preferred. A larger penalty favours the smaller tree. The break-even solves $0.50+2\alpha=0.30+5\alpha$, so $\alpha=0.20/3=0.0667$.
+
+[]{#sol-sl-12-6} **[A tempting wrong turn](#ex-sl-12-6).**
+
+An unrestricted tree can isolate distinct training inputs, so perfect training accuracy is possible. Conflicting labels at identical inputs prevent perfect purity. Practical limits on depth, on leaf size, and on splits can prevent it too. None of these training outcomes measures accuracy on new data. Select the tree's complexity within the training and validation data, then report held-out or outer cross-validation performance. A binomial interval is appropriate for independent test outcomes conditional on a fixed fitted rule. It is not automatically valid for pooled cross-validation errors. Out-of-bag assessment requires a bootstrap construction such as a forest.
+
+[]{#sol-sl-12-7} **[Decision trees and validation](#ex-sl-12-7).**
+
+(a) Repeated splitting can fit peculiarities of the training sample and can isolate observations, so a low training error can coexist with high variance and with poor performance on new data. Perfect purity is impossible when identical predictor vectors have conflicting labels, unless the fitting rule does something beyond ordinary deterministic splits.
+
+(b) A validation set is useful. Grow candidate subtrees along a cost-complexity pruning path on the training data, predict the validation labels, and choose a pruning parameter using validation loss. Refit as appropriate with that setting fixed, then evaluate on an untouched test set. Depth, leaf size, and split thresholds are other tuning choices. A tree's greedy split fitting does not itself choose predictive complexity.
+
+(c) Each split is an axis-aligned threshold. A leaf is an intersection of half-spaces, hence an axis-aligned rectangular region, possibly unbounded. A class region can be a union of several such leaves.
+
+[]{#sol-sl-13-1} **[The error decomposition](#ex-sl-13-1).**
+
+Here $f=\frac13(1+2+6)=3$. The left side is $(f-y)^2=(3-4)^2=1$. The average member loss is
+
+$$
+\frac13\bigl[(1-4)^2+(2-4)^2+(6-4)^2\bigr]
+=\frac{9+4+4}{3}
+=\frac{17}{3}
+=5.667.
+$$
+
+The diversity is
+
+$$
+\frac13\bigl[(1-3)^2+(2-3)^2+(6-3)^2\bigr]
+=\frac{4+1+9}{3}
+=\frac{14}{3}
+=4.667.
+$$
+
+Then $5.667-4.667=1$, matching the left side. In general, $f_t-y=(f_t-f)+(f-y)$, so
+
+$$
+\frac1T\sum_t(f_t-y)^2
+=\frac1T\sum_t(f_t-f)^2
++2(f-y)\frac1T\sum_t(f_t-f)
++(f-y)^2.
+$$
+
+The cross term vanishes because $\frac1T\sum_t(f_t-f)=0$, and
+
+$$
+(f-y)^2
+=\frac1T\sum_t(f_t-y)^2
+-\frac1T\sum_t(f_t-f)^2.
+$$
+
+[]{#sol-sl-13-2} **[Variance of an average](#ex-sl-13-2).**
+
+There are $T$ variance terms and $T(T-1)$ covariance terms:
+
+\begin{align*}
+\Var(\bar f)
+&=\frac{1}{T^2}\Biggl(\sum_t\Var(f_t)+\sum_{s\ne t}\Cov(f_s,f_t)\Biggr)\\
+&=\frac{1}{T^2}\bigl(T\sigma^2+T(T-1)\rho\sigma^2\bigr)\\
+&=\rho\sigma^2+\frac{1-\rho}{T}\sigma^2.
+\end{align*}
+
+For $\rho=0.3$ and $T=100$, the variance is $0.3+0.007=0.307\,\sigma^2$. For $\rho=0.8$ it is $0.8+0.002=0.802\,\sigma^2$. Adding trees removes only the $(1-\rho)\sigma^2/T$ term. The floor $\rho\sigma^2$ is reduced only by making the trees less correlated, which is why the candidate predictors at a split are randomised. Whether bootstrap samples or random feature subsets reduce correlation, and what they do to individual bias and variance, depends on the data and on the base learner.
+
+[]{#sol-sl-13-3} **[Out-of-bag counts](#ex-sl-13-3).**
+
+$$
+\Bigl(1-\frac{1}{200}\Bigr)^{200}=0.3669,
+$$
+
+so an observation is out-of-bag for about $0.3669\times 500\approx 184$ of the $500$ trees. The probability that it is in every bootstrap sample is
+
+$$
+(1-0.3669)^{500}=0.6331^{500}
+=\exp(500\log 0.6331)
+=\exp(-228.6)
+\approx 10^{-99}.
+$$
+
+A zero out-of-bag count is extraordinarily unlikely under independent bootstrap draws. The count is still random, with expectation about $184$.
+
+[]{#sol-sl-13-4} **[One round of AdaBoost](#ex-sl-13-4).**
+
+The stump predicts $(+,+,-,-,-)$ and the truth is $(+,+,-,-,+)$, so only $x=5$ is wrong and $\varepsilon_1=0.2$. Then
+
+$$
+\alpha_1=\tfrac12\log(0.8/0.2)=\tfrac12\log 4=0.693,
+$$
+
+$e^{-\alpha_1}=0.5$, and $e^{\alpha_1}=2$. The un-normalised weights are $0.2\times 0.5=0.1$ for each correct point and $0.2\times 2=0.4$ for the wrong one. The normaliser is
+
+$$
+Z_1=4(0.1)+0.4=0.8=2\sqrt{0.2\times 0.8}.
+$$
+
+The normalised weights are $0.125$ for $x=1,2,3,4$ and $0.5$ for $x=5$. The weighted error of the same stump under the new weights is $0.5$, all of it from $x=5$.
+
+[]{#sol-sl-13-5} **[The exponential-loss minimiser](#ex-sl-13-5).**
+
+$$
+f^*=\tfrac12\log\frac{0.8}{0.2}=\tfrac12\log 4=0.693.
+$$
+
+Then $e^{-2f^*}=e^{-1.386}=0.25$ and $\tau=1/(1+0.25)=0.8$. For $\tau_1=0.5$ the log odds are $0$, so $f^*=0$, the decision boundary of the classifier, where the sign changes.
+
+[]{#sol-sl-13-6} **[A tempting wrong turn](#ex-sl-13-6).**
+
+Identical members have $f_t=f$ for every $t$, so the diversity term is exactly $0$ and the ensemble's squared error equals the average member loss. There is no gain. In the variance formula, $\rho=1$ gives $\Var(\bar f)=\sigma^2$. A random forest breaks the correlation by training each tree on a different bootstrap sample and by restricting each split to a random subset of variables. AdaBoost makes each learner different by reweighting the observations, so that every new learner is trained on a problem on which the previous learner has weighted error exactly $1/2$.
+
+[]{#sol-sl-13-7} **[Why an ensemble might improve a tree](#ex-sl-13-7).**
+
+(a) Fit a tree to each bootstrap sample, considering a random subset of predictors at each split, and aggregate class votes or probabilities. Random predictor subsets reduce dependence between trees. Averaging or voting can reduce variance when the individual predictors are useful and imperfectly correlated. More trees do not remove systematic bias.
+
+(b) For each observation, use predictions only from trees whose bootstrap sample omitted it, then aggregate the loss. This imitates held-out prediction for that forest construction. Repeatedly selecting settings by the same out-of-bag score can introduce selection optimism, so an independent assessment is still valuable.
+
+(c) Bagging fits base learners to perturbed datasets without sequentially targeting the preceding fit's errors. Boosting adds learners sequentially to reduce a specified loss, often by fitting reweighted errors or negative gradients. It is not another name for a vote over bootstrap trees.
+
+Worked answers for neural units, backpropagation, networks in practice, support vector machines, high-dimensional analysis, and graphical models.
+
+[]{#sol-sl-14-1} **[Derivative of the sigmoid](#ex-sl-14-1).**
+
+$$
+g'(z)=\frac{e^{-z}}{(1+e^{-z})^2}=e^{-z}g(z)^2.
+$$
+
+Since $1-g(z)=e^{-z}/(1+e^{-z})$,
+
+$$
+g(z)\bigl(1-g(z)\bigr)=\frac{e^{-z}}{(1+e^{-z})^2},
+$$
+
+the same expression. The product $g(1-g)$ is largest when $g=\tfrac12$, that is at $z=0$, where it equals $\tfrac14$.
+
+[]{#sol-sl-14-2} **[Logic gates](#ex-sl-14-2).**
+
+(a) AND: $w=(1,1)^\top$, $w_0=-1.5$. The net input $x_1+x_2-1.5$ is nonnegative only for $(1,1)$.
+
+(b) OR: $w=(1,1)^\top$, $w_0=-0.5$. Then $x_1+x_2\ge 0.5$ unless both inputs are $0$.
+
+(c) NAND: negate AND, so $w=(-1,-1)^\top$, $w_0=1.5$. The net input $1.5-x_1-x_2$ is nonnegative unless both inputs are $1$.
+
+XNOR has the pattern $(0,0)\to 1$, $(0,1)\to 0$, $(1,0)\to 0$, $(1,1)\to 1$. It is the complement of XOR. The four inequalities of the XOR argument reverse in sense:
+
+$$
+w_0\ge 0,\qquad w_0+w_1<0,\qquad w_0+w_2<0,\qquad w_0+w_1+w_2\ge 0.
+$$
+
+Adding the middle two gives $2w_0+w_1+w_2<0$, while the first and the last give $2w_0+w_1+w_2\ge 0$. No single threshold unit computes XNOR.
+
+[]{#sol-sl-14-3} **[A decision boundary](#ex-sl-14-3).**
+
+The boundary is $2x_1-x_2-1=0$, that is $x_2=2x_1-1$. The unit outputs $1$ where $2x_1-x_2-1\ge 0$, the side containing the direction $w=(2,-1)$, below the line.
+
+- $(1,0)$: $2-0-1=1\ge 0$, output $1$.
+- $(0,0)$: $-1<0$, output $0$.
+- $(1,2)$: $2-2-1=-1<0$, output $0$.
+
+The distance from the origin to the boundary is $|w_0|/\lVert w\rVert=1/\sqrt{5}=0.447$.
+
+[]{#sol-sl-14-4} **[Perceptron by hand](#ex-sl-14-4).**
+
+Write the state as $(w_1,w_2;w_0)$. Start at $(0,0;0)$. The convention is $f(0)=1$.
+
+Present $(0,0)$, class $0$: net input $0$, output $1\neq 0$. Subtract $(0,0)$ and set $w_0\leftarrow -1$, giving $(0,0;-1)$.
+
+Present $(1,0)$, class $1$: net input $-1<0$, output $0\neq 1$. Add, giving $(1,0;0)$.
+
+Present $(0,1)$, class $1$: net input $0\ge 0$, output $1$, correct.
+
+Second pass. $(0,0)$: net input $0$, output $1\neq 0$, so $w_0\leftarrow -1$, giving $(1,0;-1)$. $(1,0)$: net input $0$, output $1$, correct. $(0,1)$: net input $-1<0$, output $0\neq 1$. Add, giving $(1,1;0)$.
+
+Third pass. $(0,0)$: net input $0$, output $1\neq 0$, giving $(1,1;-1)$. $(1,0)$: net input $0$, output $1$, correct. $(0,1)$: net input $0$, correct.
+
+Fourth pass. $(0,0)$: net input $-1$, output $0$, correct. $(1,0)$ and $(0,1)$ are correct. The rule has converged at $(1,1;-1)$, the boundary $x_1+x_2=1$. A point on the boundary counts as class $1$.
+
+[]{#sol-sl-14-5} **[An XOR network of your own](#ex-sl-14-5).**
+
+Use NAND and OR in the hidden layer and AND at the output:
+
+$$
+h_1=f(-2x_1-2x_2+3),\qquad
+h_2=f(2x_1+2x_2-1),\qquad
+o=f(h_1+h_2-1.5).
+$$
+
+The first hidden unit is $0$ only for $(1,1)$. The second is OR. The output is AND of the two hidden units.
+
+| $(x_1,x_2)$ | $(h_1,h_2)$ | net input of $o$ | $o$ |
+|---|---|---|---|
+| $(0,0)$ | $(1,0)$ | $-0.5$ | $0$ |
+| $(0,1)$ | $(1,1)$ | $0.5$ | $1$ |
+| $(1,0)$ | $(1,1)$ | $0.5$ | $1$ |
+| $(1,1)$ | $(0,1)$ | $-0.5$ | $0$ |
+
+This is $\mathrm{XOR}=(x_1\vee x_2)\wedge\neg(x_1\wedge x_2)$.
+
+[]{#sol-sl-14-6} **[Linear hidden units](#ex-sl-14-6).**
+
+With $u_q=w_{0q}+\sum_j w_{jq} x_j$ and $h_q=u_q$, the output net input is
+
+$$
+z_k=w_{0k}+\sum_q w_{qk} u_q
+=w_{0k}+\sum_q w_{qk} w_{0q}+\sum_j\Biggl(\sum_q w_{qk} w_{jq}\Biggr) x_j.
+$$
+
+This is an affine function of $x$. The network is a single-layer network with weights $\tilde w_{jk}=\sum_q w_{qk} w_{jq}$ and a threshold, or sigmoid, output. No such unit computes XOR. Hidden layers enlarge the represented class only if the hidden activation is nonlinear.
+
+[]{#sol-sl-14-7} **[Why XOR needs an extra layer](#ex-sl-14-7).**
+
+(a) The two positive corners and the two negative corners lie on opposing diagonals of a square. Their convex hulls meet at $(1/2,1/2)$, so no straight line strictly separates the two classes. Equivalently, the four threshold inequalities are incompatible.
+
+(b) Let
+
+$$
+h_1=1\{x_1+x_2-1/2\ge 0\}
+$$
+
+be OR, let
+
+$$
+h_2=1\{-x_1-x_2+3/2\ge 0\}
+$$
+
+be NAND, and let
+
+$$
+y=1\{h_1+h_2-3/2\ge 0\}
+$$
+
+be AND of the two hidden units. The weights and biases are the coefficients in those three net inputs. The four inputs give $(h_1,h_2)$ equal to $(0,1)$, $(1,1)$, $(1,1)$, $(1,0)$, and the output net inputs $-1/2$, $+1/2$, $+1/2$, $-1/2$, which match the labels $0,1,1,0$.
+
+(c) Composing affine maps gives another affine map. Added depth alone would then create no nonlinear decision feature, so it would not solve this classification problem.
+
+[]{#sol-sl-15-1} **[Forward pass](#ex-sl-15-1).**
+
+For $x=(0,1)$,
+
+$$
+u_1=0.1+0.4(0)+(-0.3)(1)=-0.2,
+\qquad
+u_2=-0.2+0.3(0)+0.2(1)=0.
+$$
+
+So $h_1=g(-0.2)=0.4502$ and $h_2=g(0)=0.5$. Then
+
+$$
+z=0.2+0.5(0.4502)-0.4(0.5)=0.2251,
+\qquad
+o=g(0.2251)=0.5560.
+$$
+
+[]{#sol-sl-15-2} **[A gradient by hand](#ex-sl-15-2).**
+
+Here $z=1\cdot 2=2$, $o=g(2)=0.8808$ and $E=(0-0.8808)^2=0.7758$. The single-layer formula gives
+
+$$
+\frac{\partial E}{\partial w_1}
+=-2(y-o)\,e^{-z} o^2 x
+=-2(-0.8808)(0.1353)(0.7758)(2)
+=0.3699.
+$$
+
+Equivalently, $2\,o\cdot o(1-o)\,x=2(0.8808)(0.1050)(2)=0.3699$.
+
+Central difference with $\delta=0.001$: $E(w_1=1.001)=g(2.002)^2$ and $E(0.999)=g(1.998)^2$. Now $g(2.002)=0.88101$ and $g(1.998)=0.88059$, with squares $0.77617$ and $0.77543$. The difference divided by $0.002$ is about $0.370$, agreeing with $0.3699$ to rounding.
+
+Without the factor $e^{-z}$ the formula would give $0.3699/0.1353=2.734$, wrong by a factor $e^2=7.39$.
+
+[]{#sol-sl-15-3} **[Counting weights](#ex-sl-15-3).**
+
+$$
+(p+1)l+(l+1)m=11\times 5+6\times 3=55+18=73.
+$$
+
+A multinomial logistic regression with $p=10$ inputs and $G=3$ classes, with one class as reference, has $(G-1)(p+1)=2\times 11=22$ parameters. The network with five hidden units has more than three times as many.
+
+[]{#sol-sl-15-4} **[Symmetric start](#ex-sl-15-4).**
+
+Suppose hidden units $q$ and $q'$ have $w_{jq}=w_{jq'}$ for all $j$ and $w_{qk}=w_{q'k}$ for all $k$. Then for every pattern $u_{iq}=u_{iq'}$, so $h_{iq}=h_{iq'}$, and the error signals
+
+$$
+\delta_{iq}^{(h)}=h_{iq}(1-h_{iq})\sum_k w_{qk}\delta_{ik}^{(o)}
+$$
+
+are identical for $q$ and $q'$. The gradients $\sum_i\delta_{iq}^{(h)} x_{ij}$ of their incoming weights are equal, and so are the gradients $\sum_i\delta_{ik}^{(o)} h_{iq}$ of their outgoing weights. Both units receive the same update, so they remain identical. The network behaves as if it had one hidden unit, repeated.
+
+If all weights start at $0$, then $h_{iq}=g(0)=0.5$ for every hidden unit and every pattern. All hidden units are identical, and the output-layer gradients are also identical. The symmetry is never broken. A symmetry-breaking start is needed for these otherwise identical units to differentiate under this deterministic update. Random initialisation is one way to obtain it.
+
+[]{#sol-sl-15-5} **[Delta form](#ex-sl-15-5).**
+
+From the factored input–hidden update,
+
+$$
+\Delta w_{ab}
+=2\varepsilon\sum_i e^{-u_{ib}} h_{ib}^2 x_{ia}
+\sum_k [y_{ik}-o_{ik}]\,e^{-z_{ik}} o_{ik}^2 w_{bk}.
+$$
+
+Using $e^{-u}h^2=h(1-h)$ and $e^{-z}o^2=o(1-o)$,
+
+$$
+\Delta w_{ab}
+=2\varepsilon\sum_i h_{ib}(1-h_{ib}) x_{ia}
+\sum_k w_{bk}[y_{ik}-o_{ik}]\,o_{ik}(1-o_{ik}).
+$$
+
+With $\delta_{ik}^{(o)}=-2(y_{ik}-o_{ik})o_{ik}(1-o_{ik})$ one has $2[y_{ik}-o_{ik}]o_{ik}(1-o_{ik})=-\delta_{ik}^{(o)}$, so
+
+$$
+\Delta w_{ab}
+=-\varepsilon\sum_i x_{ia}\, h_{ib}(1-h_{ib})\sum_k w_{bk}\delta_{ik}^{(o)}
+=-\varepsilon\sum_i x_{ia}\,\delta_{ib}^{(h)}.
+$$
+
+[]{#sol-sl-15-6} **[Saturation](#ex-sl-15-6).**
+
+At $z=-8$, $o=g(-8)=3.35\times 10^{-4}$ and the error is $1-o\approx 0.9997$. Then
+
+$$
+\frac{\partial E}{\partial z}
+=-2(y-o)\,o(1-o)
+=-2(0.9997)(3.35\times 10^{-4})(0.9997)
+=-6.7\times 10^{-4}.
+$$
+
+At $z=-1$, $o=0.2689$ and
+
+$$
+\frac{\partial E}{\partial z}
+=-2(0.7311)(0.2689)(0.7311)
+=-0.2874.
+$$
+
+The gradient at the confidently wrong point is about $430$ times smaller, although the error is much larger. The unit is saturated and learns extremely slowly.
+
+For cross-entropy loss $-y\ln o-(1-y)\ln(1-o)$, one has $\partial E/\partial z=o-y$, which equals $-0.9997$ at $z=-8$ and $-0.7311$ at $z=-1$. The gradient grows with the error and is not damped by saturation.
+
+[]{#sol-sl-15-7} **[One backpropagation update](#ex-sl-15-7).**
+
+The loss in this exercise is half the squared error, so there is no extra factor of two.
+
+(a) With $\delta_o=(o-y)o(1-o)$, the output-weight derivative is $\delta_o h$ and the output-bias derivative is $\delta_o$. These contain the loss derivative, the sigmoid derivative, and the derivative of the net input.
+
+(b)
+
+$$
+\frac{\partial L}{\partial a}=(o-y)\,o(1-o)\,v\,h(1-h)\,x.
+$$
+
+The factors traverse the path from the loss to the output, the output net input, the hidden activation, the hidden net input, and the weight $a$.
+
+(c) The update is $a_{\mathrm{new}}=a-\eta\,\partial L/\partial a$ with $\eta>0$. The minus sign moves locally against increasing loss. A step that is too large may increase the loss or destabilise training. A step that is too small can be slow. The derivatives for a simultaneous update are evaluated at the same old parameters.
+
+[]{#sol-sl-16-1} **[Initial weights](#ex-sl-16-1).**
+
+$\Var(u)=(p+1)\sigma^2=1$ gives $\sigma=26^{-1/2}=0.196$. With $\sigma=0.5$, $\Var(u)=26\times 0.25=6.5$, standard deviation $2.55$. Conditional on the fixed input with squared norm $25$ and Gaussian initial weights,
+
+$$
+\Pr(|u|>2\given x)=2\bigl[1-\Phi(2/2.55)\bigr]=2\bigl[1-\Phi(0.784)\bigr]=2(0.2165)=0.43.
+$$
+
+Across repeated initialisations at that input, about $43\%$ of net inputs fall outside $[-2,2]$, where the sigmoid derivative is below $0.105$, so many units begin partly saturated.
+
+[]{#sol-sl-16-2} **[Softmax gradient](#ex-sl-16-2).**
+
+For two classes, $E=-y_1\ln s_1-y_2\ln s_2$ with
+
+$$
+s_1=\frac{e^{z_1}}{e^{z_1}+e^{z_2}}=g(z_1-z_2)=:o,
+\qquad
+s_2=1-o.
+$$
+
+The softmax gradient gives $\partial E/\partial z_1=s_1-y_1=o-y_1$ and
+
+$$
+\frac{\partial E}{\partial z_2}=s_2-y_2=-(o-y_1),
+$$
+
+since $y_2=1-y_1$. With the single logit $z=z_1-z_2$, $\partial E/\partial z=o-y_1$, which is the cross-entropy gradient for a sigmoid output $o=g(z)$ with target $y=y_1$. Directly,
+
+$$
+E=-y\ln g(z)-(1-y)\ln\bigl(1-g(z)\bigr)
+$$
+
+has
+
+$$
+\frac{\partial E}{\partial z}=-y(1-g)+(1-y)g=g-y.
+$$
+
+[]{#sol-sl-16-3} **[Weight decay](#ex-sl-16-3).**
+
+Without decay, $w'=2-0.1(0.4)=1.96$. With decay,
+
+$$
+w'=2-0.1(0.4+0.5\times 2)=2-0.14=1.86,
+$$
+
+equivalently $(1-0.05)\times 2-0.04=1.86$. The net update is zero when $\partial E/\partial w+\lambda w=0$, that is
+
+$$
+w=-\frac{1}{\lambda}\frac{\partial E}{\partial w}=-0.8.
+$$
+
+The penalised stationary point balances the data gradient against the shrinkage force.
+
+[]{#sol-sl-16-4} **[Online versus batch](#ex-sl-16-4).**
+
+Each batch epoch passes all $5000$ patterns, so $10{,}000$ epochs cost $5\times 10^{7}$ pattern-passes. Online learning for $10{,}000$ iterations costs $10^{4}$ pattern-passes, which is $10^{4}/5000=2$ epochs' worth of data, so the cost is $5000$ times smaller. In terms of data seen, it is two epochs. Whether two epochs of single-pattern updates match thousands of batch epochs depends on the problem. Learning-rate schedules, noise, and redundancy can change the comparison. Equal iteration counts do not imply equal computational effort or equal optimisation accuracy.
+
+[]{#sol-sl-16-5} **[Sum of squares versus accuracy](#ex-sl-16-5).**
+
+The sum of squared errors measures how close the outputs are to the targets $0$ and $1$. Accuracy only counts which side of the threshold each output lies on. Take $100$ patterns. Network A outputs $0.6$ for every target-$1$ pattern and $0.4$ for every target-$0$ pattern: perfect accuracy, but sum of squares $100\times 0.16=16$. Network B outputs essentially exactly the target for $90$ patterns and the opposite extreme for $10$: accuracy $90\%$, but sum of squares about $10\times 1=10<16$. So B has the smaller sum of squares and the lower accuracy.
+
+If the target is zero-one classification loss, validation accuracy addresses that target directly. Its disadvantages are that it is discrete and noisy, changing in steps of $1/n_{\mathrm{val}}$, a poor guide when the validation set is small, and that it ignores how confident the predictions are. Cross-entropy or squared error on the validation set varies more smoothly.
+
+[]{#sol-sl-16-6} **[Counting for NETtalk](#ex-sl-16-6).**
+
+$$
+(p+1)l+(l+1)m=204\times 80+81\times 26=18426.
+$$
+
+With $l=50$ the count becomes $204\times 50+51\times 26=11526$. A table with $5000$ rows and $26$ output entries has $130{,}000$ target entries, about seven per weight in the larger network. Those entries are not necessarily independent information, and the count supplies no generalisation guarantee. The dependence structure of the patterns and the outputs, the architecture, and the fitting procedure still matter.
+
+[]{#sol-sl-16-7} **[Complexity and early stopping](#ex-sl-16-7).**
+
+(a) Input to hidden: $4\times 6+6=30$. Hidden to output: $6\times 3+3=21$. The total is $51$ stored trainable parameters. Softmax has a common-logit shift that makes the parameters nonidentifiable, but the stated unconstrained implementation still stores these $51$ coefficients. A baseline-constrained parametrisation has a different count.
+
+(b) Track validation loss after epochs of training, retain the parameters at the selected minimum, possibly using a prespecified patience rule, then assess once on an independent test set. The epoch is chosen using validation outcomes, so that minimum is selected and can be optimistic.
+
+(c) Adding $\lambda\sum w^2$ adds $2\lambda w$ to the gradient for each penalised weight and discourages large weights. This smooth penalty typically shrinks weights continuously. The kink in an $L^1$ penalty is what can yield exact zeros. State whether biases are included. Either convention is valid when it is explicit.
+
+[]{#sol-sl-17-1} **[Distance to a hyperplane](#ex-sl-17-1).**
+
+$\lVert w\rVert=5$. For $(2,1)$, $w^\top x+b=6+4-5=5$, so the signed distance is $5/5=1$. For $(0,0)$, the signed distance is $-5/5=-1$: the origin is on the negative side, one unit away. The margin between $w^\top x+b=\pm 1$ is $2/\lVert w\rVert=2/5=0.4$.
+
+[]{#sol-sl-17-2} **[A two-point machine](#ex-sl-17-2).**
+
+The constraint $\sum_i\alpha_i y_i=0$ forces $\alpha_1=\alpha_2=\alpha$. Then $w=\alpha\bigl[(3,3)-(1,1)\bigr]=\alpha(2,2)$ and
+
+$$
+Q(\alpha)=2\alpha-\tfrac12\alpha^2\lVert x_1-x_2\rVert^2=2\alpha-4\alpha^2,
+$$
+
+since $\lVert(2,2)\rVert^2=8$. The maximum is at $\alpha=\tfrac14$. So $w=(0.5,0.5)^\top$, and from the support vector $x_1$,
+
+$$
+b=y_1-w^\top x_1=1-3=-2.
+$$
+
+Check with $x_2$: $y_2(w^\top x_2+b)=-(1-2)=1$. The margin is
+
+$$
+\frac{2}{\lVert w\rVert}=\frac{2}{0.7071}=2.828=\sqrt{8}=\lVert x_1-x_2\rVert.
+$$
+
+With only two points the separator is the perpendicular bisector of the segment joining them. The boundary is $0.5 x_1+0.5 x_2=2$, that is $x_1+x_2=4$.
+
+[]{#sol-sl-17-3} **[Which points matter?](#ex-sl-17-3).**
+
+The separator is $x_1=2$, with margin boundaries $x_1=1$ and $x_1=3$. For $x_4=(6,0)$, $w^\top x_4+b=6-2=4>1$, so $y_4 f(x_4)=4$, well outside the margin. By complementary slackness $\alpha_4=0$. The three-point solution, with the same multipliers and $\alpha_4=0$, still satisfies all the constraints and the Karush–Kuhn–Tucker conditions, so it is still optimal. By uniqueness of $w$ it is the solution. The support vectors remain $x_1,x_2,x_3$.
+
+[]{#sol-sl-17-4} **[Kernel as an inner product](#ex-sl-17-4).**
+
+$$
+(1+xx')^2=1+2xx'+x^2{x'}^2
+=(1)(1)+(\sqrt{2}\,x)(\sqrt{2}\,x')+(x^2)({x'}^2)
+=\phi(x)^\top\phi(x').
+$$
+
+For the sandwiched sample, the middle class has $|x|\le 0.9$, so $\phi_3=x^2\le 0.81$, while the tails have $|x|\ge 1.5$, so $\phi_3\ge 2.25$. The horizontal line $\phi_3=1.5$, a hyperplane in $\phi$-space, separates them. The displayed boundary at $1.5$ has distances at least $1.5-0.81=0.69$ and $2.25-1.5=0.75$ on its two sides. Centring it at $(0.81+2.25)/2=1.53$ gives equal distances $0.72$ and full slab width $1.44$ in this coordinate direction. In the original space it is the pair of points $x=\pm\sqrt{1.5}$.
+
+[]{#sol-sl-17-5} **[A Gram matrix](#ex-sl-17-5).**
+
+$K_{ij}=\exp\bigl(-(i-j)^2/2\bigr)$ gives $K_{12}=K_{23}=e^{-1/2}=0.6065$ and $K_{13}=e^{-2}=0.1353$, with ones on the diagonal. The leading principal minors are $1$, then $1-0.6065^2=0.632$, and
+
+$$
+\begin{aligned}
+\det K
+&=1(0.632)-0.6065\bigl(0.6065-0.6065\times 0.1353\bigr)+0.1353(0.3679-0.1353)\\
+&=0.632-0.318+0.031=0.346.
+\end{aligned}
+$$
+
+All are positive, so $K$ is positive definite by Sylvester's criterion. Its eigenvalues are $0.207$, $0.865$ and $1.928$, all positive and summing to $3=\operatorname{tr} K$.
+
+[]{#sol-sl-17-6} **[Interpreting multipliers](#ex-sl-17-6).**
+
+With $C=2$:
+
+- $\alpha=0$: the point is correctly classified and lies on or outside the margin, $yf\ge 1$, with slack $\xi=0$. It does not influence the solution.
+- $\alpha=1.3$, strictly between $0$ and $C$: the point lies exactly on the margin, $yf=1$, with slack $\xi=0$. It is a free support vector and can be used to compute $b=y_k-\sum_i\alpha_i y_i x_i^\top x_k$.
+- $\alpha=2=C$: a bound support vector, inside the margin or misclassified, $yf\le 1$, with slack $\xi=1-yf\ge 0$, and $\xi>1$ if it is misclassified. Its slack is not known in advance, so it cannot be used for $b$ without computing $\xi$.
+
+[]{#sol-sl-17-7} **[A tempting wrong turn](#ex-sl-17-7).**
+
+With distinct inputs and $\gamma=1/(2\sigma^2)$ very large, off-diagonal Gaussian-kernel entries approach zero. The mapped observations become nearly orthogonal, making interpolation possible at a sufficiently large cost parameter. Finite $C$ penalises slack. It does not forbid it. Away from the training inputs, the narrow kernel contributions fade and the prediction approaches the sign of the intercept. This explains why perfect training accuracy can coexist with poor generalisation. It does not prove that it must do so on every distribution. Tune $(C,\gamma)$ inside the training data and assess the selected procedure independently.
+
+[]{#sol-sl-17-8} **[Read the geometry](#ex-sl-17-8).**
+
+(a) The vector $w$ is a normal to the decision boundary and determines its orientation. The scalar $b$ offsets it. The boundary is $3x_1+4x_2-10=0$, and the predicted sign is the sign of this expression, with a stated tie rule at zero.
+
+(b) $\lVert w\rVert=5$. The hyperplanes $w^\top x+b=\pm 1$ are separated by $2/\lVert w\rVert=0.4$, not by $2$, unless $w$ is a unit vector.
+
+(c) Active margin observations satisfy $y_i(w^\top x_i+b)=1$. Observations with nonzero dual coefficients contribute to $w=\sum_i\alpha_i y_i x_i$. Degeneracy can give an active constraint with a zero multiplier. At $(2,1)$ the score is $6+4-10=0$, so the positive observation violates $y_i f_i\ge 1$ and could not be part of this hard-margin training fit.
+
+[]{#sol-sl-17-9} **[A unit-norm constraint](#ex-sl-17-9).**
+
+(a) The vector $w$ is a unit normal, fixing the orientation. The scalar $b$ fixes the signed offset of the hyperplane. The number $\rho$ is the full geometric width between its two supporting parallel margin planes. The unit norm is what makes the given $\rho$ a distance.
+
+(b) The decision boundary is $w^\top x+b=0$. Positive scores are predicted as $+1$ and negative scores as $-1$.
+
+(c) In the hard-margin geometry, the closest observations lie on $w^\top x+b=\pm\rho/2$. Their constraints limit enlargement of the separating margin. The optimal normal can be represented through observations with nonzero dual coefficients. In a degenerate configuration an active boundary observation may have a zero coefficient. Observations strictly beyond the margin do not directly contribute to that representation.
+
+[]{#sol-sl-17-10} **[Nonlinear separation of XOR](#ex-sl-17-10).**
+
+(a) The positive and negative convex hulls intersect at the centre of the square. No affine line can strictly separate them.
+
+(b) The scores at $(0,0)$, $(1,0)$, $(0,1)$ and $(1,1)$ are $-1/2$, $+1/2$, $+1/2$ and $-1/2$, matching the labels $-1,+1,+1,-1$.
+
+(c) In feature space, $f=w^\top\phi(x)+b$ with $w=(1,1,-2)^\top$. Composing with a nonlinear $\phi$ gives a nonlinear equation in $x$. A valid kernel evaluates feature-space inner products $K(x,z)=\langle\phi(x),\phi(z)\rangle$ without necessarily constructing the features explicitly. This supports the optimisation and the prediction. It does not choose a kernel or the tuning parameters.
+
+[]{#sol-sl-18-1} **[Rank](#ex-sl-18-1).**
+
+$\operatorname{rank}(S)\le\min(n-1,p)=\min(3,6)=3$. Since $S$ is $6\times 6$, at least $6-3=3$ eigenvalues are zero. At most $3$ principal components have positive variance. For $n=4$ and $p=3$, $\min(n-1,p)=\min(3,3)=3$, so $S$ can have full rank $3$ if the centred observations are in general position, and is then invertible.
+
+[]{#sol-sl-18-2} **[Ridge makes the matrix invertible](#ex-sl-18-2).**
+
+$$
+X^\top X=\begin{pmatrix} 2 & 2 \\ 2 & 2 \end{pmatrix}
+$$
+
+has determinant $0$. Its eigenvalues are $4$, with eigenvector $(1,1)$, and $0$, with eigenvector $(1,-1)$. With $\lambda=1$,
+
+$$
+X^\top X+I=\begin{pmatrix} 3 & 2 \\ 2 & 3 \end{pmatrix}
+$$
+
+has determinant $5$ and inverse $\tfrac15\begin{pmatrix} 3 & -2 \\ -2 & 3 \end{pmatrix}$. Also $X^\top y=(4,4)^\top$, so
+
+$$
+\hat\beta_R=\tfrac15(12-8,\,-8+12)^\top=(0.8,0.8)^\top.
+$$
+
+The solution splits the effect equally between the two identical predictors, and it is the unique ridge solution. Least squares has infinitely many solutions $\beta_1+\beta_2=2$.
+
+[]{#sol-sl-18-3} **[A Bonferroni threshold](#ex-sl-18-3).**
+
+The threshold is $0.05/5000=10^{-5}$. For a two-sided normal test this requires
+
+$$
+|z|\ge\Phi^{-1}(1-5\times 10^{-6})=4.42.
+$$
+
+The Benjamini–Hochberg thresholds at $q^*=0.05$ are $5(0.05)/5000=5\times 10^{-5}$ for the fifth smallest and $100(0.05)/5000=10^{-3}$ for the hundredth. The threshold relaxes linearly with rank, so the more discoveries are made, the easier it is to make the next.
+
+[]{#sol-sl-18-4} **[A step-up subtlety](#ex-sl-18-4).**
+
+The thresholds $i q^*/m$ are $0.01$, $0.02$, $0.03$, $0.04$, $0.05$. Comparing: $p_{(1)}=0.001\le 0.01$, yes; $p_{(2)}=0.025>0.02$, no; $p_{(3)}=0.026\le 0.03$, yes; $p_{(4)}=0.027\le 0.04$, yes; $p_{(5)}=0.800>0.05$, no. The largest $i$ meeting the condition is $k=4$, so $H_{(1)},\ldots,H_{(4)}$ are all rejected, including $H_{(2)}$, even though its $p$-value exceeds its own threshold.
+
+The procedure is step-up. Working up from the largest $p$-value, the first one below its line triggers rejection of all smaller $p$-values. If the data support rejecting the hypothesis with the fourth-smallest $p$-value at the stated level, then the hypotheses with smaller $p$-values are stronger evidence and are rejected with it. Declaring $p_{(4)}$ significant and $p_{(2)}$ not would be incoherent for this rule, because the rule uses one selected cutoff.
+
+[]{#sol-sl-18-5} **[Soft threshold](#ex-sl-18-5).**
+
+The objective is the raw sum of squares plus $\lambda$ times the penalty, so the lasso threshold is $\lambda/2$. Ridge with $\lambda=2$ divides by $1+\lambda=3$:
+
+$$
+(2.4,\,-0.9,\,0.5,\,-0.1)/3=(0.80,\,-0.30,\,0.167,\,-0.033),
+$$
+
+all nonzero. The lasso threshold is $\lambda/2=1$, so
+
+$$
+\operatorname{sign}(b)\bigl(|b|-1\bigr)_+=(1.4,\,0,\,0,\,0).
+$$
+
+Only the first variable is selected. Its coefficient is shrunk from $2.4$ to $1.4$.
+
+[]{#sol-sl-18-6} **[A tempting wrong turn](#ex-sl-18-6).**
+
+The $20$ genes were chosen by looking at the labels of all $62$ samples. The cross-validation is then done only on the modelling step, with the selection already informed by the held-out samples in each fold. The selected genes are, by construction, the ones that happen to separate these samples. With $20{,}000$ candidates, some genes will separate the classes well by chance alone. The held-out observations were therefore not independent of the model, and the $4\%$ error is optimistic. It may be near $0$ even for pure noise.
+
+The correction is to put the entire pipeline inside the cross-validation. In each fold, compute the $p$-values, or fit the lasso, using the training folds only, select the genes, fit the classifier, and evaluate on the held-out fold. Choosing the number of genes or $\lambda$ also needs an inner loop.
+
+[]{#sol-sl-18-7} **[When ordinary linear discrimination is not defined](#ex-sl-18-7).**
+
+(a) The pooled covariance is singular because its rank is at most $n-g=88<500$, so its ordinary inverse does not exist. With only $90$ observations, tuning and test errors can be variable, and using the training or tuning data for final assessment creates optimism. Class imbalance also makes overall accuracy alone incomplete.
+
+(b) Centred data have rank at most $\min(p,n-1)=89$, so there can be at most $89$ nonzero sample principal components. Within-class centring loses one degree of freedom per class, giving rank at most $n-g=88$. Thus $q\le 88$ is necessary for an invertible projected pooled covariance. It is not sufficient if further dependencies remain. Using all $89$ components does not solve the rank problem of ordinary linear discrimination.
+
+(c) Select $q$ within training-only cross-validation, refitting centring, scaling, the principal components, and the discriminant rule in every fold. Use held-out testing or an outer loop for assessment. Apply the rank restriction to the smaller training fold, not just to the full sample. High-variance directions may contain little class information, and near-singular covariance estimates can be unstable even below the rank limit.
+
+[]{#sol-sl-18-8} **[Principal components before linear discrimination](#ex-sl-18-8).**
+
+(a) The pooled within-class covariance has rank at most $72-2=70$, so a $400\times 400$ inverse is impossible without changing the estimator. The small sample makes evaluation variable and makes resubstitution or tuning-set assessment vulnerable to optimism. Accuracy must also be interpreted against the $2{:}1$ class split.
+
+(b) Fit the principal components on the training data and project into $q$ dimensions. Centred total data have rank at most $71$, whereas pooled within-class scatter has rank at most $70$. Thus $q\le 70$ is necessary for ordinary linear discrimination, and the projected covariance must still have full rank. Choose $q$ by training-only validation, refitting the complete pipeline in each fold and obeying that fold's rank limit. High explained variance is not proof of predictive value.
+
+[]{#sol-sl-18-9} **[Selection in many dimensions](#ex-sl-18-9).**
+
+(a) Cross-validation commonly targets prediction error, not exact support recovery. Correlated predictors can substitute for one another, and finite-sample noise can add or omit variables. Penalisation also biases coefficient estimates. A good predictive loss is not proof of recovering the generating coefficients.
+
+(b) Sort valid $p$-values $p_{(1)}\le\cdots\le p_{(1000)}$ and take
+
+$$
+k=\max\{i:p_{(i)}\le 0.1\,i/1000\},
+$$
+
+rejecting the first $k$, or none if the set is empty. The false discovery rate is $\E\bigl[V/\max(R,1)\bigr]$, the expected fraction of false rejections among discoveries. It is not a guarantee on each realised sample. The usual control requires appropriate dependence conditions, such as independence or a suitable positive dependence. Arbitrary dependence needs the harmonic correction. A predictor can be marginally associated through correlation with other predictors even when its joint coefficient is zero, so the two procedures test different targets.
+
+[]{#sol-sl-19-1} **[Cliques and separators](#ex-sl-19-1).**
+
+The edges are $12$, $13$, $23$, $24$, $34$, $45$, $46$, $56$. The boundary $\mathrm{bd}(\{1,2\})$ is the set of vertices outside $\{1,2\}$ adjacent to $1$ or $2$: vertex $3$, adjacent to both, and vertex $4$, adjacent to $2$, so $\{3,4\}$. The closure is $\mathrm{cl}(\{5\})=\{5\}\cup\mathrm{bd}(\{5\})=\{4,5,6\}$.
+
+Three global Markov statements: $\{4\}$ separates $\{1,2,3\}$ from $\{5,6\}$, so $X_{\{1,2,3\}}\perp X_{\{5,6\}}\given X_4$; $\{2,3\}$ separates $1$ from $\{4,5,6\}$, so $X_1\perp X_{\{4,5,6\}}\given X_{\{2,3\}}$; and the local property at vertex $5$, $X_5\perp X_{\{1,2,3\}}\given X_{\{4,6\}}$. The pairwise statement $X_1\perp X_4\given X_{\{2,3,5,6\}}$ is the same idea on a pair. The set $\{2\}$ is not a $(1,4)$-separator, because the path $1-3-4$ avoids $2$.
+
+[]{#sol-sl-19-2} **[Precision to graph](#ex-sl-19-2).**
+
+Since $k_{13}=0$ the graph is the chain $1-2-3$. The determinant is
+
+$$
+|K|=2(6-1)-(-1)(-2)=10-2=8,
+$$
+
+and the cofactors give
+
+$$
+\Sigma=K^{-1}=\frac18\begin{pmatrix} 5 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 5 \end{pmatrix}.
+$$
+
+The marginal correlation of $X_1$ and $X_3$ is
+
+$$
+\frac{\sigma_{13}}{\sqrt{\sigma_{11}\sigma_{33}}}=\frac{1/8}{5/8}=0.2\neq 0,
+$$
+
+yet $k_{13}=0$, so $X_1\perp X_3\given X_2$. The partial correlations are
+
+$$
+\rho_{12\given 3}=\frac{1}{\sqrt{2\times 3}}=0.408,
+\qquad
+\rho_{23\given 1}=\frac{1}{\sqrt{3\times 2}}=0.408,
+\qquad
+\rho_{13\given 2}=0.
+$$
+
+[]{#sol-sl-19-3} **[A three-variable chain](#ex-sl-19-3).**
+
+$$
+\Var X_2=0.64\cdot 1+0.36=1,
+\qquad
+\Var X_3=0.64\cdot 1+0.36=1,
+$$
+
+$\operatorname{Cov}(X_1,X_2)=0.8$, $\operatorname{Cov}(X_2,X_3)=0.8\,\Var X_2=0.8$, and $\operatorname{Cov}(X_1,X_3)=0.8\,\operatorname{Cov}(X_1,X_2)=0.64$. So
+
+$$
+\Sigma=\begin{pmatrix} 1 & 0.8 & 0.64 \\ 0.8 & 1 & 0.8 \\ 0.64 & 0.8 & 1 \end{pmatrix},
+$$
+
+the autoregressive form with $r=0.8$. Its inverse is
+
+$$
+K=\frac{1}{1-r^2}
+\begin{pmatrix} 1 & -r & 0 \\ -r & 1+r^2 & -r \\ 0 & -r & 1 \end{pmatrix}
+=\frac{1}{0.36}
+\begin{pmatrix} 1 & -0.8 & 0 \\ -0.8 & 1.64 & -0.8 \\ 0 & -0.8 & 1 \end{pmatrix}
+=\begin{pmatrix}
+2.778 & -2.222 & 0 \\
+-2.222 & 4.556 & -2.222 \\
+0 & -2.222 & 2.778
+\end{pmatrix}.
+$$
+
+Indeed $k_{13}=0$. The first row of $\Sigma$ times the third column of $K$ is $0.8(-2.222)+0.64(2.778)=-1.778+1.778=0$, as required for an off-diagonal entry of $\Sigma K=I$.
+
+[]{#sol-sl-19-4} **[Conditional independence from a partitioned covariance](#ex-sl-19-4).**
+
+Take $A=\{1,3\}$ and $B=\{2\}$. Then $\Sigma_{AB}=(0.8,0.8)^\top$, $\Sigma_{BB}=1$, and
+
+$$
+\Sigma_{A\given B}
+=\begin{pmatrix} 1 & 0.64 \\ 0.64 & 1 \end{pmatrix}
+-\begin{pmatrix} 0.8 \\ 0.8 \end{pmatrix}
+\begin{pmatrix} 0.8 & 0.8 \end{pmatrix}
+=\begin{pmatrix} 1-0.64 & 0.64-0.64 \\ 0.64-0.64 & 1-0.64 \end{pmatrix}
+=\begin{pmatrix} 0.36 & 0 \\ 0 & 0.36 \end{pmatrix}.
+$$
+
+The conditional covariance is $0$, hence conditional independence for a normal vector, and the conditional variances are $0.36$, the innovation variance. The unconditional covariance is $\operatorname{Cov}(X_1,X_3)=0.64\neq 0$.
+
+[]{#sol-sl-19-5} **[How many graphs?](#ex-sl-19-5).**
+
+Each of the $\binom{p}{2}$ possible edges is present or absent: there are $2^{\binom{p}{2}}$ undirected graphs. For $p=5$, $2^{10}=1024$. For $p=20$, $2^{190}\approx 1.6\times 10^{57}$. Even allowing for relabelling of the vertices, exhaustive search is impractical. A criterion can still compare a manageable candidate set. With a singular sample covariance the unrestricted positive-definite Gaussian maximum-likelihood estimate fails to exist, although the likelihood at a candidate positive-definite matrix remains defined. An $L^1$ penalty turns the discrete search into a convex optimisation with a path of solutions indexed by one parameter $\lambda$.
+
+[]{#sol-sl-19-6} **[A tempting wrong turn](#ex-sl-19-6).**
+
+In the Gaussian chain $1-2-3$, the endpoints can have nonzero marginal covariance while being independent conditional on the middle variable. Thresholding marginal correlations estimates a different object from a concentration graph. It is not an indirect way to estimate the same missing-edge restrictions. Under the nonsingular Gaussian model, use the negative normalised precision entries for partial correlations. In high dimension, the graphical lasso or neighbourhood selection supplies an estimated sparse structure, whose tuning and sampling uncertainty still need assessment. The undirected graph itself identifies no causal direction.
+
+[]{#sol-sl-19-7} **[Read a Gaussian graphical model](#ex-sl-19-7).**
+
+(a) The graph is the chain $1-2-3$, with edges $12$ and $23$ and no edge $13$. It implies $X_1\perp X_3\given X_2$ for the specified nonsingular Gaussian model.
+
+(b) $\rho_{12\cdot 3}=\rho_{23\cdot 1}=1/2$ and $\rho_{13\cdot 2}=0$. The conversion uses a minus sign and normalises by the precision diagonals, so the raw precision entries are not the partial correlations.
+
+(c) No. In fact
+
+$$
+\Sigma=K^{-1}=\frac14\begin{pmatrix} 3 & 2 & 1 \\ 2 & 4 & 2 \\ 1 & 2 & 3 \end{pmatrix}.
+$$
+
+The nonzero covariance $1/4$ implies marginal dependence for this Gaussian vector. The marginal correlation is $1/3$. Conditional separation does not remove the marginal association carried through $X_2$.
+
+[]{#sol-sl-19-8} **[Conditional association and sparsity](#ex-sl-19-8).**
+
+(a) The edges are $12$ and $23$, and $X_1\perp X_3\given X_2$. The partial correlations are $+0.2$ and $-0.3$, using the negative standardised precision entries. The path through $X_2$ can give a marginal association: in this example $(K^{-1})_{13}=-0.06/0.87\neq 0$.
+
+(b) A typical objective is $\log\det K-\operatorname{tr}(SK)-\lambda\sum_{i\neq j}|K_{ij}|$ over $K\succ 0$. The penalty regularises and can create exact off-diagonal zeros, trading fit for a sparser graph. Choose $\lambda$ by a stated criterion such as the extended information criterion or a held-out likelihood, with the selection performed inside the intended assessment procedure. An edge records conditional association under the fitted Gaussian model, not the direction or the effect of an intervention. Omitted variables, sampling error, and misspecification remain possible.

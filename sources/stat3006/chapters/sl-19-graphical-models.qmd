@@ -1,0 +1,616 @@
+# Graphical models
+
+Two measurements can move together because both track a third variable. To ask whether any dependence remains, one must specify what is being conditioned on. An undirected graphical model records conditional-independence restrictions through missing edges. In a nonsingular Gaussian model, these restrictions have a useful form: a missing edge corresponds to a zero off-diagonal entry of the precision matrix $K=\Sigma^{-1}$ (Lauritzen, 1996).
+
+An undirected edge is not a causal arrow. An inverse covariance does not automatically describe conditional independence for non-Gaussian data. Pooling iris species, for example, mixes populations with different means and potentially different covariance matrices. A precision matrix computed from that pooled sample is a descriptive inverse-covariance summary. A Gaussian graphical interpretation needs an additional modelling assumption.
+
+There is no response variable. The model is a joint distribution. It describes dependence among the variables. The development below is the Markov properties, the Gaussian graphical model, maximum likelihood when the graph is known, and the graphical lasso when it is not. Covariance of a pair, and the covariance matrix of a vector, are on [joint distributions](prob-04-joint-distributions.qmd). The density used here is the [multivariate normal](prob-05-transforms-and-limits.qmd#def-multivariate-normal). The $L^1$ penalty is the same corner that produces exact zeros in the [lasso](sl-18-high-dimensional.qmd).
+
+## Markov graphs
+
+To say that a correlation is carried by a third variable, one needs names for paths and for the set of variables that every path must cross. Those names are the graph.
+
+### Graph terminology
+
+::: {#def-sl-19-graph .definition}
+## Undirected graph
+
+A graph $G=(V,E)$ is a set of vertices, or nodes, $V$ along with a set of edges $E\subseteq V\times V$ joining pairs of vertices. Self-edges are excluded, and only undirected edges are considered: $(j,k)\in E$ implies $(k,j)\in E$. Edges are listed in any convenient order of the pair, with the reverse understood to be present.
+
+:::
+
+- Two connected vertices are adjacent. A graph is complete if every node is adjacent to every other node.
+- If $A\subseteq V$, the subgraph $G_A=(A,E_A)$ has $E_A=E\cap(A\times A)$: keep every edge for which both vertices are in $A$. A subset is complete if it induces a complete subgraph. A complete subset that is maximal with respect to inclusion is a clique: a complete subset that cannot be made into a larger complete subset by adding any vertex.
+- In an undirected graph, the boundary $\mathrm{bd}(A)$ of a subset $A$ is the set of vertices in $V\setminus A$ that are adjacent to vertices in $A$. The closure of $A$ is $\mathrm{cl}(A)=A\cup\mathrm{bd}(A)$.
+- A path $X_1,\ldots,X_k$ is a sequence of vertices joined in a sequence: $X_i$ is adjacent to $X_{i+1}$ for $i=1,\ldots,k-1$. A subset $C\subseteq V$ is a $(j,k)$-separator if all paths from $j$ to $k$ intersect $C$. The set $C$ separates $A$ from $B$ if it is a $(j,k)$-separator for every $j\in A$ and $k\in B$.
+
+In a graphical model each vertex represents a random variable, and an edge permits conditional dependence between its endpoints. In a minimal Gaussian concentration graph with nonzero precision entries on edges, the edge represents conditional dependence given all remaining variables. The absence of an edge indicates that the two variables are conditionally independent given the values of all the other variables. For many models the conditioning set is smaller than the full remainder, and the graph says which set.
+
+The six-vertex graph used below has edges $12$, $13$, $23$, $24$, $34$, $45$, $46$ and $56$. Its cliques are $\{1,2,3\}$, $\{2,3,4\}$ and $\{4,5,6\}$. Vertex $4$ separates the left group $\{1,2,3\}$ from vertices $5$ and $6$.
+
+### Conditional independence
+
+Conditional independence is a statement about the conditional distribution, not about the marginal correlation. If $X,Y,Z$ are random variables with joint distribution $P$, then $X$ is conditionally independent of $Y$ given $Z$, written $X\perp Y\given Z$, if for any measurable set $A$ in the sample space of $X$ there exists a conditional probability of $A$ given $Y$ and $Z$ that is a function of $Z$ alone. For discrete variables,
+
+$$
+X\perp Y\given Z
+\iff
+\Pr(X=x,Y=y\given Z=z)
+=\Pr(X=x\given Z=z)\,\Pr(Y=y\given Z=z),
+$$
+
+and when $X,Y,Z$ have a joint density on a product measure,
+
+$$
+\begin{aligned}
+X\perp Y\given Z
+&\iff f_{XY\given Z}(x,y\given z)=f_{X\given Z}(x\given z)\,f_{Y\given Z}(y\given z)\\
+&\iff f_{XYZ}(x,y,z)\,f_Z(z)=f_{XZ}(x,z)\,f_{YZ}(y,z),
+\end{aligned}
+$$
+
+almost surely (for all $z$ with $f_Z(z)>0$ if the densities are continuous). The following properties hold (Lauritzen, 1996).
+
+- If $X\perp Y\given Z$ then $Y\perp X\given Z$.
+- If $X\perp Y\given Z$ and $U=h(X)$ then $U\perp Y\given Z$.
+- If $X\perp Y\given Z$ and $U=h(X)$ then $X\perp Y\given (Z,U)$.
+- If $X\perp Y\given Z$ and $X\perp W\given (Y,Z)$ then $X\perp (W,Y)\given Z$.
+
+And $X\perp Y\given Z$ is equivalent to each of the following, almost surely, with $f$ the density of its arguments:
+
+$$
+\begin{aligned}
+f(x,y,z)&=f(x,z)\,f(y,z)/f(z),\\
+f(x\given y,z)&=f(x\given z),\\
+f(x,z\given y)&=f(x\given z)\,f(z\given y),\\
+f(x,y,z)&=g(x,z)\,h(y,z)\quad\text{for some }g,h,\\
+f(x,y,z)&=f(x\given z)\,f(y,z).
+\end{aligned}
+$$
+
+The third line follows from the second, because $f(x,z\given y)=f(x\given y,z)\,f(z\given y)$. The factorisation $f(x,y,z)=g(x,z)\,h(y,z)$ is the form that generalises to graphs. Also, if $C$ separates $A$ from $B$, then $X_A\perp X_B\given X_C$ for a graphical model with the global Markov property below.
+
+### Markov properties and factorisation
+
+Undirected graphical models are also known as Markov random fields. A probability measure on $X$ may have any of the following properties with respect to a graph $G$.
+
+- **Pairwise.** For any pair of non-adjacent vertices $j,k\in V$, $X_j\perp X_k\given X_{V\setminus\{j,k\}}$.
+- **Local.** For any vertex $j\in V$, $X_j\perp X_{V\setminus\mathrm{cl}(j)}\given X_{\mathrm{bd}(j)}$.
+- **Global.** For any triple $(A,B,S)$ of disjoint subsets of $V$ such that $S$ separates $A$ from $B$, $X_A\perp X_B\given X_S$.
+
+The global property implies the local property, which implies the pairwise property. The reverse implications need additional conditions. They are not true for every distribution. To connect them, introduce factorisation. A distribution factorises over $G$ when its density relative to a product measure can be written as a product of nonnegative functions, each involving only variables from a complete subset:
+
+$$
+f(x)=\prod_{a\text{ complete}}\psi_a(x_a).
+$$
+
+Without loss of generality the sets $a$ can be limited to the cliques of $G$:
+
+$$
+f(x)=\frac{1}{Z}\prod_{c\in\mathcal{C}}\psi_c(x_c),
+$$
+
+where $\mathcal{C}$ is the set of cliques, the $\psi_c$ are the clique potentials (typically not densities), and $Z$ is a normalising constant. The functions $\psi_a$ are not unique: groups of them can be combined by multiplication. If the distribution factorises, it has the global Markov property.
+
+::: {#thm-sl-19-hammersley-clifford .theorem}
+## Hammersley–Clifford
+
+A probability distribution with positive and continuous density $f$ with respect to a product measure satisfies the pairwise Markov property with respect to an undirected graph $G$ if and only if it factorises according to $G$.
+
+:::
+
+Under the positivity assumptions of the theorem, factorisation and the global, local, and pairwise Markov properties coincide. Positivity matters: zeros in the support can break the implication from conditional-independence statements to factorisation. This is a statement about distributions. It is not an assertion that every fitting problem for every graphical model is convex. The Gaussian precision-matrix likelihood below is a specific convex optimisation problem after a change of sign.
+
+## Gaussian graphical models
+
+A marginal correlation can be nonzero for every pair while most conditional correlations, given the rest, are zero. The Gaussian case turns that distinction into an entry of a matrix. Consider a $p$-dimensional random vector $X=(X_1,\ldots,X_p)^\top$ with $V=\{1,\ldots,p\}$, distributed as multivariate normal with mean $\mu$ and covariance $\Sigma$. The covariance matrix is the one defined for a random vector on [joint distributions](prob-04-joint-distributions.qmd), and the density is the [multivariate normal](prob-05-transforms-and-limits.qmd#def-multivariate-normal) density. The inverse of the covariance is the concentration matrix, or precision matrix, $K=\Sigma^{-1}$, with entries $k_{jk}$. The covariance is assumed regular enough to be invertible.
+
+The proof that a zero in $K$ is conditional independence reorders the variables so that the pair of interest is the first block, then reads the conditional covariance from the block inverse. That block inverse is the Schur complement of the conditional normal distribution.
+
+::: {#thm-sl-19-precision-zero .theorem}
+## A zero precision entry is conditional independence
+
+Let $X\sim\Normal_p(\mu,\Sigma)$ with $\Sigma$ regular. For $j\neq k$,
+
+$$
+X_j\perp X_k\given X_{V\setminus\{j,k\}}
+\iff
+k_{jk}=0.
+$$
+
+The zero entries of the precision matrix indicate conditional independence between the corresponding variables, with the conditioning on all the remaining variables.
+
+:::
+
+The variables can be put in any order, so without loss of generality $j=1$, $k=2$, $A=\{1,2\}$ and $B=\{3,\ldots,p\}$. From the block inverse, writing
+
+$$
+\Sigma^{-1}=K=\begin{pmatrix} K_{AA} & K_{AB} \\ K_{AB}^\top & K_{BB} \end{pmatrix},
+$$
+
+one has $K_{AA}=\Sigma_{A\given B}^{-1}$. The conditional law is $X_A\given X_B\sim\Normal(\mu_{A\given B},\,\Sigma_{A\given B})=\Normal(\mu_{A\given B},\,K_{AA}^{-1})$. If
+
+$$
+K_{AA}=\begin{pmatrix} k_{11} & k_{12} \\ k_{12} & k_{22} \end{pmatrix},
+\qquad
+\Sigma_{A\given B}=K_{AA}^{-1}
+=\frac{1}{|K_{AA}|}
+\begin{pmatrix} k_{22} & -k_{12} \\ -k_{12} & k_{11} \end{pmatrix},
+$$
+
+then $k_{12}=0$ makes the conditional covariance of $X_1$ and $X_2$ given $X_B$ equal to $0$. Conditional on $X_B$, the pair is bivariate normal with zero covariance, so $X_1$ and $X_2$ are conditionally independent. Conversely, conditional independence gives zero conditional covariance, so $k_{12}=0$. The argument applies to any pair.
+
+There are two separate steps. Matrix inversion identifies the conditional covariance. Gaussianity turns a zero conditional covariance into conditional independence. Drop the second assumption and the last inference can fail. For jointly normal coordinates, zero covariance is independence, which is the special property of the multivariate normal density. The negative sign also deserves attention: after normalisation, a negative precision entry represents a positive partial correlation.
+
+Several consequences follow from the same block formula.
+
+- The conditional covariance of $(X_j,X_k)$ given all the others is proportional to $-k_{jk}$: $\sigma_{jk\given V\setminus\{j,k\}}=-k_{jk}/|K_{AA}|$. The partial correlation is therefore
+
+$$
+\rho_{jk\given V\setminus\{j,k\}}
+=\frac{-k_{jk}}{\sqrt{k_{jj}k_{kk}}},
+$$
+
+since $\Sigma_{A\given B}$ has diagonal $k_{22}/|K_{AA}|$ and $k_{11}/|K_{AA}|$ and off-diagonal $-k_{12}/|K_{AA}|$.
+
+- The diagonal elements of the precision matrix are the reciprocals of the conditional variances given the remaining variables: $k_{jj}=\bigl(\sigma_{j\given V\setminus j}\bigr)^{-1}$.
+- A normalised precision matrix, with diagonal $1$, is $D^{-1/2}KD^{-1/2}$ with $D=\operatorname{diag}(K)$. Its off-diagonal entries are minus the partial correlations. A negative entry of that matrix means positive conditional dependence.
+
+By the partial-correlation formula, a negative off-diagonal of the precision corresponds to positive conditional dependence. Gaussian graphical models have the pairwise, local, and global Markov properties with respect to the graph whose edges are the nonzero entries of $K$.
+
+A matrix of marginal correlations can be dense when the conditional dependence graph is sparse. Partial correlation is the dependence that remains after the other variables are held fixed. The chain below is that contrast in four variables.
+
+::: {#exm-sl-19-chain .example}
+## Zeros in $K$, not in $\Sigma$
+
+**Question.** Let $X$ be a stationary Gaussian autoregressive process observed at four times, with $\operatorname{corr}(X_j,X_k)=0.6^{|j-k|}$. Read the conditional independences from $K=\Sigma^{-1}$, and compute the partial correlations.
+
+**Solution.**
+
+$$
+\Sigma=\begin{pmatrix}
+1 & 0.6 & 0.36 & 0.216 \\
+0.6 & 1 & 0.6 & 0.36 \\
+0.36 & 0.6 & 1 & 0.6 \\
+0.216 & 0.36 & 0.6 & 1
+\end{pmatrix},
+\qquad
+K=\Sigma^{-1}=\begin{pmatrix}
+1.5625 & -0.9375 & 0 & 0 \\
+-0.9375 & 2.125 & -0.9375 & 0 \\
+0 & -0.9375 & 2.125 & -0.9375 \\
+0 & 0 & -0.9375 & 1.5625
+\end{pmatrix}.
+$$
+
+Every pair of the four variables is marginally correlated, so the covariance graph is complete, but $K$ is tridiagonal:
+
+$$
+X_1\perp X_3\given (X_2,X_4),
+\qquad
+X_1\perp X_4\given (X_2,X_3),
+\qquad
+X_2\perp X_4\given (X_1,X_3).
+$$
+
+The graph is the chain $1-2-3-4$. Each variable depends on the past only through the most recent value. The partial correlations are
+
+$$
+\rho_{12\given 34}=\frac{0.9375}{\sqrt{1.5625\times 2.125}}=0.515,
+\qquad
+\rho_{23\given 14}=\frac{0.9375}{2.125}=0.441,
+\qquad
+\rho_{34\given 12}=0.515.
+$$
+
+As a check of the diagonal formula, $k_{11}=1.5625=1/0.64$ and the variance of $X_1$ given $(X_2,X_3,X_4)$ is $1-0.6^2=0.64$, since $X_1$ depends on the rest only through $X_2$. And $k_{22}=2.125=1/0.4706$, the reciprocal of the variance of $X_2$ given the others. The same pattern on six variables has a dense covariance, a tridiagonal precision, and partial correlations only between neighbours.
+
+:::
+
+### The log density
+
+Write the multivariate normal density in terms of $K$:
+
+$$
+\begin{aligned}
+f(x)
+&=\frac{1}{(2\pi)^{p/2}\,|\Sigma|^{1/2}}
+\exp\Bigl(-\tfrac12(x-\mu)^\top\Sigma^{-1}(x-\mu)\Bigr)\\
+&=\frac{|K|^{1/2}}{(2\pi)^{p/2}}
+\exp\Bigl(-\tfrac12(x-\mu)^\top K(x-\mu)\Bigr).
+\end{aligned}
+$$
+
+Treating $\mu$ and $K$ as constants, the logarithm of the density, up to constants $c$ and $c_1$, is
+
+$$
+\begin{aligned}
+\log f(x)
+&=c-\tfrac12(x-\mu)^\top K(x-\mu)
+=c-\tfrac12 x^\top Kx+x^\top K\mu-\tfrac12\mu^\top K\mu\\
+&=c_1-\tfrac12\sum_{j\in V} k_{jj} x_j^2
+-\sum_{j\in V}\sum_{k<j} k_{jk} x_j x_k
++\sum_{j\in V} x_j\Bigl(\sum_{k\in V} k_{jk}\mu_k\Bigr)\\
+&=c_1-\tfrac12\sum_{j\in V} k_{jj} x_j^2
++\sum_{j\in V} h_j x_j
+-\sum_{j\in V,\,k<j} k_{jk} x_j x_k,
+\end{aligned}
+$$
+
+with $h=K\mu$. The log density is a sum of quadratic main effects with coefficients $-k_{jj}/2$, linear main effects with coefficients $h_j$, and quadratic interactions with coefficients $-k_{jk}$. Taking the exponential, $f$ is a product over single variables and over pairs, with a pair appearing only if $k_{jk}\neq 0$. Each pair with $k_{jk}\neq 0$ is an edge, so the factors involve complete subsets of size at most $2$, singletons or edges. Such subsets need not be maximal cliques. Their factors can be absorbed into containing clique potentials. This is an explicit instance of the factorisation, and of the Hammersley–Clifford theorem, with $\psi_{jk}(x_j,x_k)=\exp(-k_{jk} x_j x_k)$.
+
+## Choosing edges
+
+Model selection here means choosing which edges to exclude, that is, which pairs can be treated as conditionally independent given the others. In the Gaussian model that is the search for symmetric zeros in $K$. Some of the better-known methods are these.
+
+- Optimisation of an information criterion, which balances model fit against complexity: the Akaike and Bayesian information criteria.
+- Stepwise optimisation by likelihood-ratio testing: compare a model with a given link against one without it. If the test supports adding or removing the link at a specified significance level, do so, and repeat until no further change is supported.
+- Optimisation of predictive accuracy, which needs some balance between model fitting and model complexity.
+
+There are $2^{p(p-1)/2}$ undirected simple graphs, since each unordered pair can be present or absent. Even $p=10$ gives about $3.5\times 10^{13}$ candidates. Exhaustive search quickly becomes impractical. When the sample covariance is singular, the unrestricted Gaussian precision maximum-likelihood estimate also fails to exist. A sufficiently restrictive known graph can still have a maximum-likelihood estimate, so singularity of $S$ does not rule out every constrained fit. Regularisation provides another route, with assumptions of its own.
+
+## Regression-linked estimation for a known graph
+
+Several methods fit a Gaussian graphical model with a known partial covariance structure, for example the iterative proportional fitting procedure of Speed and Kiiveri (1986). The approach below can be extended to model selection using a form of the lasso.
+
+### The constrained likelihood
+
+For iid observations $x_1,\ldots,x_n$ from $\Normal_p(\mu, K^{-1})$ the likelihood is
+
+$$
+L=\prod_{i=1}^{n}
+\frac{|K|^{1/2}}{(2\pi)^{p/2}}
+\exp\Bigl(-\tfrac12(x_i-\mu)^\top K(x_i-\mu)\Bigr)
+=\frac{|K|^{n/2}}{(2\pi)^{np/2}}
+\exp\Biggl(-\tfrac12\sum_{i=1}^{n}(x_i-\mu)^\top K(x_i-\mu)\Biggr),
+$$
+
+and the log-likelihood is
+
+$$
+\ell=\frac{n}{2}\log|K|-\frac{np}{2}\log(2\pi)
+-\frac12\sum_{i=1}^{n}(x_i-\mu)^\top K(x_i-\mu).
+$$
+
+Maximise it subject to constraints on $K$: edges missing from the graph correspond to zeros in $K$. If $E$ is the edge set then $k_{jk}=0$ for $j\neq k$ with $(j,k)\notin E$. The domain is $K\succ 0$. Diagonal entries are not constrained to zero. The second term is not a function of the parameters, and the likelihood is maximised for $\mu$ at $\hat\mu=\bar x$ regardless of $K$. Divide by $n/2$ without affecting the maximisation, so that one maximises $\log|K|-\frac1n\sum_i(x_i-\bar x)^\top K(x_i-\bar x)$.
+
+To simplify the later notation, let
+
+$$
+S=\frac1n\sum_{i=1}^{n}(x_i-\bar x)(x_i-\bar x)^\top,
+$$
+
+the covariance with divisor $n$. The unbiased matrix uses divisor $n-1$. In this section the symbol $S$ means the $1/n$ version. Since a scalar equals its trace, and by the cyclic property of the trace,
+
+$$
+\frac1n\sum_i(x_i-\bar x)^\top K(x_i-\bar x)
+=\operatorname{tr}\Biggl(\frac1n\sum_i(x_i-\bar x)(x_i-\bar x)^\top K\Biggr)
+=\operatorname{tr}(SK).
+$$
+
+The problem is to maximise
+
+$$
+g(K)=\log|K|-\operatorname{tr}(SK)
+$$
+
+subject to the fixed zeros of $K$. With Lagrange multipliers $\gamma_{jk}$ for the constraints,
+
+$$
+g_C(K,\Gamma)=\log|K|-\operatorname{tr}(SK)-\sum_{j\neq k,\,(j,k)\notin E}\gamma_{jk} k_{jk}.
+$$
+
+Here $\Gamma$ is symmetric, zero on the diagonal and on allowed edges, and potentially nonzero on missing edges. A full-matrix trace inner product is used, so each off-diagonal pair appears twice. The symmetric multiplier convention absorbs that factor consistently. The derivatives with respect to symmetric $K$ are $K^{-1}=\Sigma$ for the log determinant and $S$ for the trace term, giving $\nabla g_C=\Sigma-S-\Gamma$.
+
+Using $W$ for the estimate of $\Sigma$ and $\Theta$ for the estimate of $K$, so $W\Theta=I$, the estimating equations are
+
+$$
+W-S-\Gamma=0.
+$$
+
+Reading this entrywise: for every edge $(j,k)\in E$ and for the diagonal, $\gamma_{jk}=0$ and so $w_{jk}=s_{jk}$. The maximum-likelihood estimate of the covariance reproduces the sample covariances on the edges and the diagonal exactly. For non-edges, $w_{jk}$ is whatever value makes $(W^{-1})_{jk}=0$.
+
+### Solving by regression
+
+Isolate the last row and column of $W$ and of its inverse $\Theta$. Any variable can be moved to the last position. Write $A$ for the first $p-1$ indices and
+
+$$
+\begin{pmatrix} W_{AA} & w_{Ap} \\ w_{Ap}^\top & w_{pp} \end{pmatrix}
+\begin{pmatrix} \Theta_{AA} & \theta_{Ap} \\ \theta_{Ap}^\top & \theta_{pp} \end{pmatrix}
+=\begin{pmatrix} I & 0 \\ 0^\top & 1 \end{pmatrix}.
+$$
+
+The top $p-1$ entries of the last column of the identity give $W_{AA}\theta_{Ap}+w_{Ap}\theta_{pp}=0$. Since $\theta_{pp}$ is a scalar,
+
+$$
+w_{Ap}=-W_{AA}\theta_{Ap}/\theta_{pp}=W_{AA}\beta,
+\qquad
+\beta=-\theta_{Ap}/\theta_{pp}.
+$$
+
+The top $p-1$ entries of the last column of the estimating equation are $w_{Ap}-s_{Ap}-\gamma_{Ap}=0$, which becomes
+
+$$
+W_{AA}\beta-s_{Ap}-\gamma_{Ap}=0.
+$$
+
+These $p-1$ equations are the estimating equations for a constrained regression of $X_p$ on the other variables, with $W_{AA}$, the current estimate of $\Sigma_{AA}$, used in place of $S_{AA}$. The unconstrained normal equations of the regression of $X_p$ on $X_A$ are $S_{AA}\beta=s_{Ap}$.
+
+On a complete sample those coefficients are exactly the ordinary least-squares coefficients, whenever every entry of $S_{AA}$ and of $s_{Ap}$ is computed with the same divisor. The factor $n$ or $n-1$ cancels in the product $S_{AA}^{-1}s_{Ap}$. The adjective attached to the $1/n$ covariance is a statement about the covariance estimator. It does not move the fitted conditional-mean line relative to least squares.
+
+The link with regression is the conditional normal. For a multivariate normal vector the conditional mean of $X_p$ given $X_A=x_A$ is $\mu_p+\Sigma_{pA}\Sigma_{AA}^{-1}(x_A-\mu_A)$, the population multiple regression of $X_p$ on $X_A$ with $\beta=\Sigma_{AA}^{-1}\Sigma_{Ap}$. The block-inverse formula, with the last variable placed first, gives $K_{Ap}=-k_{pp}\Sigma_{AA}^{-1}\Sigma_{Ap}$, that is
+
+$$
+\Sigma_{AA}^{-1}\Sigma_{Ap}=-K_{Ap}/k_{pp},
+$$
+
+the same as $\beta$ above except that the latter is an estimate. Estimating $\Sigma$ or $K$ can be viewed inside the linear regression framework, constrained by the known zeros of $\Theta$.
+
+Suppose $X_p$ has $q$ neighbours. Its $p-1-q$ missing edges force the same coordinates of $\theta_{Ap}$, and hence of $\beta$, to zero. On the $q$ allowed edges the multipliers are zero, so those equations identify the $q$ free regression coefficients. The remaining equations determine the missing-edge multipliers. Retain the neighbour rows and columns to obtain
+
+$$
+W_{AA}^{*}\beta^{*}-s_{Ap}^{*}=0,
+\qquad
+\hat\beta^{*}=\bigl(W_{AA}^{*}\bigr)^{-1}s_{Ap}^{*},
+$$
+
+where the starred blocks keep only the rows and columns of the neighbours of $p$. Pad $\hat\beta^{*}$ with zeros to length $p-1$ to get $\hat\beta$. From the bottom-right entry of the block identity, $w_{Ap}^\top\theta_{Ap}+w_{pp}\theta_{pp}=1$, and with $\theta_{Ap}=-\hat\beta\,\theta_{pp}$ one gets $1/\theta_{pp}=w_{pp}-w_{Ap}^\top\hat\beta$, where $w_{pp}=s_{pp}$ because the diagonal is treated as an edge.
+
+::: {#def-sl-19-known-graph .definition}
+## Maximum likelihood for a known graph
+
+1. Initialise $W=S$. This presentation assumes $S\succ 0$.
+2. Repeat for $j=1,\ldots,p$ until convergence:
+   1. Partition $W$ into part $A$, all but the $j$th row and column, and part $B$, the $j$th row and column.
+   2. Solve $W_{AA}^{*}\beta^{*}-s_{AB}^{*}=0$ for the unconstrained edge parameters $\beta^{*}$. Obtain $\hat\beta$ by padding $\hat\beta^{*}$ with zeros in the positions of the missing edges.
+   3. Update $w_{AB}=W_{AA}\hat\beta$ and the corresponding row $w_{BA}=w_{AB}^\top$.
+3. In the final cycle for each $j$, solve for the estimated precision: $\hat\theta_{AB}=-\hat\beta\,\hat\theta_{BB}$ with $1/\hat\theta_{BB}=s_{BB}-w_{AB}^\top\hat\beta$.
+
+:::
+
+The algorithm is the derivation applied to each variable in turn after moving it to the last position. Every update must maintain symmetry and positive definiteness, and convergence should be assessed through both parameter changes and the likelihood equations. A known graph can permit a maximum-likelihood estimate with singular $S$, but that case requires an appropriate feasible start and an existence check. The inverse operations above cannot simply be applied to singular blocks.
+
+::: {#exm-sl-19-fit-chain .example}
+## Fitting a chain
+
+**Question.** Forty observations from the four-variable autoregressive model give the $1/n$ sample covariance
+
+$$
+S=\begin{pmatrix}
+0.8088 & 0.3166 & 0.2911 & 0.1228 \\
+0.3166 & 0.5490 & 0.4638 & 0.2318 \\
+0.2911 & 0.4638 & 0.9569 & 0.5472 \\
+0.1228 & 0.2318 & 0.5472 & 0.8223
+\end{pmatrix}.
+$$
+
+Fit the chain $1-2-3-4$.
+
+**Solution.** In the sweep for $j=1$ the only neighbour of variable $1$ is $2$, so the reduced regression of $X_1$ on $X_2$ has
+
+$$
+\hat\beta^{*}=s_{12}/w_{22}=0.3166/0.5490=0.577,
+$$
+
+and the update sets $w_{12}=\hat\beta^{*} w_{22}=s_{12}$, so the edge is reproduced exactly, while $w_{13}=\hat\beta^{*} w_{23}$ and $w_{14}=\hat\beta^{*} w_{24}$. Each non-edge covariance is filled in from the covariances along the path through the neighbour. The sweeps for the other variables do the same. The constrained covariance, rounded to four decimals, is
+
+$$
+W=\begin{pmatrix}
+0.8088 & 0.3166 & 0.2675 & 0.1530 \\
+0.3166 & 0.5490 & 0.4638 & 0.2652 \\
+0.2675 & 0.4638 & 0.9569 & 0.5472 \\
+0.1530 & 0.2652 & 0.5472 & 0.8223
+\end{pmatrix},
+\qquad
+W^{-1}=\begin{pmatrix}
+1.597 & -0.921 & 0 & 0 \\
+-0.921 & 3.616 & -1.495 & 0 \\
+0 & -1.495 & 2.412 & -1.123 \\
+0 & 0 & -1.123 & 1.963
+\end{pmatrix}.
+$$
+
+The diagonal and the three edge entries of $W$ equal those of $S$. For example $w_{23}=s_{23}=0.4638$. The non-edge entries are filled in so that the inverse has exact zeros where the graph has no edges: $w_{13}=0.2675$ against the sample value $s_{13}=0.2911$, $w_{14}=0.1530$ against $s_{14}=0.1228$, and $w_{24}=0.2652$ against $s_{24}=0.2318$. This is the Gaussian maximum-likelihood estimate for the constrained model. For example
+
+$$
+w_{13}=w_{12}w_{23}/w_{22}=0.3166\times 0.4638/0.5490=0.2675,
+$$
+
+the relation implied by $X_1\perp X_3\given X_2$ in a chain, and similarly $w_{14}=w_{12}w_{24}/w_{22}=0.1530$ and $w_{24}=w_{23}w_{34}/w_{33}=0.2652$.
+
+:::
+
+## The graphical lasso
+
+When the graph is unknown, put a cost on nonzero precision entries. The graphical lasso combines the Gaussian log-likelihood with an entrywise $L^1$ penalty. Its corners allow exact zeros, while the negative log-likelihood plus penalty remains convex on $K\succ 0$. An $L^2$ penalty lacks this thresholding mechanism, although special data can still produce zero entries (Friedman, Hastie and Tibshirani, 2008). The ordinary lasso objective, and the reason an $L^1$ corner produces zeros, are on [high-dimensional analysis](sl-18-high-dimensional.qmd).
+
+The penalised objective is
+
+$$
+g(K)=\log|K|-\operatorname{tr}(SK)-\lambda\lVert K\rVert_1,
+$$
+
+where $\lVert K\rVert_1$ is the sum of absolute values of the elements of $K$, and $\lambda\ge 0$ is a penalty parameter. It can be solved by an algorithm very similar to the known-graph fit: the vector $\beta$ is estimated by a lasso regression, including suitable zeros. The subgradient of the objective gives the estimating equations $W-S-\lambda\Gamma=0$ with $\Gamma$ in the subdifferential of $\lVert K\rVert_1$: $\Gamma_{jk}=\operatorname{sign}(k_{jk})$ if $k_{jk}\neq 0$, and $\Gamma_{jk}\in[-1,1]$ otherwise. The regression step becomes the lasso estimating equation in the algorithm.
+
+::: {#def-sl-19-glasso .definition}
+## Graphical lasso
+
+1. Initialise $W=S+\lambda I$.
+2. Repeat for $j=1,\ldots,p$ until convergence:
+   1. Partition $W$ into part $A$, all but the $j$th row and column, and part $B$, the $j$th row and column.
+   2. Solve $W_{AA}\beta-s_{AB}+\lambda z=0$, where $z_k=\operatorname{sign}(\beta_k)$ for $\beta_k\neq 0$ and $z_k\in[-1,1]$ for $\beta_k=0$, using cyclic coordinate descent.
+   3. Update $w_{AB}=W_{AA}\hat\beta$ and the corresponding row $w_{BA}=w_{AB}^\top$.
+3. In the final cycle for each $j$, solve $\hat\theta_{AB}=-\hat\beta\,\hat\theta_{BB}$ with $1/\hat\theta_{BB}=w_{BB}-w_{AB}^\top\hat\beta$.
+
+:::
+
+For the all-entry penalty written here, the diagonal stationarity equations give $w_{jj}=s_{jj}+\lambda$. Some software instead penalises only off-diagonal entries, in which case $w_{jj}=s_{jj}$. Specify the convention before comparing estimates or tuning parameters. The algorithm treats $\lambda$ as fixed. Choosing it by cross-validation or a criterion is a separate outer calculation. A fitted zero is an estimate of a missing population edge, not a proof of one.
+
+### Extended information criterion
+
+One option for choosing $\lambda$ is the extended Bayesian information criterion (Foygel and Drton, 2010). For a Gaussian graphical model with edge set $E$ and control parameter $\gamma\in[0,1]$,
+
+$$
+\mathrm{BIC}_\gamma(E)=-2\ell\bigl(\hat\theta(E)\bigr)+|E|\log n+4|E|\gamma\log p.
+$$
+
+Here $|E|$ counts unordered edges once. Diagonal precision parameters and any freely estimated means have the same dimension in every candidate graph, so their common terms are omitted. The estimate $\hat\theta(E)$ is the unpenalised constrained maximum-likelihood estimate when it exists. At $\gamma=0$, the criterion agrees with the ordinary information criterion up to those common terms. The extra $4|E|\gamma\log p$ charge accounts for the growing collection of graph candidates. Consistency results impose assumptions on sample size, dimension, signal, and the candidate graphs.
+
+Generate $n=120$ observations from the $p=8$ Gaussian autoregression with correlation $0.6^{|j-k|}$. Its true graph is a chain with seven edges out of $28$ possible pairs. A fit over $18$ penalties from $0.02$ to $0.65$, followed by an unpenalised refit of each candidate edge set and a comparison of the ordinary and extended criteria, produces a small-penalty graph, an intermediate graph, and the extended-criterion choice. The refit matters: a penalised precision estimate is shrunk, so its likelihood is not the constrained maximum-likelihood value required by this version of the criterion. The simulation has a known population graph. Neither the penalty nor the criterion guarantees its exact recovery in a finite sample.
+
+## Fifteen genes from the colon-cancer screen
+
+A graphical-lasso analysis has also been reported for the fifteen genes with the smallest marginal $p$-values in the Alon analysis on the high-dimensional page. The processed file is absent, so the figures below are reported results, not fits recomputed here. Approximate normality of each marginal variable would not establish joint multivariate normality. Pooling tumour and normal tissue, and selecting variables using the same data, add further qualifications to a population interpretation.
+
+The reported average absolute marginal correlation is near $0.46$. Normalised precision entries of $-0.52$ are reported for genes $1843$ and $1494$, and $+0.47$ for genes $625$ and $1635$. Remember the sign reversal: a negative precision entry corresponds to positive partial correlation. After graphical-lasso selection using the extended criterion with $\gamma=0.5$, the first pair reportedly has normalised precision $-0.42$. The gene indices are $1494$ and $1843$. Reading truncated labels $149$ and $184$ would point at genes that are not among the fifteen analysed. An estimated zero, such as the reported entry for genes $1042$ and $377$, is a restriction in the fitted Gaussian model. It is not independent evidence that the biological variables are conditionally independent in the population. Shrinkage, selection, sampling variation, and misspecification can all affect the graph.
+
+## A chain with dense marginal correlations
+
+Specify an autoregressive correlation matrix with $\Sigma_{ij}=0.6^{|i-j|}$. Its inverse has zero entries except on the diagonal and the neighbouring off-diagonals. The marginal correlations are dense, and the conditional independences are the missing edges of a chain. Verify that algebra before estimating a graph from simulated data.
+
+```r
+p <- 6
+Sigma <- 0.6^abs(outer(1:p, 1:p, "-"))
+K <- solve(Sigma)
+partial <- -cov2cor(K)
+diag(partial) <- 1
+round(partial, 3)
+#>       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]
+#> [1,] 1.000 0.514 0.000 0.000 0.000 0.000
+#> [2,] 0.514 1.000 0.441 0.000 0.000 0.000
+#> [3,] 0.000 0.441 1.000 0.441 0.000 0.000
+#> [4,] 0.000 0.000 0.441 1.000 0.441 0.000
+#> [5,] 0.000 0.000 0.000 0.441 1.000 0.514
+#> [6,] 0.000 0.000 0.000 0.000 0.514 1.000
+stopifnot(max(abs(K[abs(outer(1:p, 1:p, "-")) > 1])) < 1e-10)
+set.seed(19006)
+X <- MASS::mvrnorm(200, rep(0, p), Sigma)
+S <- cov(X) * (nrow(X) - 1) / nrow(X)
+fit <- glasso::glasso(S, rho = 0.1, penalize.diagonal = FALSE)
+edges <- abs(fit$wi) > 1e-6
+diag(edges) <- FALSE
+round(-cov2cor(fit$wi) + diag(2, p), 2)
+#>      [,1] [,2] [,3] [,4] [,5] [,6]
+#> [1,] 1.00 0.44 0.07 0.00 0.00 0.00
+#> [2,] 0.44 1.00 0.36 0.06 0.00 0.00
+#> [3,] 0.07 0.36 1.00 0.28 0.00 0.05
+#> [4,] 0.00 0.06 0.28 1.00 0.41 0.08
+#> [5,] 0.00 0.00 0.00 0.41 1.00 0.36
+#> [6,] 0.00 0.00 0.05 0.08 0.36 1.00
+c(estimated_edges = sum(edges) / 2, true_edges = p - 1)
+#> estimated_edges      true_edges
+#>              10               5
+```
+
+The population partial correlations match the four-variable chain: neighbours at about $0.514$ and $0.441$, and exact zeros elsewhere. The call sets `penalize.diagonal = FALSE`, so it uses the off-diagonal convention, unlike the all-entry penalty in the displayed algorithm. Its fitted covariance diagonal should match $S$ to numerical tolerance. At $\rho=0.1$ the fit reports $10$ edges against the $5$ true chain edges. Several small partial correlations, such as $0.07$ and $0.06$, survive.
+
+The penalty was fixed for demonstration. An estimated missing edge may reflect shrinkage or sampling noise. In the population model the zero pattern has an exact conditional-independence meaning because Gaussianity and positive definiteness were assumed. An analogous inverse-covariance calculation on pooled iris flowers does not automatically inherit that interpretation: pooling distinct species mixes several conditional distributions.
+
+::: {.callout-note}
+## Key idea
+In a Gaussian graphical model the graph is the sparsity pattern of the precision matrix $K=\Sigma^{-1}$. A zero $k_{jk}$ means $X_j\perp X_k$ given all the other variables, and $-k_{jk}/\sqrt{k_{jj}k_{kk}}$ is their partial correlation. For a known graph, the maximum-likelihood estimate matches the sample covariance on the diagonal and on the edges. For an unknown graph, an $L^1$ penalty on $K$ estimates the edges and the parameters together. The penalty parameter is chosen by cross-validation or by an information criterion, ordinary or extended.
+:::
+
+## Exercises
+
+::: {#ex-sl-19-1 .exercise}
+## Cliques and separators
+
+For the six-vertex graph, list $\mathrm{bd}(\{1,2\})$ and $\mathrm{cl}(\{5\})$, and state three conditional-independence statements implied by the global Markov property. Is $\{2\}$ a $(1,4)$-separator?
+
+[Solution](#sol-sl-19-1)
+
+:::
+
+::: {#ex-sl-19-2 .exercise}
+## Precision to graph
+
+A normal vector $(X_1,X_2,X_3)$ has precision matrix
+
+$$
+K=\begin{pmatrix} 2 & -1 & 0 \\ -1 & 3 & -1 \\ 0 & -1 & 2 \end{pmatrix}.
+$$
+
+Draw the graph, find the covariance matrix $\Sigma=K^{-1}$, and show that $X_1$ and $X_3$ are marginally correlated but conditionally independent given $X_2$. Compute the partial correlations.
+
+[Solution](#sol-sl-19-2)
+
+:::
+
+::: {#ex-sl-19-3 .exercise}
+## A three-variable chain
+
+Let $X_1\sim\Normal(0,1)$, $X_2=0.8 X_1+\epsilon_2$ and $X_3=0.8 X_2+\epsilon_3$, with $\epsilon_2,\epsilon_3\sim\Normal(0,0.36)$ independent of everything else. Find $\Sigma$ and $K=\Sigma^{-1}$, and check $k_{13}=0$.
+
+[Solution](#sol-sl-19-3)
+
+:::
+
+::: {#ex-sl-19-4 .exercise}
+## Conditional independence from a partitioned covariance
+
+Using the conditional normal, verify directly for the covariance matrix of the three-variable chain that $\operatorname{Cov}(X_1,X_3\given X_2)=0$ but that $\operatorname{Cov}(X_1,X_3)\neq 0$.
+
+[Solution](#sol-sl-19-4)
+
+:::
+
+::: {#ex-sl-19-5 .exercise}
+## How many graphs?
+
+How many undirected graphs are there on $p=5$ vertices, and on $p=20$? Why does this make search impractical without regularisation?
+
+[Solution](#sol-sl-19-5)
+
+:::
+
+::: {#ex-sl-19-6 .exercise}
+## A tempting wrong turn
+
+A student draws a graph for gene-expression data by connecting every pair of genes whose sample correlation exceeds $0.5$ in absolute value, and interprets the missing edges as conditional independences. What is wrong with this, and what should be used instead?
+
+[Solution](#sol-sl-19-6)
+
+:::
+
+::: {#ex-sl-19-7 .exercise}
+## Read a Gaussian graphical model
+
+A mean-zero Gaussian vector has positive-definite precision matrix
+
+$$
+K=\begin{pmatrix} 2 & -1 & 0 \\ -1 & 2 & -1 \\ 0 & -1 & 2 \end{pmatrix}.
+$$
+
+You may use $\rho_{ij\cdot\mathrm{rest}}=-K_{ij}/\sqrt{K_{ii}K_{jj}}$.
+
+(a) Draw the undirected graph and state the conditional independence it encodes.
+
+(b) Calculate the nonzero partial correlations and explain why the entries of $K$ are not themselves partial correlations.
+
+(c) Are $X_1$ and $X_3$ marginally independent? Justify your answer. The covariance entry $\Sigma_{13}=1/4$ may be used.
+
+[Solution](#sol-sl-19-7)
+
+:::
+
+::: {#ex-sl-19-8 .exercise}
+## Conditional association and sparsity
+
+A Gaussian vector has precision matrix
+
+$$
+K=\begin{pmatrix}
+1 & -0.2 & 0 \\
+-0.2 & 1 & 0.3 \\
+0 & 0.3 & 1
+\end{pmatrix}.
+$$
+
+(a) Draw its graph, state the conditional independence, calculate the two nonzero partial correlations, and explain why a missing edge need not mean zero marginal correlation.
+
+(b) Explain the purpose of the penalty in the graphical lasso, how a tuning parameter may be chosen, and why selected edges should not automatically be described as causal effects.
+
+[Solution](#sol-sl-19-8)
+
+:::
