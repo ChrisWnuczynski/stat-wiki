@@ -1,0 +1,139 @@
+# Worked answers
+
+[]{#sol-inf-normal-mle} **[Normal maximum likelihood estimates](#ex-inf-normal-mle).**
+
+Up to a constant,
+
+$$
+\log L(\mu,\sigma^2)=-\frac1{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2-\frac n2\log\sigma^2.
+$$
+
+Differentiating in $\mu$ gives $\sum_i(x_i-\mu)=0$, so $\widehat\mu=\overline x$. Differentiating in $\sigma^2$ and substituting $\overline x$ gives
+
+$$
+\widehat\sigma^2=\frac1n\sum_{i=1}^n(x_i-\overline x)^2.
+$$
+
+The Hessian, or the known shape of the normal likelihood, confirms that this critical point is a maximum.
+
+[]{#sol-inf-variance-bias} **[Bias of the two variance estimators](#ex-inf-variance-bias).**
+
+$$
+\E\widehat\sigma^2=\frac{n-1}{n}\E s^2=\frac{n-1}{n}\sigma^2.
+$$
+
+The bias is $\E\widehat\sigma^2-\sigma^2=-\sigma^2/n$.
+
+[]{#sol-inf-green-voters} **[A proportion in a poll](#ex-inf-green-voters).**
+
+$\widehat p=227/1000=0.227$. The estimated standard error is
+
+$$
+\sqrt{\frac{0.227\times 0.773}{1000}}\approx 0.01325.
+$$
+
+The interval is $0.227\pm 1.960\times 0.01325$, that is $(0.201,\,0.253)$.
+
+[]{#sol-inf-mean-pivot} **[The interval for a normal mean](#ex-inf-mean-pivot).**
+
+$T\sim t_{n-1}$, so $\Pr(-t_{n-1,\,1-\alpha/2}\le T\le t_{n-1,\,1-\alpha/2})=1-\alpha$. Substituting $T=(\overline X-\mu)/(s/\sqrt n)$ and solving for $\mu$ gives
+
+$$
+\overline X\pm t_{n-1,\,1-\alpha/2}\,\frac{s}{\sqrt n}.
+$$
+
+[]{#sol-inf-blood-pressure-region} **[A critical region for a known variance](#ex-inf-blood-pressure-region).**
+
+Under $H_0:\mu=127$, $T$ is standard normal. The two-sided level-$0.05$ region is $|T|\ge 1.960$. Because the standard error is $7/\sqrt{101}\approx 0.6965$,
+
+$$
+|\overline X-127|\ge 1.960\times 0.6965\approx 1.365.
+$$
+
+Reject when $\overline X\le 125.635$ or $\overline X\ge 128.365$.
+
+[]{#sol-inf-serve-power} **[Power of a serve test](#ex-inf-serve-power).**
+
+Under $H_0$, $X\sim\Bin(15,0.6)$ and
+
+$$
+\Pr(X\ge 13)=\sum_{k=13}^{15}\binom{15}{k}(0.6)^k(0.4)^{15-k}\approx 0.0271.
+$$
+
+That is the size of the test. At a general $p$,
+
+$$
+\mathrm{Power}(p)=\sum_{k=13}^{15}\binom{15}{k}p^k(1-p)^{15-k}.
+$$
+
+At $p=0.9$ the power is about $0.816$.
+
+[]{#sol-inf-frizzle} **[A 1:2:1 phenotype ratio](#ex-inf-frizzle).**
+
+The expected counts are $93/4=23.25$, $93/2=46.5$ and $23.25$. Then
+
+$$
+T=\frac{(23-23.25)^2}{23.25}+\frac{(50-46.5)^2}{46.5}+\frac{(20-23.25)^2}{23.25}\approx 0.720.
+$$
+
+There are $3-1=2$ degrees of freedom. Since $0.720<5.991$, the test does not reject the predicted proportions at level $0.05$.
+
+[]{#sol-inf-normal-equations} **[Normal equations for a straight line](#ex-inf-normal-equations).**
+
+$$
+\frac{\partial L}{\partial b_0}=-2\sum_{i=1}^n(y_i-b_0-b_1 x_i),
+\qquad
+\frac{\partial L}{\partial b_1}=-2\sum_{i=1}^n x_i(y_i-b_0-b_1 x_i).
+$$
+
+Setting both to zero is the same as $\sum(y_i-b_0-b_1 x_i)=0$ and $\sum x_i(y_i-b_0-b_1 x_i)=0$. The first equation is $n\overline y-nb_0-b_1 n\overline x=0$, so $b_0=\overline y-b_1\overline x$. Substitute $b_0$ into the second equation. The residuals $y_i-\overline y-b_1(x_i-\overline x)$ are orthogonal to the $x_i$, and therefore also to $x_i-\overline x$, which rearranges to
+
+$$
+b_1\sum_{i=1}^n(x_i-\overline x)^2=\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y).
+$$
+
+The second-derivative matrix of $L$ is positive definite when the $x_i$ are not all equal, so the critical point is a minimum.
+
+[]{#sol-inf-heart-rate} **[Heart rates in four age groups](#ex-inf-heart-rate).**
+
+The grand total is $309+275+295+282=1161$, so the grand mean is $1161/40=29.025$. The group means are $30.9$, $27.5$, $29.5$ and $28.2$. With 10 observations in each group,
+
+$$
+\mathrm{SS}_{\mathrm{treatment}}=10\bigl[(30.9-29.025)^2+(27.5-29.025)^2+(29.5-29.025)^2+(28.2-29.025)^2\bigr]=67.475.
+$$
+
+$$
+F=\frac{67.475/3}{935.500/36}=\frac{22.492}{25.986}\approx 0.866.
+$$
+
+This is smaller than $2.87$, so the test does not reject equal mean increases at level $0.05$.
+
+[]{#sol-inf-tukey-corn} **[A Tukey interval for two varieties](#ex-inf-tukey-corn).**
+
+The estimated difference is $59.800-48.300=11.5$. The half-width is
+
+$$
+4.65\sqrt{\frac{10.6}{3}}=4.65\sqrt{3.5333}\approx 8.74.
+$$
+
+The interval is $11.5\pm 8.74$, that is $(2.76,\,20.24)$. It excludes zero, so the two variety means are declared different at familywise level $0.05$.
+
+[]{#sol-inf-hardness} **[Tips and coupons](#ex-inf-hardness).**
+
+The grand mean of the 16 readings is $9.625$. The tip means are $9.400$, $9.425$, $9.725$ and $9.950$, and
+
+$$
+\mathrm{SS}_{\mathrm{tip}}=4\sum(\overline y_{i\cdot}-9.625)^2=0.825,
+\qquad
+\mathrm{MS}_{\mathrm{tip}}=0.825/3=0.275.
+$$
+
+The coupon means are $9.575$, $9.600$, $9.450$ and $9.875$, and $\mathrm{SS}_{\mathrm{coupon}}=0.385$, so $\mathrm{MS}_{\mathrm{coupon}}=0.1283$. The error sum of squares is $1.290-0.825-0.385=0.080$, on $(4-1)(4-1)=9$ degrees of freedom, so $\mathrm{MS}_{\mathrm{error}}=0.008889$.
+
+$$
+F_{\mathrm{tip}}=\frac{0.275}{0.008889}\approx 30.94,
+\qquad
+F_{\mathrm{coupon}}=\frac{0.1283}{0.008889}\approx 14.44.
+$$
+
+Both exceed $3.86$. At level $0.05$ the test rejects equal tip means and rejects equal coupon means.

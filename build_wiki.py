@@ -25,6 +25,7 @@ PREP = SOURCES / "prep"  # the final-exam booklet (index, chapters, figures)
 PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
 REPO_URL = "https://github.com/ChrisWnuczynski/stat-wiki"
 PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
+INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
 
 PARTS = [
     (
@@ -37,6 +38,18 @@ PARTS = [
             ("prob-05-transforms-and-limits.qmd", "notes"),
             ("prob-06-markov-chains.qmd", "notes"),
             ("prob-07-reliability.qmd", "notes"),
+        ],
+    ),
+    (
+        "Statistical inference",
+        [
+            ("inf-01-statistical-inference.qmd", "notes"),
+            ("inf-02-estimation.qmd", "notes"),
+            ("inf-03-confidence-intervals.qmd", "notes"),
+            ("inf-04-hypothesis-tests.qmd", "notes"),
+            ("inf-05-chi-square.qmd", "notes"),
+            ("inf-06-regression.qmd", "notes"),
+            ("inf-07-anova.qmd", "notes"),
         ],
     ),
     (
@@ -940,6 +953,13 @@ CHAPTER_CODES = {
     "P5": "prob-05-transforms-and-limits.qmd",
     "P6": "prob-06-markov-chains.qmd",
     "P7": "prob-07-reliability.qmd",
+    "I1": "inf-01-statistical-inference.qmd",
+    "I2": "inf-02-estimation.qmd",
+    "I3": "inf-03-confidence-intervals.qmd",
+    "I4": "inf-04-hypothesis-tests.qmd",
+    "I5": "inf-05-chi-square.qmd",
+    "I6": "inf-06-regression.qmd",
+    "I7": "inf-07-anova.qmd",
     "B1": "bayes-01-foundations.qmd",
     "B2": "bayes-02-beta-binomial.qmd",
     "B3": "bayes-03-normal-models.qmd",
@@ -1471,6 +1491,7 @@ def index_chapter(note: dict, part: str, body: str) -> str:
 # Order matters: a longer or more specific phrase must come before a shorter one.
 B, G, S, C, T = "Bayesian statistics", "Generalised linear models", "Smoothing", "Correlated data", "Time series"
 P = "Probability"
+I = "Statistical inference"
 TERMS = [
     # Probability. Scoped so a phrase already owned by a later chapter
     # (Bayes' rule, a named distribution, MCMC) keeps that target.
@@ -1491,6 +1512,15 @@ TERMS = [
     (r"reliability functions?", "P7", "def-reliability-function", {P}),
     (r"hazard rates?|failure rates?", "P7", "def-hazard-rate", None),
     (r"Weibull distributions?", "P7", "def-weibull-distribution", None),
+    # Inference. Phrases already owned elsewhere (least squares, deviance, Bayes' rule) keep those targets.
+    (r"maximum likelihood (?:estimates?|estimators?)|MLEs?", "I2", "def-maximum-likelihood", None),
+    (r"methods? of moments", "I2", "def-method-of-moments", {I}),
+    (r"unbiased estimators?", "I2", "def-unbiased-estimator", {I}),
+    (r"confidence intervals?", "I3", "def-confidence-interval", None),
+    (r"p-values?", "I4", "def-p-value", {I}),
+    (r"type I errors?|type II errors?", "I4", "def-type-i-and-type-ii-errors", {I}),
+    (r"goodness-of-fit tests?|contingency tables?", "I5", "def-pearson-statistic", {I}),
+    (r"analysis of variance|ANOVA", "I7", "def-one-way-anova", None),
     # Bayesian foundations
     (r"highest[- ](?:posterior[- ])?density (?:intervals?|regions?)|HPD (?:intervals?|regions?)", "B1", "def-credible-region-constructions", None),
     (r"equal-tailed (?:credible )?intervals?", "B1", "def-credible-region-constructions", None),
@@ -2745,7 +2775,8 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     topics_path = WIKI / "notes" / "index.qmd"
     lines = [
         "Every chapter is an article. Each one ends with a table of the questions on its topic. "
-        "The Probability section is the common language for the later chapters: experiments, random variables, simulation, dependence, limits, Markov chains and reliability.",
+        "The Probability section is the common language for the later chapters: experiments, random variables, simulation, dependence, limits, Markov chains and reliability. "
+        "Statistical inference then turns a random sample into an estimate, an interval, or a test.",
         "",
     ]
     for part, members in parts.items():
@@ -2831,7 +2862,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for probability and for STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for probability, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -3096,7 +3127,7 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 
 def chapter_source(filename: str) -> Path:
     """Chapter files live with the book, except the probability notes."""
-    for folder in (BOOK / "chapters", PROBABILITY / "chapters"):
+    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters"):
         path = folder / filename
         if path.exists():
             return path
@@ -3164,6 +3195,7 @@ def main() -> None:
     for sol_path in (
         BOOK / "chapters" / "bayes-11-solutions.qmd",
         PROBABILITY / "chapters" / "prob-solutions.qmd",
+        INFERENCE / "chapters" / "inf-solutions.qmd",
     ):
         solutions = sol_path.read_text(encoding="utf-8")
         matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))

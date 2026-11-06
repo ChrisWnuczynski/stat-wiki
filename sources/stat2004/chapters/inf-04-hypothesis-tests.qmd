@@ -1,0 +1,84 @@
+# Hypothesis tests
+
+A test asks whether the data would be surprising if a stated hypothesis were true. The probability in that question is computed under the hypothesis, before any probability is placed on the hypothesis itself. Putting probability on the hypotheses, and comparing them by a Bayes factor, is [Bayesian hypotheses and model comparison](bayes-06-testing.qmd). The $p$-value defined here is not that probability.
+
+The pivots are the same ones used for [confidence intervals](inf-03-confidence-intervals.qmd): the normal, $t$, chi-squared, $F$ and binomial laws, with the [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem) supplying the approximate normal tests.
+
+## The ingredients
+
+The model is a random sample, or a count, whose distribution depends on $\theta$. The null hypothesis $H_0$ restricts $\theta$, often to a single value $\theta_0$. The alternative $H_1$ is the other region under consideration: one side of $\theta_0$, or both sides. The alternative is the claim the test is trying to detect. The null is the claim that is rejected only on strong evidence.
+
+A test statistic $T$ is a statistic that is sensitive to the difference between $H_0$ and $H_1$. Its null distribution is the distribution of $T$ when $H_0$ is true. A critical region is a set of values of $T$ that are treated as evidence against $H_0$. A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is the union of two tails.
+
+::: {#def-p-value .definition}
+## p-value
+
+The $p$-value of an observed statistic $t$ is the probability, under $H_0$, that $T$ is at least as extreme as $t$, in the direction of $H_1$. For a two-sided normal or $t$ statistic it is twice the one-sided tail probability beyond $|t|$.
+
+:::
+
+Rejecting $H_0$ when the $p$-value is at most $\alpha$ is the same decision as rejecting when $T$ falls in the level-$\alpha$ critical region. The $p$-value is the smallest significance level at which this sample would reject $H_0$. A small $p$-value is stronger evidence against $H_0$ than a large one. Conventional markers are $0.10$ for suggestive evidence, $0.05$ for moderate evidence and $0.01$ for strong evidence. They are conventions about long-run error rates, not probabilities that the decision is correct.
+
+::: {#def-type-i-and-type-ii-errors .definition}
+## Type I and type II errors
+
+A type I error rejects $H_0$ when $H_0$ is true. A type II error accepts $H_0$ when $H_1$ is true. The size, or significance level, is the probability of a type I error. The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
+
+:::
+
+The two errors compete. Enlarging the critical region raises the power and also raises the type I error. The Neyman–Pearson choice is to fix the type I error at a chosen $\alpha$, and then to spend the remaining freedom on power. The power curve is the power as a function of the alternative.
+
+A test, written out in full, has eight steps: the model, the two hypotheses, the statistic, its null distribution, the observed value, the $p$-value or the critical region, the decision, and a sentence in the language of the original question.
+
+## Tests for a normal mean and variance
+
+For $X_1,\ldots,X_n$ independent and $\Normal(\mu,\sigma^2)$, the one-sample $t$ statistic $(\overline X-\mu_0)/(s/\sqrt n)$ has a $t_{n-1}$ distribution when $\mu=\mu_0$. Reject for large positive values against $\mu>\mu_0$, for large negative values against $\mu<\mu_0$, and for large absolute values against $\mu\neq\mu_0$.
+
+If $\sigma$ is known, the same roles are played by $Z=(\overline X-\mu_0)/(\sigma/\sqrt n)$, which is standard normal under $H_0$. The critical value for a two-sided test of size $0.05$ is $1.96$.
+
+For the variance, $(n-1)s^2/\sigma_0^2$ is chi-squared with $n-1$ degrees of freedom when $\sigma^2=\sigma_0^2$. A small observed value is evidence that the variance is smaller than $\sigma_0^2$, and a large value is evidence that it is larger.
+
+## Two samples, paired data, and proportions
+
+Two independent normal samples with a common variance are compared by the two-sample $t$ statistic, using the pooled variance from the confidence-interval chapter and $n_1+n_2-2$ degrees of freedom. The ratio $s_1^2/s_2^2$ is compared with an $F_{n_1-1,n_2-1}$ distribution when the two variances are equal.
+
+Paired measurements are reduced to a single sample. If $(X_i,Y_i)$ are pairs and $D_i=X_i-Y_i$, a hypothesis about the mean difference is a one-sample $t$ test on the $D_i$. Pairing is the right analysis when the two measurements share a unit, a subject or a block. Treating the two columns as independent samples would ignore that dependence, which is described in [Joint distributions](prob-04-joint-distributions.qmd).
+
+For $X\sim\Bin(n,p)$, the statistic $(\widehat p-p_0)/\sqrt{p_0(1-p_0)/n}$ is approximately standard normal for large $n$ when $p=p_0$. The null standard error uses $p_0$, not $\widehat p$. A two-sample comparison of proportions uses $\widehat p_1-\widehat p_2$ and a standard error pooled under the null when the hypothesis is $p_1=p_2$.
+
+The sign test is the binomial test applied to paired signs. If the two treatments in a pair are exchangeable under $H_0$, the number of pairs in which the first wins is $\Bin(m,1/2)$, after discarding ties. No normal model for the measurements is required.
+
+::: {.callout-note}
+## Key idea
+Compute how often the test statistic would look this extreme if the null hypothesis were true. That probability is the $p$-value. It is not the probability that the null hypothesis is true.
+:::
+
+## Exercises
+
+::: {#ex-inf-blood-pressure-region .exercise}
+## A critical region for a known variance
+
+Systolic blood pressure in a reference population has mean 127 and standard deviation 7. A sample of 101 people from another group has sample mean $\overline X$. Assume the readings are independent and normal with that same standard deviation, and mean $\mu$. The test statistic is
+
+$$
+T=\frac{\overline X-127}{7/\sqrt{101}}.
+$$
+
+Find the two-sided critical region for $T$, and the corresponding region for $\overline X$, at significance level $0.05$. Use $z_{0.975}=1.960$.
+
+[Solution](#sol-inf-blood-pressure-region)
+
+:::
+
+::: {#ex-inf-serve-power .exercise}
+## Power of a serve test
+
+A player's first-serve successes are modelled as $X\sim\Bin(15,p)$. The test of $H_0:p=0.6$ against $H_1:p>0.6$ rejects when $X\in\{13,14,15\}$.
+
+(a) Compute the size of the test, that is the power at $p=0.6$.
+
+(b) Write the power as a function of $p$, and evaluate it at $p=0.9$.
+
+[Solution](#sol-inf-serve-power)
+
+:::
