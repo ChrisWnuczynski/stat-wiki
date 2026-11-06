@@ -148,7 +148,7 @@ With $n=100$ and $x=30$ heads, the same priors give \begin{align*}
   \BetaDist(0.6,0.6)&\longrightarrow\BetaDist(30.6,70.6).
 \end{align*} The relative effect of the prior is smaller because the data contribute 100 counts while the first prior contributes a fixed amount.
 
-![The three priors, then the posteriors they produce on the two datasets above. Both datasets have the same observed proportion $0.3$, marked by the dashed vertical line, so moving to the right changes only how much weight the data carry. Ten tosses leave three visibly different posteriors; one hundred leave three that have nearly closed on each other and on $x/n$. Disagreement about the prior is a disagreement about small samples. The $\BetaDist(0.6,0.6)$ prior is unbounded at $0$ and $1$, so its curve leaves the top of the first panel.](../figures/part1-fig-02-prior-sensitivity.pdf){#fig-prior-sensitivity}
+![The three priors, then the posteriors they produce after $3$ heads in $10$ tosses and after $30$ heads in $100$. Both datasets have the same observed proportion $0.3$, marked by the dashed vertical line, so moving to the right changes only how much weight the data carry. Ten tosses leave three visibly different posteriors; one hundred leave three that have nearly closed on each other and on $x/n$. Disagreement about the prior is a disagreement about small samples. The $\BetaDist(0.6,0.6)$ prior is unbounded at $0$ and $1$, so its curve leaves the top of the first panel.](../figures/part1-fig-02-prior-sensitivity.pdf){#fig-prior-sensitivity}
 
 ::: {.callout-warning}
 ## Parameterisation check

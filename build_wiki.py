@@ -2608,7 +2608,7 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         for label in ("Notation", "Parameters", "Support", "Mass function", "Density", "Mean"):
             if label in cells:
                 rows.append((label, cells[label]))
-        mode = re.search(r"mode (\$[^$]+\$)", KERNEL_ROWS.get(slug_, ""))
+        mode = re.search(r"mode (\$[^$]+\$(?: (?:for|when) [^$;|]*\$[^$]+\$)?)", KERNEL_ROWS.get(slug_, ""))
         if mode:
             rows.append(("Mode", to_greek(mode.group(1)) if slug_ in GREEK_PARAMS else mode.group(1)))
         if "Variance" in cells:
