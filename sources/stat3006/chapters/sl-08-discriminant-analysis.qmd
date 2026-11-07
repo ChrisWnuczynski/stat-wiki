@@ -574,7 +574,7 @@ Give mathematical explanations, defining the quantities you use.
 
 (a) Explain the two-class LDA model and how its parameters and classification rule are obtained from labelled observations.
 
-(b) Explain the main concepts and mathematical construction of principal component analysis, including principal directions, scores, and variance explained. The derivation is on [Principal component analysis](sl-03-principal-components.qmd#def-sl-03-principal-components).
+(b) Explain the main concepts and mathematical construction of principal component analysis, including principal directions, scores, and variance explained. The derivation is on [Principal component analysis](../articles/principal-component-directions-and-scores.qmd).
 
 [Solution](#sol-sl-08-8)
 

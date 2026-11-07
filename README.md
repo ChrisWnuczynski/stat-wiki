@@ -16,6 +16,7 @@ On every push to `main`, GitHub runs both steps and publishes the result. It tak
 |---|---|
 | Chapters, questions and answers | the files in `sources/` |
 | Article properties, examples and pictures | `article_extras.py` |
+| Topic pages, their titles, other names, and term links | `topics.py`. Every chapter heading gets a page of its own automatically; this file names the ones whose heading needs its chapter to make sense, adds pages for ideas named inside a paragraph, and lists the phrases that link to them. |
 | Page layout, links and infoboxes | `build_wiki.py` |
 | Colours, fonts and dark mode | `styles.css` |
 | Figures for the probability, inference and data analysis chapters | `make_figures.py` in `sources/stat2003/figures`, `sources/stat2004/figures` or `sources/stat1301/figures`, then commit the PDFs it writes. A `.tex` file beside a PDF is its TikZ source. |

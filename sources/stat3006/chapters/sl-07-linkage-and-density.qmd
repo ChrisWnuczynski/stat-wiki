@@ -8,7 +8,7 @@ The roughness penalty on [Smooth means](06-smooth-means.qmd) charges $\lambda\in
 
 ## Hierarchical clustering
 
-A hierarchy gives nested partitions, from single observations to the whole sample. Start by choosing a meaningful dissimilarity and its scale. Standardising variables is one possible choice of scale. Use it when the measurement units would otherwise dominate the distances. Then choose how to compare groups using their pointwise dissimilarities. Once ties are resolved, the merge rule determines the tree.
+A hierarchy gives nested partitions, from single observations to the whole sample. Start by choosing a meaningful dissimilarity and its scale. Standardising variables is one possible choice of scale. Use it when the measurement units would otherwise dominate the distances. Then choose how to compare groups using their pointwise dissimilarities. Once ties are resolved, the merge rule determines the tree. [K-means clustering](sl-04-kmeans.qmd) instead fixes the number of clusters in advance and returns a single partition that minimises a within-cluster sum of squares; Ward's linkage applies the same criterion one merge at a time.
 
 The original vectors are not required. Edit distance between words, or between languages, counts insertions, deletions, and substitutions. The same counting compares genetic sequences. People can be clustered from the strength of a relationship, and sites from an ecological similarity, with no coordinates in sight. Single linkage and complete linkage, defined below, use only those pairwise numbers.
 
