@@ -1713,6 +1713,7 @@ def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
         box = a["box"]
         if box and box["kind"] in TOPIC_KINDS:
             source = box["lead"] or (box["excerpts"][0]["text"] if box["excerpts"] else "")
+            source = re.split(r"\\begin\{", source)[0]  # a display environment does not fit a glossary cell
             box["snippet"] = snippet_from(source.split("\n"))
 
 
