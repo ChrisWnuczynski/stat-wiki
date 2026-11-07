@@ -1,0 +1,879 @@
+# Estimation and inference for the multivariate normal
+
+On [Covariance and the multivariate normal](sl-01-multivariate-normal.qmd) a conditional distribution could be calculated because the population mean and covariance were given. With data, those parameters are unknown. A sample has to estimate them, and a separate calculation has to say how much the estimates would move if the sampling were repeated. A point estimate and its uncertainty answer different questions.
+
+[Maximum likelihood](inf-02-estimation.qmd#def-maximum-likelihood) reads a density as a function of the parameters with the sample held fixed. The [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem) describes an average when only a mean and a variance exist. This page adds the Wishart law, the sampling distribution of the normal mean and covariance, and Hotelling's $T^2$, including the two-sample test. The [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) is the one-dimensional case of the Wishart law.
+
+The argument runs in one direction: write the Gaussian likelihood, estimate its parameters, derive a test of a proposed mean vector, and invert the test to obtain a confidence region. Individual observations have covariance $\Sigma$. The average of $n$ independent observations has covariance $\Sigma/n$. More data locate the centre more accurately and do not make individual observations less variable. The exact test uses independent Gaussian observations and $n>p$.
+
+## The likelihood of a normal sample
+
+A likelihood holds the observed sample fixed and varies the parameters. Parameter values that give this sample greater density have greater likelihood. That comparison does not assign a probability distribution to the parameters. For continuous data the likelihood is built from density values, which may exceed one. An estimator is the rule applied to a random sample. An estimate is the number that rule returns for the sample in hand. Sampling uncertainty belongs to the estimator.
+
+Model the sample as $n$ independent draws $\mathbf{x}_1,\ldots,\mathbf{x}_n$ from $\Normal_p(\boldsymbol{\mu},\Sigma)$, and stack the realised vectors as the rows of a data matrix,
+
+$$
+\mathbf{X}_{\mathrm{all}}
+=\begin{pmatrix}
+x_{11}&\cdots&x_{1p}\\
+\vdots&&\vdots\\
+x_{n1}&\cdots&x_{np}
+\end{pmatrix}
+=\begin{pmatrix}\mathbf{x}_1^\top\\ \vdots\\ \mathbf{x}_n^\top\end{pmatrix}.
+$$
+
+Independence multiplies the $n$ normal densities. Hold the rows fixed and regard the product as a function of $(\boldsymbol{\mu},\Sigma)$. That function is the likelihood
+
+$$
+L(\boldsymbol{\mu},\Sigma;\mathbf{X}_{\mathrm{all}})
+=\frac{1}{(2\pi)^{np/2}|\Sigma|^{n/2}}
+\exp\Bigl\{-\frac12\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})\Bigr\}.
+$$
+
+The logarithm is strictly increasing, so $L$ and $\ell=\log L$ have the same maximiser, and the derivative is easier on the logarithm:
+
+$$
+\ell(\boldsymbol{\mu},\Sigma;\mathbf{X}_{\mathrm{all}})
+=-\frac12 np\log(2\pi)-\frac12 n\log|\Sigma|
+-\frac12\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu}).
+$$
+
+Products become sums. Terms that do not depend on a parameter can be dropped while maximising in that parameter. They stay when an absolute density value, or a comparison that uses the whole likelihood, is required.
+
+Two summaries of the sample carry the maximiser. The sample mean vector is
+
+$$
+\bar{\mathbf{x}}=\frac1n\sum_{i=1}^n\mathbf{x}_i,
+$$
+
+and the matrix of corrected sums of squares and cross-products is
+
+$$
+A=\sum_{i=1}^n(\mathbf{x}_i-\bar{\mathbf{x}})(\mathbf{x}_i-\bar{\mathbf{x}})^\top
+=\Bigl(\sum_{i=1}^n\mathbf{x}_i\mathbf{x}_i^\top\Bigr)-n\bar{\mathbf{x}}\bar{\mathbf{x}}^\top.
+$$
+
+The second expression is the first one expanded. The cross terms cancel because $\sum_i\mathbf{x}_i=n\bar{\mathbf{x}}$. In particular $A$ does not depend on $(\boldsymbol{\mu},\Sigma)$.
+
+### The mean
+
+The log-likelihood depends on $\boldsymbol{\mu}$ only through the sum of quadratic forms, and $\Sigma$ is an arbitrary positive definite matrix. Split each residual into a deviation from the sample mean and a deviation of the sample mean from $\boldsymbol{\mu}$:
+
+$$
+\begin{aligned}
+\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}_i-\boldsymbol{\mu})
+&=\sum_{i=1}^n\bigl[(\mathbf{x}_i-\bar{\mathbf{x}})+(\bar{\mathbf{x}}-\boldsymbol{\mu})\bigr]^\top
+\Sigma^{-1}
+\bigl[(\mathbf{x}_i-\bar{\mathbf{x}})+(\bar{\mathbf{x}}-\boldsymbol{\mu})\bigr]\\
+&=\sum_{i=1}^n(\mathbf{x}_i-\bar{\mathbf{x}})^\top\Sigma^{-1}(\mathbf{x}_i-\bar{\mathbf{x}})
++n(\bar{\mathbf{x}}-\boldsymbol{\mu})^\top\Sigma^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}).
+\end{aligned}
+$$
+
+The cross terms contain $\sum_i(\mathbf{x}_i-\bar{\mathbf{x}})=\mathbf{0}$, so they vanish. The first sum does not involve $\boldsymbol{\mu}$. The second is $n$ times a quadratic form in the positive definite matrix $\Sigma^{-1}$, so it is nonnegative and equals zero only at $\boldsymbol{\mu}=\bar{\mathbf{x}}$. The maximiser in $\boldsymbol{\mu}$ is therefore
+
+$$
+\widehat{\boldsymbol{\mu}}=\bar{\mathbf{x}},
+$$
+
+for every positive definite $\Sigma$. The covariance does not have to be known before the mean is estimated. The next step substitutes this maximiser and maximises in $\Sigma$ alone.
+
+### The covariance and the invariance lemma
+
+The inverse covariance is a convenient optimisation variable. Set $\Theta=\Sigma^{-1}$. The quadratic part of the log-likelihood is linear in $\Theta$, and the determinant term becomes $\log|\Theta|$. Together they form a concave function on the positive definite matrices. The maximiser can be found and then inverted. The invariance result says why the inverted matrix is the maximum likelihood estimator of $\Sigma$. The general statement is the [invariance of maximum likelihood](inf-02-estimation.qmd#prp-invariance-of-maximum-likelihood). The argument used for the covariance is the following.
+
+::: {#prp-sl-02-invariance .proposition}
+## Invariance of the maximum likelihood estimator
+
+Let the distribution of the data depend on $\theta=(\theta_1,\ldots,\theta_k)$, with maximum likelihood estimator $\widehat\theta$. Let $\tau(\theta)=(\tau_1(\theta),\ldots,\tau_r(\theta))$, $1\le r\le k$, be a transformation of the parameter. Then the maximum likelihood estimator of $\tau_l(\theta)$ is $\widehat\tau_l=\tau_l(\widehat\theta)$.
+
+:::
+
+Let $M(\tau;\mathbf{x})=\sup_{\theta:\tau(\theta)=\tau}L(\theta;\mathbf{x})$ be the likelihood induced on the transformed parameter. For any value $\tau$ in the range of the transformation,
+
+$$
+\sup_{\theta:\tau(\theta)=\tau}L(\theta;\mathbf{x})
+\le\sup_{\theta}L(\theta;\mathbf{x})
+=L(\widehat\theta;\mathbf{x})
+=\sup_{\theta:\tau(\theta)=\tau(\widehat\theta)}L(\theta;\mathbf{x})
+=M\bigl(\tau(\widehat\theta);\mathbf{x}\bigr).
+$$
+
+The last equality holds because $\widehat\theta$ itself satisfies the constraint $\tau(\theta)=\tau(\widehat\theta)$, so the supremum over that constraint set is attained at $\widehat\theta$. Hence $M(\tau(\widehat\theta))\ge M(\tau)$ for every $\tau$, and $\tau(\widehat\theta)$ maximises $M$.
+
+Apply the lemma with $\theta=\Sigma^{-1}=:\Theta$. The free coordinates are the $k=p(p+1)/2$ distinct entries of the precision, and the transformed coordinates are the distinct entries of $\Sigma=\Theta^{-1}$. Substitute $\Sigma^{-1}=\Theta$ and $\log|\Sigma|=-\log|\Theta|$:
+
+$$
+\ell(\boldsymbol{\mu},\Theta)
+=-\frac12 np\log(2\pi)+\frac12 n\log|\Theta|
+-\frac12\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu})^\top\Theta(\mathbf{x}_i-\boldsymbol{\mu}).
+$$
+
+The derivative with respect to a symmetric matrix uses $\partial\log|\Theta|/\partial\Theta=\Theta^{-1}$ and $\partial(\mathbf{v}^\top\Theta\mathbf{v})/\partial\Theta=\mathbf{v}\mathbf{v}^\top$. Those two identities give
+
+$$
+\frac{\partial\ell}{\partial\Theta}
+=\frac n2\,\Theta^{-1}-\frac12\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu})(\mathbf{x}_i-\boldsymbol{\mu})^\top.
+$$
+
+The mean has already been maximised. Set $\boldsymbol{\mu}=\widehat{\boldsymbol{\mu}}=\bar{\mathbf{x}}$ and set the derivative equal to zero:
+
+$$
+\frac n2\,\widehat\Theta^{-1}-\frac12\sum_{i=1}^n(\mathbf{x}_i-\bar{\mathbf{x}})(\mathbf{x}_i-\bar{\mathbf{x}})^\top=0.
+$$
+
+Multiply by $2$. The sum is $A$, so $n\widehat\Theta^{-1}-A=0$ and $\widehat\Theta^{-1}=A/n$. Invariance, applied to $\Theta\mapsto\Theta^{-1}$, says that the maximum likelihood estimator of $\Sigma$ is
+
+$$
+\widehat\Sigma=\frac1n A.
+$$
+
+There is a condition behind that answer: $A$ must be positive definite. Then strict concavity in the precision makes the stationary point the unique maximum. If $A$ is singular, the unrestricted positive definite Gaussian covariance has no finite maximum likelihood estimator in the interior of the parameter space. Shrinking the variance in an unobserved direction increases the likelihood without bound. An algebraic expression such as $A/n$ is not automatically an admissible parameter. When the estimator does exist, its divisor is $n$.
+
+### Bias and the sample covariance
+
+Whether $\widehat\Sigma$ is unbiased is not settled by the likelihood equation. Expand the cross-product matrix about the true mean,
+
+$$
+A=\sum_{i=1}^n(\mathbf{X}_i-\boldsymbol{\mu})(\mathbf{X}_i-\boldsymbol{\mu})^\top
+-n(\overline{\mathbf{X}}-\boldsymbol{\mu})(\overline{\mathbf{X}}-\boldsymbol{\mu})^\top.
+$$
+
+If the observations are uncorrelated, with common mean $\boldsymbol{\mu}$ and common covariance $\Sigma$, each outer product $(\mathbf{X}_i-\boldsymbol{\mu})(\mathbf{X}_i-\boldsymbol{\mu})^\top$ has expectation $\Sigma$, so the first sum has expectation $n\Sigma$. The same uncorrelatedness gives $\Var(\overline{\mathbf{X}})=\Sigma/n$, and the subtracted term then has expectation $\Sigma$. Therefore
+
+$$
+\E(A)=(n-1)\Sigma,
+\qquad
+\E(\widehat\Sigma)=\frac{n-1}{n}\Sigma.
+$$
+
+Dividing $A$ by $n$ estimates $\Sigma$ by $(n-1)/n$ times $\Sigma$ on average, so the maximum likelihood estimator is biased low. The unbiased matrix in common use divides by the degrees of freedom that remain after estimating the mean. It is the sample covariance matrix
+
+$$
+S=\frac{1}{n-1}A.
+$$
+
+The two estimates use the same measured scatter and differ only in their divisor. Dividing by $n$ solves the likelihood problem. Dividing by $n-1$ corrects the expectation. Hotelling's statistic below uses $S=A/(n-1)$ because the stated $F$ calibration is derived for that convention. Substituting a different divisor without adjusting the calibration changes the test.
+
+A single mean is the wrong centre when the observations fall into $G$ groups that may have different means and are assumed to share one covariance $\Sigma$. Let group $g$ have $n_g$ observations $\mathbf{x}_{ig}$, $i=1,\ldots,n_g$, with $n=\sum_g n_g$. Independence across groups lets the one-sample argument run inside each group, so the maximum likelihood estimator of $\boldsymbol{\mu}_g$ is the group mean $\bar{\mathbf{x}}_g$. The unbiased estimator of the common $\Sigma$ pools the corrected cross-product matrices. It is the pooled sample covariance
+
+$$
+S=\frac{1}{n-G}\sum_{g=1}^G\sum_{i=1}^{n_g}(\mathbf{x}_{ig}-\bar{\mathbf{x}}_g)(\mathbf{x}_{ig}-\bar{\mathbf{x}}_g)^\top
+=\frac{1}{n-G}\sum_{g=1}^G A_g.
+$$
+
+Each estimated group mean consumes one degree of freedom, which is why the divisor is $n-G$ rather than $n-1$. The one-sample matrix is the case $G=1$.
+
+## The Wishart distribution
+
+Knowing $\E(A)$ does not say how much $A$ fluctuates. An exact test needs the sampling distribution. Under Gaussian sampling, the centred cross-products have a Wishart distribution with $n-1$ degrees of freedom. A chi-squared variable is a sum of squares of independent standard normals. Wishart replaces each square by a vector outer product.
+
+::: {#def-sl-02-wishart .definition}
+## Wishart distribution
+
+Let $\mathbf{U}_1,\ldots,\mathbf{U}_\nu$ be independent $\Normal_p(\mathbf{0},\Sigma)$ vectors, with $\nu\ge p$ and $\Sigma$ positive definite. The matrix
+
+$$
+W=\sum_{m=1}^\nu\mathbf{U}_m\mathbf{U}_m^\top
+$$
+
+has the Wishart distribution $W\sim W_p(\Sigma,\nu)$, with density
+
+$$
+w(W;\Sigma,\nu)
+=\frac{|W|^{(\nu-p-1)/2}\exp\bigl\{-\tfrac12\operatorname{tr}(W\Sigma^{-1})\bigr\}}
+{2^{\nu p/2}\,\pi^{p(p-1)/4}\,|\Sigma|^{\nu/2}\prod_{j=1}^p\Gamma\bigl((\nu+1-j)/2\bigr)}
+$$
+
+for positive definite $W$, and $0$ otherwise.
+
+:::
+
+For the corrected cross-product matrix of a normal sample the degrees of freedom are $\nu=n-1$, and the density is
+
+$$
+w(A;\Sigma,n-1)
+=\frac{|A|^{(n-p-2)/2}\exp\bigl\{-\tfrac12\operatorname{tr}(A\Sigma^{-1})\bigr\}}
+{2^{(n-1)p/2}\,\pi^{p(p-1)/4}\,|\Sigma|^{(n-1)/2}\prod_{j=1}^p\Gamma\bigl((n-j)/2\bigr)}.
+$$
+
+The exponent checks: $(\nu-p-1)/2$ at $\nu=n-1$ is $(n-p-2)/2$, and $\Gamma((\nu+1-j)/2)$ becomes $\Gamma((n-j)/2)$. When $p=1$ and $\Sigma=1$, $W$ reduces to a sum of squares of standard normals, which is $\chi^2_\nu$.
+
+The expectation does not use the density. From the definition, $W=\sum_m\mathbf{U}_m\mathbf{U}_m^\top$ and $\E(\mathbf{U}_m\mathbf{U}_m^\top)=\Sigma$, so linearity gives $\E(W)=\nu\Sigma$. Setting $\nu=n-1$ recovers $\E(A)=(n-1)\Sigma$. Normality is not required for this expectation. It is required for the density, and for the claim that $A$ is Wishart.
+
+::: {#thm-sl-02-mean-and-scatter .theorem}
+## Sampling law of the normal mean and scatter
+
+Under independent sampling from $\Normal_p(\boldsymbol{\mu},\Sigma)$, the sample mean and the corrected cross-product matrix are independent, with
+
+$$
+\overline{\mathbf{X}}\sim\Normal_p\bigl(\boldsymbol{\mu},\,\tfrac1n\Sigma\bigr),
+\qquad
+A\sim W_p(\Sigma,\,n-1),
+\qquad
+\overline{\mathbf{X}}\ \text{independent of}\ A.
+$$
+
+:::
+
+The normal law for $\overline{\mathbf{X}}$, and the covariance $\Sigma/n$, follow from the [linear-image proposition](sl-01-multivariate-normal.qmd#prp-sl-01-linear-image). Stack the $n$ observations as one vector $\mathbf{Z}$ of length $np$. Independence puts $\Sigma$ on the diagonal blocks of $\Var(\mathbf{Z})$ and zeros off those blocks. The average is
+
+$$
+\overline{\mathbf{X}}=\frac1n(I\ \cdots\ I)\mathbf{Z},
+$$
+
+with $n$ copies of $I$. The covariance formula counts $n$ copies of $\Sigma$ and the factor $1/n^2$ leaves $\Sigma/n$. Independence of $\overline{\mathbf{X}}$ and $A$, and the Wishart law for $A$, are the multivariate forms of two univariate facts: in a normal sample the sample mean is independent of the sample variance, and $(n-1)s^2/\sigma^2\sim\chi^2_{n-1}$. Together with the normal law for the mean, those are the three conclusions of the [normal sample theorem](inf-01-statistical-inference.qmd#thm-normal-sample-theorem). They are the part of the Wishart statement that uses normality beyond the mean and covariance of $\overline{\mathbf{X}}$, and the $F$ calibration below takes the normal-and-Wishart pair as its input.
+
+## Drawing a normal vector
+
+The distributions just stated are also the distributions a simulation should reproduce. A generator usually supplies independent uniforms, or independent standard normals, and the step from those draws to $\Normal_p(\boldsymbol{\mu},\Sigma)$ is the linear-image proposition. Start from uniforms by the inverse transform. Let $U$ be uniform on $[0,1]$ and set $X=\Phi^{-1}(U)$, with $\Phi$ the standard normal distribution function. Because $\Phi$ is increasing,
+
+$$
+\Pr(X\le x)=\Pr\bigl(\Phi^{-1}(U)\le x\bigr)=\Pr\bigl(U\le\Phi(x)\bigr)=\Phi(x),
+$$
+
+so $X$ is standard normal. This is the [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform). Draw $p$ independent copies and stack them as $\mathbf{Z}\sim\Normal_p(\mathbf{0},I_p)$. Any matrix $B$ with $BB^\top=\Sigma$ then has the covariance required by the linear-image formula. The spectral factor $B=\Gamma\Lambda^{1/2}$, whose columns are eigenvectors scaled by square-root eigenvalues, is one such factor, and the Cholesky factor is another. Set
+
+$$
+\mathbf{X}=\boldsymbol{\mu}+B\mathbf{Z}.
+$$
+
+The mean of $B\mathbf{Z}+\boldsymbol{\mu}$ is $\boldsymbol{\mu}$ and its covariance is $BB^\top=\Sigma$. Normality follows from the linear-image proposition. In software, `rnorm` supplies pseudorandom draws. A seed reproduces the computation. A sample covariance close to its target checks this implementation. It is not a proof that every property of the generator is correct.
+
+The spectral and Cholesky factors both satisfy $BB^\top=\Sigma$. Such a factor need not satisfy $B^2=\Sigma$. The name symmetric square root is reserved for $\Gamma\Lambda^{1/2}\Gamma^\top$. A third construction never forms $B$. Draw the first coordinate from its univariate marginal normal, then each later coordinate from the univariate conditional normal given the coordinates already drawn, using the conditional formula on [Covariance and the multivariate normal](sl-01-multivariate-normal.qmd#thm-sl-01-conditional-normal). The constructions target the same $\Normal_p(\boldsymbol{\mu},\Sigma)$. They factor it differently.
+
+A goodness-of-fit test for normality does not decide whether the exact $F$ calibration below applies. With small $n$ the test has little power, and a rejection does not name a replacement model. The exact results on this page assume normality in the statements that use it. The next section records what remains for the sample mean when that assumption is dropped and only a finite covariance is kept.
+
+The fragment below is the Cholesky route. The lower-triangular factor satisfies $BB^\top=\Sigma$, with $\boldsymbol{\mu}=(1,2)^\top$ and $\Sigma$ equal to the matrix with entries $4,2$ in the first row and $2,3$ in the second. The column means and the sample covariance come out close to that target. Setting a seed before `rnorm` makes a later run reproduce the same draws. The laboratory at the end of the page evaluates the one-sample test on data, rather than checking a simulated covariance.
+
+```r
+Sigma <- matrix(c(4, 2, 2, 3), 2, 2); mu <- c(1, 2)
+B <- t(chol(Sigma))                 # lower-triangular factor, B %*% t(B) = Sigma
+Z <- matrix(rnorm(2 * 1000), 2)     # columns are independent N(0, I) vectors
+X <- t(mu + B %*% Z)                # rows are N(mu, Sigma) draws
+colMeans(X); cov(X)                 # close to mu and Sigma
+```
+
+## Central limit theorems
+
+Hotelling's exact $F$ law uses normality of the observations. The sample mean still has a normal approximation without that assumption, once a mean and a covariance exist. The classical theorem is the univariate case, already stated as the [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-theorem): if $X_1,\ldots,X_n$ are independent and identically distributed with finite mean $\mu$ and variance $\sigma^2>0$, and $\bar X_n=(X_1+\cdots+X_n)/n$, then for every $z\in\R$
+
+$$
+\lim_{n\to\infty}\Pr\Bigl(\frac{\bar X_n-\mu}{\sigma/\sqrt{n}}\le z\Bigr)=\Phi(z).
+$$
+
+The theorem is a limiting statement, not a sample-size threshold. Heavy tails or strong skewness can make the approximation poor at a sample size that works well for another distribution. Finite variance is enough for the independent identically distributed theorem. It does not guarantee that a moment-generating function exists. For products of positive observations, a central limit theorem for their logarithms needs the corresponding moments of those logarithms. Taking a logarithm does not supply missing assumptions.
+
+::: {#thm-sl-02-multivariate-clt .theorem}
+## Multivariate central limit theorem
+
+Let $\mathbf{X}_1,\ldots,\mathbf{X}_n$ be independent and identically distributed $p$-dimensional random vectors with finite mean $\boldsymbol{\mu}$ and covariance matrix $\Sigma$, and let $\overline{\mathbf{X}}_n=n^{-1}(\mathbf{X}_1+\cdots+\mathbf{X}_n)$. Then
+
+$$
+\sqrt{n}\,(\overline{\mathbf{X}}_n-\boldsymbol{\mu})
+$$
+
+converges in distribution to $\Normal_p(\mathbf{0},\Sigma)$ as $n\to\infty$.
+
+:::
+
+Convergence in distribution means that the distribution function of $\sqrt{n}(\overline{\mathbf{X}}_n-\boldsymbol{\mu})$ converges at every continuity point to the $\Normal_p(\mathbf{0},\Sigma)$ distribution function. The exact null distribution of $T^2$ in the next section needs the normal model. What survives without normality is the limit in the following remark.
+
+::: {#rem-sl-02-t2-limit .remark}
+## The limit of Hotelling's statistic
+
+Under the null $\boldsymbol{\mu}=\boldsymbol{\mu}_0$, for fixed $p$ and positive definite $\Sigma$, if $S$ is consistent for $\Sigma$ then
+
+$$
+n(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)^\top S^{-1}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)
+$$
+
+is asymptotically $\chi^2_p$. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)$, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form.
+
+:::
+
+## Hotelling's $T^2$ test
+
+A sample mean, however accurately computed, is not a test. A test needs a null value, an alternative, a statistic, and the distribution of that statistic when the null is true. The statistic derived here is the likelihood ratio for a normal mean vector. Its null distribution is read from the normal-and-Wishart pair.
+
+### The univariate $t$ test as a template
+
+The shape of the result is already visible when $p=1$. For independent $\Normal(\mu,\sigma^2)$ data, the test of $H_0:\mu=\mu_0$ against $H_a:\mu\neq\mu_0$ uses
+
+$$
+t=\frac{\bar x-\mu_0}{s/\sqrt{n}}\sim t_{n-1}
+$$
+
+under $H_0$, where $t_{n-1}$ is the [Student $t$ distribution](inf-01-statistical-inference.qmd#def-student-t-distribution). Under $H_0$ the distribution of $t$ does not depend on the unknown $(\mu,\sigma^2)$. A quantity with that property is a pivot, so the critical value can be taken from the $t_{n-1}$ table alone. At level $\alpha$ the two-sided rule rejects $H_0$ when $|t|>t_{\alpha/2;\,n-1}$. Throughout this page the first subscript of a critical value is the upper-tail probability, and the remaining subscripts are degrees of freedom. The same point is the quantile of order $1-\alpha$ in the notation of [Statistical inference](inf-01-statistical-inference.qmd#def-f-distribution). The algebra below is arranged so that the multivariate statistic reduces to the square of this $t$ when $p=1$.
+
+### Hypotheses and the likelihood ratio
+
+Take $n$ independent observations from $\Normal_p(\boldsymbol{\mu},\Sigma)$, with both parameters unknown, and test
+
+$$
+H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0
+\qquad\text{against}\qquad
+H_1:\boldsymbol{\mu}\neq\boldsymbol{\mu}_0.
+$$
+
+The unrestricted fit uses $\bar{\mathbf{x}}$ and $A/n$. Under the null, the mean is fixed and only the covariance can adapt. The likelihood-ratio statistic compares those two best fits. The construction does not by itself establish uniform optimality against every multivariate alternative. Compare the maximised likelihood with $\boldsymbol{\mu}$ fixed at $\boldsymbol{\mu}_0$ to the maximised likelihood with $\boldsymbol{\mu}$ free:
+
+$$
+\lambda=\frac{\max_\Sigma L(\boldsymbol{\mu}_0,\Sigma)}{\max_{\boldsymbol{\mu},\Sigma}L(\boldsymbol{\mu},\Sigma)}\in[0,1].
+$$
+
+The numerator maximises over a subset of the denominator's parameter space, so the ratio cannot exceed one. If it is small, imposing the proposed mean costs a great deal of fit.
+
+**Maximisation under $H_0$.** Under $H_0$ only $\Sigma$ is free. The derivative that produced $\widehat\Sigma=A/n$ measures residuals from the centring point in use. With residuals measured from $\boldsymbol{\mu}_0$ rather than from a free mean, the same derivative gives
+
+$$
+\widehat\Sigma_\omega=\frac1n\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu}_0)(\mathbf{x}_i-\boldsymbol{\mu}_0)^\top.
+$$
+
+Split those residuals at $\bar{\mathbf{x}}$:
+
+$$
+\begin{aligned}
+\widehat\Sigma_\omega
+&=\frac1n\sum_{i=1}^n\bigl[(\mathbf{x}_i-\bar{\mathbf{x}})+(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)\bigr]
+\bigl[(\mathbf{x}_i-\bar{\mathbf{x}})+(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)\bigr]^\top\\
+&=\frac1n\Bigl[A+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top\Bigr].
+\end{aligned}
+$$
+
+The cross terms vanish because $\sum_i(\mathbf{x}_i-\bar{\mathbf{x}})=\mathbf{0}$. The constrained covariance estimate is $A/n$ plus the outer product of $\bar{\mathbf{x}}-\boldsymbol{\mu}_0$. The added term is positive semi-definite, and it is zero only when the sample mean equals the null mean.
+
+**Maximisation without restriction.** With both parameters free, $\widehat{\boldsymbol{\mu}}_\Omega=\bar{\mathbf{x}}$ and $\widehat\Sigma_\Omega=A/n$. The denominator of $\lambda$ uses those two estimators.
+
+**The ratio.** Substitute the two maximisers. The powers of $2\pi$ agree. The exponents also agree, for a reason that separates from the determinant algebra: at each maximiser the quadratic form in the exponent equals $np$. A scalar equals its own trace, and the trace is cyclic, so $\mathbf{v}^\top M^{-1}\mathbf{v}=\operatorname{tr}(M^{-1}\mathbf{v}\mathbf{v}^\top)$. Apply that identity to the constrained exponent:
+
+$$
+\begin{aligned}
+\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu}_0)^\top\widehat\Sigma_\omega^{-1}(\mathbf{x}_i-\boldsymbol{\mu}_0)
+&=\operatorname{tr}\Bigl(\widehat\Sigma_\omega^{-1}\sum_{i=1}^n(\mathbf{x}_i-\boldsymbol{\mu}_0)(\mathbf{x}_i-\boldsymbol{\mu}_0)^\top\Bigr)\\
+&=\operatorname{tr}\bigl(\widehat\Sigma_\omega^{-1}\cdot n\widehat\Sigma_\omega\bigr)
+=n\operatorname{tr}(I_p)=np.
+\end{aligned}
+$$
+
+At the constrained maximiser, $n\widehat\Sigma_\omega$ equals $\sum_i(\mathbf{x}_i-\boldsymbol{\mu}_0)(\mathbf{x}_i-\boldsymbol{\mu}_0)^\top$. The same steps with $\widehat\Sigma_\Omega$ and residuals from $\bar{\mathbf{x}}$ also give $np$, because $n\widehat\Sigma_\Omega=A$. Both exponential factors equal $e^{-np/2}$ and cancel. Normality was used to write the likelihood. The cancellation itself is this trace identity at the two critical points. The likelihood ratio is a ratio of determinants,
+
+$$
+\lambda=\frac{|\widehat\Sigma_\Omega|^{n/2}}{|\widehat\Sigma_\omega|^{n/2}}
+=\frac{|A|^{n/2}}{\bigl|A+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top\bigr|^{n/2}}.
+$$
+
+**A determinant identity.** For conformable blocks with $B$ invertible,
+
+$$
+\begin{vmatrix}B&C\\ D&E\end{vmatrix}
+=\begin{vmatrix}B&C\\ 0&E-DB^{-1}C\end{vmatrix}
+=|B|\,|E-DB^{-1}C|.
+$$
+
+The first equality subtracts $DB^{-1}$ times the first block row from the second, which does not change the determinant. The same determinant, eliminated on the lower-right block instead, has the companion form $|B|\,|E-DB^{-1}C|=|E|\,|B-CE^{-1}D|$. Apply the identity with $B=A$, $C=-\sqrt{n}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)$, $D=\sqrt{n}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top$ and $E=1$:
+
+$$
+\begin{vmatrix}
+A & -\sqrt{n}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)\\
+\sqrt{n}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top & 1
+\end{vmatrix}
+=|A|\Bigl(1+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top A^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)\Bigr).
+$$
+
+With $E=1$ the companion evaluation is $|A+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top|$, because $-CE^{-1}D=+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top$. The two evaluations therefore give
+
+$$
+\bigl|A+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top\bigr|
+=|A|\Bigl(1+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top A^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)\Bigr).
+$$
+
+This comparison is algebraic. Raise $\lambda$ to the power $2/n$:
+
+$$
+\lambda^{2/n}
+=\frac{1}{1+n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top A^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)}
+=\frac{1}{1+t^2/(n-1)},
+$$
+
+where $A=(n-1)S$ has been used to name the quadratic form
+
+$$
+t^2=n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top S^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)
+=(n-1)\,n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top A^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0).
+$$
+
+The two expressions agree because $S^{-1}=(n-1)A^{-1}$. Thus $\lambda$ is a strictly decreasing function of $t^2$. Rejecting for small $\lambda$ is the same test as rejecting for large $t^2$. The block determinant converts the ratio of covariance determinants into that quadratic form, and the conversion does not use normality. Normality enters when the threshold is given a probability. The statistic $t^2$ is $n$ times the squared Mahalanobis distance from $\bar{\mathbf{x}}$ to $\boldsymbol{\mu}_0$, computed with $S$. When $p=1$, $S$ reduces to $s^2$ and $t^2$ is the square of the univariate $t$ statistic.
+
+### The null distribution
+
+Write $T^2$ for the random version of $t^2$, so that $\overline{\mathbf{X}}$, $S$ and $A$ are random. The event $\lambda<\lambda_0$ is the event $T^2>t_0^2$, where $t_0^2=(n-1)(\lambda_0^{-2/n}-1)$. The threshold is chosen so that the rejection probability equals $\alpha$ when $H_0$ is true. Under $H_0$,
+
+$$
+\sqrt{n}\,(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)\sim\Normal_p(\mathbf{0},\Sigma)
+$$
+
+is independent of $(n-1)S=A\sim W_p(\Sigma,n-1)$. For that pair,
+
+$$
+F=\frac{n-p}{p(n-1)}\,T^2\sim F_{p,\,n-p}.
+$$
+
+The [F distribution](inf-01-statistical-inference.qmd#def-f-distribution) is the same relationship that, when $p=1$, turns a normal numerator and an independent chi-squared denominator into a $t$ statistic, because the square of a $t_{n-1}$ variable is $F_{1,n-1}$. In that case
+
+$$
+F=\frac{n-1}{1\cdot(n-1)}T^2=T^2=t^2,
+$$
+
+so the $F$ test is the two-sided $t$ test. Reject $H_0$ at level $\alpha$ when $F>F_{\alpha;\,p,\,n-p}$. The denominator degrees of freedom are $n-p$, so the classical statistic needs $n>p$. If $n\le p$ then $A$ is singular and $T^2$, written with $S^{-1}$, is undefined.
+
+::: {#thm-sl-02-hotelling .theorem}
+## Null distribution of Hotelling's $T^2$
+
+For $n>p$ independent observations from $\Normal_p(\boldsymbol{\mu},\Sigma)$, the statistic
+
+$$
+T^2=n(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)^\top S^{-1}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0),
+\qquad
+S=\frac{1}{n-1}A,
+$$
+
+satisfies
+
+$$
+F=\frac{n-p}{p(n-1)}\,T^2\sim F_{p,\,n-p}
+$$
+
+when $\boldsymbol{\mu}=\boldsymbol{\mu}_0$. Reject $H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0$ at level $\alpha$ when $F>F_{\alpha;\,p,\,n-p}$.
+
+:::
+
+$T^2$ is the squared Mahalanobis distance of the sample mean from the hypothesised mean, in units of the sample covariance, multiplied by $n$. It is a strictly decreasing function of the likelihood ratio. When $p=1$ it is the square of the ordinary $t$ statistic.
+
+### A confidence region for the mean
+
+A confidence region can now be built without inventing another statistic. Run the level-$\alpha$ test for every proposed mean and retain the values it does not reject. Under the Gaussian model, the resulting random region contains the fixed true mean in a proportion $1-\alpha$ of repeated samples. Once the data are observed, this statement is not a probability that the parameter lies in this particular region.
+
+$$
+n(\bar{\mathbf{x}}-\boldsymbol{\mu})^\top S^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu})
+\le\frac{(n-1)p}{n-p}\,F_{\alpha;\,p,\,n-p}.
+$$
+
+A level set of $(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})$ is an ellipsoid whose axes are the eigenvectors of $\Sigma$. The same algebra, with $S$ in place of $\Sigma$ and with centre $\bar{\mathbf{x}}$, shows that the inequality is an ellipsoid centred at the sample mean, with axes along the eigenvectors of $S$. The quadratic form carries a factor $n$, so the ellipsoid describes uncertainty about the mean and shrinks as $n$ grows. The scatter of the individual observations is what $S$ itself measures. The numbers in the next example are a case in which this ellipsoid excludes the origin while each separate $t$ interval still contains it. The two measurements move together, and the sample mean leaves the origin along a direction in which the sample hardly varies.
+
+::: {#exm-sl-02-twelve-subjects .example}
+## Two paired measurements on twelve subjects
+
+Twelve subjects each provide the change in two correlated measurements, $(x_1,x_2)$:
+
+| Subject | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| $x_1$ | $-1.8$ | $6.2$ | $-1.5$ | $-0.9$ | $0.3$ | $1.4$ | $2.6$ | $1.6$ | $-2.3$ | $0.5$ | $3.4$ | $0.9$ |
+| $x_2$ | $-2.1$ | $3.8$ | $-2.2$ | $-1.4$ | $-1.3$ | $-1.9$ | $0.8$ | $0.8$ | $-2.5$ | $-0.2$ | $0.3$ | $-1.0$ |
+
+**Question.** Test $H_0:\boldsymbol{\mu}=\mathbf{0}$ at the $5\%$ level, and compare the result with two separate $t$ tests.
+
+**Solution.** The sums are $\sum x_1=10.4$ and $\sum x_2=-6.9$, so
+
+$$
+\bar{\mathbf{x}}=(10.4/12,\ -6.9/12)^\top=(0.8667,\ -0.5750)^\top.
+$$
+
+The corrected cross-product matrix and the sample covariance $S=A/11$ are
+
+$$
+A=\begin{pmatrix}65.0067&43.9600\\43.9600&35.6425\end{pmatrix},
+\qquad
+S=\begin{pmatrix}5.9097&3.9964\\3.9964&3.2402\end{pmatrix}.
+$$
+
+The sample correlation is
+
+$$
+r=\frac{3.9964}{\sqrt{5.9097\times 3.2402}}=0.913.
+$$
+
+Then
+
+$$
+|S|=5.9097\times 3.2402-3.9964^2=3.1778
+$$
+
+and
+
+$$
+S^{-1}=\frac{1}{3.1778}\begin{pmatrix}3.2402&-3.9964\\-3.9964&5.9097\end{pmatrix}
+=\begin{pmatrix}1.0196&-1.2576\\-1.2576&1.8597\end{pmatrix}.
+$$
+
+Hence
+
+$$
+\begin{aligned}
+T^2
+&=12\,\bar{\mathbf{x}}^\top S^{-1}\bar{\mathbf{x}}\\
+&=12\Bigl[1.0196(0.8667)^2-2(1.2576)(0.8667)(-0.5750)+1.8597(0.5750)^2\Bigr]\\
+&=12\times 2.6342=31.61.
+\end{aligned}
+$$
+
+The three products round to $0.7659$, $1.2535$ and $0.6149$. Their unrounded sum is $2.6342$, and $12\times 2.6342=31.61$.
+
+The scaled statistic is
+
+$$
+F=\frac{12-2}{2\times 11}\times 31.61=\frac{10}{22}\times 31.61=14.37
+$$
+
+on $(2,10)$ degrees of freedom. The critical value is $F_{0.05;\,2,\,10}=4.103$ and the $p$-value is $0.0011$, so $H_0$ is rejected.
+
+The separate $t$ tests give
+
+$$
+t_1=\frac{0.8667}{\sqrt{5.9097/12}}=1.235
+\quad(p=0.243),
+\qquad
+t_2=\frac{-0.5750}{\sqrt{3.2402/12}}=-1.107
+\quad(p=0.292).
+$$
+
+Neither coordinate is individually significant. The two coordinates are strongly positively correlated ($r=0.913$) while the sample mean departs from the origin in opposite directions, $(+,-)$. Such a departure lies along the shorter principal axis of the data cloud, where there is little variability. The $T^2$ test takes the correlation into account. The marginal tests cannot. The $95\%$ Hotelling ellipsoid for the mean excludes the origin. The rectangle of Bonferroni-adjusted $t$ intervals includes it.
+
+:::
+
+## The two-sample test
+
+The one-sample test compares a mean with a fully specified vector. The more common question is whether two samples share the same mean. Let $\mathbf{X}_i^{(1)}\sim\Normal_p(\boldsymbol{\mu}_1,\Sigma)$ for $i=1,\ldots,n_1$ and $\mathbf{X}_i^{(2)}\sim\Normal_p(\boldsymbol{\mu}_2,\Sigma)$ for $i=1,\ldots,n_2$, with the two samples independent of each other and the observations independent inside each sample, and with one unknown covariance $\Sigma$. Test
+
+$$
+H_0:\boldsymbol{\mu}_1-\boldsymbol{\mu}_2=\boldsymbol{\delta}_0
+\qquad\text{against}\qquad
+H_1:\boldsymbol{\mu}_1-\boldsymbol{\mu}_2\neq\boldsymbol{\delta}_0,
+$$
+
+usually with $\boldsymbol{\delta}_0=\mathbf{0}$. Every observation's group is known before the statistic is computed. Predicting those labels would be a classification problem. This section estimates a difference of means.
+
+### Distribution of the mean difference
+
+The difference of the sample means is a linear image of the stacked data, so the linear-image proposition applies inside each sample and the covariances add. Stack the $n_l$ observations of sample $l$ as a vector of length $n_l p$. Independence makes its covariance block diagonal, with $\Sigma$ repeated $n_l$ times. The sample mean of sample $l$ is therefore
+
+$$
+\overline{\mathbf{X}}^{(l)}\sim\Normal_p(\boldsymbol{\mu}_l,\,\Sigma/n_l).
+$$
+
+Under $H_0$ with $\boldsymbol{\delta}_0=\mathbf{0}$, independence of the two samples adds the covariances:
+
+$$
+\overline{\mathbf{X}}^{(1)}-\overline{\mathbf{X}}^{(2)}
+\sim\Normal_p\Bigl(\mathbf{0},\,\Bigl(\frac1{n_1}+\frac1{n_2}\Bigr)\Sigma\Bigr)
+=\Normal_p\Bigl(\mathbf{0},\,\frac{n_1+n_2}{n_1 n_2}\Sigma\Bigr).
+$$
+
+The factor $1/n_1+1/n_2$ is $(n_1+n_2)/(n_1 n_2)$. It is the sum of the sampling-variance coefficients of two independent sample means. A single sample mean contributes the coefficient $1/n$.
+
+### The pooled covariance
+
+The common $\Sigma$ is estimated from both samples. Every observation informs that covariance, and the two means are not assumed equal under the alternative, so each sample is centred at its own mean. Estimating two means removes two degrees of freedom:
+
+$$
+S=\frac{1}{n_1+n_2-2}
+\Biggl(
+\sum_{i=1}^{n_1}(\mathbf{x}_i^{(1)}-\bar{\mathbf{x}}^{(1)})(\mathbf{x}_i^{(1)}-\bar{\mathbf{x}}^{(1)})^\top
++\sum_{i=1}^{n_2}(\mathbf{x}_i^{(2)}-\bar{\mathbf{x}}^{(2)})(\mathbf{x}_i^{(2)}-\bar{\mathbf{x}}^{(2)})^\top
+\Biggr).
+$$
+
+This is the pooled formula with $G=2$. The Wishart statement applied to the pooled residuals gives
+
+$$
+(n_1+n_2-2)S\sim W_p(\Sigma,\,n_1+n_2-2),
+$$
+
+independent of both sample means and therefore of their difference. The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
+
+$$
+T^2=\frac{n_1 n_2}{n_1+n_2}
+\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr)^\top
+S^{-1}
+\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr),
+$$
+
+and it follows the $T^2$ law on $n_1+n_2-2$ degrees of freedom. The same rescaling as in the one-sample case produces
+
+$$
+\frac{n_1+n_2-p-1}{(n_1+n_2-2)\,p}\,T^2
+\sim F_{p,\,n_1+n_2-p-1}.
+$$
+
+::: {#thm-sl-02-two-sample .theorem}
+## Two-sample Hotelling test
+
+Under the common-covariance normal model above, reject $H_0:\boldsymbol{\mu}_1=\boldsymbol{\mu}_2$ at level $\alpha$ when
+
+$$
+\frac{n_1+n_2-p-1}{(n_1+n_2-2)\,p}\,T^2
+>F_{\alpha;\,p,\,n_1+n_2-p-1}.
+$$
+
+The second degree of freedom is $n_1+n_2-p-1$. It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
+
+:::
+
+### Confidence statements
+
+Invert the test, as with the one-sample region. The values of $\boldsymbol{\delta}=\boldsymbol{\mu}_1-\boldsymbol{\mu}_2$ that the level-$\alpha$ test would not reject form the confidence set
+
+$$
+\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}-\boldsymbol{\delta}\bigr)^\top
+S^{-1}
+\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}-\boldsymbol{\delta}\bigr)
+\le\frac{n_1+n_2}{n_1 n_2}\,T^2_{\alpha;\,p,\,n_1+n_2-p-1},
+$$
+
+where
+
+$$
+T^2_{\alpha;\,p,\,n_1+n_2-p-1}
+=\frac{(n_1+n_2-2)\,p}{n_1+n_2-p-1}\,F_{\alpha;\,p,\,n_1+n_2-p-1}.
+$$
+
+The same critical value yields simultaneous intervals for every linear functional $\mathbf{a}^\top\boldsymbol{\delta}$, $\mathbf{a}\in\R^p$, and not only for the $p$ coordinates:
+
+$$
+\mathbf{a}^\top\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr)
+\pm
+\sqrt{\mathbf{a}^\top S\mathbf{a}\cdot\frac{n_1+n_2}{n_1 n_2}\,T^2_{\alpha;\,p,\,n_1+n_2-p-1}}.
+$$
+
+A coordinate interval is the case in which $\mathbf{a}$ is a unit vector along one axis. The half-width uses the $T^2$ critical value rather than a single two-sample $t$ critical value, because the intervals are required to cover $\mathbf{a}^\top\boldsymbol{\delta}$ simultaneously for every $\mathbf{a}$, including the direction in which the two sample means differ most. Separate $t$ intervals each control one coordinate and do not control a search over directions, so the simultaneous intervals are wider.
+
+### Unequal covariance matrices
+
+Pooling is justified by the common-covariance model. Equal group sizes do not make that assumption true, and they do not restore the exact finite-sample $F$ distribution under arbitrary heteroscedasticity. Large-sample robustness of the pooled procedure is a more limited conclusion. With unequal covariances the problem is the multivariate Behrens–Fisher problem, even when the group sizes happen to match.
+
+One approximation, due to Krishnamoorthy and Yu, estimates the covariance of the mean difference directly. Define $\widetilde S_l=S_l/n_l$ and $\widetilde S=\widetilde S_1+\widetilde S_2$. The statistic is
+
+$$
+T^2=\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr)^\top
+\widetilde S^{-1}
+\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr).
+$$
+
+For independent normal samples with $n_l>p$ and positive definite population covariances, an $F$ approximation is
+
+$$
+\frac{\nu-p+1}{\nu p}\,T^2\sim F_{p,\,\nu-p+1},
+$$
+
+with denominator degrees of freedom $\nu-p+1$, where
+
+$$
+\nu=\frac{p+p^2}
+{\displaystyle\sum_{l=1}^{2}
+\dfrac{\operatorname{tr}\bigl[(\widetilde S_l\widetilde S^{-1})^2\bigr]
++\bigl[\operatorname{tr}(\widetilde S_l\widetilde S^{-1})\bigr]^2}{n_l-1}}.
+$$
+
+The traces compare each sample's share of the total covariance estimate. The divisors $n_l-1$ are the covariance degrees of freedom. For $p=1$, put $v_l=s_l^2/n_l$. The formula reduces to
+
+$$
+\nu=\frac{(v_1+v_2)^2}{v_1^2/(n_1-1)+v_2^2/(n_2-1)},
+$$
+
+which is Welch's degrees of freedom. The reference law remains approximate. Comparisons of several mean vectors, with a common covariance, continue as a multivariate analysis of variance: the pooled within-group matrix is the error stratum, and the between-group matrix of weighted outer products of group-mean deviations is compared with it by a further Wishart ratio.
+
+## A joint mean test for setosa
+
+The one-sample test is applied here to the two sepal measurements of *Iris setosa*, with illustrative null mean $(5.0, 3.4)$ cm. That vector is a chosen comparison point. It is not a biological standard. The probability from the $F$ calibration is exact under independent bivariate normal sampling, with $n>p$ and nonsingular $S$.
+
+```r
+x <- as.matrix(subset(iris, Species == "setosa")[, 1:2])
+n <- nrow(x); p <- ncol(x)
+d <- colMeans(x) - c(5.0, 3.4)
+T2 <- n * drop(t(d) %*% solve(cov(x), d))
+Fstat <- (n - p) * T2 / (p * (n - 1))
+c(T_squared = T2, F = Fstat,
+  df1 = p, df2 = n - p,
+  p_value = pf(Fstat, p, n - p, lower.tail = FALSE))
+```
+
+```text
+T_squared         F       df1       df2   p_value
+    0.4323    0.2117    2.0000   48.0000    0.8099
+```
+
+The computed $p$-value is $0.81$. At the $5\%$ level this joint null is not rejected. A failure to reject does not establish that the true mean equals $(5.0, 3.4)$. The reference distribution $F_{p,n-p}$ is the exact null law only under the independent normal sampling used to derive the $F$ calibration. The $p$-value does not check that sampling model.
+
+::: {.callout-note}
+## Key idea
+
+Hotelling's $T^2=n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top S^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)$ is $n$ times the squared Mahalanobis distance of the sample mean from the hypothesised mean, in the metric of the sample covariance. It is a strictly decreasing function of the likelihood ratio. Under independent normal sampling with $n>p$,
+
+$$
+\frac{n-p}{p(n-1)}T^2\sim F_{p,\,n-p}
+$$
+
+when the null mean is true. When $p=1$ the statistic is the square of the ordinary $t$ statistic. The two-sample version uses the same geometry with the pooled covariance and the coefficient $n_1 n_2/(n_1+n_2)$.
+:::
+
+## Exercises
+
+::: {#ex-sl-02-1 .exercise}
+## Where the $n-1$ comes from
+
+Show that
+
+$$
+\sum_{i=1}^n(\mathbf{X}_i-\boldsymbol{\mu})(\mathbf{X}_i-\boldsymbol{\mu})^\top
+=A+n(\overline{\mathbf{X}}-\boldsymbol{\mu})(\overline{\mathbf{X}}-\boldsymbol{\mu})^\top,
+$$
+
+and use it to prove $\E(A)=(n-1)\Sigma$. Which assumption about the $\mathbf{X}_i$ does the proof use beyond a common mean and covariance?
+
+[Solution](#sol-sl-02-1)
+
+:::
+
+::: {#ex-sl-02-2 .exercise}
+## Pooling two groups
+
+Group 1 has $n_1=10$ observations with mean $(3,2)^\top$ and
+
+$$
+A_1=\begin{pmatrix}18&6\\6&12\end{pmatrix}.
+$$
+
+Group 2 has $n_2=15$ observations with mean $(1,1)^\top$ and
+
+$$
+A_2=\begin{pmatrix}30&-9\\-9&24\end{pmatrix}.
+$$
+
+Compute the pooled covariance matrix with divisor $n-G$. Then compute the sample covariance matrix of the combined sample of $25$ observations about its grand mean, using
+
+$$
+A_{\mathrm{total}}=A_1+A_2+\frac{n_1 n_2}{n}(\bar{\mathbf{x}}_1-\bar{\mathbf{x}}_2)(\bar{\mathbf{x}}_1-\bar{\mathbf{x}}_2)^\top
+$$
+
+and divisor $n-1$, and explain why the two differ.
+
+[Solution](#sol-sl-02-2)
+
+:::
+
+::: {#ex-sl-02-3 .exercise}
+## Two factors of one covariance
+
+Take
+
+$$
+\Sigma=\begin{pmatrix}4&2\\2&3\end{pmatrix}.
+$$
+
+Find a lower-triangular $L$ with $LL^\top=\Sigma$ (the Cholesky factor), and also the matrix $B=\Gamma\Lambda^{1/2}$ from the spectral decomposition. Show that both give $\Var(B\mathbf{Z})=\Sigma$ for $\mathbf{Z}\sim\Normal_2(\mathbf{0},I)$, although $L\neq B$.
+
+[Solution](#sol-sl-02-3)
+
+:::
+
+::: {#ex-sl-02-4 .exercise}
+## A determinant identity
+
+Verify numerically that for
+
+$$
+A=\begin{pmatrix}4&1\\1&3\end{pmatrix}
+\qquad\text{and}\qquad
+\mathbf{d}=\sqrt{n}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)=(1,2)^\top,
+$$
+
+$|A+\mathbf{d}\mathbf{d}^\top|=|A|\,(1+\mathbf{d}^\top A^{-1}\mathbf{d})$.
+
+[Solution](#sol-sl-02-4)
+
+:::
+
+::: {#ex-sl-02-5 .exercise}
+## A small $T^2$ test
+
+Six subjects give $\bar{\mathbf{x}}=(2,1)^\top$ and
+
+$$
+S=\begin{pmatrix}4&1\\1&1\end{pmatrix}
+$$
+
+for the changes in two scores. Test $H_0:\boldsymbol{\mu}=\mathbf{0}$ at the $5\%$ level using $T^2$, given $F_{0.05;\,2,\,4}=6.944$. State the exact null distribution you use.
+
+[Solution](#sol-sl-02-5)
+
+:::
+
+::: {#ex-sl-02-6 .exercise}
+## A two-sample statistic
+
+Two groups of sizes $n_1=n_2=10$ in $p=2$ dimensions have mean difference $\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}=(1.5,1.0)^\top$ and pooled covariance
+
+$$
+S=\begin{pmatrix}2&1\\1&2\end{pmatrix}.
+$$
+
+Compute $T^2$ from the two-sample formula, convert it to an $F$ statistic, and decide at the $5\%$ level given $F_{0.05;\,2,\,17}=3.592$.
+
+[Solution](#sol-sl-02-6)
+
+:::
+
+::: {#ex-sl-02-7 .exercise}
+## Whitening and its limits
+
+A dataset has $n=80$ observations in $p=4$ dimensions, sample mean $\bar{\mathbf{x}}$ and positive definite sample covariance $S=U\Lambda U^\top$. Define $\mathbf{z}_i=S^{-1/2}(\mathbf{x}_i-\bar{\mathbf{x}})$.
+
+(a) Explain how $S^{-1/2}$ is obtained from the spectral decomposition.
+
+(b) Determine the sample mean and covariance of the $\mathbf{z}_i$, showing the matrix calculation.
+
+(c) Explain why this operation need not produce independent normally distributed coordinates, and what fails if $p=100$ with the same $n$.
+
+[Solution](#sol-sl-02-7)
+
+:::
+
+::: {#ex-sl-02-8 .exercise}
+## Normal conditioning and whitening
+
+You may use the conditional-normal formula
+
+$$
+\mathbf{X}_A\given(\mathbf{X}_B=\mathbf{x}_B)
+\sim\Normal\bigl(\boldsymbol{\mu}_A+\Sigma_{AB}\Sigma_{BB}^{-1}(\mathbf{x}_B-\boldsymbol{\mu}_B),\;
+\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{BA}\bigr).
+$$
+
+(a) Let $(X_1,X_2)^\top\sim\Normal_2\bigl((1,2)^\top,\ \begin{pmatrix}4&2\\2&9\end{pmatrix}\bigr)$. Derive the conditional distribution of $X_1$ given $X_2=5$.
+
+(b) For this model, explain the distribution of $X_1-\E(X_1\given X_2)$ and whether changing the observed value of $X_2$ changes its variance.
+
+(c) A different dataset has positive definite sample covariance $S$. Describe the sample mean and covariance after applying $\mathbf{z}_i=S^{-1/2}(\mathbf{x}_i-\bar{\mathbf{x}})$.
+
+[Solution](#sol-sl-02-8)
+
+:::
+
+::: {#ex-sl-02-9 .exercise}
+## A transformation is not a distributional assumption
+
+Let $\mathbf{X}\sim\Normal_2(\boldsymbol{\mu},\Sigma)$ with $\boldsymbol{\mu}=(0,2)^\top$ and
+
+$$
+\Sigma=\begin{pmatrix}2&1\\1&3\end{pmatrix}.
+$$
+
+(a) Derive the mean and variance of $Y=X_1-2X_2$ and state its distribution.
+
+(b) Explain how the covariance matrix determines the orientation and relative axis lengths of equal-density contours.
+
+(c) A different, non-normal dataset is whitened to have sample covariance $I$. Does this establish independent standard normal observations? Explain.
+
+[Solution](#sol-sl-02-9)
+
+:::

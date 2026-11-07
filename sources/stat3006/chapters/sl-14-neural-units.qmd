@@ -1,0 +1,360 @@
+# Neural units
+
+Four labelled points are enough to see what one linear score cannot do. On the corners of the unit square, label $(0,0)$ and $(1,1)$ as one class and $(0,1)$ and $(1,0)$ as the other. Any straight cut that keeps both positive corners on the positive side also keeps at least one negative corner there. AND, OR, and NAND each ask only that a single corner be separated, and a hyperplane can do that. XOR asks for the diagonal, and a hyperplane cannot.
+
+An artificial neuron is that hyperplane followed by an activation. It combines a linear score with a fixed function of the score, and it is the right object for the gates that are linearly separable. XOR forces the next object: a hidden layer of such neurons, whose outputs are new coordinates. In those coordinates the same four points can sit so that one further linear score separates them.
+
+The construction is an existence claim about features. Some choice of weights represents the target. Finding those weights, keeping the network small, and generalising from a finite noisy sample are separate questions. [Backpropagation](sl-15-backpropagation.qmd) is the gradient calculation, and [networks in practice](sl-16-networks-in-practice.qmd) is the fitting and assessment. The biological picture motivates the word neuron. The statistical object is a composition of weighted sums and activation functions. A network can express a function without the weights being recoverable from the available observations.
+
+## Where the calculation came from
+
+A neuron has a cell body containing the nucleus, branching input fibres, and a long output fibre that ends in synapses onto other cells. The comparison below is a historical illustration of scale. The numerical entries were not verified independently, and neurons and transistors are different physical objects. The counts do not establish equivalent computing capacity.
+
+| | Human brain | 2007 machine | 2018 machine | Units |
+|---|---|---|---|---|
+| Computational units | $10^{11}$ | $3\times 10^{8}$ | $3\times 10^{9}$ | neurons / transistors |
+| Storage units | $10^{11}$ | $10^{10}$ | $3\times 10^{10}$ | neurons / bits of memory |
+| | | $10^{12}$ | $2\times 10^{12}$ | bits of disk |
+| Cycle time | $10^{-3}$ | $3\times 10^{-10}$ | $3\times 10^{-10}$ | seconds |
+| Bandwidth | $10^{14}$ | $10^{10}$ | $5\times 10^{11}$ | bits / second |
+
+The dates below identify selected publications. They do not assign a single invention date to the whole field.
+
+- 1943: McCulloch and Pitts publish a logical neuron model with binary output.
+- 1958: Rosenblatt creates the perceptron, a single binary neuron, with a learning algorithm. He also considered multilayer perceptrons, without a learning algorithm for them.
+- 1960: Widrow and Hoff introduce the ADALINE neuron, with a real-valued response, trained by stochastic gradient descent.
+- 1969: Minsky and Papert publish *Perceptrons*, which analyses the perceptron and points out its failure on problems that are not linearly separable, including XOR.
+- 1986: Rumelhart, Hinton and Williams publish the backpropagation algorithm for multilayer perceptrons with differentiable activations. Werbos had derived the same chain-rule calculation in 1974.
+- 1998: LeCun and colleagues publish gradient-based document recognition, building on earlier convolutional networks.
+- 2006: Hinton, Osindero and Teh publish a fast learning algorithm for deep belief networks. That is one development in deep learning. Many other networks, algorithms, and applications sit between these dates.
+
+Adding hidden units changes what the model can represent. A learning algorithm changes how the weights are searched for. The XOR construction below is the first of those two obstacles. Backpropagation is the second.
+
+## The unit
+
+::: {#def-sl-14-unit .definition}
+## Artificial neuron
+
+An artificial neuron, or unit, has inputs $x_1,\ldots,x_p$, weights $w_1,\ldots,w_p$, and a bias $w_0$ (also written $\beta$ or $b$). The net input, also called the weighted input or the activation, is
+
+$$
+\mathrm{net}=\sum_{j=0}^{p} w_j x_j=w_0+w^\top x,\qquad x_0\equiv 1.
+$$
+
+The output is $o=f(\mathrm{net})$ for an activation function $f$. The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
+
+:::
+
+Two activations are used here. The threshold, the McCulloch–Pitts decision, and the logistic sigmoid are
+
+$$
+f(\mathrm{net})=
+\begin{cases}
+0, & \mathrm{net}<0,\\
+1, & \mathrm{net}\ge 0,
+\end{cases}
+\qquad
+g(z)=\frac{1}{1+e^{-z}}.
+$$
+
+The threshold is a hard cut. Its derivative is zero on each open half-space, so a gradient method has nothing to follow. The sigmoid is a smooth stand-in for the same cut. It satisfies
+
+$$
+g'(z)=g(z)\bigl(1-g(z)\bigr)=e^{-z}g(z)^2.
+$$
+
+The identity is what the chain rule multiplies by on the [backpropagation](sl-15-backpropagation.qmd) page. The derivative is largest at $z=0$, where it equals $1/4$, and it becomes small once $|z|$ is large. A unit that has already saturated is slow to correct.
+
+Place $m$ units side by side with the same inputs and different weights. That computes $m$ scalar features, each a function of a linear score. A later layer can combine those features. If they are used only as separate threshold outputs, each output still defines a half-space in the original coordinates.
+
+A sigmoid unit with output $o=1/(1+e^{-w^\top x-w_0})$ is the same log-odds map as [logistic regression](sl-10-logistic-regression.qmd): the output is the logistic probability of that linear score. A threshold unit is the hard classification rule attached to the same score. A single unit is a linear classifier of the same kind as linear discriminant analysis and logistic regression. This page adds hidden layers, so that one unit receives the outputs of others. The gradient of the resulting loss is calculated on the backpropagation page. Those two steps are the ones a single logistic regression does not take.
+
+## What one threshold unit can separate
+
+With two inputs and one threshold output, the output changes where the net input changes sign. The decision boundary is the zero set of $w_0+w^\top x$. For one threshold unit the partition is always a half-space, and the geometric question is where the bounding hyperplane sits.
+
+### Without a bias
+
+With $w_0=0$ the boundary is $\{x:\sum_j x_j w_j=0\}$, which passes through the origin. A separator that ought to miss the origin cannot be represented. For $w=(1,-2)^\top$ the boundary is $x_1-2x_2=0$, the line $x_2=\tfrac12 x_1$. The weights $(0.5,1)$, $(1,1)$ and $(2,1)$ instead give the three lines $x_2=-x_1/2$, $x_2=-x_1$ and $x_2=-2x_1$.
+
+### With a bias
+
+The bias is the constant term that frees the boundary from the origin. With it, a threshold unit can realise any linear separator. For $w=(1,1)^\top$ the boundary is $x_1+x_2+w_0=0$, and changing $w_0$ translates that line. In general the boundary is the hyperplane $\{x:w_0+w^\top x=0\}$, which has normal vector $w$, and the unit outputs $1$ on the side the normal points to. The distance from a point to this hyperplane is derived with the [support vector machine](sl-17-support-vectors.qmd); the same normal is the object that derivation starts from.
+
+## The perceptron
+
+A family of hyperplanes can separate the same labelled sample, and a threshold unit does not come with normal equations. The threshold is constant on each open half-space, so there is no linear system whose solution is "the" weight vector. Suitable weights are built by correction. The perceptron rule changes the weights only on a misclassified pattern, and it moves them along that pattern so the score on the pattern increases when the label was $1$ and decreases when the label was $0$.
+
+::: {#def-sl-14-perceptron .definition}
+## Perceptron learning rule
+
+Let the training pairs be $(x_i,y_i)$ with $y_i\in\{0,1\}$ and with each $x_i$ augmented by $x_{i0}=1$. Start from any weights $w$, including the bias. Repeat until no pattern is misclassified. For each pattern $i$ compute $o_i=f(w^\top x_i)$ and set
+
+$$
+w\leftarrow w+(y_i-o_i)\,x_i.
+$$
+
+:::
+
+If the unit is right, $y_i-o_i=0$ and nothing changes. If it outputs $0$ for a pattern whose label is $1$, the pattern is added to the weights, which increases $w^\top x_i$ by $\lVert x_i\rVert^2$. If it outputs $1$ for a label $0$, the pattern is subtracted, and the score decreases by $\lVert x_i\rVert^2$. The added term is $(y_i-o_i)x_i$, so the score changes by $(y_i-o_i)\lVert x_i\rVert^2$.
+
+Rosenblatt's perceptron convergence theorem says that if the classes are linearly separable the rule reaches a separating set of weights in a finite number of corrections. If they are not, it never stops. Linear separability is the assumption that does the work. The rule returns a separator, when one exists, and it has no further criterion: any separating line ends the algorithm. The support vector machine adds a margin, which is the preference this rule lacks.
+
+::: {#exm-sl-14-perceptron .example}
+## Watching a perceptron learn
+
+A unit with two inputs starts at $w=(2,1)^\top$ and bias $-1$. Class $1$ ("$+$") sits at $(1,1)$, $(0,0.5)$ and $(-0.5,-0.5)$. Class $0$ ("$\circ$") sits at $(1,0)$ and $(0.5,-1)$.
+
+**Question.** Apply one correction $(y-o)x$ at a time, and record the weights until the rule has a separating line.
+
+**Solution.** At each step one misclassified point is corrected.
+
+| Step | Misclassified point | $y$ | $o$ | Update | New $(w_1,w_2)$, $w_0$ |
+|---|---|---|---|---|---|
+| 0 | | | | | $(2,1)$, $-1$ |
+| 1 | $(0,0.5)$ | 1 | 0 | add $(0,0.5)$, $w_0+1$ | $(2,1.5)$, $0$ |
+| 2 | $(1,0)$ | 0 | 1 | subtract $(1,0)$, $w_0-1$ | $(1,1.5)$, $-1$ |
+| 3 | $(0,0.5)$ | 1 | 0 | add $(0,0.5)$, $w_0+1$ | $(1,2)$, $0$ |
+| 4 | $(1,0)$ | 0 | 1 | subtract $(1,0)$, $w_0-1$ | $(0,2)$, $-1$ |
+| 5 | $(-0.5,-0.5)$ | 1 | 0 | add $(-0.5,-0.5)$, $w_0+1$ | $(-0.5,1.5)$, $0$ |
+| 6 | $(-0.5,-0.5)$ | 1 | 0 | add $(-0.5,-0.5)$, $w_0+1$ | $(-1,1)$, $1$ |
+
+For step 1, $\mathrm{net}=-1+0\cdot 2+0.5\cdot 1=-0.5<0$, so $o=0\neq 1$. After step 6, $(1,0)$ has net input exactly $0$ and is still classified as class $1$ under the convention $f(0)=1$. Continuing the same rule, cycling through the five points in the order listed, converges after three further corrections to $w=(-2,2)^\top$, $w_0=0$, the boundary $x_1=x_2$. The points $(1,1)$ and $(-0.5,-0.5)$ lie on it (net input $0$, classified as $1$). The rule stops as soon as every point is on the correct side. It returns a separating line, and it has no notion of a margin.
+
+:::
+
+## Why a single unit cannot compute XOR
+
+A single threshold unit separates two classes by a hyperplane, so the problems it can solve are the linearly separable ones. AND, OR, and NAND are linearly separable. OR is class $1$ except where both inputs are off, and a hyperplane can put that single point on the other side. AND is the opposite corner. XOR is the diagonal: the positive class occupies $(0,1)$ and $(1,0)$, and the other class occupies $(0,0)$ and $(1,1)$.
+
+The function is $g:\{0,1\}\times\{0,1\}\to\{0,1\}$ with desired triples $(x_1,x_2,y)$ equal to $(0,0,0)$, $(0,1,1)$, $(1,0,1)$, $(1,1,0)$. The proof compares four linear inequalities. Add the two inequalities that come from the positive corners and compare the sum with the two inequalities that come from the negative corners.
+
+::: {#thm-sl-14-xor .theorem}
+## A single threshold unit cannot compute XOR
+
+No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2$.
+
+:::
+
+The four patterns require
+
+$$
+w_0<0,\qquad w_0+w_2\ge 0,\qquad w_0+w_1\ge 0,\qquad w_0+w_1+w_2<0.
+$$
+
+Adding the middle two gives $2w_0+w_1+w_2\ge 0$. The last requirement and $w_0<0$ give
+
+$$
+2w_0+w_1+w_2=w_0+(w_0+w_1+w_2)<0,
+$$
+
+a contradiction. The four requirements cannot hold together. This is the failure Minsky and Papert pointed out for the perceptron. These four points, with this labelling, are one configuration a linear classifier leaves unshattered. The VC dimension of half-spaces in the plane is $3$. The [support vector](sl-17-support-vectors.qmd) page records that count: it uses a general-position argument, and a single failed labelling is the witness that these four points are not a shattered set.
+
+## A hidden layer
+
+If no hyperplane separates the classes in the input space, the next step is to build new coordinates in which a hyperplane does. A hidden layer is that change of coordinates. The activation flows from input to output through intermediate hidden nodes $h_1,\ldots,h_l$, whose activations depend on the weights between the input and the hidden nodes. With $l$ hidden units and $m$ outputs,
+
+$$
+\begin{aligned}
+u_q&=w_{0q}+\sum_{j=1}^{p} w_{jq} x_j, & h_q&=g(u_q), & q&=1,\ldots,l,\\
+z_k&=w_{0k}+\sum_{q=1}^{l} w_{qk} h_q, & o_k&=g(z_k), & k&=1,\ldots,m.
+\end{aligned}
+$$
+
+The backpropagation page adds the pattern index $i$ and fixes the notation.
+
+The input–hidden weights map $x$ to the vector of hidden activations. The output unit then solves a linear problem in that new vector. The aim is to choose the weights so that the problem at the hidden–output layer is linearly separable. Seen back in the original input space, the set where the output unit fires is bounded by curves, because each hidden unit folds the space before the output unit cuts it. One published example is the predicted presence and absence of tsetse flies in Zimbabwe from climate and vegetation, using a network with $24$ hidden neurons (Williams et al., 1994): the boundary between the two regions is an irregular curve that no linear classifier could draw.
+
+One construction of XOR places an OR gate and an AND gate in the hidden layer and combines them so that the output fires for OR and stays off for AND. A wider construction copies each input through a hidden unit and computes AND in a third unit. Copying an input through a hidden unit does no new work: that unit can be removed and the connection taken directly from the input. A coordinate that repeats an input does not enlarge the set of functions the output unit can compute.
+
+### Two threshold solutions for XOR
+
+Two constructions with threshold units and integer weights show that a hidden layer is enough for this function. Weights are the numbers on connections, the bias is the number inside a unit, and the hidden units are $h_3,h_4,h_5$ with output unit $o$.
+
+**Copy the inputs and subtract AND.** Nodes $3$ and $5$ copy $x_1$ and $x_2$, and node $4$ computes $x_1\wedge x_2$:
+
+$$
+\begin{aligned}
+h_3&=f(1\cdot x_1-0.5)=x_1,\\
+h_4&=f(1\cdot x_1+1\cdot x_2-1.5)=x_1\wedge x_2,\\
+h_5&=f(1\cdot x_2-0.5)=x_2,\\
+o&=f(1\cdot h_3-2 h_4+1\cdot h_5-0.5).
+\end{aligned}
+$$
+
+The output is $1$ if $x_1$ OR $x_2$, and it is $0$ if $x_1$ AND $x_2$.
+
+| $x_1$ | $x_2$ | $h_3$ | $h_4$ | $h_5$ | net input of $o$ | $o$ |
+|---|---|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 | $-0.5$ | 0 |
+| 0 | 1 | 0 | 0 | 1 | $+0.5$ | 1 |
+| 1 | 0 | 1 | 0 | 0 | $+0.5$ | 1 |
+| 1 | 1 | 1 | 1 | 1 | $1-2+1-0.5=-0.5$ | 0 |
+
+**OR minus AND.** Node $3$ does AND and node $4$ does OR, and the output calculates OR minus AND. The threshold lets only XOR through:
+
+$$
+\begin{aligned}
+h_3&=f(2x_1+2x_2-3)=x_1\wedge x_2,\\
+h_4&=f(2x_1+2x_2-1)=x_1\vee x_2,\\
+o&=f(-2h_3+2h_4-1).
+\end{aligned}
+$$
+
+| $x_1$ | $x_2$ | net of $h_3$ | net of $h_4$ | $(h_3,h_4)$ | net of $o$ | $o$ |
+|---|---|---|---|---|---|---|
+| 0 | 0 | $-3$ | $-1$ | $(0,0)$ | $-1$ | 0 |
+| 0 | 1 | $-1$ | $+1$ | $(0,1)$ | $+1$ | 1 |
+| 1 | 0 | $-1$ | $+1$ | $(0,1)$ | $+1$ | 1 |
+| 1 | 1 | $+1$ | $+3$ | $(1,1)$ | $-1$ | 0 |
+
+In the second solution the hidden layer maps the four input points to three points of the $(h_3,h_4)$ plane: $(0,0)$ for the input $(0,0)$, $(1,1)$ for $(1,1)$, and $(0,1)$ for both $(0,1)$ and $(1,0)$. In the hidden space the problem is linearly separable. The output unit's boundary $h_4=h_3+0.5$ puts $(0,1)$ above it and the other two points below. The hidden units have re-described the inputs by two logical features, "at least one is on" and "both are on", and XOR means "at least one is on, but not both". The first solution does the same with a three-dimensional representation in which two of the coordinates are the raw inputs.
+
+Neither solution is unique. Weights can be rescaled by any common positive factor, and the network can be permuted by relabelling hidden units. What the constructions establish is existence of a representation. A learning rule is a separate question. The threshold units used here have a derivative that is zero on each open half-space, so a gradient method receives no signal from them.
+
+## Approximation on a cube
+
+XOR is a finite construction. An approximation theorem asks about a whole function class and states how the error is measured.
+
+::: {#thm-sl-14-cybenko .theorem}
+## One hidden layer approximates continuous functions
+
+For a continuous target $f$ on $[0,1]^p$ and any $\varepsilon>0$, there is a finite sum
+
+$$
+F(x)=\sum_{q=1}^{l} a_q\,\sigma(w_q^\top x+b_q)
+$$
+
+with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon$ (Cybenko, 1989, Theorem 2). The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values. Results for measurable targets use weaker notions of approximation. They do not assert uniform approximation of every discontinuous function by continuous networks.
+
+:::
+
+Suitable weights and a finite width exist for each continuous target and accuracy. The theorem supplies neither a training algorithm nor a sample-size guarantee. Approximation error concerns the best function available in the model class. Optimisation error concerns finding it. Statistical error concerns learning from finite observations. These can behave differently.
+
+One hidden layer can approximate a wide class of functions arbitrarily closely. The theorem is silent on the number of units and on whether one hidden layer is an efficient architecture. A deeper network can be smaller for the same approximation. The tradeoff among target complexity, sample size, and width is the overfitting problem on [networks in practice](sl-16-networks-in-practice.qmd).
+
+## What still has to be chosen
+
+To use a network one must choose:
+
+- whether to have a hidden layer at all (a network is generally more capable with one);
+- how many hidden layers;
+- any other structural choices;
+- how many hidden units in each layer;
+- values for each of the weights and biases.
+
+Choose an architecture by the function it must represent and the evidence available for fitting it. More hidden units enlarge a nested model class, so its ideal minimum training loss cannot increase. An actual optimisation run can still finish worse. Compare architecture and regularisation choices using validation within the training process, then assess the selected procedure separately.
+
+## Names used from here on
+
+The next two pages differentiate these units and then train them, so the names of the weights stay fixed.
+
+| Symbol | Meaning |
+|---|---|
+| $i=1,\ldots,n$ | observations (patterns); $n_{\mathrm{tr}}$ training patterns, $n_{\mathrm{te}}$ test patterns, with $n_{\mathrm{tr}}+n_{\mathrm{te}}=n$ |
+| $j=1,\ldots,p$ | inputs (attributes) |
+| $k=1,\ldots,m$ | outputs (responses) |
+| $q=1,\ldots,l$ | hidden units |
+| $x_{ij}$, $y_{ik}$ | input $j$ and correct output $k$ of pattern $i$ |
+| $h_{iq}$, $o_{ik}$ | hidden unit $q$ and output unit $k$ for pattern $i$; $o_{ik}=f_{\mathrm{network},k}(x_i)$ |
+| $w_{jq}$, $w_{qk}$ | weight from input $j$ to hidden unit $q$; from hidden unit $q$ to output $k$ |
+| $u_{iq}=\sum_{j=0}^{p} w_{jq} x_{ij}$ | activation of hidden unit $q$ for pattern $i$ |
+| $z_{ik}=\sum_{q=0}^{l} w_{qk} h_{iq}$ | activation of output unit $k$ for pattern $i$ |
+| $g(\cdot)$ | unit activation, for example $g(x)=1/(1+e^{-x})$ |
+| $w_{0b}$, $w_{0c}$ | bias of hidden unit $b$ and of output unit $c$; the extra input $x_{i0}$ and the extra hidden unit $h_{i0}$ are fixed at $+1$ |
+
+## Check the XOR features in R
+
+A hand-built network is a specification one can check before trusting an optimiser. The first hidden unit detects OR, the second detects AND, and the output keeps the cases where OR is on and AND is off. That is the second construction of this page, written as thresholds on row sums.
+
+```r
+X <- rbind(c(0, 0), c(0, 1), c(1, 0), c(1, 1))
+h_or <- as.integer(rowSums(X) >= 0.5)
+h_and <- as.integer(rowSums(X) >= 1.5)
+out <- as.integer(h_or - 2 * h_and >= 0.5)
+data.frame(X, OR = h_or, AND = h_and, XOR = out)
+#>   X1 X2 OR AND XOR
+#> 1  0  0  0   0   0
+#> 2  0  1  1   0   1
+#> 3  1  0  1   0   1
+#> 4  1  1  1   1   0
+stopifnot(identical(out, c(0L, 1L, 1L, 0L)))
+```
+
+The four rows match XOR, so a hidden layer of two nonlinear units is sufficient for this function. The inequality argument earlier is the matching necessity result for a single affine threshold. Nothing here was optimised. The weights were chosen so that the hidden units would be the OR and AND features, and the check confirms that those features do what the arithmetic said they would.
+
+::: {.callout-note}
+## Key idea
+XOR shows why changing the representation can matter: two hidden logical features turn an inseparable input pattern into a separable one. The approximation theorem extends representational capacity to continuous functions on a compact domain. Neither argument tells us that a particular training run will find useful features or generalise to new data.
+:::
+
+## Exercises
+
+::: {#ex-sl-14-1 .exercise}
+## Derivative of the sigmoid
+
+Show that $g(z)=1/(1+e^{-z})$ satisfies $g'(z)=g(z)\bigl(1-g(z)\bigr)=e^{-z}g(z)^2$. Find its maximum value and where it occurs.
+
+[Solution](#sol-sl-14-1)
+
+:::
+
+::: {#ex-sl-14-2 .exercise}
+## Logic gates
+
+Find weights and a bias for a single threshold unit that computes (a) AND, (b) OR, (c) NAND, of two binary inputs. Why can a single unit not compute XNOR, the complement of XOR?
+
+[Solution](#sol-sl-14-2)
+
+:::
+
+::: {#ex-sl-14-3 .exercise}
+## A decision boundary
+
+A threshold unit has $w=(2,-1)^\top$ and bias $w_0=-1$. Describe the boundary, state which side gives output $1$, and classify the points $(1,0)$, $(0,0)$, $(1,2)$. What is the distance from the origin to the boundary?
+
+[Solution](#sol-sl-14-3)
+
+:::
+
+::: {#ex-sl-14-4 .exercise}
+## Perceptron by hand
+
+Apply the perceptron rule to the three points $(0,0)$ (class $0$), $(1,0)$ (class $1$), $(0,1)$ (class $1$), starting from $w=(0,0)$, bias $0$, with the order of presentation $(0,0)$, $(1,0)$, $(0,1)$ repeated. Give the weights after each correction until convergence.
+
+[Solution](#sol-sl-14-4)
+
+:::
+
+::: {#ex-sl-14-5 .exercise}
+## An XOR network of your own
+
+Design a network with two hidden threshold units that computes XOR using different weights from the two solutions above, for example by using NAND and OR in the hidden layer. Give the truth table.
+
+[Solution](#sol-sl-14-5)
+
+:::
+
+::: {#ex-sl-14-6 .exercise}
+## Linear hidden units
+
+Suppose every hidden unit has the identity activation $g(u)=u$. Show that the network is equivalent to a single-layer network, and that therefore it cannot compute XOR with a threshold output.
+
+[Solution](#sol-sl-14-6)
+
+:::
+
+::: {#ex-sl-14-7 .exercise}
+## Why XOR needs an extra layer
+
+The four inputs $(0,0)$, $(1,0)$, $(0,1)$, $(1,1)$ have labels $0$, $1$, $1$, $0$, respectively. A threshold unit outputs $1$ when its net input is nonnegative.
+
+(a) Explain geometrically why a single linear threshold unit cannot classify all four inputs correctly.
+
+(b) Construct a two-hidden-unit threshold network for these labels, specifying all weights and biases.
+
+(c) Explain what would be lost by replacing all the activations in a multilayer network by linear functions.
+
+[Solution](#sol-sl-14-7)
+
+:::

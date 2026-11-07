@@ -1,0 +1,500 @@
+# Ensembles, random forests, and boosting
+
+If one tree changes substantially when the training sample is perturbed, fit many perturbed versions and combine their predictions. Bagging creates those versions by bootstrap resampling. A random forest also restricts which predictors compete at each split. Boosting takes a different route: each new learner responds to the current ensemble's errors. This page derives what averaging guarantees, then the extra choices these algorithms make.
+
+The classifiers on the previous pages differ in the boundaries they can draw, in how hard they are to compute, and in how much they move when the sample moves. Some regions of predictor space are easy for a given rule and some are not. A method with a random start can return a different fit from the same data. Every method returns a different fit from different data, by an amount that depends on the method. Ensemble methods treat that variation as something to average or to correct. The device is a collection of models, combined to predict a new $x$. Averaging reduces variance when the members are not copies of one another.
+
+The Bayes rule on [Linear discriminant analysis](sl-08-discriminant-analysis.qmd#thm-sl-08-bayes-rule) is still a floor: no ensemble undercuts the Bayes risk of the true distribution under the loss that defines that rule. The floor may be low. The methods here spend interpretability and computing time to get closer to it. The bootstrap that supplies the resample, and the nested assessment that has to contain any search over the forest's tuning constants, are on [Estimating error rates](sl-09-error-rates.qmd). The trees being averaged are the partitions on [Classification trees](sl-12-classification-trees.qmd).
+
+## Why averaging helps
+
+There are two reasons to combine learners. Averaging can cancel variation among reasonably useful fits. Sequential correction can target structure left unexplained by an earlier fit. Tukey's twicing applies a smoother to its own residuals, an early example of the second idea. Neither principle says that collecting arbitrary bad models makes a good one.
+
+### An error decomposition for regression
+
+Classification error is an indicator, and an average of indicators is not itself the indicator of a majority vote, so the clean algebra starts with a quantitative response. Suppose $T$ models predict a number, with functions $f_1,\ldots,f_T$, and the ensemble predicts their average
+
+$$
+f(x)=\frac1T\sum_{t=1}^T f_t(x).
+$$
+
+::: {#thm-sl-13-diversity .theorem}
+## Squared error of an average
+
+If the response at this $x$ is $y$, the squared error of the average splits into the average squared error of the members minus the sample variance of the members about their average:
+
+$$
+\bigl(f(x)-y\bigr)^2
+=\frac1T\sum_{t=1}^T\bigl(f_t(x)-y\bigr)^2
+-\frac1T\sum_{t=1}^T\bigl(f_t(x)-f(x)\bigr)^2.
+$$
+
+:::
+
+Write $f_t-y=(f_t-f)+(f-y)$ and square:
+
+$$
+(f_t-y)^2=(f_t-f)^2+2(f_t-f)(f-y)+(f-y)^2.
+$$
+
+Average over $t$. The cross term vanishes because $\frac1T\sum_t(f_t-f)=0$ by definition of the average, and what remains is
+
+$$
+\frac1T\sum_{t=1}^T(f_t-y)^2
+=\frac1T\sum_{t=1}^T(f_t-f)^2+(f-y)^2,
+$$
+
+which rearranges to the display. All three terms are non-negative. The squared error of the ensemble is therefore at most the average squared error of its members, and the gap is the diversity, the sample variance of the members about their average. The algebra used only the definition of the average and the expansion of a square. No model for $y$ was required.
+
+The design requirement is that the members be reasonably accurate, so that the first term is tolerable, and that they disagree, so that the diversity term is large. If every member were already the regression function, the diversity term would be zero and averaging would change nothing. The identity also applies componentwise to averaged class probabilities under squared error. It does not give the same guarantee for the zero–one loss after a majority vote, and it compares the ensemble with the average member, not with the best member. Diversity and individual accuracy cannot be varied independently without changing the first term. Adding noise merely to make predictors disagree need not help.
+
+### Where disagreement comes from
+
+Separate variation caused by the dataset from variation caused by the fitting algorithm. A deterministic tree can be sensitive to a small data change. A neural network can also change because of its initial weights. Convexity addresses the optimisation problem, not sensitivity to data: a convex fit can still be unstable when the design is poorly conditioned. Evaluate stability in the setting at hand.
+
+Two kinds of base learner do supply disagreement. One has many parameters relative to the sample and is hard to optimise, so different runs stop in different places. The other is constrained in size or structure and cannot fit the sample in only one way, so a small change in the data produces a different constrained fit. Trees are in the second group. Networks are in the first.
+
+An average is already an ensemble in a setting that has nothing to do with classifiers. A signal from a distant spacecraft is received together with noise. Sending the same signal repeatedly and averaging the receptions lets independent noise cancel at the rate the central limit theorem describes, and leaves the signal. Each noisy reception is the analogue of one flawed classifier. The next two sections build the average in different ways: random forests, which average trees that were made to disagree, and boosting, which adds a learner aimed at the residual of the ones already fitted.
+
+## Bagging and random forests
+
+Trees are useful base learners because they can represent nonlinear interactions and can change under resampling. Random forests commonly grow deep trees. They need not be weak in the precise boosting sense of having only a small advantage over chance. The ensemble's benefit depends on how member errors combine (Breiman, 1996, 2001).
+
+Ho's random-subspace ensembles are built from different predictor subsets. Breiman's random forest uses random predictor subsets at individual splits, together with randomised tree construction. These choices create different trees without requiring different measured datasets.
+
+A new $x$ lands in one leaf of each tree. A hard vote takes the majority of the leaf labels. A soft vote uses the class proportions in the leaf as an estimate of $\Pr(\mathrm{class}=g\given x,\text{tree }t)$, a piecewise-constant estimate of the posterior, and averages those probabilities. The soft aggregate predicts
+
+$$
+g^*=\operatorname{arg\,max}_{g\in\{1,\ldots,G\}}
+\frac1T\sum_{t=1}^T \widehat{\Pr}(\mathrm{class}=g\given x,\text{tree }t).
+$$
+
+Ho varied the columns. Bagging, bootstrap aggregation, varies the rows. Each model is fit on a non-parametric bootstrap resample, and the fitted models are averaged or voted. The bootstrap is the same resample used for the error-rate estimator on [Estimating error rates](sl-09-error-rates.qmd): about $0.632n$ distinct cases appear in each draw. Bagging improves unstable fits, trees and neural networks among them, and does little for linear discriminant analysis, as the diversity calculation already showed. A random forest combines the bootstrap sample with a random subset of variables at each split.
+
+At each split of a classification tree the forest offers only about $\sqrt{p}$ randomly chosen coordinates, where $p$ is the number of predictors. The restriction forces trees to split on different variables even when their bootstrap samples are similar. The $\sqrt{p}$ choice is a heuristic, not a consequence of the diversity identity.
+
+::: {#def-sl-13-forest .definition}
+## Random forest
+
+For $t=1,\ldots,T$, build a forest of $T$ trees as follows.
+
+1. Generate a bootstrap sample $(X^{(t)},y^{(t)})$ from the training data.
+2. Fit a tree $f_t$ to $(X^{(t)},y^{(t)})$. At each node: (a) randomly select $k$ explanatory variables; (b) determine the best explanatory variable and split among them; (c) add this split to the tree. Repeat (a)–(c) until a stopping criterion is met.
+
+For a new observation $x$ the forest predicts, for regression, $f(x)=\frac1T\sum_t f_t(x)$, and for classification
+
+$$
+f(x)=\operatorname{arg\,max}_g\sum_{t=1}^T I\bigl(f_t(x)=g\bigr),
+$$
+
+or the soft aggregate above if each tree produces class probabilities.
+
+:::
+
+Each node sees only $k$ candidate variables, but a tree has many nodes, so one tree still has chances to split on a substantial fraction of the predictors. The restriction bites locally, at the choice of each split, which is enough to make neighbouring trees disagree.
+
+### Why decorrelating the trees helps
+
+The diversity term said that disagreement helps. The variance of an average says the same thing with a correlation. Suppose the $T$ tree predictions at a fixed $x$ each have variance $\sigma^2$ and every pair has correlation $\rho$. Expand the variance of the sum, using $\Var(f_t)=\sigma^2$ and $\Cov(f_t,f_s)=\rho\sigma^2$ for $t\ne s$. There are $T$ variance terms and $T(T-1)$ covariance terms:
+
+\begin{align*}
+\Var\Biggl(\frac1T\sum_{t=1}^T f_t\Biggr)
+&=\frac{1}{T^2}\Bigl(T\sigma^2+T(T-1)\rho\sigma^2\Bigr)\\
+&=\frac{\sigma^2}{T}\bigl(1+(T-1)\rho\bigr)\\
+&=\rho\sigma^2+\frac{1-\rho}{T}\sigma^2.
+\end{align*}
+
+Adding trees shrinks only the second term. The first term, $\rho\sigma^2$, is a floor set by the correlation between trees, and no number of additional copies of a highly correlated tree will remove it. The calculation assumes a common variance and a common pairwise correlation. It does not assume normality. Bootstrap samples reduce $\rho$ somewhat, because each tree misses a different third of the cases: the omission probability $(1-1/n)^n$ tends to $e^{-1}\approx 0.368$. Restricting each split to $k$ random variables reduces $\rho$ much more, because the trees are then forbidden from always cutting on the same strongest predictor. That reduction in $\rho$ is the quantitative form of the diversity term. The reason to randomise the candidate predictors is to lower the floor, not to improve any one tree.
+
+### The three free quantities
+
+Three quantities are still free: $k$, the number of predictors offered at each split; a control on tree size, such as a maximum depth or a minimum leaf size; and $T$, the number of trees. Rules of thumb often suffice. A search has to stay off the test set. Nested cross-validation puts the search inside the assessment. A simpler design uses one cross-validation to choose the triple and a separate test set to estimate the error of the chosen forest.
+
+The variance formula says the second term falls as $T$ grows and the correlation floor does not, so extra trees help until that floor dominates. They do not start to over-fit in the way an extra leaf of a single tree does. Computation grows linearly in $T$, both to train and to predict. The default in the `randomForest` implementation is $500$ trees. Searching over $T$ is rarely worth the fits. Computing time is the practical limit.
+
+The variance formula wants $\rho$ small, and a single tree wants enough variables to be accurate. So $k$ has to be large enough for each tree to have a tolerable error and small enough for the trees to disagree. The usual suggestions are $k=\sqrt{p}$ for classification and $k=p/3$ for regression, the defaults in `randomForest`.
+
+A maximum depth is one control on tree size, and trees are often asymmetric, so a depth limit cuts some branches that still have cases to split and spares others that do not. The minimum number of observations in a leaf is the control in that implementation, with default $1$ for classification and $5$ for regression. The classification default places no limit on size: a leaf may be a single case. A maximum number of leaves is a related control and has no default.
+
+The defaults tend to produce large trees, each fitted on its random variable sets, diverse because of the bootstrap and the restriction on $k$, and individually accurate enough that the first term of the diversity identity stays tolerable. Whether those defaults are enough depends on the problem: the complexity of the target, including the Bayes rule, the number of predictors, their associations with the response and with each other, and the sample size. A search over $k$ and the leaf size is sometimes needed. The number of trees can stay at the default while that search is done.
+
+### Out-of-bag estimation and variable importance
+
+An observation is absent from a size-$n$ bootstrap sample with probability $(1-1/n)^n\approx 0.368$. Its out-of-bag prediction therefore uses about $36.8\%$ of the trees, not most of them. Aggregate only those trees, then compare the prediction with its label. This estimates performance of the specified fitting recipe, with finite-forest and resampling effects. If out-of-bag scores select among recipes, the selected minimum also contains selection optimism. Use a separate assessment of that selection procedure.
+
+The average that lowers the variance also removes the single readable tree. Individual trees can still be inspected, and they were built to disagree, so reading one of them does not describe the forest. A partial substitute ranks the predictors. Count how often each variable is chosen for a split, or how much total impurity reduction it contributes, or how much the error rises when its values are permuted and the forest is applied again. The rank is a summary of predictive contribution inside this fit. It is not a ranking of causal effects, and correlated predictors can share or mask one another's rank. The same two devices, random subsets of predictors and random subsets of cases, can be wrapped around base learners other than trees. Trees remain the usual choice because they are fast, unstable in the way the diversity term requires, and individually limited enough that no one tree dominates the average.
+
+On a fixed iris training set, the out-of-bag error of a forest falls as trees are added and then levels off, separately for setosa, versicolor, virginica, and the overall rate. A permutation-importance bar on the same fit is largest for the two petal measurements. Those curves are one seeded fit, not a sampling distribution.
+
+## Boosting
+
+A random forest draws its diversity from different samples and different candidate predictors. The members are fit separately, and none of them is told where the others failed. The diversity identity suggests a sharper use of the same idea: the members should be reasonably accurate and should be accurate in different regions, so that each compensates for the others. Boosting builds that compensation on purpose. Fit one learner. Find the training cases it gets wrong, or the residuals it leaves. Fit the next learner to those mistakes, without abandoning the cases the first one already got right. Continue, and combine the sequence. The learners are not exchangeable draws. Later ones exist because earlier ones failed somewhere.
+
+Schapire (1990) showed that a weak learner can be improved by an ensemble built this way. The concrete algorithm is Adaptive Boosting, AdaBoost (Freund and Schapire, 1995). Bagging reduces variance by averaging unstable fits of the same problem. Boosting changes the problem at each round.
+
+### The AdaBoost weight update
+
+AdaBoost needs a coding on which a correct label and a predicted label multiply to $+1$ when they agree and to $-1$ when they disagree. Record the two classes as $y_i\in\{-1,+1\}$. The label vector has one entry per training observation, so it lies in $\{-1,+1\}^{n_{\mathrm{train}}}$. The integer $p$ is the number of predictors, not the length of $y$.
+
+At iteration $t$ the learner $f_t$ is fit to the training cases with weights $w_{t,i}$. The weights are a distribution over the training sample: they are non-negative and, after the normalisation in the algorithm, they sum to $1$. A case the previous learner missed has its weight increased. A case it got right has its weight decreased. The next learner is therefore aimed at the current mistakes and is not released from the rest of the sample. The size of the increase is chosen so that, under the new weights, the learner just fitted has weighted error exactly $1/2$. That property is why the particular factor $\alpha_t$ appears, rather than an arbitrary step length.
+
+::: {#def-sl-13-adaboost .definition}
+## AdaBoost
+
+Training data $\{x_i,y_i\}_{i=1}^{n_{\mathrm{train}}}$, with $x_i\in\mathbb{R}^p$ and $y_i\in\{-1,+1\}$.
+
+1. Set $w_{1,i}=1/n_{\mathrm{train}}$ for all $i$.
+2. For $t=1,\ldots,T$:
+   1. Fit a learner $f_t$, taking values in $\{-1,+1\}$, to minimise the weighted training error
+      $$
+      \varepsilon_t
+      =\frac{\sum_i w_{t,i}\,Q[y_i,f_t(x_i)]}{\sum_i w_{t,i}},
+      $$
+      where $Q[a,b]=0$ if $a=b$ and $Q[a,b]=1$ otherwise.
+   2. Let
+      $$
+      \alpha_t=\frac12\log\frac{1-\varepsilon_t}{\varepsilon_t}.
+      $$
+   3. Update the weights. A correct case is multiplied by $e^{-\alpha_t}$ and an incorrect case by $e^{\alpha_t}$, which is the single factor $e^{-\alpha_t y_i f_t(x_i)}$:
+      $$
+      w_{t+1,i}
+      =\frac{w_{t,i}\,e^{-\alpha_t y_i f_t(x_i)}}{Z_t},
+      \qquad
+      Z_t=\sum_{i=1}^{n_{\mathrm{train}}} w_{t,i}\,e^{-\alpha_t y_i f_t(x_i)}.
+      $$
+
+The ensemble is the sign of the weighted vote,
+
+$$
+f(x)=\operatorname{sign}\Biggl(\sum_{t=1}^T \alpha_t f_t(x)\Biggr).
+$$
+
+:::
+
+Because $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, one has $e^{-\alpha_t}=\sqrt{\varepsilon_t/(1-\varepsilon_t)}$, the square root of the weighted odds of an error, and $e^{\alpha_t}=\sqrt{(1-\varepsilon_t)/\varepsilon_t}$. The ratio of the new un-normalised weight of a correct case to that of an incorrect case, relative to their old weights, is $\varepsilon_t/(1-\varepsilon_t)$. Freund and Schapire's original weights put $\varepsilon_t/(1-\varepsilon_t)$ on the correct cases and $1$ on the incorrect cases. After normalisation that is the same distribution. If $\varepsilon_t<1/2$, then $\varepsilon_t/(1-\varepsilon_t)<1$, and the incorrect cases gain weight. A two-class learner that cannot beat $\varepsilon_t=1/2$ is no better than a coin toss on the current weighted sample, so a usable round satisfies $\varepsilon_t<1/2$ and the update emphasises the mistakes. If a round has $\varepsilon_t>1/2$, its vote $\alpha_t$ is negative, which is the algorithm voting the opposite of that learner.
+
+::: {#thm-sl-13-half-error .theorem}
+## The reweighted error is one half
+
+If $0<\varepsilon_t<1$ and the current weights sum to $1$, the updated weights give $f_t$ weighted error exactly $1/2$. For the usual positive-vote round, require $0<\varepsilon_t<1/2$. At zero error the logarithm has no finite value: stop, or handle the perfect learner explicitly.
+
+:::
+
+Assume the current weights sum to $1$, so the incorrect cases carry total weight $\varepsilon_t$ and the correct cases carry $1-\varepsilon_t$. From the formula for $\alpha_t$, $e^{2\alpha_t}=(1-\varepsilon_t)/\varepsilon_t$. The un-normalised weight of the incorrect cases is
+
+$$
+\varepsilon_t\,e^{\alpha_t}
+=\varepsilon_t\sqrt{\frac{1-\varepsilon_t}{\varepsilon_t}}
+=\sqrt{\varepsilon_t(1-\varepsilon_t)},
+$$
+
+and the un-normalised weight of the correct cases is
+
+$$
+(1-\varepsilon_t)\,e^{-\alpha_t}
+=(1-\varepsilon_t)\sqrt{\frac{\varepsilon_t}{1-\varepsilon_t}}
+=\sqrt{\varepsilon_t(1-\varepsilon_t)}.
+$$
+
+The two totals agree. After dividing by their sum, each group carries weight $1/2$. The normaliser is $Z_t=2\sqrt{\varepsilon_t(1-\varepsilon_t)}$. The weighted error of $f_t$ under the new weights is the weight of the incorrect group, which is $1/2$.
+
+What the equality establishes is a property of this particular $\alpha_t$, not a property of every reweighting. Under the new weights the learner just fitted is no better than guessing on the problem the next learner will see. The next learner has to use some other structure. The assumption that did the work is $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, together with a weighted error $\varepsilon_t$ computed from weights that sum to $1$. Other weight updates can also produce a useful ensemble. This one is, in addition, the stagewise step for exponential loss.
+
+::: {#exm-sl-13-stumps .example}
+## Three rounds of AdaBoost with stumps
+
+**Question.** Run AdaBoost on $x=1,\ldots,10$ with labels
+
+$$
+y=(+,+,+,-,-,-,+,+,+,-),
+$$
+
+using decision stumps, a threshold on $x$ and a sign, as learners.
+
+**Solution.** Initially every $w_{1,i}=0.1$.
+
+Round $1$. The best stump predicts $+1$ for $x<3.5$ and $-1$ otherwise. It errs on $x=7,8,9$, so $\varepsilon_1=0.3$ and
+
+$$
+\alpha_1=\tfrac12\log(0.7/0.3)=0.4236.
+$$
+
+Correct points have their weight multiplied by $e^{-\alpha_1}=\sqrt{0.3/0.7}=0.655$, and wrong points by $e^{\alpha_1}=1.528$. The normaliser is $Z_1=2\sqrt{0.3\times 0.7}=0.9165$. The new weights are $0.1\times 0.655/0.9165=1/14=0.0714$ on a correct point and $0.1\times 1.528/0.9165=1/6=0.1667$ on a wrong point.
+
+Round $2$. The best stump on the reweighted data predicts $+1$ for $x<9.5$ and $-1$ otherwise. It errs on $x=4,5,6$, which carry weight $3/14$, so $\varepsilon_2=0.2143$ and $\alpha_2=0.6496$.
+
+Round $3$. The stump that predicts $-1$ for $x<6.5$ and $+1$ otherwise errs on $x=1,2,3$ and $x=10$, so $\varepsilon_3=0.1818$ and $\alpha_3=0.7520$.
+
+Weights below are the weights used in that round, listed once per observation in each group.
+
+| $x$ | $y$ | $w_1$ | $f_1$ | $w_2$ | $f_2$ | $w_3$ | $f_3$ | $\sum_t\alpha_t f_t$ | sign |
+|---|---|---:|---|---:|---|---:|---|---:|---|
+| $1,2,3$ | $+$ | $0.100$ | $+$ | $0.0714$ | $+$ | $0.0455$ | $-$ | $0.321$ | $+$ |
+| $4,5,6$ | $-$ | $0.100$ | $-$ | $0.0714$ | $+$ | $0.1667$ | $-$ | $-0.526$ | $-$ |
+| $7,8,9$ | $+$ | $0.100$ | $-$ | $0.1667$ | $+$ | $0.1061$ | $+$ | $0.978$ | $+$ |
+| $10$ | $-$ | $0.100$ | $-$ | $0.0714$ | $-$ | $0.0455$ | $+$ | $-0.321$ | $-$ |
+
+After three rounds the ensemble $f=\operatorname{sign}(0.4236 f_1+0.6496 f_2+0.7520 f_3)$ classifies all ten training points correctly, although no single stump gets more than seven right. The first learner is wrong on $7,8,9$. The second corrects those and is wrong on $4,5,6$, which the third corrects.
+
+:::
+
+### Exponential loss
+
+The factor $\varepsilon_t/(1-\varepsilon_t)$ was a choice in the original algorithm. Friedman, Hastie, and Tibshirani (2000) supplied the loss that produces it. The population criterion is the exponential loss
+
+$$
+J(f)=\E\bigl[e^{-Y f(X)}\bigr],
+$$
+
+where $(X,Y)$ is a fresh draw, $Y\in\{-1,+1\}$, and $f(x)$ is a real-valued score, positive when the classifier leans toward class $+1$. Exponential loss charges $e^{-yf}$. A negative margin $yf$ is a mistake, and a large negative margin is punished exponentially, while a large positive margin is almost free. That emphasis on the worst mistakes is why the loss matches a procedure that keeps raising the weights of the cases it gets wrong.
+
+With $\tau_1(x)=\Pr(Y=1\given x)$, the conditional expected loss is an average of two exponentials:
+
+$$
+\E\bigl[e^{-Y f(x)}\bigm|x\bigr]
+=\tau_1(x)\,e^{-f(x)}+\bigl(1-\tau_1(x)\bigr)\,e^{f(x)}.
+$$
+
+The score wanted minimises this conditional loss at every $x$. Differentiate in the scalar $f=f(x)$:
+
+$$
+\frac{\partial}{\partial f}\E\bigl[e^{-Yf}\bigm|x\bigr]
+=-\tau_1 e^{-f}+(1-\tau_1)e^{f}.
+$$
+
+The second derivative is $\tau_1 e^{-f}+(1-\tau_1)e^{f}>0$, so the single stationary point is a minimum. Set the first derivative to zero:
+
+$$
+(1-\tau_1)e^{f}=\tau_1 e^{-f},
+\qquad
+e^{2f}=\frac{\tau_1}{1-\tau_1},
+\qquad
+f^*(x)=\frac12\log\frac{\tau_1(x)}{1-\tau_1(x)}.
+$$
+
+The minimiser is half the conditional log odds of class $1$. The posterior $\tau_1(x)$ did the work: it is the only feature of the conditional distribution of $Y$ that enters the expected exponential loss, because $Y$ takes only two values. When the log odds are $0$, one has $\tau_1(x)=1/2$ and $f^*(x)=0$. The sign of $f^*$ is therefore the equal-cost Bayes rule, which is why the ensemble classifies by $\operatorname{sign}(f)$. Inverting the half-logit recovers the probability,
+
+$$
+\tau_1(x)=\frac{1}{1+e^{-2f^*(x)}},
+\qquad
+1-\tau_1(x)=\frac{1}{1+e^{2f^*(x)}}.
+$$
+
+Exponential loss does not estimate the class densities. It estimates the same posterior comparison that [logistic regression](sl-10-logistic-regression.qmd) writes as a logit, up to the factor $1/2$.
+
+### The weight update is a stagewise step
+
+The population minimiser is not a finite combination of weak learners. AdaBoost builds an approximation one learner at a time. Replace the expectation by the training average
+
+$$
+\widehat J(f)=\frac{1}{n_{\mathrm{train}}}\sum_{i=1}^{n_{\mathrm{train}}} e^{-y_i f(x_i)},
+$$
+
+drop the outer sign, and let the ensemble score be $g(x)=\sum_{t=1}^T\alpha_t f_t(x)$, with each $f_t$ taking values in $\{-1,+1\}$. After $m-1$ rounds the score is $g_{m-1}$, and round $m$ adds one term, $g_m=\alpha_m f_m+g_{m-1}$. Minimise the training exponential loss in that one new term, holding $g_{m-1}$ fixed. Factor the loss as
+
+$$
+\widehat J(g_m)
+=\frac{1}{n_{\mathrm{train}}}\sum_{i=1}^{n_{\mathrm{train}}}
+e^{-y_i g_{m-1}(x_i)}\,e^{-y_i\alpha_m f_m(x_i)}.
+$$
+
+The first factor in each summand, $c_{m,i}=e^{-y_i g_{m-1}(x_i)}$, does not depend on the new learner. These weights are proportional to the AdaBoost weights $w_{m,i}$: the cases with negative margin under the ensemble so far carry larger $c_{m,i}$. The constant $1/n_{\mathrm{train}}$ does not change the minimiser. On a correct case $y_i f_m(x_i)=1$, so $e^{-y_i\alpha_m f_m}=e^{-\alpha_m}$. On an incorrect case $y_i f_m(x_i)=-1$, so the factor is $e^{\alpha_m}$. The criterion in $(f_m,\alpha_m)$ is therefore
+
+\begin{align*}
+\sum_i c_{m,i}\,e^{-y_i\alpha_m f_m(x_i)}
+&=e^{-\alpha_m}\sum_{y_i=f_m(x_i)}c_{m,i}
++e^{\alpha_m}\sum_{y_i\ne f_m(x_i)}c_{m,i}\\
+&=e^{-\alpha_m}\sum_i c_{m,i}
++\bigl(e^{\alpha_m}-e^{-\alpha_m}\bigr)\sum_i c_{m,i}\,Q[y_i,f_m(x_i)].
+\end{align*}
+
+The rewriting uses $\sum_{\mathrm{correct}}c=\sum_i c-\sum_{\mathrm{incorrect}}c$. For $\alpha_m>0$ the coefficient $e^{\alpha_m}-e^{-\alpha_m}$ is positive, so the sum is smallest, for that fixed $\alpha_m$, when the weighted error is smallest. The learner can therefore be chosen first:
+
+$$
+f_m^*=\operatorname{arg\,min}_{f_m}\sum_i c_{m,i}\,Q[y_i,f_m(x_i)],
+$$
+
+which is the weighted-error step of the algorithm. With that learner held fixed, write $\varepsilon_m$ for the minimised weighted error, $\sum_i c_{m,i}Q[y_i,f_m^*(x_i)]/\sum_i c_{m,i}$. Dividing the criterion by $\sum_i c_{m,i}$ leaves
+
+$$
+e^{-\alpha_m}+\bigl(e^{\alpha_m}-e^{-\alpha_m}\bigr)\varepsilon_m.
+$$
+
+Differentiate in $\alpha_m$ and set the derivative to zero:
+
+$$
+-e^{-\alpha_m}+\bigl(e^{\alpha_m}+e^{-\alpha_m}\bigr)\varepsilon_m=0,
+$$
+
+which rearranges to $e^{\alpha_m}\varepsilon_m=e^{-\alpha_m}(1-\varepsilon_m)$, hence
+
+$$
+e^{2\alpha_m}=\frac{1-\varepsilon_m}{\varepsilon_m},
+\qquad
+\alpha_m^*=\frac12\log\frac{1-\varepsilon_m}{\varepsilon_m}.
+$$
+
+That is the coefficient step of the algorithm. The ensemble is updated by $g_m=\alpha_m^* f_m^*+g_{m-1}$. The next round's un-normalised weights are the old ones times the new exponential factor,
+
+$$
+c_{m+1,i}=c_{m,i}\,e^{-\alpha_m^* y_i f_m^*(x_i)}.
+$$
+
+Because $f_m^*$ and $y_i$ lie in $\{-1,+1\}$, $-y_i f_m^*(x_i)=2Q[y_i,f_m^*(x_i)]-1$: the product $y_i f_m^*$ is $+1$ when the learner is correct and $-1$ when it is wrong. Therefore
+
+\begin{align*}
+e^{-\alpha_m^* y_i f_m^*(x_i)}
+&=e^{\alpha_m^*\bigl(2Q[y_i,f_m^*(x_i)]-1\bigr)}
+=e^{2\alpha_m^* Q[y_i,f_m^*(x_i)]}\,e^{-\alpha_m^*}\\
+&=\Biggl(\frac{1-\varepsilon_m}{\varepsilon_m}\Biggr)^{Q[y_i,f_m^*(x_i)]}\,e^{-\alpha_m^*}.
+\end{align*}
+
+The factor $e^{-\alpha_m^*}$ multiplies every weight and cancels when the weights are normalised. Every misclassified case, where $Q=1$, is multiplied by $(1-\varepsilon_m)/\varepsilon_m$, and every correctly classified case, where $Q=0$, is left unchanged. After normalisation this is the original AdaBoost update.
+
+What the stagewise argument establishes is that the algorithm is greedy minimisation of the training exponential loss, one weak learner at a time. The exponential form of the loss did the work: it factors across rounds into a weight that depends on the margin so far and a factor that depends on the new learner. A different loss would produce a different weight update. The fit is greedy. It does not go back and revise $\alpha_1,\ldots,\alpha_{m-1}$ when round $m$ is added.
+
+AdaBoost adds a weighted learner to a real-valued score. Exponential loss explains the reweighting and the coefficient $\alpha_t$. Its unrestricted population minimiser is half the conditional log odds. The final sign is a class label and cannot estimate that real number. A finite, restricted, stagewise fit need not attain the population minimiser or produce calibrated probabilities.
+
+### Real AdaBoost, and a logistic comparison
+
+AdaBoost as written asks each learner for a label in $\{-1,+1\}$. A probability $p_t(x)$ carries more information than that label, and throwing it away is the step that fails when the learner is already able to say how sure it is. Real AdaBoost keeps the probability and converts it to the same half-logit that minimises exponential loss,
+
+$$
+f_t(x)=\frac12\log\frac{p_t(x)}{1-p_t(x)}.
+$$
+
+There is no separate vote $\alpha_t$, because the magnitude of $f_t(x)$ already records the confidence at that $x$. The weight update is the exponential-loss factor itself,
+
+$$
+w_{t+1,i}=\frac{w_{t,i}\,e^{-y_i f_t(x_i)}}{Z_t},
+\qquad
+Z_t=\sum_i w_{t,i}\,e^{-y_i f_t(x_i)}.
+$$
+
+The ensemble adds the scores and then takes the sign, $f(x)=\operatorname{sign}\bigl(\sum_{t=1}^T f_t(x)\bigr)$.
+
+A loss-based view lets the loss change while sequential fitting stays. With the score convention $p=\sigma(2f)$, where $\sigma$ is the logistic function, logistic negative log-likelihood and exponential loss have the same unrestricted population minimiser. Binomial deviance is twice the negative log-likelihood relative to a saturated model. The constant factor changes neither minimiser. The derivation below uses negative log-likelihood, without that factor two. Let $p(x)=\tau_1(x)$ and $Y'=(Y+1)/2\in\{0,1\}$, so $Y'$ is the $0/1$ label used in logistic regression. The log-likelihood of one case is $Y'\log p+(1-Y')\log(1-p)$. Substitute $p=1/(1+e^{-2f})$, so $1-p=1/(1+e^{2f})$. Minus that log-likelihood becomes
+
+$$
+-\ell(Y,p)
+=Y'\log\bigl(1+e^{-2f}\bigr)+(1-Y')\log\bigl(1+e^{2f}\bigr).
+$$
+
+If $Y'=1$, then $Y=1$ and the expression is $\log(1+e^{-2Yf})$. If $Y'=0$, then $Y=-1$ and it is $\log(1+e^{2f})=\log(1+e^{-2Yf})$. Both cases are therefore
+
+$$
+-\ell\bigl(Y,p(x)\bigr)=\log\bigl(1+e^{-2Y f(x)}\bigr).
+$$
+
+The population minimisers agree. Both losses are minimised by half the conditional log odds, so with enough data a procedure that truly minimises either loss estimates the same $f^*$. The finite-sample paths differ, because the losses grow differently as the margin becomes more negative, and the stagewise weights follow the loss that is being minimised.
+
+AdaBoost reweights the training cases at every round. A weak round, one with $\varepsilon_t$ near $1/2$, receives a small vote $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, and the next round faces a weighted problem on which the previous learner scores exactly $1/2$.
+
+Plot the losses against the margin $yf$, where $y\in\{-1,+1\}$ is the correct label and $f$ is the score before the threshold at $0$ converts it to a label. A positive margin is a correct classification. A negative margin is a mistake, and a loss used for training should charge it. Squared error $(y-f)^2$ equals $(1-yf)^2$ when $y\in\{-1,+1\}$, because $y^2=1$. As a function of a real-valued score it is a parabola in the margin, minimised at $yf=1$, so a more confident correct call, with $yf>1$, is penalised more rather than less. Exponential loss grows exponentially as the margin falls below zero, so the fit concentrates on the worst mistakes. When the Bayes error is not near zero, some of those mistakes are unavoidable under any classifier, and concentrating on them fits noise. Binomial deviance, the logistic negative log-likelihood above, grows only linearly in the negative margin, so it is the milder penalty in that regime. Hinge loss is zero once the margin exceeds $1$, and linear below that. Both exponential and logistic losses extend to more than two classes. The algorithms that minimise them by adding a weak learner, usually a tree, along the gradient of the training loss are collected under the name gradient boosting. In those programs the penalty on tree size and the limit on depth are tuning choices, selected by cross-validation or by a validation set. They are not consequences of the population minimiser.
+
+Training classification error and training exponential loss are different criteria. A one-dimensional simulation can drive the training error to zero while the exponential loss is still moving, and the final observation weights concentrate on the points the early rounds found difficult.
+
+## Laboratory: a forest and its out-of-bag observations
+
+The forest below is one recipe: $500$ trees, two predictors offered at each split, grown on the training flowers. Each bootstrap tree omits some of those flowers. The out-of-bag prediction for a flower averages only the trees that did not train on it. The implementation draws the candidate predictors at each split. The test flowers are not used to choose $T$ or $k$. With four iris measurements, $k=2$ is the classification default $\sqrt{4}$.
+
+```r
+set.seed(13006)
+forest <- randomForest::randomForest(
+  Species ~ ., data = train, ntree = 500, mtry = 2, importance = TRUE)
+pred <- predict(forest, test)
+c(final_OOB_error = tail(forest$err.rate[, "OOB"], 1),
+  test_error = mean(pred != test$Species))
+#> final_OOB_error   test_error
+#>        0.009524       0.088889
+round(randomForest::importance(forest, type = 1), 3)
+#>              MeanDecreaseAccuracy
+#> Sepal.Length                9.695
+#> Sepal.Width                 3.914
+#> Petal.Length               34.745
+#> Petal.Width                32.222
+```
+
+The final out-of-bag error on the training flowers is $0.009524$, and the test error is $0.088889$. Out-of-bag and test errors score different observations using different collections of trees, so they need not agree. The displayed `importance(type = 1)` values use the implementation's default standardisation of permutation importance. They are not raw percentage-point increases in error. Petal length and petal width dominate this fit, at $34.745$ and $32.222$, against $9.695$ for sepal length and $3.914$ for sepal width. The perturbation measures predictive dependence within this fit, and correlated variables can mask or share importance. It does not identify causal effects.
+
+::: {.callout-note}
+## Key idea
+Averaging reduces variance only when the members disagree and are each reasonably accurate: the squared-error gap is their sample variance, and the variance of the average has floor $\rho\sigma^2$. A forest manufactures that disagreement with a bootstrap sample and a random set of $k$ predictors at each split. AdaBoost manufactures it by reweighting, with $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, so that the learner just fitted has weighted error $1/2$ on the next round's problem.
+:::
+
+## Exercises
+
+::: {#ex-sl-13-1 .exercise}
+## The error decomposition
+
+Verify the squared-error decomposition numerically for member predictions $f_t(x)=(1,2,6)$ and truth $y=4$. Then derive it in general.
+
+[Solution](#sol-sl-13-1)
+
+:::
+
+::: {#ex-sl-13-2 .exercise}
+## Variance of an average
+
+For $T$ predictors with common variance $\sigma^2$ and common pairwise correlation $\rho$, derive
+
+$$
+\Var(\bar f)=\rho\sigma^2+\frac{1-\rho}{T}\sigma^2.
+$$
+
+Evaluate it for $\rho=0.3$, $T=100$ and for $\rho=0.8$, $T=100$. Why do random feature subsets help?
+
+[Solution](#sol-sl-13-2)
+
+:::
+
+::: {#ex-sl-13-3 .exercise}
+## Out-of-bag counts
+
+Each observation is excluded from a given bootstrap sample with probability $(1-1/n)^n$. For $n=200$ and $T=500$ trees, how many trees are out-of-bag for an observation on average, and what is the probability that an observation is in every bootstrap sample?
+
+[Solution](#sol-sl-13-3)
+
+:::
+
+::: {#ex-sl-13-4 .exercise}
+## One round of AdaBoost
+
+Five observations $x=1,\ldots,5$ have labels $y=(+1,+1,-1,-1,+1)$ and weights $0.2$ each. The stump predicts $+1$ for $x<2.5$ and $-1$ otherwise. Compute $\varepsilon_1$, $\alpha_1$, the updated weights, and verify that the new weighted error is $0.5$.
+
+[Solution](#sol-sl-13-4)
+
+:::
+
+::: {#ex-sl-13-5 .exercise}
+## The exponential-loss minimiser
+
+If $\tau_1(x)=0.8$, find $f^*(x)$ and check that $1/(1+e^{-2f^*(x)})$ returns $0.8$. What would the minimiser be if $\tau_1(x)=0.5$?
+
+[Solution](#sol-sl-13-5)
+
+:::
+
+::: {#ex-sl-13-6 .exercise}
+## A tempting wrong turn
+
+A practitioner averages $500$ copies of the same deterministic classifier trained on the same data, hoping for a variance reduction. What does the squared-error decomposition, or the variance formula for an average, predict? What are the ways a random forest and AdaBoost avoid this?
+
+[Solution](#sol-sl-13-6)
+
+:::
+
+::: {#ex-sl-13-7 .exercise}
+## Why an ensemble might improve a tree
+
+You compare one deep classification tree with a random forest built from many bootstrap samples.
+
+(a) Explain how a random forest produces a prediction and why predictor subsampling can help.
+
+(b) Explain what out-of-bag error estimates and one limitation if you use it repeatedly to select settings.
+
+(c) Contrast the main training idea of boosting with bagging.
+
+[Solution](#sol-sl-13-7)
+
+:::

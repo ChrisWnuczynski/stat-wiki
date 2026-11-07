@@ -1,0 +1,375 @@
+# K-means clustering
+
+Suppose the species column of the iris data is hidden and the four measurements are kept. Can useful groups still be found? Clustering makes that question precise by choosing a measure of similarity and looking for a partition that scores well under it. A group found this way is a property of the measurements and the criterion. Calling it a biological population requires further evidence. Density estimation has a different target: an approximation to the distribution that generated the observations. This page builds a partition.
+
+A class label and a cluster label answer different questions. If observations that share a class form separated clouds, a clustering can agree with the classes. If the classes are mixed through the same clouds, or if they split along a direction the measurements do not record, the clusters say little about the classification. The algorithm never sees the class labels, so nothing in the criterion forces the two partitions to coincide.
+
+Before choosing an algorithm, settle what a useful group would mean for the problem. Which differences between observations should count? How much detail should the partition retain? Is the calculation describing a sample, or proposing a population model? Those choices determine the task. The geometric description used here is that nearby observations should share a centre.
+
+K-means asks for a chosen number $K$ of centres and minimises a within-cluster sum of squared Euclidean distances. The labels it returns are names for the groups in that partition. They are not measured species identities. The choice of $K$, and the choice of scale, are part of the specification. Several random starts reduce the chance of reporting a poor local minimum. They do not establish that the groups are biological populations.
+
+## The criterion
+
+Give each of $K$ centres a position, then assign each observation to its nearest centre. Now move each centre to the mean of its assigned observations. Those two operations are Lloyd's algorithm. Squared Euclidean distance makes the mean the right update. The identity below explains why. The resulting cells are convex polyhedra, not necessarily spheres. The method tends to suit compact groups of comparable spread better than elongated groups or nested rings.
+
+Distance decides how much each coordinate matters. Multiplying one variable by ten multiplies its contribution to squared distance by one hundred. Subtracting a constant changes nothing. Standardising to variance one gives each variable the same marginal scale, and that is a modelling choice, not a mathematical requirement. Variables measured in the same units can still deserve different weights. For iris, compare the scientific meaning of absolute centimetre differences with differences measured in standard deviations before choosing the metric.
+
+A different dissimilarity defines a different optimisation problem and may require a different centre update. Absolute deviations, for example, lead to coordinatewise medians rather than means. The calculations here use squared Euclidean distance,
+
+$$
+d(\mathbf{x}_i,\mathbf{x}_l)=\sum_{j=1}^p(x_{ij}-x_{lj})^2=\|\mathbf{x}_i-\mathbf{x}_l\|^2.
+$$
+
+## Within-cluster scatter
+
+A clustering is a map $C$ from the observation indices $i=1,\ldots,n$ to the labels $1,\ldots,K$. To compare maps one needs a single number. The number used here is the total squared distance between observations that share a label, the within-cluster point scatter,
+
+$$
+W(C)=\frac12\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(l)=k}\|\mathbf{x}_i-\mathbf{x}_l\|^2.
+$$
+
+The factor $\tfrac12$ stops each unordered pair from being counted twice. It does not change which clustering is best. It makes the identity with distances to means an equality, rather than an equality up to a factor $2$.
+
+### From pairs to cluster means
+
+The pairwise sum couples every pair inside a cluster, which is an awkward object to minimise directly. The equivalent form sums squared distances from each point to its cluster mean. Let
+
+$$
+N_k=\sum_{i=1}^n 1_{\{C(i)=k\}}
+$$
+
+be the size of cluster $k$, and let $\bar{\mathbf{x}}_k$ be the mean of its points. Inside one cluster, add and subtract that mean. The cross term vanishes for the same reason as in the expansion of a corrected cross-product matrix: the sum of deviations from the mean of those points is zero.
+
+$$
+\begin{aligned}
+\sum_{C(i)=k}\sum_{C(l)=k}\|\mathbf{x}_i-\mathbf{x}_l\|^2
+&=\sum_{C(i)=k}\sum_{C(l)=k}\bigl\|(\mathbf{x}_i-\bar{\mathbf{x}}_k)-(\mathbf{x}_l-\bar{\mathbf{x}}_k)\bigr\|^2\\
+&=\sum_{C(i)=k}\sum_{C(l)=k}\Bigl(
+\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2+\|\mathbf{x}_l-\bar{\mathbf{x}}_k\|^2
+-2(\mathbf{x}_i-\bar{\mathbf{x}}_k)^\top(\mathbf{x}_l-\bar{\mathbf{x}}_k)
+\Bigr)\\
+&=N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2
++N_k\sum_{C(l)=k}\|\mathbf{x}_l-\bar{\mathbf{x}}_k\|^2\\
+&=2N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2.
+\end{aligned}
+$$
+
+The cross term is
+
+$$
+-2\Bigl(\sum_{C(i)=k}(\mathbf{x}_i-\bar{\mathbf{x}}_k)\Bigr)^\top
+\Bigl(\sum_{C(l)=k}(\mathbf{x}_l-\bar{\mathbf{x}}_k)\Bigr)=0.
+$$
+
+Therefore
+
+$$
+W(C)=\sum_{k=1}^K N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2.
+$$
+
+This writes the pairwise criterion as a size-weighted sum of squared distances to the cluster means. Each point is weighted by $N_k$. The algorithm of the next section does not descend on that weighted sum. It descends on the unweighted sum of squares
+
+$$
+\widetilde W(C,\mathbf{m}_1,\ldots,\mathbf{m}_K)
+=\sum_{k=1}^K\sum_{C(i)=k}\|\mathbf{x}_i-\mathbf{m}_k\|^2.
+$$
+
+At $\mathbf{m}_k=\bar{\mathbf{x}}_k$ this is $\tfrac12\sum_k N_k^{-1}\sum_{C(i)=C(l)=k}\|\mathbf{x}_i-\mathbf{x}_l\|^2$. It is the criterion most software reports (`tot.withinss` in R). With the weights $N_k$ of $W(C)$, the reassignment step need not decrease the criterion, because moving a point changes two cluster sizes as well as two sums. The two statements agree as identities at the cluster means. The reassignment step is guaranteed to decrease only the unweighted sum. The worked example below reports both quantities.
+
+### Why the partitions are not all searched
+
+Every partition has a value of $W(C)$, so the minimum could in principle be found by enumeration. The number of ways to partition $n$ observations into $K$ non-empty unlabelled clusters is the Stirling number of the second kind,
+
+$$
+S(n,K)=\frac{1}{K!}\sum_{k=1}^K(-1)^{K-k}\binom{K}{k}k^n.
+$$
+
+For a very small sample, enumeration is possible. It rapidly becomes expensive: $S(10,3)=9330$, whereas $S(25,5)=2436684974110751$ and $S(100,5)\approx 6.6\times 10^{67}$. The limitation is computational size. Lloyd's algorithm trades an exhaustive search for inexpensive alternating improvements, so a stable answer has to be distinguished from the best possible answer.
+
+## Lloyd's algorithm
+
+::: {#def-sl-04-lloyd .definition}
+## Lloyd's K-means algorithm
+
+Choose $K$ initial $p$-dimensional centres $\mathbf{m}_1,\ldots,\mathbf{m}_K$. They need not be the mean of any subset of the observations, but they will be after one iteration. Then repeat:
+
+1. Assign each observation to the closest centre,
+
+$$
+C(i)=\operatorname*{arg\,min}_k\|\mathbf{x}_i-\mathbf{m}_k\|^2.
+$$
+
+2. Update the centres: $\mathbf{m}_k\leftarrow\bar{\mathbf{x}}_k$, the mean of the observations assigned to $k$.
+
+Stop when the assignments of observations to clusters do not change.
+
+:::
+
+Two conventions make the algorithm precise. Retain an observation's current cluster if it is tied for nearest, and break initial ties deterministically. Assume, for the finite-termination argument, that no cluster becomes empty. An empty cluster has no sample mean, so an implementation has to handle it explicitly, for example by restarting. These details matter because a zero-cost reassignment is not a strict improvement.
+
+Write the objective as a function of two arguments, assignments and centres. With centres fixed, optimise the assignments. With assignments fixed, optimise the centres. Each step is simple, and their joint optimisation is difficult. The following result concerns the unweighted $\widetilde W$, not the size-weighted $W$.
+
+::: {#prp-sl-04-descent .proposition}
+## Descent of Lloyd's algorithm
+
+Each step of the algorithm does not increase $\widetilde W$. With the tie convention above and nonempty clusters throughout, the algorithm stops after finitely many assignment changes at a Lloyd fixed point. This is an optimum with respect to each of the two alternating steps separately. It need not be a global optimum.
+
+:::
+
+For fixed centres, minimise each observation's squared distance separately. For fixed assignments, add and subtract the cluster mean:
+
+$$
+\sum_{C(i)=k}\|\mathbf{x}_i-\mathbf{m}\|^2
+=\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2+N_k\|\bar{\mathbf{x}}_k-\mathbf{m}\|^2.
+$$
+
+The second term is minimised at the mean. After the first update, each partition determines its centres and its cost. Any later assignment change strictly reduces the cost, because ties retain the current assignment. A partition therefore cannot repeat. There are finitely many partitions, so eventually neither step changes the answer.
+
+The proof permits a precise claim and no more. A nearest-centre reassignment with centres held fixed, and a mean update with assignments held fixed, cannot improve the final fit. A coordinated move of several centres and assignments may still do better. More iterations at a fixed point will not discover that move. A different start may.
+
+Once the start and the tie handling are fixed, this version of Lloyd's algorithm is deterministic. Different starts can lead to different partitions. Compare their objective values rather than assuming that the first stable fit is the right one.
+
+::: {#exm-sl-04-six-points .example}
+## Six points, two clusters
+
+Run the algorithm on the points $A=(1,1)$, $B=(1.5,2)$, $C=(3,4)$, $D=(5,7)$, $E=(3.5,5)$, $F=(4.5,5)$, with $K=2$ and initial centres $\mathbf{m}_1=(3,4)$, $\mathbf{m}_2=(5,7)$.
+
+**Question.** Report the assignment and both scatter criteria after each pass, and the centres at which the algorithm stops.
+
+**Solution.** Squared distances to the two initial centres, with the assignment given by the smaller entry, are
+
+| | $A$ | $B$ | $C$ | $D$ | $E$ | $F$ |
+|---|---|---|---|---|---|---|
+| $\|\mathbf{x}-\mathbf{m}_1\|^2$, $\mathbf{m}_1=(3,4)$ | $13$ | $6.25$ | $0$ | $13$ | $1.25$ | $3.25$ |
+| $\|\mathbf{x}-\mathbf{m}_2\|^2$, $\mathbf{m}_2=(5,7)$ | $52$ | $37.25$ | $13$ | $0$ | $6.25$ | $4.25$ |
+
+For $A$, $(1-3)^2+(1-4)^2=4+9=13$ and $(1-5)^2+(1-7)^2=16+36=52$. For $B$, $(1.5-3)^2+(2-4)^2=2.25+4=6.25$ and $(1.5-5)^2+(2-7)^2=12.25+25=37.25$. For $F$, $(4.5-3)^2+(5-4)^2=2.25+1=3.25$ and $(4.5-5)^2+(5-7)^2=0.25+4=4.25$. Only $D$ is closer to $\mathbf{m}_2$. Cluster $1$ is $\{A,B,C,E,F\}$ and cluster $2$ is $\{D\}$. The update gives
+
+$$
+\mathbf{m}_1=\bigl((1+1.5+3+3.5+4.5)/5,\ (1+2+4+5+5)/5\bigr)=(2.7,\ 3.4),
+\qquad
+\mathbf{m}_2=(5,7).
+$$
+
+The criteria in the table are evaluated after the mean update of that pass.
+
+| Pass | Centres before assignment | Assignment | $\widetilde W$ | $W$ |
+|---|---|---|---|---|
+| 1 | $(3,4),\ (5,7)$ | $\{A,B,C,E,F\},\ \{D\}$ | $21.50$ | $107.5$ |
+| 2 | $(2.7,3.4),\ (5,7)$ | $\{A,B,C,E\},\ \{D,F\}$ | $16.375$ | $61.25$ |
+| 3 | $(2.25,3),\ (4.75,6)$ | $\{A,B,C\},\ \{D,E,F\}$ | $10.667$ | $32.0$ |
+| 4 | $(1.83,2.33),\ (4.33,5.67)$ | $\{A,B,C\},\ \{D,E,F\}$ | $10.667$ | $32.0$ |
+
+After pass $1$, the squared distances from $\{A,B,C,E,F\}$ to $(2.7,3.4)$ sum to $8.65+3.40+0.45+3.20+5.80=21.50$, and $D$ contributes $0$. The size-weighted criterion is $5\times 21.50=107.5$.
+
+In pass $2$, $F$ is closer to $(5,7)$ (squared distance $4.25$) than to $(2.7,3.4)$ (squared distance $5.8$) and moves. The new centres are the means of $\{A,B,C,E\}$ and $\{D,F\}$,
+
+$$
+\mathbf{m}_1=(2.25,\ 3),
+\qquad
+\mathbf{m}_2=(4.75,\ 6).
+$$
+
+The unweighted sum at these centres is $16.375$, and $W=4\times 14.25+2\times 2.125=61.25$.
+
+In pass $3$, $E$ moves: its squared distance to $(2.25,3)$ is $5.5625$, and its squared distance to $(4.75,6)$ is $(3.5-4.75)^2+(5-6)^2=1.5625+1=2.5625$. The clusters become $\{A,B,C\}$ and $\{D,E,F\}$, with means $(1.83,2.33)$ and $(4.33,5.67)$, which are $(11/6,7/3)$ and $(13/3,17/3)$. The unweighted sum falls to $10.667$ and $W$ falls to $32$. In pass $4$ no assignment changes, so the algorithm stops. Both criteria decreased at every pass here. The final centres are $(1.83,2.33)$ and $(4.33,5.67)$, and the final unweighted sum of squares is $10.667$.
+
+:::
+
+## Initialisation and restarts
+
+There is no single accepted start, and many procedures draw it at random. The initial centres may be drawn uniformly in a box that contains the data, or $K$ of the observations may be used as the initial centres, or the observations may be split at random into $K$ groups whose means are the start. Many other variants exist. A run is usually short, so repeat it and keep the clustering with the smallest $\widetilde W$. The kept value has not been shown to be the global minimum.
+
+The objective is non-convex, and different regions of the initialisation space lead to different local minima. Descent from a fixed start is deterministic, so two starts in one region finish at the same partition, and a restart that remains in that region repeats the answer. A different local minimum requires a start in another region. Allocating every point independently at random to a cluster is a poor way to spread those starts. The $K$ means then all lie near the centre of the sample and close to one another.
+
+The fragment standardises the variables, tries $25$ starts and retains the smallest reported within-cluster sum of squares. The default `kmeans` uses the Hartigan–Wong algorithm, which targets the same sum of squares and uses different updates. Specify `algorithm = "Lloyd"` when reproducing the alternating steps above. The iris laboratory uses the default and checks the reported objective directly.
+
+```r
+set.seed(3006)
+xs <- scale(x)                              # each column to mean 0, variance 1
+fit <- kmeans(xs, centers = 3, nstart = 25) # 25 random starts, best kept
+fit$tot.withinss                            # the unweighted criterion
+table(fit$cluster)
+```
+
+## Choosing $K$: the gap statistic
+
+The criterion $\widetilde W$ falls as $K$ increases, and it equals zero at $K=n$, with one cluster for each point. Minimising it over $K$ therefore selects the largest $K$ on the list. The objective that justifies the algorithm cannot choose $K$. Choosing $K$ is a model-selection problem: which member of a family is appropriate, once each member can be fitted. A Bayesian treatment would put a prior on $K$ and report a posterior. This section seeks one $K$. For K-means, one standard comparison is the gap statistic. It asks how much smaller $\log W$ is for the data than for reference samples that have the same coordinate-wise range and no clusters.
+
+Record the coordinate-wise sample minima and maxima. Run K-means for each $k=1,\ldots,K_{\max}$ on the data and store the within-cluster scatter $W_{\mathrm{data}}^{(k)}$. Draw $B$ reference samples of size $n$ from the uniform distribution on the box with those minima and maxima as corners, in the same spirit as a draw from a featureless distribution on that box. For each reference sample and each $k$, run K-means and store $W_b^{(k)}$. The gap and its simulation scale are
+
+$$
+\operatorname{Gap}(k)=\frac1B\sum_{b=1}^B\log W_b^{(k)}-\log W_{\mathrm{data}}^{(k)},
+$$
+
+$$
+s'(k)=\sqrt{1+1/B}\times\bigl(\text{standard deviation of }\log W_1^{(k)},\ldots,\log W_B^{(k)}\bigr).
+$$
+
+Choose the smallest $k$ at which a further cluster does not raise the gap by more than that scale,
+
+$$
+k^*=\min\bigl\{k:\operatorname{Gap}(k)\ge\operatorname{Gap}(k+1)-s'(k+1)\bigr\}.
+$$
+
+Equivalently, $k^*$ is the smallest $k$ with $\operatorname{Gap}(k+1)-\operatorname{Gap}(k)\le s'(k+1)$: the next increase in the gap is no larger than the variability of the reference scores at $k+1$ clusters. Take the smallest $k$ at which adding a cluster no longer improves the gap beyond that variability.
+
+The rule is a comparison with a chosen reference distribution, not a test proving that a particular number of populations exists. Its result depends on the reference geometry and on how well each clustering optimisation is solved. The reference box may be aligned with the coordinate axes, or it may be aligned with the principal components of the data. The two boxes need not give the same answer.
+
+An outlier can stretch the reference box and change the benchmark substantially. Rotating to principal components addresses orientation and does not make the method insensitive to skewness or outliers. Inspect the reference samples as well as the gap curve. A featureless reference is a modelling decision, and its consequences should be visible.
+
+::: {#rem-sl-04-gap .remark}
+## Why the raw sum of squares cannot choose $K$
+
+$W$, in either the pairwise or the unweighted version, is non-increasing in the number of clusters and reaches $0$ at $k=n$, so minimising it over $k$ always selects the largest $k$. The gap statistic corrects for this by comparing $\log W_{\mathrm{data}}^{(k)}$ with what is expected for data without cluster structure, which also falls as $k$ grows.
+
+:::
+
+A plot of the within-cluster sum of squares against $k$ is often called an elbow plot. The elbow is a judgement about where the decrease levels off. The gap curve, with bars of height proportional to the simulation scale $s'(k)$, is the comparison the selection rule actually uses. The two pictures can point at different values of $k$, because one looks at the raw decrease and the other looks at the decrease relative to a uniform box.
+
+## Voronoi geometry
+
+The assignment step gives every point to the nearest current centre, so the clusters are the cells of the Voronoi tessellation with those centres as seeds. The boundary between the cells of $\mathbf{m}_a$ and $\mathbf{m}_b$ is the set of points at equal squared distance from both. Expand the squared norms. The quadratic terms $\|\mathbf{x}\|^2$ cancel, which is special to squared Euclidean distance, and the boundary is linear:
+
+$$
+\|\mathbf{x}-\mathbf{m}_a\|^2=\|\mathbf{x}-\mathbf{m}_b\|^2
+\iff
+2(\mathbf{m}_b-\mathbf{m}_a)^\top\mathbf{x}=\|\mathbf{m}_b\|^2-\|\mathbf{m}_a\|^2.
+$$
+
+This is a hyperplane of dimension $p-1$, perpendicular to the segment joining the centres and passing through the midpoint of that segment. The cluster boundaries are pieces of hyperplanes in every dimension.
+
+In the plane, three non-collinear centres have perpendicular bisectors meeting at their circumcentre. In $\R^p$ with $p>2$, the points equidistant from all three instead form a $(p-2)$-dimensional affine set. Its intersection with the plane of the three centres is the circumcentre. A two-dimensional picture of three centres meeting at one point does not become, by itself, a claim about a higher-dimensional intersection.
+
+The criterion does not specify a density. There is nothing to sample from the fitted partition, and this page gives no confidence interval or test for the centres. The cells just derived are convex and cut by hyperplanes, so the method is aimed at separated spherical clusters. Overlapping groups are separated by force, because each point is given wholly to one centre. A ring of points is a poor target for the same geometric reason: the cells cannot follow a hole.
+
+## Do three clusters recover three species?
+
+The iris species labels are hidden while fitting. Standardisation chooses a distance measured in standard deviations. Setting $K=3$ uses the known number of species. The question is whether three geometric groups resemble those species, rather than whether the algorithm discovers the number three. The cross-tabulation answers that question without pretending that cluster numbers are species names. The default algorithm is used, with $50$ random starts, and the objective is checked by recomputing the sum of squared distances to the reported centres.
+
+```r
+set.seed(4006)
+z <- scale(iris[, 1:4])
+km <- kmeans(z, centers = 3, nstart = 50)
+table(Cluster = km$cluster, Species = iris$Species)
+c(within_SSE = km$tot.withinss,
+  adjusted_Rand_index = mclust::adjustedRandIndex(km$cluster, iris$Species))
+direct_SSE <- sum((z - km$centers[km$cluster, ])^2)
+stopifnot(abs(direct_SSE - km$tot.withinss) < 1e-8)
+```
+
+The cross-tabulation is
+
+```text
+Cluster   setosa   versicolor   virginica
+      1        0           11          36
+      2       50            0           0
+      3        0           39          14
+```
+
+and the two summary numbers are
+
+```text
+within_SSE   adjusted_Rand_index
+  138.8884                0.6201
+```
+
+Setosa is recovered as its own cluster: all $50$ setosa flowers sit in cluster $2$, and nothing else does. Versicolor and virginica are mixed, $39$ against $14$ in one cluster and $11$ against $36$ in the other. The adjusted Rand index compares the clustering with the species partition without requiring cluster $1$ to mean species $1$. On its chance-corrected scale, identical partitions score $1$, and the index can be negative. The value $0.6201$ is the agreement on this run. The direct sum of squared distances to the assigned centres reproduces `tot.withinss` to the tolerance in the check, which is the unweighted criterion $\widetilde W$.
+
+K-means favours compact groups in the standardised Euclidean metric. A species can have a shape, or an overlap, that this geometry does not represent. The Voronoi picture for three fixed centres in the plane is a partition into three convex cells, with boundaries that are pieces of the perpendicular bisectors. Those cells are what the assignment step builds, in the standardised four-dimensional measurement space as well as in a two-dimensional illustration.
+
+::: {.callout-note}
+## Key idea
+
+K-means turns a geometric preference, that nearby points share a centre, into the unweighted within-cluster sum of squares $\widetilde W$. Lloyd's two steps, nearest-centre assignment and mean updates, do not increase that objective, and with the tie convention they stop at a fixed point of the alternation. The fixed point need not be the global minimum. The metric, the number of centres and the starting values each affect the partition. Check all three before interpreting a cluster label as a population.
+:::
+
+## Exercises
+
+::: {#ex-sl-04-1 .exercise}
+## Pairs and means
+
+Prove that for any set $\{\mathbf{x}_i\}_{i=1}^N$ with mean $\bar{\mathbf{x}}$,
+
+$$
+\sum_{i=1}^N\sum_{l=1}^N\|\mathbf{x}_i-\mathbf{x}_l\|^2=2N\sum_{i=1}^N\|\mathbf{x}_i-\bar{\mathbf{x}}\|^2.
+$$
+
+Use it to show that the pairwise within-cluster scatter equals $\sum_k N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2$.
+
+[Solution](#sol-sl-04-1)
+
+:::
+
+::: {#ex-sl-04-2 .exercise}
+## Counting partitions
+
+List all partitions of $\{1,2,3,4\}$ into two non-empty clusters and compare with $S(4,2)$ from the Stirling formula. Compute $S(10,3)$ from the formula.
+
+[Solution](#sol-sl-04-2)
+
+:::
+
+::: {#ex-sl-04-3 .exercise}
+## K-means by hand
+
+Apply Lloyd's algorithm to the one-dimensional data $0,1,3,8,9,11$ with $K=2$ and initial centres $0$ and $1$. Report the partition after each pass and the final value of $\widetilde W$.
+
+[Solution](#sol-sl-04-3)
+
+:::
+
+::: {#ex-sl-04-4 .exercise}
+## A Voronoi boundary
+
+For centres $(0,0)$, $(4,2)$ and $(0,4)$, find the three pairwise boundaries and verify that they meet at the circumcentre. What is the circumradius?
+
+[Solution](#sol-sl-04-4)
+
+:::
+
+::: {#ex-sl-04-5 .exercise}
+## Reading the gap statistic
+
+For $k=1,\ldots,5$ the gap values are $0.30$, $0.70$, $1.10$, $1.15$, $1.00$ and $s'(k)=0.05$, $0.05$, $0.06$, $0.06$, $0.07$. Which $k^*$ does the selection rule $\operatorname{Gap}(k)\ge\operatorname{Gap}(k+1)-s'(k+1)$ select?
+
+[Solution](#sol-sl-04-5)
+
+:::
+
+::: {#ex-sl-04-6 .exercise}
+## The within-cluster sum cannot choose $K$
+
+A student reports that $K=10$ is best because it gives the smallest total within-cluster sum of squares among $K=1,\ldots,10$. Explain what is wrong with the argument and what to compute instead.
+
+[Solution](#sol-sl-04-6)
+
+:::
+
+::: {#ex-sl-04-7 .exercise}
+## What a K-means diagram must show
+
+Consider Euclidean K-means in two dimensions with $K=3$ and distinct fitted centres.
+
+(a) Describe the possible cluster boundaries and draw a labelled example containing observations, centres and the resulting regions.
+
+(b) Explain what the algorithm is minimising and how the centres are updated.
+
+(c) Explain why different starting centres can produce different answers and how you would respond in practice.
+
+[Solution](#sol-sl-04-7)
+
+:::
+
+::: {#ex-sl-04-8 .exercise}
+## Euclidean clusters and mixture components
+
+Consider K-means with $K=3$ in two dimensions.
+
+(a) Describe the cluster boundaries and draw an example showing sample observations, the three fitted centres and the assignment regions.
+
+(b) Explain two differences between this method and a Gaussian finite mixture with component-specific covariance matrices, including the consequences for interpreting a fitted clustering.
+
+[Solution](#sol-sl-04-8)
+
+:::

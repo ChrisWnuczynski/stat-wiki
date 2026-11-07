@@ -1,0 +1,276 @@
+# Classification trees
+
+A classification tree predicts by asking a sequence of questions. Is petal length below this threshold, and, if not, is petal width below that one? Following the answers leads to a leaf and its prediction. For numerical predictors, single-coordinate thresholds carve the space into rectangles. CART (Breiman, Friedman, Olshen, and Stone, 1984) and C4.5 (Quinlan, 1993) are two constructions of this kind. The questions are chosen by a local impurity score, and a readable rule can still be unstable.
+
+The price of the readable partition is the way it is grown. At each node the algorithm takes the split that most improves a local impurity score. That greedy step does not look ahead, so an early split that is only slightly better than its rival can commit the rest of the tree. Pruning, or a penalty on the number of leaves, is what stops the partition from cutting until every training case sits in a pure leaf. Even a pruned tree need not be stable. A small change in the sample can change the first split, and every later branch is then a branch of a different tree. That instability is the reason for the averages on [Ensembles](sl-13-ensembles.qmd). Regression trees assign a number rather than a class to each leaf. The splitting idea is the same, and this page stays with classification.
+
+The zero–one Bayes rule, which predicts a class of largest posterior, is on [Linear discriminant analysis](sl-08-discriminant-analysis.qmd#thm-sl-08-bayes-rule). A tree replaces that posterior by the class proportions in the rectangle that contains $x$. The apparent error of a fully grown tree is the training score criticised on [Estimating error rates](sl-09-error-rates.qmd).
+
+## Building a tree
+
+At a node, compare possible splits and choose one that makes the children purer according to a stated criterion. Repeat inside each child. This is a greedy search: a split is judged by its immediate improvement, not by every tree that could eventually grow beneath it. Stopping rules and pruning control the size. Contradictory labels at identical predictor values cannot be separated by further predictor-based splits.
+
+After the tree is built, each training case is passed from the root along the branch its measurements select, until it reaches a leaf. The class proportions in that leaf are recorded, and the leaf is labelled with its majority class. A new $x$ follows the same questions and receives the label of the leaf it reaches. The proportions in the leaf are a crude local estimate of the posterior $\tau_g(x)$, constant on the rectangle the leaf owns. The Bayes rule would use the true posterior. The tree uses the majority in the rectangle that contains $x$.
+
+The geometry is a partition of the predictor space by thresholds on single coordinates. The same partition reads as a nested list of rules. Four questions organise the rest of the page: which impurity a split should reduce, how the best split of a given variable is found, when splitting stops, and what a fitted tree can and cannot be trusted to mean.
+
+## Node impurity
+
+The split has to optimise something. The training misclassification rate is the natural first choice, because the Bayes rule itself minimises the probability of a mistake under zero–one loss. It is a poor guide for growing a tree. A node that is $80\%$ class $1$ and a node that is $51\%$ class $1$ have different mixtures, and a split that moves probability mass without yet changing the majority can leave the misclassification rate unchanged. Smoother impurities notice that move.
+
+At node $m$ let $\hat p_{mg}$ be the proportion of the training cases at that node which belong to class $g$. These proportions are the empirical posterior at the node, constant for every $x$ the node still contains.
+
+::: {#def-sl-12-impurity .definition}
+## Node impurity
+
+For $G$ classes, the impurity of node $m$ is one of
+
+\begin{align*}
+I_C(m)&=-\sum_{g=1}^G \hat p_{mg}\log\hat p_{mg},
+&&\text{cross-entropy},\\
+I_G(m)&=\sum_{g=1}^G \hat p_{mg}(1-\hat p_{mg})
+=1-\sum_{g=1}^G \hat p_{mg}^2,
+&&\text{Gini index},\\
+I_M(m)&=1-\hat p_{mg^*},
+&&\text{misclassification rate},
+\end{align*}
+
+where $g^*=\operatorname{arg\,max}_g\hat p_{mg}$. In the cross-entropy, a term with $\hat p_{mg}=0$ is taken to be $0$, the limiting value of $p\log p$ as $p\to 0$. The logarithm may be in any fixed base. The worked arithmetic below uses the natural logarithm. A change of base multiplies every entropy, and every entropy reduction, by the same positive constant, so it does not change which split wins. A plot drawn in bits uses base $2$.
+
+:::
+
+The two Gini expressions agree because the proportions sum to one:
+
+$$
+\sum_{g=1}^G\hat p_{mg}(1-\hat p_{mg})
+=\sum_{g=1}^G\hat p_{mg}-\sum_{g=1}^G\hat p_{mg}^2
+=1-\sum_{g=1}^G\hat p_{mg}^2.
+$$
+
+For two classes, write $p$ for the proportion of class $1$. Then the Gini index is $2p(1-p)$ and the cross-entropy is $-p\log p-(1-p)\log(1-p)$. Both are strictly concave functions of $p$, zero at $p=0$ and at $p=1$, and largest at $p=1/2$. Misclassification impurity is $\min(p,1-p)$, piecewise linear, zero at the endpoints and equal to $1/2$ at $p=1/2$. Entropy is differentiable in the interior. Its derivative is not finite at the endpoints.
+
+If both children retain the parent's majority class, their weighted misclassification impurity equals the parent's even when their proportions differ. Suppose the parent has class-$1$ proportion $p>1/2$, so $I_M=1-p$, and both children have class-$1$ proportions $p_L>1/2$ and $p_R>1/2$. If a fraction $w$ of the node goes left,
+
+$$
+w(1-p_L)+(1-w)(1-p_R)
+=1-\bigl(wp_L+(1-w)p_R\bigr)
+=1-p,
+$$
+
+because the children recombine to the parent proportion. The weighted misclassification impurity does not fall. Gini and entropy can reward that change before a majority flips.
+
+A node whose cases are all one class has impurity zero under every one of these functions, and splitting it further cannot help. Every one of the functions is largest when the class proportions at the node are equal. The local aim is therefore to reduce impurity as much as the current node allows.
+
+A split replaces node $m$ by a left child and a right child. The reduction weights the children by the fraction of the node's cases they receive, so a tiny pure child does not count as much as a large one:
+
+$$
+\Delta I(m)
+=I(m)-\hat p_L(m)\,I(m_L)-\bigl(1-\hat p_L(m)\bigr)\,I(m_R).
+$$
+
+Here $m_L$ and $m_R$ are the children of node $m$, and $\hat p_L(m)$ is the proportion of the cases at node $m$ that take the left branch. For the Gini index and for entropy, concavity of $I$ as a function of the class proportions gives $\Delta I(m)\ge 0$: the child proportions average, with weights $\hat p_L(m)$ and $1-\hat p_L(m)$, back to the parent proportions, so Jensen's inequality says the parent impurity is at least the weighted average of the child impurities. A split cannot increase the weighted impurity. The misclassification rate is not strictly concave, and a split can leave it unchanged. The search described next maximises $\Delta I(m)$ over variables and cut-points. It is greedy. It does not score the tree that the children will eventually become.
+
+## Choosing a split
+
+The value of $\Delta I(m)$ depends on which cases go left. The split is a variable $j_m$ and a threshold on that variable. If predictor $j$ is continuous, the threshold is a number $\lambda_m$, and $x$ goes left when $x_{j_m}<\lambda_m$. A discrete or ordinal predictor uses the same rule with $\lambda_m$ restricted to the observed values, from the second through the last. A binary predictor sends $x_{j_m}=0$ left and $x_{j_m}=1$ right. A nominal predictor has no order to cut. One candidate is to peel off a single category and leave the rest together. Another is to search subsets of categories, which is feasible when the number of subsets is moderate, say $100$ or fewer. Both are still binary questions.
+
+The tree's readability comes from refusing to cut on a linear combination of coordinates, which is exactly the cut that linear discriminant analysis and logistic regression are willing to make. A diagonal boundary has to be approximated by a staircase of axis-aligned cuts.
+
+When the variable is discrete or categorical, every legal split can be scored and the best kept. For a continuous variable there is no analytic maximiser of $\Delta I(m)$, because the class distributions are not known. The criterion is an average over the cases at the node, not an integral against a class density. The search runs through the ordered observed values, from the second smallest to the largest, and places the cut between a value and the one before it. Any cut strictly between two consecutive training values $a<b$ sends the same training cases left and right, so it has the same estimated impurity. The training criterion does not say where in $(a,b)$ the cut should sit. The midpoint is a convention for extending that partition to future observations. The training impurity does not identify a special threshold within the gap. Report the fitted cutoff as part of a predictive rule, with this finite resolution in mind.
+
+### Invariance to a change of units
+
+Nearest neighbours changed their minds when a coordinate was rescaled, because Euclidean distance mixes the units. A tree never mixes units inside a split. Replacing predictor $j$ by $ax_j+b$ with $a\ne 0$ transforms every candidate cut on that variable and leaves $\Delta I$ unchanged, so the sequence of variables and the order of splits stay the same. If $a>0$, the observations with $x_j<\lambda$ are exactly the observations with $ax_j+b<a\lambda+b$. Every split partitions the data identically and has the same child compositions, hence the same $\Delta I$, at the transformed cut. If $a<0$, the left and right children swap. The reduction is symmetric in the two children, because replacing $\hat p_L$ by $1-\hat p_L$ exchanges the two weighted terms, so $\Delta I$ is unchanged. After the transformation the published cut-points transform with the data. The predictors do not need to be standardised before the fit.
+
+A rotation is a different matter. The tree can cut only on coordinate axes, and a rotation moves those axes. A split on a single coordinate after rotation is a split on a linear combination before the rotation, which an axis-aligned tree cannot reproduce. The invariance is to strictly monotone affine changes of single coordinates, not to linear combinations. Training partitions are preserved by those coordinate transformations, up to ties and equivalent cuts. Predictions between observed values can differ when a nonlinear transformation changes the midpoint convention.
+
+### Multi-way splits and missing values
+
+Allowing more children can reduce weighted impurity simply by refining the partition. The improvement need not be strict. A comparison across different numbers of children therefore needs a complexity adjustment. The gain ratio divides the impurity reduction by the entropy of the split allocation:
+
+$$
+\Delta I(m)
+=\frac{I(m)-\sum_{k=1}^K \hat p_{km}\,I(m_k)}
+{-\sum_{k=1}^K \hat p_{km}\log\hat p_{km}}.
+$$
+
+Here $\hat p_{km}$ is the proportion sent to child $k$. The denominator is the entropy of the allocation, and it is positive for a nontrivial split. Dividing by it adjusts for the split's allocation pattern, and it can also favour highly unbalanced splits with a small denominator. It is not a universal correction for selection bias, and it is not a guarantee of balanced children.
+
+Missing-value handling is part of the algorithm and differs between implementations. CART can use surrogate splits: questions on other observed variables chosen to mimic the primary split's left/right allocation. Sending a case to the majority branch is a fallback, not the definition of a surrogate. In `rpart` the choices are controlled by `usesurrogate` and `maxsurrogate`. State the settings when they affect predictions.
+
+::: {#exm-sl-12-five-points .example}
+## Building a tree in one dimension
+
+**Question.** Two classes, five observations of a single variable: class $1$ has $x=1$ and $6$; class $2$ has $x=2$, $5$, and $11$. What tree is built using cross-entropy?
+
+**Solution.** The root node has proportions $(2/5,3/5)$, so it would be labelled class $2$ if the tree stopped. With the natural logarithm,
+
+\begin{align*}
+I_C(\mathrm{root})
+&=-\Bigl(\tfrac25\log\tfrac25+\tfrac35\log\tfrac35\Bigr)\\
+&=0.3665+0.3065=0.673.
+\end{align*}
+
+The ordered observations are $1,2,5,6,11$, with classes $1,2,2,1,2$, so there are $n-1=4$ candidate splits. The cut is taken at the midpoint, and $\hat p_L$ is the fraction of the five observations on the left. The notation $a:b$ is the number of class-$1$ and class-$2$ observations in a child.
+
+| split | cut | $\hat p_L$ | left | $I_C(m_L)$ | right | $I_C(m_R)$ | $\Delta I$ |
+|---|---:|---:|---|---:|---|---:|---:|
+| $1\mid 2,5,6,11$ | $1.5$ | $0.2$ | $\{1\}$ pure | $0$ | $1:3$ | $0.562$ | $0.223$ |
+| $1,2\mid 5,6,11$ | $3.5$ | $0.4$ | $1:1$ | $0.693$ | $1:2$ | $0.637$ | $0.014$ |
+| $1,2,5\mid 6,11$ | $5.5$ | $0.6$ | $1:2$ | $0.637$ | $1:1$ | $0.693$ | $0.014$ |
+| $1,2,5,6\mid 11$ | $8.5$ | $0.8$ | $2:2$ | $0.693$ | $\{11\}$ pure | $0$ | $0.118$ |
+
+The first split has
+
+$$
+\Delta I=0.673-0.2\times 0-0.8\times 0.562=0.223,
+$$
+
+the largest. The right-hand entropy $0.562$ is $-\bigl((1/4)\log(1/4)+(3/4)\log(3/4)\bigr)$. The balanced child has entropy $\log 2=0.693$, and a $1:2$ child has entropy $0.637$.
+
+The left child $\{1\}$ is pure, hence a leaf of class $1$. Repeat on the right node $\{2,5,6,11\}$, with classes $2,2,1,2$ and impurity $0.562$. Cutting at $3.5$ gives
+
+$$
+\Delta I=0.562-0.25(0)-0.75(0.637)=0.085.
+$$
+
+Cutting at $5.5$ gives $\Delta I=0.562-0.5(0)-0.5(0.693)=0.216$. Cutting at $8.5$ gives $0.085$. The next split is at $5.5$, producing the pure leaf $\{2,5\}$ of class $2$ and the node $\{6,11\}$. That node contains one observation of each class and is split at $8.5$ into two pure leaves.
+
+The tree is: if $x<1.5$, predict class $1$ (the point $1$); otherwise if $x<5.5$, predict class $2$ (the points $2$ and $5$); otherwise if $x<8.5$, predict class $1$ (the point $6$); otherwise predict class $2$ (the point $11$). It classifies all five training observations correctly, with four leaves for five points.
+
+With the Gini index the same first split wins. The root Gini index is $2(2/5)(3/5)=0.48$. The four reductions are $0.180$, $0.013$, $0.013$, and $0.080$. The first of these is $0.48-0.8\times 2(1/4)(3/4)=0.48-0.30=0.180$.
+
+:::
+
+## Controlling the size
+
+Grown until every leaf is pure, a tree can cut a noise island around a single training case. Its apparent error is then zero whenever the inputs are distinct, and that number is not an estimate of the error on a new draw. One control scores the whole tree by its leaf impurities and charges for the number of leaves:
+
+$$
+I_{\mathrm{penalised}}
+=\sum_{\text{leaf nodes}} I(m)+\alpha\,|\{\text{leaf nodes}\}|,
+$$
+
+where $|\,\cdot\,|$ is the number of leaves and $\alpha\ge 0$ is the price of an extra leaf. The tree wanted is a minimiser of $I_{\mathrm{penalised}}$. One algorithm refuses a split that does not reduce the penalised criterion. Another grows a large tree and then prunes it back to the subtree with the best penalised score. Either way $\alpha$ is still free. There is little theory that names a universal value. Cross-validation can choose it. The same cross-validation can instead watch the classification error directly and stop adding leaves when that error stops falling. Both uses of cross-validation are part of building the tree, so the cases that chose $\alpha$, or that chose where to stop, cannot also be the cases that estimate the error of the chosen tree. A separate test set can do the estimation. When the sample is too small for a permanent test set, the nested scheme on [Estimating error rates](sl-09-error-rates.qmd) puts the choice of $\alpha$ inside each training split.
+
+The display above sums leaf impurities without weights. The CART cost-complexity criterion weights each leaf by its share of the training sample and then adds a leaf penalty. The weighting is what makes $\Delta I(m)\ge 0$ imply that a split never increases the impurity term: the sample-weighted sum of leaf impurities equals the root impurity minus the sum of the weighted reductions along the tree, so $\alpha$ is the only reason to refuse a split that reduces impurity. An unweighted sum of leaf impurities does not inherit that identity. Split impurity and pruning risk also need not be the same quantity. Gini may grow a classification tree while misclassification risk governs pruning.
+
+In `rpart`, the complexity parameter `cp` is relative to the root-node risk, so its numerical value is not the unnormalised $\alpha$ in the display above. A call that grows with the Gini split and then prunes at the cross-validated minimum is
+
+```r
+fit <- rpart(class ~ ., data = train, method = "class",
+             parms = list(split = "gini"),
+             control = rpart.control(cp = 0.01))
+printcp(fit)
+pruned <- prune(fit, cp = fit$cptable[which.min(fit$cptable[, "xerror"]), "CP"])
+predict(pruned, newdata = test, type = "class")
+```
+
+The argument `split = "information"` grows by cross-entropy instead of Gini. `printcp` reports the cross-validated error by tree size. On the iris petal plane, a complexity parameter of $0.1$ keeps a coarse axis-aligned partition, and a complexity parameter of $0.001$ cuts the same observations into many more rectangles. The boundaries are unions of rectangles. They are not the linear cuts of a discriminant rule.
+
+## What a fitted tree can be trusted to mean
+
+Read a fitted tree from root to leaf to understand its decisions. Then ask whether those questions persist when the training sample changes. A small difference in the best first split can change the data reaching every later node. Pruning reduces complexity. It does not prove stability. Averaging many trees, each grown on a perturbed sample, is the next page's answer to that sensitivity.
+
+## Laboratory: prune using training cross-validation
+
+The laboratory grows a large tree on the training flowers and then uses `rpart`'s cross-validation table, computed from those training flowers alone, to prune it. The one-standard-error rule takes the smallest tree whose cross-validated error is within one reported standard error of the minimum. It is a heuristic aimed at stability. It is not a confidence interval for the risk, and the test flowers are not used to choose the penalty.
+
+```r
+set.seed(12006)
+tree <- rpart::rpart(Species ~ ., data = train, method = "class",
+                     control = rpart::rpart.control(cp = 0.001, xval = 10))
+cp <- tree$cptable
+j <- which.min(cp[, "xerror"])
+cutoff <- cp[j, "xerror"] + cp[j, "xstd"]
+chosen <- which(cp[, "xerror"] <= cutoff)[1]
+small_tree <- rpart::prune(tree, cp = cp[chosen, "CP"])
+print(cp)
+#>       CP nsplit rel error  xerror    xstd
+#> 1 0.5000      0   1.00000 1.17143 0.06054
+#> 2 0.4714      1   0.50000 0.75714 0.07319
+#> 3 0.0010      2   0.02857 0.07143 0.03117
+pred <- predict(small_tree, test, type = "class")
+c(number_of_splits = sum(small_tree$frame$var != "<leaf>"),
+  test_error = mean(pred != test$Species))
+#> number_of_splits   test_error
+#>           2.0000       0.1111
+```
+
+The minimum cross-validated error is $0.07143$, on the row with two splits. One reported standard error above that minimum is $0.07143+0.03117=0.1026$. The cross-validated errors on the rows with zero and one split are $1.17143$ and $0.75714$, both above $0.1026$, so the first row that meets the cutoff is the two-split tree, with complexity parameter $0.001$. The complexity table is ordered from larger penalties to smaller ones, which is why the first row under the cutoff is the simpler tree among those that qualify. The pruned tree has two splits and test error $0.1111$. The split thresholds are functions of this training sample. They move if the sample moves, and they are not botanical constants.
+
+::: {.callout-note}
+## Key idea
+A tree is a sequence of locally chosen partitions. Axis-aligned splits make the decisions readable, and they limit the shapes that can be represented efficiently. Pure leaves give zero training error only when purity is attainable and the growth rules allow it. Assess the pruned procedure on held-out observations, rather than treating training purity as the objective.
+:::
+
+## Exercises
+
+::: {#ex-sl-12-1 .exercise}
+## Three impurities
+
+A node contains $6$, $2$, and $2$ observations of classes $1$, $2$, and $3$. Compute its cross-entropy, Gini index, and misclassification rate. Show that $\sum_g\hat p_g(1-\hat p_g)=1-\sum_g\hat p_g^2$.
+
+[Solution](#sol-sl-12-1)
+
+:::
+
+::: {#ex-sl-12-2 .exercise}
+## Which split is better?
+
+A node has $400$ observations of each of two classes. Split A gives children with class counts $(300,100)$ and $(100,300)$. Split B gives $(200,400)$ and $(200,0)$. Show that the misclassification rate cannot distinguish them, and that the Gini index and the cross-entropy both prefer split B. Why is the pure child valuable?
+
+[Solution](#sol-sl-12-2)
+
+:::
+
+::: {#ex-sl-12-3 .exercise}
+## A tree by hand
+
+Class $1$ has observations $x=2,3,10$ and class $2$ has $x=4,5,6,12$. Find the first split of a tree using the Gini index. Compute $\Delta I$ for all six cut-points.
+
+[Solution](#sol-sl-12-3)
+
+:::
+
+::: {#ex-sl-12-4 .exercise}
+## Affine invariance
+
+Show that if the $j$th predictor is replaced by $ax_j+b$ with $a\ne 0$, every candidate split on that variable has the same $\Delta I$, with the cut-point transformed to $a\lambda+b$. What changes if $a<0$? Does the same hold for a rotation of the predictors?
+
+[Solution](#sol-sl-12-4)
+
+:::
+
+::: {#ex-sl-12-5 .exercise}
+## Penalised impurity
+
+Tree $1$ has two leaves with weighted impurities $0.30$ and $0.20$. Tree $2$ has five leaves with impurities $0.05$, $0.05$, $0.10$, $0.00$, and $0.10$. Compute the penalised impurity for $\alpha=0.15$ and for $\alpha=0.05$, and say which tree is preferred in each case.
+
+[Solution](#sol-sl-12-5)
+
+:::
+
+::: {#ex-sl-12-6 .exercise}
+## A tempting wrong turn
+
+A fully grown tree has apparent error rate $0$. A colleague concludes that the classifier is perfect. Explain what is wrong and what you would report instead.
+
+[Solution](#sol-sl-12-6)
+
+:::
+
+::: {#ex-sl-12-7 .exercise}
+## Decision trees and validation
+
+A binary classification tree is grown until every terminal node contains observations of only one class.
+
+(a) Explain why its training error may be misleading as an estimate of future error.
+
+(b) Is a validation set useful? Explain with a concrete choice of tuning parameter and an explicit selection procedure.
+
+(c) Describe the geometry of the decision regions for a tree that splits one numerical predictor at a time.
+
+[Solution](#sol-sl-12-7)
+
+:::

@@ -1,0 +1,389 @@
+# Model selection for stochastic models
+
+A mixture can be fitted for each proposed component count. Training likelihood alone rewards flexibility, so the largest count that was tried wins that comparison whenever the candidates are nested and a maximum is attained. First choose the target. Predicting new observations and identifying a population's component count are different tasks. This page develops two ways of comparing models, marginal likelihood and held-out prediction, and explains why their answers can differ.
+
+The [Bayes factor](bayes-06-testing.qmd#def-marginal-likelihood-and-bayes-factor) is the ratio of marginal likelihoods. BIC comes from approximating the integral that defines that marginal likelihood. The penalty is derived first for a regular model. Whether the derivation applies to mixtures is a separate question, asked after the algebra: an attractive formula does not carry its assumptions with it automatically. Cross-validation and AIC then provide comparisons aimed at prediction. The mixtures being compared are those on [Mixtures and the EM algorithm](sl-05-mixtures-em.qmd).
+
+## Bayes factors and posterior odds
+
+Consider two candidate models, $M_1$ and $M_2$. Within each, specify a proper prior on its parameters, and specify prior probabilities for the models. Bayes' theorem then gives probabilities conditional on this candidate list and these priors. A candidate can be used in the comparison without being literally true. The resulting probabilities leave out every model omitted from the list (Kass and Raftery, 1995).
+
+$$
+\Pr(M_k\given X_{\mathrm{all}})
+=\frac{\Pr(X_{\mathrm{all}}\given M_k)\Pr(M_k)}
+{\Pr(X_{\mathrm{all}}\given M_1)\Pr(M_1)+\Pr(X_{\mathrm{all}}\given M_2)\Pr(M_2)},
+\qquad k=1,2.
+$$
+
+The denominator does not depend on which model is being scored, so the comparison lives in the numerator. The posterior odds of $M_1$ against $M_2$ are
+
+$$
+\frac{\Pr(M_1\given X_{\mathrm{all}})}{\Pr(M_2\given X_{\mathrm{all}})}
+=\frac{\Pr(X_{\mathrm{all}}\given M_1)\Pr(M_1)}{\Pr(X_{\mathrm{all}}\given M_2)\Pr(M_2)},
+$$
+
+and the Bayes factor for model $1$ against model $2$ is the ratio of marginal likelihoods,
+
+$$
+B_{12}=\frac{\Pr(X_{\mathrm{all}}\given M_1)}{\Pr(X_{\mathrm{all}}\given M_2)}.
+$$
+
+On the [Bayes factor](bayes-06-testing.qmd#def-marginal-likelihood-and-bayes-factor) page the same objects are written for a sample $x$ and a parameter $\theta_j$. The marginal likelihood in model $M_j$ is the integral of the likelihood against the parameter prior,
+
+$$
+p(x\given M_j)
+=\int p(x\given\theta_j,M_j)\,p(\theta_j\given M_j)\,d\theta_j,
+$$
+
+and the Bayes factor comparing $M_1$ with $M_2$ is $\mathrm{BF}_{12}=p(x\given M_1)/p(x\given M_2)$. It averages the likelihood over the parameter prior. It does not evaluate the likelihood at a fitted maximum. Posterior odds equal the Bayes factor times the prior odds. The same relation holds for any finite list of models.
+
+The marginal likelihood sometimes has a closed form. More often it is approximated, by Markov chain Monte Carlo or by the Laplace expansion below.
+
+The main difficulty is that models with different component counts have different parameter spaces. Comparing the heights of two likelihood peaks is a different calculation. The integral is taken inside each model's own parameter space, and the resulting marginal likelihoods are what get compared. That integration accounts for how much parameter space fits the observations well.
+
+For either model the marginal likelihood of model $k$ is
+
+$$
+\Pr(X_{\mathrm{all}}\given M_k)
+=\int_{\Theta_k}\Pr(X_{\mathrm{all}}\given\Psi_k,M_k)\,\Pr(\Psi_k\given M_k)\,d\Psi_k.
+$$
+
+Think of the maximised likelihood as a peak height and the marginal likelihood as a prior-weighted volume. A tall, very narrow peak need not win against a lower, broader one. For continuous data the probability notation in these displays denotes densities of the observed measurements. The probabilities of the discrete model labels remain ordinary probabilities.
+
+## The Bayesian information criterion
+
+Schwarz (1978) derived the large-sample penalty now called BIC. A joint prior on the model index and that model's parameter organises the ingredients:
+
+$$
+p(k,\Psi_k)=\Pr(M_k)\,p(\Psi_k\given M_k),
+\qquad \Psi_k\in\Theta_k.
+$$
+
+Each conditional prior is normalised on its own $\Theta_k$. Densities of vectors of different dimensions are not added as though they shared one coordinate system. Under zero–one loss for choosing a model, the posterior-optimal decision is the model with largest posterior probability.
+
+The posterior over models is the Bayesian summary. If one model must be reported, take the maximum a posteriori model. In the two-model display the denominator is common to every $k$, so the maximiser $k^*$ satisfies
+
+\begin{align*}
+k^*
+&=\arg\max_k \Pr(X_{\mathrm{all}}\given M_k)\Pr(M_k)\\
+&=\arg\max_k \Pr(M_k)\int_{\Theta_k}\Pr(X_{\mathrm{all}},\Psi_k\given M_k)\,d\Psi_k\\
+&=\arg\max_k \Pr(M_k)\int_{\Theta_k}
+\exp\bigl\{\log\Pr(X_{\mathrm{all}},\Psi_k\given M_k)\bigr\}\,d\Psi_k.
+\end{align*}
+
+### Laplace approximation of the integral
+
+The integral is what has to be approximated. Expand $\log\Pr(X_{\mathrm{all}},\Psi_k\given M_k)$ to second order about a mode $\widetilde\Psi_k$. The gradient vanishes at a mode, so the linear term is absent and the quadratic term is the negative Hessian:
+
+$$
+\log\Pr(X_{\mathrm{all}},\Psi_k\given M_k)
+\approx
+\log\Pr(X_{\mathrm{all}},\widetilde\Psi_k\given M_k)
+-\frac12(\Psi_k-\widetilde\Psi_k)^\top H(\widetilde\Psi_k)\,(\Psi_k-\widetilde\Psi_k).
+$$
+
+Here $H$ is the negative Hessian of the log joint density. An interior mode guarantees a positive semidefinite negative Hessian. Strict positive definiteness is an additional assumption. The function $-x^4$ has a maximum at zero and zero second derivative there. Laplace's Gaussian approximation needs nonzero curvature in every parameter direction. A singular direction breaks this particular argument.
+
+Substitute the quadratic approximation into the integral for $k^*$:
+
+$$
+k^*\approx\arg\max_k
+\Pr(M_k)\,\Pr(X_{\mathrm{all}},\widetilde\Psi_k\given M_k)
+\int_{\Theta_k}
+\exp\Bigl\{-\tfrac12(\Psi_k-\widetilde\Psi_k)^\top H(\widetilde\Psi_k)\,(\Psi_k-\widetilde\Psi_k)\Bigr\}
+\,d\Psi_k.
+$$
+
+Up to the normalising constant, the integrand is the density of the $d_k$-dimensional normal distribution with mean $\widetilde\Psi_k$ and covariance $H(\widetilde\Psi_k)^{-1}$. The domain $\Theta_k$ is not all of $\R^{d_k}$. Weights lie in $(0,1)$, variances are positive, and covariance matrices are constrained, so the integral of that normal kernel over the legal region is not exactly $1$.
+
+The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral (Drton and Plummer, 2017). Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
+
+$$
+\int_{\Theta_k}
+\exp\Bigl\{-\tfrac12(\Psi_k-\widetilde\Psi_k)^\top H(\widetilde\Psi_k)\,(\Psi_k-\widetilde\Psi_k)\Bigr\}\,d\Psi_k
+\approx
+(2\pi)^{d_k/2}\,\bigl|H(\widehat\Psi_k)\bigr|^{-1/2}.
+$$
+
+The approximate MAP index is therefore
+
+$$
+k^*\approx\arg\max_k
+\Pr(M_k)\,\Pr(X_{\mathrm{all}},\widehat\Psi_k\given M_k)\,
+(2\pi)^{d_k/2}\,\bigl|H(\widehat\Psi_k)\bigr|^{-1/2}.
+$$
+
+The logarithm is strictly increasing, so it preserves the maximiser. Factor the joint probability at $\widehat\Psi_k$ into the likelihood and the prior density:
+
+\begin{align*}
+k^*
+&\approx\arg\max_k
+\log\Pr(M_k)+\log\Pr(X_{\mathrm{all}}\given\widehat\Psi_k,M_k)+\log\Pr(\widehat\Psi_k\given M_k)\\
+&\qquad+\frac{d_k}{2}\log(2\pi)-\frac12\log\bigl|H(\widehat\Psi_k)\bigr|\\
+&\approx\arg\max_k
+\log\Pr(M_k)+\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+\log\Pr(\widehat\Psi_k\given M_k)\\
+&\qquad+\frac{d_k}{2}\log(2\pi)-\frac12\log I(\widehat\Psi_k,X_{\mathrm{all}}).
+\end{align*}
+
+The observed information $I$ is the negative Hessian of the log-likelihood alone. The negative Hessian of the log joint density also contains prior curvature. In this regular large-sample calculation the likelihood contribution is of order $n$, while a fixed smooth prior contributes order one. Replacing the joint curvature by observed information is therefore another approximation, which is what the second line records. An EM output must also be checked before treating it as the required maximiser.
+
+### Dropping terms that do not scale with $n$
+
+The next cut keeps only the terms that grow with $n$. The maximised log-likelihood is a sum of one log-density per observation, and the sum is not divided by $n$, so it grows as the sample grows. The model prior was chosen before the data arrived, so $\log\Pr(M_k)$ does not grow with $n$. The prior density evaluated at the maximum likelihood estimator stays $O(1)$ under Schwarz's conditions. The term $(d_k/2)\log(2\pi)$ contains no $n$.
+
+Drop every term that remains $O(1)$. That removes $\log\Pr(M_k)$, which equal prior probabilities on the models would have removed on their own, the log prior density $\log\Pr(\widehat\Psi_k\given M_k)$, and $(d_k/2)\log(2\pi)$. For $n$ observations the observed information is of order $n$, provided the average information per observation stays of order $1$. That proviso is the regular case, and it is the step that fails near a vanishing component. Under it,
+
+$$
+\bigl|I(\widehat\Psi_k,X_{\mathrm{all}})\bigr|
+=n^{d_k}\Bigl|\frac1n I(\widehat\Psi_k,X_{\mathrm{all}})\Bigr|
+=n^{d_k}\,O(1),
+$$
+
+so
+
+$$
+-\frac12\log I(\widehat\Psi_k,X_{\mathrm{all}})
+=-\frac{d_k}{2}\log n+O(1).
+$$
+
+Drop the remaining $O(1)$ term. The approximate MAP rule is
+
+$$
+k^*\approx\arg\max_k
+\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)-\frac{d_k}{2}\log n.
+$$
+
+::: {#def-sl-06-bic .definition}
+## Bayesian information criterion
+
+Multiply the approximate MAP rule by $-2$, which reverses the direction of the optimisation. The same rule is
+
+$$
+k^*\approx\arg\min_k \mathrm{BIC}_k,
+\qquad
+\mathrm{BIC}_k=-2\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+d_k\log n.
+$$
+
+:::
+
+### Reading the criterion
+
+BIC retains the terms that grow with sample size and discards bounded terms. It does not require exactly equal model priors or a flat parameter prior: many fixed, smooth, positive priors give the same leading expression. Their differences survive in the omitted terms, which can matter when BIC values are close. Retaining only one omitted constant would not generally recover an accurate marginal likelihood.
+
+The penalty comes from integration, specifically the shrinking volume around a regular likelihood peak. With information of order $n$ in each of $d_k$ directions, that volume is of order $n^{-d_k/2}$. Taking logs gives $-(d_k/2)\log n$. Thus one extra parameter must improve the log-likelihood by more than $\tfrac12\log n$ to improve BIC. This is a comparison rule coming from the volume of the Laplace approximation around a regular likelihood peak.
+
+Mixtures need a separate qualification. Coincident components and zero weights make model-order comparison singular, so the ordinary Laplace argument is generally invalid there. BIC can nevertheless be consistent under particular mixture-model assumptions. Consistency and accuracy as a marginal-likelihood approximation are different properties (Drton and Plummer, 2017). The unconstrained Gaussian family with collapsing covariances does not acquire a finite global maximum likelihood estimator merely because a BIC penalty is attached. State the fitted covariance restrictions and the candidate component counts when reporting the comparison.
+
+## Cross-validation of the likelihood
+
+BIC approximates a marginal probability of the sample already observed. Cross-validation estimates a different functional: the expected log-likelihood of a new draw, with the parameter fixed at a fit from the current sample. Smyth (2000) fits on training observations and scores the log-likelihood on test observations, and selects the model with the highest test score. The target is
+
+$$
+k^*=\arg\max_k \E\bigl[\log\Pr(X\given\Psi=\widehat\Psi_k,M_k)\bigr].
+$$
+
+The expectation is over a new observation $X$. For each candidate, $\widehat\Psi_k$ is the maximum likelihood fit on the data already in hand, so the parameter is not recomputed inside the expectation. A test set that was excluded from the fit approximates the expectation, as an average or as a sum. Multiplying the sum by a positive constant does not change the maximiser, and the two forms select the same model:
+
+\begin{align*}
+k^*
+&\approx\arg\max_k\frac{1}{n_{\mathrm{test}}}\sum_{i=1}^{n_{\mathrm{test}}}
+\log\Pr(x_{\mathrm{test},i}\given\widehat\Psi_k,M_k)\\
+&\approx\arg\max_k\sum_{i=1}^{n_{\mathrm{test}}}
+\log\Pr(x_{\mathrm{test},i}\given\widehat\Psi_k,M_k).
+\end{align*}
+
+In $v$-fold cross-validation, refit every candidate on each training fold and sum its held-out log densities. Any preprocessing belongs inside those fits. The winning specification may then be refitted on all development data. An honest estimate of the selected procedure's predictive performance uses an untouched test sample or an outer cross-validation loop. The folds used to choose the model are validation folds, even when older notation calls them test folds (Cawley and Talbot, 2010).
+
+### The Kullback–Leibler connection
+
+The expected log-likelihood of a new observation differs from a Kullback–Leibler divergence by a constant that does not depend on the candidate. Let $f$ be the density of a new observation and $\widehat f$ the fitted density. Then
+
+$$
+D(f\Vert\widehat f)
+=\int\ln\Bigl(\frac{f(x)}{\widehat f(x)}\Bigr)f(x)\,dx
+=\int f\ln f-\E\bigl[\ln\widehat f(X)\bigr].
+$$
+
+The integral $\int f\ln f$ does not depend on which candidate produced $\widehat f$. Maximising $\E[\ln\widehat f(X)]$ is therefore the same comparison as minimising $D(f\Vert\widehat f)$. The divergence is not symmetric. The convention puts the density of the expectation, here the true $f$, in the first argument.
+
+## The Akaike information criterion
+
+Akaike's criterion estimates the same Kullback–Leibler target from the training log-likelihood, with an asymptotic penalty in place of a test set (Akaike, 1974).
+
+::: {#def-sl-06-aic .definition}
+## Akaike information criterion
+
+The penalty is $2d_k$:
+
+$$
+k^*\approx\arg\min_k\mathrm{AIC}_k,
+\qquad
+\mathrm{AIC}_k=-2\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+2d_k.
+$$
+
+:::
+
+For $n>e^2$, one has $\log n>2$, so BIC charges more per parameter than AIC. This explains why AIC often favours more flexible candidates. It does not make every larger choice an error: predictive density estimation and recovery of a component count have different goals. The usual $2d_k$ correction is itself an asymptotic result for regular likelihood fitting. Singular mixtures and severe misspecification require care with that justification as well (Akaike, 1974; Drton and Plummer, 2017).
+
+The table supplies numbers for comparing the rules. The log-likelihood and cross-validation columns are inherited inputs for the arithmetic. The simulation that produced them is not reproduced by the calculation below. The preferred value of each criterion is in bold. Here $n=300$, $p=2$, and the covariances are full, so the parameter count $d=Hp+Hp(p+1)/2+(H-1)$ from the mixture page is $5,11,17,23,29,35$.
+
+| $H$ | $d$ | $\widehat\ell$ | BIC | AIC | 5-fold CV log-likelihood |
+|---:|---:|---:|---:|---:|---:|
+| $1$ | $5$ | $-1274.1$ | $2576.7$ | $2558.2$ | $-1278.1$ |
+| $2$ | $11$ | $-1076.9$ | $2216.5$ | $2175.8$ | $-1088.4$ |
+| $3$ | $17$ | $-1012.3$ | **$2121.6$** | $2058.6$ | **$-1033.9$** |
+| $4$ | $23$ | $-999.7$ | $2130.6$ | $2045.4$ | $-1040.8$ |
+| $5$ | $29$ | $-995.5$ | $2156.4$ | $2049.0$ | $-1048.7$ |
+| $6$ | $35$ | $-986.7$ | $2173.0$ | **$2043.4$** | $-1058.7$ |
+
+::: {#exm-sl-06-choose-h .example}
+## Choosing $H$ for the supplied mixture
+
+**Question.** Use the displayed log-likelihoods as inputs. For $H=3$, $d=17$ and $n=300$, compute BIC and compare the three criteria.
+
+**Solution.** Twice the negative log-likelihood is $-2\times(-1012.3)=2024.6$, and $\log 300=5.70378$, so
+
+$$
+\mathrm{BIC}=2024.6+17\log 300=2024.6+96.964=2121.6
+$$
+
+after rounding. The same arithmetic produces the rest of the BIC and AIC columns: $\mathrm{AIC}=-2\widehat\ell+2d$. BIC and the supplied cross-validation scores prefer $H=3$. AIC prefers $H=6$, where $2043.4$ is the smallest AIC in the table. This difference illustrates the penalties. It does not establish that either rule recovers a known generating model.
+
+In `mclust`, BIC has the opposite sign, $2\ell-d\log n$, so larger values are preferred. The laboratory checks that the two conventions differ only by that sign.
+
+:::
+
+Full-covariance Gaussian mixtures fitted to the iris petal measurements can be plotted the same way. AIC and BIC in the table above use the smaller-is-better convention. The fitted log-likelihood keeps rising as $H$ grows, which is why a penalty or a held-out score is doing the selection.
+
+The fragment asks `mclust` for $H=1,\ldots,6$ and several covariance structures. The matrix it stores is $2\ell-d\log n$, so the preferred entry is the largest. The BIC definition on this page is the sign reversal of that quantity, and the preferred entry is then the smallest.
+
+```r
+library(mclust)
+fit <- Mclust(x, G = 1:6) # EM fits for H = 1,...,6 and several covariance structures
+fit$BIC                 # mclust convention: 2*loglik - d*log(n), larger is better
+summary(fit)            # chosen H, mixing proportions, means
+```
+
+## Make the BIC convention explicit
+
+One to six full-covariance mixtures are fitted to the same two petal measurements. The package reports $2\ell-d\log n$, larger meaning better. The table also computes $-2\ell+d\log n$, smaller meaning better. The check is that the two columns sum to zero. As on the mixture page, `iris_x` holds the four iris measurements and columns $3$ and $4$ are the petals. There are $n=150$ flowers.
+
+```r
+set.seed(6006)
+fits <- lapply(1:6, function(g)
+  mclust::Mclust(iris_x[, 3:4], G = g,
+                 modelNames = "VVV", verbose = FALSE))
+bic_table <- data.frame(
+  Components = 1:6,
+  Parameters = vapply(fits, function(f) f$df, numeric(1)),
+  BIC = vapply(fits, function(f)
+    -2 * f$loglik + f$df * log(nrow(iris)), numeric(1)))
+print(bic_table, row.names = FALSE)
+#> Components Parameters   BIC
+#>          1          5 570.6
+#>          2         11 364.6
+#>          3         17 355.8
+#>          4         23 361.1
+#>          5         29 372.3
+#>          6         35 399.7
+stopifnot(max(abs(bic_table$BIC +
+                  vapply(fits, function(f) f$bic, numeric(1)))) < 1e-7)
+```
+
+The parameter counts $5,11,17,23,29,35$ are the full-covariance counts $d=Hp+Hp(p+1)/2+(H-1)$ at $p=2$. On this list the BIC of $-2\ell+d\log n$ selects $3$ components, with value $355.8$. That number describes these two measurements under this candidate family. Reading it as a count of biological species requires a separate scientific argument. A Gaussian component can approximate one piece of a non-Gaussian species distribution, and a different constraint on the covariances defines a different list of models.
+
+::: {.callout-note}
+## Key idea
+BIC is minus twice the maximised log-likelihood plus $d\log n$. It approximates minus twice the log marginal likelihood of a regular model, which is why each additional parameter must buy at least $\tfrac12\log n$ units of log-likelihood. Fit each candidate and choose the smallest BIC. The `mclust` column $2\ell-d\log n$ is the negative of that quantity, so it chooses the largest value. AIC, with penalty $2d$, and likelihood cross-validation estimate a predictive target and can prefer a different candidate. For mixtures the Laplace derivation is a regular-model argument and needs the qualification above.
+:::
+
+## Exercises
+
+::: {#ex-sl-06-1 .exercise}
+## Posterior odds
+
+Two models have prior probabilities $\Pr(M_1)=0.25$ and $\Pr(M_2)=0.75$, and the data give Bayes factor $B_{12}=6$. Find the posterior odds and the posterior probability of $M_1$.
+
+[Solution](#sol-sl-06-1)
+
+:::
+
+::: {#ex-sl-06-2 .exercise}
+## BIC and AIC by hand
+
+With $n=300$, the two-component fit has $\widehat\ell=-1100$ and $d=11$, and the three-component fit has $\widehat\ell=-1050$ and $d=17$. Compute BIC and AIC for each and state which model each criterion selects.
+
+[Solution](#sol-sl-06-2)
+
+:::
+
+::: {#ex-sl-06-3 .exercise}
+## The Laplace integral in one dimension
+
+For a scalar $\theta$, show that
+
+$$
+\int_{-\infty}^{\infty}\exp\bigl\{-\tfrac12 h(\theta-\widetilde\theta)^2\bigr\}\,d\theta=\sqrt{2\pi/h},
+$$
+
+and explain how this is the $d_k=1$ case of the Laplace integral $(2\pi)^{d_k/2}|H|^{-1/2}$. If $h=n I_1$ for a constant $I_1$, show that $-\tfrac12\log h=-\tfrac12\log n+O(1)$.
+
+[Solution](#sol-sl-06-3)
+
+:::
+
+::: {#ex-sl-06-4 .exercise}
+## KL divergence
+
+Show that $D(f\Vert\widehat f)\ge 0$, with equality only when $\widehat f=f$, using $\ln u\le u-1$. Show that $D(f\Vert\widehat f)=\int f\ln f-\E[\ln\widehat f(X)]$, and explain why selecting the model with the largest expected log-likelihood on new data selects the model closest to $f$ in this sense.
+
+[Solution](#sol-sl-06-4)
+
+:::
+
+::: {#ex-sl-06-5 .exercise}
+## A tempting wrong turn
+
+A student selects the number of mixture components by maximising the log-likelihood on the training data, for $H=1,\ldots,10$. Why will this almost always select $H=10$, or the largest value tried, and which two changes to the procedure on this page fix it?
+
+[Solution](#sol-sl-06-5)
+
+:::
+
+::: {#ex-sl-06-6 .exercise}
+## Choosing model complexity
+
+For $n=100$, three fitted density models have the following maximised log-likelihoods $\ell$ and parameter counts $d$:
+
+| Model | $\ell$ | $d$ |
+|---|---:|---:|
+| A | $-180$ | $5$ |
+| B | $-170$ | $9$ |
+| C | $-166$ | $14$ |
+
+Use $\mathrm{BIC}=-2\ell+d\log n$.
+
+(a) Compute BIC for each model and choose the preferred one under this convention.
+
+(b) Explain why choosing the largest training likelihood alone would not provide the same protection against overfitting.
+
+(c) Explain why a program reporting $2\ell-d\log n$ should select its largest value instead.
+
+[Solution](#sol-sl-06-6)
+
+:::
+
+::: {#ex-sl-06-7 .exercise}
+## Mixture selection and uncertainty
+
+Two two-dimensional Gaussian mixtures fitted to $n=80$ observations have $(\ell,d)=(-140,11)$ and $(-133,17)$. Use $\mathrm{BIC}=-2\ell+d\log n$.
+
+(a) Explain how posterior component probabilities are calculated and why they are more informative than a hard label for an observation in an overlap region.
+
+(b) Calculate BIC and choose between the two fitted candidates.
+
+(c) Would a larger fitted training likelihood prove that a model predicts new data better? Explain.
+
+[Solution](#sol-sl-06-7)
+
+:::

@@ -1,0 +1,934 @@
+# Covariance and the multivariate normal
+
+Take one iris flower and record its four measurements. The four numbers belong to the same flower. If the petals are unusually long, that changes what one expects the petal width to be. Four separate histograms cannot say how the measurements vary together.
+
+A random vector, its [joint distribution](prob-04-joint-distributions.qmd), and the [multivariate normal distribution](prob-05-transforms-and-limits.qmd#def-multivariate-normal) are already defined. This page adds the covariance algebra, the conditional normal formulas, partial correlation, and the iris calculation. The density is stated again in the notation used here, and the marginal and conditional distributions are derived from it. The derivations keep separate the conclusions that follow from covariance algebra alone and the conclusions that need joint normality. Zero covariance gives independence for jointly normal blocks. Outside that family it can sit next to a strong nonlinear relationship. Pooling iris species changes the covariance being described, because the population has changed.
+
+## Random vectors
+
+Write $\mathbf{X}_i$ for the random measurement vector on unit $i$, and $\mathbf{x}_i$ for its observed value. The index $i=1,\ldots,n$ identifies the unit. The index $j=1,\ldots,p$ identifies a coordinate within that unit. The usual sampling assumption is that $\mathbf{X}_1,\ldots,\mathbf{X}_n$ are independent and identically distributed. That assumption says nothing about independence of the coordinates inside one vector. Unless stated otherwise the coordinates are continuous, and $\mathbf{X}=(X_1,\ldots,X_p)^\top$ is a generic observation. One row of the data matrix is one flower. The four iris measurements are four coordinates of that flower.
+
+::: {#def-sl-01-joint-distribution .definition}
+## Joint distribution and density
+
+The joint distribution function of $\mathbf{X}$ is
+
+$$
+F(\mathbf{x})=\Pr(\mathbf{X}\le\mathbf{x})=\Pr(X_1\le x_1,\ldots,X_p\le x_p),
+\qquad \mathbf{x}\in\R^p.
+$$
+
+If $F$ is absolutely continuous, $\mathbf{X}$ has a joint density
+
+$$
+f(\mathbf{x})=\frac{\partial^p F(\mathbf{x})}{\partial x_1\cdots\partial x_p}
+$$
+
+almost everywhere, and
+
+$$
+F(\mathbf{x})=\int_{-\infty}^{x_p}\cdots\int_{-\infty}^{x_1} f(u_1,\ldots,u_p)\,\dd u_1\cdots\dd u_p.
+$$
+
+:::
+
+[Independent coordinates](prob-04-joint-distributions.qmd#def-independent-random-variables) are exactly the case in which the density and the distribution function both factor,
+
+$$
+f(\mathbf{x})=\prod_{j=1}^p f_j(x_j),
+\qquad
+F(\mathbf{x})=\prod_{j=1}^p F_j(x_j),
+$$
+
+with $f_j$ and $F_j$ belonging to $X_j$ alone. A factorisation of this form is independence. In the models below the coordinates are usually dependent, and the point of the vector calculation is to describe that dependence.
+
+A density can be easy to evaluate when its integral over a rectangle has no elementary antiderivative. The correlated multivariate normal is that kind of density: probabilities of rectangles are computed by numerical integration. Probability still comes from integrating over a region. A continuous distribution does not put positive probability on a single point.
+
+## Marginals and conditionals
+
+Two operations act on a joint distribution. Stopping the recording of a coordinate produces a marginal distribution: that coordinate is integrated out. Knowing the coordinate's value produces a conditional distribution: the joint is restricted to that value and renormalised. Dropping information and using information are different operations.
+
+The joint density of the first $q<p$ coordinates is
+
+$$
+g(x_1,\ldots,x_q)=\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} f(x_1,\ldots,x_p)\,\dd x_{q+1}\cdots\dd x_p.
+$$
+
+The corresponding distribution function sends the remaining arguments to infinity,
+
+$$
+G(x_1,\ldots,x_q)=\Pr(X_1\le x_1,\ldots,X_q\le x_q)=F(x_1,\ldots,x_q,\infty,\ldots,\infty).
+$$
+
+For conditioning, the ratio $\Pr(A\given B)=\Pr(A\cap B)/\Pr(B)$ needs care, because an exact value of a continuous coordinate has probability zero. The conditional density is a ratio of densities, defined where the marginal density in the denominator is positive. Split the coordinates into blocks $A$ and $B$. Then
+
+$$
+f_{A\given B}(\mathbf{x}_A)=\frac{f_{AB}(\mathbf{x}_A,\mathbf{x}_B)}{f_B(\mathbf{x}_B)},
+\qquad f_B(\mathbf{x}_B)>0,
+$$
+
+and the denominator is the marginal density of the conditioning block,
+
+$$
+f_B(\mathbf{x}_B)=\int\cdots\int f(\mathbf{x}_A,\mathbf{x}_B)\,\dd\mathbf{x}_A.
+$$
+
+In the notation of the first $q$ coordinates and the last $p-q$,
+
+$$
+f(x_1,\ldots,x_q\given x_{q+1},\ldots,x_p)
+=\frac{f(x_1,\ldots,x_p)}{g(x_{q+1},\ldots,x_p)}.
+$$
+
+Here $g(x_{q+1},\ldots,x_p)$ is the marginal density of the last $p-q$ variables, evaluated at the conditioning values. Whenever both marginal densities are positive,
+
+$$
+f_{AB}=f_{A\given B}\,f_B=f_{B\given A}\,f_A,
+$$
+
+and Bayes' rule for densities is
+
+$$
+f_{A\given B}(\mathbf{x}_A)=\frac{f_{B\given A}(\mathbf{x}_B)\,f_A(\mathbf{x}_A)}{f_B(\mathbf{x}_B)}.
+$$
+
+## Mean, covariance, and correlation
+
+A full joint density is a large object. The first summary asks where each coordinate is centred, and which deviations tend to occur together. Throughout this section the second moments are finite, so the covariance matrix exists.
+
+::: {#def-sl-01-mean-and-covariance .definition}
+## Mean vector and covariance matrix
+
+The expected value of $\mathbf{X}$ is the vector of coordinate expectations,
+
+$$
+\E(\mathbf{X})=\boldsymbol{\mu}=\bigl(\E X_1,\ldots,\E X_p\bigr)^\top.
+$$
+
+The covariance of coordinates $j$ and $k$ is
+
+$$
+\sigma_{jk}=\Cov(X_j,X_k)=\E\bigl[(X_j-\E X_j)(X_k-\E X_k)\bigr]=\E(X_j X_k)-\E(X_j)\E(X_k).
+$$
+
+The covariance matrix is the $p\times p$ matrix of these entries,
+
+$$
+\Sigma=\Var(\mathbf{X})=\Cov(\mathbf{X},\mathbf{X}^\top)=\E\bigl[(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top\bigr].
+$$
+
+The diagonal entry $\sigma_{jj}=\sigma_j^2$ is the variance of $X_j$, and $\sigma_j$ is its standard deviation.
+
+:::
+
+The matrix $\Sigma$ is real and symmetric, and it is positive semi-definite. For any fixed $\mathbf{z}\in\R^p$ the scalar $\mathbf{z}^\top\mathbf{X}$ has variance
+
+$$
+\Var(\mathbf{z}^\top\mathbf{X})=\E\bigl[\mathbf{z}^\top(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top\mathbf{z}\bigr]=\mathbf{z}^\top\Sigma\mathbf{z},
+$$
+
+and a variance cannot be negative, so $\mathbf{z}^\top\Sigma\mathbf{z}\ge 0$. A real symmetric matrix has an orthonormal basis of eigenvectors: $\Sigma=\Gamma\Lambda\Gamma^\top$ with $\Gamma^{-1}=\Gamma^\top$ and $\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_p)$. If $\Sigma\boldsymbol{\gamma}=\lambda\boldsymbol{\gamma}$ and $\boldsymbol{\gamma}^\top\boldsymbol{\gamma}=1$, then $\lambda=\boldsymbol{\gamma}^\top\Sigma\boldsymbol{\gamma}=\Var(\boldsymbol{\gamma}^\top\mathbf{X})\ge 0$. In the eigen-coordinates $u_j=\boldsymbol{\gamma}_j^\top\mathbf{z}$,
+
+$$
+\mathbf{z}^\top\Sigma\mathbf{z}=\sum_{j=1}^p\lambda_j u_j^2,
+$$
+
+so nonnegative eigenvalues give a nonnegative quadratic form as well. Positive semi-definiteness is that property.
+
+The same inequality gives $|\sigma_{jk}|\le\sqrt{\sigma_{jj}\sigma_{kk}}$. Apply $\mathbf{z}^\top\Sigma\mathbf{z}\ge 0$ to the $2\times 2$ principal submatrix with entries $\sigma_{jj}$, $\sigma_{jk}$, $\sigma_{kk}$. Its determinant is nonnegative:
+
+$$
+\sigma_{jj}\sigma_{kk}-\sigma_{jk}^2\ge 0.
+$$
+
+Symmetry of a proposed covariance is necessary and is not enough: every linear combination must have a nonnegative variance. Sylvester's criterion turns the quadratic-form condition into determinants. Strict positive definiteness requires every leading principal minor to be positive. Positive semi-definiteness requires every principal minor, not only the leading ones, to be nonnegative. A matrix can pass a leading-minor check aimed at the wrong one of these two conclusions and still fail to be a covariance.
+
+Translations do not change covariances. For constants $c,d\in\R$,
+
+$$
+\Cov(X_j+c,X_k+d)=\Cov(X_j,X_k).
+$$
+
+Scale changes pass through,
+
+$$
+\Cov(c X_j,d X_k)=cd\,\Cov(X_j,X_k).
+$$
+
+For a fixed vector $\mathbf{a}=(a_1,\ldots,a_p)^\top$,
+
+$$
+\Var(\mathbf{a}^\top\mathbf{X})=\sum_{j=1}^p\sum_{k=1}^p a_j a_k\sigma_{jk}=\mathbf{a}^\top\Sigma\mathbf{a},
+$$
+
+and for a second fixed vector $\mathbf{b}$,
+
+$$
+\Cov(\mathbf{a}^\top\mathbf{X},\mathbf{b}^\top\mathbf{X})=\sum_{j=1}^p\sum_{k=1}^p a_j b_k\sigma_{jk}=\mathbf{a}^\top\Sigma\mathbf{b}.
+$$
+
+More generally, let $A$ be $r\times p$ and $B$ be $s\times p$, and set $\mathbf{Y}=A\mathbf{X}$, $\mathbf{Z}=B\mathbf{X}$. Then $\E\mathbf{Y}=A\boldsymbol{\mu}$, and
+
+$$
+\begin{aligned}
+\Cov(\mathbf{Y},\mathbf{Y}^\top)&=\E\bigl[A(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top A^\top\bigr]=A\Sigma A^\top,\\
+\Cov(\mathbf{Z},\mathbf{Z}^\top)&=B\Sigma B^\top,\\
+\Cov(\mathbf{Y},\mathbf{Z}^\top)&=\E\bigl[A(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top B^\top\bigr]=A\Sigma B^\top.
+\end{aligned}
+$$
+
+The matrices move outside the expectation because they are fixed. The product $A\Sigma B^\top$ is $r\times s$, which is the shape of the cross-covariance of an $r$-vector and an $s$-vector. The scalar formulas are the case of one-row matrices.
+
+::: {#def-sl-01-correlation .definition}
+## Correlation
+
+With positive finite variances, the Pearson correlation is the scale-free covariance
+
+$$
+\rho_{jk}=\operatorname{corr}(X_j,X_k)=\frac{\Cov(X_j,X_k)}{\sqrt{\Var(X_j)\Var(X_k)}}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
+$$
+
+The correlation matrix is $P=(\rho_{jk})$, with ones on the diagonal. If $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$, then
+
+$$
+P=D^{-1}\Sigma D^{-1},
+\qquad
+\Sigma=DPD.
+$$
+
+:::
+
+Independence of $X_j$ and $X_k$ implies $\rho_{jk}=0$. The converse is false, and the example below is the counterexample. If $X_k=c X_j+d$ then $\rho_{jk}=1$ for $c>0$ and $\rho_{jk}=-1$ for $c<0$. If a variance is zero, the correlation is undefined.
+
+Correlation is the slope of the best linear predictor in standard-deviation units. Let $X$ and $Y$ have means $\mu_X,\mu_Y$, variances $\sigma_X^2,\sigma_Y^2>0$ and correlation $\rho$. For a predictor $a+bX$,
+
+$$
+\E(Y-a-bX)^2=\Var(Y-bX)+(\mu_Y-a-b\mu_X)^2,
+$$
+
+because adding a constant does not change a variance. The second term is zero at $a=\mu_Y-b\mu_X$. The first is
+
+$$
+\Var(Y-bX)=\sigma_Y^2-2b\Cov(X,Y)+b^2\sigma_X^2.
+$$
+
+Differentiating in $b$ and setting the derivative to zero gives $-2\Cov(X,Y)+2b\sigma_X^2=0$, so
+
+$$
+b=\frac{\Cov(X,Y)}{\sigma_X^2}=\rho\frac{\sigma_Y}{\sigma_X},
+\qquad
+a=\mu_Y-b\mu_X.
+$$
+
+Substitute this $b$. The minimal value is
+
+$$
+\sigma_Y^2-2\rho^2\sigma_Y^2+\rho^2\sigma_Y^2=\sigma_Y^2(1-\rho^2).
+$$
+
+So $\rho$ is the slope after both variables are measured in standard deviations, and $1-\rho^2$ is the fraction of $\Var(Y)$ left by this linear prediction. On the original axes the slope also depends on the units. A perfect positive correlation is an exact increasing affine relationship, and that relationship need not have slope one.
+
+::: {#exm-sl-01-zero-covariance .example}
+## Zero covariance with a deterministic relationship
+
+Let $X\sim\Normal(0,1)$ and $Y=X^2$.
+
+**Question.** Show that $\Cov(X,Y)=0$, and that $X$ and $Y$ are dependent.
+
+**Solution.** The covariance is
+
+$$
+\Cov(X,X^2)=\E(X^3)-\E(X)\E(X^2)=0,
+$$
+
+because $\E(X)=0$ and the third moment of a standard normal variable is zero: the density is even and $x^3$ is odd, so the integral of $x^3\varphi(x)$ over $\R$ vanishes. The pair is dependent because $Y$ is a function of $X$. Concretely, $\Pr(|X|>1)>0$, while
+
+$$
+\Pr(|X|>1\given Y\le 1)=0,
+$$
+
+since $Y\le 1$ forces $|X|\le 1$. [Independence](prob-04-joint-distributions.qmd#def-independent-random-variables) would have made the conditional probability equal the marginal. Zero covariance rules out a nonzero linear association. It leaves nonlinear dependence untouched.
+
+:::
+
+## The normal density
+
+The univariate normal density is
+
+$$
+\phi(x;\mu,\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\Bigl\{-\frac{(x-\mu)^2}{2\sigma^2}\Bigr\},
+\qquad x\in\R.
+$$
+
+If the coordinates of $\mathbf{X}=(X_1,\ldots,X_p)^\top$ are independent with $X_j\sim\Normal(\mu_j,\sigma_j^2)$, the mean vector is $\boldsymbol{\mu}=(\mu_1,\ldots,\mu_p)^\top$ and the covariance is the diagonal matrix $\Sigma=\operatorname{diag}(\sigma_1^2,\ldots,\sigma_p^2)$. The joint density is the product of the marginals,
+
+$$
+\begin{aligned}
+f(\mathbf{x})
+&=\prod_{j=1}^p\frac{1}{\sqrt{2\pi}\,\sigma_j}\exp\Bigl\{-\frac{(x_j-\mu_j)^2}{2\sigma_j^2}\Bigr\}\\
+&=\frac{1}{(2\pi)^{p/2}\prod_{j=1}^p\sigma_j}
+\exp\Bigl\{-\frac12\sum_{j=1}^p\Bigl(\frac{x_j-\mu_j}{\sigma_j}\Bigr)^2\Bigr\}.
+\end{aligned}
+$$
+
+For this diagonal $\Sigma$, $|\Sigma|^{1/2}=\prod_j\sigma_j$ and
+
+$$
+(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=\sum_{j=1}^p\frac{(x_j-\mu_j)^2}{\sigma_j^2}.
+$$
+
+The product formula can therefore be written without mentioning the diagonal structure. That rewriting is the definition in every dimension.
+
+::: {#def-sl-01-multivariate-normal .definition}
+## Multivariate normal distribution
+
+Let $\boldsymbol{\mu}\in\R^p$ and let $\Sigma$ be a symmetric positive definite $p\times p$ matrix. A random vector $\mathbf{X}$ has the $p$-variate normal distribution $\Normal_p(\boldsymbol{\mu},\Sigma)$ if it has density
+
+$$
+f(\mathbf{x})=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}
+\exp\Bigl\{-\frac12(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})\Bigr\},
+\qquad\mathbf{x}\in\R^p.
+$$
+
+The mean vector is $\boldsymbol{\mu}$ and the covariance matrix is $\Sigma$. The subscript $p$ is dropped when the dimension is clear.
+
+:::
+
+When $\Sigma$ is positive definite, $f(\mathbf{x})>0$ for every $\mathbf{x}$ and the integral of $f$ equals $1$, so $f$ is a density. The representation $\boldsymbol{\mu}+B\mathbf{Z}$ with $\mathbf{Z}$ standard normal in $\R^p$ and $BB^\top=\Sigma$ is the same family, and it remains available when $\Sigma$ is only positive semi-definite and no density exists. The second slot of $\Normal(\mu,\sigma^2)$ and of $\Normal_p(\boldsymbol{\mu},\Sigma)$ is a variance or a covariance matrix.
+
+In two dimensions the surface height is a density, and probability is the volume under that surface. A normal model assigns some probability to every open region, including negative lengths. Whether that matters depends on how much probability falls there.
+
+The bivariate normal has five parameters: two means, two variances, and a correlation $\rho$. In matrix form
+
+$$
+\boldsymbol{\mu}=\begin{pmatrix}\mu_1\\ \mu_2\end{pmatrix},
+\qquad
+\Sigma=\begin{pmatrix}\sigma_1^2 & \rho\sigma_1\sigma_2\\ \rho\sigma_1\sigma_2 & \sigma_2^2\end{pmatrix}.
+$$
+
+The determinant and inverse are
+
+$$
+|\Sigma|=\sigma_1^2\sigma_2^2(1-\rho^2),
+\qquad
+\Sigma^{-1}=\frac{1}{\sigma_1^2\sigma_2^2(1-\rho^2)}
+\begin{pmatrix}\sigma_2^2 & -\rho\sigma_1\sigma_2\\ -\rho\sigma_1\sigma_2 & \sigma_1^2\end{pmatrix}.
+$$
+
+Write $z_j=(x_j-\mu_j)/\sigma_j$. Substituting into the density gives
+
+$$
+f(x_1,x_2)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}
+\exp\Bigl\{-\frac{1}{2(1-\rho^2)}\bigl(z_1^2-2\rho z_1 z_2+z_2^2\bigr)\Bigr\}.
+$$
+
+### Level sets are ellipsoids
+
+An ellipse drawn through a data cloud describes the spread of observations. A confidence region for the mean describes uncertainty about the centre. The second region contracts as more independent observations are collected. The population cloud does not. The contours below hold $\boldsymbol{\mu}$ and $\Sigma$ fixed.
+
+Fix $c>0$ and consider $\{\mathbf{x}:f(\mathbf{x})=c\}$. If $c$ exceeds the maximum of $f$, the set is empty. Otherwise divide $f(\mathbf{x})=c$ by the leading constant and take logarithms:
+
+$$
+-\frac12(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})
+=\log\bigl(c\,(2\pi)^{p/2}|\Sigma|^{1/2}\bigr),
+$$
+
+which is
+
+$$
+(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=C
+$$
+
+for a constant $C$ determined by $c$. For $C>0$ this is an ellipsoid centred at $\boldsymbol{\mu}$. In the bivariate case the level sets are ellipses. Correlation rotates and stretches them: the contour for $\rho=0$ is axis-aligned, the contour for $\rho=0.75$ leans up, and the contour for $\rho=-0.75$ leans down.
+
+To find the axes, use $\Sigma=\Gamma\Lambda\Gamma^\top$ with orthonormal columns $\boldsymbol{\gamma}_1,\ldots,\boldsymbol{\gamma}_p$ and $\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_p)$. Then $\Sigma^{-1}=\Gamma\Lambda^{-1}\Gamma^\top$. In the rotated coordinates $\mathbf{u}=\Gamma^\top(\mathbf{x}-\boldsymbol{\mu})$,
+
+$$
+(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=\mathbf{u}^\top\Lambda^{-1}\mathbf{u}=\sum_{j=1}^p\frac{u_j^2}{\lambda_j}=C.
+$$
+
+This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}$. Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
+
+::: {#def-sl-01-mahalanobis .definition}
+## Squared Mahalanobis distance
+
+The squared Mahalanobis distance of $\mathbf{X}$ from its mean is
+
+$$
+(\mathbf{X}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{X}-\boldsymbol{\mu}).
+$$
+
+:::
+
+If $\mathbf{X}\sim\Normal_p(\boldsymbol{\mu},\Sigma)$, set $\mathbf{Z}=\Sigma^{-1/2}(\mathbf{X}-\boldsymbol{\mu})$, where $\Sigma^{-1/2}=\Gamma\Lambda^{-1/2}\Gamma^\top$ is the symmetric inverse square root. The linear-image formula for covariances gives
+
+$$
+\Var(\mathbf{Z})=\Sigma^{-1/2}\Sigma\Sigma^{-1/2}=I.
+$$
+
+The next proposition says $\mathbf{Z}$ is normal, so its coordinates are independent standard normals. The squared Mahalanobis distance is therefore
+
+$$
+\mathbf{Z}^\top\mathbf{Z}=\sum_{j=1}^p Z_j^2\sim\chi^2_p,
+$$
+
+the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom. A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
+
+## Linear images and marginals
+
+::: {#prp-sl-01-linear-image .proposition}
+## Linear images of a normal vector
+
+Let $\mathbf{X}\sim\Normal_p(\boldsymbol{\mu},\Sigma)$ with $\Sigma$ of rank $p$, and let $A$ be an $m\times p$ matrix of rank $m\le p$. Then $\mathbf{Y}=A\mathbf{X}$ satisfies
+
+$$
+\mathbf{Y}\sim\Normal_m(A\boldsymbol{\mu},\,A\Sigma A^\top).
+$$
+
+:::
+
+The mean and covariance are the general transformation rules. The additional claim is that the image is normal. It is the fact used whenever a margin, a sum, or a residual of a normal vector is treated as normal.
+
+A binary matrix of zeros and ones extracts a margin. With
+
+$$
+A=\begin{pmatrix}1&0&0\\0&1&0\end{pmatrix},
+$$
+
+the product $A\mathbf{X}$ equals $(X_1,X_2)^\top$, and the marginal covariance is the corresponding $2\times 2$ block of $\Sigma$. Any selection matrix, with a single $1$ in each row, shows that every subset of the coordinates of a multivariate normal vector is multivariate normal, with the corresponding sub-vector of $\boldsymbol{\mu}$ and sub-matrix of $\Sigma$. The matrix $A=(I_q\ 0)$ selects the first $q$ coordinates.
+
+The converse fails. Normal margins do not force the joint distribution to be multivariate normal.
+
+::: {#exm-sl-01-normal-margins .example}
+## Normal margins without a normal joint
+
+Let $X\sim\Normal(0,1)$ and let $W$ be independent of $X$ with $\Pr(W=1)=\Pr(W=-1)=\tfrac12$. Set $Y=WX$.
+
+**Question.** Show that $Y\sim\Normal(0,1)$ and $\Cov(X,Y)=0$, and that $(X,Y)$ is not bivariate normal.
+
+**Solution.** For any $y$,
+
+$$
+\Pr(Y\le y)=\tfrac12\Pr(X\le y)+\tfrac12\Pr(-X\le y)=\Phi(y),
+$$
+
+because $-X\sim\Normal(0,1)$ as well. So $Y\sim\Normal(0,1)$. The covariance is
+
+$$
+\E(XY)=\E(WX^2)=\E(W)\E(X^2)=0,
+$$
+
+where the product splits because $W$ is independent of $X$. Now
+
+$$
+X+Y=(1+W)X
+$$
+
+equals $2X$ with probability $\tfrac12$ and equals $0$ with probability $\tfrac12$. The sum has an atom at $0$ of mass $\tfrac12$. Every linear image of a bivariate normal vector is normal, possibly degenerate. A degenerate normal is a constant, and the only constant here would require the combination to be identically zero, which $X+Y$ is not. An atom of mass $\tfrac12$ at $0$, together with a spread-out half, is not a normal distribution. Therefore $(X,Y)$ is not bivariate normal. The pair has normal margins and zero covariance, and it is dependent because $|Y|=|X|$.
+
+:::
+
+## Conditioning a normal vector
+
+Split $\mathbf{X}$ into $\mathbf{X}_A$, containing the first $q$ coordinates ($0<q<p$), and $\mathbf{X}_B$, containing the last $p-q$. Partition the parameters in the same way:
+
+$$
+\mathbf{X}=\begin{pmatrix}\mathbf{X}_A\\ \mathbf{X}_B\end{pmatrix},
+\qquad
+\boldsymbol{\mu}=\begin{pmatrix}\boldsymbol{\mu}_A\\ \boldsymbol{\mu}_B\end{pmatrix},
+\qquad
+\Sigma=\begin{pmatrix}\Sigma_{AA}&\Sigma_{AB}\\ \Sigma_{AB}^\top&\Sigma_{BB}\end{pmatrix}.
+$$
+
+The blocks have shapes $q\times q$, $q\times(p-q)$ and $(p-q)\times(p-q)$. The selection argument gives
+
+$$
+\mathbf{X}_A\sim\Normal_q(\boldsymbol{\mu}_A,\Sigma_{AA}),
+\qquad
+\mathbf{X}_B\sim\Normal_{p-q}(\boldsymbol{\mu}_B,\Sigma_{BB}).
+$$
+
+Inside the normal family, $\mathbf{X}_A$ and $\mathbf{X}_B$ are independent if and only if $\Sigma_{AB}=0$. Zero covariance does not give independence for a general pair of random vectors. The sign example is a pair with zero covariance that is not independent, and it is not jointly normal.
+
+The marginal of a block is the corresponding mean and covariance block. Conditioning needs a correction, because the observed coordinates carry information about the others. The correction comes from dividing the joint density by the marginal density and completing a square. The covariance that remains is the Schur complement. Positive definiteness of $\Sigma$ makes that complement positive definite as well.
+
+The target is the density of $\mathbf{X}_A$ given $\mathbf{X}_B=\mathbf{x}_B$. By the general ratio,
+
+$$
+f_{\mathbf{X}_A\given\mathbf{X}_B}=\frac{f_{\mathbf{X}_A\mathbf{X}_B}}{f_{\mathbf{X}_B}},
+$$
+
+where the denominator is the normal density
+
+$$
+f_{\mathbf{X}_B}(\mathbf{x}_B)=\frac{1}{(2\pi)^{(p-q)/2}|\Sigma_{BB}|^{1/2}}
+\exp\Bigl\{-\tfrac12(\mathbf{x}_B-\boldsymbol{\mu}_B)^\top\Sigma_{BB}^{-1}(\mathbf{x}_B-\boldsymbol{\mu}_B)\Bigr\}.
+$$
+
+The numerator needs $\Sigma^{-1}$ and $|\Sigma|$ in the blocks. Both are written with the Schur complement of $\Sigma_{BB}$ in $\Sigma$,
+
+$$
+\Sigma_{A\given B}=\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top.
+$$
+
+**Block inverse and determinant.** The inverse in the same blocks is
+
+$$
+\Sigma^{-1}=
+\begin{pmatrix}
+\Sigma_{A\given B}^{-1} & -\Sigma_{A\given B}^{-1}\Sigma_{AB}\Sigma_{BB}^{-1}\\
+-\Sigma_{BB}^{-1}\Sigma_{AB}^\top\Sigma_{A\given B}^{-1} &
+\Sigma_{BB}^{-1}+\Sigma_{BB}^{-1}\Sigma_{AB}^\top\Sigma_{A\given B}^{-1}\Sigma_{AB}\Sigma_{BB}^{-1}
+\end{pmatrix},
+$$
+
+and the determinant factorises as
+
+$$
+|\Sigma|=|\Sigma_{BB}|\,|\Sigma_{A\given B}|.
+$$
+
+**Normalising constants.** The ratio of the constants in the joint density and the marginal density is
+
+$$
+\frac{(2\pi)^{(p-q)/2}|\Sigma_{BB}|^{1/2}}{(2\pi)^{p/2}|\Sigma_{BB}|^{1/2}|\Sigma_{A\given B}|^{1/2}}
+=\frac{1}{(2\pi)^{q/2}|\Sigma_{A\given B}|^{1/2}}.
+$$
+
+**The exponent.** Write $\mathbf{a}=\mathbf{x}_A-\boldsymbol{\mu}_A$ and $\mathbf{b}=\mathbf{x}_B-\boldsymbol{\mu}_B$. The exponent of the ratio is $-\tfrac12 E$, where $E$ is the joint quadratic form minus the marginal quadratic form. Multiply the block inverse through $(\mathbf{a}^\top,\mathbf{b}^\top)$:
+
+$$
+\begin{aligned}
+E
+&=\mathbf{a}^\top\Sigma_{A\given B}^{-1}\mathbf{a}
+-\mathbf{a}^\top\Sigma_{A\given B}^{-1}\Sigma_{AB}\Sigma_{BB}^{-1}\mathbf{b}
+-\mathbf{b}^\top\Sigma_{BB}^{-1}\Sigma_{AB}^\top\Sigma_{A\given B}^{-1}\mathbf{a}\\
+&\qquad+\mathbf{b}^\top\bigl(\Sigma_{BB}^{-1}+\Sigma_{BB}^{-1}\Sigma_{AB}^\top\Sigma_{A\given B}^{-1}\Sigma_{AB}\Sigma_{BB}^{-1}\bigr)\mathbf{b}
+-\mathbf{b}^\top\Sigma_{BB}^{-1}\mathbf{b}.
+\end{aligned}
+$$
+
+The two copies of $\mathbf{b}^\top\Sigma_{BB}^{-1}\mathbf{b}$ cancel. The two cross terms are transposes of each other and both are scalars, so they are equal. Therefore
+
+$$
+E=\mathbf{a}^\top\Sigma_{A\given B}^{-1}\mathbf{a}
+-2\mathbf{a}^\top\Sigma_{A\given B}^{-1}\Sigma_{AB}\Sigma_{BB}^{-1}\mathbf{b}
++\mathbf{b}^\top\Sigma_{BB}^{-1}\Sigma_{AB}^\top\Sigma_{A\given B}^{-1}\Sigma_{AB}\Sigma_{BB}^{-1}\mathbf{b}.
+$$
+
+**Completing the square.** Define
+
+$$
+\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)=\boldsymbol{\mu}_A+\Sigma_{AB}\Sigma_{BB}^{-1}(\mathbf{x}_B-\boldsymbol{\mu}_B).
+$$
+
+Then $\mathbf{a}-\Sigma_{AB}\Sigma_{BB}^{-1}\mathbf{b}=\mathbf{x}_A-\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)$. Expand
+
+$$
+\bigl(\mathbf{a}-\Sigma_{AB}\Sigma_{BB}^{-1}\mathbf{b}\bigr)^\top
+\Sigma_{A\given B}^{-1}
+\bigl(\mathbf{a}-\Sigma_{AB}\Sigma_{BB}^{-1}\mathbf{b}\bigr).
+$$
+
+The expansion is exactly the three terms in $E$. Hence
+
+$$
+E=\bigl(\mathbf{x}_A-\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)\bigr)^\top
+\Sigma_{A\given B}^{-1}
+\bigl(\mathbf{x}_A-\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)\bigr).
+$$
+
+Combine this quadratic with the normalising constant. The conditional density is
+
+$$
+f_{\mathbf{X}_A\given\mathbf{X}_B=\mathbf{x}_B}(\mathbf{x}_A)
+=\frac{1}{(2\pi)^{q/2}|\Sigma_{A\given B}|^{1/2}}
+\exp\Bigl\{-\tfrac12
+\bigl(\mathbf{x}_A-\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)\bigr)^\top
+\Sigma_{A\given B}^{-1}
+\bigl(\mathbf{x}_A-\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)\bigr)
+\Bigr\}.
+$$
+
+::: {#thm-sl-01-conditional-normal .theorem}
+## Conditional distribution of a multivariate normal
+
+If $\mathbf{X}=(\mathbf{X}_A,\mathbf{X}_B)\sim\Normal_p(\boldsymbol{\mu},\Sigma)$ is partitioned as above, then
+
+$$
+\mathbf{X}_A\given(\mathbf{X}_B=\mathbf{x}_B)
+\sim\Normal_q\bigl(\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B),\,\Sigma_{A\given B}\bigr),
+$$
+
+with
+
+$$
+\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)=\boldsymbol{\mu}_A+\Sigma_{AB}\Sigma_{BB}^{-1}(\mathbf{x}_B-\boldsymbol{\mu}_B)
+$$
+
+and
+
+$$
+\Sigma_{A\given B}=\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top.
+$$
+
+:::
+
+The conditional mean is affine in $\mathbf{x}_B$. It starts at $\boldsymbol{\mu}_A$ and adjusts by the observed deviation $\mathbf{x}_B-\boldsymbol{\mu}_B$. The conditional covariance does not depend on the observed value. The product $\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top$ is positive semi-definite, so conditioning reduces covariance in the matrix sense $\Sigma_{A\given B}\preceq\Sigma_{AA}$: the difference $\Sigma_{AA}-\Sigma_{A\given B}$ has nonnegative eigenvalues. This is a statement about the Gaussian model with its parameters fixed. The narrowing ends of an ellipse are a property of a joint contour. They do not say that the conditional variance gets smaller at extreme predictor values. A contour and a conditional density are different objects. A slice of a bivariate normal ellipse, taken at a fixed $x_B$, is a univariate normal density whose mean has moved and whose variance is the smaller Schur complement.
+
+The conditional mean is the best predictor under squared-error loss whenever the conditional expectation exists, including outside the Gaussian family. Joint normality supplies this particular affine formula and the constant conditional covariance. Replacing a missing value by its conditional mean suppresses residual variability. The filled-in number is not an observed measurement.
+
+### Residuals, and a second derivation
+
+Define the population residual
+
+$$
+\mathbf{X}_{A\cdot B}=\mathbf{X}_A-\boldsymbol{\mu}_{A\given B}(\mathbf{X}_B).
+$$
+
+This is the part of $\mathbf{X}_A$ left after its population conditional mean has been removed. Under joint normality it is independent of $\mathbf{X}_B$. That conclusion belongs to the population residual. It does not transfer automatically to residuals from a model fitted to the same sample. Ordinary least squares gives the sample orthogonality $\mathbf{X}^\top\mathbf{e}=0$, and orthogonality is not independence. For a random design and homoscedastic Gaussian errors, the residual vector given the design has covariance $\sigma^2(I-H)$, which depends on the design through its projection matrix. A population residual and a fitted residual need separate arguments.
+
+The two properties of $\mathbf{X}_{A\cdot B}$ follow from the linear transformation rules. Centre it:
+
+$$
+\mathbf{X}_{A\cdot B}-\E(\mathbf{X}_{A\cdot B})
+=\mathbf{X}_A-\boldsymbol{\mu}_A-\Sigma_{AB}\Sigma_{BB}^{-1}(\mathbf{X}_B-\boldsymbol{\mu}_B)
+=M(\mathbf{X}-\boldsymbol{\mu}),
+$$
+
+with $M=(I_q,\ -\Sigma_{AB}\Sigma_{BB}^{-1})$. Then
+
+$$
+\begin{aligned}
+\Cov(\mathbf{X}_{A\cdot B},\mathbf{X}_{A\cdot B}^\top)
+&=M\Sigma M^\top\\
+&=\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top
+-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top
++\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{BB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top\\
+&=\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top
+=\Sigma_{A\given B},
+\end{aligned}
+$$
+
+because the last term equals $\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top$ and cancels one of the two cross terms. The cross-covariance with the conditioning block is
+
+$$
+\Cov(\mathbf{X}_{A\cdot B},\mathbf{X}_B^\top)=\Sigma_{AB}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{BB}=0.
+$$
+
+The pair $(\mathbf{X}_{A\cdot B},\mathbf{X}_B)$ is a linear image of a normal vector, and the cross-covariance is zero, so the residual is independent of the conditioning variables. This is a second proof of the conditional theorem. Write
+
+$$
+\mathbf{X}_A=\boldsymbol{\mu}_{A\given B}(\mathbf{X}_B)+\mathbf{X}_{A\cdot B}
+$$
+
+with $\mathbf{X}_{A\cdot B}\sim\Normal_q(\mathbf{0},\Sigma_{A\given B})$ independent of $\mathbf{X}_B$. Given $\mathbf{X}_B=\mathbf{x}_B$, the first term is the constant $\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)$ and the second keeps its distribution.
+
+### The bivariate regression lines
+
+Specialise the conditional theorem to $p=2$, with $A=\{1\}$ and $B=\{2\}$. Then $\Sigma_{AB}=\rho\sigma_1\sigma_2$ and $\Sigma_{BB}=\sigma_2^2$, so
+
+$$
+\Sigma_{AB}\Sigma_{BB}^{-1}=\rho\frac{\sigma_1}{\sigma_2}
+$$
+
+and
+
+$$
+X_1\given(X_2=x_2)
+\sim\Normal\Bigl(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(x_2-\mu_2),\;\sigma_1^2(1-\rho^2)\Bigr).
+$$
+
+The regression of $X_1$ on $X_2$ predicts $x_1$ from $x_2$ and has slope $\rho\sigma_1/\sigma_2$ in the $(x_2,x_1)$ plane. The regression of $X_2$ on $X_1$ is
+
+$$
+x_2=\mu_2+\rho\frac{\sigma_2}{\sigma_1}(x_1-\mu_1).
+$$
+
+Solving that equation for $x_1$ gives slope $\sigma_1/(\rho\sigma_2)$ in the same plane. For $\rho\neq 0$ the ratio of the two slopes is $\rho^2$, so the lines agree only in the limit $\rho^2=1$. When $\rho=0$ they are the horizontal and vertical lines through the mean. A principal axis may coincide with one of these lines when the covariance is diagonal, and there is no unique principal axis when $\Sigma$ is a multiple of the identity. Each line answers a different question.
+
+### Partial correlation
+
+When $X_{q+1},\ldots,X_p$ are held fixed, the entries of $\Sigma_{A\given B}$ are the partial variances and covariances. Write $\sigma_{jk\given q+1,\ldots,p}$ for the $(j,k)$ entry, $1\le j,k\le q$.
+
+::: {#def-sl-01-partial-correlation .definition}
+## Partial correlation
+
+The partial correlation of coordinates $j$ and $k$ given the remaining coordinates is
+
+$$
+\rho_{jk\given q+1,\ldots,p}
+=\frac{\sigma_{jk\given q+1,\ldots,p}}{\sqrt{\sigma_{jj\given q+1,\ldots,p}\,\sigma_{kk\given q+1,\ldots,p}}}.
+$$
+
+If $D_{A\given B}=\operatorname{diag}(\Sigma_{A\given B})$, the matrix of partial correlations is
+
+$$
+P_{A\given B}=D_{A\given B}^{-1/2}\,\Sigma_{A\given B}\,D_{A\given B}^{-1/2},
+$$
+
+where the power $-1/2$ takes the reciprocal square root of each diagonal entry.
+
+:::
+
+Inside the Gaussian model, partial correlation is the association between the remaining coordinates after conditioning on the others. Equivalently, it is the correlation of their population linear-regression residuals. Outside the Gaussian family, a residual partial correlation remains defined when the moments and the regressions exist, and it need not equal the conditional correlation at every conditioning value. Standardising a covariance matrix, as `cov2cor` does, produces a correlation matrix. The standardisation does not create the assumptions behind a conditional reading.
+
+::: {#exm-sl-01-trivariate-conditional .example}
+## A trivariate conditional distribution
+
+Let $\mathbf{X}=(X_1,X_2,X_3)^\top\sim\Normal_3(\boldsymbol{\mu},\Sigma)$ with
+
+$$
+\boldsymbol{\mu}=\begin{pmatrix}1\\2\\3\end{pmatrix},
+\qquad
+\Sigma=\begin{pmatrix}4&2&1\\2&3&0.5\\1&0.5&2\end{pmatrix}.
+$$
+
+**Question.** Find the distribution of $(X_1,X_2)$ given $X_3=x_3$, and the partial correlation of $X_1$ and $X_2$ given $X_3$.
+
+**Solution.** Take $A=\{1,2\}$ and $B=\{3\}$. Then $\Sigma_{AB}=(1,0.5)^\top$ and $\Sigma_{BB}=2$, so
+
+$$
+\Sigma_{AB}\Sigma_{BB}^{-1}=(0.5,0.25)^\top
+$$
+
+and
+
+$$
+\boldsymbol{\mu}_{A\given B}(x_3)
+=\begin{pmatrix}1\\2\end{pmatrix}+\begin{pmatrix}0.5\\0.25\end{pmatrix}(x_3-3)
+=\begin{pmatrix}1+0.5(x_3-3)\\2+0.25(x_3-3)\end{pmatrix}.
+$$
+
+The Schur complement subtracts the rank-one update $(0.5,0.25)^\top(1,\ 0.5)$:
+
+$$
+\Sigma_{A\given B}
+=\begin{pmatrix}4&2\\2&3\end{pmatrix}
+-\begin{pmatrix}0.5&0.25\\0.25&0.125\end{pmatrix}
+=\begin{pmatrix}3.5&1.75\\1.75&2.875\end{pmatrix}.
+$$
+
+Thus $(X_1,X_2)\given(X_3=x_3)$ is bivariate normal with that mean and that covariance. The partial correlation is
+
+$$
+\rho_{12\given 3}=\frac{1.75}{\sqrt{3.5\times 2.875}}=\frac{1.75}{\sqrt{10.0625}}=0.5517.
+$$
+
+The marginal correlation is
+
+$$
+\rho_{12}=\frac{2}{\sqrt{4\times 3}}=\frac{2}{\sqrt{12}}=0.5774.
+$$
+
+The association that remains after conditioning on $X_3$ is weaker in this model. The comparison is a statistical adjustment. It is not evidence that $X_3$ causes either of the other coordinates.
+
+:::
+
+### The conditional-mean line and least squares
+
+[Least squares](inf-06-regression.qmd#def-least-squares-line) of a response $Y$ on a predictor $X$ minimises $\sum_i(y_i-a-bx_i)^2$ and treats the observed $x_i$ as fixed. The unconstrained bivariate normal, fitted to the same complete pairs, estimates $(\widehat\mu_X,\widehat\mu_Y)$ and a covariance with one divisor in every entry, whether that divisor is $n$ or $n-1$. Its conditional mean of $Y$ given $X=x$ is
+
+$$
+\widehat\mu_Y+\frac{s_{YX}}{s_{XX}}(x-\widehat\mu_X).
+$$
+
+The slope $s_{YX}/s_{XX}$ and the intercept $\widehat\mu_Y-(s_{YX}/s_{XX})\widehat\mu_X$ are exactly the least-squares slope and intercept. The Gaussian fit and the least-squares fit draw the same conditional-mean line. They do not estimate the same object. Least squares does not model the marginal distribution of $X$, and it does not by itself supply the conditional variance $s_{YY}-s_{YX}^2/s_{XX}$. The major axis of the fitted ellipse is a different line, and so is the line obtained by regressing $X$ on $Y$ and solving for $Y$. The laboratory checks the agreement of the first two lines on *Iris setosa*.
+
+## One species or three
+
+The four iris measurements share centimetre units. Pooling the species changes the question. The calculation below compares the covariance of all $150$ flowers with the covariance within setosa, and then checks that the sample conditional-mean slope matches the least-squares slope. A single Gaussian approximation to the pooled data ignores the species structure. In the code, `iris_x` holds the four measurements and `iris_y` holds the species labels.
+
+```r
+iris_x <- iris[, 1:4]
+iris_y <- iris$Species
+round(cov(iris_x), 3)
+round(cov(subset(iris, Species == "setosa")[, 1:4]), 3)
+aggregate(. ~ Species, data = iris, FUN = mean)
+
+setosa <- subset(iris, Species == "setosa")
+x <- setosa$Sepal.Length
+y <- setosa$Sepal.Width
+ols <- coef(lm(y ~ x))
+S <- cov(cbind(x, y))
+slope <- S[2, 1] / S[1, 1]
+gauss <- c(intercept = mean(y) - slope * mean(x), slope = slope)
+rbind(ols = unname(ols), gaussian = unname(gauss))
+stopifnot(max(abs(unname(ols) - unname(gauss))) < 1e-10)
+
+pairs(iris[, 1:4], col = as.integer(iris_y), pch = 19, cex = 0.55)
+```
+
+The pooled sample covariance, rounded to three decimals, is
+
+```text
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length        0.686      -0.042        1.274       0.516
+Sepal.Width        -0.042       0.190       -0.330      -0.122
+Petal.Length        1.274      -0.330        3.116       1.296
+Petal.Width         0.516      -0.122        1.296       0.581
+```
+
+Within setosa the sample covariance is much smaller, and the sepal and petal blocks are only weakly associated:
+
+```text
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length        0.124       0.099        0.016       0.010
+Sepal.Width         0.099       0.144        0.012       0.009
+Petal.Length        0.016       0.012        0.030       0.006
+Petal.Width         0.010       0.009        0.006       0.011
+```
+
+The species means, in centimetres, are
+
+```text
+     Species Sepal.Length Sepal.Width Petal.Length Petal.Width
+      setosa        5.006       3.428        1.462       0.246
+  versicolor        5.936       2.770        4.260       1.326
+   virginica        6.588       2.974        5.552       2.026
+```
+
+On setosa, sepal width against sepal length, the least-squares fit and the slope taken from the sample covariance agree:
+
+```text
+             intercept   slope
+ols           -0.5694  0.7985
+gaussian      -0.5694  0.7985
+```
+
+The scatterplot matrix of the four measurements, coloured by species, shows three clouds. The colours are the observed labels. No model has been fitted to produce them.
+
+The pooled covariance includes both within-species variation and variation between species means. The law of total covariance makes the split explicit. If $G$ denotes the species,
+
+$$
+\Cov(\mathbf{X})=\E\bigl\{\Cov(\mathbf{X}\given G)\bigr\}+\Cov\bigl\{\E(\mathbf{X}\given G)\bigr\}.
+$$
+
+A strong pooled correlation can therefore be a difference between group means. The setosa block shows what remains when that difference is removed.
+
+::: {.callout-note}
+## Key idea
+
+Conditioning a multivariate normal vector on some of its coordinates gives another multivariate normal. The conditional mean is affine in the conditioning values, and the conditional covariance is the Schur complement $\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top$, which does not depend on the observed values. Zero covariance is independence inside this family. The iris calculation shows why the population has to be named first: the pooled covariance mixes within-species scatter with the gaps between species means.
+:::
+
+## Exercises
+
+::: {#ex-sl-01-1 .exercise}
+## Why a covariance is positive semi-definite
+
+Show that for any random vector with finite second moments, $\mathbf{z}^\top\Sigma\mathbf{z}=\Var(\mathbf{z}^\top\mathbf{X})\ge 0$. Deduce $|\sigma_{jk}|\le\sqrt{\sigma_{jj}\sigma_{kk}}$ from the $2\times 2$ principal minor. Use Sylvester's criterion to decide whether
+
+$$
+\begin{pmatrix}
+1 & 0.9 & 0.9\\
+0.9 & 1 & -0.9\\
+0.9 & -0.9 & 1
+\end{pmatrix}
+$$
+
+could be a correlation matrix.
+
+[Solution](#sol-sl-01-1)
+
+:::
+
+::: {#ex-sl-01-2 .exercise}
+## Variances of linear combinations
+
+Let $\mathbf{X}$ have covariance matrix
+
+$$
+\Sigma=\begin{pmatrix}4&2&1\\2&3&0.5\\1&0.5&2\end{pmatrix}.
+$$
+
+Compute $\Var(X_1-2X_2+X_3)$ and $\Cov(X_1+X_2,\ X_2-X_3)$ using $\Var(\mathbf{a}^\top\mathbf{X})=\mathbf{a}^\top\Sigma\mathbf{a}$ and $\Cov(\mathbf{a}^\top\mathbf{X},\mathbf{b}^\top\mathbf{X})=\mathbf{a}^\top\Sigma\mathbf{b}$.
+
+[Solution](#sol-sl-01-2)
+
+:::
+
+::: {#ex-sl-01-3 .exercise}
+## Uncorrelated but dependent
+
+Let $X\sim\Normal(0,1)$ and $Y=X^2$. Show that $\Cov(X,Y)=0$ although $Y$ is a function of $X$.
+
+[Solution](#sol-sl-01-3)
+
+:::
+
+::: {#ex-sl-01-4 .exercise}
+## Axes of a contour
+
+For
+
+$$
+\Sigma=\begin{pmatrix}2&1\\1&2\end{pmatrix}
+$$
+
+and $\boldsymbol{\mu}=\mathbf{0}$, find the eigenvalues and eigenvectors of $\Sigma$, the directions and lengths of the semi-axes of the contour $\mathbf{x}^\top\Sigma^{-1}\mathbf{x}=C$, and the value of $C$ for which the ellipse contains probability $0.95$.
+
+[Solution](#sol-sl-01-4)
+
+:::
+
+::: {#ex-sl-01-5 .exercise}
+## Normal marginals without joint normality
+
+Let $X\sim\Normal(0,1)$ and let $W$ be independent of $X$ with $\Pr(W=1)=\Pr(W=-1)=\tfrac12$. Put $Y=WX$. Show that $Y\sim\Normal(0,1)$ and $\Cov(X,Y)=0$, but that $(X,Y)$ is not bivariate normal. Consider $X+Y$.
+
+[Solution](#sol-sl-01-5)
+
+:::
+
+::: {#ex-sl-01-6 .exercise}
+## The bivariate conditional
+
+Specialise the conditional normal theorem to $p=2$. Show that
+
+$$
+X_1\given(X_2=x_2)
+\sim\Normal\Bigl(\mu_1+\rho\frac{\sigma_1}{\sigma_2}(x_2-\mu_2),\;\sigma_1^2(1-\rho^2)\Bigr),
+$$
+
+and explain why the regression line of $X_1$ on $X_2$ is not the same line as the one obtained by solving the regression of $X_2$ on $X_1$ for $x_2$.
+
+[Solution](#sol-sl-01-6)
+
+:::
+
+::: {#ex-sl-01-7 .exercise}
+## A Schur-complement check
+
+For the matrix in the trivariate conditional example, verify the determinant identity $|\Sigma|=|\Sigma_{BB}|\,|\Sigma_{A\given B}|$ with $A=\{1,2\}$ and $B=\{3\}$, by computing $|\Sigma|$ directly and comparing it with $|\Sigma_{BB}|\,|\Sigma_{A\given B}|$.
+
+[Solution](#sol-sl-01-7)
+
+:::
+
+::: {#ex-sl-01-8 .exercise}
+## Conditional normal prediction
+
+For a jointly normal vector $(X_1,X_2)^\top$, the mean is $(2,-1)^\top$ and the covariance matrix is
+
+$$
+\Sigma=\begin{pmatrix}9&3\\3&4\end{pmatrix}.
+$$
+
+You may use
+
+$$
+\mathbf{X}_A\given(\mathbf{X}_B=\mathbf{x}_B)
+\sim\Normal\bigl(\boldsymbol{\mu}_A+\Sigma_{AB}\Sigma_{BB}^{-1}(\mathbf{x}_B-\boldsymbol{\mu}_B),\;
+\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{BA}\bigr).
+$$
+
+(a) Determine the conditional distribution of $X_1$ given $X_2=3$. Show the substitution, not only the final parameters.
+
+(b) Let $R=X_1-\E(X_1\given X_2)$. State its distribution and explain whether it is independent of $X_2$.
+
+(c) Would the same independence conclusion follow from the covariance matrix alone, without joint normality? Explain.
+
+[Solution](#sol-sl-01-8)
+
+:::
