@@ -113,7 +113,7 @@ $$
 L(\mu)=\frac1{\sqrt{2\pi}}\exp\bigl\{-\tfrac12(871-\mu)^2\bigr\},
 $$
 
-which is largest at $\mu=871$. Here the likelihood of a single summary is enough, because for a normal mean with known variance the sample mean carries all the information in the sample about $\mu$; that is the idea of a [sufficient statistic](bayes-07-exponential-families.qmd#def-sufficient-statistic).
+which is largest at $\mu=871$. Here the likelihood of a single summary is enough, because for a normal mean with known variance the sample mean carries all the information in the sample about $\mu$; that is the idea of a [sufficient statistic](bayes-07-exponential-families.qmd#def-definition).
 
 ::: {#def-maximum-likelihood .definition}
 ## Maximum likelihood

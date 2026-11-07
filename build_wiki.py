@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import os
 import re
+import unicodedata
 import shutil
 import subprocess
 import sys
@@ -1306,9 +1307,9 @@ SKIP_HEADINGS = {"key idea", "exercises", "questions on this topic", "see also",
 # Index entries that point at another entry.
 SEE_ALSO = {
     "GLM": "Generalised linear model",
-    "GLMM": "A Bernoulli response",
+    "GLMM": "Generalised linear mixed model",
     "GAM": "Sums of smooth functions",
-    "GEE": "Marginal model",
+    "GEE": "Generalised estimating equations",
     "MCMC": "Markov chain",
     "HPD interval": "Credible-region constructions",
     "OLS": "Ordinary least squares",
@@ -1468,6 +1469,252 @@ def copy_for_article(text: str, source: Path, article_path: Path) -> str:
 def demote_headings(text: str) -> str:
     """One level down, so a copied answer's headings sit under its example's title."""
     return protect_code(text, lambda s: re.sub(r"^(#{2,5}) ", r"#\1 ", s, flags=re.M))
+
+
+# ---------------------------------------------------------------------------
+# Topic pages
+#
+# Every heading in a chapter is a topic, and gets a page of its own in
+# articles/ with the section's text on it, unless an article of the same name
+# already exists. Ideas that a chapter names inside a paragraph get pages too,
+# from topics.py, with a short lead and the paragraphs that discuss them. The
+# chapter keeps its text; each heading gains a "Main article" line.
+# ---------------------------------------------------------------------------
+
+import topics  # noqa: E402
+
+TOPIC_KINDS = {"section", "topic"}
+PAGE_PART: dict[Path, str] = {}  # chapter path -> part
+SECTION_PAGE: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> article slug
+TOPIC_TERMS: list[tuple] = []  # term links for named topics, in topics.py order
+TOPIC_TERMS_LATE: list[tuple] = []
+TOPIC_ERRORS: list[str] = []
+TOPIC_EXAMPLES: dict[str, list[str]] = {}  # topic slug -> worked examples (exm- ids) shown on its page
+SECTION_TEXT: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> text below the heading
+
+# Inline maths in a heading, written out for a page title.
+TITLE_MATH = {
+    r"\lambda": "λ", r"\mu": "μ", r"\infty": "∞", r"\times": "×", r"\le": "≤", r"\ge": "≥",
+    r"\sigma": "σ", r"\pi": "π", r"\alpha": "α", r"\beta": "β", r"\theta": "θ", r"\Sigma": "Σ",
+}
+SUPERSCRIPT = str.maketrans("0123456789T", "⁰¹²³⁴⁵⁶⁷⁸⁹ᵀ")
+SUBSCRIPT = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+
+
+def title_text(heading: str) -> str:
+    """A heading as a page title: maths written out, markup and a leading "The" dropped."""
+
+    def math(match: re.Match) -> str:
+        tex = match.group(1)
+        for cmd, char in TITLE_MATH.items():
+            tex = re.sub(re.escape(cmd) + r"(?![A-Za-z])", char, tex)
+        tex = re.sub(r"\\(?:mathbf|boldsymbol|mathrm|operatorname|text)\{([^{}]*)\}", r"\1", tex)
+        tex = re.sub(r"\^\{?([0-9T]+)\}?", lambda m: m.group(1).translate(SUPERSCRIPT), tex)
+        tex = re.sub(r"_\{?([0-9]+)\}?", lambda m: m.group(1).translate(SUBSCRIPT), tex)
+        tex = tex.replace("{", "").replace("}", "").replace("\\", "")
+        tex = re.sub(r"\s*([<>=−-])\s*", lambda m: f" {'−' if m.group(1) == '-' else m.group(1)} ", tex)
+        return tex.strip()
+
+    text = re.sub(r"\$([^$]+)\$", math, heading)
+    text = re.sub(r"[*_`]", "", text)
+    text = " ".join(text.replace("--", "–").split())
+    text = re.sub(r"^The\s+(?=\S)", "", text)
+    return text[:1].upper() + text[1:]
+
+
+def chapter_sections(note: dict, prose: str) -> list[dict]:
+    """The headings of a chapter outside boxes, each with the text below it."""
+    lines = prose.split("\n")
+    heads, depth = [], 0
+    for i, line in enumerate(lines):
+        if DIV_OPEN.match(line):
+            depth += 1
+            continue
+        if DIV_CLOSE.match(line):
+            depth = max(0, depth - 1)
+            continue
+        found = HEADING.match(line)
+        if depth == 0 and found:
+            hashes, text, attrs = found.groups()
+            ident = re.search(r"#([\w-]+)", attrs or "")
+            heads.append((i, len(hashes), text, ident.group(1) if ident else None))
+    sections = []
+    for k, (i, level, text, ident) in enumerate(heads):
+        if not ident or plain(text).lower() in SKIP_HEADINGS:
+            continue
+        end = next((j for j, lv, _, _ in heads[k + 1 :] if lv <= level), len(lines))
+        body = FOOTNOTE_DEF.sub("", "\n".join(lines[i + 1 : end])).strip()
+        sections.append({"line": i, "level": level, "heading": text, "anchor": ident, "text": body})
+    return sections
+
+
+def paragraph_excerpt(prose: str, phrase: str, where: str) -> str:
+    """The paragraph that first mentions phrase, with any display maths and the
+    sentence that finishes it."""
+    blocks = [b for b in re.split(r"\n\s*\n", prose) if b.strip()]
+    flat = [re.sub(r"\]\([^)]*\)(\{[^}]*\})?", "]", b).replace("[", "") for b in blocks]
+    needle = phrase.lower()
+    k = next((i for i, b in enumerate(flat) if needle in b.lower() and not b.lstrip().startswith(("#", "|", "!", "::: {.mainarticle}"))), None)
+    if k is None:
+        TOPIC_ERRORS.append(f"no paragraph mentions {phrase!r} in {where}")
+        return ""
+    out = [blocks[k]]
+    j = k + 1
+    while j < len(blocks) and blocks[j].lstrip().startswith("$$"):
+        out.append(blocks[j])
+        j += 1
+        if j < len(blocks) and re.match(r"\s*(?:[a-z]|where\b)", blocks[j]):
+            out.append(blocks[j])
+            j += 1
+    text = "\n\n".join(out)
+    return "\n".join(l for l in text.split("\n") if not re.match(r"^:{3,}", l)).strip()
+
+
+def section_title(fname: str, sec: dict) -> str:
+    return topics.TITLES.get(f"{fname}#{sec['anchor']}") or title_text(sec["heading"])
+
+
+def existing_article(title: str) -> str | None:
+    """An article from a box or a card with this name, or its singular."""
+    s = slug(title)
+    for cand in (s, re.sub(r"ies$", "y", s), re.sub(r"s$", "", s), re.sub(r"es$", "", s)):
+        a = ARTICLES.get(cand)
+        if a and (a["card"] or (a["box"] and a["box"]["kind"] not in TOPIC_KINDS)):
+            return cand
+    return None
+
+
+def topic_article(s: str, term: str, kind: str, note: dict, part: str, anchor: str) -> dict:
+    article = ARTICLES.get(s) or new_article(s, term)
+    if article["box"] is None:
+        article["box"] = {
+            "chapter": note["path"],
+            "chapter_title": note["title"],
+            "part": part,
+            "anchor": anchor,
+            "kind": kind,
+            "lines": [],
+            "snippet": "",
+            "excerpts": [],
+            "lead": "",
+        }
+    return article
+
+
+def register_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
+    """Make a page for every heading and every named topic."""
+    by_file = {note["path"].name: (part, note, prose) for part, note, prose in prepared}
+    for alias, target in topics.SAME_AS.items():
+        if target not in ARTICLES:
+            raise SystemExit(f"topics.SAME_AS[{alias!r}]: no article {target!r}")
+    sections: dict[str, list[dict]] = {}
+    for part, note, prose in prepared:
+        fname = note["path"].name
+        sections[fname] = chapter_sections(note, prose)
+        for sec in sections[fname]:
+            key = f"{fname}#{sec['anchor']}"
+            title = section_title(fname, sec)
+            target = topics.SAME_AS.get(key) or (None if key in topics.TITLES else existing_article(title))
+            if target:
+                SECTION_PAGE[(fname, sec["anchor"])] = target
+                continue
+            s = slug(title)
+            if s in ARTICLES and ARTICLES[s]["box"] and ARTICLES[s]["box"]["kind"] not in TOPIC_KINDS:
+                raise SystemExit(f"Heading {key} would replace the article {s}; give it a title in topics.TITLES")
+            topic_article(s, title, "section", note, part, sec["anchor"])
+            SECTION_PAGE[(fname, sec["anchor"])] = s
+
+    for spec in topics.TOPICS:
+        s = slug(spec["term"])
+        if s in ARTICLES and (ARTICLES[s]["card"] or ARTICLES[s]["box"]["kind"] not in TOPIC_KINDS):
+            raise SystemExit(f"Topic {spec['term']!r} is already an article; list it in topics.ALIASES instead")
+        homes = [spec["home"]] + spec["also"]
+        places = []
+        for place in homes:
+            fname, _, rest = place.partition("#") if "#" in place else place.partition(":")
+            fname = fname.strip()
+            if fname not in by_file:
+                raise SystemExit(f"Topic {spec['term']!r}: no chapter {fname}")
+            part, note, prose = by_file[fname]
+            if "#" in place and rest.startswith("exm-"):
+                if rest not in BOOK_EXAMPLE_BOXES:
+                    raise SystemExit(f"Topic {spec['term']!r}: no example #{rest} in {fname}")
+                TOPIC_EXAMPLES.setdefault(s, []).append(rest)
+                places.append((part, note, rest, ""))
+            elif "#" in place:
+                sec = next((x for x in sections[fname] if x["anchor"] == rest), None)
+                if not sec:
+                    raise SystemExit(f"Topic {spec['term']!r}: no heading #{rest} in {fname}")
+                places.append((part, note, rest, None))
+            else:
+                places.append((part, note, "", rest.strip()))
+        part, note, anchor, _ = places[0]
+        article = topic_article(s, spec["term"], "topic", note, part, anchor)
+        article["term"] = spec["term"]
+        box = article["box"]
+        box["kind"] = "topic"
+        box["lead"] = spec["lead"]
+        box["topic"] = spec
+        box["places"] = places
+        for phrase in spec["links"]:
+            entry = (topics.phrase_regex(phrase), "ART", s, spec["scope"], spec["exclude"])
+            (TOPIC_TERMS_LATE if spec["late"] else TOPIC_TERMS).append(entry)
+    for group in topics.RELATED:
+        for r in group:
+            if r not in ARTICLES:
+                raise SystemExit(f"topics.RELATED: no page {r!r}")
+
+
+def add_main_article_notes(note: dict, prose: str) -> str:
+    """A "Main article" line under each heading that has a page."""
+    fname = note["path"].name
+    lines = prose.split("\n")
+    for sec in reversed(chapter_sections(note, prose)):
+        s = SECTION_PAGE.get((fname, sec["anchor"]))
+        if not s:
+            continue
+        a = ARTICLES[s]
+        lines[sec["line"] + 1 : sec["line"] + 1] = [
+            "",
+            f"::: {{.mainarticle}}\nMain article: [{a['term']}]({href(note['path'], a['path'])})\n:::",
+        ]
+    out = "\n".join(lines)
+    for sec in chapter_sections(note, out):
+        text = re.sub(r"\A::: \{\.mainarticle\}\n.*?\n:::\s*", "", sec["text"], flags=re.S)
+        SECTION_TEXT[(fname, sec["anchor"])] = text
+    return out
+
+
+def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
+    """Copy each heading's text, and each named topic's paragraphs, onto its page."""
+    by_file = {note["path"].name: prose for _, note, prose in prepared}
+    for (fname, anchor), s in SECTION_PAGE.items():
+        box = ARTICLES[s]["box"]
+        if not box or box["kind"] not in TOPIC_KINDS:
+            continue
+        note = next(n for _, n, _ in prepared if n["path"].name == fname)
+        box["excerpts"].append({"chapter": note["path"], "chapter_title": note["title"], "anchor": anchor, "text": SECTION_TEXT[(fname, anchor)]})
+    for a in ARTICLES.values():
+        box = a["box"]
+        if not box or box.get("kind") != "topic":
+            continue
+        for part, note, anchor, phrase in box["places"]:
+            if phrase == "":
+                continue  # a worked example, or the lead alone
+            if phrase is None:
+                text = SECTION_TEXT[(note["path"].name, anchor)]
+            else:
+                text = paragraph_excerpt(by_file[note["path"].name], phrase, note["path"].name)
+            if not any(e["chapter"] == note["path"] and e["text"] == text for e in box["excerpts"]):
+                box["excerpts"].append({"chapter": note["path"], "chapter_title": note["title"], "anchor": anchor, "text": text})
+    if TOPIC_ERRORS:
+        raise SystemExit("topics.py:\n  " + "\n  ".join(TOPIC_ERRORS))
+    for a in ARTICLES.values():
+        box = a["box"]
+        if box and box["kind"] in TOPIC_KINDS:
+            source = box["lead"] or (box["excerpts"][0]["text"] if box["excerpts"] else "")
+            source = re.split(r"\\begin\{", source)[0]  # a display environment does not fit a glossary cell
+            box["snippet"] = snippet_from(source.split("\n"))
 
 
 EXAMPLE_OPEN = re.compile(r"^:{3,}\s*\{#(exm-[\w-]+)\s+\.example\}")
@@ -1869,7 +2116,7 @@ def split_alternatives(pattern: str) -> list[str]:
     parts.append("".join(current))
     return parts
 
-_COMPILED: list[tuple] = []  # (loose, strict, target page, anchor, scope, home chapter)
+_COMPILED: list[tuple] = []  # (loose, strict, target page, anchor, scope, home chapter, pages excluded)
 
 PROTECT = re.compile(
     r"```.*?```"  # fenced code
@@ -1891,13 +2138,16 @@ PROTECT = re.compile(
 def compile_terms(notes: dict) -> None:
     """Resolve TERMS. A term whose target is a named box links to its article."""
     missing = []
-    for pattern, code, key, scope in TERMS:
+    entries = [tuple(t) + (set(),) * (5 - len(t)) for t in topics.LINKS + TOPIC_TERMS + TERMS + TOPIC_TERMS_LATE + topics.LINKS_LAST]
+    for pattern, code, key, scope, exclude in entries:
         if code == "ART":
             article = ARTICLES.get(key)
             if not article:
                 missing.append(f"article {key}")
                 continue
             page, anchor, home = article["path"], "", article_home(article)
+            if article["box"] and article["box"]["kind"] in TOPIC_KINDS:
+                home = page  # a topic's own chapter links to it too
         else:
             fname = CHAPTER_CODES[code]
             page = home = notes[fname]["path"]
@@ -1913,13 +2163,16 @@ def compile_terms(notes: dict) -> None:
                 anchor = HEADING_ANCHORS.get((fname, plain(key)), "")
                 if not anchor:
                     missing.append(f"{code} {key}")
+                elif (fname, anchor) in SECTION_PAGE:
+                    page = home = ARTICLES[SECTION_PAGE[(fname, anchor)]]["path"]
+                    anchor = ""
         words = split_alternatives(pattern)
         acro = "|".join(w for w in words if ACRONYMS.match(w))
         rest = "|".join(w for w in words if not ACRONYMS.match(w))
         # An en dash joins names too: "Beta–Binomial distribution" is not a binomial distribution.
         loose = re.compile(rf"(?<![\w–-])(?:{rest})(?![\w–-])", re.I) if rest else None
         strict = re.compile(rf"(?<![\w–-])(?:{acro})(?![\w–-])") if acro else None
-        _COMPILED.append((loose, strict, page, anchor, scope, home))
+        _COMPILED.append((loose, strict, page, anchor, scope, home, exclude))
     if missing:
         raise SystemExit("Term links point at missing anchors: " + ", ".join(missing))
 
@@ -1972,11 +2225,13 @@ def autolink(text: str, page: Path, part: str | None) -> str:
         last = end
     segments.append([text[last:], False])
     done: set[tuple[Path, str]] = set()
-    for loose, strict, target, anchor, scope, home in _COMPILED:
+    for loose, strict, target, anchor, scope, home, exclude in _COMPILED:
         # No link to the page itself, nor from the chapter that teaches the term.
         if target == page or home == page or (target, anchor) in done:
             continue
         if scope is not None and part not in scope:
+            continue
+        if page.stem in exclude:
             continue
         for i, (segment, protected) in enumerate(segments):
             if protected:
@@ -2005,7 +2260,7 @@ def links_in(text: str, page: Path) -> list[tuple[Path, str]]:
 
 
 PAGE_ORDER: list[Path] = []
-COPIED_LABELS = {"property", "example"}  # article blocks copied from other pages
+COPIED_LABELS = {"property", "example", "excerpt"}  # article blocks copied from other pages
 
 
 PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
@@ -2266,11 +2521,19 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     def add_page(path, title, part, kind, blocks, meta=None):
         pages.append({"path": path, "title": title, "part": part, "kind": kind, "blocks": blocks, "meta": meta or {}})
 
-    # Chapters.
+    # Chapters. Every chapter is read first, so that each heading's page can be
+    # registered, and linked from its chapter, before any page is written.
+    prepared = []
     for part, note in chapters:
-        own = by_topic.get(note["path"].name, [])
         prose = prepare(strip_first_heading(note["prose"]), "../figures", page=note["path"])
-        prose = index_chapter(note, part, prose)
+        prepared.append((part, note, index_chapter(note, part, prose)))
+    for part, note, _ in prepared:
+        PAGE_PART[note["path"]] = part
+    register_topic_pages(prepared)
+    prepared = [(part, note, add_main_article_notes(note, prose)) for part, note, prose in prepared]
+    fill_topic_pages(prepared)
+    for part, note, prose in prepared:
+        own = by_topic.get(note["path"].name, [])
         hat = [f"Part of **{part}**"]
         if own:
             hat.append(f"[{len(own)} question{'s' if len(own) != 1 else ''} on this topic](#questions-on-this-topic)")
@@ -2286,7 +2549,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                     + question_table(own, note["path"]),
                 )
             )
-        own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"]]
+        own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
+        own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
         siblings = [n for p, n in chapters if p == part]
         blocks.insert(1, (False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
         article_line = (
@@ -2296,6 +2560,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             if own_articles
             else ""
         )
+        if own_topics:
+            article_line += "- Topics in this chapter: " + " · ".join(f"[{a['term']}]({href(note['path'], a['path'])})" for a in own_topics) + "\n"
         blocks.append(
             (
                 False,
@@ -2370,6 +2636,13 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         article = next((a for a in ARTICLES.values() if a["term"].lower() == target.lower()), None)
         if article:
             article["aliases"].append(f"{slug(alias)}.html")  # a redirect page, made by Quarto
+    for alias, target in topics.ALIASES.items():
+        if target not in ARTICLES:
+            raise SystemExit(f"topics.ALIASES[{alias!r}]: no article {target!r}")
+        if slug(alias) in ARTICLES:
+            raise SystemExit(f"topics.ALIASES[{alias!r}]: {slug(alias)} is already a page")
+        SEE_ALSO[alias] = ARTICLES[target]["term"]
+        ARTICLES[target]["aliases"].append(f"{slug(alias)}.html")
     qmap = {q["id"]: q for q in questions}
     read_formula_tables(notes)
     check_extras(qmap)
@@ -2487,9 +2760,54 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
     return "".join(out)
 
 
+def topic_where(article: dict, path: Path) -> list[str]:
+    """Links to every chapter place a topic page is taught in, home first."""
+    box = article["box"]
+    places = [(e["chapter"], e["chapter_title"], e["anchor"]) for e in box["excerpts"]]
+    for part, note, anchor, phrase in box.get("places", []):
+        places.append((note["path"], note["title"], anchor))
+    if not places:
+        places.append((box["chapter"], box["chapter_title"], box["anchor"]))
+    out = []
+    for chapter, title, anchor in places:
+        item = f"[{title}]({href(path, chapter)}{'#' + anchor if anchor else ''})"
+        if item not in out:
+            out.append(item)
+    return out
+
+
+def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
+    """Hatnote, lead, and the chapter text of a heading's or a named topic's page."""
+    path, box = article["path"], article["box"]
+    excerpts = box["excerpts"]
+    where = [re.sub(r"^\[(.*?)\]", r"[*\1*]", w) for w in topic_where(article, path)]
+    noun = "Section" if box["kind"] == "section" else "Topic"
+    hat = f"{noun} of {where[0]}, part of {box['part']}" if where else f"{noun}, part of {box['part']}"
+    if len(where) > 1:
+        hat += " · Also in " + ", ".join(where[1:])
+    blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat + "\n:::\n\n")]
+    if box["lead"]:
+        blocks.append((True, "lead", box["lead"] + "\n\n"))
+    single = len(excerpts) == 1 and not box["lead"]
+    seen_heads = set()
+    for e in excerpts:
+        if not single:
+            head = e["chapter_title"]
+            ident = "in-" + slug(e["chapter"].stem + "-" + (e["anchor"] or "text"))
+            if head in seen_heads:
+                head = f"{head}, continued"
+            seen_heads.add(head)
+            source = f"{href(path, e['chapter'])}{'#' + e['anchor'] if e['anchor'] else ''}"
+            blocks.append((False, "excerpt-head", f"## In *{head}* {{#{ident}}}\n\n::: {{.mainarticle}}\nFrom [{e['chapter_title']}]({source})\n:::\n\n"))
+        blocks.append((True, "excerpt", copy_for_article(e["text"], e["chapter"], path) + "\n\n"))
+    return blocks
+
+
 def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     """Hatnote, lead and statement of an article. Used in and See also come later."""
     path, box, card = article["path"], article["box"], article["card"]
+    if box and box["kind"] in TOPIC_KINDS:
+        return topic_blocks(article)
     hat = []
     if box:
         hat.append(
@@ -2538,7 +2856,9 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     home = article_home(article)
     by_q = {q["path"]: q for q in questions}
     lines = ["\n\n## Used in {#used-in}\n\n"]
-    if box:
+    if box and box["kind"] in TOPIC_KINDS:
+        lines.append("- **Taught in** " + " · ".join(topic_where(article, path)) + "\n")
+    elif box:
         lines.append(f"- **Taught in** [{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']}), where the derivation and examples are.\n")
     else:
         lines.append(f"- **Listed on** the [distribution sheet]({href(path, DIST_SHEET)}#{article['card']['anchor']}).\n")
@@ -2574,9 +2894,10 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
         if n:
             lines.append(f"- [All {n} questions on *{box['chapter_title']}*]({href(path, box['chapter'])}#questions-on-this-topic)\n")
 
-    # Neighbours: articles this one links to, articles that link here, then the chapter's other articles.
+    # Neighbours: pages on the same idea elsewhere, articles this one links to,
+    # articles that link here, then the chapter's other articles.
     article_paths = {a["path"]: a for a in ARTICLES.values()}
-    near: list[dict] = []
+    near: list[dict] = [ARTICLES[r] for group in topics.RELATED if article["slug"] in group for r in group if r != article["slug"]]
     for p in forward:
         if p in article_paths and p != path:
             near.append(article_paths[p])
@@ -2586,7 +2907,8 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     for other in ARTICLES.values():
         if other["path"] != path and article_home(other) == home:
             near.append(other)
-    unique = list(dict.fromkeys(a["slug"] for a in near))[:8]
+    n_related = len({r for group in topics.RELATED if article["slug"] in group for r in group}) - (1 if any(article["slug"] in g for g in topics.RELATED) else 0)
+    unique = list(dict.fromkeys(a["slug"] for a in near))[: max(8, n_related + 4)]
     see = ["\n\n## See also {#see-also}\n\n"]
     if unique:
         see.append(" · ".join(f"[{ARTICLES[s]['term']}]({href(path, ARTICLES[s]['path'])})" for s in unique) + "\n\n")
@@ -2811,7 +3133,7 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
             )
             blocks.append((True, "property", copy_for_article("\n".join(box["lines"]), box["chapter"], path) + "\n\n"))
 
-    worked = [e for e, slugs in BOOK_EXAMPLES.items() if slug_ in slugs]
+    worked = [e for e, slugs in BOOK_EXAMPLES.items() if slug_ in slugs] + TOPIC_EXAMPLES.get(slug_, [])
     asked = EXAMPLES.get(slug_, [])
     if worked or asked:
         blocks.append((False, "examples-head", "\n\n## Examples {#examples}\n\n"))
@@ -2907,13 +3229,18 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         note = (remarks + "\n\n" if remarks else "") + sources + "."
     else:
         rows.append(("Type", box["kind"].capitalize()))
-    if box:
+    if box and box["kind"] in TOPIC_KINDS:
+        rows.append(("Taught in", " · ".join(topic_where(article, path))))
+        chapters_seen = [e["chapter"] for e in box["excerpts"]] + [n["path"] for _, n, _, _ in box.get("places", [])]
+        parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in chapters_seen]))
+        rows.append(("Part", " · ".join(parts)))
+    elif box:
         rows.append(("Taught in", f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"))
         rows.append(("Part", box["part"]))
     else:
         rows.append(("Listed on", f"[Distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"))
     n_props = len(PROPERTIES.get(slug_, []))
-    n_examples = len(EXAMPLES.get(slug_, [])) + sum(1 for s in BOOK_EXAMPLES.values() if slug_ in s)
+    n_examples = len(EXAMPLES.get(slug_, [])) + sum(1 for s in BOOK_EXAMPLES.values() if slug_ in s) + len(TOPIC_EXAMPLES.get(slug_, []))
     n_questions = len({source["path"] for source, _, _ in links if source["kind"] == "question"})
     if n_props:
         rows.append(("Properties", f"[{n_props}](#properties)"))
@@ -2971,6 +3298,8 @@ def write_glossary(questions: list[dict]) -> None:
     named = {(e["term"].lower(), e["home"]) for e in entries}
     # Sections stay links into their chapter, unless a box of the same name has an article.
     for e in GLOSSARY:
+        if e["kind"] == "section" and (e["page"].name, e["anchor"]) in SECTION_PAGE:
+            continue  # the heading's page is an entry already
         if e["kind"] == "section" and (e["term"].lower(), e["page"]) not in named:
             entries.append(dict(e))
     # Concept checks are short questions on one idea each.
@@ -2989,7 +3318,7 @@ def write_glossary(questions: list[dict]) -> None:
     # Aliases are redirects: the row's own link goes straight to the real entry.
     by_term = {e["term"].lower(): e for e in entries}
     for alias, target in SEE_ALSO.items():
-        found = by_term.get(target.lower())
+        found = next((e for e in entries if e["term"].lower() == target.lower() and e["page"].parent.name == "articles"), None) or by_term.get(target.lower())
         if not found:
             raise SystemExit(f"Redirect {alias!r} points at {target!r}, which has no entry")
         link = href(page, found["page"]) + (f"#{found['anchor']}" if found["anchor"] else "")
@@ -3037,8 +3366,8 @@ def write_glossary(questions: list[dict]) -> None:
     n_articles = len(ARTICLES)
     lines = [
         f"Every named idea, A to Z: {len(seen)} entries. "
-        f"The {n_articles} definitions, theorems, remarks and distributions each have an article of their own; "
-        "sections link into their chapter, questions link to their page, and redirects to the entry they stand for. "
+        f"The {n_articles} definitions, theorems, remarks, distributions, topics and sections each have a page of their own; "
+        "questions link to their page, and redirects to the entry they stand for. "
         "Hover over a link to preview it.",
         "",
         filter_box("Filter the glossary, e.g. prior, deviance, stationary"),
@@ -3064,6 +3393,7 @@ def write_glossary(questions: list[dict]) -> None:
 
 
 def slug(text: str) -> str:
+    text = "".join(c for c in unicodedata.normalize("NFKD", text) if not unicodedata.combining(c))  # Fréchet -> frechet
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
@@ -3094,7 +3424,14 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     lines += ["## Final preparation {#final-preparation}", ""]
     for note in final_notes:
         lines.append(f"- [{note['title']}]({href(topics_path, note['path'])})")
-    lines += ["", "## How the topics fit together", "", strip_first_heading(notes["index.qmd"]["prose"]).split("\n## On this site")[0].strip()]
+    fit = strip_first_heading(notes["index.qmd"]["prose"]).split("\n## On this site")[0].strip()
+    # The prerequisites named in this paragraph are chapters on this site.
+    fit = fit.replace(
+        "a working knowledge of probability, the linear model,",
+        "a working knowledge of [probability](prob-01-experiments.qmd), [the linear model](inf-06-regression.qmd),",
+    )
+    fit = autolink(prepare(fit, "../figures"), topics_path, None)
+    lines += ["", "## How the topics fit together", "", fit]
     body = prepare("\n".join(lines), "../figures")
     topics_path.write_text(f"---\ntitle: \"Topics\"\n---\n\n{body}\n", encoding="utf-8")
 

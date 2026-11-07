@@ -6,7 +6,7 @@ A class label and a cluster label answer different questions. If observations th
 
 Before choosing an algorithm, settle what a useful group would mean for the problem. Which differences between observations should count? How much detail should the partition retain? Is the calculation describing a sample, or proposing a population model? Those choices determine the task. The geometric description used here is that nearby observations should share a centre.
 
-K-means asks for a chosen number $K$ of centres and minimises a within-cluster sum of squared Euclidean distances. The labels it returns are names for the groups in that partition. They are not measured species identities. The choice of $K$, and the choice of scale, are part of the specification. Several random starts reduce the chance of reporting a poor local minimum. They do not establish that the groups are biological populations.
+K-means asks for a chosen number $K$ of centres and minimises a within-cluster sum of squared Euclidean distances. The labels it returns are names for the groups in that partition. They are not measured species identities. The choice of $K$, and the choice of scale, are part of the specification. Several random starts reduce the chance of reporting a poor local minimum. They do not establish that the groups are biological populations. [Hierarchical clustering](sl-07-linkage-and-density.qmd) does not fix $K$ in advance: it builds a tree of nested partitions from pairwise dissimilarities, and a partition is read off by cutting the tree.
 
 ## The criterion
 

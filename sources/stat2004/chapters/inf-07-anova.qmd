@@ -216,6 +216,8 @@ with $\varepsilon_{ij}$ independent and $\Normal(0,\sigma^2)$. Here $\mu$ is the
 
 :::
 
+Here the block effects $\beta_i$ are fixed constants, one for each coupon in this study. When the blocks are themselves a sample from a larger population, such as hospitals, patients or fields, the block effects can instead be drawn from a distribution, which is the [random intercept](08-random-intercepts.qmd) model.
+
 The design is balanced: every block–treatment cell has the same number of observations, here one. The sums of squares are
 
 $$
