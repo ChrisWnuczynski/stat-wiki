@@ -43,16 +43,82 @@ jobs:
       - name: Render the site
         run: quarto render
 
-      - uses: actions/upload-pages-artifact@v4
+      - id: upload
+        uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact_id }}
+
+  # Publish the site through the Pages deployment API. This does what
+  # actions/deploy-pages does, with two differences. GitHub Pages sometimes
+  # sits in "syncing files" well past deploy-pages' fixed ten-minute limit, so
+  # each attempt here waits up to fifteen minutes. And deploy-pages names every
+  # deployment after the commit, so a re-run collides with the deployment it
+  # cancelled; each attempt here gets a name of its own, and a stuck attempt
+  # is cancelled and tried again.
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/github-script@v8
+        env:
+          ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+            const failed = ['deployment_failed', 'deployment_perms_error', 'deployment_content_failed', 'deployment_cancelled', 'deployment_lost'];
+            const attempts = 3, waitMinutes = 15, pauseMinutes = 3;
+            for (let attempt = 1; attempt <= attempts; attempt++) {
+              const version = `${context.sha}-${context.runId}-${process.env.GITHUB_RUN_ATTEMPT}-${attempt}`;
+              let data;
+              try {
+                ({ data } = await github.request('POST /repos/{owner}/{repo}/pages/deployments', {
+                  owner, repo,
+                  artifact_id: Number(process.env.ARTIFACT_ID),
+                  pages_build_version: version,
+                  oidc_token: await core.getIDToken(),
+                }));
+              } catch (error) {
+                core.warning(`Attempt ${attempt}: could not create a deployment: ${error.message}`);
+                if (attempt < attempts) await sleep(pauseMinutes * 60000);
+                continue;
+              }
+              const id = data.id || (data.status_url || '').split('/').pop() || version;
+              core.info(`Attempt ${attempt} of ${attempts}: deployment ${id}`);
+              const start = Date.now();
+              let status = '';
+              while (Date.now() - start < waitMinutes * 60000) {
+                await sleep(10000);
+                try {
+                  const res = await github.request('GET /repos/{owner}/{repo}/pages/deployments/{id}', { owner, repo, id });
+                  status = res.data.status || '';
+                } catch (error) {
+                  core.warning(`Could not read the deployment status: ${error.message}`);
+                  continue;
+                }
+                core.info(`  ${Math.round((Date.now() - start) / 1000)} s: ${status || 'no status yet'}`);
+                if (status === 'succeed') {
+                  core.setOutput('page_url', data.page_url || '');
+                  return;
+                }
+                if (failed.includes(status)) break;
+              }
+              if (!failed.includes(status)) {
+                try {
+                  await github.request('POST /repos/{owner}/{repo}/pages/deployments/{id}/cancel', { owner, repo, id });
+                } catch (error) {
+                  core.warning(`Could not cancel deployment ${id}: ${error.message}`);
+                }
+              }
+              core.warning(`Attempt ${attempt} ended with status "${status || 'none'}".`);
+              if (attempt < attempts) await sleep(pauseMinutes * 60000);
+            }
+            core.setFailed(`GitHub Pages did not finish deploying after ${attempts} attempts.`);
