@@ -1662,7 +1662,7 @@ def register_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
             if target:
                 SECTION_PAGE[(fname, sec["anchor"])] = target
                 continue
-            s = slug(title)
+            s = topics.SLUGS.get(key) or slug(title)
             if s in ARTICLES and ARTICLES[s]["box"] and ARTICLES[s]["box"]["kind"] not in TOPIC_KINDS:
                 raise SystemExit(f"Heading {key} would replace the article {s}; give it a title in topics.TITLES")
             topic_article(s, title, "section", note, part, sec["anchor"])

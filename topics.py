@@ -237,7 +237,7 @@ sl-17-support-vectors.qmd#s-what-the-multipliers-say | Support vectors and their
 sl-18-high-dimensional.qmd#s-choosing | Choosing the lasso penalty
 sl-18-high-dimensional.qmd#s-extensions | Extensions of the lasso
 sl-18-high-dimensional.qmd#s-principal-components-of-the-matrix | Principal components of the colon-cancer matrix
-sl-18-high-dimensional.qmd#s-regression | Regression when p > n
+sl-18-high-dimensional.qmd#s-regression | Regression when p is greater than n
 sl-18-high-dimensional.qmd#s-the-alon-colon-cancer-matrix | Alon colon-cancer data
 sl-18-high-dimensional.qmd#s-what-the-question-is | Questions to ask of high-dimensional data
 sl-18-high-dimensional.qmd#s-where-the-columns-come-from | Where high-dimensional columns come from
@@ -274,6 +274,11 @@ sp-12-extremes.qmd#s-three-tails | Three tail types for maxima
 sp-12-extremes.qmd#s-what-the-classification-says | Extreme-value classification
 """
 TITLES = dict(tuple(x.strip() for x in line.split("|")) for line in _TITLES.strip().splitlines())
+
+# The file name is already published. The title can change; this slug stays.
+SLUGS = {
+    "sl-18-high-dimensional.qmd#s-regression": "regression-when-p-n",
+}
 
 # Headings that are an existing article under another name.
 SAME_AS = {
