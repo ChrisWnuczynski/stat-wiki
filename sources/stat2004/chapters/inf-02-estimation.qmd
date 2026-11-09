@@ -282,7 +282,37 @@ A sequence of estimators $T_n$, one for each sample size $n$, is consistent for 
 
 :::
 
-For a large sample the leading question is whether the estimator settles on $\theta$. If the mean squared error tends to zero, the estimator is consistent, by Chebyshev's inequality: $\Pr(|T_n-\theta|>\varepsilon)\le\operatorname{MSE}(T_n)/\varepsilon^2$. The [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers) says that the sample mean is consistent for $\mu$, and the same limit passes to continuous functions of a consistent estimator, which is why moment estimators are usually consistent. Both estimators in each example above are consistent. Maximum likelihood estimators are consistent in the regular models used here.
+For a large sample the leading question is whether the estimator settles on $\theta$. If the mean squared error tends to zero, the estimator is consistent, by Chebyshev's inequality: $\Pr(|T_n-\theta|>\varepsilon)\le\operatorname{MSE}(T_n)/\varepsilon^2$. The [law of large numbers](prob-05-transforms-and-limits.qmd#thm-law-of-large-numbers) says that the sample mean is consistent for $\mu$, and the same limit passes to continuous functions of a consistent estimator, which is why moment estimators are usually consistent. Both estimators in each example above are consistent. Maximum likelihood estimators are consistent in the regular models used here. The rate, and the comparison of two consistent estimators by asymptotic variance, are on [Large-sample estimation](inf-10-large-sample-estimation.qmd).
+
+## Loss and risk {#s-loss-and-risk}
+
+Unbiasedness is one restriction that stops an estimator from cheating. A loss function is the scale on which the cheating would have been measured. A loss $\ell(\theta,t)$ is nonnegative and zero when $t=\theta$. The risk is the expected loss,
+
+$$
+R(\theta,T)=\E_\theta\bigl\{\ell(\theta,T)\bigr\}.
+$$
+
+Squared error, $\ell(\theta,t)=(\theta-t)^2$, has risk equal to the mean squared error. Absolute error, $\ell(\theta,t)=|\theta-t|$, penalises a large miss in proportion to its size rather than its square. For a sample from a distribution symmetric about $\theta$, the estimator that minimises $\sum_i|x_i-t|$ is the sample median, and the estimator that minimises $\sum_i(x_i-t)^2$ is the sample mean. Letting the power on the absolute deviation tend to infinity moves the minimiser to the mid-range, halfway between the smallest and largest observations. The three estimators answer three different losses. None of them is the risk minimiser for every $\theta$ at once.
+
+No estimator has smallest risk at every $\theta$, except in the trivial parameter space that contains only one point. If $\theta_0$ is the only possible value, the constant estimator $T=\theta_0$ has risk zero and nothing beats it. If some other value is also possible, that constant has positive risk there, and the constant at the other value beats it at that other value. Restricting the competition, to unbiased estimators or to equivariant ones, is what makes "best" mean something. The [Cramér–Rao bound](inf-08-information-and-bounds.qmd#s-cramer-rao-lower-bound) is the result of restricting to unbiased estimators. Squared-error risk without that restriction has no uniform winner.
+
+## Median-unbiased estimators {#s-median-unbiased-estimators}
+
+An estimator $T$ of a scalar $\theta$ is median-unbiased when, for every $\theta$,
+
+$$
+\Pr_\theta(T>\theta)=\Pr_\theta(T<\theta).
+$$
+
+The median of the sampling distribution of $T$ is $\theta$. This is a different impartiality from $\E T=\theta$. A skewed sampling distribution can be unbiased and still sit mostly on one side of $\theta$, or median-unbiased and still have a mean pulled by a long tail.
+
+For a continuous distribution symmetric about $\theta$, the sample median is median-unbiased, because the number of observations above $\theta$ is $\Bin(n,1/2)$ and the sample median falls above $\theta$ when more than half the sample does. The sample mean is unbiased, and under symmetry it is median-unbiased as well. The two properties part company for an asymmetric family. The uniform maximum $M$ on $(0,\theta)$ has $\E M=n\theta/(n+1)$, so it is biased low. Its median solves $\Pr(M\le m)=(m/\theta)^n=1/2$, so the median is $\theta\,2^{-1/n}$, which is also below $\theta$. The rescaled estimator $M\,2^{1/n}$ is median-unbiased. It is not the unbiased estimator $(n+1)M/n$.
+
+## Nuisance parameters {#s-nuisance-parameters}
+
+Often only one coordinate of $\theta$ is the target. For $X\sim\Normal(\mu,\sigma^2)$ with both parameters unknown, a question about $\mu$ treats $\sigma^2$ as a nuisance parameter: it is unknown, it is not the quantity to be reported, and it still appears in $\Var(\overline X)=\sigma^2/n$. The standard error replaces it by $s/\sqrt n$. The $t$ pivot is the device that removes it from the distribution of $(\overline X-\mu)/(s/\sqrt n)$. A sufficient statistic for the whole of $\theta$ may be larger than a sufficient statistic for the target with the nuisance held fixed. The normal sample needs both $\overline X$ and $s^2$ once $\sigma^2$ is unknown, and only $\overline X$ when $\sigma^2$ is known.
+
+The [information matrix](inf-08-information-and-bounds.qmd#s-expected-and-observed-information) makes the cost of a nuisance parameter visible. The variance bound for one coordinate is the corresponding diagonal entry of $\mathcal{I}(\theta)^{-1}$, which is at least as large as the reciprocal of the diagonal entry of $\mathcal{I}(\theta)$. Estimating the nuisance parameter cannot tighten the bound for the target, and it widens the bound when the off-diagonal information is not zero.
 
 ::: {.callout-note}
 ## Key idea
@@ -343,5 +373,14 @@ Let $X_1,\ldots,X_n$ be a random sample with mean $\mu$ and variance $\sigma^2$,
 (b) For which values of $\mu$ does $T_c$ with $c<1$ have a smaller mean squared error than $\overline X$? Why does this not make $T_c$ a better estimator?
 
 [Solution](#sol-inf-shrunk-mean)
+
+:::
+
+::: {#ex-inf-no-uniform-risk .exercise}
+## No uniform winner
+
+Squared-error loss is $\ell(\theta,t)=(\theta-t)^2$. Show that if the parameter space contains at least two points, no estimator has risk $R(\theta,T)$ smaller than every other estimator at every $\theta$.
+
+[Solution](#sol-inf-no-uniform-risk)
 
 :::

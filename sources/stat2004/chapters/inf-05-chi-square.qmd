@@ -171,7 +171,15 @@ The six contributions $(O_{ij}-E_{ij})^2/E_{ij}$ are $6.80$, $3.91$, $1.27$, $2.
 
 A $2\times2$ table is a comparison of two proportions. With rows as groups and columns as success and failure, the Pearson statistic equals the square of the [two-proportion z statistic](inf-04-hypothesis-tests.qmd#def-two-proportion-z-test) with the pooled standard error, and $\chi^2_1$ is the law of a squared standard normal. The two tests are the same test, except that the chi-squared version is automatically two-sided.
 
-The same table can be read as a response model, with one factor the response and the other the covariate. The saturated log-linear or multinomial-logit fit, and the likelihood-ratio comparison with the independence model, belong to the categorical and deviance chapters rather than to a second copy of this statistic.
+The same table can be read as a response model, with one factor the response and the other the covariate. The saturated log-linear or multinomial-logit fit, and the likelihood-ratio comparison with the independence model, belong to the categorical and deviance chapters rather than to a second copy of this statistic. The likelihood ratio itself, and the expansion that makes it close to Pearson's statistic, are derived with the [generalised likelihood-ratio test](inf-12-generalised-likelihood-ratio.qmd#s-pearson-from-the-likelihood-ratio). When an expected count is too small for that expansion, the probabilities are the hypergeometric ones in [Fisher's exact test](inf-13-exact-tests.qmd).
+
+## A fit that is too close {#s-a-fit-that-is-too-close}
+
+The usual test looks at the right tail: a large statistic is evidence against the model. A very small statistic is evidence of a different kind. It says the counts sit closer to the expected counts than independent sampling from the model would typically allow.
+
+On $3$ degrees of freedom, Pearson's statistic equal to $0.08$ has left-tail probability about $0.006$. The lower $5\%$ point of $\chi^2_3$ is $0.352$, so $0.08$ falls in the rejection region of a two-sided goodness-of-fit test even though every cell is within one count of its expectation. The right-tail probability is essentially $1$. A report that says only "not significant" has missed the tail that is small.
+
+Two mechanisms produce a statistic this small. The observations may not be independent. Measuring the same unit twice and entering both measurements as separate individuals, pseudo-replication, cuts the apparent noise and pulls every cell toward a proportion estimated from too little information. Or the counts may have been adjusted toward the fitted proportions after the data were seen. Either way the chi-squared approximation's independence assumption is false, and the left tail is the diagnostic. A statistic that is small but still above the lower critical point, such as the four-class example on the likelihood-ratio page with value $0.47$, is a close fit and not yet this warning.
 
 ::: {.callout-note}
 ## Key idea

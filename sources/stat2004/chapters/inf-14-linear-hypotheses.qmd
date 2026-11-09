@@ -1,0 +1,169 @@
+# Linear hypotheses
+
+One-way analysis of variance, two-way analysis of variance and a polynomial regression are the same normal linear model with different columns in the design matrix. A hypothesis about the coefficients is a set of linear restrictions. The generalised likelihood-ratio test of those restrictions is an $F$ statistic built from the two residual sums of squares.
+
+The simple straight line is [Linear regression](inf-06-regression.qmd). The one-factor split of the total sum of squares is [Analysis of variance](inf-07-anova.qmd). This page is the argument that covers both, and any other linear restriction.
+
+## Matrix form of the normal linear model {#s-matrix-form-of-the-normal-linear-model}
+
+A normal linear model is
+
+$$
+Y=X\beta+\varepsilon,
+$$
+
+where $Y$ is $n\times 1$, $X$ is a known $n\times p$ matrix of full column rank, $\beta$ is $p\times 1$, and the errors $\varepsilon_i$ are independent $\Normal(0,\sigma^2)$. In one line, $Y\sim\Normal(X\beta,\sigma^2 I)$.
+
+The log-likelihood, up to a constant, is
+
+$$
+\ell(\beta,\sigma^2)=-\frac n2\log\sigma^2-\frac{1}{2\sigma^2}(Y-X\beta)^\top(Y-X\beta).
+$$
+
+For fixed $\sigma^2$ this is maximised by minimising the residual sum of squares. Differentiating with respect to $\beta$ gives the normal equations $X^\top X\beta=X^\top Y$, and
+
+$$
+\widehat\beta=(X^\top X)^{-1}X^\top Y
+$$
+
+when $X$ has full rank. The residual vector is $Y-X\widehat\beta$, and
+
+$$
+\mathrm{RSS}=(Y-X\widehat\beta)^\top(Y-X\widehat\beta).
+$$
+
+The maximised likelihood at this $\widehat\beta$, with $\sigma^2$ still free, is $(2\pi e\,\mathrm{RSS}/n)^{-n/2}$ up to the usual constant from the normal density. Comparing two nested models therefore reduces to comparing their residual sums of squares. A smaller residual sum of squares is a larger maximised likelihood. Whether the reduction is large enough is the $F$ statistic for a linear hypothesis.
+
+One-way analysis of variance is this model with a column of ones and a column for each group except a reference group, or with any other full-rank coding of the group labels. The coefficient vector holds the reference mean and the group contrasts. The design matrix has $p=J$ columns for $J$ groups, and the residual sum of squares is the within-group sum of squares. The algebra is the same if the groups are written as $\mu+\alpha_j$ with a constraint that makes $X$ full rank. [Two-factor analysis of variance](inf-15-two-factor-anova.qmd) adds columns for the second factor and, when it is present, for the interaction.
+
+## General linear hypothesis {#s-general-linear-hypothesis}
+
+A linear hypothesis restricts $\beta$ by
+
+$$
+H_0: R\beta=0
+\qquad\text{against}\qquad
+H_1: R\beta\ne 0,
+$$
+
+where $R$ is a known $r\times p$ matrix of rank $r$. Each row of $R$ is one linear constraint. Testing a single coefficient $\beta_j=0$ uses a row of $R$ that picks out position $j$. Testing that $J$ group means are equal uses $J-1$ contrasts and $r=J-1$.
+
+Let $\mathrm{RSS}_1$ be the residual sum of squares of the unrestricted model, on $\nu_1=n-p$ degrees of freedom. Let $\mathrm{RSS}_0$ be the residual sum of squares of the model refitted under $R\beta=0$, which has $p-r$ free coefficients and $\nu_0=n-(p-r)$ residual degrees of freedom. The difference $\nu_0-\nu_1=r$ is the number of restrictions.
+
+Under the normal model with known $\sigma^2$, the generalised likelihood ratio depends on the data only through $\mathrm{RSS}_0-\mathrm{RSS}_1$. The maximised log-likelihoods differ by
+
+$$
+-\frac{1}{2\sigma^2}(\mathrm{RSS}_0-\mathrm{RSS}_1),
+$$
+
+so $-2\log\Lambda=(\mathrm{RSS}_0-\mathrm{RSS}_1)/\sigma^2$. When $H_0$ is true, $\mathrm{RSS}_1/\sigma^2\sim\chi^2_{n-p}$ and $(\mathrm{RSS}_0-\mathrm{RSS}_1)/\sigma^2\sim\chi^2_r$, and the two pieces are independent. Dividing each chi-squared variable by its degrees of freedom cancels $\sigma^2$:
+
+$$
+F=\frac{(\mathrm{RSS}_0-\mathrm{RSS}_1)/r}{\mathrm{RSS}_1/(n-p)}\sim F_{r,\,n-p}.
+$$
+
+The level-$\alpha$ test rejects when $F$ exceeds the upper $\alpha$ point of that $F$ law. Large $F$ means the restrictions increased the residual sum of squares by more than sampling variation in $\sigma^2$ can explain.
+
+This is the same $F$ as the analysis-of-variance table. There the unrestricted model gives every group its own mean, $\mathrm{RSS}_1=\mathrm{SS}_{\mathrm{error}}$, and the restricted model forces the means to be equal, $\mathrm{RSS}_0=\mathrm{SS}_{\mathrm{total}}$. The numerator sum of squares is $\mathrm{SS}_{\mathrm{treat}}$. For a straight line, the unrestricted model is $\beta_0+\beta_1 x$ and the restriction $\beta_1=0$ leaves an intercept only. Then $\mathrm{RSS}_0-\mathrm{RSS}_1$ is the regression sum of squares, $r=1$, and $F$ is the square of the slope $t$ statistic.
+
+The table that goes with any such comparison is
+
+| Model | Degrees of freedom | Residual sum of squares | $F$ |
+|---|---:|---:|---|
+| Alternative, $R\beta\ne 0$ | $n-p$ | $\mathrm{RSS}_1$ | |
+| Null, $R\beta=0$ | $n-p+r$ | $\mathrm{RSS}_0$ | |
+| Difference | $r$ | $\mathrm{RSS}_0-\mathrm{RSS}_1$ | $\dfrac{(\mathrm{RSS}_0-\mathrm{RSS}_1)/r}{\mathrm{RSS}_1/(n-p)}$ |
+
+The null distribution is exact when the errors are independent and normal with common variance, and $X$ is fixed. If the variance is known, $(\mathrm{RSS}_0-\mathrm{RSS}_1)/\sigma^2$ is compared with $\chi^2_r$ directly and the denominator estimate of $\sigma^2$ is unnecessary. In either case the procedure is the [generalised likelihood-ratio test](inf-12-generalised-likelihood-ratio.qmd) for this normal likelihood.
+
+Four points illustrate the arithmetic. Take $x=(1,2,3,4)$ and $y=(2,3,5,6)$. The least-squares line is $\widehat y=0.5+1.4x$. The residual sum of squares is
+
+$$
+\mathrm{RSS}_1=(2-1.9)^2+(3-3.3)^2+(5-4.7)^2+(6-6.1)^2=0.20,
+$$
+
+on $4-2=2$ degrees of freedom. The intercept-only fit uses $\overline y=4$ and
+
+$$
+\mathrm{RSS}_0=(2-4)^2+(3-4)^2+(5-4)^2+(6-4)^2=10.
+$$
+
+Then
+
+$$
+F=\frac{(10-0.20)/1}{0.20/2}=98
+$$
+
+on $(1,2)$ degrees of freedom. The upper $5\%$ point of $F_{1,2}$ is $18.5$, so the test rejects $\beta_1=0$. The slope is not a sampling fluctuation around a flat mean. With $n=4$ the $F$ critical value is large, and a moderate slope would not have cleared it. The formula does not change when $n$ is larger. Only the critical value and the residual degrees of freedom do.
+
+```r
+x <- 1:4
+y <- c(2, 3, 5, 6)
+fit <- lm(y ~ x)
+anova(fit)
+# Df 1 and 2, Sum of Sq for x equal to 9.8, residuals 0.2, F = 98.
+```
+
+## A curve can still be linear in the coefficients {#s-a-curve-can-still-be-linear}
+
+Linearity in the linear model is linearity in $\beta$, not linearity in the covariate. The mean
+
+$$
+\E(Y_i)=\beta_0+\beta_1 h_i+\beta_2 h_i^2+\beta_3 h_i^3
+$$
+
+is a cubic curve in height $h_i$. It is a linear model because the mean is $x_i^\top\beta$ with the known row $x_i^\top=(1,h_i,h_i^2,h_i^3)$. The design matrix has those four columns. The least-squares estimator and the $F$ test apply without change.
+
+A hypothesis about the shape is a linear hypothesis. No curvature beyond a straight line is $H_0:\beta_2=\beta_3=0$, two restrictions, tested by comparing the cubic model's residual sum of squares with the straight-line model's. No association with height at all is $H_0:\beta_1=\beta_2=\beta_3=0$, three restrictions, tested against an intercept-only fit. A test that the cubic term is unnecessary, leaving the quadratic, is the single restriction $\beta_3=0$.
+
+The same matrix $R$ writes each of these. For dropping the quadratic and cubic terms from a four-parameter fit,
+
+$$
+R=\begin{pmatrix} 0&0&1&0\\ 0&0&0&1\end{pmatrix},
+\qquad
+R\beta=\begin{pmatrix}\beta_2\\ \beta_3\end{pmatrix}.
+$$
+
+Nothing in the derivation used the fact that the second and third columns are powers of the first. They could be an indicator for a group, a product of two indicators, or any other numbers fixed before the responses were seen. What they cannot be is a function of $Y$. A column built from the response makes $X$ random in a way the normal equations $X^\top X\beta=X^\top Y$ did not allow, and the $F$ distribution does not apply.
+
+```r
+# A cubic in one covariate is lm() with three computed columns.
+# The sequential table tests beta3 = 0, then beta2 = beta3 = 0, and so on,
+# in the order the columns are added. The extra-sum-of-squares F for a
+# chosen restriction is the comparison of the two fitted models, not
+# necessarily one line of that sequential table.
+h <- c(1.5, 1.6, 1.7, 1.8, 1.9, 2.0)
+jump <- c(4.1, 4.4, 4.2, 5.0, 5.6, 5.5)
+cubic <- lm(jump ~ h + I(h^2) + I(h^3))
+line <- lm(jump ~ h)
+anova(line, cubic)   # two restrictions, beta2 = beta3 = 0
+```
+
+The numbers in this height example are only large enough to show the syntax. The $F$ statistic `anova` prints is $(\mathrm{RSS}_{\mathrm{line}}-\mathrm{RSS}_{\mathrm{cubic}})/2$ divided by $\mathrm{RSS}_{\mathrm{cubic}}/(6-4)$. With six points and four coefficients the residual degrees of freedom of the cubic are $2$, so the test has very little power. The point of the display is the restriction count, not a conclusion about jumping.
+
+::: {.callout-note}
+## Key idea
+Write the mean as $X\beta$. A linear hypothesis sets $R\beta=0$. Refit under that restriction, and compare the increase in residual sum of squares with the unrestricted residual mean square. The ratio is $F$ on $(r, n-p)$ degrees of freedom. A polynomial in the covariate is still this model, because the powers sit in columns of $X$ and the unknown quantities remain the coefficients.
+:::
+
+## Exercises
+
+::: {#ex-inf-extra-ss .exercise}
+## Dropping a slope
+
+Five points have $x=(1,2,3,4,5)$ and $y=(1,1,2,3,3)$. The least-squares line is $\widehat y=0.2+0.6x$, with residual sum of squares $0.4$. The sample mean of $y$ is $2$, and the total sum of squares about the mean is $4.0$.
+
+Test $H_0:\beta_1=0$ at level $0.05$. Use $F_{1,3;0.95}=10.13$.
+
+[Solution](#sol-inf-extra-ss)
+
+:::
+
+::: {#ex-inf-which-restriction .exercise}
+## How many restrictions?
+
+A model for yield has an intercept, a coefficient for nitrogen, a coefficient for phosphorus, and a coefficient for their product. State $R$ and $r$ for each hypothesis. (a) Nitrogen and phosphorus do not interact. (b) Phosphorus has no effect at any nitrogen level, and there is no interaction. (c) None of the three covariates matters.
+
+[Solution](#sol-inf-which-restriction)
+
+:::

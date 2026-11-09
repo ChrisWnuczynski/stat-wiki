@@ -54,7 +54,7 @@ Any estimator $\widehat{\mathrm{Err}}$ is biased for $\mathrm{Err}$ by $\E(\wide
 ::: {#def-sl-09-confusion .definition}
 ## Confusion matrix
 
-A confusion matrix has, in position $(i,j)$, the number of observations of true class $i$ that the classifier predicted as class $j$. Dividing the matrix by the number of observations in the test set, the sum of the off-diagonal elements is $\widehat{\mathrm{Err}}$. Dividing row $g$ by its own total, the sum of that row excluding the diagonal element is $\widehat{\mathrm{Err}}_g$.
+A confusion matrix has, in position $(i,j)$, the number of observations of true class $i$ that the classifier predicted as class $j$. Dividing the matrix by the number of observations in the test set, the sum of the off-diagonal elements is $\widehat{\mathrm{Err}}$. Dividing row $g$ by its own total, the sum of that row excluding the diagonal element is $\widehat{\mathrm{Err}}_g$. The row proportions are sensitivity and specificity. The probability of the true class given the predicted class also needs the prevalence; that reversal is the [positive predictive value](inf-16-predictive-values.qmd#s-positive-predictive-value).
 
 :::
 
