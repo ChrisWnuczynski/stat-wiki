@@ -1,7 +1,7 @@
 """Draw the figures for the Probability chapters.
 
-Run from anywhere: python sources/stat2003/figures/make_figures.py
-It writes one PDF per figure next to this file. The build converts them to PNG.
+Run this file with Python. It writes one PDF per figure next to this file.
+The build converts them to PNG.
 Needs numpy, scipy and matplotlib. Random draws use fixed seeds, so the
 figures come out the same every time.
 """

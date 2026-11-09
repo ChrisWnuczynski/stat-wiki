@@ -3,8 +3,8 @@
 Run from this folder: python build_wiki.py
 Then: quarto preview
 
-The course files are copies in sources/. GitHub runs the same two steps
-(build, then quarto render) on every push and publishes the result.
+The course files are copies in sources/. The publish workflow runs the same
+two steps (build, then quarto render) on every push and publishes the result.
 """
 
 from __future__ import annotations
@@ -24,7 +24,6 @@ SOURCES = WIKI / "sources"
 BOOK = SOURCES / "book"  # the lecture book (index, chapters, figures)
 PREP = SOURCES / "prep"  # the final-exam booklet (index, chapters, figures)
 PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
-REPO_URL = "https://github.com/ChrisWnuczynski/stat-wiki"
 PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
 INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
 DATA = SOURCES / "stat1301"  # studies, description, R, and examples that point at inference
@@ -830,7 +829,11 @@ def convert_figures() -> None:
             shutil.copy2(tex, dest / tex.name)
             made = {"source": tex.name, "how": "Drawn in TikZ. The source is a standalone LaTeX file."}
         elif script.exists():
-            published = f"{src.parent.parent.name}-make_figures.py"
+            published = {
+                "stat2003": "probability-make_figures.py",
+                "stat2004": "inference-make_figures.py",
+                "stat1301": "data-analysis-make_figures.py",
+            }.get(src.parent.parent.name, "make_figures.py")
             if script not in scripts_copied:
                 shutil.copy2(script, dest / published)
                 scripts_copied.add(script)
@@ -2308,7 +2311,7 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
     if (!ensureKatex.p) {
       ensureKatex.p = new Promise(function (done) {
         var css = document.createElement("link");
-        // Relative to the site root, which may be a subfolder (GitHub Pages).
+        // Relative to the site root, which may be a subfolder.
         css.rel = "stylesheet"; css.href = offset + "katex/katex.min.css";
         document.head.appendChild(css);
         var js = document.createElement("script");
@@ -3546,7 +3549,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and STAT3500/7500: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -3559,8 +3562,6 @@ A study wiki for data analysis, probability, stochastic processes, statistical l
 2. Scroll to **Questions on this topic** at the end and open one.
 3. Attempt it, then open **Worked answer** at the bottom of the question page.
 4. Use **‹ previous** and **next ›** at the top of a question to move through the questions on the same topic.
-
-The source is on [GitHub]({REPO_URL}). Every change pushed there rebuilds this site.
 """,
         encoding="utf-8",
     )
@@ -3626,7 +3627,7 @@ def write_config(chapters, final_notes, questions) -> None:
 
 website:
   title: "stat wiki"
-  description: "Study wiki for STAT3500/7500"
+  description: "Study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference"
   search:
     location: navbar
     type: textbox
@@ -3676,7 +3677,7 @@ website:
           - files/index.qmd
   page-navigation: true
   page-footer:
-    center: "stat wiki. [Source on GitHub]({REPO_URL})"
+    center: "stat wiki"
 
 format:
   html:
@@ -3698,7 +3699,7 @@ format:
     code-overflow: scroll
     link-external-newwindow: true
     include-after-body: _random.html
-    # The site is published on GitHub Pages; ask search engines not to list it.
+    # Ask search engines not to list the site.
     include-in-header:
       text: '<meta name="robots" content="noindex, nofollow">'
 """

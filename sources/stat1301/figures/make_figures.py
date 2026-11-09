@@ -1,7 +1,7 @@
 """Draw the figures for the Data analysis chapters.
 
-Run from anywhere: python sources/stat1301/figures/make_figures.py
-It writes one PDF per figure next to this file. The build converts them to PNG.
+Run this file with Python. It writes one PDF per figure next to this file.
+The build converts them to PNG.
 Needs numpy, scipy, pandas and matplotlib. Random draws use fixed seeds.
 
 The data are in ../data. heart.csv is the heart-failure clinical records data

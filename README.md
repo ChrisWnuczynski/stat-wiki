@@ -1,14 +1,12 @@
 # stat wiki
 
-A Wikipedia-style study wiki for STAT3500/7500, built with Quarto.
-
-The site: <https://chriswnuczynski.github.io/stat-wiki/>
+A Wikipedia-style study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference, built with Quarto.
 
 ## How it is built
 
-`build_wiki.py` turns the course files in `sources/` into the wiki's pages. `quarto render` then turns those pages into the website in `_site/`.
+`build_wiki.py` turns the files in `sources/` into the wiki's pages. `quarto render` then turns those pages into the website in `_site/`.
 
-On every push to `main`, GitHub runs both steps and publishes the result. It takes about 4 minutes, and progress shows in the [Actions tab](https://github.com/ChrisWnuczynski/stat-wiki/actions). The generated pages are not stored in the repository.
+On every push to `main`, the publish workflow runs both steps and publishes the result. It takes about 4 minutes. The generated pages are not stored in the repository.
 
 ## What to edit
 
@@ -37,7 +35,7 @@ Edits to the original folders do not reach the wiki until they are copied into `
 
 ## Publishing a change
 
-Edit a file on GitHub and commit it. The site updates by itself.
+Edit a file in the repository and commit it. The site updates by itself.
 
 To publish edits made in the local folder instead, run:
 
@@ -45,7 +43,7 @@ To publish edits made in the local folder instead, run:
 powershell -ExecutionPolicy Bypass -File publish.ps1 "What changed"
 ```
 
-It commits everything, brings in any changes made on GitHub, and pushes.
+It commits everything, brings in any remote changes, and pushes.
 
 ## Checking pages locally
 

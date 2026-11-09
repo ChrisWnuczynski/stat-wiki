@@ -24,7 +24,7 @@ EDGE_PATHS = [
     Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "Microsoft/Edge/Application/msedge.exe",
     Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Microsoft/Edge/Application/msedge.exe",
 ]
-PROFILE = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "STAT3500Wiki" / "edge-profile"
+PROFILE = Path(os.environ.get("LOCALAPPDATA", Path.home())) / "stat-wiki" / "edge-profile"
 
 
 def message(text: str) -> None:
@@ -40,7 +40,7 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
 def already_running(port: int) -> bool:
     try:
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/index.html", timeout=2) as reply:
-            return b"STAT3500" in reply.read(4000)
+            return b"stat wiki" in reply.read(4000)
     except OSError:
         return False
 

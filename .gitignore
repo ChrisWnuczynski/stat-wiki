@@ -1,4 +1,4 @@
-# Made by build_wiki.py. GitHub rebuilds these on every push.
+# Made by build_wiki.py. The publish workflow rebuilds these on every push.
 /notes/
 /questions/
 /answers/
