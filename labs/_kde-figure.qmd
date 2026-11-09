@@ -1,0 +1,654 @@
+```{ojs}
+//| echo: false
+//| output: false
+kdeApi = {
+  const meta = document.querySelector('meta[name="quarto:offset"]');
+  const offset = meta ? meta.getAttribute("content") : "./";
+  const href = new URL(offset + "labs/kde-math.js", document.baseURI).href;
+  try {
+    return await import(href);
+  } catch (error) {
+    throw new Error("The laboratory script did not load: " + (error && error.message ? error.message : String(error)));
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+themeColors = {
+  const dark = themeDark;
+  return dark
+    ? { truth: "#f0b7a4", estimate: "#9eb6f0", rug: "#a2a9b1", bias: "#e0b15a", variance: "#7dcea0", mise: "#f4f4f5", ise: "#f0a0a0", text: "#eaecf0", silver: "#e0b15a" }
+    : { truth: "#9a3412", estimate: "#1d4e9e", rug: "#54595d", bias: "#9a6b12", variance: "#1f7a4d", mise: "#202122", ise: "#9f1239", text: "#202122", silver: "#9a6b12" };
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+themeDark = Generators.observe(notify => {
+  const read = () => document.body.classList.contains("quarto-dark");
+  const observer = new MutationObserver(() => notify(read()));
+  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  notify(read());
+  return () => observer.disconnect();
+})
+```
+
+```{ojs}
+//| echo: false
+viewof bandwidth = {
+  const api = kdeApi;
+  const seq = api.sequence(api.DEFAULTS.seed);
+  const drawn = api.samplePrefix(seq, api.DEFAULTS.population, api.DEFAULTS.n);
+  if (drawn.error) throw new Error(drawn.error);
+  const ruled = api.silvermanNrd0(drawn.values);
+  if (ruled.error) throw new Error(ruled.error);
+  const start = ruled.value;
+  const form = html`<form class="kde-field">
+    <span id="kde-bandwidth-label">Bandwidth h</span>
+    <div class="kde-h-row">
+      <input name="slider" type="range" step="0.001" aria-labelledby="kde-bandwidth-label" aria-describedby="kde-control-hint">
+      <input name="number" type="number" min="0.005" max="20" step="0.001" aria-label="Bandwidth h as a number">
+    </div>
+    <p class="kde-hint" id="kde-control-hint"></p>
+    <p class="kde-field-note"></p>
+  </form>`;
+  form.querySelector("#kde-control-hint").textContent =
+    `n is a prefix of ${api.MAX_N} draws from this seed. Changing h does not redraw them. Arrow keys move a focused slider. Shift changes h by 0.1 and n by 10.`;
+  const note = form.querySelector(".kde-field-note");
+  const publish = (value) => {
+    note.textContent = "";
+    form.slider.min = String(Math.min(0.02, value));
+    form.slider.max = String(Math.max(2.5, value));
+    form.slider.value = String(value);
+    form.number.value = Number(value).toFixed(4);
+    form.value = value;
+  };
+  publish(start);
+  form.slider.addEventListener("input", () => publish(Number(form.slider.value)));
+  form.slider.addEventListener("keydown", (event) => {
+    if (!event.shiftKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+    const next = Math.round((Number(form.value) + dir * 0.1) * 1000) / 1000;
+    if (!(next > 0) || next > 20) return;
+    publish(next);
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  form.number.addEventListener("change", () => {
+    const value = Number(form.number.value);
+    if (!(value > 0) || value > 20 || !Number.isFinite(value)) {
+      note.textContent = "Bandwidth must be a positive finite number no larger than 20. The previous value is still in use.";
+      form.number.value = Number(form.value).toFixed(4);
+      return;
+    }
+    publish(value);
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  form.addEventListener("submit", (event) => event.preventDefault());
+  return form;
+}
+```
+
+```{ojs}
+//| echo: false
+viewof drawCount = {
+  const api = kdeApi;
+  const form = html`<form class="kde-field">
+    <span id="kde-n-label">Sample size n</span>
+    <div class="kde-n-row">
+      <input name="slider" type="range" min="2" max="${api.MAX_N}" step="1" aria-labelledby="kde-n-label" aria-describedby="kde-control-hint">
+      <output class="kde-n-value" name="out"></output>
+    </div>
+  </form>`;
+  const publish = (value) => {
+    const n = Math.max(2, Math.min(api.MAX_N, Math.round(value)));
+    form.slider.value = String(n);
+    form.out.value = String(n);
+    form.out.textContent = String(n);
+    form.value = n;
+  };
+  publish(api.DEFAULTS.n);
+  form.slider.addEventListener("input", () => publish(Number(form.slider.value)));
+  form.slider.addEventListener("keydown", (event) => {
+    if (!event.shiftKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+    publish(form.value + dir * 10);
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  form.addEventListener("submit", (event) => event.preventDefault());
+  return form;
+}
+```
+
+```{ojs}
+//| echo: false
+viewof populationId = {
+  const api = kdeApi;
+  const form = html`<form class="kde-field">
+    <span id="kde-pop-label">Distribution</span>
+    <select name="choice" aria-labelledby="kde-pop-label"></select>
+  </form>`;
+  for (const item of api.POPULATIONS) {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = item.label + ": " + item.detail;
+    form.choice.appendChild(option);
+  }
+  form.choice.value = api.DEFAULTS.population;
+  form.value = api.DEFAULTS.population;
+  form.choice.addEventListener("change", () => {
+    form.value = form.choice.value;
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  form.addEventListener("submit", (event) => event.preventDefault());
+  return form;
+}
+```
+
+```{ojs}
+//| echo: false
+viewof seedValue = {
+  const api = kdeApi;
+  const form = html`<form class="kde-field">
+    <span id="kde-seed-label">Seed</span>
+    <input name="entry" type="number" step="1" inputmode="numeric" autocomplete="off" aria-labelledby="kde-seed-label">
+    <p class="kde-field-note"></p>
+  </form>`;
+  const note = form.querySelector(".kde-field-note");
+  form.entry.value = String(api.DEFAULTS.seed);
+  form.value = api.DEFAULTS.seed;
+  const commit = () => {
+    if (form.entry.value.trim() === "") {
+      note.textContent = "The seed is empty. The sample was not redrawn.";
+      form.entry.value = String(form.value);
+      return;
+    }
+    const parsed = Number(form.entry.value);
+    if (!Number.isInteger(parsed)) {
+      note.textContent = "The seed must be an integer. The sample was not redrawn.";
+      form.entry.value = String(form.value);
+      return;
+    }
+    const wrapped = parsed >>> 0;
+    note.textContent = parsed === wrapped ? "" : "Stored as an unsigned 32-bit integer, so " + parsed + " uses the same sequence as " + wrapped + ".";
+    form.entry.value = String(wrapped);
+    form.value = wrapped;
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+  form.entry.addEventListener("change", commit);
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    commit();
+  });
+  return form;
+}
+```
+
+```{ojs}
+//| echo: false
+kdeActions = {
+  const api = kdeApi;
+  const wrap = html`<form class="kde-actions">
+    <button type="button" name="newer">New sample</button>
+    <button type="button" name="silver">Use Silverman h</button>
+    <button type="button" name="reset">Reset</button>
+  </form>`;
+  const poke = (form, value) => {
+    if (form.slider) form.slider.value = String(value);
+    if (form.out) {
+      form.out.value = String(value);
+      form.out.textContent = String(value);
+    }
+    if (form.entry) form.entry.value = String(value);
+    if (form.choice) form.choice.value = value;
+    form.value = value;
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+  const setBandwidth = (value) => {
+    const form = viewof bandwidth;
+    form.slider.min = String(Math.min(0.02, value));
+    form.slider.max = String(Math.max(2.5, value));
+    form.slider.value = String(value);
+    form.number.value = Number(value).toFixed(4);
+    form.querySelector(".kde-field-note").textContent = "";
+    form.value = value;
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+  wrap.newer.addEventListener("click", () => {
+    poke(viewof seedValue, (Number(seedValue) + 1) >>> 0);
+    viewof seedValue.querySelector(".kde-field-note").textContent = "";
+  });
+  wrap.silver.addEventListener("click", () => {
+    if (draws.error) return;
+    const ruled = api.silvermanNrd0(draws.values);
+    if (!ruled.error) setBandwidth(ruled.value);
+  });
+  wrap.reset.addEventListener("click", () => {
+    const seq = api.sequence(api.DEFAULTS.seed);
+    const drawn = api.samplePrefix(seq, api.DEFAULTS.population, api.DEFAULTS.n);
+    const ruled = api.silvermanNrd0(drawn.values);
+    poke(viewof populationId, api.DEFAULTS.population);
+    poke(viewof drawCount, api.DEFAULTS.n);
+    poke(viewof seedValue, api.DEFAULTS.seed);
+    viewof seedValue.querySelector(".kde-field-note").textContent = "";
+    if (!ruled.error) setBandwidth(ruled.value);
+    for (const key of ["bias", "variance", "mise", "ise"]) viewof seriesOn[key].checked = true;
+    viewof seriesOn.value = ["bias", "variance", "mise", "ise"];
+    viewof seriesOn.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  return wrap;
+}
+```
+
+```{ojs}
+//| echo: false
+viewof seriesOn = {
+  const items = [
+    ["bias", "Integrated squared bias"],
+    ["variance", "Integrated variance"],
+    ["mise", "MISE"],
+    ["ise", "This sample's ISE"],
+  ];
+  const form = html`<form class="kde-toggles" aria-label="Panel B series"></form>`;
+  for (const [key, label] of items) {
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.name = key;
+    box.checked = true;
+    const item = document.createElement("label");
+    item.append(box, document.createTextNode(" " + label));
+    form.appendChild(item);
+  }
+  const read = () => items.filter(([key]) => form[key].checked).map(([key]) => key);
+  form.value = read();
+  form.addEventListener("change", () => {
+    form.value = read();
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  form.addEventListener("submit", (event) => event.preventDefault());
+  return form;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+draws = {
+  const api = kdeApi;
+  if (!Number.isInteger(seedValue)) return { error: "The seed must be an integer. No sample was drawn." };
+  const dist = api.population(populationId);
+  if (dist.error) return dist;
+  const seq = api.sequence(seedValue);
+  if (seq.error) return seq;
+  const drawn = api.samplePrefix(seq, populationId, drawCount);
+  if (drawn.error) return drawn;
+  return { values: drawn.values, components: dist.components, n: drawCount, population: dist, seed: seedValue >>> 0 };
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+pairWork = draws.error ? draws : kdeApi.pairCache(draws.values)
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+drawsSettled = {
+  const snapshot = draws;
+  const work = pairWork;
+  await new Promise((resolve) => {
+    const timer = setTimeout(resolve, 100);
+    invalidation.then(() => clearTimeout(timer));
+  });
+  return { snapshot, work };
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+riskCurves = {
+  const api = kdeApi;
+  const settled = drawsSettled;
+  if (settled.snapshot.error) return settled.snapshot;
+  if (settled.work.error) return settled.work;
+  const components = settled.snapshot.components;
+  const n = settled.snapshot.n;
+  const cache = settled.work;
+  const grid = api.bandwidthGrid(api.BAND_LO, api.BAND_HI, api.CURVE_COUNT);
+  if (grid.error) return grid;
+  const ise = api.iseCurve(cache, grid, components);
+  if (ise.error) return ise;
+  const mise = api.miseCurve(n, grid, components);
+  if (mise.error) return mise;
+  const minIse = api.minimiseRisk((band) => {
+    const row = api.iseFromCache(cache, band, components);
+    return row.error ? row : { value: row.value };
+  }, api.BAND_LO, api.BAND_HI, api.CURVE_COUNT, api.ISE_FINE);
+  if (minIse.error) return minIse;
+  const minMise = api.minimiseRisk((band) => {
+    const row = api.miseParts(n, band, components);
+    return row.error ? row : { value: row.mise };
+  }, api.BAND_LO, api.BAND_HI, 31, api.MISE_STEP);
+  if (minMise.error) return minMise;
+  return {
+    grid,
+    ise: ise.values,
+    variance: mise.integratedVariance,
+    bias: mise.integratedSquaredBias,
+    mise: mise.mise,
+    minIse,
+    minMise,
+  };
+}
+```
+
+```{ojs}
+//| echo: false
+labReadout = {
+  const api = kdeApi;
+  const variant = (document.querySelector("[data-kde-variant]") || {}).getAttribute?.("data-kde-variant") || "embed";
+  const root = document.createElement("div");
+  root.className = "kde-readout";
+  root.dataset.kdeVariant = variant;
+  const lines = [];
+  const alerts = [];
+  const add = (text, fail = false) => lines.push({ text, fail });
+  if (draws.error || pairWork.error) {
+    alerts.push(draws.error || pairWork.error);
+  } else {
+    const ruled = api.silvermanNrd0(draws.values);
+    const ise = api.iseFromCache(pairWork, bandwidth, draws.components);
+    const risk = api.miseParts(draws.n, bandwidth, draws.components);
+    add(`${draws.population.label}: ${draws.population.detail}. n = ${draws.n} of ${api.MAX_N} from seed ${draws.seed}. Bandwidth h = ${viewFns.formatNumber(bandwidth)}.`);
+    if (ruled.error) alerts.push("Silverman (R bw.nrd0) was not computed: " + ruled.error);
+    else add(`Silverman (R bw.nrd0) = ${viewFns.formatNumber(ruled.value)}. ${api.SILVERMAN_RULE}`);
+    if (ise.error) alerts.push("Integrated squared error was not computed: " + ise.error);
+    else {
+      let sentence = `ISE = ${viewFns.formatNumber(ise.value)}. Exact for a Gaussian kernel and this Gaussian mixture, in floating point, not a numerical integral. This is the error of the sample on the plot.`;
+      if (ise.value < 0) sentence += " The value is negative, which the identity should not produce. It is shown as computed.";
+      add(sentence);
+    }
+    if (risk.error) alerts.push("MISE was not computed: " + risk.error);
+    else {
+      add(`Integrated variance = ${viewFns.formatNumber(risk.integratedVariance)}. Integrated squared bias = ${viewFns.formatNumber(risk.integratedSquaredBias)}. MISE = ${viewFns.formatNumber(risk.mise)}.`);
+      add("MISE is the expected ISE. At this n and this population it does not move when the sample changes. ISE does.");
+      if (risk.integratedVariance < -1e-8 || risk.integratedSquaredBias < -1e-8) {
+        alerts.push("A risk term is negative by more than roundoff. The value is shown as computed and was not replaced.");
+      }
+    }
+    root.dataset.seed = String(draws.seed);
+    root.dataset.n = String(draws.n);
+    root.dataset.h = String(bandwidth);
+    root.dataset.population = draws.population.id;
+    root.dataset.sample = draws.values.slice(0, 8).map((v) => v.toPrecision(12)).join(",");
+  }
+  for (const line of lines) {
+    const p = document.createElement("p");
+    p.textContent = line.text;
+    root.appendChild(p);
+  }
+  const alert = document.createElement("p");
+  alert.className = "kde-fail";
+  alert.setAttribute("role", "alert");
+  alert.textContent = alerts.join(" ");
+  root.appendChild(alert);
+  return root;
+}
+```
+
+```{ojs}
+//| echo: false
+densityChart = {
+  const api = kdeApi;
+  const section = document.createElement("section");
+  section.className = "kde-panel";
+  const title = document.createElement("h3");
+  title.className = "kde-panel-title";
+  title.textContent = "Panel A. Estimate";
+  section.appendChild(title);
+  if (draws.error) {
+    const alert = document.createElement("p");
+    alert.className = "kde-fail";
+    alert.setAttribute("role", "alert");
+    alert.textContent = draws.error;
+    section.appendChild(alert);
+    return section;
+  }
+  const [xMin, xMax] = viewFns.supportWindow(draws.values, draws.components);
+  const xs = viewFns.densityGrid(xMin, xMax, draws.values);
+  const truth = xs.map((x) => ({ x, y: api.mixturePdf(x, draws.components) }));
+  const estimated = api.kdeOnGrid(xs, draws.values, bandwidth);
+  let clipped = false;
+  let estimate = null;
+  if (!estimated.error) {
+    const trueMax = truth.reduce((m, row) => Math.max(m, row.y), 0);
+    const cap = Math.max(trueMax, 1e-6) * 4;
+    estimate = xs.map((x, i) => ({ x, y: estimated.values[i] }));
+    clipped = estimate.some((row) => row.y > cap);
+  }
+  const yTop = viewFns.topOf(truth, estimate, clipped);
+  const chart = Plot.plot({
+    width: Math.max(280, width),
+    height: viewFns.chartHeight(width),
+    style: viewFns.plotStyle(themeColors),
+    x: { label: "x", domain: [xMin, xMax], grid: true },
+    y: { label: "density", domain: [0, yTop], grid: true },
+    marks: [
+      Plot.line(truth, { x: "x", y: "y", stroke: themeColors.truth, strokeDasharray: "7 4", strokeWidth: 2 }),
+      estimate ? Plot.line(estimate, { x: "x", y: "y", stroke: themeColors.estimate, strokeWidth: 2.25 }) : null,
+      Plot.tickX(draws.values.map((x) => ({ x })), { x: "x", stroke: themeColors.rug }),
+    ].filter(Boolean),
+  });
+  chart.setAttribute("role", "img");
+  chart.setAttribute("aria-label", `True density and Gaussian kernel estimate for ${draws.n} observations at bandwidth ${viewFns.formatNumber(bandwidth)}.`);
+  const frame = document.createElement("div");
+  frame.className = "kde-chart";
+  frame.appendChild(chart);
+  section.appendChild(frame);
+  section.appendChild(viewFns.legendList([
+    ["kde-swatch-true", "True density"],
+    ["kde-swatch-est", "Gaussian kernel estimate"],
+    ["kde-swatch-rug", "Sample"],
+  ]));
+  if (estimated.error) {
+    const alert = document.createElement("p");
+    alert.className = "kde-fail";
+    alert.setAttribute("role", "alert");
+    alert.textContent = "The kernel curve was not drawn: " + estimated.error;
+    section.appendChild(alert);
+  } else if (clipped) {
+    const note = document.createElement("p");
+    note.className = "kde-hint";
+    note.textContent = "The estimate exceeds the top of the plot. The axis stops at 4 times the true density so that curve stays visible.";
+    section.appendChild(note);
+  }
+  return section;
+}
+```
+
+```{ojs}
+//| echo: false
+riskChart = {
+  const api = kdeApi;
+  const section = document.createElement("section");
+  section.className = "kde-panel";
+  const title = document.createElement("h3");
+  title.className = "kde-panel-title";
+  title.textContent = "Panel B. Risk against bandwidth";
+  section.appendChild(title);
+  if (riskCurves.error) {
+    const alert = document.createElement("p");
+    alert.className = "kde-fail";
+    alert.setAttribute("role", "alert");
+    alert.textContent = riskCurves.error;
+    section.appendChild(alert);
+    return section;
+  }
+  const chosen = new Set(seriesOn);
+  const rows = riskCurves.grid.map((band, i) => ({
+    h: band,
+    bias: riskCurves.bias[i],
+    variance: riskCurves.variance[i],
+    mise: riskCurves.mise[i],
+    ise: riskCurves.ise[i],
+  }));
+  let yMax = 0;
+  let yMin = 0;
+  for (const row of rows) {
+    for (const key of chosen) {
+      if (row[key] > yMax) yMax = row[key];
+      if (row[key] < yMin) yMin = row[key];
+    }
+  }
+  if (!(yMax > yMin)) yMax = yMin + 1;
+  const silver = draws.error ? { error: draws.error } : api.silvermanNrd0(draws.values);
+  const xValues = rows.map((row) => row.h);
+  if (Number.isFinite(bandwidth)) xValues.push(bandwidth);
+  if (silver.value) xValues.push(silver.value);
+  const xLo = Math.min(api.BAND_LO, ...xValues);
+  const xHi = Math.max(api.BAND_HI, ...xValues);
+  const marks = [];
+  const style = {
+    bias: { stroke: themeColors.bias, strokeDasharray: "2 2" },
+    variance: { stroke: themeColors.variance, strokeDasharray: "7 4" },
+    mise: { stroke: themeColors.mise, strokeWidth: 2.4 },
+    ise: { stroke: themeColors.ise, strokeDasharray: "5 2 1 2" },
+  };
+  for (const key of ["bias", "variance", "mise", "ise"]) {
+    if (!chosen.has(key)) continue;
+    marks.push(Plot.line(rows, { x: "h", y: key, ...style[key] }));
+    const at = rows.reduce((best, row) => Math.abs(row.h - bandwidth) < Math.abs(best.h - bandwidth) ? row : best, rows[0]);
+    if (Number.isFinite(at[key])) marks.push(Plot.dot([{ h: bandwidth, y: at[key] }], { x: "h", y: "y", fill: style[key].stroke, r: 3.5 }));
+  }
+  const markers = [
+    { x: riskCurves.minMise.x, text: "min MISE", stroke: themeColors.mise, dash: "0" },
+    { x: riskCurves.minIse.x, text: "min ISE", stroke: themeColors.ise, dash: "6 3" },
+  ];
+  if (silver.value) markers.push({ x: silver.value, text: "Silverman", stroke: themeColors.silver, dash: "2 2" });
+  markers.push({ x: bandwidth, text: "h", stroke: themeColors.estimate, dash: "1 3" });
+  markers.forEach((marker, index) => {
+    marks.push(Plot.ruleX([marker.x], { stroke: marker.stroke, strokeDasharray: marker.dash }));
+    marks.push(Plot.text([{ x: marker.x, y: yMax, text: marker.text }], {
+      x: "x", y: "y", text: "text", dy: 12 + index * 14, textAnchor: "start", fill: themeColors.text,
+    }));
+  });
+  const chart = Plot.plot({
+    width: Math.max(280, width),
+    height: viewFns.chartHeight(width),
+    style: viewFns.plotStyle(themeColors),
+    x: { label: "bandwidth h", domain: [xLo, xHi], grid: true },
+    y: { label: "risk", domain: [Math.min(0, yMin), yMax * 1.08], grid: true },
+    marks,
+  });
+  chart.setAttribute("role", "img");
+  chart.setAttribute("aria-label", `Risk against bandwidth. Minimum MISE on the grid at ${viewFns.formatNumber(riskCurves.minMise.x)}. Minimum ISE on the grid at ${viewFns.formatNumber(riskCurves.minIse.x)}.`);
+  const frame = document.createElement("div");
+  frame.className = "kde-chart";
+  frame.appendChild(chart);
+  section.appendChild(frame);
+  section.appendChild(viewFns.legendList([
+    ["kde-swatch-bias", "Integrated squared bias, rises with h"],
+    ["kde-swatch-var", "Integrated variance, falls with h"],
+    ["kde-swatch-mise", "MISE"],
+    ["kde-swatch-ise", "This sample's ISE"],
+  ]));
+  const note = document.createElement("p");
+  note.className = "kde-hint";
+  note.textContent = `Markers are grid minima, not a closed-form argmin. min MISE is the smallest MISE from ${api.BAND_LO} to ${api.BAND_HI} at steps of ${api.MISE_STEP}. min ISE is the smallest ISE on that window after a step of ${api.ISE_FINE}. The series share one vertical scale. Hide one if it flattens the others. ISE can sit far from MISE. Neither is known when the true density is unknown.`;
+  section.appendChild(note);
+  const slot = document.querySelector("[data-kde-variant]");
+  if (!slot || slot.getAttribute("data-kde-variant") !== "projector") {
+    const open = document.createElement("p");
+    open.className = "kde-open";
+    const link = document.createElement("a");
+    const meta = document.querySelector('meta[name="quarto:offset"]');
+    const offset = meta ? meta.getAttribute("content") : "./";
+    link.href = offset + "labs/kernel-density.html";
+    link.textContent = "Open the laboratory page";
+    open.appendChild(link);
+    section.appendChild(open);
+  }
+  return section;
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+viewFns = {
+  function formatNumber(value) {
+    if (!Number.isFinite(value)) return "not finite";
+    const magnitude = Math.abs(value);
+    if (magnitude !== 0 && (magnitude < 1e-3 || magnitude >= 1000)) return value.toExponential(4);
+    return value.toPrecision(4);
+  }
+  function chartHeight(px) {
+    return Math.max(240, Math.round(Math.min(px, 760) * 0.5));
+  }
+  function plotStyle(colors) {
+    return {
+      color: colors.text,
+      background: "transparent",
+      fontFamily: '-apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      fontSize: "12px",
+    };
+  }
+  function supportWindow(values, components) {
+    let lo = Infinity;
+    let hi = -Infinity;
+    for (const component of components) {
+      lo = Math.min(lo, component.mean - 4 * component.sd);
+      hi = Math.max(hi, component.mean + 4 * component.sd);
+    }
+    for (const x of values) {
+      if (x < lo) lo = x;
+      if (x > hi) hi = x;
+    }
+    return [lo - 0.45, hi + 0.45];
+  }
+  function densityGrid(xMin, xMax, values) {
+    const xs = [];
+    const steps = 280;
+    for (let i = 0; i <= steps; i++) xs.push(xMin + ((xMax - xMin) * i) / steps);
+    for (const x of values) xs.push(x);
+    xs.sort((a, b) => a - b);
+    const out = [];
+    for (const x of xs) {
+      if (x < xMin || x > xMax) continue;
+      if (!out.length || x - out[out.length - 1] > 1e-8) out.push(x);
+    }
+    return out;
+  }
+  function topOf(truth, estimate, clipped) {
+    const trueMax = truth.reduce((m, row) => Math.max(m, row.y), 0);
+    let kdeMax = 0;
+    if (estimate) for (const row of estimate) if (row.y > kdeMax) kdeMax = row.y;
+    const cap = Math.max(trueMax, 1e-6) * 4;
+    const shown = clipped ? Math.min(kdeMax, cap) : Math.max(trueMax, kdeMax);
+    return Math.max(shown, 1e-6) * 1.08;
+  }
+  function legendList(items) {
+    const list = document.createElement("ul");
+    list.className = "kde-legend";
+    for (const [swatch, text] of items) {
+      const item = document.createElement("li");
+      const mark = document.createElement("span");
+      mark.className = "kde-swatch " + swatch;
+      mark.setAttribute("aria-hidden", "true");
+      item.append(mark, document.createTextNode(text));
+      list.appendChild(item);
+    }
+    return list;
+  }
+  return { formatNumber, chartHeight, plotStyle, supportWindow, densityGrid, topOf, legendList };
+}
+```

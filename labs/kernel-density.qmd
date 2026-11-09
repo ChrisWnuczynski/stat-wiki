@@ -1,0 +1,67 @@
+---
+title: "Kernel density laboratory"
+description: "A Gaussian kernel density estimate: move the bandwidth, keep the sample, and compare this sample's integrated squared error with the mean integrated squared error."
+---
+
+A Gaussian kernel turns a sample into a density. The bandwidth is the choice this page is for. The density that produced the sample is drawn on the same axes, so the miss is visible.
+
+## What this page investigates
+
+How the bandwidth $h$ trades bias against variance, and how that trade shows up in two different errors. The integrated squared error is the error of the sample on the screen. The mean integrated squared error is the expected value of that error for a sample of this size from this population.
+
+The estimate does not use the true density. Both errors do.
+
+## Predict first
+
+The page opens on a mixture with two modes. Before moving $h$, predict what a very small bandwidth does to the curve, and what a large bandwidth does to those modes. Then predict whether this sample's integrated squared error will lie on top of the mean integrated squared error.
+
+## The estimate these controls change
+
+$$
+\widehat f_h(x)=\frac{1}{nh}\sum_{i=1}^{n}\varphi\left(\frac{x-X_i}{h}\right).
+$$
+
+$\varphi$ is the standard normal density. The bandwidth control is $h$, in the same units as $x$: the bump centred at $X_i$ is the $\mathrm{N}(X_i,h^2)$ density. That is the one-dimensional case of the estimator on the theory page, where the bandwidth matrix is $H=h^2$.
+
+The sample-size control is $n$. It keeps the first $n$ draws of a sequence of 200 built from the seed. Changing $h$ does not rebuild that sequence. Changing $n$ does not draw again. New sample advances the seed and redraws the estimate and the integrated squared error. Reset returns to seed 3500, the bimodal mixture, $n=120$, and the Silverman bandwidth of that sample.
+
+At a fixed $n$ and a fixed population, the mean integrated squared error, the integrated variance, and the integrated squared bias do not move when the sample changes. They are properties of $h$, $n$, and $f$.
+
+Silverman on this page means R's `bw.nrd0`,
+
+$$
+0.9\,\min\left(s,\frac{\mathrm{IQR}}{1.34}\right)\,n^{-1/5},
+$$
+
+with $s$ the sample standard deviation using divisor $n-1$, and the quartiles from R's default quantile (type 7). The constant is $0.9$, which is `bw.nrd0`, not the $1.06$ of `bw.nrd`. It is a normal-reference rule, not the minimiser of either error below. The generator that builds the sample is not R's generator. The seed reproduces this page, not an R session.
+
+```{=html}
+<div class="kde-slot" data-kde-variant="projector" hidden></div>
+```
+
+{{< include _kde-figure.qmd >}}
+
+## What the picture is showing
+
+Panel A is undersmoothing against oversmoothing. A small $h$ leaves a bump on the observations: the curve is irregular, integrated variance is high, and integrated squared bias is low. A large $h$ averages over a wide window. Variance falls and bias rises. On the mixture the two modes move together and can disappear.
+
+Panel B plots that split against $h$. Integrated variance and integrated squared bias add to the mean integrated squared error,
+
+$$
+\mathrm{MISE}(h)=\mathrm{IVar}(h)+\mathrm{IBias}^2(h)=\E\int_{-\infty}^{\infty}\bigl(\widehat f_h(x)-f(x)\bigr)^2\,\mathrm{d}x.
+$$
+
+The fourth curve is the integrated squared error of the one sample on the screen. For a Gaussian kernel and a normal or Gaussian-mixture $f$, both errors are the closed form that comes from $\int \varphi_a(x-u)\varphi_b(x-v)\,\mathrm{d}x=\varphi_{\sqrt{a^2+b^2}}(u-v)$. They are not grid approximations. A new sample moves the ISE curve and leaves the other three where they are.
+
+## Where this fails
+
+Both numbers use the true $f$. A sample on its own does not provide them, so the bandwidth that minimises MISE cannot be read off the data, and the bandwidth that minimises this sample's ISE is not a substitute for it. ISE can sit far from MISE. Silverman's rule fills in a normal shape. On the mixture it is often wide enough to blur the modes.
+
+The log-likelihood of the sample that built $\widehat f_h$ is a worse guide: it goes to infinity as $h\to 0$, because each observation sits under its own spike. The slider does not choose $h$ that way.
+
+If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a width of order $n^{-1/5}$. The estimate is then one bump. It does not recover a mixture. A sample of size 0 is not an estimate. A sample of size 1 has an estimate and an ISE, and it does not have a `bw.nrd0` bandwidth. If a computed error is not finite, the figure says so and does not replace it.
+
+## On the theory page
+
+- [Bias and variance in one bandwidth](../notes/sl-07-linkage-and-density.qmd#s-bias-and-variance-in-one-bandwidth), [Choosing the bandwidth](../notes/sl-07-linkage-and-density.qmd#s-choosing-the-bandwidth), and the [kernel density estimator](../notes/sl-07-linkage-and-density.qmd#def-sl-07-kernel-density).
+- Worked questions: [Kernel density by hand](../questions/ex-sl-07-3.qmd), [A tempting wrong turn](../questions/ex-sl-07-5.qmd), and [Clustering and smoothing choices](../questions/ex-sl-07-6.qmd).

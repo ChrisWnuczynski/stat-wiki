@@ -37,6 +37,9 @@ jobs:
         with:
           version: 1.6.40
 
+      - name: Check the kernel density module
+        run: node --test labs/kde-math.test.mjs
+
       - name: Write the wiki pages
         run: python build_wiki.py
 

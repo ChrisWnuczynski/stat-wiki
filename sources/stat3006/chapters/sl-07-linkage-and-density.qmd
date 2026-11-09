@@ -150,6 +150,8 @@ Without a smoothness restriction, many irregular densities are compatible with t
 
 In one dimension, write $H=h^2$. A very small bandwidth gives a spiky estimate with one bump per observation: low bias, high variance. A very large bandwidth gives an over-smoothed estimate that hides structure such as two modes: high bias, low variance. MISE balances the two. On iris petal length, three Gaussian estimates with bandwidths $h=0.23$, $h=0.58$, and $h=1.46$ show the three regimes, and a two-dimensional estimate can use both petal measurements at once. The likelihood on the training data favours $h\to 0$. Each component then sits on its observation and the density at that point diverges, the same singularity as a mixture component collapsing on a data point on the [mixture](sl-05-mixtures-em.qmd) page. The bandwidth is chosen by a held-out score or by an estimate of MISE, rather than by the training likelihood.
 
+The [kernel density laboratory](../labs/kernel-density.qmd) draws this one-dimensional estimate from a known density. The sample stays fixed while the bandwidth moves. The figure reports that sample's integrated squared error and the mean integrated squared error.
+
 For a Gaussian kernel the estimate is a mixture of bumps centred at the data. Small bandwidths retain fine detail and sampling noise. Large bandwidths erase both. Choose the scale using a criterion matched to the goal, then inspect how nearby choices change the picture. A visible mode is a feature of this smoothed estimate. It is evidence of a separate population when something beyond the smoother says so.
 
 ## Linkage and bandwidth are part of the analysis

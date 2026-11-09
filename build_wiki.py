@@ -1248,7 +1248,8 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
-  var section = /\\/notes\\//.test(here) ? "notes/index.html"
+  var section = /\\/labs\\//.test(here) ? "labs/kernel-density.html"
+    : /\\/notes\\//.test(here) ? "notes/index.html"
     : /\\/questions\\//.test(here) ? "questions/index.html"
     : /\\/reference\\/glossary|\\/articles\\//.test(here) ? "reference/glossary.html"
     : /\\/reference\\//.test(here) ? "reference/index.html"
@@ -2483,6 +2484,27 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
 """
 
 
+def with_kde_lab(note: dict, prose: str) -> str:
+    """Mount the shared KDE figure on the chapter only.
+
+    Article pages copy each section before this runs, so the bandwidth
+    article keeps the link and does not grow a second copy of the script.
+    """
+    if note["path"].name != "sl-07-linkage-and-density.qmd":
+        return prose
+    marker = (
+        "The [kernel density laboratory](../labs/kernel-density.qmd) draws this "
+        "one-dimensional estimate from a known density. The sample stays fixed "
+        "while the bandwidth moves. The figure reports that sample's integrated squared error "
+        "and the mean integrated squared error."
+    )
+    if marker not in prose:
+        raise SystemExit("sl-07 is missing the kernel density laboratory sentence; the figure has nowhere to go.")
+    figure = (WIKI / "labs" / "_kde-figure.qmd").read_text(encoding="utf-8").strip()
+    slot = "```{=html}\n" '<div class="kde-slot" data-kde-variant="embed" hidden></div>\n' "```"
+    return prose.replace(marker, marker + "\n\n" + slot + "\n\n" + figure, 1)
+
+
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
     ids = [q["id"] for q in questions]
@@ -2551,6 +2573,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     register_topic_pages(prepared)
     prepared = [(part, note, add_main_article_notes(note, prose)) for part, note, prose in prepared]
     fill_topic_pages(prepared)
+    prepared = [(part, note, with_kde_lab(note, prose)) for part, note, prose in prepared]
     for part, note, prose in prepared:
         own = by_topic.get(note["path"].name, [])
         hat = [f"Part of **{part}**"]
@@ -3590,6 +3613,8 @@ def write_config(chapters, final_notes, questions) -> None:
   # Render the generated pages only, not the course files copied into sources/.
   render:
     - "*.qmd"
+    - "labs/*.qmd"
+    - "!labs/_*.qmd"
     - "!sources/"
   resources:
     - katex/
@@ -3597,6 +3622,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - figures/*.tex
     - figures/*.py
     - figures/*-full.png
+    - labs/kde-math.js
 
 website:
   title: "stat wiki"
@@ -3616,6 +3642,8 @@ website:
         href: reference/glossary.qmd
       - text: Reference
         href: reference/index.qmd
+      - text: Laboratories
+        href: labs/kernel-density.qmd
       - text: Random question
         href: index.qmd#random
   sidebar:
@@ -3626,6 +3654,10 @@ website:
         href: index.qmd
       - text: Random question
         href: index.qmd#random
+      - section: Laboratories
+        contents:
+          - text: Kernel density estimation
+            href: labs/kernel-density.qmd
       - section: Topics
         href: notes/index.qmd
         contents:
