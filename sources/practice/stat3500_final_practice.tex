@@ -43,8 +43,8 @@
   \unskip\nobreak\hfill\penalty50\hskip1em\null\nobreak\hfill
   \mbox{\textbf{[#1]}}}
 
-\newenvironment{examquestion}[1]
-  {\subsection{#1}\label{question:\arabic{subsection}}%
+\newenvironment{examquestion}[2]
+  {\subsection{#1}\label{question:\arabic{subsection}}\label{#2}%
    \noindent\hyperref[answer:\arabic{subsection}]{\textbf{Solution} $\rightarrow$}%
    \begin{quote}\color{statgrey}}
   {\end{quote}}
@@ -59,9 +59,10 @@
 % Independent C-numbering and anchors leave Questions/Answers 1--59 unchanged.
 \newcommand{\concepttopic}[1]{%
   \par\addvspace{8pt}\noindent{\color{statblue}\bfseries #1}\par\nobreak\smallskip}
-\newcommand{\conceptquestion}[2]{%
+\newcommand{\conceptquestion}[3]{%
   \par\addvspace{4pt}\noindent%
   \hypertarget{concept-question:#1}{}%
+  \label{#3}%
   \textbf{C#1.}\enspace #2%
   \unskip\nobreak\hspace{0.4em}\mbox{\hyperlink{concept-answer:#1}{\textcolor{statblue}{Solution}}}\par}
 \newenvironment{conceptanswer}[2]
@@ -117,58 +118,58 @@ These are a cross-course recall check, not an exhaustive glossary.
 \raggedright
 \concepttopic{Bayesian foundations}
 % C1 | D | Book, sec. 1.2, printed p. 3 / PDF p. 11.
-\conceptquestion{1}{What are a likelihood, a prior and a posterior? Which variable is the likelihood a function of after observing the data?}
+\conceptquestion{1}{What are a likelihood, a prior and a posterior? Which variable is the likelihood a function of after observing the data?}{question:concept-likelihood-prior-and-posterior}
 % C2 | D | Book, sec. 2.3, printed p. 11 / PDF p. 19; sec. 7.6, printed p. 56 / PDF p. 64.
-\conceptquestion{2}{What is a conjugate prior family? Give one prior--sampling-model example.}
+\conceptquestion{2}{What is a conjugate prior family? Give one prior--sampling-model example.}{question:concept-conjugacy}
 % C3 | D | Book, sec. 7.2, printed p. 52 / PDF p. 60.
-\conceptquestion{3}{What is a sufficient statistic, using the conditional-distribution definition?}
+\conceptquestion{3}{What is a sufficient statistic, using the conditional-distribution definition?}{question:concept-sufficiency}
 % C4 | D | Book, sec. 7.5, printed p. 54 / PDF p. 62; IntroToGLMs.pdf, p. 9.
-\conceptquestion{4}{What is an exponential family? Identify its natural parameter and statistic.}
+\conceptquestion{4}{What is an exponential family? Identify its natural parameter and statistic.}{question:concept-exponential-family}
 % C5 | C | Book, sec. 1.5.1--1.5.2, printed p. 7 / PDF p. 15; sec. 9.8, printed p. 83 / PDF p. 91.
-\conceptquestion{5}{Why average over the posterior when predicting? What uncertainty does a plug-in prediction omit?}
+\conceptquestion{5}{Why average over the posterior when predicting? What uncertainty does a plug-in prediction omit?}{question:concept-posterior-prediction}
 % C6 | C | Book, sec. 1.1, printed pp. 2--3 / PDF pp. 10--11.
-\conceptquestion{6}{How do the probability statements for a 95\% credible interval and a 95\% confidence interval differ?}
+\conceptquestion{6}{How do the probability statements for a 95\% credible interval and a 95\% confidence interval differ?}{question:concept-two-kinds-of-interval}
 % C7 | C | Book, sec. 1.4, printed pp. 4--5 / PDF pp. 12--13; sec. 6.1, printed p. 44 / PDF p. 52.
 % Squared-error consequence follows directly from the posterior expected-loss definition.
-\conceptquestion{7}{How does a MAP estimate differ from a Bayes estimate under squared-error loss?}
+\conceptquestion{7}{How does a MAP estimate differ from a Bayes estimate under squared-error loss?}{question:concept-map-and-squared-error-loss}
 % C8 | D | Book, sec. 6.3, printed p. 47 / PDF p. 55.
-\conceptquestion{8}{What are marginal likelihoods and Bayes factors? How does a Bayes factor update model odds?}
+\conceptquestion{8}{What are marginal likelihoods and Bayes factors? How does a Bayes factor update model odds?}{question:concept-evidence-and-model-odds}
 % C9 | C | Book, sec. 8.1, printed pp. 60--61 / PDF pp. 68--69.
-\conceptquestion{9}{How does partial pooling in a hierarchical model differ from complete pooling and no pooling?}
+\conceptquestion{9}{How does partial pooling in a hierarchical model differ from complete pooling and no pooling?}{question:concept-pooling}
 % C10 | C | Book, sec. 10.1, printed p. 88 / PDF p. 96.
-\conceptquestion{10}{State the kernels and support of shape--rate $\operatorname{Gamma}(a,b)$ and $\InvGamma(a,b)$.}
+\conceptquestion{10}{State the kernels and support of shape--rate $\operatorname{Gamma}(a,b)$ and $\InvGamma(a,b)$.}{question:concept-gamma-and-inverse-gamma-kernels}
 
 \columnbreak
 \concepttopic{Monte Carlo and MCMC}
 % C11 | D | Book, sec. 1.4, printed pp. 5--6 / PDF pp. 13--14; sec. 4.3.3, printed p. 28 / PDF p. 36.
-\conceptquestion{11}{What is a Monte Carlo estimate of $\E_\pi[h(\Theta)]$, and what is Monte Carlo error?}
+\conceptquestion{11}{What is a Monte Carlo estimate of $\E_\pi[h(\Theta)]$, and what is Monte Carlo error?}{question:concept-monte-carlo-estimation}
 % C12 | D | Book, sec. 4.1, printed p. 25 / PDF p. 33.
-\conceptquestion{12}{What is the Markov property? What does it mean for a distribution to be invariant for a chain?}
+\conceptquestion{12}{What is the Markov property? What does it mean for a distribution to be invariant for a chain?}{question:concept-markov-property-and-invariance}
 % C13 | D | Book, sec. 4.3, printed p. 27 / PDF p. 35; sec. 4.5.1, printed p. 33 / PDF p. 41.
-\conceptquestion{13}{What is a full conditional distribution, and how does a Gibbs sampler use full conditionals?}
+\conceptquestion{13}{What is a full conditional distribution, and how does a Gibbs sampler use full conditionals?}{question:concept-full-conditionals-and-gibbs}
 
 % C14 | C | Book, sec. 4.4--4.5, printed pp. 30--32 / PDF pp. 38--40.
-\conceptquestion{14}{Why can Metropolis--Hastings use an unnormalised target? When do its proposal-density terms cancel?}
+\conceptquestion{14}{Why can Metropolis--Hastings use an unnormalised target? When do its proposal-density terms cancel?}{question:concept-metropolis-hastings-cancellations}
 % C15 | C | Book, sec. 4.3.4, printed pp. 28--29 / PDF pp. 36--37.
-\conceptquestion{15}{Does discarding MCMC warm-up guarantee convergence or make the retained draws independent? Explain briefly.}
+\conceptquestion{15}{Does discarding MCMC warm-up guarantee convergence or make the retained draws independent? Explain briefly.}{question:concept-warm-up-and-dependence}
 
 \concepttopic{GLM structure and fitting}
 % C16 | D | IntroToGLMs.pdf, p. 15.
-\conceptquestion{16}{What are the three components of a GLM? State the usual conditional-independence assumption.}
+\conceptquestion{16}{What are the three components of a GLM? State the usual conditional-independence assumption.}{question:concept-the-glm-components}
 % C17 | D | IntroToGLMs.pdf, p. 15; Book, sec. 11.4, printed p. 95 / PDF p. 103.
-\conceptquestion{17}{What are a link function, an inverse link and a canonical link?}
+\conceptquestion{17}{What are a link function, an inverse link and a canonical link?}{question:concept-links}
 % C18 | D | ModelsForBinaryData.pdf, pp. 6--7; Book, sec. 11.5, printed pp. 95--96 / PDF pp. 103--104.
-\conceptquestion{18}{What are the score vector and the expected Fisher information matrix for a log-likelihood?}
+\conceptquestion{18}{What are the score vector and the expected Fisher information matrix for a log-likelihood?}{question:concept-score-and-information}
 % C19 | D | ModelsForBinaryData.pdf, p. 7; Book, sec. 11.6, printed p. 96 / PDF p. 104.
-\conceptquestion{19}{What is Fisher scoring, and how is it related to iteratively reweighted least squares in GLMs?}
+\conceptquestion{19}{What is Fisher scoring, and how is it related to iteratively reweighted least squares in GLMs?}{question:concept-fisher-scoring-and-irls}
 
 \concepttopic{Response families and interpretation}
 % C20 | C | ModelsForBinaryData.pdf, pp. 1--2.
-\conceptquestion{20}{How do the logit and probit links differ? Define the odds associated with a success probability $p$.}
+\conceptquestion{20}{How do the logit and probit links differ? Define the odds associated with a success probability $p$.}{question:concept-logit-probit-and-odds}
 % C21 | C | ModelsForCounts.pdf, pp. 1, 4.
-\conceptquestion{21}{In a Poisson regression with a log link and no interactions, what does $e^{\beta_j}$ represent?}
+\conceptquestion{21}{In a Poisson regression with a log link and no interactions, what does $e^{\beta_j}$ represent?}{question:concept-a-log-link-coefficient}
 % C22 | C | ModelsForCounts.pdf, p. 9.
-\conceptquestion{22}{Why can a negative-binomial model handle overdispersed counts that a Poisson model cannot?}
+\conceptquestion{22}{Why can a negative-binomial model handle overdispersed counts that a Poisson model cannot?}{question:concept-negative-binomial-variation}
 \end{multicols}
 \clearpage
 
@@ -178,80 +179,80 @@ These are a cross-course recall check, not an exhaustive glossary.
 \raggedright
 \concepttopic{Response families (continued)}
 % C23 | D | GammaRegression.pdf, pp. 1--2.
-\conceptquestion{23}{What response support and mean--variance relationships define Gamma and inverse-Gaussian GLMs?}
+\conceptquestion{23}{What response support and mean--variance relationships define Gamma and inverse-Gaussian GLMs?}{question:concept-positive-continuous-responses}
 % C24 | D | ModelsForCategoricalData.pdf, pp. 1, 11.
-\conceptquestion{24}{What are nominal and ordinal responses? What probabilities does a baseline-category logit compare?}
+\conceptquestion{24}{What are nominal and ordinal responses? What probabilities does a baseline-category logit compare?}{question:concept-categorical-response-types}
 % C25 | D | ModelsForCategoricalData.pdf, p. 7.
-\conceptquestion{25}{What is the proportional-odds assumption in an ordinal regression model?}
+\conceptquestion{25}{What is the proportional-odds assumption in an ordinal regression model?}{question:concept-proportional-odds}
 % C26 | D | ModelsForCategoricalData.pdf, pp. 14--15.
-\conceptquestion{26}{What is the Bradley--Terry model for a head-to-head contest with no ties?}
+\conceptquestion{26}{What is the Bradley--Terry model for a head-to-head contest with no ties?}{question:concept-bradley-terry}
 \concepttopic{Quasilikelihood and model checking}
 % C27 | D | Quasilikelihood.pdf, pp. 1--3.
-\conceptquestion{27}{What is a quasilikelihood model? What must be specified instead of a full response distribution?}
+\conceptquestion{27}{What is a quasilikelihood model? What must be specified instead of a full response distribution?}{question:concept-quasilikelihood}
 % C28 | D | ModelsForCounts.pdf, p. 4; Quasilikelihood.pdf, pp. 1--2.
-\conceptquestion{28}{What is the dispersion parameter $\phi$ in $\operatorname{Var}(Y_i\mid x_i)=\phi V(\mu_i)$? Define overdispersion and underdispersion relative to $\phi=1$.}
+\conceptquestion{28}{What is the dispersion parameter $\phi$ in $\operatorname{Var}(Y_i\mid x_i)=\phi V(\mu_i)$? Define overdispersion and underdispersion relative to $\phi=1$.}{question:concept-dispersion}
 % C29 | D | GoodnessOfFit.pdf, pp. 1--2, 4.
-\conceptquestion{29}{What is a saturated model, and what does deviance compare? Distinguish deviance from scaled deviance.}
+\conceptquestion{29}{What is a saturated model, and what does deviance compare? Distinguish deviance from scaled deviance.}{question:concept-saturated-model-and-deviance}
 % C30 | C | GoodnessOfFit.pdf, pp. 1, 4, 7--9.
-\conceptquestion{30}{Does a significant predictor establish that a GLM fits adequately? Name one separate diagnostic check.}
+\conceptquestion{30}{Does a significant predictor establish that a GLM fits adequately? Name one separate diagnostic check.}{question:concept-significance-is-not-adequacy}
 
 \concepttopic{Splines and GAMs}
 % C31 | D | SplineSmoothing.pdf, pp. 6--7; standard definition of the cubic spline used there.
-\conceptquestion{31}{What is a cubic spline, and what is a knot?}
+\conceptquestion{31}{What is a cubic spline, and what is a knot?}{question:concept-cubic-splines-and-knots}
 % C32 | C | SplineSmoothing.pdf, pp. 6--8.
-\conceptquestion{32}{Why penalise $\int\{f''(x)\}^2\,dx$ when fitting a smooth? What happens as its penalty weight increases?}
+\conceptquestion{32}{Why penalise $\int\{f''(x)\}^2\,dx$ when fitting a smooth? What happens as its penalty weight increases?}{question:concept-roughness-penalty}
 % C33 | D | SplineSmoothing.pdf, pp. 11--14.
 % EDF measures fitted flexibility; it is not literally a polynomial degree.
-\conceptquestion{33}{What is a GAM, and what do the effective degrees of freedom of a fitted smooth measure?}
+\conceptquestion{33}{What is a GAM, and what do the effective degrees of freedom of a fitted smooth measure?}{question:concept-gams-and-effective-degrees-of-freedom}
 
 \concepttopic{Mixed models}
 % C34 | D | GLMMs (1).pdf, pp. 7--8, 19.
-\conceptquestion{34}{What are fixed effects and random effects in a mixed model?}
+\conceptquestion{34}{What are fixed effects and random effects in a mixed model?}{question:concept-fixed-and-random-effects}
 % C35 | D | GLMMs (1).pdf, pp. 4, 14, 21.
-\conceptquestion{35}{What are a random intercept and a random slope? On which scale do they enter a GLMM?}
+\conceptquestion{35}{What are a random intercept and a random slope? On which scale do they enter a GLMM?}{question:concept-random-intercepts-and-slopes}
 % C36 | C | GLMMs (1).pdf, pp. 4, 6, 21.
-\conceptquestion{36}{How can responses be independent conditional on a random effect but correlated marginally?}
+\conceptquestion{36}{How can responses be independent conditional on a random effect but correlated marginally?}{question:concept-conditional-versus-marginal-dependence}
 % C37 | C | GLMMs (1).pdf, p. 21; GEEs (1).pdf, pp. 1--2.
-\conceptquestion{37}{Why is a logistic GLMM coefficient not generally the same as a population-average logistic coefficient?}
+\conceptquestion{37}{Why is a logistic GLMM coefficient not generally the same as a population-average logistic coefficient?}{question:concept-conditional-versus-marginal-effects}
 
 \columnbreak
 \concepttopic{GEE and vector responses}
 % C38 | D | GEEs (1).pdf, pp. 2--3, 7.
-\conceptquestion{38}{What are generalised estimating equations, and what mean-model parameters do they estimate?}
+\conceptquestion{38}{What are generalised estimating equations, and what mean-model parameters do they estimate?}{question:concept-generalised-estimating-equations}
 % C39 | D | GEEs (1).pdf, pp. 3--6, 7--8.
-\conceptquestion{39}{What is a working correlation structure in GEE? Give two examples.}
+\conceptquestion{39}{What is a working correlation structure in GEE? Give two examples.}{question:concept-working-correlation}
 % C40 | C | GEEs (1).pdf, pp. 7--8.
 % Make the usual correct-mean, independent-cluster and large-sample qualifications explicit.
-\conceptquestion{40}{What misspecification can the GEE sandwich covariance estimator tolerate? Does it repair an incorrect mean model?}
+\conceptquestion{40}{What misspecification can the GEE sandwich covariance estimator tolerate? Does it repair an incorrect mean model?}{question:concept-sandwich-robustness}
 % C41 | D | VectorRegressionGEE.pdf, pp. 1--2.
-\conceptquestion{41}{What is vector-response regression, and how can GEE accommodate different response types within one observational unit?}
+\conceptquestion{41}{What is vector-response regression, and how can GEE accommodate different response types within one observational unit?}{question:concept-vector-response-regression}
 
 \concepttopic{Time series}
 % C42 | D | TimesSeries.pdf, pp. 2--5.
-\conceptquestion{42}{What is a stochastic process, and how does an observed time series relate to it?}
+\conceptquestion{42}{What is a stochastic process, and how does an observed time series relate to it?}{question:concept-process-and-realisation}
 % C43 | D | TimesSeries.pdf, pp. 5--6.
-\conceptquestion{43}{What are strict stationarity and weak stationarity? State the moment conditions in the latter.}
+\conceptquestion{43}{What are strict stationarity and weak stationarity? State the moment conditions in the latter.}{question:concept-two-stationarity-definitions}
 % C44 | C | TimesSeries.pdf, p. 9.
-\conceptquestion{44}{Does white noise necessarily consist of independent observations? Give the moment definition of white noise.}
+\conceptquestion{44}{Does white noise necessarily consist of independent observations? Give the moment definition of white noise.}{question:concept-white-noise-is-not-necessarily-independent}
 % C45 | D | TimesSeries.pdf, pp. 6, 15.
-\conceptquestion{45}{What do the autocorrelation function (ACF) and partial autocorrelation function (PACF) measure?}
+\conceptquestion{45}{What do the autocorrelation function (ACF) and partial autocorrelation function (PACF) measure?}{question:concept-acf-and-pacf}
 % C46 | D | TimesSeries.pdf, pp. 10, 14, 17.
-\conceptquestion{46}{What are AR($p$), MA($q$) and ARMA($p,q$) models? What do their orders count?}
+\conceptquestion{46}{What are AR($p$), MA($q$) and ARMA($p,q$) models? What do their orders count?}{question:concept-ar-ma-and-arma-orders}
 % C47 | D | TimesSeries.pdf, pp. 21--23.
-\conceptquestion{47}{What is a unit root at one? What do $p,d,q$ mean in an ARIMA($p,d,q$) model?}
+\conceptquestion{47}{What is a unit root at one? What do $p,d,q$ mean in an ARIMA($p,d,q$) model?}{question:concept-unit-roots-and-arima}
 % C48 | D | TimesSeries.pdf, p. 13.
-\conceptquestion{48}{What does invertibility mean for a moving-average model? State the root condition for a finite-order model.}
+\conceptquestion{48}{What does invertibility mean for a moving-average model? State the root condition for a finite-order model.}{question:concept-invertibility}
 % C49 | C | TimesSeries.pdf, pp. 15--16, 25, 29--30.
-\conceptquestion{49}{How can ACF/PACF patterns suggest AR or MA orders? What should the fitted residual ACF be checked for?}
+\conceptquestion{49}{How can ACF/PACF patterns suggest AR or MA orders? What should the fitted residual ACF be checked for?}{question:concept-identification-and-residual-checks}
 % C50 | D | TimesSeries.pdf, pp. 36--38.
-\conceptquestion{50}{What do ARCH and GARCH models describe? What additional dependence does GARCH include?}
+\conceptquestion{50}{What do ARCH and GARCH models describe? What additional dependence does GARCH include?}{question:concept-arch-and-garch}
 \end{multicols}
 \endgroup
 \restoregeometry
 \setlength{\headwidth}{\textwidth}
 % END CONCEPT QUESTIONS
 
-\begin{examquestion}{Question 1: Rayleigh conjugate prior}
+\begin{examquestion}{Question 1: Rayleigh conjugate prior}{question:practice-rayleigh-conjugate-prior}
 Suppose
 \[
   X_1,\ldots,X_n\given\theta
@@ -270,7 +271,7 @@ for $\theta$ and derive the posterior distribution.
 
 \clearpage
 
-\begin{examquestion}{Question 2: Gamma waiting times with an inverse-Gamma prior}
+\begin{examquestion}{Question 2: Gamma waiting times with an inverse-Gamma prior}{question:practice-gamma-waiting-times-with-an-inverse-gamma-prior}
 At each of $n$ locations, researchers wait until they capture the $m$th
 animal. Let $X_i$ denote the waiting time at location $i$, and suppose
 \[
@@ -327,7 +328,7 @@ with density
 
 \clearpage
 
-\begin{examquestion}{Question 3: Confidence and credible intervals}
+\begin{examquestion}{Question 3: Confidence and credible intervals}{question:practice-confidence-and-credible-intervals}
 \textbf{[6 marks]}
 
 Explain the difference between a frequentist confidence interval and a
@@ -343,7 +344,7 @@ Bayesian credible interval. In your answer:
 
 \clearpage
 
-\begin{examquestion}{Question 4: Gibbs sampling from full conditionals}
+\begin{examquestion}{Question 4: Gibbs sampling from full conditionals}{question:practice-gibbs-sampling-from-full-conditionals}
 Let $X\in\{0,1,\ldots,10\}$ and $0<\theta<1$ have joint density/mass
 function
 \[
@@ -378,7 +379,7 @@ function
 
 \clearpage
 
-\begin{examquestion}{Question 5: Random-walk Metropolis-Hastings}
+\begin{examquestion}{Question 5: Random-walk Metropolis-Hastings}{question:practice-random-walk-metropolis-hastings}
 Let the target density be
 \[
   \pi(x)\propto x^2e^{-x},
@@ -437,7 +438,7 @@ where $\sigma>0$ is fixed.
 
 \clearpage
 
-\begin{examquestion}{Question 6: Beta-Binomial conjugacy and prior influence}
+\begin{examquestion}{Question 6: Beta-Binomial conjugacy and prior influence}{question:practice-beta-binomial-conjugacy-and-prior-influence}
 Suppose
 \[
   X\given\theta\sim\operatorname{Bin}(n,\theta),
@@ -466,7 +467,7 @@ where $n\geq1$, $a,b>0$, and the observed value of $X$ is $x$.
 
 \clearpage
 
-\begin{examquestion}{Question 7: Normal estimation and prediction}
+\begin{examquestion}{Question 7: Normal estimation and prediction}{question:practice-normal-estimation-and-prediction}
 Suppose that, conditionally on $\mu$,
 \[
   X_1,\ldots,X_n\given\mu
@@ -497,7 +498,7 @@ where $\tau^2>0$ is known.
 
 \clearpage
 
-\begin{examquestion}{Question 8: Equal-tailed and highest-density intervals}
+\begin{examquestion}{Question 8: Equal-tailed and highest-density intervals}{question:practice-equal-tailed-and-highest-density-intervals}
 Suppose a continuous parameter $\theta$ has posterior density
 \[
   p(\theta\given\xvec)=2\theta,
@@ -522,7 +523,7 @@ and zero elsewhere.
 
 \clearpage
 
-\begin{examquestion}{Question 9: Gibbs sampling for a correlated normal target}
+\begin{examquestion}{Question 9: Gibbs sampling for a correlated normal target}{question:practice-gibbs-sampling-for-a-correlated-normal-target}
 Consider the joint posterior density
 \[
   p(\theta_1,\theta_2\given\xvec)
@@ -554,7 +555,7 @@ where $\theta_1,\theta_2\in\mathbb{R}$ and $-1<\rho<1$ is known.
 
 \clearpage
 
-\begin{examquestion}{Question 10: Metropolis-Hastings with an asymmetric-proposal extension}
+\begin{examquestion}{Question 10: Metropolis-Hastings with an asymmetric-proposal extension}{question:practice-metropolis-hastings-with-an-asymmetric-proposal-extension}
 A posterior density is known up to a normalising constant:
 \[
   p(\theta\given\xvec)\propto\theta^2e^{-\theta},
@@ -588,7 +589,7 @@ where $s>0$ is fixed.
 
 \clearpage
 
-\begin{examquestion}{Question 11: Bayes factors and posterior odds}
+\begin{examquestion}{Question 11: Bayes factors and posterior odds}{question:practice-bayes-factors-and-posterior-odds}
 Suppose $X\given\theta\sim\operatorname{Bin}(n,\theta)$. Consider
 \[
   M_0:\theta=\frac12,
@@ -618,7 +619,7 @@ $m_j(x)=p(x\given M_j)$.
 
 \clearpage
 
-\begin{examquestion}{Question 12: Pareto likelihood and Gamma posterior}
+\begin{examquestion}{Question 12: Pareto likelihood and Gamma posterior}{question:practice-pareto-likelihood-and-gamma-posterior}
 Suppose $X_1,\ldots,X_n$ are conditionally iid with density
 \[
   p(x_i\given\theta)
@@ -661,7 +662,7 @@ the task is to show how multiplying the densities produces it.}
 
 \clearpage
 
-\begin{examquestion}{Question 13: Bayesian German tank problem}
+\begin{examquestion}{Question 13: Bayesian German tank problem}{question:practice-bayesian-german-tank-problem}
 In the Second World War, Allied statisticians estimated German tank
 production from the serial numbers on captured tanks. Treat the serial
 numbers as continuous. Suppose
@@ -717,7 +718,7 @@ where $\alpha,\beta>0$. Here $\beta$ is a known lower bound on production.
 
 \clearpage
 
-\begin{examquestion}{Question 14: Marginal and conditional distributions}
+\begin{examquestion}{Question 14: Marginal and conditional distributions}{question:practice-marginal-and-conditional-distributions}
 \textbf{[4 marks]}
 
 Suppose two unknown parameters have joint posterior density
@@ -738,7 +739,7 @@ density can be obtained from the joint posterior.
 
 \clearpage
 
-\begin{examquestion}{Question 15: Prior beliefs and conflicting data}
+\begin{examquestion}{Question 15: Prior beliefs and conflicting data}{question:practice-prior-beliefs-and-conflicting-data}
 \textbf{[3 marks]}
 
 A researcher models independent observations as Bernoulli with unknown
@@ -754,7 +755,7 @@ observations can overcome the restriction imposed by this prior.
 
 \clearpage
 
-\begin{examquestion}{Question 16: Interpreting identical interval endpoints}
+\begin{examquestion}{Question 16: Interpreting identical interval endpoints}{question:practice-interpreting-identical-interval-endpoints}
 \textbf{[4 marks]}
 
 A Bayesian analysis produces a 95\% posterior credible interval $[0.3,0.6]$
@@ -768,7 +769,7 @@ not imply identical interpretations.
 
 \clearpage
 
-\begin{examquestion}{Question 17: Choosing a conjugate prior}
+\begin{examquestion}{Question 17: Choosing a conjugate prior}{question:practice-choosing-a-conjugate-prior}
 \textbf{[3 marks]}
 
 Explain what it means for a prior family to be conjugate to a sampling model,
@@ -781,7 +782,7 @@ analysis invalid? Explain what computational difficulty may arise.
 
 \clearpage
 
-\begin{examquestion}{Question 18: Equilibrium and independence}
+\begin{examquestion}{Question 18: Equilibrium and independence}{question:practice-equilibrium-and-independence}
 \textbf{[4 marks]}
 
 A Gibbs sampler targets a bivariate posterior in which the two parameters are
@@ -797,7 +798,7 @@ Justify your answer by referring to how Gibbs updates are generated.
 
 \clearpage
 
-\begin{examquestion}{Question 19: Assessing a Metropolis--Hastings sampler}
+\begin{examquestion}{Question 19: Assessing a Metropolis--Hastings sampler}{question:practice-assessing-a-metropolis-hastings-sampler}
 \textbf{[4 marks]}
 
 A researcher runs a random-walk Metropolis--Hastings sampler using a Normal
@@ -812,7 +813,7 @@ additional feature of its output that you would examine.
 
 \clearpage
 
-\begin{examquestion}{Question 20: Estimation and prediction}
+\begin{examquestion}{Question 20: Estimation and prediction}{question:practice-estimation-and-prediction}
 \textbf{[4 marks]}
 
 Suppose measurements are conditionally independent with
@@ -829,7 +830,7 @@ quantities to approach zero? Explain your reasoning.
 
 \clearpage
 
-\begin{examquestion}{Question 21: Evidence and posterior model probabilities}
+\begin{examquestion}{Question 21: Evidence and posterior model probabilities}{question:practice-evidence-and-posterior-model-probabilities}
 \textbf{[4 marks]}
 
 An analysis produces a Bayes factor of $4$ in favour of model $M_1$ over
@@ -845,7 +846,7 @@ and identify which model has the greater posterior probability.
 
 \newpage
 
-\begin{examquestion}{Question 22: Advertising responses and Dirichlet inference}
+\begin{examquestion}{Question 22: Advertising responses and Dirichlet inference}{question:practice-advertising-responses-and-dirichlet-inference}
 \textbf{[10 marks]}
 
 An advertising campaign records responses from 60 independently sampled
@@ -896,7 +897,7 @@ f(\mathbf p)\propto\prod_{k=1}^{K}p_k^{\alpha_k-1},
 
 \clearpage
 
-\begin{examquestion}{Question 23: Rat-tumour studies and hierarchical shrinkage}
+\begin{examquestion}{Question 23: Rat-tumour studies and hierarchical shrinkage}{question:practice-rat-tumour-studies-and-hierarchical-shrinkage}
 \textbf{[12 marks]}
 
 Suppose $J$ related studies record tumour counts
@@ -951,7 +952,7 @@ f(\theta\mid a,b)=\frac{\theta^{a-1}(1-\theta)^{b-1}}{B(a,b)}.
 
 \clearpage
 
-\begin{examquestion}{Question 24: Bayesian regression and prediction}
+\begin{examquestion}{Question 24: Bayesian regression and prediction}{question:practice-bayesian-regression-and-prediction}
 \textbf{[12 marks]}
 
 Consider the regression model
@@ -1000,7 +1001,7 @@ Write $t_\nu(m,s)$ for a Student-$t$ distribution with location $m$ and
 
 \clearpage
 
-\begin{examquestion}{Question 25: Gibbs, Metropolis--Hastings, and Monte Carlo error}
+\begin{examquestion}{Question 25: Gibbs, Metropolis--Hastings, and Monte Carlo error}{question:practice-gibbs-metropolis-hastings-and-monte-carlo-error}
 \textbf{[25 marks]}
 
 Consider two random variables $X$ and $Y$ with joint density
@@ -1028,7 +1029,7 @@ support. This question uses the positive quadrant.}
 
 \clearpage
 
-\begin{examquestion}{Question 26: General Beta--Binomial Gibbs sampler}
+\begin{examquestion}{Question 26: General Beta--Binomial Gibbs sampler}{question:practice-general-beta-binomial-gibbs-sampler}
 \textbf{[15 marks]}
 
 Consider the joint density/mass function, given up to proportionality,
@@ -1057,7 +1058,7 @@ treated as a kernel, since a constant is needed to make its total mass one.}
 
 \clearpage
 
-\begin{examquestion}{Question 27: Machine downtime and a Gamma prior}
+\begin{examquestion}{Question 27: Machine downtime and a Gamma prior}{question:practice-machine-downtime-and-a-gamma-prior}
 \textbf{[25 marks]}
 
 Suppose the proportion of time $X$ that a production machine is down during
@@ -1099,7 +1100,7 @@ p(\theta)=\frac{\beta^\alpha}{\Gamma(\alpha)}
 
 \clearpage
 
-\begin{examquestion}{Question 28: Lognormal variance and conjugate inference}
+\begin{examquestion}{Question 28: Lognormal variance and conjugate inference}{question:practice-lognormal-variance-and-conjugate-inference}
 \textbf{[20 marks]}
 
 The size $X$ of a certain type of particle can be modelled by a lognormal
@@ -1132,7 +1133,7 @@ $X_1,\ldots,X_n$ be conditionally iid observations from this model.
 
 \clearpage
 
-\begin{examquestion}{Question 29: Comparing Exponential and Gamma lifetime models}
+\begin{examquestion}{Question 29: Comparing Exponential and Gamma lifetime models}{question:practice-comparing-exponential-and-gamma-lifetime-models}
 \textbf{[20 marks]}
 
 Researchers observed lifetimes $\xvec=(x_1,\ldots,x_n)$, with each $x_i>0$,
@@ -1175,7 +1176,7 @@ The numerical output in this set is constructed for practice. Use a
 for all Questions 1--59 are provided in the separate Answers section, after the
 complete question set.
 
-\begin{examquestion}{Question 30: Poisson regression model statement}
+\begin{examquestion}{Question 30: Poisson regression model statement}{question:practice-poisson-regression-model-statement}
 \textbf{[4 marks]}
 
 For 80 independent lakes, researchers record the number of fish species,
@@ -1189,7 +1190,7 @@ notation and state the independence assumption.
 
 \clearpage
 
-\begin{examquestion}{Question 31: Interpreting Poisson regression coefficients}
+\begin{examquestion}{Question 31: Interpreting Poisson regression coefficients}{question:practice-interpreting-poisson-regression-coefficients}
 \textbf{[4 marks]}
 
 The model in Question 30 produces:
@@ -1218,7 +1219,7 @@ Intercept & $1.50$\\
 
 \clearpage
 
-\begin{examquestion}{Question 32: Deriving the Poisson log-likelihood}
+\begin{examquestion}{Question 32: Deriving the Poisson log-likelihood}{question:practice-deriving-the-poisson-log-likelihood}
 \textbf{[3 marks]}
 
 Suppose, conditional on fixed covariates,
@@ -1242,7 +1243,7 @@ over $\boldsymbol\beta$.
 
 \clearpage
 
-\begin{examquestion}{Question 33: Score, Hessian, and information identity}
+\begin{examquestion}{Question 33: Score, Hessian, and information identity}{question:practice-score-hessian-and-information-identity}
 \textbf{[6 marks]}
 
 For the model in Question 32, let
@@ -1267,7 +1268,7 @@ S(\boldsymbol\beta)
 
 \clearpage
 
-\begin{examquestion}{Question 34: Deviance and model adequacy}
+\begin{examquestion}{Question 34: Deviance and model adequacy}{question:practice-deviance-and-model-adequacy}
 \textbf{[5 marks]}
 
 A Poisson regression gives:
@@ -1291,7 +1292,7 @@ are appropriate.
 
 \clearpage
 
-\begin{examquestion}{Question 35: Logistic regression and an adjusted effect}
+\begin{examquestion}{Question 35: Logistic regression and an adjusted effect}{question:practice-logistic-regression-and-an-adjusted-effect}
 \textbf{[4 marks]}
 
 For independent patients, \texttt{disease} is coded 1 for disease and 0
@@ -1312,7 +1313,7 @@ glm(disease ~ group + cholesterol, family = binomial)
 
 \clearpage
 
-\begin{examquestion}{Question 36: A binomial model with a smooth effect}
+\begin{examquestion}{Question 36: A binomial model with a smooth effect}{question:practice-a-binomial-model-with-a-smooth-effect}
 \textbf{[4 marks]}
 
 The same patients are analysed using:
@@ -1348,7 +1349,7 @@ Smooth term & edf & $p$-value\\
 
 \clearpage
 
-\begin{examquestion}{Question 37: Testing and simplifying an additive model}
+\begin{examquestion}{Question 37: Testing and simplifying an additive model}{question:practice-testing-and-simplifying-an-additive-model}
 \textbf{[5 marks]}
 
 Using the output in Question 36:
@@ -1371,7 +1372,7 @@ Using the output in Question 36:
 
 \clearpage
 
-\begin{examquestion}{Question 38: Changing from a logit to a probit link}
+\begin{examquestion}{Question 38: Changing from a logit to a probit link}{question:practice-changing-from-a-logit-to-a-probit-link}
 \textbf{[3 marks]}
 
 Another researcher fits:
@@ -1390,7 +1391,7 @@ model with a logit link.
 
 \clearpage
 
-\begin{examquestion}{Question 39: A generalised linear mixed model}
+\begin{examquestion}{Question 39: A generalised linear mixed model}{question:practice-a-generalised-linear-mixed-model}
 \textbf{[6 marks]}
 
 Patients receive treatment A or B and are assessed at weeks $0,4,8,12$.
@@ -1413,7 +1414,7 @@ glmer(
 
 \clearpage
 
-\begin{examquestion}{Question 40: Interpreting a treatment--time interaction}
+\begin{examquestion}{Question 40: Interpreting a treatment--time interaction}{question:practice-interpreting-a-treatment-time-interaction}
 \textbf{[6 marks]}
 
 The model in Question 39 produces:
@@ -1451,7 +1452,7 @@ Intercept & $-0.80$ & $0.20$ & $0.000063$\\
 
 \clearpage
 
-\begin{examquestion}{Question 41: Random slopes and changed conclusions}
+\begin{examquestion}{Question 41: Random slopes and changed conclusions}{question:practice-random-slopes-and-changed-conclusions}
 \textbf{[5 marks]}
 
 The researcher changes the model to:
@@ -1478,7 +1479,7 @@ $0.055$ and $p$-value $0.203$.
 
 \clearpage
 
-\begin{examquestion}{Question 42: A nonconjugate prior and a change of variable}
+\begin{examquestion}{Question 42: A nonconjugate prior and a change of variable}{question:practice-a-nonconjugate-prior-and-a-change-of-variable}
 \textbf{[12 marks]}
 
 Suppose
@@ -1510,7 +1511,7 @@ and assign the prior $Z\sim N(1,1)$.
 
 \clearpage
 
-\begin{examquestion}{Question 43: Unknown Normal mean and variance: conditional versus marginal}
+\begin{examquestion}{Question 43: Unknown Normal mean and variance: conditional versus marginal}{question:practice-unknown-normal-mean-and-variance-conditional-versus-marginal}
 \textbf{[14 marks]}
 
 Suppose
@@ -1547,7 +1548,7 @@ Use the inverse-Gamma convention $f(v)\propto v^{-a-1}e^{-b/v}$.
 
 \clearpage
 
-\begin{examquestion}{Question 44: Testing whether a coin is fair}
+\begin{examquestion}{Question 44: Testing whether a coin is fair}{question:practice-testing-whether-a-coin-is-fair}
 \textbf{[10 marks]}
 
 Suppose $X\given\theta\sim\operatorname{Binomial}(n,\theta)$. Compare
@@ -1580,7 +1581,7 @@ B(a,b)=\int_0^1t^{a-1}(1-t)^{b-1}\,dt.
 
 \clearpage
 
-\begin{examquestion}{Question 45: Gamma regression from the exponential-family form}
+\begin{examquestion}{Question 45: Gamma regression from the exponential-family form}{question:practice-gamma-regression-from-the-exponential-family-form}
 \textbf{[12 marks]}
 
 Independent positive responses have density
@@ -1619,7 +1620,7 @@ where $\mu_i>0$ and $k>0$.
 
 \clearpage
 
-\begin{examquestion}{Question 46: Multinomial logistic regression}
+\begin{examquestion}{Question 46: Multinomial logistic regression}{question:practice-multinomial-logistic-regression}
 \textbf{[10 marks]}
 
 A response has categories $0,1,2$, with probabilities
@@ -1642,7 +1643,7 @@ $p_0(x),p_1(x),p_2(x)$. Consider
 
 \clearpage
 
-\begin{examquestion}{Question 47: Overdispersion and quasi-Poisson inference}
+\begin{examquestion}{Question 47: Overdispersion and quasi-Poisson inference}{question:practice-overdispersion-and-quasi-poisson-inference}
 \textbf{[10 marks]}
 
 For independent counts, suppose
@@ -1673,7 +1674,7 @@ For independent counts, suppose
 
 \clearpage
 
-\begin{examquestion}{Question 48: Conjugate Bayesian inference for a Gamma rate}
+\begin{examquestion}{Question 48: Conjugate Bayesian inference for a Gamma rate}{question:practice-conjugate-bayesian-inference-for-a-gamma-rate}
 \textbf{[10 marks]}
 
 Let $X_1,\ldots,X_n$ be conditionally independent given $\lambda$, with density
@@ -1711,7 +1712,7 @@ p(\lambda)=\frac{b^a}{\Gamma(a)}\lambda^{a-1}e^{-b\lambda}.
 
 \clearpage
 
-\begin{examquestion}{Question 49: A Gibbs full conditional under independent priors}
+\begin{examquestion}{Question 49: A Gibbs full conditional under independent priors}{question:practice-a-gibbs-full-conditional-under-independent-priors}
 \textbf{[6 marks]}
 
 Suppose
@@ -1742,7 +1743,7 @@ The Gamma distribution is parametrised by shape and rate.
 
 \clearpage
 
-\begin{examquestion}{Question 50: Metropolis--Hastings with a Cauchy prior}
+\begin{examquestion}{Question 50: Metropolis--Hastings with a Cauchy prior}{question:practice-metropolis-hastings-with-a-cauchy-prior}
 \textbf{[8 marks]}
 
 A parameter $\theta\in\mathbb R$ has posterior density
@@ -1777,7 +1778,7 @@ where $s^2>0$ is fixed.
 
 \clearpage
 
-\begin{examquestion}{Question 51: Three-variable Gibbs sampling}
+\begin{examquestion}{Question 51: Three-variable Gibbs sampling}{question:practice-three-variable-gibbs-sampling}
 \textbf{[10 marks]}
 
 Consider the joint probability mass/density function
@@ -1819,7 +1820,7 @@ $0<\gamma,\delta<1$ are known constants.
 
 \clearpage
 
-\begin{examquestion}{Question 52: Bayesian logistic regression}
+\begin{examquestion}{Question 52: Bayesian logistic regression}{question:practice-bayesian-logistic-regression}
 \textbf{[12 marks]}
 
 A researcher models whether a manufactured component fails a stress test.
@@ -1868,7 +1869,7 @@ where $s>0$ is fixed and $I_2$ is the $2\times2$ identity matrix.
 
 \clearpage
 
-\begin{examquestion}{Question 53: Poisson flaws and posterior odds}
+\begin{examquestion}{Question 53: Poisson flaws and posterior odds}{question:practice-poisson-flaws-and-posterior-odds}
 \textbf{[12 marks]}
 
 A textile manufacturer counts flaws in equal-length rolls of fabric. Assume
@@ -1915,7 +1916,7 @@ The manufacturer considers the process acceptable if $\theta\le4$.
 
 \clearpage
 
-\begin{examquestion}{Question 54: Poisson regression and overdispersion}
+\begin{examquestion}{Question 54: Poisson regression and overdispersion}{question:practice-poisson-regression-and-overdispersion}
 \textbf{[12 marks]}
 
 A manufacturing company records the number $Y_i$ of machine failures
@@ -1967,7 +1968,7 @@ Treat the machine ages as fixed covariates.
 
 \clearpage
 
-\begin{examquestion}{Question 55: Gamma GLM for reaction times}
+\begin{examquestion}{Question 55: Gamma GLM for reaction times}{question:practice-gamma-glm-for-reaction-times}
 \textbf{[6 marks]}
 
 A researcher measures the time $Y_i>0$ taken for a chemical reaction to
@@ -2004,7 +2005,7 @@ glm(time ~ temperature, family = Gamma(link = "log"))
 
 \clearpage
 
-\begin{examquestion}{Question 56: Exponential regression and the score}
+\begin{examquestion}{Question 56: Exponential regression and the score}{question:practice-exponential-regression-and-the-score}
 \textbf{[5 marks]}
 
 Researchers study how long electronic components last. Let $Y_i>0$ be
@@ -2047,7 +2048,7 @@ $\mu_i=\E[Y_i\given x_i]$; the exponential \textbf{rate is $1/\mu_i$}.
 
 \clearpage
 
-\begin{examquestion}{Question 57: Negative-binomial canonical link}
+\begin{examquestion}{Question 57: Negative-binomial canonical link}{question:practice-negative-binomial-canonical-link}
 \textbf{[6 marks]}
 
 Let $Y$ have a negative-binomial distribution with probability mass function
@@ -2080,7 +2081,7 @@ where $r>0$ is known and $0<\theta<1$.
 
 \clearpage
 
-\begin{examquestion}{Question 58: Joint Normal conjugacy and exact sampling}
+\begin{examquestion}{Question 58: Joint Normal conjugacy and exact sampling}{question:practice-joint-normal-conjugacy-and-exact-sampling}
 \textbf{[20 marks; approximately 25 minutes]}
 
 Let
@@ -2139,7 +2140,7 @@ $p(v)\propto v^{-a-1}e^{-b/v}$ for $v>0$.
 
 \clearpage
 
-\begin{examquestion}{Question 59: Gibbs sampling with a weighted count}
+\begin{examquestion}{Question 59: Gibbs sampling with a weighted count}{question:practice-gibbs-sampling-with-a-weighted-count}
 \textbf{[10 marks]}
 
 Let $X\in\{0,1,\ldots,8\}$ and $\theta\in(0,1)$ have joint probability
