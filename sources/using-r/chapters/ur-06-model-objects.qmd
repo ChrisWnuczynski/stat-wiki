@@ -1,0 +1,47 @@
+# Fitted models as objects
+
+A fitted model is an object with several views. The printed `summary` is one of them. `coef` extracts the coefficients, `vcov` their estimated covariance, `fitted` the in-sample conditional means, `residuals` a residual, `predict` a mean or a new draw at specified covariate values, and `nobs` the number of rows used. `broom` lays the common views out as tables: `tidy` for one row per term, `augment` for one row per observation, and `glance` for one row of whole-model summaries. The normal linear model these commands fit is in [Linear regression](inf-06-regression.qmd). The same extractors work on the generalised linear fits in [Generalised linear models in R](ur-07-glms-in-r.qmd), with the extra question of which scale `predict` is on.
+
+The air-quality days, and the complete-case subset of 111 days on which ozone, solar radiation, wind, and temperature were all recorded, are built in [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd). The fit below uses temperature and wind only, so in principle it could keep days that lack solar radiation. It is fit on the 111-day subset anyway, so that it can be compared later with a model that does use solar radiation. Changing the subset and the formula at the same time confounds the two changes.
+
+```r
+aq_complete <- datasets::airquality |>
+  dplyr::filter(complete.cases(Ozone, Solar.R, Wind, Temp))
+linear_fit <- lm(Ozone ~ Temp + Wind, data = aq_complete)
+coef(linear_fit)
+vcov(linear_fit)
+nobs(linear_fit)
+```
+
+`nobs` must be 111. If it is not, the filter did not do what the formula assumed. The coefficient on `Temp` is a change in mean ozone, in parts per billion, per degree Fahrenheit, at a fixed wind speed, inside this linear model. It is not an effect of an intervention on temperature. The diagonal of `vcov` holds the squared standard errors that `summary` prints, and the off-diagonal holds the estimated covariance of the coefficients. An interval for a sum of coefficients needs that covariance. Adding the two standard errors in quadrature, as if the coefficients were uncorrelated, ignores it.
+
+```r
+broom::tidy(linear_fit) |>
+  dplyr::select(term, estimate, std.error, statistic, p.value)
+broom::glance(linear_fit) |>
+  dplyr::select(nobs, r.squared, sigma, df.residual)
+broom::augment(linear_fit) |>
+  dplyr::select(Ozone, Temp, Wind, .fitted, .resid) |>
+  utils::head(4)
+```
+
+`tidy` repeats `coef` and the standard errors as a data frame, which is the form a later table or plot wants. `glance` reports the number of observations, the coefficient of determination, and `sigma`, the residual standard deviation. `r.squared` is a description of this sample under this linear mean. It is not a measure of predictive accuracy on a new day, and it is not defined in the same way for a generalised linear model. `augment` binds the fitted mean and the response residual $y-\hat\mu$ back onto the rows. The first four rows are a check that the residual is the ozone value minus the fitted value, not a residual on some other scale.
+
+## An interval for the mean and an interval for a new day {#s-an-interval-for-the-mean-and-an-interval-for-a-new-day}
+
+`predict` without `newdata` returns the in-sample fitted means, the same numbers as `fitted`. With `newdata`, it evaluates the mean at a new covariate point. The columns of `newdata` must use the same names, the same units, and, for a factor, the same levels as the data that were fit. A temperature supplied in Celsius to a model fit in Fahrenheit is a silent change of the question. A factor level that was not in the training data produces an error, or a missing prediction, rather than a coefficient.
+
+```r
+new_weather <- data.frame(Temp = 80, Wind = 8)
+predict(linear_fit, newdata = new_weather, interval = "confidence")
+predict(linear_fit, newdata = new_weather, interval = "prediction")
+```
+
+The confidence interval is an interval for the conditional mean at 80 degrees and 8 miles per hour. The prediction interval is an interval for a new day's ozone at those covariates. The prediction interval is wider because it includes the residual variance $\sigma^2$ as well as the uncertainty in the fitted mean. Quoting the narrower interval as a forecast of one day understates the uncertainty the model itself claims. Neither interval is a causal effect of setting the temperature to 80. Both are statements inside the fitted linear model, at a point inside or outside the observed range. A temperature of 80 is inside this summer. A temperature far outside the observed range is an extrapolation, and the interval does not grow an extra allowance for the mean being wrong out there.
+
+`interval = "confidence"` and `interval = "prediction"` are defined for `lm`. For a `glm`, `predict` returns the linear predictor by default and the mean when `type = "response"`. There is no prediction interval of the `lm` kind, because a non-normal response is not a mean plus an independent residual in that sense. The way to carry uncertainty from the coefficient vector onto the mean scale is on the generalised-linear page: an interval on the link scale, then the inverse link applied to each endpoint.
+
+::: {.callout-note}
+## Key idea
+`summary` is one print of the object. `nobs` says which rows were used, `vcov` says how the coefficients vary together, and the choice between a confidence interval and a prediction interval is the choice between the mean and a new observation.
+:::

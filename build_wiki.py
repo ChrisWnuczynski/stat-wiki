@@ -26,7 +26,8 @@ PREP = SOURCES / "prep"  # the final-exam booklet (index, chapters, figures)
 PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
 PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
 INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
-DATA = SOURCES / "stat1301"  # studies, description, R, and examples that point at inference
+DATA = SOURCES / "stat1301"  # studies, description, and examples that point at inference
+USING = SOURCES / "using-r"  # the Using R section; the language chapter stays in DATA
 STOCHASTIC = SOURCES / "stat3004"  # stochastic processes, then measure and convergence
 LEARNING = SOURCES / "stat3006"  # statistical learning, including the R calculations
 
@@ -86,13 +87,29 @@ PARTS = [
         [
             ("da-01-studies-and-data.qmd", "notes"),
             ("da-02-descriptive-statistics.qmd", "notes"),
-            ("da-03-using-r.qmd", "notes"),
             ("da-04-estimation-examples.qmd", "notes"),
             ("da-05-testing-examples.qmd", "notes"),
             ("da-06-anova-examples.qmd", "notes"),
             ("da-07-regression-examples.qmd", "notes"),
             ("da-08-linear-model-examples.qmd", "notes"),
             ("da-09-chi-square-examples.qmd", "notes"),
+        ],
+    ),
+    (
+        "Using R",
+        [
+            ("da-03-using-r.qmd", "notes"),
+            ("ur-01-exploratory-data-analysis.qmd", "notes"),
+            ("ur-02-probability-and-simulation.qmd", "notes"),
+            ("ur-03-bootstrap-and-numerical.qmd", "notes"),
+            ("ur-04-mixtures-and-clustering.qmd", "notes"),
+            ("ur-05-bayesian-computation.qmd", "notes"),
+            ("ur-06-model-objects.qmd", "notes"),
+            ("ur-07-glms-in-r.qmd", "notes"),
+            ("ur-08-additive-models.qmd", "notes"),
+            ("ur-09-repeated-measures.qmd", "notes"),
+            ("ur-10-time-series.qmd", "notes"),
+            ("ur-11-checking-a-fit.qmd", "notes"),
         ],
     ),
     (
@@ -3456,7 +3473,8 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         "Stochastic processes continues from there: branching and first passage, Markov chains in discrete and continuous time, Poisson processes and queues, then sigma-algebras, modes of convergence, and maxima. "
         "Statistical learning builds classifiers, clusters, and high-dimensional fits on top of the regression, GLM, and smoothing chapters. "
         "Statistical inference then turns a random sample into an estimate, an interval, or a test. "
-        "Data analysis is where a study, a table of summaries, and an R calculation meet those methods.",
+        "Data analysis is where a study and a table of summaries meet those methods. "
+        "Using R is where those calculations are written down: objects, exploration, simulation, resampling, and the fits used in the later parts.",
         "",
     ]
     for part, members in parts.items():
@@ -3473,6 +3491,10 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     fit = fit.replace(
         "a working knowledge of probability, the linear model,",
         "a working knowledge of [probability](prob-01-experiments.qmd), [the linear model](inf-06-regression.qmd),",
+    )
+    fit = fit.replace(
+        "When a fit is shown, it is in R.",
+        "When a fit is shown, it is in R, and the commands are gathered in [Using R](da-03-using-r.qmd).",
     )
     fit = autolink(prepare(fit, "../figures"), topics_path, None)
     lines += ["", "## How the topics fit together", "", fit]
@@ -3549,7 +3571,7 @@ toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
 :::
 
 :::: {{.portal}}
@@ -3631,7 +3653,7 @@ def write_config(chapters, final_notes, questions) -> None:
 
 website:
   title: "stat wiki"
-  description: "Study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference"
+  description: "Study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them"
   # Public host. Quarto writes sitemap.xml from this and each page's canonical link.
   site-url: "https://www.statwiki.io"
   search:
@@ -3860,7 +3882,7 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 
 def chapter_source(filename: str) -> Path:
     """Chapter files live with the book, except the probability notes."""
-    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters", STOCHASTIC / "chapters", LEARNING / "chapters"):
+    for folder in (BOOK / "chapters", PROBABILITY / "chapters", INFERENCE / "chapters", DATA / "chapters", USING / "chapters", STOCHASTIC / "chapters", LEARNING / "chapters"):
         path = folder / filename
         if path.exists():
             return path

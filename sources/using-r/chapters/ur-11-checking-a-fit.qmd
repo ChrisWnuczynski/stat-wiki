@@ -1,0 +1,63 @@
+# Checking a calculation
+
+A surprising number is usually a row, a scale, or a unit, not a deep property of the estimator. The checks below are the first things to recompute. Each one points at the page that says what the recomputed number means. The objects, the pipe, and `nobs` are in [Using R](da-03-using-r.qmd).
+
+| What went wrong | What to recompute | Why it changes the answer |
+|:--|:--|:--|
+| The result moves and the data did not | `set.seed`, the sort order, `sessionInfo()` | a new random stream, a new row order, or a new package |
+| The sample size is not the one that was planned | `nrow`, `nobs`, `complete.cases` | two formulas can drop different rows |
+| A prediction is huge or impossible | factor levels, units, `type = "link"` against `type = "response"` | a link-scale number is not a probability or a count |
+| Standard errors are tiny and the rows repeat | the cluster identifier | visits are not independent children |
+| AIC on a quasi-likelihood fit is `NA` | the family | a quasi-likelihood is not a likelihood |
+| A Monte Carlo mean will not settle | the trace, the autocorrelation, a second chain | the iteration count is not an effective sample size |
+| Clusters from a mixture change with the start | starts, component sizes, responsibilities, scaling | EM stops at a local mode, and labels can swap |
+| A time-series fit looks excellent in sample | a chronological holdout and the residuals | serial dependence and leakage inflate a training score |
+
+The sizes of the tables used in this part are part of the check. They do not depend on a fitted model. A later edit that filters a table and forgets to say so fails here.
+
+```r
+aq <- datasets::airquality
+stopifnot(nrow(aq) == 153)
+stopifnot(sum(complete.cases(aq$Ozone, aq$Solar.R, aq$Wind, aq$Temp)) == 111)
+admissions <- as.data.frame(datasets::UCBAdmissions) |>
+  tidyr::pivot_wider(names_from = Admit, values_from = Freq)
+stopifnot(nrow(admissions) == 12)
+data("Orthodont", package = "nlme")
+stopifnot(nrow(Orthodont) == 108)
+stopifnot(length(unique(Orthodont$Subject)) == 27)
+```
+
+`stopifnot` stops the script at the first false claim. That is what a check should do. A comment that says the sample has 111 days, next to a fit whose `nobs` is 116, is how two analyses get compared as if they were one.
+
+## Scales and units {#s-scales-and-units}
+
+`predict(fit, type = "link")` for a logistic regression is a log odds. `plogis` of that number is a probability. The standard error returned beside the link-scale prediction is not a standard error on the probability scale. The interval has to be built first, then transformed, as in [Generalised linear models in R](ur-07-glms-in-r.qmd). The same split applies to a log link: the coefficient is a difference of log means, and `exp` of the coefficient is a ratio of means. Exponentiating the standard error is neither an interval nor a standard error for the ratio.
+
+Factor levels are a unit as well. `model.matrix` shows the columns that were built. If the baseline level is not the level the report calls the baseline, every contrast has been renamed. `contrasts(dat$Group)` shows the coding. Changing it after the fit, without refitting, changes the names in the report and not the fit.
+
+## Dependence and resampling {#s-dependence-and-resampling}
+
+A mixed model or an estimating equation that is given the wrong identifier will run. It will treat the identifier it was given as the cluster. `n_distinct` on that column, set next to the number of clusters the design actually has, is the check. For the orthodontic series the number is 27 children, from [Repeated measures in R](ur-09-repeated-measures.qmd). A bootstrap of the age slope that draws rows is a bootstrap of visits. A bootstrap that draws children, and keeps the four visits of each drawn child, matches the dependence the mixed model assumed. The two intervals answer different questions. [Bootstrap and numerical methods in R](ur-03-bootstrap-and-numerical.qmd) is the distinction.
+
+A Markov chain has the same kind of trap. A long trace that is highly correlated has a small effective sample size, whatever the iteration count. Compare a sampler with a closed form on the same target before trusting it on a harder one. That comparison is the beta draw against the Metropolis–Hastings mean in [Bayesian computation in R](ur-05-bayesian-computation.qmd).
+
+## Changes worth making once {#s-changes-worth-making-once}
+
+Each change below alters one choice and leaves the rows fixed. The comparison is then about that choice.
+
+1. **Basis dimension.** Refit the ozone additive model after raising the basis dimension of the wind smooth, as in [Generalised additive models in R](ur-08-additive-models.qmd). A material change is a different shape, a different `k.check` warning, or a residual pattern that appears or disappears. Keep the 111 complete days fixed, so the comparison is not a change of sample.
+
+2. **Which gender contrast.** On the admissions table, compute the marginal admission rate by gender, the within-department rates, and the odds ratio from the additive logistic model. The three numbers answer three questions. [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd) builds the rates. [Generalised linear models in R](ur-07-glms-in-r.qmd) builds the odds ratio. Moving from the margin to the additive model changes the estimand, not just the precision.
+
+3. **The beta prior.** In the Bayes-factor calculation, replace $\operatorname{Beta}(2,2)$ by $\operatorname{Beta}(1,1)$ and by $\operatorname{Beta}(20,20)$. The posterior mean moves toward the maximum-likelihood rate as the prior weakens, and toward one half as it strengthens. The Bayes factor can move in the other direction from the posterior mean, because it averages the likelihood over the whole prior. [Bayesian computation in R](ur-05-bayesian-computation.qmd) writes both quantities.
+
+4. **The bootstrap unit.** Bootstrap the orthodontic age slope by resampling children, and again by resampling rows. The row bootstrap treats 108 visits as independent. The child bootstrap does not. The interval that matches the mixed model is the child bootstrap.
+
+5. **A seasonal baseline.** Score the airline forecast against a seasonal naive forecast on the same twelve holdout months. An ARIMA model that does not reduce the holdout error by a meaningful number of passengers has not justified its orders on this split. [Time series in R](ur-10-time-series.qmd) fits both.
+
+6. **A second start.** Rerun the factor-mixture fits on the scaled iris measurements with a different seed and more random starts. Compare the BIC values of the two factor mixtures on the same four columns, and compare each adjusted Rand index with the species label. The two criteria need not rank the fits in the same order. [Mixtures and clustering in R](ur-04-mixtures-and-clustering.qmd) says which BIC is which, and why a BIC on two principal-component scores is not in the comparison.
+
+::: {.callout-note}
+## Key idea
+Recompute the rows, the unit, and the scale before reinterpreting the estimator. A check that changes two of those at once cannot say which one moved the answer.
+:::

@@ -1,0 +1,47 @@
+# Generalised additive models in R
+
+A generalised additive model keeps the response family and the link of a generalised linear model, and lets one or more predictors act through a smooth function rather than a straight line in the linear predictor. The smooth is estimated with a penalty on wiggliness, so the fit is not an interpolating spline through every point. The roughness penalty, and the additive form with one smooth per covariate, are in [Smooth means](06-smooth-means.qmd) and [Additive smooths](07-additive-and-mixed.qmd). `mgcv::gam` estimates the smooth and chooses the amount of wiggliness. It does not decide whether the sampling process supports a causal reading of the curve.
+
+The example is ozone on the 111 air-quality days that have ozone, solar radiation, wind, and temperature all observed. The same subset is the gamma model in [Generalised linear models in R](ur-07-glms-in-r.qmd). Fitting the smooth on a different subset would mix a change of sample with a change of mean.
+
+## A smooth gamma mean {#s-a-smooth-gamma-mean}
+
+Temperature, wind, and solar radiation are each given a smooth. The gamma family with a log link keeps the mean positive, which a smooth on the identity scale need not do. `k` is the dimension of the basis used to build the smooth. It is an upper bound on the complexity, not the effective degrees of freedom of the curve that is returned. `method = "REML"` estimates the smoothness from the data by restricted maximum likelihood.
+
+```r
+aq_complete <- datasets::airquality |>
+  dplyr::filter(complete.cases(Ozone, Solar.R, Wind, Temp))
+gam_fit <- mgcv::gam(
+  Ozone ~ s(Temp, k = 8) + s(Wind, k = 8) + s(Solar.R, k = 8),
+  family = Gamma(link = "log"),
+  data = aq_complete,
+  method = "REML"
+)
+nobs(gam_fit)
+summary(gam_fit)$s.table
+mgcv::k.check(gam_fit)
+```
+
+`nobs` is 111. `s.table` has one row per smooth. The column `edf` is the effective degrees of freedom. A value near 1 means the fitted smooth is nearly a straight line on the scale of the linear predictor, here the log mean. A larger value means the penalty has left some curvature. The p-value in that table is a test of the smooth against a null of no effect, under the fitted smoothness. It is not a test that the basis dimension was large enough.
+
+`k.check` asks whether `k` might be too small to represent the residual structure. A small p-value in that check is a reason to look at the residuals and to refit with a larger `k`. It is not an instruction to increase `k` until the p-value is large. A basis large enough to interpolate the sample will pass a check of that kind and will also fit noise. Compare the curve, the check, and the residual plot across one deliberate increase, on the same 111 rows, rather than chasing the p-value.
+
+```r
+plot(gam_fit, pages = 1, shade = TRUE, scale = 0,
+     xlab = c("Temp", "Wind", "Solar.R"))
+```
+
+`plot.gam` draws the centred smooths. `shade = TRUE` draws a pointwise band. `scale = 0` gives each panel its own vertical scale, so a nearly flat smooth is still readable. The vertical axis is the contribution to the log mean, not ozone in parts per billion. A decline in the wind panel is a decline in log mean ozone as wind increases, at the values of the other smooths. Reading the panel as a change in ozone concentration forgets the link. `exp` of a difference on that axis is a ratio of means, the same translation as for the log-link gamma model.
+
+The band is the uncertainty of the smooth under the penalised model. It is not a prediction interval for a new day's ozone, and it is not an allowance for dependence between neighbouring days. The air-quality series is ordered in time. A smooth of temperature can look precise because adjacent days are similar, while a standard error that treats days as independent is then too small. The dependence is a separate model. The additive fit does not remove it.
+
+## Comparing a smooth with a line {#s-comparing-a-smooth-with-a-line}
+
+Compare the additive fit with the log-linear gamma fit on the same 111 days. A useful summary is the effective degrees of freedom of each smooth, not a claim that the curve is the physical effect of temperature. If every `edf` is close to 1, the linear gamma model was already enough for these covariates, and the smooth has confirmed the straight line rather than replaced it. If the wind smooth has effective degrees of freedom well above 1, the single wind coefficient in the linear model is an average slope through a curve, and the coefficient's meaning changes.
+
+Refit with `s(Wind, k = 15)` and leave the other two bases at 8. Keep `aq_complete` fixed. A material change is a change in the shape of the wind smooth, or a `k.check` p-value that moves from a warning to something unremarkable, together with a residual plot that loses a systematic pattern. A change only in the fourth digit of a coefficient is not that. Tails, a spread that still grows with the fitted mean, and the pattern of the 42 days that were dropped for missingness are still open after the smooth has been drawn. The smooth does not impute those days.
+
+::: {.callout-note}
+## Key idea
+`k` bounds the basis. The effective degrees of freedom are what the penalty used. Read the plotted smooth on the scale of the linear predictor, and compare models only on a common set of rows.
+:::

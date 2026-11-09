@@ -1,0 +1,98 @@
+# Probability and simulation in R
+
+The probability pages define a density, a distribution function, a quantile, and a draw. This page is the matching command, and two calculations that are experiments rather than fits: a permutation test, and a picture of an empirical distribution. Random variables and the named families are in [Random variables and distributions](prob-02-random-variables.qmd). Generating a draw by inverting a distribution function is in [Simulation](prob-03-simulation.qmd). A test as a probability under a stated null is in [Hypothesis tests](inf-04-hypothesis-tests.qmd).
+
+## The d, p, q, and r functions {#s-the-d-p-q-and-r-functions}
+
+For a family that R names, four functions share the stem.
+
+| Letter | What it returns | Continuous case |
+|:--|:--|:--|
+| `d` | density or mass at a point | a density, not a probability |
+| `p` | cumulative probability $\mathrm{P}(X\le x)$ | an interval probability is a difference of these |
+| `q` | the quantile, inverting `p` | inverts the cumulative probability, not the density height |
+| `r` | independent draws | one call of size `n` is a sample, not a loop |
+
+```r
+c(
+  mass_at_3 = dbinom(3, size = 10, prob = 0.4),
+  probability_at_most_3 = pbinom(3, size = 10, prob = 0.4),
+  ninetieth_percentile = qbinom(0.9, size = 10, prob = 0.4)
+)
+set.seed(1)
+rbinom(6, size = 10, prob = 0.4)
+```
+
+`dbinom(3, size = 10, prob = 0.4)` is $\binom{10}{3}(0.4)^3(0.6)^7$, the mass at exactly three successes. `pbinom` sums that mass from zero up to three. `qbinom(0.9, size = 10, prob = 0.4)` is the smallest integer whose cumulative probability is at least 0.9. `rbinom` draws six independent binomials. The seed makes the six draws repeatable. It does not make them a population.
+
+`dnorm(0)` is the standard normal density at zero, $\phi(0) = 1/\sqrt{2\pi}$, about 0.399. It is not the probability of observing exactly zero. A continuous distribution assigns probability zero to a single point. An interval probability is a difference of distribution functions:
+
+```r
+c(density_at_0 = dnorm(0),
+  probability_within_1.96 = pnorm(1.96) - pnorm(-1.96))
+```
+
+The second value is the probability that a standard normal draw falls in $[-1.96, 1.96]$, about 0.95. `qnorm(0.975)` is the point that puts probability 0.975 to its left. Using `dnorm` where a probability is required, or `qnorm` where a density height is required, produces a number with the wrong unit.
+
+The same four letters apply to every family R ships: `dpois`, `pbeta`, `qgamma`, `rt`, `rf`, `rchisq`. The parameterisation has to match the page that states the law. For the gamma, `dgamma(x, shape, rate)` uses a rate, which is the parameterisation on the [distribution sheet](../reference/distributions.qmd). `scale` is the reciprocal of `rate`, and passing one where the other was intended multiplies the mean by the wrong factor.
+
+## A permutation test {#s-a-permutation-test}
+
+`InsectSprays` records insect counts on agricultural units, each sprayed with one of six treatments. Restrict to sprays A and B. The observed contrast is the difference of mean counts. Under a null that says the spray labels are exchangeable, any reassignment of those labels to the same counts is as plausible as the observed assignment. The permutation test compares the observed difference with the differences obtained by shuffling the labels.
+
+```r
+sprays_ab <- datasets::InsectSprays |>
+  dplyr::filter(spray %in% c("A", "B")) |>
+  dplyr::mutate(spray = droplevels(spray))
+observed <- with(sprays_ab, mean(count[spray == "A"]) - mean(count[spray == "B"]))
+
+set.seed(1)
+permuted <- purrr::map_dbl(seq_len(1999), function(i) {
+  label <- sample(sprays_ab$spray)
+  mean(sprays_ab$count[label == "A"]) - mean(sprays_ab$count[label == "B"])
+})
+p_mc <- (1 + sum(abs(permuted) >= abs(observed))) / (length(permuted) + 1)
+c(observed_mean_difference = observed, monte_carlo_p = p_mc)
+```
+
+`droplevels` drops the unused spray labels so that a later formula does not keep empty levels. `sample` without a probability argument is a random permutation. Each of the 1999 shuffles is one draw from the null that the labels are exchangeable. `purrr::map_dbl` insists that every shuffle return one number. A shuffle that accidentally returned a vector would fail here, which is the right failure.
+
+The `+ 1` in the numerator and the denominator counts the observed arrangement among the reference arrangements. Without it, a contrast more extreme than every shuffle would be reported as probability zero, which this Monte Carlo sample cannot justify. With it, the smallest attainable value is $1/2000$.
+
+The simulation approximates the null distribution under exchangeability. It does not make exchangeability true. If the units were arranged in space so that neighbouring plots share a pest load, shuffling labels as if the counts were exchangeable answers a different question from the one the field layout poses. Re-running the shuffles moves the Monte Carlo probability slightly. The seed and the number of shuffles are part of the result. Two thousand shuffles resolve a probability to roughly the nearest half of one thousandth, which is enough to see whether the observed contrast is typical, and not enough to quote many decimal places.
+
+This is a different object from `t.test(count ~ spray, data = sprays_ab)`. The $t$ procedure adds a model for the counts. The permutation procedure uses only the exchangeability of the labels. If those two disagree, the disagreement is the model, not a bug in either command.
+
+## An empirical distribution and a kernel density {#s-an-empirical-distribution-and-a-kernel-density}
+
+The empirical distribution function of a sample $X_1,\ldots,X_n$ is
+$$
+F_n(x) = n^{-1}\sum_{i=1}^{n} 1(X_i \le x).
+$$
+It is a step function with a jump of $1/n$ at each observation. It remembers the sample exactly, and it has no density with respect to length. A kernel density estimate replaces each point by a small bump. The bandwidth of the bump changes the apparent number of modes. The definition, the bias and variance of the bandwidth, and a laboratory for moving it are in [Hierarchical clustering and kernel density estimation](sl-07-linkage-and-density.qmd) and the [kernel density laboratory](../labs/kernel-density.qmd).
+
+Wind speed in the air-quality table is the example. Days with missing wind do not exist in that table, so `na.rm = TRUE` does not drop rows here. It is still the right argument: a later column that does contain missing values will not then be plotted as if the missing entries were zero.
+
+```r
+aq <- datasets::airquality
+ggplot2::ggplot(aq, ggplot2::aes(Wind)) +
+  ggplot2::stat_ecdf(na.rm = TRUE, colour = "#3366a0") +
+  ggplot2::labs(x = "Wind (mph)", y = "Empirical cumulative probability") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+```r
+ggplot2::ggplot(aq, ggplot2::aes(Wind)) +
+  ggplot2::geom_density(na.rm = TRUE, fill = "#b5d3ef", alpha = 0.7) +
+  ggplot2::labs(x = "Wind (mph)", y = "Estimated density") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+`stat_ecdf` plots $F_n$. `geom_density` plots a kernel estimate with a default bandwidth. Changing that bandwidth, with `adjust` or `bw`, changes the picture. Quote the bandwidth with the picture. A smoother curve is not a more accurate density.
+
+The Kolmogorov–Smirnov statistic compares distribution functions. `ks.test(x, "pnorm", mean(x), sd(x))` looks like a test that the sample is normal. The ordinary null distribution of that statistic treats the reference distribution as known. Estimating the mean and the standard deviation from the same sample makes the ordinary p-value too large, because the fitted normal has been pulled towards the sample. Ties and discrete data need a separate treatment: the distribution function of a discrete law is not continuous, and the usual Kolmogorov–Smirnov approximation assumes it is. A simulation under the fitted model, of the kind on the bootstrap page, is the check that accounts for the estimation. The command `ks.test` does not do that accounting by itself.
+
+::: {.callout-note}
+## Key idea
+`d` is a density or a mass, `p` is a probability, `q` inverts `p`, and `r` draws. A simulation answers the question that was simulated. Exchangeable labels, a fixed bandwidth, and a reference distribution estimated from the same sample are three different questions, and each command implements only the one it was given.
+:::

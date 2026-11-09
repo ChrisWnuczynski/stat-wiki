@@ -1,0 +1,183 @@
+# Exploratory data analysis in R
+
+Look at the table before fitting a model or reading a p-value. The point is to learn what a row is, which values are missing, how each variable is shaped, and which patterns survive a split into groups. That inspection can show an impossible value, a curved relationship, a cluster, or an order in time. It cannot, by itself, say that an association is causal, or that a model chosen after looking will predict a new sample. Studies and what a design can support are in [Studies, data, and evidence](da-01-studies-and-data.qmd). Numerical summaries of one sample are in [Descriptive statistics](da-02-descriptive-statistics.qmd). The objects used below, vectors, factors, missing values, and the pipe, are in [Using R](da-03-using-r.qmd).
+
+::: {#def-exploratory-data-analysis .definition}
+## Exploratory data analysis
+
+Exploratory data analysis is the inspection of a table, before a model is chosen, of the unit of a row, the missing and implausible values, the marginal distributions, and the associations that remain after grouping. It constrains the models that are worth writing down. It is not an estimate, a test, or a causal claim.
+:::
+
+| First pass | Question | Command |
+|:--|:--|:--|
+| Unit | Who or what is one row? What are the units? | `dplyr::glimpse()`, the help page for a built-in table |
+| Quality | What is missing, duplicated, or outside a plausible range? | `skimr::skim()`, `dplyr::count()`, `is.na()` |
+| One variable | Skewed, discrete, bounded, or heavy-tailed? | `ggplot2::geom_histogram()`, `geom_boxplot()` |
+| Several variables | Curved, grouped, or carried by a few points? | `geom_point()`, `GGally::ggpairs()` |
+| Analysis sample | Which rows remain when every model variable is observed? | `dplyr::filter()`, `complete.cases()` |
+
+Keep the raw table intact. Build a named subset for each analysis, so the rows behind a fit can be counted again.
+
+## The air-quality days {#s-the-air-quality-days}
+
+`datasets::airquality` is 153 daily records from New York, May through September 1973. Ozone is in parts per billion, solar radiation in Langleys, wind in miles per hour, and temperature in degrees Fahrenheit. One row is one day. Ozone and solar radiation are missing on some days, and those days matter as soon as a model uses either column. `?airquality` is the description that ships with the table.
+
+```r
+aq <- datasets::airquality |>
+  dplyr::mutate(
+    date = as.Date(sprintf("1973-%02d-%02d", Month, Day)),
+    ozone_missing = is.na(Ozone)
+  )
+dplyr::glimpse(aq)
+aq |>
+  dplyr::summarise(
+    days = dplyr::n(),
+    missing_ozone = sum(ozone_missing),
+    complete_for_four = sum(complete.cases(Ozone, Solar.R, Wind, Temp))
+  )
+aq_complete <- aq |>
+  dplyr::filter(!is.na(Ozone), !is.na(Solar.R), !is.na(Wind), !is.na(Temp))
+```
+
+`glimpse` prints the type of each column and a few values. The summary separates three counts that are easy to mix up: the number of days in the file, the number of days with no ozone measurement, and the number of days on which ozone, solar radiation, wind, and temperature are all present. A later model that needs all four variables is a model of `aq_complete`, not of `aq`. Record `nrow(aq_complete)` beside the fit. On this table that count is 111, against 153 days in the file.
+
+`skimr::skim()` compresses type, missingness, centre, and range into one row per variable. The mean and the median answer different questions when the distribution is skewed. A minimum or a maximum is a value to inspect. It is not automatically an error.
+
+```r
+skimr::skim(aq |> dplyr::select(Ozone, Solar.R, Wind, Temp)) |>
+  tibble::as_tibble() |>
+  dplyr::select(skim_variable, n_missing, complete_rate,
+                numeric.mean, numeric.p50, numeric.p0, numeric.p100)
+```
+
+Grouped summaries make the unit explicit. Here the unit of the summary is the month, not the day.
+
+```r
+aq |>
+  dplyr::group_by(Month) |>
+  dplyr::summarise(
+    days = dplyr::n(),
+    measured_ozone = sum(!is.na(Ozone)),
+    median_ozone = median(Ozone, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+`measured_ozone` is a count of days, and `median_ozone` is a concentration. They do not share a unit, and the median uses `na.rm = TRUE`, so a month with many missing ozone days still produces a number. That number describes the measured days.
+
+## Missingness as its own variable {#s-missingness-as-its-own-variable}
+
+A complete-case filter hides the days that were dropped. A tile of every day keeps the gaps visible. The reshape from four columns to one column of values is `tidyr::pivot_longer()`. After it, one row is one day-and-variable pair, not one day.
+
+```r
+aq |>
+  dplyr::select(date, Ozone, Solar.R, Wind, Temp) |>
+  tidyr::pivot_longer(-date, names_to = "variable", values_to = "value") |>
+  dplyr::mutate(status = ifelse(is.na(value), "Missing", "Observed")) |>
+  ggplot2::ggplot(ggplot2::aes(date, variable, fill = status)) +
+  ggplot2::geom_tile() +
+  ggplot2::scale_fill_manual(values = c(Missing = "#ba514a", Observed = "#b4cbe0")) +
+  ggplot2::labs(x = NULL, y = NULL, fill = NULL) +
+  ggplot2::theme_minimal(base_size = 11)
+```
+
+Read the plot as a calendar. A band of missing ozone on particular dates is a different problem from ozone missing uniformly at random. The first threatens any analysis that treats the measured days as a sample of the summer. The second is still a change of target, but a less structured one. Neither pattern is repaired by `na.rm = TRUE`.
+
+## One variable, then two {#s-one-variable-then-two}
+
+Ozone is positive and right-skewed. That shape is a reason to consider a distribution supported on the positive line, such as the gamma model in [Generalised linear models in R](ur-07-glms-in-r.qmd). A histogram of the marginal measurements does not establish that the conditional distribution, given temperature and wind, is gamma. It only rules out pictures that cannot produce this much skew.
+
+```r
+ggplot2::ggplot(aq, ggplot2::aes(Ozone)) +
+  ggplot2::geom_histogram(binwidth = 10, boundary = 0, na.rm = TRUE,
+                          fill = "#86b2d8", colour = "white") +
+  ggplot2::labs(x = "Ozone (ppb)", y = "Measured days") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+`na.rm = TRUE` drops days with no ozone. The vertical axis counts measured days, not all 153 days. `boundary = 0` puts a bin edge at zero so that a bar is not split across the origin.
+
+The scatter of ozone against temperature, with a loess smooth, is a description of the measured days. The band around the smooth is a pointwise description of that curve. It is not a confidence interval for a causal effect of temperature, and it is not the mean of a generalised linear model.
+
+```r
+ggplot2::ggplot(aq, ggplot2::aes(Temp, Ozone)) +
+  ggplot2::geom_point(alpha = 0.7, na.rm = TRUE, colour = "#3366a0") +
+  ggplot2::geom_smooth(method = "loess", se = TRUE, na.rm = TRUE, colour = "#a33b32") +
+  ggplot2::labs(x = "Daily maximum temperature (degrees F)", y = "Ozone (ppb)") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+This scatter uses days with both ozone and temperature observed. A model that also requires solar radiation uses fewer days. Compare fits only after checking `nobs()` and the row identities. The same warning applies to the smooth mean in [Generalised additive models in R](ur-08-additive-models.qmd), which is fit on `aq_complete`.
+
+## The same rows in every panel {#s-the-same-rows-in-every-panel}
+
+A pairs plot is a set of pictures that share a sample only if the data given to it have already been restricted. Correlations in one triangle and scatterplots in the other then describe the same days. A single correlation can hide curvature and a few influential days. The panels show those.
+
+```r
+GGally::ggpairs(
+  aq_complete |> dplyr::select(Ozone, Solar.R, Wind, Temp),
+  upper = list(continuous = GGally::wrap("cor", stars = FALSE)),
+  lower = list(continuous = "points"),
+  diag = list(continuous = "densityDiag"),
+  progress = FALSE
+)
+```
+
+The correlations are linear summaries. A large correlation between temperature and ozone does not say how much of it is carried by wind, and it does not survive as a coefficient once wind is in the model. That is a question for the fit, not for the pairs plot.
+
+::: {.callout-warning}
+A scatterplot of ozone against temperature uses every day on which both were recorded. A model that also uses solar radiation silently drops further days. Two fits are comparable only when `nobs()` and the set of row labels agree.
+:::
+
+## Aggregated counts are not people {#s-aggregated-counts-are-not-people}
+
+`UCBAdmissions` is a table of graduate admissions at Berkeley in 1973, classified by department, gender, and whether the applicant was admitted. `as.data.frame()` gives one row per cell, with a frequency. After the reshape, one row is a department-and-gender stratum, not one applicant. `tidyr::pivot_wider()` puts the admitted and rejected counts in two columns, which is the layout a grouped binomial model needs.
+
+```r
+admissions <- as.data.frame(datasets::UCBAdmissions) |>
+  tidyr::pivot_wider(names_from = Admit, values_from = Freq) |>
+  dplyr::mutate(
+    applicants = Admitted + Rejected,
+    admission_rate = Admitted / applicants
+  )
+admissions |>
+  dplyr::select(Dept, Gender, Admitted, Rejected, admission_rate) |>
+  dplyr::arrange(Dept, Gender)
+```
+
+There are 12 rows: six departments and two genders. The rate `Admitted / applicants` is a proportion with a denominator. A plot of those rates, dodged by gender, shows the within-department contrast.
+
+```r
+ggplot2::ggplot(admissions, ggplot2::aes(Dept, admission_rate, fill = Gender)) +
+  ggplot2::geom_col(position = ggplot2::position_dodge(width = 0.8), width = 0.7) +
+  ggplot2::scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  ggplot2::labs(y = "Admission rate", x = "Department", fill = "Gender") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+The margin over departments is a different descriptive question. It weights departments by how many applications they received.
+
+```r
+admissions |>
+  dplyr::group_by(Gender) |>
+  dplyr::summarise(
+    admitted = sum(Admitted),
+    applicants = sum(applicants),
+    rate = admitted / applicants,
+    .groups = "drop"
+  )
+```
+
+The overall gender rates and the within-department rates do not answer the same question. Department is a large part of the aggregation. Neither contrast says what would happen under an intervention on gender or on admissions policy. The binomial model that conditions on department is in [Generalised linear models in R](ur-07-glms-in-r.qmd). The probability model for one cell, treated as a binomial count, is the example in [Bayesian computation in R](ur-05-bayesian-computation.qmd).
+
+## A file that is not built in {#s-a-file-that-is-not-built-in}
+
+For a comma-separated file, `readr::read_csv()` records the type it guessed for each column. Inspect that guess. A column of identifiers that looks like a number will be parsed as a number, and the leading zeros disappear.
+
+```r
+raw <- readr::read_csv("data/measurements.csv", show_col_types = FALSE)
+readr::problems(raw)
+dplyr::glimpse(raw)
+```
+
+`problems()` is empty when every field parsed. A path relative to the analysis travels with the analysis. An absolute path does not. Next to the command, record where the file came from and what one row represents. The same sentence belongs in the report of any built-in table: the help page is the provenance, and the code above is the check that the object in the session still has that shape.
