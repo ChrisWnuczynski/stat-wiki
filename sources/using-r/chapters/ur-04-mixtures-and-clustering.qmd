@@ -1,0 +1,175 @@
+# Mixtures and clustering in R
+
+Two questions are easy to collapse into one picture. Could one observed distribution be a mixture of latent groups? And how should observations that are described by many correlated measurements be clustered? A finite mixture is a probability model for the first question. Principal components are a projection, not a cluster model. A mixture of factor analysers is a model for the measurements in their original dimension. The three can draw similar scatterplots and still answer different questions.
+
+The likelihood, the responsibility, and the EM update are derived in [Mixtures and the EM algorithm](sl-05-mixtures-em.qmd). Principal components, and why scaling changes them, are in [Principal component analysis](sl-03-principal-components.qmd). What follows is the calculation in R, on tables that ship with R, and the traps in the printed criteria.
+
+## A two-component normal mixture {#s-a-two-component-normal-mixture}
+
+For one measurement $x_i$, let $Z_i\in\{1,2\}$ be an unobserved component label. A two-normal mixture with a shared variance has density
+$$
+f(x_i)=\pi\,\phi(x_i;\mu_1,\sigma^2)+(1-\pi)\,\phi(x_i;\mu_2,\sigma^2),
+\qquad 0<\pi<1.
+$$
+$\phi$ is the normal density. $\pi$ is the mixing weight, the probability that a new draw comes from the first component before that draw is seen. It is not the probability that a particular observed point belongs to the first component. That second probability is the responsibility, computed after the point is seen.
+
+Given current parameters $\theta^{(t)}=(\pi^{(t)},\mu_1^{(t)},\mu_2^{(t)},\sigma^{2(t)})$, the E step replaces the missing label by its conditional probability
+$$
+\tau_{i1}
+=\mathrm{P}(Z_i=1\mid x_i,\theta^{(t)})
+=\frac{\pi^{(t)}\phi(x_i;\mu_1^{(t)},\sigma^{2(t)})}
+{\pi^{(t)}\phi(x_i;\mu_1^{(t)},\sigma^{2(t)})+(1-\pi^{(t)})\phi(x_i;\mu_2^{(t)},\sigma^{2(t)})},
+$$
+and $\tau_{i2}=1-\tau_{i1}$. This is an average of the complete-data log likelihood over the missing labels, at the current parameters. It is not an average of the parameters. The M step for a shared variance updates
+$$
+\pi^{(t+1)}=\frac1n\sum_i\tau_{i1},\qquad
+\mu_k^{(t+1)}=\frac{\sum_i\tau_{ik}x_i}{\sum_i\tau_{ik}},\qquad
+\sigma^{2(t+1)}=\frac1n\sum_i\sum_{k=1}^{2}\tau_{ik}(x_i-\mu_k^{(t+1)})^2.
+$$
+The divisor $n$ in the variance, rather than $\sum_i\tau_{ik}$, is the maximum-likelihood divisor for a shared variance. A component-wise variance would use a different divisor and a different model. Label switching, $\pi$ near zero, and a variance that collapses onto one point are the pathologies on the mixtures page. One iteration does not diagnose them.
+
+## One EM update, written out {#s-one-em-update-written-out}
+
+Old Faithful's `faithful` table has one row per eruption. `waiting` is the time, in minutes, until the next eruption. The histogram is bimodal. A two-normal mixture is a model for that shape. It is not evidence that the geyser has two mechanisms, and successive eruptions are not independent, so the likelihood treated below as a product is already an approximation. The starting values are for the arithmetic. They are not a claim that the iteration has found a global maximum.
+
+```r
+x <- datasets::faithful$waiting
+mu_old <- as.numeric(stats::quantile(x, c(0.25, 0.75)))
+pi_old <- c(0.5, 0.5)
+var_old <- stats::var(x)
+weighted_density <- sapply(1:2, function(k) {
+  pi_old[k] * dnorm(x, mu_old[k], sqrt(var_old))
+})
+tau <- weighted_density / rowSums(weighted_density)
+pi_new <- colMeans(tau)
+mu_new <- colSums(tau * x) / colSums(tau)
+var_new <- sum(tau * cbind((x - mu_new[1])^2, (x - mu_new[2])^2)) / length(x)
+data.frame(component = 1:2, mixing = pi_new, mean = mu_new,
+           shared_sd = sqrt(var_new))
+```
+
+`rowSums(weighted_density)` is the mixture density at each point, up to the fact that both components use the same variance. Dividing by it produces $\tau_{i1}$ and $\tau_{i2}$ in the two columns, and each row sums to 1. `colMeans(tau)` is the updated weight. The updated means are weighted averages. The updated variance uses every point against both new means, weighted by the responsibilities. Running the block again with `mu_old <- mu_new` and `pi_old <- pi_new` is another iteration. The observed-data likelihood should not decrease. If it does, the update was not the M step written above.
+
+A single start can stop at a local mode. Several starts, some of them from random splits of the sample, are part of the fit. A component that receives almost no weight, or a variance that is tiny beside the gap between the means, is a warning, not a discovery of a rare group.
+
+## What mclust prints {#s-what-mclust-prints}
+
+`mclust` runs EM and compares variance structures. For one variable, model `"E"` forces the component variances to be equal and `"V"` lets them differ. The BIC it prints is $2\log L - k\log n$, so a larger value is better, for this package, on the same observations. Other packages print $-2\log L + k\log n$, for which smaller is better. The sign is a convention of the function, not a property of the data. Read `?mclust::mclustBIC` for the function in front of you, and do not rank a number from one convention against a number from the other.
+
+```r
+set.seed(1)
+x <- datasets::faithful$waiting
+mix_equal <- mclust::Mclust(x, G = 2, modelNames = "E", verbose = FALSE)
+mix_variable <- mclust::Mclust(x, G = 2, modelNames = "V", verbose = FALSE)
+data.frame(
+  model = c("equal variance", "variable variance"),
+  mclust_BIC = c(mix_equal$bic, mix_variable$bic),
+  log_likelihood = c(mix_equal$loglik, mix_variable$loglik)
+)
+```
+
+`G = 2` asks for two components. It does not discover that two is the right count. Component labels can swap between fits with no change to the density. Compare means and weights, not the integer names.
+
+The fitted density can be drawn back on the histogram. `after_stat(density)` puts the histogram on the density scale so that the curve and the bars share a vertical unit. A curve that follows the bars is a description of the fit. It is not a proof that waiting times are a mixture of two normals.
+
+```r
+best <- if (mix_equal$bic >= mix_variable$bic) mix_equal else mix_variable
+grid <- seq(min(x), max(x), length.out = 300)
+mix_density <- vapply(grid, function(u) {
+  sum(best$parameters$pro * dnorm(u, best$parameters$mean,
+                                  sqrt(best$parameters$variance$sigmasq)))
+}, numeric(1))
+ggplot2::ggplot(data.frame(waiting = x), ggplot2::aes(waiting)) +
+  ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(density)),
+                          bins = 25, fill = "#b9d1df", colour = "white") +
+  ggplot2::geom_line(data = data.frame(waiting = grid, density = mix_density),
+                     ggplot2::aes(y = density), colour = "#9a3535", linewidth = 1.1) +
+  ggplot2::labs(x = "Waiting time (minutes)", y = "Density") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+A likelihood-ratio test of one component against two does not have the usual chi-squared null distribution. The null sits on the boundary, because a weight of zero removes a component, and the mean of a component with weight zero is not identified. `mclust::mclustBootstrapLRT(x, modelName = "E", maxG = 2, nboot = 199)` is a parametric bootstrap of that comparison when the runtime is acceptable. A nonparametric bootstrap resamples the observed waiting times. A parametric bootstrap draws new samples from the fitted one-component model. Neither is automatically more precise. A grouped chi-squared comparison of the histogram with the fitted density is fragile as well: the bin width and the expected counts in the tails are choices, and sparse bins make the reference distribution a poor approximation.
+
+## Principal components are a map {#s-principal-components-are-a-map}
+
+`iris` has 150 flowers and four measurements: sepal length, sepal width, petal length, and petal width, plus a species label. The label is held out of every unsupervised fit and used only afterwards, to see whether the clusters agree with it. The flowers are not a random sample of every iris, so agreement with this label is not a prediction of a new flower. The geometry of the components, with and without scaling, is worked on this same table in [Principal component analysis](sl-03-principal-components.qmd).
+
+The four columns do not share a numerical scale in a way that makes a raw Euclidean distance scientific. Petal length varies more, in millimetres of the recorded numbers, than sepal width. A method that uses Euclidean distance will be dominated by the high-variance column unless the columns are standardised, and that standardisation is a modelling choice. Apply it once, and apply the same choice to every method being compared.
+
+```r
+iris_x <- datasets::iris |> dplyr::select(-Species)
+iris_z <- scale(iris_x)
+pca <- prcomp(iris_z, center = FALSE, scale. = FALSE)
+variance_fraction <- pca$sdev^2 / sum(pca$sdev^2)
+data.frame(component = paste0("PC", 1:4),
+           variance_fraction = round(variance_fraction, 3))
+sum(variance_fraction[1:2])
+```
+
+`scale` centres and divides by the sample standard deviation. `prcomp(..., center = FALSE, scale. = FALSE)` then does not scale a second time. The first two components are a map that maximises retained variance. They are not a clustering. Separation that appears in the map can disappear once the discarded components are put back, and separation that the map hides can live in those components.
+
+A three-component normal mixture on the first two scores is a density for the map, not for the four measurements.
+
+```r
+set.seed(1)
+pc_fit <- mclust::Mclust(pca$x[, 1:2], G = 3, verbose = FALSE)
+pc_scores <- data.frame(
+  PC1 = pca$x[, 1], PC2 = pca$x[, 2],
+  cluster = factor(pc_fit$classification),
+  species = datasets::iris$Species
+)
+ggplot2::ggplot(pc_scores, ggplot2::aes(PC1, PC2, colour = cluster, shape = species)) +
+  ggplot2::geom_point(alpha = 0.85, size = 2) +
+  ggplot2::scale_colour_brewer(palette = "Dark2") +
+  ggplot2::labs(x = "PC1", y = "PC2", colour = "Cluster", shape = "Species") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+Colour is the cluster from the two scores. Shape is the species, drawn after the fit. `mclust::adjustedRandIndex` compares the two labellings without caring how the cluster numbers were permuted. It measures agreement with this species label. It does not say that the clusters are Gaussian, or that they would appear in a new sample.
+
+```r
+mclust::adjustedRandIndex(datasets::iris$Species, pc_fit$classification)
+```
+
+Quote the fraction of variance the map retains, from `sum(variance_fraction[1:2])`, next to any claim about the picture. The rest of the variance is invisible in the plot.
+
+## Factor analysers keep the discarded dimensions {#s-factor-analysers-keep-the-discarded-dimensions}
+
+A mixture on two principal-component scores fits a density after throwing away the other two linear combinations. A mixture of factor analysers models all four standardised measurements, with a low-dimensional factor inside each component. A mixture of common factor analysers forces the factor loadings to be shared across components, which can give one map for every component. The covariance assumptions differ, so neither model is the default.
+
+`EMMIXmfa` is not part of a standard installation. The calls below are the fit when it is. `g = 3` matches the known number of species, for a comparison with that label. Choosing `g` from the label uses information that an unsupervised search would not have. It is not a discovery of the number of components. Both algorithms can stop at a local mode or hit a numerical problem with a covariance, so several starts belong with the fit. `q` is the number of factors inside a component. Two factors in four dimensions is a reduction, not a saturated covariance.
+
+```r
+set.seed(1)
+iris_z <- scale(datasets::iris[, 1:4])
+mfa_fit <- EMMIXmfa::mfa(iris_z, g = 3, q = 2,
+                         nkmeans = 5, nrandom = 5, itmax = 150,
+                         warn_messages = FALSE)
+set.seed(1)
+mcfa_fit <- EMMIXmfa::mcfa(iris_z, g = 3, q = 2,
+                           nkmeans = 5, nrandom = 5, itmax = 150,
+                           warn_messages = FALSE)
+data.frame(
+  fit = c("PCA map plus mixture", "MFA on 4 measurements", "MCFA on 4 measurements"),
+  adjusted_Rand = c(
+    mclust::adjustedRandIndex(datasets::iris$Species, pc_fit$classification),
+    mclust::adjustedRandIndex(datasets::iris$Species, mfa_fit$clust),
+    mclust::adjustedRandIndex(datasets::iris$Species, mcfa_fit$clust)
+  ),
+  smallest_cluster = c(
+    min(table(pc_fit$classification)),
+    min(table(mfa_fit$clust)),
+    min(table(mcfa_fit$clust))
+  ),
+  EMMIXmfa_BIC = c(NA_real_, mfa_fit$BIC, mcfa_fit$BIC)
+)
+```
+
+`EMMIXmfa` prints the BIC for which a smaller value is better, and only the two factor-mixture rows are on the same four-dimensional sample. Do not compare those BIC values with `mclust`'s BIC for the two-dimensional scores. The sign differs, and the data differ: one criterion saw two scores per flower and the other saw four measurements. A high adjusted Rand index means the clusters recovered the species labels of these 150 flowers. It does not validate the Gaussian components, the number of factors, or a future sample.
+
+Before interpreting a cluster, look at the posterior responsibilities (`$tau` for the factor mixtures, `$z` for `mclust`), the smallest component size, whether the iteration reported convergence, and whether a second seed moves the adjusted Rand index. A solution that exists only for one start is a local mode.
+
+::: {.callout-note}
+## Key idea
+A mixture is a density for the measurements. A principal-component plot is a projection. A criterion printed by one function is comparable only with the same convention, on the same rows and the same columns. The species label is a check after the fit, not an input to it.
+:::

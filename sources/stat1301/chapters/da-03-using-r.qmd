@@ -1,10 +1,65 @@
 # Using R
 
-R is the language used here to hold a data table, summarise it, draw it, and fit the models in the inference chapters. The objects below are enough to reproduce the summaries in [Descriptive statistics](da-02-descriptive-statistics.qmd) and to call the procedures behind [Estimation examples](da-04-estimation-examples.qmd), [Testing examples](da-05-testing-examples.qmd), and [Linear model examples](da-08-linear-model-examples.qmd).
+R is the language used here to hold a table, summarise it, draw it, and fit the models in the other parts. This page is the language: values, tables, plots, formulas, and the order in which a calculation should be done. The later pages in this part take one job each and show the commands for it.
 
-R is installed from the Comprehensive R Archive Network. An editor that sends a script to an R session is convenient. The calculations do not depend on which editor is used. Help for a function is `help("mean")` or `?mean`.
+| Job | Page |
+|:--|:--|
+| Look at a table before any model | [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd) |
+| Densities, simulation, a permutation test | [Probability and simulation in R](ur-02-probability-and-simulation.qmd) |
+| Bootstrap intervals and one-dimensional numerical checks | [Bootstrap and numerical methods in R](ur-03-bootstrap-and-numerical.qmd) |
+| Mixtures, EM, principal components | [Mixtures and clustering in R](ur-04-mixtures-and-clustering.qmd) |
+| Conjugate updates, Bayes factors, MCMC | [Bayesian computation in R](ur-05-bayesian-computation.qmd) |
+| What a fitted object contains | [Fitted models as objects](ur-06-model-objects.qmd) |
+| Binomial, count, positive, and categorical regression | [Generalised linear models in R](ur-07-glms-in-r.qmd) |
+| A smooth mean | [Generalised additive models in R](ur-08-additive-models.qmd) |
+| Repeated measurements | [Repeated measures in R](ur-09-repeated-measures.qmd) |
+| A series in time order | [Time series in R](ur-10-time-series.qmd) |
+| A result that looks wrong | [Checking a calculation](ur-11-checking-a-fit.qmd) |
 
-## Values, vectors, and assignment
+The summaries in [Descriptive statistics](da-02-descriptive-statistics.qmd) use the objects on this page. The procedures behind [Estimation examples](da-04-estimation-examples.qmd), [Testing examples](da-05-testing-examples.qmd), and [Linear model examples](da-08-linear-model-examples.qmd) are the same objects, called on a particular sample.
+
+A command is useful only when three things match the question: which rows go in, what the model assumes, and which scale the printed number is on. `summary(fit)` does not check those three. It prints one view of an object that was already built.
+
+## A statistical workflow {#s-statistical-workflow}
+
+1. **Look at the raw table.** Who or what is a row? What are the units? Which values are missing, duplicated, or impossible? Which rows are in time order, or repeated on the same person?
+2. **Name the target.** A mean, a probability, a rate, an odds ratio, a posterior summary, a prediction, or a contrast under an intervention. These are different numbers.
+3. **Name the unit.** One person, one day, one admission stratum, one visit, or one time point. Rows are not automatically independent units.
+4. **Write down the analysis sample.** The rows a later fit actually uses. Two models that drop different missing rows are not fits of the same data.
+5. **Choose a model for the response and the dependence.** Family, link, variance, grouping, time order.
+6. **Fit, then diagnose.** Residuals, influential points, dispersion, convergence, and the assumptions that the standard errors use.
+7. **Translate.** Report the effect or the prediction on a scale that matches the question, with uncertainty, and say what would make the reading fail.
+
+::: {.callout-note}
+## Key idea
+Establish the rows, the target, and the scale before reading a coefficient. A printed table cannot repair a sample that was built from the wrong rows.
+:::
+
+## Packages and a rendered document {#s-packages-and-a-rendered-document}
+
+R itself is installed from the Comprehensive R Archive Network. An editor that sends a script to a session is convenient. The calculations do not depend on which editor is used. Help for a function is `help("mean")` or `?mean`.
+
+`stats`, `datasets`, `MASS`, `mgcv`, `nnet`, and `nlme` are part of a standard installation. The other packages below are installed once, in the console, not inside the analysis that is meant to be re-run.
+
+```r
+install.packages(c(
+  "dplyr", "tidyr", "ggplot2", "scales", "skimr", "readr", "GGally",
+  "purrr", "broom", "rsample", "mclust", "EMMIXmfa",
+  "lme4", "geepack", "forecast", "coda"
+))
+```
+
+Write `package::function()` when the origin of a name matters. `MASS::select()` and `dplyr::select()` are different functions, and a script that has loaded both can call the wrong one if it uses the bare name. `sessionInfo()` records the R version and the package versions behind a result.
+
+A document that should re-run its own commands is rendered from the folder that contains it:
+
+```bash
+quarto render analysis.qmd --to html
+```
+
+The blocks on these pages are the commands. Pasting a block into a fresh session works after the packages that block names have been installed. Set a seed before any draw, bootstrap, or sampler, and keep that seed next to the command. A result that moves when nothing else has changed is then a change in the random stream, which is a different problem from a change in the data.
+
+## Values, vectors, and assignment {#s-values-vectors-and-assignment}
 
 A name is bound with `<-` or `=`.
 
@@ -29,9 +84,45 @@ length(x)
 
 A logical comparison such as `x > 4` returns a vector of `TRUE` and `FALSE`. Summing it counts the true entries, because `TRUE` is coerced to 1.
 
-## Data frames
+`NA` is an unknown value. It is not zero, and it is not a value that summaries may drop unless the command says so. `x == NA` does not detect missingness: the comparison of any value with an unknown is itself unknown, so the result is a vector of `NA`. The test is `is.na(x)`.
 
-A data frame is the spreadsheet of [Descriptive statistics](da-02-descriptive-statistics.qmd): one column per variable, one row per unit. Columns can have different types.
+```r
+x <- c(3, NA_real_, 7)
+c(mean_without_rule = mean(x), mean_observed = mean(x, na.rm = TRUE))
+is.na(x)
+```
+
+`mean(x)` is `NA` as soon as one entry is missing. `mean(x, na.rm = TRUE)` is the mean of the entries that were observed. Those are different targets. Dropping missing rows changes the population the sample represents, unless the missingness is ignorable for the estimand. The audit of a real table is in [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd).
+
+A factor records categories. An ordered factor also records their order. The levels are part of the object: a level that is not in the data can still be a level, and a fit that later sees a new level will not invent a coefficient for it.
+
+```r
+grades <- factor(c("low", "high", "medium"),
+                 levels = c("low", "medium", "high"), ordered = TRUE)
+str(grades)
+```
+
+Without `levels`, the default order is alphabetical, so `high` would sit before `low`. An ordered factor is the right object when the categories have a scientific order, as in the housing responses of [Generalised linear models in R](ur-07-glms-in-r.qmd). It is the wrong object when the labels are only names.
+
+The native pipe `|>` passes the value on its left as the first argument of the function on its right. It changes the reading order. It does not change the calculation.
+
+```r
+c(2.86, 4.16, 6.35, 3.92, 5.96) |> mean()
+```
+
+Indexing starts at 1. Learn it, because model output is often a vector, a matrix, or a list, and a table verb will not extract those.
+
+| Expression | Meaning | Trap |
+|:--|:--|:--|
+| `x[1]` | first element | the first index is 1, not 0 |
+| `dat[1, ]` | first row, still a data frame | `dat[, 1]` drops to a vector |
+| `dat[["Ozone"]]` | the column as a vector | `dat["Ozone"]` is a one-column data frame |
+| `is.na(x)` | missingness | `x == NA` is itself `NA` |
+| `mean(x, na.rm = TRUE)` | mean of the observed entries | missingness is not automatically harmless |
+
+## Data frames {#s-data-frames}
+
+A data frame is the spreadsheet of [Descriptive statistics](da-02-descriptive-statistics.qmd): one column per variable, one row per unit. It is a list of columns of equal length. Columns can have different types.
 
 ```r
 alice <- data.frame(
@@ -43,17 +134,29 @@ str(alice)
 head(alice)
 ```
 
-`alice$change` extracts a column. `alice[alice$drink == "decaf", ]` keeps the rows that match. `summary(alice)` prints a numeric summary of each numeric column and a count of each label.
+`alice$change` extracts a column. `alice[alice$drink == "decaf", ]` keeps the rows that match. The trailing comma matters: it says "these rows, every column". `summary(alice)` prints a numeric summary of each numeric column and a count of each label.
 
-A file of comma-separated values is read with `read.csv("heart.csv")`. The working directory is `getwd()`, and `setwd()` changes it. `write.csv(alice, "alice.csv", row.names = FALSE)` writes a frame back out.
+`dplyr` names the same four operations. `filter()` keeps rows, `select()` keeps columns, `mutate()` adds a column, and `summarise()` reduces rows to one row per group. `group_by()` sets the unit of that reduction. The air-quality audit on the exploratory page uses them on a table that has missing days.
 
-`table(alice$drink)` is the count table of a categorical column. `tapply(alice$change, alice$drink, mean)` applies `mean` inside each group.
+A file of comma-separated values can be read with `read.csv("heart.csv")`. `getwd()` reports the working directory and `setwd()` changes it. `write.csv(alice, "alice.csv", row.names = FALSE)` writes a frame back out. Prefer a path relative to the analysis, and `readr::read_csv()`, which records how each column was parsed. `readr::problems()` lists rows that did not parse. A machine-specific absolute path breaks as soon as the file is moved. Say, next to the command, where the file came from and what one row represents.
 
-## Plots and model fits
+`table(alice$drink)` is the count table of a categorical column. `tapply(alice$change, alice$drink, mean)` applies `mean` inside each group. The same reduction with the pipe is `alice |> group_by(drink) |> summarise(mean_change = mean(change), .groups = "drop")`.
 
-`hist(x)` draws a histogram. `boxplot(change ~ drink, data = alice)` draws one box per group. `plot(x, y)` is a scatterplot, and `pairs(qvars)` is the scatterplot matrix. `barplot(table(alice$drink))` draws the bars.
+## Formulas and the design matrix {#s-formulas-and-the-design-matrix}
 
-A normal quantile is `qnorm(0.975)`. A $t$ quantile on 9 degrees of freedom is `qt(0.975, df = 9)`. `pnorm` and `pt` are the corresponding distribution functions. Random draws are `rnorm(n, mean, sd)` and `runif(n)`.
+An R formula is the model's design matrix, written in a shorthand. `y ~ x1 + x2` has a column for `x1`, a column for `x2`, and an intercept, and no product. `y ~ x1 * x2` expands to `x1 + x2 + x1:x2`. The interaction coefficient is the change in the effect of one predictor across values of the other. It is not, by itself, a causal interaction. Whether the product answers the scientific question is decided before the formula is typed. The two-factor layout is in [Analysis of variance](inf-07-anova.qmd) and [Two-factor analysis of variance](inf-15-two-factor-anova.qmd).
+
+```r
+model.matrix(~ Wind * Temp, data = head(datasets::airquality, 3))
+```
+
+The printed matrix has one row per day and one column per term. For a factor, the columns are contrasts, not the raw labels. `lm` and `glm` treat the first level as the baseline. The intercept is then the mean of that level, and each further coefficient is a difference from it. That is the design-matrix form in [Linear model examples](da-08-linear-model-examples.qmd). `model.matrix(fit)` after a fit shows the columns that were actually used, including rows that were dropped for missingness.
+
+## Plots and model fits {#s-plots-and-model-fits}
+
+`hist(x)` draws a histogram. `boxplot(change ~ drink, data = alice)` draws one box per group. `plot(x, y)` is a scatterplot, and `pairs(qvars)` is the scatterplot matrix. `barplot(table(alice$drink))` draws the bars. `ggplot2` draws the same pictures with an explicit mapping from columns to axes. Use it when the plot must show a subset, a smooth, or a missingness pattern, as on the exploratory page. Either system is a picture of the sample. Neither is a model.
+
+A normal quantile is `qnorm(0.975)`. A $t$ quantile on 9 degrees of freedom is `qt(0.975, df = 9)`. `pnorm` and `pt` are the corresponding distribution functions. Random draws are `rnorm(n, mean, sd)` and `runif(n)`. The four letters `d`, `p`, `q`, and `r` are set out in [Probability and simulation in R](ur-02-probability-and-simulation.qmd).
 
 The fitted line and the analysis of variance are `lm` and `anova`. The formulas and the reading of the coefficients are in [Linear regression](inf-06-regression.qmd) and [Analysis of variance](inf-07-anova.qmd), not in the function names.
 
@@ -62,11 +165,13 @@ fit <- lm(change ~ drink, data = alice)
 summary(fit)
 ```
 
-`lm` treats the first level of a factor as the baseline. The intercept is the mean of that level. Each further coefficient is a difference from it. That is the design-matrix form in [Linear model examples](da-08-linear-model-examples.qmd).
+`lm` treats the first level of a factor as the baseline. The intercept is the mean of that level. Each further coefficient is a difference from it.
 
-A one-sample $t$ procedure is `t.test(x, mu = 0)`. A two-sample procedure is `t.test(change ~ drink, data = alice)`. A proportion test is `prop.test`. These functions implement the tests on [Hypothesis tests](inf-04-hypothesis-tests.qmd). The printed p-value is the one defined there, not a posterior probability. The posterior calculation is in [Bayesian hypotheses and model comparison](bayes-06-testing.qmd).
+The object `fit` is more than the printed summary. `coef(fit)` is the coefficient vector, `vcov(fit)` is its estimated covariance, `fitted(fit)` and `residuals(fit)` are the in-sample mean and the response residuals, and `nobs(fit)` is the number of rows used. [Fitted models as objects](ur-06-model-objects.qmd) takes those pieces apart, including the difference between an interval for the mean and an interval for a new observation.
+
+A one-sample $t$ procedure is `t.test(x, mu = 0)`. A two-sample procedure is `t.test(change ~ drink, data = alice)`. A proportion test is `prop.test`. These functions implement the tests on [Hypothesis tests](inf-04-hypothesis-tests.qmd). The printed p-value is the one defined there, not a posterior probability. The posterior calculation is in [Bayesian hypotheses and model comparison](bayes-06-testing.qmd), and the commands that draw from a posterior are in [Bayesian computation in R](ur-05-bayesian-computation.qmd).
 
 ::: {.callout-note}
 ## Key idea
-Put each unit in a row and each variable in a column. `mean`, `sd`, `table`, and `boxplot` describe the sample. `lm` and `t.test` fit the models already defined in the inference chapters.
+Put each unit in a row and each variable in a column. `mean`, `sd`, `table`, and `boxplot` describe the sample. `lm` and `t.test` fit models that have already been defined. Read the scale of each printed number before quoting it.
 :::

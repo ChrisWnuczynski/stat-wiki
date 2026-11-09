@@ -1,0 +1,190 @@
+# Bayesian computation in R
+
+The beta–binomial update, the Bayes factor, and the two samplers below are the calculations in [The Beta–Binomial model](bayes-02-beta-binomial.qmd), [Bayesian hypotheses and model comparison](bayes-06-testing.qmd), and [Markov chains, Gibbs sampling, and Metropolis–Hastings](bayes-04-mcmc.qmd). This page writes them as commands, on counts that can be named, and records what each command does not establish. The admissions table is built in [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd). One cell of it is used here as a binomial count. That is a model of the cell, not an analysis of admissions policy.
+
+## A beta–binomial update {#s-a-beta-binomial-update}
+
+Fix a group of $n$ applications, and suppose $Y\mid p\sim\operatorname{Binomial}(n,p)$ with $p\sim\operatorname{Beta}(a,b)$. The prior density is proportional to $p^{a-1}(1-p)^{b-1}$. The likelihood contributes $p^{y}(1-p)^{n-y}$. The posterior is therefore
+$$
+p\mid Y=y \sim \operatorname{Beta}(a+y,\ b+n-y).
+$$
+The parameters $a$ and $b$ are part of the model and have to be reported. They are pseudo-counts, in the sense of the beta–binomial page, not quantities estimated from these applications. The model conditions on the group and treats the $n$ outcomes as exchangeable Bernoulli trials. It does not describe how applicants chose the department, or how a later year would differ.
+
+Department A, women, is one cell. `a0` and `b0` are the prior parameters. Two and two is a proper prior, equivalent to four pseudo-applications split evenly, and it is a choice. A uniform prior is `a0 <- 1; b0 <- 1`. A prior with $a_0=b_0=20$ pulls the posterior harder toward one half. Changing only those two numbers is the sensitivity check.
+
+```r
+admissions <- as.data.frame(datasets::UCBAdmissions) |>
+  tidyr::pivot_wider(names_from = Admit, values_from = Freq) |>
+  dplyr::mutate(applicants = Admitted + Rejected)
+group_a <- admissions |> dplyr::filter(Dept == "A", Gender == "Female")
+y <- group_a$Admitted
+n <- group_a$applicants
+a0 <- 2
+b0 <- 2
+a_post <- a0 + y
+b_post <- b0 + n - y
+set.seed(1)
+posterior_draws <- rbeta(20000, a_post, b_post)
+c(observed_rate = y / n,
+  posterior_mean = mean(posterior_draws),
+  stats::quantile(posterior_draws, c(0.025, 0.975)))
+```
+
+The posterior mean of a $\operatorname{Beta}(a,b)$ random variable is $a/(a+b)$, so `a_post / (a_post + b_post)` should agree with `mean(posterior_draws)` up to Monte Carlo error. If it does not, the draws are not from the beta that was intended. The observed rate $y/n$ is the maximum-likelihood estimate. It is not the posterior mean, unless the prior is improper in the way the beta–binomial page sets out. With $a_0=b_0=2$ the posterior mean is pulled from $y/n$ toward $1/2$ by four pseudo-counts.
+
+```r
+curve(dbeta(x, a_post, b_post), from = 0, to = 1, n = 400,
+      col = "#1b5e94", lwd = 3,
+      xlab = "Admission probability p", ylab = "Density")
+curve(dbeta(x, a0, b0), add = TRUE, col = "#ae4a3a", lwd = 2, lty = 2)
+legend("topleft", c("Posterior", "Prior"),
+       col = c("#1b5e94", "#ae4a3a"), lty = c(1, 2), lwd = c(3, 2), bty = "n")
+```
+
+The prior is drawn on the same axes as the posterior. A prior that is almost flat on $(0,1)$ and a prior that is a spike near $1/2$ are different models, and the picture should show which one was used.
+
+## Two posterior intervals {#s-two-posterior-intervals}
+
+An equal-tailed interval puts the same posterior probability in each tail. For a unimodal continuous posterior, a highest-density interval is the shortest interval carrying the chosen probability. The function below approximates that shortest interval from a sorted sample of draws. If the posterior is multimodal, the highest-density set can be a union of intervals, and one shortest interval is then an incomplete summary. The beta posterior here is unimodal, so the distinction is only the length.
+
+```r
+shortest_interval <- function(draws, mass = 0.95) {
+  x <- sort(draws)
+  inside <- floor(mass * length(x))
+  widths <- x[(inside + 1):length(x)] - x[seq_len(length(x) - inside)]
+  first <- which.min(widths)
+  c(lower = x[first], upper = x[first + inside])
+}
+rbind(
+  equal_tailed = quantile(posterior_draws, c(0.025, 0.975)),
+  shortest_draw_interval = shortest_interval(posterior_draws)
+)
+```
+
+`inside` is the number of steps in the sorted sample that cover about 95 percent of the draws. The scan finds the placement of that window with the smallest width. The equal-tailed interval uses `quantile`, which does not look at the width. For a nearly symmetric beta the two intervals nearly agree. For a beta piled up near zero or one they do not, and the equal-tailed interval is the longer one. Say which interval was reported.
+
+## A Bayes factor is a ratio of marginal likelihoods {#s-a-bayes-factor-is-a-ratio-of-marginal-likelihoods}
+
+Compare $M_0\colon p=1/2$ with $M_1\colon p\sim\operatorname{Beta}(a,b)$, for the same cell. The marginal likelihood under $M_1$ is the beta–binomial probability of the observed count, including the binomial coefficient:
+$$
+m_1(y)=\binom{n}{y}\frac{B(a+y,\ b+n-y)}{B(a,b)},
+\qquad
+m_0(y)=\binom{n}{y}\,(1/2)^n.
+$$
+$B$ is the beta function. Work in logarithms. `lchoose` is $\log\binom{n}{y}$ and `lbeta` is $\log B$. The binomial coefficient cancels in this particular ratio, because both models have it. It is part of each marginal likelihood, and it should not be dropped when either marginal likelihood is reported on its own.
+
+```r
+log_m0 <- dbinom(y, size = n, prob = 0.5, log = TRUE)
+log_m1 <- lchoose(n, y) + lbeta(a0 + y, b0 + n - y) - lbeta(a0, b0)
+bf10 <- exp(log_m1 - log_m0)
+prior_odds_10 <- 1
+posterior_odds_10 <- bf10 * prior_odds_10
+c(BF_10 = bf10,
+  posterior_probability_M1 = posterior_odds_10 / (1 + posterior_odds_10))
+```
+
+$BF_{10}=m_1/m_0$ multiplies prior odds to give posterior odds. It is not itself a posterior probability. The conversion in the last line uses prior odds of 1, that is a prior probability $1/2$ on each model, and a different prior odds would move the posterior probability without changing the Bayes factor. The value of the factor depends on the whole prior under $M_1$, not only on the posterior mean. Replacing $(a_0,b_0)=(2,2)$ by $(1,1)$ or by $(20,20)$ is the check that the page on Bayes factors asks for: a more diffuse prior spends more of its mass on values of $p$ that the likelihood rules out, and can make $M_1$ look worse even when the posterior under $M_1$ has hardly moved. The point null $p=1/2$ is also a choice. It is not a fact about the admissions cell.
+
+## Random-walk Metropolis on the logit scale {#s-random-walk-metropolis-on-the-logit-scale}
+
+The beta posterior can be drawn with `rbeta`. Markov chain Monte Carlo is unnecessary for the number above. It is a useful test of a sampler: a sampler that cannot recover a beta posterior should not be trusted on a posterior that has no closed form. The chain is run on $z=\operatorname{logit}(p)=\log\{p/(1-p)\}$, which can be any real number, so a normal proposal does not walk off the unit interval.
+
+If $p$ has density $f$ and $z=\operatorname{logit}(p)$, then $p=e^{z}/(1+e^{z})$ and $\mathrm{d}p/\mathrm{d}z=p(1-p)$. The density of $z$ is $f(p)\,p(1-p)$. For a $\operatorname{Beta}(a,b)$ density, $f(p)\propto p^{a-1}(1-p)^{b-1}$, so
+$$
+f_z(z)\propto p^{a}(1-p)^{b}.
+$$
+The Jacobian has raised each exponent by one. `plogis(z, log.p = TRUE)` is $\log p$, and `plogis(-z, log.p = TRUE)` is $\log(1-p)$.
+
+```r
+log_target_z <- function(z) {
+  a_post * plogis(z, log.p = TRUE) + b_post * plogis(-z, log.p = TRUE)
+}
+set.seed(1)
+z_chain <- numeric(12000)
+z_chain[1] <- qlogis(y / n)
+accepted <- logical(length(z_chain) - 1)
+for (i in 2:length(z_chain)) {
+  proposal <- rnorm(1, mean = z_chain[i - 1], sd = 0.35)
+  log_ratio <- log_target_z(proposal) - log_target_z(z_chain[i - 1])
+  accepted[i - 1] <- log(runif(1)) < min(0, log_ratio)
+  z_chain[i] <- if (accepted[i - 1]) proposal else z_chain[i - 1]
+}
+mh_draws <- plogis(z_chain[-(1:2000)])
+c(acceptance = mean(accepted),
+  direct_mean = mean(posterior_draws),
+  mh_mean = mean(mh_draws),
+  effective_draws = coda::effectiveSize(mh_draws))
+```
+
+The proposal is symmetric, a normal step with a fixed standard deviation, so its density cancels in the Metropolis–Hastings ratio. An asymmetric proposal would leave the forward and reverse proposal densities in that ratio. A rejected proposal repeats the current point. Those repeats are part of the chain. Dropping them would bias the sample toward the proposals that happened to be accepted.
+
+The first 2000 iterations are discarded as a warm-up. Discarding them does not make the remaining draws independent, and it does not prove that the chain has reached the posterior. The comparison that does some of that work here is `mh_mean` against `direct_mean`. They estimate the same posterior mean. A large gap, relative to the Monte Carlo error, means the chain has not mixed, or the target function omitted the Jacobian. `coda::effectiveSize` estimates how many independent draws the correlated sample is worth. It is not a certificate of convergence. A trace of the retained draws, the autocorrelation, a second chain from a different start, and a change of the proposal scale 0.35 are the other checks. The acceptance rate is a diagnostic of the scale, not a target to be tuned to a magic constant. A scale that accepts almost every step moves too little. A scale that accepts almost none stays put.
+
+```r
+plot(mh_draws[1:800], type = "l", col = "#1b5e94", lwd = 0.8,
+     xlab = "Retained iteration", ylab = "Admission probability")
+```
+
+Flat stretches in the trace are rejected proposals. A trace that drifts for the whole plot has not forgotten its starting value.
+
+## Gibbs sampling for paired differences {#s-gibbs-sampling-for-paired-differences}
+
+Gibbs sampling draws from each full conditional in turn. `sleep` records the extra hours of sleep, relative to a control, for ten people under each of two drugs. The paired difference within a person is the unit. The twenty rows are not twenty independent people.
+
+Take $d_i\mid\mu,\sigma^2\sim\mathrm{N}(\mu,\sigma^2)$, independent across the $n$ people, with
+$$
+\mu\mid\sigma^2\sim\mathrm{N}(\mu_0,\sigma^2/\kappa_0),
+\qquad
+\sigma^2\sim\mathrm{InvGamma}(\alpha_0,\beta_0).
+$$
+The inverse-gamma density is proportional to $(\sigma^2)^{-\alpha_0-1}\exp(-\beta_0/\sigma^2)$, the shape-rate form on the [distribution sheet](../reference/distributions.qmd). The full conditional of the mean is normal,
+$$
+\mu\mid\sigma^2,d\sim\mathrm{N}\!\left(
+\frac{\kappa_0\mu_0+n\bar d}{\kappa_0+n},\;
+\frac{\sigma^2}{\kappa_0+n}
+\right).
+$$
+The full conditional of the variance is inverse-gamma. Its shape is $\alpha_0+(n+1)/2$. The extra $1/2$ is the normal prior on $\mu$, which contributes one quadratic term $\kappa_0(\mu-\mu_0)^2$. Omitting it samples from a different posterior. The rate is
+$$
+\beta_0+\frac12\sum_i(d_i-\mu)^2+\frac12\kappa_0(\mu-\mu_0)^2.
+$$
+In R, a draw from that inverse-gamma is the reciprocal of a gamma draw with the same shape and rate.
+
+```r
+sleep_wide <- datasets::sleep |>
+  tidyr::pivot_wider(id_cols = ID, names_from = group,
+                     values_from = extra, names_prefix = "drug")
+dif <- sleep_wide$drug2 - sleep_wide$drug1
+n_dif <- length(dif)
+mu0 <- 0
+kappa0 <- 0.01
+alpha0 <- 2
+beta0 <- 2
+mu_n <- (kappa0 * mu0 + n_dif * mean(dif)) / (kappa0 + n_dif)
+
+set.seed(1)
+mu_chain <- sigma2_chain <- numeric(10000)
+mu_chain[1] <- mean(dif)
+sigma2_chain[1] <- stats::var(dif)
+for (i in 2:length(mu_chain)) {
+  shape <- alpha0 + (n_dif + 1) / 2
+  rate <- beta0 + 0.5 * (
+    sum((dif - mu_chain[i - 1])^2) + kappa0 * (mu_chain[i - 1] - mu0)^2
+  )
+  sigma2_chain[i] <- 1 / rgamma(1, shape = shape, rate = rate)
+  mu_chain[i] <- rnorm(1, mean = mu_n, sd = sqrt(sigma2_chain[i] / (kappa0 + n_dif)))
+}
+kept_mu <- mu_chain[-(1:1000)]
+c(posterior_mean = mean(kept_mu),
+  stats::quantile(kept_mu, c(0.025, 0.975)),
+  effective_draws = coda::effectiveSize(kept_mu))
+```
+
+`kappa0 = 0.01` is a weak prior precision: the prior on $\mu$ is centred at zero with a variance one hundred times $\sigma^2$. The posterior mean of $\mu$ should then sit close to the mean of the paired differences, and a second run with `kappa0 = 10` should pull it toward zero. That comparison is the prior sensitivity. `mu_n` does not depend on $\sigma^2$, which is special to this conjugate pair. The draw of $\mu$ still uses the current $\sigma^2$ as its variance.
+
+The scale of a Student-$t$ posterior for a normal mean is not in general the posterior standard deviation. Summaries here are taken from the draws, with `mean` and `quantile`, rather than by reading a scale parameter as if it were a standard deviation. The paired differences are the independent units the model assumes. A Gibbs run on the twenty raw rows, without pairing, would answer a different question.
+
+::: {.callout-note}
+## Key idea
+Report the prior with the posterior. A Bayes factor multiplies prior odds; it is not a posterior probability. A sampler that has a closed form to compare against should reproduce that closed form before it is used on a target that has none.
+:::

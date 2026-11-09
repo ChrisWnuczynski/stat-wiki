@@ -1,0 +1,179 @@
+# Generalised linear models in R
+
+A generalised linear model specifies a conditional mean $\mu_i=\mathrm{E}(Y_i\mid X_i)$, a variance function $V(\mu_i)$, and a link $g$ with $g(\mu_i)=X_i^\top\beta$. The family restricts the values the response can take. The link says how a change in a predictor moves the mean. The link is applied to the mean, not to each observed response. Logging a count that can be zero, or transforming a binary observation, is not a generalised linear model. The three components, the exponential families, and the binomial, Poisson, gamma, and categorical models are derived in [Introduction to generalised linear models](01-introduction-to-glms.qmd), [Standard errors, and models for counts](02-inference-and-counts.qmd), [Underdispersion, positive responses, and quasi-likelihood](03-gamma-and-quasi.qmd), [Categorical responses](04-categorical-responses.qmd), and [Paired comparisons, and how far a fit is from the data](05-comparisons-and-deviance.qmd). Logistic regression as a classifier is in [Logistic regression](sl-10-logistic-regression.qmd). This page is the `glm` call and the scale of each printed number.
+
+| Response | Family and link | What $e^{\beta_j}$ multiplies | First diagnostic |
+|:--|:--|:--|:--|
+| Binary, or successes out of trials | `binomial`, logit | the odds, other terms fixed | separation, calibration, dependence |
+| Count | `poisson`, log | the mean count | dispersion, exposure, extra zeros |
+| Positive and continuous | `Gamma`, log | the mean | zeros, the mean–variance shape |
+| Mean only, variance not a full likelihood | `quasi` | a mean on the link that was chosen | the working covariance; no likelihood AIC |
+
+The odds multiplier is the statement for a logit link. It is not the statement for a log link. A log-link coefficient is a ratio of means. Reading it as an odds ratio is a change of the scientific claim.
+
+## Grouped logistic regression {#s-grouped-logistic-regression}
+
+The admissions table has, for each department and gender, a count of applications admitted and a count rejected. One row is a stratum, not a person. The grouped binomial response is `cbind(Admitted, Rejected)`: successes in the first column, failures in the second. Supplying only the admitted count, without the number of trials, treats each stratum as a single Bernoulli trial.
+
+```r
+admissions <- as.data.frame(datasets::UCBAdmissions) |>
+  tidyr::pivot_wider(names_from = Admit, values_from = Freq) |>
+  dplyr::mutate(applicants = Admitted + Rejected)
+logit_fit <- glm(
+  cbind(Admitted, Rejected) ~ Gender + Dept,
+  family = binomial(link = "logit"),
+  data = admissions
+)
+nobs(logit_fit)
+broom::tidy(logit_fit, exponentiate = TRUE) |>
+  dplyr::select(term, estimate, std.error, p.value)
+```
+
+`nobs` is 12, one per stratum. The additive formula estimates one gender contrast on the log-odds scale, the same in every department, plus a department intercept. `Gender * Dept` lets that contrast differ by department. The exponentiated gender coefficient is an odds ratio under the additive model: the fitted odds of admission for one gender divided by the fitted odds for the baseline gender, at a fixed department. It is not a difference of probabilities. A probability difference depends on the department, because the logistic curve is not linear.
+
+`broom::tidy(..., exponentiate = TRUE)` exponentiates the coefficient and leaves the standard error on the log-odds scale. Exponentiating the standard error is not a standard error for the odds ratio. An interval is built on the link scale and then exponentiated at both ends. If $\hat\beta$ and $\mathrm{se}$ are the log-odds estimate and its standard error, the Wald interval for the odds ratio is
+$$
+\exp\bigl(\hat\beta \pm z_{1-\alpha/2}\,\mathrm{se}\bigr).
+$$
+The endpoints are not $\exp(\hat\beta)\pm z\,\mathrm{se}$.
+
+A fitted probability at a new stratum uses the same order. `predict(..., type = "link")` returns the log odds and its standard error. `plogis` is the logistic function, the inverse of the logit. Apply it to the estimate and to both endpoints. Applying it only to the estimate, and then adding a standard error computed on the link scale, produces numbers that need not lie in $(0,1)$.
+
+```r
+new_group <- data.frame(
+  Gender = factor("Female", levels = levels(admissions$Gender)),
+  Dept = factor("A", levels = levels(admissions$Dept))
+)
+pred <- predict(logit_fit, newdata = new_group, type = "link", se.fit = TRUE)
+plogis(c(
+  lower = pred$fit - qnorm(0.975) * pred$se.fit,
+  estimate = pred$fit,
+  upper = pred$fit + qnorm(0.975) * pred$se.fit
+))
+```
+
+The factor levels in `newdata` are set to the levels of the fitted data. A factor built as `factor("Female")` on its own has one level, and the contrasts will not match the fit. The Wald interval above uses a normal approximation on the link scale. It is a poor approximation under separation, when a department-and-gender cell has no admissions or no rejections and the coefficient for that contrast runs off to infinity. The likelihood is then still increasing at any finite coefficient. A huge standard error is the symptom.
+
+Compare fitted probabilities with the observed stratum rates from the exploratory page. A common gender contrast across departments is an assumption of the additive formula, not a finding, until a model with `Gender * Dept` has been compared with it on the same 12 rows. `anova(smaller, larger, test = "LRT")` is that comparison for two likelihood models. A small p-value says the additive log-odds contrast is too rigid for these counts. It does not say why the departments differ.
+
+## Counts, dispersion, and exposure {#s-counts-dispersion-and-exposure}
+
+`InsectSprays` has one row per experimental unit and a count of insects. A Poisson log-linear model says $\mathrm{Var}(Y\mid X)=\mu$, with $\log\mu$ linear in the spray indicators. The Pearson dispersion ratio compares the Pearson chi-squared statistic with its degrees of freedom:
+$$
+\frac{1}{\nu}\sum_i\frac{(y_i-\hat\mu_i)^2}{\hat\mu_i},
+$$
+where $\nu$ is the residual degrees of freedom. A value near 1 is what the Poisson variance function predicts. A value far above 1 says the counts vary more than that function allows. It does not by itself name the replacement distribution.
+
+::: {#def-pearson-dispersion-ratio .definition}
+## Pearson dispersion ratio
+
+For a fitted generalised linear model, the Pearson dispersion ratio is the Pearson chi-squared statistic divided by the residual degrees of freedom. For a Poisson model the summands are $(y_i-\hat\mu_i)^2/\hat\mu_i$. A ratio near 1 agrees with the variance function. A ratio far from 1 says that variance function is a poor description of these residuals.
+:::
+
+```r
+pois_fit <- glm(count ~ spray, family = poisson(link = "log"),
+                data = datasets::InsectSprays)
+dispersion_ratio <- sum(residuals(pois_fit, type = "pearson")^2) /
+  df.residual(pois_fit)
+dispersion_ratio
+
+quasi_fit <- glm(count ~ spray, family = quasipoisson(link = "log"),
+                 data = datasets::InsectSprays)
+nb_fit <- MASS::glm.nb(count ~ spray, data = datasets::InsectSprays)
+data.frame(
+  model = c("Poisson", "quasi-Poisson", "negative binomial"),
+  AIC = c(AIC(pois_fit), AIC(quasi_fit), AIC(nb_fit)),
+  mean_for_A = c(
+    predict(pois_fit, newdata = data.frame(spray = "A"), type = "response"),
+    predict(quasi_fit, newdata = data.frame(spray = "A"), type = "response"),
+    predict(nb_fit, newdata = data.frame(spray = "A"), type = "response")
+  )
+)
+```
+
+The three fitted means for spray A agree, or nearly agree, because the mean model is the same log-linear specification. What changes is the variance. Quasi-Poisson keeps the Poisson score equations for $\beta$ and estimates a dispersion that multiplies the variance, so the standard errors change and there is no likelihood. `AIC(quasi_fit)` is `NA`. Negative binomial regression specifies a full count distribution with an extra dispersion parameter, so it has a likelihood and an AIC. An AIC comparison of the Poisson and negative binomial models is a comparison of two likelihoods. An AIC comparison that includes the quasi-Poisson fit is not.
+
+If the scientific target is a rate per unit of exposure $e_i$, and the exposures differ, the mean model is $\log\mu_i=\log e_i+X_i^\top\beta$. The term $\log e_i$ is an offset, not a coefficient:
+
+```r
+# glm(count ~ spray + offset(log(exposure)), family = poisson, data = dat)
+```
+
+There is no `exposure` column in `InsectSprays`. The comment is the pattern. Omitting the offset compares raw counts as if every unit had been observed for the same time or area. A unit observed for twice as long will look like a larger rate.
+
+Extra zeros, relative to a Poisson or negative binomial, and dependence between neighbouring units, are not repaired by the dispersion ratio. They need a model that says where the extra zeros come from, or a model that says which units share a shock. The ratio is a check, not that model.
+
+## A gamma model for a positive response {#s-a-gamma-model-for-a-positive-response}
+
+On the 111 air-quality days with ozone, solar radiation, wind, and temperature all observed, ozone is strictly positive. A gamma model with a log link is a working model for the conditional distribution of ozone given those covariates. It is not a claim that a histogram of ozone, ignoring the covariates, is a gamma density.
+
+```r
+aq_complete <- datasets::airquality |>
+  dplyr::filter(complete.cases(Ozone, Solar.R, Wind, Temp))
+gamma_fit <- glm(Ozone ~ Temp + Wind + Solar.R,
+                 family = Gamma(link = "log"), data = aq_complete)
+nobs(gamma_fit)
+broom::tidy(gamma_fit) |> dplyr::select(term, estimate, std.error, p.value)
+exp(coef(gamma_fit)["Wind"])
+```
+
+`nobs` is 111. The coefficient on wind is on the log-mean scale. Its exponential is the ratio of fitted mean ozone for a one mile-per-hour increase in wind, at fixed temperature and solar radiation. It is not an odds ratio. There are no odds in this model. `summary(gamma_fit)$dispersion` is the estimated gamma dispersion $\phi$ in $\mathrm{Var}(Y\mid X)=\phi\mu^2$. A plot of Pearson residuals against the fitted mean asks whether that variance, and the log-linear mean, have left a systematic shape.
+
+```r
+ggplot2::ggplot(
+  data.frame(fitted = fitted(gamma_fit),
+             pearson = residuals(gamma_fit, type = "pearson")),
+  ggplot2::aes(fitted, pearson)
+) +
+  ggplot2::geom_point(colour = "#3366a0", alpha = 0.75) +
+  ggplot2::geom_hline(yintercept = 0, linetype = 2) +
+  ggplot2::labs(x = "Fitted mean ozone (ppb)", y = "Pearson residual") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+A fan, a curve, or a clump of large residuals at one end of the fitted mean is structure the working model did not absorb. Predictions should be read inside the range of this summer's weather. A wind speed or a temperature outside that range is a different claim, and the exponential of a coefficient does not make the extrapolation smaller.
+
+## Ordered categories and unordered categories {#s-ordered-categories-and-unordered-categories}
+
+`MASS::housing` is a table of housing-satisfaction responses. `Sat` has levels Low, Medium, High, in that order. `Freq` is how many people sit in each cell of the table. A model that ignores `Freq` treats each of the 72 cells as one person and throws away the cell counts. The frequency belongs in `weights`.
+
+```r
+data("housing", package = "MASS")
+ordinal_fit <- MASS::polr(Sat ~ Infl + Type + Cont,
+                          data = housing, weights = Freq, Hess = TRUE)
+coef(ordinal_fit)
+predict(ordinal_fit, newdata = housing[1, ], type = "probs")
+```
+
+`Hess = TRUE` asks for the Hessian at the maximum, which `summary` needs in order to report standard errors. The proportional-odds model uses one slope for each predictor, shared across the cumulative splits Low versus higher, and Low-or-Medium versus High. That common slope is an assumption. It should be checked before one coefficient is described as the contrast for satisfaction. The sign of a coefficient is the sign in the function's cumulative logit, which `?MASS::polr` states. A positive coefficient means a higher predictor is associated with a higher category only under that convention. Guessing the sign from the name of the predictor is how the direction gets reversed.
+
+If the order of the categories is not part of the question, a nominal model fits a separate contrast for each category against a baseline. It has more parameters and it answers a different question.
+
+```r
+nominal_fit <- nnet::multinom(Sat ~ Infl + Type + Cont,
+                              data = housing, weights = Freq, trace = FALSE)
+predict(nominal_fit, newdata = housing[1, ], type = "probs")
+```
+
+`predict(..., type = "probs")` returns a probability for each level of `Sat`. The three probabilities sum to 1. They are probabilities for a cell with the covariates of `housing[1, ]`, under the fitted model, not frequencies.
+
+## Deviance of a likelihood fit {#s-deviance-of-a-likelihood-fit}
+
+For a likelihood model, the residual deviance compares the fitted log likelihood with the log likelihood of a saturated model that gives every observation its own mean. A larger model has a smaller or equal deviance. The question is whether the drop is large relative to the number of parameters gained, under assumptions that make a chi-squared or an AIC comparison valid. Deviance, the analysis of deviance, and the distinction among residual types are in [Paired comparisons, and how far a fit is from the data](05-comparisons-and-deviance.qmd).
+
+```r
+c(n = nobs(logit_fit),
+  residual_df = df.residual(logit_fit),
+  deviance = deviance(logit_fit),
+  AIC = AIC(logit_fit))
+utils::head(residuals(logit_fit, type = "deviance"))
+```
+
+The response residual is $y-\hat\mu$. The Pearson residual divides that by the square root of the working variance. The deviance residual is signed so that the sum of its squares is the deviance. They answer different questions. A large response residual on a probability near zero can be a small deviance residual, and the reverse. `residuals(fit)` without `type` is the deviance residual for a `glm`.
+
+Do not use a likelihood-ratio chi-squared test, or AIC, on a quasi-likelihood fit. There is no likelihood to ratio. For a small sample, for separation, for sparse cells, for an estimated dispersion, or for a variance parameter on a boundary, the chi-squared reference distribution of a likelihood-ratio statistic can be a poor approximation even when a likelihood exists. The statistic can still be computed. The p-value is the part that may not mean what the reference distribution claims.
+
+::: {.callout-note}
+## Key idea
+Name the family and the link, then read the coefficient on the scale that link defines. Exponentiate an interval, not a standard error. A quasi-likelihood fit has no AIC. A frequency column is a weight, not a residual.
+:::

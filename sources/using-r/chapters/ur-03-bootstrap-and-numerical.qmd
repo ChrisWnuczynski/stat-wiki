@@ -1,0 +1,73 @@
+# Bootstrap and numerical methods in R
+
+Two calculations on this page do not have a closed form that one should pretend to have used. The bootstrap replaces an unknown sampling distribution by the empirical distribution of the observed units. One-dimensional integration and optimisation check a density whose integral and mode can also be written down, so a numerical answer can be compared with an analytic one. Intervals from a pivot or a large-sample approximation are in [Confidence intervals](inf-03-confidence-intervals.qmd). The bootstrap used to estimate a prediction error is a different procedure, in [Estimating error rates](sl-09-error-rates.qmd).
+
+## What the bootstrap resamples {#s-what-the-bootstrap-resamples}
+
+::: {#def-nonparametric-bootstrap .definition}
+## Nonparametric bootstrap
+
+The nonparametric bootstrap estimates the sampling distribution of a statistic by drawing samples of size $n$, with replacement, from the observed sample, and recomputing the statistic on each draw. The units that are drawn are the units that were assumed independent. The percentile interval between the empirical $0.025$ and $0.975$ quantiles of those recomputed statistics is a description of that resampling distribution. It is not a posterior probability for a parameter.
+:::
+
+If each row is an independent day, draw days. If several rows are visits of one person, draw people, and keep every visit of a drawn person. Drawing visits as if they were people treats repeated measurements as new subjects and usually makes the interval too short. A series with dependence in time is not fixed by drawing its time points in a random order. The dependence has to be kept inside the block that is resampled, or a different method is required. The time-ordered holdout on [Time series in R](ur-10-time-series.qmd) is the matching check for a series. Resampling children rather than visits is the matching check for [Repeated measures in R](ur-09-repeated-measures.qmd).
+
+## A percentile interval for a mean {#s-a-percentile-interval-for-a-mean}
+
+The target here is the mean ozone concentration among days like the days on which ozone was measured. Days with missing ozone are not in the sample. That is a decision about the target, made before the resampling, and the interval does not undo it. Weather persists from one day to the next, so ordinary resampling of days can understate the uncertainty if that persistence matters for the mean. The interval below is the interval under independence of days.
+
+`rsample::bootstraps()` stores the resampled row indices. `rsample::analysis()` returns the rows in one resample. `purrr::map_dbl` computes the mean on each.
+
+```r
+ozone_days <- datasets::airquality |>
+  dplyr::filter(!is.na(Ozone)) |>
+  dplyr::select(Ozone)
+set.seed(1)
+boots <- rsample::bootstraps(ozone_days, times = 1000)
+boot_means <- purrr::map_dbl(boots$splits, function(split) {
+  mean(rsample::analysis(split)$Ozone)
+})
+c(estimate = mean(ozone_days$Ozone),
+  stats::quantile(boot_means, c(0.025, 0.975)))
+```
+
+```r
+ggplot2::ggplot(data.frame(mean_ozone = boot_means), ggplot2::aes(mean_ozone)) +
+  ggplot2::geom_histogram(bins = 35, fill = "#86b2d8", colour = "white") +
+  ggplot2::labs(x = "Bootstrap mean ozone (ppb)", y = "Resamples") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+The histogram is the resampling distribution of the mean, centred near the sample mean, with a spread that comes from which days were drawn more than once. The two quantiles are the percentile interval. They are not a 95 percent posterior probability that the mean lies between them. A posterior interval conditions on a prior and on the likelihood. This interval conditions on the empirical distribution and on the decision to resample days. [Bayesian computation in R](ur-05-bayesian-computation.qmd) builds the other kind of interval for a different parameter.
+
+A bootstrap that is too expensive to recompute from scratch can still be checked on a smaller statistic whose answer is known. The mean of a sample is known before any resample. If the centre of `boot_means` is far from `mean(ozone_days$Ozone)`, the resample is not the sample that was intended. A shift of that kind is a bug. A spread around the sample mean is the procedure working.
+
+## Integration and a one-dimensional mode {#s-integration-and-a-one-dimensional-mode}
+
+`integrate` approximates a one-dimensional integral. `optimize` searches a one-dimensional interval for a minimum. `uniroot` solves a one-dimensional equation. Each of them needs a finite interval, and each of them can stop at a point that is not the answer if the interval or the tolerance is wrong. Compare the numerical answer with a known analytic value before trusting the same command on a density that has no closed form.
+
+The $\operatorname{Beta}(2,5)$ density integrates to 1 on $(0,1)$. For $a>1$ and $b>1$ its mode is $(a-1)/(a+b-2)$. Here that is $(2-1)/(2+5-2) = 1/5$.
+
+```r
+area <- integrate(function(p) dbeta(p, 2, 5), lower = 0, upper = 1)$value
+mode <- optimize(function(p) -dbeta(p, 2, 5), interval = c(0, 1))$minimum
+c(integrated_probability = area,
+  numerical_mode = mode,
+  analytic_mode = (2 - 1) / (2 + 5 - 2))
+```
+
+`optimize` minimises, so the density is negated. The returned `$minimum` is the location of the minimum of the negated density, which is the mode. `$objective` would be the negated height, not the mode. `integrate` returns a list. `$value` is the approximation and `$abs.error` is an estimate of the absolute error. An integral of a probability density that is not 1, to within that error, means the integrand or the limits are wrong. It does not mean the beta family is appropriate for a data set.
+
+`uniroot` is the same discipline applied to an equation. The distribution function of this beta at its median equals $1/2$, and `qbeta(0.5, 2, 5)` is that median. A numerical root of $F(p)-1/2$ on $(0,1)$ should match it.
+
+```r
+root <- uniroot(function(p) pbeta(p, 2, 5) - 0.5, interval = c(0.01, 0.99))$root
+c(numerical_median = root, analytic_median = qbeta(0.5, 2, 5))
+```
+
+The interval passed to `uniroot` must contain a sign change. An interval that does not is an error, not a root at the boundary. Agreement of these three checks says the numerical commands are doing what they claim on a problem whose answer is known. It says nothing about whether a beta model fits a particular sample. That question is the model, and it is not settled by a quadrature.
+
+::: {.callout-note}
+## Key idea
+Resample the independent units, and say so. A percentile interval describes the resamples. A numerical integral or mode is trustworthy after it has reproduced an answer that can be written in closed form.
+:::

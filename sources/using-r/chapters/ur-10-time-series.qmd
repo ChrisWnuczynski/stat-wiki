@@ -1,0 +1,78 @@
+# Time series in R
+
+`AirPassengers` is a monthly series of international airline passenger totals, in thousands, from 1949 through 1960. Consecutive months are not interchangeable rows. A model that shuffles them, or a holdout that picks random months as the test set, leaks the future into the fit and then congratulates itself. Autoregression, moving averages, and stationarity are in [Dependence along a series](12-time-series.qmd). Forecasting a seasonal series, and the limits of that forecast, are in [Forecasting](11-forecasting.qmd). This page is the order of operations in R: look at the series, fit on a past stretch only, score a later stretch, and read the sign convention of `arima`.
+
+```r
+airline <- data.frame(
+  date = seq(as.Date("1949-01-01"), by = "month",
+             length.out = length(datasets::AirPassengers)),
+  passengers_thousands = as.numeric(datasets::AirPassengers)
+)
+utils::head(airline, 3)
+ggplot2::ggplot(airline, ggplot2::aes(date, passengers_thousands)) +
+  ggplot2::geom_line(colour = "#1b5e94", linewidth = 0.7) +
+  ggplot2::labs(x = NULL, y = "Passengers (thousands)") +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+The level rises, and the seasonal swing grows with the level. A stationary autoregressive model for the raw totals is the wrong first model. Something has to be done about the trend and the season, by differencing, by a transformation, or by a seasonal mean, before a short-memory residual model is worth fitting. The log of the totals is the usual first look when the seasonal swings grow in proportion to the level. It is a change of the response, and it should be chosen on the training stretch only.
+
+## Fit on the past, score the future {#s-fit-on-the-past-score-the-future}
+
+`acf` and `pacf` describe linear dependence at lags. A trend or a seasonal cycle produces large correlations at many lags even when no stationary autoregression would be a sensible model for the raw series. Difference or remove those components for a stated reason, then look at the residual correlations. A large autocorrelation at lag 12 in a monthly series of the raw totals is the season. It is not, by itself, an autoregressive coefficient to be quoted.
+
+`window` extracts a time range without dropping the time index. The training stretch here is every month through December 1959. The test stretch is the twelve months of 1960. `forecast::auto.arima` searches a set of ARIMA orders, including seasonal orders when `seasonal = TRUE`. The search is not a validation. It maximises a criterion on the training stretch. `stepwise = FALSE` and `approximation = FALSE` ask for a wider search than the defaults. They still do not create a holdout.
+
+```r
+train <- window(datasets::AirPassengers, end = c(1959, 12))
+test <- window(datasets::AirPassengers, start = c(1960, 1))
+airline_fit <- forecast::auto.arima(
+  train, seasonal = TRUE, stepwise = FALSE, approximation = FALSE
+)
+airline_forecast <- forecast::forecast(airline_fit, h = length(test))
+forecast::accuracy(airline_forecast, test)[, c("ME", "RMSE", "MAE")]
+```
+
+`accuracy` scores the forecast against the months that were not used in the fit. `ME` is the mean error, `RMSE` the root mean squared error, `MAE` the mean absolute error, all in thousands of passengers. A small training residual is not one of these numbers. Any transformation, any choice of which months are the test stretch, and any seasonal adjustment has to be fixed using the training stretch alone. Choosing the test year because it makes the error small is leakage.
+
+A seasonal naive forecast, which repeats last year's month as this year's forecast, is the baseline that a more elaborate model has to beat. `forecast::snaive` is that forecast.
+
+```r
+seasonal_naive <- forecast::snaive(train, h = length(test))
+forecast::accuracy(seasonal_naive, test)[, c("ME", "RMSE", "MAE")]
+```
+
+If the ARIMA forecast does not improve the holdout error by enough to matter, in passengers, the extra structure has not earned its place on this particular split. One year of holdout is a small test. It can be an unlucky year. It is still a different check from the in-sample residual variance, which the search has already been allowed to see.
+
+```r
+plot(airline_forecast, xlim = c(1958, 1961),
+     xlab = "Year", ylab = "Passengers (thousands)")
+lines(test, col = "#a33b32", lwd = 2)
+legend("topleft", c("Forecast path", "Observed 1960"),
+       col = c("black", "#a33b32"), lty = 1, bty = "n")
+```
+
+The shaded band on the forecast plot is the model's prediction interval. It is valid under the fitted ARIMA assumptions, including the innovation distribution and the absence of a further change in level. It does not widen to cover a misspecified season or a break in 1960.
+
+```r
+forecast::checkresiduals(airline_fit)
+```
+
+The Ljung–Box statistic asks whether residual autocorrelations, up to a chosen lag, are jointly compatible with zero after accounting for the fitted orders. A result that is not significant does not prove the residuals are independent. Look at the residual time plot, the residual autocorrelation, a change in spread, and the holdout errors. A significant result says some correlation remains at the lags that were tested. It does not name the model that should replace the current one.
+
+## The sign in front of a lagged term {#s-the-sign-in-front-of-a-lagged-term}
+
+Write the equation next to the printed coefficient. For a series with an autoregressive coefficient $\phi$ and a moving-average coefficient $\theta$,
+$$
+Y_t = \beta_0 + \phi Y_{t-1} + \varepsilon_t + \theta\varepsilon_{t-1},
+$$
+a causal stationary autoregression needs $|\phi|<1$, and invertibility of the moving-average part needs $|\theta|<1$. R's `arima` stores the autoregressive polynomial as $1-\phi B$ and the moving-average polynomial as $1+\theta B$, where $B$ is the backshift operator, $BY_t=Y_{t-1}$. The printed AR coefficient is $\phi$ in the equation above. The printed MA coefficient is $\theta$ in that same equation, which already carries a plus in front of $\theta\varepsilon_{t-1}$.
+
+A second convention writes the autoregression as $Y_t+\alpha Y_{t-1}=\varepsilon_t$, so the lagged term is on the left with a plus. Then $\alpha=-\phi$, and the number R prints is $-\alpha$. Copying the printed number into that equation with the same sign reverses the dynamics: a positive sample autocorrelation becomes a forecast that pushes the next value the wrong way. The forecast recursion uses the printed sign. A translation into the other equation that forgets the minus will not reproduce `forecast(airline_fit)`.
+
+`coef(airline_fit)` names the terms `ar1`, `ma1`, `sar1`, `sma1`, and a mean or a drift, depending on the order the search returned. Match each name to a polynomial before interpreting it. Seasonal terms are coefficients on lags of 12, not on lag 1. A seasonal autoregressive coefficient of 0.9 is persistence of this month with the same month a year ago. It is not a monthly growth rate.
+
+::: {.callout-note}
+## Key idea
+Keep time order. Fit, transform, and choose orders on the past stretch, then score the future stretch once. Write $1-\phi B$ beside R's autoregressive coefficient so the sign is the sign in the forecast.
+:::
