@@ -1,6 +1,6 @@
 # How to use the final preparation {.unnumbered}
 
-These questions cover the main methods in STAT3500/7500. The first set develops Bayesian updating, simulation and model comparison. The second set puts generalised linear models, smooths and mixed models to work on the applied cases from the 2024 and 2025 examinations. The questions come first; worked answers are collected afterwards so that you can attempt a complete argument before reading one.
+These questions cover the main methods. The first set develops Bayesian updating, simulation and model comparison. The second set puts generalised linear models, smooths and mixed models to work on the applied cases from the 2024 and 2025 examinations. The questions come first; worked answers are collected afterwards so that you can attempt a complete argument before reading one.
 
 ## A route through the material
 

@@ -3,7 +3,7 @@
 ```{=latex}
 \begingroup
 \raggedbottom
-\noindent The distributions below are the corrected STAT3500/7500 sheet. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$.
+\noindent The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$.
 
 \distgroup{Discrete}
 
