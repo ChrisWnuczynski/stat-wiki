@@ -1,4 +1,6 @@
 # Made by build_wiki.py. The publish workflow rebuilds these on every push.
+# The id registry in graph/ids.json is kept. wiki.json is rebuilt on every run.
+/wiki.json
 /notes/
 /questions/
 /answers/

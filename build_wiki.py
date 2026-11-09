@@ -948,12 +948,12 @@ def load_practice() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
     q_region = raw.split("% BEGIN CONCEPT QUESTIONS", 1)[1].split("% END CONCEPT QUESTIONS", 1)[0]
     topics = [(m.start(), m.group(1).strip()) for m in re.finditer(r"\\concepttopic\{([^{}]*)\}", q_region)]
     concept_qs = []
-    for start, end, args in find_commands(q_region, "conceptquestion", 2):
+    for start, end, args in find_commands(q_region, "conceptquestion", 3):
         topic = ""
         for pos, name in topics:
             if pos < start:
                 topic = name
-        concept_qs.append({"n": int(args[0]), "text": args[1].strip(), "topic": topic})
+        concept_qs.append({"n": int(args[0]), "text": args[1].strip(), "topic": topic, "label": args[2].strip()})
 
     a_region = raw.split("% END CONCEPT QUESTIONS", 1)[1]
     concept_as = []
@@ -981,8 +981,11 @@ def load_practice() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
         while k < len(raw) and raw[k].isspace():
             k += 1
         title, k = read_delim(raw, k, "{", "}")
+        while k < len(raw) and raw[k].isspace():
+            k += 1
+        label, k = read_delim(raw, k, "{", "}")
         body, k = read_environment_body(raw, k, "examquestion")
-        exam_qs.append({"title": title.strip(), "body": body.strip()})
+        exam_qs.append({"title": title.strip(), "label": label.strip(), "body": body.strip()})
 
     ans_start = raw.find(r"\subsection{Answer 1:")
     ans_region = raw[ans_start:]
@@ -1531,6 +1534,7 @@ TOPIC_TERMS_LATE: list[tuple] = []
 TOPIC_ERRORS: list[str] = []
 TOPIC_EXAMPLES: dict[str, list[str]] = {}  # topic slug -> worked examples (exm- ids) shown on its page
 SECTION_TEXT: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> text below the heading
+SECTION_SLICES: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> slice captured in index_chapter
 
 # Inline maths in a heading, written out for a page title.
 TITLE_MATH = {
@@ -1800,9 +1804,12 @@ def index_chapter(note: dict, part: str, body: str) -> str:
     for i, line in enumerate(lines):
         example = EXAMPLE_OPEN.match(line)
         if example:
+            ident = example.group(1)
+            if ident in BOOK_EXAMPLE_BOXES:
+                raise SystemExit(f"duplicate example anchor {ident}")
             title, content = box_contents(lines, i)
-            BOOK_EXAMPLE_BOXES[example.group(1)] = {
-                "title": plain(title or example.group(1)),
+            BOOK_EXAMPLE_BOXES[ident] = {
+                "title": plain(title or ident),
                 "lines": content,
                 "chapter": note["path"],
                 "chapter_title": note["title"],
@@ -1811,6 +1818,7 @@ def index_chapter(note: dict, part: str, body: str) -> str:
     depth = 0
     in_code = False
     used: set[str] = set()
+    heading_marks: list[tuple[int, int, str | None]] = []
     pending: dict[int, str] = {}  # line index of a box's closing fence -> link up to its article
     i = 0
     while i < len(lines):
@@ -1874,8 +1882,8 @@ def index_chapter(note: dict, part: str, body: str) -> str:
         heading = HEADING.match(line)
         if heading and depth == 0:
             hashes, text, attrs = heading.groups()
+            ident = None
             if plain(text).lower() not in SKIP_HEADINGS:
-                ident = None
                 if attrs:
                     found = re.search(r"#([\w-]+)", attrs)
                     ident = found.group(1) if found else None
@@ -1896,8 +1904,18 @@ def index_chapter(note: dict, part: str, body: str) -> str:
                         "snippet": "",
                     }
                 )
+            heading_marks.append((len(out), len(hashes), ident))
         out.append(line)
         i += 1
+    for mark, (idx, level, ident) in enumerate(heading_marks):
+        if not ident:
+            continue
+        end = len(out)
+        for later, later_level, _later_ident in heading_marks[mark + 1 :]:
+            if later_level <= level:
+                end = later
+                break
+        SECTION_SLICES[(fname, ident)] = "\n".join(out[idx + 1 : end]).strip()
     return "\n".join(out)
 
 
@@ -3676,6 +3694,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - labs/lab-chrome.js
     - robots.txt
     - {SHARE_IMAGE}
+    - wiki.json
 
 website:
   title: "stat wiki"
@@ -4144,6 +4163,7 @@ def main() -> None:
                 "group": "concepts",
                 "n": n,
                 "id": f"c-{n:02d}",
+                "label": item["label"],
                 "title": title,
                 "body": converted[f"cq{n:02d}"],
                 "path": WIKI / "questions" / f"c-{n:02d}.qmd",
@@ -4176,6 +4196,7 @@ def main() -> None:
                 "group": "practice",
                 "n": n,
                 "id": f"q-{n:02d}",
+                "label": item["label"],
                 "title": f"Q{n}. {label}",
                 "body": converted[f"pq{n:02d}"],
                 "path": WIKI / "questions" / f"q-{n:02d}.qmd",
@@ -4213,6 +4234,21 @@ def main() -> None:
     }
 
     write_pages(notes, questions, answers)
+    import wiki_graph
+
+    for item in wiki_graph.write_graph(
+        notes,
+        questions,
+        answers,
+        ARTICLES,
+        GLOSSARY,
+        HEADING_ANCHORS,
+        BOOK_EXAMPLE_BOXES,
+        FIGURE_INFO,
+        SECTION_SLICES,
+        update_ids="--update-ids" in sys.argv,
+    ):
+        print(f"Registry warning: vanished {item}")
     write_file_pages()
 
     leftover = []

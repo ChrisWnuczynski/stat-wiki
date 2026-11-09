@@ -1,10 +1,12 @@
-# Build the wiki and publish it to GitHub Pages on every push to main.
+# Build the wiki and publish it on every push to main.
 # The same steps work locally: python build_wiki.py, then quarto render.
+# A pull request runs the page build and the graph tests. It does not render or deploy.
 name: Build and publish
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -12,13 +14,14 @@ permissions:
   pages: write
   id-token: write
 
-# One publish at a time. A newer push waits for the running one to finish.
+# One publish at a time. Pull-request checks use their own group.
 concurrency:
-  group: pages
+  group: ${{ github.event_name == 'pull_request' && format('wiki-graph-run-{0}', github.ref) || 'pages' }}
   cancel-in-progress: false
 
 jobs:
   build:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -133,3 +136,32 @@ jobs:
               }
             }
             core.setFailed(`GitHub Pages deployment ${id} was still ${status ? '"' + status + '"' : 'without a status'} after ${waitMinutes} minutes. It was left running so a sync in progress can finish.`);
+
+  # Pull requests only. Poppler converts figures and Quarto supplies pandoc.
+  # This job does not render the site and does not deploy it.
+  graph:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: wiki-graph-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install poppler
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-liberation
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.6.40
+
+      - name: Write the wiki pages
+        run: python build_wiki.py
+
+      - name: Test the graph
+        run: python -m unittest test_wiki_graph.py
