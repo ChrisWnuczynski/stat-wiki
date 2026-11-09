@@ -1,5 +1,5 @@
 # Build the wiki and publish it to GitHub Pages on every push to main.
-# The same steps work locally: python build_wiki.py, then python render_site.py.
+# The same steps work locally: python build_wiki.py, then quarto render.
 name: Build and publish
 
 on:
@@ -44,7 +44,7 @@ jobs:
         run: python build_wiki.py
 
       - name: Render the site
-        run: python render_site.py
+        run: quarto render
 
       - id: upload
         uses: actions/upload-pages-artifact@v4
