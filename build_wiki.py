@@ -3610,6 +3610,9 @@ def write_config(chapters, final_notes, questions) -> None:
     yml = f"""project:
   type: website
   output-dir: _site
+  # Quarto's alias pages are redirects. Give each one a canonical link after render.
+  post-render:
+    - canonical_redirects.py
   # Render the generated pages only, not the course files copied into sources/.
   render:
     - "*.qmd"
@@ -3624,10 +3627,13 @@ def write_config(chapters, final_notes, questions) -> None:
     - figures/*-full.png
     - labs/kde-math.js
     - labs/lab-chrome.js
+    - robots.txt
 
 website:
   title: "stat wiki"
   description: "Study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference"
+  # Public host. Quarto writes sitemap.xml from this and each page's canonical link.
+  site-url: "https://www.statwiki.io"
   search:
     location: navbar
     type: textbox
@@ -3699,11 +3705,15 @@ format:
     code-overflow: scroll
     link-external-newwindow: true
     include-after-body: _random.html
-    # Ask search engines not to list the site.
-    include-in-header:
-      text: '<meta name="robots" content="noindex, nofollow">'
+    # One canonical link per page, on the public host, so every page can be indexed.
+    canonical-url: true
 """
     (WIKI / "_quarto.yml").write_text(yml, encoding="utf-8")
+    if "noindex" in yml or "nofollow" in yml:
+        raise SystemExit("Pages must not send noindex or nofollow")
+    robots = (WIKI / "robots.txt").read_text(encoding="utf-8")
+    if "User-agent: *" not in robots or "Allow: /" not in robots:
+        raise SystemExit("robots.txt must allow every crawler")
 
 
 def distributions_body() -> str:
