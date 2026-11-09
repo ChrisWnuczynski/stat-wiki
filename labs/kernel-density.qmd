@@ -36,7 +36,7 @@ $$
 with $s$ the sample standard deviation using divisor $n-1$, and the quartiles from R's default quantile (type 7). The constant is $0.9$, which is `bw.nrd0`, not the $1.06$ of `bw.nrd`. It is a normal-reference rule, not the minimiser of either error below. The generator that builds the sample is not R's generator. The seed reproduces this page, not an R session.
 
 ```{=html}
-<div class="kde-slot" data-kde-variant="projector" hidden></div>
+<div data-lab-page hidden></div>
 ```
 
 {{< include _kde-figure.qmd >}}

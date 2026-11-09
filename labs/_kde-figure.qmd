@@ -1,6 +1,23 @@
 ```{ojs}
 //| echo: false
 //| output: false
+labChrome = {
+  const meta = document.querySelector('meta[name="quarto:offset"]');
+  const offset = meta ? meta.getAttribute("content") : "./";
+  const href = new URL(offset + "labs/lab-chrome.js", document.baseURI).href;
+  try {
+    const chrome = await import(href);
+    chrome.installLabChrome();
+    return chrome;
+  } catch (error) {
+    throw new Error("The laboratory chrome did not load: " + (error && error.message ? error.message : String(error)));
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+//| output: false
 kdeApi = {
   const meta = document.querySelector('meta[name="quarto:offset"]');
   const offset = meta ? meta.getAttribute("content") : "./";
@@ -16,29 +33,25 @@ kdeApi = {
 ```{ojs}
 //| echo: false
 //| output: false
-themeColors = {
-  const dark = themeDark;
-  return dark
-    ? { truth: "#f0b7a4", estimate: "#9eb6f0", rug: "#a2a9b1", bias: "#e0b15a", variance: "#7dcea0", mise: "#f4f4f5", ise: "#f0a0a0", text: "#eaecf0", silver: "#e0b15a" }
-    : { truth: "#9a3412", estimate: "#1d4e9e", rug: "#54595d", bias: "#9a6b12", variance: "#1f7a4d", mise: "#202122", ise: "#9f1239", text: "#202122", silver: "#9a6b12" };
-}
+themeDark = Generators.observe(notify => labChrome.watchTheme(notify))
 ```
 
 ```{ojs}
 //| echo: false
 //| output: false
-themeDark = Generators.observe(notify => {
-  const read = () => document.body.classList.contains("quarto-dark");
-  const observer = new MutationObserver(() => notify(read()));
-  observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-  notify(read());
-  return () => observer.disconnect();
-})
+themeColors = {
+  const dark = themeDark;
+  const ink = labChrome.themeInk();
+  const accent = dark
+    ? { truth: "#f0b7a4", estimate: "#9eb6f0", bias: "#e0b15a", variance: "#7dcea0", ise: "#f0a0a0", silver: "#e0b15a" }
+    : { truth: "#9a3412", estimate: "#1d4e9e", bias: "#9a6b12", variance: "#1f7a4d", ise: "#9f1239", silver: "#9a6b12" };
+  return { ...accent, rug: ink.muted, mise: ink.text, text: ink.text };
+}
 ```
 
 ```{ojs}
 //| echo: false
-viewof bandwidth = {
+viewof labControls = {
   const api = kdeApi;
   const seq = api.sequence(api.DEFAULTS.seed);
   const drawn = api.samplePrefix(seq, api.DEFAULTS.population, api.DEFAULTS.n);
@@ -46,234 +59,241 @@ viewof bandwidth = {
   const ruled = api.silvermanNrd0(drawn.values);
   if (ruled.error) throw new Error(ruled.error);
   const start = ruled.value;
-  const form = html`<form class="kde-field">
-    <span id="kde-bandwidth-label">Bandwidth h</span>
-    <div class="kde-h-row">
-      <input name="slider" type="range" step="0.001" aria-labelledby="kde-bandwidth-label" aria-describedby="kde-control-hint">
-      <input name="number" type="number" min="0.005" max="20" step="0.001" aria-label="Bandwidth h as a number">
+  const series = [
+    ["bias", "Bias²"],
+    ["variance", "Variance"],
+    ["mise", "MISE"],
+    ["ise", "ISE"],
+  ];
+  const form = labChrome.controlRow("Kernel density controls");
+  form.innerHTML = `<label class="control-field control-field-wide">
+      <span id="kde-bandwidth-label">Bandwidth h</span>
+      <span class="control-slider">
+        <input name="hslider" type="range" min="0.02" max="2.5" step="0.001" aria-labelledby="kde-bandwidth-label" aria-describedby="kde-control-hint">
+        <input name="hnumber" type="number" min="0.005" max="20" step="0.001" aria-label="Bandwidth h as a number">
+      </span>
+    </label>
+    <label class="control-field">
+      <span id="kde-n-label">Sample size n</span>
+      <span class="control-slider">
+        <input name="nslider" type="range" min="2" max="${api.MAX_N}" step="1" aria-labelledby="kde-n-label" aria-describedby="kde-control-hint">
+        <output name="nout"></output>
+      </span>
+    </label>
+    <label class="control-field">
+      <span id="kde-pop-label">Distribution</span>
+      <select name="population" aria-labelledby="kde-pop-label"></select>
+    </label>
+    <label class="control-field control-field-fixed">
+      <span id="kde-seed-label">Seed</span>
+      <input name="seed" type="number" step="1" inputmode="numeric" autocomplete="off" aria-labelledby="kde-seed-label">
+    </label>
+    <div class="control-actions">
+      <button type="button" name="newer">New sample</button>
+      <button type="button" name="silver">Silverman h</button>
+      <button type="button" name="restore">Reset</button>
     </div>
-    <p class="kde-hint" id="kde-control-hint"></p>
-    <p class="kde-field-note"></p>
-  </form>`;
+    <div class="control-toggles" role="group" aria-label="Panel B series"></div>
+    <p class="control-hint" id="kde-control-hint"></p>
+    <p class="control-note"></p>`;
   form.querySelector("#kde-control-hint").textContent =
     `n is a prefix of ${api.MAX_N} draws from this seed. Changing h does not redraw them. Arrow keys move a focused slider. Shift changes h by 0.1 and n by 10.`;
-  const note = form.querySelector(".kde-field-note");
-  const publish = (value) => {
-    note.textContent = "";
-    form.slider.min = String(Math.min(0.02, value));
-    form.slider.max = String(Math.max(2.5, value));
-    form.slider.value = String(value);
-    form.number.value = Number(value).toFixed(4);
-    form.value = value;
+  const showPopulation = () => {
+    const item = api.POPULATIONS.find((row) => row.id === form.population.value);
+    form.population.title = item ? item.label + ": " + item.detail : "";
   };
-  publish(start);
-  form.slider.addEventListener("input", () => publish(Number(form.slider.value)));
-  form.slider.addEventListener("keydown", (event) => {
-    if (!event.shiftKey) return;
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
-    event.preventDefault();
-    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
-    const next = Math.round((Number(form.value) + dir * 0.1) * 1000) / 1000;
-    if (!(next > 0) || next > 20) return;
-    publish(next);
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  form.number.addEventListener("change", () => {
-    const value = Number(form.number.value);
-    if (!(value > 0) || value > 20 || !Number.isFinite(value)) {
-      note.textContent = "Bandwidth must be a positive finite number no larger than 20. The previous value is still in use.";
-      form.number.value = Number(form.value).toFixed(4);
-      return;
-    }
-    publish(value);
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  form.addEventListener("submit", (event) => event.preventDefault());
-  return form;
-}
-```
-
-```{ojs}
-//| echo: false
-viewof drawCount = {
-  const api = kdeApi;
-  const form = html`<form class="kde-field">
-    <span id="kde-n-label">Sample size n</span>
-    <div class="kde-n-row">
-      <input name="slider" type="range" min="2" max="${api.MAX_N}" step="1" aria-labelledby="kde-n-label" aria-describedby="kde-control-hint">
-      <output class="kde-n-value" name="out"></output>
-    </div>
-  </form>`;
-  const publish = (value) => {
-    const n = Math.max(2, Math.min(api.MAX_N, Math.round(value)));
-    form.slider.value = String(n);
-    form.out.value = String(n);
-    form.out.textContent = String(n);
-    form.value = n;
-  };
-  publish(api.DEFAULTS.n);
-  form.slider.addEventListener("input", () => publish(Number(form.slider.value)));
-  form.slider.addEventListener("keydown", (event) => {
-    if (!event.shiftKey) return;
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
-    event.preventDefault();
-    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
-    publish(form.value + dir * 10);
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  form.addEventListener("submit", (event) => event.preventDefault());
-  return form;
-}
-```
-
-```{ojs}
-//| echo: false
-viewof populationId = {
-  const api = kdeApi;
-  const form = html`<form class="kde-field">
-    <span id="kde-pop-label">Distribution</span>
-    <select name="choice" aria-labelledby="kde-pop-label"></select>
-  </form>`;
   for (const item of api.POPULATIONS) {
     const option = document.createElement("option");
     option.value = item.id;
-    option.textContent = item.label + ": " + item.detail;
-    form.choice.appendChild(option);
+    option.textContent = item.label;
+    option.title = item.detail;
+    form.population.appendChild(option);
   }
-  form.choice.value = api.DEFAULTS.population;
-  form.value = api.DEFAULTS.population;
-  form.choice.addEventListener("change", () => {
-    form.value = form.choice.value;
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  form.addEventListener("submit", (event) => event.preventDefault());
-  return form;
-}
-```
-
-```{ojs}
-//| echo: false
-viewof seedValue = {
-  const api = kdeApi;
-  const form = html`<form class="kde-field">
-    <span id="kde-seed-label">Seed</span>
-    <input name="entry" type="number" step="1" inputmode="numeric" autocomplete="off" aria-labelledby="kde-seed-label">
-    <p class="kde-field-note"></p>
-  </form>`;
-  const note = form.querySelector(".kde-field-note");
-  form.entry.value = String(api.DEFAULTS.seed);
-  form.value = api.DEFAULTS.seed;
-  const commit = () => {
-    if (form.entry.value.trim() === "") {
-      note.textContent = "The seed is empty. The sample was not redrawn.";
-      form.entry.value = String(form.value);
-      return;
-    }
-    const parsed = Number(form.entry.value);
-    if (!Number.isInteger(parsed)) {
-      note.textContent = "The seed must be an integer. The sample was not redrawn.";
-      form.entry.value = String(form.value);
-      return;
-    }
-    const wrapped = parsed >>> 0;
-    note.textContent = parsed === wrapped ? "" : "Stored as an unsigned 32-bit integer, so " + parsed + " uses the same sequence as " + wrapped + ".";
-    form.entry.value = String(wrapped);
-    form.value = wrapped;
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  };
-  form.entry.addEventListener("change", commit);
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    commit();
-  });
-  return form;
-}
-```
-
-```{ojs}
-//| echo: false
-kdeActions = {
-  const api = kdeApi;
-  const wrap = html`<form class="kde-actions">
-    <button type="button" name="newer">New sample</button>
-    <button type="button" name="silver">Use Silverman h</button>
-    <button type="button" name="reset">Reset</button>
-  </form>`;
-  const poke = (form, value) => {
-    if (form.slider) form.slider.value = String(value);
-    if (form.out) {
-      form.out.value = String(value);
-      form.out.textContent = String(value);
-    }
-    if (form.entry) form.entry.value = String(value);
-    if (form.choice) form.choice.value = value;
-    form.value = value;
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  };
-  const setBandwidth = (value) => {
-    const form = viewof bandwidth;
-    form.slider.min = String(Math.min(0.02, value));
-    form.slider.max = String(Math.max(2.5, value));
-    form.slider.value = String(value);
-    form.number.value = Number(value).toFixed(4);
-    form.querySelector(".kde-field-note").textContent = "";
-    form.value = value;
-    form.dispatchEvent(new Event("input", { bubbles: true }));
-  };
-  wrap.newer.addEventListener("click", () => {
-    poke(viewof seedValue, (Number(seedValue) + 1) >>> 0);
-    viewof seedValue.querySelector(".kde-field-note").textContent = "";
-  });
-  wrap.silver.addEventListener("click", () => {
-    if (draws.error) return;
-    const ruled = api.silvermanNrd0(draws.values);
-    if (!ruled.error) setBandwidth(ruled.value);
-  });
-  wrap.reset.addEventListener("click", () => {
-    const seq = api.sequence(api.DEFAULTS.seed);
-    const drawn = api.samplePrefix(seq, api.DEFAULTS.population, api.DEFAULTS.n);
-    const ruled = api.silvermanNrd0(drawn.values);
-    poke(viewof populationId, api.DEFAULTS.population);
-    poke(viewof drawCount, api.DEFAULTS.n);
-    poke(viewof seedValue, api.DEFAULTS.seed);
-    viewof seedValue.querySelector(".kde-field-note").textContent = "";
-    if (!ruled.error) setBandwidth(ruled.value);
-    for (const key of ["bias", "variance", "mise", "ise"]) viewof seriesOn[key].checked = true;
-    viewof seriesOn.value = ["bias", "variance", "mise", "ise"];
-    viewof seriesOn.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-  return wrap;
-}
-```
-
-```{ojs}
-//| echo: false
-viewof seriesOn = {
-  const items = [
-    ["bias", "Integrated squared bias"],
-    ["variance", "Integrated variance"],
-    ["mise", "MISE"],
-    ["ise", "This sample's ISE"],
-  ];
-  const form = html`<form class="kde-toggles" aria-label="Panel B series"></form>`;
-  for (const [key, label] of items) {
+  for (const [key, label] of series) {
     const box = document.createElement("input");
     box.type = "checkbox";
     box.name = key;
     box.checked = true;
     const item = document.createElement("label");
     item.append(box, document.createTextNode(" " + label));
-    form.appendChild(item);
+    form.querySelector(".control-toggles").appendChild(item);
   }
-  const read = () => items.filter(([key]) => form[key].checked).map(([key]) => key);
-  form.value = read();
-  form.addEventListener("change", () => {
-    form.value = read();
+  const note = form.querySelector(".control-note");
+  const readSeries = () => series.filter(([key]) => form[key].checked).map(([key]) => key);
+  const snapshot = (bandwidth) => ({
+    bandwidth,
+    drawCount: Number(form.nout.value),
+    populationId: form.population.value,
+    seedValue: Number(form.seed.value),
+    seriesOn: readSeries(),
+  });
+  const showBandwidth = (value) => {
+    form.hslider.min = String(Math.min(0.02, value));
+    form.hslider.max = String(Math.max(2.5, value));
+    form.hslider.value = String(value);
+    form.hnumber.value = Number(value).toFixed(4);
+  };
+  const showCount = (value) => {
+    const n = Math.max(2, Math.min(api.MAX_N, Math.round(value)));
+    form.nslider.value = String(n);
+    form.nout.value = String(n);
+    form.nout.textContent = String(n);
+    return n;
+  };
+  showBandwidth(start);
+  showCount(api.DEFAULTS.n);
+  form.population.value = api.DEFAULTS.population;
+  showPopulation();
+  form.seed.value = String(api.DEFAULTS.seed);
+  form.value = {
+    bandwidth: start,
+    drawCount: api.DEFAULTS.n,
+    populationId: api.DEFAULTS.population,
+    seedValue: api.DEFAULTS.seed,
+    seriesOn: readSeries(),
+  };
+  const emit = (bandwidth) => {
+    note.textContent = "";
+    form.value = snapshot(bandwidth);
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  };
+  form.hslider.addEventListener("input", () => {
+    const value = Number(form.hslider.value);
+    showBandwidth(value);
+    form.value = snapshot(value);
+  });
+  form.hslider.addEventListener("keydown", (event) => {
+    if (!event.shiftKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+    const next = Math.round((Number(form.value.bandwidth) + dir * 0.1) * 1000) / 1000;
+    if (!(next > 0) || next > 20) return;
+    showBandwidth(next);
+    emit(next);
+  });
+  form.hnumber.addEventListener("change", () => {
+    const value = Number(form.hnumber.value);
+    if (!(value > 0) || value > 20 || !Number.isFinite(value)) {
+      note.textContent = "Bandwidth must be a positive finite number no larger than 20. The previous value is still in use.";
+      form.hnumber.value = Number(form.value.bandwidth).toFixed(4);
+      return;
+    }
+    showBandwidth(value);
+    emit(value);
+  });
+  form.nslider.addEventListener("input", () => {
+    showCount(Number(form.nslider.value));
+    form.value = snapshot(form.value.bandwidth);
+  });
+  form.nslider.addEventListener("keydown", (event) => {
+    if (!event.shiftKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight" && event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+    event.preventDefault();
+    const dir = event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 1;
+    showCount(form.value.drawCount + dir * 10);
+    emit(form.value.bandwidth);
+  });
+  form.population.addEventListener("change", () => {
+    showPopulation();
+    emit(form.value.bandwidth);
+  });
+  form.seed.addEventListener("change", () => {
+    if (form.seed.value.trim() === "") {
+      note.textContent = "The seed is empty. The sample was not redrawn.";
+      form.seed.value = String(form.value.seedValue);
+      return;
+    }
+    const parsed = Number(form.seed.value);
+    if (!Number.isInteger(parsed)) {
+      note.textContent = "The seed must be an integer. The sample was not redrawn.";
+      form.seed.value = String(form.value.seedValue);
+      return;
+    }
+    const wrapped = parsed >>> 0;
+    note.textContent = parsed === wrapped ? "" : "Stored as an unsigned 32-bit integer, so " + parsed + " uses the same sequence as " + wrapped + ".";
+    form.seed.value = String(wrapped);
+    form.value = { ...snapshot(form.value.bandwidth), seedValue: wrapped };
     form.dispatchEvent(new Event("input", { bubbles: true }));
   });
-  form.addEventListener("submit", (event) => event.preventDefault());
+  form.querySelector(".control-toggles").addEventListener("change", () => emit(form.value.bandwidth));
+  form.newer.addEventListener("click", () => {
+    const next = (Number(form.value.seedValue) + 1) >>> 0;
+    form.seed.value = String(next);
+    note.textContent = "";
+    form.value = { ...snapshot(form.value.bandwidth), seedValue: next };
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
+  form.silver.addEventListener("click", () => {
+    const sample = api.samplePrefix(api.sequence(form.value.seedValue), form.value.populationId, form.value.drawCount);
+    if (sample.error) {
+      note.textContent = sample.error;
+      return;
+    }
+    const next = api.silvermanNrd0(sample.values);
+    if (next.error) {
+      note.textContent = next.error;
+      return;
+    }
+    showBandwidth(next.value);
+    emit(next.value);
+  });
+  form.restore.addEventListener("click", (event) => {
+    event.preventDefault();
+    const again = api.samplePrefix(api.sequence(api.DEFAULTS.seed), api.DEFAULTS.population, api.DEFAULTS.n);
+    const next = api.silvermanNrd0(again.values);
+    if (again.error || next.error) {
+      note.textContent = (again.error || next.error);
+      return;
+    }
+    showBandwidth(next.value);
+    showCount(api.DEFAULTS.n);
+    form.population.value = api.DEFAULTS.population;
+    showPopulation();
+    form.seed.value = String(api.DEFAULTS.seed);
+    for (const [key] of series) form[key].checked = true;
+    note.textContent = "";
+    form.value = {
+      bandwidth: next.value,
+      drawCount: api.DEFAULTS.n,
+      populationId: api.DEFAULTS.population,
+      seedValue: api.DEFAULTS.seed,
+      seriesOn: readSeries(),
+    };
+    form.dispatchEvent(new Event("input", { bubbles: true }));
+  });
   return form;
 }
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+bandwidth = labControls.bandwidth
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+drawCount = labControls.drawCount
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+populationId = labControls.populationId
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+seedValue = labControls.seedValue
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+seriesOn = labControls.seriesOn
 ```
 
 ```{ojs}
@@ -355,52 +375,51 @@ riskCurves = {
 //| echo: false
 labReadout = {
   const api = kdeApi;
-  const variant = (document.querySelector("[data-kde-variant]") || {}).getAttribute?.("data-kde-variant") || "embed";
-  const root = document.createElement("div");
-  root.className = "kde-readout";
-  root.dataset.kdeVariant = variant;
-  const lines = [];
+  const entries = [];
   const alerts = [];
-  const add = (text, fail = false) => lines.push({ text, fail });
+  const add = (label, value, title) => entries.push({ label, value, title });
   if (draws.error || pairWork.error) {
     alerts.push(draws.error || pairWork.error);
   } else {
     const ruled = api.silvermanNrd0(draws.values);
     const ise = api.iseFromCache(pairWork, bandwidth, draws.components);
     const risk = api.miseParts(draws.n, bandwidth, draws.components);
-    add(`${draws.population.label}: ${draws.population.detail}. n = ${draws.n} of ${api.MAX_N} from seed ${draws.seed}. Bandwidth h = ${viewFns.formatNumber(bandwidth)}.`);
+    const fmt = viewFns.formatNumber;
+    add("n", String(draws.n));
+    add("seed", String(draws.seed));
+    add("h", fmt(bandwidth));
     if (ruled.error) alerts.push("Silverman (R bw.nrd0) was not computed: " + ruled.error);
-    else add(`Silverman (R bw.nrd0) = ${viewFns.formatNumber(ruled.value)}. ${api.SILVERMAN_RULE}`);
+    else add("bw.nrd0", fmt(ruled.value), api.SILVERMAN_RULE);
     if (ise.error) alerts.push("Integrated squared error was not computed: " + ise.error);
     else {
-      let sentence = `ISE = ${viewFns.formatNumber(ise.value)}. Exact for a Gaussian kernel and this Gaussian mixture, in floating point, not a numerical integral. This is the error of the sample on the plot.`;
-      if (ise.value < 0) sentence += " The value is negative, which the identity should not produce. It is shown as computed.";
-      add(sentence);
+      add("ISE", fmt(ise.value));
+      if (ise.value < 0) alerts.push("ISE is negative. The value is shown as computed and was not replaced.");
     }
     if (risk.error) alerts.push("MISE was not computed: " + risk.error);
     else {
-      add(`Integrated variance = ${viewFns.formatNumber(risk.integratedVariance)}. Integrated squared bias = ${viewFns.formatNumber(risk.integratedSquaredBias)}. MISE = ${viewFns.formatNumber(risk.mise)}.`);
-      add("MISE is the expected ISE. At this n and this population it does not move when the sample changes. ISE does.");
+      add("IVar", fmt(risk.integratedVariance));
+      add("IBias²", fmt(risk.integratedSquaredBias));
+      add("MISE", fmt(risk.mise));
       if (risk.integratedVariance < -1e-8 || risk.integratedSquaredBias < -1e-8) {
         alerts.push("A risk term is negative by more than roundoff. The value is shown as computed and was not replaced.");
       }
     }
+  }
+  const root = labChrome.readoutLine(entries);
+  if (!draws.error && !pairWork.error) {
     root.dataset.seed = String(draws.seed);
     root.dataset.n = String(draws.n);
     root.dataset.h = String(bandwidth);
     root.dataset.population = draws.population.id;
     root.dataset.sample = draws.values.slice(0, 8).map((v) => v.toPrecision(12)).join(",");
   }
-  for (const line of lines) {
-    const p = document.createElement("p");
-    p.textContent = line.text;
-    root.appendChild(p);
+  if (alerts.length) {
+    const alert = document.createElement("p");
+    alert.className = "graph-alert";
+    alert.setAttribute("role", "alert");
+    alert.textContent = alerts.join(" ");
+    root.appendChild(alert);
   }
-  const alert = document.createElement("p");
-  alert.className = "kde-fail";
-  alert.setAttribute("role", "alert");
-  alert.textContent = alerts.join(" ");
-  root.appendChild(alert);
   return root;
 }
 ```
@@ -409,19 +428,14 @@ labReadout = {
 //| echo: false
 densityChart = {
   const api = kdeApi;
-  const section = document.createElement("section");
-  section.className = "kde-panel";
-  const title = document.createElement("h3");
-  title.className = "kde-panel-title";
-  title.textContent = "Panel A. Estimate";
-  section.appendChild(title);
+  const frame = labChrome.graphFrame("Estimate");
   if (draws.error) {
     const alert = document.createElement("p");
-    alert.className = "kde-fail";
+    alert.className = "graph-alert";
     alert.setAttribute("role", "alert");
     alert.textContent = draws.error;
-    section.appendChild(alert);
-    return section;
+    frame.section.appendChild(alert);
+    return frame.section;
   }
   const [xMin, xMax] = viewFns.supportWindow(draws.values, draws.components);
   const xs = viewFns.densityGrid(xMin, xMax, draws.values);
@@ -443,35 +457,40 @@ densityChart = {
     x: { label: "x", domain: [xMin, xMax], grid: true },
     y: { label: "density", domain: [0, yTop], grid: true },
     marks: [
-      Plot.line(truth, { x: "x", y: "y", stroke: themeColors.truth, strokeDasharray: "7 4", strokeWidth: 2 }),
-      estimate ? Plot.line(estimate, { x: "x", y: "y", stroke: themeColors.estimate, strokeWidth: 2.25 }) : null,
-      Plot.tickX(draws.values.map((x) => ({ x })), { x: "x", stroke: themeColors.rug }),
+      Plot.line(truth, { x: "x", y: "y", stroke: themeColors.truth, strokeDasharray: "7 4", strokeWidth: 2.25 }),
+      estimate ? Plot.line(estimate, { x: "x", y: "y", stroke: themeColors.estimate, strokeWidth: 2.5 }) : null,
+      Plot.link(draws.values.map((x) => ({ x, y1: 0, y2: yTop * 0.04 })), {
+        x1: "x",
+        x2: "x",
+        y1: "y1",
+        y2: "y2",
+        stroke: themeColors.rug,
+        strokeOpacity: 0.5,
+        strokeWidth: 1,
+      }),
     ].filter(Boolean),
   });
   chart.setAttribute("role", "img");
   chart.setAttribute("aria-label", `True density and Gaussian kernel estimate for ${draws.n} observations at bandwidth ${viewFns.formatNumber(bandwidth)}.`);
-  const frame = document.createElement("div");
-  frame.className = "kde-chart";
-  frame.appendChild(chart);
-  section.appendChild(frame);
-  section.appendChild(viewFns.legendList([
-    ["kde-swatch-true", "True density"],
-    ["kde-swatch-est", "Gaussian kernel estimate"],
-    ["kde-swatch-rug", "Sample"],
+  frame.plot.appendChild(chart);
+  frame.section.appendChild(labChrome.markerLegend([
+    { text: "True density", color: themeColors.truth, kind: "line", dash: "dashed" },
+    { text: "Estimate", color: themeColors.estimate, kind: "line" },
+    { text: "Sample", color: themeColors.rug, kind: "rug" },
   ]));
   if (estimated.error) {
     const alert = document.createElement("p");
-    alert.className = "kde-fail";
+    alert.className = "graph-alert";
     alert.setAttribute("role", "alert");
     alert.textContent = "The kernel curve was not drawn: " + estimated.error;
-    section.appendChild(alert);
+    frame.section.appendChild(alert);
   } else if (clipped) {
     const note = document.createElement("p");
-    note.className = "kde-hint";
+    note.className = "graph-note";
     note.textContent = "The estimate exceeds the top of the plot. The axis stops at 4 times the true density so that curve stays visible.";
-    section.appendChild(note);
+    frame.section.appendChild(note);
   }
-  return section;
+  return frame.section;
 }
 ```
 
@@ -479,19 +498,14 @@ densityChart = {
 //| echo: false
 riskChart = {
   const api = kdeApi;
-  const section = document.createElement("section");
-  section.className = "kde-panel";
-  const title = document.createElement("h3");
-  title.className = "kde-panel-title";
-  title.textContent = "Panel B. Risk against bandwidth";
-  section.appendChild(title);
+  const frame = labChrome.graphFrame("Risk against bandwidth");
   if (riskCurves.error) {
     const alert = document.createElement("p");
-    alert.className = "kde-fail";
+    alert.className = "graph-alert";
     alert.setAttribute("role", "alert");
     alert.textContent = riskCurves.error;
-    section.appendChild(alert);
-    return section;
+    frame.section.appendChild(alert);
+    return frame.section;
   }
   const chosen = new Set(seriesOn);
   const rows = riskCurves.grid.map((band, i) => ({
@@ -530,17 +544,14 @@ riskChart = {
     if (Number.isFinite(at[key])) marks.push(Plot.dot([{ h: bandwidth, y: at[key] }], { x: "h", y: "y", fill: style[key].stroke, r: 3.5 }));
   }
   const markers = [
-    { x: riskCurves.minMise.x, text: "min MISE", stroke: themeColors.mise, dash: "0" },
-    { x: riskCurves.minIse.x, text: "min ISE", stroke: themeColors.ise, dash: "6 3" },
+    { x: riskCurves.minMise.x, text: "min MISE " + viewFns.formatNumber(riskCurves.minMise.x), stroke: themeColors.mise },
+    { x: riskCurves.minIse.x, text: "min ISE " + viewFns.formatNumber(riskCurves.minIse.x), stroke: themeColors.ise },
   ];
-  if (silver.value) markers.push({ x: silver.value, text: "Silverman", stroke: themeColors.silver, dash: "2 2" });
-  markers.push({ x: bandwidth, text: "h", stroke: themeColors.estimate, dash: "1 3" });
-  markers.forEach((marker, index) => {
-    marks.push(Plot.ruleX([marker.x], { stroke: marker.stroke, strokeDasharray: marker.dash }));
-    marks.push(Plot.text([{ x: marker.x, y: yMax, text: marker.text }], {
-      x: "x", y: "y", text: "text", dy: 12 + index * 14, textAnchor: "start", fill: themeColors.text,
-    }));
-  });
+  if (silver.value) markers.push({ x: silver.value, text: "bw.nrd0 " + viewFns.formatNumber(silver.value), stroke: themeColors.silver });
+  markers.push({ x: bandwidth, text: "h " + viewFns.formatNumber(bandwidth), stroke: themeColors.estimate });
+  for (const marker of markers) {
+    marks.push(Plot.ruleX([marker.x], { stroke: marker.stroke, strokeWidth: 1.25, strokeOpacity: 0.85 }));
+  }
   const chart = Plot.plot({
     width: Math.max(280, width),
     height: viewFns.chartHeight(width),
@@ -551,33 +562,30 @@ riskChart = {
   });
   chart.setAttribute("role", "img");
   chart.setAttribute("aria-label", `Risk against bandwidth. Minimum MISE on the grid at ${viewFns.formatNumber(riskCurves.minMise.x)}. Minimum ISE on the grid at ${viewFns.formatNumber(riskCurves.minIse.x)}.`);
-  const frame = document.createElement("div");
-  frame.className = "kde-chart";
-  frame.appendChild(chart);
-  section.appendChild(frame);
-  section.appendChild(viewFns.legendList([
-    ["kde-swatch-bias", "Integrated squared bias, rises with h"],
-    ["kde-swatch-var", "Integrated variance, falls with h"],
-    ["kde-swatch-mise", "MISE"],
-    ["kde-swatch-ise", "This sample's ISE"],
+  frame.plot.appendChild(chart);
+  frame.section.appendChild(labChrome.markerLegend([
+    { text: "Bias²", color: themeColors.bias, kind: "line", dash: "dotted" },
+    { text: "Variance", color: themeColors.variance, kind: "line", dash: "dashed" },
+    { text: "MISE", color: themeColors.mise, kind: "line" },
+    { text: "ISE", color: themeColors.ise, kind: "line", dash: "dashed" },
   ]));
-  const note = document.createElement("p");
-  note.className = "kde-hint";
-  note.textContent = `Markers are grid minima, not a closed-form argmin. min MISE is the smallest MISE from ${api.BAND_LO} to ${api.BAND_HI} at steps of ${api.MISE_STEP}. min ISE is the smallest ISE on that window after a step of ${api.ISE_FINE}. The series share one vertical scale. Hide one if it flattens the others. ISE can sit far from MISE. Neither is known when the true density is unknown.`;
-  section.appendChild(note);
-  const slot = document.querySelector("[data-kde-variant]");
-  if (!slot || slot.getAttribute("data-kde-variant") !== "projector") {
+  frame.section.appendChild(labChrome.markerLegend(markers.map((marker) => ({
+    text: marker.text,
+    color: marker.stroke,
+    kind: "tick",
+  }))));
+  if (!document.querySelector("[data-lab-page]")) {
     const open = document.createElement("p");
-    open.className = "kde-open";
+    open.className = "graph-note";
     const link = document.createElement("a");
     const meta = document.querySelector('meta[name="quarto:offset"]');
     const offset = meta ? meta.getAttribute("content") : "./";
     link.href = offset + "labs/kernel-density.html";
     link.textContent = "Open the laboratory page";
     open.appendChild(link);
-    section.appendChild(open);
+    frame.section.appendChild(open);
   }
-  return section;
+  return frame.section;
 }
 ```
 
@@ -592,7 +600,7 @@ viewFns = {
     return value.toPrecision(4);
   }
   function chartHeight(px) {
-    return Math.max(240, Math.round(Math.min(px, 760) * 0.5));
+    return Math.max(340, Math.round(Math.min(px, 980) * 0.62));
   }
   function plotStyle(colors) {
     return {
@@ -636,19 +644,6 @@ viewFns = {
     const shown = clipped ? Math.min(kdeMax, cap) : Math.max(trueMax, kdeMax);
     return Math.max(shown, 1e-6) * 1.08;
   }
-  function legendList(items) {
-    const list = document.createElement("ul");
-    list.className = "kde-legend";
-    for (const [swatch, text] of items) {
-      const item = document.createElement("li");
-      const mark = document.createElement("span");
-      mark.className = "kde-swatch " + swatch;
-      mark.setAttribute("aria-hidden", "true");
-      item.append(mark, document.createTextNode(text));
-      list.appendChild(item);
-    }
-    return list;
-  }
-  return { formatNumber, chartHeight, plotStyle, supportWindow, densityGrid, topOf, legendList };
+  return { formatNumber, chartHeight, plotStyle, supportWindow, densityGrid, topOf };
 }
 ```

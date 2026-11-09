@@ -2501,8 +2501,7 @@ def with_kde_lab(note: dict, prose: str) -> str:
     if marker not in prose:
         raise SystemExit("sl-07 is missing the kernel density laboratory sentence; the figure has nowhere to go.")
     figure = (WIKI / "labs" / "_kde-figure.qmd").read_text(encoding="utf-8").strip()
-    slot = "```{=html}\n" '<div class="kde-slot" data-kde-variant="embed" hidden></div>\n' "```"
-    return prose.replace(marker, marker + "\n\n" + slot + "\n\n" + figure, 1)
+    return prose.replace(marker, marker + "\n\n" + figure, 1)
 
 
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
@@ -3623,6 +3622,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - figures/*.py
     - figures/*-full.png
     - labs/kde-math.js
+    - labs/lab-chrome.js
 
 website:
   title: "stat wiki"
