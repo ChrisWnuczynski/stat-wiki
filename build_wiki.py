@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import os
 import re
+import struct
 import unicodedata
 import shutil
 import subprocess
@@ -3610,7 +3611,30 @@ document.addEventListener("DOMContentLoaded", () => {
 """
 
 
+# Share cards repeat the site description and one wide image on every page.
+SITE_DESCRIPTION = (
+    "Study wiki for data analysis, probability, stochastic processes, "
+    "statistical learning, statistical inference, and the R used to compute them"
+)
+SHARE_IMAGE = "og-preview.png"
+SHARE_IMAGE_ALT = "White sigma on purple, the stat wiki mark"
+SHARE_WIDTH = 1200
+SHARE_HEIGHT = 630
+
+
+def png_size(path: Path) -> tuple[int, int]:
+    data = path.read_bytes()[:24]
+    if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        raise SystemExit(f"{path.name} is not a PNG")
+    return struct.unpack(">II", data[16:24])
+
+
 def write_config(chapters, final_notes, questions) -> None:
+    share = WIKI / SHARE_IMAGE
+    width, height = png_size(share)
+    if (width, height) != (SHARE_WIDTH, SHARE_HEIGHT):
+        raise SystemExit(f"{SHARE_IMAGE} must be {SHARE_WIDTH} by {SHARE_HEIGHT}, not {width} by {height}")
+
     question_paths = [q["path"].relative_to(WIKI).with_suffix(".html").as_posix() for q in questions]
     (WIKI / "_random.html").write_text(
         RANDOM_AND_FILTER_JS.replace("__QUESTIONS__", "[" + ",".join(f'"{p}"' for p in question_paths) + "]")
@@ -3635,6 +3659,7 @@ def write_config(chapters, final_notes, questions) -> None:
   # Quarto's alias pages are redirects. Give each one a canonical link after render.
   post-render:
     - canonical_redirects.py
+    - share_preview.py
   # Render the generated pages only, not the course files copied into sources/.
   render:
     - "*.qmd"
@@ -3650,12 +3675,27 @@ def write_config(chapters, final_notes, questions) -> None:
     - labs/kde-math.js
     - labs/lab-chrome.js
     - robots.txt
+    - {SHARE_IMAGE}
 
 website:
   title: "stat wiki"
-  description: "Study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them"
+  description: {yaml_quote(SITE_DESCRIPTION)}
   # Public host. Quarto writes sitemap.xml from this and each page's canonical link.
   site-url: "https://www.statwiki.io"
+  # Leading slash: the same project file on every page, copied into the site root.
+  image: /{SHARE_IMAGE}
+  image-alt: {yaml_quote(SHARE_IMAGE_ALT)}
+  open-graph:
+    description: {yaml_quote(SITE_DESCRIPTION)}
+    image: /{SHARE_IMAGE}
+    image-alt: {yaml_quote(SHARE_IMAGE_ALT)}
+    image-width: {SHARE_WIDTH}
+    image-height: {SHARE_HEIGHT}
+  twitter-card:
+    card-style: summary_large_image
+    description: {yaml_quote(SITE_DESCRIPTION)}
+    image: /{SHARE_IMAGE}
+    image-alt: {yaml_quote(SHARE_IMAGE_ALT)}
   search:
     location: navbar
     type: textbox
