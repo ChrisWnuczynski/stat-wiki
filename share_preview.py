@@ -8,6 +8,7 @@ site root.
 
 from __future__ import annotations
 
+import html
 import re
 import sys
 from pathlib import Path
@@ -25,19 +26,53 @@ ROOT = Path(__file__).resolve().parent
 SITE_DIR = ROOT / "_site"
 
 CANONICAL = re.compile(r'<link rel="canonical" href="([^"]+)">')
-META = re.compile(
-    r'<meta\s+([^>]*?)\s*(?:property|name)="([^"]+)"([^>]*)>',
-    re.I,
-)
-CONTENT = re.compile(r'content="([^"]*)"')
+ATTR = re.compile(r"""([^\s=/>]+)\s*=\s*(?:"([^"]*)"|'([^']*)')""")
+
+
+def meta_tags(text: str):
+    """Each meta tag, including one whose quoted value contains >.
+
+    Quarto writes a title straight into the attribute. A greater-than sign is
+    allowed there, and the HTML is well formed. A pattern that stops at the
+    first > never sees the content, and reports the tag missing.
+    """
+    i = 0
+    n = len(text)
+    while i < n:
+        start = text.find("<meta", i)
+        if start < 0:
+            return
+        if start + 5 < n and (text[start + 5].isalnum() or text[start + 5] in "-_:"):
+            i = start + 5
+            continue
+        j = start + 5
+        quote = ""
+        while j < n:
+            ch = text[j]
+            if quote:
+                if ch == quote:
+                    quote = ""
+            elif ch in "\"'":
+                quote = ch
+            elif ch == ">":
+                yield text[start : j + 1]
+                i = j + 1
+                break
+            j += 1
+        else:
+            return
 
 
 def meta_map(text: str) -> dict[str, str]:
     found: dict[str, str] = {}
-    for match in META.finditer(text):
-        content = CONTENT.search(match.group(0))
-        if content:
-            found[match.group(2)] = content.group(1)
+    for tag in meta_tags(text):
+        attrs: dict[str, str] = {}
+        for match in ATTR.finditer(tag):
+            raw = match.group(2) if match.group(2) is not None else match.group(3)
+            attrs[match.group(1).lower()] = html.unescape(raw)
+        key = attrs.get("property") or attrs.get("name")
+        if key and "content" in attrs:
+            found[key] = attrs["content"]
     return found
 
 
