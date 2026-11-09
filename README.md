@@ -45,6 +45,10 @@ powershell -ExecutionPolicy Bypass -File publish.ps1 "What changed"
 
 It commits everything, brings in any remote changes, and pushes.
 
+## Search engines
+
+The site is published at https://www.statwiki.io/ and search engines may list it. `site-url` in the config that `build_wiki.py` writes makes Quarto produce `sitemap.xml` and `robots.txt`, and gives every page a canonical link to its www.statwiki.io address. To get it listed sooner, add the site in Google Search Console and Bing Webmaster Tools and submit https://www.statwiki.io/sitemap.xml.
+
 ## Checking pages locally
 
 You need Python 3.12, Quarto 1.6 and poppler (`pdfinfo`, `pdftocairo`). Then run:

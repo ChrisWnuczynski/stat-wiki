@@ -3545,6 +3545,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     home.write_text(
         f"""---
 title: "stat wiki"
+description: "Study wiki for probability, inference, stochastic processes, statistical learning and data analysis: {n_chapters} chapters, {len(questions)} questions, {n_answers} worked answers."
 toc: false
 ---
 
@@ -3628,6 +3629,12 @@ def write_config(chapters, final_notes, questions) -> None:
 website:
   title: "stat wiki"
   description: "Study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference"
+  # The address search engines should list. With it, Quarto writes
+  # sitemap.xml and a robots.txt that points to it.
+  site-url: "https://www.statwiki.io/"
+  # Title, description and picture for link previews in chat apps and social sites.
+  open-graph: true
+  twitter-card: true
   search:
     location: navbar
     type: textbox
@@ -3699,9 +3706,9 @@ format:
     code-overflow: scroll
     link-external-newwindow: true
     include-after-body: _random.html
-    # Ask search engines not to list the site.
-    include-in-header:
-      text: '<meta name="robots" content="noindex, nofollow">'
+    # Each page names its www.statwiki.io address, so the github.io copy
+    # is not listed as a duplicate.
+    canonical-url: true
 """
     (WIKI / "_quarto.yml").write_text(yml, encoding="utf-8")
 
