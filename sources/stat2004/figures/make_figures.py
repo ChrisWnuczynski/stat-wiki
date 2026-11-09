@@ -198,6 +198,60 @@ def hardness():
     save(fig, "inf-hardness-blocks")
 
 
+def ppv_prevalence():
+    # Positive predictive value against prevalence, for two fixed tests.
+    prev = np.linspace(0.0005, 0.2, 400)
+    fig, ax = plt.subplots(figsize=(7, 3.6))
+    for sens, spec, color, label in (
+        (0.99, 0.99, NAVY, "sensitivity = specificity = 0.99"),
+        (0.95, 0.95, RED, "sensitivity = specificity = 0.95"),
+    ):
+        alpha = 1 - spec
+        ppv = sens * prev / (sens * prev + alpha * (1 - prev))
+        ax.plot(prev, ppv, color=color, lw=1.6, label=label)
+    ax.axvline(0.005, color=GREY, ls="--", lw=1)
+    ax.text(0.0065, 0.15, "prevalence 0.005", color="#555555", fontsize=9)
+    ax.set_xlim(0, 0.2)
+    ax.set_ylim(0, 1)
+    ax.set_xlabel("prevalence of the condition")
+    ax.set_ylabel("positive predictive value")
+    ax.legend(loc="lower right")
+    save(fig, "inf-ppv-prevalence")
+
+
+def np_critical_region():
+    # Most powerful test of a normal mean, known variance, n = 1 drawn as the z scale.
+    z = np.linspace(-1, 5, 400)
+    fig, ax = plt.subplots(figsize=(7, 3.4))
+    ax.plot(z, stats.norm.pdf(z), color=NAVY, lw=1.5, label=r"under $H_0:\mu=\mu_0$")
+    ax.plot(z, stats.norm.pdf(z, loc=1.8), color=RED, lw=1.5, label=r"under $\mu=\mu_0+1.8\,\sigma/\sqrt{n}$")
+    c = stats.norm.ppf(0.95)
+    ax.axvline(c, color="#222222", lw=1)
+    xs = np.linspace(c, 5, 200)
+    ax.fill_between(xs, stats.norm.pdf(xs), color=NAVY, alpha=0.25)
+    ax.fill_between(xs, stats.norm.pdf(xs, loc=1.8), color=RED, alpha=0.18)
+    ax.text(c + 0.08, 0.32, "reject $H_0$", fontsize=9)
+    ax.set_xlabel(r"$(\bar x-\mu_0)/(\sigma/\sqrt{n})$")
+    ax.set_ylabel("density")
+    ax.legend(loc="upper right")
+    save(fig, "inf-np-region")
+
+
+def two_factor_means():
+    # Cell means of the fertiliser-by-water example. Lines are not parallel.
+    fig, ax = plt.subplots(figsize=(6.4, 3.4))
+    x = np.array([0, 1])
+    ax.plot(x, [5, 8], "-o", color=NAVY, lw=1.6, ms=6, label="low fertiliser")
+    ax.plot(x, [7, 15], "-o", color=RED, lw=1.6, ms=6, label="high fertiliser")
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["dry", "wet"])
+    ax.set_ylabel("mean yield")
+    ax.set_xlabel("water")
+    ax.set_ylim(0, 18)
+    ax.legend(loc="upper left")
+    save(fig, "inf-two-factor-means")
+
+
 def corn():
     groups = [[46.2, 51.9, 48.7], [49.2, 58.6, 57.4], [60.3, 58.7, 60.4], [48.9, 51.4, 44.6], [52.5, 54.0, 49.3]]
     means = [np.mean(g) for g in groups]
@@ -216,6 +270,19 @@ def corn():
 
 
 if __name__ == "__main__":
-    for draw in (coverage, t_densities, p_value_area, power_curve, houses, heart_oxygen, regression_effect, hardness, corn):
+    for draw in (
+        coverage,
+        t_densities,
+        p_value_area,
+        power_curve,
+        houses,
+        heart_oxygen,
+        regression_effect,
+        hardness,
+        corn,
+        ppv_prevalence,
+        np_critical_region,
+        two_factor_means,
+    ):
         draw()
     print("Figures written to", HERE)

@@ -90,7 +90,7 @@ The two errors compete. Enlarging the critical region raises the power and also 
 ::: {#def-neyman-pearson-approach .definition}
 ## Neyman–Pearson approach
 
-Fix a significance level $\alpha$. Among critical regions whose type I error is at most $\alpha$, choose one whose type II error is as small as possible.
+Fix a significance level $\alpha$. Among critical regions whose type I error is at most $\alpha$, choose one whose type II error is as small as possible. For two simple hypotheses the region that does this is the likelihood-ratio region of the [Neyman–Pearson lemma](inf-11-most-powerful-tests.qmd#s-neyman-pearson-lemma).
 
 :::
 

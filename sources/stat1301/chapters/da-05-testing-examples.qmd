@@ -1,6 +1,6 @@
 # Testing examples
 
-The definitions of a null hypothesis, a test statistic, a $p$-value, size and power are in [Hypothesis tests](inf-04-hypothesis-tests.qmd). This page runs the standard tests on data in R and reads the output. The $p$-value R prints is the one defined there: the probability, if the null hypothesis were true, of a statistic at least as extreme as the one observed. It is not the probability that the null hypothesis is true; that calculation is in [Bayesian hypotheses and model comparison](bayes-06-testing.qmd).
+The definitions of a null hypothesis, a test statistic, a $p$-value, size and power are in [Hypothesis tests](inf-04-hypothesis-tests.qmd). The construction of the most powerful critical region is the [Neyman–Pearson lemma](inf-11-most-powerful-tests.qmd). This page runs the standard tests on data in R and reads the output. The $p$-value R prints is the one defined there: the probability, if the null hypothesis were true, of a statistic at least as extreme as the one observed. It is not the probability that the null hypothesis is true; that calculation is in [Bayesian hypotheses and model comparison](bayes-06-testing.qmd).
 
 ## Power by simulation
 

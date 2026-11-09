@@ -1,0 +1,172 @@
+# Generalised likelihood-ratio tests
+
+The Neyman–Pearson lemma compares two completely specified distributions. Most hypotheses leave parameters free. A composite null says $\theta$ lies in a subset $\Omega_0$. A composite alternative says it lies in a larger set $\Omega_1$. The generalised likelihood ratio replaces each simple likelihood by the best likelihood available inside its set. For a regular model and a large sample, twice the drop in log-likelihood is approximately chi-squared. That one approximation specialises to the two-sample $t$ statistic, the analysis-of-variance $F$ statistic, and Pearson's chi-squared statistic.
+
+## Generalised likelihood-ratio test {#s-generalised-likelihood-ratio-test}
+
+Let $L(\theta)$ be the likelihood and write
+
+$$
+\Lambda=\frac{\sup_{\theta\in\Omega_0}L(\theta)}{\sup_{\theta\in\Omega_1}L(\theta)}.
+$$
+
+The numerator is the largest likelihood allowed by the null. The denominator is the largest likelihood allowed by the alternative. When the null set sits inside the alternative set, the denominator is the unrestricted maximum and $\Lambda\le 1$. Small $\Lambda$ means the null cannot reach the fit of the larger model. The generalised likelihood-ratio test rejects $H_0$ when $\Lambda$ is smaller than a threshold chosen to control the type I error.
+
+For a normal mean with known variance the supremum under $H_0:\mu=\mu_0$ is the likelihood at $\mu_0$, and the supremum under $H_1:\mu\ne\mu_0$ is the likelihood at $\overline X$. The ratio is a monotone function of $|\overline X-\mu_0|/(\sigma/\sqrt n)$, so the test is the two-sided $z$ test. Nothing new happens until a parameter remains free under the null.
+
+The statistic is usually reported as
+
+$$
+-2\log\Lambda=2\bigl\{\ell(\widehat\theta_1)-\ell(\widehat\theta_0)\bigr\},
+$$
+
+the difference of maximised log-likelihoods, or as a difference of [deviances](05-comparisons-and-deviance.qmd). Deviance is this difference against a saturated model. A difference of deviances between two nested models cancels the saturated term and leaves $-2\log\Lambda$.
+
+## Wilks' theorem {#s-wilks-theorem}
+
+Suppose $\Omega_0$ is $\Omega_1$ with $r$ smooth restrictions, the true parameter is an interior point of $\Omega_0$, and the regularity conditions for the asymptotic normality of maximum likelihood hold in the larger model. Then, when $H_0$ is true,
+
+$$
+-2\log\Lambda\xrightarrow{d}\chi^2_r.
+$$
+
+The degrees of freedom are the number of restrictions, not the number of observations. A test of one coefficient has $r=1$ and is compared with $\chi^2_1$. A test that $J$ normal means are equal, with a common unknown variance, imposes $J-1$ restrictions and is compared with $F$, which is the exact finite-sample law; the chi-squared limit is what remains after the unknown variance is replaced by a consistent estimate and $n$ grows.
+
+The theorem is a large-sample statement. An exact pivot, when one exists, is preferable: the one-sample $t$ statistic is a monotone function of the likelihood ratio and its null distribution is $t_{n-1}$ for every $n$, not merely approximately $\Normal(0,1)$. The chi-squared limit is what justifies referring $-2\log\Lambda$ to $\chi^2_r$ for a multinomial, a logistic regression, or any other regular model whose exact null distribution is intractable. It fails when the null puts a parameter on the boundary, the usual example being a variance component tested at zero. The printed tail probability is then conservative relative to the correct mixture of chi-squared laws.
+
+A very small value of a chi-squared statistic is also informative, in the other direction. Pearson's statistic on $3$ degrees of freedom equal to $0.08$ has left-tail probability $\Pr(\chi^2_3\le 0.08)\approx 0.006$, below the lower $5\%$ point $0.352$. The counts match the model more closely than independent sampling would usually allow. One mechanism is pseudo-replication: the same experimental unit measured twice and entered as two independent observations, which shrinks the apparent noise. Another is that the counts were adjusted toward the fitted proportions. A goodness-of-fit test that looks only at the right tail will call this sample a remarkably good fit. The left tail is the check for a fit that is too good.
+
+## Two normal samples {#s-two-normal-samples}
+
+Let $X_{11},\ldots,X_{1n_1}$ and $X_{21},\ldots,X_{2n_2}$ be independent normal samples with means $\mu_1,\mu_2$ and a common known variance $\sigma^2$. For $H_0:\mu_1=\mu_2$ against $H_1:\mu_1\ne\mu_2$, the unrestricted maximum likelihood estimates are the two sample means. Under the null the common mean is the pooled mean
+
+$$
+\widehat\mu=\overline X_{\cdot\cdot}=\frac{n_1\overline X_1+n_2\overline X_2}{n_1+n_2}.
+$$
+
+The maximised log-likelihood under either hypothesis is $-N\log\sigma$ minus $1/(2\sigma^2)$ times a residual sum of squares, with $N=n_1+n_2$. The residual sum of squares under the alternative is the pooled within-sample sum
+
+$$
+\mathrm{SS}_W=\sum_{i=1}^{n_1}(X_{1i}-\overline X_1)^2+\sum_{i=1}^{n_2}(X_{2i}-\overline X_2)^2.
+$$
+
+Under the null it is $\mathrm{SS}_W$ plus the between-sample sum
+
+$$
+\mathrm{SS}_B=n_1(\overline X_1-\overline X_{\cdot\cdot})^2+n_2(\overline X_2-\overline X_{\cdot\cdot})^2=\frac{n_1 n_2}{n_1+n_2}(\overline X_1-\overline X_2)^2.
+$$
+
+Every term that does not involve $\mathrm{SS}_B$ cancels in the ratio, and
+
+$$
+\Lambda=\exp\bigl\{-\mathrm{SS}_B/(2\sigma^2)\bigr\}.
+$$
+
+Small $\Lambda$ is large $\mathrm{SS}_B$, which is large $|\overline X_1-\overline X_2|$. The level-$\alpha$ test rejects when
+
+$$
+\bigl|\overline X_1-\overline X_2\bigr|>z_{1-\alpha/2}\,\sigma\sqrt{\frac1{n_1}+\frac1{n_2}}.
+$$
+
+That is the two-sample $z$ test. If $\sigma^2$ is unknown, the same algebra with $\sigma^2$ replaced by its maximum likelihood estimate under each hypothesis produces the pooled variance
+
+$$
+s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}
+$$
+
+and $t$ quantiles on $n_1+n_2-2$ degrees of freedom. The [two-sample $t$ test](inf-04-hypothesis-tests.qmd#def-two-sample-t-test) is the generalised likelihood-ratio test for this normal model.
+
+For $J$ samples with a common variance the identical cancellation leaves
+
+$$
+\Lambda=\exp\bigl\{-\mathrm{SS}_{\mathrm{treat}}/(2\sigma^2)\bigr\}
+$$
+
+when $\sigma$ is known, and a monotone function of
+
+$$
+F=\frac{\mathrm{SS}_{\mathrm{treat}}/(J-1)}{\mathrm{SS}_{\mathrm{error}}/(N-J)}
+$$
+
+when $\sigma$ is unknown. The decomposition $\mathrm{SS}_{\mathrm{total}}=\mathrm{SS}_{\mathrm{treat}}+\mathrm{SS}_{\mathrm{error}}$ is the geometry already drawn for the [analysis of variance](inf-07-anova.qmd). The likelihood ratio supplies the reason for using that ratio of mean squares, and Wilks' theorem supplies the chi-squared limit of $(J-1)F$ after $\sigma^2$ is replaced by a consistent estimate. The exact null distribution is $F_{J-1,N-J}$ because the two sums of squares are independent chi-squared variables in a normal sample, which is stronger than the limit.
+
+```r
+# Two samples, common variance: the likelihood-ratio test is the two-sample t.
+a <- c(4.1, 5.0, 4.6, 5.2, 4.4)
+b <- c(6.0, 5.5, 6.4, 5.8, 6.2, 5.7)
+t.test(a, b, var.equal = TRUE)
+```
+
+## Pearson's statistic from the likelihood ratio {#s-pearson-from-the-likelihood-ratio}
+
+Let $(O_1,\ldots,O_k)$ be multinomial counts with $n=\sum O_i$ and cell probabilities $p$. For a fully specified null $p=p_0$ the expected count is $E_i=np_{0i}$. The unrestricted maximum has $\widehat p_i=O_i/n$, and the likelihood ratio simplifies to
+
+$$
+-2\log\Lambda=2\sum_{i=1}^k O_i\log\frac{O_i}{E_i}.
+$$
+
+Pearson's statistic is $\sum(O_i-E_i)^2/E_i$. The two are not the same function, and the likelihood-ratio version does not have a simple exact null distribution. They are close when every $O_i$ is near $E_i$, which is the situation the null chi-squared approximation already requires.
+
+Set $D_i=O_i-E_i$ and expand $\log(O_i/E_i)=\log(1+D_i/E_i)$. The expansion $\log(1+u)=u-u^2/2+O(u^3)$ gives
+
+$$
+2 O_i\log\frac{O_i}{E_i}=2(E_i+D_i)\Bigl(\frac{D_i}{E_i}-\frac{D_i^2}{2E_i^2}\Bigr)+O(D_i^3/E_i^2)=2D_i+\frac{D_i^2}{E_i}+O(D_i^3/E_i^2).
+$$
+
+Sum over cells. The null probabilities sum to one and the counts sum to $n$, so $\sum D_i=0$. The leading piece that survives is $\sum D_i^2/E_i$, which is Pearson's statistic. The cubic remainder is small when each $D_i$ is small relative to $E_i$. So
+
+$$
+-2\log\Lambda=\sum_i\frac{(O_i-E_i)^2}{E_i}+\text{a smaller remainder}.
+$$
+
+Wilks' theorem says $-2\log\Lambda$ is approximately $\chi^2_{k-1}$. The same limit, and a direct multinomial argument, give Pearson's statistic the same $\chi^2_{k-1}$ approximation. Pearson's form is the one computed by hand because it uses only the counts and the expectations. The likelihood-ratio form is the one a fitted model prints as a deviance. For a contingency table the null estimates the row and column probabilities, and both statistics lose one degree of freedom for each estimated margin. That test, and the warning about small expected counts, are on [Chi-squared tests](inf-05-chi-square.qmd). When an expected count is so small that the remainder cannot be ignored, the exact enumeration is [Fisher's exact test](inf-13-exact-tests.qmd).
+
+```r
+# Pea-shaped counts in four classes, null probabilities 9/16, 3/16, 3/16, 1/16.
+obs <- c(315, 108, 101, 32)
+p0 <- c(9, 3, 3, 1) / 16
+n <- sum(obs)
+expc <- n * p0
+pearson <- sum((obs - expc)^2 / expc)
+lr <- 2 * sum(obs * log(obs / expc))
+c(pearson = pearson, lr = lr, df = 3)
+# Both are compared with chi-squared on 3 degrees of freedom.
+pchisq(pearson, df = 3, lower.tail = FALSE)
+```
+
+The counts $315,108,101,32$ are $n=556$ individuals in four classes, with null probabilities $9/16$, $3/16$, $3/16$ and $1/16$. The expected counts are $312.75$, $104.25$, $104.25$ and $34.75$. Pearson's statistic is $0.470$ and the likelihood-ratio statistic is $0.475$. On $3$ degrees of freedom the upper-tail probability is $0.925$. The fit is close. It does not fall below the lower $5\%$ point of $\chi^2_3$, which is $0.352$, so the left tail does not by itself suggest the counts were adjusted. A statistic below that point would.
+
+::: {.callout-note}
+## Key idea
+Replace each simple likelihood in the Neyman–Pearson ratio by the best likelihood inside the hypothesis. For large samples, twice the log of that ratio is chi-squared on as many degrees of freedom as the null imposes. The two-sample $t$, the analysis-of-variance $F$, and Pearson's chi-squared statistic are this ratio, exactly or as its first-order approximation.
+:::
+
+## Exercises
+
+::: {#ex-inf-glrt-two-means .exercise}
+## The ratio depends only on the between sum of squares
+
+Two independent normal samples have a common known variance $\sigma^2=4$, sizes $n_1=n_2=8$, and sample means $12$ and $15$. The null hypothesis is that the two means are equal.
+
+(a) Compute $\mathrm{SS}_B$.
+
+(b) Compute $-2\log\Lambda$, and say whether the level-$0.05$ test rejects. Use $\chi^2_{1;0.95}=3.84$.
+
+[Solution](#sol-inf-glrt-two-means)
+
+:::
+
+::: {#ex-inf-pearson-one-cell .exercise}
+## One term of the expansion
+
+A cell has expected count $E=20$ and observed count $O=24$. The one-cell expansion of the likelihood-ratio contribution, before the sum over cells cancels $\sum(O_i-E_i)$, is
+
+$$
+2O\log\frac{O}{E}=2(O-E)+\frac{(O-E)^2}{E}+\text{remainder}.
+$$
+
+Compute both the left-hand side and $2(O-E)+(O-E)^2/E$. How large is the remainder in this cell?
+
+[Solution](#sol-inf-pearson-one-cell)
+
+:::

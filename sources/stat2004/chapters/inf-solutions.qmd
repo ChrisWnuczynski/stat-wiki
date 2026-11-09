@@ -445,3 +445,171 @@ on 1 degree of freedom. The error mean square is $\mathrm{SS}_{\mathrm{error}}/(
 $$
 F=\frac{(\overline Y_1-\overline Y_2)^2}{s_p^2(1/n_1+1/n_2)}=T^2.
 $$
+
+[]{#sol-inf-no-uniform-risk} **[No uniform winner](#ex-inf-no-uniform-risk).**
+
+Suppose $\theta_0$ and $\theta_1$ are two different points of the parameter space, and suppose an estimator $T^\star$ minimised the squared-error risk at every $\theta$. The constant estimator $T_0\equiv\theta_0$ has risk $0$ at $\theta_0$ and risk $(\theta_1-\theta_0)^2$ at $\theta_1$. So $R(\theta_0,T^\star)\le 0$, which forces $T^\star=\theta_0$ with probability one when the true value is $\theta_0$. The constant $T_1\equiv\theta_1$ has risk $0$ at $\theta_1$. If $T^\star$ is also best at $\theta_1$, its risk there is $0$, so $T^\star=\theta_1$ with probability one when the true value is $\theta_1$. One estimator cannot be equal to both constants. Hence no uniform winner exists as soon as the parameter space has two points.
+
+[]{#sol-inf-poisson-information} **[Information for a Poisson mean](#ex-inf-poisson-information).**
+
+The log-likelihood is $\ell(\lambda)=-n\lambda+(\sum_j X_j)\log\lambda$, up to a term free of $\lambda$. The score is
+
+$$
+S(\lambda)=\frac{1}{\lambda}\sum_{j=1}^n X_j-n=\frac{n}{\lambda}(\overline X-\lambda).
+$$
+
+Then $\E S(\lambda)=0$, and
+
+$$
+\mathcal{I}(\lambda)=\Var\{S(\lambda)\}=\frac{n^2}{\lambda^2}\Var(\overline X)=\frac{n^2}{\lambda^2}\cdot\frac{\lambda}{n}=\frac{n}{\lambda}.
+$$
+
+The Cramér–Rao bound for an unbiased estimator of $\lambda$ is $1/\mathcal{I}(\lambda)=\lambda/n$. The sample mean is unbiased and $\Var(\overline X)=\lambda/n$, so it attains the bound. The same conclusion is the factorisation $S(\lambda)=(n/\lambda)(\overline X-\lambda)$.
+
+[]{#sol-inf-uniform-bound} **[Where the bound does not apply](#ex-inf-uniform-bound).**
+
+The uniform density on $(0,\theta)$ is zero for $x>\theta$, so the set where the density is positive depends on $\theta$. Differentiating under the integral is not legitimate, and the proof that the score has mean zero does not apply. A variance of order $1/n^2$ is smaller than a formal bound of order $1/n$ only if that bound was valid. Here it was not. The maximum is a consistent estimator. It is not a counter-example to an inequality whose hypotheses fail.
+
+[]{#sol-inf-poisson-umvu} **[An unbiased Poisson probability](#ex-inf-poisson-umvu).**
+
+Given $T=5$, one observation is $\Bin(5,1/4)$. The UMVU estimate of $\Pr(X_1=1)$ is
+
+$$
+\binom{5}{1}\Bigl(\frac14\Bigr)^1\Bigl(\frac34\Bigr)^4=\frac{5\cdot 81}{1024}=\frac{405}{1024}\approx 0.3955.
+$$
+
+The maximum likelihood estimate uses $\widehat\theta=5/4$ in $e^{-\theta}\theta$:
+
+$$
+e^{-5/4}\cdot\frac54\approx 0.3581.
+$$
+
+The two functions of the same sufficient statistic are not equal. Only the binomial probability is unbiased for $e^{-\theta}\theta$.
+
+[]{#sol-inf-rao-blackwell-variance} **[Why the conditional expectation is better](#ex-inf-rao-blackwell-variance).**
+
+$W(T)$ is a statistic because sufficiency makes the conditional distribution of the sample given $T$ free of $\theta$, so the conditional expectation does not depend on $\theta$. It is unbiased because $\E\{W(T)\}=\E(U)=\theta$ by the tower property. Its variance is smaller because $\Var(U)=\Var\{W(T)\}+\E\{\Var(U\mid T)\}$ and the second term is nonnegative.
+
+[]{#sol-inf-are-median} **[How many more observations the median needs](#ex-inf-are-median).**
+
+The asymptotic variance of the median is $(\pi/2)$ times the asymptotic variance of the mean, for the same $n$. Matching the variance means multiplying the median's sample size by $\pi/2\approx 1.571$. For a mean of $64$ observations the median needs $64\times 1.571\approx 100.5$ observations, so $101$ if the count has to be an integer.
+
+[]{#sol-inf-delta-poisson} **[A probability from a Poisson mean](#ex-inf-delta-poisson).**
+
+The maximum likelihood estimate is $e^{-1.5}\approx 0.2231$. The delta-method standard error uses $h'(\lambda)=-e^{-\lambda}$ and $\Var(\overline X)\approx\lambda/n$:
+
+$$
+e^{-1.5}\sqrt{1.5/5}\approx 0.2231\times\sqrt{0.3}\approx 0.1222.
+$$
+
+[]{#sol-inf-np-critical} **[A critical value from the lemma](#ex-inf-np-critical).**
+
+The standard error is $\sigma/\sqrt n=2/5=0.4$. The level-$0.05$ test rejects when
+
+$$
+\overline X>10+1.645\times 0.4=10.658.
+$$
+
+At $\mu=11$ the power is
+
+$$
+\Phi\Bigl(-1.645+\frac{11-10}{0.4}\Bigr)=\Phi(0.855)=0.804.
+$$
+
+[]{#sol-inf-ump-two-sided} **[Why the two-sided test is not UMP](#ex-inf-ump-two-sided).**
+
+Against $\mu=\mu_0+2\sigma/\sqrt n$ the one-sided test has the higher power: its critical value $1.645$ is closer to the null than $1.960$, so more of the alternative density falls in the rejection region. This does not contradict the lemma applied to $H_1:\mu\ne\mu_0$. That alternative is composite. The one-sided region is most powerful against this particular simple alternative, and a different region is most powerful against an alternative on the other side. No one region wins against both, so there is no uniformly most powerful test of the two-sided hypothesis.
+
+[]{#sol-inf-glrt-two-means} **[The ratio depends only on the between sum of squares](#ex-inf-glrt-two-means).**
+
+$$
+\mathrm{SS}_B=\frac{8\times 8}{16}(15-12)^2=36,
+\qquad
+-2\log\Lambda=\frac{\mathrm{SS}_B}{\sigma^2}=\frac{36}{4}=9.
+$$
+
+One restriction is being tested, and $9>3.84$, so the level-$0.05$ test rejects equal means. The difference of $3$ is $3/(2\sqrt{1/8+1/8})=3$ standard errors of the difference, and $3^2=9$.
+
+[]{#sol-inf-pearson-one-cell} **[One term of the expansion](#ex-inf-pearson-one-cell).**
+
+$O-E=4$, so
+
+$$
+2(O-E)+\frac{(O-E)^2}{E}=8+\frac{16}{20}=8.8,
+\qquad
+2O\log\frac{O}{E}=48\log 1.2\approx 8.751.
+$$
+
+The remainder in this cell is about $8.8-8.751=0.049$. It is the cubic piece the expansion dropped. Summed over a table whose deviations cancel, the $2(O-E)$ terms disappear and the comparison that remains is between Pearson's statistic and $-2\log\Lambda$.
+
+[]{#sol-inf-fisher-smaller} **[A smaller table by hand](#ex-inf-fisher-smaller).**
+
+The top-left entry $k$ satisfies $\max(0,4-4)\le k\le\min(3,4)$, so $k=0,1,2,3$. With $\binom{7}{4}=35$,
+
+$$
+\Pr(K=k)=\frac{\binom{3}{k}\binom{4}{4-k}}{35},
+$$
+
+which is $1/35$, $12/35$, $18/35$ and $4/35$. The observed table has $k=3$ and probability $4/35\approx 0.114$. The one-sided probability of a top-left entry at least this large is the same $4/35$, because $3$ is already the largest feasible value.
+
+[]{#sol-inf-homogeneity-or-independence} **[Which hypothesis is it?](#ex-inf-homogeneity-or-independence).**
+
+(a) Homogeneity. The drug assignment fixes the two row totals at $40$. The null is that the chance of improvement is the same under both drugs. (b) Independence. One sample is classified by two questions, and both margins are random. The null is that exercise and blood pressure multiply in the joint distribution. (c) Homogeneity. Each factory's sample size is fixed. The null is that the defective probability is the same in all three factories.
+
+[]{#sol-inf-extra-ss} **[Dropping a slope](#ex-inf-extra-ss).**
+
+The intercept-only residual sum of squares is the total sum of squares, $4.0$. The line has residual sum of squares $0.4$ on $5-2=3$ degrees of freedom. One restriction is being tested, so
+
+$$
+F=\frac{(4.0-0.4)/1}{0.4/3}=\frac{3.6}{0.1333}=27.
+$$
+
+Since $27>10.13$, reject $H_0:\beta_1=0$ at level $0.05$. The five points are not compatible with a flat mean.
+
+[]{#sol-inf-which-restriction} **[How many restrictions?](#ex-inf-which-restriction).**
+
+Order the coefficients as $(\beta_0,\beta_N,\beta_P,\beta_{NP})$. (a) No interaction is $\beta_{NP}=0$, so $r=1$ and $R=(0,0,0,1)$. (b) No phosphorus effect at any nitrogen level means $\beta_P=\beta_{NP}=0$, so $r=2$ and
+
+$$
+R=\begin{pmatrix}0&0&1&0\\0&0&0&1\end{pmatrix}.
+$$
+
+The nitrogen coefficient is still free. (c) None of the covariates matters is $\beta_N=\beta_P=\beta_{NP}=0$, so $r=3$ and $R$ is the $3\times 4$ matrix that drops the intercept column.
+
+[]{#sol-inf-contrast-cell} **[Read the reference cell](#ex-inf-contrast-cell).**
+
+The four estimated means are $\widehat\mu=10$ at $(1,1)$, $\widehat\mu+\widehat\beta_2=8$ at $(1,2)$, $\widehat\mu+\widehat\alpha_2=14$ at $(2,1)$, and $\widehat\mu+\widehat\alpha_2+\widehat\beta_2+\widehat\gamma_{22}=15$ at $(2,2)$. Moving factor A from level $1$ to level $2$ while factor B stays at level $2$ changes the mean by $\widehat\alpha_2+\widehat\gamma_{22}=7$, from $8$ to $15$. The main-effect estimate $\widehat\alpha_2=4$ is that change only at the reference level of B.
+
+[]{#sol-inf-interaction-ss} **[An interaction sum of squares](#ex-inf-interaction-ss).**
+
+The row means are $4$ and $7$, the column means are $3.5$ and $7.5$, and the grand mean is $5.5$. The interaction residuals are
+
+$$
+\begin{aligned}
+3-4-3.5+5.5&=1,\\
+5-4-7.5+5.5&=-1,\\
+4-7-3.5+5.5&=-1,\\
+10-7-7.5+5.5&=1.
+\end{aligned}
+$$
+
+With one observation per cell the interaction sum of squares is $1^2+1^2+1^2+1^2=4$. Fitting the interaction uses up every degree of freedom in a $2\times 2$ table of single observations: the error sum of squares is identically zero, so there is no error mean square left to divide by. The interaction can be described. It cannot be tested until there is a replicate inside the cells.
+
+[]{#sol-inf-ppv-screen} **[A rare condition](#ex-inf-ppv-screen).**
+
+Sensitivity $0.98$ and specificity $0.90$ mean $1-\beta=0.98$ and $\alpha=0.10$. With prevalence $0.02$,
+
+$$
+\mathrm{PPV}=\frac{0.02\times 0.98}{0.02\times 0.98+0.98\times 0.10}=\frac{0.0196}{0.1176}\approx 0.167.
+$$
+
+About $83\%$ of the positive tests are false alarms.
+
+[]{#sol-inf-npv-same} **[The matching negative predictive value](#ex-inf-npv-same).**
+
+$$
+\mathrm{NPV}=\frac{0.98\times 0.90}{0.98\times 0.90+0.02\times 0.02}=\frac{0.882}{0.8824}\approx 0.9995.
+$$
+
+A positive result should be quoted with the PPV, about $0.17$. A negative result should be quoted with the NPV, about $0.9995$. The same test is weak evidence that the condition is present and strong evidence that it is absent.
+

@@ -1,6 +1,6 @@
 # Analysis of variance examples
 
-Analysis of variance compares the means of a quantitative response across the levels of one or more categorical factors. The model, the sum-of-squares split and the $F$ distribution of the test statistic are in [Analysis of variance](inf-07-anova.qmd). This page fits the models in R, reads the tables, checks the assumptions, and goes on to two factors and their interaction, which the inference chapter does not cover.
+Analysis of variance compares the means of a quantitative response across the levels of one or more categorical factors. The model, the sum-of-squares split and the $F$ distribution of the test statistic are in [Analysis of variance](inf-07-anova.qmd). Two factors and the interaction, including the parameter constraints, are in [Two-factor analysis of variance](inf-15-two-factor-anova.qmd). This page fits the models in R, reads the tables, and checks the assumptions.
 
 ## One factor
 
@@ -83,7 +83,7 @@ Y_{ijk}=\mu+\alpha_i+\beta_j+\gamma_{ij}+\varepsilon_{ijk},
 \qquad \varepsilon_{ijk}\ \text{independent}\ \Normal(0,\sigma^2).
 $$
 
-Here $\mu$ is a baseline mean, $\alpha_i$ and $\beta_j$ are the main effects of the two factors, and $\gamma_{ij}$ is their interaction. The parameters are not all identifiable as written; R fixes them by setting the effects of the first level of each factor to zero.
+Here $\mu$ is a baseline mean, $\alpha_i$ and $\beta_j$ are the main effects of the two factors, and $\gamma_{ij}$ is their interaction. The parameters are not all identifiable as written; R fixes them by setting the effects of the first level of each factor to zero. Those contrast constraints, the sum-to-zero alternative, and the $F$ tests as linear hypotheses are derived in [Two-factor analysis of variance](inf-15-two-factor-anova.qmd).
 
 ::: {#def-interaction .definition}
 ## Interaction

@@ -1,0 +1,104 @@
+# Exact tests for tables
+
+Pearson's statistic compares observed counts with expected counts and refers the result to a chi-squared law. That approximation needs expected counts that are not tiny. A common rule of thumb is that the approximation is uncomfortable when more than about a fifth of the cells have expected count below $5$, or any cell has expected count below $1$. The exact test on this page does not use the approximation. It enumerates the tables that share the observed margins.
+
+The chi-squared test of independence, and the degrees-of-freedom count, are on [Chi-squared tests](inf-05-chi-square.qmd). The likelihood-ratio version is the multinomial calculation on [Generalised likelihood-ratio tests](inf-12-generalised-likelihood-ratio.qmd#s-pearson-from-the-likelihood-ratio).
+
+## Fisher's exact test {#s-fisher-s-exact-test}
+
+Consider a two-way table of counts. Fisher's exact test conditions on the row totals and the column totals. Under the null hypothesis that the row classification is independent of the column classification, every table with those margins is equally likely in the following sense: the entries are a random allocation of the column labels to a fixed set of row labels, or the other way around.
+
+The argument is easiest for two rows and two columns. Suppose $n$ individuals have fixed row labels, $n_1$ in row 1 and $n_2=n-n_1$ in row 2, and a fixed number $c$ of them carry a "success" in the column. If the column is independent of the row, those $c$ successes are equally likely to be any subset of size $c$. The number $K$ landing in row 1 is hypergeometric,
+
+$$
+\Pr(K=k)=\frac{\binom{n_1}{k}\binom{n_2}{c-k}}{\binom{n}{c}},
+$$
+
+for every $k$ the margins allow, namely $\max(0,c-n_2)\le k\le\min(n_1,c)$. The $p$-value is the probability, under this law, of a table at least as extreme as the one observed. A one-sided $p$-value sums the probabilities on the observed side of $k$. A two-sided $p$-value sums every table whose probability is no larger than the probability of the observed table.
+
+The same reasoning applies to a larger table. Conditional on all margins, the null distribution is multiple hypergeometric: the count in the free cells is the number of ways to fill the table divided by the number of ways to arrange the margins. For a $2\times 2$ table the sum can be done by hand. For a larger table the enumeration is the same sum carried out by a computer.
+
+Here is a $2\times 2$ table of operating-system preference by faculty, small enough to add up.
+
+| | Science | Arts | Total |
+|---|---:|---:|---:|
+| Windows | 8 | 2 | 10 |
+| Mac | 3 | 7 | 10 |
+| Total | 11 | 9 | 20 |
+
+Condition on the faculty margins $11$ and $9$ and the row margins $10$ and $10$. The Science–Windows count $K$ has
+
+$$
+\Pr(K=k)=\frac{\binom{10}{k}\binom{10}{11-k}}{\binom{20}{11}},
+\qquad k=1,\ldots,10.
+$$
+
+The observed value is $k=8$, and $\Pr(K=8)=0.0322$. The one-sided probability $\Pr(K\ge 8)$ is $0.0349$. The two-sided probability, the sum of every point mass no larger than $0.0322$, is
+
+$$
+\Pr(K\in\{1,2,3,8,9,10\})=0.0698.
+$$
+
+At level $0.05$ the one-sided test rejects independence in the direction of more Windows use in Science. The two-sided test does not. The chi-squared approximation on $1$ degree of freedom is a different number and is less trustworthy with two expected counts equal to $9\times 10/20=4.5$. The exact probability is the one to report.
+
+Why the margins are conditioned on is part of the null, not a computational trick. If each person is assigned a faculty and then, independently, a computer, both margins are random and the table is multinomial. Conditioning on the margins is then optional, and the conditional test is still valid. If the faculty sizes were fixed by the design and the computers were handed out without regard to faculty, the margins really are fixed and the hypergeometric law is the exact null distribution, not an approximation to one. Either story gives the same conditional $p$-value. The stories differ in what else could have been tested.
+
+```r
+tab <- matrix(c(8, 2, 3, 7), nrow = 2, byrow = TRUE,
+              dimnames = list(os = c("Windows", "Mac"),
+                              faculty = c("Science", "Arts")))
+fisher.test(tab)                 # two-sided p = 0.0698
+fisher.test(tab, alternative = "greater")   # one-sided p = 0.0349
+```
+
+A three-by-three table of the same kind, operating system by faculty with several dozen students, is the same test. The free cells are filled in every way consistent with the margins, each fill is weighted by its multiple-hypergeometric probability, and the $p$-value adds the fills that are at least as improbable as the observed one. That sum is what `fisher.test` computes. Doing it by listing tables is unnecessary once the function is available, and the logic is the $2\times 2$ argument with more cells.
+
+## Homogeneity and independence {#s-homogeneity-and-independence}
+
+Two experiments produce the same table and the same Pearson statistic, and they do not ask the same question.
+
+A test of independence samples $n$ individuals from one population and classifies each by two factors. The null hypothesis is $p_{ij}=a_i b_j$: the factors multiply. The row and column totals are both random.
+
+A test of homogeneity draws a fixed sample from each of several populations, or assigns individuals to fixed groups, and classifies each by one response factor. The row totals are fixed by the design. The null hypothesis is that the response distribution is the same in every row: the conditional probabilities $p_{j\mid i}$ do not depend on $i$.
+
+The Pearson statistic, the likelihood-ratio statistic and Fisher's exact test are calculated in the same way for both. The expected count under either null, once the margins are plugged in, is $R_i C_j/n$. The degrees of freedom are $(r-1)(c-1)$ for both. Calling both "a test of association" describes the rejection: the factors are not associated. It hides the design. Independence is a statement about one joint distribution. Homogeneity is a statement about several conditional distributions being equal.
+
+The practical difference shows up when the samples are planned. A study that recruits $40$ science students and $40$ arts students, then records computer preference, can estimate the preference distribution in each faculty. It cannot estimate the proportion of science students in the university, because that proportion was fixed by recruitment. The hypothesis it tests is homogeneity of preference across the two faculties. A study that stops $80$ students in a corridor and records both faculty and computer tests independence in that stream of students, and both margins estimate population margins.
+
+Small counts push either test toward the exact enumeration. The chi-squared approximation does not know which margin was fixed. The hypergeometric enumeration conditions on both, so it is valid for both designs.
+
+```r
+# Same arithmetic either way: expected count is the product of margins over n.
+# Homogeneity: row totals fixed. Independence: both margins random.
+# The p-value from chisq.test is the shared large-sample summary.
+chisq.test(matrix(c(8, 2, 3, 7), nrow = 2, byrow = TRUE), correct = FALSE)
+```
+
+::: {.callout-note}
+## Key idea
+Condition on the margins. Under independence or homogeneity every table with those margins has a known probability, the hypergeometric probability, and the $p$-value is the chance of a table at least as rare as the one observed. The chi-squared test is the same arithmetic for a test of independence and a test of homogeneity. The hypothesis follows the design: one joint sample, or a separate sample from each group.
+:::
+
+## Exercises
+
+::: {#ex-inf-fisher-smaller .exercise}
+## A smaller table by hand
+
+A $2\times 2$ table has entries, by row, $(3,0)$ and $(1,3)$. The margins are row totals $3$ and $4$, column totals $4$ and $3$, and $n=7$.
+
+List the values of the top-left entry that the margins allow, compute the hypergeometric probability of the observed table, and the one-sided $p$-value for a top-left entry at least as large as $3$.
+
+[Solution](#sol-inf-fisher-smaller)
+
+:::
+
+::: {#ex-inf-homogeneity-or-independence .exercise}
+## Which hypothesis is it?
+
+(a) Eighty patients are randomised, $40$ to each of two drugs, and each is recorded as improved or not. (b) One hundred visitors to a clinic are asked two questions, whether they exercise weekly and whether they have high blood pressure. (c) Three factories each test $30$ items and count the defectives.
+
+For each study, say whether the natural null hypothesis is homogeneity or independence, and which margins are fixed by the design.
+
+[Solution](#sol-inf-homogeneity-or-independence)
+
+:::

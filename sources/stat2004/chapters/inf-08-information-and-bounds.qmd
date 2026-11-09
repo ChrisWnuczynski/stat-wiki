@@ -1,0 +1,207 @@
+# Information and bounds
+
+Mean squared error compares the estimators one already has. It does not say whether a better unbiased estimator is still possible. The bound on this page does. It is built from the score, the derivative of the log-likelihood, and from the Fisher information, the variance of that score. The same information is the large-sample variance of the [maximum likelihood estimator](inf-10-large-sample-estimation.qmd#s-asymptotic-normality-of-maximum-likelihood), and it is what a [generalised linear model](01-introduction-to-glms.qmd) prints as a standard error.
+
+## Mean of the score {#s-mean-of-the-score}
+
+Let $X_1,\ldots,X_n$ be a random sample from a density or mass function $f(x;\theta)$, with $\theta$ a single unknown number in an open interval. The likelihood and the log-likelihood are
+
+$$
+L(\theta)=\prod_{j=1}^n f(X_j;\theta),
+\qquad
+\ell(\theta)=\sum_{j=1}^n\log f(X_j;\theta).
+$$
+
+The score is the derivative $S(\theta)=\partial\ell(\theta)/\partial\theta$.
+
+Under the regularity conditions below, the score has mean zero at the true $\theta$, and its variance equals the expected information. The conditions are the ones that let derivatives pass inside the integral or the sum.
+
+1. The set where $f(x;\theta)>0$ does not depend on $\theta$.
+2. $\partial f/\partial\theta$ exists.
+3. The integral or sum of $L(\theta)$ may be differentiated under the integral sign, and the same is true of $T\,L(\theta)$ for an unbiased estimator $T$ of a smooth function $g(\theta)$.
+
+The argument for the mean is short. Because $L(\theta)$ is a density in the sample,
+
+$$
+\int L(\theta)\,dx=1.
+$$
+
+Differentiate both sides. The derivative of the integrand is $(\partial\ell/\partial\theta)\,L(\theta)$, so
+
+$$
+\E_\theta\bigl\{S(\theta)\bigr\}=\E_\theta\Bigl\{\frac{\partial\ell(\theta)}{\partial\theta}\Bigr\}=0.
+$$
+
+For one Bernoulli trial, $f(1;\theta)=\theta$ and $f(0;\theta)=1-\theta$, and
+
+$$
+S(\theta)=\frac{X}{\theta}-\frac{1-X}{1-\theta}=\frac{X-\theta}{\theta(1-\theta)}.
+$$
+
+The mean is $(\theta-\theta)/\{\theta(1-\theta)\}=0$. For a sample of size $n$ the score is the sum of the one-observation scores, so its mean is still zero. The same cancellation is the reason a [likelihood equation](inf-02-estimation.qmd#def-maximum-likelihood) can have an unbiased root: the equation sets a mean-zero random variable to zero.
+
+A model that violates the support condition need not have a mean-zero score. The uniform density on $(0,\theta)$ is zero for $x>\theta$, so the set where the density is positive moves with $\theta$. The maximum $M$ is a useful estimator there, and the bound on this page does not apply to it. That comparison is the uniform endpoint already worked in [Estimation](inf-02-estimation.qmd#exm-two-estimators-of-a-uniform-endpoint).
+
+## Expected and observed information {#s-expected-and-observed-information}
+
+Fisher information is the variance of the score. Because the mean is zero,
+
+$$
+\mathcal{I}(\theta)=\Var_\theta\bigl\{S(\theta)\bigr\}=\E_\theta\Bigl\{\Bigl(\frac{\partial\ell(\theta)}{\partial\theta}\Bigr)^2\Bigr\}.
+$$
+
+Differentiate the identity $\E\{S(\theta)\}=0$ once more. The derivative of $S(\theta)\,L(\theta)$ brings two terms, $\partial^2\ell/\partial\theta^2$ and $(\partial\ell/\partial\theta)^2$, and their expectations sum to zero. Therefore
+
+$$
+\mathcal{I}(\theta)=-\E_\theta\Bigl\{\frac{\partial^2\ell(\theta)}{\partial\theta^2}\Bigr\}.
+$$
+
+The random variable inside the second expectation, without the expectation, is the observed information
+
+$$
+I(\theta)=-\frac{\partial^2\ell(\theta)}{\partial\theta^2}.
+$$
+
+Expected information is an average property of the model. Observed information is a function of the sample. They are not the same number, but they estimate the same curvature: $I(\widehat\theta)$ is the observed information evaluated at the maximum likelihood estimate.
+
+For an independent sample the log-likelihood is a sum, so the information adds. If $i(\theta)$ is the information in one observation, the sample information is $\mathcal{I}(\theta)=n\,i(\theta)$.
+
+Three one-parameter calculations fix the scale.
+
+For a $\Normal(\mu,\sigma^2)$ sample with $\sigma$ known, $\ell(\mu)=-n\log\sigma-(1/(2\sigma^2))\sum(X_j-\mu)^2$ up to a constant, and
+
+$$
+S(\mu)=\frac{n(\overline X-\mu)}{\sigma^2},
+\qquad
+\mathcal{I}(\mu)=\frac{n}{\sigma^2}.
+$$
+
+The observed information is the same constant $n/\sigma^2$. There is no curvature left to estimate.
+
+For a Bernoulli sample with mean $\theta$, the one-observation score $(X-\theta)/\{\theta(1-\theta)\}$ has variance
+
+$$
+\Var\Bigl\{\frac{X-\theta}{\theta(1-\theta)}\Bigr\}=\frac{\Var X}{\theta^2(1-\theta)^2}=\frac{1}{\theta(1-\theta)},
+$$
+
+so a sample of size $n$ has $\mathcal{I}(\theta)=n/\{\theta(1-\theta)\}$. The observed information at $\widehat\theta=\overline X$ is $n/\{\widehat\theta(1-\widehat\theta)\}$, which is the quantity inverted to give the usual standard error of a proportion.
+
+For a $\Poisson(\lambda)$ sample the log-likelihood is $-n\lambda+(\sum X_j)\log\lambda$, up to a term free of $\lambda$. Then $S(\lambda)=(\sum X_j)/\lambda-n$ and $\mathcal{I}(\lambda)=n/\lambda$. The second derivative is $-(\sum X_j)/\lambda^2$, so the observed information at $\widehat\lambda=\overline X$ is $n/\widehat\lambda$, the same plug-in of the expected information.
+
+When $\theta$ is a vector, the score is the gradient and the information is the matrix
+
+$$
+\mathcal{I}(\theta)=\E\bigl\{S(\theta)S(\theta)^\top\bigr\}=-\E\Bigl\{\frac{\partial^2\ell(\theta)}{\partial\theta\,\partial\theta^\top}\Bigr\},
+$$
+
+again under regularity that lets the derivatives pass inside the expectation. The $(i,j)$ entry is the covariance of the $i$th and $j$th score components. This is the matrix inverted for the standard errors of a [generalised linear model](02-inference-and-counts.qmd). [Fisher scoring](01-introduction-to-glms.qmd) replaces the observed Hessian by this expected matrix. For a binomial or Poisson canonical link the two matrices agree once the mean has been written in terms of the linear predictor, which is why the printed standard errors can be read either way.
+
+```r
+# Bernoulli sample: observed information at the sample proportion.
+x <- c(1, 0, 1, 1, 0, 1, 0, 0, 1, 1)
+n <- length(x); phat <- mean(x)
+n / (phat * (1 - phat))          # 10 / (0.6 * 0.4) = 41.67
+```
+
+## Cramér–Rao lower bound {#s-cramer-rao-lower-bound}
+
+Let $T$ be any unbiased estimator of a differentiable function $g(\theta)$, with finite variance. Assume the support of $f$ does not depend on $\theta$, and that $\E_\theta T=g(\theta)$ and $\int L(\theta)\,dx=1$ may both be differentiated under the integral. Then
+
+$$
+\Var_\theta(T)\ge\frac{\{g'(\theta)\}^2}{\mathcal{I}(\theta)}.
+$$
+
+The right-hand side is the Cramér–Rao lower bound, also called the minimum variance bound. For the parameter itself, $g(\theta)=\theta$, the bound is $1/\mathcal{I}(\theta)$.
+
+The proof is Cauchy–Schwarz applied to the score. Unbiasedness says $\E_\theta T=g(\theta)$. Differentiate under the integral, as the regularity conditions allow:
+
+$$
+\E_\theta\bigl\{T\,S(\theta)\bigr\}=g'(\theta).
+$$
+
+The score has mean zero, so the left side is the covariance of $T$ and $S(\theta)$. Cauchy–Schwarz gives
+
+$$
+\{g'(\theta)\}^2=\bigl\{\Cov(T,S(\theta))\bigr\}^2\le\Var(T)\,\Var\{S(\theta)\}=\Var(T)\,\mathcal{I}(\theta),
+$$
+
+which is the bound.
+
+For a normal mean with known variance, $\mathcal{I}(\mu)=n/\sigma^2$ and the bound is $\sigma^2/n$. The sample mean has exactly that variance, so no unbiased estimator of $\mu$ has a smaller variance at any $\mu$. For a Bernoulli mean the bound is $\theta(1-\theta)/n$, and the sample proportion has exactly that variance. For a Poisson mean the bound is $\lambda/n$, and $\overline X$ meets it.
+
+The bound is a statement about unbiased estimators. A biased estimator can have smaller mean squared error. The two variance estimators in [Estimation](inf-02-estimation.qmd) are the example: the divisor $n$ beats the unbiased divisor $n-1$ on mean squared error, and it does not attain a bound that was never claimed for it.
+
+The bound is also only as good as the regularity conditions. For the uniform distribution on $(0,\theta)$, $M=\max X_i$ has variance of order $1/n^2$, smaller than any bound of order $1/n$. The derivative-under-the-integral step fails because the upper limit of the integral depends on $\theta$. A small variance in that problem is not a counter-example to the inequality. It is a case the inequality does not cover.
+
+For a normal mean the score is proportional to $\overline X-\mu$, the bound is attained by $\overline X$, and the most powerful test of a larger mean rejects for large $\overline X$. The critical value is a normal quantile because that estimator is exactly normal. The test is derived on [Most powerful tests](inf-11-most-powerful-tests.qmd), and the picture of the two densities is there.
+
+## Attaining the bound {#s-attaining-the-bound}
+
+Equality holds in Cauchy–Schwarz exactly when the two variables are linear functions of each other. So $T$ attains the bound for $g(\theta)$ if and only if, at every $\theta$,
+
+$$
+S(\theta)=k(\theta)\bigl\{T-g(\theta)\bigr\}
+$$
+
+for some $k$ that does not depend on the sample. Taking variances of both sides gives $\mathcal{I}(\theta)=k(\theta)^2\Var(T)$. Combined with the bound at equality, $\Var(T)=|g'(\theta)/k(\theta)|$ when $g'(\theta)$ and $k(\theta)$ have the same sign, and $\mathcal{I}(\theta)=|k(\theta)g'(\theta)|$.
+
+The Bernoulli sample is the check. With $T=\overline X$ and $g(\theta)=\theta$,
+
+$$
+S(\theta)=\frac{n}{\theta(1-\theta)}(\overline X-\theta),
+$$
+
+so $k(\theta)=n/\{\theta(1-\theta)\}$ and $\Var(T)=1/|k(\theta)|=\theta(1-\theta)/n$, which is $1/\mathcal{I}(\theta)$. The sample proportion is a minimum-variance-bound estimator of $\theta$.
+
+Integrating the equality $S(\theta)=k(\theta)\{T-g(\theta)\}$ in $\theta$ puts the likelihood in the form
+
+$$
+L(\theta)=b(x_1,\ldots,x_n)\,\exp\bigl\{c(\theta)\,T\bigr\}/a(\theta).
+$$
+
+That is a one-parameter exponential family with sufficient statistic $T$. So an unbiased estimator that attains the bound for every $\theta$ can exist only inside that family. The [exponential family](bayes-07-exponential-families.qmd) page records the same shape from the other direction: a fixed-dimension sufficient statistic, under regularity, characterises the family. Attaining the bound is the estimation consequence of that shape.
+
+One warning follows from the equality. Suppose $T$ attains the bound for $g(\theta)$. An unbiased estimator of some other function $h(\theta)$ attains the bound only if $h$ is a linear function of $g$. The score can be proportional to $T-g(\theta)$ and to $U-h(\theta)$ at once only if those two centred statistics are multiples of each other. Estimating $\theta(1-\theta)$ unbiasedly from Bernoulli data is not a matter of plugging $\overline X$ into $\theta(1-\theta)$ and quoting the bound: that plug-in is biased, and no unbiased estimator of the variance attains $1/\mathcal{I}(\theta)$ scaled by the derivative of $\theta(1-\theta)$.
+
+```r
+# The bound for a Bernoulli mean, and the variance of the sample proportion.
+theta <- 0.4; n <- 50
+1 / (n / (theta * (1 - theta)))     # theta(1-theta)/n = 0.0048
+# A simulation of that variance:
+set.seed(8)
+p <- replicate(20000, mean(rbinom(n, 1, theta)))
+var(p)                               # about 0.0048
+```
+
+An estimator that attains the bound is unbiased and has the smallest variance among unbiased estimators, at every $\theta$. It is therefore a uniformly minimum-variance unbiased estimator. The converse is false: a UMVU estimator need not meet the bound. [Rao–Blackwell](inf-09-rao-blackwell.qmd) constructs UMVU estimators from a sufficient statistic even when the bound is not attained. The sample variance of a normal sample, with divisor $n-1$, is the usual example of an unbiased estimator that is best in its class without equalling $1/\mathcal{I}$.
+
+::: {.callout-note}
+## Key idea
+The score has mean zero. Its variance is the Fisher information, and it also equals the expected negative second derivative of the log-likelihood. No regular unbiased estimator has variance below $\{g'(\theta)\}^2/\mathcal{I}(\theta)$. The estimators that meet the bound are the ones for which the score is proportional to the estimation error, which is the exponential-family case.
+:::
+
+## Exercises
+
+::: {#ex-inf-poisson-information .exercise}
+## Information for a Poisson mean
+
+Let $X_1,\ldots,X_n$ be a random sample from the Poisson distribution with mean $\lambda>0$.
+
+(a) Write the score and the expected information for $\lambda$.
+
+(b) Show that $\overline X$ attains the Cramér–Rao bound for $\lambda$.
+
+[Solution](#sol-inf-poisson-information)
+
+:::
+
+::: {#ex-inf-uniform-bound .exercise}
+## Where the bound does not apply
+
+The maximum $M$ of a uniform$(0,\theta)$ sample has variance $\theta^2 n/\{(n+1)^2(n+2)\}$, which for large $n$ is about $\theta^2/n^2$. The Cramér–Rao calculation, if the regularity conditions are ignored and one pretends $\mathcal{I}(\theta)$ is of order $n$, suggests a lower bound of order $1/n$.
+
+Explain which regularity condition fails, and why a variance of order $1/n^2$ is not a contradiction.
+
+[Solution](#sol-inf-uniform-bound)
+
+:::

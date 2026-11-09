@@ -176,7 +176,7 @@ $$
 
 :::
 
-Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. A complete sufficient statistic is minimal sufficient. The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target.
+Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. A complete sufficient statistic is minimal sufficient. The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target. The variance inequality that reduces the search to functions of a sufficient statistic is the [Rao–Blackwell theorem](inf-09-rao-blackwell.qmd#s-rao-blackwell-theorem).
 
 Completeness must not be claimed merely because a model has been written in exponential-family notation. For a full-rank exponential family whose natural parameter space contains an open set of the appropriate dimension, the natural sufficient statistic is complete under standard integrability conditions. Curved or restricted subfamilies need not inherit this property.
 

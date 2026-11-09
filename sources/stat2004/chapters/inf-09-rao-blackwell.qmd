@@ -1,0 +1,137 @@
+# Rao–Blackwell and UMVU
+
+The Cramér–Rao bound names the best variance an unbiased estimator can have, and it is attained only in a regular exponential family. Many parameters still have a best unbiased estimator when that bound is not the right comparison. The construction uses a sufficient statistic. Conditioning an unbiased estimator on a sufficient statistic keeps it unbiased and cannot increase its variance. If the sufficient statistic is complete, the result is the unique uniformly minimum-variance unbiased estimator.
+
+Sufficiency, completeness and the Lehmann–Scheffé theorem are stated with the [exponential family](bayes-07-exponential-families.qmd). This page proves the variance reduction and works the Poisson probability the bound does not deliver directly.
+
+## Rao–Blackwell theorem {#s-rao-blackwell-theorem}
+
+Let $T$ be sufficient for $\theta$, and let $U$ be an unbiased estimator of $\theta$ with finite variance. Define
+
+$$
+W(T)=\E(U\mid T).
+$$
+
+The Rao–Blackwell theorem says three things.
+
+1. $W(T)$ does not depend on $\theta$. Sufficiency means the conditional distribution of the sample given $T$ is free of $\theta$, and $U$ is a function of the sample, so the conditional expectation is a function of $T$ alone. It can be computed from the data.
+2. $W$ is unbiased for $\theta$. The tower property gives $\E\{W(T)\}=\E(U)=\theta$.
+3. $\Var\{W(T)\}\le\Var(U)$, with equality if and only if $U$ is already a function of $T$. The conditional-variance formula is
+
+$$
+\Var(U)=\Var\{\E(U\mid T)\}+\E\{\Var(U\mid T)\}=\Var\{W(T)\}+\E\{\Var(U\mid T)\}.
+$$
+
+The second term is nonnegative, and it is zero precisely when $U$ does not vary once $T$ is known.
+
+So any unbiased estimator that ignores a sufficient statistic can be improved by averaging it over that statistic. There is no point searching for a UMVU estimator outside the functions of $T$.
+
+The same identity is why a sufficient statistic is enough for estimation of $\theta$ and not enough for checking the model. $\Var(U\mid T)$ is the variation $T$ throws away. That variation does not help estimate $\theta$. It is exactly what a residual, or an ancillary statistic, is made of. [Basu's theorem](bayes-07-exponential-families.qmd#thm-basu-s-theorem) says that under completeness this leftover is independent of $T$.
+
+## Uniformly minimum-variance unbiased estimator {#s-uniformly-minimum-variance-unbiased-estimator}
+
+An estimator $U$ of $g(\theta)$ is a uniformly minimum-variance unbiased estimator, written UMVU, when it is unbiased and, for every other unbiased estimator $V$ and every $\theta$,
+
+$$
+\Var_\theta(U)\le\Var_\theta(V).
+$$
+
+A minimum-variance-bound estimator is UMVU, because nothing unbiased can have smaller variance than the bound. The interesting case is a UMVU estimator that does not attain the bound.
+
+Let $T$ be a complete sufficient statistic, and let $U(T)$ be unbiased for $\theta$ with finite variance. Then $U(T)$ is the UMVU estimator of $\theta$, and it is unique up to a set of probability zero.
+
+Rao–Blackwell reduces the search to functions of $T$: any unbiased estimator that is not a function of $T$ has a conditional expectation given $T$ with the same mean and a smaller variance. Suppose $q(T)$ is another unbiased function of $T$. Then $\E_\theta\{U(T)-q(T)\}=0$ for every $\theta$. Completeness forces $U(T)-q(T)=0$ almost surely. That is the Lehmann–Scheffé theorem in the form used here: one unbiased function of a complete sufficient statistic is the only one.
+
+Completeness is essential for uniqueness. Without it, two different functions of a sufficient statistic can share a mean. A curved subfamily of an exponential family is the standard warning, recorded with the definition of completeness.
+
+The normal sample variance shows a UMVU estimator that is not a minimum-variance-bound estimator of the information type for $\sigma^2$ in the one-parameter sense. For $X_i$ independent $\Normal(\mu,\sigma^2)$, the complete sufficient statistic for $(\mu,\sigma^2)$ is $(\overline X,\sum(X_i-\overline X)^2)$, and
+
+$$
+s^2=\frac{1}{n-1}\sum_{i=1}^n(X_i-\overline X)^2
+$$
+
+is unbiased for $\sigma^2$. It is the UMVU estimator. The divisor $n$ has smaller mean squared error, but it is biased, so it is not in the competition this theorem describes.
+
+## Estimating a Poisson probability {#s-estimating-a-poisson-probability}
+
+Let $X_1,\ldots,X_n$ be a Poisson$(\theta)$ sample, and let $g(\theta)=\Pr(X_1=k)=e^{-\theta}\theta^k/k!$ for a fixed integer $k\ge 0$. The sum $T=\sum_{j=1}^n X_j$ is Poisson$(n\theta)$. The likelihood depends on the data through $T$ only,
+
+$$
+L(\theta)=e^{-n\theta}\,\theta^{T}\Big/\prod_j X_j!,
+$$
+
+so $T$ is sufficient. The power of $\theta$ against the exponential is the regular exponential form, so $T$ is complete. The maximum likelihood estimator of $\theta$ is $\widehat\theta=T/n$, and the maximum likelihood estimator of $g(\theta)$ is $g(\widehat\theta)=e^{-T/n}(T/n)^k/k!$. That plug-in is biased for $k\ge 1$, because a nonlinear function of an unbiased estimator is not unbiased.
+
+The UMVU estimator is the conditional probability
+
+$$
+U(T)=\Pr(X_1=k\mid T).
+$$
+
+It is a function of $T$. Its expectation is
+
+$$
+\E\{U(T)\}=\sum_t\Pr(X_1=k\mid T=t)\Pr(T=t)=\Pr(X_1=k)=g(\theta),
+$$
+
+so it is unbiased. Completeness makes it the only unbiased function of $T$, and therefore the UMVU estimator.
+
+The conditional probability is binomial. Given $T=t$ successes distributed at random across $n$ independent identical Poisson variables, each success falls on $X_1$ with probability $1/n$. So $X_1\mid T=t\sim\Bin(t,1/n)$, and
+
+$$
+U(t)=\binom{t}{k}\Bigl(\frac1n\Bigr)^k\Bigl(1-\frac1n\Bigr)^{t-k}
+$$
+
+for $t\ge k$, and $U(t)=0$ for $t<k$. The same expression comes from writing the joint probability and cancelling $e^{-\theta}\theta^{t}$:
+
+$$
+\Pr(X_1=k,\,T=t)=\frac{e^{-\theta}\theta^k}{k!}\cdot\frac{e^{-(n-1)\theta}\{(n-1)\theta\}^{t-k}}{(t-k)!},
+$$
+
+$$
+\Pr(T=t)=\frac{e^{-n\theta}(n\theta)^t}{t!},
+$$
+
+and the ratio simplifies to the binomial probability. The parameter $\theta$ cancels, which is sufficiency made visible.
+
+For a numerical check, take $n=3$, $k=0$ and $t=2$. Then
+
+$$
+U(2)=\Bigl(\frac{2}{3}\Bigr)^2=\frac49\approx 0.444,
+$$
+
+while the maximum likelihood estimator of $g(\theta)=\Pr(X_1=0)=e^{-\theta}$ is $e^{-2/3}\approx 0.513$. The UMVU estimator is smaller. It has to be, on average, because $e^{-\overline X}$ is biased high for $e^{-\theta}$ by Jensen's inequality applied to the convex map $\theta\mapsto e^{-\theta}$ and the unbiased $\overline X$. The conditional-probability estimator removes that bias without leaving $T$.
+
+```r
+# UMVU estimate of P(X = 0) from three Poisson counts that sum to 2.
+n <- 3; t <- 2; k <- 0
+dbinom(k, size = t, prob = 1 / n)    # (2/3)^2 = 0.444...
+exp(-t / n)                          # maximum likelihood estimate, about 0.513
+```
+
+The same $T$ produces both estimators. Rao–Blackwell does not change the sufficient statistic. It changes the function of that statistic until the function is unbiased.
+
+::: {.callout-note}
+## Key idea
+Condition an unbiased estimator on a sufficient statistic. The result is still unbiased, it has smaller variance unless the original estimator was already a function of the statistic, and under completeness it is the only UMVU estimator.
+:::
+
+## Exercises
+
+::: {#ex-inf-poisson-umvu .exercise}
+## An unbiased Poisson probability
+
+A sample of $n=4$ Poisson$(\theta)$ observations sums to $T=5$. Using the conditional binomial distribution of one observation given the sum, compute the UMVU estimate of $\Pr(X_1=1)$ and the maximum likelihood estimate of the same probability.
+
+[Solution](#sol-inf-poisson-umvu)
+
+:::
+
+::: {#ex-inf-rao-blackwell-variance .exercise}
+## Why the conditional expectation is better
+
+Let $U$ be unbiased for $\theta$ and let $T$ be sufficient. In one sentence each, say why $W(T)=\E(U\mid T)$ is a statistic, why it is unbiased, and why $\Var W\le\Var U$.
+
+[Solution](#sol-inf-rao-blackwell-variance)
+
+:::

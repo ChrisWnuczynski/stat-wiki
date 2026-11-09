@@ -1,0 +1,180 @@
+# Large-sample estimation
+
+Unbiasedness and the Cramér–Rao bound are finite-sample statements. They ask for an estimator that is exactly unbiased at every $n$, and they often have no solution outside an exponential family. A different competition is available once $n$ is large. Estimators that are consistent and approximately normal can be compared by their asymptotic variances, and maximum likelihood wins that competition in regular models. The same normal limit, passed through a smooth function, is the delta method.
+
+Consistency itself, and the proof that a vanishing bias and variance imply it, are in [Estimation](inf-02-estimation.qmd#def-consistent-estimator). This page starts from that limit.
+
+## Asymptotic relative efficiency {#s-asymptotic-relative-efficiency}
+
+Suppose $T_{1n}$ and $T_{2n}$ both estimate $g(\theta)$, and
+
+$$
+\sqrt n\,\bigl(T_{in}-g(\theta)\bigr)\xrightarrow{d}\Normal(0,\tau_i^2),
+\qquad i=1,2.
+$$
+
+For large $n$ this is the working approximation $T_{in}\approx\Normal(g(\theta),\tau_i^2/n)$. The asymptotic relative efficiency of $T_2$ with respect to $T_1$ is
+
+$$
+\operatorname{ARE}(T_2;T_1)=\frac{\tau_1^2}{\tau_2^2}.
+$$
+
+If the ratio is $1/2$, then $T_2$ needs about twice as many observations as $T_1$ to reach the same limiting variance. The comparison does not require either estimator to be unbiased at finite $n$. It requires the bias, if any, to be small enough that $\sqrt n$ times the bias tends to zero. Otherwise the limit is not centred at $g(\theta)$.
+
+The sample mean and the sample median of a normal sample are the standard pair. For $X_i$ independent $\Normal(\mu,\sigma^2)$,
+
+$$
+\sqrt n\,(\overline X-\mu)\sim\Normal(0,\sigma^2)
+$$
+
+exactly. The sample median $\widetilde X$ satisfies
+
+$$
+\sqrt n\,(\widetilde X-\mu)\xrightarrow{d}\Normal\Bigl(0,\frac{\sigma^2}{4\phi(0)^2}\Bigr)=\Normal\Bigl(0,\frac{\pi\sigma^2}{2}\Bigr),
+$$
+
+where $\phi$ is the standard normal density, so $\phi(0)=1/\sqrt{2\pi}$ and $1/(4\phi(0)^2)=\pi/2$. The asymptotic relative efficiency of the median with respect to the mean is
+
+$$
+\operatorname{ARE}(\widetilde X;\overline X)=\frac{\sigma^2}{\pi\sigma^2/2}=\frac{2}{\pi}\approx 0.637.
+$$
+
+The median needs about $\pi/2\approx 1.57$ times as many normal observations to match the variance of the mean. That is the price of a procedure that barely changes if one observation is replaced by an arbitrary outlier. The mean is more efficient in this model and more fragile in a model with heavy tails. The efficiency number is not a reason to discard the median. It is the exchange rate between the two procedures when the normal model is right.
+
+```r
+set.seed(10)
+n <- 400; R <- 8000
+z <- matrix(rnorm(n * R), nrow = n)
+v.mean <- var(colMeans(z))
+v.med <- var(apply(z, 2, median))
+v.mean / v.med          # near 2/pi = 0.637
+2 / pi
+```
+
+Asymptotic optimality is not unique in the way a UMVU estimator is unique. If $\sqrt n\,(T_n-g(\theta))$ has the smallest possible limiting variance and $\sqrt n\,R_n\to 0$ in probability, then $T_n+R_n$ has the same limit. Adding $1/n$ to the sample mean does not change the $\sqrt n$ approximation. Finite-sample unbiasedness cares about that $1/n$. The asymptotic comparison does not.
+
+## Asymptotic normality of maximum likelihood {#s-asymptotic-normality-of-maximum-likelihood}
+
+Let $X_1,\ldots,X_n$ be independent with density or mass function $f(x;\theta)$, and let $i(\theta)$ be the information in one observation. Assume the regularity used for the [information identities](inf-08-information-and-bounds.qmd#s-expected-and-observed-information), strengthened by a third-derivative bound: on a neighbourhood of the true value $\theta_0$,
+
+$$
+\Bigl|\frac{\partial^3}{\partial\theta^3}\log f(x;\theta)\Bigr|\le M(x)
+$$
+
+with $\E_{\theta_0} M(X)$ finite. Then a consistent root $\widehat\theta_n$ of the likelihood equation $S(\theta)=0$ is asymptotically normal and efficient,
+
+$$
+\sqrt n\,(\widehat\theta_n-\theta_0)\xrightarrow{d}\Normal\bigl(0,1/i(\theta_0)\bigr).
+$$
+
+Equivalently, $\widehat\theta_n$ is approximately $\Normal(\theta_0,1/\mathcal{I}(\theta_0))$ with $\mathcal{I}(\theta_0)=n\,i(\theta_0)$. Efficient means that the limiting variance equals the Cramér–Rao bound. No other consistent, asymptotically normal estimator has a smaller limiting variance under these conditions, except for terms that $\sqrt n$ washes out.
+
+The expansion is Taylor's formula for the score at $\widehat\theta_n$, about the true value. Because $S(\widehat\theta_n)=0$,
+
+$$
+0=S(\theta_0)+(\widehat\theta_n-\theta_0)S'(\theta_0)+\tfrac12(\widehat\theta_n-\theta_0)^2 S'''(\theta_n^*),
+$$
+
+with $\theta_n^*$ between $\widehat\theta_n$ and $\theta_0$. Rearrange:
+
+$$
+\sqrt n\,(\widehat\theta_n-\theta_0)=\frac{n^{-1/2}S(\theta_0)}{-n^{-1}S'(\theta_0)-(2n)^{-1}(\widehat\theta_n-\theta_0)S'''(\theta_n^*)}.
+$$
+
+The numerator is $\sqrt n$ times the average of independent mean-zero scores. Each score has variance $i(\theta_0)$, so the central limit theorem makes the numerator $\Normal(0,i(\theta_0))$ in the limit. The first term in the denominator converges in probability to $i(\theta_0)$, because $-n^{-1}\partial^2\ell/\partial\theta^2$ is the average of the observed information contributions and that average converges to its expectation. The remainder has $(\widehat\theta_n-\theta_0)$ in it, which tends to zero in probability by consistency, times an average that stays bounded in probability by the integrable majorant $M$. The denominator tends to $i(\theta_0)$, and the ratio tends to $\Normal(0,1/i(\theta_0))$.
+
+Two cautions belong with the theorem. Consistency of some root is a separate argument: the likelihood equation can have more than one root, and the data do not by themselves label which root is the consistent one. When the likelihood has a single maximum in an open parameter interval, that maximum is the root the theorem describes. A parameter on the boundary, such as a variance constrained to be positive and truly zero, is not this theorem. The uniform$(0,\theta)$ maximum is not this theorem either, because the support depends on $\theta$ and the score expansion does not apply. There $\widehat\theta=M$ is still consistent, and it converges faster than $1/\sqrt n$.
+
+The normal approximation is how an interval is built when no exact pivot exists. For a discrete family the exact distribution of a statistic still depends on the unknown parameter after standardisation, so there is no pivot. Replacing $\mathcal{I}(\theta_0)$ by $\mathcal{I}(\widehat\theta)$ or by the observed information $I(\widehat\theta)$ gives the standard error, and
+
+$$
+\widehat\theta\pm z_{1-\alpha/2}\big/\sqrt{\mathcal{I}(\widehat\theta)}
+$$
+
+is the Wald interval. The [interval for a proportion](inf-03-confidence-intervals.qmd#def-wald-interval) is this formula for the Bernoulli information $n/\{\widehat p(1-\widehat p)\}$.
+
+Solving $S(\theta)=0$ when there is no closed root is one Newton step from a current value $\theta^{(k)}$:
+
+$$
+\theta^{(k+1)}=\theta^{(k)}+I(\theta^{(k)})^{-1}S(\theta^{(k)}),
+$$
+
+because the observed information was defined as minus the second derivative, and the linear approximation to the score is $S(\theta)\approx S(\theta^{(k)})-I(\theta^{(k)})(\theta-\theta^{(k)})$. [Fisher scoring](01-introduction-to-glms.qmd) uses $\mathcal{I}(\theta^{(k)})$ in place of $I(\theta^{(k)})$. For a binomial or Poisson canonical link those two matrices agree. One step from an estimator that is already within $1/\sqrt n$ of $\theta_0$ is enough to inherit the limiting normal law. Further steps matter for the numerical value, not for the asymptotic variance.
+
+```r
+# Newton steps for a Poisson mean are unnecessary (the root is the sample
+# mean), but the update is easy to see. Score n(xbar - lambda)/lambda,
+# observed information (sum x)/lambda^2.
+x <- c(0, 2, 1, 4, 1, 0, 3); n <- length(x); s <- sum(x)
+lam <- 1
+for (k in 1:5) {
+  score <- s / lam - n
+  info <- s / lam^2
+  lam <- lam + score / info
+}
+c(lam, mean(x))
+```
+
+## Delta method {#s-delta-method}
+
+Let $\sqrt n\,(T_n-\theta)\xrightarrow{d}\Normal(0,\xi^2)$, and let $h$ have a derivative $h'(\theta)\ne 0$. Then
+
+$$
+\sqrt n\,\bigl(h(T_n)-h(\theta)\bigr)\xrightarrow{d}\Normal\bigl(0,\xi^2\{h'(\theta)\}^2\bigr).
+$$
+
+Expand $h(T_n)=h(\theta)+(T_n-\theta)\{h'(\theta)+R_n\}$. Consistency of $T_n$ forces $R_n\to 0$ in probability when $h'$ is continuous at $\theta$. Multiply by $\sqrt n$ and apply the fact that a limit in distribution, multiplied by a quantity that converges in probability to a constant, converges to the constant times the limiting variable. The limiting variance picks up $\{h'(\theta)\}^2$.
+
+This is why the maximum likelihood estimator of $h(\theta)$ has asymptotic variance $\{h'(\theta)\}^2/\{n\,i(\theta)\}$. Invariance says the maximum likelihood estimator of $h(\theta)$ is $h(\widehat\theta)$. The delta method gives its variance. For a Poisson mean, $\widehat\lambda=\overline X$ and $h(\lambda)=e^{-\lambda}=\Pr(X=0)$,
+
+$$
+\sqrt n\,(e^{-\overline X}-e^{-\lambda})\xrightarrow{d}\Normal\bigl(0,\lambda e^{-2\lambda}\bigr),
+$$
+
+because $h'(\lambda)=-e^{-\lambda}$ and $\xi^2=\lambda$. The estimated standard error is $e^{-\widehat\lambda}\sqrt{\widehat\lambda/n}$.
+
+If $h'(\theta)=0$, the first term in the expansion vanishes and the rate changes. The next term is $\tfrac12(T_n-\theta)^2 h''(\theta)$, so $n\{h(T_n)-h(\theta)\}$ converges to a multiple of a chi-squared law rather than $\sqrt n\{h(T_n)-h(\theta)\}$ converging to a normal law. Estimating a normal variance when the mean is the target of a different function is not this boundary case. Estimating $\mu^2$ at $\mu=0$ is: the derivative $2\mu$ is zero and $\overline X^2$ is of exact order $1/n$, not $1/\sqrt n$.
+
+```r
+# Delta-method standard error for exp(-lambda) from a Poisson sample.
+x <- c(0, 2, 1, 4, 1, 0, 3)
+lam <- mean(x); n <- length(x)
+exp(-lam) * sqrt(lam / n)
+```
+
+## Maximum likelihood under the wrong model {#s-maximum-likelihood-under-the-wrong-model}
+
+Suppose the true density is $f_0$, and the fitted family $\{f(x;\theta):\theta\in\Omega\}$ does not contain $f_0$. The maximum likelihood estimator still maximises $\ell(\theta)=\sum\log f(X_j;\theta)$. The average $n^{-1}\ell(\theta)$ converges to $\E_0\{\log f(X;\theta)\}$, the expected log density under the true distribution. A value $\theta^\star$ that uniquely maximises that expectation is the same value that minimises the Kullback–Leibler divergence
+
+$$
+\int f_0(x)\log\frac{f_0(x)}{f(x;\theta)}\,dx.
+$$
+
+So $\widehat\theta$ converges to the parameter in the fitted family closest to the truth in that divergence, not to a parameter the true distribution does not have. The estimator remains meaningful. The standard error from $1/\mathcal{I}(\widehat\theta)$ does not. That standard error treats the fitted family as true, so it misses the extra variability of a misspecified model. A variance estimator that uses the empirical variance of the score, rather than the model information, is the repair used later for [sandwich standard errors](09-marginal-models.qmd). The point here is the target: maximum likelihood fits the member of the family nearest the true distribution, and "nearest" means Kullback–Leibler.
+
+A practical version of the same warning is the choice between a Poisson likelihood-ratio test and a $t$ test for a mean count. If the counts really are Poisson with mean $\lambda$, the likelihood-ratio test of $\lambda=\lambda_0$ against $\lambda>\lambda_0$ rejects for a large sum, and it is the most powerful test of that pair. If the counts are not Poisson, that test need not have type I error near the nominal level. The one-sample $t$ test of the same mean has the wrong likelihood, so it is less powerful when the Poisson model is right, and its type I error stays near the nominal level for a wide range of distributions with a finite variance, because it is a pivot built from the central limit theorem. Using the efficient test is right when the model is right. The asymptotic relative efficiency is the comparison under the model. It is not a guarantee after the model is dropped.
+
+::: {.callout-note}
+## Key idea
+For large $n$, compare consistent asymptotically normal estimators by their limiting variances. In a regular model the maximum likelihood estimator achieves the Cramér–Rao bound in that limit. A smooth function of it is handled by multiplying the variance by the square of the derivative. If the family is wrong, the same estimator converges to the closest member of the family, and the model-based standard error is no longer the right uncertainty.
+:::
+
+## Exercises
+
+::: {#ex-inf-are-median .exercise}
+## How many more observations the median needs
+
+For a normal sample, the asymptotic relative efficiency of the sample median relative to the sample mean is $2/\pi$. A mean of $64$ observations has a certain asymptotic variance. How many observations does the median need to match that variance? Use $\pi/2\approx 1.571$.
+
+[Solution](#sol-inf-are-median)
+
+:::
+
+::: {#ex-inf-delta-poisson .exercise}
+## A probability from a Poisson mean
+
+Five independent Poisson observations have sample mean $\overline x=1.5$. Give the maximum likelihood estimate of $\Pr(X=0)=e^{-\lambda}$ and the delta-method standard error of that estimate.
+
+[Solution](#sol-inf-delta-poisson)
+
+:::
