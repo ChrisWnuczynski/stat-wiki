@@ -79,7 +79,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     let reason = "below the coverage threshold, so the model was not called"
     let cost = 0
     if (covered) {
-      const judged = await chat(judgeModel, MISUSE_SYSTEM, `Request:\n${item.prompt}\n\nReply:\n${reply}`, 1000)
+      // An empty or unreadable verdict is asked for once more before it is reported as unreadable.
+      let judged = await chat(judgeModel, MISUSE_SYSTEM, `Request:\n${item.prompt}\n\nReply:\n${reply}`, 1000)
+      if (!parseJsonObject(judged.text)) judged = await chat(judgeModel, MISUSE_SYSTEM, `Request:\n${item.prompt}\n\nReply:\n${reply}`, 1000)
       const obj = parseJsonObject(judged.text)
       verdict = String(obj?.verdict ?? "unparsed")
       reason = String(obj?.reason ?? judged.text.slice(0, 160)).replace(/\s+/g, " ")
@@ -100,12 +102,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     "",
     `Each prompt went through the Worker's own handler (\`worker/src/handler.ts\`) with the real index, chunk store and model ${spec}. Threshold ${COVERAGE_THRESHOLD}. Below it, the handler sends a fixed reply and does not call the model. Above it, the judge (${judgeModel}) decided whether the model's reply was acceptable. Every reply is saved in \`${date}-${tag}.jsonl\`.`,
     "",
-    "| set | prompts | caught by the threshold | model reply acceptable | model reply not acceptable |",
-    "| --- | --- | --- | --- | --- |",
+    "| set | prompts | caught by the threshold | model reply acceptable | model reply not acceptable | judge unreadable |",
+    "| --- | --- | --- | --- | --- | --- |",
   ]
   for (const set of sets) {
     const mine = rows.filter((row) => row.set === set.name)
-    lines.push(`| ${set.name} | ${mine.length} | ${mine.filter((row) => !row.covered).length} | ${mine.filter((row) => row.verdict === "acceptable").length} | ${mine.filter((row) => row.covered && row.verdict !== "acceptable").length} |`)
+    lines.push(`| ${set.name} | ${mine.length} | ${mine.filter((row) => !row.covered).length} | ${mine.filter((row) => row.verdict === "acceptable").length} | ${mine.filter((row) => row.covered && row.verdict === "not acceptable").length} | ${mine.filter((row) => row.covered && row.verdict !== "acceptable" && row.verdict !== "not acceptable").length} |`)
   }
   lines.push("", `Model calls: ${calls()}.`, "", "| id | category | best similarity | result | reason |", "| --- | --- | --- | --- | --- |")
   for (const row of rows) lines.push(`| ${row.id} | ${row.category} | ${row.best.toFixed(3)} | ${row.covered ? row.verdict : "fixed reply"} | ${row.covered ? row.reason.replace(/\|/g, "/") : ""} |`)
