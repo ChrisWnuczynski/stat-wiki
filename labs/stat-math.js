@@ -165,12 +165,19 @@ export function normalPdf(z) {
   return Math.exp(-0.5 * z * z - LOG_SQRT_TWO_PI);
 }
 
+// Upper tail when z > 0 and lower tail when z < 0, so a probability near 0
+// is not computed as 1 minus a probability near 1.
+function normalTail(z) {
+  return 0.5 * gammaQ(0.5, 0.5 * z * z);
+}
+
 export function normalCdf(z) {
   if (Number.isNaN(z)) return NaN;
   if (z === Infinity) return 1;
   if (z === -Infinity) return 0;
-  const half = 0.5 * gammaQ(0.5, 0.5 * z * z);
-  return z < 0 ? half : z === 0 ? 0.5 : 1 - half;
+  if (z === 0) return 0.5;
+  const tail = normalTail(z);
+  return z < 0 ? tail : 1 - tail;
 }
 
 const ACKLAM_A = [-3.969683028665376e1, 2.209460984245205e2, -2.759285104469687e2, 1.38357751867269e2, -3.066479806614716e1, 2.506628277459239];
@@ -195,10 +202,13 @@ export function normalQuantile(p) {
     x = ((((((ACKLAM_A[0] * r + ACKLAM_A[1]) * r + ACKLAM_A[2]) * r + ACKLAM_A[3]) * r + ACKLAM_A[4]) * r + ACKLAM_A[5]) * q)
       / (((((ACKLAM_B[0] * r + ACKLAM_B[1]) * r + ACKLAM_B[2]) * r + ACKLAM_B[3]) * r + ACKLAM_B[4]) * r + 1);
   }
-  // One Halley step against the accurate distribution function.
+  // Halley steps on the tail, so a probability such as 1e-12 is not lost to 1 - (1 - tail).
   for (let i = 0; i < 2; i++) {
-    const e = x < 0 ? normalCdf(x) - p : (1 - p) - (1 - normalCdf(x));
-    const u = e / normalPdf(x);
+    const tail = normalTail(x);
+    const e = x < 0 ? tail - p : (1 - p) - tail;
+    const density = normalPdf(x);
+    if (!(density > 0)) break;
+    const u = e / density;
     x -= u / (1 + (x * u) / 2);
   }
   return x;

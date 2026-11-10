@@ -31,3 +31,4 @@ __pycache__/
 /ask/worker/.wrangler/
 /ask/worker/wrangler.config.ts
 /webr/node_modules/
+/labs/node_modules/

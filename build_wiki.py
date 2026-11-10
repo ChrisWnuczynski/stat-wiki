@@ -1273,7 +1273,7 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
-  var section = /\\/labs\\//.test(here) ? "labs/kernel-density.html"
+  var section = /\\/labs\\//.test(here) ? "labs/index.html"
     : /\\/notes\\//.test(here) ? "notes/index.html"
     : /\\/questions\\//.test(here) ? "questions/index.html"
     : /\\/reference\\/glossary|\\/articles\\//.test(here) ? "reference/glossary.html"
@@ -3630,6 +3630,18 @@ ASK_JS = """
 # and R itself downloads only when a reader presses Run. See webr/README.md.
 RUNNABLE_PARTS = ("Using R",)
 WEBR_FILES = ["runner.js", "engine.js", "session.js", "packages.js", "version.js"]
+LAB_JS = [
+    "lab-chrome.js",
+    "svg-chart.js",
+    "stat-math.js",
+    "kde-math.js",
+    "beta-binomial-math.js",
+    "beta-binomial.js",
+    "markov-math.js",
+    "markov-chain.js",
+    "coverage-math.js",
+    "ci-coverage.js",
+]
 WEBR_JS = """
 <script>
 (function () {
@@ -3744,8 +3756,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - figures/*.tex
     - figures/*.py
     - figures/*-full.png
-    - labs/kde-math.js
-    - labs/lab-chrome.js
+{chr(10).join(f"    - labs/{name}" for name in LAB_JS)}
 {chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - {SHARE_IMAGE}
@@ -3789,7 +3800,7 @@ website:
       - text: Reference
         href: reference/index.qmd
       - text: Laboratories
-        href: labs/kernel-density.qmd
+        href: labs/index.qmd
       - text: Random question
         href: index.qmd#random
   sidebar:
@@ -3801,9 +3812,18 @@ website:
       - text: Random question
         href: index.qmd#random
       - section: Laboratories
+        href: labs/index.qmd
         contents:
+          - text: All laboratories
+            href: labs/index.qmd
           - text: Kernel density estimation
             href: labs/kernel-density.qmd
+          - text: Beta–Binomial updating
+            href: labs/beta-binomial.qmd
+          - text: A Markov chain
+            href: labs/markov-chain.qmd
+          - text: Interval coverage
+            href: labs/ci-coverage.qmd
       - section: Topics
         href: notes/index.qmd
         contents:

@@ -14,10 +14,10 @@ The site owner chose three features for StatWiki:
 
 | Feature | State | What remains |
 |---|---|---|
-| 1. R in the browser | **Done and verified.** Not yet in CI or the top-level README. | Two CI lines and a README row (see "Wrap-up") |
-| 2. Labs | **Started.** Shared maths and the Beta–Binomial maths are written; nothing else exists yet. | Reference fixtures, tests, two more maths modules, the chart helper, three UIs, three pages, navigation, links from chapters, browser test |
-| 3. Search by meaning | **Not started.** A plan is below. | Everything |
-| Wrap-up | Not done | CI, README, final commit |
+| 1. R in the browser | **Done and verified.** The unit tests and a README row are in the publish workflow. | Nothing required. The six blocks that cannot run are listed below. |
+| 2. Labs | **Done and checked against SciPy.** Three pages, the chart helper, navigation, chapter links, Node tests, and a browser test. | Nothing required for this feature. |
+| 3. Search by meaning | **Not started.** A plan is below. Do not deploy the Ask worker while building it. | Everything in that plan |
+| Wrap-up | Labs and the R runner are in CI and the README. | Search, then delete this file |
 
 ## Two premises that turned out wrong
 
@@ -80,7 +80,7 @@ On the 12 pages of the "Using R" part (`notes/da-03-using-r` and `notes/ur-01` �
 - The `da-03` block 1 `install.packages(c(...16 packages...))` works in the browser through the shim, but downloads everything (21 s in Node).
 - Dark-mode code blocks on the live site have low contrast (light grey background). That predates this work and isn't caused by it.
 
-## Feature 2: interactive labs (in progress)
+## Feature 2: interactive labs (done)
 
 ### Decision: plain ES modules with hand-drawn SVG, not Observable JS
 
@@ -106,7 +106,9 @@ If you can run Quarto and prefer OJS for consistency, that is a valid alternativ
 - **`labs/stat-math.js`**: `lgamma` (Lanczos g=7), `lbeta`, `lchoose`, `betaCdf` and `betaSurvival` (Lentz continued fraction), `betaPdf`, `betaQuantile` (bisection in the accurate tail), `gammaP` and `gammaQ`, `normalPdf`, `normalCdf` (from `gammaQ(1/2, z²/2)`), `normalQuantile` (Acklam plus Halley refinement), `tCdf`, `tQuantile` (through `betaQuantile`), `binomPmf`, `betaBinomPmf`, `mulberry32` (returns uniforms in (0,1), same core as `kde-math.js`), `normalStream` (Box–Muller), and `formatNumber`. Smoke check only: it loads, and `betaQuantile(0.975, 8, 12) = 0.61642…`, which has **not** been checked against scipy.
 - **`labs/beta-binomial-math.js`**: `DEFAULTS`, `LIMITS`, `PRESETS` (the chapter's Beta(5,5), Beta(1,1) and Beta(0.6,0.6)), `validate`, `betaSummary` (mean, sd, mode with boundary cases, equal-tailed interval), `update` (posterior, prior weight w = (α+β)/(α+β+n), and the blended-mean identity), `densityCurves` (prior, scaled likelihood = Beta(x+1, n−x+1), posterior, on a cosine grid denser near 0 and 1), `prediction` (beta-binomial predictive against plug-in binomial, with both variances), and `tosses` (seeded coin, prefix-stable). Smoke check: uniform prior with 3 heads in 10 gives a posterior mean of 1/3, which matches the chapter.
 
-### Next steps for labs, in order
+### What was built, in the order it was specified
+
+These steps are done. `labs/reference_stats.py` checked the shared functions, the Beta–Binomial summaries, the Markov stationary vectors, and the coverage formulas against SciPy and NumPy. `node --test` on the four new modules passes. `labs/test/e2e.mjs` passes in Chromium, including empty inputs, a blank matrix cell, a sample of size 1, no intervals, dark mode, and a narrow window. Quarto 1.6.40 rendered `labs/index.qmd`, `labs/beta-binomial.qmd`, `labs/markov-chain.qmd`, and `labs/ci-coverage.qmd`; the rendered pages mount and respond. The site-wide post-render step still expects a full site, so it was not part of this pass.
 
 1. **`labs/reference_stats.py`** writes `labs/fixtures/stats-reference.json` from scipy: `gammaln`, `betaln`, `beta.pdf/cdf/sf/ppf` (include shapes below 1 and large shapes such as 500), `norm.cdf/ppf` (tails to 1e-12), `t.cdf/ppf` (df 1, 2, 5, 30, 1000), `binom.pmf`, `betabinom.pmf`. Add lab-level cases: Beta–Binomial posterior summaries; Markov stationary vectors from numpy null-space; exact Wald and Wilson coverage sums; the t and z-with-s coverage formulas. Put tolerances in the JSON, as `reference_kde.py` does.
 2. **`labs/stat-math.test.mjs`** and **`labs/beta-binomial-math.test.mjs`**. Fix anything the reference exposes.
@@ -174,14 +176,17 @@ The plan:
    Prefer (b) for robustness, and possibly (a) later. It should only appear on `statwiki.io`, as `ask/widget/src/loader.ts` does, and degrade quietly if the endpoint is down.
 6. **Do not deploy the worker without the owner's go-ahead.** `cf deploy` from `ask/worker` publishes to production at `ask.statwiki.io`.
 
-## Wrap-up still to do
+## Wrap-up
 
-- `.github/workflows/publish.yml`:
-  - In the `build` job, next to "Check the kernel density module", add `node --test webr/packages.test.mjs webr/runner.test.mjs` and the new labs tests. None of them need `npm ci`: the webR unit tests import only local modules and `webr/package.json`.
-  - In the PR jobs (`graph` and `ask`), add the same lines to `graph`, or add a small `labs` job.
-- `README.md`, "What to edit" table: add a row for `webr/` (R in the browser; which pages get Run buttons is `RUNNABLE_PARTS` in `build_wiki.py`; see `webr/README.md`), a row for the new labs, and later one for search.
+Done with the laboratories and the R runner:
+
+- `.github/workflows/publish.yml` runs the webR unit tests and the laboratory maths tests in the `build` job, and a `labs` job runs the same tests on pull requests. None of them need `npm ci`.
+- `README.md` has rows for `webr/` and `labs/`.
+
+Still open, with search:
+
 - `ask/README.md`: document `/search` once it exists.
-- Remove this file when done.
+- Remove this file when search is finished or dropped.
 
 ## Environment notes (cloud session)
 

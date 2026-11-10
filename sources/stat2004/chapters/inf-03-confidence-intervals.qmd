@@ -45,6 +45,8 @@ The observed interval $(l,u)$, computed from the data, is still called the confi
 
 ![Forty samples of size 10 from $\Normal(10,1)$, each with its 95% $t$ interval for $\mu$. Thirty-eight cover $\mu=10$. The two in red miss it. In repeated sampling about 5% of such intervals miss, and nothing in an interval's own data shows whether it is one of them.](../figures/inf-coverage.pdf){#fig-inf-coverage}
 
+The [confidence interval laboratory](../labs/ci-coverage.qmd) repeats the interval on fresh samples from a known population, marks the ones that miss, and sets that running fraction next to the coverage the formula claims.
+
 Suppose a 90% interval for $\mu$ comes out as $(9.5,10.5)$. It is tempting to write $\Pr(9.5<\mu<10.5)=0.9$, but $\mu$ is a fixed number, so that probability is either $0$ or $1$, and which one is unknown. The $0.9$ belongs to the random interval $(L,U)$ before the data arrive. An urn holds 90 white balls and 10 black. Draw one without looking. You are fairly sure it is white, and you hold it in a closed hand. That is the right degree of confidence that $(9.5,10.5)$ contains $\mu$.
 
 ::: {#def-pivot .definition}
