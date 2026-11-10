@@ -125,6 +125,43 @@ body.quarto-dark .control-row {
   background: var(--wiki-panel-head);
 }
 
+.control-row button[aria-pressed="true"] {
+  border-color: var(--wiki-link);
+  font-weight: 650;
+}
+
+.control-hidden {
+  display: none !important;
+}
+
+.matrix-grid {
+  display: grid;
+  gap: 0.28rem 0.35rem;
+  align-items: center;
+  flex: 1 0 100%;
+  margin: 0.15rem 0 0.1rem;
+}
+
+.matrix-grid input {
+  width: 100%;
+  min-width: 0;
+  background: var(--wiki-bg);
+  color: var(--wiki-text);
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  padding: 0.18rem 0.3rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.matrix-sum {
+  color: var(--wiki-muted);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
 .control-toggles label {
   display: inline-flex;
   align-items: center;

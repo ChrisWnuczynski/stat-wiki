@@ -1,0 +1,87 @@
+---
+title: "Confidence interval laboratory"
+description: "See which repeated confidence intervals cover a known truth, and compare that fraction with the coverage the formula claims."
+---
+
+A confidence interval is a rule that turns a sample into an interval. The confidence, say $95\%$, is the probability that the random interval contains the parameter, computed before the sample is drawn. Once the endpoints are numbers, that probability is not a probability for the parameter. This page draws the intervals again and again from a population whose parameter is known, and counts the misses.
+
+## What this page investigates
+
+How close the realised fraction of hits is to the coverage the formula claims, and which formulas fail to have the coverage printed on them. The population, the interval, the sample size, the level, and the number of repetitions are the controls. For a proportion, the second panel is not another simulation: it is the exact coverage at every $p$.
+
+## Predict first
+
+The page opens on $40$ samples of size $10$ from a normal distribution with mean $10$ and standard deviation $2$, each with a $95\%$ $t$ interval. Before looking, predict how many miss $10$. Then predict what happens to that long-run fraction if the same samples are summarised with a normal quantile instead of a $t$ quantile. The samples do not change. The critical value does.
+
+## The model these controls change
+
+For a normal sample with unknown variance, $\sqrt n\,(\overline X-\mu)/s$ has a Student $t$ distribution on $n-1$ degrees of freedom. The interval
+
+$$
+\overline X\pm t_{n-1;\,1-\alpha/2}\,\frac{s}{\sqrt n}
+$$
+
+therefore covers $\mu$ with probability exactly $1-\alpha$. Replacing the $t$ quantile by the standard normal quantile $z_{1-\alpha/2}$ does not. The statistic is still $t_{n-1}$, so the coverage is
+
+$$
+2\,F_{t,\,n-1}(z_{1-\alpha/2})-1,
+$$
+
+which is less than $1-\alpha$ for every finite $n$. At $n=2$ a nominal $95\%$ interval of this sort covers only about $70\%$ of the time. The page calls that rule **z with s**. It is the small-sample habit of quoting $\overline x\pm 1.96\,s/\sqrt n$.
+
+The same two formulas are applied to exponential draws with mean $2$, where $\sqrt n\,(\overline X-\mu)/s$ is not $t$. There the coverage is not a formula. The horizontal line is a Monte Carlo estimate from $20{,}000$ repetitions at a fixed seed, with its standard error. It is labelled as Monte Carlo.
+
+For $X\sim\mathrm{Bin}(n,p)$ and $\widehat p=X/n$, the Wald interval is
+
+$$
+\widehat p\pm z_{1-\alpha/2}\sqrt{\widehat p(1-\widehat p)/n}.
+$$
+
+At $\widehat p=0$ or $1$ the estimated standard error is $0$ and the interval collapses to a point. The Wilson interval keeps $p$ inside the standard error and solves the resulting quadratic,
+
+$$
+\frac{\widehat p+z^{2}/(2n)\pm z\sqrt{\widehat p(1-\widehat p)/n+z^{2}/(4n^{2})}}{1+z^{2}/n}.
+$$
+
+It does not collapse at the boundary. Because $X$ is discrete, the coverage at a fixed $p$ is an exact finite sum: add $\Pr(X=x)$ over those $x$ whose interval contains $p$. An endpoint counts as a hit. That sum, plotted against $p$, is the sawtooth. The stated level is a horizontal line the sawtooth does not follow, especially near $0$ and $1$ and at small $n$.
+
+**100 more** appends intervals to the ones already drawn. The seed, the sample size, and the population fix the sequence; the count is a prefix of it. Changing the interval or the level recomputes the endpoints and does not redraw the samples. Changing $p$ does redraw a proportion, because each yes-or-no draw is a comparison with $p$. The generator is not R's.
+
+```{=html}
+<div data-lab-page hidden></div>
+<div id="ci-coverage-lab"></div>
+<script type="module">
+const meta = document.querySelector('meta[name="quarto:offset"]');
+const offset = meta ? meta.getAttribute("content") : "./";
+const root = document.getElementById("ci-coverage-lab");
+try {
+  const mod = await import(new URL(offset + "labs/ci-coverage.js", document.baseURI).href);
+  mod.mount(root);
+} catch (error) {
+  root.textContent = "The laboratory did not load. " + (error && error.message ? error.message : String(error));
+}
+</script>
+```
+
+## What the picture is showing
+
+Panel A stacks the intervals. A miss is in the contrasting colour. Nothing about an interval's own width says whether it is a miss: a short interval can cover and a long one can miss. The truth is the vertical line.
+
+Panel B, for a mean, is the running fraction of hits. Under normality the $t$ interval's reference line is the stated level. The **z with s** line sits below it. The shaded band is a normal approximation to the sampling distribution of that running fraction, $\widehat c\pm z\sqrt{c(1-c)/m}$, using the formula's coverage $c$ rather than the fraction itself. It is a guide to how far $m$ intervals are allowed to wander. It is not a confidence interval for a parameter, and it can fall outside $[0,1]$.
+
+For a proportion, panel B drops the simulation and draws the exact coverage of Wald and of Wilson against $p$. The dot is the $p$ on the slider. Wald's coverage falls well below the stated level for $p$ near $0$ or $1$. Wilson tracks the stated level more closely and still wiggles, because the binomial distribution is discrete.
+
+The exponential sample uses the normal-theory intervals in a place they were not derived for. The Monte Carlo line is the check, and it will not sit exactly on $95\%$.
+
+## Where this fails
+
+The coverage belongs to the procedure. After a particular sample, the interval contains $\mu$ or it does not; the $95\%$ is not a posterior probability for that interval. A $t$ interval has coverage $1-\alpha$ when the observations are independent and normal. It does not, in general, when they are exponential, and the page's Monte Carlo is there to make that visible. A sample of size $1$ has no $s$ with divisor $n-1$, so a mean interval is refused.
+
+Wald's normal approximation is a large-sample statement. At small $n$, or at a $p$ near the boundary, the exact sum is the coverage, and it is not the stated level. Quoting the interval anyway does not restore the missing probability. Wilson repairs the boundary collapse and improves the coverage; it is still an approximation to a discrete problem, not an identity.
+
+The band on the running fraction treats the hits as independent Bernoulli trials. They are, for independent samples. It says nothing about one interval. If the inputs are not a usable sample size, level, probability, or seed, the figure says so and does not draw intervals.
+
+## On the theory page
+
+- The [definition of a confidence interval](../notes/inf-03-confidence-intervals.qmd#def-confidence-interval), and the distinction between the random interval and the numbers computed from one sample.
+- The [one-sample $t$ pivot](../notes/inf-03-confidence-intervals.qmd#thm-one-sample-t) and the [Wald interval](../notes/inf-03-confidence-intervals.qmd#def-wald-interval) for a proportion.

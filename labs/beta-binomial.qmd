@@ -1,0 +1,80 @@
+---
+title: "Beta–Binomial laboratory"
+description: "Update a Beta prior with coin tosses and compare the posterior predictive distribution with a plug-in binomial."
+---
+
+A coin lands heads with unknown probability $\theta$. Before any tosses, a Beta distribution states that belief. After $x$ heads in $n$ tosses the belief is another Beta distribution, and that distribution — not a single number plugged in for $\theta$ — is what predicts the next run of tosses.
+
+## What this page investigates
+
+How the prior and the sample share the posterior mean, and how much wider a prediction is when $\theta$ is still unknown. The prior shapes, the tosses, and the length of the future run are the controls. The true $\theta$ is drawn on the figure so the posterior can be compared with the coin that actually produced the tosses. The posterior does not use that true value. Only the prediction check does.
+
+## Predict first
+
+The page opens on a $\mathrm{Beta}(5,5)$ prior and $3$ heads in $10$ tosses. Before moving anything, decide whether the posterior should sit closer to $1/2$ or to $3/10$, and whether five future tosses should be more spread out under the posterior predictive distribution than under a binomial that fixes $\theta$ at the posterior mean.
+
+## The model these controls change
+
+The prior is $\theta\sim\mathrm{Beta}(\alpha,\beta)$, with density proportional to $\theta^{\alpha-1}(1-\theta)^{\beta-1}$ on $(0,1)$. The mean is $\alpha/(\alpha+\beta)$. The likelihood of $x$ heads in $n$ independent tosses is proportional to $\theta^{x}(1-\theta)^{n-x}$. Multiplying and recognising the Beta integral gives the posterior
+
+$$
+\theta\mid x\sim\mathrm{Beta}(\alpha+x,\ \beta+n-x).
+$$
+
+The posterior mean is a weighted average of the prior mean and the sample proportion. The weight on the prior is the prior's count of tosses, $\alpha+\beta$, as a share of all the counts:
+
+$$
+\mathbb{E}(\theta\mid x)
+=\frac{\alpha+\beta}{\alpha+\beta+n}\cdot\frac{\alpha}{\alpha+\beta}
++\frac{n}{\alpha+\beta+n}\cdot\frac{x}{n}.
+$$
+
+With no tosses the weight is $1$ and the posterior is the prior. There is then no sample proportion to draw.
+
+The curve labelled as the scaled likelihood is $\theta^{x}(1-\theta)^{n-x}$ renormalised so that it integrates to $1$. That is the $\mathrm{Beta}(x+1, n-x+1)$ density: the posterior a uniform prior would have produced. Scaling puts it on the same axis as the prior and the posterior. It is not the likelihood function itself, which need not integrate to $1$.
+
+For $m$ future tosses, the number of heads $K$ has the beta–binomial probabilities
+
+$$
+\Pr(K=k\mid x)
+=\binom{m}{k}\frac{B(k+\alpha+x,\ m-k+\beta+n-x)}{B(\alpha+x,\ \beta+n-x)}.
+$$
+
+Its variance is larger than the binomial variance at the posterior mean, because that binomial pretends the mean is the true $\theta$. The shaded band on the density is the equal-tailed $95\%$ interval of the posterior. An unbounded density, which happens when a shape is below $1$, is clipped to the axis and the note under the figure says so.
+
+The presets are the three priors compared on the theory page: $\mathrm{Beta}(5,5)$, concentrated near $1/2$; $\mathrm{Beta}(1,1)$, uniform; and $\mathrm{Beta}(0.6,0.6)$, with extra weight near $0$ and $1$. **Toss 10** draws from the true probability on the slider. Toss $i$ of a seed is the same draw however the tosses are batched. **+ head** and **+ tail** are edits, not draws from that sequence. The generator is not R's. A seed reproduces this page, not an R session.
+
+```{=html}
+<div data-lab-page hidden></div>
+<div id="beta-binomial-lab"></div>
+<script type="module">
+const meta = document.querySelector('meta[name="quarto:offset"]');
+const offset = meta ? meta.getAttribute("content") : "./";
+const root = document.getElementById("beta-binomial-lab");
+try {
+  const mod = await import(new URL(offset + "labs/beta-binomial.js", document.baseURI).href);
+  mod.mount(root);
+} catch (error) {
+  root.textContent = "The laboratory did not load. " + (error && error.message ? error.message : String(error));
+}
+</script>
+```
+
+## What the picture is showing
+
+Panel A is prior against data. A strong prior, large $\alpha+\beta$ relative to $n$, keeps the posterior near the prior. A long run of tosses, the same observed proportion $x/n$, pulls all three presets toward that proportion: the disagreement was about small samples. The vertical line at $x/n$ is the data. The line at the true probability is the coin. They meet only when the sample happens to match the coin.
+
+Panel B is the cost of pretending $\theta$ is known. The posterior predictive bars spread wider than the plug-in binomial. The readout gives both variances. For one future toss the predictive probability of heads is the posterior mean; the variance gap shows up once $m>1$, and it shrinks as the posterior itself concentrates.
+
+## Where this fails
+
+The update is conjugate: the likelihood has to be binomial and the prior has to be Beta, or the posterior is not the Beta named in the readout. A prior that is not Beta can still be updated; the integral then has to be done another way. The two pseudo-count stories are easy to mix. $\alpha$ and $\beta$ are the counts in the posterior mean. The mode, when both shapes exceed $1$, uses $\alpha-1$ and $\beta-1$. The page reports both, and it reports that a flat density has every point as a mode and that a density unbounded at both ends has none.
+
+The $95\%$ band is a posterior interval. It is not a confidence interval, and it is not a probability that a fixed $\theta$ lies in a random interval. The true $\theta$ on the slider is there so the picture has something to miss. After the tosses are observed, the posterior interval either contains that number or it does not.
+
+If a shape, a count, or the seed is not a usable number, the figure says so and does not draw a curve. The shapes on this page run from $0.1$ to $200$, and the tosses stop at $1000$.
+
+## On the theory page
+
+- [Beta–Binomial conjugacy](../notes/bayes-02-beta-binomial.qmd#prp-beta-binomial-conjugacy) and the [prior-sensitivity calculation](../notes/bayes-02-beta-binomial.qmd#s-worked-prior-sensitivity-calculation) with these three priors.
+- [Beta–Binomial posterior prediction](../notes/bayes-02-beta-binomial.qmd#prp-beta-binomial-posterior-prediction), including the variance comparison for a future run of tosses.

@@ -1,0 +1,32 @@
+---
+title: "Laboratories"
+description: "Slider-driven figures for a kernel density estimate, a Beta–Binomial update, a finite Markov chain, and the coverage of a confidence interval."
+---
+
+A laboratory on this site is a figure with the population known, so the error is visible. The controls change one piece of a model. Where a formula exists, the figure uses it. A simulation or a normal approximation is labelled as one.
+
+The kernel density page came first. The other three are the same idea for a prior, a transition matrix, and a confidence interval.
+
+## Kernel density
+
+A Gaussian kernel turns a sample into a density. The bandwidth $h$ is the choice. A small $h$ leaves a bump on the observations: high variance, low bias. A large $h$ washes the modes out. The page keeps the sample still and moves $h$, and it plots that sample's integrated squared error against the mean integrated squared error of a sample of the same size. The estimate does not use the true density. Both errors do.
+
+[Open the kernel density laboratory](kernel-density.qmd).
+
+## Beta–Binomial updating
+
+A coin has unknown heads probability $\theta$, and the prior is a Beta distribution. After $x$ heads in $n$ tosses the posterior is $\mathrm{Beta}(\alpha+x,\beta+n-x)$. The posterior mean is a weighted average of the prior mean and $x/n$, with weight $(\alpha+\beta)/(\alpha+\beta+n)$ on the prior. Future tosses are predicted by the beta–binomial average over that posterior, which is wider than a binomial that fixes $\theta$ at the posterior mean.
+
+[Open the Beta–Binomial laboratory](beta-binomial.qmd).
+
+## A Markov chain
+
+On a finite set of states the whole process is a transition matrix $P$. From a chosen start, the distribution after $t$ steps is the corresponding row of $P^{t}$. A stationary distribution satisfies $\pi=\pi P$. When the chain is one closed aperiodic class, every start forgets itself and $P^{t}$ settles on $\pi$. A periodic chain can have a stationary distribution while $P^{t}$ keeps oscillating. Two closed classes mean two stationary distributions, and one path's time average follows the class the path happens to enter.
+
+[Open the Markov chain laboratory](markov-chain.qmd).
+
+## Coverage of a confidence interval
+
+The confidence is the probability, before the sample is drawn, that the random interval contains the parameter. This page draws the interval repeatedly from a known population and marks the misses. For a normal sample the $t$ interval hits with probability exactly equal to the stated level. Using a normal quantile with the sample standard deviation $s$ hits less often. For a proportion, the exact coverage of the Wald and Wilson intervals is a sum over the binomial distribution, and Wald's sum falls away from the stated level when the probability is near $0$ or $1$.
+
+[Open the confidence interval laboratory](ci-coverage.qmd).

@@ -118,6 +118,8 @@ The update is "prior successes plus observed successes" and "prior failures plus
 
 :::
 
+The [Beta–Binomial laboratory](../labs/beta-binomial.qmd) puts this update on sliders: the prior shapes, the tosses, and the probability of heads in future tosses.
+
 ## Worked prior-sensitivity calculation
 
 For $n=10$ tosses and $x=3$ heads, these three priors give \begin{align*}

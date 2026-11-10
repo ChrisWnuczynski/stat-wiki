@@ -1,0 +1,13 @@
+{
+  "name": "statwiki-webr",
+  "private": true,
+  "type": "module",
+  "description": "Runnable R blocks on the Using R pages, and the check that runs every block in webR.",
+  "scripts": {
+    "test": "node --test packages.test.mjs runner.test.mjs",
+    "check": "node check-blocks.mjs"
+  },
+  "devDependencies": {
+    "webr": "0.6.0"
+  }
+}

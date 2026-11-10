@@ -1,0 +1,77 @@
+---
+title: "Markov chain laboratory"
+description: "Run a finite Markov chain: the distribution after each step, one simulated path, and the fraction of time spent in each state."
+---
+
+A Markov chain on a finite set of states is a transition matrix. The next state is drawn from the row for the current state, and from nothing earlier. Powers of the matrix give the distribution after many steps. One long path spends, in the limit, the same fraction of time in each state as that distribution — when the chain cannot get trapped, and with a qualification when it is periodic.
+
+## What this page investigates
+
+What it takes for the distribution to forget its start, and how that differs from the time average along one path. The matrix, the starting state, the number of steps, and the seed of the path are the controls. Five presets are loaded, and any entry can be edited. A row that does not sum to $1$ is not a transition distribution; the figure then says so instead of inventing a path.
+
+## Predict first
+
+The page opens on the six stepping stones, started at stone $1$. Before running it further, predict whether the probability of each stone is still moving at step $60$, and whether one simulated path's occupation fractions lie on top of those probabilities. Then switch to the two-cycle and predict again: the chain still has a stationary distribution, but the distribution after $t$ steps does not settle.
+
+## The model these controls change
+
+Number the states $1,\ldots,k$, with $k$ from $2$ to $6$. The entry $P_{ij}$ is the probability of moving from $i$ to $j$. Each row is non-negative and sums to $1$. From a start $i$, the distribution after $t$ steps is row $i$ of $P^{t}$, written $\pi^{(0)}P^{t}$ when $\pi^{(0)}$ is a point mass at $i$. The page multiplies by $P$ once per step. It does not approximate that product.
+
+A probability vector $\pi$ is stationary when $\pi=\pi P$. On a finite set there is one such vector for each closed class, with zeros on the other states. The vector is unique when there is exactly one closed class. States communicate when each can be reached from the other. A class is closed when the chain cannot leave it. The period of a class is the greatest common divisor of the return times; the page computes it as the gcd of $\mathrm{level}(u)+1-\mathrm{level}(v)$ over the edges inside the class. Period $0$ means the class has no edge to itself: a transient state that leaves and does not return.
+
+If every closed class has period $1$, $P^{t}$ settles. The dashed lines are that limit from the chosen start. With one closed class the limit is the unique stationary distribution, from every start. With several, the limit is the mixture of their stationary distributions weighted by the chance of being absorbed in each, and a single path is absorbed in only one of them. Its occupation fraction follows the class it hits, not the mixture. That is why the readout can say the stationary distribution is not unique while the dashed lines, which are the average over paths, still settle.
+
+The total variation distance between two distributions on these states is half the sum of absolute differences. It is $0$ when they agree and $1$ when they put their mass on disjoint sets. The readout gives it for the exact distribution and for the path's occupation, both compared with the long-run distribution from this start.
+
+One step of the path is the inverse-transform draw from the current row, using this page's generator. It is not R's generator. A seed reproduces the path. The path picture shows the first $120$ steps when more than that are requested; the distribution and the distances use every step.
+
+**Normalise rows** divides each row by its sum. A row of zeros cannot be rescaled. The exercise chain on three states with rows $(1/2,1/2,0)$, $(1/4,1/2,1/4)$ and $(0,1/2,1/2)$ is not one of the presets.
+
+```{=html}
+<div data-lab-page hidden></div>
+<div id="markov-chain-lab"></div>
+<script type="module">
+const meta = document.querySelector('meta[name="quarto:offset"]');
+const offset = meta ? meta.getAttribute("content") : "./";
+const root = document.getElementById("markov-chain-lab");
+try {
+  const mod = await import(new URL(offset + "labs/markov-chain.js", document.baseURI).href);
+  mod.mount(root);
+} catch (error) {
+  root.textContent = "The laboratory did not load. " + (error && error.message ? error.message : String(error));
+}
+</script>
+```
+
+## What the picture is showing
+
+The stepping stones are one closed class of period $1$. From stone $1$, two steps give $(1/6, 0, 1/6, 1/6, 0, 1/2)$. The stationary distribution is $(12, 4, 20, 25, 22, 36)/119$. By a few dozen steps the solid lines have met the dashed lines, whatever the start. The path's dotted occupation is noisier and approaches the same place.
+
+The weather chain has the same character on two states, dry then wet, with
+
+$$
+P=\begin{pmatrix}0.8&0.2\\0.4&0.6\end{pmatrix},
+\qquad
+\pi=(2/3,\ 1/3).
+$$
+
+The influence of the start shrinks by $0.4$ at every step. Two days after a wet day, the probability of dry is $0.56$.
+
+The two-cycle swaps states at every step. $\pi=(1/2,1/2)$ is stationary, and the occupation fraction converges to it, but $P^{t}$ oscillates and the total variation of the distribution stays at $1/2$. Period $2$ is why a stationary distribution is not yet a limiting distribution.
+
+The sticky chain stays put with probability $0.96$. It is irreducible and aperiodic, with uniform stationary distribution, and after a few dozen steps it has barely started to forget where it began.
+
+The last preset starts outside two closed classes and then falls into one of them. The exact distribution becomes the $50$–$50$ mixture of their stationary distributions. One path does not. Its time average depends on which class it entered.
+
+## Where this fails
+
+The argument is for a finite set of states. A walk on the integers can be Markov and still have no stationary probability vector. Editing a row so that it fails to sum to $1$, or clearing a cell, leaves the matrix short of a transition law; the page will not repair it silently. **Normalise rows** is the repair, and it refuses a row of zeros.
+
+A unique stationary distribution does not imply that $P^{t}$ converges. The two-cycle is the counter-example, and any period above $1$ is the same phenomenon. Several closed classes mean several stationary distributions. The long-run behaviour from a start is then one of them, chosen by where the chain is absorbed, not a single vector read off the matrix alone.
+
+The distances are exact for the distribution and are one path for the occupation. A different seed is a different path. It is not a standard error for $\pi$.
+
+## On the theory page
+
+- The [limiting distribution](../notes/prob-06-markov-chains.qmd#thm-limiting-distribution): one stationary vector, and $P^{t}$ converging to it, when the finite chain is irreducible and aperiodic.
+- The [six stepping stones](../notes/prob-06-markov-chains.qmd#exm-six-stepping-stones) and the [two-state weather chain](../notes/prob-06-markov-chains.qmd#exm-a-two-state-weather-chain).

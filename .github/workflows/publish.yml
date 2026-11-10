@@ -44,8 +44,11 @@ jobs:
         with:
           node-version: 22
 
-      - name: Check the kernel density module
-        run: node --test labs/kde-math.test.mjs
+      - name: Check the laboratory modules
+        run: node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs
+
+      - name: Check the R runner
+        run: node --test webr/packages.test.mjs webr/runner.test.mjs
 
       # The Ask StatWiki launcher and chat, served from ask/widget/dist.
       - name: Build the Ask widget
@@ -147,6 +150,24 @@ jobs:
               }
             }
             core.setFailed(`GitHub Pages deployment ${id} was still ${status ? '"' + status + '"' : 'without a status'} after ${waitMinutes} minutes. It was left running so a sync in progress can finish.`);
+
+  # Pull requests only. The maths modules and the R runner do not need a browser
+  # or an install: they import local files.
+  labs:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check the laboratory modules and the R runner
+        run: |
+          node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs
+          node --test webr/packages.test.mjs webr/runner.test.mjs
 
   # Pull requests only. Poppler converts figures and Quarto supplies pandoc.
   # This job does not render the site and does not deploy it.

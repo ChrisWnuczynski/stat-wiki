@@ -90,6 +90,8 @@ The vector $\boldsymbol\pi$ is the distribution that is unchanged by one more st
 
 On a small state space the linear system $(P^\top-I)\boldsymbol\pi^\top=\mathbf{0}$ is solved directly, and the solution is scaled so that its entries sum to $1$. A null-space routine does the same arithmetic. For the stepping stones this is the vector found above.
 
+The [Markov chain laboratory](../labs/markov-chain.qmd) starts from one state and shows $\pi^{(0)}P^{t}$ beside a single simulated path and the fraction of time spent in each state.
+
 ::: {#exm-a-two-state-weather-chain .example}
 ## A two-state weather chain
 

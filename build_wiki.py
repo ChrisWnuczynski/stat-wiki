@@ -9,6 +9,7 @@ two steps (build, then quarto render) on every push and publishes the result.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import struct
@@ -1272,7 +1273,7 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
-  var section = /\\/labs\\//.test(here) ? "labs/kernel-density.html"
+  var section = /\\/labs\\//.test(here) ? "labs/index.html"
     : /\\/notes\\//.test(here) ? "notes/index.html"
     : /\\/questions\\//.test(here) ? "questions/index.html"
     : /\\/reference\\/glossary|\\/articles\\//.test(here) ? "reference/glossary.html"
@@ -3624,6 +3625,53 @@ ASK_JS = """
 """
 
 
+# Run R in the browser on the Using R pages. This loader is on every page. It
+# imports webr/runner.js only on a page of these parts that has an R block,
+# and R itself downloads only when a reader presses Run. See webr/README.md.
+RUNNABLE_PARTS = ("Using R",)
+WEBR_FILES = ["runner.js", "engine.js", "session.js", "packages.js", "version.js"]
+LAB_JS = [
+    "lab-chrome.js",
+    "svg-chart.js",
+    "stat-math.js",
+    "kde-math.js",
+    "beta-binomial-math.js",
+    "beta-binomial.js",
+    "markov-math.js",
+    "markov-chain.js",
+    "coverage-math.js",
+    "ci-coverage.js",
+]
+WEBR_JS = """
+<script>
+(function () {
+  var pages = __RUNNABLE__;
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+  var offset = meta ? meta.getAttribute("content") : "./";
+  var root = new URL(offset, location.href).pathname;
+  var here = location.pathname.slice(root.length).replace(/\\.html$/, "");
+  if (pages.indexOf(here) < 0 || !document.querySelector("pre.sourceCode.r")) return;
+  var start = function () {
+    import(new URL(offset + "webr/runner.js", location.href).href).then(function (m) { m.install(); });
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+})();
+</script>
+"""
+
+
+def runnable_pages() -> list[str]:
+    """Site paths, without .html, of the pages whose R blocks get Run buttons."""
+    return [
+        f"notes/{Path(filename).stem}"
+        for part, files in PARTS
+        if part in RUNNABLE_PARTS
+        for filename, kind in files
+        if kind == "notes"
+    ]
+
+
 # Every figure opens its file page, as an image does on Wikipedia. The file
 # page itself links its image to the full PNG instead.
 FILE_LINK_JS = """
@@ -3674,7 +3722,8 @@ def write_config(chapters, final_notes, questions) -> None:
         RANDOM_AND_FILTER_JS.replace("__QUESTIONS__", "[" + ",".join(f'"{p}"' for p in question_paths) + "]")
         + PREVIEW_JS
         + FILE_LINK_JS
-        + ASK_JS,
+        + ASK_JS
+        + WEBR_JS.replace("__RUNNABLE__", json.dumps(runnable_pages())),
         encoding="utf-8",
     )
 
@@ -3707,8 +3756,8 @@ def write_config(chapters, final_notes, questions) -> None:
     - figures/*.tex
     - figures/*.py
     - figures/*-full.png
-    - labs/kde-math.js
-    - labs/lab-chrome.js
+{chr(10).join(f"    - labs/{name}" for name in LAB_JS)}
+{chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - {SHARE_IMAGE}
     - wiki.json
@@ -3751,7 +3800,7 @@ website:
       - text: Reference
         href: reference/index.qmd
       - text: Laboratories
-        href: labs/kernel-density.qmd
+        href: labs/index.qmd
       - text: Random question
         href: index.qmd#random
   sidebar:
@@ -3763,9 +3812,18 @@ website:
       - text: Random question
         href: index.qmd#random
       - section: Laboratories
+        href: labs/index.qmd
         contents:
+          - text: All laboratories
+            href: labs/index.qmd
           - text: Kernel density estimation
             href: labs/kernel-density.qmd
+          - text: Beta–Binomial updating
+            href: labs/beta-binomial.qmd
+          - text: A Markov chain
+            href: labs/markov-chain.qmd
+          - text: Interval coverage
+            href: labs/ci-coverage.qmd
       - section: Topics
         href: notes/index.qmd
         contents:

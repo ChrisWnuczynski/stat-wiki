@@ -19,6 +19,8 @@ On every push to `main`, the publish workflow runs both steps and publishes the 
 | Colours, fonts and dark mode | `styles.css` |
 | The browser-tab icon | `favicon.ico` (16 to 128 px) |
 | The Ask StatWiki chat | `ask/widget` for the chat on the pages, `ask/worker` for the server at `ask.statwiki.io`. See `ask/README.md`. |
+| R in the browser | `webr/`. Which pages get Run buttons is `RUNNABLE_PARTS` in `build_wiki.py`. See `webr/README.md`. |
+| Laboratories | `labs/`. Kernel density, Beta–Binomial updating, a Markov chain, and confidence-interval coverage. The navigation is written in `build_wiki.py`. |
 | Figures for the probability, inference and data analysis chapters | `make_figures.py` in `sources/stat2003/figures`, `sources/stat2004/figures` or `sources/stat1301/figures`, then commit the PDFs it writes. A `.tex` file beside a PDF is its TikZ source. |
 | Data behind the data analysis figures | `sources/stat1301/data` (heart-failure records and `birthwt`) |
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laboratory fixture</title>
+  <style>
+    body { margin: 0; font: 16px/1.4 sans-serif; background: #fff; color: #202122; }
+    body.quarto-dark { background: #101418; color: #eaecf0; }
+    main { padding: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <div id="beta"></div>
+  <div id="markov"></div>
+  <div id="coverage"></div>
+</main>
+<script type="module">
+  const beta = await import("../beta-binomial.js");
+  const markov = await import("../markov-chain.js");
+  const coverage = await import("../ci-coverage.js");
+  beta.mount(document.getElementById("beta"));
+  markov.mount(document.getElementById("markov"));
+  coverage.mount(document.getElementById("coverage"));
+</script>
+</body>
+</html>
