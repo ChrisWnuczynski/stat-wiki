@@ -40,8 +40,19 @@ jobs:
         with:
           version: 1.6.40
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Check the kernel density module
         run: node --test labs/kde-math.test.mjs
+
+      # The Ask StatWiki launcher and chat, served from ask/widget/dist.
+      - name: Build the Ask widget
+        working-directory: ask/widget
+        run: |
+          npm ci
+          npm run build
 
       - name: Write the wiki pages
         run: python build_wiki.py
@@ -165,3 +176,32 @@ jobs:
 
       - name: Test the graph
         run: python -m unittest test_wiki_graph.py
+
+  # Pull requests only: the Ask worker and harness tests, and the chat widget's
+  # type check, unit tests and browser tests against a stand-in Worker.
+  ask:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test the Ask worker and harness
+        working-directory: ask
+        run: |
+          npm ci
+          npm test
+
+      - name: Test the Ask widget
+        working-directory: ask/widget
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+          npm test
+          npx playwright install --with-deps chromium
+          npm run e2e

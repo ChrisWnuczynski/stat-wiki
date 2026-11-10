@@ -24,6 +24,8 @@ __pycache__/
 /.claude/
 /ask/node_modules/
 /ask/worker/node_modules/
+/ask/widget/node_modules/
+/ask/widget/dist/
 /ask/worker/.cloudflare/
 /ask/worker/.dev.vars
 /ask/worker/.wrangler/

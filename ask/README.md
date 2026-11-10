@@ -1,6 +1,6 @@
 # Ask
 
-`ask/core` chunks entries, builds the prompt, maps citation numbers to entry URLs, and calls Workers AI, Vectorize, and KV. `ask/harness` embeds `wiki.json`, scores retrieval, and checks the answers and the misuse handling. `ask/worker` is the streaming `POST /ask` endpoint at `https://ask.statwiki.io`.
+`ask/core` chunks entries, builds the prompt, maps citation numbers to entry URLs, and calls Workers AI, Vectorize, and KV. `ask/harness` embeds `wiki.json`, scores retrieval, and checks the answers and the misuse handling. `ask/worker` is the streaming `POST /ask` endpoint at `https://ask.statwiki.io`. `ask/widget` is the chat on the site's pages.
 
 ## The Worker
 
@@ -29,3 +29,21 @@ node --experimental-strip-types harness/misuse-check.ts
 - `run.ts` scores retrieval only. `--all` scores dev, calibrates the coverage threshold, then scores the held-out split once.
 - `answers.ts` answers the dev questions with the Worker's retrieval, prompt and limits, then a judge grades each answer against the worked answer. `--modes closed,open` picks the modes; closed removes the question's own worked answer from retrieval. A model can carry a thinking level, as in `grok-4.7@low`. Every answer is saved, and the report flags worked answers the judge doubted.
 - `misuse-check.ts` sends every misuse prompt through the Worker's own handler with the real index and model, saves each reply, and has the judge decide whether model-written replies were acceptable. `misuse-new.jsonl` holds prompts the threshold was not tuned on.
+
+## The widget
+
+`ask/widget` builds two files into `ask/widget/dist`, which the site ships as a resource. `loader.js` (under 4 KB) is on every page and adds the Ask StatWiki button; it shows only on `statwiki.io`. `app.js` (React, Markdown, the reading panel) loads when the chat is opened. Maths uses the site's own KaTeX from `/katex/`.
+
+- The browser check (Turnstile) runs when someone first asks, not on page load. The session lasts 12 hours and is kept in the browser.
+- Model text is rendered with raw HTML off and sanitised: no links, images or scripts from the model. Citation numbers become buttons only for numbers the Worker returned.
+- A citation opens the cited block in a panel beside the chat. The conversation, the panel and whether the chat is open are kept in the browser, so they follow the reader to the next page. An answer cut off by a page change offers Try again.
+
+```
+cd widget
+npm ci
+npm run build
+npm test
+npm run e2e
+```
+
+`npm run e2e` runs the browser tests against `test/server.mjs`, which serves fixture pages, the built widget and a stand-in Worker.
