@@ -257,8 +257,14 @@ class WikiGraphTests(unittest.TestCase):
     def test_identical_bodies_keep_both_anchors(self) -> None:
         _root, document = self._document()
         by_id = {item["id"]: item for item in document["entries"]}
-        self.assertEqual(by_id["example:exm-a"]["text"], by_id["example:exm-b"]["text"])
-        self.assertNotEqual(by_id["example:exm-a"]["id"], by_id["example:exm-b"]["id"])
+        kept, copied = by_id["example:exm-a"], by_id["example:exm-b"]
+        self.assertEqual(kept["text"], "Same.")
+        self.assertNotIn("text", copied)
+        self.assertEqual(copied["copy_of"], kept["id"])
+        self.assertNotEqual(kept["id"], copied["id"])
+        self.assertTrue(kept["url"].endswith("#exm-a"))
+        self.assertTrue(copied["url"].endswith("#exm-b"))
+        self.assertTrue(any(edge["from"] == copied["id"] for edge in document["edges"]))
 
     def test_edited_answer_keeps_id_and_worked_answer_url(self) -> None:
         _root, first = self._document("Because.")
@@ -268,7 +274,7 @@ class WikiGraphTests(unittest.TestCase):
         self.assertEqual(before["id"], "answer:question:ex-a")
         self.assertEqual(after["id"], before["id"])
         self.assertEqual(after["url"], before["url"])
-        self.assertTrue(after["url"].endswith("/questions/ex-a.qmd#worked-answer"))
+        self.assertTrue(after["url"].endswith("/questions/ex-a.html#worked-answer"))
         self.assertNotEqual(before["fingerprint"], after["fingerprint"])
         self.assertEqual(first["aliases"]["answer:sol-a"], before["id"])
 
@@ -292,29 +298,105 @@ class WikiGraphTests(unittest.TestCase):
     def test_urls_question_pages_and_terms_heading(self) -> None:
         root, document = self._document()
         ids = {item["id"] for item in document["entries"]}
+        self.assertEqual(document["version"], 2)
         self.assertEqual([item["id"] for item in document["entries"]], sorted(ids))
+        carried = []
         for item in document["entries"]:
-            self.assertEqual(set(item), {"id", "kind", "title", "text", "url", "fingerprint"})
+            self.assertTrue({"id", "kind", "title", "url", "fingerprint"} <= set(item), item)
+            self.assertFalse(".qmd" in item["url"], item["url"])
+            if "copy_of" in item:
+                self.assertNotIn("text", item)
+                self.assertIn(item["copy_of"], ids)
+            else:
+                self.assertIn("text", item)
+                if item["text"]:
+                    carried.append(item["text"])
             url = item["url"]
             self.assertTrue(url.startswith("/"), url)
             path, _, fragment = url.partition("#")
             file = root / path.lstrip("/")
+            if path.endswith(".html"):
+                file = file.with_suffix(".qmd")
             self.assertTrue(file.is_file(), url)
             if fragment:
                 self.assertRegex(file.read_text(encoding="utf-8"), rf"#{fragment}(?![A-Za-z0-9_-])")
+        self.assertEqual(len(carried), len(set(carried)))
         question_urls = {item["url"] for item in document["entries"] if item["kind"] == "question"}
-        self.assertIn("/questions/ex-a.qmd", question_urls)
-        self.assertIn("/questions/q-01.qmd", question_urls)
+        self.assertIn("/questions/ex-a.html", question_urls)
+        self.assertIn("/questions/q-01.html", question_urls)
         target = f"section:{Path(CHAPTER).stem}:{ANCHOR}"
         self.assertIn(target, ids)
         self.assertTrue(any(edge["type"] == "defines" and edge["to"] == target for edge in document["edges"]))
         self.assertTrue(all(edge["from"] in ids and edge["to"] in ids for edge in document["edges"]))
         practice = next(item for item in document["entries"] if item["id"] == PRACTICE_LABEL)
-        self.assertEqual(practice["url"], "/questions/q-01.qmd")
+        self.assertEqual(practice["url"], "/questions/q-01.html")
+        figure = next(item for item in document["entries"] if item["kind"] == "figure")
+        self.assertEqual(figure["url"], "/figures/plot.png")
         for item in document["entries"]:
             self.assertNotIn("GitHub", item["id"])
             self.assertNotRegex(item["id"], r"STAT\d")
             self.assertNotRegex(item["url"], r"STAT\d")
+
+    def test_chat_source_keeps_one_cleaned_copy(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        kwargs = _world(root)
+        shared = (
+            "See [joint density](../articles/x.qmd){.term}.\n\n"
+            "![A cloud](../figures/plot.png){width=80%}\n\n"
+            "A note.[^n]\n\n"
+            "[^n]: The note text.\n\n"
+            "::: {.callout}\n"
+            "Inside $\\vect{\\beta}$.\n"
+            ":::\n"
+        )
+        kwargs["notes"][CHAPTER]["title"] = r"Means \given data"
+        kwargs["notes"][CHAPTER]["prose"] = (
+            "Opening $\\xvec\\given\\theta$.\n\n"
+            "## Later {#later}\n\n"
+            "Section body that must stay out of the chapter.\n"
+        )
+        kwargs["sections"][(CHAPTER, ANCHOR)] = shared
+        article = kwargs["articles"]["glm"]
+        article["box"]["lines"] = [shared]
+        article["card"] = None
+        document = wiki_graph.build_document(**kwargs)
+        by_id = {item["id"]: item for item in document["entries"]}
+        section_id = f"section:{Path(CHAPTER).stem}:{ANCHOR}"
+        section = by_id[section_id]
+        chapter = by_id[f"chapter:{Path(CHAPTER).stem}"]
+        self.assertEqual(chapter["title"], r"Means \mid data")
+        self.assertIn(r"${\boldsymbol{x}}\mid\theta$", chapter["text"])
+        self.assertNotIn("Section body that must stay out of the chapter.", chapter["text"])
+        self.assertNotIn(section["text"], chapter["text"])
+        self.assertNotIn("text", by_id["article:glm"])
+        self.assertEqual(by_id["article:glm"]["copy_of"], section_id)
+        self.assertNotIn("text", by_id["definition:def-glm"])
+        self.assertEqual(by_id["definition:def-glm"]["copy_of"], section_id)
+        self.assertIn("joint density", section["text"])
+        self.assertIn("A cloud", section["text"])
+        self.assertIn("The note text", section["text"])
+        self.assertIn("Inside", section["text"])
+        self.assertIn(r"${\boldsymbol{\beta}}$", section["text"])
+        self.assertNotRegex(section["text"], r"^:::")
+        self.assertNotRegex(section["text"], r"\{[.#][\w-]")
+        self.assertNotRegex(section["text"], r"\]\(")
+        self.assertNotRegex(section["text"], r"!\[")
+        for name in list(build_wiki.ZERO_ARG) + list(build_wiki.ONE_ARG):
+            self.assertNotRegex(section["text"], rf"\\{name}(?![A-Za-z])")
+            self.assertNotRegex(chapter["title"], rf"\\{name}(?![A-Za-z])")
+        code = "```\n\\xvec\n:::\n![keep](x)\n```"
+        self.assertEqual(wiki_graph.strip_markup(code), code.strip())
+        self.assertEqual(
+            wiki_graph.strip_markup("[joint density](../articles/x.qmd){.term}"),
+            "joint density",
+        )
+        self.assertEqual(wiki_graph.strip_markup("A note.[^n]\n\n[^n]: The note text."), "A note. The note text.")
+        self.assertEqual(wiki_graph.strip_markup("[^n]: The note text."), "The note text.")
+        with self.assertRaises(SystemExit) as caught:
+            wiki_graph._check_urls([{"url": "/questions/ex-a.qmd"}], root)
+        self.assertIn(".qmd", str(caught.exception))
 
 
 if __name__ == "__main__":

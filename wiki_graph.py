@@ -3,6 +3,29 @@
 ``wiki.json`` is generated on every run. ``graph/ids.json`` is written only
 when the build is run with ``--update-ids``. A normal run reads that registry
 and does not change it.
+
+Schema version 2. The document is one object:
+
+- ``version``: ``2``.
+- ``aliases``: old id to the id this build emitted.
+- ``entries``: one object per page, heading, box, example, question, answer, or figure.
+- ``edges``: ``from``, ``type``, and ``to``, each end an id in ``entries``.
+
+An entry has:
+
+- ``id``: stable id. This file does not mint, drop, or rename one.
+- ``kind``: ``chapter``, ``section``, ``definition``, ``theorem``, ``proposition``,
+  ``corollary``, ``remark``, ``example``, ``article``, ``question``, ``answer``, or ``figure``.
+- ``title``: the heading, with maths macros expanded.
+- ``text``: Markdown and LaTeX, with Quarto fences, attributes, links, images, and
+  footnote markers removed and maths macros expanded. Omitted when ``copy_of`` is set.
+  A chapter's text is only the opening before its first ``##`` heading.
+- ``url``: root-relative published path. A ``.qmd`` page is the ``.html`` page; the
+  fragment is unchanged. A figure stays the image path.
+- ``fingerprint``: sha256 of ``text``, or of the canonical entry's text when this
+  entry omits ``text``.
+- ``copy_of``: the id of the entry that keeps this text. Present only when another
+  entry has the same text. A section keeps the text when one of the copies is a section.
 """
 
 from __future__ import annotations
@@ -13,7 +36,7 @@ import json
 import re
 from pathlib import Path
 
-from build_wiki import CHAPTER_CODES, TERMS, WIKI, plain
+from build_wiki import CHAPTER_CODES, ONE_ARG, TERMS, WIKI, ZERO_ARG, expand_macros, plain
 
 BOX_KINDS = {"definition", "theorem", "proposition", "corollary", "remark"}
 WARN_KINDS = {"section", "figure"}
@@ -62,11 +85,178 @@ def box_graph_id(anchor: str) -> str | None:
 
 
 def root_url(path: Path, root: Path, fragment: str = "") -> str:
-    rel = path.relative_to(root).as_posix()
-    url = "/" + rel
+    """Published path. ``page.qmd`` is ``page.html``; a fragment is unchanged."""
+    rel = path.relative_to(root)
+    if rel.suffix == ".qmd":
+        rel = rel.with_suffix(".html")
+    url = "/" + rel.as_posix()
     if fragment:
         url += "#" + fragment
     return url
+
+
+_CODE_FENCE = re.compile(r"```.*?```", re.S)
+_INLINE_OR_MATH = re.compile(r"`[^`\n]*`|\$\$.*?\$\$|\$(?:\\.|[^$\\\n])+\$", re.S)
+_FENCE_LINE = re.compile(r"^[ \t]*:{3,}[^\n]*\n?", re.M)
+_FOOT_DEF = re.compile(r"^[ \t]*\[\^([^\]]+)\]:[ \t]*([^\n]*(?:\n[ \t]+[^\n]*)*)", re.M)
+_FOOT_MARK = re.compile(r"\[\^([^\]]+)\]")
+_IMAGE = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\n]*\)")
+_LINK = re.compile(r"(?<!!)\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\n]*\)")
+_ATTR = re.compile(
+    r"\{(?:[.#][^{}\n]*|[A-Za-z][\w:.-]*\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^}\s\n]+)(?:\s+[^{}\n]*)?)\}"
+)
+_H2 = re.compile(r"^##(?:\s|$)")
+_NOTE = "\ue002"
+_MARKUP = (
+    ("div fence", re.compile(r"^:::", re.M)),
+    ("attribute", re.compile(r"\{[.#][\w-]")),
+    ("link", re.compile(r"\]\(")),
+    ("image", re.compile(r"!\[")),
+)
+_MACRO = re.compile(r"\\(" + "|".join(sorted(set(ZERO_ARG) | set(ONE_ARG), key=len, reverse=True)) + r")(?![A-Za-z])")
+
+
+def _hold(text: str, pattern: re.Pattern, mark: str) -> tuple[str, list[str]]:
+    saved: list[str] = []
+
+    def repl(match: re.Match) -> str:
+        saved.append(match.group(0))
+        return f"{mark}{len(saved) - 1}{mark}"
+
+    return pattern.sub(repl, text), saved
+
+
+def _release(text: str, saved: list[str], mark: str) -> str:
+    return re.sub(
+        re.escape(mark) + r"(\d+)" + re.escape(mark),
+        lambda match: saved[int(match.group(1))],
+        text,
+    )
+
+
+def opening_before_heading(text: str) -> str:
+    """Chapter text: everything before the first level-2 heading."""
+    kept: list[str] = []
+    in_code = False
+    for line in text.split("\n"):
+        if re.match(r"^\s*```", line):
+            in_code = not in_code
+            kept.append(line)
+            continue
+        if not in_code and _H2.match(line) and not line.startswith("###"):
+            break
+        kept.append(line)
+    return "\n".join(kept).strip()
+
+
+def strip_markup(text: str) -> str:
+    """Quarto markup out. Maths and fenced code stay as they are."""
+    shielded, fences = _hold(text, _CODE_FENCE, "\ue000")
+    notes: dict[str, str] = {}
+
+    def grab(match: re.Match) -> str:
+        notes[match.group(1)] = " ".join(match.group(2).split())
+        return f"{_NOTE}{match.group(1)}{_NOTE}"
+
+    shielded = _FOOT_DEF.sub(grab, shielded)
+    current = shielded
+    used: set[str] = set()
+
+    def put(match: re.Match) -> str:
+        body = notes.get(match.group(1), "")
+        if not body:
+            return ""
+        used.add(match.group(1))
+        if match.start() and not current[match.start() - 1].isspace():
+            return " " + body
+        return body
+
+    shielded = _FOOT_MARK.sub(put, current)
+    # A note cited in this same text is inlined at the marker. A note that lives
+    # only here stays as plain text where the page defined it.
+    shielded = re.sub(
+        re.escape(_NOTE) + r"(.+?)" + re.escape(_NOTE),
+        lambda match: "" if match.group(1) in used else notes.get(match.group(1), ""),
+        shielded,
+    )
+    shielded = _FENCE_LINE.sub("", shielded)
+    shielded, held = _hold(shielded, _INLINE_OR_MATH, "\ue001")
+    shielded = _IMAGE.sub(lambda match: match.group(1), shielded)
+    shielded = _LINK.sub(lambda match: match.group(1), shielded)
+    shielded = _ATTR.sub("", shielded)
+    return _release(_release(shielded, held, "\ue001"), fences, "\ue000").strip()
+
+
+def _prepare_entries(entries: list[dict]) -> None:
+    """Expand macros, drop Quarto markup, and keep each distinct text once."""
+    for entry in entries:
+        text = entry.get("text") or ""
+        if entry["kind"] == "chapter":
+            text = opening_before_heading(text)
+        text = expand_macros(strip_markup(text)).strip()
+        entry["text"] = text
+        entry["title"] = expand_macros(entry.get("title") or "").strip() or entry["id"]
+        entry["fingerprint"] = fingerprint(text)
+    groups: dict[str, list[dict]] = {}
+    for entry in entries:
+        if entry["text"]:
+            groups.setdefault(entry["text"], []).append(entry)
+    for group in groups.values():
+        if len(group) < 2:
+            continue
+        group.sort(key=lambda item: (item["kind"] != "section", item["id"]))
+        canon = group[0]["id"]
+        for other in group[1:]:
+            other.pop("text", None)
+            other["copy_of"] = canon
+
+
+def _check_chat_source(entries: list[dict], edges: list[dict]) -> None:
+    """The chatbot file: published urls, one copy of each text, no Quarto markup."""
+    by_id = {entry["id"]: entry for entry in entries}
+    problems: list[str] = []
+    seen: dict[str, str] = {}
+    for entry in entries:
+        if ".qmd" in entry["url"]:
+            problems.append(f"qmd url {entry['id']}")
+        title = entry.get("title") or ""
+        found = _MACRO.search(title)
+        if found:
+            problems.append(f"macro in title {entry['id']}: {found.group(0)}")
+        if "copy_of" in entry:
+            if "text" in entry:
+                problems.append(f"copy keeps text {entry['id']}")
+            if entry["copy_of"] not in by_id:
+                problems.append(f"copy_of missing target {entry['id']}")
+            continue
+        text = entry.get("text") or ""
+        if not text:
+            continue
+        found = _MACRO.search(text)
+        if found:
+            problems.append(f"macro in text {entry['id']}: {found.group(0)}")
+        for name, pattern in _MARKUP:
+            if pattern.search(text):
+                problems.append(f"{name} in {entry['id']}")
+                break
+        prior = seen.get(text)
+        if prior:
+            problems.append(f"duplicate text {entry['id']} and {prior}")
+        else:
+            seen[text] = entry["id"]
+    for edge in edges:
+        if edge["type"] != "in":
+            continue
+        section = by_id.get(edge["from"])
+        chapter = by_id.get(edge["to"])
+        if not section or not chapter or section.get("kind") != "section" or chapter.get("kind") != "chapter":
+            continue
+        body = section.get("text") or ""
+        opening = chapter.get("text") or ""
+        if body and opening and body in opening:
+            problems.append(f"chapter {chapter['id']} contains {section['id']}")
+    if problems:
+        raise SystemExit("wiki.json chat source: " + "; ".join(problems[:20]))
 
 
 def _near(left: dict, right: dict) -> bool:
@@ -149,8 +339,12 @@ def _check_urls(entries: list[dict], root: Path) -> None:
         url = entry["url"]
         if not url.startswith("/"):
             raise SystemExit(f"url is not root-relative: {url}")
+        if ".qmd" in url:
+            raise SystemExit(f"url names a source file: {url}")
         path_part, _, fragment = url.partition("#")
         file = root / path_part.lstrip("/")
+        if path_part.endswith(".html"):
+            file = file.with_suffix(".qmd")
         if not file.is_file():
             raise SystemExit(f"url is not a file the build wrote: {url}")
         if fragment and not re.search(rf"#{re.escape(fragment)}(?![A-Za-z0-9_-])", contents(file)):
@@ -250,7 +444,7 @@ def build_document(
     root: Path | None = None,
     terms=None,
 ) -> dict:
-    """One graph document. Every url points at a file under ``root``."""
+    """One graph document. Every url is a published path for a file under ``root``."""
     root = root or WIKI
     rows = TERMS if terms is None else terms
     entries: list[dict] = []
@@ -411,6 +605,7 @@ def build_document(
             url="/" + Path("figures", filename).as_posix(),
         )
 
+    _prepare_entries(entries)
     entries.sort(key=lambda item: item["id"])
     ids = {item["id"] for item in entries}
     _check_urls(entries, root)
@@ -487,7 +682,8 @@ def build_document(
         if dst not in ids:
             raise SystemExit(f"alias {src} names {dst}, which was not emitted")
 
-    return {"version": 1, "aliases": aliases, "entries": entries, "edges": unique}
+    _check_chat_source(entries, unique)
+    return {"version": 2, "aliases": aliases, "entries": entries, "edges": unique}
 
 
 def _read_registry(path: Path) -> tuple[list[dict], dict[str, str]]:
