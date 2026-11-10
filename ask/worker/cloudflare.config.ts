@@ -8,7 +8,9 @@ export default defineConfig({
     entrypoint: "./src/index.ts",
     compatibilityDate: "2026-11-10",
     compatibilityFlags: ["nodejs_compat"],
-    workersDev: true,
+    // Served only at ask.statwiki.io. The workers.dev address is switched off.
+    workersDev: false,
+    domains: ["ask.statwiki.io"],
     previewUrls: false,
     observability: {
       enabled: true,
@@ -29,7 +31,6 @@ export default defineConfig({
       XAI_API_KEY: bindings.secret(),
       TURNSTILE_SECRET: bindings.secret(),
       SESSION_SECRET: bindings.secret(),
-      DEV_ASK_TOKEN: bindings.secret(),
       ASK_KILL: bindings.secret(),
       ASK_DAILY_BUDGET: bindings.text("400"),
       COVERAGE_THRESHOLD: bindings.text("0.410"),

@@ -10,8 +10,6 @@ export type AskBody = {
   page: string
   anchor: string
   session: string
-  exclude: string[]
-  compare: boolean
 }
 
 export type BodyResult = { ok: true; body: AskBody } | { ok: false; error: string }
@@ -59,8 +57,5 @@ export function parseAskBody(raw: string): BodyResult {
   if (!pageOk(page)) return { ok: false, error: "The page path is not valid." }
   if (anchor.length > 200 || /[\r\n]/.test(anchor)) return { ok: false, error: "The anchor is not valid." }
   const session = typeof record.session === "string" ? record.session.slice(0, 4000) : ""
-  const exclude = Array.isArray(record.exclude)
-    ? record.exclude.filter((id): id is string => typeof id === "string" && id.length > 0 && id.length <= 200).slice(0, 40)
-    : []
-  return { ok: true, body: { turns, page, anchor, session, exclude, compare: record.compare === true } }
+  return { ok: true, body: { turns, page, anchor, session } }
 }

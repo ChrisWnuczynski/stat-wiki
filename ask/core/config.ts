@@ -40,6 +40,8 @@ export const IP_DAILY_LIMIT = 60
 export const DEFAULT_DAILY_BUDGET = 400
 export const SESSION_TTL_SECONDS = 12 * 60 * 60
 export const RESTING_MESSAGE = "Ask StatWiki is resting until tomorrow"
+// Sent without calling the model when retrieval finds nothing close enough.
+export const NOT_COVERED_REPLY = "StatWiki doesn't cover that. Ask StatWiki only answers questions about the statistics, probability, data analysis and R on this site. Try asking about something on the page you're reading."
 
 export const OVERLAP_PARAGRAPH_CHARS = 180
 export const OVERLAP_WORDS = 40

@@ -1,11 +1,11 @@
-import { FETCH_K, RESTING_MESSAGE } from "../../core/config.ts"
+import { FETCH_K, NOT_COVERED_REPLY, RESTING_MESSAGE } from "../../core/config.ts"
 import { publicCitations } from "../../core/citations.ts"
 import { buildPrompt } from "../../core/prompt.ts"
 import { DEFAULT_BOOSTS, isCovered, packPassages, rerank } from "../../core/retrieve.ts"
 import { rankMatches, takePool, textsFromStored, type ScoredMatch } from "../../core/select.ts"
 import { estimateTokens } from "../../core/text.ts"
 import { parseAskBody } from "./body.ts"
-import { corsHeaders, devBypass, originDenied } from "./cors.ts"
+import { corsHeaders, originDenied } from "./cors.ts"
 import type { AdmitReason } from "./gate.ts"
 import { newSessionId } from "./session.ts"
 
@@ -13,7 +13,6 @@ export type LogEvent = Record<string, string | number>
 
 export type AskDeps = {
   now(): Date
-  devToken: string
   kill: boolean
   budget: number
   threshold: number
@@ -55,10 +54,6 @@ function clientIp(request: Request): string {
   return request.headers.get("cf-connecting-ip")?.trim() || ""
 }
 
-function devSession(request: Request): string {
-  const raw = request.headers.get("x-dev-session") ?? ""
-  return /^[A-Za-z0-9_-]{1,80}$/.test(raw) ? raw : "dev"
-}
 
 export async function handleAsk(request: Request, deps: AskDeps): Promise<Response> {
   const url = new URL(request.url)
@@ -109,20 +104,13 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
   if (!parsed.ok) return json(400, { error: parsed.error }, cors)
   const body = parsed.body
   const question = body.turns[body.turns.length - 1]?.content ?? ""
-  const bypass = await devBypass(request, deps.devToken)
-  let sessionId = ""
-  let quotas = true
-  if (bypass) {
-    sessionId = devSession(request)
-    quotas = false
-  } else {
-    const verified = await deps.verifySession(body.session, Math.floor(deps.now().getTime() / 1000))
-    if (!verified) return json(401, { error: "A session token is required." }, cors)
-    sessionId = verified.sid
-  }
+  // Every question needs a session from the Turnstile check. There is no other way in.
+  const verified = await deps.verifySession(body.session, Math.floor(deps.now().getTime() / 1000))
+  if (!verified) return json(401, { error: "A session token is required." }, cors)
+  const sessionId = verified.sid
   const day = deps.now().toISOString().slice(0, 10)
   const ipHash = await deps.hashIp(clientIp(request) || "unknown")
-  const decision = await deps.admit({ sessionId, ipHash, day, quotas })
+  const decision = await deps.admit({ sessionId, ipHash, day, quotas: true })
   if (!decision.ok) {
     if (decision.reason === "kill" || decision.reason === "budget") {
       deps.log({ kind: "ask", result: "resting", reason: decision.reason })
@@ -137,13 +125,12 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
 
   let prompt: { system: string; user: string }
   let cited: { n: number; entryId: string; url: string; title: string; kind: string }[]
-  let retrieval: unknown = null
+  let covered = true
   try {
     const vector = await deps.embedQuery(question)
     const matches = await deps.queryVectors(vector, FETCH_K)
     const ranked = rankMatches(matches)
-    const exclude = new Set(bypass ? body.exclude : [])
-    const pool = takePool(ranked, bypass && body.exclude.length > 0 ? "closed" : "open", exclude, matches.length)
+    const pool = takePool(ranked, "open", new Set(), matches.length)
     const texts = textsFromStored(await deps.getChunks(pool.candidates.map((candidate) => candidate.chunkId)))
     const definesTargets = await deps.definesTargets()
     const chapterId = await deps.chapterId(body.page, body.anchor)
@@ -165,30 +152,24 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
         kind: candidate?.kind ?? "",
       }
     })
-    const covered = isCovered(pool.best, deps.threshold)
+    covered = isCovered(pool.best, deps.threshold)
     prompt = buildPrompt({
       question,
       passages: packed.map((passage) => ({ n: passage.n, text: passage.text })),
       covered,
       history: body.turns.slice(0, -1),
     })
-    if (bypass && body.compare) {
-      retrieval = {
-        best: pool.best,
-        covered,
-        passages: packed.map((passage) => ({
-          n: passage.n,
-          chunkId: passage.chunkId,
-          id: passage.entryId,
-          chapterId: byChunk.get(passage.chunkId)?.chapterId ?? "",
-          score: byChunk.get(passage.chunkId)?.score ?? 0,
-          url: passage.url,
-        })),
-      }
-    }
   } catch {
     deps.log({ kind: "error", result: "retrieve", status: 0 })
     return json(502, { error: "Ask failed." }, cors)
+  }
+
+  // Nothing in StatWiki is close enough: reply without calling the model.
+  if (!covered) {
+    deps.log({ kind: "ask", result: "not covered" })
+    const events: [string, unknown][] = []
+    events.push(["status", { covered: false }], ["delta", { text: NOT_COVERED_REPLY }], ["citations", { citations: [] }])
+    return sse(encode(events), cors)
   }
 
   const started = Date.now()
@@ -199,7 +180,7 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
         controller.enqueue(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`))
       }
       try {
-        if (retrieval) send("retrieval", retrieval)
+        send("status", { covered: true })
         let full = ""
         for await (const piece of deps.streamAnswer(prompt)) {
           if (!piece) continue

@@ -25,7 +25,6 @@ type Env = {
   XAI_API_KEY: string
   TURNSTILE_SECRET: string
   SESSION_SECRET: string
-  DEV_ASK_TOKEN: string
   ASK_KILL: string
   ASK_DAILY_BUDGET: string
   COVERAGE_THRESHOLD: string
@@ -68,7 +67,6 @@ function readerGraph(): Promise<Graph> {
 function deps(env: Env): AskDeps {
   return {
     now: () => new Date(),
-    devToken: env.DEV_ASK_TOKEN ?? "",
     kill: killEnabled(env.ASK_KILL),
     budget: budgetOf(env.ASK_DAILY_BUDGET),
     threshold: thresholdOf(env.COVERAGE_THRESHOLD),

@@ -3,7 +3,7 @@ import { dirname, resolve } from "node:path"
 import test from "node:test"
 import { fileURLToPath } from "node:url"
 
-import { IP_DAILY_LIMIT, RESTING_MESSAGE, SESSION_DAILY_LIMIT, SESSION_TTL_SECONDS } from "../../core/config.ts"
+import { IP_DAILY_LIMIT, NOT_COVERED_REPLY, RESTING_MESSAGE, SESSION_DAILY_LIMIT, SESSION_TTL_SECONDS } from "../../core/config.ts"
 import { buildPrompt } from "../../core/prompt.ts"
 import { readJsonl, type MisusePrompt } from "../../core/questions.ts"
 import type { ScoredMatch } from "../../core/select.ts"
@@ -46,7 +46,6 @@ function harness(options?: {
   budget?: number
   k?: number
   matches?: ScoredMatch[]
-  devToken?: string
 }): { deps: AskDeps; calls: { model: number; users: string[] }; logs: LogEvent[]; state: { day: DayState } } {
   const state = { day: emptyDay() }
   const calls = { model: 0, users: [] as string[] }
@@ -54,7 +53,6 @@ function harness(options?: {
   const matches = options?.matches ?? [match("section:mean", 0.8, "/notes/a.html#mean", "chapter:a")]
   const deps: AskDeps = {
     now: () => NOW,
-    devToken: options?.devToken ?? "dev-secret",
     kill: options?.kill ?? false,
     budget: options?.budget ?? 400,
     threshold: 0.41,
@@ -165,26 +163,13 @@ test("the page boost is applied by the shared reranker", async () => {
   assert.equal(citations[0].id, "section:here")
 })
 
-test("closed-book exclusion is only available to the dev bypass", async () => {
+test("closed-book fields in a request are ignored", async () => {
   const matches = [
     match("question:q", 0.9, "/questions/q.html", "chapter:a"),
     match("section:other", 0.6, "/notes/a.html#other", "chapter:a"),
   ]
-  const dev = harness({ k: 1, answer: "[1] Other.", matches, devToken: "dev-secret" })
-  const devResponse = await handleAsk(ask({
-    turns: [{ role: "user", content: "Why does this happen?" }],
-    page: "/questions/q.html",
-    anchor: "",
-    exclude: ["question:q"],
-    compare: true,
-  }, { "x-dev-ask-token": "dev-secret" }), dev.deps)
-  const devEvents = sse(await devResponse.text())
-  assert.equal((devEvents.at(-1)?.data.citations as { id: string }[])[0].id, "section:other")
-  const retrieval = devEvents.find((event) => event.event === "retrieval")?.data as { passages: { id: string }[] }
-  assert.deepEqual(retrieval.passages.map((passage) => passage.id), ["section:other"])
-
   const reader = harness({ k: 1, answer: "[1] Own.", matches })
-  const publicResponse = await handleAsk(ask({
+  const response = await handleAsk(ask({
     turns: [{ role: "user", content: "Why does this happen?" }],
     page: "/questions/q.html",
     anchor: "",
@@ -192,9 +177,9 @@ test("closed-book exclusion is only available to the dev bypass", async () => {
     exclude: ["question:q"],
     compare: true,
   }), reader.deps)
-  const publicEvents = sse(await publicResponse.text())
-  assert.equal(publicEvents.some((event) => event.event === "retrieval"), false)
-  assert.equal((publicEvents.at(-1)?.data.citations as { id: string }[])[0].id, "question:q")
+  const events = sse(await response.text())
+  assert.equal(events.some((event) => event.event === "retrieval"), false)
+  assert.equal((events.at(-1)?.data.citations as { id: string }[])[0].id, "question:q")
 })
 
 test("limits, the budget, and the kill switch do not call the model", async () => {
@@ -295,22 +280,22 @@ test("questions are capped at 2000 characters and at 6 turns", async () => {
   assert.equal(calls.model, 0)
 })
 
-test("the dev bypass is off without a secret and on the public hostname", async () => {
-  const quiet = harness({ devToken: "" })
-  const missing = await handleAsk(ask({
-    turns: [{ role: "user", content: "Hello" }],
-    page: "",
-    anchor: "",
-  }, { "x-dev-ask-token": "dev-secret" }), quiet.deps)
-  assert.equal(missing.status, 401)
-  const site = harness()
-  const refused = await handleAsk(ask({
-    turns: [{ role: "user", content: "Hello" }],
-    page: "",
-    anchor: "",
-  }, { "x-dev-ask-token": "dev-secret" }, "https://www.statwiki.io/ask"), site.deps)
-  assert.equal(refused.status, 401)
-  assert.equal(site.calls.model, 0)
+test("a dev token header is not a way in", async () => {
+  const { deps, calls } = harness()
+  for (const url of ["https://statwiki-ask.example.workers.dev/ask", "https://ask.statwiki.io/ask"]) {
+    const response = await handleAsk(ask({
+      turns: [{ role: "user", content: "Hello" }],
+      page: "",
+      anchor: "",
+    }, { "x-dev-ask-token": "dev-secret", "x-dev-session": "dev" }, url), deps)
+    assert.equal(response.status, 401)
+  }
+  assert.equal(calls.model, 0)
+  const preflight = await handleAsk(new Request("https://ask.statwiki.io/ask", {
+    method: "OPTIONS",
+    headers: { origin: "https://www.statwiki.io" },
+  }), deps)
+  assert.equal(preflight.headers.get("access-control-allow-headers"), "content-type")
 })
 
 test("cors allows the site and localhost only", async () => {
@@ -337,7 +322,7 @@ test("cors allows the site and localhost only", async () => {
   assert.equal(preflight.headers.get("access-control-allow-origin"), "http://127.0.0.1:3000")
 })
 
-test("every misuse prompt is sent to the model and a decline carries no citation", async () => {
+test("a covered misuse prompt reaches the model and a decline carries no citation", async () => {
   const misuse = await readJsonl<MisusePrompt>(resolve(here, "../../harness/misuse.jsonl"))
   assert.equal(misuse.length, 30)
   const { deps, calls, logs } = harness()
@@ -346,7 +331,8 @@ test("every misuse prompt is sent to the model and a decline carries no citation
       turns: [{ role: "user", content: item.prompt }],
       page: "",
       anchor: "",
-    }, { "x-dev-ask-token": "dev-secret", "x-dev-session": item.id }), deps)
+      session: await signSession(SECRET, item.id, Math.floor(NOW.getTime() / 1000) + 60),
+    }), deps)
     assert.equal(response.status, 200)
     const events = sse(await response.text())
     const text = events.filter((event) => event.event === "delta").map((event) => String(event.data.text ?? "")).join("")
@@ -363,4 +349,36 @@ test("every misuse prompt is sent to the model and a decline carries no citation
     assert.equal(JSON.stringify(logs).includes(item.prompt), false)
   }
   assert.equal(calls.model, misuse.length)
+})
+
+test("below the coverage threshold the fixed reply is sent and the model is not called", async () => {
+  const { deps, calls, logs } = harness({ matches: [match("section:mean", 0.3, "/notes/a.html#mean", "chapter:a")] })
+  const response = await handleAsk(ask({
+    turns: [{ role: "user", content: "Give me a vegetarian pasta recipe for four people." }],
+    page: "",
+    anchor: "",
+    session: await session(),
+  }), deps)
+  assert.equal(response.status, 200)
+  const events = sse(await response.text())
+  assert.deepEqual(events.map((event) => event.event), ["status", "delta", "citations"])
+  assert.deepEqual(events[0].data, { covered: false })
+  assert.equal(events[1].data.text, NOT_COVERED_REPLY)
+  assert.deepEqual(events[2].data.citations, [])
+  assert.equal(calls.model, 0)
+  assert.equal(logs.some((event) => event.result === "not covered"), true)
+})
+
+test("a covered question starts with a status event", async () => {
+  const { deps, calls } = harness({ answer: "The mean is the average [1]." })
+  const response = await handleAsk(ask({
+    turns: [{ role: "user", content: "What is a mean?" }],
+    page: "/notes/a.html",
+    anchor: "mean",
+    session: await session(),
+  }), deps)
+  const events = sse(await response.text())
+  assert.equal(events[0].event, "status")
+  assert.deepEqual(events[0].data, { covered: true })
+  assert.equal(calls.model, 1)
 })
