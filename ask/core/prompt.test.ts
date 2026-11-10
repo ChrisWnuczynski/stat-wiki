@@ -2,7 +2,7 @@ import assert from "node:assert/strict"
 import test from "node:test"
 
 import { NOT_COVERED_SENTENCE, PROMPT_VERSION, buildPrompt } from "./prompt.ts"
-import { deltaFromChunk, parseGrade, looksDeclined } from "./xai.ts"
+import { deltaFromChunk, looksDeclined } from "./xai.ts"
 import { vectorIdFor } from "./text.ts"
 
 test("the prompt is versioned and does not name a course code or a url", () => {
@@ -48,10 +48,7 @@ test("streamed model chunks yield text and ignore the done marker", () => {
   assert.equal(deltaFromChunk("not-json"), "")
 })
 
-test("grades parse and a not-covered sentence is not a decline", () => {
-  const parsed = parseGrade('{"grade":"minor error","reason":"dropped a sign"}')
-  assert.deepEqual(parsed, { grade: "minor error", reason: "dropped a sign" })
-  assert.equal(parseGrade("no json"), null)
+test("a not-covered sentence is not a decline", () => {
   assert.equal(looksDeclined("StatWiki doesn't cover this directly. A mean is an average."), false)
   assert.equal(looksDeclined("I can only help with statistics, probability, data analysis, or R."), true)
 })

@@ -26,6 +26,7 @@ import {
   XAI_BASE_URL,
 } from "../core/config.ts"
 import { buildGraph } from "../core/graph.ts"
+import { GRADES, parseJsonObject, parseJudge, UNREADABLE, type Grade } from "../core/judge.ts"
 import { mathsReport } from "../core/maths.ts"
 import { excludeIdsForQuestion, findOverlaps } from "../core/overlap.ts"
 import { mapPool } from "../core/pool.ts"
@@ -39,9 +40,6 @@ import type { Candidate, Passage } from "../core/types.ts"
 import { loadWiki } from "../core/wiki-file.ts"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
-
-export const GRADES = ["correct", "minor error", "wrong", "did not answer"] as const
-export type Grade = typeof GRADES[number]
 
 export const JUDGE_SYSTEM = `You grade a statistics tutor's answer against the course's worked answer.
 
@@ -181,23 +179,18 @@ export async function chat(spec: string, system: string, user: string, maxTokens
   }
 }
 
-export function parseJsonObject(text: string): Record<string, unknown> | null {
-  const match = text.match(/\{[\s\S]*\}/)
-  if (!match) return null
-  try {
-    return JSON.parse(match[0]) as Record<string, unknown>
-  } catch {
-    return null
+// Asks the judge once more when its reply cannot be read; returns the last reply
+// and the cost of both calls.
+export async function judgeTwice<T>(model: string, system: string, user: string, maxTokens: number, read: (text: string) => T | null): Promise<{ value: T | null; text: string; cost: number }> {
+  let call = await chat(model, system, user, maxTokens)
+  let cost = costOf(model, call.usage)
+  let value = read(call.text)
+  if (value === null) {
+    call = await chat(model, system, user, maxTokens)
+    cost += costOf(model, call.usage)
+    value = read(call.text)
   }
-}
-
-export function parseJudge(text: string): { grade: Grade; reason: string; doubt: string } | null {
-  const obj = parseJsonObject(text)
-  if (!obj) return null
-  const grade = String(obj.grade ?? "").toLowerCase().trim() as Grade
-  if (!GRADES.includes(grade)) return null
-  const clean = (value: unknown) => String(value ?? "").replace(/\s+/g, " ").trim().slice(0, 400)
-  return { grade, reason: clean(obj.reason), doubt: clean(obj.reference_doubt) }
+  return { value, text: call.text, cost }
 }
 
 // Sentences that carry a citation, paired with each number they cite.
@@ -271,11 +264,38 @@ export type Record_ = {
   mathsSpans: number
   mathsFailures: number
   notCovered: boolean
-  grade: Grade | "no reference" | ""
+  grade: Grade | "no reference" | typeof UNREADABLE | ""
   gradeReason: string
   referenceDoubt: string
   judgeCost: number
 }
+
+const pct = (n: number, d: number) => (d === 0 ? "n/a" : `${(100 * n / d).toFixed(1)}%`)
+
+// One row per model and mode. n counts graded answers only; replies the judge
+// gave that could not be read are counted on their own.
+export function correctnessTable(records: { set: string; model: string; mode: string; grade: string }[]): string[] {
+  const lines = [
+    "| model | mode | n | correct | minor error | wrong | did not answer | correct or minor | judge unreadable |",
+    "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+  ]
+  const groups = new Map<string, typeof records>()
+  for (const rec of records) {
+    if (rec.set !== "bank") continue
+    const key = `${rec.model}|${rec.mode}`
+    groups.set(key, [...(groups.get(key) ?? []), rec])
+  }
+  for (const [key, recs] of groups) {
+    const [model, mode] = key.split("|")
+    const graded = recs.filter((rec) => GRADES.includes(rec.grade as Grade))
+    const count = (grade: string) => graded.filter((rec) => rec.grade === grade).length
+    const unreadable = recs.filter((rec) => rec.grade === UNREADABLE).length
+    lines.push(`| ${model} | ${mode} | ${graded.length} | ${pct(count("correct"), graded.length)} | ${pct(count("minor error"), graded.length)} | ${pct(count("wrong"), graded.length)} | ${pct(count("did not answer"), graded.length)} | ${pct(count("correct") + count("minor error"), graded.length)} | ${unreadable} |`)
+  }
+  return lines
+}
+
+export const SUPPORT_VERDICTS = ["supported", "partly", "not supported", "unparsed"]
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = parseArgs(process.argv.slice(2))
@@ -402,12 +422,12 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       if (!r.item.reference) {
         record.grade = "no reference"
       } else {
-        const judged = await chat(judgeModel, JUDGE_SYSTEM, `Question:\n${r.item.question}\n\nWorked answer:\n${r.item.reference}\n\nTutor's answer:\n${call.text}`, 2000)
-        const parsed = parseJudge(judged.text)
-        record.grade = parsed?.grade ?? "did not answer"
-        record.gradeReason = parsed ? parsed.reason : `judge output was not a grade: ${judged.text.slice(0, 120)}`
+        const judged = await judgeTwice(judgeModel, JUDGE_SYSTEM, `Question:\n${r.item.question}\n\nWorked answer:\n${r.item.reference}\n\nTutor's answer:\n${call.text}`, 2000, parseJudge)
+        const parsed = judged.value
+        record.grade = parsed?.grade ?? UNREADABLE
+        record.gradeReason = parsed ? parsed.reason : `judge output was not a grade: ${judged.text.slice(0, 400)}`
         record.referenceDoubt = parsed?.doubt ?? ""
-        record.judgeCost = costOf(judgeModel, judged.usage)
+        record.judgeCost = judged.cost
       }
     }
     records.push(record)
@@ -429,9 +449,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   await mapPool(chosen, concurrency, async (pair) => {
     const passage = pair.rec.passages.find((p) => p.n === pair.n)
     const text = passage ? textByChunk.get(passage.chunkId) ?? "" : ""
-    const judged = await chat(judgeModel, SUPPORT_SYSTEM, `Sentence:\n${pair.sentence}\n\nPassage [${pair.n}]:\n${text}`, 1000)
-    const obj = parseJsonObject(judged.text)
-    supportCost += costOf(judgeModel, judged.usage)
+    const judged = await judgeTwice(judgeModel, SUPPORT_SYSTEM, `Sentence:\n${pair.sentence}\n\nPassage [${pair.n}]:\n${text}`, 1000, parseJsonObject)
+    const obj = judged.value
+    supportCost += judged.cost
     support.push({
       id: pair.rec.id,
       n: pair.n,
@@ -450,29 +470,20 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   await writeFile(`${base}.jsonl`, records.map((rec) => JSON.stringify(rec)).join("\n") + "\n")
   await writeFile(`${base}-support.jsonl`, support.map((row) => JSON.stringify(row)).join("\n") + "\n")
 
-  const pct = (n: number, d: number) => (d === 0 ? "n/a" : `${(100 * n / d).toFixed(1)}%`)
   const lines: string[] = []
   lines.push(`# Answer check ${date}`)
   lines.push("")
-  lines.push(`Prompt ${PROMPT_VERSION}. Retrieval as in the Worker: k=${WORKER_K}, page and section boosts on, threshold ${COVERAGE_THRESHOLD}. Answers capped at ${WORKER_MAX_TOKENS} tokens. Judge ${judgeModel}${models.includes(judgeModel) ? " (also an answer model, so it may favour its own answers; the owner's hand grades check this)" : ""}.`)
+  lines.push(`Prompt ${PROMPT_VERSION}. Retrieval as in the Worker: k=${WORKER_K}, page and section boosts on, threshold ${COVERAGE_THRESHOLD}. Answers capped at ${WORKER_MAX_TOKENS} tokens. Judge ${judgeModel}${models.includes(judgeModel) ? " (also an answer model, so it may favour its own answers; grade a blind sample by hand to check)" : ""}.`)
   lines.push("")
   lines.push("Closed mode removes the question's own worked answer (and copies of it) from retrieval, so the tutor has to teach from the chapters. Open mode is the index as it is in production.")
   lines.push("")
   lines.push("## Correctness (dev questions with a worked answer)")
   lines.push("")
-  lines.push("| model | mode | n | correct | minor error | wrong | did not answer | correct or minor |")
-  lines.push("| --- | --- | --- | --- | --- | --- | --- | --- |")
+  lines.push(...correctnessTable(records))
   const groups = new Map<string, Record_[]>()
   for (const rec of records) {
     const key = `${rec.set}|${rec.model}|${rec.mode}`
     groups.set(key, [...(groups.get(key) ?? []), rec])
-  }
-  for (const [key, recs] of groups) {
-    const [set, model, mode] = key.split("|")
-    if (set !== "bank") continue
-    const graded = recs.filter((rec) => GRADES.includes(rec.grade as Grade))
-    const count = (grade: string) => graded.filter((rec) => rec.grade === grade).length
-    lines.push(`| ${model} | ${mode} | ${graded.length} | ${pct(count("correct"), graded.length)} | ${pct(count("minor error"), graded.length)} | ${pct(count("wrong"), graded.length)} | ${pct(count("did not answer"), graded.length)} | ${pct(count("correct") + count("minor error"), graded.length)} |`)
   }
   lines.push("")
   lines.push("## Answers")
@@ -488,8 +499,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   lines.push("")
   lines.push(`## Citation support (sample of ${support.length} cited sentences, ${mainModel})`)
   lines.push("")
-  const verdicts = ["supported", "partly", "not supported", "unparsed"]
-  lines.push(verdicts.map((v) => `${v}: ${support.filter((row) => row.verdict === v).length}`).join(" · "))
+  lines.push(SUPPORT_VERDICTS.map((v) => `${v}: ${support.filter((row) => row.verdict === v).length}`).join(" · "))
   lines.push("")
   const doubts = records.filter((rec) => rec.referenceDoubt)
   lines.push(`## Worked answers the judge doubted (${doubts.length})`)

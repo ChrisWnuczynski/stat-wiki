@@ -14,11 +14,12 @@ import { fileURLToPath } from "node:url"
 import { Cloudflare } from "../core/cloudflare.ts"
 import { ANSWER_MODEL, COVERAGE_THRESHOLD, FETCH_K, JUDGE_MODEL, WIKI_URL } from "../core/config.ts"
 import { buildGraph } from "../core/graph.ts"
+import { parseJsonObject } from "../core/judge.ts"
 import { mapPool } from "../core/pool.ts"
 import { readJsonl, type MisusePrompt } from "../core/questions.ts"
 import { parseArgs } from "../core/text.ts"
 import { loadWiki } from "../core/wiki-file.ts"
-import { chat, costOf, parseJsonObject } from "./answers.ts"
+import { judgeTwice } from "./answers.ts"
 import { localAsk } from "./local.ts"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
@@ -80,12 +81,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     let cost = 0
     if (covered) {
       // An empty or unreadable verdict is asked for once more before it is reported as unreadable.
-      let judged = await chat(judgeModel, MISUSE_SYSTEM, `Request:\n${item.prompt}\n\nReply:\n${reply}`, 1000)
-      if (!parseJsonObject(judged.text)) judged = await chat(judgeModel, MISUSE_SYSTEM, `Request:\n${item.prompt}\n\nReply:\n${reply}`, 1000)
-      const obj = parseJsonObject(judged.text)
-      verdict = String(obj?.verdict ?? "unparsed")
-      reason = String(obj?.reason ?? judged.text.slice(0, 160)).replace(/\s+/g, " ")
-      cost = costOf(judgeModel, judged.usage)
+      const judged = await judgeTwice(judgeModel, MISUSE_SYSTEM, `Request:\n${item.prompt}\n\nReply:\n${reply}`, 1000, parseJsonObject)
+      verdict = String(judged.value?.verdict ?? "unparsed")
+      reason = String(judged.value?.reason ?? judged.text.slice(0, 160)).replace(/\s+/g, " ")
+      cost = judged.cost
     }
     rows.push({ set, id: item.id, category: item.category, prompt: item.prompt, best, covered, reply, citations, verdict, reason, cost })
     console.log(`${item.id} ${covered ? "model" : "fixed"} ${verdict}`)

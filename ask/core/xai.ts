@@ -1,12 +1,8 @@
-import { ANSWER_MAX_TOKENS, JUDGE_MODEL, XAI_BASE_URL } from "./config.ts"
-
-export type Grade = "correct" | "minor error" | "wrong" | "did not answer"
+import { ANSWER_MAX_TOKENS, XAI_BASE_URL } from "./config.ts"
 
 export type Completion =
   | { called: false }
   | { called: true; text: string; promptTokens: number; completionTokens: number; latencyMs: number }
-
-const GRADES = new Set<Grade>(["correct", "minor error", "wrong", "did not answer"])
 
 function key(): string {
   return process.env.XAI_API_KEY?.trim() ?? ""
@@ -133,37 +129,6 @@ export async function completeChat(input: { model: string; system: string; user:
     completionTokens: json.usage?.completion_tokens ?? 0,
     latencyMs: Date.now() - started,
   }
-}
-
-export function parseGrade(text: string): { grade: Grade; reason: string } | null {
-  const match = text.match(/\{[\s\S]*\}/)
-  if (!match) return null
-  try {
-    const obj = JSON.parse(match[0]) as { grade?: unknown; reason?: unknown }
-    const grade = String(obj.grade ?? "").toLowerCase() as Grade
-    if (!GRADES.has(grade)) return null
-    return { grade, reason: String(obj.reason ?? "").replace(/\s+/g, " ").trim().slice(0, 300) }
-  } catch {
-    return null
-  }
-}
-
-export async function judgeAnswer(input: {
-  question: string
-  reference: string
-  answer: string
-  model?: string
-}): Promise<{ called: false } | { called: true; grade: Grade; reason: string }> {
-  const completion = await completeChat({
-    model: input.model ?? JUDGE_MODEL,
-    maxTokens: 200,
-    system: "Grade the answer against the reference. Reply with one JSON object and nothing else: {\"grade\":\"correct\"|\"minor error\"|\"wrong\"|\"did not answer\",\"reason\":\"one line\"}.",
-    user: `Question:\n${input.question}\n\nReference:\n${input.reference}\n\nAnswer:\n${input.answer}`,
-  })
-  if (!completion.called) return { called: false }
-  const parsed = parseGrade(completion.text)
-  if (!parsed) return { called: true, grade: "did not answer", reason: "judge output was not a grade" }
-  return { called: true, ...parsed }
 }
 
 export function looksDeclined(answer: string): boolean {

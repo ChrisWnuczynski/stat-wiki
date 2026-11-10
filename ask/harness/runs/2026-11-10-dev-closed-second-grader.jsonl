@@ -1,0 +1,40 @@
+{"key": "g01", "id": "question:ex-applied-logitnormal-mh", "model": "grok-4.7@low", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "minor error"}
+{"key": "g02", "id": "question:ex-sl-09-7", "model": "grok-4.7", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "correct"}
+{"key": "g03", "id": "question:ex-prob-mttf-integral", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g04", "id": "question:ex-sl-03-7", "model": "grok-4.7@low", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "correct"}
+{"key": "g05", "id": "question:practice-testing-and-simplifying-an-additive-model", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g06", "id": "question:concept-process-and-realisation", "model": "grok-4.7", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g07", "id": "question:ex-inf-np-critical", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g08", "id": "question:practice-random-slopes-and-changed-conclusions", "model": "grok-4.7@low", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "minor error"}
+{"key": "g09", "id": "question:ex-sl-01-3", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g10", "id": "question:ex-sl-09-5", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g11", "id": "question:practice-rayleigh-conjugate-prior", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g12", "id": "question:ex-prob-second-die", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g13", "id": "question:ex-inf-normal-mle", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g14", "id": "question:ex-inf-ppv-screen", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "minor error"}
+{"key": "g15", "id": "question:ex-inf-advertising-r2", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "wrong"}
+{"key": "g16", "id": "question:ex-sl-05-7", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g17", "id": "question:ex-da-isotopia-wages", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g18", "id": "question:ex-da-pilot-width", "model": "grok-4.7", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "correct"}
+{"key": "g19", "id": "question:practice-general-beta-binomial-gibbs-sampler", "model": "grok-4.7", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g20", "id": "question:ex-sl-12-4", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g21", "id": "question:ex-inf-fork-critical-value", "model": "grok-4.7@low", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "minor error"}
+{"key": "g22", "id": "question:ex-prob-voltage-mean", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g23", "id": "question:ex-prob-two-lifetimes", "model": "grok-4.7@low", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "minor error"}
+{"key": "g24", "id": "question:ex-inf-poisson-mle", "model": "grok-4.7", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g25", "id": "question:ex-prob-three-point-expectation", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "wrong"}
+{"key": "g26", "id": "question:ex-geom-beta", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g27", "id": "question:ex-prob-markov-reflecting", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g28", "id": "question:ex-inf-uniform-bound", "model": "grok-4.7", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g29", "id": "question:ex-sl-02-6", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g30", "id": "question:ex-sl-14-1", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "wrong"}
+{"key": "g31", "id": "question:ex-inf-expected-sample-variance", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g32", "id": "question:ex-sl-06-4", "model": "grok-4.7", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g33", "id": "question:ex-sl-05-2", "model": "grok-4.7@low", "mode": "closed", "judge": "did not answer", "judgeBeforeRescore": "did not answer", "second": "did not answer"}
+{"key": "g34", "id": "question:concept-the-glm-components", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g35", "id": "question:ex-sl-17-5", "model": "grok-4.20-0309-non-reasoning", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "minor error"}
+{"key": "g36", "id": "question:concept-pooling", "model": "grok-4.7@low", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "correct", "second": "correct"}
+{"key": "g37", "id": "question:practice-negative-binomial-canonical-link", "model": "grok-4.7", "mode": "closed", "judge": "correct", "judgeBeforeRescore": "did not answer", "second": "correct"}
+{"key": "g38", "id": "question:ex-prob-unit-square-max", "model": "grok-4.7@low", "mode": "closed", "judge": "wrong", "judgeBeforeRescore": "wrong", "second": "minor error"}
+{"key": "g39", "id": "question:ex-sl-15-6", "model": "grok-4.7@low", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "correct"}
+{"key": "g40", "id": "question:ex-sl-08-8", "model": "grok-4.7@low", "mode": "closed", "judge": "minor error", "judgeBeforeRescore": "minor error", "second": "correct"}

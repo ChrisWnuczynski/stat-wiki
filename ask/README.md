@@ -28,6 +28,7 @@ node --experimental-strip-types harness/misuse-check.ts
 - `index-wiki.ts` embeds `wiki.json`. `--plan` prints chunk counts without calling the embedding service.
 - `run.ts` scores retrieval only. `--all` scores dev, calibrates the coverage threshold, then scores the held-out split once.
 - `answers.ts` answers the dev questions with the Worker's retrieval, prompt and limits, then a judge grades each answer against the worked answer. `--modes closed,open` picks the modes; closed removes the question's own worked answer from retrieval. A model can carry a thinking level, as in `grok-4.7@low`. Every answer is saved, and the report flags worked answers the judge doubted.
+- The judge's replies are read by `core/judge.ts`, which repairs LaTeX backslashes inside its JSON. A reply that still cannot be read is asked for once more and then counted as "judge unreadable", never as a grade. `rescore.ts` applies this to a run saved before the fix, with no model calls.
 - `misuse-check.ts` sends every misuse prompt through the Worker's own handler with the real index and model, saves each reply, and has the judge decide whether model-written replies were acceptable. `misuse-new.jsonl` holds prompts the threshold was not tuned on.
 
 ## The widget
