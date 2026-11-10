@@ -16,7 +16,7 @@ import {
   turnstileToken,
   type Passage,
 } from "./browser.ts"
-import { buildTurns, QUESTION_CHARS, type Citation, type Msg } from "./text.ts"
+import { buildTurns, QUESTION_CHARS, smartDashes, sourceNumbers, type Citation, type Msg } from "./text.ts"
 import "./styles.css"
 
 type Options = { endpoint: string; sitekey: string; offset: string; launcher: HTMLButtonElement }
@@ -40,21 +40,24 @@ function Answer({ msg, katex, onCite, onRetry }: {
   onCite: (citation: Citation) => void
   onRetry: (msg: Msg) => void
 }) {
-  const known = useMemo(() => (msg.state === "done" ? new Set((msg.citations ?? []).map((c) => c.number)) : null), [msg.state, msg.citations])
-  const html = useMemo(() => renderAnswer(msg.content, known, katex), [msg.content, known, katex])
+  // Source numbers 1, 2, 3 in reading order, once the answer and its citations are in.
+  const shown = useMemo(
+    () => (msg.state === "done" ? sourceNumbers(msg.content, msg.citations ?? []) : new Map<number, number>()),
+    [msg.state, msg.content, msg.citations],
+  )
+  const html = useMemo(() => renderAnswer(msg.content, shown, katex), [msg.content, shown, katex])
   const sources = useMemo(() => {
-    const seen = new Map<string, Citation & { numbers: number[] }>()
+    const seen = new Map<number, Citation>()
     for (const c of msg.citations ?? []) {
-      const prior = seen.get(c.id)
-      if (prior) prior.numbers.push(c.number)
-      else seen.set(c.id, { ...c, numbers: [c.number] })
+      const n = shown.get(c.number)
+      if (n !== undefined && !seen.has(n)) seen.set(n, c)
     }
-    return [...seen.values()]
-  }, [msg.citations])
+    return [...seen.entries()].sort((a, b) => a[0] - b[0])
+  }, [msg.citations, shown])
   const click = (event: MouseEvent<HTMLDivElement>) => {
     const target = (event.target as HTMLElement).closest<HTMLElement>(".ask-cite")
     if (!target) return
-    const citation = msg.citations?.find((c) => c.number === Number(target.dataset.n))
+    const citation = sources.find(([n]) => n === Number(target.dataset.n))?.[1]
     if (citation) onCite(citation)
   }
   const thinking = msg.state === "streaming" && !msg.content
@@ -70,10 +73,10 @@ function Answer({ msg, katex, onCite, onRetry }: {
       {sources.length > 0 && (
         <div className="ask-sources">
           <span className="ask-sources-label">Sources</span>
-          {sources.map((s) => (
-            <button key={s.id} type="button" className="ask-source" onClick={() => onCite(s)}>
-              <span className="ask-source-n">{s.numbers.join(", ")}</span>
-              {s.title || s.id}
+          {sources.map(([n, c]) => (
+            <button key={c.id} type="button" className="ask-source" onClick={() => onCite(c)}>
+              <span className="ask-source-n">{n}</span>
+              {smartDashes(c.title || c.id)}
             </button>
           ))}
         </div>

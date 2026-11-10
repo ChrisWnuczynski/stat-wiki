@@ -12,17 +12,14 @@ import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
 import { Cloudflare } from "../core/cloudflare.ts"
-import { ANSWER_MODEL, COVERAGE_THRESHOLD, FETCH_K, JUDGE_MODEL, WIKI_URL, WORKER_K, WORKER_MAX_TOKENS } from "../core/config.ts"
+import { ANSWER_MODEL, COVERAGE_THRESHOLD, FETCH_K, JUDGE_MODEL, WIKI_URL } from "../core/config.ts"
 import { buildGraph } from "../core/graph.ts"
 import { mapPool } from "../core/pool.ts"
 import { readJsonl, type MisusePrompt } from "../core/questions.ts"
 import { parseArgs } from "../core/text.ts"
-import { streamChat } from "../core/xai.ts"
 import { loadWiki } from "../core/wiki-file.ts"
-import { handleAsk } from "../worker/src/handler.ts"
-import { chapterFor } from "../worker/src/reader.ts"
-import { signSession, verifySession } from "../worker/src/session.ts"
-import { chat, costOf, modelSpec, parseJsonObject } from "./answers.ts"
+import { chat, costOf, parseJsonObject } from "./answers.ts"
+import { localAsk } from "./local.ts"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 
@@ -47,13 +44,6 @@ type Row = {
   cost: number
 }
 
-function events(text: string): { event: string; data: Record<string, unknown> }[] {
-  return text.split("\n\n").filter(Boolean).map((block) => {
-    const event = block.split("\n").find((line) => line.startsWith("event:"))?.slice(6).trim() ?? ""
-    const raw = block.split("\n").find((line) => line.startsWith("data:"))?.slice(5).trim() ?? "{}"
-    return { event, data: JSON.parse(raw) as Record<string, unknown> }
-  })
-}
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = parseArgs(process.argv.slice(2))
@@ -66,48 +56,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const wiki = await loadWiki(typeof args.wiki === "string" ? args.wiki : WIKI_URL)
   const graph = buildGraph(wiki)
   const client = await Cloudflare.connect()
-  const secret = "local-misuse-check"
-  const nowSec = Math.floor(Date.now() / 1000)
-  const session = await signSession(secret, "misuse-check", nowSec + 3600)
-  let modelCalls = 0
-
-  const deps = {
-    now: () => new Date(),
-    devToken: "",
-    kill: false,
-    budget: 1_000_000,
-    threshold: COVERAGE_THRESHOLD,
-    k: WORKER_K,
-    sessionTtl: 3600,
-    verifySession: (token: string, now: number) => verifySession(secret, token, now),
-    signSession: (sid: string, exp: number) => signSession(secret, sid, exp),
-    verifyTurnstile: async () => false,
-    admit: async () => ({ ok: true as const }),
-    embedQuery: (text: string) => client.embedQuery(text),
-    queryVectors: (vector: number[], topK: number) => client.query(vector, topK),
-    getChunks: (ids: string[]) => client.kvGetMany(ids),
-    definesTargets: async () => graph.definesTargets,
-    chapterId: async (page: string, anchor: string) => chapterFor(graph, page, anchor),
-    streamAnswer: async function* (input: { system: string; user: string }) {
-      modelCalls += 1
-      const { model, effort } = modelSpec(spec)
-      if (effort) {
-        // streamChat has no thinking level; use the harness client for this run.
-        const call = await chat(spec, input.system, input.user, WORKER_MAX_TOKENS)
-        yield call.text
-        return
-      }
-      const stream = await streamChat({ apiKey, model, system: input.system, user: input.user, maxTokens: WORKER_MAX_TOKENS })
-      const reader = stream.getReader()
-      for (;;) {
-        const { done, value } = await reader.read()
-        if (done) return
-        if (value) yield value
-      }
-    },
-    hashIp: async () => "local",
-    log: () => {},
-  }
+  const { ask, modelCalls: calls } = await localAsk(client, graph, spec, apiKey)
 
   const sets = [
     { name: "original (threshold tuned on these)", file: "harness/misuse.jsonl" },
@@ -122,16 +71,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   await mapPool(work, 4, async ({ set, item }) => {
     const top = await client.query(await client.embedQuery(item.prompt), FETCH_K)
     const best = top.reduce((max, match) => Math.max(max, match.score), 0)
-    const response = await handleAsk(new Request("https://ask.statwiki.io/ask", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ turns: [{ role: "user", content: item.prompt }], page: "", anchor: "", session }),
-    }), deps)
-    const parsed = events(await response.text())
-    const status = parsed.find((event) => event.event === "status")?.data
-    const reply = parsed.filter((event) => event.event === "delta").map((event) => String(event.data.text ?? "")).join("")
-    const citations = ((parsed.find((event) => event.event === "citations")?.data.citations ?? []) as unknown[]).length
-    const covered = status?.covered === true
+    const result = await ask(item.prompt)
+    const reply = result.reply
+    const citations = result.citations.length
+    const covered = result.covered
     let verdict = "fixed reply"
     let reason = "below the coverage threshold, so the model was not called"
     let cost = 0
@@ -164,7 +107,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const mine = rows.filter((row) => row.set === set.name)
     lines.push(`| ${set.name} | ${mine.length} | ${mine.filter((row) => !row.covered).length} | ${mine.filter((row) => row.verdict === "acceptable").length} | ${mine.filter((row) => row.covered && row.verdict !== "acceptable").length} |`)
   }
-  lines.push("", `Model calls: ${modelCalls}.`, "", "| id | category | best similarity | result | reason |", "| --- | --- | --- | --- | --- |")
+  lines.push("", `Model calls: ${calls()}.`, "", "| id | category | best similarity | result | reason |", "| --- | --- | --- | --- | --- |")
   for (const row of rows) lines.push(`| ${row.id} | ${row.category} | ${row.best.toFixed(3)} | ${row.covered ? row.verdict : "fixed reply"} | ${row.covered ? row.reason.replace(/\|/g, "/") : ""} |`)
   await writeFile(`${base}.md`, lines.join("\n") + "\n")
   console.log(`${base}.md`)

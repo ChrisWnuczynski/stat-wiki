@@ -1,7 +1,7 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 
-import { buildTurns, extractMath, linkCitations, mapOutsideCode, MAX_TURNS, normalizeDelimiters, safePage, type Msg } from "./text.ts"
+import { buildTurns, extractMath, linkCitations, mapOutsideCode, MAX_TURNS, normalizeDelimiters, safePage, smartDashes, sourceNumbers, type Citation, type Msg } from "./text.ts"
 
 test("\\( \\) and \\[ \\] become dollar delimiters, but not inside code", () => {
   assert.equal(normalizeDelimiters("Here \\(n\\) and \\[x^2\\]."), "Here $n$ and $$x^2$$.")
@@ -26,13 +26,29 @@ test("an unfinished code fence during streaming is still treated as code", () =>
   assert.equal(mapOutsideCode("a $x$ ```r\ny$z", (part) => part.toUpperCase()), "A $X$ ```r\ny$z")
 })
 
-test("only numbers the Worker returned become citation buttons", () => {
-  const html = linkCitations("<p>Mean [1]. Both [1, 2]. Stray [9].</p>", new Set([1, 2]))
-  assert.equal((html.match(/class="ask-cite"/g) ?? []).length, 3)
-  assert.equal(html.includes("[9]"), false)
-  assert.equal(html.includes("9"), false)
+const cite = (number: number, id: string): Citation => ({ number, id, title: id, kind: "section", url: `/${id}.html` })
+
+test("sources are numbered 1, 2, 3 in the order the answer first cites them", () => {
+  // Passage numbers skip and arrive out of order; 5 and 8 are the same page.
+  const answer = "First [5]. Then [2]. Both [8, 2]. Later [4]. Stray [7]."
+  const shown = sourceNumbers(answer, [cite(2, "b"), cite(4, "c"), cite(5, "a"), cite(8, "a")])
+  assert.deepEqual([...shown.entries()].sort((x, y) => x[0] - y[0]), [[2, 2], [4, 3], [5, 1], [8, 1]])
+  const html = linkCitations(`<p>${answer}</p>`, shown)
+  assert.deepEqual([...html.matchAll(/data-n="(\d+)"/g)].map((m) => Number(m[1])), [1, 2, 1, 2, 3])
+  assert.equal(html.includes("7"), false)
   assert.match(html, /Stray\.<\/p>/)
-  assert.match(html, /Mean<button/)
+  assert.match(html, /First<button/)
+})
+
+test("while an answer is arriving its markers are left out", () => {
+  assert.equal(linkCitations("<p>Mean [1]. Both [1, 2].</p>", new Map()), "<p>Mean. Both.</p>")
+})
+
+test("-- and --- between words become dashes, but not in maths, code or table rules", () => {
+  assert.equal(smartDashes("The Beta--Binomial model"), "The Beta\u2013Binomial model")
+  assert.equal(smartDashes("Normal--inverse-$\\chi^2$ and $a--b$"), "Normal\u2013inverse-$\\chi^2$ and $a--b$")
+  assert.equal(smartDashes("pages 1--3 --- see `x--y`"), "pages 1\u20133 \u2014 see `x--y`")
+  assert.equal(smartDashes("| --- | --- |"), "| --- | --- |")
 })
 
 test("turns keep the newest exchanges, start on a question and end on the new one", () => {

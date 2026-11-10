@@ -4,7 +4,7 @@
 import DOMPurify from "dompurify"
 import MarkdownIt from "markdown-it"
 
-import { ANCHOR, extractMath, escapeHtml, linkCitations, MATH_TOKEN, normalizeDelimiters, safePage, type MathPiece, type Msg } from "./text.ts"
+import { ANCHOR, dashProse, extractMath, escapeHtml, linkCitations, mapOutsideCode, MATH_TOKEN, normalizeDelimiters, safePage, type MathPiece, type Msg } from "./text.ts"
 
 type Katex = {
   render(tex: string, el: HTMLElement, options: Record<string, unknown>): void
@@ -113,15 +113,20 @@ function mathHtml(piece: MathPiece | undefined, katex: Katex | null): string {
  * Model text to HTML. Raw HTML in the answer is escaped by markdown-it, and the
  * result is sanitised: no links, images, styles or ids survive, because the model
  * must never write URLs. Citations and KaTeX output are added after sanitising.
+ * `shown` maps each passage number to the source number to show; while an
+ * answer is still arriving it is empty and the markers are left out.
  */
-export function renderAnswer(text: string, known: ReadonlySet<number> | null, katex: Katex | null): string {
-  const { text: body, maths } = extractMath(normalizeDelimiters(text))
+export function renderAnswer(text: string, shown: ReadonlyMap<number, number>, katex: Katex | null): string {
+  const lifted = extractMath(normalizeDelimiters(text))
+  const maths = lifted.maths
+  // Maths is already lifted out, so only prose and code are left: dashes go in the prose.
+  const body = mapOutsideCode(lifted.text, dashProse)
   const clean = DOMPurify.sanitize(markdown.render(body), {
     FORBID_TAGS: ["a", "img", "style", "iframe", "form", "input", "button", "svg", "math", "video", "audio"],
     FORBID_ATTR: ["style", "href", "src", "id", "class"],
     KEEP_CONTENT: true,
   })
-  const cited = known ? linkCitations(clean, known) : clean
+  const cited = linkCitations(clean, shown)
   return cited.replace(MATH_TOKEN, (_m, i: string) => mathHtml(maths[Number(i)], katex))
 }
 

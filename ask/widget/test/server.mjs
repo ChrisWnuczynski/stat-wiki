@@ -15,10 +15,11 @@ const roots = [
 ]
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".woff": "font/woff", ".ttf": "font/ttf" }
 
-export const ANSWER = "Taking logs turns the product into a sum [1], so $\\ell(\\theta)=\\sum_{i=1}^n \\log f(x_i;\\theta)$ is easier to maximise [2]. Stray [7]."
+// Passage numbers as the model writes them: out of order, one repeated, one the Worker did not return.
+export const ANSWER = "Taking logs turns the product into a sum [4], so $\\ell(\\theta)=\\sum_{i=1}^n \\log f(x_i;\\theta)$ is easier to maximise [2]. Again [4]. Stray [7]."
 export const CITATIONS = [
-  { number: 1, id: "section:target:s-target", title: "The target section", kind: "section", url: "/notes/target.html#s-target" },
-  { number: 2, id: "definition:def-thing", title: "Log-likelihood", kind: "definition", url: "/notes/target.html#def-thing" },
+  { number: 2, id: "definition:def-thing", title: "Log--likelihood", kind: "definition", url: "/notes/target.html#def-thing" },
+  { number: 4, id: "section:target:s-target", title: "The target section", kind: "section", url: "/notes/target.html#s-target" },
 ]
 export const NOT_COVERED = "StatWiki doesn't cover that."
 export const XSS = "<img src=x onerror=\"window.__xss=1\"> [click](javascript:window.__xss=2) <script>window.__xss=3</script> ![pic](https://evil.example/p.png) **bold**"
