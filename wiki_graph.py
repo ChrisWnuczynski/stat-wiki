@@ -179,14 +179,35 @@ def math_spans(text: str) -> list[str]:
     return found
 
 
+# Pandoc turns -- and --- between words into en and em dashes on the site.
+# Do the same here, but only between letters, digits or brackets, so a Markdown
+# table rule (| --- |) or a horizontal rule (---) is left alone.
+_WORD_BEFORE = r"(?<=[^\W_)\]])"
+_WORD_AFTER = r"(?=[^\W_(\[])"
+_EM_DASH = re.compile(rf"{_WORD_BEFORE}---{_WORD_AFTER}|{_WORD_BEFORE} --- {_WORD_AFTER}")
+_EN_DASH = re.compile(rf"{_WORD_BEFORE}--{_WORD_AFTER}|{_WORD_BEFORE} -- {_WORD_AFTER}")
+
+
+def _dash_prose(text: str) -> str:
+    text = _EM_DASH.sub(lambda match: match.group(0).replace("---", "\u2014"), text)
+    return _EN_DASH.sub(lambda match: match.group(0).replace("--", "\u2013"), text)
+
+
+def smart_dashes(text: str) -> str:
+    """-- and --- between words become en and em dashes, outside code and maths."""
+    shielded, code = _hold(text, _CODE, "\ue000")
+    shielded, maths = _hold(shielded, MATH_SPAN, "\ue001")
+    return _release(_release(_dash_prose(shielded), maths, "\ue001"), code, "\ue000")
+
+
 def _strip_prose(text: str) -> str:
-    """Attributes, links, images, and fences. Call only outside code and maths."""
+    """Attributes, links, images, fences, and dashes. Call only outside code and maths."""
     text = _FENCE_LINE.sub("", text)
     text = _HEADING_ATTR.sub(r"\1", text)
     text = _IMAGE.sub(lambda match: match.group(1), text)
     text = _LINK.sub(lambda match: match.group(1), text)
     text = _QUARTO_ATTR.sub("", text)
-    return text
+    return _dash_prose(text)
 
 
 def strip_markup(text: str) -> str:
@@ -253,7 +274,7 @@ def _prepare_entries(entries: list[dict]) -> None:
         if Counter(math_spans(cleaned)) != Counter(math_spans(expand_macros(text))):
             damaged.append(entry["id"])
         entry["text"] = cleaned
-        entry["title"] = expand_macros(entry.get("title") or "").strip() or entry["id"]
+        entry["title"] = smart_dashes(expand_macros(entry.get("title") or "")).strip() or entry["id"]
         entry["fingerprint"] = fingerprint(cleaned)
     if damaged:
         raise SystemExit("wiki.json maths changed: " + ", ".join(damaged[:20]))

@@ -402,6 +402,21 @@ class WikiGraphTests(unittest.TestCase):
             wiki_graph._check_urls([{"url": "/questions/ex-a.qmd"}], root)
         self.assertIn(".qmd", str(caught.exception))
 
+    def test_dashes_follow_pandoc_outside_maths_and_code(self) -> None:
+        cases = {
+            "The Beta--Binomial model": "The Beta\u2013Binomial model",
+            "Normal--inverse-$\\chi^2$ conjugacy": "Normal\u2013inverse-$\\chi^2$ conjugacy",
+            "pages 1--3 --- see": "pages 1\u20133 \u2014 see",
+            "maths $a--b$ stays": "maths $a--b$ stays",
+            "code `x--y` stays": "code `x--y` stays",
+            "| --- | --- |": "| --- | --- |",
+            "---": "---",
+        }
+        for raw, expected in cases.items():
+            self.assertEqual(wiki_graph.smart_dashes(raw), expected, raw)
+        table = "| a | b |\n| --- | --- |\n| 1--2 | x |"
+        self.assertEqual(wiki_graph.strip_markup(table), "| a | b |\n| --- | --- |\n| 1\u20132 | x |")
+
     def test_cleaning_leaves_maths_and_drops_image_attributes(self) -> None:
         sums = (r"$\sum_{i=1}^n x_i$", r"$\sum_{y_i=f_m(x_i)} c_i$")
         for sample in sums:

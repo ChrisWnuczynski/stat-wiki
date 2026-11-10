@@ -5,7 +5,7 @@ import { streamChat } from "../../core/xai.ts"
 import { AskBudget } from "./budget.ts"
 import { handleAsk, type AskDeps } from "./handler.ts"
 import { killEnabled } from "./gate.ts"
-import { chapterFor } from "./reader.ts"
+import { chapterFor, pageEntryFor } from "./reader.ts"
 import { hashIp, signSession, verifySession } from "./session.ts"
 
 export { AskBudget }
@@ -122,6 +122,7 @@ function deps(env: Env): AskDeps {
     getChunks: async (ids) => new Map(await Promise.all(ids.map(async (id) => [id, await env.CHUNKS.get(id)] as const))),
     definesTargets: async () => (await readerGraph()).definesTargets,
     chapterId: async (page, anchor) => chapterFor(await readerGraph(), page, anchor),
+    pageEntry: async (page, anchor) => pageEntryFor(await readerGraph(), page, anchor),
     streamAnswer: async function* (input) {
       const stream = await streamChat({
         apiKey: env.XAI_API_KEY ?? "",

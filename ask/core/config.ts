@@ -28,7 +28,7 @@ export const WIKI_URL = "https://www.statwiki.io/wiki.json"
 export const XAI_BASE_URL = "https://api.x.ai/v1"
 export const ANSWER_MODEL = "grok-4.7"
 // Thinking level sent with each answer ("low", "high"), or "" for the model's default.
-export const ANSWER_REASONING_EFFORT = ""
+export const ANSWER_REASONING_EFFORT = "low"
 export const COMPARE_MODEL = "grok-4.6"
 export const JUDGE_MODEL = "grok-4.7"
 export const ANSWER_MAX_TOKENS = 1500

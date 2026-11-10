@@ -7,6 +7,7 @@ import { estimateTokens } from "../../core/text.ts"
 import { parseAskBody } from "./body.ts"
 import { corsHeaders, originDenied } from "./cors.ts"
 import type { AdmitReason } from "./gate.ts"
+import type { PageEntry } from "./reader.ts"
 import { newSessionId } from "./session.ts"
 
 export type LogEvent = Record<string, string | number>
@@ -27,6 +28,7 @@ export type AskDeps = {
   getChunks(ids: string[]): Promise<Map<string, string | null>>
   definesTargets(): Promise<Set<string>>
   chapterId(page: string, anchor: string): Promise<string>
+  pageEntry(page: string, anchor: string): Promise<PageEntry | null>
   streamAnswer(input: { system: string; user: string }): AsyncIterable<string>
   hashIp(ip: string): Promise<string>
   log(event: LogEvent): void
@@ -152,12 +154,31 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
         kind: candidate?.kind ?? "",
       }
     })
+    // Where the reader is, so "this chapter" and "why is this true?" have a referent.
+    // If retrieval did not bring that passage, it is added after the others.
+    let reading: { n: number; title: string } | undefined
+    const here = body.page ? await deps.pageEntry(body.page, body.anchor) : null
+    if (here) {
+      const already = packed.find((passage) => passage.entryId === here.entryId)
+      if (already) {
+        reading = { n: already.n, title: here.title }
+      } else {
+        const text = textsFromStored(await deps.getChunks([here.chunkId])).get(here.chunkId)
+        if (text) {
+          const n = packed.length + 1
+          packed.push({ n, chunkId: here.chunkId, entryId: here.entryId, url: here.url, text, tokens: estimateTokens(text) })
+          cited.push({ n, entryId: here.entryId, url: here.url, title: here.title, kind: here.kind })
+          reading = { n, title: here.title }
+        }
+      }
+    }
     covered = isCovered(pool.best, deps.threshold)
     prompt = buildPrompt({
       question,
       passages: packed.map((passage) => ({ n: passage.n, text: passage.text })),
       covered,
       history: body.turns.slice(0, -1),
+      reading,
     })
   } catch {
     deps.log({ kind: "error", result: "retrieve", status: 0 })

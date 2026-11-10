@@ -67,7 +67,10 @@ test("asking streams an answer with rendered maths and citation buttons", async 
   assert.equal(await tab.evaluate(() => document.activeElement?.id), "ask-statwiki-input")
   await ask(tab, "Why do we take the log of the likelihood?")
   await tab.waitForSelector(".ask-assistant .ask-cite[data-n='2']")
-  assert.equal(await tab.locator(".ask-assistant .ask-cite").count(), 2)
+  // Passages 4, 2, 4 are shown as sources 1, 2, 1; the stray [7] is gone.
+  assert.deepEqual(await tab.locator(".ask-assistant .ask-cite").allTextContents(), ["1", "2", "1"])
+  assert.deepEqual(await tab.locator(".ask-source-n").allTextContents(), ["1", "2"])
+  assert.match(await tab.locator(".ask-source").nth(1).textContent(), /Log\u2013likelihood/)
   assert.ok(await tab.locator(".ask-assistant .ask-body .katex").count() >= 1)
   assert.equal(await tab.locator(".ask-assistant .ask-body").textContent().then((t) => t.includes("[7]")), false)
   assert.equal(await tab.locator(".ask-source").count(), 2)

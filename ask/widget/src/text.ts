@@ -59,18 +59,59 @@ export function extractMath(text: string): { text: string; maths: MathPiece[] } 
   return { text: out, maths }
 }
 
+const MARKER = /[ \t]?\[(\d+(?:\s*,\s*\d+)*)\]/g
+
 /**
- * Replace [n] and [n, m] with citation buttons for the numbers the Worker
- * returned. Numbers it did not return are dropped, so a stray [9] never shows.
+ * One number per source, 1, 2, 3 in the order the answer first cites it. The
+ * model cites passage numbers, which follow search rank, so they can skip and
+ * come out of order; two passages from one page share a number.
  */
-export function linkCitations(html: string, known: ReadonlySet<number>): string {
-  // The space before a marker goes too: the button sits against its word, like a footnote mark.
-  return html.replace(/[ \t]?\[(\d+(?:\s*,\s*\d+)*)\]/g, (_match, list: string) => {
-    const numbers = list.split(",").map((n) => Number(n.trim())).filter((n) => known.has(n))
+export function sourceNumbers(answer: string, citations: readonly Citation[]): Map<number, number> {
+  const source = new Map(citations.map((c) => [c.number, c.id]))
+  const shownFor = new Map<string, number>()
+  const shown = new Map<number, number>()
+  const take = (n: number) => {
+    const id = source.get(n)
+    if (id === undefined) return
+    if (!shownFor.has(id)) shownFor.set(id, shownFor.size + 1)
+    shown.set(n, shownFor.get(id) as number)
+  }
+  for (const match of answer.matchAll(MARKER)) for (const part of match[1].split(",")) take(Number(part.trim()))
+  for (const c of citations) take(c.number)
+  return shown
+}
+
+/**
+ * Replace [n] and [n, m] with buttons showing each source's number. Passage
+ * numbers the Worker did not return are dropped, and so is the space before a
+ * marker: the button sits against its word, like a footnote mark. With an empty
+ * map (an answer still arriving) every marker is removed.
+ */
+export function linkCitations(html: string, shown: ReadonlyMap<number, number>): string {
+  return html.replace(MARKER, (_match, list: string) => {
+    const numbers = [...new Set(list.split(",").map((n) => shown.get(Number(n.trim()))).filter((n): n is number => n !== undefined))]
     return numbers
       .map((n) => `<button type="button" class="ask-cite" data-n="${n}" aria-label="Source ${n}">${n}</button>`)
       .join("")
   })
+}
+
+// -- and --- between words become en and em dashes, as Pandoc does on the site.
+const BEFORE = "(?<=[\\p{L}\\p{N})\\]])"
+const AFTER = "(?=[\\p{L}\\p{N}(\\[])"
+const EM_DASH = new RegExp(`${BEFORE}---${AFTER}|${BEFORE} --- ${AFTER}`, "gu")
+const EN_DASH = new RegExp(`${BEFORE}--${AFTER}|${BEFORE} -- ${AFTER}`, "gu")
+
+export function dashProse(text: string): string {
+  return text
+    .replace(EM_DASH, (m) => m.replace("---", "\u2014"))
+    .replace(EN_DASH, (m) => m.replace("--", "\u2013"))
+}
+
+/** Dashes outside code and $...$ maths, for titles and other short text. */
+export function smartDashes(text: string): string {
+  return mapOutsideCode(text, (part) =>
+    part.split(/(\$\$[\s\S]*?\$\$|\$[^$\n]*\$)/).map((seg, i) => (i % 2 === 1 ? seg : dashProse(seg))).join(""))
 }
 
 export function escapeHtml(text: string): string {

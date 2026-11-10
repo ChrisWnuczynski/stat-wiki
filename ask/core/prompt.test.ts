@@ -12,7 +12,8 @@ test("the prompt is versioned and does not name a course code or a url", () => {
     covered: false,
   })
   assert.equal(prompt.version, PROMPT_VERSION)
-  assert.equal(PROMPT_VERSION, "v1")
+  assert.equal(PROMPT_VERSION, "v2")
+  assert.match(prompt.system, /Never say you cannot give a link, and never write a URL yourself/)
   assert.match(prompt.system, new RegExp(NOT_COVERED_SENTENCE.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")))
   assert.match(prompt.user, /\[1\] The average/)
   assert.match(prompt.user, /not covering the question/)

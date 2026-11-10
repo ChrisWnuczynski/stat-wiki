@@ -46,6 +46,7 @@ function harness(options?: {
   budget?: number
   k?: number
   matches?: ScoredMatch[]
+  here?: { entryId: string; chunkId: string; title: string; kind: string; url: string }
 }): { deps: AskDeps; calls: { model: number; users: string[] }; logs: LogEvent[]; state: { day: DayState } } {
   const state = { day: emptyDay() }
   const calls = { model: 0, users: [] as string[] }
@@ -78,6 +79,7 @@ function harness(options?: {
     getChunks: async (ids) => new Map(ids.map((id) => [id, JSON.stringify({ text: `Text for ${id}` })])),
     definesTargets: async () => new Set<string>(),
     chapterId: async () => "chapter:a",
+    pageEntry: async () => options?.here ?? null,
     streamAnswer: async function* (input) {
       calls.model += 1
       calls.users.push(input.user)
@@ -345,7 +347,7 @@ test("a covered misuse prompt reaches the model and a decline carries no citatio
     })
     assert.equal(sha256Hex(calls.users.at(-1) ?? ""), sha256Hex(expected.user))
     assert.match(expected.system, /decline in one sentence/)
-    assert.match(expected.system, /Do not write URLs/)
+    assert.match(expected.system, /never write a URL yourself/)
     assert.equal(JSON.stringify(logs).includes(item.prompt), false)
   }
   assert.equal(calls.model, misuse.length)
@@ -412,4 +414,33 @@ test("a keep-alive comment goes out every 15 seconds while the model thinks", as
     rest += decoder.decode(value)
   }
   assert.match(rest, /event: citations/)
+})
+
+test("the reader's page is named, and added as a passage when retrieval missed it", async () => {
+  const here = { entryId: "chapter:bb", chunkId: "chapter:bb#0", title: "The Beta–Binomial model", kind: "chapter", url: "/notes/bb.html" }
+  const { deps, calls } = harness({ answer: "This chapter is [2].", here })
+  const response = await handleAsk(ask({
+    turns: [{ role: "user", content: "Can you give me a link to this chapter?" }],
+    page: "/notes/bb.html",
+    anchor: "",
+    session: await session(),
+  }), deps)
+  const events = sse(await response.text())
+  assert.match(calls.users.at(-1) ?? "", /The reader is on this page: The Beta–Binomial model \[2\]\./)
+  assert.match(calls.users.at(-1) ?? "", /\[2\] Text for chapter:bb#0/)
+  assert.deepEqual(events.at(-1)?.data.citations, [{ number: 2, id: "chapter:bb", title: "The Beta–Binomial model", kind: "chapter", url: "/notes/bb.html" }])
+})
+
+test("when retrieval already has the reader's page, its number is reused", async () => {
+  const here = { entryId: "section:mean", chunkId: "section:mean#0", title: "Means", kind: "section", url: "/notes/a.html#mean" }
+  const { deps, calls } = harness({ here })
+  await (await handleAsk(ask({
+    turns: [{ role: "user", content: "Why is this true?" }],
+    page: "/notes/a.html",
+    anchor: "mean",
+    session: await session(),
+  }), deps)).text()
+  const user = calls.users.at(-1) ?? ""
+  assert.match(user, /The reader is on this page: Means \[1\]\./)
+  assert.equal((user.match(/^\[\d\] /gm) ?? []).length, 1)
 })

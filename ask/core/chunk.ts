@@ -1,3 +1,4 @@
+import { sha256Hex } from "./text.ts"
 import { CHUNK_CHARS } from "./config.ts"
 import type { Chunk, WikiDoc, WikiEntry } from "./types.ts"
 import { buildGraph } from "./graph.ts"
@@ -146,7 +147,8 @@ export function chunkEntry(
     kind: entry.kind,
     chapterId,
     chapterTitle,
-    fingerprint: entry.fingerprint,
+    // The header is part of what is embedded, so a title change re-embeds too.
+    fingerprint: sha256Hex(`${entry.fingerprint}\n${header}`),
   }))
 }
 

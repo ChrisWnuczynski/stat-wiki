@@ -3717,6 +3717,8 @@ def write_config(chapters, final_notes, questions) -> None:
 website:
   title: "stat wiki"
   description: {yaml_quote(SITE_DESCRIPTION)}
+  # Browser-tab icon: a bivariate normal density in viridis, 16 to 128 px.
+  favicon: favicon.ico
   # Public host. Quarto writes sitemap.xml from this and each page's canonical link.
   site-url: "https://www.statwiki.io"
   # Leading slash: the same project file on every page, copied into the site root.

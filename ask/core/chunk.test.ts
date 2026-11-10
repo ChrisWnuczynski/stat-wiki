@@ -103,3 +103,11 @@ test("copy_of entries and empty text are skipped", () => {
   assert.equal(section?.chapterId, "chapter:c")
   assert.ok(section?.text.startsWith("Chapter › Kept (section)"))
 })
+
+test("a chunk's fingerprint changes with its title and chapter title, not only its text", () => {
+  const entry = { id: "section:c:s", kind: "section", title: "The Beta--Binomial model", text: "Body.", url: "/c.html#s", fingerprint: "same-text" }
+  const before = chunkEntry(entry, "Chapter", "chapter:c")[0].fingerprint
+  assert.notEqual(chunkEntry({ ...entry, title: "The Beta\u2013Binomial model" }, "Chapter", "chapter:c")[0].fingerprint, before)
+  assert.notEqual(chunkEntry(entry, "New chapter title", "chapter:c")[0].fingerprint, before)
+  assert.equal(chunkEntry(entry, "Chapter", "chapter:c")[0].fingerprint, before)
+})
