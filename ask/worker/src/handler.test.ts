@@ -382,3 +382,34 @@ test("a covered question starts with a status event", async () => {
   assert.deepEqual(events[0].data, { covered: true })
   assert.equal(calls.model, 1)
 })
+
+test("a keep-alive comment goes out every 15 seconds while the model thinks", async (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  let release: () => void = () => {}
+  const gate = new Promise<void>((done) => { release = done })
+  const { deps } = harness()
+  deps.streamAnswer = async function* () {
+    await gate
+    yield "Done [1]."
+  }
+  const response = await handleAsk(ask({
+    turns: [{ role: "user", content: "What is a mean?" }],
+    page: "/notes/a.html",
+    anchor: "",
+    session: await session(),
+  }), deps)
+  const reader = response.body!.getReader()
+  const decoder = new TextDecoder()
+  const first = decoder.decode((await reader.read()).value)
+  assert.match(first, /event: status/)
+  t.mock.timers.tick(15_000)
+  assert.equal(decoder.decode((await reader.read()).value), ": thinking\n\n")
+  release()
+  let rest = ""
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    rest += decoder.decode(value)
+  }
+  assert.match(rest, /event: citations/)
+})

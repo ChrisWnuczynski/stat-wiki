@@ -60,6 +60,8 @@ export async function start() {
           return
         }
         res.write(sse("status", { covered: true }))
+        // The Worker's keep-alive while the model thinks: the widget must ignore it.
+        res.write(": thinking\n\n")
         if (/slow/i.test(question)) await sleep(4000)
         for (const piece of ANSWER.match(/.{1,12}/gs)) {
           res.write(sse("delta", { text: piece }))

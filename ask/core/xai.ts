@@ -43,6 +43,7 @@ export async function streamChat(input: {
   system: string
   user: string
   maxTokens?: number
+  reasoningEffort?: string
 }): Promise<ReadableStream<string>> {
   const apiKey = input.apiKey.trim()
   if (!apiKey) throw Object.assign(new Error("xAI chat failed (0)"), { status: 0 })
@@ -57,6 +58,7 @@ export async function streamChat(input: {
       temperature: 0.2,
       max_tokens: input.maxTokens ?? ANSWER_MAX_TOKENS,
       stream: true,
+      ...(input.reasoningEffort ? { reasoning_effort: input.reasoningEffort } : {}),
       messages: [
         { role: "system", content: input.system },
         { role: "user", content: input.user },

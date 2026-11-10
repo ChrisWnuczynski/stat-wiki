@@ -179,6 +179,9 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
       const send = (event: string, data: unknown) => {
         controller.enqueue(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`))
       }
+      // The model can think for a minute before its first word. An SSE comment
+      // every 15 s keeps the connection from looking idle; clients ignore it.
+      const keepAlive = setInterval(() => controller.enqueue(encoder.encode(": thinking\n\n")), 15_000)
       try {
         send("status", { covered: true })
         let full = ""
@@ -200,6 +203,7 @@ async function answer(request: Request, deps: AskDeps, cors: Headers): Promise<R
         send("error", { error: "Ask failed." })
         send("citations", { citations: [] })
       } finally {
+        clearInterval(keepAlive)
         controller.close()
       }
     },

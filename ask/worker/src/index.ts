@@ -1,4 +1,4 @@
-import { ANSWER_MODEL, DEFAULT_DAILY_BUDGET, EMBEDDING_MODEL, QUERY_INSTRUCTION, SESSION_TTL_SECONDS, WIKI_URL, WORKER_K, WORKER_MAX_TOKENS } from "../../core/config.ts"
+import { ANSWER_MODEL, ANSWER_REASONING_EFFORT, DEFAULT_DAILY_BUDGET, EMBEDDING_MODEL, QUERY_INSTRUCTION, SESSION_TTL_SECONDS, WIKI_URL, WORKER_K, WORKER_MAX_TOKENS } from "../../core/config.ts"
 import { buildGraph, type Graph } from "../../core/graph.ts"
 import type { WikiDoc } from "../../core/types.ts"
 import { streamChat } from "../../core/xai.ts"
@@ -129,6 +129,7 @@ function deps(env: Env): AskDeps {
         system: input.system,
         user: input.user,
         maxTokens: WORKER_MAX_TOKENS,
+        reasoningEffort: ANSWER_REASONING_EFFORT,
       })
       const reader = stream.getReader()
       try {
