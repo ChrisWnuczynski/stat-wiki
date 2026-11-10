@@ -22,3 +22,4 @@ __pycache__/
 /_publish/
 /_screenshots/
 /.claude/
+/ask/node_modules/

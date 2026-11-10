@@ -1,0 +1,5 @@
+{
+  "rule": "A worked answer overlaps another entry when a whitespace-normalised paragraph of at least 180 characters is copied into that entry, or when 40 consecutive words are copied. The question and the answer themselves are not listed. This is a copy check, not a topical similarity check.",
+  "count": 0,
+  "overlaps": []
+}

@@ -1,0 +1,17 @@
+{
+  "name": "statwiki-ask",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test core/chunk.test.ts core/citations.test.ts core/retrieve.test.ts core/overlap.test.ts core/maths.test.ts core/plan.test.ts core/graph.test.ts core/questions.test.ts core/prompt.test.ts",
+    "index": "node --experimental-strip-types harness/index-wiki.ts",
+    "run": "node --experimental-strip-types harness/run.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
