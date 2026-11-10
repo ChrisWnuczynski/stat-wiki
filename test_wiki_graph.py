@@ -376,7 +376,7 @@ class WikiGraphTests(unittest.TestCase):
         self.assertEqual(by_id["definition:def-glm"]["copy_of"], section_id)
         self.assertIn("joint density", section["text"])
         self.assertIn("A cloud", section["text"])
-        self.assertIn("The note text", section["text"])
+        self.assertIn("[The note text.]", section["text"])
         self.assertIn("Inside", section["text"])
         self.assertIn(r"${\boldsymbol{\beta}}$", section["text"])
         self.assertNotRegex(section["text"], r"^:::")
@@ -392,11 +392,73 @@ class WikiGraphTests(unittest.TestCase):
             wiki_graph.strip_markup("[joint density](../articles/x.qmd){.term}"),
             "joint density",
         )
-        self.assertEqual(wiki_graph.strip_markup("A note.[^n]\n\n[^n]: The note text."), "A note. The note text.")
+        self.assertEqual(wiki_graph.strip_markup("A note.[^n]\n\n[^n]: The note text."), "A note. [The note text.]")
         self.assertEqual(wiki_graph.strip_markup("[^n]: The note text."), "The note text.")
+        self.assertEqual(
+            wiki_graph.strip_markup("See.[^n]\n\n```\ncode\n```\n\n[^n]: The note text."),
+            "See. [The note text.]\n\n```\ncode\n```",
+        )
         with self.assertRaises(SystemExit) as caught:
             wiki_graph._check_urls([{"url": "/questions/ex-a.qmd"}], root)
         self.assertIn(".qmd", str(caught.exception))
+
+    def test_cleaning_leaves_maths_and_drops_image_attributes(self) -> None:
+        sums = (r"$\sum_{i=1}^n x_i$", r"$\sum_{y_i=f_m(x_i)} c_i$")
+        for sample in sums:
+            cleaned = build_wiki.expand_macros(wiki_graph.strip_markup(sample)).strip()
+            self.assertEqual(cleaned, sample)
+            self.assertEqual(wiki_graph.math_spans(cleaned), wiki_graph.math_spans(build_wiki.expand_macros(sample)))
+        self.assertEqual(wiki_graph.strip_markup("![A plot](figures/x.png){width=50%}"), "A plot")
+        caption = r"![A $\sum_{i=1}^n$ plot](figures/x.png){width=50%}"
+        self.assertEqual(wiki_graph.strip_markup(caption), r"A $\sum_{i=1}^n$ plot")
+        align = "\\begin{align*}\n&=e^{-\\alpha}\\sum_{y_i=f_m(x_i)}c_{m,i}\n\\end{align*}"
+        self.assertEqual(wiki_graph.strip_markup(align), align)
+        split = "$X_t=\\sum_{j=1}^p a_j+$\n\\sum_{k=1}^q b_k$"
+        cleaned_split = wiki_graph.strip_markup(split)
+        self.assertIn(r"\sum_{j=1}^p", cleaned_split)
+        self.assertIn(r"\sum_{k=1}^q", cleaned_split)
+        self.assertNotIn("_^", cleaned_split)
+        self.assertNotIn("^_", cleaned_split)
+        self.assertEqual(wiki_graph.strip_markup("## Title {#id}"), "## Title")
+        self.assertEqual(wiki_graph.strip_markup("$$ {#eq-one}"), "$$")
+        self.assertNotIn("{#", wiki_graph.strip_markup("[]{#sol-one} **[Name](#ex-one).**"))
+
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        kwargs = _world(root)
+        kwargs["notes"][CHAPTER]["prose"] = sums[0] + "\n\n## Later\n\nKept out."
+        kwargs["sections"][(CHAPTER, ANCHOR)] = sums[1] + "\n\n![A plot](figures/x.png){width=50%}"
+        kwargs["articles"]["glm"]["card"] = None
+        kwargs["answers"][0]["body"] = align
+        document = wiki_graph.build_document(**kwargs)
+        for item in document["entries"]:
+            body = item.get("text") or ""
+            self.assertNotIn("_^", body, item["id"])
+            self.assertNotIn("^_", body, item["id"])
+            if body:
+                self.assertNotRegex(body, r"\{[.#][\w-]")
+        by_id = {item["id"]: item for item in document["entries"]}
+        self.assertEqual(by_id[f"chapter:{Path(CHAPTER).stem}"]["text"], sums[0])
+        self.assertEqual(by_id[f"section:{Path(CHAPTER).stem}:{ANCHOR}"]["text"], sums[1] + "\n\nA plot")
+        self.assertIn(r"\sum_{y_i=f_m(x_i)}", by_id["answer:question:ex-a"]["text"])
+        self.assertEqual(by_id["definition:def-glm"]["text"], "A glm.")
+        self.assertNotIn("text", by_id["article:glm"])
+        self.assertEqual(by_id["article:glm"]["copy_of"], "definition:def-glm")
+
+    def test_built_text_rejects_broken_subscripts(self) -> None:
+        entry = {
+            "id": "definition:def-broken",
+            "kind": "definition",
+            "title": "Broken",
+            "text": r"\sum_^n",
+            "url": "/notes/x.html",
+            "fingerprint": "abc",
+        }
+        with self.assertRaises(SystemExit) as caught:
+            wiki_graph._check_chat_source([entry], [])
+        self.assertIn("broken maths", str(caught.exception))
+        self.assertIn(entry["id"], str(caught.exception))
 
 
 if __name__ == "__main__":
