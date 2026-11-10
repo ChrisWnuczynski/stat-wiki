@@ -17,8 +17,9 @@ An entry has:
 - ``kind``: ``chapter``, ``section``, ``definition``, ``theorem``, ``proposition``,
   ``corollary``, ``remark``, ``example``, ``article``, ``question``, ``answer``, or ``figure``.
 - ``title``: the heading, with maths macros expanded.
-- ``text``: Markdown and LaTeX, with Quarto fences, attributes, links, images, and
-  footnote markers removed and maths macros expanded. Omitted when ``copy_of`` is set.
+- ``text``: Markdown and LaTeX, with Quarto fences, attributes, links, and images
+  removed, each footnote marker replaced by its note in brackets, and maths macros
+  expanded. Omitted when ``copy_of`` is set.
   A chapter's text is only the opening before its first ``##`` heading.
 - ``url``: root-relative published path. A ``.qmd`` page is the ``.html`` page; the
   fragment is unchanged. A figure stays the image path.
@@ -26,6 +27,8 @@ An entry has:
   entry omits ``text``.
 - ``copy_of``: the id of the entry that keeps this text. Present only when another
   entry has the same text. A section keeps the text when one of the copies is a section.
+  Otherwise a box keeps it when one of the copies is a box, so an article that repeats
+  the box points at the box.
 """
 
 from __future__ import annotations
@@ -34,9 +37,20 @@ import difflib
 import hashlib
 import json
 import re
+from collections import Counter
 from pathlib import Path
 
-from build_wiki import CHAPTER_CODES, ONE_ARG, TERMS, WIKI, ZERO_ARG, expand_macros, plain
+from build_wiki import (
+    CHAPTER_CODES,
+    MATH_SPAN,
+    ONE_ARG,
+    TERMS,
+    WIKI,
+    ZERO_ARG,
+    expand_macros,
+    plain,
+    protect_code,
+)
 
 BOX_KINDS = {"definition", "theorem", "proposition", "corollary", "remark"}
 WARN_KINDS = {"section", "figure"}
@@ -95,16 +109,20 @@ def root_url(path: Path, root: Path, fragment: str = "") -> str:
     return url
 
 
-_CODE_FENCE = re.compile(r"```.*?```", re.S)
-_INLINE_OR_MATH = re.compile(r"`[^`\n]*`|\$\$.*?\$\$|\$(?:\\.|[^$\\\n])+\$", re.S)
+# Fenced and inline code, the same pieces protect_code leaves untouched.
+_CODE = re.compile(r"```.*?```|`[^`\n]*`", re.S)
 _FENCE_LINE = re.compile(r"^[ \t]*:{3,}[^\n]*\n?", re.M)
 _FOOT_DEF = re.compile(r"^[ \t]*\[\^([^\]]+)\]:[ \t]*([^\n]*(?:\n[ \t]+[^\n]*)*)", re.M)
 _FOOT_MARK = re.compile(r"\[\^([^\]]+)\]")
-_IMAGE = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\n]*\)")
-_LINK = re.compile(r"(?<!!)\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\n]*\)")
-_ATTR = re.compile(
-    r"\{(?:[.#][^{}\n]*|[A-Za-z][\w:.-]*\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^}\s\n]+)(?:\s+[^{}\n]*)?)\}"
-)
+_CAPTION = r"((?:[^\[\]]|\[[^\]]*\])*)"
+# Attribute braces only where Pandoc writes them: after a link or image, and
+# `{#id}` / `{.class}` groups. A `{key=value}` group is not an attribute unless
+# it is attached to that link or image, or it ends a heading or fence line.
+_TRAILING_ATTRS = r"(?:[ \t]*\{[^{}\n]*\})*"
+_IMAGE = re.compile(rf"!\[{_CAPTION}\]\([^)\n]*\){_TRAILING_ATTRS}")
+_LINK = re.compile(rf"(?<!!)\[{_CAPTION}\]\([^)\n]*\){_TRAILING_ATTRS}")
+_HEADING_ATTR = re.compile(r"^(#{1,6}[ \t]+\S.*?)[ \t]+\{[^{}\n]*\}[ \t]*$", re.M)
+_QUARTO_ATTR = re.compile(r"\{[.#][^{}\n]*\}")
 _H2 = re.compile(r"^##(?:\s|$)")
 _NOTE = "\ue002"
 _MARKUP = (
@@ -149,9 +167,38 @@ def opening_before_heading(text: str) -> str:
     return "\n".join(kept).strip()
 
 
+def math_spans(text: str) -> list[str]:
+    """Maths spans outside code, in order. Uses ``MATH_SPAN``."""
+    found: list[str] = []
+
+    def run(segment: str) -> str:
+        found.extend(match.group(0) for match in MATH_SPAN.finditer(segment))
+        return segment
+
+    protect_code(text, run)
+    return found
+
+
+def _strip_prose(text: str) -> str:
+    """Attributes, links, images, and fences. Call only outside code and maths."""
+    text = _FENCE_LINE.sub("", text)
+    text = _HEADING_ATTR.sub(r"\1", text)
+    text = _IMAGE.sub(lambda match: match.group(1), text)
+    text = _LINK.sub(lambda match: match.group(1), text)
+    text = _QUARTO_ATTR.sub("", text)
+    return text
+
+
 def strip_markup(text: str) -> str:
-    """Quarto markup out. Maths and fenced code stay as they are."""
-    shielded, fences = _hold(text, _CODE_FENCE, "\ue000")
+    """Quarto markup out. Maths and code stay as they are.
+
+    Code is shielded the way ``protect_code`` shields it, and maths with
+    ``MATH_SPAN``, before any attribute is removed. Attribute braces come off
+    only where Pandoc puts them: after a link or image, at the end of a heading,
+    and on a fence line. A cited footnote is inserted in brackets at its marker.
+    """
+    shielded, code = _hold(text, _CODE, "\ue000")
+    shielded, maths = _hold(shielded, MATH_SPAN, "\ue001")
     notes: dict[str, str] = {}
 
     def grab(match: re.Match) -> str:
@@ -167,9 +214,10 @@ def strip_markup(text: str) -> str:
         if not body:
             return ""
         used.add(match.group(1))
+        bracketed = f"[{body}]"
         if match.start() and not current[match.start() - 1].isspace():
-            return " " + body
-        return body
+            return " " + bracketed
+        return bracketed
 
     shielded = _FOOT_MARK.sub(put, current)
     # A note cited in this same text is inlined at the marker. A note that lives
@@ -179,24 +227,36 @@ def strip_markup(text: str) -> str:
         lambda match: "" if match.group(1) in used else notes.get(match.group(1), ""),
         shielded,
     )
-    shielded = _FENCE_LINE.sub("", shielded)
-    shielded, held = _hold(shielded, _INLINE_OR_MATH, "\ue001")
-    shielded = _IMAGE.sub(lambda match: match.group(1), shielded)
-    shielded = _LINK.sub(lambda match: match.group(1), shielded)
-    shielded = _ATTR.sub("", shielded)
-    return _release(_release(shielded, held, "\ue001"), fences, "\ue000").strip()
+    shielded = _strip_prose(shielded)
+    return _release(_release(shielded, maths, "\ue001"), code, "\ue000").strip()
+
+
+def _text_keeper(item: dict) -> tuple:
+    """Who keeps a shared text: a section, otherwise a box, otherwise the lowest id."""
+    if item["kind"] == "section":
+        band = 0
+    elif item["kind"] in BOX_KINDS:
+        band = 1
+    else:
+        band = 2
+    return (band, item["id"])
 
 
 def _prepare_entries(entries: list[dict]) -> None:
     """Expand macros, drop Quarto markup, and keep each distinct text once."""
+    damaged: list[str] = []
     for entry in entries:
         text = entry.get("text") or ""
         if entry["kind"] == "chapter":
             text = opening_before_heading(text)
-        text = expand_macros(strip_markup(text)).strip()
-        entry["text"] = text
+        cleaned = expand_macros(strip_markup(text)).strip()
+        if Counter(math_spans(cleaned)) != Counter(math_spans(expand_macros(text))):
+            damaged.append(entry["id"])
+        entry["text"] = cleaned
         entry["title"] = expand_macros(entry.get("title") or "").strip() or entry["id"]
-        entry["fingerprint"] = fingerprint(text)
+        entry["fingerprint"] = fingerprint(cleaned)
+    if damaged:
+        raise SystemExit("wiki.json maths changed: " + ", ".join(damaged[:20]))
     groups: dict[str, list[dict]] = {}
     for entry in entries:
         if entry["text"]:
@@ -204,7 +264,7 @@ def _prepare_entries(entries: list[dict]) -> None:
     for group in groups.values():
         if len(group) < 2:
             continue
-        group.sort(key=lambda item: (item["kind"] != "section", item["id"]))
+        group.sort(key=_text_keeper)
         canon = group[0]["id"]
         for other in group[1:]:
             other.pop("text", None)
@@ -232,6 +292,8 @@ def _check_chat_source(entries: list[dict], edges: list[dict]) -> None:
         text = entry.get("text") or ""
         if not text:
             continue
+        if "_^" in text or "^_" in text:
+            problems.append(f"broken maths in {entry['id']}")
         found = _MACRO.search(text)
         if found:
             problems.append(f"macro in text {entry['id']}: {found.group(0)}")
