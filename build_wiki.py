@@ -9,6 +9,7 @@ two steps (build, then quarto render) on every push and publishes the result.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import struct
@@ -3624,6 +3625,41 @@ ASK_JS = """
 """
 
 
+# Run R in the browser on the Using R pages. This loader is on every page. It
+# imports webr/runner.js only on a page of these parts that has an R block,
+# and R itself downloads only when a reader presses Run. See webr/README.md.
+RUNNABLE_PARTS = ("Using R",)
+WEBR_FILES = ["runner.js", "engine.js", "session.js", "packages.js", "version.js"]
+WEBR_JS = """
+<script>
+(function () {
+  var pages = __RUNNABLE__;
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+  var offset = meta ? meta.getAttribute("content") : "./";
+  var root = new URL(offset, location.href).pathname;
+  var here = location.pathname.slice(root.length).replace(/\\.html$/, "");
+  if (pages.indexOf(here) < 0 || !document.querySelector("pre.sourceCode.r")) return;
+  var start = function () {
+    import(new URL(offset + "webr/runner.js", location.href).href).then(function (m) { m.install(); });
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+})();
+</script>
+"""
+
+
+def runnable_pages() -> list[str]:
+    """Site paths, without .html, of the pages whose R blocks get Run buttons."""
+    return [
+        f"notes/{Path(filename).stem}"
+        for part, files in PARTS
+        if part in RUNNABLE_PARTS
+        for filename, kind in files
+        if kind == "notes"
+    ]
+
+
 # Every figure opens its file page, as an image does on Wikipedia. The file
 # page itself links its image to the full PNG instead.
 FILE_LINK_JS = """
@@ -3674,7 +3710,8 @@ def write_config(chapters, final_notes, questions) -> None:
         RANDOM_AND_FILTER_JS.replace("__QUESTIONS__", "[" + ",".join(f'"{p}"' for p in question_paths) + "]")
         + PREVIEW_JS
         + FILE_LINK_JS
-        + ASK_JS,
+        + ASK_JS
+        + WEBR_JS.replace("__RUNNABLE__", json.dumps(runnable_pages())),
         encoding="utf-8",
     )
 
@@ -3709,6 +3746,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - figures/*-full.png
     - labs/kde-math.js
     - labs/lab-chrome.js
+{chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - {SHARE_IMAGE}
     - wiki.json

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="quarto:offset" content="../">
+<title>R blocks fixture</title>
+<style>
+:root { --wiki-text: #202122; --wiki-muted: #54595d; --wiki-link: #3366cc; --wiki-border: #a2a9b1; --wiki-rule: #c8ccd1; --wiki-panel: #f8f9fa; --wiki-panel-head: #eaecf0; --wiki-bg: #ffffff; }
+body { font-family: sans-serif; max-width: 52rem; margin: 2rem auto; padding: 0 1rem; color: var(--wiki-text); background: var(--wiki-bg); }
+div.sourceCode { margin: 1rem 0; border: 1px solid var(--wiki-rule); background: var(--wiki-panel); }
+pre.sourceCode { margin: 0; padding: 0.6rem; }
+</style>
+</head>
+<body>
+<main id="quarto-document-content">
+<h1>R blocks fixture</h1>
+<p>The same markup Quarto 1.6 writes for a fenced r block.</p>
+
+<p>Block 1.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x &lt;- c(2, 4, 9)</span></code></pre></div>
+<p>Block 2.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mean(x)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>message(&quot;a note&quot;)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>warning(&quot;careful&quot;)</span></code></pre></div>
+<p>Block 3.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plot(x, type = &quot;b&quot;, main = &quot;Three points&quot;)</span></code></pre></div>
+<p>Block 4.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>y &lt;- 1</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>stop(&quot;boom&quot;)</span></code></pre></div>
+<p>Block 5.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dplyr::tibble(x = x, doubled = 2 * x)</span></code></pre></div>
+<p>Block 6.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Sys.sleep(60)</span></code></pre></div>
+</main>
+<script type="module">
+import { install } from "../webr/runner.js";
+window.rRunner = install();
+</script>
+</body>
+</html>

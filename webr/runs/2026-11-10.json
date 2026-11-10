@@ -1,0 +1,716 @@
+{
+  "webr": "0.6.0",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "date": "2026-11-10T13:26:55.649Z",
+  "pages": [
+    {
+      "file": "sources/stat1301/chapters/da-03-using-r.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 32488,
+          "ok": true,
+          "plots": 0,
+          "first": "install.packages(c(",
+          "warnings": [
+            "Warning: Requested package mclust not found in webR binary repo."
+          ]
+        },
+        {
+          "block": 2,
+          "ms": 3,
+          "ok": true,
+          "plots": 0,
+          "first": "xx <- 10"
+        },
+        {
+          "block": 3,
+          "ms": 3,
+          "ok": true,
+          "plots": 0,
+          "first": "x <- c(2.86, 4.16, 6.35, 3.92, 5.96)"
+        },
+        {
+          "block": 4,
+          "ms": 1,
+          "ok": true,
+          "plots": 0,
+          "first": "x <- c(3, NA_real_, 7)"
+        },
+        {
+          "block": 5,
+          "ms": 6,
+          "ok": true,
+          "plots": 0,
+          "first": "grades <- factor(c(\"low\", \"high\", \"medium\"),"
+        },
+        {
+          "block": 6,
+          "ms": 2,
+          "ok": true,
+          "plots": 0,
+          "first": "c(2.86, 4.16, 6.35, 3.92, 5.96) |> mean()"
+        },
+        {
+          "block": 7,
+          "ms": 11,
+          "ok": true,
+          "plots": 0,
+          "first": "alice <- data.frame("
+        },
+        {
+          "block": 8,
+          "ms": 5,
+          "ok": true,
+          "plots": 0,
+          "first": "model.matrix(~ Wind * Temp, data = head(datasets::airquality, 3))"
+        },
+        {
+          "block": 9,
+          "ms": 28,
+          "ok": true,
+          "plots": 0,
+          "first": "fit <- lm(change ~ drink, data = alice)"
+        }
+      ],
+      "packages": [],
+      "notInRepository": []
+    },
+    {
+      "file": "sources/using-r/chapters/ur-01-exploratory-data-analysis.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1047,
+          "ok": true,
+          "plots": 0,
+          "first": "aq <- datasets::airquality |>"
+        },
+        {
+          "block": 2,
+          "ms": 424,
+          "ok": true,
+          "plots": 0,
+          "first": "skimr::skim(aq |> dplyr::select(Ozone, Solar.R, Wind, Temp)) |>"
+        },
+        {
+          "block": 3,
+          "ms": 44,
+          "ok": true,
+          "plots": 0,
+          "first": "aq |>"
+        },
+        {
+          "block": 4,
+          "ms": 1334,
+          "ok": true,
+          "plots": 0,
+          "first": "aq |>"
+        },
+        {
+          "block": 5,
+          "ms": 381,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot(aq, ggplot2::aes(Ozone)) +"
+        },
+        {
+          "block": 6,
+          "ms": 524,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot(aq, ggplot2::aes(Temp, Ozone)) +"
+        },
+        {
+          "block": 7,
+          "ms": 4993,
+          "ok": true,
+          "plots": 0,
+          "first": "GGally::ggpairs("
+        },
+        {
+          "block": 8,
+          "ms": 61,
+          "ok": true,
+          "plots": 0,
+          "first": "admissions <- as.data.frame(datasets::UCBAdmissions) |>"
+        },
+        {
+          "block": 9,
+          "ms": 498,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot(admissions, ggplot2::aes(Dept, admission_rate, fill = Gender)) +"
+        },
+        {
+          "block": 10,
+          "ms": 38,
+          "ok": true,
+          "plots": 0,
+          "first": "admissions |>"
+        },
+        {
+          "block": 11,
+          "ms": 558,
+          "ok": false,
+          "plots": 0,
+          "first": "raw <- readr::read_csv(\"data/measurements.csv\", show_col_types = FALSE)",
+          "error": "Error in (function (path, write = FALSE, call = caller_env()) : 'data/measurements.csv' does not exist in current working directory:\n'/home/web_user'.",
+          "explanation": "This block reads a file from your own computer. The browser has no copy of it, so the error is expected here. Run it in R with the path to your file.",
+          "fatal": false
+        }
+      ],
+      "packages": [
+        "dplyr",
+        "skimr",
+        "tibble",
+        "tidyr",
+        "ggplot2",
+        "GGally",
+        "scales",
+        "readr"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "dplyr",
+        "skimr",
+        "tibble",
+        "tidyr",
+        "ggplot2",
+        "GGally",
+        "scales",
+        "readr"
+      ],
+      "installMs": 20232
+    },
+    {
+      "file": "sources/using-r/chapters/ur-02-probability-and-simulation.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 12,
+          "ok": true,
+          "plots": 0,
+          "first": "c("
+        },
+        {
+          "block": 2,
+          "ms": 2,
+          "ok": true,
+          "plots": 0,
+          "first": "c(density_at_0 = dnorm(0),"
+        },
+        {
+          "block": 3,
+          "ms": 1379,
+          "ok": true,
+          "plots": 0,
+          "first": "sprays_ab <- datasets::InsectSprays |>"
+        },
+        {
+          "block": 4,
+          "ms": 1224,
+          "ok": true,
+          "plots": 0,
+          "first": "aq <- datasets::airquality"
+        },
+        {
+          "block": 5,
+          "ms": 355,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot(aq, ggplot2::aes(Wind)) +"
+        }
+      ],
+      "packages": [
+        "dplyr",
+        "purrr",
+        "ggplot2"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "dplyr",
+        "purrr",
+        "ggplot2"
+      ],
+      "installMs": 7694
+    },
+    {
+      "file": "sources/using-r/chapters/ur-03-bootstrap-and-numerical.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1669,
+          "ok": true,
+          "plots": 0,
+          "first": "ozone_days <- datasets::airquality |>"
+        },
+        {
+          "block": 2,
+          "ms": 1269,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot(data.frame(mean_ozone = boot_means), ggplot2::aes(mean_ozone)) +"
+        },
+        {
+          "block": 3,
+          "ms": 3,
+          "ok": true,
+          "plots": 0,
+          "first": "area <- integrate(function(p) dbeta(p, 2, 5), lower = 0, upper = 1)$value"
+        },
+        {
+          "block": 4,
+          "ms": 3,
+          "ok": true,
+          "plots": 0,
+          "first": "root <- uniroot(function(p) pbeta(p, 2, 5) - 0.5, interval = c(0.01, 0.99))$root"
+        }
+      ],
+      "packages": [
+        "dplyr",
+        "rsample",
+        "purrr",
+        "ggplot2"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "dplyr",
+        "rsample",
+        "purrr",
+        "ggplot2"
+      ],
+      "installMs": 12573
+    },
+    {
+      "file": "sources/using-r/chapters/ur-04-mixtures-and-clustering.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 16,
+          "ok": true,
+          "plots": 0,
+          "first": "x <- datasets::faithful$waiting"
+        },
+        {
+          "block": 2,
+          "ms": 6,
+          "ok": false,
+          "plots": 0,
+          "first": "set.seed(1)",
+          "error": "Error in loadNamespace(x): there is no package called ‘mclust’",
+          "explanation": "The mclust package is not available for R in the browser, so this block cannot run here. It runs in R or RStudio on a computer.",
+          "fatal": false
+        },
+        {
+          "block": 3,
+          "ms": 4,
+          "ok": false,
+          "plots": 0,
+          "first": "best <- if (mix_equal$bic >= mix_variable$bic) mix_equal else mix_variable",
+          "error": "Error: object 'mix_equal' not found",
+          "explanation": "Block 2 above did not run in the browser, and this block uses something it makes.",
+          "fatal": false
+        },
+        {
+          "block": 4,
+          "ms": 1022,
+          "ok": true,
+          "plots": 0,
+          "first": "iris_x <- datasets::iris |> dplyr::select(-Species)"
+        },
+        {
+          "block": 5,
+          "ms": 5,
+          "ok": false,
+          "plots": 0,
+          "first": "set.seed(1)",
+          "error": "Error in loadNamespace(x): there is no package called ‘mclust’",
+          "explanation": "The mclust package is not available for R in the browser, so this block cannot run here. It runs in R or RStudio on a computer.",
+          "fatal": false
+        },
+        {
+          "block": 6,
+          "ms": 4,
+          "ok": false,
+          "plots": 0,
+          "first": "mclust::adjustedRandIndex(datasets::iris$Species, pc_fit$classification)",
+          "error": "Error in loadNamespace(x): there is no package called ‘mclust’",
+          "explanation": "The mclust package is not available for R in the browser, so this block cannot run here. It runs in R or RStudio on a computer.",
+          "fatal": false
+        },
+        {
+          "block": 7,
+          "ms": 12138,
+          "ok": false,
+          "plots": 0,
+          "first": "set.seed(1)",
+          "error": "null function or function signature mismatch",
+          "explanation": "R stopped working in the browser: compiled code in a package this block uses does not run in the browser build of R. The block runs in R or RStudio on a computer. The next Run starts a fresh R.",
+          "fatal": true
+        }
+      ],
+      "packages": [
+        "mclust",
+        "ggplot2",
+        "dplyr",
+        "EMMIXmfa"
+      ],
+      "notInRepository": [
+        "mclust"
+      ],
+      "installed": [
+        "mclust",
+        "ggplot2",
+        "dplyr",
+        "EMMIXmfa"
+      ],
+      "installMs": 7713
+    },
+    {
+      "file": "sources/using-r/chapters/ur-05-bayesian-computation.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1330,
+          "ok": true,
+          "plots": 0,
+          "first": "admissions <- as.data.frame(datasets::UCBAdmissions) |>"
+        },
+        {
+          "block": 2,
+          "ms": 92,
+          "ok": true,
+          "plots": 0,
+          "first": "curve(dbeta(x, a_post, b_post), from = 0, to = 1, n = 400,"
+        },
+        {
+          "block": 3,
+          "ms": 8,
+          "ok": true,
+          "plots": 0,
+          "first": "shortest_interval <- function(draws, mass = 0.95) {"
+        },
+        {
+          "block": 4,
+          "ms": 12,
+          "ok": true,
+          "plots": 0,
+          "first": "log_m0 <- dbinom(y, size = n, prob = 0.5, log = TRUE)"
+        },
+        {
+          "block": 5,
+          "ms": 543,
+          "ok": true,
+          "plots": 0,
+          "first": "log_target_z <- function(z) {"
+        },
+        {
+          "block": 6,
+          "ms": 4,
+          "ok": true,
+          "plots": 0,
+          "first": "plot(mh_draws[1:800], type = \"l\", col = \"#1b5e94\", lwd = 0.8,"
+        },
+        {
+          "block": 7,
+          "ms": 219,
+          "ok": true,
+          "plots": 0,
+          "first": "sleep_wide <- datasets::sleep |>"
+        }
+      ],
+      "packages": [
+        "tidyr",
+        "dplyr",
+        "coda"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "tidyr",
+        "dplyr",
+        "coda"
+      ],
+      "installMs": 8449
+    },
+    {
+      "file": "sources/using-r/chapters/ur-06-model-objects.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1114,
+          "ok": true,
+          "plots": 0,
+          "first": "aq_complete <- datasets::airquality |>"
+        },
+        {
+          "block": 2,
+          "ms": 524,
+          "ok": true,
+          "plots": 0,
+          "first": "broom::tidy(linear_fit) |>"
+        },
+        {
+          "block": 3,
+          "ms": 10,
+          "ok": true,
+          "plots": 0,
+          "first": "new_weather <- data.frame(Temp = 80, Wind = 8)"
+        }
+      ],
+      "packages": [
+        "dplyr",
+        "broom"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "dplyr",
+        "broom"
+      ],
+      "installMs": 8079
+    },
+    {
+      "file": "sources/using-r/chapters/ur-07-glms-in-r.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1311,
+          "ok": true,
+          "plots": 0,
+          "first": "admissions <- as.data.frame(datasets::UCBAdmissions) |>"
+        },
+        {
+          "block": 2,
+          "ms": 10,
+          "ok": true,
+          "plots": 0,
+          "first": "new_group <- data.frame("
+        },
+        {
+          "block": 3,
+          "ms": 153,
+          "ok": true,
+          "plots": 0,
+          "first": "pois_fit <- glm(count ~ spray, family = poisson(link = \"log\"),"
+        },
+        {
+          "block": 4,
+          "ms": 2,
+          "ok": true,
+          "plots": 0,
+          "first": "# glm(count ~ spray + offset(log(exposure)), family = poisson, data = dat)"
+        },
+        {
+          "block": 5,
+          "ms": 58,
+          "ok": true,
+          "plots": 0,
+          "first": "aq_complete <- datasets::airquality |>"
+        },
+        {
+          "block": 6,
+          "ms": 1443,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot("
+        },
+        {
+          "block": 7,
+          "ms": 32,
+          "ok": true,
+          "plots": 0,
+          "first": "data(\"housing\", package = \"MASS\")"
+        },
+        {
+          "block": 8,
+          "ms": 32,
+          "ok": true,
+          "plots": 0,
+          "first": "nominal_fit <- nnet::multinom(Sat ~ Infl + Type + Cont,"
+        },
+        {
+          "block": 9,
+          "ms": 3,
+          "ok": true,
+          "plots": 0,
+          "first": "c(n = nobs(logit_fit),"
+        }
+      ],
+      "packages": [
+        "tidyr",
+        "dplyr",
+        "broom",
+        "MASS",
+        "ggplot2",
+        "nnet"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "tidyr",
+        "dplyr",
+        "broom",
+        "MASS",
+        "ggplot2",
+        "nnet"
+      ],
+      "installMs": 12044
+    },
+    {
+      "file": "sources/using-r/chapters/ur-08-additive-models.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 3199,
+          "ok": true,
+          "plots": 0,
+          "first": "aq_complete <- datasets::airquality |>"
+        },
+        {
+          "block": 2,
+          "ms": 83,
+          "ok": true,
+          "plots": 0,
+          "first": "plot(gam_fit, pages = 1, shade = TRUE, scale = 0,"
+        }
+      ],
+      "packages": [
+        "dplyr",
+        "mgcv"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "dplyr",
+        "mgcv"
+      ],
+      "installMs": 5877
+    },
+    {
+      "file": "sources/using-r/chapters/ur-09-repeated-measures.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1123,
+          "ok": true,
+          "plots": 0,
+          "first": "data(\"Orthodont\", package = \"nlme\")"
+        },
+        {
+          "block": 2,
+          "ms": 1591,
+          "ok": true,
+          "plots": 0,
+          "first": "ggplot2::ggplot(teeth, ggplot2::aes(age, distance, group = Subject, colour = Sex)) +"
+        },
+        {
+          "block": 3,
+          "ms": 2972,
+          "ok": true,
+          "plots": 0,
+          "first": "random_intercept <- lme4::lmer("
+        },
+        {
+          "block": 4,
+          "ms": 272,
+          "ok": true,
+          "plots": 0,
+          "first": "gee_fit <- geepack::geeglm("
+        }
+      ],
+      "packages": [
+        "nlme",
+        "dplyr",
+        "ggplot2",
+        "lme4",
+        "geepack"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "nlme",
+        "dplyr",
+        "ggplot2",
+        "lme4",
+        "geepack"
+      ],
+      "installMs": 16762
+    },
+    {
+      "file": "sources/using-r/chapters/ur-10-time-series.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1860,
+          "ok": true,
+          "plots": 0,
+          "first": "airline <- data.frame("
+        },
+        {
+          "block": 2,
+          "ms": 22686,
+          "ok": true,
+          "plots": 0,
+          "first": "train <- window(datasets::AirPassengers, end = c(1959, 12))"
+        },
+        {
+          "block": 3,
+          "ms": 11,
+          "ok": true,
+          "plots": 0,
+          "first": "seasonal_naive <- forecast::snaive(train, h = length(test))"
+        },
+        {
+          "block": 4,
+          "ms": 18,
+          "ok": true,
+          "plots": 0,
+          "first": "plot(airline_forecast, xlim = c(1958, 1961),"
+        },
+        {
+          "block": 5,
+          "ms": 1006,
+          "ok": true,
+          "plots": 0,
+          "first": "forecast::checkresiduals(airline_fit)"
+        }
+      ],
+      "packages": [
+        "ggplot2",
+        "forecast"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "ggplot2",
+        "forecast"
+      ],
+      "installMs": 9076
+    },
+    {
+      "file": "sources/using-r/chapters/ur-11-checking-a-fit.qmd",
+      "blocks": [
+        {
+          "block": 1,
+          "ms": 1079,
+          "ok": true,
+          "plots": 0,
+          "first": "aq <- datasets::airquality"
+        }
+      ],
+      "packages": [
+        "tidyr",
+        "nlme"
+      ],
+      "notInRepository": [],
+      "installed": [
+        "tidyr",
+        "nlme"
+      ],
+      "installMs": 9713
+    }
+  ],
+  "summary": {
+    "blocks": 67,
+    "ok": 61,
+    "explained": 6,
+    "failed": 0,
+    "noResult": 0
+  }
+}
