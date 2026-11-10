@@ -1,7 +1,7 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 
-import { citationsFromAnswer } from "./citations.ts"
+import { citationsFromAnswer, publicCitations } from "./citations.ts"
 
 const passages = [
   { n: 1, entryId: "definition:mean", url: "/notes/a.html#mean" },
@@ -27,6 +27,19 @@ test("numbers outside 1..k are dropped", () => {
 test("a comma list maps each in-range number", () => {
   const citations = citationsFromAnswer("Both [1, 3] matter.", passages)
   assert.equal(citations.length, 2)
+})
+
+test("the public list has number, id, title, kind, and url", () => {
+  const items = publicCitations("See [1] and [2] and [8] and [the notes](https://evil.example).", [
+    { n: 1, entryId: "definition:mean", url: "/notes/a.html#mean", title: "Mean", kind: "definition" },
+    { n: 2, entryId: "definition:mean", url: "/notes/a.html#mean", title: "Mean", kind: "definition" },
+    { n: 3, entryId: "theorem:var", url: "/notes/a.html#var", title: "Variance", kind: "theorem" },
+  ])
+  assert.deepEqual(items, [
+    { number: 1, id: "definition:mean", title: "Mean", kind: "definition", url: "/notes/a.html#mean" },
+    { number: 2, id: "definition:mean", title: "Mean", kind: "definition", url: "/notes/a.html#mean" },
+  ])
+  assert.equal(JSON.stringify(items).includes("evil.example"), false)
 })
 
 test("model output is not treated as a url citation", () => {

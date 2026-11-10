@@ -3608,6 +3608,22 @@ A study wiki for data analysis, probability, stochastic processes, statistical l
     )
 
 
+# Ask StatWiki: one small launcher on every page. The chat itself loads when
+# someone opens it. Built from ask/widget by the publish workflow.
+ASK_JS = """
+<script>
+(function () {
+  var meta = document.querySelector('meta[name="quarto:offset"]');
+  var offset = meta ? meta.getAttribute("content") : "./";
+  var s = document.createElement("script");
+  s.type = "module";
+  s.src = offset + "ask/widget/dist/loader.js";
+  document.head.appendChild(s);
+})();
+</script>
+"""
+
+
 # Every figure opens its file page, as an image does on Wikipedia. The file
 # page itself links its image to the full PNG instead.
 FILE_LINK_JS = """
@@ -3657,7 +3673,8 @@ def write_config(chapters, final_notes, questions) -> None:
     (WIKI / "_random.html").write_text(
         RANDOM_AND_FILTER_JS.replace("__QUESTIONS__", "[" + ",".join(f'"{p}"' for p in question_paths) + "]")
         + PREVIEW_JS
-        + FILE_LINK_JS,
+        + FILE_LINK_JS
+        + ASK_JS,
         encoding="utf-8",
     )
 
@@ -3695,6 +3712,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - robots.txt
     - {SHARE_IMAGE}
     - wiki.json
+    - ask/widget/dist/
 
 website:
   title: "stat wiki"

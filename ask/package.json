@@ -6,9 +6,11 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --experimental-strip-types --test core/chunk.test.ts core/citations.test.ts core/retrieve.test.ts core/overlap.test.ts core/maths.test.ts core/plan.test.ts core/graph.test.ts core/questions.test.ts core/prompt.test.ts",
+    "test": "node --experimental-strip-types --test core/chunk.test.ts core/citations.test.ts core/retrieve.test.ts core/overlap.test.ts core/maths.test.ts core/plan.test.ts core/graph.test.ts core/questions.test.ts core/prompt.test.ts core/select.test.ts worker/src/gate.test.ts worker/src/budget.test.ts worker/src/session.test.ts worker/src/reader.test.ts worker/src/handler.test.ts",
     "index": "node --experimental-strip-types harness/index-wiki.ts",
-    "run": "node --experimental-strip-types harness/run.ts"
+    "run": "node --experimental-strip-types harness/run.ts",
+    "answers": "node --experimental-strip-types harness/answers.ts",
+    "misuse-check": "node --experimental-strip-types harness/misuse-check.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",

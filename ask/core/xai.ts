@@ -24,6 +24,80 @@ function messageText(content: unknown): string {
   return ""
 }
 
+export function deltaFromChunk(data: string): string {
+  if (!data || data === "[DONE]") return ""
+  try {
+    const json = JSON.parse(data) as {
+      choices?: { delta?: { content?: unknown }; message?: { content?: unknown } }[]
+    }
+    const choice = json.choices?.[0]
+    return messageText(choice?.delta?.content ?? choice?.message?.content)
+  } catch {
+    return ""
+  }
+}
+
+export async function streamChat(input: {
+  apiKey: string
+  model: string
+  system: string
+  user: string
+  maxTokens?: number
+  reasoningEffort?: string
+}): Promise<ReadableStream<string>> {
+  const apiKey = input.apiKey.trim()
+  if (!apiKey) throw Object.assign(new Error("xAI chat failed (0)"), { status: 0 })
+  const response = await fetch(`${XAI_BASE_URL}/chat/completions`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: input.model,
+      temperature: 0.2,
+      max_tokens: input.maxTokens ?? ANSWER_MAX_TOKENS,
+      stream: true,
+      ...(input.reasoningEffort ? { reasoning_effort: input.reasoningEffort } : {}),
+      messages: [
+        { role: "system", content: input.system },
+        { role: "user", content: input.user },
+      ],
+    }),
+  })
+  if (!response.ok || !response.body) {
+    throw Object.assign(new Error(`xAI chat failed (${response.status})`), { status: response.status })
+  }
+  const source = response.body
+  return new ReadableStream<string>({
+    async start(controller) {
+      const reader = source.getReader()
+      const decoder = new TextDecoder()
+      let buffer = ""
+      try {
+        for (;;) {
+          const { done, value } = await reader.read()
+          if (done) break
+          buffer += decoder.decode(value, { stream: true }).replaceAll("\r\n", "\n")
+          let nl = buffer.indexOf("\n")
+          while (nl >= 0) {
+            const line = buffer.slice(0, nl)
+            buffer = buffer.slice(nl + 1)
+            if (line.startsWith("data:")) {
+              const text = deltaFromChunk(line.slice(5).trim())
+              if (text) controller.enqueue(text)
+            }
+            nl = buffer.indexOf("\n")
+          }
+        }
+        controller.close()
+      } catch (error) {
+        controller.error(error)
+      }
+    },
+  })
+}
+
 export async function completeChat(input: { model: string; system: string; user: string; maxTokens?: number }): Promise<Completion> {
   const apiKey = key()
   if (!apiKey) return { called: false }
@@ -46,7 +120,7 @@ export async function completeChat(input: { model: string; system: string; user:
   })
   const body = await response.text()
   if (!response.ok) {
-    throw new Error(`xAI chat failed (${response.status}): ${body.slice(0, 240)}`)
+    throw Object.assign(new Error(`xAI chat failed (${response.status})`), { status: response.status })
   }
   const json = JSON.parse(body) as {
     choices?: { message?: { content?: unknown } }[]

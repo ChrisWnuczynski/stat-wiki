@@ -1,5 +1,13 @@
 import type { Citation, Passage } from "./types.ts"
 
+export type PublicCitation = {
+  number: number
+  id: string
+  title: string
+  kind: string
+  url: string
+}
+
 export function citationsFromAnswer(answer: string, passages: Pick<Passage, "n" | "entryId" | "url">[]): Citation[] {
   const byNumber = new Map(passages.map((passage) => [passage.n, passage]))
   const max = passages.reduce((highest, passage) => Math.max(highest, passage.n), 0)
@@ -23,4 +31,28 @@ export function citationsFromAnswer(answer: string, passages: Pick<Passage, "n" 
     }
   }
   return order.map((id) => grouped.get(id)!).filter(Boolean)
+}
+
+export function publicCitations(
+  answer: string,
+  passages: (Pick<Passage, "n" | "entryId" | "url"> & { title: string; kind: string })[],
+): PublicCitation[] {
+  const meta = new Map<string, { title: string; kind: string }>()
+  for (const passage of passages) {
+    if (!meta.has(passage.entryId)) meta.set(passage.entryId, { title: passage.title, kind: passage.kind })
+  }
+  const items: PublicCitation[] = []
+  for (const citation of citationsFromAnswer(answer, passages)) {
+    const info = meta.get(citation.entryId)
+    for (const number of citation.numbers) {
+      items.push({
+        number,
+        id: citation.entryId,
+        title: info?.title ?? "",
+        kind: info?.kind ?? "",
+        url: citation.url,
+      })
+    }
+  }
+  return items
 }

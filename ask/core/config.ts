@@ -27,9 +27,23 @@ export const WIKI_URL = "https://www.statwiki.io/wiki.json"
 
 export const XAI_BASE_URL = "https://api.x.ai/v1"
 export const ANSWER_MODEL = "grok-4.7"
+// Thinking level sent with each answer ("low", "high"), or "" for the model's default.
+export const ANSWER_REASONING_EFFORT = ""
 export const COMPARE_MODEL = "grok-4.6"
 export const JUDGE_MODEL = "grok-4.7"
 export const ANSWER_MAX_TOKENS = 1500
+export const WORKER_MAX_TOKENS = 1200
+export const WORKER_K = 8
+export const COVERAGE_THRESHOLD = 0.41
+export const QUESTION_CHAR_LIMIT = 2000
+export const MAX_TURNS = 6
+export const SESSION_DAILY_LIMIT = 30
+export const IP_DAILY_LIMIT = 60
+export const DEFAULT_DAILY_BUDGET = 400
+export const SESSION_TTL_SECONDS = 12 * 60 * 60
+export const RESTING_MESSAGE = "Ask StatWiki is resting until tomorrow"
+// Sent without calling the model when retrieval finds nothing close enough.
+export const NOT_COVERED_REPLY = "StatWiki doesn't cover that. Ask StatWiki only answers questions about the statistics, probability, data analysis and R on this site. Try asking about something on the page you're reading."
 
 export const OVERLAP_PARAGRAPH_CHARS = 180
 export const OVERLAP_WORDS = 40

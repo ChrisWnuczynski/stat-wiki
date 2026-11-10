@@ -2,10 +2,9 @@ import { readFile } from "node:fs/promises"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
 
-import { Cloudflare, type VectorMatch } from "../core/cloudflare.ts"
+import { Cloudflare } from "../core/cloudflare.ts"
 import {
   ANSWER_MODEL,
-  CANDIDATE_K,
   COMPARE_MODEL,
   DEV_SIZE,
   FETCH_K,
@@ -14,11 +13,13 @@ import {
   WIKI_URL,
 } from "../core/config.ts"
 import { chunkDocument } from "../core/chunk.ts"
-import { buildGraph, definesDirection, loadWiki } from "../core/graph.ts"
+import { buildGraph, definesDirection } from "../core/graph.ts"
+import { loadWiki } from "../core/wiki-file.ts"
 import { excludeIdsForQuestion, findOverlaps } from "../core/overlap.ts"
 import { buildPrompt } from "../core/prompt.ts"
 import { missingExpect, readJsonl, studentLeaks, type MisusePrompt, type StudentQuestion } from "../core/questions.ts"
-import { bestSimilarity, DEFAULT_BOOSTS, isCovered, packPassages, rerank, calibrateThreshold } from "../core/retrieve.ts"
+import { DEFAULT_BOOSTS, isCovered, packPassages, rerank, calibrateThreshold } from "../core/retrieve.ts"
+import { rankMatches, takePool, textsFromStored } from "../core/select.ts"
 import { mapPool } from "../core/pool.ts"
 import { splitBank } from "../core/split.ts"
 import type { Candidate } from "../core/types.ts"
@@ -60,23 +61,6 @@ function cap<T>(items: T[], limit: number): T[] {
   return limit > 0 ? items.slice(0, limit) : items
 }
 
-function toCandidate(match: VectorMatch): Candidate | null {
-  const metadata = match.metadata ?? {}
-  const entryId = String(metadata.entryId ?? "")
-  const chunkId = String(metadata.chunkId ?? "")
-  if (!entryId || !chunkId) return null
-  return {
-    chunkId,
-    entryId,
-    score: match.score,
-    title: String(metadata.title ?? ""),
-    kind: String(metadata.kind ?? ""),
-    chapterId: String(metadata.chapterId ?? ""),
-    url: String(metadata.url ?? ""),
-    part: Number(metadata.part ?? 0),
-  }
-}
-
 async function retrieve(client: Cloudflare, work: Work): Promise<Retrieved[]> {
   const started = Date.now()
   const vector = await client.embedQuery(work.question)
@@ -84,34 +68,28 @@ async function retrieve(client: Cloudflare, work: Work): Promise<Retrieved[]> {
   const queried = Date.now()
   const matches = await client.query(vector, FETCH_K)
   const queryMs = Date.now() - queried
-  const ranked = matches
-    .map(toCandidate)
-    .filter((candidate): candidate is Candidate => candidate !== null)
-    .sort((a, b) => b.score - a.score || a.chunkId.localeCompare(b.chunkId))
-  const open = ranked.slice(0, CANDIDATE_K)
-  const closedAll = ranked.filter((candidate) => !work.exclude.has(candidate.entryId))
-  const closed = closedAll.slice(0, CANDIDATE_K)
-  const wanted = work.modes.includes("closed") ? [...open, ...closed] : open
+  const ranked = rankMatches(matches)
+  const open = takePool(ranked, "open", work.exclude, matches.length)
+  const closed = takePool(ranked, "closed", work.exclude, matches.length)
+  const wanted = work.modes.includes("closed") ? [...open.candidates, ...closed.candidates] : open.candidates
   const ids = [...new Set(wanted.map((candidate) => candidate.chunkId))]
   const fetched = Date.now()
   const stored = ids.length > 0 ? await client.kvGetMany(ids) : new Map<string, string | null>()
   const kvMs = Date.now() - fetched
-  const texts = new Map<string, string>()
-  for (const [key, value] of stored) {
-    if (!value) continue
-    const parsed = JSON.parse(value) as { text?: string }
-    if (parsed.text) texts.set(key, parsed.text)
-  }
+  const texts = textsFromStored(stored)
   const latencyMs = embedMs + queryMs + kvMs
-  return work.modes.map((mode) => ({
-    ...work,
-    mode,
-    best: bestSimilarity(mode === "closed" ? closed : open),
-    latencyMs,
-    candidates: mode === "closed" ? closed : open,
-    texts,
-    short: mode === "closed" && matches.length >= FETCH_K && closedAll.length < CANDIDATE_K,
-  }))
+  return work.modes.map((mode) => {
+    const pool = mode === "closed" ? closed : open
+    return {
+      ...work,
+      mode,
+      best: pool.best,
+      latencyMs,
+      candidates: pool.candidates,
+      texts,
+      short: pool.short,
+    }
+  })
 }
 
 async function answerFor(question: string, passages: { n: number; text: string }[], covered: boolean): Promise<string> {

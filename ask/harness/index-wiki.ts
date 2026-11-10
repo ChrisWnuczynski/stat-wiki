@@ -11,7 +11,7 @@ import {
   WIKI_URL,
 } from "../core/config.ts"
 import { chunkDocument, headerLine } from "../core/chunk.ts"
-import { loadWiki } from "../core/graph.ts"
+import { loadWiki } from "../core/wiki-file.ts"
 import { emptyManifest, manifestConfigMatches, manifestEntry, planIndex, type Manifest } from "../core/plan.ts"
 import { batches, mapPool } from "../core/pool.ts"
 import type { Chunk } from "../core/types.ts"

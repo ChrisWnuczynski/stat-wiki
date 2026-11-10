@@ -1,0 +1,9 @@
+{
+  "name": "statwiki-ask-worker",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "cf": "^1.0.0-beta.28",
+    "wrangler": "^4.159.0"
+  }
+}

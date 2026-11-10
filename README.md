@@ -17,6 +17,7 @@ On every push to `main`, the publish workflow runs both steps and publishes the 
 | Topic pages, their titles, other names, and term links | `topics.py`. Every chapter heading gets a page of its own automatically; this file names the ones whose heading needs its chapter to make sense, adds pages for ideas named inside a paragraph, and lists the phrases that link to them. |
 | Page layout, links and infoboxes | `build_wiki.py` |
 | Colours, fonts and dark mode | `styles.css` |
+| The Ask StatWiki chat | `ask/widget` for the chat on the pages, `ask/worker` for the server at `ask.statwiki.io`. See `ask/README.md`. |
 | Figures for the probability, inference and data analysis chapters | `make_figures.py` in `sources/stat2003/figures`, `sources/stat2004/figures` or `sources/stat1301/figures`, then commit the PDFs it writes. A `.tex` file beside a PDF is its TikZ source. |
 | Data behind the data analysis figures | `sources/stat1301/data` (heart-failure records and `birthwt`) |
 

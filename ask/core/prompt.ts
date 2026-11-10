@@ -14,11 +14,16 @@ export function buildPrompt(input: {
   question: string
   passages: { n: number; text: string }[]
   covered: boolean
+  history?: { role: "user" | "assistant"; content: string }[]
 }): { version: string; system: string; user: string } {
   const blocks = input.passages.map((passage) => `[${passage.n}] ${passage.text}`).join("\n\n")
   const coverage = input.covered
     ? ""
     : "Retrieval marked these passages as not covering the question. Follow the rule for a question the passages do not cover.\n\n"
-  const user = `${coverage}Question:\n${input.question}\n\nPassages:\n${blocks || "(none)"}`
+  const prior = (input.history ?? []).filter((turn) => turn.content.trim())
+  const history = prior.length === 0
+    ? ""
+    : `Conversation so far:\n${prior.map((turn) => `${turn.role === "user" ? "Reader" : "Tutor"}: ${turn.content}`).join("\n\n")}\n\n`
+  const user = `${history}${coverage}Question:\n${input.question}\n\nPassages:\n${blocks || "(none)"}`
   return { version: PROMPT_VERSION, system: SYSTEM, user }
 }

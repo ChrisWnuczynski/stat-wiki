@@ -1,5 +1,3 @@
-import { readFile } from "node:fs/promises"
-
 import type { WikiDoc, WikiEdge, WikiEntry } from "./types.ts"
 
 export type Graph = {
@@ -7,15 +5,6 @@ export type Graph = {
   chapterOf: (id: string) => string | null
   definesTargets: Set<string>
   answersOf: Map<string, string[]>
-}
-
-export async function loadWiki(source: string): Promise<WikiDoc> {
-  if (source.startsWith("http://") || source.startsWith("https://")) {
-    const response = await fetch(source)
-    if (!response.ok) throw new Error(`failed to fetch wiki (${response.status})`)
-    return response.json() as Promise<WikiDoc>
-  }
-  return JSON.parse(await readFile(source, "utf8")) as WikiDoc
 }
 
 export function buildGraph(doc: WikiDoc): Graph {
