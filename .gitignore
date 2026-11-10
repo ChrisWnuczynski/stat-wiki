@@ -23,3 +23,8 @@ __pycache__/
 /_screenshots/
 /.claude/
 /ask/node_modules/
+/ask/worker/node_modules/
+/ask/worker/.cloudflare/
+/ask/worker/.dev.vars
+/ask/worker/.wrangler/
+/ask/worker/wrangler.config.ts

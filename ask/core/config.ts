@@ -30,6 +30,16 @@ export const ANSWER_MODEL = "grok-4.7"
 export const COMPARE_MODEL = "grok-4.6"
 export const JUDGE_MODEL = "grok-4.7"
 export const ANSWER_MAX_TOKENS = 1500
+export const WORKER_MAX_TOKENS = 1200
+export const WORKER_K = 8
+export const COVERAGE_THRESHOLD = 0.41
+export const QUESTION_CHAR_LIMIT = 2000
+export const MAX_TURNS = 6
+export const SESSION_DAILY_LIMIT = 30
+export const IP_DAILY_LIMIT = 60
+export const DEFAULT_DAILY_BUDGET = 400
+export const SESSION_TTL_SECONDS = 12 * 60 * 60
+export const RESTING_MESSAGE = "Ask StatWiki is resting until tomorrow"
 
 export const OVERLAP_PARAGRAPH_CHARS = 180
 export const OVERLAP_WORDS = 40
