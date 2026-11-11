@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import os
+from datetime import datetime, timezone
 
 import chapter_guides
 import re
@@ -1380,7 +1381,7 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   var menuName = /\\/questions\\//.test(here) ? "Question bank"
     : /\\/labs\\//.test(here) ? "Laboratories"
-    : /\\/reference\\//.test(here) || /\\/articles\\//.test(here) ? "Reference"
+    : /\\/reference\\//.test(here) && !/\\/reference\\/glossary/.test(here) ? "Reference"
     : "";
   if (menuName) {
     document.querySelectorAll("#navbarCollapse .nav-link").forEach(function (link) {
@@ -2820,7 +2821,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             answer_body = prepare(answer["body"], "../figures", page=q["path"])
             q["prepared_answer"] = answer_body
             blocks += [
-                (False, "answer-open", "\n\n:::::::: {#worked-answer .callout-tip collapse=\"true\"}\n## Worked answer (click to show)\n\n"),
+                (False, "answer-open", "\n\n:::::::: {#worked-answer .callout-tip collapse=\"true\"}\n## Worked answer\n\n"),
                 (True, "answer", answer_body),
                 (False, "answer-close", "\n::::::::\n"),
             ]
@@ -3355,7 +3356,7 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
             )
         )
         blocks.append((True, "example", demote_headings(copy_for_article(q["prepared_body"], q["path"], path)) + "\n\n"))
-        blocks.append((False, "example-answer-open", ":::::::: {.callout-tip collapse=\"true\"}\n## Worked answer (click to show)\n\n"))
+        blocks.append((False, "example-answer-open", ":::::::: {.callout-tip collapse=\"true\"}\n## Worked answer\n\n"))
         blocks.append((True, "example", demote_headings(copy_for_article(q["prepared_answer"], q["path"], path)) + "\n"))
         blocks.append((False, "example-answer-close", "\n::::::::\n\n"))
 
@@ -4115,6 +4116,12 @@ def png_size(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", data[16:24])
 
 
+def footer_text() -> str:
+    """Copyright and the date of this build, for the foot of every page."""
+    today = datetime.now(timezone.utc)
+    return f"© {today.year} {SITE_NAME} · Last updated {today.day} {today:%B %Y}"
+
+
 def write_config(chapters, final_notes, questions) -> None:
     share = WIKI / SHARE_IMAGE
     width, height = png_size(share)
@@ -4220,7 +4227,7 @@ website:
             href: reference/formulas.qmd
       - text: Laboratories
         menu:
-          - text: "Interactive figures. The population is known, so the error is visible."
+          - text: "All laboratories"
             href: labs/index.qmd
           - text: Kernel density estimation
             href: labs/kernel-density.qmd
@@ -4243,7 +4250,7 @@ website:
       - section: Laboratories
         href: labs/index.qmd
         contents:
-          - text: "Interactive figures. The population is known, so the error is visible."
+          - text: "All laboratories"
             href: labs/index.qmd
           - text: Kernel density estimation
             href: labs/kernel-density.qmd
@@ -4275,7 +4282,7 @@ website:
           - files/index.qmd
   page-navigation: true
   page-footer:
-    center: {yaml_quote(SITE_NAME)}
+    center: {yaml_quote(footer_text())}
 
 format:
   html:

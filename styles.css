@@ -137,11 +137,13 @@ body.quarto-dark #quarto-search input {
 }
 
 /* Figures are drawn on white. Give them a light frame in dark mode
-   rather than inverting them, which would change the plot colours. */
+   rather than inverting them, which would change the plot colours, and dim
+   them a little so a white plot does not glare on the dark page. */
 body.quarto-dark #quarto-document-content img {
   background: #ffffff;
   border-radius: 2px;
   padding: 4px;
+  filter: brightness(0.85);
 }
 
 #quarto-document-content {
@@ -399,7 +401,7 @@ a.term:hover {
   float: right;
   clear: right;
   width: 21rem;
-  margin: 0.2rem 0 1rem 1.4rem;
+  margin: 0.2rem 0 1rem 1.5em;
   padding: 0.25rem 0.45rem 0.45rem;
   background: var(--wiki-panel);
   border: 1px solid var(--wiki-border);
@@ -474,11 +476,17 @@ a.term:hover {
   margin: 0 0 0.25rem;
 }
 
-/* Wide blocks beside the infobox give way to it rather than run under it. */
+/* Wide blocks beside the infobox give way to it rather than run under it.
+   Headings too: a heading's rule would otherwise run up to the infobox's edge. */
 #quarto-document-content .callout,
 #quarto-document-content .theorem,
 #quarto-document-content .qtable {
   overflow: hidden;
+}
+
+#quarto-document-content h2,
+#quarto-document-content h3 {
+  display: flow-root;
 }
 
 @media (max-width: 767px) {
@@ -562,14 +570,17 @@ a.box-article:hover {
   margin: 0;
 }
 
+/* Columns rather than a grid, so each box is as tall as its own list and
+   the boxes stack without gaps. Read down each column. */
 .portal {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: 0.9rem;
+  column-width: 16rem;
+  column-gap: 0.9rem;
   margin-bottom: 1.4rem;
 }
 
 .portal-box {
+  break-inside: avoid;
+  margin: 0 0 0.9rem;
   border: 1px solid var(--wiki-border);
   background: var(--wiki-bg);
 }
@@ -1005,4 +1016,125 @@ main,
 #site-search-results p {
   margin: 0.15rem 0 0.7rem;
   color: var(--wiki-muted);
+}
+
+/* Definitions and results sit in a panel with a blue rule down the left, so
+   they are easy to find when scanning a chapter. Examples get a grey rule
+   only, so they do not read as results. */
+#quarto-document-content .theorem {
+  margin: 1rem 0;
+  padding: 0.55rem 0.85rem;
+  background: var(--wiki-panel);
+  border-left: 3px solid var(--wiki-link);
+}
+
+#quarto-document-content .theorem.example {
+  padding: 0.15rem 0.85rem;
+  background: transparent;
+  border-left-color: var(--wiki-rule);
+}
+
+#quarto-document-content .theorem > :last-child {
+  margin-bottom: 0;
+}
+
+/* Worked answers, in the wiki's blue and greys rather than Bootstrap's
+   green, at the same size as the question. The title says "(click to show)"
+   only while the answer is closed. */
+#quarto-document-content div.callout-tip.callout {
+  border-color: var(--wiki-border);
+  border-left-color: var(--wiki-link);
+  font-size: 1rem;
+}
+
+#quarto-document-content div.callout-tip.callout > .callout-header {
+  background-color: var(--wiki-panel);
+  color: var(--wiki-text);
+  font-size: 1rem;
+  opacity: 1;
+  padding-left: 0.85rem;
+}
+
+#quarto-document-content div.callout-tip .callout-icon-container {
+  display: none;
+}
+
+#quarto-document-content div.callout-tip .callout-body {
+  padding-left: 0.85rem;
+  padding-right: 0.85rem;
+  font-size: 1rem;
+}
+
+#quarto-document-content div.callout-tip .callout-header[aria-expanded="false"] .callout-title-container::after {
+  content: " (click to show)";
+  color: var(--wiki-muted);
+  font-weight: 400;
+}
+
+/* Inline code in the text colour on a pale panel, not Bootstrap's purple. */
+#quarto-document-content :not(pre) > code:not(.sourceCode) {
+  padding: 0.05em 0.3em;
+  color: var(--wiki-text);
+  background-color: var(--wiki-panel);
+  border: 1px solid var(--wiki-panel-head);
+  border-radius: 2px;
+}
+
+#quarto-document-content a > code:not(.sourceCode) {
+  color: inherit;
+}
+
+/* The top bar is the same height in both themes, so switching theme does
+   not move the page. The dark theme pads it twice as much by default. */
+#quarto-header .navbar {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* Previous and next pages at the foot of each page: two labelled links at
+   the size of the text, not two small grey lines. */
+.page-navigation {
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.page-navigation .nav-page {
+  max-width: 48%;
+}
+
+.page-navigation .nav-page a {
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  color: var(--wiki-link);
+}
+
+.page-navigation .nav-page a:hover {
+  background: var(--wiki-panel);
+  color: var(--wiki-link-hover);
+}
+
+.page-navigation .nav-page-next a {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.page-navigation .nav-page .nav-page-text {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.page-navigation .nav-page .nav-page-text::before {
+  display: block;
+  margin-bottom: 0.1rem;
+  color: var(--wiki-muted);
+  font-size: 0.8rem;
+}
+
+.page-navigation .nav-page-previous .nav-page-text::before {
+  content: "Previous";
+}
+
+.page-navigation .nav-page-next .nav-page-text::before {
+  content: "Next";
 }
