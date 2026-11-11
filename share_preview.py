@@ -1,9 +1,11 @@
-"""Add each page's public URL to its share tags.
+"""Add each page's public URL to its share tags, then check the tags.
 
-Quarto writes the Open Graph title, description, and image, and the matching
-Twitter card. It does not write og:url. The canonical link is already the
-public URL, so copy that into og:url. The main page's canonical link is the
-site root.
+Quarto writes the Open Graph title and image, and the matching Twitter card.
+It does not write og:url. The canonical link is already the public URL, so
+copy that into og:url. The main page's canonical link is the site root.
+
+search_meta.py runs first and gives each page its own description, so the
+check here is that the meta, Open Graph and Twitter descriptions agree.
 """
 
 from __future__ import annotations
@@ -13,14 +15,12 @@ import re
 import sys
 from pathlib import Path
 
+from search_meta import BANNED, DESCRIPTION, SITE_NAME
+
 SITE = "https://www.statwiki.io/"
 IMAGE = "https://www.statwiki.io/share-icon.png"
-DESCRIPTION = (
-    "Study wiki for data analysis, probability, stochastic processes, "
-    "statistical learning, statistical inference, and the R used to compute them"
-)
-ALT = "Contours of a bivariate normal density in viridis, the stat wiki icon"
-TITLE_SUFFIX = " \u2013 stat wiki"
+ALT = f"Contours of a bivariate normal density in viridis, the {SITE_NAME} icon"
+TITLE_SUFFIX = f" \u2013 {SITE_NAME}"
 
 ROOT = Path(__file__).resolve().parent
 SITE_DIR = ROOT / "_site"
@@ -115,22 +115,26 @@ def check_page(page: Path, text: str) -> None:
         raise SystemExit(f"{page.relative_to(SITE_DIR)} og:url leaves the site: {url}")
     title = require(page, found, "og:title")
     if page == SITE_DIR / "index.html":
-        require(page, found, "og:title", "stat wiki")
+        require(page, found, "og:title", SITE_NAME)
         require(page, found, "og:url", SITE)
-    elif not (title == "stat wiki" or title.endswith(TITLE_SUFFIX)):
+        require(page, found, "description", DESCRIPTION)
+    elif not (title == SITE_NAME or title.endswith(TITLE_SUFFIX)):
         raise SystemExit(f"{page.relative_to(SITE_DIR)} og:title is {title!r}")
-    require(page, found, "og:description", DESCRIPTION)
+    description = require(page, found, "description")
+    if not description.strip():
+        raise SystemExit(f"{page.relative_to(SITE_DIR)} has an empty description")
+    require(page, found, "og:description", description)
     require(page, found, "og:image", IMAGE)
     require(page, found, "og:image:width", "1200")
     require(page, found, "og:image:height", "630")
     require(page, found, "og:image:alt", ALT)
     require(page, found, "twitter:card", "summary_large_image")
     require(page, found, "twitter:title", title)
-    require(page, found, "twitter:description", DESCRIPTION)
+    require(page, found, "twitter:description", description)
     require(page, found, "twitter:image", IMAGE)
-    for key in ("og:title", "og:description", "og:image:alt", "twitter:title", "twitter:description"):
+    for key in ("og:title", "description", "og:description", "og:image:alt", "twitter:title", "twitter:description"):
         value = found[key]
-        if re.search(r"STAT\s*\d|github", value, re.I):
+        if BANNED.search(value):
             raise SystemExit(f"{page.relative_to(SITE_DIR)} {key} names a course or a forge")
 
 

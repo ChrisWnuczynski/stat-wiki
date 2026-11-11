@@ -1628,6 +1628,7 @@ def demote_headings(text: str) -> str:
 # ---------------------------------------------------------------------------
 
 import topics  # noqa: E402
+from search_meta import DESCRIPTION as SITE_DESCRIPTION, SITE_NAME  # noqa: E402
 
 TOPIC_KINDS = {"section", "topic"}
 PAGE_PART: dict[Path, str] = {}  # chapter path -> part
@@ -3270,7 +3271,7 @@ def write_file_pages() -> None:
             lines += [f"- [{name}]({href(path, page)})" for name, page in sorted(used, key=lambda u: u[0].lower())]
         else:
             lines.append("No page shows this file yet.")
-        write_qmd(path, f"File:{png}", "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else 'stat wiki'}")
+        write_qmd(path, f"File:{png}", "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else SITE_NAME}")
         group = info["chapter_title"] if info else "Other figures"
         # An empty caption keeps a lone thumbnail from becoming a captioned figure.
         gallery.setdefault(group, []).append(f'[![]({href(files_dir / "index.qmd", figures_dir / png)}){{fig-alt="{Path(png).stem}"}}]({href(files_dir / "index.qmd", path)})')
@@ -3973,7 +3974,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     )
     n_chapters = len(chapters)
     home_text = f"""---
-title: "stat wiki"
+title: {yaml_quote(SITE_NAME)}
 toc: false
 ---
 
@@ -4098,14 +4099,11 @@ document.addEventListener("DOMContentLoaded", () => {
 """
 
 
-# Share cards repeat the site description and one wide image on every page.
-# The image is the browser-tab icon drawn at card size; make_share_image.py draws it.
-SITE_DESCRIPTION = (
-    "Study wiki for data analysis, probability, stochastic processes, "
-    "statistical learning, statistical inference, and the R used to compute them"
-)
+# Share cards use one wide image on every page: the browser-tab icon drawn
+# at card size by make_share_image.py. The site's name and description live
+# in search_meta.py, which also writes each page's own description after render.
 SHARE_IMAGE = "share-icon.png"
-SHARE_IMAGE_ALT = "Contours of a bivariate normal density in viridis, the stat wiki icon"
+SHARE_IMAGE_ALT = f"Contours of a bivariate normal density in viridis, the {SITE_NAME} icon"
 SHARE_WIDTH = 1200
 SHARE_HEIGHT = 630
 
@@ -4146,8 +4144,11 @@ def write_config(chapters, final_notes, questions) -> None:
   type: website
   output-dir: _site
   # Quarto's alias pages are redirects. Give each one a canonical link after render.
+  # Then write each page's search description and the home page's title and
+  # site name, and check the share tags.
   post-render:
     - canonical_redirects.py
+    - search_meta.py
     - share_preview.py
   # Render the generated pages only, not the course files copied into sources/.
   render:
@@ -4170,7 +4171,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - ask/widget/dist/
 
 website:
-  title: "stat wiki"
+  title: {yaml_quote(SITE_NAME)}
   description: {yaml_quote(SITE_DESCRIPTION)}
   # Browser-tab icon: a bivariate normal density in viridis, 16 to 128 px.
   favicon: favicon.ico
@@ -4274,7 +4275,7 @@ website:
           - files/index.qmd
   page-navigation: true
   page-footer:
-    center: "stat wiki"
+    center: {yaml_quote(SITE_NAME)}
 
 format:
   html:
