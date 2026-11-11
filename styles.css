@@ -45,6 +45,49 @@ body.quarto-dark {
   background-color: var(--wiki-bg);
 }
 
+/* Scrollbars, as in Claude: thin, a grey thumb, no visible track.
+   scrollbar-color is inherited, so this also reaches the sidebar, the
+   Contents column, code blocks and wide tables. The dark colours sit on the
+   root because the page's own scrollbar takes its colours from there, while
+   Quarto marks dark mode on the body. Safari reads the ::-webkit rules. */
+:root {
+  --scroll-thumb: #c2c2c2;
+  --scroll-thumb-hover: #a0a0a0;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+:root:has(body.quarto-dark) {
+  --scroll-thumb: #626262;
+  --scroll-thumb-hover: #7c7c7c;
+  color-scheme: dark;
+}
+
+html,
+#quarto-sidebar,
+#quarto-margin-sidebar {
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background: var(--scroll-thumb) padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover) padding-box;
+}
+
 body {
   font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--wiki-text);
