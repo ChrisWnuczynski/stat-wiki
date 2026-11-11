@@ -141,7 +141,8 @@ test("Escape closes the passage, then the chat", async () => {
   await tab.click("#ask-statwiki-launch")
   await ask(tab, "Why logs?")
   await tab.click(".ask-assistant .ask-cite[data-n='2']")
-  await tab.waitForSelector(".ask-reader")
+  // The reader opens at once with "Loading…" as its title; wait for the passage to arrive.
+  await tab.waitForFunction(() => !/^Loading/.test(document.querySelector(".ask-reader .ask-title")?.textContent ?? "Loading"))
   assert.match(await tab.locator(".ask-reader .ask-title").textContent(), /Log-likelihood|Definition/)
   await tab.keyboard.press("Escape")
   await tab.waitForSelector(".ask-reader", { state: "detached" })
