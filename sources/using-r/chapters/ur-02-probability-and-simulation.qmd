@@ -96,3 +96,15 @@ The Kolmogorov–Smirnov statistic compares distribution functions. `ks.test(x, 
 ## Key idea
 `d` is a density or a mass, `p` is a probability, `q` inverts `p`, and `r` draws. A simulation answers the question that was simulated. Exchangeable labels, a fixed bandwidth, and a reference distribution estimated from the same sample are three different questions, and each command implements only the one it was given.
 :::
+
+## Exercises
+
+::: {#ex-ur-density-or-probability .exercise}
+## A point mass is not an interval probability
+
+For a binomial count with 10 trials and success probability 0.4, say what `dbinom(3, size = 10, prob = 0.4)` and `pbinom(3, size = 10, prob = 0.4)` return.
+
+Why is the first of those not the probability of an interval?
+
+[Solution](#sol-ur-density-or-probability)
+:::

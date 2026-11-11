@@ -71,3 +71,15 @@ The interval passed to `uniroot` must contain a sign change. An interval that do
 ## Key idea
 Resample the independent units, and say so. A percentile interval describes the resamples. A numerical integral or mode is trustworthy after it has reproduced an answer that can be written in closed form.
 :::
+
+## Exercises
+
+::: {#ex-ur-bootstrap-unit .exercise}
+## Which unit the bootstrap draws
+
+Several rows are visits of one person. A percentile interval is formed by drawing those rows independently and recomputing the statistic.
+
+Why is that interval usually too short for a contrast that varies between people?
+
+[Solution](#sol-ur-bootstrap-unit)
+:::

@@ -45,3 +45,15 @@ The confidence interval is an interval for the conditional mean at 80 degrees an
 ## Key idea
 `summary` is one print of the object. `nobs` says which rows were used, `vcov` says how the coefficients vary together, and the choice between a confidence interval and a prediction interval is the choice between the mean and a new observation.
 :::
+
+## Exercises
+
+::: {#ex-ur-mean-or-new-day .exercise}
+## An interval for the mean and an interval for a new day
+
+From a fitted linear model, one interval covers the mean ozone at a stated temperature and wind speed, and another covers a new day's ozone at those same values.
+
+Why is the second wider, and which one is the forecast for a single new day?
+
+[Solution](#sol-ur-mean-or-new-day)
+:::

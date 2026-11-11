@@ -1,0 +1,51 @@
+# Worked answers
+
+[]{#sol-ur-two-fits} **[Two fits on different rows](#ex-ur-two-fits).**
+
+The two fits do not use the same days. A formula keeps only the rows in which every variable it names is present, so adding wind throws away days that have ozone and temperature but not wind. `nobs` reports how many rows each fit used. A coefficient from the smaller subset is an estimate for that subset. Comparing it with the coefficient from the larger subset mixes a change of sample with a change of formula.
+
+To ask whether wind belongs in the mean, refit both formulas on the rows where ozone, temperature, and wind are all present, and only then compare the temperature coefficients.
+
+[]{#sol-ur-what-a-row-is} **[What one row of the air-quality table is](#ex-ur-what-a-row-is).**
+
+One row is one day in New York from May through September 1973. A day with missing ozone is still a day in the table. A model whose formula names ozone drops that day, because the fit cannot use a response it does not have. The analysis sample is the set of days the fit actually used, and `nobs` reports that count. Quoting the result as a description of all 153 days describes a different set of days from the one that was fit.
+
+[]{#sol-ur-density-or-probability} **[A point mass is not an interval probability](#ex-ur-density-or-probability).**
+
+`dbinom` returns the probability mass at the single point 3. For a discrete distribution that mass is the probability of one value, not of a range of values. `pbinom` returns the cumulative probability of 3 or fewer successes. An interval, such as the probability of 2, 3, 4, or 5 successes, is a difference of cumulative probabilities, or a sum of point masses. It is not one call to `dbinom`. The quantile function `qbinom` inverts the cumulative probability. It does not invert the height of the mass function.
+
+[]{#sol-ur-bootstrap-unit} **[Which unit the bootstrap draws](#ex-ur-bootstrap-unit).**
+
+The independent unit is the person, not the visit. Drawing visits treats each visit as a new person and ignores the dependence among visits of the same person. The recomputed contrasts then vary less than contrasts computed from independent people, so the percentiles sit too close together and the interval is too short. Draw people, and keep every visit of a drawn person. The same mistake, for a series, is to draw time points in a random order. The dependence has to stay inside the block that is resampled.
+
+[]{#sol-ur-held-out-label} **[A label that was not in the fit](#ex-ur-held-out-label).**
+
+The label was held out, so the agreement describes these 150 flowers. It is not a rule trained to predict species. The flowers are not a random sample of every iris, and a component that lines up with a species in this table can fail on a new flower. A fit that had been allowed to see the label would be answering a different question. The check is whether the geometry of the measurements recovers a grouping that the algorithm was not given. It is not an error rate for a future flower.
+
+[]{#sol-ur-posterior-mean} **[The posterior mean is not the observed rate](#ex-ur-posterior-mean).**
+
+The posterior is $\operatorname{Beta}(2+y, 2+n-y)$. Its mean is $(2+y)/(4+n)$. That is a weighted average of the prior mean $1/2$ and the observed rate $y/n$, with the four pseudo-counts from the prior pulling the mean toward $1/2$. The observed rate is the maximum-likelihood estimate. It equals the posterior mean only for a prior that adds no pseudo-counts. The mean of draws from this posterior should agree with $(2+y)/(4+n)$, up to Monte Carlo error. Agreement with $y/n$ would mean the draws had ignored the prior.
+
+[]{#sol-ur-mean-or-new-day} **[An interval for the mean and an interval for a new day](#ex-ur-mean-or-new-day).**
+
+The mean response at a fixed covariate value is a parameter of the fitted model. Its interval only has to cover that mean, so the width comes from uncertainty in the coefficients. A new day has that uncertainty and also a new residual. The prediction interval adds the residual variance, and it is wider. A forecast for one new day is the prediction interval. Quoting the narrower interval as a range for one day's ozone understates the uncertainty the model itself claims. Neither interval is a causal effect of setting the weather. Both are statements inside the fitted line.
+
+[]{#sol-ur-log-link} **[What a log-link coefficient multiplies](#ex-ur-log-link).**
+
+The log link says the log of the mean count is linear in the predictors. Adding 1 to predictor $j$ adds $\beta_j$ to the log mean, which multiplies the mean count by $e^{\beta_j}$, with the other predictors held fixed. An odds ratio is the multiplier for the odds of a binary outcome under a logit link. A count does not have odds in that sense. Reading $e^{\beta_j}$ from a log link as an odds ratio changes the claim from a ratio of means to a ratio of odds.
+
+[]{#sol-ur-basis-dimension} **[The basis dimension is not the degrees of freedom](#ex-ur-basis-dimension).**
+
+`k` is the dimension of the basis used to build the smooth. It is an upper bound on how wiggly the curve is allowed to be. The penalty then chooses a smoother curve inside that basis, and the effective degrees of freedom are the trace of the map from the responses to the fitted values. That trace falls as the penalty grows, and it is not equal to `k` unless the penalty has done nothing. Raising `k` and finding that the curve and the effective degrees of freedom barely move is evidence that the bound was not the thing limiting the fit.
+
+[]{#sol-ur-exchangeable-bound} **[A correlation four visits cannot have](#ex-ur-exchangeable-bound).**
+
+An exchangeable correlation matrix for $K$ visits has eigenvalues $1-\rho$, repeated $K-1$ times, and $1+(K-1)\rho$ once. Both are nonnegative only when $-1/(K-1)\le\rho\le 1$. For four visits the lower bound is $-1/3$. A value of $-0.5$ is below that bound, so the matrix is not a correlation matrix: no such set of four random variables exists. A report of a working correlation at or below the bound is the constraint, not a precise estimate of a correlation the visits cannot have. The independent unit remains the child. Treating the visits as if each were a different child uses the wrong unit.
+
+[]{#sol-ur-time-order} **[A holdout that keeps time in order](#ex-ur-time-order).**
+
+Consecutive months are not interchangeable rows. A random subset of months puts later months into the fit and earlier months into the test, or mixes them. The fit has then seen the future of the months it is asked to score. A holdout that keeps time in order fits on a past stretch only and scores a later stretch. Shuffling the months, or drawing them as if they were an independent sample, does not remove the dependence. The dependence has to stay inside the block that is held out.
+
+[]{#sol-ur-one-change} **[Change one thing](#ex-ur-one-change).**
+
+Two things changed at once, and the coefficient is one number. The move could be the rows, the link, or both. A comparison that is about the link refits on the same rows. A comparison that is about the rows keeps the same formula and the same link. Recompute the rows, the unit, and the scale one at a time before treating the move as a property of the estimator.

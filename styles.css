@@ -143,11 +143,27 @@ h1.title {
 
 a {
   color: var(--wiki-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+#quarto-document-content a,
+#quarto-sidebar a {
+  text-decoration: underline;
+}
+
+#quarto-document-content a:hover,
+#quarto-sidebar a:hover {
+  color: var(--wiki-link-hover);
+}
+
+.navbar a,
+.nav-footer a {
   text-decoration: none;
 }
 
-a:hover {
-  color: var(--wiki-link-hover);
+.navbar a:hover,
+.nav-footer a:hover {
   text-decoration: underline;
 }
 
@@ -540,10 +556,14 @@ a.box-article:hover {
   font-weight: 600;
 }
 
-/* Sidebar and contents, kept quiet. */
+/* Sidebar text is the same size as the page, including the phone drawer. */
 
+#quarto-sidebar .sidebar-item-text,
+#quarto-sidebar .sidebar-link,
+#quarto-sidebar .menu-text,
 .sidebar-navigation .sidebar-item {
-  font-size: 0.9rem;
+  font-size: 1.0625rem;
+  line-height: 1.45;
 }
 
 #TOC .toc-actions,
@@ -672,3 +692,122 @@ main li code {
 }
 
 /* Laboratory chrome lives in labs/lab-chrome.js. */
+
+/* A code block scrolls inside the page. On a phone the page itself does not
+   grow with the longest line, which is what was cutting the block off. */
+#quarto-content,
+.page-columns,
+.page-rows,
+main,
+#quarto-document-content,
+#quarto-document-content .cell {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#quarto-document-content pre,
+#quarto-document-content div.sourceCode,
+#quarto-document-content .cell-code {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  #quarto-document-content pre,
+  #quarto-document-content div.sourceCode,
+  #quarto-document-content .cell-code {
+    max-width: calc(100vw - 1.6rem);
+  }
+}
+
+.chapter-guide {
+  background: var(--wiki-panel);
+  border: 1px solid var(--wiki-border);
+  padding: 0.7rem 0.9rem 0.2rem;
+  margin: 0 0 1rem;
+}
+
+.level {
+  display: inline-block;
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  padding: 0 0.45rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--wiki-muted);
+  text-decoration: none !important;
+}
+
+.qpos {
+  display: inline-block;
+  margin: 0 0.35rem;
+  font-weight: 600;
+}
+
+.portal-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  margin: 0 0 1.1rem;
+}
+
+.start-here,
+.how-to-study {
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-panel);
+  padding: 0.2rem 0.9rem 0.7rem;
+}
+
+@media (max-width: 767px) {
+  .portal-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+.random-question,
+.site-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  align-items: end;
+  margin: 0.6rem 0 1rem;
+}
+
+.random-question label,
+.site-search label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.92rem;
+}
+
+.random-question select,
+.random-question button,
+.site-search input,
+.site-search button {
+  font: inherit;
+  padding: 0.3rem 0.5rem;
+}
+
+.rq-check {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.search-kind {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: var(--wiki-muted);
+  font-size: 0.82rem;
+}
+
+#site-search-results p {
+  margin: 0.15rem 0 0.7rem;
+  color: var(--wiki-muted);
+}
