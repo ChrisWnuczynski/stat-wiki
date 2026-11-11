@@ -4099,12 +4099,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 # Share cards repeat the site description and one wide image on every page.
+# The image is the browser-tab icon drawn at card size; make_share_image.py draws it.
 SITE_DESCRIPTION = (
     "Study wiki for data analysis, probability, stochastic processes, "
     "statistical learning, statistical inference, and the R used to compute them"
 )
-SHARE_IMAGE = "og-preview.png"
-SHARE_IMAGE_ALT = "White sigma on purple, the stat wiki mark"
+SHARE_IMAGE = "share-icon.png"
+SHARE_IMAGE_ALT = "Contours of a bivariate normal density in viridis, the stat wiki icon"
 SHARE_WIDTH = 1200
 SHARE_HEIGHT = 630
 

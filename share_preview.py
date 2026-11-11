@@ -14,12 +14,12 @@ import sys
 from pathlib import Path
 
 SITE = "https://www.statwiki.io/"
-IMAGE = "https://www.statwiki.io/og-preview.png"
+IMAGE = "https://www.statwiki.io/share-icon.png"
 DESCRIPTION = (
     "Study wiki for data analysis, probability, stochastic processes, "
     "statistical learning, statistical inference, and the R used to compute them"
 )
-ALT = "White sigma on purple, the stat wiki mark"
+ALT = "Contours of a bivariate normal density in viridis, the stat wiki icon"
 TITLE_SUFFIX = " \u2013 stat wiki"
 
 ROOT = Path(__file__).resolve().parent
@@ -158,9 +158,9 @@ def main() -> None:
         if "<title>Redirect</title>" in text and "var redirects" in text:
             continue
         check_page(path, text)
-    image = SITE_DIR / "og-preview.png"
+    image = SITE_DIR / "share-icon.png"
     if not image.is_file():
-        raise SystemExit("Share image was not copied to _site/og-preview.png")
+        raise SystemExit("Share image was not copied to _site/share-icon.png")
     print(f"Share URLs on {changed} pages")
 
 
