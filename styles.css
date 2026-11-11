@@ -40,10 +40,15 @@ body {
 }
 
 body.quarto-dark .navbar,
-body.quarto-dark .sidebar,
 body.quarto-dark #quarto-sidebar,
 body.quarto-dark .nav-footer {
   background-color: var(--wiki-panel) !important;
+}
+
+/* The Contents column is also a .sidebar. Keep it the page colour so dark
+   mode does not paint a lighter strip down the margin. */
+body.quarto-dark #quarto-margin-sidebar {
+  background-color: var(--wiki-bg) !important;
 }
 
 body.quarto-dark .navbar,
