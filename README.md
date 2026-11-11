@@ -1,4 +1,4 @@
-# stat wiki
+# StatWiki
 
 A Wikipedia-style study wiki for data analysis, probability, stochastic processes, statistical learning, and statistical inference, built with Quarto.
 
@@ -19,6 +19,7 @@ On every push to `main`, the publish workflow runs both steps and publishes the 
 | Colours, fonts and dark mode | `styles.css` |
 | The browser-tab icon | `favicon.ico` (16 to 128 px) |
 | The picture shown when a page is shared | `share-icon.png`, the browser-tab icon at 1200 by 630. `make_share_image.py` draws it. |
+| The site's name, the home page's title in search results, and the description under each page in search results | `search_meta.py`. It runs after `quarto render`: each page gets a description from its opening sentences (or from its title when it opens with a formula), and the home page gets a longer title and WebSite structured data naming the site for Google. |
 | The Ask StatWiki chat | `ask/widget` for the chat on the pages, `ask/worker` for the server at `ask.statwiki.io`. See `ask/README.md`. |
 | R in the browser | `webr/`. Which pages get Run buttons is `RUNNABLE_PARTS` in `build_wiki.py`. See `webr/README.md`. |
 | Laboratories | `labs/`. Kernel density, Beta–Binomial updating, a Markov chain, and confidence-interval coverage. The navigation is written in `build_wiki.py`. |
