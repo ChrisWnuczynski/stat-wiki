@@ -181,3 +181,15 @@ dplyr::glimpse(raw)
 ```
 
 `problems()` is empty when every field parsed. A path relative to the analysis travels with the analysis. An absolute path does not. Next to the command, record where the file came from and what one row represents. The same sentence belongs in the report of any built-in table: the help page is the provenance, and the code above is the check that the object in the session still has that shape.
+
+## Exercises
+
+::: {#ex-ur-what-a-row-is .exercise}
+## What one row of the air-quality table is
+
+`datasets::airquality` has 153 rows, and ozone is missing on some of them.
+
+What is one row, and why is a model that uses ozone not a model of all 153 days?
+
+[Solution](#sol-ur-what-a-row-is)
+:::

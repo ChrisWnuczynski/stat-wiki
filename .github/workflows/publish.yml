@@ -50,6 +50,9 @@ jobs:
       - name: Check the R runner
         run: node --test webr/packages.test.mjs webr/runner.test.mjs
 
+      - name: Check search ranking
+        run: node --test search-rank.test.mjs
+
       # The Ask StatWiki launcher and chat, served from ask/widget/dist.
       - name: Build the Ask widget
         working-directory: ask/widget
@@ -168,6 +171,7 @@ jobs:
         run: |
           node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs
           node --test webr/packages.test.mjs webr/runner.test.mjs
+          node --test search-rank.test.mjs
 
   # Pull requests only. Poppler converts figures and Quarto supplies pandoc.
   # This job does not render the site and does not deploy it.

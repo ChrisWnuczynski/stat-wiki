@@ -86,3 +86,15 @@ For four visits, the lower bound is $-1/3$. A working correlation of $-0.5$ cann
 ## Key idea
 The independent unit is the child, not the visit. A singular random-effects fit is a boundary. An exchangeable correlation for $K$ visits cannot lie below $-1/(K-1)$. Conditional and marginal coefficients agree in unit here because the link is the identity; they do not agree in general.
 :::
+
+## Exercises
+
+::: {#ex-ur-exchangeable-bound .exercise}
+## A correlation four visits cannot have
+
+An exchangeable correlation is proposed for the four visits of one child, with pairwise correlation $-0.5$.
+
+Why can that not be the correlation of those four visits?
+
+[Solution](#sol-ur-exchangeable-bound)
+:::

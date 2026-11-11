@@ -61,3 +61,15 @@ Each change below alters one choice and leaves the rows fixed. The comparison is
 ## Key idea
 Recompute the rows, the unit, and the scale before reinterpreting the estimator. A check that changes two of those at once cannot say which one moved the answer.
 :::
+
+## Exercises
+
+::: {#ex-ur-one-change .exercise}
+## Change one thing
+
+A check refits a model after both dropping a different set of rows and changing the link. The coefficient moves.
+
+Why can that check not say which change moved it?
+
+[Solution](#sol-ur-one-change)
+:::

@@ -188,3 +188,15 @@ The scale of a Student-$t$ posterior for a normal mean is not in general the pos
 ## Key idea
 Report the prior with the posterior. A Bayes factor multiplies prior odds; it is not a posterior probability. A sampler that has a closed form to compare against should reproduce that closed form before it is used on a target that has none.
 :::
+
+## Exercises
+
+::: {#ex-ur-posterior-mean .exercise}
+## The posterior mean is not the observed rate
+
+A beta–binomial update starts from a Beta(2, 2) prior and then observes $y$ successes in $n$ trials.
+
+Why is the posterior mean not the observed rate $y/n$?
+
+[Solution](#sol-ur-posterior-mean)
+:::

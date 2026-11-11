@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import json
 import os
+
+import chapter_guides
 import re
 import struct
 import unicodedata
@@ -1036,6 +1038,10 @@ def self_test() -> None:
     rendered = convert_enumerates(sample)
     assert "(a)" in rendered and "(b)" in rendered and "(i)" in rendered
     assert r"\item" not in rendered
+    assert plain_question_title("Q22. Overdispersion") == "Overdispersion"
+    assert plain_question_title("C37. Exchangeable correlation") == "Exchangeable correlation"
+    assert plain_question_title("Question 6. Geometric--beta Gibbs sampler") == "Geometric--beta Gibbs sampler"
+    chapter_guides.validate([name for _, files in PARTS for name, kind in files if kind == "notes"])
 
 
 def clean_output() -> None:
@@ -1220,14 +1226,17 @@ def assign_topics(questions: list[dict]) -> None:
             q["topic"] = CHAPTER_CODES[code]
 
 
+def plain_question_title(title: str) -> str:
+    """Drop a positional label such as Q22, C37, or Question 6."""
+    cleaned = re.sub(r"^(?:Q|C)\s*\d+\.\s*", "", title.strip())
+    cleaned = re.sub(r"^Question\s+\d+\s*[.:]\s*", "", cleaned).strip()
+    if not cleaned:
+        raise SystemExit(f"Question title is only a number label: {title!r}")
+    return cleaned
+
+
 def short_label(q: dict) -> str:
-    """A short name for previous/next links."""
-    if q["group"] == "practice":
-        return f"Q{q['n']}"
-    if q["group"] == "concepts":
-        return f"C{q['n']}"
-    if q["group"] == "final":
-        return f"Question {q['n']}"
+    """The question's title, for lists that used to show Q22 or C37."""
     return q["title"]
 
 
@@ -1236,19 +1245,56 @@ def cell(text: str) -> str:
 
 
 def question_table(questions: list[dict], page: Path, with_topic: bool = False) -> str:
-    head = ["Question"]
+    head = ["Question", "Level"]
     if with_topic:
         head.append("Topic")
     head.append("Answer")
-    rows = ["| " + " | ".join(head) + " |", "|" + "|".join([":--"] * (len(head) - 1) + [":-:"]) + "|"]
+    aligns = [":--", ":-:"] + ([":--"] if with_topic else []) + [":-:"]
+    rows = ["| " + " | ".join(head) + " |", "|" + "|".join(aligns) + "|"]
     for q in questions:
-        bits = [f"[{cell(q['title'])}]({href(page, q['path'])})"]
+        bits = [f"[{cell(q['title'])}]({href(page, q['path'])})", cell(q["level"].capitalize())]
         if with_topic:
             topic = q["topic_note"]
             bits.append(f"[{cell(topic['title'])}]({href(page, topic['path'])})")
         bits.append("✓" if q.get("answer") else "–")
         rows.append("| " + " | ".join(bits) + " |")
     return "::: {.qtable}\n" + "\n".join(rows) + "\n:::\n"
+
+
+def qcount_marker(n: int) -> str:
+    noun = "question" if n == 1 else "questions"
+    return f"<!-- qcount:{n} -->\n{n} {noun}.\n\n"
+
+
+def check_qcounts(text: str, where: str) -> None:
+    """The number written above a question table matches the rows in that table."""
+    for part in text.split("<!-- qcount:")[1:]:
+        n_str, rest = part.split("-->", 1)
+        rows = len(re.findall(r"^\| \[", rest, re.M))
+        if rows != int(n_str):
+            raise SystemExit(f"{where}: stated {n_str} questions but listed {rows}")
+
+
+def join_and(items: list[str]) -> str:
+    if len(items) <= 1:
+        return items[0] if items else ""
+    if len(items) == 2:
+        return f"{items[0]} and {items[1]}"
+    return ", ".join(items[:-1]) + ", and " + items[-1]
+
+
+def chapter_guide_md(filename: str, page: Path, notes: dict) -> str:
+    guide = chapter_guides.GUIDES[filename]
+    lines = [f"[{guide['level'].capitalize()}]{{.level}}", "", guide["summary"], "", "**What you need first.** "]
+    if guide["needs"]:
+        links = [f"[{notes[name]['title']}]({href(page, notes[name]['path'])})" for name in guide["needs"]]
+        sentence = "Read " + join_and(links) + "."
+        if guide["note"]:
+            sentence += " " + guide["note"]
+        lines.append(sentence)
+    else:
+        lines.append(guide["note"])
+    return "::: {.chapter-guide}\n" + "\n".join(lines) + "\n:::\n\n"
 
 
 def filter_box(placeholder: str) -> str:
@@ -1260,17 +1306,64 @@ def filter_box(placeholder: str) -> str:
 
 RANDOM_AND_FILTER_JS = """<script>
 (function () {
-  var Q = __QUESTIONS__;
   var meta = document.querySelector('meta[name="quarto:offset"]');
   var offset = meta ? meta.getAttribute("content") : "./";
+  var mod = document.createElement("script");
+  mod.type = "module";
+  mod.src = new URL(offset + "search-rank.js", location.href).href;
+  document.head.appendChild(mod);
+  if (location.hash === "#random" && !/\\/questions\\/random\\.html$/.test(location.pathname)) {
+    location.replace(offset + "questions/random.html");
+  }
   document.addEventListener("click", function (event) {
     var link = event.target.closest ? event.target.closest("a") : null;
     if (!link) return;
     var target = link.getAttribute("href") || "";
     if (target.slice(-7) !== "#random") return;
     event.preventDefault();
-    window.location.href = offset + Q[Math.floor(Math.random() * Q.length)];
+    window.location.href = offset + "questions/random.html";
   });
+  function goSearch(event) {
+    var input = document.querySelector("#quarto-search input");
+    var q = input ? input.value.trim() : "";
+    if (!q) return;
+    event.preventDefault();
+    event.stopPropagation();
+    window.location.href = offset + "search.html?query=" + encodeURIComponent(q);
+  }
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Enter") return;
+    if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    goSearch(event);
+  }, true);
+  document.addEventListener("submit", function (event) {
+    if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    goSearch(event);
+  }, true);
+  function tierOf(href) {
+    if (window.wikiSearchTier) return window.wikiSearchTier(href);
+    var path = String(href || "").split("#")[0].replace(/^\\//, "");
+    if (path.indexOf("files/") >= 0) return 3;
+    if (path.indexOf("articles/") >= 0) return 0;
+    if (path.indexOf("notes/") >= 0 || path.indexOf("reference/") >= 0) return 1;
+    return 2;
+  }
+  function rankPanel() {
+    document.querySelectorAll(".aa-List").forEach(function (list) {
+      var items = Array.prototype.slice.call(list.children);
+      if (items.length < 2) return;
+      var ranked = items.slice().sort(function (a, b) {
+        var linkA = a.querySelector("a");
+        var linkB = b.querySelector("a");
+        return tierOf(linkA ? linkA.getAttribute("href") : "") - tierOf(linkB ? linkB.getAttribute("href") : "");
+      });
+      var changed = ranked.some(function (item, i) { return item !== items[i]; });
+      if (!changed) return;
+      ranked.forEach(function (item) { list.appendChild(item); });
+    });
+  }
+  var searchRoot = document.getElementById("quarto-search") || document.body;
+  new MutationObserver(function () { rankPanel(); }).observe(searchRoot, { childList: true, subtree: true });
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
   var section = /\\/labs\\//.test(here) ? "labs/index.html"
@@ -1285,6 +1378,15 @@ RANDOM_AND_FILTER_JS = """<script>
     link.classList.toggle("active", on);
     if (on) link.setAttribute("aria-current", "page"); else link.removeAttribute("aria-current");
   });
+  var menuName = /\\/questions\\//.test(here) ? "Question bank"
+    : /\\/labs\\//.test(here) ? "Laboratories"
+    : /\\/reference\\//.test(here) || /\\/articles\\//.test(here) ? "Reference"
+    : "";
+  if (menuName) {
+    document.querySelectorAll("#navbarCollapse .nav-link").forEach(function (link) {
+      if ((link.textContent || "").trim().indexOf(menuName) === 0) link.classList.add("active");
+    });
+  }
   window.wikiFilter = function (text) {
     var words = text.toLowerCase().split(/\\s+/).filter(Boolean);
     var shown = 0;
@@ -2564,7 +2666,11 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             ANCHOR_PAGES[q["answer"]["id"]] = q["path"].as_posix() + "#worked-answer"
 
     assign_topics(questions)
+    chapter_guides.validate([name for _, files in PARTS for name, kind in files if kind == "notes"])
     for q in questions:
+        if q["topic"] not in chapter_guides.GUIDES:
+            raise SystemExit(f"Question {q['id']} is filed under {q['topic']}, which has no level")
+        q["level"] = chapter_guides.GUIDES[q["topic"]]["level"]
         q["topic_note"] = notes[q["topic"]] if q["topic"] in notes else notes["index.qmd"]
 
     # Order inside each source, used for previous/next links and the source lists.
@@ -2617,9 +2723,14 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         own = by_topic.get(note["path"].name, [])
         hat = [f"Part of **{part}**"]
         if own:
-            hat.append(f"[{len(own)} question{'s' if len(own) != 1 else ''} on this topic](#questions-on-this-topic)")
+            noun = "question" if len(own) == 1 else "questions"
+            hat.append(f"[{len(own)} {noun} on this topic](#questions-on-this-topic)")
         hat.append("[What links here](#what-links-here)")
-        blocks = [(False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"), (True, "prose", prose)]
+        blocks = [
+            (True, "guide", chapter_guide_md(note["path"].name, note["path"], notes)),
+            (False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"),
+            (True, "prose", prose),
+        ]
         if own:
             blocks.append(
                 (
@@ -2627,13 +2738,14 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                     "questions",
                     "\n\n## Questions on this topic {#questions-on-this-topic}\n\n"
                     "Open a question to attempt it. Its worked answer is folded away at the bottom of the page.\n\n"
+                    + qcount_marker(len(own))
                     + question_table(own, note["path"]),
                 )
             )
         own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
         own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
         siblings = [n for p, n in chapters if p == part]
-        blocks.insert(1, (False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
+        blocks.insert(2, (False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
         article_line = (
             "- Articles from this chapter: "
             + " · ".join(f"[{a['term']}]({href(note['path'], a['path'])})" for a in own_articles)
@@ -2668,32 +2780,36 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         blocks = [(True, "prose", body)]
         own = [q for q in by_source["final"] if q["notes_path"] == note["path"]]
         if own:
-            blocks.append((False, "questions", "\n\n## Questions\n\n" + question_table(own, note["path"], with_topic=True)))
+            blocks.append((False, "questions", "\n\n## Questions\n\n" + qcount_marker(len(own)) + question_table(own, note["path"], with_topic=True)))
         add_page(note["path"], note["title"], None, "final", blocks)
 
     # Questions. Previous and next walk the other questions on the same topic.
-    neighbors: dict[int, tuple[dict | None, dict | None]] = {}
-    for seq in by_topic.values():
-        for i, q in enumerate(seq):
-            neighbors[id(q)] = (seq[i - 1] if i else None, seq[i + 1] if i + 1 < len(seq) else None)
     for q in questions:
         group = q["group"]
-        prev_q, next_q = neighbors[id(q)]
         notes_href = href(q["path"], q["notes_path"]) if q.get("notes_path") else None
         use_refs = notes_href if group == "book" else None
         body = prepare(q["body"], "../figures", use_refs, page=q["path"])
         body = re.sub(r"\[Solution\]\(#sol-[\w-]+\)", "", body).strip()
         topic = q["topic_note"]
-        nav = []
-        if prev_q:
-            nav.append(f"[‹ {cell(short_label(prev_q))}]({href(q['path'], prev_q['path'])}){{.qnav}}")
-        if next_q:
-            nav.append(f"[{cell(short_label(next_q))} ›]({href(q['path'], next_q['path'])}){{.qnav}}")
+        seq = by_topic[q["topic"]]
+        index = next(i for i, item in enumerate(seq) if item is q)
+        total = len(seq)
+
+        def pos_link(other: dict, label: str) -> str:
+            title = cell(other["title"]).replace('"', "'")
+            return f'[{label}]({href(q["path"], other["path"])} "{title}"){{.qnav}}'
+
+        nav = [f'<span class="qpos">{index + 1} of {total}</span>']
+        if index:
+            nav.insert(0, pos_link(seq[index - 1], f"‹ {index} of {total}"))
+        if index + 1 < total:
+            nav.append(pos_link(seq[index + 1], f"{index + 2} of {total} ›"))
         hat = (
             "::: {.hatnote}\n"
+            f"[{q['level'].capitalize()}]{{.level}}\n\n"
             f"**Topic:** [{topic['title']}]({href(q['path'], topic['path'])}) · "
-            f"[more questions on this topic]({href(q['path'], topic['path'])}#questions-on-this-topic)"
-            + (("  \n" + " ".join(nav)) if nav else "")
+            f"[more questions on this topic]({href(q['path'], topic['path'])}#questions-on-this-topic)\n\n"
+            + " ".join(nav)
             + "\n:::\n\n"
         )
         blocks = [(False, "hatnote", hat), (True, "question", body)]
@@ -2783,6 +2899,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         body = "".join(text for _, _, text in page["blocks"]).strip()
         page["path"].parent.mkdir(parents=True, exist_ok=True)
         page["path"].write_text(f"---\ntitle: {yaml_quote(page['title'])}\n{meta_lines}---\n\n{body}\n", encoding="utf-8")
+        if page["kind"] in {"chapter", "final"}:
+            check_qcounts(body, page["path"].name)
 
     write_indexes(notes, chapters, final_notes, questions, by_source, by_topic)
     write_glossary(questions)
@@ -2827,9 +2945,7 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
                 continue
             where = asked[target]["in"]
             note = "" if where == {"question"} else " (answer)" if where == {"answer"} else ""
-            label = short_label(q) if q["group"] != "book" else q["title"]
-            title = q["title"].replace('"', "'")
-            groups.setdefault(q["group"], []).append((q.get("n", 0), f'[{cell(label)}]({href(path, target)} "{cell(title)}"){note}'))
+            groups.setdefault(q["group"], []).append((q.get("n", 0), f"[{cell(q['title'])}]({href(path, target)}){note}"))
         total = sum(len(v) for v in groups.values())
         out.append(f"**Questions and answers** ({total})\n\n")
         items = []
@@ -2961,10 +3077,8 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
             q = by_q.get(qpath)
             if not q:
                 continue
-            label = short_label(q) if q["group"] != "book" else q["title"]
             note = " (answer)" if where == {"answer"} else ""
-            title = q["title"].replace('"', "'")
-            groups.setdefault(q["group"], []).append((q.get("n", 0), f'[{cell(label)}]({href(path, qpath)} "{cell(title)}"){note}'))
+            groups.setdefault(q["group"], []).append((q.get("n", 0), f"[{cell(q['title'])}]({href(path, qpath)}){note}"))
         items = []
         for group in SOURCE_ORDER:
             if group in groups:
@@ -3337,7 +3451,8 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
 def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict], own_articles: list[dict]) -> str:
     path = note["path"]
     i = next(k for k, n in enumerate(siblings) if n["path"] == path)
-    rows = [("Part", part), ("Chapter", f"{i + 1} of {len(siblings)} in this part")]
+    level = chapter_guides.GUIDES[path.name]["level"].capitalize()
+    rows = [("Part", part), ("Level", level), ("Chapter", f"{i + 1} of {len(siblings)} in this part")]
     if i > 0:
         rows.append(("Previous", f"[{siblings[i - 1]['title']}]({href(path, siblings[i - 1]['path'])})"))
     if i + 1 < len(siblings):
@@ -3478,6 +3593,215 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def write_random_page(questions: list[dict]) -> None:
+    page = WIKI / "questions" / "random.qmd"
+    payload = [
+        {
+            "href": "/" + q["path"].relative_to(WIKI).with_suffix(".html").as_posix(),
+            "title": q["title"],
+            "topic": q["topic_note"]["title"],
+            "part": q["topic_note"].get("part") or "",
+            "level": q["level"],
+            "answered": bool(q.get("answer")),
+        }
+        for q in questions
+    ]
+    blob = json.dumps(payload, ensure_ascii=False).replace("<", "\\u003c")
+    page.parent.mkdir(parents=True, exist_ok=True)
+    page.write_text(
+        f"""---
+title: "Random question"
+toc: false
+---
+
+Open one question. The list starts with questions that have a worked answer. Choose a topic, a level, or both.
+
+{chapter_guides.LEVEL_RULE}
+
+```{{=html}}
+<form id="random-question" class="random-question">
+  <label>Topic <select id="rq-topic"></select></label>
+  <label>Level <select id="rq-level">
+    <option value="">Any level</option>
+    <option value="beginner">Beginner</option>
+    <option value="intermediate">Intermediate</option>
+    <option value="advanced">Advanced</option>
+  </select></label>
+  <label class="rq-check"><input id="rq-answered" type="checkbox" checked> Only questions with a worked answer</label>
+  <button type="submit">Open a question</button>
+  <p id="rq-status"></p>
+</form>
+<script id="rq-data" type="application/json">{blob}</script>
+<script>
+(function () {{
+  var bank = JSON.parse(document.getElementById("rq-data").textContent);
+  var topic = document.getElementById("rq-topic");
+  var level = document.getElementById("rq-level");
+  var answered = document.getElementById("rq-answered");
+  var status = document.getElementById("rq-status");
+  function pool() {{
+    return bank.filter(function (q) {{
+      if (answered.checked && !q.answered) return false;
+      if (level.value && q.level !== level.value) return false;
+      if (topic.value && q.topic !== topic.value) return false;
+      return true;
+    }});
+  }}
+  function fillTopics() {{
+    var previous = topic.value;
+    var seen = [];
+    bank.forEach(function (q) {{
+      if (answered.checked && !q.answered) return;
+      if (level.value && q.level !== level.value) return;
+      if (seen.some(function (item) {{ return item.topic === q.topic; }})) return;
+      seen.push(q);
+    }});
+    seen.sort(function (a, b) {{ return a.part.localeCompare(b.part) || a.topic.localeCompare(b.topic); }});
+    topic.innerHTML = "";
+    var all = document.createElement("option");
+    all.value = "";
+    all.textContent = "All topics";
+    topic.appendChild(all);
+    var part = "";
+    seen.forEach(function (q) {{
+      if (q.part !== part) {{
+        part = q.part;
+        var group = document.createElement("optgroup");
+        group.label = part || "Topics";
+        topic.appendChild(group);
+      }}
+      var option = document.createElement("option");
+      option.value = q.topic;
+      option.textContent = q.topic;
+      topic.lastChild.appendChild(option);
+    }});
+    var stillThere = Array.prototype.some.call(topic.options, function (option) {{ return option.value === previous; }});
+    if (stillThere) topic.value = previous;
+  }}
+  function refresh() {{
+    fillTopics();
+    var n = pool().length;
+    status.textContent = n ? (n === 1 ? "1 question matches." : n + " questions match.") : "No question matches. Clear a filter.";
+  }}
+  level.addEventListener("change", refresh);
+  answered.addEventListener("change", refresh);
+  topic.addEventListener("change", refresh);
+  document.getElementById("random-question").addEventListener("submit", function (event) {{
+    event.preventDefault();
+    var matches = pool();
+    if (!matches.length) {{ refresh(); return; }}
+    window.location.href = matches[Math.floor(Math.random() * matches.length)].href;
+  }});
+  refresh();
+}})();
+</script>
+```
+""",
+        encoding="utf-8",
+    )
+
+
+def write_search_page() -> None:
+    page = WIKI / "search.qmd"
+    page.write_text(
+        """---
+title: "Search"
+toc: false
+---
+
+Press Enter in the search box at the top to open this page. Definitions and articles are listed before figure files.
+
+```{=html}
+<form id="site-search" class="site-search" role="search">
+  <label for="site-search-q">Search</label>
+  <input id="site-search-q" type="search" name="q">
+  <button type="submit">Search</button>
+</form>
+<p id="site-search-note"></p>
+<ol id="site-search-results"></ol>
+<script type="module">
+import { rankDocuments, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
+
+const form = document.getElementById("site-search");
+const input = document.getElementById("site-search-q");
+const note = document.getElementById("site-search-note");
+const list = document.getElementById("site-search-results");
+const params = new URLSearchParams(location.search);
+input.value = params.get("query") || "";
+
+function kindOf(href) {
+  const tier = tierOf(href);
+  if (tier === 0) return "Article";
+  if (tier === 1) return "Chapter";
+  if (tier === 3) return "Figure";
+  return "Page";
+}
+
+function snippet(doc, terms) {
+  const text = String(doc.text || "").replace(/\\s+/g, " ").trim();
+  if (!text) return "";
+  const folded = text.toLowerCase();
+  let at = -1;
+  for (const term of terms) {
+    const found = folded.indexOf(term.toLowerCase());
+    if (found >= 0 && (at < 0 || found < at)) at = found;
+  }
+  if (at < 0) return text.slice(0, 180);
+  const start = Math.max(0, at - 60);
+  return (start ? "…" : "") + text.slice(start, start + 180) + (start + 180 < text.length ? "…" : "");
+}
+
+async function run(query) {
+  list.innerHTML = "";
+  const q = query.trim();
+  if (!q) {
+    note.textContent = "Type a word or a phrase.";
+    return;
+  }
+  const response = await fetch(new URL("search.json", location.href));
+  if (!response.ok) {
+    note.textContent = "The search index is not available.";
+    return;
+  }
+  const docs = documentsFromIndex(await response.json());
+  const found = rankDocuments(docs, q);
+  const terms = expandedTerms(q);
+  note.textContent = terms.length > 1
+    ? found.length + " pages. Also matching " + terms.join(", ") + "."
+    : found.length + (found.length === 1 ? " page." : " pages.");
+  for (const doc of found.slice(0, 40)) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = doc.href;
+    link.textContent = doc.title || doc.href;
+    const kind = document.createElement("span");
+    kind.className = "search-kind";
+    kind.textContent = kindOf(doc.href);
+    const blurb = document.createElement("p");
+    const section = doc.section ? doc.section + ". " : "";
+    blurb.textContent = section + snippet(doc, terms);
+    item.append(link, kind, blurb);
+    list.appendChild(item);
+  }
+}
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const q = input.value.trim();
+  const url = new URL(location.href);
+  if (q) url.searchParams.set("query", q); else url.searchParams.delete("query");
+  history.replaceState(null, "", url);
+  run(q);
+});
+
+run(input.value);
+</script>
+```
+""",
+        encoding="utf-8",
+    )
+
+
 def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) -> None:
     parts: dict[str, list[dict]] = {}
     for part, note in chapters:
@@ -3496,12 +3820,16 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         "Data analysis is where a study and a table of summaries meet those methods. "
         "Using R is where those calculations are written down: objects, exploration, simulation, resampling, and the fits used in the later parts.",
         "",
+        chapter_guides.LEVEL_RULE,
+        "",
     ]
     for part, members in parts.items():
-        lines += [f"## {part} {{#{slug(part)}}}", "", "| Chapter | Questions |", "|:--|--:|"]
+        lines += [f"## {part} {{#{slug(part)}}}", "", "| Chapter | Level | Questions |", "|:--|:-:|--:|"]
         for note in members:
             n = counts.get(note["path"].name, 0)
-            lines.append(f"| [{cell(note['title'])}]({href(topics_path, note['path'])}) | {n or '–'} |")
+            level = chapter_guides.GUIDES[note["path"].name]["level"].capitalize()
+            shown = str(n) if n else "–"
+            lines.append(f"| [{cell(note['title'])}]({href(topics_path, note['path'])}) | {level} | {shown} |")
         lines.append("")
     lines += ["## Final preparation {#final-preparation}", ""]
     for note in final_notes:
@@ -3521,24 +3849,70 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     body = prepare("\n".join(lines), "../figures")
     topics_path.write_text(f"---\ntitle: \"Topics\"\n---\n\n{body}\n", encoding="utf-8")
 
-    # Question bank, by topic.
+    # Question bank is one list. By topic is the same questions under each chapter.
     q_index = WIKI / "questions" / "index.qmd"
+    by_topic_path = WIKI / "questions" / "by-topic.qmd"
+    random_path = WIKI / "questions" / "random.qmd"
+    ordered: list[dict] = []
+    part_totals: dict[str, int] = {}
+    for part, members in parts.items():
+        part_questions: list[dict] = []
+        for note in members:
+            part_questions.extend(by_topic.get(note["path"].name, []))
+        ordered.extend(part_questions)
+        part_totals[part] = len(part_questions)
+    if {q["id"] for q in ordered} != {q["id"] for q in questions}:
+        missing = [q["id"] for q in questions if q["id"] not in {item["id"] for item in ordered}]
+        raise SystemExit(f"Question lists omit {missing[:8]}")
     lines = [
-        f"All {len(questions)} questions, grouped by topic. {n_answers} have a worked answer, folded away at the bottom of the question page. "
-        f"Or try a [random question](#random).",
+        f"All {len(ordered)} questions in one list. {n_answers} have a worked answer, folded away at the bottom of the question page.",
+        "",
+        chapter_guides.LEVEL_RULE,
+        "",
+        f"The [by topic]({href(q_index, by_topic_path)}) page groups these same questions under each chapter. "
+        f"The [random question]({href(q_index, random_path)}) page draws one, from the worked answers unless you say otherwise.",
+        "",
+        filter_box("Filter questions, e.g. gibbs, poisson, deviance"),
+        "",
+        qcount_marker(len(ordered)) + question_table(ordered, q_index, with_topic=True),
+    ]
+    body = "\n".join(lines)
+    check_qcounts(body, "question bank")
+    q_index.write_text(f"---\ntitle: \"Question bank\"\ntoc: false\n---\n\n{body}\n", encoding="utf-8")
+
+    lines = [
+        f"The same {len(ordered)} questions as the [question bank]({href(by_topic_path, q_index)}), grouped under the chapter each one belongs to. "
+        f"{n_answers} have a worked answer.",
+        "",
+        chapter_guides.LEVEL_RULE,
         "",
         filter_box("Filter questions, e.g. gibbs, poisson, deviance"),
         "",
     ]
     for part, members in parts.items():
-        lines += [f"## {part} {{#{slug(part)}}}", ""]
+        total = part_totals[part]
+        if not total:
+            continue
+        noun = "question" if total == 1 else "questions"
+        lines += [f"## {part} {{#{slug(part)}}}", "", f"{total} {noun} in this part.", ""]
         for note in members:
             qs = by_topic.get(note["path"].name, [])
             if not qs:
                 continue
-            lines += [f"### [{note['title']}]({href(q_index, note['path'])})", "", question_table(qs, q_index), ""]
+            lines += [
+                f"### [{note['title']}]({href(by_topic_path, note['path'])})",
+                "",
+                qcount_marker(len(qs)) + question_table(qs, by_topic_path),
+                "",
+            ]
     body = "\n".join(lines)
-    q_index.write_text(f"---\ntitle: \"Question bank\"\ntoc-depth: 3\n---\n\n{body}\n", encoding="utf-8")
+    check_qcounts(body, "questions by topic")
+    stated = sum(int(n) for n in re.findall(r"^(\d+) questions? in this part\.", body, flags=re.M))
+    if stated != len(questions):
+        raise SystemExit(f"By topic part counts sum to {stated}, not {len(questions)}")
+    by_topic_path.write_text("---\ntitle: \"Questions by topic\"\ntoc-depth: 2\n---\n\n" + body + "\n", encoding="utf-8")
+    write_random_page(questions)
+    write_search_page()
 
     # Reference landing page and the distribution sheet.
     write_qmd(
@@ -3566,47 +3940,78 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     home = WIKI / "index.qmd"
     boxes = []
     for part, members in parts.items():
-        total = sum(counts.get(n["path"].name, 0) for n in members)
+        total = part_totals[part]
         items = "\n".join(f"- [{n['title']}]({href(home, n['path'])})" for n in members)
-        boxes.append(f"::: {{.portal-box}}\n### {part}\n\n{items}\n\n[{total} questions →]({href(home, q_index)}#{slug(part)}){{.portal-more}}\n:::\n")
-    final_items = "\n".join(f"- [{n['title']}]({href(home, n['path'])})" for n in final_notes)
-    boxes.append(
-        "::: {.portal-box}\n### Final preparation\n\n" + final_items
-        + f"\n\n[{len(by_source['final'])} questions →]({href(home, WIKI / 'notes' / 'final-preparation.qmd')}){{.portal-more}}\n:::\n"
-    )
+        more = ""
+        if total:
+            noun = "question" if total == 1 else "questions"
+            more = f"\n\n[{total} {noun} →]({href(home, by_topic_path)}#{slug(part)}){{.portal-more}}"
+        boxes.append(f"::: {{.portal-box}}\n### {part}\n\n{items}{more}\n:::\n")
+    final_lines = []
+    for note in final_notes:
+        own_n = sum(1 for q in by_source["final"] if q["notes_path"] == note["path"])
+        suffix = f" ({own_n} question{'s' if own_n != 1 else ''})" if own_n else ""
+        final_lines.append(f"- [{note['title']}]({href(home, note['path'])}){suffix}")
+    boxes.append("::: {.portal-box}\n### Final preparation\n\n" + "\n".join(final_lines) + "\n:::\n")
     boxes.append(
         "::: {.portal-box}\n### Question bank\n\n"
-        f"- [By topic]({href(home, q_index)})\n- [Random question](#random)\n:::\n"
+        "Every question in one list.\n\n"
+        f"- [Question bank]({href(home, q_index)})\n"
+        f"- [By topic]({href(home, by_topic_path)}), the same questions under each chapter\n"
+        f"- [Random question]({href(home, random_path)})\n:::\n"
     )
     boxes.append(
         "::: {.portal-box}\n### Reference\n\n"
+        "Lookup pages: a glossary, distributions, and formulas.\n\n"
+        f"- [Reference]({href(home, WIKI / 'reference' / 'index.qmd')})\n"
         f"- [Common distributions]({href(home, WIKI / 'reference' / 'distributions.qmd')})\n"
         f"- [Formula lookup]({href(home, WIKI / 'reference' / 'formulas.qmd')})\n:::\n"
     )
+    starter = "\n".join(
+        f"{i}. [{notes[name]['title']}]({href(home, notes[name]['path'])})"
+        for i, name in enumerate(chapter_guides.STARTER, 1)
+    )
     n_chapters = len(chapters)
-    home.write_text(
-        f"""---
+    home_text = f"""---
 title: "stat wiki"
 toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Use the search box at the top to find any term, or open a [random question](#random) to test yourself.
+A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Press Enter in the search box for a results page, or open a [random question]({href(home, random_path)}).
 :::
 
-:::: {{.portal}}
-{chr(10).join(boxes)}
-::::
+:::: {{.portal-top}}
+::: {{.start-here}}
+## New to statistics? Start here
 
+Five chapters, in this order. Each later chapter says what to read first.
+
+{starter}
+:::
+
+::: {{.how-to-study}}
 ## How to study with it
 
 1. Read a chapter. The contents on the right jump between its sections.
 2. Scroll to **Questions on this topic** at the end and open one.
 3. Attempt it, then open **Worked answer** at the bottom of the question page.
-4. Use **‹ previous** and **next ›** at the top of a question to move through the questions on the same topic.
-""",
-        encoding="utf-8",
-    )
+4. The line **6 of 17** is your place among the questions on that topic. **‹ 5 of 17** and **7 of 17 ›** move to the previous and next one.
+:::
+::::
+
+:::: {{.portal}}
+{chr(10).join(boxes)}
+::::
+"""
+    for part, total in part_totals.items():
+        if not total:
+            continue
+        noun = "question" if total == 1 else "questions"
+        needle = f"[{total} {noun} →]"
+        if needle not in home_text:
+            raise SystemExit(f"Home page is missing the {part} count {needle}")
+    home.write_text(home_text, encoding="utf-8")
 
 
 # Ask StatWiki: one small launcher on every page. The chat itself loads when
@@ -3717,9 +4122,8 @@ def write_config(chapters, final_notes, questions) -> None:
     if (width, height) != (SHARE_WIDTH, SHARE_HEIGHT):
         raise SystemExit(f"{SHARE_IMAGE} must be {SHARE_WIDTH} by {SHARE_HEIGHT}, not {width} by {height}")
 
-    question_paths = [q["path"].relative_to(WIKI).with_suffix(".html").as_posix() for q in questions]
     (WIKI / "_random.html").write_text(
-        RANDOM_AND_FILTER_JS.replace("__QUESTIONS__", "[" + ",".join(f'"{p}"' for p in question_paths) + "]")
+        RANDOM_AND_FILTER_JS
         + PREVIEW_JS
         + FILE_LINK_JS
         + ASK_JS
@@ -3759,6 +4163,7 @@ def write_config(chapters, final_notes, questions) -> None:
 {chr(10).join(f"    - labs/{name}" for name in LAB_JS)}
 {chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
+    - search-rank.js
     - {SHARE_IMAGE}
     - wiki.json
     - ask/widget/dist/
@@ -3794,15 +4199,37 @@ website:
       - text: Topics
         href: notes/index.qmd
       - text: Question bank
-        href: questions/index.qmd
+        menu:
+          - text: "Question bank: every question in one list"
+            href: questions/index.qmd
+          - text: "By topic: the same questions under each chapter"
+            href: questions/by-topic.qmd
       - text: Glossary
         href: reference/glossary.qmd
       - text: Reference
-        href: reference/index.qmd
+        menu:
+          - text: "Lookup pages: glossary, distributions, and formulas"
+            href: reference/index.qmd
+          - text: Glossary and index
+            href: reference/glossary.qmd
+          - text: Common distributions
+            href: reference/distributions.qmd
+          - text: Formula lookup
+            href: reference/formulas.qmd
       - text: Laboratories
-        href: labs/index.qmd
+        menu:
+          - text: "Interactive figures. The population is known, so the error is visible."
+            href: labs/index.qmd
+          - text: Kernel density estimation
+            href: labs/kernel-density.qmd
+          - text: "Beta–Binomial updating"
+            href: labs/beta-binomial.qmd
+          - text: A Markov chain
+            href: labs/markov-chain.qmd
+          - text: Interval coverage
+            href: labs/ci-coverage.qmd
       - text: Random question
-        href: index.qmd#random
+        href: questions/random.qmd
   sidebar:
     style: docked
     collapse-level: 2
@@ -3810,15 +4237,15 @@ website:
       - text: Main page
         href: index.qmd
       - text: Random question
-        href: index.qmd#random
+        href: questions/random.qmd
       - section: Laboratories
         href: labs/index.qmd
         contents:
-          - text: All laboratories
+          - text: "Interactive figures. The population is known, so the error is visible."
             href: labs/index.qmd
           - text: Kernel density estimation
             href: labs/kernel-density.qmd
-          - text: Beta–Binomial updating
+          - text: "Beta–Binomial updating"
             href: labs/beta-binomial.qmd
           - text: A Markov chain
             href: labs/markov-chain.qmd
@@ -3831,11 +4258,15 @@ website:
       - section: Question bank
         href: questions/index.qmd
         contents:
-          - text: By topic
+          - text: "Question bank: every question in one list"
             href: questions/index.qmd
+          - text: "By topic: the same questions under each chapter"
+            href: questions/by-topic.qmd
       - section: Reference
         href: reference/index.qmd
         contents:
+          - text: "Lookup pages: glossary, distributions, and formulas"
+            href: reference/index.qmd
           - reference/glossary.qmd
           - reference/distributions.qmd
           - reference/formulas.qmd
@@ -4091,6 +4522,7 @@ def main() -> None:
         DATA / "chapters" / "da-solutions.qmd",
         STOCHASTIC / "chapters" / "sp-solutions.qmd",
         LEARNING / "chapters" / "sl-solutions.qmd",
+        USING / "chapters" / "ur-solutions.qmd",
     ):
         solutions = sol_path.read_text(encoding="utf-8")
         matches = list(re.finditer(r"^\[\]\{#(sol-[\w-]+)\}", solutions, flags=re.M))
@@ -4163,8 +4595,9 @@ def main() -> None:
         notes[note_name] = note
         _, exercises = extract_exercises("## Exercises\n" + "\n".join(lines[first_ex:]))
         for lead, ex_id, body in exercises:
-            q_title = exercise_title(body)
-            number = re.match(r"Question\s+(\d+)", q_title)
+            raw_title = exercise_title(body)
+            q_title = plain_question_title(raw_title)
+            number = re.match(r"Question\s+(\d+)", raw_title)
             record = {
                 "group": "final",
                 "n": int(number.group(1)) if number else 99,
@@ -4235,7 +4668,7 @@ def main() -> None:
     concept_titles = {a["n"]: a["title"] for a in concept_as}
     for item in concept_qs:
         n = item["n"]
-        title = f"C{n}. {concept_titles.get(n, item['topic'])}"
+        title = plain_question_title(concept_titles.get(n) or item["topic"] or f"Concept {n}")
         questions.append(
             {
                 "group": "concepts",
@@ -4268,14 +4701,14 @@ def main() -> None:
             }
         )
     for n, item in enumerate(exam_qs, 1):
-        label = re.sub(r"^Question\s+\d+\s*:\s*", "", item["title"]).strip()
+        label = plain_question_title(re.sub(r"^Question\s+\d+\s*:\s*", "", item["title"]).strip())
         questions.append(
             {
                 "group": "practice",
                 "n": n,
                 "id": f"q-{n:02d}",
                 "label": item["label"],
-                "title": f"Q{n}. {label}",
+                "title": label,
                 "body": converted[f"pq{n:02d}"],
                 "path": WIKI / "questions" / f"q-{n:02d}.qmd",
                 "notes_path": None,

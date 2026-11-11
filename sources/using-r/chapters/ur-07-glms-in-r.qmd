@@ -177,3 +177,13 @@ Do not use a likelihood-ratio chi-squared test, or AIC, on a quasi-likelihood fi
 ## Key idea
 Name the family and the link, then read the coefficient on the scale that link defines. Exponentiate an interval, not a standard error. A quasi-likelihood fit has no AIC. A frequency column is a weight, not a residual.
 :::
+
+## Exercises
+
+::: {#ex-ur-log-link .exercise}
+## What a log-link coefficient multiplies
+
+In a Poisson regression with a log link and no interaction, what does $e^{\beta_j}$ multiply? Why is that multiplier not an odds ratio?
+
+[Solution](#sol-ur-log-link)
+:::

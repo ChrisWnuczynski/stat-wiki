@@ -76,3 +76,15 @@ A second convention writes the autoregression as $Y_t+\alpha Y_{t-1}=\varepsilon
 ## Key idea
 Keep time order. Fit, transform, and choose orders on the past stretch, then score the future stretch once. Write $1-\phi B$ beside R's autoregressive coefficient so the sign is the sign in the forecast.
 :::
+
+## Exercises
+
+::: {#ex-ur-time-order .exercise}
+## A holdout that keeps time in order
+
+A monthly series is split by taking a random subset of months as the test set and fitting on the rest.
+
+Why does that split leak the future into the fit?
+
+[Solution](#sol-ur-time-order)
+:::

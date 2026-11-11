@@ -45,3 +45,15 @@ Refit with `s(Wind, k = 15)` and leave the other two bases at 8. Keep `aq_comple
 ## Key idea
 `k` bounds the basis. The effective degrees of freedom are what the penalty used. Read the plotted smooth on the scale of the linear predictor, and compare models only on a common set of rows.
 :::
+
+## Exercises
+
+::: {#ex-ur-basis-dimension .exercise}
+## The basis dimension is not the degrees of freedom
+
+In an additive model, `k` is set to 8 on a smooth of wind.
+
+Why is 8 not the effective degrees of freedom of the curve that comes back?
+
+[Solution](#sol-ur-basis-dimension)
+:::

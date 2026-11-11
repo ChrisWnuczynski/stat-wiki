@@ -173,3 +173,15 @@ Before interpreting a cluster, look at the posterior responsibilities (`$tau` fo
 ## Key idea
 A mixture is a density for the measurements. A principal-component plot is a projection. A criterion printed by one function is comparable only with the same convention, on the same rows and the same columns. The species label is a check after the fit, not an input to it.
 :::
+
+## Exercises
+
+::: {#ex-ur-held-out-label .exercise}
+## A label that was not in the fit
+
+A mixture or a clustering fit uses the four iris measurements and does not see the species label. The label is compared with the fitted groups afterwards.
+
+Why is agreement with that label not a prediction for a new flower?
+
+[Solution](#sol-ur-held-out-label)
+:::
