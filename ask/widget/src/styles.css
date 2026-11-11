@@ -1,5 +1,7 @@
 /* Ask StatWiki. Colours come from the site's --wiki-* variables, so the
-   chat follows the light and dark themes the reader picked. */
+   chat follows the light and dark themes the reader picked. Fonts and the
+   square corners match the wiki's: its sans-serif text, its serif headings,
+   and 2px corners like the infobox. */
 
 #ask-statwiki {
   --ask-bg: var(--wiki-bg, #ffffff);
@@ -25,7 +27,7 @@ body.quarto-dark #ask-statwiki {
   display: flex;
   align-items: flex-end;
   gap: 12px;
-  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  font: 15px/1.5 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--ask-text);
 }
 
@@ -36,7 +38,7 @@ body.quarto-dark #ask-statwiki {
   height: min(640px, calc(100vh - 110px));
   background: var(--ask-bg);
   border: 1px solid var(--ask-border);
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: var(--ask-shadow);
   overflow: hidden;
 }
@@ -54,8 +56,11 @@ body.quarto-dark #ask-statwiki {
 .ask-title {
   flex: 1;
   margin: 0;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 0;
+  border: 0;
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: normal;
   line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -99,7 +104,7 @@ body.quarto-dark #ask-statwiki {
   padding: 8px 11px;
   background: var(--ask-panel);
   border: 1px solid var(--ask-rule);
-  border-radius: 10px;
+  border-radius: 4px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
@@ -183,7 +188,7 @@ body.quarto-dark #ask-statwiki {
   max-height: 140px;
   padding: 8px 10px;
   border: 1px solid var(--ask-border);
-  border-radius: 8px;
+  border-radius: 2px;
   background: var(--ask-bg);
   color: var(--ask-text);
   font: inherit;
@@ -193,10 +198,10 @@ body.quarto-dark #ask-statwiki {
   align-self: flex-end;
   padding: 8px 14px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 2px;
   background: var(--ask-link);
   color: var(--ask-bg);
-  font: 600 14px/1.2 system-ui, sans-serif;
+  font: 600 14px/1.2 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   cursor: pointer;
 }
 .ask-send:disabled { opacity: 0.45; cursor: default; }
