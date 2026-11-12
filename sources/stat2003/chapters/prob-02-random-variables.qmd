@@ -2,7 +2,7 @@
 
 A random variable is a numerical summary of an experiment. Once the sample space and the probability are fixed, the distribution of that summary is enough for any question that depends on the experiment only through the summary. Means, variances and the named families on the [common distributions](../reference/distributions.qmd) page are all statements about such summaries. This chapter says which experiment produces which family. The sheet records the probability function, the mean and the variance in the parameterisation used here. The second gamma parameter on that sheet is a rate. The geometric law there starts at $1$.
 
-Two families are not on the sheet, so their formulas are written out below: the uniform distribution on an interval, and the hypergeometric distribution.
+The uniform distribution on an interval and the hypergeometric distribution are on that sheet. Their formulas are written out below, with the experiment that produces each one.
 
 ## Random variables
 

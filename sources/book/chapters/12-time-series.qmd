@@ -35,6 +35,8 @@ $$
 when the process is weakly stationary. People often care about how much tomorrow moves from today, not about the variance of today's temperature in isolation. A variogram can exist when the covariance function does not, because the difference $X_s-X_t$ can be well behaved when $X_t$ itself is not.
 
 ::: {#thm-wold .theorem}
+## Wold decomposition
+
 If $\{X_t\}$ is weakly stationary with mean zero, then
 $$
 X_t=\sum_{j=0}^{\infty} a_j\varepsilon_{t-j}+\nu_t,

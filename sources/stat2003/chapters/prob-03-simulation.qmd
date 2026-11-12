@@ -1,6 +1,6 @@
 # Simulation
 
-Simulation turns a supply of uniform random numbers into draws from a distribution that has been specified. The two general constructions are the inverse-transform method, which reads the distribution function backwards, and acceptance–rejection, which keeps the draws that land under the target density. Particular families then have shorter algorithms. The families themselves are on the [common distributions](../reference/distributions.qmd) page, together with the uniform and hypergeometric laws in [Random variables and distributions](prob-02-random-variables.qmd).
+Simulation turns a supply of uniform random numbers into draws from a distribution that has been specified. The two general constructions are the inverse-transform method, which reads the distribution function backwards, and acceptance–rejection, which keeps the draws that land under the target density. Particular families then have shorter algorithms. The families themselves, including the uniform and hypergeometric laws, are on the [common distributions](../reference/distributions.qmd) page. The experiments that produce them are in [Random variables and distributions](prob-02-random-variables.qmd).
 
 ## Random numbers
 
