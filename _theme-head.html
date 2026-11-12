@@ -1,0 +1,29 @@
+<script>
+/* Apply the reader's saved dark mode before the page is drawn.
+   Quarto switches themes only once the whole page has loaded, so in dark mode
+   each new page showed light for a moment first. This runs in the head: it
+   turns on the dark stylesheets, asks the browser to wait for them before
+   drawing, and marks the page dark (_theme-body.html adds the body class the
+   wiki's colours use). Quarto's own switch still runs later and agrees.
+   Quarto saves dark mode as "alternate" because light is the default. */
+(function () {
+  var dark = false;
+  try {
+    dark = window.location.protocol !== "file:" &&
+      window.localStorage.getItem("quarto-color-scheme") === "alternate";
+  } catch (e) {}
+  if (!dark) return;
+  var root = document.documentElement;
+  root.classList.add("wiki-dark");
+  var sheets = document.querySelectorAll("link.quarto-color-scheme.quarto-color-alternate");
+  for (var i = 0; i < sheets.length; i++) {
+    sheets[i].setAttribute("blocking", "render");
+    sheets[i].rel = "stylesheet";
+  }
+  // Quarto marks the body itself once the page has loaded; after that the
+  // mark on the root is not needed, and must not outlive a switch to light.
+  document.addEventListener("DOMContentLoaded", function () {
+    root.classList.remove("wiki-dark");
+  });
+})();
+</script>

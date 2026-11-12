@@ -56,10 +56,17 @@ body.quarto-dark {
   scrollbar-color: var(--scroll-thumb) transparent;
 }
 
-:root:has(body.quarto-dark) {
+:root:has(body.quarto-dark),
+html.wiki-dark {
   --scroll-thumb: #626262;
   --scroll-thumb-hover: #7c7c7c;
   color-scheme: dark;
+}
+
+/* _theme-head.html marks the root dark before the body exists, so a page
+   opened in dark mode is never drawn light, even for a moment. */
+html.wiki-dark {
+  background-color: #101418;
 }
 
 html,
