@@ -1,14 +1,20 @@
 """Topic pages, other names, and extra term links.
 
-Every heading in a chapter gets a page of its own: build_wiki.py copies the
-section's text onto it and puts a "Main article" line under the heading. This
-file holds what the build cannot work out for itself.
+A chapter heading gets a page of its own when something names it: a link
+phrase, a named topic, an other name, a See also group, material in
+article_extras.py, a title shared with a heading in another chapter, or PAGES
+below. build_wiki.py copies the section's text onto the page and puts a "Main
+article" line under the heading. Other headings stay in their chapter only;
+the address of a page one used to have redirects to the heading. This file
+holds what the build cannot work out for itself.
 
 TITLES    A page title for a heading whose own words need its chapter to make
           sense ("The ingredients" becomes "Ingredients of a hypothesis test").
           Two headings given the same title share one page, with both texts.
 SAME_AS   Headings that are the same idea as an existing article. They get a
           "Main article" line pointing there instead of a page of their own.
+PAGES     Headings that name an idea a reader would look up, and keep a page
+          of their own although no phrase links to them yet.
 TOPICS    Ideas the chapters name inside a paragraph. Each gets a page with a
           short lead and the paragraphs that discuss it. A topic with the same
           title as a heading's page adds its lead and links to that page.
@@ -303,6 +309,54 @@ SAME_AS = {
     "sl-11-nearest-neighbours.qmd#s-a-rank-distance": "rank-distance",
     "sl-17-support-vectors.qmd#s-the-dual": "hard-margin-dual",
     "sp-09-probability-spaces.qmd#s-borel-cantelli": "borel-cantelli-lemmas",
+}
+
+# Headings that keep a page although nothing links to them by name. A heading
+# that a link phrase, topic, alias or See also group names keeps its page
+# without being listed here. Giving one of these a link phrase is better still.
+PAGES = {
+    "05-comparisons-and-deviance.qmd#s-residuals-are-not",  # Residuals in a GLM
+    "bayes-02-beta-binomial.qmd#s-nonconjugate-priors",
+    "da-02-descriptive-statistics.qmd#s-summary-statistics",
+    "da-04-estimation-examples.qmd#s-large-samples",  # Large-sample intervals
+    "inf-02-estimation.qmd#s-binomial",  # Maximum likelihood for a binomial proportion
+    "inf-02-estimation.qmd#s-loss-and-risk",
+    "inf-02-estimation.qmd#s-normal",  # Maximum likelihood for a normal sample
+    "inf-02-estimation.qmd#s-nuisance-parameters",
+    "inf-03-confidence-intervals.qmd#s-a-difference-of-means",
+    "inf-03-confidence-intervals.qmd#s-a-proportion",
+    "inf-03-confidence-intervals.qmd#s-a-ratio-of-variances",
+    "inf-03-confidence-intervals.qmd#s-a-variance",
+    "inf-03-confidence-intervals.qmd#s-coverage",
+    "inf-03-confidence-intervals.qmd#s-how-large-a-sample",
+    "inf-04-hypothesis-tests.qmd#s-one-proportion",
+    "inf-04-hypothesis-tests.qmd#s-tests-and-intervals",
+    "inf-04-hypothesis-tests.qmd#s-the-chi-squared-test-for-a-variance",
+    "inf-04-hypothesis-tests.qmd#s-the-ingredients",
+    "inf-05-chi-square.qmd#s-contingency-tables",
+    "inf-05-chi-square.qmd#s-estimated-parameters",
+    "inf-05-chi-square.qmd#s-known-cell-probabilities",
+    "inf-10-large-sample-estimation.qmd#s-asymptotic-normality-of-maximum-likelihood",
+    "inf-10-large-sample-estimation.qmd#s-maximum-likelihood-under-the-wrong-model",
+    "inf-15-two-factor-anova.qmd#s-sum-to-zero-and-contrast-constraints",
+    "prob-01-experiments.qmd#s-probability",  # Axioms of probability
+    "sl-02-normal-inference.qmd#s-confidence-statements",
+    "sl-02-normal-inference.qmd#s-the-covariance-and-the-invariance-lemma",
+    "sl-02-normal-inference.qmd#s-the-mean",  # Maximum likelihood for a normal mean vector
+    "sl-03-principal-components.qmd#s-choosing-components",
+    "sl-04-kmeans.qmd#s-the-criterion",
+    "sl-08-discriminant-analysis.qmd#s-unequal-costs",
+    "sl-14-neural-units.qmd#s-the-unit",
+    "sl-14-neural-units.qmd#s-what-one-threshold-unit-can-separate",  # Linear separability
+    "sl-16-networks-in-practice.qmd#s-batch-and-online-learning",
+    "sl-17-support-vectors.qmd#s-the-nonlinear-programme",  # Kernel support vector machine
+    "sl-19-graphical-models.qmd#s-markov-graphs",
+    "sp-06-poisson-processes.qmd#s-forward-equations-and-a-rare-event-limit",
+    "sp-07-continuous-markov.qmd#s-the-two-state-chain",
+    "sp-08-queues.qmd#s-a-repair-model",
+    "sp-09-probability-spaces.qmd#s-countable-operations-on-a-sequence-of-events",
+    "ur-02-probability-and-simulation.qmd#s-a-permutation-test",
+    "ur-02-probability-and-simulation.qmd#s-the-d-p-q-and-r-functions",
 }
 TOPICS: list[dict] = []
 ALIASES: dict[str, str] = {}
