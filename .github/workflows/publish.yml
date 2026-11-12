@@ -199,6 +199,9 @@ jobs:
       - name: Write the wiki pages
         run: python build_wiki.py
 
+      - name: Check overview links
+        run: python check_overview_links.py
+
       - name: Test the graph
         run: python -m unittest test_wiki_graph.py
 
