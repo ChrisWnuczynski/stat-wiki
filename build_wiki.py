@@ -4146,6 +4146,10 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         f"{i}. [{notes[name]['title']}]({href(home, notes[name]['path'])})"
         for i, name in enumerate(chapter_guides.STARTER, 1)
     )
+    overview_page = WIKI / "overview.qmd"
+    if not overview_page.is_file():
+        raise SystemExit("Missing overview.qmd")
+    overview_href = href(home, overview_page)
     n_chapters = len(chapters)
     home_text = f"""---
 title: {yaml_quote(SITE_NAME)}
@@ -4160,7 +4164,9 @@ A study wiki for data analysis, probability, stochastic processes, statistical l
 ::: {{.start-here}}
 ## New to statistics? Start here
 
-Five chapters, in this order. Each later chapter says what to read first.
+[What statistics is]({overview_href}) is the map of the field as these pages teach it, and the place to start.
+
+Then five chapters, in this order. Each later chapter says what to read first.
 
 {starter}
 :::
@@ -4179,6 +4185,8 @@ Five chapters, in this order. Each later chapter says what to read first.
 {chr(10).join(boxes)}
 ::::
 """
+    if home_text.find(overview_href) < 0 or home_text.find(overview_href) > home_text.find(starter.splitlines()[0]):
+        raise SystemExit("Overview is not first in the start-here box")
     for part, total in part_totals.items():
         if not total:
             continue
@@ -4380,6 +4388,8 @@ website:
     left:
       - text: Main page
         href: index.qmd
+      - text: Overview
+        href: overview.qmd
       - text: Topics
         href: notes/index.qmd
       - text: Question bank
@@ -4420,6 +4430,8 @@ website:
     contents:
       - text: Main page
         href: index.qmd
+      - text: Overview
+        href: overview.qmd
       - text: Random question
         href: questions/random.qmd
       - section: Laboratories
