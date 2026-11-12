@@ -526,8 +526,14 @@ def build_document(
     *,
     root: Path | None = None,
     terms=None,
+    retired: dict[str, tuple[str, str]] | None = None,
 ) -> dict:
-    """One graph document. Every url is a published path for a file under ``root``."""
+    """One graph document. Every url is a published path for a file under ``root``.
+
+    ``retired`` maps the slug of a published article the build no longer makes
+    to the (chapter file, heading id) its address now redirects to. Each becomes
+    an alias from the article's id to that section's id.
+    """
     root = root or WIKI
     rows = TERMS if terms is None else terms
     entries: list[dict] = []
@@ -634,7 +640,7 @@ def build_document(
         if box.get("lead"):
             parts.append(box["lead"])
         if box.get("excerpts"):
-            parts.append("\n\n".join(piece.get("text") or "" for piece in box["excerpts"]))
+            parts.append("\n\n".join(piece["text"] for piece in box["excerpts"] if piece.get("text")))
         if article.get("card") and article["card"].get("body"):
             parts.append(article["card"]["body"])
         _add(
@@ -674,6 +680,8 @@ def build_document(
         sol = answer.get("id") or ""
         if sol.startswith("sol-"):
             aliases["answer:" + sol] = aid
+    for old, (fname, anchor) in sorted((retired or {}).items()):
+        aliases[f"article:{old}"] = section_id(fname, anchor)
 
     for filename, info in figures.items():
         anchor = info.get("id") or ""
@@ -836,6 +844,7 @@ def write_graph(
     wiki_path: Path | None = None,
     registry_path: Path | None = None,
     terms=None,
+    retired: dict[str, tuple[str, str]] | None = None,
 ) -> list[str]:
     root = root or WIKI
     document = build_document(
@@ -850,6 +859,7 @@ def write_graph(
         sections,
         root=root,
         terms=terms,
+        retired=retired,
     )
     return save_graph(
         document,

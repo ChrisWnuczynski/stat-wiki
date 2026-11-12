@@ -461,6 +461,93 @@ class WikiGraphTests(unittest.TestCase):
         self.assertNotIn("text", by_id["article:glm"])
         self.assertEqual(by_id["article:glm"]["copy_of"], "definition:def-glm")
 
+    def test_retired_heading_page_aliases_its_section(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        kwargs = _world(Path(tmp.name))
+        document = wiki_graph.build_document(**kwargs, retired={"old-step": (CHAPTER, ANCHOR)})
+        section = f"section:{Path(CHAPTER).stem}:{ANCHOR}"
+        self.assertEqual(document["aliases"]["article:old-step"], section)
+        previous = [{"id": item["id"], "kind": item["kind"]} for item in document["entries"]]
+        previous.append({"id": "article:old-step", "kind": "article"})
+        self.assertEqual(wiki_graph.check_identity(previous, document["entries"], document["aliases"]), [])
+        with self.assertRaises(SystemExit) as caught:
+            wiki_graph.check_identity(previous, document["entries"], {})
+        self.assertIn("vanished article article:old-step", str(caught.exception))
+
+        with self.assertRaises(SystemExit) as missing:
+            wiki_graph.build_document(**_world(Path(tmp.name)), retired={"old-step": (CHAPTER, "s-gone")})
+        self.assertIn("not emitted", str(missing.exception))
+
+    def test_retired_page_redirects_to_its_heading(self) -> None:
+        import canonical_redirects
+
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        chapter = root / "notes" / CHAPTER
+        saved = (build_wiki.ARTICLE_DIR, dict(build_wiki.RETIRED), dict(build_wiki.PAGE_TITLES))
+        try:
+            build_wiki.ARTICLE_DIR = root / "articles"
+            build_wiki.ARTICLE_DIR.mkdir()
+            build_wiki.RETIRED.clear()
+            build_wiki.RETIRED["old-step"] = (chapter, ANCHOR)
+            build_wiki.PAGE_TITLES[chapter] = "GLMs & links"
+            build_wiki.write_retired_pages()
+            page = build_wiki.ARTICLE_DIR / "old-step.html"
+            text = page.read_text(encoding="utf-8")
+            target = f"../notes/{Path(CHAPTER).stem}.html#{ANCHOR}"
+            self.assertIn(f'var redirects = {{"": "{target}"}};', text)
+            self.assertIn(f'url={target}"', text)
+            self.assertIn("GLMs &amp; links", text)
+            self.assertIn("<title>Redirect</title>", text)  # the post-render steps know it by this
+
+            site = root / "_site"
+            (site / "articles").mkdir(parents=True)
+            (site / "notes").mkdir()
+            (site / "notes" / f"{Path(CHAPTER).stem}.html").write_text("<html></html>", encoding="utf-8")
+            (site / "articles" / "old-step.html").write_text(text, encoding="utf-8")
+            match = canonical_redirects.REDIRECTS.search(text)
+            saved_site = canonical_redirects.SITE_DIR
+            canonical_redirects.SITE_DIR = site
+            try:
+                href = canonical_redirects.canonical_for(site / "articles" / "old-step.html", match.group(1))
+            finally:
+                canonical_redirects.SITE_DIR = saved_site
+            self.assertEqual(href, f"https://www.statwiki.io/notes/{Path(CHAPTER).stem}.html")
+
+            build_wiki.RETIRED["glm"] = (chapter, ANCHOR)
+            build_wiki.ARTICLES["glm"] = {"slug": "glm"}
+            try:
+                with self.assertRaises(SystemExit) as clash:
+                    build_wiki.write_retired_pages()
+                self.assertIn("glm", str(clash.exception))
+            finally:
+                del build_wiki.ARTICLES["glm"]
+        finally:
+            build_wiki.ARTICLE_DIR = saved[0]
+            build_wiki.RETIRED.clear()
+            build_wiki.RETIRED.update(saved[1])
+            build_wiki.PAGE_TITLES.clear()
+            build_wiki.PAGE_TITLES.update(saved[2])
+
+    def test_naming_excerpt_finds_the_paragraph_that_names_a_topic(self) -> None:
+        prose = (
+            "Read the map of the data first.\n\n"
+            "The [variance function](../articles/variance-function.qmd){.term} sets the spread:\n\n"
+            "$$\nV(\\mu)=\\mu\n$$\n\n"
+            "where $\\mu$ is the mean.\n\n"
+            "The MAP estimate is the mode."
+        )
+        self.assertEqual(
+            build_wiki.naming_excerpt(prose, ["Variance function"]),
+            "The [variance function](../articles/variance-function.qmd){.term} sets the spread:\n\n"
+            "$$\nV(\\mu)=\\mu\n$$\n\nwhere $\\mu$ is the mean.",
+        )
+        # An acronym matches in capitals only, so "map" is not MAP.
+        self.assertEqual(build_wiki.naming_excerpt(prose, ["MAP estimate", "MAP"]), "The MAP estimate is the mode.")
+        self.assertIsNone(build_wiki.naming_excerpt(prose, ["Posterior median"]))
+
     def test_built_text_rejects_broken_subscripts(self) -> None:
         entry = {
             "id": "definition:def-broken",

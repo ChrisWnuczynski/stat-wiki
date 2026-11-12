@@ -11,7 +11,9 @@ from __future__ import annotations
 
 import json
 import os
+from collections import Counter
 from datetime import datetime, timezone
+from html import escape as html_escape
 
 import chapter_guides
 import re
@@ -1621,11 +1623,15 @@ def demote_headings(text: str) -> str:
 # ---------------------------------------------------------------------------
 # Topic pages
 #
-# Every heading in a chapter is a topic, and gets a page of its own in
-# articles/ with the section's text on it, unless an article of the same name
-# already exists. Ideas that a chapter names inside a paragraph get pages too,
-# from topics.py, with a short lead and the paragraphs that discuss them. The
-# chapter keeps its text; each heading gains a "Main article" line.
+# A chapter heading that something names (a link phrase, a topic, an other
+# name, a See also group, article_extras.py, a hand-written link, a title shared
+# across chapters, or topics.PAGES) gets a page of its own in articles/ with the
+# section's text on it, unless an article of the same name already exists. Its
+# heading gains a "Main article" line. Other headings stay in their chapter
+# only, so a chapter's story is not copied onto a page per step; a page such a
+# heading used to have becomes a redirect to it. Ideas that a chapter names
+# inside a paragraph get pages too, from topics.py, with a short lead and the
+# paragraphs that discuss them.
 # ---------------------------------------------------------------------------
 
 import topics  # noqa: E402
@@ -1640,6 +1646,10 @@ TOPIC_ERRORS: list[str] = []
 TOPIC_EXAMPLES: dict[str, list[str]] = {}  # topic slug -> worked examples (exm- ids) shown on its page
 SECTION_TEXT: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> text below the heading
 SECTION_SLICES: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> slice captured in index_chapter
+SECTION_TITLE: dict[tuple[str, str], str] = {}  # (chapter file, heading id) -> the heading as a page title
+NO_PAGE: set[tuple[str, str]] = set()  # (chapter file, heading id) of headings left in their chapter only
+RETIRED: dict[str, tuple[Path, str]] = {}  # published slug of a heading page no longer made -> (chapter, heading id)
+REGISTRY = WIKI / "graph" / "ids.json"
 
 # Inline maths in a heading, written out for a page title.
 TITLE_MATH = {
@@ -1700,13 +1710,37 @@ def chapter_sections(note: dict, prose: str) -> list[dict]:
 def paragraph_excerpt(prose: str, phrase: str, where: str) -> str:
     """The paragraph that first mentions phrase, with any display maths and the
     sentence that finishes it."""
-    blocks = [b for b in re.split(r"\n\s*\n", prose) if b.strip()]
-    flat = [re.sub(r"\]\([^)]*\)(\{[^}]*\})?", "]", b).replace("[", "") for b in blocks]
     needle = phrase.lower()
-    k = next((i for i, b in enumerate(flat) if needle in b.lower() and not b.lstrip().startswith(("#", "|", "!", "::: {.mainarticle}"))), None)
-    if k is None:
+    text = first_paragraph(prose, lambda flat: needle in flat.lower())
+    if text is None:
         TOPIC_ERRORS.append(f"no paragraph mentions {phrase!r} in {where}")
         return ""
+    return text
+
+
+def naming_excerpt(prose: str, phrases: list[str]) -> str | None:
+    """The paragraph that first names a topic by its title or a link phrase, as
+    paragraph_excerpt finds it, or None when no paragraph does."""
+    found = []
+    for pattern in phrases:
+        words = split_alternatives(topics.phrase_regex(pattern))
+        acro = "|".join(w for w in words if ACRONYMS.match(w))
+        rest = "|".join(w for w in words if not ACRONYMS.match(w))
+        if rest:
+            found.append(re.compile(rf"(?<![\w–-])(?:{rest})(?![\w–-])", re.I))
+        if acro:
+            found.append(re.compile(rf"(?<![\w–-])(?:{acro})(?![\w–-])"))
+    return first_paragraph(prose, lambda flat: any(p.search(flat) for p in found))
+
+
+def first_paragraph(prose: str, names) -> str | None:
+    """The first paragraph whose text, links removed, passes names; with any
+    display maths after it and the sentence that finishes that maths."""
+    blocks = [b for b in re.split(r"\n\s*\n", prose) if b.strip()]
+    flat = [re.sub(r"\]\([^)]*\)(\{[^}]*\})?", "]", b).replace("[", "") for b in blocks]
+    k = next((i for i, b in enumerate(flat) if names(b) and not b.lstrip().startswith(("#", "|", "!", "::: {.mainarticle}"))), None)
+    if k is None:
+        return None
     out = [blocks[k]]
     j = k + 1
     while j < len(blocks) and blocks[j].lstrip().startswith("$$"):
@@ -1750,19 +1784,64 @@ def topic_article(s: str, term: str, kind: str, note: dict, part: str, anchor: s
     return article
 
 
+def published_slugs() -> set[str]:
+    """Article slugs the site has published, from the id registry. A heading
+    page that is no longer made keeps its address only if it was published."""
+    if not REGISTRY.exists():
+        return set()
+    data = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    return {i.split(":", 1)[1] for i in [*data.get("ids", {}), *data.get("aliases", {})] if i.startswith("article:")}
+
+
+def named_pages() -> tuple[set[str], set[tuple[str, str]], set[str]]:
+    """The slugs, headings and titles that something names.
+
+    A heading's page is worth having when a reader can arrive at it by name: a
+    link phrase, a named topic, an other name or See also group, material in
+    article_extras.py, a hand-written link in a source file, a title shared by
+    headings in different chapters, or topics.PAGES. Each heading has its text
+    in its chapter already.
+    """
+    slugs: set[str] = set()
+    headings: set[tuple[str, str]] = set()
+    for row in topics.LINKS + TERMS + topics.LINKS_LAST:
+        code, key = row[1], row[2]
+        if code == "ART":
+            slugs.add(key)
+        elif key and not key.startswith(("def-", "thm-", "prp-", "cor-", "rem-")):
+            fname = CHAPTER_CODES[code]
+            anchor = HEADING_ANCHORS.get((fname, plain(key)))
+            if anchor:
+                headings.add((fname, anchor))
+    slugs |= {slug(spec["term"]) for spec in topics.TOPICS}
+    slugs |= set(topics.ALIASES.values()) | {s for group in topics.RELATED for s in group}
+    slugs |= set(PROPERTIES) | set(EXAMPLES) | set(FIGURES)
+    slugs |= {s for group in PROPERTIES.values() for s in group} | {s for group in BOOK_EXAMPLES.values() for s in group}
+    for path in SOURCES.rglob("*.qmd"):
+        slugs |= set(re.findall(r"\barticles/([\w-]+)\.qmd", path.read_text(encoding="utf-8")))
+    uses = Counter(topics.TITLES.values())
+    keys = [k for k, title in topics.TITLES.items() if uses[title] > 1] + list(topics.SLUGS) + sorted(topics.PAGES)
+    headings |= {tuple(k.split("#", 1)) for k in keys}
+    titles = {t.lower() for t in SEE_ALSO.values()}
+    return slugs, headings, titles
+
+
 def register_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
-    """Make a page for every heading and every named topic."""
+    """Make a page for every named heading and every named topic."""
     by_file = {note["path"].name: (part, note, prose) for part, note, prose in prepared}
     for alias, target in topics.SAME_AS.items():
         if target not in ARTICLES:
             raise SystemExit(f"topics.SAME_AS[{alias!r}]: no article {target!r}")
+    named_slugs, named_headings, named_titles = named_pages()
     sections: dict[str, list[dict]] = {}
+    pending = []
     for part, note, prose in prepared:
         fname = note["path"].name
         sections[fname] = chapter_sections(note, prose)
         for sec in sections[fname]:
             key = f"{fname}#{sec['anchor']}"
             title = section_title(fname, sec)
+            SECTION_TITLE[(fname, sec["anchor"])] = title
             target = topics.SAME_AS.get(key) or (None if key in topics.TITLES else existing_article(title))
             if target:
                 SECTION_PAGE[(fname, sec["anchor"])] = target
@@ -1770,8 +1849,24 @@ def register_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
             s = topics.SLUGS.get(key) or slug(title)
             if s in ARTICLES and ARTICLES[s]["box"] and ARTICLES[s]["box"]["kind"] not in TOPIC_KINDS:
                 raise SystemExit(f"Heading {key} would replace the article {s}; give it a title in topics.TITLES")
+            pending.append((part, note, sec, title, s))
+    for key in sorted(topics.PAGES):
+        fname, _, anchor = key.partition("#")
+        if not any(sec["anchor"] == anchor for sec in sections.get(fname, [])):
+            raise SystemExit(f"topics.PAGES: no heading {key}")
+    # Headings with one title share a page, so a page is kept or not as a whole.
+    kept = named_slugs | {
+        s for _, note, sec, title, s in pending if (note["path"].name, sec["anchor"]) in named_headings or title.lower() in named_titles
+    }
+    published = published_slugs()
+    for part, note, sec, title, s in pending:
+        if s in kept:
             topic_article(s, title, "section", note, part, sec["anchor"])
-            SECTION_PAGE[(fname, sec["anchor"])] = s
+            SECTION_PAGE[(note["path"].name, sec["anchor"])] = s
+            continue
+        NO_PAGE.add((note["path"].name, sec["anchor"]))
+        if s in published:
+            RETIRED.setdefault(s, (note["path"], sec["anchor"]))
 
     for spec in topics.TOPICS:
         s = slug(spec["term"])
@@ -1847,15 +1942,32 @@ def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
         box = a["box"]
         if not box or box.get("kind") != "topic":
             continue
+        names = [box["topic"]["term"], *box["topic"]["links"]]
         for part, note, anchor, phrase in box["places"]:
             if phrase == "":
                 continue  # a worked example, or the lead alone
+            main = None
             if phrase is None:
-                text = SECTION_TEXT[(note["path"].name, anchor)]
+                fname = note["path"].name
+                text = SECTION_TEXT[(fname, anchor)]
+                # A heading that is not this topic's own page is taught in full
+                # in its chapter, and perhaps on a page of its own or under other
+                # topics too. The topic shows the paragraph that names it under a
+                # "Main article" line to the rest. When no paragraph names it, a
+                # heading with a page of its own gets the line alone, and one
+                # without keeps its whole text here.
+                own = SECTION_PAGE.get((fname, anchor))
+                if own != a["slug"]:
+                    part_text = naming_excerpt(text, names)
+                    if part_text is None and own:
+                        part_text = ""
+                    if part_text is not None and part_text != text:
+                        text = part_text
+                        main = (ARTICLES[own]["term"], ARTICLES[own]["path"], "") if own else (SECTION_TITLE[(fname, anchor)], note["path"], anchor)
             else:
                 text = paragraph_excerpt(by_file[note["path"].name], phrase, note["path"].name)
-            if not any(e["chapter"] == note["path"] and e["text"] == text for e in box["excerpts"]):
-                box["excerpts"].append({"chapter": note["path"], "chapter_title": note["title"], "anchor": anchor, "text": text})
+            if not any(e["chapter"] == note["path"] and e["text"] == text and e.get("main") == main for e in box["excerpts"]):
+                box["excerpts"].append({"chapter": note["path"], "chapter_title": note["title"], "anchor": anchor, "text": text, "main": main})
     if TOPIC_ERRORS:
         raise SystemExit("topics.py:\n  " + "\n  ".join(TOPIC_ERRORS))
     for a in ARTICLES.values():
@@ -2909,6 +3021,46 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     write_config(chapters, final_notes, questions)
 
 
+REDIRECT_HTML = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="0; url={target}">
+<script type="text/javascript">
+var redirects = {{"": "{target}"}};
+var hash = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : window.location.hash;
+var redirect = redirects[hash] || redirects[""] || "/";
+window.document.title = 'Redirect to ' + redirect;
+window.location.replace(redirect);
+</script>
+</head>
+<body>
+<p>This section is in <a href="{target}">{chapter}</a>.</p>
+</body>
+</html>
+"""
+
+
+def write_retired_pages() -> None:
+    """A redirect at the address of each heading page the site published and no
+    longer makes, to the heading in its chapter, so outside links keep working.
+
+    They are laid out like Quarto's alias redirects, so canonical_redirects.py
+    gives each a canonical link and the other post-render steps pass over them.
+    """
+    redirects = {slug(alias) for alias in [*topics.ALIASES, *SEE_ALSO]}
+    clash = sorted(s for s in RETIRED if s in ARTICLES or s in redirects)
+    if clash:
+        raise SystemExit(f"Retired heading pages clash with pages or redirects: {clash[:10]}")
+    for s, (chapter, anchor) in sorted(RETIRED.items()):
+        path = ARTICLE_DIR / f"{s}.html"
+        target = f"{href(path, chapter.with_suffix('.html'))}#{anchor}"
+        chapter_title = html_escape(PAGE_TITLES.get(chapter, "its chapter"))
+        path.write_text(REDIRECT_HTML.format(target=target, chapter=chapter_title), encoding="utf-8")
+
+
 def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: list[dict]) -> str:
     path = page["path"]
     head = "\n\n## What links here {#what-links-here}\n\n"
@@ -2989,15 +3141,34 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
         blocks.append((True, "lead", box["lead"] + "\n\n"))
     single = len(excerpts) == 1 and not box["lead"]
     seen_heads = set()
+
+    def main_link(e: dict) -> str:
+        title, target, fragment = e["main"]
+        return f"[{title}]({href(path, target)}{'#' + fragment if fragment else ''})"
+
+    # Sections with a page of their own and no paragraph naming the topic are
+    # listed together on one line, where the first of them would go.
+    pointers = [main_link(e) for e in excerpts if not e["text"]]
     for e in excerpts:
+        source = f"{href(path, e['chapter'])}{'#' + e['anchor'] if e['anchor'] else ''}"
+        note = f"From [{e['chapter_title']}]({source})"
+        if e.get("main"):  # one paragraph of a section that goes on
+            note = f"Main article: {main_link(e)}"
+        if not e["text"]:
+            if pointers:
+                label = "Main article" if len(pointers) == 1 else "Main articles"
+                blocks.append((False, "excerpt-head", f"::: {{.mainarticle}}\n{label}: {join_and(pointers)}\n:::\n\n"))
+                pointers = []
+            continue
         if not single:
             head = e["chapter_title"]
             ident = "in-" + slug(e["chapter"].stem + "-" + (e["anchor"] or "text"))
             if head in seen_heads:
                 head = f"{head}, continued"
             seen_heads.add(head)
-            source = f"{href(path, e['chapter'])}{'#' + e['anchor'] if e['anchor'] else ''}"
-            blocks.append((False, "excerpt-head", f"## In *{head}* {{#{ident}}}\n\n::: {{.mainarticle}}\nFrom [{e['chapter_title']}]({source})\n:::\n\n"))
+            blocks.append((False, "excerpt-head", f"## In *{head}* {{#{ident}}}\n\n::: {{.mainarticle}}\n{note}\n:::\n\n"))
+        elif e.get("main"):
+            blocks.append((False, "excerpt-head", f"::: {{.mainarticle}}\n{note}\n:::\n\n"))
         blocks.append((True, "excerpt", copy_for_article(e["text"], e["chapter"], path) + "\n\n"))
     return blocks
 
@@ -3498,6 +3669,8 @@ def write_glossary(questions: list[dict]) -> None:
     for e in GLOSSARY:
         if e["kind"] == "section" and (e["page"].name, e["anchor"]) in SECTION_PAGE:
             continue  # the heading's page is an entry already
+        if e["kind"] == "section" and (e["page"].name, e["anchor"]) in NO_PAGE:
+            continue  # a step in its chapter, not a term
         if e["kind"] == "section" and (e["term"].lower(), e["page"]) not in named:
             entries.append(dict(e))
     # Concept checks are short questions on one idea each.
@@ -4173,6 +4346,8 @@ def write_config(chapters, final_notes, questions) -> None:
 {chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - search-rank.js
+    # Redirects from heading pages that are no longer made to their chapters.
+    - articles/*.html
     - {SHARE_IMAGE}
     - wiki.json
     - ask/widget/dist/
@@ -4770,8 +4945,10 @@ def main() -> None:
         FIGURE_INFO,
         SECTION_SLICES,
         update_ids="--update-ids" in sys.argv,
+        retired={s: (chapter.name, anchor) for s, (chapter, anchor) in RETIRED.items()},
     ):
         print(f"Registry warning: vanished {item}")
+    write_retired_pages()
     write_file_pages()
 
     leftover = []
