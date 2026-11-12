@@ -4538,6 +4538,19 @@ The distributions below use the parameterisation fixed in each card. The second 
 :::
 
 ::: {.dist-card}
+### Hypergeometric
+
+| | |
+|---|---|
+| Distribution | hypergeometric count of marked items |
+| Parameters | population $N$, marked items $r$, draw $n$, with $p=r/N$ |
+| Support | $\max(0,\,n-(N-r))\le x\le\min(n,r)$ |
+| Probability mass function | $p(x)=\binom{r}{x}\binom{N-r}{n-x}/\binom{N}{n}$ |
+| Expectation | $\mathbb{E}(x)=np$ |
+| Variance | $\operatorname{Var}(x)=np(1-p)(N-n)/(N-1)$ |
+:::
+
+::: {.dist-card}
 ### Multinomial
 
 | | |
@@ -4643,6 +4656,19 @@ The mode is $\beta/(\alpha+1)$, which is not the variance.
 | Probability density | $p(x)=\frac{1}{\sqrt{2\pi}\,\sigma}\exp\Bigl(-\frac{(x-\mu)^{2}}{2\sigma^{2}}\Bigr)$ |
 | Expectation | $\mathbb{E}(X)=\mu$ |
 | Variance | $\operatorname{Var}(X)=\sigma^{2}$ |
+:::
+
+::: {.dist-card}
+### Uniform
+
+| | |
+|---|---|
+| Distribution | $X\sim\operatorname{U}[a,b]$ |
+| Parameters | $a<b$ |
+| Support | $a\le x\le b$ |
+| Probability density | $p(x)=1/(b-a)$ |
+| Expectation | $\mathbb{E}(X)=(a+b)/2$ |
+| Variance | $\operatorname{Var}(X)=(b-a)^{2}/12$ |
 :::
 """
 

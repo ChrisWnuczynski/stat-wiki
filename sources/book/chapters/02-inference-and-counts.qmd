@@ -82,30 +82,30 @@ Bliss (1935) exposed beetles to carbon disulphide for five hours. The dose on th
 ```r
 dose <- c(1.6907, 1.7242, 1.7552, 1.7842, 1.8113, 1.8369, 1.8610, 1.8839)
 killed <- c(6, 13, 18, 28, 52, 53, 61, 60)
-notkilled <- c(53, 47, 48, 28, 11, 6, 1, 0)
+notkilled <- c(53, 47, 44, 28, 11, 6, 1, 0)
 response <- cbind(killed, notkilled)
 summary(glm(response ~ dose, family = binomial))
 ```
 The fit, in four Fisher-scoring iterations, is
 ```
             Estimate Std. Error z value Pr(>|z|)
-(Intercept)  -61.249      5.206  -11.76   <2e-16
-dose           34.555      2.926   11.81   <2e-16
+(Intercept)  -60.717      5.181  -11.72   <2e-16
+dose           34.270      2.912   11.77   <2e-16
 ```
-A coefficient of $34.6$ per unit of $\log_{10}$ dose is a statement about a tenfold change in concentration, and the experiment only runs from $1.69$ to $1.88$.
+A coefficient of $34.3$ per unit of $\log_{10}$ dose is a statement about a tenfold change in concentration, and the experiment only runs from $1.69$ to $1.88$.
 
 ![Proportion of beetles killed against log dose, with binomial standard errors. One unit on the horizontal axis is a tenfold change in concentration. The experiment covers only the short stretch drawn here.](../figures/beetles.pdf){#fig-beetles}
 
 Quoting a one-unit effect is like quoting a one-kilometre effect in a study of human height. Bring the unit back to the data. For an increase of $0.01$ in log-dose,
 $$
-\exp(0.3456)=1.41,
+\exp(0.3427)=1.41,
 $$
-so the odds of being killed are multiplied by about $1.41$. The standard error scales the same way, $2.926\times 0.01=0.02926$, and
+so the odds of being killed are multiplied by about $1.41$. The standard error scales the same way, $2.912\times 0.01=0.02912$, and
 \begin{align*}
-\exp(0.3456-1.96\times 0.02926)&=\exp(0.288)=1.33,\\
-\exp(0.3456+1.96\times 0.02926)&=\exp(0.403)=1.50.
+\exp(0.3427-1.96\times 0.02912)&=\exp(0.286)=1.33,\\
+\exp(0.3427+1.96\times 0.02912)&=\exp(0.400)=1.49.
 \end{align*}
-Rounding can put the upper endpoint at $1.49$ rather than $1.50$. Either rounding is the same scientific sentence: a small step up in log-dose raises the odds of death by roughly 30 to 50 percent, and the interval sits entirely above $1$.
+A small step up in log-dose raises the odds of death by roughly 30 to 50 percent, and the interval sits entirely above $1$.
 
 ## Counts
 
@@ -143,11 +143,9 @@ Increase $x_1$ by one unit and hold $x_2$ fixed. The mean is multiplied by $e^{\
 
 Myers, Montgomery, and Vining report injuries in the upper seam of 44 West Virginia coal mines. Three covariates survived their selection: inner burden thickness in feet ($x_1$), the percent already extracted from the seam below ($x_2$), and years the mine has been open ($x_3$). The fitted mean used for the interpretation is
 $$
-\hat\mu=\exp(-3.2707-0.0015 x_1+0.0627 x_2-0.0317 x_3).
+\hat\mu=\exp(-3.7207-0.0015 x_1+0.0627 x_2-0.0317 x_3).
 $$ {#eq-mine-board}
-The `glm` summary from the fit below prints an intercept of $-3.7207$, with slopes $-0.00148$, $0.06270$, and $-0.03165$. The slopes match the rounded values in @eq-mine-board. The intercepts do not: $-3.2707$ and $-3.7207$ differ by a transposition. The reading below follows @eq-mine-board as written, and the standard errors and the dispersion are taken from the printed summary, where the slopes are the quantities being tested.^[The disagreement is left visible rather than resolved by silently picking one intercept. The baseline mean is not a meaningful mine either way.]
-
-On @eq-mine-board, the intercept is the mean number of injuries when the inner burden is $0$ feet, nothing has been extracted below, and the mine is brand new: $\exp(-3.2707)=0.038$. A new mine and a mine with nothing extracted below are imaginable. Zero inner burden is a hole at the surface, which is not a mine. The intercept is algebra, not a sentence to publish.
+The equation rounds the `glm` summary printed below. On @eq-mine-board, the intercept is the mean number of injuries when the inner burden is $0$ feet, nothing has been extracted below, and the mine is brand new: $\exp(-3.7207)=0.024$. A new mine and a mine with nothing extracted below are imaginable. Zero inner burden is a hole at the surface, which is not a mine. The intercept is algebra, not a sentence to publish.
 
 A one-foot increase in inner burden multiplies the mean by $\exp(-0.0015)=0.999$. A foot is about thirty centimetres. A per-foot effect is not worth quoting. Per ten feet the coefficient is $-0.015$, and the mean is multiplied by $\exp(-0.015)\approx 0.985$. Still a small multiplicative change, and still something to compare with a standard error rather than with $1$ by eye.
 
@@ -216,7 +214,7 @@ Now $\mu$ is exactly the mean, the same parameter as in the Poisson and the nega
 
 ## Exercises
 
-1. For the beetle fit, recompute $\exp(0.3456\pm 1.96\times 0.02926)$ and state the interval as a multiplicative change in odds per $0.01$ of log-dose. Explain, in one sentence, why the unscaled coefficient $34.6$ is a bad unit for that sentence.
+1. For the beetle fit, recompute $\exp(0.3427\pm 1.96\times 0.02912)$ and state the interval as a multiplicative change in odds per $0.01$ of log-dose. Explain, in one sentence, why the unscaled coefficient $34.3$ is a bad unit for that sentence.
 
 2. The Poisson score set to zero is $\sum_i(y_i-\mu_i)\vect{X}_i=\vect{0}$ under the log link. Show the cancellation, starting from the general GLM score $(y_i-\mu_i)\,\mu'(\vect{X}_i^\top\boldsymbol{\beta})/\mathrm{Var}(Y_i)$.
 
