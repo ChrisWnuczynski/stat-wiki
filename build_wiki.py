@@ -4303,6 +4303,9 @@ format:
     # Scroll, not wrap: R output is aligned in columns.
     code-overflow: scroll
     link-external-newwindow: true
+    # In dark mode, apply the theme before the page is drawn; see _theme-head.html.
+    include-in-header: _theme-head.html
+    include-before-body: _theme-body.html
     include-after-body: _random.html
     # One canonical link per page, on the public host, so every page can be indexed.
     canonical-url: true

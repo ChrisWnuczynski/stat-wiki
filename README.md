@@ -16,7 +16,7 @@ On every push to `main`, the publish workflow runs both steps and publishes the 
 | Article properties, examples and pictures | `article_extras.py` |
 | Topic pages, their titles, other names, and term links | `topics.py`. Every chapter heading gets a page of its own automatically; this file names the ones whose heading needs its chapter to make sense, adds pages for ideas named inside a paragraph, and lists the phrases that link to them. |
 | Page layout, links and infoboxes | `build_wiki.py` |
-| Colours, fonts and dark mode | `styles.css` |
+| Colours, fonts and dark mode | `styles.css`. `_theme-head.html` and `_theme-body.html` apply a reader's saved dark mode before each page is drawn. |
 | The browser-tab icon | `favicon.ico` (16 to 128 px) |
 | The picture shown when a page is shared | `share-icon.png`, the browser-tab icon at 1200 by 630. `make_share_image.py` draws it. |
 | The site's name, the home page's title in search results, and the description under each page in search results | `search_meta.py`. It runs after `quarto render`: each page gets a description from its opening sentences (or from its title when it opens with a formula), and the home page gets a longer title and WebSite structured data naming the site for Google. |
