@@ -1020,6 +1020,47 @@ main,
   font-size: 0.82rem;
 }
 
+.search-alias {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0 0.4rem;
+  border: 1px solid var(--wiki-rule);
+  border-radius: 2px;
+  background: var(--wiki-panel);
+  color: var(--wiki-muted);
+  font-size: 0.78rem;
+}
+
+.search-section-link {
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.search-exact {
+  margin: 0.6rem 0 1rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--wiki-panel);
+  border: 1px solid var(--wiki-border);
+  border-left: 3px solid var(--wiki-link);
+}
+
+.search-exact p {
+  margin: 0;
+}
+
+.aa-DirectMatch {
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--wiki-rule);
+  background: var(--wiki-panel);
+  font-size: 0.9rem;
+}
+
+.aa-DirectMatch a {
+  font-weight: 600;
+}
+
 #site-search-results p {
   margin: 0.15rem 0 0.7rem;
   color: var(--wiki-muted);

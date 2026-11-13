@@ -1326,17 +1326,53 @@ RANDOM_AND_FILTER_JS = """<script>
     event.preventDefault();
     window.location.href = offset + "questions/random.html";
   });
+  var aliasMeta = null;
+  var aliasPromise = null;
+  var arrowMoved = false;
+  function loadAliases() {
+    if (aliasPromise) return aliasPromise;
+    aliasPromise = fetch(new URL(offset + "search-aliases.json", location.href))
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) { aliasMeta = data; return data; })
+      .catch(function () { return null; });
+    return aliasPromise;
+  }
   function goSearch(event) {
     var input = document.querySelector("#quarto-search input");
     var q = input ? input.value.trim() : "";
     if (!q) return;
+    if (arrowMoved) {
+      var active = document.querySelector('#quarto-search-results .aa-Item[aria-selected="true"] a[href]');
+      var href = active ? active.getAttribute("href") || "" : "";
+      if (href && href.indexOf("0767FDFD-") < 0) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.href = active.href;
+        return;
+      }
+    }
     event.preventDefault();
     event.stopPropagation();
     window.location.href = offset + "search.html?query=" + encodeURIComponent(q);
   }
+  document.addEventListener("focusin", function (event) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+      loadAliases().then(function () { rankPanel(); });
+    }
+  });
+  document.addEventListener("input", function (event) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+      arrowMoved = false;
+      loadAliases().then(function () { rankPanel(); });
+    }
+  });
   document.addEventListener("keydown", function (event) {
-    if (event.key !== "Enter") return;
     if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      arrowMoved = true;
+      return;
+    }
+    if (event.key !== "Enter") return;
     goSearch(event);
   }, true);
   document.addEventListener("submit", function (event) {
@@ -1351,22 +1387,71 @@ RANDOM_AND_FILTER_JS = """<script>
     if (path.indexOf("notes/") >= 0 || path.indexOf("reference/") >= 0) return 1;
     return 2;
   }
+  function normHrefKey(href) {
+    return String(href || "").split("?")[0].split("#")[0].replace(/^(\\.\\.\\/|\\.\\/|\\/)+/, "");
+  }
   function rankPanel() {
+    var input = document.querySelector("#quarto-search input");
+    var q = input ? input.value.trim() : "";
+    var exact = (q && window.wikiResolveExactMatch) ? window.wikiResolveExactMatch(q, aliasMeta) : null;
+    var exactKey = exact ? normHrefKey(exact.href) : "";
+    document.querySelectorAll(".aa-Panel").forEach(function (panel) {
+      var prevBanner = panel.querySelector(".aa-DirectMatch");
+      if (!exact) {
+        if (prevBanner) prevBanner.remove();
+      } else {
+        var targetUrl = new URL(offset + exact.href.replace(/^\\//, ""), location.href).href;
+        if (!prevBanner) {
+          prevBanner = document.createElement("div");
+          prevBanner.className = "aa-DirectMatch";
+          panel.insertBefore(prevBanner, panel.firstChild);
+        }
+        prevBanner.textContent = "";
+        var prefix = document.createTextNode("Direct match: ");
+        var anchor = document.createElement("a");
+        anchor.href = targetUrl;
+        anchor.textContent = exact.title;
+        prevBanner.appendChild(prefix);
+        prevBanner.appendChild(anchor);
+        if (exact.alias && exact.alias.toLowerCase() !== exact.title.toLowerCase()) {
+          prevBanner.appendChild(document.createTextNode(" (" + exact.alias + ")"));
+        }
+      }
+    });
     document.querySelectorAll(".aa-List").forEach(function (list) {
-      var items = Array.prototype.slice.call(list.children);
-      if (items.length < 2) return;
-      var ranked = items.slice().sort(function (a, b) {
-        var linkA = a.querySelector("a");
-        var linkB = b.querySelector("a");
-        return tierOf(linkA ? linkA.getAttribute("href") : "") - tierOf(linkB ? linkB.getAttribute("href") : "");
+      var children = Array.prototype.slice.call(list.children);
+      if (children.length < 2) return;
+      var groups = [];
+      children.forEach(function (item) {
+        var link = item.querySelector("a");
+        var href = link ? link.getAttribute("href") || "" : "";
+        var isChild = href.indexOf("0767FDFD-") >= 0 || !!item.querySelector(".search-item, .search-more");
+        if (isChild && groups.length) {
+          groups[groups.length - 1].nodes.push(item);
+        } else {
+          var key = normHrefKey(href);
+          groups.push({ key: key, href: href, tier: tierOf(href), isExact: !!(exactKey && key === exactKey), nodes: [item] });
+        }
       });
-      var changed = ranked.some(function (item, i) { return item !== items[i]; });
+      if (groups.length < 2) return;
+      var ranked = groups.slice().sort(function (a, b) {
+        if (a.isExact !== b.isExact) return a.isExact ? -1 : 1;
+        return a.tier - b.tier;
+      });
+      var flat = [];
+      ranked.forEach(function (g) { g.nodes.forEach(function (n) { flat.push(n); }); });
+      var changed = flat.some(function (node, i) { return node !== children[i]; });
       if (!changed) return;
-      ranked.forEach(function (item) { list.appendChild(item); });
+      flat.forEach(function (node) { list.appendChild(node); });
     });
   }
   var searchRoot = document.getElementById("quarto-search") || document.body;
-  new MutationObserver(function () { rankPanel(); }).observe(searchRoot, { childList: true, subtree: true });
+  var rankingPanel = false;
+  new MutationObserver(function () {
+    if (rankingPanel) return;
+    rankingPanel = true;
+    try { rankPanel(); } finally { rankingPanel = false; }
+  }).observe(searchRoot, { childList: true, subtree: true });
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
   var section = /\\/labs\\//.test(here) ? "labs/index.html"
@@ -3876,6 +3961,163 @@ Open one question. The list starts with questions that have a worked answer. Cho
     )
 
 
+def plain_phrases_from_pattern(pattern: str) -> list[str]:
+    """Extract plain-text alias phrases from simple regex alternatives in topics.py and TERMS."""
+    out: list[str] = []
+    for raw_alt in split_alternatives(pattern):
+        alt = raw_alt.strip()
+        if alt.startswith("re:"):
+            alt = alt[3:].strip()
+        if re.search(r"\(\?[=!<]|\\[dswDSW]|\.\*|\.\+", alt):
+            continue
+        s = alt.replace(r"\.", ".").replace(r"\'", "'")
+        s = s.replace("(?:--|–|-| )", "-").replace("(?:--|–|-)", "-")
+        s = s.replace("[–-]", "-").replace("[- ]?", "-").replace("[- ]", " ")
+        s = s.replace("['’]?", "'").replace("['’]", "'")
+        s = s.replace("[sz]", "s").replace("u?", "u")
+        s = re.sub(r"matri\(\?:x\|ces\)", "matrix", s)
+        s = re.sub(r"\[ie\]s$", "is", s)
+        s = re.sub(r"\(\?:y\|ies\)$", "y", s)
+        s = re.sub(r"\(\?:s\|es\)\?$", "", s)
+        s = re.sub(r"s\?$", "", s)
+        if "(" in s or "[" in s or "\\" in s or "?" in s or "*" in s or "+" in s or "^" in s or "$" in s:
+            short = re.sub(r"\(\?:[^()]+\)\?", "", s)
+            short = re.sub(r"\s+", " ", short).strip(" -")
+            if len(short) >= 2 and not re.search(r"[()\[\]\\?*+^$]", short):
+                out.append(short)
+            expanded = re.sub(r"\(\?:([^()|]+)\)\?", r"\1", s)
+            expanded = re.sub(r"\s+", " ", expanded).strip(" -")
+            if expanded != short and len(expanded) >= 2 and not re.search(r"[()\[\]\\?*+^$]", expanded):
+                out.append(expanded)
+            continue
+        s = re.sub(r"\s+", " ", s).strip(" -")
+        if len(s) >= 2:
+            out.append(s)
+    return out
+
+
+def term_target_href(notes: dict, code: str, key: str) -> str | None:
+    if code == "ART":
+        article = ARTICLES.get(key)
+        return f"articles/{article['slug']}.html" if article else None
+    fname = CHAPTER_CODES.get(code)
+    if not fname or fname not in notes:
+        return None
+    if key == "":
+        return f"notes/{Path(fname).stem}.html"
+    if key.startswith(("def-", "thm-", "prp-", "cor-", "rem-")):
+        if key in BOX_ARTICLE:
+            return f"articles/{BOX_ARTICLE[key]}.html"
+        return f"notes/{Path(fname).stem}.html"
+    anchor = HEADING_ANCHORS.get((fname, plain(key)), "")
+    if (fname, anchor) in SECTION_PAGE:
+        return f"articles/{SECTION_PAGE[(fname, anchor)]}.html"
+    return f"notes/{Path(fname).stem}.html"
+
+
+SEARCH_ALIASES: dict[str, tuple[str, str]] = {}  # alias slug -> (canonical href, display label)
+
+
+def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
+    """Build canonical concept metadata and unambiguous aliases for search and redirects."""
+    pages: dict[str, dict] = {}
+    for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
+        href_ = f"articles/{article['slug']}.html"
+        pages[href_] = {"title": article["term"], "kind": "article", "aliases": []}
+    for _part, note in chapters:
+        href_ = f"notes/{note['path'].stem}.html"
+        pages[href_] = {"title": note["title"], "kind": "chapter", "aliases": []}
+    for note in final_notes:
+        href_ = f"notes/{note['path'].stem}.html"
+        pages[href_] = {"title": note["title"], "kind": "chapter", "aliases": []}
+    pages["overview.html"] = {"title": "What statistics is", "kind": "overview", "aliases": []}
+    pages["notes/index.html"] = {"title": "Topics", "kind": "index", "aliases": []}
+    pages["questions/index.html"] = {"title": "Question bank", "kind": "index", "aliases": []}
+    pages["questions/by-topic.html"] = {"title": "Questions by topic", "kind": "index", "aliases": []}
+    pages["questions/random.html"] = {"title": "Random question", "kind": "index", "aliases": []}
+    pages["reference/index.html"] = {"title": "Reference", "kind": "reference", "aliases": []}
+    pages["reference/glossary.html"] = {"title": "Glossary and index", "kind": "reference", "aliases": []}
+    pages["reference/distributions.html"] = {"title": "Common distributions", "kind": "reference", "aliases": []}
+    pages["reference/formulas.html"] = {"title": "Formula lookup", "kind": "reference", "aliases": []}
+    for lab_qmd in sorted((WIKI / "labs").glob("*.qmd")):
+        if lab_qmd.name.startswith("_"):
+            continue
+        raw = lab_qmd.read_text(encoding="utf-8")
+        m = re.search(r'^title:\s*"?(.*?)"?\s*$', raw, re.M)
+        lab_title = m.group(1).replace('\\"', '"') if m else lab_qmd.stem
+        pages[f"labs/{lab_qmd.stem}.html"] = {"title": lab_title, "kind": "laboratory", "aliases": []}
+
+    title_slugs: set[str] = {slug(info["title"]) for info in pages.values() if slug(info["title"])}
+    aliases_map: dict[str, str] = {}
+    SEARCH_ALIASES.clear()
+
+    def register_alias(label: str, target_href: str) -> None:
+        s = slug(label)
+        if not s or len(s) < 2 or target_href not in pages:
+            return
+        page_entry = pages[target_href]
+        if label.strip() and label.strip().lower() != page_entry["title"].lower():
+            if not any(existing.lower() == label.strip().lower() for existing in page_entry["aliases"]):
+                page_entry["aliases"].append(label.strip())
+        if s in aliases_map:
+            return
+        if s in title_slugs and slug(page_entry["title"]) != s:
+            return
+        aliases_map[s] = target_href
+        SEARCH_ALIASES[s] = (target_href, label.strip())
+
+    # 1. Explicit concept aliases in topics.ALIASES and SEE_ALSO.
+    for alias, target in topics.ALIASES.items():
+        if target in ARTICLES:
+            register_alias(alias, f"articles/{target}.html")
+    for alias, target_term in SEE_ALSO.items():
+        found = next((a for a in ARTICLES.values() if a["term"].lower() == target_term.lower()), None)
+        if found:
+            register_alias(alias, f"articles/{found['slug']}.html")
+
+    # 2. Distribution family short names (e.g. "normal", "beta", "poisson", "chi-squared").
+    for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
+        term = article["term"]
+        if term.lower().endswith(" distribution"):
+            short = term[: -len(" distribution")].strip()
+            if len(slug(short)) >= 3 and slug(short) not in ARTICLES and slug(short) not in RETIRED:
+                register_alias(short, f"articles/{article['slug']}.html")
+
+    # 3. Unambiguous phrases from topics.TOPICS, topics.LINKS, TERMS, and topics.LINKS_LAST.
+    all_rows = [tuple(t)[:3] for t in topics.LINKS + TOPIC_TERMS + TERMS + TOPIC_TERMS_LATE + topics.LINKS_LAST]
+    phrase_targets: dict[str, set[str]] = {}
+    ordered_candidates: list[tuple[str, str]] = []
+    for pattern, code, key in all_rows:
+        target_href = term_target_href(notes, code, key)
+        if not target_href:
+            continue
+        for phrase in plain_phrases_from_pattern(pattern):
+            s = slug(phrase)
+            if not s or len(s) < 2:
+                continue
+            phrase_targets.setdefault(s, set()).add(target_href)
+            ordered_candidates.append((phrase, target_href))
+    for phrase, target_href in ordered_candidates:
+        s = slug(phrase)
+        if len(phrase_targets.get(s, set())) == 1 and s not in RETIRED:
+            register_alias(phrase, target_href)
+
+    redirects_map = {
+        s: f"notes/{chapter.stem}.html#{anchor}"
+        for s, (chapter, anchor) in sorted(RETIRED.items())
+    }
+    return {"pages": pages, "aliases": aliases_map, "redirects": redirects_map}
+
+
+def write_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
+    payload = collect_search_aliases(notes, chapters, final_notes)
+    (WIKI / "search-aliases.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return payload
+
+
 def write_search_page() -> None:
     page = WIKI / "search.qmd"
     page.write_text(
@@ -3884,27 +4126,49 @@ title: "Search"
 toc: false
 ---
 
-Press Enter in the search box at the top to open this page. Definitions and articles are listed before figure files.
+Press Enter in the search box at the top to open this page. Each page appears once, with exact concept and alias matches first and figure files last.
 
 ```{=html}
 <form id="site-search" class="site-search" role="search">
   <label for="site-search-q">Search</label>
-  <input id="site-search-q" type="search" name="q">
+  <input id="site-search-q" type="search" name="q" autocomplete="off">
   <button type="submit">Search</button>
 </form>
+<div id="site-search-exact" class="search-exact" hidden></div>
 <p id="site-search-note"></p>
 <ol id="site-search-results"></ol>
 <script type="module">
-import { rankDocuments, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
+import { rankDocuments, resolveExactMatch, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
 
 const form = document.getElementById("site-search");
 const input = document.getElementById("site-search-q");
+const exactBox = document.getElementById("site-search-exact");
 const note = document.getElementById("site-search-note");
 const list = document.getElementById("site-search-results");
 const params = new URLSearchParams(location.search);
 input.value = params.get("query") || "";
 
+let cachedDocs = null;
+let cachedMeta = null;
+let lastRenderedQuery = "";
+
+async function loadData() {
+  if (cachedDocs) return { docs: cachedDocs, meta: cachedMeta };
+  const [indexRes, aliasRes] = await Promise.all([
+    fetch(new URL("search.json", location.href)),
+    fetch(new URL("search-aliases.json", location.href)).catch(() => null),
+  ]);
+  if (!indexRes.ok) throw new Error("index unavailable");
+  cachedDocs = documentsFromIndex(await indexRes.json());
+  cachedMeta = aliasRes && aliasRes.ok ? await aliasRes.json() : null;
+  return { docs: cachedDocs, meta: cachedMeta };
+}
+
 function kindOf(href) {
+  const path = String(href || "").split("#")[0].replace(/^\\//, "");
+  if (path.startsWith("labs/")) return "Laboratory";
+  if (path.startsWith("questions/")) return "Question";
+  if (path.startsWith("reference/")) return "Reference";
   const tier = tierOf(href);
   if (tier === 0) return "Article";
   if (tier === 1) return "Chapter";
@@ -3926,24 +4190,50 @@ function snippet(doc, terms) {
   return (start ? "…" : "") + text.slice(start, start + 180) + (start + 180 < text.length ? "…" : "");
 }
 
-async function run(query) {
+async function run(query, allowRedirect = false) {
   list.innerHTML = "";
+  exactBox.hidden = true;
+  exactBox.textContent = "";
   const q = query.trim();
+  lastRenderedQuery = q;
   if (!q) {
-    note.textContent = "Type a word or a phrase.";
+    note.textContent = "Type a word, phrase, or abbreviation (such as ANOVA, OLS, MLE, CLT, GLM, or MCMC).";
     return;
   }
-  const response = await fetch(new URL("search.json", location.href));
-  if (!response.ok) {
+  let docs, meta;
+  try {
+    ({ docs, meta } = await loadData());
+  } catch (_err) {
     note.textContent = "The search index is not available.";
     return;
   }
-  const docs = documentsFromIndex(await response.json());
-  const found = rankDocuments(docs, q);
+  const exact = resolveExactMatch(q, meta, docs);
+  if (allowRedirect && exact) {
+    window.location.href = exact.href;
+    return;
+  }
+  if (exact) {
+    const p = document.createElement("p");
+    p.append("Direct match: ");
+    const directLink = document.createElement("a");
+    directLink.href = exact.href;
+    directLink.style.fontWeight = "600";
+    directLink.textContent = exact.title;
+    p.append(directLink);
+    if (exact.alias && exact.alias.toLowerCase() !== exact.title.toLowerCase()) {
+      p.append(" (alias: " + exact.alias + ")");
+    }
+    p.append(" — press Enter again to open directly.");
+    exactBox.appendChild(p);
+    exactBox.hidden = false;
+  }
+
+  const found = rankDocuments(docs, q, meta);
   const terms = expandedTerms(q);
+  const pageWord = found.length === 1 ? "page" : "pages";
   note.textContent = terms.length > 1
-    ? found.length + " pages. Also matching " + terms.join(", ") + "."
-    : found.length + (found.length === 1 ? " page." : " pages.");
+    ? found.length + " " + pageWord + ". Also matching " + terms.join(", ") + "."
+    : found.length + " " + pageWord + ".";
   for (const doc of found.slice(0, 40)) {
     const item = document.createElement("li");
     const link = document.createElement("a");
@@ -3952,24 +4242,47 @@ async function run(query) {
     const kind = document.createElement("span");
     kind.className = "search-kind";
     kind.textContent = kindOf(doc.href);
+    item.append(link, kind);
+    if (doc.matchedAlias) {
+      const badge = document.createElement("span");
+      badge.className = "search-alias";
+      badge.textContent = doc.matchedAlias;
+      item.append(badge);
+    }
     const blurb = document.createElement("p");
-    const section = doc.section ? doc.section + ". " : "";
-    blurb.textContent = section + snippet(doc, terms);
-    item.append(link, kind, blurb);
+    if (doc.section && doc.sectionHref) {
+      const secLink = document.createElement("a");
+      secLink.href = doc.sectionHref;
+      secLink.className = "search-section-link";
+      secLink.textContent = "§ " + doc.section;
+      blurb.append(secLink, document.createTextNode(" — " + snippet(doc, terms)));
+    } else {
+      const sectionPrefix = doc.section ? doc.section + ". " : "";
+      blurb.textContent = sectionPrefix + snippet(doc, terms);
+    }
+    item.append(blurb);
     list.appendChild(item);
   }
 }
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
   event.preventDefault();
   const q = input.value.trim();
+  if (q && q === lastRenderedQuery && cachedDocs) {
+    const exact = resolveExactMatch(q, cachedMeta, cachedDocs);
+    if (exact) {
+      window.location.href = exact.href;
+      return;
+    }
+  }
   const url = new URL(location.href);
   if (q) url.searchParams.set("query", q); else url.searchParams.delete("query");
+  url.searchParams.delete("go");
   history.replaceState(null, "", url);
-  run(q);
+  await run(q, false);
 });
 
-run(input.value);
+run(input.value, params.get("go") === "1");
 </script>
 ```
 """,
@@ -4087,6 +4400,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         raise SystemExit(f"By topic part counts sum to {stated}, not {len(questions)}")
     by_topic_path.write_text("---\ntitle: \"Questions by topic\"\ntoc-depth: 2\n---\n\n" + body + "\n", encoding="utf-8")
     write_random_page(questions)
+    write_search_aliases(notes, chapters, final_notes)
     write_search_page()
 
     # Reference landing page and the distribution sheet.
@@ -4354,6 +4668,7 @@ def write_config(chapters, final_notes, questions) -> None:
 {chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - search-rank.js
+    - search-aliases.json
     # Redirects from heading pages that are no longer made to their chapters.
     - articles/*.html
     - {SHARE_IMAGE}
