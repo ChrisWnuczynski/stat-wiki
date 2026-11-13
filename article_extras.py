@@ -1904,6 +1904,23 @@ If the determinant vanishes, the image of $g$ is flat in some direction. The dis
 
 Let $X$ be uniform on $(0,1)$, with density $1$, and set $Y=2X$. The inverse is $x=y/2$ and $\lvert\mathrm{d} x/\mathrm{d} y\rvert=1/2$, so $f_Y(y)=1/2$ for $y\in(0,2)$. Then $\mathbb{P}(Y\le 1)=\mathbb{P}(X\le 1/2)=1/2$, and integrating the density $1/2$ over $(0,1)$ gives the same value. Omitting the Jacobian leaves the constant function $1$ on $(0,2)$, which integrates to $2$ and is not a density. The absolute value matters as well: a negative derivative reverses orientation, but probability uses volume, not signed volume.
 """,
+    "joint-distribution-and-density": r"""
+## A multivariate law on orthants, and when a density exists
+
+A random vector $\mathbf{X}=(X_1,\ldots,X_p)^\top$ always has a joint distribution function $F(\mathbf{x})=\mathbb{P}(X_1\le x_1,\ldots,X_p\le x_p)$ on $\mathbb{R}^p$. Sending all coordinates except $x_j$ to $+\infty$ recovers the marginal distribution function $F_{X_j}(x_j)$: the event $\{X_k\le\infty\}$ has probability $1$, so the intersection shrinks to $\{X_j\le x_j\}$. A rectangle probability is not a single difference $F(\mathbf{b})-F(\mathbf{a})$ once $p\ge 2$; in two dimensions $\mathbb{P}(a_1<X_1\le b_1,\,a_2<X_2\le b_2)=F(b_1,b_2)-F(a_1,b_2)-F(b_1,a_2)+F(a_1,a_2)$, and in $p$ dimensions the inclusion–exclusion sum over the $2^p$ corners must be non-negative on every box.
+
+Absolute continuity asks for more than smooth margins. A joint density $f\ge 0$ exists on $\mathbb{R}^p$ only when probabilities of sets of $p$-dimensional volume zero vanish. If $X_1\sim\operatorname{N}(0,1)$ and $X_2=X_1$, each coordinate has a smooth normal density on $\mathbb{R}$, yet $(X_1,X_2)$ sits entirely on the diagonal line $\{x_1=x_2\}$, which has two-dimensional area zero. Then $F(x_1,x_2)=\Phi(\min(x_1,x_2))$ has a ridge along the diagonal, and no joint density $f(x_1,x_2)$ on $\mathbb{R}^2$ integrates to $F$.
+
+## Differentiating on the unit square
+
+Let $(X_1,X_2)$ have $F(x_1,x_2)=x_1 x_2(x_1+x_2)/2$ on $[0,1]^2$. Differentiating once in $x_1$ and once in $x_2$ gives
+
+$$
+f(x_1,x_2)=\frac{\partial^2 F}{\partial x_1\,\partial x_2}(x_1,x_2)=x_1+x_2,\qquad 0<x_1,x_2<1,
+$$
+
+which is non-negative and integrates to $\int_0^1\int_0^1(x_1+x_2)\,\mathrm{d}x_1\,\mathrm{d}x_2=1$. Integrating $x_2$ out gives the marginal density $f_{X_1}(x_1)=x_1+1/2$ on $(0,1)$, matching the derivative of $F(x_1,1)=(x_1^2+x_1)/2$. Compare [joint probability density](joint-probability-density.qmd) for integrating over general regions.
+""",
     "jump-chain": r"""
 ## The sequence of states, with the clock removed
 
@@ -2167,6 +2184,29 @@ A full period $m$, for every seed, holds if and only if three arithmetic conditi
 ## Modulus eight, written out in full
 
 Take $a=5$, $c=1$ and $m=8$. Then $\gcd(1,8)=1$ and $a-1=4$, so the criterion promises period $8$. From seed $1$ the states are $1,6,7,4,5,2,3,0$, and then $1$ again. The outputs are those integers over $8$. Successive pairs $(U_i,U_{i+1})$ lie on a handful of lines. A long period removes the obvious repetition and does not remove every lattice: a poor multiplier still drops consecutive blocks onto a coarse grid, which matters as soon as several outputs are used together. Anyone who knows $a$, $c$ and $m$ and sees a few states can continue the stream exactly. Recording the [seed](random-seed.qmd) makes the stream reproducible; it does not make it secret.
+""",
+    "linear-images-of-a-normal-vector": r"""
+## Why full row rank keeps the output density nonsingular
+
+Any linear combination of coordinates of a [multivariate normal](multivariate-normal-distribution.qmd) vector $\mathbf{X}\sim\operatorname{N}_p(\boldsymbol{\mu},\Sigma)$ stays normal, with mean $A\boldsymbol{\mu}$ and covariance $A\Sigma A^\top$ by linearity of expectation:
+
+$$
+\operatorname{Cov}(A\mathbf{X})=\mathbb{E}\bigl[A(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top A^\top\bigr]=A\Sigma A^\top.
+$$
+
+The rank condition separates a genuine $m$-dimensional density from a singular law. When $\Sigma$ is [positive definite](positive-definite-matrix.qmd) (rank $p$) and the $m\times p$ matrix $A$ has full row rank $m\le p$, for any non-zero $\mathbf{u}\in\mathbb{R}^m$ the transpose image $A^\top\mathbf{u}$ is non-zero in $\mathbb{R}^p$, so $\mathbf{u}^\top(A\Sigma A^\top)\mathbf{u}=(A^\top\mathbf{u})^\top\Sigma(A^\top\mathbf{u})>0$. Thus $A\Sigma A^\top$ is positive definite and $\mathbf{Y}=A\mathbf{X}$ has an ordinary $m$-variate normal density. Selecting a coordinate block with $A=(I_m\ \ 0)$ shows immediately that every marginal subvector of a multivariate normal is multivariate normal. Adding a shift $\mathbf{c}\in\mathbb{R}^m$ shifts the mean to $A\boldsymbol{\mu}+\mathbf{c}$ and leaves $A\Sigma A^\top$ unchanged; see [affine images of normal vectors](affine-images-of-normal-vectors.qmd).
+
+## Sum and difference of two correlated normals, and a rank drop
+
+Let $\mathbf{X}\sim\operatorname{N}_2\bigl((1,3)^\top,\bigl(\begin{smallmatrix}4&1\\1&2\end{smallmatrix}\bigr)\bigr)$ and take $A=\bigl(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\bigr)$, which has rank $2$ and maps $(X_1,X_2)$ to $(X_1+X_2,\,X_1-X_2)$. Then $A\boldsymbol{\mu}=(4,-2)^\top$ and
+
+$$
+A\Sigma A^\top
+=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix}4&1\\1&2\end{pmatrix}\begin{pmatrix}1&1\\1&-1\end{pmatrix}
+=\begin{pmatrix}8&2\\2&4\end{pmatrix},
+$$
+
+which has determinant $28>0$. If instead $m=3>p=2$, say by appending the row $(2,0)=(1,1)+(1,-1)$, then $\operatorname{rank}(A)=2<3$, the third coordinate equals the sum of the first two with probability $1$, and $A\Sigma A^\top$ is singular with no density on $\mathbb{R}^3$.
 """,
     "linear-predictor": r"""
 ## Where the covariates actually enter
@@ -3122,6 +3162,21 @@ The first summand is observation noise. The second is posterior uncertainty in t
 ## A plug-in interval drops the second term
 
 Replacing $\theta$ by a single estimate keeps a plug-in copy of $v(\theta)$ and discards $\operatorname{Var}\{m(\theta) \mid x\}$, so the interval is too narrow while that posterior variance is positive. For a normal measurement $\widetilde{X} \mid \mu \sim \operatorname{N}(\mu, \sigma^2)$ with $\sigma^2$ known and $\mu \mid x \sim \operatorname{N}(m_n, v_n)$, the predictive distribution is normal with mean $m_n$ and variance $\sigma^2 + v_n$. As the sample grows, $v_n$ typically tends to zero, but the predictive variance tends to $\sigma^2$ rather than to zero. A credible interval for $\mu$ and a [predictive interval](prior-and-posterior-predictive-distributions.qmd) for $\widetilde{X}$ answer different questions.
+""",
+    "principal-component-directions": r"""
+## Orthogonal eigenvectors diagonalise the sample covariance
+
+Because the sample covariance matrix $S$ is real and symmetric, its spectral decomposition $S=\Gamma\Lambda\Gamma^\top$ chooses an orthogonal matrix $\Gamma=(\boldsymbol{\gamma}_1,\ldots,\boldsymbol{\gamma}_p)$ whose columns satisfy $\Gamma^\top\Gamma=I_p$ and $S\boldsymbol{\gamma}_j=\lambda_j\boldsymbol{\gamma}_j$ with $\lambda_1\ge\cdots\ge\lambda_p\ge 0$. Rotating the centred vector $\mathbf{X}$ into the principal coordinates $\mathbf{Y}=\Gamma^\top\mathbf{X}$ gives sample covariance
+
+$$
+\operatorname{Cov}(\mathbf{Y})=\Gamma^\top S\Gamma=\Gamma^\top(\Gamma\Lambda\Gamma^\top)\Gamma=\Lambda=\operatorname{diag}(\lambda_1,\ldots,\lambda_p).
+$$
+
+Off-diagonal entries of $\Lambda$ are zero, so distinct principal components $Y_j$ and $Y_k$ ($j\ne k$) have sample covariance zero, while $\operatorname{Var}(Y_j)=\lambda_j$. Because cyclic permutation inside a trace gives $\operatorname{tr}(S)=\operatorname{tr}(\Gamma\Lambda\Gamma^\top)=\operatorname{tr}(\Lambda\Gamma^\top\Gamma)=\operatorname{tr}(\Lambda)$, rotating the axes redistributes variance across uncorrelated coordinates without creating or losing any of the total variance $\sum_{j=1}^p s_{jj}$.
+
+## Two correlated measurements rotated to uncorrelated axes
+
+Suppose $S=\bigl(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\bigr)$, which has total variance $\operatorname{tr}(S)=4$. Its eigenvalues solve $(2-\lambda)^2-1=0$, giving $\lambda_1=3$ and $\lambda_2=1$, with unit eigenvectors $\boldsymbol{\gamma}_1=(1,1)^\top/\sqrt{2}$ and $\boldsymbol{\gamma}_2=(1,-1)^\top/\sqrt{2}$. The first component $Y_1=(X_1+X_2)/\sqrt{2}$ has variance $3$ ($75\%$ of total variance), the second $Y_2=(X_1-X_2)/\sqrt{2}$ has variance $1$ ($25\%$), and $3+1=4=\operatorname{tr}(S)$. When two eigenvalues tie ($\lambda_j=\lambda_{j+1}$), any orthonormal basis of that two-dimensional eigenspace gives the same diagonal variances, so the subspace is unique even though individual directions inside it are not; see [principal component directions and scores](principal-component-directions-and-scores.qmd).
 """,
     "principal-component-directions-and-scores": r"""
 ## Directions of greatest sample variance

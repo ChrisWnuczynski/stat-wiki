@@ -260,14 +260,20 @@ class CitationTests(unittest.TestCase):
             self.assertRegex(text, r"https?://", fname)
             self.assertIsNone(BANNED_VISIBLE.search(text), f"Banned term in {path}")
 
-        # 2. All ~725 concept articles
+        # 2. All unified concept articles: direct concept-specific citations and >= 150 words before References
         article_files = sorted(articles_dir.glob("*.qmd"))
         self.assertGreaterEqual(len(article_files), 700)
         for path in article_files:
             text = path.read_text(encoding="utf-8")
+            self.assertIn(path.stem, citations.ARTICLE_REFS, f"Live canonical article {path.stem} missing direct citation mapping")
             self.assertIn("## References {#references}", text, path.name)
             self.assertRegex(text, r"https?://", path.name)
             self.assertIsNone(BANNED_VISIBLE.search(text), f"Banned term in {path}")
+            body_before_refs = re.sub(r"\A---\n.*?\n---\n+", "", text, count=1, flags=re.S).split("## References {#references}")[0]
+            body_before_refs = re.sub(r"^[ \t]*:{3,}[^\n]*$", " ", body_before_refs, flags=re.M)
+            body_before_refs = re.sub(r"!?\[([^\]]*)\]\([^)]*\)(\{[^}]*\})?", r" \1 ", body_before_refs)
+            body_before_refs = re.sub(r"\{[#.][^}\n]*\}|[#*|]", " ", body_before_refs)
+            self.assertGreaterEqual(len(body_before_refs.split()), 150, f"Thin live article {path.name}")
 
         # 3. Overview, reference sheets, labs, and dataset questions
         static_and_sheets = [
