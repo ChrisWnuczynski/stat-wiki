@@ -1075,6 +1075,22 @@ main,
   margin: 0;
 }
 
+.search-disambig-title {
+  font-weight: 600;
+  margin-bottom: 0.35rem !important;
+}
+
+.search-disambig-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.search-disambig-list li {
+  margin: 0.2rem 0;
+}
+
 .aa-DirectMatch {
   padding: 0.45rem 0.75rem;
   border-bottom: 1px solid var(--wiki-rule);
@@ -1084,6 +1100,30 @@ main,
 
 .aa-DirectMatch a {
   font-weight: 600;
+}
+
+.aa-DisambigHead {
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: var(--wiki-muted);
+  margin-bottom: 0.25rem;
+}
+
+.aa-DisambigList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.aa-DisambigList li {
+  margin: 0.18rem 0;
+}
+
+.aa-DisambigDesc {
+  color: var(--wiki-muted);
+  font-size: 0.8rem;
 }
 
 #site-search-results p {

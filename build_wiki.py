@@ -1347,7 +1347,9 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   var aliasMeta = null;
   var aliasPromise = null;
+  var allSearchDocs = [];
   var arrowMoved = false;
+  var rankModPromise = import(new URL(offset + "search-rank.js", location.href).href).catch(function () { return null; });
   function loadAliases() {
     if (aliasPromise) return aliasPromise;
     aliasPromise = fetch(new URL(offset + "search-aliases.json", location.href))
@@ -1356,12 +1358,46 @@ RANDOM_AND_FILTER_JS = """<script>
       .catch(function () { return null; });
     return aliasPromise;
   }
+  // Intercept Quarto's Fuse.js instance so live autocomplete queries resolve
+  // abbreviations, diacritics, possessives, conversational questions,
+  // comparisons, and disambiguations against search-aliases.json + search.json
+  // even when Fuse's Bitap threshold (0.1) or minMatchCharLength (2) returns 0 hits.
+  if (typeof window.Fuse === "function" && !window.Fuse.__wikiWrapped) {
+    var NativeFuse = window.Fuse;
+    var activeFuse = null;
+    var OrigAdd = NativeFuse.prototype.add;
+    NativeFuse.prototype.add = function (doc) {
+      if (activeFuse === null) activeFuse = this;
+      if (this === activeFuse && doc && doc.href) {
+        allSearchDocs.push(doc);
+      }
+      return OrigAdd.apply(this, arguments);
+    };
+    var OrigSearch = NativeFuse.prototype.search;
+    NativeFuse.prototype.search = function (query, opts) {
+      var self = this;
+      var rawHits = OrigSearch.call(self, query, opts);
+      return Promise.all([loadAliases(), rankModPromise]).then(function (loaded) {
+        var metaData = loaded[0] || aliasMeta;
+        var rankMod = loaded[1];
+        var augment = (rankMod && rankMod.augmentQuartoSearchItems) || window.wikiAugmentQuartoSearchItems;
+        if (!augment) return rawHits;
+        var fuseDocs = rawHits.map(function (r) { return r.item; });
+        var cap = (opts && typeof opts.limit === "number") ? opts.limit : 25;
+        var merged = augment(fuseDocs, query, metaData, allSearchDocs, cap);
+        return merged.map(function (item, idx) {
+          return { item: item, refIndex: idx, score: 0 };
+        });
+      });
+    };
+    window.Fuse.__wikiWrapped = true;
+  }
   function goSearch(event) {
     var input = document.querySelector("#quarto-search input");
     var q = input ? input.value.trim() : "";
     if (!q) return;
     if (arrowMoved) {
-      var active = document.querySelector('#quarto-search-results .aa-Item[aria-selected="true"] a[href]');
+      var active = document.querySelector('#quarto-search-results .aa-Item[aria-selected="true"] a[href], .aa-DetachedContainer .aa-Item[aria-selected="true"] a[href]');
       var href = active ? active.getAttribute("href") || "" : "";
       if (href && href.indexOf("0767FDFD-") < 0) {
         event.preventDefault();
@@ -1375,18 +1411,18 @@ RANDOM_AND_FILTER_JS = """<script>
     window.location.href = offset + "search.html?query=" + encodeURIComponent(q);
   }
   document.addEventListener("focusin", function (event) {
-    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search, .aa-DetachedFormContainer")) {
       loadAliases().then(function () { rankPanel(); });
     }
   });
   document.addEventListener("input", function (event) {
-    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search, .aa-DetachedFormContainer")) {
       arrowMoved = false;
       loadAliases().then(function () { rankPanel(); });
     }
   });
   document.addEventListener("keydown", function (event) {
-    if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    if (!event.target.closest || !event.target.closest("#quarto-search, .aa-DetachedFormContainer")) return;
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       arrowMoved = true;
       return;
@@ -1395,7 +1431,7 @@ RANDOM_AND_FILTER_JS = """<script>
     goSearch(event);
   }, true);
   document.addEventListener("submit", function (event) {
-    if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    if (!event.target.closest || !event.target.closest("#quarto-search, .aa-DetachedFormContainer")) return;
     goSearch(event);
   }, true);
   function tierOf(href) {
@@ -1409,23 +1445,68 @@ RANDOM_AND_FILTER_JS = """<script>
   function normHrefKey(href) {
     return String(href || "").split("?")[0].split("#")[0].replace(/^(\\.\\.\\/|\\.\\/|\\/)+/, "");
   }
+  function toSiteHref(rel) {
+    return new URL(offset + String(rel || "").replace(/^\\/+/, ""), location.href).href;
+  }
   function rankPanel() {
-    var input = document.querySelector("#quarto-search input");
+    var input = document.querySelector(".aa-DetachedFormContainer .aa-Input") || document.querySelector("#quarto-search input");
     var q = input ? input.value.trim() : "";
-    var exact = (q && window.wikiResolveExactMatch) ? window.wikiResolveExactMatch(q, aliasMeta) : null;
+    var disambig = (q && window.wikiResolveDisambiguation) ? window.wikiResolveDisambiguation(q, aliasMeta) : null;
+    var comparison = (!disambig && q && window.wikiResolveComparison) ? window.wikiResolveComparison(q, aliasMeta, allSearchDocs) : null;
+    var exact = (!disambig && !comparison && q && window.wikiResolveExactMatch) ? window.wikiResolveExactMatch(q, aliasMeta, allSearchDocs) : null;
     var exactKey = exact ? normHrefKey(exact.href) : "";
     document.querySelectorAll(".aa-Panel").forEach(function (panel) {
       var prevBanner = panel.querySelector(".aa-DirectMatch");
-      if (!exact) {
+      if (!disambig && !comparison && !exact) {
         if (prevBanner) prevBanner.remove();
-      } else {
-        var targetUrl = new URL(offset + exact.href.replace(/^\\//, ""), location.href).href;
-        if (!prevBanner) {
-          prevBanner = document.createElement("div");
-          prevBanner.className = "aa-DirectMatch";
-          panel.insertBefore(prevBanner, panel.firstChild);
-        }
-        prevBanner.textContent = "";
+        return;
+      }
+      if (!prevBanner) {
+        prevBanner = document.createElement("div");
+        prevBanner.className = "aa-DirectMatch";
+        panel.insertBefore(prevBanner, panel.firstChild);
+      }
+      prevBanner.textContent = "";
+      if (disambig) {
+        var head = document.createElement("div");
+        head.className = "aa-DisambigHead";
+        head.textContent = disambig.term + " — choose intended topic:";
+        prevBanner.appendChild(head);
+        var ul = document.createElement("ul");
+        ul.className = "aa-DisambigList";
+        disambig.options.forEach(function (opt) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = toSiteHref(opt.href);
+          a.textContent = opt.label;
+          li.appendChild(a);
+          if (opt.description) {
+            var span = document.createElement("span");
+            span.className = "aa-DisambigDesc";
+            span.textContent = " — " + opt.description;
+            li.appendChild(span);
+          }
+          ul.appendChild(li);
+        });
+        prevBanner.appendChild(ul);
+      } else if (comparison) {
+        var cHead = document.createElement("div");
+        cHead.className = "aa-DisambigHead";
+        cHead.textContent = "Comparing topics:";
+        prevBanner.appendChild(cHead);
+        var cList = document.createElement("ul");
+        cList.className = "aa-DisambigList";
+        comparison.targets.forEach(function (t) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = toSiteHref(t.href);
+          a.textContent = t.title;
+          li.appendChild(a);
+          cList.appendChild(li);
+        });
+        prevBanner.appendChild(cList);
+      } else if (exact) {
+        var targetUrl = toSiteHref(exact.href);
         var prefix = document.createTextNode("Direct match: ");
         var anchor = document.createElement("a");
         anchor.href = targetUrl;
@@ -1444,7 +1525,7 @@ RANDOM_AND_FILTER_JS = """<script>
       children.forEach(function (item) {
         var link = item.querySelector("a");
         var href = link ? link.getAttribute("href") || "" : "";
-        var isChild = href.indexOf("0767FDFD-") >= 0 || !!item.querySelector(".search-item, .search-more");
+        var isChild = href.indexOf("0767FDFD-") >= 0 || !!item.querySelector(".search-result-doc-section, .search-result-more");
         if (isChild && groups.length) {
           groups[groups.length - 1].nodes.push(item);
         } else {
@@ -1453,9 +1534,12 @@ RANDOM_AND_FILTER_JS = """<script>
         }
       });
       if (groups.length < 2) return;
+      // Preserve rankDocuments ordering when Fuse was augmented; only demote figure files.
       var ranked = groups.slice().sort(function (a, b) {
+        var fa = Number(a.tier === 3), fb = Number(b.tier === 3);
+        if (fa !== fb) return fa - fb;
         if (a.isExact !== b.isExact) return a.isExact ? -1 : 1;
-        return a.tier - b.tier;
+        return 0;
       });
       var flat = [];
       ranked.forEach(function (g) { g.nodes.forEach(function (n) { flat.push(n); }); });
@@ -1464,13 +1548,28 @@ RANDOM_AND_FILTER_JS = """<script>
       flat.forEach(function (node) { list.appendChild(node); });
     });
   }
-  var searchRoot = document.getElementById("quarto-search") || document.body;
   var rankingPanel = false;
-  new MutationObserver(function () {
+  var searchObserver = new MutationObserver(function () {
     if (rankingPanel) return;
     rankingPanel = true;
-    try { rankPanel(); } finally { rankingPanel = false; }
-  }).observe(searchRoot, { childList: true, subtree: true });
+    searchObserver.disconnect();
+    try { rankPanel(); } finally {
+      rankingPanel = false;
+      watchSearch();
+    }
+  });
+  function watchSearch() {
+    var roots = [
+      document.getElementById("quarto-search"),
+      document.getElementById("quarto-search-results"),
+      document.querySelector(".aa-DetachedContainer"),
+    ];
+    roots.forEach(function (el) {
+      if (el) searchObserver.observe(el, { childList: true, subtree: true });
+    });
+    if (document.body) searchObserver.observe(document.body, { childList: true });
+  }
+  watchSearch();
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
   var section = /\\/labs\\//.test(here) ? "labs/index.html"
@@ -3243,9 +3342,10 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
 
     # Articles: one per named box, merged with any distribution card of the same name.
     register_card_articles()
+    ambig_slugs = ambiguous_alias_slugs()
     for alias, target in SEE_ALSO.items():
         article = next((a for a in ARTICLES.values() if a["term"].lower() == target.lower()), None)
-        if article:
+        if article and slug(alias) not in ambig_slugs:
             article["aliases"].append(f"{slug(alias)}.html")  # a redirect page, made by Quarto
     for alias, target in topics.ALIASES.items():
         if target not in ARTICLES:
@@ -3253,7 +3353,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         if slug(alias) in ARTICLES:
             raise SystemExit(f"topics.ALIASES[{alias!r}]: {slug(alias)} is already a page")
         SEE_ALSO[alias] = ARTICLES[target]["term"]
-        ARTICLES[target]["aliases"].append(f"{slug(alias)}.html")
+        if slug(alias) not in ambig_slugs:
+            ARTICLES[target]["aliases"].append(f"{slug(alias)}.html")
     qmap = {q["id"]: q for q in questions}
     read_formula_tables(notes)
     check_extras(qmap)
@@ -3376,12 +3477,44 @@ def write_retired_pages() -> None:
         path.write_text(REDIRECT_HTML.format(target=target, chapter=dest_title), encoding="utf-8")
 
 
+def ambiguous_alias_slugs() -> set[str]:
+    """Slugs registered in topics.DISAMBIGUATION that are not themselves real article slugs."""
+    out: set[str] = set()
+    for raw_key, spec in getattr(topics, "DISAMBIGUATION", {}).items():
+        labels = [raw_key, spec.get("term", ""), *(spec.get("aliases") or [])]
+        for label in labels:
+            for s in {slug(label), canonical_search_key(label)}:
+                if s and s not in ARTICLES:
+                    out.add(s)
+    return out
+
+
 def write_alias_redirect_pages() -> None:
     """Write canonical_redirects.py-compatible redirect stubs under articles/
-    for unambiguous concept aliases that do not collide with real or retired pages."""
+    for unambiguous concept aliases, and route genuinely ambiguous alias slugs
+    to search.html?query=<term> so readers see all intended meanings."""
     ARTICLE_DIR.mkdir(parents=True, exist_ok=True)
+    ambig_terms: dict[str, str] = {}
+    for raw_key, spec in getattr(topics, "DISAMBIGUATION", {}).items():
+        term_label = str(spec.get("term") or raw_key).strip()
+        for label in [raw_key, term_label, *(spec.get("aliases") or [])]:
+            for s in {slug(label), canonical_search_key(label)}:
+                if s and s not in ARTICLES and s not in RETIRED and s not in MERGED_ARTICLES:
+                    ambig_terms.setdefault(s, term_label)
+
+    for s, term_label in sorted(ambig_terms.items()):
+        if (ARTICLE_DIR / f"{s}.qmd").exists():
+            continue
+        path = ARTICLE_DIR / f"{s}.html"
+        from urllib.parse import quote
+        rel_target = f"../search.html#q={quote(term_label)}"
+        path.write_text(
+            REDIRECT_HTML.format(target=rel_target, chapter=html_escape(f"Disambiguation: {term_label}")),
+            encoding="utf-8",
+        )
+
     for s, (target_href, _label) in sorted(SEARCH_ALIASES.items()):
-        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES:
+        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES or s in ambig_terms:
             continue
         if (ARTICLE_DIR / f"{s}.qmd").exists():
             continue
@@ -3589,6 +3722,24 @@ def frame_article_lead(article: dict, text: str) -> str:
     return text
 
 
+def disambiguation_hatnote(article_slug: str) -> str:
+    """Concise Wikipedia-style cross-links for articles with sibling meanings."""
+    rows = getattr(topics, "HATNOTES", {}).get(article_slug)
+    if not rows:
+        return ""
+    clauses: list[str] = []
+    for prefix, target_rel, label in rows:
+        base_rel = target_rel.split("#", 1)[0]
+        target_file = (ARTICLE_DIR / base_rel).resolve()
+        if not target_file.is_file() and not base_rel.endswith(".qmd"):
+            raise SystemExit(f"topics.HATNOTES[{article_slug!r}]: invalid target {target_rel!r}")
+        if prefix.endswith("see"):
+            clauses.append(f"{prefix} [{label}]({target_rel})")
+        else:
+            clauses.append(f"{prefix}, see [{label}]({target_rel})")
+    return "; ".join(clauses) + "."
+
+
 def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     """Hatnote, lead, and the chapter text of a heading's or a named topic's page."""
     path, box = article["path"], article["box"]
@@ -3603,6 +3754,9 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     hat = f"{noun} of {where[0]}, part of {p_link}" if where else f"{noun}, part of {p_link}"
     if len(where) > 1:
         hat += " · Also in " + ", ".join(where[1:])
+    dis_note = disambiguation_hatnote(article["slug"])
+    if dis_note:
+        hat += "\n\n*" + dis_note + "*"
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat + "\n:::\n\n")]
     if box["lead"]:
         blocks.append((True, "lead", box["lead"] + "\n\n"))
@@ -3662,7 +3816,11 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     if card:
         where = f"[distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
         hat.append(("Also on the " if box else "From the ") + where)
-    blocks = [(False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n")]
+    hat_body = " · ".join(hat)
+    dis_note = disambiguation_hatnote(article["slug"])
+    if dis_note:
+        hat_body += "\n\n*" + dis_note + "*"
+    blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat_body + "\n:::\n\n")]
 
     if box:
         # The lead is the stored snippet when that is the box's whole first
@@ -4296,6 +4454,44 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+_GREEK_FOLD = {
+    "σ": "sigma", "α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta",
+    "ε": "epsilon", "θ": "theta", "λ": "lambda", "μ": "mu", "π": "pi",
+    "ρ": "rho", "τ": "tau", "φ": "phi", "χ": "chi", "ω": "omega",
+}
+_EPONYM_PLURAL_RE = re.compile(
+    r"\b("
+    + "|".join(
+        (
+            "akaike", "basu", "chebyshev", "cramer", "fatou", "fisher", "frechet",
+            "fubini", "gambler", "gumbel", "holder", "hotelling", "ito", "jensen",
+            "kolmogorov", "laplace", "levy", "little", "lloyd", "markov", "mercer",
+            "newton", "neyman", "pearson", "renyi", "simpson", "slutsky", "spearman",
+            "stirling", "student", "sylvester", "tukey", "vapnik", "wald", "ward",
+            "welch", "wilcoxon", "wilk", "wold",
+        )
+    )
+    + r")s\b"
+)
+
+
+def canonical_search_key(text: str) -> str:
+    """Unified search normalisation key matching canonicalSearchKey() in search-rank.js."""
+    s = unicodedata.normalize("NFKD", str(text or ""))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = re.sub(r"[’‘`´]", "'", s)
+    s = re.sub(r"[–—−]", "-", s)
+    s = s.replace("²", "2").replace("³", "3").replace("∞", "infinity").lower()
+    for ch, word in _GREEK_FOLD.items():
+        s = s.replace(ch, word)
+    s = re.sub(r"\^([0-9]+)\b", r"\1", s)
+    s = re.sub(r"\b(?:[a-z]\.){2,}[a-z]?(?=\W|$)", lambda m: m.group(0).replace(".", ""), s)
+    s = re.sub(r"([a-z])'s\b", r"\1", s)
+    s = re.sub(r"([s])'(?=\W|$)", r"\1", s)
+    s = _EPONYM_PLURAL_RE.sub(r"\1", s)
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
 def write_random_page(questions: list[dict]) -> None:
     page = WIKI / "questions" / "random.qmd"
     payload = [
@@ -4464,11 +4660,20 @@ SEARCH_ALIASES: dict[str, tuple[str, str]] = {}  # alias slug -> (canonical href
 
 
 def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
-    """Build canonical concept metadata and unambiguous aliases for search and redirects."""
+    """Build canonical concept metadata, unambiguous aliases, and disambiguations for search and redirects."""
     pages: dict[str, dict] = {}
     for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
         href_ = f"articles/{article['slug']}.html"
-        pages[href_] = {"title": article["term"], "kind": "article", "aliases": []}
+        box = article.get("box")
+        raw_summary = ""
+        if box:
+            raw_summary = box.get("snippet") or box.get("lead") or ""
+        summary = re.sub(r"!?\[([^\]]*)\]\([^)]*\)(\{[^}]*\})?", r"\1", raw_summary)
+        summary = re.sub(r"\s+", " ", summary).strip()
+        entry = {"title": article["term"], "kind": "article", "aliases": []}
+        if summary:
+            entry["summary"] = summary[:220]
+        pages[href_] = entry
     for _part, note in chapters:
         href_ = f"notes/{note['path'].stem}.html"
         pages[href_] = {"title": note["title"], "kind": "chapter", "aliases": []}
@@ -4492,26 +4697,49 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         lab_title = m.group(1).replace('\\"', '"') if m else lab_qmd.stem
         pages[f"labs/{lab_qmd.stem}.html"] = {"title": lab_title, "kind": "laboratory", "aliases": []}
 
-    title_slugs: set[str] = {slug(info["title"]) for info in pages.values() if slug(info["title"])}
+    title_slugs: set[str] = set()
+    for info in pages.values():
+        for k in (slug(info["title"]), canonical_search_key(info["title"])):
+            if k:
+                title_slugs.add(k)
     aliases_map: dict[str, str] = {}
     SEARCH_ALIASES.clear()
 
-    def register_alias(label: str, target_href: str) -> None:
-        s = slug(label)
-        if not s or len(s) < 2 or target_href not in pages:
+    def register_alias(label: str, target_href: str, allow_single_char: bool = False) -> None:
+        base_href = target_href.split("#", 1)[0]
+        if base_href not in pages:
             return
-        page_entry = pages[target_href]
-        if label.strip() and label.strip().lower() != page_entry["title"].lower():
-            if not any(existing.lower() == label.strip().lower() for existing in page_entry["aliases"]):
-                page_entry["aliases"].append(label.strip())
-        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES or target_href == f"articles/{s}.html":
+        clean = label.strip()
+        if not clean:
             return
-        if s in aliases_map:
+        min_len = 1 if allow_single_char else 2
+        keys = []
+        for k in (slug(clean), canonical_search_key(clean)):
+            if k and len(k) >= min_len and k not in keys:
+                keys.append(k)
+        if not keys:
             return
-        if s in title_slugs and slug(page_entry["title"]) != s:
-            return
-        aliases_map[s] = target_href
-        SEARCH_ALIASES[s] = (target_href, label.strip())
+        page_entry = pages[base_href]
+        if clean.lower() != page_entry["title"].lower():
+            if not any(existing.lower() == clean.lower() for existing in page_entry["aliases"]):
+                page_entry["aliases"].append(clean)
+        for k in keys:
+            if k in ARTICLES or k in RETIRED or k in MERGED_ARTICLES or base_href == f"articles/{k}.html":
+                continue
+            if k in aliases_map:
+                continue
+            if k in title_slugs and k not in {slug(page_entry["title"]), canonical_search_key(page_entry["title"])}:
+                continue
+            aliases_map[k] = target_href
+            if len(k) >= 2:
+                SEARCH_ALIASES[k] = (target_href, clean)
+
+    # 0. Explicit statistical shorthands, 1-/2-char tokens, and eponymous variants.
+    for shorthand, target_href in getattr(topics, "SEARCH_SHORTHANDS", {}).items():
+        base_href = target_href.split("#", 1)[0]
+        if base_href not in pages:
+            raise SystemExit(f"topics.SEARCH_SHORTHANDS[{shorthand!r}]: unknown target {target_href!r}")
+        register_alias(shorthand, target_href, allow_single_char=True)
 
     # 1. Explicit concept aliases in topics.ALIASES and SEE_ALSO.
     for alias, target in topics.ALIASES.items():
@@ -4522,18 +4750,32 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         if found:
             register_alias(alias, f"articles/{found['slug']}.html")
 
+    # 1b. Canonical unpunctuated/possessive-stripped forms of every page title
+    # (e.g. "Bayes' rule" -> "bayes-rule", "Chebyshev's inequality" -> "chebyshev-inequality",
+    # "Hotelling's T² test" -> "hotelling-t2-test").
+    for href_, info in sorted(pages.items()):
+        ck = canonical_search_key(info["title"])
+        sk = slug(info["title"])
+        if ck and ck != sk:
+            register_alias(info["title"], href_)
+        if "'" in info["title"] or "’" in info["title"]:
+            stripped_title = re.sub(r"([A-Za-z])['’]s\b", r"\1", info["title"])
+            stripped_title = re.sub(r"([sS])['’](?=\W|$)", r"\1", stripped_title)
+            if stripped_title != info["title"]:
+                register_alias(stripped_title, href_)
+
     # 2. Distribution family short names (e.g. "normal", "beta", "poisson", "chi-squared").
     for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
         term = article["term"]
         if term.lower().endswith(" distribution"):
             short = term[: -len(" distribution")].strip()
             if (
-                len(slug(short)) >= 3
+                len(slug(short)) >= 1
                 and not re.search(r"\b(?:of|a|an|the|and|in|for)$", short, re.I)
                 and slug(short) not in ARTICLES
                 and slug(short) not in RETIRED
             ):
-                register_alias(short, f"articles/{article['slug']}.html")
+                register_alias(short, f"articles/{article['slug']}.html", allow_single_char=True)
 
     # 3. Unambiguous phrases from topics.TOPICS, topics.LINKS, TERMS, and topics.LINKS_LAST.
     all_rows = [tuple(t)[:3] for t in topics.LINKS + TOPIC_TERMS + TERMS + TOPIC_TERMS_LATE + topics.LINKS_LAST]
@@ -4544,15 +4786,37 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         if not target_href:
             continue
         for phrase in plain_phrases_from_pattern(pattern):
-            s = slug(phrase)
+            s = canonical_search_key(phrase) or slug(phrase)
             if not s or len(s) < 2:
                 continue
             phrase_targets.setdefault(s, set()).add(target_href)
             ordered_candidates.append((phrase, target_href))
     for phrase, target_href in ordered_candidates:
-        s = slug(phrase)
+        s = canonical_search_key(phrase) or slug(phrase)
         if len(phrase_targets.get(s, set())) == 1 and s not in RETIRED:
             register_alias(phrase, target_href)
+
+    # 4. Structured disambiguation registry from topics.DISAMBIGUATION.
+    disambiguations_map: dict[str, dict] = {}
+    for raw_key, spec in sorted(getattr(topics, "DISAMBIGUATION", {}).items()):
+        ck = canonical_search_key(raw_key) or slug(raw_key)
+        options_out = []
+        for href_opt, label_opt, desc_opt in spec.get("options", []):
+            base_opt = href_opt.split("#", 1)[0]
+            if base_opt not in pages:
+                raise SystemExit(f"topics.DISAMBIGUATION[{raw_key!r}]: unknown option page {href_opt!r}")
+            options_out.append(
+                {
+                    "href": href_opt,
+                    "label": label_opt,
+                    "description": desc_opt,
+                }
+            )
+        disambiguations_map[ck] = {
+            "term": spec.get("term") or raw_key,
+            "aliases": list(spec.get("aliases") or []),
+            "options": options_out,
+        }
 
     redirects_map = {
         s: f"notes/{chapter.stem}.html#{anchor}"
@@ -4560,7 +4824,12 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
     }
     for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
         redirects_map[old_slug] = f"articles/{target_slug}.html"
-    return {"pages": pages, "aliases": aliases_map, "redirects": redirects_map}
+    return {
+        "pages": pages,
+        "aliases": aliases_map,
+        "disambiguations": disambiguations_map,
+        "redirects": redirects_map,
+    }
 
 
 def write_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
@@ -4592,7 +4861,15 @@ Press Enter in the search box at the top to open this page. Each page appears on
 <p id="site-search-note"></p>
 <ol id="site-search-results"></ol>
 <script type="module">
-import { rankDocuments, resolveExactMatch, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
+import {
+  rankDocuments,
+  resolveExactMatch,
+  resolveDisambiguation,
+  resolveComparison,
+  documentsFromIndex,
+  expandedTerms,
+  tierOf,
+} from "./search-rank.js";
 
 const form = document.getElementById("site-search");
 const input = document.getElementById("site-search-q");
@@ -4600,7 +4877,8 @@ const exactBox = document.getElementById("site-search-exact");
 const note = document.getElementById("site-search-note");
 const list = document.getElementById("site-search-results");
 const params = new URLSearchParams(location.search);
-input.value = params.get("query") || "";
+const hashParams = new URLSearchParams(location.hash.startsWith("#") ? location.hash.slice(1) : "");
+input.value = params.get("query") || params.get("q") || hashParams.get("q") || "";
 
 let cachedDocs = null;
 let cachedMeta = null;
@@ -4632,7 +4910,7 @@ function kindOf(href) {
 
 function snippet(doc, terms) {
   const text = String(doc.text || "").replace(/\\s+/g, " ").trim();
-  if (!text) return "";
+  if (!text) return doc.disambiguation || "";
   const folded = text.toLowerCase();
   let at = -1;
   for (const term of terms) {
@@ -4651,7 +4929,7 @@ async function run(query, allowRedirect = false) {
   const q = query.trim();
   lastRenderedQuery = q;
   if (!q) {
-    note.textContent = "Type a word, phrase, or abbreviation (such as ANOVA, OLS, MLE, CLT, GLM, or MCMC).";
+    note.textContent = "Type a word, phrase, question, or abbreviation (such as sd, t test, Bayes theorem, ANOVA, or what is a p value).";
     return;
   }
   let docs, meta;
@@ -4661,12 +4939,53 @@ async function run(query, allowRedirect = false) {
     note.textContent = "The search index is not available.";
     return;
   }
-  const exact = resolveExactMatch(q, meta, docs);
+  const disambig = resolveDisambiguation(q, meta);
+  const comparison = !disambig ? resolveComparison(q, meta, docs) : null;
+  const exact = !disambig && !comparison ? resolveExactMatch(q, meta, docs) : null;
   if (allowRedirect && exact) {
     window.location.href = exact.href;
     return;
   }
-  if (exact) {
+  if (disambig) {
+    const p = document.createElement("p");
+    p.className = "search-disambig-title";
+    p.textContent = "“" + disambig.term + "” refers to several concepts — choose the intended page:";
+    exactBox.appendChild(p);
+    const ul = document.createElement("ul");
+    ul.className = "search-disambig-list";
+    for (const opt of disambig.options) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = opt.href;
+      a.style.fontWeight = "600";
+      a.textContent = opt.label;
+      li.appendChild(a);
+      if (opt.description) {
+        li.appendChild(document.createTextNode(" — " + opt.description));
+      }
+      ul.appendChild(li);
+    }
+    exactBox.appendChild(ul);
+    exactBox.hidden = false;
+  } else if (comparison) {
+    const p = document.createElement("p");
+    p.className = "search-disambig-title";
+    p.textContent = "Comparing canonical pages:";
+    exactBox.appendChild(p);
+    const ul = document.createElement("ul");
+    ul.className = "search-disambig-list";
+    for (const target of comparison.targets) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = target.href;
+      a.style.fontWeight = "600";
+      a.textContent = target.title;
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
+    exactBox.appendChild(ul);
+    exactBox.hidden = false;
+  } else if (exact) {
     const p = document.createElement("p");
     p.append("Direct match: ");
     const directLink = document.createElement("a");
@@ -4723,7 +5042,9 @@ form.addEventListener("submit", async function (event) {
   event.preventDefault();
   const q = input.value.trim();
   if (q && q === lastRenderedQuery && cachedDocs) {
-    const exact = resolveExactMatch(q, cachedMeta, cachedDocs);
+    const disambig = resolveDisambiguation(q, cachedMeta);
+    const comparison = !disambig ? resolveComparison(q, cachedMeta, cachedDocs) : null;
+    const exact = !disambig && !comparison ? resolveExactMatch(q, cachedMeta, cachedDocs) : null;
     if (exact) {
       window.location.href = exact.href;
       return;
@@ -4732,6 +5053,7 @@ form.addEventListener("submit", async function (event) {
   const url = new URL(location.href);
   if (q) url.searchParams.set("query", q); else url.searchParams.delete("query");
   url.searchParams.delete("go");
+  url.hash = "";
   history.replaceState(null, "", url);
   await run(q, false);
 });

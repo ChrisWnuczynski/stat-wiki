@@ -1,10 +1,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  augmentQuartoSearchItems,
   canonicalHref,
+  canonicalSearchKey,
   documentsFromIndex,
   expandedTerms,
+  parseQuery,
   rankDocuments,
+  resolveComparison,
+  resolveDisambiguation,
   resolveExactMatch,
   scoreDocument,
   slugKey,
@@ -393,7 +398,7 @@ test("generated search-aliases.json resolves core statistical queries when built
   const checks = [
     ["variance", "articles/variance.html"],
     ["p-value", "articles/p-value.html"],
-    ["mean", "articles/expectation.html"],
+    ["p value", "articles/p-value.html"],
     ["sample mean", "articles/summary-statistics.html"],
     ["anova", "articles/one-way-analysis-of-variance.html"],
     ["normal", "articles/normal-distribution.html"],
@@ -403,13 +408,201 @@ test("generated search-aliases.json resolves core statistical queries when built
     ["glm", "articles/generalised-linear-model.html"],
     ["mcmc", "articles/markov-chain.html"],
     ["pca", "notes/sl-03-principal-components.html"],
+    ["sd", "articles/sample-variance-and-standard-deviation.html"],
+    ["se", "articles/standard-error.html"],
+    ["ci", "articles/confidence-interval.html"],
+    ["pi", "articles/prediction-interval.html"],
+    ["cv", "articles/cross-validation.html"],
+    ["df", "articles/degrees-of-freedom.html"],
+    ["rv", "articles/random-variable.html"],
+    ["iid", "articles/random-sample.html"],
+    ["i.i.d.", "articles/random-sample.html"],
+    ["bf", "articles/marginal-likelihood-and-bayes-factor.html"],
+    ["kl", "articles/kullback-leibler-divergence.html"],
+    ["em", "articles/em-algorithm.html"],
+    ["ar", "articles/autoregression-and-moving-averages.html"],
+    ["ma", "articles/autoregression-and-moving-averages.html"],
+    ["rss", "articles/ordinary-least-squares.html"],
+    ["ess", "articles/anova-sum-of-squares-decomposition.html"],
+    ["tss", "articles/anova-sum-of-squares-decomposition.html"],
+    ["t", "articles/student-t-distribution.html"],
+    ["z", "articles/normal-distribution.html"],
+    ["f", "articles/f-distribution.html"],
+    ["p", "articles/p-value.html"],
+    ["r", "articles/sample-correlation-coefficient.html"],
+    ["t test", "articles/one-sample-t-test.html"],
+    ["t-test", "articles/one-sample-t-test.html"],
+    ["z test", "articles/two-proportion-z-test.html"],
+    ["f test", "articles/f-test-for-equal-variances.html"],
+    ["chi2", "articles/chi-squared-distribution.html"],
+    ["r2", "articles/coefficient-of-determination.html"],
+    ["k means", "notes/sl-04-kmeans.html"],
+    ["k fold", "articles/fold-cross-validation.html"],
+    ["qq", "articles/normal-quantile-plot.html"],
+    ["log likelihood", "articles/likelihood-function.html"],
+    ["Bayes theorem", "articles/bayes-rule.html"],
+    ["Bayes' theorem", "articles/bayes-rule.html"],
+    ["Bayes’ theorem", "articles/bayes-rule.html"],
+    ["Students t", "articles/student-t-distribution.html"],
+    ["Student's t", "articles/student-t-distribution.html"],
+    ["Fishers exact test", "articles/fisher-s-exact-test.html"],
+    ["Jensens inequality", "articles/jensen-s-inequality.html"],
+    ["Chebyshevs inequality", "articles/chebyshev-s-inequality.html"],
+    ["Markovs inequality", "articles/markov-s-inequality.html"],
+    ["Wilks theorem", "articles/wilks-theorem.html"],
+    ["Wilks' theorem", "articles/wilks-theorem.html"],
+    ["Hotellings T2", "articles/hotelling-s-t2-test.html"],
+    ["Simpsons paradox", "articles/confounding-variable.html"],
+    ["Slutskys", "articles/asymptotic-normality-of-maximum-likelihood.html"],
+    ["Tukeys", "articles/tukey-intervals.html"],
+    ["Stirlings", "articles/k-means-criterion.html"],
+    ["Cramér", "articles/cramer-rao-lower-bound.html"],
+    ["Cramers", "articles/cramer-rao-lower-bound.html"],
+    ["Hölder", "notes/sp-11-convergence.html#s-inequalities-and-passing-a-limit-inside-the-expectation"],
+    ["Holder", "notes/sp-11-convergence.html#s-inequalities-and-passing-a-limit-inside-the-expectation"],
+    ["Itô", "articles/stochastic-process.html"],
+    ["Ito", "articles/stochastic-process.html"],
+    ["Lévy", "articles/levy-s-continuity-theorem.html"],
+    ["Levy", "articles/levy-s-continuity-theorem.html"],
+    ["Rényi", "articles/kullback-leibler-divergence.html"],
+    ["Renyi", "articles/kullback-leibler-divergence.html"],
+    ["Fréchet", "articles/power-law-tails-and-the-frechet-law.html"],
+    ["Frechet", "articles/power-law-tails-and-the-frechet-law.html"],
   ];
   for (const [q, expected] of checks) {
     const exact = resolveExactMatch(q, meta);
     assert.ok(exact, `resolveExactMatch("${q}")`);
     assert.equal(exact.href, expected, `exact match for "${q}"`);
     const ranked = rankDocuments([], q, meta);
-    assert.equal(ranked[0]?.href, expected, `rankDocuments #1 for "${q}"`);
+    assert.equal(ranked[0]?.href, expected.split("#")[0], `rankDocuments #1 for "${q}"`);
   }
+
+  // Disambiguated queries surface all intended targets at the top.
+  const meanDis = resolveDisambiguation("mean", meta);
+  assert.ok(meanDis, "mean should have disambiguation options");
+  const meanHrefs = meanDis.options.map((o) => o.href);
+  assert.ok(meanHrefs.includes("articles/summary-statistics.html"));
+  assert.ok(meanHrefs.includes("articles/expectation.html"));
+  assert.ok(meanHrefs.includes("articles/posterior-mean.html"));
+
+  const kernelDis = resolveDisambiguation("kernel", meta);
+  assert.ok(kernelDis, "kernel should have disambiguation options");
+  const kernelHrefs = kernelDis.options.map((o) => o.href);
+  assert.ok(kernelHrefs.includes("articles/kernel-density-estimator.html"));
+  assert.ok(kernelHrefs.includes("articles/kernel.html"));
+  assert.ok(kernelHrefs.includes("articles/kernel-of-a-density.html"));
+  assert.ok(kernelHrefs.includes("articles/markov-chain.html"));
+
+  const tTestDis = resolveDisambiguation("t test", meta);
+  assert.ok(tTestDis, "t test should have disambiguation options");
+  const tTestHrefs = tTestDis.options.map((o) => o.href);
+  assert.ok(tTestHrefs.includes("articles/one-sample-t-test.html"));
+  assert.ok(tTestHrefs.includes("articles/two-sample-t-test.html"));
+  assert.ok(tTestHrefs.includes("articles/welch-interval.html"));
+  assert.ok(tTestHrefs.includes("articles/paired-samples.html"));
+
+  // Conversational & comparison queries against full generated metadata.
+  assert.equal(rankDocuments([], "what is a p value?", meta)[0]?.href, "articles/p-value.html");
+  assert.equal(rankDocuments([], "how to compute sample variance", meta)[0]?.href, "articles/sample-variance-and-standard-deviation.html");
+  const compTop = rankDocuments([], "mean vs median", meta).slice(0, 2).map((d) => d.href);
+  assert.deepEqual(compTop, ["articles/expectation.html", "articles/median.html"]);
+});
+
+test("canonicalSearchKey folds diacritics, strips possessives, and normalises punctuation", () => {
+  assert.equal(canonicalSearchKey("Cramér–Rao lower bound"), "cramer-rao-lower-bound");
+  assert.equal(canonicalSearchKey("Hölder's inequality"), "holder-inequality");
+  assert.equal(canonicalSearchKey("Itô"), "ito");
+  assert.equal(canonicalSearchKey("Lévy's continuity theorem"), "levy-continuity-theorem");
+  assert.equal(canonicalSearchKey("Rényi"), "renyi");
+  assert.equal(canonicalSearchKey("Fréchet"), "frechet");
+  assert.equal(canonicalSearchKey("Bayes' theorem"), "bayes-theorem");
+  assert.equal(canonicalSearchKey("Bayes’ theorem"), "bayes-theorem");
+  assert.equal(canonicalSearchKey("Student's t-test"), "student-t-test");
+  assert.equal(canonicalSearchKey("Students t test"), "student-t-test");
+  assert.equal(canonicalSearchKey("Wilks' theorem"), "wilk-theorem");
+  assert.equal(canonicalSearchKey("Wilks theorem"), "wilk-theorem");
+  assert.equal(canonicalSearchKey("i.i.d."), "iid");
+  assert.equal(canonicalSearchKey("s.d."), "sd");
+});
+
+test("conversational questions, comparisons, and live Quarto augmentation synthesize canonical hits", () => {
+  const miniMeta = {
+    pages: {
+      "articles/p-value.html": {
+        title: "p-value",
+        kind: "article",
+        summary: "Probability under H0 of a test statistic at least as extreme as observed.",
+        aliases: ["p value", "pvalue"],
+      },
+      "articles/sample-variance-and-standard-deviation.html": {
+        title: "Sample variance and standard deviation",
+        kind: "article",
+        summary: "Sample dispersion s^2 and sample standard deviation s.",
+        aliases: ["sd", "Standard deviation", "sample variance"],
+      },
+      "articles/variance.html": {
+        title: "Variance",
+        kind: "article",
+        summary: "Population variance E[(X - EX)^2].",
+        aliases: ["var"],
+      },
+      "articles/expectation.html": {
+        title: "Expectation",
+        kind: "article",
+        summary: "Population mean E[X].",
+        aliases: ["Mean", "Expected value"],
+      },
+      "articles/median.html": {
+        title: "Median",
+        kind: "article",
+        summary: "Middle quantile of a sample or distribution.",
+        aliases: ["sample median"],
+      },
+    },
+    aliases: {
+      "p-value": "articles/p-value.html",
+      sd: "articles/sample-variance-and-standard-deviation.html",
+      mean: "articles/expectation.html",
+    },
+    disambiguations: {
+      variance: {
+        term: "Variance",
+        aliases: ["var"],
+        options: [
+          { href: "articles/variance.html", label: "Variance (random variable)", description: "Population variance" },
+          { href: "articles/sample-variance-and-standard-deviation.html", label: "Sample variance", description: "Data variance s^2" },
+        ],
+      },
+    },
+  };
+
+  assert.equal(parseQuery("what is a p value?").core, "p value");
+  assert.equal(parseQuery("how do I compute the sample variance?").core, "sample variance");
+  assert.deepEqual(parseQuery("difference between mean and median").comparison, ["mean", "median"]);
+  assert.deepEqual(parseQuery("mean vs median").comparison, ["mean", "median"]);
+
+  // Even when Fuse returns 0 items ([]), augmentQuartoSearchItems synthesizes canonical hits!
+  const sdItems = augmentQuartoSearchItems([], "sd", miniMeta, []);
+  assert.ok(sdItems.length >= 1);
+  assert.equal(sdItems[0].href, "articles/sample-variance-and-standard-deviation.html");
+
+  const pvalItems = augmentQuartoSearchItems([], "what is a p value?", miniMeta, []);
+  assert.ok(pvalItems.length >= 1);
+  assert.equal(pvalItems[0].href, "articles/p-value.html");
+
+  const comp = resolveComparison("mean vs median", miniMeta, []);
+  assert.ok(comp);
+  assert.equal(comp.targets.length, 2);
+  const compItems = augmentQuartoSearchItems([], "mean vs median", miniMeta, []);
+  assert.deepEqual(
+    compItems.slice(0, 2).map((i) => i.href),
+    ["articles/expectation.html", "articles/median.html"]
+  );
+
+  const varItems = augmentQuartoSearchItems([], "how to compute variance", miniMeta, []);
+  assert.deepEqual(
+    varItems.slice(0, 2).map((i) => i.href),
+    ["articles/variance.html", "articles/sample-variance-and-standard-deviation.html"]
+  );
 });
 
