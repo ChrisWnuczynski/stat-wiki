@@ -30,3 +30,16 @@ On a finite set of states the whole process is a transition matrix $P$. From a c
 The confidence is the probability, before the sample is drawn, that the random interval contains the parameter. This page draws the interval repeatedly from a known population and marks the misses. For a normal sample the $t$ interval hits with probability exactly equal to the stated level. Using a normal quantile with the sample standard deviation $s$ hits less often. For a proportion, the exact coverage of the Wald and Wilson intervals is a sum over the binomial distribution, and Wald's sum falls away from the stated level when the probability is near $0$ or $1$.
 
 [Open the confidence interval laboratory](ci-coverage.qmd).
+
+## References {#references}
+
+::: {.wiki-refs}
+- Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. *Philosophical Transactions of the Royal Society of London*, 370–418. [https://doi.org/10.1098/rstl.1763.0053](https://doi.org/10.1098/rstl.1763.0053)
+- Markov, A. A. (1906). Rasprostranenie zakona bol'shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. *Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)*, 15, 135–156. [https://openlibrary.org/authors/OL121192A](https://openlibrary.org/authors/OL121192A)
+- Neyman, J. (1937). Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability. *Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences*, 236(767), 333–380. [https://doi.org/10.1098/rsta.1937.0005](https://doi.org/10.1098/rsta.1937.0005)
+- Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. *The Annals of Mathematical Statistics*, 33(3), 1065–1076. [https://doi.org/10.1214/aoms/1177704472](https://doi.org/10.1214/aoms/1177704472)
+- Rosenblatt, M. (1956). Remarks on Some Nonparametric Estimates of a Density Function. *The Annals of Mathematical Statistics*, 27(3), 832–837. [https://doi.org/10.1214/aoms/1177728190](https://doi.org/10.1214/aoms/1177728190)
+- Silverman, B. W. (1986). *Density Estimation for Statistics and Data Analysis*. Chapman & Hall. [https://doi.org/10.1201/9781315140919](https://doi.org/10.1201/9781315140919)
+- Student [Gosset, W. S.] (1908). The Probable Error of a Mean. *Biometrika*, 6(1), 1. [https://doi.org/10.2307/2331554](https://doi.org/10.2307/2331554)
+- Wilson, E. B. (1927). Probable Inference, the Law of Succession, and Statistical Inference. *Journal of the American Statistical Association*, 22(158), 209–212. [https://doi.org/10.1080/01621459.1927.10502953](https://doi.org/10.1080/01621459.1927.10502953)
+:::

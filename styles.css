@@ -1351,3 +1351,21 @@ main,
   }
 }
 
+/* Academic reference lists at the foot of chapters, articles, labs, and sheets. */
+.wiki-refs ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1.2rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.wiki-refs li {
+  padding-left: 1.6rem;
+  text-indent: -1.6rem;
+  margin: 0.42rem 0;
+}
+
+.wiki-refs a {
+  overflow-wrap: anywhere;
+}

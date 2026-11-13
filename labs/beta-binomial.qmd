@@ -78,3 +78,14 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
 
 - [Beta–Binomial conjugacy](../notes/bayes-02-beta-binomial.qmd#prp-beta-binomial-conjugacy) and the [prior-sensitivity calculation](../notes/bayes-02-beta-binomial.qmd#s-worked-prior-sensitivity-calculation) with these three priors.
 - [Beta–Binomial posterior prediction](../notes/bayes-02-beta-binomial.qmd#prp-beta-binomial-posterior-prediction), including the variance comparison for a future run of tosses.
+
+## References {#references}
+
+::: {.wiki-refs}
+- Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. *Philosophical Transactions of the Royal Society of London*, 370–418. [https://doi.org/10.1098/rstl.1763.0053](https://doi.org/10.1098/rstl.1763.0053)
+- Bernoulli, J. (1713). *Ars Conjectandi*. Thurneysen Brothers, Basel. [https://www.e-rara.ch/zut/content/titleinfo/1250279](https://www.e-rara.ch/zut/content/titleinfo/1250279)
+- Diaconis, P. & Ylvisaker, D. (1979). Conjugate Priors for Exponential Families. *The Annals of Statistics*, 7(2), 269–281. [https://doi.org/10.1214/aos/1176344611](https://doi.org/10.1214/aos/1176344611)
+- Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A. & Rubin, D. B. (2013). *Bayesian Data Analysis*. Chapman and Hall/CRC. [https://doi.org/10.1201/b16018](https://doi.org/10.1201/b16018)
+- Laplace, P.-S. (1812). *Théorie analytique des probabilités*. Courcier, Paris. [https://openlibrary.org/works/OL2395821W](https://openlibrary.org/works/OL2395821W)
+- Raiffa, H. & Schlaifer, R. (1961). *Applied Statistical Decision Theory*. Harvard Business School, Boston. [https://openlibrary.org/works/OL2620278W](https://openlibrary.org/works/OL2620278W)
+:::

@@ -3311,6 +3311,10 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             page["blocks"].insert(1, (False, "infobox", box))
             page["blocks"] += article_tail(article, links, forward.get(page["path"], []), questions, by_topic)
 
+    import citations
+
+    citations.attach_page_references(pages, article_by_path)
+
     for page in pages:
         meta_lines = "".join(f"{k}: {v}\n" for k, v in page["meta"].items())
         body = "".join(text for _, _, text in page["blocks"]).strip()
@@ -3322,6 +3326,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     write_indexes(notes, chapters, final_notes, questions, by_source, by_topic)
     write_glossary(questions)
     write_config(chapters, final_notes, questions)
+    citations.write_sheet_and_static_references(WIKI)
 
 
 REDIRECT_HTML = """<!DOCTYPE html>

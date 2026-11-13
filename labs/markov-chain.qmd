@@ -75,3 +75,13 @@ The distances are exact for the distribution and are one path for the occupation
 
 - The [limiting distribution](../notes/prob-06-markov-chains.qmd#thm-limiting-distribution): one stationary vector, and $P^{t}$ converging to it, when the finite chain is irreducible and aperiodic.
 - The [six stepping stones](../notes/prob-06-markov-chains.qmd#exm-six-stepping-stones) and the [two-state weather chain](../notes/prob-06-markov-chains.qmd#exm-a-two-state-weather-chain).
+
+## References {#references}
+
+::: {.wiki-refs}
+- Chapman, S. (1928). On the Brownian displacements and thermal diffusion of grains suspended in a non-uniform fluid. *Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character*, 119(781), 34–54. [https://doi.org/10.1098/rspa.1928.0082](https://doi.org/10.1098/rspa.1928.0082)
+- Feller, W. (1968). *An Introduction to Probability Theory and Its Applications, Vol. 1* (3rd ed.). John Wiley & Sons, New York. [https://openlibrary.org/works/OL146759W](https://openlibrary.org/works/OL146759W)
+- Kolmogoroff, A. (1931). Über die analytischen Methoden in der Wahrscheinlichkeitsrechnung. *Mathematische Annalen*, 104(1), 415–458. [https://doi.org/10.1007/bf01457949](https://doi.org/10.1007/bf01457949)
+- Markov, A. A. (1906). Rasprostranenie zakona bol'shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. *Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)*, 15, 135–156. [https://openlibrary.org/authors/OL121192A](https://openlibrary.org/authors/OL121192A)
+- Norris, J. R. (1997). *Markov Chains*. Cambridge University Press. [https://doi.org/10.1017/cbo9780511810633](https://doi.org/10.1017/cbo9780511810633)
+:::

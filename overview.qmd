@@ -437,3 +437,31 @@ Studies and regression are explicit that a randomised assignment can support a c
 Sampling designs are taught as ways of choosing units. A formula for a population total when units are included with unequal probabilities is not developed.
 
 Missing entries are treated as a decision about which rows the claim describes. A tree has to send an incomplete row down a split. A model whose subject is the process that made values missing is not a separate chapter.
+
+## References {#references}
+
+```{=html}
+<div class="wiki-refs">
+<ul>
+  <li>Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. <em>Philosophical Transactions of the Royal Society of London</em>, 370–418. <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">https://doi.org/10.1098/rstl.1763.0053</a></li>
+  <li>Breiman, L. (2001). Random Forests. <em>Machine Learning</em>, 45(1), 5–32. <a href="https://doi.org/10.1023/a:1010933404324" target="_blank" rel="noopener">https://doi.org/10.1023/a:1010933404324</a></li>
+  <li>Cramér, H. (1946). <em>Mathematical Methods of Statistics</em>. Princeton University Press. <a href="https://doi.org/10.1515/9781400883868" target="_blank" rel="noopener">https://doi.org/10.1515/9781400883868</a></li>
+  <li>Efron, B. (1979). Bootstrap Methods: Another Look at the Jackknife. <em>The Annals of Statistics</em>, 7(1), 1–26. <a href="https://doi.org/10.1214/aos/1176344552" target="_blank" rel="noopener">https://doi.org/10.1214/aos/1176344552</a></li>
+  <li>Fisher, R. A. (1922). On the mathematical foundations of theoretical statistics. <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em>, 222(594-604), 309–368. <a href="https://doi.org/10.1098/rsta.1922.0009" target="_blank" rel="noopener">https://doi.org/10.1098/rsta.1922.0009</a></li>
+  <li>Fisher, R. A. (1935). <em>The Design of Experiments</em>. Oliver and Boyd, Edinburgh. <a href="https://openlibrary.org/works/OL1153859W" target="_blank" rel="noopener">https://openlibrary.org/works/OL1153859W</a></li>
+  <li>Gauss, C. F. (1809). <em>Theoria motus corporum coelestium in sectionibus conicis solem ambientium</em>. Perthes und Besser, Hamburg. <a href="https://archive.org/details/bub_gb_ORUOAAAAQAAJ" target="_blank" rel="noopener">https://archive.org/details/bub_gb_ORUOAAAAQAAJ</a></li>
+  <li>Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A. &amp; Rubin, D. B. (2013). <em>Bayesian Data Analysis</em>. Chapman and Hall/CRC. <a href="https://doi.org/10.1201/b16018" target="_blank" rel="noopener">https://doi.org/10.1201/b16018</a></li>
+  <li>Hastie, T. J. &amp; Tibshirani, R. J. (1990). <em>Generalized Additive Models</em>. Chapman &amp; Hall. <a href="https://doi.org/10.1201/9780203753781" target="_blank" rel="noopener">https://doi.org/10.1201/9780203753781</a></li>
+  <li>Kolmogoroff, A. (1933). <em>Grundbegriffe der Wahrscheinlichkeitsrechnung</em>. Springer. <a href="https://doi.org/10.1007/978-3-642-49888-6" target="_blank" rel="noopener">https://doi.org/10.1007/978-3-642-49888-6</a></li>
+  <li>Liang, K.-Y. &amp; Zeger, S. L. (1986). Longitudinal data analysis using generalized linear models. <em>Biometrika</em>, 73(1), 13–22. <a href="https://doi.org/10.1093/biomet/73.1.13" target="_blank" rel="noopener">https://doi.org/10.1093/biomet/73.1.13</a></li>
+  <li>Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. &amp; Teller, E. (1953). Equation of State Calculations by Fast Computing Machines. <em>The Journal of Chemical Physics</em>, 21(6), 1087–1092. <a href="https://doi.org/10.1063/1.1699114" target="_blank" rel="noopener">https://doi.org/10.1063/1.1699114</a></li>
+  <li>Nelder, J. A. &amp; Wedderburn, R. W. M. (1972). Generalized Linear Models. <em>Journal of the Royal Statistical Society. Series A (General)</em>, 135(3), 370. <a href="https://doi.org/10.2307/2344614" target="_blank" rel="noopener">https://doi.org/10.2307/2344614</a></li>
+  <li>Neyman, J. &amp; Pearson, E. S. (1933). On the problem of the most efficient tests of statistical hypotheses. <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em>, 231(694-706), 289–337. <a href="https://doi.org/10.1098/rsta.1933.0009" target="_blank" rel="noopener">https://doi.org/10.1098/rsta.1933.0009</a></li>
+  <li>Neyman, J. (1937). Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability. <em>Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences</em>, 236(767), 333–380. <a href="https://doi.org/10.1098/rsta.1937.0005" target="_blank" rel="noopener">https://doi.org/10.1098/rsta.1937.0005</a></li>
+  <li>Pearson, K. (1900). On the criterion that a given system of deviations from the probable in the case of a correlated system of variables is such that it can be reasonably supposed to have arisen from random sampling. <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em>, 50(302), 157–175. <a href="https://doi.org/10.1080/14786440009463897" target="_blank" rel="noopener">https://doi.org/10.1080/14786440009463897</a></li>
+  <li>Rao, C. R. (1945). Information and the accuracy attainable in the estimation of statistical parameters. <em>Bulletin of the Calcutta Mathematical Society</em>, 37(3), 81–91. <a href="https://doi.org/10.1007/978-1-4612-0919-5_16" target="_blank" rel="noopener">https://doi.org/10.1007/978-1-4612-0919-5_16</a></li>
+  <li>Student [Gosset, W. S.] (1908). The Probable Error of a Mean. <em>Biometrika</em>, 6(1), 1. <a href="https://doi.org/10.2307/2331554" target="_blank" rel="noopener">https://doi.org/10.2307/2331554</a></li>
+  <li>Tibshirani, R. (1996). Regression Shrinkage and Selection Via the Lasso. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em>, 58(1), 267–288. <a href="https://doi.org/10.1111/j.2517-6161.1996.tb02080.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.2517-6161.1996.tb02080.x</a></li>
+</ul>
+</div>
+```
