@@ -527,6 +527,7 @@ def build_document(
     root: Path | None = None,
     terms=None,
     retired: dict[str, tuple[str, str]] | None = None,
+    merged: dict[str, str] | None = None,
 ) -> dict:
     """One graph document. Every url is a published path for a file under ``root``.
 
@@ -573,6 +574,9 @@ def build_document(
         box = article.get("box")
         if box and box.get("kind") in BOX_KINDS and box.get("anchor"):
             lines_for[box["anchor"]] = list(box.get("lines") or [])
+        for extra in article.get("extra_boxes") or []:
+            if extra.get("kind") in BOX_KINDS and extra.get("anchor"):
+                lines_for[extra["anchor"]] = list(extra.get("lines") or [])
     for item in glossary:
         if item.get("kind") not in BOX_KINDS:
             continue
@@ -641,8 +645,16 @@ def build_document(
             parts.append(box["lead"])
         if box.get("excerpts"):
             parts.append("\n\n".join(piece["text"] for piece in box["excerpts"] if piece.get("text")))
+        if article.get("notes"):
+            parts.append(article["notes"])
         if article.get("card") and article["card"].get("body"):
             parts.append(article["card"]["body"])
+        for extra in article.get("extra_boxes") or []:
+            if extra.get("lines"):
+                parts.append("\n".join(extra["lines"]))
+        for extra in article.get("extra_sections") or []:
+            if extra.get("text"):
+                parts.append(extra["text"])
         _add(
             entries,
             seen,
@@ -682,6 +694,8 @@ def build_document(
             aliases["answer:" + sol] = aid
     for old, (fname, anchor) in sorted((retired or {}).items()):
         aliases[f"article:{old}"] = section_id(fname, anchor)
+    for old, canon in sorted((merged or {}).items()):
+        aliases[f"article:{old}"] = f"article:{canon}"
 
     for filename, info in figures.items():
         anchor = info.get("id") or ""
@@ -734,6 +748,16 @@ def build_document(
         target = _article_target(article, ids)
         if target:
             edge(src, "for", target)
+        for extra in article.get("extra_boxes") or []:
+            if extra.get("kind") in BOX_KINDS and extra.get("anchor"):
+                extra_target = f"{extra['kind']}:{extra['anchor']}"
+                if extra_target in ids:
+                    edge(src, "for", extra_target)
+        for extra in article.get("extra_sections") or []:
+            if extra.get("chapter") is not None and extra.get("anchor"):
+                sec_target = section_id(Path(extra["chapter"]).name, extra["anchor"])
+                if sec_target in ids:
+                    edge(src, "for", sec_target)
         card = article.get("card")
         if card and card.get("anchor"):
             edge(src, "for", section_id(DIST_STEM + ".qmd", card["anchor"]))
@@ -845,6 +869,7 @@ def write_graph(
     registry_path: Path | None = None,
     terms=None,
     retired: dict[str, tuple[str, str]] | None = None,
+    merged: dict[str, str] | None = None,
 ) -> list[str]:
     root = root or WIKI
     document = build_document(
@@ -860,6 +885,7 @@ def write_graph(
         root=root,
         terms=terms,
         retired=retired,
+        merged=merged,
     )
     return save_graph(
         document,

@@ -144,7 +144,6 @@ da-04-estimation-examples.qmd#s-large-samples | Large-sample intervals
 da-04-estimation-examples.qmd#s-proportions | Intervals for proportions
 da-06-anova-examples.qmd#s-checking-the-model | Checking an analysis-of-variance model
 da-06-anova-examples.qmd#s-two-factors | Two-factor analysis of variance
-da-06-anova-examples.qmd#s-one-factor | One-factor analysis of variance
 da-07-regression-examples.qmd#s-checking-the-assumptions | Checking regression assumptions
 da-07-regression-examples.qmd#s-one-explanatory-variable | Regression with one explanatory variable
 da-07-regression-examples.qmd#s-several-explanatory-variables | Regression with several explanatory variables
@@ -172,7 +171,6 @@ inf-05-chi-square.qmd#s-estimated-parameters | Chi-squared test with estimated p
 inf-05-chi-square.qmd#s-known-cell-probabilities | Chi-squared test with known cell probabilities
 inf-06-regression.qmd#s-a-bivariate-normal-sample | Correlation in a bivariate normal sample
 inf-07-anova.qmd#s-blocks | Blocks in analysis of variance
-inf-07-anova.qmd#s-one-factor | One-factor analysis of variance
 inf-07-anova.qmd#s-two-treatments-the-paired-t-test | Paired t test as a block design
 prob-01-experiments.qmd#s-probability | Axioms of probability
 prob-02-random-variables.qmd#s-bernoulli-and-binomial | Bernoulli and binomial distributions
@@ -290,6 +288,9 @@ SLUGS = {
 SAME_AS = {
     "01-introduction-to-glms.qmd#s-mean-and-variance": "mean-and-variance-of-an-exponential-family",
     "bayes-01-foundations.qmd#s-prior-predictive-and-posterior-predictive-distributions": "prior-and-posterior-predictive-distributions",
+    "bayes-02-beta-binomial.qmd#s-nonconjugate-priors": "conjugacy-is-optional",
+    "da-06-anova-examples.qmd#s-one-factor": "one-way-analysis-of-variance",
+    "inf-07-anova.qmd#s-one-factor": "one-way-analysis-of-variance",
     "prob-01-experiments.qmd#s-independence": "independent-events",
     "prob-02-random-variables.qmd#s-exponential": "exponential-distribution",
     "prob-02-random-variables.qmd#s-geometric": "geometric-distribution",
@@ -307,8 +308,37 @@ SAME_AS = {
     "sl-09-error-rates.qmd#s-leave-one-out": "leave-one-out-cross-validation",
     "sl-09-error-rates.qmd#s-the-error-of-a-fixed-rule": "fixed-rule-error",
     "sl-11-nearest-neighbours.qmd#s-a-rank-distance": "rank-distance",
+    "sl-14-neural-units.qmd#s-the-unit": "artificial-neuron",
     "sl-17-support-vectors.qmd#s-the-dual": "hard-margin-dual",
     "sp-09-probability-spaces.qmd#s-borel-cantelli": "borel-cantelli-lemmas",
+}
+
+# Duplicate boxes in secondary chapters that unify onto one canonical concept article.
+BOX_SAME_AS = {
+    "def-sl-01-multivariate-normal": (
+        "multivariate-normal-distribution",
+        "multivariate-normal-distribution-sl-01-multivariate-normal",
+    ),
+    "def-nonparametric-bootstrap": ("bootstrap", "nonparametric-bootstrap"),
+    "prp-sl-02-invariance": (
+        "invariance-of-maximum-likelihood",
+        "invariance-of-the-maximum-likelihood-estimator",
+    ),
+    "def-covariance-matrix": (
+        "mean-vector-and-covariance-matrix",
+        "expectation-vector-and-covariance-matrix",
+    ),
+}
+
+# Retired duplicate article slugs unified onto a canonical article slug.
+MERGED = {
+    "multivariate-normal-distribution-sl-01-multivariate-normal": "multivariate-normal-distribution",
+    "one-factor-analysis-of-variance": "one-way-analysis-of-variance",
+    "nonparametric-bootstrap": "bootstrap",
+    "invariance-of-the-maximum-likelihood-estimator": "invariance-of-maximum-likelihood",
+    "expectation-vector-and-covariance-matrix": "mean-vector-and-covariance-matrix",
+    "neural-unit": "artificial-neuron",
+    "nonconjugate-priors": "conjugacy-is-optional",
 }
 
 # Headings that keep a page although nothing links to them by name. A heading
@@ -316,7 +346,6 @@ SAME_AS = {
 # without being listed here. Giving one of these a link phrase is better still.
 PAGES = {
     "05-comparisons-and-deviance.qmd#s-residuals-are-not",  # Residuals in a GLM
-    "bayes-02-beta-binomial.qmd#s-nonconjugate-priors",
     "da-02-descriptive-statistics.qmd#s-summary-statistics",
     "da-04-estimation-examples.qmd#s-large-samples",  # Large-sample intervals
     "inf-02-estimation.qmd#s-binomial",  # Maximum likelihood for a binomial proportion
@@ -346,7 +375,6 @@ PAGES = {
     "sl-03-principal-components.qmd#s-choosing-components",
     "sl-04-kmeans.qmd#s-the-criterion",
     "sl-08-discriminant-analysis.qmd#s-unequal-costs",
-    "sl-14-neural-units.qmd#s-the-unit",
     "sl-14-neural-units.qmd#s-what-one-threshold-unit-can-separate",  # Linear separability
     "sl-16-networks-in-practice.qmd#s-batch-and-online-learning",
     "sl-17-support-vectors.qmd#s-the-nonlinear-programme",  # Kernel support vector machine
@@ -686,6 +714,51 @@ ALIASES.update({
     "MCMC thinning": "thinning-a-markov-chain",
     "Partial pooling": "complete-pooling-no-pooling-and-partial-pooling",
     "Gibbs sampler": "gibbs-sampling",
+    "Mean": "expectation",
+    "Expected value": "expectation",
+    "Sample mean": "summary-statistics",
+    "Average": "summary-statistics",
+    "ANOVA": "one-way-analysis-of-variance",
+    "Analysis of variance": "one-way-analysis-of-variance",
+    "Normal": "normal-distribution",
+    "Gaussian distribution": "normal-distribution",
+    "Gaussian": "normal-distribution",
+    "MLE": "maximum-likelihood",
+    "Maximum likelihood estimator": "maximum-likelihood",
+    "Maximum likelihood estimate": "maximum-likelihood",
+    "CLT": "central-limit-theorem",
+    "LLN": "law-of-large-numbers",
+    "CDF": "cumulative-distribution-function",
+    "PDF": "continuous-distribution",
+    "PMF": "discrete-distribution",
+    "MGF": "moment-generating-function",
+    "PGF": "probability-generating-function",
+    "MSE": "mean-squared-error",
+    "IQR": "interquartile-range",
+    "RCT": "randomised-controlled-trial",
+    "Q–Q plot": "normal-quantile-plot",
+    "HPD": "credible-region-constructions",
+    "UMP test": "uniformly-most-powerful-test",
+    "UMVU": "uniformly-minimum-variance-unbiased-estimator",
+    "UMVUE": "uniformly-minimum-variance-unbiased-estimator",
+    "GLRT": "generalised-likelihood-ratio-test",
+    "LRT": "likelihood-ratio-test",
+    "KL divergence": "kullback-leibler-divergence",
+    "LOOCV": "leave-one-out-cross-validation",
+    "IRLS": "fisher-scoring",
+    "REML": "restricted-maximum-likelihood",
+    "MAP": "maximum-a-posteriori-estimate",
+    "EM": "em-algorithm",
+    "LDA": "linear-discriminant-analysis",
+    "QDA": "quadratic-discriminant-analysis",
+    "SVD": "singular-value-decomposition",
+    "CART": "decision-tree",
+    "k-NN": "nearest-neighbours",
+    "SGD": "stochastic-gradient-descent",
+    "FDR": "false-discovery-rate",
+    "FWER": "family-wise-error-rate",
+    "PACF": "partial-autocorrelation",
+    "ARIMA": "arima-model",
 })
 
 
@@ -1161,7 +1234,11 @@ ALIASES.update({
     "Entropy impurity": "cross-entropy",
     "Mercer's condition": "which-functions-are-kernels",
     "Hotelling's T-squared test": "hotelling-s-t2-test",
-    "K-nearest neighbours": "nearest-neighbours",
+    "One-factor analysis of variance": "one-way-analysis-of-variance",
+    "Nonparametric bootstrap": "bootstrap",
+    "Expectation vector and covariance matrix": "mean-vector-and-covariance-matrix",
+    "Neural unit": "artificial-neuron",
+    "Nonconjugate priors": "conjugacy-is-optional",
     "Classification tree": "decision-tree",
     "Out-of-bag error": "out-of-bag-estimation-and-variable-importance",
     "Test set": "a-held-out-test-set",
@@ -1284,7 +1361,7 @@ LINKS += [
     # The multivariate normal and its tests.
     link(["multivariate central limit theorem"], "multivariate-central-limit-theorem"),
     link(["multinomial central limit theorem"], "multinomial-central-limit-theorem"),
-    link(["re:multivariate normal(?: distributions?)?", "re:jointly normal", "re:bivariate normal(?: distributions?)?", "re:multivariate Gaussian"], "multivariate-normal-distribution-sl-01-multivariate-normal", scope=[L]),
+    link(["re:multivariate normal(?: distributions?)?", "re:jointly normal", "re:bivariate normal(?: distributions?)?", "re:multivariate Gaussian"], "multivariate-normal-distribution", scope=[L]),
     link(["Mahalanobis distance", "Mahalanobis"], "squared-mahalanobis-distance"),
     link(["Wishart distribution", "Wishart"], "wishart-distribution"),
     link(["two-sample Hotelling", "two-sample T² test"], "two-sample-hotelling-t2-test"),
@@ -1361,7 +1438,7 @@ LINKS += [
     link(["positive continuous response"], "positive-continuous-responses"),
     link(["re:marginal and conditional effects?", "population-averaged", "population average", "subject-specific"], "marginal-and-conditional-effects"),
     link(["two-factor analysis of variance", "two-way analysis of variance", "two-way ANOVA"], "two-factor-analysis-of-variance"),
-    link(["one-factor analysis of variance", "one-way analysis of variance", "one-way ANOVA"], "one-factor-analysis-of-variance"),
+    link(["one-factor analysis of variance", "one-way analysis of variance", "one-way ANOVA"], "one-way-analysis-of-variance"),
     link(["Cramér–Rao", "Cramer–Rao", "minimum variance bound", "minimum-variance bound"], "cramer-rao-lower-bound"),
     link(["Rao–Blackwell", "Rao-Blackwell"], "rao-blackwell-theorem"),
     link(["uniformly minimum-variance unbiased", "UMVU"], "uniformly-minimum-variance-unbiased-estimator"),
@@ -1460,16 +1537,16 @@ RELATED += [
     ("markov-chain", "finite-state-markov-chain", "discrete-time-markov-chain", "markov-property"),
     ("stationary-distribution", "stationarity-and-detailed-balance", "limiting-distribution", "stationarity-of-a-time-series"),
     ("detailed-balance", "stationarity-and-detailed-balance", "detailed-balance-implies-stationarity", "local-balance"),
-    ("multivariate-normal-distribution", "multivariate-normal-distribution-sl-01-multivariate-normal"),
+    ("multivariate-normal-distribution", "conditional-distribution-of-a-multivariate-normal", "wishart-distribution"),
     ("affine-images-of-normal-vectors", "linear-images-of-a-normal-vector"),
-    ("expectation-vector-and-covariance-matrix", "mean-vector-and-covariance-matrix", "covariance"),
+    ("mean-vector-and-covariance-matrix", "covariance", "pooled-covariance"),
     ("joint-probability-density", "joint-distribution-and-density"),
     ("correlation", "sample-correlation-coefficient", "partial-correlation"),
-    ("probability-space", "probability-measure", "sigma-algebra"),
+    ("probability-space", "probability-measure", "sigma-algebra", "axioms-of-probability"),
     ("random-variable", "measurable-random-variable"),
     ("law-of-large-numbers", "strong-law"),
     ("central-limit-theorem", "multivariate-central-limit-theorem", "multinomial-central-limit-theorem"),
-    ("invariance-of-maximum-likelihood", "invariance-of-the-maximum-likelihood-estimator"),
+    ("invariance-of-maximum-likelihood", "maximum-likelihood", "maximum-likelihood-for-a-covariance-matrix"),
     ("bayes-rule", "posterior-class-probability", "posterior-membership", "bayes-classifier"),
     ("bayes-optimal-rule", "bayes-action-for-two-hypotheses", "bayes-classifier"),
     ("binary-logistic-regression", "interpreting-a-logistic-regression", "logit-link", "odds-ratio"),
@@ -1526,6 +1603,18 @@ RELATED += [
     ("neyman-pearson-lemma", "uniformly-most-powerful-test", "uniformly-most-powerful-unbiased-test", "neyman-pearson-approach"),
     ("generalised-likelihood-ratio-test", "wilks-theorem", "likelihood-ratio-test", "pearson-statistic"),
     ("fisher-s-exact-test", "homogeneity-and-independence", "chi-squared-test-of-independence"),
-    ("general-linear-hypothesis", "two-factor-analysis-of-variance", "one-way-analysis-of-variance", "one-factor-analysis-of-variance", "normal-linear-model"),
+    ("general-linear-hypothesis", "two-factor-analysis-of-variance", "one-way-analysis-of-variance", "normal-linear-model"),
     ("positive-predictive-value", "negative-predictive-value", "fallacy-of-the-transposed-conditional", "sensitivity-and-specificity"),
+    ("expectation", "summary-statistics", "moments-of-the-sample-mean-and-variance", "median"),
+    ("bootstrap", "bootstrap-error-and-the-correction", "bagging"),
+    ("statistic", "estimator", "statistic-and-estimator"),
+    ("chi-squared-test-with-estimated-parameters", "pearson-test-with-estimated-parameters", "pearson-statistic"),
+    ("agglomerative-and-divisive-clustering", "hierarchical-clustering", "single-complete-and-average-linkage", "dendrogram"),
+    ("distance-to-a-hyperplane", "signed-distance", "linear-separators-and-the-margin"),
+    ("gradient-descent", "basic-gradient-descent-learning", "stochastic-gradient-descent"),
+    ("jackknife", "jackknife-bias-and-standard-error", "leave-one-out-cross-validation"),
+    ("universal-approximation", "one-hidden-layer-approximates-continuous-functions", "hidden-layer"),
+    ("xor-problem", "a-single-threshold-unit-cannot-compute-xor", "linear-separability"),
+    ("pseudo-counts-and-sequential-updating", "two-pseudo-count-conventions", "beta-binomial-conjugacy"),
+    ("binomial-test", "test-for-one-proportion", "two-proportion-z-test"),
 ]

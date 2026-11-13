@@ -65,3 +65,13 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
 
 - [Bias and variance in one bandwidth](../notes/sl-07-linkage-and-density.qmd#s-bias-and-variance-in-one-bandwidth), [Choosing the bandwidth](../notes/sl-07-linkage-and-density.qmd#s-choosing-the-bandwidth), and the [kernel density estimator](../notes/sl-07-linkage-and-density.qmd#def-sl-07-kernel-density).
 - Worked questions: [Kernel density by hand](../questions/ex-sl-07-3.qmd), [A tempting wrong turn](../questions/ex-sl-07-5.qmd), and [Clustering and smoothing choices](../questions/ex-sl-07-6.qmd).
+
+## References {#references}
+
+::: {.wiki-refs}
+- Epanechnikov, V. A. (1969). Non-Parametric Estimation of a Multivariate Probability Density. *Theory of Probability & Its Applications*, 14(1), 153–158. [https://doi.org/10.1137/1114019](https://doi.org/10.1137/1114019)
+- Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. *The Annals of Mathematical Statistics*, 33(3), 1065–1076. [https://doi.org/10.1214/aoms/1177704472](https://doi.org/10.1214/aoms/1177704472)
+- Rosenblatt, M. (1956). Remarks on Some Nonparametric Estimates of a Density Function. *The Annals of Mathematical Statistics*, 27(3), 832–837. [https://doi.org/10.1214/aoms/1177728190](https://doi.org/10.1214/aoms/1177728190)
+- Sheather, S. J. & Jones, M. C. (1991). A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation. *Journal of the Royal Statistical Society Series B: Statistical Methodology*, 53(3), 683–690. [https://doi.org/10.1111/j.2517-6161.1991.tb01857.x](https://doi.org/10.1111/j.2517-6161.1991.tb01857.x)
+- Silverman, B. W. (1986). *Density Estimation for Statistics and Data Analysis*. Chapman & Hall. [https://doi.org/10.1201/9781315140919](https://doi.org/10.1201/9781315140919)
+:::
