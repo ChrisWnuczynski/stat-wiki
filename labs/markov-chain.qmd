@@ -3,7 +3,7 @@ title: "Markov chain laboratory"
 description: "Run a finite Markov chain: the distribution after each step, one simulated path, and the fraction of time spent in each state."
 ---
 
-A Markov chain on a finite set of states is a transition matrix. The next state is drawn from the row for the current state, and from nothing earlier. Powers of the matrix give the distribution after many steps. One long path spends, in the limit, the same fraction of time in each state as that distribution — when the chain cannot get trapped, and with a qualification when it is periodic.
+A Markov chain on a finite set of states is a transition matrix. The next state is drawn from the row for the current state, and from nothing earlier.<sup id="cite_ref-1" class="cite-ref" data-cite-key="markov1906"><a href="#cite_note-1" title="Markov (1906) — Rasprostranenie zakona bol&#x27;shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]">[1]</a></sup> Powers of the matrix give the distribution after many steps.<sup id="cite_ref-2" class="cite-ref" data-cite-key="chapman1928"><a href="#cite_note-2" title="Chapman (1928) — On the Brownian displacements and thermal diffusion of grains suspended in a non-uniform fluid">[2]</a></sup><sup id="cite_ref-3" class="cite-ref" data-cite-key="kolmogorov1931"><a href="#cite_note-3" title="Kolmogoroff (1931) — Über die analytischen Methoden in der Wahrscheinlichkeitsrechnung">[3]</a></sup> One long path spends, in the limit, the same fraction of time in each state as that distribution — when the chain cannot get trapped, and with a qualification when it is periodic.<sup id="cite_ref-4" class="cite-ref" data-cite-key="feller1968"><a href="#cite_note-4" title="Feller (1968) — An Introduction to Probability Theory and Its Applications, Vol. 1">[4]</a></sup><sup id="cite_ref-5" class="cite-ref" data-cite-key="norris1997"><a href="#cite_note-5" title="Norris (1997) — Markov Chains">[5]</a></sup><sup id="cite_ref-6" class="cite-ref" data-cite-key="grimmett_stirzaker2020"><a href="#cite_note-6" title="Grimmett &amp; Stirzaker (2020) — Probability and Random Processes">[6]</a></sup>
 
 ## What this page investigates
 
@@ -78,13 +78,18 @@ The distances are exact for the distribution and are one path for the occupation
 
 ## References {#references}
 
-::: {.wiki-refs}
-- Chapman, S. (1928). On the Brownian displacements and thermal diffusion of grains suspended in a non-uniform fluid. *Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character*, 119(781), 34–54. [https://doi.org/10.1098/rspa.1928.0082](https://doi.org/10.1098/rspa.1928.0082)
-- Feller, W. (1968). *An Introduction to Probability Theory and Its Applications, Vol. 1* (3rd ed.). John Wiley & Sons, New York. [https://openlibrary.org/works/OL146759W](https://openlibrary.org/works/OL146759W)
-- Kolmogoroff, A. (1931). Über die analytischen Methoden in der Wahrscheinlichkeitsrechnung. *Mathematische Annalen*, 104(1), 415–458. [https://doi.org/10.1007/bf01457949](https://doi.org/10.1007/bf01457949)
-- Markov, A. A. (1906). Rasprostranenie zakona bol'shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. *Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)*, 15, 135–156. [https://openlibrary.org/authors/OL121192A](https://openlibrary.org/authors/OL121192A)
-- Norris, J. R. (1997). *Markov Chains*. Cambridge University Press. [https://doi.org/10.1017/cbo9780511810633](https://doi.org/10.1017/cbo9780511810633)
-:::
+```{=html}
+<div class="wiki-refs">
+<ol>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Markov, A. A. (1906). Rasprostranenie zakona bol&#x27;shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. <em>Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)</em>, 15, 135–156. <a href="https://openlibrary.org/authors/OL121192A" target="_blank" rel="noopener">https://openlibrary.org/authors/OL121192A</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Chapman, S. (1928). On the Brownian displacements and thermal diffusion of grains suspended in a non-uniform fluid. <em>Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character</em>, 119(781), 34–54. <a href="https://doi.org/10.1098/rspa.1928.0082" target="_blank" rel="noopener">https://doi.org/10.1098/rspa.1928.0082</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Kolmogoroff, A. (1931). Über die analytischen Methoden in der Wahrscheinlichkeitsrechnung. <em>Mathematische Annalen</em>, 104(1), 415–458. <a href="https://doi.org/10.1007/bf01457949" target="_blank" rel="noopener">https://doi.org/10.1007/bf01457949</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Feller, W. (1968). <em>An Introduction to Probability Theory and Its Applications, Vol. 1</em> (3rd ed.). John Wiley &amp; Sons, New York. <a href="https://openlibrary.org/works/OL146759W" target="_blank" rel="noopener">https://openlibrary.org/works/OL146759W</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Norris, J. R. (1997). <em>Markov Chains</em>. Cambridge University Press. <a href="https://doi.org/10.1017/cbo9780511810633" target="_blank" rel="noopener">https://doi.org/10.1017/cbo9780511810633</a></li>
+  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span> Grimmett, G. R. &amp; Stirzaker, D. R. (2020). <em>Probability and Random Processes</em> (4th ed.). Oxford University Press. <a href="https://openlibrary.org/works/OL25253617W" target="_blank" rel="noopener">https://openlibrary.org/works/OL25253617W</a></li>
+</ol>
+</div>
+```
 
 ```{=html}
 <details class="cite-this-page">

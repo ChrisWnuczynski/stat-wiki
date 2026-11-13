@@ -2833,7 +2833,8 @@ PROTECT = re.compile(
     r"|\{[#.][^}\n]*\}"  # attributes
     r"|<[^>\n]+>"  # html tags
     r"|https?://\S+"  # bare urls
-    r"|\[\^[^\]\n]+\]",  # footnote markers
+    r"|\[\^[^\]\n]+\]"  # footnote markers
+    r"|\{\{cite:[a-z0-9_,\s]+\}\}",  # explicit citation markers
     re.S | re.M,
 )
 

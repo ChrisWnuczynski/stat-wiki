@@ -18,7 +18,7 @@ If $F(x)<1$, this tends to $0$ as $n$ grows: the maximum eventually exceeds any 
 
 ### Exponential tails, and the Gumbel law
 
-Let $X_i$ be exponential with rate $\lambda$, so $\mathrm{P}(X>x)=e^{-\lambda x}$ for $x>0$. Set $b_n=(\log n)/\lambda$ and $a_n=1/\lambda$. Then
+Let $X_i$ be exponential with rate $\lambda$, so $\mathrm{P}(X>x)=e^{-\lambda x}$ for $x>0$. Set $b_n=(\log n)/\lambda$ and $a_n=1/\lambda$. Whenever $x>-\log n$, the level $b_n+a_n x$ is positive and
 
 $$
 \mathrm{P}\Bigl(\frac{M_n-b_n}{a_n}\le x\Bigr)
@@ -27,11 +27,11 @@ $$
 \to e^{-e^{-x}}.
 $$
 
-The limit is the Gumbel distribution function. The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. Light tails of exponential type fall into this family under suitable conditions on $F$.
+The limit holds for every fixed real $x$ and is the Gumbel distribution function. The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. Light tails of exponential type fall into this family under suitable conditions on $F$.
 
 ### Power-law tails, and the Fréchet law
 
-Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail. Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$,
+Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail. Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$ and $n$ large enough that $n^{1/\alpha}x\ge 1$,
 
 $$
 \mathrm{P}(M_n/a_n\le x)=\bigl(1-(n^{1/\alpha}x)^{-\alpha}\bigr)^n=\Bigl(1-\frac{x^{-\alpha}}{n}\Bigr)^n\to e^{-x^{-\alpha}}.

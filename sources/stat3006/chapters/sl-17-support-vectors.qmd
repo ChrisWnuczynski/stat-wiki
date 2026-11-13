@@ -51,7 +51,7 @@ The radius–margin bound uses a stronger requirement: each labelling of a set m
 For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0$. The classical radius–margin bound is
 
 $$
-h\le\min\Bigl\{\Bigl\lfloor\frac{D^2}{\rho^2}\Bigr\rfloor,\, p+1\Bigr\}.
+h\le\min\Bigl\{\Bigl\lceil\frac{D^2}{\rho^2}\Bigr\rceil,\, p\Bigr\}+1.
 $$
 
 :::

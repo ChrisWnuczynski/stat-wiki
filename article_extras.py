@@ -599,7 +599,7 @@ Binary logistic regression chooses a finite coefficient vector $\beta$ by maximi
 
 ## When the maximiser is unique
 
-If $X$ has full column rank, $X^\top W X$ is [positive definite](positive-definite-matrix.qmd) and the Hessian is negative definite, so $\ell$ is strictly concave and the stationary point is the only maximiser. An intercept-only sample with labels $y=(0,1)$ has score $1-2p$ and Hessian $-2p(1-p)$. The unique root is $p=1/2$, hence $\beta=0$, where the Hessian equals $-1/2$. Duplicate columns of $X$ leave $\ell$ flat along a line, so maximisers exist but they are not unique. Perfect separation is a different failure: if some direction already matches every training label, increasing its scale pushes each $p_i$ towards $0$ or $1$ and $\ell$ keeps rising, so the supremum is not attained at any finite $\beta$.
+If $X$ has full column rank, $X^\top W X$ is [positive definite](positive-definite-matrix.qmd) and the Hessian is negative definite, so $\ell$ is strictly concave and the stationary point is the only maximiser. An intercept-only sample with labels $y=(0,1)$ has score $1-2p$ and Hessian $-2p(1-p)$. The unique root is $p=1/2$, hence $\beta=0$, where the Hessian equals $-1/2$. Duplicate columns of $X$ leave $\ell$ flat along a line, so a finite maximiser, when one exists, is not unique. Perfect separation is a different failure: if some direction already matches every training label, increasing its scale pushes each $p_i$ towards $0$ or $1$ and $\ell$ keeps rising, so the supremum is not attained at any finite $\beta$.
 """,
     "a-hypothesis-region-is-not-a-separate-model": r"""
 ## One posterior, two regions
@@ -622,7 +622,7 @@ Write the four demands as strict or weak linear inequalities. Output $0$ at the 
     "a-zero-precision-entry-is-conditional-independence": r"""
 ## What a precision entry measures
 
-Let $X=(X_1,\ldots,X_p)^\top$ be multivariate normal with mean $\mu$ and a nonsingular covariance $\Sigma$, and write $K=\Sigma^{-1}=(k_{jk})$ for the precision, or concentration, matrix. Index the coordinates by $V=\{1,\ldots,p\}$. For a multivariate normal, zero covariance is independence, and the same fact applied to a conditional distribution gives a precision test. The conditional covariance of a block given the remaining coordinates is a Schur complement of $\Sigma$, and that complement is the corresponding block of $K^{-1}$. In particular the conditional variance of $X_j$ given every other coordinate is $1/k_{jj}$, and the conditional covariance of $X_j$ and $X_k$ given the rest is proportional to $-k_{jk}$. Thus $k_{jk}=0$, for $j\neq k$, if and only if that conditional covariance is zero, which for this joint normal law is the conditional independence $X_j\perp X_k\mid X_{V\setminus\{j,k\}}$.
+Let $X=(X_1,\ldots,X_p)^\top$ be multivariate normal with mean $\mu$ and a nonsingular covariance $\Sigma$, and write $K=\Sigma^{-1}=(k_{jk})$ for the precision, or concentration, matrix. Index the coordinates by $V=\{1,\ldots,p\}$. For a multivariate normal, zero covariance is independence, and the same fact applied to a conditional distribution gives a precision test. The conditional covariance of a block given the remaining coordinates is a Schur complement of $\Sigma$, and that complement is the inverse of the corresponding block of $K$. In particular the conditional variance of $X_j$ given every other coordinate is $1/k_{jj}$, and the conditional covariance of $X_j$ and $X_k$ given the rest is proportional to $-k_{jk}$. Thus $k_{jk}=0$, for $j\neq k$, if and only if that conditional covariance is zero, which for this joint normal law is the conditional independence $X_j\perp X_k\mid X_{V\setminus\{j,k\}}$.
 
 ## A three-variable precision
 
@@ -643,7 +643,7 @@ AdaBoost builds a classifier for labels $y_i\in\{-1,+1\}$ by adding weak learner
 
 ## One round with error $0.2$
 
-Suppose $n_{\mathrm{train}}=4$, equal weights $1/4$, and a learner with $\varepsilon_1=1/5$. Then $\alpha_1=\tfrac12\log 4=\log 2\approx 0.693$. The three correct cases are multiplied by $1/2$ and the mistake by $2$, giving unnormalised weights $1/8$, $1/8$, $1/8$ and $1/2$. Their sum is $Z_1=7/8$, so the updated weights are $1/7$ on each correct case and $4/7$ on the mistake. The ensemble predicts the sign of $\sum_t\alpha_t f_t(x)$. A classical bound says that its training error is at most $\prod_t 2\sqrt{\varepsilon_t(1-\varepsilon_t)}$; one round at $\varepsilon=1/5$ contributes the factor $0.8$. A round with $\varepsilon_t=0$ makes $\alpha_t$ infinite, so a perfect weak learner needs a stopping convention.
+Suppose the weighted error is $\varepsilon_1=1/5$. Then $\alpha_1=\tfrac12\log 4=\log 2\approx 0.693$. Correct cases are multiplied by $1/2$ and mistakes by $2$, and $Z_1=2\sqrt{(1/5)(4/5)}=4/5$. One way to realise that error is a single mistake of weight $1/5$, with the other three cases sharing weight $4/5$ equally. After the update those weights are $1/2$ on the mistake and $1/6$ on each correct case. The ensemble predicts the sign of $\sum_t\alpha_t f_t(x)$. A classical bound says that its training error is at most $\prod_t 2\sqrt{\varepsilon_t(1-\varepsilon_t)}$; one round at $\varepsilon=1/5$ contributes the factor $0.8$. A round with $\varepsilon_t=0$ makes $\alpha_t$ infinite, so a perfect weak learner needs a stopping convention.
 """,
     "akaike-information-criterion": r"""
 ## A penalty aimed at prediction
@@ -654,7 +654,7 @@ $$
 \mathrm{AIC}_k=-2\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+2d_k,
 $$
 
-and the selected index $k^*$ minimises $\mathrm{AIC}_k$. The penalty is an asymptotic correction for using the same sample to estimate $\Psi_k$ and to score the fitted density. Up to a constant that does not depend on $k$, AIC estimates the expected Kullback–Leibler gap between the true distribution of a new observation and the fitted distribution.
+and the selected index $k^*$ minimises $\mathrm{AIC}_k$. The penalty is an asymptotic correction for using the same sample to estimate $\Psi_k$ and to score the fitted density. Up to a constant that does not depend on $k$, AIC estimates the expected Kullback–Leibler divergence from the true distribution of a new observation to the fitted distribution.
 
 ## Two candidates at the same maximised fits
 
@@ -715,7 +715,7 @@ For the one-nearest-neighbour rule with a metric and no distance ties, the neare
     "arch-and-garch-models": r"""
 ## Volatility that clusters
 
-Large financial returns tend to arrive in bursts. A calm stretch is followed by more calm, and a violent day is followed by another, even when the average return is close to zero. Autoregressive conditional heteroscedasticity, introduced by Engle (1982), puts a model on that changing scale rather than on the mean. Write the return as $r_t=\sigma_t\varepsilon_t$, where the innovation $\varepsilon_t$ has mean $0$ and variance $1$ and is uncorrelated over time, and where $\sigma_t^2=\operatorname{Var}(r_t\mid r_{t-1},r_{t-2},\ldots)$ is the variance conditional on the past. An ARCH(1) model uses only yesterday's squared return,
+Large financial returns tend to arrive in bursts. A calm stretch is followed by more calm, and a violent day is followed by another, even when the average return is close to zero. Autoregressive conditional heteroscedasticity, introduced by Engle (1982), puts a model on that changing scale rather than on the mean. Write the return as $r_t=\sigma_t\varepsilon_t$, where the innovation $\varepsilon_t$ has mean $0$ and variance $1$, is uncorrelated over time, and given the past has conditional mean $0$ and conditional variance $1$, and where $\sigma_t^2=\operatorname{Var}(r_t\mid r_{t-1},r_{t-2},\ldots)$ is the variance conditional on the past. An ARCH(1) model uses only yesterday's squared return,
 
 $$
 \sigma_t^2=\alpha_0+\alpha_1 r_{t-1}^2,
@@ -725,7 +725,7 @@ with $\alpha_0>0$ and $\alpha_1\ge 0$. The generalised form of Bollerslev (1986)
 
 ## One shock, then a slow decay
 
-Take $\alpha_0=0.02$, $\alpha_1=0.10$ and $\beta_1=0.85$. The stationary variance is $0.02/0.05=0.4$. A return of size $2$ adds $0.10\times 4=0.4$ at the next step, so the conditional variance jumps to at least $0.42$, and a fraction $0.85$ of any excess is still there the day after. The conditional mean of $r_t$ can remain $0$: the model widens a [prediction interval](prediction-interval.qmd), it does not aim the return. Because the shock enters as a square, one enormous return can dominate a short-sample estimate of $\alpha_1$. That day has to be checked before it is read as a new regime.
+Take $\alpha_0=0.02$, $\alpha_1=0.10$ and $\beta_1=0.85$. The stationary variance is $0.02/0.05=0.4$. A return of size $2$ adds $0.10\times 4=0.4$ at the next step, so the conditional variance equals $0.42+0.85\sigma_{t-1}^2$, which is at least $0.42$. The excess over the stationary value $0.4$ then decays, in conditional expectation, by the factor $\alpha_1+\beta_1=0.95$ a day: $0.85$ carries the current conditional variance forward, and the new squared return contributes a further $0.10$ on average. The conditional mean of $r_t$ can remain $0$: the model widens a [prediction interval](prediction-interval.qmd), it does not aim the return. Because the shock enters as a square, one enormous return can dominate a short-sample estimate of $\alpha_1$. That day has to be checked before it is read as a new regime.
 """,
     "arima-model": r"""
 ## Differencing until the changes settle
@@ -826,7 +826,7 @@ A rule that attains this minimum at every $x$ is a Bayes rule. Its overall risk 
 
 ## Three posteriors and a tie
 
-At a point with $\tau(x)=(0.20,0.55,0.25)$ the minimum conditional risk is $1-0.55=0.45$, achieved only by predicting class $2$. Predicting class $1$ instead has conditional risk $0.80$, and predicting class $3$ has conditional risk $0.75$. If the posteriors are $(0.40,0.40,0.20)$, both class $1$ and class $2$ achieve the conditional risk $0.60$, and either prediction is Bayes. The argument uses the true posteriors. A plug-in classifier that replaces $\tau_g$ by an estimate keeps the same comparison but inherits the estimation error, so its risk is at least $R^*$ and equals $R^*$ only in the limit of a perfect estimate. Unequal misclassification costs replace $1-\tau_g(x)$ by a weighted sum of the other posteriors, and the maximiser of $\tau_g$ can then cease to be optimal.
+At a point with $\tau(x)=(0.20,0.55,0.25)$ the minimum conditional risk is $1-0.55=0.45$, achieved only by predicting class $2$. Predicting class $1$ instead has conditional risk $0.80$, and predicting class $3$ has conditional risk $0.75$. If the posteriors are $(0.40,0.40,0.20)$, both class $1$ and class $2$ achieve the conditional risk $0.60$, and either prediction is Bayes. The argument uses the true posteriors. A plug-in classifier that replaces $\tau_g$ by an estimate keeps the same comparison, so its risk is at least $R^*$, as is the risk of every other measurable rule. The risk equals $R^*$ when the plugged-in probabilities pick a true maximiser for almost every $x$, which can happen while the estimated probabilities are still not $\tau_g$. Unequal misclassification costs replace $1-\tau_g(x)$ by a weighted sum of the other posteriors, and the maximiser of $\tau_g$ can then cease to be optimal.
 """,
     "bayesian-information-criterion": r"""
 ## The penalty that remains after a Laplace approximation
@@ -913,7 +913,7 @@ $$
 \pi_n\lambda_n=\pi_{n+1}\mu_{n+1}.
 $$
 
-Iterating from $0$ gives $\pi_n$ as $\pi_0$ times a product of birth rates over the next death rates. These weights are a probability distribution precisely when their sum is finite. That finiteness is positive recurrence: the chain returns often enough to support a probability, rather than drifting to infinity.
+Provided every death rate is positive, iterating from $0$ gives $\pi_n$ as $\pi_0$ times a product of birth rates over the next death rates. On the irreducible chain these weights are a probability distribution precisely when their sum is finite, and that finiteness is positive recurrence. An infinite sum may be null recurrence or a drift to infinity; either way there is no stationary probability.
 
 ## Constant rates
 
@@ -1033,11 +1033,11 @@ $$
 g(p)=\log\{-\log(1-p)\}
 $$
 
-sends $(0,1)$ onto the whole real line and inverts as $p=1-\exp\{-\exp(\eta)\}$, where $\eta$ is the linear predictor. At $\eta=0$ the probability is $1-e^{-1}\approx 0.632$, not $1/2$. The value that does give $p=1/2$ solves $\exp(\eta)=\log 2$, so $\eta=\log(\log 2)\approx -0.37$. Moving $\eta$ from $-1$ to $0$ raises $p$ from about $0.31$ to $0.63$; moving it from $0$ to $1$ raises $p$ from $0.63$ to about $0.93$. The climb on the right is steeper. A [logit link](logit-link.qmd) would have been symmetric about $1/2$, and its coefficient would have been a log odds ratio. The coefficient here is not.
+sends $(0,1)$ onto the whole real line and inverts as $p=1-\exp\{-\exp(\eta)\}$, where $\eta$ is the linear predictor. At $\eta=0$ the probability is $1-e^{-1}\approx 0.632$, not $1/2$. The value that does give $p=1/2$ solves $\exp(\eta)=\log 2$, so $\eta=\log(\log 2)\approx -0.37$. Moving $\eta$ from $-1$ to $0$ raises $p$ from about $0.31$ to $0.63$; moving it from $0$ to $1$ raises $p$ from $0.63$ to about $0.93$. The two increments are about $0.32$ and then $0.30$, so the unit step on the right is not the steeper one. The asymmetry sits in the tails: at $\eta=2$ the probability is already about $0.999$, while at $\eta=-2$ it is still about $0.13$, so the approach to $1$ is much faster than the approach to $0$. A [logit link](logit-link.qmd) would have been symmetric about $1/2$, and its coefficient would have been a log odds ratio. The coefficient here is not.
 
 ## Any event, or none
 
-The same formula is what a Poisson count becomes when only the occurrence is recorded. If $N$ has mean $\lambda$ and $Y=1$ when $N\ge 1$, then $p=1-e^{-\lambda}$ and $g(p)=\log\lambda$. A binary record of "at least one event", with $\log\lambda=\mathbf{x}^\top\boldsymbol{\beta}$, is a complementary log-log regression, and $\boldsymbol{\beta}$ multiplies the underlying rate. The asymmetry is appropriate when the scientific event is a threshold crossing, and it is a misspecification when the two tails really are mirror images. Fitted probabilities of exactly $0$ or $1$ still make $g(p)$ infinite, so a separated sample has the same diverging maximum likelihood that a logit model has.
+The same formula is what a Poisson count becomes when only the occurrence is recorded. If $N$ has mean $\lambda$ and $Y=1$ when $N\ge 1$, then $p=1-e^{-\lambda}$ and $g(p)=\log\lambda$. A binary record of "at least one event", with $\log\lambda=\mathbf{x}^\top\boldsymbol{\beta}$, is a complementary log-log regression, and a unit increase in covariate $j$ multiplies the underlying Poisson mean by $e^{\beta_j}$. The asymmetry is appropriate when the scientific event is a threshold crossing, and it is a misspecification when the two tails really are mirror images. Fitted probabilities of exactly $0$ or $1$ still make $g(p)$ infinite, so a separated sample has the same diverging maximum likelihood that a logit model has.
 """,
     "complete-data-likelihood": r"""
 ## The likelihood one would have if the labels were seen
@@ -1128,7 +1128,7 @@ $$
 \rho_{jk}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
 $$
 
-The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of $\rho_{jk}$ if the constant is negative. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.
+The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.
 
 ## A covariance matrix and its correlation matrix
 
@@ -1140,7 +1140,7 @@ $$
 P=\begin{pmatrix}1&1/2\\1/2&1\end{pmatrix}.
 $$
 
-The number $1/2$ does not say that the relationship is causal, and it does not say that the conditional mean is linear except as a description of the best linear predictor. For a joint normal pair, $\rho_{12}=0$ is equivalent to independence. For other joints, uncorrelated coordinates can still be dependent: a standard construction puts mass so that $X_2=X_1^2$ with $X_1$ symmetric about zero, forcing the covariance to vanish while $X_2$ remains a function of $X_1$. Sample correlations estimated from a few points can sit near $\pm 1$ by chance, which is a statement about variability of the estimator rather than about the population formula.
+The number $1/2$ does not say that the relationship is causal, and it does not say that the conditional mean is linear except as a description of the best linear predictor. For a joint normal pair, $\rho_{12}=0$ is equivalent to independence. For other joints, uncorrelated coordinates can still be dependent: a standard construction with a finite third moment puts mass so that $X_2=X_1^2$ with $X_1$ symmetric about zero, forcing the covariance to vanish while $X_2$ remains a function of $X_1$. Sample correlations estimated from a few points can sit near $\pm 1$ by chance, which is a statement about variability of the estimator rather than about the population formula.
 """,
     "countable-additivity": r"""
 ## Adding a countable list of disjoint events
@@ -1171,7 +1171,7 @@ If $r(x)=0.2$ for almost every $x$, then $R^*=0.2$ and the nearest-neighbour con
     "cubic-smoothing-spline": r"""
 ## A curve charged for bending
 
-A scatter asks for a curve that follows the signal and not the jitter. One statement of that request is to maximise the log-likelihood of the responses and subtract a penalty $\lambda\int\{g''(x)\}^2\,\mathrm{d}x$. The integral is zero for every straight line, because a line has second derivative $0$, and it grows as the curve bends. The multiplier $\lambda\ge 0$ is the price of bending. For any fixed $\lambda$ the maximiser is a cubic [spline](spline.qmd). Between consecutive distinct covariate values the fitted function is a cubic polynomial, and at each of those [knots](knot.qmd) the value, the first derivative and the second derivative agree from the left and the right. A jump is allowed only in the third derivative, which the plot does not show.
+A scatter asks for a curve that follows the signal and not the jitter. One statement of that request is to maximise the log-likelihood of the responses and subtract a penalty $\lambda\int\{g''(x)\}^2\,\mathrm{d}x$. The integral is zero for every straight line, because a line has second derivative $0$, and it grows as the curve bends. The multiplier $\lambda\ge 0$ is the price of bending. For any fixed $\lambda>0$ the maximiser is a natural cubic [spline](spline.qmd), linear beyond the outermost knots with second derivative zero at those knots. Between consecutive distinct covariate values the fitted function is a cubic polynomial, and at each of those [knots](knot.qmd) the value, the first derivative and the second derivative agree from the left and the right. A jump is allowed only in the third derivative, which the plot does not show.
 
 ## The line at one extreme, the interpolant at the other
 
@@ -1201,7 +1201,7 @@ Estimation spends some of those squares. For a normal sample of size $n$, the re
 
 ## Two normal observations
 
-Take $n=2$. The residuals are $(X_1-X_2)/2$ and its negative, so only one number is free. The unbiased sample variance is $s^2=(X_1-X_2)^2/2$, and $(X_1-X_2)^2/(2\sigma^2)$ is chi-squared on $1$ degree of freedom when the two observations are independent and $\operatorname{N}(\mu,\sigma^2)$. Using $n$ instead of $n-1$ in the divisor biases $s^2$. Using the wrong degrees of freedom in a $t$ or $F$ critical value assigns the wrong coverage. Dependence has the same practical effect: $n-1$ then overstates how much independent information the sample variance carries.
+Take $n=2$. The residuals are $(X_1-X_2)/2$ and its negative, so only one number is free. The unbiased sample variance is $s^2=(X_1-X_2)^2/2$, and $(X_1-X_2)^2/(2\sigma^2)$ is chi-squared on $1$ degree of freedom when the two observations are independent and $\operatorname{N}(\mu,\sigma^2)$. Using $n$ instead of $n-1$ in the divisor biases $s^2$. Using the wrong degrees of freedom in a $t$ or $F$ critical value assigns the wrong coverage. Dependence does not always act the same way: with equal pairwise correlation $\rho$, the expected sum of squared deviations from the mean is $(n-1)\sigma^2(1-\rho)$, so $n-1$ overstates that expectation when the observations move together and understates it when they move in opposition.
 """,
     "descent-of-lloyd-s-algorithm": r"""
 ## Each alternation is a minimisation of its own
@@ -1276,7 +1276,7 @@ $$
 \mathbb{P}(X_{n+1}=j\mid X_n=i,X_{n-1},\ldots,X_0)=p_{ij}.
 $$
 
-The transition matrix $P=(p_{ij})$ has $p_{ij}\ge 0$ and $\sum_j p_{ij}=1$. The Markov property does not say that successive states are independent. They are dependent whenever different rows of $P$ differ. If the initial law is a row vector $\mu$, the law of $X_n$ is $\mu P^n$. The Chapman–Kolmogorov equations say that $P^{m+n}=P^m P^n$: an $m$-step move followed by an $n$-step move is an $(m+n)$-step move.
+The transition matrix $P=(p_{ij})$ has $p_{ij}\ge 0$ and $\sum_j p_{ij}=1$. The Markov property does not say that successive states are independent. They are dependent when different rows of $P$ differ and the current state puts positive probability on two such rows. If the initial law is a row vector $\mu$, the law of $X_n$ is $\mu P^n$. The Chapman–Kolmogorov equations say that $P^{m+n}=P^m P^n$: an $m$-step move followed by an $n$-step move is an $(m+n)$-step move.
 
 ## Two-step weather
 
@@ -1325,7 +1325,7 @@ $$
 \mathrm{edf}(\lambda)=\operatorname{tr}(S_\lambda).
 $$
 
-If $\Omega$ penalises the integrated squared second derivative of a cubic spline, two directions (constant and linear) lie in the null space of $\Omega$. Write $d_1,\ldots,d_K\ge 0$ for the generalised eigenvalues of $\Omega$ relative to $B^\top B$. Then $\mathrm{edf}(\lambda)=\sum_{k=1}^K 1/(1+\lambda d_k)$, which decreases smoothly and strictly from $K$ at $\lambda=0$ down to $2$ (intercept plus one slope, or $1$ for the centred smooth term alone) as $\lambda\to\infty$.
+If $\Omega$ penalises the integrated squared second derivative of a cubic spline, two directions (constant and linear) lie in the null space of $\Omega$. When $B$ has full column rank so that $B^\top B$ is positive definite, write $d_1,\ldots,d_K\ge 0$ for the generalised eigenvalues of $\Omega$ relative to $B^\top B$. Then $\mathrm{edf}(\lambda)=\sum_{k=1}^K 1/(1+\lambda d_k)$, which decreases smoothly and strictly (once at least one $d_k>0$) from $K$ at $\lambda=0$ down to $2$ (intercept plus one slope, or $1$ for the centred smooth term alone) as $\lambda\to\infty$.
 
 ## Basis dimension versus fitted flexibility
 
@@ -1387,13 +1387,15 @@ Suppose a file has one row per clinic visit, four visits for some patients and o
 
 When independent copies have an unbounded but light upper tail, the sample maximum drifts to infinity slowly, like a logarithm of the sample size. The Gumbel law is the limit that appears once that logarithmic drift is subtracted and the residual is left on the natural scale of the tail.
 
-Let $X_1,\ldots,X_n$ be independent exponential random variables of rate $\lambda>0$, so $\mathbb{P}(X_i>x)=e^{-\lambda x}$ for $x>0$, and let $M_n=\max_i X_i$. Set $b_n=(\log n)/\lambda$ and $a_n=1/\lambda$. For every real $x$,
+Let $X_1,\ldots,X_n$ be independent exponential random variables of rate $\lambda>0$, so $\mathbb{P}(X_i>x)=e^{-\lambda x}$ for $x>0$, and let $M_n=\max_i X_i$. Set $b_n=(\log n)/\lambda$ and $a_n=1/\lambda$. Whenever $x>-\log n$, the level $b_n+a_n x$ is positive and
 
 $$
 \mathbb{P}\Bigl(\frac{M_n-b_n}{a_n}\le x\Bigr)
 =\Bigl(1-\frac{e^{-x}}{n}\Bigr)^n
-\to\exp(-e^{-x}).
+\to\exp(-e^{-x}),
 $$
+
+where the limit holds for every fixed real $x$.
 
 The limit distribution function is the Gumbel law, supported on the whole line. Choosing $\lambda b_n=\log n$ and $\lambda a_n=1$ makes the survival probability at the moving level $b_n+a_n x$ equal $e^{-x}/n$. A normal tail is lighter than a pure exponential, but it falls in the same extreme-value family, with a centring sequence of order $\sqrt{2\log n}$ rather than $\log n$.
 
@@ -1427,7 +1429,7 @@ $$
 \end{aligned}
 $$
 
-with $\alpha>0$, and with $\Phi_{\alpha}(x)=0$ for $x\le 0$ and $\Psi_{\alpha}(x)=1$ for $x\ge 0$. These are the Gumbel, Fréchet, and Weibull extreme-value types. The first goes with light unbounded tails, the second with heavy tails of index $\alpha$, and the third with a finite upper endpoint. Fisher and Tippett (1928) found the three forms, and Gnedenko (1943) characterised the distributions attracted to each.
+with $\alpha>0$, and with $\Phi_{\alpha}(x)=0$ for $x\le 0$ and $\Psi_{\alpha}(x)=1$ for $x\ge 0$. These are the Gumbel, Fréchet, and Weibull extreme-value types. The first goes with tails of exponential type, such as the exponential and normal laws, as well as some distributions with a finite endpoint; the second goes with heavy tails whose survival is regularly varying of index $-\alpha$; and the third goes with a finite upper endpoint when the survival near that endpoint is regularly varying. Fisher and Tippett (1928) found the three forms, and Gnedenko (1943) characterised the distributions attracted to each.
 
 ## What the trichotomy does not decide
 
@@ -1446,7 +1448,7 @@ Under $H_0:\sigma_1^2=\sigma_2^2$ the ratio $F=s_1^2/s_2^2$ has the $F$ distribu
 
 ## Two weight samples, and a fragile level
 
-Suppose the samples have sizes $15$ and $10$ and sample standard deviations $15$ and $12$. Then $F=225/144=1.5625$ on $(14,9)$ degrees of freedom. The level-$0.05$ critical region is $[0,0.312]\cup[3.80,\infty)$, using $F_{14,9;\,0.975}=3.80$. The observed ratio lies outside that region, so the data do not contradict a common variance at the $5\%$ level.
+Suppose the samples have sizes $15$ and $10$ and sample standard deviations $15$ and $12$. Then $F=225/144=1.5625$ on $(14,9)$ degrees of freedom. The level-$0.05$ critical region is $[0,0.312]\cup[3.80,\infty)$, using $F_{14,9;\,0.975}=3.80$ and $F_{9,14;\,0.975}=3.21$, whose reciprocal is $0.312$. The observed ratio lies outside that region, so the data do not contradict a common variance at the $5\%$ level.
 
 The null distribution is sensitive to non-normality (Box, 1953). Heavy tails make $s_j^2$ more variable than chi-squared theory allows, and a nominal $5\%$ test then rejects equal variances too often. A [two-sample $t$ test](two-sample-t-test.qmd) for the means is much less sensitive to the same tails. Using the $F$ test as a gate that decides whether a pooled $t$ test is permitted distorts the later error rate, because the gate is the fragile half of the procedure. Unequal variances are handled directly as a [Behrens–Fisher problem](behrens-fisher-problem.qmd), rather than by a preliminary screen.
 """,
@@ -1503,7 +1505,7 @@ The mixture $0.3\,\varphi(x;0,1)+0.7\,\varphi(x;4,1)$, with $\varphi(\,\cdot\,;\
     "fisher-s-direction": r"""
 ## Separation of the means relative to pooled scatter
 
-For two labelled samples, let $\widehat\mu_1$ and $\widehat\mu_2$ be the class means, set $d=\widehat\mu_1-\widehat\mu_2$, and let $S$ be a pooled within-class covariance, assumed positive definite. A direction $a\neq 0$ projects the two means to the scalars $a^\top\widehat\mu_1$ and $a^\top\widehat\mu_2$. Fisher measures separation by the squared gap between those scalars, divided by the pooled variance $a^\top S a$ of the projected points (Fisher, 1936). Rescaling $a$ multiplies the numerator and the denominator by the same positive factor, so only the direction matters. The ratio in the form $\bigl(a^\top d\bigr)^2\big/\bigl(2\,a^\top S a\bigr)$ is maximised at $a\propto S^{-1}d$, and the maximal value is $d^\top S^{-1}d\big/2$. The proof is Cauchy–Schwarz applied to $(S^{1/2}a)^\top(S^{-1/2}d)$: equality holds when $S^{1/2}a$ is parallel to $S^{-1/2}d$. If $d=0$ the numerator is identically zero and every direction is equally uninformative.
+For two labelled samples, let $\widehat\mu_1$ and $\widehat\mu_2$ be the class means, set $d=\widehat\mu_1-\widehat\mu_2$, and let $S$ be a pooled within-class covariance, assumed positive definite. A direction $a\neq 0$ projects the two means to the scalars $a^\top\widehat\mu_1$ and $a^\top\widehat\mu_2$. The two projected class means sit equally far from their midpoint, so the sum of their squared deviations is half the squared gap. Dividing that by the pooled variance $a^\top S a$ is how Fisher measures separation (Fisher, 1936). Rescaling $a$ multiplies the numerator and the denominator by the same positive factor, so only the direction matters. The ratio in the form $\bigl(a^\top d\bigr)^2\big/\bigl(2\,a^\top S a\bigr)$ is maximised at $a\propto S^{-1}d$, and the maximal value is $d^\top S^{-1}d\big/2$. The proof is Cauchy–Schwarz applied to $(S^{1/2}a)^\top(S^{-1/2}d)$: equality holds when $S^{1/2}a$ is parallel to $S^{-1/2}d$. If $d=0$ the numerator is identically zero and every direction is equally uninformative.
 
 ## A diagonal calculation
 
@@ -1650,7 +1652,7 @@ If $S=I_p$, the matrix $K=(1+\lambda)^{-1}I_p$ is optimal. The working covarianc
     "hammersley-clifford": r"""
 ## Conditional independence drawn as a missing edge
 
-An undirected graph $G$ has a vertex for each coordinate of a random vector $X$. The pairwise Markov property says that if $j$ and $k$ are not joined by an edge, then $X_j\perp X_k$ given all the remaining coordinates. A distribution factorises according to $G$ when its density, relative to a product measure, is a product of clique potentials $\psi_C$ divided by a normalising constant $Z$. Each potential depends only on the variables inside one clique, a complete subset of vertices. The Hammersley–Clifford theorem states that if the density is positive and continuous, the pairwise Markov property and the factorisation are equivalent (Besag, 1974).
+An undirected graph $G$ has a vertex for each coordinate of a random vector $X$. The pairwise Markov property says that if $j$ and $k$ are not joined by an edge, then $X_j\perp X_k$ given all the remaining coordinates. A distribution factorises according to $G$ when its density, relative to a product measure, is a product of clique potentials $\psi_C$ divided by a normalising constant $Z$. Each potential depends only on the variables inside one clique, a complete subset of vertices. The Hammersley–Clifford theorem states that if the density is strictly positive on the product space, the pairwise Markov property and the factorisation are equivalent (Besag, 1974).
 
 ## A chain whose conditional odds ignore the far variable
 
@@ -1678,7 +1680,7 @@ Suppose two classes with labels $y_i\in\{-1,+1\}$ can be separated by a hyperpla
 
 ## The same two points in the primal
 
-For the sample $(-1,-1)$ and $(1,+1)$, the constraints are $w-b\ge 1$ and $w+b\ge 1$. Adding them forces $w\ge 1$. The choice $w=1$, $b=0$ meets both constraints with equality, and $\Phi=1/2$. Any larger $|w|$ increases $\Phi$. The geometric margin on each side is $1/\lVert w\rVert=1$, and the gap between the two parallel lines $x=-1$ and $x=1$ is $2$. Doubling $(w,b)$ to $(2,0)$ raises $\Phi$ from $1/2$ to $2$. If a third point sits at the origin, no $(w,b)$ meets every inequality. The hard-margin primal is then infeasible, and a soft-margin slack is required before a finite optimum exists.
+For the sample $(-1,-1)$ and $(1,+1)$, the constraints are $w-b\ge 1$ and $w+b\ge 1$. Adding them forces $w\ge 1$. The choice $w=1$, $b=0$ meets both constraints with equality, and $\Phi=1/2$. Any larger $|w|$ increases $\Phi$. The geometric margin on each side is $1/\lVert w\rVert=1$, and the gap between the two parallel lines $x=-1$ and $x=1$ is $2$. Doubling $(w,b)$ to $(2,0)$ raises $\Phi$ from $1/2$ to $2$. A third point at the origin stays separable under either label ($w=2,b=1$ for $+1$ or $w=2,b=-1$ for $-1$), whereas a third point at $x=2$ with label $-1$ makes the inequalities contradictory. The hard-margin primal is then infeasible, and a soft-margin slack is required before a finite optimum exists.
 """,
     "hartigan-wong-algorithm": r"""
 ## Single-point transfers aimed at the same criterion
@@ -1717,7 +1719,7 @@ The hinge is zero whenever $y_i f(x_i)\ge 1$. A point that is correctly classifi
 
 ## Four functional margins
 
-The hinge at $y f=2$ equals $0$. At $y f=1$ it equals $0$. At $y f=0.2$ it equals $0.8$. At $y f=-1$ it equals $2$. Squared error does not share the flat region: a point with $y=1$ and $f=3$ has hinge $0$ but squared error $(1-3)^2=4$, so a squared-error fit keeps moving $w$ to reduce a residual that the hinge has already declared good enough. The binomial deviance likewise keeps a positive slope on correctly classified points. The hinge is convex, and it is not differentiable at $y f=1$.
+The hinge at $y f=2$ equals $0$. At $y f=1$ it equals $0$. At $y f=0.2$ it equals $0.8$. At $y f=-1$ it equals $2$. Squared error does not share the flat region: a point with $y=1$ and $f=3$ has hinge $0$ but squared error $(1-3)^2=4$, so a squared-error fit keeps moving $w$ to reduce a residual that the hinge has already declared good enough. The binomial deviance likewise keeps a nonzero slope on correctly classified points, with negative derivative $-1/(e^{y f}+1)$ in the margin $y f$ so the loss keeps falling as the margin grows. The hinge is convex, and it is not differentiable at $y f=1$.
 """,
     "holding-time": r"""
 ## The wait has to forget its age
@@ -1728,7 +1730,7 @@ From state $i$, the holding time $H_i$ is exponential with rate $\nu_i=-q_{ii}$,
 
 ## A race of clocks
 
-The same hold can be built as a race. From $i$, start an independent exponential clock of rate $q_{ij}$ for each $j\neq i$. The minimum of independent exponential clocks is exponential with rate equal to the sum of the rates, which is $\nu_i$, and the probability that clock $j$ rings first is $q_{ij}/\nu_i$. That probability is exactly the jump probability of the embedded chain. Take $\nu_i=3$ per hour, with two exit routes of rates $1$ and $2$. The mean hold is $20$ minutes. The chance of still being in $i$ after $30$ minutes is $e^{-1.5}\approx 0.223$. Whichever route is taken, the rate-$2$ route is chosen with probability $2/3$, and that chance does not depend on how long the hold lasted. See the [memoryless property](memoryless-property.qmd) of the [exponential distribution](exponential-distribution.qmd).
+The same hold can be built as a race. From $i$, start an independent exponential clock of rate $q_{ij}$ for each $j\neq i$. The minimum of independent exponential clocks is exponential with rate equal to the sum of the rates, which is $\nu_i$, and the probability that clock $j$ rings first is $q_{ij}/\nu_i$. That probability is exactly the jump probability of the embedded chain. Take $\nu_i=3$ per hour, with two exit routes of rates $1$ and $2$. The mean hold is $20$ minutes. The chance of still being in $i$ after $30$ minutes is $e^{-1.5}\approx 0.223$. The rate-$2$ route is chosen with probability $2/3$, and that chance does not depend on how long the hold lasted. See the [memoryless property](memoryless-property.qmd) of the [exponential distribution](exponential-distribution.qmd).
 """,
     "homogeneous-poisson-process": r"""
 ## Counts at a steady rate, with independent increments
@@ -1830,7 +1832,7 @@ The coverage is computed before the data are seen. The numerical interval is not
 
 ## A factor of four, and a very wide interval
 
-Take $n_1=n_2=9$, $s_1^2=16$ and $s_2^2=4$, so $r=4$. The upper $0.975$ quantile of $F_{8,8}$ is $4.43$. The $95\%$ interval for $\rho$ is $(4/4.43,\ 4\times 4.43)=(0.903,\ 17.72)$. It contains $1$, so equal variances are compatible with the data, but $\sigma_1^2$ could still be nearly $18$ times $\sigma_2^2$. Containing $1$ is weak reassurance when the interval is this wide. Square roots of the endpoints, $0.95$ and $4.21$, give the corresponding interval for $\sigma_1/\sigma_2$, valid because the square root is increasing. Heavy tails inflate the variability of $s_j^2$ and the claimed coverage fails. A zero sample variance, from a group with no scatter, collapses the interval.
+Take $n_1=n_2=9$, $s_1^2=16$ and $s_2^2=4$, so $r=4$. The upper $0.975$ quantile of $F_{8,8}$ is $4.43$. The $95\%$ interval for $\rho$ is $(4/4.43,\ 4\times 4.43)=(0.903,\ 17.72)$. It contains $1$, so equal variances are compatible with the data, but $\sigma_1^2$ could still be nearly $18$ times $\sigma_2^2$. Containing $1$ is weak reassurance when the interval is this wide. Square roots of the endpoints, $0.95$ and $4.21$, give the corresponding interval for $\sigma_1/\sigma_2$, valid because the square root is increasing. Heavy tails inflate the variability of $s_j^2$ and the claimed coverage fails. A zero sample variance breaks the continuous $F$ pivot: if $s_1^2=0$ and $s_2^2>0$ the ratio degenerates to $0$, whereas if $s_2^2=0$ and $s_1^2>0$ the ratio is infinite and the interval blows up.
 """,
     "intraclass-correlation": r"""
 ## How much of the scatter belongs to the block
@@ -1841,11 +1843,11 @@ $$
 \frac{\sigma_A^2}{\sigma_A^2+\sigma^2}.
 $$
 
-It is the fraction of the total variance that sits between blocks. It equals $0$ when the blocks do not differ, and it approaches $1$ when the block effect swamps the individual noise.
+It is the fraction of the total variance that sits between blocks. It equals $0$ when $\sigma_A^2=0$ and $\sigma^2>0$, and it equals $1$ when $\sigma^2=0$ and $\sigma_A^2>0$.
 
 ## A numerical split, and a sign this model cannot give
 
-If $\sigma_A^2=3$ and $\sigma^2=1$, the correlation is $3/4=0.75$. Three of the four units of variance are the hospital. A treatment contrast computed as if the patients were independent then overstates the precision, because the independent pieces of information are closer in number to the hospitals than to the patients. The correlation cannot be negative. The numerator $\sigma_A^2$ is a variance, so the ratio lies in $[0,1)$. Shares that compete inside a block, such as proportions that sum to a fixed total, can be negatively associated, and a single random intercept cannot represent that. An [exchangeable correlation](exchangeable-correlation.qmd) used as a working matrix can sit a little below zero. The correlation implied by this [random-intercept model](random-intercept-model.qmd) cannot.
+If $\sigma_A^2=3$ and $\sigma^2=1$, the correlation is $3/4=0.75$. Three of the four units of variance are the hospital. A treatment contrast computed as if the patients were independent then overstates the precision, because the independent pieces of information are closer in number to the hospitals than to the patients. The correlation cannot be negative. The numerator $\sigma_A^2$ is a variance and the denominator is at least as large, so whenever the ratio is defined it lies in $[0,1]$. Shares that compete inside a block, such as proportions that sum to a fixed total, can be negatively associated, and a single random intercept cannot represent that. An [exchangeable correlation](exchangeable-correlation.qmd) used as a working matrix can sit a little below zero. The correlation implied by this [random-intercept model](random-intercept-model.qmd) cannot.
 """,
     "inverse-link": r"""
 ## A mean that is a reciprocal
@@ -1898,7 +1900,7 @@ $$
 
 The absolute value of the Jacobian determinant is the local factor by which $h$ changes volume. In one dimension, $Y=aX+b$ with $a\ne 0$ has inverse $x=(y-b)/a$ and Jacobian factor $1/\lvert a\rvert$, so $f_Y(y)=f_X((y-b)/a)/\lvert a\rvert$. For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, the factor is $1/\lvert\det A\rvert$ and the density is evaluated at $A^{-1}\mathbf{z}$.
 
-If the determinant vanishes, the image of $g$ is flat in some direction. The distribution of $\mathbf{Z}$ then lives on a lower-dimensional set and has no density on the whole of $\mathbb{R}^n$.
+If a linear map $\mathbf{Z}=A\mathbf{X}$ has $\det A=0$, its image lies in a proper subspace and has no density on the whole of $\mathbb{R}^n$; by contrast, an isolated zero of a smooth bijection's derivative, such as $y=x^3$ at the origin, still pushes a density on $\mathbb{R}$ forward to a density on $\mathbb{R}$.
 
 ## Doubling a uniform
 
@@ -1926,13 +1928,13 @@ which is non-negative and integrates to $\int_0^1\int_0^1(x_1+x_2)\,\mathrm{d}x_
 
 A continuous-time chain does two things in a state: it waits, and then it chooses a different state. The jump chain keeps only the sequence of states visited. It is a discrete-time chain, useful because many path questions do not depend on the holding times.
 
-Let $q_{ij}$ be the rate from $i$ to $j\neq i$, and let $\nu_i=-q_{ii}=\sum_{j\neq i}q_{ij}$. If $\nu_i>0$, the embedded jump chain moves from $i$ to $j$ with probability $k_{ij}=q_{ij}/\nu_i$, and $k_{ii}=0$. If $\nu_i=0$, the state is absorbing and $k_{ii}=1$. The matrix $K=(k_{ij})$ is a transition matrix. The continuous-time path is recovered by attaching an independent exponential hold of rate $\nu$ at the current state between successive jumps of $K$. If $\pi$ is stationary for the generator, so that $\pi Q=0$, the stationary distribution of the jump chain on the non-absorbing states is
+Let $q_{ij}$ be the rate from $i$ to $j\neq i$, and let $\nu_i=-q_{ii}=\sum_{j\neq i}q_{ij}$. If $\nu_i>0$, the embedded jump chain moves from $i$ to $j$ with probability $k_{ij}=q_{ij}/\nu_i$, and $k_{ii}=0$. If $\nu_i=0$, the state is absorbing and $k_{ii}=1$. The matrix $K=(k_{ij})$ is a transition matrix. The continuous-time path is recovered by attaching an independent exponential hold of rate $\nu$ at the current state between successive jumps of $K$. If the chain is irreducible and positive recurrent, $\pi Q=0$, and $0<\sum_k\pi_k\nu_k<\infty$, the jump chain has stationary distribution
 
 $$
 \hat\pi_i=\frac{\pi_i\nu_i}{\sum_k\pi_k\nu_k}.
 $$
 
-States that are left quickly are visited more often by the jump chain, for the same share of calendar time.
+States that are left quickly are visited more often by the jump chain, for the same share of calendar time. An absorbing state has $\nu_i=0$, so a stationary distribution concentrated there makes the denominator zero and keeps the jump chain at that absorber.
 
 ## Alternation in jumps, convergence in time
 
@@ -1996,13 +1998,13 @@ The same calculation at $x=2$ replaces the ordinates by $\varphi(3)$, $\varphi(2
     "knot": r"""
 ## Continuity across a join
 
-A polynomial of high degree fitted globally across an interval oscillates wildly near the endpoints when a single region bends sharply. A spline avoids global oscillation by joining low-degree polynomials end to end at ordered interior points $\xi_1<\cdots<\xi_M$ called knots. For a cubic spline, the truncated power basis writes
+A polynomial of high degree fitted globally across an interval oscillates wildly near the endpoints when a single region bends sharply. A spline avoids global oscillation by joining low-degree polynomials end to end at ordered points $\xi_1<\cdots<\xi_M$ called knots. For a cubic spline, the truncated power basis writes
 
 $$
 g(x)=\beta_0+\beta_1 x+\beta_2 x^2+\beta_3 x^3+\sum_{m=1}^M \gamma_m (x-\xi_m)_+^3,
 $$
 
-where $(u)_+=\max(u,0)$ (de Boor, 1978). Because $(x-\xi_m)_+^3$ and its first two derivatives vanish at $x=\xi_m$, adding $\gamma_m(x-\xi_m)_+^3$ leaves $g(\xi_m)$, $g'(\xi_m)$ and $g''(\xi_m)$ continuous while shifting the third derivative by $6\gamma_m$. Thus a cubic spline with $M$ interior knots spans a linear space of dimension $M+4$; adding natural boundary constraints (linearity outside $[\xi_1,\xi_M]$) removes $4$ parameters and leaves $M$ free dimensions.
+where $(u)_+=\max(u,0)$ (de Boor, 1978). Because $(x-\xi_m)_+^3$ and its first two derivatives vanish at $x=\xi_m$, adding $\gamma_m(x-\xi_m)_+^3$ leaves $g(\xi_m)$, $g'(\xi_m)$ and $g''(\xi_m)$ continuous while shifting the third derivative by $6\gamma_m$. Thus a cubic spline with these $M$ knots spans a linear space of dimension $M+4$; adding natural boundary constraints (linearity outside $[\xi_1,\xi_M]$) removes $4$ parameters and leaves $M$ free dimensions when $\xi_1$ and $\xi_M$ are the boundary knots (or $M+2$ free dimensions when $M$ counts strictly interior knots between two separate boundary knots).
 
 ## Placement and number of knots
 
@@ -2011,7 +2013,7 @@ With $M=1$ knot at $\xi_1=0$, $g(x)=x+(x)_+^3$ equals $x$ for $x\le 0$ and $x+x^
     "kolmogorov-extension-theorem": r"""
 ## A process specified only through finite collections of times
 
-One often describes a process by saying what $(X_{t_1},\ldots,X_{t_k})$ should look like for every finite list of times, without ever naming the probability of a path property. Kolmogorov's extension theorem says that a consistent family of these finite-dimensional distributions is already enough to guarantee some process with exactly those margins (Kolmogorov, 1933).
+One often describes a process by saying what $(X_{t_1},\ldots,X_{t_k})$ should look like for every finite list of times, without ever naming the probability of a path property. Kolmogorov's extension theorem says that a consistent family of finite-dimensional distributions on $\mathbb{R}$ (or any Polish state space) is already enough to guarantee some process with exactly those margins (Kolmogorov, 1933).
 
 Consistency has two parts. Permuting the times must permute the joint law in the same way. Dropping one time must leave the marginal law of the remaining times. Under those hypotheses there exists a probability space and a family $\{X_t:t\in T\}$ whose finite-dimensional distributions are the ones prescribed. The theorem is an existence result. It does not produce continuous paths, or a bound on the number of jumps.
 
@@ -2099,7 +2101,7 @@ $$
 
 The weights $c_i$ are non-random. They sum to $0$, and $\sum_i c_i x_i=1$. Taking expectations, $\mathbb{E}\widehat\beta_1=\sum_i c_i(\beta_0+\beta_1 x_i)=\beta_1$. Also $\mathbb{E}\overline Y=\beta_0+\beta_1\overline x$, so $\mathbb{E}\widehat\beta_0=\beta_0$. No shape is assumed for the errors, and a finite error variance is not required. Each coefficient is an [unbiased estimator](unbiased-estimator.qmd) as soon as the means lie on a straight line.
 
-A variance needs more. Uncorrelated errors with common variance $\sigma^2$ give $\operatorname{Var}(\widehat\beta_1)=\sigma^2/S_{xx}$. Normality is what produces the $t$ reference distribution. If the true mean is quadratic, these same weights are biased for $\beta_1$. A nonlinear function of $\widehat\beta_1$, such as $e^{\widehat\beta_1}$, is not unbiased for the corresponding function of $\beta_1$.
+A variance needs more. Uncorrelated errors with common variance $\sigma^2$ give $\operatorname{Var}(\widehat\beta_1)=\sigma^2/S_{xx}$. Normality is what produces the $t$ reference distribution. If the true mean is $\beta_0+\beta_1 x_i+\beta_2 x_i^2$, these weights estimate $\beta_1+\beta_2\sum_i c_i x_i^2$, which biases $\widehat\beta_1$ whenever $\sum_i c_i x_i^2\neq 0$ (though it vanishes on a design symmetric about zero). When $\sigma^2>0$ and $\mathbb{E}\exp(\widehat\beta_1)$ is finite, strict convexity and Jensen's inequality give $\mathbb{E}\exp(\widehat\beta_1)>\exp(\beta_1)$, so $e^{\widehat\beta_1}$ is biased high for $e^{\beta_1}$.
 
 ## Weights on $x=0,1,3$
 
@@ -2132,7 +2134,7 @@ Several unbiased estimators of one target usually exist, and most of them use fe
 
 ## Rao–Blackwell supplies the minimum variance
 
-The second half starts from an arbitrary [unbiased estimator](unbiased-estimator.qmd) $\delta_0(\boldsymbol{X})$, which may use the whole sample. The conditional expectation $\delta(T) = \mathbb{E}[\delta_0(\boldsymbol{X}) \mid T]$ is a function of $T$, remains unbiased, and satisfies $\operatorname{Var}_{\theta}(\delta_0) = \mathbb{E}_{\theta}[\operatorname{Var}(\delta_0 \mid T)] + \operatorname{Var}_{\theta}(\delta(T))$. The first term on the right is nonnegative, so $\delta(T)$ is at least as good as $\delta_0$ at every $\theta$. This is the [Rao–Blackwell theorem](rao-blackwell-theorem.qmd). Completeness says the improvement does not depend on which unbiased $\delta_0$ was chosen. Hence $\delta(T)$ is the unique [uniformly minimum-variance unbiased estimator](uniformly-minimum-variance-unbiased-estimator.qmd) of $g(\theta)$. For an iid Poisson sample the sample mean is that estimator of the mean. If completeness fails, two different functions of a minimal sufficient statistic can be unbiased for the same $g$, and this uniqueness is lost.
+The second half starts from an arbitrary [unbiased estimator](unbiased-estimator.qmd) $\delta_0(\boldsymbol{X})$ with finite variance $\operatorname{Var}_{\theta}(\delta_0)<\infty$, which may use the whole sample. The conditional expectation $\delta(T) = \mathbb{E}[\delta_0(\boldsymbol{X}) \mid T]$ is a function of $T$, remains unbiased, and satisfies $\operatorname{Var}_{\theta}(\delta_0) = \mathbb{E}_{\theta}[\operatorname{Var}(\delta_0 \mid T)] + \operatorname{Var}_{\theta}(\delta(T))$. The first term on the right is nonnegative, so $\delta(T)$ is at least as good as $\delta_0$ at every $\theta$ among unbiased estimators with finite variance. This is the [Rao–Blackwell theorem](rao-blackwell-theorem.qmd). Completeness says the improvement does not depend on which unbiased $\delta_0$ was chosen. Hence $\delta(T)$ is the unique [uniformly minimum-variance unbiased estimator](uniformly-minimum-variance-unbiased-estimator.qmd) of $g(\theta)$. For an iid Poisson sample the sample mean is that estimator of the mean. If completeness fails, two different functions of a minimal sufficient statistic can be unbiased for the same $g$, and this uniqueness is lost.
 """,
     "levy-s-continuity-theorem": r"""
 ## When pointwise convergence of transforms is enough
@@ -2143,7 +2145,7 @@ Let $\varphi_{X_n}(t)=\mathbb{E} e^{itX_n}$. Suppose $\varphi_{X_n}(t)\to\varphi
 
 ## A normal limit, and a sequence that escapes
 
-If $Y_i$ are independent with mean $0$ and variance $1$, the characteristic function of $n^{-1/2}\sum_{i=1}^{n} Y_i$ tends to $e^{-t^2/2}$ at every $t$. The limit is continuous at $0$ and is the standard normal transform, so the [central limit theorem](central-limit-theorem.qmd) follows from this route. The hypothesis is not automatic. If $X_n$ is normal with mean $0$ and variance $n$, then $\varphi_{X_n}(t)=\exp(-nt^{2}/2)$ tends to $0$ for $t\neq 0$ and equals $1$ at $t=0$. The limit is discontinuous at $0$, and $X_n$ does not converge in distribution: the mass spreads without bound. Convergence of [characteristic functions](characteristic-functions.qmd) still does not give convergence of expectations. That needs [uniform integrability](uniform-integrability.qmd), a separate condition.
+If $Y_i$ are independent and identically distributed with mean $0$ and variance $1$, the characteristic function of $n^{-1/2}\sum_{i=1}^{n} Y_i$ tends to $e^{-t^2/2}$ at every $t$. The limit is continuous at $0$ and is the standard normal transform, so the [central limit theorem](central-limit-theorem.qmd) follows from this route. The hypothesis is not automatic. If $X_n$ is normal with mean $0$ and variance $n$, then $\varphi_{X_n}(t)=\exp(-nt^{2}/2)$ tends to $0$ for $t\neq 0$ and equals $1$ at $t=0$. The limit is discontinuous at $0$, and $X_n$ does not converge in distribution: the mass spreads without bound. Convergence of [characteristic functions](characteristic-functions.qmd) still does not give convergence of expectations. That needs [uniform integrability](uniform-integrability.qmd), a separate condition.
 """,
     "likelihood-function": r"""
 ## The sample is fixed and the parameter moves
@@ -2289,7 +2291,7 @@ Training a multilayer network means choosing weights that make a loss on the obs
 
 A [hidden layer](hidden-layer.qmd) of $\ell$ units with a shared activation can be relabelled without changing the represented function. Move each unit's incoming weights, bias and outgoing weights together. When all units differ there are $\ell!$ copies; coincident units produce fewer. For $\ell=3$ the count is $6$. Deterministic [gradient descent](gradient-descent.qmd) preserves equality. Two units that start with the same bias and the same incoming and outgoing weights receive the same gradient and remain clones, so one of them never specialises. Independent random initial weights break the tie.
 
-The logistic [sigmoid](sigmoid-function.qmd) adds a sign symmetry, because $g(-u)=1-g(u)$. Flip the sign of one unit's incoming weights and bias, and its output $h$ becomes $1-h$. The next layer undoes that flip: replace the outgoing weight $w$ by $-w$ and add $w$ to the next bias. The function is unchanged, so the optimiser can spend steps travelling among parameter vectors that all compute the same map.
+The logistic [sigmoid](sigmoid-function.qmd) adds a sign symmetry, because $g(-u)=1-g(u)$. Flip the sign of one unit's incoming weights and bias, and its output $h$ becomes $1-h$. The next layer undoes that flip: replace the outgoing weight $w$ by $-w$ and add $w$ to the next bias. The function is unchanged, so distinct parameter vectors compute the same map and different initialisations can settle at different copies, though a single run of gradient descent stays in one basin rather than jumping between discrete sign flips.
 """,
     "log-link": r"""
 ## Every coefficient multiplies the mean
@@ -2298,7 +2300,7 @@ Counts and positive continuous measurements need a positive mean for every covar
 
 ## Unequal exposure, and a small unit
 
-Four events in $2$ years and four events in $8$ years are the same count and not the same rate. An offset puts the exposure in the predictor, $\log\mu_i=\mathbf{x}_i^\top\boldsymbol{\beta}+\log t_i$, which means $\mu_i=t_i\exp(\mathbf{x}_i^\top\boldsymbol{\beta})$. Those two series then have rates $2$ and $0.5$ per year when they share the rest of $\mathbf{x}$. Dropping $\log t_i$ analyses the counts as if every unit had been watched for the same time. The intercept $\exp(\beta_0)$ is the mean at the baseline covariate and at exposure $1$. If that baseline is not a real situation, it is not a typical rate. A small coefficient can also be a large effect written per small unit. A slope of $0.01$ per kilometre is a slope of $1$ per hundred kilometres, and $e^{1}\approx 2.7$ rather than $e^{0.01}\approx 1.01$.
+Four events in $2$ years and four events in $8$ years are the same count and not the same rate: their observed rates are $2$ and $0.5$ per year. An offset puts the exposure in the predictor, $\log\mu_i=\mathbf{x}_i^\top\boldsymbol{\beta}+\log t_i$, which means $\mu_i=t_i\exp(\mathbf{x}_i^\top\boldsymbol{\beta})$. Two series that share $\mathbf{x}$ then share the model rate $\exp(\mathbf{x}_i^\top\boldsymbol{\beta})$, with expected counts proportional to their exposures. Dropping $\log t_i$ analyses the counts as if every unit had been watched for the same time. The intercept $\exp(\beta_0)$ is the mean at the baseline covariate and at exposure $1$. If that baseline is not a real situation, it is not a typical rate. A small coefficient can also be a large effect written per small unit. A slope of $0.01$ per kilometre is a slope of $1$ per hundred kilometres, and $e^{1}\approx 2.7$ rather than $e^{0.01}\approx 1.01$.
 """,
     "log-partition-moment-identities": r"""
 ## Differentiating the normaliser
@@ -2401,7 +2403,7 @@ No variance, independence, or shape assumption enters. If $a\le\mathbb{E} X$ the
 
 ## Sharpness, and a job that might run long
 
-The bound is sharp. If $X=a$ with probability $p$ and $X=0$ otherwise, then $\mathbb{E} X=ap$ and $\mathbb{P}(X\ge a)=p$, so equality holds. For a non-negative job time with mean $10$ minutes, $\mathbb{P}(X\ge 60)\le 10/60=1/6$. If one also knows $\operatorname{Var}(X)=25$, Chebyshev gives $\mathbb{P}(X\ge 60)\le 25/50^{2}=0.01$, which is much smaller, but it spends a second moment Markov never sees. A Pareto tail with index between $1$ and $2$ has a finite mean and an infinite variance: Markov still applies, and Chebyshev does not. The inequality is also the step from an $L^{p}$ bound to [convergence in probability](modes-of-convergence.qmd).
+The bound is sharp. If $X=a$ with probability $p$ and $X=0$ otherwise, then $\mathbb{E} X=ap$ and $\mathbb{P}(X\ge a)=p$, so equality holds. For a non-negative job time with mean $10$ minutes, $\mathbb{P}(X\ge 60)\le 10/60=1/6$. If one also knows $\operatorname{Var}(X)=25$, Chebyshev gives $\mathbb{P}(X\ge 60)\le 25/50^{2}=0.01$, which is much smaller, but it spends a second moment Markov never sees. A Pareto tail with index $\alpha$ satisfying $1<\alpha\le 2$ has a finite mean and an infinite variance: Markov still applies, and Chebyshev does not. The inequality is also the step from an $L^{p}$ bound to [convergence in probability](modes-of-convergence.qmd).
 """,
     "maximum-likelihood-for-a-binomial-proportion": r"""
 ## The interior maximum is the sample proportion
@@ -2423,7 +2425,7 @@ The usual plug-in standard error $\sqrt{\widehat p(1-\widehat p)/n}$ is then $0$
     "maximum-likelihood-for-a-known-graph": r"""
 ## Matching the sample covariance on the edges
 
-Suppose $n$ independent rows are drawn from $\operatorname{N}_p(\boldsymbol{\mu},\Sigma)$ and the zero pattern of the precision $\Theta=\Sigma^{-1}$ is known. The Gaussian log-likelihood, up to a constant, is $\log|\Theta|-\operatorname{tr}(S\Theta)$, with $S$ the $1/n$ sample covariance, and the maximiser is sought over precision matrices that respect those zeros and stay [positive definite](positive-definite-matrix.qmd). On an edge, and on the diagonal, the fitted covariance $W$ is pinned to $S$. On a missing edge, $W$ is whatever value the conditional-independence constraints imply. The sweep in the definition is block regression: the free coefficients of variable $j$ are the regression of that variable on its graph neighbours, and the missing-edge covariances are then filled in from those coefficients.
+Suppose $n$ independent rows are drawn from $\operatorname{N}_p(\boldsymbol{\mu},\Sigma)$ and the zero pattern of the precision $\Theta=\Sigma^{-1}$ is known. The profile Gaussian log-likelihood equals $\tfrac n2\log|\Theta|-\tfrac n2\operatorname{tr}(S\Theta)$ plus a constant, with $S$ the $1/n$ sample covariance, so it has the same maximiser as $\log|\Theta|-\operatorname{tr}(S\Theta)$ over precision matrices that respect those zeros and stay [positive definite](positive-definite-matrix.qmd). On an edge, and on the diagonal, the fitted covariance $W$ is pinned to $S$. On a missing edge, $W$ is whatever value the conditional-independence constraints imply. The sweep in the definition is block regression: the free coefficients of variable $j$ are the regression of that variable on its graph neighbours, and the missing-edge covariances are then filled in from those coefficients.
 
 ## One sweep on a chain
 
@@ -2433,7 +2435,7 @@ $$
 S=\begin{pmatrix}1&0.4&0.3\\0.4&1&0.5\\0.3&0.5&1\end{pmatrix}.
 $$
 
-Start at $W=S$. Variable $1$ has neighbour $2$ only, so the free slope is $\hat\beta^{*}=s_{12}/w_{22}=0.4$. The update replaces the non-edge entry $w_{13}$ by $\hat\beta^{*} w_{23}=0.2$. The sample value $0.3$ is discarded because no direct edge is allowed to carry it. Later sweeps revise the blocks, and a fixed point has a zero in position $(1,3)$ of $\hat\Theta$. The iteration above assumes $S\succ 0$. A singular $S$ can still admit a constrained maximiser on a sparse graph, but the same inverses of neighbour blocks need a feasible start. An unknown graph is a different problem, handled by a penalty such as the [graphical lasso](graphical-lasso.qmd).
+Start at $W=S$. Variable $1$ has neighbour $2$ only, so the free slope is $\hat\beta^{*}=s_{12}/w_{22}=0.4$. The update replaces the non-edge entry $w_{13}$ by $\hat\beta^{*} w_{23}=0.2$. The sample value $0.3$ is discarded because no direct edge is allowed to carry it. On this chain that fill-in is already the fixed point, with zero in position $(1,3)$ of $\hat\Theta$, whereas a non-decomposable graph can need repeated sweeps before the edge-matching and zero constraints hold together. The iteration above assumes $S\succ 0$. A singular $S$ can still admit a constrained maximiser on a sparse graph, but the same inverses of neighbour blocks need a feasible start. An unknown graph is a different problem, handled by a penalty such as the [graphical lasso](graphical-lasso.qmd).
 """,
     "maximum-likelihood-for-a-normal-sample": r"""
 ## Differentiating in $\sigma$ or in $\sigma^2$
@@ -2488,7 +2490,7 @@ Let $(\Omega,\mathcal{F},\mathbb{P})$ be a probability space. A map $X:\Omega\to
 
 ## Coordinates are measurable, and a Vitali selector is not
 
-Take $\Omega=(0,1)$ with the Borel sigma-algebra and Lebesgue measure, and set $X(\omega)=\omega$. Then $\{X\le x\}$ is an interval, hence Borel, so $X$ is a random variable and $F_X$ is the uniform distribution function. A continuous function of a random variable is a random variable, and so is a pointwise limit of random variables. Sums and products preserve measurability. A Vitali selector, which picks one point from each equivalence class of reals that differ by a rational, is a standard example of a non-measurable function: $\{X\le 1/2\}$ cannot be assigned a translation-invariant probability. Ordinary modelling stays inside the [Borel sigma-algebra](generated-and-borel-sigma-algebras.qmd), where these constructions do not arise. The resulting $F_X$ is the [distribution function](cumulative-distribution-function.qmd) of $X$.
+Take $\Omega=(0,1)$ with the Borel sigma-algebra and Lebesgue measure, and set $X(\omega)=\omega$. Then $\{X\le x\}$ is an interval, hence Borel, so $X$ is a random variable and $F_X$ is the uniform distribution function. A continuous function of a random variable is a random variable, and so is a pointwise limit of random variables. Sums and products preserve measurability. A Vitali set, which picks one point from each equivalence class of reals that differ by a rational, is not Lebesgue measurable, and its indicator is a standard non-measurable function: $\{X\le 1/2\}$ cannot be given a translation-invariant, countably additive probability extending Lebesgue measure. Ordinary modelling stays inside the [Borel sigma-algebra](generated-and-borel-sigma-algebras.qmd), where these constructions do not arise. The resulting $F_X$ is the [distribution function](cumulative-distribution-function.qmd) of $X$.
 """,
     "metropolis-algorithm": r"""
 ## Symmetry removes the proposal ratio
@@ -2533,12 +2535,12 @@ $$
 \frac{p(\boldsymbol{x} \mid \mu)}{p(\boldsymbol{y} \mid \mu)} = \exp\left\{ -\frac{\sum_i x_i^2 - \sum_i y_i^2}{2\sigma^2} + \frac{\mu}{\sigma^2}\left(\sum_i x_i - \sum_i y_i\right) \right\}.
 $$
 
-The first term in the exponent does not involve $\mu$. The second term is free of $\mu$ for every $\mu$ precisely when $\sum_i x_i = \sum_i y_i$. The sum, or equivalently the sample mean, is minimal sufficient for $\mu$. Keeping the whole vector adds nothing about $\mu$ inside this model. A [complete](complete-statistic.qmd) sufficient statistic is automatically minimal sufficient, because a nontrivial further reduction would yield a nonzero function of the complete statistic with mean zero. The converse is false: minimal sufficiency does not imply completeness, as the uniform shift model shows.
+The first term in the exponent does not involve $\mu$. The second term is free of $\mu$ for every $\mu$ precisely when $\sum_i x_i = \sum_i y_i$. The sum, or equivalently the sample mean, is minimal sufficient for $\mu$. Keeping the whole vector adds nothing about $\mu$ inside this model. A [complete](complete-statistic.qmd) sufficient statistic is automatically minimal sufficient, because a nontrivial further reduction would yield a nonzero function of the complete statistic with mean zero. The converse is false: minimal sufficiency does not imply completeness, as iid draws from the uniform shift model $\operatorname{Uniform}(\theta,\theta+1)$ show—$(X_{(1)},X_{(n)})$ is minimal sufficient, yet the range $X_{(n)}-X_{(1)}$ is ancillary.
 """,
     "missing-data": r"""
 ## Observed pairs and a complete-data story
 
-A mixture density for a point $\mathbf{x}$ is a sum $\sum_h \pi_h f_h(\mathbf{x})$. The observed-data log-likelihood is the sum of logarithms of those sums, and the logarithm of a sum is awkward to maximise. Introduce a component label $Z$ that was never written down, with $\mathbb{P}(Z=h)=\pi_h$ and with $\mathbf{x}$ drawn from $f_h$ once $Z=h$. If $Z$ had been recorded, the [complete-data likelihood](complete-data-likelihood.qmd) would be a product of ordinary component densities times the weights, and the maximiser would be a weighted mean, covariance and relative frequency inside each component. The label is missing in that precise sense: it is part of the statistical model, and the sampler did not retain it.
+A mixture density for a point $\mathbf{x}$ is a sum $\sum_h \pi_h f_h(\mathbf{x})$. The observed-data log-likelihood is the sum of logarithms of those sums, and the logarithm of a sum is awkward to maximise. Introduce a component label $Z$ that was never written down, with $\mathbb{P}(Z=h)=\pi_h$ and with $\mathbf{x}$ drawn from $f_h$ once $Z=h$. If $Z$ had been recorded, the [complete-data likelihood](complete-data-likelihood.qmd) would be a product of ordinary component densities times the weights, and for Gaussian components the maximiser would be a weighted mean, covariance and relative frequency inside each component. The label is missing in that precise sense: it is part of the statistical model, and the sampler did not retain it.
 
 ## Replacing the label by its conditional probability
 
@@ -2633,7 +2635,7 @@ $$
 0.8\log 0.8+0.2\log 0.2\approx -0.500.
 $$
 
-Under the same $0.8,0.2$ weights, $\log(1/2)\approx -0.693$. The entropy term is lower at the uniform conditional law by about $0.193$ nats. If a candidate also raises $Q$ by $0.1$, the observed log-likelihood rises by at least $0.1$, and the entropy gap can add more. The argument needs an exact maximisation of $Q$. A partial M step, a constrained variance floor, or a Monte Carlo error in $Q$ can break it. Convergence of the likelihood values needs an upper bound. Convergence of $\Psi$ needs further regularity: under the conditions studied by Wu (1983) the limit points are stationary, and a stationary point of a [mixture](finite-mixture-model.qmd) likelihood can be a poor local maximum or a singular component.
+Under the same $0.8,0.2$ weights, $\log(1/2)\approx -0.693$. The entropy term is lower at the uniform conditional law by about $0.193$ nats. If a candidate also raises $Q$ by $0.1$, the observed log-likelihood rises by at least $0.1$, and the entropy gap can add more. The argument needs a step that does not decrease $Q$: an exact M step does that, and so does a partial step that raises $Q$ (a generalised EM step). A constrained variance floor that pushes $Q$ below its current value, or a Monte Carlo error in $Q$, can break monotonicity. Convergence of the likelihood values needs an upper bound. Convergence of $\Psi$ needs further regularity: under the conditions studied by Wu (1983) the limit points are stationary, and a stationary point of a [mixture](finite-mixture-model.qmd) likelihood can be a poor local maximum or a singular component.
 """,
     "multinomial-central-limit-theorem": r"""
 ## Proportions tightening around a fixed probability vector
@@ -2702,7 +2704,7 @@ The same arithmetic on a toy net, with $15$ inputs, $2$ hidden units and $3$ out
 
 The Neyman–Pearson approach controls one error and then optimises the other (Neyman and Pearson, 1933). The [type I error](type-i-and-type-ii-errors.qmd) is rejecting $H_0$ when $H_0$ is true. The type II error is failing to reject $H_0$ when the alternative is true. Fix a [significance level](significance-level.qmd) $\alpha$. Among [critical regions](critical-region.qmd) with type I error at most $\alpha$, choose one that minimises the type II error at the alternative of interest. That choice maximises power.
 
-For a simple null $\theta=\theta_0$ against a simple alternative $\theta=\theta_1$, the region rejects when the [likelihood](likelihood-function.qmd) ratio $L(\theta_0)/L(\theta_1)$ is small enough that the type I error equals $\alpha$. The sample is then much more probable under $\theta_1$ than under $\theta_0$. This is the [Neyman–Pearson lemma](neyman-pearson-lemma.qmd). On a discrete distribution the size $\alpha$ may be unattainable unless the test randomises on the boundary where the ratio equals its threshold.
+For a simple null $\theta=\theta_0$ against a simple alternative $\theta=\theta_1$, the region rejects when the [likelihood](likelihood-function.qmd) ratio $L(\theta_0)/L(\theta_1)$ is small enough that the type I error equals $\alpha$. The sample is then at least as probable under $\theta_1$, relative to $\theta_0$, as the likelihood-ratio threshold requires (though for a nearby alternative that ratio need only be slightly below $1$). This is the [Neyman–Pearson lemma](neyman-pearson-lemma.qmd). On a discrete distribution the size $\alpha$ may be unattainable unless the test randomises on the boundary where the ratio equals its threshold.
 
 ## Known normal variance
 
@@ -2804,14 +2806,14 @@ $$
 F=\frac{n-p}{p(n-1)}\,T^2
 $$
 
-has an $F$ distribution on $(p,\, n-p)$ degrees of freedom. The factor $(n-p)/(n-1)$ is the adjustment that turns the ratio of a normal mean and an independent [Wishart](wishart-distribution.qmd) matrix into exactly this $F$ law. Reject the null at level $\alpha$ when $F$ exceeds the upper $\alpha$ point of that law.
+has an $F$ distribution on $(p,\, n-p)$ degrees of freedom. The factor $(n-p)/\bigl(p(n-1)\bigr)$ is the adjustment that turns $T^2$, built from a normal mean and an independent [Wishart](wishart-distribution.qmd) matrix, into exactly this $F$ law. Reject the null at level $\alpha$ when $F$ exceeds the upper $\alpha$ point of that law.
 
 ## A sample of size 20 in two dimensions
 
 Take $n=20$, $p=2$ and an observed $T^2=10$. Then
 
 $$
-F=\frac{18}{2\cdot 19}\cdot 10=\frac{90}{38}\approx 4.74.
+F=\frac{18}{2\cdot 19}\cdot 10=\frac{90}{19}\approx 4.74.
 $$
 
 The upper $5\%$ point of $F_{2,18}$ is $3.55$, and the tail probability beyond $4.74$ is about $0.022$. The test rejects at level $5\%$. The same $T^2$ is undefined when $S$ has no inverse, which is guaranteed if $p\ge n$ and can also happen, through collinearity, when $p<n$. Dropping normality keeps a large-sample chi-squared approximation for $T^2$ and removes the exact $F$ calibration. Using $A/n$ in place of $S$, without changing the critical value, changes the test.
@@ -2905,7 +2907,7 @@ and the moment is infinite when $\alpha\le p$. In particular the mean is $\alpha
 
 ## Shape $3/2$, mean $3$, and a large maximum
 
-Take $\alpha=3/2$. The mean is $(3/2)/(1/2)=3$, and $\mathbb{E}[X^{2}]=\infty$. Also $\mathbb{P}(X>100)=100^{-3/2}=1/1000$. In a sample of $n=1000$ one therefore expects about one observation beyond $100$, and the scale of the maximum is $n^{1/\alpha}=1000^{2/3}=100$. The normalised maximum $M_n/100$ converges in distribution to the Fréchet law with $\mathbb{P}(M\le 1)=e^{-1}\approx 0.368$. A typical single draw is of order $1$, since the median solves $x^{-3/2}=1/2$ and is only $2^{2/3}\approx 1.6$. One large value can exceed the bulk of the sample by two orders of magnitude. That is the extreme-value content of a [power-law tail](power-law-tails-and-the-frechet-law.qmd).
+Take $\alpha=3/2$. The mean is $(3/2)/(1/2)=3$, and $\mathbb{E}[X^{2}]=\infty$. Also $\mathbb{P}(X>100)=100^{-3/2}=1/1000$. In a sample of $n=1000$ one therefore expects about one observation beyond $100$, and the scaling constant of the maximum is $n^{1/\alpha}=1000^{2/3}=100$. As $n\to\infty$, the normalised maximum $M_n/n^{1/\alpha}$ converges in distribution to the Fréchet law ($\mathbb{P}(M\le x)=\exp(-x^{-\alpha})$ for $x>0$, which equals $e^{-1}\approx 0.368$ at $x=1$), giving the approximation for $M_n/100$ at $n=1000$. A typical single draw is of order $1$, since the median solves $x^{-3/2}=1/2$ and is only $2^{2/3}\approx 1.6$. One large value can exceed the bulk of the sample by two orders of magnitude. That is the extreme-value content of a [power-law tail](power-law-tails-and-the-frechet-law.qmd).
 """,
     "partial-autocorrelation": r"""
 ## Correlation left after the lags in between
@@ -2914,7 +2916,7 @@ The autocorrelation at lag $k$ mixes every route by which $X_t$ can depend on $X
 
 ## A cutoff that names the autoregressive order
 
-An autoregression of order $p$ has $\phi_{kk}=0$ for every $k>p$. Once the $p$ neighbouring lags are accounted for, nothing remains for an older lag to explain. The series $X_t=0.6X_{t-1}+\varepsilon_t$, with $\varepsilon_t$ white noise, has autocorrelations $0.6$, $0.36$ and $0.22$ at lags $1$, $2$ and $3$, but partial autocorrelations $0.6$, $0$ and $0$. The autocorrelation decays. The partial autocorrelation stops. A moving average of order $1$ does the opposite: its autocorrelation is zero after lag $1$, and its partial autocorrelation tails off. With coefficient $0.5$ on the lagged innovation, the lag-$1$ autocorrelation equals $0.5/(1+0.5^2)=0.4$ and every longer autocorrelation is $0$. A seasonal series breaks both tidy cutoffs. The partial autocorrelation keeps a spike at multiples of the period, which is a reason to model the season rather than to fit an autoregression of huge order.
+An autoregression of order $p$ has $\phi_{kk}=0$ for every $k>p$. Once the $p$ neighbouring lags are accounted for, nothing remains for an older lag to explain. The series $X_t=0.6X_{t-1}+\varepsilon_t$, with $\varepsilon_t$ white noise, has autocorrelations $0.6$, $0.36$ and $0.22$ at lags $1$, $2$ and $3$, but partial autocorrelations $0.6$, $0$ and $0$. The autocorrelation decays. The partial autocorrelation stops. A moving average of order $1$ does the opposite: its autocorrelation is zero after lag $1$, and its partial autocorrelation tails off. With coefficient $0.5$ on the lagged innovation, the lag-$1$ autocorrelation equals $0.5/(1+0.5^2)=0.4$ and every longer autocorrelation is $0$. A seasonal series need not obey either short-lag cutoff: a seasonal moving average keeps partial-autocorrelation spikes at multiples of the period, whereas a seasonal autoregression cuts the partial autocorrelation off after the seasonal lag while its autocorrelation tails off at those multiples—either pattern is a reason to model the season rather than fit an ordinary autoregression of huge order.
 """,
     "partial-correlation": r"""
 ## Association after a linear adjustment
@@ -2981,7 +2983,7 @@ For an iid sample the whole data vector is sufficient, and its dimension grows w
 
 ## The uniform maximum uses a moving support
 
-Remove the support restriction and the characterisation no longer holds. For iid observations from the [uniform distribution](uniform-distribution.qmd) on $(0, \theta)$, the maximum $X_{(n)}$ is sufficient for every $n$ and has dimension one. The density equals $\theta^{-1}$ on $(0, \theta)$ and equals zero outside that interval, so the set of possible observations changes with $\theta$. Sufficiency of the maximum uses the indicator of that moving support. It is not the regular form $b(x)\exp\{c(\theta) T(x)\}/a(\theta)$ with $b$ free of $\theta$ and with a common support. A one-dimensional sufficient statistic is therefore not, by itself, a reason to expect a conjugate prior with a fixed finite number of hyperparameters.
+Remove the support restriction and the characterisation no longer holds. For iid observations from the [uniform distribution](uniform-distribution.qmd) on $(0, \theta)$, the maximum $X_{(n)}$ is sufficient for every $n$ and has dimension one. The density equals $\theta^{-1}$ on $(0, \theta)$ and equals zero outside that interval, so the set of possible observations changes with $\theta$. Sufficiency of the maximum uses the indicator of that moving support. It is not the regular form $b(x)\exp\{c(\theta) T(x)\}/a(\theta)$ with $b$ free of $\theta$ and with a common support. A one-dimensional sufficient statistic is therefore not, by itself, the regular exponential-family conjugate update that adds a sum of natural statistics: $\operatorname{Uniform}(0,\theta)$ still admits a conjugate two-parameter Pareto prior, updated by replacing its lower bound with $\max(x_m,X_{(n)})$ and adding $n$ to its shape.
 """,
     "point-forecast": r"""
 ## The conditional mean at a stated horizon
@@ -3020,7 +3022,7 @@ Claims, collisions, organisms and failures are counts: non-negative integers. Th
 
 ## Exposure, and variance that outgrows the mean
 
-Equal counts are not equal rates. If unit $i$ is observed for an exposure $t_i$, the offset form $\log\mu_i=\mathbf{x}_i^\top\boldsymbol{\beta}+\log t_i$ makes $\exp(\mathbf{x}_i^\top\boldsymbol{\beta})$ a rate per unit of exposure. Three events in two years and six events in ten years are rates $1.5$ and $0.6$ per year. Omitting $\log t_i$ pretends that every unit was observed for the same time. [Overdispersion](overdispersion.qmd) is the separate failure $\operatorname{Var}(Y_i)>\mu_i$. A dispersion ratio of $4$ leaves the log-link point estimates unchanged, because the dispersion factors out of the score, and it multiplies standard errors by $2$. A $z$ statistic of $2.4$ becomes $1.2$ and is no longer evidence against a zero coefficient. A ratio below $1$, underdispersion, occurs as well. A quasi-Poisson variance $\phi\mu$ repairs the standard errors. It does not by itself supply a distribution from which to simulate a new count.
+Equal counts are not equal rates. If unit $i$ is observed for an exposure $t_i$, the offset form $\log\mu_i=\mathbf{x}_i^\top\boldsymbol{\beta}+\log t_i$ makes $\exp(\mathbf{x}_i^\top\boldsymbol{\beta})$ a rate per unit of exposure. Three events in two years and six events in ten years are rates $1.5$ and $0.6$ per year. Omitting $\log t_i$ pretends that every unit was observed for the same time. [Overdispersion](overdispersion.qmd) is the separate failure $\operatorname{Var}(Y_i\mid\mathbf{x}_i)>\mu_i$. A dispersion ratio of $4$ leaves the log-link point estimates unchanged, because the dispersion factors out of the score, and it multiplies standard errors by $2$. A $z$ statistic of $2.4$ becomes $1.2$ and is no longer evidence against a zero coefficient. A ratio below $1$, underdispersion, occurs as well. A quasi-Poisson variance $\phi\mu$ repairs the standard errors. It does not by itself supply a distribution from which to simulate a new count.
 """,
     "polynomial-kernel": r"""
 ## Monomials, written as one inner product
@@ -3071,19 +3073,19 @@ Class $1$ remains more probable even though class $2$ is four times as dense at 
     "posterior-median": r"""
 ## Absolute error and the posterior split
 
-Absolute error treats an overestimate and an underestimate of the same size as equally bad. For a scalar parameter $\theta$, a decision $d$ is scored by $|\theta - d|$, and the Bayes action minimises the posterior expected absolute loss $\rho(d) = \mathbb{E}[|\theta - d| \mid x]$. When the posterior distribution function $F_{\theta\mid x}$ is continuous, split the integral at $d$. Differentiating under the integral sign, the Leibniz boundary terms cancel and
+Absolute error treats an overestimate and an underestimate of the same size as equally bad. For a scalar parameter $\theta$, a decision $d$ is scored by $|\theta - d|$, and the Bayes action minimises the posterior expected absolute loss $\rho(d) = \mathbb{E}[|\theta - d| \mid x]$. When $\mathbb{E}[|\theta| \mid x]$ is finite and the posterior distribution function $F_{\theta\mid x}$ is continuous, split the integral at $d$. Differentiating under the integral sign, the Leibniz boundary terms cancel and
 
 $$
 \rho'(d) = 2F_{\theta\mid x}(d) - 1.
 $$
 
-The slope is negative while less than half the posterior mass lies at or below $d$, and positive while more than half lies there, so a minimiser satisfies $F_{\theta\mid x}(m) = \tfrac12$. With atoms, zero lies in the subgradient precisely when $\mathbb{P}(\theta \le m \mid x) \ge \tfrac12$ and $\mathbb{P}(\theta \ge m \mid x) \ge \tfrac12$. Mass on the left pulls the action up and mass on the right pulls it down.
+The slope is negative while less than half the posterior mass lies at or below $d$, and positive while more than half lies there, so a minimiser satisfies $F_{\theta\mid x}(m) = \tfrac12$. With atoms, zero lies in the subgradient precisely when $\mathbb{P}(\theta \le m \mid x) \ge \tfrac12$ and $\mathbb{P}(\theta \ge m \mid x) \ge \tfrac12$. Mass on the left pulls the action down and mass on the right pulls it up. Under absolute-error loss, that minimiser is a posterior median.{{cite:lehmann_casella1998,gelman_bda2013}}
 
 ## Monotone reparameterisation, with a Beta comparison
 
-Let $\phi$ be strictly monotone. If $\phi$ increases, then $\{\phi(\theta) \le \phi(m)\}$ coincides with $\{\theta \le m\}$, and likewise for the upper tail, so $\phi(m)$ is a posterior median of $\phi(\theta)$. If $\phi$ decreases, the tails exchange and both inequalities persist. The [posterior mean](posterior-mean.qmd) does not travel with $\phi$: $\mathbb{E}[\phi(\theta) \mid x]$ equals $\phi(\mathbb{E}[\theta \mid x])$ only for affine $\phi$. A [maximum a posteriori estimate](maximum-a-posteriori-estimate.qmd) fails as well, because the density of $\psi = \phi(\theta)$ is multiplied by the Jacobian $|\mathrm{d}\theta/\mathrm{d}\psi|$, which can move the mode.
+Let $\phi$ be strictly monotone. If $\phi$ increases, then $\{\phi(\theta) \le \phi(m)\}$ coincides with $\{\theta \le m\}$, and likewise for the upper tail, so $\phi(m)$ is a posterior median of $\phi(\theta)$. If $\phi$ decreases, the tails exchange and both inequalities persist. The [posterior mean](posterior-mean.qmd) does not travel with $\phi$: $\mathbb{E}[\phi(\theta) \mid x]$ equals $\phi(\mathbb{E}[\theta \mid x])$ for every posterior when $\phi$ is affine, and can fail when $\phi$ is not. A [maximum a posteriori estimate](maximum-a-posteriori-estimate.qmd) fails as well, because the density of $\psi = \phi(\theta)$ is multiplied by the Jacobian $|\mathrm{d}\theta/\mathrm{d}\psi|$, which can move the mode.
 
-For a skewed $\operatorname{Beta}(3, 9)$ posterior the mean is $3/12 = 0.25$, the mode is $(3-1)/(3+9-2) = 0.20$, and the median is approximately $0.236$. On the odds scale $\phi(\theta) = \theta/(1-\theta)$, the median transforms to $\phi(0.236) \approx 0.308$. By contrast, the posterior odds have an inverse-beta (Beta prime) density proportional to $\phi^{2}/(1+\phi)^{12}$: their mean is $3/(9-1) = 0.375 \neq \phi(0.25) = 1/3$, and their mode is $2/(9+1) = 0.20 \neq \phi(0.20) = 0.25$.
+For a skewed $\operatorname{Beta}(3, 9)$ posterior the mean is $3/12 = 0.25$, the mode is $(3-1)/(3+9-2) = 0.20$, and the median is approximately $0.236$. On the odds scale $\phi(\theta) = \theta/(1-\theta)$, the median transforms to $\phi(0.236) \approx 0.309$. By contrast, the posterior odds have an inverse-beta (Beta prime) density proportional to $\phi^{2}/(1+\phi)^{12}$: their mean is $3/(9-1) = 0.375 \neq \phi(0.25) = 1/3$, and their mode is $2/(9+1) = 0.20 \neq \phi(0.20) = 0.25$.
 """,
     "posterior-membership": r"""
 ## A soft label for an unobserved component
@@ -3113,7 +3115,7 @@ A point with $\tau_1=1/2$ is split evenly. The same weights, applied to squared 
 
 If a tail is regularly varying, enlarging the sample does not merely shift the maximum by a few units. It multiplies the scale of the maximum by a power of the sample size. The Fréchet law is the limit after that scaling, and it is supported on the positive half-line.
 
-Suppose $\mathbb{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, and let $M_n$ be the maximum of $n$ independent copies. Set $a_n=n^{1/\alpha}$ and $b_n=0$. For every $x>0$,
+Suppose $\mathbb{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, and let $M_n$ be the maximum of $n$ independent copies. Set $a_n=n^{1/\alpha}$ and $b_n=0$. For every $x>0$ and $n$ large enough that $n^{1/\alpha}x\ge 1$,
 
 $$
 \mathbb{P}(M_n/a_n\le x)
@@ -3125,7 +3127,7 @@ The limit is the Fréchet distribution function $\Phi_{\alpha}$. Its own upper t
 
 ## Against a typical observation, and against a logarithm
 
-Take $\alpha=2$ and $n=10000$, so $a_n=100$. The median of $\Phi_{2}$ solves $x^{-2}=\log 2$, hence $x=(\log 2)^{-1/2}\approx 1.20$. The median of $M_n$ is near $120$. A single observation from this Pareto law has median $\sqrt{2}\approx 1.41$. The maximum is about two orders of magnitude larger than a typical draw. By contrast, the maximum of $10000$ unit exponential variables sits near $\log 10000\approx 9.2$, a shift of logarithmic order rather than a multiplication by $100$. That contrast is why heavy tails and [exponential tails](exponential-tails-and-the-gumbel-law.qmd) belong to different families in the [extreme-value classification](extreme-value-classification.qmd) (Fréchet, 1927).
+Take $\alpha=2$ and $n=10000$, so $a_n=100$. The median of $\Phi_{2}$ solves $x^{-2}=\log 2$, hence $x=(\log 2)^{-1/2}\approx 1.20$. The median of $M_n$ is near $120$. A single observation from this Pareto law has median $\sqrt{2}\approx 1.41$. The maximum is about two orders of magnitude larger than a typical draw. By contrast, the maximum of $10000$ unit exponential variables has median near $\log 10000-\log(\log 2)\approx 9.58$, a shift of logarithmic order rather than a multiplication by $100$. That contrast is why heavy tails and [exponential tails](exponential-tails-and-the-gumbel-law.qmd) belong to different families in the [extreme-value classification](extreme-value-classification.qmd) (Fréchet, 1927).
 """,
     "precision-matrix": r"""
 ## The inverse covariance as a conditional parameter
@@ -3140,12 +3142,12 @@ $$
 K=\begin{pmatrix}1&-1/2&0\\-1/2&1&-1/2\\0&-1/2&1\end{pmatrix}
 $$
 
-the conditional variance of each end, given the other two coordinates, is $1/K_{11}=1$. The partial correlation of the two ends, given the middle, is zero because $K_{13}=0$. The partial correlation of coordinate $1$ with the middle, given the far end, is $-K_{12}/\sqrt{K_{11}K_{22}}=1/2$. The inverse of this $K$ has a nonzero $(1,3)$ entry, so the ends are marginally correlated. Estimating $K$ by inverting a sample covariance is available when that sample covariance is positive definite. When $p$ is large relative to $n$, the sample covariance is singular, the inverse does not exist, and a constrained or penalised precision is a different estimator.
+the conditional variance of each end, given the other two coordinates, is $1/K_{11}=1$. The partial correlation of the two ends, given the middle, is zero because $K_{13}=0$. The partial correlation of coordinate $1$ with the middle, given the far end, is $-K_{12}/\sqrt{K_{11}K_{22}}=1/2$. The inverse of this $K$ has a nonzero $(1,3)$ entry, so the ends are marginally correlated. Estimating $K$ by inverting a sample covariance is available when that sample covariance is positive definite. When $p\ge n$, the centred sample covariance is singular, the inverse does not exist, and a constrained or penalised precision is a different estimator.
 """,
     "predictive-variance-decomposition": r"""
 ## Separate noise from doubt about the parameter
 
-Predicting a new observation $\widetilde{X}$ is not the same task as estimating $\theta$. Assume $\widetilde{X}$ is conditionally independent of the sample $x$ given $\theta$, so $p(\widetilde{X} \mid \theta, x) = p(\widetilde{X} \mid \theta)$. Write $m(\theta) = \mathbb{E}[\widetilde{X} \mid \theta]$ and $v(\theta) = \operatorname{Var}(\widetilde{X} \mid \theta)$, with $v(\theta)$ finite. The [tower property](tower-property.qmd) gives $\mathbb{E}[\widetilde{X} \mid x] = \mathbb{E}[m(\theta) \mid x]$. Split the centred new observation as
+Predicting a new observation $\widetilde{X}$ is not the same task as estimating $\theta$. Assume $\widetilde{X}$ is conditionally independent of the sample $x$ given $\theta$, so $p(\widetilde{X} \mid \theta, x) = p(\widetilde{X} \mid \theta)$. Write $m(\theta) = \mathbb{E}[\widetilde{X} \mid \theta]$ and $v(\theta) = \operatorname{Var}(\widetilde{X} \mid \theta)$, with $\mathbb{E}[v(\theta) \mid x]$ and $\mathbb{E}[m(\theta)^2 \mid x]$ finite. The [tower property](tower-property.qmd) gives $\mathbb{E}[\widetilde{X} \mid x] = \mathbb{E}[m(\theta) \mid x]$. Split the centred new observation as
 
 $$
 \widetilde{X} - \mathbb{E}[\widetilde{X} \mid x] = \{\widetilde{X} - m(\theta)\} + \{m(\theta) - \mathbb{E}[m(\theta) \mid x]\}.
@@ -3191,7 +3193,7 @@ $$
 S=\begin{pmatrix}4&0\\0&1\end{pmatrix},
 $$
 
-then $\mathbf{a}_1=(1,0)^\top$, $\lambda_1=4$, $\mathbf{a}_2=(0,1)^\top$ and $\lambda_2=1$. The first score of a centred point $(x_1,x_2)$ is $x_1$, and the rank-1 reconstruction is $(x_1,0)$. The fraction of total sample variance on the first component is $4/(4+1)=0.8$. Leaving the data uncentred lets the leading direction point from the origin towards the mean. Spread is what the centred matrix measures. The vectors $\mathbf{a}_j$ are the loadings of the covariance principal components. Changing the unit of one coordinate changes $S$ and can change the leading direction; standardising the columns is a separate choice of metric.
+then $\mathbf{a}_1=(1,0)^\top$, $\lambda_1=4$, $\mathbf{a}_2=(0,1)^\top$ and $\lambda_2=1$. The first score of a centred point $(x_1,x_2)$ is $x_1$, and the rank-1 reconstruction is $(x_1,0)$. The fraction of total sample variance on the first component is $4/(4+1)=0.8$. Leaving the data uncentred lets the leading axis fall along the line from the origin through the mean. Spread is what the centred matrix measures. The vectors $\mathbf{a}_j$ are the loadings of the covariance principal components. Changing the unit of one coordinate changes $S$ and can change the leading direction; standardising the columns is a separate choice of metric.
 """,
     "prior-odds": r"""
 ## Model probabilities before the sample arrives
@@ -3273,7 +3275,7 @@ The intercept $\theta_k$ may change with the threshold. The coefficient vector $
 
 ## Intercepts that have to respect the order
 
-Take $\theta_2=-0.2$, $\theta_3=-1$, a single slope $\beta=0.5$ and a covariate $x=1$. The two linear predictors are $0.3$ and $-0.5$. The cumulative probabilities are about $0.74$ and $0.46$, so $\gamma_2>\gamma_3$, as a cumulative probability must. The hazard ratio is $\exp(0.5)\approx 1.65$ both for "at least category $2$" and for "at least category $3$". Swapping the intercepts would make the fitted probability increase as the threshold got harder, which is impossible rather than merely a poor fit. The common slope is the other restriction. It says the covariate shifts every threshold by the same amount on the complementary log-log scale. When a covariate matters for severe outcomes and not for mild ones, that single hazard ratio summarises a contrast the categories do not share.
+Take $\theta_2=-0.2$, $\theta_3=-1$, a single slope $\beta=0.5$ and a covariate $x=1$. The two linear predictors are $0.3$ and $-0.5$. The cumulative probabilities are about $0.74$ and $0.45$, so $\gamma_2>\gamma_3$, as a cumulative probability must. The hazard ratio is $\exp(0.5)\approx 1.65$ both for "at least category $2$" and for "at least category $3$". Swapping the intercepts would make the fitted probability increase as the threshold got harder, which is impossible rather than merely a poor fit. The common slope is the other restriction. It says the covariate shifts every threshold by the same amount on the complementary log-log scale. When a covariate matters for severe outcomes and not for mild ones, that single hazard ratio summarises a contrast the categories do not share.
 """,
     "r-s-distribution-interface": r"""
 ## Four prefixes for four different questions
@@ -3323,18 +3325,18 @@ The seed is not itself a source of randomness. If $a$, $c$ and $m$ are known, th
 
 ## Two seeds, one cycle
 
-Take $a=5$, $c=1$ and $m=8$, a generator of full period $8$. Seed $1$ produces the states $1,6,7,4,5,2,3,0$, and then returns to $1$. Seed $3$ produces $3,0,1,6,7,4,5,2$, and then returns to $3$. The second list is the first list, entered two steps later. On a full-period generator every seed in $\{0,1,\ldots,m-1\}$ is a different starting index on one loop. Two seeds give shifted copies of one sequence, not independent streams.
+Take $a=5$, $c=1$ and $m=8$, a generator of full period $8$. Seed $1$ produces the states $1,6,7,4,5,2,3,0$, and then returns to $1$. Seed $3$ produces $3,0,1,6,7,4,5,2$, and then returns to $3$. The second list is the first list, entered two steps earlier. On a full-period generator every seed in $\{0,1,\ldots,m-1\}$ is a different starting index on one loop. Two seeds give shifted copies of one sequence, not independent streams.
 """,
     "random-variable": r"""
 ## A number attached to each outcome
 
 Probabilities are defined on events. Most calculations are about numbers: a count, a lifetime, a sample mean. A random variable is the function that turns an outcome into the number. Let $\Omega$ be the [sample space](sample-space.qmd), the set of outcomes $\omega$. A random variable is a function $X$ from $\Omega$ to $\mathbb{R}$. For each real $x$ the set $\{\omega:X(\omega)\le x\}$ must be an [event](event.qmd), so that $\mathbb{P}(X\le x)$ is defined. That requirement is what lets a distribution function exist. The randomness sits in which outcome occurs. The function $X$ itself is fixed. Once $\omega$ is known, $X(\omega)$ is an ordinary number.
 
-If $g$ is a real function, $g(X)$ is again a random variable. Two random variables on the same $\Omega$ are functions of the same outcome, so they can move together.
+If $g$ is a measurable real function, $g(X)$ is again a random variable. Two random variables on the same $\Omega$ are functions of the same outcome, so they can move together.
 
 ## Heads in two tosses
 
-Toss a fair coin twice, independently. Then $\Omega=\{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$, and each outcome has probability $1/4$. Let $X$ be the number of heads: $X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$ and $X(\mathrm{TT})=0$. The event $\{X=1\}$ equals $\{\mathrm{HT},\mathrm{TH}\}$ and has probability $1/2$. The event $\{X\le 1\}$ equals $\{\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$ and has probability $3/4$. The expectation is $\mathbb{E} X=0\cdot\tfrac14+1\cdot\tfrac12+2\cdot\tfrac14=1$. The indicator of heads on the first toss is another random variable on this $\Omega$. It equals $1$ on $\{\mathrm{HH},\mathrm{HT}\}$ and $0$ otherwise, and it is dependent with $X$ because both are functions of the same two tosses.
+Toss a fair coin twice, independently. Then $\Omega=\{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$, and each outcome has probability $1/4$. Let $X$ be the number of heads: $X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$ and $X(\mathrm{TT})=0$. The event $\{X=1\}$ equals $\{\mathrm{HT},\mathrm{TH}\}$ and has probability $1/2$. The event $\{X\le 1\}$ equals $\{\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$ and has probability $3/4$. The expectation is $\mathbb{E} X=0\cdot\tfrac14+1\cdot\tfrac12+2\cdot\tfrac14=1$. The indicator $I$ of heads on the first toss equals $1$ on $\{\mathrm{HH},\mathrm{HT}\}$ and $0$ otherwise: it is dependent with $X$ because $\mathbb{P}(I=1,X=2)=1/4\neq\mathbb{P}(I=1)\mathbb{P}(X=2)=1/8$, whereas the indicator of the second toss is a function on the same $\Omega$ that remains independent of $I$.
 """,
     "range": r"""
 ## A spread that uses only the two extremes
@@ -3358,7 +3360,7 @@ Hence $S$ can be invertible only when $p\le n-1$ and the centred rows actually s
 
 ## What fails when the bound is tight
 
-Three observations on five variables give $\operatorname{rank}(S)\le 2$. At least three eigenvalues of $S$ are zero, and $S^{-1}$ does not exist. A [squared Mahalanobis distance](squared-mahalanobis-distance.qmd), Hotelling's $T^2$, and an unregularised Gaussian discriminant rule all ask for that inverse. The Gaussian likelihood at a positive-definite population covariance is still defined. What fails is the unrestricted maximiser over covariance matrices: it is not positive definite. Centring $G$ nonempty groups, as in a [pooled covariance](pooled-covariance.qmd), spends one dimension per group and leaves rank at most $n-G$. For $n=100$ and $G=2$ the pooled matrix has rank at most $98$. In cross-validation the same bounds apply to each training fold, whose row count is smaller than $n$. A ridge penalty or a pseudoinverse changes the procedure; it does not restore an inverse that the rank forbids.
+Three observations on five variables give $\operatorname{rank}(S)\le 2$. At least three eigenvalues of $S$ are zero, and $S^{-1}$ does not exist. A [squared Mahalanobis distance](squared-mahalanobis-distance.qmd), Hotelling's $T^2$, and an unregularised Gaussian discriminant rule all ask for that inverse. The Gaussian likelihood at a positive-definite population covariance is still defined. What fails is the unrestricted maximiser over positive-definite covariance matrices: the likelihood is unbounded above, so no maximiser exists. Centring $G$ nonempty groups, as in a [pooled covariance](pooled-covariance.qmd), spends one dimension per group and leaves rank at most $n-G$. For $n=100$ and $G=2$ the pooled matrix has rank at most $98$. In cross-validation the same bounds apply to each training fold, whose row count is smaller than $n$. A ridge penalty or a pseudoinverse changes the procedure; it does not restore an inverse that the rank forbids.
 """,
     "rank-distance": r"""
 ## Order, with the spacing thrown away
@@ -3406,7 +3408,7 @@ $$
 \widehat\beta_1=\frac{S_{xY}}{S_{xx}},\qquad\widehat\beta_0=\overline Y-\widehat\beta_1\overline x,
 $$
 
-provided $S_{xx}>0$. If every $x_i$ is equal, then $S_{xx}=0$ and the data contain no information about a change in $x$. The fitted slope is a slope on the scale that was actually used. A fit of $\log Y$ on $x$ estimates a change in the mean of the logarithm, which is a multiplicative change in $Y$ only after transforming back.
+provided $S_{xx}>0$. If every $x_i$ is equal, then $S_{xx}=0$ and the data contain no information about a change in $x$. The fitted slope is a slope on the scale that was actually used. A fit of $\log Y$ on $x$ estimates a change in the mean of the logarithm; exponentiating multiplies the conditional geometric mean of $Y$, and multiplies $\mathbb{E}[Y\mid x]$ only when the mean of the exponentiated error does not depend on $x$.
 
 ## Three points, and the regression the other way
 
@@ -3491,7 +3493,7 @@ Hotelling's $T^2$ is a quadratic form in $\overline{\mathbf{X}}-\boldsymbol{\mu}
     "scaling": r"""
 ## Units that rewrite the covariance
 
-Covariance principal components maximise sample variance. Variance depends on the unit of measurement. A height recorded in metres with variance $0.01$ has variance $10$ if the same heights are written in centimetres, because each deviation is multiplied by $100$ and the square multiplies by $10^4$. A weight recorded in kilograms with variance $100$ then dominates the leading component when height is in metres, and it need not dominate when height is in centimetres. The physical cloud is the same. The matrix $S$ is not. Standardising each nonconstant column to sample variance $1$ produces correlation principal components. Each standardised coordinate is offered to the variance criterion on the same scale.
+Covariance principal components maximise sample variance. Variance depends on the unit of measurement. A height recorded in metres with variance $0.01$ has variance $100$ if the same heights are written in centimetres, because each deviation is multiplied by $100$ and the square multiplies by $10^4$. A weight recorded in kilograms with variance $100$ then dominates the leading component when height is in metres, and it need not dominate when height is in centimetres. The physical cloud is the same. The matrix $S$ is not. Standardising each nonconstant column to sample variance $1$ produces correlation principal components. Each standardised coordinate is offered to the variance criterion on the same scale.
 
 ## The training location and scale travel with the rule
 
@@ -3528,7 +3530,7 @@ the proportion of truly positive cases that the classifier labels positive. Spec
 
 ## The same rates at a new prevalence
 
-Keep sensitivity $0.80$ and specificity $0.90$, and change the population to $10$ diseased cases and $190$ healthy cases. The expected counts are $8$ true positives and $19$ false positives, so the positive predictive value is $8/(8+19)=8/27\approx 0.296$. At prevalence $1/2$, with $100$ cases of each kind, the same rates give $80$ true positives and $10$ false positives, and the predictive value is $80/90\approx 0.889$. A threshold on a continuous score moves the two rates in opposite directions. With diseased scores $0.2,0.6,0.8$ and healthy scores $0.1,0.3,0.4$, a threshold of $0.5$ has sensitivity $2/3$ and specificity $1$. A threshold of $0.25$ has sensitivity $1$ and specificity $1/3$.
+Keep sensitivity $0.80$ and specificity $0.90$, and change the population to $10$ diseased cases and $190$ healthy cases. The expected counts are $8$ true positives and $19$ false positives, so the positive predictive value is $8/(8+19)=8/27\approx 0.296$. At prevalence $1/2$, with $100$ cases of each kind, the same rates give $80$ true positives and $10$ false positives, and the predictive value is $80/90\approx 0.889$. A threshold on a continuous score moves the two rates in opposite directions. With diseased scores $0.2,0.6,0.8$ and healthy scores $0.1,0.3,0.4$, calling scores at or above the cut positive gives sensitivity $2/3$ and specificity $1$ at threshold $0.5$, and sensitivity $1$ and specificity $1/3$ at threshold $0.2$.
 """,
     "sequential-coherence": r"""
 ## The posterior after one batch is the next prior
@@ -3543,7 +3545,7 @@ Coherence requires that this posterior be used as the prior for the next batch. 
 
 ## Order does not matter; replacing the prior does
 
-Given $\theta$, independent batches multiply, and addition of the success and failure counts does not depend on which batch is processed first. The further content of sequential coherence is that the analyst must not invent a fresh prior after seeing the first batch. Replacing $\operatorname{Beta}(\alpha+x_1, \beta+n_1-x_1)$ by some other distribution, because that batch was surprising, yields a final posterior that no single prior together with the pooled likelihood can justify. The identity also fails when the batches are not conditionally independent given $\theta$, because the second factor is then not the ordinary binomial likelihood $p(x_2 \mid \theta)$.
+Given $\theta$, independent batches multiply, and addition of the success and failure counts does not depend on which batch is processed first. The further content of sequential coherence is that the analyst must not invent a fresh prior after seeing the first batch. Replacing $\operatorname{Beta}(\alpha+x_1, \beta+n_1-x_1)$ by some other distribution, because that batch was surprising, yields a final posterior that does not come from updating the prior declared before the data (even if it coincides with the pooled update of a different prior chosen after seeing batch $1$). The identity also fails when the batches are not conditionally independent given $\theta$, because the second factor is then not the ordinary binomial likelihood $p(x_2 \mid \theta)$.
 """,
     "sigmoid-function": r"""
 ## A smooth step from the real line onto $(0,1)$
@@ -3566,12 +3568,12 @@ Once $|z|$ is large the output has nearly settled and the derivative is small, s
 
 ## The one-layer case is logistic regression
 
-With no hidden layer, a single sigmoid output $o=g(w^\top x+b)$ is the mean function of [binary logistic regression](binary-logistic-regression.qmd), and $w^\top x+b$ is the log-odds. Fitting by Bernoulli likelihood uses the gradient $(o-y)x$, in which the factor $g'(z)$ has cancelled. Fitting by squared error keeps a factor $o(1-o)$. The two criteria share the sigmoid and differ in the loss. A hidden layer places further sigmoids between the input and this output, and the same derivative $g(1-g)$ is the local factor that backpropagation carries. Any other smooth step with the same qualitative shape can replace $g$ in a network; the logistic choice is the one whose derivative is $g(1-g)$ and whose one-layer likelihood is the logistic likelihood.
+With no hidden layer, a single sigmoid output $o=g(w^\top x+b)$ is the mean function of [binary logistic regression](binary-logistic-regression.qmd), and $w^\top x+b$ is the log-odds. Fitting by the Bernoulli negative log-likelihood uses the gradient $(o-y)x$, in which the factor $g'(z)$ has cancelled. Fitting by squared error keeps a factor $o(1-o)$. The two criteria share the sigmoid and differ in the loss. A hidden layer places further sigmoids between the input and this output, and the same derivative $g(1-g)$ is the local factor that backpropagation carries. Any other smooth step with the same qualitative shape can replace $g$ in a network; the logistic choice is the one whose derivative is $g(1-g)$ and whose one-layer likelihood is the logistic likelihood.
 """,
     "sign-test": r"""
 ## A binomial count of directions
 
-Paired measurements $(X_i,Y_i)$, $i=1,\ldots,n$, need not have normal differences. Let $D_i=Y_i-X_i$ and let $N$ be the number of pairs with $D_i>0$, after ties $D_i=0$ are discarded and $n$ is reduced to the number of untied pairs. The null hypothesis $\mathbb{P}(D_i>0)=1/2$, for continuous independent differences, says that the median of $D_i$ is $0$. It does not say that the mean of $D_i$ is $0$. A skewed continuous law can have median $0$ and a nonzero mean, and a law with no mean at all can still have median $0$. Under the null, $N\sim\operatorname{Bin}(n,1/2)$, so the test is a [binomial test](binomial-test.qmd) at $p=1/2$. Large $N$ is evidence that positive differences predominate. The statistic ignores the sizes of the differences. A [paired $t$ test](paired-samples.qmd) on the same differences assumes a normal mean and uses the magnitudes. When that assumption is right, the $t$ test is more powerful. One huge outlier moves the $t$ statistic sharply and moves the sign count by one pair. Coarse measurements produce many ties, and discarding them shrinks $n$.
+Paired measurements $(X_i,Y_i)$, $i=1,\ldots,n$, need not have normal differences. Let $D_i=Y_i-X_i$ and let $N$ be the number of pairs with $D_i>0$, after ties $D_i=0$ are discarded and $n$ is reduced to the number of untied pairs. The null hypothesis $\mathbb{P}(D_i>0)=1/2$, for continuous independent differences, says that the median of $D_i$ is $0$. It does not say that the mean of $D_i$ is $0$. A skewed continuous law can have median $0$ and a nonzero mean, and a law with no mean at all can still have median $0$. Under the null, $N\sim\operatorname{Bin}(n,1/2)$, so the test is a [binomial test](binomial-test.qmd) at $p=1/2$. Large $N$ is evidence that positive differences predominate. The statistic ignores the sizes of the differences. A [paired $t$ test](paired-samples.qmd) on the same differences assumes normal differences and uses the magnitudes to test the mean. When that assumption is right, the $t$ test is more powerful. One huge outlier moves the $t$ statistic sharply and moves the sign count by one pair. Coarse measurements produce many ties, and discarding them shrinks $n$.
 
 ## Ten increases out of twelve
 
@@ -3620,7 +3622,7 @@ The first term keeps the slab $2/\|w\|$ wide. The second charges $C$ per unit of
 
 ## The cost $C$, and one feasible value
 
-Take a candidate with $\|w\|^2=0.4$ and a single shortfall $\xi=0.7$, and set $C=2$. Then $\Phi=0.2+2\cdot 0.7=1.6$. Raising $C$ puts more weight on removing shortfalls. Lowering $C$ puts more weight on a small $\|w\|$. For separable data, a large enough $C$ recovers a hard-margin solution. For inseparable data, no finite $C$ creates a separating hyperplane that is not there. In the dual, the same $C$ appears as an upper bound $0\le\alpha_i\le C$ on the multiplier of case $i$. Cases with $\alpha_i=0$ lie outside the slab or on its boundary and do not shape $w$. Cases with $\alpha_i=C$ lie inside the slab or on the wrong side. The numerical value of $C$ is selected on validation data, together with any rescaling of the inputs.
+Take a candidate with $\|w\|^2=0.4$ and a single shortfall $\xi=0.7$, and set $C=2$. Then $\Phi=0.2+2\cdot 0.7=1.6$. Raising $C$ puts more weight on removing shortfalls. Lowering $C$ puts more weight on a small $\|w\|$. For separable data, a large enough $C$ recovers a hard-margin solution. For inseparable data, no finite $C$ creates a separating hyperplane that is not there. In the dual, the same $C$ appears as an upper bound $0\le\alpha_i\le C$ on the multiplier of case $i$. Cases with $\alpha_i=0$ lie outside the slab or on its boundary and do not shape $w$. Cases with $\alpha_i=C$ have functional margin at most $1$—on the boundary of the slab, inside it, or on the wrong side. The numerical value of $C$ is selected on validation data, together with any rescaling of the inputs.
 """,
     "softmax-is-multinomial-logistic-regression": r"""
 ## Class probabilities from unrestricted scores
@@ -3656,7 +3658,7 @@ Both are functions of the same weights, and their gradients differ. Differentiat
 
 ## Saturation
 
-Take $y=1$, $o=0.9$ and a single input $x=1$. The likelihood gradient in the weight is $0.9-1=-0.1$. The squared-error gradient, including the conventional factor $2$ from the square, is $-2(1-0.9)\cdot 0.9\cdot 0.1=-0.018$. The extra factor $o(1-o)=0.09$ has shrunk the step. At $o=0.99$ that factor is $0.0099$, and a saturated unit barely moves under squared error even though the probability of the observed label is still $0.99$. The likelihood gradient at the same point is $0.99-1=-0.01$, small because the residual $o-y$ is small, and free of the second small factor. Through a [hidden layer](hidden-layer.qmd) the same distinction applies at the output: squared-error backpropagation carries $o(1-o)$ into every earlier weight, and the Bernoulli loss does not. The likelihood fit, with no hidden layer, is ordinary [logistic regression](binary-logistic-regression.qmd).
+Take $y=1$, $o=0.9$ and a single input $x=1$. The negative-log-likelihood gradient in the weight is $0.9-1=-0.1$. The squared-error gradient, including the conventional factor $2$ from the square, is $-2(1-0.9)\cdot 0.9\cdot 0.1=-0.018$. Relative to the negative-log-likelihood gradient, the factor $2o(1-o)=0.18$ has shrunk the step. At $o=0.99$, $o(1-o)=0.0099$ (so $2o(1-o)\approx 0.0198$), and a saturated unit barely moves under squared error even though the probability of the observed label is still $0.99$. The negative-log-likelihood gradient at the same point is $0.99-1=-0.01$, small because the residual $o-y$ is small, and free of the second small factor. Through a [hidden layer](hidden-layer.qmd) the same distinction applies at the output: squared-error backpropagation carries $o(1-o)$ into every earlier weight, and the Bernoulli loss does not. The likelihood fit, with no hidden layer, is ordinary [logistic regression](binary-logistic-regression.qmd).
 """,
     "squared-error-of-an-average": r"""
 ## The spread of the members is a credit
@@ -3696,7 +3698,7 @@ $$
 \frac{2^2}{1}=4.
 $$
 
-The point on the short axis is the more unusual of the two. The inverse $\Sigma^{-1}$ is defined only when $\Sigma$ is positive definite. A sample covariance of rank less than $p$ has no inverse, and $D^2$ is then undefined until a reduced or penalised covariance is chosen. Replacing $\Sigma$ by the correlation matrix is a different distance: it standardises each margin and keeps the correlations. Both versions need a convention for the centre $\boldsymbol{\mu}$, and a sample plugin uses the sample mean and a chosen covariance estimator together.
+The point on the short axis is the more unusual of the two. The inverse $\Sigma^{-1}$ is defined only when $\Sigma$ is positive definite. A sample covariance of rank less than $p$ has no inverse, and $D^2$ is then undefined until a reduced or penalised covariance is chosen. The covariance form already standardises each coordinate and keeps the correlations, since $\Sigma=DRD$ with $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ makes $D^2$ equal to $\mathbf{z}^\top R^{-1}\mathbf{z}$ for $\mathbf{z}=D^{-1}(\mathbf{X}-\boldsymbol{\mu})$; substituting $R$ for $\Sigma$ without dividing by $D$ treats every raw coordinate as if its variance were already $1$. Both versions need a convention for the centre $\boldsymbol{\mu}$, and a sample plugin uses the sample mean and a chosen covariance estimator together.
 """,
     "stationary-and-independent-increments": r"""
 ## Describing a process by how it changes
@@ -3739,7 +3741,7 @@ Write the random sample as $\boldsymbol{X} = (X_1,\ldots,X_n)$ and a realised sa
 
 ## Estimation is a job, not part of the definition
 
-An [estimator](estimator.qmd) is a statistic that is used to estimate a parameter or a function of a parameter. Every estimator is a statistic, and many statistics are introduced for some other purpose. A residual vector may be a diagnostic. A test statistic may exist only to be compared with a null distribution. The sample mean can estimate a normal mean, and the sample maximum can estimate the upper endpoint of a uniform law. Sufficiency, ancillarity, and completeness are properties that a statistic may have. They are not extra clauses in the definition of an estimator. Before the data are drawn, $T(\boldsymbol{X})$ is random. Once $\boldsymbol{x}$ is observed, $T(\boldsymbol{x})$ is a number. Putting $\theta$ back into the formula, and still calling the result a statistic, makes a sampling distribution impossible to define.
+An [estimator](estimator.qmd) is a statistic that is used to estimate a parameter or a function of a parameter. Every estimator is a statistic, and many statistics are introduced for some other purpose. A residual vector may be a diagnostic. A test statistic may exist only to be compared with a null distribution. The sample mean can estimate a normal mean, and the sample maximum can estimate the upper endpoint of a uniform law. Sufficiency, ancillarity, and completeness are properties that a statistic may have. They are not extra clauses in the definition of an estimator. Before the data are drawn, $T(\boldsymbol{X})$ is random. Once $\boldsymbol{x}$ is observed, $T(\boldsymbol{x})$ is a number. Putting $\theta$ back into the formula, and still calling the result a statistic, confuses a computable summary of the sample with a parameter-dependent random variable such as $\sum_i(X_i-\mu)^2$: its sampling distribution is still defined, yet its numerical value cannot be evaluated from the observed sample alone.
 """,
     "stochastic-process": r"""
 ## A random variable attached to every time
@@ -3763,7 +3765,7 @@ $$
 \overline{Y}_n=\frac{1}{n}\sum_{i=1}^{n} Y_i.
 $$
 
-Kolmogorov's strong law says $\overline{Y}_n\to\mu$ almost surely (Kolmogorov, 1933). There is an event of probability $1$ on which the numerical sequence $\overline{Y}_n(\omega)$ converges to $\mu$. [Convergence in probability](modes-of-convergence.qmd) is weaker: $\mathbb{P}(|\overline{Y}_n-\mu|>\varepsilon)\to 0$ for every $\varepsilon>0$, and the bad set may change with $n$. If $\operatorname{Var}(Y_1)$ is finite, Chebyshev's inequality gives a bound of order $1/n$. Those bounds are not summable, so they prove the weak law and do not, by themselves, feed the [Borel–Cantelli lemmas](borel-cantelli-lemmas.qmd).
+Kolmogorov's strong law says $\overline{Y}_n\to\mu$ almost surely (Kolmogorov, 1933). There is an event of probability $1$ on which the numerical sequence $\overline{Y}_n(\omega)$ converges to $\mu$. [Convergence in probability](modes-of-convergence.qmd) is weaker: $\mathbb{P}(|\overline{Y}_n-\mu|>\varepsilon)\to 0$ for every $\varepsilon>0$, and the bad set may change with $n$. If $\operatorname{Var}(Y_1)$ is finite, Chebyshev's inequality gives a bound of order $1/n$: the bound tends to zero, which proves the weak law, yet it is not summable and therefore does not, by itself, feed the [Borel–Cantelli lemmas](borel-cantelli-lemmas.qmd).
 
 ## Bernoulli sequences, and a Cauchy average that will not settle
 
@@ -3772,7 +3774,7 @@ Take $Y_i\in\{0,1\}$ with $\mathbb{P}(Y_i=1)=1/2$. Then $\mu=1/2$ and $\mathbb{E
     "studentised-coefficient-pivot": r"""
 ## Take the unknown scale out of the denominator
 
-In the Gaussian linear model $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$, let $\boldsymbol{\varepsilon} \sim \operatorname{N}_n(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$ and let $\boldsymbol{X}$ be an $n \times p$ matrix of rank $p$. The [least-squares estimator](ordinary-least-squares.qmd) is then normal with mean $\boldsymbol{\beta}$ and covariance $\sigma^2(\boldsymbol{X}^{\mathsf{T}}\boldsymbol{X})^{-1}$. Write $c_{jj}$ for the $j$th diagonal entry of $(\boldsymbol{X}^{\mathsf{T}}\boldsymbol{X})^{-1}$, so the sampling variance of $\widehat{\beta}_j$ is $\sigma^2 c_{jj}$. The ratio $(\widehat{\beta}_j - \beta_j)/(\sigma \sqrt{c_{jj}})$ is standard normal, but $\sigma$ is still in the denominator. Replace $\sigma^2$ by $s^2 = \operatorname{SSE}/(n-p)$, where $\operatorname{SSE} = \lVert \boldsymbol{Y} - \boldsymbol{X}\widehat{\boldsymbol{\beta}} \rVert_2^2$ is the fitted residual sum of squares. The studentised ratio is $(\widehat{\beta}_j - \beta_j)/(s \sqrt{c_{jj}})$.
+In the Gaussian linear model $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$, let $\boldsymbol{\varepsilon} \sim \operatorname{N}_n(\boldsymbol{0}, \sigma^2\boldsymbol{I}_n)$ and let $\boldsymbol{X}$ be an $n \times p$ matrix of rank $p$ with $n>p$. The [least-squares estimator](ordinary-least-squares.qmd) is then normal with mean $\boldsymbol{\beta}$ and covariance $\sigma^2(\boldsymbol{X}^{\mathsf{T}}\boldsymbol{X})^{-1}$. Write $c_{jj}$ for the $j$th diagonal entry of $(\boldsymbol{X}^{\mathsf{T}}\boldsymbol{X})^{-1}$, so the sampling variance of $\widehat{\beta}_j$ is $\sigma^2 c_{jj}$. The ratio $(\widehat{\beta}_j - \beta_j)/(\sigma \sqrt{c_{jj}})$ is standard normal, but $\sigma$ is still in the denominator. Replace $\sigma^2$ by $s^2 = \operatorname{SSE}/(n-p)$, where $\operatorname{SSE} = \lVert \boldsymbol{Y} - \boldsymbol{X}\widehat{\boldsymbol{\beta}} \rVert_2^2$ is the fitted residual sum of squares. The studentised ratio is $(\widehat{\beta}_j - \beta_j)/(s \sqrt{c_{jj}})$.
 
 ## Normal numerator, independent chi-squared denominator
 
@@ -3798,7 +3800,7 @@ and, conditionally on the hyperparameters, the study rates are independent. Thei
 
 Two operations leave the Poisson process inside its own family. Independent streams can be laid on top of each other, and a single stream can be randomly labelled and separated. Both results are Poisson, with rates one can write down, and the split pieces are independent of each other.
 
-Let $N_1$ and $N_2$ be independent homogeneous Poisson processes of rates $\lambda_1$ and $\lambda_2$. Their superposition $N_1+N_2$ is Poisson of rate $\lambda_1+\lambda_2$. On a common interval the merged count is Poisson with mean $(\lambda_1+\lambda_2)h$, and increments on disjoint intervals remain independent. For thinning, start with a Poisson process of rate $\lambda$ and keep each event independently with probability $r\in(0,1)$, discarding it otherwise. The kept process is Poisson of rate $r\lambda$, the discarded process is Poisson of rate $(1-r)\lambda$, and the two are independent. If the retention probability is a function $r(t)$, the kept process is non-homogeneous with intensity $r(t)\lambda(t)$.
+Let $N_1$ and $N_2$ be independent homogeneous Poisson processes of rates $\lambda_1$ and $\lambda_2$. Their superposition $N_1+N_2$ is Poisson of rate $\lambda_1+\lambda_2$. On a common interval the merged count is Poisson with mean $(\lambda_1+\lambda_2)h$, and increments on disjoint intervals remain independent. For thinning, start with a Poisson process of rate $\lambda$ and keep each event independently with probability $r\in(0,1)$, discarding it otherwise. The kept process is Poisson of rate $r\lambda$, the discarded process is Poisson of rate $(1-r)\lambda$, and the two are independent. If the retention probability is a function $r(t)$, thinning the homogeneous process gives a non-homogeneous Poisson process with intensity $r(t)\lambda$ (or $r(t)\lambda(t)$ when the original process already has intensity $\lambda(t)$).
 
 ## A merged rate of eight, split again into three and five
 
@@ -3873,7 +3875,7 @@ In the Gaussian linear model, $\widehat{\boldsymbol{\beta}}$ has an exact normal
 
 ## Subtract $p/2$, and do not confuse the two samplers
 
-Under the reference prior $p(\boldsymbol{\beta}, \sigma^2) \propto 1/\sigma^2$, the marginal posterior of $\sigma^2$ is [inverse-gamma](inverse-gamma-distribution.qmd) with shape $(n-p)/2$ and rate $\operatorname{SSE}/2$. The kernel in the shape–rate parameterisation is $(\sigma^2)^{-a-1}\exp(-b/\sigma^2)$. Likelihood and prior together contribute the power $-(n/2+1)$. Integrating the $p$-dimensional normal kernel in $\boldsymbol{\beta}$ multiplies by a factor $(\sigma^2)^{p/2}$, which subtracts $p/2$ from $n/2$. Adding $p/2$ instead leaves the wrong shape $(n+p)/2$. Equivalently, $\operatorname{SSE}/\sigma^2$ given $\boldsymbol{y}$ is chi-squared on $n-p$ degrees of freedom. Drawing $\sigma^2$ from this marginal posterior, then drawing $\boldsymbol{\beta}$ from its conditional normal distribution given $\sigma^2$ and $\boldsymbol{y}$, produces independent draws from the joint posterior. A [Gibbs sampler](gibbs-sampling.qmd) draws $\sigma^2$ from the full conditional given the current $\boldsymbol{\beta}$, using $\lVert \boldsymbol{y}-\boldsymbol{X}\boldsymbol{\beta}\rVert_2^2$ and shape $n/2$. Successive pairs form a [Markov chain](markov-chain.qmd). The two algorithms can share a target. Only the marginal-then-conditional factorisation produces independent draws.
+Under the reference prior $p(\boldsymbol{\beta}, \sigma^2) \propto 1/\sigma^2$ with $n>p$, the marginal posterior of $\sigma^2$ is [inverse-gamma](inverse-gamma-distribution.qmd) with shape $(n-p)/2$ and rate $\operatorname{SSE}/2$. The kernel in the shape–rate parameterisation is $(\sigma^2)^{-a-1}\exp(-b/\sigma^2)$. Likelihood and prior together contribute the power $-(n/2+1)$. Integrating the $p$-dimensional normal density integrand in $\boldsymbol{\beta}$ multiplies by a factor $(\sigma^2)^{p/2}$, which subtracts $p/2$ from $n/2$. Adding $p/2$ instead leaves the wrong shape $(n+p)/2$. Equivalently, $\operatorname{SSE}/\sigma^2$ given $\boldsymbol{y}$ is chi-squared on $n-p$ degrees of freedom. Drawing $\sigma^2$ from this marginal posterior, then drawing $\boldsymbol{\beta}$ from its conditional normal distribution given $\sigma^2$ and $\boldsymbol{y}$, produces independent draws from the joint posterior. A [Gibbs sampler](gibbs-sampling.qmd) draws $\sigma^2$ from the full conditional given the current $\boldsymbol{\beta}$, which is inverse-gamma with shape $n/2$ and rate $\lVert \boldsymbol{y}-\boldsymbol{X}\boldsymbol{\beta}\rVert_2^2/2$. Successive pairs form a [Markov chain](markov-chain.qmd). The two algorithms can share a target. Only the marginal-then-conditional factorisation produces independent draws.
 """,
     "throughput": r"""
 ## The rate of customers who actually enter
@@ -3890,7 +3892,7 @@ $$
 \lambda_{\mathrm{eff}}=4\bigl(1-4/7\bigr)=12/7\approx 1.71,
 $$
 
-below both the offered rate $4$ and the service rate $2$. The mean number present is $L=0\cdot(1/7)+1\cdot(2/7)+2\cdot(4/7)=10/7$. The mean sojourn of an accepted customer is $W=L/\lambda_{\mathrm{eff}}=(10/7)/(12/7)=5/6$. Dividing $L$ by the offered rate $4$ instead would give $10/28=5/14$, about half the true sojourn, because it pretends the blocked arrivals also passed through. Throughput, not the offered rate, is the arrival rate of the population counted by $L$.
+below both the offered rate $4$ and the service rate $2$. The mean number present is $L=0\cdot(1/7)+1\cdot(2/7)+2\cdot(4/7)=10/7$. The mean sojourn of an accepted customer is $W=L/\lambda_{\mathrm{eff}}=(10/7)/(12/7)=5/6$. Dividing $L$ by the offered rate $4$ instead would give $10/28=5/14$, which is $3/7$ of the true sojourn $5/6$, because it pretends the blocked arrivals also passed through. Throughput, not the offered rate, is the arrival rate of the population counted by $L$.
 """,
     "time-series": r"""
 ## One ordered stretch, not a bag of draws
@@ -3899,7 +3901,7 @@ A time series is a single run of one measurement in time order, $X_1,\ldots,X_T$
 
 ## Why the sample mean is less precise than $T$ suggests
 
-For the stationary autoregression $X_t-\mu=\phi(X_{t-1}-\mu)+\varepsilon_t$ with the absolute value of $\phi$ less than $1$, the variance of the sample mean is approximately $(\gamma_0/T)(1+\phi)/(1-\phi)$ once $T$ is large. Here $\gamma_0=\operatorname{Var}(X_t)$. Independent data with the same variance would have given $\gamma_0/T$. At $\phi=0.9$ the factor $(1+\phi)/(1-\phi)$ equals $19$, so the standard error is $\sqrt{19}\approx 4.4$ times the independent-data formula. A series of length $100$ then says about as much about $\mu$ as five independent observations. The usual aim is a forecast of the next value, not a description that stops at time $T$. A fit with a new parameter at every time can reproduce $X_1,\ldots,X_T$ and still say nothing about $X_{T+1}$. Models that forecast reuse a short list of coefficients across the whole stretch.
+For the stationary autoregression $X_t-\mu=\phi(X_{t-1}-\mu)+\varepsilon_t$ with the absolute value of $\phi$ less than $1$, the variance of the sample mean is approximately $(\gamma_0/T)(1+\phi)/(1-\phi)$ once $T$ is large. Here $\gamma_0=\operatorname{Var}(X_t)$. Independent data with the same variance would have given $\gamma_0/T$. At $\phi=0.9$ the limiting factor $(1+\phi)/(1-\phi)$ equals $19$ ($\sqrt{19}\approx 4.4$). At length $T=100$ the exact finite-sample factor with end weights $(1-h/T)$ is about $17.2$, so the standard error is about $4.15$ times the independent-data formula and the series says about as much about $\mu$ as six independent observations. The usual aim is a forecast of the next value, not a description that stops at time $T$. A fit with a new parameter at every time can reproduce $X_1,\ldots,X_T$ and still say nothing about $X_{T+1}$. Models that forecast reuse a short list of coefficients across the whole stretch.
 """,
     "trace-plot": r"""
 ## Reading the path against iteration
@@ -3908,7 +3910,7 @@ A trace plot graphs a scalar function of a Markov chain, often a single coordina
 
 ## A tidy trace is not an invariance proof
 
-Detailed balance is a property of the transition kernel. The trace is one finite path, so a calm picture is not a proof of convergence. A chain can look locally stable while remaining inside one mode of a multimodal target, and a short run can look acceptable by chance. The [autocorrelation function](autocorrelation-function.qmd) supplies the matching numerical check. When correlation decays slowly, successive draws nearly repeat one another, and the [effective sample size](effective-sample-size.qmd) is much smaller than the number of iterations stored. Discarding a [warm-up](warm-up-is-not-a-convergence-proof.qmd) prefix is a practical convention. The deletion does not create stationarity, and it does not make the retained draws independent. The plot can justify a longer run, a different proposal, or a reparameterisation of the target. It cannot replace the argument that the kernel leaves the intended posterior invariant.
+Detailed balance is a property of the transition kernel. The trace is one finite path, so a calm picture is not a proof of convergence. A chain can look locally stable while remaining inside one mode of a multimodal target, and a short run can look acceptable by chance. The [autocorrelation function](autocorrelation-function.qmd) supplies the matching numerical check. When correlation decays slowly, successive draws nearly repeat one another, and the [effective sample size](effective-sample-size.qmd) is much smaller than the number of iterations stored. Discarding a [warm-up](warm-up-is-not-a-convergence-proof.qmd) prefix is a practical convention. The deletion does not create stationarity, and it does not make the retained draws independent. The plot can justify a longer run, a different proposal, or a reparameterisation of the target. It cannot replace the argument that the transition kernel leaves the intended posterior invariant.
 """,
     "training-data-and-classifier": r"""
 ## The object that is trained, and the object that is assessed
@@ -3943,7 +3945,7 @@ the vector $c(\theta)$ is the natural parameter, $T(x)$ is the natural statistic
 
 ## Moments follow the logarithm either way
 
-Differentiating $A(\boldsymbol{\eta}) = \log a(\theta)$ carries the moment formulae across without a second integration. The gradient of $A$ equals $\mathbb{E}[T(X)]$, and the Hessian of $A$ equals $\operatorname{Cov}[T(X)]$, because those are the derivatives of $\log a$ with respect to the natural parameter. Convexity of $A$ is the same statement as convexity of $\log a$. A conjugate prior proportional to $\exp\{\boldsymbol{\eta}^{\mathsf{T}} \chi - \nu A(\boldsymbol{\eta})\}$ uses $\chi$ as a prior copy of the natural statistic and $\nu$ as a prior sample size. Adding $\sum_i T(x_i)$ to $\chi$, and adding the sample size $n$ to $\nu$, is the update obtained by collecting powers in the $a(\theta)$ form. When one calculation quotes $A$ and another quotes $a(\theta)$, the first step is this translation.
+Where the natural parameter $\boldsymbol{\eta}$ lies in the interior of $\{\boldsymbol{\eta}:A(\boldsymbol{\eta})<\infty\}$, differentiating $A(\boldsymbol{\eta}) = \log a(\theta)$ gives $\nabla A(\boldsymbol{\eta})=\mathbb{E}[T(X)]$ and $\nabla^2 A(\boldsymbol{\eta})=\operatorname{Cov}[T(X)]$. Those are derivatives with respect to $\boldsymbol{\eta}$, not an arbitrary $\theta$: $A$ is convex in $\boldsymbol{\eta}$, whereas $\theta\mapsto\log a(\theta)$ need not be convex (for $\operatorname{N}(0,\sigma^2)$, $\log a(\sigma^2)=\tfrac12\log(2\pi\sigma^2)$ is concave in $\sigma^2$ while $A$ is convex in $\eta=-1/(2\sigma^2)$). A conjugate prior proportional to $\exp\{\boldsymbol{\eta}^{\mathsf{T}} \chi - \nu A(\boldsymbol{\eta})\}$ uses $\chi$ as a prior copy of the natural statistic and $\nu$ as a prior sample size. Adding $\sum_i T(x_i)$ to $\chi$, and adding the sample size $n$ to $\nu$, is the update obtained by collecting powers in the $a(\theta)$ form. When one calculation quotes $A$ and another quotes $a(\theta)$, the first step is this translation.
 """,
     "treatment": r"""
 ## A condition the protocol assigns
@@ -3970,7 +3972,7 @@ Suppose a binomial probability has a $\operatorname{Beta}(\alpha, \beta)$ prior,
 
 ## A smaller count reproduces an interior mode
 
-The posterior mode is a different functional of the same beta distribution. When $\alpha+x > 1$ and $\beta+n-x > 1$, the mode equals $(x+\alpha-1)/(n+\alpha+\beta-2)$. The weighted-average arithmetic now uses prior counts $\alpha-1$ and $\beta-1$, so the prior sample size is $\alpha+\beta-2$. Relative to a $\operatorname{Beta}(1,1)$ prior, whose counts in this convention are zero, a $\operatorname{Beta}(5,5)$ prior contributes four additional successes and four additional failures. That is eight prior trials on the mode scale. The two conventions describe two summaries, not two conflicting priors. A sentence such as "the prior is worth eight observations" is incomplete until it names the summary being matched. If $\alpha < 1$, the mode-convention count $\alpha-1$ is negative. That sign marks a mode on the boundary. It is not a negative number of trials one could have observed.
+The posterior mode is a different functional of the same beta distribution. When $\alpha+x > 1$ and $\beta+n-x > 1$, the mode equals $(x+\alpha-1)/(n+\alpha+\beta-2)$. The weighted-average arithmetic now uses prior counts $\alpha-1$ and $\beta-1$, so the prior sample size is $\alpha+\beta-2$. Relative to a $\operatorname{Beta}(1,1)$ prior, whose counts in this convention are zero, a $\operatorname{Beta}(5,5)$ prior contributes four additional successes and four additional failures. That is eight prior trials on the mode scale. The two conventions describe two summaries, not two conflicting priors. A sentence such as "the prior is worth eight observations" is incomplete until it names the summary being matched. If $\alpha < 1$, the mode-convention count $\alpha-1$ is negative: the prior density is unbounded at a boundary so the interior-mode formula does not apply to the prior, though enough data ($\alpha+x>1$ and $\beta+n-x>1$) still produce an interior posterior mode. It is not a negative number of trials one could have observed.
 """,
     "two-sample-t-pivot": r"""
 ## A normal difference over a pooled scale
@@ -4006,7 +4008,7 @@ Underfitting is a large approximation error. The best function inside the model 
 
 ## A line fitted to a parabola
 
-Let the noise-free responses at $x=-2,-1,0,1,2$ be $y=4,1,0,1,4$, the values of $x^2$. The least-squares line has slope $0$, because $\sum_i x_i y_i=0$, and intercept $2$, the mean of $y$. The residuals are $2,-1,-2,-1,2$, and the residual sum of squares is $14$. A quadratic term in $x$ fits these five points with residual sum of squares $0$. The line's error is visible on the training points themselves: the ends lie above the line and the middle lies below it. That pattern is the signature of underfitting. A degree-$4$ polynomial on the same five points, once a little noise is added to $y$, can show the opposite signature, a training error near zero and a large error on a new $x$. [Early stopping](early-stopping.qmd) and strong [regularisation](regularisation.qmd) can leave even a rich family in the underfitting regime, if they halt the fit while the training loss is still large.
+Let the noise-free responses at $x=-2,-1,0,1,2$ be $y=4,1,0,1,4$, the values of $x^2$. The least-squares line has slope $0$, because $\sum_i x_i y_i=0$, and intercept $2$, the mean of $y$. The residuals are $2,-1,-2,-1,2$, and the residual sum of squares is $14$. A quadratic term in $x$ fits these five points with residual sum of squares $0$. The line's error is visible on the training points themselves: the ends lie above the line and the middle lies below it. That pattern is the signature of underfitting. A degree-$4$ polynomial on the same five points, once a little noise is added to $y$, shows the opposite signature: a training error of zero and a large error on a new $x$. [Early stopping](early-stopping.qmd) and strong [regularisation](regularisation.qmd) can leave even a rich family in the underfitting regime, if they halt the fit while the training loss is still large.
 """,
     "undirected-graph": r"""
 ## Vertices, undirected edges, and paths
@@ -4064,14 +4066,14 @@ Regress one random walk on another independent random walk. The true slope is ze
 Ordinary affine half-spaces in $\mathbb{R}^p$ shatter some sets of size $p+1$, and no larger set, so their VC dimension is $p+1$. Vapnik's radius–margin bound asks a harder question. The points are confined to a ball of diameter $D$, and a set is counted only when every one of its $2^{h}$ binary labellings is realised by an affine separator whose geometric [margin](linear-separators-and-the-margin.qmd) is at least $\rho>0$. Let $h$ be the size of the largest such set. Then
 
 $$
-h\le\min\Bigl\{\Bigl\lfloor\frac{D^2}{\rho^2}\Bigr\rfloor,\, p+1\Bigr\}
+h\le\min\Bigl\{\Bigl\lceil\frac{D^2}{\rho^2}\Bigr\rceil,\, p\Bigr\}+1
 $$
 
-(Burges, 1998). The floor $D^2/\rho^2$ is small when the slab is wide relative to the ball that holds the points. The second argument, $p+1$, is the ordinary VC dimension, and it binds when $\rho$ is so small that the margin restriction has little force.
+(Burges, 1998). The ratio $D^2/\rho^2$ is small when the slab is wide relative to the ball that holds the points. The ordinary VC dimension $p+1$ still caps the count, and it binds when $\rho$ is so small that the margin restriction has little force.
 
 ## A wide margin in a high-dimensional ball
 
-Take $D=6$, $\rho=2$ and $p=20$. Then $D^2/\rho^2=9$, so $h\le\min\{9,\,21\}=9$. The class of all affine separators in $\mathbb{R}^{20}$ still has VC dimension $21$. What has shrunk is the largest set on which every labelling is achievable with margin at least $2$. One fitted separator that happens to have a large training margin does not lower the VC dimension of the whole class. The bound is a statement about a restricted shattering count. It is not a numerical upper bound on the test error of one training sample: that error also depends on the distribution of the pairs and on how the separator was chosen.
+Take $D=6$, $\rho=2$ and $p=20$. Then $D^2/\rho^2=9$, so $h\le\min\{9,\,20\}+1=10$. The class of all affine separators in $\mathbb{R}^{20}$ still has VC dimension $21$. What has shrunk is the largest set on which every labelling is achievable with margin at least $2$. One fitted separator that happens to have a large training margin does not lower the VC dimension of the whole class. The bound is a statement about a restricted shattering count. It is not a numerical upper bound on the test error of one training sample: that error also depends on the distribution of the pairs and on how the separator was chosen.
 """,
     "variable-importance": r"""
 ## Impurity and permutation measures
@@ -4118,7 +4120,7 @@ The right-hand side depends on the two times only through the lag $h$. A variogr
 
 ## A level variance that need not exist
 
-Take a stationary autoregression with coefficient $0.5$ and $\gamma_0=4$. Then $\gamma_1=2$, and the lag-$1$ variogram is $2(4-2)=4$. At long lags the variogram levels off at $8$. A random walk has no such $\gamma_h$. Its level variance grows like $t\sigma^2$, so the covariance of the level is not a function of lag alone. The difference is still well behaved. $X_t-X_{t-h}$ is a sum of $h$ innovations and has variance $h\sigma^2$ when each innovation has variance $\sigma^2$. At $\sigma^2=1$ the variogram at lags $1$, $2$ and $10$ equals $1$, $2$ and $10$, and it keeps climbing. That continued climb is the variogram's picture of a stochastic trend. Estimating it from one stretch still needs repetition: increments of a common lag should share a variance.
+Take a stationary autoregression with coefficient $0.5$ and $\gamma_0=4$. Then $\gamma_1=2$, and the lag-$1$ variogram is $2(4-2)=4$. At long lags the variogram levels off at $8$. A random walk has no such $\gamma_h$. Its level variance grows like $t\sigma^2$, so the covariance of the level is not a function of lag alone. The difference is still well behaved. $X_t-X_{t-h}$ is a sum of $h$ innovations and has variance $h\sigma^2$ when the innovations are uncorrelated and each has variance $\sigma^2$. At $\sigma^2=1$ the variogram at lags $1$, $2$ and $10$ equals $1$, $2$ and $10$, and it keeps climbing. That continued climb is the variogram's picture of a stochastic trend. Estimating it from one stretch still needs repetition: increments of a common lag should share a variance.
 """,
     "vector-response-regression": r"""
 ## Several measurements that share one unit
@@ -4167,7 +4169,7 @@ $$
 
 The density is $f(t)=\lambda\beta(\lambda t)^{\beta-1}\exp\{-(\lambda t)^{\beta}\}$. Dividing $f$ by the survival function gives the [hazard](hazard-rate.qmd) $h(t)=\lambda\beta(\lambda t)^{\beta-1}$. Shape decides the ageing. If $\beta>1$ the hazard increases. If $\beta<1$ it decreases. If $\beta=1$ the hazard is the constant $\lambda$, and $T$ is [exponential](exponential-distribution.qmd) with rate $\lambda$, hence memoryless. The mean is $\mathbb{E} T=\Gamma(1+1/\beta)/\lambda$, where $\Gamma$ is the gamma function. In particular $\Gamma(1/2)=\sqrt{\pi}$ and $\Gamma(3/2)=\sqrt{\pi}/2\approx 0.886$.
 
-Some writers use a scale $\theta=1/\lambda$ and write the survival as $\exp\{-(t/\theta)^{\beta}\}$. The mean is then $\theta\,\Gamma(1+1/\beta)$. Substituting a rate into a scale formula, or the reverse, moves the mean by a factor of $\lambda$.
+Some writers use a scale $\theta=1/\lambda$ and write the survival as $\exp\{-(t/\theta)^{\beta}\}$. The mean is then $\theta\,\Gamma(1+1/\beta)$. Substituting a rate into a scale formula, or the reverse, multiplies the mean by a factor of $\lambda^2$ (for example turning $886$ hours at $\lambda=0.001$ into $0.000886$ hours).
 
 ## Eight hundred and eighty-six hours
 
@@ -4180,7 +4182,7 @@ White noise is the innovation sequence inside a time-series model: uncorrelated 
 
 ## Uncorrelated is weaker than independent
 
-Gaussian white noise is independent, because uncorrelated normal variables are independent. In general, uncorrelated does not mean independent. Let $z_t$ be independent standard normal variables and set $\varepsilon_t=z_t z_{t-1}$. Then $\mathbb{E}(\varepsilon_t)=0$ and $\operatorname{Var}(\varepsilon_t)=1$. For $s\neq t$ the product inside $\operatorname{Cov}(\varepsilon_s,\varepsilon_t)$ contains some $z$ to the first power and has mean $0$, so $\{\varepsilon_t\}$ is white noise. The squares are dependent: $\varepsilon_t^2=z_t^2 z_{t-1}^2$ and $\varepsilon_{t-1}^2=z_{t-1}^2 z_{t-2}^2$ share the factor $z_{t-1}^2$. A large squared innovation tends to be followed by another. No linear function of the past forecasts $\varepsilon_t$, but a function of past squares can forecast $\varepsilon_t^2$. A series can therefore pass an autocorrelation check and still have forecastable volatility, which is the opening that [ARCH and GARCH models](arch-and-garch-models.qmd) are built to use.
+Gaussian white noise is independent, because the variables are jointly normal and uncorrelated, and uncorrelated jointly normal variables are independent (marginal normality alone is not enough). In general, uncorrelated does not mean independent. Let $z_t$ be independent standard normal variables and set $\varepsilon_t=z_t z_{t-1}$. Then $\mathbb{E}(\varepsilon_t)=0$ and $\operatorname{Var}(\varepsilon_t)=1$. For $s\neq t$ the product inside $\operatorname{Cov}(\varepsilon_s,\varepsilon_t)$ contains some $z$ to the first power and has mean $0$, so $\{\varepsilon_t\}$ is white noise. The squares are dependent: $\varepsilon_t^2=z_t^2 z_{t-1}^2$ and $\varepsilon_{t-1}^2=z_{t-1}^2 z_{t-2}^2$ share the factor $z_{t-1}^2$. A large squared innovation tends to be followed by another. No linear function of the past forecasts $\varepsilon_t$, but a function of past squares can forecast $\varepsilon_t^2$. A series can therefore pass an autocorrelation check and still have forecastable volatility, which is the opening that [ARCH and GARCH models](arch-and-garch-models.qmd) are built to use.
 """,
     "why-the-raw-sum-of-squares-cannot-choose": r"""
 ## The criterion falls every time a cluster is split
@@ -4228,7 +4230,7 @@ The innovations $\varepsilon_t$ are uncorrelated, with mean $0$ and variance $\s
 
 ## A short moving average, and a pure seasonal term
 
-The series $X_t=\varepsilon_t+0.4\varepsilon_{t-1}$ is already in the form above: $a_0=1$, $a_1=0.4$, every later coefficient is $0$, and $\nu_t=0$. Once the latest innovation has been recovered, the one-step forecast is $0.4\varepsilon_T$, and every horizon past one step forecasts $0$. A pure seasonal term $\nu_t=\cos(2\pi t/12)$ is the other piece. One year of its own past determines the whole future, and it stays uncorrelated with the innovations if it is simply added beside a moving average. The representation does not apply to a random walk. A walk is not weakly stationary, the variance $t\sigma^2$ is not constant, and there is no decomposition of this kind until the walk has been differenced.
+The series $X_t=\varepsilon_t+0.4\varepsilon_{t-1}$ is already in the form above: $a_0=1$, $a_1=0.4$, every later coefficient is $0$, and $\nu_t=0$. Once the latest innovation has been recovered, the one-step forecast is $0.4\varepsilon_T$, and every horizon past one step forecasts $0$. A random-phase seasonal harmonic $\nu_t=A\cos(2\pi t/12)+B\sin(2\pi t/12)$, with $A$ and $B$ uncorrelated, mean $0$ and equal finite variance, is the other piece: it is weakly stationary, two of its own lags determine its whole future via $\nu_t=2\cos(2\pi/12)\nu_{t-1}-\nu_{t-2}$, and it stays uncorrelated with the innovations when added beside a moving average (whereas a deterministic cosine with fixed amplitude has a time-varying mean and is not weakly stationary). The representation does not apply to a random walk. A walk is not weakly stationary, the variance $t\sigma^2$ is not constant, and there is no decomposition of this kind until the walk has been differenced.
 """,
     "zero-one-loss-and-risk": r"""
 ## The conditional probability of a mistake
