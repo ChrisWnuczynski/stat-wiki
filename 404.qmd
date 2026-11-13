@@ -12,7 +12,7 @@ No page exists at the requested address. If you followed an old link or typed a 
 
 <form id="nf-search" class="site-search" role="search">
   <label for="nf-search-q">Search StatWiki</label>
-  <input id="nf-search-q" type="search" name="q" placeholder="e.g. variance, ANOVA, OLS, MLE, Markov chain" autocomplete="off">
+  <input id="nf-search-q" type="search" name="q" placeholder="e.g. sd, t test, Bayes theorem, what is a p value, kernel" autocomplete="off">
   <button type="submit">Search</button>
 </form>
 
@@ -96,7 +96,7 @@ function kindLabel(mod, href) {
 
 function buildSnippet(doc, terms) {
   const text = String(doc.text || "").replace(/\s+/g, " ").trim();
-  if (!text) return "";
+  if (!text) return doc.disambiguation || "";
   const folded = text.toLowerCase();
   let at = -1;
   for (const term of terms) {
@@ -115,7 +115,7 @@ async function runLookup(query, stemHint = "") {
   const q = String(query || "").trim();
   lastQuery = q;
   if (!q) {
-    note.textContent = "Enter a statistical concept, distribution, theorem, or abbreviation above.";
+    note.textContent = "Enter a statistical concept, distribution, theorem, question, or abbreviation above.";
     return;
   }
 
@@ -127,11 +127,52 @@ async function runLookup(query, stemHint = "") {
     return;
   }
 
-  const stemKey = stemHint || mod.slugKey(q);
-  const retiredTarget = meta && meta.redirects ? meta.redirects[stemKey] : null;
-  const exact = mod.resolveExactMatch(q, meta, docs);
+  const stemKey = stemHint || mod.canonicalSearchKey(q) || mod.slugKey(q);
+  const retiredTarget = meta && meta.redirects ? (meta.redirects[stemKey] || meta.redirects[mod.slugKey(q)]) : null;
+  const disambig = mod.resolveDisambiguation(q, meta);
+  const comparison = !disambig ? mod.resolveComparison(q, meta, docs) : null;
+  const exact = !disambig && !comparison ? mod.resolveExactMatch(q, meta, docs) : null;
 
-  if (exact || retiredTarget) {
+  if (disambig) {
+    const p = document.createElement("p");
+    p.className = "search-disambig-title";
+    p.textContent = "“" + disambig.term + "” refers to several concepts — choose the intended page:";
+    directEl.appendChild(p);
+    const ul = document.createElement("ul");
+    ul.className = "search-disambig-list";
+    for (const opt of disambig.options) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = toRootHref(opt.href);
+      a.style.fontWeight = "600";
+      a.textContent = opt.label;
+      li.appendChild(a);
+      if (opt.description) {
+        li.appendChild(document.createTextNode(" — " + opt.description));
+      }
+      ul.appendChild(li);
+    }
+    directEl.appendChild(ul);
+    directEl.hidden = false;
+  } else if (comparison) {
+    const p = document.createElement("p");
+    p.className = "search-disambig-title";
+    p.textContent = "Comparing canonical pages:";
+    directEl.appendChild(p);
+    const ul = document.createElement("ul");
+    ul.className = "search-disambig-list";
+    for (const target of comparison.targets) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = toRootHref(target.href);
+      a.style.fontWeight = "600";
+      a.textContent = target.title;
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
+    directEl.appendChild(ul);
+    directEl.hidden = false;
+  } else if (exact || retiredTarget) {
     const targetHref = exact ? toRootHref(exact.href) : toRootHref(retiredTarget);
     const targetTitle = exact ? exact.title : retiredTarget.split("#")[0];
     const p = document.createElement("p");
@@ -200,7 +241,9 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const q = input.value.trim();
   if (q && q === lastQuery && searchMod && cachedDocs) {
-    const exact = searchMod.resolveExactMatch(q, cachedMeta, cachedDocs);
+    const disambig = searchMod.resolveDisambiguation(q, cachedMeta);
+    const comparison = !disambig ? searchMod.resolveComparison(q, cachedMeta, cachedDocs) : null;
+    const exact = !disambig && !comparison ? searchMod.resolveExactMatch(q, cachedMeta, cachedDocs) : null;
     if (exact) {
       window.location.href = toRootHref(exact.href);
       return;
