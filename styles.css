@@ -808,10 +808,29 @@ nav#TOC h2#toc-title {
   display: table;
 }
 
+#quarto-document-content span.math.display,
+#quarto-document-content span[id^="eq-"] {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+}
+
 .katex-display {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.1rem 0;
+  -webkit-overflow-scrolling: touch;
+  text-align: left;
+  padding: 0.35rem 0.15rem;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  min-width: 100%;
+  text-align: center;
+  white-space: nowrap;
 }
 
 @media (max-width: 767px) {
@@ -913,9 +932,15 @@ main li code {
 .page-rows,
 main,
 #quarto-document-content,
-#quarto-document-content .cell {
+#quarto-document-content .cell,
+#quarto-document-content .theorem,
+#quarto-document-content .callout,
+#quarto-document-content .callout-body,
+#quarto-document-content .dist-card,
+#quarto-document-content blockquote {
   min-width: 0;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 #quarto-document-content pre,

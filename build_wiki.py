@@ -14,6 +14,7 @@ import os
 from collections import Counter
 from datetime import datetime, timezone
 from html import escape as html_escape
+from zoneinfo import ZoneInfo
 
 import chapter_guides
 import re
@@ -534,7 +535,24 @@ def rewrite_images(text: str, prefix: str) -> str:
     return pattern.sub(repl, text)
 
 
+XREF_NOUNS = (
+    r"Equations?|Theorems?|Lemmas?|Propositions?|Corollar(?:y|ies)"
+    r"|Definitions?|Examples?|Figures?|Tables?|Sections?|Chapters?"
+)
+DOUBLED_XREF = re.compile(
+    rf"\b(?:{XREF_NOUNS})\s+(?=@(?:eq|thm|lem|prp|cor|def|exm|fig|tbl|sec|rem|exr|ex)-[A-Za-z0-9_:-]+)",
+    re.I,
+)
+
+
+def strip_doubled_xref_nouns(text: str) -> str:
+    """Drop a redundant noun immediately before a Quarto @-reference, outside code."""
+    return protect_code(text, lambda segment: DOUBLED_XREF.sub("", segment))
+
+
 def localize_refs(text: str, notes_href: str) -> str:
+    text = strip_doubled_xref_nouns(text)
+
     def at_ref(match: re.Match) -> str:
         kind, rest = match.group(1), match.group(2)
         nice = {
@@ -655,6 +673,7 @@ def resolve_links(text: str, page: Path) -> str:
 
         segment = re.sub(r"\\eqref\{([^{}]+)\}\s*(?:--|–|-|and)\s*\\eqref\{([^{}]+)\}", same_range, segment)
         segment = re.sub(r"\b[Ee]quations?\s+(?=\\eqref\{)", "", segment)
+        segment = DOUBLED_XREF.sub("", segment)
 
         def eqref(match: re.Match) -> str:
             ident = eq_target(match.group(1))
@@ -3053,11 +3072,12 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             nav.insert(0, pos_link(seq[index - 1], f"‹ {index} of {total}"))
         if index + 1 < total:
             nav.append(pos_link(seq[index + 1], f"{index + 2} of {total} ›"))
+        more_q_label = "1 question on this topic" if total == 1 else "more questions on this topic"
         hat = (
             "::: {.hatnote}\n"
             f"[{q['level'].capitalize()}]{{.level}}\n\n"
             f"**Topic:** [{topic['title']}]({href(q['path'], topic['path'])}) · "
-            f"[more questions on this topic]({href(q['path'], topic['path'])}#questions-on-this-topic)\n\n"
+            f"[{more_q_label}]({href(q['path'], topic['path'])}#questions-on-this-topic)\n\n"
             + " ".join(nav)
             + "\n:::\n\n"
         )
@@ -3133,10 +3153,14 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label == "see-also"), len(page["blocks"]))
         page["blocks"].insert(at, (False, "what-links-here", section))
 
-    # Infobox, Used in and See also, on every article.
+    # Infobox, opening term framing, Used in and See also, on every article.
     for page in pages:
         if page["kind"] == "article":
             article = article_by_path[page["path"]]
+            for idx, (is_c, lbl, txt) in enumerate(page["blocks"]):
+                if is_c and lbl in {"lead", "excerpt"}:
+                    page["blocks"][idx] = (is_c, lbl, frame_article_lead(article, txt))
+                    break
             links = backlinks.get(page["path"], [])
             box = resolve_links(article_infobox(article, links, by_topic), page["path"])
             page["blocks"].insert(1, (False, "infobox", box))
@@ -3244,7 +3268,7 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
         return head + "No other page links here yet.\n"
     out = [head]
     if chapters:
-        out.append(f"**Pages** ({len(chapters)})\n\n")
+        out.append(f"**{'Page' if len(chapters) == 1 else 'Pages'}** ({len(chapters)})\n\n")
         order = {p: i for i, p in enumerate(PAGE_ORDER)}
         for target in sorted(chapters, key=lambda p: order.get(p, 999)):
             entry = chapters[target]
@@ -3263,7 +3287,12 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
             note = "" if where == {"question"} else " (answer)" if where == {"answer"} else ""
             groups.setdefault(q["group"], []).append((q.get("n", 0), f"[{cell(q['title'])}]({href(path, target)}){note}"))
         total = sum(len(v) for v in groups.values())
-        out.append(f"**Questions and answers** ({total})\n\n")
+        if total == 1:
+            only_in = next(iter(asked.values()))["in"]
+            q_head = "Question" if only_in == {"question"} else "Question and answer"
+        else:
+            q_head = "Questions and answers"
+        out.append(f"**{q_head}** ({total})\n\n")
         items = []
         for group in SOURCE_ORDER:
             if group in groups:
@@ -3329,6 +3358,87 @@ def extra_article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     return blocks
 
 
+def part_link(part_name: str, from_path: Path) -> str:
+    return f"[{part_name}]({href(from_path, WIKI / 'notes' / 'index.qmd')}#{slug(part_name)})"
+
+
+def frame_article_lead(article: dict, text: str) -> str:
+    """Bold or frame the opening defined term naturally in an article's first paragraph."""
+    lead_body = text.rstrip("\n")
+    trail = text[len(lead_body) :]
+    first_para, sep, rest = lead_body.partition("\n\n")
+    stripped = first_para.lstrip()
+    if (
+        not stripped
+        or stripped.startswith(("$$", "\\begin{", ":::", "#", "|", "!"))
+        or "**" in first_para
+    ):
+        return text
+    term = article["term"]
+    if f"*{term.lower()}*" in first_para.lower():
+        return text
+
+    candidates: list[str] = [term]
+    box = article.get("box")
+    if box and box.get("kind") == "topic":
+        for raw_link in box["topic"].get("links", []):
+            if not raw_link.startswith("re:") and not re.search(r"[\[\]()?|\\*+]", raw_link):
+                candidates.append(raw_link)
+            else:
+                candidates.extend(plain_phrases_from_pattern(raw_link))
+
+    spans = [(m.start(), m.end()) for m in PROTECT.finditer(first_para)]
+    segments: list[tuple[str, bool]] = []
+    last = 0
+    for start, end in spans:
+        segments.append((first_para[last:start], False))
+        segments.append((first_para[start:end], True))
+        last = end
+    segments.append((first_para[last:], False))
+
+    for cand in candidates:
+        cand = cand.strip()
+        if len(cand) < 2:
+            continue
+        pat = re.escape(cand.replace("–", " "))
+        pat = pat.replace(r"\ ", "[-– ]+").replace(r"\-", "[-– ]?")
+        pat = pat.replace(r"\'", "['’]?")
+        if not ACRONYMS.match(cand) and cand[-1].isalpha() and not cand.endswith("s"):
+            if cand.endswith("y") and len(cand) > 3 and cand[-2] not in "aeiou":
+                pat = pat[:-1] + "(?:y|ies)"
+            else:
+                pat += "(?:s|es)?"
+        flags = 0 if ACRONYMS.match(cand) else re.I
+        rx = re.compile(rf"(?<![\w$–*-])(?:{pat})(?![\w$–*-])", flags)
+        for i, (seg, is_prot) in enumerate(segments):
+            if is_prot or not seg:
+                continue
+            m = rx.search(seg)
+            if m:
+                framed_seg = f"{seg[:m.start()]}**{m.group(0)}**{seg[m.end():]}"
+                new_para = "".join(
+                    framed_seg if idx == i else s for idx, (s, _) in enumerate(segments)
+                )
+                return f"{new_para}{sep}{rest}{trail}"
+
+    # Handle inline-math letter prefixes such as "$p$-value" or "$t$-distribution".
+    math_term = re.match(r"^([A-Za-z0-9²]+)[- ](.+)$", term)
+    if math_term:
+        sym, tail = math_term.groups()
+        rx_math = re.compile(
+            rf"(?<![\w*])(\${re.escape(sym)}\$[- ]{re.escape(tail)}(?:s|es)?)(?![\w–*-])",
+            re.I,
+        )
+        m_math = rx_math.search(first_para)
+        if m_math:
+            new_para = f"{first_para[:m_math.start()]}**{m_math.group(1)}**{first_para[m_math.end():]}"
+            return f"{new_para}{sep}{rest}{trail}"
+
+    if box and box.get("kind") == "topic":
+        return f"**{term}.** {first_para}{sep}{rest}{trail}"
+    return text
+
+
 def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     """Hatnote, lead, and the chapter text of a heading's or a named topic's page."""
     path, box = article["path"], article["box"]
@@ -3339,7 +3449,8 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
         if w not in where:
             where.append(w)
     noun = "Section" if box["kind"] == "section" else "Topic"
-    hat = f"{noun} of {where[0]}, part of {box['part']}" if where else f"{noun}, part of {box['part']}"
+    p_link = part_link(box["part"], path)
+    hat = f"{noun} of {where[0]}, part of {p_link}" if where else f"{noun}, part of {p_link}"
     if len(where) > 1:
         hat += " · Also in " + ", ".join(where[1:])
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat + "\n:::\n\n")]
@@ -3389,7 +3500,7 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     if box:
         hat.append(
             f"{box['kind'].capitalize()} taught in "
-            f"[*{box['chapter_title']}*]({href(path, box['chapter'])}#{box['anchor']}), part of {box['part']}"
+            f"[*{box['chapter_title']}*]({href(path, box['chapter'])}#{box['anchor']}), part of {part_link(box['part'], path)}"
         )
     also_places: list[str] = []
     for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
@@ -3427,7 +3538,7 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
             (
                 False,
                 "lead",
-                f"The {card['name'].lower()} distribution: "
+                f"The **{card['name'].lower()} distribution**: "
                 "parameters, support, probability function, mean and variance.\n\n",
             )
         )
@@ -3481,10 +3592,13 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
         for group in SOURCE_ORDER:
             if group in groups:
                 items.extend(t for _, t in sorted(groups[group], key=lambda t: t[0]))
-        lines.append(f"- **Questions that use it** ({len(items)}) — " + " · ".join(items) + "\n")
+        use_label = "Question that uses it" if len(items) == 1 else "Questions that use it"
+        lines.append(f"- **{use_label}** ({len(items)}) — " + " · ".join(items) + "\n")
     if box:
         n = len(by_topic.get(box["chapter"].name, []))
-        if n:
+        if n == 1:
+            lines.append(f"- [1 question on *{box['chapter_title']}*]({href(path, box['chapter'])}#questions-on-this-topic)\n")
+        elif n > 1:
             lines.append(f"- [All {n} questions on *{box['chapter_title']}*]({href(path, box['chapter'])}#questions-on-this-topic)\n")
 
     # Neighbours: pages on the same idea elsewhere, articles this one links to,
@@ -3835,7 +3949,7 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
             + [extra["chapter"] for extra in article.get("extra_boxes") or []]
         )
         parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in chapters_seen]))
-        rows.append(("Part", " · ".join(parts)))
+        rows.append(("Part", " · ".join(part_link(p, path) for p in parts)))
     elif box:
         taught = [f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"]
         extra_chaps = []
@@ -3846,18 +3960,30 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
             extra_chaps.append(extra["chapter"])
         rows.append(("Taught in", " · ".join(taught)))
         parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in extra_chaps if c in PAGE_PART]))
-        rows.append(("Part", " · ".join(parts)))
+        rows.append(("Part", " · ".join(part_link(p, path) for p in parts)))
     else:
         rows.append(("Listed on", f"[Distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"))
+    related_peers = list(
+        dict.fromkeys(
+            r for group in topics.RELATED if slug_ in group for r in group if r != slug_ and r in ARTICLES
+        )
+    )[:4]
+    if related_peers:
+        rows.append(
+            (
+                "Related",
+                " · ".join(f"[{ARTICLES[r]['term']}]({href(path, ARTICLES[r]['path'])})" for r in related_peers),
+            )
+        )
     n_props = len(PROPERTIES.get(slug_, []))
     n_examples = len(EXAMPLES.get(slug_, [])) + sum(1 for s in BOOK_EXAMPLES.values() if slug_ in s) + len(TOPIC_EXAMPLES.get(slug_, []))
     n_questions = len({source["path"] for source, _, _ in links if source["kind"] == "question"})
     if n_props:
-        rows.append(("Properties", f"[{n_props}](#properties)"))
+        rows.append(("Property" if n_props == 1 else "Properties", f"[{n_props}](#properties)"))
     if n_examples:
-        rows.append(("Worked examples", f"[{n_examples}](#examples)"))
+        rows.append(("Worked example" if n_examples == 1 else "Worked examples", f"[{n_examples}](#examples)"))
     if n_questions:
-        rows.append(("Questions using it", f"[{n_questions}](#used-in)"))
+        rows.append(("Question using it" if n_questions == 1 else "Questions using it", f"[{n_questions}](#used-in)"))
     figures = FIGURES.get(slug_, [])
     image = figure_md(figures[0], path, short=True) if figures else ""
     return infobox_md(article["term"], rows, image, note)
@@ -3867,22 +3993,23 @@ def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict]
     path = note["path"]
     i = next(k for k, n in enumerate(siblings) if n["path"] == path)
     level = chapter_guides.GUIDES[path.name]["level"].capitalize()
-    rows = [("Part", part), ("Level", level), ("Chapter", f"{i + 1} of {len(siblings)} in this part")]
+    rows = [("Part", part_link(part, path)), ("Level", level), ("Chapter", f"{i + 1} of {len(siblings)} in this part")]
     if i > 0:
         rows.append(("Previous", f"[{siblings[i - 1]['title']}]({href(path, siblings[i - 1]['path'])})"))
     if i + 1 < len(siblings):
         rows.append(("Next", f"[{siblings[i + 1]['title']}]({href(path, siblings[i + 1]['path'])})"))
     if own:
-        rows.append(("Questions", f"[{len(own)}](#questions-on-this-topic)"))
+        rows.append(("Question" if len(own) == 1 else "Questions", f"[{len(own)}](#questions-on-this-topic)"))
     defs = [a for a in own_articles if a["box"]["kind"] == "definition"]
     results = [a for a in own_articles if a["box"]["kind"] in {"theorem", "proposition", "corollary"}]
     if defs:
-        rows.append(("Definitions", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in defs)))
+        rows.append(("Definition" if len(defs) == 1 else "Definitions", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in defs)))
     if results:
-        rows.append(("Results", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in results)))
+        rows.append(("Result" if len(results) == 1 else "Results", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in results)))
     seen = CHAPTER_FIGURES_SEEN.get(path, [])
     if seen:
-        rows.append(("Figures", str(len(dict.fromkeys(seen)))))
+        n_figs = len(dict.fromkeys(seen))
+        rows.append(("Figure" if n_figs == 1 else "Figures", str(n_figs)))
     lead = CHAPTER_FIGURES.get(path.name) or (seen[0] if seen else "")
     image = figure_md(lead, path, short=True, credit=False) if lead else ""
     return infobox_md(note["title"], rows, image)
@@ -4779,9 +4906,12 @@ def png_size(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", data[16:24])
 
 
-def footer_text() -> str:
-    """Copyright and the date of this build, for the foot of every page."""
-    today = datetime.now(timezone.utc)
+BRISBANE_TZ = ZoneInfo("Australia/Brisbane")
+
+
+def footer_text(now: datetime | None = None) -> str:
+    """Copyright and the date of this build in Australia/Brisbane, for the foot of every page."""
+    today = (now or datetime.now(BRISBANE_TZ)).astimezone(BRISBANE_TZ)
     return f"© {today.year} {SITE_NAME} · Last updated {today.day} {today:%B %Y}"
 
 
@@ -5502,15 +5632,24 @@ def main() -> None:
         bad = re.search(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", path.read_text(encoding="utf-8"))
         if bad:
             raise SystemExit(f"Control character {bad.group(0)!r} in {path.relative_to(WIKI)}")
+    doubled_link_xref = re.compile(
+        rf"\b(?:{XREF_NOUNS})\s+\[(?:Equation|Theorem|Lemma|Proposition|Corollary|Definition|Example|Figure|Table|Section|Chapter|Note)\b",
+        re.I,
+    )
     cited = []
+    doubled = []
     for folder in ("notes", "questions", "articles", "reference"):
         for path in sorted((WIKI / folder).rglob("*.qmd")):
             pieces = re.split(r"(```.*?```)", path.read_text(encoding="utf-8"), flags=re.S)
             for piece in pieces:
                 if not piece.startswith("```"):
                     cited += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in outside.finditer(piece)]
+                    doubled += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in DOUBLED_XREF.finditer(piece)]
+                    doubled += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in doubled_link_xref.finditer(piece)]
     if cited:
         raise SystemExit("Pages point at outside material:\n  " + "\n  ".join(cited[:20]))
+    if doubled:
+        raise SystemExit("Pages contain doubled cross-reference nouns:\n  " + "\n  ".join(doubled[:20]))
 
     print(f"Chapter pages: {len([n for n in notes.values() if n['kind'] == 'notes'])}")
     print(f"Question pages: {len(questions)}, with answers: {sum(1 for q in questions if q.get('answer'))}")

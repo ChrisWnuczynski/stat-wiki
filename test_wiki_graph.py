@@ -649,6 +649,76 @@ class WikiGraphTests(unittest.TestCase):
         self.assertIn("resolveExactMatch", nf_text)
         self.assertNotRegex(nf_text, r"STAT\s*\d|github|GitHub")
 
+    def test_doubled_xref_nouns_stripped_and_absent_from_sources(self) -> None:
+        sample = (
+            "Equation @eq-score collapses, Theorem @thm-wold holds, "
+            "Figure @fig-plot shows it, and `Equation @eq-code` stays in code."
+        )
+        cleaned = build_wiki.strip_doubled_xref_nouns(sample)
+        self.assertEqual(
+            cleaned,
+            "@eq-score collapses, @thm-wold holds, @fig-plot shows it, and `Equation @eq-code` stays in code.",
+        )
+        localized = build_wiki.localize_refs("See Figure @fig-a and Table @tbl-b.", "../notes/ch.qmd")
+        self.assertEqual(localized, "See [Figure](../notes/ch.qmd#fig-a) and [Table](../notes/ch.qmd#tbl-b).")
+
+        saved_eq = (dict(build_wiki.EQ_PAGES), dict(build_wiki.EQ_NUMBERS), dict(build_wiki.PAGE_TITLES))
+        try:
+            chapter = Path("notes/01-introduction-to-glms.qmd")
+            article = Path("articles/score-function.qmd")
+            build_wiki.EQ_PAGES["eq-score"] = chapter
+            build_wiki.EQ_NUMBERS["eq-score"] = 11
+            build_wiki.PAGE_TITLES[chapter] = "Introduction to GLMs"
+            same_page = build_wiki.resolve_links("Equation @eq-score is nonlinear.", chapter)
+            cross_page = build_wiki.resolve_links("Equation @eq-score is nonlinear.", article)
+            self.assertEqual(same_page, "@eq-score is nonlinear.")
+            self.assertEqual(cross_page, "[Equation (11) in *Introduction to GLMs*](../notes/01-introduction-to-glms.qmd#eq-score) is nonlinear.")
+        finally:
+            build_wiki.EQ_PAGES.clear()
+            build_wiki.EQ_PAGES.update(saved_eq[0])
+            build_wiki.EQ_NUMBERS.clear()
+            build_wiki.EQ_NUMBERS.update(saved_eq[1])
+            build_wiki.PAGE_TITLES.clear()
+            build_wiki.PAGE_TITLES.update(saved_eq[2])
+
+        offenders = []
+        for src in sorted(build_wiki.SOURCES.rglob("*.qmd")):
+            pieces = build_wiki.re.split(r"(```.*?```)", src.read_text(encoding="utf-8"), flags=build_wiki.re.S)
+            for piece in pieces:
+                if piece.startswith("```"):
+                    continue
+                for m in build_wiki.DOUBLED_XREF.finditer(piece):
+                    offenders.append(f"{src.relative_to(build_wiki.WIKI)}: {m.group(0)!r}")
+        self.assertEqual(offenders, [])
+
+    def test_brisbane_footer_singular_counts_and_article_framing(self) -> None:
+        from datetime import datetime, timezone
+
+        # 2026-11-12 18:00 UTC is 2026-11-13 04:00 AEST in Australia/Brisbane.
+        stamp = build_wiki.footer_text(datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc))
+        self.assertIn("Last updated 13 November 2026", stamp)
+
+        self.assertIn("1 question.", build_wiki.qcount_marker(1))
+        self.assertIn("2 questions.", build_wiki.qcount_marker(2))
+
+        framed_in_place = build_wiki.frame_article_lead(
+            {"term": "Random variable", "box": {"kind": "definition"}},
+            "A random variable is a function $X$ from the [sample space](sample-space.qmd){.term} $\\Omega$.\n\n",
+        )
+        self.assertIn("A **random variable** is a function", framed_in_place)
+
+        framed_pvalue = build_wiki.frame_article_lead(
+            {"term": "p-value", "box": {"kind": "definition"}},
+            "The $p$-value of an observed [statistic](statistic.qmd){.term} $t$ is small.\n\n",
+        )
+        self.assertIn("**$p$-value**", framed_pvalue)
+
+        framed_topic = build_wiki.frame_article_lead(
+            {"term": "Median", "box": {"kind": "topic", "topic": {"links": ["medians?"]}}},
+            "The middle value of the ordered sample.\n\n",
+        )
+        self.assertTrue(framed_topic.startswith("**Median.** The middle value"))
+
 
 if __name__ == "__main__":
     unittest.main()
