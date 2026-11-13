@@ -1733,24 +1733,134 @@ def naming_excerpt(prose: str, phrases: list[str]) -> str | None:
     return first_paragraph(prose, lambda flat: any(p.search(flat) for p in found))
 
 
+def paragraph_blocks(prose: str) -> list[str]:
+    """Logical blocks of prose: fenced code and display maths kept whole, div
+    fences and box-article pointers dropped, headings separated from their bodies,
+    and each prose paragraph joined with any display maths and continuation
+    sentence that finishes it."""
+    lines = prose.split("\n")
+    chunks: list[str] = []
+    cur: list[str] = []
+    in_code = False
+    in_math = False
+    math_end = ""
+    close_dd = re.compile(r"\$\$(?:\s*\{#[^}]*\})?\s*$")
+
+    def flush() -> None:
+        if cur:
+            piece = "\n".join(cur).strip()
+            if piece:
+                chunks.append(piece)
+            cur.clear()
+
+    for line in lines:
+        if re.match(r"^\s*```", line):
+            if not in_code:
+                flush()
+                in_code = True
+                cur.append(line)
+            else:
+                cur.append(line)
+                in_code = False
+                flush()
+            continue
+        if in_code:
+            cur.append(line)
+            continue
+        if in_math:
+            cur.append(line)
+            if math_end == "$$" and close_dd.search(line.strip()):
+                in_math = False
+                flush()
+            elif math_end != "$$" and math_end in line:
+                in_math = False
+                flush()
+            continue
+        stripped = line.strip()
+        if stripped.startswith("$$"):
+            flush()
+            cur.append(line)
+            if stripped == "$$" or not close_dd.search(stripped[2:]):
+                in_math = True
+                math_end = "$$"
+            else:
+                flush()
+            continue
+        m_env = re.match(r"^\\begin\{(align\*?|equation\*?|gather\*?)\}", stripped)
+        if m_env:
+            flush()
+            cur.append(line)
+            end_tok = rf"\end{{{m_env.group(1)}}}"
+            if end_tok not in stripped:
+                in_math = True
+                math_end = end_tok
+            else:
+                flush()
+            continue
+        if re.match(r"^\s*:{3,}", line) or "{.box-article}" in line:
+            flush()
+            continue
+        if re.match(r"^#{1,6}\s+", line):
+            flush()
+            chunks.append(stripped)
+            continue
+        if not stripped:
+            flush()
+            continue
+        cur.append(line)
+    flush()
+
+    def is_display_math(block: str) -> bool:
+        s = block.lstrip()
+        return s.startswith(("$$", r"\begin{align", r"\begin{equation", r"\begin{gather"))
+
+    def is_prose(block: str) -> bool:
+        s = block.lstrip()
+        return not s.startswith(("#", "|", "!", "```")) and not is_display_math(s)
+
+    merged: list[str] = []
+    i = 0
+    while i < len(chunks):
+        block = chunks[i]
+        if is_prose(block):
+            parts = [block]
+            j = i + 1
+            while j < len(chunks) and is_display_math(chunks[j]):
+                parts.append(chunks[j])
+                j += 1
+                if j < len(chunks) and is_prose(chunks[j]) and re.match(r"\s*(?:[a-z]|where\b)", chunks[j]):
+                    parts.append(chunks[j])
+                    j += 1
+            merged.append("\n\n".join(parts))
+            i = j
+        else:
+            merged.append(block)
+            i += 1
+    return merged
+
+
 def first_paragraph(prose: str, names) -> str | None:
     """The first paragraph whose text, links removed, passes names; with any
     display maths after it and the sentence that finishes that maths."""
-    blocks = [b for b in re.split(r"\n\s*\n", prose) if b.strip()]
+    blocks = paragraph_blocks(prose)
     flat = [re.sub(r"\]\([^)]*\)(\{[^}]*\})?", "]", b).replace("[", "") for b in blocks]
-    k = next((i for i, b in enumerate(flat) if names(b) and not b.lstrip().startswith(("#", "|", "!", "::: {.mainarticle}"))), None)
-    if k is None:
-        return None
-    out = [blocks[k]]
-    j = k + 1
-    while j < len(blocks) and blocks[j].lstrip().startswith("$$"):
-        out.append(blocks[j])
-        j += 1
-        if j < len(blocks) and re.match(r"\s*(?:[a-z]|where\b)", blocks[j]):
-            out.append(blocks[j])
-            j += 1
-    text = "\n\n".join(out)
-    return "\n".join(l for l in text.split("\n") if not re.match(r"^:{3,}", l)).strip()
+    for i, b in enumerate(flat):
+        if not b.lstrip().startswith(("#", "|", "!", "```", "$$", r"\begin{")) and names(b):
+            return blocks[i]
+    for i, b in enumerate(flat):
+        if b.lstrip().startswith("#") and names(b):
+            for j in range(i + 1, len(blocks)):
+                cand = blocks[j].lstrip()
+                if cand.startswith("#"):
+                    break
+                if not cand.startswith(("|", "!", "```")):
+                    return blocks[j]
+    for i, b in enumerate(flat):
+        if b.lstrip().startswith("```") and names(b):
+            if i > 0 and not blocks[i - 1].lstrip().startswith(("#", "|", "!", "```")):
+                return blocks[i - 1] + "\n\n" + blocks[i]
+            return blocks[i]
+    return None
 
 
 def section_title(fname: str, sec: dict) -> str:
@@ -1929,9 +2039,41 @@ def add_main_article_notes(note: dict, prose: str) -> str:
     return out
 
 
+def strip_paged_subsections(fname: str, text: str) -> str:
+    """Remove child H3 subsections that already have their own article page."""
+    out: list[str] = []
+    skip = False
+    depth = 0
+    in_code = False
+    for line in text.split("\n"):
+        if re.match(r"^\s*```", line):
+            in_code = not in_code
+        if not in_code:
+            if DIV_OPEN.match(line):
+                depth += 1
+            elif DIV_CLOSE.match(line):
+                depth = max(0, depth - 1)
+            elif depth == 0:
+                found_head = HEADING.match(line)
+                if found_head and len(found_head.group(1)) == 3:
+                    found_id = re.search(r"#([\w-]+)", found_head.group(3) or "")
+                    child_id = found_id.group(1) if found_id else ""
+                    skip = bool(child_id and SECTION_PAGE.get((fname, child_id)))
+        if not skip:
+            out.append(line)
+    return "\n".join(out).strip()
+
+
 def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
     """Copy each heading's text, and each named topic's paragraphs, onto its page."""
     by_file = {note["path"].name: prose for _, note, prose in prepared}
+    sec_topic_refs = Counter(
+        (note["path"].name, anchor)
+        for a in ARTICLES.values()
+        if a["box"] and a["box"].get("kind") == "topic"
+        for _, note, anchor, phrase in a["box"]["places"]
+        if phrase is None
+    )
     for (fname, anchor), s in SECTION_PAGE.items():
         box = ARTICLES[s]["box"]
         if not box or box["kind"] not in TOPIC_KINDS:
@@ -1943,7 +2085,7 @@ def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
         if not box or box.get("kind") != "topic":
             continue
         names = [box["topic"]["term"], *box["topic"]["links"]]
-        for part, note, anchor, phrase in box["places"]:
+        for idx, (part, note, anchor, phrase) in enumerate(box["places"]):
             if phrase == "":
                 continue  # a worked example, or the lead alone
             main = None
@@ -1952,12 +2094,15 @@ def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
                 text = SECTION_TEXT[(fname, anchor)]
                 # A heading that is not this topic's own page is taught in full
                 # in its chapter, and perhaps on a page of its own or under other
-                # topics too. The topic shows the paragraph that names it under a
-                # "Main article" line to the rest. When no paragraph names it, a
-                # heading with a page of its own gets the line alone, and one
-                # without keeps its whole text here.
+                # topics too. When the heading was retired and only this topic
+                # claims it as its home, keep its text (minus child H3s with
+                # pages of their own) instead of slicing off its setup or proof.
                 own = SECTION_PAGE.get((fname, anchor))
-                if own != a["slug"]:
+                if own is None and sec_topic_refs[(fname, anchor)] == 1 and idx == 0:
+                    trimmed = strip_paged_subsections(fname, text)
+                    if trimmed:
+                        text = trimmed
+                elif own != a["slug"]:
                     part_text = naming_excerpt(text, names)
                     if part_text is None and own:
                         part_text = ""
@@ -3291,7 +3436,7 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
 # from the book, the booklets or the formula lookup; nothing is written anew.
 # ---------------------------------------------------------------------------
 
-from article_extras import BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES, PROPERTIES  # noqa: E402
+from article_extras import BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES, NOTES, PROPERTIES  # noqa: E402
 
 KERNEL_ROWS: dict[str, str] = {}  # distribution slug -> "Main summaries" cell of the kernel table
 CONJ_ROWS: list[dict] = []  # likelihood, prior, posterior cells, with the distributions they name
@@ -3455,10 +3600,16 @@ def write_file_pages() -> None:
 
 def check_extras(qmap: dict) -> None:
     problems = []
+    redirects = {slug(alias) for alias in [*topics.ALIASES, *SEE_ALSO]}
     for table, name in ((PROPERTIES, "PROPERTIES"), (EXAMPLES, "EXAMPLES"), (FIGURES, "FIGURES")):
         for slug_ in table:
             if slug_ not in ARTICLES:
                 problems.append(f"{name}: no article {slug_}")
+    for slug_, note_text in NOTES.items():
+        if slug_ not in ARTICLES and slug_ not in RETIRED and slug_ not in redirects:
+            problems.append(f"NOTES: no article {slug_}")
+        elif slug_ in ARTICLES and note_text.strip():
+            ARTICLES[slug_]["notes"] = expand_macros(note_text.strip())
     for slug_, results in PROPERTIES.items():
         problems += [f"PROPERTIES[{slug_}]: no article {r}" for r in results if r not in ARTICLES]
     for slug_, ids in EXAMPLES.items():
@@ -3481,9 +3632,12 @@ def check_extras(qmap: dict) -> None:
 
 
 def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
-    """Properties, Examples and Figures, below an article's lead."""
+    """Notes, Properties, Examples and Figures, below an article's lead."""
     path, slug_ = article["path"], article["slug"]
     blocks: list[tuple[bool, str, str]] = []
+
+    if article.get("notes"):
+        blocks.append((True, "explanation", "\n\n" + article["notes"] + "\n\n"))
 
     results = PROPERTIES.get(slug_, [])
     if results:

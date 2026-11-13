@@ -641,6 +641,8 @@ def build_document(
             parts.append(box["lead"])
         if box.get("excerpts"):
             parts.append("\n\n".join(piece["text"] for piece in box["excerpts"] if piece.get("text")))
+        if article.get("notes"):
+            parts.append(article["notes"])
         if article.get("card") and article["card"].get("body"):
             parts.append(article["card"]["body"])
         _add(
