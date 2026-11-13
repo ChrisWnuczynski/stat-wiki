@@ -562,6 +562,87 @@ class WikiGraphTests(unittest.TestCase):
         self.assertIn("broken maths", str(caught.exception))
         self.assertIn(entry["id"], str(caught.exception))
 
+    def test_alias_redirect_stubs_and_404_page(self) -> None:
+        import canonical_redirects
+
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        (root / "articles").mkdir()
+        (root / "notes").mkdir()
+        (root / "articles" / "expectation.qmd").write_text("---\ntitle: \"Expectation\"\n---\n", encoding="utf-8")
+        (root / "notes" / "sl-03-principal-components.qmd").write_text("---\ntitle: \"PCA\"\n---\n", encoding="utf-8")
+
+        saved = (
+            build_wiki.WIKI,
+            build_wiki.ARTICLE_DIR,
+            dict(build_wiki.ARTICLES),
+            dict(build_wiki.RETIRED),
+            dict(build_wiki.SEARCH_ALIASES),
+            dict(build_wiki.PAGE_TITLES),
+        )
+        try:
+            build_wiki.WIKI = root
+            build_wiki.ARTICLE_DIR = root / "articles"
+            build_wiki.ARTICLES.clear()
+            build_wiki.ARTICLES["expectation"] = {"slug": "expectation"}
+            build_wiki.RETIRED.clear()
+            build_wiki.SEARCH_ALIASES.clear()
+            build_wiki.SEARCH_ALIASES["mean"] = ("articles/expectation.html", "Mean")
+            build_wiki.SEARCH_ALIASES["pca"] = ("notes/sl-03-principal-components.html", "PCA")
+            build_wiki.SEARCH_ALIASES["expectation"] = ("articles/expectation.html", "Expectation")
+            build_wiki.PAGE_TITLES[root / "articles" / "expectation.qmd"] = "Expectation"
+            build_wiki.PAGE_TITLES[root / "notes" / "sl-03-principal-components.qmd"] = "Principal component analysis"
+
+            build_wiki.write_alias_redirect_pages()
+            self.assertFalse((root / "articles" / "expectation.html").exists())
+            mean_stub = (root / "articles" / "mean.html").read_text(encoding="utf-8")
+            pca_stub = (root / "articles" / "pca.html").read_text(encoding="utf-8")
+            self.assertIn('var redirects = {"": "expectation.html"};', mean_stub)
+            self.assertIn('var redirects = {"": "../notes/sl-03-principal-components.html"};', pca_stub)
+
+            site = root / "_site"
+            (site / "articles").mkdir(parents=True)
+            (site / "notes").mkdir()
+            (site / "articles" / "expectation.html").write_text("<html></html>", encoding="utf-8")
+            (site / "notes" / "sl-03-principal-components.html").write_text("<html></html>", encoding="utf-8")
+            (site / "articles" / "mean.html").write_text(mean_stub, encoding="utf-8")
+            (site / "articles" / "pca.html").write_text(pca_stub, encoding="utf-8")
+
+            saved_site = canonical_redirects.SITE_DIR
+            canonical_redirects.SITE_DIR = site
+            try:
+                m1 = canonical_redirects.REDIRECTS.search(mean_stub)
+                m2 = canonical_redirects.REDIRECTS.search(pca_stub)
+                self.assertEqual(
+                    canonical_redirects.canonical_for(site / "articles" / "mean.html", m1.group(1)),
+                    "https://www.statwiki.io/articles/expectation.html",
+                )
+                self.assertEqual(
+                    canonical_redirects.canonical_for(site / "articles" / "pca.html", m2.group(1)),
+                    "https://www.statwiki.io/notes/sl-03-principal-components.html",
+                )
+            finally:
+                canonical_redirects.SITE_DIR = saved_site
+        finally:
+            build_wiki.WIKI = saved[0]
+            build_wiki.ARTICLE_DIR = saved[1]
+            build_wiki.ARTICLES.clear()
+            build_wiki.ARTICLES.update(saved[2])
+            build_wiki.RETIRED.clear()
+            build_wiki.RETIRED.update(saved[3])
+            build_wiki.SEARCH_ALIASES.clear()
+            build_wiki.SEARCH_ALIASES.update(saved[4])
+            build_wiki.PAGE_TITLES.clear()
+            build_wiki.PAGE_TITLES.update(saved[5])
+
+        nf_page = Path(__file__).resolve().parent / "404.qmd"
+        self.assertTrue(nf_page.is_file())
+        nf_text = nf_page.read_text(encoding="utf-8")
+        self.assertIn("search-aliases.json", nf_text)
+        self.assertIn("resolveExactMatch", nf_text)
+        self.assertNotRegex(nf_text, r"STAT\s*\d|github|GitHub")
+
 
 if __name__ == "__main__":
     unittest.main()

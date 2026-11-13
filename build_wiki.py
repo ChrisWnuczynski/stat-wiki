@@ -3045,8 +3045,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for article in sorted(ARTICLES.values(), key=lambda a: a["term"].lower()):
         PAGE_TITLES[article["path"]] = article["term"]
         blocks = article_blocks(article) + article_sections(article, qmap)
-        meta = {"aliases": "[" + ", ".join(article["aliases"]) + "]"} if article["aliases"] else {}
-        add_page(article["path"], article["term"], article["box"]["part"] if article["box"] else None, "article", blocks, meta)
+        add_page(article["path"], article["term"], article["box"]["part"] if article["box"] else None, "article", blocks, {})
 
     # Equation numbers first, then links that need them, then term links.
     compile_terms(notes)
@@ -3144,6 +3143,27 @@ def write_retired_pages() -> None:
         target = f"{href(path, chapter.with_suffix('.html'))}#{anchor}"
         chapter_title = html_escape(PAGE_TITLES.get(chapter, "its chapter"))
         path.write_text(REDIRECT_HTML.format(target=target, chapter=chapter_title), encoding="utf-8")
+
+
+def write_alias_redirect_pages() -> None:
+    """Write canonical_redirects.py-compatible redirect stubs under articles/
+    for unambiguous concept aliases that do not collide with real or retired pages."""
+    ARTICLE_DIR.mkdir(parents=True, exist_ok=True)
+    for s, (target_href, _label) in sorted(SEARCH_ALIASES.items()):
+        if s in ARTICLES or s in RETIRED:
+            continue
+        if (ARTICLE_DIR / f"{s}.qmd").exists():
+            continue
+        base_target = target_href.split("#", 1)[0]
+        target_qmd = (WIKI / base_target).with_suffix(".qmd")
+        if not target_qmd.is_file():
+            continue
+        path = ARTICLE_DIR / f"{s}.html"
+        rel_target = href(path, WIKI / base_target)
+        if "#" in target_href:
+            rel_target += "#" + target_href.split("#", 1)[1]
+        dest_title = html_escape(PAGE_TITLES.get(target_qmd, target_qmd.stem.replace("-", " ")))
+        path.write_text(REDIRECT_HTML.format(target=rel_target, chapter=dest_title), encoding="utf-8")
 
 
 def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: list[dict]) -> str:
@@ -3971,6 +3991,7 @@ def plain_phrases_from_pattern(pattern: str) -> list[str]:
         if re.search(r"\(\?[=!<]|\\[dswDSW]|\.\*|\.\+", alt):
             continue
         s = alt.replace(r"\.", ".").replace(r"\'", "'")
+        s = s.replace("σ", "sigma").replace("α", "alpha").replace("β", "beta").replace("λ", "lambda")
         s = s.replace("(?:--|–|-| )", "-").replace("(?:--|–|-)", "-")
         s = s.replace("[–-]", "-").replace("[- ]?", "-").replace("[- ]", " ")
         s = s.replace("['’]?", "'").replace("['’]", "'")
@@ -3978,6 +3999,7 @@ def plain_phrases_from_pattern(pattern: str) -> list[str]:
         s = re.sub(r"matri\(\?:x\|ces\)", "matrix", s)
         s = re.sub(r"\[ie\]s$", "is", s)
         s = re.sub(r"\(\?:y\|ies\)$", "y", s)
+        s = re.sub(r"ies\?$", "y", s)
         s = re.sub(r"\(\?:s\|es\)\?$", "", s)
         s = re.sub(r"s\?$", "", s)
         if "(" in s or "[" in s or "\\" in s or "?" in s or "*" in s or "+" in s or "^" in s or "$" in s:
@@ -4059,6 +4081,8 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         if label.strip() and label.strip().lower() != page_entry["title"].lower():
             if not any(existing.lower() == label.strip().lower() for existing in page_entry["aliases"]):
                 page_entry["aliases"].append(label.strip())
+        if s in ARTICLES or s in RETIRED or target_href == f"articles/{s}.html":
+            return
         if s in aliases_map:
             return
         if s in title_slugs and slug(page_entry["title"]) != s:
@@ -4080,7 +4104,12 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         term = article["term"]
         if term.lower().endswith(" distribution"):
             short = term[: -len(" distribution")].strip()
-            if len(slug(short)) >= 3 and slug(short) not in ARTICLES and slug(short) not in RETIRED:
+            if (
+                len(slug(short)) >= 3
+                and not re.search(r"\b(?:of|a|an|the|and|in|for)$", short, re.I)
+                and slug(short) not in ARTICLES
+                and slug(short) not in RETIRED
+            ):
                 register_alias(short, f"articles/{article['slug']}.html")
 
     # 3. Unambiguous phrases from topics.TOPICS, topics.LINKS, TERMS, and topics.LINKS_LAST.
@@ -5302,6 +5331,7 @@ def main() -> None:
     ):
         print(f"Registry warning: vanished {item}")
     write_retired_pages()
+    write_alias_redirect_pages()
     write_file_pages()
 
     leftover = []
