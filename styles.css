@@ -1211,3 +1211,144 @@ main,
 .page-navigation .nav-page-next .nav-page-text::before {
   content: "Next";
 }
+
+/* Beginner orientation map and SVG roadmap at the top of overview.qmd */
+
+.overview-map {
+  margin: 0.9rem 0 1.5rem;
+  padding: 0.85rem 1rem 0.95rem;
+  background: var(--wiki-panel);
+  border: 1px solid var(--wiki-border);
+}
+
+.overview-map-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  margin-bottom: 0.55rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--wiki-rule);
+}
+
+.overview-map-title {
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  color: var(--wiki-text);
+}
+
+.overview-map-sub {
+  font-size: 0.86rem;
+  color: var(--wiki-muted);
+}
+
+.overview-starter {
+  margin: 0 0 0.7rem;
+  font-size: 0.92rem;
+}
+
+.overview-svg-wrap {
+  margin: 0.4rem 0 0.85rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--wiki-bg);
+  border: 1px solid var(--wiki-rule);
+  padding: 0.35rem;
+}
+
+.overview-roadmap {
+  display: block;
+  width: 100%;
+  min-width: 31rem;
+  height: auto;
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.overview-roadmap a {
+  text-decoration: none !important;
+}
+
+.overview-roadmap .rm-box {
+  fill: var(--wiki-panel);
+  stroke: var(--wiki-border);
+  stroke-width: 1.25;
+  transition: stroke 0.12s ease, fill 0.12s ease;
+}
+
+.overview-roadmap .rm-spine {
+  fill: var(--wiki-panel-head);
+  stroke: var(--wiki-link);
+  stroke-width: 1.4;
+}
+
+.overview-roadmap a:hover .rm-box,
+.overview-roadmap a:focus .rm-box {
+  stroke: var(--wiki-link);
+  stroke-width: 2;
+  fill: var(--wiki-panel-head);
+}
+
+.overview-roadmap .rm-title {
+  fill: var(--wiki-text);
+  font-size: 13.5px;
+  font-weight: 650;
+}
+
+.overview-roadmap a:hover .rm-title {
+  fill: var(--wiki-link);
+}
+
+.overview-roadmap .rm-sub {
+  fill: var(--wiki-muted);
+  font-size: 11.5px;
+}
+
+.overview-roadmap .rm-note {
+  fill: var(--wiki-muted);
+  font-size: 11px;
+  font-style: italic;
+}
+
+.overview-roadmap .rm-line {
+  stroke: var(--wiki-border);
+  stroke-width: 1.4;
+  fill: none;
+}
+
+.overview-roadmap .rm-arrow {
+  fill: var(--wiki-border);
+}
+
+.overview-stages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 0.85rem;
+  font-size: 0.89rem;
+  line-height: 1.45;
+}
+
+.overview-stage {
+  padding: 0.42rem 0.6rem;
+  background: var(--wiki-bg);
+  border: 1px solid var(--wiki-rule);
+  border-left: 3px solid var(--wiki-link);
+}
+
+.overview-stage p {
+  margin: 0;
+}
+
+.overview-stage-q {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--wiki-muted);
+  font-size: 0.84rem;
+}
+
+@media (max-width: 767px) {
+  .overview-stages {
+    grid-template-columns: 1fr;
+  }
+}
+

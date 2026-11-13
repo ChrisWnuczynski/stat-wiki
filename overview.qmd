@@ -11,7 +11,144 @@ That is the whole of this site. Probability is the language in which "another te
 Read it straight through if the subject is new, then the five chapters named on the main page. If you are already in the middle of a topic, use the contents: each part says what question it answers and which chapters carry it. The order here follows the questions. The topics list is grouped by part, and that grouping is a different path.
 :::
 
-## Ten cartons
+:::: {.overview-map}
+```{=html}
+<div class="overview-map-head">
+  <span class="overview-map-title">Map of the field</span>
+  <span class="overview-map-sub">Select any stage in the diagram or cards to jump straight to that question</span>
+</div>
+```
+
+::: {.overview-starter}
+**First five chapters for beginners:** 1. [Random experiments and probability](notes/prob-01-experiments.qmd) · 2. [Random variables and distributions](notes/prob-02-random-variables.qmd) · 3. [Studies, data, and evidence](notes/da-01-studies-and-data.qmd) · 4. [Descriptive statistics](notes/da-02-descriptive-statistics.qmd) · 5. [Using R](notes/da-03-using-r.qmd)
+:::
+
+```{=html}
+<div class="overview-svg-wrap">
+  <svg class="overview-roadmap" viewBox="0 0 720 358" role="img" aria-labelledby="overview-roadmap-title overview-roadmap-desc">
+    <title id="overview-roadmap-title">Roadmap of statistics on StatWiki</title>
+    <desc id="overview-roadmap-desc">Three foundation stages lead from study design and data description through probability to classical inference, then branch into generalised and correlated models, Bayesian updating, high-dimensional and classification problems, and stochastic trajectories, all supported by R computation and interactive laboratories.</desc>
+    <defs>
+      <marker id="rm-head" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,1 L7,4 L0,7 Z" class="rm-arrow" />
+      </marker>
+    </defs>
+
+    <!-- Foundation spine -->
+    <line x1="224" y1="46" x2="250" y2="46" class="rm-line" marker-end="url(#rm-head)" />
+    <line x1="466" y1="46" x2="492" y2="46" class="rm-line" marker-end="url(#rm-head)" />
+
+    <a href="#what-the-design-will-support">
+      <rect x="12" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
+      <text x="24" y="37" class="rm-title">1. Study &amp; sample</text>
+      <text x="24" y="56" class="rm-sub">Design, confounding &amp; summaries</text>
+      <text x="24" y="71" class="rm-sub">What claims the table can support</text>
+    </a>
+
+    <a href="#probability">
+      <rect x="254" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
+      <text x="266" y="37" class="rm-title">2. Probability &amp; limits</text>
+      <text x="266" y="56" class="rm-sub">Events, distributions &amp; averages</text>
+      <text x="266" y="71" class="rm-sub">What another sample would look like</text>
+    </a>
+
+    <a href="#from-the-sample-back-to-the-parameter">
+      <rect x="496" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
+      <text x="508" y="37" class="rm-title">3. Classical inference</text>
+      <text x="508" y="56" class="rm-sub">Estimators, intervals, tests &amp; lines</text>
+      <text x="508" y="71" class="rm-sub">From observed data back to parameters</text>
+    </a>
+
+    <!-- Branching bus from the core model -->
+    <line x1="360" y1="80" x2="360" y2="108" class="rm-line" />
+    <line x1="182" y1="108" x2="538" y2="108" class="rm-line" />
+    <line x1="182" y1="108" x2="182" y2="122" class="rm-line" marker-end="url(#rm-head)" />
+    <line x1="538" y1="108" x2="538" y2="122" class="rm-line" marker-end="url(#rm-head)" />
+    <text x="360" y="102" text-anchor="middle" class="rm-note">When an assumption of one normal sample changes</text>
+
+    <!-- Four problem extensions -->
+    <a href="#when-a-normal-line-is-the-wrong-shape">
+      <rect x="12" y="126" width="340" height="62" rx="3" class="rm-box" />
+      <text x="24" y="150" class="rm-title">4. Beyond a normal line</text>
+      <text x="24" y="169" class="rm-sub">Counts, binary outcomes, smooth curves, blocks &amp; time series</text>
+    </a>
+
+    <a href="#a-probability-for-the-parameter">
+      <rect x="368" y="126" width="340" height="62" rx="3" class="rm-box" />
+      <text x="380" y="150" class="rm-title">5. A probability for the parameter</text>
+      <text x="380" y="169" class="rm-sub">Priors, posteriors, conjugate families, MCMC &amp; hierarchies</text>
+    </a>
+
+    <line x1="182" y1="188" x2="182" y2="202" class="rm-line" marker-end="url(#rm-head)" />
+    <line x1="538" y1="188" x2="538" y2="202" class="rm-line" marker-end="url(#rm-head)" />
+
+    <a href="#many-measurements-and-a-label">
+      <rect x="12" y="206" width="340" height="62" rx="3" class="rm-box" />
+      <text x="24" y="230" class="rm-title">6. Many measurements &amp; labels</text>
+      <text x="24" y="249" class="rm-sub">Clustering, classifiers, error rates, trees &amp; p &gt; n regularisation</text>
+    </a>
+
+    <a href="#a-path">
+      <rect x="368" y="206" width="340" height="62" rx="3" class="rm-box" />
+      <text x="380" y="230" class="rm-title">7. Trajectories in time</text>
+      <text x="380" y="249" class="rm-sub">Branching, Markov chains, Poisson arrivals, queues &amp; extremes</text>
+    </a>
+
+    <!-- Computation & laboratory bar -->
+    <line x1="360" y1="268" x2="360" y2="286" class="rm-line" marker-end="url(#rm-head)" />
+    <a href="#writing-the-calculation-down">
+      <rect x="12" y="290" width="696" height="56" rx="3" class="rm-box" />
+      <text x="24" y="313" class="rm-title">8. Writing &amp; checking the calculation</text>
+      <text x="24" y="332" class="rm-sub">R tables, model objects &amp; diagnostics · Interactive laboratories where the true law is known</text>
+    </a>
+  </svg>
+</div>
+```
+
+::: {.overview-stages}
+::: {.overview-stage}
+**[1. Design & description](overview.qmd#what-the-design-will-support)** · Open [Studies, data, and evidence](notes/da-01-studies-and-data.qmd), [Descriptive statistics](notes/da-02-descriptive-statistics.qmd)
+[Randomisation vs observation, confounding, and reading shape and spread before fitting.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[2. Probability & limits](overview.qmd#probability)** · Open [Random experiments](notes/prob-01-experiments.qmd), [Random variables](notes/prob-02-random-variables.qmd)
+[Outcomes, conditioning, named laws, and why sample averages settle on a normal curve.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[3. Classical inference](overview.qmd#from-the-sample-back-to-the-parameter)** · Open [Statistical inference](notes/inf-01-statistical-inference.qmd), [Confidence intervals](notes/inf-03-confidence-intervals.qmd)
+[Estimators, Cramér–Rao bounds, coverage, $p$-values, regression, and analysis of variance.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[4. Beyond a normal line](overview.qmd#when-a-normal-line-is-the-wrong-shape)** · Open [Introduction to GLMs](notes/01-introduction-to-glms.qmd), [Random intercepts](notes/08-random-intercepts.qmd)
+[Link functions, count dispersion, penalised smooths, repeated visits, and time series.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[5. Bayesian updating](overview.qmd#a-probability-for-the-parameter)** · Open [Bayesian foundations](notes/bayes-01-foundations.qmd), [Beta–Binomial model](notes/bayes-02-beta-binomial.qmd)
+[Prior-to-posterior updating, credible regions, Gibbs and Metropolis–Hastings, and partial pooling.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[6. Many measurements & labels](overview.qmd#many-measurements-and-a-label)** · Open [Multivariate normal](notes/sl-01-multivariate-normal.qmd), [Estimating error rates](notes/sl-09-error-rates.qmd)
+[Principal components, mixtures, classifiers, honest held-out error, trees, networks, and the lasso.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[7. Trajectories in time](overview.qmd#a-path)** · Open [Stochastic processes](notes/sp-01-stochastic-processes.qmd), [Birth–death chains and queues](notes/sp-08-queues.qmd)
+[First-passage times, stationary Markov laws, Poisson processes, queueing, measure, and extremes.]{.overview-stage-q}
+:::
+
+::: {.overview-stage}
+**[8. Computing & laboratories](overview.qmd#writing-the-calculation-down)** · Open [Using R](notes/da-03-using-r.qmd), [All laboratories](labs/index.qmd)
+[Running and auditing fits in the browser, plus four visual experiments with known truth.]{.overview-stage-q}
+:::
+:::
+::::
+
+## Ten cartons {#ten-cartons}
 
 The [ten volumes](questions/ex-inf-milk-summaries.qmd), in litres, are $1.035$, $1.019$, $1.068$, $1.084$, $1.077$, $0.998$, $1.041$, $1.037$, $1.051$ and $1.102$. One of them, $0.998$, is just under a litre. The mean is $\overline x=1.0512$, the median is $1.0460$, and the bias-corrected standard deviation is $s=0.0317$. The standard error of the mean, $s/\sqrt{10}$, is $0.0100$. Sorted, the lower quartile is $1.035$ and the upper quartile is $1.077$.
 
@@ -21,7 +158,7 @@ The move has four steps. There is a question about the world, and a table. There
 
 [Statistical inference](notes/inf-01-statistical-inference.qmd) is that argument, and it is where the carton numbers are worked. The same page names three branches. Data analysis summarises the table so the structure is visible. Classical methods judge a procedure by what it does over repeated samples, with the parameter fixed. Bayesian methods put a distribution on the parameter and update it. A further tradition, fiducial inference, is named on the Bayesian foundations page and is not developed.
 
-## What the design will support
+## What the design will support {#what-the-design-will-support}
 
 The model is chosen after a decision about the study, and the study decides which sentences are available. In an observational study the investigator does not assign the conditions being compared. In a designed experiment some columns are controlled, often by random assignment, and those columns stay put if the measurements are repeated. After a large enough randomisation the treatment groups agree, before treatment, on the distribution of every variable, measured or not. A difference that then appears in the response is evidence about the treatments.
 
@@ -37,7 +174,7 @@ Description comes before a fit. The mean is the average, and it is pulled by a l
 
 The same habit applied to [299 patients](notes/da-02-descriptive-statistics.qmd#exm-the-ages-of-299-patients) admitted after heart failure separates a rate from a shape. [Anaemia and death](notes/da-02-descriptive-statistics.qmd#exm-anaemia-and-death) differ by six percentage points, and a chi-squared test of that table gives $p=0.25$. Serum creatinine in the same patients runs from $0.50$ to $9.40$, with mean $1.39$ and median $1.10$. A rate that a test does not separate, and a long right tail, are different facts about the same cohort. [Descriptive statistics](notes/da-02-descriptive-statistics.qmd) is the chapter for the summaries and the plots. The commands that hold a table, name its types, and draw it are in [Using R](notes/da-03-using-r.qmd), taken up again below.
 
-## Probability
+## Probability {#probability}
 
 "Another ten cartons" needs a model of an experiment whose outcome is not fixed in advance and can still be described exactly. The model has three pieces. The [sample space](notes/prob-01-experiments.qmd#def-sample-space) is the set of outcomes under discussion: the two faces of a pair of dice, or a lifetime as a point of $[0,\infty)$. An [event](notes/prob-01-experiments.qmd#def-event) is a subset. A [probability](notes/prob-01-experiments.qmd#def-probability-measure) gives each event a number, with the whole space equal to $1$ and with disjoint events adding.
 
@@ -65,7 +202,7 @@ A Markov chain is a process with a short memory: the next state depends on the p
 
 [Joint distributions](notes/prob-04-joint-distributions.qmd), [functions of random variables and limit theorems](notes/prob-05-transforms-and-limits.qmd), and [Markov chains](notes/prob-06-markov-chains.qmd) are these three chapters. The stochastic-process pages take the path seriously, and they can wait until a single sample's parameter is in hand.
 
-## From the sample back to the parameter
+## From the sample back to the parameter {#from-the-sample-back-to-the-parameter}
 
 A probability model says what a sample would look like if the parameter were known. The sample is in hand and the parameter is not. A statistic is a function of the sample that does not use the unknown parameter. The sample mean and the bias-corrected variance
 
@@ -137,7 +274,7 @@ The data-analysis chapters carry those procedures onto studies, and the point of
 
 [Chi-squared examples](notes/da-09-chi-square-examples.qmd) compare observed counts with expected counts, including independence in a two-way table. The reference distribution loses a degree of freedom for each parameter the fit estimated.
 
-## When a normal line is the wrong shape
+## When a normal line is the wrong shape {#when-a-normal-line-is-the-wrong-shape}
 
 An unnamed "regression" hides four assumptions. The responses are independent given the covariates. The conditional mean is linear in the covariates. The variance is constant. The errors are normal. Counts of runs in a week, a clotting time, and a disease indicator each break that list, and the repair does not transform the observations so that a normal line can be forced through them. The link moves the mean. The distribution supplies the variance.
 
@@ -169,7 +306,7 @@ A series is dependent because it is ordered. Weak stationarity replaces a free m
 
 A forecast is a statement about a stretch that was not used to fit the model. A seasonal cycle is not a trend. Differencing at lag $12$ removes a twelve-month cycle and, as a side effect, a linear trend; a slope that remains means the original series had a quadratic trend. Monthly accidental deaths in the United States, seventy-two months ending in December 1978, produce a [January 1979 point forecast of $8336$](notes/11-forecasting.qmd#s-accidental-deaths) against a reported total of $7798$, inside the wider interval and low relative to the point. A long-range forecast from that model repeats the seasonal shape on top of the trend. A short-range forecast still feels the last surprise. A hundred minutes of server traffic has no season; one difference and a short autoregressive moving-average term describe a wander, and the interval widens as the horizon moves away. [Forecasting](notes/11-forecasting.qmd) is the chapter. It says what it does not do: a model for a variance that changes with time, and a forecast for a count-valued series. A Poisson observation is not a mean plus an innovation that can be peeled off.
 
-## Many measurements, and a label
+## Many measurements, and a label {#many-measurements-and-a-label}
 
 Several measurements on one unit move together. The multivariate normal is the distribution fixed by a mean vector and a covariance, and it is the joint-normal law from the probability chapters with the dimension left free. [Covariance and the multivariate normal](notes/sl-01-multivariate-normal.qmd) is that model: margins are normal, conditionals are normal, and zero covariance still means independence inside this family. When the mean and the covariance are not given, they are estimated from the sample. Under normal sampling the centred cross-product matrix has a Wishart law, of which the chi-squared law is the one-dimensional case, and a hypothesis about the mean vector is Hotelling's $T^2$. [Estimation and inference for the multivariate normal](notes/sl-02-normal-inference.qmd) is the chapter.
 
@@ -209,7 +346,7 @@ A covariance of four measurements is manageable. Thousands of measurements on a 
 
 Two measurements can move together because both track a third. An undirected graphical model puts the conditional independences on the missing edges. In a nonsingular Gaussian model a missing edge is a zero of the precision matrix, the inverse of the covariance, and the partial correlation is read from that inverse. When the graph is known, the zeros are constraints on the likelihood. When it is not, the graphical lasso puts a cost on nonzero precision entries. A fitted zero is an estimate of a missing edge, not a proof of one. [Graphical models](notes/sl-19-graphical-models.qmd) is the chapter. The graph here is a conditional-independence picture. It is not a picture of what would happen if a variable were set.
 
-## A probability for the parameter
+## A probability for the parameter {#a-probability-for-the-parameter}
 
 The intervals and tests above keep the parameter fixed and put the probability on the procedure. A prior is a probability distribution for the unknown before the data arrive. Bayes' rule multiplies it by the likelihood and divides by the marginal probability of the data. The result is the posterior, a distribution for the parameter given the data that were seen. A credible interval is a set with a stated posterior probability. Its $95\%$ is a probability for the parameter given this sample. A confidence interval's $95\%$ is a coverage for the interval given the parameter. They can have the same endpoints and still be different sentences.
 
@@ -233,7 +370,7 @@ Bayesian linear regression gives each observation a mean linear in the predictor
 
 The kernels, the pseudo-count conventions, and a short list of the traps on these pages — a uniform prior that is not a distribution on the line, a Bayes factor read as a posterior probability, a Gibbs sampler confused with an independent grid — are gathered in the [formula lookup](reference/formulas.qmd).
 
-## A path
+## A path {#a-path}
 
 A single distribution is the wrong object when the question is about a trajectory. A stochastic process is a family of random variables indexed by time, so the state, the clock, and the independence have to be named before a theorem applies. Stationary increments fix the law of a change of a given length and leave the level free to spread. [Stochastic processes](notes/sp-01-stochastic-processes.qmd) sets that vocabulary. An extinction probability, a stationary distribution, and a limit of maxima are exact for a fully specified joint law. A short record need not identify which law you have.
 
@@ -257,7 +394,7 @@ A sequence of random variables can settle in several senses: almost surely, in p
 
 An average is pulled by many observations. A maximum is pulled by the upper tail, and the scaling that gives it a limit is not the $\sqrt n$ scaling of an average. For an exponential tail the maximum, after a logarithmic centring, settles on a Gumbel law. A heavy tail of Pareto type settles on a Fréchet law after scaling by a power of $n$. [A first look at extremes](notes/sp-12-extremes.qmd) is the chapter.
 
-## Writing the calculation down
+## Writing the calculation down {#writing-the-calculation-down}
 
 A command is useful when the rows, the assumption, and the scale of the printed number match the question. The chapters above are the questions. These are the commands, and several of them exist to stop a plausible command from answering a different question.
 
