@@ -378,7 +378,7 @@ $$
 $$
 
 
- For the Poisson model, the definition \eqref{eq:exp-family-sufficient-statistic} gives $S(\xvec)=\sum_i x_i$. The joint likelihood is \begin{align*}
+ For the Poisson model, \eqref{eq:exp-family-sufficient-statistic} gives $S(\xvec)=\sum_i x_i$. The joint likelihood is \begin{align*}
  p(\xvec\given\theta)
  &=\prod_{i=1}^n\frac{e^{-\theta}\theta^{x_i}}{x_i!}\\
  &=\left(\prod_{i=1}^n\frac1{x_i!}\right)

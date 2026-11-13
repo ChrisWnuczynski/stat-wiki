@@ -479,6 +479,12 @@ class WikiGraphTests(unittest.TestCase):
             wiki_graph.build_document(**_world(Path(tmp.name)), retired={"old-step": (CHAPTER, "s-gone")})
         self.assertIn("not emitted", str(missing.exception))
 
+        merged_doc = wiki_graph.build_document(**_world(Path(tmp.name)), merged={"glm-duplicate": "glm"})
+        self.assertEqual(merged_doc["aliases"]["article:glm-duplicate"], "article:glm")
+        prev_with_dup = [{"id": item["id"], "kind": item["kind"]} for item in merged_doc["entries"]]
+        prev_with_dup.append({"id": "article:glm-duplicate", "kind": "article"})
+        self.assertEqual(wiki_graph.check_identity(prev_with_dup, merged_doc["entries"], merged_doc["aliases"]), [])
+
     def test_retired_page_redirects_to_its_heading(self) -> None:
         import canonical_redirects
 
@@ -561,6 +567,157 @@ class WikiGraphTests(unittest.TestCase):
             wiki_graph._check_chat_source([entry], [])
         self.assertIn("broken maths", str(caught.exception))
         self.assertIn(entry["id"], str(caught.exception))
+
+    def test_alias_redirect_stubs_and_404_page(self) -> None:
+        import canonical_redirects
+
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        (root / "articles").mkdir()
+        (root / "notes").mkdir()
+        (root / "articles" / "expectation.qmd").write_text("---\ntitle: \"Expectation\"\n---\n", encoding="utf-8")
+        (root / "notes" / "sl-03-principal-components.qmd").write_text("---\ntitle: \"PCA\"\n---\n", encoding="utf-8")
+
+        saved = (
+            build_wiki.WIKI,
+            build_wiki.ARTICLE_DIR,
+            dict(build_wiki.ARTICLES),
+            dict(build_wiki.RETIRED),
+            dict(build_wiki.SEARCH_ALIASES),
+            dict(build_wiki.PAGE_TITLES),
+        )
+        try:
+            build_wiki.WIKI = root
+            build_wiki.ARTICLE_DIR = root / "articles"
+            build_wiki.ARTICLES.clear()
+            build_wiki.ARTICLES["expectation"] = {"slug": "expectation"}
+            build_wiki.RETIRED.clear()
+            build_wiki.SEARCH_ALIASES.clear()
+            build_wiki.SEARCH_ALIASES["mean"] = ("articles/expectation.html", "Mean")
+            build_wiki.SEARCH_ALIASES["pca"] = ("notes/sl-03-principal-components.html", "PCA")
+            build_wiki.SEARCH_ALIASES["expectation"] = ("articles/expectation.html", "Expectation")
+            build_wiki.PAGE_TITLES[root / "articles" / "expectation.qmd"] = "Expectation"
+            build_wiki.PAGE_TITLES[root / "notes" / "sl-03-principal-components.qmd"] = "Principal component analysis"
+
+            build_wiki.write_alias_redirect_pages()
+            self.assertFalse((root / "articles" / "expectation.html").exists())
+            mean_stub = (root / "articles" / "mean.html").read_text(encoding="utf-8")
+            pca_stub = (root / "articles" / "pca.html").read_text(encoding="utf-8")
+            self.assertIn('var redirects = {"": "expectation.html"};', mean_stub)
+            self.assertIn('var redirects = {"": "../notes/sl-03-principal-components.html"};', pca_stub)
+
+            site = root / "_site"
+            (site / "articles").mkdir(parents=True)
+            (site / "notes").mkdir()
+            (site / "articles" / "expectation.html").write_text("<html></html>", encoding="utf-8")
+            (site / "notes" / "sl-03-principal-components.html").write_text("<html></html>", encoding="utf-8")
+            (site / "articles" / "mean.html").write_text(mean_stub, encoding="utf-8")
+            (site / "articles" / "pca.html").write_text(pca_stub, encoding="utf-8")
+
+            saved_site = canonical_redirects.SITE_DIR
+            canonical_redirects.SITE_DIR = site
+            try:
+                m1 = canonical_redirects.REDIRECTS.search(mean_stub)
+                m2 = canonical_redirects.REDIRECTS.search(pca_stub)
+                self.assertEqual(
+                    canonical_redirects.canonical_for(site / "articles" / "mean.html", m1.group(1)),
+                    "https://www.statwiki.io/articles/expectation.html",
+                )
+                self.assertEqual(
+                    canonical_redirects.canonical_for(site / "articles" / "pca.html", m2.group(1)),
+                    "https://www.statwiki.io/notes/sl-03-principal-components.html",
+                )
+            finally:
+                canonical_redirects.SITE_DIR = saved_site
+        finally:
+            build_wiki.WIKI = saved[0]
+            build_wiki.ARTICLE_DIR = saved[1]
+            build_wiki.ARTICLES.clear()
+            build_wiki.ARTICLES.update(saved[2])
+            build_wiki.RETIRED.clear()
+            build_wiki.RETIRED.update(saved[3])
+            build_wiki.SEARCH_ALIASES.clear()
+            build_wiki.SEARCH_ALIASES.update(saved[4])
+            build_wiki.PAGE_TITLES.clear()
+            build_wiki.PAGE_TITLES.update(saved[5])
+
+        nf_page = Path(__file__).resolve().parent / "404.qmd"
+        self.assertTrue(nf_page.is_file())
+        nf_text = nf_page.read_text(encoding="utf-8")
+        self.assertIn("search-aliases.json", nf_text)
+        self.assertIn("resolveExactMatch", nf_text)
+        self.assertNotRegex(nf_text, r"STAT\s*\d|github|GitHub")
+
+    def test_doubled_xref_nouns_stripped_and_absent_from_sources(self) -> None:
+        sample = (
+            "Equation @eq-score collapses, Theorem @thm-wold holds, "
+            "Figure @fig-plot shows it, and `Equation @eq-code` stays in code."
+        )
+        cleaned = build_wiki.strip_doubled_xref_nouns(sample)
+        self.assertEqual(
+            cleaned,
+            "@eq-score collapses, @thm-wold holds, @fig-plot shows it, and `Equation @eq-code` stays in code.",
+        )
+        localized = build_wiki.localize_refs("See Figure @fig-a and Table @tbl-b.", "../notes/ch.qmd")
+        self.assertEqual(localized, "See [Figure](../notes/ch.qmd#fig-a) and [Table](../notes/ch.qmd#tbl-b).")
+
+        saved_eq = (dict(build_wiki.EQ_PAGES), dict(build_wiki.EQ_NUMBERS), dict(build_wiki.PAGE_TITLES))
+        try:
+            chapter = Path("notes/01-introduction-to-glms.qmd")
+            article = Path("articles/score-function.qmd")
+            build_wiki.EQ_PAGES["eq-score"] = chapter
+            build_wiki.EQ_NUMBERS["eq-score"] = 11
+            build_wiki.PAGE_TITLES[chapter] = "Introduction to GLMs"
+            same_page = build_wiki.resolve_links("Equation @eq-score is nonlinear.", chapter)
+            cross_page = build_wiki.resolve_links("Equation @eq-score is nonlinear.", article)
+            self.assertEqual(same_page, "@eq-score is nonlinear.")
+            self.assertEqual(cross_page, "[Equation (11) in *Introduction to GLMs*](../notes/01-introduction-to-glms.qmd#eq-score) is nonlinear.")
+        finally:
+            build_wiki.EQ_PAGES.clear()
+            build_wiki.EQ_PAGES.update(saved_eq[0])
+            build_wiki.EQ_NUMBERS.clear()
+            build_wiki.EQ_NUMBERS.update(saved_eq[1])
+            build_wiki.PAGE_TITLES.clear()
+            build_wiki.PAGE_TITLES.update(saved_eq[2])
+
+        offenders = []
+        for src in sorted(build_wiki.SOURCES.rglob("*.qmd")):
+            pieces = build_wiki.re.split(r"(```.*?```)", src.read_text(encoding="utf-8"), flags=build_wiki.re.S)
+            for piece in pieces:
+                if piece.startswith("```"):
+                    continue
+                for m in build_wiki.DOUBLED_XREF.finditer(piece):
+                    offenders.append(f"{src.relative_to(build_wiki.WIKI)}: {m.group(0)!r}")
+        self.assertEqual(offenders, [])
+
+    def test_brisbane_footer_singular_counts_and_article_framing(self) -> None:
+        from datetime import datetime, timezone
+
+        # 2026-11-12 18:00 UTC is 2026-11-13 04:00 AEST in Australia/Brisbane.
+        stamp = build_wiki.footer_text(datetime(2026, 11, 12, 18, 0, tzinfo=timezone.utc))
+        self.assertIn("Last updated 13 November 2026", stamp)
+
+        self.assertIn("1 question.", build_wiki.qcount_marker(1))
+        self.assertIn("2 questions.", build_wiki.qcount_marker(2))
+
+        framed_in_place = build_wiki.frame_article_lead(
+            {"term": "Random variable", "box": {"kind": "definition"}},
+            "A random variable is a function $X$ from the [sample space](sample-space.qmd){.term} $\\Omega$.\n\n",
+        )
+        self.assertIn("A **random variable** is a function", framed_in_place)
+
+        framed_pvalue = build_wiki.frame_article_lead(
+            {"term": "p-value", "box": {"kind": "definition"}},
+            "The $p$-value of an observed [statistic](statistic.qmd){.term} $t$ is small.\n\n",
+        )
+        self.assertIn("**$p$-value**", framed_pvalue)
+
+        framed_topic = build_wiki.frame_article_lead(
+            {"term": "Median", "box": {"kind": "topic", "topic": {"links": ["medians?"]}}},
+            "The middle value of the ordered sample.\n\n",
+        )
+        self.assertTrue(framed_topic.startswith("**Median.** The middle value"))
 
 
 if __name__ == "__main__":
