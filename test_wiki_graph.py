@@ -554,6 +554,27 @@ class WikiGraphTests(unittest.TestCase):
         self.assertEqual(build_wiki.naming_excerpt(prose, ["MAP estimate", "MAP"]), "The MAP estimate is the mode.")
         self.assertIsNone(build_wiki.naming_excerpt(prose, ["Posterior median"]))
 
+        # A phrase inside a display equation or its lowercase continuation
+        # keeps the whole grammatical paragraph, never a mid-sentence tail or a
+        # lone box heading.
+        boxed = (
+            "::: {#def-summaries .definition}\n"
+            "## Posterior point summaries\n\n"
+            "For a scalar parameter, common summaries include\n\n"
+            "$$\n\\widehat\\theta_{\\mathrm{MAP}}=\\arg\\max_\\theta p(\\theta\\mid x),\n$$ {#eq-map}\n\n"
+            "the posterior median, and quantiles.\n\n"
+            "[Article: Posterior point summaries →](posterior-point-summaries.qmd){.box-article}\n"
+            ":::\n"
+        )
+        whole = (
+            "For a scalar parameter, common summaries include\n\n"
+            "$$\n\\widehat\\theta_{\\mathrm{MAP}}=\\arg\\max_\\theta p(\\theta\\mid x),\n$$ {#eq-map}\n\n"
+            "the posterior median, and quantiles."
+        )
+        self.assertEqual(build_wiki.naming_excerpt(boxed, ["Posterior median"]), whole)
+        self.assertEqual(build_wiki.naming_excerpt(boxed, ["MAP"]), whole)
+        self.assertEqual(build_wiki.naming_excerpt(boxed, ["Posterior point summaries"]), whole)
+
     def test_built_text_rejects_broken_subscripts(self) -> None:
         entry = {
             "id": "definition:def-broken",
