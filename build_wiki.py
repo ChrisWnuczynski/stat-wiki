@@ -14,6 +14,7 @@ import os
 from collections import Counter
 from datetime import datetime, timezone
 from html import escape as html_escape
+from zoneinfo import ZoneInfo
 
 import chapter_guides
 import re
@@ -534,7 +535,24 @@ def rewrite_images(text: str, prefix: str) -> str:
     return pattern.sub(repl, text)
 
 
+XREF_NOUNS = (
+    r"Equations?|Theorems?|Lemmas?|Propositions?|Corollar(?:y|ies)"
+    r"|Definitions?|Examples?|Figures?|Tables?|Sections?|Chapters?"
+)
+DOUBLED_XREF = re.compile(
+    rf"\b(?:{XREF_NOUNS})\s+(?=@(?:eq|thm|lem|prp|cor|def|exm|fig|tbl|sec|rem|exr|ex)-[A-Za-z0-9_:-]+)",
+    re.I,
+)
+
+
+def strip_doubled_xref_nouns(text: str) -> str:
+    """Drop a redundant noun immediately before a Quarto @-reference, outside code."""
+    return protect_code(text, lambda segment: DOUBLED_XREF.sub("", segment))
+
+
 def localize_refs(text: str, notes_href: str) -> str:
+    text = strip_doubled_xref_nouns(text)
+
     def at_ref(match: re.Match) -> str:
         kind, rest = match.group(1), match.group(2)
         nice = {
@@ -655,6 +673,7 @@ def resolve_links(text: str, page: Path) -> str:
 
         segment = re.sub(r"\\eqref\{([^{}]+)\}\s*(?:--|–|-|and)\s*\\eqref\{([^{}]+)\}", same_range, segment)
         segment = re.sub(r"\b[Ee]quations?\s+(?=\\eqref\{)", "", segment)
+        segment = DOUBLED_XREF.sub("", segment)
 
         def eqref(match: re.Match) -> str:
             ident = eq_target(match.group(1))
@@ -1326,17 +1345,53 @@ RANDOM_AND_FILTER_JS = """<script>
     event.preventDefault();
     window.location.href = offset + "questions/random.html";
   });
+  var aliasMeta = null;
+  var aliasPromise = null;
+  var arrowMoved = false;
+  function loadAliases() {
+    if (aliasPromise) return aliasPromise;
+    aliasPromise = fetch(new URL(offset + "search-aliases.json", location.href))
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) { aliasMeta = data; return data; })
+      .catch(function () { return null; });
+    return aliasPromise;
+  }
   function goSearch(event) {
     var input = document.querySelector("#quarto-search input");
     var q = input ? input.value.trim() : "";
     if (!q) return;
+    if (arrowMoved) {
+      var active = document.querySelector('#quarto-search-results .aa-Item[aria-selected="true"] a[href]');
+      var href = active ? active.getAttribute("href") || "" : "";
+      if (href && href.indexOf("0767FDFD-") < 0) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.href = active.href;
+        return;
+      }
+    }
     event.preventDefault();
     event.stopPropagation();
     window.location.href = offset + "search.html?query=" + encodeURIComponent(q);
   }
+  document.addEventListener("focusin", function (event) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+      loadAliases().then(function () { rankPanel(); });
+    }
+  });
+  document.addEventListener("input", function (event) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+      arrowMoved = false;
+      loadAliases().then(function () { rankPanel(); });
+    }
+  });
   document.addEventListener("keydown", function (event) {
-    if (event.key !== "Enter") return;
     if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      arrowMoved = true;
+      return;
+    }
+    if (event.key !== "Enter") return;
     goSearch(event);
   }, true);
   document.addEventListener("submit", function (event) {
@@ -1351,22 +1406,71 @@ RANDOM_AND_FILTER_JS = """<script>
     if (path.indexOf("notes/") >= 0 || path.indexOf("reference/") >= 0) return 1;
     return 2;
   }
+  function normHrefKey(href) {
+    return String(href || "").split("?")[0].split("#")[0].replace(/^(\\.\\.\\/|\\.\\/|\\/)+/, "");
+  }
   function rankPanel() {
+    var input = document.querySelector("#quarto-search input");
+    var q = input ? input.value.trim() : "";
+    var exact = (q && window.wikiResolveExactMatch) ? window.wikiResolveExactMatch(q, aliasMeta) : null;
+    var exactKey = exact ? normHrefKey(exact.href) : "";
+    document.querySelectorAll(".aa-Panel").forEach(function (panel) {
+      var prevBanner = panel.querySelector(".aa-DirectMatch");
+      if (!exact) {
+        if (prevBanner) prevBanner.remove();
+      } else {
+        var targetUrl = new URL(offset + exact.href.replace(/^\\//, ""), location.href).href;
+        if (!prevBanner) {
+          prevBanner = document.createElement("div");
+          prevBanner.className = "aa-DirectMatch";
+          panel.insertBefore(prevBanner, panel.firstChild);
+        }
+        prevBanner.textContent = "";
+        var prefix = document.createTextNode("Direct match: ");
+        var anchor = document.createElement("a");
+        anchor.href = targetUrl;
+        anchor.textContent = exact.title;
+        prevBanner.appendChild(prefix);
+        prevBanner.appendChild(anchor);
+        if (exact.alias && exact.alias.toLowerCase() !== exact.title.toLowerCase()) {
+          prevBanner.appendChild(document.createTextNode(" (" + exact.alias + ")"));
+        }
+      }
+    });
     document.querySelectorAll(".aa-List").forEach(function (list) {
-      var items = Array.prototype.slice.call(list.children);
-      if (items.length < 2) return;
-      var ranked = items.slice().sort(function (a, b) {
-        var linkA = a.querySelector("a");
-        var linkB = b.querySelector("a");
-        return tierOf(linkA ? linkA.getAttribute("href") : "") - tierOf(linkB ? linkB.getAttribute("href") : "");
+      var children = Array.prototype.slice.call(list.children);
+      if (children.length < 2) return;
+      var groups = [];
+      children.forEach(function (item) {
+        var link = item.querySelector("a");
+        var href = link ? link.getAttribute("href") || "" : "";
+        var isChild = href.indexOf("0767FDFD-") >= 0 || !!item.querySelector(".search-item, .search-more");
+        if (isChild && groups.length) {
+          groups[groups.length - 1].nodes.push(item);
+        } else {
+          var key = normHrefKey(href);
+          groups.push({ key: key, href: href, tier: tierOf(href), isExact: !!(exactKey && key === exactKey), nodes: [item] });
+        }
       });
-      var changed = ranked.some(function (item, i) { return item !== items[i]; });
+      if (groups.length < 2) return;
+      var ranked = groups.slice().sort(function (a, b) {
+        if (a.isExact !== b.isExact) return a.isExact ? -1 : 1;
+        return a.tier - b.tier;
+      });
+      var flat = [];
+      ranked.forEach(function (g) { g.nodes.forEach(function (n) { flat.push(n); }); });
+      var changed = flat.some(function (node, i) { return node !== children[i]; });
       if (!changed) return;
-      ranked.forEach(function (item) { list.appendChild(item); });
+      flat.forEach(function (node) { list.appendChild(node); });
     });
   }
   var searchRoot = document.getElementById("quarto-search") || document.body;
-  new MutationObserver(function () { rankPanel(); }).observe(searchRoot, { childList: true, subtree: true });
+  var rankingPanel = false;
+  new MutationObserver(function () {
+    if (rankingPanel) return;
+    rankingPanel = true;
+    try { rankPanel(); } finally { rankingPanel = false; }
+  }).observe(searchRoot, { childList: true, subtree: true });
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
   var section = /\\/labs\\//.test(here) ? "labs/index.html"
@@ -1446,8 +1550,12 @@ BOX_TITLES = {
     "def-marginal": "Marginal model",
     "def-definition": "Sufficient statistic",
     "def-definition-2": "Complete statistic",
+    "def-sl-09-kfold": "K-fold cross-validation",
+    "def-sl-11-knn": "K-nearest neighbours",
     "thm-moments": "Mean and variance of an exponential family",
     "thm-wold": "Wold decomposition",
+    "thm-sl-02-hotelling": "Null distribution of Hotelling's T²",
+    "thm-sl-02-two-sample": "Two-sample Hotelling F critical value",
 }
 
 # Headings that are not topics in their own right.
@@ -1515,8 +1623,16 @@ def snippet_from(lines: list[str]) -> str:
 
 ARTICLES: dict[str, dict] = {}  # slug -> article
 BOX_ARTICLE: dict[str, str] = {}  # box id -> slug
+PENDING_MERGED_BOXES: list[tuple[str, dict]] = []  # (target slug, box dict)
+MERGED_ARTICLES: dict[str, str] = {}  # retired duplicate article slug -> canonical article slug
 ARTICLE_DIR = WIKI / "articles"
 DIST_SHEET = WIKI / "reference" / "distributions.qmd"
+BOX_SLUG_OVERRIDES = {
+    "def-sl-09-kfold": "fold-cross-validation",
+    "def-sl-11-knn": "nearest-neighbours",
+    "thm-sl-02-hotelling": "null-distribution-of-hotelling-s",
+    "thm-sl-02-two-sample": "two-sample-hotelling-test",
+}
 KIND_HEADINGS = {
     "definition": "Definition",
     "theorem": "Statement",
@@ -1534,18 +1650,15 @@ def new_article(slug_: str, term: str) -> dict:
         "box": None,
         "card": None,
         "aliases": [],
+        "extra_boxes": [],
+        "extra_sections": [],
     }
     ARTICLES[slug_] = article
     return article
 
 
 def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
-    s = slug(term)
-    if s in ARTICLES and ARTICLES[s]["box"] is not None:
-        s = f"{s}-{note['path'].stem}"  # two boxes with one name in different chapters
-    article = ARTICLES.get(s) or new_article(s, term)
-    article["term"] = term
-    article["box"] = {
+    box_dict = {
         "chapter": note["path"],
         "chapter_title": note["title"],
         "part": part,
@@ -1554,6 +1667,19 @@ def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
         "lines": list(lines),
         "snippet": snippet,
     }
+    same = getattr(topics, "BOX_SAME_AS", {}).get(ident)
+    if same:
+        target_slug, old_slug = same
+        MERGED_ARTICLES[old_slug] = target_slug
+        BOX_ARTICLE[ident] = target_slug
+        PENDING_MERGED_BOXES.append((target_slug, box_dict))
+        return {"slug": target_slug, "path": ARTICLE_DIR / f"{target_slug}.qmd", "term": term}
+    s = BOX_SLUG_OVERRIDES.get(ident) or slug(term)
+    if s in ARTICLES and ARTICLES[s]["box"] is not None:
+        s = f"{s}-{note['path'].stem}"  # two boxes with one name in different chapters
+    article = ARTICLES.get(s) or new_article(s, term)
+    article["term"] = term
+    article["box"] = box_dict
     BOX_ARTICLE[ident] = s
     return article
 
@@ -1932,11 +2058,37 @@ def add_main_article_notes(note: dict, prose: str) -> str:
 def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
     """Copy each heading's text, and each named topic's paragraphs, onto its page."""
     by_file = {note["path"].name: prose for _, note, prose in prepared}
+    MERGED_ARTICLES.update(getattr(topics, "MERGED", {}))
+    for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
+        if target_slug not in ARTICLES:
+            raise SystemExit(f"MERGED[{old_slug!r}]: no canonical article {target_slug!r}")
+        if old_slug in ARTICLES:
+            raise SystemExit(f"MERGED[{old_slug!r}] was still emitted as an article")
+        RETIRED.pop(old_slug, None)
+    for target_slug, extra_box in PENDING_MERGED_BOXES:
+        if target_slug not in ARTICLES:
+            raise SystemExit(f"BOX_SAME_AS target {target_slug!r} was not emitted")
+        ARTICLES[target_slug]["extra_boxes"].append(extra_box)
     for (fname, anchor), s in SECTION_PAGE.items():
         box = ARTICLES[s]["box"]
-        if not box or box["kind"] not in TOPIC_KINDS:
-            continue
         note = next(n for _, n, _ in prepared if n["path"].name == fname)
+        if not box or box["kind"] not in TOPIC_KINDS:
+            # A chapter section unified onto a canonical box article via SAME_AS:
+            # carry any prose outside the primary box onto the canonical article.
+            sec_text = SECTION_TEXT[(fname, anchor)]
+            if box and box.get("anchor"):
+                own_box_re = re.compile(
+                    rf"^:+\s*\{{#{re.escape(box['anchor'])}\s+\.[^}}]+\}}.*?^:+\s*$",
+                    re.M | re.S,
+                )
+                sec_text = own_box_re.sub("", sec_text)
+                sec_text = re.sub(r"^\[Article:[^\n]*\]\([^\n]*\)\{\.box-article\}\s*$", "", sec_text, flags=re.M)
+            sec_text = sec_text.strip()
+            if sec_text and (box is None or note["path"] != box["chapter"] or len(sec_text) > 120):
+                ARTICLES[s]["extra_sections"].append(
+                    {"chapter": note["path"], "chapter_title": note["title"], "part": PAGE_PART.get(note["path"], ""), "anchor": anchor, "text": sec_text}
+                )
+            continue
         box["excerpts"].append({"chapter": note["path"], "chapter_title": note["title"], "anchor": anchor, "text": SECTION_TEXT[(fname, anchor)]})
     for a in ARTICLES.values():
         box = a["box"]
@@ -2062,6 +2214,8 @@ def index_chapter(note: dict, part: str, body: str) -> str:
             content_start = j
             if j < len(lines) and lines[j].startswith("## "):
                 title = title or lines[j][3:].strip()
+                if ident in BOX_TITLES:
+                    lines[j] = f"## {title}"
                 content_start = j + 1
             title = title or ident.split("-", 1)[1].replace("-", " ").capitalize()
             box_lines = []
@@ -2918,11 +3072,12 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             nav.insert(0, pos_link(seq[index - 1], f"‹ {index} of {total}"))
         if index + 1 < total:
             nav.append(pos_link(seq[index + 1], f"{index + 2} of {total} ›"))
+        more_q_label = "1 question on this topic" if total == 1 else "more questions on this topic"
         hat = (
             "::: {.hatnote}\n"
             f"[{q['level'].capitalize()}]{{.level}}\n\n"
             f"**Topic:** [{topic['title']}]({href(q['path'], topic['path'])}) · "
-            f"[more questions on this topic]({href(q['path'], topic['path'])}#questions-on-this-topic)\n\n"
+            f"[{more_q_label}]({href(q['path'], topic['path'])}#questions-on-this-topic)\n\n"
             + " ".join(nav)
             + "\n:::\n\n"
         )
@@ -2960,8 +3115,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for article in sorted(ARTICLES.values(), key=lambda a: a["term"].lower()):
         PAGE_TITLES[article["path"]] = article["term"]
         blocks = article_blocks(article) + article_sections(article, qmap)
-        meta = {"aliases": "[" + ", ".join(article["aliases"]) + "]"} if article["aliases"] else {}
-        add_page(article["path"], article["term"], article["box"]["part"] if article["box"] else None, "article", blocks, meta)
+        add_page(article["path"], article["term"], article["box"]["part"] if article["box"] else None, "article", blocks, {})
 
     # Equation numbers first, then links that need them, then term links.
     compile_terms(notes)
@@ -2999,10 +3153,14 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label == "see-also"), len(page["blocks"]))
         page["blocks"].insert(at, (False, "what-links-here", section))
 
-    # Infobox, Used in and See also, on every article.
+    # Infobox, opening term framing, Used in and See also, on every article.
     for page in pages:
         if page["kind"] == "article":
             article = article_by_path[page["path"]]
+            for idx, (is_c, lbl, txt) in enumerate(page["blocks"]):
+                if is_c and lbl in {"lead", "excerpt"}:
+                    page["blocks"][idx] = (is_c, lbl, frame_article_lead(article, txt))
+                    break
             links = backlinks.get(page["path"], [])
             box = resolve_links(article_infobox(article, links, by_topic), page["path"])
             page["blocks"].insert(1, (False, "infobox", box))
@@ -3059,6 +3217,34 @@ def write_retired_pages() -> None:
         target = f"{href(path, chapter.with_suffix('.html'))}#{anchor}"
         chapter_title = html_escape(PAGE_TITLES.get(chapter, "its chapter"))
         path.write_text(REDIRECT_HTML.format(target=target, chapter=chapter_title), encoding="utf-8")
+    for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
+        if old_slug in ARTICLES:
+            raise SystemExit(f"Merged article {old_slug} was still written as a page")
+        path = ARTICLE_DIR / f"{old_slug}.html"
+        target = f"{target_slug}.html"
+        dest_title = html_escape(ARTICLES[target_slug]["term"])
+        path.write_text(REDIRECT_HTML.format(target=target, chapter=dest_title), encoding="utf-8")
+
+
+def write_alias_redirect_pages() -> None:
+    """Write canonical_redirects.py-compatible redirect stubs under articles/
+    for unambiguous concept aliases that do not collide with real or retired pages."""
+    ARTICLE_DIR.mkdir(parents=True, exist_ok=True)
+    for s, (target_href, _label) in sorted(SEARCH_ALIASES.items()):
+        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES:
+            continue
+        if (ARTICLE_DIR / f"{s}.qmd").exists():
+            continue
+        base_target = target_href.split("#", 1)[0]
+        target_qmd = (WIKI / base_target).with_suffix(".qmd")
+        if not target_qmd.is_file():
+            continue
+        path = ARTICLE_DIR / f"{s}.html"
+        rel_target = href(path, WIKI / base_target)
+        if "#" in target_href:
+            rel_target += "#" + target_href.split("#", 1)[1]
+        dest_title = html_escape(PAGE_TITLES.get(target_qmd, target_qmd.stem.replace("-", " ")))
+        path.write_text(REDIRECT_HTML.format(target=rel_target, chapter=dest_title), encoding="utf-8")
 
 
 def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: list[dict]) -> str:
@@ -3082,7 +3268,7 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
         return head + "No other page links here yet.\n"
     out = [head]
     if chapters:
-        out.append(f"**Pages** ({len(chapters)})\n\n")
+        out.append(f"**{'Page' if len(chapters) == 1 else 'Pages'}** ({len(chapters)})\n\n")
         order = {p: i for i, p in enumerate(PAGE_ORDER)}
         for target in sorted(chapters, key=lambda p: order.get(p, 999)):
             entry = chapters[target]
@@ -3101,7 +3287,12 @@ def what_links_here(page: dict, links: list[tuple[dict, str, str]], questions: l
             note = "" if where == {"question"} else " (answer)" if where == {"answer"} else ""
             groups.setdefault(q["group"], []).append((q.get("n", 0), f"[{cell(q['title'])}]({href(path, target)}){note}"))
         total = sum(len(v) for v in groups.values())
-        out.append(f"**Questions and answers** ({total})\n\n")
+        if total == 1:
+            only_in = next(iter(asked.values()))["in"]
+            q_head = "Question" if only_in == {"question"} else "Question and answer"
+        else:
+            q_head = "Questions and answers"
+        out.append(f"**{q_head}** ({total})\n\n")
         items = []
         for group in SOURCE_ORDER:
             if group in groups:
@@ -3127,13 +3318,139 @@ def topic_where(article: dict, path: Path) -> list[str]:
     return out
 
 
+def extra_article_blocks(article: dict) -> list[tuple[bool, str, str]]:
+    """Render unified secondary boxes and merged chapter sections on a canonical article."""
+    path = article["path"]
+    blocks: list[tuple[bool, str, str]] = []
+    seen_heads: set[str] = set()
+    for extra in article.get("extra_boxes") or []:
+        head = extra["chapter_title"]
+        if head in seen_heads:
+            head = f"{head}, continued"
+        seen_heads.add(head)
+        ident = "in-" + slug(extra["chapter"].stem + "-" + extra["anchor"])
+        source = f"{href(path, extra['chapter'])}#{extra['anchor']}"
+        blocks.append(
+            (
+                False,
+                "excerpt-head",
+                f"## In *{head}* {{#{ident}}}\n\n"
+                f"::: {{.mainarticle}}\n{extra['kind'].capitalize()} from [{extra['chapter_title']}]({source})\n:::\n\n",
+            )
+        )
+        blocks.append((True, "excerpt", copy_for_article("\n".join(extra["lines"]), extra["chapter"], path) + "\n\n"))
+    for extra in article.get("extra_sections") or []:
+        head = extra["chapter_title"]
+        if head in seen_heads:
+            head = f"{head}, continued"
+        seen_heads.add(head)
+        ident = "in-" + slug(extra["chapter"].stem + "-" + extra["anchor"])
+        source = f"{href(path, extra['chapter'])}#{extra['anchor']}"
+        blocks.append(
+            (
+                False,
+                "excerpt-head",
+                f"## In *{head}* {{#{ident}}}\n\n"
+                f"::: {{.mainarticle}}\nFrom [{extra['chapter_title']}]({source})\n:::\n\n",
+            )
+        )
+        blocks.append((True, "excerpt", copy_for_article(extra["text"], extra["chapter"], path) + "\n\n"))
+    return blocks
+
+
+def part_link(part_name: str, from_path: Path) -> str:
+    return f"[{part_name}]({href(from_path, WIKI / 'notes' / 'index.qmd')}#{slug(part_name)})"
+
+
+def frame_article_lead(article: dict, text: str) -> str:
+    """Bold or frame the opening defined term naturally in an article's first paragraph."""
+    lead_body = text.rstrip("\n")
+    trail = text[len(lead_body) :]
+    first_para, sep, rest = lead_body.partition("\n\n")
+    stripped = first_para.lstrip()
+    if (
+        not stripped
+        or stripped.startswith(("$$", "\\begin{", ":::", "#", "|", "!"))
+        or "**" in first_para
+    ):
+        return text
+    term = article["term"]
+    if f"*{term.lower()}*" in first_para.lower():
+        return text
+
+    candidates: list[str] = [term]
+    box = article.get("box")
+    if box and box.get("kind") == "topic":
+        for raw_link in box["topic"].get("links", []):
+            if not raw_link.startswith("re:") and not re.search(r"[\[\]()?|\\*+]", raw_link):
+                candidates.append(raw_link)
+            else:
+                candidates.extend(plain_phrases_from_pattern(raw_link))
+
+    spans = [(m.start(), m.end()) for m in PROTECT.finditer(first_para)]
+    segments: list[tuple[str, bool]] = []
+    last = 0
+    for start, end in spans:
+        segments.append((first_para[last:start], False))
+        segments.append((first_para[start:end], True))
+        last = end
+    segments.append((first_para[last:], False))
+
+    for cand in candidates:
+        cand = cand.strip()
+        if len(cand) < 2:
+            continue
+        pat = re.escape(cand.replace("–", " "))
+        pat = pat.replace(r"\ ", "[-– ]+").replace(r"\-", "[-– ]?")
+        pat = pat.replace(r"\'", "['’]?")
+        if not ACRONYMS.match(cand) and cand[-1].isalpha() and not cand.endswith("s"):
+            if cand.endswith("y") and len(cand) > 3 and cand[-2] not in "aeiou":
+                pat = pat[:-1] + "(?:y|ies)"
+            else:
+                pat += "(?:s|es)?"
+        flags = 0 if ACRONYMS.match(cand) else re.I
+        rx = re.compile(rf"(?<![\w$–*-])(?:{pat})(?![\w$–*-])", flags)
+        for i, (seg, is_prot) in enumerate(segments):
+            if is_prot or not seg:
+                continue
+            m = rx.search(seg)
+            if m:
+                framed_seg = f"{seg[:m.start()]}**{m.group(0)}**{seg[m.end():]}"
+                new_para = "".join(
+                    framed_seg if idx == i else s for idx, (s, _) in enumerate(segments)
+                )
+                return f"{new_para}{sep}{rest}{trail}"
+
+    # Handle inline-math letter prefixes such as "$p$-value" or "$t$-distribution".
+    math_term = re.match(r"^([A-Za-z0-9²]+)[- ](.+)$", term)
+    if math_term:
+        sym, tail = math_term.groups()
+        rx_math = re.compile(
+            rf"(?<![\w*])(\${re.escape(sym)}\$[- ]{re.escape(tail)}(?:s|es)?)(?![\w–*-])",
+            re.I,
+        )
+        m_math = rx_math.search(first_para)
+        if m_math:
+            new_para = f"{first_para[:m_math.start()]}**{m_math.group(1)}**{first_para[m_math.end():]}"
+            return f"{new_para}{sep}{rest}{trail}"
+
+    if box and box.get("kind") == "topic":
+        return f"**{term}.** {first_para}{sep}{rest}{trail}"
+    return text
+
+
 def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     """Hatnote, lead, and the chapter text of a heading's or a named topic's page."""
     path, box = article["path"], article["box"]
     excerpts = box["excerpts"]
     where = [re.sub(r"^\[(.*?)\]", r"[*\1*]", w) for w in topic_where(article, path)]
+    for extra in article.get("extra_boxes") or []:
+        w = f"[*{extra['chapter_title']}*]({href(path, extra['chapter'])}#{extra['anchor']})"
+        if w not in where:
+            where.append(w)
     noun = "Section" if box["kind"] == "section" else "Topic"
-    hat = f"{noun} of {where[0]}, part of {box['part']}" if where else f"{noun}, part of {box['part']}"
+    p_link = part_link(box["part"], path)
+    hat = f"{noun} of {where[0]}, part of {p_link}" if where else f"{noun}, part of {p_link}"
     if len(where) > 1:
         hat += " · Also in " + ", ".join(where[1:])
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat + "\n:::\n\n")]
@@ -3170,6 +3487,7 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
         elif e.get("main"):
             blocks.append((False, "excerpt-head", f"::: {{.mainarticle}}\n{note}\n:::\n\n"))
         blocks.append((True, "excerpt", copy_for_article(e["text"], e["chapter"], path) + "\n\n"))
+    blocks.extend(extra_article_blocks(article))
     return blocks
 
 
@@ -3182,8 +3500,15 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     if box:
         hat.append(
             f"{box['kind'].capitalize()} taught in "
-            f"[*{box['chapter_title']}*]({href(path, box['chapter'])}#{box['anchor']}), part of {box['part']}"
+            f"[*{box['chapter_title']}*]({href(path, box['chapter'])}#{box['anchor']}), part of {part_link(box['part'], path)}"
         )
+    also_places: list[str] = []
+    for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+        w = f"[*{extra['chapter_title']}*]({href(path, extra['chapter'])}#{extra['anchor']})"
+        if (not box or extra["chapter"] != box["chapter"]) and w not in also_places:
+            also_places.append(w)
+    if also_places:
+        hat.append("Also in " + ", ".join(also_places))
     if card:
         where = f"[distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
         hat.append(("Also on the " if box else "From the ") + where)
@@ -3213,11 +3538,12 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
             (
                 False,
                 "lead",
-                f"The {card['name'].lower()} distribution: "
+                f"The **{card['name'].lower()} distribution**: "
                 "parameters, support, probability function, mean and variance.\n\n",
             )
         )
     # The distribution card itself goes in the infobox.
+    blocks.extend(extra_article_blocks(article))
     return blocks
 
 
@@ -3227,9 +3553,19 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     by_q = {q["path"]: q for q in questions}
     lines = ["\n\n## Used in {#used-in}\n\n"]
     if box and box["kind"] in TOPIC_KINDS:
-        lines.append("- **Taught in** " + " · ".join(topic_where(article, path)) + "\n")
+        taught = list(topic_where(article, path))
+        for extra in article.get("extra_boxes") or []:
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if item not in taught:
+                taught.append(item)
+        lines.append("- **Taught in** " + " · ".join(taught) + "\n")
     elif box:
-        lines.append(f"- **Taught in** [{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']}), where the derivation and examples are.\n")
+        taught = [f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"]
+        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if extra["chapter"] != box["chapter"] and item not in taught:
+                taught.append(item)
+        lines.append("- **Taught in** " + " · ".join(taught) + ", where the derivation and examples are.\n")
     else:
         lines.append(f"- **Listed on** the [distribution sheet]({href(path, DIST_SHEET)}#{article['card']['anchor']}).\n")
 
@@ -3256,10 +3592,13 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
         for group in SOURCE_ORDER:
             if group in groups:
                 items.extend(t for _, t in sorted(groups[group], key=lambda t: t[0]))
-        lines.append(f"- **Questions that use it** ({len(items)}) — " + " · ".join(items) + "\n")
+        use_label = "Question that uses it" if len(items) == 1 else "Questions that use it"
+        lines.append(f"- **{use_label}** ({len(items)}) — " + " · ".join(items) + "\n")
     if box:
         n = len(by_topic.get(box["chapter"].name, []))
-        if n:
+        if n == 1:
+            lines.append(f"- [1 question on *{box['chapter_title']}*]({href(path, box['chapter'])}#questions-on-this-topic)\n")
+        elif n > 1:
             lines.append(f"- [All {n} questions on *{box['chapter_title']}*]({href(path, box['chapter'])}#questions-on-this-topic)\n")
 
     # Neighbours: pages on the same idea elsewhere, articles this one links to,
@@ -3598,24 +3937,53 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
     else:
         rows.append(("Type", box["kind"].capitalize()))
     if box and box["kind"] in TOPIC_KINDS:
-        rows.append(("Taught in", " · ".join(topic_where(article, path))))
-        chapters_seen = [e["chapter"] for e in box["excerpts"]] + [n["path"] for _, n, _, _ in box.get("places", [])]
+        taught = list(topic_where(article, path))
+        for extra in article.get("extra_boxes") or []:
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if item not in taught:
+                taught.append(item)
+        rows.append(("Taught in", " · ".join(taught)))
+        chapters_seen = (
+            [e["chapter"] for e in box["excerpts"]]
+            + [n["path"] for _, n, _, _ in box.get("places", [])]
+            + [extra["chapter"] for extra in article.get("extra_boxes") or []]
+        )
         parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in chapters_seen]))
-        rows.append(("Part", " · ".join(parts)))
+        rows.append(("Part", " · ".join(part_link(p, path) for p in parts)))
     elif box:
-        rows.append(("Taught in", f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"))
-        rows.append(("Part", box["part"]))
+        taught = [f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"]
+        extra_chaps = []
+        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if extra["chapter"] != box["chapter"] and item not in taught:
+                taught.append(item)
+            extra_chaps.append(extra["chapter"])
+        rows.append(("Taught in", " · ".join(taught)))
+        parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in extra_chaps if c in PAGE_PART]))
+        rows.append(("Part", " · ".join(part_link(p, path) for p in parts)))
     else:
         rows.append(("Listed on", f"[Distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"))
+    related_peers = list(
+        dict.fromkeys(
+            r for group in topics.RELATED if slug_ in group for r in group if r != slug_ and r in ARTICLES
+        )
+    )[:4]
+    if related_peers:
+        rows.append(
+            (
+                "Related",
+                " · ".join(f"[{ARTICLES[r]['term']}]({href(path, ARTICLES[r]['path'])})" for r in related_peers),
+            )
+        )
     n_props = len(PROPERTIES.get(slug_, []))
     n_examples = len(EXAMPLES.get(slug_, [])) + sum(1 for s in BOOK_EXAMPLES.values() if slug_ in s) + len(TOPIC_EXAMPLES.get(slug_, []))
     n_questions = len({source["path"] for source, _, _ in links if source["kind"] == "question"})
     if n_props:
-        rows.append(("Properties", f"[{n_props}](#properties)"))
+        rows.append(("Property" if n_props == 1 else "Properties", f"[{n_props}](#properties)"))
     if n_examples:
-        rows.append(("Worked examples", f"[{n_examples}](#examples)"))
+        rows.append(("Worked example" if n_examples == 1 else "Worked examples", f"[{n_examples}](#examples)"))
     if n_questions:
-        rows.append(("Questions using it", f"[{n_questions}](#used-in)"))
+        rows.append(("Question using it" if n_questions == 1 else "Questions using it", f"[{n_questions}](#used-in)"))
     figures = FIGURES.get(slug_, [])
     image = figure_md(figures[0], path, short=True) if figures else ""
     return infobox_md(article["term"], rows, image, note)
@@ -3625,22 +3993,23 @@ def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict]
     path = note["path"]
     i = next(k for k, n in enumerate(siblings) if n["path"] == path)
     level = chapter_guides.GUIDES[path.name]["level"].capitalize()
-    rows = [("Part", part), ("Level", level), ("Chapter", f"{i + 1} of {len(siblings)} in this part")]
+    rows = [("Part", part_link(part, path)), ("Level", level), ("Chapter", f"{i + 1} of {len(siblings)} in this part")]
     if i > 0:
         rows.append(("Previous", f"[{siblings[i - 1]['title']}]({href(path, siblings[i - 1]['path'])})"))
     if i + 1 < len(siblings):
         rows.append(("Next", f"[{siblings[i + 1]['title']}]({href(path, siblings[i + 1]['path'])})"))
     if own:
-        rows.append(("Questions", f"[{len(own)}](#questions-on-this-topic)"))
+        rows.append(("Question" if len(own) == 1 else "Questions", f"[{len(own)}](#questions-on-this-topic)"))
     defs = [a for a in own_articles if a["box"]["kind"] == "definition"]
     results = [a for a in own_articles if a["box"]["kind"] in {"theorem", "proposition", "corollary"}]
     if defs:
-        rows.append(("Definitions", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in defs)))
+        rows.append(("Definition" if len(defs) == 1 else "Definitions", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in defs)))
     if results:
-        rows.append(("Results", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in results)))
+        rows.append(("Result" if len(results) == 1 else "Results", " · ".join(f"[{a['term']}]({href(path, a['path'])})" for a in results)))
     seen = CHAPTER_FIGURES_SEEN.get(path, [])
     if seen:
-        rows.append(("Figures", str(len(dict.fromkeys(seen)))))
+        n_figs = len(dict.fromkeys(seen))
+        rows.append(("Figure" if n_figs == 1 else "Figures", str(n_figs)))
     lead = CHAPTER_FIGURES.get(path.name) or (seen[0] if seen else "")
     image = figure_md(lead, path, short=True, credit=False) if lead else ""
     return infobox_md(note["title"], rows, image)
@@ -3876,6 +4245,174 @@ Open one question. The list starts with questions that have a worked answer. Cho
     )
 
 
+def plain_phrases_from_pattern(pattern: str) -> list[str]:
+    """Extract plain-text alias phrases from simple regex alternatives in topics.py and TERMS."""
+    out: list[str] = []
+    for raw_alt in split_alternatives(pattern):
+        alt = raw_alt.strip()
+        if alt.startswith("re:"):
+            alt = alt[3:].strip()
+        if re.search(r"\(\?[=!<]|\\[dswDSW]|\.\*|\.\+", alt):
+            continue
+        s = alt.replace(r"\.", ".").replace(r"\'", "'")
+        s = s.replace("σ", "sigma").replace("α", "alpha").replace("β", "beta").replace("λ", "lambda")
+        s = s.replace("(?:--|–|-| )", "-").replace("(?:--|–|-)", "-")
+        s = s.replace("[–-]", "-").replace("[- ]?", "-").replace("[- ]", " ")
+        s = s.replace("['’]?", "'").replace("['’]", "'")
+        s = s.replace("[sz]", "s").replace("u?", "u")
+        s = re.sub(r"matri\(\?:x\|ces\)", "matrix", s)
+        s = re.sub(r"\[ie\]s$", "is", s)
+        s = re.sub(r"\(\?:y\|ies\)$", "y", s)
+        s = re.sub(r"ies\?$", "y", s)
+        s = re.sub(r"\(\?:s\|es\)\?$", "", s)
+        s = re.sub(r"s\?$", "", s)
+        if "(" in s or "[" in s or "\\" in s or "?" in s or "*" in s or "+" in s or "^" in s or "$" in s:
+            short = re.sub(r"\(\?:[^()]+\)\?", "", s)
+            short = re.sub(r"\s+", " ", short).strip(" -")
+            if len(short) >= 2 and not re.search(r"[()\[\]\\?*+^$]", short):
+                out.append(short)
+            expanded = re.sub(r"\(\?:([^()|]+)\)\?", r"\1", s)
+            expanded = re.sub(r"\s+", " ", expanded).strip(" -")
+            if expanded != short and len(expanded) >= 2 and not re.search(r"[()\[\]\\?*+^$]", expanded):
+                out.append(expanded)
+            continue
+        s = re.sub(r"\s+", " ", s).strip(" -")
+        if len(s) >= 2:
+            out.append(s)
+    return out
+
+
+def term_target_href(notes: dict, code: str, key: str) -> str | None:
+    if code == "ART":
+        article = ARTICLES.get(key)
+        return f"articles/{article['slug']}.html" if article else None
+    fname = CHAPTER_CODES.get(code)
+    if not fname or fname not in notes:
+        return None
+    if key == "":
+        return f"notes/{Path(fname).stem}.html"
+    if key.startswith(("def-", "thm-", "prp-", "cor-", "rem-")):
+        if key in BOX_ARTICLE:
+            return f"articles/{BOX_ARTICLE[key]}.html"
+        return f"notes/{Path(fname).stem}.html"
+    anchor = HEADING_ANCHORS.get((fname, plain(key)), "")
+    if (fname, anchor) in SECTION_PAGE:
+        return f"articles/{SECTION_PAGE[(fname, anchor)]}.html"
+    return f"notes/{Path(fname).stem}.html"
+
+
+SEARCH_ALIASES: dict[str, tuple[str, str]] = {}  # alias slug -> (canonical href, display label)
+
+
+def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
+    """Build canonical concept metadata and unambiguous aliases for search and redirects."""
+    pages: dict[str, dict] = {}
+    for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
+        href_ = f"articles/{article['slug']}.html"
+        pages[href_] = {"title": article["term"], "kind": "article", "aliases": []}
+    for _part, note in chapters:
+        href_ = f"notes/{note['path'].stem}.html"
+        pages[href_] = {"title": note["title"], "kind": "chapter", "aliases": []}
+    for note in final_notes:
+        href_ = f"notes/{note['path'].stem}.html"
+        pages[href_] = {"title": note["title"], "kind": "chapter", "aliases": []}
+    pages["overview.html"] = {"title": "What statistics is", "kind": "overview", "aliases": []}
+    pages["notes/index.html"] = {"title": "Topics", "kind": "index", "aliases": []}
+    pages["questions/index.html"] = {"title": "Question bank", "kind": "index", "aliases": []}
+    pages["questions/by-topic.html"] = {"title": "Questions by topic", "kind": "index", "aliases": []}
+    pages["questions/random.html"] = {"title": "Random question", "kind": "index", "aliases": []}
+    pages["reference/index.html"] = {"title": "Reference", "kind": "reference", "aliases": []}
+    pages["reference/glossary.html"] = {"title": "Glossary and index", "kind": "reference", "aliases": []}
+    pages["reference/distributions.html"] = {"title": "Common distributions", "kind": "reference", "aliases": []}
+    pages["reference/formulas.html"] = {"title": "Formula lookup", "kind": "reference", "aliases": []}
+    for lab_qmd in sorted((WIKI / "labs").glob("*.qmd")):
+        if lab_qmd.name.startswith("_"):
+            continue
+        raw = lab_qmd.read_text(encoding="utf-8")
+        m = re.search(r'^title:\s*"?(.*?)"?\s*$', raw, re.M)
+        lab_title = m.group(1).replace('\\"', '"') if m else lab_qmd.stem
+        pages[f"labs/{lab_qmd.stem}.html"] = {"title": lab_title, "kind": "laboratory", "aliases": []}
+
+    title_slugs: set[str] = {slug(info["title"]) for info in pages.values() if slug(info["title"])}
+    aliases_map: dict[str, str] = {}
+    SEARCH_ALIASES.clear()
+
+    def register_alias(label: str, target_href: str) -> None:
+        s = slug(label)
+        if not s or len(s) < 2 or target_href not in pages:
+            return
+        page_entry = pages[target_href]
+        if label.strip() and label.strip().lower() != page_entry["title"].lower():
+            if not any(existing.lower() == label.strip().lower() for existing in page_entry["aliases"]):
+                page_entry["aliases"].append(label.strip())
+        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES or target_href == f"articles/{s}.html":
+            return
+        if s in aliases_map:
+            return
+        if s in title_slugs and slug(page_entry["title"]) != s:
+            return
+        aliases_map[s] = target_href
+        SEARCH_ALIASES[s] = (target_href, label.strip())
+
+    # 1. Explicit concept aliases in topics.ALIASES and SEE_ALSO.
+    for alias, target in topics.ALIASES.items():
+        if target in ARTICLES:
+            register_alias(alias, f"articles/{target}.html")
+    for alias, target_term in SEE_ALSO.items():
+        found = next((a for a in ARTICLES.values() if a["term"].lower() == target_term.lower()), None)
+        if found:
+            register_alias(alias, f"articles/{found['slug']}.html")
+
+    # 2. Distribution family short names (e.g. "normal", "beta", "poisson", "chi-squared").
+    for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
+        term = article["term"]
+        if term.lower().endswith(" distribution"):
+            short = term[: -len(" distribution")].strip()
+            if (
+                len(slug(short)) >= 3
+                and not re.search(r"\b(?:of|a|an|the|and|in|for)$", short, re.I)
+                and slug(short) not in ARTICLES
+                and slug(short) not in RETIRED
+            ):
+                register_alias(short, f"articles/{article['slug']}.html")
+
+    # 3. Unambiguous phrases from topics.TOPICS, topics.LINKS, TERMS, and topics.LINKS_LAST.
+    all_rows = [tuple(t)[:3] for t in topics.LINKS + TOPIC_TERMS + TERMS + TOPIC_TERMS_LATE + topics.LINKS_LAST]
+    phrase_targets: dict[str, set[str]] = {}
+    ordered_candidates: list[tuple[str, str]] = []
+    for pattern, code, key in all_rows:
+        target_href = term_target_href(notes, code, key)
+        if not target_href:
+            continue
+        for phrase in plain_phrases_from_pattern(pattern):
+            s = slug(phrase)
+            if not s or len(s) < 2:
+                continue
+            phrase_targets.setdefault(s, set()).add(target_href)
+            ordered_candidates.append((phrase, target_href))
+    for phrase, target_href in ordered_candidates:
+        s = slug(phrase)
+        if len(phrase_targets.get(s, set())) == 1 and s not in RETIRED:
+            register_alias(phrase, target_href)
+
+    redirects_map = {
+        s: f"notes/{chapter.stem}.html#{anchor}"
+        for s, (chapter, anchor) in sorted(RETIRED.items())
+    }
+    for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
+        redirects_map[old_slug] = f"articles/{target_slug}.html"
+    return {"pages": pages, "aliases": aliases_map, "redirects": redirects_map}
+
+
+def write_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
+    payload = collect_search_aliases(notes, chapters, final_notes)
+    (WIKI / "search-aliases.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return payload
+
+
 def write_search_page() -> None:
     page = WIKI / "search.qmd"
     page.write_text(
@@ -3884,27 +4421,49 @@ title: "Search"
 toc: false
 ---
 
-Press Enter in the search box at the top to open this page. Definitions and articles are listed before figure files.
+Press Enter in the search box at the top to open this page. Each page appears once, with exact concept and alias matches first and figure files last.
 
 ```{=html}
 <form id="site-search" class="site-search" role="search">
   <label for="site-search-q">Search</label>
-  <input id="site-search-q" type="search" name="q">
+  <input id="site-search-q" type="search" name="q" autocomplete="off">
   <button type="submit">Search</button>
 </form>
+<div id="site-search-exact" class="search-exact" hidden></div>
 <p id="site-search-note"></p>
 <ol id="site-search-results"></ol>
 <script type="module">
-import { rankDocuments, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
+import { rankDocuments, resolveExactMatch, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
 
 const form = document.getElementById("site-search");
 const input = document.getElementById("site-search-q");
+const exactBox = document.getElementById("site-search-exact");
 const note = document.getElementById("site-search-note");
 const list = document.getElementById("site-search-results");
 const params = new URLSearchParams(location.search);
 input.value = params.get("query") || "";
 
+let cachedDocs = null;
+let cachedMeta = null;
+let lastRenderedQuery = "";
+
+async function loadData() {
+  if (cachedDocs) return { docs: cachedDocs, meta: cachedMeta };
+  const [indexRes, aliasRes] = await Promise.all([
+    fetch(new URL("search.json", location.href)),
+    fetch(new URL("search-aliases.json", location.href)).catch(() => null),
+  ]);
+  if (!indexRes.ok) throw new Error("index unavailable");
+  cachedDocs = documentsFromIndex(await indexRes.json());
+  cachedMeta = aliasRes && aliasRes.ok ? await aliasRes.json() : null;
+  return { docs: cachedDocs, meta: cachedMeta };
+}
+
 function kindOf(href) {
+  const path = String(href || "").split("#")[0].replace(/^\\//, "");
+  if (path.startsWith("labs/")) return "Laboratory";
+  if (path.startsWith("questions/")) return "Question";
+  if (path.startsWith("reference/")) return "Reference";
   const tier = tierOf(href);
   if (tier === 0) return "Article";
   if (tier === 1) return "Chapter";
@@ -3926,24 +4485,50 @@ function snippet(doc, terms) {
   return (start ? "…" : "") + text.slice(start, start + 180) + (start + 180 < text.length ? "…" : "");
 }
 
-async function run(query) {
+async function run(query, allowRedirect = false) {
   list.innerHTML = "";
+  exactBox.hidden = true;
+  exactBox.textContent = "";
   const q = query.trim();
+  lastRenderedQuery = q;
   if (!q) {
-    note.textContent = "Type a word or a phrase.";
+    note.textContent = "Type a word, phrase, or abbreviation (such as ANOVA, OLS, MLE, CLT, GLM, or MCMC).";
     return;
   }
-  const response = await fetch(new URL("search.json", location.href));
-  if (!response.ok) {
+  let docs, meta;
+  try {
+    ({ docs, meta } = await loadData());
+  } catch (_err) {
     note.textContent = "The search index is not available.";
     return;
   }
-  const docs = documentsFromIndex(await response.json());
-  const found = rankDocuments(docs, q);
+  const exact = resolveExactMatch(q, meta, docs);
+  if (allowRedirect && exact) {
+    window.location.href = exact.href;
+    return;
+  }
+  if (exact) {
+    const p = document.createElement("p");
+    p.append("Direct match: ");
+    const directLink = document.createElement("a");
+    directLink.href = exact.href;
+    directLink.style.fontWeight = "600";
+    directLink.textContent = exact.title;
+    p.append(directLink);
+    if (exact.alias && exact.alias.toLowerCase() !== exact.title.toLowerCase()) {
+      p.append(" (alias: " + exact.alias + ")");
+    }
+    p.append(" — press Enter again to open directly.");
+    exactBox.appendChild(p);
+    exactBox.hidden = false;
+  }
+
+  const found = rankDocuments(docs, q, meta);
   const terms = expandedTerms(q);
+  const pageWord = found.length === 1 ? "page" : "pages";
   note.textContent = terms.length > 1
-    ? found.length + " pages. Also matching " + terms.join(", ") + "."
-    : found.length + (found.length === 1 ? " page." : " pages.");
+    ? found.length + " " + pageWord + ". Also matching " + terms.join(", ") + "."
+    : found.length + " " + pageWord + ".";
   for (const doc of found.slice(0, 40)) {
     const item = document.createElement("li");
     const link = document.createElement("a");
@@ -3952,24 +4537,47 @@ async function run(query) {
     const kind = document.createElement("span");
     kind.className = "search-kind";
     kind.textContent = kindOf(doc.href);
+    item.append(link, kind);
+    if (doc.matchedAlias) {
+      const badge = document.createElement("span");
+      badge.className = "search-alias";
+      badge.textContent = doc.matchedAlias;
+      item.append(badge);
+    }
     const blurb = document.createElement("p");
-    const section = doc.section ? doc.section + ". " : "";
-    blurb.textContent = section + snippet(doc, terms);
-    item.append(link, kind, blurb);
+    if (doc.section && doc.sectionHref) {
+      const secLink = document.createElement("a");
+      secLink.href = doc.sectionHref;
+      secLink.className = "search-section-link";
+      secLink.textContent = "§ " + doc.section;
+      blurb.append(secLink, document.createTextNode(" — " + snippet(doc, terms)));
+    } else {
+      const sectionPrefix = doc.section ? doc.section + ". " : "";
+      blurb.textContent = sectionPrefix + snippet(doc, terms);
+    }
+    item.append(blurb);
     list.appendChild(item);
   }
 }
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
   event.preventDefault();
   const q = input.value.trim();
+  if (q && q === lastRenderedQuery && cachedDocs) {
+    const exact = resolveExactMatch(q, cachedMeta, cachedDocs);
+    if (exact) {
+      window.location.href = exact.href;
+      return;
+    }
+  }
   const url = new URL(location.href);
   if (q) url.searchParams.set("query", q); else url.searchParams.delete("query");
+  url.searchParams.delete("go");
   history.replaceState(null, "", url);
-  run(q);
+  await run(q, false);
 });
 
-run(input.value);
+run(input.value, params.get("go") === "1");
 </script>
 ```
 """,
@@ -4087,6 +4695,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         raise SystemExit(f"By topic part counts sum to {stated}, not {len(questions)}")
     by_topic_path.write_text("---\ntitle: \"Questions by topic\"\ntoc-depth: 2\n---\n\n" + body + "\n", encoding="utf-8")
     write_random_page(questions)
+    write_search_aliases(notes, chapters, final_notes)
     write_search_page()
 
     # Reference landing page and the distribution sheet.
@@ -4297,9 +4906,12 @@ def png_size(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", data[16:24])
 
 
-def footer_text() -> str:
-    """Copyright and the date of this build, for the foot of every page."""
-    today = datetime.now(timezone.utc)
+BRISBANE_TZ = ZoneInfo("Australia/Brisbane")
+
+
+def footer_text(now: datetime | None = None) -> str:
+    """Copyright and the date of this build in Australia/Brisbane, for the foot of every page."""
+    today = (now or datetime.now(BRISBANE_TZ)).astimezone(BRISBANE_TZ)
     return f"© {today.year} {SITE_NAME} · Last updated {today.day} {today:%B %Y}"
 
 
@@ -4354,6 +4966,7 @@ def write_config(chapters, final_notes, questions) -> None:
 {chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - search-rank.js
+    - search-aliases.json
     # Redirects from heading pages that are no longer made to their chapters.
     - articles/*.html
     - {SHARE_IMAGE}
@@ -4984,9 +5597,11 @@ def main() -> None:
         SECTION_SLICES,
         update_ids="--update-ids" in sys.argv,
         retired={s: (chapter.name, anchor) for s, (chapter, anchor) in RETIRED.items()},
+        merged=dict(MERGED_ARTICLES),
     ):
         print(f"Registry warning: vanished {item}")
     write_retired_pages()
+    write_alias_redirect_pages()
     write_file_pages()
 
     leftover = []
@@ -5017,15 +5632,24 @@ def main() -> None:
         bad = re.search(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", path.read_text(encoding="utf-8"))
         if bad:
             raise SystemExit(f"Control character {bad.group(0)!r} in {path.relative_to(WIKI)}")
+    doubled_link_xref = re.compile(
+        rf"\b(?:{XREF_NOUNS})\s+\[(?:Equation|Theorem|Lemma|Proposition|Corollary|Definition|Example|Figure|Table|Section|Chapter|Note)\b",
+        re.I,
+    )
     cited = []
+    doubled = []
     for folder in ("notes", "questions", "articles", "reference"):
         for path in sorted((WIKI / folder).rglob("*.qmd")):
             pieces = re.split(r"(```.*?```)", path.read_text(encoding="utf-8"), flags=re.S)
             for piece in pieces:
                 if not piece.startswith("```"):
                     cited += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in outside.finditer(piece)]
+                    doubled += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in DOUBLED_XREF.finditer(piece)]
+                    doubled += [f"{path.relative_to(WIKI)}: {m.group(0)}" for m in doubled_link_xref.finditer(piece)]
     if cited:
         raise SystemExit("Pages point at outside material:\n  " + "\n  ".join(cited[:20]))
+    if doubled:
+        raise SystemExit("Pages contain doubled cross-reference nouns:\n  " + "\n  ".join(doubled[:20]))
 
     print(f"Chapter pages: {len([n for n in notes.values() if n['kind'] == 'notes'])}")
     print(f"Question pages: {len(questions)}, with answers: {sum(1 for q in questions if q.get('answer'))}")

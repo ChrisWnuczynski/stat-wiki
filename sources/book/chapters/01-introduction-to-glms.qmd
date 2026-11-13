@@ -21,7 +21,7 @@ Y_i\mid \vect{X}_i\ind \mathrm{N}(\vect{X}_i^\top\boldsymbol{\beta},\sigma^2).
 $$ {#eq-normal-lm}
 Independence is the $\mathrm{ind}$. Normality and the mean are inside the $\mathrm{N}(\cdot)$. Constant variance is the single $\sigma^2$, not a $\sigma_i^2$. If you are uncomfortable with $\vect{X}^\top\boldsymbol{\beta}$, read it as $\beta_0+\beta_1 x_1+\beta_2 x_2+\cdots$.
 
-Equation @eq-mean-plus-error looks innocent, and it is not. Before we replace it, we will watch it fail on three data sets, with a different assumption failing each time.
+@eq-mean-plus-error looks innocent, and it is not. Before we replace it, we will watch it fail on three data sets, with a different assumption failing each time.
 
 ## Three examples the linear model does not fit
 
@@ -400,13 +400,13 @@ Set the score equal to zero. The denominator $p_i(1-p_i)$ is $\mathrm{Var}(Y_i\m
 $$
 \sum_{i=1}^n\frac{y_i-\mu_i}{\mathrm{Var}(Y_i\mid \vect{X}_i)}\,\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i=\vect{0}.
 $$ {#eq-score}
-You should be able to recover @eq-score from the Poisson log-likelihood and from the gamma log-likelihood. That is an exercise, not a new idea. For the normal identity-link model, $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$, the derivative $\mu'$ is $1$, and the variance is the constant $\sigma^2$. Equation @eq-score collapses to
+You should be able to recover @eq-score from the Poisson log-likelihood and from the gamma log-likelihood. That is an exercise, not a new idea. For the normal identity-link model, $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$, the derivative $\mu'$ is $1$, and the variance is the constant $\sigma^2$. @eq-score collapses to
 $$
 \frac{1}{\sigma^2}\sum_{i=1}^n (y_i-\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i=\vect{0},
 $$
 or $\mat{X}^\top(\vect{y}-\mat{X}\boldsymbol{\beta})=\vect{0}$ once the rows $\vect{X}_i^\top$ are stacked into the matrix $\mat{X}$. Those are the normal equations. The GLM score is the same residual, $\vect{y}-\boldsymbol{\mu}$, reweighted by the variance and by the slope of the mean function.
 
-The weights depend on $\boldsymbol{\beta}$, and so does $\boldsymbol{\mu}$. Equation @eq-score is not a linear system. We solve it by iteration.
+The weights depend on $\boldsymbol{\beta}$, and so does $\boldsymbol{\mu}$. @eq-score is not a linear system. We solve it by iteration.
 
 ### Fisher scoring
 

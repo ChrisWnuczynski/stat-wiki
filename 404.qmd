@@ -1,0 +1,223 @@
+---
+title: "Page not found"
+description: "Find a moved or mistyped StatWiki page by concept name, abbreviation, or live site search."
+toc: false
+---
+
+No page exists at the requested address. If you followed an old link or typed a short concept URL, open the closest match below or search across every chapter, concept article, laboratory, and practice question.
+
+```{=html}
+<div id="nf-requested" class="hatnote" hidden></div>
+<div id="nf-direct" class="search-exact" hidden></div>
+
+<form id="nf-search" class="site-search" role="search">
+  <label for="nf-search-q">Search StatWiki</label>
+  <input id="nf-search-q" type="search" name="q" placeholder="e.g. variance, ANOVA, OLS, MLE, Markov chain" autocomplete="off">
+  <button type="submit">Search</button>
+</form>
+
+<p id="nf-note"></p>
+<ol id="nf-results"></ol>
+
+<script type="module">
+const offsetMeta = document.querySelector('meta[name="quarto:offset"]');
+const rawOffset = offsetMeta ? (offsetMeta.getAttribute("content") || "/") : "/";
+const rootUrl = rawOffset.startsWith("/")
+  ? new URL(rawOffset, location.origin).href
+  : new URL(rawOffset, location.href).href;
+
+function toRootHref(relHref) {
+  const clean = String(relHref || "").replace(/^(\.\/|\.\.\/|\/)+/, "");
+  return new URL(clean, rootUrl).href;
+}
+
+function slugFromLocation() {
+  const params = new URLSearchParams(location.search);
+  const explicit = params.get("q") || params.get("query") || "";
+  if (explicit.trim()) return { rawPath: explicit.trim(), query: explicit.trim(), stem: "" };
+  const pathParam = params.get("path") || location.pathname || "";
+  const cleanedPath = decodeURIComponent(pathParam).replace(/\/+$/, "");
+  if (!cleanedPath || /\/404(\.html)?$/i.test(cleanedPath) || cleanedPath === "/index.html") {
+    return { rawPath: "", query: "", stem: "" };
+  }
+  const parts = cleanedPath.split("/").filter(Boolean);
+  const last = (parts[parts.length - 1] || "").replace(/\.(html|qmd)$/i, "");
+  if (!last || last === "404" || last === "index") {
+    return { rawPath: cleanedPath, query: "", stem: "" };
+  }
+  const human = last.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
+  return { rawPath: cleanedPath, query: human, stem: last.toLowerCase() };
+}
+
+const requestedEl = document.getElementById("nf-requested");
+const directEl = document.getElementById("nf-direct");
+const form = document.getElementById("nf-search");
+const input = document.getElementById("nf-search-q");
+const note = document.getElementById("nf-note");
+const list = document.getElementById("nf-results");
+
+const initial = slugFromLocation();
+if (initial.rawPath && initial.query) {
+  requestedEl.textContent = "Requested path: " + initial.rawPath;
+  requestedEl.hidden = false;
+}
+input.value = initial.query;
+
+let searchMod = null;
+let cachedDocs = null;
+let cachedMeta = null;
+let lastQuery = "";
+
+async function ensureLoaded() {
+  if (searchMod && cachedDocs) return { mod: searchMod, docs: cachedDocs, meta: cachedMeta };
+  const [mod, indexRes, aliasRes] = await Promise.all([
+    import(toRootHref("search-rank.js")),
+    fetch(toRootHref("search.json")),
+    fetch(toRootHref("search-aliases.json")).catch(() => null),
+  ]);
+  if (!indexRes.ok) throw new Error("search index unavailable");
+  searchMod = mod;
+  cachedDocs = mod.documentsFromIndex(await indexRes.json());
+  cachedMeta = aliasRes && aliasRes.ok ? await aliasRes.json() : null;
+  return { mod: searchMod, docs: cachedDocs, meta: cachedMeta };
+}
+
+function kindLabel(mod, href) {
+  const path = String(href || "").split("#")[0].replace(/^\//, "");
+  if (path.startsWith("labs/")) return "Laboratory";
+  if (path.startsWith("questions/")) return "Question";
+  if (path.startsWith("reference/")) return "Reference";
+  const tier = mod.tierOf(href);
+  if (tier === 0) return "Article";
+  if (tier === 1) return "Chapter";
+  if (tier === 3) return "Figure";
+  return "Page";
+}
+
+function buildSnippet(doc, terms) {
+  const text = String(doc.text || "").replace(/\s+/g, " ").trim();
+  if (!text) return "";
+  const folded = text.toLowerCase();
+  let at = -1;
+  for (const term of terms) {
+    const found = folded.indexOf(term.toLowerCase());
+    if (found >= 0 && (at < 0 || found < at)) at = found;
+  }
+  if (at < 0) return text.slice(0, 180);
+  const start = Math.max(0, at - 60);
+  return (start ? "…" : "") + text.slice(start, start + 180) + (start + 180 < text.length ? "…" : "");
+}
+
+async function runLookup(query, stemHint = "") {
+  list.innerHTML = "";
+  directEl.hidden = true;
+  directEl.textContent = "";
+  const q = String(query || "").trim();
+  lastQuery = q;
+  if (!q) {
+    note.textContent = "Enter a statistical concept, distribution, theorem, or abbreviation above.";
+    return;
+  }
+
+  let mod, docs, meta;
+  try {
+    ({ mod, docs, meta } = await ensureLoaded());
+  } catch (_err) {
+    note.textContent = "The search index could not be loaded.";
+    return;
+  }
+
+  const stemKey = stemHint || mod.slugKey(q);
+  const retiredTarget = meta && meta.redirects ? meta.redirects[stemKey] : null;
+  const exact = mod.resolveExactMatch(q, meta, docs);
+
+  if (exact || retiredTarget) {
+    const targetHref = exact ? toRootHref(exact.href) : toRootHref(retiredTarget);
+    const targetTitle = exact ? exact.title : retiredTarget.split("#")[0];
+    const p = document.createElement("p");
+    p.append("Closest match: ");
+    const a = document.createElement("a");
+    a.href = targetHref;
+    a.style.fontWeight = "600";
+    a.textContent = targetTitle;
+    p.append(a);
+    if (exact && exact.alias && exact.alias.toLowerCase() !== exact.title.toLowerCase()) {
+      p.append(" (alias: " + exact.alias + ")");
+    }
+    p.append(" · ");
+    const go = document.createElement("a");
+    go.href = targetHref;
+    go.textContent = "Open page →";
+    p.append(go);
+    directEl.appendChild(p);
+    directEl.hidden = false;
+  }
+
+  const found = mod.rankDocuments(docs, q, meta);
+  const terms = mod.expandedTerms(q);
+  const word = found.length === 1 ? "matching page" : "matching pages";
+  note.textContent = found.length
+    ? found.length + " " + word + " for “" + q + "”."
+    : "No pages matched “" + q + "”. Try a broader term or browse the sections below.";
+
+  for (const doc of found.slice(0, 25)) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = toRootHref(doc.href);
+    link.textContent = doc.title || doc.href;
+    const kind = document.createElement("span");
+    kind.className = "search-kind";
+    kind.textContent = kindLabel(mod, doc.href);
+    item.append(link, kind);
+    if (doc.matchedAlias) {
+      const badge = document.createElement("span");
+      badge.className = "search-alias";
+      badge.textContent = doc.matchedAlias;
+      item.append(badge);
+    }
+    const blurb = document.createElement("p");
+    if (doc.section && doc.sectionHref) {
+      const secLink = document.createElement("a");
+      secLink.href = toRootHref(doc.sectionHref);
+      secLink.className = "search-section-link";
+      secLink.textContent = "§ " + doc.section;
+      blurb.append(secLink, document.createTextNode(" — " + buildSnippet(doc, terms)));
+    } else {
+      blurb.textContent = buildSnippet(doc, terms);
+    }
+    item.append(blurb);
+    list.appendChild(item);
+  }
+}
+
+let timer = null;
+input.addEventListener("input", () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => { runLookup(input.value); }, 120);
+});
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const q = input.value.trim();
+  if (q && q === lastQuery && searchMod && cachedDocs) {
+    const exact = searchMod.resolveExactMatch(q, cachedMeta, cachedDocs);
+    if (exact) {
+      window.location.href = toRootHref(exact.href);
+      return;
+    }
+  }
+  await runLookup(q);
+});
+
+runLookup(initial.query, initial.stem);
+</script>
+```
+
+## Browse the site
+
+- [Main page](index.qmd) — starter chapters and topic portals
+- [What statistics is](overview.qmd) — full narrative map of the field
+- [Topics](notes/index.qmd) — all chapters organised by subject and level
+- [Glossary and index](reference/glossary.qmd) — every defined concept, theorem, and redirect from A to Z
+- [Question bank](questions/index.qmd) — practice questions with folded worked answers
+- [Laboratories](labs/index.qmd) — interactive probability and inference experiments
