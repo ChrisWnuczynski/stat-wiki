@@ -1531,8 +1531,12 @@ BOX_TITLES = {
     "def-marginal": "Marginal model",
     "def-definition": "Sufficient statistic",
     "def-definition-2": "Complete statistic",
+    "def-sl-09-kfold": "K-fold cross-validation",
+    "def-sl-11-knn": "K-nearest neighbours",
     "thm-moments": "Mean and variance of an exponential family",
     "thm-wold": "Wold decomposition",
+    "thm-sl-02-hotelling": "Null distribution of Hotelling's T²",
+    "thm-sl-02-two-sample": "Two-sample Hotelling F critical value",
 }
 
 # Headings that are not topics in their own right.
@@ -1600,8 +1604,16 @@ def snippet_from(lines: list[str]) -> str:
 
 ARTICLES: dict[str, dict] = {}  # slug -> article
 BOX_ARTICLE: dict[str, str] = {}  # box id -> slug
+PENDING_MERGED_BOXES: list[tuple[str, dict]] = []  # (target slug, box dict)
+MERGED_ARTICLES: dict[str, str] = {}  # retired duplicate article slug -> canonical article slug
 ARTICLE_DIR = WIKI / "articles"
 DIST_SHEET = WIKI / "reference" / "distributions.qmd"
+BOX_SLUG_OVERRIDES = {
+    "def-sl-09-kfold": "fold-cross-validation",
+    "def-sl-11-knn": "nearest-neighbours",
+    "thm-sl-02-hotelling": "null-distribution-of-hotelling-s",
+    "thm-sl-02-two-sample": "two-sample-hotelling-test",
+}
 KIND_HEADINGS = {
     "definition": "Definition",
     "theorem": "Statement",
@@ -1619,18 +1631,15 @@ def new_article(slug_: str, term: str) -> dict:
         "box": None,
         "card": None,
         "aliases": [],
+        "extra_boxes": [],
+        "extra_sections": [],
     }
     ARTICLES[slug_] = article
     return article
 
 
 def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
-    s = slug(term)
-    if s in ARTICLES and ARTICLES[s]["box"] is not None:
-        s = f"{s}-{note['path'].stem}"  # two boxes with one name in different chapters
-    article = ARTICLES.get(s) or new_article(s, term)
-    article["term"] = term
-    article["box"] = {
+    box_dict = {
         "chapter": note["path"],
         "chapter_title": note["title"],
         "part": part,
@@ -1639,6 +1648,19 @@ def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
         "lines": list(lines),
         "snippet": snippet,
     }
+    same = getattr(topics, "BOX_SAME_AS", {}).get(ident)
+    if same:
+        target_slug, old_slug = same
+        MERGED_ARTICLES[old_slug] = target_slug
+        BOX_ARTICLE[ident] = target_slug
+        PENDING_MERGED_BOXES.append((target_slug, box_dict))
+        return {"slug": target_slug, "path": ARTICLE_DIR / f"{target_slug}.qmd", "term": term}
+    s = BOX_SLUG_OVERRIDES.get(ident) or slug(term)
+    if s in ARTICLES and ARTICLES[s]["box"] is not None:
+        s = f"{s}-{note['path'].stem}"  # two boxes with one name in different chapters
+    article = ARTICLES.get(s) or new_article(s, term)
+    article["term"] = term
+    article["box"] = box_dict
     BOX_ARTICLE[ident] = s
     return article
 
@@ -2017,11 +2039,37 @@ def add_main_article_notes(note: dict, prose: str) -> str:
 def fill_topic_pages(prepared: list[tuple[str, dict, str]]) -> None:
     """Copy each heading's text, and each named topic's paragraphs, onto its page."""
     by_file = {note["path"].name: prose for _, note, prose in prepared}
+    MERGED_ARTICLES.update(getattr(topics, "MERGED", {}))
+    for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
+        if target_slug not in ARTICLES:
+            raise SystemExit(f"MERGED[{old_slug!r}]: no canonical article {target_slug!r}")
+        if old_slug in ARTICLES:
+            raise SystemExit(f"MERGED[{old_slug!r}] was still emitted as an article")
+        RETIRED.pop(old_slug, None)
+    for target_slug, extra_box in PENDING_MERGED_BOXES:
+        if target_slug not in ARTICLES:
+            raise SystemExit(f"BOX_SAME_AS target {target_slug!r} was not emitted")
+        ARTICLES[target_slug]["extra_boxes"].append(extra_box)
     for (fname, anchor), s in SECTION_PAGE.items():
         box = ARTICLES[s]["box"]
-        if not box or box["kind"] not in TOPIC_KINDS:
-            continue
         note = next(n for _, n, _ in prepared if n["path"].name == fname)
+        if not box or box["kind"] not in TOPIC_KINDS:
+            # A chapter section unified onto a canonical box article via SAME_AS:
+            # carry any prose outside the primary box onto the canonical article.
+            sec_text = SECTION_TEXT[(fname, anchor)]
+            if box and box.get("anchor"):
+                own_box_re = re.compile(
+                    rf"^:+\s*\{{#{re.escape(box['anchor'])}\s+\.[^}}]+\}}.*?^:+\s*$",
+                    re.M | re.S,
+                )
+                sec_text = own_box_re.sub("", sec_text)
+                sec_text = re.sub(r"^\[Article:[^\n]*\]\([^\n]*\)\{\.box-article\}\s*$", "", sec_text, flags=re.M)
+            sec_text = sec_text.strip()
+            if sec_text and (box is None or note["path"] != box["chapter"] or len(sec_text) > 120):
+                ARTICLES[s]["extra_sections"].append(
+                    {"chapter": note["path"], "chapter_title": note["title"], "part": PAGE_PART.get(note["path"], ""), "anchor": anchor, "text": sec_text}
+                )
+            continue
         box["excerpts"].append({"chapter": note["path"], "chapter_title": note["title"], "anchor": anchor, "text": SECTION_TEXT[(fname, anchor)]})
     for a in ARTICLES.values():
         box = a["box"]
@@ -2147,6 +2195,8 @@ def index_chapter(note: dict, part: str, body: str) -> str:
             content_start = j
             if j < len(lines) and lines[j].startswith("## "):
                 title = title or lines[j][3:].strip()
+                if ident in BOX_TITLES:
+                    lines[j] = f"## {title}"
                 content_start = j + 1
             title = title or ident.split("-", 1)[1].replace("-", " ").capitalize()
             box_lines = []
@@ -3143,6 +3193,13 @@ def write_retired_pages() -> None:
         target = f"{href(path, chapter.with_suffix('.html'))}#{anchor}"
         chapter_title = html_escape(PAGE_TITLES.get(chapter, "its chapter"))
         path.write_text(REDIRECT_HTML.format(target=target, chapter=chapter_title), encoding="utf-8")
+    for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
+        if old_slug in ARTICLES:
+            raise SystemExit(f"Merged article {old_slug} was still written as a page")
+        path = ARTICLE_DIR / f"{old_slug}.html"
+        target = f"{target_slug}.html"
+        dest_title = html_escape(ARTICLES[target_slug]["term"])
+        path.write_text(REDIRECT_HTML.format(target=target, chapter=dest_title), encoding="utf-8")
 
 
 def write_alias_redirect_pages() -> None:
@@ -3150,7 +3207,7 @@ def write_alias_redirect_pages() -> None:
     for unambiguous concept aliases that do not collide with real or retired pages."""
     ARTICLE_DIR.mkdir(parents=True, exist_ok=True)
     for s, (target_href, _label) in sorted(SEARCH_ALIASES.items()):
-        if s in ARTICLES or s in RETIRED:
+        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES:
             continue
         if (ARTICLE_DIR / f"{s}.qmd").exists():
             continue
@@ -3232,11 +3289,55 @@ def topic_where(article: dict, path: Path) -> list[str]:
     return out
 
 
+def extra_article_blocks(article: dict) -> list[tuple[bool, str, str]]:
+    """Render unified secondary boxes and merged chapter sections on a canonical article."""
+    path = article["path"]
+    blocks: list[tuple[bool, str, str]] = []
+    seen_heads: set[str] = set()
+    for extra in article.get("extra_boxes") or []:
+        head = extra["chapter_title"]
+        if head in seen_heads:
+            head = f"{head}, continued"
+        seen_heads.add(head)
+        ident = "in-" + slug(extra["chapter"].stem + "-" + extra["anchor"])
+        source = f"{href(path, extra['chapter'])}#{extra['anchor']}"
+        blocks.append(
+            (
+                False,
+                "excerpt-head",
+                f"## In *{head}* {{#{ident}}}\n\n"
+                f"::: {{.mainarticle}}\n{extra['kind'].capitalize()} from [{extra['chapter_title']}]({source})\n:::\n\n",
+            )
+        )
+        blocks.append((True, "excerpt", copy_for_article("\n".join(extra["lines"]), extra["chapter"], path) + "\n\n"))
+    for extra in article.get("extra_sections") or []:
+        head = extra["chapter_title"]
+        if head in seen_heads:
+            head = f"{head}, continued"
+        seen_heads.add(head)
+        ident = "in-" + slug(extra["chapter"].stem + "-" + extra["anchor"])
+        source = f"{href(path, extra['chapter'])}#{extra['anchor']}"
+        blocks.append(
+            (
+                False,
+                "excerpt-head",
+                f"## In *{head}* {{#{ident}}}\n\n"
+                f"::: {{.mainarticle}}\nFrom [{extra['chapter_title']}]({source})\n:::\n\n",
+            )
+        )
+        blocks.append((True, "excerpt", copy_for_article(extra["text"], extra["chapter"], path) + "\n\n"))
+    return blocks
+
+
 def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     """Hatnote, lead, and the chapter text of a heading's or a named topic's page."""
     path, box = article["path"], article["box"]
     excerpts = box["excerpts"]
     where = [re.sub(r"^\[(.*?)\]", r"[*\1*]", w) for w in topic_where(article, path)]
+    for extra in article.get("extra_boxes") or []:
+        w = f"[*{extra['chapter_title']}*]({href(path, extra['chapter'])}#{extra['anchor']})"
+        if w not in where:
+            where.append(w)
     noun = "Section" if box["kind"] == "section" else "Topic"
     hat = f"{noun} of {where[0]}, part of {box['part']}" if where else f"{noun}, part of {box['part']}"
     if len(where) > 1:
@@ -3275,6 +3376,7 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
         elif e.get("main"):
             blocks.append((False, "excerpt-head", f"::: {{.mainarticle}}\n{note}\n:::\n\n"))
         blocks.append((True, "excerpt", copy_for_article(e["text"], e["chapter"], path) + "\n\n"))
+    blocks.extend(extra_article_blocks(article))
     return blocks
 
 
@@ -3289,6 +3391,13 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
             f"{box['kind'].capitalize()} taught in "
             f"[*{box['chapter_title']}*]({href(path, box['chapter'])}#{box['anchor']}), part of {box['part']}"
         )
+    also_places: list[str] = []
+    for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+        w = f"[*{extra['chapter_title']}*]({href(path, extra['chapter'])}#{extra['anchor']})"
+        if (not box or extra["chapter"] != box["chapter"]) and w not in also_places:
+            also_places.append(w)
+    if also_places:
+        hat.append("Also in " + ", ".join(also_places))
     if card:
         where = f"[distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
         hat.append(("Also on the " if box else "From the ") + where)
@@ -3323,6 +3432,7 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
             )
         )
     # The distribution card itself goes in the infobox.
+    blocks.extend(extra_article_blocks(article))
     return blocks
 
 
@@ -3332,9 +3442,19 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     by_q = {q["path"]: q for q in questions}
     lines = ["\n\n## Used in {#used-in}\n\n"]
     if box and box["kind"] in TOPIC_KINDS:
-        lines.append("- **Taught in** " + " · ".join(topic_where(article, path)) + "\n")
+        taught = list(topic_where(article, path))
+        for extra in article.get("extra_boxes") or []:
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if item not in taught:
+                taught.append(item)
+        lines.append("- **Taught in** " + " · ".join(taught) + "\n")
     elif box:
-        lines.append(f"- **Taught in** [{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']}), where the derivation and examples are.\n")
+        taught = [f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"]
+        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if extra["chapter"] != box["chapter"] and item not in taught:
+                taught.append(item)
+        lines.append("- **Taught in** " + " · ".join(taught) + ", where the derivation and examples are.\n")
     else:
         lines.append(f"- **Listed on** the [distribution sheet]({href(path, DIST_SHEET)}#{article['card']['anchor']}).\n")
 
@@ -3703,13 +3823,30 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
     else:
         rows.append(("Type", box["kind"].capitalize()))
     if box and box["kind"] in TOPIC_KINDS:
-        rows.append(("Taught in", " · ".join(topic_where(article, path))))
-        chapters_seen = [e["chapter"] for e in box["excerpts"]] + [n["path"] for _, n, _, _ in box.get("places", [])]
+        taught = list(topic_where(article, path))
+        for extra in article.get("extra_boxes") or []:
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if item not in taught:
+                taught.append(item)
+        rows.append(("Taught in", " · ".join(taught)))
+        chapters_seen = (
+            [e["chapter"] for e in box["excerpts"]]
+            + [n["path"] for _, n, _, _ in box.get("places", [])]
+            + [extra["chapter"] for extra in article.get("extra_boxes") or []]
+        )
         parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in chapters_seen]))
         rows.append(("Part", " · ".join(parts)))
     elif box:
-        rows.append(("Taught in", f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"))
-        rows.append(("Part", box["part"]))
+        taught = [f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"]
+        extra_chaps = []
+        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
+            if extra["chapter"] != box["chapter"] and item not in taught:
+                taught.append(item)
+            extra_chaps.append(extra["chapter"])
+        rows.append(("Taught in", " · ".join(taught)))
+        parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in extra_chaps if c in PAGE_PART]))
+        rows.append(("Part", " · ".join(parts)))
     else:
         rows.append(("Listed on", f"[Distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"))
     n_props = len(PROPERTIES.get(slug_, []))
@@ -4081,7 +4218,7 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         if label.strip() and label.strip().lower() != page_entry["title"].lower():
             if not any(existing.lower() == label.strip().lower() for existing in page_entry["aliases"]):
                 page_entry["aliases"].append(label.strip())
-        if s in ARTICLES or s in RETIRED or target_href == f"articles/{s}.html":
+        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES or target_href == f"articles/{s}.html":
             return
         if s in aliases_map:
             return
@@ -4135,6 +4272,8 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         s: f"notes/{chapter.stem}.html#{anchor}"
         for s, (chapter, anchor) in sorted(RETIRED.items())
     }
+    for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
+        redirects_map[old_slug] = f"articles/{target_slug}.html"
     return {"pages": pages, "aliases": aliases_map, "redirects": redirects_map}
 
 
@@ -5328,6 +5467,7 @@ def main() -> None:
         SECTION_SLICES,
         update_ids="--update-ids" in sys.argv,
         retired={s: (chapter.name, anchor) for s, (chapter, anchor) in RETIRED.items()},
+        merged=dict(MERGED_ARTICLES),
     ):
         print(f"Registry warning: vanished {item}")
     write_retired_pages()

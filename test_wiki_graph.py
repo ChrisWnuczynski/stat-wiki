@@ -479,6 +479,12 @@ class WikiGraphTests(unittest.TestCase):
             wiki_graph.build_document(**_world(Path(tmp.name)), retired={"old-step": (CHAPTER, "s-gone")})
         self.assertIn("not emitted", str(missing.exception))
 
+        merged_doc = wiki_graph.build_document(**_world(Path(tmp.name)), merged={"glm-duplicate": "glm"})
+        self.assertEqual(merged_doc["aliases"]["article:glm-duplicate"], "article:glm")
+        prev_with_dup = [{"id": item["id"], "kind": item["kind"]} for item in merged_doc["entries"]]
+        prev_with_dup.append({"id": "article:glm-duplicate", "kind": "article"})
+        self.assertEqual(wiki_graph.check_identity(prev_with_dup, merged_doc["entries"], merged_doc["aliases"]), [])
+
     def test_retired_page_redirects_to_its_heading(self) -> None:
         import canonical_redirects
 
