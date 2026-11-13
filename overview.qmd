@@ -38,21 +38,21 @@ Read it straight through if the subject is new, then the five chapters named on 
     <line x1="224" y1="46" x2="250" y2="46" class="rm-line" marker-end="url(#rm-head)" />
     <line x1="466" y1="46" x2="492" y2="46" class="rm-line" marker-end="url(#rm-head)" />
 
-    <a href="#what-the-design-will-support">
+    <a href="#what-the-design-will-support" class="no-external" target="_self" aria-label="1. Study and sample: jump to What the design will support">
       <rect x="12" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
       <text x="24" y="37" class="rm-title">1. Study &amp; sample</text>
       <text x="24" y="56" class="rm-sub">Design, confounding &amp; summaries</text>
       <text x="24" y="71" class="rm-sub">What claims the table can support</text>
     </a>
 
-    <a href="#probability">
+    <a href="#probability" class="no-external" target="_self" aria-label="2. Probability and limits: jump to Probability">
       <rect x="254" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
       <text x="266" y="37" class="rm-title">2. Probability &amp; limits</text>
       <text x="266" y="56" class="rm-sub">Events, distributions &amp; averages</text>
       <text x="266" y="71" class="rm-sub">What another sample would look like</text>
     </a>
 
-    <a href="#from-the-sample-back-to-the-parameter">
+    <a href="#from-the-sample-back-to-the-parameter" class="no-external" target="_self" aria-label="3. Classical inference: jump to From the sample back to the parameter">
       <rect x="496" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
       <text x="508" y="37" class="rm-title">3. Classical inference</text>
       <text x="508" y="56" class="rm-sub">Estimators, intervals, tests &amp; lines</text>
@@ -67,13 +67,13 @@ Read it straight through if the subject is new, then the five chapters named on 
     <text x="360" y="102" text-anchor="middle" class="rm-note">When an assumption of one normal sample changes</text>
 
     <!-- Four problem extensions -->
-    <a href="#when-a-normal-line-is-the-wrong-shape">
+    <a href="#when-a-normal-line-is-the-wrong-shape" class="no-external" target="_self" aria-label="4. Beyond a normal line: jump to When a normal line is the wrong shape">
       <rect x="12" y="126" width="340" height="62" rx="3" class="rm-box" />
       <text x="24" y="150" class="rm-title">4. Beyond a normal line</text>
       <text x="24" y="169" class="rm-sub">Counts, binary outcomes, smooth curves, blocks &amp; time series</text>
     </a>
 
-    <a href="#a-probability-for-the-parameter">
+    <a href="#a-probability-for-the-parameter" class="no-external" target="_self" aria-label="5. A probability for the parameter: jump to A probability for the parameter">
       <rect x="368" y="126" width="340" height="62" rx="3" class="rm-box" />
       <text x="380" y="150" class="rm-title">5. A probability for the parameter</text>
       <text x="380" y="169" class="rm-sub">Priors, posteriors, conjugate families, MCMC &amp; hierarchies</text>
@@ -82,13 +82,13 @@ Read it straight through if the subject is new, then the five chapters named on 
     <line x1="182" y1="188" x2="182" y2="202" class="rm-line" marker-end="url(#rm-head)" />
     <line x1="538" y1="188" x2="538" y2="202" class="rm-line" marker-end="url(#rm-head)" />
 
-    <a href="#many-measurements-and-a-label">
+    <a href="#many-measurements-and-a-label" class="no-external" target="_self" aria-label="6. Many measurements and labels: jump to Many measurements, and a label">
       <rect x="12" y="206" width="340" height="62" rx="3" class="rm-box" />
       <text x="24" y="230" class="rm-title">6. Many measurements &amp; labels</text>
       <text x="24" y="249" class="rm-sub">Clustering, classifiers, error rates, trees &amp; p &gt; n regularisation</text>
     </a>
 
-    <a href="#a-path">
+    <a href="#a-path" class="no-external" target="_self" aria-label="7. Trajectories in time: jump to A path">
       <rect x="368" y="206" width="340" height="62" rx="3" class="rm-box" />
       <text x="380" y="230" class="rm-title">7. Trajectories in time</text>
       <text x="380" y="249" class="rm-sub">Branching, Markov chains, Poisson arrivals, queues &amp; extremes</text>
@@ -96,7 +96,7 @@ Read it straight through if the subject is new, then the five chapters named on 
 
     <!-- Computation & laboratory bar -->
     <line x1="360" y1="268" x2="360" y2="286" class="rm-line" marker-end="url(#rm-head)" />
-    <a href="#writing-the-calculation-down">
+    <a href="#writing-the-calculation-down" class="no-external" target="_self" aria-label="8. Writing and checking the calculation: jump to Writing the calculation down">
       <rect x="12" y="290" width="696" height="56" rx="3" class="rm-box" />
       <text x="24" y="313" class="rm-title">8. Writing &amp; checking the calculation</text>
       <text x="24" y="332" class="rm-sub">R tables, model objects &amp; diagnostics · Interactive laboratories where the true law is known</text>
@@ -464,4 +464,27 @@ Missing entries are treated as a decision about which rows the claim describes. 
   <li>Tibshirani, R. (1996). Regression Shrinkage and Selection Via the Lasso. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em>, 58(1), 267–288. <a href="https://doi.org/10.1111/j.2517-6161.1996.tb02080.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.2517-6161.1996.tb02080.x</a></li>
 </ul>
 </div>
+```
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;What statistics is.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/overview.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_overview,
+  author = {{StatWiki}},
+  title = {{What statistics is}},
+  year = {2026},
+  url = {https://www.statwiki.io/overview.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
 ```

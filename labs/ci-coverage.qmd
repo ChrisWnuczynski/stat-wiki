@@ -95,3 +95,26 @@ The band on the running fraction treats the hits as independent Bernoulli trials
 - Student [Gosset, W. S.] (1908). The Probable Error of a Mean. *Biometrika*, 6(1), 1. [https://doi.org/10.2307/2331554](https://doi.org/10.2307/2331554)
 - Wilson, E. B. (1927). Probable Inference, the Law of Succession, and Statistical Inference. *Journal of the American Statistical Association*, 22(158), 209–212. [https://doi.org/10.1080/01621459.1927.10502953](https://doi.org/10.1080/01621459.1927.10502953)
 :::
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Confidence interval laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/ci-coverage.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_ci_coverage,
+  author = {{StatWiki}},
+  title = {{Confidence interval laboratory}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/ci-coverage.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```

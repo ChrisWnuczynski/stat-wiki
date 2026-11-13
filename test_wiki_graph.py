@@ -740,6 +740,223 @@ class WikiGraphTests(unittest.TestCase):
         )
         self.assertTrue(framed_topic.startswith("**Median.** The middle value"))
 
+        # Synonym-first openings tie the synonym back to the canonical page title.
+        framed_synonym = build_wiki.frame_article_lead(
+            {"term": "Explanatory variable", "box": {"kind": "topic", "topic": {"links": ["covariates?"]}}},
+            "A variable $x$ used to explain $y$; also called a **covariate**.\n\n",
+        )
+        self.assertTrue(framed_synonym.startswith("**Explanatory variable.** A variable $x$"))
+        self.assertIn("**covariate**", framed_synonym)
+
+        # Theorem/proposition/box openings without in-prose title receive canonical bold framing.
+        framed_theorem = build_wiki.frame_article_lead(
+            {"term": "Central limit theorem", "box": {"kind": "theorem"}},
+            "If the $X_i$ are independent and identically distributed with mean $\\mu$ and variance $\\sigma^2$, then\n\n",
+        )
+        self.assertTrue(framed_theorem.startswith("**Central limit theorem.** If the $X_i$"))
+
+        framed_display_eq = build_wiki.frame_article_lead(
+            {"term": "Beta–Binomial conjugacy", "box": {"kind": "proposition"}},
+            "$$\n\\theta\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x).\n$$\n\n",
+        )
+        self.assertTrue(framed_display_eq.startswith("**Beta–Binomial conjugacy.**\n\n$$"))
+
+        # Disambiguation hatnotes appear only when two live pages share a term.
+        saved = dict(build_wiki.ARTICLES)
+        try:
+            build_wiki.ARTICLES.clear()
+            lone = {"slug": "kernel", "term": "Kernel", "path": Path("articles/kernel.qmd"), "box": None}
+            other_word = {
+                "slug": "kernel-density-estimator",
+                "term": "Kernel density estimator",
+                "path": Path("articles/kernel-density-estimator.qmd"),
+                "box": None,
+            }
+            build_wiki.ARTICLES["kernel"] = lone
+            build_wiki.ARTICLES["kernel-density-estimator"] = other_word
+            self.assertEqual(build_wiki.disambiguation_note(lone), "")
+            twin = {
+                "slug": "normal-distribution-b",
+                "term": "Normal distribution",
+                "path": Path("articles/normal-distribution-b.qmd"),
+                "box": {"chapter": Path("notes/sl-01.qmd"), "chapter_title": "Multivariate normal"},
+            }
+            canon = {
+                "slug": "normal-distribution",
+                "term": "Normal distribution",
+                "path": Path("articles/normal-distribution.qmd"),
+                "box": {"chapter": Path("notes/prob-02.qmd"), "chapter_title": "Random variables"},
+            }
+            build_wiki.ARTICLES["normal-distribution"] = canon
+            build_wiki.ARTICLES["normal-distribution-b"] = twin
+            note = build_wiki.disambiguation_note(canon)
+            self.assertIn("This term is also on another page", note)
+            self.assertIn("normal-distribution-b.qmd", note)
+            self.assertIn("Multivariate normal", note)
+        finally:
+            build_wiki.ARTICLES.clear()
+            build_wiki.ARTICLES.update(saved)
+
+    def test_site_wide_figure_and_svg_accessibility(self) -> None:
+        import figure_alts
+        import re
+
+        root = build_wiki.WIKI
+        figures_dir = root / "figures"
+        if not figures_dir.is_dir():
+            self.skipTest("Generated wiki directories are not built yet")
+
+        png_files = sorted(p.name for p in figures_dir.glob("*.png") if not p.name.endswith("-full.png"))
+        self.assertEqual(len(png_files), 88)
+        self.assertEqual(set(png_files), set(figure_alts.FIGURE_ALTS))
+
+        banned_generic = {"diagram", "plot", "figure", "chart", "image", "graph", "illustration"}
+        for name, alt in figure_alts.FIGURE_ALTS.items():
+            stem = Path(name).stem
+            self.assertGreaterEqual(len(alt.strip()), 60, f"Alt text too brief for {name}: {alt!r}")
+            self.assertNotIn(alt.strip().lower(), banned_generic | {stem.lower(), name.lower()})
+            self.assertNotRegex(alt, r"STAT\s*\d|\bgithub\b", f"Banned token in {name} alt")
+
+        # Every Markdown image across generated and authored .qmd files must carry meaningful fig-alt.
+        md_img = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\(([^)\s]+)\)(\{[^}]*\})?")
+        checked_images = 0
+        for folder in ("notes", "articles", "questions", "reference", "files", "labs"):
+            pdir = root / folder
+            if not pdir.is_dir():
+                continue
+            for qmd in sorted(pdir.rglob("*.qmd")):
+                if qmd.name.startswith("_"):
+                    continue
+                for match in md_img.finditer(qmd.read_text(encoding="utf-8")):
+                    _cap, src, attrs = match.groups()
+                    checked_images += 1
+                    m_alt = re.search(r'fig-alt="((?:\\.|[^"\\])*)"', attrs or "")
+                    self.assertIsNotNone(m_alt, f"Missing fig-alt on {src} in {qmd.relative_to(root)}")
+                    alt_val = m_alt.group(1).strip()
+                    self.assertGreaterEqual(len(alt_val), 60, f"Short fig-alt on {src} in {qmd.relative_to(root)}")
+                    self.assertNotEqual(alt_val.lower(), Path(src).stem.lower())
+        self.assertGreaterEqual(checked_images, 470)
+
+        # Inline SVG roadmap on overview.qmd carries role="img", <title>, <desc>, and accessible box links.
+        overview_text = (root / "overview.qmd").read_text(encoding="utf-8")
+        svg_match = re.search(r'<svg\s+[^>]*class="overview-roadmap"[^>]*>(.*?)</svg>', overview_text, re.S)
+        self.assertIsNotNone(svg_match)
+        svg_tag = overview_text[svg_match.start() : overview_text.find(">", svg_match.start()) + 1]
+        svg_inner = svg_match.group(1)
+        self.assertIn('role="img"', svg_tag)
+        self.assertIn("aria-labelledby=", svg_tag)
+        self.assertIn("<title", svg_inner)
+        self.assertIn("<desc", svg_inner)
+        box_links = re.findall(r'<a\s+([^>]+)>', svg_inner)
+        self.assertEqual(len(box_links), 8)
+        for attrs in box_links:
+            m_href = re.search(r'href="#([\w-]+)"', attrs)
+            self.assertIsNotNone(m_href, attrs)
+            anchor = m_href.group(1)
+            self.assertIn('class="no-external"', attrs)
+            self.assertIn('target="_self"', attrs)
+            self.assertIn("aria-label=", attrs)
+            self.assertRegex(overview_text, rf"\{{#{re.escape(anchor)}\}}", f"Missing heading #{anchor} in overview.qmd")
+
+        # Interactive SVG charts carry role="img", aria-label, and <title>, while decorative icons carry aria-hidden="true".
+        svg_chart_js = (root / "labs" / "svg-chart.js").read_text(encoding="utf-8")
+        self.assertIn('svg.setAttribute("role", "img")', svg_chart_js)
+        self.assertIn('svg.setAttribute("aria-label"', svg_chart_js)
+        self.assertIn('createElementNS(SVG, "title")', svg_chart_js)
+        kde_qmd = (root / "labs" / "_kde-figure.qmd").read_text(encoding="utf-8")
+        self.assertIn('chart.setAttribute("role", "img")', kde_qmd)
+        self.assertIn('createElementNS("http://www.w3.org/2000/svg", "title")', kde_qmd)
+        loader_ts = (root / "ask" / "widget" / "src" / "loader.ts").read_text(encoding="utf-8")
+        self.assertIn('aria-hidden="true"', loader_ts)
+        lab_chrome_js = (root / "labs" / "lab-chrome.js").read_text(encoding="utf-8")
+        self.assertIn('mark.setAttribute("aria-hidden", "true")', lab_chrome_js)
+
+    def test_all_concept_leads_homepage_counts_navboxes_cite_and_backlinks(self) -> None:
+        import re
+
+        root = build_wiki.WIKI
+        articles_dir = root / "articles"
+        notes_dir = root / "notes"
+        home_path = root / "index.qmd"
+        if not articles_dir.is_dir() or not home_path.is_file():
+            self.skipTest("Generated wiki directories are not built yet")
+
+        def norm_words(value: str) -> str:
+            s = re.sub(r"[^a-z0-9]", "", value.lower())
+            if s.endswith("ies"):
+                s = s[:-3] + "y"
+            elif s.endswith("es") and len(s) > 4:
+                s = s[:-2]
+            elif s.endswith("s") and len(s) > 3:
+                s = s[:-1]
+            return s
+
+        article_files = sorted(articles_dir.glob("*.qmd"))
+        self.assertEqual(len(article_files), 718)
+        for path in article_files:
+            text = path.read_text(encoding="utf-8")
+            m_title = re.search(r'^title:\s*"(.*)"$', text, re.M)
+            self.assertIsNotNone(m_title, path.name)
+            title = m_title.group(1).replace('\\"', '"')
+            body = re.sub(r"\A---\n.*?\n---\n+", "", text, count=1, flags=re.S)
+            body = re.sub(r"\A::: \{\.hatnote\}\n.*?\n:::\n+", "", body, count=1, flags=re.S)
+            body = re.sub(r"\A:::: \{\.infobox\}\n.*?\n::::\n+", "", body, count=1, flags=re.S).lstrip()
+            first_para = body.split("\n\n", 1)[0].strip()
+            self.assertFalse(
+                first_para.startswith((":::", "##", "###", "$$", "\\begin{", "|", "!")),
+                f"{path.name} opens with unframed block: {first_para[:80]!r}",
+            )
+            bolds = re.findall(r"\*\*([^*]+)\*\*", first_para)
+            self.assertTrue(bolds, f"{path.name} missing bold opening term in {first_para[:100]!r}")
+            b0 = norm_words(bolds[0])
+            nt = norm_words(title)
+            self.assertTrue(
+                b0 == nt or nt in b0 or b0 in nt and abs(len(b0) - len(nt)) <= 3,
+                f"{path.name} bolds {bolds[0]!r} instead of canonical title {title!r}",
+            )
+            # Topic navbox, categories, and Cite this page (never Edit this page or GitHub/course codes)
+            self.assertIn('<nav class="topic-navbox"', text, path.name)
+            self.assertIn('aria-current="page"', text, path.name)
+            self.assertIn('class="wiki-categories"', text, path.name)
+            self.assertIn('<details class="cite-this-page">', text, path.name)
+            self.assertIn(f"https://www.statwiki.io/articles/{path.stem}.html", text, path.name)
+            self.assertNotIn("Edit this page", text, path.name)
+            self.assertNotRegex(text, r"STAT\s*\d|\bgithub\b", path.name)
+
+        # Reconcile homepage counts with PARTS, final-preparation pages, and concept articles
+        n_topic_chapters = sum(1 for _, files in build_wiki.PARTS for _, kind in files if kind == "notes")
+        final_files = ("final-preparation.qmd", "final-bayesian.qmd", "final-applied.qmd")
+        self.assertEqual(n_topic_chapters, 97)
+        self.assertEqual(len(final_files), 3)
+        home_text = home_path.read_text(encoding="utf-8")
+        self.assertIn(f"**{n_topic_chapters} topic chapters**", home_text)
+        self.assertIn(f"**{len(final_files)} final-preparation pages**", home_text)
+        self.assertIn(f"**{len(article_files)} concept articles**", home_text)
+
+        # Final-preparation pages include What links here and Cite this page
+        for fname in final_files:
+            ftext = (notes_dir / fname).read_text(encoding="utf-8")
+            self.assertIn("## What links here {#what-links-here}", ftext, fname)
+            self.assertIn('<details class="cite-this-page">', ftext, fname)
+            self.assertNotIn("Edit this page", ftext, fname)
+
+        # Overview, reference sheets, and labs include Cite this page and zero Edit/GitHub/course-code mentions
+        for extra_page in (
+            root / "overview.qmd",
+            root / "reference" / "distributions.qmd",
+            root / "reference" / "formulas.qmd",
+            root / "reference" / "glossary.qmd",
+            root / "labs" / "index.qmd",
+            root / "labs" / "beta-binomial.qmd",
+            root / "labs" / "ci-coverage.qmd",
+            root / "labs" / "kernel-density.qmd",
+            root / "labs" / "markov-chain.qmd",
+        ):
+            etext = extra_page.read_text(encoding="utf-8")
+            self.assertIn('<details class="cite-this-page">', etext, str(extra_page))
+            self.assertNotIn("Edit this page", etext, str(extra_page))
+            self.assertNotRegex(etext, r"STAT\s*\d|\bgithub\b", str(extra_page))
+
 
 if __name__ == "__main__":
     unittest.main()

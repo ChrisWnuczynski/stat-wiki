@@ -85,3 +85,26 @@ The distances are exact for the distribution and are one path for the occupation
 - Markov, A. A. (1906). Rasprostranenie zakona bol'shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. *Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)*, 15, 135–156. [https://openlibrary.org/authors/OL121192A](https://openlibrary.org/authors/OL121192A)
 - Norris, J. R. (1997). *Markov Chains*. Cambridge University Press. [https://doi.org/10.1017/cbo9780511810633](https://doi.org/10.1017/cbo9780511810633)
 :::
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Markov chain laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/markov-chain.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_markov_chain,
+  author = {{StatWiki}},
+  title = {{Markov chain laboratory}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/markov-chain.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```

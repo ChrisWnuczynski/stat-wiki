@@ -89,3 +89,26 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
 - Laplace, P.-S. (1812). *Théorie analytique des probabilités*. Courcier, Paris. [https://openlibrary.org/works/OL2395821W](https://openlibrary.org/works/OL2395821W)
 - Raiffa, H. & Schlaifer, R. (1961). *Applied Statistical Decision Theory*. Harvard Business School, Boston. [https://openlibrary.org/works/OL2620278W](https://openlibrary.org/works/OL2620278W)
 :::
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Beta–Binomial laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/beta-binomial.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_beta_binomial,
+  author = {{StatWiki}},
+  title = {{Beta–Binomial laboratory}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/beta-binomial.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```
