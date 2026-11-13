@@ -75,3 +75,26 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
 - Sheather, S. J. & Jones, M. C. (1991). A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation. *Journal of the Royal Statistical Society Series B: Statistical Methodology*, 53(3), 683–690. [https://doi.org/10.1111/j.2517-6161.1991.tb01857.x](https://doi.org/10.1111/j.2517-6161.1991.tb01857.x)
 - Silverman, B. W. (1986). *Density Estimation for Statistics and Data Analysis*. Chapman & Hall. [https://doi.org/10.1201/9781315140919](https://doi.org/10.1201/9781315140919)
 :::
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Kernel density laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/kernel-density.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_kernel_density,
+  author = {{StatWiki}},
+  title = {{Kernel density laboratory}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/kernel-density.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```

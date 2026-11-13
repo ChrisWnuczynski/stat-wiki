@@ -17,6 +17,7 @@ from html import escape as html_escape
 from zoneinfo import ZoneInfo
 
 import chapter_guides
+import figure_alts
 import re
 import struct
 import unicodedata
@@ -518,9 +519,24 @@ def href(from_qmd: Path, to_qmd: Path) -> str:
     return Path(os.path.relpath(to_qmd, start=from_qmd.parent)).as_posix()
 
 
+def _with_fig_alt(attrs: str, png_name: str) -> str:
+    alt = figure_alts.alt_for(png_name)
+    escaped = alt.replace("\\", "\\\\").replace('"', '\\"')
+    attrs = (attrs or "").strip()
+    if attrs and re.search(r'\bfig-alt\s*=', attrs):
+        return attrs
+    if attrs.startswith("{") and attrs.endswith("}"):
+        inner = attrs[1:-1].strip()
+        return f'{{{inner} fig-alt="{escaped}"}}' if inner else f'{{fig-alt="{escaped}"}}'
+    return f'{{fig-alt="{escaped}"}}'
+
+
 def rewrite_images(text: str, prefix: str) -> str:
     pattern = re.compile(
         r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\((?:\.\./)*figures/([^)/\s]+)\.pdf\)(\{[^}]*\})?"
+    )
+    png_pattern = re.compile(
+        r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\(((?:\.\./)*figures/([^)/\s]+\.png))\)(\{[^}]*\})?"
     )
 
     def repl(match: re.Match) -> str:
@@ -528,11 +544,16 @@ def rewrite_images(text: str, prefix: str) -> str:
         pages = FIGURE_PAGES.get(stem)
         if not pages:
             return match.group(0)
-        first = f"![{alt}]({prefix}/{pages[0]}){attrs}"
-        extra = "".join(f"\n\n![{alt}]({prefix}/{page})" for page in pages[1:])
+        first = f"![{alt}]({prefix}/{pages[0]}){_with_fig_alt(attrs, pages[0])}"
+        extra = "".join(f"\n\n![{alt}]({prefix}/{page}){_with_fig_alt('', page)}" for page in pages[1:])
         return first + extra
 
-    return pattern.sub(repl, text)
+    def repl_png(match: re.Match) -> str:
+        alt, _src, png_name, attrs = match.groups()
+        return f"![{alt}]({prefix}/{png_name}){_with_fig_alt(attrs or '', png_name)}"
+
+    text = pattern.sub(repl, text)
+    return png_pattern.sub(repl_png, text)
 
 
 XREF_NOUNS = (
@@ -1584,6 +1605,12 @@ def plain(text: str) -> str:
     return " ".join(text.replace("--", "–").split())
 
 
+def box_term(text: str) -> str:
+    """Clean display title for a box article, preserving single-symbol inline math like $k$-nearest."""
+    text = re.sub(r"\$([A-Za-z0-9]+)\$", r"\1", text)
+    return plain(text)
+
+
 def heading_slug(text: str) -> str:
     return "s-" + (re.sub(r"[^a-z0-9]+", "-", plain(text).lower()).strip("-") or "section")
 
@@ -1657,7 +1684,7 @@ def new_article(slug_: str, term: str) -> dict:
     return article
 
 
-def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
+def register_box_article(note, part, ident, kind, term, lines, snippet, slug_hint: str | None = None) -> dict:
     box_dict = {
         "chapter": note["path"],
         "chapter_title": note["title"],
@@ -1674,7 +1701,7 @@ def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
         BOX_ARTICLE[ident] = target_slug
         PENDING_MERGED_BOXES.append((target_slug, box_dict))
         return {"slug": target_slug, "path": ARTICLE_DIR / f"{target_slug}.qmd", "term": term}
-    s = BOX_SLUG_OVERRIDES.get(ident) or slug(term)
+    s = BOX_SLUG_OVERRIDES.get(ident) or slug_hint or slug(term)
     if s in ARTICLES and ARTICLES[s]["box"] is not None:
         s = f"{s}-{note['path'].stem}"  # two boxes with one name in different chapters
     article = ARTICLES.get(s) or new_article(s, term)
@@ -2375,10 +2402,11 @@ def index_chapter(note: dict, part: str, body: str) -> str:
                 box_lines.append(lines[k])
                 k += 1
             snippet = snippet_from(box_lines)
-            article = register_box_article(note, part, ident, kind, plain(title), box_lines, snippet)
+            term_title = box_term(title)
+            article = register_box_article(note, part, ident, kind, term_title, box_lines, snippet, slug_hint=slug(plain(title)))
             GLOSSARY.append(
                 {
-                    "term": plain(title),
+                    "term": term_title,
                     "kind": kind,
                     "page": note["path"],
                     "anchor": ident,
@@ -2388,6 +2416,7 @@ def index_chapter(note: dict, part: str, body: str) -> str:
                 }
             )
             HEADING_ANCHORS[(fname, plain(title))] = ident
+            HEADING_ANCHORS[(fname, term_title)] = ident
             HEADING_ANCHORS[(fname, ident)] = ident
             # The box stays in the chapter and points up to its article.
             pending[k] = f"[Article: {article['term']} →]({href(note['path'], article['path'])}){{.box-article}}"
@@ -2889,7 +2918,7 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
     for (var i = 0; i < nodes.length && used < limit; i++) {
       var n = nodes[i];
       if (n.nodeType !== 1) continue;
-      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, script, nav, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
+      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, .topic-navbox, .wiki-categories, .cite-this-page, script, nav, details, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
       if (!n.textContent.trim() && !n.querySelector("img, .math")) continue;
       out.appendChild(n.cloneNode(true));
       used += n.textContent.length;
@@ -3190,11 +3219,19 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     # Final-preparation pages: the guide, and the two halves with their question lists.
     for note in final_notes:
         body = prepare(strip_first_heading(note["prose"]), "../figures", page=note["path"])
-        blocks = [(True, "prose", body)]
         own = [q for q in by_source["final"] if q["notes_path"] == note["path"]]
+        hat = [f"Part of **[Final preparation]({href(note['path'], WIKI / 'notes' / 'index.qmd')}#final-preparation)**"]
         if own:
-            blocks.append((False, "questions", "\n\n## Questions\n\n" + qcount_marker(len(own)) + question_table(own, note["path"], with_topic=True)))
-        add_page(note["path"], note["title"], None, "final", blocks)
+            noun = "question" if len(own) == 1 else "questions"
+            hat.append(f"[{len(own)} {noun}](#questions)")
+        hat.append("[What links here](#what-links-here)")
+        blocks = [
+            (False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"),
+            (True, "prose", body),
+        ]
+        if own:
+            blocks.append((False, "questions", "\n\n## Questions {#questions}\n\n" + qcount_marker(len(own)) + question_table(own, note["path"], with_topic=True)))
+        add_page(note["path"], note["title"], "Final preparation", "final", blocks)
 
     # Questions. Previous and next walk the other questions on the same topic.
     for q in questions:
@@ -3290,9 +3327,9 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             blocks.append((is_content, label, text))
         page["blocks"] = blocks
 
-    # What links here, on every chapter and on the formula lookup.
+    # What links here, on every chapter, final-preparation page, and the formula lookup.
     for page in pages:
-        if page["kind"] not in {"chapter", "reference"}:
+        if page["kind"] not in {"chapter", "final", "reference"}:
             continue
         section = what_links_here(page, backlinks.get(page["path"], []), questions)
         at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label == "see-also"), len(page["blocks"]))
@@ -3302,10 +3339,16 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for page in pages:
         if page["kind"] == "article":
             article = article_by_path[page["path"]]
-            for idx, (is_c, lbl, txt) in enumerate(page["blocks"]):
-                if is_c and lbl in {"lead", "excerpt"}:
-                    page["blocks"][idx] = (is_c, lbl, frame_article_lead(article, txt))
-                    break
+            first_idx = next(
+                (idx for idx, (is_c, lbl, _) in enumerate(page["blocks"]) if is_c and lbl in {"lead", "excerpt"}),
+                None,
+            )
+            if first_idx is not None:
+                if first_idx > 1 and page["blocks"][1][1] == "excerpt-head":
+                    page["blocks"].insert(1, (False, "lead-title", f"{_canonical_lead_prefix(article['term'])}\n\n"))
+                else:
+                    is_c, lbl, txt = page["blocks"][first_idx]
+                    page["blocks"][first_idx] = (is_c, lbl, frame_article_lead(article, txt))
             links = backlinks.get(page["path"], [])
             box = resolve_links(article_infobox(article, links, by_topic), page["path"])
             page["blocks"].insert(1, (False, "infobox", box))
@@ -3314,6 +3357,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     import citations
 
     citations.attach_page_references(pages, article_by_path)
+    attach_navboxes_and_cite_footers(pages, article_by_path)
 
     for page in pages:
         meta_lines = "".join(f"{k}: {v}\n" for k, v in page["meta"].items())
@@ -3327,6 +3371,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     write_glossary(questions)
     write_config(chapters, final_notes, questions)
     citations.write_sheet_and_static_references(WIKI)
+    upsert_static_cite_footers(WIKI)
 
 
 REDIRECT_HTML = """<!DOCTYPE html>
@@ -3512,30 +3557,81 @@ def part_link(part_name: str, from_path: Path) -> str:
     return f"[{part_name}]({href(from_path, WIKI / 'notes' / 'index.qmd')}#{slug(part_name)})"
 
 
+def disambiguation_note(article: dict) -> str:
+    """Hatnote only when another live page uses the same term.
+
+    Prefix overlaps (Kernel vs Kernel density estimator) are different terms and
+    get no note. A note appears only when the normalised titles are equal.
+    """
+    key = _norm_term(article.get("term") or "")
+    if len(key) < 3:
+        return ""
+    others = [
+        other
+        for other in ARTICLES.values()
+        if other["slug"] != article["slug"] and _norm_term(other.get("term") or "") == key
+    ]
+    if not others:
+        return ""
+    path = article["path"]
+    bits = []
+    for other in sorted(others, key=lambda item: item["term"].lower()):
+        box = other.get("box") or {}
+        chapter = box.get("chapter")
+        where = f" in [{box['chapter_title']}]({href(path, chapter)})" if chapter is not None else ""
+        bits.append(f"[{other['term']}]({href(path, other['path'])}){where}")
+    noun = "another page" if len(bits) == 1 else "other pages"
+    return "This term is also on " + noun + ": " + "; ".join(bits) + "."
+
+
+def _canonical_lead_prefix(term: str) -> str:
+    return f"**{term}**" if term.endswith((".", "?", "!")) else f"**{term}.**"
+
+
+def _norm_term(value: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", value.lower())
+
+
 def frame_article_lead(article: dict, text: str) -> str:
-    """Bold or frame the opening defined term naturally in an article's first paragraph."""
+    """Ensure every concept article clearly bolds its canonical title term in the opening lead."""
     lead_body = text.rstrip("\n")
     trail = text[len(lead_body) :]
     first_para, sep, rest = lead_body.partition("\n\n")
     stripped = first_para.lstrip()
-    if (
-        not stripped
-        or stripped.startswith(("$$", "\\begin{", ":::", "#", "|", "!"))
-        or "**" in first_para
-    ):
+    if not stripped:
         return text
     term = article["term"]
-    if f"*{term.lower()}*" in first_para.lower():
-        return text
+    prefix = _canonical_lead_prefix(term)
 
-    candidates: list[str] = [term]
-    box = article.get("box")
-    if box and box.get("kind") == "topic":
-        for raw_link in box["topic"].get("links", []):
-            if not raw_link.startswith("re:") and not re.search(r"[\[\]()?|\\*+]", raw_link):
-                candidates.append(raw_link)
-            else:
-                candidates.extend(plain_phrases_from_pattern(raw_link))
+    # Blocks that open directly with display math, a table, an algorithm list,
+    # a callout/theorem fence, or a subheading receive an explicit bold lead-in
+    # paragraph before the block so the page never opens without naming its term.
+    if re.match(r"^(?:\$\$|\\begin\{|:::|#|\||!|\d+[.)]\s|[-*+]\s)", stripped):
+        return f"{prefix}\n\n{first_para}{sep}{rest}{trail}"
+
+    # If the paragraph already starts with a bold phrase matching the canonical title, keep it.
+    existing_bolds = re.findall(r"\*\*([^*]+)\*\*", first_para)
+    if existing_bolds:
+        b0 = _norm_term(existing_bolds[0])
+        nt = _norm_term(term)
+        if b0 == nt or b0 == nt + "s" or nt == b0 + "s":
+            return text
+        # A synonym or sub-case is bolded inside the paragraph; prepend the canonical
+        # bold title so the opening immediately ties the synonym to the page title.
+        return f"{prefix} {first_para}{sep}{rest}{trail}"
+
+    # Upgrade an exact italicised occurrence (*term*) to bold (**term**).
+    it_pat = (
+        re.escape(term.replace("–", " "))
+        .replace(r"\ ", "[-– ]+")
+        .replace(r"\-", "[-– ]?")
+        .replace(r"\'", "['’]?")
+    )
+    rx_it = re.compile(rf"(?<!\*)\*({it_pat}(?:s|es)?)\*(?!\*)", re.I)
+    m_it = rx_it.search(first_para)
+    if m_it:
+        new_para = f"{first_para[:m_it.start()]}**{m_it.group(1)}**{first_para[m_it.end():]}"
+        return f"{new_para}{sep}{rest}{trail}"
 
     spans = [(m.start(), m.end()) for m in PROTECT.finditer(first_para)]
     segments: list[tuple[str, bool]] = []
@@ -3546,10 +3642,8 @@ def frame_article_lead(article: dict, text: str) -> str:
         last = end
     segments.append((first_para[last:], False))
 
-    for cand in candidates:
-        cand = cand.strip()
-        if len(cand) < 2:
-            continue
+    if len(term.strip()) >= 2:
+        cand = term.strip()
         pat = re.escape(cand.replace("–", " "))
         pat = pat.replace(r"\ ", "[-– ]+").replace(r"\-", "[-– ]?")
         pat = pat.replace(r"\'", "['’]?")
@@ -3571,22 +3665,32 @@ def frame_article_lead(article: dict, text: str) -> str:
                 )
                 return f"{new_para}{sep}{rest}{trail}"
 
-    # Handle inline-math letter prefixes such as "$p$-value" or "$t$-distribution".
+    # Handle inline-math letter tokens such as "$p$-value", "$K$-means", or "Student $t$ distribution".
+    words = term.split()
+    for wi, word in enumerate(words):
+        if len(word) <= 2 and re.fullmatch(r"[A-Za-z0-9²]+", word):
+            alt_words = [re.escape(w) for w in words]
+            alt_words[wi] = rf"\${re.escape(word)}\$"
+            sep_pat = "[-– ]+".join(alt_words)
+            rx_math = re.compile(rf"(?<![\w*])({sep_pat}(?:s|es)?)(?![\w–*-])", re.I)
+            m_math = rx_math.search(first_para)
+            if m_math:
+                new_para = f"{first_para[:m_math.start()]}**{m_math.group(1)}**{first_para[m_math.end():]}"
+                return f"{new_para}{sep}{rest}{trail}"
+
     math_term = re.match(r"^([A-Za-z0-9²]+)[- ](.+)$", term)
     if math_term:
         sym, tail = math_term.groups()
-        rx_math = re.compile(
+        rx_prefix = re.compile(
             rf"(?<![\w*])(\${re.escape(sym)}\$[- ]{re.escape(tail)}(?:s|es)?)(?![\w–*-])",
             re.I,
         )
-        m_math = rx_math.search(first_para)
-        if m_math:
-            new_para = f"{first_para[:m_math.start()]}**{m_math.group(1)}**{first_para[m_math.end():]}"
+        m_prefix = rx_prefix.search(first_para)
+        if m_prefix:
+            new_para = f"{first_para[:m_prefix.start()]}**{m_prefix.group(1)}**{first_para[m_prefix.end():]}"
             return f"{new_para}{sep}{rest}{trail}"
 
-    if box and box.get("kind") == "topic":
-        return f"**{term}.** {first_para}{sep}{rest}{trail}"
-    return text
+    return f"{prefix} {first_para}{sep}{rest}{trail}"
 
 
 def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
@@ -3603,6 +3707,9 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     hat = f"{noun} of {where[0]}, part of {p_link}" if where else f"{noun}, part of {p_link}"
     if len(where) > 1:
         hat += " · Also in " + ", ".join(where[1:])
+    clash = disambiguation_note(article)
+    if clash:
+        hat += " · " + clash
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat + "\n:::\n\n")]
     if box["lead"]:
         blocks.append((True, "lead", box["lead"] + "\n\n"))
@@ -3662,6 +3769,9 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     if card:
         where = f"[distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
         hat.append(("Also on the " if box else "From the ") + where)
+    clash = disambiguation_note(article)
+    if clash:
+        hat.append(clash)
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n")]
 
     if box:
@@ -3773,6 +3883,268 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     return [(False, "used-in", "".join(lines)), (False, "see-also", "".join(see))]
 
 
+def _html_href(from_qmd: Path, to_qmd: Path, fragment: str = "") -> str:
+    rel = href(from_qmd, to_qmd)
+    if rel.endswith(".qmd"):
+        rel = rel[:-4] + ".html"
+    return f"{rel}#{fragment}" if fragment else rel
+
+
+def _article_group_label(article: dict) -> str:
+    box = article.get("box")
+    if not box:
+        return "Distributions"
+    kind = box.get("kind") or ""
+    if kind == "definition":
+        return "Definitions"
+    if kind in {"theorem", "proposition", "corollary", "remark"}:
+        return "Theorems and results"
+    return "Topics and sections"
+
+
+def render_topic_navbox(article: dict) -> str:
+    """Bottom-of-page topic navigation box and Category/Part links for a concept article."""
+    path = article["path"]
+    box = article.get("box")
+    home = article_home(article)
+    if box:
+        hub_title = PAGE_TITLES.get(home, box.get("chapter_title") or home.stem)
+        part_name = box.get("part") or PAGE_PART.get(home, "")
+        siblings = sorted(
+            [a for a in ARTICLES.values() if article_home(a) == home],
+            key=lambda a: a["term"].lower(),
+        )
+        aria = f"Concepts in {hub_title}"
+        head_title = f'Concepts in <a href="{html_escape(_html_href(path, home))}">{html_escape(hub_title)}</a>'
+        part_html = (
+            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, WIKI / "notes" / "index.qmd", slug(part_name)))}">'
+            f"{html_escape(part_name)}</a></span>"
+            if part_name
+            else ""
+        )
+    else:
+        hub_title = "Common distributions"
+        part_name = "Probability"
+        siblings = sorted(
+            [a for a in ARTICLES.values() if a.get("card") is not None],
+            key=lambda a: a["term"].lower(),
+        )
+        aria = "Common distributions"
+        head_title = f'<a href="{html_escape(_html_href(path, DIST_SHEET))}">Common distributions</a>'
+        part_html = (
+            f'<span class="navbox-part">Reference · <a href="{html_escape(_html_href(path, WIKI / "reference" / "index.qmd"))}">'
+            "Lookup sheets</a></span>"
+        )
+
+    grouped: dict[str, list[dict]] = {
+        "Definitions": [],
+        "Theorems and results": [],
+        "Topics and sections": [],
+        "Distributions": [],
+    }
+    for item in siblings:
+        grouped[_article_group_label(item)].append(item)
+    active_groups = [(label, items) for label, items in grouped.items() if items]
+
+    def fmt_item(item: dict) -> str:
+        name = html_escape(item["term"])
+        if item["slug"] == article["slug"]:
+            return f'<strong class="navbox-current" aria-current="page">{name}</strong>'
+        return f'<a href="{html_escape(_html_href(path, item["path"]))}">{name}</a>'
+
+    rows_html: list[str] = []
+    for label, items in active_groups:
+        links_str = " · ".join(fmt_item(it) for it in items)
+        if len(active_groups) == 1 and label == "Distributions":
+            rows_html.append(f'      <div class="navbox-row navbox-row-single"><div class="navbox-links">{links_str}</div></div>')
+        else:
+            rows_html.append(
+                f'      <div class="navbox-row"><span class="navbox-group">{html_escape(label)}</span>'
+                f'<div class="navbox-links">{links_str}</div></div>'
+            )
+
+    open_attr = " open" if len(siblings) <= 12 else ""
+    count_badge = f'<span class="navbox-count">({len(siblings)})</span>'
+
+    # Collect clean Category / Part hub links
+    cat_links: list[str] = []
+    seen_cats: set[str] = set()
+
+    def add_cat(label_txt: str, target_qmd: Path, frag: str = "") -> None:
+        if not label_txt or label_txt in seen_cats:
+            return
+        seen_cats.add(label_txt)
+        cat_links.append(f'<a href="{html_escape(_html_href(path, target_qmd, frag))}">{html_escape(label_txt)}</a>')
+
+    if box:
+        if part_name:
+            add_cat(part_name, WIKI / "notes" / "index.qmd", slug(part_name))
+        add_cat(hub_title, home)
+        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+            ch_path = extra.get("chapter")
+            if ch_path and ch_path != home:
+                ch_part = PAGE_PART.get(ch_path)
+                if ch_part:
+                    add_cat(ch_part, WIKI / "notes" / "index.qmd", slug(ch_part))
+                add_cat(PAGE_TITLES.get(ch_path, extra.get("chapter_title") or ch_path.stem), ch_path)
+        if article.get("card"):
+            add_cat("Common distributions", DIST_SHEET)
+    else:
+        add_cat("Reference", WIKI / "reference" / "index.qmd")
+        add_cat("Common distributions", DIST_SHEET)
+
+    cats_block = (
+        '  <div class="wiki-categories" role="navigation" aria-label="Categories">\n'
+        f'    <span class="cat-label">Categories:</span> {" · ".join(cat_links)}\n'
+        "  </div>\n"
+        if cat_links
+        else ""
+    )
+
+    return (
+        "\n\n```{=html}\n"
+        f'<nav class="topic-navbox" aria-label="{html_escape(aria)}">\n'
+        f"  <details class=\"navbox-details\"{open_attr}>\n"
+        '    <summary class="navbox-header">\n'
+        f'      <span class="navbox-title">{head_title} {count_badge}</span>\n'
+        f"      {part_html}\n"
+        "    </summary>\n"
+        '    <div class="navbox-body">\n'
+        + "\n".join(rows_html)
+        + "\n    </div>\n"
+        "  </details>\n"
+        "</nav>\n"
+        + cats_block
+        + "```\n"
+    )
+
+
+def render_chapter_categories(page: dict) -> str:
+    """Bottom Category/Part hub links on chapters and final-preparation pages."""
+    path = page["path"]
+    part_name = page.get("part") or ""
+    if not part_name:
+        return ""
+    frag = "final-preparation" if page["kind"] == "final" else slug(part_name)
+    topics_href = html_escape(_html_href(path, WIKI / "notes" / "index.qmd", frag))
+    links = [f'<a href="{topics_href}">{html_escape(part_name)}</a>']
+    if page["kind"] == "chapter":
+        q_href = html_escape(_html_href(path, WIKI / "questions" / "by-topic.qmd", slug(part_name)))
+        links.append(f'<a href="{q_href}">{html_escape(part_name)} questions</a>')
+    return (
+        "\n\n```{=html}\n"
+        '<div class="wiki-categories" role="navigation" aria-label="Categories">\n'
+        f'  <span class="cat-label">Categories:</span> {" · ".join(links)}\n'
+        "</div>\n"
+        "```\n"
+    )
+
+
+def _public_page_url(path: Path, wiki_root: Path = WIKI) -> str:
+    rel = path.relative_to(wiki_root)
+    if rel.suffix == ".qmd":
+        rel = rel.with_suffix(".html")
+    if rel.as_posix() == "index.html":
+        return "https://www.statwiki.io/"
+    return "https://www.statwiki.io/" + rel.as_posix()
+
+
+def _bibtex_escape(text: str) -> str:
+    text = text.replace("\\", "\\textbackslash{}")
+    for ch in ("{", "}", "%", "&", "#", "_"):
+        text = text.replace(ch, "\\" + ch)
+    return text
+
+
+def render_cite_this_page(path: Path, title: str, now: datetime | None = None, wiki_root: Path = WIKI) -> str:
+    """Accessible ``Cite this page`` ``<details>`` disclosure with Brisbane date and BibTeX."""
+    today = (now or datetime.now(BRISBANE_TZ)).astimezone(BRISBANE_TZ)
+    date_human = f"{today.day} {today:%B %Y}"
+    date_iso = f"{today:%Y-%m-%d}"
+    url = _public_page_url(path, wiki_root=wiki_root)
+    clean_title = " ".join(plain(title).split()) or path.stem
+    bib_key = "statwiki_" + re.sub(r"[^a-z0-9]+", "_", path.stem.lower()).strip("_")
+    plain_cite = f'{SITE_NAME} ({today.year}). "{clean_title}." {SITE_NAME}. Last updated {date_human}. {url}'
+    bibtex = (
+        f"@misc{{{bib_key},\n"
+        f"  author = {{{{{SITE_NAME}}}}},\n"
+        f"  title = {{{{{_bibtex_escape(clean_title)}}}}},\n"
+        f"  year = {{{today.year}}},\n"
+        f"  url = {{{url}}},\n"
+        f"  urldate = {{{date_iso}}},\n"
+        f"  note = {{{SITE_NAME}, last updated {date_human}}}\n"
+        f"}}"
+    )
+    return (
+        "\n\n```{=html}\n"
+        '<details class="cite-this-page">\n'
+        "  <summary>Cite this page</summary>\n"
+        '  <div class="cite-body">\n'
+        '    <div class="cite-entry">\n'
+        '      <span class="cite-format">Plain text</span>\n'
+        f'      <pre class="cite-code"><code>{html_escape(plain_cite)}</code></pre>\n'
+        "    </div>\n"
+        '    <div class="cite-entry">\n'
+        '      <span class="cite-format">BibTeX</span>\n'
+        f'      <pre class="cite-code"><code>{html_escape(bibtex)}</code></pre>\n'
+        "    </div>\n"
+        "  </div>\n"
+        "</details>\n"
+        "```\n"
+    )
+
+
+def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Path, dict]) -> None:
+    """Attach topic navboxes, category links, and Cite this page disclosures to built pages."""
+    now = datetime.now(BRISBANE_TZ)
+    for page in pages:
+        kind = page["kind"]
+        if kind == "article":
+            article = article_by_path.get(page["path"])
+            if article is not None:
+                page["blocks"].append((False, "navbox", render_topic_navbox(article)))
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+        elif kind in {"chapter", "final"}:
+            cats = render_chapter_categories(page)
+            if cats:
+                page["blocks"].append((False, "categories", cats))
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+        elif kind == "reference":
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+
+
+_CITE_FOOTER_RE = re.compile(
+    r'\n*```\{=html\}\n<details class="cite-this-page">.*?</details>\n```\s*\Z',
+    re.S,
+)
+
+
+def _title_from_frontmatter(text: str, fallback: str) -> str:
+    m = re.search(r'^title:\s*"?(.*?)"?\s*$', text, re.M)
+    return m.group(1).replace('\\"', '"') if m else fallback
+
+
+def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = None) -> None:
+    """Ensure overview, reference sheets, glossary, and laboratory pages end with Cite this page."""
+    stamp = now or datetime.now(BRISBANE_TZ)
+    targets = [
+        wiki_root / "overview.qmd",
+        wiki_root / "reference" / "index.qmd",
+        wiki_root / "reference" / "distributions.qmd",
+        wiki_root / "reference" / "glossary.qmd",
+        *sorted(p for p in (wiki_root / "labs").glob("*.qmd") if not p.name.startswith("_")),
+    ]
+    for path in targets:
+        if not path.is_file():
+            continue
+        raw = path.read_text(encoding="utf-8")
+        stripped = _CITE_FOOTER_RE.sub("", raw).rstrip()
+        title = _title_from_frontmatter(stripped, path.stem)
+        updated = stripped + render_cite_this_page(path, title, now=stamp, wiki_root=wiki_root)
+        if updated != raw:
+            path.write_text(updated, encoding="utf-8")
+
+
 # ---------------------------------------------------------------------------
 # Infoboxes, properties, examples and figures
 #
@@ -3854,7 +4226,7 @@ def figure_md(file: str, page: Path, short: bool = False, credit: bool = True) -
     where = href(page, info["chapter"]) + (f"#{info['id']}" if info["id"] else "")
     source = f" *From [{info['chapter_title']}]({where}).*" if credit else ""
     caption = rebase_links(caption, info["chapter"], page)
-    return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)})"
+    return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)}){_with_fig_alt('', file)}"
 
 
 def png_size(path: Path) -> tuple[int, int]:
@@ -3873,7 +4245,7 @@ def write_file_pages() -> None:
     files_dir.mkdir(exist_ok=True)
     usage: dict[str, list[tuple[str, Path]]] = {}
     alt_text: dict[str, str] = {}
-    image = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\s]*figures/([^)\s/]+\.png)\)")
+    image = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\s]*figures/([^)\s/]+\.png)\)(?:\{[^}]*\})?")
     for folder in ("notes", "articles", "questions", "reference"):
         for page in sorted((WIKI / folder).rglob("*.qmd")):
             text = page.read_text(encoding="utf-8")
@@ -3899,16 +4271,19 @@ def write_file_pages() -> None:
             caption = re.sub(r"\s*\*From \[.*$", "", alt_text.get(png, "")).strip()
             home = ""
         width, height = png_size(figures_dir / png)
+        fig_alt = figure_alts.alt_for(png)
+        alt_escaped = fig_alt.replace("\\", "\\\\").replace('"', '\\"')
+        desc_text = caption or fig_alt
         lines = [
             '::: {.file-page}',
-            f"[![{caption}]({href(path, figures_dir / png)})]({href(path, figures_dir / (made['full'] or png))})",
+            f'[![{caption}]({href(path, figures_dir / png)}){{fig-alt="{alt_escaped}"}}]({href(path, figures_dir / (made["full"] or png))})',
             "",
             f"*Size of this preview: {width} × {height} pixels. Select it to open the high-resolution file.*",
             ":::",
             "",
             "## Summary",
             "",
-            f"**Description.** {caption}" if caption else "**Description.** None recorded.",
+            f"**Description.** {desc_text}",
             "",
         ]
         if home:
@@ -3935,7 +4310,9 @@ def write_file_pages() -> None:
         write_qmd(path, f"File:{png}", "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else SITE_NAME}")
         group = info["chapter_title"] if info else "Other figures"
         # An empty caption keeps a lone thumbnail from becoming a captioned figure.
-        gallery.setdefault(group, []).append(f'[![]({href(files_dir / "index.qmd", figures_dir / png)}){{fig-alt="{Path(png).stem}"}}]({href(files_dir / "index.qmd", path)})')
+        gallery.setdefault(group, []).append(
+            f'[![]({href(files_dir / "index.qmd", figures_dir / png)}){{fig-alt="{alt_escaped}"}}]({href(files_dir / "index.qmd", path)})'
+        )
     body = ["Select a figure to open its file page, with a larger view, a description, downloads, and the pages that use it.", ""]
     for group, thumbs in gallery.items():
         body += [f"## {group}", "", "::: {.file-gallery}", *thumbs, ":::", ""]
@@ -4919,13 +5296,15 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         raise SystemExit("Missing overview.qmd")
     overview_href = href(home, overview_page)
     n_chapters = len(chapters)
+    n_final = len(final_notes)
+    n_articles = len(ARTICLES)
     home_text = f"""---
 title: {yaml_quote(SITE_NAME)}
 toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Press Enter in the search box for a results page, or open a [random question]({href(home, random_path)}).
+A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} topic chapters** (plus **{n_final} final-preparation pages**), **{n_articles} concept articles**, and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Press Enter in the search box for a results page, or open a [random question]({href(home, random_path)}).
 :::
 
 :::: {{.portal-top}}
@@ -5033,6 +5412,17 @@ def runnable_pages() -> list[str]:
 FILE_LINK_JS = """
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  const hideDecorativeIcons = (root) => {
+    root.querySelectorAll("i.bi, #quarto-search svg, .aa-DetachedSearchButtonIcon svg, svg.observablehq--caret, .quarto-ojs-cell-container .observablehq--inspect svg").forEach((el) => {
+      if (!el.hasAttribute("aria-label") && !el.hasAttribute("aria-labelledby") && el.getAttribute("role") !== "img") {
+        el.setAttribute("aria-hidden", "true");
+      }
+    });
+  };
+  hideDecorativeIcons(document);
+  if (window.MutationObserver) {
+    new MutationObserver(() => hideDecorativeIcons(document)).observe(document.body, { childList: true, subtree: true });
+  }
   document.querySelectorAll("main img").forEach((img) => {
     const src = img.getAttribute("src") || "";
     const m = src.match(/^(.*?)figures\\/([^\\/?#]+)\\.png$/);
@@ -5043,6 +5433,25 @@ document.addEventListener("DOMContentLoaded", () => {
     link.title = "Open the file page: larger view, downloads, and where it is used";
     img.parentNode.insertBefore(link, img);
     link.appendChild(img);
+  });
+  document.querySelectorAll(".cite-this-page .cite-entry").forEach((entry) => {
+    const code = entry.querySelector("code");
+    const label = entry.querySelector(".cite-format");
+    if (!code || !label || entry.querySelector(".cite-copy")) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cite-copy";
+    btn.textContent = "Copy";
+    btn.setAttribute("aria-label", "Copy " + label.textContent.trim() + " citation");
+    btn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code.textContent || "").then(() => {
+          btn.textContent = "Copied";
+          setTimeout(() => { btn.textContent = "Copy"; }, 1600);
+        }).catch(() => {});
+      }
+    });
+    label.after(btn);
   });
 });
 </script>
@@ -5810,7 +6219,10 @@ def main() -> None:
     if doubled:
         raise SystemExit("Pages contain doubled cross-reference nouns:\n  " + "\n  ".join(doubled[:20]))
 
-    print(f"Chapter pages: {len([n for n in notes.values() if n['kind'] == 'notes'])}")
+    n_topic_chapters = len([fname for _, files in PARTS for fname, kind in files if kind == "notes"])
+    n_final_pages = len([n for n in notes.values() if n["kind"] == "notes"]) - n_topic_chapters
+    print(f"Topic chapters: {n_topic_chapters}, final-preparation pages: {n_final_pages} ({n_topic_chapters + n_final_pages} total)")
+    print(f"Concept articles: {len(ARTICLES)}")
     print(f"Question pages: {len(questions)}, with answers: {sum(1 for q in questions if q.get('answer'))}")
     print("Wiki source is ready.")
 

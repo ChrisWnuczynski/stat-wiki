@@ -34,12 +34,18 @@ export function createPlot(host, { height = 320, label = "Chart" } = {}) {
   svg.style.width = "100%";
   svg.style.height = "auto";
   host.appendChild(svg);
+  let currentLabel = label;
   let draw = () => {};
   let frame = 0;
   const render = () => {
     const width = Math.max(280, Math.round(host.clientWidth || 640));
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     svg.replaceChildren();
+    if (currentLabel) {
+      const titleEl = document.createElementNS(SVG, "title");
+      titleEl.textContent = currentLabel;
+      svg.appendChild(titleEl);
+    }
     draw({ svg, width, height, colors: chartColors() });
   };
   const observer = new ResizeObserver(() => {
@@ -55,7 +61,18 @@ export function createPlot(host, { height = 320, label = "Chart" } = {}) {
       render();
     },
     setLabel(text) {
+      currentLabel = text;
       svg.setAttribute("aria-label", text);
+      let titleEl = svg.querySelector("title");
+      if (text) {
+        if (!titleEl) {
+          titleEl = document.createElementNS(SVG, "title");
+          svg.prepend(titleEl);
+        }
+        titleEl.textContent = text;
+      } else if (titleEl) {
+        titleEl.remove();
+      }
     },
     destroy() {
       observer.disconnect();
