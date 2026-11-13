@@ -1273,7 +1273,6 @@ main,
   fill: var(--wiki-panel);
   stroke: var(--wiki-border);
   stroke-width: 1.25;
-  transition: stroke 0.12s ease, fill 0.12s ease;
 }
 
 .overview-roadmap .rm-spine {
