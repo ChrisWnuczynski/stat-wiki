@@ -471,7 +471,11 @@ densityChart = {
     ].filter(Boolean),
   });
   chart.setAttribute("role", "img");
-  chart.setAttribute("aria-label", `True density and Gaussian kernel estimate for ${draws.n} observations at bandwidth ${viewFns.formatNumber(bandwidth)}.`);
+  const densityLabel = `True density and Gaussian kernel estimate for ${draws.n} observations at bandwidth ${viewFns.formatNumber(bandwidth)}.`;
+  chart.setAttribute("aria-label", densityLabel);
+  const densityTitle = document.createElementNS("http://www.w3.org/2000/svg", "title");
+  densityTitle.textContent = densityLabel;
+  chart.prepend(densityTitle);
   frame.plot.appendChild(chart);
   frame.section.appendChild(labChrome.markerLegend([
     { text: "True density", color: themeColors.truth, kind: "line", dash: "dashed" },
@@ -561,7 +565,11 @@ riskChart = {
     marks,
   });
   chart.setAttribute("role", "img");
-  chart.setAttribute("aria-label", `Risk against bandwidth. Minimum MISE on the grid at ${viewFns.formatNumber(riskCurves.minMise.x)}. Minimum ISE on the grid at ${viewFns.formatNumber(riskCurves.minIse.x)}.`);
+  const riskLabel = `Risk against bandwidth. Minimum MISE on the grid at ${viewFns.formatNumber(riskCurves.minMise.x)}. Minimum ISE on the grid at ${viewFns.formatNumber(riskCurves.minIse.x)}.`;
+  chart.setAttribute("aria-label", riskLabel);
+  const riskTitle = document.createElementNS("http://www.w3.org/2000/svg", "title");
+  riskTitle.textContent = riskLabel;
+  chart.prepend(riskTitle);
   frame.plot.appendChild(chart);
   frame.section.appendChild(labChrome.markerLegend([
     { text: "Bias²", color: themeColors.bias, kind: "line", dash: "dotted" },

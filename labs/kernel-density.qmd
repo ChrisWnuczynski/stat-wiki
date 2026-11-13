@@ -21,7 +21,7 @@ $$
 \widehat f_h(x)=\frac{1}{nh}\sum_{i=1}^{n}\varphi\left(\frac{x-X_i}{h}\right).
 $$
 
-$\varphi$ is the standard normal density. The bandwidth control is $h$, in the same units as $x$: the bump centred at $X_i$ is the $\mathrm{N}(X_i,h^2)$ density. That is the one-dimensional case of the estimator on the theory page, where the bandwidth matrix is $H=h^2$.
+$\varphi$ is the standard normal density. The bandwidth control is $h$, in the same units as $x$: the bump centred at $X_i$ is the $\mathrm{N}(X_i,h^2)$ density. That is the one-dimensional case of the estimator on the theory page, where the bandwidth matrix is $H=h^2$.<sup id="cite_ref-1" class="cite-ref" data-cite-key="rosenblatt1956"><a href="#cite_note-1" title="Rosenblatt (1956) — Remarks on Some Nonparametric Estimates of a Density Function">[1]</a></sup><sup id="cite_ref-2" class="cite-ref" data-cite-key="parzen1962"><a href="#cite_note-2" title="Parzen (1962) — On Estimation of a Probability Density Function and Mode">[2]</a></sup>
 
 The sample-size control is $n$. It keeps the first $n$ draws of a sequence of 200 built from the seed. Changing $h$ does not rebuild that sequence. Changing $n$ does not draw again. New sample advances the seed and redraws the estimate and the integrated squared error. Reset returns to seed 3500, the bimodal mixture, $n=120$, and the Silverman bandwidth of that sample.
 
@@ -33,7 +33,7 @@ $$
 0.9\,\min\left(s,\frac{\mathrm{IQR}}{1.34}\right)\,n^{-1/5},
 $$
 
-with $s$ the sample standard deviation using divisor $n-1$, and the quartiles from R's default quantile (type 7). The constant is $0.9$, which is `bw.nrd0`, not the $1.06$ of `bw.nrd`. It is a normal-reference rule, not the minimiser of either error below. The generator that builds the sample is not R's generator. The seed reproduces this page, not an R session.
+with $s$ the sample standard deviation using divisor $n-1$, and the quartiles from R's default quantile (type 7). The constant is $0.9$, which is `bw.nrd0`, not the $1.06$ of `bw.nrd`. It is a normal-reference rule, not the minimiser of either error below.<sup id="cite_ref-3" class="cite-ref" data-cite-key="silverman1986"><a href="#cite_note-3" title="Silverman (1986) — Density Estimation for Statistics and Data Analysis">[3]</a></sup> A kernel with compact support, such as the Epanechnikov kernel, is a different bump, and a Sheather–Jones plug-in is a different bandwidth rule. Neither is what this page computes.<sup id="cite_ref-4" class="cite-ref" data-cite-key="epanechnikov1969"><a href="#cite_note-4" title="Epanechnikov (1969) — Non-Parametric Estimation of a Multivariate Probability Density">[4]</a></sup><sup id="cite_ref-5" class="cite-ref" data-cite-key="sheather_jones1991"><a href="#cite_note-5" title="Sheather &amp; Jones (1991) — A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation">[5]</a></sup> The generator that builds the sample is not R's generator. The seed reproduces this page, not an R session.
 
 ```{=html}
 <div data-lab-page hidden></div>
@@ -68,10 +68,37 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
 
 ## References {#references}
 
-::: {.wiki-refs}
-- Epanechnikov, V. A. (1969). Non-Parametric Estimation of a Multivariate Probability Density. *Theory of Probability & Its Applications*, 14(1), 153–158. [https://doi.org/10.1137/1114019](https://doi.org/10.1137/1114019)
-- Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. *The Annals of Mathematical Statistics*, 33(3), 1065–1076. [https://doi.org/10.1214/aoms/1177704472](https://doi.org/10.1214/aoms/1177704472)
-- Rosenblatt, M. (1956). Remarks on Some Nonparametric Estimates of a Density Function. *The Annals of Mathematical Statistics*, 27(3), 832–837. [https://doi.org/10.1214/aoms/1177728190](https://doi.org/10.1214/aoms/1177728190)
-- Sheather, S. J. & Jones, M. C. (1991). A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation. *Journal of the Royal Statistical Society Series B: Statistical Methodology*, 53(3), 683–690. [https://doi.org/10.1111/j.2517-6161.1991.tb01857.x](https://doi.org/10.1111/j.2517-6161.1991.tb01857.x)
-- Silverman, B. W. (1986). *Density Estimation for Statistics and Data Analysis*. Chapman & Hall. [https://doi.org/10.1201/9781315140919](https://doi.org/10.1201/9781315140919)
-:::
+```{=html}
+<div class="wiki-refs">
+<ol>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Rosenblatt, M. (1956). Remarks on Some Nonparametric Estimates of a Density Function. <em>The Annals of Mathematical Statistics</em>, 27(3), 832–837. <a href="https://doi.org/10.1214/aoms/1177728190" target="_blank" rel="noopener">https://doi.org/10.1214/aoms/1177728190</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. <em>The Annals of Mathematical Statistics</em>, 33(3), 1065–1076. <a href="https://doi.org/10.1214/aoms/1177704472" target="_blank" rel="noopener">https://doi.org/10.1214/aoms/1177704472</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Silverman, B. W. (1986). <em>Density Estimation for Statistics and Data Analysis</em>. Chapman &amp; Hall. <a href="https://doi.org/10.1201/9781315140919" target="_blank" rel="noopener">https://doi.org/10.1201/9781315140919</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Epanechnikov, V. A. (1969). Non-Parametric Estimation of a Multivariate Probability Density. <em>Theory of Probability &amp; Its Applications</em>, 14(1), 153–158. <a href="https://doi.org/10.1137/1114019" target="_blank" rel="noopener">https://doi.org/10.1137/1114019</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Sheather, S. J. &amp; Jones, M. C. (1991). A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em>, 53(3), 683–690. <a href="https://doi.org/10.1111/j.2517-6161.1991.tb01857.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.2517-6161.1991.tb01857.x</a></li>
+</ol>
+</div>
+```
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Kernel density laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/kernel-density.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_kernel_density,
+  author = {{StatWiki}},
+  title = {{Kernel density laboratory}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/kernel-density.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```

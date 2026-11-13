@@ -1075,6 +1075,22 @@ main,
   margin: 0;
 }
 
+.search-disambig-title {
+  font-weight: 600;
+  margin-bottom: 0.35rem !important;
+}
+
+.search-disambig-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.search-disambig-list li {
+  margin: 0.2rem 0;
+}
+
 .aa-DirectMatch {
   padding: 0.45rem 0.75rem;
   border-bottom: 1px solid var(--wiki-rule);
@@ -1084,6 +1100,30 @@ main,
 
 .aa-DirectMatch a {
   font-weight: 600;
+}
+
+.aa-DisambigHead {
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: var(--wiki-muted);
+  margin-bottom: 0.25rem;
+}
+
+.aa-DisambigList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.aa-DisambigList li {
+  margin: 0.18rem 0;
+}
+
+.aa-DisambigDesc {
+  color: var(--wiki-muted);
+  font-size: 0.8rem;
 }
 
 #site-search-results p {
@@ -1158,10 +1198,77 @@ main,
 }
 
 /* The top bar is the same height in both themes, so switching theme does
-   not move the page. The dark theme pads it twice as much by default. */
+   not move the page. The dark theme pads it twice as much by default.
+   Keep the StatWiki brand unclipped and tune desktop spacing so the brand,
+   eight links, search box, and theme toggle fit cleanly at 992px and up. */
 #quarto-header .navbar {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
+}
+
+#quarto-header .navbar-brand-container,
+#quarto-header .navbar-brand,
+#quarto-header .navbar-title {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+}
+
+@media (min-width: 992px) and (max-width: 1360px) {
+  #quarto-header .navbar-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  #quarto-header .navbar-brand-container {
+    margin-right: 0.35rem !important;
+  }
+
+  #quarto-header .navbar-brand {
+    margin-right: 0.25rem !important;
+  }
+
+  #quarto-header .navbar-nav .nav-link {
+    padding-left: 0.38rem !important;
+    padding-right: 0.38rem !important;
+    font-size: 0.91rem;
+    white-space: nowrap;
+  }
+
+  #quarto-header #quarto-search,
+  #quarto-header #quarto-search .aa-Autocomplete,
+  #quarto-header #quarto-search .aa-Form {
+    width: 9.25rem !important;
+    min-width: 0 !important;
+    max-width: 100%;
+  }
+
+  #quarto-header #quarto-search .aa-Input {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1120px) {
+  #quarto-header .navbar-container {
+    padding-left: 0.55rem !important;
+    padding-right: 0.55rem !important;
+  }
+
+  #quarto-header .navbar-nav .nav-link {
+    padding-left: 0.26rem !important;
+    padding-right: 0.26rem !important;
+    font-size: 0.85rem;
+  }
+
+  #quarto-header #quarto-search,
+  #quarto-header #quarto-search .aa-Autocomplete,
+  #quarto-header #quarto-search .aa-Form {
+    width: 7.5rem !important;
+    min-width: 0 !important;
+  }
 }
 
 /* Previous and next pages at the foot of each page: two labelled links at
@@ -1267,12 +1374,14 @@ main,
 
 .overview-roadmap a {
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 .overview-roadmap .rm-box {
   fill: var(--wiki-panel);
   stroke: var(--wiki-border);
   stroke-width: 1.25;
+  pointer-events: all;
 }
 
 .overview-roadmap .rm-spine {
@@ -1292,6 +1401,7 @@ main,
   fill: var(--wiki-text);
   font-size: 13.5px;
   font-weight: 650;
+  pointer-events: none;
 }
 
 .overview-roadmap a:hover .rm-title {
@@ -1301,22 +1411,26 @@ main,
 .overview-roadmap .rm-sub {
   fill: var(--wiki-muted);
   font-size: 11.5px;
+  pointer-events: none;
 }
 
 .overview-roadmap .rm-note {
   fill: var(--wiki-muted);
   font-size: 11px;
   font-style: italic;
+  pointer-events: none;
 }
 
 .overview-roadmap .rm-line {
   stroke: var(--wiki-border);
   stroke-width: 1.4;
   fill: none;
+  pointer-events: none;
 }
 
 .overview-roadmap .rm-arrow {
   fill: var(--wiki-border);
+  pointer-events: none;
 }
 
 .overview-stages {
@@ -1351,21 +1465,279 @@ main,
   }
 }
 
-/* Academic reference lists at the foot of chapters, articles, labs, and sheets. */
-.wiki-refs ul {
-  list-style: none;
-  padding-left: 0;
+/* Academic reference lists and Wikipedia-style numbered superscript citations. */
+sup.cite-ref {
+  font-size: 0.74em;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: 0.06em;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+sup.cite-ref a {
+  text-decoration: none;
+}
+
+sup.cite-ref a:hover,
+sup.cite-ref a:focus-visible {
+  text-decoration: underline;
+}
+
+.wiki-refs ul,
+.wiki-refs ol {
   margin: 0.5rem 0 1.2rem;
   font-size: 0.92rem;
   line-height: 1.55;
 }
 
-.wiki-refs li {
+.wiki-refs ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.wiki-refs ol {
+  list-style: decimal;
+  padding-left: 1.8rem;
+}
+
+.wiki-refs ul li {
   padding-left: 1.6rem;
   text-indent: -1.6rem;
   margin: 0.42rem 0;
 }
 
+.wiki-refs ol li {
+  margin: 0.42rem 0;
+  padding: 0.1rem 0.28rem;
+  border-radius: 3px;
+}
+
+.wiki-refs li:target {
+  background-color: rgba(51, 102, 204, 0.09);
+}
+
+.wiki-refs .cite-backlink {
+  margin-right: 0.25rem;
+  font-size: 0.86em;
+  user-select: none;
+}
+
+.wiki-refs .cite-backlink a {
+  text-decoration: none;
+}
+
+.wiki-refs .cite-backlink a:hover {
+  text-decoration: underline;
+}
+
 .wiki-refs a {
   overflow-wrap: anywhere;
+}
+
+/* Bottom-of-page topic navigation boxes, category bars, and Cite this page disclosure. */
+
+.topic-navbox {
+  clear: both;
+  margin: 1.8rem 0 0.75rem;
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-panel);
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+
+.topic-navbox .navbox-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 0.85rem;
+  padding: 0.42rem 0.75rem;
+  background: var(--wiki-panel-head);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--wiki-text);
+  user-select: none;
+}
+
+.topic-navbox .navbox-details[open] > .navbox-header {
+  border-bottom: 1px solid var(--wiki-rule);
+}
+
+.topic-navbox .navbox-title a,
+.topic-navbox .navbox-part a {
+  text-decoration: none;
+}
+
+.topic-navbox .navbox-title a:hover,
+.topic-navbox .navbox-part a:hover {
+  text-decoration: underline;
+}
+
+.topic-navbox .navbox-count {
+  font-weight: 400;
+  color: var(--wiki-muted);
+  font-size: 0.82rem;
+}
+
+.topic-navbox .navbox-part {
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--wiki-muted);
+}
+
+.topic-navbox .navbox-body {
+  background: var(--wiki-bg);
+}
+
+.topic-navbox .navbox-row {
+  display: grid;
+  grid-template-columns: 10.5rem 1fr;
+  border-top: 1px solid var(--wiki-rule);
+}
+
+.topic-navbox .navbox-row:first-child {
+  border-top: 0;
+}
+
+.topic-navbox .navbox-row-single {
+  grid-template-columns: 1fr;
+}
+
+.topic-navbox .navbox-group {
+  padding: 0.35rem 0.65rem;
+  background: var(--wiki-panel);
+  border-right: 1px solid var(--wiki-rule);
+  font-weight: 600;
+  color: var(--wiki-muted);
+  font-size: 0.82rem;
+}
+
+.topic-navbox .navbox-links {
+  padding: 0.35rem 0.7rem;
+}
+
+.topic-navbox .navbox-links a {
+  text-decoration: none;
+}
+
+.topic-navbox .navbox-links a:hover {
+  text-decoration: underline;
+}
+
+.topic-navbox .navbox-current {
+  color: var(--wiki-text);
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .topic-navbox .navbox-row {
+    grid-template-columns: 1fr;
+  }
+
+  .topic-navbox .navbox-group {
+    border-right: 0;
+    border-bottom: 1px solid var(--wiki-rule);
+    padding-bottom: 0.2rem;
+  }
+}
+
+.wiki-categories {
+  clear: both;
+  margin: 0.75rem 0 0.75rem;
+  padding: 0.38rem 0.7rem;
+  border: 1px solid var(--wiki-rule);
+  background: var(--wiki-panel);
+  font-size: 0.85rem;
+  color: var(--wiki-muted);
+}
+
+.wiki-categories .cat-label {
+  font-weight: 600;
+  color: var(--wiki-text);
+  margin-right: 0.25rem;
+}
+
+.wiki-categories a {
+  text-decoration: none;
+}
+
+.wiki-categories a:hover {
+  text-decoration: underline;
+}
+
+.cite-this-page {
+  clear: both;
+  margin: 0.75rem 0 1.2rem;
+  border: 1px solid var(--wiki-rule);
+  background: var(--wiki-panel);
+  font-size: 0.86rem;
+}
+
+.cite-this-page > summary {
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--wiki-muted);
+  user-select: none;
+}
+
+.cite-this-page > summary:hover {
+  color: var(--wiki-text);
+}
+
+.cite-this-page[open] > summary {
+  border-bottom: 1px solid var(--wiki-rule);
+  color: var(--wiki-text);
+}
+
+.cite-this-page .cite-body {
+  padding: 0.55rem 0.75rem 0.65rem;
+  background: var(--wiki-bg);
+}
+
+.cite-this-page .cite-entry + .cite-entry {
+  margin-top: 0.55rem;
+}
+
+.cite-this-page .cite-format {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--wiki-muted);
+  margin-bottom: 0.2rem;
+}
+
+.cite-this-page .cite-copy {
+  float: right;
+  font: inherit;
+  font-size: 0.76rem;
+  padding: 0.08rem 0.45rem;
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  background: var(--wiki-panel);
+  color: var(--wiki-text);
+  cursor: pointer;
+}
+
+.cite-this-page .cite-copy:hover {
+  background: var(--wiki-panel-head);
+}
+
+.cite-this-page .cite-code {
+  clear: both;
+  margin: 0.15rem 0 0;
+  padding: 0.42rem 0.55rem;
+  border: 1px solid var(--wiki-rule);
+  background: var(--wiki-panel);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.cite-this-page .cite-code code {
+  border: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
 }

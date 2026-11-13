@@ -3,7 +3,7 @@ title: "Confidence interval laboratory"
 description: "See which repeated confidence intervals cover a known truth, and compare that fraction with the coverage the formula claims."
 ---
 
-A confidence interval is a rule that turns a sample into an interval. The confidence, say $95\%$, is the probability that the random interval contains the parameter, computed before the sample is drawn. Once the endpoints are numbers, that probability is not a probability for the parameter. This page draws the intervals again and again from a population whose parameter is known, and counts the misses.
+A confidence interval is a rule that turns a sample into an interval. The confidence, say $95\%$, is the probability that the random interval contains the parameter, computed before the sample is drawn. Once the endpoints are numbers, that probability is not a probability for the parameter.<sup id="cite_ref-1" class="cite-ref" data-cite-key="neyman1937"><a href="#cite_note-1" title="Neyman (1937) — Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability">[1]</a></sup> This page draws the intervals again and again from a population whose parameter is known, and counts the misses.
 
 ## What this page investigates
 
@@ -15,7 +15,7 @@ The page opens on $40$ samples of size $10$ from a normal distribution with mean
 
 ## The model these controls change
 
-For a normal sample with unknown variance, $\sqrt n\,(\overline X-\mu)/s$ has a Student $t$ distribution on $n-1$ degrees of freedom. The interval
+For a normal sample with unknown variance, $\sqrt n\,(\overline X-\mu)/s$ has a Student $t$ distribution on $n-1$ degrees of freedom.<sup id="cite_ref-2" class="cite-ref" data-cite-key="student1908"><a href="#cite_note-2" title="Student (1908) — The Probable Error of a Mean">[2]</a></sup><sup id="cite_ref-3" class="cite-ref" data-cite-key="casella_berger2002"><a href="#cite_note-3" title="Casella &amp; Berger (2002) — Statistical Inference">[3]</a></sup> The interval
 
 $$
 \overline X\pm t_{n-1;\,1-\alpha/2}\,\frac{s}{\sqrt n}
@@ -43,7 +43,7 @@ $$
 \frac{\widehat p+z^{2}/(2n)\pm z\sqrt{\widehat p(1-\widehat p)/n+z^{2}/(4n^{2})}}{1+z^{2}/n}.
 $$
 
-It does not collapse at the boundary. Because $X$ is discrete, the coverage at a fixed $p$ is an exact finite sum: add $\Pr(X=x)$ over those $x$ whose interval contains $p$. An endpoint counts as a hit. That sum, plotted against $p$, is the sawtooth. The stated level is a horizontal line the sawtooth does not follow, especially near $0$ and $1$ and at small $n$.
+It does not collapse at the boundary.<sup id="cite_ref-4" class="cite-ref" data-cite-key="wilson1927"><a href="#cite_note-4" title="Wilson (1927) — Probable Inference, the Law of Succession, and Statistical Inference">[4]</a></sup> A Clopper–Pearson interval is a different construction: it inverts binomial tail tests rather than recentering a normal approximation.<sup id="cite_ref-5" class="cite-ref" data-cite-key="clopper_pearson1934"><a href="#cite_note-5" title="Clopper &amp; Pearson (1934) — The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial">[5]</a></sup> Because $X$ is discrete, the coverage at a fixed $p$ is an exact finite sum: add $\Pr(X=x)$ over those $x$ whose interval contains $p$. An endpoint counts as a hit. That sum, plotted against $p$, is the sawtooth.<sup id="cite_ref-6" class="cite-ref" data-cite-key="brown_cai_dasgupta2001"><a href="#cite_note-6" title="Brown et al. (2001) — Interval Estimation for a Binomial Proportion">[6]</a></sup> The stated level is a horizontal line the sawtooth does not follow, especially near $0$ and $1$ and at small $n$.
 
 **100 more** appends intervals to the ones already drawn. The seed, the sample size, and the population fix the sequence; the count is a prefix of it. Changing the interval or the level recomputes the endpoints and does not redraw the samples. Changing $p$ does redraw a proportion, because each yes-or-no draw is a comparison with $p$. The generator is not R's.
 
@@ -88,10 +88,38 @@ The band on the running fraction treats the hits as independent Bernoulli trials
 
 ## References {#references}
 
-::: {.wiki-refs}
-- Brown, L. D., Cai, T. T. & DasGupta, A. (2001). Interval Estimation for a Binomial Proportion. *Statistical Science*, 16(2), 101–133. [https://doi.org/10.1214/ss/1009213286](https://doi.org/10.1214/ss/1009213286)
-- Clopper, C. J. & Pearson, E. S. (1934). The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial. *Biometrika*, 26(4), 404–413. [https://doi.org/10.1093/biomet/26.4.404](https://doi.org/10.1093/biomet/26.4.404)
-- Neyman, J. (1937). Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability. *Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences*, 236(767), 333–380. [https://doi.org/10.1098/rsta.1937.0005](https://doi.org/10.1098/rsta.1937.0005)
-- Student [Gosset, W. S.] (1908). The Probable Error of a Mean. *Biometrika*, 6(1), 1. [https://doi.org/10.2307/2331554](https://doi.org/10.2307/2331554)
-- Wilson, E. B. (1927). Probable Inference, the Law of Succession, and Statistical Inference. *Journal of the American Statistical Association*, 22(158), 209–212. [https://doi.org/10.1080/01621459.1927.10502953](https://doi.org/10.1080/01621459.1927.10502953)
-:::
+```{=html}
+<div class="wiki-refs">
+<ol>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Neyman, J. (1937). Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability. <em>Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences</em>, 236(767), 333–380. <a href="https://doi.org/10.1098/rsta.1937.0005" target="_blank" rel="noopener">https://doi.org/10.1098/rsta.1937.0005</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Student [Gosset, W. S.] (1908). The Probable Error of a Mean. <em>Biometrika</em>, 6(1), 1. <a href="https://doi.org/10.2307/2331554" target="_blank" rel="noopener">https://doi.org/10.2307/2331554</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Casella, G. &amp; Berger, R. L. (2002). <em>Statistical Inference</em> (2nd ed.). Duxbury, Pacific Grove, CA. <a href="https://openlibrary.org/works/OL37482367W" target="_blank" rel="noopener">https://openlibrary.org/works/OL37482367W</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Wilson, E. B. (1927). Probable Inference, the Law of Succession, and Statistical Inference. <em>Journal of the American Statistical Association</em>, 22(158), 209–212. <a href="https://doi.org/10.1080/01621459.1927.10502953" target="_blank" rel="noopener">https://doi.org/10.1080/01621459.1927.10502953</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Clopper, C. J. &amp; Pearson, E. S. (1934). The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial. <em>Biometrika</em>, 26(4), 404–413. <a href="https://doi.org/10.1093/biomet/26.4.404" target="_blank" rel="noopener">https://doi.org/10.1093/biomet/26.4.404</a></li>
+  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span> Brown, L. D., Cai, T. T. &amp; DasGupta, A. (2001). Interval Estimation for a Binomial Proportion. <em>Statistical Science</em>, 16(2), 101–133. <a href="https://doi.org/10.1214/ss/1009213286" target="_blank" rel="noopener">https://doi.org/10.1214/ss/1009213286</a></li>
+</ol>
+</div>
+```
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Confidence interval laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/ci-coverage.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_ci_coverage,
+  author = {{StatWiki}},
+  title = {{Confidence interval laboratory}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/ci-coverage.html},
+  urldate = {2026-11-13},
+  note = {StatWiki, last updated 13 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```

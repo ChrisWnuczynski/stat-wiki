@@ -17,6 +17,7 @@ from html import escape as html_escape
 from zoneinfo import ZoneInfo
 
 import chapter_guides
+import figure_alts
 import re
 import struct
 import unicodedata
@@ -518,9 +519,24 @@ def href(from_qmd: Path, to_qmd: Path) -> str:
     return Path(os.path.relpath(to_qmd, start=from_qmd.parent)).as_posix()
 
 
+def _with_fig_alt(attrs: str, png_name: str) -> str:
+    alt = figure_alts.alt_for(png_name)
+    escaped = alt.replace("\\", "\\\\").replace('"', '\\"')
+    attrs = (attrs or "").strip()
+    if attrs and re.search(r'\bfig-alt\s*=', attrs):
+        return attrs
+    if attrs.startswith("{") and attrs.endswith("}"):
+        inner = attrs[1:-1].strip()
+        return f'{{{inner} fig-alt="{escaped}"}}' if inner else f'{{fig-alt="{escaped}"}}'
+    return f'{{fig-alt="{escaped}"}}'
+
+
 def rewrite_images(text: str, prefix: str) -> str:
     pattern = re.compile(
         r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\((?:\.\./)*figures/([^)/\s]+)\.pdf\)(\{[^}]*\})?"
+    )
+    png_pattern = re.compile(
+        r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\(((?:\.\./)*figures/([^)/\s]+\.png))\)(\{[^}]*\})?"
     )
 
     def repl(match: re.Match) -> str:
@@ -528,11 +544,16 @@ def rewrite_images(text: str, prefix: str) -> str:
         pages = FIGURE_PAGES.get(stem)
         if not pages:
             return match.group(0)
-        first = f"![{alt}]({prefix}/{pages[0]}){attrs}"
-        extra = "".join(f"\n\n![{alt}]({prefix}/{page})" for page in pages[1:])
+        first = f"![{alt}]({prefix}/{pages[0]}){_with_fig_alt(attrs, pages[0])}"
+        extra = "".join(f"\n\n![{alt}]({prefix}/{page}){_with_fig_alt('', page)}" for page in pages[1:])
         return first + extra
 
-    return pattern.sub(repl, text)
+    def repl_png(match: re.Match) -> str:
+        alt, _src, png_name, attrs = match.groups()
+        return f"![{alt}]({prefix}/{png_name}){_with_fig_alt(attrs or '', png_name)}"
+
+    text = pattern.sub(repl, text)
+    return png_pattern.sub(repl_png, text)
 
 
 XREF_NOUNS = (
@@ -1347,7 +1368,9 @@ RANDOM_AND_FILTER_JS = """<script>
   });
   var aliasMeta = null;
   var aliasPromise = null;
+  var allSearchDocs = [];
   var arrowMoved = false;
+  var rankModPromise = import(new URL(offset + "search-rank.js", location.href).href).catch(function () { return null; });
   function loadAliases() {
     if (aliasPromise) return aliasPromise;
     aliasPromise = fetch(new URL(offset + "search-aliases.json", location.href))
@@ -1356,12 +1379,46 @@ RANDOM_AND_FILTER_JS = """<script>
       .catch(function () { return null; });
     return aliasPromise;
   }
+  // Intercept Quarto's Fuse.js instance so live autocomplete queries resolve
+  // abbreviations, diacritics, possessives, conversational questions,
+  // comparisons, and disambiguations against search-aliases.json + search.json
+  // even when Fuse's Bitap threshold (0.1) or minMatchCharLength (2) returns 0 hits.
+  if (typeof window.Fuse === "function" && !window.Fuse.__wikiWrapped) {
+    var NativeFuse = window.Fuse;
+    var activeFuse = null;
+    var OrigAdd = NativeFuse.prototype.add;
+    NativeFuse.prototype.add = function (doc) {
+      if (activeFuse === null) activeFuse = this;
+      if (this === activeFuse && doc && doc.href) {
+        allSearchDocs.push(doc);
+      }
+      return OrigAdd.apply(this, arguments);
+    };
+    var OrigSearch = NativeFuse.prototype.search;
+    NativeFuse.prototype.search = function (query, opts) {
+      var self = this;
+      var rawHits = OrigSearch.call(self, query, opts);
+      return Promise.all([loadAliases(), rankModPromise]).then(function (loaded) {
+        var metaData = loaded[0] || aliasMeta;
+        var rankMod = loaded[1];
+        var augment = (rankMod && rankMod.augmentQuartoSearchItems) || window.wikiAugmentQuartoSearchItems;
+        if (!augment) return rawHits;
+        var fuseDocs = rawHits.map(function (r) { return r.item; });
+        var cap = (opts && typeof opts.limit === "number") ? opts.limit : 25;
+        var merged = augment(fuseDocs, query, metaData, allSearchDocs, cap);
+        return merged.map(function (item, idx) {
+          return { item: item, refIndex: idx, score: 0 };
+        });
+      });
+    };
+    window.Fuse.__wikiWrapped = true;
+  }
   function goSearch(event) {
     var input = document.querySelector("#quarto-search input");
     var q = input ? input.value.trim() : "";
     if (!q) return;
     if (arrowMoved) {
-      var active = document.querySelector('#quarto-search-results .aa-Item[aria-selected="true"] a[href]');
+      var active = document.querySelector('#quarto-search-results .aa-Item[aria-selected="true"] a[href], .aa-DetachedContainer .aa-Item[aria-selected="true"] a[href]');
       var href = active ? active.getAttribute("href") || "" : "";
       if (href && href.indexOf("0767FDFD-") < 0) {
         event.preventDefault();
@@ -1375,18 +1432,18 @@ RANDOM_AND_FILTER_JS = """<script>
     window.location.href = offset + "search.html?query=" + encodeURIComponent(q);
   }
   document.addEventListener("focusin", function (event) {
-    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search, .aa-DetachedFormContainer")) {
       loadAliases().then(function () { rankPanel(); });
     }
   });
   document.addEventListener("input", function (event) {
-    if (event.target && event.target.closest && event.target.closest("#quarto-search")) {
+    if (event.target && event.target.closest && event.target.closest("#quarto-search, .aa-DetachedFormContainer")) {
       arrowMoved = false;
       loadAliases().then(function () { rankPanel(); });
     }
   });
   document.addEventListener("keydown", function (event) {
-    if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    if (!event.target.closest || !event.target.closest("#quarto-search, .aa-DetachedFormContainer")) return;
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       arrowMoved = true;
       return;
@@ -1395,7 +1452,7 @@ RANDOM_AND_FILTER_JS = """<script>
     goSearch(event);
   }, true);
   document.addEventListener("submit", function (event) {
-    if (!event.target.closest || !event.target.closest("#quarto-search")) return;
+    if (!event.target.closest || !event.target.closest("#quarto-search, .aa-DetachedFormContainer")) return;
     goSearch(event);
   }, true);
   function tierOf(href) {
@@ -1409,23 +1466,68 @@ RANDOM_AND_FILTER_JS = """<script>
   function normHrefKey(href) {
     return String(href || "").split("?")[0].split("#")[0].replace(/^(\\.\\.\\/|\\.\\/|\\/)+/, "");
   }
+  function toSiteHref(rel) {
+    return new URL(offset + String(rel || "").replace(/^\\/+/, ""), location.href).href;
+  }
   function rankPanel() {
-    var input = document.querySelector("#quarto-search input");
+    var input = document.querySelector(".aa-DetachedFormContainer .aa-Input") || document.querySelector("#quarto-search input");
     var q = input ? input.value.trim() : "";
-    var exact = (q && window.wikiResolveExactMatch) ? window.wikiResolveExactMatch(q, aliasMeta) : null;
+    var disambig = (q && window.wikiResolveDisambiguation) ? window.wikiResolveDisambiguation(q, aliasMeta) : null;
+    var comparison = (!disambig && q && window.wikiResolveComparison) ? window.wikiResolveComparison(q, aliasMeta, allSearchDocs) : null;
+    var exact = (!disambig && !comparison && q && window.wikiResolveExactMatch) ? window.wikiResolveExactMatch(q, aliasMeta, allSearchDocs) : null;
     var exactKey = exact ? normHrefKey(exact.href) : "";
     document.querySelectorAll(".aa-Panel").forEach(function (panel) {
       var prevBanner = panel.querySelector(".aa-DirectMatch");
-      if (!exact) {
+      if (!disambig && !comparison && !exact) {
         if (prevBanner) prevBanner.remove();
-      } else {
-        var targetUrl = new URL(offset + exact.href.replace(/^\\//, ""), location.href).href;
-        if (!prevBanner) {
-          prevBanner = document.createElement("div");
-          prevBanner.className = "aa-DirectMatch";
-          panel.insertBefore(prevBanner, panel.firstChild);
-        }
-        prevBanner.textContent = "";
+        return;
+      }
+      if (!prevBanner) {
+        prevBanner = document.createElement("div");
+        prevBanner.className = "aa-DirectMatch";
+        panel.insertBefore(prevBanner, panel.firstChild);
+      }
+      prevBanner.textContent = "";
+      if (disambig) {
+        var head = document.createElement("div");
+        head.className = "aa-DisambigHead";
+        head.textContent = disambig.term + " — choose intended topic:";
+        prevBanner.appendChild(head);
+        var ul = document.createElement("ul");
+        ul.className = "aa-DisambigList";
+        disambig.options.forEach(function (opt) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = toSiteHref(opt.href);
+          a.textContent = opt.label;
+          li.appendChild(a);
+          if (opt.description) {
+            var span = document.createElement("span");
+            span.className = "aa-DisambigDesc";
+            span.textContent = " — " + opt.description;
+            li.appendChild(span);
+          }
+          ul.appendChild(li);
+        });
+        prevBanner.appendChild(ul);
+      } else if (comparison) {
+        var cHead = document.createElement("div");
+        cHead.className = "aa-DisambigHead";
+        cHead.textContent = "Comparing topics:";
+        prevBanner.appendChild(cHead);
+        var cList = document.createElement("ul");
+        cList.className = "aa-DisambigList";
+        comparison.targets.forEach(function (t) {
+          var li = document.createElement("li");
+          var a = document.createElement("a");
+          a.href = toSiteHref(t.href);
+          a.textContent = t.title;
+          li.appendChild(a);
+          cList.appendChild(li);
+        });
+        prevBanner.appendChild(cList);
+      } else if (exact) {
+        var targetUrl = toSiteHref(exact.href);
         var prefix = document.createTextNode("Direct match: ");
         var anchor = document.createElement("a");
         anchor.href = targetUrl;
@@ -1444,7 +1546,7 @@ RANDOM_AND_FILTER_JS = """<script>
       children.forEach(function (item) {
         var link = item.querySelector("a");
         var href = link ? link.getAttribute("href") || "" : "";
-        var isChild = href.indexOf("0767FDFD-") >= 0 || !!item.querySelector(".search-item, .search-more");
+        var isChild = href.indexOf("0767FDFD-") >= 0 || !!item.querySelector(".search-result-doc-section, .search-result-more");
         if (isChild && groups.length) {
           groups[groups.length - 1].nodes.push(item);
         } else {
@@ -1453,9 +1555,12 @@ RANDOM_AND_FILTER_JS = """<script>
         }
       });
       if (groups.length < 2) return;
+      // Preserve rankDocuments ordering when Fuse was augmented; only demote figure files.
       var ranked = groups.slice().sort(function (a, b) {
+        var fa = Number(a.tier === 3), fb = Number(b.tier === 3);
+        if (fa !== fb) return fa - fb;
         if (a.isExact !== b.isExact) return a.isExact ? -1 : 1;
-        return a.tier - b.tier;
+        return 0;
       });
       var flat = [];
       ranked.forEach(function (g) { g.nodes.forEach(function (n) { flat.push(n); }); });
@@ -1464,13 +1569,28 @@ RANDOM_AND_FILTER_JS = """<script>
       flat.forEach(function (node) { list.appendChild(node); });
     });
   }
-  var searchRoot = document.getElementById("quarto-search") || document.body;
   var rankingPanel = false;
-  new MutationObserver(function () {
+  var searchObserver = new MutationObserver(function () {
     if (rankingPanel) return;
     rankingPanel = true;
-    try { rankPanel(); } finally { rankingPanel = false; }
-  }).observe(searchRoot, { childList: true, subtree: true });
+    searchObserver.disconnect();
+    try { rankPanel(); } finally {
+      rankingPanel = false;
+      watchSearch();
+    }
+  });
+  function watchSearch() {
+    var roots = [
+      document.getElementById("quarto-search"),
+      document.getElementById("quarto-search-results"),
+      document.querySelector(".aa-DetachedContainer"),
+    ];
+    roots.forEach(function (el) {
+      if (el) searchObserver.observe(el, { childList: true, subtree: true });
+    });
+    if (document.body) searchObserver.observe(document.body, { childList: true });
+  }
+  watchSearch();
   // Highlight the top-bar section for this page's folder.
   var here = window.location.pathname.replace(/\\\\/g, "/");
   var section = /\\/labs\\//.test(here) ? "labs/index.html"
@@ -1584,6 +1704,12 @@ def plain(text: str) -> str:
     return " ".join(text.replace("--", "–").split())
 
 
+def box_term(text: str) -> str:
+    """Clean display title for a box article, preserving single-symbol inline math like $k$-nearest."""
+    text = re.sub(r"\$([A-Za-z0-9]+)\$", r"\1", text)
+    return plain(text)
+
+
 def heading_slug(text: str) -> str:
     return "s-" + (re.sub(r"[^a-z0-9]+", "-", plain(text).lower()).strip("-") or "section")
 
@@ -1657,7 +1783,7 @@ def new_article(slug_: str, term: str) -> dict:
     return article
 
 
-def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
+def register_box_article(note, part, ident, kind, term, lines, snippet, slug_hint: str | None = None) -> dict:
     box_dict = {
         "chapter": note["path"],
         "chapter_title": note["title"],
@@ -1674,7 +1800,7 @@ def register_box_article(note, part, ident, kind, term, lines, snippet) -> dict:
         BOX_ARTICLE[ident] = target_slug
         PENDING_MERGED_BOXES.append((target_slug, box_dict))
         return {"slug": target_slug, "path": ARTICLE_DIR / f"{target_slug}.qmd", "term": term}
-    s = BOX_SLUG_OVERRIDES.get(ident) or slug(term)
+    s = BOX_SLUG_OVERRIDES.get(ident) or slug_hint or slug(term)
     if s in ARTICLES and ARTICLES[s]["box"] is not None:
         s = f"{s}-{note['path'].stem}"  # two boxes with one name in different chapters
     article = ARTICLES.get(s) or new_article(s, term)
@@ -2375,10 +2501,11 @@ def index_chapter(note: dict, part: str, body: str) -> str:
                 box_lines.append(lines[k])
                 k += 1
             snippet = snippet_from(box_lines)
-            article = register_box_article(note, part, ident, kind, plain(title), box_lines, snippet)
+            term_title = box_term(title)
+            article = register_box_article(note, part, ident, kind, term_title, box_lines, snippet, slug_hint=slug(plain(title)))
             GLOSSARY.append(
                 {
-                    "term": plain(title),
+                    "term": term_title,
                     "kind": kind,
                     "page": note["path"],
                     "anchor": ident,
@@ -2388,6 +2515,7 @@ def index_chapter(note: dict, part: str, body: str) -> str:
                 }
             )
             HEADING_ANCHORS[(fname, plain(title))] = ident
+            HEADING_ANCHORS[(fname, term_title)] = ident
             HEADING_ANCHORS[(fname, ident)] = ident
             # The box stays in the chapter and points up to its article.
             pending[k] = f"[Article: {article['term']} →]({href(note['path'], article['path'])}){{.box-article}}"
@@ -2705,7 +2833,8 @@ PROTECT = re.compile(
     r"|\{[#.][^}\n]*\}"  # attributes
     r"|<[^>\n]+>"  # html tags
     r"|https?://\S+"  # bare urls
-    r"|\[\^[^\]\n]+\]",  # footnote markers
+    r"|\[\^[^\]\n]+\]"  # footnote markers
+    r"|\{\{cite:[a-z0-9_,\s]+\}\}",  # explicit citation markers
     re.S | re.M,
 )
 
@@ -2889,7 +3018,7 @@ PREVIEW_JS = r"""<div id="wiki-preview" role="tooltip" hidden></div>
     for (var i = 0; i < nodes.length && used < limit; i++) {
       var n = nodes[i];
       if (n.nodeType !== 1) continue;
-      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, script, nav, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
+      if (n.matches(".hatnote, .callout, #worked-answer, .qtable, .infobox, .mainarticle, .topic-navbox, .wiki-categories, .cite-this-page, script, nav, details, h1, h2, h3, header, .quarto-title-block, #title-block-header, .glossary-jump, .qfilter")) continue;
       if (!n.textContent.trim() && !n.querySelector("img, .math")) continue;
       out.appendChild(n.cloneNode(true));
       used += n.textContent.length;
@@ -3190,11 +3319,19 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     # Final-preparation pages: the guide, and the two halves with their question lists.
     for note in final_notes:
         body = prepare(strip_first_heading(note["prose"]), "../figures", page=note["path"])
-        blocks = [(True, "prose", body)]
         own = [q for q in by_source["final"] if q["notes_path"] == note["path"]]
+        hat = [f"Part of **[Final preparation]({href(note['path'], WIKI / 'notes' / 'index.qmd')}#final-preparation)**"]
         if own:
-            blocks.append((False, "questions", "\n\n## Questions\n\n" + qcount_marker(len(own)) + question_table(own, note["path"], with_topic=True)))
-        add_page(note["path"], note["title"], None, "final", blocks)
+            noun = "question" if len(own) == 1 else "questions"
+            hat.append(f"[{len(own)} {noun}](#questions)")
+        hat.append("[What links here](#what-links-here)")
+        blocks = [
+            (False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"),
+            (True, "prose", body),
+        ]
+        if own:
+            blocks.append((False, "questions", "\n\n## Questions {#questions}\n\n" + qcount_marker(len(own)) + question_table(own, note["path"], with_topic=True)))
+        add_page(note["path"], note["title"], "Final preparation", "final", blocks)
 
     # Questions. Previous and next walk the other questions on the same topic.
     for q in questions:
@@ -3243,9 +3380,10 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
 
     # Articles: one per named box, merged with any distribution card of the same name.
     register_card_articles()
+    ambig_slugs = ambiguous_alias_slugs()
     for alias, target in SEE_ALSO.items():
         article = next((a for a in ARTICLES.values() if a["term"].lower() == target.lower()), None)
-        if article:
+        if article and slug(alias) not in ambig_slugs:
             article["aliases"].append(f"{slug(alias)}.html")  # a redirect page, made by Quarto
     for alias, target in topics.ALIASES.items():
         if target not in ARTICLES:
@@ -3253,7 +3391,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         if slug(alias) in ARTICLES:
             raise SystemExit(f"topics.ALIASES[{alias!r}]: {slug(alias)} is already a page")
         SEE_ALSO[alias] = ARTICLES[target]["term"]
-        ARTICLES[target]["aliases"].append(f"{slug(alias)}.html")
+        if slug(alias) not in ambig_slugs:
+            ARTICLES[target]["aliases"].append(f"{slug(alias)}.html")
     qmap = {q["id"]: q for q in questions}
     read_formula_tables(notes)
     check_extras(qmap)
@@ -3290,9 +3429,9 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             blocks.append((is_content, label, text))
         page["blocks"] = blocks
 
-    # What links here, on every chapter and on the formula lookup.
+    # What links here, on every chapter, final-preparation page, and the formula lookup.
     for page in pages:
-        if page["kind"] not in {"chapter", "reference"}:
+        if page["kind"] not in {"chapter", "final", "reference"}:
             continue
         section = what_links_here(page, backlinks.get(page["path"], []), questions)
         at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label == "see-also"), len(page["blocks"]))
@@ -3302,10 +3441,16 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for page in pages:
         if page["kind"] == "article":
             article = article_by_path[page["path"]]
-            for idx, (is_c, lbl, txt) in enumerate(page["blocks"]):
-                if is_c and lbl in {"lead", "excerpt"}:
-                    page["blocks"][idx] = (is_c, lbl, frame_article_lead(article, txt))
-                    break
+            first_idx = next(
+                (idx for idx, (is_c, lbl, _) in enumerate(page["blocks"]) if is_c and lbl in {"lead", "excerpt"}),
+                None,
+            )
+            if first_idx is not None:
+                if first_idx > 1 and page["blocks"][1][1] == "excerpt-head":
+                    page["blocks"].insert(1, (False, "lead-title", f"{_canonical_lead_prefix(article['term'])}\n\n"))
+                else:
+                    is_c, lbl, txt = page["blocks"][first_idx]
+                    page["blocks"][first_idx] = (is_c, lbl, frame_article_lead(article, txt))
             links = backlinks.get(page["path"], [])
             box = resolve_links(article_infobox(article, links, by_topic), page["path"])
             page["blocks"].insert(1, (False, "infobox", box))
@@ -3314,6 +3459,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     import citations
 
     citations.attach_page_references(pages, article_by_path)
+    attach_navboxes_and_cite_footers(pages, article_by_path)
 
     for page in pages:
         meta_lines = "".join(f"{k}: {v}\n" for k, v in page["meta"].items())
@@ -3327,6 +3473,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     write_glossary(questions)
     write_config(chapters, final_notes, questions)
     citations.write_sheet_and_static_references(WIKI)
+    upsert_static_cite_footers(WIKI)
 
 
 REDIRECT_HTML = """<!DOCTYPE html>
@@ -3376,12 +3523,44 @@ def write_retired_pages() -> None:
         path.write_text(REDIRECT_HTML.format(target=target, chapter=dest_title), encoding="utf-8")
 
 
+def ambiguous_alias_slugs() -> set[str]:
+    """Slugs registered in topics.DISAMBIGUATION that are not themselves real article slugs."""
+    out: set[str] = set()
+    for raw_key, spec in getattr(topics, "DISAMBIGUATION", {}).items():
+        labels = [raw_key, spec.get("term", ""), *(spec.get("aliases") or [])]
+        for label in labels:
+            for s in {slug(label), canonical_search_key(label)}:
+                if s and s not in ARTICLES:
+                    out.add(s)
+    return out
+
+
 def write_alias_redirect_pages() -> None:
     """Write canonical_redirects.py-compatible redirect stubs under articles/
-    for unambiguous concept aliases that do not collide with real or retired pages."""
+    for unambiguous concept aliases, and route genuinely ambiguous alias slugs
+    to search.html?query=<term> so readers see all intended meanings."""
     ARTICLE_DIR.mkdir(parents=True, exist_ok=True)
+    ambig_terms: dict[str, str] = {}
+    for raw_key, spec in getattr(topics, "DISAMBIGUATION", {}).items():
+        term_label = str(spec.get("term") or raw_key).strip()
+        for label in [raw_key, term_label, *(spec.get("aliases") or [])]:
+            for s in {slug(label), canonical_search_key(label)}:
+                if s and s not in ARTICLES and s not in RETIRED and s not in MERGED_ARTICLES:
+                    ambig_terms.setdefault(s, term_label)
+
+    for s, term_label in sorted(ambig_terms.items()):
+        if (ARTICLE_DIR / f"{s}.qmd").exists():
+            continue
+        path = ARTICLE_DIR / f"{s}.html"
+        from urllib.parse import quote
+        rel_target = f"../search.html#q={quote(term_label)}"
+        path.write_text(
+            REDIRECT_HTML.format(target=rel_target, chapter=html_escape(f"Disambiguation: {term_label}")),
+            encoding="utf-8",
+        )
+
     for s, (target_href, _label) in sorted(SEARCH_ALIASES.items()):
-        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES:
+        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES or s in ambig_terms:
             continue
         if (ARTICLE_DIR / f"{s}.qmd").exists():
             continue
@@ -3512,30 +3691,81 @@ def part_link(part_name: str, from_path: Path) -> str:
     return f"[{part_name}]({href(from_path, WIKI / 'notes' / 'index.qmd')}#{slug(part_name)})"
 
 
+def disambiguation_note(article: dict) -> str:
+    """Hatnote only when another live page uses the same term.
+
+    Prefix overlaps (Kernel vs Kernel density estimator) are different terms and
+    get no note. A note appears only when the normalised titles are equal.
+    """
+    key = _norm_term(article.get("term") or "")
+    if len(key) < 3:
+        return ""
+    others = [
+        other
+        for other in ARTICLES.values()
+        if other["slug"] != article["slug"] and _norm_term(other.get("term") or "") == key
+    ]
+    if not others:
+        return ""
+    path = article["path"]
+    bits = []
+    for other in sorted(others, key=lambda item: item["term"].lower()):
+        box = other.get("box") or {}
+        chapter = box.get("chapter")
+        where = f" in [{box['chapter_title']}]({href(path, chapter)})" if chapter is not None else ""
+        bits.append(f"[{other['term']}]({href(path, other['path'])}){where}")
+    noun = "another page" if len(bits) == 1 else "other pages"
+    return "This term is also on " + noun + ": " + "; ".join(bits) + "."
+
+
+def _canonical_lead_prefix(term: str) -> str:
+    return f"**{term}**" if term.endswith((".", "?", "!")) else f"**{term}.**"
+
+
+def _norm_term(value: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", value.lower())
+
+
 def frame_article_lead(article: dict, text: str) -> str:
-    """Bold or frame the opening defined term naturally in an article's first paragraph."""
+    """Ensure every concept article clearly bolds its canonical title term in the opening lead."""
     lead_body = text.rstrip("\n")
     trail = text[len(lead_body) :]
     first_para, sep, rest = lead_body.partition("\n\n")
     stripped = first_para.lstrip()
-    if (
-        not stripped
-        or stripped.startswith(("$$", "\\begin{", ":::", "#", "|", "!"))
-        or "**" in first_para
-    ):
+    if not stripped:
         return text
     term = article["term"]
-    if f"*{term.lower()}*" in first_para.lower():
-        return text
+    prefix = _canonical_lead_prefix(term)
 
-    candidates: list[str] = [term]
-    box = article.get("box")
-    if box and box.get("kind") == "topic":
-        for raw_link in box["topic"].get("links", []):
-            if not raw_link.startswith("re:") and not re.search(r"[\[\]()?|\\*+]", raw_link):
-                candidates.append(raw_link)
-            else:
-                candidates.extend(plain_phrases_from_pattern(raw_link))
+    # Blocks that open directly with display math, a table, an algorithm list,
+    # a callout/theorem fence, or a subheading receive an explicit bold lead-in
+    # paragraph before the block so the page never opens without naming its term.
+    if re.match(r"^(?:\$\$|\\begin\{|:::|#|\||!|\d+[.)]\s|[-*+]\s)", stripped):
+        return f"{prefix}\n\n{first_para}{sep}{rest}{trail}"
+
+    # If the paragraph already starts with a bold phrase matching the canonical title, keep it.
+    existing_bolds = re.findall(r"\*\*([^*]+)\*\*", first_para)
+    if existing_bolds:
+        b0 = _norm_term(existing_bolds[0])
+        nt = _norm_term(term)
+        if b0 == nt or b0 == nt + "s" or nt == b0 + "s":
+            return text
+        # A synonym or sub-case is bolded inside the paragraph; prepend the canonical
+        # bold title so the opening immediately ties the synonym to the page title.
+        return f"{prefix} {first_para}{sep}{rest}{trail}"
+
+    # Upgrade an exact italicised occurrence (*term*) to bold (**term**).
+    it_pat = (
+        re.escape(term.replace("–", " "))
+        .replace(r"\ ", "[-– ]+")
+        .replace(r"\-", "[-– ]?")
+        .replace(r"\'", "['’]?")
+    )
+    rx_it = re.compile(rf"(?<!\*)\*({it_pat}(?:s|es)?)\*(?!\*)", re.I)
+    m_it = rx_it.search(first_para)
+    if m_it:
+        new_para = f"{first_para[:m_it.start()]}**{m_it.group(1)}**{first_para[m_it.end():]}"
+        return f"{new_para}{sep}{rest}{trail}"
 
     spans = [(m.start(), m.end()) for m in PROTECT.finditer(first_para)]
     segments: list[tuple[str, bool]] = []
@@ -3546,10 +3776,8 @@ def frame_article_lead(article: dict, text: str) -> str:
         last = end
     segments.append((first_para[last:], False))
 
-    for cand in candidates:
-        cand = cand.strip()
-        if len(cand) < 2:
-            continue
+    if len(term.strip()) >= 2:
+        cand = term.strip()
         pat = re.escape(cand.replace("–", " "))
         pat = pat.replace(r"\ ", "[-– ]+").replace(r"\-", "[-– ]?")
         pat = pat.replace(r"\'", "['’]?")
@@ -3571,22 +3799,50 @@ def frame_article_lead(article: dict, text: str) -> str:
                 )
                 return f"{new_para}{sep}{rest}{trail}"
 
-    # Handle inline-math letter prefixes such as "$p$-value" or "$t$-distribution".
+    # Handle inline-math letter tokens such as "$p$-value", "$K$-means", or "Student $t$ distribution".
+    words = term.split()
+    for wi, word in enumerate(words):
+        if len(word) <= 2 and re.fullmatch(r"[A-Za-z0-9²]+", word):
+            alt_words = [re.escape(w) for w in words]
+            alt_words[wi] = rf"\${re.escape(word)}\$"
+            sep_pat = "[-– ]+".join(alt_words)
+            rx_math = re.compile(rf"(?<![\w*])({sep_pat}(?:s|es)?)(?![\w–*-])", re.I)
+            m_math = rx_math.search(first_para)
+            if m_math:
+                new_para = f"{first_para[:m_math.start()]}**{m_math.group(1)}**{first_para[m_math.end():]}"
+                return f"{new_para}{sep}{rest}{trail}"
+
     math_term = re.match(r"^([A-Za-z0-9²]+)[- ](.+)$", term)
     if math_term:
         sym, tail = math_term.groups()
-        rx_math = re.compile(
+        rx_prefix = re.compile(
             rf"(?<![\w*])(\${re.escape(sym)}\$[- ]{re.escape(tail)}(?:s|es)?)(?![\w–*-])",
             re.I,
         )
-        m_math = rx_math.search(first_para)
-        if m_math:
-            new_para = f"{first_para[:m_math.start()]}**{m_math.group(1)}**{first_para[m_math.end():]}"
+        m_prefix = rx_prefix.search(first_para)
+        if m_prefix:
+            new_para = f"{first_para[:m_prefix.start()]}**{m_prefix.group(1)}**{first_para[m_prefix.end():]}"
             return f"{new_para}{sep}{rest}{trail}"
 
-    if box and box.get("kind") == "topic":
-        return f"**{term}.** {first_para}{sep}{rest}{trail}"
-    return text
+    return f"{prefix} {first_para}{sep}{rest}{trail}"
+
+
+def disambiguation_hatnote(article_slug: str) -> str:
+    """Concise Wikipedia-style cross-links for articles with sibling meanings."""
+    rows = getattr(topics, "HATNOTES", {}).get(article_slug)
+    if not rows:
+        return ""
+    clauses: list[str] = []
+    for prefix, target_rel, label in rows:
+        base_rel = target_rel.split("#", 1)[0]
+        target_file = (ARTICLE_DIR / base_rel).resolve()
+        if not target_file.is_file() and not base_rel.endswith(".qmd"):
+            raise SystemExit(f"topics.HATNOTES[{article_slug!r}]: invalid target {target_rel!r}")
+        if prefix.endswith("see"):
+            clauses.append(f"{prefix} [{label}]({target_rel})")
+        else:
+            clauses.append(f"{prefix}, see [{label}]({target_rel})")
+    return "; ".join(clauses) + "."
 
 
 def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
@@ -3603,6 +3859,12 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     hat = f"{noun} of {where[0]}, part of {p_link}" if where else f"{noun}, part of {p_link}"
     if len(where) > 1:
         hat += " · Also in " + ", ".join(where[1:])
+    clash = disambiguation_note(article)
+    if clash:
+        hat += " · " + clash
+    dis_note = disambiguation_hatnote(article["slug"])
+    if dis_note:
+        hat += "\n\n*" + dis_note + "*"
     blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat + "\n:::\n\n")]
     if box["lead"]:
         blocks.append((True, "lead", box["lead"] + "\n\n"))
@@ -3662,7 +3924,14 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     if card:
         where = f"[distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
         hat.append(("Also on the " if box else "From the ") + where)
-    blocks = [(False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n")]
+    clash = disambiguation_note(article)
+    if clash:
+        hat.append(clash)
+    hat_body = " · ".join(hat)
+    dis_note = disambiguation_hatnote(article["slug"])
+    if dis_note:
+        hat_body += "\n\n*" + dis_note + "*"
+    blocks = [(False, "hatnote", "::: {.hatnote}\n" + hat_body + "\n:::\n\n")]
 
     if box:
         # The lead is the stored snippet when that is the box's whole first
@@ -3773,6 +4042,268 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     return [(False, "used-in", "".join(lines)), (False, "see-also", "".join(see))]
 
 
+def _html_href(from_qmd: Path, to_qmd: Path, fragment: str = "") -> str:
+    rel = href(from_qmd, to_qmd)
+    if rel.endswith(".qmd"):
+        rel = rel[:-4] + ".html"
+    return f"{rel}#{fragment}" if fragment else rel
+
+
+def _article_group_label(article: dict) -> str:
+    box = article.get("box")
+    if not box:
+        return "Distributions"
+    kind = box.get("kind") or ""
+    if kind == "definition":
+        return "Definitions"
+    if kind in {"theorem", "proposition", "corollary", "remark"}:
+        return "Theorems and results"
+    return "Topics and sections"
+
+
+def render_topic_navbox(article: dict) -> str:
+    """Bottom-of-page topic navigation box and Category/Part links for a concept article."""
+    path = article["path"]
+    box = article.get("box")
+    home = article_home(article)
+    if box:
+        hub_title = PAGE_TITLES.get(home, box.get("chapter_title") or home.stem)
+        part_name = box.get("part") or PAGE_PART.get(home, "")
+        siblings = sorted(
+            [a for a in ARTICLES.values() if article_home(a) == home],
+            key=lambda a: a["term"].lower(),
+        )
+        aria = f"Concepts in {hub_title}"
+        head_title = f'Concepts in <a href="{html_escape(_html_href(path, home))}">{html_escape(hub_title)}</a>'
+        part_html = (
+            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, WIKI / "notes" / "index.qmd", slug(part_name)))}">'
+            f"{html_escape(part_name)}</a></span>"
+            if part_name
+            else ""
+        )
+    else:
+        hub_title = "Common distributions"
+        part_name = "Probability"
+        siblings = sorted(
+            [a for a in ARTICLES.values() if a.get("card") is not None],
+            key=lambda a: a["term"].lower(),
+        )
+        aria = "Common distributions"
+        head_title = f'<a href="{html_escape(_html_href(path, DIST_SHEET))}">Common distributions</a>'
+        part_html = (
+            f'<span class="navbox-part">Reference · <a href="{html_escape(_html_href(path, WIKI / "reference" / "index.qmd"))}">'
+            "Lookup sheets</a></span>"
+        )
+
+    grouped: dict[str, list[dict]] = {
+        "Definitions": [],
+        "Theorems and results": [],
+        "Topics and sections": [],
+        "Distributions": [],
+    }
+    for item in siblings:
+        grouped[_article_group_label(item)].append(item)
+    active_groups = [(label, items) for label, items in grouped.items() if items]
+
+    def fmt_item(item: dict) -> str:
+        name = html_escape(item["term"])
+        if item["slug"] == article["slug"]:
+            return f'<strong class="navbox-current" aria-current="page">{name}</strong>'
+        return f'<a href="{html_escape(_html_href(path, item["path"]))}">{name}</a>'
+
+    rows_html: list[str] = []
+    for label, items in active_groups:
+        links_str = " · ".join(fmt_item(it) for it in items)
+        if len(active_groups) == 1 and label == "Distributions":
+            rows_html.append(f'      <div class="navbox-row navbox-row-single"><div class="navbox-links">{links_str}</div></div>')
+        else:
+            rows_html.append(
+                f'      <div class="navbox-row"><span class="navbox-group">{html_escape(label)}</span>'
+                f'<div class="navbox-links">{links_str}</div></div>'
+            )
+
+    open_attr = " open" if len(siblings) <= 12 else ""
+    count_badge = f'<span class="navbox-count">({len(siblings)})</span>'
+
+    # Collect clean Category / Part hub links
+    cat_links: list[str] = []
+    seen_cats: set[str] = set()
+
+    def add_cat(label_txt: str, target_qmd: Path, frag: str = "") -> None:
+        if not label_txt or label_txt in seen_cats:
+            return
+        seen_cats.add(label_txt)
+        cat_links.append(f'<a href="{html_escape(_html_href(path, target_qmd, frag))}">{html_escape(label_txt)}</a>')
+
+    if box:
+        if part_name:
+            add_cat(part_name, WIKI / "notes" / "index.qmd", slug(part_name))
+        add_cat(hub_title, home)
+        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+            ch_path = extra.get("chapter")
+            if ch_path and ch_path != home:
+                ch_part = PAGE_PART.get(ch_path)
+                if ch_part:
+                    add_cat(ch_part, WIKI / "notes" / "index.qmd", slug(ch_part))
+                add_cat(PAGE_TITLES.get(ch_path, extra.get("chapter_title") or ch_path.stem), ch_path)
+        if article.get("card"):
+            add_cat("Common distributions", DIST_SHEET)
+    else:
+        add_cat("Reference", WIKI / "reference" / "index.qmd")
+        add_cat("Common distributions", DIST_SHEET)
+
+    cats_block = (
+        '  <div class="wiki-categories" role="navigation" aria-label="Categories">\n'
+        f'    <span class="cat-label">Categories:</span> {" · ".join(cat_links)}\n'
+        "  </div>\n"
+        if cat_links
+        else ""
+    )
+
+    return (
+        "\n\n```{=html}\n"
+        f'<nav class="topic-navbox" aria-label="{html_escape(aria)}">\n'
+        f"  <details class=\"navbox-details\"{open_attr}>\n"
+        '    <summary class="navbox-header">\n'
+        f'      <span class="navbox-title">{head_title} {count_badge}</span>\n'
+        f"      {part_html}\n"
+        "    </summary>\n"
+        '    <div class="navbox-body">\n'
+        + "\n".join(rows_html)
+        + "\n    </div>\n"
+        "  </details>\n"
+        "</nav>\n"
+        + cats_block
+        + "```\n"
+    )
+
+
+def render_chapter_categories(page: dict) -> str:
+    """Bottom Category/Part hub links on chapters and final-preparation pages."""
+    path = page["path"]
+    part_name = page.get("part") or ""
+    if not part_name:
+        return ""
+    frag = "final-preparation" if page["kind"] == "final" else slug(part_name)
+    topics_href = html_escape(_html_href(path, WIKI / "notes" / "index.qmd", frag))
+    links = [f'<a href="{topics_href}">{html_escape(part_name)}</a>']
+    if page["kind"] == "chapter":
+        q_href = html_escape(_html_href(path, WIKI / "questions" / "by-topic.qmd", slug(part_name)))
+        links.append(f'<a href="{q_href}">{html_escape(part_name)} questions</a>')
+    return (
+        "\n\n```{=html}\n"
+        '<div class="wiki-categories" role="navigation" aria-label="Categories">\n'
+        f'  <span class="cat-label">Categories:</span> {" · ".join(links)}\n'
+        "</div>\n"
+        "```\n"
+    )
+
+
+def _public_page_url(path: Path, wiki_root: Path = WIKI) -> str:
+    rel = path.relative_to(wiki_root)
+    if rel.suffix == ".qmd":
+        rel = rel.with_suffix(".html")
+    if rel.as_posix() == "index.html":
+        return "https://www.statwiki.io/"
+    return "https://www.statwiki.io/" + rel.as_posix()
+
+
+def _bibtex_escape(text: str) -> str:
+    text = text.replace("\\", "\\textbackslash{}")
+    for ch in ("{", "}", "%", "&", "#", "_"):
+        text = text.replace(ch, "\\" + ch)
+    return text
+
+
+def render_cite_this_page(path: Path, title: str, now: datetime | None = None, wiki_root: Path = WIKI) -> str:
+    """Accessible ``Cite this page`` ``<details>`` disclosure with Brisbane date and BibTeX."""
+    today = (now or datetime.now(BRISBANE_TZ)).astimezone(BRISBANE_TZ)
+    date_human = f"{today.day} {today:%B %Y}"
+    date_iso = f"{today:%Y-%m-%d}"
+    url = _public_page_url(path, wiki_root=wiki_root)
+    clean_title = " ".join(plain(title).split()) or path.stem
+    bib_key = "statwiki_" + re.sub(r"[^a-z0-9]+", "_", path.stem.lower()).strip("_")
+    plain_cite = f'{SITE_NAME} ({today.year}). "{clean_title}." {SITE_NAME}. Last updated {date_human}. {url}'
+    bibtex = (
+        f"@misc{{{bib_key},\n"
+        f"  author = {{{{{SITE_NAME}}}}},\n"
+        f"  title = {{{{{_bibtex_escape(clean_title)}}}}},\n"
+        f"  year = {{{today.year}}},\n"
+        f"  url = {{{url}}},\n"
+        f"  urldate = {{{date_iso}}},\n"
+        f"  note = {{{SITE_NAME}, last updated {date_human}}}\n"
+        f"}}"
+    )
+    return (
+        "\n\n```{=html}\n"
+        '<details class="cite-this-page">\n'
+        "  <summary>Cite this page</summary>\n"
+        '  <div class="cite-body">\n'
+        '    <div class="cite-entry">\n'
+        '      <span class="cite-format">Plain text</span>\n'
+        f'      <pre class="cite-code"><code>{html_escape(plain_cite)}</code></pre>\n'
+        "    </div>\n"
+        '    <div class="cite-entry">\n'
+        '      <span class="cite-format">BibTeX</span>\n'
+        f'      <pre class="cite-code"><code>{html_escape(bibtex)}</code></pre>\n'
+        "    </div>\n"
+        "  </div>\n"
+        "</details>\n"
+        "```\n"
+    )
+
+
+def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Path, dict]) -> None:
+    """Attach topic navboxes, category links, and Cite this page disclosures to built pages."""
+    now = datetime.now(BRISBANE_TZ)
+    for page in pages:
+        kind = page["kind"]
+        if kind == "article":
+            article = article_by_path.get(page["path"])
+            if article is not None:
+                page["blocks"].append((False, "navbox", render_topic_navbox(article)))
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+        elif kind in {"chapter", "final"}:
+            cats = render_chapter_categories(page)
+            if cats:
+                page["blocks"].append((False, "categories", cats))
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+        elif kind == "reference":
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+
+
+_CITE_FOOTER_RE = re.compile(
+    r'\n*```\{=html\}\n<details class="cite-this-page">.*?</details>\n```\s*\Z',
+    re.S,
+)
+
+
+def _title_from_frontmatter(text: str, fallback: str) -> str:
+    m = re.search(r'^title:\s*"?(.*?)"?\s*$', text, re.M)
+    return m.group(1).replace('\\"', '"') if m else fallback
+
+
+def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = None) -> None:
+    """Ensure overview, reference sheets, glossary, and laboratory pages end with Cite this page."""
+    stamp = now or datetime.now(BRISBANE_TZ)
+    targets = [
+        wiki_root / "overview.qmd",
+        wiki_root / "reference" / "index.qmd",
+        wiki_root / "reference" / "distributions.qmd",
+        wiki_root / "reference" / "glossary.qmd",
+        *sorted(p for p in (wiki_root / "labs").glob("*.qmd") if not p.name.startswith("_")),
+    ]
+    for path in targets:
+        if not path.is_file():
+            continue
+        raw = path.read_text(encoding="utf-8")
+        stripped = _CITE_FOOTER_RE.sub("", raw).rstrip()
+        title = _title_from_frontmatter(stripped, path.stem)
+        updated = stripped + render_cite_this_page(path, title, now=stamp, wiki_root=wiki_root)
+        if updated != raw:
+            path.write_text(updated, encoding="utf-8")
+
+
 # ---------------------------------------------------------------------------
 # Infoboxes, properties, examples and figures
 #
@@ -3854,7 +4385,7 @@ def figure_md(file: str, page: Path, short: bool = False, credit: bool = True) -
     where = href(page, info["chapter"]) + (f"#{info['id']}" if info["id"] else "")
     source = f" *From [{info['chapter_title']}]({where}).*" if credit else ""
     caption = rebase_links(caption, info["chapter"], page)
-    return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)})"
+    return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)}){_with_fig_alt('', file)}"
 
 
 def png_size(path: Path) -> tuple[int, int]:
@@ -3873,7 +4404,7 @@ def write_file_pages() -> None:
     files_dir.mkdir(exist_ok=True)
     usage: dict[str, list[tuple[str, Path]]] = {}
     alt_text: dict[str, str] = {}
-    image = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\s]*figures/([^)\s/]+\.png)\)")
+    image = re.compile(r"!\[((?:[^\[\]]|\[[^\]]*\])*)\]\([^)\s]*figures/([^)\s/]+\.png)\)(?:\{[^}]*\})?")
     for folder in ("notes", "articles", "questions", "reference"):
         for page in sorted((WIKI / folder).rglob("*.qmd")):
             text = page.read_text(encoding="utf-8")
@@ -3899,16 +4430,19 @@ def write_file_pages() -> None:
             caption = re.sub(r"\s*\*From \[.*$", "", alt_text.get(png, "")).strip()
             home = ""
         width, height = png_size(figures_dir / png)
+        fig_alt = figure_alts.alt_for(png)
+        alt_escaped = fig_alt.replace("\\", "\\\\").replace('"', '\\"')
+        desc_text = caption or fig_alt
         lines = [
             '::: {.file-page}',
-            f"[![{caption}]({href(path, figures_dir / png)})]({href(path, figures_dir / (made['full'] or png))})",
+            f'[![{caption}]({href(path, figures_dir / png)}){{fig-alt="{alt_escaped}"}}]({href(path, figures_dir / (made["full"] or png))})',
             "",
             f"*Size of this preview: {width} × {height} pixels. Select it to open the high-resolution file.*",
             ":::",
             "",
             "## Summary",
             "",
-            f"**Description.** {caption}" if caption else "**Description.** None recorded.",
+            f"**Description.** {desc_text}",
             "",
         ]
         if home:
@@ -3935,7 +4469,9 @@ def write_file_pages() -> None:
         write_qmd(path, f"File:{png}", "\n".join(lines) + "\n", description=f"Figure file · {info['chapter_title'] if info else SITE_NAME}")
         group = info["chapter_title"] if info else "Other figures"
         # An empty caption keeps a lone thumbnail from becoming a captioned figure.
-        gallery.setdefault(group, []).append(f'[![]({href(files_dir / "index.qmd", figures_dir / png)}){{fig-alt="{Path(png).stem}"}}]({href(files_dir / "index.qmd", path)})')
+        gallery.setdefault(group, []).append(
+            f'[![]({href(files_dir / "index.qmd", figures_dir / png)}){{fig-alt="{alt_escaped}"}}]({href(files_dir / "index.qmd", path)})'
+        )
     body = ["Select a figure to open its file page, with a larger view, a description, downloads, and the pages that use it.", ""]
     for group, thumbs in gallery.items():
         body += [f"## {group}", "", "::: {.file-gallery}", *thumbs, ":::", ""]
@@ -4296,6 +4832,44 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+_GREEK_FOLD = {
+    "σ": "sigma", "α": "alpha", "β": "beta", "γ": "gamma", "δ": "delta",
+    "ε": "epsilon", "θ": "theta", "λ": "lambda", "μ": "mu", "π": "pi",
+    "ρ": "rho", "τ": "tau", "φ": "phi", "χ": "chi", "ω": "omega",
+}
+_EPONYM_PLURAL_RE = re.compile(
+    r"\b("
+    + "|".join(
+        (
+            "akaike", "basu", "chebyshev", "cramer", "fatou", "fisher", "frechet",
+            "fubini", "gambler", "gumbel", "holder", "hotelling", "ito", "jensen",
+            "kolmogorov", "laplace", "levy", "little", "lloyd", "markov", "mercer",
+            "newton", "neyman", "pearson", "renyi", "simpson", "slutsky", "spearman",
+            "stirling", "student", "sylvester", "tukey", "vapnik", "wald", "ward",
+            "welch", "wilcoxon", "wilk", "wold",
+        )
+    )
+    + r")s\b"
+)
+
+
+def canonical_search_key(text: str) -> str:
+    """Unified search normalisation key matching canonicalSearchKey() in search-rank.js."""
+    s = unicodedata.normalize("NFKD", str(text or ""))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    s = re.sub(r"[’‘`´]", "'", s)
+    s = re.sub(r"[–—−]", "-", s)
+    s = s.replace("²", "2").replace("³", "3").replace("∞", "infinity").lower()
+    for ch, word in _GREEK_FOLD.items():
+        s = s.replace(ch, word)
+    s = re.sub(r"\^([0-9]+)\b", r"\1", s)
+    s = re.sub(r"\b(?:[a-z]\.){2,}[a-z]?(?=\W|$)", lambda m: m.group(0).replace(".", ""), s)
+    s = re.sub(r"([a-z])'s\b", r"\1", s)
+    s = re.sub(r"([s])'(?=\W|$)", r"\1", s)
+    s = _EPONYM_PLURAL_RE.sub(r"\1", s)
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
 def write_random_page(questions: list[dict]) -> None:
     page = WIKI / "questions" / "random.qmd"
     payload = [
@@ -4464,11 +5038,20 @@ SEARCH_ALIASES: dict[str, tuple[str, str]] = {}  # alias slug -> (canonical href
 
 
 def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
-    """Build canonical concept metadata and unambiguous aliases for search and redirects."""
+    """Build canonical concept metadata, unambiguous aliases, and disambiguations for search and redirects."""
     pages: dict[str, dict] = {}
     for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
         href_ = f"articles/{article['slug']}.html"
-        pages[href_] = {"title": article["term"], "kind": "article", "aliases": []}
+        box = article.get("box")
+        raw_summary = ""
+        if box:
+            raw_summary = box.get("snippet") or box.get("lead") or ""
+        summary = re.sub(r"!?\[([^\]]*)\]\([^)]*\)(\{[^}]*\})?", r"\1", raw_summary)
+        summary = re.sub(r"\s+", " ", summary).strip()
+        entry = {"title": article["term"], "kind": "article", "aliases": []}
+        if summary:
+            entry["summary"] = summary[:220]
+        pages[href_] = entry
     for _part, note in chapters:
         href_ = f"notes/{note['path'].stem}.html"
         pages[href_] = {"title": note["title"], "kind": "chapter", "aliases": []}
@@ -4492,26 +5075,49 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         lab_title = m.group(1).replace('\\"', '"') if m else lab_qmd.stem
         pages[f"labs/{lab_qmd.stem}.html"] = {"title": lab_title, "kind": "laboratory", "aliases": []}
 
-    title_slugs: set[str] = {slug(info["title"]) for info in pages.values() if slug(info["title"])}
+    title_slugs: set[str] = set()
+    for info in pages.values():
+        for k in (slug(info["title"]), canonical_search_key(info["title"])):
+            if k:
+                title_slugs.add(k)
     aliases_map: dict[str, str] = {}
     SEARCH_ALIASES.clear()
 
-    def register_alias(label: str, target_href: str) -> None:
-        s = slug(label)
-        if not s or len(s) < 2 or target_href not in pages:
+    def register_alias(label: str, target_href: str, allow_single_char: bool = False) -> None:
+        base_href = target_href.split("#", 1)[0]
+        if base_href not in pages:
             return
-        page_entry = pages[target_href]
-        if label.strip() and label.strip().lower() != page_entry["title"].lower():
-            if not any(existing.lower() == label.strip().lower() for existing in page_entry["aliases"]):
-                page_entry["aliases"].append(label.strip())
-        if s in ARTICLES or s in RETIRED or s in MERGED_ARTICLES or target_href == f"articles/{s}.html":
+        clean = label.strip()
+        if not clean:
             return
-        if s in aliases_map:
+        min_len = 1 if allow_single_char else 2
+        keys = []
+        for k in (slug(clean), canonical_search_key(clean)):
+            if k and len(k) >= min_len and k not in keys:
+                keys.append(k)
+        if not keys:
             return
-        if s in title_slugs and slug(page_entry["title"]) != s:
-            return
-        aliases_map[s] = target_href
-        SEARCH_ALIASES[s] = (target_href, label.strip())
+        page_entry = pages[base_href]
+        if clean.lower() != page_entry["title"].lower():
+            if not any(existing.lower() == clean.lower() for existing in page_entry["aliases"]):
+                page_entry["aliases"].append(clean)
+        for k in keys:
+            if k in ARTICLES or k in RETIRED or k in MERGED_ARTICLES or base_href == f"articles/{k}.html":
+                continue
+            if k in aliases_map:
+                continue
+            if k in title_slugs and k not in {slug(page_entry["title"]), canonical_search_key(page_entry["title"])}:
+                continue
+            aliases_map[k] = target_href
+            if len(k) >= 2:
+                SEARCH_ALIASES[k] = (target_href, clean)
+
+    # 0. Explicit statistical shorthands, 1-/2-char tokens, and eponymous variants.
+    for shorthand, target_href in getattr(topics, "SEARCH_SHORTHANDS", {}).items():
+        base_href = target_href.split("#", 1)[0]
+        if base_href not in pages:
+            raise SystemExit(f"topics.SEARCH_SHORTHANDS[{shorthand!r}]: unknown target {target_href!r}")
+        register_alias(shorthand, target_href, allow_single_char=True)
 
     # 1. Explicit concept aliases in topics.ALIASES and SEE_ALSO.
     for alias, target in topics.ALIASES.items():
@@ -4522,18 +5128,32 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         if found:
             register_alias(alias, f"articles/{found['slug']}.html")
 
+    # 1b. Canonical unpunctuated/possessive-stripped forms of every page title
+    # (e.g. "Bayes' rule" -> "bayes-rule", "Chebyshev's inequality" -> "chebyshev-inequality",
+    # "Hotelling's T² test" -> "hotelling-t2-test").
+    for href_, info in sorted(pages.items()):
+        ck = canonical_search_key(info["title"])
+        sk = slug(info["title"])
+        if ck and ck != sk:
+            register_alias(info["title"], href_)
+        if "'" in info["title"] or "’" in info["title"]:
+            stripped_title = re.sub(r"([A-Za-z])['’]s\b", r"\1", info["title"])
+            stripped_title = re.sub(r"([sS])['’](?=\W|$)", r"\1", stripped_title)
+            if stripped_title != info["title"]:
+                register_alias(stripped_title, href_)
+
     # 2. Distribution family short names (e.g. "normal", "beta", "poisson", "chi-squared").
     for article in sorted(ARTICLES.values(), key=lambda a: a["slug"]):
         term = article["term"]
         if term.lower().endswith(" distribution"):
             short = term[: -len(" distribution")].strip()
             if (
-                len(slug(short)) >= 3
+                len(slug(short)) >= 1
                 and not re.search(r"\b(?:of|a|an|the|and|in|for)$", short, re.I)
                 and slug(short) not in ARTICLES
                 and slug(short) not in RETIRED
             ):
-                register_alias(short, f"articles/{article['slug']}.html")
+                register_alias(short, f"articles/{article['slug']}.html", allow_single_char=True)
 
     # 3. Unambiguous phrases from topics.TOPICS, topics.LINKS, TERMS, and topics.LINKS_LAST.
     all_rows = [tuple(t)[:3] for t in topics.LINKS + TOPIC_TERMS + TERMS + TOPIC_TERMS_LATE + topics.LINKS_LAST]
@@ -4544,15 +5164,37 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
         if not target_href:
             continue
         for phrase in plain_phrases_from_pattern(pattern):
-            s = slug(phrase)
+            s = canonical_search_key(phrase) or slug(phrase)
             if not s or len(s) < 2:
                 continue
             phrase_targets.setdefault(s, set()).add(target_href)
             ordered_candidates.append((phrase, target_href))
     for phrase, target_href in ordered_candidates:
-        s = slug(phrase)
+        s = canonical_search_key(phrase) or slug(phrase)
         if len(phrase_targets.get(s, set())) == 1 and s not in RETIRED:
             register_alias(phrase, target_href)
+
+    # 4. Structured disambiguation registry from topics.DISAMBIGUATION.
+    disambiguations_map: dict[str, dict] = {}
+    for raw_key, spec in sorted(getattr(topics, "DISAMBIGUATION", {}).items()):
+        ck = canonical_search_key(raw_key) or slug(raw_key)
+        options_out = []
+        for href_opt, label_opt, desc_opt in spec.get("options", []):
+            base_opt = href_opt.split("#", 1)[0]
+            if base_opt not in pages:
+                raise SystemExit(f"topics.DISAMBIGUATION[{raw_key!r}]: unknown option page {href_opt!r}")
+            options_out.append(
+                {
+                    "href": href_opt,
+                    "label": label_opt,
+                    "description": desc_opt,
+                }
+            )
+        disambiguations_map[ck] = {
+            "term": spec.get("term") or raw_key,
+            "aliases": list(spec.get("aliases") or []),
+            "options": options_out,
+        }
 
     redirects_map = {
         s: f"notes/{chapter.stem}.html#{anchor}"
@@ -4560,7 +5202,12 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
     }
     for old_slug, target_slug in sorted(MERGED_ARTICLES.items()):
         redirects_map[old_slug] = f"articles/{target_slug}.html"
-    return {"pages": pages, "aliases": aliases_map, "redirects": redirects_map}
+    return {
+        "pages": pages,
+        "aliases": aliases_map,
+        "disambiguations": disambiguations_map,
+        "redirects": redirects_map,
+    }
 
 
 def write_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
@@ -4592,7 +5239,15 @@ Press Enter in the search box at the top to open this page. Each page appears on
 <p id="site-search-note"></p>
 <ol id="site-search-results"></ol>
 <script type="module">
-import { rankDocuments, resolveExactMatch, documentsFromIndex, expandedTerms, tierOf } from "./search-rank.js";
+import {
+  rankDocuments,
+  resolveExactMatch,
+  resolveDisambiguation,
+  resolveComparison,
+  documentsFromIndex,
+  expandedTerms,
+  tierOf,
+} from "./search-rank.js";
 
 const form = document.getElementById("site-search");
 const input = document.getElementById("site-search-q");
@@ -4600,7 +5255,8 @@ const exactBox = document.getElementById("site-search-exact");
 const note = document.getElementById("site-search-note");
 const list = document.getElementById("site-search-results");
 const params = new URLSearchParams(location.search);
-input.value = params.get("query") || "";
+const hashParams = new URLSearchParams(location.hash.startsWith("#") ? location.hash.slice(1) : "");
+input.value = params.get("query") || params.get("q") || hashParams.get("q") || "";
 
 let cachedDocs = null;
 let cachedMeta = null;
@@ -4632,7 +5288,7 @@ function kindOf(href) {
 
 function snippet(doc, terms) {
   const text = String(doc.text || "").replace(/\\s+/g, " ").trim();
-  if (!text) return "";
+  if (!text) return doc.disambiguation || "";
   const folded = text.toLowerCase();
   let at = -1;
   for (const term of terms) {
@@ -4651,7 +5307,7 @@ async function run(query, allowRedirect = false) {
   const q = query.trim();
   lastRenderedQuery = q;
   if (!q) {
-    note.textContent = "Type a word, phrase, or abbreviation (such as ANOVA, OLS, MLE, CLT, GLM, or MCMC).";
+    note.textContent = "Type a word, phrase, question, or abbreviation (such as sd, t test, Bayes theorem, ANOVA, or what is a p value).";
     return;
   }
   let docs, meta;
@@ -4661,12 +5317,53 @@ async function run(query, allowRedirect = false) {
     note.textContent = "The search index is not available.";
     return;
   }
-  const exact = resolveExactMatch(q, meta, docs);
+  const disambig = resolveDisambiguation(q, meta);
+  const comparison = !disambig ? resolveComparison(q, meta, docs) : null;
+  const exact = !disambig && !comparison ? resolveExactMatch(q, meta, docs) : null;
   if (allowRedirect && exact) {
     window.location.href = exact.href;
     return;
   }
-  if (exact) {
+  if (disambig) {
+    const p = document.createElement("p");
+    p.className = "search-disambig-title";
+    p.textContent = "“" + disambig.term + "” refers to several concepts — choose the intended page:";
+    exactBox.appendChild(p);
+    const ul = document.createElement("ul");
+    ul.className = "search-disambig-list";
+    for (const opt of disambig.options) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = opt.href;
+      a.style.fontWeight = "600";
+      a.textContent = opt.label;
+      li.appendChild(a);
+      if (opt.description) {
+        li.appendChild(document.createTextNode(" — " + opt.description));
+      }
+      ul.appendChild(li);
+    }
+    exactBox.appendChild(ul);
+    exactBox.hidden = false;
+  } else if (comparison) {
+    const p = document.createElement("p");
+    p.className = "search-disambig-title";
+    p.textContent = "Comparing canonical pages:";
+    exactBox.appendChild(p);
+    const ul = document.createElement("ul");
+    ul.className = "search-disambig-list";
+    for (const target of comparison.targets) {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = target.href;
+      a.style.fontWeight = "600";
+      a.textContent = target.title;
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
+    exactBox.appendChild(ul);
+    exactBox.hidden = false;
+  } else if (exact) {
     const p = document.createElement("p");
     p.append("Direct match: ");
     const directLink = document.createElement("a");
@@ -4723,7 +5420,9 @@ form.addEventListener("submit", async function (event) {
   event.preventDefault();
   const q = input.value.trim();
   if (q && q === lastRenderedQuery && cachedDocs) {
-    const exact = resolveExactMatch(q, cachedMeta, cachedDocs);
+    const disambig = resolveDisambiguation(q, cachedMeta);
+    const comparison = !disambig ? resolveComparison(q, cachedMeta, cachedDocs) : null;
+    const exact = !disambig && !comparison ? resolveExactMatch(q, cachedMeta, cachedDocs) : null;
     if (exact) {
       window.location.href = exact.href;
       return;
@@ -4732,6 +5431,7 @@ form.addEventListener("submit", async function (event) {
   const url = new URL(location.href);
   if (q) url.searchParams.set("query", q); else url.searchParams.delete("query");
   url.searchParams.delete("go");
+  url.hash = "";
   history.replaceState(null, "", url);
   await run(q, false);
 });
@@ -4919,13 +5619,15 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         raise SystemExit("Missing overview.qmd")
     overview_href = href(home, overview_page)
     n_chapters = len(chapters)
+    n_final = len(final_notes)
+    n_articles = len(ARTICLES)
     home_text = f"""---
 title: {yaml_quote(SITE_NAME)}
 toc: false
 ---
 
 ::: {{.portal-intro}}
-A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} chapters** and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Press Enter in the search box for a results page, or open a [random question]({href(home, random_path)}).
+A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} topic chapters** (plus **{n_final} final-preparation pages**), **{n_articles} concept articles**, and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Press Enter in the search box for a results page, or open a [random question]({href(home, random_path)}).
 :::
 
 :::: {{.portal-top}}
@@ -5033,6 +5735,17 @@ def runnable_pages() -> list[str]:
 FILE_LINK_JS = """
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  const hideDecorativeIcons = (root) => {
+    root.querySelectorAll("i.bi, #quarto-search svg, .aa-DetachedSearchButtonIcon svg, svg.observablehq--caret, .quarto-ojs-cell-container .observablehq--inspect svg").forEach((el) => {
+      if (!el.hasAttribute("aria-label") && !el.hasAttribute("aria-labelledby") && el.getAttribute("role") !== "img") {
+        el.setAttribute("aria-hidden", "true");
+      }
+    });
+  };
+  hideDecorativeIcons(document);
+  if (window.MutationObserver) {
+    new MutationObserver(() => hideDecorativeIcons(document)).observe(document.body, { childList: true, subtree: true });
+  }
   document.querySelectorAll("main img").forEach((img) => {
     const src = img.getAttribute("src") || "";
     const m = src.match(/^(.*?)figures\\/([^\\/?#]+)\\.png$/);
@@ -5043,6 +5756,25 @@ document.addEventListener("DOMContentLoaded", () => {
     link.title = "Open the file page: larger view, downloads, and where it is used";
     img.parentNode.insertBefore(link, img);
     link.appendChild(img);
+  });
+  document.querySelectorAll(".cite-this-page .cite-entry").forEach((entry) => {
+    const code = entry.querySelector("code");
+    const label = entry.querySelector(".cite-format");
+    if (!code || !label || entry.querySelector(".cite-copy")) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "cite-copy";
+    btn.textContent = "Copy";
+    btn.setAttribute("aria-label", "Copy " + label.textContent.trim() + " citation");
+    btn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code.textContent || "").then(() => {
+          btn.textContent = "Copied";
+          setTimeout(() => { btn.textContent = "Copy"; }, 1600);
+        }).catch(() => {});
+      }
+    });
+    label.after(btn);
   });
 });
 </script>
@@ -5810,7 +6542,10 @@ def main() -> None:
     if doubled:
         raise SystemExit("Pages contain doubled cross-reference nouns:\n  " + "\n  ".join(doubled[:20]))
 
-    print(f"Chapter pages: {len([n for n in notes.values() if n['kind'] == 'notes'])}")
+    n_topic_chapters = len([fname for _, files in PARTS for fname, kind in files if kind == "notes"])
+    n_final_pages = len([n for n in notes.values() if n["kind"] == "notes"]) - n_topic_chapters
+    print(f"Topic chapters: {n_topic_chapters}, final-preparation pages: {n_final_pages} ({n_topic_chapters + n_final_pages} total)")
+    print(f"Concept articles: {len(ARTICLES)}")
     print(f"Question pages: {len(questions)}, with answers: {sum(1 for q in questions if q.get('answer'))}")
     print("Wiki source is ready.")
 

@@ -8,9 +8,11 @@ import unittest
 from collections import Counter
 from pathlib import Path
 
+import article_extras
 import build_wiki
 import citations
 import verify_citations
+import wiki_graph
 
 ROOT = Path(__file__).resolve().parent
 
@@ -289,6 +291,197 @@ class CitationTests(unittest.TestCase):
             self.assertIn("## References {#references}", text, str(path))
             self.assertRegex(text, r"https?://", str(path))
             self.assertIsNone(BANNED_VISIBLE.search(text), f"Banned term in {path}")
+
+        self._assert_clickable_reference_lists(
+            [notes_dir / name for name in part_chapters]
+            + list(article_files)
+            + static_and_sheets
+        )
+
+
+def _prose_paths() -> list[Path]:
+    paths = sorted((ROOT / "sources").rglob("*.qmd"))
+    paths.append(ROOT / "overview.qmd")
+    paths.extend(sorted(p for p in (ROOT / "labs").glob("*.qmd") if not p.name.startswith("_")))
+    return paths
+
+
+class InlineCitationTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.works = citations.load_works()
+
+    def test_superscripts_number_by_appearance_keep_names_and_round_trip(self) -> None:
+        text = (
+            "Absolute error selects a median.{{cite:lehmann_casella1998}} "
+            "Gelman et al. (2013) discuss the same summaries. "
+            "A later sentence returns to Lehmann and Casella (1998).\n\n"
+            "```\n"
+            '<sup class="cite-ref" data-cite-key="student1908">[9]</sup>\n'
+            "```\n"
+        )
+        keys = ("wald1950", "lehmann_casella1998", "gelman_bda2013")
+        linker = citations.PageCitationLinker(keys, self.works)
+        out = linker.process_text(text)
+        self.assertIn("Lehmann and Casella (1998)", out)
+        self.assertIn("Gelman et al. (2013)", out)
+        self.assertNotIn("{{cite:", out)
+        self.assertIn('data-cite-key="lehmann_casella1998"', out)
+        self.assertLess(out.index('id="cite_ref-1"'), out.index('id="cite_ref-2"'))
+        self.assertIn('id="cite_ref-1-2"', out)
+        self.assertIn('data-cite-key="student1908">[9]</sup>', out)
+        section = linker.render_references_section()
+        self.assertLess(section.index("Theory of Point Estimation"), section.index("Bayesian Data Analysis"))
+        self.assertLess(section.index("Bayesian Data Analysis"), section.index("Statistical Decision Functions"))
+        self.assertIn('href="#cite_ref-1"', section)
+        self.assertIn('href="#cite_ref-1-2"', section)
+        self.assertIn("<sup>a</sup>", section)
+        self.assertIn("<sup>b</sup>", section)
+        self.assertIn('id="cite_note-1"', section)
+        self.assertIn('class="wiki-refs"', section)
+        again = citations.PageCitationLinker(keys, self.works)
+        self.assertEqual(again.process_text(out), out)
+        self.assertEqual(again.render_references_section(), section)
+
+    def test_explicit_marker_follows_punctuation_and_unknown_key_fails(self) -> None:
+        linker = citations.PageCitationLinker(("student1908",), self.works)
+        out = linker.process_text("The $t$ interval is exact{{cite:student1908}}.")
+        self.assertLess(out.index("."), out.index("<sup"))
+        self.assertIn(">[1]</a></sup>", out)
+        self.assertIn("$t$", out)
+        missing = citations.PageCitationLinker((), self.works)
+        with self.assertRaises(KeyError):
+            missing.process_text("No such work.{{cite:not_a_real_key}}")
+
+    def test_named_attribution_is_not_deleted(self) -> None:
+        linker = citations.PageCitationLinker(("bliss1935",), self.works)
+        out = linker.process_text("Bliss (1935) introduced the link.")
+        self.assertIn("Bliss (1935)<sup", out)
+        self.assertIn("introduced the link.", out)
+        self.assertIn('data-cite-key="bliss1935"', out)
+
+    def test_every_inline_author_year_and_marker_resolves(self) -> None:
+        unresolved: list[str] = []
+        bad_markers: list[str] = []
+
+        def check(label: str, text: str) -> None:
+            for hit in citations.scan_inline_author_years(text):
+                key = citations.match_work_key(hit["surnames"], hit["is_et_al"], hit["year"], (), self.works)
+                if key is None:
+                    unresolved.append(f"{label}: {hit['raw']}")
+            for match in citations._EXPLICIT_CITE_RE.finditer(text):
+                for raw in match.group(1).split(","):
+                    key = raw.strip()
+                    if key not in self.works:
+                        bad_markers.append(f"{label}: {key}")
+
+        for slug, text in article_extras.NOTES.items():
+            check(f"note:{slug}", text)
+        for path in _prose_paths():
+            check(str(path.relative_to(ROOT)), path.read_text(encoding="utf-8"))
+        self.assertEqual(unresolved, [])
+        self.assertEqual(bad_markers, [])
+
+    def test_overview_and_labs_render_clickable_numbers_in_reading_order(self) -> None:
+        overview = (ROOT / "overview.qmd").read_text(encoding="utf-8")
+        body = citations._STATIC_REF_RE.sub("", overview)
+        linker = citations.PageCitationLinker(citations.OVERVIEW_REFS, self.works)
+        out = linker.process_text(body)
+        self.assertNotIn("{{cite:", out)
+        self.assertIn('class="cite-ref"', out)
+        self.assertEqual(linker.ordered_cited_keys[0], "fisher1935_doe")
+        self.assertIn("hastings1970", linker.ordered_cited_keys)
+        section = linker.render_references_section()
+        self.assertLess(section.index('id="cite_note-1"'), section.index("Design of Experiments"))
+        for lab_name, keys in citations.LAB_REFS.items():
+            lab = (ROOT / "labs" / lab_name).read_text(encoding="utf-8")
+            lab_body = citations._STATIC_REF_RE.sub("", lab)
+            lab_linker = citations.PageCitationLinker(keys, self.works)
+            rendered = lab_linker.process_text(lab_body)
+            self.assertIn('class="cite-ref"', rendered, lab_name)
+            self.assertNotIn("{{cite:", rendered, lab_name)
+            self.assertTrue(lab_linker.ordered_cited_keys, lab_name)
+            again = citations.PageCitationLinker(keys, self.works)
+            self.assertEqual(again.process_text(rendered), rendered, lab_name)
+
+    def test_posterior_median_direction_and_strobl(self) -> None:
+        note = article_extras.NOTES["posterior-median"]
+        self.assertIn(
+            "Mass on the left pulls the action down and mass on the right pulls it up.",
+            note,
+        )
+        self.assertNotIn("pulls the action up and mass on the right pulls it down", note)
+        self.assertIn("lehmann_casella1998", citations.ARTICLE_REFS["posterior-median"])
+        rendered = citations.PageCitationLinker(
+            citations.ARTICLE_REFS["posterior-median"], self.works
+        ).process_text(note)
+        self.assertIn('data-cite-key="lehmann_casella1998"', rendered)
+        self.assertIn('data-cite-key="gelman_bda2013"', rendered)
+        self.assertIn("strobl2007", citations.ARTICLE_REFS["variable-importance"])
+        importance = article_extras.NOTES["variable-importance"]
+        self.assertIn("Strobl, Boulesteix, Zeileis, and Hothorn, 2007", importance)
+        linked = citations.PageCitationLinker(
+            citations.ARTICLE_REFS["variable-importance"], self.works
+        ).process_text(importance)
+        self.assertIn("(Breiman, 2001)<sup", linked)
+        self.assertIn('data-cite-key="strobl2007"', linked)
+        self.assertIn("(Strobl, Boulesteix, Zeileis, and Hothorn, 2007)<sup", linked)
+
+    def test_graph_text_drops_citation_markup(self) -> None:
+        raw = (
+            r"The median satisfies $F(m)=\tfrac12$."
+            '<sup id="cite_ref-1" class="cite-ref" data-cite-key="lehmann_casella1998">'
+            '<a href="#cite_note-1" title="Lehmann &amp; Casella (1998)">[1]</a></sup>'
+            " {{cite:gelman_bda2013}}"
+        )
+        cleaned = wiki_graph.strip_markup(raw)
+        self.assertNotIn("cite-ref", cleaned)
+        self.assertNotIn("cite_note", cleaned)
+        self.assertNotIn("{{cite:", cleaned)
+        self.assertNotIn("[1]", cleaned)
+        self.assertIn(r"$F(m)=\tfrac12$.", cleaned)
+        self.assertNotRegex(cleaned, r"<[^>]+>")
+
+
+def _assert_clickable_reference_lists(self, paths: list[Path]) -> None:
+    """Every built page's superscripts, note ids, and jump-back links agree."""
+    problems: list[str] = []
+    sup_re = re.compile(
+        r'<sup\b[^>]*\bid="(cite_ref-\d+(?:-\d+)?)"[^>]*\bdata-cite-key="([a-z0-9_]+)"[^>]*>'
+        r'<a href="#(cite_note-\d+)"[^>]*>\[(\d+)\]</a></sup>'
+    )
+    note_re = re.compile(r'<li id="(cite_note-(\d+))">')
+    back_re = re.compile(r'href="#(cite_ref-\d+(?:-\d+)?)"')
+    for path in paths:
+        text = path.read_text(encoding="utf-8")
+        if "{{cite:" in text:
+            problems.append(f"{path.name}: raw citation marker left in the built page")
+        if "## References {#references}" not in text:
+            problems.append(f"{path.name}: missing references")
+            continue
+        sups = sup_re.findall(text)
+        notes = {note_id: int(num) for note_id, num in note_re.findall(text)}
+        if not sups:
+            continue
+        seen_numbers: list[int] = []
+        ref_ids: list[str] = []
+        for ref_id, _key, note_id, num_s in sups:
+            num = int(num_s)
+            ref_ids.append(ref_id)
+            if note_id not in notes or notes[note_id] != num:
+                problems.append(f"{path.name}: {ref_id} points at missing {note_id}")
+            if num not in seen_numbers:
+                seen_numbers.append(num)
+        if seen_numbers != list(range(1, len(seen_numbers) + 1)):
+            problems.append(f"{path.name}: citation numbers are not 1..k in first-appearance order")
+        if text.count('class="cite-ref"') != len(sups):
+            problems.append(f"{path.name}: a superscript is missing an id, key, or note link")
+        back_ids = back_re.findall(text.split("## References {#references}", 1)[1])
+        if sorted(back_ids) != sorted(ref_ids):
+            problems.append(f"{path.name}: jump-back links do not match in-text superscripts")
+    self.assertEqual(problems, [])
+
+
+CitationTests._assert_clickable_reference_lists = _assert_clickable_reference_lists
 
 
 if __name__ == "__main__":
