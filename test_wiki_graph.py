@@ -615,7 +615,7 @@ class WikiGraphTests(unittest.TestCase):
             build_wiki.ARTICLES["expectation"] = {"slug": "expectation"}
             build_wiki.RETIRED.clear()
             build_wiki.SEARCH_ALIASES.clear()
-            build_wiki.SEARCH_ALIASES["mean"] = ("articles/expectation.html", "Mean")
+            build_wiki.SEARCH_ALIASES["expected-value"] = ("articles/expectation.html", "Expected value")
             build_wiki.SEARCH_ALIASES["pca"] = ("notes/sl-03-principal-components.html", "PCA")
             build_wiki.SEARCH_ALIASES["expectation"] = ("articles/expectation.html", "Expectation")
             build_wiki.PAGE_TITLES[root / "articles" / "expectation.qmd"] = "Expectation"
@@ -623,30 +623,39 @@ class WikiGraphTests(unittest.TestCase):
 
             build_wiki.write_alias_redirect_pages()
             self.assertFalse((root / "articles" / "expectation.html").exists())
+            ev_stub = (root / "articles" / "expected-value.html").read_text(encoding="utf-8")
             mean_stub = (root / "articles" / "mean.html").read_text(encoding="utf-8")
             pca_stub = (root / "articles" / "pca.html").read_text(encoding="utf-8")
-            self.assertIn('var redirects = {"": "expectation.html"};', mean_stub)
+            self.assertIn('var redirects = {"": "expectation.html"};', ev_stub)
+            self.assertIn('var redirects = {"": "../search.html#q=Mean"};', mean_stub)
             self.assertIn('var redirects = {"": "../notes/sl-03-principal-components.html"};', pca_stub)
 
             site = root / "_site"
             (site / "articles").mkdir(parents=True)
             (site / "notes").mkdir()
+            (site / "search.html").write_text("<html></html>", encoding="utf-8")
             (site / "articles" / "expectation.html").write_text("<html></html>", encoding="utf-8")
             (site / "notes" / "sl-03-principal-components.html").write_text("<html></html>", encoding="utf-8")
+            (site / "articles" / "expected-value.html").write_text(ev_stub, encoding="utf-8")
             (site / "articles" / "mean.html").write_text(mean_stub, encoding="utf-8")
             (site / "articles" / "pca.html").write_text(pca_stub, encoding="utf-8")
 
             saved_site = canonical_redirects.SITE_DIR
             canonical_redirects.SITE_DIR = site
             try:
-                m1 = canonical_redirects.REDIRECTS.search(mean_stub)
-                m2 = canonical_redirects.REDIRECTS.search(pca_stub)
+                m_ev = canonical_redirects.REDIRECTS.search(ev_stub)
+                m_mean = canonical_redirects.REDIRECTS.search(mean_stub)
+                m_pca = canonical_redirects.REDIRECTS.search(pca_stub)
                 self.assertEqual(
-                    canonical_redirects.canonical_for(site / "articles" / "mean.html", m1.group(1)),
+                    canonical_redirects.canonical_for(site / "articles" / "expected-value.html", m_ev.group(1)),
                     "https://www.statwiki.io/articles/expectation.html",
                 )
                 self.assertEqual(
-                    canonical_redirects.canonical_for(site / "articles" / "pca.html", m2.group(1)),
+                    canonical_redirects.canonical_for(site / "articles" / "mean.html", m_mean.group(1)),
+                    "https://www.statwiki.io/search.html",
+                )
+                self.assertEqual(
+                    canonical_redirects.canonical_for(site / "articles" / "pca.html", m_pca.group(1)),
                     "https://www.statwiki.io/notes/sl-03-principal-components.html",
                 )
             finally:
@@ -739,6 +748,77 @@ class WikiGraphTests(unittest.TestCase):
             "The middle value of the ordered sample.\n\n",
         )
         self.assertTrue(framed_topic.startswith("**Median.** The middle value"))
+
+    def test_search_normalisation_shorthands_disambiguation_and_hatnotes(self) -> None:
+        import topics
+
+        cases = [
+            ("Cramér–Rao lower bound", "cramer-rao-lower-bound"),
+            ("Hölder's inequality", "holder-inequality"),
+            ("Itô", "ito"),
+            ("Lévy's continuity theorem", "levy-continuity-theorem"),
+            ("Rényi", "renyi"),
+            ("Fréchet", "frechet"),
+            ("Bayes' theorem", "bayes-theorem"),
+            ("Bayes’ theorem", "bayes-theorem"),
+            ("Student's t", "student-t"),
+            ("Students t", "student-t"),
+            ("Fisher's exact test", "fisher-exact-test"),
+            ("Fishers exact test", "fisher-exact-test"),
+            ("Jensen's inequality", "jensen-inequality"),
+            ("Jensens inequality", "jensen-inequality"),
+            ("Slutsky's theorem", "slutsky-theorem"),
+            ("Wilks' theorem", "wilk-theorem"),
+            ("Wilks theorem", "wilk-theorem"),
+            ("Hotelling's T² test", "hotelling-t2-test"),
+            ("Simpson's paradox", "simpson-paradox"),
+            ("Chebyshev's inequality", "chebyshev-inequality"),
+            ("Markov's inequality", "markov-inequality"),
+            ("Tukey's", "tukey"),
+            ("Stirling's", "stirling"),
+            ("i.i.d.", "iid"),
+            ("s.d.", "sd"),
+            ("t-test", "t-test"),
+            ("t test", "t-test"),
+            ("p-value", "p-value"),
+            ("p value", "p-value"),
+        ]
+        for raw, expected in cases:
+            self.assertEqual(build_wiki.canonical_search_key(raw), expected, raw)
+
+        # Verify generated search-aliases.json and article hatnotes when build_wiki has run.
+        alias_json = build_wiki.WIKI / "search-aliases.json"
+        if alias_json.is_file():
+            payload = json.loads(alias_json.read_text(encoding="utf-8"))
+            self.assertIn("pages", payload)
+            self.assertIn("aliases", payload)
+            self.assertIn("disambiguations", payload)
+            self.assertEqual(len([p for p in payload["pages"].values() if p.get("kind") == "article"]), 718)
+            for key in ("sd", "se", "ci", "pi", "cv", "df", "rv", "iid", "bf", "kl", "em", "ar", "ma", "var", "cov", "corr", "rss", "ess", "tss", "t", "z", "f", "p", "r"):
+                self.assertIn(key, payload["aliases"], f"missing shorthand {key!r}")
+            for dis_key in ("mean", "variance", "standard-deviation", "t-test", "kernel", "score", "residual", "bootstrap", "independence", "normal", "prior", "power", "information", "scale"):
+                self.assertIn(dis_key, payload["disambiguations"], f"missing disambiguation {dis_key!r}")
+                opts = payload["disambiguations"][dis_key]["options"]
+                self.assertGreaterEqual(len(opts), 2, dis_key)
+                for opt in opts:
+                    base = opt["href"].split("#", 1)[0]
+                    self.assertIn(base, payload["pages"], f"{dis_key}: {opt}")
+
+        # Verify disambiguation hatnotes exist and resolve to real target files on built articles.
+        articles_dir = build_wiki.WIKI / "articles"
+        if articles_dir.is_dir():
+            for slug_name, rows in topics.HATNOTES.items():
+                art_path = articles_dir / f"{slug_name}.qmd"
+                self.assertTrue(art_path.is_file(), f"missing article for hatnote {slug_name}")
+                art_text = art_path.read_text(encoding="utf-8")
+                self.assertIn("::: {.hatnote}", art_text)
+                for _prefix, target_rel, label in rows:
+                    self.assertIn(f"[{label}]({target_rel})", art_text)
+                    target_path = (art_path.parent / target_rel.split("#", 1)[0]).resolve()
+                    self.assertTrue(target_path.is_file(), f"broken hatnote target {target_rel} on {slug_name}")
+                    if "#" in target_rel:
+                        frag = target_rel.split("#", 1)[1]
+                        self.assertIn(frag, target_path.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
