@@ -3414,6 +3414,20 @@
         "id": "10.1109/tit.1982.1056489"
       }
     },
+    "loader1999_locfit": {
+      "authors": [
+        "Loader, C."
+      ],
+      "year": 1999,
+      "title": "Local Regression and Likelihood",
+      "kind": "book",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/b98858",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/b98858"
+      }
+    },
     "lunn_winbugs2000": {
       "authors": [
         "Lunn, D. J.",
