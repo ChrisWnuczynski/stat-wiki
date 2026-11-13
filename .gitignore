@@ -19,6 +19,7 @@ __pycache__/
 # Made by quarto render
 /_site/
 /.quarto/
+/site_libs/
 
 # Local only
 /_publish/
