@@ -85,3 +85,13 @@ The band on the running fraction treats the hits as independent Bernoulli trials
 
 - The [definition of a confidence interval](../notes/inf-03-confidence-intervals.qmd#def-confidence-interval), and the distinction between the random interval and the numbers computed from one sample.
 - The [one-sample $t$ pivot](../notes/inf-03-confidence-intervals.qmd#thm-one-sample-t) and the [Wald interval](../notes/inf-03-confidence-intervals.qmd#def-wald-interval) for a proportion.
+
+## References {#references}
+
+::: {.wiki-refs}
+- Brown, L. D., Cai, T. T. & DasGupta, A. (2001). Interval Estimation for a Binomial Proportion. *Statistical Science*, 16(2), 101–133. [https://doi.org/10.1214/ss/1009213286](https://doi.org/10.1214/ss/1009213286)
+- Clopper, C. J. & Pearson, E. S. (1934). The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial. *Biometrika*, 26(4), 404–413. [https://doi.org/10.1093/biomet/26.4.404](https://doi.org/10.1093/biomet/26.4.404)
+- Neyman, J. (1937). Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability. *Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences*, 236(767), 333–380. [https://doi.org/10.1098/rsta.1937.0005](https://doi.org/10.1098/rsta.1937.0005)
+- Student [Gosset, W. S.] (1908). The Probable Error of a Mean. *Biometrika*, 6(1), 1. [https://doi.org/10.2307/2331554](https://doi.org/10.2307/2331554)
+- Wilson, E. B. (1927). Probable Inference, the Law of Succession, and Statistical Inference. *Journal of the American Statistical Association*, 22(158), 209–212. [https://doi.org/10.1080/01621459.1927.10502953](https://doi.org/10.1080/01621459.1927.10502953)
+:::
