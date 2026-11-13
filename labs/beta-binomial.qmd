@@ -3,7 +3,7 @@ title: "Beta–Binomial laboratory"
 description: "Update a Beta prior with coin tosses and compare the posterior predictive distribution with a plug-in binomial."
 ---
 
-A coin lands heads with unknown probability $\theta$. Before any tosses, a Beta distribution states that belief. After $x$ heads in $n$ tosses the belief is another Beta distribution, and that distribution — not a single number plugged in for $\theta$ — is what predicts the next run of tosses.
+A coin lands heads with unknown probability $\theta$.<sup id="cite_ref-1" class="cite-ref" data-cite-key="bernoulli1713"><a href="#cite_note-1" title="Bernoulli (1713) — Ars Conjectandi">[1]</a></sup> Before any tosses, a Beta distribution states that belief. After $x$ heads in $n$ tosses the belief is another Beta distribution, and that distribution — not a single number plugged in for $\theta$ — is what predicts the next run of tosses.
 
 ## What this page investigates
 
@@ -31,7 +31,7 @@ $$
 
 With no tosses the weight is $1$ and the posterior is the prior. There is then no sample proportion to draw.
 
-The curve labelled as the scaled likelihood is $\theta^{x}(1-\theta)^{n-x}$ renormalised so that it integrates to $1$. That is the $\mathrm{Beta}(x+1, n-x+1)$ density: the posterior a uniform prior would have produced. Scaling puts it on the same axis as the prior and the posterior. It is not the likelihood function itself, which need not integrate to $1$.
+The curve labelled as the scaled likelihood is $\theta^{x}(1-\theta)^{n-x}$ renormalised so that it integrates to $1$. That is the $\mathrm{Beta}(x+1, n-x+1)$ density: the posterior a uniform prior would have produced.<sup id="cite_ref-2" class="cite-ref" data-cite-key="laplace1812"><a href="#cite_note-2" title="Laplace (1812) — Théorie analytique des probabilités">[2]</a></sup> Scaling puts it on the same axis as the prior and the posterior. It is not the likelihood function itself, which need not integrate to $1$.
 
 For $m$ future tosses, the number of heads $K$ has the beta–binomial probabilities
 
@@ -68,7 +68,7 @@ Panel B is the cost of pretending $\theta$ is known. The posterior predictive ba
 
 ## Where this fails
 
-The update is conjugate: the likelihood has to be binomial and the prior has to be Beta, or the posterior is not the Beta named in the readout. A prior that is not Beta can still be updated; the integral then has to be done another way. The two pseudo-count stories are easy to mix. $\alpha$ and $\beta$ are the counts in the posterior mean. The mode, when both shapes exceed $1$, uses $\alpha-1$ and $\beta-1$. The page reports both, and it reports that a flat density has every point as a mode and that a density unbounded at both ends has none.
+The update is conjugate: the likelihood has to be binomial and the prior has to be Beta, or the posterior is not the Beta named in the readout.<sup id="cite_ref-3" class="cite-ref" data-cite-key="bayes1763"><a href="#cite_note-3" title="Bayes (1763) — An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S">[3]</a></sup><sup id="cite_ref-4" class="cite-ref" data-cite-key="diaconis_ylvisaker1979"><a href="#cite_note-4" title="Diaconis &amp; Ylvisaker (1979) — Conjugate Priors for Exponential Families">[4]</a></sup><sup id="cite_ref-5" class="cite-ref" data-cite-key="raiffa_schlaifer1961"><a href="#cite_note-5" title="Raiffa &amp; Schlaifer (1961) — Applied Statistical Decision Theory">[5]</a></sup><sup id="cite_ref-6" class="cite-ref" data-cite-key="gelman_bda2013"><a href="#cite_note-6" title="Gelman et al. (2013) — Bayesian Data Analysis">[6]</a></sup> A prior that is not Beta can still be updated; the integral then has to be done another way. The two pseudo-count stories are easy to mix. $\alpha$ and $\beta$ are the counts in the posterior mean. The mode, when both shapes exceed $1$, uses $\alpha-1$ and $\beta-1$. The page reports both, and it reports that a flat density has every point as a mode and that a density unbounded at both ends has none.
 
 The $95\%$ band is a posterior interval. It is not a confidence interval, and it is not a probability that a fixed $\theta$ lies in a random interval. The true $\theta$ on the slider is there so the picture has something to miss. After the tosses are observed, the posterior interval either contains that number or it does not.
 
@@ -81,11 +81,15 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
 
 ## References {#references}
 
-::: {.wiki-refs}
-- Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. *Philosophical Transactions of the Royal Society of London*, 370–418. [https://doi.org/10.1098/rstl.1763.0053](https://doi.org/10.1098/rstl.1763.0053)
-- Bernoulli, J. (1713). *Ars Conjectandi*. Thurneysen Brothers, Basel. [https://www.e-rara.ch/zut/content/titleinfo/1250279](https://www.e-rara.ch/zut/content/titleinfo/1250279)
-- Diaconis, P. & Ylvisaker, D. (1979). Conjugate Priors for Exponential Families. *The Annals of Statistics*, 7(2), 269–281. [https://doi.org/10.1214/aos/1176344611](https://doi.org/10.1214/aos/1176344611)
-- Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A. & Rubin, D. B. (2013). *Bayesian Data Analysis*. Chapman and Hall/CRC. [https://doi.org/10.1201/b16018](https://doi.org/10.1201/b16018)
-- Laplace, P.-S. (1812). *Théorie analytique des probabilités*. Courcier, Paris. [https://openlibrary.org/works/OL2395821W](https://openlibrary.org/works/OL2395821W)
-- Raiffa, H. & Schlaifer, R. (1961). *Applied Statistical Decision Theory*. Harvard Business School, Boston. [https://openlibrary.org/works/OL2620278W](https://openlibrary.org/works/OL2620278W)
-:::
+```{=html}
+<div class="wiki-refs">
+<ol>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Bernoulli, J. (1713). <em>Ars Conjectandi</em>. Thurneysen Brothers, Basel. <a href="https://www.e-rara.ch/zut/content/titleinfo/1250279" target="_blank" rel="noopener">https://www.e-rara.ch/zut/content/titleinfo/1250279</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Laplace, P.-S. (1812). <em>Théorie analytique des probabilités</em>. Courcier, Paris. <a href="https://openlibrary.org/works/OL2395821W" target="_blank" rel="noopener">https://openlibrary.org/works/OL2395821W</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. <em>Philosophical Transactions of the Royal Society of London</em>, 370–418. <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">https://doi.org/10.1098/rstl.1763.0053</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Diaconis, P. &amp; Ylvisaker, D. (1979). Conjugate Priors for Exponential Families. <em>The Annals of Statistics</em>, 7(2), 269–281. <a href="https://doi.org/10.1214/aos/1176344611" target="_blank" rel="noopener">https://doi.org/10.1214/aos/1176344611</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Raiffa, H. &amp; Schlaifer, R. (1961). <em>Applied Statistical Decision Theory</em>. Harvard Business School, Boston. <a href="https://openlibrary.org/works/OL2620278W" target="_blank" rel="noopener">https://openlibrary.org/works/OL2620278W</a></li>
+  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span> Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A. &amp; Rubin, D. B. (2013). <em>Bayesian Data Analysis</em>. Chapman and Hall/CRC. <a href="https://doi.org/10.1201/b16018" target="_blank" rel="noopener">https://doi.org/10.1201/b16018</a></li>
+</ol>
+</div>
+```

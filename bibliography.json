@@ -1,5 +1,20 @@
 {
   "works": {
+    "agresti2002": {
+      "authors": [
+        "Agresti, A."
+      ],
+      "year": 2002,
+      "title": "Categorical Data Analysis",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "John Wiley & Sons, Hoboken, NJ",
+      "doi": "10.1002/0471249688",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/0471249688"
+      }
+    },
     "akaike1974": {
       "authors": [
         "Akaike, H."
@@ -450,6 +465,21 @@
         "id": "10.1126/science.187.4175.398"
       }
     },
+    "billingsley1995": {
+      "authors": [
+        "Billingsley, P."
+      ],
+      "year": 1995,
+      "title": "Probability and Measure",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "John Wiley & Sons, New York",
+      "url": "https://openlibrary.org/works/OL25936W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL25936W"
+      }
+    },
     "birkhoff1946": {
       "authors": [
         "Birkhoff, G."
@@ -483,6 +513,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/00401706.1961.10489927"
+      }
+    },
+    "bishop2006": {
+      "authors": [
+        "Bishop, C. M."
+      ],
+      "year": 2006,
+      "title": "Pattern Recognition and Machine Learning",
+      "kind": "book",
+      "publisher": "Springer, New York",
+      "url": "https://openlibrary.org/works/OL20728101W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL20728101W"
       }
     },
     "blackwell1947": {
@@ -585,6 +629,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1145/130385.130401"
+      }
+    },
+    "box1953": {
+      "authors": [
+        "Box, G. E. P."
+      ],
+      "year": 1953,
+      "title": "Non-Normality and Tests on Variances",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "40",
+      "issue": "3-4",
+      "pages": "318–335",
+      "doi": "10.1093/biomet/40.3-4.318",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/40.3-4.318"
       }
     },
     "box_cox1964": {
@@ -857,6 +918,23 @@
         "id": "10.1214/ss/1009213286"
       }
     },
+    "burges1998": {
+      "authors": [
+        "Burges, C. J. C."
+      ],
+      "year": 1998,
+      "title": "A Tutorial on Support Vector Machines for Pattern Recognition",
+      "kind": "article",
+      "venue": "Data Mining and Knowledge Discovery",
+      "volume": "2",
+      "issue": "2",
+      "pages": "121–167",
+      "doi": "10.1023/a:1009715923555",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1023/a:1009715923555"
+      }
+    },
     "cameron_johansson1997": {
       "authors": [
         "Cameron, A. C.",
@@ -891,12 +969,28 @@
         "id": "https://openlibrary.org/authors/OL1966171A"
       }
     },
+    "casella_berger2002": {
+      "authors": [
+        "Casella, G.",
+        "Berger, R. L."
+      ],
+      "year": 2002,
+      "title": "Statistical Inference",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Duxbury, Pacific Grove, CA",
+      "url": "https://openlibrary.org/works/OL37482367W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL37482367W"
+      }
+    },
     "cattell1966": {
       "authors": [
         "Cattell, R. B."
       ],
       "year": 1966,
-      "title": "The Scree Test For The NumÜber Of Factors",
+      "title": "The Scree Test For The Number Of Factors",
       "kind": "article",
       "venue": "Multivariate Behavioral Research",
       "volume": "1",
@@ -1059,6 +1153,20 @@
         "id": "/works/OL1351802W"
       }
     },
+    "coles2001": {
+      "authors": [
+        "Coles, S."
+      ],
+      "year": 2001,
+      "title": "An Introduction to Statistical Modeling of Extreme Values",
+      "kind": "book",
+      "publisher": "Springer, London",
+      "doi": "10.1007/978-1-4471-3675-0",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4471-3675-0"
+      }
+    },
     "conway_maxwell1962": {
       "authors": [
         "Conway, R. W.",
@@ -1212,6 +1320,35 @@
         "id": "https://openlibrary.org/authors/OL118675A"
       }
     },
+    "davison2003": {
+      "authors": [
+        "Davison, A. C."
+      ],
+      "year": 2003,
+      "title": "Statistical Models",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/cbo9780511815850",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/cbo9780511815850"
+      }
+    },
+    "davison_hinkley1997": {
+      "authors": [
+        "Davison, A. C.",
+        "Hinkley, D. V."
+      ],
+      "year": 1997,
+      "title": "Bootstrap Methods and their Application",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/cbo9780511802843",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/cbo9780511802843"
+      }
+    },
     "dawid1984": {
       "authors": [
         "Dawid, A. P."
@@ -1248,6 +1385,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1016/s0190-9622(98)70486-4"
+      }
+    },
+    "deboor1978": {
+      "authors": [
+        "de Boor, C."
+      ],
+      "year": 1978,
+      "title": "A Practical Guide to Splines",
+      "kind": "book",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4612-6333-3",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4612-6333-3"
       }
     },
     "definetti1937": {
@@ -1507,6 +1658,24 @@
         "id": "/works/OL3922691W"
       }
     },
+    "drton_plummer2017": {
+      "authors": [
+        "Drton, M.",
+        "Plummer, M."
+      ],
+      "year": 2017,
+      "title": "A Bayesian Information Criterion for Singular Models",
+      "kind": "article",
+      "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+      "volume": "79",
+      "issue": "2",
+      "pages": "323–380",
+      "doi": "10.1111/rssb.12187",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/rssb.12187"
+      }
+    },
     "dunn1961": {
       "authors": [
         "Dunn, O. J."
@@ -1540,6 +1709,21 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/10618600.1996.10474708"
+      }
+    },
+    "durrett2019": {
+      "authors": [
+        "Durrett, R."
+      ],
+      "year": 2019,
+      "title": "Probability: Theory and Examples",
+      "kind": "book",
+      "edition": "5th ed.",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/9781108591034",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/9781108591034"
       }
     },
     "eckart_young1936": {
@@ -1882,7 +2066,7 @@
         "Tippett, L. H. C."
       ],
       "year": 1928,
-      "title": "Limiting forms of the frequency distribution of the largest or smallest memÜber of a sample",
+      "title": "Limiting forms of the frequency distribution of the largest or smallest member of a sample",
       "kind": "article",
       "venue": "Mathematical Proceedings of the Cambridge Philosophical Society",
       "volume": "24",
@@ -1910,6 +2094,25 @@
       "verification": {
         "source": "crossref",
         "id": "10.2307/1403797"
+      }
+    },
+    "forbes2011": {
+      "authors": [
+        "Forbes, C.",
+        "Evans, M.",
+        "Hastings, N.",
+        "Peacock, B."
+      ],
+      "year": 2011,
+      "title": "Statistical Distributions",
+      "kind": "book",
+      "edition": "4th ed.",
+      "publisher": "John Wiley & Sons, Hoboken, NJ",
+      "doi": "10.1002/9780470627242",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/9780470627242",
+        "year_tolerance": 1
       }
     },
     "foygel_drton2010": {
@@ -1946,6 +2149,24 @@
       "verification": {
         "source": "crossref",
         "id": "10.1198/016214502760047131"
+      }
+    },
+    "frank_friedman1993": {
+      "authors": [
+        "Frank, I. E.",
+        "Friedman, J. H."
+      ],
+      "year": 1993,
+      "title": "A Statistical View of Some Chemometrics Regression Tools",
+      "kind": "article",
+      "venue": "Technometrics",
+      "volume": "35",
+      "issue": "2",
+      "pages": "109–135",
+      "doi": "10.1080/00401706.1993.10485033",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00401706.1993.10485033"
       }
     },
     "frechet1927": {
@@ -2086,6 +2307,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://openlibrary.org/authors/OL148759A"
+      }
+    },
+    "fuller1987": {
+      "authors": [
+        "Fuller, W. A."
+      ],
+      "year": 1987,
+      "title": "Measurement Error Models",
+      "kind": "book",
+      "publisher": "John Wiley & Sons, New York",
+      "doi": "10.1002/9780470316665",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/9780470316665"
       }
     },
     "galton1886": {
@@ -2307,6 +2542,24 @@
         "id": "/works/OL3261782W"
       }
     },
+    "granger_newbold1974": {
+      "authors": [
+        "Granger, C. W. J.",
+        "Newbold, P."
+      ],
+      "year": 1974,
+      "title": "Spurious regressions in econometrics",
+      "kind": "article",
+      "venue": "Journal of Econometrics",
+      "volume": "2",
+      "issue": "2",
+      "pages": "111–120",
+      "doi": "10.1016/0304-4076(74)90034-7",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/0304-4076(74)90034-7"
+      }
+    },
     "green_silverman1994": {
       "authors": [
         "Green, P. J.",
@@ -2338,6 +2591,22 @@
       "verification": {
         "source": "crossref",
         "id": "10.2307/2341080"
+      }
+    },
+    "grimmett_stirzaker2020": {
+      "authors": [
+        "Grimmett, G. R.",
+        "Stirzaker, D. R."
+      ],
+      "year": 2020,
+      "title": "Probability and Random Processes",
+      "kind": "book",
+      "edition": "4th ed.",
+      "publisher": "Oxford University Press",
+      "url": "https://openlibrary.org/works/OL25253617W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL25253617W"
       }
     },
     "gubernatis2005": {
@@ -2514,7 +2783,7 @@
         "Medical Research Council"
       ],
       "year": 1948,
-      "title": "Streptomycin Treatment of Pulmonary TuÜberculosis: A Medical Research Council Investigation",
+      "title": "Streptomycin Treatment of Pulmonary Tuberculosis: A Medical Research Council Investigation",
       "kind": "article",
       "venue": "BMJ",
       "volume": "2",
@@ -2757,6 +3026,24 @@
         "id": "10.1007/bf01908075"
       }
     },
+    "hull_dobell1962": {
+      "authors": [
+        "Hull, T. E.",
+        "Dobell, A. R."
+      ],
+      "year": 1962,
+      "title": "Random Number Generators",
+      "kind": "article",
+      "venue": "SIAM Review",
+      "volume": "4",
+      "issue": "3",
+      "pages": "230–254",
+      "doi": "10.1137/1004061",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1137/1004061"
+      }
+    },
     "hurn1945": {
       "authors": [
         "Hurn, M.",
@@ -2788,6 +3075,22 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL4850496W"
+      }
+    },
+    "hyndman_athanasopoulos2021": {
+      "authors": [
+        "Hyndman, R. J.",
+        "Athanasopoulos, G."
+      ],
+      "year": 2021,
+      "title": "Forecasting: Principles and Practice",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "OTexts, Melbourne",
+      "url": "https://otexts.com/fpp3/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://otexts.com/fpp3/"
       }
     },
     "hyndman_khandakar2008": {
@@ -2840,6 +3143,24 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/bf02980577"
+      }
+    },
+    "james_islr2021": {
+      "authors": [
+        "James, G.",
+        "Witten, D.",
+        "Hastie, T.",
+        "Tibshirani, R."
+      ],
+      "year": 2021,
+      "title": "An Introduction to Statistical Learning: with Applications in R",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-0716-1418-1",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-0716-1418-1"
       }
     },
     "james_stein1961": {
@@ -3057,6 +3378,23 @@
         "id": "10.1007/978-3-642-49888-6"
       }
     },
+    "kolmogorov1936": {
+      "authors": [
+        "Kolmogoroff, A."
+      ],
+      "year": 1936,
+      "title": "Zur Theorie der Markoffschen Ketten",
+      "kind": "article",
+      "venue": "Mathematische Annalen",
+      "volume": "112",
+      "issue": "1",
+      "pages": "155–160",
+      "doi": "10.1007/bf01565412",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/bf01565412"
+      }
+    },
     "koopman1936": {
       "authors": [
         "Koopman, B. O."
@@ -3090,6 +3428,24 @@
       "verification": {
         "source": "archival_url",
         "id": "https://papers.nips.cc/paper_files/paper/1991/hash/8eefcfdf5990e441f0fb6f3fad709e21-Abstract.html"
+      }
+    },
+    "krogh_vedelsby1995": {
+      "authors": [
+        "Krogh, A.",
+        "Vedelsby, J."
+      ],
+      "year": 1995,
+      "title": "Neural Network Ensembles, Cross Validation, and Active Learning",
+      "kind": "incollection",
+      "venue": "Advances in Neural Information Processing Systems",
+      "volume": "7",
+      "pages": "231–238",
+      "publisher": "The MIT Press",
+      "url": "https://proceedings.neurips.cc/paper/1994/hash/b8c37e33defde51cf91e1e03e51657da-Abstract.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://proceedings.neurips.cc/paper/1994/hash/b8c37e33defde51cf91e1e03e51657da-Abstract.html"
       }
     },
     "kullback_leibler1951": {
@@ -3144,6 +3500,21 @@
       "verification": {
         "source": "crossref",
         "id": "10.1093/oxfordjournals.jhered.a103352"
+      }
+    },
+    "lange2013_opt": {
+      "authors": [
+        "Lange, K."
+      ],
+      "year": 2013,
+      "title": "Optimization",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4614-5838-8",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4614-5838-8"
       }
     },
     "laplace1812": {
@@ -3242,6 +3613,38 @@
         "id": "/works/OL607995W"
       }
     },
+    "lehmann_casella1998": {
+      "authors": [
+        "Lehmann, E. L.",
+        "Casella, G."
+      ],
+      "year": 1998,
+      "title": "Theory of Point Estimation",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/b98854",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/b98854"
+      }
+    },
+    "lehmann_romano2005": {
+      "authors": [
+        "Lehmann, E. L.",
+        "Romano, J. P."
+      ],
+      "year": 2005,
+      "title": "Testing Statistical Hypotheses",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/0-387-27605-x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/0-387-27605-x"
+      }
+    },
     "lehmann_scheffe1950": {
       "authors": [
         "Lehmann, E. L.",
@@ -3283,7 +3686,7 @@
         "Spiessens, B."
       ],
       "year": 2001,
-      "title": "On the Effect of the NumÜber of Quadrature Points in a Logistic Random Effects Model: An Example",
+      "title": "On the Effect of the Number of Quadrature Points in a Logistic Random Effects Model: An Example",
       "kind": "article",
       "venue": "Journal of the Royal Statistical Society Series C: Applied Statistics",
       "volume": "50",
@@ -3307,6 +3710,20 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL11247800W"
+      }
+    },
+    "levy1937": {
+      "authors": [
+        "Lévy, P."
+      ],
+      "year": 1937,
+      "title": "Théorie de l'addition des variables aléatoires",
+      "kind": "book",
+      "publisher": "Gauthier-Villars, Paris",
+      "url": "https://openlibrary.org/works/OL1332343W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL1332343W"
       }
     },
     "liang_zeger1986": {
@@ -3568,6 +3985,23 @@
         "id": "10.2113/gsecongeo.58.8.1246"
       }
     },
+    "mcalister1879": {
+      "authors": [
+        "McAlister, D."
+      ],
+      "year": 1879,
+      "title": "XIII. The law of the geometric mean",
+      "kind": "article",
+      "venue": "Proceedings of the Royal Society of London",
+      "volume": "29",
+      "issue": "196-199",
+      "pages": "367–376",
+      "doi": "10.1098/rspl.1879.0061",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1098/rspl.1879.0061"
+      }
+    },
     "mccullagh1980": {
       "authors": [
         "McCullagh, P."
@@ -3740,6 +4174,24 @@
         "source": "crossref",
         "id": "10.7551/mitpress/11301.001.0001",
         "reprint_year": 2017
+      }
+    },
+    "murtagh_legendre2014": {
+      "authors": [
+        "Murtagh, F.",
+        "Legendre, P."
+      ],
+      "year": 2014,
+      "title": "Ward's Hierarchical Agglomerative Clustering Method: Which Algorithms Implement Ward's Criterion?",
+      "kind": "article",
+      "venue": "Journal of Classification",
+      "volume": "31",
+      "issue": "3",
+      "pages": "274–295",
+      "doi": "10.1007/s00357-014-9161-z",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s00357-014-9161-z"
       }
     },
     "myers_glm2010": {
@@ -4049,16 +4501,18 @@
       "authors": [
         "Platt, J. C."
       ],
-      "year": 1998,
+      "year": 1999,
       "title": "Fast Training of Support Vector Machines Using Sequential Minimal Optimization",
       "kind": "incollection",
-      "venue": "Advances in Kernel Methods",
+      "venue": "Advances in Kernel Methods: Support Vector Learning",
       "publisher": "The MIT Press",
       "doi": "10.7551/mitpress/1130.003.0016",
       "verification": {
         "source": "crossref",
-        "id": "10.7551/mitpress/1130.003.0016"
-      }
+        "id": "10.7551/mitpress/1130.003.0016",
+        "year_tolerance": 1
+      },
+      "pages": "185–208"
     },
     "poisson1837": {
       "authors": [
@@ -4114,16 +4568,16 @@
         "Quenouille, M. H."
       ],
       "year": 1949,
-      "title": "Approximate tests of correlation in time-series 3",
+      "title": "Approximate Tests of Correlation in Time-Series",
       "kind": "article",
-      "venue": "Mathematical Proceedings of the Cambridge Philosophical Society",
-      "volume": "45",
-      "issue": "3",
-      "pages": "483–484",
-      "doi": "10.1017/s0305004100025123",
+      "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+      "volume": "11",
+      "issue": "1",
+      "pages": "68–84",
+      "doi": "10.1111/j.2517-6161.1949.tb00023.x",
       "verification": {
         "source": "crossref",
-        "id": "10.1017/s0305004100025123"
+        "id": "10.1111/j.2517-6161.1949.tb00023.x"
       }
     },
     "quenouille1956": {
@@ -4141,6 +4595,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1093/biomet/43.3-4.353"
+      }
+    },
+    "quinlan1993": {
+      "authors": [
+        "Quinlan, J. R."
+      ],
+      "year": 1993,
+      "title": "C4.5: Programs for Machine Learning",
+      "kind": "book",
+      "publisher": "Morgan Kaufmann, San Mateo, CA",
+      "url": "https://openlibrary.org/works/OL4304603W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL4304603W"
       }
     },
     "raiffa_schlaifer1961": {
@@ -4209,6 +4677,20 @@
         "id": "10.1007/bf02162161"
       }
     },
+    "ripley1996": {
+      "authors": [
+        "Ripley, B. D."
+      ],
+      "year": 1996,
+      "title": "Pattern Recognition and Neural Networks",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/cbo9780511812651",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/cbo9780511812651"
+      }
+    },
     "robbins1956": {
       "authors": [
         "Robbins, H."
@@ -4241,6 +4723,22 @@
       "verification": {
         "source": "crossref",
         "id": "10.1214/aoms/1177729586"
+      }
+    },
+    "robert_casella2004": {
+      "authors": [
+        "Robert, C. P.",
+        "Casella, G."
+      ],
+      "year": 2004,
+      "title": "Monte Carlo Statistical Methods",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4757-4145-2",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4757-4145-2"
       }
     },
     "rosenblatt1952_pit": {
@@ -4292,6 +4790,21 @@
       "verification": {
         "source": "crossref",
         "id": "10.1037/h0042519"
+      }
+    },
+    "ross2019": {
+      "authors": [
+        "Ross, S. M."
+      ],
+      "year": 2019,
+      "title": "Introduction to Probability Models",
+      "kind": "book",
+      "edition": "12th ed.",
+      "publisher": "Academic Press",
+      "url": "https://openlibrary.org/works/OL65244W",
+      "verification": {
+        "source": "openlibrary",
+        "id": "/works/OL65244W"
       }
     },
     "rubin1976_missing": {
@@ -4410,6 +4923,41 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL736318W"
+      }
+    },
+    "scholkopf_smola2002": {
+      "authors": [
+        "Schölkopf, B.",
+        "Smola, A. J."
+      ],
+      "year": 2002,
+      "title": "Learning with Kernels: Support Vector Machines, Regularization, Optimization, and Beyond",
+      "kind": "book",
+      "publisher": "The MIT Press",
+      "doi": "10.7551/mitpress/4175.001.0001",
+      "verification": {
+        "source": "crossref",
+        "id": "10.7551/mitpress/4175.001.0001",
+        "year_tolerance": 1
+      }
+    },
+    "scholkopf_smola_muller1999": {
+      "authors": [
+        "Schölkopf, B.",
+        "Smola, A. J.",
+        "Müller, K.-R."
+      ],
+      "year": 1999,
+      "title": "Kernel Principal Component Analysis",
+      "kind": "incollection",
+      "venue": "Advances in Kernel Methods: Support Vector Learning",
+      "pages": "327–352",
+      "publisher": "The MIT Press",
+      "doi": "10.7551/mitpress/1130.003.0026",
+      "verification": {
+        "source": "crossref",
+        "id": "10.7551/mitpress/1130.003.0026",
+        "year_tolerance": 1
       }
     },
     "schwarz1885": {
@@ -4875,6 +5423,26 @@
         "id": "10.1214/aos/1176343886"
       }
     },
+    "strobl2007": {
+      "authors": [
+        "Strobl, C.",
+        "Boulesteix, A.-L.",
+        "Zeileis, A.",
+        "Hothorn, T."
+      ],
+      "year": 2007,
+      "title": "Bias in random forest variable importance measures: Illustrations, sources and a solution",
+      "kind": "article",
+      "venue": "BMC Bioinformatics",
+      "volume": "8",
+      "issue": "1",
+      "pages": "25",
+      "doi": "10.1186/1471-2105-8-25",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1186/1471-2105-8-25"
+      }
+    },
     "student1908": {
       "authors": [
         "Student [Gosset, W. S.]"
@@ -4984,7 +5552,7 @@
         "Hastie, T."
       ],
       "year": 2001,
-      "title": "Estimating the NumÜber of Clusters in a Data Set Via the Gap Statistic",
+      "title": "Estimating the Number of Clusters in a Data Set Via the Gap Statistic",
       "kind": "article",
       "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
       "volume": "63",
@@ -5087,6 +5655,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1214/aoms/1177706964"
+      }
+    },
+    "vandervaart1998": {
+      "authors": [
+        "van der Vaart, A. W."
+      ],
+      "year": 1998,
+      "title": "Asymptotic Statistics",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/cbo9780511802256",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/cbo9780511802256"
       }
     },
     "vapnik1995": {
@@ -5216,7 +5798,7 @@
         "Wald, A."
       ],
       "year": 1943,
-      "title": "Tests of statistical hypotheses concerning several parameters when the numÜber of observations is large",
+      "title": "Tests of statistical hypotheses concerning several parameters when the number of observations is large",
       "kind": "article",
       "venue": "Transactions of the American Mathematical Society",
       "volume": "54",
@@ -5274,6 +5856,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/01621459.1963.10500845"
+      }
+    },
+    "wasserman2004": {
+      "authors": [
+        "Wasserman, L."
+      ],
+      "year": 2004,
+      "title": "All of Statistics: A Concise Course in Statistical Inference",
+      "kind": "book",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-0-387-21736-9",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-0-387-21736-9"
       }
     },
     "watson_galton1875": {
@@ -5509,6 +6105,25 @@
         "id": "10.1214/aoms/1177732360"
       }
     },
+    "williams1994_tsetse": {
+      "authors": [
+        "Williams, B. G.",
+        "Rogers, D. J.",
+        "Staton, G.",
+        "Ripley, B. D.",
+        "Booth, T. H."
+      ],
+      "year": 1994,
+      "title": "Statistical modelling of georeferenced data: mapping tsetse distributions in Zimbabwe using climate and vegetation data",
+      "kind": "incollection",
+      "venue": "Modelling Vector-borne and other Parasitic Diseases",
+      "publisher": "ILRAD, Nairobi",
+      "url": "https://openlibrary.org/authors/OL448036A",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://openlibrary.org/authors/OL448036A"
+      }
+    },
     "wilson1927": {
       "authors": [
         "Wilson, E. B."
@@ -5555,6 +6170,23 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL5903386W"
+      }
+    },
+    "wolff1982_pasta": {
+      "authors": [
+        "Wolff, R. W."
+      ],
+      "year": 1982,
+      "title": "Poisson Arrivals See Time Averages",
+      "kind": "article",
+      "venue": "Operations Research",
+      "volume": "30",
+      "issue": "2",
+      "pages": "223–231",
+      "doi": "10.1287/opre.30.2.223",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1287/opre.30.2.223"
       }
     },
     "wood2003": {
@@ -5648,7 +6280,7 @@
         "Yates, F."
       ],
       "year": 1934,
-      "title": "Contingency Tables Involving Small NumÜbers and the χ2 Test",
+      "title": "Contingency Tables Involving Small Numbers and the χ2 Test",
       "kind": "article",
       "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
       "volume": "1",
@@ -5731,7 +6363,7 @@
         "Yule, G. U."
       ],
       "year": 1927,
-      "title": "On a method of investigating periodicities disturbed series, with special reference to Wolfer's sunspot numÜbers",
+      "title": "On a method of investigating periodicities disturbed series, with special reference to Wolfer's sunspot numbers",
       "kind": "article",
       "venue": "Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character",
       "volume": "226",
