@@ -123,6 +123,8 @@ _IMAGE = re.compile(rf"!\[{_CAPTION}\]\([^)\n]*\){_TRAILING_ATTRS}")
 _LINK = re.compile(rf"(?<!!)\[{_CAPTION}\]\([^)\n]*\){_TRAILING_ATTRS}")
 _HEADING_ATTR = re.compile(r"^(#{1,6}[ \t]+\S.*?)[ \t]+\{[^{}\n]*\}[ \t]*$", re.M)
 _QUARTO_ATTR = re.compile(r"\{[.#][^{}\n]*\}")
+_CITE_SUP = re.compile(r'<sup\b[^>]*\bclass="cite-ref"[^>]*>.*?</sup>', re.S)
+_CITE_MARKER = re.compile(r"\{\{cite:[a-z0-9_,\s]+\}\}")
 _H2 = re.compile(r"^##(?:\s|$)")
 _NOTE = "\ue002"
 _MARKUP = (
@@ -130,6 +132,7 @@ _MARKUP = (
     ("attribute", re.compile(r"\{[.#][\w-]")),
     ("link", re.compile(r"\]\(")),
     ("image", re.compile(r"!\[")),
+    ("cite superscript", re.compile(r"<sup\b[^>]*cite-ref|\{\{cite:")),
 )
 _MACRO = re.compile(r"\\(" + "|".join(sorted(set(ZERO_ARG) | set(ONE_ARG), key=len, reverse=True)) + r")(?![A-Za-z])")
 
@@ -201,7 +204,9 @@ def smart_dashes(text: str) -> str:
 
 
 def _strip_prose(text: str) -> str:
-    """Attributes, links, images, fences, and dashes. Call only outside code and maths."""
+    """Attributes, links, images, citation superscripts, fences, and dashes. Call only outside code and maths."""
+    text = _CITE_SUP.sub("", text)
+    text = _CITE_MARKER.sub("", text)
     text = _FENCE_LINE.sub("", text)
     text = _HEADING_ATTR.sub(r"\1", text)
     text = _IMAGE.sub(lambda match: match.group(1), text)
