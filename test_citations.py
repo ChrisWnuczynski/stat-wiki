@@ -378,8 +378,14 @@ class InlineCitationTests(unittest.TestCase):
             check(f"note:{slug}", text)
         for path in _prose_paths():
             check(str(path.relative_to(ROOT)), path.read_text(encoding="utf-8"))
+            for match in verify_citations._PANDOC_KEY_RE.finditer(path.read_text(encoding="utf-8")):
+                for part in match.group("body").split(";"):
+                    key_match = re.match(r"\s*@([a-z0-9_]+)", part)
+                    if key_match and key_match.group(1) not in self.works:
+                        bad_markers.append(f"{path.name}: {key_match.group(1)}")
         self.assertEqual(unresolved, [])
         self.assertEqual(bad_markers, [])
+        self.assertEqual(verify_citations.check_pandoc_citation_keys(ROOT, self.works), [])
 
     def test_overview_and_labs_render_clickable_numbers_in_reading_order(self) -> None:
         overview = (ROOT / "overview.qmd").read_text(encoding="utf-8")

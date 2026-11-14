@@ -102,6 +102,47 @@ Read it straight through if the subject is new, then the five chapters named on 
       <text x="24" y="332" class="rm-sub">R tables, model objects &amp; diagnostics · Interactive laboratories where the true law is known</text>
     </a>
   </svg>
+  <script>
+  // Quarto's navigation script calls href.replace on every anchor. An SVG
+  // anchor's href is not a string, so replace these with groups before that
+  // script runs. The source anchors stay, for the accessible labels.
+  (function () {
+    var svg = document.querySelector(".overview-roadmap");
+    if (!svg) return;
+    var links = svg.querySelectorAll("a");
+    for (var i = 0; i < links.length; i++) {
+      var link = links[i];
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "rm-jump");
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "link");
+      var href = link.getAttribute("href");
+      if (href) g.setAttribute("data-target", href);
+      var label = link.getAttribute("aria-label");
+      if (label) g.setAttribute("aria-label", label);
+      while (link.firstChild) g.appendChild(link.firstChild);
+      link.parentNode.replaceChild(g, link);
+      (function (node, id) {
+        function go() {
+          if (!id) return;
+          if (location.hash === id) {
+            var target = document.querySelector(id);
+            if (target && target.scrollIntoView) target.scrollIntoView();
+          } else {
+            location.hash = id;
+          }
+        }
+        node.addEventListener("click", go);
+        node.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            go();
+          }
+        });
+      })(g, href);
+    }
+  })();
+  </script>
 </div>
 ```
 

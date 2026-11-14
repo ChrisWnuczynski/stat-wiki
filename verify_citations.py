@@ -199,9 +199,47 @@ def verify_one_live(item: tuple[str, dict]) -> list[str]:
     return problems
 
 
+_PANDOC_KEY_RE = re.compile(
+    r"\[(?P<body>@[a-z0-9_]+(?:\s*,\s*[^@\]\n;]+)?(?:\s*;\s*@[a-z0-9_]+(?:\s*,\s*[^@\]\n;]+)?)*)\]"
+)
+_CITE_MARKER_RE = re.compile(r"\{\{cite:([a-z0-9_,\s]+)\}\}")
+
+
+def check_pandoc_citation_keys(root: Path = ROOT, works: dict | None = None) -> list[str]:
+    """Every ``[@key]`` and ``{{cite:key}}`` marker in wiki prose names a work in bibliography.json."""
+    if works is None:
+        works = json.loads(BIB_PATH.read_text(encoding="utf-8")).get("works", {})
+    errors: list[str] = []
+    skip = {"_site", ".git", "node_modules", ".quarto", "_build", "__pycache__"}
+    files = list(root.rglob("*.qmd"))
+    extras = root / "article_extras.py"
+    if extras.is_file():
+        files.append(extras)
+    for path in sorted(files):
+        if any(part in skip for part in path.parts):
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        rel = path.relative_to(root)
+        for match in _PANDOC_KEY_RE.finditer(text):
+            for part in match.group("body").split(";"):
+                key_match = re.match(r"\s*@([a-z0-9_]+)", part)
+                if key_match and key_match.group(1) not in works:
+                    errors.append(f"{rel}: unknown citation [@{key_match.group(1)}]")
+        for match in _CITE_MARKER_RE.finditer(text):
+            for raw in match.group(1).split(","):
+                key = raw.strip()
+                if key and key not in works:
+                    errors.append(f"{rel}: unknown citation {{{{cite:{key}}}}}")
+    return errors
+
+
 def verify_all(bib_path: Path = BIB_PATH, *, offline: bool = False, workers: int = 8) -> list[str]:
     bib = json.loads(bib_path.read_text(encoding="utf-8"))
     errors = validate_schema(bib)
+    errors.extend(check_pandoc_citation_keys(bib_path.parent, bib.get("works", {})))
     if errors or offline:
         return errors
 

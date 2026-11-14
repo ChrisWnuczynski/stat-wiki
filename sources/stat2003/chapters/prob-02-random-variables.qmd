@@ -53,7 +53,7 @@ A density is not a probability. The probability of an infinitesimal interval $(x
 ::: {#def-expectation .definition}
 ## Expectation
 
-If $X$ is discrete with mass function $f$, its expectation is $\E X=\sum_x x\,f(x)$, when the sum converges absolutely. If $X$ is continuous with density $f$, $\E X=\int_{-\infty}^{\infty} x\,f(x)\,\dd x$, when the integral converges absolutely.
+If $X$ is discrete with mass function $f$, its expectation is $\E X=\sum_x x\,f(x)$, when the sum converges absolutely.{{cite:grimmett_stirzaker2020}}{{cite:bernoulli1713}} If $X$ is continuous with density $f$, $\E X=\int_{-\infty}^{\infty} x\,f(x)\,\dd x$, when the integral converges absolutely.{{cite:kolmogorov1933_slln}}
 
 :::
 
@@ -62,9 +62,9 @@ The expectation is a centre of mass: point masses $f(x)$ placed at the positions
 ::: {#thm-expectation-of-a-function .theorem}
 ## Expectation of a function
 
-If $g$ is a real function and $X$ is discrete with mass function $f$, then $\E g(X)=\sum_x g(x)\,f(x)$. If $X$ is continuous with density $f$, then $\E g(X)=\int_{-\infty}^{\infty} g(x)\,f(x)\,\dd x$, whenever the sum or integral converges absolutely.
+If $g$ is a real function and $X$ is discrete with mass function $f$, then $\E g(X)=\sum_x g(x)\,f(x)$.{{cite:grimmett_stirzaker2020}} If $X$ is continuous with density $f$, then $\E g(X)=\int_{-\infty}^{\infty} g(x)\,f(x)\,\dd x$, whenever the sum or integral converges absolutely.{{cite:kolmogorov1933_slln}}
 
-In the discrete case, group the outcomes on which $g$ takes the value $y$. The mass at $y$ is $\sum_{x:g(x)=y}f(x)$, so $\E g(X)=\sum_y y\sum_{x:g(x)=y}f(x)=\sum_x g(x)\,f(x)$.
+In the discrete case, group the outcomes on which $g$ takes the value $y$. The mass at $y$ is $\sum_{x:g(x)=y}f(x)$, so $\E g(X)=\sum_y y\sum_{x:g(x)=y}f(x)=\sum_x g(x)\,f(x)$.{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -79,11 +79,11 @@ No independence is required. Linearity is why a sum of indicators has expectatio
 ::: {#def-variance .definition}
 ## Variance
 
-The variance of $X$ is $\Var(X)=\E(X-\E X)^2$, when that expectation exists. Equivalently, $\Var(X)=\E X^2-(\E X)^2$. The standard deviation is the square root of the variance.
+The variance of $X$ is $\Var(X)=\E(X-\E X)^2$, when that expectation exists.{{cite:casella_berger2002}} Equivalently, $\Var(X)=\E X^2-(\E X)^2$.{{cite:casella_berger2002}} The standard deviation is the square root of the variance.{{cite:fisher1925_smrw}}
 
 :::
 
-Variance measures spread about the expectation. It scales by the square of a constant: $\Var(aX+b)=a^2\Var(X)$. The shift $b$ does not appear, because variance ignores location.
+Variance measures spread about the expectation. It scales by the square of a constant: $\Var(aX+b)=a^2\Var(X)$.{{cite:casella_berger2002}} The shift $b$ does not appear, because variance ignores location.
 
 ## Transforms
 
@@ -320,13 +320,13 @@ Memorylessness is a modelling claim. A component whose lifetime is exponential d
 ::: {#def-normal-distribution .definition}
 ## Normal distribution
 
-$X$ has the normal distribution with mean $\mu$ and variance $\sigma^2>0$, written $X\sim\Normal(\mu,\sigma^2)$, when its density is
+$X$ has the normal distribution with mean $\mu$ and variance $\sigma^2>0$, written $X\sim\Normal(\mu,\sigma^2)$, when its density is {{cite:gauss1809}}{{cite:feller1968}}
 
 $$
 \frac1{\sigma\sqrt{2\pi}}\exp\Bigl\{-\frac{(x-\mu)^2}{2\sigma^2}\Bigr\},\qquad x\in\R.
 $$
 
-The standard normal distribution is $\Normal(0,1)$, with distribution function written $\Phi$.
+The standard normal distribution is $\Normal(0,1)$, with distribution function written $\Phi$.{{cite:laplace1812}}
 
 :::
 

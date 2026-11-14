@@ -37,7 +37,7 @@ $$
 \Pr_\theta(L<\theta<U)=1-\alpha
 $$
 
-for every $\theta$. A one-sided interval leaves one endpoint infinite.
+for every $\theta$.{{cite:neyman1937}}{{cite:casella_berger2002}} A one-sided interval leaves one endpoint infinite.{{cite:casella_berger2002}}
 
 :::
 

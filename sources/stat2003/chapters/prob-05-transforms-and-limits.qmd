@@ -214,19 +214,19 @@ Chebyshev's inequality, used above, is the general bound $\Pr(|X-\E X|\ge \varep
 ::: {#thm-central-limit-theorem .theorem}
 ## Central limit theorem
 
-If the $X_i$ are independent and identically distributed with mean $\mu$ and variance $\sigma^2\in(0,\infty)$, then for every $x$
+If the $X_i$ are independent and identically distributed with mean $\mu$ and variance $\sigma^2\in(0,\infty)$,{{cite:feller1968}} then for every $x$
 
 $$
 \lim_{n\to\infty}\Pr\Bigl(\frac{S_n-n\mu}{\sigma\sqrt{n}}\le x\Bigr)=\Phi(x),
 $$
 
-where $\Phi$ is the standard normal distribution function.
+where $\Phi$ is the standard normal distribution function.{{cite:lindeberg1922}}{{cite:laplace1812}}
 
 :::
 
 The shape of the parent distribution washes out of the centred and scaled sum. What remains is the standard normal distribution. For large $n$, $S_n$ is approximately $\Normal(n\mu, n\sigma^2)$, and the sample average is approximately $\Normal(\mu,\sigma^2/n)$.
 
-A binomial count $X\sim\Bin(n,p)$ is a sum of $n$ Bernoulli trials, so for large $n$
+A binomial count $X\sim\Bin(n,p)$ is a sum of $n$ Bernoulli trials, so for large $n$ {{cite:demoivre1756}}
 
 $$
 \Pr(X\le k)\approx \Phi\Bigl(\frac{k-np}{\sqrt{np(1-p)}}\Bigr).

@@ -6,7 +6,7 @@ The errors below are independent and normal. That joint distribution, and the fa
 
 ## The regression effect
 
-Regression analysis explains a response variable by one or more explanatory variables. The name comes from Francis Galton, who noticed in the 1880s that the children of unusually tall parents are, on the whole, less unusually tall. A father 5% taller than average tends to have a son less than 5% taller than average. Galton called it regression towards mediocrity.
+Regression analysis explains a response variable by one or more explanatory variables. The name comes from Francis Galton, who noticed in the 1880s that the children of unusually tall parents are, on the whole, less unusually tall. A father 5% taller than average tends to have a son less than 5% taller than average. Galton called it regression towards mediocrity.{{cite:galton1886}}
 
 Picture the heights of about a thousand fathers and their adult sons, with the fathers averaging 67 inches and the sons 68 inches. Since sons are one inch taller on average, it is tempting to predict a son's height as his father's plus one inch, the line $y=x+1$. Look at the fathers near 63 inches: most of their sons lie above that line. Near 71 inches, most lie below it. The line through the middle of each vertical strip has slope less than one. That is the regression effect, and finding that line is the job of least squares.
 
@@ -32,6 +32,8 @@ b_1=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sum_{i=1}^n(x_i-\over
 \qquad
 b_0=\overline y-b_1\overline x.
 $$
+
+{{cite:legendre1805}}{{cite:gauss1809}}{{cite:davison2003}}
 
 :::
 
@@ -128,7 +130,7 @@ Y_i=\beta_0+\beta_1 x_i+\varepsilon_i,
 \varepsilon_i\ \text{independent}\ \Normal(0,\sigma^2),
 $$
 
-with the $x_i$ treated as fixed and not all equal. Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.
+with the $x_i$ treated as fixed and not all equal.{{cite:fisher1925_smrw}} Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.{{cite:gauss1809}}{{cite:davison2003}}
 
 :::
 

@@ -53,7 +53,7 @@ The shape of $C$ follows from $H_1$. For the blood pressures, a mean much larger
 ::: {#def-p-value .definition}
 ## p-value
 
-The $p$-value of an observed statistic $t$ is the probability, under $H_0$, that $T$ is at least as extreme as $t$, in the direction of $H_1$. For a two-sided normal or $t$ statistic it is twice the one-sided tail probability beyond $|t|$.
+The $p$-value of an observed statistic $t$ is the probability, under $H_0$, that $T$ is at least as extreme as $t$, in the direction of $H_1$.{{cite:fisher1925_smrw}}{{cite:lehmann_romano2005}} For a two-sided normal or $t$ statistic it is twice the one-sided tail probability beyond $|t|$.{{cite:casella_berger2002}}
 
 :::
 

@@ -124,7 +124,7 @@ $$
 L(\theta)=\prod_{i=1}^n f(x_i;\theta).
 $$
 
-A maximum likelihood estimate is a value $\widehat\theta$ that maximises $L$. The maximum likelihood estimator is the same formula with the random sample in place of the observed numbers.
+{{cite:fisher1922}} A maximum likelihood estimate is a value $\widehat\theta$ that maximises $L$.{{cite:casella_berger2002}} The maximum likelihood estimator is the same formula with the random sample in place of the observed numbers.{{cite:fisher1925_est}}
 
 :::
 

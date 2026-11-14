@@ -57,11 +57,11 @@ The interquartile range is the difference between the third and first quartiles.
 ::: {#def-sample-variance-and-standard-deviation .definition}
 ## Sample variance and standard deviation
 
-The sample variance is $s^2=\frac1{n-1}\sum_{i=1}^n(x_i-\overline x)^2$, and the sample standard deviation is $s=\sqrt{s^2}$, in the units of the data.
+The sample variance is $s^2=\frac1{n-1}\sum_{i=1}^n(x_i-\overline x)^2$.{{cite:fisher1925_smrw}} The sample standard deviation is $s=\sqrt{s^2}$, in the units of the data.{{cite:student1908}} The divisor $n-1$ makes $s^2$ an unbiased estimator of the population variance; the reason is in [Statistical inference](inf-01-statistical-inference.qmd#prp-moments-of-the-sample-mean-and-variance).{{cite:fisher1925_smrw}}
 
 :::
 
-The divisor $n-1$ makes $s^2$ an unbiased estimator of the population variance; the reason is in [Statistical inference](inf-01-statistical-inference.qmd#prp-moments-of-the-sample-mean-and-variance). The range, largest minus smallest, is the crudest measure of spread, and it can only grow as more data arrive.
+The range, largest minus smallest, is the crudest measure of spread, and it can only grow as more data arrive.
 
 ::: {#exm-the-ages-of-299-patients .example}
 ## The ages of 299 patients
