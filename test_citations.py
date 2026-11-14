@@ -322,8 +322,11 @@ class InlineCitationTests(unittest.TestCase):
         keys = ("wald1950", "lehmann_casella1998", "gelman_bda2013")
         linker = citations.PageCitationLinker(keys, self.works)
         out = linker.process_text(text)
-        self.assertIn("Lehmann and Casella (1998)", out)
-        self.assertIn("Gelman et al. (2013)", out)
+        visible = re.sub(r'\stitle="[^"]*"', "", out)
+        self.assertNotIn("Lehmann and Casella (1998)", visible)
+        self.assertNotIn("Gelman et al. (2013)", visible)
+        self.assertIn("discuss the same summaries.", visible)
+        self.assertIn("returns to.", visible)
         self.assertNotIn("{{cite:", out)
         self.assertIn('data-cite-key="lehmann_casella1998"', out)
         self.assertLess(out.index('id="cite_ref-1"'), out.index('id="cite_ref-2"'))
@@ -355,7 +358,8 @@ class InlineCitationTests(unittest.TestCase):
     def test_named_attribution_is_not_deleted(self) -> None:
         linker = citations.PageCitationLinker(("bliss1935",), self.works)
         out = linker.process_text("Bliss (1935) introduced the link.")
-        self.assertIn("Bliss (1935)<sup", out)
+        visible = re.sub(r'\stitle="[^"]*"', "", out)
+        self.assertNotIn("Bliss (1935)", visible)
         self.assertIn("introduced the link.", out)
         self.assertIn('data-cite-key="bliss1935"', out)
 
@@ -428,9 +432,11 @@ class InlineCitationTests(unittest.TestCase):
         linked = citations.PageCitationLinker(
             citations.ARTICLE_REFS["variable-importance"], self.works
         ).process_text(importance)
-        self.assertIn("(Breiman, 2001)<sup", linked)
+        visible = re.sub(r'\stitle="[^"]*"', "", linked)
+        self.assertNotIn("(Breiman, 2001)", visible)
+        self.assertIn('data-cite-key="breiman2001_rf"', linked)
         self.assertIn('data-cite-key="strobl2007"', linked)
-        self.assertIn("(Strobl, Boulesteix, Zeileis, and Hothorn, 2007)<sup", linked)
+        self.assertNotIn("(Strobl, Boulesteix, Zeileis, and Hothorn, 2007)", visible)
 
     def test_graph_text_drops_citation_markup(self) -> None:
         raw = (

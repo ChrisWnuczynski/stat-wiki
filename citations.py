@@ -2409,10 +2409,8 @@ class PageCitationLinker:
         for m in _NARRATIVE_CITE_RE.finditer(seg):
             if overlaps(m.start(), m.end()):
                 continue
-            # If immediately followed by an explicit {{cite:...}}, let the explicit marker handle it cleanly
+            # A following {{cite:...}} is the number. Drop the author-year so it is not printed beside it.
             after = seg[m.end() :]
-            if after.startswith("{{cite:"):
-                continue
             surnames, is_et_al = parse_inline_authors(m.group("authors"))
             if not surnames or surnames[0].split()[-1] in _STOP_SURNAMES:
                 continue
@@ -2422,16 +2420,18 @@ class PageCitationLinker:
                 mk = match_work_key(surnames, is_et_al, y, self.page_keys, self.works)
                 if mk:
                     matched_keys.append(mk)
-            if matched_keys:
-                events.append((m.start(), m.end(), "append", matched_keys))
+            if not matched_keys:
+                continue
+            if after.startswith("{{cite:"):
+                events.append((m.start(), m.end(), "drop", []))
+            else:
+                events.append((m.start(), m.end(), "replace", matched_keys))
 
         # Parenthetical (Author, Year; Author, Year)
         for pb in _PAREN_BLOCK_RE.finditer(seg):
             if overlaps(pb.start(), pb.end()):
                 continue
             after = seg[pb.end() :]
-            if after.startswith("{{cite:"):
-                continue
             inner = pb.group(1)
             clauses = inner.split(";")
             matched_keys = []
@@ -2451,7 +2451,10 @@ class PageCitationLinker:
                     if mk:
                         matched_keys.append(mk)
             if all_clauses_valid and matched_keys:
-                events.append((pb.start(), pb.end(), "append", matched_keys))
+                if after.startswith("{{cite:"):
+                    events.append((pb.start(), pb.end(), "drop", []))
+                else:
+                    events.append((pb.start(), pb.end(), "replace", matched_keys))
 
         if not events:
             return seg
@@ -2463,20 +2466,21 @@ class PageCitationLinker:
             if start < pos:
                 continue
             out.append(seg[pos:start])
+            if mode == "drop":
+                pos = end
+                continue
             sups = self.cite_sups(keys)
-            if mode == "explicit":
-                # "...usefulness{{cite:key}}." renders as usefulness.[n]. A marker restored
-                # from a named attribution, "Bliss (1935){{cite:key}}.", keeps the number
-                # before the punctuation: Bliss (1935)[n].
-                punct = _AFTER_CITE_PUNCT_RE.match(seg[end:])
-                preceded_by_paren = start > 0 and seg[start - 1] == ")"
-                if punct and not preceded_by_paren:
-                    out.append(punct.group(0) + sups)
-                    end += punct.end()
-                else:
-                    out.append(sups)
+            # The author-year words are not printed beside the number. Punctuation stays
+            # before the superscript: "the claim.{{cite:key}}" and "(Author, 1998)." both
+            # render as "the claim.[n]".
+            punct = _AFTER_CITE_PUNCT_RE.match(seg[end:])
+            if mode == "replace" and punct and out and out[-1].endswith(" "):
+                out[-1] = out[-1][:-1]
+            if punct:
+                out.append(punct.group(0) + sups)
+                end += punct.end()
             else:
-                out.append(seg[start:end] + sups)
+                out.append(sups)
             pos = end
         out.append(seg[pos:])
         return "".join(out)
