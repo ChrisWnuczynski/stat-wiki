@@ -3,6 +3,8 @@
 These articles do not yet have three inline citations. A further marker would name a work that does not state the claim on the page.
 
 - adjusted-r-squared | The copied box is the adjusted R-squared formula. Wherry (1931) and Davison (2003) state it. The other sources on that chapter do not.
+- interquartile-range | Tukey (1977) and Wasserman (2004) support the quartile-difference definition. The remaining article material is a worked example, so an additional citation would repeat those sources without a new claim.
+- randomised-controlled-trial | Fisher (1935) supports random assignment and the Medical Research Council (1948) supplies the historical controlled-trial example. The rest of the page is an illustrative experiment rather than a separately sourced claim.
 - birth-weight-data | The prose outside the solution names the birth-weight series stated by Venables and Ripley (2002) and Hosmer and Lemeshow (2000). The rest is a solution writeup.
 - birthday-problem | Only von Mises (1939) and Feller (1968) state the shared-birthday probability among the works that belong on this article.
 - blinding-and-placebo | The box defines blinding and a placebo. Fisher (1935) and Hill (1948) state randomisation and a controlled comparison, not this definition.
