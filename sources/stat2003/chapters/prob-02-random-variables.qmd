@@ -53,18 +53,18 @@ A density is not a probability. The probability of an infinitesimal interval $(x
 ::: {#def-expectation .definition}
 ## Expectation
 
-If $X$ is discrete with mass function $f$, its expectation is $\E X=\sum_x x\,f(x)$, when the sum converges absolutely.{{cite:grimmett_stirzaker2020}}{{cite:bernoulli1713}} If $X$ is continuous with density $f$, $\E X=\int_{-\infty}^{\infty} x\,f(x)\,\dd x$, when the integral converges absolutely.{{cite:kolmogorov1933_slln}}
+If $X$ is discrete with mass function $f$, its expectation is $\E X=\sum_x x\,f(x)$, when the sum converges absolutely.{{cite:grinstead_snell1997}} (Ch. 6, §6.1) If $X$ is continuous with density $f$, $\E X=\int_{-\infty}^{\infty} x\,f(x)\,\dd x$, when the integral converges absolutely.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
 :::
 
-The expectation is a centre of mass: point masses $f(x)$ placed at the positions $x$ balance at $\E X$. A symmetric mass function therefore has expectation at the centre of symmetry, when the expectation exists. The expectation need not be a value that $X$ can take. A fair die has expectation $7/2$.
+The expectation is a centre of mass: point masses $f(x)$ placed at the positions $x$ balance at $\E X$. A symmetric mass function therefore has expectation at the centre of symmetry, when the expectation exists. The expectation need not be a value that $X$ can take. A fair die has expectation $7/2$.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
 ::: {#thm-expectation-of-a-function .theorem}
 ## Expectation of a function
 
-If $g$ is a real function and $X$ is discrete with mass function $f$, then $\E g(X)=\sum_x g(x)\,f(x)$.{{cite:grimmett_stirzaker2020}} If $X$ is continuous with density $f$, then $\E g(X)=\int_{-\infty}^{\infty} g(x)\,f(x)\,\dd x$, whenever the sum or integral converges absolutely.{{cite:kolmogorov1933_slln}}
+If $g$ is a real function and $X$ is discrete with mass function $f$, then $\E g(X)=\sum_x g(x)\,f(x)$.{{cite:grinstead_snell1997}} (Ch. 6, §6.1) If $X$ is continuous with density $f$, then $\E g(X)=\int_{-\infty}^{\infty} g(x)\,f(x)\,\dd x$, whenever the sum or integral converges absolutely.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
-In the discrete case, group the outcomes on which $g$ takes the value $y$. The mass at $y$ is $\sum_{x:g(x)=y}f(x)$, so $\E g(X)=\sum_y y\sum_{x:g(x)=y}f(x)=\sum_x g(x)\,f(x)$.{{cite:grimmett_stirzaker2020}}
+In the discrete case, group the outcomes on which $g$ takes the value $y$. The mass at $y$ is $\sum_{x:g(x)=y}f(x)$, so $\E g(X)=\sum_y y\sum_{x:g(x)=y}f(x)=\sum_x g(x)\,f(x)$.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
 :::
 
@@ -74,7 +74,7 @@ $$
 \E(aX+b)=a\,\E X+b, \qquad \E\bigl(g(X)+h(X)\bigr)=\E g(X)+\E h(X).
 $$
 
-No independence is required. Linearity is why a sum of indicators has expectation equal to the sum of the probabilities, even when the indicators are dependent.
+No independence is required. Linearity is why a sum of indicators has expectation equal to the sum of the probabilities, even when the indicators are dependent.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
 ::: {#def-variance .definition}
 ## Variance

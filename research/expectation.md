@@ -20,3 +20,8 @@ Type: Concept/definition.
 - The new collapsed proof covers both copied properties: the function-of-a-variable rule in continuous as well as discrete form, and the unconditional and nested tower properties. It also proves the added linearity and indicator statements. The original discrete grouping proof remains in the body.
 - The cost, die, St Petersburg, double-six, and spike calculations were checked in `checks/expectation.py` using exact rational arithmetic.
 - The source chapter and existing three worked examples, definitions, citations, and question links remain. No figure or substantive text was removed. No new bibliography entry was needed because all three sources have existing keys.
+
+## Correction pass
+
+- Replaced unopened Bernoulli, Grimmett–Stirzaker, and Doob citations in the relevant source definitions with Grinstead–Snell chapter 6 §6.1 and Durrett §4.1.2, both read during this pass. Added locations to researched citations.
+- Cited the motivating and worked examples and their hidden answer, removed a second History paragraph that repeated definitions, and checked values printed in the three inherited examples.
