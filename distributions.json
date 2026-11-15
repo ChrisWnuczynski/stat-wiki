@@ -1,0 +1,1130 @@
+{
+  "bernoulli-distribution": {
+    "name": "Bernoulli",
+    "kind": "discrete",
+    "notation": "$X\\sim\\operatorname{Bernoulli}(p)$",
+    "parameters": "$0\\le p\\le1$",
+    "support": "$x\\in\\{0,1\\}$",
+    "pmf": "$p(x)=p^x(1-p)^{1-x}$",
+    "cdf": "$F(x)=0$ for $x<0$, $1-p$ for $0\\le x<1$, $1$ for $x\\ge1$",
+    "mean": "$p$",
+    "variance": "$p(1-p)$",
+    "mode": "$0$ if $p<1/2$; $1$ if $p>1/2$",
+    "mgf": "$1-p+pe^t$",
+    "pdf": "",
+    "quantile": "",
+    "median": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "binomial-distribution"
+    ],
+    "plot": {
+      "scipy": "bernoulli",
+      "args": [
+        0.35
+      ],
+      "domain": [
+        0,
+        1
+      ]
+    },
+    "description": "a two-outcome distribution for a single success or failure",
+    "symbols": "where p is the probability of success and x records failure or success",
+    "notation_symbols": [
+      {
+        "symbol": "$p$",
+        "meaning": "success probability"
+      },
+      {
+        "symbol": "$X$",
+        "meaning": "binary outcome"
+      }
+    ],
+    "history": ""
+  },
+  "beta-distribution": {
+    "name": "Beta",
+    "kind": "continuous",
+    "notation": "$x\\sim\\operatorname{Beta}(\\alpha,\\beta)$",
+    "parameters": "$\\alpha,\\beta>0$",
+    "support": "$0<x<1$",
+    "pdf": "$p(x)=\\frac{\\Gamma(\\alpha+\\beta)}{\\Gamma(\\alpha)\\Gamma(\\beta)}x^{\\alpha-1}(1-x)^{\\beta-1}$",
+    "mean": "$\\mathbb{E}(x)=\\alpha/(\\alpha+\\beta)$",
+    "variance": "$\\operatorname{Var}(x)=\\alpha\\beta/((\\alpha+\\beta)^{2}(\\alpha+\\beta+1))$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "beta",
+      "args": [
+        2,
+        5
+      ],
+      "domain": [
+        0,
+        1
+      ]
+    },
+    "description": "a continuous distribution for a probability between zero and one",
+    "symbols": "where α and β are positive shape parameters, Γ is the gamma function, and x is between zero and one",
+    "notation_symbols": [
+      {
+        "symbol": "$\\alpha$",
+        "meaning": "first shape parameter"
+      },
+      {
+        "symbol": "$\\beta$",
+        "meaning": "second shape parameter"
+      }
+    ],
+    "history": ""
+  },
+  "binomial-distribution": {
+    "name": "Binomial",
+    "kind": "discrete",
+    "notation": "$x\\sim\\operatorname{Bin}(n,p)$",
+    "parameters": "$n\\in\\mathbb{Z}^{+}$, $p\\in[0,1]$",
+    "support": "$x=0,1,\\ldots,n$",
+    "pmf": "$p(x)=\\binom{n}{x}p^{x}(1-p)^{n-x}$",
+    "mean": "$\\mathbb{E}(x)=np$",
+    "variance": "$\\operatorname{Var}(x)=np(1-p)$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "normal-distribution"
+    ],
+    "plot": {
+      "scipy": "binom",
+      "args": [
+        12,
+        0.4
+      ],
+      "domain": [
+        0,
+        12
+      ]
+    },
+    "description": "a count distribution for successes in a fixed number of independent trials",
+    "symbols": "where n is the number of trials, p is the success probability, and x is the number of successes",
+    "notation_symbols": [
+      {
+        "symbol": "$n$",
+        "meaning": "number of independent trials"
+      },
+      {
+        "symbol": "$x$",
+        "meaning": "number of successes"
+      }
+    ],
+    "history": ""
+  },
+  "cauchy-distribution": {
+    "name": "Cauchy",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{Cauchy}(x_0,\\gamma)$",
+    "parameters": "$x_0\\in\\mathbb{R}$, $\\gamma>0$",
+    "support": "$x\\in\\mathbb{R}$",
+    "pdf": "$f(x)=\\gamma/[\\pi((x-x_0)^2+\\gamma^2)]$",
+    "cdf": "$F(x)=1/2+\\arctan((x-x_0)/\\gamma)/\\pi$",
+    "quantile": "$Q(p)=x_0+\\gamma\\tan(\\pi(p-1/2))$",
+    "mean": "undefined",
+    "variance": "undefined",
+    "median": "$x_0$",
+    "mode": "$x_0$",
+    "pmf": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "cauchy",
+      "args": [],
+      "domain": [
+        -6,
+        6
+      ]
+    },
+    "description": "a heavy-tailed distribution on the real line whose mean does not exist",
+    "symbols": "where x₀ is the location, γ is the positive scale, and x is the observed value",
+    "notation_symbols": [
+      {
+        "symbol": "$x_0$",
+        "meaning": "location parameter"
+      },
+      {
+        "symbol": "$\\gamma$",
+        "meaning": "scale parameter"
+      }
+    ],
+    "history": ""
+  },
+  "chi-squared-distribution": {
+    "name": "Chi-squared",
+    "kind": "continuous",
+    "notation": "$X\\sim\\chi^2_\\nu$",
+    "parameters": "$\\nu>0$ degrees of freedom",
+    "support": "$x>0$",
+    "pdf": "$f(x)=x^{\\nu/2-1}e^{-x/2}/(2^{\\nu/2}\\Gamma(\\nu/2))$",
+    "mean": "$\\nu$",
+    "variance": "$2\\nu$",
+    "mgf": "$(1-2t)^{-\\nu/2}$ for $t<1/2$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "f-distribution",
+      "wishart-distribution"
+    ],
+    "plot": {
+      "scipy": "chi2",
+      "args": [
+        4
+      ],
+      "domain": [
+        0,
+        16
+      ]
+    },
+    "description": "a distribution for sums of squares of independent standard normal variables",
+    "symbols": "where ν is the degrees of freedom, Γ is the gamma function, and x is positive",
+    "notation_symbols": [
+      {
+        "symbol": "$\\nu$",
+        "meaning": "degrees of freedom"
+      }
+    ],
+    "history": ""
+  },
+  "conway-maxwell-poisson-distribution": {
+    "name": "Conway–Maxwell–Poisson",
+    "kind": "discrete",
+    "notation": "$X\\sim\\operatorname{CMP}(\\lambda,\\nu)$",
+    "parameters": "$\\lambda>0$, $\\nu\\ge0$; $\\lambda<1$ when $\\nu=0$",
+    "support": "$x=0,1,2,\\ldots$",
+    "pmf": "$p(x)=\\lambda^x/[(x!)^\\nu Z(\\lambda,\\nu)]$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "mean": "",
+    "median": "",
+    "mode": "",
+    "variance": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "compoisson",
+      "args": [
+        2,
+        1.5
+      ],
+      "domain": [
+        0,
+        12
+      ],
+      "note": "Plot uses λ=2 and ν=1.5."
+    },
+    "description": "a flexible count distribution that can model underdispersion or overdispersion",
+    "symbols": "where λ is the rate parameter, ν controls dispersion, Z is the normalising constant, and x is a count",
+    "notation_symbols": [
+      {
+        "symbol": "$Z(\\lambda,\\nu)$",
+        "meaning": "normalising constant"
+      }
+    ],
+    "history": "Conway and Maxwell introduced this count model in a 1962 study of queues with state-dependent service rates.{{cite:conway_maxwell1962}}"
+  },
+  "dirichlet-distribution": {
+    "name": "Dirichlet",
+    "kind": "continuous",
+    "notation": "$x\\sim\\operatorname{Dirichlet}(\\alpha)$",
+    "parameters": "$\\alpha\\in\\mathbb{R}_{+}^{K}$, $\\alpha_0=\\sum_{k=1}^{K}\\alpha_k$",
+    "support": "$x_k>0$, $\\sum_{k=1}^{K}x_k=1$",
+    "pdf": "$p(x)=\\frac{\\Gamma(\\alpha_0)}{\\prod_{k=1}^{K}\\Gamma(\\alpha_k)}\\prod_{k=1}^{K}x_k^{\\alpha_k-1}$",
+    "mean": "$\\mathbb{E}(x)=\\alpha/\\alpha_0$",
+    "variance": "$\\operatorname{Var}(x_k)=\\alpha_k(\\alpha_0-\\alpha_k)/(\\alpha_0^{2}(\\alpha_0+1))$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "beta",
+      "args": [
+        2,
+        3
+      ],
+      "domain": [
+        0,
+        1
+      ],
+      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+    },
+    "description": "a multivariate distribution for a vector of category probabilities",
+    "symbols": "where α is the vector of positive concentration parameters and x is a vector of category probabilities",
+    "notation_symbols": [
+      {
+        "symbol": "$\\boldsymbol\\alpha$",
+        "meaning": "concentration vector"
+      }
+    ],
+    "history": ""
+  },
+  "exponential-distribution": {
+    "name": "Exponential",
+    "kind": "continuous",
+    "notation": "$x\\sim\\operatorname{Exp}(\\lambda)$",
+    "parameters": "$\\lambda>0$",
+    "support": "$x>0$",
+    "pdf": "$p(x)=\\lambda e^{-\\lambda x}$",
+    "mean": "$\\mathbb{E}(x)=1/\\lambda$",
+    "variance": "$\\operatorname{Var}(x)=1/\\lambda^{2}$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "gamma-distribution"
+    ],
+    "plot": {
+      "scipy": "expon",
+      "args": [],
+      "domain": [
+        0,
+        5
+      ]
+    },
+    "description": "a continuous distribution for the waiting time to the next event in a Poisson process",
+    "symbols": "where λ is the positive event rate and x is a waiting time",
+    "notation_symbols": [
+      {
+        "symbol": "$\\lambda$",
+        "meaning": "event rate"
+      }
+    ],
+    "history": ""
+  },
+  "f-distribution": {
+    "name": "F",
+    "kind": "continuous",
+    "notation": "$X\\sim F_{d_1,d_2}$",
+    "parameters": "$d_1,d_2>0$ degrees of freedom",
+    "support": "$x>0$",
+    "pdf": "$f(x)=\\frac{(d_1/d_2)^{d_1/2}x^{d_1/2-1}}{B(d_1/2,d_2/2)(1+d_1x/d_2)^{(d_1+d_2)/2}}$",
+    "mean": "$d_2/(d_2-2)$ for $d_2>2$",
+    "variance": "$2d_2^2(d_1+d_2-2)/(d_1(d_2-2)^2(d_2-4))$ for $d_2>4$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "f",
+      "args": [
+        5,
+        10
+      ],
+      "domain": [
+        0,
+        5
+      ]
+    },
+    "description": "a distribution for ratios of independent scaled chi-squared variables",
+    "symbols": "where d₁ and d₂ are numerator and denominator degrees of freedom, B is the beta function, and x is positive",
+    "notation_symbols": [
+      {
+        "symbol": "$d_1$",
+        "meaning": "numerator degrees of freedom"
+      },
+      {
+        "symbol": "$d_2$",
+        "meaning": "denominator degrees of freedom"
+      }
+    ],
+    "history": ""
+  },
+  "gamma-distribution": {
+    "name": "Gamma",
+    "kind": "continuous",
+    "notation": "$x\\sim\\operatorname{Gamma}(\\alpha,\\beta)$",
+    "parameters": "$\\alpha,\\beta>0$, shape--rate",
+    "support": "$x>0$",
+    "pdf": "$p(x)=\\frac{\\beta^{\\alpha}}{\\Gamma(\\alpha)}x^{\\alpha-1}e^{-\\beta x}$",
+    "mean": "$\\mathbb{E}(x)=\\alpha/\\beta$",
+    "variance": "$\\operatorname{Var}(x)=\\alpha/\\beta^{2}$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "chi-squared-distribution",
+      "weibull-distribution"
+    ],
+    "plot": {
+      "scipy": "gamma",
+      "args": [
+        2
+      ],
+      "domain": [
+        0,
+        9
+      ]
+    },
+    "description": "a continuous distribution for positive quantities such as waiting times",
+    "symbols": "where α is the shape, β is the rate, Γ is the gamma function, and x is positive",
+    "notation_symbols": [
+      {
+        "symbol": "$\\beta$",
+        "meaning": "rate parameter"
+      }
+    ],
+    "history": ""
+  },
+  "geometric-distribution": {
+    "name": "Geometric",
+    "kind": "discrete",
+    "notation": "$x\\sim\\operatorname{Geom}(p)$",
+    "parameters": "$p\\in(0,1]$",
+    "support": "$x=1,2,3,\\ldots$",
+    "pmf": "$p(x)=p(1-p)^{x-1}$",
+    "mean": "$\\mathbb{E}(x)=1/p$",
+    "variance": "$\\operatorname{Var}(x)=(1-p)/p^{2}$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "geom",
+      "args": [
+        0.35
+      ],
+      "domain": [
+        1,
+        14
+      ]
+    },
+    "description": "a count distribution for the number of trials until the first success",
+    "symbols": "where p is the probability of success and x is the trial on which the first success occurs",
+    "notation_symbols": [
+      {
+        "symbol": "$p$",
+        "meaning": "success probability per trial"
+      }
+    ],
+    "history": ""
+  },
+  "hypergeometric-distribution": {
+    "name": "Hypergeometric",
+    "kind": "discrete",
+    "notation": "hypergeometric count of marked items",
+    "parameters": "population $N$, marked items $r$, draw $n$, with $p=r/N$",
+    "support": "$\\max(0,\\,n-(N-r))\\le x\\le\\min(n,r)$",
+    "pmf": "$p(x)=\\binom{r}{x}\\binom{N-r}{n-x}/\\binom{N}{n}$",
+    "mean": "$\\mathbb{E}(x)=np$",
+    "variance": "$\\operatorname{Var}(x)=np(1-p)(N-n)/(N-1)$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "hypergeom",
+      "args": [
+        30,
+        12,
+        8
+      ],
+      "domain": [
+        0,
+        8
+      ]
+    },
+    "description": "a count distribution for successes in draws without replacement",
+    "symbols": "where N is the population size, r is the number of successes in it, n is the sample size, and x is the number drawn",
+    "notation_symbols": [
+      {
+        "symbol": "$N$",
+        "meaning": "population size"
+      },
+      {
+        "symbol": "$r$",
+        "meaning": "marked population items"
+      }
+    ],
+    "history": ""
+  },
+  "inverse-gamma-distribution": {
+    "name": "Inverse gamma",
+    "kind": "continuous",
+    "notation": "$x\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$",
+    "parameters": "$\\alpha,\\beta>0$",
+    "support": "$x>0$",
+    "pdf": "$p(x)=\\frac{\\beta^{\\alpha}}{\\Gamma(\\alpha)}x^{-\\alpha-1}e^{-\\beta/x}$",
+    "mean": "$\\mathbb{E}(x)=\\beta/(\\alpha-1)$ for $\\alpha>1$",
+    "variance": "$\\operatorname{Var}(x)=\\beta^{2}/((\\alpha-1)^{2}(\\alpha-2))$ for $\\alpha>2$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "invgamma",
+      "args": [
+        4
+      ],
+      "domain": [
+        0,
+        4
+      ]
+    },
+    "description": "a continuous distribution for positive scales and variances",
+    "symbols": "where α is the shape, β is the rate, Γ is the gamma function, and x is positive",
+    "notation_symbols": [
+      {
+        "symbol": "$\\alpha$",
+        "meaning": "shape parameter"
+      }
+    ],
+    "history": ""
+  },
+  "inverse-gaussian-distribution": {
+    "name": "Inverse Gaussian",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{IG}(\\mu,\\lambda)$",
+    "parameters": "$\\mu,\\lambda>0$",
+    "support": "$x>0$",
+    "pdf": "$f(x)=\\sqrt{\\lambda/(2\\pi x^3)}\\exp[-\\lambda(x-\\mu)^2/(2\\mu^2x)]$",
+    "mean": "$\\mu$",
+    "variance": "$\\mu^3/\\lambda$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "invgauss",
+      "args": [
+        1
+      ],
+      "domain": [
+        0,
+        5
+      ]
+    },
+    "description": "a continuous distribution for positive, right-skewed measurements",
+    "symbols": "where μ is the mean, λ is the shape, and x is a positive value",
+    "notation_symbols": [
+      {
+        "symbol": "$\\mu$",
+        "meaning": "mean"
+      },
+      {
+        "symbol": "$\\lambda$",
+        "meaning": "shape parameter"
+      }
+    ],
+    "history": ""
+  },
+  "lognormal-distribution": {
+    "name": "Lognormal",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{Lognormal}(\\mu,\\sigma^2)$",
+    "parameters": "$\\mu\\in\\mathbb{R}$, $\\sigma>0$",
+    "support": "$x>0$",
+    "pdf": "$f(x)=\\exp[-(\\log x-\\mu)^2/(2\\sigma^2)]/(x\\sigma\\sqrt{2\\pi})$",
+    "cdf": "$F(x)=\\Phi((\\log x-\\mu)/\\sigma)$",
+    "mean": "$e^{\\mu+\\sigma^2/2}$",
+    "variance": "$(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$",
+    "median": "$e^\\mu$",
+    "mode": "$e^{\\mu-\\sigma^2}$",
+    "pmf": "",
+    "quantile": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "lognorm",
+      "args": [
+        0.6
+      ],
+      "domain": [
+        0,
+        5
+      ]
+    },
+    "description": "a positive distribution obtained by exponentiating a normal random variable",
+    "symbols": "where μ and σ are the mean and standard deviation of the underlying normal variable and x is positive",
+    "notation_symbols": [
+      {
+        "symbol": "$\\mu$",
+        "meaning": "mean on the log scale"
+      },
+      {
+        "symbol": "$\\sigma$",
+        "meaning": "standard deviation on the log scale"
+      }
+    ],
+    "history": ""
+  },
+  "multinomial-distribution": {
+    "name": "Multinomial",
+    "kind": "discrete",
+    "notation": "$x\\sim\\operatorname{Mult}(n,p)$",
+    "parameters": "$n\\in\\mathbb{Z}^{+}$, $p\\in[0,1]^{K}$ with $\\sum_{k=1}^{K}p_k=1$",
+    "support": "$x_k\\in\\{0,1,\\ldots,n\\}$, $\\sum_k x_k=n$",
+    "pmf": "$p(x)=\\frac{n!}{x_1!\\cdots x_K!}p_1^{x_1}\\cdots p_K^{x_K}$",
+    "mean": "$\\mathbb{E}(x)=np$",
+    "variance": "$\\operatorname{Var}(x_k)=np_k(1-p_k)$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "binom",
+      "args": [
+        10,
+        0.3
+      ],
+      "domain": [
+        0,
+        10
+      ],
+      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+    },
+    "description": "a distribution for counts across several categories in a fixed number of trials",
+    "symbols": "where n is the number of trials, p is the vector of category probabilities, and x is the vector of counts",
+    "notation_symbols": [
+      {
+        "symbol": "$\\boldsymbol p$",
+        "meaning": "vector of category probabilities"
+      }
+    ],
+    "history": ""
+  },
+  "multivariate-normal-distribution": {
+    "name": "Multivariate normal",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{N}_p(\\boldsymbol\\mu,\\Sigma)$",
+    "parameters": "$\\boldsymbol\\mu\\in\\mathbb{R}^p$, $\\Sigma$ positive definite",
+    "support": "$x\\in\\mathbb{R}^p$",
+    "pdf": "$f(x)=\\exp[-(x-\\boldsymbol\\mu)^\\top\\Sigma^{-1}(x-\\boldsymbol\\mu)/2]/[(2\\pi)^{p/2}\\\\lvert\\\\Sigma\\\\rvert^{1/2}]$",
+    "mean": "$\\boldsymbol\\mu$",
+    "variance": "$\\Sigma$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "norm",
+      "args": [],
+      "domain": [
+        -4,
+        4
+      ],
+      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+    },
+    "description": "a joint distribution for a vector of normally distributed measurements",
+    "symbols": "where μ is the mean vector, Σ is the covariance matrix, and x is an observation vector",
+    "notation_symbols": [
+      {
+        "symbol": "$\\boldsymbol\\mu$",
+        "meaning": "mean vector"
+      },
+      {
+        "symbol": "$\\Sigma$",
+        "meaning": "covariance matrix"
+      }
+    ],
+    "history": ""
+  },
+  "negative-binomial-distribution": {
+    "name": "Negative binomial",
+    "kind": "discrete",
+    "notation": "$X\\sim\\operatorname{NegBin}(\\mu,\\nu)$",
+    "parameters": "$\\mu,\\nu>0$ (mean, dispersion)",
+    "support": "$x=0,1,2,\\ldots$",
+    "pmf": "$p(x)=\\frac{\\Gamma(x+\\nu)}{\\Gamma(\\nu)x!}(\\frac{\\nu}{\\mu+\\nu})^\\nu(\\frac{\\mu}{\\mu+\\nu})^x$",
+    "mean": "$\\mu$",
+    "variance": "$\\mu+\\mu^2/\\nu$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "nbinom",
+      "args": [
+        3,
+        0.5
+      ],
+      "domain": [
+        0,
+        16
+      ]
+    },
+    "description": "a count distribution that allows variance greater than its mean",
+    "symbols": "where μ is the mean count, ν is the dispersion parameter, Γ is the gamma function, and x is a count",
+    "notation_symbols": [
+      {
+        "symbol": "$\\nu$",
+        "meaning": "dispersion parameter"
+      }
+    ],
+    "history": ""
+  },
+  "normal-distribution": {
+    "name": "Normal",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{N}(\\mu,\\sigma^{2})$",
+    "parameters": "$\\mu\\in\\mathbb{R}$, $\\sigma>0$",
+    "support": "$x\\in\\mathbb{R}$",
+    "pdf": "$p(x)=\\frac{1}{\\sqrt{2\\pi}\\,\\sigma}\\exp\\Bigl(-\\frac{(x-\\mu)^{2}}{2\\sigma^{2}}\\Bigr)$",
+    "mean": "$\\mathbb{E}(X)=\\mu$",
+    "variance": "$\\operatorname{Var}(X)=\\sigma^{2}$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "multivariate-normal-distribution",
+      "lognormal-distribution",
+      "student-t-distribution"
+    ],
+    "plot": {
+      "scipy": "norm",
+      "args": [],
+      "domain": [
+        -4,
+        4
+      ]
+    },
+    "description": "a symmetric bell-shaped distribution for measurements on the real line",
+    "symbols": "where μ is the mean, σ is the positive standard deviation, and x is an observed value",
+    "notation_symbols": [
+      {
+        "symbol": "$\\mu$",
+        "meaning": "mean"
+      },
+      {
+        "symbol": "$\\sigma$",
+        "meaning": "standard deviation"
+      }
+    ],
+    "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies.{{cite:gauss1809}}"
+  },
+  "pareto-distribution": {
+    "name": "Pareto",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{Pareto}(x_m,\\alpha)$",
+    "parameters": "$x_m,\\alpha>0$",
+    "support": "$x\\ge x_m$",
+    "pdf": "$f(x)=\\alpha x_m^\\alpha/x^{\\alpha+1}$",
+    "cdf": "$F(x)=1-(x_m/x)^\\alpha$ for $x\\ge x_m$",
+    "quantile": "$Q(p)=x_m(1-p)^{-1/\\alpha}$",
+    "mean": "$\\alpha x_m/(\\alpha-1)$ for $\\alpha>1$",
+    "variance": "$\\alpha x_m^2/[(\\alpha-1)^2(\\alpha-2)]$ for $\\alpha>2$",
+    "median": "$x_m2^{1/\\alpha}$",
+    "mode": "$x_m$",
+    "pmf": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "pareto",
+      "args": [
+        3
+      ],
+      "domain": [
+        1,
+        4
+      ]
+    },
+    "description": "a heavy-tailed distribution for positive quantities above a threshold",
+    "symbols": "where xₘ is the minimum, α is the positive tail parameter, and x is an observed value",
+    "notation_symbols": [
+      {
+        "symbol": "$x_m$",
+        "meaning": "minimum possible value"
+      },
+      {
+        "symbol": "$\\alpha$",
+        "meaning": "tail parameter"
+      }
+    ],
+    "history": "Pareto described the heavy-tailed pattern of economic quantities in his 1909 manual.{{cite:pareto1909}}"
+  },
+  "poisson-distribution": {
+    "name": "Poisson",
+    "kind": "discrete",
+    "notation": "$x\\sim\\operatorname{Poisson}(\\theta)$",
+    "parameters": "$\\theta>0$",
+    "support": "$x=0,1,2,\\ldots$",
+    "pmf": "$p(x)=e^{-\\theta}\\theta^{x}/x!$",
+    "mean": "$\\mathbb{E}(x)=\\theta$",
+    "variance": "$\\operatorname{Var}(x)=\\theta$",
+    "pdf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [
+      "negative-binomial-distribution"
+    ],
+    "plot": {
+      "scipy": "poisson",
+      "args": [
+        3
+      ],
+      "domain": [
+        0,
+        12
+      ]
+    },
+    "description": "a count distribution for events occurring at a constant average rate",
+    "symbols": "where θ is the mean count and x is a nonnegative count",
+    "notation_symbols": [
+      {
+        "symbol": "$\\theta$",
+        "meaning": "mean event count"
+      }
+    ],
+    "history": "Poisson discussed this count law in his 1837 treatise on probability.{{cite:poisson1837}}"
+  },
+  "student-t-distribution": {
+    "name": "Student t",
+    "kind": "continuous",
+    "notation": "$T\\sim t_\\nu$",
+    "parameters": "$\\nu>0$ degrees of freedom",
+    "support": "$t\\in\\mathbb{R}$",
+    "pdf": "$f(t)=\\frac{\\Gamma((\\nu+1)/2)}{\\sqrt{\\nu\\pi}\\,\\Gamma(\\nu/2)}(1+t^2/\\nu)^{-(\\nu+1)/2}$",
+    "mean": "$0$ for $\\nu>1$",
+    "variance": "$\\nu/(\\nu-2)$ for $\\nu>2$",
+    "median": "$0$",
+    "mode": "$0$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "t",
+      "args": [
+        5
+      ],
+      "domain": [
+        -5,
+        5
+      ]
+    },
+    "description": "a symmetric heavy-tailed distribution used when a normal mean is standardised by an estimated scale",
+    "symbols": "where ν is the degrees of freedom, Γ is the gamma function, and t is a value on the real line",
+    "notation_symbols": [
+      {
+        "symbol": "$\\nu$",
+        "meaning": "degrees of freedom"
+      }
+    ],
+    "history": "The distribution was published in 1908 under the pseudonym Student in a paper on the probable error of a mean.{{cite:student1908}}"
+  },
+  "uniform-distribution": {
+    "name": "Uniform",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{U}[a,b]$",
+    "parameters": "$a<b$",
+    "support": "$a\\le x\\le b$",
+    "pdf": "$p(x)=1/(b-a)$",
+    "mean": "$\\mathbb{E}(X)=(a+b)/2$",
+    "variance": "$\\operatorname{Var}(X)=(b-a)^{2}/12$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "uniform",
+      "args": [],
+      "domain": [
+        -0.2,
+        1.2
+      ]
+    },
+    "description": "a distribution that assigns equal density throughout an interval",
+    "symbols": "where a and b are the interval endpoints and x is an observed value",
+    "notation_symbols": [
+      {
+        "symbol": "$a$",
+        "meaning": "lower endpoint"
+      },
+      {
+        "symbol": "$b$",
+        "meaning": "upper endpoint"
+      }
+    ],
+    "history": ""
+  },
+  "weibull-distribution": {
+    "name": "Weibull",
+    "kind": "continuous",
+    "notation": "$X\\sim\\operatorname{Weibull}(k,\\lambda)$",
+    "parameters": "$k,\\lambda>0$ (shape, scale)",
+    "support": "$x\\ge0$",
+    "pdf": "$f(x)=(k/\\lambda)(x/\\lambda)^{k-1}e^{-(x/\\lambda)^k}$",
+    "cdf": "$F(x)=1-e^{-(x/\\lambda)^k}$",
+    "quantile": "$Q(p)=\\lambda[-\\log(1-p)]^{1/k}$",
+    "mean": "$\\lambda\\Gamma(1+1/k)$",
+    "variance": "$\\lambda^2[\\Gamma(1+2/k)-\\Gamma(1+1/k)^2]$",
+    "median": "$\\lambda(\\log2)^{1/k}$",
+    "pmf": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "weibull_min",
+      "args": [
+        2
+      ],
+      "domain": [
+        0,
+        3
+      ]
+    },
+    "description": "a positive distribution often used to model lifetimes and failure times",
+    "symbols": "where k is the shape, λ is the scale, and x is a positive value",
+    "notation_symbols": [
+      {
+        "symbol": "$k$",
+        "meaning": "shape parameter"
+      },
+      {
+        "symbol": "$\\lambda$",
+        "meaning": "scale parameter"
+      }
+    ],
+    "history": "Weibull presented this family as a widely applicable statistical distribution in 1951.{{cite:weibull1951}}"
+  },
+  "wishart-distribution": {
+    "name": "Wishart",
+    "kind": "continuous",
+    "notation": "$W\\sim W_p(\\Sigma,\\nu)$",
+    "parameters": "$\\Sigma$ positive definite, $\\nu\\ge p$",
+    "support": "positive-definite matrices",
+    "pdf": "$f(W)=\\\\lvert W\\\\rvert^{(\\nu-p-1)/2}e^{-\\operatorname{tr}(\\Sigma^{-1}W)/2}/[2^{\\nu p/2}\\\\lvert\\\\Sigma\\\\rvert^{\\nu/2}\\Gamma_p(\\nu/2)]$",
+    "mean": "$\\nu\\Sigma$",
+    "variance": "$\\operatorname{Cov}(W_{ij},W_{kl})=\\nu(\\Sigma_{ik}\\Sigma_{jl}+\\Sigma_{il}\\Sigma_{jk})$",
+    "pmf": "",
+    "cdf": "",
+    "quantile": "",
+    "median": "",
+    "mode": "",
+    "skewness": "",
+    "excess_kurtosis": "",
+    "entropy": "",
+    "mgf": "",
+    "characteristic_function": "",
+    "fisher_information": "",
+    "conjugate_prior": "",
+    "related": [],
+    "plot": {
+      "scipy": "chi2",
+      "args": [
+        5
+      ],
+      "domain": [
+        0,
+        16
+      ],
+      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+    },
+    "description": "a distribution for scatter matrices formed from independent normal vectors",
+    "symbols": "where ν is the degrees of freedom, Σ is the scale matrix, Γₚ is the multivariate gamma function, and W is positive definite",
+    "notation_symbols": [
+      {
+        "symbol": "$W$",
+        "meaning": "random scatter matrix"
+      },
+      {
+        "symbol": "$\\Sigma$",
+        "meaning": "scale matrix"
+      }
+    ],
+    "history": "Wishart described the multivariate product-moment distribution in 1928.{{cite:wishart1928}}"
+  }
+}

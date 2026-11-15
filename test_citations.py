@@ -35,8 +35,10 @@ class CitationTests(unittest.TestCase):
 
     def test_no_raw_citation_markers_in_generated_pages_or_search(self) -> None:
         """A copied glossary snippet must not leak markers into HTML or search."""
-        for folder, patterns in ((ROOT / "reference", ("*.qmd",)),
-                                 (ROOT / "_site", ("*.html", "search.json"))):
+        for folder, patterns in (
+            *((ROOT / name, ("*.qmd",)) for name in ("articles", "notes", "questions", "reference")),
+            (ROOT / "_site", ("*.html", "search.json")),
+        ):
             if not folder.is_dir():
                 continue
             for pattern in patterns:

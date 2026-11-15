@@ -1753,6 +1753,19 @@ PENDING_MERGED_BOXES: list[tuple[str, dict]] = []  # (target slug, box dict)
 MERGED_ARTICLES: dict[str, str] = {}  # retired duplicate article slug -> canonical article slug
 ARTICLE_DIR = WIKI / "articles"
 DIST_SHEET = WIKI / "reference" / "distributions.qmd"
+DISTRIBUTIONS: dict[str, dict[str, str]] = json.loads((WIKI / "distributions.json").read_text(encoding="utf-8"))
+DISTRIBUTION_ROW_LABELS = (
+    ("notation", "Notation"), ("parameters", "Parameters"), ("support", "Support"),
+    ("pmf", "Probability mass function"), ("pdf", "Probability density"),
+    ("cdf", "CDF"), ("quantile", "Quantile"), ("mean", "Mean"),
+    ("median", "Median"), ("mode", "Mode"), ("variance", "Variance"),
+    ("skewness", "Skewness"), ("excess_kurtosis", "Excess kurtosis"),
+    ("entropy", "Entropy"), ("mgf", "MGF"),
+    ("characteristic_function", "Characteristic function"),
+    ("fisher_information", "Fisher information"),
+    ("conjugate_prior", "Conjugate prior"),
+)
+
 BOX_SLUG_OVERRIDES = {
     "def-sl-09-kfold": "fold-cross-validation",
     "def-sl-11-knn": "nearest-neighbours",
@@ -3455,6 +3468,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             box = resolve_links(article_infobox(article, links, by_topic), page["path"])
             page["blocks"].insert(1, (False, "infobox", box))
             page["blocks"] += article_tail(article, links, forward.get(page["path"], []), questions, by_topic)
+            if article["card"]:
+                page["blocks"] = distribution_article_template(article, page["blocks"])
 
     import citations
 
@@ -4042,6 +4057,59 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     return [(False, "used-in", "".join(lines)), (False, "see-also", "".join(see))]
 
 
+def distribution_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
+    """Apply the fixed distribution section order to copied source material."""
+    facts = DISTRIBUTIONS[article["slug"]]
+    path = article["path"]
+    by_label: dict[str, list[str]] = {}
+    for _, label, content in blocks:
+        by_label.setdefault(label, []).append(content)
+
+    def content(*labels: str) -> str:
+        pieces = []
+        for _, label, body in blocks:
+            if label not in labels:
+                continue
+            if label == "excerpt-head":
+                body = re.sub(r"^## In \*.*?\*.*?\n\n", "", body)
+            elif label in {"statement-head", "properties-head", "examples-head", "figures-head", "see-also", "used-in"}:
+                body = re.sub(r"^\s*## [^\n]+\n+", "", body)
+            if label != "example-answer-open":
+                body = re.sub(r"^## (?!#)", "### ", body, flags=re.M)
+            if body.strip():
+                pieces.append(body.strip())
+        return "\n\n".join(pieces)
+
+    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
+           (False, "infobox", "".join(by_label.get("infobox", [])))]
+    out.append((True, "lead", f"In probability theory and statistics, **{facts['name']} distribution** is {facts['description']}.\n\n"))
+    probability = facts["pmf"] or facts["pdf"]
+    if probability:
+        definition = (f"The {'probability mass function' if facts['pmf'] else 'probability density'} "
+                      f"is {probability}, {facts['symbols']}.")
+    else:
+        definition = facts["symbols"].capitalize() + "."
+    copied = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt", "explanation")
+    if copied:
+        definition += "\n\n" + copied
+    sections = (
+        ("Definition", "definition", definition),
+        ("Properties", "properties", content("property-head", "property", "figures-head", "figure")),
+        ("Related distributions", "related-distributions", " · ".join(
+            f"[{DISTRIBUTIONS[s]['name']} distribution]({href(path, ARTICLE_DIR / f'{s}.qmd')})"
+            for s in facts["related"])),
+        ("Statistical inference", "used-in", content("used-in")),
+        ("Generating random samples", "generating-random-samples", ""),
+        ("History", "history", facts["history"]),
+        ("Examples", "examples", content("example-head", "example", "example-answer-open", "example-answer-close")),
+        ("See also", "see-also", content("see-also")),
+    )
+    for title, ident, body in sections:
+        if body.strip():
+            out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+    return out
+
+
 def _html_href(from_qmd: Path, to_qmd: Path, fragment: str = "") -> str:
     rel = href(from_qmd, to_qmd)
     if rel.endswith(".qmd"):
@@ -4253,6 +4321,28 @@ def render_cite_this_page(path: Path, title: str, now: datetime | None = None, w
     )
 
 
+def render_distribution_navbox(article: dict) -> str:
+    """Site-wide family navigation, independent of the chapter navbox."""
+    path = article["path"]
+    links = []
+    for slug_, facts in DISTRIBUTIONS.items():
+        name = html_escape(facts["name"])
+        if slug_ == article["slug"]:
+            links.append(f'<strong class="navbox-current" aria-current="page">{name}</strong>')
+        else:
+            target = ARTICLE_DIR / f"{slug_}.qmd"
+            links.append(f'<a href="{html_escape(_html_href(path, target))}">{name}</a>')
+    sheet = html_escape(_html_href(path, DIST_SHEET))
+    return (
+        "\n\n```{=html}\n"
+        '<nav class="topic-navbox" aria-label="Probability distributions">\n'
+        '<details class="navbox-details">\n'
+        f'<summary class="navbox-header"><span class="navbox-title"><a href="{sheet}">Probability distributions</a> ({len(DISTRIBUTIONS)})</span></summary>\n'
+        f'<div class="navbox-body"><div class="navbox-row navbox-row-single"><div class="navbox-links">{" · ".join(links)}</div></div></div>\n'
+        '</details>\n</nav>\n```\n'
+    )
+
+
 def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Path, dict]) -> None:
     """Attach topic navboxes, category links, and Cite this page disclosures to built pages."""
     now = datetime.now(BRISBANE_TZ)
@@ -4262,6 +4352,8 @@ def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Pa
             article = article_by_path.get(page["path"])
             if article is not None:
                 page["blocks"].append((False, "navbox", render_topic_navbox(article)))
+                if article["card"]:
+                    page["blocks"].append((False, "navbox", render_distribution_navbox(article)))
             page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
         elif kind in {"chapter", "final"}:
             cats = render_chapter_categories(page)
@@ -4290,6 +4382,7 @@ def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = No
         wiki_root / "overview.qmd",
         wiki_root / "reference" / "index.qmd",
         wiki_root / "reference" / "distributions.qmd",
+        wiki_root / "reference" / "notation.qmd",
         wiki_root / "reference" / "glossary.qmd",
         *sorted(p for p in (wiki_root / "labs").glob("*.qmd") if not p.name.startswith("_")),
     ]
@@ -4561,7 +4654,7 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
             )
         )
         blocks.append((True, "example", demote_headings(copy_for_article(q["prepared_body"], q["path"], path)) + "\n\n"))
-        blocks.append((False, "example-answer-open", ":::::::: {.callout-tip collapse=\"true\"}\n## Worked answer\n\n"))
+        blocks.append((False, "example-answer-open", ":::::::: {.callout-tip collapse=\"true\" title=\"Worked answer\"}\n\n"))
         blocks.append((True, "example", demote_headings(copy_for_article(q["prepared_answer"], q["path"], path)) + "\n"))
         blocks.append((False, "example-answer-close", "\n::::::::\n\n"))
 
@@ -4573,12 +4666,12 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
     return blocks
 
 
-def infobox_md(title: str, rows: list[tuple[str, str]], image: str = "", note: str = "") -> str:
+def infobox_md(title: str, rows: list[tuple[str, str]], image: str = "", note: str = "", show_blanks: bool = False) -> str:
     lines = [":::: {.infobox}", "::: {.infobox-title}", title, ":::", ""]
     if image:
         lines += [image, ""]
     lines += ["| | |", "|:--|:--|"]
-    lines += [f"| {label} | {value} |" for label, value in rows if value]
+    lines += [f"| {label} | {value} |" for label, value in rows if value or show_blanks]
     if note:
         lines += ["", f"::: {{.infobox-note}}\n{note}\n:::"]
     lines += ["::::", "", ""]
@@ -4590,45 +4683,9 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
     rows: list[tuple[str, str]] = []
     note = ""
     if card:
-        labels = {
-            "Distribution": "Notation",
-            "Parameters": "Parameters",
-            "Support": "Support",
-            "Probability mass function": "Mass function",
-            "Probability density": "Density",
-            "Expectation": "Mean",
-            "Variance": "Variance",
-        }
-        cells = {}
-        for line in card["body"].split("\n"):
-            parts = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip())[1:-1]] if line.startswith("|") else []
-            if len(parts) == 2 and parts[0] in labels:
-                cells[labels[parts[0]]] = parts[1]
-        for label in ("Notation", "Parameters", "Support", "Mass function", "Density", "Mean"):
-            if label in cells:
-                rows.append((label, cells[label]))
-        mode = re.search(r"mode (\$[^$]+\$(?: (?:for|when) [^$;|]*\$[^$]+\$)?)", KERNEL_ROWS.get(slug_, ""))
-        if mode:
-            rows.append(("Mode", to_greek(mode.group(1)) if slug_ in GREEK_PARAMS else mode.group(1)))
-        if "Variance" in cells:
-            rows.append(("Variance", cells["Variance"]))
-        for row in CONJ_ROWS:
-            if row["pri"] == slug_ and row["lik"] == slug_:
-                # Normal mean with a normal prior: one row, not a link to this page.
-                rows.append(("Conjugate prior for", f"{row['likelihood']} with prior {row['prior']}, giving {row['posterior']}"))
-                continue
-            if row["pri"] == slug_:
-                posterior = to_greek(row["posterior"]) if slug_ in GREEK_PARAMS else row["posterior"]
-                rows.append(("Conjugate prior for", f"{row['likelihood']}, giving {posterior}"))
-            if row["lik"] == slug_ and row["pri"] in ARTICLES:
-                prior = ARTICLES[row["pri"]]
-                rows.append(("Conjugate prior", f"[{prior['term']}]({href(path, prior['path'])}): {row['prior']}, giving {row['posterior']}"))
-        # Sentences on the card outside its table, such as a warning, keep their place.
-        remarks = " ".join(l.strip() for l in card["body"].split("\n") if l.strip() and not l.startswith("|"))
-        sources = f"From the [distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"
-        if mode or any(r["pri"] == slug_ or r["lik"] == slug_ for r in CONJ_ROWS):
-            sources += f"; mode and conjugate pairs from the [formula lookup]({href(path, WIKI / 'reference' / 'formulas.qmd')})"
-        note = (remarks + "\n\n" if remarks else "") + sources + "."
+        facts = DISTRIBUTIONS[slug_]
+        rows.extend((label, facts[field]) for field, label in DISTRIBUTION_ROW_LABELS)
+        note = f"From the [distribution comparison]({href(path, DIST_SHEET)}#{card['anchor']})."
     else:
         rows.append(("Type", box["kind"].capitalize()))
     if box and box["kind"] in TOPIC_KINDS:
@@ -4680,8 +4737,18 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
     if n_questions:
         rows.append(("Question using it" if n_questions == 1 else "Questions using it", f"[{n_questions}](#used-in)"))
     figures = FIGURES.get(slug_, [])
-    image = figure_md(figures[0], path, short=True) if figures else ""
-    return infobox_md(article["term"], rows, image, note)
+    if card:
+        plot_dir = WIKI / "reference" / "plots"
+        image = "\n\n".join(
+            f"![{card['name']} distribution {kind.upper()}]({href(path, plot_dir / f'{slug_}-{kind}.png')})"
+            f'{{fig-alt="{card["name"]} distribution {"probability density or mass" if kind == "pdf" else "cumulative probability"} across its support; the horizontal axis shows values and the vertical axis shows probability"}}'
+            for kind in ("pdf", "cdf")
+        )
+        if DISTRIBUTIONS[slug_]["plot"].get("note"):
+            note = DISTRIBUTIONS[slug_]["plot"]["note"] + " " + note
+    else:
+        image = figure_md(figures[0], path, short=True) if figures else ""
+    return infobox_md(article["term"], rows, image, note, show_blanks=bool(card))
 
 
 def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict], own_articles: list[dict]) -> str:
@@ -5072,6 +5139,7 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
     pages["reference/index.html"] = {"title": "Reference", "kind": "reference", "aliases": []}
     pages["reference/glossary.html"] = {"title": "Glossary and index", "kind": "reference", "aliases": []}
     pages["reference/distributions.html"] = {"title": "Common distributions", "kind": "reference", "aliases": []}
+    pages["reference/notation.html"] = {"title": "Notation", "kind": "reference", "aliases": []}
     pages["reference/formulas.html"] = {"title": "Formula lookup", "kind": "reference", "aliases": []}
     for lab_qmd in sorted((WIKI / "labs").glob("*.qmd")):
         if lab_qmd.name.startswith("_"):
@@ -5567,10 +5635,11 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     write_qmd(
         WIKI / "reference" / "index.qmd",
         "Reference",
-        """Three lookup pages sit beside the chapters.
+        """Four lookup pages sit beside the chapters.
 
 - [Glossary and index](glossary.qmd), every defined term, theorem and section from A to Z.
 - [Common distributions](distributions.qmd), with the parameterisation used on these pages.
+- [Notation](notation.qmd), symbols and their first use in the distribution catalogue.
 - [Formula lookup](formulas.qmd), the kernel table and the problem-solving workflow.
 """,
     )
@@ -5584,6 +5653,18 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     sheet = re.sub(r"(::: \{\.dist-card\}\n### (.+?)\n.*?)\n:::", card_link, distributions_body(), flags=re.S)
     sheet = re.sub(r"^### (.+)$", lambda m: f"### {m.group(1)} {{#{dist_anchor(m.group(1))}}}", sheet, flags=re.M)
     write_qmd(WIKI / "reference" / "distributions.qmd", "Common distributions", prepare(sheet, "../figures"))
+    notation_page = WIKI / "reference" / "notation.qmd"
+    notation_rows = ["| Symbol | Meaning | First used |", "|:--|:--|:--|"]
+    notation_seen: set[tuple[str, str]] = set()
+    for slug_, facts in DISTRIBUTIONS.items():
+        for entry in facts["notation_symbols"]:
+            key = (entry["symbol"], entry["meaning"])
+            if key in notation_seen:
+                continue
+            notation_seen.add(key)
+            target = href(notation_page, ARTICLE_DIR / f"{slug_}.qmd")
+            notation_rows.append(f"| {entry['symbol']} | {entry['meaning']} | [{facts['name']} distribution]({target}) |")
+    write_qmd(notation_page, "Notation", "Symbols used by the distribution families.\n\n" + "\n".join(notation_rows))
 
     # Main page, in the manner of a portal.
     home = WIKI / "index.qmd"
@@ -5611,7 +5692,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     )
     boxes.append(
         "::: {.portal-box}\n### Reference\n\n"
-        "Lookup pages: a glossary, distributions, and formulas.\n\n"
+        "Lookup pages: a glossary, distributions, notation, and formulas.\n\n"
         f"- [Reference]({href(home, WIKI / 'reference' / 'index.qmd')})\n"
         f"- [Common distributions]({href(home, WIKI / 'reference' / 'distributions.qmd')})\n"
         f"- [Formula lookup]({href(home, WIKI / 'reference' / 'formulas.qmd')})\n:::\n"
@@ -5912,12 +5993,14 @@ website:
         href: reference/glossary.qmd
       - text: Reference
         menu:
-          - text: "Lookup pages: glossary, distributions, and formulas"
+          - text: "Lookup pages: glossary, distributions, notation, and formulas"
             href: reference/index.qmd
           - text: Glossary and index
             href: reference/glossary.qmd
           - text: Common distributions
             href: reference/distributions.qmd
+          - text: Notation
+            href: reference/notation.qmd
           - text: Formula lookup
             href: reference/formulas.qmd
       - text: Laboratories
@@ -5971,10 +6054,11 @@ website:
       - section: Reference
         href: reference/index.qmd
         contents:
-          - text: "Lookup pages: glossary, distributions, and formulas"
+          - text: "Lookup pages: glossary, distributions, notation, and formulas"
             href: reference/index.qmd
           - reference/glossary.qmd
           - reference/distributions.qmd
+          - reference/notation.qmd
           - reference/formulas.qmd
           - files/index.qmd
   page-navigation: true
@@ -6016,171 +6100,39 @@ format:
 
 
 def distributions_body() -> str:
-    return r"""
-The distributions below use the parameterisation fixed in each card. The second gamma parameter is a rate, and the second inverse-gamma parameter is the rate in $\exp(-\beta/x)$. The longer kernel table, with the problem-solving workflow, is on the [formula lookup](formulas.qmd) page. How a sample from one of these laws is summarised before a model is fitted is on [Descriptive statistics](../notes/da-02-descriptive-statistics.qmd).
-
-## Discrete
-
-::: {.dist-card}
-### Binomial
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Bin}(n,p)$ |
-| Parameters | $n\in\mathbb{Z}^{+}$, $p\in[0,1]$ |
-| Support | $x=0,1,\ldots,n$ |
-| Probability mass function | $p(x)=\binom{n}{x}p^{x}(1-p)^{n-x}$ |
-| Expectation | $\mathbb{E}(x)=np$ |
-| Variance | $\operatorname{Var}(x)=np(1-p)$ |
-:::
-
-::: {.dist-card}
-### Geometric
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Geom}(p)$ |
-| Parameters | $p\in(0,1]$ |
-| Support | $x=1,2,3,\ldots$ |
-| Probability mass function | $p(x)=p(1-p)^{x-1}$ |
-| Expectation | $\mathbb{E}(x)=1/p$ |
-| Variance | $\operatorname{Var}(x)=(1-p)/p^{2}$ |
-:::
-
-::: {.dist-card}
-### Hypergeometric
-
-| | |
-|---|---|
-| Distribution | hypergeometric count of marked items |
-| Parameters | population $N$, marked items $r$, draw $n$, with $p=r/N$ |
-| Support | $\max(0,\,n-(N-r))\le x\le\min(n,r)$ |
-| Probability mass function | $p(x)=\binom{r}{x}\binom{N-r}{n-x}/\binom{N}{n}$ |
-| Expectation | $\mathbb{E}(x)=np$ |
-| Variance | $\operatorname{Var}(x)=np(1-p)(N-n)/(N-1)$ |
-:::
-
-::: {.dist-card}
-### Multinomial
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Mult}(n,p)$ |
-| Parameters | $n\in\mathbb{Z}^{+}$, $p\in[0,1]^{K}$ with $\sum_{k=1}^{K}p_k=1$ |
-| Support | $x_k\in\{0,1,\ldots,n\}$, $\sum_k x_k=n$ |
-| Probability mass function | $p(x)=\frac{n!}{x_1!\cdots x_K!}p_1^{x_1}\cdots p_K^{x_K}$ |
-| Expectation | $\mathbb{E}(x)=np$ |
-| Variance | $\operatorname{Var}(x_k)=np_k(1-p_k)$ |
-:::
-
-::: {.dist-card}
-### Poisson
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Poisson}(\theta)$ |
-| Parameters | $\theta>0$ |
-| Support | $x=0,1,2,\ldots$ |
-| Probability mass function | $p(x)=e^{-\theta}\theta^{x}/x!$ |
-| Expectation | $\mathbb{E}(x)=\theta$ |
-| Variance | $\operatorname{Var}(x)=\theta$ |
-:::
-
-## Continuous
-
-::: {.dist-card}
-### Beta
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Beta}(\alpha,\beta)$ |
-| Parameters | $\alpha,\beta>0$ |
-| Support | $0<x<1$ |
-| Probability density | $p(x)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}$ |
-| Expectation | $\mathbb{E}(x)=\alpha/(\alpha+\beta)$ |
-| Variance | $\operatorname{Var}(x)=\alpha\beta/((\alpha+\beta)^{2}(\alpha+\beta+1))$ |
-:::
-
-::: {.dist-card}
-### Dirichlet
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Dirichlet}(\alpha)$ |
-| Parameters | $\alpha\in\mathbb{R}_{+}^{K}$, $\alpha_0=\sum_{k=1}^{K}\alpha_k$ |
-| Support | $x_k>0$, $\sum_{k=1}^{K}x_k=1$ |
-| Probability density | $p(x)=\frac{\Gamma(\alpha_0)}{\prod_{k=1}^{K}\Gamma(\alpha_k)}\prod_{k=1}^{K}x_k^{\alpha_k-1}$ |
-| Expectation | $\mathbb{E}(x)=\alpha/\alpha_0$ |
-| Variance | $\operatorname{Var}(x_k)=\alpha_k(\alpha_0-\alpha_k)/(\alpha_0^{2}(\alpha_0+1))$ |
-:::
-
-::: {.dist-card}
-### Exponential
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Exp}(\lambda)$ |
-| Parameters | $\lambda>0$ |
-| Support | $x>0$ |
-| Probability density | $p(x)=\lambda e^{-\lambda x}$ |
-| Expectation | $\mathbb{E}(x)=1/\lambda$ |
-| Variance | $\operatorname{Var}(x)=1/\lambda^{2}$ |
-:::
-
-::: {.dist-card}
-### Gamma
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{Gamma}(\alpha,\beta)$ |
-| Parameters | $\alpha,\beta>0$, shape--rate |
-| Support | $x>0$ |
-| Probability density | $p(x)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}$ |
-| Expectation | $\mathbb{E}(x)=\alpha/\beta$ |
-| Variance | $\operatorname{Var}(x)=\alpha/\beta^{2}$ |
-:::
-
-::: {.dist-card}
-### Inverse gamma
-
-| | |
-|---|---|
-| Distribution | $x\sim\operatorname{InvGamma}(\alpha,\beta)$ |
-| Parameters | $\alpha,\beta>0$ |
-| Support | $x>0$ |
-| Probability density | $p(x)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{-\alpha-1}e^{-\beta/x}$ |
-| Expectation | $\mathbb{E}(x)=\beta/(\alpha-1)$ for $\alpha>1$ |
-| Variance | $\operatorname{Var}(x)=\beta^{2}/((\alpha-1)^{2}(\alpha-2))$ for $\alpha>2$ |
-
-The mode is $\beta/(\alpha+1)$, which is not the variance.
-:::
-
-::: {.dist-card}
-### Normal
-
-| | |
-|---|---|
-| Distribution | $X\sim\operatorname{N}(\mu,\sigma^{2})$ |
-| Parameters | $\mu\in\mathbb{R}$, $\sigma>0$ |
-| Support | $x\in\mathbb{R}$ |
-| Probability density | $p(x)=\frac{1}{\sqrt{2\pi}\,\sigma}\exp\Bigl(-\frac{(x-\mu)^{2}}{2\sigma^{2}}\Bigr)$ |
-| Expectation | $\mathbb{E}(X)=\mu$ |
-| Variance | $\operatorname{Var}(X)=\sigma^{2}$ |
-:::
-
-::: {.dist-card}
-### Uniform
-
-| | |
-|---|---|
-| Distribution | $X\sim\operatorname{U}[a,b]$ |
-| Parameters | $a<b$ |
-| Support | $a\le x\le b$ |
-| Probability density | $p(x)=1/(b-a)$ |
-| Expectation | $\mathbb{E}(X)=(a+b)/2$ |
-| Variance | $\operatorname{Var}(X)=(b-a)^{2}/12$ |
-:::
-"""
+    """Build the reference sheet from the same catalogue as article infoboxes."""
+    lines = [
+        "The distributions below use the parameterisation fixed in each card. "
+        "The longer kernel table is on the [formula lookup](formulas.qmd) page.",
+        "", "## Comparison", "",
+        "| Family | Support | Parameters | Mean | Variance |",
+        "|:--|:--|:--|:--|:--|",
+    ]
+    for slug_, item in DISTRIBUTIONS.items():
+        page = ARTICLE_DIR / f"{slug_}.qmd"
+        label = item["name"] + " distribution"
+        cells = [f"[{label}]({href(DIST_SHEET, page)})"]
+        cells += [item[key] or "—" for key in ("support", "parameters", "mean", "variance")]
+        lines.append("| " + " | ".join(cells) + " |")
+    lines += ["", "## Relationships", "", "```{mermaid}", "flowchart LR"]
+    for parent, item in DISTRIBUTIONS.items():
+        for child in item["related"]:
+            lines.append(f'    {parent.replace("-", "_")} --> {child.replace("-", "_")}')
+    for slug_, item in DISTRIBUTIONS.items():
+        if item["related"] or any(slug_ in parent["related"] for parent in DISTRIBUTIONS.values()):
+            lines.append(f'    {slug_.replace("-", "_")}["{item["name"]}"]')
+    lines += ["```", ""]
+    for kind in ("discrete", "continuous"):
+        lines += [f"## {kind.capitalize()}", ""]
+        for slug_, item in DISTRIBUTIONS.items():
+            if item["kind"] != kind:
+                continue
+            lines += ["::: {.dist-card}", f"### {item['name']}", "", "| | |", "|---|---|"]
+            for field, label in DISTRIBUTION_ROW_LABELS:
+                if item[field]:
+                    lines.append(f"| {label} | {item[field]} |")
+            lines += [":::", ""]
+    return "\n".join(lines)
 
 
 def chapter_source(filename: str) -> Path:
@@ -6200,6 +6152,9 @@ def main() -> None:
         raise SystemExit(f"Missing practice source: {PRACTICE_TEX}")
     clean_output()
     convert_figures()
+    from distribution_plots import write_plots
+
+    write_plots(DISTRIBUTIONS, WIKI / "reference" / "plots")
 
     notes: dict[str, dict] = {}
     questions: list[dict] = []

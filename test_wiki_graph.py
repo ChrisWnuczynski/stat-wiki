@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import unquote
 
 import build_wiki
 import wiki_graph
@@ -1036,6 +1038,61 @@ class WikiGraphTests(unittest.TestCase):
                     if "#" in target_rel:
                         frag = target_rel.split("#", 1)[1]
                         self.assertIn(frag, target_path.read_text(encoding="utf-8"))
+
+
+class DistributionCatalogueTests(unittest.TestCase):
+    def test_named_families_have_complete_catalogue_records(self) -> None:
+        required = {
+            "student-t", "chi-squared", "f", "cauchy", "bernoulli", "lognormal",
+            "weibull", "pareto", "negative-binomial", "multivariate-normal",
+            "wishart", "inverse-gaussian", "conway-maxwell-poisson",
+        }
+        self.assertTrue({f"{name}-distribution" for name in required} <= build_wiki.DISTRIBUTIONS.keys())
+        for slug, fact in build_wiki.DISTRIBUTIONS.items():
+            with self.subTest(slug=slug):
+                self.assertTrue(all(fact[key] for key in ("name", "notation", "parameters", "support", "description", "symbols")))
+                self.assertTrue(fact["pmf"] or fact["pdf"])
+                self.assertTrue(fact["plot"])
+                self.assertTrue(set(fact["related"]) <= build_wiki.DISTRIBUTIONS.keys())
+
+    def test_generated_distribution_infoboxes_and_plots(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        for slug in build_wiki.DISTRIBUTIONS:
+            with self.subTest(slug=slug):
+                page = articles / f"{slug}.qmd"
+                self.assertTrue(page.is_file())
+                body = page.read_text(encoding="utf-8")
+                self.assertIn("::: {.infobox-title}", body)
+                self.assertIn("## Definition {#definition}", body)
+                self.assertIn('aria-label="Probability distributions"', body)
+                lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
+                self.assertNotIn("$", lead)
+                for kind in ("pdf", "cdf"):
+                    self.assertTrue((build_wiki.WIKI / "reference" / "plots" / f"{slug}-{kind}.png").is_file())
+        notation = build_wiki.WIKI / "reference" / "notation.qmd"
+        self.assertTrue(notation.is_file())
+        self.assertIn("| Symbol | Meaning | First used |", notation.read_text(encoding="utf-8"))
+
+    def test_generated_local_link_targets_exist(self) -> None:
+        if not (build_wiki.WIKI / "articles").is_dir():
+            self.skipTest("Wiki has not been generated")
+        missing = []
+        for folder in ("articles", "notes", "questions", "reference"):
+            for page in (build_wiki.WIKI / folder).rglob("*.qmd"):
+                body = page.read_text(encoding="utf-8")
+                for chunk in re.split(r"```.*?```", body, flags=re.S):
+                    for match in build_wiki.MD_LINK_TARGET.finditer(chunk):
+                        destination = unquote(match.group(2).split("#", 1)[0])
+                        if not destination or re.match(r"^[a-z]+:|^/", destination):
+                            continue
+                        target = (page.parent / destination).resolve()
+                        if target.suffix == ".html" and not target.exists():
+                            target = target.with_suffix(".qmd")
+                        if not target.exists():
+                            missing.append(f"{page.relative_to(build_wiki.WIKI)} -> {destination}")
+        self.assertEqual(missing, [])
 
 
 if __name__ == "__main__":
