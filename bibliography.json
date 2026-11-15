@@ -4260,6 +4260,26 @@
         "id": "10.1002/9780470556986"
       }
     },
+    "nist_glossary2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/glossary.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/glossary.htm"
+      }
+    },
     "nist_covariance2002": {
       "authors": [
         "Heckert, N. A.",
@@ -5590,6 +5610,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1186/1471-2105-8-25"
+      }
+    },
+    "siegrist2022_normals": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.8: Special Properties of Normal Samples",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples"
       }
     },
     "student1908": {
