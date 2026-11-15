@@ -12,7 +12,7 @@ $$
 Z_{n+1}=\sum_{i=1}^{Z_n}\xi_{n,i},
 $$
 
-where the offspring variables $\xi_{n,i}$ are independent and identically distributed non-negative integers, with $\Pr(\xi=k)=p_k$, mean $m$, and variance $\sigma^2$. The empty sum is $0$, so the state $0$ is absorbing: once the lineage is extinct it stays extinct.
+where the offspring variables $\xi_{n,i}$ are independent and identically distributed non-negative integers, with $\Pr(\xi=k)=p_k$, mean $m$, and variance $\sigma^2$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:ross2019}} The empty sum is $0$, so the state $0$ is absorbing: once the lineage is extinct it stays extinct.
 
 ::: {#def-sp-offspring-pgf .definition}
 ## Offspring probability generating function
@@ -23,7 +23,7 @@ $$
 f(s)=\E(s^{\xi})=\sum_{k\ge 0}p_k s^k, \qquad 0\le s\le 1.
 $$
 
-It satisfies $f(1)=1$. If the mean is finite, $f'(1-)=m$. If $\E[\xi(\xi-1)]$ is finite, $f''(1-)=\E[\xi(\xi-1)]$.
+It satisfies $f(1)=1$.{{cite:feller1968}} If the mean is finite, $f'(1-)=m$.{{cite:grimmett_stirzaker2020}} If $\E[\xi(\xi-1)]$ is finite, $f''(1-)=\E[\xi(\xi-1)]$.{{cite:ross2019}}
 
 :::
 
@@ -67,12 +67,12 @@ One check at $n=1$: the variance should be $\sigma^2$. The formula gives $\sigma
 
 ## Extinction as a fixed point
 
-Let $q_n=\Pr(Z_n=0)=f_n(0)$. Because $0$ is absorbing, $\{Z_n=0\}\subset\{Z_{n+1}=0\}$, so the sequence $q_n$ increases. It is bounded by $1$, so it has a limit $q=\Pr(Z_n=0\text{ for some }n)$, the probability of eventual extinction. The generating function is continuous on $[0,1]$, and $q_{n+1}=f(q_n)$, so the limit satisfies $q=f(q)$. Starting the iteration at $0$ shows that $q$ is the smallest fixed point of $f$ in $[0,1]$.
+Let $q_n=\Pr(Z_n=0)=f_n(0)$. Because $0$ is absorbing, $\{Z_n=0\}\subset\{Z_{n+1}=0\}$, so the sequence $q_n$ increases. It is bounded by $1$, so it has a limit $q=\Pr(Z_n=0\text{ for some }n)$, the probability of eventual extinction. The generating function is continuous on $[0,1]$, and $q_{n+1}=f(q_n)$, so the limit satisfies $q=f(q)$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:ross2019}} Starting the iteration at $0$ shows that $q$ is the smallest fixed point of $f$ in $[0,1]$.
 
 ::: {#thm-sp-extinction .theorem}
 ## Extinction criterion
 
-For a non-degenerate Galton–Watson process with $p_0>0$, the extinction probability is $q=1$ when $m\le 1$, and $q<1$ when $m>1$. If $p_0=0$, extinction is impossible and $q=0$. The deterministic law $\xi\equiv 1$ has mean $m=1$ and extinction probability $q=0$.
+For a non-degenerate Galton–Watson process with $p_0>0$, the extinction probability is $q=1$ when $m\le 1$, and $q<1$ when $m>1$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:ross2019}} If $p_0=0$, extinction is impossible and $q=0$. The deterministic law $\xi\equiv 1$ has mean $m=1$ and extinction probability $q=0$.
 
 :::
 

@@ -6,7 +6,7 @@ The generator, holding times, and the equation $\pi Q=0$ are on [Continuous-time
 
 ## Birth–death balance
 
-For states $n=0,1,2,\ldots$, let $\lambda_n$ be the birth rate in state $n$ and let $\mu_n$ be the death rate in state $n\ge 1$, with $\mu_0=0$. The generator has $q_{n,n+1}=\lambda_n$, $q_{n,n-1}=\mu_n$, and $q_{nn}=-(\lambda_n+\mu_n)$. Local balance equates the flow across the cut between $n$ and $n+1$:
+For states $n=0,1,2,\ldots$, let $\lambda_n$ be the birth rate in state $n$ and let $\mu_n$ be the death rate in state $n\ge 1$, with $\mu_0=0$. The generator has $q_{n,n+1}=\lambda_n$, $q_{n,n-1}=\mu_n$, and $q_{nn}=-(\lambda_n+\mu_n)$. Local balance equates the flow across the cut between $n$ and $n+1$.{{cite:kelly1979}}{{cite:ross2019}}{{cite:norris1997}}
 
 $$
 \pi_n\lambda_n=\pi_{n+1}\mu_{n+1},
@@ -30,7 +30,7 @@ $$
 \pi_n=(1-\rho)\rho^n, \qquad n\ge 0.
 $$
 
-If $\rho\ge 1$ the weights cannot be normalised. The queue length drifts to infinity and there is no stationary probability distribution.
+If $\rho\ge 1$ the weights cannot be normalised.{{cite:ross2019}}{{cite:kendall1953}} The queue length drifts to infinity and there is no stationary probability distribution.
 
 The mean number in system, when $\rho<1$, is
 
@@ -38,9 +38,9 @@ $$
 L=\sum_{n=0}^{\infty} n(1-\rho)\rho^n=(1-\rho)\rho\sum_{n=1}^{\infty} n\rho^{n-1}=\frac{\rho}{1-\rho},
 $$
 
-using $\sum_{n\ge 1} n r^{n-1}=1/(1-r)^2$ at $r=\rho$. The tail is geometric as well: $\Pr(N\ge k)=\rho^k$.
+using $\sum_{n\ge 1} n r^{n-1}=1/(1-r)^2$ at $r=\rho$. The tail is geometric as well: $\Pr(N\ge k)=\rho^k$.{{cite:kelly1979}}
 
-If arrivals see the time-average distribution, which Poisson arrivals do when the arrival process is independent of the past of the queue in the usual way, Little's law gives the mean time in system $W=L/\lambda$. Substituting $L$ produces
+Poisson arrivals see the time-average distribution when the arrival process is independent of the past of the queue.{{cite:wolff1982_pasta}} Little's law gives the mean time in system $W=L/\lambda$. Substituting $L$ produces
 
 $$
 W=\frac{\rho}{\lambda(1-\rho)}=\frac{1}{\mu-\lambda}.
@@ -56,11 +56,11 @@ $$
 \pi_n=\pi_0\prod_{k=0}^{n-1}\frac{\lambda}{(k+1)\mu}=\pi_0\frac{(\lambda/\mu)^n}{n!}.
 $$
 
-The series is the exponential series, so $\pi_0=e^{-\lambda/\mu}$ and the stationary number in system is $\mathrm{Poisson}(\lambda/\mu)$. There is no finite-server overload threshold, because the total service rate grows without bound as $n$ grows. The mean is $\lambda/\mu$ for every $\lambda>0$ and $\mu>0$.
+The series is the exponential series, so $\pi_0=e^{-\lambda/\mu}$ and the stationary number in system is $\mathrm{Poisson}(\lambda/\mu)$.{{cite:ross2019}}{{cite:norris1997}} There is no finite-server overload threshold, because the total service rate grows without bound as $n$ grows. The mean is $\lambda/\mu$ for every $\lambda>0$ and $\mu>0$.{{cite:kelly1979}}
 
 ## Several servers, and a finite waiting room
 
-With $c$ parallel servers and one shared queue, the departure rate is $\mu_n=\min(n,c)\mu$, and the birth rate stays $\lambda$. Up through state $c-1$ each new customer adds a server, so the product is the same Poisson-style ratio $(\lambda/\mu)^n/n!$ that appears for M/M/∞. From $n\ge c$ every further step multiplies the weight by $\lambda/(c\mu)$ and by nothing else, a geometric ratio. The geometric tail sums if and only if $\lambda<c\mu$. A stationary probability exists precisely in that case. The normalising constant adds the finite sum up to $c-1$ to the closed form of the tail:
+With $c$ parallel servers and one shared queue, the departure rate is $\mu_n=\min(n,c)\mu$, and the birth rate stays $\lambda$. Up through state $c-1$ each new customer adds a server, so the product is the same Poisson-style ratio $(\lambda/\mu)^n/n!$ that appears for M/M/∞. From $n\ge c$ every further step multiplies the weight by $\lambda/(c\mu)$ and by nothing else, a geometric ratio. The geometric tail sums if and only if $\lambda<c\mu$.{{cite:ross2019}} A stationary probability exists precisely in that case.{{cite:kelly1979}} The normalising constant adds the finite sum up to $c-1$ to the closed form of the tail:
 
 $$
 \pi_0^{-1}=\sum_{n=0}^{c-1}\frac{(\lambda/\mu)^n}{n!}+\frac{(\lambda/\mu)^c}{c!}\cdot\frac{1}{1-\lambda/(c\mu)}.
@@ -68,7 +68,7 @@ $$
 
 The first sum covers the states in which at least one server is idle. The second term sums the geometric tail from $c$ onward.
 
-An M/M/$c$/$K$ system stops at state $K$. An arrival that finds $K$ customers present is blocked and does not enter. The state space is finite and irreducible for $\lambda>0$ and $\mu>0$, so a stationary distribution exists for every positive load, including $\lambda\ge c\mu$. The chain cannot drift to infinity because the state cannot pass $K$. The cost is lost arrivals. Throughput, the long-run rate of accepted arrivals, is $\lambda(1-\pi_K)$, not the offered rate $\lambda$.
+An M/M/$c$/$K$ system stops at state $K$. An arrival that finds $K$ customers present is blocked and does not enter. The state space is finite and irreducible for $\lambda>0$ and $\mu>0$, so a stationary distribution exists for every positive load, including $\lambda\ge c\mu$. The chain cannot drift to infinity because the state cannot pass $K$. The cost is lost arrivals. Throughput, the long-run rate of accepted arrivals, is $\lambda(1-\pi_K)$, not the offered rate $\lambda$.{{cite:ross2019}}{{cite:kelly1979}}{{cite:little1961}}
 
 For the single-server finite system M/M/$1$/$K$ with $\rho\neq 1$,
 
@@ -76,7 +76,7 @@ $$
 \pi_n=\frac{(1-\rho)\rho^n}{1-\rho^{K+1}}, \qquad 0\le n\le K.
 $$
 
-At $\rho=1$ the weights are constant and $\pi_n=1/(K+1)$. Blocking probability $\pi_K$ increases with $\rho$. The stationary law exists on both sides of $\rho=1$ because the room is finite.
+At $\rho=1$ the weights are constant and $\pi_n=1/(K+1)$.{{cite:ross2019}} Blocking probability $\pi_K$ increases with $\rho$.{{cite:erlang1917}}{{cite:kelly1979}} The stationary law exists on both sides of $\rho=1$ because the room is finite.
 
 ## A repair model
 
@@ -86,7 +86,7 @@ $$
 1,\qquad \frac{2\lambda}{\mu},\qquad 2\Bigl(\frac{\lambda}{\mu}\Bigr)^2.
 $$
 
-Check the second weight: $\pi_0\cdot 2\lambda=\pi_1\mu$. Check the third: $\pi_1\cdot\lambda=\pi_2\mu$, so $\pi_2=\pi_0\cdot 2(\lambda/\mu)^2$. The state space is finite, so the weights can always be normalised. The rate of new failures drops as machines fail, because a failed machine is not exposed to failure. A single component's lifetime distribution, and the constant hazard of an exponential life, are on [Reliability](prob-07-reliability.qmd). The chain here tracks how many of the two machines are down.
+Check the second weight: $\pi_0\cdot 2\lambda=\pi_1\mu$. Check the third: $\pi_1\cdot\lambda=\pi_2\mu$, so $\pi_2=\pi_0\cdot 2(\lambda/\mu)^2$. The state space is finite, so the weights can always be normalised.{{cite:kelly1979}}{{cite:ross2019}} The rate of new failures drops as machines fail, because a failed machine is not exposed to failure.{{cite:ross2019}} A single component's lifetime distribution, and the constant hazard of an exponential life, are on [Reliability](prob-07-reliability.qmd). The chain here tracks how many of the two machines are down.
 
 ## Three capacity rules
 
@@ -109,7 +109,7 @@ For a finite room of size $K$, offered arrivals still occur at rate $\lambda$. A
 ::: {#def-sp-littles-law .definition}
 ## Little's law
 
-In a stable system, $L=\lambda_{\mathrm{eff}} W$, where $L$ is the mean number in the system, $\lambda_{\mathrm{eff}}$ is the mean arrival rate of the customers counted in $L$, and $W$ is their mean time in the system.
+In a stable system, $L=\lambda_{\mathrm{eff}} W$, where $L$ is the mean number in the system, $\lambda_{\mathrm{eff}}$ is the mean arrival rate of the customers counted in $L$, and $W$ is their mean time in the system.{{cite:little1961}}{{cite:ross2019}}{{cite:kelly1979}}
 
 :::
 

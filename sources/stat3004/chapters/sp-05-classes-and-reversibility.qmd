@@ -6,7 +6,7 @@ The limit of $P^n$ for an irreducible aperiodic finite chain, and the two-state 
 
 ## Communication and closed classes
 
-State $j$ is accessible from $i$, written $i\to j$, when $p_{ij}^{(n)}>0$ for some $n\ge 0$. The case $n=0$ counts: every state is accessible from itself. States $i$ and $j$ communicate when each is accessible from the other. Communication is an equivalence relation, so it partitions $S$ into classes. A class is closed when no transition leaves it. A chain with a single communicating class is irreducible. An absorbing state is a closed class of one state, with $p_{ii}=1$.
+State $j$ is accessible from $i$, written $i\to j$, when $p_{ij}^{(n)}>0$ for some $n\ge 0$.{{cite:norris1997}} The case $n=0$ counts: every state is accessible from itself. States $i$ and $j$ communicate when each is accessible from the other.{{cite:feller1968}} Communication is an equivalence relation, so it partitions $S$ into classes. A class is closed when no transition leaves it. A chain with a single communicating class is irreducible.{{cite:grimmett_stirzaker2020}} An absorbing state is a closed class of one state, with $p_{ii}=1$.
 
 On a finite set, the states that can still reach a given closed class, and are not in it, are on their way out. They are visited only finitely often.
 
@@ -17,13 +17,13 @@ Let $T_i^+=\inf\{n\ge 1: X_n=i\}$ be the first return time to $i$.
 ::: {#def-sp-recurrence .definition}
 ## Recurrence and period
 
-State $i$ is recurrent when $\Pr_i(T_i^+<\infty)=1$, and transient otherwise. A recurrent state is positive recurrent when $\E_i T_i^+<\infty$, and null recurrent when the return time is almost surely finite and has infinite mean. The period of $i$ is
+State $i$ is recurrent when $\Pr_i(T_i^+<\infty)=1$, and transient otherwise.{{cite:norris1997}}{{cite:feller1968}} A recurrent state is positive recurrent when $\E_i T_i^+<\infty$, and null recurrent when the return time is almost surely finite and has infinite mean.{{cite:grimmett_stirzaker2020}} The period of $i$ is
 
 $$
 d(i)=\gcd\{n\ge 1: p_{ii}^{(n)}>0\}.
 $$
 
-Period $1$ means aperiodic.
+Period $1$ means aperiodic.{{cite:norris1997}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -32,7 +32,7 @@ Communicating states share a period. In a finite chain, every state in a closed 
 ::: {#thm-sp-finite-irreducible .theorem}
 ## Finite irreducible chains
 
-A finite irreducible chain has a unique stationary distribution, and every entry of that distribution is strictly positive. If the chain is also aperiodic, then $p_{ij}^{(n)}\to\pi_j$ for every $i$ and $j$.
+A finite irreducible chain has a unique stationary distribution, and every entry of that distribution is strictly positive.{{cite:norris1997}}{{cite:feller1968}} If the chain is also aperiodic, then $p_{ij}^{(n)}\to\pi_j$ for every $i$ and $j$.{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -46,7 +46,7 @@ $$
 \pi_j=\sum_i \pi_i p_{ij},
 $$
 
-equates the probability mass at $j$ with the mass that one step of $P$ brings into $j$. That is global balance.
+equates the probability mass at $j$ with the mass that one step of $P$ brings into $j$. That is global balance.{{cite:norris1997}}{{cite:kelly1979}}
 
 ::: {#def-sp-detailed-balance .definition}
 ## Detailed balance
@@ -54,8 +54,10 @@ equates the probability mass at $j$ with the mass that one step of $P$ brings in
 A probability $\pi$ and a transition matrix $P$ satisfy detailed balance when
 
 $$
-\pi_i p_{ij}=\pi_j p_{ji}\qquad\text{for all }i,j.
+\pi_i p_{ij}=\pi_j p_{ji}
 $$
+
+for all states $i$ and $j$.{{cite:kelly1979}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -69,7 +71,7 @@ $$
 
 Detailed balance says $P^*=P$.
 
-For a finite irreducible chain, Kolmogorov's cycle criterion is an equivalent test that does not require $\pi$ in advance. Around every directed cycle, the product of the transition probabilities equals the product around the reversed cycle. A missing reverse edge counts as probability $0$, and then a positive forward cycle product fails the test.
+For a finite irreducible chain, Kolmogorov's cycle criterion is an equivalent test that does not require $\pi$ in advance.{{cite:kolmogorov1936}} Around every directed cycle, the product of the transition probabilities equals the product around the reversed cycle. A missing reverse edge counts as probability $0$, and then a positive forward cycle product fails the test.
 
 ## Two families with an explicit stationary law
 

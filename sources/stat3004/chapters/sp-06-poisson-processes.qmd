@@ -12,8 +12,10 @@ The [Poisson distribution](../reference/distributions.qmd) is the one-dimensiona
 A homogeneous Poisson process $N(t)$ of rate $\lambda>0$ has $N(0)=0$, independent and stationary increments, and
 
 $$
-N(t+h)-N(t)\sim\mathrm{Poisson}(\lambda h), \qquad t,h\ge 0.
+N(t+h)-N(t)\sim\mathrm{Poisson}(\lambda h)
 $$
+
+for all $t,h\ge 0$.{{cite:kingman1993}}{{cite:ross2019}}{{cite:doob1953}}
 
 :::
 
@@ -29,7 +31,7 @@ $$
 \Pr(T_1>t)=e^{-\lambda t}.
 $$
 
-Thus $T_1$ is exponential with rate $\lambda$, in the parameterisation on the distribution sheet: density $\lambda e^{-\lambda t}$ on $(0,\infty)$, mean $1/\lambda$. Independent increments make the later interarrival times $W_1,W_2,\ldots$ independent copies of that exponential law. The arrival times are the partial sums $T_n=\sum_{i=1}^n W_i$. The construction runs in reverse as well. Independent exponential interarrival times of rate $\lambda$ produce a Poisson process of rate $\lambda$.
+Thus $T_1$ is exponential with rate $\lambda$, in the parameterisation on the distribution sheet: density $\lambda e^{-\lambda t}$ on $(0,\infty)$, mean $1/\lambda$.{{cite:ross2019}} Independent increments make the later interarrival times $W_1,W_2,\ldots$ independent copies of that exponential law.{{cite:kingman1993}} The arrival times are the partial sums $T_n=\sum_{i=1}^n W_i$. The construction runs in reverse as well. Independent exponential interarrival times of rate $\lambda$ produce a Poisson process of rate $\lambda$.{{cite:doob1953}}
 
 The memoryless identity $\Pr(W>s+t\given W>s)=\Pr(W>t)$ is why, in the basic Markov models, the time already spent waiting need not be stored in the state.
 
@@ -43,7 +45,7 @@ p_0'(t)=-\lambda p_0(t),
 p_n'(t)=\lambda p_{n-1}(t)-\lambda p_n(t)\quad(n\ge 1),
 $$
 
-with $p_0(0)=1$ and $p_n(0)=0$ for $n\ge 1$. The Poisson probabilities solve this system. For $n=0$ the solution is $e^{-\lambda t}$. If $p_{n-1}$ is the Poisson probability with index $n-1$, the equation for $p_n$ is a linear ODE whose solution is the Poisson probability with index $n$.
+with $p_0(0)=1$ and $p_n(0)=0$ for $n\ge 1$. The Poisson probabilities solve this system.{{cite:ross2019}}{{cite:kingman1993}} For $n=0$ the solution is $e^{-\lambda t}$.{{cite:doob1953}} If $p_{n-1}$ is the Poisson probability with index $n-1$, the equation for $p_n$ is a linear ODE whose solution is the Poisson probability with index $n$.
 
 A second construction divides $[0,t]$ into $m$ slots and puts an event in each slot with probability $\lambda t/m$, independently. The count is binomial. As $m\to\infty$ that binomial law converges to $\mathrm{Poisson}(\lambda t)$, which is the theorem linked above. The limit is a reason to consider the model. It does not check, in a real event stream, that disjoint intervals are independent or that the rate is constant.
 
@@ -66,7 +68,7 @@ The reason is a comparison of small intervals. Split $(0,t)$ into tiny bins. Giv
 
 ## Changing rates
 
-A non-homogeneous Poisson process has a deterministic rate $\lambda(u)\ge 0$, locally integrable. The cumulative intensity is $\Lambda(t)=\int_0^t \lambda(u)\,du$. Increments over disjoint intervals stay independent. Their means are differences of $\Lambda$, and stationarity of increments fails as soon as $\lambda$ is not constant:
+A non-homogeneous Poisson process has a deterministic rate $\lambda(u)\ge 0$, locally integrable.{{cite:kingman1993}} The cumulative intensity is $\Lambda(t)=\int_0^t \lambda(u)\,du$.{{cite:ross2019}} Increments over disjoint intervals stay independent.{{cite:grimmett_stirzaker2020}} Their means are differences of $\Lambda$, and stationarity of increments fails as soon as $\lambda$ is not constant:
 
 $$
 N(t)-N(s)\sim\mathrm{Poisson}\Bigl(\int_s^t \lambda(u)\,du\Bigr).
@@ -105,15 +107,15 @@ the positive root. Later arrivals add independent unit-rate exponential amounts 
 
 ## Superposition and thinning
 
-Independent Poisson processes of rates $\lambda_1$ and $\lambda_2$ superpose to a Poisson process of rate $\lambda_1+\lambda_2$. The sum of independent Poisson counts is Poisson with the summed mean, and the independent-increments property passes to the sum.
+Independent Poisson processes of rates $\lambda_1$ and $\lambda_2$ superpose to a Poisson process of rate $\lambda_1+\lambda_2$.{{cite:kingman1993}} The sum of independent Poisson counts is Poisson with the summed mean, and the independent-increments property passes to the sum.{{cite:ross2019}}
 
-If each event of a rate-$\lambda$ process is kept independently with probability $r$, the kept process is Poisson of rate $r\lambda$, and the kept and discarded processes are independent. If the retention probability is a function $r(t)$, the kept intensity is $r(t)\lambda(t)$.
+If each event of a rate-$\lambda$ process is kept independently with probability $r$, the kept process is Poisson of rate $r\lambda$, and the kept and discarded processes are independent.{{cite:kingman1993}}{{cite:ross2019}} If the retention probability is a function $r(t)$, the kept intensity is $r(t)\lambda(t)$.
 
 The independence uses an independent mark on each event. A shock that makes many events of the same kind at once is a dependent mark. Ordinary thinning does not describe that stream.
 
 ## A Poisson process in the plane
 
-A homogeneous spatial Poisson process of intensity $\lambda$ assigns to each bounded region $A$ a $\mathrm{Poisson}(\lambda|A|)$ count, and assigns independent counts to disjoint regions. Here $\lambda$ is in points per unit area.
+A homogeneous spatial Poisson process of intensity $\lambda$ assigns to each bounded region $A$ a $\mathrm{Poisson}(\lambda|A|)$ count, and assigns independent counts to disjoint regions.{{cite:kingman1993}}{{cite:grimmett_stirzaker2020}} Here $\lambda$ is in points per unit area.
 
 Let $R$ be the distance from a fixed origin to the nearest point, and let $B_r$ be the disk of radius $r$. The event $\{R>r\}$ is the event that $B_r$ is empty:
 
@@ -121,7 +123,7 @@ $$
 \Pr(R>r)=\Pr\{N(B_r)=0\}=e^{-\lambda\pi r^2}, \qquad r\ge 0,
 $$
 
-so the distribution function is $F_R(r)=1-e^{-\lambda\pi r^2}$. For a varying spatial intensity $\lambda(x)$, replace $\lambda|A|$ by $\int_A\lambda(x)\,dx$. The void probability is still the exponential of minus that integral.
+so the distribution function is $F_R(r)=1-e^{-\lambda\pi r^2}$.{{cite:kingman1993}} For a varying spatial intensity $\lambda(x)$, replace $\lambda|A|$ by $\int_A\lambda(x)\,dx$. The void probability is still the exponential of minus that integral.
 
 The same marking idea used in time works in space. If points of intensity $\lambda$ are kept independently with probability $r(x)$, the kept intensity is $\lambda r(x)$, and the mean count in $A$ is $\int_A\lambda r(x)\,dx$. That is a model for a detection probability that varies across a survey region. Clustering in the original pattern is a different departure from the Poisson process, and thinning does not remove it.
 

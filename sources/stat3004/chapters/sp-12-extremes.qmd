@@ -27,17 +27,17 @@ $$
 \to e^{-e^{-x}}.
 $$
 
-The limit holds for every fixed real $x$ and is the Gumbel distribution function. The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. Light tails of exponential type fall into this family under suitable conditions on $F$.
+The limit holds for every fixed real $x$ and is the Gumbel distribution function.{{cite:fisher_tippett1928}}{{cite:gumbel1958}}{{cite:coles2001}} The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. Light tails of exponential type fall into this family under suitable conditions on $F$.
 
 ### Power-law tails, and the Fréchet law
 
-Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail. Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$ and $n$ large enough that $n^{1/\alpha}x\ge 1$,
+Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail.{{cite:pareto1909}}{{cite:coles2001}}{{cite:forbes2011}} Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$ and $n$ large enough that $n^{1/\alpha}x\ge 1$,
 
 $$
 \mathrm{P}(M_n/a_n\le x)=\bigl(1-(n^{1/\alpha}x)^{-\alpha}\bigr)^n=\Bigl(1-\frac{x^{-\alpha}}{n}\Bigr)^n\to e^{-x^{-\alpha}}.
 $$
 
-The limit is the Fréchet distribution function. The heavy tail changes the scale from $\log n$ to a power of $n$. Multiplying the sample size by a constant multiplies this scale by that constant to the power $1/\alpha$.
+The limit is the Fréchet distribution function.{{cite:frechet1927}}{{cite:gnedenko1943}}{{cite:coles2001}} The heavy tail changes the scale from $\log n$ to a power of $n$. Multiplying the sample size by a constant multiplies this scale by that constant to the power $1/\alpha$.
 
 ### A finite endpoint, and a Weibull extreme-value law
 
@@ -47,13 +47,13 @@ $$
 \mathrm{P}(Y_n>y)=\mathrm{P}(M_n<1-y/n)=\Bigl(1-\frac{y}{n}\Bigr)^n\to e^{-y}.
 $$
 
-Equivalently, $n(M_n-1)$ converges in distribution to a reversed exponential law supported on $(-\infty,0]$. This is an example of the Weibull extreme-value type. The name is the extreme-value type, not the [Weibull distribution](prob-07-reliability.qmd#def-weibull-distribution) used there as a lifetime model. A finite endpoint changes both the centring, which approaches the endpoint, and the support of the limit, which lies on one side of $0$.
+Equivalently, $n(M_n-1)$ converges in distribution to a reversed exponential law supported on $(-\infty,0]$.{{cite:fisher_tippett1928}} This is an example of the Weibull extreme-value type.{{cite:gnedenko1943}}{{cite:coles2001}} The name is the extreme-value type, not the [Weibull distribution](prob-07-reliability.qmd#def-weibull-distribution) used there as a lifetime model. A finite endpoint changes both the centring, which approaches the endpoint, and the support of the limit, which lies on one side of $0$.
 
 The three limits correspond to three upper-tail structures: a finite endpoint, a light unbounded tail, and a heavy unbounded tail.
 
 ## What the classification says
 
-Any non-degenerate limit of an affinely normalised maximum of independent copies, when such a limit exists, belongs to one of these three types. The classification does not say that every distribution has such a limit. It does not identify the tail from a short sample. Dependence, a distribution that changes with time, a measurement ceiling, and the choice of threshold can all dominate the numerical approximation. The calculations above are the exact limits for three specific laws. They are not an estimation procedure for a tail index.
+Any non-degenerate limit of an affinely normalised maximum of independent copies, when such a limit exists, belongs to one of these three types.{{cite:fisher_tippett1928}}{{cite:gnedenko1943}}{{cite:coles2001}} The classification does not say that every distribution has such a limit. It does not identify the tail from a short sample. Dependence, a distribution that changes with time, a measurement ceiling, and the choice of threshold can all dominate the numerical approximation. The calculations above are the exact limits for three specific laws. They are not an estimation procedure for a tail index.
 
 ## Reading a scale off the tail
 

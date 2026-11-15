@@ -15,7 +15,7 @@ $$
 \Pr(X_{n+1}=j\given X_n=i,X_{n-1},\ldots,X_0)=\Pr(X_{n+1}=j\given X_n=i)=p_{ij}
 $$
 
-for every $n$ and every choice of states. The chain is time-homogeneous when $p_{ij}$ does not depend on $n$. The transition matrix $P=(p_{ij})$ has non-negative entries, and every row sums to $1$.
+for every $n$ and every choice of states.{{cite:norris1997}}{{cite:feller1968}} The chain is time-homogeneous when $p_{ij}$ does not depend on $n$. The transition matrix $P=(p_{ij})$ has non-negative entries, and every row sums to $1$.{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -27,7 +27,7 @@ $$
 p_{ij}^{(m+n)}=\sum_{k\in S} p_{ik}^{(m)} p_{kj}^{(n)}.
 $$
 
-These are the Chapman–Kolmogorov equations. Matrix multiplication is the sum over every possible intermediate state.
+These are the Chapman–Kolmogorov equations.{{cite:norris1997}}{{cite:feller1968}} Matrix multiplication is the sum over every possible intermediate state.
 
 ::: {#exm-sp-weather-two-day .example}
 ## Rain after two days
@@ -84,14 +84,14 @@ e_i=1+\sum_j p_{ij} e_j \quad(i\notin A),
 e_i=0\ (i\in A).
 $$
 
-The $1$ is the step just taken. The sum is the expected remaining time from the next state. On a finite state space these are linear equations, one unknown per state outside the target.
+The $1$ is the step just taken. The sum is the expected remaining time from the next state. On a finite state space these are linear equations, one unknown per state outside the target.{{cite:norris1997}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
 ## Stationary distributions
 
 ::: {#def-sp-stationary-distribution .definition}
 ## Stationary distribution
 
-A probability row vector $\pi$ is a stationary distribution of $P$ when $\pi P=\pi$. If $X_0$ has law $\pi$, then $X_n$ has law $\pi$ at every time $n$.
+A probability row vector $\pi$ is a stationary distribution of $P$ when $\pi P=\pi$.{{cite:norris1997}}{{cite:feller1968}} If $X_0$ has law $\pi$, then $X_n$ has law $\pi$ at every time $n$.{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -103,7 +103,7 @@ $$
 (\pi P)_j=\sum_{i=1}^m \frac{1}{m} p_{ij}=\frac{1}{m},
 $$
 
-because column $j$ sums to $1$. Uniformity is stationary. Doubly stochastic is a sufficient condition, not a necessary one: the weather chain has a stationary distribution and its columns do not sum to $1$.
+because column $j$ sums to $1$. Uniformity is stationary.{{cite:norris1997}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}} Doubly stochastic is a sufficient condition, not a necessary one: the weather chain has a stationary distribution and its columns do not sum to $1$.
 
 Multiplying by $P$ moves a probability distribution forward one step. A stationary distribution is a fixed point of that map. Whether an arbitrary starting distribution approaches the fixed point is a separate question. The sampling use of the same fixed-point equation is the [stationary distribution](bayes-04-mcmc.qmd#def-stationarity-and-detailed-balance) of a Monte Carlo chain.
 

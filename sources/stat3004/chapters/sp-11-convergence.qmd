@@ -6,18 +6,12 @@ The weak law under a finite variance, and the central limit theorem for a sum of
 
 ## Inequalities, and passing a limit inside the expectation
 
-Expectation is linear on integrable variables, and it is monotone: $X\le Y$ implies $\E X\le\E Y$ when both expectations exist. If $\varphi$ is convex and $X$ is integrable, with $\varphi(X)$ integrable as well, Jensen's inequality says
-
-$$
-\varphi(\E X)\le\E\varphi(X).
-$$
-
-For $\varphi(x)=x^2$ this is $(\E X)^2\le\E X^2$, which rearranges to $\Var(X)\ge 0$.
+Expectation is linear on integrable variables, and it is monotone: $X\le Y$ implies $\E X\le\E Y$ when both expectations exist. If $\varphi$ is convex and $X$ is integrable, with $\varphi(X)$ integrable as well, Jensen's inequality says $\varphi(\E X)\le\E\varphi(X)$.{{cite:jensen1906}}{{cite:billingsley1995}}{{cite:durrett2019}} For $\varphi(x)=x^2$ this is $(\E X)^2\le\E X^2$, which rearranges to $\Var(X)\ge 0$.
 
 ::: {#thm-sp-convergence-theorems .theorem}
 ## Monotone convergence, Fatou, and dominated convergence
 
-If $0\le X_n\uparrow X$ with probability $1$, the monotone convergence theorem gives $\E X_n\uparrow\E X$, and the limit may be infinite. If $X_n\ge 0$, Fatou's lemma gives $\E(\liminf_n X_n)\le\liminf_n\E X_n$. If $X_n\to X$ with probability $1$ and $|X_n|\le Y$ for every $n$, with $\E Y<\infty$, the dominated convergence theorem gives $\E X_n\to\E X$.
+If $0\le X_n\uparrow X$ with probability $1$, the monotone convergence theorem gives $\E X_n\uparrow\E X$, and the limit may be infinite.{{cite:billingsley1995}}{{cite:durrett2019}} If $X_n\ge 0$, Fatou's lemma gives $\E(\liminf_n X_n)\le\liminf_n\E X_n$.{{cite:fatou1906}} If $X_n\to X$ with probability $1$ and $|X_n|\le Y$ for every $n$, with $\E Y<\infty$, the dominated convergence theorem gives $\E X_n\to\E X$.{{cite:lebesgue1902}}
 
 :::
 
@@ -45,10 +39,10 @@ for every $n$. There is no integrable $Y$ with $|X_n|\le Y$ for all $n$. Any suc
 ::: {#def-sp-modes .definition}
 ## Modes of convergence
 
-- $X_n\to X$ almost surely when $\mathrm{P}\{\omega: X_n(\omega)\to X(\omega)\}=1$.
-- $X_n\to X$ in probability when $\mathrm{P}(|X_n-X|>\varepsilon)\to 0$ for every $\varepsilon>0$.
+- $X_n\to X$ almost surely when $\mathrm{P}\{\omega: X_n(\omega)\to X(\omega)\}=1$.{{cite:billingsley1995}}
+- $X_n\to X$ in probability when $\mathrm{P}(|X_n-X|>\varepsilon)\to 0$ for every $\varepsilon>0$.{{cite:durrett2019}}
 - $X_n\to X$ in $L^p$, for $p\ge 1$, when $\E|X_n-X|^p\to 0$.
-- $X_n\to X$ in distribution when $F_{X_n}(x)\to F_X(x)$ at every continuity point $x$ of $F_X$.
+- $X_n\to X$ in distribution when $F_{X_n}(x)\to F_X(x)$ at every continuity point $x$ of $F_X$.{{cite:doob1953}}
 
 :::
 
@@ -90,7 +84,7 @@ Let $Y_1,Y_2,\ldots$ be independent and identically distributed, with $\E Y_i=\m
 ::: {#thm-sp-strong-law .theorem}
 ## Strong law
 
-If $\E|Y_1|<\infty$, then $\overline Y_n\to\mu$ almost surely.
+If $\E|Y_1|<\infty$, then $\overline Y_n\to\mu$ almost surely.{{cite:kolmogorov1933_slln}}{{cite:billingsley1995}}{{cite:durrett2019}}
 
 :::
 
@@ -106,9 +100,9 @@ The [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-
 
 ## Characteristic functions
 
-The characteristic function $\varphi_X(t)=\E e^{itX}$ exists for every real $t$, because $|e^{itX}|=1$. It determines the distribution. For independent random variables the characteristic function of a sum is the product of the characteristic functions, the same formal convenience that [moment generating functions](prob-02-random-variables.qmd#def-moment-generating-function) give on the set where they exist. The characteristic function exists without that restriction.
+The characteristic function $\varphi_X(t)=\E e^{itX}$ exists for every real $t$, because $|e^{itX}|=1$.{{cite:levy1925}}{{cite:durrett2019}} It determines the distribution.{{cite:billingsley1995}} For independent random variables the characteristic function of a sum is the product of the characteristic functions, the same formal convenience that [moment generating functions](prob-02-random-variables.qmd#def-moment-generating-function) give on the set where they exist. The characteristic function exists without that restriction.
 
-Lévy's continuity theorem says that if $\varphi_{X_n}(t)\to\varphi(t)$ for every $t$, and $\varphi$ is continuous at $0$ and is itself a characteristic function, then $X_n$ converges in distribution to the law with characteristic function $\varphi$. This is one route to the central limit theorem: the characteristic function of the standardised sum converges to $e^{-t^2/2}$. Convergence of characteristic functions does not, by itself, give convergence of moments.
+Lévy's continuity theorem says that if $\varphi_{X_n}(t)\to\varphi(t)$ for every $t$, and $\varphi$ is continuous at $0$ and is itself a characteristic function, then $X_n$ converges in distribution to the law with characteristic function $\varphi$.{{cite:levy1937}}{{cite:durrett2019}}{{cite:billingsley1995}} This is one route to the central limit theorem: the characteristic function of the standardised sum converges to $e^{-t^2/2}$. Convergence of characteristic functions does not, by itself, give convergence of moments.
 
 ## A fourth-moment route to the strong law
 
@@ -160,6 +154,8 @@ A family $\{X_n\}$ is uniformly integrable when
 $$
 \lim_{K\to\infty}\sup_n \E\bigl(|X_n|\,1_{\{|X_n|>K\}}\bigr)=0.
 $$
+
+The tail contribution is small uniformly in $n$.{{cite:billingsley1995}}{{cite:durrett2019}}{{cite:doob1953}}
 
 :::
 

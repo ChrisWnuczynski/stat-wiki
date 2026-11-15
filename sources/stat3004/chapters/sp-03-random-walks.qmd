@@ -12,13 +12,13 @@ $$
 \E S_n=x+n\mu, \qquad \Var(S_n)=n\sigma^2.
 $$
 
-The strong law gives $(S_n-x)/n\to\mu$ with probability $1$ when the mean exists. The central limit theorem gives, when $0<\sigma^2<\infty$,
+The strong law gives $(S_n-x)/n\to\mu$ with probability $1$ when the mean exists.{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}} The central limit theorem gives, when $0<\sigma^2<\infty$,
 
 $$
 \frac{S_n-x-n\mu}{\sigma\sqrt{n}}\;\xrightarrow{d}\; \mathrm{N}(0,1).
 $$
 
-Drift accumulates like $n$. Typical fluctuations are of order $\sqrt{n}$. Neither statement is a first-passage probability. A first-passage event depends on the whole path, not on the single variable $S_n$. The four modes of the arrow $\xrightarrow{d}$, and the conditions under which a limit of distributions controls an expectation, are on [Expectation and convergence](sp-11-convergence.qmd).
+Drift accumulates like $n$.{{cite:ross2019}} Typical fluctuations are of order $\sqrt{n}$.{{cite:feller1968}} Neither statement is a first-passage probability. A first-passage event depends on the whole path, not on the single variable $S_n$.{{cite:grimmett_stirzaker2020}}{{cite:feller1968}}{{cite:ross2019}} The four modes of the arrow $\xrightarrow{d}$, and the conditions under which a limit of distributions controls an expectation, are on [Expectation and convergence](sp-11-convergence.qmd).
 
 ## Gambler's ruin
 
@@ -34,9 +34,9 @@ $$
 h_x=p\,h_{x+1}+q\,h_{x-1}, \qquad 1\le x\le d-1,
 $$
 
-with $h_0=0$ and $h_d=1$. From an interior point the walk moves to $x+1$ or $x-1$, and then the conditional probability of eventual success is the value of $h$ at the new point.
+with $h_0=0$ and $h_d=1$. From an interior point the walk moves to $x+1$ or $x-1$, and then the conditional probability of eventual success is the value of $h$ at the new point.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
-If $p=q=1/2$, the equation says $h_{x+1}-h_x=h_x-h_{x-1}$. The first differences are constant, so $h_x$ is linear. The boundary values force
+If $p=q=1/2$, the equation says $h_{x+1}-h_x=h_x-h_{x-1}$. The first differences are constant, so $h_x$ is linear.{{cite:demoivre1756}} The boundary values force
 
 $$
 h_x=\frac{x}{d}.
@@ -48,7 +48,7 @@ $$
 h_x=\frac{1-(q/p)^x}{1-(q/p)^d}.
 $$
 
-As $p\to q$ this expression tends to $x/d$, which is the fair-walk formula. A biased walk with $p>q$ satisfies $h_x>x/d$: the upward drift makes the upper barrier more likely than the fair proportion of the distance. If $p<q$, then $h_x<x/d$.
+As $p\to q$ this expression tends to $x/d$, which is the fair-walk formula.{{cite:ross2019}} A biased walk with $p>q$ satisfies $h_x>x/d$: the upward drift makes the upper barrier more likely than the fair proportion of the distance. If $p<q$, then $h_x<x/d$.
 
 ## Expected duration
 
@@ -66,7 +66,7 @@ $$
 e_x=x(d-x).
 $$
 
-The expected duration is largest near the middle of the interval, where both barriers are far, and it is zero at either barrier.
+The expected duration is largest near the middle of the interval, where both barriers are far, and it is zero at either barrier.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
 If $p\neq q$, a particular solution is the linear function $x/(q-p)$, and the homogeneous solutions are again $1$ and $(q/p)^x$. Fitting $e_0=e_d=0$ gives
 
@@ -74,7 +74,7 @@ $$
 e_x=\frac{x}{q-p}-\frac{d}{q-p}\cdot\frac{1-(q/p)^x}{1-(q/p)^d}.
 $$
 
-The expression has a removable singularity at $p=q$. At equal probabilities, use $x(d-x)$.
+The expression has a removable singularity at $p=q$. At equal probabilities, use $x(d-x)$.{{cite:demoivre1756}}{{cite:ross2019}}
 
 ::: {#exm-sp-fair-ten .example}
 ## Three steps from ruin, ten from the start
