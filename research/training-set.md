@@ -24,3 +24,8 @@ Bishop 2006 remains cited because the existing networks excerpt cites it. That b
 - The origin of the English phrase *training set* was not established. Stone's opened pages say construction and validation subsamples. Efron's opened pages use training set as the name of the observed cases. No first use is asserted.
 - `checks/training-set.py` checks the nearest-neighbour distances and error lengths, the intercept-only sample, and the expected optimism with exact fractions.
 - The original definition, both chapter excerpts, five citation keys, infobox, and fifteen question links remain. No figure, definition, example, or practice question was removed.
+
+## Correction pass
+
+- Added page and section locations to each citation. Removed a historical non-claim about the first use of the phrase *training set* and a reference to page assembly.
+- The arithmetic check now asserts that its principal worked and sourced values are printed in the article.

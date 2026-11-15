@@ -1,6 +1,7 @@
 """Exact checks for the training-set nearest-neighbour and intercept calculations."""
 
 from fractions import Fraction
+from pathlib import Path
 
 
 def nearest_label(points, x):
@@ -13,6 +14,9 @@ def nearest_label(points, x):
 
 
 if __name__ == "__main__":
+    article = (Path(__file__).resolve().parents[1] / "research/content/training-set.md").read_text()
+    for printed in (r"\frac{4}{15}", "3/8", "10-2=8", "1/2", "3/4", r"3\%", r"50\%"):
+        assert printed in article, f"Worked or sourced value missing from article: {printed}"
     train = ((0, 0), (1, 0), (3, 1))
     assert nearest_label(train, 0)[1:] == (0, 0)
     assert nearest_label(train, 1)[1:] == (0, 1)

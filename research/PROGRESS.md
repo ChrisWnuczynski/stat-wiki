@@ -47,6 +47,7 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 The user added citation-location, source-access, reader-facing prose, paragraph-citation, and exact-value-check requirements after rank 27. Review the completed articles against these requirements before relying on their earlier completion flags.
 
 - Rank 25, conditional expectation: corrected the conditional-density integral, added citation locations, removed a repetitive pseudo-history section, rephrased page-assembly language, and tied printed values to the arithmetic check.
+- Rank 24, training set: added citation locations, removed a historical non-claim, and tied worked values to the arithmetic check.
 
 ## Verification for completed pages
 
