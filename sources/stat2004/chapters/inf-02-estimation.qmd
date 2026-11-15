@@ -11,7 +11,7 @@ For the milk cartons in [Statistical inference](inf-01-statistical-inference.qmd
 ::: {#def-estimator .definition}
 ## Estimator
 
-An estimator of $\theta$ is a statistic $T=T(X_1,\ldots,X_n)$ whose value is used as a guess at $\theta$.{{cite:fisher1922}}{{cite:casella_berger2002}} Its observed value $t=T(x_1,\ldots,x_n)$ is the estimate.{{cite:lehmann_casella1998}}
+An estimator of $\theta$ is a statistic $T=T(X_1,\ldots,X_n)$ whose value is used to estimate $\theta$. Its observed value $t=T(x_1,\ldots,x_n)$ is the estimate.{{cite:wang2025_foundations}} (Ch. 12, §15)
 
 :::
 
@@ -30,7 +30,7 @@ $$
 \widehat p=\frac1{10}\sum_{i=1}^{10}X_i,
 $$
 
-and its observed value is $4/10=0.4$. The estimator is the recipe that would be applied to tomorrow's ten thermometers. The estimate is the number $0.4$ from today's.
+and its observed value is $4/10=0.4$. The estimator is the recipe that would be applied to tomorrow's ten thermometers. The estimate is the number $0.4$ from today's.{{cite:wang2025_foundations}} (Ch. 12, §§15, 17.4)
 
 :::
 
