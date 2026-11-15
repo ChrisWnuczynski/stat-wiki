@@ -1349,6 +1349,23 @@
         "id": "10.1017/cbo9780511802843"
       }
     },
+    "dawid1979": {
+      "authors": [
+        "Dawid, A. P."
+      ],
+      "year": 1979,
+      "title": "Conditional Independence in Statistical Theory",
+      "kind": "article",
+      "venue": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+      "volume": "41",
+      "issue": "1",
+      "pages": "1–31",
+      "doi": "10.1111/j.2517-6161.1979.tb01052.x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.2517-6161.1979.tb01052.x"
+      }
+    },
     "dawid1984": {
       "authors": [
         "Dawid, A. P."

@@ -4,7 +4,7 @@ Branch: `cursor/research-depth-from-training-set`. Ranking is frozen in [RANKING
 
 ## Status
 
-Pages ranked: **718**. Done: **26**. Left: **692**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **27**. Left: **691**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -34,12 +34,13 @@ Pages ranked: **718**. Done: **26**. Left: **692**. Skipped: **0**. Ranks 1–23
 | 24 | [Training set](training-set.md) | Concept/topic | [Prose](content/training-set.md), [check](../checks/training-set.py) | 221 → 2,843 | 0 → 0 | Phrase origin unverified and omitted; Efron 1983 read from a scanned PDF |
 | 25 | [Conditional expectation](conditional-expectation.md) | Concept/topic | [Prose](content/conditional-expectation.md), [check](../checks/conditional-expectation.py) | 317 → 2,467 | 0 → 0 | History limited to the opened Durrett author PDF |
 | 26 | [Joint probability density](joint-probability-density.md) | Concept/definition | [Prose](content/joint-probability-density.md), [check](../checks/joint-probability-density.py) | 469 → 2,410 | 0 → 0 | New claims use the opened Durrett author PDF; phrase origin omitted |
+| 27 | [Conditional independence](conditional-independence.md) | Section | [Prose](content/conditional-independence.md), [check](../checks/conditional-independence.py) | 505 → 2,255 | 0 → 0 | Dawid 1979 opened from a scan; Lauritzen 1996 not reopened |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 27: `conditional-independence`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 28: `confidence-interval`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -68,5 +69,6 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Conditional distribution: 20 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Both original figure instances, the finite-lattice, shop, and continuous triangle examples, and nineteen question links remain. One collapsed proof covers the product and marginal rules, independence, both tower identities, and random-sum moments. Source wording now qualifies conditioning at zero-probability values.
 - Training set: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 relevant Node tests passed. The original definition, both chapter excerpts, five citation keys, infobox values, and fifteen question links remain. One collapsed proof covers the distinct-input nearest-neighbour training error, the squared-error covariance identity, the trace formula, and the intercept-only expectations. No generator change.
 - Conditional expectation: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 Node tests passed. The original definition, sample conditional-mean line, four citation keys, and seventeen question links remain. One collapsed proof covers the atom formula, tower property, independence case, mean-square projection, bivariate normal mean and variance, and the least-squares slope identity. No generator change.
-- Joint probability density: 10 checks passed, including the quadrant integral; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed. The original definition, transformation rule, both worked answers, six earlier citation keys, and seventeen question links remain. One collapsed proof covers normalisation, marginals, the product criterion, and the existing covariance identity. No generator change. Node tests were re-run with the previous page and not again for this content-only commit.
+- Joint probability density: 10 checks passed, including the quadrant integral; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 Node tests passed. The original definition, transformation rule, both worked answers, six earlier citation keys, and seventeen question links remain. One collapsed proof covers normalisation, marginals, the product criterion, and the existing covariance identity. No generator change.
+- Conditional independence: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 397 works; overview link check passed; 74 Node tests passed. The original definition, four properties, five density identities, separating-set sentence, and twenty-six question links remain. One collapsed proof covers symmetry, reduction, contraction, and the displayed density cancellations. Added `dawid1979` after reading the 1979 scan. No generator change.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
