@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **16**. Left: **702**. Skipped: **0**.
+Pages ranked: **718**. Done: **17**. Left: **701**. Skipped: **0**.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -24,12 +24,13 @@ Pages ranked: **718**. Done: **16**. Left: **702**. Skipped: **0**.
 | 14 | [Logit link](logit-link.md) | Concept/topic | [Prose](content/logit-link.md), [check](../checks/logit-link.py) | 543 → 1,997 | 0 → 0 | Cox 1958 full paper unavailable; publisher record and reproduced excerpt checked |
 | 15 | [Odds](odds.md) | Concept/topic | [Prose](content/odds.md), [check](../checks/odds.py) | 202 → 1,633 | 0 → 0 | History omits unverified origin of the term *odds* |
 | 16 | [Unbiased estimator](unbiased-estimator.md) | Concept/definition | [Prose](content/unbiased-estimator.md), [check](../checks/unbiased-estimator.py) | 768 → 2,036 | 0 → 0 | Historical origin of the term unverified; normal-pivot claim qualified |
+| 17 | [Maximum likelihood](maximum-likelihood.md) | Concept/definition | [Prose](content/maximum-likelihood.md), [check](../checks/maximum-likelihood.py) | 2,000 → 3,629 | 0 → 0 | Corrected uniform endpoint density and degenerate normal MLE in source chapter and answer |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 17: `maximum-likelihood`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 18: `positive-definite-matrix`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -49,4 +50,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Logit link: 20 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing equations, doubled-odds example, separation description, and 21 question links remain. New proof covers the link's mapping, canonical parameter, odds multiplier, and separated-sample MLE limit.
 - Odds: 16 exact and floating-point checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing definition, $0.8\mapsto4$ example, regression interpretation, and 23 question links remain. New proof covers odds conversion, reciprocal odds, the odds-ratio comparison, Bayesian updating, and the regression multiplier.
 - Unbiased estimator: 12 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing sample mean, variance, and regression claims, three examples, and ten question links remain. New proof covers those claims, MSE decomposition, transformation bias, and Rao–Blackwell improvement.
+- Maximum likelihood: 18 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing spark-plug, normal, uniform, exponential, and Poisson examples and 16 question links remain. One collapsed proof covers factorisation, boundary cases, and invariance. The original source chapter and question answer now correctly handle the uniform endpoint density convention and the all-identical normal sample.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

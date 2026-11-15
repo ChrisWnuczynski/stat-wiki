@@ -170,17 +170,19 @@ $$
 \widehat\sigma^2=\frac1n\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-So the normal mean is estimated by the sample mean, and the maximum likelihood estimator of the variance divides by $n$, not by $n-1$.{{cite:fisher1922}}{{cite:casella_berger2002}} The two estimators coincide with the moment estimators.{{cite:fisher1925_est}} The derivative was taken with respect to $\sigma^2$, treated as the parameter; the next result shows that working with $\sigma$ instead gives the same answer.
+When at least two observations differ, the normal mean is estimated by the sample mean, and the maximum likelihood estimator of the variance divides by $n$, not by $n-1$.{{cite:fisher1922}}{{cite:casella_berger2002}} The two estimators coincide with the moment estimators.{{cite:fisher1925_est}} If all observations are identical and $\sigma^2>0$ is unrestricted below, the likelihood is unbounded as $\sigma^2\downarrow0$; there is no finite maximiser in that parameter space. The derivative was taken with respect to $\sigma^2$, treated as the parameter; the next result shows that working with $\sigma$ instead gives the same answer.
 
 ### When the likelihood equation fails
 
-Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$. Each density is $1/\theta$ on $(0,\theta)$, so
+Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$, with an observed maximum $M=\max_i x_i>0$. Use the equivalent density version $f(x;\theta)=1/\theta$ for $0\le x\le\theta$, and zero otherwise; changing a density at its endpoints does not change the sampling law. Then
 
 $$
 L(\theta)=\theta^{-n}\quad\text{if }\theta\ge\max_i x_i,\qquad L(\theta)=0\quad\text{otherwise}.
 $$
 
 $L$ is decreasing wherever it is positive, so its maximum is at the boundary, $\widehat\theta=\max_i X_i$. The derivative is never zero. The likelihood equation finds interior critical points only, and a maximum at the edge of the allowed region has to be found by looking at $L$ directly. The moment estimator is different: $\E X=\theta/2$ gives $\widetilde\theta=2\overline X$, which can be smaller than the largest observation, an impossible value.
+
+The endpoint convention matters to the *pointwise likelihood* when support depends on the parameter: with the density defined as $1/\theta$ only for $x<\theta$, the likelihood has a supremum as $\theta\downarrow\max_i x_i$ but no attained maximum. State the density version when calling the sample maximum an MLE.
 
 ::: {#prp-invariance-of-maximum-likelihood .proposition}
 ## Invariance of maximum likelihood
