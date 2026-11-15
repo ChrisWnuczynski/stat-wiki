@@ -19,3 +19,8 @@ Type: Concept/topic.
 - The proof also derives the existing claim that \(s_{YX}/s_{XX}\) is the least-squares slope. The original definition, the sample-line display, the four citation keys, and the seventeen question links remain.
 - `checks/conditional-expectation.py` checks the discrete means, tower identity, variance split, normal formulas, exercise, and a four-point least-squares slope with exact fractions.
 - No figure, definition, example, or practice question was removed. The triangle and shop examples stay in the source chapter; they were not copied onto this article before the edit, so they were not deleted from it.
+
+## Correction pass
+
+- Corrected the conditional-density formula to integrate over the response (y), holding the conditioning value (x) fixed. The arithmetic check now asserts the formula and printed worked values.
+- Added locations to citations of Durrett §4.1 and removed the History section, which repeated the mathematical explanation without establishing a historical event. Rephrased references to page assembly as reader-facing exposition.

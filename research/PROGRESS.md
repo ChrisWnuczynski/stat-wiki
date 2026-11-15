@@ -42,6 +42,12 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 
 **Rank 28: `confidence-interval`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
+## Citation and prose correction pass
+
+The user added citation-location, source-access, reader-facing prose, paragraph-citation, and exact-value-check requirements after rank 27. Review the completed articles against these requirements before relying on their earlier completion flags.
+
+- Rank 25, conditional expectation: corrected the conditional-density integral, added citation locations, removed a repetitive pseudo-history section, rephrased page-assembly language, and tied printed values to the arithmetic check.
+
 ## Verification for completed pages
 
 - Variance: exact rational arithmetic 5 checks passed; generator completed; 63 Python tests passed; offline schema and citation verification passed for 383 works. A direct Quarto render produced the variance HTML with one Proof box. Its site-wide redirect post-check cannot pass when only one of 1,482 pages is rendered; a full render was stopped after 96 pages to keep the per-page workflow moving. Publisher page and open full text were read. Live Crossref verification failed because the environment's proxy returned HTTP 403, not because of a metadata mismatch.
