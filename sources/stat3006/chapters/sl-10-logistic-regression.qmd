@@ -91,7 +91,7 @@ L(\beta)&=\prod_{i=1}^n p_i^{y_i}(1-p_i)^{1-y_i},\\
 \ell(\beta)&=\sum_{i=1}^n\bigl\{y_i\log p_i+(1-y_i)\log(1-p_i)\bigr\},
 \end{align*}
 
-with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}$.
+with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}${{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}.
 
 :::
 
@@ -140,17 +140,17 @@ where $W=\mathrm{diag}\bigl(p_i(1-p_i)\bigr)$. The identity $p_i(1-p_i)=\sigma'(
 ::: {#thm-sl-10-concave .theorem}
 ## A finite stationary point is a global maximiser
 
-At every finite coefficient vector the weights $p_i(1-p_i)$ are positive. The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave. If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser.
+At every finite coefficient vector the weights $p_i(1-p_i)$ are positive. The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}. If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser{{cite:agresti2002}}.
 
 :::
 
 Concavity does not prove that a finite stationary point exists, and it does not prove that an unguarded numerical iteration will find one.
 
-Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0$. Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector. The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate. Check convergence and separation before interpreting standard errors.
+Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0${{cite:albert_anderson1984}}. Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector{{cite:albert_anderson1984}}. The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate{{cite:albert_anderson1984}}. Check convergence and separation before interpreting standard errors.
 
 ### Iteratively reweighted least squares
 
-Newton–Raphson updates
+Newton–Raphson updates{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}.
 
 $$
 \beta\leftarrow\beta+(X^\top W X)^{-1}X^\top(y-p).
@@ -171,9 +171,9 @@ X^\top W z
 &=\beta+(X^\top W X)^{-1}X^\top(y-p),
 \end{align*}
 
-which is exactly the Newton step. Each step is a weighted least-squares fit of $z$ on $X$, with weights $p_i(1-p_i)$. The weights are functions of the current $\beta$, through $p_i$, and they are recomputed every iteration. This is iteratively reweighted least squares. It typically converges in a handful of iterations.
+which is exactly the Newton step{{cite:nelder_wedderburn1972}}. Each step is a weighted least-squares fit of $z$ on $X$, with weights $p_i(1-p_i)$. The weights are functions of the current $\beta$, through $p_i$, and they are recomputed every iteration. This is iteratively reweighted least squares{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}. It typically converges in a handful of iterations.
 
-For logistic regression, Fisher scoring and Newton–Raphson coincide, because the Hessian $-X^\top W X$ does not depend on $y$ except through the current probabilities, and those probabilities are functions of $\beta$ and $X$. The expected Hessian and the observed Hessian are the same matrix once the variance of a Bernoulli trial is taken to be $p_i(1-p_i)$. The working response is a device that makes one Newton step look like weighted least squares. It is recomputed from the current fit, and it is not itself the binary observation.
+For logistic regression, Fisher scoring and Newton–Raphson coincide, because the Hessian $-X^\top W X$ does not depend on $y$ except through the current probabilities, and those probabilities are functions of $\beta$ and $X${{cite:nelder_wedderburn1972}}. The expected Hessian and the observed Hessian are the same matrix once the variance of a Bernoulli trial is taken to be $p_i(1-p_i)$. The working response is a device that makes one Newton step look like weighted least squares. It is recomputed from the current fit, and it is not itself the binary observation.
 
 ::: {#exm-sl-10-newton .example}
 ## Newton's method on four points
@@ -231,7 +231,7 @@ $$
 \log\frac{\tau_1(x)}{\tau_0(x)}=\beta^\top x.
 $$
 
-Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}$. The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
+Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}${{cite:cox1958_logistic}}{{cite:berkson1944}}{{cite:hastie_esl2009}}. The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
 
 The same one-unit reading can be derived for the linear discriminant log-odds score, since under a shared covariance that score is also linear in $x$. A coefficient remains a conditional association inside the fitted model. It does not, by itself, measure the effect of intervening on $x_j$.
 
@@ -241,7 +241,7 @@ $$
 \beta^\top x=0.
 $$
 
-The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary. The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
+The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary{{cite:hastie_esl2009}}. The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
 
 $$
 \eta(\beta)=
@@ -257,7 +257,7 @@ Products and powers such as $x_1$, $x_1^2$, and $x_1 x_2$ can be added to the li
 
 ### Linear discriminant analysis implies a logistic model
 
-Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model. Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
+Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model{{cite:hastie_esl2009}}. Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
 
 The algebra is Bayes' theorem plus cancellation of the quadratic terms. Let $X\given Y=1\sim\Normal(\mu_1,\Sigma)$ and $X\given Y=0\sim\Normal(\mu_0,\Sigma)$, with priors $\pi_1$ and $\pi_0$. Then
 
@@ -302,7 +302,7 @@ A correctly specified logistic model then needs an intercept adjustment and no r
 
 ## More than two classes
 
-Two classes were enough to fix the link. With $G>2$ nominal classes, a single log odds no longer describes the conditional distribution. The baseline-category logit on [Categorical responses](04-categorical-responses.qmd) is this model: one class is the reference, and each remaining class has its own linear predictor. Take the reference to be class $1$. Each remaining class gets its own coefficient vector $\beta_g$, $g\in\{2,\ldots,G\}$, and the model is linear in the log odds against the reference, the same comparison linear discriminant analysis makes one pair at a time:
+Two classes were enough to fix the link. With $G>2$ nominal classes, a single log odds no longer describes the conditional distribution. The baseline-category logit on [Categorical responses](04-categorical-responses.qmd) is this model: one class is the reference, and each remaining class has its own linear predictor. Take the reference to be class $1$. Each remaining class gets its own coefficient vector $\beta_g$, $g\in\{2,\ldots,G\}$, and the model is linear in the log odds against the reference, the same comparison linear discriminant analysis makes one pair at a time{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}:
 
 $$
 \log\frac{\tau_g(x)}{\tau_1(x)}=\beta_g^\top x.
@@ -327,11 +327,11 @@ $$
 \quad g\ge 2.
 $$
 
-The algebra uses the linear log-odds specification together with the requirement that the fitted probabilities sum to $1$. The reference class is a labelling choice: a different reference reparameterises the same family of conditional distributions. The coefficient vectors are estimated jointly by maximum likelihood, or by an extension of the binary iteratively reweighted least-squares iteration. The map from linear predictors to probabilities is the softmax. An ordered response can use a multinomial model, at some loss of efficiency, because that model ignores the order. Models that use the order make further assumptions and are not developed here.
+The algebra uses the linear log-odds specification together with the requirement that the fitted probabilities sum to $1$. The reference class is a labelling choice: a different reference reparameterises the same family of conditional distributions. The coefficient vectors are estimated jointly by maximum likelihood, or by an extension of the binary iteratively reweighted least-squares iteration{{cite:mccullagh_nelder1989}}. The map from linear predictors to probabilities is the softmax. An ordered response can use a multinomial model, at some loss of efficiency, because that model ignores the order. Models that use the order make further assumptions and are not developed here.
 
 ## Inference, deviance, and model comparison
 
-At a regular finite logistic maximum likelihood estimate, invert $X^\top W X$ and take square roots of its diagonal entries to obtain asymptotic standard errors. The Wald statistic divides an estimated coefficient by its standard error. This is an approximation justified by sampling behaviour under the model, not a guarantee supplied by the numerical inverse. The Wald interval and the deviance comparison both assume that a finite maximum was attained. Under complete separation the coefficients diverge and those standard errors are not meaningful.
+At a regular finite logistic maximum likelihood estimate, invert $X^\top W X$ and take square roots of its diagonal entries to obtain asymptotic standard errors. The Wald statistic divides an estimated coefficient by its standard error{{cite:wald1943}}{{cite:casella_berger2002}}{{cite:mccullagh_nelder1989}}. This is an approximation justified by sampling behaviour under the model, not a guarantee supplied by the numerical inverse. The Wald interval and the deviance comparison both assume that a finite maximum was attained. Under complete separation the coefficients diverge and those standard errors are not meaningful.
 
 A comparison of two nested models uses the likelihood ratio rather than a single coefficient. Deviance, as a comparison of a fitted model with the saturated model, is on [Paired comparisons, and how far a fit is from the data](05-comparisons-and-deviance.qmd). For binary data the saturated model, with a free probability at each case, has log-likelihood $0$: a fitted probability of $1$ on a label $1$, or $0$ on a label $0$, contributes $\log 1=0$. The deviance of a fitted model is therefore simply $D=-2\ell$. The null deviance $D_0=-2\ell$ is the deviance of the model with only an intercept, and the residual deviance $D=-2\ell$ is the deviance of the model with the full $\beta$. A higher likelihood is a smaller deviance. The drop $D_0-D$ measures the improvement from the explanatory variables, and under the null that those variables have coefficients zero it is approximately $\chi^2$ with degrees of freedom equal to the number of coefficients added.
 
@@ -385,7 +385,7 @@ These calculations check the interpretation of the supplied numbers. They are no
 
 ## Laboratory: odds and probabilities for two iris species
 
-Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves.
+Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:brier1950}}.
 
 ```r
 btrain <- droplevels(subset(train, Species != "setosa"))

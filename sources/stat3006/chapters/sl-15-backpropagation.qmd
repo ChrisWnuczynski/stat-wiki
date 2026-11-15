@@ -39,15 +39,15 @@ Fix the architecture while differentiating. Its size is a separate choice. The w
    $$
    w'=w-\varepsilon\frac{\partial E}{\partial w}=w+\Delta w,
    $$
-   until a stopping condition holds: the performance is acceptable, or the weights are barely changing.
+   until a stopping condition holds: the performance is acceptable, or the weights are barely changing{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}{{cite:hastie_esl2009}}.
 
 :::
 
-The learning rate $\varepsilon>0$ is the step size along minus the gradient. The value $0.1$ is an example of a step size. It is not a distinguished constant.
+The learning rate $\varepsilon>0$ is the step size along minus the gradient{{cite:rumelhart_hinton_williams1986}}{{cite:widrow_hoff1960}}{{cite:bishop2006}}. The value $0.1$ is an example of a step size. It is not a distinguished constant.
 
 In one dimension the error is a curve in the single weight. The update subtracts $\varepsilon$ times the derivative, so the step length is $\varepsilon$ times the slope. A steep region takes a longer step, and a large $\varepsilon$ can jump over a valley. A flat region, where the derivative is near zero, barely moves. A start in one basin stays in that basin under a small enough step. Momentum adds a fraction of the previous step and can cross a flat ridge. A mini-batch replaces the full gradient by an average over a random subset and so adds noise to the gradient. A line search spends several evaluations of the loss on one step. A second-order step uses the Hessian and costs more per iteration.
 
-A randomly sampled mini-batch can give an unbiased estimate of the gradient of the mean loss. That expectation, with the current weights held fixed, is the relevant property. The angle of one noisy draw is not a convergence argument. Its variance and the learning-rate schedule still affect the trajectory. One pass through all the training patterns is an epoch. NETtalk, on [networks in practice](sl-16-networks-in-practice.qmd), is the count used later.
+A randomly sampled mini-batch can give an unbiased estimate of the gradient of the mean loss. That expectation, with the current weights held fixed, is the relevant property. The angle of one noisy draw is not a convergence argument. Its variance and the learning-rate schedule still affect the trajectory. One pass through all the training patterns is an epoch{{cite:bishop2006}}{{cite:hastie_esl2009}}. NETtalk, on [networks in practice](sl-16-networks-in-practice.qmd), is the count used later.
 
 For checking a gradient, perturb one weight at a time and compare the analytical derivative with $[E(w+\delta)-E(w-\delta)]/(2\delta)$. A very large $\delta$ causes approximation error. A very small one causes cancellation in floating-point arithmetic. Try a small range of steps and compare absolute as well as relative discrepancies, especially near zero derivatives. This check is expensive for training and useful for finding a missing sign or factor.
 
@@ -86,7 +86,7 @@ A common slip drops that numerator and writes $\partial o/\partial w_{ab}=x_{ia}
 ::: {#thm-sl-15-logistic-link .theorem}
 ## Squared error is not the logistic likelihood
 
-For one sigmoid output, squared-error fitting and Bernoulli likelihood fitting are different optimisation problems. The squared-error gradient includes the factor $o_i(1-o_i)$, which becomes small at saturation. The gradient of the negative log-likelihood is $\sum_i (o_i-y_i)x_{ia}$, without that extra factor. The score of the positive log-likelihood has the opposite sign. Distinguish the gradient from the descent update. The likelihood itself is the [logistic regression](sl-10-logistic-regression.qmd) fit. The calculation here is the squared-error gradient, including through hidden layers.
+For one sigmoid output, squared-error fitting and Bernoulli likelihood fitting are different optimisation problems. The squared-error gradient includes the factor $o_i(1-o_i)$, which becomes small at saturation. The gradient of the negative log-likelihood is $\sum_i (o_i-y_i)x_{ia}$, without that extra factor{{cite:bishop2006}}{{cite:ripley1996}}{{cite:hastie_esl2009}}. The score of the positive log-likelihood has the opposite sign. Distinguish the gradient from the descent update. The likelihood itself is the [logistic regression](sl-10-logistic-regression.qmd) fit. The calculation here is the squared-error gradient, including through hidden layers.
 
 :::
 
@@ -199,7 +199,7 @@ $$
 \delta_{ik}^{(o)}=-2[y_{ik}-o_{ik}]\,e^{-z_{ik}} o_{ik}^2,
 $$
 
-and $\delta_{iq}^{(h)}$ equals the bracketed sum in the factored input–hidden update, times $-2$, times $e^{-u}h^2$. The output error is propagated backwards through the weights $w_{qk}$, and each hidden unit receives its share. That backward pass is where the name comes from.
+and $\delta_{iq}^{(h)}$ equals the bracketed sum in the factored input–hidden update, times $-2$, times $e^{-u}h^2$. The output error is propagated backwards through the weights $w_{qk}$, and each hidden unit receives its share. That backward pass is where the name comes from{{cite:rumelhart_hinton_williams1986}}{{cite:werbos1994}}{{cite:bishop2006}}.
 
 ::: {#def-sl-15-backprop .definition}
 ## Backpropagation, batch form
@@ -210,7 +210,7 @@ For one pass through the data with current weights:
 2. Output deltas: $\delta_{ik}^{(o)}$ from the definition above.
 3. Backward: hidden deltas $\delta_{iq}^{(h)}$ from the definition above.
 4. Gradients: $G_{qk}=\sum_i \delta_{ik}^{(o)} h_{iq}$ and $G_{jq}=\sum_i \delta_{iq}^{(h)} x_{ij}$, with $h_{i0}=x_{i0}=1$.
-5. Update: $w\leftarrow w-\varepsilon G$ for every weight.
+5. Update: $w\leftarrow w-\varepsilon G$ for every weight{{cite:rumelhart_hinton_williams1986}}{{cite:werbos1994}}{{cite:bishop2006}}.
 
 :::
 
@@ -286,7 +286,7 @@ A large parameter count raises estimation and optimisation questions. It does no
 ::: {#thm-sl-15-symmetry .theorem}
 ## Local minima, plateaus, and symmetry
 
-The loss is generally nonconvex. A run can approach a local minimum, a saddle or a nearly flat region, or fail to settle. Permuting hidden units and their incident weights preserves the function. There are up to $l!$ distinct permutations, fewer if some units coincide. Fully symmetric hidden-unit initialisation preserves that symmetry under deterministic gradient updates. Random initialisation breaks it. For sigmoids, replacing $g(u)$ by $g(-u)=1-g(u)$ also requires compensating outgoing weights and biases to preserve the function.
+The loss is generally nonconvex{{cite:bishop2006}}{{cite:ripley1996}}. A run can approach a local minimum, a saddle or a nearly flat region, or fail to settle. Permuting hidden units and their incident weights preserves the function{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}. There are up to $l!$ distinct permutations, fewer if some units coincide. Fully symmetric hidden-unit initialisation preserves that symmetry under deterministic gradient updates. Random initialisation breaks it. For sigmoids, replacing $g(u)$ by $g(-u)=1-g(u)$ also requires compensating outgoing weights and biases to preserve the function.
 
 :::
 

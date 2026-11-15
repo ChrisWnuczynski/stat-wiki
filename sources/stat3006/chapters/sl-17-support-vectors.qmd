@@ -4,7 +4,7 @@ Suppose several lines separate the two training classes perfectly. Their trainin
 
 The same programme only ever sees the data through inner products. Replacing those inner products by a kernel is how a linear margin in a new feature space becomes a nonlinear boundary in the original one. The kernel, the scaling of the inputs, the cost $C$, and any kernel width are part of the model together. A large margin in one feature space need not be a large margin in another.
 
-The kernel-based maximum-margin construction appears in Boser, Guyon and Vapnik (1992). The appeal here is the connection between geometry, optimisation and prediction. Whether it outperforms another classifier on a particular data set is an empirical question about the complete fitting and assessment procedure. The perceptron on [neural units](sl-14-neural-units.qmd) can stop at any separating hyperplane. The margin is the preference that rule lacks. XOR, which no hyperplane separates, returns as a kernel example.
+The kernel-based maximum-margin construction appears in {{cite:boser_guyon_vapnik1992}}. The appeal here is the connection between geometry, optimisation and prediction. Whether it outperforms another classifier on a particular data set is an empirical question about the complete fitting and assessment procedure. The perceptron on [neural units](sl-14-neural-units.qmd) can stop at any separating hyperplane. The margin is the preference that rule lacks. XOR, which no hyperplane separates, returns as a kernel example.
 
 ## Linear separators and the margin
 
@@ -21,7 +21,7 @@ where $w$ is the weight vector, $x$ the input vector, and $b$ the bias (called $
 ::: {#thm-sl-17-signed-distance .theorem}
 ## Signed distance
 
-For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm. In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert$.
+For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm{{cite:burges1998}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}.
 
 :::
 
@@ -37,18 +37,18 @@ so $r=(w^\top x+b)/\lVert w\rVert$.
 
 Rescaling $(w,b)$ by a positive constant leaves the separating plane unchanged. It also rescales the numerator and denominator of the distance formula by the same factor. A functional score $w^\top x+b$ is not itself a geometric distance until the norm of $w$ has been accounted for.
 
-The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho$. For hard-margin separation, only the points on the margin determine the solution. Moving a point that is strictly beyond the margin, without crossing it, does not change the optimum.
+The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. For hard-margin separation, only the points on the margin determine the solution. Moving a point that is strictly beyond the margin, without crossing it, does not change the optimum.
 
 ### Why maximise the margin?
 
 A large margin gives a training point some tolerance to perturbation along the normal before its classification changes. Learning theory also relates margins to the richness of a class of decision rules. A set is shattered if every binary labelling of it can be realised by the class. The VC dimension is the largest size of any shattered set. General position is not part of the definition. Affine half-spaces in $\mathbb{R}^p$ have VC dimension $p+1$. Some smaller degenerate configurations fail to be shattered, which is compatible with that maximum. The four XOR corners are one such configuration: half-spaces in the plane have VC dimension $3$, and those four points are not shattered.
 
-The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D$ (Burges, 1998).
+The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D${{cite:burges1998}}.
 
 ::: {#thm-sl-17-vapnik .theorem}
 ## Vapnik's radius–margin bound
 
-For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0$. The classical radius–margin bound is
+For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0${{cite:vapnik1998}}{{cite:burges1998}}{{cite:hastie_esl2009}}. The classical radius–margin bound is
 
 $$
 h\le\min\Bigl\{\Bigl\lceil\frac{D^2}{\rho^2}\Bigr\rceil,\, p\Bigr\}+1.
@@ -81,12 +81,12 @@ $$
 r=\frac{y_s(w^\top x_s+b)}{\lVert w\rVert}=\frac{1}{\lVert w\rVert},
 $$
 
-and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2$.
+and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}.
 
 ::: {#def-sl-17-hard-margin .definition}
 ## Hard-margin primal
 
-Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to
+Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to the constraints{{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}.
 
 $$
 y_i(w^\top x_i+b)\ge 1,\qquad i=1,\ldots,n.
@@ -136,9 +136,9 @@ $$
 
 :::
 
-This is again a quadratic programme, now in $\alpha$. It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
+This is again a quadratic programme, now in $\alpha${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}{{cite:hastie_esl2009}}. It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
 
-The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector, and
+The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector{{cite:cortes_vapnik1995}}{{cite:vapnik1995}}, and
 
 $$
 w=\sum_i\alpha_i y_i x_i,
@@ -193,7 +193,7 @@ $$
 \Phi(w,\xi)=\frac12 w^\top w+C\sum_{i=1}^{n}\xi_i
 $$
 
-subject to $y_i(w^\top x_i+b)\ge 1-\xi_i$ and $\xi_i\ge 0$ for all $i=1,\ldots,n$.
+subject to $y_i(w^\top x_i+b)\ge 1-\xi_i$ and $\xi_i\ge 0$ for all $i=1,\ldots,n${{cite:cortes_vapnik1995}}{{cite:vapnik1998}}{{cite:hastie_esl2009}}.
 
 :::
 
@@ -207,7 +207,7 @@ L=\frac12 w^\top w+C\sum_i\xi_i
 -\sum_i\mu_i\xi_i.
 $$
 
-The derivatives with respect to $w$ and $b$ are as before, and $\partial L/\partial\xi_i=C-\alpha_i-\mu_i=0$. Since $\mu_i\ge 0$ this gives $\alpha_i\le C$, and the $\xi$-terms cancel on substitution. The dual problem is identical to the separable case except that the multipliers are bounded:
+The derivatives with respect to $w$ and $b$ are as before, and $\partial L/\partial\xi_i=C-\alpha_i-\mu_i=0$. Since $\mu_i\ge 0$ this gives $\alpha_i\le C$, and the $\xi$-terms cancel on substitution. The dual problem is identical to the separable case except that the multipliers are bounded{{cite:cortes_vapnik1995}}{{cite:vapnik1998}}{{cite:hastie_esl2009}}:
 
 $$
 \begin{aligned}
@@ -239,7 +239,7 @@ Complementary slackness gives three cases for a training point.
 | $0<\alpha_i<C$ | $y_i f(x_i)=1$: exactly on the margin, a free support vector | $\xi_i=0$ |
 | $\alpha_i=C$ | $y_i f(x_i)\le 1$: inside the margin or misclassified, a bound support vector | $\xi_i=1-y_i f(x_i)\ge 0$ |
 
-Only points on or inside the margin influence the fit. On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
+Only points on or inside the margin influence the fit{{cite:cortes_vapnik1995}}{{cite:burges1998}}{{cite:hastie_esl2009}}. On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
 
 ### The hinge loss
 
@@ -249,7 +249,7 @@ $$
 \sum_{i=1}^{n}\max\{0,\,1-y_i f(x_i)\}+\frac{1}{2C}\lVert w\rVert^2,
 $$
 
-a hinge loss plus a ridge penalty on $w$. Compare weight decay on [networks in practice](sl-16-networks-in-practice.qmd). The hinge is zero once the margin exceeds $1$: a point that is correctly classified and far from the boundary does not pull the fit. Squared error would keep pulling. The binomial deviance penalises errors roughly linearly, as the hinge does, and it never becomes exactly zero. The factor $1/(2C)$ plays the role of the regularisation parameter $\lambda$ in weight decay: small $C$ is strong regularisation.
+a hinge loss plus a ridge penalty on $w${{cite:hastie_esl2009}}{{cite:cortes_vapnik1995}}{{cite:burges1998}}. Compare weight decay on [networks in practice](sl-16-networks-in-practice.qmd). The hinge is zero once the margin exceeds $1$: a point that is correctly classified and far from the boundary does not pull the fit. Squared error would keep pulling. The binomial deviance penalises errors roughly linearly, as the hinge does, and it never becomes exactly zero. The factor $1/(2C)$ plays the role of the regularisation parameter $\lambda$ in weight decay: small $C$ is strong regularisation.
 
 ## The kernel trick
 
@@ -266,7 +266,7 @@ $$
 K(x_i,x_j)=\phi(x_i)^\top\phi(x_j).
 $$
 
-The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points. The feature map is never computed.
+The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points{{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. The feature map is never computed.
 
 :::
 
@@ -303,7 +303,7 @@ have inner product $1+9+12+4+6+4=36$.
 
 ### Which functions are kernels?
 
-A proposed similarity is not automatically an inner product. The necessary and sufficient condition is symmetry and positive semidefiniteness of every finite Gram matrix. This yields a representation in a Hilbert feature space. Mercer's spectral theorem adds regularity and domain assumptions. The finite-Gram criterion is the condition needed for the convex dual:
+A proposed similarity is not automatically an inner product. The necessary and sufficient condition is symmetry and positive semidefiniteness of every finite Gram matrix{{cite:scholkopf_smola2002}}{{cite:hastie_esl2009}}{{cite:burges1998}}. This yields a representation in a Hilbert feature space. Mercer's spectral theorem adds regularity and domain assumptions{{cite:mercer1909}}. The finite-Gram criterion is the condition needed for the convex dual:
 
 $$
 \sum_{i=1}^{n}\sum_{j=1}^{n} c_i c_j K(x_i,x_j)\ge 0
@@ -316,8 +316,8 @@ If $K_1$ and $K_2$ are kernels in this sense, so are $\alpha K_1+\beta K_2$ for 
 ### Common kernels
 
 - **Linear.** $K(x_i,x_j)=x_i^\top x_j$, with $\phi(x)=x$ itself.
-- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}$. For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
-- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
+- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
+- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional{{cite:vapnik1995}}{{cite:scholkopf_smola2002}}{{cite:hastie_esl2009}}. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
 
 $$
 \begin{aligned}
@@ -328,7 +328,7 @@ e^{-\lVert x-x'\rVert^2/(2\sigma^2)}
 \end{aligned}
 $$
 
-This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]$. The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
+This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]${{cite:scholkopf_smola2002}}{{cite:burges1998}}{{cite:hastie_esl2009}}. The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
 
 ### The nonlinear programme
 
@@ -350,7 +350,7 @@ f(x)=\sum_i\alpha_i y_i K(x_i,x)+b,
 b=y_k-\sum_i\alpha_i y_i K(x_i,x_k)
 $$
 
-for any $k$ with $0<\alpha_k<C$. The optimisation techniques for finding the $\alpha_i$ remain the same.
+for any $k$ with $0<\alpha_k<C${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}{{cite:hastie_esl2009}}. The optimisation techniques for finding the $\alpha_i$ remain the same.
 
 ::: {#exm-sl-17-xor-kernel .example}
 ## XOR with the quadratic kernel
@@ -397,11 +397,11 @@ The support-vector condition $y_1 f(x_1)=1$ with $x_1=(-1,-1)$ gives $-(-1+b)=1$
 
 ## Practice, computation, and extensions
 
-Decomposition methods optimise subsets of the dual coefficients while preserving feasibility. Sequential minimal optimisation updates a pair at a time, which allows the equality $\sum_i\alpha_i y_i=0$ to be maintained (Platt, 1999). A fully stored Gram matrix uses $n^2$ entries, but implementations can cache or recompute selected entries. Quadratic storage is a property of full-matrix storage, not a requirement of every implementation.
+Decomposition methods optimise subsets of the dual coefficients while preserving feasibility. Sequential minimal optimisation updates a pair at a time, which allows the equality $\sum_i\alpha_i y_i=0$ to be maintained{{cite:platt1999_smo}}. A fully stored Gram matrix uses $n^2$ entries, but implementations can cache or recompute selected entries. Quadratic storage is a property of full-matrix storage, not a requirement of every implementation.
 
 Tune the kernel, $C$, and any kernel width inside the training data. Refit scaling within each validation fold because distances and inner products depend on units. For the Gaussian kernel, $\gamma=1/(2\sigma^2)$: small $\sigma$ makes similarity local. As $\sigma\to\infty$ at fixed inputs, $K(x,x')\to 1$, the constant kernel. A centred and rescaled leading-order expansion contains a linear inner product, but that is a different limiting argument and can require rescaling $C$. The unqualified statement that the radial kernel tends to the linear kernel is incorrect.
 
-Kernels can encode similarities for sequences, graphs, and other structured inputs, provided the resulting kernel meets the positivity condition. Related constructions include support vector regression and kernel principal components (Schölkopf, Smola and Müller, 1999; Burges, 1998). Comparative accuracy must be assessed for the actual representation, tuning procedure, and target population.
+Kernels can encode similarities for sequences, graphs, and other structured inputs, provided the resulting kernel meets the positivity condition. Related constructions include support vector regression and kernel principal components{{cite:scholkopf_smola_muller1999}}{{cite:burges1998}}. Comparative accuracy must be assessed for the actual representation, tuning procedure, and target population.
 
 The convex support-vector objective and a network's nonconvex objective have different optimisation geometry. Convexity does not make a fitted classifier insensitive to data or kernel choices, so ensembles can still differ through resampling, features, and tuning. A support vector machine produces a decision score. Its sign gives a binary label. For a linear machine with $w\neq 0$, divide the score by $\lVert w\rVert$ to obtain signed distance. A probability requires a separate calibration model assessed on data not used to fit that calibration. Multiclass fitting also requires a construction, such as one-versus-rest or pairwise classifiers.
 

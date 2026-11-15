@@ -1,6 +1,6 @@
 # Graphical models
 
-Two measurements can move together because both track a third variable. To ask whether any dependence remains, one must specify what is being conditioned on. An undirected graphical model records conditional-independence restrictions through missing edges. In a nonsingular Gaussian model, these restrictions have a useful form: a missing edge corresponds to a zero off-diagonal entry of the precision matrix $K=\Sigma^{-1}$ (Lauritzen, 1996).
+Two measurements can move together because both track a third variable. To ask whether any dependence remains, one must specify what is being conditioned on. An undirected graphical model records conditional-independence restrictions through missing edges. In a nonsingular Gaussian model, these restrictions have a useful form: a missing edge corresponds to a zero off-diagonal entry of the precision matrix $K=\Sigma^{-1}${{cite:lauritzen1996}}{{cite:dempster1972_cov}}{{cite:speed_kiiveri1986}}.
 
 An undirected edge is not a causal arrow. An inverse covariance does not automatically describe conditional independence for non-Gaussian data. Pooling iris species, for example, mixes populations with different means and potentially different covariance matrices. A precision matrix computed from that pooled sample is a descriptive inverse-covariance summary. A Gaussian graphical interpretation needs an additional modelling assumption.
 
@@ -15,22 +15,22 @@ To say that a correlation is carried by a third variable, one needs names for pa
 ::: {#def-sl-19-graph .definition}
 ## Undirected graph
 
-A graph $G=(V,E)$ is a set of vertices, or nodes, $V$ along with a set of edges $E\subseteq V\times V$ joining pairs of vertices. Self-edges are excluded, and only undirected edges are considered: $(j,k)\in E$ implies $(k,j)\in E$. Edges are listed in any convenient order of the pair, with the reverse understood to be present.
+A graph $G=(V,E)$ is a set of vertices, or nodes, $V$ along with a set of edges $E\subseteq V\times V$ joining pairs of vertices{{cite:lauritzen1996}}{{cite:besag1974}}. Self-edges are excluded, and only undirected edges are considered: $(j,k)\in E$ implies $(k,j)\in E${{cite:lauritzen1996}}. Edges are listed in any convenient order of the pair, with the reverse understood to be present.
 
 :::
 
 - Two connected vertices are adjacent. A graph is complete if every node is adjacent to every other node.
-- If $A\subseteq V$, the subgraph $G_A=(A,E_A)$ has $E_A=E\cap(A\times A)$: keep every edge for which both vertices are in $A$. A subset is complete if it induces a complete subgraph. A complete subset that is maximal with respect to inclusion is a clique: a complete subset that cannot be made into a larger complete subset by adding any vertex.
+- If $A\subseteq V$, the subgraph $G_A=(A,E_A)$ has $E_A=E\cap(A\times A)$: keep every edge for which both vertices are in $A$. A subset is complete if it induces a complete subgraph. A complete subset that is maximal with respect to inclusion is a clique: a complete subset that cannot be made into a larger complete subset by adding any vertex{{cite:lauritzen1996}}{{cite:besag1974}}{{cite:clifford1990_hc}}.
 - In an undirected graph, the boundary $\mathrm{bd}(A)$ of a subset $A$ is the set of vertices in $V\setminus A$ that are adjacent to vertices in $A$. The closure of $A$ is $\mathrm{cl}(A)=A\cup\mathrm{bd}(A)$.
-- A path $X_1,\ldots,X_k$ is a sequence of vertices joined in a sequence: $X_i$ is adjacent to $X_{i+1}$ for $i=1,\ldots,k-1$. A subset $C\subseteq V$ is a $(j,k)$-separator if all paths from $j$ to $k$ intersect $C$. The set $C$ separates $A$ from $B$ if it is a $(j,k)$-separator for every $j\in A$ and $k\in B$.
+- A path $X_1,\ldots,X_k$ is a sequence of vertices joined in a sequence: $X_i$ is adjacent to $X_{i+1}$ for $i=1,\ldots,k-1$. A subset $C\subseteq V$ is a $(j,k)$-separator if all paths from $j$ to $k$ intersect $C$. The set $C$ separates $A$ from $B$ if it is a $(j,k)$-separator for every $j\in A$ and $k\in B${{cite:lauritzen1996}}.
 
-In a graphical model each vertex represents a random variable, and an edge permits conditional dependence between its endpoints. In a minimal Gaussian concentration graph with nonzero precision entries on edges, the edge represents conditional dependence given all remaining variables. The absence of an edge indicates that the two variables are conditionally independent given the values of all the other variables. For many models the conditioning set is smaller than the full remainder, and the graph says which set.
+In a graphical model each vertex represents a random variable, and an edge permits conditional dependence between its endpoints. In a minimal Gaussian concentration graph with nonzero precision entries on edges, the edge represents conditional dependence given all remaining variables. The absence of an edge indicates that the two variables are conditionally independent given the values of all the other variables{{cite:lauritzen1996}}{{cite:dempster1972_cov}}{{cite:speed_kiiveri1986}}. For many models the conditioning set is smaller than the full remainder, and the graph says which set.
 
 The six-vertex graph used below has edges $12$, $13$, $23$, $24$, $34$, $45$, $46$ and $56$. Its cliques are $\{1,2,3\}$, $\{2,3,4\}$ and $\{4,5,6\}$. Vertex $4$ separates the left group $\{1,2,3\}$ from vertices $5$ and $6$.
 
 ### Conditional independence
 
-Conditional independence is a statement about the conditional distribution, not about the marginal correlation. If $X,Y,Z$ are random variables with joint distribution $P$, then $X$ is conditionally independent of $Y$ given $Z$, written $X\perp Y\given Z$, if for any measurable set $A$ in the sample space of $X$ there exists a conditional probability of $A$ given $Y$ and $Z$ that is a function of $Z$ alone. For discrete variables,
+Conditional independence is a statement about the conditional distribution, not about the marginal correlation. If $X,Y,Z$ are random variables with joint distribution $P$, then $X$ is conditionally independent of $Y$ given $Z$, written $X\perp Y\given Z$, if for any measurable set $A$ in the sample space of $X$ there exists a conditional probability of $A$ given $Y$ and $Z$ that is a function of $Z$ alone{{cite:lauritzen1996}}. For discrete variables,
 
 $$
 X\perp Y\given Z
@@ -49,7 +49,7 @@ X\perp Y\given Z
 \end{aligned}
 $$
 
-almost surely (for all $z$ with $f_Z(z)>0$ if the densities are continuous). The following properties hold (Lauritzen, 1996).
+almost surely (for all $z$ with $f_Z(z)>0$ if the densities are continuous). The following properties hold{{cite:lauritzen1996}}.
 
 - If $X\perp Y\given Z$ then $Y\perp X\given Z$.
 - If $X\perp Y\given Z$ and $U=h(X)$ then $U\perp Y\given Z$.
@@ -68,11 +68,11 @@ f(x,y,z)&=f(x\given z)\,f(y,z).
 \end{aligned}
 $$
 
-The third line follows from the second, because $f(x,z\given y)=f(x\given y,z)\,f(z\given y)$. The factorisation $f(x,y,z)=g(x,z)\,h(y,z)$ is the form that generalises to graphs. Also, if $C$ separates $A$ from $B$, then $X_A\perp X_B\given X_C$ for a graphical model with the global Markov property below.
+The third line follows from the second, because $f(x,z\given y)=f(x\given y,z)\,f(z\given y)$. The factorisation $f(x,y,z)=g(x,z)\,h(y,z)$ is the form that generalises to graphs{{cite:lauritzen1996}}. Also, if $C$ separates $A$ from $B$, then $X_A\perp X_B\given X_C$ for a graphical model with the global Markov property below.
 
 ### Markov properties and factorisation
 
-Undirected graphical models are also known as Markov random fields. A probability measure on $X$ may have any of the following properties with respect to a graph $G$.
+Undirected graphical models are also known as Markov random fields{{cite:besag1974}}{{cite:lauritzen1996}}{{cite:clifford1990_hc}}. A probability measure on $X$ may have any of the following properties with respect to a graph $G$.
 
 - **Pairwise.** For any pair of non-adjacent vertices $j,k\in V$, $X_j\perp X_k\given X_{V\setminus\{j,k\}}$.
 - **Local.** For any vertex $j\in V$, $X_j\perp X_{V\setminus\mathrm{cl}(j)}\given X_{\mathrm{bd}(j)}$.
@@ -90,12 +90,12 @@ $$
 f(x)=\frac{1}{Z}\prod_{c\in\mathcal{C}}\psi_c(x_c),
 $$
 
-where $\mathcal{C}$ is the set of cliques, the $\psi_c$ are the clique potentials (typically not densities), and $Z$ is a normalising constant. The functions $\psi_a$ are not unique: groups of them can be combined by multiplication. If the distribution factorises, it has the global Markov property.
+where $\mathcal{C}$ is the set of cliques, the $\psi_c$ are the clique potentials (typically not densities), and $Z$ is a normalising constant. The functions $\psi_a$ are not unique: groups of them can be combined by multiplication. If the distribution factorises, it has the global Markov property{{cite:lauritzen1996}}{{cite:clifford1990_hc}}.
 
 ::: {#thm-sl-19-hammersley-clifford .theorem}
 ## Hammersley–Clifford
 
-A probability distribution with positive and continuous density $f$ with respect to a product measure satisfies the pairwise Markov property with respect to an undirected graph $G$ if and only if it factorises according to $G$.
+A probability distribution with positive and continuous density $f$ with respect to a product measure satisfies the pairwise Markov property with respect to an undirected graph $G$ if and only if it factorises according to $G${{cite:clifford1990_hc}}{{cite:besag1974}}{{cite:lauritzen1996}}.
 
 :::
 
@@ -118,7 +118,7 @@ X_j\perp X_k\given X_{V\setminus\{j,k\}}
 k_{jk}=0.
 $$
 
-The zero entries of the precision matrix indicate conditional independence between the corresponding variables, with the conditioning on all the remaining variables.
+The zero entries of the precision matrix indicate conditional independence between the corresponding variables, with the conditioning on all the remaining variables{{cite:dempster1972_cov}}{{cite:lauritzen1996}}{{cite:speed_kiiveri1986}}.
 
 :::
 
@@ -251,7 +251,7 @@ There are $2^{p(p-1)/2}$ undirected simple graphs, since each unordered pair can
 
 ## Regression-linked estimation for a known graph
 
-Several methods fit a Gaussian graphical model with a known partial covariance structure, for example the iterative proportional fitting procedure of Speed and Kiiveri (1986). The approach below can be extended to model selection using a form of the lasso.
+Several methods fit a Gaussian graphical model with a known partial covariance structure, for example the iterative proportional fitting procedure of {{cite:speed_kiiveri1986}}. The approach below can be extended to model selection using a form of the lasso.
 
 ### The constrained likelihood
 
@@ -364,7 +364,7 @@ where the starred blocks keep only the rows and columns of the neighbours of $p$
    1. Partition $W$ into part $A$, all but the $j$th row and column, and part $B$, the $j$th row and column.
    2. Solve $W_{AA}^{*}\beta^{*}-s_{AB}^{*}=0$ for the unconstrained edge parameters $\beta^{*}$. Obtain $\hat\beta$ by padding $\hat\beta^{*}$ with zeros in the positions of the missing edges.
    3. Update $w_{AB}=W_{AA}\hat\beta$ and the corresponding row $w_{BA}=w_{AB}^\top$.
-3. In the final cycle for each $j$, solve for the estimated precision: $\hat\theta_{AB}=-\hat\beta\,\hat\theta_{BB}$ with $1/\hat\theta_{BB}=s_{BB}-w_{AB}^\top\hat\beta$.
+3. In the final cycle for each $j$, solve for the estimated precision: $\hat\theta_{AB}=-\hat\beta\,\hat\theta_{BB}$ with $1/\hat\theta_{BB}=s_{BB}-w_{AB}^\top\hat\beta${{cite:speed_kiiveri1986}}{{cite:dempster1972_cov}}{{cite:lauritzen1996}}.
 
 :::
 
@@ -422,7 +422,7 @@ the relation implied by $X_1\perp X_3\given X_2$ in a chain, and similarly $w_{1
 
 ## The graphical lasso
 
-When the graph is unknown, put a cost on nonzero precision entries. The graphical lasso combines the Gaussian log-likelihood with an entrywise $L^1$ penalty. Its corners allow exact zeros, while the negative log-likelihood plus penalty remains convex on $K\succ 0$. An $L^2$ penalty lacks this thresholding mechanism, although special data can still produce zero entries (Friedman, Hastie and Tibshirani, 2008). The ordinary lasso objective, and the reason an $L^1$ corner produces zeros, are on [high-dimensional analysis](sl-18-high-dimensional.qmd).
+When the graph is unknown, put a cost on nonzero precision entries. The graphical lasso combines the Gaussian log-likelihood with an entrywise $L^1$ penalty. Its corners allow exact zeros, while the negative log-likelihood plus penalty remains convex on $K\succ 0$. An $L^2$ penalty lacks this thresholding mechanism, although special data can still produce zero entries{{cite:friedman_glasso2008}}. The ordinary lasso objective, and the reason an $L^1$ corner produces zeros, are on [high-dimensional analysis](sl-18-high-dimensional.qmd).
 
 The penalised objective is
 
@@ -448,13 +448,13 @@ For the all-entry penalty written here, the diagonal stationarity equations give
 
 ### Extended information criterion
 
-One option for choosing $\lambda$ is the extended Bayesian information criterion (Foygel and Drton, 2010). For a Gaussian graphical model with edge set $E$ and control parameter $\gamma\in[0,1]$,
+One option for choosing $\lambda$ is the extended Bayesian information criterion{{cite:foygel_drton2010}}. For a Gaussian graphical model with edge set $E$ and control parameter $\gamma\in[0,1]$,
 
 $$
 \mathrm{BIC}_\gamma(E)=-2\ell\bigl(\hat\theta(E)\bigr)+|E|\log n+4|E|\gamma\log p.
 $$
 
-Here $|E|$ counts unordered edges once. Diagonal precision parameters and any freely estimated means have the same dimension in every candidate graph, so their common terms are omitted. The estimate $\hat\theta(E)$ is the unpenalised constrained maximum-likelihood estimate when it exists. At $\gamma=0$, the criterion agrees with the ordinary information criterion up to those common terms. The extra $4|E|\gamma\log p$ charge accounts for the growing collection of graph candidates. Consistency results impose assumptions on sample size, dimension, signal, and the candidate graphs.
+Here $|E|$ counts unordered edges once. Diagonal precision parameters and any freely estimated means have the same dimension in every candidate graph, so their common terms are omitted. The estimate $\hat\theta(E)$ is the unpenalised constrained maximum-likelihood estimate when it exists. At $\gamma=0$, the criterion agrees with the ordinary information criterion up to those common terms{{cite:foygel_drton2010}}. The extra $4|E|\gamma\log p$ charge accounts for the growing collection of graph candidates{{cite:foygel_drton2010}}. Consistency results impose assumptions on sample size, dimension, signal, and the candidate graphs.
 
 Generate $n=120$ observations from the $p=8$ Gaussian autoregression with correlation $0.6^{|j-k|}$. Its true graph is a chain with seven edges out of $28$ possible pairs. A fit over $18$ penalties from $0.02$ to $0.65$, followed by an unpenalised refit of each candidate edge set and a comparison of the ordinary and extended criteria, produces a small-penalty graph, an intermediate graph, and the extended-criterion choice. The refit matters: a penalised precision estimate is shrunk, so its likelihood is not the constrained maximum-likelihood value required by this version of the criterion. The simulation has a known population graph. Neither the penalty nor the criterion guarantees its exact recovery in a finite sample.
 
