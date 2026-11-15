@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **4**. Left: **714**. Skipped: **0**.
+Pages ranked: **718**. Done: **5**. Left: **713**. Skipped: **0**.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -12,12 +12,13 @@ Pages ranked: **718**. Done: **4**. Left: **714**. Skipped: **0**.
 | 2 | [Likelihood function](likelihood-function.md) | Concept/definition | [Prose](content/likelihood-function.md), [check](../checks/likelihood-function.py) | 491 → 1,764 | 0 → 0 | None in article; Wasserman chapter preview only, not cited |
 | 3 | [Expectation](expectation.md) | Concept/definition | [Prose](content/expectation.md), [check](../checks/expectation.py) | 698 → 2,024 | 0 → 0 | None; no new bibliography entries needed |
 | 4 | [Degrees of freedom](degrees-of-freedom.md) | Concept/topic | [Prose](content/degrees-of-freedom.md), [check](../checks/degrees-of-freedom.py) | 524 → 2,145 | 0 → 0 | None; original Fisher 1922 paper opened |
+| 5 | [Covariance](covariance.md) | Concept/definition | [Prose](content/covariance.md), [check](../checks/covariance.py) | 601 → 2,082 | 1 → 1 | Pearson 1896 full text inaccessible; history limited to verified publication scope |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 5: `covariance`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save `research/covariance.md`, `research/content/covariance.md`, and `checks/covariance.py`; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 6: `statistic`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save `research/statistic.md`, `research/content/statistic.md`, and `checks/statistic.py`; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -25,4 +26,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Likelihood function: Poisson and binomial arithmetic plus the boundary case passed 10 checks; generator completed; 63 Python tests passed; offline bibliography verification passed for 385 works. Existing interpretation and invariant-MLE statement remain; the new proof covers non-injective parameter transforms.
 - Expectation: 18 exact rational checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 385 works. Existing definitions, three examples, discrete function-rule proof, and question links remain. New collapsed proof covers the continuous function rule and both tower versions.
 - Degrees of freedom: 15 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 386 works. Existing two-normal-observation calculation and interpretation remain. New proof covers the normal projection, table dimension, and equal-correlation expectation.
+- Covariance: 14 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 388 works. Existing correlation scatterplot, definition, affine-normal property, and two examples remain. New proof covers those properties and the sample covariance divisor.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
