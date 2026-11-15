@@ -21,3 +21,8 @@ Type: Concept/definition.
 - The statement about zero variance is accompanied by a proof using a nonnegative random variable and Markov's inequality. The covariance identity proof covers dependent variables and the independent special case.
 - The original page had no figures. Its definition, citations, and both existing worked examples remain. No existing content was removed.
 - Fisher's read year and publication year are explicitly distinguished because different catalogues display 1918 and 1919.
+
+## Correction pass
+
+- Replaced unopened Casella–Berger and Fisher 1925 citations in the source definition with passages read in Grinstead–Snell chapter 6 and NIST §1.3.5.6. Added locations to all citations in the researched prose.
+- Cited the motivating and worked calculations, including their hidden answers. Removed a repetitive second History paragraph. Extended the arithmetic check to the original unit-uniform and dice examples and asserted the printed values.
