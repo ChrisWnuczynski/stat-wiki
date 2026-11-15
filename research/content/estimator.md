@@ -55,9 +55,6 @@ The Bernoulli calculation assumes independent trials with one common success pro
 ## Connections
 An estimator is a [statistic](statistic.qmd) used for a parameter-estimation goal; the sample range is a statistic but need not estimate the parameter under discussion. [Bias](bias-of-an-estimator.qmd) is the difference between an estimator's sampling mean and its target. [Mean squared error](mean-squared-error.qmd) combines squared bias and variance. [Maximum likelihood](maximum-likelihood.qmd) is one construction rule, as the Bernoulli proof shows, while [consistency](consistent-estimator.qmd) is a long-run property of a sequence of estimators.{{cite:wang2025_foundations}} (Ch. 12, §§15–17; Ch. 13, §16)
 
-## Check yourself
-Use [a Poisson mean](../questions/ex-inf-poisson-mle.qmd) to compare a maximum-likelihood estimate, unbiasedness, and consistency. Then try [a shrunken sample mean](../questions/ex-inf-shrunk-mean.qmd) to see why a small bias can sometimes reduce mean squared error. Both ask about a rule across samples, not just one realised value.{{cite:wang2025_foundations}} (Ch. 13, §§16.3, 18.2)
-
 ## History
 In his 1922 paper on theoretical statistics, Ronald Fisher separated the problem of estimating unknown population parameters from the sampling behaviour of functions computed from observations. This made it natural to study a data-based rule and its repeated-sample properties rather than treating an observed number as self-explanatory. This distinction guides the interpretation of a reported estimate.{{cite:fisher1922}} (pp. 309, 313–316, 366–367)
 

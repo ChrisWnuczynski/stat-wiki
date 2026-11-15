@@ -87,9 +87,6 @@ A proper posterior can still have no finite mean if its tails are too heavy. Squ
 ## Connections
 [Bayes' rule](bayes-rule.qmd) produces the posterior distribution whose mean is taken here. The [posterior median](posterior-median.qmd) minimizes absolute-error loss, while a [maximum-a-posteriori estimate](maximum-a-posteriori-estimate.qmd) maximizes posterior density. [Beta–Binomial conjugacy](beta-binomial-conjugacy.qmd) gives the first worked update, and [normal–normal conjugacy](normal-normal-conjugacy.qmd) gives the second. A [credible interval](bayesian-credible-interval.qmd) describes posterior uncertainty alongside the point estimate.{{cite:hoff2013_bayes_estimators}} (pp. 9–13) {{cite:wang2025_foundations}} (Ch. 20, Secs. 24–29)
 
-## Check yourself
-Work [the squared-error derivation](../questions/ex-applied-mmse.qmd), then [compare MAP with the squared-error estimate](../questions/c-07.qmd). For computational practice, [summarise one thousand posterior draws](../questions/exr-one-thousand-posterior-draws.qmd); identify which numbers describe posterior uncertainty and which measure simulation error.{{cite:hoff2013_bayes_estimators}} (pp. 9–10) {{cite:geyer1992}} (pp. 473–476)
-
 ## History
 In Bayes's 1763 essay, communicated by Richard Price, the central question was what could be learned about an unknown success chance from observed successes and failures. The posterior distribution in the coin example addresses the same kind of inverse-probability question.{{cite:bayes1763}} (pp. 370–372)
 

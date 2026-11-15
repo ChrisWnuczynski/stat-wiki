@@ -14,7 +14,7 @@ def trap(fn, a, b, n=20000):
 
 
 if __name__ == "__main__":
-    article = (Path(__file__).resolve().parents[1] / "research/content/joint-probability-density.md").read_text()
+    article = (Path(__file__).resolve().parents[1] / "articles/joint-probability-density.qmd").read_text()
     for printed in (r"\frac23", r"\frac13", r"\frac14", "1/36", "3/4", "1/2", "2x", "2(1-y)"):
         assert printed in article, f"Worked value missing from article: {printed}"
     # Uniform on the triangle 0 < y < x < 1, density 2.

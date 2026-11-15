@@ -1945,6 +1945,20 @@
         "id": "https://openlibrary.org/authors/OL2246224A"
       }
     },
+    "evans2025_graphical": {
+      "authors": [
+        "Evans, R. J."
+      ],
+      "year": 2025,
+      "title": "Graphical Models",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~evans/gms/_book/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stats.ox.ac.uk/~evans/gms/_book/"
+      }
+    },
     "fahrmeir_tutz2001": {
       "authors": [
         "Fahrmeir, L.",

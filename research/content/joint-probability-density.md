@@ -58,6 +58,18 @@ Expanding the covariance gives
 \]
 The cross terms cancel, which is the identity used by the exponential example. Under independence, \(\operatorname{Cov}(X,Y)=0\) as well, because \(\mathbb E(XY)-(\mathbb E X)(\mathbb E Y)=0\) follows from writing the product expectation as an iterated integral of \(xy f_X(x)f_Y(y)\).{{cite:durrett2019}} (§§1.2, 2.1; Ex. 4.1.6)
 
+For the transformation rule, let \(C\) be a Borel region in the range of the smooth bijection \(g\). Then
+\[
+\mathbb P(\mathbf Z\in C)=\mathbb P(\mathbf X\in g^{-1}(C))
+=\int_{g^{-1}(C)}f_{\mathbf X}(\mathbf x)\,\mathrm d\mathbf x.
+\]
+The multivariable change-of-variables theorem, with \(\mathbf x=g^{-1}(\mathbf z)\), makes the last integral
+\[
+\int_C f_{\mathbf X}(g^{-1}(\mathbf z))\,
+|\det Dg^{-1}(\mathbf z)|\,\mathrm d\mathbf z.
+\]
+Because this holds for every such \(C\), the integrand is the density of \(\mathbf Z\). The inverse-function theorem gives \(|\det Dg^{-1}(\mathbf z)|=1/|\det Dg(g^{-1}(\mathbf z))|\), proving the equivalent version. For \(g(\mathbf x)=A\mathbf x\) with invertible \(A\), the inverse derivative is \(A^{-1}\), so its absolute determinant is \(1/|\det A|\), as stated.{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26){{cite:strimmer2025_mva}} (Ch. 3, §3.1)
+
 :::
 :::
 
@@ -99,6 +111,3 @@ The integral definition uses Borel regions and a nonnegative integrable function
 
 ## Connections
 A [joint probability mass function](joint-probability-mass-function.qmd) is the discrete analogue: probabilities of points replace volumes under a surface. [Independent random variables](independent-random-variables.qmd) have a joint density that factors into the marginals. A [conditional distribution](conditional-distribution.qmd) divides the joint density by a marginal density where that marginal is positive. [Covariance](covariance.qmd) is an integral against the joint density when the second moments exist.{{cite:durrett2019}} (§§1.2, 2.1; Ex. 4.1.6)
-
-## Check yourself
-[A probability as an integral](../questions/ex-prob-region-probability.qmd) asks for the region over which a joint density is integrated. [A product density](../questions/ex-prob-independent-exponentials.qmd) is the exponential calculation checked above. [A point in a triangle](../questions/ex-prob-triangle-conditional.qmd) asks for a conditional density from a joint density.

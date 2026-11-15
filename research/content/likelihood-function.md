@@ -33,6 +33,12 @@ Three independent shifts produce $1$, $3$, and $2$ defects. Suppose each shift c
 The counts total $3$, so $L(\lambda)\propto e^{-3\lambda}\lambda^3$ and the derivative of its log is $3/\lambda-3$. Hence $\widehat\lambda=1$. The ratio is $L(1)/L(2)=e^3/8\approx2.511$.{{cite:fisher1922}} (pp. 323–327)
 :::
 
+Try [the Poisson mean question](../questions/ex-inf-poisson-mle.qmd), then [the exponential rate question](../questions/ex-inf-exponential-mle.qmd). The first also asks about uncertainty of the estimator; the second uses invariance to estimate a median.
+
+::: {.callout-tip collapse="true" title="Answers"}
+For the Poisson sample, $\widehat\lambda=\overline X$; it is unbiased, has mean squared error $\lambda/n$, and is consistent. For independent exponential lifetimes with rate $\lambda$, $\widehat\lambda=1/\overline X$ and the fitted median is $\overline X\log 2$.{{cite:fisher1922}} (pp. 323–327)
+:::
+
 ## Common misconceptions
 A likelihood is not a posterior distribution: without a prior and a normalising integral it assigns no probability to a region of parameter values. For continuous data, $L(\theta)$ is based on a density, not the probability of one exact observation. Nor does a larger maximised likelihood by itself prove that the chosen model is true; it only identifies its best-fitting member for the data and model family being compared.{{cite:fisher1922}} (pp. 323–327)
 
@@ -41,13 +47,6 @@ Writing $L(\theta)=\prod_i f(x_i;\theta)$ assumes independence; serial correlati
 
 ## Connections
 [Maximum likelihood](maximum-likelihood.qmd) chooses a maximiser of this function, while [likelihood-ratio testing](generalised-likelihood-ratio-test.qmd) compares maximised values under two nested parameter sets. A [sufficient statistic](sufficient-statistic.qmd) retains all likelihood information about the parameter when the factorisation criterion holds; in a Poisson sample, the sum of the counts contains every $\lambda$-dependent factor of the likelihood. [Bayesian updating](bayes-rule.qmd) uses the same likelihood, now multiplied by a prior to obtain a posterior.{{cite:fisher1922}} (pp. 323–327)
-
-## Check yourself
-Try [the Poisson mean question](../questions/ex-inf-poisson-mle.qmd), then [the exponential rate question](../questions/ex-inf-exponential-mle.qmd). The first also asks about uncertainty of the estimator; the second uses invariance to estimate a median.
-
-::: {.callout-tip collapse="true" title="Answers"}
-For the Poisson sample, $\widehat\lambda=\overline X$; it is unbiased, has mean squared error $\lambda/n$, and is consistent. For independent exponential lifetimes with rate $\lambda$, $\widehat\lambda=1/\overline X$ and the fitted median is $\overline X\log 2$.{{cite:fisher1922}} (pp. 323–327)
-:::
 
 ## History
 Fisher's 1912 paper sought a principled way to fit a theoretical frequency curve to observed values. He proposed maximising the product of the model's densities, or equivalently the sum of their logarithms, rather than choosing among competing curve-fitting criteria. His wording then still treated the relative weights of parameter values as if they were probabilities.{{cite:fisher1912_curve}} (pp. 155–157)

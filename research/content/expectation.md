@@ -37,6 +37,12 @@ A fair die game costs 2 dollars to enter and pays 8 dollars only when a six is t
 The net gain is $4.50$ with probability $1/3$ and $-1.50$ with probability $2/3$. Thus $\mathbb{E}X=4.50(1/3)-1.50(2/3)=0.50$ dollar.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 :::
 
+Try [the wait for double six](../questions/ex-prob-double-six-wait.qmd), then [a spike that keeps its mean](../questions/ex-sp-spike.qmd). The first uses a geometric waiting time; the second tests whether convergence in probability is enough to force expectations to converge.
+
+::: {.callout-tip collapse="true" title="Answers"}
+The chance of double six on each independent throw is $1/36$, so the geometric waiting time has expectation $36$ throws. For the spike $X_n=n\mathbf1_{\{U\leq1/n\}}$ with uniform $U$, $\mathbb{E}X_n=n(1/n)=1$ although $X_n$ converges to zero in probability and almost surely; moreover $\mathbb{E}X_n^2=n$. Thus neither $L^1$ nor $L^2$ convergence holds.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
+:::
+
 ## Common misconceptions
 Expectation need not be an attainable outcome: the fair die's mean is 3.5, while every observed face is an integer. It is also distinct from the median or the most probable value, which answer different questions about the distribution. Linearity does not require independence; for example, $X$ and $-X$ are completely dependent but their sum and its expectation are zero when $X$ is integrable.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
@@ -45,13 +51,6 @@ Some random variables have no finite expectation. In the St Petersburg game, a f
 
 ## Connections
 [Variance](variance.qmd) averages squared deviations from the expectation, so it describes spread around the centre defined here. [Conditional expectation](conditional-expectation.qmd) recalculates that average given information; its [tower property](tower-property.qmd) explains why averaging conditional means recovers the original expectation. A [sample mean](summary-statistics.qmd) averages realised data, while expectation averages over a probability distribution; repeated sampling connects the two under suitable conditions.{{cite:grinstead_snell1997}} (Ch. 6, §6.1) {{cite:durrett2019}} (§4.1.2, Thm. 4.1.13)
-
-## Check yourself
-Try [the wait for double six](../questions/ex-prob-double-six-wait.qmd), then [a spike that keeps its mean](../questions/ex-sp-spike.qmd). The first uses a geometric waiting time; the second tests whether convergence in probability is enough to force expectations to converge.
-
-::: {.callout-tip collapse="true" title="Answers"}
-The chance of double six on each independent throw is $1/36$, so the geometric waiting time has expectation $36$ throws. For the spike $X_n=n\mathbf1_{\{U\leq1/n\}}$ with uniform $U$, $\mathbb{E}X_n=n(1/n)=1$ although $X_n$ converges to zero in probability and almost surely; moreover $\mathbb{E}X_n^2=n$. Thus neither $L^1$ nor $L^2$ convergence holds.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
-:::
 
 ## History
 In his 1657 treatise on games of chance, Christiaan Huygens asked what a chance in an unfinished game was fairly worth. His first propositions valued equal chances by averaging possible winnings and unequal numbers of chances by weighting those winnings. The practical problem was the fair division of a stake, rather than a formal measure-theoretic definition.{{cite:huygens1657}} (Props. I–III)

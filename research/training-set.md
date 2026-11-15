@@ -15,7 +15,7 @@ Type: Concept/topic.
 4. Gavin C. Cawley and Nicola L. C. Talbot, [“On Over-fitting in Model Selection and Subsequent Selection Bias in Performance Evaluation” (2010)](https://jmlr.org/papers/volume11/cawley10a/cawley10a.pdf), *Journal of Machine Learning Research* 11, 2079–2107. Read the abstract on p. 2079 and §5.3 on p. 2102: a test partition that has already been used to choose hyperparameters is no longer untouched, and selection should be repeated inside each training portion. Existing key `cawley_talbot2010`.
 5. Thomas M. Cover and Peter E. Hart, [“Nearest neighbor pattern classification” (1967)](https://isl.stanford.edu/~cover/papers/transIT/0021cove.pdf), *IEEE Transactions on Information Theory* 13(1), 21–27. Read pp. 21–22. The paper calls the labelled cases “correctly classified samples” and does not use the phrase training set. It was not cited.
 
-Bishop 2006 remains cited because the existing networks excerpt cites it. That book was not opened for this page, and no new sentence depends on it.
+The networks excerpt initially cited Bishop (2006), which was not opened. Its claim is now supported by the opened Hastie and Cawley–Talbot passages instead.
 
 ## Verification and decisions
 
@@ -23,9 +23,10 @@ Bishop 2006 remains cited because the existing networks excerpt cites it. That b
 - The proof covers the distinct-input one-nearest-neighbour training error, the squared-error covariance identity, the trace formula, and the intercept-only expectations. It does not claim the zero–one covariance formula stated more generally in the opened Hastie–Tibshirani–Friedman account.
 - The origin of the English phrase *training set* was not established. Stone's opened pages say construction and validation subsamples. Efron's opened pages use training set as the name of the observed cases. No first use is asserted.
 - `checks/training-set.py` checks the nearest-neighbour distances and error lengths, the intercept-only sample, and the expected optimism with exact fractions.
-- The original definition, both chapter excerpts, five citation keys, infobox, and fifteen question links remain. No figure, definition, example, or practice question was removed.
+- The definition, both chapter excerpts, infobox, and fifteen question links remain. No figure, definition, example, or practice question was removed.
 
 ## Correction pass
 
 - Added page and section locations to each citation. Removed a historical non-claim about the first use of the phrase *training set* and a reference to page assembly.
 - The arithmetic check now asserts that its principal worked and sourced values are printed in the article.
+- A later source audit replaced unlocated Efron, Stone, and Hastie citations in the inherited error-rates paragraph with opened, located Efron, Hastie, and Cawley–Talbot passages. The cited networks excerpt no longer uses the unopened Bishop book; its training/validation/test distinction is supported by the opened Hastie and Cawley–Talbot passages. The topic definition now cites its claims.

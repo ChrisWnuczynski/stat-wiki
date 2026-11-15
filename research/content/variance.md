@@ -33,6 +33,14 @@ Suppose a delivery is early by two minutes with probability $1/4$, on time with 
 The mean is $(1+3+5)/3=3$ dollars. The squared deviations are $4$, $0$, and $4$, so the variance is $(4+0+4)/3=8/3$ square dollars.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
 :::
 
+The [normal-variance derivation](../questions/ex-prob-normal-variance.qmd) applies the second-moment identity to a continuous density.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
+
+Try [recovering the second moment](../questions/ex-prob-second-moment.qmd) from a mean and variance. Then try [proving the normal variance](../questions/ex-prob-normal-variance.qmd) by integration. Reveal each answer when you are ready.
+
+::: {.callout-tip collapse="true" title="Answers"}
+In the first question, $\mathbb{E}X^2=\operatorname{Var}(X)+(\mathbb{E}X)^2=1+2^2=5$. In the second, integration by parts gives variance $1$ for a standard normal; the affine scaling identity then gives $\operatorname{Var}(\mu+\sigma X)=\sigma^2$.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
+:::
+
 ## Common misconceptions
 Variance and standard deviation describe the same spread on different scales: a variance of $4$ square metres corresponds to a standard deviation of $2$ metres, not $4$ metres. The variance of a distribution is also distinct from the variance computed from one sample; the latter changes when a new sample is drawn. Finally, variances of sums add only when the covariance terms are zero. For example, if $Y=-X$ and $\operatorname{Var}(X)>0$, then $\operatorname{Var}(X+Y)=0$, although each summand has positive variance.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
 
@@ -41,13 +49,6 @@ A mean need not describe the typical outcome when the tails are very heavy. The 
 
 ## Connections
 [Covariance](covariance.qmd) generalises variance to two random variables; setting both arguments equal recovers $\operatorname{Var}(X)=\operatorname{Cov}(X,X)$. The [standard error](standard-error.qmd) is a standard deviation of an estimator, so the independent-measurement calculation above connects population variance to the uncertainty of a sample mean. [Sample variance](sample-variance-and-standard-deviation.qmd) uses the observed deviations from the sample mean to estimate this population quantity.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
-
-## Check yourself
-Try [recovering the second moment](../questions/ex-prob-second-moment.qmd) from a mean and variance. Then try [proving the normal variance](../questions/ex-prob-normal-variance.qmd) by integration. Reveal each answer when you are ready.
-
-::: {.callout-tip collapse="true" title="Answers"}
-In the first question, $\mathbb{E}X^2=\operatorname{Var}(X)+(\mathbb{E}X)^2=1+2^2=5$. In the second, integration by parts gives variance $1$ for a standard normal; the affine scaling identity then gives $\operatorname{Var}(\mu+\sigma X)=\sigma^2$.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
-:::
 
 ## History
 Fisher used the word *variance* in his study of resemblance between relatives, read to the Royal Society of Edinburgh in 1918 and published in its 1919 volume. He sought to separate sources of variation in inherited traits; squared standard deviations were useful because independent contributions could be added. His paper explicitly named that square the variance.{{cite:fisher1919_variance}} (p. 399)

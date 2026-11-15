@@ -151,7 +151,7 @@ An explicit simulation with $20$ observations and a $1$–$40$–$1$ sigmoid net
 
 ### Training, validation, and test sets
 
-To control generalisation the data are divided into a training set, a validation set, and a test set{{cite:bishop2006}}{{cite:hastie_esl2009}}{{cite:cawley_talbot2010}}.
+To assess generalisation, the data are divided into a training set, a validation set, and a test set. The final test cases are kept outside model fitting and model selection.{{cite:hastie_esl2009}} (p. 11; pp. 245–246){{cite:cawley_talbot2010}} (§5.3, p. 2102)
 
 - The training set is used to optimise the weights.
 - The validation set is monitored during or after training to choose when to stop, the number of nodes or weights, the learning rate, and the other tuning choices.

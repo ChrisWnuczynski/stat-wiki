@@ -45,6 +45,8 @@ Let $X_1,X_2$ be independent Bernoulli observations with success probability $p=
 The first expectation is $9$. The second is $((n-1)/n)\sigma^2=(3/4)9=27/4=6.75$. These are repeated-sample averages, not predictions that either observed estimate must take those values.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
 :::
 
+The [shrunken mean exercise](../questions/ex-inf-shrunk-mean.qmd) compares bias and mean squared error for two estimators.{{cite:wang2025_foundations}} (Ch. 13, §16.3)
+
 ## Common misconceptions
 Unbiasedness means right *on average over samples*, not right for every sample. A smaller bias need not imply a smaller MSE. The unbiased sample variance $s^2$ does not make its square root unbiased for the standard deviation. A rule can be unbiased at one parameter and biased over the rest of the parameter space. The normality used to compare exact variance-estimator MSEs in the normal-model example is not needed for the sample-variance expectation proof.{{cite:rao1945}} (pp. 236–237){{cite:siegrist2022_sample_variance}} (§6.5)
 
@@ -53,9 +55,6 @@ The definition needs an expectation under a fully specified sampling model. The 
 
 ## Connections
 An [estimator](estimator.qmd) is a random rule for a parameter; its [bias](bias-of-an-estimator.qmd) measures the difference between its sampling mean and target. [Mean squared error](mean-squared-error.qmd) adds variance to squared bias. The [Rao–Blackwell theorem](rao-blackwell-theorem.qmd) constructs another unbiased rule by conditioning an unbiased rule on a sufficient statistic, with no greater variance, as shown in the proof. A minimum-variance claim therefore needs to specify the class of rules being compared.{{cite:rao1945}} (pp. 237–238){{cite:blackwell1947}} (pp. 105–107)
-
-## Check yourself
-[A Poisson mean](../questions/ex-inf-poisson-mle.qmd) asks whether the maximum-likelihood rule is unbiased. [An unbiased Poisson probability](../questions/ex-inf-poisson-umvu.qmd) applies the idea to a nonlinear target. [A shrunken sample mean](../questions/ex-inf-shrunk-mean.qmd) contrasts bias with mean squared error.{{cite:wang2025_foundations}} (Ch. 13, §16.3)
 
 ## History
 Fisher's 1922 paper separated the problem of estimating unknown population parameters from the distribution of sample statistics. It made repeated-sample properties part of assessing an estimating rule. This set the stage for studying the expectation and spread of an estimator under repeated samples.{{cite:fisher1922}} (pp. 313–316)

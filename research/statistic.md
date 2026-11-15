@@ -25,3 +25,4 @@ Type: Concept/definition.
 
 - Replaced unopened Casella–Berger, Wasserman, Lehmann–Casella, and Fisher 1925 citations in the extracted statistic and normal-sample statements with the Fisher 1922, NIST glossary, and Siegrist passages actually read. Every new citation has a source location.
 - Added citations to the lead context, motivation, worked example, and hidden answer. Rephrased page-assembly language and kept History to the Fisher 1922 development. The arithmetic check now asserts the values and classification shown on the page.
+- A later scan found that the generator dropped locations when carrying source citations onto the replacement lead. The lead renderer now carries Fisher pp. 309–316 and the NIST “statistic” glossary location with their citations.

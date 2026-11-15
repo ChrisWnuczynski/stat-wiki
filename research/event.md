@@ -22,3 +22,4 @@ Type: Concept/definition.
 - The fair-die worked example and challenge were checked with exact fractions; `checks/event.py` also enumerates all sixteen four-engine states and verifies the original probability $0.9801$.
 - The aircraft example, definition, property argument, and twelve question links remain. No figure or example was removed. The researched “Check yourself” link list was removed because the question links appear in the generated list.
 - Citations to unopened Feller, Billingsley, and Grimmett–Stirzaker were replaced in the researched prose, extracted definition and properties, and article reference mapping with located Kolmogorov and Durrett citations. The research history disclaimer was removed.
+- A later scan found that the generator dropped the Kolmogorov and Durrett locations when carrying the source citations onto the replacement lead. The lead renderer now preserves those locations.

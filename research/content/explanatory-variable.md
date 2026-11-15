@@ -35,6 +35,14 @@ Three students practise for $0$, $1$, and $2$ hours, with scores of $50$, $60$, 
 The observations lie on $\widehat y=5+3x$, so the slope is $3$ response units per input unit and the prediction at $x=1.5$ is $9.5$.{{cite:nist_process_model2002}} (§4.1.2)
 :::
 
+Try [alcohol and school attendance](../questions/ex-da-alcohol-attendance.qmd), then [interpreting Poisson regression coefficients](../questions/q-31.qmd). The first asks you to identify explanatory and response roles in an observational study; the second asks how transformed inputs affect coefficient interpretation.{{cite:nist_process_model2002}} (§4.1.2)
+
+::: {.callout-tip collapse="true" title="Answers"}
+In the [school attendance study](../questions/ex-da-alcohol-attendance.qmd), hours missed is the response; frequent intoxication is the explanatory variable of interest, while age, sex, socioeconomic status, and mental health are adjustment variables. The association is observational.{{cite:dicker2025_cdc}} (“Analyzing and Interpreting Data”)
+
+In the [Poisson regression example](../questions/q-31.qmd), `distance` and `log(area)` are explanatory terms. Holding area fixed, one extra unit of distance multiplies the fitted mean by $e^{-0.04}\approx0.961$; doubling area multiplies it by $2^{0.60}\approx1.516$. A coefficient on logged area describes change on the log-mean scale, not an additive count per hectare.{{cite:nelder_wedderburn1972}} (§§1.2–1.3, pp. 372–373)
+:::
+
 ## Common misconceptions
 An explanatory variable need not itself be random: an experimenter may set its levels. Conversely, calling a measured variable “independent” does not make it independent of other predictors, errors, or hidden causes. A small slope-test $p$-value is evidence against a zero slope within the fitted model, not evidence that the input alone explains most response variation. The shoe-size example on this page has a strong slope test yet a modest $R^2$.{{cite:nist_process_model2002}} (§4.1.2) {{cite:nist_model_fit2002}} (§4.4.4)
 
@@ -43,13 +51,6 @@ A straight-line mean may be inadequate if the response changes nonlinearly with 
 
 ## Connections
 The [response variable](response-variable.qmd) is what a model predicts from explanatory inputs. A [treatment](treatment.qmd) is an input assigned by a designed experiment, whereas an observational covariate is recorded as it occurs. The [regression slope](regression-slope.qmd) measures change in a fitted mean per input unit; [least squares](least-squares.qmd) chooses the coefficients that minimize squared residuals. [Confounding variables](confounding-variable.qmd) can produce or distort an observed explanatory-response association.{{cite:nist_process_model2002}} (§4.1.2) {{cite:dicker2025_cdc}} (“Analyzing and Interpreting Data”)
-
-## Check yourself
-Try [alcohol and school attendance](../questions/ex-da-alcohol-attendance.qmd), then [interpreting Poisson regression coefficients](../questions/q-31.qmd). The first asks you to identify explanatory and response roles in an observational study; the second asks how transformed inputs affect coefficient interpretation.{{cite:nist_process_model2002}} (§4.1.2)
-
-::: {.callout-tip collapse="true" title="Answers"}
-In the attendance study, hours missed is the response; frequent intoxication is the explanatory variable of interest, while age, sex, socioeconomic status, and mental health are adjustment variables. The association is observational. In the Poisson model, `distance` and `log(area)` are explanatory terms; holding area fixed, one extra unit of distance multiplies the fitted mean by $e^{-0.04}\approx0.961$, while doubling area multiplies it by $2^{0.60}\approx1.516$ rather than adding 60 percent per hectare.{{cite:nist_process_model2002}} (§4.1.2)
-:::
 
 ## History
 Francis Galton's 1886 paper on hereditary stature asked how adult children's heights varied with their parents' heights. He used family records for 930 adult children and 205 parentages, after earlier experiments with seed size, to describe the tendency of extreme parental heights to be followed by less extreme child heights on average. In this setting parental height was the explanatory measurement and child height the response, though the paper used the language of regression rather than today's term “predictor.”{{cite:galton1886}} (pp. 246–247)

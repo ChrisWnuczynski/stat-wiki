@@ -1472,6 +1472,12 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # opened proof in Billingsley §14.
                 expected_keys -= {"vonneumann1951"}
                 self.assertIn("billingsley1995", citation_keys, slug)
+            if slug == "multivariate-normal-distribution":
+                # The affine-normal statement now cites the opened treatments
+                # by Strimmer and Wang in place of unexamined textbook entries.
+                expected_keys -= {"feller1968", "casella_berger2002"}
+                self.assertIn("strimmer2025_mva", citation_keys, slug)
+                self.assertIn("wang2025_foundations", citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

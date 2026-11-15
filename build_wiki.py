@@ -4179,7 +4179,10 @@ def source_lead_citations(blocks: list[tuple[bool, str, str]], include_math: boo
     markers = []
     for _, label, body in blocks:
         if label == "lead" and (include_math or "$" not in body):
-            markers.extend(re.findall(r"\{\{cite:[^}]+\}\}", body))
+            markers.extend(re.findall(
+                r"\{\{cite:[^}]+\}\}(?:\s*\((?:Ch\.|§|Thm\.|p\.|pp\.|Glossary|Ex\.|Summary)[^)\n]*\))?",
+                body,
+            ))
     return "".join(dict.fromkeys(markers))
 
 

@@ -30,7 +30,7 @@ The six-vertex graph used below has edges $12$, $13$, $23$, $24$, $34$, $45$, $4
 
 ### Conditional independence
 
-Conditional independence is a statement about the conditional distribution, not about the marginal correlation. If $X,Y,Z$ are random variables with joint distribution $P$, then $X$ is conditionally independent of $Y$ given $Z$, written $X\perp Y\given Z$, if for any measurable set $A$ in the sample space of $X$ there exists a conditional probability of $A$ given $Y$ and $Z$ that is a function of $Z$ alone{{cite:lauritzen1996}}. For discrete variables,
+Conditional independence is a statement about the conditional distribution, not about the marginal correlation. If $X,Y,Z$ are random variables with joint distribution $P$, then $X$ is conditionally independent of $Y$ given $Z$, written $X\perp Y\given Z$, if for any measurable set $A$ in the sample space of $X$ there exists a conditional probability of $A$ given $Y$ and $Z$ that is a function of $Z$ alone.{{cite:dawid1979}} (§3.1, p. 2) For discrete variables,
 
 $$
 X\perp Y\given Z
@@ -49,14 +49,14 @@ X\perp Y\given Z
 \end{aligned}
 $$
 
-almost surely (for all $z$ with $f_Z(z)>0$ if the densities are continuous). The following properties hold{{cite:lauritzen1996}}.
+almost surely (for all $z$ with $f_Z(z)>0$ if the densities are continuous). The following properties hold.{{cite:dawid1979}} (§§3–4, pp. 2–4)
 
-- If $X\perp Y\given Z$ then $Y\perp X\given Z$.
-- If $X\perp Y\given Z$ and $U=h(X)$ then $U\perp Y\given Z$.
-- If $X\perp Y\given Z$ and $U=h(X)$ then $X\perp Y\given (Z,U)$.
-- If $X\perp Y\given Z$ and $X\perp W\given (Y,Z)$ then $X\perp (W,Y)\given Z$.
+- If $X\perp Y\given Z$ then $Y\perp X\given Z$.{{cite:dawid1979}} (Thm. 3.1, p. 3)
+- If $X\perp Y\given Z$ and $U=h(X)$ then $U\perp Y\given Z$.{{cite:dawid1979}} (Lems. 4.1–4.2, p. 4)
+- If $X\perp Y\given Z$ and $U=h(X)$ then $X\perp Y\given (Z,U)$.{{cite:dawid1979}} (Lem. 4.2, p. 4)
+- If $X\perp Y\given Z$ and $X\perp W\given (Y,Z)$ then $X\perp (W,Y)\given Z$.{{cite:dawid1979}} (Lem. 4.3, p. 4)
 
-And $X\perp Y\given Z$ is equivalent to each of the following, almost surely, with $f$ the density of its arguments:
+And $X\perp Y\given Z$ is equivalent to each of the following, almost surely, with $f$ the density of its arguments:{{cite:dawid1979}} (§3.1, p. 2)
 
 $$
 \begin{aligned}
@@ -68,7 +68,7 @@ f(x,y,z)&=f(x\given z)\,f(y,z).
 \end{aligned}
 $$
 
-The third line follows from the second, because $f(x,z\given y)=f(x\given y,z)\,f(z\given y)$. The factorisation $f(x,y,z)=g(x,z)\,h(y,z)$ is the form that generalises to graphs{{cite:lauritzen1996}}. Also, if $C$ separates $A$ from $B$, then $X_A\perp X_B\given X_C$ for a graphical model with the global Markov property below.
+The third line follows from the second, because $f(x,z\given y)=f(x\given y,z)\,f(z\given y)$. The factorisation $f(x,y,z)=g(x,z)\,h(y,z)$ separates variables that occur together in each factor.{{cite:dawid1979}} (§3.1, p. 2) Graphical models extend this factorisation idea to larger sets of variables. If $C$ separates $A$ from $B$, then $X_A\perp X_B\given X_C$ for a graphical model with the global Markov property below.{{cite:evans2025_graphical}} (Ch. 4, §4.2, Def. 4.4; §4.3, Thm. 4.1)
 
 ### Markov properties and factorisation
 

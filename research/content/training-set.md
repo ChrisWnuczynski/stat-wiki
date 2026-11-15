@@ -107,9 +107,6 @@ The Gaussian simulation uses one noise design with no true predictors. It shows 
 ## Connections
 The [apparent error](apparent-error.qmd) is the training score, and the [fixed-rule error](fixed-rule-error.qmd) is the fresh-case target conditional on one fit. [Cross-validation](cross-validation.qmd) and its [nested](nested-cross-validation.qmd) form rebuild the training set without each omitted case. A [validation set](validation-set.qmd) chooses tuning values; a [held-out test set](a-held-out-test-set.qmd) is reserved for the last assessment. [Nearest neighbours](nearest-neighbours.qmd) make the zero training error concrete, and [overfitting](overfitting.qmd) is what that zero can conceal. A [bootstrap](bootstrap.qmd) training draw is a different way to rebuild a training set from the observed cases.{{cite:stone1974}} (pp. 111–112) {{cite:efron1983}} (§2, pp. 316–317) {{cite:hastie_esl2009}} (pp. 11–15, 228–246)
 
-## Check yourself
-[A tempting wrong turn](../questions/ex-sl-09-6.qmd) asks why the cross-validation score used to choose a tuning value is not an honest future-error estimate. [Separate tuning from evaluation](../questions/ex-sl-09-7.qmd) asks for a training, validation, and test workflow. [Tuning a nearest-neighbour classifier](../questions/ex-sl-11-7.qmd) asks what happens when \(k\) is chosen by the training error.
-
 ## History
 Dividing a sample so that one part constructs a predictor and another part assesses it was already treated as standard practice in Stone's 1974 paper on cross-validatory assessment. He describes both a random division, set aside before the analyst looks at it, and divisions forced by the way the data arose. His cross-validation criterion repeats that division: a construction subsample of size \(n-1\) is used to form the predictor, and the omitted case is used to assess it. The paper calls these pieces construction and validation subsamples.{{cite:stone1974}} (pp. 111–112)
 

@@ -37,6 +37,12 @@ Five observations are $8,9,10,11,12$. Their observed mean is $\overline x=10$ an
 The design rank is three, so there are $12-3=9$ residual degrees of freedom and the residual mean square is $18/9=2$.{{cite:nist_residual_std2002}} (§5.5.9.9.2)
 :::
 
+Try [counting degrees of freedom](../questions/ex-inf-degrees-of-freedom.qmd) for four goodness-of-fit and independence settings, then [the basis-dimension question](../questions/ex-ur-basis-dimension.qmd), which asks why a smooth's basis size and effective degrees of freedom differ.
+
+::: {.callout-tip collapse="true" title="Answers"}
+For a $4\times5$ independence table the count is $(4-1)(5-1)=12$. Eight classes with one fitted binomial parameter give $8-1-1=6$; ten classes with two fitted normal parameters give $10-1-2=7$; ten classes with those parameters known give $10-1=9$.{{cite:fisher1922_chisq}} (pp. 87–90) For a penalised smooth, effective degrees of freedom can be below its basis dimension because the penalty shrinks the fitted function.{{cite:hastie_esl2009}} (pp. 228–230)
+:::
+
 ## Common misconceptions
 Degrees of freedom are not always “sample size minus one”: that count applies when one independent mean constraint is fitted. A regression with a full-rank intercept and two slopes loses three dimensions, not one. Nor does subtracting a parameter count automatically prove an exact chi-squared distribution. Exact normal-square statements need normality, independence, and the specified projection; Pearson table tests use a large-sample approximation.{{cite:nist_residual_std2002}} (§5.5.9.9.2) {{cite:fisher1922_chisq}} (pp. 87–90)
 
@@ -45,13 +51,6 @@ Rank deficiency changes the linear-model count. If two design columns are identi
 
 ## Connections
 [Sample variance](sample-variance-and-standard-deviation.qmd) divides a residual sum of squares by $n-1$ to correct its expected value. The [chi-squared distribution](chi-squared-distribution.qmd) turns the residual-space dimension into a reference law under normal sampling, and [Student's $t$ distribution](student-t-distribution.qmd) uses that law to account for an estimated variance. In [linear regression](least-squares.qmd), the design rank sets residual degrees of freedom. In a [chi-squared test of independence](chi-squared-test-of-independence.qmd), the row and column probability constraints give a different but related dimension count.{{cite:siegrist2022_normals}} (§6.08) {{cite:fisher1922_chisq}} (pp. 87–90)
-
-## Check yourself
-Try [counting degrees of freedom](../questions/ex-inf-degrees-of-freedom.qmd) for four goodness-of-fit and independence settings, then [the basis-dimension question](../questions/ex-ur-basis-dimension.qmd), which asks why a smooth's basis size and effective degrees of freedom differ.
-
-::: {.callout-tip collapse="true" title="Answers"}
-For a $4\times5$ independence table the count is $(4-1)(5-1)=12$. Eight classes with one fitted binomial parameter give $8-1-1=6$; ten classes with two fitted normal parameters give $10-1-2=7$; ten classes with those parameters known give $10-1=9$.{{cite:fisher1922_chisq}} (pp. 87–90) For a penalised smooth, effective degrees of freedom can be below its basis dimension because the penalty shrinks the fitted function.{{cite:hastie_esl2009}} (pp. 228–230)
-:::
 
 ## History
 Karl Pearson's chi-squared goodness-of-fit work preceded a dispute about how to calibrate the statistic when cells in a contingency table were tied by their margins. In 1922 Ronald Fisher pointed out that the row and column restrictions reduced the independent directions of discrepancy. He obtained $(r-1)(c-1)$ degrees of freedom for an $r\times c$ independence table and explained why using the raw number of cells could give a different tail probability.{{cite:fisher1922_chisq}} (pp. 87–90)

@@ -54,9 +54,6 @@ The square-root-of-$n$ rule assumes independent observations with a common finit
 ## Connections
 An [estimator](estimator.qmd) is the random rule whose sampling spread the standard error describes; its realised estimate is a number from one dataset. [Sample variance and standard deviation](sample-variance-and-standard-deviation.qmd) describe spread of observations and supply $s$ for the mean's estimated standard error. A [confidence interval](confidence-interval.qmd) uses a standard error together with a calibrated multiplier, while a [pivot](pivot.qmd) divides estimation error by a scale to obtain a reference distribution.{{cite:nist_glossary2002}} (Glossary, “standard error”) {{cite:nist_mean_limits2002}} (§1.3.5.2)
 
-## Check yourself
-The [lost-hours question](../questions/ex-inf-safety-interval.qmd) uses the pooled standard error calculated above to build an interval for a difference of means. The [polling question](../questions/ex-inf-green-voters.qmd) asks for a standard error for a sample proportion; its formula changes because the estimator changes.{{cite:nist_glossary2002}} (Glossary, “standard error”)
-
 ## History
 In 1908, William Sealy Gosset, writing as “Student,” investigated how to judge a sample mean when a small sample is the only source of information about variability. He noted that substituting a sample estimate for the population spread adds uncertainty, particularly with few observations. His paper developed a reference distribution for a standardised mean under normal sampling rather than treating the estimated spread as known.{{cite:student1908}} (pp. 1–5)
 

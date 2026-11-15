@@ -59,6 +59,8 @@ Take three observed pairs $(1,1)$, $(2,3)$, and $(3,2)$. Both sample means are $
 The factor on $y$ is negative, so the correlation becomes $-1/2$; adding $5$ does not affect it. Multiplying all $x$ values by positive $12$ leaves it at $1/2$.{{cite:wang2025_foundations}} (Ch. 3, §4.4.2)
 :::
 
+The [uncorrelated but dependent exercise](../questions/ex-sl-01-3.qmd) gives a pair with zero correlation that remains dependent.{{cite:strimmer2025_mva}} (Ch. 1, §1.1)
+
 ## Common misconceptions
 Correlation near zero can accompany strong nonlinear dependence: the $X$ and $X^2$ construction is a precise example. Confounding, reverse direction, selection, or chance can explain an observed association. To express linear prediction in the variables' units, multiply the correlation by $\sigma_Y/\sigma_X$ to obtain the slope of the best linear predictor of $Y$ from $X$.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27) {{cite:dicker2025_cdc}} (Ch. 8, “Epidemiologic Interpretation Checklist 1”) {{cite:hannay2019_statsdata}} (Ch. 11, §11.4)
 
@@ -67,9 +69,6 @@ The population coefficient needs positive finite variances; the sample coefficie
 
 ## Connections
 [Covariance](covariance.qmd) is the numerator of Pearson correlation, while the [mean vector and covariance matrix](mean-vector-and-covariance-matrix.qmd) collect all pairwise numerators for a random vector. The [sample correlation coefficient](sample-correlation-coefficient.qmd) estimates the population coefficient from data. [Partial correlation](partial-correlation.qmd) measures linear association after adjusting linearly for other coordinates, and [simple linear regression](simple-linear-regression.qmd) supplies the best-linear-predictor relationship proved above. Causal interpretation also requires study design and subject-matter evidence.{{cite:strimmer2025_mva}} (Ch. 6, “Related quantity: partial correlation”) {{cite:dicker2025_cdc}} (Ch. 8, “Epidemiologic Interpretation Checklist 1”)
-
-## Check yourself
-In [reading a correlation](../questions/ex-da-correlation-reading.qmd), identify the signs and describe the pattern. Then use [uncorrelated but dependent](../questions/ex-sl-01-3.qmd) to test the zero-correlation limit, and [the effect of correlation](../questions/ex-sl-03-3.qmd) to connect a correlation matrix to principal-component variance.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”)
 
 ## History
 Francis Galton's 1886 study of hereditary stature compared children's heights with their parents' heights. He used these paired measurements to investigate regression toward average stature. His paper describes 930 adult children from 205 parentages and explains why he had first studied the same pattern using seeds.{{cite:galton1886}} (pp. 246–247)

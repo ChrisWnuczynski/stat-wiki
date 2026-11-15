@@ -67,7 +67,7 @@ $$
 \Pr((X,Y)\in B)=\iint_B f(x,y)\,\dd x\,\dd y.
 $$
 
-The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}
+The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.{{cite:durrett2019}} (§4.1, Ex. 4.1.6)
 
 :::
 

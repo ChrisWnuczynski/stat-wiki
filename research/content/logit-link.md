@@ -50,9 +50,6 @@ The logit transformation itself applies to probabilities strictly between zero a
 ## Connections
 The [odds](odds.qmd) turn a probability into a success-to-failure ratio; the [odds ratio](odds-ratio.qmd) compares that ratio across two groups. [Binary logistic regression](binary-logistic-regression.qmd) combines the logit with a Bernoulli likelihood and a linear predictor. The [probit link](probit-link.qmd) uses a standard-normal quantile instead and gives coefficients a different interpretation. Changing the link changes the fitted mean curve for a binary response.{{cite:berkson1944}} (pp. 357–359){{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380)
 
-## Check yourself
-[Logit, probit and odds](../questions/c-20.qmd) asks for the three definitions. [Odds ratios](../questions/ex-sl-10-2.qmd) uses a ten-year coefficient change and fitted probabilities; check why its odds ratio and probability ratio differ. For model comparison, [changing from a logit to a probit link](../questions/q-38.qmd) keeps the Bernoulli response but refits the coefficients.{{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380)
-
 ## History
 Joseph Berkson applied the logistic function to bioassay data in 1944. The problem was to describe how the fraction of subjects showing an all-or-none response changed with dose. He compared a logistic curve with the integrated normal curve then used for this purpose and worked with a linear scale of logits for fitting. The paper explicitly used the term *logit*.{{cite:berkson1944}} (pp. 357–359)
 

@@ -53,6 +53,8 @@ The negative covariance says that larger first coordinates tend to go with small
 With $\mathbf a=(1,1)^\top$, the variance is $\mathbf a^\top s\mathbf a=4+4+2(-2)=4$. Discarding covariance would give $4+4=8$, so preserving pairs matters.{{cite:nist_covariance2002}} (§6.5.4.1)
 :::
 
+The [sample mean and covariance exercise](../questions/ex-sl-01-1.qmd) calculates each matrix entry from observed vectors.{{cite:nist_covariance2002}} (§6.5.4.1)
+
 ## Common misconceptions
 Zero covariance means no linear association when the variances are positive, while nonlinear dependence may remain. For example, a centred symmetric $X$ and $Y=X^2$ have zero covariance despite their deterministic relationship. Different joint distributions can share the same means and covariance matrix.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.3.17–20)
 
@@ -61,9 +63,6 @@ The population matrix requires finite second moments. The unbiased sample-covari
 
 ## Connections
 Each entry of $\Sigma$ is an ordinary [covariance](covariance.qmd), with [variance](variance.qmd) on the diagonal. [Correlation](correlation.qmd) rescales those entries when the variances are positive. [Principal components](../notes/sl-03-principal-components.qmd) use eigenvectors of a covariance matrix as new axes.{{cite:nist_covariance2002}} (§6.5.4.1) {{cite:golub_vanloan2013}} (§4.2)
-
-## Check yourself
-Try [variances of linear combinations](../questions/ex-sl-01-2.qmd) to practise quadratic forms, then [uncorrelated but dependent](../questions/ex-sl-01-3.qmd) to test the limit of covariance as a dependence measure. The [positive semi-definiteness question](../questions/ex-sl-01-1.qmd) checks whether a proposed matrix could be a covariance or correlation matrix.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 ## History
 Francis Galton's 1886 study of hereditary stature compared paired family measurements to understand regression toward an average. He analysed parents' and children's heights together, asking how the expected child height changed with parental height.{{cite:galton1886}} (pp. 246–247)

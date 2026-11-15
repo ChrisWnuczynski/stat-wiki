@@ -41,6 +41,14 @@ Three equally likely workday scenarios produce stage delays $(X,Y)$ of $(1,3)$, 
 Now $\mathbb E Y=5$, and the centred products are $(-1)(3)=-3$, $0(-1)=0$, and $(1)(-2)=-2$. Hence $\operatorname{Cov}(X,Y)=-5/3$ square hours. The separate variances are still $2/3$ and $14/3$, so $\operatorname{Var}(X+Y)=2/3+14/3-10/3=2$ square hours.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 :::
 
+The [sample-covariance divisor exercise](../questions/ex-sl-02-1.qmd) applies the same variance expansion to explain the denominator $n-1$.{{cite:nist_covariance2002}} (§6.5.4.1)
+
+Try [signs and their sum](../questions/ex-prob-sign-covariance.qmd), then [where the $n-1$ comes from](../questions/ex-sl-02-1.qmd). The first asks for a joint law before computing covariance; the second extends the centred-product calculation to a covariance matrix.
+
+::: {.callout-tip collapse="true" title="Answers"}
+For the sign question, $\mathbb E X=1/4$, $\mathbb E Y=-1$, and $\mathbb E(XY)=-1$, so $\operatorname{Cov}(X,Y)=-3/4$. For uncorrelated random vectors with common covariance matrix $\Sigma$, expanding deviations from the population mean gives expected centred scatter $(n-1)\Sigma$. Normality is not needed.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
+:::
+
 ## Common misconceptions
 A covariance of zero means no linear association as measured by centred products; it does not rule out nonlinear dependence. A positive covariance also does not say that both variables are positive: it says their *deviations from their own means* tend to share a sign. Raw covariance magnitudes cannot be compared across different measurement scales; multiplying $X$ by ten multiplies its covariance with $Y$ by ten.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
@@ -49,13 +57,6 @@ The familiar finite covariance requires sufficient integrability. Finite second 
 
 ## Connections
 [Variance](variance.qmd) is covariance with both arguments the same. [Correlation](correlation.qmd) divides covariance by two standard deviations; it keeps the sign while removing units. The [covariance matrix](mean-vector-and-covariance-matrix.qmd) collects pairwise covariances for a random vector, and the variance of a linear combination is its quadratic form. Independent variables have zero covariance, while the $Y=X^2$ example shows that the converse fails.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20) {{cite:nist_covariance2002}} (§6.5.4.1)
-
-## Check yourself
-Try [signs and their sum](../questions/ex-prob-sign-covariance.qmd), then [where the $n-1$ comes from](../questions/ex-sl-02-1.qmd). The first asks for a joint law before computing covariance; the second extends the centred-product calculation to a covariance matrix.
-
-::: {.callout-tip collapse="true" title="Answers"}
-For the sign question, $\mathbb E X=1/4$, $\mathbb E Y=-1$, and $\mathbb E(XY)=-1$, so $\operatorname{Cov}(X,Y)=-3/4$. For uncorrelated random vectors with common covariance matrix $\Sigma$, expanding deviations from the population mean gives expected centred scatter $(n-1)\Sigma$. Normality is not needed.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
-:::
 
 ## History
 Pearson's 1896 paper on regression, heredity and panmixia studied joint variation in family measurements. Its published abstract describes the effort to analyse hereditary patterns mathematically.{{cite:pearson1896}} (Abstract)

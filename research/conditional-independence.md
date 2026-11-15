@@ -10,7 +10,8 @@ Type: Concept/definition.
 ## Sources opened and facts used
 
 1. A. P. Dawid, [“Conditional Independence in Statistical Theory” (1979)](https://people.csail.mit.edu/tdanford/discovering-causal-graphs-papers/dawid-79.pdf), *Journal of the Royal Statistical Society B* 41(1), 1–31. The file is a scanned copy; the text was read from the extraction. Read §3.1–3.2 (definition, symmetry as Theorem 3.1, sufficiency) and §4 (Lemmas 4.1–4.3: the joint-variable form, reduction for a function of \(X\), and contraction). The running heads place the definition on journal p. 2, Theorem 3.1 on p. 3, and the lemmas on p. 4. The scan also records the marginalisation paradox for improper distributions. New key `dawid1979`, DOI `10.1111/j.2517-6161.1979.tb01052.x`.
-2. Lauritzen 1996 remains the citation already attached to the density identities and the global Markov sentence. That book was not opened. No new formula was attributed to it beyond the separation sentence already printed on the page.
+2. Robin J. Evans, [*Graphical Models*](https://www.stats.ox.ac.uk/~evans/gms/_book/), notes dated 24 November 2025, Chapter 4 §§4.2–4.3. Read Definition 4.4 and Theorem 4.1 and its proof for the graph-separation statement. New key `evans2025_graphical`.
+3. Lauritzen 1996 was cited in the inherited excerpt without being opened. The excerpt now uses the opened Dawid and Evans sources for its conditional-independence and graph claims.
 
 ## Verification and decisions
 
@@ -23,3 +24,4 @@ Type: Concept/definition.
 
 - Recast the page type as a concept/definition. Corrected the correlation wording to distinguish marginal from conditional correlation and supplied a counterexample for the converse.
 - The added prose now cites only Dawid §§3–4, the opened source. Removed new graphical-model and Lauritzen claims that this research did not substantiate; the pre-existing chapter excerpt still has Lauritzen citations and needs a separate source audit. Rephrased reader-facing prose and checked printed numerical values.
+- The inherited conditional-independence excerpt was then audited against Dawid's §§3–4 and Robin Evans's [*Graphical Models*, Chapter 4 §§4.2–4.3](https://www.stats.ox.ac.uk/~evans/gms/_book/ug.html), dated 24 November 2025. The definition and four properties now cite Dawid's specific theorem or lemmas. The graph-separation statement cites Evans's Definition 4.4 and Theorem 4.1; the unopened Lauritzen citation was removed from this excerpt.

@@ -1,6 +1,6 @@
 # Estimating error rates
 
-The classifier has been fitted. The question is how often it fails on a new observation from the population that matters. Scoring the training sample is easy, and those observations helped choose the rule{{cite:efron1983}}. An honest assessment scores observations that were excluded from every decision that built the predictor, including preprocessing and tuning{{cite:stone1974}}{{cite:hastie_esl2009}}.
+The classifier has been fitted. The question is how often it fails on a new observation from the population that matters. Scoring the training sample is easy, and those observations helped choose the rule.{{cite:efron1983}} (p. 316) An assessment scores observations that were excluded from every decision that built the predictor, including preprocessing and tuning.{{cite:hastie_esl2009}} (pp. 245–246){{cite:cawley_talbot2010}} (§5.3, p. 2102)
 
 This page defines that target and compares the estimators: the apparent error, a single test set, cross-validation, nested cross-validation when a model is being selected, the bootstrap, and the jackknife. The same split between fitting and assessment is what a held-out likelihood uses on [Model selection for stochastic models](sl-06-model-selection.qmd), what chooses $k$ for [nearest neighbours](sl-11-nearest-neighbours.qmd), and what produces the out-of-bag estimate for a [random forest](sl-13-ensembles.qmd).
 

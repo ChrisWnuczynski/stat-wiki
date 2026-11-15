@@ -37,6 +37,14 @@ For readings $1,3,5,7$, the observed sample mean is $\overline x=(1+3+5+7)/4=4$,
 The mean is $4$, the sample variance is $[(-2)^2+0^2+2^2]/(3-1)=4$, and the range is $6-2=4$. Because $\mu_0$ is specified, the expression is a statistic; its observed numerator is zero, so its value is $0$.{{cite:siegrist2022_normals}} (§6.08)
 :::
 
+The [expected sample variance exercise](../questions/ex-inf-expected-sample-variance.qmd) separates a statistic from its sampling expectation.{{cite:siegrist2022_normals}} (§6.08)
+
+Try [deciding which formulas are statistics](../questions/ex-inf-which-are-statistics.qmd), then [deriving the sample-variance expectation](../questions/ex-inf-expected-sample-variance.qmd). The first tests whether a formula is computable; the second tests a property of a computable summary under repeated sampling.
+
+::: {.callout-tip collapse="true" title="Answers"}
+In the first problem, $\overline X$, the sample range, and $\sum_iX_i^2$ are statistics. The formulas containing the unknown $\mu$ are not, even though one has a parameter-free $t$ distribution. In the second, expanding around $\mu$ gives $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$; expectations are $n\sigma^2$ and $\sigma^2$ respectively, so $\mathbb E s^2=\sigma^2$.{{cite:siegrist2022_normals}} (§6.08)
+:::
+
 ## Common misconceptions
 “Statistic” does not mean only a sample mean or an estimate. The maximum, range, sample variance, and a test score all qualify if their formulas use only observed data and known constants. A statistic also need not have a parameter-free sampling distribution: the sample mean's distribution generally changes with the unknown population mean. Conversely, a formula involving an unknown parameter is not a statistic merely because its distribution happens to be known; the $t$ pivot example makes that distinction.{{cite:fisher1922}} (pp. 309–316) {{cite:siegrist2022_normals}} (§6.08)
 
@@ -45,13 +53,6 @@ The definition of a statistic does not assume normality, independence, or a larg
 
 ## Connections
 Every [estimator](estimator.qmd) is a statistic used for a particular inferential goal, while a statistic such as the sample range need not be an estimator of the parameter under discussion. A sampling distribution describes the statistic before data are observed. A [pivot](pivot.qmd) may include an unknown parameter but has a known distribution; the normal-sample example shows why that differs from the definition here. [Sufficiency](sufficient-statistic.qmd) asks whether a statistic preserves all information about a model parameter.{{cite:fisher1922}} (pp. 309–316) {{cite:siegrist2022_normals}} (§6.08)
-
-## Check yourself
-Try [deciding which formulas are statistics](../questions/ex-inf-which-are-statistics.qmd), then [deriving the sample-variance expectation](../questions/ex-inf-expected-sample-variance.qmd). The first tests whether a formula is computable; the second tests a property of a computable summary under repeated sampling.
-
-::: {.callout-tip collapse="true" title="Answers"}
-In the first problem, $\overline X$, the sample range, and $\sum_iX_i^2$ are statistics. The formulas containing the unknown $\mu$ are not, even though one has a parameter-free $t$ distribution. In the second, expanding around $\mu$ gives $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$; expectations are $n\sigma^2$ and $\sigma^2$ respectively, so $\mathbb E s^2=\sigma^2$.{{cite:siegrist2022_normals}} (§6.08)
-:::
 
 ## History
 In his 1922 paper on the mathematical foundations of theoretical statistics, Ronald Fisher described reducing a sample to statistics and then judging those statistics by their sampling behaviour. He distinguished problems of estimating population parameters from problems of deriving the distributions of functions of observations. The problem was how to extract information from a sample without confusing an observed summary with an unknown feature of the population.{{cite:fisher1922}} (pp. 309–316)

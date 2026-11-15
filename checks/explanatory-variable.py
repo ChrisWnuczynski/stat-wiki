@@ -8,9 +8,9 @@ if __name__ == "__main__":
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1]
-    prose = (root / "research/content/explanatory-variable.md").read_text()
+    prose = (root / "articles/explanatory-variable.qmd").read_text()
     for printed in ("175/3", "S_{xx}=(-1)^2+0^2+1^2=2", "S_{xy}=15", "15/2=7.5", "305/6", "745/12", "62.08", "9.5", "0.961", "1.516"):
-        assert printed in prose, f"Worked value missing from article source: {printed}"
+        assert printed in prose, f"Worked value missing from generated article: {printed}"
     xs = (0, 1, 2)
     ys = (50, 60, 65)
     xbar = Fraction(sum(xs), len(xs))

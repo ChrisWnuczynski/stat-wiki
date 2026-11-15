@@ -9,7 +9,7 @@ def expectation(pairs):
 
 
 if __name__ == "__main__":
-    article = (Path(__file__).resolve().parents[1] / "research/content/conditional-expectation.md").read_text()
+    article = (Path(__file__).resolve().parents[1] / "articles/conditional-expectation.qmd").read_text()
     assert r"m(x)=\frac{\int y\,f(x,y)\,\mathrm dy}{\int f(x,y)\,\mathrm dy}" in article
     for printed in (r"\frac54", r"\tfrac98", "19/32", "1/64", "39/64", r"\tfrac{27}{4}", "4/3", "6/5"):
         assert printed in article, f"Worked value missing from article: {printed}"

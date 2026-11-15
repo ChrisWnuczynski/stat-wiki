@@ -61,8 +61,5 @@ Always state the support and the variable of proportionality. The Beta kernel ha
 ## Connections
 The [likelihood function](likelihood-function.qmd) treats observed data as fixed and varies the parameter, so its kernel retains every parameter-dependent factor. The [Beta distribution](beta-distribution.qmd) provides the normaliser for the coin example; the [inverse-Gamma distribution](inverse-gamma-distribution.qmd) supplies one for the known-mean normal variance example. [Beta–Binomial conjugacy](beta-binomial-conjugacy.qmd) means the posterior kernel stays within the Beta family. Both relationships follow by matching powers and exponents in the corresponding likelihood-prior products.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”) {{cite:stan_functions2026}} (“Inverse gamma Distribution”, “Probability density function”)
 
-## Check yourself
-Work through [reading conjugacy from a kernel](../questions/exr-reading-conjugacy-from-a-kernel.qmd), then [the Gamma and inverse-Gamma kernels](../questions/c-10.qmd). In each exercise, identify the variable of interest before dropping a factor.{{cite:downey2020_thinkbayes2}} (Ch. 18, “What the Actual?”)
-
 ## History
 Bayes's essay, communicated by Richard Price in 1763, asked how observations of successes and failures inform an unknown chance of success. Price's introduction describes the problem as inference about the chance from the observed event counts. The question he posed was inverse: observations were known, while the chance that generated them was uncertain.{{cite:bayes1763}} (pp. 370–372)

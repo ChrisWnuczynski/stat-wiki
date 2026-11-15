@@ -106,6 +106,3 @@ The defining identity needs \(Y\) integrable. The mean-square characterisation n
 
 ## Connections
 A [conditional distribution](conditional-distribution.qmd) is the law whose mean is the conditional expectation. The [tower property](tower-property.qmd) averages that conditional mean. Ordinary [expectation](expectation.qmd) is the case of trivial information. [Mean squared error](mean-squared-error.qmd) is the distance the projection minimises. For a [multivariate normal distribution](multivariate-normal-distribution.qmd) the conditional mean is the affine function of the observed coordinates, with slope built from the [covariance](covariance.qmd).{{cite:durrett2019}} (§4.1)
-
-## Check yourself
-[The bivariate conditional](../questions/ex-sl-01-6.qmd) asks for a conditional mean in a normal model. [Conditional normal prediction](../questions/ex-sl-01-8.qmd) uses that line for a prediction. [Why the conditional expectation is better](../questions/ex-inf-rao-blackwell-variance.qmd) compares it with a coarser summary.

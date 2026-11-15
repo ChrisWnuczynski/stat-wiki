@@ -66,9 +66,6 @@ The odds conversion is an algebraic identity and needs no sample or regression m
 ## Connections
 The [logit link](logit-link.qmd) is the logarithm of the odds, mapping a probability to an unrestricted linear-predictor scale. An [odds ratio](odds-ratio.qmd) divides the odds of one group by those of another. [Prior odds](prior-odds.qmd) describe the balance between two hypotheses before observing data, while [posterior odds](posterior-odds-factorisation.qmd) describe it after a Bayes-factor update. These uses share the same probability-to-odds conversion; they differ in which event is being compared with its complement.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
 
-## Check yourself
-Try [logit, probit and odds](../questions/c-20.qmd) for the basic definitions. [Posterior odds](../questions/ex-sl-06-1.qmd) asks for a numerical Bayes-factor update. [Odds ratios](../questions/ex-sl-10-2.qmd) asks you to compare an adjusted odds multiplier with two fitted probabilities.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
-
 ## History
 In the 1763 essay published after Thomas Bayes's death and communicated by Richard Price, the problem was to infer an unknown chance from observations of whether an event happened. Modern Bayesian model comparison expresses the shift from prior to posterior probabilities as a multiplication of odds.{{cite:bayes1763}} (Price’s letter, pp. 370–371){{cite:kass_raftery1995}} (§3.1, p. 777)
 

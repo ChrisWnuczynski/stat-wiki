@@ -6,9 +6,9 @@ from pathlib import Path
 
 if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
-    prose = (root / "research/content/degrees-of-freedom.md").read_text()
+    prose = (root / "articles/degrees-of-freedom.qmd").read_text()
     for printed in ("-2,-1,0,1,2", "2.5", "12-3=9", "18/9=2", "(4-1)(5-1)=12", "8-1-1=6", "10-1-2=7", "10-1=9"):
-        assert printed in prose, f"Worked value missing from article source: {printed}"
+        assert printed in prose, f"Worked value missing from generated article: {printed}"
     values = (8, 9, 10, 11, 12)
     mean = Fraction(sum(values), len(values))
     residuals = tuple(value - mean for value in values)

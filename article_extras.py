@@ -4341,7 +4341,6 @@ CONCEPT_LEADS = {
 }
 
 ARTICLE_HISTORIES.update({
-    "maximum-likelihood": "Fisher developed the likelihood framework in his 1922 account of theoretical statistics.{{cite:fisher1922}}",
     "confidence-interval": "Neyman formalised confidence intervals and their coverage interpretation in 1937.{{cite:neyman1937}}",
     "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:markov1906}}",
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",

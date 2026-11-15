@@ -82,9 +82,6 @@ The probability calculations assume a joint distribution and conditioning events
 ## Connections
 [Independent random variables](independent-random-variables.qmd) are the case with no conditioning variable. A [conditional distribution](conditional-distribution.qmd) is the law that factors given \(Z\). [Conditional probability](conditional-probability.qmd) supplies the positive-mass quotient in the discrete definition.{{cite:dawid1979}} (§§3–4)
 
-## Check yourself
-[Conditional versus marginal dependence](../questions/c-36.qmd) asks for the distinction in the worked example. [Conditional independence from a partitioned covariance](../questions/ex-sl-19-4.qmd) asks for the Gaussian version. [Precision to graph](../questions/ex-sl-19-2.qmd) reads zeros as separations.
-
 ## History
 Dawid's 1979 paper treats conditional independence as a relation \(X\perp Y\mid Z\) with several equivalent expressions. One says that the conditional distribution of \(X\) given \(Y\) and \(Z\) is determined by \(Z\) alone. Symmetry then follows as a theorem for a proper joint law. His reduction and contraction results describe how the relation behaves when variables are combined or replaced by functions.{{cite:dawid1979}} (§§3–4)
 

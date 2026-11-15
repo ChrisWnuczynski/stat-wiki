@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 if __name__ == "__main__":
-    article = (Path(__file__).resolve().parents[1] / "research/content/conditional-independence.md").read_text()
+    article = (Path(__file__).resolve().parents[1] / "articles/conditional-independence.qmd").read_text()
     for printed in ("5/16", "1/4", "5/8", "1/16", "1/2", "3/4"):
         assert printed in article, f"Worked value missing from article: {printed}"
     # Marginally independent fair bits become dependent given their equality indicator.
