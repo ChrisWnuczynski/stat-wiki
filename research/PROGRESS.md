@@ -4,7 +4,7 @@ Branch: `cursor/research-depth-from-training-set`. Ranking is frozen in [RANKING
 
 ## Status
 
-Pages ranked: **718**. Done: **24**. Left: **694**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **25**. Left: **693**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -32,12 +32,13 @@ Pages ranked: **718**. Done: **24**. Left: **694**. Skipped: **0**. Ranks 1–23
 | 22 | [Linear predictor](linear-predictor.md) | Concept/topic | [Prose](content/linear-predictor.md), [check](../checks/linear-predictor.py) | 520 → 2,255 | 0 → 0 | Covariate notation made lowercase across topic and source data |
 | 23 | [Conditional distribution](conditional-distribution.md) | Concept/definition | [Prose](content/conditional-distribution.md), [check](../checks/conditional-distribution.py) | 1,273 → 3,071 | 2 → 2 | Zero-probability conditioning caveat corrected in source chapter |
 | 24 | [Training set](training-set.md) | Concept/topic | [Prose](content/training-set.md), [check](../checks/training-set.py) | 221 → 2,843 | 0 → 0 | Phrase origin unverified and omitted; Efron 1983 read from a scanned PDF |
+| 25 | [Conditional expectation](conditional-expectation.md) | Concept/topic | [Prose](content/conditional-expectation.md), [check](../checks/conditional-expectation.py) | 317 → 2,467 | 0 → 0 | History limited to the opened Durrett author PDF |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 25: `conditional-expectation`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 26: `joint-probability-density`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -65,4 +66,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Linear predictor: 15 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original interaction example, GLM component statement, three citations, and twelve question links remain. One collapsed proof covers link-scale contrasts, interaction slopes, and exposure offsets. Topic and source covariate symbols now agree on lowercase input vectors.
 - Conditional distribution: 20 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Both original figure instances, the finite-lattice, shop, and continuous triangle examples, and nineteen question links remain. One collapsed proof covers the product and marginal rules, independence, both tower identities, and random-sum moments. Source wording now qualifies conditioning at zero-probability values.
 - Training set: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 relevant Node tests passed. The original definition, both chapter excerpts, five citation keys, infobox values, and fifteen question links remain. One collapsed proof covers the distinct-input nearest-neighbour training error, the squared-error covariance identity, the trace formula, and the intercept-only expectations. No generator change.
+- Conditional expectation: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 Node tests passed. The original definition, sample conditional-mean line, four citation keys, and seventeen question links remain. One collapsed proof covers the atom formula, tower property, independence case, mean-square projection, bivariate normal mean and variance, and the least-squares slope identity. No generator change.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
