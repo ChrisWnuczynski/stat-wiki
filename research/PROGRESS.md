@@ -1,10 +1,10 @@
 # Full research depth pass
 
-Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md) and [ranking.json](ranking.json). Score is unique substantive incoming pages plus unique practice questions. Work strictly by rank, one page per commit, pushing this branch after each ten page commits. Generated `articles/*.qmd` are build output; researched article source belongs in `research/content/<slug>.md` and the research log in `research/<slug>.md`.
+Branch: `cursor/research-depth-from-training-set`. Ranking is frozen in [RANKING.md](RANKING.md) and [ranking.json](ranking.json). Score is unique substantive incoming pages plus unique practice questions. Work strictly by rank, one page per commit, pushing this branch after each ten page commits. Generated `articles/*.qmd` are build output; researched article source belongs in `research/content/<slug>.md` and the research log in `research/<slug>.md`.
 
 ## Status
 
-Pages ranked: **718**. Done: **23**. Left: **695**. Skipped: **0**. The depth pass is paused after rank 23 at the user's request to merge the completed work into main.
+Pages ranked: **718**. Done: **24**. Left: **694**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -31,12 +31,13 @@ Pages ranked: **718**. Done: **23**. Left: **695**. Skipped: **0**. The depth pa
 | 21 | [Random variable](random-variable.md) | Concept/definition | [Prose](content/random-variable.md), [check](../checks/random-variable.py) | 872 → 2,303 | 1 → 1 | Source density derivative corrected almost everywhere; dependent article preservation verified |
 | 22 | [Linear predictor](linear-predictor.md) | Concept/topic | [Prose](content/linear-predictor.md), [check](../checks/linear-predictor.py) | 520 → 2,255 | 0 → 0 | Covariate notation made lowercase across topic and source data |
 | 23 | [Conditional distribution](conditional-distribution.md) | Concept/definition | [Prose](content/conditional-distribution.md), [check](../checks/conditional-distribution.py) | 1,273 → 3,071 | 2 → 2 | Zero-probability conditioning caveat corrected in source chapter |
+| 24 | [Training set](training-set.md) | Concept/topic | [Prose](content/training-set.md), [check](../checks/training-set.py) | 221 → 2,843 | 0 → 0 | Phrase origin unverified and omitted; Efron 1983 read from a scanned PDF |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 24: `training-set`**, when work resumes. The user asked to stop after finishing rank 23 and merge the completed work into main. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 25: `conditional-expectation`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -63,4 +64,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Random variable: 15 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original CDF, discrete and continuous definitions, mass/density/CDF figure, two-toss example, and nine question links remain. One collapsed proof covers transformations, expectations, and CDF results. The source-chapter density derivative was corrected to an almost-everywhere statement, with the dependent Continuous distribution page preserved above baseline.
 - Linear predictor: 15 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original interaction example, GLM component statement, three citations, and twelve question links remain. One collapsed proof covers link-scale contrasts, interaction slopes, and exposure offsets. Topic and source covariate symbols now agree on lowercase input vectors.
 - Conditional distribution: 20 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Both original figure instances, the finite-lattice, shop, and continuous triangle examples, and nineteen question links remain. One collapsed proof covers the product and marginal rules, independence, both tower identities, and random-sum moments. Source wording now qualifies conditioning at zero-probability values.
+- Training set: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 relevant Node tests passed. The original definition, both chapter excerpts, five citation keys, infobox values, and fifteen question links remain. One collapsed proof covers the distinct-input nearest-neighbour training error, the squared-error covariance identity, the trace formula, and the intercept-only expectations. No generator change.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
