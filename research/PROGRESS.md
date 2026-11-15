@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **12**. Left: **706**. Skipped: **0**.
+Pages ranked: **718**. Done: **13**. Left: **705**. Skipped: **0**.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -20,12 +20,13 @@ Pages ranked: **718**. Done: **12**. Left: **706**. Skipped: **0**.
 | 10 | [Mean vector and covariance matrix](mean-vector-and-covariance-matrix.md) | Concept/definition | [Prose](content/mean-vector-and-covariance-matrix.md), [check](../checks/mean-vector-and-covariance-matrix.py) | 560 → 2,183 | 0 → 0 | Pearson 1896 full text inaccessible; history limited to verified subject |
 | 11 | [Posterior mean](posterior-mean.md) | Concept/topic | [Prose](content/posterior-mean.md), [check](../checks/posterior-mean.py) | 509 → 2,362 | 1 → 1 | None; original Bayes 1763, Metropolis–Ulam 1949, and Geyer 1992 opened |
 | 12 | [Correlation](correlation.md) | Concept/definition | [Prose](content/correlation.md), [check](../checks/correlation.py) | 497 → 2,080 | 0 → 0 | Pearson 1896 full text inaccessible; history limited to verified subject |
+| 13 | [Estimator](estimator.md) | Concept/definition | [Prose](content/estimator.md), [check](../checks/estimator.py) | 259 → 1,630 | 0 → 0 | Linked “No uniform winner” exercise needs a sampling-model condition; logged in todo |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 13: `estimator`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 14: `logit-link`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -41,4 +42,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Mean vector and covariance matrix: 15 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 394 works. Existing definition, population two-coordinate calculation, and 39 question links remain. New proof covers matrix properties and the corrected sample covariance.
 - Posterior mean: 16 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 395 works. Both original definition blocks, the credible-regions figure, 34 question links, and original citations remain. The Beta–Binomial lab link and one collapsed proof were added.
 - Correlation: 16 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing population definition, matrix identity, numerical example, and 22 question links remain. New proof covers the equality case, matrix properties, linear prediction, and independence distinctions.
+- Estimator: 15 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing definition, thermometer example, and 12 question links remain. New proof covers MSE decomposition, sample-mean moments, and the Bernoulli proportion's moments, consistency, and MLE including boundary samples.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

@@ -1,3 +1,5 @@
 # Research items to verify
 
-No open items yet. Add uncertain claims here before writing them into an article.
+Add uncertain claims here before writing them into an article.
+
+- `questions/ex-inf-no-uniform-risk.qmd`: the stated universal “No uniform winner” claim needs a sampling-model condition. Distinct parameter values can have mutually singular laws (for example, a deterministic observation $X=\theta$), allowing a rule with zero risk at both. Repair the exercise and answer when question pages are in scope; keep its existing link in the estimator article.
