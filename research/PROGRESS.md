@@ -58,6 +58,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 - Rank 6, statistic: replaced unopened extracted-source citations, located new citations, cited worked values, and checked the inherited classification answer.
 - Rank 7, explanatory variable: replaced the unopened Davison citation in its extracted source and proof, located citations in all new factual paragraphs, cited the inherited regression-output bullets, and tied the arithmetic check to printed values.
 - Rank 8, standard error: replaced unopened Casella–Berger and other extracted-source citations with opened Grinstead, NIST, and Siegrist passages, located the researched citations, removed unsupported new GLM commentary, and tied arithmetic checks to printed values.
+- Rank 9, kernel of a density: replaced unopened Gelman and Raiffa–Schlaifer citations with opened Downey and Stan source passages, narrowed History, cited worked values, and tied its arithmetic check to the printed expressions.
 
 ## Verification for completed pages
 

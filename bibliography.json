@@ -1689,6 +1689,21 @@
         "id": "/works/OL3922691W"
       }
     },
+    "downey2020_thinkbayes2": {
+      "authors": [
+        "Downey, A. B."
+      ],
+      "year": 2020,
+      "title": "Think Bayes 2",
+      "kind": "book",
+      "edition": "2nd ed., author-hosted notebook edition",
+      "publisher": "Allen B. Downey",
+      "url": "https://shop.aer.io/oreilly/p/think-bayes-2nd/9781492089469-9149",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://shop.aer.io/oreilly/p/think-bayes-2nd/9781492089469-9149"
+      }
+    },
     "drton_plummer2017": {
       "authors": [
         "Drton, M.",
@@ -5640,6 +5655,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1214/aos/1176349846"
+      }
+    },
+    "stan_functions2026": {
+      "authors": [
+        "Stan Development Team"
+      ],
+      "year": 2026,
+      "title": "Stan Functions Reference",
+      "kind": "book",
+      "publisher": "Stan Development Team",
+      "url": "https://mc-stan.org/docs/functions-reference/positive_continuous_distributions.html#inverse-gamma-distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mc-stan.org/docs/functions-reference/positive_continuous_distributions.html#inverse-gamma-distribution"
       }
     },
     "steele_diamond1999": {

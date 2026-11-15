@@ -1252,7 +1252,7 @@ ALIASES.update({
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",
-          r"The part of a density that depends on the variable, with every constant factor dropped. A posterior is computed as a kernel, $p(\theta\mid y)\propto p(y\mid\theta)\,p(\theta)$, and recognising the kernel of a named family, such as $\theta^{a-1}(1-\theta)^{b-1}$ for a Beta, identifies the posterior without computing its normalising constant.",
+          r"The part of a density that depends on the variable, with every constant factor dropped. A posterior is computed as a kernel, $p(\theta\mid y)\propto p(y\mid\theta)\,p(\theta)$, and recognising the kernel of a named family, such as $\theta^{a-1}(1-\theta)^{b-1}$ for a Beta, identifies the posterior without computing its normalising constant.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)",
           also=["bayes-03-normal-models.qmd#s-finding-the-conjugate-family-by-inspection"],
           links=["density kernels?", "likelihood kernels?", "posterior kernels?", "kernels?"], scope=[B], late=True),
 ]

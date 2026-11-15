@@ -116,7 +116,7 @@ $$
 
 ::: {.callout-note}
 ## Key idea
-Bayesian calculation is the controlled multiplication of a likelihood by a prior, followed by normalisation or recognition of a known density kernel.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} The proportionality symbol removes constants in the variable being analysed, not arbitrary terms that still depend on that variable.{{cite:gelman_bda2013}}
+Bayesian calculation multiplies a likelihood by a prior, followed by normalisation or recognition of a known density kernel.{{cite:downey2020_thinkbayes2}} (Ch. 18, “What the Actual?”) The proportionality symbol removes constants in the variable being analysed while retaining factors that depend on that variable.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
 
 :::
 
