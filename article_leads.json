@@ -538,7 +538,7 @@
   "random-component": {"field": "generalised linear models", "article": "the", "term": "random component", "verb": "is", "description": "the distribution assumed for the response given the covariates in a GLM, a member of an exponential family such as the normal, Poisson, binomial or gamma"},
   "random-forest": {"field": "statistical learning", "article": "the", "term": "random forest", "verb": "is", "description": "an ensemble of decision trees built from resampled data and random predictor choices"},
   "random-intercept-model": {"field": "correlated data", "article": "the", "term": "random intercept model", "verb": "is", "description": "a mixed model that gives each group its own intercept"},
-  "random-sample": {"field": "statistical inference", "article": "a", "term": "random sample", "verb": "is", "description": "a collection of observations drawn according to a specified sampling rule"},
+  "random-sample": {"field": "statistical inference", "article": "a", "term": "random sample", "verb": "is", "description": "a set of independent observations that follow the same probability distribution"},
   "random-seed": {"field": "probability theory", "article": "the", "term": "random seed", "verb": "is", "description": "the initial state used to reproduce a pseudorandom sequence"},
   "random-slopes": {"field": "correlated data", "article": "", "term": "random slopes", "verb": "are", "description": "group-specific regression slopes modelled as varying around a population pattern"},
   "random-variable": {"field": "probability theory", "article": "a", "term": "random variable", "verb": "is", "description": "a rule that assigns a numerical value to each outcome of a random experiment"},

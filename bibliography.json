@@ -5901,6 +5901,20 @@
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples"
       }
     },
+    "siegrist2022_random_samples": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.1: Introduction",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.01:_Introduction",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.01:_Introduction"
+      }
+    },
     "siegrist2022_sample_variance": {
       "authors": [
         "Siegrist, K."
@@ -5913,6 +5927,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance"
+      }
+    },
+    "statistics_canada2003_survey": {
+      "authors": [
+        "Statistics Canada"
+      ],
+      "year": 2003,
+      "title": "Survey Methods and Practices",
+      "kind": "book",
+      "publisher": "Statistics Canada, Ottawa",
+      "url": "https://www150.statcan.gc.ca/n1/pub/12-587-x/12-587-x2003001-eng.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www150.statcan.gc.ca/n1/pub/12-587-x/12-587-x2003001-eng.pdf"
       }
     },
     "student1908": {

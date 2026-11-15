@@ -40,7 +40,7 @@ It would be wrong to set $\mu=1.0512$. A second batch of 10 cartons would give a
 ::: {#def-random-sample .definition}
 ## Random sample
 
-$X_1,\ldots,X_n$ are a random sample from a distribution $F$ when they are independent and each has distribution $F$.{{cite:casella_berger2002}}{{cite:fisher1922}} The joint density or mass function is then the product of the marginals.{{cite:wasserman2004}}
+$X_1,\ldots,X_n$ are a random sample from a distribution $F$ when they are independent and each has distribution $F$.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”) The joint density or mass function is then the product of the marginals.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”)
 
 :::
 
