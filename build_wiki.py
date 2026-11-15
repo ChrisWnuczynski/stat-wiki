@@ -4824,7 +4824,13 @@ def write_glossary(questions: list[dict]) -> None:
             ":::",
             "",
         ]
-    page.write_text("---\ntitle: \"Glossary and index\"\ntoc: false\n---\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
+    # Glossary snippets are copied from the same source as article leads.  They
+    # can therefore contain explicit citation markers and need the same linker.
+    import citations
+
+    linker = citations.PageCitationLinker(())
+    body = linker.process_text("\n".join(lines)) + linker.render_references_section()
+    page.write_text("---\ntitle: \"Glossary and index\"\ntoc: false\n---\n\n" + body.rstrip() + "\n", encoding="utf-8")
 
 
 def slug(text: str) -> str:

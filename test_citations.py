@@ -33,6 +33,23 @@ class CitationTests(unittest.TestCase):
         self.bib = json.loads((ROOT / "bibliography.json").read_text(encoding="utf-8"))
         self.works = self.bib["works"]
 
+    def test_no_raw_citation_markers_in_generated_pages_or_search(self) -> None:
+        """A copied glossary snippet must not leak markers into HTML or search."""
+        for folder, patterns in ((ROOT / "reference", ("*.qmd",)),
+                                 (ROOT / "_site", ("*.html", "search.json"))):
+            if not folder.is_dir():
+                continue
+            for pattern in patterns:
+                for path in folder.rglob(pattern):
+                    self.assertNotIn("{{cite:", path.read_text(encoding="utf-8"), str(path))
+
+    def test_glossary_citation_renderer_emits_numbered_reference(self) -> None:
+        linker = citations.PageCitationLinker(())
+        row = linker.process_text("| Example | A result{{cite:gauss1809}}. |")
+        self.assertNotIn("{{cite:", row)
+        self.assertIn('href="#cite_note-1"', row)
+        self.assertIn('id="cite_note-1"', linker.render_references_section())
+
     def test_bibliography_schema_and_provenance(self) -> None:
         errors = verify_citations.validate_schema(self.bib)
         self.assertEqual(errors, [])
