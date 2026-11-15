@@ -440,11 +440,6 @@
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
-    "slug": "normal-distribution#property-normal-sample-theorem",
-    "title": "Normal sample theorem",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
     "slug": "poisson-distribution#property-generic-exponential-family-conjugate-update",
     "title": "Generic exponential-family conjugate update",
     "reason": "The distribution page states this result without a reviewed proof sketch."

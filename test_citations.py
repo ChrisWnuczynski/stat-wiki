@@ -259,7 +259,7 @@ class CitationTests(unittest.TestCase):
             "aliases": [],
             "box": {"chapter": Path("notes/sl-01-multivariate-normal.qmd")},
         }
-        self.assertIn("gauss1809", citations.citations_for_article(disambig))
+        self.assertIn("siegrist2022_normal_distribution", citations.citations_for_article(disambig))
 
         # Brand-new future slug falls back cleanly by keyword or chapter without crashing
         future_kw = {

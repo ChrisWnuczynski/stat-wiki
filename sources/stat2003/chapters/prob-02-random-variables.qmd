@@ -324,17 +324,17 @@ Memorylessness is a modelling claim. A component whose lifetime is exponential d
 ::: {#def-normal-distribution .definition}
 ## Normal distribution
 
-$X$ has the normal distribution with mean $\mu$ and variance $\sigma^2>0$, written $X\sim\Normal(\mu,\sigma^2)$, when its density is {{cite:gauss1809}}{{cite:feller1968}}
+$X$ has the normal distribution with mean $\mu$ and variance $\sigma^2>0$, written $X\sim\Normal(\mu,\sigma^2)$, when its density is{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)
 
 $$
 \frac1{\sigma\sqrt{2\pi}}\exp\Bigl\{-\frac{(x-\mu)^2}{2\sigma^2}\Bigr\},\qquad x\in\R.
 $$
 
-The standard normal distribution is $\Normal(0,1)$, with distribution function written $\Phi$.{{cite:laplace1812}}
+The standard normal distribution is $\Normal(0,1)$, with distribution function written $\Phi$.{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)
 
 :::
 
-The density is a bell centred at $\mu$, with inflection points at $\mu\pm\sigma$. An affine image of a normal variable is normal: if $X\sim\Normal(\mu,\sigma^2)$ and $a\ne 0$, then $aX+b\sim\Normal(a\mu+b,a^2\sigma^2)$. The moment generating function $M(s)=\exp(\mu s+\sigma^2 s^2/2)$ makes this immediate, and it is proved again from the transformation rule in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).
+The density is a bell centred at $\mu$, with inflection points at $\mu\pm\sigma$. An affine image of a normal variable is normal: if $X\sim\Normal(\mu,\sigma^2)$ and $a\ne 0$, then $aX+b\sim\Normal(a\mu+b,a^2\sigma^2)$. The moment generating function $M(s)=\exp(\mu s+\sigma^2 s^2/2)$ also shows this closure property; the change-of-variables proof is in [Functions of random variables and limit theorems](prob-05-transforms-and-limits.qmd).{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)
 
 The practical consequence is standardisation. If $X\sim\Normal(\mu,\sigma^2)$ then $Z=(X-\mu)/\sigma$ is standard normal, so every normal probability is a value of $\Phi$:
 
@@ -342,7 +342,9 @@ $$
 \Pr(a<X\le b)=\Phi\Bigl(\frac{b-\mu}\sigma\Bigr)-\Phi\Bigl(\frac{a-\mu}\sigma\Bigr).
 $$
 
-By symmetry $\Phi(-z)=1-\Phi(z)$, so tables list only $z\ge0$. A normal variable falls within one standard deviation of its mean with probability $0.683$, within two with probability $0.954$, and within three with probability $0.997$.
+Here $a$ and $b$ are interval endpoints with $a<b$, and $\Phi$ is the standard normal distribution function.{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)
+
+By symmetry $\Phi(-z)=1-\Phi(z)$. A normal variable falls within one standard deviation of its mean with probability about $0.683$, within two with probability about $0.954$, and within three with probability about $0.997$.{{cite:siegrist2022_normal_distribution}} (§5.6, “The Standard Normal Distribution”)
 
 ::: {#exm-iq-scores .example}
 ## IQ scores
@@ -357,7 +359,7 @@ $$
 \Pr(90<X\le110)=\Phi(0.625)-\Phi(-0.625)=2\Phi(0.625)-1=0.468.
 $$
 
-Above 130, $z=1.875$ and $\Pr(X>130)=1-\Phi(1.875)=0.030$, about one person in 33. These are the class probabilities used to sort recruits in [Chi-squared tests](inf-05-chi-square.qmd).
+Above 130, $z=1.875$ and $\Pr(X>130)=1-\Phi(1.875)=0.030$, about one person in 33. These are the class probabilities used to sort recruits in [Chi-squared tests](inf-05-chi-square.qmd).{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)
 
 :::
 

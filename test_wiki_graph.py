@@ -1420,8 +1420,13 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertIn("{{cite:", facts["statistical_use"], slug)
             self.assertIn(facts["key_result"]["title"], body, slug)
             self.assertIn('::: {.callout-note collapse="true" title="Proof"}', body, slug)
-            self.assertTrue(facts["key_result"]["proof"].strip(), slug)
-            self.assertIn("{{cite:", facts["key_result"]["proof"], slug)
+            proof_source = facts["key_result"]["proof"]
+            if not proof_source.strip():
+                research_file = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
+                self.assertTrue(research_file.is_file(), slug)
+                proof_source = research_file.read_text(encoding="utf-8")
+                self.assertIn('::: {.callout-note collapse="true" title="Proof"}', proof_source, slug)
+            self.assertIn("{{cite:", proof_source, slug)
             self.assertIn("### ", facts["worked_example"], slug)
             self.assertRegex(facts["worked_example"], r"\d", slug)
             self.assertIn("{{cite:", facts["worked_example"], slug)
@@ -1484,6 +1489,14 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 expected_keys -= {"neyman1937", "davison2003"}
                 self.assertIn("siegrist2022_normals", citation_keys, slug)
                 self.assertIn("fox2016_regression", citation_keys, slug)
+            if slug == "normal-distribution":
+                # Unread bibliography-only entries and citations to unopened
+                # books were replaced with located citations to opened sources.
+                expected_keys -= {"box_tiao1973", "casella_berger2002", "feller1968",
+                                  "fisher1925_smrw", "gauss1809", "gelfand_smith1990",
+                                  "laplace1812", "student1908"}
+                self.assertIn("siegrist2022_normal_distribution", citation_keys, slug)
+                self.assertIn("gelman_bda2013", citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
@@ -1556,7 +1569,19 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertGreaterEqual(ContentRetentionTests.prose_words(body), old["words"], slug)
             self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
-            self.assertTrue(set(old["citation_keys"]) <= set(re.findall(r'data-cite-key="([^"]+)"', body)), slug)
+            expected_keys = set(old["citation_keys"])
+            citation_keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
+            if slug == "normal-normal-conjugacy":
+                expected_keys.discard("box_tiao1973")
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+            if slug == "full-conditionals-under-independent-priors":
+                # Gelfand–Smith discusses a different multivariate model;
+                # the displayed normal and inverse-gamma forms use these texts.
+                expected_keys.discard("gelfand_smith1990")
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+            self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
             box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]

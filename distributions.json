@@ -1148,7 +1148,7 @@
       ]
     },
     "description": "a symmetric bell-shaped distribution for measurements on the real line",
-    "symbols": "where μ is the mean, σ is the positive standard deviation, and x is an observed value",
+    "symbols": "where μ is the mean, σ is the positive standard deviation, and x is an observed value.{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)",
     "notation_symbols": [
       {
         "symbol": "$\\mu$",
@@ -1159,17 +1159,17 @@
         "meaning": "standard deviation"
       }
     ],
-    "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies. The model described the pattern of errors around a fitted astronomical calculation.{{cite:gauss1809}}\n\nThe normal family became central to likelihood inference and approximations for averages. Modern texts distinguish a normal model for individual observations from a normal approximation to a statistic’s sampling distribution.{{cite:casella_berger2002}}",
-    "sampling": "The Box–Muller method transforms two independent uniform draws into two independent standard normal draws; multiply either by $\\sigma$ and add $\\mu$, where $\\mu$ is the desired mean and $\\sigma$ the standard deviation.{{cite:box_muller1958}}",
+    "history": "In 1958 George Box and Mervin Muller published a way to turn two independent uniform random numbers into two independent normal random numbers. Their short note addressed the practical problem of producing normal deviates on a computer.{{cite:box_muller1958}} (pp. 610–611)\n\nA modern account uses the normal distribution both as a model for observations and as an approximation to sampling distributions. The Bayesian normal-mean calculation in Gelman and colleagues’ 2013 text illustrates how its quadratic exponent makes posterior updating tractable.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41)",
+    "sampling": "The Box–Muller method transforms two independent uniform draws into two independent standard normal draws; multiply either by $\\sigma$ and add $\\mu$, where $\\mu$ is the desired mean and $\\sigma$ is the positive standard deviation.{{cite:box_muller1958}} (pp. 610–611)",
     "conjugate_prior_for": "$X_i\\mid\\mu\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\sigma^2$ and prior $\\mu\\sim\\operatorname{N}(\\mu_0,\\sigma_0^2)$, giving a normal posterior",
-    "lead_context": "Its location-scale form is central to measurement-error models and to approximations for averages.{{cite:casella_berger2002}}",
-    "statistical_use": "Normal likelihoods give familiar estimators and intervals for means when their assumptions are credible. Even when individual observations are not normal, averages may have an approximately normal sampling distribution under conditions of a central limit theorem.{{cite:casella_berger2002}}",
-    "worked_example": "### One standard deviation above the mean\n\nFor $X\\sim N(100,15^2)$, $P(X>115)=P(Z>1)\\approx0.1587$ after standardising by the mean and standard deviation. The same tail probability applies to any normal law one standard deviation above its mean.{{cite:forbes2011}}",
+    "lead_context": "Its location-scale form is used for data models and for approximations to the sampling distribution of an average.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41)",
+    "statistical_use": "Normal likelihoods support estimation and intervals for a population mean when the sampling assumptions are credible. A central limit theorem may also justify an approximately normal average when the individual observations are not normal. These are different modelling claims and call for different checks.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:siegrist2022_normals}} (§6.08, “The One Sample Model”)",
+    "worked_example": "### One standard deviation above the mean\n\nFor $X\\sim N(100,15^2)$, $P(X>115)=P(Z>1)\\approx0.1587$ after standardising by the mean and standard deviation. The same tail probability applies to any normal law one standard deviation above its mean.{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)",
     "key_result": {
       "title": "Affine changes preserve normality",
-      "statement": "If $X\\sim N(\\mu,\\sigma^2)$ and $a\\ne0$, then $aX+b\\sim N(a\\mu+b,a^2\\sigma^2)$.{{cite:casella_berger2002}}",
-      "meaning": "Changing measurement units shifts and rescales a normal law without changing its basic shape.",
-      "proof": "The characteristic function of $aX+b$ is $e^{itb}\\mathrm E(e^{i(at)X})=\\exp\\{it(a\\mu+b)-a^2\\sigma^2t^2/2\\}$, the characteristic function of the stated normal distribution.{{cite:casella_berger2002}}"
+      "statement": "If $X\\sim N(\\mu,\\sigma^2)$ and $a\\ne0$, then $aX+b\\sim N(a\\mu+b,a^2\\sigma^2)$.{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)",
+      "meaning": "Changing measurement units shifts and rescales a normal law without changing its basic shape.{{cite:siegrist2022_normal_distribution}} (§5.6, “The General Normal Distribution”)",
+      "proof": ""
     }
   },
   "pareto-distribution": {

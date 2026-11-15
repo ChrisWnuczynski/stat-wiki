@@ -132,7 +132,7 @@ which is how a lower $F$ quantile is found from a table of upper ones.
 ::: {#thm-normal-sample-theorem .theorem}
 ## Normal sample theorem
 
-If $X_1,\ldots,X_n$ are a random sample from $\Normal(\mu,\sigma^2)$, then
+If $X_1,\ldots,X_n$ are a random sample from $\Normal(\mu,\sigma^2)$ with $n\ge2$, write $\overline X=n^{-1}\sum_iX_i$ and $s^2=(n-1)^{-1}\sum_i(X_i-\overline X)^2$. Then
 
 1. $\overline X$ is $\Normal(\mu,\sigma^2/n)$,{{cite:siegrist2022_normals}} (§6.08)
 2. $(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, and{{cite:siegrist2022_normals}} (§6.08)
