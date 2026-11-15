@@ -2985,6 +2985,20 @@
         "id": "10.1002/0471722146"
       }
     },
+    "hoff2013_bayes_estimators": {
+      "authors": [
+        "Hoff, P. D."
+      ],
+      "year": 2013,
+      "title": "Bayes estimators",
+      "kind": "book",
+      "publisher": "Duke University",
+      "url": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf"
+      }
+    },
     "hotelling1931": {
       "authors": [
         "Hotelling, H."

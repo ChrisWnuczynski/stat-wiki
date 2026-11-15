@@ -2149,6 +2149,7 @@ LAB_FOR_TOPIC = {
     "bernoulli-distribution": ("beta-binomial.qmd", "Beta–Binomial updating", "change the trial counts and see the posterior update"),
     "beta-binomial-conjugacy": ("beta-binomial.qmd", "Beta–Binomial updating", "compare the prior and posterior"),
     "beta-binomial-posterior-prediction": ("beta-binomial.qmd", "Beta–Binomial updating", "compare predictions under different priors"),
+    "posterior-mean": ("beta-binomial.qmd", "Beta–Binomial updating", "change prior counts and see how they shift the posterior mean"),
     "markov-chain": ("markov-chain.qmd", "Markov chains", "change transition probabilities and watch the chain evolve"),
     "finite-state-markov-chain": ("markov-chain.qmd", "Markov chains", "change transition probabilities and watch the chain evolve"),
     "transition-matrix": ("markov-chain.qmd", "Markov chains", "change transition probabilities and watch the chain evolve"),

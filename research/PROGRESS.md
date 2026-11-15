@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **10**. Left: **708**. Skipped: **0**.
+Pages ranked: **718**. Done: **11**. Left: **707**. Skipped: **0**.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -18,12 +18,13 @@ Pages ranked: **718**. Done: **10**. Left: **708**. Skipped: **0**.
 | 8 | [Standard error](standard-error.md) | Concept/topic | [Prose](content/standard-error.md), [check](../checks/standard-error.py) | 478 → 2,016 | 0 → 0 | None; original Student 1908 paper opened |
 | 9 | [Kernel of a density](kernel-of-a-density.md) | Concept/topic | [Prose](content/kernel-of-a-density.md), [check](../checks/kernel-of-a-density.py) | 300 → 1,959 | 0 → 0 | Origin of the term *kernel* unverified and omitted |
 | 10 | [Mean vector and covariance matrix](mean-vector-and-covariance-matrix.md) | Concept/definition | [Prose](content/mean-vector-and-covariance-matrix.md), [check](../checks/mean-vector-and-covariance-matrix.py) | 560 → 2,183 | 0 → 0 | Pearson 1896 full text inaccessible; history limited to verified subject |
+| 11 | [Posterior mean](posterior-mean.md) | Concept/topic | [Prose](content/posterior-mean.md), [check](../checks/posterior-mean.py) | 509 → 2,362 | 1 → 1 | None; original Bayes 1763, Metropolis–Ulam 1949, and Geyer 1992 opened |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 11: `posterior-mean`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages have been committed and should be pushed before continuing. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 12: `correlation`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -37,4 +38,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Standard error: 12 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 394 works. Existing safety-programme calculation, normal coverage example, GLM formula, and 25 question links remain. New proof covers variance and exact t-interval claims.
 - Kernel of a density: 12 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 394 works. Existing posterior proportionality, normal variance expression, and 59 question links remain. New proof covers normalisation and two conjugate updates.
 - Mean vector and covariance matrix: 15 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 394 works. Existing definition, population two-coordinate calculation, and 39 question links remain. New proof covers matrix properties and the corrected sample covariance.
+- Posterior mean: 16 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 395 works. Both original definition blocks, the credible-regions figure, 34 question links, and original citations remain. The Beta–Binomial lab link and one collapsed proof were added.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
