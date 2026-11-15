@@ -2175,6 +2175,21 @@
         "id": "10.2307/1403797"
       }
     },
+    "fox2016_regression": {
+      "authors": [
+        "Fox, J."
+      ],
+      "year": 2016,
+      "title": "Applied Regression Analysis and Generalized Linear Models",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "SAGE Publications",
+      "url": "https://ndl.ethernet.edu.et/bitstream/123456789/30258/1/John%20Fox_2016.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ndl.ethernet.edu.et/bitstream/123456789/30258/1/John%20Fox_2016.pdf"
+      }
+    },
     "forbes2011": {
       "authors": [
         "Forbes, C.",
@@ -5800,6 +5815,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples"
+      }
+    },
+    "siegrist2022_sample_variance": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.5: The Sample Variance",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance"
       }
     },
     "student1908": {

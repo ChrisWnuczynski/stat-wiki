@@ -99,7 +99,7 @@ $$
 ::: {#prp-least-squares-estimators-are-unbiased .proposition}
 ## Least-squares estimators are unbiased
 
-If $\E Y_i=\beta_0+\beta_1x_i$ for every $i$, then $\E\widehat\beta_1=\beta_1$ and $\E\widehat\beta_0=\beta_0$.{{cite:casella_berger2002}}{{cite:davison2003}} No assumption about the error distribution is needed.{{cite:wasserman2004}}
+If $\E Y_i=\beta_0+\beta_1x_i$ for every $i$ and the fixed $x_i$ are not all equal, then $\E\widehat\beta_1=\beta_1$ and $\E\widehat\beta_0=\beta_0$. Normal errors are not required for these expectations.{{cite:fox2016_regression}} (Ch. 6, §6.1.2, p. 109)
 
 :::
 

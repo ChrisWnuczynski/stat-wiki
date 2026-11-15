@@ -76,7 +76,7 @@ $$
 \E\overline X=\mu,\qquad \Var(\overline X)=\frac{\sigma^2}{n},\qquad \E s^2=\sigma^2.
 $$
 
-No normality is needed.{{cite:siegrist2022_normals}} (§6.08)
+No normality is needed.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
 
 :::
 

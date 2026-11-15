@@ -198,7 +198,7 @@ For a one-to-one $g$, write $\nu=g(\theta)$ and reparameterise the likelihood as
 ::: {#def-unbiased-estimator .definition}
 ## Unbiased estimator
 
-An estimator $T$ of $\theta$ is unbiased when $\E_\theta T=\theta$ for every $\theta$ in the parameter space.{{cite:casella_berger2002}}{{cite:lehmann_casella1998}} The bias is $\E_\theta T-\theta$.{{cite:cramer1946}}
+An estimator $T$ of $\theta$ is unbiased when $\E_\theta T=\theta$ for every $\theta$ in the parameter space. The bias is $\E_\theta T-\theta$.{{cite:wang2025_foundations}} (Ch. 13, §16.2){{cite:rao1945}} (p. 236)
 
 :::
 
@@ -238,23 +238,23 @@ The split is the variance–bias tradeoff. Removing a bias often raises the vari
 ::: {#exm-two-variance-estimators .example}
 ## Two variance estimators
 
-Let $X_1,\ldots,X_n$ be a normal random sample with $n\ge 2$.
+Let $X_1,\ldots,X_n$ be a normal random sample with $n\ge 2$.{{cite:wang2025_foundations}} (Ch. 13, §17.2)
 
 **Question.** Compare the mean squared errors of $s^2$ and $\widehat\sigma^2=((n-1)/n)s^2$ as estimators of $\sigma^2$.
 
-**Solution.** By the [normal sample theorem](inf-01-statistical-inference.qmd#thm-normal-sample-theorem), $V=(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, so $\Var V=2(n-1)$ and
+**Solution.** By the [normal sample theorem](inf-01-statistical-inference.qmd#thm-normal-sample-theorem), $V=(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, so $\Var V=2(n-1)$.{{cite:wang2025_foundations}} (Ch. 13, §17.2) Therefore
 
 $$
 \Var(s^2)=\frac{\sigma^4}{(n-1)^2}\,2(n-1)=\frac{2\sigma^4}{n-1}.
 $$
 
-$s^2$ is unbiased, so this is its mean squared error. For $\widehat\sigma^2$, the variance is $((n-1)/n)^2$ times as large and the bias is $-\sigma^2/n$:
+$s^2$ is unbiased, so this is its mean squared error. For $\widehat\sigma^2$, the variance is $((n-1)/n)^2$ times as large and the bias is $-\sigma^2/n$:{{cite:wang2025_foundations}} (Ch. 13, §17.2)
 
 $$
 \operatorname{MSE}(\widehat\sigma^2)=\frac{(n-1)^2}{n^2}\cdot\frac{2\sigma^4}{n-1}+\frac{\sigma^4}{n^2}=\frac{(2n-1)\sigma^4}{n^2}.
 $$
 
-Since $(2n-1)(n-1)=2n^2-3n+1<2n^2$, the biased estimator has the smaller mean squared error for every $n$ and every $\sigma^2$. With $n=10$ the two are $0.222\,\sigma^4$ and $0.190\,\sigma^4$. The unbiased estimator is preferred for other reasons: it is the one whose distribution gives the exact $t$ and chi-squared pivots.
+Since $(2n-1)(n-1)=2n^2-3n+1<2n^2$, the biased estimator has the smaller mean squared error for every $n$ and every $\sigma^2$. With $n=10$ the two are $0.222\,\sigma^4$ and $0.190\,\sigma^4$. The unbiased sample variance $s^2$ is convenient for the usual $t$ and chi-squared pivots; multiplying the MLE variance by $n/(n-1)$ yields the same $s^2$ and hence the same pivots.{{cite:wang2025_foundations}} (Ch. 13, §§17.1–17.2)
 
 :::
 
