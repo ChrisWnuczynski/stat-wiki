@@ -1559,6 +1559,20 @@
         "id": "10.1214/aos/1176344611"
       }
     },
+    "dicker2025_cdc": {
+      "authors": [
+        "Dicker, R. C."
+      ],
+      "year": 2025,
+      "title": "Analyzing and Interpreting Data",
+      "kind": "book",
+      "publisher": "Centers for Disease Control and Prevention, Field Epidemiology Manual",
+      "url": "https://www.cdc.gov/field-epi-manual/php/chapters/analyze-interpret-data.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.cdc.gov/field-epi-manual/php/chapters/analyze-interpret-data.html"
+      }
+    },
     "dickey_fuller1979": {
       "authors": [
         "Dickey, D. A.",
@@ -4258,6 +4272,46 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/9780470556986"
+      }
+    },
+    "nist_process_model2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm"
+      }
+    },
+    "nist_model_fit2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.4",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm"
       }
     },
     "nist_glossary2002": {
