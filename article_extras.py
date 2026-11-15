@@ -4302,7 +4302,7 @@ THEOREM_INFO = {
 }
 
 ARTICLE_HISTORIES = {
-    "bayes-rule": "Bayes's 1763 essay set out an early inverse-probability calculation.{{cite:bayes1763}}",
+    "bayes-rule": "Bayes's essay, published after his death in 1763, addressed inference about an unknown chance of success from repeated trials. It set out an early inverse-probability calculation.{{cite:bayes1763}}",
     "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:poisson1837}}",
     "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}}",
     "wold-decomposition": "Wold set out the decomposition in his 1938 study of stationary time series.{{cite:wold1938}}",

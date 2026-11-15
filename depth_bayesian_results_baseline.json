@@ -1,0 +1,570 @@
+{
+  "commit": "d1b91cb",
+  "articles": {
+    "bayes-rule": {
+      "words": 834,
+      "figures": {},
+      "citation_keys": [
+        "bayes1763",
+        "gelman_bda2013",
+        "laplace1812"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)",
+        "Named after": "Thomas Bayes"
+      },
+      "question_links": [
+        "../questions/ex-applied-geometric.qmd",
+        "../questions/ex-applied-sufficiency-posterior.qmd",
+        "../questions/ex-norm-both.qmd",
+        "../questions/ex-prob-binary-channel.qmd",
+        "../questions/ex-prob-channel-quarter.qmd",
+        "../questions/ex-sl-08-8.qmd",
+        "../questions/q-02.qmd",
+        "../questions/q-07.qmd",
+        "../questions/q-15.qmd"
+      ],
+      "example_headings": [
+        "### Prior beliefs and conflicting data {#example-q-15}"
+      ],
+      "has_proof": true
+    },
+    "beta-binomial-conjugacy": {
+      "words": 1187,
+      "figures": {
+        "../figures/part1-fig-02-prior-sensitivity.png": 1
+      },
+      "citation_keys": [
+        "gelman_bda2013",
+        "laplace1812",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-ur-posterior-mean.qmd",
+        "../questions/exr-a-future-run-of-tosses.qmd",
+        "../questions/q-06.qmd",
+        "../questions/q-17.qmd",
+        "../questions/q-23.qmd"
+      ],
+      "example_headings": [
+        "### Beta-Binomial conjugacy and prior influence {#example-q-06}",
+        "### Choosing a conjugate prior {#example-q-17}"
+      ],
+      "has_proof": true
+    },
+    "beta-binomial-posterior-prediction": {
+      "words": 768,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "laplace1812",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [
+        "### Five future tosses {#example-exm-five-future-tosses}"
+      ],
+      "has_proof": false
+    },
+    "dirichlet-multinomial-conjugacy": {
+      "words": 2287,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "jeffreys1961",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-applied-restaurant.qmd",
+        "../questions/q-22.qmd"
+      ],
+      "example_headings": [
+        "### Advertising responses {#example-exm-advertising-responses}",
+        "### Advertising responses and Dirichlet inference {#example-q-22}",
+        "### Restaurant ordering methods {#example-ex-applied-restaurant}"
+      ],
+      "has_proof": true
+    },
+    "dirichlet-moments": {
+      "words": 1060,
+      "figures": {},
+      "citation_keys": [
+        "dirichlet1839",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-22.qmd"
+      ],
+      "example_headings": [
+        "### Advertising responses and Dirichlet inference {#example-q-22}"
+      ],
+      "has_proof": false
+    },
+    "interior-dirichlet-mode": {
+      "words": 1036,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-22.qmd"
+      ],
+      "example_headings": [
+        "### Advertising responses and Dirichlet inference {#example-q-22}"
+      ],
+      "has_proof": false
+    },
+    "the-beta-distribution-is-the-two-category-dirichlet": {
+      "words": 485,
+      "figures": {},
+      "citation_keys": [
+        "dirichlet1839",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [],
+      "has_proof": false
+    },
+    "generic-exponential-family-conjugate-update": {
+      "words": 1687,
+      "figures": {},
+      "citation_keys": [
+        "diaconis_ylvisaker1979",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/c-02.qmd",
+        "../questions/ex-applied-exp-rate.qmd",
+        "../questions/ex-applied-exp-scale.qmd",
+        "../questions/ex-lognormal-var.qmd",
+        "../questions/ex-norm-nig.qmd",
+        "../questions/exr-find-the-prior-rather-than-recalling-it.qmd",
+        "../questions/q-01.qmd",
+        "../questions/q-12.qmd",
+        "../questions/q-13.qmd",
+        "../questions/q-23.qmd",
+        "../questions/q-28.qmd",
+        "../questions/q-58.qmd"
+      ],
+      "example_headings": [
+        "### Poisson natural form and Gamma conjugacy {#example-exm-poisson-natural-form-and-gamma-conjugacy}",
+        "### Rayleigh conjugate prior {#example-q-01}",
+        "### Pareto likelihood and Gamma posterior {#example-q-12}"
+      ],
+      "has_proof": false
+    },
+    "log-partition-moment-identities": {
+      "words": 507,
+      "figures": {},
+      "citation_keys": [
+        "diaconis_ylvisaker1979",
+        "lehmann_casella1998",
+        "mccullagh_nelder1989"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [],
+      "has_proof": false
+    },
+    "normal-normal-conjugacy": {
+      "words": 1132,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-norm-mean.qmd"
+      ],
+      "example_headings": [
+        "### Normal mean, known variance {#example-ex-norm-mean}"
+      ],
+      "has_proof": true
+    },
+    "normal-inverse-gamma-conjugacy": {
+      "words": 2906,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "raiffa_schlaifer1961",
+        "zellner1986"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-model-selection.qmd",
+        "../questions/ex-norm-nig.qmd",
+        "../questions/ex-reg-nichisq.qmd",
+        "../questions/exr-independent-and-scaled-priors.qmd",
+        "../questions/q-58.qmd"
+      ],
+      "example_headings": [
+        "### Normal--inverse-$\\chi^2$ regression {#example-ex-reg-nichisq}",
+        "### Joint Normal conjugacy and exact sampling {#example-q-58}"
+      ],
+      "has_proof": false
+    },
+    "normal-inverse-gamma-variance-update": {
+      "words": 1837,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-norm-var.qmd",
+        "../questions/q-28.qmd"
+      ],
+      "example_headings": [
+        "### Normal variance, known mean {#example-ex-norm-var}",
+        "### Lognormal variance and conjugate inference {#example-q-28}"
+      ],
+      "has_proof": false
+    },
+    "full-conditionals-under-independent-priors": {
+      "words": 1894,
+      "figures": {},
+      "citation_keys": [
+        "gelfand_smith1990",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-norm-both.qmd",
+        "../questions/q-49.qmd"
+      ],
+      "example_headings": [
+        "### Normal mean and variance {#example-exm-normal-mean-and-variance}",
+        "### A Gibbs full conditional under independent priors {#example-q-49}",
+        "### Normal mean and variance {#example-ex-norm-both}"
+      ],
+      "has_proof": false
+    },
+    "conditional-coefficient-posterior": {
+      "words": 1573,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "jeffreys1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-24.qmd"
+      ],
+      "example_headings": [
+        "### Bayesian regression and prediction {#example-q-24}"
+      ],
+      "has_proof": false
+    },
+    "marginal-variance-posterior": {
+      "words": 1591,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "jeffreys1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-24.qmd"
+      ],
+      "example_headings": [
+        "### Bayesian regression and prediction {#example-q-24}"
+      ],
+      "has_proof": false
+    },
+    "marginal-student-posterior": {
+      "words": 2482,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "jeffreys1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-24.qmd",
+        "../questions/q-43.qmd"
+      ],
+      "example_headings": [
+        "### Bayesian regression and prediction {#example-q-24}",
+        "### Unknown Normal mean and variance: conditional versus marginal {#example-q-43}"
+      ],
+      "has_proof": false
+    },
+    "marginal-hyperposterior": {
+      "words": 500,
+      "figures": {
+        "../figures/part1-fig-08-hyperposterior-grid.png": 1
+      },
+      "citation_keys": [
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [],
+      "has_proof": false
+    },
+    "normal-hierarchical-shrinkage": {
+      "words": 1693,
+      "figures": {
+        "../figures/part1-fig-08-shrinkage.png": 1
+      },
+      "citation_keys": [
+        "efron_morris1975",
+        "gelman_bda2013",
+        "lindley_smith1972"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-inf-shrunk-mean.qmd",
+        "../questions/ex-pois-hier.qmd",
+        "../questions/ex-sl-16-3.qmd",
+        "../questions/q-02.qmd",
+        "../questions/q-23.qmd",
+        "../questions/q-53.qmd"
+      ],
+      "example_headings": [
+        "### Large and small tutorial classes {#example-exm-large-and-small-tutorial-classes}",
+        "### Rat-tumour studies and hierarchical shrinkage {#example-q-23}"
+      ],
+      "has_proof": false
+    },
+    "predictive-variance-decomposition": {
+      "words": 895,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-20.qmd"
+      ],
+      "example_headings": [
+        "### Estimation and prediction {#example-q-20}"
+      ],
+      "has_proof": true
+    },
+    "posterior-odds-factorisation": {
+      "words": 1202,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "jeffreys1961",
+        "kass_raftery1995"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/ex-applied-iq.qmd",
+        "../questions/ex-device-bf.qmd",
+        "../questions/ex-model-selection.qmd",
+        "../questions/ex-sl-06-1.qmd",
+        "../questions/ex-sl-08-7.qmd",
+        "../questions/q-11.qmd",
+        "../questions/q-21.qmd",
+        "../questions/q-29.qmd",
+        "../questions/q-44.qmd",
+        "../questions/q-53.qmd"
+      ],
+      "example_headings": [
+        "### Evidence and posterior model probabilities {#example-q-21}",
+        "### An IQ threshold {#example-ex-applied-iq}"
+      ],
+      "has_proof": false
+    },
+    "posterior-prediction-under-the-reference-prior": {
+      "words": 1578,
+      "figures": {
+        "../figures/part1-fig-09-regression-bands.png": 1
+      },
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "jeffreys1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-24.qmd"
+      ],
+      "example_headings": [
+        "### Bayesian regression and prediction {#example-q-24}"
+      ],
+      "has_proof": false
+    },
+    "study-rate-full-conditional": {
+      "words": 458,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "lindley_smith1972"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [],
+      "has_proof": false
+    },
+    "sequential-coherence": {
+      "words": 479,
+      "figures": {},
+      "citation_keys": [
+        "gelman_bda2013",
+        "laplace1812",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [],
+      "has_proof": false
+    },
+    "bayes-action-for-two-hypotheses": {
+      "words": 965,
+      "figures": {
+        "../figures/part1-fig-06-fruit-posterior.png": 2
+      },
+      "citation_keys": [
+        "raiffa_schlaifer1961",
+        "wald1950"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [],
+      "example_headings": [
+        "### Imperfect-fruit decision {#example-exm-imperfect-fruit-decision}"
+      ],
+      "has_proof": false
+    },
+    "direct-posterior-simulation": {
+      "words": 1830,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "robert_casella2004"
+      ],
+      "infobox_rows": {
+        "Fact": "Value",
+        "Field": "Bayesian statistics",
+        "Statement": "[Read statement](#statement)"
+      },
+      "question_links": [
+        "../questions/q-58.qmd"
+      ],
+      "example_headings": [
+        "### Joint Normal conjugacy and exact sampling {#example-q-58}"
+      ],
+      "has_proof": false
+    }
+  }
+}

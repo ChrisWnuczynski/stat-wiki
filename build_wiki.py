@@ -18,6 +18,7 @@ from zoneinfo import ZoneInfo
 
 import chapter_guides
 import figure_alts
+import theorem_depth
 import re
 import struct
 import unicodedata
@@ -4238,12 +4239,22 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         return "\n\n".join(pieces)
 
     box = article["box"]
+    depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
-           (True, "lead", article_lead(article) + "\n\n")]
+           (True, "lead", article_lead(article) + (" " + depth["context"] if depth else "") + "\n\n")]
 
     statement = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
     intuition = content("explanation", "figures-head", "figure")
+    if depth.get("setup"):
+        statement = depth["setup"] + "\n\n" + statement
+    if article["slug"] == "interior-dirichlet-mode":
+        statement = statement.replace("Consequently,", "The $k$th coordinate of its joint mode is", 1)
+        statement = statement.replace(r"\operatorname{mode}(P_k)", r"\widehat p_{k,\mathrm{joint\,MAP}}", 1)
+        statement = statement.replace("Otherwise the mode may lie on a face or corner of the simplex.",
+                                      "If any concentration is at most one, the density may maximise on the boundary or be unbounded there.", 1)
+    if depth.get("intuition"):
+        intuition = depth["intuition"] + "\n\n" + intuition
     source_proof = re.search(r"::: \{\.proof\}\s*\n(.*?)\n:::" , statement, flags=re.S)
     if source_proof:
         statement = (statement[:source_proof.start()] + statement[source_proof.end():]).strip()
@@ -4251,7 +4262,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         source_proof = re.search(r"::: \{\.proof\}\s*\n(.*?)\n:::" , intuition, flags=re.S)
         if source_proof:
             intuition = (intuition[:source_proof.start()] + intuition[source_proof.end():]).strip()
-    proof = THEOREM_PROOFS.get(article["slug"], "")
+    proof = theorem_depth.PROOFS.get(article["slug"], THEOREM_PROOFS.get(article["slug"], ""))
     if not proof and source_proof:
         proof = source_proof.group(1).strip() + "\n\n{{cite:mccullagh_nelder1989}}"
     if proof:
@@ -4269,17 +4280,36 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
 
     uses = content("used-in")
     see_also = content("see-also")
-    if uses:
+    if uses and not depth:
         see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
+    if depth.get("example"):
+        examples += "\n\n" + depth["example"].replace(r"\n", "\n")
+    related = []
+    for relation in theorem_depth.RELATIONSHIPS:
+        if article["slug"] == relation["a"]:
+            target, prose = relation["b"], relation["a_text"]
+        elif article["slug"] == relation["b"]:
+            target, prose = relation["a"], relation["b_text"]
+        else:
+            continue
+        link = f"[{ARTICLE_LEADS[target]['term']}]({href(article['path'], ARTICLE_DIR / f'{target}.qmd')})"
+        related.append(prose.replace("{target}", link))
+    history = ARTICLE_HISTORIES.get(article["slug"], "")
+    if depth.get("history"):
+        history = "\n\n".join(filter(None, [history, depth["history"]]))
+    if depth.get("history_add"):
+        history = "\n\n".join(filter(None, [history, depth["history_add"]]))
 
     sections = (
         ("Statement", "statement", statement),
         ("Intuition", "intuition", intuition),
         ("Proof", "proof", proof),
         ("Generalizations", "generalizations", content("property-head", "property")),
+        ("Related concepts", "related-concepts", "\n\n".join(related)),
+        ("Statistical use", "statistical-use", "\n\n".join(filter(None, [depth.get("use", ""), uses if depth else ""]))),
         ("Common misconceptions", "common-misconceptions", "\n\n".join(misconception_parts)),
-        ("History", "history", ARTICLE_HISTORIES.get(article["slug"], "")),
+        ("History", "history", history),
         ("Examples", "examples", examples),
         ("See also", "see-also", see_also),
     )

@@ -35,11 +35,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "bayes-action-for-two-hypotheses",
-    "title": "Bayes action for two hypotheses",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "bayes-consistency-of-nearest-neighbours",
     "title": "Bayes consistency of k-nearest neighbours",
     "reason": "A reviewed proof sketch is still needed."
@@ -47,11 +42,6 @@
   {
     "slug": "benjamini-hochberg-controls-the-false-discovery-rate",
     "title": "Benjamini–Hochberg controls the false discovery rate",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "beta-binomial-posterior-prediction",
-    "title": "Beta–Binomial posterior prediction",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -65,11 +55,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "conditional-coefficient-posterior",
-    "title": "Conditional coefficient posterior",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "conditional-distribution-of-a-multivariate-normal",
     "title": "Conditional distribution of a multivariate normal",
     "reason": "A reviewed proof sketch is still needed."
@@ -77,16 +62,6 @@
   {
     "slug": "descent-of-lloyd-s-algorithm",
     "title": "Descent of Lloyd's algorithm",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "direct-posterior-simulation",
-    "title": "Direct posterior simulation",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "dirichlet-moments",
-    "title": "Dirichlet moments",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -120,23 +95,8 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "full-conditionals-under-independent-priors",
-    "title": "Full conditionals under independent priors",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "generic-exponential-family-conjugate-update",
-    "title": "Generic exponential-family conjugate update",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "hammersley-clifford",
     "title": "Hammersley–Clifford",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "interior-dirichlet-mode",
-    "title": "Interior Dirichlet mode",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -157,26 +117,6 @@
   {
     "slug": "local-minima-plateaus-and-symmetry",
     "title": "Local minima, plateaus, and symmetry",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "log-partition-moment-identities",
-    "title": "Log-partition moment identities",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "marginal-hyperposterior",
-    "title": "Marginal hyperposterior",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "marginal-student-posterior",
-    "title": "Marginal Student posterior",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "marginal-variance-posterior",
-    "title": "Marginal variance posterior",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -207,21 +147,6 @@
   {
     "slug": "multivariate-central-limit-theorem",
     "title": "Multivariate central limit theorem",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "normal-hierarchical-shrinkage",
-    "title": "Normal hierarchical shrinkage",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "normal-inverse-gamma-conjugacy",
-    "title": "Normal–inverse-Gamma conjugacy",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "normal-inverse-gamma-variance-update",
-    "title": "Normal–inverse-Gamma variance update",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -265,16 +190,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "posterior-odds-factorisation",
-    "title": "Posterior-odds factorisation",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "posterior-prediction-under-the-reference-prior",
-    "title": "Posterior prediction under the reference prior",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "posterior-summaries-from-draws",
     "title": "Posterior summaries from draws",
     "reason": "A reviewed proof sketch is still needed."
@@ -310,11 +225,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "sequential-coherence",
-    "title": "Sequential coherence",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "signed-distance",
     "title": "Signed distance",
     "reason": "A reviewed proof sketch is still needed."
@@ -342,16 +252,6 @@
   {
     "slug": "studentised-coefficient-pivot",
     "title": "Studentised coefficient pivot",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "study-rate-full-conditional",
-    "title": "Study-rate full conditional",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "the-beta-distribution-is-the-two-category-dirichlet",
-    "title": "The Beta distribution is the two-category Dirichlet",
     "reason": "A reviewed proof sketch is still needed."
   },
   {

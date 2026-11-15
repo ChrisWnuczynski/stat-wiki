@@ -1198,7 +1198,7 @@ class TheoremTemplateTests(unittest.TestCase):
             results.append(page.stem)
             self.assertIn("## Statement {#statement}", body, page.name)
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-            order = ["Statement", "Intuition", "Generalizations", "Common misconceptions",
+            order = ["Statement", "Intuition", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
                      "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
             proof_box = '::: {.callout-note collapse="true" title="Proof"}'
@@ -1449,6 +1449,71 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 section = properties[head.end():heads[i + 1].start() if i + 1 < len(heads) else None]
                 self.assertTrue('::: {.proof}' in section or f"{slug}#{head.group(2)}" in todo,
                                 f"{slug}: {head.group(1)}")
+
+
+class BayesianResultDepthBatchTests(unittest.TestCase):
+    def test_result_depth_and_reciprocal_relationships(self) -> None:
+        import theorem_depth
+
+        data = theorem_depth.RESULT_DEPTH
+        self.assertEqual(len(data), 25)
+        todo = {row["slug"] for row in json.loads(
+            (build_wiki.WIKI / "proofs-todo.json").read_text(encoding="utf-8"))}
+        self.assertFalse(set(data) & todo)
+        for slug, proof in theorem_depth.PROOFS.items():
+            self.assertIn(slug, data)
+            self.assertIn("{{cite:", proof, slug)
+        relationships = theorem_depth.RELATIONSHIPS
+        pairs = {frozenset((row["a"], row["b"])) for row in relationships}
+        self.assertEqual(len(pairs), len(relationships))
+        self.assertEqual({slug for pair in pairs for slug in pair}, set(data))
+        history_todo = {row["slug"] for row in json.loads(
+            (build_wiki.WIKI / "theorem-history-todo.json").read_text(encoding="utf-8"))}
+        self.assertEqual(history_todo, {slug for slug, x in data.items()
+                                        if "history" not in x and "history_add" not in x})
+        for slug, x in data.items():
+            body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            self.assertTrue(x["context"].strip(), slug)
+            self.assertNotIn("$", x["context"], slug)
+            self.assertIn('::: {.callout-note collapse="true" title="Proof"}', body, slug)
+            self.assertEqual(body.count('title="Proof"'), 1, slug)
+            self.assertIn("## Intuition {#intuition}", body, slug)
+            self.assertIn("## Related concepts {#related-concepts}", body, slug)
+            self.assertIn("## Statistical use {#statistical-use}", body, slug)
+            self.assertIn("class=\"cite-ref\"", body.split("## Statistical use", 1)[1].split("\n## ", 1)[0], slug)
+            self.assertIn("## Examples {#examples}", body, slug)
+            examples = body.split("## Examples {#examples}", 1)[1].split("\n## ", 1)[0]
+            self.assertTrue(x.get("example") or "**Solution" in examples or "Worked answer" in examples, slug)
+            if slug not in history_todo:
+                history = body.split("## History {#history}", 1)[1].split("\n## ", 1)[0]
+                self.assertGreaterEqual(len(history.strip().split("\n\n")), 2, slug)
+        for row in relationships:
+            for slug, other, text in ((row["a"], row["b"], row["a_text"]),
+                                      (row["b"], row["a"], row["b_text"])):
+                self.assertIn("{target}", text, slug)
+                self.assertIn("{{cite:", text, slug)
+                body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+                related = body.split("## Related concepts {#related-concepts}", 1)[1].split("\n## ", 1)[0]
+                self.assertIn(f"({other}.qmd)", related, slug)
+
+    def test_previous_bayesian_result_content_is_preserved(self) -> None:
+        baseline = json.loads((build_wiki.WIKI / "depth_bayesian_results_baseline.json").read_text(encoding="utf-8"))
+        self.assertEqual(baseline["commit"], "d1b91cb")
+        for slug, old in baseline["articles"].items():
+            body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            self.assertGreaterEqual(ContentRetentionTests.prose_words(body), old["words"], slug)
+            self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
+            self.assertTrue(set(old["citation_keys"]) <= set(re.findall(r'data-cite-key="([^"]+)"', body)), slug)
+            self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
+            self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
+            box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]
+            for label, value in old["infobox_rows"].items():
+                self.assertIn(f"| {label} | {value} |", box, slug)
+        mode = (build_wiki.WIKI / "articles" / "interior-dirichlet-mode.qmd").read_text(encoding="utf-8")
+        statement = mode.split("## Statement {#statement}", 1)[1].split("\n## ", 1)[0]
+        self.assertNotIn(r"\operatorname{mode}(P_k)", statement)
+        self.assertIn(r"\widehat p_{k,\mathrm{joint\,MAP}}", statement)
+        self.assertIn("density may maximise on the boundary", statement)
 
 
 if __name__ == "__main__":
