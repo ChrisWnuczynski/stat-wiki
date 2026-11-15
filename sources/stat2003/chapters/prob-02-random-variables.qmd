@@ -9,11 +9,11 @@ The uniform distribution on an interval and the hypergeometric distribution are 
 ::: {#def-random-variable .definition}
 ## Random variable
 
-A random variable is a function $X$ from the sample space $\Omega$ to the real numbers. The event $\{X\le x\}$ is the set of outcomes $\omega$ with $X(\omega)\le x$.
+A random variable is a function $X$ from the sample space $\Omega$ to the real numbers. The event $\{X\le x\}$ is the set of outcomes $\omega$ with $X(\omega)\le x$.{{cite:kolmogorov1933_slln}} (Ch. III, §2){{cite:billingsley1995}} (§13)
 
 :::
 
-Two dice have sample space $\{1,\ldots,6\}^2$. Their sum $X(i,j)=i+j$ is a random variable with values in $\{2,\ldots,12\}$. The number of heads in $n$ coin tosses is a random variable on $\{0,1\}^n$. The modelling gain is that later calculations can ignore the underlying outcomes and work with $X$ alone.
+Two dice have sample space $\{1,\ldots,6\}^2$. Their sum $X(i,j)=i+j$ is a random variable with values in $\{2,\ldots,12\}$. The number of heads in $n$ coin tosses is a random variable on $\{0,1\}^n$. The modelling gain is that later calculations can ignore the underlying outcomes and work with $X$ alone.{{cite:durrett2019}} (Ch. 1, §§1.1–1.3)
 
 ::: {#def-cdf .definition}
 ## Cumulative distribution function
@@ -31,22 +31,22 @@ $$
 ::: {#def-discrete-distribution .definition}
 ## Discrete distribution
 
-$X$ is discrete when it takes values in a countable set $S$.{{cite:kolmogorov1933_slln}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}} Its probability mass function is $f(x)=\Pr(X=x)$ for $x\in S$, and $\Pr(X\in B)=\sum_{x\in B}f(x)$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+$X$ is discrete when it takes values in a countable set $S$. Its probability mass function is $f(x)=\Pr(X=x)$ for $x\in S$, and $\Pr(X\in B)=\sum_{x\in B}f(x)$.{{cite:billingsley1995}} (§14){{cite:durrett2019}} (Ch. 1, §1.2){{cite:grinstead_snell1997}} (Ch. 6, §6.1)
 
 :::
 
-A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function determines the distribution function by adding the atoms up to $x$, and the jumps of the distribution function are the atoms.
+A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function determines the distribution function by adding the atoms up to $x$, and the jumps of the distribution function are the atoms.{{cite:billingsley1995}} (§12)
 
 ::: {#def-continuous-distribution .definition}
 ## Continuous distribution
 
-$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}} The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.
+$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:billingsley1995}} (§12) The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.{{cite:billingsley1995}} (§12)
 
 For such a density, the probability of an interval is the area under $f$ between its endpoints. Each singleton has probability zero, so including an endpoint does not change that integral. The resulting distribution function is continuous, but continuity alone does not ensure a density exists. A model with both point masses and a continuous component needs both pieces to describe its law.{{cite:billingsley1995}} (§12)
 
 :::
 
-A density is not a probability. The probability of an infinitesimal interval $(x,x+\dd x)$ is about $f(x)\,\dd x$. A single point still has probability zero. Drawing uniformly from $[0,1]$ has density $f(x)=1$ on that interval and distribution function $F(x)=x$ there.
+A density is not a probability. The probability of an infinitesimal interval $(x,x+\dd x)$ is about $f(x)\,\dd x$. A single point still has probability zero. Drawing uniformly from $[0,1]$ has density $f(x)=1$ on that interval and distribution function $F(x)=x$ there.{{cite:billingsley1995}} (§12)
 
 ![Mass, density and distribution function. Left: a fair die's mass function, and its distribution function, a right-continuous staircase whose jumps are the masses. Right: an $\Exp(1)$ density, with $\Pr(0.5<X\le1.6)$ as the area under it, and the same probability as the rise $F(1.6)-F(0.5)$ of the distribution function.](../figures/prob-02-random-variables-distribution-function.pdf){#fig-prob-distribution-function}
 
