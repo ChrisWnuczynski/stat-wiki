@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "beta-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "cauchy-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "dirichlet-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "exponential-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "f-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "gamma-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "geometric-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "hypergeometric-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "inverse-gamma-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "inverse-gaussian-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "lognormal-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "multinomial-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "multivariate-normal-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "negative-binomial-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  },
+  {
+    "slug": "uniform-distribution",
+    "reason": "A primary source and a modern historical account need checking before a dated attribution is added."
+  }
+]

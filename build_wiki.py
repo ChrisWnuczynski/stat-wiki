@@ -1754,6 +1754,7 @@ MERGED_ARTICLES: dict[str, str] = {}  # retired duplicate article slug -> canoni
 ARTICLE_DIR = WIKI / "articles"
 DIST_SHEET = WIKI / "reference" / "distributions.qmd"
 DISTRIBUTIONS: dict[str, dict[str, str]] = json.loads((WIKI / "distributions.json").read_text(encoding="utf-8"))
+DISTRIBUTION_RELATIONSHIPS: list[dict[str, str]] = json.loads((WIKI / "distribution_relationships.json").read_text(encoding="utf-8"))
 ARTICLE_LEADS: dict[str, dict[str, str]] = json.loads((WIKI / "article_leads.json").read_text(encoding="utf-8"))
 GENERAL_NOTATION: list[dict[str, str]] = json.loads((WIKI / "general_notation.json").read_text(encoding="utf-8"))
 DISTRIBUTION_ROW_LABELS = (
@@ -3493,6 +3494,15 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         if a["box"] and a["box"]["kind"] in {"theorem", "proposition", "corollary"}
         and a["slug"] not in PROVED_RESULT_SLUGS
     ]
+    for dist_slug in DISTRIBUTIONS:
+        body = (ARTICLE_DIR / f"{dist_slug}.qmd").read_text(encoding="utf-8")
+        properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+        heads = list(re.finditer(r"^### (.+?) \{#(property-[^}]+)\}", properties, re.M))
+        for i, head in enumerate(heads):
+            section = properties[head.end():heads[i + 1].start() if i + 1 < len(heads) else None]
+            if '::: {.proof}' not in section:
+                todo.append({"slug": f"{dist_slug}#{head.group(2)}", "title": head.group(1),
+                             "reason": "The distribution page states this result without a reviewed proof sketch."})
     (WIKI / "proofs-todo.json").write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_glossary(questions)
     write_config(chapters, final_notes, questions)
@@ -4094,7 +4104,10 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
 
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", [])))]
-    out.append((True, "lead", article_lead(article) + source_lead_citations(blocks, include_math=True) + "\n\n"))
+    lead = article_lead(article) + source_lead_citations(blocks, include_math=True)
+    if facts.get("lead_context"):
+        lead += " " + facts["lead_context"]
+    out.append((True, "lead", lead + "\n\n"))
     probability = facts["pmf"] or facts["pdf"]
     if facts.get("definition_from_source"):
         definition = source_math_definition(article, blocks)
@@ -4103,20 +4116,33 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
                       f"is {probability}, {facts['symbols']}.")
     else:
         definition = facts["symbols"].capitalize() + "."
+    if facts.get("definition_note"):
+        definition += "\n\n" + facts["definition_note"]
     copied = content("statement-head", "statement", "excerpt-head", "excerpt", "explanation")
     if copied:
         definition += "\n\n" + copied
-    relatives = list(dict.fromkeys(
-        facts["related"] + [slug for slug, other in DISTRIBUTIONS.items() if article["slug"] in other["related"]]
-    ))
-    examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
+    relationships = []
+    for relation in DISTRIBUTION_RELATIONSHIPS:
+        if article["slug"] == relation["a"]:
+            target, prose = relation["b"], relation["a_text"]
+        elif article["slug"] == relation["b"]:
+            target, prose = relation["a"], relation["b_text"]
+        else:
+            continue
+        link = f"[{DISTRIBUTIONS[target]['name']} distribution]({href(path, ARTICLE_DIR / f'{target}.qmd')})"
+        relationships.append(prose.replace("{target}", link))
+    result = facts.get("key_result", {})
+    key_result = ""
+    if result:
+        key_result = (f"### {result['title']}\n\n{result['statement']}\n\n{result['meaning']}\n\n"
+                      '::: {.callout-note collapse="true" title="Proof"}\n::: {.proof}\n'
+                      f"{result['proof']}\n:::\n:::")
+    examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close"), facts.get("worked_example", "")]))
     sections = (
         ("Definition", "definition", definition),
-        ("Properties", "properties", "\n\n".join(filter(None, [facts.get("mode_explanation", ""), content("property-head", "property", "figures-head", "figure")]))),
-        ("Related distributions", "related-distributions", " · ".join(
-            f"[{DISTRIBUTIONS[s]['name']} distribution]({href(path, ARTICLE_DIR / f'{s}.qmd')})"
-            for s in relatives)),
-        ("Statistical inference", "used-in", content("used-in")),
+        ("Properties", "properties", "\n\n".join(filter(None, [key_result, facts.get("mode_explanation", ""), content("property-head", "property", "figures-head", "figure")]))),
+        ("Related distributions", "related-distributions", "\n\n".join(relationships)),
+        ("Statistical inference", "used-in", "\n\n".join(filter(None, [facts.get("statistical_use", ""), content("used-in")]))),
         ("Generating random samples", "generating-random-samples", facts["sampling"]),
         ("History", "history", facts["history"]),
         ("Examples", "examples", examples),
@@ -4708,10 +4734,18 @@ def short_caption(caption: str) -> str:
 def figure_md(file: str, page: Path, short: bool = False, credit: bool = True) -> str:
     info = FIGURE_INFO[file]
     caption = short_caption(info["caption"]) if short else info["caption"]
+    attrs = _with_fig_alt("", file)
+    if file == "prob-weibull-hazards.png" and page == ARTICLE_DIR / "weibull-distribution.qmd":
+        caption = ("Weibull hazard rates at unit scale. The figure labels its shape β, "
+                   "which is k on this page: values below one give a falling hazard, "
+                   "one gives a constant hazard, and values above one give a rising hazard.")
+        attrs = ('{fig-alt="Line plot of Weibull hazard against time at unit scale. '
+                 'The plotted shape beta equals k in this article; beta 0.5 falls, beta 1 is flat, '
+                 'and beta 2 and 3 rise."}')
     where = href(page, info["chapter"]) + (f"#{info['id']}" if info["id"] else "")
     source = f" *From [{info['chapter_title']}]({where}).*" if credit else ""
     caption = rebase_links(caption, info["chapter"], page)
-    return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)}){_with_fig_alt('', file)}"
+    return f"![{caption}{source}]({href(page, WIKI / 'figures' / file)}){attrs}"
 
 
 def png_size(path: Path) -> tuple[int, int]:

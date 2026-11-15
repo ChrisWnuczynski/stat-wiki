@@ -1210,7 +1210,7 @@ class TheoremTemplateTests(unittest.TestCase):
             lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
             self.assertNotIn("$", lead, page.name)
         self.assertGreaterEqual(len(results), 90)
-        self.assertTrue(todo <= set(results))
+        self.assertTrue({slug for slug in todo if "#property-" not in slug} <= set(results))
 
     def test_memoryless_and_product_rule_proofs_cover_their_statements(self) -> None:
         articles = build_wiki.WIKI / "articles"
@@ -1374,6 +1374,81 @@ class ContentRetentionTests(unittest.TestCase):
             body = (articles / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertFalse(collections.Counter(before["figures"]) - self.figure_targets(body), slug)
             self.assertGreaterEqual(self.prose_words(body) * 10, before["words"] * 9, slug)
+
+
+class DistributionDepthBatchTests(unittest.TestCase):
+    def test_depth_sections_are_specific_and_proved(self) -> None:
+        data = build_wiki.DISTRIBUTIONS
+        self.assertEqual(len(data), 25)
+        history_todo = {row["slug"] for row in json.loads(
+            (build_wiki.WIKI / "distribution-history-todo.json").read_text(encoding="utf-8"))}
+        self.assertEqual(history_todo, {slug for slug, facts in data.items() if not facts["history"]})
+        for slug, facts in data.items():
+            body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            self.assertTrue(facts["lead_context"].strip(), slug)
+            self.assertNotIn("$", facts["lead_context"], slug)
+            self.assertGreaterEqual(len(facts["statistical_use"].split()), 25, slug)
+            self.assertIn("{{cite:", facts["statistical_use"], slug)
+            self.assertIn(facts["key_result"]["title"], body, slug)
+            self.assertIn('::: {.callout-note collapse="true" title="Proof"}', body, slug)
+            self.assertTrue(facts["key_result"]["proof"].strip(), slug)
+            self.assertIn("{{cite:", facts["key_result"]["proof"], slug)
+            self.assertIn("### ", facts["worked_example"], slug)
+            self.assertRegex(facts["worked_example"], r"\d", slug)
+            self.assertIn("{{cite:", facts["worked_example"], slug)
+            inference = body.split("## Statistical inference {#used-in}", 1)[1].split("\n## ", 1)[0]
+            self.assertIn("class=\"cite-ref\"", inference, slug)
+            related = body.split("## Related distributions {#related-distributions}", 1)[1].split("\n## ", 1)[0]
+            self.assertIn(".qmd", related, slug)
+            self.assertGreaterEqual(len(related.split()), 20, slug)
+            if slug not in history_todo:
+                self.assertEqual(len(facts["history"].split("\n\n")), 2, slug)
+                self.assertGreaterEqual(facts["history"].count("{{cite:"), 2, slug)
+
+    def test_relationships_are_reciprocal_and_cover_old_links(self) -> None:
+        data = build_wiki.DISTRIBUTIONS
+        relationships = build_wiki.DISTRIBUTION_RELATIONSHIPS
+        pairs = {frozenset((row["a"], row["b"])) for row in relationships}
+        self.assertEqual(len(pairs), len(relationships))
+        self.assertEqual({slug for pair in pairs for slug in pair}, set(data))
+        for row in relationships:
+            self.assertIn(row["a"], data)
+            self.assertIn(row["b"], data)
+            for end, other, text in ((row["a"], row["b"], row["a_text"]),
+                                     (row["b"], row["a"], row["b_text"])):
+                self.assertIn("{target}", text, end)
+                self.assertIn("{{cite:", text, end)
+                page = (build_wiki.WIKI / "articles" / f"{end}.qmd").read_text(encoding="utf-8")
+                self.assertIn(f"({other}.qmd)", page, end)
+        for slug, facts in data.items():
+            for other in facts["related"]:
+                self.assertIn(frozenset((slug, other)), pairs)
+
+    def test_first_batch_preserves_previous_build(self) -> None:
+        baseline = json.loads((build_wiki.WIKI / "depth_distribution_baseline.json").read_text(encoding="utf-8"))
+        self.assertEqual(baseline["commit"], "5dc5301")
+        for slug, old in baseline["articles"].items():
+            body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            self.assertGreaterEqual(ContentRetentionTests.prose_words(body), old["words"], slug)
+            self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
+            self.assertTrue(set(old["citation_keys"]) <= set(re.findall(r'data-cite-key="([^"]+)"', body)), slug)
+            self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
+            self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
+            box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]
+            for label, value in old["infobox_rows"].items():
+                self.assertIn(f"| {label} | {value} |", box, slug)
+
+    def test_copied_distribution_results_have_proofs_or_todos(self) -> None:
+        todo = {row["slug"] for row in json.loads(
+            (build_wiki.WIKI / "proofs-todo.json").read_text(encoding="utf-8"))}
+        for slug in build_wiki.DISTRIBUTIONS:
+            body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+            heads = list(re.finditer(r"^### (.+?) \{#(property-[^}]+)\}", properties, re.M))
+            for i, head in enumerate(heads):
+                section = properties[head.end():heads[i + 1].start() if i + 1 < len(heads) else None]
+                self.assertTrue('::: {.proof}' in section or f"{slug}#{head.group(2)}" in todo,
+                                f"{slug}: {head.group(1)}")
 
 
 if __name__ == "__main__":

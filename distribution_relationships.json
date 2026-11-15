@@ -1,0 +1,158 @@
+[
+  {
+    "a": "bernoulli-distribution",
+    "b": "binomial-distribution",
+    "a_text": "{target} with one trial has the same two possible outcomes and success probability $p$. This is the single-trial building block of a binomial count.{{cite:forbes2011}}",
+    "b_text": "{target} is the special case $n=1$. A binomial count with $n$ trials is a sum of $n$ independent Bernoulli outcomes.{{cite:forbes2011}}"
+  },
+  {
+    "a": "binomial-distribution",
+    "b": "poisson-distribution",
+    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:feller1968}}",
+    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:feller1968}}"
+  },
+  {
+    "a": "binomial-distribution",
+    "b": "normal-distribution",
+    "a_text": "{target} approximates a binomial count after centring and scaling when both $np$ and $n(1-p)$ are large. The approximation keeps the binomial mean and variance.{{cite:feller1968}}",
+    "b_text": "{target} is approximately normal for sufficiently large $np$ and $n(1-p)$, with mean $np$ and variance $np(1-p)$. The discrete count needs a continuity correction for tail probabilities.{{cite:feller1968}}"
+  },
+  {
+    "a": "beta-distribution",
+    "b": "uniform-distribution",
+    "a_text": "{target} on $(0,1)$ is exactly $\\operatorname{Beta}(1,1)$: setting both beta shapes to one leaves a constant density.{{cite:forbes2011}}",
+    "b_text": "{target} with $\\alpha=\\beta=1$ is this law on $(0,1)$. Its beta density then equals one throughout the unit interval.{{cite:forbes2011}}"
+  },
+  {
+    "a": "beta-distribution",
+    "b": "dirichlet-distribution",
+    "a_text": "{target} with two categories reduces to a beta law: its first component has distribution $\\operatorname{Beta}(\\alpha_1,\\alpha_2)$ and the second is one minus the first.{{cite:gelman_bda2013}}",
+    "b_text": "{target} is the two-category case of this law. The first probability component has beta parameters $\\alpha_1,\\alpha_2$.{{cite:gelman_bda2013}}"
+  },
+  {
+    "a": "cauchy-distribution",
+    "b": "student-t-distribution",
+    "a_text": "{target} with one degree of freedom has the standard Cauchy density. A location-scale transformation gives a general Cauchy law.{{cite:forbes2011}}",
+    "b_text": "{target} with $\\nu=1$ is the standard Cauchy distribution. Its missing mean illustrates why Student t moments require conditions on $\\nu$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "chi-squared-distribution",
+    "b": "gamma-distribution",
+    "a_text": "{target} with shape $\\nu/2$ and rate $1/2$ is a chi-squared law with $\\nu$ degrees of freedom.{{cite:forbes2011}}",
+    "b_text": "{target} with $\\nu$ degrees of freedom is this law with shape $\\alpha=\\nu/2$ and rate $\\lambda=1/2$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "chi-squared-distribution",
+    "b": "f-distribution",
+    "a_text": "{target} is the ratio $(U/d_1)/(V/d_2)$ when independent $U$ and $V$ have chi-squared laws with $d_1$ and $d_2$ degrees of freedom.{{cite:forbes2011}}",
+    "b_text": "{target} supplies the numerator and denominator of an F ratio: independent $U\\sim\\chi^2_{d_1}$ and $V\\sim\\chi^2_{d_2}$ give $(U/d_1)/(V/d_2)$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "chi-squared-distribution",
+    "b": "wishart-distribution",
+    "a_text": "{target} in one dimension, with scale matrix equal to one, is a chi-squared law with $\\nu$ degrees of freedom.{{cite:forbes2011}}",
+    "b_text": "{target} is the one-dimensional case of this matrix law when the scale is one. The Wishart construction generalises a sum of squared normals.{{cite:forbes2011}}"
+  },
+  {
+    "a": "conway-maxwell-poisson-distribution",
+    "b": "poisson-distribution",
+    "a_text": "{target} is the special case $\\nu=1$: the normalising constant becomes $e^\\lambda$ and the masses become Poisson masses.{{cite:shmueli2005}}",
+    "b_text": "{target} extends this law by raising the factorial term to a power $\\nu$. At $\\nu=1$ the usual Poisson law is recovered.{{cite:shmueli2005}}"
+  },
+  {
+    "a": "dirichlet-distribution",
+    "b": "multinomial-distribution",
+    "a_text": "{target} counts categories whose probability vector can be given a Dirichlet prior. Updating with counts adds each observed count to the corresponding concentration parameter.{{cite:gelman_bda2013}}",
+    "b_text": "{target} is conjugate for the vector of category probabilities in this sampling model. A Dirichlet prior and multinomial counts produce a Dirichlet posterior.{{cite:gelman_bda2013}}"
+  },
+  {
+    "a": "exponential-distribution",
+    "b": "gamma-distribution",
+    "a_text": "{target} with shape one and rate $\\lambda$ is an exponential waiting time of rate $\\lambda$.{{cite:forbes2011}}",
+    "b_text": "{target} is the special case $\\alpha=1$ of this shape-rate family. Its density then has a constant hazard.{{cite:forbes2011}}"
+  },
+  {
+    "a": "exponential-distribution",
+    "b": "weibull-distribution",
+    "a_text": "A {target} law with shape one is exponential with rate equal to the reciprocal of its scale. Only this Weibull shape has constant hazard.{{cite:ross2019}}",
+    "b_text": "{target} with rate $1/\\lambda$ is the $k=1$ case of this shape-scale Weibull law.{{cite:ross2019}}"
+  },
+  {
+    "a": "exponential-distribution",
+    "b": "pareto-distribution",
+    "a_text": "If $X$ has {target} minimum $x_m$ and tail parameter $\\alpha$, then $\\log(X/x_m)$ has exponential rate $\\alpha$.{{cite:forbes2011}}",
+    "b_text": "If $Y$ has {target} rate $\\alpha$, then $x_m e^Y$ has this Pareto law with minimum $x_m$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "f-distribution",
+    "b": "beta-distribution",
+    "a_text": "If $X$ has this F law, then $d_1X/(d_1X+d_2)$ has {target} parameters $d_1/2$ and $d_2/2$.{{cite:forbes2011}}",
+    "b_text": "If $U$ has this beta law with shapes $d_1/2,d_2/2$, then $(d_2/d_1)U/(1-U)$ has {target} degrees $d_1,d_2$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "gamma-distribution",
+    "b": "inverse-gamma-distribution",
+    "a_text": "The reciprocal of a {target} variable with shape $\\alpha$ and scale $\\beta$ has this gamma law with shape $\\alpha$ and rate $\\beta$.{{cite:forbes2011}}",
+    "b_text": "If $X$ has {target} shape $\\alpha$ and rate $\\lambda$, then $1/X$ has this inverse gamma law with shape $\\alpha$ and scale $\\lambda$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "gamma-distribution",
+    "b": "weibull-distribution",
+    "a_text": "Raising a {target} variable divided by its scale to the power of its shape gives this gamma law with shape one and rate one.{{cite:forbes2011}}",
+    "b_text": "If $Y$ has {target} shape one and rate one, then $\\lambda Y^{1/k}$ has this Weibull law with shape $k$ and scale $\\lambda$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "geometric-distribution",
+    "b": "negative-binomial-distribution",
+    "a_text": "{target} counts failures before a specified number of successes in one common parameterisation. With one required success and mean failures $(1-p)/p$, that count equals a geometric trial count minus one.{{cite:forbes2011}}",
+    "b_text": "{target} counts trials through the first success; subtracting one gives this law with dispersion $\\nu=1$ and mean $\\mu=(1-p)/p$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "hypergeometric-distribution",
+    "b": "binomial-distribution",
+    "a_text": "{target} approximates this without-replacement count as population size $N$ grows while marked fraction $r/N$ tends to $p$ and draw size $n$ stays fixed.{{cite:feller1968}}",
+    "b_text": "{target} is the without-replacement counterpart of this independent-trial count. For fixed $n$ and a growing population with marked fraction tending to $p$, its law tends to $\\operatorname{Bin}(n,p)$.{{cite:feller1968}}"
+  },
+  {
+    "a": "inverse-gaussian-distribution",
+    "b": "gamma-distribution",
+    "a_text": "{target} is another positive family used in regression, but its variance at a fixed shape grows as the cube of its mean rather than the square.{{cite:mccullagh_nelder1989}}",
+    "b_text": "An {target} law has variance growing cubically in its mean at fixed shape; this gamma law has variance growing quadratically at fixed shape.{{cite:mccullagh_nelder1989}}"
+  },
+  {
+    "a": "lognormal-distribution",
+    "b": "normal-distribution",
+    "a_text": "If $X$ has this law, then $\\log X$ has {target} mean $\\mu$ and variance $\\sigma^2$. The logarithm converts multiplicative spread to additive spread.{{cite:forbes2011}}",
+    "b_text": "Exponentiating a {target} variable with mean $\\mu$ and variance $\\sigma^2$ gives a lognormal variable.{{cite:forbes2011}}"
+  },
+  {
+    "a": "multinomial-distribution",
+    "b": "binomial-distribution",
+    "a_text": "Each single category count in this model has {target} distribution $\\operatorname{Bin}(n,p_k)$, although the category counts are dependent.{{cite:forbes2011}}",
+    "b_text": "A category count within {target} sampling has this binomial law with success probability $p_k$. The counts across categories sum to $n$.{{cite:forbes2011}}"
+  },
+  {
+    "a": "multivariate-normal-distribution",
+    "b": "normal-distribution",
+    "a_text": "Each component of this vector has a {target} marginal law, and every fixed linear combination is normal.{{cite:anderson2003_mva}}",
+    "b_text": "{target} in one dimension is this law; each component of a multivariate normal vector has a normal marginal distribution.{{cite:anderson2003_mva}}"
+  },
+  {
+    "a": "negative-binomial-distribution",
+    "b": "poisson-distribution",
+    "a_text": "As dispersion $\\nu$ grows with mean $\\mu$ fixed, this law converges to {target} with mean $\\lambda=\\mu$. The extra variance shrinks to zero.{{cite:venables_ripley2002}}",
+    "b_text": "{target} with mean $\\lambda=\\mu$ is the limit of this negative-binomial parameterisation as $\\nu\\to\\infty$.{{cite:venables_ripley2002}}"
+  },
+  {
+    "a": "normal-distribution",
+    "b": "student-t-distribution",
+    "a_text": "A {target} variable with $\\nu$ degrees of freedom arises as $Z/\\sqrt{V/\\nu}$ when $Z$ is standard normal and $V$ is an independent chi-squared variable with $\\nu$ degrees of freedom.{{cite:casella_berger2002}}",
+    "b_text": "This law is a standard {target} divided by the square root of an independent chi-squared variable scaled by its degrees of freedom.{{cite:casella_berger2002}}"
+  },
+  {
+    "a": "wishart-distribution",
+    "b": "multivariate-normal-distribution",
+    "a_text": "For integer $\\nu$, a sum of $\\nu$ outer products of independent centred {target} vectors with covariance $\\Sigma$ has this Wishart law.{{cite:anderson2003_mva}}",
+    "b_text": "For integer $\\nu$, independent centred vectors with this law generate a {target} matrix when their outer products are summed.{{cite:anderson2003_mva}}"
+  }
+]
