@@ -9,16 +9,16 @@
     "cdf": "$F(x)=0$ for $x<0$, $1-p$ for $0\\le x<1$, $1$ for $x\\ge1$",
     "mean": "$p$",
     "variance": "$p(1-p)$",
-    "mode": "$0$ if $p<1/2$; $1$ if $p>1/2$",
+    "mode": "$0$ for $p<1/2$; $1$ for $p>1/2$; both for $p=1/2$",
     "mgf": "$1-p+pe^t$",
     "pdf": "",
     "quantile": "",
-    "median": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "characteristic_function": "",
-    "fisher_information": "",
+    "median": "$0$ for $p<1/2$; $1$ for $p>1/2$; any value in $[0,1]$ for $p=1/2$",
+    "skewness": "$(1-2p)/\\sqrt{p(1-p)}$ for $0<p<1$",
+    "excess_kurtosis": "$[1-6p(1-p)]/[p(1-p)]$ for $0<p<1$",
+    "entropy": "$-p\\log p-(1-p)\\log(1-p)$, with $0\\log0=0$",
+    "characteristic_function": "$1-p+pe^{it}$",
+    "fisher_information": "$I(p)=1/[p(1-p)]$ for $0<p<1$, per observation",
     "conjugate_prior": "",
     "related": [
       "binomial-distribution"
@@ -31,6 +31,11 @@
       "domain": [
         0,
         1
+      ],
+      "parameters": "p=0.35",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a two-outcome distribution for a single success or failure",
@@ -46,28 +51,29 @@
       }
     ],
     "history": "",
-    "sampling": "Draw a uniform value $U$ between zero and one, then return $1$ when $U<p$ and $0$ otherwise, where $p$ is the success probability."
+    "sampling": "Draw a uniform value $U$ between zero and one, then return $1$ when $U<p$ and $0$ otherwise, where $p$ is the success probability.",
+    "conjugate_prior_for": ""
   },
   "beta-distribution": {
     "name": "Beta",
     "kind": "continuous",
-    "notation": "$x\\sim\\operatorname{Beta}(\\alpha,\\beta)$",
+    "notation": "$X\\sim\\operatorname{Beta}(\\alpha,\\beta)$",
     "parameters": "$\\alpha,\\beta>0$",
     "support": "$0<x<1$",
     "pdf": "$p(x)=\\frac{\\Gamma(\\alpha+\\beta)}{\\Gamma(\\alpha)\\Gamma(\\beta)}x^{\\alpha-1}(1-x)^{\\beta-1}$",
-    "mean": "$\\mathbb{E}(x)=\\alpha/(\\alpha+\\beta)$",
-    "variance": "$\\operatorname{Var}(x)=\\alpha\\beta/((\\alpha+\\beta)^{2}(\\alpha+\\beta+1))$",
+    "mean": "$\\mathbb{E}(X)=\\alpha/(\\alpha+\\beta)$",
+    "variance": "$\\operatorname{Var}(X)=\\alpha\\beta/((\\alpha+\\beta)^{2}(\\alpha+\\beta+1))$",
     "pmf": "",
-    "cdf": "",
+    "cdf": "$F(x)=I_x(\\alpha,\\beta)$",
     "quantile": "",
     "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
+    "mode": "$(\\alpha-1)/(\\alpha+\\beta-2)$ for $\\alpha,\\beta>1$; boundary mode if a shape is at most $1$, except all $x\\in[0,1]$ when $\\alpha=\\beta=1$",
+    "skewness": "$2(\\beta-\\alpha)\\sqrt{\\alpha+\\beta+1}/[(\\alpha+\\beta+2)\\sqrt{\\alpha\\beta}]$",
+    "excess_kurtosis": "$6[(\\alpha-\\beta)^2(\\alpha+\\beta+1)-\\alpha\\beta(\\alpha+\\beta+2)]/[\\alpha\\beta(\\alpha+\\beta+2)(\\alpha+\\beta+3)]$",
+    "entropy": "$\\log B(\\alpha,\\beta)-(\\alpha-1)\\psi(\\alpha)-(\\beta-1)\\psi(\\beta)+(\\alpha+\\beta-2)\\psi(\\alpha+\\beta)$",
+    "mgf": "${}_1F_1(\\alpha;\\alpha+\\beta;t)$",
+    "characteristic_function": "${}_1F_1(\\alpha;\\alpha+\\beta;it)$",
+    "fisher_information": "$I(\\alpha,\\beta)=\\begin{pmatrix}\\psi_1(\\alpha)-\\psi_1(\\alpha+\\beta)&-\\psi_1(\\alpha+\\beta)\\\\-\\psi_1(\\alpha+\\beta)&\\psi_1(\\beta)-\\psi_1(\\alpha+\\beta)\\end{pmatrix}$ per observation",
     "conjugate_prior": "",
     "related": [],
     "plot": {
@@ -79,6 +85,11 @@
       "domain": [
         0,
         1
+      ],
+      "parameters": "α=2, β=5",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a continuous distribution for a probability between zero and one",
@@ -94,29 +105,30 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": "$X\\mid p\\sim\\operatorname{Bin}(n,p)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$"
   },
   "binomial-distribution": {
     "name": "Binomial",
     "kind": "discrete",
-    "notation": "$x\\sim\\operatorname{Bin}(n,p)$",
+    "notation": "$X\\sim\\operatorname{Bin}(n,p)$",
     "parameters": "$n\\in\\mathbb{Z}^{+}$, $p\\in[0,1]$",
     "support": "$x=0,1,\\ldots,n$",
     "pmf": "$p(x)=\\binom{n}{x}p^{x}(1-p)^{n-x}$",
-    "mean": "$\\mathbb{E}(x)=np$",
-    "variance": "$\\operatorname{Var}(x)=np(1-p)$",
+    "mean": "$\\mathbb{E}(X)=np$",
+    "variance": "$\\operatorname{Var}(X)=np(1-p)$",
     "pdf": "",
-    "cdf": "",
+    "cdf": "$F(k)=\\sum_{j=0}^{\\lfloor k\\rfloor}\\binom njp^j(1-p)^{n-j}$ for $0\\le k<n$",
     "quantile": "",
     "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
-    "conjugate_prior": "",
+    "mode": "$\\lfloor(n+1)p\\rfloor$; also one less if $(n+1)p\\in\\{1,\\ldots,n\\}$ is an integer",
+    "skewness": "$(1-2p)/\\sqrt{np(1-p)}$ for $0<p<1$",
+    "excess_kurtosis": "$[1-6p(1-p)]/[np(1-p)]$ for $0<p<1$",
+    "entropy": "$-\\sum_{k=0}^{n}\\binom nk p^k(1-p)^{n-k}\\log[\\binom nk p^k(1-p)^{n-k}]$, with $0\\log0=0$",
+    "mgf": "$(1-p+pe^t)^n$",
+    "characteristic_function": "$(1-p+pe^{it})^n$",
+    "fisher_information": "$I(p)=n/[p(1-p)]$ for $0<p<1$, per binomial count",
+    "conjugate_prior": "[Beta distribution](beta-distribution.qmd): $p\\sim\\operatorname{Beta}(\\alpha,\\beta)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$",
     "related": [
       "normal-distribution"
     ],
@@ -129,6 +141,11 @@
       "domain": [
         0,
         12
+      ],
+      "parameters": "n=12, p=0.4",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a count distribution for successes in a fixed number of independent trials",
@@ -144,7 +161,8 @@
       }
     ],
     "history": "",
-    "sampling": "Draw $n$ independent Bernoulli values with success probability $p$ and add them, where $n$ is the trial count."
+    "sampling": "Draw $n$ independent Bernoulli values with success probability $p$ and add them, where $n$ is the trial count.",
+    "conjugate_prior_for": ""
   },
   "cauchy-distribution": {
     "name": "Cauchy",
@@ -174,6 +192,11 @@
       "domain": [
         -6,
         6
+      ],
+      "parameters": "x₀=0, γ=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a heavy-tailed distribution on the real line whose mean does not exist",
@@ -189,7 +212,8 @@
       }
     ],
     "history": "",
-    "sampling": "Draw $U$ uniformly between zero and one and set $X=x_0+\\gamma\\tan[\\pi(U-1/2)]$, where $x_0$ is the location and $\\gamma$ is the scale."
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=x_0+\\gamma\\tan[\\pi(U-1/2)]$, where $x_0$ is the location and $\\gamma$ is the scale.",
+    "conjugate_prior_for": ""
   },
   "chi-squared-distribution": {
     "name": "Chi-squared",
@@ -224,6 +248,11 @@
       "domain": [
         0,
         16
+      ],
+      "parameters": "ν=4",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a distribution for sums of squares of independent standard normal variables",
@@ -235,7 +264,8 @@
       }
     ],
     "history": "",
-    "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom."
+    "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom.",
+    "conjugate_prior_for": ""
   },
   "conway-maxwell-poisson-distribution": {
     "name": "Conway–Maxwell–Poisson",
@@ -269,7 +299,11 @@
         0,
         12
       ],
-      "note": "Plot uses λ=2 and ν=1.5."
+      "parameters": "λ=2, ν=1.5",
+      "views": [
+        "pdf",
+        "cdf"
+      ]
     },
     "description": "a flexible count distribution that can model underdispersion or overdispersion",
     "symbols": "where λ is the rate parameter, ν controls dispersion, Z is the normalising constant, and x is a count",
@@ -280,22 +314,23 @@
       }
     ],
     "history": "Conway and Maxwell introduced this count model in a 1962 study of queues with state-dependent service rates.{{cite:conway_maxwell1962}}",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "dirichlet-distribution": {
     "name": "Dirichlet",
     "kind": "continuous",
-    "notation": "$x\\sim\\operatorname{Dirichlet}(\\alpha)$",
+    "notation": "$\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha)$",
     "parameters": "$\\alpha\\in\\mathbb{R}_{+}^{K}$, $\\alpha_0=\\sum_{k=1}^{K}\\alpha_k$",
     "support": "$x_k>0$, $\\sum_{k=1}^{K}x_k=1$",
     "pdf": "$p(x)=\\frac{\\Gamma(\\alpha_0)}{\\prod_{k=1}^{K}\\Gamma(\\alpha_k)}\\prod_{k=1}^{K}x_k^{\\alpha_k-1}$",
-    "mean": "$\\mathbb{E}(x)=\\alpha/\\alpha_0$",
-    "variance": "$\\operatorname{Var}(x_k)=\\alpha_k(\\alpha_0-\\alpha_k)/(\\alpha_0^{2}(\\alpha_0+1))$",
+    "mean": "$\\mathbb{E}(X)=\\alpha/\\alpha_0$",
+    "variance": "$\\operatorname{Var}(X_k)=\\alpha_k(\\alpha_0-\\alpha_k)/(\\alpha_0^{2}(\\alpha_0+1))$",
     "pmf": "",
     "cdf": "",
     "quantile": "",
     "median": "",
-    "mode": "",
+    "mode": "$(\\alpha_k-1)/(\\alpha_0-K)$ for every $\\alpha_k>1$",
     "skewness": "",
     "excess_kurtosis": "",
     "entropy": "",
@@ -305,16 +340,16 @@
     "conjugate_prior": "",
     "related": [],
     "plot": {
-      "scipy": "beta",
+      "scipy": "dirichlet3",
       "args": [
         2,
-        3
+        3,
+        4
       ],
-      "domain": [
-        0,
-        1
-      ],
-      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+      "parameters": "α=(2,3,4)",
+      "views": [
+        "pdf"
+      ]
     },
     "description": "a multivariate distribution for a vector of category probabilities",
     "symbols": "where α is the vector of positive concentration parameters and x is a vector of category probabilities",
@@ -325,28 +360,29 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": "$\\boldsymbol X\\mid\\boldsymbol p\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$"
   },
   "exponential-distribution": {
     "name": "Exponential",
     "kind": "continuous",
-    "notation": "$x\\sim\\operatorname{Exp}(\\lambda)$",
+    "notation": "$X\\sim\\operatorname{Exp}(\\lambda)$",
     "parameters": "$\\lambda>0$",
     "support": "$x>0$",
     "pdf": "$p(x)=\\lambda e^{-\\lambda x}$",
-    "mean": "$\\mathbb{E}(x)=1/\\lambda$",
-    "variance": "$\\operatorname{Var}(x)=1/\\lambda^{2}$",
+    "mean": "$\\mathbb{E}(X)=1/\\lambda$",
+    "variance": "$\\operatorname{Var}(X)=1/\\lambda^{2}$",
     "pmf": "",
-    "cdf": "",
-    "quantile": "",
-    "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
+    "cdf": "$F(x)=1-e^{-\\lambda x}$ for $x\\ge0$",
+    "quantile": "$Q(u)=-\\log(1-u)/\\lambda$",
+    "median": "$\\log 2/\\lambda$",
+    "mode": "$0$",
+    "skewness": "$2$",
+    "excess_kurtosis": "$6$",
+    "entropy": "$1-\\log\\lambda$",
+    "mgf": "$\\lambda/(\\lambda-t)$ for $t<\\lambda$",
+    "characteristic_function": "$\\lambda/(\\lambda-it)$",
+    "fisher_information": "$I(\\lambda)=1/\\lambda^2$ per observation",
     "conjugate_prior": "",
     "related": [
       "gamma-distribution"
@@ -357,6 +393,11 @@
       "domain": [
         0,
         5
+      ],
+      "parameters": "λ=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a continuous distribution for the waiting time to the next event in a Poisson process",
@@ -368,7 +409,8 @@
       }
     ],
     "history": "",
-    "sampling": "Draw $U$ uniformly between zero and one and set $X=-\\log U/\\lambda$, where $\\lambda$ is the event rate."
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=-\\log U/\\lambda$, where $\\lambda$ is the event rate.",
+    "conjugate_prior_for": ""
   },
   "f-distribution": {
     "name": "F",
@@ -401,6 +443,11 @@
       "domain": [
         0,
         5
+      ],
+      "parameters": "d₁=5, d₂=10",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a distribution for ratios of independent scaled chi-squared variables",
@@ -416,28 +463,29 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "gamma-distribution": {
     "name": "Gamma",
     "kind": "continuous",
-    "notation": "$x\\sim\\operatorname{Gamma}(\\alpha,\\beta)$",
-    "parameters": "$\\alpha,\\beta>0$, shape--rate",
+    "notation": "$X\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$",
+    "parameters": "$\\alpha,\\lambda>0$, shape--rate",
     "support": "$x>0$",
-    "pdf": "$p(x)=\\frac{\\beta^{\\alpha}}{\\Gamma(\\alpha)}x^{\\alpha-1}e^{-\\beta x}$",
-    "mean": "$\\mathbb{E}(x)=\\alpha/\\beta$",
-    "variance": "$\\operatorname{Var}(x)=\\alpha/\\beta^{2}$",
+    "pdf": "$p(x)=\\frac{\\lambda^{\\alpha}}{\\Gamma(\\alpha)}x^{\\alpha-1}e^{-\\lambda x}$",
+    "mean": "$\\mathbb{E}(X)=\\alpha/\\lambda$",
+    "variance": "$\\operatorname{Var}(X)=\\alpha/\\lambda^{2}$",
     "pmf": "",
-    "cdf": "",
+    "cdf": "$F(x)=\\gamma(\\alpha,\\lambda x)/\\Gamma(\\alpha)$",
     "quantile": "",
     "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
+    "mode": "$(\\alpha-1)/\\lambda$ for $\\alpha>1$; boundary $0$ for $\\alpha\\le1$",
+    "skewness": "$2/\\sqrt{\\alpha}$",
+    "excess_kurtosis": "$6/\\alpha$",
+    "entropy": "$\\alpha-\\log\\lambda+\\log\\Gamma(\\alpha)+(1-\\alpha)\\psi(\\alpha)$",
+    "mgf": "$(1-t/\\lambda)^{-\\alpha}$ for $t<\\lambda$",
+    "characteristic_function": "$(1-it/\\lambda)^{-\\alpha}$",
+    "fisher_information": "$I(\\alpha,\\lambda)=\\begin{pmatrix}\\psi_1(\\alpha)&-1/\\lambda\\\\-1/\\lambda&\\alpha/\\lambda^2\\end{pmatrix}$ per observation",
     "conjugate_prior": "",
     "related": [
       "chi-squared-distribution",
@@ -451,39 +499,45 @@
       "domain": [
         0,
         9
+      ],
+      "parameters": "α=2, λ=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a continuous distribution for positive quantities such as waiting times",
-    "symbols": "where α is the shape, β is the rate, Γ is the gamma function, and x is positive",
+    "symbols": "where α is the shape, λ is the rate, Γ is the gamma function, and x is positive",
     "notation_symbols": [
       {
-        "symbol": "$\\beta$",
+        "symbol": "$\\lambda$",
         "meaning": "rate parameter"
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": "$X_i\\mid\\theta\\sim\\operatorname{Poisson}(\\theta)$ with $\\theta\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$, giving $\\theta\\mid\\boldsymbol x\\sim\\operatorname{Gamma}(\\alpha+\\sum_i x_i,\\lambda+n)$"
   },
   "geometric-distribution": {
     "name": "Geometric",
     "kind": "discrete",
-    "notation": "$x\\sim\\operatorname{Geom}(p)$",
+    "notation": "$X\\sim\\operatorname{Geom}(p)$",
     "parameters": "$p\\in(0,1]$",
     "support": "$x=1,2,3,\\ldots$",
     "pmf": "$p(x)=p(1-p)^{x-1}$",
-    "mean": "$\\mathbb{E}(x)=1/p$",
-    "variance": "$\\operatorname{Var}(x)=(1-p)/p^{2}$",
+    "mean": "$\\mathbb{E}(X)=1/p$",
+    "variance": "$\\operatorname{Var}(X)=(1-p)/p^{2}$",
     "pdf": "",
-    "cdf": "",
+    "cdf": "$F(k)=1-(1-p)^{\\lfloor k\\rfloor}$ for $k\\ge1$",
     "quantile": "",
-    "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
+    "median": "$\\lceil\\log(1/2)/\\log(1-p)\\rceil$ for $0<p<1$; $1$ for $p=1$",
+    "mode": "$1$",
+    "skewness": "$(2-p)/\\sqrt{1-p}$ for $0<p<1$",
+    "excess_kurtosis": "$6+p^2/(1-p)$ for $0<p<1$",
+    "entropy": "$-\\log p-[(1-p)/p]\\log(1-p)$, with $0\\log0=0$",
+    "mgf": "$pe^t/[1-(1-p)e^t]$ for $t<-\\log(1-p)$",
+    "characteristic_function": "$pe^{it}/[1-(1-p)e^{it}]$",
+    "fisher_information": "$I(p)=1/[p^2(1-p)]$ for $0<p<1$, per observation",
     "conjugate_prior": "",
     "related": [],
     "plot": {
@@ -494,6 +548,11 @@
       "domain": [
         1,
         14
+      ],
+      "parameters": "p=0.35",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a count distribution for the number of trials until the first success",
@@ -505,17 +564,18 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "hypergeometric-distribution": {
     "name": "Hypergeometric",
     "kind": "discrete",
-    "notation": "hypergeometric count of marked items",
+    "notation": "$X\\sim\\operatorname{Hypergeom}(N,r,n)$",
     "parameters": "population $N$, marked items $r$, draw $n$, with $p=r/N$",
     "support": "$\\max(0,\\,n-(N-r))\\le x\\le\\min(n,r)$",
     "pmf": "$p(x)=\\binom{r}{x}\\binom{N-r}{n-x}/\\binom{N}{n}$",
-    "mean": "$\\mathbb{E}(x)=np$",
-    "variance": "$\\operatorname{Var}(x)=np(1-p)(N-n)/(N-1)$",
+    "mean": "$\\mathbb{E}(X)=np$",
+    "variance": "$\\operatorname{Var}(X)=np(1-p)(N-n)/(N-1)$",
     "pdf": "",
     "cdf": "",
     "quantile": "",
@@ -539,6 +599,11 @@
       "domain": [
         0,
         8
+      ],
+      "parameters": "N=30, r=12, n=8",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a count distribution for successes in draws without replacement",
@@ -554,22 +619,24 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": "",
+    "definition_from_source": true
   },
   "inverse-gamma-distribution": {
     "name": "Inverse gamma",
     "kind": "continuous",
-    "notation": "$x\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$",
+    "notation": "$X\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$",
     "parameters": "$\\alpha,\\beta>0$",
     "support": "$x>0$",
     "pdf": "$p(x)=\\frac{\\beta^{\\alpha}}{\\Gamma(\\alpha)}x^{-\\alpha-1}e^{-\\beta/x}$",
-    "mean": "$\\mathbb{E}(x)=\\beta/(\\alpha-1)$ for $\\alpha>1$",
-    "variance": "$\\operatorname{Var}(x)=\\beta^{2}/((\\alpha-1)^{2}(\\alpha-2))$ for $\\alpha>2$",
+    "mean": "$\\mathbb{E}(X)=\\beta/(\\alpha-1)$ for $\\alpha>1$",
+    "variance": "$\\operatorname{Var}(X)=\\beta^{2}/((\\alpha-1)^{2}(\\alpha-2))$ for $\\alpha>2$",
     "pmf": "",
     "cdf": "",
     "quantile": "",
     "median": "",
-    "mode": "",
+    "mode": "$\\beta/(\\alpha+1)$",
     "skewness": "",
     "excess_kurtosis": "",
     "entropy": "",
@@ -586,10 +653,15 @@
       "domain": [
         0,
         4
+      ],
+      "parameters": "α=4, β=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a continuous distribution for positive scales and variances",
-    "symbols": "where α is the shape, β is the rate, Γ is the gamma function, and x is positive",
+    "symbols": "where α is the shape, β is the scale, Γ is the gamma function, and x is positive",
     "notation_symbols": [
       {
         "symbol": "$\\alpha$",
@@ -597,7 +669,9 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": "$X_i\\mid\\sigma^2\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\mu$, giving $\\sigma^2\\mid\\boldsymbol x\\sim\\operatorname{InvGamma}(\\alpha+n/2,\\beta+S_\\mu/2)$",
+    "mode_explanation": "The mode is $\\beta/(\\alpha+1)$, which is not the variance."
   },
   "inverse-gaussian-distribution": {
     "name": "Inverse Gaussian",
@@ -629,6 +703,11 @@
       "domain": [
         0,
         5
+      ],
+      "parameters": "μ=1, λ=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a continuous distribution for positive, right-skewed measurements",
@@ -644,7 +723,8 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "lognormal-distribution": {
     "name": "Lognormal",
@@ -676,6 +756,11 @@
       "domain": [
         0,
         5
+      ],
+      "parameters": "μ=0, σ=0.6",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a positive distribution obtained by exponentiating a normal random variable",
@@ -691,17 +776,18 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "multinomial-distribution": {
     "name": "Multinomial",
     "kind": "discrete",
-    "notation": "$x\\sim\\operatorname{Mult}(n,p)$",
+    "notation": "$\\boldsymbol X\\sim\\operatorname{Mult}(n,\\boldsymbol p)$",
     "parameters": "$n\\in\\mathbb{Z}^{+}$, $p\\in[0,1]^{K}$ with $\\sum_{k=1}^{K}p_k=1$",
     "support": "$x_k\\in\\{0,1,\\ldots,n\\}$, $\\sum_k x_k=n$",
     "pmf": "$p(x)=\\frac{n!}{x_1!\\cdots x_K!}p_1^{x_1}\\cdots p_K^{x_K}$",
-    "mean": "$\\mathbb{E}(x)=np$",
-    "variance": "$\\operatorname{Var}(x_k)=np_k(1-p_k)$",
+    "mean": "$\\mathbb{E}(X)=np$",
+    "variance": "$\\operatorname{Var}(X_k)=np_k(1-p_k)$",
     "pdf": "",
     "cdf": "",
     "quantile": "",
@@ -713,19 +799,22 @@
     "mgf": "",
     "characteristic_function": "",
     "fisher_information": "",
-    "conjugate_prior": "",
+    "conjugate_prior": "[Dirichlet distribution](dirichlet-distribution.qmd): $\\boldsymbol p\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$",
     "related": [],
     "plot": {
-      "scipy": "binom",
+      "scipy": "multinomial3",
       "args": [
         10,
-        0.3
+        [
+          0.2,
+          0.3,
+          0.5
+        ]
       ],
-      "domain": [
-        0,
-        10
-      ],
-      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+      "parameters": "n=10, p=(0.2,0.3,0.5)",
+      "views": [
+        "pdf"
+      ]
     },
     "description": "a distribution for counts across several categories in a fixed number of trials",
     "symbols": "where n is the number of trials, p is the vector of category probabilities, and x is the vector of counts",
@@ -736,7 +825,8 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "multivariate-normal-distribution": {
     "name": "Multivariate normal",
@@ -744,7 +834,7 @@
     "notation": "$X\\sim\\operatorname{N}_p(\\boldsymbol\\mu,\\Sigma)$",
     "parameters": "$\\boldsymbol\\mu\\in\\mathbb{R}^p$, $\\Sigma$ positive definite",
     "support": "$x\\in\\mathbb{R}^p$",
-    "pdf": "$f(x)=\\exp[-(x-\\boldsymbol\\mu)^\\top\\Sigma^{-1}(x-\\boldsymbol\\mu)/2]/[(2\\pi)^{p/2}\\\\lvert\\\\Sigma\\\\rvert^{1/2}]$",
+    "pdf": "$f(x)=\\exp[-(x-\\boldsymbol\\mu)^\\top\\Sigma^{-1}(x-\\boldsymbol\\mu)/2]/[(2\\pi)^{p/2}\\lvert\\Sigma\\rvert^{1/2}]$",
     "mean": "$\\boldsymbol\\mu$",
     "variance": "$\\Sigma$",
     "pmf": "",
@@ -761,13 +851,28 @@
     "conjugate_prior": "",
     "related": [],
     "plot": {
-      "scipy": "norm",
-      "args": [],
-      "domain": [
-        -4,
-        4
+      "scipy": "mvnorm2",
+      "args": [
+        [
+          0,
+          0
+        ],
+        [
+          [
+            1,
+            0.6
+          ],
+          [
+            0.6,
+            1
+          ]
+        ]
       ],
-      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
+      "parameters": "μ=(0,0), σ₁=σ₂=1, ρ=0.6",
+      "views": [
+        "pdf",
+        "cdf"
+      ]
     },
     "description": "a joint distribution for a vector of normally distributed measurements",
     "symbols": "where μ is the mean vector, Σ is the covariance matrix, and x is an observation vector",
@@ -782,7 +887,8 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "negative-binomial-distribution": {
     "name": "Negative binomial",
@@ -815,6 +921,11 @@
       "domain": [
         0,
         16
+      ],
+      "parameters": "μ=3, ν=3",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a count distribution that allows variance greater than its mean",
@@ -826,7 +937,8 @@
       }
     ],
     "history": "",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "normal-distribution": {
     "name": "Normal",
@@ -838,17 +950,17 @@
     "mean": "$\\mathbb{E}(X)=\\mu$",
     "variance": "$\\operatorname{Var}(X)=\\sigma^{2}$",
     "pmf": "",
-    "cdf": "",
-    "quantile": "",
-    "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
-    "conjugate_prior": "",
+    "cdf": "$F(x)=\\Phi((x-\\mu)/\\sigma)$",
+    "quantile": "$Q(u)=\\mu+\\sigma\\Phi^{-1}(u)$",
+    "median": "$\\mu$",
+    "mode": "$\\mu$",
+    "skewness": "$0$",
+    "excess_kurtosis": "$0$",
+    "entropy": "$\\tfrac12\\log(2\\pi e\\sigma^2)$",
+    "mgf": "$\\exp(\\mu t+\\sigma^2t^2/2)$",
+    "characteristic_function": "$\\exp(i\\mu t-\\sigma^2t^2/2)$",
+    "fisher_information": "$I(\\mu,\\sigma)=\\operatorname{diag}(1/\\sigma^2,\\,2/\\sigma^2)$ per observation",
+    "conjugate_prior": "[Inverse-Gamma distribution](inverse-gamma-distribution.qmd): $\\sigma^2\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$ for a normal sample with known $\\mu$, giving $\\operatorname{InvGamma}(\\alpha+n/2,\\beta+S_\\mu/2)$",
     "related": [
       "multivariate-normal-distribution",
       "lognormal-distribution",
@@ -860,6 +972,11 @@
       "domain": [
         -4,
         4
+      ],
+      "parameters": "μ=0, σ=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a symmetric bell-shaped distribution for measurements on the real line",
@@ -875,7 +992,8 @@
       }
     ],
     "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies.{{cite:gauss1809}}",
-    "sampling": "The Box–Muller method transforms two independent uniform draws into two independent standard normal draws; multiply either by $\\sigma$ and add $\\mu$, where $\\mu$ is the desired mean and $\\sigma$ the standard deviation.{{cite:box_muller1958}}"
+    "sampling": "The Box–Muller method transforms two independent uniform draws into two independent standard normal draws; multiply either by $\\sigma$ and add $\\mu$, where $\\mu$ is the desired mean and $\\sigma$ the standard deviation.{{cite:box_muller1958}}",
+    "conjugate_prior_for": "$X_i\\mid\\mu\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\sigma^2$ and prior $\\mu\\sim\\operatorname{N}(\\mu_0,\\sigma_0^2)$, giving a normal posterior"
   },
   "pareto-distribution": {
     "name": "Pareto",
@@ -907,6 +1025,11 @@
       "domain": [
         1,
         4
+      ],
+      "parameters": "xₘ=1, α=3",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a heavy-tailed distribution for positive quantities above a threshold",
@@ -922,29 +1045,30 @@
       }
     ],
     "history": "Pareto described the heavy-tailed pattern of economic quantities in his 1909 manual.{{cite:pareto1909}}",
-    "sampling": "Draw $U$ uniformly between zero and one and set $X=x_m(1-U)^{-1/\\alpha}$, where $x_m$ is the minimum and $\\alpha$ is the tail parameter."
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=x_m(1-U)^{-1/\\alpha}$, where $x_m$ is the minimum and $\\alpha$ is the tail parameter.",
+    "conjugate_prior_for": ""
   },
   "poisson-distribution": {
     "name": "Poisson",
     "kind": "discrete",
-    "notation": "$x\\sim\\operatorname{Poisson}(\\theta)$",
-    "parameters": "$\\theta>0$",
+    "notation": "$X\\sim\\operatorname{Poisson}(\\lambda)$",
+    "parameters": "$\\lambda>0$",
     "support": "$x=0,1,2,\\ldots$",
-    "pmf": "$p(x)=e^{-\\theta}\\theta^{x}/x!$",
-    "mean": "$\\mathbb{E}(x)=\\theta$",
-    "variance": "$\\operatorname{Var}(x)=\\theta$",
+    "pmf": "$p(x)=e^{-\\lambda}\\lambda^{x}/x!$",
+    "mean": "$\\mathbb{E}(X)=\\lambda$",
+    "variance": "$\\operatorname{Var}(X)=\\lambda$",
     "pdf": "",
-    "cdf": "",
+    "cdf": "$F(k)=e^{-\\lambda}\\sum_{j=0}^{\\lfloor k\\rfloor}\\lambda^j/j!$ for $k\\ge0$",
     "quantile": "",
     "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
+    "mode": "$\\lfloor\\lambda\\rfloor$; also $\\lambda-1$ if $\\lambda$ is an integer",
+    "skewness": "$1/\\sqrt\\lambda$",
+    "excess_kurtosis": "$1/\\lambda$",
     "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
-    "fisher_information": "",
-    "conjugate_prior": "",
+    "mgf": "$\\exp[\\lambda(e^t-1)]$",
+    "characteristic_function": "$\\exp[\\lambda(e^{it}-1)]$",
+    "fisher_information": "$I(\\lambda)=1/\\lambda$ per observation",
+    "conjugate_prior": "[Gamma distribution](gamma-distribution.qmd): $\\lambda\\sim\\operatorname{Gamma}(\\alpha,\\beta)$, giving $\\lambda\\mid\\boldsymbol x\\sim\\operatorname{Gamma}(\\alpha+\\sum_i x_i,\\beta+n)$",
     "related": [
       "negative-binomial-distribution"
     ],
@@ -956,18 +1080,24 @@
       "domain": [
         0,
         12
+      ],
+      "parameters": "λ=3",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a count distribution for events occurring at a constant average rate",
-    "symbols": "where θ is the mean count and x is a nonnegative count",
+    "symbols": "where λ is the mean count and x is a nonnegative count",
     "notation_symbols": [
       {
-        "symbol": "$\\theta$",
+        "symbol": "$\\lambda$",
         "meaning": "mean event count"
       }
     ],
     "history": "Poisson discussed this count law in his 1837 treatise on probability.{{cite:poisson1837}}",
-    "sampling": "Draw a uniform value $U$ and return the smallest count $x$ whose cumulative probability is at least $U$."
+    "sampling": "Draw a uniform value $U$ and return the smallest count $x$ whose cumulative probability is at least $U$.",
+    "conjugate_prior_for": ""
   },
   "student-t-distribution": {
     "name": "Student t",
@@ -999,6 +1129,11 @@
       "domain": [
         -5,
         5
+      ],
+      "parameters": "ν=5",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a symmetric heavy-tailed distribution used when a normal mean is standardised by an estimated scale",
@@ -1010,7 +1145,8 @@
       }
     ],
     "history": "The distribution was published in 1908 under the pseudonym Student in a paper on the probable error of a mean.{{cite:student1908}}",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   },
   "uniform-distribution": {
     "name": "Uniform",
@@ -1022,15 +1158,15 @@
     "mean": "$\\mathbb{E}(X)=(a+b)/2$",
     "variance": "$\\operatorname{Var}(X)=(b-a)^{2}/12$",
     "pmf": "",
-    "cdf": "",
-    "quantile": "",
-    "median": "",
-    "mode": "",
-    "skewness": "",
-    "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
+    "cdf": "$F(x)=0$ for $x<a$; $(x-a)/(b-a)$ for $a\\le x<b$; $1$ for $x\\ge b$",
+    "quantile": "$Q(u)=a+(b-a)u$",
+    "median": "$(a+b)/2$",
+    "mode": "any $x\\in[a,b]$",
+    "skewness": "$0$",
+    "excess_kurtosis": "$-6/5$",
+    "entropy": "$\\log(b-a)$",
+    "mgf": "$(e^{bt}-e^{at})/[t(b-a)]$ for $t\\ne0$; $1$ at $t=0$",
+    "characteristic_function": "$(e^{ibt}-e^{iat})/[it(b-a)]$ for $t\\ne0$; $1$ at $t=0$",
     "fisher_information": "",
     "conjugate_prior": "",
     "related": [],
@@ -1040,6 +1176,11 @@
       "domain": [
         -0.2,
         1.2
+      ],
+      "parameters": "a=0, b=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a distribution that assigns equal density throughout an interval",
@@ -1055,7 +1196,8 @@
       }
     ],
     "history": "",
-    "sampling": "Draw $U$ uniformly between zero and one and set $X=a+(b-a)U$, where $a$ and $b$ are the interval endpoints."
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=a+(b-a)U$, where $a$ and $b$ are the interval endpoints.",
+    "conjugate_prior_for": ""
   },
   "weibull-distribution": {
     "name": "Weibull",
@@ -1087,6 +1229,11 @@
       "domain": [
         0,
         3
+      ],
+      "parameters": "k=2, λ=1",
+      "views": [
+        "pdf",
+        "cdf"
       ]
     },
     "description": "a positive distribution often used to model lifetimes and failure times",
@@ -1102,7 +1249,8 @@
       }
     ],
     "history": "Weibull presented this family as a widely applicable statistical distribution in 1951.{{cite:weibull1951}}",
-    "sampling": "Draw $U$ uniformly between zero and one and set $X=\\lambda[-\\log(1-U)]^{1/k}$, where $k$ is the shape and $\\lambda$ the scale."
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=\\lambda[-\\log(1-U)]^{1/k}$, where $k$ is the shape and $\\lambda$ the scale.",
+    "conjugate_prior_for": ""
   },
   "wishart-distribution": {
     "name": "Wishart",
@@ -1110,7 +1258,7 @@
     "notation": "$W\\sim W_p(\\Sigma,\\nu)$",
     "parameters": "$\\Sigma$ positive definite, $\\nu\\ge p$",
     "support": "positive-definite matrices",
-    "pdf": "$f(W)=\\\\lvert W\\\\rvert^{(\\nu-p-1)/2}e^{-\\operatorname{tr}(\\Sigma^{-1}W)/2}/[2^{\\nu p/2}\\\\lvert\\\\Sigma\\\\rvert^{\\nu/2}\\Gamma_p(\\nu/2)]$",
+    "pdf": "$f(W)=\\lvert W\\rvert^{(\\nu-p-1)/2}e^{-\\operatorname{tr}(\\Sigma^{-1}W)/2}/[2^{\\nu p/2}\\lvert\\Sigma\\rvert^{\\nu/2}\\Gamma_p(\\nu/2)]$",
     "mean": "$\\nu\\Sigma$",
     "variance": "$\\operatorname{Cov}(W_{ij},W_{kl})=\\nu(\\Sigma_{ik}\\Sigma_{jl}+\\Sigma_{il}\\Sigma_{jk})$",
     "pmf": "",
@@ -1126,17 +1274,7 @@
     "fisher_information": "",
     "conjugate_prior": "",
     "related": [],
-    "plot": {
-      "scipy": "chi2",
-      "args": [
-        5
-      ],
-      "domain": [
-        0,
-        16
-      ],
-      "note": "Plot shows one univariate marginal (or the one-dimensional Wishart case)."
-    },
+    "plot": {},
     "description": "a distribution for scatter matrices formed from independent normal vectors",
     "symbols": "where ν is the degrees of freedom, Σ is the scale matrix, Γₚ is the multivariate gamma function, and W is positive definite",
     "notation_symbols": [
@@ -1150,6 +1288,7 @@
       }
     ],
     "history": "Wishart described the multivariate product-moment distribution in 1928.{{cite:wishart1928}}",
-    "sampling": ""
+    "sampling": "",
+    "conjugate_prior_for": ""
   }
 }

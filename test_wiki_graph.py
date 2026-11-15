@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import collections
 import json
 import re
 import tempfile
@@ -892,23 +893,12 @@ class WikiGraphTests(unittest.TestCase):
         if not articles_dir.is_dir() or not home_path.is_file():
             self.skipTest("Generated wiki directories are not built yet")
 
-        def norm_words(value: str) -> str:
-            s = re.sub(r"[^a-z0-9]", "", value.lower())
-            if s.endswith("ies"):
-                s = s[:-3] + "y"
-            elif s.endswith("es") and len(s) > 4:
-                s = s[:-2]
-            elif s.endswith("s") and len(s) > 3:
-                s = s[:-1]
-            return s
-
         article_files = sorted(articles_dir.glob("*.qmd"))
         self.assertEqual(len(article_files), 718)
         for path in article_files:
             text = path.read_text(encoding="utf-8")
             m_title = re.search(r'^title:\s*"(.*)"$', text, re.M)
             self.assertIsNotNone(m_title, path.name)
-            title = m_title.group(1).replace('\\"', '"')
             body = re.sub(r"\A---\n.*?\n---\n+", "", text, count=1, flags=re.S)
             body = re.sub(r"\A::: \{\.hatnote\}\n.*?\n:::\n+", "", body, count=1, flags=re.S)
             body = re.sub(r"\A:::: \{\.infobox\}\n.*?\n::::\n+", "", body, count=1, flags=re.S).lstrip()
@@ -918,13 +908,9 @@ class WikiGraphTests(unittest.TestCase):
                 f"{path.name} opens with unframed block: {first_para[:80]!r}",
             )
             bolds = re.findall(r"\*\*([^*]+)\*\*", first_para)
-            self.assertTrue(bolds, f"{path.name} missing bold opening term in {first_para[:100]!r}")
-            b0 = norm_words(bolds[0])
-            nt = norm_words(title)
-            self.assertTrue(
-                b0 == nt or nt in b0 or b0 in nt and abs(len(b0) - len(nt)) <= 3,
-                f"{path.name} bolds {bolds[0]!r} instead of canonical title {title!r}",
-            )
+            lead_info = build_wiki.ARTICLE_LEADS[path.stem]
+            self.assertEqual(bolds, [lead_info["term"]], path.name)
+            self.assertTrue(first_para.startswith(build_wiki.article_lead({"slug": path.stem})), path.name)
             # Topic navbox, categories, and Cite this page (never Edit this page or GitHub/course codes)
             self.assertIn('<nav class="topic-navbox"', text, path.name)
             self.assertIn('aria-current="page"', text, path.name)
@@ -1052,7 +1038,9 @@ class DistributionCatalogueTests(unittest.TestCase):
             with self.subTest(slug=slug):
                 self.assertTrue(all(fact[key] for key in ("name", "notation", "parameters", "support", "description", "symbols")))
                 self.assertTrue(fact["pmf"] or fact["pdf"])
-                self.assertTrue(fact["plot"])
+                if fact["plot"]:
+                    self.assertTrue(fact["plot"]["parameters"])
+                    self.assertTrue(fact["plot"]["views"])
                 self.assertTrue(set(fact["related"]) <= build_wiki.DISTRIBUTIONS.keys())
 
     def test_generated_distribution_infoboxes_and_plots(self) -> None:
@@ -1072,9 +1060,9 @@ class DistributionCatalogueTests(unittest.TestCase):
                          "Generating random samples", "History", "Examples", "See also", "References"]
                 self.assertEqual(headings, [name for name in order if name in headings], page.name)
                 self.assertEqual("Generating random samples" in headings, bool(build_wiki.DISTRIBUTIONS[slug]["sampling"]))
-                lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
+                lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
                 self.assertNotIn("$", lead)
-                for kind in ("pdf", "cdf"):
+                for kind in build_wiki.DISTRIBUTIONS[slug]["plot"].get("views", []):
                     self.assertTrue((build_wiki.WIKI / "reference" / "plots" / f"{slug}-{kind}.png").is_file())
         notation = build_wiki.WIKI / "reference" / "notation.qmd"
         self.assertTrue(notation.is_file())
@@ -1122,6 +1110,78 @@ class DistributionCatalogueTests(unittest.TestCase):
         self.assertEqual(missing, [])
         self.assertEqual(missing_fragments, [])
 
+    def test_distribution_rows_escapes_and_multivariate_previews(self) -> None:
+        for slug, facts in build_wiki.DISTRIBUTIONS.items():
+            for field, value in facts.items():
+                if isinstance(value, str):
+                    self.assertIsNone(re.search(r"\\\\[A-Za-z]", value), f"double escape in {slug}.{field}")
+            page = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            box = page.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]
+            self.assertIsNone(re.search(r"^\|[^|]*\|\s*\|$", box, flags=re.M), slug)
+            if facts["kind"] == "continuous":
+                self.assertNotIn("| Probability mass function |", box)
+            else:
+                self.assertNotIn("| Probability density |", box)
+            for field, label in build_wiki.DISTRIBUTION_ROW_LABELS:
+                self.assertEqual(f"| {label} |" in box, bool(facts[field]), f"{slug}.{field}")
+            for view in facts["plot"].get("views", []):
+                caption = re.search(rf"!\[([^]]+)\]\([^)]*{slug}-{view}\.png\)", box)
+                self.assertIsNotNone(caption, f"missing plot caption on {slug}.{view}")
+                self.assertIn(facts["plot"]["parameters"], caption.group(1))
+                if facts["plot"]["scipy"] not in {"dirichlet3", "multinomial3", "mvnorm2"}:
+                    self.assertFalse(caption.group(1).startswith(facts["name"] + " "), slug)
+        for slug in ("dirichlet", "multinomial", "multivariate-normal", "wishart"):
+            spec = build_wiki.DISTRIBUTIONS[f"{slug}-distribution"]["plot"]
+            self.assertTrue(not spec or spec["scipy"] in {"dirichlet3", "multinomial3", "mvnorm2"}, slug)
+
+    def test_standard_closed_form_rows_are_populated(self) -> None:
+        expected = {
+            "normal": ("median", "mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+            "exponential": ("median", "mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+            "gamma": ("mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+            "beta": ("mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+            "uniform": ("median", "mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function"),
+            "binomial": ("mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+            "poisson": ("mode", "skewness", "excess_kurtosis", "mgf", "characteristic_function", "fisher_information"),
+            "bernoulli": ("median", "mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+            "geometric": ("median", "mode", "skewness", "excess_kurtosis", "entropy", "mgf", "characteristic_function", "fisher_information"),
+        }
+        for family, fields in expected.items():
+            facts = build_wiki.DISTRIBUTIONS[f"{family}-distribution"]
+            for field in fields:
+                self.assertTrue(facts[field], f"{family}.{field}")
+
+    def test_general_notation_has_first_use_links(self) -> None:
+        page = (build_wiki.WIKI / "reference" / "notation.qmd").read_text(encoding="utf-8")
+        for entry in build_wiki.GENERAL_NOTATION:
+            self.assertIn(entry["symbol"], page)
+            self.assertIn(f"../articles/{entry['article']}.qmd", page)
+
+    def test_restored_distribution_rows_and_notation(self) -> None:
+        data = build_wiki.DISTRIBUTIONS
+        for family in ("gamma", "beta", "dirichlet", "inverse-gamma"):
+            self.assertTrue(data[f"{family}-distribution"]["mode"], family)
+        conjugate = {slug for slug, facts in data.items()
+                     if facts["conjugate_prior_for"] or facts["conjugate_prior"]}
+        self.assertEqual(len(conjugate), 8)
+        for slug, facts in data.items():
+            self.assertNotIn(r"$x\sim", facts["notation"], slug)
+            self.assertNotIn(r"\mathbb{E}(x)", facts["mean"], slug)
+            self.assertNotIn(r"\operatorname{Var}(x)", facts["variance"], slug)
+        for family, symbol in (("gamma", r"\lambda"), ("poisson", r"\lambda"),
+                               ("student-t", r"\nu"), ("chi-squared", r"\nu"),
+                               ("f", "d_1"), ("bernoulli", "(p)")):
+            facts = data[f"{family}-distribution"]
+            self.assertIn(symbol, facts["notation"], family)
+        for family, parameter in (("gamma", "λ="), ("poisson", "λ="),
+                                  ("student-t", "ν="), ("chi-squared", "ν="),
+                                  ("f", "d₁="), ("bernoulli", "p=")):
+            self.assertIn(parameter, data[f"{family}-distribution"]["plot"]["parameters"])
+        poisson = (build_wiki.WIKI / "articles" / "poisson-distribution.qmd").read_text(encoding="utf-8")
+        self.assertNotIn(r"\theta", poisson)
+        inverse_gamma = (build_wiki.WIKI / "articles" / "inverse-gamma-distribution.qmd").read_text(encoding="utf-8")
+        self.assertIn(r"The mode is $\beta/(\alpha+1)$, which is not the variance.", inverse_gamma)
+
 
 class TheoremTemplateTests(unittest.TestCase):
     def test_every_result_has_a_proof_or_todo_entry(self) -> None:
@@ -1138,18 +1198,85 @@ class TheoremTemplateTests(unittest.TestCase):
             results.append(page.stem)
             self.assertIn("## Statement {#statement}", body, page.name)
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-            order = ["Statement", "Intuition", "Proof", "Generalizations", "Common misconceptions",
+            order = ["Statement", "Intuition", "Generalizations", "Common misconceptions",
                      "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
-            self.assertTrue('::: {.callout-note collapse="true" title="Proof"}' in body or page.stem in todo, page.name)
+            proof_box = '::: {.callout-note collapse="true" title="Proof"}'
+            self.assertTrue(proof_box in body or page.stem in todo, page.name)
+            self.assertEqual(body.count(proof_box), int(page.stem not in todo), page.name)
+            self.assertNotIn("## Proof", body, page.name)
+            self.assertNotIn("*Proof.*", body, page.name)
             self.assertNotIn("## In *", body, page.name)
-            lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
+            lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
             self.assertNotIn("$", lead, page.name)
         self.assertGreaterEqual(len(results), 90)
         self.assertTrue(todo <= set(results))
 
+    def test_memoryless_and_product_rule_proofs_cover_their_statements(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        memoryless = (articles / "memoryless-property.qmd").read_text(encoding="utf-8")
+        product = (articles / "product-rule.qmd").read_text(encoding="utf-8")
+        self.assertIn("Conversely", memoryless)
+        self.assertIn("only continuous memoryless", memoryless)
+        self.assertIn("geometric law", memoryless)
+        self.assertIn("induction hypothesis", product)
+        self.assertIn("$n$-event product", product)
+
 
 class ConceptTemplateTests(unittest.TestCase):
+    def test_reviewed_leads_have_one_term_and_matching_agreement(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        pages = {page.stem: page for page in articles.glob("*.qmd")}
+        self.assertEqual(set(pages), set(build_wiki.ARTICLE_LEADS))
+        singular_suffix_exceptions = {
+            "bayes-action-for-two-hypotheses", "bayes-consistency-of-nearest-neighbours",
+            "chi-squared-test-with-estimated-parameters", "chi-squared-test-with-known-cell-probabilities",
+            "choosing-the-number-of-principal-components", "classification-with-unequal-costs",
+            "empirical-bayes", "f-test-for-equal-variances", "interval-for-a-difference-of-means",
+            "interval-for-a-ratio-of-variances", "law-of-large-numbers", "method-of-moments",
+            "pearson-test-with-estimated-parameters", "sampling-distribution-of-the-regression-estimators",
+            "soft-thresholding-for-orthonormal-predictors", "softmax-is-multinomial-logistic-regression",
+        }
+        singular_endings = ("analysis", "process", "class", "loss", "bias", "statistics", "series",
+                            "squares", "synthesis", "basis", "hypothesis", "status", "radius",
+                            "calculus", "cross", "ness", "gas", "is")
+        for slug, page in pages.items():
+            info = build_wiki.ARTICLE_LEADS[slug]
+            body = page.read_text(encoding="utf-8")
+            lead = re.search(r"^In [^\n]+$", body, flags=re.M).group()
+            title = re.search(r'^title: "(.*)"$', body, flags=re.M).group(1)
+            self.assertEqual(re.findall(r"\*\*([^*]+)\*\*", lead), [info["term"]], slug)
+            self.assertIn(f"**{info['term']}** {info['verb']} ", lead, slug)
+            self.assertIn(info["verb"], {"is", "are"}, slug)
+            self.assertIn(info["article"], {"", "a", "an", "the"}, slug)
+            if info["article"] in {"a", "an"}:
+                self.assertEqual(info["verb"], "is", slug)
+            if not info.get("proper"):
+                self.assertTrue(info["term"][0].islower(), slug)
+                if title[0].isupper():
+                    self.assertNotIn(f"**{title}**", lead, slug)
+            last = re.findall(r"[A-Za-z]+", info["term"])[-1].lower()
+            if last.endswith("s") and not last.endswith(singular_endings) and slug not in singular_suffix_exceptions:
+                self.assertEqual(info["verb"], "are", slug)
+            self.assertNotRegex(lead, r"\*\*[^*]+\*\* is (?:is|are)\b", slug)
+
+    def test_lead_descriptions_are_specific(self) -> None:
+        placeholder = re.compile(
+            r"(?:proposition about|dataset used to study|model that describes|"
+            r"function used to describe|procedure used to analyse)\b", re.I
+        )
+        for slug, info in build_wiki.ARTICLE_LEADS.items():
+            self.assertNotRegex(info["description"], placeholder, slug)
+
+    def test_posterior_mean_keeps_source_definitions_and_figure(self) -> None:
+        body = (build_wiki.WIKI / "articles" / "posterior-mean.qmd").read_text(encoding="utf-8")
+        self.assertIn("Posterior point summaries", body)
+        self.assertIn("Credible-region constructions", body)
+        self.assertIn("part1-fig-01-credible-regions.png", body)
+        self.assertNotIn("*Proof.*", (build_wiki.WIKI / "articles" / "metropolis-hastings-algorithm.qmd").read_text(encoding="utf-8"))
+
     def test_mapped_articles_link_their_laboratory(self) -> None:
         import topics
 
@@ -1173,10 +1300,20 @@ class ConceptTemplateTests(unittest.TestCase):
         self.assertGreaterEqual(len(pages), 700)
         for page in pages:
             body = page.read_text(encoding="utf-8")
-            lead = body.split("::::\n", 1)[-1].lstrip().split(".\n", 1)[0]
+            lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
             self.assertTrue(lead.startswith("In "), page.name)
             self.assertIsNone(re.search(r"\$|\\\(|\\\[|\\begin\{", lead), page.name)
             self.assertNotIn("## In *", body, page.name)
+
+    def test_no_chapter_placeholders_or_duplicate_normal_density(self) -> None:
+        for page in (build_wiki.WIKI / "articles").glob("*.qmd"):
+            body = page.read_text(encoding="utf-8")
+            self.assertIsNone(re.search(r"^## (?:In|From) \*|^## Taught in\b", body, flags=re.M), page.name)
+            self.assertNotRegex(body, r"::: \{\.mainarticle\}\nFrom \[", page.name)
+            self.assertNotIn("- **Taught in**", body, page.name)
+        normal = (build_wiki.WIKI / "articles" / "normal-distribution.qmd").read_text(encoding="utf-8")
+        definition = normal.split("## Definition {#definition}", 1)[1].split("\n## ", 1)[0]
+        self.assertEqual(definition.count("The probability density is"), 1)
 
     def test_concepts_follow_the_fixed_section_order(self) -> None:
         articles = build_wiki.WIKI / "articles"
@@ -1202,6 +1339,41 @@ class ConceptTemplateTests(unittest.TestCase):
             self.assertIn("## History {#history}", body, slug)
             history = body.split("## History {#history}", 1)[1].split("\n## ", 1)[0]
             self.assertIn('class="cite-ref"', history, slug)
+
+
+class ContentRetentionTests(unittest.TestCase):
+    """Compare generated articles with the archived pre-#57 build (5359ad2)."""
+
+    @staticmethod
+    def figure_targets(body: str) -> collections.Counter:
+        found = []
+        for line in body.splitlines():
+            if "![" in line:
+                match = re.search(r"!\[.*\]\((\.\./figures/[^)]+)\)", line)
+                if match:
+                    found.append(match.group(1))
+        return collections.Counter(found)
+
+    @staticmethod
+    def prose_words(body: str) -> int:
+        body = re.split(r"^## References", body, flags=re.M)[0]
+        body = re.sub(r"(?ms)^:::: \{\.infobox\}.*?^::::\s*", "", body)
+        body = re.sub(r"(?ms)^::: \{\.hatnote\}.*?^:::\s*", "", body)
+        body = re.sub(r"(?m)^## (?:In|From) [^\n]*\n", "", body)
+        body = re.sub(r"(?ms)^::: \{\.mainarticle\}\n(?:From|Main article):[^\n]*\n:::\s*", "", body)
+        body = re.sub(r"(?m)^- \*\*Taught in\*\*[^\n]*\n", "", body)
+        body = re.sub(r"\[[^]]+\]\([^)]+\)", lambda match: match.group().split("]")[0][1:], body)
+        return len(re.findall(r"\b[\w-]+\b", body))
+
+    def test_no_article_loses_source_figures_or_substantive_text(self) -> None:
+        fixture = json.loads((build_wiki.WIKI / "pre57_article_baseline.json").read_text(encoding="utf-8"))
+        self.assertEqual(fixture["commit"], "5359ad2")
+        articles = build_wiki.WIKI / "articles"
+        self.assertEqual(len(fixture["articles"]), len(list(articles.glob("*.qmd"))))
+        for slug, before in fixture["articles"].items():
+            body = (articles / f"{slug}.qmd").read_text(encoding="utf-8")
+            self.assertFalse(collections.Counter(before["figures"]) - self.figure_targets(body), slug)
+            self.assertGreaterEqual(self.prose_words(body) * 10, before["words"] * 9, slug)
 
 
 if __name__ == "__main__":

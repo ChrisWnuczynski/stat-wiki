@@ -1754,6 +1754,8 @@ MERGED_ARTICLES: dict[str, str] = {}  # retired duplicate article slug -> canoni
 ARTICLE_DIR = WIKI / "articles"
 DIST_SHEET = WIKI / "reference" / "distributions.qmd"
 DISTRIBUTIONS: dict[str, dict[str, str]] = json.loads((WIKI / "distributions.json").read_text(encoding="utf-8"))
+ARTICLE_LEADS: dict[str, dict[str, str]] = json.loads((WIKI / "article_leads.json").read_text(encoding="utf-8"))
+GENERAL_NOTATION: list[dict[str, str]] = json.loads((WIKI / "general_notation.json").read_text(encoding="utf-8"))
 DISTRIBUTION_ROW_LABELS = (
     ("notation", "Notation"), ("parameters", "Parameters"), ("support", "Support"),
     ("pmf", "Probability mass function"), ("pdf", "Probability density"),
@@ -1763,6 +1765,7 @@ DISTRIBUTION_ROW_LABELS = (
     ("entropy", "Entropy"), ("mgf", "MGF"),
     ("characteristic_function", "Characteristic function"),
     ("fisher_information", "Fisher information"),
+    ("conjugate_prior_for", "Conjugate prior for"),
     ("conjugate_prior", "Conjugate prior"),
 )
 
@@ -3394,6 +3397,10 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
 
     # Articles: one per named box, merged with any distribution card of the same name.
     register_card_articles()
+    if set(ARTICLE_LEADS) != set(ARTICLES):
+        missing = sorted(set(ARTICLES) - set(ARTICLE_LEADS))
+        stale = sorted(set(ARTICLE_LEADS) - set(ARTICLES))
+        raise SystemExit(f"Article lead metadata is out of date: missing={missing[:10]}, stale={stale[:10]}")
     ambig_slugs = ambiguous_alias_slugs()
     for alias, target in SEE_ALSO.items():
         article = next((a for a in ARTICLES.values() if a["term"].lower() == target.lower()), None)
@@ -3455,25 +3462,6 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for page in pages:
         if page["kind"] == "article":
             article = article_by_path[page["path"]]
-            first_idx = next(
-                (idx for idx, (is_c, lbl, _) in enumerate(page["blocks"]) if is_c and lbl in {"lead", "excerpt"}),
-                None,
-            )
-            if first_idx is not None:
-                # A heading before the first sentence used to leave the bold term
-                # alone in the paragraph above that heading. Put the term in the
-                # first real sentence instead.
-                if first_idx > 1 and page["blocks"][1][1] == "excerpt-head":
-                    for j in range(first_idx, len(page["blocks"])):
-                        is_c, lab, txt = page["blocks"][j]
-                        if is_c and lab in {"lead", "excerpt", "statement"} and txt.strip():
-                            lead, rest = peel_framed_lead(article["term"], txt)
-                            page["blocks"].insert(1, (True, "lead", lead))
-                            page["blocks"][j + 1] = (is_c, lab, rest)
-                            break
-                else:
-                    is_c, lbl, txt = page["blocks"][first_idx]
-                    page["blocks"][first_idx] = (is_c, lbl, frame_article_lead(article, txt))
             links = backlinks.get(page["path"], [])
             box = resolve_links(article_infobox(article, links, by_topic), page["path"])
             page["blocks"].insert(1, (False, "infobox", box))
@@ -3687,39 +3675,21 @@ def extra_article_blocks(article: dict) -> list[tuple[bool, str, str]]:
     """Render unified secondary boxes and merged chapter sections on a canonical article."""
     path = article["path"]
     blocks: list[tuple[bool, str, str]] = []
-    seen_heads: set[str] = set()
     for extra in article.get("extra_boxes") or []:
-        head = extra["chapter_title"]
-        if head in seen_heads:
-            head = f"{head}, continued"
-        seen_heads.add(head)
-        ident = "in-" + slug(extra["chapter"].stem + "-" + extra["anchor"])
-        source = f"{href(path, extra['chapter'])}#{extra['anchor']}"
-        blocks.append(
-            (
-                False,
-                "excerpt-head",
-                f"## In *{head}* {{#{ident}}}\n\n"
-                f"::: {{.mainarticle}}\n{extra['kind'].capitalize()} from [{extra['chapter_title']}]({source})\n:::\n\n",
-            )
-        )
         blocks.append((True, "excerpt", copy_for_article("\n".join(extra["lines"]), extra["chapter"], path) + "\n\n"))
     for extra in article.get("extra_sections") or []:
-        head = extra["chapter_title"]
-        if head in seen_heads:
-            head = f"{head}, continued"
-        seen_heads.add(head)
-        ident = "in-" + slug(extra["chapter"].stem + "-" + extra["anchor"])
-        source = f"{href(path, extra['chapter'])}#{extra['anchor']}"
-        blocks.append(
-            (
-                False,
-                "excerpt-head",
-                f"## In *{head}* {{#{ident}}}\n\n"
-                f"::: {{.mainarticle}}\nFrom [{extra['chapter_title']}]({source})\n:::\n\n",
-            )
-        )
         blocks.append((True, "excerpt", copy_for_article(extra["text"], extra["chapter"], path) + "\n\n"))
+    if article["slug"] == "posterior-mean":
+        source = BOOK / "chapters" / "bayes-01-foundations.qmd"
+        chapter = WIKI / "notes" / "bayes-01-foundations.qmd"
+        raw = source.read_text(encoding="utf-8")
+        for anchor in ("def-posterior-point-summaries", "def-credible-region-constructions"):
+            match = re.search(rf"(?ms)^::: \{{#{anchor} \.definition\}}.*?^:::$", raw)
+            if not match:
+                raise SystemExit(f"Missing {anchor} in {source}")
+            prepared = prepare(match.group(), "../figures", page=chapter)
+            blocks.append((True, "excerpt", copy_for_article(prepared, chapter, path) + "\n\n"))
+        blocks.append((False, "figure", figure_md("part1-fig-01-credible-regions.png", path) + "\n\n"))
     return blocks
 
 
@@ -3952,10 +3922,7 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
     # listed together on one line, where the first of them would go.
     pointers = [main_link(e) for e in excerpts if not e["text"]]
     for e in excerpts:
-        source = f"{href(path, e['chapter'])}{'#' + e['anchor'] if e['anchor'] else ''}"
-        note = f"From [{e['chapter_title']}]({source})"
-        if e.get("main"):  # one paragraph of a section that goes on
-            note = f"Main article: {main_link(e)}"
+        note = f"Main article: {main_link(e)}" if e.get("main") else ""
         if not e["text"]:
             if pointers:
                 label = "Main article" if len(pointers) == 1 else "Main articles"
@@ -3968,7 +3935,7 @@ def topic_blocks(article: dict) -> list[tuple[bool, str, str]]:
             if head in seen_heads:
                 head = f"{head}, continued"
             seen_heads.add(head)
-            blocks.append((False, "excerpt-head", f"## In *{head}* {{#{ident}}}\n\n::: {{.mainarticle}}\n{note}\n:::\n\n"))
+            blocks.append((False, "excerpt-head", f"## In *{head}* {{#{ident}}}\n\n" + (f"::: {{.mainarticle}}\n{note}\n:::\n\n" if note else "")))
         elif e.get("main"):
             blocks.append((False, "excerpt-head", f"::: {{.mainarticle}}\n{note}\n:::\n\n"))
         blocks.append((True, "excerpt", copy_for_article(e["text"], e["chapter"], path) + "\n\n"))
@@ -4044,22 +4011,6 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     home = article_home(article)
     by_q = {q["path"]: q for q in questions}
     lines = ["\n\n## Used in {#used-in}\n\n"]
-    if box and box["kind"] in TOPIC_KINDS:
-        taught = list(topic_where(article, path))
-        for extra in article.get("extra_boxes") or []:
-            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
-            if item not in taught:
-                taught.append(item)
-        lines.append("- **Taught in** " + " · ".join(taught) + "\n")
-    elif box:
-        taught = [f"[{box['chapter_title']}]({href(path, box['chapter'])}#{box['anchor']})"]
-        for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
-            item = f"[{extra['chapter_title']}]({href(path, extra['chapter'])}#{extra['anchor']})"
-            if extra["chapter"] != box["chapter"] and item not in taught:
-                taught.append(item)
-        lines.append("- **Taught in** " + " · ".join(taught) + ", where the derivation and examples are.\n")
-    else:
-        lines.append(f"- **Listed on** the [distribution sheet]({href(path, DIST_SHEET)}#{article['card']['anchor']}).\n")
 
     pages_seen: dict[Path, str] = {}
     asked: dict[Path, set] = {}
@@ -4119,6 +4070,9 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     """Apply the fixed distribution section order to copied source material."""
     facts = DISTRIBUTIONS[article["slug"]]
     path = article["path"]
+    if article["slug"] == "poisson-distribution":
+        blocks = [(is_content, label, body.replace(r"\theta", r"\lambda").replace("θ", "λ"))
+                  for is_content, label, body in blocks]
     by_label: dict[str, list[str]] = {}
     for _, label, content in blocks:
         by_label.setdefault(label, []).append(content)
@@ -4129,7 +4083,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
             if label not in labels:
                 continue
             if label == "excerpt-head":
-                body = re.sub(r"^## In \*.*?\*.*?\n\n", "", body)
+                body = re.sub(r"\A## In [^\n]*\n(?:[ \t]*\n)?", "", body, count=1)
             elif label in {"statement-head", "properties-head", "examples-head", "figures-head", "see-also", "used-in"}:
                 body = re.sub(r"^\s*## [^\n]+\n+", "", body)
             if label != "example-answer-open":
@@ -4140,14 +4094,16 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
 
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", [])))]
-    out.append((True, "lead", f"In probability theory and statistics, **{facts['name']} distribution** is {facts['description']}.\n\n"))
+    out.append((True, "lead", article_lead(article) + source_lead_citations(blocks, include_math=True) + "\n\n"))
     probability = facts["pmf"] or facts["pdf"]
-    if probability:
+    if facts.get("definition_from_source"):
+        definition = source_math_definition(article, blocks)
+    elif probability:
         definition = (f"The {'probability mass function' if facts['pmf'] else 'probability density'} "
                       f"is {probability}, {facts['symbols']}.")
     else:
         definition = facts["symbols"].capitalize() + "."
-    copied = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt", "explanation")
+    copied = content("statement-head", "statement", "excerpt-head", "excerpt", "explanation")
     if copied:
         definition += "\n\n" + copied
     relatives = list(dict.fromkeys(
@@ -4156,7 +4112,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
     sections = (
         ("Definition", "definition", definition),
-        ("Properties", "properties", content("property-head", "property", "figures-head", "figure")),
+        ("Properties", "properties", "\n\n".join(filter(None, [facts.get("mode_explanation", ""), content("property-head", "property", "figures-head", "figure")]))),
         ("Related distributions", "related-distributions", " · ".join(
             f"[{DISTRIBUTIONS[s]['name']} distribution]({href(path, ARTICLE_DIR / f'{s}.qmd')})"
             for s in relatives)),
@@ -4184,6 +4140,56 @@ def try_it_callout(article: dict) -> str:
     return f'::: {{.callout-tip title="Try it"}}\n[Open the {label} laboratory]({href(article["path"], target)}) to {action}.\n:::'
 
 
+def article_lead(article: dict) -> str:
+    """Use reviewed subject, agreement, field and gloss stored for this article."""
+    info = ARTICLE_LEADS[article["slug"]]
+    subject = f"{info['article']} " if info["article"] else ""
+    return f"In {info['field']}, {subject}**{info['term']}** {info['verb']} {info['description'].strip(' .')}."
+
+
+def source_lead_citations(blocks: list[tuple[bool, str, str]], include_math: bool = False) -> str:
+    """Carry source citations onto the replacement lead when its prose is removed."""
+    markers = []
+    for _, label, body in blocks:
+        if label == "lead" and (include_math or "$" not in body):
+            markers.extend(re.findall(r"\{\{cite:[^}]+\}\}", body))
+    return "".join(dict.fromkeys(markers))
+
+
+def source_math_definition(article: dict, blocks: list[tuple[bool, str, str]]) -> str:
+    """Keep source formulas in Definition while replacing the opening lead."""
+    pieces = []
+    for _, label, body in blocks:
+        if label != "lead" or "$" not in body:
+            continue
+        body = re.sub(r"\A\s*\*\*[^*]+?\.\*\*\s*", "", body)
+        body = re.sub(r"\*\*" + re.escape(article["term"]) + r"\*\*", article["term"], body, flags=re.I)
+        pieces.append(body.strip())
+    return "\n\n".join(pieces)
+
+
+def source_plain_definition(article: dict, blocks: list[tuple[bool, str, str]]) -> str:
+    """Keep explanatory source prose after replacing its framed opening sentence."""
+    pieces = []
+    for _, label, body in blocks:
+        if label != "lead" or "$" in body:
+            continue
+        body = re.sub(r"\A\s*\*\*[^*]+?\.\*\*\s*", "", body.strip())
+        body = re.sub(r"\*\*" + re.escape(article["term"]) + r"\*\*", article["term"], body, flags=re.I)
+        if len(re.findall(r"\b\w+\b", body)) >= 8:
+            pieces.append(body)
+    return "\n\n".join(pieces)
+
+
+def collapse_source_proofs(body: str) -> str:
+    """Give a copied textbook proof one collapsible label."""
+    def replacement(match: re.Match) -> str:
+        proof = re.sub(r"\A\s*\*Proof\.\*\s*", "", match.group(1)).strip()
+        return '::: {.callout-note collapse="true" title="Proof"}\n::: {.proof}\n' + proof + '\n:::\n:::'
+
+    return re.sub(r"(?ms)^::: \{\.proof\}\s*\n(.*?)^:::$", replacement, body)
+
+
 def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
     """Keep all result articles in one section order, omitting empty sections."""
     by_label: dict[str, list[str]] = {}
@@ -4196,7 +4202,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
             if label not in labels:
                 continue
             if label == "excerpt-head":
-                body = re.sub(r"^## In \*.*?\*.*?\n\n", "", body)
+                body = re.sub(r"\A## In [^\n]*\n(?:[ \t]*\n)?", "", body, count=1)
             elif label in {"statement-head", "properties-head", "examples-head", "figures-head", "see-also", "used-in"}:
                 body = re.sub(r"^\s*## [^\n]+\n+", "", body)
             if label != "example-answer-open":
@@ -4206,13 +4212,9 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         return "\n\n".join(pieces)
 
     box = article["box"]
-    field = box["part"]
-    lead_field = {"Probability": "probability theory", "Statistical inference": "statistical inference"}.get(field, field.lower())
-    term = box_term(article["term"])
-    description = THEOREM_LEADS.get(article["slug"], f"a {box['kind']} about {term.lower()}")
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
-           (True, "lead", f"In {lead_field}, **{term}** is {description}.\n\n")]
+           (True, "lead", article_lead(article) + "\n\n")]
 
     statement = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
     intuition = content("explanation", "figures-head", "figure")
@@ -4228,6 +4230,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         proof = source_proof.group(1).strip() + "\n\n{{cite:mccullagh_nelder1989}}"
     if proof:
         PROVED_RESULT_SLUGS.add(article["slug"])
+        proof = re.sub(r"\A\s*\*Proof\.\*\s*", "", proof)
         proof = "::: {.callout-note collapse=\"true\" title=\"Proof\"}\n::: {.proof}\n" + proof + "\n:::\n:::"
 
     intuition_parts, misconception_parts = [], []
@@ -4256,85 +4259,11 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
     )
     for title, ident, body in sections:
         if body.strip():
-            out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+            if ident == "proof":
+                out.append((True, ident, f"\n\n{body.strip()}\n\n"))
+            else:
+                out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
     return out
-
-
-def concept_lead(article: dict) -> str:
-    """Make a field-first, formula-free opening from curated or source prose."""
-    box = article["box"]
-    term = box_term(article["term"])
-    field = {"Probability": "probability theory", "Stochastic processes": "stochastic-process theory"}.get(box["part"], box["part"].lower())
-    description = CONCEPT_LEADS.get(article["slug"])
-    sources = [box.get("lead") or "", box.get("snippet") or ""]
-    if not description:
-        for source in sources:
-            raw = re.sub(r"!?(?:\[([^]]+)\]\([^)]*\))", r"\1", source)
-            raw = re.sub(r"\{\{cite:[^}]+\}\}|\{\.[^}]+\}", "", raw).strip()
-            if not raw or raw.startswith(("$$", "\\begin", "- ")):
-                continue
-            first = re.split(r"(?<=[.!?])\s+|\n", raw, maxsplit=1)[0].strip().rstrip(".!?")
-            if "$" in first:
-                prefix = first.split("$", 1)[0].strip(" ,;:")
-                if len(prefix.split()) >= 6 and not re.search(r"\b(?:when|where|of|for|with|and|or|is|are|in|at|by|the|a|an)$", prefix, flags=re.I):
-                    first = prefix
-                elif first.startswith("$"):
-                    tail = re.sub(r"^\$[^$]+\$\s*,?\s*", "", first)
-                    tail = tail.split("$", 1)[0].strip(" ,;:")
-                    first = tail if re.match(r"^(?:a|an|the)\s+", tail, flags=re.I) and len(tail.split()) >= 5 else ""
-                else:
-                    first = ""
-            first = re.sub(r"\s+", " ", first).strip(" ,;:")
-            if not first or len(first) > 190 or "\\" in first or first.endswith("…"):
-                continue
-            named = re.match(rf"^(?:The )?{re.escape(term)}\s+(?:is|are)\s+(.+)$", first, flags=re.I)
-            finite_verb = re.search(
-                r"\b(?:is|are|was|were|has|have|can|will|does|gives|shows|differs|follows|depends|uses|assumes|produces|moves|becomes|spends|replaces|stops|starts|takes|returns|visits|arrives|scores|fits|estimates|appears|means|implies)\b",
-                first, flags=re.I,
-            )
-            if named and len(named.group(1).split()) >= 4:
-                description = named.group(1)
-            elif re.match(r"^(?:A|An)\s+\w", first) and len(first.split()) >= 5 and not finite_verb and not re.search(r"\b(?:if|then)\b", first, flags=re.I):
-                description = first[0].lower() + first[1:]
-            elif re.match(r"^The\s+\w", first) and not finite_verb and len(first.split()) >= 5:
-                description = first[0].lower() + first[1:]
-            if description:
-                break
-    if not description:
-        lower = term.lower()
-        for ending, gloss in (
-            (" test", "a procedure for assessing a statistical claim using sample data"),
-            (" model", "a model that describes how observed variables are generated or related"),
-            (" estimator", "a rule for estimating an unknown quantity from sample data"),
-            (" estimate", "an estimate of an unknown quantity based on sample data"),
-            (" algorithm", "a computational procedure for fitting or using a model"),
-            (" method", "a procedure used to analyse data or fit a model"),
-            (" distribution", "a probability law for the possible values of a random quantity"),
-            (" probability", "a probability assigned to a specified event under a model"),
-            (" probabilities", "a set of probabilities assigned to specified events under a model"),
-            (" interval", "a range of values used to express uncertainty about a quantity"),
-            (" matrix", "an array of values used to encode a mathematical relationship"),
-            (" function", "a function used to describe a model or its data"),
-            (" regression", "a model relating a response to one or more predictors"),
-            (" process", "a stochastic model for values that evolve over time or space"),
-            (" chain", "a sequence of random states governed by transition probabilities"),
-            (" rate", "a measure of frequency or change in a probabilistic model"),
-            (" criterion", "a rule for judging or comparing statistical models"),
-            (" loss", "a numerical measure of error for a decision or prediction"),
-            (" error", "a measure of how far a result differs from its target"),
-            (" statistic", "a number computed from data to summarise evidence"),
-            (" decomposition", "an identity that separates a quantity into interpretable parts"),
-            (" correlation", "a description of linear dependence between observations"),
-            (" distance", "a measure of how far apart two observations are"),
-            (" sample", "a collection of observations selected from a population"),
-            (" data", "a dataset used to study statistical methods"),
-        ):
-            if lower.endswith(ending):
-                description = gloss
-                break
-    if not description:
-        description = f"an idea used to analyse {term.lower()}"
-    return f"In {field}, **{term}** is {description.rstrip('.')}."
 
 
 def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
@@ -4349,19 +4278,21 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
             if label not in labels:
                 continue
             if label == "excerpt-head":
-                body = re.sub(r"^## In \*.*?\*.*?\n\n", "", body)
+                body = re.sub(r"\A## In [^\n]*\n(?:[ \t]*\n)?", "", body, count=1)
             elif label in {"statement-head", "properties-head", "examples-head", "figures-head", "see-also", "used-in"}:
                 body = re.sub(r"^\s*## [^\n]+\n+", "", body)
             if label != "example-answer-open":
                 body = re.sub(r"^## (?!#)", "### ", body, flags=re.M)
+            body = collapse_source_proofs(body)
             if body.strip():
                 pieces.append(body.strip())
         return "\n\n".join(pieces)
 
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
-           (True, "lead", concept_lead(article) + "\n\n")]
-    definition = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
+           (True, "lead", article_lead(article) + source_lead_citations(blocks) + "\n\n")]
+    definition = "\n\n".join(filter(None, [source_math_definition(article, blocks), source_plain_definition(article, blocks),
+                                           content("statement-head", "statement", "excerpt-head", "excerpt")]))
     interpretation = content("explanation", "figures-head", "figure")
     uses = content("used-in")
     see_also = content("see-also")
@@ -4704,8 +4635,8 @@ def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = No
 # ---------------------------------------------------------------------------
 
 from article_extras import (  # noqa: E402
-    ARTICLE_HISTORIES, BOOK_EXAMPLES, CHAPTER_FIGURES, CONCEPT_LEADS, EXAMPLES, FIGURES,
-    NOTES, PROPERTIES, THEOREM_INFO, THEOREM_LEADS, THEOREM_PROOFS,
+    ARTICLE_HISTORIES, BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES,
+    NOTES, PROPERTIES, THEOREM_INFO, THEOREM_PROOFS,
 )
 
 KERNEL_ROWS: dict[str, str] = {}  # distribution slug -> "Main summaries" cell of the kernel table
@@ -4960,7 +4891,9 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
         blocks.append((True, "example", demote_headings(copy_for_article(q["prepared_answer"], q["path"], path)) + "\n"))
         blocks.append((False, "example-answer-close", "\n::::::::\n\n"))
 
-    extra = FIGURES.get(slug_, [])[1:]  # the first figure is in the infobox
+    # Distribution infoboxes show generated plots, so keep every source figure
+    # in the article body. Other infoboxes still show their first source figure.
+    extra = FIGURES.get(slug_, []) if slug_ in DISTRIBUTIONS else FIGURES.get(slug_, [])[1:]
     if extra:
         blocks.append((False, "figures-head", "\n\n## Figures {#figures}\n\n"))
         for file in extra:
@@ -4968,12 +4901,12 @@ def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:
     return blocks
 
 
-def infobox_md(title: str, rows: list[tuple[str, str]], image: str = "", note: str = "", show_blanks: bool = False) -> str:
+def infobox_md(title: str, rows: list[tuple[str, str]], image: str = "", note: str = "") -> str:
     lines = [":::: {.infobox}", "::: {.infobox-title}", title, ":::", ""]
     if image:
         lines += [image, ""]
-    lines += ["| | |", "|:--|:--|"]
-    lines += [f"| {label} | {value} |" for label, value in rows if value or show_blanks]
+    lines += ["| Fact | Value |", "|:--|:--|"]
+    lines += [f"| {label} | {value} |" for label, value in rows if value and value.strip()]
     if note:
         lines += ["", f"::: {{.infobox-note}}\n{note}\n:::"]
     lines += ["::::", "", ""]
@@ -4995,7 +4928,7 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         ]
         figures = FIGURES.get(slug_, [])
         image = figure_md(figures[0], path, short=True) if figures else ""
-        return infobox_md(article["term"], rows, image, show_blanks=True)
+        return infobox_md(article["term"], rows, image)
     if card:
         facts = DISTRIBUTIONS[slug_]
         rows.extend((label, facts[field]) for field, label in DISTRIBUTION_ROW_LABELS)
@@ -5053,16 +4986,24 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
     figures = FIGURES.get(slug_, [])
     if card:
         plot_dir = WIKI / "reference" / "plots"
-        image = "\n\n".join(
-            f"![{card['name']} distribution {kind.upper()}]({href(path, plot_dir / f'{slug_}-{kind}.png')})"
-            f'{{fig-alt="{card["name"]} distribution {"probability density or mass" if kind == "pdf" else "cumulative probability"} across its support; the horizontal axis shows values and the vertical axis shows probability"}}'
-            for kind in ("pdf", "cdf")
+        spec = DISTRIBUTIONS[slug_]["plot"]
+        views = spec.get("views", [])
+        shape = "simplex" if spec.get("scipy") in {"dirichlet3", "multinomial3"} else (
+            "two-dimensional contour" if spec.get("scipy") == "mvnorm2" else "one-dimensional"
         )
-        if DISTRIBUTIONS[slug_]["plot"].get("note"):
-            note = DISTRIBUTIONS[slug_]["plot"]["note"] + " " + note
+        plots = []
+        for kind in views:
+            chart = "PMF" if facts["kind"] == "discrete" and kind == "pdf" else kind.upper()
+            caption = f"{card['name']} {chart}" if shape != "one-dimensional" else chart
+            measure = "probability mass" if chart == "PMF" else "probability density" if chart == "PDF" else "cumulative probability"
+            plots.append(
+                f"![{caption} ({spec['parameters']})]({href(path, plot_dir / f'{slug_}-{kind}.png')})"
+                f'{{fig-alt="{shape} {measure} plot for the {card["name"]} distribution with parameters {spec["parameters"]}; the chart shows values across the support"}}'
+            )
+        image = "\n\n".join(plots)
     else:
         image = figure_md(figures[0], path, short=True) if figures else ""
-    return infobox_md(article["term"], rows, image, note, show_blanks=bool(card))
+    return infobox_md(article["term"], rows, image, note)
 
 
 def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict], own_articles: list[dict]) -> str:
@@ -5953,7 +5894,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
 
 - [Glossary and index](glossary.qmd), every defined term, theorem and section from A to Z.
 - [Common distributions](distributions.qmd), with the parameterisation used on these pages.
-- [Notation](notation.qmd), symbols and their first use in the distribution catalogue.
+- [Notation](notation.qmd), general statistical symbols and distribution parameters.
 - [Formula lookup](formulas.qmd), the kernel table and the problem-solving workflow.
 """,
     )
@@ -5970,6 +5911,11 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
     notation_page = WIKI / "reference" / "notation.qmd"
     notation_rows = ["| Symbol | Meaning | First used |", "|:--|:--|:--|"]
     notation_seen: set[tuple[str, str]] = set()
+    for entry in GENERAL_NOTATION:
+        article = ARTICLES[entry["article"]]
+        target = href(notation_page, article["path"])
+        notation_rows.append(f"| {entry['symbol']} | {entry['meaning']} | [{article['term']}]({target}) |")
+        notation_seen.add((entry["symbol"], entry["meaning"]))
     for slug_, facts in DISTRIBUTIONS.items():
         for entry in facts["notation_symbols"]:
             key = (entry["symbol"], entry["meaning"])
@@ -5978,7 +5924,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             notation_seen.add(key)
             target = href(notation_page, ARTICLE_DIR / f"{slug_}.qmd")
             notation_rows.append(f"| {entry['symbol']} | {entry['meaning']} | [{facts['name']} distribution]({target}) |")
-    write_qmd(notation_page, "Notation", "Symbols used by the distribution families.\n\n" + "\n".join(notation_rows))
+    write_qmd(notation_page, "Notation", "General statistical notation and symbols used by the distribution families.\n\n" + "\n".join(notation_rows))
 
     # Main page, in the manner of a portal.
     home = WIKI / "index.qmd"
@@ -6446,7 +6392,8 @@ def distributions_body() -> str:
             lines += ["::: {.dist-card}", f"### {item['name']}", "", "| | |", "|---|---|"]
             for field, label in DISTRIBUTION_ROW_LABELS:
                 if item[field]:
-                    lines.append(f"| {label} | {item[field]} |")
+                    value = rebase_links(item[field], ARTICLE_DIR / f"{slug_}.qmd", DIST_SHEET)
+                    lines.append(f"| {label} | {value} |")
             lines += [":::", ""]
     return "\n".join(lines)
 

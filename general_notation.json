@@ -1,0 +1,20 @@
+[
+  {"symbol": "$\\mathbb{P}(A)$", "meaning": "probability of event A", "article": "probability-measure"},
+  {"symbol": "$\\mathbb{E}(X)$", "meaning": "expected value of random variable X", "article": "expectation"},
+  {"symbol": "$\\operatorname{Var}(X)$", "meaning": "variance of X", "article": "variance"},
+  {"symbol": "$\\operatorname{Cov}(X,Y)$", "meaning": "covariance of X and Y", "article": "covariance"},
+  {"symbol": "$\\Phi(x)$", "meaning": "standard normal cumulative distribution function", "article": "normal-distribution"},
+  {"symbol": "$\\phi(x)$", "meaning": "standard normal probability density", "article": "normal-distribution"},
+  {"symbol": "$X\\sim F$", "meaning": "X has distribution F", "article": "random-variable"},
+  {"symbol": "iid", "meaning": "independent and identically distributed", "article": "independent-random-variables"},
+  {"symbol": "$X_n\\xrightarrow{d}X$", "meaning": "convergence in distribution", "article": "modes-of-convergence"},
+  {"symbol": "$X_n\\xrightarrow{p}X$", "meaning": "convergence in probability", "article": "modes-of-convergence"},
+  {"symbol": "$X_n\\xrightarrow{\\mathrm{a.s.}}X$", "meaning": "almost-sure convergence", "article": "modes-of-convergence"},
+  {"symbol": "$\\widehat\\theta$", "meaning": "estimator or estimate of parameter theta", "article": "estimator"},
+  {"symbol": "$L(\\theta)$", "meaning": "likelihood as a function of theta", "article": "likelihood-function"},
+  {"symbol": "$\\ell(\\theta)$", "meaning": "log-likelihood as a function of theta", "article": "maximum-likelihood"},
+  {"symbol": "$I(\\theta)$", "meaning": "Fisher information for theta", "article": "fisher-information"},
+  {"symbol": "$\\overline X$", "meaning": "sample mean", "article": "moments-of-the-sample-mean-and-variance"},
+  {"symbol": "$n$", "meaning": "sample size or number of trials, according to context", "article": "random-sample"},
+  {"symbol": "$\\mathbb{P}(A\\mid B)$", "meaning": "conditional probability of A given B", "article": "conditional-probability"}
+]
