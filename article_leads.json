@@ -347,7 +347,7 @@
   "linear-discriminant-analysis": {"field": "statistical learning", "article": "", "term": "linear discriminant analysis", "verb": "is", "description": "a classifier that uses a shared covariance matrix across classes"},
   "linear-images-of-a-normal-vector": {"field": "statistical learning", "article": "the", "term": "linear images of a normal vector", "verb": "is", "description": "a result showing that a linear transformation of a normal vector is again normal"},
   "linear-mixed-model": {"field": "correlated data", "article": "the", "term": "linear mixed model", "verb": "is", "description": "a linear model with both fixed and random effects"},
-  "linear-predictor": {"field": "generalised linear models", "article": "the", "term": "linear predictor", "verb": "is", "description": "the linear part of a generalised linear model"},
+  "linear-predictor": {"field": "generalised linear models", "article": "a", "term": "linear predictor", "verb": "is", "description": "a weighted sum of covariates that sets the response mean through a link function"},
   "linear-separability": {"field": "statistical learning", "article": "the", "term": "linear separability", "verb": "is", "description": "the property that a hyperplane can place two classes on opposite sides"},
   "linear-separators-and-the-margin": {"field": "statistical learning", "article": "", "term": "linear separators and margins", "verb": "are", "description": "hyperplane classifiers and the distances from observations to their decision boundaries"},
   "link-function": {"field": "generalised linear models", "article": "the", "term": "link function", "verb": "is", "description": "a function connecting a response mean with a regression linear predictor"},

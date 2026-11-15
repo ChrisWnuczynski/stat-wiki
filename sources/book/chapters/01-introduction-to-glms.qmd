@@ -277,17 +277,17 @@ The exercise at the end asks for the same derivatives when $a(y)$ and $b(\theta)
 Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three of the following are specified.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
 
 1. *Random component.* The $Y_i$ are independent, and each belongs to the same exponential family.{{cite:nelder_wedderburn1972}} The functions $a$, $b$, $c$, $d$ and $e$ are common; the parameter $\theta_i$ may depend on $i$.{{cite:mccullagh_nelder1989}}
-2. *Linear predictor.* Covariate vectors $\vect{X}_1,\ldots,\vect{X}_n$ and a coefficient vector $\boldsymbol{\beta}=(\beta_0,\ldots,\beta_d)^\top$ form the predictor below.{{cite:davison2003}}
+2. *Linear predictor.* Covariate vectors $\vect{x}_1,\ldots,\vect{x}_n$ and a coefficient vector $\boldsymbol{\beta}=(\beta_0,\ldots,\beta_d)^\top$ form the predictor below.{{cite:davison2003}}
    $$
-   \eta_i=\vect{X}_i^\top\boldsymbol{\beta}.
+   \eta_i=\vect{x}_i^\top\boldsymbol{\beta}.
    $$
 3. *Link.* A monotone function $g$ connects the mean $\mu_i=\mathrm{E}(Y_i)$ to that predictor,
    $$
-   g(\mu_i)=\vect{X}_i^\top\boldsymbol{\beta}.
+   g(\mu_i)=\vect{x}_i^\top\boldsymbol{\beta}.
    $$
 :::
 
-The three choices are separate, and all three are yours. You choose the distribution. You choose which covariates go into $\vect{X}_i$, and whether to transform them first: log dose is still just a column of $\mat{X}$. You choose the link. Nothing forces the link that is "canonical" for the distribution you chose.
+The three choices are separate, and all three are yours. You choose the distribution. You choose which covariates go into $\vect{x}_i$, and whether to transform them first: log dose is still just a column of $\mat{X}$. You choose the link. Nothing forces the link that is "canonical" for the distribution you chose.
 
 ::: {#def-canonical .definition}
 The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
@@ -302,7 +302,7 @@ For the families above, the canonical links are
 
 If you call `glm` in R and name the family but not the link, you get the canonical link. That is a software default, not a scientific one. The canonical link for the gamma is the inverse link. The link used most often here for a positive continuous response is still the log link, because a slope is then a multiplicative change in the mean, and that is a sentence one can say to a collaborator. Canonical links are the natural mathematical choice. They are not always the appropriate one. You override the default by stating the link yourself.
 
-The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}} Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:davison2003}} Writing those two out is not a new model. It is the definition, specialised.
+The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{x}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}} Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:davison2003}} Writing those two out is not a new model. It is the definition, specialised.
 
 ::: {.callout-note}
 ## Key idea
