@@ -4,7 +4,7 @@ Branch: `research/depth-pass-continuation`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **27**. Left: **691**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **28**. Left: **690**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -35,12 +35,13 @@ Pages ranked: **718**. Done: **27**. Left: **691**. Skipped: **0**. Ranks 1–23
 | 25 | [Conditional expectation](conditional-expectation.md) | Concept/topic | [Prose](content/conditional-expectation.md), [check](../checks/conditional-expectation.py) | 317 → 2,226 | 0 → 0 | History limited to the opened Durrett author PDF |
 | 26 | [Joint probability density](joint-probability-density.md) | Concept/definition | [Prose](content/joint-probability-density.md), [check](../checks/joint-probability-density.py) | 469 → 2,322 | 0 → 0 | New claims use the opened Durrett author PDF; phrase origin omitted |
 | 27 | [Conditional independence](conditional-independence.md) | Concept/definition | [Prose](content/conditional-independence.md), [check](../checks/conditional-independence.py) | 505 → 2,214 | 0 → 0 | Dawid 1979 scan and Evans 2025 graphical-model chapter opened; inherited Lauritzen citations replaced |
+| 28 | [Confidence interval](confidence-interval.md) | Concept/definition | [Prose](content/confidence-interval.md), [check](../checks/confidence-interval.py) | 976 → 2,292 | 1 → 1 | Corrected inherited household standard error from 24.93 to 24.92; Neyman 1937 full text opened |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed.
 
 ## Next page
 
-**Rank 28: `confidence-interval`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 29: `cross-validation`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 

@@ -188,7 +188,7 @@ $$
 \frac{\widehat\beta_1-\beta_1}{S_1}=\frac{\widehat\beta_1-\beta_1}{S/\sqrt{S_{xx}}}
 $$
 
-has the $t_{n-2}$ distribution.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}}{{cite:davison2003}}
+has the $t_{n-2}$ distribution.{{cite:fox2016_regression}} (Ch. 6, §6.1.3, pp. 111–112)
 
 :::
 
@@ -215,13 +215,13 @@ For one person, heart rate and oxygen intake are measured together 19 times.
 
 **Question.** Fit the regression of oxygen intake on heart rate, give a 95% interval for the slope, and test whether the slope is zero.
 
-**Solution.** Here $\overline x=107.0$ and $S_{xx}=2518$. The fitted line is $y=-2.804+0.03865\,x$. The residual standard deviation is $S=0.1205$, so $S_1=0.1205/\sqrt{2518}=0.00240$ and $S_0=0.258$. With $t_{17;0.975}=2.110$, the 95% interval for the slope is
+**Solution.** Here $\overline x=107.0$ and $S_{xx}=2518$. The fitted line is $y=-2.804+0.03865\,x$. The residual standard deviation is $S=0.1205$, so $S_1=0.1205/\sqrt{2518}=0.00240$ and $S_0=0.258$. With $t_{17;0.975}=2.110$, the 95% interval for the slope is{{cite:fox2016_regression}} (Ch. 6, §6.1.3, pp. 111–112)
 
 $$
 0.03865\pm2.110\times0.00240=(0.0336,\ 0.0437).
 $$
 
-It excludes zero. Equivalently, $t=0.03865/0.00240=16.1$, far beyond $2.110$, so $H_0:\beta_1=0$ is rejected. Each extra beat per minute goes with about $0.039$ more units of oxygen.
+It excludes zero. Equivalently, $t=0.03865/0.00240=16.1$, far beyond $2.110$, so $H_0:\beta_1=0$ is rejected. Each extra beat per minute goes with about $0.039$ more units of oxygen.{{cite:fox2016_regression}} (Ch. 6, §6.1.3, pp. 111–112)
 
 :::
 

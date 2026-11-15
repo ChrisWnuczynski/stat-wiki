@@ -1818,7 +1818,7 @@ For a non-homogeneous process the gaps are neither independent nor exponential. 
     "interval-for-a-ratio-of-variances": r"""
 ## From an $F$ pivot to an interval
 
-A pooled $t$ interval for a difference of means is valid when the two variances are equal. An interval for their ratio checks that claim without forcing it. Let the samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$, and let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, each using divisor $n_j-1$. The [variance-ratio pivot](variance-ratio-f-pivot.qmd)
+A pooled $t$ interval for a difference of means assumes equal variances. An interval for their ratio displays the values compatible with the data.{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”) Let the samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$, and let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, each using divisor $n_j-1$. The [variance-ratio pivot](variance-ratio-f-pivot.qmd)
 
 $$
 W=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}
@@ -1830,7 +1830,7 @@ $$
 \left(\frac{r}{F_{n_1-1,n_2-1;\,1-\alpha/2}},\ r\,F_{n_2-1,n_1-1;\,1-\alpha/2}\right).
 $$
 
-The coverage is computed before the data are seen. The numerical interval is not assigned that probability after the samples have been drawn.
+The coverage probability describes repetitions of the interval procedure before the data are seen.{{cite:neyman1937}} (pp. 347–350, 378–379)
 
 ## A factor of four, and a very wide interval
 
@@ -3979,7 +3979,7 @@ The posterior mode is a different functional of the same beta distribution. When
     "two-sample-t-pivot": r"""
 ## A normal difference over a pooled scale
 
-Two independent normal samples need a common variance before their mean difference has a $t$ pivot. Let $X_{11},\ldots,X_{1n_1}$ be $\operatorname{N}(\mu_1,\sigma^2)$ and $X_{21},\ldots,X_{2n_2}$ be $\operatorname{N}(\mu_2,\sigma^2)$, all $n_1+n_2$ variables independent, with the same $\sigma^2>0$. Write $\overline X_1$ and $\overline X_2$ for the sample means, and let
+Two independent normal samples need a common variance before their mean difference has a $t$ pivot. Let $X_{11},\ldots,X_{1n_1}$ be $\operatorname{N}(\mu_1,\sigma^2)$ and $X_{21},\ldots,X_{2n_2}$ be $\operatorname{N}(\mu_2,\sigma^2)$, all $n_1+n_2$ variables independent, with the same $\sigma^2>0$. Write $\overline X_1$ and $\overline X_2$ for the sample means, and let{{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)
 
 $$
 s_j^2=\frac1{n_j-1}\sum_{i=1}^{n_j}(X_{ji}-\overline X_j)^2
@@ -4001,7 +4001,7 @@ therefore has the [Student $t$ distribution](student-t-distribution.qmd) on $n_1
 
 ## Ten and ten, with equal sample variances
 
-Take $n_1=n_2=10$, $\overline X_1=20$, $\overline X_2=17$ and $s_1^2=s_2^2=4$. Then $s_p^2=4$ and the denominator is $2\sqrt{1/5}\approx 0.894$. The pivot at a difference of $0$ equals $3/0.894\approx 3.35$, on $18$ degrees of freedom. The $0.975$ quantile of $t_{18}$ is $2.101$, so a $95\%$ interval for $\mu_1-\mu_2$ is $3\pm 1.88$, that is $(1.12, 4.88)$. If the two variances differ, $s_p$ estimates a compromise that is not the right standard error. That is the [Behrens–Fisher problem](behrens-fisher-problem.qmd). The level of this $t$ procedure is much less sensitive to heavy tails than the level of an $F$ test for $\sigma_1^2=\sigma_2^2$.
+Take $n_1=n_2=10$, $\overline X_1=20$, $\overline X_2=17$ and $s_1^2=s_2^2=4$. Then $s_p^2=4$ and the denominator is $2\sqrt{1/5}\approx 0.894$. The pivot at a difference of $0$ equals $3/0.894\approx 3.35$, on $18$ degrees of freedom. The $0.975$ quantile of $t_{18}$ is $2.101$, so a $95\%$ interval for $\mu_1-\mu_2$ is $3\pm 1.88$, that is $(1.12, 4.88)$. If the two variances differ, $s_p$ estimates a compromise that is not the right standard error. That is the [Behrens–Fisher problem](behrens-fisher-problem.qmd). The level of this $t$ procedure is much less sensitive to heavy tails than the level of an $F$ test for $\sigma_1^2=\sigma_2^2$.{{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)
 """,
     "underfitting": r"""
 ## A family that cannot follow the signal
@@ -4097,7 +4097,7 @@ If petal length is duplicated, either copy can supply the splits. Permuting one 
     "variance-ratio-f-pivot": r"""
 ## Scale each sample variance by its own $\sigma^2$
 
-A ratio of sample variances still contains the unknown true variances. Cancel them and an $F$ law appears. Let two samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$. Let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, using divisors $n_1-1$ and $n_2-1$. By the normal sample theorem, $U=(n_1-1)s_1^2/\sigma_1^2$ is [chi-squared](chi-squared-distribution.qmd) on $n_1-1$ degrees of freedom, $V=(n_2-1)s_2^2/\sigma_2^2$ is chi-squared on $n_2-1$ degrees of freedom, and $U$ is independent of $V$. The [$F$ family](f-distribution.qmd) is defined by dividing each chi-squared variable by its degrees of freedom and taking the ratio:
+A ratio of sample variances still contains the unknown true variances. Cancel them and an $F$ law appears. Let two samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$. Let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, using divisors $n_1-1$ and $n_2-1$. By the normal sample theorem, $U=(n_1-1)s_1^2/\sigma_1^2$ is [chi-squared](chi-squared-distribution.qmd) on $n_1-1$ degrees of freedom, $V=(n_2-1)s_2^2/\sigma_2^2$ is chi-squared on $n_2-1$ degrees of freedom, and $U$ is independent of $V$. The [$F$ family](f-distribution.qmd) is defined by dividing each chi-squared variable by its degrees of freedom and taking the ratio:{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”)
 
 $$
 \frac{U/(n_1-1)}{V/(n_2-1)}=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\sim F_{n_1-1,n_2-1}.
@@ -4107,7 +4107,7 @@ The means of the two samples do not appear. Under $\sigma_1^2=\sigma_2^2$ the pi
 
 ## A raw ratio of four, and a pivot of one
 
-Suppose $n_1=n_2=9$, $s_1^2=8$, $s_2^2=2$, $\sigma_1^2=4$ and $\sigma_2^2=1$. The raw ratio $s_1^2/s_2^2$ equals $4$. The pivot equals $(8/4)/(2/1)=1$, which is the median of $F_{8,8}$, not a surprise. The factor of four in the sample variances is the factor already present in the true variances. Heavy tails make $s_j^2$ more variable than the chi-squared laws allow, so the pivot is no longer $F$ and an interval built from $F$ quantiles has the wrong coverage.
+Suppose $n_1=n_2=9$, $s_1^2=8$, $s_2^2=2$, $\sigma_1^2=4$ and $\sigma_2^2=1$. The raw ratio $s_1^2/s_2^2$ equals $4$. The pivot equals $(8/4)/(2/1)=1$, which is the median of $F_{8,8}$, not a surprise. The factor of four in the sample variances is the factor already present in the true variances. Heavy tails make $s_j^2$ more variable than the chi-squared laws allow, so the pivot is no longer $F$ and an interval built from $F$ quantiles has the wrong coverage.{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”)
 """,
     "variogram": r"""
 ## How far the series moves, rather than where it sits
@@ -4341,7 +4341,6 @@ CONCEPT_LEADS = {
 }
 
 ARTICLE_HISTORIES.update({
-    "confidence-interval": "Neyman formalised confidence intervals and their coverage interpretation in 1937.{{cite:neyman1937}}",
     "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:markov1906}}",
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
     "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
