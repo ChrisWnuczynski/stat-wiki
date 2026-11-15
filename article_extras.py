@@ -2215,17 +2215,17 @@ which has determinant $28>0$. If instead $m=3>p=2$, say by appending the row $(2
     "linear-predictor": r"""
 ## Where the covariates actually enter
 
-The random component says how the response scatters. The link says which means are legal. The linear predictor is the piece the explanatory variables build. With the covariates of unit $i$ stacked in a vector $\mathbf{x}_i$, including a $1$ for an intercept,
+The random component says how the response scatters. The link says which means are legal. The linear predictor is the piece the explanatory variables build. With the covariates of unit $i$ stacked in a vector $\mathbf{x}_i$, including a $1$ for an intercept,{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373)
 
 $$
 \eta_i=\mathbf{x}_i^\top\boldsymbol{\beta}.
 $$
 
-Each entry of $\boldsymbol{\beta}$ multiplies a column you chose: a continuous measurement, an indicator for one level of a factor, or a product of two columns. The link then sets $g(\mu_i)=\eta_i$. Changing a covariate changes $\eta_i$ linearly even when the mean $\mu_i$ changes on a curve. That separation is the reason the same columns can sit under a log link, a logit link or an identity link. The meaning of a coefficient changes with the link. The construction of $\eta_i$ does not.
+Each entry of $\boldsymbol{\beta}$ multiplies a column you chose: a continuous measurement, an indicator for one level of a factor, or a product of two columns. The link then sets $g(\mu_i)=\eta_i$. Changing a covariate changes $\eta_i$ linearly even when the mean $\mu_i$ changes on a curve. That separation is the reason the same columns can sit under a log link, a logit link or an identity link. The meaning of a coefficient changes with the link. The construction of $\eta_i$ does not.{{cite:nelder_wedderburn1972}} (§§1.2–1.3, pp. 372–373)
 
 ## A product column changes a slope
 
-Take $\eta=1+0.2x-0.4z+0.1xz$. At $(x,z)=(2,1)$ the predictor equals $1.2$. The slope in $x$, holding $z$ fixed, is $0.2+0.1z$: it equals $0.2$ when $z=0$ and $0.3$ when $z=1$. Without the product column that slope cannot depend on $z$. The product is an [interaction](interaction.qmd), and it is still inside a linear predictor, because $\eta$ is linear in the parameters once the column $xz$ has been built. Factor coding is the same idea. An indicator that equals $1$ for treatment B and $0$ for treatment A makes its coefficient the contrast of B with A. Which level is coded $0$ is a constraint that keeps the columns from being collinear. It is not a number the responses estimate.
+Take $\eta=1+0.2x-0.4z+0.1xz$. At $(x,z)=(2,1)$ the predictor equals $1.2$. The slope in $x$, holding $z$ fixed, is $0.2+0.1z$: it equals $0.2$ when $z=0$ and $0.3$ when $z=1$. Without the product column that slope cannot depend on $z$. The product is an [interaction](interaction.qmd), and it is still inside a linear predictor, because $\eta$ is linear in the parameters once the column $xz$ has been built. Factor coding is the same idea. An indicator that equals $1$ for treatment B and $0$ for treatment A makes its coefficient the contrast of B with A. Which level is coded $0$ is a constraint that keeps the columns from being collinear. It is not a number the responses estimate.{{cite:nelder_wedderburn1972}} (§1.2, p. 372)
 """,
     "link-function": r"""
 ## From an unrestricted predictor to a legal mean

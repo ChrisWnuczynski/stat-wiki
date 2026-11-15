@@ -274,14 +274,14 @@ The exercise at the end asks for the same derivatives when $a(y)$ and $b(\theta)
 ## The three components of a GLM
 
 ::: {#def-glm .definition}
-Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three of the following are specified.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three of the following are specified.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373)
 
-1. *Random component.* The $Y_i$ are independent, and each belongs to the same exponential family.{{cite:nelder_wedderburn1972}} The functions $a$, $b$, $c$, $d$ and $e$ are common; the parameter $\theta_i$ may depend on $i$.{{cite:mccullagh_nelder1989}}
-2. *Linear predictor.* Covariate vectors $\vect{x}_1,\ldots,\vect{x}_n$ and a coefficient vector $\boldsymbol{\beta}=(\beta_0,\ldots,\beta_d)^\top$ form the predictor below.{{cite:davison2003}}
+1. *Random component.* The $Y_i$ are independent, and each belongs to the same exponential family. The functions $a$, $b$, $c$, $d$ and $e$ are common; the parameter $\theta_i$ may depend on $i$.{{cite:nelder_wedderburn1972}} (§1.1, p. 371)
+2. *Linear predictor.* Covariate vectors $\vect{x}_1,\ldots,\vect{x}_n$ and a coefficient vector $\boldsymbol{\beta}=(\beta_0,\ldots,\beta_d)^\top$ form the predictor below.{{cite:nelder_wedderburn1972}} (§1.2, p. 372)
    $$
    \eta_i=\vect{x}_i^\top\boldsymbol{\beta}.
    $$
-3. *Link.* A monotone function $g$ connects the mean $\mu_i=\mathrm{E}(Y_i)$ to that predictor,
+3. *Link.* A monotone function $g$ connects the mean $\mu_i=\mathrm{E}(Y_i)$ to that predictor,{{cite:nelder_wedderburn1972}} (§1.3, pp. 372–373)
    $$
    g(\mu_i)=\vect{x}_i^\top\boldsymbol{\beta}.
    $$

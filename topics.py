@@ -772,7 +772,7 @@ TOPICS += [
           also=["01-introduction-to-glms.qmd#s-three-links", "03-gamma-and-quasi.qmd: Three links are in ordinary use"],
           links=["link functions?"]),
     topic("Linear predictor", "01-introduction-to-glms.qmd#s-the-three-components-of-a-glm",
-          r"The linear part of a generalised linear model, $\eta_i=\mathbf{x}_i^\top\boldsymbol{\beta}$, which the link function connects to the mean. It is where covariates, factors and interactions enter, exactly as in a linear model.",
+          r"The linear part of a generalised linear model, $\eta_i=\mathbf{x}_i^\top\boldsymbol{\beta}$, which the link function connects to the mean. It is where covariates, factors and interactions enter, exactly as in a linear model.{{cite:nelder_wedderburn1972}} (§§1.2–1.3, pp. 372–373)",
           links=["linear predictors?"]),
     topic("Random component", "01-introduction-to-glms.qmd#s-the-three-components-of-a-glm",
           r"The distribution assumed for the response given the covariates in a GLM, a member of an exponential family such as the normal, Poisson, binomial or gamma. It fixes the mean–variance relationship, $\operatorname{Var}(Y)=\phi V(\mu)$.",
