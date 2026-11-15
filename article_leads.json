@@ -185,7 +185,7 @@
   "exchangeability": {"field": "Bayesian statistics", "article": "the", "term": "exchangeability", "verb": "is", "description": "the property that a joint distribution is unchanged when observation labels are permuted"},
   "exchangeable-correlation": {"field": "R", "article": "the", "term": "exchangeable correlation", "verb": "is", "description": "a correlation pattern that gives every pair of observations in a group the same correlation"},
   "expectation-of-a-function": {"field": "probability theory", "article": "the", "term": "expectation of a function", "verb": "is", "description": "a rule for averaging a transformed random variable using the original distribution"},
-  "expectation": {"field": "probability theory", "article": "", "term": "expectation", "verb": "is", "description": "the probability-weighted average value of a random variable"},
+  "expectation": {"field": "probability theory", "article": "", "term": "expectation", "verb": "is", "description": "the probability-weighted average of a random variable, used to judge long-run outcomes and uncertain choices"},
   "expected-duration-of-a-random-walk": {"field": "stochastic processes", "article": "the", "term": "expected duration of a random walk", "verb": "is", "description": "the average number of steps before a random walk reaches a stopping boundary"},
   "explanatory-variable": {"field": "statistical inference", "article": "the", "term": "explanatory variable", "verb": "is", "description": "a measured variable used to explain or predict a response"},
   "exploratory-data-analysis": {"field": "R", "article": "", "term": "exploratory data analysis", "verb": "is", "description": "the initial inspection of a dataset’s values, patterns, and potential problems"},
