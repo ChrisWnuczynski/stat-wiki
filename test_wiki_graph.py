@@ -1325,7 +1325,7 @@ class ConceptTemplateTests(unittest.TestCase):
                 continue
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
             if (build_wiki.WIKI / "research" / "content" / f"{page.stem}.md").is_file():
-                order = ["Motivating example", "Intuition", "Definition", "Properties", "Statistical use",
+                order = ["Motivating example", "Intuition", "Definition", "Interpretation", "Properties", "Statistical use",
                          "Worked example", "Examples", "Common misconceptions", "Assumptions and limits",
                          "Connections", "Check yourself", "History", "See also", "References"]
             else:

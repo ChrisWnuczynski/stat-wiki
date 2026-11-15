@@ -4376,8 +4376,9 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                   + " " + researched.get("Lead context", "") + "\n\n")
         ordered = (
             ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
-            ("Intuition", "intuition", "\n\n".join(filter(None, [researched.get("Intuition", ""), interpretation]))),
+            ("Intuition", "intuition", researched.get("Intuition", "")),
             ("Definition", "definition", "\n\n".join(filter(None, [definition, researched.get("Definition", "")]))),
+            ("Interpretation", "interpretation", interpretation),
             ("Properties", "properties", "\n\n".join(filter(None, [content("property-head", "property"), researched.get("Properties", "")]))),
             ("Statistical use", "statistical-use", researched.get("Statistical use", "")),
             ("Worked example", "worked-example", researched.get("Worked example", "")),
@@ -5078,11 +5079,15 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         )
     n_props = len(PROPERTIES.get(slug_, []))
     n_examples = len(EXAMPLES.get(slug_, [])) + sum(1 for s in BOOK_EXAMPLES.values() if slug_ in s) + len(TOPIC_EXAMPLES.get(slug_, []))
+    research_file = WIKI / "research" / "content" / f"{slug_}.md"
+    has_research_example = research_file.is_file() and "## Worked example\n" in research_file.read_text(encoding="utf-8")
+    n_examples += int(has_research_example)
     n_questions = len({source["path"] for source, _, _ in links if source["kind"] == "question"})
     if n_props:
         rows.append(("Property" if n_props == 1 else "Properties", f"[{n_props}](#properties)"))
     if n_examples:
-        rows.append(("Worked example" if n_examples == 1 else "Worked examples", f"[{n_examples}](#examples)"))
+        rows.append(("Worked example" if n_examples == 1 else "Worked examples",
+                     f"[{n_examples}](#{'worked-example' if has_research_example else 'examples'})"))
     if n_questions:
         rows.append(("Question using it" if n_questions == 1 else "Questions using it", f"[{n_questions}](#used-in)"))
     figures = FIGURES.get(slug_, [])
