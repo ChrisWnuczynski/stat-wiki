@@ -20,3 +20,8 @@ Type: Concept/definition.
 - One collapsed proof covers all three moments identities without normality and all three parts of the normal sample theorem by orthogonal rotation. The $t$ statement in statistical use follows from the same two independent components.
 - Every new numeric sample summary and challenge was recomputed exactly in `checks/statistic.py`.
 - The lead now uses “a statistic” and states its inferential purpose in words; the unknown-parameter distinction remains in the Definition.
+
+## Correction pass
+
+- Replaced unopened Casella–Berger, Wasserman, Lehmann–Casella, and Fisher 1925 citations in the extracted statistic and normal-sample statements with the Fisher 1922, NIST glossary, and Siegrist passages actually read. Every new citation has a source location.
+- Added citations to the lead context, motivation, worked example, and hidden answer. Rephrased page-assembly language and kept History to the Fisher 1922 development. The arithmetic check now asserts the values and classification shown on the page.

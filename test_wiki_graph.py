@@ -1450,7 +1450,14 @@ class DistributionDepthBatchTests(unittest.TestCase):
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertGreaterEqual(ContentRetentionTests.prose_words(body), old["words"], slug)
             self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
-            self.assertTrue(set(old["citation_keys"]) <= set(re.findall(r'data-cite-key="([^"]+)"', body)), slug)
+            citation_keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
+            expected_keys = set(old["citation_keys"])
+            if slug in {"normal-distribution", "chi-squared-distribution"}:
+                # The normal-sample theorem now cites the opened Siegrist §6.08
+                # in place of two unverified historical attributions.
+                expected_keys -= {"student1908", "fisher1925_smrw"}
+                self.assertIn("siegrist2022_normals", citation_keys, slug)
+            self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
             box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]

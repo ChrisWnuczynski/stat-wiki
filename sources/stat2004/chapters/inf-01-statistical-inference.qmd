@@ -53,7 +53,7 @@ Data are the observed numbers $x_1,\ldots,x_n$. The corresponding capital letter
 ::: {#def-statistic .definition}
 ## Statistic
 
-A statistic is a function of the sample that does not depend on the unknown parameter.{{cite:fisher1922}}{{cite:casella_berger2002}} Its sampling distribution is the distribution of that function when the sample is still random.{{cite:wasserman2004}}
+A statistic is a function of the sample that does not depend on the unknown parameter.{{cite:fisher1922}} (pp. 309–316) Its sampling distribution is the distribution of that function when the sample is still random.{{cite:nist_glossary2002}} (Glossary, “sampling distribution”)
 
 :::
 
@@ -76,7 +76,7 @@ $$
 \E\overline X=\mu,\qquad \Var(\overline X)=\frac{\sigma^2}{n},\qquad \E s^2=\sigma^2.
 $$
 
-No normality is needed.{{cite:casella_berger2002}}{{cite:wasserman2004}}{{cite:lehmann_casella1998}}
+No normality is needed.{{cite:siegrist2022_normals}} (§6.08)
 
 :::
 
@@ -134,9 +134,9 @@ which is how a lower $F$ quantile is found from a table of upper ones.
 
 If $X_1,\ldots,X_n$ are a random sample from $\Normal(\mu,\sigma^2)$, then
 
-1. $\overline X$ is $\Normal(\mu,\sigma^2/n)$,{{cite:casella_berger2002}}
-2. $(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, and{{cite:student1908}}
-3. $\overline X$ and $s^2$ are independent.{{cite:fisher1925_smrw}}
+1. $\overline X$ is $\Normal(\mu,\sigma^2/n)$,{{cite:siegrist2022_normals}} (§6.08)
+2. $(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, and{{cite:siegrist2022_normals}} (§6.08)
+3. $\overline X$ and $s^2$ are independent.{{cite:siegrist2022_normals}} (§6.08)
 
 :::
 
