@@ -1244,7 +1244,7 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
  (('nonparametric-bootstrap',), ('efron1979', 'efron1981', 'davison_hinkley1997')),
  (('pearson-dispersion-ratio',), ('wedderburn1974', 'mccullagh_nelder1989')),
  (('exchangeable-correlation',), ('potthoff_roy1964', 'liang_zeger1986')),
- (('bayes-rule',), ('bayes1763', 'laplace1812', 'jeffreys1961', 'gelman_bda2013')),
+ (('bayes-rule',), ('bayes1763', 'wang2025_foundations', 'hoff2013_bayes_estimators', 'kass_raftery1995')),
  (('bayesian-credible-interval',),
   ('laplace1812', 'jeffreys1961', 'box_tiao1973', 'gelman_bda2013')),
  (('credible-region-constructions',),

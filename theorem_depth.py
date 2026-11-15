@@ -6,10 +6,7 @@ source of record. These additions give each result its own explanation and use.
 
 RESULT_DEPTH = {
     "bayes-rule": {
-        "context": r"Its denominator accounts for every way the observed evidence could have arisen.{{cite:gelman_bda2013}}",
-        "intuition": r"The numerator measures how often the hypothesis and observation occur together. The denominator counts every way the observation could occur, so their ratio is a probability conditional on what was observed.{{cite:gelman_bda2013}}",
-        "use": r"In diagnostic testing, the prior disease frequency and the test's error rates determine the probability of disease after a result. In model comparison, the same identity updates model probabilities through their marginal likelihoods.{{cite:gelman_bda2013}}",
-        "history_add": "Later Bayesian analyses expressed the same inverse-probability calculation through prior and likelihood distributions, including continuous parameters. Modern treatments distinguish a posterior probability from the likelihood of the observed data under a fixed hypothesis.{{cite:gelman_bda2013}}",
+        "context": "It matters in diagnosis because a frequent test result can still leave a rare condition unlikely.{{cite:wang2025_foundations}} (Ch. 1, §2.12.1)",
     },
     "beta-binomial-conjugacy": {
         "context": r"The posterior distribution supports uncertainty intervals as well as a single estimate of the success rate.{{cite:gelman_bda2013}}",
@@ -169,7 +166,6 @@ RESULT_DEPTH = {
 # Each sketch proves the displayed result under its stated assumptions. Existing
 # reviewed sketches in article_extras.py remain in use unless replaced here.
 PROOFS = {
-    "bayes-rule": r"""For events, the product rule writes the same joint probability as $P(A\cap B)=P(B\mid A)P(A)=P(A\mid B)P(B)$; division by $P(B)>0$ gives the stated identity. For densities, the two factorizations $p(\theta,x)=p(x\mid\theta)p(\theta)=p(\theta\mid x)p(x)$ give the analogous formula wherever $p(x)>0$. When hypotheses form a partition, summing their joint probabilities expands $P(B)$ into the law-of-total-probability denominator.{{cite:gelman_bda2013}}""",
     "beta-binomial-posterior-prediction": r"""Conditionally on $\theta$, the future mass is $\binom mk\theta^k(1-\theta)^{m-k}$. Multiply it by the $\operatorname{Beta}(a,b)$ posterior density and integrate over $0<\theta<1$: the integral of $\theta^{k+a-1}(1-\theta)^{m-k+b-1}$ is $B(k+a,m-k+b)$. Division by the posterior normaliser $B(a,b)$ yields the stated mass. For $m=1$ and $k=1$, the beta-function ratio is $B(a+1,b)/B(a,b)=a/(a+b)$, proving the Bernoulli prediction too.{{cite:gelman_bda2013}}""",
     "dirichlet-moments": r"""The Dirichlet normaliser is $B(\boldsymbol\alpha)=\prod_i\Gamma(\alpha_i)/\Gamma(\alpha_0)$. Multiplying its density by $P_k$, $P_k^2$, or $P_jP_k$ shifts the corresponding exponents by one or two. Ratios of the shifted and original normalisers give $\alpha_k/\alpha_0$, $\alpha_k(\alpha_k+1)/[\alpha_0(\alpha_0+1)]$, and $\alpha_j\alpha_k/[\alpha_0(\alpha_0+1)]$, respectively. Subtracting products of means also shows that distinct components have negative covariance.{{cite:gelman_bda2013}}""",
     "interior-dirichlet-mode": r"""For $p_k>0$ with $\sum_kp_k=1$, the log density differs from $\sum_k(\alpha_k-1)\log p_k$ by a constant. A Lagrange multiplier for the sum constraint gives $(\alpha_k-1)/p_k=c$ at an interior stationary point. Summing $p_k=(\alpha_k-1)/c$ over $k$ gives $c=\alpha_0-K$, hence the displayed coordinates of the joint mode. When every $\alpha_k>1$, the log density is strictly concave on the simplex interior, so this stationary point is its unique maximum. The boundary alternative is real: $\operatorname{Dirichlet}(1,2)$ peaks at its first coordinate zero, while a shape below one makes its density diverge as that coordinate tends to zero.{{cite:gelman_bda2013}}""",
@@ -197,8 +193,8 @@ PROOFS = {
 # generated cross-links make the same claim in both directions.
 RELATIONSHIPS = [
     {"a": "bayes-rule", "b": "posterior-odds-factorisation",
-     "a_text": r"{target} applies Bayes' rule to two models and divides the resulting posterior probabilities, cancelling their common evidence.{{cite:kass_raftery1995}}",
-     "b_text": r"{target} gives each model's posterior probability before the ratio is taken; the ratio separates prior odds from the Bayes factor.{{cite:kass_raftery1995}}"},
+     "a_text": r"{target} applies Bayes' rule to two models and divides the resulting posterior probabilities, cancelling their common evidence.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)",
+     "b_text": r"{target} gives each model's posterior probability before the ratio is taken; the ratio separates prior odds from the Bayes factor.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)"},
     {"a": "posterior-odds-factorisation", "b": "bayes-action-for-two-hypotheses",
      "a_text": r"{target} compares posterior odds with a loss ratio to choose an action. The Bayes factor alone does not determine that decision.{{cite:wald1950}}",
      "b_text": r"{target} supplies the posterior odds used in the two-action loss threshold; prior odds and data evidence both affect the decision.{{cite:kass_raftery1995}}"},

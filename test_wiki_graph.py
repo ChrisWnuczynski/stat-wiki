@@ -1203,7 +1203,7 @@ class TheoremTemplateTests(unittest.TestCase):
             results.append(page.stem)
             self.assertIn("## Statement {#statement}", body, page.name)
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-            order = ["Statement", "Intuition", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
+            order = ["Statement", "Motivating example", "Intuition", "Key results", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
                      "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
             proof_box = '::: {.callout-note collapse="true" title="Proof"}'
@@ -1535,8 +1535,13 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
         self.assertEqual({slug for pair in pairs for slug in pair}, set(data))
         history_todo = {row["slug"] for row in json.loads(
             (build_wiki.WIKI / "theorem-history-todo.json").read_text(encoding="utf-8"))}
+        def has_research_history(slug: str) -> bool:
+            path = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
+            return path.is_file() and "## History\n" in path.read_text(encoding="utf-8")
+
         self.assertEqual(history_todo, {slug for slug, x in data.items()
-                                        if "history" not in x and "history_add" not in x})
+                                        if "history" not in x and "history_add" not in x
+                                        and not has_research_history(slug)})
         for slug, x in data.items():
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertTrue(x["context"].strip(), slug)
@@ -1581,6 +1586,11 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 expected_keys.discard("gelfand_smith1990")
                 self.assertIn("gelman_bda2013", citation_keys, slug)
                 self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+            if slug == "bayes-rule":
+                # Replace the bibliography-only Laplace and Jeffreys entries and
+                # the unlocated Gelman passage with passages read for this article.
+                expected_keys.difference_update({"laplace1812", "jeffreys1961", "gelman_bda2013"})
+                self.assertTrue({"wang2025_foundations", "hoff2013_bayes_estimators"} <= citation_keys)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

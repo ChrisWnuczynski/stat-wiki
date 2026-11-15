@@ -64,13 +64,13 @@ $$
 ::: {#thm-bayes-rule .theorem}
 ## Bayes' rule
 
-For events $A$ and $B$ with $\Pr(B)>0$, 
+For events $A$ and $B$ with $\Pr(A)>0$ and $\Pr(B)>0$,
 
 $$
   \Pr(A\given B)=\frac{\Pr(B\given A)\Pr(A)}{\Pr(B)}.
 $$
 
-{{cite:bayes1763}} The density version follows from two factorizations of a joint density: {{cite:laplace1812}} 
+{{cite:wang2025_foundations}} (Ch. 1, Thm. 45) The density version follows from two factorizations of a joint density:{{cite:hoff2013_bayes_estimators}} (§2.2, pp. 3–4)
 
 $$
   p(x,\theta)=p(x\given\theta)p(\theta)
@@ -84,7 +84,7 @@ $$
   \label{eq:bayes-density}
 \end{equation}
 
-{{cite:gelman_bda2013}}
+{{cite:hoff2013_bayes_estimators}} (§2.2, pp. 3–4)
 
 :::
 

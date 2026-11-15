@@ -4260,15 +4260,32 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         return "\n\n".join(pieces)
 
     box = article["box"]
+    research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
+    researched: dict[str, str] = {}
+    if research_file.is_file():
+        raw = research_file.read_text(encoding="utf-8")
+        for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
+            heading, prose = match.group(1), match.group(2).strip()
+            if heading in researched or not prose:
+                raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
+            researched[heading] = prose
+        allowed = {"Lead context", "Motivating example", "Statement", "Intuition", "Key results",
+                   "Proof", "Generalizations", "Related concepts", "Statistical use",
+                   "Common misconceptions", "History", "Worked example"}
+        if not researched or set(researched) - allowed:
+            raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
     depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
-           (True, "lead", article_lead(article) + (" " + depth["context"] if depth else "") + "\n\n")]
+           (True, "lead", article_lead(article) + (" " + depth["context"] if depth else "")
+            + (" " + researched["Lead context"] if researched.get("Lead context") else "") + "\n\n")]
 
     statement = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
     intuition = content("explanation", "figures-head", "figure")
     if depth.get("setup"):
         statement = depth["setup"] + "\n\n" + statement
+    if researched.get("Statement"):
+        statement += "\n\n" + researched["Statement"]
     if article["slug"] == "interior-dirichlet-mode":
         statement = statement.replace("Consequently,", "The $k$th coordinate of its joint mode is", 1)
         statement = statement.replace(r"\operatorname{mode}(P_k)", r"\widehat p_{k,\mathrm{joint\,MAP}}", 1)
@@ -4276,6 +4293,8 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                                       "If any concentration is at most one, the density may maximise on the boundary or be unbounded there.", 1)
     if depth.get("intuition"):
         intuition = depth["intuition"] + "\n\n" + intuition
+    if researched.get("Intuition"):
+        intuition = "\n\n".join(filter(None, [researched["Intuition"], intuition]))
     source_proof = re.search(r"::: \{\.proof\}\s*\n(.*?)\n:::" , statement, flags=re.S)
     if source_proof:
         statement = (statement[:source_proof.start()] + statement[source_proof.end():]).strip()
@@ -4284,12 +4303,15 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         if source_proof:
             intuition = (intuition[:source_proof.start()] + intuition[source_proof.end():]).strip()
     proof = theorem_depth.PROOFS.get(article["slug"], THEOREM_PROOFS.get(article["slug"], ""))
+    if researched.get("Proof"):
+        proof = researched["Proof"]
     if not proof and source_proof:
         proof = source_proof.group(1).strip() + "\n\n{{cite:mccullagh_nelder1989}}"
     if proof:
         PROVED_RESULT_SLUGS.add(article["slug"])
-        proof = re.sub(r"\A\s*\*Proof\.\*\s*", "", proof)
-        proof = "::: {.callout-note collapse=\"true\" title=\"Proof\"}\n::: {.proof}\n" + proof + "\n:::\n:::"
+        if not proof.startswith('::: {.callout-note collapse="true" title="Proof"}'):
+            proof = re.sub(r"\A\s*\*Proof\.\*\s*", "", proof)
+            proof = "::: {.callout-note collapse=\"true\" title=\"Proof\"}\n::: {.proof}\n" + proof + "\n:::\n:::"
 
     intuition_parts, misconception_parts = [], []
     for piece in re.split(r"(?=^### )", intuition, flags=re.M):
@@ -4301,11 +4323,13 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
 
     uses = content("used-in")
     see_also = content("see-also")
-    if uses and not depth:
+    if uses and not depth and not researched:
         see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
     if depth.get("example"):
         examples += "\n\n" + depth["example"].replace(r"\n", "\n")
+    if researched.get("Worked example"):
+        examples += "\n\n" + researched["Worked example"]
     related = []
     for relation in theorem_depth.RELATIONSHIPS:
         if article["slug"] == relation["a"]:
@@ -4321,15 +4345,19 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         history = "\n\n".join(filter(None, [history, depth["history"]]))
     if depth.get("history_add"):
         history = "\n\n".join(filter(None, [history, depth["history_add"]]))
+    if researched.get("History"):
+        history = "\n\n".join(filter(None, [history, researched["History"]]))
 
     sections = (
         ("Statement", "statement", statement),
+        ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
         ("Intuition", "intuition", intuition),
+        ("Key results", "key-results", researched.get("Key results", "")),
         ("Proof", "proof", proof),
-        ("Generalizations", "generalizations", content("property-head", "property")),
-        ("Related concepts", "related-concepts", "\n\n".join(related)),
-        ("Statistical use", "statistical-use", "\n\n".join(filter(None, [depth.get("use", ""), uses if depth else ""]))),
-        ("Common misconceptions", "common-misconceptions", "\n\n".join(misconception_parts)),
+        ("Generalizations", "generalizations", "\n\n".join(filter(None, [content("property-head", "property"), researched.get("Generalizations", "")]))),
+        ("Related concepts", "related-concepts", "\n\n".join(filter(None, [*related, researched.get("Related concepts", "")]))),
+        ("Statistical use", "statistical-use", "\n\n".join(filter(None, [depth.get("use", ""), researched.get("Statistical use", ""), uses if depth or researched else ""]))),
+        ("Common misconceptions", "common-misconceptions", "\n\n".join(filter(None, [*misconception_parts, researched.get("Common misconceptions", "")]))),
         ("History", "history", history),
         ("Examples", "examples", examples),
         ("See also", "see-also", see_also),
