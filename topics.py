@@ -798,7 +798,7 @@ TOPICS += [
           r"$g(\mu)=1/\mu$, the canonical link for gamma responses, up to sign. It needs the linear predictor to stay positive, which the data do not guarantee, so it can fail where the log link does not.",
           links=["inverse links?", "reciprocal links?"]),
     topic("Odds", "01-introduction-to-glms.qmd#s-interpreting-a-logistic-regression",
-          r"The ratio $p/(1-p)$ of the probability of an event to the probability that it does not happen. Probability $0.8$ is odds $4$. Logistic regression models the log-odds as a linear function of the covariates.",
+          r"The ratio $p/(1-p)$ of the probability of an event to the probability that it does not happen. Probability $0.8$ is odds $4$. Logistic regression models the log-odds as a linear function of the covariates.{{cite:kass_raftery1995}} (§3.1, p. 777){{cite:nelder_wedderburn1972}} (§3.3, p. 379)",
           links=["odds"], late=True),
     topic("Odds ratio", "01-introduction-to-glms.qmd#s-interpreting-a-logistic-regression",
           r"The ratio of the odds of an event in two groups. In a logistic regression $e^{\beta_j}$ is the odds ratio for a one-unit increase in $x_j$, the same at every value of the other covariates when $x_j$ has no interaction terms. An odds ratio of $1$ means no association.",

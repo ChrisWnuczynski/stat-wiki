@@ -2,6 +2,7 @@
 
 from fractions import Fraction
 from math import exp, isclose, log
+from pathlib import Path
 
 
 def odds(p):
@@ -36,6 +37,21 @@ if __name__ == "__main__":
         probability(posterior_odds) == Fraction(2, 3),
         isclose(exp(log(odds(p0))), float(odds(p0)), abs_tol=1e-12),
         isclose(exp(log(odds(p0)) + log(3)), 3 * float(odds(p0)), abs_tol=1e-12),
+        Fraction(4, 5) == Fraction(8, 10),
+        Fraction(3, 10) / Fraction(7, 10) == Fraction(3, 7),
+        Fraction(3, 5) / Fraction(2, 5) == Fraction(3, 2),
+        Fraction(3, 2) / Fraction(3, 7) == Fraction(7, 2),
+        Fraction(3, 5) - Fraction(3, 10) == Fraction(3, 10),
     ]
+    page = (Path(__file__).resolve().parents[1] / "articles" / "odds.qmd").read_text()
+    checks.extend(
+        token in page
+        for token in (
+            "0.8/0.2=4", "0.2/0.8=1/4", "p=4/5",
+            "0.30/0.70=3/7", "0.60/0.40=3/2",
+            "7/2=3.5", "0.60/0.30=2", "0.25/0.75=1/3",
+            "2/(1+2)=2/3", "probability difference is $0.30",
+        )
+    )
     assert all(checks)
     print(f"odds arithmetic: {len(checks)} checks passed")

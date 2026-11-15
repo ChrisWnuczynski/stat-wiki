@@ -349,7 +349,7 @@ Two covariates are enough. If you can say what $\beta_1$ and $\beta_2$ mean here
 $$
 \log\frac{p}{1-p}=\beta_0+\beta_1 x_1+\beta_2 x_2.
 $$
-Hold $x_2$ fixed and increase $x_1$ by one unit. The log-odds increase by $\beta_1$.{{cite:cox1958_logistic}} Equivalently, the odds $p/(1-p)$ are multiplied by $e^{\beta_1}$.{{cite:mccullagh_nelder1989}}{{cite:agresti2002}} The same sentence with the labels swapped is the interpretation of $\beta_2$. Log-odds are not a quantity anyone should be expected to feel. Odds are usually as far as a collaborator needs to go: "the odds of disease are multiplied by $e^{\beta_1}$."
+Hold $x_2$ fixed and increase $x_1$ by one unit. The log-odds increase by $\beta_1$, so the odds $p/(1-p)$ are multiplied by $e^{\beta_1}$. The same interpretation applies to $\beta_2$ when $x_1$ is held fixed. A report can state the comparison directly: “the odds of disease are multiplied by $e^{\beta_1}$.” The probability change also depends on the starting odds, which the intercept and other fixed covariates determine.{{cite:berkson1944}} (p. 358){{cite:cox1958_logistic}} (Summary; reproduced excerpt, p. 216){{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 The intercept is the log-odds when every covariate is zero, and
 $$
