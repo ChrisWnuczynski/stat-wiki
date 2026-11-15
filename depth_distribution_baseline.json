@@ -1,0 +1,949 @@
+{
+  "commit": "5dc5301",
+  "articles": {
+    "bernoulli-distribution": {
+      "words": 561,
+      "figures": {},
+      "citation_keys": [
+        "bernoulli1713",
+        "demoivre1756",
+        "feller1968",
+        "grimmett_stirzaker2020"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Bernoulli}(p)$",
+        "Parameters": "$0\\le p\\le1$",
+        "Support": "$x\\in\\{0,1\\}$",
+        "Probability mass function": "$p(x)=p^x(1-p)^{1-x}$",
+        "CDF": "$F(x)=0$ for $x<0$, $1-p$ for $0\\le x<1$, $1$ for $x\\ge1$",
+        "Mean": "$p$",
+        "Median": "$0$ for $p<1/2$; $1$ for $p>1/2$; any value in $[0,1]$ for $p=1/2$",
+        "Mode": "$0$ for $p<1/2$; $1$ for $p>1/2$; both for $p=1/2$",
+        "Variance": "$p(1-p)$",
+        "Skewness": "$(1-2p)/\\sqrt{p(1-p)}$ for $0<p<1$",
+        "Excess kurtosis": "$[1-6p(1-p)]/[p(1-p)]$ for $0<p<1$",
+        "Entropy": "$-p\\log p-(1-p)\\log(1-p)$, with $0\\log0=0$",
+        "MGF": "$1-p+pe^t$",
+        "Characteristic function": "$1-p+pe^{it}$",
+        "Fisher information": "$I(p)=1/[p(1-p)]$ for $0<p<1$, per observation",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-bernoulli-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Questions using it": "[2](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-cholesterol-gam.qmd",
+        "../questions/ex-da-home-ground.qmd"
+      ],
+      "example_headings": []
+    },
+    "beta-distribution": {
+      "words": 2758,
+      "figures": {
+        "../figures/part1-fig-02-prior-sensitivity.png": 1,
+        "../figures/part1-fig-01-credible-regions.png": 1
+      },
+      "citation_keys": [
+        "diaconis_ylvisaker1979",
+        "dirichlet1839",
+        "forbes2011",
+        "gelman_bda2013",
+        "laplace1812",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Beta}(\\alpha,\\beta)$",
+        "Parameters": "$\\alpha,\\beta>0$",
+        "Support": "$0<x<1$",
+        "Probability density": "$p(x)=\\frac{\\Gamma(\\alpha+\\beta)}{\\Gamma(\\alpha)\\Gamma(\\beta)}x^{\\alpha-1}(1-x)^{\\beta-1}$",
+        "CDF": "$F(x)=I_x(\\alpha,\\beta)$",
+        "Mean": "$\\mathbb{E}(X)=\\alpha/(\\alpha+\\beta)$",
+        "Mode": "$(\\alpha-1)/(\\alpha+\\beta-2)$ for $\\alpha,\\beta>1$; boundary mode if a shape is at most $1$, except all $x\\in[0,1]$ when $\\alpha=\\beta=1$",
+        "Variance": "$\\operatorname{Var}(X)=\\alpha\\beta/((\\alpha+\\beta)^{2}(\\alpha+\\beta+1))$",
+        "Skewness": "$2(\\beta-\\alpha)\\sqrt{\\alpha+\\beta+1}/[(\\alpha+\\beta+2)\\sqrt{\\alpha\\beta}]$",
+        "Excess kurtosis": "$6[(\\alpha-\\beta)^2(\\alpha+\\beta+1)-\\alpha\\beta(\\alpha+\\beta+2)]/[\\alpha\\beta(\\alpha+\\beta+2)(\\alpha+\\beta+3)]$",
+        "Entropy": "$\\log B(\\alpha,\\beta)-(\\alpha-1)\\psi(\\alpha)-(\\beta-1)\\psi(\\beta)+(\\alpha+\\beta-2)\\psi(\\alpha+\\beta)$",
+        "MGF": "${}_1F_1(\\alpha;\\alpha+\\beta;t)$",
+        "Characteristic function": "${}_1F_1(\\alpha;\\alpha+\\beta;it)$",
+        "Fisher information": "$I(\\alpha,\\beta)=\\begin{pmatrix}\\psi_1(\\alpha)-\\psi_1(\\alpha+\\beta)&-\\psi_1(\\alpha+\\beta)\\\\-\\psi_1(\\alpha+\\beta)&\\psi_1(\\beta)-\\psi_1(\\alpha+\\beta)\\end{pmatrix}$ per observation",
+        "Conjugate prior for": "$X\\mid p\\sim\\operatorname{Bin}(n,p)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$",
+        "Taught in": "[The Beta--Binomial model](../notes/bayes-02-beta-binomial.qmd#def-beta-distribution)",
+        "Part": "[Bayesian statistics](../notes/index.qmd#bayesian-statistics)",
+        "Properties": "[4](#properties)",
+        "Worked examples": "[2](#examples)",
+        "Questions using it": "[5](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-geom-beta.qmd",
+        "../questions/q-06.qmd",
+        "../questions/q-17.qmd",
+        "../questions/q-23.qmd",
+        "../questions/q-44.qmd"
+      ],
+      "example_headings": [
+        "### Beta-Binomial conjugacy and prior influence {#example-q-06}",
+        "### Rat-tumour studies and hierarchical shrinkage {#example-q-23}"
+      ]
+    },
+    "binomial-distribution": {
+      "words": 2930,
+      "figures": {
+        "../figures/prob-discrete-pmfs.png": 1,
+        "../figures/prob-binomial-normal.png": 1
+      },
+      "citation_keys": [
+        "feller1968",
+        "gelman_bda2013",
+        "grimmett_stirzaker2020",
+        "laplace1812",
+        "lindeberg1922",
+        "poisson1837",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Bin}(n,p)$",
+        "Parameters": "$n\\in\\mathbb{Z}^{+}$, $p\\in[0,1]$",
+        "Support": "$x=0,1,\\ldots,n$",
+        "Probability mass function": "$p(x)=\\binom{n}{x}p^{x}(1-p)^{n-x}$",
+        "CDF": "$F(k)=\\sum_{j=0}^{\\lfloor k\\rfloor}\\binom njp^j(1-p)^{n-j}$ for $0\\le k<n$",
+        "Mean": "$\\mathbb{E}(X)=np$",
+        "Mode": "$\\lfloor(n+1)p\\rfloor$; also one less if $(n+1)p\\in\\{1,\\ldots,n\\}$ is an integer",
+        "Variance": "$\\operatorname{Var}(X)=np(1-p)$",
+        "Skewness": "$(1-2p)/\\sqrt{np(1-p)}$ for $0<p<1$",
+        "Excess kurtosis": "$[1-6p(1-p)]/[np(1-p)]$ for $0<p<1$",
+        "Entropy": "$-\\sum_{k=0}^{n}\\binom nk p^k(1-p)^{n-k}\\log[\\binom nk p^k(1-p)^{n-k}]$, with $0\\log0=0$",
+        "MGF": "$(1-p+pe^t)^n$",
+        "Characteristic function": "$(1-p+pe^{it})^n$",
+        "Fisher information": "$I(p)=n/[p(1-p)]$ for $0<p<1$, per binomial count",
+        "Conjugate prior": "[Beta distribution](beta-distribution.qmd): $p\\sim\\operatorname{Beta}(\\alpha,\\beta)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-binomial-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Properties": "[4](#properties)",
+        "Worked examples": "[7](#examples)",
+        "Questions using it": "[2](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-inf-degrees-of-freedom.qmd",
+        "../questions/ex-inf-poisson-umvu.qmd",
+        "../questions/ex-prob-twenty-heads.qmd",
+        "../questions/ex-prob-votes.qmd",
+        "../questions/q-06.qmd",
+        "../questions/q-44.qmd"
+      ],
+      "example_headings": [
+        "### Five future tosses {#example-exm-five-future-tosses}",
+        "### Defective items in a box {#example-exm-defective-items-in-a-box}",
+        "### Normal approximation to a binomial {#example-exm-normal-approximation-to-a-binomial}",
+        "### Beta-Binomial conjugacy and prior influence {#example-q-06}",
+        "### Testing whether a coin is fair {#example-q-44}",
+        "### Twenty fair tosses {#example-ex-prob-twenty-heads}",
+        "### Ten voters {#example-ex-prob-votes}"
+      ]
+    },
+    "cauchy-distribution": {
+      "words": 568,
+      "figures": {},
+      "citation_keys": [
+        "casella_berger2002",
+        "grimmett_stirzaker2020",
+        "robert_casella2004",
+        "ross2019",
+        "vonneumann1951"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Cauchy}(x_0,\\gamma)$",
+        "Parameters": "$x_0\\in\\mathbb{R}$, $\\gamma>0$",
+        "Support": "$x\\in\\mathbb{R}$",
+        "Probability density": "$f(x)=\\gamma/[\\pi((x-x_0)^2+\\gamma^2)]$",
+        "CDF": "$F(x)=1/2+\\arctan((x-x_0)/\\gamma)/\\pi$",
+        "Quantile": "$Q(p)=x_0+\\gamma\\tan(\\pi(p-1/2))$",
+        "Mean": "undefined",
+        "Median": "$x_0$",
+        "Mode": "$x_0$",
+        "Variance": "undefined",
+        "Taught in": "[Simulation](../notes/prob-03-simulation.qmd)",
+        "Part": "[Probability](../notes/index.qmd#probability)"
+      },
+      "question_links": [],
+      "example_headings": []
+    },
+    "chi-squared-distribution": {
+      "words": 1010,
+      "figures": {},
+      "citation_keys": [
+        "agresti2002",
+        "casella_berger2002",
+        "fisher1922_chisq",
+        "fisher1924_chisq",
+        "fisher1925_smrw",
+        "forbes2011",
+        "pearson1900",
+        "student1908"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\chi^2_\\nu$",
+        "Parameters": "$\\nu>0$ degrees of freedom",
+        "Support": "$x>0$",
+        "Probability density": "$f(x)=x^{\\nu/2-1}e^{-x/2}/(2^{\\nu/2}\\Gamma(\\nu/2))$",
+        "Mean": "$\\nu$",
+        "Variance": "$2\\nu$",
+        "MGF": "$(1-2t)^{-\\nu/2}$ for $t<1/2$",
+        "Taught in": "[Statistical inference](../notes/inf-01-statistical-inference.qmd#def-chi-squared-distribution)",
+        "Part": "[Statistical inference](../notes/index.qmd#statistical-inference)",
+        "Properties": "[3](#properties)",
+        "Worked examples": "[3](#examples)"
+      },
+      "question_links": [],
+      "example_headings": [
+        "### Aspirin tablet weights {#example-exm-aspirin-tablet-weights}",
+        "### Tuning-fork variability {#example-exm-tuning-fork-variability}",
+        "### The square of a standard normal {#example-exm-the-square-of-a-standard-normal}"
+      ]
+    },
+    "conway-maxwell-poisson-distribution": {
+      "words": 447,
+      "figures": {},
+      "citation_keys": [
+        "conway_maxwell1962",
+        "huang2017_cmp",
+        "shmueli2005"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{CMP}(\\lambda,\\nu)$",
+        "Parameters": "$\\lambda>0$, $\\nu\\ge0$; $\\lambda<1$ when $\\nu=0$",
+        "Support": "$x=0,1,2,\\ldots$",
+        "Probability mass function": "$p(x)=\\lambda^x/[(x!)^\\nu Z(\\lambda,\\nu)]$",
+        "Taught in": "[Standard errors, and models for counts](../notes/02-inference-and-counts.qmd) · [Underdispersion, positive responses, and quasi-likelihood](../notes/03-gamma-and-quasi.qmd#s-bids-for-a-bankrupt-firm)",
+        "Part": "[Generalised linear models](../notes/index.qmd#generalised-linear-models)",
+        "Related": "[Overdispersion](overdispersion.qmd) · [Underdispersion](underdispersion.qmd) · [Quasi-Poisson](quasi-poisson.qmd) · [Negative binomial distribution](negative-binomial-distribution.qmd)"
+      },
+      "question_links": [],
+      "example_headings": []
+    },
+    "dirichlet-distribution": {
+      "words": 2662,
+      "figures": {
+        "../figures/part1-fig-05-dirichlet-simplex.png": 1,
+        "../figures/part1-inline-simplex.png": 1
+      },
+      "citation_keys": [
+        "dirichlet1839",
+        "gelman_bda2013",
+        "jeffreys1961",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Notation": "$\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha)$",
+        "Parameters": "$\\alpha\\in\\mathbb{R}_{+}^{K}$, $\\alpha_0=\\sum_{k=1}^{K}\\alpha_k$",
+        "Support": "$x_k>0$, $\\sum_{k=1}^{K}x_k=1$",
+        "Probability density": "$p(x)=\\frac{\\Gamma(\\alpha_0)}{\\prod_{k=1}^{K}\\Gamma(\\alpha_k)}\\prod_{k=1}^{K}x_k^{\\alpha_k-1}$",
+        "Mean": "$\\mathbb{E}(X)=\\alpha/\\alpha_0$",
+        "Mode": "$(\\alpha_k-1)/(\\alpha_0-K)$ for every $\\alpha_k>1$",
+        "Variance": "$\\operatorname{Var}(X_k)=\\alpha_k(\\alpha_0-\\alpha_k)/(\\alpha_0^{2}(\\alpha_0+1))$",
+        "Conjugate prior for": "$\\boldsymbol X\\mid\\boldsymbol p\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$",
+        "Taught in": "[Categorical data and the Dirichlet distribution](../notes/bayes-05-categorical.qmd#def-dirichlet-distribution)",
+        "Part": "[Bayesian statistics](../notes/index.qmd#bayesian-statistics)",
+        "Properties": "[4](#properties)",
+        "Worked examples": "[3](#examples)",
+        "Questions using it": "[4](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-applied-restaurant.qmd",
+        "../questions/exr-beta-hidden-inside-dirichlet.qmd",
+        "../questions/exr-make-the-simplex-integral-equal-one.qmd",
+        "../questions/q-22.qmd"
+      ],
+      "example_headings": [
+        "### Advertising responses {#example-exm-advertising-responses}",
+        "### Advertising responses and Dirichlet inference {#example-q-22}",
+        "### Restaurant ordering methods {#example-ex-applied-restaurant}"
+      ]
+    },
+    "exponential-distribution": {
+      "words": 2274,
+      "figures": {
+        "../figures/prob-continuous-densities.png": 1
+      },
+      "citation_keys": [
+        "erlang1909",
+        "feller1968",
+        "grimmett_stirzaker2020",
+        "ross2019"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Exp}(\\lambda)$",
+        "Parameters": "$\\lambda>0$",
+        "Support": "$x>0$",
+        "Probability density": "$p(x)=\\lambda e^{-\\lambda x}$",
+        "CDF": "$F(x)=1-e^{-\\lambda x}$ for $x\\ge0$",
+        "Quantile": "$Q(u)=-\\log(1-u)/\\lambda$",
+        "Mean": "$\\mathbb{E}(X)=1/\\lambda$",
+        "Median": "$\\log 2/\\lambda$",
+        "Mode": "$0$",
+        "Variance": "$\\operatorname{Var}(X)=1/\\lambda^{2}$",
+        "Skewness": "$2$",
+        "Excess kurtosis": "$6$",
+        "Entropy": "$1-\\log\\lambda$",
+        "MGF": "$\\lambda/(\\lambda-t)$ for $t<\\lambda$",
+        "Characteristic function": "$\\lambda/(\\lambda-it)$",
+        "Fisher information": "$I(\\lambda)=1/\\lambda^2$ per observation",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-exponential-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Property": "[1](#properties)",
+        "Worked examples": "[5](#examples)",
+        "Questions using it": "[6](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-applied-exp-rate.qmd",
+        "../questions/ex-device-bf.qmd",
+        "../questions/ex-inf-exponential-mle.qmd",
+        "../questions/ex-prob-component-five-years.qmd",
+        "../questions/ex-prob-generate-exp.qmd",
+        "../questions/ex-prob-memoryless-component.qmd",
+        "../questions/ex-prob-name-the-laws.qmd",
+        "../questions/q-29.qmd",
+        "../questions/q-56.qmd"
+      ],
+      "example_headings": [
+        "### A series of exponential components {#example-exm-a-series-of-exponential-components}",
+        "### Exponential observations parameterised by rate {#example-ex-applied-exp-rate}",
+        "### Exponential versus gamma lifetimes {#example-ex-device-bf}",
+        "### Five years of an exponential lifetime {#example-ex-prob-component-five-years}",
+        "### A memoryless component {#example-ex-prob-memoryless-component}"
+      ]
+    },
+    "f-distribution": {
+      "words": 762,
+      "figures": {},
+      "citation_keys": [
+        "casella_berger2002",
+        "fisher1925_smrw",
+        "snedecor1934"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim F_{d_1,d_2}$",
+        "Parameters": "$d_1,d_2>0$ degrees of freedom",
+        "Support": "$x>0$",
+        "Probability density": "$f(x)=\\frac{(d_1/d_2)^{d_1/2}x^{d_1/2-1}}{B(d_1/2,d_2/2)(1+d_1x/d_2)^{(d_1+d_2)/2}}$",
+        "Mean": "$d_2/(d_2-2)$ for $d_2>2$",
+        "Variance": "$2d_2^2(d_1+d_2-2)/(d_1(d_2-2)^2(d_2-4))$ for $d_2>4$",
+        "Taught in": "[Statistical inference](../notes/inf-01-statistical-inference.qmd#def-f-distribution)",
+        "Part": "[Statistical inference](../notes/index.qmd#statistical-inference)",
+        "Properties": "[2](#properties)",
+        "Worked examples": "[2](#examples)"
+      },
+      "question_links": [
+        "../questions/ex-inf-t-squared-is-f.qmd",
+        "../questions/ex-inf-variance-ratio-interval.qmd"
+      ],
+      "example_headings": [
+        "### A squared t variable {#example-ex-inf-t-squared-is-f}",
+        "### Checking equal variances {#example-ex-inf-variance-ratio-interval}"
+      ]
+    },
+    "gamma-distribution": {
+      "words": 2725,
+      "figures": {
+        "../figures/part1-fig-06-fruit-posterior.png": 1
+      },
+      "citation_keys": [
+        "diaconis_ylvisaker1979",
+        "forbes2011",
+        "gelman_bda2013",
+        "grimmett_stirzaker2020",
+        "laplace1812",
+        "pearson1895",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$",
+        "Parameters": "$\\alpha,\\lambda>0$, shape--rate",
+        "Support": "$x>0$",
+        "Probability density": "$p(x)=\\frac{\\lambda^{\\alpha}}{\\Gamma(\\alpha)}x^{\\alpha-1}e^{-\\lambda x}$",
+        "CDF": "$F(x)=\\gamma(\\alpha,\\lambda x)/\\Gamma(\\alpha)$",
+        "Mean": "$\\mathbb{E}(X)=\\alpha/\\lambda$",
+        "Mode": "$(\\alpha-1)/\\lambda$ for $\\alpha>1$; boundary $0$ for $\\alpha\\le1$",
+        "Variance": "$\\operatorname{Var}(X)=\\alpha/\\lambda^{2}$",
+        "Skewness": "$2/\\sqrt{\\alpha}$",
+        "Excess kurtosis": "$6/\\alpha$",
+        "Entropy": "$\\alpha-\\log\\lambda+\\log\\Gamma(\\alpha)+(1-\\alpha)\\psi(\\alpha)$",
+        "MGF": "$(1-t/\\lambda)^{-\\alpha}$ for $t<\\lambda$",
+        "Characteristic function": "$(1-it/\\lambda)^{-\\alpha}$",
+        "Fisher information": "$I(\\alpha,\\lambda)=\\begin{pmatrix}\\psi_1(\\alpha)&-1/\\lambda\\\\-1/\\lambda&\\alpha/\\lambda^2\\end{pmatrix}$ per observation",
+        "Conjugate prior for": "$X_i\\mid\\theta\\sim\\operatorname{Poisson}(\\theta)$ with $\\theta\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$, giving $\\theta\\mid\\boldsymbol x\\sim\\operatorname{Gamma}(\\alpha+\\sum_i x_i,\\lambda+n)$",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-gamma-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Property": "[1](#properties)",
+        "Worked examples": "[4](#examples)",
+        "Questions using it": "[10](#used-in)"
+      },
+      "question_links": [
+        "../questions/c-23.qmd",
+        "../questions/ex-gibbs-mh.qmd",
+        "../questions/ex-pois-hier.qmd",
+        "../questions/ex-prob-ten-components.qmd",
+        "../questions/q-02.qmd",
+        "../questions/q-28.qmd",
+        "../questions/q-29.qmd",
+        "../questions/q-45.qmd",
+        "../questions/q-48.qmd",
+        "../questions/q-49.qmd",
+        "../questions/q-55.qmd"
+      ],
+      "example_headings": [
+        "### Poisson natural form and Gamma conjugacy {#example-exm-poisson-natural-form-and-gamma-conjugacy}",
+        "### Conjugate Bayesian inference for a Gamma rate {#example-q-48}",
+        "### Comparing Exponential and Gamma lifetime models {#example-q-29}",
+        "### Ten successive exponential components {#example-ex-prob-ten-components}"
+      ]
+    },
+    "geometric-distribution": {
+      "words": 2006,
+      "figures": {
+        "../figures/prob-discrete-pmfs.png": 1
+      },
+      "citation_keys": [
+        "bernoulli1713",
+        "feller1968",
+        "grimmett_stirzaker2020",
+        "ross2019"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Geom}(p)$",
+        "Parameters": "$p\\in(0,1]$",
+        "Support": "$x=1,2,3,\\ldots$",
+        "Probability mass function": "$p(x)=p(1-p)^{x-1}$",
+        "CDF": "$F(k)=1-(1-p)^{\\lfloor k\\rfloor}$ for $k\\ge1$",
+        "Mean": "$\\mathbb{E}(X)=1/p$",
+        "Median": "$\\lceil\\log(1/2)/\\log(1-p)\\rceil$ for $0<p<1$; $1$ for $p=1$",
+        "Mode": "$1$",
+        "Variance": "$\\operatorname{Var}(X)=(1-p)/p^{2}$",
+        "Skewness": "$(2-p)/\\sqrt{1-p}$ for $0<p<1$",
+        "Excess kurtosis": "$6+p^2/(1-p)$ for $0<p<1$",
+        "Entropy": "$-\\log p-[(1-p)/p]\\log(1-p)$, with $0\\log0=0$",
+        "MGF": "$pe^t/[1-(1-p)e^t]$ for $t<-\\log(1-p)$",
+        "Characteristic function": "$pe^{it}/[1-(1-p)e^{it}]$",
+        "Fisher information": "$I(p)=1/[p^2(1-p)]$ for $0<p<1$, per observation",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-geometric-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Property": "[1](#properties)",
+        "Worked examples": "[4](#examples)",
+        "Question using it": "[1](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-applied-geometric.qmd",
+        "../questions/ex-geom-beta.qmd",
+        "../questions/ex-prob-double-six-wait.qmd",
+        "../questions/ex-prob-markov-reflecting.qmd",
+        "../questions/ex-prob-wait-for-twelve.qmd"
+      ],
+      "example_headings": [
+        "### Geometric success probability {#example-ex-geom-beta}",
+        "### A geometric observation and a uniform prior {#example-ex-applied-geometric}",
+        "### Waiting for double six {#example-ex-prob-wait-for-twelve}",
+        "### Expected wait for double six {#example-ex-prob-double-six-wait}"
+      ]
+    },
+    "hypergeometric-distribution": {
+      "words": 783,
+      "figures": {},
+      "citation_keys": [
+        "bernoulli1713",
+        "feller1968",
+        "forbes2011",
+        "grimmett_stirzaker2020"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Hypergeom}(N,r,n)$",
+        "Parameters": "population $N$, marked items $r$, draw $n$, with $p=r/N$",
+        "Support": "$\\max(0,\\,n-(N-r))\\le x\\le\\min(n,r)$",
+        "Probability mass function": "$p(x)=\\binom{r}{x}\\binom{N-r}{n-x}/\\binom{N}{n}$",
+        "Mean": "$\\mathbb{E}(X)=np$",
+        "Variance": "$\\operatorname{Var}(X)=np(1-p)(N-n)/(N-1)$",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-hypergeometric-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Worked examples": "[2](#examples)"
+      },
+      "question_links": [
+        "../questions/ex-prob-five-evens-no-replace.qmd"
+      ],
+      "example_headings": [
+        "### Aces in a hand {#example-exm-aces-in-a-hand}",
+        "### Five draws without replacement {#example-ex-prob-five-evens-no-replace}"
+      ]
+    },
+    "inverse-gamma-distribution": {
+      "words": 1959,
+      "figures": {},
+      "citation_keys": [
+        "box_tiao1973",
+        "gelman_bda2013",
+        "jeffreys1961",
+        "raiffa_schlaifer1961",
+        "zellner1986"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$",
+        "Parameters": "$\\alpha,\\beta>0$",
+        "Support": "$x>0$",
+        "Probability density": "$p(x)=\\frac{\\beta^{\\alpha}}{\\Gamma(\\alpha)}x^{-\\alpha-1}e^{-\\beta/x}$",
+        "Mean": "$\\mathbb{E}(X)=\\beta/(\\alpha-1)$ for $\\alpha>1$",
+        "Mode": "$\\beta/(\\alpha+1)$",
+        "Variance": "$\\operatorname{Var}(X)=\\beta^{2}/((\\alpha-1)^{2}(\\alpha-2))$ for $\\alpha>2$",
+        "Conjugate prior for": "$X_i\\mid\\sigma^2\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\mu$, giving $\\sigma^2\\mid\\boldsymbol x\\sim\\operatorname{InvGamma}(\\alpha+n/2,\\beta+S_\\mu/2)$",
+        "Taught in": "[Conjugate analysis for normal models](../notes/bayes-03-normal-models.qmd#def-inverse-gamma-distribution)",
+        "Part": "[Bayesian statistics](../notes/index.qmd#bayesian-statistics)",
+        "Properties": "[3](#properties)",
+        "Worked examples": "[2](#examples)",
+        "Questions using it": "[19](#used-in)"
+      },
+      "question_links": [
+        "../questions/c-10.qmd",
+        "../questions/c-23.qmd",
+        "../questions/ex-applied-exp-scale.qmd",
+        "../questions/ex-improper-normal.qmd",
+        "../questions/ex-lognormal-var.qmd",
+        "../questions/ex-mammal-ig.qmd",
+        "../questions/ex-model-selection.qmd",
+        "../questions/ex-norm-both.qmd",
+        "../questions/ex-norm-nig.qmd",
+        "../questions/ex-norm-var.qmd",
+        "../questions/ex-reg-nichisq.qmd",
+        "../questions/exr-direct-sampling-or-gibbs.qmd",
+        "../questions/exr-the-inverse-gamma-shape-trap.qmd",
+        "../questions/q-01.qmd",
+        "../questions/q-02.qmd",
+        "../questions/q-24.qmd",
+        "../questions/q-28.qmd",
+        "../questions/q-43.qmd",
+        "../questions/q-58.qmd"
+      ],
+      "example_headings": [
+        "### Normal variance, known mean {#example-ex-norm-var}",
+        "### Inverse-gamma waiting time {#example-ex-mammal-ig}"
+      ]
+    },
+    "inverse-gaussian-distribution": {
+      "words": 293,
+      "figures": {},
+      "citation_keys": [
+        "huang_rathouz2017",
+        "mcalister1879",
+        "mccullagh_nelder1989",
+        "tweedie1957"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{IG}(\\mu,\\lambda)$",
+        "Parameters": "$\\mu,\\lambda>0$",
+        "Support": "$x>0$",
+        "Probability density": "$f(x)=\\sqrt{\\lambda/(2\\pi x^3)}\\exp[-\\lambda(x-\\mu)^2/(2\\mu^2x)]$",
+        "Mean": "$\\mu$",
+        "Variance": "$\\mu^3/\\lambda$",
+        "Taught in": "[Underdispersion, positive responses, and quasi-likelihood](../notes/03-gamma-and-quasi.qmd)",
+        "Part": "[Generalised linear models](../notes/index.qmd#generalised-linear-models)"
+      },
+      "question_links": [],
+      "example_headings": []
+    },
+    "lognormal-distribution": {
+      "words": 327,
+      "figures": {},
+      "citation_keys": [
+        "huang_rathouz2017",
+        "mcalister1879",
+        "mccullagh_nelder1989",
+        "tweedie1957"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Lognormal}(\\mu,\\sigma^2)$",
+        "Parameters": "$\\mu\\in\\mathbb{R}$, $\\sigma>0$",
+        "Support": "$x>0$",
+        "Probability density": "$f(x)=\\exp[-(\\log x-\\mu)^2/(2\\sigma^2)]/(x\\sigma\\sqrt{2\\pi})$",
+        "CDF": "$F(x)=\\Phi((\\log x-\\mu)/\\sigma)$",
+        "Mean": "$e^{\\mu+\\sigma^2/2}$",
+        "Median": "$e^\\mu$",
+        "Mode": "$e^{\\mu-\\sigma^2}$",
+        "Variance": "$(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$",
+        "Taught in": "[Underdispersion, positive responses, and quasi-likelihood](../notes/03-gamma-and-quasi.qmd)",
+        "Part": "[Generalised linear models](../notes/index.qmd#generalised-linear-models)",
+        "Questions using it": "[3](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-lognormal-var.qmd",
+        "../questions/q-28.qmd",
+        "../questions/q-45.qmd"
+      ],
+      "example_headings": []
+    },
+    "multinomial-distribution": {
+      "words": 2234,
+      "figures": {
+        "../figures/part1-inline-simplex.png": 1
+      },
+      "citation_keys": [
+        "cramer1946",
+        "gelman_bda2013",
+        "jeffreys1961",
+        "pearson1900",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Notation": "$\\boldsymbol X\\sim\\operatorname{Mult}(n,\\boldsymbol p)$",
+        "Parameters": "$n\\in\\mathbb{Z}^{+}$, $p\\in[0,1]^{K}$ with $\\sum_{k=1}^{K}p_k=1$",
+        "Support": "$x_k\\in\\{0,1,\\ldots,n\\}$, $\\sum_k x_k=n$",
+        "Probability mass function": "$p(x)=\\frac{n!}{x_1!\\cdots x_K!}p_1^{x_1}\\cdots p_K^{x_K}$",
+        "Mean": "$\\mathbb{E}(X)=np$",
+        "Variance": "$\\operatorname{Var}(X_k)=np_k(1-p_k)$",
+        "Conjugate prior": "[Dirichlet distribution](dirichlet-distribution.qmd): $\\boldsymbol p\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$",
+        "Listed on": "[Distribution sheet](../reference/distributions.qmd#dist-multinomial)",
+        "Properties": "[2](#properties)",
+        "Worked examples": "[3](#examples)"
+      },
+      "question_links": [
+        "../questions/ex-applied-restaurant.qmd",
+        "../questions/q-22.qmd"
+      ],
+      "example_headings": [
+        "### Army recruits by IQ class {#example-exm-army-recruits-by-iq-class}",
+        "### Advertising responses and Dirichlet inference {#example-q-22}",
+        "### Restaurant ordering methods {#example-ex-applied-restaurant}"
+      ]
+    },
+    "multivariate-normal-distribution": {
+      "words": 759,
+      "figures": {
+        "../figures/prob-correlation.png": 1
+      },
+      "citation_keys": [
+        "anderson2003_mva",
+        "casella_berger2002",
+        "feller1968",
+        "gauss1809",
+        "grimmett_stirzaker2020",
+        "pearson1896",
+        "wasserman2004"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{N}_p(\\boldsymbol\\mu,\\Sigma)$",
+        "Parameters": "$\\boldsymbol\\mu\\in\\mathbb{R}^p$, $\\Sigma$ positive definite",
+        "Support": "$x\\in\\mathbb{R}^p$",
+        "Probability density": "$f(x)=\\exp[-(x-\\boldsymbol\\mu)^\\top\\Sigma^{-1}(x-\\boldsymbol\\mu)/2]/[(2\\pi)^{p/2}\\lvert\\Sigma\\rvert^{1/2}]$",
+        "Mean": "$\\boldsymbol\\mu$",
+        "Variance": "$\\Sigma$",
+        "Taught in": "[Functions of random variables and limit theorems](../notes/prob-05-transforms-and-limits.qmd#def-multivariate-normal) · [Covariance and the multivariate normal](../notes/sl-01-multivariate-normal.qmd#def-sl-01-multivariate-normal)",
+        "Part": "[Probability](../notes/index.qmd#probability) · [Statistical learning](../notes/index.qmd#statistical-learning)",
+        "Related": "[Conditional distribution of a multivariate normal](conditional-distribution-of-a-multivariate-normal.qmd) · [Wishart distribution](wishart-distribution.qmd)",
+        "Property": "[1](#properties)",
+        "Questions using it": "[10](#used-in)"
+      },
+      "question_links": [
+        "../questions/c-34.qmd",
+        "../questions/ex-applied-bvn-gibbs.qmd",
+        "../questions/ex-applied-bvn-rwmh.qmd",
+        "../questions/ex-inf-correlation-t.qmd",
+        "../questions/ex-sl-01-5.qmd",
+        "../questions/ex-sl-01-6.qmd",
+        "../questions/ex-sl-01-8.qmd",
+        "../questions/ex-sl-02-8.qmd",
+        "../questions/ex-sl-02-9.qmd",
+        "../questions/q-52.qmd"
+      ],
+      "example_headings": []
+    },
+    "negative-binomial-distribution": {
+      "words": 310,
+      "figures": {},
+      "citation_keys": [
+        "greenwood_yule1920",
+        "mccullagh_nelder1989",
+        "venables_ripley2002"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{NegBin}(\\mu,\\nu)$",
+        "Parameters": "$\\mu,\\nu>0$ (mean, dispersion)",
+        "Support": "$x=0,1,2,\\ldots$",
+        "Probability mass function": "$p(x)=\\frac{\\Gamma(x+\\nu)}{\\Gamma(\\nu)x!}(\\frac{\\nu}{\\mu+\\nu})^\\nu(\\frac{\\mu}{\\mu+\\nu})^x$",
+        "Mean": "$\\mu$",
+        "Variance": "$\\mu+\\mu^2/\\nu$",
+        "Taught in": "[Standard errors, and models for counts](../notes/02-inference-and-counts.qmd)",
+        "Part": "[Generalised linear models](../notes/index.qmd#generalised-linear-models)",
+        "Related": "[Overdispersion](overdispersion.qmd) · [Underdispersion](underdispersion.qmd) · [Quasi-Poisson](quasi-poisson.qmd) · [Conway–Maxwell–Poisson distribution](conway-maxwell-poisson-distribution.qmd)"
+      },
+      "question_links": [],
+      "example_headings": []
+    },
+    "normal-distribution": {
+      "words": 3291,
+      "figures": {
+        "../figures/prob-continuous-densities.png": 2
+      },
+      "citation_keys": [
+        "box_muller1958",
+        "box_tiao1973",
+        "casella_berger2002",
+        "feller1968",
+        "fisher1925_smrw",
+        "gauss1809",
+        "gelfand_smith1990",
+        "gelman_bda2013",
+        "laplace1812",
+        "raiffa_schlaifer1961",
+        "student1908"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{N}(\\mu,\\sigma^{2})$",
+        "Parameters": "$\\mu\\in\\mathbb{R}$, $\\sigma>0$",
+        "Support": "$x\\in\\mathbb{R}$",
+        "Probability density": "$p(x)=\\frac{1}{\\sqrt{2\\pi}\\,\\sigma}\\exp\\Bigl(-\\frac{(x-\\mu)^{2}}{2\\sigma^{2}}\\Bigr)$",
+        "CDF": "$F(x)=\\Phi((x-\\mu)/\\sigma)$",
+        "Quantile": "$Q(u)=\\mu+\\sigma\\Phi^{-1}(u)$",
+        "Mean": "$\\mathbb{E}(X)=\\mu$",
+        "Median": "$\\mu$",
+        "Mode": "$\\mu$",
+        "Variance": "$\\operatorname{Var}(X)=\\sigma^{2}$",
+        "Skewness": "$0$",
+        "Excess kurtosis": "$0$",
+        "Entropy": "$\\tfrac12\\log(2\\pi e\\sigma^2)$",
+        "MGF": "$\\exp(\\mu t+\\sigma^2t^2/2)$",
+        "Characteristic function": "$\\exp(i\\mu t-\\sigma^2t^2/2)$",
+        "Fisher information": "$I(\\mu,\\sigma)=\\operatorname{diag}(1/\\sigma^2,\\,2/\\sigma^2)$ per observation",
+        "Conjugate prior for": "$X_i\\mid\\mu\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\sigma^2$ and prior $\\mu\\sim\\operatorname{N}(\\mu_0,\\sigma_0^2)$, giving a normal posterior",
+        "Conjugate prior": "[Inverse-Gamma distribution](inverse-gamma-distribution.qmd): $\\sigma^2\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$ for a normal sample with known $\\mu$, giving $\\operatorname{InvGamma}(\\alpha+n/2,\\beta+S_\\mu/2)$",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-normal-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Properties": "[5](#properties)",
+        "Worked examples": "[5](#examples)",
+        "Questions using it": "[11](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-cholesterol-gam.qmd",
+        "../questions/ex-inf-degrees-of-freedom.qmd",
+        "../questions/ex-norm-mean.qmd",
+        "../questions/ex-norm-nig.qmd",
+        "../questions/ex-prob-generate-normal.qmd",
+        "../questions/ex-prob-name-the-laws.qmd",
+        "../questions/ex-prob-normal-shift.qmd",
+        "../questions/ex-prob-standard-normal-probs.qmd",
+        "../questions/ex-reg-nichisq.qmd",
+        "../questions/ex-sl-11-6.qmd",
+        "../questions/ex-toenail-glmm.qmd",
+        "../questions/q-07.qmd",
+        "../questions/q-25.qmd",
+        "../questions/q-45.qmd"
+      ],
+      "example_headings": [
+        "### IQ scores {#example-exm-iq-scores}",
+        "### Normal estimation and prediction {#example-q-07}",
+        "### Normal mean, known variance {#example-ex-norm-mean}",
+        "### Two standard normal probabilities {#example-ex-prob-standard-normal-probs}",
+        "### Probabilities for a shifted normal {#example-ex-prob-normal-shift}"
+      ]
+    },
+    "pareto-distribution": {
+      "words": 644,
+      "figures": {},
+      "citation_keys": [
+        "coles2001",
+        "forbes2011",
+        "pareto1909"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Pareto}(x_m,\\alpha)$",
+        "Parameters": "$x_m,\\alpha>0$",
+        "Support": "$x\\ge x_m$",
+        "Probability density": "$f(x)=\\alpha x_m^\\alpha/x^{\\alpha+1}$",
+        "CDF": "$F(x)=1-(x_m/x)^\\alpha$ for $x\\ge x_m$",
+        "Quantile": "$Q(p)=x_m(1-p)^{-1/\\alpha}$",
+        "Mean": "$\\alpha x_m/(\\alpha-1)$ for $\\alpha>1$",
+        "Median": "$x_m2^{1/\\alpha}$",
+        "Mode": "$x_m$",
+        "Variance": "$\\alpha x_m^2/[(\\alpha-1)^2(\\alpha-2)]$ for $\\alpha>2$",
+        "Taught in": "[A first look at extremes](../notes/sp-12-extremes.qmd)",
+        "Part": "[Stochastic processes](../notes/index.qmd#stochastic-processes)",
+        "Questions using it": "[2](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-sp-pareto-factor.qmd",
+        "../questions/q-13.qmd"
+      ],
+      "example_headings": []
+    },
+    "poisson-distribution": {
+      "words": 3051,
+      "figures": {
+        "../figures/prob-discrete-pmfs.png": 1
+      },
+      "citation_keys": [
+        "diaconis_ylvisaker1979",
+        "feller1968",
+        "gelman_bda2013",
+        "grimmett_stirzaker2020",
+        "poisson1837",
+        "raiffa_schlaifer1961"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Poisson}(\\lambda)$",
+        "Parameters": "$\\lambda>0$",
+        "Support": "$x=0,1,2,\\ldots$",
+        "Probability mass function": "$p(x)=e^{-\\lambda}\\lambda^{x}/x!$",
+        "CDF": "$F(k)=e^{-\\lambda}\\sum_{j=0}^{\\lfloor k\\rfloor}\\lambda^j/j!$ for $k\\ge0$",
+        "Mean": "$\\mathbb{E}(X)=\\lambda$",
+        "Mode": "$\\lfloor\\lambda\\rfloor$; also $\\lambda-1$ if $\\lambda$ is an integer",
+        "Variance": "$\\operatorname{Var}(X)=\\lambda$",
+        "Skewness": "$1/\\sqrt\\lambda$",
+        "Excess kurtosis": "$1/\\lambda$",
+        "MGF": "$\\exp[\\lambda(e^t-1)]$",
+        "Characteristic function": "$\\exp[\\lambda(e^{it}-1)]$",
+        "Fisher information": "$I(\\lambda)=1/\\lambda$ per observation",
+        "Conjugate prior": "[Gamma distribution](gamma-distribution.qmd): $\\lambda\\sim\\operatorname{Gamma}(\\alpha,\\beta)$, giving $\\lambda\\mid\\boldsymbol x\\sim\\operatorname{Gamma}(\\alpha+\\sum_i x_i,\\beta+n)$",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-poisson-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Related": "[Homogeneous Poisson process](homogeneous-poisson-process.qmd) · [Poisson regression](poisson-regression.qmd)",
+        "Properties": "[2](#properties)",
+        "Worked examples": "[6](#examples)",
+        "Questions using it": "[2](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-inf-poisson-information.qmd",
+        "../questions/ex-prob-name-the-laws.qmd",
+        "../questions/ex-prob-radioactive.qmd",
+        "../questions/q-32.qmd",
+        "../questions/q-53.qmd"
+      ],
+      "example_headings": [
+        "### Poisson natural form and Gamma conjugacy {#example-exm-poisson-natural-form-and-gamma-conjugacy}",
+        "### Houses on a village grid {#example-exm-houses-on-a-village-grid}",
+        "### A rare fault {#example-exm-a-rare-fault}",
+        "### Poisson flaws and posterior odds {#example-q-53}",
+        "### Deriving the Poisson log-likelihood {#example-q-32}",
+        "### Particles in an hour {#example-ex-prob-radioactive}"
+      ]
+    },
+    "student-t-distribution": {
+      "words": 1008,
+      "figures": {
+        "../figures/inf-t-densities.png": 1
+      },
+      "citation_keys": [
+        "casella_berger2002",
+        "davison2003",
+        "fisher1925_smrw",
+        "neyman1937",
+        "student1908"
+      ],
+      "infobox_rows": {
+        "Notation": "$T\\sim t_\\nu$",
+        "Parameters": "$\\nu>0$ degrees of freedom",
+        "Support": "$t\\in\\mathbb{R}$",
+        "Probability density": "$f(t)=\\frac{\\Gamma((\\nu+1)/2)}{\\sqrt{\\nu\\pi}\\,\\Gamma(\\nu/2)}(1+t^2/\\nu)^{-(\\nu+1)/2}$",
+        "Mean": "$0$ for $\\nu>1$",
+        "Median": "$0$",
+        "Mode": "$0$",
+        "Variance": "$\\nu/(\\nu-2)$ for $\\nu>2$",
+        "Taught in": "[Statistical inference](../notes/inf-01-statistical-inference.qmd#def-student-t-distribution)",
+        "Part": "[Statistical inference](../notes/index.qmd#statistical-inference)",
+        "Properties": "[3](#properties)",
+        "Worked examples": "[2](#examples)"
+      },
+      "question_links": [
+        "../questions/ex-inf-t-squared-is-f.qmd"
+      ],
+      "example_headings": [
+        "### The volume of a drop {#example-exm-the-volume-of-a-drop}",
+        "### A squared t variable {#example-ex-inf-t-squared-is-f}"
+      ]
+    },
+    "uniform-distribution": {
+      "words": 633,
+      "figures": {},
+      "citation_keys": [
+        "casella_berger2002",
+        "feller1968",
+        "grimmett_stirzaker2020",
+        "laplace1812",
+        "robert_casella2004",
+        "ross2019",
+        "vonneumann1951"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{U}[a,b]$",
+        "Parameters": "$a<b$",
+        "Support": "$a\\le x\\le b$",
+        "Probability density": "$p(x)=1/(b-a)$",
+        "CDF": "$F(x)=0$ for $x<a$; $(x-a)/(b-a)$ for $a\\le x<b$; $1$ for $x\\ge b$",
+        "Quantile": "$Q(u)=a+(b-a)u$",
+        "Mean": "$\\mathbb{E}(X)=(a+b)/2$",
+        "Median": "$(a+b)/2$",
+        "Mode": "any $x\\in[a,b]$",
+        "Variance": "$\\operatorname{Var}(X)=(b-a)^{2}/12$",
+        "Skewness": "$0$",
+        "Excess kurtosis": "$-6/5$",
+        "Entropy": "$\\log(b-a)$",
+        "MGF": "$(e^{bt}-e^{at})/[t(b-a)]$ for $t\\ne0$; $1$ at $t=0$",
+        "Characteristic function": "$(e^{ibt}-e^{iat})/[it(b-a)]$ for $t\\ne0$; $1$ at $t=0$",
+        "Taught in": "[Random variables and distributions](../notes/prob-02-random-variables.qmd#def-uniform-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Property": "[1](#properties)",
+        "Worked example": "[1](#examples)",
+        "Questions using it": "[5](#used-in)"
+      },
+      "question_links": [
+        "../questions/ex-prob-generate-uniform.qmd",
+        "../questions/ex-prob-min-and-mean.qmd",
+        "../questions/ex-prob-name-the-laws.qmd",
+        "../questions/ex-prob-sum-of-uniforms.qmd",
+        "../questions/ex-sp-doubly-stochastic.qmd"
+      ],
+      "example_headings": [
+        "### The sum of two uniforms {#example-exm-the-sum-of-two-uniforms}"
+      ]
+    },
+    "weibull-distribution": {
+      "words": 686,
+      "figures": {
+        "../figures/prob-weibull-hazards.png": 1
+      },
+      "citation_keys": [
+        "barlow_proschan1975",
+        "forbes2011",
+        "weibull1951"
+      ],
+      "infobox_rows": {
+        "Notation": "$X\\sim\\operatorname{Weibull}(k,\\lambda)$",
+        "Parameters": "$k,\\lambda>0$ (shape, scale)",
+        "Support": "$x\\ge0$",
+        "Probability density": "$f(x)=(k/\\lambda)(x/\\lambda)^{k-1}e^{-(x/\\lambda)^k}$",
+        "CDF": "$F(x)=1-e^{-(x/\\lambda)^k}$",
+        "Quantile": "$Q(p)=\\lambda[-\\log(1-p)]^{1/k}$",
+        "Mean": "$\\lambda\\Gamma(1+1/k)$",
+        "Median": "$\\lambda(\\log2)^{1/k}$",
+        "Variance": "$\\lambda^2[\\Gamma(1+2/k)-\\Gamma(1+1/k)^2]$",
+        "Taught in": "[Reliability](../notes/prob-07-reliability.qmd#def-weibull-distribution)",
+        "Part": "[Probability](../notes/index.qmd#probability)",
+        "Related": "[A finite endpoint, and a Weibull extreme-value law](a-finite-endpoint-and-a-weibull-extreme-value-law.qmd)"
+      },
+      "question_links": [],
+      "example_headings": []
+    },
+    "wishart-distribution": {
+      "words": 1114,
+      "figures": {},
+      "citation_keys": [
+        "anderson2003_mva",
+        "wishart1928"
+      ],
+      "infobox_rows": {
+        "Notation": "$W\\sim W_p(\\Sigma,\\nu)$",
+        "Parameters": "$\\Sigma$ positive definite, $\\nu\\ge p$",
+        "Support": "positive-definite matrices",
+        "Probability density": "$f(W)=\\lvert W\\rvert^{(\\nu-p-1)/2}e^{-\\operatorname{tr}(\\Sigma^{-1}W)/2}/[2^{\\nu p/2}\\lvert\\Sigma\\rvert^{\\nu/2}\\Gamma_p(\\nu/2)]$",
+        "Mean": "$\\nu\\Sigma$",
+        "Variance": "$\\operatorname{Cov}(W_{ij},W_{kl})=\\nu(\\Sigma_{ik}\\Sigma_{jl}+\\Sigma_{il}\\Sigma_{jk})$",
+        "Taught in": "[Estimation and inference for the multivariate normal](../notes/sl-02-normal-inference.qmd#def-sl-02-wishart)",
+        "Part": "[Statistical learning](../notes/index.qmd#statistical-learning)",
+        "Related": "[Multivariate normal distribution](multivariate-normal-distribution.qmd) · [Conditional distribution of a multivariate normal](conditional-distribution-of-a-multivariate-normal.qmd)"
+      },
+      "question_links": [],
+      "example_headings": []
+    }
+  }
+}

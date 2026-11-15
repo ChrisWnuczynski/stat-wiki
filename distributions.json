@@ -50,9 +50,18 @@
         "meaning": "binary outcome"
       }
     ],
-    "history": "",
+    "history": "Bernoulli’s posthumously published *Ars Conjectandi* (1713) studied chance in repeated trials. Its binary trial is the setting from which the success-or-failure model takes its name.{{cite:bernoulli1713}}\n\nModern probability texts use the Bernoulli variable as the elementary unit whose sums give binomial counts. Binary-response models then let its success probability depend on observed predictors.{{cite:ross2019}}{{cite:agresti2002}}",
     "sampling": "Draw a uniform value $U$ between zero and one, then return $1$ when $U<p$ and $0$ otherwise, where $p$ is the success probability.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It is the observation model behind binary-response regression and the single-trial component of a binomial count.{{cite:agresti2002}}",
+    "statistical_use": "For an observed yes-or-no outcome, the success probability is estimated by the sample proportion across independent trials. A logistic model lets that probability vary with predictors; the Bernoulli likelihood supplies each observation’s contribution.{{cite:agresti2002}}",
+    "worked_example": "### A binary check\n\nIf a test flags a defect with probability $p=0.2$, then $P(X=1)=0.2$ and $P(X=0)=0.8$. Its mean is $0.2$, while its variance is $0.2(0.8)=0.16$; the mean is a probability, not a fractional observed outcome.{{cite:ross2019}}",
+    "key_result": {
+      "title": "Mean and variance of one trial",
+      "statement": "For $X\\sim\\operatorname{Bernoulli}(p)$, $\\mathrm E(X)=p$ and $\\operatorname{Var}(X)=p(1-p)$.{{cite:ross2019}}",
+      "meaning": "The expected value is the success probability, while the variance is largest near an even chance.",
+      "proof": "Since $X$ is either zero or one, $X^2=X$. Thus $\\mathrm E(X)=0(1-p)+1p=p$ and $\\operatorname{Var}(X)=\\mathrm E(X^2)-\\mathrm E(X)^2=p-p^2=p(1-p)$.{{cite:ross2019}}"
+    }
   },
   "beta-distribution": {
     "name": "Beta",
@@ -106,7 +115,16 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": "$X\\mid p\\sim\\operatorname{Bin}(n,p)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$"
+    "conjugate_prior_for": "$X\\mid p\\sim\\operatorname{Bin}(n,p)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$",
+    "lead_context": "Its adjustable shapes make it a standard model for uncertain proportions and a conjugate prior for a binomial success probability.{{cite:gelman_bda2013}}",
+    "statistical_use": "In binomial inference, a beta prior updates by adding observed successes and failures to its two shape parameters. The posterior can be summarised by a mean or credible interval, but those summaries need not coincide when the posterior is skewed.{{cite:gelman_bda2013}}",
+    "worked_example": "### A probability below one half\n\nFor $X\\sim\\operatorname{Beta}(2,3)$, integration of the density gives $P(X<1/2)=11/16=0.6875$. This is a probability about the unknown proportion under the model; it is not the proportion of successes in any one sample.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Mean of a beta probability",
+      "statement": "For $X\\sim\\operatorname{Beta}(\\alpha,\\beta)$, $\\mathrm E(X)=\\alpha/(\\alpha+\\beta)$.{{cite:forbes2011}}",
+      "meaning": "Each shape contributes to the expected share of the total concentration.",
+      "proof": "The density normaliser is $B(\\alpha,\\beta)$. Multiplying its kernel by $x$ makes the integral $B(\\alpha+1,\\beta)/B(\\alpha,\\beta)$. The beta-function identity $B(\\alpha+1,\\beta)=\\alpha B(\\alpha,\\beta)/(\\alpha+\\beta)$ gives the stated mean.{{cite:forbes2011}}"
+    }
   },
   "binomial-distribution": {
     "name": "Binomial",
@@ -160,9 +178,18 @@
         "meaning": "number of successes"
       }
     ],
-    "history": "",
+    "history": "Bernoulli’s *Ars Conjectandi*, published in 1713, developed combinatorial calculations for repeated trials. Counting the number of successes gives the binomial sampling problem.{{cite:bernoulli1713}}\n\nThe distribution later became a standard likelihood for a population proportion. Modern inference distinguishes exact binomial calculations from approximations that rely on larger samples.{{cite:casella_berger2002}}",
     "sampling": "Draw $n$ independent Bernoulli values with success probability $p$ and add them, where $n$ is the trial count.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It supplies exact probabilities for repeated binary trials and underlies tests and intervals for a population proportion.{{cite:casella_berger2002}}",
+    "statistical_use": "A binomial likelihood estimates a common success probability from a fixed number of independent trials. Exact tail probabilities support tests and confidence intervals; if trials are dependent or their probabilities differ, the binomial model needs reconsideration.{{cite:casella_berger2002}}",
+    "worked_example": "### Three successes in ten trials\n\nFor $n=10$ and $p=0.3$, $P(X=3)=\\binom{10}{3}(0.3)^3(0.7)^7\\approx0.2668$. The count $3$ is one possible outcome; its probability is not the same as the estimated success rate $3/10$.{{cite:ross2019}}",
+    "key_result": {
+      "title": "Mean and variance of a trial count",
+      "statement": "For $X\\sim\\operatorname{Bin}(n,p)$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)$.{{cite:ross2019}}",
+      "meaning": "The count grows as a sum of independent binary outcomes, so both its mean and variance scale with the number of trials.",
+      "proof": "Write $X=\\sum_{i=1}^n B_i$ for independent Bernoulli variables with success probability $p$. Linearity gives $\\mathrm E(X)=\\sum_i p=np$; independence removes cross-covariances, so $\\operatorname{Var}(X)=\\sum_i p(1-p)=np(1-p)$.{{cite:ross2019}}"
+    }
   },
   "cauchy-distribution": {
     "name": "Cauchy",
@@ -213,7 +240,16 @@
     ],
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=x_0+\\gamma\\tan[\\pi(U-1/2)]$, where $x_0$ is the location and $\\gamma$ is the scale.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its extreme tails make it a useful counterexample to methods that require a finite mean or variance.{{cite:casella_berger2002}}",
+    "statistical_use": "A Cauchy likelihood can model outliers, but a sample average does not become stable as the sample grows. For location inference, the sample median or a likelihood-based fit is more informative than the sample mean under this model.{{cite:casella_berger2002}}",
+    "worked_example": "### Half the mass near the centre\n\nFor a standard Cauchy variable, $F(1)-F(-1)=(3/4)-(1/4)=1/2$. The interval $[-1,1]$ contains half the probability even though the distribution has no finite mean.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Why the mean does not exist",
+      "statement": "A Cauchy variable with positive scale $\\gamma$ has no finite absolute first moment, so its usual expectation is undefined.{{cite:forbes2011}}",
+      "meaning": "This is why the sample average is not a reliable location summary under the Cauchy model.",
+      "proof": "For sufficiently large $|x|$, the density $\\gamma/[\\pi((x-x_0)^2+\\gamma^2)]$ is bounded below by a positive constant times $1/x^2$. The tail integral of $|x|f(x)$ therefore dominates a constant times $\\int_M^\\infty dx/x$, which diverges. Hence $\\mathrm E|X|=\\infty$ and the ordinary expectation is not defined.{{cite:forbes2011}}"
+    }
   },
   "chi-squared-distribution": {
     "name": "Chi-squared",
@@ -263,9 +299,18 @@
         "meaning": "degrees of freedom"
       }
     ],
-    "history": "",
+    "history": "Pearson’s 1900 paper studied the discrepancy between observed and expected frequencies under a probability model. That problem led to the chi-squared goodness-of-fit statistic and its reference distribution.{{cite:pearson1900}}\n\nThe same distribution also arises exactly as a sum of squared standard normal variables. Modern texts separate that exact normal-sampling result from the asymptotic chi-squared calibration of many fit statistics.{{cite:casella_berger2002}}",
     "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It calibrates sample-variance inference under normal sampling and appears in large-sample goodness-of-fit tests.{{cite:casella_berger2002}}",
+    "statistical_use": "For independent normal observations, a scaled sample variance has a chi-squared law and gives exact variance intervals. Pearson-type goodness-of-fit statistics use a chi-squared reference asymptotically, with degrees of freedom adjusted for fitted parameters.{{cite:casella_berger2002}}",
+    "worked_example": "### Four squared normal components\n\nIf $X$ is the sum of squares of four independent standard normal variables, then $X\\sim\\chi^2_4$. Its mean is $4$ and its variance is $8$, so a value near $4$ is typical but the distribution is not symmetric.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Mean and variance of squared normals",
+      "statement": "If $X\\sim\\chi^2_\\nu$ with integer $\\nu\\ge1$, then $\\mathrm E(X)=\\nu$ and $\\operatorname{Var}(X)=2\\nu$.{{cite:casella_berger2002}}",
+      "meaning": "Each squared standard-normal component adds one to the mean and two to the variance.",
+      "proof": "Write $X=\\sum_{i=1}^{\\nu}Z_i^2$ with independent standard normals. Their second and fourth moments are $\\mathrm E(Z_i^2)=1$ and $\\mathrm E(Z_i^4)=3$, so $\\operatorname{Var}(Z_i^2)=3-1=2$. Sum expectations and, by independence, variances to obtain $\\nu$ and $2\\nu$.{{cite:casella_berger2002}}"
+    }
   },
   "conway-maxwell-poisson-distribution": {
     "name": "Conway–Maxwell–Poisson",
@@ -313,9 +358,19 @@
         "meaning": "normalising constant"
       }
     ],
-    "history": "Conway and Maxwell introduced this count model in a 1962 study of queues with state-dependent service rates.{{cite:conway_maxwell1962}}",
+    "history": "Conway and Maxwell introduced this count model in 1962 while studying queues with state-dependent service rates. The factorial-power parameter changed how concentrated the queue-length counts could be.{{cite:conway_maxwell1962}}\n\nShmueli and colleagues revived the family in 2005 for fitting dispersed discrete data. Later mean-parameterised regression work made its coefficients easier to compare with other count models.{{cite:shmueli2005}}{{cite:huang2017_cmp}}",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It is used when count data are either more or less dispersed than a Poisson model allows.{{cite:shmueli2005}}",
+    "statistical_use": "In count regression, this family can accommodate both overdispersion and underdispersion. Its original $\\lambda$ parameter is generally not the mean, so a fitted coefficient needs a mean-parameterised formulation or a careful translation before comparison with Poisson regression.{{cite:huang2017_cmp}}",
+    "worked_example": "### A normalising constant that can be summed\n\nAt $\\nu=0$ and $\\lambda=1/2$, the normalising series is $Z=\\sum_{x=0}^{\\infty}(1/2)^x=2$. Thus $P(X=0)=1/2$, $P(X=1)=1/4$, and $P(X\\le1)=3/4$. This endpoint is a geometric count on nonnegative integers, not the trial-count convention used on the geometric article.{{cite:shmueli2005}}",
+    "definition_note": "Here $Z(\\lambda,\\nu)=\\sum_{j=0}^{\\infty}\\lambda^j/(j!)^\\nu$; the stated parameter restrictions make this normalising sum finite.{{cite:shmueli2005}}",
+    "key_result": {
+      "title": "The Poisson special case",
+      "statement": "At $\\nu=1$, the Conway–Maxwell–Poisson law with parameter $\\lambda$ is $\\operatorname{Poisson}(\\lambda)$.{{cite:shmueli2005}}",
+      "meaning": "The extra dispersion parameter changes the count law away from this Poisson baseline.",
+      "proof": "At $\\nu=1$, the normalising series becomes $Z(\\lambda,1)=\\sum_{j=0}^\\infty\\lambda^j/j!=e^\\lambda$. The mass is therefore $\\lambda^x/(x!e^\\lambda)=e^{-\\lambda}\\lambda^x/x!$, exactly the Poisson mass.{{cite:shmueli2005}}"
+    }
   },
   "dirichlet-distribution": {
     "name": "Dirichlet",
@@ -361,7 +416,17 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": "$\\boldsymbol X\\mid\\boldsymbol p\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$"
+    "conjugate_prior_for": "$\\boldsymbol X\\mid\\boldsymbol p\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$",
+    "lead_context": "It models uncertain category-probability vectors and updates directly with multinomial counts.{{cite:gelman_bda2013}}",
+    "statistical_use": "A Dirichlet prior adds observed counts componentwise to its concentration vector in a multinomial analysis. The posterior means combine prior category weights with observed frequencies, while the common total means the components are dependent.{{cite:gelman_bda2013}}",
+    "worked_example": "### Updating three categories\n\nStart with $\\boldsymbol p\\sim\\operatorname{Dirichlet}(2,3,5)$ and observe counts $(4,1,0)$. The posterior is $\\operatorname{Dirichlet}(6,4,5)$, so the posterior mean of $p_1$ is $6/15=0.4$, compared with prior mean $2/10=0.2$.{{cite:gelman_bda2013}}",
+    "definition_note": "The vector $\\boldsymbol\\alpha=(\\alpha_1,\\ldots,\\alpha_K)$ has $K$ positive components, $\\alpha_0=\\sum_k\\alpha_k$, and an observed vector $\\boldsymbol x=(x_1,\\ldots,x_K)$ lies on the simplex: each $x_k>0$ and $\\sum_kx_k=1$.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Beta marginal of one component",
+      "statement": "If $\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\alpha_1,\\ldots,\\alpha_K)$ and $\\alpha_0=\\sum_k\\alpha_k$, then $X_j\\sim\\operatorname{Beta}(\\alpha_j,\\alpha_0-\\alpha_j)$ for $K\\ge2$.{{cite:gelman_bda2013}}",
+      "meaning": "Each category probability has a beta marginal even though the category probabilities are dependent.",
+      "proof": "Let independent $G_k\\sim\\operatorname{Gamma}(\\alpha_k,1)$ and set $X_k=G_k/\\sum_iG_i$. The sum $S_{-j}=\\sum_{i\\ne j}G_i$ is independent of $G_j$ and has gamma shape $\\alpha_0-\\alpha_j$ with the same rate. The ratio $G_j/(G_j+S_{-j})$ is beta with the stated shapes.{{cite:gelman_bda2013}}"
+    }
   },
   "exponential-distribution": {
     "name": "Exponential",
@@ -410,7 +475,16 @@
     ],
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=-\\log U/\\lambda$, where $\\lambda$ is the event rate.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its constant event rate makes it the basic waiting-time model for Poisson processes and reliability calculations.{{cite:ross2019}}",
+    "statistical_use": "An exponential likelihood estimates a constant event rate from observed waiting times, with total exposure carrying the information about the rate. The constant-hazard assumption should be checked when failure risk changes with age.{{cite:ross2019}}",
+    "worked_example": "### Waiting longer than five units\n\nAt rate $\\lambda=0.2$ per unit, $P(X>5)=e^{-0.2(5)}=e^{-1}\\approx0.3679$. Conditional on surviving five units, the chance of surviving another five is the same $e^{-1}$ by memorylessness.{{cite:ross2019}}",
+    "key_result": {
+      "title": "Memorylessness",
+      "statement": "For $X\\sim\\operatorname{Exp}(\\lambda)$ and $s,t\\ge0$, $P(X>s+t\\mid X>s)=P(X>t)=e^{-\\lambda t}$.{{cite:ross2019}}",
+      "meaning": "Elapsed waiting time does not change the distribution of the remaining wait.",
+      "proof": "The survival function is $S(u)=e^{-\\lambda u}$, which is positive for every finite $u$. Hence $P(X>s+t\\mid X>s)=S(s+t)/S(s)=e^{-\\lambda(s+t)}/e^{-\\lambda s}=e^{-\\lambda t}=S(t)$.{{cite:ross2019}}"
+    }
   },
   "f-distribution": {
     "name": "F",
@@ -464,7 +538,16 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It supplies reference distributions for ratios of variance estimates and for analysis-of-variance tests.{{cite:casella_berger2002}}",
+    "statistical_use": "Under normal-model assumptions, a ratio of independent scaled sums of squares has an F reference law. This calibrates variance comparisons and nested-model tests; the two degrees of freedom identify the numerator and denominator sources separately.{{cite:casella_berger2002}}",
+    "worked_example": "### A finite mean\n\nFor $X\\sim F_{5,10}$, the mean exists because the denominator degrees of freedom exceed two, and equals $10/(10-2)=1.25$. It is above one even though the ratio is centred near one in many null-model applications.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "When the mean of an F ratio exists",
+      "statement": "If $X\\sim F_{d_1,d_2}$ and $d_2>2$, then $\\mathrm E(X)=d_2/(d_2-2)$.{{cite:forbes2011}}",
+      "meaning": "The denominator degrees of freedom control whether the ratio has a finite mean.",
+      "proof": "Write $X=(U/d_1)/(V/d_2)$ with independent $U\\sim\\chi^2_{d_1}$ and $V\\sim\\chi^2_{d_2}$. Then $\\mathrm E(U)=d_1$ and the gamma integral gives $\\mathrm E(1/V)=1/(d_2-2)$ when $d_2>2$. Independence yields $\\mathrm E(X)=(d_2/d_1)d_1/(d_2-2)$.{{cite:forbes2011}}"
+    }
   },
   "gamma-distribution": {
     "name": "Gamma",
@@ -516,7 +599,17 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": "$X_i\\mid\\theta\\sim\\operatorname{Poisson}(\\theta)$ with $\\theta\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$, giving $\\theta\\mid\\boldsymbol x\\sim\\operatorname{Gamma}(\\alpha+\\sum_i x_i,\\lambda+n)$"
+    "conjugate_prior_for": "$X_i\\mid\\theta\\sim\\operatorname{Poisson}(\\theta)$ with $\\theta\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$, giving $\\theta\\mid\\boldsymbol x\\sim\\operatorname{Gamma}(\\alpha+\\sum_i x_i,\\lambda+n)$",
+    "lead_context": "Its shape-rate form describes positive waiting times and provides a conjugate prior for Poisson intensities.{{cite:gelman_bda2013}}",
+    "statistical_use": "A gamma model can describe positive durations or responses whose variability grows with their mean. In Bayesian count models, a gamma prior for a Poisson intensity yields a gamma posterior after adding event counts and exposure.{{cite:gelman_bda2013}}",
+    "worked_example": "### Two arrivals in a Poisson process\n\nFor $X\\sim\\operatorname{Gamma}(2,1/2)$ in shape-rate form, the mean is $2/(1/2)=4$. Its survival beyond time $4$ is $e^{-2}(1+2)\\approx0.4060$, the probability that fewer than two events have occurred by that time in a rate-$1/2$ Poisson process.{{cite:ross2019}}",
+    "definition_note": "This article uses $\\lambda$ for the gamma rate. Some copied worked examples write the same rate as $\\beta$ or $b$; the density and its mean still use the shape-rate, rather than shape-scale, convention.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Mean and variance in shape-rate form",
+      "statement": "For $X\\sim\\operatorname{Gamma}(\\alpha,\\lambda)$, $\\mathrm E(X)=\\alpha/\\lambda$ and $\\operatorname{Var}(X)=\\alpha/\\lambda^2$.{{cite:forbes2011}}",
+      "meaning": "Increasing the shape raises the mean, while increasing the rate shortens the waiting-time scale.",
+      "proof": "The moment-generating function is $M(t)=(1-t/\\lambda)^{-\\alpha}$ for $t<\\lambda$. Differentiating at zero gives $M\\prime(0)=\\alpha/\\lambda$ and $M\\prime\\prime(0)=\\alpha(\\alpha+1)/\\lambda^2$. Subtracting the squared mean gives variance $\\alpha/\\lambda^2$.{{cite:forbes2011}}"
+    }
   },
   "geometric-distribution": {
     "name": "Geometric",
@@ -565,7 +658,16 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It models how many independent trials are needed for a first success and gives a discrete memoryless waiting time.{{cite:ross2019}}",
+    "statistical_use": "The geometric likelihood applies when each attempt has the same success probability and trials are independent. The trial-count convention used here starts at one; software that counts failures before success reports a value one smaller.{{cite:ross2019}}",
+    "worked_example": "### Waiting for a successful attempt\n\nWith success probability $p=1/4$, the chance that the first three attempts fail is $P(X>3)=(3/4)^3=27/64\\approx0.4219$. The expected trial of the first success is $1/p=4$.{{cite:ross2019}}",
+    "key_result": {
+      "title": "Survival and expected trial count",
+      "statement": "For a geometric trial count $X$ with success probability $p>0$, $P(X>m)=(1-p)^m$ for integers $m\\ge0$, and $\\mathrm E(X)=1/p$.{{cite:ross2019}}",
+      "meaning": "The survival formula is the chance of repeated failures; it also makes the mean waiting time easy to compute.",
+      "proof": "The event $X>m$ says that the first $m$ independent trials all failed, giving $(1-p)^m$. For a positive-integer count, $\\mathrm E(X)=\\sum_{m=0}^\\infty P(X>m)=\\sum_{m=0}^\\infty(1-p)^m=1/p$.{{cite:ross2019}}"
+    }
   },
   "hypergeometric-distribution": {
     "name": "Hypergeometric",
@@ -621,7 +723,16 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "",
-    "definition_from_source": true
+    "definition_from_source": true,
+    "lead_context": "It gives exact sampling probabilities when draws are made without replacement from a finite population.{{cite:feller1968}}",
+    "statistical_use": "The hypergeometric law is appropriate for a fixed-size random sample from a finite set with a known number of marked items. It supplies the conditional calculation behind Fisher’s exact test and shows the finite-population correction absent from a binomial model.{{cite:agresti2002}}",
+    "worked_example": "### No marked items in a sample\n\nA population has $N=20$ items, of which $r=5$ are marked. For a sample of $n=4$ without replacement, $P(X=0)=\\binom{15}{4}/\\binom{20}{4}=1365/4845\\approx0.2817$.{{cite:feller1968}}",
+    "key_result": {
+      "title": "Finite-population mean and variance",
+      "statement": "For $X\\sim\\operatorname{Hypergeom}(N,r,n)$ with $N>1$ and $p=r/N$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)(N-n)/(N-1)$.{{cite:feller1968}}",
+      "meaning": "Sampling without replacement keeps the binomial mean but reduces variance by the finite-population factor.",
+      "proof": "Let $I_i$ indicate a marked item on draw $i$. Every draw has $\\mathrm E(I_i)=p$ and variance $p(1-p)$. For distinct draws, $P(I_i=I_j=1)=r(r-1)/[N(N-1)]$, giving $\\operatorname{Cov}(I_i,I_j)=-p(1-p)/(N-1)$. Summing the $n$ indicator means and their $n(n-1)$ ordered cross-covariances gives the stated formulas.{{cite:feller1968}}"
+    }
   },
   "inverse-gamma-distribution": {
     "name": "Inverse gamma",
@@ -671,7 +782,16 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "$X_i\\mid\\sigma^2\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\mu$, giving $\\sigma^2\\mid\\boldsymbol x\\sim\\operatorname{InvGamma}(\\alpha+n/2,\\beta+S_\\mu/2)$",
-    "mode_explanation": "The mode is $\\beta/(\\alpha+1)$, which is not the variance."
+    "mode_explanation": "The mode is $\\beta/(\\alpha+1)$, which is not the variance.",
+    "lead_context": "Its reciprocal-gamma construction makes it a traditional prior model for a normal variance.{{cite:gelman_bda2013}}",
+    "statistical_use": "For a normal likelihood with known mean, an inverse-gamma prior on the variance updates by adding half the sample size to its shape and half the squared-deviation sum to its scale. This convenience does not by itself make a particular prior weakly informative.{{cite:gelman_bda2013}}",
+    "worked_example": "### Mean and mode differ\n\nFor $X\\sim\\operatorname{InvGamma}(3,2)$, the mean is $2/(3-1)=1$, the mode is $2/(3+1)=1/2$, and the variance is $2^2/[(3-1)^2(3-2)]=1$. The equality of this example’s mean and variance is accidental.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "The inverse-gamma mode",
+      "statement": "For $X\\sim\\operatorname{InvGamma}(\\alpha,\\beta)$ with positive shape and scale, the mode is $\\beta/(\\alpha+1)$.{{cite:forbes2011}}",
+      "meaning": "The most likely density location is below the mean whenever the mean exists.",
+      "proof": "Apart from a constant, $\\log f(x)=-(\\alpha+1)\\log x-\\beta/x$ for $x>0$. Its derivative is $[\\beta-(\\alpha+1)x]/x^2$, positive below $\\beta/(\\alpha+1)$ and negative above it. Thus that stationary point is the global mode.{{cite:forbes2011}}"
+    }
   },
   "inverse-gaussian-distribution": {
     "name": "Inverse Gaussian",
@@ -724,7 +844,16 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its variance grows rapidly with the mean, which makes it useful for skewed positive responses in generalised linear models.{{cite:mccullagh_nelder1989}}",
+    "statistical_use": "An inverse-Gaussian response model is used for positive outcomes with a variance proportional to the cube of the mean at fixed shape. A log link can keep fitted means positive even though the family’s canonical link is inverse quadratic.{{cite:mccullagh_nelder1989}}",
+    "worked_example": "### A skewed positive response\n\nFor $X\\sim\\operatorname{IG}(2,4)$, the mean is $\\mu=2$ and the variance is $\\mu^3/\\lambda=8/4=2$. Doubling the mean while keeping shape $\\lambda=4$ would multiply the variance by eight.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Mean and variance of the positive law",
+      "statement": "For $X\\sim\\operatorname{IG}(\\mu,\\lambda)$, $\\mathrm E(X)=\\mu$ and $\\operatorname{Var}(X)=\\mu^3/\\lambda$.{{cite:forbes2011}}",
+      "meaning": "At fixed shape, variability increases cubically with the mean.",
+      "proof": "The moment-generating function is $M(t)=\\exp\\{(\\lambda/\\mu)[1-\\sqrt{1-2\\mu^2t/\\lambda}]\\}$ near zero. Expanding its logarithm gives $\\log M(t)=\\mu t+(\\mu^3/2\\lambda)t^2+O(t^3)$. The first two cumulants are therefore $\\mu$ and $\\mu^3/\\lambda$.{{cite:forbes2011}}"
+    }
   },
   "lognormal-distribution": {
     "name": "Lognormal",
@@ -777,7 +906,16 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It describes positive measurements built from multiplicative changes and is analysed conveniently on a logarithmic scale.{{cite:forbes2011}}",
+    "statistical_use": "A lognormal model can be fitted by analysing the logarithms with normal-model tools, then transforming predictions back carefully. The arithmetic mean on the original scale exceeds the median, so exponentiating a fitted log mean gives the median rather than the mean.{{cite:forbes2011}}",
+    "worked_example": "### A threshold on the original scale\n\nIf $\\log X\\sim N(0,1)$, then $P(X>e)=P(Z>1)\\approx0.1587$ for a standard normal $Z$. The median of $X$ is $1$ while its mean is $e^{1/2}\\approx1.6487$.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Moments from a normal logarithm",
+      "statement": "If $\\log X\\sim N(\\mu,\\sigma^2)$, then $\\mathrm E(X)=e^{\\mu+\\sigma^2/2}$ and $\\operatorname{Var}(X)=(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$.{{cite:forbes2011}}",
+      "meaning": "The arithmetic mean exceeds the median because the upper tail contributes strongly to the average.",
+      "proof": "For $Y=\\log X\\sim N(\\mu,\\sigma^2)$, the normal moment-generating formula gives $\\mathrm E(X^k)=\\mathrm E(e^{kY})=e^{k\\mu+k^2\\sigma^2/2}$. Take $k=1,2$ and subtract $[\\mathrm E(X)]^2$ from $\\mathrm E(X^2)$ to obtain the variance.{{cite:forbes2011}}"
+    }
   },
   "multinomial-distribution": {
     "name": "Multinomial",
@@ -826,7 +964,17 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It is the joint count model for categorical trials and supplies likelihoods for category probabilities.{{cite:agresti2002}}",
+    "statistical_use": "The multinomial likelihood estimates a vector of category probabilities from counts that sum to a fixed total. Marginal counts are binomial, but their dependence matters in joint intervals and tests of category patterns.{{cite:agresti2002}}",
+    "worked_example": "### Counts in three categories\n\nFor $n=10$ and $\\boldsymbol p=(0.2,0.3,0.5)$, the count vector $(2,3,5)$ has probability $10!/(2!3!5!)\\,(0.2)^2(0.3)^3(0.5)^5=0.08505$. The three counts must sum to ten.{{cite:forbes2011}}",
+    "definition_note": "There are $K$ categories; $\\boldsymbol p=(p_1,\\ldots,p_K)$ has nonnegative components summing to one, and the realised count vector $\\boldsymbol x=(x_1,\\ldots,x_K)$ has nonnegative integer components summing to $n$.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Binomial marginals and dependent counts",
+      "statement": "For $\\boldsymbol X\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, each $X_k\\sim\\operatorname{Bin}(n,p_k)$ and $\\operatorname{Cov}(X_j,X_k)=-np_jp_k$ for $j\\ne k$.{{cite:agresti2002}}",
+      "meaning": "A category has a binomial count, but different categories compete for the same fixed total.",
+      "proof": "Write $X_k=\\sum_{i=1}^n I_{ik}$, where $I_{ik}$ indicates category $k$ on trial $i$. The indicators are independent across trials, so each sum is binomial. For $j\\ne k$ on one trial, $I_{ij}I_{ik}=0$, hence covariance $-p_jp_k$; cross-trial covariances vanish, giving $-np_jp_k$.{{cite:agresti2002}}"
+    }
   },
   "multivariate-normal-distribution": {
     "name": "Multivariate normal",
@@ -888,7 +1036,17 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its mean vector and covariance matrix make it a basic joint model for correlated measurements.{{cite:anderson2003_mva}}",
+    "statistical_use": "Multivariate-normal models support joint mean estimation, discriminant analysis and covariance-based testing. Their covariance matrix describes dependence between components; a separate univariate normal fit to each component misses that joint structure.{{cite:anderson2003_mva}}",
+    "worked_example": "### A correlated sum\n\nLet $(X_1,X_2)$ have means zero, unit variances and correlation $0.6$. Then $X_1+X_2$ is normal with variance $1+1+2(0.6)=3.2$, and symmetry gives $P(X_1+X_2>0)=1/2$.{{cite:anderson2003_mva}}",
+    "definition_note": "For a $p$-component vector, $\\boldsymbol\\mu$ is its $p$-component mean, $\\Sigma$ is a positive-definite $p\\times p$ covariance matrix, and $\\boldsymbol x$ is an observed vector; $|\\Sigma|$ denotes its determinant.{{cite:anderson2003_mva}}",
+    "key_result": {
+      "title": "Affine images remain jointly normal",
+      "statement": "If $\\boldsymbol X\\sim N_p(\\boldsymbol\\mu,\\Sigma)$, $A$ is a fixed $q\\times p$ matrix, and $\\boldsymbol b$ is a fixed $q$-vector, then $A\\boldsymbol X+\\boldsymbol b$ is jointly normal with mean $A\\boldsymbol\\mu+\\boldsymbol b$ and covariance $A\\Sigma A^\\top$.{{cite:anderson2003_mva}}",
+      "meaning": "Linear combinations and marginals can be analysed without leaving the normal family.",
+      "proof": "The characteristic function of $\\boldsymbol X$ at $\\boldsymbol t$ is $\\exp(i\\boldsymbol t^\\top\\boldsymbol\\mu-\\boldsymbol t^\\top\\Sigma\\boldsymbol t/2)$. Substituting $A^\\top\\boldsymbol t$ and multiplying by $e^{i\\boldsymbol t^\\top\\boldsymbol b}$ yields the characteristic function of a normal vector with the stated mean and covariance, including a possibly singular covariance when $A$ has deficient rank.{{cite:anderson2003_mva}}"
+    }
   },
   "negative-binomial-distribution": {
     "name": "Negative binomial",
@@ -938,7 +1096,17 @@
     ],
     "history": "",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It accommodates count variation beyond the mean–variance equality imposed by a Poisson model.{{cite:venables_ripley2002}}",
+    "statistical_use": "Negative-binomial regression is used for overdispersed counts when a Poisson fit understates variation. In this parameterisation $\\mu$ is the mean and $\\nu$ controls extra variance; larger $\\nu$ brings the law closer to Poisson.{{cite:venables_ripley2002}}",
+    "worked_example": "### Extra variation in counts\n\nFor $X\\sim\\operatorname{NegBin}(\\mu=4,\\nu=2)$, the variance is $4+4^2/2=12$, three times the mean. The chance of zero counts is $(2/(4+2))^2=1/9$, larger than the Poisson zero chance $e^{-4}$.{{cite:venables_ripley2002}}",
+    "key_result": {
+      "title": "Extra variance from rate mixing",
+      "statement": "For the mean-dispersion parameterisation $X\\sim\\operatorname{NegBin}(\\mu,\\nu)$, $\\mathrm E(X)=\\mu$ and $\\operatorname{Var}(X)=\\mu+\\mu^2/\\nu$.{{cite:venables_ripley2002}}",
+      "meaning": "The additional term measures variation beyond the Poisson mean–variance equality.",
+      "proof": "Let $\\Lambda\\sim\\operatorname{Gamma}(\\nu,\\nu/\\mu)$ in shape-rate form and $X\\mid\\Lambda\\sim\\operatorname{Poisson}(\\Lambda)$. Integrating the Poisson mass against the gamma density gives the displayed negative-binomial mass. The laws of total expectation and variance give $\\mathrm E(X)=\\mathrm E(\\Lambda)=\\mu$ and $\\operatorname{Var}(X)=\\mathrm E(\\Lambda)+\\operatorname{Var}(\\Lambda)=\\mu+\\mu^2/\\nu$.{{cite:venables_ripley2002}}"
+    },
+    "definition_note": "This page uses mean $\\mu$ and dispersion $\\nu$. For integer $\\nu$, a common alternative counts failures before $\\nu$ successes with success probability $p=\\nu/(\\mu+\\nu)$; that convention yields the same mass function.{{cite:forbes2011}}"
   },
   "normal-distribution": {
     "name": "Normal",
@@ -991,9 +1159,18 @@
         "meaning": "standard deviation"
       }
     ],
-    "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies.{{cite:gauss1809}}",
+    "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies. The model described the pattern of errors around a fitted astronomical calculation.{{cite:gauss1809}}\n\nThe normal family became central to likelihood inference and approximations for averages. Modern texts distinguish a normal model for individual observations from a normal approximation to a statistic’s sampling distribution.{{cite:casella_berger2002}}",
     "sampling": "The Box–Muller method transforms two independent uniform draws into two independent standard normal draws; multiply either by $\\sigma$ and add $\\mu$, where $\\mu$ is the desired mean and $\\sigma$ the standard deviation.{{cite:box_muller1958}}",
-    "conjugate_prior_for": "$X_i\\mid\\mu\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\sigma^2$ and prior $\\mu\\sim\\operatorname{N}(\\mu_0,\\sigma_0^2)$, giving a normal posterior"
+    "conjugate_prior_for": "$X_i\\mid\\mu\\sim\\operatorname{N}(\\mu,\\sigma^2)$ with known $\\sigma^2$ and prior $\\mu\\sim\\operatorname{N}(\\mu_0,\\sigma_0^2)$, giving a normal posterior",
+    "lead_context": "Its location-scale form is central to measurement-error models and to approximations for averages.{{cite:casella_berger2002}}",
+    "statistical_use": "Normal likelihoods give familiar estimators and intervals for means when their assumptions are credible. Even when individual observations are not normal, averages may have an approximately normal sampling distribution under conditions of a central limit theorem.{{cite:casella_berger2002}}",
+    "worked_example": "### One standard deviation above the mean\n\nFor $X\\sim N(100,15^2)$, $P(X>115)=P(Z>1)\\approx0.1587$ after standardising by the mean and standard deviation. The same tail probability applies to any normal law one standard deviation above its mean.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Affine changes preserve normality",
+      "statement": "If $X\\sim N(\\mu,\\sigma^2)$ and $a\\ne0$, then $aX+b\\sim N(a\\mu+b,a^2\\sigma^2)$.{{cite:casella_berger2002}}",
+      "meaning": "Changing measurement units shifts and rescales a normal law without changing its basic shape.",
+      "proof": "The characteristic function of $aX+b$ is $e^{itb}\\mathrm E(e^{i(at)X})=\\exp\\{it(a\\mu+b)-a^2\\sigma^2t^2/2\\}$, the characteristic function of the stated normal distribution.{{cite:casella_berger2002}}"
+    }
   },
   "pareto-distribution": {
     "name": "Pareto",
@@ -1044,9 +1221,18 @@
         "meaning": "tail parameter"
       }
     ],
-    "history": "Pareto described the heavy-tailed pattern of economic quantities in his 1909 manual.{{cite:pareto1909}}",
+    "history": "Pareto described patterns of economic quantities in his 1909 manual of political economy. The distribution named for him represents a tail in which very large observations remain comparatively common.{{cite:pareto1909}}\n\nModern distribution references use its tail parameter to show exactly when the mean or variance exists. This makes the family both a model for extremes and a warning against relying on moments without checking their conditions.{{cite:forbes2011}}",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=x_m(1-U)^{-1/\\alpha}$, where $x_m$ is the minimum and $\\alpha$ is the tail parameter.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its power-law tail is used to describe extreme inequality and to show when population moments may fail to exist.{{cite:forbes2011}}",
+    "statistical_use": "A Pareto tail model focuses on observations above a chosen threshold, with the tail parameter governing the frequency of very large values. Moment-based summaries are inappropriate when that parameter is too small for the corresponding moment to exist.{{cite:forbes2011}}",
+    "worked_example": "### A large value above the minimum\n\nFor minimum $x_m=2$ and tail parameter $\\alpha=3$, $P(X>4)=(2/4)^3=1/8$. Doubling the threshold from the minimum reduces the exceedance probability by a factor of eight.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Power-law survival",
+      "statement": "For $X\\sim\\operatorname{Pareto}(x_m,\\alpha)$ and $x\\ge x_m$, $P(X>x)=(x_m/x)^\\alpha$.{{cite:forbes2011}}",
+      "meaning": "The tail probability shrinks by a fixed power when the threshold is multiplied.",
+      "proof": "Integrate the density $\\alpha x_m^\\alpha u^{-\\alpha-1}$ from $x$ to infinity: $\\int_x^\\infty\\alpha x_m^\\alpha u^{-\\alpha-1}\\,du=x_m^\\alpha x^{-\\alpha}$.{{cite:forbes2011}}"
+    }
   },
   "poisson-distribution": {
     "name": "Poisson",
@@ -1095,9 +1281,18 @@
         "meaning": "mean event count"
       }
     ],
-    "history": "Poisson discussed this count law in his 1837 treatise on probability.{{cite:poisson1837}}",
+    "history": "Poisson’s 1837 treatise addressed probability questions about civil and criminal judgements and presented the count law now associated with his name.{{cite:poisson1837}}\n\nLater probability models linked Poisson counts to events in time and space and to the rare-event limit of binomial trials. Contemporary count regression still uses the equal-mean-and-variance law as a baseline.{{cite:ross2019}}{{cite:agresti2002}}",
     "sampling": "Draw a uniform value $U$ and return the smallest count $x$ whose cumulative probability is at least $U$.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It models counts over a fixed exposure and is the reference point for assessing count-data dispersion.{{cite:ross2019}}",
+    "statistical_use": "A Poisson likelihood estimates an event rate from counts and their exposures; a regression offset can account for different exposure lengths. A variance much larger or smaller than the fitted mean indicates that its equal-mean-and-variance assumption needs checking.{{cite:agresti2002}}",
+    "worked_example": "### Two arrivals at mean three\n\nFor $X\\sim\\operatorname{Poisson}(3)$, $P(X=2)=e^{-3}3^2/2!\\approx0.2240$. The value $3$ is the expected count for the exposure, not a maximum possible count.{{cite:ross2019}}",
+    "key_result": {
+      "title": "Adding independent Poisson counts",
+      "statement": "If $X_1\\sim\\operatorname{Poisson}(\\lambda_1)$ and $X_2\\sim\\operatorname{Poisson}(\\lambda_2)$ are independent, then $X_1+X_2\\sim\\operatorname{Poisson}(\\lambda_1+\\lambda_2)$.{{cite:ross2019}}",
+      "meaning": "Counts from disjoint independent exposures can be pooled by adding their expected counts.",
+      "proof": "The probability-generating function of a Poisson count is $G_i(z)=\\exp[\\lambda_i(z-1)]$. Independence makes the generating function of the sum the product $G_1(z)G_2(z)=\\exp[(\\lambda_1+\\lambda_2)(z-1)]$, which identifies the stated Poisson law.{{cite:ross2019}}"
+    }
   },
   "student-t-distribution": {
     "name": "Student t",
@@ -1144,9 +1339,18 @@
         "meaning": "degrees of freedom"
       }
     ],
-    "history": "The distribution was published in 1908 under the pseudonym Student in a paper on the probable error of a mean.{{cite:student1908}}",
+    "history": "The distribution was published in 1908 under the pseudonym Student in a paper on the probable error of a mean. The problem was how to assess a sample mean when the population scale had to be estimated from the same small sample.{{cite:student1908}}\n\nThe resulting heavier-tailed reference law remains central to normal-sample intervals and tests. Its normal limit as the degrees of freedom grow explains why large-sample t and normal calculations become similar.{{cite:casella_berger2002}}",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its heavier tails calibrate mean inference when a normal sample’s scale is estimated rather than known.{{cite:casella_berger2002}}",
+    "statistical_use": "A one-sample t statistic uses an estimated standard error and has a Student t reference law under independent normal sampling. The degrees of freedom reflect how much information went into estimating that scale.{{cite:casella_berger2002}}",
+    "worked_example": "### A two-sided t tail\n\nFor $T\\sim t_5$, $P(|T|>2)=2P(T>2)\\approx0.1019$. Replacing this reference law by a standard normal would give a smaller tail probability and understate uncertainty in this small-degree-of-freedom example.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "The Cauchy special case",
+      "statement": "For $T\\sim t_\\nu$, setting $\\nu=1$ gives the standard Cauchy law.{{cite:forbes2011}}",
+      "meaning": "The extreme one-degree-of-freedom tail is a concrete reason to check moment conditions before using t summaries.",
+      "proof": "Substitute $\\nu=1$ into the Student t density. Since $\\Gamma(1)=1$ and $\\Gamma(1/2)=\\sqrt\\pi$, its normalising coefficient becomes $1/\\pi$ and the remaining factor becomes $(1+t^2)^{-1}$. Thus $f(t)=1/[\\pi(1+t^2)]$, the standard Cauchy density.{{cite:forbes2011}}"
+    }
   },
   "uniform-distribution": {
     "name": "Uniform",
@@ -1197,7 +1401,16 @@
     ],
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=a+(b-a)U$, where $a$ and $b$ are the interval endpoints.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It provides the starting random draws for inverse-transform simulation and a simple model of equal likelihood over a bounded range.{{cite:robert_casella2004}}",
+    "statistical_use": "Uniform random numbers are transformed into draws from many other distributions by applying a quantile function. A uniform model for observed measurements requires a bounded range and a defensible constant-density assumption.{{cite:robert_casella2004}}",
+    "worked_example": "### Half the interval\n\nFor $X\\sim U[2,6]$, $P(3<X<5)=(5-3)/(6-2)=1/2$. The probability is the length of the subinterval divided by the length of the full support.{{cite:ross2019}}",
+    "key_result": {
+      "title": "Mean and variance on an interval",
+      "statement": "For $X\\sim U[a,b]$ with $a<b$, $\\mathrm E(X)=(a+b)/2$ and $\\operatorname{Var}(X)=(b-a)^2/12$.{{cite:ross2019}}",
+      "meaning": "The centre is the midpoint and the spread depends on interval width, not its location.",
+      "proof": "Integrating $x/(b-a)$ from $a$ to $b$ gives $\\mathrm E(X)=(a+b)/2$. Integrating $x^2/(b-a)$ gives $\\mathrm E(X^2)=(a^2+ab+b^2)/3$. Subtracting the squared mean simplifies to $(b-a)^2/12$.{{cite:ross2019}}"
+    }
   },
   "weibull-distribution": {
     "name": "Weibull",
@@ -1248,9 +1461,19 @@
         "meaning": "scale parameter"
       }
     ],
-    "history": "Weibull presented this family as a widely applicable statistical distribution in 1951.{{cite:weibull1951}}",
+    "history": "Weibull presented this family in 1951 as a statistical distribution of wide applicability. Its adjustable shape made it useful when a constant failure rate was too restrictive.{{cite:weibull1951}}\n\nModern reliability models use its survival and hazard functions to describe ageing or early failures. The exponential model is its constant-hazard special case.{{cite:ross2019}}",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=\\lambda[-\\log(1-U)]^{1/k}$, where $k$ is the shape and $\\lambda$ the scale.",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "Its shape parameter lets failure risk rise, fall or stay constant, making it a flexible lifetime model.{{cite:weibull1951}}",
+    "statistical_use": "In reliability analysis, a Weibull fit separates a lifetime scale from a shape that controls the hazard over time. A shape above one describes increasing hazard, while a shape below one describes decreasing hazard; one Weibull component cannot create a bathtub-shaped hazard.{{cite:ross2019}}",
+    "worked_example": "### Survival at the scale time\n\nFor shape $k=2$ and scale $\\lambda=10$ hours, $P(X>10)=e^{-(10/10)^2}=e^{-1}\\approx0.3679$. At time $10$, the hazard is $(2/10)(10/10)=0.2$ per hour.{{cite:forbes2011}}",
+    "definition_note": "Some sources instead use shape $\\beta$ and rate $r=1/\\lambda$; substituting these into the density gives the same law.{{cite:forbes2011}}",
+    "key_result": {
+      "title": "Survival and hazard in shape-scale form",
+      "statement": "For a Weibull lifetime with shape $k$ and scale $\\lambda$, $S(t)=e^{-(t/\\lambda)^k}$ and $h(t)=(k/\\lambda)(t/\\lambda)^{k-1}$ for $t>0$.{{cite:ross2019}}",
+      "meaning": "A shape above one raises the hazard with age; a shape below one lowers it.",
+      "proof": "Integrating the density from $t$ to infinity gives $S(t)=e^{-(t/\\lambda)^k}$. Evaluating the hazard $-d\\log S(t)/dt$ gives $(k/\\lambda)(t/\\lambda)^{k-1}$. At $k=1$ the hazard is constant, $1/\\lambda$.{{cite:ross2019}}"
+    }
   },
   "wishart-distribution": {
     "name": "Wishart",
@@ -1287,8 +1510,18 @@
         "meaning": "scale matrix"
       }
     ],
-    "history": "Wishart described the multivariate product-moment distribution in 1928.{{cite:wishart1928}}",
+    "history": "Wishart’s 1928 paper studied a generalised product-moment distribution for samples from a multivariate normal population. The random matrix arises from sums of outer products, the multivariate counterpart of sums of normal squares.{{cite:wishart1928}}\n\nModern multivariate analysis uses that law for covariance-matrix inference under normal sampling. Its one-dimensional case reduces to a scaled chi-squared distribution.{{cite:anderson2003_mva}}",
     "sampling": "",
-    "conjugate_prior_for": ""
+    "conjugate_prior_for": "",
+    "lead_context": "It generalises a chi-squared sum of squares to a random covariance or scatter matrix.{{cite:anderson2003_mva}}",
+    "statistical_use": "Under multivariate-normal sampling, a scaled sample covariance matrix has a Wishart law and supports inference about covariance structure. The matrix must remain positive definite for the stated density, and the degrees of freedom govern its variability.{{cite:anderson2003_mva}}",
+    "worked_example": "### The one-dimensional case\n\nTake $p=1$, scale $\\Sigma=2$ and $\\nu=4$ independent normal squares. Then $W=2\\chi^2_4$ has mean $\\nu\\Sigma=8$ and variance $2\\nu\\Sigma^2=32$. This is the scalar Wishart case.{{cite:anderson2003_mva}}",
+    "definition_note": "Here $p$ is the matrix dimension and $\\Gamma_p$ is the multivariate gamma function; for the normal-sample construction, integer $\\nu\\ge p$ is the number of independent normal vectors.{{cite:anderson2003_mva}}",
+    "key_result": {
+      "title": "Mean of a scatter matrix",
+      "statement": "For $W\\sim W_p(\\Sigma,\\nu)$ with the stated scale parameterisation, $\\mathrm E(W)=\\nu\\Sigma$.{{cite:anderson2003_mva}}",
+      "meaning": "The expected scatter scales with both the number of contributing vectors and their covariance.",
+      "proof": "For a symmetric test matrix $T$ near zero, the Wishart Laplace transform is $\\mathrm E[e^{-\\operatorname{tr}(TW)}]=|I+2\\Sigma T|^{-\\nu/2}$, where $I$ is the identity matrix and $|\\cdot|$ denotes determinant. Its directional derivative at $T=0$ in any symmetric direction $H$ is $-\\nu\\operatorname{tr}(\\Sigma H)$; the same derivative of the expectation is $-\\operatorname{tr}(H\\mathrm E W)$. Equality for every symmetric $H$ gives $\\mathrm E W=\\nu\\Sigma$.{{cite:anderson2003_mva}}"
+    }
   }
 }

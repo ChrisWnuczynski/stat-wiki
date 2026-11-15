@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "beta-binomial-posterior-prediction",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "dirichlet-multinomial-conjugacy",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "dirichlet-moments",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "interior-dirichlet-mode",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "the-beta-distribution-is-the-two-category-dirichlet",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "log-partition-moment-identities",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "normal-normal-conjugacy",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "normal-inverse-gamma-conjugacy",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "normal-inverse-gamma-variance-update",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "full-conditionals-under-independent-priors",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "conditional-coefficient-posterior",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "marginal-variance-posterior",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "marginal-student-posterior",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "marginal-hyperposterior",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "normal-hierarchical-shrinkage",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "predictive-variance-decomposition",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "posterior-prediction-under-the-reference-prior",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "study-rate-full-conditional",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "sequential-coherence",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "bayes-action-for-two-hypotheses",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  },
+  {
+    "slug": "direct-posterior-simulation",
+    "reason": "Original attribution and a modern historical account need checking before a dated history is added."
+  }
+]

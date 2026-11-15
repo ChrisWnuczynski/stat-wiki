@@ -4161,19 +4161,17 @@ The increase charges Euclidean radius, so compact clusters of similar spread are
     "weibull-distribution": r"""
 ## A hazard that is a power of time
 
-Constant hazard means a lifetime that does not age. Many components either wear out or fail early and then settle. The Weibull family keeps a simple survival function and lets the hazard rise or fall (Weibull, 1951). A lifetime $T>0$ has shape $\beta>0$ and rate $\lambda>0$ when
+Constant hazard means a lifetime that does not age. Many components either wear out or fail early and then settle. The Weibull family keeps a simple survival function and lets the hazard rise or fall.{{cite:weibull1951}} A lifetime $T>0$ has shape $k>0$ and scale $\lambda>0$ when
 
 $$
-\mathbb{P}(T>t)=\exp\{-(\lambda t)^{\beta}\},\qquad t>0.
+\mathbb{P}(T>t)=\exp\{-(t/\lambda)^k\},\qquad t>0.
 $$
 
-The density is $f(t)=\lambda\beta(\lambda t)^{\beta-1}\exp\{-(\lambda t)^{\beta}\}$. Dividing $f$ by the survival function gives the [hazard](hazard-rate.qmd) $h(t)=\lambda\beta(\lambda t)^{\beta-1}$. Shape decides the ageing. If $\beta>1$ the hazard increases. If $\beta<1$ it decreases. If $\beta=1$ the hazard is the constant $\lambda$, and $T$ is [exponential](exponential-distribution.qmd) with rate $\lambda$, hence memoryless. The mean is $\mathbb{E} T=\Gamma(1+1/\beta)/\lambda$, where $\Gamma$ is the gamma function. In particular $\Gamma(1/2)=\sqrt{\pi}$ and $\Gamma(3/2)=\sqrt{\pi}/2\approx 0.886$.
-
-Some writers use a scale $\theta=1/\lambda$ and write the survival as $\exp\{-(t/\theta)^{\beta}\}$. The mean is then $\theta\,\Gamma(1+1/\beta)$. Substituting a rate into a scale formula, or the reverse, multiplies the mean by a factor of $\lambda^2$ (for example turning $886$ hours at $\lambda=0.001$ into $0.000886$ hours).
+The density is $f(t)=(k/\lambda)(t/\lambda)^{k-1}\exp\{-(t/\lambda)^k\}$. Dividing $f$ by the survival function gives the [hazard](hazard-rate.qmd) $h(t)=(k/\lambda)(t/\lambda)^{k-1}$. Shape decides the ageing. If $k>1$ the hazard increases. If $k<1$ it decreases. If $k=1$ the hazard is the constant $1/\lambda$, and $T$ is [exponential](exponential-distribution.qmd) with rate $1/\lambda$, hence memoryless. The mean is $\mathbb{E} T=\lambda\Gamma(1+1/k)$, where $\Gamma$ is the gamma function. In particular $\Gamma(1/2)=\sqrt{\pi}$ and $\Gamma(3/2)=\sqrt{\pi}/2\approx 0.886$.{{cite:forbes2011}}
 
 ## Eight hundred and eighty-six hours
 
-Take $\beta=2$ and $\lambda=0.001$ per hour. The mean is about $0.886/0.001=886$ hours. The hazard is $h(t)=2\lambda^2 t=2\times 10^{-6}\,t$, linear in time. At $500$ hours it is $0.001$ per hour; at $1000$ hours it is $0.002$ per hour. Twice the age, twice the hazard. A uniform $U$ on $(0,1)$ produces a draw by inverting the survival function: $(\lambda T)^{\beta}=-\log U$, so $T=\lambda^{-1}(-\log U)^{1/\beta}$. A single shape cannot make a bathtub hazard that falls and later rises. That pattern needs a mixture, or separate pieces, rather than one Weibull term.
+Take $k=2$ and $\lambda=1000$ hours. The mean is about $1000\times0.886=886$ hours. The hazard is $h(t)=2t/\lambda^2=2\times10^{-6}t$ per hour, linear in time. At $500$ hours it is $0.001$ per hour; at $1000$ hours it is $0.002$ per hour. Twice the age, twice the hazard. A uniform $U$ on $(0,1)$ produces a draw by inverting the survival function: $(T/\lambda)^k=-\log U$, so $T=\lambda(-\log U)^{1/k}$. A single shape cannot make a bathtub hazard that falls and later rises. That pattern needs a mixture, or separate pieces, rather than one Weibull term.{{cite:ross2019}}
 """,
     "white-noise": r"""
 ## Innovations with nothing left for a linear forecast
@@ -4304,7 +4302,7 @@ THEOREM_INFO = {
 }
 
 ARTICLE_HISTORIES = {
-    "bayes-rule": "Bayes's 1763 essay set out an early inverse-probability calculation.{{cite:bayes1763}}",
+    "bayes-rule": "Bayes's essay, published after his death in 1763, addressed inference about an unknown chance of success from repeated trials. It set out an early inverse-probability calculation.{{cite:bayes1763}}",
     "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:poisson1837}}",
     "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}}",
     "wold-decomposition": "Wold set out the decomposition in his 1938 study of stationary time series.{{cite:wold1938}}",
