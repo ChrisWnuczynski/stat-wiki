@@ -33,7 +33,7 @@ The model is a random sample, or a count, whose distribution depends on $\theta$
 ::: {#def-null-and-alternative-hypotheses .definition}
 ## Null and alternative hypotheses
 
-The null hypothesis $H_0$ and the alternative hypothesis $H_1$ are two disjoint statements about the parameter, $H_0:\theta\in\Theta_0$ and $H_1:\theta\in\Theta_1$. $H_0$ is the statement being tested, often a single value $\theta_0$. $H_1$ is the claim the test is trying to detect.
+The null hypothesis $H_0$ and the alternative hypothesis $H_1$ are two disjoint statements about the parameter, $H_0:\theta\in\Theta_0$ and $H_1:\theta\in\Theta_1$.{{cite:neyman_pearson1933}} $H_0$ is the statement being tested, often a single value $\theta_0$.{{cite:lehmann_romano2005}} $H_1$ is the claim the test is trying to detect.{{cite:casella_berger2002}}
 
 :::
 
@@ -44,7 +44,7 @@ A test statistic $T$ is a statistic that is sensitive to the difference between 
 ::: {#def-critical-region .definition}
 ## Critical region
 
-A critical region $C$ is a set of values of the test statistic. The test rejects $H_0$ when $T\in C$. A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is $(-\infty,c_1]\cup[c_2,\infty)$.
+A critical region $C$ is a set of values of the test statistic.{{cite:neyman_pearson1933}} The test rejects $H_0$ when $T\in C$.{{cite:lehmann_romano2005}} A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is $(-\infty,c_1]\cup[c_2,\infty)$.{{cite:casella_berger2002}}
 
 :::
 
@@ -74,7 +74,7 @@ A small $p$-value is stronger evidence against $H_0$ than a large one. Conventio
 ::: {#def-type-i-and-type-ii-errors .definition}
 ## Type I and type II errors
 
-A type I error rejects $H_0$ when $H_0$ is true. A type II error accepts $H_0$ when $H_1$ is true. The size, or significance level, is the probability of a type I error. The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
+A type I error rejects $H_0$ when $H_0$ is true.{{cite:neyman_pearson1933}} A type II error accepts $H_0$ when $H_1$ is true.{{cite:lehmann_romano2005}} The size, or significance level, is the probability of a type I error.{{cite:casella_berger2002}} The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
 
 :::
 
@@ -90,7 +90,7 @@ The two errors compete. Enlarging the critical region raises the power and also 
 ::: {#def-neyman-pearson-approach .definition}
 ## Neyman–Pearson approach
 
-Fix a significance level $\alpha$. Among critical regions whose type I error is at most $\alpha$, choose one whose type II error is as small as possible. For two simple hypotheses the region that does this is the likelihood-ratio region of the [Neyman–Pearson lemma](inf-11-most-powerful-tests.qmd#s-neyman-pearson-lemma).
+Fix a significance level $\alpha$. Among critical regions whose type I error is at most $\alpha$, choose one whose type II error is as small as possible.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}} For two simple hypotheses the region that does this is the likelihood-ratio region of the [Neyman–Pearson lemma](inf-11-most-powerful-tests.qmd#s-neyman-pearson-lemma).{{cite:casella_berger2002}}
 
 :::
 
@@ -99,7 +99,7 @@ For the serves, $C=\{c,\ldots,15\}$, and the type I error is $\Pr_{H_0}(X\ge c)$
 ::: {#def-power-function .definition}
 ## Power function
 
-For a test with critical region $C$, the power at $\theta$ is $\operatorname{Power}(\theta)=\Pr_\theta(T\in C)$. On $\Theta_1$ it equals one minus the type II error at $\theta$, and on $\Theta_0$ it is the type I error. Its graph is the power curve.
+For a test with critical region $C$, the power at $\theta$ is $\operatorname{Power}(\theta)=\Pr_\theta(T\in C)$.{{cite:neyman_pearson1933}} On $\Theta_1$ it equals one minus the type II error at $\theta$, and on $\Theta_0$ it is the type I error.{{cite:lehmann_romano2005}} Its graph is the power curve.{{cite:casella_berger2002}}
 
 :::
 
@@ -148,7 +148,7 @@ $$
 T=\frac{\overline X-\mu_0}{s/\sqrt n},
 $$
 
-which has the $t_{n-1}$ distribution under $H_0$, whatever the value of $\sigma^2$. At level $\alpha$, reject when $T\ge t_{n-1;1-\alpha}$ against $\mu>\mu_0$, when $T\le-t_{n-1;1-\alpha}$ against $\mu<\mu_0$, and when $|T|\ge t_{n-1;1-\alpha/2}$ against $\mu\neq\mu_0$.
+which has the $t_{n-1}$ distribution under $H_0$, whatever the value of $\sigma^2$.{{cite:student1908}} At level $\alpha$, reject when $T\ge t_{n-1;1-\alpha}$ against $\mu>\mu_0$, when $T\le-t_{n-1;1-\alpha}$ against $\mu<\mu_0$, and when $|T|\ge t_{n-1;1-\alpha/2}$ against $\mu\neq\mu_0$.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}}
 
 :::
 
@@ -175,7 +175,7 @@ Statistical significance is not practical significance. The one-sided 99% lower 
 
 ### The chi-squared test for a variance
 
-For the variance, $(n-1)s^2/\sigma_0^2$ is $\chi^2_{n-1}$ when $\sigma^2=\sigma_0^2$. Reject for large values against $\sigma^2>\sigma_0^2$, using $\chi^2_{n-1;1-\alpha}$; for small values against $\sigma^2<\sigma_0^2$, using $\chi^2_{n-1;\alpha}$; and in either tail, at $\alpha/2$ each, against $\sigma^2\neq\sigma_0^2$.
+For the variance, $(n-1)s^2/\sigma_0^2$ is $\chi^2_{n-1}$ when $\sigma^2=\sigma_0^2$.{{cite:pearson1900}}{{cite:fisher1925_smrw}} Reject for large values against $\sigma^2>\sigma_0^2$, using $\chi^2_{n-1;1-\alpha}$; for small values against $\sigma^2<\sigma_0^2$, using $\chi^2_{n-1;\alpha}$; and in either tail, at $\alpha/2$ each, against $\sigma^2\neq\sigma_0^2$.{{cite:casella_berger2002}}
 
 ::: {#exm-tuning-fork-variability .example}
 ## Tuning-fork variability
@@ -201,7 +201,7 @@ $$
 T=\frac{\overline X_1-\overline X_2-\delta_0}{s_p\sqrt{1/n_1+1/n_2}},
 $$
 
-with $s_p^2$ the [pooled variance](inf-03-confidence-intervals.qmd#def-pooled-variance). Under $H_0$, $T$ has the $t_{n_1+n_2-2}$ distribution. The rejection regions are those of the one-sample test with $n_1+n_2-2$ degrees of freedom.
+with $s_p^2$ the [pooled variance](inf-03-confidence-intervals.qmd#def-pooled-variance). Under $H_0$, $T$ has the $t_{n_1+n_2-2}$ distribution.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}} The rejection regions are those of the one-sample test with $n_1+n_2-2$ degrees of freedom.{{cite:lehmann_romano2005}}
 
 :::
 
@@ -216,7 +216,7 @@ on 23 degrees of freedom. Since $t_{23;0.90}=1.319$ and $t_{23;0.95}=1.714$, the
 ::: {#def-f-test-for-equal-variances .definition}
 ## F test for equal variances
 
-For two independent normal samples, $F=s_1^2/s_2^2$ has the $F_{n_1-1,n_2-1}$ distribution when $\sigma_1^2=\sigma_2^2$. Against $\sigma_1^2\neq\sigma_2^2$ at level $\alpha$, reject when $F\ge F_{n_1-1,n_2-1;1-\alpha/2}$ or $F\le1/F_{n_2-1,n_1-1;1-\alpha/2}$.
+For two independent normal samples, $F=s_1^2/s_2^2$ has the $F_{n_1-1,n_2-1}$ distribution when $\sigma_1^2=\sigma_2^2$.{{cite:fisher1925_smrw}}{{cite:snedecor1934}} Against $\sigma_1^2\neq\sigma_2^2$ at level $\alpha$, reject when $F\ge F_{n_1-1,n_2-1;1-\alpha/2}$ or $F\le1/F_{n_2-1,n_1-1;1-\alpha/2}$.{{cite:casella_berger2002}}
 
 :::
 
@@ -232,9 +232,9 @@ Did the weighing above show that a student's weight increases between first and 
 | Third year | 83.4 | 77.7 | 57.9 | 67.0 | 69.2 | 87.4 | 63.7 | 59.0 | 39.7 | 71.1 |
 | Difference | 11.8 | 8.0 | 7.9 | 10.1 | 8.3 | 9.9 | 9.8 | 9.4 | 7.4 | 9.8 |
 
-The two columns are not independent samples: a heavy first-year is a heavy third-year. A two-sample $t$ test would be wrong. Instead, let $D_i$ be the difference for student $i$, and model $D_1,\ldots,D_{10}$ as a normal random sample with mean $\mu_D$. Testing $H_0:\mu_D=0$ against $\mu_D>0$ is a one-sample $t$ test on the differences.
+The two columns are not independent samples: a heavy first-year is a heavy third-year. A two-sample $t$ test would be wrong. Instead, let $D_i$ be the difference for student $i$, and model $D_1,\ldots,D_{10}$ as a normal random sample with mean $\mu_D$. Testing $H_0:\mu_D=0$ against $\mu_D>0$ is a one-sample $t$ test on the differences.{{cite:student1908}}{{cite:fisher1925_smrw}}
 
-The differences have mean $9.24$ and standard deviation $1.33$, so $t=9.24/(1.33/\sqrt{10})=21.9$ on 9 degrees of freedom, with $p$-value about $2\times10^{-9}$. The evidence that weight increases is overwhelming. Treating the columns as independent samples gives $t=1.54$ instead, because the large spread between students swamps the small, consistent change within each one. Pairing is the right analysis when the two measurements share a unit, a subject or a block. The dependence it removes is a [covariance](prob-04-joint-distributions.qmd#def-covariance): $\Var(X-Y)=\Var X+\Var Y-2\Cov(X,Y)$.
+The differences have mean $9.24$ and standard deviation $1.33$, so $t=9.24/(1.33/\sqrt{10})=21.9$ on 9 degrees of freedom, with $p$-value about $2\times10^{-9}$. The evidence that weight increases is overwhelming. Treating the columns as independent samples gives $t=1.54$ instead, because the large spread between students swamps the small, consistent change within each one. Pairing is the right analysis when the two measurements share a unit, a subject or a block.{{cite:fisher1925_smrw}} The dependence it removes is a [covariance](prob-04-joint-distributions.qmd#def-covariance): $\Var(X-Y)=\Var X+\Var Y-2\Cov(X,Y)$.
 
 ## Binomial tests
 
@@ -245,7 +245,7 @@ Ten people taste two yoghurts, one with an old sweetener and one with a new. Eig
 ::: {#def-binomial-test .definition}
 ## Binomial test
 
-For $X\sim\Bin(n,p)$ and $H_0:p=p_0$, the test statistic is $X$, with null distribution $\Bin(n,p_0)$. At level $\alpha$, against $p>p_0$ reject when $X\ge c$, with $c$ the smallest integer such that $\Pr_{H_0}(X\ge c)\le\alpha$. Against $p<p_0$ reject when $X\le c$, with $c$ the largest integer such that $\Pr_{H_0}(X\le c)\le\alpha$. Against $p\neq p_0$, use both tails at $\alpha/2$ each.
+For $X\sim\Bin(n,p)$ and $H_0:p=p_0$, the test statistic is $X$, with null distribution $\Bin(n,p_0)$.{{cite:casella_berger2002}} At level $\alpha$, against $p>p_0$ reject when $X\ge c$, with $c$ the smallest integer such that $\Pr_{H_0}(X\ge c)\le\alpha$.{{cite:lehmann_romano2005}} Against $p<p_0$ reject when $X\le c$, with $c$ the largest integer such that $\Pr_{H_0}(X\le c)\le\alpha$. Against $p\neq p_0$, use both tails at $\alpha/2$ each.{{cite:agresti2002}}
 
 :::
 
@@ -257,7 +257,7 @@ $$
 Z=\frac{X-np_0}{\sqrt{np_0(1-p_0)}}
 $$
 
-is approximately standard normal under $H_0$, and the normal critical values apply. The null standard error uses $p_0$, not $\widehat p$: the test asks how variable $X$ would be if $H_0$ were true.
+is approximately standard normal under $H_0$, and the normal critical values apply.{{cite:wald1943}}{{cite:agresti2002}} The null standard error uses $p_0$, not $\widehat p$: the test asks how variable $X$ would be if $H_0$ were true.{{cite:casella_berger2002}}
 
 ### Two proportions
 
@@ -274,7 +274,7 @@ $$
 Z=\frac{\widehat p_1-\widehat p_2}{\sqrt{\widehat p(1-\widehat p)\,(1/n_1+1/n_2)}},
 $$
 
-approximately standard normal under $H_0$ for large samples.
+approximately standard normal under $H_0$ for large samples.{{cite:wald1943}}{{cite:agresti2002}}{{cite:casella_berger2002}}
 
 :::
 
@@ -293,7 +293,7 @@ All tests above assume a family of distributions up to a few parameters. A nonpa
 ::: {#def-sign-test .definition}
 ## Sign test
 
-For independent pairs $(X_i,Y_i)$, $i=1,\ldots,n$, let $N$ be the number of pairs with $Y_i>X_i$, ties discarded. If $H_0:\Pr(Y_i>X_i)=1/2$ holds, $N\sim\Bin(n,1/2)$, and $H_0$ is tested with the binomial test.
+For independent pairs $(X_i,Y_i)$, $i=1,\ldots,n$, let $N$ be the number of pairs with $Y_i>X_i$, ties discarded. If $H_0:\Pr(Y_i>X_i)=1/2$ holds, $N\sim\Bin(n,1/2)$, and $H_0$ is tested with the binomial test.{{cite:arbuthnot1710}}{{cite:dixon_mood1946}}{{cite:lehmann_romano2005}}
 
 :::
 
@@ -308,7 +308,7 @@ Examiner 2 gives the higher mark on $N=8$ of the 12 exams, with no ties. Against
 
 ## Tests and intervals
 
-A two-sided test at level $\alpha$ and a confidence interval with confidence $1-\alpha$ built from the same pivot carry the same information. $H_0:\theta=\theta_0$ is rejected exactly when $\theta_0$ lies outside the interval. For the one-sample $t$ test,
+A two-sided test at level $\alpha$ and a confidence interval with confidence $1-\alpha$ built from the same pivot carry the same information.{{cite:neyman1937}} $H_0:\theta=\theta_0$ is rejected exactly when $\theta_0$ lies outside the interval.{{cite:lehmann_romano2005}}{{cite:casella_berger2002}} For the one-sample $t$ test,
 
 $$
 \Bigl|\frac{\overline x-\mu_0}{s/\sqrt n}\Bigr|<t_{n-1;1-\alpha/2}

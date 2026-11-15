@@ -50,7 +50,7 @@ The same reduction is why a known-variance $z$ test was already the procedure on
 
 ## Neyman–Pearson lemma {#s-neyman-pearson-lemma}
 
-Among all tests of $H_0:\theta=\theta_0$ against $H_1:\theta=\theta_1$ with type I error at most $\alpha$, the likelihood-ratio test has the greatest power.
+Among all tests of $H_0:\theta=\theta_0$ against $H_1:\theta=\theta_1$ with type I error at most $\alpha$, the likelihood-ratio test has the greatest power.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}}{{cite:casella_berger2002}}
 
 Let $R$ be the likelihood-ratio region $\{x:L(\theta_1;x)>k\,L(\theta_0;x)\}$, with $k$ chosen so that $\int_R L(\theta_0;x)\,dx=\alpha$. Let $R^\star$ be any other region with the same size, $\int_{R^\star} L(\theta_0)=\alpha$. Write $\pi(R)=\int_R L(\theta_1)$ for the power. Split each region into the part it shares and the part it does not:
 
@@ -70,7 +70,7 @@ The lemma compares two completely specified distributions. It does not by itself
 
 ## Uniformly most powerful test {#s-uniformly-most-powerful-test}
 
-Let the alternative be composite, $H_1:\theta\in\Omega_1$. A test is uniformly most powerful at level $\alpha$ if its size is at most $\alpha$ and, for every $\theta_1\in\Omega_1$, it is most powerful against the simple alternative $\theta=\theta_1$.
+Let the alternative be composite, $H_1:\theta\in\Omega_1$. A test is uniformly most powerful at level $\alpha$ if its size is at most $\alpha$ and, for every $\theta_1\in\Omega_1$, it is most powerful against the simple alternative $\theta=\theta_1$.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}}{{cite:casella_berger2002}}
 
 For a normal mean with known variance and $H_1:\mu>\mu_0$, pick any $\mu_1>\mu_0$. The Neyman–Pearson test of $\mu_0$ against that $\mu_1$ rejects for $\overline X>k$ with the same $k=\mu_0+z_{1-\alpha}\,\sigma/\sqrt n$, whatever $\mu_1$ was. The critical region does not depend on which alternative was used to build the ratio. It is therefore most powerful against every $\mu_1>\mu_0$, and the one-sided $z$ test is uniformly most powerful.
 
@@ -90,11 +90,11 @@ A rule that is not a function of a statistic chosen before seeing the data is no
 
 ## Uniformly most powerful unbiased test {#s-uniformly-most-powerful-unbiased-test}
 
-Now let $H_1:\mu\ne\mu_0$, still with known normal variance. Against an alternative $\mu_1>\mu_0$ the most powerful test rejects for large $\overline X$. Against $\mu_1<\mu_0$ it rejects for small $\overline X$. Those are different regions. No single region is most powerful against both. A uniformly most powerful test of the two-sided hypothesis does not exist.
+Now let $H_1:\mu\ne\mu_0$, still with known normal variance. Against an alternative $\mu_1>\mu_0$ the most powerful test rejects for large $\overline X$. Against $\mu_1<\mu_0$ it rejects for small $\overline X$. Those are different regions. No single region is most powerful against both. A uniformly most powerful test of the two-sided hypothesis does not exist.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}}
 
 The usual two-sided $z$ test rejects when $|\overline X-\mu_0|>z_{1-\alpha/2}\,\sigma/\sqrt n$. It is not most powerful against a one-sided alternative: the one-sided test of the same size puts all of its critical probability on the side where that alternative lives, and therefore has higher power there. The two-sided test spends half its type I error on a side the one-sided alternative says cannot occur.
 
-What the two-sided test does have is unbiasedness. A test is unbiased when its power is at least $\alpha$ at every alternative. The one-sided test fails that requirement for the two-sided problem: against an alternative on the other side its power is less than $\alpha$. Among unbiased tests, the equal-tailed region is uniformly most powerful. It is the uniformly most powerful unbiased test of $H_0:\mu=\mu_0$ against $H_1:\mu\ne\mu_0$. The threshold is
+What the two-sided test does have is unbiasedness. A test is unbiased when its power is at least $\alpha$ at every alternative.{{cite:lehmann_romano2005}} The one-sided test fails that requirement for the two-sided problem: against an alternative on the other side its power is less than $\alpha$. Among unbiased tests, the equal-tailed region is uniformly most powerful. It is the uniformly most powerful unbiased test of $H_0:\mu=\mu_0$ against $H_1:\mu\ne\mu_0$. The threshold is
 
 $$
 k=z_{1-\alpha/2}\,\frac{\sigma}{\sqrt n},

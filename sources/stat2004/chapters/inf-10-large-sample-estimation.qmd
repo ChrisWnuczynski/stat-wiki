@@ -39,7 +39,7 @@ $$
 \operatorname{ARE}(\widetilde X;\overline X)=\frac{\sigma^2}{\pi\sigma^2/2}=\frac{2}{\pi}\approx 0.637.
 $$
 
-The median needs about $\pi/2\approx 1.57$ times as many normal observations to match the variance of the mean. That is the price of a procedure that barely changes if one observation is replaced by an arbitrary outlier. The mean is more efficient in this model and more fragile in a model with heavy tails. The efficiency number is not a reason to discard the median. It is the exchange rate between the two procedures when the normal model is right.
+The median needs about $\pi/2\approx 1.57$ times as many normal observations to match the variance of the mean.{{cite:fisher1925_est}}{{cite:vandervaart1998}}{{cite:lehmann_casella1998}} That is the price of a procedure that barely changes if one observation is replaced by an arbitrary outlier. The mean is more efficient in this model and more fragile in a model with heavy tails. The efficiency number is not a reason to discard the median. It is the exchange rate between the two procedures when the normal model is right.
 
 ```r
 set.seed(10)
@@ -67,7 +67,7 @@ $$
 \sqrt n\,(\widehat\theta_n-\theta_0)\xrightarrow{d}\Normal\bigl(0,1/i(\theta_0)\bigr).
 $$
 
-Equivalently, $\widehat\theta_n$ is approximately $\Normal(\theta_0,1/\mathcal{I}(\theta_0))$ with $\mathcal{I}(\theta_0)=n\,i(\theta_0)$. Efficient means that the limiting variance equals the Cramér–Rao bound. No other consistent, asymptotically normal estimator has a smaller limiting variance under these conditions, except for terms that $\sqrt n$ washes out.
+Equivalently, $\widehat\theta_n$ is approximately $\Normal(\theta_0,1/\mathcal{I}(\theta_0))$ with $\mathcal{I}(\theta_0)=n\,i(\theta_0)$.{{cite:cramer1946}} Efficient means that the limiting variance equals the Cramér–Rao bound.{{cite:fisher1925_est}} No other consistent, asymptotically normal estimator has a smaller limiting variance under these conditions, except for terms that $\sqrt n$ washes out.{{cite:vandervaart1998}}
 
 The expansion is Taylor's formula for the score at $\widehat\theta_n$, about the true value. Because $S(\widehat\theta_n)=0$,
 
@@ -123,7 +123,7 @@ $$
 \sqrt n\,\bigl(h(T_n)-h(\theta)\bigr)\xrightarrow{d}\Normal\bigl(0,\xi^2\{h'(\theta)\}^2\bigr).
 $$
 
-Expand $h(T_n)=h(\theta)+(T_n-\theta)\{h'(\theta)+R_n\}$. Consistency of $T_n$ forces $R_n\to 0$ in probability when $h'$ is continuous at $\theta$. Multiply by $\sqrt n$ and apply the fact that a limit in distribution, multiplied by a quantity that converges in probability to a constant, converges to the constant times the limiting variable. The limiting variance picks up $\{h'(\theta)\}^2$.
+Expand $h(T_n)=h(\theta)+(T_n-\theta)\{h'(\theta)+R_n\}$. Consistency of $T_n$ forces $R_n\to 0$ in probability when $h'$ is continuous at $\theta$. Multiply by $\sqrt n$ and apply the fact that a limit in distribution, multiplied by a quantity that converges in probability to a constant, converges to the constant times the limiting variable. The limiting variance picks up $\{h'(\theta)\}^2$.{{cite:cramer1946}}{{cite:vandervaart1998}}{{cite:casella_berger2002}}
 
 This is why the maximum likelihood estimator of $h(\theta)$ has asymptotic variance $\{h'(\theta)\}^2/\{n\,i(\theta)\}$. Invariance says the maximum likelihood estimator of $h(\theta)$ is $h(\widehat\theta)$. The delta method gives its variance. For a Poisson mean, $\widehat\lambda=\overline X$ and $h(\lambda)=e^{-\lambda}=\Pr(X=0)$,
 
@@ -150,7 +150,7 @@ $$
 \int f_0(x)\log\frac{f_0(x)}{f(x;\theta)}\,dx.
 $$
 
-So $\widehat\theta$ converges to the parameter in the fitted family closest to the truth in that divergence, not to a parameter the true distribution does not have. The estimator remains meaningful. The standard error from $1/\mathcal{I}(\widehat\theta)$ does not. That standard error treats the fitted family as true, so it misses the extra variability of a misspecified model. A variance estimator that uses the empirical variance of the score, rather than the model information, is the repair used later for [sandwich standard errors](09-marginal-models.qmd). The point here is the target: maximum likelihood fits the member of the family nearest the true distribution, and "nearest" means Kullback–Leibler.
+So $\widehat\theta$ converges to the parameter in the fitted family closest to the truth in that divergence, not to a parameter the true distribution does not have.{{cite:huber1967}}{{cite:vandervaart1998}} The estimator remains meaningful. The standard error from $1/\mathcal{I}(\widehat\theta)$ does not. That standard error treats the fitted family as true, so it misses the extra variability of a misspecified model. A variance estimator that uses the empirical variance of the score, rather than the model information, is the repair used later for [sandwich standard errors](09-marginal-models.qmd).{{cite:white1980}} The point here is the target: maximum likelihood fits the member of the family nearest the true distribution, and "nearest" means Kullback–Leibler.
 
 A practical version of the same warning is the choice between a Poisson likelihood-ratio test and a $t$ test for a mean count. If the counts really are Poisson with mean $\lambda$, the likelihood-ratio test of $\lambda=\lambda_0$ against $\lambda>\lambda_0$ rejects for a large sum, and it is the most powerful test of that pair. If the counts are not Poisson, that test need not have type I error near the nominal level. The one-sample $t$ test of the same mean has the wrong likelihood, so it is less powerful when the Poisson model is right, and its type I error stays near the nominal level for a wide range of distributions with a finite variance, because it is a pivot built from the central limit theorem. Using the efficient test is right when the model is right. The asymptotic relative efficiency is the comparison under the model. It is not a guarantee after the model is dropped.
 

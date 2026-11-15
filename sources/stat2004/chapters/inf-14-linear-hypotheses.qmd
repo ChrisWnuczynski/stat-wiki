@@ -62,7 +62,7 @@ $$
 F=\frac{(\mathrm{RSS}_0-\mathrm{RSS}_1)/r}{\mathrm{RSS}_1/(n-p)}\sim F_{r,\,n-p}.
 $$
 
-The level-$\alpha$ test rejects when $F$ exceeds the upper $\alpha$ point of that $F$ law. Large $F$ means the restrictions increased the residual sum of squares by more than sampling variation in $\sigma^2$ can explain.
+The level-$\alpha$ test rejects when $F$ exceeds the upper $\alpha$ point of that $F$ law.{{cite:scheffe1959}}{{cite:fisher1925_smrw}} Large $F$ means the restrictions increased the residual sum of squares by more than sampling variation in $\sigma^2$ can explain.{{cite:casella_berger2002}}
 
 This is the same $F$ as the analysis-of-variance table. There the unrestricted model gives every group its own mean, $\mathrm{RSS}_1=\mathrm{SS}_{\mathrm{error}}$, and the restricted model forces the means to be equal, $\mathrm{RSS}_0=\mathrm{SS}_{\mathrm{total}}$. The numerator sum of squares is $\mathrm{SS}_{\mathrm{treat}}$. For a straight line, the unrestricted model is $\beta_0+\beta_1 x$ and the restriction $\beta_1=0$ leaves an intercept only. Then $\mathrm{RSS}_0-\mathrm{RSS}_1$ is the regression sum of squares, $r=1$, and $F$ is the square of the slope $t$ statistic.
 
