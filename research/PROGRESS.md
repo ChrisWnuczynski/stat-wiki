@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **22**. Left: **696**. Skipped: **0**.
+Pages ranked: **718**. Done: **23**. Left: **695**. Skipped: **0**. The depth pass is paused after rank 23 at the user's request to merge the completed work into main.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -30,12 +30,13 @@ Pages ranked: **718**. Done: **22**. Left: **696**. Skipped: **0**.
 | 20 | [Cumulative distribution function](cumulative-distribution-function.md) | Concept/definition | [Prose](content/cumulative-distribution-function.md), [check](../checks/cumulative-distribution-function.py) | 431 → 1,473 | 2 → 2 | Single-page Quarto render stalled; Kolmogorov and Billingsley texts opened |
 | 21 | [Random variable](random-variable.md) | Concept/definition | [Prose](content/random-variable.md), [check](../checks/random-variable.py) | 872 → 2,303 | 1 → 1 | Source density derivative corrected almost everywhere; dependent article preservation verified |
 | 22 | [Linear predictor](linear-predictor.md) | Concept/topic | [Prose](content/linear-predictor.md), [check](../checks/linear-predictor.py) | 520 → 2,255 | 0 → 0 | Covariate notation made lowercase across topic and source data |
+| 23 | [Conditional distribution](conditional-distribution.md) | Concept/definition | [Prose](content/conditional-distribution.md), [check](../checks/conditional-distribution.py) | 1,273 → 3,071 | 2 → 2 | Zero-probability conditioning caveat corrected in source chapter |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 23: `conditional-distribution`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first twenty researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 30. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 24: `training-set`**, when work resumes. The user asked to stop after finishing rank 23 and merge the completed work into main. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -61,4 +62,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Cumulative distribution function: 17 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Both original figures, the cubic-CDF and maximum-CDF examples, and sixteen question links remain. One collapsed proof covers CDF properties, interval and jump formulas, generalized inversion, and the original maximum rule. A two-line generator change added researched prose to its existing Interpretation slot. Optional single-page Quarto rendering stalled before HTML output and was stopped.
 - Random variable: 15 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original CDF, discrete and continuous definitions, mass/density/CDF figure, two-toss example, and nine question links remain. One collapsed proof covers transformations, expectations, and CDF results. The source-chapter density derivative was corrected to an almost-everywhere statement, with the dependent Continuous distribution page preserved above baseline.
 - Linear predictor: 15 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original interaction example, GLM component statement, three citations, and twelve question links remain. One collapsed proof covers link-scale contrasts, interaction slopes, and exposure offsets. Topic and source covariate symbols now agree on lowercase input vectors.
+- Conditional distribution: 20 numerical checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Both original figure instances, the finite-lattice, shop, and continuous triangle examples, and nineteen question links remain. One collapsed proof covers the product and marginal rules, independence, both tower identities, and random-sum moments. Source wording now qualifies conditioning at zero-probability values.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
