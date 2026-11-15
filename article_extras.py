@@ -2410,19 +2410,19 @@ The bound is sharp. If $X=a$ with probability $p$ and $X=0$ otherwise, then $\ma
     "maximum-likelihood-for-a-binomial-proportion": r"""
 ## The interior maximum is the sample proportion
 
-A binomial count $X\sim\operatorname{Bin}(n,p)$ records the number of successes in $n$ independent trials, with $n$ known and $p\in[0,1]$ unknown. After observing $X=x$, the [likelihood](likelihood-function.qmd) is $L(p)=\binom{n}{x}p^x(1-p)^{n-x}$. For $p\in(0,1)$ and $0<x<n$ the log-likelihood, up to a constant, is $\ell(p)=x\log p+(n-x)\log(1-p)$. Its derivative, the score, is
+A binomial count $X\sim\operatorname{Bin}(n,p)$ records the number of successes in $n$ independent trials, with $n$ known and $p\in[0,1]$ unknown. After observing $X=x$, the [likelihood](likelihood-function.qmd) is $L(p)=\binom{n}{x}p^x(1-p)^{n-x}$. For $p\in(0,1)$ and $0<x<n$ the log-likelihood, up to a constant, is $\ell(p)=x\log p+(n-x)\log(1-p)$. Its derivative, the score, is{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
 $$
 \ell'(p)=\frac{x}{p}-\frac{n-x}{1-p}.
 $$
 
-Setting the score equal to $0$ gives $x(1-p)=(n-x)p$, hence $\widehat p=x/n$. The second derivative $-x/p^2-(n-x)/(1-p)^2$ is negative on $(0,1)$, so this critical point is a maximum. The [estimator](estimator.qmd) $X/n$ is unbiased for $p$, because $\mathbb{E} X=np$, and its variance is $p(1-p)/n$.
+Setting the score equal to $0$ gives $x(1-p)=(n-x)p$, hence $\widehat p=x/n$. The second derivative $-x/p^2-(n-x)/(1-p)^2$ is negative on $(0,1)$, so this critical point is a maximum. The [estimator](estimator.qmd) $X/n$ is unbiased for $p$, because $\mathbb{E} X=np$, and its variance is $p(1-p)/n$.{{cite:wang2025_foundations}} (Ch. 12, §17.4; Ch. 13, §17.3)
 
 ## No successes, or no failures
 
-The score equation needs $x$ and $n-x$ both positive. If $x=0$, then $\ell(p)=n\log(1-p)$ on $(0,1)$, whose derivative $-n/(1-p)$ is always negative. The likelihood increases as $p$ falls, and the maximum on the closed interval $[0,1]$ is at the endpoint $p=0$. Likewise $x=n$ forces $\widehat p=1$. In both boundary cases $\widehat p=X/n$ is still the right maximiser, but it is not an interior critical point.
+The score equation needs $x$ and $n-x$ both positive. If $x=0$, then $\ell(p)=n\log(1-p)$ on $(0,1)$, whose derivative $-n/(1-p)$ is always negative. The likelihood increases as $p$ falls, and the maximum on the closed interval $[0,1]$ is at the endpoint $p=0$. Likewise $x=n$ forces $\widehat p=1$. In both boundary cases $\widehat p=X/n$ is still the right maximiser, but it is not an interior critical point.{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
-The usual plug-in standard error $\sqrt{\widehat p(1-\widehat p)/n}$ is then $0$, which would claim that $p$ is known exactly. The likelihood says otherwise. For $n=10$ and $x=0$, $L(p)=(1-p)^{10}$, and $L(0.1)/L(0)=0.9^{10}\approx 0.35$. A success probability of $0.1$ remains plainly compatible with ten failures. Wald intervals that use the collapsed standard error are not usable at the boundary.
+The usual plug-in standard error $\sqrt{\widehat p(1-\widehat p)/n}$ is then $0$, which would claim that $p$ is known exactly. The likelihood says otherwise. For $n=10$ and $x=0$, $L(p)=(1-p)^{10}$, and $L(0.1)/L(0)=0.9^{10}\approx 0.35$. A success probability of $0.1$ still has substantial likelihood after ten failures. Wald intervals that use the collapsed standard error are not usable at the boundary.{{cite:wang2025_foundations}} (Ch. 16, §22.4)
 """,
     "maximum-likelihood-for-a-known-graph": r"""
 ## Matching the sample covariance on the edges
@@ -2442,7 +2442,7 @@ Start at $W=S$. Variable $1$ has neighbour $2$ only, so the free slope is $\hat\
     "maximum-likelihood-for-a-normal-sample": r"""
 ## Differentiating in $\sigma$ or in $\sigma^2$
 
-For independent $X_i\sim\operatorname{N}(\mu,\sigma^2)$ the log-likelihood is a function of the sample only through $\sum_i(x_i-\mu)^2$ and $n$. Differentiating in $\mu$ and setting the derivative to zero shows that the maximiser is $\widehat\mu=\overline x$, whatever value $\sigma^2$ takes. Substituting that maximiser leaves a one-parameter problem in the variance. Treating $\sigma^2$ as the unknown parameter produces $\widehat\sigma^2=\frac1n\sum_i(x_i-\overline x)^2$.
+For independent $X_i\sim\operatorname{N}(\mu,\sigma^2)$ the log-likelihood is a function of the sample only through $\sum_i(x_i-\mu)^2$ and $n$. Differentiating in $\mu$ and setting the derivative to zero shows that the maximiser is $\widehat\mu=\overline x$, whatever value $\sigma^2$ takes. Substituting that maximiser leaves a one-parameter problem in the variance. Treating $\sigma^2$ as the unknown parameter produces $\widehat\sigma^2=\frac1n\sum_i(x_i-\overline x)^2$.{{cite:wang2025_foundations}} (Ch. 12, §17.2)
 
 The same point is the maximiser if the unknown parameter is the standard deviation $\sigma>0$ instead. With $\widehat\mu$ substituted, the profile log-likelihood in $\sigma$ is $-\,n\log\sigma-\frac1{2\sigma^2}\sum_i(x_i-\overline x)^2$, up to a constant. Its derivative is
 
@@ -2450,11 +2450,11 @@ $$
 -\frac{n}{\sigma}+\frac1{\sigma^3}\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-Setting that equal to zero again gives $\widehat\sigma^2$ equal to the average squared residual. This is the invariance of maximum likelihood under the reparameterisation $\sigma\mapsto\sigma^2$: the two recipes name the same number. Both divide by $n$, not by $n-1$. The unbiased sample variance $s^2$ uses $n-1$, and $\mathbb{E}\widehat\sigma^2=((n-1)/n)\sigma^2$, so the maximum likelihood estimator of the variance is biased low. The two estimators are functions of the same sufficient summary, $(\overline X,\sum_i(X_i-\overline X)^2)$.
+Setting that equal to zero again gives $\widehat\sigma^2$ equal to the average squared residual. This is the invariance of maximum likelihood under the reparameterisation $\sigma\mapsto\sigma^2$: the two recipes name the same number. Both divide by $n$, not by $n-1$. The unbiased sample variance $s^2$ uses $n-1$, and $\mathbb{E}\widehat\sigma^2=((n-1)/n)\sigma^2$, so the maximum likelihood estimator of the variance is biased low. The two estimators are functions of the same sufficient summary, $(\overline X,\sum_i(X_i-\overline X)^2)$.{{cite:wang2025_foundations}} (Ch. 11, §19; Ch. 12, §§17.2, 18; Ch. 13, §17.2)
 
 ## Three numbers
 
-The observations $1,2,6$ have mean $3$ and residual sum of squares $14$. The maximum likelihood estimate of $\sigma^2$ is $14/3$. The unbiased estimate is $14/2=7$. The factor $(n-1)/n=2/3$ converts $7$ into $14/3$. At this sample size the choice of divisor is a large part of the answer. If the data are not normal, $\overline x$ and $14/3$ are maximum likelihood only for a normal working model, and a single outlier moves both.
+The observations $1,2,6$ have mean $3$ and residual sum of squares $14$. The maximum likelihood estimate of $\sigma^2$ is $14/3$. The unbiased estimate is $14/2=7$. The factor $(n-1)/n=2/3$ converts $7$ into $14/3$. At this sample size the choice of divisor is a large part of the answer. If the data are not normal, $\overline x$ and $14/3$ are maximum likelihood only for a normal working model, and a single outlier moves both.{{cite:wang2025_foundations}} (Ch. 12, §17.2; Ch. 13, §17.2)
 """,
     "mean-vector-and-covariance-matrix": r"""
 ## What the two summaries carry

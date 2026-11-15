@@ -84,15 +84,15 @@ Moment estimators are easy to write down and are consistent whenever the moments
 
 ## Maximum likelihood
 
-Ten spark plugs are drawn from a large batch and two are defective. The obvious estimate of the defective proportion is $2/10$. Maximum likelihood is a systematic route to that answer that also works when there is no obvious one.
+Ten spark plugs are drawn from a large batch and two are defective. The observed defective proportion is $2/10$. Maximum likelihood is a systematic route to that answer.{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
-Model the count as $X\sim\Bin(10,p)$. The probability of what was observed, as a function of $p$, is
+Model the count as $X\sim\Bin(10,p)$. The probability of what was observed, as a function of $p$, is{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
 $$
 f(2;p)=\binom{10}{2}p^2(1-p)^8.
 $$
 
-At $p=0.4$ this is $0.121$. At $p=0.3$ it is $0.233$, almost twice as large, and at $p=0.2$ it is $0.302$. Some values of $p$ make the observation more probable than others. Maximum likelihood picks the value that makes it most probable. Setting the derivative of $\log f(2;p)=\text{const}+2\log p+8\log(1-p)$ to zero gives $2/p-8/(1-p)=0$, that is $\widehat p=0.2$.
+At $p=0.4$ this is $0.121$. At $p=0.3$ it is $0.233$, almost twice as large, and at $p=0.2$ it is $0.302$. Some values of $p$ make the observation more probable than others. Maximum likelihood picks the value that makes it most probable. Setting the derivative of $\log f(2;p)=\text{const}+2\log p+8\log(1-p)$ to zero gives $2/p-8/(1-p)=0$, that is $\widehat p=0.2$.{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
 ::: {#def-likelihood-function .definition}
 ## Likelihood function
@@ -107,7 +107,7 @@ $$
 
 :::
 
-The formula is the same as the joint density. What changes is which argument varies. The density is a function of the data for a fixed parameter. The likelihood is a function of the parameter for the fixed, observed data. It is not a density in $\theta$ and need not integrate to one.
+The formula is the same as the joint density. What changes is which argument varies. The density is a function of the data for a fixed parameter. The likelihood is a function of the parameter for the fixed, observed data. It is not a density in $\theta$ and need not integrate to one.{{cite:fisher1922}} (pp. 323–327)
 
 For continuous data the probability of the exact observation is zero for every $\theta$, so the density takes its place. Suppose daily output of a chemical plant is $\Normal(\mu,50)$ tonnes with $\mu$ unknown, and only the mean over 50 days, $\overline x=871$, is recorded. Then $\overline X\sim\Normal(\mu,1)$, and the likelihood is the density of $\overline X$ at $871$,
 
@@ -115,7 +115,7 @@ $$
 L(\mu)=\frac1{\sqrt{2\pi}}\exp\bigl\{-\tfrac12(871-\mu)^2\bigr\},
 $$
 
-which is largest at $\mu=871$. Here the likelihood of a single summary is enough, because for a normal mean with known variance the sample mean carries all the information in the sample about $\mu$; that is the idea of a [sufficient statistic](bayes-07-exponential-families.qmd#def-definition).
+which is largest at $\mu=871$. Here the likelihood of a single summary is enough, because for a normal mean with known variance the sample mean carries all the information in the sample about $\mu$; that is the idea of a [sufficient statistic](bayes-07-exponential-families.qmd#def-definition).{{cite:wang2025_foundations}} (Ch. 11, §19)
 
 ::: {#def-maximum-likelihood .definition}
 ## Maximum likelihood
@@ -126,17 +126,17 @@ $$
 L(\theta)=\prod_{i=1}^n f(x_i;\theta).
 $$
 
-{{cite:fisher1922}} A maximum likelihood estimate is a value $\widehat\theta$ that maximises $L$.{{cite:casella_berger2002}} The maximum likelihood estimator is the same formula with the random sample in place of the observed numbers.{{cite:fisher1925_est}}
+{{cite:fisher1922}} (pp. 323–327) A maximum likelihood estimate is a value $\widehat\theta$ that maximises $L$. The maximum likelihood estimator is the same rule with the random sample in place of the observed numbers.{{cite:wang2025_foundations}} (Ch. 12, §17)
 
 :::
 
-The logarithm is strictly increasing, so $\log L$ has the same maximiser, and a sum is easier to differentiate than a product:
+The logarithm is strictly increasing, so $\log L$ has the same maximiser, and a sum is easier to differentiate than a product:{{cite:wang2025_foundations}} (Ch. 12, §17)
 
 $$
 \log L(\theta)=\sum_{i=1}^n\log f(x_i;\theta).
 $$
 
-For a scalar parameter the likelihood equation is $\partial\log L/\partial\theta=0$, provided the maximum is interior and the derivative exists. For a vector parameter there is one equation per coordinate, $\partial\log L/\partial\theta_j=0$. A solution of the likelihood equations should still be checked to be a maximum rather than a minimum or a saddle.
+For a scalar parameter the likelihood equation is $\partial\log L/\partial\theta=0$, provided the maximum is interior and the derivative exists. For a vector parameter there is one equation per coordinate, $\partial\log L/\partial\theta_j=0$. A solution of the likelihood equations should still be checked to be a maximum rather than a minimum or a saddle.{{cite:wang2025_foundations}} (Ch. 12, §§17–17.1)
 
 ### Binomial
 
@@ -146,7 +146,7 @@ $$
 \frac xp-\frac{n-x}{1-p}=0,
 $$
 
-so $\widehat p=x/n$, and the estimator is $X/n$.{{cite:fisher1922}}{{cite:casella_berger2002}} Maximum likelihood gives back the common-sense estimator.{{cite:davison2003}}
+so $\widehat p=x/n$, and the estimator is $X/n$. The observed success fraction is therefore the maximum likelihood estimate.{{cite:fisher1922}} (pp. 323–325){{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
 ### Normal
 
@@ -170,28 +170,28 @@ $$
 \widehat\sigma^2=\frac1n\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-When at least two observations differ, the normal mean is estimated by the sample mean, and the maximum likelihood estimator of the variance divides by $n$, not by $n-1$.{{cite:fisher1922}}{{cite:casella_berger2002}} The two estimators coincide with the moment estimators.{{cite:fisher1925_est}} If all observations are identical and $\sigma^2>0$ is unrestricted below, the likelihood is unbounded as $\sigma^2\downarrow0$; there is no finite maximiser in that parameter space. The derivative was taken with respect to $\sigma^2$, treated as the parameter; the next result shows that working with $\sigma$ instead gives the same answer.
+When at least two observations differ, the normal mean is estimated by the sample mean, and the maximum likelihood estimator of the variance divides by $n$, not by $n-1$. These two rules also match the moment estimators.{{cite:wang2025_foundations}} (Ch. 12, §§16.1, 17.2) If all observations are identical and $\sigma^2>0$ is unrestricted below, the likelihood is unbounded as $\sigma^2\downarrow0$; there is no finite maximiser in that parameter space. The derivative was taken with respect to $\sigma^2$, treated as the parameter; the next result shows that working with $\sigma$ instead gives the same answer.
 
 ### When the likelihood equation fails
 
-Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$, with an observed maximum $M=\max_i x_i>0$. Use the equivalent density version $f(x;\theta)=1/\theta$ for $0\le x\le\theta$, and zero otherwise; changing a density at its endpoints does not change the sampling law. Then
+Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$, with an observed maximum $m=\max_i x_i>0$. Use the equivalent density version $f(x;\theta)=1/\theta$ for $0\le x\le\theta$, and zero otherwise; changing a density at its endpoints does not change the sampling law. Then{{cite:wang2025_foundations}} (Ch. 12, §17.6)
 
 $$
 L(\theta)=\theta^{-n}\quad\text{if }\theta\ge\max_i x_i,\qquad L(\theta)=0\quad\text{otherwise}.
 $$
 
-$L$ is decreasing wherever it is positive, so its maximum is at the boundary, $\widehat\theta=\max_i X_i$. The derivative is never zero. The likelihood equation finds interior critical points only, and a maximum at the edge of the allowed region has to be found by looking at $L$ directly. The moment estimator is different: $\E X=\theta/2$ gives $\widetilde\theta=2\overline X$, which can be smaller than the largest observation, an impossible value.
+$L$ is decreasing wherever it is positive, so the estimate is at the boundary, $\widehat\theta=m$; as a rule before observation, $\widehat\theta(X)=\max_i X_i$. The derivative is never zero. The likelihood equation finds interior critical points only, and a maximum at the edge of the allowed region has to be found by looking at $L$ directly. The moment estimator is different: $\E X=\theta/2$ gives $\widetilde\theta=2\overline X$, which can be smaller than the largest observation, an impossible value.{{cite:wang2025_foundations}} (Ch. 12, §§16, 17.6)
 
-The endpoint convention matters to the *pointwise likelihood* when support depends on the parameter: with the density defined as $1/\theta$ only for $x<\theta$, the likelihood has a supremum as $\theta\downarrow\max_i x_i$ but no attained maximum. State the density version when calling the sample maximum an MLE.
+The endpoint convention matters to the *pointwise likelihood* when support depends on the parameter: with the density defined as $1/\theta$ only for $x<\theta$, the likelihood has a supremum as $\theta\downarrow\max_i x_i$ but no attained maximum. State the density version when calling the sample maximum an MLE.{{cite:wang2025_foundations}} (Ch. 12, §17.6)
 
 ::: {#prp-invariance-of-maximum-likelihood .proposition}
 ## Invariance of maximum likelihood
 
-If $\widehat\theta$ is the maximum likelihood estimator of $\theta$ and $g$ is a function, then the maximum likelihood estimator of $g(\theta)$ is $g(\widehat\theta)$.{{cite:fisher1922}}{{cite:fisher1925_est}}{{cite:casella_berger2002}}
+If $\widehat\theta$ is the maximum likelihood estimator of $\theta$ and $g$ is a function, then the maximum likelihood estimator of $g(\theta)$ is $g(\widehat\theta)$.{{cite:wang2025_foundations}} (Ch. 12, Thm. 19)
 
 :::
 
-For a one-to-one $g$, write $\nu=g(\theta)$ and reparameterise the likelihood as $\widetilde L(\nu)=L(g^{-1}(\nu))$. Because $L$ is largest at $\theta=\widehat\theta$, $\widetilde L$ is largest where $g^{-1}(\nu)=\widehat\theta$, that is at $\nu=g(\widehat\theta)$. For a $g$ that is not one-to-one the statement is taken as the definition of the estimator of $g(\theta)$: maximise the largest likelihood over all $\theta$ with $g(\theta)=\nu$, which again puts the maximum at $g(\widehat\theta)$. Estimating $\sigma$ by $\sqrt{\widehat\sigma^2}$, or a probability $e^{-\lambda}$ by $e^{-\widehat\lambda}$, are the cases met most often.
+For a one-to-one $g$, write $\nu=g(\theta)$ and reparameterise the likelihood as $\widetilde L(\nu)=L(g^{-1}(\nu))$. Because $L$ is largest at $\theta=\widehat\theta$, $\widetilde L$ is largest where $g^{-1}(\nu)=\widehat\theta$, that is at $\nu=g(\widehat\theta)$. For a $g$ that is not one-to-one, maximise the largest likelihood over all $\theta$ with $g(\theta)=\nu$; this also puts the maximum at $g(\widehat\theta)$. Estimating $\sigma$ by $\sqrt{\widehat\sigma^2}$, or a probability $e^{-\lambda}$ by $e^{-\widehat\lambda}$, illustrates the rule.{{cite:wang2025_foundations}} (Ch. 12, Thm. 19)
 
 ## Comparing estimators
 
@@ -261,23 +261,23 @@ Since $(2n-1)(n-1)=2n^2-3n+1<2n^2$, the biased estimator has the smaller mean sq
 ::: {#exm-two-estimators-of-a-uniform-endpoint .example}
 ## Two estimators of a uniform endpoint
 
-Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$, and let $M=\max_i X_i$.
+Let $X_1,\ldots,X_n$ be a random sample from the uniform distribution on $(0,\theta)$, and let $M=\max_i X_i$.{{cite:wang2025_foundations}} (Ch. 12, §17.6)
 
 **Question.** Compare the mean squared errors of the moment estimator $2\overline X$ and the maximum likelihood estimator $M$.
 
-**Solution.** $2\overline X$ is unbiased, and $\Var X_i=\theta^2/12$, so
+**Solution.** $2\overline X$ is unbiased, and $\Var X_i=\theta^2/12$, so{{cite:wang2025_foundations}} (Ch. 12, §§16.1, 17.6)
 
 $$
 \operatorname{MSE}(2\overline X)=4\cdot\frac{\theta^2}{12n}=\frac{\theta^2}{3n}.
 $$
 
-For the maximum, $\Pr(M\le m)=(m/\theta)^n$ on $(0,\theta)$, so $M$ has density $nm^{n-1}/\theta^n$. Then $\E M=n\theta/(n+1)$ and $\E M^2=n\theta^2/(n+2)$, and
+For the maximum, $\Pr(M\le m)=(m/\theta)^n$ on $(0,\theta)$, so $M$ has density $nm^{n-1}/\theta^n$. Then $\E M=n\theta/(n+1)$ and $\E M^2=n\theta^2/(n+2)$, and{{cite:wang2025_foundations}} (Ch. 8, §9.6.2)
 
 $$
 \operatorname{MSE}(M)=\E M^2-2\theta\E M+\theta^2=\frac{2\theta^2}{(n+1)(n+2)}.
 $$
 
-The maximum is biased low, because it can never exceed $\theta$, but its mean squared error falls like $1/n^2$ rather than $1/n$. With $n=10$ the two are $0.033\,\theta^2$ and $0.015\,\theta^2$. The rescaled maximum $(n+1)M/n$ is unbiased and has mean squared error $\theta^2/\{n(n+2)\}$, smaller still.
+The maximum is biased low, because it can never exceed $\theta$, but its mean squared error falls like $1/n^2$ rather than $1/n$. With $n=10$ the two are $0.033\,\theta^2$ and $0.015\,\theta^2$. The rescaled maximum $(n+1)M/n$ is unbiased and has mean squared error $\theta^2/\{n(n+2)\}$, smaller still.{{cite:wang2025_foundations}} (Ch. 8, §9.6.2; Ch. 12, §17.6)
 
 :::
 
