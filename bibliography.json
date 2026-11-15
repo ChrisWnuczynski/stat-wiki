@@ -1947,6 +1947,23 @@
         "id": "/works/OL146759W"
       }
     },
+    "fisher1919_variance": {
+      "authors": [
+        "Fisher, R. A."
+      ],
+      "year": 1919,
+      "title": "XV.—The Correlation between Relatives on the Supposition of Mendelian Inheritance",
+      "kind": "article",
+      "venue": "Transactions of the Royal Society of Edinburgh",
+      "volume": "52",
+      "issue": "2",
+      "pages": "399–433",
+      "doi": "10.1017/S0080456800012163",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/S0080456800012163"
+      }
+    },
     "fisher1922": {
       "authors": [
         "Fisher, R. A."
@@ -2573,6 +2590,22 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/978-1-4899-4473-3"
+      }
+    },
+    "grinstead_snell1997": {
+      "authors": [
+        "Grinstead, C. M.",
+        "Snell, J. L."
+      ],
+      "year": 1997,
+      "title": "Introduction to Probability",
+      "kind": "book",
+      "edition": "2nd rev. ed.",
+      "publisher": "American Mathematical Society",
+      "url": "https://math.dartmouth.edu/~prob/prob/prob.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://math.dartmouth.edu/~prob/prob/prob.pdf"
       }
     },
     "greenwood_yule1920": {
@@ -4209,6 +4242,26 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/9780470556986"
+      }
+    },
+    "nist_handbook2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm"
       }
     },
     "nelder_wedderburn1972": {
