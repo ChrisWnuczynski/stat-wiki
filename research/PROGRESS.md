@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **14**. Left: **704**. Skipped: **0**.
+Pages ranked: **718**. Done: **15**. Left: **703**. Skipped: **0**.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -22,12 +22,13 @@ Pages ranked: **718**. Done: **14**. Left: **704**. Skipped: **0**.
 | 12 | [Correlation](correlation.md) | Concept/definition | [Prose](content/correlation.md), [check](../checks/correlation.py) | 497 → 2,080 | 0 → 0 | Pearson 1896 full text inaccessible; history limited to verified subject |
 | 13 | [Estimator](estimator.md) | Concept/definition | [Prose](content/estimator.md), [check](../checks/estimator.py) | 259 → 1,630 | 0 → 0 | Linked “No uniform winner” exercise needs a sampling-model condition; logged in todo |
 | 14 | [Logit link](logit-link.md) | Concept/topic | [Prose](content/logit-link.md), [check](../checks/logit-link.py) | 543 → 1,997 | 0 → 0 | Cox 1958 full paper unavailable; publisher record and reproduced excerpt checked |
+| 15 | [Odds](odds.md) | Concept/topic | [Prose](content/odds.md), [check](../checks/odds.py) | 202 → 1,633 | 0 → 0 | History omits unverified origin of the term *odds* |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 15: `odds`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 16: `unbiased-estimator`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first ten researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 20. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -45,4 +46,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Correlation: 16 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing population definition, matrix identity, numerical example, and 22 question links remain. New proof covers the equality case, matrix properties, linear prediction, and independence distinctions.
 - Estimator: 15 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing definition, thermometer example, and 12 question links remain. New proof covers MSE decomposition, sample-mean moments, and the Bernoulli proportion's moments, consistency, and MLE including boundary samples.
 - Logit link: 20 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing equations, doubled-odds example, separation description, and 21 question links remain. New proof covers the link's mapping, canonical parameter, odds multiplier, and separated-sample MLE limit.
+- Odds: 16 exact and floating-point checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Existing definition, $0.8\mapsto4$ example, regression interpretation, and 23 question links remain. New proof covers odds conversion, reciprocal odds, the odds-ratio comparison, Bayesian updating, and the regression multiplier.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
