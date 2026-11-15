@@ -4,7 +4,7 @@ Branch: `research/depth-pass-continuation`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **33**. Left: **685**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **34**. Left: **684**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -41,12 +41,13 @@ Pages ranked: **718**. Done: **33**. Left: **685**. Skipped: **0**. Ranks 1–23
 | 31 | [Bayes' rule](bayes-rule.md) | Theorem | [Prose](content/bayes-rule.md), [check](../checks/bayes-rule.py) | 931 → 1,904 | 0 → 0 | Corrected the event formula's condition; replaced unread bibliography-only references |
 | 32 | [Generalised linear model](generalised-linear-model.md) | Concept/definition | [Prose](content/generalised-linear-model.md), [check](../checks/generalised-linear-model.py) | 2,613 → 4,437 | 3 → 3 | Opened Nelder–Wedderburn, SAS and mgcv sources; aligned fish-exercise notation and located inherited answer citations |
 | 33 | [Random sample](random-sample.md) | Concept/definition | [Prose](content/random-sample.md), [check](../checks/random-sample.py) | 245 → 1,775 | 0 → 0 | Replaced unread definition citations; distinguished iid model from simple random sampling using opened sources |
+| 34 | [Median](median.md) | Concept/topic | [Prose](content/median.md), [check](../checks/median.py) | 214 → 1,481 | 0 → 0 | Replaced unread definition citations; proved absolute-error and robustness results; early-origin history left in todo |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed.
 
 ## Next page
 
-**Rank 34: `median`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 35: `exponential-family`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 
@@ -85,7 +86,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 
 ## Verification for completed pages
 
-Current batch gate: all 33 arithmetic and printed-value scripts pass against the generated articles; 67 Python tests pass; all 412 bibliography records pass offline verification. The build generates 718 articles and 557 question pages. All 27 completed articles retain their question links and meet the figure and substantive-text preservation tests. The first-batch citation-location and reader-facing prose tests pass.
+Current batch gate: all 34 arithmetic and printed-value scripts pass against the generated articles; 67 Python tests pass; all 416 bibliography records pass offline verification. The build generates 718 articles and 557 question pages. All 27 completed articles retain their question links and meet the figure and substantive-text preservation tests. The first-batch citation-location and reader-facing prose tests pass.
 
 - Variance: exact rational arithmetic 5 checks passed; generator completed; 63 Python tests passed; offline schema and citation verification passed for 383 works. A direct Quarto render produced the variance HTML with one Proof box. Its site-wide redirect post-check cannot pass when only one of 1,482 pages is rendered; a full render was stopped after 96 pages to keep the per-page workflow moving. Publisher page and open full text were read. Live Crossref verification failed because the environment's proxy returned HTTP 403, not because of a metadata mismatch.
 - Likelihood function: Poisson and binomial arithmetic plus the boundary case passed 10 checks; generator completed; 63 Python tests passed; offline bibliography verification passed for 385 works. Existing interpretation and invariant-MLE statement remain; the new proof covers non-injective parameter transforms.
@@ -121,4 +122,6 @@ Current batch gate: all 33 arithmetic and printed-value scripts pass against the
 - Generalised linear model: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 410 works. Three figures, three worked exercises and six question links remain; one collapsed proof covers the shared mean–variance formula and link-scale contrasts.
 - Random sample: replaced unread definition citations with an opened Siegrist section; checked the simple-random-sample design relationship against Statistics Canada §6.2.2; proved the general and normal-sample results; added a Bernoulli example whose printed fractions are asserted by the check.
 - Random sample: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 412 works. No figures existed, and all thirteen question links remain.
+- Median: replaced unopened Tukey, Fisher 1925 and Wasserman citations with located Siegrist and NIST sources; proved the absolute-error minimizer using the opened Schwertman–Gilks–Cameron 1990 paper; kept all five question links and removed only duplicated sample-definition wording. Early-origin history is in todo.
+- Median: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 416 works. No figures existed.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

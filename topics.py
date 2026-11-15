@@ -615,7 +615,7 @@ TOPICS += [
           r"A measure of asymmetry, zero for symmetric data, positive when the right tail is longer. Strongly right-skewed positive data are often summarised and modelled better after a log transformation.",
           links=["skewness", "skewed", "right-skewed", "left-skewed"]),
     topic("Median", "da-02-descriptive-statistics.qmd: the sample median is the middle value",
-          r"The middle value of the ordered sample, or the average of the two middle values when $n$ is even: the $0.5$ sample quantile. Unlike the mean it barely moves when one value is wild, which makes it the robust summary of location. For a distribution it is any point $m$ with $\mathbb{P}(X\le m)\ge\tfrac12$ and $\mathbb{P}(X\ge m)\ge\tfrac12$.",
+          r"For a random variable $X$, a population median is any point $m$ with $\mathbb{P}(X\le m)\ge\tfrac12$ and $\mathbb{P}(X\ge m)\ge\tfrac12$.{{cite:siegrist2022_quantiles}} (§3.6, ‘Quantile Functions’ and ‘Special Quantiles’)",
           links=["medians?", "sample medians?"], late=True),
     topic("Range", "da-02-descriptive-statistics.qmd: The five-number summary of a sample is its minimum",
           r"The largest observation minus the smallest. It uses only the two extremes, so one outlier changes it completely; the interquartile range is the robust measure of spread.",
