@@ -302,7 +302,7 @@
     "history": "Pearson’s 1900 paper studied the discrepancy between observed and expected frequencies under a probability model. That problem led to the chi-squared goodness-of-fit statistic and its reference distribution.{{cite:pearson1900}}\n\nThe same distribution also arises exactly as a sum of squared standard normal variables. Modern texts separate that exact normal-sampling result from the asymptotic chi-squared calibration of many fit statistics.{{cite:casella_berger2002}}",
     "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom.",
     "conjugate_prior_for": "",
-    "lead_context": "It calibrates sample-variance inference under normal sampling and appears in large-sample goodness-of-fit tests.{{cite:casella_berger2002}}",
+    "lead_context": "It calibrates sample-variance inference under normal sampling and appears in large-sample goodness-of-fit tests, where fitted parameters change the reference degrees of freedom.{{cite:siegrist2022_normals}} (§6.08) {{cite:fisher1922_chisq}} (pp. 87–90)",
     "statistical_use": "For independent normal observations, a scaled sample variance has a chi-squared law and gives exact variance intervals. Pearson-type goodness-of-fit statistics use a chi-squared reference asymptotically, with degrees of freedom adjusted for fitted parameters.{{cite:casella_berger2002}}",
     "worked_example": "### Four squared normal components\n\nIf $X$ is the sum of squares of four independent standard normal variables, then $X\\sim\\chi^2_4$. Its mean is $4$ and its variance is $8$, so a value near $4$ is typical but the distribution is not symmetric.{{cite:forbes2011}}",
     "key_result": {
