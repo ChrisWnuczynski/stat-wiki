@@ -124,7 +124,7 @@ A binomial variance is $np(1-p)$ because the Bernoulli indicators are independen
 ::: {#def-covariance-matrix .definition}
 ## Expectation vector and covariance matrix
 
-For a random column vector $\mathbf{X}=(X_1,\ldots,X_n)^\top$ the expectation vector is $\boldsymbol\mu=\E\mathbf{X}$, taken coordinate-wise, and the covariance matrix $\Sigma$ has entries $\Sigma_{ij}=\Cov(X_i,X_j)$.
+For a random column vector $\mathbf{X}=(X_1,\ldots,X_p)^\top$ the expectation vector is $\boldsymbol\mu=\E\mathbf{X}$, taken coordinate-wise, and the $p\times p$ covariance matrix $\Sigma$ has entries $\Sigma_{jk}=\Cov(X_j,X_k)$.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 :::
 

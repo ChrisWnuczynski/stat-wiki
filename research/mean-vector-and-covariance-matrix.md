@@ -21,3 +21,8 @@ Type: Concept/definition.
 - A single collapsed proof covers every explicit property retained in Interpretation and added in Properties: symmetry, positive semi-definiteness, linear-combination variance, affine transformations, independent sums, trace/eigenvalue identity, correlation bound, and unbiased sample covariance.
 - `checks/mean-vector-and-covariance-matrix.py` recomputes the original population-matrix numbers and the new three-pair sample matrix, contrasts, and sums.
 - No claim is made about who invented the mean-vector or covariance-matrix notation; the inaccessible Pearson full text is flagged above.
+
+## Correction pass
+
+- The Anderson and Wasserman books and Pearson's full article were not opened for the new formulas. The extracted definition and new prose now cite the opened NIST §6.5.4.1 and Golub–Van Loan §4.2 passages, with Grinstead–Snell chapter 6 for the zero-covariance example. The Galton citation is limited to the paired-height comparison on pp. 246–247.
+- The shared source definition now uses $p$ for the vector dimension and $n$ for the sample size. Removed page-assembly language, a repetitive modern-practice History paragraph, and new multivariate-normal claims that the opened passages did not verify. The arithmetic check asserts the exact numbers and matrix entries printed in the article.

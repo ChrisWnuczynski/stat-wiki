@@ -2,9 +2,14 @@
 
 from fractions import Fraction
 from math import isclose, sqrt
+from pathlib import Path
 
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    prose = (root / "research/content/mean-vector-and-covariance-matrix.md").read_text()
+    for printed in (r"\mathbf x_1=(1,2)^\top", r"\mathbf x_2=(3,4)^\top", r"\mathbf x_3=(5,0)^\top", r"\overline{\mathbf x}=(3,2)^\top", r"\begin{pmatrix}4&-2\\-2&4\end{pmatrix}", "-1,-1,5", "4+4-2(-2)=12", "4+4+2(-2)=4", "4+4=8"):
+        assert printed in prose, f"Worked value missing from article source: {printed}"
     pairs = ((1, 2), (3, 4), (5, 0))
     mean = tuple(Fraction(sum(row[j] for row in pairs), len(pairs)) for j in range(2))
     centered = tuple((x - mean[0], y - mean[1]) for x, y in pairs)
@@ -31,4 +36,9 @@ if __name__ == "__main__":
         4 + 9 == 13,
     ]
     assert all(checks)
+    generated = root / "articles/mean-vector-and-covariance-matrix.qmd"
+    if generated.exists():
+        page = generated.read_text()
+        for printed in ("2/\\sqrt{4\\cdot 9}=1/3", "4+9-2\\cdot 2=9"):
+            assert printed in page, f"Earlier value missing from generated page: {printed}"
     print(f"mean-vector-and-covariance-matrix arithmetic: {len(checks)} checks passed")

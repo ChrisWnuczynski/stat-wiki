@@ -106,19 +106,19 @@ $$
 \E(\mathbf{X})=\boldsymbol{\mu}=\bigl(\E X_1,\ldots,\E X_p\bigr)^\top.
 $$
 
-{{cite:anderson2003_mva}} The covariance of coordinates $j$ and $k$ is
+{{cite:nist_covariance2002}} (§6.5.4.1) The covariance of coordinates $j$ and $k$ is
 
 $$
 \sigma_{jk}=\Cov(X_j,X_k)=\E\bigl[(X_j-\E X_j)(X_k-\E X_k)\bigr]=\E(X_j X_k)-\E(X_j)\E(X_k).
 $$
 
-{{cite:pearson1896}} The covariance matrix is the $p\times p$ matrix of these entries,
+{{cite:nist_covariance2002}} (§6.5.4.1) The covariance matrix is the $p\times p$ matrix of these entries,
 
 $$
 \Sigma=\Var(\mathbf{X})=\Cov(\mathbf{X},\mathbf{X}^\top)=\E\bigl[(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top\bigr].
 $$
 
-{{cite:anderson2003_mva}} The diagonal entry $\sigma_{jj}=\sigma_j^2$ is the variance of $X_j$, and $\sigma_j$ is its standard deviation{{cite:wasserman2004}}.
+{{cite:nist_covariance2002}} (§6.5.4.1) The diagonal entry $\sigma_{jj}=\sigma_j^2$ is the variance of $X_j$, and $\sigma_j$ is its standard deviation.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 :::
 

@@ -2457,17 +2457,17 @@ The observations $1,2,6$ have mean $3$ and residual sum of squares $14$. The max
     "mean-vector-and-covariance-matrix": r"""
 ## What the two summaries carry
 
-A single draw $\mathbf{X}=(X_1,\ldots,X_p)^\top$ is a list of measurements on one unit. The mean vector $\boldsymbol{\mu}$ stacks $\mathbb{E}(X_j)$. The covariance matrix $\Sigma$ stacks $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$. The diagonal entries $\sigma_{jj}=\sigma_j^2$ are ordinary [variances](variance.qmd). Off the diagonal, $\sigma_{jk}=\sigma_{kj}$, so $\Sigma$ is symmetric. For every fixed vector $\mathbf{a}$,
+A single draw $\mathbf{X}=(X_1,\ldots,X_p)^\top$ is a list of measurements on one unit. The mean vector $\boldsymbol{\mu}$ stacks $\mathbb{E}(X_j)$. The covariance matrix $\Sigma$ stacks $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$. The diagonal entries $\sigma_{jj}=\sigma_j^2$ are ordinary [variances](variance.qmd). Off the diagonal, $\sigma_{jk}=\sigma_{kj}$, so $\Sigma$ is symmetric. For every fixed vector $\mathbf{a}$,{{cite:nist_covariance2002}} (§6.5.4.1)
 
 $$
 \operatorname{Var}(\mathbf{a}^\top\mathbf{X})=\mathbf{a}^\top\Sigma\mathbf{a}\ge 0,
 $$
 
-which is the statement that $\Sigma$ is positive semi-definite. A positive-definite $\Sigma$ gives every nonzero linear combination a positive variance. The correlation $\rho_{jk}=\sigma_{jk}/(\sigma_j\sigma_k)$ removes the units of measurement; $\Sigma$ itself keeps them.
+which is the statement that $\Sigma$ is positive semi-definite. A positive-definite $\Sigma$ gives every nonzero linear combination a positive variance. The correlation $\rho_{jk}=\sigma_{jk}/(\sigma_j\sigma_k)$ removes the units of measurement; $\Sigma$ itself keeps them.{{cite:nist_covariance2002}} (§6.5.4.1) {{cite:golub_vanloan2013}} (§4.2)
 
 ## A two-coordinate calculation
 
-Take $\boldsymbol{\mu}=(1,3)^\top$ and
+Take $\boldsymbol{\mu}=(1,3)^\top$ and the following covariance matrix.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 $$
 \Sigma=\begin{pmatrix}4&2\\2&9\end{pmatrix}.
@@ -2479,7 +2479,7 @@ $$
 (1,-1)\Sigma(1,-1)^\top=4+9-2\cdot 2=9.
 $$
 
-The same number is $\operatorname{Var}(X_1)+\operatorname{Var}(X_2)-2\operatorname{Cov}(X_1,X_2)$. Adding a constant to $\mathbf{X}$ changes $\boldsymbol{\mu}$ and leaves $\Sigma$ as it was. Multiplying $X_1$ by $10$ multiplies $\sigma_{11}$ by $100$ and $\sigma_{12}$ by $10$. Sample versions replace $\boldsymbol{\mu}$ by the sample mean and $\Sigma$ by a matrix of corrected products. The trace of $\Sigma$ equals $\sum_j\sigma_j^2$, and it equals the sum of the eigenvalues of $\Sigma$. Adding two independent copies of $\mathbf{X}$ produces a vector with covariance $2\Sigma$.
+The same number is $\operatorname{Var}(X_1)+\operatorname{Var}(X_2)-2\operatorname{Cov}(X_1,X_2)$. Adding a constant to $\mathbf{X}$ changes $\boldsymbol{\mu}$ and leaves $\Sigma$ as it was. Multiplying $X_1$ by $10$ multiplies $\sigma_{11}$ by $100$ and $\sigma_{12}$ by $10$. Sample versions replace $\boldsymbol{\mu}$ by the sample mean and $\Sigma$ by a matrix of corrected products. The trace of $\Sigma$ equals $\sum_j\sigma_j^2$, and it equals the sum of the eigenvalues of $\Sigma$. Adding two independent copies of $\mathbf{X}$ produces a vector with covariance $2\Sigma$.{{cite:nist_covariance2002}} (§6.5.4.1) {{cite:golub_vanloan2013}} (§4.2)
 """,
     "measurable-random-variable": r"""
 ## Which real functions can carry probability
