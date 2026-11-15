@@ -11,7 +11,7 @@ Each of $n$ components is either working or failed. Encode that by $x_i\in\{0,1\
 ::: {#def-structure-function .definition}
 ## Structure function
 
-The structure function $\varphi:\{0,1\}^n\to\{0,1\}$ equals $1$ when the system works and $0$ when it has failed. A system is monotone when $\mathbf{x}\le\mathbf{y}$ implies $\varphi(\mathbf{x})\le\varphi(\mathbf{y})$: repairing a component cannot cause a failure.
+The structure function $\varphi:\{0,1\}^n\to\{0,1\}$ equals $1$ when the system works and $0$ when it has failed.{{cite:birnbaum1961}}{{cite:barlow_proschan1975}}{{cite:ross2019}} A system is monotone when $\mathbf{x}\le\mathbf{y}$ implies $\varphi(\mathbf{x})\le\varphi(\mathbf{y})$: repairing a component cannot cause a failure.{{cite:birnbaum1961}}{{cite:barlow_proschan1975}}{{cite:ross2019}}
 
 :::
 
@@ -51,7 +51,7 @@ Now let the component state $X_i$ be random, with $\Pr(X_i=1)=p_i$ and $\Pr(X_i=
 ::: {#def-reliability-function .definition}
 ## Reliability function
 
-Under independent component states, the reliability function is $r(\mathbf{p})=\Pr(\varphi(\mathbf{X})=1)$, a function of the vector $\mathbf{p}=(p_1,\ldots,p_n)$.
+Under independent component states, the reliability function is $r(\mathbf{p})=\Pr(\varphi(\mathbf{X})=1)$, a function of the vector $\mathbf{p}=(p_1,\ldots,p_n)$.{{cite:birnbaum1961}}{{cite:barlow_proschan1975}}{{cite:ross2019}}
 
 :::
 
@@ -137,16 +137,16 @@ The 2-out-of-3 system lives on average *less* long than a single component, even
 ::: {#def-survival .definition}
 ## Survival function
 
-The survival function of a lifetime $T$ with distribution function $F$ is $R(t)=\Pr(T>t)=1-F(t)$ for $t\ge 0$.
+The survival function of a lifetime $T$ with distribution function $F$ is $R(t)=\Pr(T>t)=1-F(t)$ for $t\ge 0$.{{cite:barlow_proschan1975}}{{cite:kaplan_meier1958}}{{cite:cox1972}}
 
 :::
 
-For a non-negative random variable the expectation is the integral of the survival function, $\E T=\int_0^{\infty} R(t)\,\dd t$, when the integral exists. The argument is integration by parts, or Fubini's theorem applied to $\E T=\E\int_0^{T} 1\,\dd t=\int_0^{\infty}\Pr(T>t)\,\dd t$. The mean time to failure is this expectation.
+For a non-negative random variable the expectation is the integral of the survival function, $\E T=\int_0^{\infty} R(t)\,\dd t$, when the integral exists.{{cite:billingsley1995}}{{cite:grimmett_stirzaker2020}}{{cite:ross2019}} The argument is integration by parts, or Fubini's theorem applied to $\E T=\E\int_0^{T} 1\,\dd t=\int_0^{\infty}\Pr(T>t)\,\dd t$.{{cite:fubini1907}}{{cite:billingsley1995}} The mean time to failure is this expectation.
 
 ::: {#def-hazard-rate .definition}
 ## Hazard rate
 
-If $T$ has density $f$ and survival function $R$, the hazard rate is $h(t)=f(t)/R(t)$ for $t$ with $R(t)>0$.
+If $T$ has density $f$ and survival function $R$, the hazard rate is $h(t)=f(t)/R(t)$ for $t$ with $R(t)>0$.{{cite:barlow_proschan1975}}{{cite:cox1972}}{{cite:ross2019}}
 
 :::
 
@@ -161,13 +161,14 @@ The exponential distribution with rate $\lambda$ has constant hazard $\lambda$. 
 ::: {#def-weibull-distribution .definition}
 ## Weibull distribution
 
-A lifetime $T$ is Weibull with shape $\beta>0$ and rate $\lambda>0$ when its density is $\lambda\beta\,(\lambda t)^{\beta-1}\exp(-(\lambda t)^\beta)$ for $t>0$. The survival function is $\exp(-(\lambda t)^\beta)$, the distribution function is $1$ minus that survival function, and
+A lifetime $T$ is Weibull with shape $\beta>0$ and rate $\lambda>0$ when its density is $\lambda\beta\,(\lambda t)^{\beta-1}\exp(-(\lambda t)^\beta)$ for $t>0$.{{cite:weibull1951}}{{cite:forbes2011}}{{cite:barlow_proschan1975}} The survival function is $\exp(-(\lambda t)^\beta)$, the distribution function is $1$ minus that survival function, and
 
 $$
 \E T=\frac{\Gamma(1+1/\beta)}{\lambda}.
 $$
+{{cite:weibull1951}}{{cite:forbes2011}}{{cite:barlow_proschan1975}}
 
-The shape $\beta=1$ is the exponential distribution with rate $\lambda$.
+The shape $\beta=1$ is the exponential distribution with rate $\lambda$.{{cite:weibull1951}}{{cite:barlow_proschan1975}}
 
 :::
 

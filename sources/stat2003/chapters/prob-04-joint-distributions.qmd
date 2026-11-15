@@ -9,11 +9,12 @@ Conditional probability for events is in [Random experiments and probability](pr
 ::: {#def-joint-pmf .definition}
 ## Joint probability mass function
 
-Discrete random variables $X$ and $Y$ have joint probability mass function $f_{X,Y}(x,y)=\Pr(X=x,Y=y)$. The marginal mass functions are the row and column sums,
+Discrete random variables $X$ and $Y$ have joint probability mass function $f_{X,Y}(x,y)=\Pr(X=x,Y=y)$.{{cite:bernoulli1713}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}} The marginal mass functions are the row and column sums,
 
 $$
 f_X(x)=\sum_y f_{X,Y}(x,y), \qquad f_Y(y)=\sum_x f_{X,Y}(x,y).
 $$
+{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:kolmogorov1933_slln}}
 
 :::
 
@@ -27,8 +28,9 @@ Discrete random variables $X_1,\ldots,X_n$ are independent when the joint mass f
 $$
 \Pr(X_1=x_1,\ldots,X_n=x_n)=\prod_{k=1}^n \Pr(X_k=x_k).
 $$
+{{cite:bernoulli1713}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}}
 
-Continuous random variables with joint density $f$ are independent when $f(x_1,\ldots,x_n)=\prod_{k=1}^n f_{X_k}(x_k)$. An infinite sequence is independent when every finite subcollection is.
+Continuous random variables with joint density $f$ are independent when $f(x_1,\ldots,x_n)=\prod_{k=1}^n f_{X_k}(x_k)$.{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}} An infinite sequence is independent when every finite subcollection is.{{cite:kolmogorov1933_slln}}{{cite:feller1968}}
 
 :::
 
@@ -65,7 +67,7 @@ $$
 \Pr((X,Y)\in B)=\iint_B f(x,y)\,\dd x\,\dd y.
 $$
 
-The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.
+The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -90,7 +92,7 @@ Sums stay inside several families, and the moment generating function is the cle
 ::: {#def-covariance .definition}
 ## Covariance
 
-The covariance of $X$ and $Y$ is $\Cov(X,Y)=\E\bigl((X-\E X)(Y-\E Y)\bigr)$, when the expectation exists. Equivalently, $\Cov(X,Y)=\E(XY)-(\E X)(\E Y)$.
+The covariance of $X$ and $Y$ is $\Cov(X,Y)=\E\bigl((X-\E X)(Y-\E Y)\bigr)$, when the expectation exists.{{cite:pearson1896}}{{cite:anderson2003_mva}}{{cite:grimmett_stirzaker2020}} Equivalently, $\Cov(X,Y)=\E(XY)-(\E X)(\E Y)$.{{cite:casella_berger2002}}{{cite:anderson2003_mva}}
 
 :::
 
@@ -102,7 +104,7 @@ $$
 
 Independent variables with finite variances are uncorrelated: their covariance is zero. The converse is false. Uncorrelated variables can be dependent. For jointly normal variables the converse does hold, which is proved with the transformation rule in the next chapter.
 
-The correlation $\rho(X,Y)=\Cov(X,Y)/\sqrt{\Var(X)\Var(Y)}$ lies in $[-1,1]$ whenever the variances are positive and finite. Equality to $\pm 1$ means that one variable is an affine function of the other. The bound is the Cauchy–Schwarz inequality applied to the centred variables, or equivalently the fact that $\Var(X+tY)\ge 0$ for every real $t$.
+The correlation $\rho(X,Y)=\Cov(X,Y)/\sqrt{\Var(X)\Var(Y)}$ lies in $[-1,1]$ whenever the variances are positive and finite.{{cite:pearson1896}}{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}} Equality to $\pm 1$ means that one variable is an affine function of the other.{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}} The bound is the Cauchy–Schwarz inequality applied to the centred variables, or equivalently the fact that $\Var(X+tY)\ge 0$ for every real $t$.{{cite:schwarz1885}}{{cite:grimmett_stirzaker2020}}
 
 ::: {#exm-uncorrelated-but-dependent .example}
 ## Uncorrelated but dependent
@@ -144,6 +146,7 @@ If $X$ and $Y$ are both discrete or both continuous, and $f_X(x)>0$, the conditi
 $$
 f_{Y\given X}(y\given x)=\frac{f_{X,Y}(x,y)}{f_X(x)}.
 $$
+{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}}
 
 :::
 
@@ -157,7 +160,7 @@ $$
 f_Y(y)=\int f_{Y\given X}(y\given x)\,f_X(x)\,\dd x.
 $$
 
-The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under that conditional distribution. As a function of the random point $X$ it is a random variable, written $\E(Y\given X)$.
+The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under that conditional distribution.{{cite:kolmogorov1933_slln}}{{cite:doob1953}}{{cite:grimmett_stirzaker2020}} As a function of the random point $X$ it is a random variable, written $\E(Y\given X)$.{{cite:doob1953}}{{cite:durrett2019}}
 
 ::: {#exm-a-uniform-point-on-a-triangle .example}
 ## A uniform point on a triangle
@@ -191,7 +194,7 @@ which agrees with $\E Y=(1+4+9+16)/10=3$. For the correlation, $\E X=2$, $\E(XY)
 ::: {#thm-tower-property .theorem}
 ## Tower property
 
-If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$. More generally, $\E\bigl(\E(Y\given X,Z)\given X\bigr)=\E(Y\given X)$.
+If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$.{{cite:kolmogorov1933_slln}}{{cite:doob1953}}{{cite:grimmett_stirzaker2020}} More generally, $\E\bigl(\E(Y\given X,Z)\given X\bigr)=\E(Y\given X)$.{{cite:doob1953}}{{cite:durrett2019}}
 
 :::
 

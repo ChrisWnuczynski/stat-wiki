@@ -15,7 +15,7 @@ $$
 X_{i+1}=(aX_i+c)\bmod m,
 $$
 
-starting from a seed $X_0$, with positive integer multiplier $a$, increment $c$ and modulus $m$. The pseudorandom numbers are $U_i=X_i/m$. With $c=0$ it is a multiplicative congruential generator.
+starting from a seed $X_0$, with positive integer multiplier $a$, increment $c$ and modulus $m$.{{cite:lehmer1951}}{{cite:hull_dobell1962}}{{cite:robert_casella2004}} The pseudorandom numbers are $U_i=X_i/m$.{{cite:hull_dobell1962}}{{cite:robert_casella2004}} With $c=0$ it is a multiplicative congruential generator.{{cite:lehmer1951}}
 
 :::
 
@@ -28,7 +28,7 @@ A uniform generator, then, returns numbers that behave as independent draws from
 ::: {#def-inverse-transform .definition}
 ## Inverse-transform method
 
-Let $F$ be a distribution function and define $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ for $u\in(0,1)$. If $U\sim\operatorname{U}[0,1]$, then $X=F^{-1}(U)$ has distribution function $F$.
+Let $F$ be a distribution function and define $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ for $u\in(0,1)$.{{cite:ross2019}}{{cite:robert_casella2004}}{{cite:casella_berger2002}} If $U\sim\operatorname{U}[0,1]$, then $X=F^{-1}(U)$ has distribution function $F$.{{cite:vonneumann1951}}{{cite:ross2019}}{{cite:casella_berger2002}}
 
 :::
 
@@ -40,14 +40,14 @@ A density $f(x)=2x$ on $[0,1]$ has distribution function $F(x)=x^2$ there, so th
 
 For a discrete variable on points $x_1<x_2<\cdots$ with masses $p_i$, the distribution function is a step function. Draw $U$ and return the first $x_k$ whose step has reached $U$, that is the smallest $k$ with $U\le F(x_k)$. If the masses are stored in a vector $p$, one draw is the first index at which the cumulative sum exceeds $U$.
 
-The method needs a usable inverse. The exponential, uniform, Weibull, logistic and Cauchy distribution functions invert in closed form. Many others do not, and even a closed inverse can be a poor algorithm if it is expensive to evaluate.
+The method needs a usable inverse.{{cite:vonneumann1951}}{{cite:ross2019}}{{cite:robert_casella2004}} The exponential, uniform, Weibull, logistic and Cauchy distribution functions invert in closed form.{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}}{{cite:robert_casella2004}} Many others do not, and even a closed inverse can be a poor algorithm if it is expensive to evaluate.
 
 ## Acceptance and rejection
 
 ::: {#def-acceptance-rejection .definition}
 ## Acceptance–rejection method
 
-Suppose the target density $f$ is zero outside a finite interval $[a,b]$ and bounded by $c=\max f$. Draw $X$ uniformly from $[a,b]$ and, independently, $Y$ uniformly from $[0,c]$. If $Y\le f(X)$, return $X$. Otherwise repeat.
+Suppose the target density $f$ is zero outside a finite interval $[a,b]$ and bounded by $c=\max f$. Draw $X$ uniformly from $[a,b]$ and, independently, $Y$ uniformly from $[0,c]$. If $Y\le f(X)$, return $X$. Otherwise repeat.{{cite:vonneumann1951}}{{cite:ross2019}}{{cite:robert_casella2004}}
 
 :::
 
@@ -72,16 +72,16 @@ The density $f(x)=6x(1-x)$ on $[0,1]$ is the $\BetaDist(2,2)$ law.
 
 ## Draws from the usual families
 
-**Exponential.** If $X\sim\Exp(\lambda)$, then $F(x)=1-e^{-\lambda x}$ for $x>0$, so $F^{-1}(u)=-\lambda^{-1}\log(1-u)$. Because $1-U$ is again uniform on $[0,1]$, the draw $X=-\lambda^{-1}\log U$ has the same distribution. In Python, with `numpy` imported as `np`,
+**Exponential.** If $X\sim\Exp(\lambda)$, then $F(x)=1-e^{-\lambda x}$ for $x>0$, so $F^{-1}(u)=-\lambda^{-1}\log(1-u)$. Because $1-U$ is again uniform on $[0,1]$, the draw $X=-\lambda^{-1}\log U$ has the same distribution.{{cite:vonneumann1951}}{{cite:ross2019}}{{cite:robert_casella2004}} In Python, with `numpy` imported as `np`,
 
 ```python
 u = np.random.rand()
 x = -np.log(u) / lam
 ```
 
-**Uniform on an interval.** If $U\sim\operatorname{U}[0,1]$, then $a+(b-a)U$ is uniform on $[a,b]$. This is the inverse transform of the linear distribution function, and it is also an affine image of a uniform variable.
+**Uniform on an interval.** If $U\sim\operatorname{U}[0,1]$, then $a+(b-a)U$ is uniform on $[a,b]$.{{cite:feller1968}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}} This is the inverse transform of the linear distribution function, and it is also an affine image of a uniform variable.
 
-**Normal.** There is no elementary inverse of $\Phi$. If a standard normal draw $Z$ is already available, then $\mu+\sigma Z$ is $\Normal(\mu,\sigma^2)$. Two independent standard normals can be made from two independent uniforms $(U,V)$ by the Box–Muller map
+**Normal.** There is no elementary inverse of $\Phi$. If a standard normal draw $Z$ is already available, then $\mu+\sigma Z$ is $\Normal(\mu,\sigma^2)$.{{cite:feller1968}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}} Two independent standard normals can be made from two independent uniforms $(U,V)$ by the Box–Muller map{{cite:box_muller1958}}{{cite:robert_casella2004}}
 
 $$
 Z_1=\sqrt{-2\log U}\,\cos(2\pi V), \qquad Z_2=\sqrt{-2\log U}\,\sin(2\pi V).

@@ -11,6 +11,7 @@ Let $X$ be continuous with density $f_X$, and let $Y=g(X)$ with $g$ strictly mon
 $$
 f_Y(y)=f_X\bigl(g^{-1}(y)\bigr)\,\bigl|\tfrac{d}{dy}g^{-1}(y)\bigr|.
 $$
+{{cite:laplace1812}}{{cite:cramer1946}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}}
 
 An affine map $Y=aX+b$ with $a\ne 0$ is the case everyone uses: $f_Y(y)=f_X((y-b)/a)/|a|$. If $X$ is standard normal and $Y=1+2X$, then $Y\sim\Normal(1,4)$. If $X\sim\Exp(\lambda)$ and $Y=1+2X$, the same formula shifts and stretches the exponential density.
 
@@ -64,7 +65,7 @@ $T$ is exponential with rate $5/1000$, and its mean is 200 hours. Five component
 
 :::
 
-The sum of two independent continuous variables has density equal to the convolution
+The sum of two independent continuous variables has density equal to the convolution{{cite:laplace1812}}{{cite:cramer1946}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}}
 
 $$
 f_{X+Y}(z)=\int_{-\infty}^{\infty} f_X(x)\,f_Y(z-x)\,\dd x.
@@ -99,8 +100,9 @@ Let $\mathbf{X}$ take values in an open set of $\R^n$ with density $f_{\mathbf{X
 $$
 f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}\bigl(g^{-1}(\mathbf{z})\bigr)\,\bigl|\det Dg^{-1}(\mathbf{z})\bigr|.
 $$
+{{cite:laplace1812}}{{cite:cramer1946}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}}
 
-Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage. For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.
+Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage.{{cite:casella_berger2002}}{{cite:cramer1946}} For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.
 
 :::
 
@@ -126,8 +128,9 @@ A random vector $\mathbf{Z}$ in $\R^n$ is multivariate normal with mean $\boldsy
 $$
 f(\mathbf{z})=(2\pi)^{-n/2}\,|\Sigma|^{-1/2}\,\exp\Bigl(-\tfrac12(\mathbf{z}-\boldsymbol\mu)^\top\Sigma^{-1}(\mathbf{z}-\boldsymbol\mu)\Bigr).
 $$
+{{cite:anderson2003_mva}}{{cite:grimmett_stirzaker2020}}{{cite:wasserman2004}}
 
-If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution. The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
+If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution.{{cite:anderson2003_mva}}{{cite:gauss1809}}{{cite:pearson1896}} The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
 
 :::
 
@@ -141,8 +144,9 @@ If $X_i\sim\Normal(\mu_i,\sigma_i^2)$ are independent and $a,b_1,\ldots,b_n$ are
 $$
 a+\sum_{i=1}^n b_i X_i \sim \Normal\Bigl(a+\sum_{i=1}^n b_i\mu_i,\;\sum_{i=1}^n b_i^2\sigma_i^2\Bigr).
 $$
+{{cite:gauss1809}}{{cite:feller1968}}{{cite:casella_berger2002}}
 
-The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.
+The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.{{cite:anderson2003_mva}}{{cite:pearson1896}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -196,14 +200,16 @@ If the mean $\mu$ exists, the strong law says
 $$
 \Pr\Bigl(\lim_{n\to\infty} S_n/n=\mu\Bigr)=1.
 $$
+{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}}
 
 If in addition the variance is finite, the weak law says that for every $\varepsilon>0$,
 
 $$
 \lim_{n\to\infty}\Pr\bigl(|S_n/n-\mu|>\varepsilon\bigr)=0.
 $$
+{{cite:bernoulli1713}}{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}
 
-The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero.
+The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero.{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
