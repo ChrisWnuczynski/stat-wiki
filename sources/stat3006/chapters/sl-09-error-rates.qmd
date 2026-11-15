@@ -177,7 +177,7 @@ so about $545$ test observations. Halving the half-width multiplies the required
 
 ## Cross-validation
 
-A single holdout spends some cases on testing and never uses them for training, and it spends the rest on training and never uses them for testing. When the labelled sample is small, that unused half is the difficulty. Cross-validation still partitions the data into a training piece and a test piece and counts errors. It then repeats the partition so that every case is held out once. The rule scored in each repetition is the rule trained without that case{{cite:stone1974}}{{cite:hastie_esl2009}}.
+A single holdout assigns some cases to testing and the rest to training. With a small labelled sample, that division can leave too few cases for either purpose. Cross-validation repeatedly fits a rule without one held-out part and scores it on that part; across nonoverlapping folds, every case is assessed once.{{cite:stone1974}} (pp. 111–115) {{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
 
 ### Leave-one-out
 
@@ -192,7 +192,7 @@ $$
 Q\bigl(y_i,\eta_{(X_{-i},y_{-i})}(x_i)\bigr),
 $$
 
-where $-i$ means that observation $i$ is left out of the fit that is then scored on $x_i${{cite:stone1974}}{{cite:hastie_esl2009}}. The class-specific estimator restricts the average to class $g$,
+where $-i$ means that observation $i$ is left out of the fit that is then scored on $x_i$. For a class $g$ with at least one observed case, the class-specific estimator restricts the average to that class,{{cite:stone1974}} (pp. 111–115) {{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
 
 $$
 \widehat{\mathrm{Err}}_{\mathrm{LOOCV},g}
@@ -201,16 +201,16 @@ Q\bigl(y_i,\eta_{(X_{-i},y_{-i})}(x_i)\bigr)\,I(y_i,g)}
 {\sum_{l=1}^n I(y_l,g)}.
 $$
 
-{{cite:geisser1975}}
+This denominator is the number of observed cases in class $g$, so the result is a class-conditional error estimate rather than an overall error estimate.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
 :::
 
-Leave-one-out trains on almost as many observations as the final fit. That reduces the difference in training size. It does not make the error indicators independent. Two training sets share $n-2$ observations, and both depend on the same original sample. A binomial standard error applied to the $n$ leave-one-out errors would ignore this dependence.
+Leave-one-out trains on almost as many observations as the final fit. That reduces the difference in training size. It does not make the error indicators independent. Two training sets share $n-2$ observations, and both depend on the same sample. A binomial standard error applied to the $n$ leave-one-out errors would ignore this dependence.{{cite:hastie_esl2009}} (Ch. 7, §§7.10.1, 7.12, pp. 242–244, 255–257)
 
-A useful check is to ask what changes between repetitions. In leave-one-out, the held-out case changes, and almost the entire training sample stays the same. Repeating the same leave-one-out calculation cannot reveal the variability between genuinely new datasets. More fitting is not automatically more independent evidence.
+A useful check is to ask what changes between repetitions. In leave-one-out, the held-out case changes, and almost the entire training sample stays the same. Repeating the same leave-one-out calculation cannot reveal the variability between genuinely new datasets. More fitting is not automatically more independent evidence.{{cite:hastie_esl2009}} (Ch. 7, §§7.10.1, 7.12, pp. 242–244, 255–257)
 
 ### $K$-fold cross-validation
 
-Leave-one-out refits the model $n$ times, and its training sets are almost copies of one another. Geisser's $K$-fold cross-validation spends more cases on each test and refits only $K$ times{{cite:geisser1975}}{{cite:stone1974}}. About $n/K$ observations, a fold, are held out at each iteration. The folds do not overlap, and after $K$ iterations every observation has been tested once.
+Leave-one-out refits the model $n$ times, and its training sets are almost copies of one another. $K$-fold cross-validation holds out about $n/K$ observations per fold and refits only $K$ times. The folds do not overlap, and after $K$ iterations every observation has been tested once.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
 
 ::: {#def-sl-09-kfold .definition}
 ## $K$-fold cross-validation
@@ -221,7 +221,7 @@ $$
 Q\bigl(y_i^{(k)},\eta_{(X^{(-k)},y^{(-k)})}(x_i^{(k)})\bigr).
 $$
 
-Here $n_k$ is the size of fold $k$, and $(-k)$ denotes the fit that excludes that fold. Pooling individual errors gives each observation equal weight even if the fold sizes differ{{cite:hastie_esl2009}}{{cite:geisser1975}}.
+Here $n_k$ is the size of fold $k$, and $(-k)$ denotes the fit that excludes that fold. Pooling individual errors gives each observation equal weight even if the fold sizes differ.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
 
 :::
 
@@ -235,21 +235,21 @@ In five-fold cross-validation the five blocks rotate through validation:
 | 4 | fit | fit | fit | validate | fit |
 | 5 | fit | fit | fit | fit | validate |
 
-Every observation is used once for validation and four times for fitting. Preprocessing belongs inside each fit, so a held-out block does not help to set a mean, a standard deviation, or a tuning constant.
+Every observation is used once for validation and four times for fitting. Preprocessing belongs inside each fit, so a held-out block does not help to set a mean, a standard deviation, or a tuning constant.{{cite:hastie_esl2009}} (Ch. 7, §7.10.2, pp. 245–246)
 
-Increasing $K$ enlarges each training set and increases computation. Its effect on variance is problem-dependent. Overlap of the training sets does not, by itself, prove a universal ordering of cross-validation variances. Five or ten folds are a usual compromise between training size and fitting cost. Repeating the random partition can show sensitivity to the split and can reduce that component of variation. It does not create new observations. Once the data are fixed, leave-one-out has no partition randomness to average away.
+Increasing $K$ enlarges each training set and increases computation. Its effect on variance is problem-dependent. Overlap of the training sets does not, by itself, prove a universal ordering of cross-validation variances. Five or ten folds are usual choices. Repeating a random partition can show sensitivity to the split, but it does not create new observations. Once the data are fixed, leave-one-out has no partition randomness to average away.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
 
-Stratification keeps class proportions approximately balanced across folds when the counts permit it. This can prevent a rare class from disappearing from a training set. One observation in a class cannot appear in every training set while also being held out. Check the actual fold counts rather than assuming that the name of a resampling method has solved the problem.
+Stratification keeps class proportions approximately balanced across folds when the counts permit it. This can prevent a rare class from disappearing from a training set. One observation in a class cannot appear in every training set while also being held out. Check the actual fold counts, especially for rare classes.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
 
-Repeated $K$-fold validation and repeated random holdout reuse observations in different ways. Their relative performance depends on the estimator and on the data-generating setting. No repeated scheme is uniformly better. Choose the design for the assessment target and for the computation that is available.
+Repeated $K$-fold validation and repeated random holdout reuse observations in different ways. Their relative performance depends on the estimator and on the data-generating setting. Choose the design for the assessment target and the available computation.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
 
 ### Nested cross-validation
 
-Cross-validation as written above estimates the error of a rule whose form is already fixed. Choosing a tuning constant $\lambda$ by the same errors, and then reporting the smallest of those errors as the error of the chosen rule, uses each case twice: once to pick $\lambda$, and again to advertise the pick. The advertised number is optimistically biased{{cite:stone1974}}{{cite:hastie_esl2009}}.
+Cross-validation as written above estimates the error of a rule whose form is already fixed. Choosing a tuning constant $\lambda$ by the same errors, and then reporting the smallest of those errors as the error of the chosen rule, uses each case twice: once to pick $\lambda$, and again to assess the pick. The reported minimum tends to be optimistic.{{cite:stone1974}} (pp. 111–115) {{cite:cawley_talbot2010}} (§§1, 5.3, pp. 2079–2081, 2102)
 
-As a numerical sketch, the test errors across $\lambda=1,\ldots,10$ may have a best value of $0.18$. That $0.18$ was the criterion that selected $\lambda$, so among noisy estimates it is the one that fell furthest below the truth. A validation set may choose $\lambda$. A test set that did not enter the choice estimates the error. The optimism is a tendency over repeated samples, not an inequality that every split obeys: one test score can still come out smaller than the selected validation score. Nested cross-validation is this separation when the sample is too small for three permanent blocks.
+As a numerical sketch, the validation errors across $\lambda=1,\ldots,10$ may have a smallest value of $0.18$. That value selected $\lambda$, so reporting it as an independent test error would reuse the selection data. A validation set may choose $\lambda$; a test set that did not enter the choice estimates the performance of the selection procedure. Nested cross-validation repeats this separation across outer test folds when the sample is too small for three permanent blocks.{{cite:cawley_talbot2010}} (§§1, 5.3, pp. 2079–2081, 2102)
 
-Nested cross-validation places the complete selection procedure inside an outer assessment loop. This is the separation studied by {{cite:cawley_talbot2010}}. The inner winner can differ between outer folds. In the construction below, the remaining $m-1$ outer folds also serve as inner folds.
+Nested cross-validation places the complete selection procedure inside an outer assessment loop. The inner winner can differ between outer folds. In the construction below, the remaining $m-1$ outer folds also serve as inner folds.{{cite:stone1974}} (pp. 112–115) {{cite:cawley_talbot2010}} (§5.3, p. 2102)
 
 1. Split the data into $m$ folds. Of those, $m-2$ are for training, one is for validation, and one is for testing.
 2. Using the training and validation data, perform $(m-1)$-fold cross-validation for each candidate $k=1,\ldots,K$. Estimate the overall error for each $k$ from the cross-validation results, and choose the $k$ that gives the lowest error rate.
@@ -258,9 +258,9 @@ Nested cross-validation places the complete selection procedure inside an outer 
 5. For the final classifier, choose a new $k=k_{\mathrm{final}}^*$ by a similar procedure that uses only training and validation, with no test fold held out of the selection.
 6. Train the final classifier on all the data using $k=k_{\mathrm{final}}^*$.
 
-The cases that select $k$ are not the cases that assess the selected model. If one cross-validation error both picks the best of many candidates and is then reported as that candidate's accuracy, the report is optimistic, because the minimum of many noisy estimates is systematically one of the estimates that happened to be low{{cite:cawley_talbot2010}}{{cite:hastie_esl2009}}{{cite:stone1974}}. Step 5 rebuilds the choice of $k$ without a test fold, and step 6 trains the final classifier on every observation at that chosen $k$. The nested average estimates the error of this whole procedure, including the selection, not the error of whichever $k$ looked best inside one split.
+The cases that select $k$ are excluded from assessment of that selection in each outer fold. If one cross-validation error both picks the best of many candidates and is then reported as that candidate's accuracy, the report tends to be optimistic: the minimum is selected partly for a favourable sampling fluctuation. Step 5 repeats the choice of $k$ without a test fold, and step 6 trains the final classifier on every observation at that chosen $k$. The nested average assesses the whole selection and fitting procedure at the outer-fold training size.{{cite:cawley_talbot2010}} (§§1, 5.3, pp. 2079–2081, 2102) {{cite:stone1974}} (pp. 112–115)
 
-The same pattern appears when $k$ for nearest neighbours is chosen on one sample and then scored on another. Training error falls toward zero as $k$ falls to $1$. A ten-fold cross-validation curve, and the error on a large independent draw, stay above that training curve and prefer a larger neighbourhood. The laboratory at the end of this page is that separation on a small scale.
+The same pattern appears when $k$ for nearest neighbours is chosen on one sample and then scored on another. For distinct training inputs, the training error at $k=1$ is zero because each point is its own neighbour. Held-out predictions assess whether that fit transfers to new cases; the best $k$ depends on the data and the prediction target.{{cite:hastie_esl2009}} (Ch. 2, §2.3.2, pp. 14–15; Ch. 7, §7.10.1, pp. 241–244)
 
 ## The bootstrap
 

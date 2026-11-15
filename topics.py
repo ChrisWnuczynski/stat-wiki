@@ -1082,7 +1082,7 @@ TOPICS += [
           r"Sensitivity is the proportion of truly positive cases that a classifier labels positive; specificity is the proportion of truly negative cases it labels negative. Both are read off a confusion matrix, and moving a decision threshold trades one against the other.",
           links=["sensitivity and specificity", "specificity", "true positive rates?", "false positive rates?"], scope=[L]),
     topic("Classification accuracy", "sl-09-error-rates.qmd: If one cross-validation error both picks the best",
-          r"The proportion of cases classified correctly, one minus the error rate. With unbalanced classes it can be high for a rule that never predicts the rare class, and the accuracy of a model chosen as the best of many is optimistic unless it is assessed on separate data.",
+          r"The proportion of cases classified correctly, one minus the error rate. With unbalanced classes it can be high for a rule that never predicts the rare class: predicting the majority class for everyone can yield high overall accuracy while missing every rare-class case. The accuracy of a model chosen as the best of many is optimistic unless it is assessed on separate data.{{cite:hastie_esl2009}} (Ch. 7, §§7.10.1–7.10.2, pp. 241–246)",
           links=["classification accuracy", "accuracy"], scope=[L], late=True),
     topic("Overfitting", "sl-16-networks-in-practice.qmd: **Overfitting.**",
           r"Fitting the training data so closely that noise is learned as if it were structure: the training error keeps falling while the error on new data rises. Regularisation, early stopping and tuning on held-out data guard against it.",

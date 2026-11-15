@@ -4,7 +4,7 @@ Branch: `research/depth-pass-continuation`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **28**. Left: **690**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **29**. Left: **689**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -36,12 +36,13 @@ Pages ranked: **718**. Done: **28**. Left: **690**. Skipped: **0**. Ranks 1–23
 | 26 | [Joint probability density](joint-probability-density.md) | Concept/definition | [Prose](content/joint-probability-density.md), [check](../checks/joint-probability-density.py) | 469 → 2,322 | 0 → 0 | New claims use the opened Durrett author PDF; phrase origin omitted |
 | 27 | [Conditional independence](conditional-independence.md) | Concept/definition | [Prose](content/conditional-independence.md), [check](../checks/conditional-independence.py) | 505 → 2,214 | 0 → 0 | Dawid 1979 scan and Evans 2025 graphical-model chapter opened; inherited Lauritzen citations replaced |
 | 28 | [Confidence interval](confidence-interval.md) | Concept/definition | [Prose](content/confidence-interval.md), [check](../checks/confidence-interval.py) | 976 → 2,292 | 1 → 1 | Corrected inherited household standard error from 24.93 to 24.92; Neyman 1937 full text opened |
+| 29 | [Cross-validation](cross-validation.md) | Concept/topic | [Prose](content/cross-validation.md), [check](../checks/cross-validation.py) | 1,410 → 2,716 | 0 → 0 | Stone 1974, Hastie et al. 2009, and Cawley–Talbot 2010 opened; unsupported Geisser attribution removed |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed.
 
 ## Next page
 
-**Rank 29: `cross-validation`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 30: `normal-distribution`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 
@@ -109,4 +110,5 @@ Current batch gate: all 27 arithmetic and printed-value scripts pass against the
 - Conditional expectation: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 Node tests passed. The original definition, sample conditional-mean line, four citation keys, and seventeen question links remain. One collapsed proof covers the atom formula, tower property, independence case, mean-square projection, bivariate normal mean and variance, and the least-squares slope identity. No generator change.
 - Joint probability density: 10 checks passed, including the quadrant integral; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works; overview link check passed; 74 Node tests passed. The original definition, transformation rule, both worked answers, six earlier citation keys, and seventeen question links remain. One collapsed proof covers normalisation, marginals, the product criterion, and the existing covariance identity. No generator change.
 - Conditional independence: 10 exact fractional checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 397 works; overview link check passed; 74 Node tests passed. The original definition, four properties, five density identities, separating-set sentence, and twenty-six question links remain. One collapsed proof covers symmetry, reduction, contraction, and the displayed density cancellations. Added `dawid1979` after reading the 1979 scan. No generator change.
+- Cross-validation: printed-value arithmetic check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 405 works. The leave-one-out and K-fold definitions, five-fold table, nested procedure, and eleven question links remain. One collapsed proof covers fold weighting and selection bias under an explicitly equal-risk premise. The inherited “Geisser's K-fold” attribution and unread bibliography-only reference were removed; the classification-accuracy explanation was expanded to preserve its word count and inline citations. No new bibliography entry was needed.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

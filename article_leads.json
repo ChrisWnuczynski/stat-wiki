@@ -136,7 +136,7 @@
   "critical-region": {"field": "statistical inference", "article": "the", "term": "critical region", "verb": "is", "description": "the set of sample outcomes for which a hypothesis test rejects its null"},
   "cross-entropy": {"field": "statistical learning", "article": "the", "term": "cross-entropy", "verb": "is", "description": "an expected log-loss used to compare a predicted distribution with observed outcomes"},
   "cross-validation-of-the-likelihood": {"field": "statistical learning", "article": "the", "term": "cross-validation of the likelihood", "verb": "is", "description": "a way to assess likelihood-based prediction on observations left out of fitting"},
-  "cross-validation": {"field": "statistical learning", "article": "the", "term": "cross-validation", "verb": "is", "description": "a method for estimating predictive performance by repeatedly holding out data"},
+  "cross-validation": {"field": "statistical learning", "article": "", "term": "cross-validation", "verb": "is", "description": "a method for estimating predictive performance while making efficient use of a limited sample"},
   "cubic-smoothing-spline": {"field": "smoothing methods", "article": "the", "term": "cubic smoothing spline", "verb": "is", "description": "a smooth fitted curve that balances residual error against curvature"},
   "cumulative-distribution-function": {"field": "probability theory", "article": "the", "term": "cumulative distribution function", "verb": "is", "description": "the probability that a random variable does not exceed a chosen value"},
   "cycle": {"field": "time series", "article": "a", "term": "cycle", "verb": "is", "description": "a repeating rise and fall in a time series"},
