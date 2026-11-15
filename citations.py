@@ -863,7 +863,7 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
  (('random-variable', 'discrete-distribution'),
   ('kolmogorov1933_slln', 'feller1968', 'grimmett_stirzaker2020')),
  (('cumulative-distribution-function',),
-  ('kolmogorov1933_slln', 'kolmogorov1933_ks', 'feller1968')),
+  ('kolmogorov1933_slln', 'billingsley1995', 'durrett2019')),
  (('continuous-distribution',), ('laplace1812', 'kolmogorov1933_slln', 'feller1968')),
  (('expectation', 'expectation-of-a-function'),
   ('huygens1657', 'bernoulli1713', 'kolmogorov1933_slln', 'grimmett_stirzaker2020')),

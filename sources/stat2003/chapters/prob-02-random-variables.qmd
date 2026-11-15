@@ -18,11 +18,11 @@ Two dice have sample space $\{1,\ldots,6\}^2$. Their sum $X(i,j)=i+j$ is a rando
 ::: {#def-cdf .definition}
 ## Cumulative distribution function
 
-The cumulative distribution function of $X$ is $F(x)=\Pr(X\le x)$, for $x\in\R$.{{cite:kolmogorov1933_slln}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+The cumulative distribution function of $X$ is $F(x)=\Pr(X\le x)$, for $x\in\R$.{{cite:billingsley1995}} (§12)
 
 :::
 
-Every distribution function is non-decreasing, tends to $0$ as $x\to-\infty$ and to $1$ as $x\to\infty$, and is right-continuous. Conversely, any function with those properties is the distribution function of some random variable. For $a<b$,
+Every distribution function is non-decreasing, tends to $0$ as $x\to-\infty$ and to $1$ as $x\to\infty$, and is right-continuous. Conversely, any function with those properties is the distribution function of some random variable.{{cite:billingsley1995}} (§12) For $a<b$, the interval probability is
 
 $$
 \Pr(a<X\le b)=F(b)-F(a).
@@ -41,6 +41,8 @@ A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function d
 ## Continuous distribution
 
 $X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}} The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.
+
+For such a density, the probability of an interval is the area under $f$ between its endpoints. Each singleton has probability zero, so including an endpoint does not change that integral. The resulting distribution function is continuous, but continuity alone does not ensure a density exists. A model with both point masses and a continuous component needs both pieces to describe its law.{{cite:billingsley1995}} (§12)
 
 :::
 

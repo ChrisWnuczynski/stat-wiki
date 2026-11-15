@@ -1467,6 +1467,11 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # in place of two unverified historical attributions.
                 expected_keys -= {"student1908", "fisher1925_smrw"}
                 self.assertIn("siegrist2022_normals", citation_keys, slug)
+            if slug == "uniform-distribution":
+                # The inherited inverse-transform statement now cites the
+                # opened proof in Billingsley §14.
+                expected_keys -= {"vonneumann1951"}
+                self.assertIn("billingsley1995", citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

@@ -28,11 +28,11 @@ A uniform generator, then, returns numbers that behave as independent draws from
 ::: {#def-inverse-transform .definition}
 ## Inverse-transform method
 
-Let $F$ be a distribution function and define $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ for $u\in(0,1)$.{{cite:ross2019}}{{cite:robert_casella2004}}{{cite:casella_berger2002}} If $U\sim\operatorname{U}[0,1]$, then $X=F^{-1}(U)$ has distribution function $F$.{{cite:vonneumann1951}}{{cite:ross2019}}{{cite:casella_berger2002}}
+Let $F$ be a distribution function and define $F^{-1}(u)=\inf\{x:F(x)\ge u\}$ for $u\in(0,1)$. If $U\sim\operatorname{U}[0,1]$, then $X=F^{-1}(U)$ has distribution function $F$. This construction also covers jumps and flat stretches in $F$.{{cite:billingsley1995}} (§14)
 
 :::
 
-The proof is one line when $F$ is continuous and strictly increasing: $\Pr(F^{-1}(U)\le x)=\Pr(U\le F(x))=F(x)$.
+The proof is one line when $F$ is continuous and strictly increasing: $\Pr(F^{-1}(U)\le x)=\Pr(U\le F(x))=F(x)$.{{cite:billingsley1995}} (§14)
 
 ![The inverse-transform method. A uniform draw $U$ on the vertical axis is carried across to the graph of $F$ and down to the horizontal axis, giving $X=F^{-1}(U)$. Steep parts of $F$ catch many values of $U$, so $X$ lands there often: that is where the density is large.](../figures/prob-inverse-transform.pdf){#fig-prob-inverse-transform} The general definition, with the infimum, covers flat stretches and jumps. Operationally the algorithm is: draw $U$ from $\operatorname{U}[0,1]$, and return $F^{-1}(U)$.
 

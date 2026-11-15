@@ -134,11 +134,11 @@ For $z\in[0,1]$ the event $\{Z\le z\}$ is the square $[0,z]^2$, which has area $
 
 []{#sol-prob-cubic-cdf} **[A cubic distribution function](#ex-prob-cubic-cdf).**
 
-(a) $f(x)=F'(x)=3x^2$ for $0<x<1$, and $f(x)=0$ elsewhere.
+(a) $f(x)=F'(x)=3x^2$ for $0<x<1$, and $f(x)=0$ elsewhere.{{cite:billingsley1995}} (§12)
 
-(b) $\Pr(1/2<X<3/4)=F(3/4)-F(1/2)=(3/4)^3-(1/2)^3=19/64$.
+(b) $\Pr(1/2<X<3/4)=F(3/4)-F(1/2)=(3/4)^3-(1/2)^3=19/64$.{{cite:billingsley1995}} (§12)
 
-(c) $\E X=\int_0^1 x\cdot 3x^2\,\dd x=3/4$.
+(c) $\E X=\int_0^1 x\cdot 3x^2\,\dd x=3/4$.{{cite:durrett2019}} (Ch. 1, §1.6)
 
 []{#sol-prob-twenty-heads} **[Twenty fair tosses](#ex-prob-twenty-heads).**
 
@@ -299,7 +299,7 @@ Integrate the joint density over the region where $(x_1^2+\sin x_2)/(x_1^2 x_2)>
 
 []{#sol-prob-cdf-of-maximum} **[Distribution function of a maximum](#ex-prob-cdf-of-maximum).**
 
-The maximum is at most $m$ when every variable is at most $m$. Independence factors the probability:
+The maximum is at most $m$ when every variable is at most $m$. Independence factors the probability:{{cite:durrett2019}} (Ch. 2, §2.1)
 
 $$
 \Pr(M\le m)=F_1(m)\cdots F_n(m).
