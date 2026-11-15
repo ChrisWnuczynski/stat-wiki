@@ -14,7 +14,7 @@ $$
 $$
 
 
- of the random data alone. It cannot contain an unknown parameter. An *estimator* is a statistic used to estimate a parameter or a function of one, so every estimator is a statistic but not every statistic is introduced for estimation. For example, $\overline X$, $\max_iX_i$, and $\sum_i(X_i-\overline X)^2$ are all statistics.
+ of the random data alone. It cannot contain an unknown parameter.{{cite:fisher1922}}{{cite:casella_berger2002}} An *estimator* is a statistic used to estimate a parameter or a function of one, so every estimator is a statistic but not every statistic is introduced for estimation.{{cite:lehmann_casella1998}} For example, $\overline X$, $\max_iX_i$, and $\sum_i(X_i-\overline X)^2$ are all statistics.
 
 :::
 
@@ -33,7 +33,7 @@ Sufficiency is not a claim that the discarded features are useless for every pur
 ## Sufficiency and the Fisher--Neyman theorem
 
 ::: {#def-definition .definition}
-A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.
+A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.{{cite:fisher1922}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 
@@ -49,7 +49,7 @@ Suppose the family $\{p(\xvec\given\theta):\theta\in\Omega\}$ is dominated by a 
  =g_\theta\{T(\xvec)\}h(\xvec),
  \qquad \theta\in\Omega,
  \label{eq:fisher-neyman-factorisation}
-\end{equation} where $h$ does not depend on $\theta$.
+\end{equation} where $h$ does not depend on $\theta$.{{cite:neyman1937}}{{cite:halmos_savage1949}}{{cite:casella_berger2002}}
 
 :::
 
@@ -143,7 +143,7 @@ $$
 ::: {#def-minimal-sufficiency .definition}
 ## Minimal sufficiency
 
-Sufficiency alone does not guarantee the greatest possible compression: the entire sample is trivially sufficient. A statistic $T$ is *minimal sufficient* if it is a function of every other sufficient statistic.
+Sufficiency alone does not guarantee the greatest possible compression: the entire sample is trivially sufficient. A statistic $T$ is *minimal sufficient* if it is a function of every other sufficient statistic.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 
@@ -172,25 +172,25 @@ $$
 $$
 
 
- implies $q(T)=0$ almost surely for every $\theta\in\Omega$.
+ implies $q(T)=0$ almost surely for every $\theta\in\Omega$.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 
-Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. A complete sufficient statistic is minimal sufficient. The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target. The variance inequality that reduces the search to functions of a sufficient statistic is the [Rao–Blackwell theorem](inf-09-rao-blackwell.qmd#s-rao-blackwell-theorem).
+Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. A complete sufficient statistic is minimal sufficient.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}} The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target.{{cite:lehmann_scheffe1950}} The variance inequality that reduces the search to functions of a sufficient statistic is the [Rao–Blackwell theorem](inf-09-rao-blackwell.qmd#s-rao-blackwell-theorem).
 
 Completeness must not be claimed merely because a model has been written in exponential-family notation. For a full-rank exponential family whose natural parameter space contains an open set of the appropriate dimension, the natural sufficient statistic is complete under standard integrability conditions. Curved or restricted subfamilies need not inherit this property.
 
 ::: {#def-ancillary-statistic .definition}
 ## Ancillary statistic
 
-A statistic $A(\Xvec)$ is *ancillary* if its sampling distribution does not depend on $\theta$.
+A statistic $A(\Xvec)$ is *ancillary* if its sampling distribution does not depend on $\theta$.{{cite:basu1955}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 
 ::: {#thm-basu-s-theorem .theorem}
 ## Basu's theorem
 
-A complete sufficient statistic is independent of every ancillary statistic.
+A complete sufficient statistic is independent of every ancillary statistic.{{cite:basu1955}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 
@@ -206,7 +206,7 @@ In the $a$--$b$--$c$--$T$ notation used here, the natural or canonical form of a
  =\frac{b(x)\exp\{c(\theta)^{\mathsf T}T(x)\}}
         {a(\theta)},
  \label{eq:abcT-exponential-family}
-\end{equation} where $c(\theta)$ is the natural or canonical parameter, $T(x)$ is the natural statistic, $b(x)$ does not depend on $\theta$, and $a(\theta)$ is the normalising function.
+\end{equation} where $c(\theta)$ is the natural or canonical parameter, $T(x)$ is the natural statistic, $b(x)$ does not depend on $\theta$, and $a(\theta)$ is the normalising function.{{cite:lehmann_casella1998}}{{cite:mccullagh_nelder1989}}{{cite:diaconis_ylvisaker1979}}
 
 :::
 
@@ -221,7 +221,7 @@ $$
 $$
 
 
- This is only a change of names: $\vect\eta=c(\theta)$, $h(x)=b(x)$, and $A(\vect\eta)=\log a(\theta)$. We retain the $a(\theta)$--$b(x)$--$c(\theta)$--$T(x)$ notation from this point onward.
+ This is only a change of names: $\vect\eta=c(\theta)$, $h(x)=b(x)$, and $A(\vect\eta)=\log a(\theta)$.{{cite:mccullagh_nelder1989}}{{cite:lehmann_casella1998}}{{cite:diaconis_ylvisaker1979}} We retain the $a(\theta)$--$b(x)$--$c(\theta)$--$T(x)$ notation from this point onward.
 
 :::
 
@@ -254,7 +254,7 @@ $$
 $$
 
 
- Here derivatives are taken with respect to $c=c(\theta)$, so $a(\theta)$ is regarded as a function of $c$ through the chosen parametrisation. Consequently $\log a(\theta)$ is convex as a function of $c$, and the one-observation Fisher information in the natural parameter is $\nabla_c^2\log a(\theta)$.
+ Here derivatives are taken with respect to $c=c(\theta)$, so $a(\theta)$ is regarded as a function of $c$ through the chosen parametrisation. Consequently $\log a(\theta)$ is convex as a function of $c$, and the one-observation Fisher information in the natural parameter is $\nabla_c^2\log a(\theta)$.{{cite:mccullagh_nelder1989}}{{cite:lehmann_casella1998}}{{cite:diaconis_ylvisaker1979}}
 
 :::
 
@@ -353,6 +353,8 @@ Thus the hyperparameters update as \begin{equation}
  \beta\leftarrow\beta+n.}
  \label{eq:generic-update}
 \end{equation}
+
+The conjugate hyperparameters add the sufficient statistic and the sample size.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}}{{cite:gelman_bda2013}}
 
 :::
 

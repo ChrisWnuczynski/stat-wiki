@@ -40,6 +40,7 @@ $$
          {\Gamma(\alpha+\beta)}.
 $$
 
+For $\alpha,\beta>0$ this is a density on $(0,1)$.{{cite:forbes2011}}{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}
 
 :::
 
@@ -110,6 +111,8 @@ Therefore \begin{equation}
   \label{eq:beta-binomial-posterior}
 \end{equation}
 
+A beta prior and a binomial likelihood produce a beta posterior.{{cite:laplace1812}}{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}
+
 :::
 
 ::: {.callout-note}
@@ -126,7 +129,7 @@ For $n=10$ tosses and $x=3$ heads, these three priors give \begin{align*}
   \BetaDist(5,5)&\longrightarrow\BetaDist(8,12),\\
   \BetaDist(1,1)&\longrightarrow\BetaDist(4,8),\\
   \BetaDist(0.6,0.6)&\longrightarrow\BetaDist(3.6,7.6).
-\end{align*} For example, under the uniform prior, 
+\end{align*} Each update adds the observed successes and failures to the beta parameters.{{cite:laplace1812}}{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}} For example, under the uniform prior, 
 
 $$
   \E(\theta\given x)=\frac4{12}=\frac13,
@@ -179,7 +182,7 @@ For the posterior mode, \begin{align*}
 ::: {#rem-two-pseudo-count-conventions .remark}
 ## Two pseudo-count conventions
 
-For posterior means, $(\alpha,\beta)$ act as prior success and failure counts. For an interior posterior mode, the corresponding counts are $(\alpha-1,\beta-1)$. A pseudo-count statement is incomplete unless the posterior summary being interpreted is also named.
+For posterior means, $(\alpha,\beta)$ act as prior success and failure counts.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}} For an interior posterior mode, the corresponding counts are $(\alpha-1,\beta-1)$.{{cite:gelman_bda2013}} A pseudo-count statement is incomplete unless the posterior summary being interpreted is also named.
 
 :::
 
@@ -198,7 +201,7 @@ Sequential updating is exact. If data arrive in batches $(x_1,n_1)$ and $(x_2,n_
   \theta\given x_1,x_2
   &\sim\BetaDist(\alpha+x_1+x_2,
                  \beta+n_1+n_2-x_1-x_2),
-\end{align*} which is the same posterior obtained by combining both batches first.
+\end{align*} which is the same posterior obtained by combining both batches first.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}{{cite:laplace1812}}
 
 :::
 
@@ -207,7 +210,7 @@ Sequential updating is exact. If data arrive in batches $(x_1,n_1)$ and $(x_2,n_
 ::: {#rem-conjugacy-is-optional .remark}
 ## Conjugacy is optional
 
-Conjugacy is convenient, not compulsory. A prior concentrated around $1/2$ could be obtained by truncating a Laplace density: 
+Conjugacy is convenient, not compulsory.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}} A prior concentrated around $1/2$ could be obtained by truncating a Laplace density: 
 
 $$
   p(\theta)\propto
@@ -287,7 +290,7 @@ $$
 $$
 
 
- For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.
+ For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.{{cite:laplace1812}}{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}
 
 :::
 

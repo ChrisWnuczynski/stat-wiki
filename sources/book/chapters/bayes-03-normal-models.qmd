@@ -19,10 +19,11 @@ $$
   \mu\sim\Normal(\mu_0,\sigma_0^2).
 $$
 
+The observations are independent and normal with known variance, and the unknown mean has a normal prior.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}
 
 :::
 
-The normal prior respects the fact that $\mu$ may be positive or negative. A log-normal prior would impose positivity, while a bounded uniform prior would assign permanent posterior probability zero outside its bounds. The normal prior can be badly centred, but its nonzero tails allow enough data eventually to overcome that error. It is often convenient to work in precisions $\sigma^{-2}$ and $\sigma_0^{-2}$ because independent information then adds.[^b03-normal-models-1]
+The normal prior respects the fact that $\mu$ may be positive or negative. A log-normal prior would impose positivity, while a bounded uniform prior would assign permanent posterior probability zero outside its bounds. The normal prior can be badly centred, but its nonzero tails allow enough data eventually to overcome that error. It is often convenient to work in precisions $\sigma^{-2}$ and $\sigma_0^{-2}$ because independent information then adds.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}[^b03-normal-models-1]
 
 When the aim is to be weakly informative, it is safer to give the model room to recover than to impose a hard boundary that cannot be defended. A broad normal prior may put too much mass in uninteresting regions, but it does not make a plausible value impossible. A bounded prior that misses the truth cannot be repaired by any amount of data. Weak information is therefore about scale and support, not simply about making a variance enormous.
 
@@ -35,6 +36,7 @@ $$
  p_C(\mu)=\frac1{2C}\mathbf{1}\{-C\leq\mu\leq C\}.
 $$
 
+constant on $[-C,C]$, and proper.{{cite:box_tiao1973}}{{cite:jeffreys1961}}{{cite:gelman_bda2013}}
 
  Taking, for example, $C=10^4$ makes this density nearly constant over an ordinary data range while keeping it proper. It also exposes what "very diffuse" means. For any fixed $0<M<C$, 
 
@@ -45,7 +47,7 @@ $$
 $$
 
 
- Thus the limiting sequence puts essentially all of its probability beyond every fixed finite range; it does not converge to a uniform probability distribution on $\R$. Human height makes the point concrete: no observed person is three metres tall, yet a sufficiently broad uniform prior assigns almost no mass to the entire range of heights that have actually been encountered.
+ Thus the limiting sequence puts essentially all of its probability beyond every fixed finite range; it does not converge to a uniform probability distribution on $\R$.{{cite:box_tiao1973}}{{cite:jeffreys1961}}{{cite:gelman_bda2013}} Human height makes the point concrete: no observed person is three metres tall, yet a sufficiently broad uniform prior assigns almost no mass to the entire range of heights that have actually been encountered.
 
 :::
 
@@ -138,6 +140,8 @@ $$
  \label{eq:normal-post-mean}
 \end{align}
 
+The posterior of a normal mean with known variance is normal, and its precision is the prior precision plus $n/\sigma^2$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}
+
 :::
 
 ::: {#rem-precision-weighting .remark}
@@ -157,7 +161,7 @@ $$
 $$
 
 
- The posterior mean is therefore a precision-weighted average. Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then 
+ The posterior mean is therefore a precision-weighted average.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}} Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then 
 
 $$
  \mu_1=\frac{n\overline x+\kappa_0\mu_0}{n+\kappa_0}.
@@ -239,6 +243,7 @@ $$
  \exp\!\left(-\frac{\beta_0}{\sigma^2}\right).
 $$
 
+In the shape--rate parameterisation this is the inverse-gamma density.{{cite:gelman_bda2013}}{{cite:box_tiao1973}}{{cite:raiffa_schlaifer1961}}
 
 :::
 
@@ -288,6 +293,8 @@ Hence \begin{equation}
  \right)}.
  \label{eq:inv-gamma-update}
 \end{equation}
+
+An inverse-gamma prior for a normal variance, with the mean known, yields an inverse-gamma posterior.{{cite:gelman_bda2013}}{{cite:box_tiao1973}}{{cite:raiffa_schlaifer1961}}
 
 :::
 
@@ -375,6 +382,8 @@ Holding $\sigma^2$ fixed, the calculation from \eqref{eq:normal-mean-posterior} 
  \right)}.
  \label{eq:full-cond-sigma}
 \end{equation}
+
+The full conditional of the mean is normal and the full conditional of the variance is inverse-gamma.{{cite:gelfand_smith1990}}{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}
 
 :::
 

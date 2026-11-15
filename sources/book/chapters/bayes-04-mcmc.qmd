@@ -9,14 +9,14 @@ A stochastic process $X_0,X_1,\ldots$ is a Markov chain if \begin{equation}
  \Pr(X_{t+1}\in A\given X_t,X_{t-1},\ldots,X_0)
  =\Pr(X_{t+1}\in A\given X_t)
  \label{eq:markov-property}
-\end{equation} for every measurable set $A$. In a discrete state space, write $q(y\given x)$ for the transition probability from $x$ to $y$; in a continuous state space it is a transition density.
+\end{equation} for every measurable set $A$.{{cite:norris1997}}{{cite:markov1906}} In a discrete state space, write $q(y\given x)$ for the transition probability from $x$ to $y$; in a continuous state space it is a transition density.{{cite:robert_casella2004}}
 
 :::
 
 ::: {#def-stationarity-and-detailed-balance .definition}
 ## Stationarity and detailed balance
 
-A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition. The global balance equation is \begin{equation}
+A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition.{{cite:norris1997}}{{cite:robert_casella2004}} The global balance equation is \begin{equation}
  \pi(y)=\sum_x\pi(x)q(y\given x)
  \quad\text{or}\quad
  \pi(y)=\int\pi(x)q(y\given x)\dd x.
@@ -27,12 +27,14 @@ A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distr
  \label{eq:detailed-balance}
 \end{equation}
 
+Detailed balance equates the probability flow from $x$ to $y$ with the flow from $y$ to $x$.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+
 :::
 
 ::: {#thm-detailed-balance-implies-stationarity .theorem}
 ## Detailed balance implies stationarity
 
-If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.
+If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
 
 :::
 
@@ -48,9 +50,11 @@ If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probabili
 
 Stationarity alone is not enough for simulation. One also needs conditions such as irreducibility and aperiodicity so that the chain can reach the whole target support and converge to its stationary distribution. These are grouped informally under *ergodicity* in this chapter.
 
-MCMC is not intrinsically Bayesian. It is a general method for sampling difficult distributions, and it has deep roots in statistical physics as well as major uses in machine learning. Bayesian posterior calculation is one particularly natural application. The practical migration came at about 1990: methods long used in statistical physics, particularly condensed-matter problems involving large interacting systems, were taken up for posterior calculations that had previously been restricted largely to analytically convenient models. The recipe is to construct a chain whose equilibrium distribution is the posterior, then use its dependent output as a Monte Carlo sample.[^b04-mcmc-1]
+MCMC is not intrinsically Bayesian. It is a general method for sampling difficult distributions, and it has deep roots in statistical physics as well as major uses in machine learning. Bayesian posterior calculation is one particularly natural application. The practical migration came at about 1990: methods long used in statistical physics, particularly condensed-matter problems involving large interacting systems, were taken up for posterior calculations that had previously been restricted largely to analytically convenient models. The recipe is to construct a chain whose equilibrium distribution is the posterior, then use its dependent output as a Monte Carlo sample.{{cite:gelman_bda2013}}{{cite:robert_casella2004}}[^b04-mcmc-1]
 
 ## A four-state random walk
+
+Detailed balance supplies the stationary distribution of a finite chain once the pairwise equations are solved and the result is normalised.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
 
 ::: {#exm-four-state-random-walk .example}
 ## Four-state random walk
@@ -120,7 +124,7 @@ Suppose the target is a joint density $\pi(x_1,\ldots,x_p)$ that is difficult to
  &\ \vdots\\
  X_p^{(t+1)}&\sim
  \pi(x_p\given X_1^{(t+1)},\ldots,X_{p-1}^{(t+1)}).
-\end{align*} Each update uses the newest available coordinate values. Under standard ergodicity conditions, $X^{(t)}$ converges in distribution to $\pi$. For a full conditional, the other coordinates are held fixed. Therefore 
+\end{align*} Each update uses the newest available coordinate values.{{cite:geman_geman1984}}{{cite:gelfand_smith1990}} Under standard ergodicity conditions, $X^{(t)}$ converges in distribution to $\pi$.{{cite:robert_casella2004}} For a full conditional, the other coordinates are held fixed. Therefore 
 
 $$
  \pi(x_i\given x_{-i})
@@ -204,7 +208,7 @@ matplot(keep, type = "l", lty = 1)
 acf(keep[, 1])
 ```
 
-The trace plot and autocorrelation function are not substitutes for the stationarity argument. They address the separate practical question of whether this finite run appears to have explored the target well enough for the posterior summary at hand.
+The trace plot and autocorrelation function are not substitutes for the stationarity argument.{{cite:geyer1992}}{{cite:gelman_bda2013}} They address the separate practical question of whether this finite run appears to have explored the target well enough for the posterior summary at hand.{{cite:gelman_rubin1992}}
 
 ### Normal mean and variance example
 
@@ -239,9 +243,9 @@ $$
 
 The chain should be initialised in a plausible region when one is available. A start many standard deviations from the typical set can require a long time to return, while a start at the mean of a separated mixture can lie in a low-density gap. Multiple dispersed chains help reveal failure to explore all modes; they do not repair it automatically.
 
-Discarding early draws is called warm-up or burn-in. It limits dependence on the chosen initial state, but it is not a proof of convergence. Strong posterior correlation produces staircase-like Gibbs paths and high autocorrelation. Separated modes are harder still because a coordinate-wise move may have to cross a low-density barrier.
+Discarding early draws is called warm-up or burn-in.{{cite:gelman_bda2013}} It limits dependence on the chosen initial state, but it is not a proof of convergence.{{cite:gelman_rubin1992}}{{cite:geyer1992}} Strong posterior correlation produces staircase-like Gibbs paths and high autocorrelation. Separated modes are harder still because a coordinate-wise move may have to cross a low-density barrier.
 
-Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information. Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size. Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
+Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information.{{cite:geyer1992}}{{cite:gelman_bda2013}} Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size.{{cite:geyer1992}} Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
 
 :::
 
@@ -346,7 +350,7 @@ $$
 $$
 
 
- so the normalising constant cancels.
+ so the normalising constant cancels.{{cite:hastings1970}}{{cite:metropolis1953}}{{cite:robert_casella2004}}
 
 :::
 
@@ -359,7 +363,7 @@ $$
 
  This avoids numerical underflow when an unnormalised target is a product of many small terms.
 
-This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations, making its partition function impractical to sum, but ratios of unnormalised target weights are immediate. The original Metropolis algorithm used symmetric proposals; Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.[^b04-mcmc-3]
+This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations.{{cite:ising1925}} Its partition function is impractical to sum, but ratios of unnormalised target weights are immediate.{{cite:metropolis1953}} The original Metropolis algorithm used symmetric proposals.{{cite:metropolis1953}} Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.{{cite:hastings1970}}[^b04-mcmc-3]
 
 The wartime history surrounding Los Alamos also includes Leó Szilárd.[^b04-mcmc-4]
 
@@ -395,7 +399,7 @@ $$
 ::: {#thm-metropolis-hastings-invariance .theorem}
 ## Metropolis--Hastings invariance
 
-The Metropolis--Hastings transition defined by \eqref{eq:mh-accept} satisfies detailed balance with respect to $\pi$. Consequently, $\pi$ is stationary.
+The Metropolis--Hastings transition defined by \eqref{eq:mh-accept} satisfies detailed balance with respect to $\pi$.{{cite:hastings1970}}{{cite:robert_casella2004}} Consequently, $\pi$ is stationary.{{cite:gelman_bda2013}}
 
 :::
 
@@ -462,7 +466,7 @@ $$
 $$
 
 
- Every proposed move to higher target density is accepted; a move to a point with two-thirds as much density is accepted with probability $2/3$.
+ Every proposed move to higher target density is accepted; a move to a point with two-thirds as much density is accepted with probability $2/3$.{{cite:metropolis1953}}{{cite:gelman_bda2013}}
 
 For an independent proposal $q(y\given x)=g(y)$, 
 
@@ -480,7 +484,7 @@ $$
 $$
 
 
- The Hastings factor $g(x)/g(y)$ corrects for the fact that $g$ may propose some regions too often and others too rarely. It must not be discarded merely because the proposal is independent of the current state. An independent proposal can jump between separated modes, but it performs poorly if $g$ under-covers a region where $\pi$ is large. A local random walk can represent local shape well but may become trapped in one mode. Proposal scale is therefore a genuine tuning decision, not a cosmetic one.
+ The Hastings factor $g(x)/g(y)$ corrects for the fact that $g$ may propose some regions too often and others too rarely.{{cite:hastings1970}}{{cite:robert_casella2004}} It must not be discarded merely because the proposal is independent of the current state. An independent proposal can jump between separated modes, but it performs poorly if $g$ under-covers a region where $\pi$ is large. A local random walk can represent local shape well but may become trapped in one mode. Proposal scale is therefore a genuine tuning decision, not a cosmetic one.
 
 ### Gibbs sampling as an always-accepted MH update
 
@@ -513,7 +517,7 @@ $$
  &=1.
 \end{align*} Every Gibbs coordinate proposal is therefore accepted. This does not imply that every Gibbs sampler moves efficiently. In the bivariate-normal example, as $|\rho|\to1$ the conditional standard deviation $\sqrt{1-\rho^2}$ tends to zero: acceptance remains one while successive states move only a very short distance.
 
-Proposal design is an art because local and global exploration pull in different directions. Tiny random-walk steps are accepted but travel slowly; huge steps travel far but are mostly rejected. An independent proposal can jump between modes, yet it wastes effort if it puts mass where the target has almost none. The Hastings correction guarantees the right equilibrium under the required conditions; it does not guarantee an efficient journey there.
+Proposal design is an art because local and global exploration pull in different directions. Tiny random-walk steps are accepted but travel slowly; huge steps travel far but are mostly rejected. An independent proposal can jump between modes, yet it wastes effort if it puts mass where the target has almost none. The Hastings correction guarantees the right equilibrium under the required conditions.{{cite:hastings1970}}{{cite:robert_casella2004}} It does not guarantee an efficient journey there.{{cite:gelman_bda2013}}
 
 ![Three random-walk Metropolis chains with the same $\Normal(0,1)$ target and different proposal standard deviations $s_q$. The tiny proposal is accepted almost every time but advances slowly; the huge proposal repeats its current value through long runs of rejections. A moderate acceptance rate is useful only because it accompanies larger moves and much weaker autocorrelation. The displayed acceptance rate is $a$.](../figures/part1-fig-04-proposal-scale.pdf){#fig-04-proposal-scale}
 

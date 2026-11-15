@@ -34,6 +34,7 @@ $$
  \xvec\given\pvec\sim\Mult(n,\pvec).
 $$
 
+The counts of conditionally independent category trials are multinomial.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:jeffreys1961}}
 
 :::
 
@@ -61,7 +62,7 @@ $$
 ::: {#def-dirichlet-distribution .definition}
 ## Dirichlet distribution
 
-The conjugate prior for $\pvec$ is the Dirichlet distribution. Write 
+The conjugate prior for $\pvec$ is the Dirichlet distribution.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}} Write 
 
 $$
  \alpha_0=\sum_{k=1}^K\alpha_k,
@@ -92,7 +93,7 @@ $$
 $$
 
 
- is the probability simplex.
+ is the probability simplex. The normalising constant is the multivariate beta integral.{{cite:dirichlet1839}}
 
 :::
 
@@ -109,7 +110,7 @@ $$
 $$
 
 
- which is exactly $\BetaDist(\alpha_1,\alpha_2)$. The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.
+ which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.{{cite:dirichlet1839}}
 
 :::
 
@@ -152,7 +153,7 @@ $$
 $$
 
 
- The covariance matrix is singular because the components of $\widehat\pvec-\pvec$ sum to zero. On the $(K-1)$-dimensional simplex, the count cloud therefore tightens at the usual $n^{-1/2}$ rate and becomes locally normal.
+ The covariance matrix is singular because the components of $\widehat\pvec-\pvec$ sum to zero.{{cite:pearson1900}}{{cite:cramer1946}} On the $(K-1)$-dimensional simplex, the count cloud therefore tightens at the usual $n^{-1/2}$ rate and becomes locally normal.{{cite:cramer1946}}
 
 :::
 
@@ -168,6 +169,8 @@ Standard Dirichlet integrals give \begin{align*}
  \E(P_jP_k)&=\frac{\alpha_j\alpha_k}
                   {\alpha_0(\alpha_0+1)},\qquad j\neq k.
 \end{align*}
+
+The coordinate mean is $\alpha_k/\alpha_0$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:dirichlet1839}}
 
 :::
 
@@ -234,7 +237,7 @@ Consequently, \begin{equation}
  \operatorname{mode}(P_k)
  =\frac{\alpha_k-1}{\alpha_0-K}.
  \label{eq:dir-mode-book}
-\end{equation} This derivation requires every $\alpha_k>1$. Otherwise the mode may lie on a face or corner of the simplex.
+\end{equation} This derivation requires every $\alpha_k>1$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} Otherwise the mode may lie on a face or corner of the simplex.{{cite:gelman_bda2013}}
 
 :::
 
@@ -269,6 +272,8 @@ After division by this evidence, \begin{equation}
  \sim\Dir(\alpha_1+x_1,\ldots,\alpha_K+x_K)}.
  \label{eq:dir-mult-post-book}
 \end{equation}
+
+A Dirichlet prior and a multinomial likelihood produce a Dirichlet posterior.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}{{cite:jeffreys1961}}
 
 :::
 
