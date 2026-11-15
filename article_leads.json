@@ -143,7 +143,7 @@
   "d-p-q-and-r-functions": {"field": "R", "article": "", "term": "d, p, q, and r functions", "verb": "are", "description": "the R functions for distribution densities, cumulative probabilities, quantiles, and random draws"},
   "decision-stump": {"field": "statistical learning", "article": "the", "term": "decision stump", "verb": "is", "description": "a classification tree with a single split: a threshold on one variable and a sign"},
   "decision-tree": {"field": "statistical learning", "article": "the", "term": "decision tree", "verb": "is", "description": "a prediction model that partitions feature space through a sequence of rules"},
-  "degrees-of-freedom": {"field": "statistical inference", "article": "the", "term": "degrees of freedom", "verb": "is", "description": "a count of independent pieces of information available after constraints are imposed"},
+  "degrees-of-freedom": {"field": "statistical inference", "article": "", "term": "degrees of freedom", "verb": "are", "description": "the number of independent pieces of information remaining after a model's constraints are applied"},
   "delta-method": {"field": "statistical inference", "article": "the", "term": "delta method", "verb": "is", "description": "a large-sample approximation for smooth functions of an estimator"},
   "delta-rule": {"field": "statistical learning", "article": "the", "term": "delta rule", "verb": "is", "description": "a gradient-based rule for updating weights in a neural-network model"},
   "dendrogram": {"field": "statistical learning", "article": "the", "term": "dendrogram", "verb": "is", "description": "a tree diagram that displays the nested groups found by hierarchical clustering"},

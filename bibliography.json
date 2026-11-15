@@ -4260,6 +4260,26 @@
         "id": "10.1002/9780470556986"
       }
     },
+    "nist_residual_std2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.5.9.9.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm"
+      }
+    },
     "nist_handbook_mle2002": {
       "authors": [
         "Heckert, N. A.",
