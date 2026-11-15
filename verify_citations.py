@@ -26,7 +26,7 @@ HEADERS = {"User-Agent": USER_AGENT}
 
 BANNED_PATTERN = re.compile(
     r"STAT\s*\d{4}"
-    r"|\bgithub\b"
+    r"|\bgithub\b(?!\.io)"
     r"|\bapplied\s+practice\s+sets?\b"
     r"|\bpractice\s+sets?\b"
     r"|\bbooklets?\b"

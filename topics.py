@@ -681,7 +681,7 @@ TOPICS += [
           r"The ratio $\mathbb{P}(H_1)/\mathbb{P}(H_2)$ of prior probabilities of two hypotheses or models. Bayes' rule turns it into the posterior odds by multiplying by the Bayes factor.",
           links=["prior odds"]),
     topic("Posterior mean", "bayes-01-foundations.qmd#s-posterior-summaries",
-          r"The mean $\mathbb{E}(\theta\mid y)$ of the posterior distribution. It is the Bayes estimate under squared-error loss, and in conjugate models it is a weighted average of the prior mean and a data summary.",
+          r"The mean $\mathbb{E}(\Theta\mid Y=y)$ of the posterior distribution, where $\Theta$ is a random parameter and $y$ is the observed data. With a finite posterior second moment, it minimizes posterior expected squared-error loss.{{cite:hoff2013_bayes_estimators}} (p. 9)",
           links=["posterior means?", "posterior expectations?"]),
     topic("Posterior median", "bayes-01-foundations.qmd#s-posterior-summaries",
           r"The median of the posterior distribution, the Bayes estimate under absolute-error loss. Unlike the mode and the mean it is unchanged by monotone reparameterisation.",

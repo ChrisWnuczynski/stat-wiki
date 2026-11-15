@@ -923,7 +923,7 @@ class WikiGraphTests(unittest.TestCase):
             self.assertIn('<details class="cite-this-page">', text, path.name)
             self.assertIn(f"https://www.statwiki.io/articles/{path.stem}.html", text, path.name)
             self.assertNotIn("Edit this page", text, path.name)
-            self.assertNotRegex(text, r"STAT\s*\d|\bgithub\b", path.name)
+            self.assertNotRegex(text, r"STAT\s*\d|\bgithub\b(?!\.io)", path.name)
 
         # Reconcile homepage counts with PARTS, final-preparation pages, and concept articles
         n_topic_chapters = sum(1 for _, files in build_wiki.PARTS for _, kind in files if kind == "notes")

@@ -6172,6 +6172,20 @@
         "id": "https://openlibrary.org/authors/OL142318A"
       }
     },
+    "wang2025_foundations": {
+      "authors": [
+        "Wang, H."
+      ],
+      "year": 2025,
+      "title": "Foundations of Probability and Statistical Theory: A Modern Introduction with Computation, Simulation, and Inference",
+      "kind": "book",
+      "publisher": "He Wang",
+      "url": "https://wanghemath.github.io/Book-ProbabilityStatisticalTheory/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://wanghemath.github.io/Book-ProbabilityStatisticalTheory/"
+      }
+    },
     "ward1963": {
       "authors": [
         "Ward, J. H."

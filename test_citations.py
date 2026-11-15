@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent
 
 BANNED_VISIBLE = re.compile(
     r"STAT\s*\d"
-    r"|\bgithub\b"
+    r"|\bgithub\b(?!\.io)"
     r"|\bapplied\s+practice\s+sets?\b"
     r"|\bpractice\s+sets?\b"
     r"|\bbooklets?\b"

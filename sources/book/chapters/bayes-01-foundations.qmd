@@ -168,7 +168,7 @@ $$
 $$
 
 
- the posterior median, and posterior quantiles.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} These summaries need not agree for a skewed distribution.{{cite:gelman_bda2013}}
+ the posterior median, and posterior quantiles.{{cite:hoff2013_bayes_estimators}} (pp. 9-10) These summaries need not agree for a skewed distribution.{{cite:wang2025_foundations}} (Ch. 20, Sec. 24.1)
 
 :::
 
@@ -202,7 +202,7 @@ $$
 $$
 
 
- Every included point then has density at least as large as every excluded point.{{cite:box_tiao1973}}{{cite:gelman_bda2013}} For a continuous unimodal posterior this gives the minimum-width interval; for a multimodal posterior the highest-density set can be disjoint.{{cite:box_tiao1973}} For a symmetric unimodal density, the mean, median, and mode coincide and the common interval constructions often agree.{{cite:jeffreys1961}}
+ Every included point then has density at least as large as every excluded point.{{cite:wang2025_foundations}} (Ch. 20, Def. 34) For a continuous unimodal posterior this gives the minimum-width interval; for a multimodal posterior the highest-density set can be disjoint.{{cite:wang2025_foundations}} (Ch. 20, Thm. 35) For a symmetric unimodal density, the mean, median, and mode coincide and the equal-tailed and highest-density intervals agree.{{cite:wang2025_foundations}} (Ch. 20, Remark 37)
 
 :::
 
@@ -221,7 +221,7 @@ Let $\theta^{(1)},\ldots,\theta^{(L)}$ be posterior draws and let $\theta_{(1)}\
    \left(\theta^{(l)}-\overline\theta\right)^2,\\
  \widehat{\Pr}(\theta<c\given x)
  &=\frac1L\sum_{l=1}^L\mathbf{1}\{\theta^{(l)}<c\}.
-\end{align*} The average of the draws estimates the posterior expectation when that expectation exists.{{cite:metropolis_ulam1949}} The posterior median and equal-tailed interval are estimated by the corresponding empirical quantiles.{{cite:gelman_bda2013}}{{cite:geyer1992}} With $L=1000$, the median can be estimated by the average of $\theta_{(500)}$ and $\theta_{(501)}$, and a direct $95\%$ interval approximation by $[\theta_{(25)},\theta_{(975)}]$. The precise indices vary slightly with a software package's quantile convention.
+\end{align*} The average of the draws estimates the posterior expectation when that expectation exists.{{cite:geyer1992}} (pp. 473-475) The posterior median and equal-tailed interval are estimated by the corresponding empirical quantiles.{{cite:wang2025_foundations}} (Ch. 20, Secs. 24.1, 28.1) With $L=1000$, the median can be estimated by the average of $\theta_{(500)}$ and $\theta_{(501)}$, and a direct $95\%$ interval approximation by $[\theta_{(25)},\theta_{(975)}]$. The precise indices vary slightly with a software package's quantile convention.
 
 :::
 
