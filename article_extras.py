@@ -4248,3 +4248,65 @@ No normality is required: the identity uses only that the loss is $0$ on the pre
 Let $\tau(\mathbf{x})=(0.7,0.2,0.1)$. Predicting class $1$ has conditional zero–one risk $0.3$. Predicting class $2$ has risk $0.8$. Predicting class $3$ has risk $0.9$. The zero–one rule returns class $1$. Replace the loss by unequal costs $c_{gh}$, still with $c_{gg}=0$, and the conditional risk of predicting $h$ becomes $\sum_{g\neq h}\tau_g(\mathbf{x})\,c_{gh}$. Suppose a missed class $2$ costs $5$ and every other mistake costs $1$. Predicting class $1$ then costs $0.2\cdot 5+0.1\cdot 1=1.1$. Predicting class $2$ costs $0.7\cdot 1+0.1\cdot 1=0.8$. Predicting class $3$ costs $0.7\cdot 1+0.2\cdot 5=1.7$. The minimum is class $2$. The posteriors did not change. The loss did, and the optimal action moved with it. A fitted $\hat\tau$ plugged into the same comparison is a plug-in rule. Its training error can fall below the Bayes risk, because that error reuses the cases that built the rule.
 """,
 }
+
+# Reviewed sketches for result articles. Every other theorem, proposition, or
+# corollary is written to proofs-todo.json by the generator for editorial work.
+# The citation at the end of each sketch points to a standard source already
+# present in bibliography.json.
+THEOREM_PROOFS = {
+    "least-squares-estimators-are-unbiased": r"""With fixed design points, write $S_{xx}=\sum_i(x_i-\bar x)^2>0$. The slope estimate is $\widehat\beta_1=\sum_i(x_i-\bar x)Y_i/S_{xx}$. Substituting $\mathbb E Y_i=\beta_0+\beta_1x_i$ gives $\mathbb E\widehat\beta_1=\beta_1$, because the centred $x_i$ sum to zero. Since $\widehat\beta_0=\bar Y-\widehat\beta_1\bar x$, its expectation is $\beta_0$. Only the mean model is used.{{cite:davison2003}}""",
+    "least-squares-decomposition": r"""Let $r=y-X\widehat\beta$ be the fitted residual and $d=\beta-\widehat\beta$. Then $y-X\beta=r-Xd$. The normal equations give $X^\top r=0$, so the cross term in $\|r-Xd\|^2$ vanishes. Hence $\operatorname{SSE}(\beta)=\|r\|^2+d^\top X^\top Xd$, as stated. Full column rank makes the final term zero only at $d=0$.{{cite:gauss1809}}""",
+    "linear-images-of-a-normal-vector": r"""For any vector $t$, the characteristic function of $AX$ is $\mathbb E e^{it^\top AX}=\exp\{it^\top A\mu-\tfrac12t^\top A\Sigma A^\top t\}$. This is the characteristic function of a multivariate normal vector with mean $A\mu$ and covariance $A\Sigma A^\top$. Full row rank and positive-definite $\Sigma$ make that covariance positive definite.{{cite:anderson2003_mva}}""",
+    "predictive-variance-decomposition": r"""Condition on both the observed data $x$ and the parameter $\theta$. Under the model, the conditional mean of a future draw is $m(\theta)$ and its conditional variance is $v(\theta)$. The conditional law of total variance therefore gives $\operatorname{Var}(\widetilde X\mid x)=\mathbb E[v(\theta)\mid x]+\operatorname{Var}[m(\theta)\mid x]$.{{cite:gelman_bda2013}}""",
+    "normal-normal-conjugacy": r"""With known sampling variance $\sigma^2$ and prior $\mu\sim N(\mu_0,\sigma_0^2)$, the log posterior kernel is $-\tfrac12[(n/\sigma^2)\mu^2-2(\sum_i x_i/\sigma^2)\mu+(1/\sigma_0^2)\mu^2-2(\mu_0/\sigma_0^2)\mu]$. Complete the square in $\mu$. The resulting precision is $n/\sigma^2+1/\sigma_0^2$ and the precision-weighted mean is $\sum_i x_i/\sigma^2+\mu_0/\sigma_0^2$, giving the stated normal posterior.{{cite:gelman_bda2013}}""",
+    "expectation-of-a-function": r"""In the discrete case, group the values of $X$ according to the value $y=g(x)$. Then $\mathbb E g(X)=\sum_y y\sum_{x:g(x)=y}p(x)=\sum_x g(x)p(x)$, with absolute convergence allowing the order of summation to change. The continuous version is the same pushforward-measure identity expressed as an integral against the density of $X$.{{cite:grimmett_stirzaker2020}}""",
+    "squared-error-of-an-average": r"""Write $\bar f=T^{-1}\sum_t f_t$. Expand $T^{-1}\sum_t(f_t-y)^2$ by inserting $f_t-y=(f_t-\bar f)+(\bar f-y)$. The mixed term vanishes because $\sum_t(f_t-\bar f)=0$, leaving $T^{-1}\sum_t(f_t-y)^2=T^{-1}\sum_t(f_t-\bar f)^2+(\bar f-y)^2$. Rearrangement gives the claim.{{cite:krogh_vedelsby1995}}""",
+    "product-rule": r"""For events $A$ and $B$ with $\mathbb P(B)>0$, the definition of conditional probability gives $\mathbb P(A\mid B)=\mathbb P(A\cap B)/\mathbb P(B)$. Multiply both sides by $\mathbb P(B)$. The symmetric version follows by swapping $A$ and $B$ when $\mathbb P(A)>0$.{{cite:grimmett_stirzaker2020}}""",
+    "law-of-total-probability": r"""Let the events $B_i$ form a disjoint partition. Then the events $A\cap B_i$ are disjoint and their union is $A$. Finite additivity gives $\mathbb P(A)=\sum_i\mathbb P(A\cap B_i)$. Apply the product rule to each term with $\mathbb P(B_i)>0$; zero-probability cells contribute zero.{{cite:grimmett_stirzaker2020}}""",
+    "bayes-rule": r"""The product rule gives $\mathbb P(A\cap B)=\mathbb P(B\mid A)\mathbb P(A)$ and also $\mathbb P(A\cap B)=\mathbb P(A\mid B)\mathbb P(B)$. Equate the two expressions and divide by $\mathbb P(B)>0$. For a partition of hypotheses, use the law of total probability to expand the denominator.{{cite:bayes1763}}""",
+    "tower-property": r"""For an integrable random variable $Y$ and a sub-sigma-algebra $\mathcal G$, the defining property of $\mathbb E(Y\mid\mathcal G)$ says its integral over any event in $\mathcal G$ equals the integral of $Y$ there. Taking the whole sample space gives $\mathbb E[\mathbb E(Y\mid\mathcal G)]=\mathbb E(Y)$. The nested version follows by applying the same defining property to every event in the smaller sigma-algebra.{{cite:durrett2019}}""",
+    "memoryless-property": r"""For an exponential waiting time with rate $\lambda$, $\mathbb P(T>t)=e^{-\lambda t}$. Thus, for nonnegative $s,t$, $\mathbb P(T>s+t\mid T>s)=e^{-\lambda(s+t)}/e^{-\lambda s}=e^{-\lambda t}=\mathbb P(T>t)$.{{cite:ross2019}}""",
+    "detailed-balance-implies-stationarity": r"""If $\pi_iP_{ij}=\pi_jP_{ji}$ for every pair of states, then $\sum_i\pi_iP_{ij}=\pi_j\sum_iP_{ji}=\pi_j$, since each row of $P$ sums to one. Therefore $\pi P=\pi$.{{cite:norris1997}}""",
+    "poisson-limit-of-the-binomial": r"""For a binomial count with $n$ trials and success probability $\lambda/n$, fix any nonnegative integer $k$. Its mass is $\binom nk(\lambda/n)^k(1-\lambda/n)^{n-k}$. As $n$ grows, the first two factors tend to $\lambda^k/k!$ and the final factor tends to $e^{-\lambda}$. These are the masses of a Poisson law, and convergence of all masses on the nonnegative integers gives convergence in distribution.{{cite:feller1968}}""",
+    "family-wise-control-implies-false-discovery-control": r"""Write $V$ for the number of false rejections and $R$ for all rejections, with $V/R$ defined as zero when $R=0$. Pointwise, $0\le V/\max(R,1)\le\mathbf 1\{V\ge1\}$. Taking expectations yields $\operatorname{FDR}\le\mathbb P(V\ge1)$, the family-wise error rate.{{cite:benjamini_hochberg1995}}""",
+
+    "bayes-optimal-rule": r"""At a fixed feature value $x$, predicting class $g$ under zero–one loss has conditional risk $1-\mathbb P(Y=g\mid X=x)$. Choosing a class with the largest posterior probability minimises that risk at each $x$. Integrating the pointwise inequality over the distribution of $X$ proves that no measurable classifier has smaller overall risk.{{cite:hastie_esl2009}}""",
+    "beta-binomial-conjugacy": r"""Multiply the binomial likelihood kernel $p^x(1-p)^{n-x}$ by the beta prior kernel $p^{\alpha-1}(1-p)^{\beta-1}$. The product is $p^{\alpha+x-1}(1-p)^{\beta+n-x-1}$, the kernel of a beta distribution with updated parameters $\alpha+x$ and $\beta+n-x$.{{cite:gelman_bda2013}}""",
+    "dirichlet-multinomial-conjugacy": r"""For category counts $x_k$, the multinomial likelihood kernel is $\prod_k p_k^{x_k}$. Multiply by the Dirichlet prior kernel $\prod_k p_k^{\alpha_k-1}$ on the probability simplex. The result is $\prod_k p_k^{\alpha_k+x_k-1}$, the Dirichlet kernel with parameter vector $\boldsymbol\alpha+\boldsymbol x$.{{cite:gelman_bda2013}}""",
+}
+
+THEOREM_LEADS = {
+    "least-squares-estimators-are-unbiased": "a result showing that fitting a straight-line mean model preserves the true intercept and slope on average",
+    "least-squares-decomposition": "an identity that splits a candidate residual sum of squares into the fitted minimum and an extra nonnegative term",
+    "linear-images-of-a-normal-vector": "a result showing that a linear transformation of a normal vector is again normal",
+    "predictive-variance-decomposition": "an identity that separates future-observation noise from uncertainty about model parameters",
+    "normal-normal-conjugacy": "a result showing that a normal prior for a normal mean yields a normal posterior",
+    "expectation-of-a-function": "a rule for averaging a transformed random variable using the original distribution",
+    "squared-error-of-an-average": "an identity that relates the error of an ensemble average to the errors and disagreement of its members",
+    "product-rule": "a formula for finding a joint probability from a conditional probability",
+    "law-of-total-probability": "a way to find an event's probability by splitting the sample space into cases",
+    "bayes-rule": "a rule for updating the probability of a hypothesis after observing evidence",
+    "tower-property": "a rule saying that averaging a conditional expectation recovers the original expectation",
+    "memoryless-property": "a property saying that waiting longer does not change the remaining waiting-time law",
+    "detailed-balance-implies-stationarity": "a result showing that a reversible transition rule preserves a probability distribution",
+    "poisson-limit-of-the-binomial": "a limit result that turns many rare independent trials into a Poisson count",
+    "family-wise-control-implies-false-discovery-control": "a bound connecting two ways of measuring false rejections",
+    "mean-and-variance-of-an-exponential-family": "a result linking derivatives of the normalising function to the mean and variance",
+    "bayes-optimal-rule": "a decision rule that minimises the expected loss of classification",
+    "beta-binomial-conjugacy": "a result showing that a beta prior stays beta after binomial observations",
+    "dirichlet-multinomial-conjugacy": "a result showing that a Dirichlet prior stays Dirichlet after multinomial observations",
+}
+
+THEOREM_INFO = {
+    "bayes-rule": {"named_after": "Thomas Bayes"},
+    "poisson-limit-of-the-binomial": {"named_after": "Siméon Denis Poisson"},
+    "benjamini-hochberg-controls-the-false-discovery-rate": {"named_after": "Yoav Benjamini and Yosef Hochberg"},
+}
+
+ARTICLE_HISTORIES = {
+    "bayes-rule": "Bayes's 1763 essay set out an early inverse-probability calculation.{{cite:bayes1763}}",
+    "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:poisson1837}}",
+    "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}}",
+    "wold-decomposition": "Wold set out the decomposition in his 1938 study of stationary time series.{{cite:wold1938}}",
+    "basu-s-theorem": "Basu published the independence result in 1955.{{cite:basu1955}}",
+}

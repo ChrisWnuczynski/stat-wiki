@@ -3203,6 +3203,7 @@ def with_kde_lab(note: dict, prose: str) -> str:
 
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
+    PROVED_RESULT_SLUGS.clear()
     ids = [q["id"] for q in questions]
     dupes = sorted({i for i in ids if ids.count(i) > 1})
     if dupes:
@@ -3470,6 +3471,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             page["blocks"] += article_tail(article, links, forward.get(page["path"], []), questions, by_topic)
             if article["card"]:
                 page["blocks"] = distribution_article_template(article, page["blocks"])
+            elif article["box"] and article["box"]["kind"] in {"theorem", "proposition", "corollary"}:
+                page["blocks"] = theorem_article_template(article, page["blocks"])
 
     import citations
 
@@ -3485,6 +3488,13 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             check_qcounts(body, page["path"].name)
 
     write_indexes(notes, chapters, final_notes, questions, by_source, by_topic)
+    todo = [
+        {"slug": a["slug"], "title": a["term"], "reason": "A reviewed proof sketch is still needed."}
+        for a in sorted(ARTICLES.values(), key=lambda a: a["slug"])
+        if a["box"] and a["box"]["kind"] in {"theorem", "proposition", "corollary"}
+        and a["slug"] not in PROVED_RESULT_SLUGS
+    ]
+    (WIKI / "proofs-todo.json").write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_glossary(questions)
     write_config(chapters, final_notes, questions)
     citations.write_sheet_and_static_references(WIKI)
@@ -4110,6 +4120,84 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     return out
 
 
+PROVED_RESULT_SLUGS: set[str] = set()
+
+
+def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
+    """Keep all result articles in one section order, omitting empty sections."""
+    by_label: dict[str, list[str]] = {}
+    for _, label, body in blocks:
+        by_label.setdefault(label, []).append(body)
+
+    def content(*labels: str) -> str:
+        pieces = []
+        for _, label, body in blocks:
+            if label not in labels:
+                continue
+            if label == "excerpt-head":
+                body = re.sub(r"^## In \*.*?\*.*?\n\n", "", body)
+            elif label in {"statement-head", "properties-head", "examples-head", "figures-head", "see-also", "used-in"}:
+                body = re.sub(r"^\s*## [^\n]+\n+", "", body)
+            if label != "example-answer-open":
+                body = re.sub(r"^## (?!#)", "### ", body, flags=re.M)
+            if body.strip():
+                pieces.append(body.strip())
+        return "\n\n".join(pieces)
+
+    box = article["box"]
+    field = box["part"]
+    lead_field = {"Probability": "probability theory", "Statistical inference": "statistical inference"}.get(field, field.lower())
+    term = box_term(article["term"])
+    description = THEOREM_LEADS.get(article["slug"], f"a {box['kind']} about {term.lower()}")
+    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
+           (False, "infobox", "".join(by_label.get("infobox", []))),
+           (True, "lead", f"In {lead_field}, **{term}** is {description}.\n\n")]
+
+    statement = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
+    intuition = content("explanation", "figures-head", "figure")
+    source_proof = re.search(r"::: \{\.proof\}\s*\n(.*?)\n:::" , statement, flags=re.S)
+    if source_proof:
+        statement = (statement[:source_proof.start()] + statement[source_proof.end():]).strip()
+    else:
+        source_proof = re.search(r"::: \{\.proof\}\s*\n(.*?)\n:::" , intuition, flags=re.S)
+        if source_proof:
+            intuition = (intuition[:source_proof.start()] + intuition[source_proof.end():]).strip()
+    proof = THEOREM_PROOFS.get(article["slug"], "")
+    if not proof and source_proof:
+        proof = source_proof.group(1).strip() + "\n\n{{cite:mccullagh_nelder1989}}"
+    if proof:
+        PROVED_RESULT_SLUGS.add(article["slug"])
+        proof = "::: {.callout-note collapse=\"true\" title=\"Proof\"}\n::: {.proof}\n" + proof + "\n:::\n:::"
+
+    intuition_parts, misconception_parts = [], []
+    for piece in re.split(r"(?=^### )", intuition, flags=re.M):
+        if re.match(r"### .*\b(?:mistake|misconception|pitfall)\b", piece, flags=re.I):
+            misconception_parts.append(piece.strip())
+        elif piece.strip():
+            intuition_parts.append(piece.strip())
+    intuition = "\n\n".join(intuition_parts)
+
+    uses = content("used-in")
+    see_also = content("see-also")
+    if uses:
+        see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
+
+    sections = (
+        ("Statement", "statement", statement),
+        ("Intuition", "intuition", intuition),
+        ("Proof", "proof", proof),
+        ("Generalizations", "generalizations", content("property-head", "property")),
+        ("Common misconceptions", "common-misconceptions", "\n\n".join(misconception_parts)),
+        ("History", "history", ARTICLE_HISTORIES.get(article["slug"], "")),
+        ("Examples", "examples", content("example-head", "example", "example-answer-open", "example-answer-close")),
+        ("See also", "see-also", see_also),
+    )
+    for title, ident, body in sections:
+        if body.strip():
+            out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+    return out
+
+
 def _html_href(from_qmd: Path, to_qmd: Path, fragment: str = "") -> str:
     rel = href(from_qmd, to_qmd)
     if rel.endswith(".qmd"):
@@ -4343,6 +4431,25 @@ def render_distribution_navbox(article: dict) -> str:
     )
 
 
+def render_global_article_navbox(article: dict, title: str, members: list[dict]) -> str:
+    """Site-wide result or inference navigation after the chapter navbox."""
+    links = []
+    for other in sorted(members, key=lambda a: a["term"].lower()):
+        name = html_escape(other["term"])
+        if other["slug"] == article["slug"]:
+            links.append(f'<strong class="navbox-current" aria-current="page">{name}</strong>')
+        else:
+            links.append(f'<a href="{html_escape(_html_href(article["path"], other["path"]))}">{name}</a>')
+    return (
+        "\n\n```{=html}\n"
+        f'<nav class="topic-navbox" aria-label="{html_escape(title)}">\n'
+        '<details class="navbox-details">\n'
+        f'<summary class="navbox-header"><span class="navbox-title">{html_escape(title)} ({len(members)})</span></summary>\n'
+        f'<div class="navbox-body"><div class="navbox-row navbox-row-single"><div class="navbox-links">{" · ".join(links)}</div></div></div>\n'
+        '</details>\n</nav>\n```\n'
+    )
+
+
 def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Path, dict]) -> None:
     """Attach topic navboxes, category links, and Cite this page disclosures to built pages."""
     now = datetime.now(BRISBANE_TZ)
@@ -4354,6 +4461,14 @@ def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Pa
                 page["blocks"].append((False, "navbox", render_topic_navbox(article)))
                 if article["card"]:
                     page["blocks"].append((False, "navbox", render_distribution_navbox(article)))
+                box = article["box"]
+                if box and box["kind"] in {"theorem", "proposition", "corollary"} and box["part"] in {"Probability", "Stochastic processes"}:
+                    results = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in {"theorem", "proposition", "corollary"}
+                               and a["box"]["part"] in {"Probability", "Stochastic processes"}]
+                    page["blocks"].append((False, "navbox", render_global_article_navbox(article, "Theorems in probability", results)))
+                if box and box["part"] == "Statistical inference":
+                    inference = [a for a in ARTICLES.values() if a["box"] and a["box"]["part"] == "Statistical inference"]
+                    page["blocks"].append((False, "navbox", render_global_article_navbox(article, "Statistical inference", inference)))
             page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
         elif kind in {"chapter", "final"}:
             cats = render_chapter_categories(page)
@@ -4404,7 +4519,10 @@ def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = No
 # from the book, the booklets or the formula lookup; nothing is written anew.
 # ---------------------------------------------------------------------------
 
-from article_extras import BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES, NOTES, PROPERTIES  # noqa: E402
+from article_extras import (  # noqa: E402
+    ARTICLE_HISTORIES, BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES,
+    NOTES, PROPERTIES, THEOREM_INFO, THEOREM_LEADS, THEOREM_PROOFS,
+)
 
 KERNEL_ROWS: dict[str, str] = {}  # distribution slug -> "Main summaries" cell of the kernel table
 CONJ_ROWS: list[dict] = []  # likelihood, prior, posterior cells, with the distributions they name
@@ -4682,6 +4800,18 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
     path, slug_, box, card = article["path"], article["slug"], article["box"], article["card"]
     rows: list[tuple[str, str]] = []
     note = ""
+    if box and box["kind"] in {"theorem", "proposition", "corollary"} and not card:
+        info = THEOREM_INFO.get(slug_, {})
+        rows = [
+            ("Field", box["part"]),
+            ("Statement", "[Read statement](#statement)"),
+            ("Conditions", info.get("conditions", "")),
+            ("Generalizations", info.get("generalizations", "")),
+            ("Named after", info.get("named_after", "")),
+        ]
+        figures = FIGURES.get(slug_, [])
+        image = figure_md(figures[0], path, short=True) if figures else ""
+        return infobox_md(article["term"], rows, image, show_blanks=True)
     if card:
         facts = DISTRIBUTIONS[slug_]
         rows.extend((label, facts[field]) for field, label in DISTRIBUTION_ROW_LABELS)

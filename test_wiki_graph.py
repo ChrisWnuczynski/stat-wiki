@@ -1067,6 +1067,10 @@ class DistributionCatalogueTests(unittest.TestCase):
                 self.assertIn("::: {.infobox-title}", body)
                 self.assertIn("## Definition {#definition}", body)
                 self.assertIn('aria-label="Probability distributions"', body)
+                headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+                order = ["Definition", "Properties", "Related distributions", "Statistical inference",
+                         "Generating random samples", "History", "Examples", "See also", "References"]
+                self.assertEqual(headings, [name for name in order if name in headings], page.name)
                 lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
                 self.assertNotIn("$", lead)
                 for kind in ("pdf", "cdf"):
@@ -1093,6 +1097,32 @@ class DistributionCatalogueTests(unittest.TestCase):
                         if not target.exists():
                             missing.append(f"{page.relative_to(build_wiki.WIKI)} -> {destination}")
         self.assertEqual(missing, [])
+
+
+class TheoremTemplateTests(unittest.TestCase):
+    def test_every_result_has_a_proof_or_todo_entry(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        todo_file = build_wiki.WIKI / "proofs-todo.json"
+        if not articles.is_dir() or not todo_file.is_file():
+            self.skipTest("Wiki has not been generated")
+        todo = {row["slug"] for row in json.loads(todo_file.read_text(encoding="utf-8"))}
+        results = []
+        for page in articles.glob("*.qmd"):
+            body = page.read_text(encoding="utf-8")
+            if "| Statement | [Read statement](#statement) |" not in body:
+                continue
+            results.append(page.stem)
+            self.assertIn("## Statement {#statement}", body, page.name)
+            headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+            order = ["Statement", "Intuition", "Proof", "Generalizations", "Common misconceptions",
+                     "History", "Examples", "See also", "References"]
+            self.assertEqual(headings, [name for name in order if name in headings], page.name)
+            self.assertTrue('::: {.callout-note collapse="true" title="Proof"}' in body or page.stem in todo, page.name)
+            self.assertNotIn("## In *", body, page.name)
+            lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
+            self.assertNotIn("$", lead, page.name)
+        self.assertGreaterEqual(len(results), 90)
+        self.assertTrue(todo <= set(results))
 
 
 if __name__ == "__main__":
