@@ -52,12 +52,12 @@ The estimates are $\widehat\mu=\overline x=75.975$ and $s=2.58$. The $t$ interva
 
 ## Large samples
 
-When the data are not known to be normal, the central limit theorem still makes $\overline X$ approximately normal for a large sample, and $s$ is close to $\sigma$.
+When the data are not known to be normal, the central limit theorem still makes $\overline X$ approximately normal for a large sample, and $s$ is close to $\sigma$.{{cite:casella_berger2002}}{{cite:neyman1937}}{{cite:vandervaart1998}}
 
 ::: {#def-margin-of-error .definition}
 ## Margin of error
 
-For a random sample with mean $\mu$ and finite variance, the approximate confidence interval for $\mu$ with confidence $1-\alpha$ is $\overline X\pm z_{1-\alpha/2}\,s/\sqrt n$. Its half-width, $z_{1-\alpha/2}\,s/\sqrt n$, is the margin of error.
+For a random sample with mean $\mu$ and finite variance, the approximate confidence interval for $\mu$ with confidence $1-\alpha$ is $\overline X\pm z_{1-\alpha/2}\,s/\sqrt n$.{{cite:neyman1937}}{{cite:casella_berger2002}} Its half-width, $z_{1-\alpha/2}\,s/\sqrt n$, is the margin of error.{{cite:vandervaart1998}}
 
 :::
 
@@ -108,11 +108,11 @@ $$
 \mathrm{df}=\frac{\bigl(s_X^2/n_1+s_Y^2/n_2\bigr)^2}{\dfrac{(s_X^2/n_1)^2}{n_1-1}+\dfrac{(s_Y^2/n_2)^2}{n_2-1}}.
 $$
 
-The degrees of freedom are the Welch–Satterthwaite approximation.
+The degrees of freedom are the Welch–Satterthwaite approximation.{{cite:welch1947}}{{cite:satterthwaite1946}}{{cite:casella_berger2002}}
 
 :::
 
-The effective degrees of freedom lie between the smaller of $n_1-1$ and $n_2-1$ and the pooled $n_1+n_2-2$. For non-normal data the interval is still approximately right when both samples are reasonably large, say 30 or more; for small, skewed samples a rank-based method such as the Wilcoxon rank-sum test is safer.
+The effective degrees of freedom lie between the smaller of $n_1-1$ and $n_2-1$ and the pooled $n_1+n_2-2$. For non-normal data the interval is still approximately right when both samples are reasonably large, say 30 or more; for small, skewed samples a rank-based method such as the Wilcoxon rank-sum test is safer.{{cite:wilcoxon1945}}{{cite:mann_whitney1947}}
 
 ::: {#exm-first-and-third-year-weights .example}
 ## First- and third-year weights

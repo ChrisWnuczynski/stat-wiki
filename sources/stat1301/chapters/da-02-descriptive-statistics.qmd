@@ -2,7 +2,7 @@
 
 Descriptive statistics summarise a sample before a model is fitted. They show the range, the shape, the odd points, and which variables move together. They do not by themselves test a hypothesis or produce a confidence interval. Those steps are in [Statistical inference](inf-01-statistical-inference.qmd). The shapes being summarised are the laws on the [common distributions](../reference/distributions.qmd) page. How the sample was obtained, and whether a pattern can be read causally, is in [Studies, data, and evidence](da-01-studies-and-data.qmd).
 
-The running example is a study of 299 patients after heart failure, all with severe weakness of the left ventricle, admitted to one hospital and followed for up to a year. For each patient there are 13 measurements, and the questions are which of them go with death during follow-up, and which go with the ejection fraction, the fraction of the blood in the left ventricle pumped out at each beat. The R code that produces each summary is shown with it. Objects, assignment, and the first plots are in [Using R](da-03-using-r.qmd). Reading a table, checking missingness, and drawing the plots that come before a model are in [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd).
+The running example is a study of 299 patients after heart failure, all with severe weakness of the left ventricle, admitted to one hospital and followed for up to a year.{{cite:chicco_jurman2020}} For each patient there are 13 measurements, and the questions are which of them go with death during follow-up, and which go with the ejection fraction, the fraction of the blood in the left ventricle pumped out at each beat. The R code that produces each summary is shown with it. Objects, assignment, and the first plots are in [Using R](da-03-using-r.qmd). Reading a table, checking missingness, and drawing the plots that come before a model are in [Exploratory data analysis in R](ur-01-exploratory-data-analysis.qmd).
 
 ## The table
 
@@ -36,12 +36,12 @@ str(heart)                               # 299 obs. of 13 variables
 
 ## Summary statistics
 
-For data $x_1,\ldots,x_n$, the sample mean $\overline x=\frac1n\sum x_i$ is the average and the sample median is the middle value of the sorted data, or the average of the two middle values when $n$ is even. The median is robust: a single wild value can move the mean anywhere but barely moves the median.
+For data $x_1,\ldots,x_n$, the sample mean $\overline x=\frac1n\sum x_i$ is the average and the sample median is the middle value of the sorted data, or the average of the two middle values when $n$ is even.{{cite:tukey1977}}{{cite:fisher1925_smrw}}{{cite:wasserman2004}} The median is robust: a single wild value can move the mean anywhere but barely moves the median.
 
 ::: {#def-sample-quantile .definition}
 ## Sample quantile
 
-A sample $p$-quantile, for $0<p<1$, is a value $q_p$ such that a fraction $p$ of the data is at most $q_p$. The $0.25$, $0.5$ and $0.75$ quantiles are the first quartile, the median and the third quartile; the $p$-quantile is also the $100p$th percentile.
+A sample $p$-quantile, for $0<p<1$, is a value $q_p$ such that a fraction $p$ of the data is at most $q_p$.{{cite:tukey1977}}{{cite:wasserman2004}} The $0.25$, $0.5$ and $0.75$ quantiles are the first quartile, the median and the third quartile; the $p$-quantile is also the $100p$th percentile.{{cite:fisher1925_smrw}}
 
 :::
 
@@ -50,7 +50,7 @@ When no data value sits exactly at the fraction $p$, software interpolates betwe
 ::: {#def-interquartile-range .definition}
 ## Interquartile range
 
-The interquartile range is the difference between the third and first quartiles. It is the width of the central half of the sample.
+The interquartile range is the difference between the third and first quartiles.{{cite:tukey1977}}{{cite:wasserman2004}} It is the width of the central half of the sample.{{cite:tukey1977}}
 
 :::
 
@@ -120,7 +120,7 @@ A quantitative variable is summarised by its shape as well as its centre and spr
 ::: {#def-five-number-summary-and-boxplot .definition}
 ## Five-number summary and boxplot
 
-The five-number summary of a sample is its minimum, first quartile, median, third quartile and maximum. A boxplot draws the box from the first to the third quartile with a line at the median, and whiskers out to the most extreme data within $1.5$ interquartile ranges of the box. Points beyond the whiskers are drawn individually as possible outliers.
+The five-number summary of a sample is its minimum, first quartile, median, third quartile and maximum.{{cite:tukey1977}} A boxplot draws the box from the first to the third quartile with a line at the median, and whiskers out to the most extreme data within $1.5$ interquartile ranges of the box.{{cite:tukey1977}} Points beyond the whiskers are drawn individually as possible outliers.{{cite:wasserman2004}}
 
 :::
 
@@ -132,18 +132,18 @@ summary(heart$serum_creatinine)
 
 The mean is pulled above the median by a long right tail: the largest value, 9.4, is more than six times the median. The interquartile range is $1.4-0.9=0.5$, so the upper whisker stops at the largest value below $1.4+1.5\times0.5=2.15$, and 29 patients lie beyond it.
 
-A histogram counts the data in a set of bins and draws a bar for each; its look depends on the choice of bins. A kernel density estimate smooths the data instead, placing a small bump at each observation and adding them up; its look depends on the width of the bumps, the bandwidth. Both show the same thing here: most patients near 1 mg/dL and a thin tail stretching to 9.
+A histogram counts the data in a set of bins and draws a bar for each; its look depends on the choice of bins.{{cite:pearson1895}}{{cite:tukey1977}}{{cite:wasserman2004}} A kernel density estimate smooths the data instead, placing a small bump at each observation and adding them up; its look depends on the width of the bumps, the bandwidth. Both show the same thing here: most patients near 1 mg/dL and a thin tail stretching to 9.
 
 ![Serum creatinine for the 299 patients. Left: a boxplot, with 29 points beyond the upper whisker. Middle: a histogram with a kernel density estimate. Right: the same data on a logarithmic scale, which pulls in the long right tail.](../figures/da-creatinine-shape.pdf){#fig-da-creatinine-shape}
 
 ### Transformations
 
-Strongly skewed data are often easier to summarise, and to model, after a transformation. A logarithm turns ratios into differences, so it spreads out the bunched values near zero and draws in the far tail. For serum creatinine the skewness, a measure of asymmetry that is zero for symmetric data, falls from $4.4$ to $1.6$ on the log scale. The reciprocal, $1/x$, brings it to about zero. Transformations do not change the data, only the scale they are viewed on; the order of the patients stays the same, so the median of the transformed data is the transform of the median.
+Strongly skewed data are often easier to summarise, and to model, after a transformation. A logarithm turns ratios into differences, so it spreads out the bunched values near zero and draws in the far tail. For serum creatinine the skewness, a measure of asymmetry that is zero for symmetric data, falls from $4.4$ to $1.6$ on the log scale.{{cite:pearson1895}}{{cite:tukey1977}}{{cite:wasserman2004}} The reciprocal, $1/x$, brings it to about zero. Transformations do not change the data, only the scale they are viewed on; the order of the patients stays the same, so the median of the transformed data is the transform of the median.
 
 ::: {#def-normal-quantile-plot .definition}
 ## Normal quantile plot
 
-A normal quantile plot, or Q–Q plot, plots the sorted data against the quantiles of the standard normal distribution at the same fractions. If the data come from a normal distribution, the points lie close to a straight line, whose intercept and slope estimate the mean and standard deviation.
+A normal quantile plot, or Q–Q plot, plots the sorted data against the quantiles of the standard normal distribution at the same fractions.{{cite:wilk_gnanadesikan1968}}{{cite:chambers1983_gmda}} If the data come from a normal distribution, the points lie close to a straight line, whose intercept and slope estimate the mean and standard deviation.{{cite:wasserman2004}}
 
 :::
 
@@ -165,7 +165,7 @@ The median serum creatinine is 1.0 mg/dL for patients who survived and 1.3 for t
 
 ## Two quantitative variables
 
-Two quantitative variables are plotted against each other in a scatterplot, and their linear association is summarised by the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient).
+Two quantitative variables are plotted against each other in a scatterplot, and their linear association is summarised by the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient).{{cite:galton1886}}{{cite:chambers1983_gmda}}{{cite:wasserman2004}}
 
 The ejection fraction was recorded in steps of 5 percentage points or so, with only 17 distinct values, and serum sodium as whole numbers. Many patients therefore share exactly the same point, and a plain scatterplot hides how many. Jittering, adding a small random amount to each coordinate before plotting, separates them; it changes the picture, not the data.
 

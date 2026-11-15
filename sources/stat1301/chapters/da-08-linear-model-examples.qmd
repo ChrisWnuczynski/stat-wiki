@@ -27,7 +27,7 @@ $$
 ::: {#def-dummy-variable-coding .definition}
 ## Dummy variable coding
 
-A categorical explanatory variable with $d$ levels enters a linear model through $d-1$ indicator columns, one for each level except a reference level. The coefficient of an indicator is the difference in mean response between that level and the reference level, with the other explanatory variables held fixed.
+A categorical explanatory variable with $d$ levels enters a linear model through $d-1$ indicator columns, one for each level except a reference level.{{cite:wilkinson_rogers1973}}{{cite:venables_ripley2002}} The coefficient of an indicator is the difference in mean response between that level and the reference level, with the other explanatory variables held fixed.{{cite:davison2003}}
 
 :::
 
@@ -35,7 +35,7 @@ Using all $d$ indicators together with the intercept would make the columns of $
 
 ## Birth weight
 
-The `birthwt` data, in R's `MASS` package, record 189 births. The response is the baby's birth weight in grams; the explanatory variables include the mother's age, her weight in pounds at her last menstrual period, her race (1 white, 2 black, 3 other), whether she smoked during pregnancy, and her history of hypertension and of uterine irritability.
+The `birthwt` data, in R's `MASS` package, record 189 births.{{cite:venables_ripley2002}}{{cite:hosmer_lemeshow2000}} The response is the baby's birth weight in grams; the explanatory variables include the mother's age, her weight in pounds at her last menstrual period, her race (1 white, 2 black, 3 other), whether she smoked during pregnancy, and her history of hypertension and of uterine irritability.
 
 ::: {#exm-explaining-birth-weight .example}
 ## Explaining birth weight
@@ -120,7 +120,7 @@ It explains 26% of the variation, with residual standard deviation 640 g; uterin
 
 ## Transformations
 
-When the residual plot curves or fans out, a transformation of the response or of an explanatory variable often straightens the relationship and steadies the variance. Common choices are $\log y$ for a response whose spread grows with its mean, $\sqrt y$ for counts, and $\log x$ for an explanatory variable spanning several orders of magnitude. A model for $\log y$ describes multiplicative effects: a unit increase in $x$ multiplies the median of the response by $e^\beta$, roughly $1+\beta$ for small $\beta$. The residual plots are read on the scale that was fitted. Predictions are made on the transformed scale and then transformed back. The melanoma data in [Linear regression](inf-06-regression.qmd#exm-melanoma-and-latitude) are an example.
+When the residual plot curves or fans out, a transformation of the response or of an explanatory variable often straightens the relationship and steadies the variance. Common choices are $\log y$ for a response whose spread grows with its mean, $\sqrt y$ for counts, and $\log x$ for an explanatory variable spanning several orders of magnitude.{{cite:box_cox1964}}{{cite:tukey1977}}{{cite:beall1942_sprays}} A model for $\log y$ describes multiplicative effects: a unit increase in $x$ multiplies the median of the response by $e^\beta$, roughly $1+\beta$ for small $\beta$. The residual plots are read on the scale that was fitted. Predictions are made on the transformed scale and then transformed back. The melanoma data in [Linear regression](inf-06-regression.qmd#exm-melanoma-and-latitude) are an example.
 
 ::: {.callout-note}
 ## Key idea

@@ -66,7 +66,7 @@ Over the short window from about $4.5$ to $7$, a straight line and the logistic 
 
 Often we do not record a zero or a one for every beetle, patient, or firm. We apply a treatment to a group and count the successes. Group sizes need not match. If the members of a group are independent, the likelihood is the Bernoulli likelihood multiplied by a binomial coefficient that does not depend on $\boldsymbol{\beta}$. The maximiser is unchanged. The data can be stored as two columns, successes and failures, and `glm` recognises that layout.
 
-Bliss (1935) exposed beetles to carbon disulphide for five hours. The dose on the page is already $\log_{10}$ of concentration, so one unit is a tenfold increase.
+Beetles were exposed to carbon disulphide for five hours.{{cite:bliss1935}} The dose on the page is already $\log_{10}$ of concentration, so one unit is a tenfold increase.
 
 | $\log_{10}$ dose | beetles $n_i$ | killed $y_i$ |
 |---:|---:|---:|
@@ -109,7 +109,7 @@ A small step up in log-dose raises the odds of death by roughly 30 to 50 percent
 
 ## Counts
 
-A count is a non-negative integer: insurance claims in a year, particles in a Geiger counter, episodes of a behaviour. The mean has to stay non-negative for every covariate. The natural link, and the canonical one, is the log:
+A count is a non-negative integer: insurance claims in a year, particles in a Geiger counter, episodes of a behaviour. The mean has to stay non-negative for every covariate. The natural link, and the canonical one, is the log.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}
 $$
 \log\mu_i=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
@@ -117,7 +117,7 @@ $$
 $$ {#eq-loglin}
 The identity link $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$ is the second thing people reach for. It can look acceptable on a short stretch of $x$, where an exponential and a straight line are hard to tell apart. It is still not a model we will use. Somewhere outside the window the line is negative, and a mean count cannot be. The log link is a legitimate model for any $\vect{X}$ and any $\boldsymbol{\beta}$.
 
-The outer distribution for a count, as a starting point, is Poisson:
+The outer distribution for a count, as a starting point, is Poisson.{{cite:poisson1837}} This log-link specification is a Poisson regression.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
 $$
 Y_i\mid \vect{X}_i\ind\mathrm{Poisson}\!\left(\mu_i=\exp(\vect{X}_i^\top\boldsymbol{\beta})\right).
 $$
@@ -129,7 +129,7 @@ Unless there is a strong reason to insist on a pure Poisson process, use
 $$
 \mathrm{Var}(Y_i\mid \vect{X}_i)=\phi\mu_i=\phi\exp(\vect{X}_i^\top\boldsymbol{\beta}).
 $$ {#eq-quasi-pois}
-Here $\phi>1$ is overdispersion and $\phi<1$ is underdispersion. The case $\phi=1$ is the Poisson. This is a quasi-Poisson model. The variance function is a legitimate description of spread. Inside the exponential family, a variance exactly proportional to the mean forces the Poisson, so there is no exponential-family distribution with a free $\phi$ in @eq-quasi-pois. You cannot simulate a new count from a quasi-Poisson specification alone. We will use it as a description. A stricter view, which reserves the name model for something one can simulate from, would refuse the name. We will come back to that distinction when we treat quasi-likelihood properly. For fitting, `glm` only needs the mean and the variance, so `family = quasipoisson` runs.
+Here $\phi>1$ is overdispersion and $\phi<1$ is underdispersion.{{cite:wedderburn1974}} The case $\phi=1$ is the Poisson. This is a quasi-Poisson model.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} The variance function is a legitimate description of spread. Inside the exponential family, a variance exactly proportional to the mean forces the Poisson, so there is no exponential-family distribution with a free $\phi$ in @eq-quasi-pois. You cannot simulate a new count from a quasi-Poisson specification alone. We will use it as a description. A stricter view, which reserves the name model for something one can simulate from, would refuse the name. We will come back to that distinction when we treat quasi-likelihood properly. For fitting, `glm` only needs the mean and the variance, so `family = quasipoisson` runs.
 
 ### Reading a log-linear coefficient
 
@@ -137,11 +137,11 @@ Two covariates are enough:
 $$
 \log\mu=\beta_0+\beta_1 x_1+\beta_2 x_2.
 $$
-Increase $x_1$ by one unit and hold $x_2$ fixed. The mean is multiplied by $e^{\beta_1}$. The same sentence with the labels swapped is $\beta_2$. The intercept is the mean when every covariate is at its baseline, $\exp(\beta_0)$, and it is meaningful only when that baseline is a real situation. Do not judge a slope by whether the coefficient looks small. A small coefficient may be a large effect written in a small unit, and the comparison that matters is with the standard error.
+Increase $x_1$ by one unit and hold $x_2$ fixed. The mean is multiplied by $e^{\beta_1}$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}} The same sentence with the labels swapped is $\beta_2$. The intercept is the mean when every covariate is at its baseline, $\exp(\beta_0)$, and it is meaningful only when that baseline is a real situation. Do not judge a slope by whether the coefficient looks small. A small coefficient may be a large effect written in a small unit, and the comparison that matters is with the standard error.
 
 ### Mine injuries
 
-Myers, Montgomery, and Vining report injuries in the upper seam of 44 West Virginia coal mines. Three covariates survived their selection: inner burden thickness in feet ($x_1$), the percent already extracted from the seam below ($x_2$), and years the mine has been open ($x_3$). The fitted mean used for the interpretation is
+Injuries in the upper seam of 44 West Virginia coal mines are the counts below.{{cite:myers_glm2010}}{{cite:loader1999_locfit}} Three covariates survived their selection: inner burden thickness in feet ($x_1$), the percent already extracted from the seam below ($x_2$), and years the mine has been open ($x_3$). The fitted mean used for the interpretation is
 $$
 \hat\mu=\exp(-3.7207-0.0015 x_1+0.0627 x_2-0.0317 x_3).
 $$ {#eq-mine-board}
@@ -151,7 +151,7 @@ A one-foot increase in inner burden multiplies the mean by $\exp(-0.0015)=0.999$
 
 One extra percentage point of extraction below multiplies injuries by $\exp(0.0627)=1.065$. One extra year of age multiplies them by $\exp(-0.0317)=0.969$, which is about $1.03$ times fewer injuries. The sign is not the story you might have expected. A dangerous mine may have been closed before it could appear in a data set of mines that are still open. Age in this table is entangled with having survived.
 
-The Poisson log-likelihood is $\sum_i\{y_i\log\mu_i-\mu_i\}$, up to a constant. Differentiating and setting the score to zero produces
+The Poisson log-likelihood is $\sum_i\{y_i\log\mu_i-\mu_i\}$, up to a constant.{{cite:mccullagh_nelder1989}} Differentiating and setting the score to zero produces
 $$
 \sum_{i=1}^n\frac{y_i-\mu_i}{\mu_i}\,\mu_i\,\vect{X}_i
 =\sum_{i=1}^n(y_i-\mu_i)\,\vect{X}_i=\vect{0}
@@ -190,7 +190,7 @@ with dispersion fixed at $1$. Inner burden and mine age are borderline. Percent 
 
 ## Two models with a real distribution
 
-A quasi-Poisson variance is not, by itself, a distribution you can draw from. If you want a distribution, and you only need extra variation in the direction of overdispersion, the usual next model is the negative binomial. One construction is a gamma mixture of Poissons: draw a rate from a gamma distribution, then draw a Poisson count at that rate. The mean and variance are
+A quasi-Poisson variance is not, by itself, a distribution you can draw from. If you want a distribution, and you only need extra variation in the direction of overdispersion, the usual next model is the negative binomial.{{cite:mccullagh_nelder1989}} One construction is a gamma mixture of Poissons: draw a rate from a gamma distribution, then draw a Poisson count at that rate.{{cite:greenwood_yule1920}} The mean and variance are $\mu$ and $\mu+\mu^2/\nu$.{{cite:venables_ripley2002}}
 $$
 \mathrm{E}(Y)=\mu,
 \qquad
@@ -199,12 +199,12 @@ $$
 $$ {#eq-nb-var}
 This is quadratic in the mean, not a constant times the mean. It is always at least the Poisson variance. As $\nu\to\infty$ the extra term vanishes and the Poisson returns. The parameter $\nu$ is traditionally called a dispersion, but a larger $\nu$ concentrates the counts, so it behaves as a concentration. The negative binomial is an exponential family in $\mu$ only when $\nu$ is held fixed. The fit in `MASS::glm.nb` is a profile: fix $\nu$, solve the GLM for the mean, move $\nu$, and repeat.
 
-That mixture cannot produce underdispersion. Counts that are tighter than a Poisson need a different family. The Conway–Maxwell–Poisson distribution has been available since Conway and Maxwell (1962), from queueing theory with dependent waiting times, and it was brought back into statistical use by Shmueli and coauthors in 2005. In the original scaling,
+That mixture cannot produce underdispersion. Counts that are tighter than a Poisson need a different family. The Conway–Maxwell–Poisson distribution has been available since a queueing model with dependent waiting times, and was later revived for dispersed counts. In the original scaling,
 $$
 f(y;\lambda,\nu)\propto \frac{\lambda^y}{(y!)^\nu},
 \qquad y=0,1,2,\ldots,
 $$
-with $\nu<1$ overdispersed, $\nu=1$ exactly Poisson, and $\nu>1$ underdispersed. Calling $\nu$ a dispersion runs the name backwards: larger $\nu$ means a tighter distribution. The serious defect is that $\lambda$ is not the mean. There is no closed form for $\mathrm{E}(Y)$ or $\mathrm{Var}(Y)$, so a regression on $\lambda$ cannot be compared with a Poisson or negative-binomial regression on $\mu$.
+with $\nu<1$ overdispersed, $\nu=1$ exactly Poisson, and $\nu>1$ underdispersed.{{cite:conway_maxwell1962}}{{cite:shmueli2005}}{{cite:huang2017_cmp}} Calling $\nu$ a dispersion runs the name backwards: larger $\nu$ means a tighter distribution. The serious defect is that $\lambda$ is not the mean. There is no closed form for $\mathrm{E}(Y)$ or $\mathrm{Var}(Y)$, so a regression on $\lambda$ cannot be compared with a Poisson or negative-binomial regression on $\mu$.
 
 A repair from 2017 puts the mean in the parameter and solves backwards for the rate:
 $$

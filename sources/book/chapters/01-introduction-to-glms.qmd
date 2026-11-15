@@ -55,7 +55,7 @@ That is what the scatterplot is already saying. Near a mean of zero the counts p
 
 ### Clotting times
 
-McCullagh and Nelder discuss an experiment on the clotting time of blood. Normal plasma was diluted to nine percentage concentrations and clotting was induced by two lots of thromboplastin. The response is a time in seconds, somewhere from about twenty seconds up to two minutes. The doses on the horizontal axis already sit on a doubling scale: $5$, $10$, $20$, $50$, $100$.
+An experiment on the clotting time of blood is reported as follows.{{cite:hurn1945}}{{cite:mccullagh_nelder1989}} Normal plasma was diluted to nine percentage concentrations and clotting was induced by two lots of thromboplastin. The response is a time in seconds, somewhere from about twenty seconds up to two minutes. The doses on the horizontal axis already sit on a doubling scale: $5$, $10$, $20$, $50$, $100$.
 
 Log dose, rather than dose, is the covariate to use. A doctor who raises a dose by $5\,\mathrm{mg}$ is doubling a $5\,\mathrm{mg}$ prescription and barely touching a $100\,\mathrm{mg}$ one. What matters is the multiplicative change. Whether the logarithm is base $2$ or base $e$ only rescales the slope: a unit of $\log_2$ is a doubling, and a unit of $\log_e$ is a factor of about $2.7$. The scientific point is the same.
 
@@ -69,7 +69,7 @@ provided $\vect{X}^\top\boldsymbol{\beta}>0$. If the linear predictor is allowed
 
 The two links agree that a large dose of clotting agent can drive the mean time down towards zero. They disagree at the other end. As the linear predictor in @eq-inverse-link approaches zero, the mean time goes to infinity. The log link, for any finite predictor, stays finite. So the modelling question is biological, not a default in the software. If there were truly no plasma, would the blood never clot, or would it clot after a long but finite time? Nobody in the experiment has zero plasma. A person with very little plasma does eventually clot, though a haemophiliac may bleed out first. That leans towards a finite mean, and so towards the log link. The inverse link is the honest model of the hypothetical with no plasma at all. Either is allowed. They can be paired later with whatever response distribution we choose. The link is not dictated by the distribution.
 
-The times themselves are continuous and strictly positive, so they are not normal. A gamma distribution is a reasonable start: it is supported on $(0,\infty)$ and it extends the exponential. A gamma law has a second parameter, a dispersion, which plays the role that $\sigma^2$ plays for the normal and can be chosen separately from the mean. In the shape-and-rate parameterisation, a $\mathrm{Gamma}(\alpha,\alpha/\mu)$ random variable has mean $\mu$ and variance $\mu^2/\alpha$. The model is the mean and the variance:
+The times themselves are continuous and strictly positive, so they are not normal. A gamma distribution is a reasonable start: it is supported on $(0,\infty)$ and it extends the exponential. A gamma law has a second parameter, a dispersion, which plays the role that $\sigma^2$ plays for the normal and can be chosen separately from the mean.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} In the shape-and-rate parameterisation, a $\mathrm{Gamma}(\alpha,\alpha/\mu)$ random variable has mean $\mu$ and variance $\mu^2/\alpha$.{{cite:nelder_wedderburn1972}} The model is the mean and the variance:
 $$
 Y_i\mid \vect{X}_i\ind \mathrm{Gamma}\!\left(\mu_i=\exp(\vect{X}_i^\top\boldsymbol{\beta}),\ \mathrm{Var}=\phi\mu_i^2\right).
 $$
@@ -79,13 +79,13 @@ Here $\phi$ is the dispersion. The variance grows with the square of the mean, w
 
 A hundred patients have a cholesterol measurement and a binary disease indicator, with sex marked on the plot. Vertical jitter stops a pile of zeroes, or a pile of ones, looking like a fractional response. The response really is $0$ or $1$. As cholesterol increases, particularly once it is above about $6.5$, disease becomes the typical outcome. Down near $4.5$, absence is more common.
 
-The mean of a binary response is the success probability, $p=\mathrm{E}(Y\mid \vect{X})=\mathrm{P}(Y=1\mid \vect{X})$. A straight line cannot represent it. The line will eventually leave $(0,1)$, and a probability cannot. The exponential $\exp(\vect{X}^\top\boldsymbol{\beta})$ stays positive, but it is not bounded by $1$. Dividing by one plus itself fixes that:
+The mean of a binary response is the success probability, $p=\mathrm{E}(Y\mid \vect{X})=\mathrm{P}(Y=1\mid \vect{X})$. A straight line cannot represent it. The line will eventually leave $(0,1)$, and a probability cannot. The exponential $\exp(\vect{X}^\top\boldsymbol{\beta})$ stays positive, but it is not bounded by $1$. Dividing by one plus itself fixes that.{{cite:berkson1944}}{{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}}
 $$
 p=\frac{\exp(\vect{X}^\top\boldsymbol{\beta})}{1+\exp(\vect{X}^\top\boldsymbol{\beta})}
 \qquad\text{equivalently}\qquad
 \vect{X}^\top\boldsymbol{\beta}=\log\frac{p}{1-p}.
 $$ {#eq-logit}
-The right-hand equation is the logistic link, also called the logit: the log of the odds $p/(1-p)$. The left-hand equation is the inverse link, sometimes called the expit. Log-odds run over the whole real line, which is what a linear predictor needs. The probability stays in $(0,1)$.
+The right-hand equation is the logistic link, also called the logit: the log of the odds $p/(1-p)$.{{cite:berkson1944}}{{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}} The left-hand equation is the inverse link, sometimes called the expit. Log-odds run over the whole real line, which is what a linear predictor needs. The probability stays in $(0,1)$.
 
 Again, the link is applied to the mean. The logistic function of a zero or a one is not defined in any useful way, and any function of a binary observation still takes at most two values. You cannot manufacture a curve by transforming zeroes and ones.
 
@@ -129,12 +129,12 @@ A random variable $Y$ whose distribution depends on a parameter $\theta$ belongs
 $$
 f(y;\theta)=\exp\left\{\frac{a(y)\,b(\theta)+c(\theta)}{e(\phi)}+d(y;\phi)\right\},
 $$ {#eq-expfam}
-where $a$, $b$, $c$, $d$ and $e$ are known functions. The dispersion $\phi$ is treated as a nuisance: often known, and at least constant across observations. It is the family's variance parameter.
+where $a$, $b$, $c$, $d$ and $e$ are known functions.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}} The dispersion $\phi$ is treated as a nuisance: often known, and at least constant across observations. It is the family's variance parameter.
 :::
 
 The product $a(y)\,b(\theta)$ is the only place where the observation and the parameter of interest appear together. The data may appear alone, inside $d$. The parameter may appear alone, inside $c$. They may not appear together in any other way.
 
-Two reductions have names. If $b(\theta)=\theta$, the density is in *canonical form*, and $\theta$ is already the natural parameter. If $a(y)=y$, the family is a *linear* exponential family, and $b(\theta)$ is its natural parameter. In the linear canonical case both happen at once, and @eq-expfam simplifies to
+Two reductions have names. If $b(\theta)=\theta$, the density is in *canonical form*, and $\theta$ is already the natural parameter.{{cite:mccullagh_nelder1989}} If $a(y)=y$, the family is a *linear* exponential family, and $b(\theta)$ is its natural parameter.{{cite:nelder_wedderburn1972}}{{cite:davison2003}} In the linear canonical case both happen at once, and @eq-expfam simplifies to
 $$
 f(y;\theta)=\exp\left\{\frac{y\theta+c(\theta)}{e(\phi)}+d(y;\phi)\right\}.
 $$ {#eq-lef}
@@ -222,12 +222,13 @@ A binomial count is the right model for a binary outcome that has been added up:
 For the linear canonical family @eq-lef, the mean and variance are derivatives of $c$. The same functions $c$ and $e$ serve every distribution in the family, which is the reason for spending this long on the form.
 
 ::: {#thm-moments .theorem}
-If $Y$ has density or mass function @eq-lef, and if differentiation in $\theta$ may be passed under the integral or the sum, then
+If $Y$ has density or mass function @eq-lef, and if differentiation in $\theta$ may be passed under the integral or the sum, then the mean and variance are the derivatives
 $$
 \mathrm{E}(Y)=-c'(\theta),
 \qquad
 \mathrm{Var}(Y)=-c''(\theta)\,e(\phi).
 $$ {#eq-moments}
+The two derivatives are the mean and the variance.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
 :::
 
 ::: {.proof}
@@ -273,10 +274,10 @@ The exercise at the end asks for the same derivatives when $a(y)$ and $b(\theta)
 ## The three components of a GLM
 
 ::: {#def-glm .definition}
-Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three of the following are specified.
+Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three of the following are specified.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
 
-1. *Random component.* The $Y_i$ are independent, and each belongs to the same exponential family. The functions $a$, $b$, $c$, $d$ and $e$ are common; the parameter $\theta_i$ may depend on $i$.
-2. *Linear predictor.* Covariate vectors $\vect{X}_1,\ldots,\vect{X}_n$ and a coefficient vector $\boldsymbol{\beta}=(\beta_0,\ldots,\beta_d)^\top$ form
+1. *Random component.* The $Y_i$ are independent, and each belongs to the same exponential family.{{cite:nelder_wedderburn1972}} The functions $a$, $b$, $c$, $d$ and $e$ are common; the parameter $\theta_i$ may depend on $i$.{{cite:mccullagh_nelder1989}}
+2. *Linear predictor.* Covariate vectors $\vect{X}_1,\ldots,\vect{X}_n$ and a coefficient vector $\boldsymbol{\beta}=(\beta_0,\ldots,\beta_d)^\top$ form the predictor below.{{cite:davison2003}}
    $$
    \eta_i=\vect{X}_i^\top\boldsymbol{\beta}.
    $$
@@ -289,7 +290,7 @@ Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three o
 The three choices are separate, and all three are yours. You choose the distribution. You choose which covariates go into $\vect{X}_i$, and whether to transform them first: log dose is still just a column of $\mat{X}$. You choose the link. Nothing forces the link that is "canonical" for the distribution you chose.
 
 ::: {#def-canonical .definition}
-The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.
+The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
 :::
 
 For the families above, the canonical links are
@@ -301,7 +302,7 @@ For the families above, the canonical links are
 
 If you call `glm` in R and name the family but not the link, you get the canonical link. That is a software default, not a scientific one. The canonical link for the gamma is the inverse link. The link used most often here for a positive continuous response is still the log link, because a slope is then a multiplicative change in the mean, and that is a sentence one can say to a collaborator. Canonical links are the natural mathematical choice. They are not always the appropriate one. You override the default by stating the link yourself.
 
-The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$. Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit. Writing those two out is not a new model. It is the definition, specialised.
+The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}} Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:davison2003}} Writing those two out is not a new model. It is the definition, specialised.
 
 ::: {.callout-note}
 ## Key idea
@@ -322,7 +323,7 @@ The same skeleton covers the usual applied questions: whether a firm has an indu
 
 The logistic link is @eq-logit. It is the link we will interpret, and it is the canonical link.
 
-The probit link replaces the logistic curve by a standard normal distribution function. If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
+The probit link replaces the logistic curve by a standard normal distribution function.{{cite:bliss1935}}{{cite:berkson1944}}{{cite:mccullagh_nelder1989}} If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
 $$
 \Phi^{-1}(p_i)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
@@ -330,7 +331,7 @@ p_i=\Phi(\vect{X}_i^\top\boldsymbol{\beta}).
 $$
 Read it as a quantile. Compute $\vect{X}_i^\top\boldsymbol{\beta}$, find that point on the standard normal axis, and take the probability to its left. That left-tail probability is $p_i$. Any other continuous distribution function would give a link of the same type. The normal is the default.
 
-The complementary log-log link is
+The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} It is a binomial link.{{cite:wood2017}} Its equation is
 $$
 \log\bigl(-\log(1-p_i)\bigr)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
@@ -348,7 +349,7 @@ Two covariates are enough. If you can say what $\beta_1$ and $\beta_2$ mean here
 $$
 \log\frac{p}{1-p}=\beta_0+\beta_1 x_1+\beta_2 x_2.
 $$
-Hold $x_2$ fixed and increase $x_1$ by one unit. The log-odds increase by $\beta_1$. Equivalently, the odds $p/(1-p)$ are multiplied by $e^{\beta_1}$. The same sentence with the labels swapped is the interpretation of $\beta_2$. Log-odds are not a quantity anyone should be expected to feel. Odds are usually as far as a collaborator needs to go: "the odds of disease are multiplied by $e^{\beta_1}$."
+Hold $x_2$ fixed and increase $x_1$ by one unit. The log-odds increase by $\beta_1$.{{cite:cox1958_logistic}} Equivalently, the odds $p/(1-p)$ are multiplied by $e^{\beta_1}$.{{cite:mccullagh_nelder1989}}{{cite:agresti2002}} The same sentence with the labels swapped is the interpretation of $\beta_2$. Log-odds are not a quantity anyone should be expected to feel. Odds are usually as far as a collaborator needs to go: "the odds of disease are multiplied by $e^{\beta_1}$."
 
 The intercept is the log-odds when every covariate is zero, and
 $$
@@ -390,13 +391,14 @@ For a single Bernoulli trial the likelihood contribution is $p^{y}(1-p)^{1-y}$, 
 \end{align*}
 where $p_i=\mu(\vect{X}_i^\top\boldsymbol{\beta})$ depends on $\boldsymbol{\beta}$ through whichever inverse link we chose. The binomial coefficient, if you are in fact looking at a binomial count rather than a single trial, does not depend on $\boldsymbol{\beta}$ and does not change the maximiser.
 
-Differentiate with respect to $\boldsymbol{\beta}$. The chain rule runs through $p_i$ and then through the linear predictor. Write $\mu'(\eta)$ for the derivative of the mean function with respect to $\eta=\vect{X}^\top\boldsymbol{\beta}$, so $\partial p_i/\partial\boldsymbol{\beta}=\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i$. Then
+Differentiate with respect to $\boldsymbol{\beta}$. The chain rule runs through $p_i$ and then through the linear predictor. Write $\mu'(\eta)$ for the derivative of the mean function with respect to $\eta=\vect{X}^\top\boldsymbol{\beta}$, so $\partial p_i/\partial\boldsymbol{\beta}=\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i$. Then the score is the derivative below.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+
 \begin{align*}
 \frac{\partial\ell}{\partial\boldsymbol{\beta}}
 &=\sum_{i=1}^n\left\{\frac{y_i}{p_i}-\frac{1-y_i}{1-p_i}\right\}\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i\\
 &=\sum_{i=1}^n\frac{y_i-p_i}{p_i(1-p_i)}\,\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i.
 \end{align*}
-Set the score equal to zero. The denominator $p_i(1-p_i)$ is $\mathrm{Var}(Y_i\mid \vect{X}_i)$. The same algebra, with the variance of the family in that slot, is the score equation for every GLM we have written down:
+Set the score equal to zero. The denominator $p_i(1-p_i)$ is $\mathrm{Var}(Y_i\mid \vect{X}_i)$. The same algebra, with the variance of the family in that slot, is the score equation for every GLM we have written down.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
 $$
 \sum_{i=1}^n\frac{y_i-\mu_i}{\mathrm{Var}(Y_i\mid \vect{X}_i)}\,\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i=\vect{0}.
 $$ {#eq-score}
@@ -433,7 +435,7 @@ The update is one step of weighted least squares,
 $$
 \boldsymbol{\beta}^{(1)}=\boldsymbol{\beta}^{(0)}+\bigl(\mat{I}^{(0)}\bigr)^{-1}\vect{U}^{(0)}.
 $$ {#eq-fisher}
-Iterate until $\boldsymbol{\beta}$ stops moving. The matrix $\mat{I}$ is the expected negative Hessian of $\ell$, which is the Fisher information. The algorithm is Newton–Raphson with that expected second derivative in place of the observed one, and for that reason it is called Fisher scoring. It is the same algorithm for every exponential family we put in the random component. A model outside that class does not inherit it; you would write a separate optimiser.
+Iterate until $\boldsymbol{\beta}$ stops moving. The matrix $\mat{I}$ is the expected negative Hessian of $\ell$, which is the Fisher information.{{cite:fisher1925_est}}{{cite:mccullagh_nelder1989}} The algorithm is Newton–Raphson with that expected second derivative in place of the observed one, and for that reason it is called Fisher scoring.{{cite:nelder_wedderburn1972}} It is the same algorithm for every exponential family we put in the random component. A model outside that class does not inherit it; you would write a separate optimiser.
 
 For the binomial this rarely takes more than five or six iterations, and the start does not matter much. The cholesterol fit below takes four. A first reading does not require the iteration by hand; working a few steps by hand is still a reasonable exercise. Either way, the update is @eq-fisher, and a GLM fit is that update and not a closed form.
 

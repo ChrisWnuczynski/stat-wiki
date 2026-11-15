@@ -61,7 +61,7 @@ A significant $F$ says the means are not all equal; it does not say which ones d
 ::: {#def-bonferroni-correction .definition}
 ## Bonferroni correction
 
-To make $m$ comparisons with a familywise error rate of at most $\alpha$, run each at level $\alpha/m$. Equivalently, multiply each $p$-value by $m$, capping at 1.
+To make $m$ comparisons with a familywise error rate of at most $\alpha$, run each at level $\alpha/m$.{{cite:dunn1961}}{{cite:bonferroni1936}} Equivalently, multiply each $p$-value by $m$, capping at 1.{{cite:casella_berger2002}}
 
 :::
 
@@ -83,12 +83,12 @@ Y_{ijk}=\mu+\alpha_i+\beta_j+\gamma_{ij}+\varepsilon_{ijk},
 \qquad \varepsilon_{ijk}\ \text{independent}\ \Normal(0,\sigma^2).
 $$
 
-Here $\mu$ is a baseline mean, $\alpha_i$ and $\beta_j$ are the main effects of the two factors, and $\gamma_{ij}$ is their interaction. The parameters are not all identifiable as written; R fixes them by setting the effects of the first level of each factor to zero. Those contrast constraints, the sum-to-zero alternative, and the $F$ tests as linear hypotheses are derived in [Two-factor analysis of variance](inf-15-two-factor-anova.qmd).
+Here $\mu$ is a baseline mean, $\alpha_i$ and $\beta_j$ are the main effects of the two factors, and $\gamma_{ij}$ is their interaction.{{cite:fisher1935_doe}}{{cite:scheffe1959}}{{cite:casella_berger2002}} The parameters are not all identifiable as written; R fixes them by setting the effects of the first level of each factor to zero. Those contrast constraints, the sum-to-zero alternative, and the $F$ tests as linear hypotheses are derived in [Two-factor analysis of variance](inf-15-two-factor-anova.qmd).
 
 ::: {#def-interaction .definition}
 ## Interaction
 
-Two factors interact when the effect of one depends on the level of the other: the difference in mean response between two levels of the first factor is not the same at every level of the second. In the two-factor model, there is no interaction when every $\gamma_{ij}=0$.
+Two factors interact when the effect of one depends on the level of the other: the difference in mean response between two levels of the first factor is not the same at every level of the second.{{cite:fisher1935_doe}}{{cite:scheffe1959}} In the two-factor model, there is no interaction when every $\gamma_{ij}=0$.{{cite:casella_berger2002}}
 
 :::
 

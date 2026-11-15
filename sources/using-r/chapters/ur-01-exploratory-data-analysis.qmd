@@ -5,7 +5,7 @@ Look at the table before fitting a model or reading a p-value. The point is to l
 ::: {#def-exploratory-data-analysis .definition}
 ## Exploratory data analysis
 
-Exploratory data analysis is the inspection of a table, before a model is chosen, of the unit of a row, the missing and implausible values, the marginal distributions, and the associations that remain after grouping. It constrains the models that are worth writing down. It is not an estimate, a test, or a causal claim.
+Exploratory data analysis is the inspection of a table, before a model is chosen, of the unit of a row, the missing and implausible values, the marginal distributions, and the associations that remain after grouping.{{cite:tukey1977}}{{cite:chambers1983_gmda}} It constrains the models that are worth writing down. It is not an estimate, a test, or a causal claim.{{cite:tukey1977}}
 :::
 
 | First pass | Question | Command |
