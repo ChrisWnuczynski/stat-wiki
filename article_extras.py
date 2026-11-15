@@ -2322,17 +2322,17 @@ The Hessian is the [Fisher information](fisher-information.qmd) for one observat
     "logit-link": r"""
 ## Log odds, defined on the whole real line
 
-A binary response has mean $p=\mathbb{P}(Y=1\mid\mathbf{x})$, and $p$ must lie in $(0,1)$. A straight line in the covariates will eventually leave that interval. The logit link maps the interval onto the whole line,
+A binary response has mean $p=\mathbb{P}(Y=1\mid\mathbf{x})$, and $p$ must lie in $(0,1)$. A straight line in the covariates will eventually leave that interval. The logit link maps the interval onto the whole line,{{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 $$
 g(p)=\log\frac{p}{1-p}=\mathbf{x}^\top\boldsymbol{\beta},
 $$
 
-and inverts as $p=\exp(\eta)/\{1+\exp(\eta)\}$ with $\eta=\mathbf{x}^\top\boldsymbol{\beta}$. The ratio $p/(1-p)$ is the odds. The link is canonical for the binomial, and it is symmetric about one half: $g(1-p)=-g(p)$, so $g(1/2)=0$. A coefficient $\beta_j$ is the change in the log odds for a one-unit change in that covariate. Equivalently, the odds are multiplied by $e^{\beta_j}$. That factor is an [odds ratio](odds-ratio.qmd), not a ratio of probabilities.
+and inverts as $p=\exp(\eta)/\{1+\exp(\eta)\}$ with $\eta=\mathbf{x}^\top\boldsymbol{\beta}$. The ratio $p/(1-p)$ is the odds. The link is canonical for the binomial, and it is symmetric about one half: $g(1-p)=-g(p)$, so $g(1/2)=0$. A coefficient $\beta_j$ is the change in the log odds for a one-unit change in that covariate. Equivalently, the odds are multiplied by $e^{\beta_j}$. That factor is an [odds ratio](odds-ratio.qmd), not a ratio of probabilities.{{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 ## Doubling the odds does not double the probability
 
-Start at $p=0.2$. The odds are $0.25$ and the logit is $\log 0.25\approx -1.386$. Add $\log 2\approx 0.693$. The new logit is about $-0.693$, the new odds are $0.5$, and the new probability is $0.5/1.5=1/3$. The odds have doubled. The probability has moved from $0.20$ to about $0.33$. The same doubling near $p=0.5$ would move the probability by a different amount, so an odds ratio cannot be quoted in percentage points without a baseline. Complete separation breaks the fit in a particular way. If every success has a larger covariate than every failure, the maximised slope is infinite and the fitted probabilities are driven to $0$ and $1$. The data then determine a direction, not a finite coefficient.
+Start at $p=0.2$. The odds are $0.25$ and the logit is $\log 0.25\approx -1.386$. Add $\log 2\approx 0.693$. The new logit is about $-0.693$, the new odds are $0.5$, and the new probability is $0.5/1.5=1/3$. The odds have doubled. The probability has moved from $0.20$ to about $0.33$. The same doubling near $p=0.5$ would move the probability by a different amount, so an odds ratio cannot be quoted in percentage points without a baseline.{{cite:nelder_wedderburn1972}} (§3.3, p. 379) If every success has a larger covariate than every failure, the maximised slope is infinite and the fitted probabilities are driven to $0$ and $1$. The data then determine a direction, not a finite coefficient.{{cite:albert_anderson1984}} (§2, Thm. 1, p. 3)
 """,
     "m-m-queue": r"""
 ## A server for every arrival

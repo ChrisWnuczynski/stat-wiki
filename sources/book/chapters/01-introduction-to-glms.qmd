@@ -79,13 +79,13 @@ Here $\phi$ is the dispersion. The variance grows with the square of the mean, w
 
 A hundred patients have a cholesterol measurement and a binary disease indicator, with sex marked on the plot. Vertical jitter stops a pile of zeroes, or a pile of ones, looking like a fractional response. The response really is $0$ or $1$. As cholesterol increases, particularly once it is above about $6.5$, disease becomes the typical outcome. Down near $4.5$, absence is more common.
 
-The mean of a binary response is the success probability, $p=\mathrm{E}(Y\mid \vect{X})=\mathrm{P}(Y=1\mid \vect{X})$. A straight line cannot represent it. The line will eventually leave $(0,1)$, and a probability cannot. The exponential $\exp(\vect{X}^\top\boldsymbol{\beta})$ stays positive, but it is not bounded by $1$. Dividing by one plus itself fixes that.{{cite:berkson1944}}{{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}}
+The mean of a binary response is the success probability, $p=\mathrm{E}(Y\mid \vect{X})=\mathrm{P}(Y=1\mid \vect{X})$. A straight line cannot represent it. The line will eventually leave $(0,1)$, and a probability cannot. The exponential $\exp(\vect{X}^\top\boldsymbol{\beta})$ stays positive, but it is not bounded by $1$. Dividing by one plus itself fixes that.{{cite:berkson1944}} (p. 358){{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 $$
 p=\frac{\exp(\vect{X}^\top\boldsymbol{\beta})}{1+\exp(\vect{X}^\top\boldsymbol{\beta})}
 \qquad\text{equivalently}\qquad
 \vect{X}^\top\boldsymbol{\beta}=\log\frac{p}{1-p}.
 $$ {#eq-logit}
-The right-hand equation is the logistic link, also called the logit: the log of the odds $p/(1-p)$.{{cite:berkson1944}}{{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}} The left-hand equation is the inverse link, sometimes called the expit. Log-odds run over the whole real line, which is what a linear predictor needs. The probability stays in $(0,1)$.
+The right-hand equation is the logistic link, also called the logit: the log of the odds $p/(1-p)$.{{cite:berkson1944}} (p. 358){{cite:nelder_wedderburn1972}} (§3.3, p. 379) The left-hand equation is the inverse link, sometimes called the expit. Log-odds run over the whole real line, which is what a linear predictor needs. The probability stays in $(0,1)$.
 
 Again, the link is applied to the mean. The logistic function of a zero or a one is not defined in any useful way, and any function of a binary observation still takes at most two values. You cannot manufacture a curve by transforming zeroes and ones.
 

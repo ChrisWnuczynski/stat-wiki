@@ -778,7 +778,7 @@ TOPICS += [
           r"The distribution assumed for the response given the covariates in a GLM, a member of an exponential family such as the normal, Poisson, binomial or gamma. It fixes the mean–variance relationship, $\operatorname{Var}(Y)=\phi V(\mu)$.",
           links=["random components?", "response distributions?"]),
     topic("Logit link", "01-introduction-to-glms.qmd: Dividing by one plus itself fixes that",
-          r"$g(p)=\log\{p/(1-p)\}$, the log-odds. It maps $(0,1)$ onto the whole real line, it is the canonical link for binomial responses, and it makes each coefficient a log odds ratio.",
+          r"$g(p)=\log\{p/(1-p)\}$, the log-odds. It maps $(0,1)$ onto the whole real line, it is the canonical link for binomial responses, and it makes each coefficient a log odds ratio.{{cite:nelder_wedderburn1972}} (§3.3, p. 379)",
           links=["logit links?", "logits?", "log[- ]odds"]),
     topic("Probit link", "01-introduction-to-glms.qmd: The probit link replaces the logistic curve",
           r"$g(p)=\Phi^{-1}(p)$, the standard normal quantile function. It fits binary data much like the logit, with coefficients smaller by a factor of about $1.6$ to $1.8$, but it has no odds-ratio reading.",
