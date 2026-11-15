@@ -26,7 +26,7 @@ Pages ranked: **718**. Done: **27**. Left: **691**. Skipped: **0**. Ranks 1–23
 | 16 | [Unbiased estimator](unbiased-estimator.md) | Concept/definition | [Prose](content/unbiased-estimator.md), [check](../checks/unbiased-estimator.py) | 768 → 2,558 | 0 → 0 | Located Rao, Blackwell, Fisher, Wang, Siegrist, and Fox citations; corrected normal-pivot claim |
 | 17 | [Maximum likelihood](maximum-likelihood.md) | Concept/definition | [Prose](content/maximum-likelihood.md), [check](../checks/maximum-likelihood.py) | 2,000 → 3,864 | 0 → 0 | Located Fisher, Wang, and NIST citations; corrected uniform endpoint and degenerate normal cases |
 | 18 | [Positive definite matrix](positive-definite-matrix.md) | Concept/topic | [Prose](content/positive-definite-matrix.md), [check](../checks/positive-definite-matrix.py) | 216 → 1,903 | 0 → 0 | Located Sylvester, Golub–Van Loan, and Strimmer citations; corrected related criterion lead |
-| 19 | [Event](event.md) | Concept/definition | [Prose](content/event.md), [check](../checks/event.py) | 460 → 2,106 | 0 → 0 | None; Kolmogorov 1933 English edition opened |
+| 19 | [Event](event.md) | Concept/definition | [Prose](content/event.md), [check](../checks/event.py) | 460 → 2,145 | 0 → 0 | None; Kolmogorov 1933 translation and Durrett Ch. 1–2 opened |
 | 20 | [Cumulative distribution function](cumulative-distribution-function.md) | Concept/definition | [Prose](content/cumulative-distribution-function.md), [check](../checks/cumulative-distribution-function.py) | 431 → 1,473 | 2 → 2 | Single-page Quarto render stalled; Kolmogorov and Billingsley texts opened |
 | 21 | [Random variable](random-variable.md) | Concept/definition | [Prose](content/random-variable.md), [check](../checks/random-variable.py) | 872 → 2,303 | 1 → 1 | Source density derivative corrected almost everywhere; dependent article preservation verified |
 | 22 | [Linear predictor](linear-predictor.md) | Concept/topic | [Prose](content/linear-predictor.md), [check](../checks/linear-predictor.py) | 520 → 2,255 | 0 → 0 | Covariate notation made lowercase across topic and source data |
@@ -68,6 +68,8 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 - Rank 8, standard error: replaced unopened Casella–Berger and other extracted-source citations with opened Grinstead, NIST, and Siegrist passages, located the researched citations, removed unsupported new GLM commentary, and tied arithmetic checks to printed values.
 - Rank 9, kernel of a density: replaced unopened Gelman and Raiffa–Schlaifer citations with opened Downey and Stan source passages, narrowed History, cited worked values, and tied its arithmetic check to the printed expressions.
 - Rank 10, mean vector and covariance matrix: replaced unopened Anderson and Wasserman citations in the extracted definition and new prose, corrected the dimension notation, removed pseudo-history, and checked the exact displayed matrix values.
+
+- Rank 19, event: replaced citations to unopened Feller, Billingsley, and Grimmett–Stirzaker with located Kolmogorov and Durrett passages. Preserved the four-engine aircraft example, event definition, properties and twelve question links. Removed the added link-only question section and history disclaimer. Exact checks now assert printed values.
 
 ## Verification for completed pages
 
