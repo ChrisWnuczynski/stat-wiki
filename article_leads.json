@@ -612,7 +612,7 @@
   "squared-error-is-not-the-logistic-likelihood": {"field": "statistical learning", "article": "the", "term": "squared-error objective", "verb": "is", "description": "different from the Bernoulli log-likelihood for logistic regression"},
   "squared-error-of-an-average": {"field": "statistical learning", "article": "the", "term": "squared error of an average", "verb": "is", "description": "an identity that relates the error of an ensemble average to the errors and disagreement of its members"},
   "squared-mahalanobis-distance": {"field": "statistical learning", "article": "the", "term": "squared Mahalanobis distance", "verb": "is", "description": "a measure of how far apart two observations are"},
-  "standard-error": {"field": "statistical inference", "article": "the", "term": "standard error", "verb": "is", "description": "the standard deviation of an estimator's sampling distribution"},
+  "standard-error": {"field": "statistical inference", "article": "the", "term": "standard error", "verb": "is", "description": "the standard deviation of an estimator across repeated samples, used to judge an estimate's precision"},
   "state-space": {"field": "stochastic processes", "article": "the", "term": "state space", "verb": "is", "description": "the set of possible states of a stochastic process"},
   "stationarity-and-detailed-balance": {"field": "Bayesian statistics", "article": "", "term": "stationarity and detailed balance", "verb": "are", "description": "conditions describing invariant and reversible Markov-chain behaviour"},
   "stationarity-of-a-time-series": {"field": "time series", "article": "the", "term": "stationarity of a time series", "verb": "is", "description": "the stability of a time series' mean and dependence structure over time"},
