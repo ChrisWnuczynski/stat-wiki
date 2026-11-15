@@ -1,0 +1,392 @@
+[
+  {
+    "slug": "a-finite-stationary-point-is-a-global-maximiser",
+    "title": "A finite stationary point is a global maximiser",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "a-single-threshold-unit-cannot-compute-xor",
+    "title": "A single threshold unit cannot compute XOR",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "a-zero-precision-entry-is-conditional-independence",
+    "title": "A zero precision entry is conditional independence",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "affine-images-of-normal-vectors",
+    "title": "Affine images of normal vectors",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "anova-f-distribution",
+    "title": "ANOVA F distribution",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "anova-sum-of-squares-decomposition",
+    "title": "ANOVA sum of squares decomposition",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "basu-s-theorem",
+    "title": "Basu's theorem",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "bayes-action-for-two-hypotheses",
+    "title": "Bayes action for two hypotheses",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "bayes-consistency-of-nearest-neighbours",
+    "title": "Bayes consistency of k-nearest neighbours",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "benjamini-hochberg-controls-the-false-discovery-rate",
+    "title": "Benjamini–Hochberg controls the false discovery rate",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "beta-binomial-posterior-prediction",
+    "title": "Beta–Binomial posterior prediction",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "borel-cantelli-lemmas",
+    "title": "Borel–Cantelli lemmas",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "central-limit-theorem",
+    "title": "Central limit theorem",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "conditional-coefficient-posterior",
+    "title": "Conditional coefficient posterior",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "conditional-distribution-of-a-multivariate-normal",
+    "title": "Conditional distribution of a multivariate normal",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "descent-of-lloyd-s-algorithm",
+    "title": "Descent of Lloyd's algorithm",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "direct-posterior-simulation",
+    "title": "Direct posterior simulation",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "dirichlet-moments",
+    "title": "Dirichlet moments",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "equally-likely-outcomes",
+    "title": "Equally likely outcomes",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "extinction-criterion",
+    "title": "Extinction criterion",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "finite-irreducible-chains",
+    "title": "Finite irreducible chains",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "fisher-neyman-factorisation",
+    "title": "Fisher–Neyman factorisation",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "fisher-s-direction",
+    "title": "Fisher's direction",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "four-ways-of-counting-draws",
+    "title": "Four ways of counting draws",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "full-conditionals-under-independent-priors",
+    "title": "Full conditionals under independent priors",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "generic-exponential-family-conjugate-update",
+    "title": "Generic exponential-family conjugate update",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "hammersley-clifford",
+    "title": "Hammersley–Clifford",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "interior-dirichlet-mode",
+    "title": "Interior Dirichlet mode",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "invariance-of-maximum-likelihood",
+    "title": "Invariance of maximum likelihood",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "law-of-large-numbers",
+    "title": "Law of large numbers",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "limiting-distribution",
+    "title": "Limiting distribution",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "local-minima-plateaus-and-symmetry",
+    "title": "Local minima, plateaus, and symmetry",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "log-partition-moment-identities",
+    "title": "Log-partition moment identities",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "marginal-hyperposterior",
+    "title": "Marginal hyperposterior",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "marginal-student-posterior",
+    "title": "Marginal Student posterior",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "marginal-variance-posterior",
+    "title": "Marginal variance posterior",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "metropolis-hastings-invariance",
+    "title": "Metropolis–Hastings invariance",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "moments-of-the-sample-mean-and-variance",
+    "title": "Moments of the sample mean and variance",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "monotone-convergence-fatou-and-dominated-convergence",
+    "title": "Monotone convergence, Fatou, and dominated convergence",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "monotonicity-of-em",
+    "title": "Monotonicity of EM",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "multinomial-central-limit-theorem",
+    "title": "Multinomial central limit theorem",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "multivariate-central-limit-theorem",
+    "title": "Multivariate central limit theorem",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "normal-hierarchical-shrinkage",
+    "title": "Normal hierarchical shrinkage",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "normal-inverse-gamma-conjugacy",
+    "title": "Normal–inverse-Gamma conjugacy",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "normal-inverse-gamma-variance-update",
+    "title": "Normal–inverse-Gamma variance update",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "normal-sample-theorem",
+    "title": "Normal sample theorem",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "null-distribution-of-hotelling-s",
+    "title": "Null distribution of Hotelling's T²",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "one-hidden-layer-approximates-continuous-functions",
+    "title": "One hidden layer approximates continuous functions",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "one-sample-t-pivot",
+    "title": "One-sample t pivot",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "ordinary-least-squares",
+    "title": "Ordinary least squares",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "pearson-chi-squared-approximation",
+    "title": "Pearson chi-squared approximation",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "pearson-test-with-estimated-parameters",
+    "title": "Pearson test with estimated parameters",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "pitman-koopman-darmois-informal-form",
+    "title": "Pitman–Koopman–Darmois, informal form",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "posterior-odds-factorisation",
+    "title": "Posterior-odds factorisation",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "posterior-prediction-under-the-reference-prior",
+    "title": "Posterior prediction under the reference prior",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "posterior-summaries-from-draws",
+    "title": "Posterior summaries from draws",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "principal-component-directions",
+    "title": "Principal component directions",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "properties-of-a-probability",
+    "title": "Properties of a probability",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "rank-bound",
+    "title": "Rank bound",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "sampling-distribution-of-the-ols-estimator",
+    "title": "Sampling distribution of the OLS estimator",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "sampling-distribution-of-the-regression-estimators",
+    "title": "Sampling distribution of the regression estimators",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "sampling-law-of-the-normal-mean-and-scatter",
+    "title": "Sampling law of the normal mean and scatter",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "sequential-coherence",
+    "title": "Sequential coherence",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "signed-distance",
+    "title": "Signed distance",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "slope-t-pivot",
+    "title": "Slope t pivot",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "softmax-is-multinomial-logistic-regression",
+    "title": "Softmax is multinomial logistic regression",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "squared-error-is-not-the-logistic-likelihood",
+    "title": "Squared error is not the logistic likelihood",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "strong-law",
+    "title": "Strong law",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "studentised-coefficient-pivot",
+    "title": "Studentised coefficient pivot",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "study-rate-full-conditional",
+    "title": "Study-rate full conditional",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "the-beta-distribution-is-the-two-category-dirichlet",
+    "title": "The Beta distribution is the two-category Dirichlet",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "the-reweighted-error-is-one-half",
+    "title": "The reweighted error is one half",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "transformation-rule",
+    "title": "Transformation rule",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "two-sample-hotelling-test",
+    "title": "Two-sample Hotelling F critical value",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "two-sample-t-pivot",
+    "title": "Two-sample t pivot",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "vapnik-s-radius-margin-bound",
+    "title": "Vapnik's radius–margin bound",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "variance-ratio-f-pivot",
+    "title": "Variance-ratio F pivot",
+    "reason": "A reviewed proof sketch is still needed."
+  },
+  {
+    "slug": "wold-decomposition",
+    "title": "Wold decomposition",
+    "reason": "A reviewed proof sketch is still needed."
+  }
+]

@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import copy
 import json
+import re
 import tempfile
 import unittest
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 import build_wiki
 import wiki_graph
@@ -1036,6 +1038,170 @@ class WikiGraphTests(unittest.TestCase):
                     if "#" in target_rel:
                         frag = target_rel.split("#", 1)[1]
                         self.assertIn(frag, target_path.read_text(encoding="utf-8"))
+
+
+class DistributionCatalogueTests(unittest.TestCase):
+    def test_named_families_have_complete_catalogue_records(self) -> None:
+        required = {
+            "student-t", "chi-squared", "f", "cauchy", "bernoulli", "lognormal",
+            "weibull", "pareto", "negative-binomial", "multivariate-normal",
+            "wishart", "inverse-gaussian", "conway-maxwell-poisson",
+        }
+        self.assertTrue({f"{name}-distribution" for name in required} <= build_wiki.DISTRIBUTIONS.keys())
+        for slug, fact in build_wiki.DISTRIBUTIONS.items():
+            with self.subTest(slug=slug):
+                self.assertTrue(all(fact[key] for key in ("name", "notation", "parameters", "support", "description", "symbols")))
+                self.assertTrue(fact["pmf"] or fact["pdf"])
+                self.assertTrue(fact["plot"])
+                self.assertTrue(set(fact["related"]) <= build_wiki.DISTRIBUTIONS.keys())
+
+    def test_generated_distribution_infoboxes_and_plots(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        for slug in build_wiki.DISTRIBUTIONS:
+            with self.subTest(slug=slug):
+                page = articles / f"{slug}.qmd"
+                self.assertTrue(page.is_file())
+                body = page.read_text(encoding="utf-8")
+                self.assertIn("::: {.infobox-title}", body)
+                self.assertIn("## Definition {#definition}", body)
+                self.assertIn('aria-label="Probability distributions"', body)
+                headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+                order = ["Definition", "Properties", "Related distributions", "Statistical inference",
+                         "Generating random samples", "History", "Examples", "See also", "References"]
+                self.assertEqual(headings, [name for name in order if name in headings], page.name)
+                self.assertEqual("Generating random samples" in headings, bool(build_wiki.DISTRIBUTIONS[slug]["sampling"]))
+                lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
+                self.assertNotIn("$", lead)
+                for kind in ("pdf", "cdf"):
+                    self.assertTrue((build_wiki.WIKI / "reference" / "plots" / f"{slug}-{kind}.png").is_file())
+        notation = build_wiki.WIKI / "reference" / "notation.qmd"
+        self.assertTrue(notation.is_file())
+        self.assertIn("| Symbol | Meaning | First used |", notation.read_text(encoding="utf-8"))
+
+    def test_generated_local_link_targets_exist(self) -> None:
+        if not (build_wiki.WIKI / "articles").is_dir():
+            self.skipTest("Wiki has not been generated")
+        missing = []
+        missing_fragments = []
+        targets: dict[Path, set[str]] = {}
+        for folder in ("articles", "notes", "questions", "reference"):
+            for page in (build_wiki.WIKI / folder).rglob("*.qmd"):
+                body = page.read_text(encoding="utf-8")
+                for chunk in re.split(r"```.*?```", body, flags=re.S):
+                    for match in build_wiki.MD_LINK_TARGET.finditer(chunk):
+                        destination, _, fragment = unquote(match.group(2)).partition("#")
+                        if (not destination and not fragment) or re.match(r"^[a-z]+:|^/", destination):
+                            continue
+                        target = (page.parent / destination).resolve() if destination else page
+                        if target.suffix == ".html" and not target.exists():
+                            target = target.with_suffix(".qmd")
+                        if not target.exists():
+                            missing.append(f"{page.relative_to(build_wiki.WIKI)} -> {destination}")
+                        elif fragment and target.suffix == ".qmd":
+                            if target not in targets:
+                                target_body = target.read_text(encoding="utf-8")
+                                targets[target] = set(re.findall(r"\{#([\w:-]+)", target_body))
+                                targets[target].update(re.findall(r"id=[\"']([\w:-]+)", target_body))
+                                targets[target].update(
+                                    build_wiki.slug(heading)
+                                    for heading in re.findall(r"^#{1,6}\s+([^\n{]+)", target_body, flags=re.M)
+                                )
+                            if fragment not in targets[target]:
+                                missing_fragments.append(f"{page.relative_to(build_wiki.WIKI)} -> {destination}#{fragment}")
+                for destination in re.findall(r'href="([^"]+)"', body):
+                    parsed = urlsplit(unquote(destination))
+                    if parsed.scheme or parsed.netloc or not parsed.path or parsed.path.startswith("/"):
+                        continue
+                    target = (page.parent / parsed.path).resolve()
+                    if target.suffix == ".html":
+                        target = target.with_suffix(".qmd")
+                    if target.suffix in {".qmd", ".png", ".jpg", ".svg", ".pdf"} and not target.exists():
+                        missing.append(f"{page.relative_to(build_wiki.WIKI)} -> {destination}")
+        self.assertEqual(missing, [])
+        self.assertEqual(missing_fragments, [])
+
+
+class TheoremTemplateTests(unittest.TestCase):
+    def test_every_result_has_a_proof_or_todo_entry(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        todo_file = build_wiki.WIKI / "proofs-todo.json"
+        if not articles.is_dir() or not todo_file.is_file():
+            self.skipTest("Wiki has not been generated")
+        todo = {row["slug"] for row in json.loads(todo_file.read_text(encoding="utf-8"))}
+        results = []
+        for page in articles.glob("*.qmd"):
+            body = page.read_text(encoding="utf-8")
+            if "| Statement | [Read statement](#statement) |" not in body:
+                continue
+            results.append(page.stem)
+            self.assertIn("## Statement {#statement}", body, page.name)
+            headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+            order = ["Statement", "Intuition", "Proof", "Generalizations", "Common misconceptions",
+                     "History", "Examples", "See also", "References"]
+            self.assertEqual(headings, [name for name in order if name in headings], page.name)
+            self.assertTrue('::: {.callout-note collapse="true" title="Proof"}' in body or page.stem in todo, page.name)
+            self.assertNotIn("## In *", body, page.name)
+            lead = body.split("::::\n", 1)[-1].split(".\n", 1)[0]
+            self.assertNotIn("$", lead, page.name)
+        self.assertGreaterEqual(len(results), 90)
+        self.assertTrue(todo <= set(results))
+
+
+class ConceptTemplateTests(unittest.TestCase):
+    def test_mapped_articles_link_their_laboratory(self) -> None:
+        import topics
+
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        for slug, (lab, _label, _action) in topics.LAB_FOR_TOPIC.items():
+            with self.subTest(slug=slug):
+                page = articles / f"{slug}.qmd"
+                self.assertTrue(page.is_file())
+                self.assertTrue((build_wiki.WIKI / "labs" / lab).is_file())
+                body = page.read_text(encoding="utf-8")
+                self.assertIn('title="Try it"', body)
+                self.assertIn(f"../labs/{lab}", body)
+
+    def test_all_article_leads_are_plain_language(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        pages = list(articles.glob("*.qmd"))
+        self.assertGreaterEqual(len(pages), 700)
+        for page in pages:
+            body = page.read_text(encoding="utf-8")
+            lead = body.split("::::\n", 1)[-1].lstrip().split(".\n", 1)[0]
+            self.assertTrue(lead.startswith("In "), page.name)
+            self.assertIsNone(re.search(r"\$|\\\(|\\\[|\\begin\{", lead), page.name)
+            self.assertNotIn("## In *", body, page.name)
+
+    def test_concepts_follow_the_fixed_section_order(self) -> None:
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        for page in articles.glob("*.qmd"):
+            body = page.read_text(encoding="utf-8")
+            if page.stem in build_wiki.DISTRIBUTIONS or "| Statement | [Read statement](#statement) |" in body:
+                continue
+            headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+            order = ["Definition", "Properties", "Interpretation", "History", "Examples", "See also", "References"]
+            self.assertEqual(headings, [name for name in order if name in headings], page.name)
+
+    def test_curated_histories_are_cited(self) -> None:
+        import article_extras
+
+        articles = build_wiki.WIKI / "articles"
+        if not articles.is_dir():
+            self.skipTest("Wiki has not been generated")
+        for slug in article_extras.ARTICLE_HISTORIES:
+            page = articles / f"{slug}.qmd"
+            body = page.read_text(encoding="utf-8")
+            self.assertIn("## History {#history}", body, slug)
+            history = body.split("## History {#history}", 1)[1].split("\n## ", 1)[0]
+            self.assertIn('class="cite-ref"', history, slug)
 
 
 if __name__ == "__main__":
