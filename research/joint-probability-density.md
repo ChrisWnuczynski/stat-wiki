@@ -18,3 +18,9 @@ Type: Concept/definition.
 - The proof covers normalisation, the marginal integral, both directions of the product criterion, the covariance identity \(\operatorname{Cov}(X+Y,X-Y)=\operatorname{Var}(X)-\operatorname{Var}(Y)\), and the absolute Jacobian factor for an invertible linear map.
 - `checks/joint-probability-density.py` checks the triangle moments, covariance \(1/36\), the exercise values \(3/4\) and \(1\), and the exponential mean, variance, and quadrant integral.
 - The original definition, transformation rule, both worked answers, citation keys, infobox, and seventeen question links remain. No figure was present.
+
+## Correction pass
+
+- Corrected two mathematical statements: covariance cross terms cancel without independence, and a non-product support need not have nonuniform marginals. The triangle's marginals are the specific nonuniform example.
+- Added precise locations to the opened Durrett source, rewrote editor-facing references, and removed an added History section that repeated definitions rather than recording history. The inherited transformation rule remains in the article; redundant added discussion of it was removed because this pass did not open a supporting transformation source.
+- The arithmetic check now asserts the main values printed in the worked examples.

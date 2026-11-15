@@ -2,6 +2,7 @@
 
 from fractions import Fraction
 from math import exp
+from pathlib import Path
 
 
 def trap(fn, a, b, n=20000):
@@ -13,6 +14,9 @@ def trap(fn, a, b, n=20000):
 
 
 if __name__ == "__main__":
+    article = (Path(__file__).resolve().parents[1] / "research/content/joint-probability-density.md").read_text()
+    for printed in (r"\frac23", r"\frac13", r"\frac14", "1/36", "3/4", "1/2", "2x", "2(1-y)"):
+        assert printed in article, f"Worked value missing from article: {printed}"
     # Uniform on the triangle 0 < y < x < 1, density 2.
     area = Fraction(1, 2)
     assert area * 2 == 1

@@ -48,6 +48,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 
 - Rank 25, conditional expectation: corrected the conditional-density integral, added citation locations, removed a repetitive pseudo-history section, rephrased page-assembly language, and tied printed values to the arithmetic check.
 - Rank 24, training set: added citation locations, removed a historical non-claim, and tied worked values to the arithmetic check.
+- Rank 26, joint probability density: corrected the independence and marginal claims, located citations, removed redundant pseudo-history and unresearched transformation prose, and tied worked values to the arithmetic check.
 
 ## Verification for completed pages
 
