@@ -142,7 +142,7 @@ $$
 \sigma_{jj}\sigma_{kk}-\sigma_{jk}^2\ge 0.
 $$
 
-Symmetry of a proposed covariance is necessary and is not enough: every linear combination must have a nonnegative variance{{cite:anderson2003_mva}}{{cite:wasserman2004}}. Sylvester's criterion turns the quadratic-form condition into determinants. Strict positive definiteness requires every leading principal minor to be positive{{cite:golub_vanloan2013}}. Positive semi-definiteness requires every principal minor, not only the leading ones, to be nonnegative. A matrix can pass a leading-minor check aimed at the wrong one of these two conclusions and still fail to be a covariance.
+Symmetry of a proposed covariance is necessary and is not enough: every linear combination must have a nonnegative variance.{{cite:strimmer2025_mva}} (Ch. 1, §1.1) Sylvester's criterion turns the quadratic-form condition into determinants. Strict positive definiteness requires every leading principal minor to be positive. Positive semi-definiteness requires every principal minor, not only the leading ones, to be nonnegative. A matrix can pass a leading-minor check aimed at the wrong one of these two conclusions and still fail to be a covariance.{{cite:golub_vanloan2013}} (Ch. 4, §4.2)
 
 Translations do not change covariances. For constants $c,d\in\R$,
 

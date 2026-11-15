@@ -1543,7 +1543,7 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
  (('correlation',), ('galton1886', 'pearson1896', 'anderson2003_mva')),
  (('partial-correlation',), ('pearson1896', 'yule1907_pcorr', 'anderson2003_mva')),
  (('positive-definite-matrix', 'sylvester-s-criterion'),
-  ('golub_vanloan2013', 'anderson2003_mva')),
+  ('golub_vanloan2013', 'strimmer2025_mva', 'sylvester1852')),
  (('squared-mahalanobis-distance',), ('mahalanobis1936', 'anderson2003_mva')),
  (('iris-data',), ('anderson1936_iris', 'fisher1936')),
  (('maximum-likelihood-for-a-normal-mean-vector',
