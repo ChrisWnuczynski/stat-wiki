@@ -550,7 +550,7 @@ ALIASES.update({
 
 TOPICS += [
     topic("Standard error", "inf-03-confidence-intervals.qmd#s-from-a-standard-error-to-an-interval",
-          r"The standard deviation of an estimator's sampling distribution, or an estimate of it. For a sample mean it is $\sigma/\sqrt n$, estimated by $s/\sqrt n$. An approximate 95% interval is the estimate plus or minus about two standard errors, and a $z$ or $t$ statistic is an estimate measured in standard errors.",
+          r"The standard deviation of an estimator's sampling distribution, or an estimate of it. For an independent sample mean it is $\sigma/\sqrt n$, estimated by $s/\sqrt n$. When a suitable normal approximation holds, an approximate 95% interval is the estimate plus or minus about two standard errors. A $z$ or $t$ statistic measures a difference from a hypothesised value in standard-error units.{{cite:nist_glossary2002}} (Glossary, “standard error”) {{cite:nist_mean_limits2002}} (§1.3.5.2)",
           also=["02-inference-and-counts.qmd#s-standard-errors-in-a-glm"],
           links=["standard errors?", "standard error of the mean"]),
     topic("Bias of an estimator", "inf-02-estimation.qmd: The split is the variance–bias tradeoff",

@@ -21,3 +21,8 @@ Type: Concept/topic.
 - The single collapsed proof covers the stated independent and dependent difference rules, affine rule, sample-size relation, and exact normal-sample $t$ interval. The new worked example gives the units and a follow-up two-sample calculation.
 - `checks/standard-error.py` recomputes the new values and the old safety-programme calculation and normal coverages. The quoted $t_{24,0.975}=2.064$ is rounded, so its endpoints are approximate.
 - History confines itself to what the 1908 paper and modern NIST pages directly show. No date or attribution was inferred for the invention of the phrase “standard error.”
+
+## Correction pass
+
+- The added Casella–Berger citation had no opened supporting text. The variance identities now cite the opened Grinstead–Snell chapter 6 exercise, and the exact normal-sample $t$ claim cites the opened Siegrist §6.08 and NIST §1.3.5.2 passages. Student's original paper is cited only for the small-sample problem read in pp. 1–5. New citations identify a section, glossary entry, chapter exercise, or page.
+- The inherited confidence-interval excerpt now cites the opened sources for its variance and coverage calculations. Removed new GLM commentary that the opened NIST pages did not support. The arithmetic check asserts the displayed numbers in the worked example, follow-up answer, and safety-programme excerpt.

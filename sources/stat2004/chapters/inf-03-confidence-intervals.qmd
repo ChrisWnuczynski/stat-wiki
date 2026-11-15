@@ -10,13 +10,13 @@ The normal, chi-squared, $t$ and $F$ laws used below are defined in [Statistical
 
 A company introduced new safety measures. In the 50 months since, lost working hours averaged 91 per month, with bias-corrected sample standard deviation 14.1. In the 50 months before, they averaged 108, with standard deviation 14.3. The estimate of the change in mean is $91-108=-17$ hours per month. How accurate is it?
 
-Model the two runs of months as independent samples, with means $\mu_1$ and $\mu_2$ and a common variance $\sigma^2$. The estimator $\overline X_1-\overline X_2$ is unbiased for $\mu_1-\mu_2$, with variance
+Model the two runs of months as independent samples, with means $\mu_1$ and $\mu_2$ and a common variance $\sigma^2$. The estimator $\overline X_1-\overline X_2$ is unbiased for $\mu_1-\mu_2$, with variance{{cite:grinstead_snell1997}} (Ch. 6, §6.2, Ex. 23)
 
 $$
 \Var(\overline X_1-\overline X_2)=\frac{\sigma^2}{50}+\frac{\sigma^2}{50}=\frac{\sigma^2}{25}.
 $$
 
-Estimating $\sigma^2$ by the pooled variance $s_p^2=(49\times14.1^2+49\times14.3^2)/98=14.20^2$ gives a standard error of $14.20/5=2.84$. A common way to report this is $-17\pm2.84$, or $-17\pm2\times2.84$.
+Estimating $\sigma^2$ by the pooled variance $s_p^2=(49\times14.1^2+49\times14.3^2)/98=14.20^2$ gives a standard error of $14.20/5=2.84$. A common way to report this is $-17\pm2.84$, or $-17\pm2\times2.84$.{{cite:nist_mean_limits2002}} (§1.3.5.2)
 
 What probability goes with "estimate plus or minus a standard error"? Take the simplest case, $X_1,\ldots,X_n$ independent and $\Normal(\mu,1)$. Then $\sqrt n(\overline X-\mu)$ is standard normal, and
 
@@ -24,7 +24,7 @@ $$
 \Pr\bigl(\overline X-n^{-1/2}<\mu<\overline X+n^{-1/2}\bigr)=\Pr\bigl(-1<\sqrt n(\overline X-\mu)<1\bigr)=2\Phi(1)-1=0.683.
 $$
 
-Plus or minus one standard error covers $\mu$ only 68% of the time.{{cite:casella_berger2002}} Plus or minus two covers it with probability $2\Phi(2)-1=0.954$.{{cite:neyman1937}} Choosing the multiplier is choosing the coverage.{{cite:wasserman2004}}
+Plus or minus one standard error covers $\mu$ about 68% of the time under this normal model. Plus or minus two covers it with probability $2\Phi(2)-1=0.954$. Choosing the multiplier sets the coverage.{{cite:nist_mean_limits2002}} (§1.3.5.2)
 
 ## Coverage
 
