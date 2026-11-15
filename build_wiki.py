@@ -3473,6 +3473,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 page["blocks"] = distribution_article_template(article, page["blocks"])
             elif article["box"] and article["box"]["kind"] in {"theorem", "proposition", "corollary"}:
                 page["blocks"] = theorem_article_template(article, page["blocks"])
+            else:
+                page["blocks"] = concept_article_template(article, page["blocks"])
 
     import citations
 
@@ -4102,16 +4104,20 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     copied = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt", "explanation")
     if copied:
         definition += "\n\n" + copied
+    relatives = list(dict.fromkeys(
+        facts["related"] + [slug for slug, other in DISTRIBUTIONS.items() if article["slug"] in other["related"]]
+    ))
+    examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
     sections = (
         ("Definition", "definition", definition),
         ("Properties", "properties", content("property-head", "property", "figures-head", "figure")),
         ("Related distributions", "related-distributions", " · ".join(
             f"[{DISTRIBUTIONS[s]['name']} distribution]({href(path, ARTICLE_DIR / f'{s}.qmd')})"
-            for s in facts["related"])),
+            for s in relatives)),
         ("Statistical inference", "used-in", content("used-in")),
-        ("Generating random samples", "generating-random-samples", ""),
+        ("Generating random samples", "generating-random-samples", facts["sampling"]),
         ("History", "history", facts["history"]),
-        ("Examples", "examples", content("example-head", "example", "example-answer-open", "example-answer-close")),
+        ("Examples", "examples", examples),
         ("See also", "see-also", content("see-also")),
     )
     for title, ident, body in sections:
@@ -4121,6 +4127,15 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
 
 
 PROVED_RESULT_SLUGS: set[str] = set()
+
+
+def try_it_callout(article: dict) -> str:
+    spec = topics.LAB_FOR_TOPIC.get(article["slug"])
+    if not spec:
+        return ""
+    lab_name, label, action = spec
+    target = WIKI / "labs" / lab_name
+    return f'::: {{.callout-tip title="Try it"}}\n[Open the {label} laboratory]({href(article["path"], target)}) to {action}.\n:::'
 
 
 def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
@@ -4181,6 +4196,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
     see_also = content("see-also")
     if uses:
         see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
+    examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
 
     sections = (
         ("Statement", "statement", statement),
@@ -4189,7 +4205,129 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         ("Generalizations", "generalizations", content("property-head", "property")),
         ("Common misconceptions", "common-misconceptions", "\n\n".join(misconception_parts)),
         ("History", "history", ARTICLE_HISTORIES.get(article["slug"], "")),
-        ("Examples", "examples", content("example-head", "example", "example-answer-open", "example-answer-close")),
+        ("Examples", "examples", examples),
+        ("See also", "see-also", see_also),
+    )
+    for title, ident, body in sections:
+        if body.strip():
+            out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+    return out
+
+
+def concept_lead(article: dict) -> str:
+    """Make a field-first, formula-free opening from curated or source prose."""
+    box = article["box"]
+    term = box_term(article["term"])
+    field = {"Probability": "probability theory", "Stochastic processes": "stochastic-process theory"}.get(box["part"], box["part"].lower())
+    description = CONCEPT_LEADS.get(article["slug"])
+    sources = [box.get("lead") or "", box.get("snippet") or ""]
+    if not description:
+        for source in sources:
+            raw = re.sub(r"!?(?:\[([^]]+)\]\([^)]*\))", r"\1", source)
+            raw = re.sub(r"\{\{cite:[^}]+\}\}|\{\.[^}]+\}", "", raw).strip()
+            if not raw or raw.startswith(("$$", "\\begin", "- ")):
+                continue
+            first = re.split(r"(?<=[.!?])\s+|\n", raw, maxsplit=1)[0].strip().rstrip(".!?")
+            if "$" in first:
+                prefix = first.split("$", 1)[0].strip(" ,;:")
+                if len(prefix.split()) >= 6 and not re.search(r"\b(?:when|where|of|for|with|and|or|is|are|in|at|by|the|a|an)$", prefix, flags=re.I):
+                    first = prefix
+                elif first.startswith("$"):
+                    tail = re.sub(r"^\$[^$]+\$\s*,?\s*", "", first)
+                    tail = tail.split("$", 1)[0].strip(" ,;:")
+                    first = tail if re.match(r"^(?:a|an|the)\s+", tail, flags=re.I) and len(tail.split()) >= 5 else ""
+                else:
+                    first = ""
+            first = re.sub(r"\s+", " ", first).strip(" ,;:")
+            if not first or len(first) > 190 or "\\" in first or first.endswith("…"):
+                continue
+            named = re.match(rf"^(?:The )?{re.escape(term)}\s+(?:is|are)\s+(.+)$", first, flags=re.I)
+            finite_verb = re.search(
+                r"\b(?:is|are|was|were|has|have|can|will|does|gives|shows|differs|follows|depends|uses|assumes|produces|moves|becomes|spends|replaces|stops|starts|takes|returns|visits|arrives|scores|fits|estimates|appears|means|implies)\b",
+                first, flags=re.I,
+            )
+            if named and len(named.group(1).split()) >= 4:
+                description = named.group(1)
+            elif re.match(r"^(?:A|An)\s+\w", first) and len(first.split()) >= 5 and not finite_verb and not re.search(r"\b(?:if|then)\b", first, flags=re.I):
+                description = first[0].lower() + first[1:]
+            elif re.match(r"^The\s+\w", first) and not finite_verb and len(first.split()) >= 5:
+                description = first[0].lower() + first[1:]
+            if description:
+                break
+    if not description:
+        lower = term.lower()
+        for ending, gloss in (
+            (" test", "a procedure for assessing a statistical claim using sample data"),
+            (" model", "a model that describes how observed variables are generated or related"),
+            (" estimator", "a rule for estimating an unknown quantity from sample data"),
+            (" estimate", "an estimate of an unknown quantity based on sample data"),
+            (" algorithm", "a computational procedure for fitting or using a model"),
+            (" method", "a procedure used to analyse data or fit a model"),
+            (" distribution", "a probability law for the possible values of a random quantity"),
+            (" probability", "a probability assigned to a specified event under a model"),
+            (" probabilities", "a set of probabilities assigned to specified events under a model"),
+            (" interval", "a range of values used to express uncertainty about a quantity"),
+            (" matrix", "an array of values used to encode a mathematical relationship"),
+            (" function", "a function used to describe a model or its data"),
+            (" regression", "a model relating a response to one or more predictors"),
+            (" process", "a stochastic model for values that evolve over time or space"),
+            (" chain", "a sequence of random states governed by transition probabilities"),
+            (" rate", "a measure of frequency or change in a probabilistic model"),
+            (" criterion", "a rule for judging or comparing statistical models"),
+            (" loss", "a numerical measure of error for a decision or prediction"),
+            (" error", "a measure of how far a result differs from its target"),
+            (" statistic", "a number computed from data to summarise evidence"),
+            (" decomposition", "an identity that separates a quantity into interpretable parts"),
+            (" correlation", "a description of linear dependence between observations"),
+            (" distance", "a measure of how far apart two observations are"),
+            (" sample", "a collection of observations selected from a population"),
+            (" data", "a dataset used to study statistical methods"),
+        ):
+            if lower.endswith(ending):
+                description = gloss
+                break
+    if not description:
+        description = f"an idea used to analyse {term.lower()}"
+    return f"In {field}, **{term}** is {description.rstrip('.')}."
+
+
+def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
+    """Fixed definition/concept section order for every remaining article."""
+    by_label: dict[str, list[str]] = {}
+    for _, label, body in blocks:
+        by_label.setdefault(label, []).append(body)
+
+    def content(*labels: str) -> str:
+        pieces = []
+        for _, label, body in blocks:
+            if label not in labels:
+                continue
+            if label == "excerpt-head":
+                body = re.sub(r"^## In \*.*?\*.*?\n\n", "", body)
+            elif label in {"statement-head", "properties-head", "examples-head", "figures-head", "see-also", "used-in"}:
+                body = re.sub(r"^\s*## [^\n]+\n+", "", body)
+            if label != "example-answer-open":
+                body = re.sub(r"^## (?!#)", "### ", body, flags=re.M)
+            if body.strip():
+                pieces.append(body.strip())
+        return "\n\n".join(pieces)
+
+    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
+           (False, "infobox", "".join(by_label.get("infobox", []))),
+           (True, "lead", concept_lead(article) + "\n\n")]
+    definition = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
+    interpretation = content("explanation", "figures-head", "figure")
+    uses = content("used-in")
+    see_also = content("see-also")
+    if uses:
+        see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
+    examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
+    sections = (
+        ("Definition", "definition", definition),
+        ("Properties", "properties", content("property-head", "property")),
+        ("Interpretation", "interpretation", interpretation),
+        ("History", "history", ARTICLE_HISTORIES.get(article["slug"], "")),
+        ("Examples", "examples", examples),
         ("See also", "see-also", see_also),
     )
     for title, ident, body in sections:
@@ -4520,7 +4658,7 @@ def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = No
 # ---------------------------------------------------------------------------
 
 from article_extras import (  # noqa: E402
-    ARTICLE_HISTORIES, BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES,
+    ARTICLE_HISTORIES, BOOK_EXAMPLES, CHAPTER_FIGURES, CONCEPT_LEADS, EXAMPLES, FIGURES,
     NOTES, PROPERTIES, THEOREM_INFO, THEOREM_LEADS, THEOREM_PROOFS,
 )
 

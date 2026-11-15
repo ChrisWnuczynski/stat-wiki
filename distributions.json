@@ -45,7 +45,8 @@
         "meaning": "binary outcome"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": "Draw a uniform value $U$ between zero and one, then return $1$ when $U<p$ and $0$ otherwise, where $p$ is the success probability."
   },
   "beta-distribution": {
     "name": "Beta",
@@ -92,7 +93,8 @@
         "meaning": "second shape parameter"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "binomial-distribution": {
     "name": "Binomial",
@@ -141,7 +143,8 @@
         "meaning": "number of successes"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": "Draw $n$ independent Bernoulli values with success probability $p$ and add them, where $n$ is the trial count."
   },
   "cauchy-distribution": {
     "name": "Cauchy",
@@ -185,7 +188,8 @@
         "meaning": "scale parameter"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=x_0+\\gamma\\tan[\\pi(U-1/2)]$, where $x_0$ is the location and $\\gamma$ is the scale."
   },
   "chi-squared-distribution": {
     "name": "Chi-squared",
@@ -230,7 +234,8 @@
         "meaning": "degrees of freedom"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom."
   },
   "conway-maxwell-poisson-distribution": {
     "name": "Conway–Maxwell–Poisson",
@@ -274,7 +279,8 @@
         "meaning": "normalising constant"
       }
     ],
-    "history": "Conway and Maxwell introduced this count model in a 1962 study of queues with state-dependent service rates.{{cite:conway_maxwell1962}}"
+    "history": "Conway and Maxwell introduced this count model in a 1962 study of queues with state-dependent service rates.{{cite:conway_maxwell1962}}",
+    "sampling": ""
   },
   "dirichlet-distribution": {
     "name": "Dirichlet",
@@ -318,7 +324,8 @@
         "meaning": "concentration vector"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "exponential-distribution": {
     "name": "Exponential",
@@ -360,7 +367,8 @@
         "meaning": "event rate"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=-\\log U/\\lambda$, where $\\lambda$ is the event rate."
   },
   "f-distribution": {
     "name": "F",
@@ -407,7 +415,8 @@
         "meaning": "denominator degrees of freedom"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "gamma-distribution": {
     "name": "Gamma",
@@ -452,7 +461,8 @@
         "meaning": "rate parameter"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "geometric-distribution": {
     "name": "Geometric",
@@ -494,7 +504,8 @@
         "meaning": "success probability per trial"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "hypergeometric-distribution": {
     "name": "Hypergeometric",
@@ -542,7 +553,8 @@
         "meaning": "marked population items"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "inverse-gamma-distribution": {
     "name": "Inverse gamma",
@@ -584,7 +596,8 @@
         "meaning": "shape parameter"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "inverse-gaussian-distribution": {
     "name": "Inverse Gaussian",
@@ -630,7 +643,8 @@
         "meaning": "shape parameter"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "lognormal-distribution": {
     "name": "Lognormal",
@@ -676,7 +690,8 @@
         "meaning": "standard deviation on the log scale"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "multinomial-distribution": {
     "name": "Multinomial",
@@ -720,7 +735,8 @@
         "meaning": "vector of category probabilities"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "multivariate-normal-distribution": {
     "name": "Multivariate normal",
@@ -765,7 +781,8 @@
         "meaning": "covariance matrix"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "negative-binomial-distribution": {
     "name": "Negative binomial",
@@ -808,7 +825,8 @@
         "meaning": "dispersion parameter"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": ""
   },
   "normal-distribution": {
     "name": "Normal",
@@ -856,7 +874,8 @@
         "meaning": "standard deviation"
       }
     ],
-    "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies.{{cite:gauss1809}}"
+    "history": "Gauss used the normal error law in his 1809 work on the orbits of celestial bodies.{{cite:gauss1809}}",
+    "sampling": "The Box–Muller method transforms two independent uniform draws into two independent standard normal draws; multiply either by $\\sigma$ and add $\\mu$, where $\\mu$ is the desired mean and $\\sigma$ the standard deviation.{{cite:box_muller1958}}"
   },
   "pareto-distribution": {
     "name": "Pareto",
@@ -902,7 +921,8 @@
         "meaning": "tail parameter"
       }
     ],
-    "history": "Pareto described the heavy-tailed pattern of economic quantities in his 1909 manual.{{cite:pareto1909}}"
+    "history": "Pareto described the heavy-tailed pattern of economic quantities in his 1909 manual.{{cite:pareto1909}}",
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=x_m(1-U)^{-1/\\alpha}$, where $x_m$ is the minimum and $\\alpha$ is the tail parameter."
   },
   "poisson-distribution": {
     "name": "Poisson",
@@ -946,7 +966,8 @@
         "meaning": "mean event count"
       }
     ],
-    "history": "Poisson discussed this count law in his 1837 treatise on probability.{{cite:poisson1837}}"
+    "history": "Poisson discussed this count law in his 1837 treatise on probability.{{cite:poisson1837}}",
+    "sampling": "Draw a uniform value $U$ and return the smallest count $x$ whose cumulative probability is at least $U$."
   },
   "student-t-distribution": {
     "name": "Student t",
@@ -988,7 +1009,8 @@
         "meaning": "degrees of freedom"
       }
     ],
-    "history": "The distribution was published in 1908 under the pseudonym Student in a paper on the probable error of a mean.{{cite:student1908}}"
+    "history": "The distribution was published in 1908 under the pseudonym Student in a paper on the probable error of a mean.{{cite:student1908}}",
+    "sampling": ""
   },
   "uniform-distribution": {
     "name": "Uniform",
@@ -1032,7 +1054,8 @@
         "meaning": "upper endpoint"
       }
     ],
-    "history": ""
+    "history": "",
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=a+(b-a)U$, where $a$ and $b$ are the interval endpoints."
   },
   "weibull-distribution": {
     "name": "Weibull",
@@ -1078,7 +1101,8 @@
         "meaning": "scale parameter"
       }
     ],
-    "history": "Weibull presented this family as a widely applicable statistical distribution in 1951.{{cite:weibull1951}}"
+    "history": "Weibull presented this family as a widely applicable statistical distribution in 1951.{{cite:weibull1951}}",
+    "sampling": "Draw $U$ uniformly between zero and one and set $X=\\lambda[-\\log(1-U)]^{1/k}$, where $k$ is the shape and $\\lambda$ the scale."
   },
   "wishart-distribution": {
     "name": "Wishart",
@@ -1125,6 +1149,7 @@
         "meaning": "scale matrix"
       }
     ],
-    "history": "Wishart described the multivariate product-moment distribution in 1928.{{cite:wishart1928}}"
+    "history": "Wishart described the multivariate product-moment distribution in 1928.{{cite:wishart1928}}",
+    "sampling": ""
   }
 }

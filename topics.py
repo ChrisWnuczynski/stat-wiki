@@ -2136,3 +2136,29 @@ HATNOTES: dict[str, list[tuple[str, str, str]]] = {
     ],
 }
 
+
+# An exact article-slug mapping keeps laboratory links on the pages that teach
+# the same model or diagnostic. The repository currently has four interactive
+# laboratory pages; labs/index.qmd is their index, not a fifth lab.
+LAB_FOR_TOPIC = {
+    "kernel-density-estimator": ("kernel-density.qmd", "Kernel density", "change the bandwidth and watch the fitted density"),
+    "gaussian-kernel": ("kernel-density.qmd", "Kernel density", "change the bandwidth and watch the fitted density"),
+    "epanechnikov-kernel": ("kernel-density.qmd", "Kernel density", "compare kernel density curves"),
+    "beta-distribution": ("beta-binomial.qmd", "Beta–Binomial updating", "change the prior and see how the posterior moves"),
+    "binomial-distribution": ("beta-binomial.qmd", "Beta–Binomial updating", "change the trial counts and see the posterior update"),
+    "bernoulli-distribution": ("beta-binomial.qmd", "Beta–Binomial updating", "change the trial counts and see the posterior update"),
+    "beta-binomial-conjugacy": ("beta-binomial.qmd", "Beta–Binomial updating", "compare the prior and posterior"),
+    "beta-binomial-posterior-prediction": ("beta-binomial.qmd", "Beta–Binomial updating", "compare predictions under different priors"),
+    "markov-chain": ("markov-chain.qmd", "Markov chains", "change transition probabilities and watch the chain evolve"),
+    "finite-state-markov-chain": ("markov-chain.qmd", "Markov chains", "change transition probabilities and watch the chain evolve"),
+    "transition-matrix": ("markov-chain.qmd", "Markov chains", "change transition probabilities and watch the chain evolve"),
+    "stationary-distribution": ("markov-chain.qmd", "Markov chains", "compare long-run state frequencies"),
+    "detailed-balance-implies-stationarity": ("markov-chain.qmd", "Markov chains", "compare long-run state frequencies"),
+    "irreducible-markov-chain": ("markov-chain.qmd", "Markov chains", "see how reachability changes long-run behaviour"),
+    "aperiodic-markov-chain": ("markov-chain.qmd", "Markov chains", "see how periodicity changes convergence"),
+    "confidence-interval": ("ci-coverage.qmd", "Interval coverage", "compare interval methods across repeated samples"),
+    "coverage": ("ci-coverage.qmd", "Interval coverage", "compare the observed coverage with the nominal level"),
+    "standard-error": ("ci-coverage.qmd", "Interval coverage", "see how sample size changes interval width"),
+    "sample-size-for-a-confidence-interval": ("ci-coverage.qmd", "Interval coverage", "see how sample size changes interval width"),
+    "one-sample-t-pivot": ("ci-coverage.qmd", "Interval coverage", "compare interval methods across repeated samples"),
+}
