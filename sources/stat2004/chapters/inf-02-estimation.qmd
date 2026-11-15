@@ -103,7 +103,7 @@ $$
 L(\theta)=L(\theta;x_1,\ldots,x_n)=f(x_1,\ldots,x_n;\theta),\qquad \theta\in\Theta.
 $$
 
-{{cite:fisher1922}}{{cite:fisher1925_est}}{{cite:casella_berger2002}}
+{{cite:fisher1922}} (pp. 323–327)
 
 :::
 

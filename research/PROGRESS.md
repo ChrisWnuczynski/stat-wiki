@@ -51,6 +51,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 - Rank 26, joint probability density: corrected the independence and marginal claims, located citations, removed redundant pseudo-history and unresearched transformation prose, and tied worked values to the arithmetic check.
 - Rank 27, conditional independence: fixed its type, strengthened the correlation claim and proof, located new citations, removed new claims tied to an unopened source, and tied worked values to the arithmetic check. Inherited chapter citations remain for audit.
 - Rank 1, variance: replaced unopened citations in the source definition, located added citations, cited examples, removed repetitive history, and checked printed values in both added and inherited examples.
+- Rank 2, likelihood function: replaced unopened source-definition citations, located researched and extra-text citations, cited examples, and checked printed ratios and source-chapter values.
 
 ## Verification for completed pages
 

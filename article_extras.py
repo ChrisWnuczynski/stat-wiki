@@ -2156,9 +2156,9 @@ $$
 \ell(\theta)=\sum_{i=1}^n\log f(x_i;\theta)
 $$
 
-is a sum, up to any additive constant that does not depend on $\theta$. A multiplicative constant with no $\theta$ in it does not change ratios $L(\theta_1)/L(\theta_2)$ and does not move the maximiser. The binomial coefficient in a binomial likelihood is such a constant. The likelihood is not a probability distribution for $\theta$: nothing in the definition makes it integrate or sum to $1$ over the parameter space.
+is a sum, up to any additive constant that does not depend on $\theta$. A multiplicative constant with no $\theta$ in it does not change ratios $L(\theta_1)/L(\theta_2)$ and does not move the maximiser. The binomial coefficient in a binomial likelihood is such a constant. The likelihood is not a probability distribution for $\theta$: nothing in the definition makes it integrate or sum to $1$ over the parameter space.{{cite:fisher1922}} (pp. 323–327)
 
-The ratio $L(\theta_1)/L(\theta_2)$ is the relative support for $\theta_1$ against $\theta_2$ on these data. [Maximum likelihood](maximum-likelihood.qmd) chooses a $\theta$ that maximises that support inside the family that was written down. If the family excludes the truth, the maximiser selects the best member of a family that is still wrong.
+The ratio $L(\theta_1)/L(\theta_2)$ is the relative support for $\theta_1$ against $\theta_2$ on these data. [Maximum likelihood](maximum-likelihood.qmd) chooses a $\theta$ that maximises that support inside the family that was written down. If the family excludes the truth, the maximiser selects the best member of a family that is still wrong.{{cite:fisher1922}} (pp. 323–327)
 
 ## Seven successes in ten trials
 
@@ -2168,7 +2168,7 @@ $$
 \frac{L(0.7)}{L(0.5)}=\frac{0.7^{7}\times 0.3^{3}}{0.5^{10}}\approx 2.28.
 $$
 
-The observed count is a little more than twice as probable at $p=0.7$ as at $p=0.5$. The maximiser is $0.7$, the observed proportion. The numerical value of $L$ itself has no absolute scale; only the ratio does.
+The observed count is a little more than twice as probable at $p=0.7$ as at $p=0.5$. The maximiser is $0.7$, the observed proportion. The numerical value of $L$ itself has no absolute scale; only the ratio does.{{cite:fisher1922}} (pp. 323–327)
 """,
     "linear-congruential-generator": r"""
 ## A deterministic loop of length at most $m$
