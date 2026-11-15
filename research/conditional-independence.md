@@ -1,6 +1,6 @@
 # Conditional independence
 
-Type: Section.
+Type: Concept/definition.
 
 ## Existing material read
 
@@ -18,3 +18,8 @@ Type: Section.
 - The proof covers symmetry, reduction, contraction, and the two density cancellations already displayed. It is stated for positive discrete probabilities and for densities where the relevant marginals are positive.
 - `checks/conditional-independence.py` checks the joint probabilities, the marginal product \(1/4\), the joint success probability \(5/16\), the conditional probability \(5/8\), and the within-slice conditional probability \(1/4\).
 - The original definition, four bullets, five density identities, separating-set sentence, citation keys, and twenty-six question links remain.
+
+## Correction pass
+
+- Recast the page type as a concept/definition. Corrected the correlation wording to distinguish marginal from conditional correlation and supplied a counterexample for the converse.
+- The added prose now cites only Dawid §§3–4, the opened source. Removed new graphical-model and Lauritzen claims that this research did not substantiate; the pre-existing chapter excerpt still has Lauritzen citations and needs a separate source audit. Rephrased reader-facing prose and checked printed numerical values.

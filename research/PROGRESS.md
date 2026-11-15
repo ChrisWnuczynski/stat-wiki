@@ -34,7 +34,7 @@ Pages ranked: **718**. Done: **27**. Left: **691**. Skipped: **0**. Ranks 1–23
 | 24 | [Training set](training-set.md) | Concept/topic | [Prose](content/training-set.md), [check](../checks/training-set.py) | 221 → 2,843 | 0 → 0 | Phrase origin unverified and omitted; Efron 1983 read from a scanned PDF |
 | 25 | [Conditional expectation](conditional-expectation.md) | Concept/topic | [Prose](content/conditional-expectation.md), [check](../checks/conditional-expectation.py) | 317 → 2,467 | 0 → 0 | History limited to the opened Durrett author PDF |
 | 26 | [Joint probability density](joint-probability-density.md) | Concept/definition | [Prose](content/joint-probability-density.md), [check](../checks/joint-probability-density.py) | 469 → 2,410 | 0 → 0 | New claims use the opened Durrett author PDF; phrase origin omitted |
-| 27 | [Conditional independence](conditional-independence.md) | Section | [Prose](content/conditional-independence.md), [check](../checks/conditional-independence.py) | 505 → 2,255 | 0 → 0 | Dawid 1979 opened from a scan; Lauritzen 1996 not reopened |
+| 27 | [Conditional independence](conditional-independence.md) | Concept/definition | [Prose](content/conditional-independence.md), [check](../checks/conditional-independence.py) | 505 → 2,255 | 0 → 0 | Dawid 1979 opened from a scan; inherited Lauritzen citations need review |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
@@ -49,6 +49,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 - Rank 25, conditional expectation: corrected the conditional-density integral, added citation locations, removed a repetitive pseudo-history section, rephrased page-assembly language, and tied printed values to the arithmetic check.
 - Rank 24, training set: added citation locations, removed a historical non-claim, and tied worked values to the arithmetic check.
 - Rank 26, joint probability density: corrected the independence and marginal claims, located citations, removed redundant pseudo-history and unresearched transformation prose, and tied worked values to the arithmetic check.
+- Rank 27, conditional independence: fixed its type, strengthened the correlation claim and proof, located new citations, removed new claims tied to an unopened source, and tied worked values to the arithmetic check. Inherited chapter citations remain for audit.
 
 ## Verification for completed pages
 
