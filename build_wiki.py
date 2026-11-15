@@ -4367,7 +4367,7 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
             if heading in researched or not prose:
                 raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
             researched[heading] = prose
-        allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Properties",
+        allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Interpretation", "Properties",
                    "Statistical use", "Worked example", "Common misconceptions", "Assumptions and limits",
                    "Connections", "Check yourself", "History"}
         if not researched or set(researched) - allowed:
@@ -4378,7 +4378,7 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
             ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
             ("Intuition", "intuition", researched.get("Intuition", "")),
             ("Definition", "definition", "\n\n".join(filter(None, [definition, researched.get("Definition", "")]))),
-            ("Interpretation", "interpretation", interpretation),
+            ("Interpretation", "interpretation", "\n\n".join(filter(None, [researched.get("Interpretation", ""), interpretation]))),
             ("Properties", "properties", "\n\n".join(filter(None, [content("property-head", "property"), researched.get("Properties", "")]))),
             ("Statistical use", "statistical-use", researched.get("Statistical use", "")),
             ("Worked example", "worked-example", researched.get("Worked example", "")),
