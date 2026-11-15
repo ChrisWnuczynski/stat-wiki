@@ -2,9 +2,14 @@
 
 from fractions import Fraction
 from math import isclose, log, sqrt
+from pathlib import Path
+
+
+PAGE = Path(__file__).resolve().parents[1] / "articles" / "conditional-distribution.qmd"
 
 
 if __name__ == "__main__":
+    page = PAGE.read_text(encoding="utf-8")
     points = [(x, y) for y in range(1, 5) for x in range(1, y + 1)]
     ex = Fraction(sum(x for x, _ in points), len(points))
     ey = Fraction(sum(y for _, y in points), len(points))
@@ -42,6 +47,21 @@ if __name__ == "__main__":
         isclose(sqrt(20_000), 141.4213562373095),
         isclose(sqrt(2000), 44.721359549995796),
         isclose(-log(Fraction(1, 2)), log(2)),
+        "10 lattice points" in page,
+        "$1/10$" in page,
+        "$\\mathbb{E} X=2$" in page,
+        "$\\mathbb{E}(XY)=13/2$" in page,
+        "$\\rho(X,Y)=1/2$" in page,
+        "=30\\times20=600$" in page,
+        "=20000," in page,
+        "standard deviation is $141$" in page,
+        "$\\sqrt{2000}=45$" in page,
+        "=(2/10)/(3/10)=2/3$" in page,
+        "=(4/10)/(7/10)=4/7$" in page,
+        "=6/10=\\mathbb P(Y=1)$" in page,
+        "=(3/10)/(4/10)=3/4$" in page,
+        "f_{Y\\mid X}(y\\mid x)=1/x$" in page,
+        "f_Y(y)=\\int_y^1\\frac{\\,\\mathrm{d} x}x=-\\log y" in page,
     ]
-    assert all(checks)
+    assert all(checks), [index for index, passed in enumerate(checks, 1) if not passed]
     print(f"conditional-distribution arithmetic: {len(checks)} checks passed")

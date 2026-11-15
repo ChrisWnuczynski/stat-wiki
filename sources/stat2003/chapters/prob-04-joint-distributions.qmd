@@ -146,15 +146,15 @@ If $X$ and $Y$ are both discrete or both continuous, and $f_X(x)>0$, the conditi
 $$
 f_{Y\given X}(y\given x)=\frac{f_{X,Y}(x,y)}{f_X(x)}.
 $$
-{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}}
+{{cite:kolmogorov1933_slln}} (Ch. V, §3){{cite:billingsley1995}} (§33, Ex. 33.5)
 
 :::
 
-In the discrete case this is ordinary conditional probability: $\Pr(Y=y\given X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$. In the continuous case, where $\Pr(X=x)=0$, the density ratio defines a version of the conditional law at marginal-almost-every $x$ with $f_X(x)>0$. A limit of conditioning on $x<X\le x+h$ gives the same value only where the relevant limit exists; conditioning on the exact zero-probability event by division is not valid.
+In the discrete case this is ordinary conditional probability: $\Pr(Y=y\given X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$. In the continuous case, where $\Pr(X=x)=0$, the density ratio defines a version of the conditional law at marginal-almost-every $x$ with $f_X(x)>0$. A limit of conditioning on $x<X\le x+h$ gives the same value only where the relevant limit exists; conditioning on the exact zero-probability event by division is not valid.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 ![Draw $X$ uniformly on $[0,1]$, then $Y$ uniformly on $[0,X]$. The pair lies in the triangle below the diagonal. The conditional distribution of $Y$ given $X=x$ lives on the vertical slice at $x$, here $x=0.72$, and is uniform along it.](../figures/prob-04-joint-distributions-conditional-slice.pdf){#fig-prob-conditional-slice}
 
-Rearrangement is the product rule for densities, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)$. Integrating out $x$ is the law of total probability for densities,
+Rearrangement is the product rule for densities, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)$. Integrating out $x$ is the law of total probability for densities,{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_Y(y)=\int f_{Y\given X}(y\given x)\,f_X(x)\,\dd x.
@@ -165,29 +165,29 @@ The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under th
 ::: {#exm-a-uniform-point-on-a-triangle .example}
 ## A uniform point on a triangle
 
-A point $(X,Y)$ is drawn uniformly from the 10 lattice points with $1\le x\le y\le4$, so each has probability $1/10$.
+A point $(X,Y)$ is drawn uniformly from the 10 lattice points with $1\le x\le y\le4$, so each has probability $1/10$. The conditional probabilities below follow by dividing each joint mass by the appropriate marginal mass.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 **Question.** Find the marginals, the conditional distribution of $Y$ given $X=x$, and $\E(Y\given X)$. Check the tower property, and find the correlation.
 
-**Solution.** For a given $x$ there are $5-x$ admissible values of $y$, and for a given $y$ there are $y$ values of $x$, so
+**Solution.** For a given $x$ there are $5-x$ admissible values of $y$, and for a given $y$ there are $y$ values of $x$, so{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_X(x)=\frac{5-x}{10},\qquad f_Y(y)=\frac{y}{10},\qquad x,y\in\{1,2,3,4\}.
 $$
 
-$X$ and $Y$ are dependent: given $X=2$, $Y$ can only be 2, 3 or 4. The conditional mass function is
+$X$ and $Y$ are dependent: given $X=2$, $Y$ can only be 2, 3 or 4. The conditional mass function is{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_{Y\given X}(y\given x)=\frac{1/10}{(5-x)/10}=\frac1{5-x},\qquad y=x,\ldots,4,
 $$
 
-uniform on the admissible values. So $\E(Y\given X=x)=(x+4)/2$. Averaging over $X$,
+uniform on the admissible values. So $\E(Y\given X=x)=(x+4)/2$. Averaging over $X$,{{cite:durrett2019}} (Thm. 4.1.13)
 
 $$
 \E\bigl(\E(Y\given X)\bigr)=\tfrac52\cdot\tfrac4{10}+3\cdot\tfrac3{10}+\tfrac72\cdot\tfrac2{10}+4\cdot\tfrac1{10}=3,
 $$
 
-which agrees with $\E Y=(1+4+9+16)/10=3$. For the correlation, $\E X=2$, $\E(XY)=13/2$ and both variances are 1, so $\Cov(X,Y)=13/2-6=1/2$ and $\rho(X,Y)=1/2$. A larger $X$ forces a larger $Y$.
+which agrees with $\E Y=(1+4+9+16)/10=3$. For the correlation, $\E X=2$, $\E(XY)=13/2$ and both variances are 1, so $\Cov(X,Y)=13/2-6=1/2$ and $\rho(X,Y)=1/2$. A larger $X$ forces a larger $Y$.{{cite:durrett2019}} (Thm. 4.1.13)
 
 :::
 
@@ -198,28 +198,28 @@ If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$.{{cite:durret
 
 :::
 
-The tower property is the calculation that justifies "first condition, then average". A random sum is the standard example. Let $N$ be a count with a finite mean, and given $N=n$ let $Y=X_1+\cdots+X_n$ with the $X_i$ independent of $N$ and of each other, each with mean $\mu$. Then $\E(Y\given N)=N\mu$, so $\E Y=\mu\,\E N$. The same conditioning gives $\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2$ when the variances exist.
+The tower property is the calculation that justifies "first condition, then average". A random sum is one example. Let $N$ be a count with a finite mean, and given $N=n$ let $Y=X_1+\cdots+X_n$ with the $X_i$ independent of $N$ and of each other, each with mean $\mu$. Then $\E(Y\given N)=N\mu$, so $\E Y=\mu\,\E N$. The same conditioning gives $\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2$ when the variances exist.{{cite:durrett2019}} (Thm. 4.1.13)
 
 ::: {#exm-a-day-of-takings .example}
 ## A day of takings
 
-A shop has $N\sim\Poisson(20)$ customers a day. Customers spend independently of one another and of $N$, each with mean 30 dollars and standard deviation 10 dollars.
+A shop has $N\sim\Poisson(20)$ customers a day. Customers spend independently of one another and of $N$, each with mean 30 dollars and standard deviation 10 dollars. Conditioning on $N$ turns the total into a sum of a fixed number of spending amounts.{{cite:durrett2019}} (Thm. 4.1.13)
 
 **Question.** Find the mean and standard deviation of the day's takings.
 
-**Solution.** The takings are a random sum $Y=X_1+\cdots+X_N$. By the tower property, $\E Y=\mu\,\E N=30\times20=600$ dollars. For the variance, $\Var(N)=20$ for a Poisson count, so
+**Solution.** The takings are a random sum $Y=X_1+\cdots+X_N$. By the tower property, $\E Y=\mu\,\E N=30\times20=600$ dollars. For the variance, $\Var(N)=20$ for a Poisson count, so{{cite:durrett2019}} (Thm. 4.1.13)
 
 $$
 \Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2=20\times100+20\times900=20000,
 $$
 
-and the standard deviation is $141$ dollars. Most of the variability comes from the number of customers, not from what each one spends: if $N$ were fixed at 20, the standard deviation would be only $\sqrt{2000}=45$ dollars.
+and the standard deviation is $141$ dollars. Most of the variability comes from the number of customers, not from what each one spends: if $N$ were fixed at 20, the standard deviation would be only $\sqrt{2000}=45$ dollars.{{cite:durrett2019}} (Thm. 4.1.13)
 
 :::
 
 ::: {.callout-note}
 ## Key idea
-The joint distribution is the whole model. Marginals are sums or integrals of it. Independence is factorisation. Covariance is the numerical trace of dependence that variance of a sum can see, and conditional distributions are the joint divided by the marginal.
+The joint distribution specifies both marginals. Independence is factorisation, while covariance summarizes linear dependence. A conditional mass or density is obtained by dividing the joint by the conditioning marginal wherever that marginal is positive.{{cite:billingsley1995}} (§33, Ex. 33.5)
 :::
 
 ## Exercises
@@ -311,7 +311,7 @@ A pair $(X,Y)$ has joint density $f(x,y)=2e^{-x-2y}$ for $x>0$ and $y>0$.
 ::: {#ex-prob-triangle-conditional .exercise}
 ## A point in a triangle
 
-A point $(X,Y)$ is drawn from the triangle with vertices $(0,0)$, $(1,0)$ and $(1,1)$ by this rule: draw $X$ uniformly from $[0,1]$, then draw $Y$ uniformly from $[0,X]$.
+A point $(X,Y)$ is drawn from the triangle with vertices $(0,0)$, $(1,0)$ and $(1,1)$ by this rule: draw $X$ uniformly from $[0,1]$, then draw $Y$ uniformly from $[0,X]$. The construction uses a conditional uniform law on each vertical slice.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 (a) Give the conditional density of $Y$ given $X=x$, and say where it is zero.
 

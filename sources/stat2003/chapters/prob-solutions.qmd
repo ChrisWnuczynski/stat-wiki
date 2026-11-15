@@ -565,17 +565,17 @@ $$
 
 []{#sol-prob-triangle-conditional} **[A point in a triangle](#ex-prob-triangle-conditional).**
 
-(a) Given $X=x$, $Y$ is uniform on $[0,x]$, so $f_{Y\given X}(y\given x)=1/x$ for $0\le y\le x$ and $0$ otherwise.
+(a) Given $X=x$, $Y$ is uniform on $[0,x]$, so $f_{Y\given X}(y\given x)=1/x$ for $0\le y\le x$ and $0$ otherwise.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
-(b) By the product rule for densities,
+(b) By the product rule for densities,{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)=\frac1x,\qquad 0\le y\le x\le1,
 $$
 
-and zero elsewhere. The point is not uniform on the triangle, whose uniform density would be the constant $2$: it is crowded towards the vertex at the origin, where the thin vertical slices are.
+and zero elsewhere. The point is not uniform on the triangle, whose uniform density would be the constant $2$: it is crowded towards the vertex at the origin, where the thin vertical slices are.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
-(c) Integrating out $x$,
+(c) Integrating out $x$,{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_Y(y)=\int_y^1\frac{\dd x}x=-\log y,\qquad 0<y<1.
