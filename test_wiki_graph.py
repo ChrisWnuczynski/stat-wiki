@@ -1324,8 +1324,27 @@ class ConceptTemplateTests(unittest.TestCase):
             if page.stem in build_wiki.DISTRIBUTIONS or "| Statement | [Read statement](#statement) |" in body:
                 continue
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-            order = ["Definition", "Properties", "Interpretation", "History", "Examples", "See also", "References"]
+            if (build_wiki.WIKI / "research" / "content" / f"{page.stem}.md").is_file():
+                order = ["Motivating example", "Intuition", "Definition", "Interpretation", "Properties", "Statistical use",
+                         "Worked example", "Examples", "Common misconceptions", "Assumptions and limits",
+                         "Connections", "Check yourself", "History", "See also", "References"]
+            else:
+                order = ["Definition", "Properties", "Interpretation", "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
+
+    def test_research_pass_preserves_article_words_and_figures(self) -> None:
+        baseline_path = build_wiki.WIKI / "research" / "baseline.json"
+        if not baseline_path.is_file():
+            self.skipTest("Research baseline has not been recorded")
+        baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+        self.assertEqual(len(baseline), len(list((build_wiki.WIKI / "articles").glob("*.qmd"))))
+        for slug, minimum in baseline.items():
+            text = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
+            leading = text.split("## See also", 1)[0]
+            words = len(re.findall(r"\b[\w-]+\b", re.sub(r"<[^>]+>", " ", leading)))
+            figures = len(re.findall(r"!\[[^]]*\]\(", text))
+            self.assertGreaterEqual(words, minimum["words"], slug)
+            self.assertGreaterEqual(figures, minimum["figures"], slug)
 
     def test_curated_histories_are_cited(self) -> None:
         import article_extras

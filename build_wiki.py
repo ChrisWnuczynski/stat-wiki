@@ -4355,6 +4355,45 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
     if uses:
         see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
+    research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
+    if research_file.is_file():
+        # Page-specific researched prose lives in its own source file so each
+        # article can be committed and reverted independently. Existing copied
+        # definitions, examples, figures, and citations remain in place.
+        raw = research_file.read_text(encoding="utf-8")
+        researched: dict[str, str] = {}
+        for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
+            heading, prose = match.group(1), match.group(2).strip()
+            if heading in researched or not prose:
+                raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
+            researched[heading] = prose
+        allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Interpretation", "Properties",
+                   "Statistical use", "Worked example", "Common misconceptions", "Assumptions and limits",
+                   "Connections", "Check yourself", "History"}
+        if not researched or set(researched) - allowed:
+            raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
+        out[2] = (True, "lead", article_lead(article) + source_lead_citations(blocks)
+                  + " " + researched.get("Lead context", "") + "\n\n")
+        ordered = (
+            ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
+            ("Intuition", "intuition", researched.get("Intuition", "")),
+            ("Definition", "definition", "\n\n".join(filter(None, [definition, researched.get("Definition", "")]))),
+            ("Interpretation", "interpretation", "\n\n".join(filter(None, [researched.get("Interpretation", ""), interpretation]))),
+            ("Properties", "properties", "\n\n".join(filter(None, [content("property-head", "property"), researched.get("Properties", "")]))),
+            ("Statistical use", "statistical-use", researched.get("Statistical use", "")),
+            ("Worked example", "worked-example", researched.get("Worked example", "")),
+            ("Examples", "examples", examples),
+            ("Common misconceptions", "common-misconceptions", researched.get("Common misconceptions", "")),
+            ("Assumptions and limits", "assumptions-and-limits", researched.get("Assumptions and limits", "")),
+            ("Connections", "connections", researched.get("Connections", "")),
+            ("Check yourself", "check-yourself", researched.get("Check yourself", "")),
+            ("History", "history", "\n\n".join(filter(None, [ARTICLE_HISTORIES.get(article["slug"], ""), researched.get("History", "")]))),
+            ("See also", "see-also", see_also),
+        )
+        for title, ident, body in ordered:
+            if body.strip():
+                out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+        return out
     sections = (
         ("Definition", "definition", definition),
         ("Properties", "properties", content("property-head", "property")),
@@ -5040,11 +5079,15 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         )
     n_props = len(PROPERTIES.get(slug_, []))
     n_examples = len(EXAMPLES.get(slug_, [])) + sum(1 for s in BOOK_EXAMPLES.values() if slug_ in s) + len(TOPIC_EXAMPLES.get(slug_, []))
+    research_file = WIKI / "research" / "content" / f"{slug_}.md"
+    has_research_example = research_file.is_file() and "## Worked example\n" in research_file.read_text(encoding="utf-8")
+    n_examples += int(has_research_example)
     n_questions = len({source["path"] for source, _, _ in links if source["kind"] == "question"})
     if n_props:
         rows.append(("Property" if n_props == 1 else "Properties", f"[{n_props}](#properties)"))
     if n_examples:
-        rows.append(("Worked example" if n_examples == 1 else "Worked examples", f"[{n_examples}](#examples)"))
+        rows.append(("Worked example" if n_examples == 1 else "Worked examples",
+                     f"[{n_examples}](#{'worked-example' if has_research_example else 'examples'})"))
     if n_questions:
         rows.append(("Question using it" if n_questions == 1 else "Questions using it", f"[{n_questions}](#used-in)"))
     figures = FIGURES.get(slug_, [])

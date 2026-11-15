@@ -40,7 +40,7 @@ A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function d
 ::: {#def-continuous-distribution .definition}
 ## Continuous distribution
 
-$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}} The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $f=F'$ at every point where $F$ is differentiable.
+$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}} The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.
 
 :::
 

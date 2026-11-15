@@ -1559,6 +1559,20 @@
         "id": "10.1214/aos/1176344611"
       }
     },
+    "dicker2025_cdc": {
+      "authors": [
+        "Dicker, R. C."
+      ],
+      "year": 2025,
+      "title": "Analyzing and Interpreting Data",
+      "kind": "book",
+      "publisher": "Centers for Disease Control and Prevention, Field Epidemiology Manual",
+      "url": "https://www.cdc.gov/field-epi-manual/php/chapters/analyze-interpret-data.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.cdc.gov/field-epi-manual/php/chapters/analyze-interpret-data.html"
+      }
+    },
     "dickey_fuller1979": {
       "authors": [
         "Dickey, D. A.",
@@ -1945,6 +1959,39 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL146759W"
+      }
+    },
+    "fisher1912_curve": {
+      "authors": [
+        "Fisher, R. A."
+      ],
+      "year": 1912,
+      "title": "On an Absolute Criterion for Fitting Frequency Curves",
+      "kind": "article",
+      "venue": "Messenger of Mathematics",
+      "volume": "41",
+      "pages": "155–160",
+      "url": "https://jhanley.biostat.mcgill.ca/bios601/Likelihood/FisherLikelihoodPaper1912.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jhanley.biostat.mcgill.ca/bios601/Likelihood/FisherLikelihoodPaper1912.pdf"
+      }
+    },
+    "fisher1919_variance": {
+      "authors": [
+        "Fisher, R. A."
+      ],
+      "year": 1919,
+      "title": "XV.—The Correlation between Relatives on the Supposition of Mendelian Inheritance",
+      "kind": "article",
+      "venue": "Transactions of the Royal Society of Edinburgh",
+      "volume": "52",
+      "issue": "2",
+      "pages": "399–433",
+      "doi": "10.1017/S0080456800012163",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/S0080456800012163"
       }
     },
     "fisher1922": {
@@ -2575,6 +2622,22 @@
         "id": "10.1007/978-1-4899-4473-3"
       }
     },
+    "grinstead_snell1997": {
+      "authors": [
+        "Grinstead, C. M.",
+        "Snell, J. L."
+      ],
+      "year": 1997,
+      "title": "Introduction to Probability",
+      "kind": "book",
+      "edition": "2nd rev. ed.",
+      "publisher": "American Mathematical Society",
+      "url": "https://math.dartmouth.edu/~prob/prob/prob.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://math.dartmouth.edu/~prob/prob/prob.pdf"
+      }
+    },
     "greenwood_yule1920": {
       "authors": [
         "Greenwood, M.",
@@ -2920,6 +2983,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/0471722146"
+      }
+    },
+    "hoff2013_bayes_estimators": {
+      "authors": [
+        "Hoff, P. D."
+      ],
+      "year": 2013,
+      "title": "Bayes estimators",
+      "kind": "book",
+      "publisher": "Duke University",
+      "url": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf"
       }
     },
     "hotelling1931": {
@@ -4211,6 +4288,200 @@
         "id": "10.1002/9780470556986"
       }
     },
+    "nist_process_model2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm"
+      }
+    },
+    "nist_model_fit2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.4",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm"
+      }
+    },
+    "nist_mean_limits2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, 1.3.5.2 Confidence Limits for the Mean",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm"
+      }
+    },
+    "nist_glossary2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/glossary.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/glossary.htm"
+      }
+    },
+    "nist_correlation2013": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2013,
+      "title": "Dataplot Reference Manual, CORRELATION",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm"
+      }
+    },
+    "nist_covariance2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §6.5.4.1",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc541.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc541.htm"
+      }
+    },
+    "nist_error_propagation2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §3.1.3.3",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section1/ppc133.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/ppc/section1/ppc133.htm"
+      }
+    },
+    "nist_residual_std2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.5.9.9.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm"
+      }
+    },
+    "nist_handbook_mle2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.5.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm"
+      }
+    },
+    "nist_handbook2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm"
+      }
+    },
     "nelder_wedderburn1972": {
       "authors": [
         "Nelder, J. A.",
@@ -5441,6 +5712,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1186/1471-2105-8-25"
+      }
+    },
+    "siegrist2022_normals": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.8: Special Properties of Normal Samples",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples"
       }
     },
     "student1908": {
