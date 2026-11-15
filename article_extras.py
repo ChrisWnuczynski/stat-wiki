@@ -1122,17 +1122,17 @@ That is the [gamma density](gamma-distribution.qmd) with shape $2$ and rate $1$.
     "correlation": r"""
 ## Covariance with the units removed
 
-The covariance $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$ still carries the units of $X_j$ and of $X_k$. If those variables have positive finite variances $\sigma_j^2$ and $\sigma_k^2$, the Pearson correlation divides by both standard deviations,
+The covariance $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$ still carries the units of $X_j$ and of $X_k$. If those variables have positive finite variances $\sigma_j^2$ and $\sigma_k^2$, the Pearson correlation divides by both standard deviations.{{cite:wang2025_foundations}} (Ch. 3, §4.4.2)
 
 $$
 \rho_{jk}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
 $$
 
-The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.
+The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”) {{cite:wang2025_foundations}} (Ch. 7, Example 24)
 
 ## A covariance matrix and its correlation matrix
 
-Suppose $\operatorname{Var}(X_1)=4$, $\operatorname{Var}(X_2)=9$ and $\operatorname{Cov}(X_1,X_2)=3$. Then $\rho_{12}=3/(2\times 3)=1/2$, and
+Suppose $\operatorname{Var}(X_1)=4$, $\operatorname{Var}(X_2)=9$ and $\operatorname{Cov}(X_1,X_2)=3$. Then $\rho_{12}=3/(2\times 3)=1/2$.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”)
 
 $$
 \Sigma=\begin{pmatrix}4&3\\3&9\end{pmatrix},
@@ -1140,7 +1140,9 @@ $$
 P=\begin{pmatrix}1&1/2\\1/2&1\end{pmatrix}.
 $$
 
-The number $1/2$ does not say that the relationship is causal, and it does not say that the conditional mean is linear except as a description of the best linear predictor. For a joint normal pair, $\rho_{12}=0$ is equivalent to independence. For other joints, uncorrelated coordinates can still be dependent: a standard construction with a finite third moment puts mass so that $X_2=X_1^2$ with $X_1$ symmetric about zero, forcing the covariance to vanish while $X_2$ remains a function of $X_1$. Sample correlations estimated from a few points can sit near $\pm 1$ by chance, which is a statement about variability of the estimator rather than about the population formula.
+The value $1/2$ describes the strength of a linear association. Causal interpretation depends on study design and other explanations for the observed pattern.{{cite:dicker2025_cdc}} (Ch. 8, “Epidemiologic Interpretation Checklist 1”)
+
+For a jointly normal pair, $\rho_{12}=0$ is equivalent to independence. For other joint distributions, uncorrelated coordinates can still be dependent: let $X_1$ be standard normal and $X_2=X_1^2$. Then the covariance is zero by symmetry, even though $X_2$ is a nonconstant function of $X_1$. Sample correlations estimated from a few points can also sit near $\pm1$ by chance.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27) {{cite:strimmer2025_mva}} (Ch. 6, “Null distribution of the empirical correlation coefficient”)
 """,
     "countable-additivity": r"""
 ## Adding a countable list of disjoint events

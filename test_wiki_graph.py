@@ -957,7 +957,7 @@ class WikiGraphTests(unittest.TestCase):
             etext = extra_page.read_text(encoding="utf-8")
             self.assertIn('<details class="cite-this-page">', etext, str(extra_page))
             self.assertNotIn("Edit this page", etext, str(extra_page))
-            self.assertNotRegex(etext, r"STAT\s*\d|\bgithub\b", str(extra_page))
+            self.assertNotRegex(etext, r"STAT\s*\d|\bgithub\b(?!\.io)", str(extra_page))
 
     def test_search_normalisation_shorthands_disambiguation_and_hatnotes(self) -> None:
         import topics

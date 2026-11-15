@@ -2,9 +2,28 @@
 
 from fractions import Fraction
 from math import isclose
+from pathlib import Path
+import re
 
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    prose = (root / "research/content/correlation.md").read_text()
+    for marker in re.finditer(r"\{\{cite:([^}]+)\}\}", prose):
+        assert re.match(r" \((?:Ch\.|pp\.|Description)", prose[marker.end():]), (
+            f"Citation without a location: {marker.group()}"
+        )
+    for printed in (
+        "$(1,1)$, $(2,3)$, and $(3,2)$",
+        "Both sample means are $2$",
+        r"r=1/\sqrt{2\cdot2}=1/2",
+        "1/(3-1)=1/2",
+        "2/(3-1)=1",
+        "$y'=5-2y$",
+        "correlation becomes $-1/2$",
+        "positive $12$ leaves it at $1/2$",
+    ):
+        assert printed in prose, f"Worked value missing from article source: {printed}"
     pairs = ((1, 1), (2, 3), (3, 2))
     xbar = Fraction(sum(x for x, _ in pairs), len(pairs))
     ybar = Fraction(sum(y for _, y in pairs), len(pairs))
@@ -32,4 +51,11 @@ if __name__ == "__main__":
         Fraction(1, 2) ** 2 == Fraction(1, 4),
     ]
     assert all(checks)
+    generated = root / "articles/correlation.qmd"
+    if generated.exists():
+        page = generated.read_text()
+        for printed in ("3/(2\\times 3)=1/2", r"\begin{pmatrix}4&3\\3&9\end{pmatrix}"):
+            assert printed in page, f"Population value missing from generated article: {printed}"
+        for unopened in ("anderson2003_mva", "wasserman2004", "pearson1896"):
+            assert f'data-cite-key="{unopened}"' not in page, f"Unopened source still cited: {unopened}"
     print(f"correlation arithmetic: {len(checks)} checks passed")

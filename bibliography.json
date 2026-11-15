@@ -2753,6 +2753,20 @@
         "id": "10.1214/aoms/1177730032"
       }
     },
+    "hannay2019_statsdata": {
+      "authors": [
+        "Hannay, K."
+      ],
+      "year": 2019,
+      "title": "Introduction to Statistics and Data Science",
+      "kind": "book",
+      "publisher": "Naval Postgraduate School",
+      "url": "https://faculty.nps.edu/rbassett/_book/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://faculty.nps.edu/rbassett/_book/"
+      }
+    },
     "hartigan_wong1979": {
       "authors": [
         "Hartigan, J. A.",
@@ -5738,6 +5752,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1214/aos/1176343886"
+      }
+    },
+    "strimmer2025_mva": {
+      "authors": [
+        "Strimmer, K."
+      ],
+      "year": 2025,
+      "title": "Multivariate Statistics and Machine Learning",
+      "kind": "book",
+      "publisher": "University of Manchester",
+      "url": "https://strimmerlab.github.io/publications/lecture-notes/MATH38161/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://strimmerlab.github.io/publications/lecture-notes/MATH38161/"
       }
     },
     "strobl2007": {
