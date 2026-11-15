@@ -4,31 +4,31 @@
 
 [Question 19](#ex-fish-poisson)
 
-**Definitions.** $Y_i$ is the species count in lake $i$, and $X_i=(1,\mathrm{latitude}_i,\log\mathrm{area}_i)^\top$ is its fixed covariate vector. The model assumes independent $Y_i\sim\Poisson(\mu_i)$ with $\mu_i=\exp(X_i^\top\beta)$. Thus $\E(Y_i\given X_i)=\Var(Y_i\given X_i)=\mu_i$, with dispersion fixed at one. The score is the gradient of the log-likelihood, and Fisher information measures its expected curvature, or equivalently its covariance under the model.
+**Definitions.** $Y_i$ is the species count in lake $i$, and $\vect{x}_i=(1,\mathrm{latitude}_i,\log\mathrm{area}_i)^\top$ is its fixed covariate vector. The model assumes independent $Y_i\sim\Poisson(\mu_i)$ with $\mu_i=\exp(\vect{x}_i^\top\beta)$. Thus $\E(Y_i\given \vect{x}_i)=\Var(Y_i\given \vect{x}_i)=\mu_i$, with dispersion fixed at one. The score is the gradient of the log-likelihood, and Fisher information measures its expected curvature, or equivalently its covariance under the model.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(a)** $\log(\mathrm{area})$ transforms a covariate; the log link transforms the response mean. These are separate choices. Logging area compresses its range and represents multiplicative area comparisons by additive differences: one unit of $\log(\mathrm{area})$ multiplies area by $e$. With a log link and a log-area predictor,
+**(a)** $\log(\mathrm{area})$ transforms a covariate; the log link transforms the response mean. These are separate choices. Logging area compresses its range and represents multiplicative area comparisons by additive differences: one unit of $\log(\mathrm{area})$ multiplies area by $e$. With a log link and a log-area predictor,{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 \mu_i=e^{\beta_0+\beta_1\mathrm{latitude}_i}\,
 \mathrm{area}_i^{\beta_2}.
 $$
 
-This is a power-law area effect, whereas using raw area in the same log-link GLM gives an exponential area effect. The observed plot and scientific context should guide that choice; logging a covariate does not by itself establish model adequacy. Neither choice requires taking $\log Y_i$, so zero species counts pose no transformation problem for the response.
+This is a power-law area effect, whereas using raw area in the same log-link GLM gives an exponential area effect. The observed plot and scientific context should guide that choice; logging a covariate does not by itself establish model adequacy. Neither choice requires taking $\log Y_i$, so zero species counts pose no transformation problem for the response.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(b)** The Poisson log-likelihood contribution is $Y_i\log\mu_i-\mu_i-\log(Y_i!)$. The factorial term does not depend on $\beta$. With the log link, $\log\mu_i=X_i^{\top}\beta$ and $\mu_i=\exp(X_i^{\top}\beta)$, so
+**(b)** The Poisson log-likelihood contribution is $Y_i\log\mu_i-\mu_i-\log(Y_i!)$. The factorial term does not depend on $\beta$. With the log link, $\log\mu_i=\vect{x}_i^{\top}\beta$ and $\mu_i=\exp(\vect{x}_i^{\top}\beta)$, so{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 \ell(\beta\given X,Y)
 =
-\sum_{i=1}^{n}\bigl\{Y_i(X_i^{\top}\beta)-\exp(X_i^{\top}\beta)\bigr\}
+\sum_{i=1}^{n}\bigl\{Y_i(\vect{x}_i^{\top}\beta)-\exp(\vect{x}_i^{\top}\beta)\bigr\}
 +\text{constant}.
 $$
 
@@ -36,51 +36,51 @@ $$
 \Needspace{8\baselineskip}
 ```
 
-**(c)** Differentiate (b). Since $\partial\mu_i/\partial\beta=\mu_i X_i$,
+**(c)** Differentiate (b). Since $\partial\mu_i/\partial\beta=\mu_i \vect{x}_i$,{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 S(\beta)
 =
-\sum_{i=1}^{n}(Y_i-\mu_i)X_i.
+\sum_{i=1}^{n}(Y_i-\mu_i)\vect{x}_i.
 $$
 
-For every GLM the score is the same residual, reweighted by the variance and by the slope of the mean:
+For every GLM the score is the same residual, reweighted by the variance and by the slope of the mean:{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 S(\beta)
 =
 \sum_{i=1}^{n}
-\frac{Y_i-\mu_i}{\Var(Y_i\given X_i)}
-\,\mu_i'(X_i^{\top}\beta)\,X_i.
+\frac{Y_i-\mu_i}{\Var(Y_i\given \vect{x}_i)}
+\,\mu_i'(\vect{x}_i^{\top}\beta)\,\vect{x}_i.
 $$
 
-Here $\Var(Y_i\given X_i)=\mu_i$. Under the log link, $\mu_i'=\mu_i$, so the weight equals $1$ and the general score reduces to the sum above. Setting $S(\beta)=0$ is still nonlinear in $\beta$, because $\mu_i=\exp(X_i^{\top}\beta)$. The fit is Fisher scoring of that equation, not a closed form.
+Here $\Var(Y_i\given \vect{x}_i)=\mu_i$. Under the log link, $\mu_i'=\mu_i$, so the weight equals $1$ and the general score reduces to the sum above. Setting $S(\beta)=0$ is still nonlinear in $\beta$, because $\mu_i=\exp(\vect{x}_i^{\top}\beta)$. The fit is Fisher scoring of that equation, not a closed form.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(d)** At the $\beta$ in the model, $\E(Y_i\given X_i)=\mu_i$. Each summand then has conditional mean zero, and $\E[S(\beta)]=0$.
+**(d)** At the $\beta$ in the model, $\E(Y_i\given \vect{x}_i)=\mu_i$. Each summand then has conditional mean zero, and $\E[S(\beta)]=0$.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 Explicitly, with the design held fixed,
 
 $$
 \E\{S(\beta)\given X\}
-=\sum_iX_i\{\E(Y_i\given X)-\mu_i\}=0.
+=\sum_i\vect{x}_i\{\E(Y_i\given X)-\mu_i\}=0.
 $$
 
-This identity concerns repeated samples at the true parameter. The fitted score $S(\hat\beta)=0$ instead follows from maximising the observed likelihood; the two zeroes arise for different reasons.
+This identity concerns repeated samples at the true parameter. The fitted score $S(\hat\beta)=0$ instead follows from maximising the observed likelihood; the two zeroes arise for different reasons.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(e)** From the reduced score and $\partial\mu_i/\partial\beta^{\top}=\mu_i X_i^{\top}$,
+**(e)** From the reduced score and $\partial\mu_i/\partial\beta^{\top}=\mu_i \vect{x}_i^{\top}$,{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 \frac{\partial S(\beta)}{\partial\beta}
 =
--\sum_{i=1}^{n}\mu_i X_iX_i^{\top}.
+-\sum_{i=1}^{n}\mu_i \vect{x}_i\vect{x}_i^{\top}.
 $$
 
 The right-hand side does not depend on $Y$, so
@@ -88,32 +88,32 @@ The right-hand side does not depend on $Y$, so
 $$
 -\E\!\left[\frac{\partial S(\beta)}{\partial\beta}\right]
 =
-\sum_{i=1}^{n}\mu_i X_iX_i^{\top}.
+\sum_{i=1}^{n}\mu_i \vect{x}_i\vect{x}_i^{\top}.
 $$
 
-Calculate the score covariance separately. Conditional independence removes cross-covariances, and the Poisson variance is $\Var(Y_i\given X)=\mu_i$, so
+Calculate the score covariance separately. Conditional independence removes cross-covariances, and the Poisson variance is $\Var(Y_i\given X)=\mu_i$, so{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 \Var\{S(\beta)\given X\}
-=\sum_{i=1}^{n}\Var(Y_i\given X)X_iX_i^{\top}
-=\sum_{i=1}^{n}\mu_iX_iX_i^{\top}.
+=\sum_{i=1}^{n}\Var(Y_i\given X)\vect{x}_i\vect{x}_i^{\top}
+=\sum_{i=1}^{n}\mu_i\vect{x}_i\vect{x}_i^{\top}.
 $$
 
-This matches the negative expected Hessian above. The common matrix is the Fisher information. For the Poisson log link the observed and expected information agree; overdispersion or dependence would change the score covariance even if the mean formula remained correct.
+This matches the negative expected Hessian above. The common matrix is the Fisher information. For the Poisson log link the observed and expected information agree; overdispersion or dependence would change the score covariance even if the mean formula remained correct.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(f)** The intercept $2.595$ is the log mean at latitude $0$ (the equator) and $\log(\mathrm{area})=0$ (unit area), so the fitted mean there is $\exp(2.595)\approx 13.4$ species. This is the model's reference lake, not a general mean for the sampled lakes.
+**(f)** The intercept $2.595$ is the log mean at latitude $0$ (the equator) and $\log(\mathrm{area})=0$ (unit area), so the fitted mean there is $\exp(2.595)\approx 13.4$ species. This is the model's reference lake, not a general mean for the sampled lakes.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
-The latitude coefficient $-0.01495$ is a multiplicative effect at fixed log area. One extra degree away from the equator multiplies the mean count by $\exp(-0.01495)\approx 0.985$. A degree is a small unit: ten degrees multiply the mean by $\exp(-0.1495)\approx 0.861$. Those are the same fit. The coefficient looks small because the unit is one degree.
+The latitude coefficient $-0.01495$ is a multiplicative effect at fixed log area. One extra degree away from the equator multiplies the mean count by $\exp(-0.01495)\approx 0.985$. A degree is a small unit: ten degrees multiply the mean by $\exp(-0.1495)\approx 0.861$. Those are the same fit. The coefficient looks small because the unit is one degree.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
-The coefficient $0.2093$ is the effect of one unit of $\log(\mathrm{area})$ at fixed latitude. Multiplying area by $e$ multiplies the mean count by $\exp(0.2093)\approx 1.233$.
+The coefficient $0.2093$ is the effect of one unit of $\log(\mathrm{area})$ at fixed latitude. Multiplying area by $e$ multiplies the mean count by $\exp(0.2093)\approx 1.233$.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
-For any positive multiplier $c$, the fitted mean ratio is $c^{0.2093}$. Doubling area therefore multiplies the fitted mean by about $1.16$, rather than by $1.23$. The coefficient is an elasticity: a small $1\%$ increase in area corresponds to approximately a $0.2093\%$ increase in the expected count, holding latitude fixed.
+For any positive multiplier $c$, the fitted mean ratio is $c^{0.2093}$. Doubling area therefore multiplies the fitted mean by about $1.16$, rather than by $1.23$. The coefficient is an elasticity: a small $1\%$ increase in area corresponds to approximately a $0.2093\%$ increase in the expected count, holding latitude fixed.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
-The null deviance $2646.1$ on $69$ degrees of freedom is the deviance of the intercept-only model, one mean for every lake. The deviance is twice the drop in log-likelihood from the saturated fit to the model under discussion,
+The null deviance $2646.1$ on $69$ degrees of freedom is the deviance of the intercept-only model, one mean for every lake. The deviance is twice the drop in log-likelihood from the saturated fit to the model under discussion,{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 D(Y;\hat\mu)=2\bigl\{\ell(Y;Y)-\ell(\hat\mu;Y)\bigr\},
@@ -121,7 +121,7 @@ $$
 
 with Poisson dispersion fixed at $1$. The degrees of freedom are $n-1=69$.
 
-The residual deviance $1249.9$ on $67$ degrees of freedom is the deviance of the fitted three-parameter model, $n-3=67$. For the Poisson,
+The residual deviance $1249.9$ on $67$ degrees of freedom is the deviance of the fitted three-parameter model, $n-3=67$. For the Poisson,{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 $$
 D
@@ -132,29 +132,29 @@ Y_i\log\frac{Y_i}{\hat\mu_i}-(Y_i-\hat\mu_i)
 \right\}.
 $$
 
-The value is about $19$ times its degrees of freedom, so the Poisson model fits poorly relative to its stated mean--variance assumptions. This can reflect overdispersion, a misspecified mean function, influential lakes or dependence; the deviance alone does not identify which. A quasi-Poisson fit with $\Var(Y_i\given X_i)=\phi\mu_i$ would retain these fitted coefficients while adjusting their standard errors, but it would not repair a wrong mean function.
+The value is about $19$ times its degrees of freedom, so the Poisson model fits poorly relative to its stated mean--variance assumptions. This can reflect overdispersion, a misspecified mean function, influential lakes or dependence; the deviance alone does not identify which. A quasi-Poisson fit with $\Var(Y_i\given \vect{x}_i)=\phi\mu_i$ would retain these fitted coefficients while adjusting their standard errors, but it would not repair a wrong mean function.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
-The saturated fit has one fitted mean per observation, $\hat\mu_i=Y_i$, and hence no residual degrees of freedom. The null and residual degrees of freedom reveal $n=70$ and three fitted regression coefficients. In the deviance formula use $0\log(0/\hat\mu_i)=0$ when $Y_i=0$. Comparing deviance to degrees of freedom is a diagnostic, not a proof that one particular assumption failed; sparse counts can also make a nominal chi-squared approximation inaccurate.
-
-```{=latex}
-\Needspace{8\baselineskip}
-```
-
-**(g)** The value $8.881$ is the effective degrees of freedom of the fitted latitude smooth. It measures the smooth's effective flexibility after penalisation, roughly comparable to a high-order polynomial fit; the fitted function is not literally a polynomial of degree $8.881$. A value near $1$ would indicate an approximately straight effect on the log-mean scale. Here the fitted effect is substantially more flexible.
-
-The GAM keeps the Poisson response distribution and log link but replaces $\beta_1\mathrm{latitude}$ by a fitted function $g(\mathrm{latitude})$. A smooth can be represented by basis functions with a penalty discouraging excessive wiggliness. The edf describes the flexibility remaining after that penalty, rather than the number of knots or an ordinary polynomial degree. The plotted ordinate is the smooth's contribution to the log mean; obtaining a predicted count also requires the intercept and log-area contribution.
+The saturated fit has one fitted mean per observation, $\hat\mu_i=Y_i$, and hence no residual degrees of freedom. The null and residual degrees of freedom reveal $n=70$ and three fitted regression coefficients. In the deviance formula use $0\log(0/\hat\mu_i)=0$ when $Y_i=0$. Comparing deviance to degrees of freedom is a diagnostic, not a proof that one particular assumption failed; sparse counts can also make a nominal chi-squared approximation inaccurate.{{cite:nelder_wedderburn1972}} (§§1.1–2.4, pp. 371–376)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(h)** The plotted effect of latitude rises and falls several times, so a single straight line on the log-mean scale misses its shape. The edf of $8.881$ is also far above the near-linear value of $1$. The printed $\chi^2$ test concerns whether the smooth is absent, not specifically whether it departs from a line. A direct formal comparison of linear and smooth latitude fits would address that narrower hypothesis. The log-area coefficient is similar in the two fits, $0.209$ and $0.202$.
+**(g)** The value $8.881$ is the effective degrees of freedom of the fitted latitude smooth. It measures the smooth's effective flexibility after penalisation, roughly comparable to a high-order polynomial fit; the fitted function is not literally a polynomial of degree $8.881$. A value near $1$ would indicate an approximately straight effect on the log-mean scale. Here the fitted effect is substantially more flexible.{{cite:wood2025_mgcv_docs}} (“gam” Description; “summary.gam” Details and Value)
+
+The GAM keeps the Poisson response distribution and log link but replaces $\beta_1\mathrm{latitude}$ by a fitted function $g(\mathrm{latitude})$. A smooth can be represented by basis functions with a penalty discouraging excessive wiggliness. The edf describes the flexibility remaining after that penalty, rather than the number of knots or an ordinary polynomial degree. The plotted ordinate is the smooth's contribution to the log mean; obtaining a predicted count also requires the intercept and log-area contribution.{{cite:wood2025_mgcv_docs}} (“gam” Description; “summary.gam” Details and Value)
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(i)** At a fixed latitude, multiplying lake area by $e$ multiplies the fitted mean species count by about $1.23$; the log-area coefficient stays close to $0.20$ in the GAM. The smooth suggests high diversity near the equator, a dip around $20$--$25$ degrees away, a rise around $30$--$40$ degrees, and lower diversity towards the poles. A single latitude slope misses this pattern. The linear Poisson fit reduces deviance from $2646.1$ to $1249.9$, but the residual deviance remains far above $67$ degrees of freedom. Check the mean function, the Poisson variance assumption and influential lakes before relying on its printed standard errors and $z$ tests.
+**(h)** The plotted effect of latitude rises and falls several times, so a single straight line on the log-mean scale misses its shape. The edf of $8.881$ is also far above the near-linear value of $1$. The printed $\chi^2$ test concerns whether the smooth is absent, not specifically whether it departs from a line. A direct formal comparison of linear and smooth latitude fits would address that narrower hypothesis. The log-area coefficient is similar in the two fits, $0.209$ and $0.202$.{{cite:wood2025_mgcv_docs}} (“gam” Description; “summary.gam” Details and Value)
+
+```{=latex}
+\Needspace{8\baselineskip}
+```
+
+**(i)** At a fixed latitude, multiplying lake area by $e$ multiplies the fitted mean species count by about $1.23$; the log-area coefficient stays close to $0.20$ in the GAM. The smooth suggests high diversity near the equator, a dip around $20$--$25$ degrees away, a rise around $30$--$40$ degrees, and lower diversity towards the poles. A single latitude slope misses this pattern. The linear Poisson fit reduces deviance from $2646.1$ to $1249.9$, but the residual deviance remains far above $67$ degrees of freedom. Check the mean function, the Poisson variance assumption and influential lakes before relying on its printed standard errors and $z$ tests.{{cite:wood2025_mgcv_docs}} (“gam” Description; “summary.gam” Details and Value) {{cite:nelder_wedderburn1972}} (§§2.3–2.4, pp. 375–376)
 
 ```{=latex}
 \clearpage

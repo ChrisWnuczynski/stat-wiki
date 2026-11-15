@@ -4306,7 +4306,9 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
     if researched.get("Proof"):
         proof = researched["Proof"]
     if not proof and source_proof:
-        proof = source_proof.group(1).strip() + "\n\n{{cite:mccullagh_nelder1989}}"
+        proof = source_proof.group(1).strip()
+        if "{{cite:" not in proof:
+            proof += "\n\n{{cite:mccullagh_nelder1989}}"
     if proof:
         PROVED_RESULT_SLUGS.add(article["slug"])
         if not proof.startswith('::: {.callout-note collapse="true" title="Proof"}'):

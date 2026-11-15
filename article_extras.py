@@ -4344,7 +4344,6 @@ ARTICLE_HISTORIES.update({
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
     "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
-    "generalised-linear-model": "Nelder and Wedderburn introduced the generalised linear model framework in 1972.{{cite:nelder_wedderburn1972}}",
     "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}}",
     "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}}",
     "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:dempster_laird_rubin1977}}",

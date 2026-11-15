@@ -4,7 +4,7 @@ Branch: `research/depth-pass-continuation`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **31**. Left: **687**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **32**. Left: **686**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -39,12 +39,13 @@ Pages ranked: **718**. Done: **31**. Left: **687**. Skipped: **0**. Ranks 1–23
 | 29 | [Cross-validation](cross-validation.md) | Concept/topic | [Prose](content/cross-validation.md), [check](../checks/cross-validation.py) | 1,410 → 2,716 | 0 → 0 | Stone 1974, Hastie et al. 2009, and Cawley–Talbot 2010 opened; unsupported Geisser attribution removed |
 | 30 | [Normal distribution](normal-distribution.md) | Distribution | [Prose](content/normal-distribution.md), [check](../checks/normal-distribution.py) | 3,035 → 4,538 | 4 → 4 | Opened normal, binomial and lognormal references; early-origin history awaits original texts |
 | 31 | [Bayes' rule](bayes-rule.md) | Theorem | [Prose](content/bayes-rule.md), [check](../checks/bayes-rule.py) | 931 → 1,904 | 0 → 0 | Corrected the event formula's condition; replaced unread bibliography-only references |
+| 32 | [Generalised linear model](generalised-linear-model.md) | Concept/definition | [Prose](content/generalised-linear-model.md), [check](../checks/generalised-linear-model.py) | 2,613 → 4,437 | 3 → 3 | Opened Nelder–Wedderburn, SAS and mgcv sources; aligned fish-exercise notation and located inherited answer citations |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed.
 
 ## Next page
 
-**Rank 32: `generalised-linear-model`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 33: `random-sample`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 
@@ -83,7 +84,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 
 ## Verification for completed pages
 
-Current batch gate: all 27 arithmetic and printed-value scripts pass against the generated articles; 66 Python tests pass; all 405 bibliography records pass offline verification. The build generates 718 articles and 557 question pages. All 27 completed articles retain their question links and meet the figure and substantive-text preservation tests. The first-batch citation-location and reader-facing prose tests pass.
+Current batch gate: all 32 arithmetic and printed-value scripts pass against the generated articles; 67 Python tests pass; all 410 bibliography records pass offline verification. The build generates 718 articles and 557 question pages. All 27 completed articles retain their question links and meet the figure and substantive-text preservation tests. The first-batch citation-location and reader-facing prose tests pass.
 
 - Variance: exact rational arithmetic 5 checks passed; generator completed; 63 Python tests passed; offline schema and citation verification passed for 383 works. A direct Quarto render produced the variance HTML with one Proof box. Its site-wide redirect post-check cannot pass when only one of 1,482 pages is rendered; a full render was stopped after 96 pages to keep the per-page workflow moving. Publisher page and open full text were read. Live Crossref verification failed because the environment's proxy returned HTTP 403, not because of a metadata mismatch.
 - Likelihood function: Poisson and binomial arithmetic plus the boundary case passed 10 checks; generator completed; 63 Python tests passed; offline bibliography verification passed for 385 works. Existing interpretation and invariant-MLE statement remain; the new proof covers non-injective parameter transforms.
@@ -115,4 +116,6 @@ Current batch gate: all 27 arithmetic and printed-value scripts pass against the
 - Cross-validation: printed-value arithmetic check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 405 works. The leave-one-out and K-fold definitions, five-fold table, nested procedure, and eleven question links remain. One collapsed proof covers fold weighting and selection bias under an explicitly equal-risk premise. The inherited “Geisser's K-fold” attribution and unread bibliography-only reference were removed; the classification-accuracy explanation was expanded to preserve its word count and inline citations. No new bibliography entry was needed.
 - Normal distribution: displayed-probability and source-key checks passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 408 works. All four figure instances, infobox values, copied definitions and worked answers, and fourteen question links remain. One collapsed proof covers the density, moments, affine and sum rules, entropy, Fisher information, normal-sample theorem, conjugate updates, and Box–Muller construction. Three opened Siegrist chapters were added to the bibliography. The lognormal relationship was corrected in both directions. Early-origin history was omitted and logged in `todo.md` pending direct access to the original passages. The distribution template gained page-specific research slots and suppresses an empty built-in proof when a full researched proof is supplied.
 - Bayes' rule: printed-value and source-key checks passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 408 works. The restricted-prior question and all nine question links remain. One collapsed proof covers the event, partition, density and support statements. The theorem source now requires positive probability for both events. Unopened Laplace and Jeffreys references and an unlocated Gelman citation were replaced by opened Wang and Hoff passages. The theorem template gained page-specific research slots.
+- Generalised linear model: replaced unread textbook citations with opened Nelder–Wedderburn and SAS passages; cited fish and component worked answers and the smooth-model interpretation from opened mgcv documentation; aligned fixed covariate-vector notation. The exact printed values are asserted by the check.
+- Generalised linear model: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 410 works. Three figures, three worked exercises and six question links remain; one collapsed proof covers the shared mean–variance formula and link-scale contrasts.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

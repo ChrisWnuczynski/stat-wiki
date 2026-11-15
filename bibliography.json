@@ -5223,6 +5223,34 @@
         "id": "10.1017/cbo9780511755453"
       }
     },
+    "sas2012_glm": {
+      "authors": [
+        "SAS Institute Inc."
+      ],
+      "year": 2012,
+      "title": "SAS/STAT® 12.1 User’s Guide",
+      "kind": "book",
+      "publisher": "SAS Institute Inc., Cary, NC",
+      "url": "https://support.sas.com/documentation/cdl/en/statug/65328/HTML/default/statug_intromod_sect011.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://support.sas.com/documentation/cdl/en/statug/65328/HTML/default/statug_intromod_sect011.htm"
+      }
+    },
+    "wood2025_mgcv_docs": {
+      "authors": [
+        "Wood, S. N."
+      ],
+      "year": 2025,
+      "title": "mgcv: Mixed GAM Computation Vehicle with Automatic Smoothness Estimation, version 1.9-4",
+      "kind": "book",
+      "publisher": "CRAN",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html"
+      }
+    },
     "satterthwaite1946": {
       "authors": [
         "Satterthwaite, F. E."

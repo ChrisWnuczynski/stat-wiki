@@ -219,7 +219,7 @@ A binomial count is the right model for a binary outcome that has been added up:
 
 ## Mean and variance
 
-For the linear canonical family @eq-lef, the mean and variance are derivatives of $c$. The same functions $c$ and $e$ serve every distribution in the family, which is the reason for spending this long on the form.
+For the linear canonical family @eq-lef, the mean and variance are derivatives of $c$. The same functions $c$ and $e$ serve every distribution in the family.{{cite:nelder_wedderburn1972}} (§1.1, p. 371)
 
 ::: {#thm-moments .theorem}
 If $Y$ has density or mass function @eq-lef, and if differentiation in $\theta$ may be passed under the integral or the sum, then the mean and variance are the derivatives
@@ -228,7 +228,7 @@ $$
 \qquad
 \mathrm{Var}(Y)=-c''(\theta)\,e(\phi).
 $$ {#eq-moments}
-The two derivatives are the mean and the variance.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+The first derivative gives the mean, and the second gives the variance after multiplication by the dispersion scale.{{cite:nelder_wedderburn1972}} (§1.1, p. 371)
 :::
 
 ::: {.proof}
@@ -257,17 +257,18 @@ The first formula says $c'(\theta)=-\mathrm{E}(Y)$, so $Y+c'(\theta)$ is the cen
 $$
 \mathrm{Var}(Y)=-c''(\theta)\,e(\phi).
 $$
+{{cite:nelder_wedderburn1972}} (§1.1, p. 371)
 :::
 
-In the other common convention, where the numerator is $y\theta-b(\theta)$, the same calculation produces $\mathrm{E}(Y)=b'(\theta)$ and $\mathrm{Var}(Y)=b''(\theta)\,a(\phi)$. The two formulae agree once you set $b=-c$ and $a=e$.
+In the other common convention, where the numerator is $y\theta-b(\theta)$, the same calculation produces $\mathrm{E}(Y)=b'(\theta)$ and $\mathrm{Var}(Y)=b''(\theta)\,a(\phi)$. The two formulae agree once you set $b=-c$ and $a=e$.{{cite:nelder_wedderburn1972}} (§1.1, p. 371)
 
-$c$ is the cumulant function. Its first derivative, with the sign above, is the first cumulant, the mean. Its second derivative gives the second cumulant, the variance. A moment-generating function is a different transform: its second derivative gives $\mathrm{E}(Y^2)$, and you still have to subtract $(\mathrm{E} Y)^2$.
+$c$ is the cumulant function. Its first derivative, with the sign above, is the first cumulant, the mean. Its second derivative gives the second cumulant, the variance. A moment-generating function is a different transform: its second derivative gives $\mathrm{E}(Y^2)$, and you still have to subtract $(\mathrm{E} Y)^2$.{{cite:nelder_wedderburn1972}} (§1.1, p. 371)
 
 Check the three families we have already rewritten. For the normal, $c(\mu)=-\mu^2/2$ and $e(\phi)=\sigma^2$, so $-c'(\mu)=\mu$ and $-c''(\mu)\,e(\phi)=\sigma^2$. For the Poisson, $c(\theta)=-e^{\theta}$ and $e(\phi)=1$, so $-c'(\theta)=e^{\theta}=\lambda$ and the variance equals the same quantity. For the binomial, $c(\theta)=-n\log(1+e^{\theta})$, so
 $$
 -c'(\theta)=n\frac{e^{\theta}}{1+e^{\theta}}=np,
 $$
-and a second derivative produces $np(1-p)$. The general formula is not a new fact about these three distributions. It is the reason we bothered to write them in one shape.
+and a second derivative produces $np(1-p)$. The general formula is not a new fact about these three distributions. It is the reason these families can be analysed in one shape.{{cite:nelder_wedderburn1972}} (§§3.1–3.3, pp. 376–380)
 
 The exercise at the end asks for the same derivatives when $a(y)$ and $b(\theta)$ are not both the identity. The pattern is the same: differentiate $\int f=1$, once for the mean and twice for the variance.
 
