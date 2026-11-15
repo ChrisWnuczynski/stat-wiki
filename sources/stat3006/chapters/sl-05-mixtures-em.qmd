@@ -21,11 +21,11 @@ f(x)=\sum_{h=1}^{H}\pi_h f_h(x),
 \sum_{h=1}^{H}\pi_h=1.
 $$
 
-Here $H$ is the number of components, $\pi_h$ is the probability that an observation is drawn from component $h$, and $f_h$ is the density of that component. Equivalently, each observation comes from one of a finite collection of parametric distributions.
+{{cite:mclachlan_peel2000_book}} Here $H$ is the number of components, $\pi_h$ is the probability that an observation is drawn from component $h$, and $f_h$ is the density of that component. Equivalently, each observation comes from one of a finite collection of parametric distributions{{cite:mclachlan_peel2000_book}}{{cite:bishop2006}}.
 
 :::
 
-The weights are probabilities of a latent component, so they lie in $[0,1]$ and sum to one. The component densities used below are multivariate normal, which keeps the complete-data step inside ordinary normal maximum likelihood. Other families are possible. Mixtures of $t$ distributions, of beta distributions, and of generalised linear models are surveyed by McLachlan and Peel (2000).
+The weights are probabilities of a latent component, so they lie in $[0,1]$ and sum to one. The component densities used below are multivariate normal, which keeps the complete-data step inside ordinary normal maximum likelihood. Other families are possible. Mixtures of $t$ distributions, of beta distributions, and of generalised linear models are surveyed by {{cite:mclachlan_peel2000_book}}.
 
 A binary coordinate sits outside the Gaussian density used here. The model on this page is for continuous measurements. One joint extension, the location model, fits a separate mixture at each value of a binary variable and multiplies by the probability of that value. Comparing the continuous distributions in the two binary groups asks whether the binary split corresponds to different clouds. The split multiplies the parameter count, and it shares no parameter across the two values. Several binary variables multiply the number of cells.
 
@@ -97,7 +97,7 @@ $$
 =\frac{\pi_h f_h(\mathbf{x};\theta_h)}{\sum_{m=1}^{H}\pi_m f_m(\mathbf{x};\theta_m)},
 $$
 
-where $\theta_h$ holds the mean and covariance of component $h$. These probabilities are the responsibilities. They are nonnegative and sum to one over $h$.
+where $\theta_h$ holds the mean and covariance of component $h$. These probabilities are the responsibilities{{cite:dempster_laird_rubin1977}}. They are nonnegative and sum to one over $h${{cite:mclachlan_peel2000_book}}{{cite:bishop2006}}.
 
 :::
 
@@ -108,7 +108,7 @@ $$
 \qquad h=1,\ldots,H.
 $$
 
-The display is a fixed point. The weights $\widehat\pi_h$ appear on the right-hand side through $\tau_h$, which depends on the whole of $\widehat\Psi$. The equation does identify the missing data: the weights it asks for are the conditional probabilities of the component indicators.
+The display is a fixed point. The weights $\widehat\pi_h$ appear on the right-hand side through $\tau_h$, which depends on the whole of $\widehat\Psi$. The equation does identify the missing data: the weights it asks for are the conditional probabilities of the component indicators{{cite:dempster_laird_rubin1977}}{{cite:mclachlan_peel2000_book}}{{cite:bishop2006}}.
 
 ## The complete-data likelihood
 
@@ -120,7 +120,7 @@ f(\mathbf{x}_i,\mathbf{z}_i;\Psi)
 =\prod_{h=1}^{H}\pi_h^{z_{ih}}f_h(\mathbf{x}_i)^{z_{ih}}.
 $$
 
-Every coordinate of $\mathbf{z}_i$ but one is zero, so every factor raised to the power $0$ equals $1$. The product keeps the component that generated $\mathbf{x}_i$.
+Every coordinate of $\mathbf{z}_i$ but one is zero, so every factor raised to the power $0$ equals $1$. The product keeps the component that generated $\mathbf{x}_i${{cite:dempster_laird_rubin1977}}{{cite:mclachlan_peel2000_book}}.
 
 ::: {#def-sl-05-complete-likelihood .definition}
 ## Complete-data likelihood
@@ -147,7 +147,7 @@ $$
 \Biggr).
 $$
 
-Compare this with the observed log-likelihood. There is no logarithm of a sum, and the expression is linear in the indicators $z_{ih}$. Linearity is what lets the E step replace each unobserved indicator by its conditional expectation.
+Compare this with the observed log-likelihood. There is no logarithm of a sum, and the expression is linear in the indicators $z_{ih}$. Linearity is what lets the E step replace each unobserved indicator by its conditional expectation{{cite:dempster_laird_rubin1977}}.
 
 ## The E and M steps
 
@@ -162,7 +162,7 @@ The two arguments of $Q$ have different jobs. The current value $\Psi^{(k)}$ det
 
 ### The E step
 
-The complete log-likelihood is linear in the indicators, so the conditional expectation passes inside the sum. The expectation of a binary indicator is the probability that it equals one. Bayes' rule for a discrete label and a continuous measurement identifies that probability with the posterior membership, evaluated at the current parameter:
+The complete log-likelihood is linear in the indicators, so the conditional expectation passes inside the sum. The expectation of a binary indicator is the probability that it equals one. Bayes' rule for a discrete label and a continuous measurement identifies that probability with the posterior membership, evaluated at the current parameter{{cite:dempster_laird_rubin1977}}{{cite:mclachlan_peel2000_book}}:
 
 \begin{align*}
 Q(\Psi;\Psi^{(k)})
@@ -178,7 +178,7 @@ Q(\Psi;\Psi^{(k)})
 \bigl[\ln\pi_h+\ln f_h(\mathbf{x}_i;\theta_h)\bigr].
 \end{align*}
 
-The current parameter $\Psi^{(k)}$ is held fixed inside $\tau_h$. The free parameter $\Psi$ remains in $\ln\pi_h+\ln f_h$, which is what the M step maximises. Explicitly,
+The current parameter $\Psi^{(k)}$ is held fixed inside $\tau_h$. The free parameter $\Psi$ remains in $\ln\pi_h+\ln f_h$, which is what the M step maximises{{cite:dempster_laird_rubin1977}}{{cite:bishop2006}}. Explicitly,
 
 $$
 \tau_h\bigl(\mathbf{x}_i;\Psi^{(k)}\bigr)
@@ -198,7 +198,7 @@ $$
 =\frac{N_h}{n}.
 $$
 
-**Means.** The terms of $Q$ that involve $\boldsymbol\mu_h$ are $-\tfrac12\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)^\top\Sigma_h^{-1}(\mathbf{x}_i-\boldsymbol\mu_h)$. The gradient in $\boldsymbol\mu_h$ is $\Sigma_h^{-1}\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)$. Set it to zero and multiply by $\Sigma_h$, which is positive definite at an interior point. The solution is the weighted mean,
+**Means.** The terms of $Q$ that involve $\boldsymbol\mu_h$ are $-\tfrac12\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)^\top\Sigma_h^{-1}(\mathbf{x}_i-\boldsymbol\mu_h)$. The gradient in $\boldsymbol\mu_h$ is $\Sigma_h^{-1}\sum_i\tau_{ih}(\mathbf{x}_i-\boldsymbol\mu_h)$. Set it to zero and multiply by $\Sigma_h$, which is positive definite at an interior point. The solution is the weighted mean{{cite:mclachlan_peel2000_book}},
 
 $$
 \boldsymbol\mu_h^{(k+1)}
@@ -222,27 +222,27 @@ $$
 {\sum_{i=1}^{n}\tau_{ih}}.
 $$
 
-The formulas now have a familiar shape: proportions, means, and covariance matrices, with fractional membership replacing a hard group label. The divisor is $N_h$. Likelihood maximisation uses $N_h$ in the denominator; an unbiased sample covariance would subtract one from a hard group size, and that correction is a different estimator. These updates require $N_h>0$ and positive definite updated covariance matrices. A collapsed component is a failure of those conditions.
+The formulas now have a familiar shape: proportions, means, and covariance matrices, with fractional membership replacing a hard group label. The divisor is $N_h$. Likelihood maximisation uses $N_h$ in the denominator{{cite:mclachlan_peel2000_book}}{{cite:bishop2006}}; an unbiased sample covariance would subtract one from a hard group size, and that correction is a different estimator. These updates require $N_h>0$ and positive definite updated covariance matrices. A collapsed component is a failure of those conditions.
 
 ::: {#def-sl-05-em-algorithm .definition}
 ## EM for a normal mixture
 
 Choose initial values $\Psi^{(0)}$. For $k=0,1,2,\ldots$:
 
-1. E step: compute $\tau_{ih}=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ for all $i,h$.
-2. M step: compute $\pi_h^{(k+1)}$, $\boldsymbol\mu_h^{(k+1)}$, and $\Sigma_h^{(k+1)}$ from the three updates above.
-3. Stop when the change in $\ell(\Psi^{(k)};X_{\mathrm{all}})$ is smaller than a threshold.
+1. E step: compute $\tau_{ih}=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ for all $i,h${{cite:dempster_laird_rubin1977}}.
+2. M step: compute $\pi_h^{(k+1)}$, $\boldsymbol\mu_h^{(k+1)}$, and $\Sigma_h^{(k+1)}$ from the three updates above{{cite:mclachlan_peel2000_book}}.
+3. Stop when the change in $\ell(\Psi^{(k)};X_{\mathrm{all}})$ is smaller than a threshold{{cite:bishop2006}}.
 
 :::
 
-$Q(\Psi;\Psi^{(k)})$, plus a constant independent of $\Psi$, is a lower bound on the observed log-likelihood, touching it at the current parameter. The constant matters for the touching statement, and it does not change the maximiser. EM is the minorisation–maximisation step for that bound (Lange, 2013).
+$Q(\Psi;\Psi^{(k)})$, plus a constant independent of $\Psi$, is a lower bound on the observed log-likelihood, touching it at the current parameter. The constant matters for the touching statement, and it does not change the maximiser. EM is the minorisation–maximisation step for that bound{{cite:lange2013_opt}}.
 
 ## Why the likelihood never decreases
 
 ::: {#thm-sl-05-em-monotone .theorem}
 ## Monotonicity of EM
 
-An exact EM step cannot decrease the observed log-likelihood (Dempster, Laird, and Rubin, 1977). Convergence of the likelihood values requires an upper bound. Convergence of the parameters requires further conditions. Under the regularity conditions studied by Wu (1983), limit points are stationary. A stationary point of a mixture likelihood can fail to be a global maximum.
+An exact EM step cannot decrease the observed log-likelihood{{cite:dempster_laird_rubin1977}}. Convergence of the likelihood values requires an upper bound. Convergence of the parameters requires further conditions. Under the regularity conditions studied by {{cite:wu1983}}, limit points are stationary. A stationary point of a mixture likelihood can fail to be a global maximum.
 
 :::
 
@@ -262,7 +262,7 @@ G(\Psi;\Psi^{(k)})
 =\E_{\Psi^{(k)}}\bigl[\ln\Pr(Z\given X_{\mathrm{all}};\Psi)\bigm|X_{\mathrm{all}}\bigr].
 $$
 
-Gibbs' inequality is nonnegativity of Kullback–Leibler divergence, so $G(\Psi;\Psi^{(k)})\le G(\Psi^{(k)};\Psi^{(k)})$ for every $\Psi$. Split the change in the observed log-likelihood:
+Gibbs' inequality is nonnegativity of Kullback–Leibler divergence, so $G(\Psi;\Psi^{(k)})\le G(\Psi^{(k)};\Psi^{(k)})$ for every $\Psi${{cite:kullback_leibler1951}}{{cite:shannon1948}}. Split the change in the observed log-likelihood{{cite:dempster_laird_rubin1977}}:
 
 \begin{align*}
 \ell(\Psi^{(k+1)})-\ell(\Psi^{(k)})
@@ -380,7 +380,7 @@ The same divergence occurs when a component is supported on too few points to de
 
 In one dimension, stop and restart if a component variance falls below a threshold. In two dimensions the analogous failure is a component collapsing toward a line. A singular covariance is the algebraic form of that failure: the determinant is $0$, and the precision in the normal density does not exist. The eigenvalues of a component covariance are the variances along its elliptical axes. Positive definiteness requires every one of them to be positive. If an eigenvalue becomes small, stop. A variance on its way to $0$ is a failure of the unconstrained fit.
 
-**Label switching.** Renaming components changes the parameter vector and leaves the density unchanged. Finite Gaussian mixtures with distinct components and positive weights are identifiable up to this permutation. Coincident components or zero weights introduce further non-identifiability (McLachlan and Peel, 2000). Before comparing component parameters across fits, decide how to match labels. Ordering means can help in one dimension. The order becomes unstable when means are close.
+**Label switching.** Renaming components changes the parameter vector and leaves the density unchanged. Finite Gaussian mixtures with distinct components and positive weights are identifiable up to this permutation. Coincident components or zero weights introduce further non-identifiability{{cite:mclachlan_peel2000_book}}{{cite:teicher1963}}{{cite:stephens2000}}. Before comparing component parameters across fits, decide how to match labels. Ordering means can help in one dimension. The order becomes unstable when means are close.
 
 Nothing in the model says that the component on the left is component $1$. A start with $\mu_1$ to the right of $\mu_2$ returns the swapped labelling, and the weights and covariances move with the labels. Averaging parameters across restarts, as if the subscript $1$ named the same component every time, mixes distinct components.
 
@@ -418,13 +418,13 @@ $$
 {\sum_m\exp\bigl\{-\lVert\mathbf{x}_i-\boldsymbol\mu_m\rVert^2/(2\sigma^2)\bigr\}}.
 $$
 
-Send $\sigma^2\to 0$. For each $i$ the sum is dominated by the smallest distance, so $\tau_{ih}\to 1$ for a nearest mean and $\tau_{ih}\to 0$ otherwise, ties aside. The E step becomes the hard assignment of $K$-means, and the weighted mean becomes the ordinary cluster mean. $K$-means, in the form of [Lloyd's algorithm](sl-04-kmeans.qmd#def-sl-04-lloyd), is this small-variance, equal-weight, spherical limit of EM. The three restrictions are what replace ellipsoidal components by Voronoi cells.
+Send $\sigma^2\to 0$. For each $i$ the sum is dominated by the smallest distance, so $\tau_{ih}\to 1$ for a nearest mean and $\tau_{ih}\to 0$ otherwise, ties aside. The E step becomes the hard assignment of $K$-means, and the weighted mean becomes the ordinary cluster mean. $K$-means, in the form of [Lloyd's algorithm](sl-04-kmeans.qmd#def-sl-04-lloyd), is this small-variance, equal-weight, spherical limit of EM{{cite:bishop2006}}{{cite:mclachlan_peel2000_book}}{{cite:hastie_esl2009}}. The three restrictions are what replace ellipsoidal components by Voronoi cells.
 
 A three-component univariate Gaussian mixture can be fitted to iris petal length by the same iteration. The path of the observed log-likelihood is the practical check of monotonicity: each accepted step should sit at least as high as the step before it.
 
 ## Uncertainty about the parameters
 
-Standard errors can be built from the observed information $I(\widehat\Psi;X_{\mathrm{all}})$, expressed through the complete-data information and the complete and incomplete scores (McLachlan and Peel, 2000). The algebra is heavy, and it still replaces the expected information by an observed-information approximation.
+Standard errors can be built from the observed information $I(\widehat\Psi;X_{\mathrm{all}})$, expressed through the complete-data information and the complete and incomplete scores{{cite:mclachlan_peel2000_book}}. The algebra is heavy, and it still replaces the expected information by an observed-information approximation.
 
 A Bayesian analysis assigns a distribution to the unknown parameters and updates it with the likelihood. Its influence depends on the prior, the amount of information in the data, and the model geometry. There is no general rule that a prior equals one extra observation. Mixtures require particular care around weakly identified components. Integration against a prior is also the starting point for the model-comparison criterion on the [model-selection](sl-06-model-selection.qmd) page.
 

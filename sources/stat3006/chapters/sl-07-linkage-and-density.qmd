@@ -2,7 +2,7 @@
 
 Sometimes choosing one partition is premature. The useful record is which groups merge first and which remain separate until the end. Hierarchical clustering records that sequence. Sometimes the question is instead where observations tend to occur. Kernel density estimation smooths the sample into a density. The two outputs differ, and both force the same decision: how much detail to retain.
 
-Both outputs depend on scale and on a tuning choice. A height in a dendrogram is the linkage dissimilarity at which two clusters merged. It is a feature of that merge rule on this sample. A peak in a density estimate is a feature of the smoothed distribution. Reading either display as a posterior probability that those clusters are the groups which generated the sample is a further claim, and the constructions below do not supply it.
+Both outputs depend on scale and on a tuning choice. A height in a dendrogram is the linkage dissimilarity at which two clusters merged{{cite:hastie_esl2009}}. It is a feature of that merge rule on this sample. A peak in a density estimate is a feature of the smoothed distribution. Reading either display as a posterior probability that those clusters are the groups which generated the sample is a further claim, and the constructions below do not supply it.
 
 The roughness penalty on [Smooth means](06-smooth-means.qmd) charges $\lambda\int\{g''(x)\}^2\,dx$ for curvature of a regression mean $g$. That penalty smooths a conditional mean. The density estimate on this page is a different object: the kernel estimator below places a bump at each observation and averages the bumps.
 
@@ -14,7 +14,7 @@ The original vectors are not required. Edit distance between words, or between l
 
 ### Agglomerative and divisive clustering
 
-Agglomerative clustering starts with each observation alone and merges neighbouring clusters until one cluster remains. Divisive clustering starts with one cluster and splits until every observation is alone. Either way the hierarchy has $n$ levels, counting the single cluster at the top, and $n$ leaves. The picture of the hierarchy is a dendrogram. Agglomerative clustering is the usual choice because the first merges are between points, where the dissimilarity is already defined. A divisive step has to invent a split of a set.
+Agglomerative clustering starts with each observation alone and merges neighbouring clusters until one cluster remains. Divisive clustering starts with one cluster and splits until every observation is alone. Either way the hierarchy has $n$ levels, counting the single cluster at the top, and $n$ leaves. The picture of the hierarchy is a dendrogram{{cite:sneath1957}}{{cite:sokal_michener1958}}. Agglomerative clustering is the usual choice because the first merges are between points, where the dissimilarity is already defined{{cite:hastie_esl2009}}. A divisive step has to invent a split of a set.
 
 The pointwise dissimilarity may be Euclidean distance, or any other dissimilarity $d(x,y)$. The arguments may be observation vectors or summaries such as cluster means, when the linkage uses means.
 
@@ -31,7 +31,7 @@ $$
 d_S(D_1,D_2)=\min\{d(x,y):x\in D_1,\, y\in D_2\}.
 $$
 
-The clusters are close as soon as they touch.
+The clusters are close as soon as they touch{{cite:sneath1957}}{{cite:hastie_esl2009}}.
 
 Complete linkage, or furthest neighbour, takes the distance between the farthest pair,
 
@@ -39,15 +39,15 @@ $$
 d_C(D_1,D_2)=\max\{d(x,y):x\in D_1,\, y\in D_2\}.
 $$
 
-A merge is cheap only when every cross pair is close.
+A merge is cheap only when every cross pair is close{{cite:hastie_esl2009}}.
 
-Average linkage, in the group-average sense, takes the mean of all cross pairs,
+Average linkage, in the group-average sense, takes the mean of all cross pairs{{cite:sokal_michener1958}}{{cite:hastie_esl2009}},
 
 $$
 d_A(D_1,D_2)=\frac{1}{|D_1|\,|D_2|}\sum_{x\in D_1}\sum_{y\in D_2}d(x,y),
 $$
 
-where $|\cdot|$ is the cardinality of the multiset. Clusters are allowed to be multisets so that duplicate points are legal.
+where $|\cdot|$ is the cardinality of the multiset{{cite:sokal_michener1958}}{{cite:hastie_esl2009}}. Clusters are allowed to be multisets so that duplicate points are legal.
 
 :::
 
@@ -55,7 +55,7 @@ Averaging distances and taking the distance between averages are different opera
 
 ### Properties of the linkages
 
-Read each linkage as a different question. Single linkage asks whether any cross-pair is close, so a chain of nearby points can connect distant ends. Complete linkage asks whether every cross-pair is close, discouraging large diameters. Average linkage asks about the typical cross-pair. These criteria suggest tendencies. Spherical clusters and equal cluster sizes are further claims.
+Read each linkage as a different question. Single linkage asks whether any cross-pair is close, so a chain of nearby points can connect distant ends{{cite:sneath1957}}{{cite:hastie_esl2009}}. Complete linkage asks whether every cross-pair is close, discouraging large diameters{{cite:hastie_esl2009}}. Average linkage asks about the typical cross-pair{{cite:sokal_michener1958}}. These criteria suggest tendencies. Spherical clusters and equal cluster sizes are further claims.
 
 The partition can change substantially when a new sample is drawn from the same distribution, or when $n$ changes. Single linkage shows this as chaining. A gap that separates two groups at one sample size can contain points when $n$ is larger, and the linkage then joins the groups at the height of the closest new pair across the gap. Complete linkage is sensitive to distant outliers: one far point raises the maximum pairwise distance and can block a merge of clusters that are otherwise close. Average linkage lies between those two behaviours. No linkage is the most stable under every contamination pattern and every cluster shape. Single and complete linkage need only the pairwise dissimilarities. A linkage that uses means also needs an average of points, which may not exist for the dissimilarities of the previous section.
 
@@ -104,7 +104,7 @@ $$
 K_H(\mathbf{x})=|H|^{-1/2}K(H^{-1/2}\mathbf{x}),
 $$
 
-with $H^{-1/2}$ obtained from the spectral decomposition. These assumptions give a nonnegative estimate that integrates to one. More general kernel constructions exist. The formulas below use this density-kernel setting.
+with $H^{-1/2}$ obtained from the spectral decomposition. These assumptions give a nonnegative estimate that integrates to one{{cite:rosenblatt1956}}{{cite:parzen1962}}{{cite:silverman1986}}. More general kernel constructions exist. The formulas below use this density-kernel setting.
 
 :::
 
@@ -127,13 +127,13 @@ $$
 
 so $K_H$ is the $\Normal_p(\mathbf{0},H)$ density. Each sample point is the centre of one such normal. The mixture reading is then exact: $n$ components, weights $1/n$, means $\mathbf{x}_i$, and one common covariance $H$. The components, the weights, and the means are fixed by the sample. The choice that remains is $H$.
 
-The Epanechnikov kernel has bounded support, so a sample point contributes nothing beyond a finite radius. The normal kernel is the usual multivariate default, and its support is the whole space. A full matrix $H$ can follow an elliptical cloud. A diagonal $H$, or a product of separate univariate smoothers, has axis-aligned contours. On a tilted cloud those contours place part of each kernel's mass off the data. One $H$ everywhere is a further restriction: a cloud whose shape changes from one region to another is smoothed with the same orientation in every region.
+The Epanechnikov kernel has bounded support, so a sample point contributes nothing beyond a finite radius{{cite:epanechnikov1969}}{{cite:silverman1986}}. The normal kernel is the usual multivariate default, and its support is the whole space{{cite:silverman1986}}{{cite:wasserman2004}}. A full matrix $H$ can follow an elliptical cloud{{cite:silverman1986}}. A diagonal $H$, or a product of separate univariate smoothers, has axis-aligned contours. On a tilted cloud those contours place part of each kernel's mass off the data. One $H$ everywhere is a further restriction: a cloud whose shape changes from one region to another is smoothed with the same orientation in every region.
 
 ### Choosing the bandwidth
 
 The matrix $H$ may be constrained to be diagonal, or left unconstrained. Either way the target is approximation of the density $f$ that generated the sample. There is no unique choice, and the multivariate problem is not a coordinate-wise copy of the univariate one. Likelihood cross-validation, as on [Model selection](sl-06-model-selection.qmd), fits the estimate on one part of the sample and scores the log-likelihood on the left-out part. The bandwidth with the highest held-out score is preferred. With a short sample the split is repeated over folds.
 
-A standard distance between $f$ and $\widehat f$, different from Kullback–Leibler divergence, is the mean integrated squared error,
+A standard distance between $f$ and $\widehat f$, different from Kullback–Leibler divergence, is the mean integrated squared error{{cite:rosenblatt1956}}{{cite:parzen1962}}{{cite:silverman1986}},
 
 $$
 \mathrm{MISE}(H)
@@ -156,7 +156,7 @@ For a Gaussian kernel the estimate is a mixture of bumps centred at the data. Sm
 
 ## Linkage and bandwidth are part of the analysis
 
-The same scaled observations are clustered by four linkages, so the only change from one result to the next is the merge rule. Each tree is then cut into three groups and compared with the species labels by the adjusted Rand index. Those labels are not an input to the linkage. The index equals $1$ when the two partitions agree up to the names of the groups, and its expectation is $0$ when the labels are attached at random. Two univariate bandwidth selectors are also applied to petal length. They are different approximations to a bandwidth that balances bias and variance. Let `iris_x` be the matrix of iris measurements and `iris_y` the species labels, and let `iris$Petal.Length` be the petal-length column.
+The same scaled observations are clustered by four linkages, so the only change from one result to the next is the merge rule. Each tree is then cut into three groups and compared with the species labels by the adjusted Rand index. Those labels are not an input to the linkage. The index equals $1$ when the two partitions agree up to the names of the groups, and its expectation is $0$ when the labels are attached at random{{cite:hubert_arabie1985}}. Two univariate bandwidth selectors are also applied to petal length. They are different approximations to a bandwidth that balances bias and variance. Let `iris_x` be the matrix of iris measurements and `iris_y` the species labels, and let `iris$Petal.Length` be the petal-length column.
 
 ```r
 z <- scale(iris_x)

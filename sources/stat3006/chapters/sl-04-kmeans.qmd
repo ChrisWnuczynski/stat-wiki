@@ -10,7 +10,7 @@ K-means asks for a chosen number $K$ of centres and minimises a within-cluster s
 
 ## The criterion
 
-Give each of $K$ centres a position, then assign each observation to its nearest centre. Now move each centre to the mean of its assigned observations. Those two operations are Lloyd's algorithm. Squared Euclidean distance makes the mean the right update. The identity below explains why. The resulting cells are convex polyhedra, not necessarily spheres. The method tends to suit compact groups of comparable spread better than elongated groups or nested rings.
+Give each of $K$ centres a position, then assign each observation to its nearest centre. Now move each centre to the mean of its assigned observations. Those two operations are Lloyd's algorithm{{cite:lloyd1982}}. Squared Euclidean distance makes the mean the right update{{cite:hastie_esl2009}}{{cite:macqueen1967}}. The identity below explains why. The resulting cells are convex polyhedra, not necessarily spheres. The method tends to suit compact groups of comparable spread better than elongated groups or nested rings.
 
 Distance decides how much each coordinate matters. Multiplying one variable by ten multiplies its contribution to squared distance by one hundred. Subtracting a constant changes nothing. Standardising to variance one gives each variable the same marginal scale, and that is a modelling choice, not a mathematical requirement. Variables measured in the same units can still deserve different weights. For iris, compare the scientific meaning of absolute centimetre differences with differences measured in standard deviations before choosing the metric.
 
@@ -22,7 +22,7 @@ $$
 
 ## Within-cluster scatter
 
-A clustering is a map $C$ from the observation indices $i=1,\ldots,n$ to the labels $1,\ldots,K$. To compare maps one needs a single number. The number used here is the total squared distance between observations that share a label, the within-cluster point scatter,
+A clustering is a map $C$ from the observation indices $i=1,\ldots,n$ to the labels $1,\ldots,K$. To compare maps one needs a single number. The number used here is the total squared distance between observations that share a label, the within-cluster point scatter{{cite:hastie_esl2009}}{{cite:macqueen1967}},
 
 $$
 W(C)=\frac12\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(l)=k}\|\mathbf{x}_i-\mathbf{x}_l\|^2.
@@ -67,7 +67,7 @@ $$
 W(C)=\sum_{k=1}^K N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2.
 $$
 
-This writes the pairwise criterion as a size-weighted sum of squared distances to the cluster means. Each point is weighted by $N_k$. The algorithm of the next section does not descend on that weighted sum. It descends on the unweighted sum of squares
+This writes the pairwise criterion as a size-weighted sum of squared distances to the cluster means{{cite:hastie_esl2009}}. Each point is weighted by $N_k$. The algorithm of the next section does not descend on that weighted sum. It descends on the unweighted sum of squares{{cite:lloyd1982}}
 
 $$
 \widetilde W(C,\mathbf{m}_1,\ldots,\mathbf{m}_K)
@@ -101,7 +101,7 @@ $$
 
 2. Update the centres: $\mathbf{m}_k\leftarrow\bar{\mathbf{x}}_k$, the mean of the observations assigned to $k$.
 
-Stop when the assignments of observations to clusters do not change.
+Stop when the assignments of observations to clusters do not change{{cite:lloyd1982}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}.
 
 :::
 
@@ -112,7 +112,7 @@ Write the objective as a function of two arguments, assignments and centres. Wit
 ::: {#prp-sl-04-descent .proposition}
 ## Descent of Lloyd's algorithm
 
-Each step of the algorithm does not increase $\widetilde W$. With the tie convention above and nonempty clusters throughout, the algorithm stops after finitely many assignment changes at a Lloyd fixed point. This is an optimum with respect to each of the two alternating steps separately. It need not be a global optimum.
+Each step of the algorithm does not increase $\widetilde W${{cite:lloyd1982}}{{cite:hastie_esl2009}}. With the tie convention above and nonempty clusters throughout, the algorithm stops after finitely many assignment changes at a Lloyd fixed point. This is an optimum with respect to each of the two alternating steps separately. It need not be a global optimum{{cite:james_islr2021}}.
 
 :::
 
@@ -182,7 +182,7 @@ There is no single accepted start, and many procedures draw it at random. The in
 
 The objective is non-convex, and different regions of the initialisation space lead to different local minima. Descent from a fixed start is deterministic, so two starts in one region finish at the same partition, and a restart that remains in that region repeats the answer. A different local minimum requires a start in another region. Allocating every point independently at random to a cluster is a poor way to spread those starts. The $K$ means then all lie near the centre of the sample and close to one another.
 
-The fragment standardises the variables, tries $25$ starts and retains the smallest reported within-cluster sum of squares. The default `kmeans` uses the Hartigan–Wong algorithm, which targets the same sum of squares and uses different updates. Specify `algorithm = "Lloyd"` when reproducing the alternating steps above. The iris laboratory uses the default and checks the reported objective directly.
+The fragment standardises the variables, tries $25$ starts and retains the smallest reported within-cluster sum of squares. The default `kmeans` uses the Hartigan–Wong algorithm, which targets the same sum of squares and uses different updates{{cite:hartigan_wong1979}}. Specify `algorithm = "Lloyd"` when reproducing the alternating steps above. The iris laboratory uses the default and checks the reported objective directly.
 
 ```r
 set.seed(3006)
@@ -194,7 +194,7 @@ table(fit$cluster)
 
 ## Choosing $K$: the gap statistic
 
-The criterion $\widetilde W$ falls as $K$ increases, and it equals zero at $K=n$, with one cluster for each point. Minimising it over $K$ therefore selects the largest $K$ on the list. The objective that justifies the algorithm cannot choose $K$. Choosing $K$ is a model-selection problem: which member of a family is appropriate, once each member can be fitted. A Bayesian treatment would put a prior on $K$ and report a posterior. This section seeks one $K$. For K-means, one standard comparison is the gap statistic. It asks how much smaller $\log W$ is for the data than for reference samples that have the same coordinate-wise range and no clusters.
+The criterion $\widetilde W$ falls as $K$ increases, and it equals zero at $K=n$, with one cluster for each point. Minimising it over $K$ therefore selects the largest $K$ on the list. The objective that justifies the algorithm cannot choose $K$. Choosing $K$ is a model-selection problem: which member of a family is appropriate, once each member can be fitted. A Bayesian treatment would put a prior on $K$ and report a posterior. This section seeks one $K$. For K-means, one standard comparison is the gap statistic{{cite:tibshirani_gap2001}}{{cite:hastie_esl2009}}. It asks how much smaller $\log W$ is for the data than for reference samples that have the same coordinate-wise range and no clusters.
 
 Record the coordinate-wise sample minima and maxima. Run K-means for each $k=1,\ldots,K_{\max}$ on the data and store the within-cluster scatter $W_{\mathrm{data}}^{(k)}$. Draw $B$ reference samples of size $n$ from the uniform distribution on the box with those minima and maxima as corners, in the same spirit as a draw from a featureless distribution on that box. For each reference sample and each $k$, run K-means and store $W_b^{(k)}$. The gap and its simulation scale are
 
@@ -212,6 +212,8 @@ $$
 k^*=\min\bigl\{k:\operatorname{Gap}(k)\ge\operatorname{Gap}(k+1)-s'(k+1)\bigr\}.
 $$
 
+{{cite:tibshirani_gap2001}}
+
 Equivalently, $k^*$ is the smallest $k$ with $\operatorname{Gap}(k+1)-\operatorname{Gap}(k)\le s'(k+1)$: the next increase in the gap is no larger than the variability of the reference scores at $k+1$ clusters. Take the smallest $k$ at which adding a cluster no longer improves the gap beyond that variability.
 
 The rule is a comparison with a chosen reference distribution, not a test proving that a particular number of populations exists. Its result depends on the reference geometry and on how well each clustering optimisation is solved. The reference box may be aligned with the coordinate axes, or it may be aligned with the principal components of the data. The two boxes need not give the same answer.
@@ -221,7 +223,7 @@ An outlier can stretch the reference box and change the benchmark substantially.
 ::: {#rem-sl-04-gap .remark}
 ## Why the raw sum of squares cannot choose $K$
 
-$W$, in either the pairwise or the unweighted version, is non-increasing in the number of clusters and reaches $0$ at $k=n$, so minimising it over $k$ always selects the largest $k$. The gap statistic corrects for this by comparing $\log W_{\mathrm{data}}^{(k)}$ with what is expected for data without cluster structure, which also falls as $k$ grows.
+$W$, in either the pairwise or the unweighted version, is non-increasing in the number of clusters and reaches $0$ at $k=n$, so minimising it over $k$ always selects the largest $k${{cite:tibshirani_gap2001}}. The gap statistic corrects for this by comparing $\log W_{\mathrm{data}}^{(k)}$ with what is expected for data without cluster structure, which also falls as $k$ grows{{cite:tibshirani_gap2001}}{{cite:hastie_esl2009}}.
 
 :::
 
@@ -229,7 +231,7 @@ A plot of the within-cluster sum of squares against $k$ is often called an elbow
 
 ## Voronoi geometry
 
-The assignment step gives every point to the nearest current centre, so the clusters are the cells of the Voronoi tessellation with those centres as seeds. The boundary between the cells of $\mathbf{m}_a$ and $\mathbf{m}_b$ is the set of points at equal squared distance from both. Expand the squared norms. The quadratic terms $\|\mathbf{x}\|^2$ cancel, which is special to squared Euclidean distance, and the boundary is linear:
+The assignment step gives every point to the nearest current centre, so the clusters are the cells of the Voronoi tessellation with those centres as seeds{{cite:voronoi1908}}{{cite:lloyd1982}}{{cite:hastie_esl2009}}. The boundary between the cells of $\mathbf{m}_a$ and $\mathbf{m}_b$ is the set of points at equal squared distance from both. Expand the squared norms. The quadratic terms $\|\mathbf{x}\|^2$ cancel, which is special to squared Euclidean distance, and the boundary is linear:
 
 $$
 \|\mathbf{x}-\mathbf{m}_a\|^2=\|\mathbf{x}-\mathbf{m}_b\|^2
@@ -237,7 +239,7 @@ $$
 2(\mathbf{m}_b-\mathbf{m}_a)^\top\mathbf{x}=\|\mathbf{m}_b\|^2-\|\mathbf{m}_a\|^2.
 $$
 
-This is a hyperplane of dimension $p-1$, perpendicular to the segment joining the centres and passing through the midpoint of that segment. The cluster boundaries are pieces of hyperplanes in every dimension.
+This is a hyperplane of dimension $p-1$, perpendicular to the segment joining the centres and passing through the midpoint of that segment{{cite:voronoi1908}}. The cluster boundaries are pieces of hyperplanes in every dimension.
 
 In the plane, three non-collinear centres have perpendicular bisectors meeting at their circumcentre. In $\R^p$ with $p>2$, the points equidistant from all three instead form a $(p-2)$-dimensional affine set. Its intersection with the plane of the three centres is the circumcentre. A two-dimensional picture of three centres meeting at one point does not become, by itself, a claim about a higher-dimensional intersection.
 
@@ -274,7 +276,7 @@ within_SSE   adjusted_Rand_index
   138.8884                0.6201
 ```
 
-Setosa is recovered as its own cluster: all $50$ setosa flowers sit in cluster $2$, and nothing else does. Versicolor and virginica are mixed, $39$ against $14$ in one cluster and $11$ against $36$ in the other. The adjusted Rand index compares the clustering with the species partition without requiring cluster $1$ to mean species $1$. On its chance-corrected scale, identical partitions score $1$, and the index can be negative. The value $0.6201$ is the agreement on this run. The direct sum of squared distances to the assigned centres reproduces `tot.withinss` to the tolerance in the check, which is the unweighted criterion $\widetilde W$.
+Setosa is recovered as its own cluster: all $50$ setosa flowers sit in cluster $2$, and nothing else does. Versicolor and virginica are mixed, $39$ against $14$ in one cluster and $11$ against $36$ in the other. The adjusted Rand index compares the clustering with the species partition without requiring cluster $1$ to mean species $1${{cite:hubert_arabie1985}}. On its chance-corrected scale, identical partitions score $1$, and the index can be negative{{cite:hubert_arabie1985}}. The value $0.6201$ is the agreement on this run. The direct sum of squared distances to the assigned centres reproduces `tot.withinss` to the tolerance in the check, which is the unweighted criterion $\widetilde W$.
 
 K-means favours compact groups in the standardised Euclidean metric. A species can have a shape, or an overlap, that this geometry does not represent. The Voronoi picture for three fixed centres in the plane is a partition into three convex cells, with boundaries that are pieces of the perpendicular bisectors. Those cells are what the assignment step builds, in the standardised four-dimensional measurement space as well as in a two-dimensional illustration.
 
