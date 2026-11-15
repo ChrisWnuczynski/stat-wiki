@@ -20,6 +20,11 @@ HEADING = "The three components of a GLM"
 PRACTICE_LABEL = "question:practice-rayleigh-conjugate-prior"
 
 
+def _prose_word_count(text: str) -> int:
+    # Require an HTML tag name: R output also contains '<-' and '< 2e-16'.
+    return len(re.findall(r"\b[\w-]+\b", re.sub(r"</?[A-Za-z][^>]*>", " ", text)))
+
+
 def _world(root: Path, answer_body: str = "Because.") -> dict:
     notes = root / "notes"
     questions = root / "questions"
@@ -1341,10 +1346,15 @@ class ConceptTemplateTests(unittest.TestCase):
         for slug, minimum in baseline.items():
             text = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             leading = text.split("## See also", 1)[0]
-            words = len(re.findall(r"\b[\w-]+\b", re.sub(r"<[^>]+>", " ", leading)))
+            words = _prose_word_count(leading)
             figures = len(re.findall(r"!\[[^]]*\]\(", text))
             self.assertGreaterEqual(words, minimum["words"], slug)
             self.assertGreaterEqual(figures, minimum["figures"], slug)
+
+    def test_prose_word_count_keeps_r_output_and_following_text(self) -> None:
+        sample = 'model <- lm(y ~ x)\n# Pr(>|t|) < 2e-16\nA fitted association. <sup>[1]</sup>'
+        self.assertIn("A fitted association.", re.sub(r"</?[A-Za-z][^>]*>", " ", sample))
+        self.assertEqual(_prose_word_count(sample), _prose_word_count(sample.replace(" <sup>[1]</sup>", " [1]")))
 
     def test_curated_histories_are_cited(self) -> None:
         import article_extras

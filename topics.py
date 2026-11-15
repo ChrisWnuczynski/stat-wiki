@@ -577,7 +577,7 @@ TOPICS += [
           also=["da-09-chi-square-examples.qmd#s-seeing-the-approximation"],
           links=["expected counts?", "observed counts?", "expected frequenc(?:y|ies)", "expected cell counts?"]),
     topic("Explanatory variable", "inf-06-regression.qmd: Regression analysis explains a response variable",
-          r"A variable $x$ used to explain or predict a response $y$; also called a covariate or predictor. In a designed experiment it is set by the experimenter, in an observational study it is only recorded, and a fitted association with it is not by itself causal.",
+          r"A variable $x$ used to explain or predict a response $y$; also called a covariate or predictor. In a designed experiment it is set by the experimenter, in an observational study it is recorded. The distinction between an assigned input and an observed one matters when interpreting causal effects.{{cite:nist_process_model2002}} (§4.1.2) {{cite:dicker2025_cdc}} (“Analyzing and Interpreting Data”)",
           also=["da-07-regression-examples.qmd#s-one-explanatory-variable"],
           links=["explanatory variables?", "covariates?"], late=True),
     topic("Response variable", "inf-06-regression.qmd: Regression analysis explains a response variable",

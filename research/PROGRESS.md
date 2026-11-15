@@ -56,6 +56,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 - Rank 4, degrees of freedom: replaced unopened definition citations, cited extra prose and examples with locations, removed repetitive history, and tied numerical checks to printed values. A dependent chi-squared distribution lead needed a sourced qualification to remain above baseline.
 - Rank 5, covariance: replaced unopened source-definition and bound citations, located added citations, narrowed history to the publisher abstract, and checked printed values and the inherited figure. Clarified the zero-variance case to preserve the dependent Cauchy–Schwarz page.
 - Rank 6, statistic: replaced unopened extracted-source citations, located new citations, cited worked values, and checked the inherited classification answer.
+- Rank 7, explanatory variable: replaced the unopened Davison citation in its extracted source and proof, located citations in all new factual paragraphs, cited the inherited regression-output bullets, and tied the arithmetic check to printed values.
 
 ## Verification for completed pages
 
