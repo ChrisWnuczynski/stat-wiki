@@ -95,7 +95,7 @@ Normal samples lead to three families that are used for every interval and test 
 ::: {#def-chi-squared-distribution .definition}
 ## Chi-squared distribution
 
-If $Z_1,\ldots,Z_m$ are independent standard normal variables, then $V=Z_1^2+\cdots+Z_m^2$ has the chi-squared distribution with $m$ degrees of freedom, written $\chi^2_m$.{{cite:pearson1900}}{{cite:casella_berger2002}} It is the gamma law with shape $m/2$ and rate $1/2$, so $\E V=m$ and $\Var V=2m$.{{cite:forbes2011}}
+If $Z_1,\ldots,Z_m$ are independent standard normal variables, then $V=Z_1^2+\cdots+Z_m^2$ has the chi-squared distribution with $m$ degrees of freedom, written $\chi^2_m$.{{cite:siegrist2022_normals}} (§6.08) It is the gamma law with shape $m/2$ and rate $1/2$, so $\E V=m$ and $\Var V=2m$.{{cite:siegrist2022_normals}} (§6.08)
 
 :::
 

@@ -53,6 +53,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 - Rank 1, variance: replaced unopened citations in the source definition, located added citations, cited examples, removed repetitive history, and checked printed values in both added and inherited examples.
 - Rank 2, likelihood function: replaced unopened source-definition citations, located researched and extra-text citations, cited examples, and checked printed ratios and source-chapter values.
 - Rank 3, expectation: replaced unopened source-definition and tower-property citations, located researched citations, cited examples, removed repetitive history, and checked inherited numerical answers.
+- Rank 4, degrees of freedom: replaced unopened definition citations, cited extra prose and examples with locations, removed repetitive history, and tied numerical checks to printed values. A dependent chi-squared distribution lead needed a sourced qualification to remain above baseline.
 
 ## Verification for completed pages
 

@@ -20,3 +20,9 @@ Type: Concept/topic.
 - The proof uses projection rank for the exact normal-model result and a dimension count plus Fisher's large-sample argument for tables. It also checks the existing equal-pairwise-correlation expectation formula. Exact table and regression counts and every new numerical example are recomputed in `checks/degrees-of-freedom.py`.
 - The OpenStax formula review was opened during source discovery but has a restriction against ingesting it into generative AI offerings, so no article claim or citation was taken from it.
 - No existing figure, definition, citation, or example was removed.
+
+## Correction pass
+
+- Replaced unopened Casella–Berger, Pearson, and Forbes citations in the chi-squared definition and researched prose with the opened Siegrist normal-sample account, NIST regression section, and Fisher's table paper as appropriate. The Hastie–Tibshirani–Friedman pages read for rank 24 support the smooth's effective-dimension answer.
+- Added precise source locations to citations in the researched prose and `article_extras.py`, cited the motivating and hidden-answer calculations, and removed a second History paragraph that restated current uses rather than history. The arithmetic check now asserts the printed example values.
+- The first generated build found `chi-squared-distribution` two counted words below its frozen baseline. Its data-driven lead context now states the fitted-parameter degrees-of-freedom qualification with the opened Siegrist and Fisher sources; this preserves that dependent page and removes an unread citation from its lead.
