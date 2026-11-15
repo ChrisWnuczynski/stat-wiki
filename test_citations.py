@@ -28,6 +28,21 @@ BANNED_VISIBLE = re.compile(
 )
 
 
+def _citations_todo(path: Path) -> dict[str, str]:
+    todo: dict[str, str] = {}
+    if not path.is_file():
+        return todo
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line.startswith("- "):
+            continue
+        slug, _, reason = line[2:].partition("|")
+        slug, reason = slug.strip(), reason.strip()
+        if slug:
+            todo[slug] = reason
+    return todo
+
+
 class CitationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.bib = json.loads((ROOT / "bibliography.json").read_text(encoding="utf-8"))
@@ -296,6 +311,29 @@ class CitationTests(unittest.TestCase):
             [notes_dir / name for name in part_chapters]
             + list(article_files)
             + static_and_sheets
+        )
+
+    def test_articles_below_three_inline_citations_are_listed(self) -> None:
+        articles_dir = ROOT / "articles"
+        if not articles_dir.is_dir():
+            self.skipTest("Generated wiki directories are not built yet")
+        todo = _citations_todo(ROOT / "citations-todo.md")
+        for slug, reason in todo.items():
+            self.assertTrue(reason, f"{slug} is listed without a reason")
+            self.assertTrue((articles_dir / f"{slug}.qmd").is_file(), f"Unknown todo article {slug}")
+        under: list[str] = []
+        for path in sorted(articles_dir.glob("*.qmd")):
+            text = path.read_text(encoding="utf-8")
+            body = text.split("## References", 1)[0]
+            if len(re.findall(r'class="cite-ref"', body)) < 3:
+                under.append(path.stem)
+        print(f"{len(under)} articles have fewer than 3 inline citations")
+        missing = [slug for slug in under if slug not in todo]
+        self.assertEqual(
+            missing,
+            [],
+            f"{len(under)} articles have fewer than 3 inline citations; "
+            f"not listed in citations-todo.md: {missing}",
         )
 
 
