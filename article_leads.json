@@ -181,7 +181,7 @@
   "equally-likely-outcomes": {"field": "probability theory", "article": "", "term": "equally likely outcomes", "verb": "are", "description": "outcomes assigned equal probability in a finite sample space"},
   "error-and-residual": {"field": "Bayesian statistics", "article": "", "term": "errors and residuals", "verb": "are", "description": "deviations from a true mean and a fitted value, respectively"},
   "estimator": {"field": "statistical inference", "article": "an", "term": "estimator", "verb": "is", "description": "a rule that turns sample data into an estimate of an unknown population quantity"},
-  "event": {"field": "probability theory", "article": "the", "term": "event", "verb": "is", "description": "a set of outcomes to which a probability can be assigned"},
+  "event": {"field": "probability theory", "article": "an", "term": "event", "verb": "is", "description": "a set of outcomes to which a probability can be assigned"},
   "exchangeability": {"field": "Bayesian statistics", "article": "the", "term": "exchangeability", "verb": "is", "description": "the property that a joint distribution is unchanged when observation labels are permuted"},
   "exchangeable-correlation": {"field": "R", "article": "the", "term": "exchangeable correlation", "verb": "is", "description": "a correlation pattern that gives every pair of observations in a group the same correlation"},
   "expectation-of-a-function": {"field": "probability theory", "article": "the", "term": "expectation of a function", "verb": "is", "description": "a rule for averaging a transformed random variable using the original distribution"},
