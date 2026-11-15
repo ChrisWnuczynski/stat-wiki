@@ -24,7 +24,7 @@ $$
 \Pr\bigl(\overline X-n^{-1/2}<\mu<\overline X+n^{-1/2}\bigr)=\Pr\bigl(-1<\sqrt n(\overline X-\mu)<1\bigr)=2\Phi(1)-1=0.683.
 $$
 
-Plus or minus one standard error covers $\mu$ only 68% of the time. Plus or minus two covers it with probability $2\Phi(2)-1=0.954$. Choosing the multiplier is choosing the coverage.
+Plus or minus one standard error covers $\mu$ only 68% of the time.{{cite:casella_berger2002}} Plus or minus two covers it with probability $2\Phi(2)-1=0.954$.{{cite:neyman1937}} Choosing the multiplier is choosing the coverage.{{cite:wasserman2004}}
 
 ## Coverage
 
@@ -37,7 +37,7 @@ $$
 \Pr_\theta(L<\theta<U)=1-\alpha
 $$
 
-for every $\theta$. A one-sided interval leaves one endpoint infinite.
+for every $\theta$.{{cite:neyman1937}}{{cite:casella_berger2002}} A one-sided interval leaves one endpoint infinite.{{cite:casella_berger2002}}
 
 :::
 
@@ -52,7 +52,7 @@ Suppose a 90% interval for $\mu$ comes out as $(9.5,10.5)$. It is tempting to wr
 ::: {#def-pivot .definition}
 ## Pivot
 
-A pivot is a function $h(\vect X;\theta)$ of the data and the parameter whose distribution does not depend on any unknown parameter.
+A pivot is a function $h(\vect X;\theta)$ of the data and the parameter whose distribution does not depend on any unknown parameter.{{cite:neyman1937}}{{cite:casella_berger2002}}{{cite:wasserman2004}}
 
 :::
 
@@ -93,7 +93,7 @@ $$
 T=\frac{\overline X-\mu}{s/\sqrt n}
 $$
 
-has a Student $t$ distribution with $n-1$ degrees of freedom. A Student variable with $m$ degrees of freedom is $Z/\sqrt{V/m}$ where $Z$ is standard normal, $V$ is chi-squared with $m$ degrees of freedom, and $Z$ and $V$ are independent.
+has a Student $t$ distribution with $n-1$ degrees of freedom.{{cite:student1908}}{{cite:casella_berger2002}} A Student variable with $m$ degrees of freedom is $Z/\sqrt{V/m}$ where $Z$ is standard normal, $V$ is chi-squared with $m$ degrees of freedom, and $Z$ and $V$ are independent.{{cite:fisher1925_smrw}}
 
 :::
 
@@ -144,7 +144,7 @@ $$
 \left(\frac{(n-1)s^2}{\chi^2_{n-1;\,1-\alpha/2}},\;\frac{(n-1)s^2}{\chi^2_{n-1;\,\alpha/2}}\right).
 $$
 
-The upper quantile sits in the lower endpoint, because the pivot has $\sigma^2$ in the denominator. The chi-squared law is skewed, so the interval is not symmetric about $s^2$. An interval for $\sigma$ is found by taking square roots of both endpoints; a monotone function carries the coverage with it.
+The upper quantile sits in the lower endpoint, because the pivot has $\sigma^2$ in the denominator.{{cite:fisher1925_smrw}} The chi-squared law is skewed, so the interval is not symmetric about $s^2$.{{cite:casella_berger2002}} An interval for $\sigma$ is found by taking square roots of both endpoints; a monotone function carries the coverage with it.{{cite:neyman1937}}
 
 ::: {#exm-aspirin-tablet-weights .example}
 ## Aspirin tablet weights
@@ -186,7 +186,7 @@ $$
 s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}.
 $$
 
-It is unbiased for $\sigma^2$, and $(n_1+n_2-2)s_p^2/\sigma^2$ is $\chi^2_{n_1+n_2-2}$.
+It is unbiased for $\sigma^2$, and $(n_1+n_2-2)s_p^2/\sigma^2$ is $\chi^2_{n_1+n_2-2}$.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}}{{cite:wasserman2004}}
 
 :::
 
@@ -201,7 +201,7 @@ $$
 T=\frac{(\overline X_1-\overline X_2)-(\mu_1-\mu_2)}{s_p\sqrt{1/n_1+1/n_2}}
 $$
 
-has a $t$ distribution with $n_1+n_2-2$ degrees of freedom.
+has a $t$ distribution with $n_1+n_2-2$ degrees of freedom.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}}{{cite:neyman1937}}
 
 :::
 
@@ -232,7 +232,7 @@ $$
 \frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}
 $$
 
-has the $F$ distribution with $(n_1-1,\,n_2-1)$ degrees of freedom.
+has the $F$ distribution with $(n_1-1,\,n_2-1)$ degrees of freedom.{{cite:fisher1925_smrw}}{{cite:snedecor1934}}{{cite:casella_berger2002}}
 
 :::
 
@@ -262,6 +262,8 @@ For $X\sim\Bin(n,p)$ with $\widehat p=X/n$, the Wald interval with approximate c
 $$
 \widehat p\pm z_{1-\alpha/2}\sqrt{\frac{\widehat p(1-\widehat p)}{n}}.
 $$
+
+{{cite:wald1943}}{{cite:brown_cai_dasgupta2001}}{{cite:casella_berger2002}}
 
 :::
 
@@ -298,7 +300,7 @@ $$
 n\ge\Bigl(\frac{z_{1-\alpha/2}\,\sigma}{E}\Bigr)^2.
 $$
 
-Halving the half-width needs four times the sample. For a proportion the same calculation with $\sigma^2=p(1-p)\le1/4$ gives the conservative $n\ge z_{1-\alpha/2}^2/(4E^2)$. A poll accurate to $\pm3$ percentage points with 95% confidence needs about $1.96^2/(4\times0.03^2)\approx1068$ people, whatever the size of the population.
+Halving the half-width needs four times the sample.{{cite:neyman1937}}{{cite:casella_berger2002}} For a proportion the same calculation with $\sigma^2=p(1-p)\le1/4$ gives the conservative $n\ge z_{1-\alpha/2}^2/(4E^2)$.{{cite:wasserman2004}} A poll accurate to $\pm3$ percentage points with 95% confidence needs about $1.96^2/(4\times0.03^2)\approx1068$ people, whatever the size of the population.
 
 ::: {.callout-note}
 ## Key idea

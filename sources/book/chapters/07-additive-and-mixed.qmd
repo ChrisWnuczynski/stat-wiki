@@ -9,7 +9,7 @@ $$
 \mathrm{logit}\,\mathrm{P}(\text{kyphosis})
 =\beta_0+g_1(\text{number})+g_2(\text{start})+g_3(\text{age}).
 $$
-Each $g_j$ has its own penalty. Nothing forces them to be equally smooth. This is a generalised additive model, in the sense of Hastie and Tibshirani: additive in the smooths, not linear in the covariates. `Number` takes only the values $1$ through $8$, and `Start` only sixteen vertebral positions, so a smooth cannot have more knots than there are distinct values.
+Each $g_j$ has its own penalty. Nothing forces them to be equally smooth. This is a generalised additive model: additive in the smooths, not linear in the covariates.{{cite:hastie_tibshirani1986}}{{cite:hastie_tibshirani1990}}{{cite:wood2017}} `Number` takes only the values $1$ through $8$, and `Start` only sixteen vertebral positions, so a smooth cannot have more knots than there are distinct values.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -24,7 +24,7 @@ kyphosis$Kyphosis <- as.numeric(kyphosis$Kyphosis == "present")
 summary(gam(Kyphosis ~ s(Number, k = 8) + s(Start, k = 16) + s(Age),
             family = binomial, data = kyphosis))
 ```
-The equivalent degrees of freedom are about $1.19$ for the number of vertebrae, $2.04$ for the starting position, and $2.21$ for age.
+The equivalent degrees of freedom, the trace of the smoother matrix, are about $1.19$ for the number of vertebrae, $2.04$ for the starting position, and $2.21$ for age.{{cite:hastie_tibshirani1990}}{{cite:wood2011}}{{cite:wood2017}}
 
 ![The three smooths in the additive kyphosis model, on the log-odds scale and centred at zero. Number of vertebrae is close to a straight line. Starting position is flat through the upper vertebrae and then falls. Age still rises and then eases.](../figures/kyphosis-additive.pdf){#fig-kyph-add}
 
@@ -32,7 +32,7 @@ In @fig-kyph-add, number is almost a straight line on the log-odds scale: more v
 
 Each curve is the effect of moving that one covariate while the others are held fixed. Holding the starting vertebra at $16$ and imagining ten vertebrae below it is not a spine that exists. The sentence is conditional on a hypothetical, and some of those hypotheticals are empty.
 
-A free function of all three covariates together would fit a surface we could not explain to a surgeon. Two-way interactions are already hard. Three-way interactions are where we stop. The compromise is a partially linear model: a coefficient for the term you want a unit-change sentence about, and a smooth for the terms you are only adjusting for. Ambient temperature in a lab, or the weight of a patient in a trial of two treatments, is the second kind. Dose and treatment are the first kind.
+A free function of all three covariates together would fit a surface we could not explain to a surgeon. Two-way interactions are already hard. Three-way interactions are where we stop. The compromise is a partially linear model: a coefficient for the term you want a unit-change sentence about, and a smooth for the terms you are only adjusting for.{{cite:engle1986_plm}}{{cite:ruppert_wand_carroll2003}}{{cite:wood2017}} Ambient temperature in a lab, or the weight of a patient in a trial of two treatments, is the second kind. Dose and treatment are the first kind.
 
 Number of vertebrae looked linear, so force it to be a slope and leave start and age smooth:
 ```r

@@ -59,7 +59,7 @@ $$
 \end{aligned}
 $$
 
-The term inside $\mathrm{SS}_{AB}$ is the interaction residual of the cell mean. It is zero for every cell when the cell means are additive. The degrees of freedom are $J-1$, $K-1$, $(J-1)(K-1)$ and $nJK-JK$. The mean squares divide by those degrees of freedom, and each $F$ statistic divides a mean square by the error mean square. Under the normal model and the corresponding null hypothesis, the three numerators are independent of the error and the ratios are $F$.
+The term inside $\mathrm{SS}_{AB}$ is the interaction residual of the cell mean. It is zero for every cell when the cell means are additive. The degrees of freedom are $J-1$, $K-1$, $(J-1)(K-1)$ and $nJK-JK$. The mean squares divide by those degrees of freedom, and each $F$ statistic divides a mean square by the error mean square. Under the normal model and the corresponding null hypothesis, the three numerators are independent of the error and the ratios are $F$.{{cite:fisher1935_doe}}{{cite:scheffe1959}}{{cite:casella_berger2002}}
 
 Testing the interaction uses $(J-1)(K-1)$ and $JK(n-1)$ degrees of freedom. With one observation per cell, $n=1$, the error sum of squares is zero once the interaction is fitted, and the interaction cannot be tested. That is why a [randomised block design](inf-07-anova.qmd#def-randomised-block-design) assumes additivity and uses the interaction row as the error.
 
@@ -91,7 +91,7 @@ Each main effect has $1$ degree of freedom, the interaction has $1$, and the err
 
 ![Cell means of yield against water, one line for each fertiliser level. The wet-minus-dry gap is $3$ on the low line and $8$ on the high line. Parallel lines would have meant no interaction.](../figures/inf-two-factor-means.pdf){#fig-inf-two-factor-means}
 
-Read the same means under contrast constraints, with low fertiliser and dry water as the reference cell. The reference mean is $\mu=5$. Moving to high fertiliser, still in dry conditions, changes the mean by $\alpha_{\mathrm{high}}=7-5=2$. Moving to wet conditions, still at low fertiliser, changes the mean by $\beta_{\mathrm{wet}}=8-5=3$. The high-and-wet cell is $15$, which is $5+2+3$ plus an extra $\gamma=5$. The interaction coefficient is the gap between the two water effects, $8-3=5$. Under sum-to-zero constraints the interaction is the same scientific fact and a different number, because each coefficient is then a deviation from an average rather than a change from the dry, low cell.
+Read the same means under contrast constraints, with low fertiliser and dry water as the reference cell. The reference mean is $\mu=5$. Moving to high fertiliser, still in dry conditions, changes the mean by $\alpha_{\mathrm{high}}=7-5=2$. Moving to wet conditions, still at low fertiliser, changes the mean by $\beta_{\mathrm{wet}}=8-5=3$. The high-and-wet cell is $15$, which is $5+2+3$ plus an extra $\gamma=5$. The interaction coefficient is the gap between the two water effects, $8-3=5$. Under sum-to-zero constraints the interaction is the same scientific fact and a different number, because each coefficient is then a deviation from an average rather than a change from the dry, low cell.{{cite:scheffe1959}}
 
 ```r
 yield <- c(4, 6, 7, 9, 6, 8, 14, 16)
@@ -105,11 +105,11 @@ coef(lm(yield ~ fert * water))
 
 If the interaction is dropped, the additive fit `yield ~ fert + water` pools $\mathrm{SS}_{\mathrm{int}}$ into the error. The new error sum of squares is $12.5+8=20.5$ on $5$ degrees of freedom, and the main-effect $F$ statistics are recomputed with that larger error mean square. Pooling is reasonable when the interaction $F$ is small and the scientific question is an average fertiliser effect. It is not reasonable when the lines cross so sharply that the average hides the cell that actually matters. The crop example on the data-analysis page is that second situation: the interaction $F$ is enormous, and the report is the table of cell means rather than a single fertiliser coefficient.
 
-A significant interaction also changes what a main-effect coefficient means. Under the contrast constraints, $\alpha_{\mathrm{high}}=2$ is the fertiliser effect in dry conditions only. It is not the fertiliser effect averaged over water, and it is not the fertiliser effect in the wet. Quoting it as "the effect of fertiliser" drops the condition that makes the number true.
+A significant interaction also changes what a main-effect coefficient means. Under the contrast constraints, $\alpha_{\mathrm{high}}=2$ is the fertiliser effect in dry conditions only.{{cite:fisher1935_doe}} It is not the fertiliser effect averaged over water, and it is not the fertiliser effect in the wet. Quoting it as "the effect of fertiliser" drops the condition that makes the number true.
 
 ::: {.callout-note}
 ## Key idea
-Two factors need a constraint before their coefficients mean anything. Contrast constraints measure every change from a reference cell, and the interaction is the extra change when both factors leave that cell. Sum-to-zero constraints measure deviations from averages. The $F$ test for no interaction is the same hypothesis either way. When that test is not small, read the cell means. The main-effect coefficients are changes at the reference, or averages, and neither one is the whole experiment.
+Two factors need a constraint before their coefficients mean anything. Contrast constraints measure every change from a reference cell, and the interaction is the extra change when both factors leave that cell. Sum-to-zero constraints measure deviations from averages. The $F$ test for no interaction is the same hypothesis either way.{{cite:scheffe1959}}{{cite:casella_berger2002}} When that test is not small, read the cell means. The main-effect coefficients are changes at the reference, or averages, and neither one is the whole experiment.
 :::
 
 ## Exercises

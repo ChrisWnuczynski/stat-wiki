@@ -9,11 +9,11 @@ The discrete-time chain, including the jump chain embedded in the continuous-tim
 ::: {#def-sp-generator .definition}
 ## Generator
 
-For a finite-state continuous-time Markov chain, let $q_{ij}\ge 0$ for $j\neq i$ be the rate of moving from $i$ to $j$, and set $q_{ii}=-\sum_{j\neq i} q_{ij}$. The matrix $Q=(q_{ij})$ is the generator. The exit rate from $i$ is $\nu_i=-q_{ii}$.
+For a finite-state continuous-time Markov chain, let $q_{ij}\ge 0$ for $j\neq i$ be the rate of moving from $i$ to $j$, and set $q_{ii}=-\sum_{j\neq i} q_{ij}$.{{cite:norris1997}} The matrix $Q=(q_{ij})$ is the generator.{{cite:ross2019}} The exit rate from $i$ is $\nu_i=-q_{ii}$.{{cite:grimmett_stirzaker2020}}
 
 :::
 
-In state $i$ the holding time is exponential with rate $\nu_i$. If $\nu_i>0$, the next state is $j$ with probability $k_{ij}=q_{ij}/\nu_i$. The matrix $K=(k_{ij})$ is the embedded jump chain, a discrete-time transition matrix. An absorbing state has $\nu_i=0$: the chain never leaves.
+In state $i$ the holding time is exponential with rate $\nu_i$.{{cite:norris1997}}{{cite:ross2019}} If $\nu_i>0$, the next state is $j$ with probability $k_{ij}=q_{ij}/\nu_i$.{{cite:grimmett_stirzaker2020}} The matrix $K=(k_{ij})$ is the embedded jump chain, a discrete-time transition matrix.{{cite:norris1997}} An absorbing state has $\nu_i=0$: the chain never leaves.
 
 The short-time rules that define the rates are
 
@@ -32,7 +32,7 @@ The same drawing is a race of clocks. From state $i$, start an independent expon
 
 ## Evolution equations
 
-Let $P(t)=\bigl(p_{ij}(t)\bigr)$ with $p_{ij}(t)=\Pr\bigl(X(t)=j\given X(0)=i\bigr)$. The Chapman–Kolmogorov identity is the continuous-time product $P(s+t)=P(s)P(t)$: to be at $j$ at time $s+t$, the chain is somewhere at time $s$ and then moves for time $t$. Differentiating at $t=0$ from the right, and using the short-time rules, gives Kolmogorov's equations
+Let $P(t)=\bigl(p_{ij}(t)\bigr)$ with $p_{ij}(t)=\Pr\bigl(X(t)=j\given X(0)=i\bigr)$. The Chapman–Kolmogorov identity is the continuous-time product $P(s+t)=P(s)P(t)$: to be at $j$ at time $s+t$, the chain is somewhere at time $s$ and then moves for time $t$.{{cite:chapman1928}} Differentiating at $t=0$ from the right, and using the short-time rules, gives Kolmogorov's equations
 
 $$
 P'(t)=P(t)Q \quad\text{(forward)},
@@ -42,13 +42,13 @@ P'(t)=QP(t) \quad\text{(backward)},
 P(0)=I.
 $$
 
-The forward equation conditions on the state just before time $t$. The backward equation conditions on the first jump after time $0$. For a finite-state homogeneous chain the unique solution is the matrix exponential
+The forward equation conditions on the state just before time $t$.{{cite:kolmogorov1931}} The backward equation conditions on the first jump after time $0$.{{cite:norris1997}} For a finite-state homogeneous chain the unique solution is the matrix exponential
 
 $$
 P(t)=e^{tQ}=\sum_{n=0}^{\infty}\frac{(tQ)^n}{n!}.
 $$
 
-The forward and backward products agree because this series is a power series in the single matrix $Q$.
+The forward and backward products agree because this series is a power series in the single matrix $Q$.{{cite:ross2019}}
 
 ## The two-state chain
 
@@ -66,13 +66,13 @@ $$
 u'(t)=\alpha\bigl(1-u(t)\bigr)-\beta u(t)=\alpha-(\alpha+\beta)u(t),
 $$
 
-with $u(0)=0$. The equilibrium of the ODE is $\alpha/(\alpha+\beta)$. The deviation from that equilibrium decays as $e^{-(\alpha+\beta)t}$:
+with $u(0)=0$. The equilibrium of the ODE is $\alpha/(\alpha+\beta)$.{{cite:ross2019}} The deviation from that equilibrium decays as $e^{-(\alpha+\beta)t}$:
 
 $$
 u(t)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr).
 $$
 
-Differentiating the formula recovers the ODE, and the value at $0$ is $0$. The stationary probability of state $1$ is the limit as $t\to\infty$.
+Differentiating the formula recovers the ODE, and the value at $0$ is $0$. The stationary probability of state $1$ is the limit as $t\to\infty$.{{cite:norris1997}}{{cite:grimmett_stirzaker2020}}
 
 This finite irreducible chain converges even though its jump chain alternates between the two states. The jump chain is the periodic discrete chain with $a=b=1$ on [Discrete-time Markov chains](sp-04-discrete-markov.qmd). Random holding times destroy the parity: the chain does not switch at every integer, so the continuous-time law cannot oscillate forever between the two states.
 
@@ -100,13 +100,13 @@ At stationarity the derivative is zero and the flow equations reduce to $\pi Q=0
 
 ## Uniformisation
 
-Choose $\gamma\ge\max_i\nu_i$ and set $R=I+Q/\gamma$. Then $R$ is a transition matrix. Its off-diagonal entries $q_{ij}/\gamma$ are non-negative, its diagonal entries are $1-\nu_i/\gamma\ge 0$, and its rows sum to $1$ because the rows of $Q$ sum to $0$. Since $Q=\gamma(R-I)$,
+Choose $\gamma\ge\max_i\nu_i$ and set $R=I+Q/\gamma$. Then $R$ is a transition matrix.{{cite:norris1997}} Its off-diagonal entries $q_{ij}/\gamma$ are non-negative, its diagonal entries are $1-\nu_i/\gamma\ge 0$, and its rows sum to $1$ because the rows of $Q$ sum to $0$. Since $Q=\gamma(R-I)$,
 
 $$
 e^{tQ}=e^{-\gamma t}\sum_{n=0}^{\infty}\frac{(\gamma t)^n}{n!} R^n.
 $$
 
-A finite continuous-time transition law is a Poisson mixture of the discrete-time powers of $R$. Some steps of $R$ are self-transitions inserted so that every state has the same potential exit rate $\gamma$. Those self-transitions are not the jumps of the embedded chain $K$. The matrix $K$ is used when a jump actually occurs. The matrix $R$ is used to write $e^{tQ}$ as an average of discrete chains, which is a practical way to compute $P(t)$ and a precise link between Poisson clocks and continuous-time chains.
+A finite continuous-time transition law is a Poisson mixture of the discrete-time powers of $R$.{{cite:jensen1953}}{{cite:norris1997}} Some steps of $R$ are self-transitions inserted so that every state has the same potential exit rate $\gamma$. Those self-transitions are not the jumps of the embedded chain $K$. The matrix $K$ is used when a jump actually occurs. The matrix $R$ is used to write $e^{tQ}$ as an average of discrete chains, which is a practical way to compute $P(t)$ and a precise link between Poisson clocks and continuous-time chains.
 
 ::: {.callout-note}
 ## Key idea

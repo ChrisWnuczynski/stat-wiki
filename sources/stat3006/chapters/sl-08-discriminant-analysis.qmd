@@ -17,13 +17,13 @@ The object is a rule that reads a new measurement vector and returns a class. A 
 ::: {#def-sl-08-classifier .definition}
 ## Training data and classifier
 
-The training data consist of multivariate observations $\mathbf{x}_1,\ldots,\mathbf{x}_n\in\R^p$ of $p$ predictor variables, stored as the rows of a data matrix $X_{\mathrm{all}}$, together with class labels $\mathbf{y}_{\mathrm{all}}=(y_1,\ldots,y_n)^\top$, $y_i\in\{1,\ldots,G\}$, where $G$ is the number of classes. A classifier is a function
+The training data consist of multivariate observations $\mathbf{x}_1,\ldots,\mathbf{x}_n\in\R^p$ of $p$ predictor variables, stored as the rows of a data matrix $X_{\mathrm{all}}$, together with class labels $\mathbf{y}_{\mathrm{all}}=(y_1,\ldots,y_n)^\top$, $y_i\in\{1,\ldots,G\}$, where $G$ is the number of classes{{cite:anderson2003_mva}}. A classifier is a function
 
 $$
 \eta^{(X_{\mathrm{all}},\mathbf{y}_{\mathrm{all}})}(\mathbf{x})\in\{1,\ldots,G\}
 $$
 
-of a new observation $\mathbf{X}=\mathbf{x}$ and the training set.
+of a new observation $\mathbf{X}=\mathbf{x}$ and the training set{{cite:hastie_esl2009}}{{cite:wald1950}}.
 
 :::
 
@@ -44,7 +44,7 @@ $$
 =\frac{f_g(\mathbf{x})\,\pi_g}{f_X(\mathbf{x})},
 $$
 
-where $f_g(\mathbf{x})$ is the density of class $g$ and $f_X(\mathbf{x})$ is the marginal density of the measurements. The marginal is the mixture of the class densities,
+where $f_g(\mathbf{x})$ is the density of class $g$ and $f_X(\mathbf{x})$ is the marginal density of the measurements{{cite:wald1950}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. The marginal is the mixture of the class densities,
 
 $$
 f_X(\mathbf{x})=\sum_{g=1}^{G}\pi_g f_g(\mathbf{x}).
@@ -62,6 +62,7 @@ $$
 =\frac{\pi_g f_g(\mathbf{x})}{\sum_{g'=1}^{G}\pi_{g'} f_{g'}(\mathbf{x})}.
 $$
 
+{{cite:wald1950}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}
 :::
 
 The class that this posterior says is most probable is
@@ -71,7 +72,7 @@ B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x})
 =\arg\max_{g\in\{1,\ldots,G\}}\pi_g f_g(\mathbf{x}).
 $$
 
-The second equality holds because the marginal density $f_X(\mathbf{x})$ is the same for every class, so it cannot change which class wins. When the densities and the priors are the true ones, this rule has the lowest expected zero–one risk. The plug-in rule keeps the same comparison and replaces each unknown quantity by an estimate from the training sample:
+The second equality holds because the marginal density $f_X(\mathbf{x})$ is the same for every class, so it cannot change which class wins. When the densities and the priors are the true ones, this rule has the lowest expected zero–one risk{{cite:wald1950}}{{cite:hastie_esl2009}}. The plug-in rule keeps the same comparison and replaces each unknown quantity by an estimate from the training sample:
 
 $$
 \eta^{(X_{\mathrm{all}},\mathbf{y}_{\mathrm{all}})}(\mathbf{x})
@@ -121,7 +122,7 @@ l\bigl(Y,\eta(X)\bigr)
 =\sum_{g=1}^{G} Y_g\, Q\bigl[g,\eta(X)\bigr].
 $$
 
-The conditional risk at $X=\mathbf{x}$ is the expected loss over $Y$ drawn from its conditional distribution, which is multinomial with a single trial and probabilities $\tau_1(\mathbf{x}),\ldots,\tau_G(\mathbf{x})$.
+{{cite:wald1950}} The conditional risk at $X=\mathbf{x}$ is the expected loss over $Y$ drawn from its conditional distribution, which is multinomial with a single trial and probabilities $\tau_1(\mathbf{x}),\ldots,\tau_G(\mathbf{x})${{cite:wald1950}}{{cite:hastie_esl2009}}.
 
 :::
 
@@ -145,6 +146,7 @@ $$
 \eta(\mathbf{x})=B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x}).
 $$
 
+{{cite:wald1950}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}
 :::
 
 At a fixed $\mathbf{x}$, predicting $h$ incurs conditional error $1-\tau_h(\mathbf{x})$. Choose a largest posterior to make this as small as possible. Integrating that pointwise inequality over $X$ proves optimality for overall error as well. Ties can be resolved by any fixed convention; the risk is the same.
@@ -169,13 +171,13 @@ $$
 =\arg\min_{h\in\{1,\ldots,G\}}\sum_{g\ne h}\tau_g(\mathbf{x})\,c_{gh}.
 $$
 
-For two classes the comparison simplifies. The rule predicts class $1$ when $\tau_2(\mathbf{x})\,c_{21}<\tau_1(\mathbf{x})\,c_{12}$, which is $\tau_1(\mathbf{x})/\tau_2(\mathbf{x})>c_{21}/c_{12}$. The threshold on the posterior odds moves toward the class whose misclassification costs more. Equal costs put the threshold at $1$ and recover the maximum-posterior rule. The posteriors themselves still come from Bayes' theorem. Only the cutoff has changed.
+For two classes the comparison simplifies. The rule predicts class $1$ when $\tau_2(\mathbf{x})\,c_{21}<\tau_1(\mathbf{x})\,c_{12}$, which is $\tau_1(\mathbf{x})/\tau_2(\mathbf{x})>c_{21}/c_{12}$. The threshold on the posterior odds moves toward the class whose misclassification costs more{{cite:wald1950}}. Equal costs put the threshold at $1$ and recover the maximum-posterior rule{{cite:wald1950}}{{cite:hastie_esl2009}}. The posteriors themselves still come from Bayes' theorem. Only the cutoff has changed.
 
 ## Linear discriminant analysis
 
-LDA supplies the missing class densities by assuming $X\given Y=g\sim\Normal_p(\boldsymbol\mu_g,\Sigma)$, with one covariance shared across classes. This is a distribution conditional on a class label. Different means move the class centres. The common covariance gives them the same shape and orientation. The reward for that restriction is a linear log-odds comparison (Hastie, Tibshirani, and Friedman, 2009).
+LDA supplies the missing class densities by assuming $X\given Y=g\sim\Normal_p(\boldsymbol\mu_g,\Sigma)$, with one covariance shared across classes. This is a distribution conditional on a class label. Different means move the class centres. The common covariance gives them the same shape and orientation. The reward for that restriction is a linear log-odds comparison{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}.
 
-The labels are known, so the training sample splits into classes and each piece can be estimated on its own. The priors are the training proportions above, unless the design fixed the class sizes or a better external estimate exists. The mean of each class is the ordinary sample mean of its own observations. The common covariance centres every observation by its own class mean, pools the cross-products, and divides by $n-G$. That divisor is the unbiased one: one degree of freedom is spent on each of the $G$ estimated means,
+The labels are known, so the training sample splits into classes and each piece can be estimated on its own. The priors are the training proportions above, unless the design fixed the class sizes or a better external estimate exists. The mean of each class is the ordinary sample mean of its own observations. The common covariance centres every observation by its own class mean, pools the cross-products, and divides by $n-G$. That divisor is the unbiased one: one degree of freedom is spent on each of the $G$ estimated means{{cite:anderson2003_mva}},
 
 $$
 \widehat\Sigma
@@ -242,6 +244,8 @@ The identity $(\mathbf{a}+\mathbf{b})^\top M(\mathbf{a}-\mathbf{b})=\mathbf{a}^\
 $$
 \alpha+\mathbf{x}^\top\boldsymbol\beta=0.
 $$
+
+{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}
 
 Predicting the class with the larger weighted density is the sign rule
 
@@ -348,7 +352,7 @@ The nearer mean in Mahalanobis distance is $\widehat{\boldsymbol\mu}_1$. The cov
 
 ## Quadratic discriminant analysis
 
-To allow different class shapes, estimate a separate covariance for each class. QDA makes that change and retains Gaussian class densities. The pairwise score difference becomes a polynomial of degree at most two. It can describe curved boundaries, though special parameter choices give degenerate or empty boundaries. The next display shows exactly which cancellation LDA loses.
+To allow different class shapes, estimate a separate covariance for each class. QDA makes that change and retains Gaussian class densities{{cite:smith1947_qda}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. The pairwise score difference becomes a polynomial of degree at most two. It can describe curved boundaries, though special parameter choices give degenerate or empty boundaries. The next display shows exactly which cancellation LDA loses.
 
 The tie $\widehat\pi_j\widehat f_j(\mathbf{x})=\widehat\pi_l\widehat f_l(\mathbf{x})$ is now
 
@@ -370,7 +374,7 @@ $$
 \Bigr].
 $$
 
-The quadratic terms are $\mathbf{x}^\top\widehat\Sigma_j^{-1}\mathbf{x}$ and $\mathbf{x}^\top\widehat\Sigma_l^{-1}\mathbf{x}$. They cancel only if the two inverses agree. Once the covariances differ, the difference $\mathbf{x}^\top(\widehat\Sigma_j^{-1}-\widehat\Sigma_l^{-1})\mathbf{x}$ survives, and the boundary is quadratic in $\mathbf{x}$. The class regions therefore have piecewise quadratic edges. The same comparison can be written as a score for each class,
+The quadratic terms are $\mathbf{x}^\top\widehat\Sigma_j^{-1}\mathbf{x}$ and $\mathbf{x}^\top\widehat\Sigma_l^{-1}\mathbf{x}$. They cancel only if the two inverses agree. Once the covariances differ, the difference $\mathbf{x}^\top(\widehat\Sigma_j^{-1}-\widehat\Sigma_l^{-1})\mathbf{x}$ survives, and the boundary is quadratic in $\mathbf{x}${{cite:smith1947_qda}}{{cite:hastie_esl2009}}. The class regions therefore have piecewise quadratic edges. The same comparison can be written as a score for each class,
 
 $$
 \delta_g(\mathbf{x})
@@ -397,7 +401,7 @@ Each class covariance is estimated from that class alone, so its sampling variab
 
 ## Fisher's linear discriminant analysis
 
-LDA obtained a linear boundary by assuming normal classes with a shared covariance. Many labelled samples are not normal, and writing down a density may be more than the problem requires. Fisher asked a different question for two classes (Fisher, 1936). Among all one-dimensional projections, which direction separates the two class means the most, relative to the scatter within the classes? Fisher's linear discriminant analysis maximises that ratio. A hyperplane perpendicular to the maximising direction is then the boundary. The criterion uses the class means and a pooled covariance. It does not assume normality, and it does not require the population covariances to be equal. The pooled matrix $S$ is still a constraint: the denominator treats the two classes as having a common scatter. That constraint is why the direction will match the vector $\boldsymbol\beta$ of normal LDA, even though the two derivations start from different places.
+LDA obtained a linear boundary by assuming normal classes with a shared covariance. Many labelled samples are not normal, and writing down a density may be more than the problem requires. Fisher asked a different question for two classes{{cite:fisher1936}}. Among all one-dimensional projections, which direction separates the two class means the most, relative to the scatter within the classes? Fisher's linear discriminant analysis maximises that ratio{{cite:fisher1936}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. A hyperplane perpendicular to the maximising direction is then the boundary. The criterion uses the class means and a pooled covariance. It does not assume normality, and it does not require the population covariances to be equal. The pooled matrix $S$ is still a constraint: the denominator treats the two classes as having a common scatter. That constraint is why the direction will match the vector $\boldsymbol\beta$ of normal LDA, even though the two derivations start from different places.
 
 Let the sample means be $\widehat{\boldsymbol\mu}_1$ and $\widehat{\boldsymbol\mu}_2$, and let $S$ be their pooled sample covariance. A projection direction is a vector $\mathbf{a}\in\R^p$. Its length will not matter, because the ratio below is unchanged if $\mathbf{a}$ is rescaled. In the projected space the class means are the scalars $\mathbf{a}^\top\widehat{\boldsymbol\mu}_1$ and $\mathbf{a}^\top\widehat{\boldsymbol\mu}_2$. Each class mean, measured from the midpoint of the two projected means, is
 
@@ -424,7 +428,7 @@ The ratio depends on the direction of $\mathbf{a}$ and not on its length. One ro
 ::: {#thm-sl-08-fisher .theorem}
 ## Fisher's direction
 
-Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}$. If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
+Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}${{cite:fisher1936}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
 
 :::
 
@@ -442,7 +446,7 @@ Fisher's direction $\mathbf{a}\propto S^{-1}(\widehat{\boldsymbol\mu}_1-\widehat
 
 ## Mixture discriminant analysis
 
-A single Gaussian density cannot represent a ring-shaped concentration of observations. A quadratic boundary can still be circular, so QDA can separate a ring from a central group. Density fit and classification boundary are different questions. Mixture discriminant analysis gives each class a more flexible density by combining Gaussian components (Hastie and Tibshirani, 1996; Fraley and Raftery, 2002). Its benefit should be assessed on the actual prediction task, since estimating more components also costs data.
+A single Gaussian density cannot represent a ring-shaped concentration of observations. A quadratic boundary can still be circular, so QDA can separate a ring from a central group. Density fit and classification boundary are different questions. Mixture discriminant analysis gives each class a more flexible density by combining Gaussian components{{cite:hastie_tibshirani1996_mda}}{{cite:fraley_raftery2002}}. Its benefit should be assessed on the actual prediction task, since estimating more components also costs data.
 
 The number of components is not fixed by the geometry. More data can support more of them, and BIC or AIC, from [Model selection](sl-06-model-selection.qmd), is the criterion already used for that choice, typically applied separately in each class. If one class is too thin for those components, a kernel density follows the same curve, and it is the estimator that fails first as the dimension grows. When the geometry does not decide between the methods, the comparison is an error rate on observations the fit did not see.
 
@@ -454,11 +458,11 @@ g^*=\arg\max_g \pi_g\widehat f_g(\mathbf{x}),
 \widehat f_g(\mathbf{x})=\sum_{h=1}^{H_g}\lambda_{gh}\widehat f_{gh}(\mathbf{x}),
 $$
 
-where $\pi_g$ is the prior probability of class $g$, $\lambda_{gh}$ is the probability of component $h$ within the mixture for class $g$, $\widehat f_{gh}$ is the fitted density of that component, and $H_g$ is the number of components fitted to class $g$, chosen separately or jointly. Ordinary LDA and QDA are the special cases $H_g=1$, with a common covariance or a covariance of their own.
+where $\pi_g$ is the prior probability of class $g$, $\lambda_{gh}$ is the probability of component $h$ within the mixture for class $g$, $\widehat f_{gh}$ is the fitted density of that component, and $H_g$ is the number of components fitted to class $g$, chosen separately or jointly. Ordinary LDA and QDA are the special cases $H_g=1$, with a common covariance or a covariance of their own{{cite:hastie_esl2009}}{{cite:hastie_tibshirani1996_mda}}.
 
 ## Kernel density discriminant analysis
 
-Kernel discriminant analysis replaces each class density by a kernel estimate from [Hierarchical clustering and kernel density estimation](sl-07-linkage-and-density.qmd). This avoids choosing a finite component count, and it introduces bandwidths and still needs enough observations locally. Its difficulty grows with dimension. Six is a software limit in some implementations. The same weighted-density rule can be written in more dimensions when the sample supports the bandwidths. Choose bandwidths inside each training split, then apply the same weighted-density rule:
+Kernel discriminant analysis replaces each class density by a kernel estimate{{cite:silverman1986}}{{cite:parzen1962}}{{cite:fix_hodges1989}} from [Hierarchical clustering and kernel density estimation](sl-07-linkage-and-density.qmd). This avoids choosing a finite component count, and it introduces bandwidths and still needs enough observations locally. Its difficulty grows with dimension. Six is a software limit in some implementations. The same weighted-density rule can be written in more dimensions when the sample supports the bandwidths. Choose bandwidths inside each training split, then apply the same weighted-density rule:
 
 $$
 g^*=\arg\max_g \pi_g\widehat f_g(\mathbf{x}),

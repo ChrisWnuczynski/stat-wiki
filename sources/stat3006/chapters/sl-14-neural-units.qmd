@@ -41,11 +41,11 @@ $$
 \mathrm{net}=\sum_{j=0}^{p} w_j x_j=w_0+w^\top x,\qquad x_0\equiv 1.
 $$
 
-The output is $o=f(\mathrm{net})$ for an activation function $f$. The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
+The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}}{{cite:rosenblatt1958}}{{cite:bishop2006}}. The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
 
 :::
 
-Two activations are used here. The threshold, the McCulloch–Pitts decision, and the logistic sigmoid are
+Two activations are used here. The threshold, the McCulloch–Pitts decision, and the logistic sigmoid are{{cite:mcculloch_pitts1943}}{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}:
 
 $$
 f(\mathrm{net})=
@@ -71,7 +71,7 @@ A sigmoid unit with output $o=1/(1+e^{-w^\top x-w_0})$ is the same log-odds map 
 
 ## What one threshold unit can separate
 
-With two inputs and one threshold output, the output changes where the net input changes sign. The decision boundary is the zero set of $w_0+w^\top x$. For one threshold unit the partition is always a half-space, and the geometric question is where the bounding hyperplane sits.
+With two inputs and one threshold output, the output changes where the net input changes sign. The decision boundary is the zero set of $w_0+w^\top x$. For one threshold unit the partition is always a half-space, and the geometric question is where the bounding hyperplane sits{{cite:rosenblatt1958}}{{cite:minsky_papert1969}}{{cite:bishop2006}}.
 
 ### Without a bias
 
@@ -88,7 +88,7 @@ A family of hyperplanes can separate the same labelled sample, and a threshold u
 ::: {#def-sl-14-perceptron .definition}
 ## Perceptron learning rule
 
-Let the training pairs be $(x_i,y_i)$ with $y_i\in\{0,1\}$ and with each $x_i$ augmented by $x_{i0}=1$. Start from any weights $w$, including the bias. Repeat until no pattern is misclassified. For each pattern $i$ compute $o_i=f(w^\top x_i)$ and set
+Let the training pairs be $(x_i,y_i)$ with $y_i\in\{0,1\}$ and with each $x_i$ augmented by $x_{i0}=1$. Start from any weights $w$, including the bias. Repeat until no pattern is misclassified{{cite:rosenblatt1958}}{{cite:minsky_papert1969}}{{cite:bishop2006}}. For each pattern $i$ compute $o_i=f(w^\top x_i)$ and set
 
 $$
 w\leftarrow w+(y_i-o_i)\,x_i.
@@ -98,7 +98,7 @@ $$
 
 If the unit is right, $y_i-o_i=0$ and nothing changes. If it outputs $0$ for a pattern whose label is $1$, the pattern is added to the weights, which increases $w^\top x_i$ by $\lVert x_i\rVert^2$. If it outputs $1$ for a label $0$, the pattern is subtracted, and the score decreases by $\lVert x_i\rVert^2$. The added term is $(y_i-o_i)x_i$, so the score changes by $(y_i-o_i)\lVert x_i\rVert^2$.
 
-Rosenblatt's perceptron convergence theorem says that if the classes are linearly separable the rule reaches a separating set of weights in a finite number of corrections. If they are not, it never stops. Linear separability is the assumption that does the work. The rule returns a separator, when one exists, and it has no further criterion: any separating line ends the algorithm. The support vector machine adds a margin, which is the preference this rule lacks.
+Rosenblatt's perceptron convergence theorem says that if the classes are linearly separable the rule reaches a separating set of weights in a finite number of corrections{{cite:rosenblatt1958}}. If they are not, it never stops. Linear separability is the assumption that does the work. The rule returns a separator, when one exists, and it has no further criterion: any separating line ends the algorithm. The support vector machine adds a margin, which is the preference this rule lacks.
 
 ::: {#exm-sl-14-perceptron .example}
 ## Watching a perceptron learn
@@ -132,7 +132,7 @@ The function is $g:\{0,1\}\times\{0,1\}\to\{0,1\}$ with desired triples $(x_1,x_
 ::: {#thm-sl-14-xor .theorem}
 ## A single threshold unit cannot compute XOR
 
-No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2$.
+No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2${{cite:minsky_papert1969}}{{cite:bishop2006}}{{cite:ripley1996}}.
 
 :::
 
@@ -148,11 +148,11 @@ $$
 2w_0+w_1+w_2=w_0+(w_0+w_1+w_2)<0,
 $$
 
-a contradiction. The four requirements cannot hold together. This is the failure Minsky and Papert pointed out for the perceptron. These four points, with this labelling, are one configuration a linear classifier leaves unshattered. The VC dimension of half-spaces in the plane is $3$. The [support vector](sl-17-support-vectors.qmd) page records that count: it uses a general-position argument, and a single failed labelling is the witness that these four points are not a shattered set.
+a contradiction. The four requirements cannot hold together. This is the failure Minsky and Papert pointed out for the perceptron{{cite:minsky_papert1969}}. These four points, with this labelling, are one configuration a linear classifier leaves unshattered. The VC dimension of half-spaces in the plane is $3$. The [support vector](sl-17-support-vectors.qmd) page records that count: it uses a general-position argument, and a single failed labelling is the witness that these four points are not a shattered set.
 
 ## A hidden layer
 
-If no hyperplane separates the classes in the input space, the next step is to build new coordinates in which a hyperplane does. A hidden layer is that change of coordinates. The activation flows from input to output through intermediate hidden nodes $h_1,\ldots,h_l$, whose activations depend on the weights between the input and the hidden nodes. With $l$ hidden units and $m$ outputs,
+If no hyperplane separates the classes in the input space, the next step is to build new coordinates in which a hyperplane does. A hidden layer is that change of coordinates. The activation flows from input to output through intermediate hidden nodes $h_1,\ldots,h_l$, whose activations depend on the weights between the input and the hidden nodes{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}{{cite:ripley1996}}. With $l$ hidden units and $m$ outputs,
 
 $$
 \begin{aligned}
@@ -163,7 +163,7 @@ $$
 
 The backpropagation page adds the pattern index $i$ and fixes the notation.
 
-The input–hidden weights map $x$ to the vector of hidden activations. The output unit then solves a linear problem in that new vector. The aim is to choose the weights so that the problem at the hidden–output layer is linearly separable. Seen back in the original input space, the set where the output unit fires is bounded by curves, because each hidden unit folds the space before the output unit cuts it. One published example is the predicted presence and absence of tsetse flies in Zimbabwe from climate and vegetation, using a network with $24$ hidden neurons (Williams et al., 1994): the boundary between the two regions is an irregular curve that no linear classifier could draw.
+The input–hidden weights map $x$ to the vector of hidden activations. The output unit then solves a linear problem in that new vector. The aim is to choose the weights so that the problem at the hidden–output layer is linearly separable. Seen back in the original input space, the set where the output unit fires is bounded by curves, because each hidden unit folds the space before the output unit cuts it. One published example is the predicted presence and absence of tsetse flies in Zimbabwe from climate and vegetation, using a network with $24$ hidden neurons{{cite:williams1994_tsetse}}: the boundary between the two regions is an irregular curve that no linear classifier could draw.
 
 One construction of XOR places an OR gate and an AND gate in the hidden layer and combines them so that the output fires for OR and stays off for AND. A wider construction copies each input through a hidden unit and computes AND in a third unit. Copying an input through a hidden unit does no new work: that unit can be removed and the connection taken directly from the input. A coordinate that repeats an input does not enlarge the set of functions the output unit can compute.
 
@@ -225,7 +225,7 @@ $$
 F(x)=\sum_{q=1}^{l} a_q\,\sigma(w_q^\top x+b_q)
 $$
 
-with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon$ (Cybenko, 1989, Theorem 2). The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values. Results for measurable targets use weaker notions of approximation. They do not assert uniform approximation of every discontinuous function by continuous networks.
+with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon${{cite:cybenko1989}}. The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values{{cite:cybenko1989}}{{cite:bishop2006}}. Results for measurable targets use weaker notions of approximation{{cite:hornik1989}}. They do not assert uniform approximation of every discontinuous function by continuous networks.
 
 :::
 

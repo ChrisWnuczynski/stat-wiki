@@ -111,7 +111,9 @@ $$
 \Var_\theta(T)\ge\frac{\{g'(\theta)\}^2}{\mathcal{I}(\theta)}.
 $$
 
-The right-hand side is the Cramér–Rao lower bound, also called the minimum variance bound. For the parameter itself, $g(\theta)=\theta$, the bound is $1/\mathcal{I}(\theta)$.
+{{cite:lehmann_casella1998}}
+
+The right-hand side is the Cramér–Rao lower bound, also called the minimum variance bound.{{cite:rao1945}}{{cite:cramer1946}} For the parameter itself, $g(\theta)=\theta$, the bound is $1/\mathcal{I}(\theta)$.{{cite:casella_berger2002}}
 
 The proof is Cauchy–Schwarz applied to the score. Unbiasedness says $\E_\theta T=g(\theta)$. Differentiate under the integral, as the regularity conditions allow:
 

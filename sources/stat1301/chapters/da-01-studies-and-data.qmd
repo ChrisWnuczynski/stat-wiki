@@ -21,32 +21,32 @@ Data often arrive as a spreadsheet: one row per unit, one column per variable. U
 ::: {#def-observational-study .definition}
 ## Observational study
 
-In an observational study the investigator does not assign the conditions being compared. A survey is the usual case. Repeating the study would produce new values in every column, because a new set of units is encountered and nothing was fixed by design.
+In an observational study the investigator does not assign the conditions being compared.{{cite:cochran1977}}{{cite:wasserman2004}} A survey is the usual case.{{cite:neyman1934}} Repeating the study would produce new values in every column, because a new set of units is encountered and nothing was fixed by design.
 
 :::
 
 ::: {#def-designed-experiment .definition}
 ## Designed experiment
 
-In a designed experiment some columns are controlled. Treatments are assigned to units, often at random, and those assignments stay the same if the measurements are repeated. The response column changes; the treatment column does not.
+In a designed experiment some columns are controlled.{{cite:fisher1935_doe}} Treatments are assigned to units, often at random, and those assignments stay the same if the measurements are repeated.{{cite:box_hunter_hunter2005}}{{cite:wasserman2004}} The response column changes; the treatment column does not.
 
 :::
 
 The variables one hopes to explain are the response, also called the outcome. The variables used to explain it are explanatory variables, also called covariates or factors. A randomised design assigns each unit one of a small number of treatments with equal probability. After a large enough randomisation, the treatment groups agree, before treatment, on the distribution of every variable, measured or not. A difference that then appears in the response is evidence about the treatments, not about who happened to land in which group.
 
-Measurements vary for more than one reason. Most of the variation in heights is natural diversity between people, from genetics, diet and environment. Some is measurement error. Later models try to explain part of the variation by other variables, such as sex or shoe size. What no variable in the model explains is the residual variability, and a good model leaves little of it while still predicting new data well. One or more measurements are taken on each experimental unit: a person, a plant, a plot of land, a household, a star or a manufactured object.
+Measurements vary for more than one reason. Most of the variation in heights is natural diversity between people, from genetics, diet and environment. Some is measurement error.{{cite:gauss1809}}{{cite:laplace1812}}{{cite:fuller1987}} Later models try to explain part of the variation by other variables, such as sex or shoe size. What no variable in the model explains is the residual variability, and a good model leaves little of it while still predicting new data well. One or more measurements are taken on each experimental unit: a person, a plant, a plot of land, a household, a star or a manufactured object.
 
 ::: {#def-randomised-controlled-trial .definition}
 ## Randomised controlled trial
 
-In a randomised controlled trial each experimental unit receives one of several treatments, chosen at random with equal probability, and one of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.
+In a randomised controlled trial each experimental unit receives one of several treatments, chosen at random with equal probability.{{cite:fisher1935_doe}}{{cite:hill1948_rct}} One of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.{{cite:hill1948_rct}}
 
 :::
 
 ::: {#def-confounding-variable .definition}
 ## Confounding variable
 
-A confounding variable affects both the explanatory variable and the response, so that an association between those two can appear, disappear or reverse when the confounder is taken into account.
+A confounding variable affects both the explanatory variable and the response, so that an association between those two can appear, disappear or reverse when the confounder is taken into account.{{cite:simpson1951}}{{cite:wasserman2004}}
 
 :::
 
@@ -106,7 +106,7 @@ Most methods in this section assume a simple random sample. Collecting data cost
 ::: {#def-simple-random-sample .definition}
 ## Simple random sample
 
-A simple random sample of size $n$ from a finite population of size $N$ is drawn without replacement so that every subset of $n$ members is equally likely to be the sample. In particular, every member has the same probability $n/N$ of being included.
+A simple random sample of size $n$ from a finite population of size $N$ is drawn without replacement so that every subset of $n$ members is equally likely to be the sample.{{cite:cochran1977}}{{cite:neyman1934}} In particular, every member has the same probability $n/N$ of being included.{{cite:cochran1977}}
 
 :::
 
@@ -123,7 +123,7 @@ When units must be visited in person, a simple random sample scattered over a wh
 ::: {#def-stratified-and-cluster-sampling .definition}
 ## Stratified and cluster sampling
 
-In stratified sampling the population is split into subgroups called strata, and a simple random sample is drawn from each, usually of size $nN_s/N$ for a stratum of size $N_s$. In cluster sampling the population is split into many small clusters, a few clusters are chosen at random, and every unit in each chosen cluster is measured, or a simple random sample is taken within it.
+In stratified sampling the population is split into subgroups called strata, and a simple random sample is drawn from each, usually of size $nN_s/N$ for a stratum of size $N_s$.{{cite:neyman1934}}{{cite:cochran1977}} In cluster sampling the population is split into many small clusters, a few clusters are chosen at random, and every unit in each chosen cluster is measured, or a simple random sample is taken within it.{{cite:cochran1977}}
 
 :::
 
@@ -142,7 +142,7 @@ For a cluster sample, make each eastern village a cluster of 50, and split each 
 
 :::
 
-Many data are collected in ways far from random. A convenience sample takes whoever is available, and generalises only if the available units resemble the population. A self-selected sample takes whoever chooses to take part, as in a television phone-in poll; it rarely represents even the show's viewers, and a keen caller may vote twice. In both, units are not sampled independently with equal probability, which biases estimates, and a larger sample of the same kind does not remove the bias.
+Many data are collected in ways far from random. A convenience sample takes whoever is available, and generalises only if the available units resemble the population. A self-selected sample takes whoever chooses to take part, as in a television phone-in poll; it rarely represents even the show's viewers, and a keen caller may vote twice. In both, units are not sampled independently with equal probability, which biases estimates, and a larger sample of the same kind does not remove the bias.{{cite:cochran1977}}{{cite:neyman1934}}{{cite:wasserman2004}}
 
 ![Left: in an observational study, diet and income can affect both whether a mother smokes and her son's height, so an association between the two need not be causal. Right: in a designed experiment the drug is assigned at random, so the assignment cannot depend on age, diet or fitness, and those cannot explain a difference in blood pressure.](../figures/da-01-studies-and-data-assignment.pdf){#fig-da-assignment}
 

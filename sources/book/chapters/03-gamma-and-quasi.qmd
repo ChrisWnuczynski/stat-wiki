@@ -4,9 +4,9 @@ The previous chapter stopped at the reason for reparameterising the Conway–Max
 
 ## Bids for a bankrupt firm
 
-Cameron and Johansson (1997) recorded the number of takeover bids received by 126 US firms between 1978 and 1985. The covariates split into three groups. Defensive actions by the target: a lawsuit (`leglrest`), a proposed change in asset structure (`rearest`), a proposed change in ownership structure (`finrest`), and an invitation to a friendly third party, a white knight (`whtknght`). Characteristics of the firm: the bid premium (`bidprem`), the percentage of stock held by institutions (`insthold`), book value in billions (`size`), and its square. And one indicator for Department of Justice intervention (`regulatn`).
+The number of takeover bids received by 126 US firms between 1978 and 1985 is the count below.{{cite:cameron_johansson1997}} The covariates split into three groups. Defensive actions by the target: a lawsuit (`leglrest`), a proposed change in asset structure (`rearest`), a proposed change in ownership structure (`finrest`), and an invitation to a friendly third party, a white knight (`whtknght`). Characteristics of the firm: the bid premium (`bidprem`), the percentage of stock held by institutions (`insthold`), book value in billions (`size`), and its square. And one indicator for Department of Justice intervention (`regulatn`).
 
-After those covariates, the counts are tightly bunched. A Poisson mean of 7 would happily produce anything from about 3 to 13. These firms, when the fit said 7, mostly produced 6, 7, or 8. That is underdispersion, which neither the Poisson nor the negative binomial can represent. The mean-parameterised Conway–Maxwell–Poisson can.
+After those covariates, the counts are tightly bunched. A Poisson mean of 7 would happily produce anything from about 3 to 13. These firms, when the fit said 7, mostly produced 6, 7, or 8. That is underdispersion, which neither the Poisson nor the negative binomial can represent.{{cite:huang2017_cmp}} The mean-parameterised Conway–Maxwell–Poisson can.
 
 The R package that fitted it was withdrawn from CRAN in 2022, ahead of a replacement that did not arrive. The fit given here is a MATLAB fit of a log-linear mean. There is no formula interface. You build $\mat{X}$ yourself: a column of ones and the nine covariates, $126$ rows. The call returns the coefficient vector, the dispersion $\nu$, the implied rates $\lambda(\mu,\nu)$, the maximised log-likelihood, and standard errors for $\boldsymbol{\beta}$. The estimates, standard errors, and ratios are
 
@@ -29,13 +29,13 @@ The legal-defence coefficient is the easiest sentence. Two firms with the same s
 $$
 \exp(0.2679)=1.31
 $$
-times as many bids. The ratio of estimate to standard error is $2.18$, which clears $2$ and so sits past the usual two-sided 5% cutoff on the $z$ scale. The same reading applies to every other row. Size enters as a curve: the linear term is positive and the square is negative, so the mean rises with book value and then bends back. A one-line slope for size would hide that bend.
+times as many bids.{{cite:mccullagh_nelder1989}} The ratio of estimate to standard error is $2.18$, which clears $2$ and so sits past the usual two-sided 5% cutoff on the $z$ scale. The same reading applies to every other row. Size enters as a curve: the linear term is positive and the square is negative, so the mean rises with book value and then bends back. A one-line slope for size would hide that bend.
 
 Why the underdispersion is plausible is the same selection story as the mines, in a different market. A private person cannot bid for a large firm. The pool of possible bidders shrinks as the target grows, and for the largest targets the count is often zero or one. Conditionally on the covariates, the count is more deterministic than a Poisson process. The Poisson model is the boundary case $\nu=1$. The fitted $\hat\nu=1.754$ lies above that boundary, which is the comparison a test of $\nu=1$ makes. The point to keep is that the mean is on the same scale as a Poisson log-linear model, so the coefficient $0.2679$ means the same kind of thing.
 
 ## Positive continuous responses
 
-A clotting time, or an insurance claim amount, is continuous and cannot be negative. Three links are in ordinary use:
+A clotting time, or an insurance claim amount, is continuous and cannot be negative. Three links are in ordinary use.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
 \begin{align*}
 \log\mu_i&=\vect{X}_i^\top\boldsymbol{\beta},
 &
@@ -54,7 +54,7 @@ The two families are written by their mean and variance, so the shape-rate and s
 Y_i\mid \vect{X}_i&\ind\mathrm{Gamma}\!\left(\mu_i=\mu(\vect{X}_i^\top\boldsymbol{\beta}),\ \mathrm{Var}=\phi\mu_i^2\right),\\
 Y_i\mid \vect{X}_i&\ind\mathrm{InverseGaussian}\!\left(\mu_i=\mu(\vect{X}_i^\top\boldsymbol{\beta}),\ \mathrm{Var}=\phi\mu_i^3\right).
 \end{align*}
-The mean function $\mu(\cdot)$ is whichever inverse link you chose. It is not tied to the family. The score for a gamma regression has the same shape as the Bernoulli and Poisson scores, $(y-\mu)\mu'/\mathrm{Var}$, and showing that is an exercise rather than a new idea. Intervals are again $z$ intervals from the inverse Fisher information.
+The mean function $\mu(\cdot)$ is whichever inverse link you chose. It is not tied to the family. The score for a gamma regression has the same shape as the Bernoulli and Poisson scores, $(y-\mu)\mu'/\mathrm{Var}$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}} Showing that is an exercise rather than a new idea. Intervals are again $z$ intervals from the inverse Fisher information.
 
 ### Clotting times, three ways
 
@@ -119,7 +119,7 @@ The coefficients come back to $-0.0178$, $-0.0074$, $0.0158$, $0.0083$, close to
 The link chooses the mean curve. The response distribution mainly chooses the standard errors. Those two pieces are essentially orthogonal: you may pair a scientifically sensible link with a distribution that matches the scatter, and neither choice is doing the other's job.
 :::
 
-That separation is what Huang and Rathouz (2017) give in general. It is why families and links can be mixed, and why a worse AIC for the inverse quadratic is a statement about the link, not a mystery of the inverse Gaussian. Other positive families exist and are not in the default `glm` list: inverse gamma, lognormal, Weibull with the second parameter fixed. A custom family needs a log-likelihood, or, as the next section shows, sometimes only a mean and a variance.
+That separation of the mean curve from the error distribution holds in general.{{cite:huang_rathouz2017}} It is why families and links can be mixed, and why a worse AIC for the inverse quadratic is a statement about the link, not a mystery of the inverse Gaussian, whose variance is proportional to the cube of its mean.{{cite:tweedie1957}}{{cite:mccullagh_nelder1989}} Other positive families exist and are not in the default `glm` list: inverse gamma, lognormal, and Weibull with the second parameter fixed.{{cite:mcalister1879}} A custom family needs a log-likelihood, or, as the next section shows, sometimes only a mean and a variance.
 
 ## Quasi-likelihood
 
@@ -132,11 +132,11 @@ $$
 is the quasi-Poisson and quasi-binomial we have already used for dead time, spurts, and pseudo-replication. In general, any non-negative function $V$ gives a variance $\phi V(\mu)$. Most of those choices are not the variance of an exponential family. They describe the data. They do not, by themselves, prescribe a distribution you can simulate from. That is the whole of the name *quasi*.
 
 ::: {#def-quasi .definition}
-If $\mathrm{Var}(Y)=\phi V(\mu)$, the quasi-score in the mean is
+If $\mathrm{Var}(Y)=\phi V(\mu)$, the quasi-score in the mean is the ratio below.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}}
 $$
 S_\mu=\frac{Y-\mu}{\phi V(\mu)}.
 $$
-If the mean depends on covariates through $\mu(\vect{X}^\top\boldsymbol{\beta})$, the quasi-score in $\boldsymbol{\beta}$ is
+If the mean depends on covariates through $\mu(\vect{X}^\top\boldsymbol{\beta})$, the quasi-score in $\boldsymbol{\beta}$ is the weighted derivative below.{{cite:davison2003}}
 $$
 \vect{S}_{\boldsymbol{\beta}}
 =\frac{Y-\mu}{\phi V(\mu)}\,\mu'(\vect{X}^\top\boldsymbol{\beta})\,\vect{X}.
@@ -148,7 +148,7 @@ $$
 \mathrm{Var}(S_\mu)=\frac{1}{\phi^2 V(\mu)^2}\mathrm{Var}(Y)=\frac{1}{\phi V(\mu)}
 =-\mathrm{E}\!\left(\frac{\partial S_\mu}{\partial\mu}\right).
 $$
-Every GLM score has the shape of $\vect{S}_{\boldsymbol{\beta}}$. Not every choice of $V$ comes from a GLM. Inside an exponential family the variance function determines the family, so $V(\mu)=\mu$ is the Poisson and $V(\mu)=np(1-p)$ is the binomial. A free $\phi$ takes you outside that class. You can still invent a probability model with the same moments, for example a normal with variance $\phi\mu$, but that normal is not a distribution on the counts, and it is not an exponential family in $\mu$ because $\mu$ appears in both the mean and the variance. Fitting it needs its own algorithm. The quasi-score does not: `glm` only solves $\vect{S}_{\boldsymbol{\beta}}=\vect{0}$.
+Every GLM score has the shape of $\vect{S}_{\boldsymbol{\beta}}$. Not every choice of $V$ comes from a GLM. Inside an exponential family the variance function determines the family, so $V(\mu)=\mu$ is the Poisson and $V(\mu)=np(1-p)$ is the binomial.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}} A free $\phi$ takes you outside that class. You can still invent a probability model with the same moments, for example a normal with variance $\phi\mu$, but that normal is not a distribution on the counts, and it is not an exponential family in $\mu$ because $\mu$ appears in both the mean and the variance. Fitting it needs its own algorithm. The quasi-score does not: `glm` only solves $\vect{S}_{\boldsymbol{\beta}}=\vect{0}$.
 
 The quasi-log-likelihood is the integral of that score,
 $$
@@ -162,7 +162,7 @@ The covariance of $\hat{\boldsymbol{\beta}}$ is $\hat\phi$ times the inverse of 
 
 ### Leaf blotch
 
-Wedderburn (1974) is the paper that introduced this. Ten barley varieties were grown at nine sites, one proportion per cell: the percentage of leaf area covered by blotch, *Rhynchosporium secalis*. The variety and site numbers in the table are labels, ordered roughly from less blotch to more. They are not numeric covariates. Treating "variety 2" as twice "variety 1" is the same mistake as averaging student ID numbers.
+Ten barley varieties were grown at nine sites, one proportion per cell.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}} the percentage of leaf area covered by blotch, *Rhynchosporium secalis*. The variety and site numbers in the table are labels, ordered roughly from less blotch to more. They are not numeric covariates. Treating "variety 2" as twice "variety 1" is the same mistake as averaging student ID numbers.
 
 There is one observation per variety–site pair, so a full interaction cannot be fitted. The mean model is main effects only, on the logit of the proportion $p_{ij}$:
 $$
@@ -170,7 +170,7 @@ $$
 \qquad
 p_{ij}=\frac{\exp(\alpha_i+\beta_j)}{1+\exp(\alpha_i+\beta_j)}.
 $$
-A structured interaction would be allowed if a reason for that particular combination existed before looking at the table. It does not. The variance starts as quasi-binomial, $\phi p(1-p)$. The proportions are averages of many leaves from the same plot, so the trials are not independent Bernoulli draws. Pseudo-replication makes $\phi$ much smaller than $1$.
+A structured interaction would be allowed if a reason for that particular combination existed before looking at the table. It does not. The variance starts as quasi-binomial, $\phi p(1-p)$.{{cite:davison2003}} The proportions are averages of many leaves from the same plot, so the trials are not independent Bernoulli draws. Pseudo-replication makes $\phi$ much smaller than $1$.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {

@@ -4,7 +4,7 @@ The probability pages define a density, a distribution function, a quantile, and
 
 ## The d, p, q, and r functions {#s-the-d-p-q-and-r-functions}
 
-For a family that R names, four functions share the stem.
+For a family that R names, four functions share the stem.{{cite:chambers_hastie1992}}{{cite:ihaka_gentleman1996}}
 
 | Letter | What it returns | Continuous case |
 |:--|:--|:--|
@@ -23,7 +23,7 @@ set.seed(1)
 rbinom(6, size = 10, prob = 0.4)
 ```
 
-`dbinom(3, size = 10, prob = 0.4)` is $\binom{10}{3}(0.4)^3(0.6)^7$, the mass at exactly three successes. `pbinom` sums that mass from zero up to three. `qbinom(0.9, size = 10, prob = 0.4)` is the smallest integer whose cumulative probability is at least 0.9. `rbinom` draws six independent binomials. The seed makes the six draws repeatable. It does not make them a population.
+`dbinom(3, size = 10, prob = 0.4)` is $\binom{10}{3}(0.4)^3(0.6)^7$, the mass at exactly three successes.{{cite:chambers_hastie1992}} `pbinom` sums that mass from zero up to three. `qbinom(0.9, size = 10, prob = 0.4)` is the smallest integer whose cumulative probability is at least 0.9. `rbinom` draws six independent binomials. The seed makes the six draws repeatable. It does not make them a population.
 
 `dnorm(0)` is the standard normal density at zero, $\phi(0) = 1/\sqrt{2\pi}$, about 0.399. It is not the probability of observing exactly zero. A continuous distribution assigns probability zero to a single point. An interval probability is a difference of distribution functions:
 
@@ -38,7 +38,7 @@ The same four letters apply to every family R ships: `dpois`, `pbeta`, `qgamma`,
 
 ## A permutation test {#s-a-permutation-test}
 
-`InsectSprays` records insect counts on agricultural units, each sprayed with one of six treatments. Restrict to sprays A and B. The observed contrast is the difference of mean counts. Under a null that says the spray labels are exchangeable, any reassignment of those labels to the same counts is as plausible as the observed assignment. The permutation test compares the observed difference with the differences obtained by shuffling the labels.
+`InsectSprays` records insect counts on agricultural units, each sprayed with one of six treatments. Restrict to sprays A and B. The observed contrast is the difference of mean counts. Under a null that says the spray labels are exchangeable, any reassignment of those labels to the same counts is as plausible as the observed assignment. The permutation test compares the observed difference with the differences obtained by shuffling the labels.{{cite:fisher1935_doe}}
 
 ```r
 sprays_ab <- datasets::InsectSprays |>
@@ -57,11 +57,11 @@ c(observed_mean_difference = observed, monte_carlo_p = p_mc)
 
 `droplevels` drops the unused spray labels so that a later formula does not keep empty levels. `sample` without a probability argument is a random permutation. Each of the 1999 shuffles is one draw from the null that the labels are exchangeable. `purrr::map_dbl` insists that every shuffle return one number. A shuffle that accidentally returned a vector would fail here, which is the right failure.
 
-The `+ 1` in the numerator and the denominator counts the observed arrangement among the reference arrangements. Without it, a contrast more extreme than every shuffle would be reported as probability zero, which this Monte Carlo sample cannot justify. With it, the smallest attainable value is $1/2000$.
+The `+ 1` in the numerator and the denominator counts the observed arrangement among the reference arrangements.{{cite:phipson_smyth2010}} Without it, a contrast more extreme than every shuffle would be reported as probability zero, which this Monte Carlo sample cannot justify. With it, the smallest attainable value is $1/2000$.
 
 The simulation approximates the null distribution under exchangeability. It does not make exchangeability true. If the units were arranged in space so that neighbouring plots share a pest load, shuffling labels as if the counts were exchangeable answers a different question from the one the field layout poses. Re-running the shuffles moves the Monte Carlo probability slightly. The seed and the number of shuffles are part of the result. Two thousand shuffles resolve a probability to roughly the nearest half of one thousandth, which is enough to see whether the observed contrast is typical, and not enough to quote many decimal places.
 
-This is a different object from `t.test(count ~ spray, data = sprays_ab)`. The $t$ procedure adds a model for the counts. The permutation procedure uses only the exchangeability of the labels. If those two disagree, the disagreement is the model, not a bug in either command.
+This is a different object from `t.test(count ~ spray, data = sprays_ab)`. The $t$ procedure adds a model for the counts. The permutation procedure uses only the exchangeability of the labels.{{cite:fisher1935_doe}} If those two disagree, the disagreement is the model, not a bug in either command.
 
 ## An empirical distribution and a kernel density {#s-an-empirical-distribution-and-a-kernel-density}
 

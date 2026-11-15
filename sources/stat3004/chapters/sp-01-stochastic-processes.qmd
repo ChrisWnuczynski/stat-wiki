@@ -9,7 +9,7 @@ A single random variable, its expectation, and its variance are on [Random varia
 ::: {#def-sp-stochastic-process .definition}
 ## Stochastic process
 
-A stochastic process on a probability space $(\Omega,\mathcal{F},\mathrm{P})$, with state space $S$ and index set $T$, is a family $\{X_t:t\in T\}$ of $S$-valued random variables. If $T=\{0,1,2,\ldots\}$, time is discrete. If $T=[0,\infty)$, time is continuous.
+A stochastic process on a probability space $(\Omega,\mathcal{F},\mathrm{P})$, with state space $S$ and index set $T$, is a family $\{X_t:t\in T\}$ of $S$-valued random variables.{{cite:doob1953}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}} If $T=\{0,1,2,\ldots\}$, time is discrete. If $T=[0,\infty)$, time is continuous.
 
 :::
 
@@ -41,7 +41,7 @@ Two properties are about shifts of the clock.
 ::: {#def-sp-increments .definition}
 ## Stationary and independent increments
 
-The process has stationary increments when the difference $X_{t+h}-X_t$ has a distribution that depends on the length $h$ and not on the time $t$. It has independent increments when increments over disjoint intervals are independent.
+The process has stationary increments when the difference $X_{t+h}-X_t$ has a distribution that depends on the length $h$ and not on the time $t$.{{cite:grimmett_stirzaker2020}}{{cite:ross2019}} It has independent increments when increments over disjoint intervals are independent.{{cite:doob1953}}
 
 :::
 
@@ -65,13 +65,13 @@ $$
 
 The first identity is the [tower property](prob-04-joint-distributions.qmd#thm-tower-property). The second is the law of total variance: average the conditional variance, then add the variance of the conditional mean. Branching populations and random walks both use this split, because the next step is easy to describe once the present state is known.
 
-For a non-negative random variable and $a>0$, Markov's inequality is the comparison $X\ge a\,1_{\{X\ge a\}}$. Taking expectations gives $a\Pr(X\ge a)\le\E X$, so
+For a non-negative random variable and $a>0$, Markov's inequality is the comparison $X\ge a\,1_{\{X\ge a\}}$.{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}}{{cite:feller1968}} Taking expectations gives $a\Pr(X\ge a)\le\E X$, so
 
 $$
 \Pr(X\ge a)\le\frac{\E X}{a}.
 $$
 
-If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality:
+If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality.{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}}
 
 $$
 \Pr\bigl(|X-\E X|\ge\varepsilon\bigr)\le\frac{\Var(X)}{\varepsilon^2}.

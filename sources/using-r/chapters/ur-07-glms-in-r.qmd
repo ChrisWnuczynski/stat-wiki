@@ -67,7 +67,7 @@ where $\nu$ is the residual degrees of freedom. A value near 1 is what the Poiss
 ::: {#def-pearson-dispersion-ratio .definition}
 ## Pearson dispersion ratio
 
-For a fitted generalised linear model, the Pearson dispersion ratio is the Pearson chi-squared statistic divided by the residual degrees of freedom. For a Poisson model the summands are $(y_i-\hat\mu_i)^2/\hat\mu_i$. A ratio near 1 agrees with the variance function. A ratio far from 1 says that variance function is a poor description of these residuals.
+For a fitted generalised linear model, the Pearson dispersion ratio is the Pearson chi-squared statistic divided by the residual degrees of freedom.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}} For a Poisson model the summands are $(y_i-\hat\mu_i)^2/\hat\mu_i$. A ratio near 1 agrees with the variance function.{{cite:davison2003}} A ratio far from 1 says that variance function is a poor description of these residuals.
 :::
 
 ```r

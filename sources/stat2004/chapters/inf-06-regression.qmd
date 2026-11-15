@@ -6,13 +6,13 @@ The errors below are independent and normal. That joint distribution, and the fa
 
 ## The regression effect
 
-Regression analysis explains a response variable by one or more explanatory variables. The name comes from Francis Galton, who noticed in the 1880s that the children of unusually tall parents are, on the whole, less unusually tall. A father 5% taller than average tends to have a son less than 5% taller than average. Galton called it regression towards mediocrity.
+Regression analysis explains a response variable by one or more explanatory variables.{{cite:davison2003}} The name comes from Francis Galton, who noticed in the 1880s that the children of unusually tall parents are, on the whole, less unusually tall.{{cite:galton1886}} A father 5% taller than average tends to have a son less than 5% taller than average. Galton called it regression towards mediocrity.{{cite:galton1886}}
 
 Picture the heights of about a thousand fathers and their adult sons, with the fathers averaging 67 inches and the sons 68 inches. Since sons are one inch taller on average, it is tempting to predict a son's height as his father's plus one inch, the line $y=x+1$. Look at the fathers near 63 inches: most of their sons lie above that line. Near 71 inches, most lie below it. The line through the middle of each vertical strip has slope less than one. That is the regression effect, and finding that line is the job of least squares.
 
 ![A simulated sample of 1078 father–son pairs, with means 67 and 68 inches, both standard deviations 2.7 inches and correlation 0.5. In the shaded strip at 63 inches most sons are above the dashed line $y=x+1$; at 71 inches most are below it. The least-squares line has slope near the correlation, well below 1.](../figures/inf-regression-effect.pdf){#fig-inf-regression-effect}
 
-The effect is not a force pulling families towards the mean. When two variables have the same spread and correlation $\rho<1$, the best linear prediction of one from the other moves only a fraction $\rho$ of the way. Predicting fathers from sons shows the same regression in reverse.
+The effect is not a force pulling families towards the mean. When two variables have the same spread and correlation $\rho<1$, the best linear prediction of one from the other moves only a fraction $\rho$ of the way.{{cite:pearson1896}} Predicting fathers from sons shows the same regression in reverse.
 
 ## Least squares
 
@@ -32,6 +32,8 @@ b_1=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sum_{i=1}^n(x_i-\over
 \qquad
 b_0=\overline y-b_1\overline x.
 $$
+
+{{cite:legendre1805}}{{cite:gauss1809}}{{cite:davison2003}}
 
 :::
 
@@ -61,7 +63,7 @@ Not every relationship is a straight line. Two remedies keep the least-squares m
 
 The first fits a polynomial, $y=b_0+b_1x+\cdots+b_kx^k$. The sum of squares is still quadratic in the coefficients, so setting its $k+1$ partial derivatives to zero gives $k+1$ linear equations. The model is still linear in its parameters, even though the curve is not a line.
 
-The second transforms the variables. If theory says $y=ae^{bx}$, then $\log y=\log a+bx$ is linear in $x$, and a line is fitted to the points $(x_i,\log y_i)$. The same idea linearises $y=ax^b$, on the log–log scale, and a logistic curve, on the logit scale. The fitted slope is then a slope on the transformed scale, and so are the errors.
+The second transforms the variables. If theory says $y=ae^{bx}$, then $\log y=\log a+bx$ is linear in $x$, and a line is fitted to the points $(x_i,\log y_i)$.{{cite:legendre1805}}{{cite:gauss1809}} The same idea linearises $y=ax^b$, on the log–log scale, and a logistic curve, on the logit scale.{{cite:davison2003}} The fitted slope is then a slope on the transformed scale, and so are the errors.
 
 ::: {#exm-melanoma-and-latitude .example}
 ## Melanoma and latitude
@@ -97,7 +99,7 @@ $$
 ::: {#prp-least-squares-estimators-are-unbiased .proposition}
 ## Least-squares estimators are unbiased
 
-If $\E Y_i=\beta_0+\beta_1x_i$ for every $i$, then $\E\widehat\beta_1=\beta_1$ and $\E\widehat\beta_0=\beta_0$. No assumption about the error distribution is needed.
+If $\E Y_i=\beta_0+\beta_1x_i$ for every $i$, then $\E\widehat\beta_1=\beta_1$ and $\E\widehat\beta_0=\beta_0$.{{cite:casella_berger2002}}{{cite:davison2003}} No assumption about the error distribution is needed.{{cite:wasserman2004}}
 
 :::
 
@@ -128,7 +130,7 @@ Y_i=\beta_0+\beta_1 x_i+\varepsilon_i,
 \varepsilon_i\ \text{independent}\ \Normal(0,\sigma^2),
 $$
 
-with the $x_i$ treated as fixed and not all equal. Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.
+with the $x_i$ treated as fixed and not all equal.{{cite:fisher1925_smrw}} Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.{{cite:gauss1809}}{{cite:davison2003}}
 
 :::
 
@@ -157,7 +159,7 @@ $$
 \frac{(n-2)S^2}{\sigma^2}\sim\chi^2_{n-2},
 $$
 
-independently of $(\widehat\beta_0,\widehat\beta_1)$. In particular $S^2$ is unbiased for $\sigma^2$. Moreover $\widehat\beta_1$ and $\overline Y$ are independent.
+independently of $(\widehat\beta_0,\widehat\beta_1)$.{{cite:casella_berger2002}} In particular $S^2$ is unbiased for $\sigma^2$.{{cite:fisher1925_smrw}} Moreover $\widehat\beta_1$ and $\overline Y$ are independent.{{cite:davison2003}}
 
 :::
 
@@ -186,7 +188,7 @@ $$
 \frac{\widehat\beta_1-\beta_1}{S_1}=\frac{\widehat\beta_1-\beta_1}{S/\sqrt{S_{xx}}}
 $$
 
-has the $t_{n-2}$ distribution.
+has the $t_{n-2}$ distribution.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}}{{cite:davison2003}}
 
 :::
 
@@ -244,7 +246,7 @@ $$
 R^2=\frac{\widehat\beta_1^2S_{xx}}{S_{YY}}=\frac{S_{xY}^2}{S_{xx}S_{YY}},
 $$
 
-the proportion of the variation of the $y_i$ about their mean that the line accounts for. It lies in $[0,1]$, and it is the square of the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient) of the pairs.
+the proportion of the variation of the $y_i$ about their mean that the line accounts for.{{cite:casella_berger2002}}{{cite:davison2003}} It lies in $[0,1]$, and it is the square of the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient) of the pairs.{{cite:fisher1925_smrw}}
 
 :::
 
@@ -275,7 +277,7 @@ $$
 \widehat Y\pm t_{n-2;\,1-\alpha/2}\,S\sqrt{1+\frac1n+\frac{(x-\overline x)^2}{S_{xx}}}
 $$
 
-contains $Y$ with probability $1-\alpha$.
+contains $Y$ with probability $1-\alpha$.{{cite:casella_berger2002}}{{cite:davison2003}}{{cite:fisher1925_smrw}}
 
 :::
 

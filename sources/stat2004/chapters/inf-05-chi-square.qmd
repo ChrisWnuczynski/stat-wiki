@@ -40,14 +40,14 @@ $$
 T=\sum_{i=1}^k\frac{(X_i-n\pi_i)^2}{n\pi_i}=\sum_{i=1}^k\frac{(O_i-E_i)^2}{E_i},
 $$
 
-where $O_i$ is the observed count and $E_i=n\pi_i$ is the expected count.
+where $O_i$ is the observed count and $E_i=n\pi_i$ is the expected count.{{cite:pearson1900}}{{cite:agresti2002}}{{cite:casella_berger2002}}
 
 :::
 
 ::: {#thm-pearson-chi-squared-approximation .theorem}
 ## Pearson chi-squared approximation
 
-If $p_i=\pi_i$ for every $i$, the Pearson statistic $T$ has approximately the $\chi^2_{k-1}$ distribution for large $n$.
+If $p_i=\pi_i$ for every $i$, the Pearson statistic $T$ has approximately the $\chi^2_{k-1}$ distribution for large $n$.{{cite:pearson1900}}{{cite:agresti2002}}{{cite:casella_berger2002}}
 
 :::
 
@@ -91,7 +91,7 @@ $$
 \sum_{i=1}^k\frac{(X_i-n\widehat p_i)^2}{n\widehat p_i}
 $$
 
-is approximately $\chi^2_{k-1-r}$ for large $n$.
+is approximately $\chi^2_{k-1-r}$ for large $n$.{{cite:fisher1922_chisq}}{{cite:fisher1924_chisq}}{{cite:agresti2002}}
 
 :::
 
@@ -139,7 +139,7 @@ $$
 T=\sum_{i=1}^r\sum_{j=1}^c\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
 $$
 
-is approximately $\chi^2_{(r-1)(c-1)}$ when the row and column factors are independent. Large values are evidence against independence.
+is approximately $\chi^2_{(r-1)(c-1)}$ when the row and column factors are independent.{{cite:fisher1922_chisq}}{{cite:agresti2002}} Large values are evidence against independence.{{cite:pearson1900}}
 
 :::
 

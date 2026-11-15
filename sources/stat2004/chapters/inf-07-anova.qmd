@@ -36,7 +36,7 @@ Y_{ij}=\mu_j+\varepsilon_{ij},
 \varepsilon_{ij}\ \text{independent}\ \Normal(0,\sigma^2),
 $$
 
-with $n_j$ observations at level $j$ and $n=\sum_j n_j$. The levels are the treatments. The hypothesis of equal means is $H_0:\mu_1=\cdots=\mu_k$.
+with $n_j$ observations at level $j$ and $n=\sum_j n_j$. The levels are the treatments.{{cite:fisher1925_smrw}} The hypothesis of equal means is $H_0:\mu_1=\cdots=\mu_k$.{{cite:scheffe1959}}{{cite:casella_berger2002}}
 
 :::
 
@@ -61,7 +61,7 @@ $$
 \mathrm{SS}_{\mathrm{error}}=\sum_{j=1}^k\sum_{i=1}^{n_j}(Y_{ij}-\overline Y_{\cdot j})^2,
 $$
 
-the total sum of squares splits as $\mathrm{SS}_{\mathrm{total}}=\mathrm{SS}_{\mathrm{treatment}}+\mathrm{SS}_{\mathrm{error}}$.
+the total sum of squares splits as $\mathrm{SS}_{\mathrm{total}}=\mathrm{SS}_{\mathrm{treatment}}+\mathrm{SS}_{\mathrm{error}}$.{{cite:fisher1925_smrw}}{{cite:scheffe1959}}{{cite:casella_berger2002}}
 
 :::
 
@@ -84,7 +84,7 @@ $$
 F=\frac{\mathrm{SS}_{\mathrm{treatment}}/(k-1)}{\mathrm{SS}_{\mathrm{error}}/(n-k)}=\frac{\mathrm{MS}_{\mathrm{treatment}}}{\mathrm{MS}_{\mathrm{error}}}
 $$
 
-has the $F_{k-1,\,n-k}$ distribution.
+has the $F_{k-1,\,n-k}$ distribution.{{cite:fisher1925_smrw}}{{cite:snedecor1934}}{{cite:casella_berger2002}}
 
 :::
 
@@ -133,7 +133,7 @@ The $p$-value is $0.008$, so the varieties differ. The pooled standard deviation
 ::: {#def-contrast .definition}
 ## Contrast
 
-A contrast is a linear combination $C=\sum_j c_j\mu_j$ of the treatment means whose coefficients sum to zero. It is estimated by $\widehat C=\sum_j c_j\overline Y_{\cdot j}$, which is unbiased with variance $\sigma^2\sum_j c_j^2/n_j$.
+A contrast is a linear combination $C=\sum_j c_j\mu_j$ of the treatment means whose coefficients sum to zero.{{cite:scheffe1959}} It is estimated by $\widehat C=\sum_j c_j\overline Y_{\cdot j}$, which is unbiased with variance $\sigma^2\sum_j c_j^2/n_j$.{{cite:tukey1949}}{{cite:scheffe1959}}
 
 :::
 
@@ -155,7 +155,7 @@ and $\sum c_j^2/n_j=(4/16+1)/3=0.4167$. So $F=(-8.74)^2/0.4167/10.57=17.4$ on $(
 
 ### Multiple comparisons
 
-Comparing every pair of means with its own 95% interval inflates the chance that some interval misses. With five varieties there are ten pairs, and the chance that at least one of ten 95% intervals misses can be far above 5%. Tukey's intervals control that simultaneous error.
+Comparing every pair of means with its own 95% interval inflates the chance that some interval misses.{{cite:tukey1949}} With five varieties there are ten pairs, and the chance that at least one of ten 95% intervals misses can be far above 5%.{{cite:scheffe1959}} Tukey's intervals control that simultaneous error.{{cite:tukey1949}}
 
 ::: {#def-tukey-intervals .definition}
 ## Tukey intervals
@@ -167,7 +167,7 @@ $$
 \qquad D=\frac{Q_{k,\,n-k;\,1-\alpha}}{\sqrt r},
 $$
 
-where $Q_{k,\,n-k;\,1-\alpha}$ is the quantile of the studentised range for $k$ groups and $n-k$ error degrees of freedom.
+where $Q_{k,\,n-k;\,1-\alpha}$ is the quantile of the studentised range for $k$ groups and $n-k$ error degrees of freedom.{{cite:tukey1949}}{{cite:scheffe1959}}{{cite:casella_berger2002}}
 
 :::
 
@@ -212,7 +212,7 @@ Y_{ij}=\mu+\beta_i+\tau_j+\varepsilon_{ij},
 \sum_{i=1}^b\beta_i=0,\quad\sum_{j=1}^t\tau_j=0,
 $$
 
-with $\varepsilon_{ij}$ independent and $\Normal(0,\sigma^2)$. Here $\mu$ is the overall mean, $\beta_i$ the effect of block $i$ and $\tau_j$ the effect of treatment $j$.
+with $\varepsilon_{ij}$ independent and $\Normal(0,\sigma^2)$.{{cite:fisher1925_smrw}}{{cite:fisher1935_doe}} Here $\mu$ is the overall mean, $\beta_i$ the effect of block $i$ and $\tau_j$ the effect of treatment $j$.{{cite:scheffe1959}}
 
 :::
 
@@ -236,7 +236,7 @@ $$
 F=\frac{\mathrm{MS}_{\mathrm{treatment}}}{\mathrm{MS}_{\mathrm{error}}}\sim F_{t-1,\,(b-1)(t-1)},
 $$
 
-and the block hypothesis with $\mathrm{MS}_{\mathrm{blocks}}/\mathrm{MS}_{\mathrm{error}}\sim F_{b-1,\,(b-1)(t-1)}$, each rejecting for large values.
+and the block hypothesis with $\mathrm{MS}_{\mathrm{blocks}}/\mathrm{MS}_{\mathrm{error}}\sim F_{b-1,\,(b-1)(t-1)}$, each rejecting for large values.{{cite:fisher1935_doe}}{{cite:scheffe1959}}
 
 For the hardness data, with coupons as blocks and tips as treatments:
 

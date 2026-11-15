@@ -40,7 +40,7 @@ With $q=0.1$ that is $0.9801$. A single engine fails one flight in ten, but the 
 ::: {#def-sample-space .definition}
 ## Sample space
 
-The sample space $\Omega$ of a random experiment is the set of all outcomes that experiment can produce.
+The sample space $\Omega$ of a random experiment is the set of all outcomes that experiment can produce.{{cite:kolmogorov1933_slln}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -58,7 +58,7 @@ A space is discrete when its outcomes can be listed, finite or countably infinit
 ::: {#def-event .definition}
 ## Event
 
-An event is a subset of the sample space. The event occurs when the outcome lies in that subset.
+An event is a subset of the sample space.{{cite:kolmogorov1933_slln}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}} The event occurs when the outcome lies in that subset.
 
 :::
 
@@ -92,6 +92,7 @@ A probability $\Pr$ assigns a number to each event and satisfies three axioms: $
 $$
 \Pr\Bigl(\bigcup_i A_i\Bigr)=\sum_i \Pr(A_i).
 $$
+{{cite:kolmogorov1933_slln}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -106,7 +107,7 @@ For events $A$ and $B$,
 2. $A\subset B$ implies $\Pr(A)\le \Pr(B)$.
 3. $\Pr(A)\le 1$.
 4. $\Pr(A^c)=1-\Pr(A)$.
-5. $\Pr(A\cup B)=\Pr(A)+\Pr(B)-\Pr(A\cap B)$.
+5. $\Pr(A\cup B)=\Pr(A)+\Pr(B)-\Pr(A\cap B)$.{{cite:kolmogorov1933_slln}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 
 The empty set is disjoint from $\Omega$, so the sum rule gives $\Pr(\Omega)=\Pr(\Omega)+\Pr(\emptyset)$. The complement formula is the sum rule on the disjoint union $\Omega=A\cup A^c$. For the union formula, write $A\cup B$ as the disjoint union of $A$ and $B\cap A^c$, and write $B$ as the disjoint union of $A\cap B$ and $B\cap A^c$. Subtracting the two expansions cancels $\Pr(B\cap A^c)$.
 
@@ -122,6 +123,7 @@ If $\Omega$ is finite and every outcome has the same probability, then for every
 $$
 \Pr(A)=\frac{|A|}{|\Omega|}.
 $$
+{{cite:huygens1657}}{{cite:bernoulli1713}}{{cite:laplace1812}}{{cite:feller1968}}
 
 :::
 
@@ -147,6 +149,7 @@ When outcomes are equally likely, a probability is a ratio of two counts. Many c
 | no | no | $\binom{n}{k}$ |
 | no | yes | $\binom{n+k-1}{k}$ |
 
+{{cite:feller1968}}{{cite:bernoulli1713}}{{cite:laplace1812}}
 Ordered outcomes are written as vectors, so $(1,2,3)\ne(3,2,1)$. Unordered outcomes are written as sets, so $\{1,2,3\}=\{3,2,1\}$.
 
 :::
@@ -176,7 +179,7 @@ $$
 \frac{365\times 364\times\cdots\times(365-n+1)}{365^n},
 $$
 
-provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. The probability of a shared birthday is one minus this. It passes one half at $n=23$, where it is $0.507$, and reaches $0.891$ at $n=40$ and $0.970$ at $n=50$.
+provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. The probability of a shared birthday is one minus this.{{cite:vonmises1939}}{{cite:feller1968}} It passes one half at $n=23$, where it is $0.507$, and reaches $0.891$ at $n=40$ and $0.970$ at $n=50$.
 
 The surprise comes from counting the wrong thing. 23 people seem few against 365 days, but they form $\binom{23}{2}=253$ pairs, and any one of those pairs can match.
 
@@ -194,6 +197,7 @@ If $\Pr(B)>0$, the conditional probability of $A$ given $B$ is
 $$
 \Pr(A\given B)=\frac{\Pr(A\cap B)}{\Pr(B)}.
 $$
+{{cite:bayes1763}}{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}
 
 :::
 
@@ -214,7 +218,7 @@ $$
 \Pr(\text{prize behind }A\given \text{host opens }B)=\frac{1/6}{1/2}=\frac13,
 $$
 
-and the probability it is behind $C$ is $2/3$. Switching wins with probability $2/3$.
+and the probability it is behind $C$ is $2/3$. Switching wins with probability $2/3$.{{cite:selvin1975}}
 
 The tempting answer, one half each, forgets that the host's choice depends on where the prize is. When the contestant's first pick is wrong, which happens two times in three, the host is forced to reveal the only other empty curtain.
 
@@ -229,6 +233,7 @@ $$
 \Pr(A_1\cap\cdots\cap A_n)
 =\Pr(A_1)\,\Pr(A_2\given A_1)\,\Pr(A_3\given A_1\cap A_2)\cdots\Pr(A_n\given A_1\cap\cdots\cap A_{n-1}).
 $$
+{{cite:bayes1763}}{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}
 
 Each factor is the definition of conditional probability, and the intermediate intersections cancel.
 
@@ -250,6 +255,7 @@ If $B_1,\ldots,B_n$ are disjoint and their union is $\Omega$, then for every eve
 $$
 \Pr(A)=\sum_{i=1}^n \Pr(A\given B_i)\,\Pr(B_i).
 $$
+{{cite:bayes1763}}{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}
 
 The events $A\cap B_i$ are disjoint and exhaust $A$, so the sum rule applies, and each term is the product rule.
 
@@ -294,6 +300,7 @@ Events $A_1,A_2,\ldots$ are mutually independent when, for every finite subcolle
 $$
 \Pr(A_{i_1}\cap\cdots\cap A_{i_k})=\Pr(A_{i_1})\cdots\Pr(A_{i_k}).
 $$
+{{cite:bernoulli1713}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}}
 
 :::
 

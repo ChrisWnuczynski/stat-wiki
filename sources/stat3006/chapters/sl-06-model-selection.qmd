@@ -6,7 +6,7 @@ The [Bayes factor](bayes-06-testing.qmd#def-marginal-likelihood-and-bayes-factor
 
 ## Bayes factors and posterior odds
 
-Consider two candidate models, $M_1$ and $M_2$. Within each, specify a proper prior on its parameters, and specify prior probabilities for the models. Bayes' theorem then gives probabilities conditional on this candidate list and these priors. A candidate can be used in the comparison without being literally true. The resulting probabilities leave out every model omitted from the list (Kass and Raftery, 1995).
+Consider two candidate models, $M_1$ and $M_2$. Within each, specify a proper prior on its parameters, and specify prior probabilities for the models. Bayes' theorem then gives probabilities conditional on this candidate list and these priors. A candidate can be used in the comparison without being literally true. The resulting probabilities leave out every model omitted from the list{{cite:kass_raftery1995}}.
 
 $$
 \Pr(M_k\given X_{\mathrm{all}})
@@ -52,7 +52,7 @@ Think of the maximised likelihood as a peak height and the marginal likelihood a
 
 ## The Bayesian information criterion
 
-Schwarz (1978) derived the large-sample penalty now called BIC. A joint prior on the model index and that model's parameter organises the ingredients:
+{{cite:schwarz1978}} derived the large-sample penalty now called BIC. A joint prior on the model index and that model's parameter organises the ingredients:
 
 $$
 p(k,\Psi_k)=\Pr(M_k)\,p(\Psi_k\given M_k),
@@ -82,7 +82,7 @@ $$
 -\frac12(\Psi_k-\widetilde\Psi_k)^\top H(\widetilde\Psi_k)\,(\Psi_k-\widetilde\Psi_k).
 $$
 
-Here $H$ is the negative Hessian of the log joint density. An interior mode guarantees a positive semidefinite negative Hessian. Strict positive definiteness is an additional assumption. The function $-x^4$ has a maximum at zero and zero second derivative there. Laplace's Gaussian approximation needs nonzero curvature in every parameter direction. A singular direction breaks this particular argument.
+Here $H$ is the negative Hessian of the log joint density. An interior mode guarantees a positive semidefinite negative Hessian. Strict positive definiteness is an additional assumption. The function $-x^4$ has a maximum at zero and zero second derivative there. Laplace's Gaussian approximation needs nonzero curvature in every parameter direction{{cite:laplace1812}}. A singular direction breaks this particular argument.
 
 Substitute the quadratic approximation into the integral for $k^*$:
 
@@ -96,7 +96,7 @@ $$
 
 Up to the normalising constant, the integrand is the density of the $d_k$-dimensional normal distribution with mean $\widetilde\Psi_k$ and covariance $H(\widetilde\Psi_k)^{-1}$. The domain $\Theta_k$ is not all of $\R^{d_k}$. Weights lie in $(0,1)$, variances are positive, and covariance matrices are constrained, so the integral of that normal kernel over the legal region is not exactly $1$.
 
-The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral (Drton and Plummer, 2017). Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
+The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral{{cite:drton_plummer2017}}{{cite:schwarz1978}}. Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
 
 $$
 \int_{\Theta_k}
@@ -172,11 +172,11 @@ BIC retains the terms that grow with sample size and discards bounded terms. It 
 
 The penalty comes from integration, specifically the shrinking volume around a regular likelihood peak. With information of order $n$ in each of $d_k$ directions, that volume is of order $n^{-d_k/2}$. Taking logs gives $-(d_k/2)\log n$. Thus one extra parameter must improve the log-likelihood by more than $\tfrac12\log n$ to improve BIC. This is a comparison rule coming from the volume of the Laplace approximation around a regular likelihood peak.
 
-Mixtures need a separate qualification. Coincident components and zero weights make model-order comparison singular, so the ordinary Laplace argument is generally invalid there. BIC can nevertheless be consistent under particular mixture-model assumptions. Consistency and accuracy as a marginal-likelihood approximation are different properties (Drton and Plummer, 2017). The unconstrained Gaussian family with collapsing covariances does not acquire a finite global maximum likelihood estimator merely because a BIC penalty is attached. State the fitted covariance restrictions and the candidate component counts when reporting the comparison.
+Mixtures need a separate qualification. Coincident components and zero weights make model-order comparison singular, so the ordinary Laplace argument is generally invalid there. BIC can nevertheless be consistent under particular mixture-model assumptions. Consistency and accuracy as a marginal-likelihood approximation are different properties{{cite:drton_plummer2017}}. The unconstrained Gaussian family with collapsing covariances does not acquire a finite global maximum likelihood estimator merely because a BIC penalty is attached. State the fitted covariance restrictions and the candidate component counts when reporting the comparison.
 
 ## Cross-validation of the likelihood
 
-BIC approximates a marginal probability of the sample already observed. Cross-validation estimates a different functional: the expected log-likelihood of a new draw, with the parameter fixed at a fit from the current sample. Smyth (2000) fits on training observations and scores the log-likelihood on test observations, and selects the model with the highest test score. The target is
+BIC approximates a marginal probability of the sample already observed. Cross-validation estimates a different functional: the expected log-likelihood of a new draw, with the parameter fixed at a fit from the current sample{{cite:stone1974}}. {{cite:smyth2000}} fits on training observations and scores the log-likelihood on test observations, and selects the model with the highest test score. The target is
 
 $$
 k^*=\arg\max_k \E\bigl[\log\Pr(X\given\Psi=\widehat\Psi_k,M_k)\bigr].
@@ -192,7 +192,7 @@ k^*
 \log\Pr(x_{\mathrm{test},i}\given\widehat\Psi_k,M_k).
 \end{align*}
 
-In $v$-fold cross-validation, refit every candidate on each training fold and sum its held-out log densities. Any preprocessing belongs inside those fits. The winning specification may then be refitted on all development data. An honest estimate of the selected procedure's predictive performance uses an untouched test sample or an outer cross-validation loop. The folds used to choose the model are validation folds, even when older notation calls them test folds (Cawley and Talbot, 2010).
+In $v$-fold cross-validation, refit every candidate on each training fold and sum its held-out log densities. Any preprocessing belongs inside those fits. The winning specification may then be refitted on all development data. An honest estimate of the selected procedure's predictive performance uses an untouched test sample or an outer cross-validation loop. The folds used to choose the model are validation folds, even when older notation calls them test folds{{cite:cawley_talbot2010}}.
 
 ### The Kullback–Leibler connection
 
@@ -204,11 +204,11 @@ D(f\Vert\widehat f)
 =\int f\ln f-\E\bigl[\ln\widehat f(X)\bigr].
 $$
 
-The integral $\int f\ln f$ does not depend on which candidate produced $\widehat f$. Maximising $\E[\ln\widehat f(X)]$ is therefore the same comparison as minimising $D(f\Vert\widehat f)$. The divergence is not symmetric. The convention puts the density of the expectation, here the true $f$, in the first argument.
+The integral $\int f\ln f$ does not depend on which candidate produced $\widehat f$. Maximising $\E[\ln\widehat f(X)]$ is therefore the same comparison as minimising $D(f\Vert\widehat f)${{cite:kullback_leibler1951}}. The divergence is not symmetric{{cite:kullback_leibler1951}}{{cite:akaike1974}}. The convention puts the density of the expectation, here the true $f$, in the first argument.
 
 ## The Akaike information criterion
 
-Akaike's criterion estimates the same Kullback–Leibler target from the training log-likelihood, with an asymptotic penalty in place of a test set (Akaike, 1974).
+Akaike's criterion estimates the same Kullback–Leibler target from the training log-likelihood, with an asymptotic penalty in place of a test set{{cite:akaike1974}}.
 
 ::: {#def-sl-06-aic .definition}
 ## Akaike information criterion
@@ -223,7 +223,7 @@ $$
 
 :::
 
-For $n>e^2$, one has $\log n>2$, so BIC charges more per parameter than AIC. This explains why AIC often favours more flexible candidates. It does not make every larger choice an error: predictive density estimation and recovery of a component count have different goals. The usual $2d_k$ correction is itself an asymptotic result for regular likelihood fitting. Singular mixtures and severe misspecification require care with that justification as well (Akaike, 1974; Drton and Plummer, 2017).
+For $n>e^2$, one has $\log n>2$, so BIC charges more per parameter than AIC. This explains why AIC often favours more flexible candidates. It does not make every larger choice an error: predictive density estimation and recovery of a component count have different goals. The usual $2d_k$ correction is itself an asymptotic result for regular likelihood fitting. Singular mixtures and severe misspecification require care with that justification as well {{cite:akaike1974}}{{cite:drton_plummer2017}}.
 
 The table supplies numbers for comparing the rules. The log-likelihood and cross-validation columns are inherited inputs for the arithmetic. The simulation that produced them is not reproduced by the calculation below. The preferred value of each criterion is in bold. Here $n=300$, $p=2$, and the covariances are full, so the parameter count $d=Hp+Hp(p+1)/2+(H-1)$ from the mixture page is $5,11,17,23,29,35$.
 

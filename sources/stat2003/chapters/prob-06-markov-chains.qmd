@@ -14,12 +14,13 @@ Let $E$ be a finite set of states and let $X_0,X_1,X_2,\ldots$ take values in $E
 $$
 \Pr(X_{n+1}=j\given X_n=i, X_{n-1}=i_{n-1},\ldots,X_0=i_0)=\Pr(X_{n+1}=j\given X_n=i).
 $$
+{{cite:markov1906}}{{cite:feller1968}}{{cite:norris1997}}
 
-It is time-homogeneous when the right-hand side does not depend on $n$. The transition matrix $P$ then has entries $P_{ij}=\Pr(X_{n+1}=j\given X_n=i)$.
+It is time-homogeneous when the right-hand side does not depend on $n$.{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}} The transition matrix $P$ then has entries $P_{ij}=\Pr(X_{n+1}=j\given X_n=i)$.{{cite:feller1968}}{{cite:norris1997}}{{cite:ross2019}}
 
 :::
 
-Each row of $P$ is a probability distribution: the entries are non-negative and sum to $1$. If the row vector $\boldsymbol\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\boldsymbol\pi^{(0)} P^n$. The Chapman–Kolmogorov equations are the matrix product $P^{m+n}=P^m P^n$: the way to be at $j$ after $m+n$ steps is to be somewhere after $m$ steps and then travel for $n$ more.
+Each row of $P$ is a probability distribution: the entries are non-negative and sum to $1$.{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}} If the row vector $\boldsymbol\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\boldsymbol\pi^{(0)} P^n$.{{cite:feller1968}}{{cite:norris1997}}{{cite:ross2019}} The Chapman–Kolmogorov equations are the matrix product $P^{m+n}=P^m P^n$:{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}} the way to be at $j$ after $m+n$ steps is to be somewhere after $m$ steps and then travel for $n$ more.{{cite:chapman1928}}{{cite:kolmogorov1931}}
 
 A path of length $n$ has probability equal to the product of the $n$ transition probabilities along it, times the probability of the starting state. That product is the Markov property written out by the chain rule. A chain is conveniently drawn as a transition graph: one node per state, and an arrow from $i$ to $j$, labelled $P_{ij}$, whenever $P_{ij}>0$.
 
@@ -82,7 +83,7 @@ $$
 \lim_{n\to\infty}(P^n)_{ij}=\pi_j.
 $$
 
-Every row of $P^n$ converges to $\boldsymbol\pi$. The equations $\boldsymbol\pi=\boldsymbol\pi P$ together with $\sum_j \pi_j=1$ determine $\boldsymbol\pi$.
+Every row of $P^n$ converges to $\boldsymbol\pi$.{{cite:markov1906}}{{cite:feller1968}}{{cite:norris1997}} The equations $\boldsymbol\pi=\boldsymbol\pi P$ together with $\sum_j \pi_j=1$ determine $\boldsymbol\pi$.{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}}
 
 :::
 

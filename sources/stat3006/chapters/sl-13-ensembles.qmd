@@ -1,6 +1,6 @@
 # Ensembles, random forests, and boosting
 
-If one tree changes substantially when the training sample is perturbed, fit many perturbed versions and combine their predictions. Bagging creates those versions by bootstrap resampling. A random forest also restricts which predictors compete at each split. Boosting takes a different route: each new learner responds to the current ensemble's errors. This page derives what averaging guarantees, then the extra choices these algorithms make.
+If one tree changes substantially when the training sample is perturbed, fit many perturbed versions and combine their predictions. Bagging creates those versions by bootstrap resampling{{cite:breiman1996_bagging}}. A random forest also restricts which predictors compete at each split{{cite:breiman2001_rf}}. Boosting takes a different route: each new learner responds to the current ensemble's errors{{cite:freund_schapire1997}}. This page derives what averaging guarantees, then the extra choices these algorithms make.
 
 The classifiers on the previous pages differ in the boundaries they can draw, in how hard they are to compute, and in how much they move when the sample moves. Some regions of predictor space are easy for a given rule and some are not. A method with a random start can return a different fit from the same data. Every method returns a different fit from different data, by an amount that depends on the method. Ensemble methods treat that variation as something to average or to correct. The device is a collection of models, combined to predict a new $x$. Averaging reduces variance when the members are not copies of one another.
 
@@ -21,7 +21,7 @@ $$
 ::: {#thm-sl-13-diversity .theorem}
 ## Squared error of an average
 
-If the response at this $x$ is $y$, the squared error of the average splits into the average squared error of the members minus the sample variance of the members about their average:
+If the response at this $x$ is $y$, the squared error of the average splits into the average squared error of the members minus the sample variance of the members about their average{{cite:krogh_vedelsby1995}}:
 
 $$
 \bigl(f(x)-y\bigr)^2
@@ -58,9 +58,9 @@ An average is already an ensemble in a setting that has nothing to do with class
 
 ## Bagging and random forests
 
-Trees are useful base learners because they can represent nonlinear interactions and can change under resampling. Random forests commonly grow deep trees. They need not be weak in the precise boosting sense of having only a small advantage over chance. The ensemble's benefit depends on how member errors combine (Breiman, 1996, 2001).
+Trees are useful base learners because they can represent nonlinear interactions and can change under resampling. Random forests commonly grow deep trees. They need not be weak in the precise boosting sense of having only a small advantage over chance. The ensemble's benefit depends on how member errors combine{{cite:breiman1996_bagging}}{{cite:breiman2001_rf}}.
 
-Ho's random-subspace ensembles are built from different predictor subsets. Breiman's random forest uses random predictor subsets at individual splits, together with randomised tree construction. These choices create different trees without requiring different measured datasets.
+Ho's random-subspace ensembles are built from different predictor subsets{{cite:ho1998_subspace}}. Breiman's random forest uses random predictor subsets at individual splits, together with randomised tree construction. These choices create different trees without requiring different measured datasets.
 
 A new $x$ lands in one leaf of each tree. A hard vote takes the majority of the leaf labels. A soft vote uses the class proportions in the leaf as an estimate of $\Pr(\mathrm{class}=g\given x,\text{tree }t)$, a piecewise-constant estimate of the posterior, and averages those probabilities. The soft aggregate predicts
 
@@ -69,7 +69,7 @@ g^*=\operatorname{arg\,max}_{g\in\{1,\ldots,G\}}
 \frac1T\sum_{t=1}^T \widehat{\Pr}(\mathrm{class}=g\given x,\text{tree }t).
 $$
 
-Ho varied the columns. Bagging, bootstrap aggregation, varies the rows. Each model is fit on a non-parametric bootstrap resample, and the fitted models are averaged or voted. The bootstrap is the same resample used for the error-rate estimator on [Estimating error rates](sl-09-error-rates.qmd): about $0.632n$ distinct cases appear in each draw. Bagging improves unstable fits, trees and neural networks among them, and does little for linear discriminant analysis, as the diversity calculation already showed. A random forest combines the bootstrap sample with a random subset of variables at each split.
+Ho varied the columns. Bagging, bootstrap aggregation, varies the rows{{cite:breiman1996_bagging}}. Each model is fit on a non-parametric bootstrap resample, and the fitted models are averaged or voted. The bootstrap is the same resample used for the error-rate estimator on [Estimating error rates](sl-09-error-rates.qmd): about $0.632n$ distinct cases appear in each draw. Bagging improves unstable fits, trees and neural networks among them, and does little for linear discriminant analysis, as the diversity calculation already showed. A random forest combines the bootstrap sample with a random subset of variables at each split.
 
 At each split of a classification tree the forest offers only about $\sqrt{p}$ randomly chosen coordinates, where $p$ is the number of predictors. The restriction forces trees to split on different variables even when their bootstrap samples are similar. The $\sqrt{p}$ choice is a heuristic, not a consequence of the diversity identity.
 
@@ -79,7 +79,7 @@ At each split of a classification tree the forest offers only about $\sqrt{p}$ r
 For $t=1,\ldots,T$, build a forest of $T$ trees as follows.
 
 1. Generate a bootstrap sample $(X^{(t)},y^{(t)})$ from the training data.
-2. Fit a tree $f_t$ to $(X^{(t)},y^{(t)})$. At each node: (a) randomly select $k$ explanatory variables; (b) determine the best explanatory variable and split among them; (c) add this split to the tree. Repeat (a)–(c) until a stopping criterion is met.
+2. Fit a tree $f_t$ to $(X^{(t)},y^{(t)})$. At each node: (a) randomly select $k$ explanatory variables; (b) determine the best explanatory variable and split among them; (c) add this split to the tree. Repeat (a)–(c) until a stopping criterion is met{{cite:breiman2001_rf}}{{cite:hastie_esl2009}}.
 
 For a new observation $x$ the forest predicts, for regression, $f(x)=\frac1T\sum_t f_t(x)$, and for classification
 
@@ -87,7 +87,7 @@ $$
 f(x)=\operatorname{arg\,max}_g\sum_{t=1}^T I\bigl(f_t(x)=g\bigr),
 $$
 
-or the soft aggregate above if each tree produces class probabilities.
+or the soft aggregate above if each tree produces class probabilities{{cite:breiman2001_rf}}.
 
 :::
 
@@ -120,9 +120,9 @@ The defaults tend to produce large trees, each fitted on its random variable set
 
 ### Out-of-bag estimation and variable importance
 
-An observation is absent from a size-$n$ bootstrap sample with probability $(1-1/n)^n\approx 0.368$. Its out-of-bag prediction therefore uses about $36.8\%$ of the trees, not most of them. Aggregate only those trees, then compare the prediction with its label. This estimates performance of the specified fitting recipe, with finite-forest and resampling effects. If out-of-bag scores select among recipes, the selected minimum also contains selection optimism. Use a separate assessment of that selection procedure.
+An observation is absent from a size-$n$ bootstrap sample with probability $(1-1/n)^n\approx 0.368$. Its out-of-bag prediction therefore uses about $36.8\%$ of the trees, not most of them. Aggregate only those trees, then compare the prediction with its label. This estimates performance of the specified fitting recipe, with finite-forest and resampling effects{{cite:breiman1996_bagging}}{{cite:breiman2001_rf}}. If out-of-bag scores select among recipes, the selected minimum also contains selection optimism. Use a separate assessment of that selection procedure.
 
-The average that lowers the variance also removes the single readable tree. Individual trees can still be inspected, and they were built to disagree, so reading one of them does not describe the forest. A partial substitute ranks the predictors. Count how often each variable is chosen for a split, or how much total impurity reduction it contributes, or how much the error rises when its values are permuted and the forest is applied again. The rank is a summary of predictive contribution inside this fit. It is not a ranking of causal effects, and correlated predictors can share or mask one another's rank. The same two devices, random subsets of predictors and random subsets of cases, can be wrapped around base learners other than trees. Trees remain the usual choice because they are fast, unstable in the way the diversity term requires, and individually limited enough that no one tree dominates the average.
+The average that lowers the variance also removes the single readable tree. Individual trees can still be inspected, and they were built to disagree, so reading one of them does not describe the forest. A partial substitute ranks the predictors. Count how often each variable is chosen for a split, or how much total impurity reduction it contributes, or how much the error rises when its values are permuted and the forest is applied again{{cite:breiman2001_rf}}. The rank is a summary of predictive contribution inside this fit. It is not a ranking of causal effects, and correlated predictors can share or mask one another's rank. The same two devices, random subsets of predictors and random subsets of cases, can be wrapped around base learners other than trees. Trees remain the usual choice because they are fast, unstable in the way the diversity term requires, and individually limited enough that no one tree dominates the average.
 
 On a fixed iris training set, the out-of-bag error of a forest falls as trees are added and then levels off, separately for setosa, versicolor, virginica, and the overall rate. A permutation-importance bar on the same fit is largest for the two petal measurements. Those curves are one seeded fit, not a sampling distribution.
 
@@ -130,7 +130,7 @@ On a fixed iris training set, the out-of-bag error of a forest falls as trees ar
 
 A random forest draws its diversity from different samples and different candidate predictors. The members are fit separately, and none of them is told where the others failed. The diversity identity suggests a sharper use of the same idea: the members should be reasonably accurate and should be accurate in different regions, so that each compensates for the others. Boosting builds that compensation on purpose. Fit one learner. Find the training cases it gets wrong, or the residuals it leaves. Fit the next learner to those mistakes, without abandoning the cases the first one already got right. Continue, and combine the sequence. The learners are not exchangeable draws. Later ones exist because earlier ones failed somewhere.
 
-Schapire (1990) showed that a weak learner can be improved by an ensemble built this way. The concrete algorithm is Adaptive Boosting, AdaBoost (Freund and Schapire, 1995). Bagging reduces variance by averaging unstable fits of the same problem. Boosting changes the problem at each round.
+{{cite:schapire1990}} showed that a weak learner can be improved by an ensemble built this way. The concrete algorithm is Adaptive Boosting, AdaBoost{{cite:freund_schapire1995}}{{cite:freund_schapire1997}}{{cite:hastie_esl2009}}. Bagging reduces variance by averaging unstable fits of the same problem. Boosting changes the problem at each round.
 
 ### The AdaBoost weight update
 
@@ -141,7 +141,7 @@ At iteration $t$ the learner $f_t$ is fit to the training cases with weights $w_
 ::: {#def-sl-13-adaboost .definition}
 ## AdaBoost
 
-Training data $\{x_i,y_i\}_{i=1}^{n_{\mathrm{train}}}$, with $x_i\in\mathbb{R}^p$ and $y_i\in\{-1,+1\}$.
+Training data $\{x_i,y_i\}_{i=1}^{n_{\mathrm{train}}}$, with $x_i\in\mathbb{R}^p$ and $y_i\in\{-1,+1\}${{cite:freund_schapire1997}}{{cite:freund_schapire1995}}{{cite:hastie_esl2009}}.
 
 1. Set $w_{1,i}=1/n_{\mathrm{train}}$ for all $i$.
 2. For $t=1,\ldots,T$:
@@ -176,7 +176,7 @@ Because $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, one has $e^{-\a
 ::: {#thm-sl-13-half-error .theorem}
 ## The reweighted error is one half
 
-If $0<\varepsilon_t<1$ and the current weights sum to $1$, the updated weights give $f_t$ weighted error exactly $1/2$. For the usual positive-vote round, require $0<\varepsilon_t<1/2$. At zero error the logarithm has no finite value: stop, or handle the perfect learner explicitly.
+If $0<\varepsilon_t<1$ and the current weights sum to $1$, the updated weights give $f_t$ weighted error exactly $1/2${{cite:freund_schapire1997}}{{cite:friedman_hastie_tibshirani2000}}{{cite:hastie_esl2009}}. For the usual positive-vote round, require $0<\varepsilon_t<1/2$. At zero error the logarithm has no finite value: stop, or handle the perfect learner explicitly.
 
 :::
 
@@ -209,7 +209,7 @@ $$
 y=(+,+,+,-,-,-,+,+,+,-),
 $$
 
-using decision stumps, a threshold on $x$ and a sign, as learners.
+using decision stumps, a threshold on $x$ and a sign, as learners{{cite:freund_schapire1997}}{{cite:friedman_hastie_tibshirani2000}}{{cite:hastie_esl2009}}.
 
 **Solution.** Initially every $w_{1,i}=0.1$.
 
@@ -240,7 +240,7 @@ After three rounds the ensemble $f=\operatorname{sign}(0.4236 f_1+0.6496 f_2+0.7
 
 ### Exponential loss
 
-The factor $\varepsilon_t/(1-\varepsilon_t)$ was a choice in the original algorithm. Friedman, Hastie, and Tibshirani (2000) supplied the loss that produces it. The population criterion is the exponential loss
+The factor $\varepsilon_t/(1-\varepsilon_t)$ was a choice in the original algorithm. {{cite:friedman_hastie_tibshirani2000}} supplied the loss that produces it. The population criterion is the exponential loss
 
 $$
 J(f)=\E\bigl[e^{-Y f(X)}\bigr],
@@ -272,7 +272,7 @@ e^{2f}=\frac{\tau_1}{1-\tau_1},
 f^*(x)=\frac12\log\frac{\tau_1(x)}{1-\tau_1(x)}.
 $$
 
-The minimiser is half the conditional log odds of class $1$. The posterior $\tau_1(x)$ did the work: it is the only feature of the conditional distribution of $Y$ that enters the expected exponential loss, because $Y$ takes only two values. When the log odds are $0$, one has $\tau_1(x)=1/2$ and $f^*(x)=0$. The sign of $f^*$ is therefore the equal-cost Bayes rule, which is why the ensemble classifies by $\operatorname{sign}(f)$. Inverting the half-logit recovers the probability,
+The minimiser is half the conditional log odds of class $1${{cite:friedman_hastie_tibshirani2000}}{{cite:hastie_esl2009}}. The posterior $\tau_1(x)$ did the work: it is the only feature of the conditional distribution of $Y$ that enters the expected exponential loss, because $Y$ takes only two values. When the log odds are $0$, one has $\tau_1(x)=1/2$ and $f^*(x)=0$. The sign of $f^*$ is therefore the equal-cost Bayes rule, which is why the ensemble classifies by $\operatorname{sign}(f)$. Inverting the half-logit recovers the probability,
 
 $$
 \tau_1(x)=\frac{1}{1+e^{-2f^*(x)}},
@@ -351,7 +351,7 @@ e^{-\alpha_m^* y_i f_m^*(x_i)}
 
 The factor $e^{-\alpha_m^*}$ multiplies every weight and cancels when the weights are normalised. Every misclassified case, where $Q=1$, is multiplied by $(1-\varepsilon_m)/\varepsilon_m$, and every correctly classified case, where $Q=0$, is left unchanged. After normalisation this is the original AdaBoost update.
 
-What the stagewise argument establishes is that the algorithm is greedy minimisation of the training exponential loss, one weak learner at a time. The exponential form of the loss did the work: it factors across rounds into a weight that depends on the margin so far and a factor that depends on the new learner. A different loss would produce a different weight update. The fit is greedy. It does not go back and revise $\alpha_1,\ldots,\alpha_{m-1}$ when round $m$ is added.
+What the stagewise argument establishes is that the algorithm is greedy minimisation of the training exponential loss, one weak learner at a time{{cite:friedman_hastie_tibshirani2000}}. The exponential form of the loss did the work: it factors across rounds into a weight that depends on the margin so far and a factor that depends on the new learner. A different loss would produce a different weight update. The fit is greedy. It does not go back and revise $\alpha_1,\ldots,\alpha_{m-1}$ when round $m$ is added.
 
 AdaBoost adds a weighted learner to a real-valued score. Exponential loss explains the reweighting and the coefficient $\alpha_t$. Its unrestricted population minimiser is half the conditional log odds. The final sign is a class label and cannot estimate that real number. A finite, restricted, stagewise fit need not attain the population minimiser or produce calibrated probabilities.
 
@@ -390,7 +390,7 @@ The population minimisers agree. Both losses are minimised by half the condition
 
 AdaBoost reweights the training cases at every round. A weak round, one with $\varepsilon_t$ near $1/2$, receives a small vote $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, and the next round faces a weighted problem on which the previous learner scores exactly $1/2$.
 
-Plot the losses against the margin $yf$, where $y\in\{-1,+1\}$ is the correct label and $f$ is the score before the threshold at $0$ converts it to a label. A positive margin is a correct classification. A negative margin is a mistake, and a loss used for training should charge it. Squared error $(y-f)^2$ equals $(1-yf)^2$ when $y\in\{-1,+1\}$, because $y^2=1$. As a function of a real-valued score it is a parabola in the margin, minimised at $yf=1$, so a more confident correct call, with $yf>1$, is penalised more rather than less. Exponential loss grows exponentially as the margin falls below zero, so the fit concentrates on the worst mistakes. When the Bayes error is not near zero, some of those mistakes are unavoidable under any classifier, and concentrating on them fits noise. Binomial deviance, the logistic negative log-likelihood above, grows only linearly in the negative margin, so it is the milder penalty in that regime. Hinge loss is zero once the margin exceeds $1$, and linear below that. Both exponential and logistic losses extend to more than two classes. The algorithms that minimise them by adding a weak learner, usually a tree, along the gradient of the training loss are collected under the name gradient boosting. In those programs the penalty on tree size and the limit on depth are tuning choices, selected by cross-validation or by a validation set. They are not consequences of the population minimiser.
+Plot the losses against the margin $yf$, where $y\in\{-1,+1\}$ is the correct label and $f$ is the score before the threshold at $0$ converts it to a label. A positive margin is a correct classification. A negative margin is a mistake, and a loss used for training should charge it. Squared error $(y-f)^2$ equals $(1-yf)^2$ when $y\in\{-1,+1\}$, because $y^2=1$. As a function of a real-valued score it is a parabola in the margin, minimised at $yf=1$, so a more confident correct call, with $yf>1$, is penalised more rather than less. Exponential loss grows exponentially as the margin falls below zero, so the fit concentrates on the worst mistakes. When the Bayes error is not near zero, some of those mistakes are unavoidable under any classifier, and concentrating on them fits noise. Binomial deviance, the logistic negative log-likelihood above, grows only linearly in the negative margin, so it is the milder penalty in that regime. Hinge loss is zero once the margin exceeds $1$, and linear below that. Both exponential and logistic losses extend to more than two classes. The algorithms that minimise them by adding a weak learner, usually a tree, along the gradient of the training loss are collected under the name gradient boosting{{cite:friedman2001_gbm}}{{cite:hastie_esl2009}}. In those programs the penalty on tree size and the limit on depth are tuning choices, selected by cross-validation or by a validation set. They are not consequences of the population minimiser.
 
 Training classification error and training exponential loss are different criteria. A one-dimensional simulation can drive the training error to zero while the exponential loss is still moving, and the final observation weights concentrate on the points the early rounds found difficult.
 

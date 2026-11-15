@@ -76,7 +76,7 @@ $$
 \widehat{\boldsymbol{\mu}}=\bar{\mathbf{x}},
 $$
 
-for every positive definite $\Sigma$. The covariance does not have to be known before the mean is estimated. The next step substitutes this maximiser and maximises in $\Sigma$ alone.
+{{cite:anderson2003_mva}}{{cite:fisher1922}} for every positive definite $\Sigma$. The covariance does not have to be known before the mean is estimated{{cite:anderson2003_mva}}. The next step substitutes this maximiser and maximises in $\Sigma$ alone.
 
 ### The covariance and the invariance lemma
 
@@ -85,7 +85,7 @@ The inverse covariance is a convenient optimisation variable. Set $\Theta=\Sigma
 ::: {#prp-sl-02-invariance .proposition}
 ## Invariance of the maximum likelihood estimator
 
-Let the distribution of the data depend on $\theta=(\theta_1,\ldots,\theta_k)$, with maximum likelihood estimator $\widehat\theta$. Let $\tau(\theta)=(\tau_1(\theta),\ldots,\tau_r(\theta))$, $1\le r\le k$, be a transformation of the parameter. Then the maximum likelihood estimator of $\tau_l(\theta)$ is $\widehat\tau_l=\tau_l(\widehat\theta)$.
+Let the distribution of the data depend on $\theta=(\theta_1,\ldots,\theta_k)$, with maximum likelihood estimator $\widehat\theta$. Let $\tau(\theta)=(\tau_1(\theta),\ldots,\tau_r(\theta))$, $1\le r\le k$, be a transformation of the parameter. Then the maximum likelihood estimator of $\tau_l(\theta)$ is $\widehat\tau_l=\tau_l(\widehat\theta)${{cite:fisher1922}}.
 
 :::
 
@@ -128,7 +128,7 @@ $$
 \widehat\Sigma=\frac1n A.
 $$
 
-There is a condition behind that answer: $A$ must be positive definite. Then strict concavity in the precision makes the stationary point the unique maximum. If $A$ is singular, the unrestricted positive definite Gaussian covariance has no finite maximum likelihood estimator in the interior of the parameter space. Shrinking the variance in an unobserved direction increases the likelihood without bound. An algebraic expression such as $A/n$ is not automatically an admissible parameter. When the estimator does exist, its divisor is $n$.
+{{cite:anderson2003_mva}} There is a condition behind that answer: $A$ must be positive definite{{cite:anderson2003_mva}}. Then strict concavity in the precision makes the stationary point the unique maximum. If $A$ is singular, the unrestricted positive definite Gaussian covariance has no finite maximum likelihood estimator in the interior of the parameter space. Shrinking the variance in an unobserved direction increases the likelihood without bound. An algebraic expression such as $A/n$ is not automatically an admissible parameter. When the estimator does exist, its divisor is $n$.
 
 ### Bias and the sample covariance
 
@@ -187,6 +187,7 @@ $$
 
 for positive definite $W$, and $0$ otherwise.
 
+{{cite:wishart1928}}{{cite:anderson2003_mva}}
 :::
 
 For the corrected cross-product matrix of a normal sample the degrees of freedom are $\nu=n-1$, and the density is
@@ -199,12 +200,12 @@ $$
 
 The exponent checks: $(\nu-p-1)/2$ at $\nu=n-1$ is $(n-p-2)/2$, and $\Gamma((\nu+1-j)/2)$ becomes $\Gamma((n-j)/2)$. When $p=1$ and $\Sigma=1$, $W$ reduces to a sum of squares of standard normals, which is $\chi^2_\nu$.
 
-The expectation does not use the density. From the definition, $W=\sum_m\mathbf{U}_m\mathbf{U}_m^\top$ and $\E(\mathbf{U}_m\mathbf{U}_m^\top)=\Sigma$, so linearity gives $\E(W)=\nu\Sigma$. Setting $\nu=n-1$ recovers $\E(A)=(n-1)\Sigma$. Normality is not required for this expectation. It is required for the density, and for the claim that $A$ is Wishart.
+The expectation does not use the density. From the definition, $W=\sum_m\mathbf{U}_m\mathbf{U}_m^\top$ and $\E(\mathbf{U}_m\mathbf{U}_m^\top)=\Sigma$, so linearity gives $\E(W)=\nu\Sigma${{cite:anderson2003_mva}}. Setting $\nu=n-1$ recovers $\E(A)=(n-1)\Sigma$. Normality is not required for this expectation. It is required for the density, and for the claim that $A$ is Wishart.
 
 ::: {#thm-sl-02-mean-and-scatter .theorem}
 ## Sampling law of the normal mean and scatter
 
-Under independent sampling from $\Normal_p(\boldsymbol{\mu},\Sigma)$, the sample mean and the corrected cross-product matrix are independent, with
+Under independent sampling from $\Normal_p(\boldsymbol{\mu},\Sigma)$, the sample mean and the corrected cross-product matrix are independent{{cite:anderson2003_mva}}, with
 
 $$
 \overline{\mathbf{X}}\sim\Normal_p\bigl(\boldsymbol{\mu},\,\tfrac1n\Sigma\bigr),
@@ -214,6 +215,7 @@ A\sim W_p(\Sigma,\,n-1),
 \overline{\mathbf{X}}\ \text{independent of}\ A.
 $$
 
+{{cite:anderson2003_mva}}{{cite:wishart1928}}
 :::
 
 The normal law for $\overline{\mathbf{X}}$, and the covariance $\Sigma/n$, follow from the [linear-image proposition](sl-01-multivariate-normal.qmd#prp-sl-01-linear-image). Stack the $n$ observations as one vector $\mathbf{Z}$ of length $np$. Independence puts $\Sigma$ on the diagonal blocks of $\Var(\mathbf{Z})$ and zeros off those blocks. The average is
@@ -232,13 +234,13 @@ $$
 \Pr(X\le x)=\Pr\bigl(\Phi^{-1}(U)\le x\bigr)=\Pr\bigl(U\le\Phi(x)\bigr)=\Phi(x),
 $$
 
-so $X$ is standard normal. This is the [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform). Draw $p$ independent copies and stack them as $\mathbf{Z}\sim\Normal_p(\mathbf{0},I_p)$. Any matrix $B$ with $BB^\top=\Sigma$ then has the covariance required by the linear-image formula. The spectral factor $B=\Gamma\Lambda^{1/2}$, whose columns are eigenvectors scaled by square-root eigenvalues, is one such factor, and the Cholesky factor is another. Set
+so $X$ is standard normal. This is the [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform). Draw $p$ independent copies and stack them as $\mathbf{Z}\sim\Normal_p(\mathbf{0},I_p)$. Any matrix $B$ with $BB^\top=\Sigma$ then has the covariance required by the linear-image formula{{cite:anderson2003_mva}}. The spectral factor $B=\Gamma\Lambda^{1/2}$, whose columns are eigenvectors scaled by square-root eigenvalues, is one such factor{{cite:golub_vanloan2013}}, and the Cholesky factor is another{{cite:golub_vanloan2013}}. Set
 
 $$
 \mathbf{X}=\boldsymbol{\mu}+B\mathbf{Z}.
 $$
 
-The mean of $B\mathbf{Z}+\boldsymbol{\mu}$ is $\boldsymbol{\mu}$ and its covariance is $BB^\top=\Sigma$. Normality follows from the linear-image proposition. In software, `rnorm` supplies pseudorandom draws. A seed reproduces the computation. A sample covariance close to its target checks this implementation. It is not a proof that every property of the generator is correct.
+The mean of $B\mathbf{Z}+\boldsymbol{\mu}$ is $\boldsymbol{\mu}$ and its covariance is $BB^\top=\Sigma${{cite:anderson2003_mva}}. Normality follows from the linear-image proposition. In software, `rnorm` supplies pseudorandom draws. A seed reproduces the computation. A sample covariance close to its target checks this implementation. It is not a proof that every property of the generator is correct.
 
 The spectral and Cholesky factors both satisfy $BB^\top=\Sigma$. Such a factor need not satisfy $B^2=\Sigma$. The name symmetric square root is reserved for $\Gamma\Lambda^{1/2}\Gamma^\top$. A third construction never forms $B$. Draw the first coordinate from its univariate marginal normal, then each later coordinate from the univariate conditional normal given the coordinates already drawn, using the conditional formula on [Covariance and the multivariate normal](sl-01-multivariate-normal.qmd#thm-sl-01-conditional-normal). The constructions target the same $\Normal_p(\boldsymbol{\mu},\Sigma)$. They factor it differently.
 
@@ -275,6 +277,7 @@ $$
 
 converges in distribution to $\Normal_p(\mathbf{0},\Sigma)$ as $n\to\infty$.
 
+{{cite:anderson2003_mva}}{{cite:cramer1946}}{{cite:wasserman2004}}
 :::
 
 Convergence in distribution means that the distribution function of $\sqrt{n}(\overline{\mathbf{X}}_n-\boldsymbol{\mu})$ converges at every continuity point to the $\Normal_p(\mathbf{0},\Sigma)$ distribution function. The exact null distribution of $T^2$ in the next section needs the normal model. What survives without normality is the limit in the following remark.
@@ -288,13 +291,13 @@ $$
 n(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)^\top S^{-1}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)
 $$
 
-is asymptotically $\chi^2_p$. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)$, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form.
+is asymptotically $\chi^2_p${{cite:anderson2003_mva}}. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)${{cite:cramer1946}}, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form{{cite:anderson2003_mva}}.
 
 :::
 
 ## Hotelling's $T^2$ test
 
-A sample mean, however accurately computed, is not a test. A test needs a null value, an alternative, a statistic, and the distribution of that statistic when the null is true. The statistic derived here is the likelihood ratio for a normal mean vector. Its null distribution is read from the normal-and-Wishart pair.
+A sample mean, however accurately computed, is not a test. A test needs a null value, an alternative, a statistic, and the distribution of that statistic when the null is true. The statistic derived here is the likelihood ratio for a normal mean vector{{cite:hotelling1931}}{{cite:anderson2003_mva}}. Its null distribution is read from the normal-and-Wishart pair.
 
 ### The univariate $t$ test as a template
 
@@ -304,7 +307,7 @@ $$
 t=\frac{\bar x-\mu_0}{s/\sqrt{n}}\sim t_{n-1}
 $$
 
-under $H_0$, where $t_{n-1}$ is the [Student $t$ distribution](inf-01-statistical-inference.qmd#def-student-t-distribution). Under $H_0$ the distribution of $t$ does not depend on the unknown $(\mu,\sigma^2)$. A quantity with that property is a pivot, so the critical value can be taken from the $t_{n-1}$ table alone. At level $\alpha$ the two-sided rule rejects $H_0$ when $|t|>t_{\alpha/2;\,n-1}$. Throughout this page the first subscript of a critical value is the upper-tail probability, and the remaining subscripts are degrees of freedom. The same point is the quantile of order $1-\alpha$ in the notation of [Statistical inference](inf-01-statistical-inference.qmd#def-f-distribution). The algebra below is arranged so that the multivariate statistic reduces to the square of this $t$ when $p=1$.
+under $H_0$, where $t_{n-1}$ is the [Student $t$ distribution](inf-01-statistical-inference.qmd#def-student-t-distribution). Under $H_0$ the distribution of $t$ does not depend on the unknown $(\mu,\sigma^2)$. A quantity with that property is a pivot, so the critical value can be taken from the $t_{n-1}$ table alone. At level $\alpha$ the two-sided rule rejects $H_0$ when $|t|>t_{\alpha/2;\,n-1}${{cite:wasserman2004}}. Throughout this page the first subscript of a critical value is the upper-tail probability, and the remaining subscripts are degrees of freedom. The same point is the quantile of order $1-\alpha$ in the notation of [Statistical inference](inf-01-statistical-inference.qmd#def-f-distribution). The algebra below is arranged so that the multivariate statistic reduces to the square of this $t$ when $p=1${{cite:hotelling1931}}{{cite:anderson2003_mva}}.
 
 ### Hypotheses and the likelihood ratio
 
@@ -316,13 +319,13 @@ H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0
 H_1:\boldsymbol{\mu}\neq\boldsymbol{\mu}_0.
 $$
 
-The unrestricted fit uses $\bar{\mathbf{x}}$ and $A/n$. Under the null, the mean is fixed and only the covariance can adapt. The likelihood-ratio statistic compares those two best fits. The construction does not by itself establish uniform optimality against every multivariate alternative. Compare the maximised likelihood with $\boldsymbol{\mu}$ fixed at $\boldsymbol{\mu}_0$ to the maximised likelihood with $\boldsymbol{\mu}$ free:
+The unrestricted fit uses $\bar{\mathbf{x}}$ and $A/n$. Under the null, the mean is fixed and only the covariance can adapt. The likelihood-ratio statistic compares those two best fits{{cite:neyman_pearson1928}}. The construction does not by itself establish uniform optimality against every multivariate alternative. Compare the maximised likelihood with $\boldsymbol{\mu}$ fixed at $\boldsymbol{\mu}_0$ to the maximised likelihood with $\boldsymbol{\mu}$ free:
 
 $$
 \lambda=\frac{\max_\Sigma L(\boldsymbol{\mu}_0,\Sigma)}{\max_{\boldsymbol{\mu},\Sigma}L(\boldsymbol{\mu},\Sigma)}\in[0,1].
 $$
 
-The numerator maximises over a subset of the denominator's parameter space, so the ratio cannot exceed one. If it is small, imposing the proposed mean costs a great deal of fit.
+The numerator maximises over a subset of the denominator's parameter space, so the ratio cannot exceed one{{cite:neyman_pearson1928}}. If it is small, imposing the proposed mean costs a great deal of fit.
 
 **Maximisation under $H_0$.** Under $H_0$ only $\Sigma$ is free. The derivative that produced $\widehat\Sigma=A/n$ measures residuals from the centring point in use. With residuals measured from $\boldsymbol{\mu}_0$ rather than from a free mean, the same derivative gives
 
@@ -444,22 +447,22 @@ $$
 F=\frac{n-p}{p(n-1)}\,T^2\sim F_{p,\,n-p}
 $$
 
-when $\boldsymbol{\mu}=\boldsymbol{\mu}_0$. Reject $H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0$ at level $\alpha$ when $F>F_{\alpha;\,p,\,n-p}$.
+when $\boldsymbol{\mu}=\boldsymbol{\mu}_0$. Reject $H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0$ at level $\alpha$ when $F>F_{\alpha;\,p,\,n-p}${{cite:hotelling1931}}{{cite:anderson2003_mva}}.
 
 :::
 
-$T^2$ is the squared Mahalanobis distance of the sample mean from the hypothesised mean, in units of the sample covariance, multiplied by $n$. It is a strictly decreasing function of the likelihood ratio. When $p=1$ it is the square of the ordinary $t$ statistic.
+$T^2$ is the squared Mahalanobis distance of the sample mean from the hypothesised mean, in units of the sample covariance, multiplied by $n${{cite:anderson2003_mva}}. It is a strictly decreasing function of the likelihood ratio. When $p=1$ it is the square of the ordinary $t$ statistic.
 
 ### A confidence region for the mean
 
-A confidence region can now be built without inventing another statistic. Run the level-$\alpha$ test for every proposed mean and retain the values it does not reject. Under the Gaussian model, the resulting random region contains the fixed true mean in a proportion $1-\alpha$ of repeated samples. Once the data are observed, this statement is not a probability that the parameter lies in this particular region.
+A confidence region can now be built without inventing another statistic. Run the level-$\alpha$ test for every proposed mean and retain the values it does not reject. Under the Gaussian model, the resulting random region contains the fixed true mean in a proportion $1-\alpha$ of repeated samples{{cite:hotelling1931}}{{cite:anderson2003_mva}}. Once the data are observed, this statement is not a probability that the parameter lies in this particular region.
 
 $$
 n(\bar{\mathbf{x}}-\boldsymbol{\mu})^\top S^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu})
 \le\frac{(n-1)p}{n-p}\,F_{\alpha;\,p,\,n-p}.
 $$
 
-A level set of $(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})$ is an ellipsoid whose axes are the eigenvectors of $\Sigma$. The same algebra, with $S$ in place of $\Sigma$ and with centre $\bar{\mathbf{x}}$, shows that the inequality is an ellipsoid centred at the sample mean, with axes along the eigenvectors of $S$. The quadratic form carries a factor $n$, so the ellipsoid describes uncertainty about the mean and shrinks as $n$ grows. The scatter of the individual observations is what $S$ itself measures. The numbers in the next example are a case in which this ellipsoid excludes the origin while each separate $t$ interval still contains it. The two measurements move together, and the sample mean leaves the origin along a direction in which the sample hardly varies.
+A level set of $(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})$ is an ellipsoid whose axes are the eigenvectors of $\Sigma$. The same algebra, with $S$ in place of $\Sigma$ and with centre $\bar{\mathbf{x}}$, shows that the inequality is an ellipsoid centred at the sample mean, with axes along the eigenvectors of $S${{cite:anderson2003_mva}}. The quadratic form carries a factor $n$, so the ellipsoid describes uncertainty about the mean and shrinks as $n$ grows. The scatter of the individual observations is what $S$ itself measures. The numbers in the next example are a case in which this ellipsoid excludes the origin while each separate $t$ interval still contains it. The two measurements move together, and the sample mean leaves the origin along a direction in which the sample hardly varies.
 
 ::: {#exm-sl-02-twelve-subjects .example}
 ## Two paired measurements on twelve subjects
@@ -561,6 +564,8 @@ $$
 \overline{\mathbf{X}}^{(l)}\sim\Normal_p(\boldsymbol{\mu}_l,\,\Sigma/n_l).
 $$
 
+{{cite:anderson2003_mva}}
+
 Under $H_0$ with $\boldsymbol{\delta}_0=\mathbf{0}$, independence of the two samples adds the covariances:
 
 $$
@@ -583,13 +588,13 @@ S=\frac{1}{n_1+n_2-2}
 \Biggr).
 $$
 
-This is the pooled formula with $G=2$. The Wishart statement applied to the pooled residuals gives
+This is the pooled formula with $G=2${{cite:anderson2003_mva}}. The Wishart statement applied to the pooled residuals gives
 
 $$
 (n_1+n_2-2)S\sim W_p(\Sigma,\,n_1+n_2-2),
 $$
 
-independent of both sample means and therefore of their difference. The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
+{{cite:wishart1928}} independent of both sample means and therefore of their difference{{cite:anderson2003_mva}}. The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
 
 $$
 T^2=\frac{n_1 n_2}{n_1+n_2}
@@ -615,7 +620,7 @@ $$
 >F_{\alpha;\,p,\,n_1+n_2-p-1}.
 $$
 
-The second degree of freedom is $n_1+n_2-p-1$. It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
+{{cite:anderson2003_mva}}{{cite:hotelling1931}} The second degree of freedom is $n_1+n_2-p-1${{cite:anderson2003_mva}}. It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
 
 :::
 
@@ -637,7 +642,7 @@ T^2_{\alpha;\,p,\,n_1+n_2-p-1}
 =\frac{(n_1+n_2-2)\,p}{n_1+n_2-p-1}\,F_{\alpha;\,p,\,n_1+n_2-p-1}.
 $$
 
-The same critical value yields simultaneous intervals for every linear functional $\mathbf{a}^\top\boldsymbol{\delta}$, $\mathbf{a}\in\R^p$, and not only for the $p$ coordinates:
+The same critical value yields simultaneous intervals for every linear functional $\mathbf{a}^\top\boldsymbol{\delta}$, $\mathbf{a}\in\R^p$, and not only for the $p$ coordinates{{cite:anderson2003_mva}}{{cite:hotelling1931}}:
 
 $$
 \mathbf{a}^\top\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr)
@@ -645,11 +650,11 @@ $$
 \sqrt{\mathbf{a}^\top S\mathbf{a}\cdot\frac{n_1+n_2}{n_1 n_2}\,T^2_{\alpha;\,p,\,n_1+n_2-p-1}}.
 $$
 
-A coordinate interval is the case in which $\mathbf{a}$ is a unit vector along one axis. The half-width uses the $T^2$ critical value rather than a single two-sample $t$ critical value, because the intervals are required to cover $\mathbf{a}^\top\boldsymbol{\delta}$ simultaneously for every $\mathbf{a}$, including the direction in which the two sample means differ most. Separate $t$ intervals each control one coordinate and do not control a search over directions, so the simultaneous intervals are wider.
+A coordinate interval is the case in which $\mathbf{a}$ is a unit vector along one axis. The half-width uses the $T^2$ critical value rather than a single two-sample $t$ critical value, because the intervals are required to cover $\mathbf{a}^\top\boldsymbol{\delta}$ simultaneously for every $\mathbf{a}$, including the direction in which the two sample means differ most. Separate $t$ intervals each control one coordinate and do not control a search over directions, so the simultaneous intervals are wider{{cite:anderson2003_mva}}.
 
 ### Unequal covariance matrices
 
-Pooling is justified by the common-covariance model. Equal group sizes do not make that assumption true, and they do not restore the exact finite-sample $F$ distribution under arbitrary heteroscedasticity. Large-sample robustness of the pooled procedure is a more limited conclusion. With unequal covariances the problem is the multivariate Behrens–Fisher problem, even when the group sizes happen to match.
+Pooling is justified by the common-covariance model{{cite:anderson2003_mva}}. Equal group sizes do not make that assumption true, and they do not restore the exact finite-sample $F$ distribution under arbitrary heteroscedasticity{{cite:anderson2003_mva}}. Large-sample robustness of the pooled procedure is a more limited conclusion. With unequal covariances the problem is the multivariate Behrens–Fisher problem, even when the group sizes happen to match{{cite:anderson2003_mva}}.
 
 One approximation, due to Krishnamoorthy and Yu, estimates the covariance of the mean difference directly. Define $\widetilde S_l=S_l/n_l$ and $\widetilde S=\widetilde S_1+\widetilde S_2$. The statistic is
 
@@ -680,7 +685,7 @@ $$
 \nu=\frac{(v_1+v_2)^2}{v_1^2/(n_1-1)+v_2^2/(n_2-1)},
 $$
 
-which is Welch's degrees of freedom. The reference law remains approximate. Comparisons of several mean vectors, with a common covariance, continue as a multivariate analysis of variance: the pooled within-group matrix is the error stratum, and the between-group matrix of weighted outer products of group-mean deviations is compared with it by a further Wishart ratio.
+which is Welch's degrees of freedom{{cite:welch1947}}. The reference law remains approximate. Comparisons of several mean vectors, with a common covariance, continue as a multivariate analysis of variance: the pooled within-group matrix is the error stratum, and the between-group matrix of weighted outer products of group-mean deviations is compared with it by a further Wishart ratio.
 
 ## A joint mean test for setosa
 

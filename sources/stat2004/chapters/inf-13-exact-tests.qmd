@@ -14,7 +14,7 @@ $$
 \Pr(K=k)=\frac{\binom{n_1}{k}\binom{n_2}{c-k}}{\binom{n}{c}},
 $$
 
-for every $k$ the margins allow, namely $\max(0,c-n_2)\le k\le\min(n_1,c)$. The $p$-value is the probability, under this law, of a table at least as extreme as the one observed. A one-sided $p$-value sums the probabilities on the observed side of $k$. A two-sided $p$-value sums every table whose probability is no larger than the probability of the observed table.
+for every $k$ the margins allow, namely $\max(0,c-n_2)\le k\le\min(n_1,c)$. The $p$-value is the probability, under this law, of a table at least as extreme as the one observed. A one-sided $p$-value sums the probabilities on the observed side of $k$. A two-sided $p$-value sums every table whose probability is no larger than the probability of the observed table.{{cite:fisher1935_doe}}{{cite:yates1934}}{{cite:agresti2002}}
 
 The same reasoning applies to a larger table. Conditional on all margins, the null distribution is multiple hypergeometric: the count in the free cells is the number of ways to fill the table divided by the number of ways to arrange the margins. For a $2\times 2$ table the sum can be done by hand. For a larger table the enumeration is the same sum carried out by a computer.
 
@@ -61,7 +61,7 @@ A test of independence samples $n$ individuals from one population and classifie
 
 A test of homogeneity draws a fixed sample from each of several populations, or assigns individuals to fixed groups, and classifies each by one response factor. The row totals are fixed by the design. The null hypothesis is that the response distribution is the same in every row: the conditional probabilities $p_{j\mid i}$ do not depend on $i$.
 
-The Pearson statistic, the likelihood-ratio statistic and Fisher's exact test are calculated in the same way for both. The expected count under either null, once the margins are plugged in, is $R_i C_j/n$. The degrees of freedom are $(r-1)(c-1)$ for both. Calling both "a test of association" describes the rejection: the factors are not associated. It hides the design. Independence is a statement about one joint distribution. Homogeneity is a statement about several conditional distributions being equal.
+The Pearson statistic, the likelihood-ratio statistic and Fisher's exact test are calculated in the same way for both. The expected count under either null, once the margins are plugged in, is $R_i C_j/n$. The degrees of freedom are $(r-1)(c-1)$ for both. Calling both "a test of association" describes the rejection: the factors are not associated. It hides the design. Independence is a statement about one joint distribution.{{cite:agresti2002}} Homogeneity is a statement about several conditional distributions being equal.{{cite:lehmann_romano2005}}{{cite:fisher1935_doe}}
 
 The practical difference shows up when the samples are planned. A study that recruits $40$ science students and $40$ arts students, then records computer preference, can estimate the preference distribution in each faculty. It cannot estimate the proportion of science students in the university, because that proportion was fixed by recruitment. The hypothesis it tests is homogeneity of preference across the two faculties. A study that stops $80$ students in a corridor and records both faculty and computer tests independence in that stream of students, and both margins estimate population margins.
 

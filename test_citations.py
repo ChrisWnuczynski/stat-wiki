@@ -28,6 +28,21 @@ BANNED_VISIBLE = re.compile(
 )
 
 
+def _citations_todo(path: Path) -> dict[str, str]:
+    todo: dict[str, str] = {}
+    if not path.is_file():
+        return todo
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line.startswith("- "):
+            continue
+        slug, _, reason = line[2:].partition("|")
+        slug, reason = slug.strip(), reason.strip()
+        if slug:
+            todo[slug] = reason
+    return todo
+
+
 class CitationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.bib = json.loads((ROOT / "bibliography.json").read_text(encoding="utf-8"))
@@ -298,6 +313,29 @@ class CitationTests(unittest.TestCase):
             + static_and_sheets
         )
 
+    def test_articles_below_three_inline_citations_are_listed(self) -> None:
+        articles_dir = ROOT / "articles"
+        if not articles_dir.is_dir():
+            self.skipTest("Generated wiki directories are not built yet")
+        todo = _citations_todo(ROOT / "citations-todo.md")
+        for slug, reason in todo.items():
+            self.assertTrue(reason, f"{slug} is listed without a reason")
+            self.assertTrue((articles_dir / f"{slug}.qmd").is_file(), f"Unknown todo article {slug}")
+        under: list[str] = []
+        for path in sorted(articles_dir.glob("*.qmd")):
+            text = path.read_text(encoding="utf-8")
+            body = text.split("## References", 1)[0]
+            if len(re.findall(r'class="cite-ref"', body)) < 3:
+                under.append(path.stem)
+        print(f"{len(under)} articles have fewer than 3 inline citations")
+        missing = [slug for slug in under if slug not in todo]
+        self.assertEqual(
+            missing,
+            [],
+            f"{len(under)} articles have fewer than 3 inline citations; "
+            f"not listed in citations-todo.md: {missing}",
+        )
+
 
 def _prose_paths() -> list[Path]:
     paths = sorted((ROOT / "sources").rglob("*.qmd"))
@@ -322,8 +360,11 @@ class InlineCitationTests(unittest.TestCase):
         keys = ("wald1950", "lehmann_casella1998", "gelman_bda2013")
         linker = citations.PageCitationLinker(keys, self.works)
         out = linker.process_text(text)
-        self.assertIn("Lehmann and Casella (1998)", out)
-        self.assertIn("Gelman et al. (2013)", out)
+        visible = re.sub(r'\stitle="[^"]*"', "", out)
+        self.assertNotIn("Lehmann and Casella (1998)", visible)
+        self.assertNotIn("Gelman et al. (2013)", visible)
+        self.assertIn("discuss the same summaries.", visible)
+        self.assertIn("returns to.", visible)
         self.assertNotIn("{{cite:", out)
         self.assertIn('data-cite-key="lehmann_casella1998"', out)
         self.assertLess(out.index('id="cite_ref-1"'), out.index('id="cite_ref-2"'))
@@ -355,7 +396,8 @@ class InlineCitationTests(unittest.TestCase):
     def test_named_attribution_is_not_deleted(self) -> None:
         linker = citations.PageCitationLinker(("bliss1935",), self.works)
         out = linker.process_text("Bliss (1935) introduced the link.")
-        self.assertIn("Bliss (1935)<sup", out)
+        visible = re.sub(r'\stitle="[^"]*"', "", out)
+        self.assertNotIn("Bliss (1935)", visible)
         self.assertIn("introduced the link.", out)
         self.assertIn('data-cite-key="bliss1935"', out)
 
@@ -378,8 +420,14 @@ class InlineCitationTests(unittest.TestCase):
             check(f"note:{slug}", text)
         for path in _prose_paths():
             check(str(path.relative_to(ROOT)), path.read_text(encoding="utf-8"))
+            for match in verify_citations._PANDOC_KEY_RE.finditer(path.read_text(encoding="utf-8")):
+                for part in match.group("body").split(";"):
+                    key_match = re.match(r"\s*@([a-z0-9_]+)", part)
+                    if key_match and key_match.group(1) not in self.works:
+                        bad_markers.append(f"{path.name}: {key_match.group(1)}")
         self.assertEqual(unresolved, [])
         self.assertEqual(bad_markers, [])
+        self.assertEqual(verify_citations.check_pandoc_citation_keys(ROOT, self.works), [])
 
     def test_overview_and_labs_render_clickable_numbers_in_reading_order(self) -> None:
         overview = (ROOT / "overview.qmd").read_text(encoding="utf-8")
@@ -422,9 +470,11 @@ class InlineCitationTests(unittest.TestCase):
         linked = citations.PageCitationLinker(
             citations.ARTICLE_REFS["variable-importance"], self.works
         ).process_text(importance)
-        self.assertIn("(Breiman, 2001)<sup", linked)
+        visible = re.sub(r'\stitle="[^"]*"', "", linked)
+        self.assertNotIn("(Breiman, 2001)", visible)
+        self.assertIn('data-cite-key="breiman2001_rf"', linked)
         self.assertIn('data-cite-key="strobl2007"', linked)
-        self.assertIn("(Strobl, Boulesteix, Zeileis, and Hothorn, 2007)<sup", linked)
+        self.assertNotIn("(Strobl, Boulesteix, Zeileis, and Hothorn, 2007)", visible)
 
     def test_graph_text_drops_citation_markup(self) -> None:
         raw = (

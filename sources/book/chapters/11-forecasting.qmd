@@ -1,16 +1,16 @@
 # Forecasting
 
-The theory stopped at the Wold decomposition. This chapter is about using it. Rob Hyndman's `forecast` package fits a model and returns a point forecast and a prediction interval. Once the package is installed, the function is left to choose the orders. The point is that the automatic choice does what the autocorrelation plots would have suggested by hand.
+The theory stopped at the Wold decomposition. This chapter is about using it. The `forecast` package fits a model and returns a point forecast and a prediction interval.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}}{{cite:hyndman_athanasopoulos2021}} Once the package is installed, the function is left to choose the orders. The point is that the automatic choice does what the autocorrelation plots would have suggested by hand.
 
 ## Accidental deaths
 
-`USAccDeaths` is a monthly count of accidental deaths in the United States, six years, $72$ months, ending in December 1978.
+`USAccDeaths` is a monthly count of accidental deaths in the United States, six years, $72$ months, ending in December 1978.{{cite:brockwell_davis1991}}{{cite:hyndman_athanasopoulos2021}}
 
 ![Monthly accidental deaths in the United States, 1973 to 1978. The series is not white noise: deaths are higher in the northern summer, and the level sags and then recovers.](../figures/deaths-series.pdf){#fig-deaths}
 
-Plotting a series that R already knows is a time series puts time on the horizontal axis. @fig-deaths is not white noise. Deaths are higher in the middle of the year, the northern summer, and lower in winter. A twelve-month cycle is the obvious feature. The overall level is not a straight trend. It sags and then recovers, the sort of slow movement produced when a temporary legal or behavioural change pulls a series down and then lets it drift back.
+Plotting a series that R already knows is a time series puts time on the horizontal axis. @fig-deaths is not white noise. Deaths are higher in the middle of the year, the northern summer, and lower in winter. A twelve-month cycle is the obvious feature.{{cite:hyndman_athanasopoulos2021}}{{cite:box_jenkins1970}} The overall level is not a straight trend.{{cite:brockwell_davis1991}} It sags and then recovers, the sort of slow movement produced when a temporary legal or behavioural change pulls a series down and then lets it drift back.
 
-The autocorrelation and the partial autocorrelation both keep oscillating. An MA process would cut the autocorrelation off after a finite lag. An AR process would cut the partial autocorrelation off. Neither plot dies. That is the seasonality, still in the correlations.
+The autocorrelation and the partial autocorrelation both keep oscillating. An MA process would cut the autocorrelation off after a finite lag.{{cite:box_jenkins1970}} An AR process would cut the partial autocorrelation off.{{cite:brockwell_davis1991}} Neither plot dies. That is the seasonality, still in the correlations.{{cite:hyndman_athanasopoulos2021}}
 
 Differencing at lag $12$,
 $$
@@ -20,7 +20,7 @@ removes a twelve-month cycle and, as a side effect, a linear trend. The differen
 
 ![Autocorrelation and partial autocorrelation, in months. The top row is the raw series: neither plot dies, and the year shows up at lags 12 and 24. The bottom row is the series after a seasonal difference and a first difference. What remains is a spike at lag 1 and a spike near lag 12.](../figures/deaths-corr.pdf){#fig-deaths-corr}
 
-`auto.arima`, with the seasonal option left on, finds this without being told that the data are monthly.
+`auto.arima`, with the seasonal option left on, fits a seasonal ARIMA model, an autoregressive integrated moving average after differencing.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}}{{cite:hyndman_athanasopoulos2021}} It finds this without being told that the data are monthly.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -68,7 +68,7 @@ The forecast of the next minutes, in @fig-www-fc, is a shallow line, and the int
 
 ## What this chapter does not cover
 
-Autoregressive conditional heteroscedasticity, and its generalisations, put a time-series model on the variance rather than only on the mean. They are not developed here. Count-valued series are named and not developed, for a reason that has run through the earlier chapters: a Poisson observation is not a mean plus an innovation that can be separated off. Forecasting is the end of the material.
+Autoregressive conditional heteroscedasticity, and its generalisations, put a time-series model on the variance rather than only on the mean.{{cite:engle1982}}{{cite:bollerslev1986}}{{cite:brockwell_davis1991}} They are not developed here. Count-valued series are named and not developed, for a reason that has run through the earlier chapters: a Poisson observation is not a mean plus an innovation that can be separated off. Forecasting is the end of the material.
 
 ## Exercises
 

@@ -3446,8 +3446,17 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 None,
             )
             if first_idx is not None:
+                # A heading before the first sentence used to leave the bold term
+                # alone in the paragraph above that heading. Put the term in the
+                # first real sentence instead.
                 if first_idx > 1 and page["blocks"][1][1] == "excerpt-head":
-                    page["blocks"].insert(1, (False, "lead-title", f"{_canonical_lead_prefix(article['term'])}\n\n"))
+                    for j in range(first_idx, len(page["blocks"])):
+                        is_c, lab, txt = page["blocks"][j]
+                        if is_c and lab in {"lead", "excerpt", "statement"} and txt.strip():
+                            lead, rest = peel_framed_lead(article["term"], txt)
+                            page["blocks"].insert(1, (True, "lead", lead))
+                            page["blocks"][j + 1] = (is_c, lab, rest)
+                            break
                 else:
                     is_c, lbl, txt = page["blocks"][first_idx]
                     page["blocks"][first_idx] = (is_c, lbl, frame_article_lead(article, txt))
@@ -3726,6 +3735,37 @@ def _norm_term(value: str) -> str:
     return re.sub(r"[^a-z0-9]", "", value.lower())
 
 
+def _structural_opening(para: str) -> bool:
+    stripped = para.lstrip()
+    return (not stripped) or bool(
+        re.match(r"^(?:\$\$|\\begin\{|:::|#|\||!|\d+[.)]\s|[-*+]\s|<)", stripped)
+    )
+
+
+def peel_framed_lead(term: str, text: str) -> tuple[str, str]:
+    """Pull the first real sentence out as the opening, with the term in that sentence.
+
+    A heading must not be the first thing on the page, and the term must not sit
+    alone in the paragraph above that heading.
+    """
+    body = text.rstrip("\n")
+    trail = text[len(body) :]
+    parts = body.split("\n\n")
+    article = {"term": term, "box": {}}
+    for i, part in enumerate(parts):
+        if _structural_opening(part):
+            continue
+        framed = frame_article_lead(article, part + "\n\n").rstrip("\n")
+        first, sep, rest = framed.partition("\n\n")
+        if sep and re.fullmatch(r"\*\*[^*]+\*\*\.?", first.strip()):
+            framed = f"{first.strip()} {rest.lstrip()}"
+        remainder = "\n\n".join(p for p in parts[:i] + parts[i + 1 :] if p.strip())
+        if remainder:
+            remainder += "\n\n"
+        return framed + "\n\n", remainder + trail
+    return _canonical_lead_prefix(term) + "\n\n", text
+
+
 def frame_article_lead(article: dict, text: str) -> str:
     """Ensure every concept article clearly bolds its canonical title term in the opening lead."""
     lead_body = text.rstrip("\n")
@@ -3737,10 +3777,16 @@ def frame_article_lead(article: dict, text: str) -> str:
     term = article["term"]
     prefix = _canonical_lead_prefix(term)
 
+    # A heading before the prose used to sit under a paragraph that was only the
+    # bold term. Fold the term into the first sentence after that heading.
+    if re.match(r"^#", stripped):
+        lead, rest = peel_framed_lead(term, text)
+        return lead + rest
+
     # Blocks that open directly with display math, a table, an algorithm list,
-    # a callout/theorem fence, or a subheading receive an explicit bold lead-in
-    # paragraph before the block so the page never opens without naming its term.
-    if re.match(r"^(?:\$\$|\\begin\{|:::|#|\||!|\d+[.)]\s|[-*+]\s)", stripped):
+    # or a callout receive an explicit bold lead-in paragraph before the block
+    # so the page never opens without naming its term.
+    if re.match(r"^(?:\$\$|\\begin\{|:::|\||!|\d+[.)]\s|[-*+]\s)", stripped):
         return f"{prefix}\n\n{first_para}{sep}{rest}{trail}"
 
     # If the paragraph already starts with a bold phrase matching the canonical title, keep it.
@@ -5871,6 +5917,8 @@ website:
   favicon: favicon.ico
   # Public host. Quarto writes sitemap.xml from this and each page's canonical link.
   site-url: "https://www.statwiki.io"
+  repo-url: https://github.com/ChrisWnuczynski/stat-wiki
+  repo-actions: [edit, issue]
   # Leading slash: the same project file on every page, copied into the site root.
   image: /{SHARE_IMAGE}
   image-alt: {yaml_quote(SHARE_IMAGE_ALT)}

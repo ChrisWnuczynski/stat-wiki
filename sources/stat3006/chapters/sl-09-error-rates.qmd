@@ -1,6 +1,6 @@
 # Estimating error rates
 
-The classifier has been fitted. The question is how often it fails on a new observation from the population that matters. Scoring the training sample is easy, and those observations helped choose the rule. An honest assessment scores observations that were excluded from every decision that built the predictor, including preprocessing and tuning.
+The classifier has been fitted. The question is how often it fails on a new observation from the population that matters. Scoring the training sample is easy, and those observations helped choose the rule{{cite:efron1983}}. An honest assessment scores observations that were excluded from every decision that built the predictor, including preprocessing and tuning{{cite:stone1974}}{{cite:hastie_esl2009}}.
 
 This page defines that target and compares the estimators: the apparent error, a single test set, cross-validation, nested cross-validation when a model is being selected, the bootstrap, and the jackknife. The same split between fitting and assessment is what a held-out likelihood uses on [Model selection for stochastic models](sl-06-model-selection.qmd), what chooses $k$ for [nearest neighbours](sl-11-nearest-neighbours.qmd), and what produces the out-of-bag estimate for a [random forest](sl-13-ensembles.qmd).
 
@@ -41,7 +41,7 @@ the expectation over a new draw from the distribution $F$ of $(X,Y)$. The class-
 =\frac{\E_F\bigl[Q\bigl(Y,\eta(X)\bigr)\,I(Y,g)\bigr]}{\pi_g}.
 \end{align*}
 
-They recombine by $\mathrm{Err}=\sum_g\pi_g\,\mathrm{Err}_g$.
+They recombine by $\mathrm{Err}=\sum_g\pi_g\,\mathrm{Err}_g${{cite:hastie_esl2009}}{{cite:efron1983}}{{cite:stone1974}}.
 
 :::
 
@@ -54,7 +54,7 @@ Any estimator $\widehat{\mathrm{Err}}$ is biased for $\mathrm{Err}$ by $\E(\wide
 ::: {#def-sl-09-confusion .definition}
 ## Confusion matrix
 
-A confusion matrix has, in position $(i,j)$, the number of observations of true class $i$ that the classifier predicted as class $j$. Dividing the matrix by the number of observations in the test set, the sum of the off-diagonal elements is $\widehat{\mathrm{Err}}$. Dividing row $g$ by its own total, the sum of that row excluding the diagonal element is $\widehat{\mathrm{Err}}_g$. The row proportions are sensitivity and specificity. The probability of the true class given the predicted class also needs the prevalence; that reversal is the [positive predictive value](inf-16-predictive-values.qmd#s-positive-predictive-value).
+A confusion matrix has, in position $(i,j)$, the number of observations of true class $i$ that the classifier predicted as class $j${{cite:hastie_esl2009}}. Dividing the matrix by the number of observations in the test set, the sum of the off-diagonal elements is $\widehat{\mathrm{Err}}${{cite:hastie_esl2009}}. Dividing row $g$ by its own total, the sum of that row excluding the diagonal element is $\widehat{\mathrm{Err}}_g$. The row proportions are sensitivity and specificity{{cite:yerushalmy1947}}. The probability of the true class given the predicted class also needs the prevalence; that reversal is the [positive predictive value](inf-16-predictive-values.qmd#s-positive-predictive-value).
 
 :::
 
@@ -93,7 +93,7 @@ $$
 =\frac1n\sum_{i=1}^n Q\bigl(y_i,\eta_{(X,y)}(x_i)\bigr),
 $$
 
-where $\eta_{(X,y)}$ is the classifier fitted to the whole observed sample $(X,y)=\{(x_i,y_i)\}_{i=1}^n$.
+where $\eta_{(X,y)}$ is the classifier fitted to the whole observed sample $(X,y)=\{(x_i,y_i)\}_{i=1}^n${{cite:efron1983}}{{cite:hastie_esl2009}}.
 
 :::
 
@@ -103,7 +103,7 @@ $$
 \E(\mathrm{err}-\mathrm{Err}).
 $$
 
-The same pairs $(x_i,y_i)$ enter the fitted rule and the average that scores it, so the summands are not draws from the conditional law of $Q(Y,\eta(X))$ given that rule. The dependence pulls the average down. The apparent error describes the fit to the training cases, and it is usually optimistic as an estimate of future error. Optimism is a repeated-sampling tendency. It is not a promise that every observed training error sits below every test error.
+The same pairs $(x_i,y_i)$ enter the fitted rule and the average that scores it, so the summands are not draws from the conditional law of $Q(Y,\eta(X))$ given that rule. The dependence pulls the average down. The apparent error describes the fit to the training cases, and it is usually optimistic as an estimate of future error{{cite:efron1983}}{{cite:stone1974}}. Optimism is a repeated-sampling tendency. It is not a promise that every observed training error sits below every test error.
 
 The bias is exact for one neighbour. Suppose the inputs $x_i$ are distinct and $\eta$ is $1$-nearest neighbour. The nearest training point to $x_i$ is $x_i$ itself, so the rule returns $y_i$, the loss $Q(y_i,\eta(x_i))$ is $0$, and $\mathrm{err}=0$ on every sample. Then
 
@@ -117,7 +117,7 @@ Parameter count alone does not give the size of the optimism. Stability, regular
 
 ## A held-out test set
 
-The apparent rate fails because the cases used to estimate the error helped to build the rule. Holding labelled cases out of the fit removes that dependence. The training set builds the classifier and the test set estimates the error. This is the test-set, or holdout, method. It raises four questions.
+The apparent rate fails because the cases used to estimate the error helped to build the rule. Holding labelled cases out of the fit removes that dependence. The training set builds the classifier and the test set estimates the error. This is the test-set, or holdout, method{{cite:hastie_esl2009}}{{cite:stone1974}}. It raises four questions.
 
 1. Which classifier is the error rate being estimated for?
 2. What proportion of the data is allocated to the test set?
@@ -128,7 +128,7 @@ An independent test sample evaluates the particular fit trained without it. If t
 
 Choosing the split is a trade-off. More training observations may improve the rule, while more test observations make its estimated error more precise. Improvement with training size is not a universal monotone theorem. Choose a split large enough to assess the errors that matter, especially inside rare classes, and report the training and test sizes alongside the score.
 
-If the test cases are independent draws and the trained rule is held fixed, the number of errors on the test set is a binomial count. A confidence interval for a binomial proportion then covers the error of that particular trained rule. Its width is proportional to $1/\sqrt{n_{\mathrm{test}}}$, which is why a small test set, however carefully held out, still gives a coarse estimate. The interval does not cover the extra uncertainty that comes from having trained the rule on one sample rather than another.
+If the test cases are independent draws and the trained rule is held fixed, the number of errors on the test set is a binomial count{{cite:efron1983}}. A confidence interval for a binomial proportion then covers the error of that particular trained rule. Its width is proportional to $1/\sqrt{n_{\mathrm{test}}}$, which is why a small test set, however carefully held out, still gives a coarse estimate. The interval does not cover the extra uncertainty that comes from having trained the rule on one sample rather than another.
 
 For independent identically distributed observations, a random split keeps a file's sorting order from determining the assessment. It does not repair dependence. Repeated measurements from the same person require group-based splits when the target is a new person. Prediction of a future time requires a time-ordered split. The sampling unit and the deployment target determine what must be held out together.
 
@@ -177,7 +177,7 @@ so about $545$ test observations. Halving the half-width multiplies the required
 
 ## Cross-validation
 
-A single holdout spends some cases on testing and never uses them for training, and it spends the rest on training and never uses them for testing. When the labelled sample is small, that unused half is the difficulty. Cross-validation still partitions the data into a training piece and a test piece and counts errors. It then repeats the partition so that every case is held out once. The rule scored in each repetition is the rule trained without that case.
+A single holdout spends some cases on testing and never uses them for training, and it spends the rest on training and never uses them for testing. When the labelled sample is small, that unused half is the difficulty. Cross-validation still partitions the data into a training piece and a test piece and counts errors. It then repeats the partition so that every case is held out once. The rule scored in each repetition is the rule trained without that case{{cite:stone1974}}{{cite:hastie_esl2009}}.
 
 ### Leave-one-out
 
@@ -192,7 +192,7 @@ $$
 Q\bigl(y_i,\eta_{(X_{-i},y_{-i})}(x_i)\bigr),
 $$
 
-where $-i$ means that observation $i$ is left out of the fit that is then scored on $x_i$. The class-specific estimator restricts the average to class $g$,
+where $-i$ means that observation $i$ is left out of the fit that is then scored on $x_i${{cite:stone1974}}{{cite:hastie_esl2009}}. The class-specific estimator restricts the average to class $g$,
 
 $$
 \widehat{\mathrm{Err}}_{\mathrm{LOOCV},g}
@@ -201,6 +201,7 @@ Q\bigl(y_i,\eta_{(X_{-i},y_{-i})}(x_i)\bigr)\,I(y_i,g)}
 {\sum_{l=1}^n I(y_l,g)}.
 $$
 
+{{cite:geisser1975}}
 :::
 
 Leave-one-out trains on almost as many observations as the final fit. That reduces the difference in training size. It does not make the error indicators independent. Two training sets share $n-2$ observations, and both depend on the same original sample. A binomial standard error applied to the $n$ leave-one-out errors would ignore this dependence.
@@ -209,7 +210,7 @@ A useful check is to ask what changes between repetitions. In leave-one-out, the
 
 ### $K$-fold cross-validation
 
-Leave-one-out refits the model $n$ times, and its training sets are almost copies of one another. Geisser's $K$-fold cross-validation spends more cases on each test and refits only $K$ times. About $n/K$ observations, a fold, are held out at each iteration. The folds do not overlap, and after $K$ iterations every observation has been tested once.
+Leave-one-out refits the model $n$ times, and its training sets are almost copies of one another. Geisser's $K$-fold cross-validation spends more cases on each test and refits only $K$ times{{cite:geisser1975}}{{cite:stone1974}}. About $n/K$ observations, a fold, are held out at each iteration. The folds do not overlap, and after $K$ iterations every observation has been tested once.
 
 ::: {#def-sl-09-kfold .definition}
 ## $K$-fold cross-validation
@@ -220,7 +221,7 @@ $$
 Q\bigl(y_i^{(k)},\eta_{(X^{(-k)},y^{(-k)})}(x_i^{(k)})\bigr).
 $$
 
-Here $n_k$ is the size of fold $k$, and $(-k)$ denotes the fit that excludes that fold. Pooling individual errors gives each observation equal weight even if the fold sizes differ.
+Here $n_k$ is the size of fold $k$, and $(-k)$ denotes the fit that excludes that fold. Pooling individual errors gives each observation equal weight even if the fold sizes differ{{cite:hastie_esl2009}}{{cite:geisser1975}}.
 
 :::
 
@@ -244,11 +245,11 @@ Repeated $K$-fold validation and repeated random holdout reuse observations in d
 
 ### Nested cross-validation
 
-Cross-validation as written above estimates the error of a rule whose form is already fixed. Choosing a tuning constant $\lambda$ by the same errors, and then reporting the smallest of those errors as the error of the chosen rule, uses each case twice: once to pick $\lambda$, and again to advertise the pick. The advertised number is optimistically biased.
+Cross-validation as written above estimates the error of a rule whose form is already fixed. Choosing a tuning constant $\lambda$ by the same errors, and then reporting the smallest of those errors as the error of the chosen rule, uses each case twice: once to pick $\lambda$, and again to advertise the pick. The advertised number is optimistically biased{{cite:stone1974}}{{cite:hastie_esl2009}}.
 
 As a numerical sketch, the test errors across $\lambda=1,\ldots,10$ may have a best value of $0.18$. That $0.18$ was the criterion that selected $\lambda$, so among noisy estimates it is the one that fell furthest below the truth. A validation set may choose $\lambda$. A test set that did not enter the choice estimates the error. The optimism is a tendency over repeated samples, not an inequality that every split obeys: one test score can still come out smaller than the selected validation score. Nested cross-validation is this separation when the sample is too small for three permanent blocks.
 
-Nested cross-validation places the complete selection procedure inside an outer assessment loop. This is the separation studied by Cawley and Talbot (2010). The inner winner can differ between outer folds. In the construction below, the remaining $m-1$ outer folds also serve as inner folds.
+Nested cross-validation places the complete selection procedure inside an outer assessment loop. This is the separation studied by {{cite:cawley_talbot2010}}. The inner winner can differ between outer folds. In the construction below, the remaining $m-1$ outer folds also serve as inner folds.
 
 1. Split the data into $m$ folds. Of those, $m-2$ are for training, one is for validation, and one is for testing.
 2. Using the training and validation data, perform $(m-1)$-fold cross-validation for each candidate $k=1,\ldots,K$. Estimate the overall error for each $k$ from the cross-validation results, and choose the $k$ that gives the lowest error rate.
@@ -257,13 +258,13 @@ Nested cross-validation places the complete selection procedure inside an outer 
 5. For the final classifier, choose a new $k=k_{\mathrm{final}}^*$ by a similar procedure that uses only training and validation, with no test fold held out of the selection.
 6. Train the final classifier on all the data using $k=k_{\mathrm{final}}^*$.
 
-The cases that select $k$ are not the cases that assess the selected model. If one cross-validation error both picks the best of many candidates and is then reported as that candidate's accuracy, the report is optimistic, because the minimum of many noisy estimates is systematically one of the estimates that happened to be low. Step 5 rebuilds the choice of $k$ without a test fold, and step 6 trains the final classifier on every observation at that chosen $k$. The nested average estimates the error of this whole procedure, including the selection, not the error of whichever $k$ looked best inside one split.
+The cases that select $k$ are not the cases that assess the selected model. If one cross-validation error both picks the best of many candidates and is then reported as that candidate's accuracy, the report is optimistic, because the minimum of many noisy estimates is systematically one of the estimates that happened to be low{{cite:cawley_talbot2010}}{{cite:hastie_esl2009}}{{cite:stone1974}}. Step 5 rebuilds the choice of $k$ without a test fold, and step 6 trains the final classifier on every observation at that chosen $k$. The nested average estimates the error of this whole procedure, including the selection, not the error of whichever $k$ looked best inside one split.
 
 The same pattern appears when $k$ for nearest neighbours is chosen on one sample and then scored on another. Training error falls toward zero as $k$ falls to $1$. A ten-fold cross-validation curve, and the error on a large independent draw, stay above that training curve and prefer a larger neighbourhood. The laboratory at the end of this page is that separation on a small scale.
 
 ## The bootstrap
 
-A holdout and a cross-validation fold both train on a subset and test on the complement. The bootstrap builds the training set differently (Efron, 1981, 1983). A non-parametric bootstrap sample of size $n$ is drawn with replacement from the observed $n$ cases, that is, from the empirical distribution. Some observations are missing from the draw and others appear more than once.
+A holdout and a cross-validation fold both train on a subset and test on the complement. The bootstrap builds the training set differently{{cite:efron1981}}{{cite:efron1983}}. A non-parametric bootstrap sample of size $n$ is drawn with replacement from the observed $n$ cases, that is, from the empirical distribution{{cite:efron1979}}. Some observations are missing from the draw and others appear more than once.
 
 The probability that a given observation enters a bootstrap sample is one minus the probability that it is left out of all $n$ draws,
 
@@ -301,7 +302,7 @@ $$
 Q\bigl(y_i,\eta_b(x_i)\bigr).
 $$
 
-Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, the trained rules are weaker than a rule trained on all $n$ distinct cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward.
+Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, the trained rules are weaker than a rule trained on all $n$ distinct cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:efron1983}}.
 
 The $.632$ estimator pulls that upward bias back toward the apparent error, with weights taken from the limiting inclusion probability and its complement:
 
@@ -310,13 +311,14 @@ $$
 =0.368\,\mathrm{err}+0.632\,\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}.
 $$
 
+{{cite:efron1983}}{{cite:hastie_esl2009}}
 :::
 
 The weight $0.632$ is the limiting probability that a case is inside the bootstrap sample, and $0.368=1-0.632$ is the limiting probability that it is left out. The formula combines the optimistic apparent error with the pessimistic out-of-bag bootstrap error. It is a correction with assumptions, not an identity that recovers the unknown generalisation error. Severe overfitting can still make it optimistic. Compare it with a resampling design suited to the full fitting procedure, rather than treating the numerical weights as a guarantee.
 
 ## The jackknife
 
-Leave-one-out cross-validation scores a classifier. The jackknife is the older leave-one-out idea, built to estimate the bias (Quenouille, 1949, 1956) and the standard error (Tukey, 1958) of a parameter estimator rather than an error rate. The difficulty it addresses is that the bias of $\hat\theta$ is $\E(\hat\theta)-\theta$, and $\theta$ is unknown, so the bias cannot be computed by subtracting the truth. The jackknife manufactures a comparison inside the sample.
+Leave-one-out cross-validation scores a classifier. The jackknife is the older leave-one-out idea, built to estimate the bias {{cite:quenouille1949}}{{cite:quenouille1956}} and the standard error {{cite:tukey1958_jackknife}} of a parameter estimator rather than an error rate. The difficulty it addresses is that the bias of $\hat\theta$ is $\E(\hat\theta)-\theta$, and $\theta$ is unknown, so the bias cannot be computed by subtracting the truth. The jackknife manufactures a comparison inside the sample.
 
 The $i$th jackknife sample leaves out observation $i$. Estimate $\theta$ on each of these samples, giving $\hat\theta_{(i)}$ for $i=1,\ldots,n$, and estimate it on the full sample, giving $\hat\theta$. The average of the leave-one-out estimates is
 
@@ -335,7 +337,7 @@ $$
 =\Biggl(\frac{n-1}{n}\sum_{i=1}^n\bigl(\hat\theta_{(i)}-\hat\theta_{(\cdot)}\bigr)^2\Biggr)^{1/2}.
 $$
 
-The bias-corrected estimate is $\hat\theta-\widehat{\mathrm{bias}}_{\mathrm{jack}}$, which rearranges to $n\hat\theta-(n-1)\hat\theta_{(\cdot)}$.
+{{cite:quenouille1949}}{{cite:tukey1958_jackknife}} The bias-corrected estimate is $\hat\theta-\widehat{\mathrm{bias}}_{\mathrm{jack}}$, which rearranges to $n\hat\theta-(n-1)\hat\theta_{(\cdot)}${{cite:quenouille1956}}.
 
 :::
 

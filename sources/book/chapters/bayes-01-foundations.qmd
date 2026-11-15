@@ -55,7 +55,7 @@ $$
 $$
 
 
- is meaningful. The interval $(a(x),b(x))$ is a $95\%$ *credible interval*. This is not a reworded confidence interval: the two calculations can coincide in large samples, but their probability statements condition on different objects.
+ is meaningful. The interval $(a(x),b(x))$ is a $95\%$ *credible interval*.{{cite:gelman_bda2013}}{{cite:box_tiao1973}} This is not a reworded confidence interval: the two calculations can coincide in large samples, but their probability statements condition on different objects.{{cite:jeffreys1961}}
 
 :::
 
@@ -70,8 +70,7 @@ $$
   \Pr(A\given B)=\frac{\Pr(B\given A)\Pr(A)}{\Pr(B)}.
 $$
 
-
- The density version follows from two factorizations of a joint density: 
+{{cite:bayes1763}} The density version follows from two factorizations of a joint density: {{cite:laplace1812}} 
 
 $$
   p(x,\theta)=p(x\given\theta)p(\theta)
@@ -84,6 +83,8 @@ $$
   =\frac{p(x\given\theta)p(\theta)}{p(x)}.
   \label{eq:bayes-density}
 \end{equation}
+
+{{cite:gelman_bda2013}}
 
 :::
 
@@ -115,7 +116,7 @@ $$
 
 ::: {.callout-note}
 ## Key idea
-Bayesian calculation is the controlled multiplication of a likelihood by a prior, followed by normalisation or recognition of a known density kernel. The proportionality symbol removes constants in the variable being analysed, not arbitrary terms that still depend on that variable.
+Bayesian calculation is the controlled multiplication of a likelihood by a prior, followed by normalisation or recognition of a known density kernel.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} The proportionality symbol removes constants in the variable being analysed, not arbitrary terms that still depend on that variable.{{cite:gelman_bda2013}}
 
 :::
 
@@ -124,7 +125,7 @@ Bayesian calculation is the controlled multiplication of a likelihood by a prior
 ::: {#def-proper-prior-and-proper-posterior .definition}
 ## Proper prior and proper posterior
 
-A prior is *proper* if it is a probability distribution, so its total mass is one. A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant. An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.
+A prior is *proper* if it is a probability distribution, so its total mass is one.{{cite:gelman_bda2013}}{{cite:jeffreys1961}} A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant.{{cite:gelman_bda2013}} An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.{{cite:box_tiao1973}}
 
 :::
 
@@ -167,7 +168,7 @@ $$
 $$
 
 
- the posterior median, and posterior quantiles. These summaries need not agree for a skewed distribution.
+ the posterior median, and posterior quantiles.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} These summaries need not agree for a skewed distribution.{{cite:gelman_bda2013}}
 
 :::
 
@@ -201,7 +202,7 @@ $$
 $$
 
 
- Every included point then has density at least as large as every excluded point. For a continuous unimodal posterior this gives the minimum-width interval; for a multimodal posterior the highest-density set can be disjoint. For a symmetric unimodal density, the mean, median, and mode coincide and the common interval constructions often agree.
+ Every included point then has density at least as large as every excluded point.{{cite:box_tiao1973}}{{cite:gelman_bda2013}} For a continuous unimodal posterior this gives the minimum-width interval; for a multimodal posterior the highest-density set can be disjoint.{{cite:box_tiao1973}} For a symmetric unimodal density, the mean, median, and mode coincide and the common interval constructions often agree.{{cite:jeffreys1961}}
 
 :::
 
@@ -220,7 +221,7 @@ Let $\theta^{(1)},\ldots,\theta^{(L)}$ be posterior draws and let $\theta_{(1)}\
    \left(\theta^{(l)}-\overline\theta\right)^2,\\
  \widehat{\Pr}(\theta<c\given x)
  &=\frac1L\sum_{l=1}^L\mathbf{1}\{\theta^{(l)}<c\}.
-\end{align*} The posterior median and equal-tailed interval are estimated by the corresponding empirical quantiles. With $L=1000$, the median can be estimated by the average of $\theta_{(500)}$ and $\theta_{(501)}$, and a direct $95\%$ interval approximation by $[\theta_{(25)},\theta_{(975)}]$. The precise indices vary slightly with a software package's quantile convention.
+\end{align*} The average of the draws estimates the posterior expectation when that expectation exists.{{cite:metropolis_ulam1949}} The posterior median and equal-tailed interval are estimated by the corresponding empirical quantiles.{{cite:gelman_bda2013}}{{cite:geyer1992}} With $L=1000$, the median can be estimated by the average of $\theta_{(500)}$ and $\theta_{(501)}$, and a direct $95\%$ interval approximation by $[\theta_{(25)},\theta_{(975)}]$. The precise indices vary slightly with a software package's quantile convention.
 
 :::
 
@@ -279,9 +280,9 @@ After observing $x$, the analogous calculation uses the posterior: \begin{align*
   &=\int p(\widetilde x,\theta\given x)\dd\theta\\
   &=\int p(\widetilde x\given\theta,x)p(\theta\given x)\dd\theta\\
   &=\int p(\widetilde x\given\theta)p(\theta\given x)\dd\theta.
-\end{align*} The last equality uses conditional independence of future and observed data given $\theta$. Prediction therefore averages the sampling model over parameter uncertainty instead of plugging in a single estimate.
+\end{align*} The last equality uses conditional independence of future and observed data given $\theta$.{{cite:gelman_bda2013}} Prediction therefore averages the sampling model over parameter uncertainty instead of plugging in a single estimate.{{cite:raiffa_schlaifer1961}}
 
-The prior predictive distribution asks what data the complete model regarded as plausible before seeing the observations. It is therefore useful for study design and for detecting a prior that places most of its mass on scientifically absurd data. The posterior predictive distribution asks what future data are plausible after learning from $x$. It is used for forecasting and for posterior predictive model checks. Although both are mixtures of the sampling distribution, they mix with different distributions for $\theta$: $p(\theta)$ before the data and $p(\theta\given x)$ after the data.
+The prior predictive distribution asks what data the complete model regarded as plausible before seeing the observations.{{cite:box_tiao1973}} It is therefore useful for study design and for detecting a prior that places most of its mass on scientifically absurd data. The posterior predictive distribution asks what future data are plausible after learning from $x$.{{cite:gelman_bda2013}} It is used for forecasting and for posterior predictive model checks. Although both are mixtures of the sampling distribution, they mix with different distributions for $\theta$: $p(\theta)$ before the data and $p(\theta\given x)$ after the data.
 
 :::
 
@@ -341,6 +342,8 @@ Under the conditional-independence assumption above, \begin{equation}
  +\underbrace{\Var\{m(\theta)\given x\}}_{\textnormal{parameter uncertainty}}.}
  \label{eq:posterior-predictive-total-variance}
 \end{equation}
+
+The posterior predictive variance is the expected sampling variance plus the variance of the conditional mean.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}
 
 :::
 

@@ -26,7 +26,7 @@ You do not refit. The multinomial dispersion stays $1$ as long as each person ma
 
 ## Bradley–Terry
 
-A head-to-head result is still a binary outcome. The Bradley–Terry model gives team $j$ a skill $\lambda_j$ and says
+A head-to-head result is a paired comparison, and it is still a binary outcome. The Bradley–Terry model gives team $j$ a skill $\lambda_j$ and says the odds below.{{cite:bradley_terry1952}}{{cite:mccullagh_nelder1989}}{{cite:agresti2002}}
 $$
 \mathrm{odds}(j\text{ beats }k)=\exp(\lambda_j-\lambda_k).
 $$
@@ -68,9 +68,9 @@ A draw can be coded as half a win and half a loss, which says the two teams were
 
 ## Deviance
 
-McCullagh and Nelder's sentence is the right one: fitting a model replaces the data $y_1,\ldots,y_n$ by fitted means $\hat\mu_1,\ldots,\hat\mu_n$ that depend on fewer parameters than there are observations. A model with $n$ parameters can repeat the sample exactly and then cannot predict anything else. The saturated fit is the baseline you compare with, not the fit you report.
+Fitting a model replaces the data $y_1,\ldots,y_n$ by fitted means $\hat\mu_1,\ldots,\hat\mu_n$ that depend on fewer parameters than there are observations.{{cite:mccullagh_nelder1989}} A model with $n$ parameters can repeat the sample exactly and then cannot predict anything else. The saturated fit is the baseline you compare with, not the fit you report.{{cite:nelder_wedderburn1972}}{{cite:davison2003}}
 
-The deviance is twice the drop in log-likelihood from the saturated fit to the model you actually fitted:
+The deviance is twice the drop in log-likelihood from the saturated fit to the model you actually fitted.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
 $$
 D(\vect{y};\hat{\boldsymbol{\mu}})=2\bigl\{\ell(\vect{y};\vect{y})-\ell(\hat{\boldsymbol{\mu}};\vect{y})\bigr\},
 $$
@@ -113,7 +113,7 @@ binomial logit:    null 137.63 on 99 df,  residual 114.04 on 98 df,  AIC 118.04
 binomial probit:   null 137.63 on 99 df,  residual 114.12 on 98 df,  AIC 118.12
 binomial cloglog:  null 137.63 on 99 df,  residual 111.90 on 98 df,  AIC 115.90
 ```
-The null deviance does not depend on the link. It is the intercept-only model, one probability for everyone. Logit and probit are not separable on this sample.
+The null deviance does not depend on the link. It is the intercept-only model, one probability for everyone.{{cite:mccullagh_nelder1989}}{{cite:nelder_wedderburn1972}}{{cite:myers_glm2010}} Logit and probit are not separable on this sample.
 
 ![The same cholesterol data under three links. The logit and the probit sit on each other. Complementary log-log stays a little lower through the middle and then climbs more steeply through the high-cholesterol cases.](../figures/cholesterol-links.pdf){#fig-chol-links}
 
@@ -121,7 +121,7 @@ In @fig-chol-links the solid and dashed curves sit on each other. Complementary 
 
 ## Analysis of deviance
 
-For nested models the difference in scaled deviance, deviance divided by $\phi$, is referred to a chi-squared law if $\phi$ is known, and to an $F$ law if $\phi$ is estimated from the same data. That is the GLM version of ANOVA, and `anova` on a `glm` object is doing it even though the name still says ANOVA. If the columns of $\mat{X}$ are not orthogonal, the order of entry matters. A sequential $p$-value is the test of dropping that term while keeping everything listed above it, and nothing listed below it.
+For nested models the difference in scaled deviance, deviance divided by $\phi$, is referred to a chi-squared law if $\phi$ is known, and to an $F$ law if $\phi$ is estimated from the same data.{{cite:mccullagh_nelder1989}}{{cite:nelder_wedderburn1972}}{{cite:myers_glm2010}} That is the GLM version of ANOVA, and `anova` on a `glm` object is doing it even though the name still says ANOVA. If the columns of $\mat{X}$ are not orthogonal, the order of entry matters. A sequential $p$-value is the test of dropping that term while keeping everything listed above it, and nothing listed below it.
 
 Myers and Montgomery's wafer experiment is a $2^4$ factorial with no replication: sixteen runs, resistivity, which is positive and right-skewed. The family is gamma and the link is log, not the canonical inverse, because no corner of the design should send resistivity to infinity. A four-factor interaction would use sixteen parameters and fit the sample perfectly. The largest model we can actually look at stops at the three-factor interactions:
 ```r
@@ -171,7 +171,7 @@ We go backwards on purpose. Forward selection can drop $x_4$ at the first step b
 
 A coin with $p=0.7$ that lands heads did not commit an error of $0.3$. A fair coin commits an "error" of $0.5$ no matter which face appears, if error means $y-\mu$. And a count of $7$ when you expected $2$ is not the same failure as a count of $45$ when you expected $50$, even though both are five away. The likelihood of a Poisson $2$ producing a $7$ is not the likelihood of a Poisson $50$ producing a $45$.
 
-The Pearson residual divides by the estimated standard deviation:
+The Pearson residual divides the raw residual by the estimated standard deviation.{{cite:mccullagh_nelder1989}}{{cite:davison2003}}{{cite:dunn_smyth1996}}
 $$
 r_P=\frac{y-\hat\mu}{\sqrt{\hat\phi\, V(\hat\mu)}}.
 $$
@@ -183,7 +183,7 @@ $$
 $$
 Landing tails is the larger Pearson residual. At $\hat p=0.5$ the two residuals are $+1$ and $-1$. For Poisson counts, with $\phi=1$, expecting $2$ and seeing $7$ gives $(7-2)/\sqrt{2}=3.54$. Expecting $50$ and seeing $45$ gives $(45-50)/\sqrt{50}=-0.71$. The unit is fairer. The sign is still symmetric: $55$ instead of $45$ would flip the sign and keep the magnitude, and a Poisson distribution is not symmetric.
 
-The deviance residual takes one observation's contribution $d_i$ to $D$ and attaches the sign of $y_i-\hat\mu_i$:
+The deviance residual takes one observation's contribution $d_i$ to $D$ and attaches the sign of $y_i-\hat\mu_i$.{{cite:mccullagh_nelder1989}}{{cite:davison2003}}{{cite:dunn_smyth1996}}
 $$
 r_D=\mathrm{sign}(y_i-\hat\mu_i)\sqrt{d_i}.
 $$

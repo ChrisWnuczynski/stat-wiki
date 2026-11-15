@@ -4,11 +4,11 @@ With four measurements on each iris flower, estimating a covariance matrix is ma
 
 Two questions organise the page. What remains identifiable when $p$ is large relative to $n$? What error does a selection procedure control? A singular covariance prevents ordinary inverse-covariance formulas from being used. Least squares still has a solution, and its coefficients may not be unique. Prediction error, recovery of nonzero coefficients, and false-discovery rate are distinct targets. Success at one does not establish success at the others.
 
-The rank obstruction comes first, then principal components, multiple testing, and penalised regression. Each changes the problem in a different way. [Principal components](sl-03-principal-components.qmd) choose a lower-dimensional representation. Multiple-testing procedures control specified error rates. Regularisation adds a preference among competing fits. The preference is part of the model. The ordinary least-squares fit, when the design has full rank, is [linear regression](inf-06-regression.qmd). A single test of one coefficient or one mean is a [hypothesis test](inf-04-hypothesis-tests.qmd). The multiple-testing correction, and the lasso objective, are derived here. The same $L^1$ penalty appears as the mode of a Laplace prior on [Bayesian linear regression](bayes-09-linear-regression.qmd). That page identifies the penalty with the prior. This page derives the penalised least-squares criterion and the soft-thresholding map.
+The rank obstruction comes first, then principal components, multiple testing, and penalised regression. Each changes the problem in a different way. [Principal components](sl-03-principal-components.qmd) choose a lower-dimensional representation. Multiple-testing procedures control specified error rates. Regularisation adds a preference among competing fits{{cite:hastie_esl2009}}{{cite:tibshirani1996}}{{cite:hoerl_kennard1970}}. The preference is part of the model. The ordinary least-squares fit, when the design has full rank, is [linear regression](inf-06-regression.qmd). A single test of one coefficient or one mean is a [hypothesis test](inf-04-hypothesis-tests.qmd). The multiple-testing correction, and the lasso objective, are derived here. The same $L^1$ penalty appears as the mode of a Laplace prior on [Bayesian linear regression](bayes-09-linear-regression.qmd). That page identifies the penalty with the prior. This page derives the penalised least-squares criterion and the soft-thresholding map.
 
 ## Why classical methods fail when $p>n$
 
-Dempster (1958) pointed out that neither Hotelling's $T^2$ test for two groups nor Fisher's linear discriminant analysis can be used when $p>n_1+n_2-2$. In both cases the difficulty is fitting a multivariate normal distribution in this number of dimensions. The procedures need a covariance inverse, and the sample covariance does not have one.
+{{cite:dempster1958}} pointed out that neither Hotelling's $T^2$ test for two groups nor Fisher's linear discriminant analysis can be used when $p>n_1+n_2-2$. In both cases the difficulty is fitting a multivariate normal distribution in this number of dimensions. The procedures need a covariance inverse, and the sample covariance does not have one.
 
 Prediction from a regularised fit can still have small error. Attribution of that error to individual coefficients is not identified, because many coefficient vectors produce the same fitted values once $p$ exceeds the rank of the design.
 
@@ -19,7 +19,7 @@ For a single data set with $p>n-1$ the sample covariance matrix is singular, hen
 ::: {#thm-sl-18-rank .theorem}
 ## Rank bound
 
-$\operatorname{rank}(S)\le\min(n-1,p)$. Hence $S$ is invertible only if $p\le n-1$ and the centred data have rank $p$.
+$\operatorname{rank}(S)\le\min(n-1,p)$. Hence $S$ is invertible only if $p\le n-1$ and the centred data have rank $p${{cite:dempster1958}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}.
 
 :::
 
@@ -46,13 +46,13 @@ $$
 
 where $y$ is the vector of continuous responses and $X$ is the $n\times(p+1)$ matrix of explanatory variables augmented by a column of ones. The product is $X^\top y$. Dropping the transpose leaves $Xy$, which is undefined: $X$ is $n\times(p+1)$ and $y$ is $n\times 1$. The same transpose belongs on the ridge formula below. The closed form is the one derived for [linear regression](inf-06-regression.qmd) when the columns are linearly independent.
 
-The inverse formula requires full column rank, not merely a favourable count of rows and columns. When rank fails, least squares still projects $y$ onto the column space of $X$, giving a unique fitted vector. The coefficient representation is non-unique: adding any $v$ with $Xv=0$ leaves the fitted values unchanged. Exact interpolation occurs when $y$ lies in that column space. Full row rank is sufficient. Having $p\ge n$ alone is not sufficient.
+The inverse formula requires full column rank, not merely a favourable count of rows and columns. When rank fails, least squares still projects $y$ onto the column space of $X$, giving a unique fitted vector. The coefficient representation is non-unique: adding any $v$ with $Xv=0$ leaves the fitted values unchanged{{cite:hastie_esl2009}}{{cite:james_islr2021}}{{cite:tibshirani1996}}. Exact interpolation occurs when $y$ lies in that column space. Full row rank is sufficient. Having $p\ge n$ alone is not sufficient.
 
 ### Where the columns come from
 
 A large sample relative to the number of fitted coefficients makes classical estimation easier, but collecting another subject can cost much more than measuring another feature on an existing sample. High-dimensional methods address this imbalance by adding structure. They cannot manufacture information about directions that the observed design never distinguishes.
 
-Microarray studies are one setting of this kind. One tissue sample produces measurements of many transcript-related features, while the number of sampled tissues can remain small. The Alon study below analyses $2000$ selected gene-expression features from $62$ samples (Alon et al., 1999). These measurements are not direct measurements of protein production, and a biological gene is not interchangeable with one independent predictor. Correlation, measurement processing, and tissue composition all affect the statistical question.
+Microarray studies are one setting of this kind. One tissue sample produces measurements of many transcript-related features, while the number of sampled tissues can remain small. The Alon study below analyses $2000$ selected gene-expression features from $62$ samples{{cite:alon1999}}. These measurements are not direct measurements of protein production, and a biological gene is not interchangeable with one independent predictor. Correlation, measurement processing, and tissue composition all affect the statistical question.
 
 In that setting the scientific question is often which coordinates are associated with the response, not the size of the prediction error. Association is not causation.
 
@@ -87,9 +87,9 @@ A single one of those tests, with its null distribution and its $p$-value, is th
 
 ### Why a fixed threshold fails
 
-If $m_0$ null hypotheses are true and each has an exactly uniform null $p$-value, testing each at $0.05$ gives $\E(V)=0.05\,m_0$. Independence is not needed for this expectation: use linearity on the rejection indicators. Valid conservative $p$-values instead satisfy $\Pr(P_i\le t)\le t$, giving an upper bound. Uniformity requires a correctly calibrated continuous null test. Continuity of a reported statistic alone is not enough. With $20{,}000$ true nulls, the expected false-rejection count is therefore $1000$.
+If $m_0$ null hypotheses are true and each has an exactly uniform null $p$-value, testing each at $0.05$ gives $\E(V)=0.05\,m_0${{cite:benjamini_hochberg1995}}. Independence is not needed for this expectation: use linearity on the rejection indicators. Valid conservative $p$-values instead satisfy $\Pr(P_i\le t)\le t$, giving an upper bound. Uniformity requires a correctly calibrated continuous null test. Continuity of a reported statistic alone is not enough. With $20{,}000$ true nulls, the expected false-rejection count is therefore $1000$.
 
-The family-wise error rate is controlled at a level such as $0.05$. The Bonferroni method exists, and it is often far too stringent when the number of tests is in the thousands. No particular value of a null $p$-value, including a very small one, is specially expected: under a continuous null the $p$-value is uniform.
+The family-wise error rate is controlled at a level such as $0.05${{cite:bonferroni1936}}{{cite:benjamini_hochberg1995}}{{cite:hastie_esl2009}}. The Bonferroni method exists, and it is often far too stringent when the number of tests is in the thousands{{cite:bonferroni1936}}{{cite:benjamini_hochberg1995}}. No particular value of a null $p$-value, including a very small one, is specially expected: under a continuous null the $p$-value is uniform.
 
 ::: {#exm-sl-18-bonferroni .example}
 ## The cost of Bonferroni
@@ -110,7 +110,7 @@ It is often difficult to know how the set of variables found will be used. Somet
 
 ### The false discovery rate
 
-False discovery rate control offers a different error criterion (Benjamini and Hochberg, 1995). It concerns the expected fraction of false rejections among all rejections. Write $m$ for the number of tests, keeping $p$ available for a $p$-value only when there is no ambiguity.
+False discovery rate control offers a different error criterion{{cite:benjamini_hochberg1995}}. It concerns the expected fraction of false rejections among all rejections{{cite:benjamini_hochberg1995}}{{cite:benjamini_yekutieli2001}}{{cite:hastie_esl2009}}. Write $m$ for the number of tests, keeping $p$ available for a $p$-value only when there is no ambiguity.
 
 | | Declared non-significant | Declared significant | Total |
 |---|---|---|---|
@@ -137,7 +137,7 @@ Set the false discovery proportion to zero when there are no rejections. This co
 ::: {#thm-sl-18-fdr-fwer .theorem}
 ## Family-wise control implies false-discovery control
 
-When all null hypotheses are true ($m_0=m$), $\mathrm{FDR}=\mathrm{FWER}$. In general $\mathrm{FDR}\le\mathrm{FWER}$.
+When all null hypotheses are true ($m_0=m$), $\mathrm{FDR}=\mathrm{FWER}${{cite:benjamini_hochberg1995}}. In general $\mathrm{FDR}\le\mathrm{FWER}${{cite:benjamini_hochberg1995}}{{cite:hastie_esl2009}}.
 
 :::
 
@@ -152,7 +152,7 @@ Test $m$ null hypotheses $H_1,\ldots,H_m$ whose $p$-values are $P_1,\ldots,P_m$.
 ::: {#def-sl-18-bh .definition}
 ## Benjamini–Hochberg
 
-Let $k$ be the largest $i$ for which $P_{(i)}\le (i/m)\,q^*$. Then reject all $H_{(i)}$ for $i=1,\ldots,k$. Reject none if no such $i$ exists.
+Let $k$ be the largest $i$ for which $P_{(i)}\le (i/m)\,q^*$. Then reject all $H_{(i)}$ for $i=1,\ldots,k${{cite:benjamini_hochberg1995}}{{cite:benjamini_yekutieli2001}}{{cite:hastie_esl2009}}. Reject none if no such $i$ exists.
 
 :::
 
@@ -165,7 +165,7 @@ $$
 \mathrm{FDR}\le\frac{m_0}{m}q^*\le q^*.
 $$
 
-Equality holds in the first inequality for exactly uniform null $p$-values (Benjamini and Hochberg, 1995; Benjamini and Yekutieli, 2001).
+Equality holds in the first inequality for exactly uniform null $p$-values{{cite:benjamini_hochberg1995}}{{cite:benjamini_yekutieli2001}}.
 
 :::
 
@@ -202,7 +202,7 @@ Single-variable tests ignore the other explanatory variables. If the selected va
 
 One way of limiting overfitting is to penalise the magnitude of the parameters. Another, as with the Bayesian information criterion, is to penalise the number of parameters. Another way to choose a subset begins with a method of assessing predictive accuracy: the cross-validation PRESS statistic for a continuous response, or classical cross-validation for a nominal response. One then searches over all possible combinations of the available variables. With $p$ explanatory variables the number of subsets is $2^p$. For $p=30$ this is more than $10^9$, and for $p=100$ about $10^{30}$.
 
-Greedy searches make a manageable sequence of comparisons. Forward selection adds one variable at a time. Backward selection removes one from an initially fitted model. That reduces the search, and it does not guarantee the best subset. A better training fit does not settle the prediction question. For nested least-squares models, training $R^2$ cannot decrease as variables are added. Selection therefore needs a criterion that accounts for complexity or evaluates predictions on observations excluded from the relevant fitting and selection steps.
+Greedy searches make a manageable sequence of comparisons. Forward selection adds one variable at a time{{cite:hastie_esl2009}}{{cite:james_islr2021}}{{cite:tibshirani1996}}. Backward selection removes one from an initially fitted model. That reduces the search, and it does not guarantee the best subset. A better training fit does not settle the prediction question. For nested least-squares models, training $R^2$ cannot decrease as variables are added. Selection therefore needs a criterion that accounts for complexity or evaluates predictions on observations excluded from the relevant fitting and selection steps.
 
 Best subset selection fixes the number of selected variables at some value $k<p$ and searches over this smaller domain. It can be viewed as a hard-constraint version of the information criterion, or as a method that uses an $L^0$ penalty, which counts the nonzero elements:
 
@@ -224,7 +224,7 @@ $$
 
 which has the inverse-based closed form above when the augmented design has full column rank.
 
-Ridge regression, also called weight decay or Tikhonov regularisation (Hoerl and Kennard, 1970), is a long-standing shrinkage method. Standardise the predictors first: subtract each sample mean and divide by the sample standard deviation. Then add the sum of squared regression weights, an $L^2$ penalty. Do not run one $\lambda$ on variables that live on different scales. Divide a variable by $1000$ and its coefficient has to grow by $1000$ to give the same fit. The same $\lambda$ is then a different penalty, because a large coefficient dominates the sum.
+Ridge regression, also called weight decay or Tikhonov regularisation{{cite:hoerl_kennard1970}}, is a long-standing shrinkage method. Standardise the predictors first: subtract each sample mean and divide by the sample standard deviation. Then add the sum of squared regression weights, an $L^2$ penalty. Do not run one $\lambda$ on variables that live on different scales. Divide a variable by $1000$ and its coefficient has to grow by $1000$ to give the same fit. The same $\lambda$ is then a different penalty, because a large coefficient dominates the sum.
 
 $$
 (\hat\beta_0,\hat\beta)
@@ -235,7 +235,7 @@ $$
 \Biggr\}.
 $$
 
-Here $\lambda$ controls the amount of shrinkage. It can be chosen manually or by optimising a measure of predictive accuracy such as cross-validation. Two layers of cross-validation are needed to both select such a parameter and estimate the accuracy of the resulting model. Ridge regression was introduced to improve regression for non-orthogonal predictors, those with substantial multicollinearity, where the slope estimates are unstable, with large confidence intervals and high sensitivity to individual observations. This is also seen as near-singularity of $X^\top X$. With centred $y$ and standardised $X$, so that the intercept is $\bar y$,
+Here $\lambda$ controls the amount of shrinkage. It can be chosen manually or by optimising a measure of predictive accuracy such as cross-validation. Two layers of cross-validation are needed to both select such a parameter and estimate the accuracy of the resulting model. Ridge regression was introduced to improve regression for non-orthogonal predictors, those with substantial multicollinearity, where the slope estimates are unstable, with large confidence intervals and high sensitivity to individual observations{{cite:hoerl_kennard1970}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}. This is also seen as near-singularity of $X^\top X$. With centred $y$ and standardised $X$, so that the intercept is $\bar y$,
 
 $$
 \hat\beta_R=(X^\top X+\lambda I)^{-1}X^\top y.
@@ -243,7 +243,7 @@ $$
 
 Adding $\lambda I$ reduces the condition number of the matrix to be inverted. If $p>n$ then $X^\top X$ is rank-deficient, so not invertible. It is positive semi-definite, so at least one eigenvalue is zero and the others are nonnegative. Adding $\lambda I$ raises every eigenvalue by $\lambda>0$, making the matrix positive definite and invertible, and hence allowing a unique solution even when $p>n$.
 
-Tibshirani (1996), building in part on Donoho and Johnstone (1994) and Breiman (1995), replaces the $L^2$ penalty by an $L^1$ penalty. The resulting estimator is the lasso, the least absolute shrinkage and selection operator:
+{{cite:tibshirani1996}}, building in part on {{cite:donoho_johnstone1994}} and {{cite:breiman1995_garrote}}, replaces the $L^2$ penalty by an $L^1$ penalty. The resulting estimator is the lasso, the least absolute shrinkage and selection operator{{cite:tibshirani1996}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}:
 
 $$
 (\hat\beta_0,\hat\beta)
@@ -260,7 +260,7 @@ On the Bayesian page, a Laplace prior on the slopes has a posterior mode at this
 
 ### Why the $L^1$ penalty gives zeros
 
-The ellipses of a least-squares cost are centred at the unpenalised estimate. The constraint sets are $|\beta_1|+|\beta_2|\le t$ and $\beta_1^2+\beta_2^2\le t^2$. The penalised estimate is the point where the lowest contour still touches the constraint. The $L^1$ set is a diamond. A smooth ellipse tends to touch it at a corner, and a corner sets one coefficient to zero. The $L^2$ set is a disk. The ellipse meets the disk at a smooth point, and both coefficients stay nonzero. Sparsity depends on the penalty, the loss, and the data. High dimension alone does not force the right variables to be the ones selected.
+The ellipses of a least-squares cost are centred at the unpenalised estimate. The constraint sets are $|\beta_1|+|\beta_2|\le t$ and $\beta_1^2+\beta_2^2\le t^2$. The penalised estimate is the point where the lowest contour still touches the constraint. The $L^1$ set is a diamond. A smooth ellipse tends to touch it at a corner, and a corner sets one coefficient to zero{{cite:tibshirani1996}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}. The $L^2$ set is a disk. The ellipse meets the disk at a smooth point, and both coefficients stay nonzero. Sparsity depends on the penalty, the loss, and the data. High dimension alone does not force the right variables to be the ones selected.
 
 The diamond does not force the optimum to a corner on every data set. It makes corners available over a range of loss contours, which is the mechanism for exact zeros. Ridge can have a zero coefficient through cancellation or symmetry. Its smooth penalty does not create a thresholding region around zero.
 
@@ -278,7 +278,7 @@ $$
 \hat\beta_j^{\mathrm{lasso}}=\operatorname{sign}(b)\bigl(|b|-\lambda/2\bigr)_+,
 $$
 
-the soft-thresholding operator. Coefficients smaller than $\lambda/2$ in magnitude are set to zero, and the others are shrunk towards zero by $\lambda/2$. The factor $\lambda/2$, rather than $\lambda$, is the derivative of a square that was not written with a leading $\tfrac12$.
+the soft-thresholding operator{{cite:tibshirani1996}}{{cite:donoho_johnstone1994}}{{cite:hastie_esl2009}}. Coefficients smaller than $\lambda/2$ in magnitude are set to zero, and the others are shrunk towards zero by $\lambda/2$. The factor $\lambda/2$, rather than $\lambda$, is the derivative of a square that was not written with a leading $\tfrac12$.
 
 Best-subset selection with a penalty $\lambda$ on $\lVert\beta\rVert_{L^0}$ gives hard thresholding: keep $b$ unchanged if $|b|>\sqrt{\lambda}$ and set it to $0$ otherwise. At $|b|=\sqrt{\lambda}$, both $0$ and $b$ minimise the criterion $(\beta-b)^2+\lambda\,1_{\beta\neq 0}$. The displayed rule chooses zero.
 
@@ -286,7 +286,7 @@ For example, with least-squares estimates $(3,-1.5,0.8,-0.3,0.1)$ and $\lambda=1
 
 ### Choosing $\lambda$
 
-The penalty determines a trade-off, so it must be chosen for an objective. Prediction-oriented tuning can use cross-validation with the entire fitting procedure repeated within each fold. The broader family $\lambda\sum_j|\beta_j|^q$ connects several familiar penalties: $q=2$ gives ridge, $q=1$ gives the lasso, and counting nonzero coefficients gives the $L^0$ formulation. The mathematical appeal of $q=1$ is concrete: it retains convexity while introducing a corner at zero. For $0<q<1$, the penalty is nonconvex. These geometric facts do not by themselves select a penalty value (Tibshirani, 1996; Frank and Friedman, 1993).
+The penalty determines a trade-off, so it must be chosen for an objective. Prediction-oriented tuning can use cross-validation with the entire fitting procedure repeated within each fold. The broader family $\lambda\sum_j|\beta_j|^q$ connects several familiar penalties: $q=2$ gives ridge, $q=1$ gives the lasso, and counting nonzero coefficients gives the $L^0$ formulation. The mathematical appeal of $q=1$ is concrete: it retains convexity while introducing a corner at zero. For $0<q<1$, the penalty is nonconvex. These geometric facts do not by themselves select a penalty value{{cite:tibshirani1996}}{{cite:frank_friedman1993}}.
 
 A path algorithm computes fits over a range of penalties. Each fixed-$\lambda$ least-squares lasso problem is convex. Under the usual nondegeneracy conditions, coefficients vary piecewise linearly with $\lambda$, with changes when variables enter or leave the active set. Calling the path itself convex is a different claim. Efficient path algorithms exploit the piecewise-linear structure. Their workload still depends on the design and the number of changes.
 
@@ -294,13 +294,13 @@ Read a coefficient path as a sequence of fitted models, not a ranking of biologi
 
 ### Extensions
 
-The lasso can also be used with a generalised linear model, one with $g(\mu(x))=x^\top\beta$ where $\mu(x)=\E(Y\given X=x)$, $g$ is monotone, and $Y$ has a distribution from the exponential family. In particular it applies to logistic regression: minimise the negative log-likelihood plus $\lambda\sum_j|\beta_j|$, with $\lambda$ chosen by cross-validation of the binomial deviance.
+The lasso can also be used with a generalised linear model, one with $g(\mu(x))=x^\top\beta$ where $\mu(x)=\E(Y\given X=x)$, $g$ is monotone, and $Y$ has a distribution from the exponential family. In particular it applies to logistic regression: minimise the negative log-likelihood plus $\lambda\sum_j|\beta_j|$, with $\lambda$ chosen by cross-validation of the binomial deviance{{cite:tibshirani1996}}{{cite:friedman_glmnet2010}}{{cite:hastie_esl2009}}.
 
 The lasso is a shrinkage method. An $L^1$ penalty constrains the overall coefficient size, but with correlated predictors an individual coefficient need not be smaller in magnitude than its least-squares counterpart, so the estimator is biased. One question is whether this bias can be reduced, at least as $n$ grows.
 
 Assume a lasso is fit with $\lambda$ chosen by cross-validation. This typically removes many variables. Refitting an unpenalised model on the same data the lasso selected is biased. A sample the lasso did not see is the clean check. Only about half the data is then used for each of selection and fitting.
 
-Another option, proposed by Zou (2006), is the adaptive lasso
+Another option, proposed by {{cite:zou2006}}, is the adaptive lasso
 
 $$
 (\hat\beta_0,\hat\beta)
@@ -311,11 +311,11 @@ $$
 \Biggr\}.
 $$
 
-The displayed version uses $w_j=1/|\tilde\beta_j|$ from a pilot fit. The general adaptive lasso permits powers $|\tilde\beta_j|^{-\gamma}$ with $\gamma>0$. Large pilot coefficients receive less shrinkage. A zero pilot requires an explicit rule, such as exclusion or a stated stabilisation. Zou (2006, Theorem 2) gives oracle properties under assumptions on the design, a sufficiently accurate pilot, and the rate of the penalty sequence. These are not guarantees for any cross-validated penalty or any marginal-regression pilot, particularly with correlated predictors and growing dimension. Selection consistency and coefficient consistency must be checked under the stated asymptotic regime.
+The displayed version uses $w_j=1/|\tilde\beta_j|$ from a pilot fit. The general adaptive lasso permits powers $|\tilde\beta_j|^{-\gamma}$ with $\gamma>0$. Large pilot coefficients receive less shrinkage. A zero pilot requires an explicit rule, such as exclusion or a stated stabilisation. {{cite:zou2006}} gives oracle properties under assumptions on the design, a sufficiently accurate pilot, and the rate of the penalty sequence. These are not guarantees for any cross-validated penalty or any marginal-regression pilot, particularly with correlated predictors and growing dimension. Selection consistency and coefficient consistency must be checked under the stated asymptotic regime.
 
 ## The Alon colon-cancer matrix
 
-The calculation below uses expression measurements for $2000$ genes from $62$ colon tissue samples, $40$ tumour and $22$ normal. Centring and scaling a feature to mean zero and variance one does not make it normally distributed. The code expects an expression matrix `x` of size $62\times 2000$ and labels `y`. The printed principal-component, testing, and lasso numbers are the results of that analysis.
+The calculation below uses expression measurements for $2000$ genes from $62$ colon tissue samples, $40$ tumour and $22$ normal{{cite:alon1999}}. Centring and scaling a feature to mean zero and variance one does not make it normally distributed. The code expects an expression matrix `x` of size $62\times 2000$ and labels `y`. The printed principal-component, testing, and lasso numbers are the results of that analysis.
 
 ```r
 load("alon.rda")  # x: 62 x 2000 expression matrix; y: tumour/normal labels
@@ -392,7 +392,7 @@ The third component appears very aligned with the class differences, and the six
 
 ### False discoveries among the genes
 
-A Welch $t$-test was run for each gene, comparing the tumour and normal groups, using Benjamini–Hochberg at nominal level $0.01$. Under the required null calibration and dependence assumptions, this targets an expected false-discovery proportion at most $1\%$. It does not cap the false fraction in this realised gene list. The procedure declared $173$ genes significant. Twelve of the $20$ top third-component genes were among them,
+A Welch $t$-test was run for each gene, comparing the tumour and normal groups, using Benjamini–Hochberg at nominal level $0.01${{cite:benjamini_hochberg1995}}{{cite:hastie_esl2009}}. Under the required null calibration and dependence assumptions, this targets an expected false-discovery proportion at most $1\%$. It does not cap the false fraction in this realised gene list. The procedure declared $173$ genes significant. Twelve of the $20$ top third-component genes were among them,
 
 $$
 1635,\;493,\;625,\;765,\;1511,\;1634,\;1153,\;992,\;1293,\;1002,\;1959,\;609,
@@ -402,7 +402,7 @@ and one of the top sixth-component genes, gene $286$.
 
 ### The logistic lasso
 
-The lasso was used to perform model selection at the same time as fitting a logistic regression of the class on all the genes. The binomial deviance was the cost, with $\lambda$ chosen as the value with the lowest binomial deviance on left-out data by cross-validation. This selected $14$ gene indices
+The lasso was used to perform model selection at the same time as fitting a logistic regression of the class on all the genes{{cite:tibshirani1996}}{{cite:friedman_glmnet2010}}{{cite:hastie_esl2009}}. The binomial deviance was the cost, with $\lambda$ chosen as the value with the lowest binomial deviance on left-out data by cross-validation. This selected $14$ gene indices
 
 $$
 14,\;249,\;377,\;493,\;576,\;625,\;792,\;1360,\;1473,\;1582,\;1679,\;1772,\;1843,\;1924,

@@ -18,18 +18,19 @@ F(\mathbf{x})=\Pr(\mathbf{X}\le\mathbf{x})=\Pr(X_1\le x_1,\ldots,X_p\le x_p),
 \qquad \mathbf{x}\in\R^p.
 $$
 
-If $F$ is absolutely continuous, $\mathbf{X}$ has a joint density
+{{cite:anderson2003_mva}} If $F$ is absolutely continuous, $\mathbf{X}$ has a joint density
 
 $$
 f(\mathbf{x})=\frac{\partial^p F(\mathbf{x})}{\partial x_1\cdots\partial x_p}
 $$
 
-almost everywhere, and
+{{cite:wasserman2004}} almost everywhere, and
 
 $$
 F(\mathbf{x})=\int_{-\infty}^{x_p}\cdots\int_{-\infty}^{x_1} f(u_1,\ldots,u_p)\,\dd u_1\cdots\dd u_p.
 $$
 
+{{cite:anderson2003_mva}}
 :::
 
 [Independent coordinates](prob-04-joint-distributions.qmd#def-independent-random-variables) are exactly the case in which the density and the distribution function both factor,
@@ -105,19 +106,19 @@ $$
 \E(\mathbf{X})=\boldsymbol{\mu}=\bigl(\E X_1,\ldots,\E X_p\bigr)^\top.
 $$
 
-The covariance of coordinates $j$ and $k$ is
+{{cite:anderson2003_mva}} The covariance of coordinates $j$ and $k$ is
 
 $$
 \sigma_{jk}=\Cov(X_j,X_k)=\E\bigl[(X_j-\E X_j)(X_k-\E X_k)\bigr]=\E(X_j X_k)-\E(X_j)\E(X_k).
 $$
 
-The covariance matrix is the $p\times p$ matrix of these entries,
+{{cite:pearson1896}} The covariance matrix is the $p\times p$ matrix of these entries,
 
 $$
 \Sigma=\Var(\mathbf{X})=\Cov(\mathbf{X},\mathbf{X}^\top)=\E\bigl[(\mathbf{X}-\boldsymbol{\mu})(\mathbf{X}-\boldsymbol{\mu})^\top\bigr].
 $$
 
-The diagonal entry $\sigma_{jj}=\sigma_j^2$ is the variance of $X_j$, and $\sigma_j$ is its standard deviation.
+{{cite:anderson2003_mva}} The diagonal entry $\sigma_{jj}=\sigma_j^2$ is the variance of $X_j$, and $\sigma_j$ is its standard deviation{{cite:wasserman2004}}.
 
 :::
 
@@ -141,7 +142,7 @@ $$
 \sigma_{jj}\sigma_{kk}-\sigma_{jk}^2\ge 0.
 $$
 
-Symmetry of a proposed covariance is necessary and is not enough: every linear combination must have a nonnegative variance. Sylvester's criterion turns the quadratic-form condition into determinants. Strict positive definiteness requires every leading principal minor to be positive. Positive semi-definiteness requires every principal minor, not only the leading ones, to be nonnegative. A matrix can pass a leading-minor check aimed at the wrong one of these two conclusions and still fail to be a covariance.
+Symmetry of a proposed covariance is necessary and is not enough: every linear combination must have a nonnegative variance{{cite:anderson2003_mva}}{{cite:wasserman2004}}. Sylvester's criterion turns the quadratic-form condition into determinants. Strict positive definiteness requires every leading principal minor to be positive{{cite:golub_vanloan2013}}. Positive semi-definiteness requires every principal minor, not only the leading ones, to be nonnegative. A matrix can pass a leading-minor check aimed at the wrong one of these two conclusions and still fail to be a covariance.
 
 Translations do not change covariances. For constants $c,d\in\R$,
 
@@ -188,7 +189,7 @@ $$
 \rho_{jk}=\operatorname{corr}(X_j,X_k)=\frac{\Cov(X_j,X_k)}{\sqrt{\Var(X_j)\Var(X_k)}}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
 $$
 
-The correlation matrix is $P=(\rho_{jk})$, with ones on the diagonal. If $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$, then
+{{cite:pearson1896}} The correlation matrix is $P=(\rho_{jk})$, with ones on the diagonal{{cite:anderson2003_mva}}. If $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$, then
 
 $$
 P=D^{-1}\Sigma D^{-1},
@@ -196,6 +197,7 @@ P=D^{-1}\Sigma D^{-1},
 \Sigma=DPD.
 $$
 
+{{cite:wasserman2004}}
 :::
 
 Independence of $X_j$ and $X_k$ implies $\rho_{jk}=0$. The converse is false, and the example below is the counterexample. If $X_k=c X_j+d$ then $\rho_{jk}=1$ for $c>0$ and $\rho_{jk}=-1$ for $c<0$. If a variance is zero, the correlation is undefined.
@@ -347,7 +349,7 @@ $$
 (\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=\mathbf{u}^\top\Lambda^{-1}\mathbf{u}=\sum_{j=1}^p\frac{u_j^2}{\lambda_j}=C.
 $$
 
-This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}$. Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
+This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}${{cite:anderson2003_mva}}. Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
 
 ::: {#def-sl-01-mahalanobis .definition}
 ## Squared Mahalanobis distance
@@ -358,6 +360,7 @@ $$
 (\mathbf{X}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{X}-\boldsymbol{\mu}).
 $$
 
+{{cite:mahalanobis1936}}{{cite:anderson2003_mva}}{{cite:hastie_esl2009}}
 :::
 
 If $\mathbf{X}\sim\Normal_p(\boldsymbol{\mu},\Sigma)$, set $\mathbf{Z}=\Sigma^{-1/2}(\mathbf{X}-\boldsymbol{\mu})$, where $\Sigma^{-1/2}=\Gamma\Lambda^{-1/2}\Gamma^\top$ is the symmetric inverse square root. The linear-image formula for covariances gives
@@ -372,7 +375,7 @@ $$
 \mathbf{Z}^\top\mathbf{Z}=\sum_{j=1}^p Z_j^2\sim\chi^2_p,
 $$
 
-the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom. A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
+the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom{{cite:anderson2003_mva}}. A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
 
 ## Linear images and marginals
 
@@ -385,6 +388,7 @@ $$
 \mathbf{Y}\sim\Normal_m(A\boldsymbol{\mu},\,A\Sigma A^\top).
 $$
 
+{{cite:anderson2003_mva}}{{cite:wasserman2004}}
 :::
 
 The mean and covariance are the general transformation rules. The additional claim is that the image is normal. It is the fact used whenever a margin, a sum, or a residual of a normal vector is treated as normal.
@@ -560,18 +564,19 @@ $$
 \sim\Normal_q\bigl(\boldsymbol{\mu}_{A\given B}(\mathbf{x}_B),\,\Sigma_{A\given B}\bigr),
 $$
 
-with
+{{cite:anderson2003_mva}} with
 
 $$
 \boldsymbol{\mu}_{A\given B}(\mathbf{x}_B)=\boldsymbol{\mu}_A+\Sigma_{AB}\Sigma_{BB}^{-1}(\mathbf{x}_B-\boldsymbol{\mu}_B)
 $$
 
-and
+{{cite:anderson2003_mva}} and
 
 $$
 \Sigma_{A\given B}=\Sigma_{AA}-\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top.
 $$
 
+{{cite:anderson2003_mva}}
 :::
 
 The conditional mean is affine in $\mathbf{x}_B$. It starts at $\boldsymbol{\mu}_A$ and adjusts by the observed deviation $\mathbf{x}_B-\boldsymbol{\mu}_B$. The conditional covariance does not depend on the observed value. The product $\Sigma_{AB}\Sigma_{BB}^{-1}\Sigma_{AB}^\top$ is positive semi-definite, so conditioning reduces covariance in the matrix sense $\Sigma_{A\given B}\preceq\Sigma_{AA}$: the difference $\Sigma_{AA}-\Sigma_{A\given B}$ has nonnegative eigenvalues. This is a statement about the Gaussian model with its parameters fixed. The narrowing ends of an ellipse are a property of a joint contour. They do not say that the conditional variance gets smaller at extreme predictor values. A contour and a conditional density are different objects. A slice of a bivariate normal ellipse, taken at a fixed $x_B$, is a univariate normal density whose mean has moved and whose variance is the smaller Schur complement.
@@ -661,7 +666,7 @@ $$
 =\frac{\sigma_{jk\given q+1,\ldots,p}}{\sqrt{\sigma_{jj\given q+1,\ldots,p}\,\sigma_{kk\given q+1,\ldots,p}}}.
 $$
 
-If $D_{A\given B}=\operatorname{diag}(\Sigma_{A\given B})$, the matrix of partial correlations is
+{{cite:yule1907_pcorr}} If $D_{A\given B}=\operatorname{diag}(\Sigma_{A\given B})$, the matrix of partial correlations is
 
 $$
 P_{A\given B}=D_{A\given B}^{-1/2}\,\Sigma_{A\given B}\,D_{A\given B}^{-1/2},
@@ -669,9 +674,10 @@ $$
 
 where the power $-1/2$ takes the reciprocal square root of each diagonal entry.
 
+{{cite:anderson2003_mva}}
 :::
 
-Inside the Gaussian model, partial correlation is the association between the remaining coordinates after conditioning on the others. Equivalently, it is the correlation of their population linear-regression residuals. Outside the Gaussian family, a residual partial correlation remains defined when the moments and the regressions exist, and it need not equal the conditional correlation at every conditioning value. Standardising a covariance matrix, as `cov2cor` does, produces a correlation matrix. The standardisation does not create the assumptions behind a conditional reading.
+Inside the Gaussian model, partial correlation is the association between the remaining coordinates after conditioning on the others{{cite:anderson2003_mva}}. Equivalently, it is the correlation of their population linear-regression residuals. Outside the Gaussian family, a residual partial correlation remains defined when the moments and the regressions exist, and it need not equal the conditional correlation at every conditioning value. Standardising a covariance matrix, as `cov2cor` does, produces a correlation matrix. The standardisation does not create the assumptions behind a conditional reading.
 
 ::: {#exm-sl-01-trivariate-conditional .example}
 ## A trivariate conditional distribution
@@ -737,7 +743,7 @@ The slope $s_{YX}/s_{XX}$ and the intercept $\widehat\mu_Y-(s_{YX}/s_{XX})\wideh
 
 ## One species or three
 
-The four iris measurements share centimetre units. Pooling the species changes the question. The calculation below compares the covariance of all $150$ flowers with the covariance within setosa, and then checks that the sample conditional-mean slope matches the least-squares slope. A single Gaussian approximation to the pooled data ignores the species structure. In the code, `iris_x` holds the four measurements and `iris_y` holds the species labels.
+The four iris measurements share centimetre units{{cite:anderson1936_iris}}{{cite:fisher1936}}. Pooling the species changes the question. The calculation below compares the covariance of all $150$ flowers with the covariance within setosa, and then checks that the sample conditional-mean slope matches the least-squares slope. A single Gaussian approximation to the pooled data ignores the species structure{{cite:fisher1936}}. In the code, `iris_x` holds the four measurements and `iris_y` holds the species labels.
 
 ```r
 iris_x <- iris[, 1:4]

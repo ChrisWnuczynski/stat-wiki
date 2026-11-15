@@ -12,7 +12,7 @@ Suppose a parameter space $\Omega$ is partitioned into regions $\Omega_0$ and $\
  \Pr(H_1\given x)
  &=\Pr(\theta\in\Omega_1\given x)
  =\int_{\Omega_1}p(\theta\given x)\dd\theta.
-\end{align*} If the two regions exhaust the support, the probabilities sum to one.
+\end{align*} Each of these probabilities is the integral of one posterior over that region.{{cite:gelman_bda2013}}{{cite:jeffreys1961}}{{cite:kass_raftery1995}} If the two regions exhaust the support, the probabilities sum to one.
 
 :::
 
@@ -34,7 +34,7 @@ $$
  \Longleftrightarrow\quad
  \frac{\Pr(H_0\given x)}{\Pr(H_1\given x)}
  &>\frac{L_{01}}{L_{10}}.
-\end{align*} Equal losses reduce the threshold to one. This separates the probability calculation from the decision rule.
+\end{align*} Equal losses reduce the threshold to one.{{cite:wald1950}}{{cite:raiffa_schlaifer1961}} This separates the probability calculation from the decision rule.{{cite:raiffa_schlaifer1961}}
 
 :::
 
@@ -152,7 +152,7 @@ $$
 $$
 
 
- Taking the ratio cancels the common evidence $p(x)$: \begin{align*}
+ Taking the ratio cancels the common evidence $p(x)$.{{cite:jeffreys1961}}{{cite:kass_raftery1995}}{{cite:gelman_bda2013}} \begin{align*}
  \frac{\Pr(M_1\given x)}{\Pr(M_2\given x)}
  &=\frac{p(x\given M_1)\Pr(M_1)/p(x)}
          {p(x\given M_2)\Pr(M_2)/p(x)}\\
@@ -173,7 +173,7 @@ The marginal likelihood in model $M_j$ is \begin{equation}
  =\int p(x\given\theta_j,M_j)
        p(\theta_j\given M_j)\dd\theta_j.
  \label{eq:marginal-model-book}
-\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum. The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.
+\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum.{{cite:kass_raftery1995}}{{cite:jeffreys1961}} The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.{{cite:kass_raftery1995}}{{cite:gelman_bda2013}}
 
 :::
 
@@ -184,9 +184,9 @@ A Bayes factor compares whole models, not merely their best-fitting parameter va
 
 Two constructions must not be confused:
 
-1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.
+1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.{{cite:gelman_bda2013}}
 
-2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood. A continuous prior on the larger space assigns probability zero to a lower-dimensional surface.
+2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood.{{cite:kass_raftery1995}}{{cite:jeffreys1961}} A continuous prior on the larger space assigns probability zero to a lower-dimensional surface.{{cite:kass_raftery1995}}
 
 The fruit example is the first construction. Independence in the advertising table is the second.
 

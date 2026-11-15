@@ -12,7 +12,7 @@ A kernel is the part of a density that depends on the variable being updated, an
 ::: {#def-distribution-kernel .definition}
 ## Distribution kernel
 
-For a variable of interest $z$, a kernel is the part of a density or mass function that depends on $z$. Thus $f(z)\propto k(z)$ means $f(z)=c\,k(z)$ for a constant $c$ that does not depend on $z$. A factor that is constant for one calculation may need to be retained in another.
+For a variable of interest $z$, a kernel is the part of a density or mass function that depends on $z$.{{cite:raiffa_schlaifer1961}} Thus $f(z)\propto k(z)$ means $f(z)=c\,k(z)$ for a constant $c$ that does not depend on $z$.{{cite:gelman_bda2013}} A factor that is constant for one calculation may need to be retained in another.{{cite:gelman_bda2013}}
 
 :::
 
@@ -33,7 +33,7 @@ For a variable of interest $z$, a kernel is the part of a density or mass functi
 ::: {#def-conjugate-prior-family .definition}
 ## Conjugate prior family
 
-A prior family is conjugate for a likelihood family when the posterior belongs to the same family as the prior for every admissible dataset.
+A prior family is conjugate for a likelihood family when the posterior belongs to the same family as the prior for every admissible dataset.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}}{{cite:gelman_bda2013}}
 
 :::
 

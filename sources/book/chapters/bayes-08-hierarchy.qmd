@@ -7,7 +7,7 @@ This chapter develops Bayesian models for related groups. The central idea is no
 ::: {#def-hierarchical-bayesian-model .definition}
 ## Hierarchical Bayesian model
 
-Hierarchical Bayes is ordinary Bayes for data that arrive in related groups. Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution. This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
+Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:gelman_bda2013}} Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}} This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
 
 :::
 
@@ -55,7 +55,7 @@ $$
 $$
 
 
- The quantities controlling the distribution of the $\theta_j$'s are called *hyperparameters*, or higher-level parameters. Once priors are assigned to them, their uncertainty is propagated into every class-specific posterior.
+ The quantities controlling the distribution of the $\theta_j$'s are called *hyperparameters*, or higher-level parameters.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} Once priors are assigned to them, their uncertainty is propagated into every class-specific posterior.{{cite:gelman_bda2013}}
 
 :::
 
@@ -69,7 +69,7 @@ The modelling choice can be organised into three cases.
 | No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
 | Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
 
-Hierarchical Bayes produces partial pooling. A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre. This movement is called *shrinkage* or *borrowing strength*.
+Hierarchical Bayes produces partial pooling.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:efron_morris1975}} This movement is called *shrinkage* or *borrowing strength*.
 
 ### Where the shrinkage weight comes from
 
@@ -149,6 +149,7 @@ $$
  =w_j\overline y_j+(1-w_j)\mu.
 $$
 
+The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}}{{cite:efron_morris1975}}
 
 :::
 
@@ -192,7 +193,7 @@ The practical difficulty begins even earlier. A proper meta-analysis tries to fi
 
 A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling. The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.
 
-The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation. A schematic version of the hierarchy is \begin{align*}
+ The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation.{{cite:barendse2004_tg5}} A schematic version of the hierarchy is \begin{align*}
  y_{ij}\given\delta_i,w_{ij}
  &\sim\Normal(\delta_i,w_{ij}^{-1}),\\
  \delta_i\given\mu_{b(i)},\tau_{\mathrm{study}}
@@ -211,7 +212,7 @@ $$
 $$
 
 
- The hierarchy performs partial pooling at more than one level. The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy, but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.
+ The hierarchy performs partial pooling at more than one level.{{cite:wood_mengersen2006_tg5}} The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy, but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.{{cite:lunn_winbugs2000}}
 
 :::
 
@@ -220,7 +221,7 @@ $$
 ::: {#exm-rat-tumour-hierarchy .example}
 ## Rat-tumour hierarchy
 
-Tumour rates in female F344 rats supply a second hierarchical example. In a current control study, $y=4$ of $n=14$ rats developed one or more tumours over two years.[^b08-hierarchy-3] A one-study model is 
+Tumour rates in female F344 rats supply a second hierarchical example. In a current control study, $y=4$ of $n=14$ rats developed one or more tumours over two years.{{cite:tarone1982}}[^b08-hierarchy-3] A one-study model is 
 
 $$
  Y\given\theta\sim\Bin(14,\theta),
@@ -250,7 +251,7 @@ Let study $j$ contribute $y_j$ tumour-bearing rats from $n_j$ animals. The hiera
 
 :::
 
-Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows Gelman's presentation of the Dempster, Selwyn, and Weeks analysis.[^b08-hierarchy-4]
+Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows Gelman's presentation of the Dempster, Selwyn, and Weeks analysis.{{cite:gelman_bda2013}}{{cite:dempster_selwyn_weeks1983}}[^b08-hierarchy-4]
 
 ## Exchangeability
 
@@ -265,7 +266,7 @@ $$
 $$
 
 
- Conditional iid sampling from a common Beta distribution implies exchangeability: 
+ Conditional iid sampling from a common Beta distribution implies exchangeability.{{cite:definetti1937}}{{cite:gelman_bda2013}} 
 
 $$
  p(\thetavec\given\alpha,\beta)
@@ -273,7 +274,7 @@ $$
 $$
 
 
- The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition. The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
+ The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition.{{cite:gelman_bda2013}} The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
 
 :::
 
@@ -284,7 +285,7 @@ Exchangeability is a judgement made before seeing the outcomes, not permission t
 ::: {#def-empirical-bayes .definition}
 ## Empirical Bayes
 
-An *empirical Bayes* analysis estimates prior or population-level hyperparameters from data and then treats those estimates as fixed in a lower-level Bayesian update. A full Bayesian analysis instead assigns the hyperparameters a prior and propagates their posterior uncertainty.
+An *empirical Bayes* analysis estimates prior or population-level hyperparameters from data and then treats those estimates as fixed in a lower-level Bayesian update.{{cite:robbins1956}}{{cite:efron_morris1975}} A full Bayesian analysis instead assigns the hyperparameters a prior and propagates their posterior uncertainty.{{cite:gelman_bda2013}}
 
 :::
 
@@ -390,7 +391,7 @@ Normalising gives \begin{equation}
  \theta_j\given\alpha,\beta,\vect y
  \sim\BetaDist(y_j+\alpha,n_j-y_j+\beta)}.
  \label{eq:theta-full-cond-hierarchy}
-\end{equation} Conditional on the hyperparameters, the study rates are independent, so the joint conditional is the product of these $J$ Beta densities.
+\end{equation} Conditional on the hyperparameters, the study rates are independent.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} The joint conditional is the product of these $J$ Beta densities.{{cite:gelman_bda2013}}
 
 :::
 
@@ -434,7 +435,7 @@ The binomial coefficient does not depend on $(\alpha,\beta)$, so the hyperposter
       {\Gamma(\alpha)\Gamma(\beta)
        \Gamma(n_j+\alpha+\beta)}}.
  \label{eq:hyperposterior}
-\end{equation} This expression is available pointwise but is not a familiar normalised density.
+\end{equation} The kernel multiplies the hyperprior by a product of beta--binomial marginal likelihoods.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} This expression is available pointwise but is not a familiar normalised density.{{cite:gelman_bda2013}}
 
 :::
 
@@ -518,7 +519,7 @@ The transformation is derived here. It does not make an improper prior uniquely 
 ::: {#rem-uniformity-depends-on-a-domain .remark}
 ## Uniformity depends on a domain
 
-The Jacobian calculation is local; calling the prior "uniform in $(u,v)$" also requires a stated domain. Over an unbounded or boundary-touching domain the density is improper, so the transformed expression is a modelling choice, not an automatic noninformative prior.
+The Jacobian calculation is local; calling the prior "uniform in $(u,v)$" also requires a stated domain.{{cite:jeffreys1961}}{{cite:box_tiao1973}} Over an unbounded or boundary-touching domain the density is improper, so the transformed expression is a modelling choice, not an automatic noninformative prior.{{cite:gelman_bda2013}}
 
 :::
 
@@ -607,7 +608,7 @@ $$
 
 4.  Repeat to obtain $(\alpha^{(l)},\beta^{(l)},\thetavec^{(l)})$, $l=1,\ldots,L$.
 
-These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo. A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
+These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo.{{cite:metropolis_ulam1949}}{{cite:gelman_bda2013}}{{cite:robert_casella2004}} A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
 
 :::
 

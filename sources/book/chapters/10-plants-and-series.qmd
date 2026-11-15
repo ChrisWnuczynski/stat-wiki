@@ -1,6 +1,6 @@
 # Three species on one hillside
 
-The burn example had two different kinds of measurement on one child. This chapter stays with a vector response, but now every component is binary.
+The burn example had two different kinds of measurement on one child. This chapter stays with a vector response, one mean model for each component of a vector recorded on the same unit, but now every component is binary.{{cite:yee2015}}{{cite:yee_mitchell1991}}{{cite:liang_zeger1986}}
 
 Thomas Yee's `VGAM` package fits vector generalised linear models in which every component has the same type. It will not take one binary margin and one continuous margin, which is why the burn data were fitted by hand. It will take three binary margins. The Hunua ranges data record, at $392$ locations, whether each of three New Zealand plants was present: *Cyathea dealbata* (`cyadea`), *Beilschmiedia tawa* (`beitaw`), and *Knightia excelsa* (`kniexc`). Altitude is the covariate. The plants may prefer different heights, and they may help or crowd each other, so the three binary responses at one location are not independent. The association is not forced to be positive.
 
@@ -9,7 +9,7 @@ $$
 \mathrm{P}(Y_k=1\mid \text{altitude})
 =\frac{\exp(\beta_{k0}+\beta_{k1}\,\text{altitude})}{1+\exp(\beta_{k0}+\beta_{k1}\,\text{altitude})},
 $$
-and the working variance is the Bernoulli variance $\mu_k(1-\mu_k)$. The working association between each pair is a log odds ratio: the odds of finding species $k$ when species $k'$ is present, divided by the odds of finding species $k$ when species $k'$ is absent. That is a two-way interaction. A three-way odds ratio, all three plants at once, can be written down but has no clear interpretation, so the working model stops at pairs. Any three species on a hillside do interact as a triple. The working model is therefore wrong. It does not have to be right for the slopes, once the sandwich standard errors are used.
+and the working variance is the Bernoulli variance $\mu_k(1-\mu_k)$. The working association between each pair is a log odds ratio: the odds of finding species $k$ when species $k'$ is present, divided by the odds of finding species $k$ when species $k'$ is absent.{{cite:agresti2002}}{{cite:mccullagh_nelder1989}} That is a two-way interaction. A three-way odds ratio, all three plants at once, can be written down but has no clear interpretation, so the working model stops at pairs. Any three species on a hillside do interact as a triple. The working model is therefore wrong. It does not have to be right for the slopes, once the sandwich standard errors are used.
 
 `vglm` with the trivariate binary family `loglinb3` returns model-based standard errors that assume the working variance and the working odds ratios. The sandwich is a plug-in on top of that fit. Altitude in the table is scaled by $10^3$. In the coefficient vector, predictor 1 is *Cyathea*, 2 is *Beilschmiedia*, and 3 is *Knightia*. Predictors 4 to 6 are the pairwise log odds ratios. The slope table below keeps the three species intercepts and the three altitude slopes. The `Std. Error` column from `summary` is the naive standard error. The sandwich column in that table is the robust standard error.
 ```r
