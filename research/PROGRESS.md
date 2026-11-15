@@ -4,7 +4,7 @@ Branch: `research/full-depth-pass`. Ranking is frozen in [RANKING.md](RANKING.md
 
 ## Status
 
-Pages ranked: **718**. Done: **20**. Left: **698**. Skipped: **0**.
+Pages ranked: **718**. Done: **21**. Left: **697**. Skipped: **0**.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -28,12 +28,13 @@ Pages ranked: **718**. Done: **20**. Left: **698**. Skipped: **0**.
 | 18 | [Positive definite matrix](positive-definite-matrix.md) | Concept/topic | [Prose](content/positive-definite-matrix.md), [check](../checks/positive-definite-matrix.py) | 216 → 1,756 | 0 → 0 | None; Sylvester 1852 original text and Golub–Van Loan chapter opened |
 | 19 | [Event](event.md) | Concept/definition | [Prose](content/event.md), [check](../checks/event.py) | 460 → 2,106 | 0 → 0 | None; Kolmogorov 1933 English edition opened |
 | 20 | [Cumulative distribution function](cumulative-distribution-function.md) | Concept/definition | [Prose](content/cumulative-distribution-function.md), [check](../checks/cumulative-distribution-function.py) | 431 → 1,473 | 2 → 2 | Single-page Quarto render stalled; Kolmogorov and Billingsley texts opened |
+| 21 | [Random variable](random-variable.md) | Concept/definition | [Prose](content/random-variable.md), [check](../checks/random-variable.py) | 872 → 2,303 | 1 → 1 | Source density derivative corrected almost everywhere; dependent article preservation verified |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. No genuine-duplication removals were made.
 
 ## Next page
 
-**Rank 21: `random-variable`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first twenty researched pages are to be pushed to `origin/research/full-depth-pass` after the rank-20 commit. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 22: `linear-predictor`**. Read the generated article, its source chapter sections, and relevant question pages; search and open primary and standard sources; save the research log, article prose, and numerical check; rebuild; run all tests and `verify_citations.py --offline`; commit only that page's change; repeat in rank order. The first twenty researched pages were pushed to `origin/research/full-depth-pass`; the next push is due after page 30. The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Verification for completed pages
 
@@ -57,4 +58,5 @@ Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` se
 - Positive definite matrix: 13 arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original definition, Sylvester statements, and ten question links remain. One collapsed proof covers the eigenvalue and determinant criteria, covariance and Gram matrices, and Cholesky factorisation.
 - Event: 15 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original event definition, five probability properties, the aircraft example, and twelve question links remain. One collapsed proof covers complement, monotonicity, inclusion–exclusion, De Morgan identities, and the union bound.
 - Cumulative distribution function: 17 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Both original figures, the cubic-CDF and maximum-CDF examples, and sixteen question links remain. One collapsed proof covers CDF properties, interval and jump formulas, generalized inversion, and the original maximum rule. A two-line generator change added researched prose to its existing Interpretation slot. Optional single-page Quarto rendering stalled before HTML output and was stopped.
+- Random variable: 15 exact arithmetic checks passed; generator completed; 63 Python tests passed; offline bibliography verification passed for 396 works. Original CDF, discrete and continuous definitions, mass/density/CDF figure, two-toss example, and nine question links remain. One collapsed proof covers transformations, expectations, and CDF results. The source-chapter density derivative was corrected to an almost-everywhere statement, with the dependent Continuous distribution page preserved above baseline.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

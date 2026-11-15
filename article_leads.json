@@ -541,7 +541,7 @@
   "random-sample": {"field": "statistical inference", "article": "a", "term": "random sample", "verb": "is", "description": "a collection of observations drawn according to a specified sampling rule"},
   "random-seed": {"field": "probability theory", "article": "the", "term": "random seed", "verb": "is", "description": "the initial state used to reproduce a pseudorandom sequence"},
   "random-slopes": {"field": "correlated data", "article": "", "term": "random slopes", "verb": "are", "description": "group-specific regression slopes modelled as varying around a population pattern"},
-  "random-variable": {"field": "probability theory", "article": "the", "term": "random variable", "verb": "is", "description": "a rule that assigns a numerical value to each outcome of a random experiment"},
+  "random-variable": {"field": "probability theory", "article": "a", "term": "random variable", "verb": "is", "description": "a rule that assigns a numerical value to each outcome of a random experiment"},
   "random-walk-and-independent-proposals": {"field": "Bayesian statistics", "article": "", "term": "random-walk and independent proposals", "verb": "are", "description": "two proposal designs for moving between states in a Metropolis sampler"},
   "random-walk-with-drift": {"field": "time series", "article": "the", "term": "random walk with drift", "verb": "is", "description": "a random walk whose steps have a nonzero average change"},
   "randomised-block-design": {"field": "statistical inference", "article": "the", "term": "randomised block design", "verb": "is", "description": "an experiment that randomises treatments within groups of similar units"},
