@@ -4368,6 +4368,20 @@
         "id": "https://www.itl.nist.gov/div898/handbook/glossary.htm"
       }
     },
+    "nist_correlation2013": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2013,
+      "title": "Dataplot Reference Manual, CORRELATION",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm"
+      }
+    },
     "nist_covariance2002": {
       "authors": [
         "Heckert, N. A.",
