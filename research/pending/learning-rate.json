@@ -1,0 +1,33 @@
+{
+  "slug": "learning-rate",
+  "rank": 239,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Interpretation — Constant steps and decreasing steps",
+    "Properties",
+    "Statistical use — Batch, online, and the loss scaling",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the bowl is a poor picture",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 436,
+  "words_after": 2069,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["hastie_esl2009 §§11.4–11.5, pp. 396–397"],
+  "proofs": ["quadratic contraction threshold", "harmonic divergence and square-summability of 1/r"],
+  "tests": ["checks/learning-rate.py passed", "verify_citations.py --offline passed"],
+  "skipped": ["Widrow–Hoff 1960 and Robbins–Monro 1951 were not reopened; they are named as ESL names them"],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}
