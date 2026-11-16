@@ -1,0 +1,45 @@
+## Motivating example
+A diagnostic classifier labels each patient “disease” or “no disease.” If every mistaken label is counted once, a rule that is right on nine of ten new patients has risk about one tenth for that population, regardless of how confident its wrong prediction was. This simple score makes different classifiers comparable, but it also hides how serious different mistakes may be. The distinction between an observed error fraction and the probability of error on a fresh patient is the reason to define risk explicitly.{{cite:shalev_bendavid2014}} (§§2.1–2.2, population and empirical error){{cite:young_smith2005}} (Ch. 2, §2.2, risk as expected loss)
+
+## Intuition
+Zero–one loss turns a prediction into a yes-or-no error indicator. Its expectation is the chance of a wrong label under the population in which the rule will be used. When the features $X=x$ are already known, only uncertainty about the label remains. Predicting a class with posterior probability $0.8$ incurs conditional risk $0.2$, because the label differs from that class on the remaining $20\%$ of such cases. Averaging these conditional risks over the feature distribution produces the overall risk.{{cite:shalev_bendavid2014}} (§3.2.1, Bayes-optimal predictor){{cite:young_smith2005}} (Ch. 2, §§2.1–2.2, loss and risk)
+
+## Definition
+For a classifier $\eta$ and a fresh pair $(X,Y)$ from a target joint distribution, zero–one loss is $\ell(Y,\eta(X))=\mathbf1\{\eta(X)\ne Y\}$ and risk is $R(\eta)=\mathbb E[\ell(Y,\eta(X))]=\Pr\{\eta(X)\ne Y\}$. At a fixed feature value $x$, if $\tau_g(x)=\Pr(Y=g\mid X=x)$, predicting class $h$ incurs conditional risk $1-\tau_h(x)$. Thus the minimum conditional risk is $1-\max_g\tau_g(x)$; averaging it gives the Bayes risk $R^*=\mathbb E[1-\max_g\tau_g(X)]$. Tied largest posteriors give equally good zero–one decisions.{{cite:shalev_bendavid2014}} (§3.2.1, Bayes-optimal predictor){{cite:young_smith2005}} (Ch. 2, §2.2, expected loss)
+
+## Properties
+### Why the largest posterior wins
+Conditional risk compares actions *at the same measured features*. A high posterior probability for class $h$ means a smaller chance of all the other classes combined. Choosing the largest $\tau_h(x)$ therefore minimises conditional risk separately for every $x$, and the average of these pointwise minima is a lower bound for the risk of any other classifier. This conclusion assumes the posterior probabilities describe the target population and every error costs the same one unit. It does not require Gaussian features or equal class priors.{{cite:shalev_bendavid2014}} (§3.2.1, Bayes-optimal predictor){{cite:young_smith2005}} (Ch. 2, §§2.1–2.2, actions and loss)
+
+::: {.callout-note collapse="true" title="Proof"}
+::: {.proof}
+For a fixed $x$ and chosen class $h$, $\mathbb E[\mathbf1\{Y\ne h\}\mid X=x]=\sum_{g\ne h}\tau_g(x)=1-\tau_h(x)$. Let $h^*(x)$ maximise $\tau_g(x)$. Then for every $h$, $1-\tau_{h^*(x)}(x)\le1-\tau_h(x)$. Apply this inequality at $h=\eta(x)$ and average over $X$ to obtain $R(h^*)\le R(\eta)$. The equality $R(\eta)=\Pr\{\eta(X)\ne Y\}$ follows because an indicator's expectation is the probability of its event. No unique winner is required when posteriors tie.{{cite:shalev_bendavid2014}} (§3.2.1 and Exercise 7, Bayes optimality)
+:::
+:::
+
+## Worked example
+Suppose a feature takes values $a$ and $b$, with $\Pr(X=a)=0.4$ and $\Pr(X=b)=0.6$. For the label $Y\in\{0,1\}$, let $\Pr(Y=1\mid X=a)=0.8$ and $\Pr(Y=1\mid X=b)=0.3$. The zero–one Bayes rule predicts $1$ at $a$ and $0$ at $b$. Its two conditional risks are $0.2$ and $0.3$, giving overall risk $0.4(0.2)+0.6(0.3)=0.26$. A rule that always predicts $0$ instead has risk $\Pr(Y=1)=0.4(0.8)+0.6(0.3)=0.50$. This comparison includes both how often each feature occurs and how ambiguous its label is.{{cite:shalev_bendavid2014}} (§3.2.1, conditional Bayes choice)
+
+**Your turn.** Keep $X=a$ with probability $0.2$ and $X=b$ with probability $0.8$. Now suppose $\Pr(Y=1\mid a)=0.75$ and $\Pr(Y=1\mid b)=0.35$. Find the Bayes decisions, its overall zero–one risk, and the risk of always predicting $0$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Predict $1$ at $a$ and $0$ at $b$. The conditional risks are $0.25$ and $0.35$, so $R^*=0.2(0.25)+0.8(0.35)=0.33$. Always predicting $0$ has risk $0.2(0.75)+0.8(0.35)=0.43$. The gain from using $X$ is $0.10$ in expected error probability.{{cite:shalev_bendavid2014}} (§3.2.1, Bayes optimality)
+:::
+
+## Statistical use
+### From population risk to observed error
+The population distribution is usually unknown, so a classifier's risk is estimated using labelled cases. On a fresh, representative test sample, the fraction of wrong labels estimates the risk of a rule fixed before those labels were inspected. The training error is a different quantity: it is calculated on the cases used to choose the rule and can be optimistic. Even a training error of zero does not establish zero population risk. The question bank's one-dimensional Bayes-rule problem calculates an actual Bayes error by integrating class-conditional tails, extending the two-feature calculation above to continuous measurements.{{cite:shalev_bendavid2014}} (§§2.1–2.2, population versus empirical error; §3.2.1, Bayes predictor)
+
+Misclassification at a tree node uses the same zero–one idea locally: if the node's class proportions are $\hat p_1,\ldots,\hat p_G$, the best constant label there makes a fraction $1-\max_g\hat p_g$ of its training labels wrong. The answered tree-node problem computes this for a three-class node; the answered split-comparison problem shows why two different splits can have equal immediate misclassification even though one produces a pure child. This local score is neither the whole tree's test risk nor a replacement for testing the full classifier on new cases.{{cite:shalev_bendavid2014}} (§§2.1–2.2, empirical error and its limits)
+
+## Common misconceptions
+Risk is a population expectation, whereas the observed error fraction on a given sample is an estimate of it. A confident wrong probabilistic forecast and a hesitant wrong one have the same zero–one loss once they choose the same label; a probability-sensitive score such as log loss asks a different question. The Bayes risk can be positive even with perfect knowledge of $\tau$: overlapping label distributions leave uncertainty that no deterministic classifier removes. Finally, a smaller zero–one risk under equal costs need not mean a better real decision if false positives and false negatives have different consequences; the three-class cost example in the interpretation section changes the optimal class without changing its posteriors.{{cite:shalev_bendavid2014}} (§3.2.1, irreducible Bayes error; §12.3, alternative loss){{cite:young_smith2005}} (Ch. 2, §2.1, action-specific loss)
+
+## Assumptions and limits
+Equal error costs are often too crude. If only $1\%$ of screened people have a rare condition, always saying “no condition” has $99\%$ accuracy and zero–one risk $0.01$, yet misses every affected person. A higher loss for missed cases would change the best action, as the existing three-class calculation demonstrates. Risk also depends on the target population: if there are no informative features, a training population with $\Pr(Y=1)=0.7$ favours predicting $1$, but a deployment population with $\Pr(Y=1)=0.3$ favours predicting $0$. Keeping the old rule at deployment gives risk $0.7$ instead of the new Bayes risk $0.3$. Distribution shift makes yesterday's risk a poor description of today's decisions.{{cite:young_smith2005}} (Ch. 2, §§2.1–2.2, loss and distribution-specific risk){{cite:shalev_bendavid2014}} (§3.2.1, distribution-specific Bayes predictor)
+
+## Connections
+The [Bayes-optimal rule](bayes-optimal-rule.qmd) minimises this risk when the target distribution is known; a [Bayes classifier](bayes-classifier.qmd) uses or estimates the relevant posteriors. [Apparent error](apparent-error.qmd) is training-set zero–one error and can understate population risk. A [confusion matrix](confusion-matrix.qmd) shows which errors make up the single risk number. [Unequal-cost classification](classification-with-unequal-costs.qmd) replaces the one-unit penalty by a cost matrix, while [hinge loss](hinge-loss.qmd) is a computational surrogate for the discontinuous zero–one loss when fitting some classifiers.{{cite:shalev_bendavid2014}} (§§2.2, 3.2.1, 12.3)
+
+## History
+Statistical decision theory made loss and expected loss the objects for comparing actions; Young and Smith trace that formal decision emphasis through Neyman, Pearson, Wald and Lehmann. In statistical learning, zero–one loss became the direct measure of label error, while alternative losses helped fit classifiers when direct minimisation of the discontinuous error count was difficult. The terminology “Bayes rule” describes optimality under the specified distribution and loss, rather than a claim that Bayes introduced modern classification algorithms.{{cite:young_smith2005}} (Introduction, pp. 2–3; Ch. 2, §§2.1–2.2){{cite:shalev_bendavid2014}} (§§3.2.1 and 12.3)

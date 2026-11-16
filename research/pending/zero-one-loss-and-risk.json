@@ -1,0 +1,28 @@
+{
+  "article_lead": {
+    "description": "the unit penalty for a wrong class label and its expected value, used to compare classification rules by their chance of error on new cases"
+  },
+  "self_checks": ["ex-sl-08-1", "ex-sl-12-1", "ex-sl-12-2"],
+  "bibliography": {
+    "shalev_bendavid2014": {
+      "authors": ["Shalev-Shwartz, S.", "Ben-David, S."],
+      "year": 2014,
+      "title": "Understanding Machine Learning: From Theory to Algorithms",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9781107298019",
+      "url": "https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf",
+      "verification": {"source": "crossref", "id": "10.1017/CBO9781107298019"}
+    },
+    "young_smith2005": {
+      "authors": ["Young, G. A.", "Smith, R. L."],
+      "year": 2005,
+      "title": "Essentials of Statistical Inference",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511755392",
+      "url": "https://assets.cambridge.org/97805218/39716/excerpt/9780521839716_excerpt.pdf",
+      "verification": {"source": "crossref", "id": "10.1017/CBO9780511755392"}
+    }
+  }
+}
