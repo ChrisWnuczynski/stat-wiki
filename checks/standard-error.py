@@ -1,9 +1,14 @@
-"""Recompute the standard-error page's new and retained numeric examples."""
+"""Recompute the standard-error page's printed numeric examples."""
 
 from math import isclose, sqrt
+from pathlib import Path
 
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    prose = (root / "research/content/standard-error.md").read_text()
+    for printed in ("20 grams", "2 grams", "10/\\sqrt{25}=2.0", "2.064", "45.87", "54.13", "2.83", "1.41", "-5.99", "68.3%"):
+        assert printed in prose, f"Worked value missing from article source: {printed}"
     checks = [
         isclose(20 / sqrt(100), 2),
         isclose(10 / sqrt(25), 2),
@@ -19,4 +24,13 @@ if __name__ == "__main__":
         isclose(2 * 0.9772498680518208 - 1, 0.9544997361036416),
     ]
     assert all(checks)
+    generated = root / "articles/standard-error.qmd"
+    if generated.exists():
+        page = generated.read_text()
+        for printed in ("91-108=-17", "14.20/5=2.84", "0.683", "0.954"):
+            assert printed in page, f"Earlier value missing from generated page: {printed}"
+    assert round(50 - 2.064 * 2, 2) == 45.87
+    assert round(50 + 2.064 * 2, 2) == 54.13
+    assert round(sqrt(8), 2) == 2.83
+    assert round(4 / sqrt(8), 2) == 1.41
     print(f"standard-error arithmetic: {len(checks)} checks passed")

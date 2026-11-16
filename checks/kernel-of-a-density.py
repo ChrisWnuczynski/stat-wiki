@@ -2,9 +2,14 @@
 
 from fractions import Fraction
 from math import comb, gamma, isclose
+from pathlib import Path
 
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    prose = (root / "research/content/kernel-of-a-density.md").read_text()
+    for printed in (r"\operatorname{Beta}(9,6)", "9/(9+6)=0.6", "3+8/2=7", "2+20/2=12", r"\operatorname{Beta}(4,4)", "4/(4+4)=1/2"):
+        assert printed in prose, f"Worked value missing from article source: {printed}"
     a, b, successes, failures = 2, 3, 7, 3
     post_a, post_b = a + successes, b + failures
     beta_integral = gamma(post_a) * gamma(post_b) / gamma(post_a + post_b)
@@ -23,4 +28,9 @@ if __name__ == "__main__":
         (2 + 20 / 2) == 12,
     ]
     assert all(checks)
+    generated = root / "articles/kernel-of-a-density.qmd"
+    if generated.exists():
+        page = generated.read_text()
+        for printed in (r"(\sigma^2)^{-n/2}", r"S_\mu/2"):
+            assert printed in page, f"Variance kernel missing from generated page: {printed}"
     print(f"kernel-of-a-density arithmetic: {len(checks)} checks passed")

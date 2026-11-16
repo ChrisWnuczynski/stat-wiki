@@ -20,6 +20,11 @@ HEADING = "The three components of a GLM"
 PRACTICE_LABEL = "question:practice-rayleigh-conjugate-prior"
 
 
+def _prose_word_count(text: str) -> int:
+    # Require an HTML tag name: R output also contains '<-' and '< 2e-16'.
+    return len(re.findall(r"\b[\w-]+\b", re.sub(r"</?[A-Za-z][^>]*>", " ", text)))
+
+
 def _world(root: Path, answer_body: str = "Because.") -> dict:
     notes = root / "notes"
     questions = root / "questions"
@@ -918,7 +923,7 @@ class WikiGraphTests(unittest.TestCase):
             self.assertIn('<details class="cite-this-page">', text, path.name)
             self.assertIn(f"https://www.statwiki.io/articles/{path.stem}.html", text, path.name)
             self.assertNotIn("Edit this page", text, path.name)
-            self.assertNotRegex(text, r"STAT\s*\d|\bgithub\b", path.name)
+            self.assertNotRegex(text, r"STAT\s*\d|\bgithub\b(?!\.io)", path.name)
 
         # Reconcile homepage counts with PARTS, final-preparation pages, and concept articles
         n_topic_chapters = sum(1 for _, files in build_wiki.PARTS for _, kind in files if kind == "notes")
@@ -952,7 +957,7 @@ class WikiGraphTests(unittest.TestCase):
             etext = extra_page.read_text(encoding="utf-8")
             self.assertIn('<details class="cite-this-page">', etext, str(extra_page))
             self.assertNotIn("Edit this page", etext, str(extra_page))
-            self.assertNotRegex(etext, r"STAT\s*\d|\bgithub\b", str(extra_page))
+            self.assertNotRegex(etext, r"STAT\s*\d|\bgithub\b(?!\.io)", str(extra_page))
 
     def test_search_normalisation_shorthands_disambiguation_and_hatnotes(self) -> None:
         import topics
@@ -1198,7 +1203,7 @@ class TheoremTemplateTests(unittest.TestCase):
             results.append(page.stem)
             self.assertIn("## Statement {#statement}", body, page.name)
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-            order = ["Statement", "Intuition", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
+            order = ["Statement", "Motivating example", "Intuition", "Key results", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
                      "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
             proof_box = '::: {.callout-note collapse="true" title="Proof"}'
@@ -1341,10 +1346,15 @@ class ConceptTemplateTests(unittest.TestCase):
         for slug, minimum in baseline.items():
             text = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             leading = text.split("## See also", 1)[0]
-            words = len(re.findall(r"\b[\w-]+\b", re.sub(r"<[^>]+>", " ", leading)))
+            words = _prose_word_count(leading)
             figures = len(re.findall(r"!\[[^]]*\]\(", text))
             self.assertGreaterEqual(words, minimum["words"], slug)
             self.assertGreaterEqual(figures, minimum["figures"], slug)
+
+    def test_prose_word_count_keeps_r_output_and_following_text(self) -> None:
+        sample = 'model <- lm(y ~ x)\n# Pr(>|t|) < 2e-16\nA fitted association. <sup>[1]</sup>'
+        self.assertIn("A fitted association.", re.sub(r"</?[A-Za-z][^>]*>", " ", sample))
+        self.assertEqual(_prose_word_count(sample), _prose_word_count(sample.replace(" <sup>[1]</sup>", " [1]")))
 
     def test_curated_histories_are_cited(self) -> None:
         import article_extras
@@ -1410,8 +1420,13 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertIn("{{cite:", facts["statistical_use"], slug)
             self.assertIn(facts["key_result"]["title"], body, slug)
             self.assertIn('::: {.callout-note collapse="true" title="Proof"}', body, slug)
-            self.assertTrue(facts["key_result"]["proof"].strip(), slug)
-            self.assertIn("{{cite:", facts["key_result"]["proof"], slug)
+            proof_source = facts["key_result"]["proof"]
+            if not proof_source.strip():
+                research_file = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
+                self.assertTrue(research_file.is_file(), slug)
+                proof_source = research_file.read_text(encoding="utf-8")
+                self.assertIn('::: {.callout-note collapse="true" title="Proof"}', proof_source, slug)
+            self.assertIn("{{cite:", proof_source, slug)
             self.assertIn("### ", facts["worked_example"], slug)
             self.assertRegex(facts["worked_example"], r"\d", slug)
             self.assertIn("{{cite:", facts["worked_example"], slug)
@@ -1450,7 +1465,48 @@ class DistributionDepthBatchTests(unittest.TestCase):
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertGreaterEqual(ContentRetentionTests.prose_words(body), old["words"], slug)
             self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
-            self.assertTrue(set(old["citation_keys"]) <= set(re.findall(r'data-cite-key="([^"]+)"', body)), slug)
+            citation_keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
+            expected_keys = set(old["citation_keys"])
+            if slug in {"normal-distribution", "chi-squared-distribution"}:
+                # The normal-sample theorem now cites the opened Siegrist §6.08
+                # in place of two unverified historical attributions.
+                expected_keys -= {"student1908", "fisher1925_smrw"}
+                self.assertIn("siegrist2022_normals", citation_keys, slug)
+            if slug == "uniform-distribution":
+                # The inherited inverse-transform statement now cites the
+                # opened proof in Billingsley §14.
+                expected_keys -= {"vonneumann1951"}
+                self.assertIn("billingsley1995", citation_keys, slug)
+            if slug == "multivariate-normal-distribution":
+                # The affine-normal statement now cites the opened treatments
+                # by Strimmer and Wang in place of unexamined textbook entries.
+                expected_keys -= {"feller1968", "casella_berger2002"}
+                self.assertIn("strimmer2025_mva", citation_keys, slug)
+                self.assertIn("wang2025_foundations", citation_keys, slug)
+            if slug == "student-t-distribution":
+                # The shared normal-sample and slope passages now cite the
+                # opened Siegrist and Fox derivations.
+                expected_keys -= {"neyman1937", "davison2003"}
+                self.assertIn("siegrist2022_normals", citation_keys, slug)
+                self.assertIn("fox2016_regression", citation_keys, slug)
+            if slug == "normal-distribution":
+                # Unread bibliography-only entries and citations to unopened
+                # books were replaced with located citations to opened sources.
+                expected_keys -= {"box_tiao1973", "casella_berger2002", "feller1968",
+                                  "fisher1925_smrw", "gauss1809", "gelfand_smith1990",
+                                  "laplace1812", "student1908"}
+                self.assertIn("siegrist2022_normal_distribution", citation_keys, slug)
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "gamma-distribution":
+                # The shared conjugate-update statement now cites the opened
+                # Diaconis–Ylvisaker paper and Geyer's located derivation.
+                expected_keys.discard("raiffa_schlaifer1961")
+                self.assertIn("geyer2025_conjugate", citation_keys, slug)
+            if slug == "poisson-distribution":
+                # The same shared update replaces two unlocated book markers.
+                expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
+                self.assertIn("geyer2025_conjugate", citation_keys, slug)
+            self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
             box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]
@@ -1488,8 +1544,13 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
         self.assertEqual({slug for pair in pairs for slug in pair}, set(data))
         history_todo = {row["slug"] for row in json.loads(
             (build_wiki.WIKI / "theorem-history-todo.json").read_text(encoding="utf-8"))}
+        def has_research_history(slug: str) -> bool:
+            path = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
+            return path.is_file() and "## History\n" in path.read_text(encoding="utf-8")
+
         self.assertEqual(history_todo, {slug for slug, x in data.items()
-                                        if "history" not in x and "history_add" not in x})
+                                        if "history" not in x and "history_add" not in x
+                                        and not has_research_history(slug)})
         for slug, x in data.items():
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertTrue(x["context"].strip(), slug)
@@ -1522,7 +1583,28 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertGreaterEqual(ContentRetentionTests.prose_words(body), old["words"], slug)
             self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
-            self.assertTrue(set(old["citation_keys"]) <= set(re.findall(r'data-cite-key="([^"]+)"', body)), slug)
+            expected_keys = set(old["citation_keys"])
+            citation_keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
+            if slug == "normal-normal-conjugacy":
+                expected_keys.discard("box_tiao1973")
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+            if slug == "full-conditionals-under-independent-priors":
+                # Geyer §10.6 was opened for the independent-prior example;
+                # the previous textbook citations were not checked in source.
+                expected_keys.difference_update({"gelfand_smith1990", "gelman_bda2013", "raiffa_schlaifer1961"})
+                self.assertIn("geyer2005_markov_chain", citation_keys, slug)
+            if slug == "bayes-rule":
+                # Replace the bibliography-only Laplace and Jeffreys entries and
+                # the unlocated Gelman passage with passages read for this article.
+                expected_keys.difference_update({"laplace1812", "jeffreys1961", "gelman_bda2013"})
+                self.assertTrue({"wang2025_foundations", "hoff2013_bayes_estimators"} <= citation_keys)
+            if slug == "log-partition-moment-identities":
+                # Replace two unopened textbooks in the shared proposition
+                # with an opened, located exponential-family derivation.
+                expected_keys.difference_update({"lehmann_casella1998", "mccullagh_nelder1989"})
+                self.assertIn("geyer2022_exp_family", citation_keys, slug)
+            self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
             box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]

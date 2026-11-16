@@ -688,7 +688,7 @@ The normal--inverse-gamma prior is conjugate for the Gaussian linear model.{{cit
 
 :::
 
-A centred normal prior also explains ridge regularisation. If $\sigma^2$ is fixed and $\betavec\sim\Normal_p(\vect0,\tau^2\mat I_p)$, then \begin{align*}
+For an observed response vector $\vect y$ and fixed design matrix $\mat X$, suppose $\vect y\mid\betavec\sim\Normal_n(\mat X\betavec,\sigma^2\mat I_n)$ with known $\sigma^2>0$. A centred normal prior $\betavec\sim\Normal_p(\vect0,\tau^2\mat I_p)$, with $\tau^2>0$, gives the ridge penalty after taking the posterior mode. Then \begin{align*}
  -2\sigma^2\log p(\betavec\given\yvec)
  &=\operatorname{SSE}(\betavec)
    +\frac{\sigma^2}{\tau^2}\lVert\betavec\rVert^2
@@ -696,7 +696,7 @@ A centred normal prior also explains ridge regularisation. If $\sigma^2$ is fixe
  &=\lVert\yvec-\mat X\betavec\rVert_2^2
    +\frac{\sigma^2}{\tau^2}\lVert\betavec\rVert_2^2
    +\text{the same constant}.
-\end{align*} The MAP therefore minimises a ridge objective: Euclidean data-space error is balanced against squared Euclidean distance of the coefficient vector from the prior centre, here $\vect0$.{{cite:gelman_bda2013}} A Laplace prior similarly produces an $L^1$ penalty related to the lasso.{{cite:gelman_bda2013}} MAP keeps only the posterior mode; full Bayes retains coefficient uncertainty and averages predictions over the posterior.
+\end{align*} The MAP therefore minimises a ridge objective: Euclidean data-space error is balanced against squared Euclidean distance of the coefficient vector from the prior centre, here $\vect0$. The squared-penalty coefficient is $\sigma^2/\tau^2$ in this definition of the loss.{{cite:hoerl_kennard1970}} (§2, pp. 57–58){{cite:tibshirani1996}} (§5, p. 277) An independent Laplace prior instead contributes an $L^1$ penalty and gives a lasso posterior mode under the same normal likelihood.{{cite:tibshirani1996}} (§5, p. 277) A posterior distribution also describes coefficient uncertainty, whereas the MAP is only its mode.{{cite:tibshirani1996}} (§5, p. 277)
 
 In machine learning, priors are often introduced mainly as regularisers. That is a legitimate computational use, but it changes the emphasis: the MAP acts like a penalised estimate, while the rest of the posterior may be ignored. For statistical inference the posterior is reported, rather than only a penalised point estimate, because coefficient uncertainty and its dependence feed directly into predictions.
 

@@ -21,3 +21,9 @@ Type: Concept/topic.
 - The collapsed proof derives the unchanged-prediction identity under affine recoding and the stated $F=t^2$ identity for one full-rank slope. The conditions for the $t$ and $F$ reference laws are stated explicitly.
 - New worked scores, interpolation, challenge, and the existing rounded shoe-size $t$, $F$, and $R^2$ relationship were recomputed by `checks/explanatory-variable.py`.
 - The lead now says “an explanatory variable” and includes assigned as well as recorded values.
+
+## Correction pass
+
+- The Galton, NIST, and CDC passages recorded above support the added claims; citations now identify their pages, sections, or chapter. The Davison book was not read, so its new proof citation and the extracted regression-introduction citation were replaced by opened NIST and Siegrist material. The source regression-output bullets now carry locations where the article displays them.
+- The worked example and answer have methodological citations, and the check asserts the exact displayed numbers in both added prose and the inherited shoe-size output. Removed the page-assembly phrase “existing one-predictor” and made the lead and definition speak directly to the reader.
+- The shared regression excerpt also appears on the coefficient-of-determination page. Its source definition now spells out $S_{xx}$, $S_{xY}$, $S_{YY}$, the boundary cases, and the one-predictor $R^2=r^2$ identity. The added inline citations exposed a bug in the word-retention test: its HTML-stripping regex treated the R output `# Pr(>|t|) < 2e-16` as the start of an HTML tag and swallowed the following prose. The test now recognizes only actual HTML tags.

@@ -11,7 +11,7 @@ Let $X$ be continuous with density $f_X$, and let $Y=g(X)$ with $g$ strictly mon
 $$
 f_Y(y)=f_X\bigl(g^{-1}(y)\bigr)\,\bigl|\tfrac{d}{dy}g^{-1}(y)\bigr|.
 $$
-{{cite:laplace1812}}{{cite:cramer1946}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}}
+{{cite:wang2025_foundations}} (Ch. 5, §6.2.4, Thms. 4–5)
 
 An affine map $Y=aX+b$ with $a\ne 0$ is the case everyone uses: $f_Y(y)=f_X((y-b)/a)/|a|$. If $X$ is standard normal and $Y=1+2X$, then $Y\sim\Normal(1,4)$. If $X\sim\Exp(\lambda)$ and $Y=1+2X$, the same formula shifts and stretches the exponential density.
 
@@ -100,9 +100,9 @@ Let $\mathbf{X}$ take values in an open set of $\R^n$ with density $f_{\mathbf{X
 $$
 f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}\bigl(g^{-1}(\mathbf{z})\bigr)\,\bigl|\det Dg^{-1}(\mathbf{z})\bigr|.
 $$
-{{cite:laplace1812}}{{cite:cramer1946}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}}
+{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26)
 
-Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage.{{cite:casella_berger2002}}{{cite:cramer1946}} For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.
+Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage. For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26){{cite:strimmer2025_mva}} (Ch. 3, §3.1)
 
 :::
 
@@ -144,9 +144,9 @@ If $X_i\sim\Normal(\mu_i,\sigma_i^2)$ are independent and $a,b_1,\ldots,b_n$ are
 $$
 a+\sum_{i=1}^n b_i X_i \sim \Normal\Bigl(a+\sum_{i=1}^n b_i\mu_i,\;\sum_{i=1}^n b_i^2\sigma_i^2\Bigr).
 $$
-{{cite:gauss1809}}{{cite:feller1968}}{{cite:casella_berger2002}}
+{{cite:strimmer2025_mva}} (Ch. 3, §3.1, Ex. 3.9){{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31, Ex. 32)
 
-The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.{{cite:anderson2003_mva}}{{cite:pearson1896}}{{cite:grimmett_stirzaker2020}}
+The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.{{cite:strimmer2025_mva}} (Ch. 3, §3.1){{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31, Ex. 32)
 
 :::
 

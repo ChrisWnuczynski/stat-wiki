@@ -67,7 +67,7 @@ $$
 \Pr((X,Y)\in B)=\iint_B f(x,y)\,\dd x\,\dd y.
 $$
 
-The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}
+The marginal density of $X$ is $f_X(x)=\int f(x,y)\,\dd y$.{{cite:durrett2019}} (§4.1, Ex. 4.1.6)
 
 :::
 
@@ -92,19 +92,19 @@ Sums stay inside several families, and the moment generating function is the cle
 ::: {#def-covariance .definition}
 ## Covariance
 
-The covariance of $X$ and $Y$ is $\Cov(X,Y)=\E\bigl((X-\E X)(Y-\E Y)\bigr)$, when the expectation exists.{{cite:pearson1896}}{{cite:anderson2003_mva}}{{cite:grimmett_stirzaker2020}} Equivalently, $\Cov(X,Y)=\E(XY)-(\E X)(\E Y)$.{{cite:casella_berger2002}}{{cite:anderson2003_mva}}
+The covariance of $X$ and $Y$ is $\Cov(X,Y)=\E\bigl((X-\E X)(Y-\E Y)\bigr)$, when the expectation exists.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20) Equivalently, $\Cov(X,Y)=\E(XY)-(\E X)(\E Y)$.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
 :::
 
-Covariance is bilinear and symmetric, and $\Cov(X,X)=\Var(X)$. The variance of a sum expands as
+Covariance is bilinear and symmetric, and $\Cov(X,X)=\Var(X)$. The variance of a sum expands as{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
 $$
 \Var(X+Y)=\Var(X)+\Var(Y)+2\Cov(X,Y).
 $$
 
-Independent variables with finite variances are uncorrelated: their covariance is zero. The converse is false. Uncorrelated variables can be dependent. For jointly normal variables the converse does hold, which is proved with the transformation rule in the next chapter.
+Independent variables with finite variances are uncorrelated: their covariance is zero. The converse is false. Uncorrelated variables can be dependent. For jointly normal variables the converse does hold, which is proved with the transformation rule in the next chapter.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
-The correlation $\rho(X,Y)=\Cov(X,Y)/\sqrt{\Var(X)\Var(Y)}$ lies in $[-1,1]$ whenever the variances are positive and finite.{{cite:pearson1896}}{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}} Equality to $\pm 1$ means that one variable is an affine function of the other.{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}} The bound is the Cauchy–Schwarz inequality applied to the centred variables, or equivalently the fact that $\Var(X+tY)\ge 0$ for every real $t$.{{cite:schwarz1885}}{{cite:grimmett_stirzaker2020}}
+The correlation $\rho(X,Y)=\Cov(X,Y)/\sqrt{\Var(X)\Var(Y)}$ lies in $[-1,1]$ whenever the variances are positive and finite.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20) When either variance is zero, that variable is constant almost surely and the correlation ratio is undefined. Equality to $\pm 1$ means that one variable is an affine function of the other.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20) The bound is the Cauchy–Schwarz inequality applied to the centred variables, or equivalently the fact that $\Var(X+tY)\ge 0$ for every real $t$.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
 ::: {#exm-uncorrelated-but-dependent .example}
 ## Uncorrelated but dependent
@@ -113,18 +113,18 @@ Let $X$ be uniform on $\{-1,0,1\}$ and $Y=X^2$.
 
 **Question.** Find $\Cov(X,Y)$. Are $X$ and $Y$ independent?
 
-**Solution.** $\E X=0$ and $XY=X^3=X$, so $\Cov(X,Y)=\E(XY)-\E X\,\E Y=\E X-0=0$. The variables are uncorrelated. They are far from independent: $Y$ is a function of $X$, and $\Pr(X=0,Y=1)=0$ while $\Pr(X=0)\Pr(Y=1)=\tfrac13\cdot\tfrac23$. Covariance measures only linear dependence, and this dependence is symmetric, so it cancels.
+**Solution.** $\E X=0$ and $XY=X^3=X$, so $\Cov(X,Y)=\E(XY)-\E X\,\E Y=\E X-0=0$. The variables are uncorrelated. They are far from independent: $Y$ is a function of $X$, and $\Pr(X=0,Y=1)=0$ while $\Pr(X=0)\Pr(Y=1)=\tfrac13\cdot\tfrac23$. Covariance measures only linear dependence, and this dependence is symmetric, so it cancels.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
 :::
 
 ![Two hundred draws from standard bivariate normal laws with correlation 0, 0.4, 0.7 and $-0.9$. As the correlation moves away from zero the cloud narrows along a line, rising for positive correlation and falling for negative.](../figures/prob-correlation.pdf){#fig-prob-correlation}
 
-A binomial variance is $np(1-p)$ because the Bernoulli indicators are independent, so the covariances vanish and the variances $p(1-p)$ add. A hypergeometric variance keeps the non-zero covariances of the without-replacement indicators, and they produce the finite-population correction.
+A binomial variance is $np(1-p)$ because the Bernoulli indicators are independent, so the covariances vanish and the variances $p(1-p)$ add. A hypergeometric variance keeps the non-zero covariances of the without-replacement indicators, and they produce the finite-population correction.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
 
 ::: {#def-covariance-matrix .definition}
 ## Expectation vector and covariance matrix
 
-For a random column vector $\mathbf{X}=(X_1,\ldots,X_n)^\top$ the expectation vector is $\boldsymbol\mu=\E\mathbf{X}$, taken coordinate-wise, and the covariance matrix $\Sigma$ has entries $\Sigma_{ij}=\Cov(X_i,X_j)$.
+For a random column vector $\mathbf{X}=(X_1,\ldots,X_p)^\top$ the expectation vector is $\boldsymbol\mu=\E\mathbf{X}$, taken coordinate-wise, and the $p\times p$ covariance matrix $\Sigma$ has entries $\Sigma_{jk}=\Cov(X_j,X_k)$.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 :::
 
@@ -146,80 +146,80 @@ If $X$ and $Y$ are both discrete or both continuous, and $f_X(x)>0$, the conditi
 $$
 f_{Y\given X}(y\given x)=\frac{f_{X,Y}(x,y)}{f_X(x)}.
 $$
-{{cite:laplace1812}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}}
+{{cite:kolmogorov1933_slln}} (Ch. V, §3){{cite:billingsley1995}} (§33, Ex. 33.5)
 
 :::
 
-In the discrete case this is ordinary conditional probability: $\Pr(Y=y\given X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$. In the continuous case, where $\Pr(X=x)=0$, the density ratio defines a version of the conditional law at marginal-almost-every $x$ with $f_X(x)>0$. A limit of conditioning on $x<X\le x+h$ gives the same value only where the relevant limit exists; conditioning on the exact zero-probability event by division is not valid.
+In the discrete case this is ordinary conditional probability: $\Pr(Y=y\given X=x)=\Pr(X=x,Y=y)/\Pr(X=x)$. In the continuous case, where $\Pr(X=x)=0$, the density ratio defines a version of the conditional law at marginal-almost-every $x$ with $f_X(x)>0$. A limit of conditioning on $x<X\le x+h$ gives the same value only where the relevant limit exists; conditioning on the exact zero-probability event by division is not valid.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 ![Draw $X$ uniformly on $[0,1]$, then $Y$ uniformly on $[0,X]$. The pair lies in the triangle below the diagonal. The conditional distribution of $Y$ given $X=x$ lives on the vertical slice at $x$, here $x=0.72$, and is uniform along it.](../figures/prob-04-joint-distributions-conditional-slice.pdf){#fig-prob-conditional-slice}
 
-Rearrangement is the product rule for densities, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)$. Integrating out $x$ is the law of total probability for densities,
+Rearrangement is the product rule for densities, $f_{X,Y}(x,y)=f_X(x)\,f_{Y\given X}(y\given x)$. Integrating out $x$ is the law of total probability for densities,{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_Y(y)=\int f_{Y\given X}(y\given x)\,f_X(x)\,\dd x.
 $$
 
-The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under that conditional distribution.{{cite:kolmogorov1933_slln}}{{cite:doob1953}}{{cite:grimmett_stirzaker2020}} As a function of the random point $X$ it is a random variable, written $\E(Y\given X)$.{{cite:doob1953}}{{cite:durrett2019}}
+The conditional expectation $\E(Y\given X=x)$ is the expectation of $Y$ under that conditional distribution.{{cite:durrett2019}} (Ex. 4.1.5–4.1.6) As a function of the random point $X$ it is a random variable, written $\E(Y\given X)$.{{cite:durrett2019}} (§4.1)
 
 ::: {#exm-a-uniform-point-on-a-triangle .example}
 ## A uniform point on a triangle
 
-A point $(X,Y)$ is drawn uniformly from the 10 lattice points with $1\le x\le y\le4$, so each has probability $1/10$.
+A point $(X,Y)$ is drawn uniformly from the 10 lattice points with $1\le x\le y\le4$, so each has probability $1/10$. The conditional probabilities below follow by dividing each joint mass by the appropriate marginal mass.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 **Question.** Find the marginals, the conditional distribution of $Y$ given $X=x$, and $\E(Y\given X)$. Check the tower property, and find the correlation.
 
-**Solution.** For a given $x$ there are $5-x$ admissible values of $y$, and for a given $y$ there are $y$ values of $x$, so
+**Solution.** For a given $x$ there are $5-x$ admissible values of $y$, and for a given $y$ there are $y$ values of $x$, so{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_X(x)=\frac{5-x}{10},\qquad f_Y(y)=\frac{y}{10},\qquad x,y\in\{1,2,3,4\}.
 $$
 
-$X$ and $Y$ are dependent: given $X=2$, $Y$ can only be 2, 3 or 4. The conditional mass function is
+$X$ and $Y$ are dependent: given $X=2$, $Y$ can only be 2, 3 or 4. The conditional mass function is{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 $$
 f_{Y\given X}(y\given x)=\frac{1/10}{(5-x)/10}=\frac1{5-x},\qquad y=x,\ldots,4,
 $$
 
-uniform on the admissible values. So $\E(Y\given X=x)=(x+4)/2$. Averaging over $X$,
+uniform on the admissible values. So $\E(Y\given X=x)=(x+4)/2$. Averaging over $X$,{{cite:durrett2019}} (Thm. 4.1.13)
 
 $$
 \E\bigl(\E(Y\given X)\bigr)=\tfrac52\cdot\tfrac4{10}+3\cdot\tfrac3{10}+\tfrac72\cdot\tfrac2{10}+4\cdot\tfrac1{10}=3,
 $$
 
-which agrees with $\E Y=(1+4+9+16)/10=3$. For the correlation, $\E X=2$, $\E(XY)=13/2$ and both variances are 1, so $\Cov(X,Y)=13/2-6=1/2$ and $\rho(X,Y)=1/2$. A larger $X$ forces a larger $Y$.
+which agrees with $\E Y=(1+4+9+16)/10=3$. For the correlation, $\E X=2$, $\E(XY)=13/2$ and both variances are 1, so $\Cov(X,Y)=13/2-6=1/2$ and $\rho(X,Y)=1/2$. A larger $X$ forces a larger $Y$.{{cite:durrett2019}} (Thm. 4.1.13)
 
 :::
 
 ::: {#thm-tower-property .theorem}
 ## Tower property
 
-If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$.{{cite:kolmogorov1933_slln}}{{cite:doob1953}}{{cite:grimmett_stirzaker2020}} More generally, $\E\bigl(\E(Y\given X,Z)\given X\bigr)=\E(Y\given X)$.{{cite:doob1953}}{{cite:durrett2019}}
+If the expectations exist, then $\E\bigl(\E(Y\given X)\bigr)=\E Y$.{{cite:durrett2019}} (Thm. 4.1.13) More generally, $\E\bigl(\E(Y\given X,Z)\given X\bigr)=\E(Y\given X)$.{{cite:durrett2019}} (Thm. 4.1.13)
 
 :::
 
-The tower property is the calculation that justifies "first condition, then average". A random sum is the standard example. Let $N$ be a count with a finite mean, and given $N=n$ let $Y=X_1+\cdots+X_n$ with the $X_i$ independent of $N$ and of each other, each with mean $\mu$. Then $\E(Y\given N)=N\mu$, so $\E Y=\mu\,\E N$. The same conditioning gives $\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2$ when the variances exist.
+The tower property is the calculation that justifies "first condition, then average". A random sum is one example. Let $N$ be a count with a finite mean, and given $N=n$ let $Y=X_1+\cdots+X_n$ with the $X_i$ independent of $N$ and of each other, each with mean $\mu$. Then $\E(Y\given N)=N\mu$, so $\E Y=\mu\,\E N$. The same conditioning gives $\Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2$ when the variances exist.{{cite:durrett2019}} (Thm. 4.1.13)
 
 ::: {#exm-a-day-of-takings .example}
 ## A day of takings
 
-A shop has $N\sim\Poisson(20)$ customers a day. Customers spend independently of one another and of $N$, each with mean 30 dollars and standard deviation 10 dollars.
+A shop has $N\sim\Poisson(20)$ customers a day. Customers spend independently of one another and of $N$, each with mean 30 dollars and standard deviation 10 dollars. Conditioning on $N$ turns the total into a sum of a fixed number of spending amounts.{{cite:durrett2019}} (Thm. 4.1.13)
 
 **Question.** Find the mean and standard deviation of the day's takings.
 
-**Solution.** The takings are a random sum $Y=X_1+\cdots+X_N$. By the tower property, $\E Y=\mu\,\E N=30\times20=600$ dollars. For the variance, $\Var(N)=20$ for a Poisson count, so
+**Solution.** The takings are a random sum $Y=X_1+\cdots+X_N$. By the tower property, $\E Y=\mu\,\E N=30\times20=600$ dollars. For the variance, $\Var(N)=20$ for a Poisson count, so{{cite:durrett2019}} (Thm. 4.1.13)
 
 $$
 \Var(Y)=\E(N)\Var(X_1)+\Var(N)(\E X_1)^2=20\times100+20\times900=20000,
 $$
 
-and the standard deviation is $141$ dollars. Most of the variability comes from the number of customers, not from what each one spends: if $N$ were fixed at 20, the standard deviation would be only $\sqrt{2000}=45$ dollars.
+and the standard deviation is $141$ dollars. Most of the variability comes from the number of customers, not from what each one spends: if $N$ were fixed at 20, the standard deviation would be only $\sqrt{2000}=45$ dollars.{{cite:durrett2019}} (Thm. 4.1.13)
 
 :::
 
 ::: {.callout-note}
 ## Key idea
-The joint distribution is the whole model. Marginals are sums or integrals of it. Independence is factorisation. Covariance is the numerical trace of dependence that variance of a sum can see, and conditional distributions are the joint divided by the marginal.
+The joint distribution specifies both marginals. Independence is factorisation, while covariance summarizes linear dependence. A conditional mass or density is obtained by dividing the joint by the conditioning marginal wherever that marginal is positive.{{cite:billingsley1995}} (§33, Ex. 33.5)
 :::
 
 ## Exercises
@@ -311,7 +311,7 @@ A pair $(X,Y)$ has joint density $f(x,y)=2e^{-x-2y}$ for $x>0$ and $y>0$.
 ::: {#ex-prob-triangle-conditional .exercise}
 ## A point in a triangle
 
-A point $(X,Y)$ is drawn from the triangle with vertices $(0,0)$, $(1,0)$ and $(1,1)$ by this rule: draw $X$ uniformly from $[0,1]$, then draw $Y$ uniformly from $[0,X]$.
+A point $(X,Y)$ is drawn from the triangle with vertices $(0,0)$, $(1,0)$ and $(1,1)$ by this rule: draw $X$ uniformly from $[0,1]$, then draw $Y$ uniformly from $[0,X]$. The construction uses a conditional uniform law on each vertical slice.{{cite:billingsley1995}} (§33, Ex. 33.5)
 
 (a) Give the conditional density of $Y$ given $X=x$, and say where it is zero.
 

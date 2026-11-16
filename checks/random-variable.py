@@ -2,9 +2,14 @@
 
 from fractions import Fraction
 from itertools import product
+from pathlib import Path
+
+
+PAGE = Path(__file__).resolve().parents[1] / "articles" / "random-variable.qmd"
 
 
 if __name__ == "__main__":
+    page = PAGE.read_text(encoding="utf-8")
     coin_space = list(product((0, 1), repeat=2))
     heads = {outcome: sum(outcome) for outcome in coin_space}
     first_head = {outcome: outcome[0] for outcome in coin_space}
@@ -29,6 +34,15 @@ if __name__ == "__main__":
         {o for o in dice_space if sums[o] >= 11} == {(5, 6), (6, 5), (6, 6)},
         Fraction(sum(total >= 11 for total in sums.values()), 36) == Fraction(1, 12),
         Fraction(sum(high.values()), 36) == Fraction(1, 6),
+        "$1/4$" in page,
+        "$1/2$" in page,
+        "$3/4$" in page,
+        "=1/8$" in page,
+        "$\\mathbb P(X=7)=6/36=1/6$" in page,
+        "$F_X(4)=\\mathbb P(X\\le4)=6/36=1/6$" in page,
+        "$\\mathbb E X=7$" in page,
+        "$\\mathbb P(Y=1)=6/36=1/6$" in page,
+        "$\\mathbb P(X\\ge11)=3/36=1/12$" in page,
     ]
-    assert all(checks)
+    assert all(checks), [index for index, passed in enumerate(checks, 1) if not passed]
     print(f"random-variable arithmetic: {len(checks)} checks passed")

@@ -21,3 +21,8 @@ Type: Concept/definition (its associated maximisation is a method).
 - The invariance proof uses the profile likelihood over fibres of $g$, so it covers non-injective transforms and proves the page's existing property. The boundary case was checked directly from the Poisson likelihood, consistent with the existing question answer.
 - All numeric values in the new Poisson example, prompt, and retained binomial illustration were recomputed by `checks/likelihood-function.py`.
 - Existing definition, invariant-MLE statement, interpretation, citations, and linked question bank were preserved. No figure or substantive text was removed.
+
+## Correction pass
+
+- Replaced unopened Fisher 1925 and Casella–Berger citations attached to the source definition with Fisher 1922, pp. 323–327. Added location-bearing citations to the researched prose and the existing interpretation in `article_extras.py`.
+- Cited the motivating and worked examples and their hidden answers. The check now asserts the printed Poisson likelihood ratios, the binomial comparison, and the spark-plug values in the source chapter.

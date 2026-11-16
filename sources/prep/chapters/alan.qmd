@@ -14,10 +14,12 @@ Barbour and Brown recorded the number $Y_i$ of fish species in $n=70$ lakes, tog
 Consider
 
 $$
-Y_i\given X_i\ind\Poisson(\mu_i=\exp(X_i^{\top}\beta)),
+Y_i\given \vect{x}_i\ind\Poisson(\mu_i=\exp(\vect{x}_i^{\top}\beta)),
 \qquad
-X_i^{\top}\beta=\beta_0+\beta_1\,\mathrm{latitude}_i+\beta_2\log(\mathrm{area}_i).
+\vect{x}_i^{\top}\beta=\beta_0+\beta_1\,\mathrm{latitude}_i+\beta_2\log(\mathrm{area}_i).
 $$
+
+Here $X$ is the fixed design matrix with rows $\vect{x}_i^\top$, and $Y=(Y_1,\ldots,Y_n)^\top$ is the response vector.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373)
 
 **(a) [1 mark]** Briefly argue why $\log(\mathrm{area}_i)$ is preferable to $\mathrm{area}_i$ in the linear predictor.
 
@@ -28,13 +30,13 @@ $$
 **(b) [2 marks]** Show that the log-likelihood is
 
 $$
-\ell(\beta\given X,Y)=\sum_{i=1}^{n}\bigl\{Y_i(X_i^{\top}\beta)-\exp(X_i^{\top}\beta)\bigr\}+\text{constant}.
+\ell(\beta\given X,Y)=\sum_{i=1}^{n}\bigl\{Y_i(\vect{x}_i^{\top}\beta)-\exp(\vect{x}_i^{\top}\beta)\bigr\}+\text{constant}.
 $$
 
 **(c) [2 marks]** Derive the score and show that
 
 $$
-S(\beta)=\sum_{i=1}^{n}\frac{Y_i-\mu_i(X_i^{\top}\beta)}{\Var(Y_i\given X_i)}\,\mu_i'(X_i^{\top}\beta)\,X_i.
+S(\beta)=\sum_{i=1}^{n}\frac{Y_i-\mu_i(\vect{x}_i^{\top}\beta)}{\Var(Y_i\given \vect{x}_i)}\,\mu_i'(\vect{x}_i^{\top}\beta)\,\vect{x}_i.
 $$
 
 **(d) [1 mark]** Show that $S(\beta)$ is unbiased.

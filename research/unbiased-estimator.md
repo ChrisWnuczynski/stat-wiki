@@ -13,12 +13,15 @@ Type: Concept/definition.
 1. Fisher, [“On the Mathematical Foundations of Theoretical Statistics”](https://www.stats.org.uk/statistical-inference/Fisher1922.pdf), original 1922 paper opened earlier. Used only for the broad estimation and sampling-distribution framework, not credited with originating the present definition. Key `fisher1922`.
 2. C. R. Rao, [“Information and the Accuracy Attainable in the Estimation of Statistical Parameters”](https://gwern.net/doc/statistics/1992-rao.pdf), a 1992 reprint of the 1945 paper. Read its introduction, explicit unbiasedness constraint, variance comparison, and warning that small bias may reduce error. Key `rao1945`.
 3. David Blackwell, [“Conditional Expectation and Unbiased Sequential Estimation”](https://ds.dfci.harvard.edu/~gp/talks/Blackwell12.pdf), reproduced original 1947 text, especially its summary of expectation and variance under conditioning. Key `blackwell1947`.
-4. NIST [“What are Variables Control Charts?”](https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm), opened for the unbiased $n-1$ sample variance and biased sample standard deviation under normal sampling. The new article proves the sample-variance result and cites existing `casella_berger2002` and `wasserman2004`; no new bibliography entry was needed.
-5. Existing source chapter citations to Casella and Berger (2002), Lehmann and Casella (1998), and Davison (2003), used for the definition, regression condition, and modern comparison of criteria. Full book texts were unavailable; equations are independently derived in the collapsed proof and checked by `checks/unbiased-estimator.py`.
+4. Kyle Siegrist, [*Probability, Mathematical Statistics, and Stochastic Processes*, §6.5](https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance), opened for the general $n-1$ sample-variance proof and standard-deviation bias. New key `siegrist2022_sample_variance`.
+5. He Wang, [*Foundations of Probability and Statistical Theory*, Chapter 13](https://wanghemath.github.io/Book-ProbabilityStatisticalTheory/chapters/chapter-13-point-estimation2.html), §§15–17, opened for unbiasedness, MSE, bias–variance, sample-mean moments, and normal variance comparison. Key `wang2025_foundations`.
+6. John Fox, [*Applied Regression Analysis and Generalized Linear Models*](https://ndl.ethernet.edu.et/bitstream/123456789/30258/1/John%20Fox_2016.pdf), third edition, Ch. 6 §6.1.2, p. 109. Opened the fixed-design least-squares unbiasedness statement and assumptions. New key `fox2016_regression`.
+
+Casella and Berger (2002), Lehmann and Casella (1998), Wasserman (2004), Davison (2003), and Cramér (1946) were cited in the first draft or inherited blocks without their texts being opened. The correction replaces those citations in the generated Unbiased estimator article with located sources.
 
 ## Verification and decisions
 
-- Original definition, three examples and their calculations, all citations, and ten question links remain. No figures or examples were removed.
+- The definition, three examples and their calculations, and ten question links remain. No figures or examples were removed.
 - The one collapsed proof covers sample-mean and sample-variance expectation, least-squares coefficient unbiasedness under explicit design and conditional-mean conditions, MSE decomposition, nonlinear-transformation bias, and Rao–Blackwell expectation and variance.
-- The original claim that unbiased $s^2$ is preferred for exact pivots has a precise qualification: rescaling the MLE variance can form the same exact normal-model pivot, so this is a convenience rather than a unique justification.
-- The history claims are limited to what the opened Fisher, Rao, and Blackwell papers actually studied; no unsupported origin for the word *unbiased* is asserted.
+- The normal-model discussion explains how rescaling the MLE variance yields the same exact pivot as unbiased $s^2$.
+- The history uses the opened Fisher, Rao, and Blackwell papers to describe the development of estimation criteria.

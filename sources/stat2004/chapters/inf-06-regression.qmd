@@ -6,7 +6,7 @@ The errors below are independent and normal. That joint distribution, and the fa
 
 ## The regression effect
 
-Regression analysis explains a response variable by one or more explanatory variables.{{cite:davison2003}} The name comes from Francis Galton, who noticed in the 1880s that the children of unusually tall parents are, on the whole, less unusually tall.{{cite:galton1886}} A father 5% taller than average tends to have a son less than 5% taller than average. Galton called it regression towards mediocrity.{{cite:galton1886}}
+Regression analysis explains a response variable by one or more explanatory variables.{{cite:nist_process_model2002}} (§4.1.2) Francis Galton's 1886 study of hereditary stature found that children of unusually tall parents tended to be less unusually tall.{{cite:galton1886}} (pp. 246–247) A father 5% taller than average tends to have a son less than 5% taller than average. Galton called this pattern regression towards mediocrity.{{cite:galton1886}} (pp. 246–247)
 
 Picture the heights of about a thousand fathers and their adult sons, with the fathers averaging 67 inches and the sons 68 inches. Since sons are one inch taller on average, it is tempting to predict a son's height as his father's plus one inch, the line $y=x+1$. Look at the fathers near 63 inches: most of their sons lie above that line. Near 71 inches, most lie below it. The line through the middle of each vertical strip has slope less than one. That is the regression effect, and finding that line is the job of least squares.
 
@@ -99,7 +99,7 @@ $$
 ::: {#prp-least-squares-estimators-are-unbiased .proposition}
 ## Least-squares estimators are unbiased
 
-If $\E Y_i=\beta_0+\beta_1x_i$ for every $i$, then $\E\widehat\beta_1=\beta_1$ and $\E\widehat\beta_0=\beta_0$.{{cite:casella_berger2002}}{{cite:davison2003}} No assumption about the error distribution is needed.{{cite:wasserman2004}}
+If $\E Y_i=\beta_0+\beta_1x_i$ for every $i$ and the fixed $x_i$ are not all equal, then $\E\widehat\beta_1=\beta_1$ and $\E\widehat\beta_0=\beta_0$. Normal errors are not required for these expectations.{{cite:fox2016_regression}} (Ch. 6, §6.1.2, p. 109)
 
 :::
 
@@ -188,7 +188,7 @@ $$
 \frac{\widehat\beta_1-\beta_1}{S_1}=\frac{\widehat\beta_1-\beta_1}{S/\sqrt{S_{xx}}}
 $$
 
-has the $t_{n-2}$ distribution.{{cite:fisher1925_smrw}}{{cite:casella_berger2002}}{{cite:davison2003}}
+has the $t_{n-2}$ distribution.{{cite:fox2016_regression}} (Ch. 6, §6.1.3, pp. 111–112)
 
 :::
 
@@ -215,13 +215,13 @@ For one person, heart rate and oxygen intake are measured together 19 times.
 
 **Question.** Fit the regression of oxygen intake on heart rate, give a 95% interval for the slope, and test whether the slope is zero.
 
-**Solution.** Here $\overline x=107.0$ and $S_{xx}=2518$. The fitted line is $y=-2.804+0.03865\,x$. The residual standard deviation is $S=0.1205$, so $S_1=0.1205/\sqrt{2518}=0.00240$ and $S_0=0.258$. With $t_{17;0.975}=2.110$, the 95% interval for the slope is
+**Solution.** Here $\overline x=107.0$ and $S_{xx}=2518$. The fitted line is $y=-2.804+0.03865\,x$. The residual standard deviation is $S=0.1205$, so $S_1=0.1205/\sqrt{2518}=0.00240$ and $S_0=0.258$. With $t_{17;0.975}=2.110$, the 95% interval for the slope is{{cite:fox2016_regression}} (Ch. 6, §6.1.3, pp. 111–112)
 
 $$
 0.03865\pm2.110\times0.00240=(0.0336,\ 0.0437).
 $$
 
-It excludes zero. Equivalently, $t=0.03865/0.00240=16.1$, far beyond $2.110$, so $H_0:\beta_1=0$ is rejected. Each extra beat per minute goes with about $0.039$ more units of oxygen.
+It excludes zero. Equivalently, $t=0.03865/0.00240=16.1$, far beyond $2.110$, so $H_0:\beta_1=0$ is rejected. Each extra beat per minute goes with about $0.039$ more units of oxygen.{{cite:fox2016_regression}} (Ch. 6, §6.1.3, pp. 111–112)
 
 :::
 
@@ -246,7 +246,9 @@ $$
 R^2=\frac{\widehat\beta_1^2S_{xx}}{S_{YY}}=\frac{S_{xY}^2}{S_{xx}S_{YY}},
 $$
 
-the proportion of the variation of the $y_i$ about their mean that the line accounts for.{{cite:casella_berger2002}}{{cite:davison2003}} It lies in $[0,1]$, and it is the square of the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient) of the pairs.{{cite:fisher1925_smrw}}
+the proportion of the variation of the $y_i$ about their mean that the line accounts for. Here $S_{xx}$ is the sum of squared deviations of the input values from their mean, $S_{YY}$ is the corresponding sum for the responses, $S_{xY}$ is their cross-product sum, and $\widehat\beta_1=S_{xY}/S_{xx}$ is the fitted slope. The ratio requires variation in both the input and the response. With an intercept in the fitted line, its numerator is the total response sum of squares minus the residual sum of squares. Thus $R^2=0$ when the fitted line explains none of the variation about $\overline y$, while $R^2=1$ when every point lies on that line. Between those extremes it measures *in-sample* fit. A high value still calls for a residual check when assessing the model.{{cite:nist_model_fit2002}} (§4.4.4)
+
+Since the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient) is $r=S_{xY}/\sqrt{S_{xx}S_{YY}}$, squaring its formula gives $R^2=r^2$ for this one-predictor line with an intercept. The equality concerns this particular least-squares model; in a multiple regression, $R^2$ still compares explained and total response sums of squares, while a single pairwise correlation does not describe the whole fit.{{cite:nist_model_fit2002}} (§4.4.4)
 
 :::
 

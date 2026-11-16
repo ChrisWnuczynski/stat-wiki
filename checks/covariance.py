@@ -1,6 +1,7 @@
 """Check the worked covariance examples using exact probabilities."""
 
 from fractions import Fraction
+from pathlib import Path
 
 
 def mean(values):
@@ -18,6 +19,10 @@ def covariance(xs, ys):
 
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    prose = (root / "research/content/covariance.md").read_text()
+    for printed in ("5/3", "14/3", "26/3", "16/3", "-5/3", "-10/3"):
+        assert printed in prose, f"Worked value missing from article source: {printed}"
     xs = (1, 2, 3)
     ys = (3, 4, 8)
     assert mean(xs) == 2
@@ -36,4 +41,10 @@ if __name__ == "__main__":
     dependent = (-1, 0, 1)
     assert covariance(dependent, tuple(x*x for x in dependent)) == 0
     assert Fraction(-1) - Fraction(1, 4) * -1 == Fraction(-3, 4)
-    print("covariance arithmetic: 14 exact checks passed")
+    generated = root / "articles/covariance.qmd"
+    if generated.exists():
+        page = generated.read_text()
+        assert "prob-correlation" in page
+        for printed in ("-3/4", r"\tfrac13", r"\tfrac23"):
+            assert printed in page, f"Original worked value missing from generated page: {printed}"
+    print("covariance arithmetic and printed values passed")

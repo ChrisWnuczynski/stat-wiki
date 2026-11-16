@@ -2,9 +2,14 @@
 
 from fractions import Fraction
 from itertools import product
+from pathlib import Path
+
+
+PAGE = Path(__file__).resolve().parents[1] / "articles" / "event.qmd"
 
 
 if __name__ == "__main__":
+    page = PAGE.read_text(encoding="utf-8")
     omega = set(range(1, 7))
     even = {2, 4, 6}
     high = {4, 5, 6}
@@ -34,6 +39,13 @@ if __name__ == "__main__":
         len(works) == 9,
         aircraft == Fraction(9801, 10000),
         aircraft == (1 - q * q) ** 2,
+        f"${aircraft.numerator / aircraft.denominator:.4f}$" in page,
+        "$2^4=16$" in page,
+        "$2/6=1/3$" in page,
+        "$4/6=2/3$" in page,
+        "$3/6+3/6-2/6=4/6$" in page,
+        "=(2/6)/(3/6)=2/3$" in page,
+        "$(A\\cup B)^c=\\{1,3\\}$" in page,
     ]
-    assert all(checks)
+    assert all(checks), [index for index, passed in enumerate(checks, 1) if not passed]
     print(f"event arithmetic: {len(checks)} checks passed")

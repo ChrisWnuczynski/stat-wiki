@@ -1122,17 +1122,17 @@ That is the [gamma density](gamma-distribution.qmd) with shape $2$ and rate $1$.
     "correlation": r"""
 ## Covariance with the units removed
 
-The covariance $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$ still carries the units of $X_j$ and of $X_k$. If those variables have positive finite variances $\sigma_j^2$ and $\sigma_k^2$, the Pearson correlation divides by both standard deviations,
+The covariance $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$ still carries the units of $X_j$ and of $X_k$. If those variables have positive finite variances $\sigma_j^2$ and $\sigma_k^2$, the Pearson correlation divides by both standard deviations.{{cite:wang2025_foundations}} (Ch. 3, §4.4.2)
 
 $$
 \rho_{jk}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
 $$
 
-The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.
+The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”) {{cite:wang2025_foundations}} (Ch. 7, Example 24)
 
 ## A covariance matrix and its correlation matrix
 
-Suppose $\operatorname{Var}(X_1)=4$, $\operatorname{Var}(X_2)=9$ and $\operatorname{Cov}(X_1,X_2)=3$. Then $\rho_{12}=3/(2\times 3)=1/2$, and
+Suppose $\operatorname{Var}(X_1)=4$, $\operatorname{Var}(X_2)=9$ and $\operatorname{Cov}(X_1,X_2)=3$. Then $\rho_{12}=3/(2\times 3)=1/2$.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”)
 
 $$
 \Sigma=\begin{pmatrix}4&3\\3&9\end{pmatrix},
@@ -1140,7 +1140,9 @@ $$
 P=\begin{pmatrix}1&1/2\\1/2&1\end{pmatrix}.
 $$
 
-The number $1/2$ does not say that the relationship is causal, and it does not say that the conditional mean is linear except as a description of the best linear predictor. For a joint normal pair, $\rho_{12}=0$ is equivalent to independence. For other joints, uncorrelated coordinates can still be dependent: a standard construction with a finite third moment puts mass so that $X_2=X_1^2$ with $X_1$ symmetric about zero, forcing the covariance to vanish while $X_2$ remains a function of $X_1$. Sample correlations estimated from a few points can sit near $\pm 1$ by chance, which is a statement about variability of the estimator rather than about the population formula.
+The value $1/2$ describes the strength of a linear association. Causal interpretation depends on study design and other explanations for the observed pattern.{{cite:dicker2025_cdc}} (Ch. 8, “Epidemiologic Interpretation Checklist 1”)
+
+For a jointly normal pair, $\rho_{12}=0$ is equivalent to independence. For other joint distributions, uncorrelated coordinates can still be dependent: let $X_1$ be standard normal and $X_2=X_1^2$. Then the covariance is zero by symmetry, even though $X_2$ is a nonconstant function of $X_1$. Sample correlations estimated from a few points can also sit near $\pm1$ by chance.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27) {{cite:strimmer2025_mva}} (Ch. 6, “Null distribution of the empirical correlation coefficient”)
 """,
     "countable-additivity": r"""
 ## Adding a countable list of disjoint events
@@ -1195,13 +1197,13 @@ The period-$8$ piece is still present, and the difference has doubled it. A pure
     "degrees-of-freedom": r"""
 ## How many free squares remain
 
-Degrees of freedom count independent standard normal squares, and they count how many directions remain after a fit. If $Z_1,\ldots,Z_m$ are independent and $\operatorname{N}(0,1)$, then $V=Z_1^2+\cdots+Z_m^2$ has the [chi-squared distribution](chi-squared-distribution.qmd) with $m$ degrees of freedom. The mean is $m$ and the variance is $2m$. A [Student $t$](student-t-distribution.qmd) variable on $m$ degrees of freedom is an independent standard normal divided by $\sqrt{V/m}$. An $F$ variable on $(m_1,m_2)$ degrees of freedom is a ratio of two independent chi-squared variables, each divided by its own degrees of freedom.
+Degrees of freedom count independent standard normal squares, and they count how many directions remain after a fit. If $Z_1,\ldots,Z_m$ are independent and $\operatorname{N}(0,1)$, then $V=Z_1^2+\cdots+Z_m^2$ has the [chi-squared distribution](chi-squared-distribution.qmd) with $m$ degrees of freedom. The mean is $m$ and the variance is $2m$. A [Student $t$](student-t-distribution.qmd) variable on $m$ degrees of freedom is an independent standard normal divided by $\sqrt{V/m}$. An $F$ variable on $(m_1,m_2)$ degrees of freedom is a ratio of two independent chi-squared variables, each divided by its own degrees of freedom.{{cite:siegrist2022_normals}} (§6.08)
 
-Estimation spends some of those squares. For a normal sample of size $n$, the residuals $X_i-\overline X$ sum to zero. That one linear constraint removes one dimension, so $(n-1)s^2/\sigma^2$ is chi-squared on $n-1$ degrees of freedom rather than on $n$. A linear fit with $p$ coefficients, when the design has full rank, imposes $p$ independent constraints and leaves $n-p$ degrees of freedom in the residual sum of squares. In an $r\times c$ table the fitted independence model matches the row and column margins, and $(r-1)(c-1)$ free cells remain.
+Estimation spends some of those squares. For a normal sample of size $n$, the residuals $X_i-\overline X$ sum to zero. That one linear constraint removes one dimension, so $(n-1)s^2/\sigma^2$ is chi-squared on $n-1$ degrees of freedom rather than on $n$. A linear fit with $p$ coefficients, when the design has full rank, imposes $p$ independent constraints and leaves $n-p$ degrees of freedom in the residual sum of squares. In an $r\times c$ table the fitted independence model matches the row and column margins, and $(r-1)(c-1)$ free cells remain.{{cite:siegrist2022_normals}} (§6.08) {{cite:nist_residual_std2002}} (§5.5.9.9.2) {{cite:fisher1922_chisq}} (pp. 87–90)
 
 ## Two normal observations
 
-Take $n=2$. The residuals are $(X_1-X_2)/2$ and its negative, so only one number is free. The unbiased sample variance is $s^2=(X_1-X_2)^2/2$, and $(X_1-X_2)^2/(2\sigma^2)$ is chi-squared on $1$ degree of freedom when the two observations are independent and $\operatorname{N}(\mu,\sigma^2)$. Using $n$ instead of $n-1$ in the divisor biases $s^2$. Using the wrong degrees of freedom in a $t$ or $F$ critical value assigns the wrong coverage. Dependence does not always act the same way: with equal pairwise correlation $\rho$, the expected sum of squared deviations from the mean is $(n-1)\sigma^2(1-\rho)$, so $n-1$ overstates that expectation when the observations move together and understates it when they move in opposition.
+Take $n=2$. The residuals are $(X_1-X_2)/2$ and its negative, so only one number is free. The unbiased sample variance is $s^2=(X_1-X_2)^2/2$, and $(X_1-X_2)^2/(2\sigma^2)$ is chi-squared on $1$ degree of freedom when the two observations are independent and $\operatorname{N}(\mu,\sigma^2)$. Using $n$ instead of $n-1$ in the divisor biases $s^2$. Using the wrong degrees of freedom in a $t$ or $F$ critical value assigns the wrong coverage. Dependence does not always act the same way: with equal pairwise correlation $\rho$, the expected sum of squared deviations from the mean is $(n-1)\sigma^2(1-\rho)$, so $n-1$ overstates that expectation when the observations move together and understates it when they move in opposition.{{cite:siegrist2022_normals}} (§6.08) {{cite:nist_residual_std2002}} (§5.5.9.9.2)
 """,
     "descent-of-lloyd-s-algorithm": r"""
 ## Each alternation is a minimisation of its own
@@ -1816,7 +1818,7 @@ For a non-homogeneous process the gaps are neither independent nor exponential. 
     "interval-for-a-ratio-of-variances": r"""
 ## From an $F$ pivot to an interval
 
-A pooled $t$ interval for a difference of means is valid when the two variances are equal. An interval for their ratio checks that claim without forcing it. Let the samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$, and let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, each using divisor $n_j-1$. The [variance-ratio pivot](variance-ratio-f-pivot.qmd)
+A pooled $t$ interval for a difference of means assumes equal variances. An interval for their ratio displays the values compatible with the data.{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”) Let the samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$, and let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, each using divisor $n_j-1$. The [variance-ratio pivot](variance-ratio-f-pivot.qmd)
 
 $$
 W=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}
@@ -1828,7 +1830,7 @@ $$
 \left(\frac{r}{F_{n_1-1,n_2-1;\,1-\alpha/2}},\ r\,F_{n_2-1,n_1-1;\,1-\alpha/2}\right).
 $$
 
-The coverage is computed before the data are seen. The numerical interval is not assigned that probability after the samples have been drawn.
+The coverage probability describes repetitions of the interval procedure before the data are seen.{{cite:neyman1937}} (pp. 347–350, 378–379)
 
 ## A factor of four, and a very wide interval
 
@@ -2093,15 +2095,15 @@ The second term equals $(\boldsymbol{\beta} - \widehat{\boldsymbol{\beta}})^{\ma
     "least-squares-estimators-are-unbiased": r"""
 ## The slope is a fixed linear combination
 
-Unbiasedness of a fitted straight line uses the means and nothing else. Suppose $\mathbb{E} Y_i=\beta_0+\beta_1 x_i$ for $i=1,\ldots,n$, with the $x_i$ fixed and not all equal. Write $S_{xx}=\sum_i(x_i-\overline x)^2>0$ and $S_{xY}=\sum_i(x_i-\overline x)(Y_i-\overline Y)$. The [least-squares](ordinary-least-squares.qmd) estimators are $\widehat\beta_1=S_{xY}/S_{xx}$ and $\widehat\beta_0=\overline Y-\widehat\beta_1\overline x$. Because $\sum_i(x_i-\overline x)=0$, the terms in $\overline Y$ drop out of $S_{xY}$, and
+Unbiasedness of a fitted straight line uses the means and nothing else. The line describes a response relationship that holds on average at the specified inputs.{{cite:nist_process_model2002}} (§4.1.2) Suppose $\mathbb{E} Y_i=\beta_0+\beta_1 x_i$ for $i=1,\ldots,n$, with the $x_i$ fixed and not all equal. Write $S_{xx}=\sum_i(x_i-\overline x)^2>0$ and $S_{xY}=\sum_i(x_i-\overline x)(Y_i-\overline Y)$. The [least-squares](ordinary-least-squares.qmd) estimators are $\widehat\beta_1=S_{xY}/S_{xx}$ and $\widehat\beta_0=\overline Y-\widehat\beta_1\overline x$. Because $\sum_i(x_i-\overline x)=0$, the terms in $\overline Y$ drop out of $S_{xY}$, and
 
 $$
 \widehat\beta_1=\sum_{i=1}^n c_i Y_i,\qquad c_i=\frac{x_i-\overline x}{S_{xx}}.
 $$
 
-The weights $c_i$ are non-random. They sum to $0$, and $\sum_i c_i x_i=1$. Taking expectations, $\mathbb{E}\widehat\beta_1=\sum_i c_i(\beta_0+\beta_1 x_i)=\beta_1$. Also $\mathbb{E}\overline Y=\beta_0+\beta_1\overline x$, so $\mathbb{E}\widehat\beta_0=\beta_0$. No shape is assumed for the errors, and a finite error variance is not required. Each coefficient is an [unbiased estimator](unbiased-estimator.qmd) as soon as the means lie on a straight line.
+The weights $c_i$ are non-random. They sum to $0$, and $\sum_i c_i x_i=1$. Taking expectations, $\mathbb{E}\widehat\beta_1=\sum_i c_i(\beta_0+\beta_1 x_i)=\beta_1$. Also $\mathbb{E}\overline Y=\beta_0+\beta_1\overline x$, so $\mathbb{E}\widehat\beta_0=\beta_0$. No shape is assumed for the errors, and a finite error variance is not required. Each coefficient is an [unbiased estimator](unbiased-estimator.qmd) as soon as the means lie on a straight line.{{cite:fox2016_regression}} (Ch. 6, §6.1.2, p. 109)
 
-A variance needs more. Uncorrelated errors with common variance $\sigma^2$ give $\operatorname{Var}(\widehat\beta_1)=\sigma^2/S_{xx}$. Normality is what produces the $t$ reference distribution. If the true mean is $\beta_0+\beta_1 x_i+\beta_2 x_i^2$, these weights estimate $\beta_1+\beta_2\sum_i c_i x_i^2$, which biases $\widehat\beta_1$ whenever $\sum_i c_i x_i^2\neq 0$ (though it vanishes on a design symmetric about zero). When $\sigma^2>0$ and $\mathbb{E}\exp(\widehat\beta_1)$ is finite, strict convexity and Jensen's inequality give $\mathbb{E}\exp(\widehat\beta_1)>\exp(\beta_1)$, so $e^{\widehat\beta_1}$ is biased high for $e^{\beta_1}$.
+A variance needs more. Uncorrelated errors with common variance $\sigma^2$ give $\operatorname{Var}(\widehat\beta_1)=\sigma^2/S_{xx}$. Normality is what produces the $t$ reference distribution.{{cite:fox2016_regression}} (Ch. 6, §6.1.2, p. 109) If the true mean is $\beta_0+\beta_1 x_i+\beta_2 x_i^2$, these weights estimate $\beta_1+\beta_2\sum_i c_i x_i^2$, which biases $\widehat\beta_1$ whenever $\sum_i c_i x_i^2\neq 0$ (though it vanishes on a design symmetric about zero). When $\sigma^2>0$ and $\mathbb{E}\exp(\widehat\beta_1)$ is finite, strict convexity and Jensen's inequality give $\mathbb{E}\exp(\widehat\beta_1)>\exp(\beta_1)$, so $e^{\widehat\beta_1}$ is biased high for $e^{\beta_1}$.
 
 ## Weights on $x=0,1,3$
 
@@ -2156,9 +2158,9 @@ $$
 \ell(\theta)=\sum_{i=1}^n\log f(x_i;\theta)
 $$
 
-is a sum, up to any additive constant that does not depend on $\theta$. A multiplicative constant with no $\theta$ in it does not change ratios $L(\theta_1)/L(\theta_2)$ and does not move the maximiser. The binomial coefficient in a binomial likelihood is such a constant. The likelihood is not a probability distribution for $\theta$: nothing in the definition makes it integrate or sum to $1$ over the parameter space.
+is a sum, up to any additive constant that does not depend on $\theta$. A multiplicative constant with no $\theta$ in it does not change ratios $L(\theta_1)/L(\theta_2)$ and does not move the maximiser. The binomial coefficient in a binomial likelihood is such a constant. The likelihood is not a probability distribution for $\theta$: nothing in the definition makes it integrate or sum to $1$ over the parameter space.{{cite:fisher1922}} (pp. 323–327)
 
-The ratio $L(\theta_1)/L(\theta_2)$ is the relative support for $\theta_1$ against $\theta_2$ on these data. [Maximum likelihood](maximum-likelihood.qmd) chooses a $\theta$ that maximises that support inside the family that was written down. If the family excludes the truth, the maximiser selects the best member of a family that is still wrong.
+The ratio $L(\theta_1)/L(\theta_2)$ is the relative support for $\theta_1$ against $\theta_2$ on these data. [Maximum likelihood](maximum-likelihood.qmd) chooses a $\theta$ that maximises that support inside the family that was written down. If the family excludes the truth, the maximiser selects the best member of a family that is still wrong.{{cite:fisher1922}} (pp. 323–327)
 
 ## Seven successes in ten trials
 
@@ -2168,7 +2170,7 @@ $$
 \frac{L(0.7)}{L(0.5)}=\frac{0.7^{7}\times 0.3^{3}}{0.5^{10}}\approx 2.28.
 $$
 
-The observed count is a little more than twice as probable at $p=0.7$ as at $p=0.5$. The maximiser is $0.7$, the observed proportion. The numerical value of $L$ itself has no absolute scale; only the ratio does.
+The observed count is a little more than twice as probable at $p=0.7$ as at $p=0.5$. The maximiser is $0.7$, the observed proportion. The numerical value of $L$ itself has no absolute scale; only the ratio does.{{cite:fisher1922}} (pp. 323–327)
 """,
     "linear-congruential-generator": r"""
 ## A deterministic loop of length at most $m$
@@ -2213,17 +2215,17 @@ which has determinant $28>0$. If instead $m=3>p=2$, say by appending the row $(2
     "linear-predictor": r"""
 ## Where the covariates actually enter
 
-The random component says how the response scatters. The link says which means are legal. The linear predictor is the piece the explanatory variables build. With the covariates of unit $i$ stacked in a vector $\mathbf{x}_i$, including a $1$ for an intercept,
+The random component says how the response scatters. The link says which means are legal. The linear predictor is the piece the explanatory variables build. With the covariates of unit $i$ stacked in a vector $\mathbf{x}_i$, including a $1$ for an intercept,{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373)
 
 $$
 \eta_i=\mathbf{x}_i^\top\boldsymbol{\beta}.
 $$
 
-Each entry of $\boldsymbol{\beta}$ multiplies a column you chose: a continuous measurement, an indicator for one level of a factor, or a product of two columns. The link then sets $g(\mu_i)=\eta_i$. Changing a covariate changes $\eta_i$ linearly even when the mean $\mu_i$ changes on a curve. That separation is the reason the same columns can sit under a log link, a logit link or an identity link. The meaning of a coefficient changes with the link. The construction of $\eta_i$ does not.
+Each entry of $\boldsymbol{\beta}$ multiplies a column you chose: a continuous measurement, an indicator for one level of a factor, or a product of two columns. The link then sets $g(\mu_i)=\eta_i$. Changing a covariate changes $\eta_i$ linearly even when the mean $\mu_i$ changes on a curve. That separation is the reason the same columns can sit under a log link, a logit link or an identity link. The meaning of a coefficient changes with the link. The construction of $\eta_i$ does not.{{cite:nelder_wedderburn1972}} (§§1.2–1.3, pp. 372–373)
 
 ## A product column changes a slope
 
-Take $\eta=1+0.2x-0.4z+0.1xz$. At $(x,z)=(2,1)$ the predictor equals $1.2$. The slope in $x$, holding $z$ fixed, is $0.2+0.1z$: it equals $0.2$ when $z=0$ and $0.3$ when $z=1$. Without the product column that slope cannot depend on $z$. The product is an [interaction](interaction.qmd), and it is still inside a linear predictor, because $\eta$ is linear in the parameters once the column $xz$ has been built. Factor coding is the same idea. An indicator that equals $1$ for treatment B and $0$ for treatment A makes its coefficient the contrast of B with A. Which level is coded $0$ is a constraint that keeps the columns from being collinear. It is not a number the responses estimate.
+Take $\eta=1+0.2x-0.4z+0.1xz$. At $(x,z)=(2,1)$ the predictor equals $1.2$. The slope in $x$, holding $z$ fixed, is $0.2+0.1z$: it equals $0.2$ when $z=0$ and $0.3$ when $z=1$. Without the product column that slope cannot depend on $z$. The product is an [interaction](interaction.qmd), and it is still inside a linear predictor, because $\eta$ is linear in the parameters once the column $xz$ has been built. Factor coding is the same idea. An indicator that equals $1$ for treatment B and $0$ for treatment A makes its coefficient the contrast of B with A. Which level is coded $0$ is a constraint that keeps the columns from being collinear. It is not a number the responses estimate.{{cite:nelder_wedderburn1972}} (§1.2, p. 372)
 """,
     "link-function": r"""
 ## From an unrestricted predictor to a legal mean
@@ -2320,17 +2322,17 @@ The Hessian is the [Fisher information](fisher-information.qmd) for one observat
     "logit-link": r"""
 ## Log odds, defined on the whole real line
 
-A binary response has mean $p=\mathbb{P}(Y=1\mid\mathbf{x})$, and $p$ must lie in $(0,1)$. A straight line in the covariates will eventually leave that interval. The logit link maps the interval onto the whole line,
+A binary response has mean $p=\mathbb{P}(Y=1\mid\mathbf{x})$, and $p$ must lie in $(0,1)$. A straight line in the covariates will eventually leave that interval. The logit link maps the interval onto the whole line,{{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 $$
 g(p)=\log\frac{p}{1-p}=\mathbf{x}^\top\boldsymbol{\beta},
 $$
 
-and inverts as $p=\exp(\eta)/\{1+\exp(\eta)\}$ with $\eta=\mathbf{x}^\top\boldsymbol{\beta}$. The ratio $p/(1-p)$ is the odds. The link is canonical for the binomial, and it is symmetric about one half: $g(1-p)=-g(p)$, so $g(1/2)=0$. A coefficient $\beta_j$ is the change in the log odds for a one-unit change in that covariate. Equivalently, the odds are multiplied by $e^{\beta_j}$. That factor is an [odds ratio](odds-ratio.qmd), not a ratio of probabilities.
+and inverts as $p=\exp(\eta)/\{1+\exp(\eta)\}$ with $\eta=\mathbf{x}^\top\boldsymbol{\beta}$. The ratio $p/(1-p)$ is the odds. The link is canonical for the binomial, and it is symmetric about one half: $g(1-p)=-g(p)$, so $g(1/2)=0$. A coefficient $\beta_j$ is the change in the log odds for a one-unit change in that covariate. Equivalently, the odds are multiplied by $e^{\beta_j}$. That factor is an [odds ratio](odds-ratio.qmd), not a ratio of probabilities.{{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 ## Doubling the odds does not double the probability
 
-Start at $p=0.2$. The odds are $0.25$ and the logit is $\log 0.25\approx -1.386$. Add $\log 2\approx 0.693$. The new logit is about $-0.693$, the new odds are $0.5$, and the new probability is $0.5/1.5=1/3$. The odds have doubled. The probability has moved from $0.20$ to about $0.33$. The same doubling near $p=0.5$ would move the probability by a different amount, so an odds ratio cannot be quoted in percentage points without a baseline. Complete separation breaks the fit in a particular way. If every success has a larger covariate than every failure, the maximised slope is infinite and the fitted probabilities are driven to $0$ and $1$. The data then determine a direction, not a finite coefficient.
+Start at $p=0.2$. The odds are $0.25$ and the logit is $\log 0.25\approx -1.386$. Add $\log 2\approx 0.693$. The new logit is about $-0.693$, the new odds are $0.5$, and the new probability is $0.5/1.5=1/3$. The odds have doubled. The probability has moved from $0.20$ to about $0.33$. The same doubling near $p=0.5$ would move the probability by a different amount, so an odds ratio cannot be quoted in percentage points without a baseline.{{cite:nelder_wedderburn1972}} (§3.3, p. 379) If every success has a larger covariate than every failure, the maximised slope is infinite and the fitted probabilities are driven to $0$ and $1$. The data then determine a direction, not a finite coefficient.{{cite:albert_anderson1984}} (§2, Thm. 1, p. 3)
 """,
     "m-m-queue": r"""
 ## A server for every arrival
@@ -2408,19 +2410,19 @@ The bound is sharp. If $X=a$ with probability $p$ and $X=0$ otherwise, then $\ma
     "maximum-likelihood-for-a-binomial-proportion": r"""
 ## The interior maximum is the sample proportion
 
-A binomial count $X\sim\operatorname{Bin}(n,p)$ records the number of successes in $n$ independent trials, with $n$ known and $p\in[0,1]$ unknown. After observing $X=x$, the [likelihood](likelihood-function.qmd) is $L(p)=\binom{n}{x}p^x(1-p)^{n-x}$. For $p\in(0,1)$ and $0<x<n$ the log-likelihood, up to a constant, is $\ell(p)=x\log p+(n-x)\log(1-p)$. Its derivative, the score, is
+A binomial count $X\sim\operatorname{Bin}(n,p)$ records the number of successes in $n$ independent trials, with $n$ known and $p\in[0,1]$ unknown. After observing $X=x$, the [likelihood](likelihood-function.qmd) is $L(p)=\binom{n}{x}p^x(1-p)^{n-x}$. For $p\in(0,1)$ and $0<x<n$ the log-likelihood, up to a constant, is $\ell(p)=x\log p+(n-x)\log(1-p)$. Its derivative, the score, is{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
 $$
 \ell'(p)=\frac{x}{p}-\frac{n-x}{1-p}.
 $$
 
-Setting the score equal to $0$ gives $x(1-p)=(n-x)p$, hence $\widehat p=x/n$. The second derivative $-x/p^2-(n-x)/(1-p)^2$ is negative on $(0,1)$, so this critical point is a maximum. The [estimator](estimator.qmd) $X/n$ is unbiased for $p$, because $\mathbb{E} X=np$, and its variance is $p(1-p)/n$.
+Setting the score equal to $0$ gives $x(1-p)=(n-x)p$, hence $\widehat p=x/n$. The second derivative $-x/p^2-(n-x)/(1-p)^2$ is negative on $(0,1)$, so this critical point is a maximum. The [estimator](estimator.qmd) $X/n$ is unbiased for $p$, because $\mathbb{E} X=np$, and its variance is $p(1-p)/n$.{{cite:wang2025_foundations}} (Ch. 12, §17.4; Ch. 13, §17.3)
 
 ## No successes, or no failures
 
-The score equation needs $x$ and $n-x$ both positive. If $x=0$, then $\ell(p)=n\log(1-p)$ on $(0,1)$, whose derivative $-n/(1-p)$ is always negative. The likelihood increases as $p$ falls, and the maximum on the closed interval $[0,1]$ is at the endpoint $p=0$. Likewise $x=n$ forces $\widehat p=1$. In both boundary cases $\widehat p=X/n$ is still the right maximiser, but it is not an interior critical point.
+The score equation needs $x$ and $n-x$ both positive. If $x=0$, then $\ell(p)=n\log(1-p)$ on $(0,1)$, whose derivative $-n/(1-p)$ is always negative. The likelihood increases as $p$ falls, and the maximum on the closed interval $[0,1]$ is at the endpoint $p=0$. Likewise $x=n$ forces $\widehat p=1$. In both boundary cases $\widehat p=X/n$ is still the right maximiser, but it is not an interior critical point.{{cite:wang2025_foundations}} (Ch. 12, §17.4)
 
-The usual plug-in standard error $\sqrt{\widehat p(1-\widehat p)/n}$ is then $0$, which would claim that $p$ is known exactly. The likelihood says otherwise. For $n=10$ and $x=0$, $L(p)=(1-p)^{10}$, and $L(0.1)/L(0)=0.9^{10}\approx 0.35$. A success probability of $0.1$ remains plainly compatible with ten failures. Wald intervals that use the collapsed standard error are not usable at the boundary.
+The usual plug-in standard error $\sqrt{\widehat p(1-\widehat p)/n}$ is then $0$, which would claim that $p$ is known exactly. The likelihood says otherwise. For $n=10$ and $x=0$, $L(p)=(1-p)^{10}$, and $L(0.1)/L(0)=0.9^{10}\approx 0.35$. A success probability of $0.1$ still has substantial likelihood after ten failures. Wald intervals that use the collapsed standard error are not usable at the boundary.{{cite:wang2025_foundations}} (Ch. 16, §22.4)
 """,
     "maximum-likelihood-for-a-known-graph": r"""
 ## Matching the sample covariance on the edges
@@ -2440,7 +2442,7 @@ Start at $W=S$. Variable $1$ has neighbour $2$ only, so the free slope is $\hat\
     "maximum-likelihood-for-a-normal-sample": r"""
 ## Differentiating in $\sigma$ or in $\sigma^2$
 
-For independent $X_i\sim\operatorname{N}(\mu,\sigma^2)$ the log-likelihood is a function of the sample only through $\sum_i(x_i-\mu)^2$ and $n$. Differentiating in $\mu$ and setting the derivative to zero shows that the maximiser is $\widehat\mu=\overline x$, whatever value $\sigma^2$ takes. Substituting that maximiser leaves a one-parameter problem in the variance. Treating $\sigma^2$ as the unknown parameter produces $\widehat\sigma^2=\frac1n\sum_i(x_i-\overline x)^2$.
+For independent $X_i\sim\operatorname{N}(\mu,\sigma^2)$ the log-likelihood is a function of the sample only through $\sum_i(x_i-\mu)^2$ and $n$. Differentiating in $\mu$ and setting the derivative to zero shows that the maximiser is $\widehat\mu=\overline x$, whatever value $\sigma^2$ takes. Substituting that maximiser leaves a one-parameter problem in the variance. Treating $\sigma^2$ as the unknown parameter produces $\widehat\sigma^2=\frac1n\sum_i(x_i-\overline x)^2$.{{cite:wang2025_foundations}} (Ch. 12, §17.2)
 
 The same point is the maximiser if the unknown parameter is the standard deviation $\sigma>0$ instead. With $\widehat\mu$ substituted, the profile log-likelihood in $\sigma$ is $-\,n\log\sigma-\frac1{2\sigma^2}\sum_i(x_i-\overline x)^2$, up to a constant. Its derivative is
 
@@ -2448,26 +2450,26 @@ $$
 -\frac{n}{\sigma}+\frac1{\sigma^3}\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-Setting that equal to zero again gives $\widehat\sigma^2$ equal to the average squared residual. This is the invariance of maximum likelihood under the reparameterisation $\sigma\mapsto\sigma^2$: the two recipes name the same number. Both divide by $n$, not by $n-1$. The unbiased sample variance $s^2$ uses $n-1$, and $\mathbb{E}\widehat\sigma^2=((n-1)/n)\sigma^2$, so the maximum likelihood estimator of the variance is biased low. The two estimators are functions of the same sufficient summary, $(\overline X,\sum_i(X_i-\overline X)^2)$.
+Setting that equal to zero again gives $\widehat\sigma^2$ equal to the average squared residual. This is the invariance of maximum likelihood under the reparameterisation $\sigma\mapsto\sigma^2$: the two recipes name the same number. Both divide by $n$, not by $n-1$. The unbiased sample variance $s^2$ uses $n-1$, and $\mathbb{E}\widehat\sigma^2=((n-1)/n)\sigma^2$, so the maximum likelihood estimator of the variance is biased low. The two estimators are functions of the same sufficient summary, $(\overline X,\sum_i(X_i-\overline X)^2)$.{{cite:wang2025_foundations}} (Ch. 11, §19; Ch. 12, §§17.2, 18; Ch. 13, §17.2)
 
 ## Three numbers
 
-The observations $1,2,6$ have mean $3$ and residual sum of squares $14$. The maximum likelihood estimate of $\sigma^2$ is $14/3$. The unbiased estimate is $14/2=7$. The factor $(n-1)/n=2/3$ converts $7$ into $14/3$. At this sample size the choice of divisor is a large part of the answer. If the data are not normal, $\overline x$ and $14/3$ are maximum likelihood only for a normal working model, and a single outlier moves both.
+The observations $1,2,6$ have mean $3$ and residual sum of squares $14$. The maximum likelihood estimate of $\sigma^2$ is $14/3$. The unbiased estimate is $14/2=7$. The factor $(n-1)/n=2/3$ converts $7$ into $14/3$. At this sample size the choice of divisor is a large part of the answer. If the data are not normal, $\overline x$ and $14/3$ are maximum likelihood only for a normal working model, and a single outlier moves both.{{cite:wang2025_foundations}} (Ch. 12, §17.2; Ch. 13, §17.2)
 """,
     "mean-vector-and-covariance-matrix": r"""
 ## What the two summaries carry
 
-A single draw $\mathbf{X}=(X_1,\ldots,X_p)^\top$ is a list of measurements on one unit. The mean vector $\boldsymbol{\mu}$ stacks $\mathbb{E}(X_j)$. The covariance matrix $\Sigma$ stacks $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$. The diagonal entries $\sigma_{jj}=\sigma_j^2$ are ordinary [variances](variance.qmd). Off the diagonal, $\sigma_{jk}=\sigma_{kj}$, so $\Sigma$ is symmetric. For every fixed vector $\mathbf{a}$,
+A single draw $\mathbf{X}=(X_1,\ldots,X_p)^\top$ is a list of measurements on one unit. The mean vector $\boldsymbol{\mu}$ stacks $\mathbb{E}(X_j)$. The covariance matrix $\Sigma$ stacks $\sigma_{jk}=\operatorname{Cov}(X_j,X_k)$. The diagonal entries $\sigma_{jj}=\sigma_j^2$ are ordinary [variances](variance.qmd). Off the diagonal, $\sigma_{jk}=\sigma_{kj}$, so $\Sigma$ is symmetric. For every fixed vector $\mathbf{a}$,{{cite:nist_covariance2002}} (§6.5.4.1)
 
 $$
 \operatorname{Var}(\mathbf{a}^\top\mathbf{X})=\mathbf{a}^\top\Sigma\mathbf{a}\ge 0,
 $$
 
-which is the statement that $\Sigma$ is positive semi-definite. A positive-definite $\Sigma$ gives every nonzero linear combination a positive variance. The correlation $\rho_{jk}=\sigma_{jk}/(\sigma_j\sigma_k)$ removes the units of measurement; $\Sigma$ itself keeps them.
+which is the statement that $\Sigma$ is positive semi-definite. A positive-definite $\Sigma$ gives every nonzero linear combination a positive variance. The correlation $\rho_{jk}=\sigma_{jk}/(\sigma_j\sigma_k)$ removes the units of measurement; $\Sigma$ itself keeps them.{{cite:nist_covariance2002}} (§6.5.4.1) {{cite:golub_vanloan2013}} (§4.2)
 
 ## A two-coordinate calculation
 
-Take $\boldsymbol{\mu}=(1,3)^\top$ and
+Take $\boldsymbol{\mu}=(1,3)^\top$ and the following covariance matrix.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 $$
 \Sigma=\begin{pmatrix}4&2\\2&9\end{pmatrix}.
@@ -2479,7 +2481,7 @@ $$
 (1,-1)\Sigma(1,-1)^\top=4+9-2\cdot 2=9.
 $$
 
-The same number is $\operatorname{Var}(X_1)+\operatorname{Var}(X_2)-2\operatorname{Cov}(X_1,X_2)$. Adding a constant to $\mathbf{X}$ changes $\boldsymbol{\mu}$ and leaves $\Sigma$ as it was. Multiplying $X_1$ by $10$ multiplies $\sigma_{11}$ by $100$ and $\sigma_{12}$ by $10$. Sample versions replace $\boldsymbol{\mu}$ by the sample mean and $\Sigma$ by a matrix of corrected products. The trace of $\Sigma$ equals $\sum_j\sigma_j^2$, and it equals the sum of the eigenvalues of $\Sigma$. Adding two independent copies of $\mathbf{X}$ produces a vector with covariance $2\Sigma$.
+The same number is $\operatorname{Var}(X_1)+\operatorname{Var}(X_2)-2\operatorname{Cov}(X_1,X_2)$. Adding a constant to $\mathbf{X}$ changes $\boldsymbol{\mu}$ and leaves $\Sigma$ as it was. Multiplying $X_1$ by $10$ multiplies $\sigma_{11}$ by $100$ and $\sigma_{12}$ by $10$. Sample versions replace $\boldsymbol{\mu}$ by the sample mean and $\Sigma$ by a matrix of corrected products. The trace of $\Sigma$ equals $\sum_j\sigma_j^2$, and it equals the sum of the eigenvalues of $\Sigma$. Adding two independent copies of $\mathbf{X}$ produces a vector with covariance $2\Sigma$.{{cite:nist_covariance2002}} (§6.5.4.1) {{cite:golub_vanloan2013}} (§4.2)
 """,
     "measurable-random-variable": r"""
 ## Which real functions can carry probability
@@ -3330,13 +3332,13 @@ Take $a=5$, $c=1$ and $m=8$, a generator of full period $8$. Seed $1$ produces t
     "random-variable": r"""
 ## A number attached to each outcome
 
-Probabilities are defined on events. Most calculations are about numbers: a count, a lifetime, a sample mean. A random variable is the function that turns an outcome into the number. Let $\Omega$ be the [sample space](sample-space.qmd), the set of outcomes $\omega$. A random variable is a function $X$ from $\Omega$ to $\mathbb{R}$. For each real $x$ the set $\{\omega:X(\omega)\le x\}$ must be an [event](event.qmd), so that $\mathbb{P}(X\le x)$ is defined. That requirement is what lets a distribution function exist. The randomness sits in which outcome occurs. The function $X$ itself is fixed. Once $\omega$ is known, $X(\omega)$ is an ordinary number.
+Probabilities are defined on events. Most calculations are about numbers: a count, a lifetime, a sample mean. A random variable is the function that turns an outcome into the number. Let $\Omega$ be the [sample space](sample-space.qmd), the set of outcomes $\omega$. A random variable is a function $X$ from $\Omega$ to $\mathbb{R}$. For each real $x$ the set $\{\omega:X(\omega)\le x\}$ must be an [event](event.qmd), so that $\mathbb{P}(X\le x)$ is defined. That requirement is what lets a distribution function exist. The randomness sits in which outcome occurs. The function $X$ itself is fixed. Once $\omega$ is known, $X(\omega)$ is an ordinary number.{{cite:billingsley1995}} (§13)
 
-If $g$ is a measurable real function, $g(X)$ is again a random variable. Two random variables on the same $\Omega$ are functions of the same outcome, so they can move together.
+If $g$ is a measurable real function, $g(X)$ is again a random variable. Two random variables on the same $\Omega$ are functions of the same outcome, so they can move together.{{cite:billingsley1995}} (§§13–14)
 
 ## Heads in two tosses
 
-Toss a fair coin twice, independently. Then $\Omega=\{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$, and each outcome has probability $1/4$. Let $X$ be the number of heads: $X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$ and $X(\mathrm{TT})=0$. The event $\{X=1\}$ equals $\{\mathrm{HT},\mathrm{TH}\}$ and has probability $1/2$. The event $\{X\le 1\}$ equals $\{\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$ and has probability $3/4$. The expectation is $\mathbb{E} X=0\cdot\tfrac14+1\cdot\tfrac12+2\cdot\tfrac14=1$. The indicator $I$ of heads on the first toss equals $1$ on $\{\mathrm{HH},\mathrm{HT}\}$ and $0$ otherwise: it is dependent with $X$ because $\mathbb{P}(I=1,X=2)=1/4\neq\mathbb{P}(I=1)\mathbb{P}(X=2)=1/8$, whereas the indicator of the second toss is a function on the same $\Omega$ that remains independent of $I$.
+Toss a fair coin twice, independently. Then $\Omega=\{\mathrm{HH},\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$, and each outcome has probability $1/4$. Let $X$ be the number of heads: $X(\mathrm{HH})=2$, $X(\mathrm{HT})=X(\mathrm{TH})=1$ and $X(\mathrm{TT})=0$. The event $\{X=1\}$ equals $\{\mathrm{HT},\mathrm{TH}\}$ and has probability $1/2$. The event $\{X\le 1\}$ equals $\{\mathrm{HT},\mathrm{TH},\mathrm{TT}\}$ and has probability $3/4$. The expectation is $\mathbb{E} X=0\cdot\tfrac14+1\cdot\tfrac12+2\cdot\tfrac14=1$. The indicator $I$ of heads on the first toss equals $1$ on $\{\mathrm{HH},\mathrm{HT}\}$ and $0$ otherwise: it is dependent with $X$ because $\mathbb{P}(I=1,X=2)=1/4\neq\mathbb{P}(I=1)\mathbb{P}(X=2)=1/8$, whereas the indicator of the second toss is a function on the same $\Omega$ that remains independent of $I$.{{cite:durrett2019}} (Ch. 1, §1.1; Ch. 2, §2.1)
 """,
     "range": r"""
 ## A spread that uses only the two extremes
@@ -3977,7 +3979,7 @@ The posterior mode is a different functional of the same beta distribution. When
     "two-sample-t-pivot": r"""
 ## A normal difference over a pooled scale
 
-Two independent normal samples need a common variance before their mean difference has a $t$ pivot. Let $X_{11},\ldots,X_{1n_1}$ be $\operatorname{N}(\mu_1,\sigma^2)$ and $X_{21},\ldots,X_{2n_2}$ be $\operatorname{N}(\mu_2,\sigma^2)$, all $n_1+n_2$ variables independent, with the same $\sigma^2>0$. Write $\overline X_1$ and $\overline X_2$ for the sample means, and let
+Two independent normal samples need a common variance before their mean difference has a $t$ pivot. Let $X_{11},\ldots,X_{1n_1}$ be $\operatorname{N}(\mu_1,\sigma^2)$ and $X_{21},\ldots,X_{2n_2}$ be $\operatorname{N}(\mu_2,\sigma^2)$, all $n_1+n_2$ variables independent, with the same $\sigma^2>0$. Write $\overline X_1$ and $\overline X_2$ for the sample means, and let{{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)
 
 $$
 s_j^2=\frac1{n_j-1}\sum_{i=1}^{n_j}(X_{ji}-\overline X_j)^2
@@ -3999,7 +4001,7 @@ therefore has the [Student $t$ distribution](student-t-distribution.qmd) on $n_1
 
 ## Ten and ten, with equal sample variances
 
-Take $n_1=n_2=10$, $\overline X_1=20$, $\overline X_2=17$ and $s_1^2=s_2^2=4$. Then $s_p^2=4$ and the denominator is $2\sqrt{1/5}\approx 0.894$. The pivot at a difference of $0$ equals $3/0.894\approx 3.35$, on $18$ degrees of freedom. The $0.975$ quantile of $t_{18}$ is $2.101$, so a $95\%$ interval for $\mu_1-\mu_2$ is $3\pm 1.88$, that is $(1.12, 4.88)$. If the two variances differ, $s_p$ estimates a compromise that is not the right standard error. That is the [Behrens–Fisher problem](behrens-fisher-problem.qmd). The level of this $t$ procedure is much less sensitive to heavy tails than the level of an $F$ test for $\sigma_1^2=\sigma_2^2$.
+Take $n_1=n_2=10$, $\overline X_1=20$, $\overline X_2=17$ and $s_1^2=s_2^2=4$. Then $s_p^2=4$ and the denominator is $2\sqrt{1/5}\approx 0.894$. The pivot at a difference of $0$ equals $3/0.894\approx 3.35$, on $18$ degrees of freedom. The $0.975$ quantile of $t_{18}$ is $2.101$, so a $95\%$ interval for $\mu_1-\mu_2$ is $3\pm 1.88$, that is $(1.12, 4.88)$. If the two variances differ, $s_p$ estimates a compromise that is not the right standard error. That is the [Behrens–Fisher problem](behrens-fisher-problem.qmd). The level of this $t$ procedure is much less sensitive to heavy tails than the level of an $F$ test for $\sigma_1^2=\sigma_2^2$.{{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)
 """,
     "underfitting": r"""
 ## A family that cannot follow the signal
@@ -4095,7 +4097,7 @@ If petal length is duplicated, either copy can supply the splits. Permuting one 
     "variance-ratio-f-pivot": r"""
 ## Scale each sample variance by its own $\sigma^2$
 
-A ratio of sample variances still contains the unknown true variances. Cancel them and an $F$ law appears. Let two samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$. Let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, using divisors $n_1-1$ and $n_2-1$. By the normal sample theorem, $U=(n_1-1)s_1^2/\sigma_1^2$ is [chi-squared](chi-squared-distribution.qmd) on $n_1-1$ degrees of freedom, $V=(n_2-1)s_2^2/\sigma_2^2$ is chi-squared on $n_2-1$ degrees of freedom, and $U$ is independent of $V$. The [$F$ family](f-distribution.qmd) is defined by dividing each chi-squared variable by its degrees of freedom and taking the ratio:
+A ratio of sample variances still contains the unknown true variances. Cancel them and an $F$ law appears. Let two samples be independent and normal, of sizes $n_1$ and $n_2$, with variances $\sigma_1^2$ and $\sigma_2^2$. Let $s_1^2$ and $s_2^2$ be the bias-corrected sample variances, using divisors $n_1-1$ and $n_2-1$. By the normal sample theorem, $U=(n_1-1)s_1^2/\sigma_1^2$ is [chi-squared](chi-squared-distribution.qmd) on $n_1-1$ degrees of freedom, $V=(n_2-1)s_2^2/\sigma_2^2$ is chi-squared on $n_2-1$ degrees of freedom, and $U$ is independent of $V$. The [$F$ family](f-distribution.qmd) is defined by dividing each chi-squared variable by its degrees of freedom and taking the ratio:{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”)
 
 $$
 \frac{U/(n_1-1)}{V/(n_2-1)}=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\sim F_{n_1-1,n_2-1}.
@@ -4105,7 +4107,7 @@ The means of the two samples do not appear. Under $\sigma_1^2=\sigma_2^2$ the pi
 
 ## A raw ratio of four, and a pivot of one
 
-Suppose $n_1=n_2=9$, $s_1^2=8$, $s_2^2=2$, $\sigma_1^2=4$ and $\sigma_2^2=1$. The raw ratio $s_1^2/s_2^2$ equals $4$. The pivot equals $(8/4)/(2/1)=1$, which is the median of $F_{8,8}$, not a surprise. The factor of four in the sample variances is the factor already present in the true variances. Heavy tails make $s_j^2$ more variable than the chi-squared laws allow, so the pivot is no longer $F$ and an interval built from $F$ quantiles has the wrong coverage.
+Suppose $n_1=n_2=9$, $s_1^2=8$, $s_2^2=2$, $\sigma_1^2=4$ and $\sigma_2^2=1$. The raw ratio $s_1^2/s_2^2$ equals $4$. The pivot equals $(8/4)/(2/1)=1$, which is the median of $F_{8,8}$, not a surprise. The factor of four in the sample variances is the factor already present in the true variances. Heavy tails make $s_j^2$ more variable than the chi-squared laws allow, so the pivot is no longer $F$ and an interval built from $F$ quantiles has the wrong coverage.{{cite:siegrist2022_normals}} (§6.08, “Ratios of Sample Variances”)
 """,
     "variogram": r"""
 ## How far the series moves, rather than where it sits
@@ -4252,7 +4254,7 @@ Let $\tau(\mathbf{x})=(0.7,0.2,0.1)$. Predicting class $1$ has conditional zero�
 # The citation at the end of each sketch points to a standard source already
 # present in bibliography.json.
 THEOREM_PROOFS = {
-    "least-squares-estimators-are-unbiased": r"""With fixed design points, write $S_{xx}=\sum_i(x_i-\bar x)^2>0$. The slope estimate is $\widehat\beta_1=\sum_i(x_i-\bar x)Y_i/S_{xx}$. Substituting $\mathbb E Y_i=\beta_0+\beta_1x_i$ gives $\mathbb E\widehat\beta_1=\beta_1$, because the centred $x_i$ sum to zero. Since $\widehat\beta_0=\bar Y-\widehat\beta_1\bar x$, its expectation is $\beta_0$. Only the mean model is used.{{cite:davison2003}}""",
+    "least-squares-estimators-are-unbiased": r"""With fixed design points, write $S_{xx}=\sum_i(x_i-\bar x)^2>0$. The slope estimate is $\widehat\beta_1=\sum_i(x_i-\bar x)Y_i/S_{xx}$. Substituting $\mathbb E Y_i=\beta_0+\beta_1x_i$ gives $\mathbb E\widehat\beta_1=\beta_1$, because the centred $x_i$ sum to zero. Since $\widehat\beta_0=\bar Y-\widehat\beta_1\bar x$, its expectation is $\beta_0$. Only the mean model is used.{{cite:fox2016_regression}} (Ch. 6, §6.1.2, p. 109){{cite:rao1945}} (Introduction, p. 235)""",
     "least-squares-decomposition": r"""Let $r=y-X\widehat\beta$ be the fitted residual and $d=\beta-\widehat\beta$. Then $y-X\beta=r-Xd$. The normal equations give $X^\top r=0$, so the cross term in $\|r-Xd\|^2$ vanishes. Hence $\operatorname{SSE}(\beta)=\|r\|^2+d^\top X^\top Xd$, as stated. Full column rank makes the final term zero only at $d=0$.{{cite:gauss1809}}""",
     "linear-images-of-a-normal-vector": r"""For any vector $t$, the characteristic function of $AX$ is $\mathbb E e^{it^\top AX}=\exp\{it^\top A\mu-\tfrac12t^\top A\Sigma A^\top t\}$. This is the characteristic function of a multivariate normal vector with mean $A\mu$ and covariance $A\Sigma A^\top$. Full row rank and positive-definite $\Sigma$ make that covariance positive definite.{{cite:anderson2003_mva}}""",
     "predictive-variance-decomposition": r"""Condition on both the observed data $x$ and the parameter $\theta$. Under the model, the conditional mean of a future draw is $m(\theta)$ and its conditional variance is $v(\theta)$. The conditional law of total variance therefore gives $\operatorname{Var}(\widetilde X\mid x)=\mathbb E[v(\theta)\mid x]+\operatorname{Var}[m(\theta)\mid x]$.{{cite:gelman_bda2013}}""",
@@ -4302,7 +4304,6 @@ THEOREM_INFO = {
 }
 
 ARTICLE_HISTORIES = {
-    "bayes-rule": "Bayes's essay, published after his death in 1763, addressed inference about an unknown chance of success from repeated trials. It set out an early inverse-probability calculation.{{cite:bayes1763}}",
     "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:poisson1837}}",
     "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}}",
     "wold-decomposition": "Wold set out the decomposition in his 1938 study of stationary time series.{{cite:wold1938}}",
@@ -4339,13 +4340,10 @@ CONCEPT_LEADS = {
 }
 
 ARTICLE_HISTORIES.update({
-    "maximum-likelihood": "Fisher developed the likelihood framework in his 1922 account of theoretical statistics.{{cite:fisher1922}}",
-    "confidence-interval": "Neyman formalised confidence intervals and their coverage interpretation in 1937.{{cite:neyman1937}}",
     "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:markov1906}}",
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
     "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
-    "generalised-linear-model": "Nelder and Wedderburn introduced the generalised linear model framework in 1972.{{cite:nelder_wedderburn1972}}",
     "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}}",
     "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}}",
     "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:dempster_laird_rubin1977}}",

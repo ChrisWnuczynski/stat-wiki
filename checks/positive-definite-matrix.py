@@ -1,6 +1,10 @@
-"""Check positive-definiteness examples and the impossible correlation matrix."""
+"""Check positive-definiteness examples and their printed values."""
 
 from fractions import Fraction
+from pathlib import Path
+
+
+PAGE = Path(__file__).resolve().parents[1] / "articles" / "positive-definite-matrix.qmd"
 
 
 def quadratic(a, matrix):
@@ -15,6 +19,7 @@ def det3(m):
 
 
 if __name__ == "__main__":
+    page = PAGE.read_text(encoding="utf-8")
     a = ((2, 1), (1, 2))
     b = ((1, 2), (2, 1))
     r = Fraction(9, 10)
@@ -33,6 +38,12 @@ if __name__ == "__main__":
         det3(impossible) == Fraction(-361, 125),
         quadratic((1, -1, -1), impossible) < 0,
         quadratic((1, -1), ((3, 1), (1, 3))) == 4,
+        "$\\det A=3$" in page,
+        "eigenvalues are $1$ and $3$" in page,
+        "correlation $1/2$" in page,
+        "$1-4=-3<0$" in page,
+        "$\\mathbf a^\\top B\\mathbf a=-2$" in page,
+        "leading minors $0$ and $0$" in page,
     ]
-    assert all(checks)
+    assert all(checks), [index for index, passed in enumerate(checks, 1) if not passed]
     print(f"positive-definite-matrix arithmetic: {len(checks)} checks passed")

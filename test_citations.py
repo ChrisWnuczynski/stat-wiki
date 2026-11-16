@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+import sys
 import unittest
 from collections import Counter
 from pathlib import Path
@@ -18,7 +20,7 @@ ROOT = Path(__file__).resolve().parent
 
 BANNED_VISIBLE = re.compile(
     r"STAT\s*\d"
-    r"|\bgithub\b"
+    r"|\bgithub\b(?!\.io)"
     r"|\bapplied\s+practice\s+sets?\b"
     r"|\bpractice\s+sets?\b"
     r"|\bbooklets?\b"
@@ -257,7 +259,7 @@ class CitationTests(unittest.TestCase):
             "aliases": [],
             "box": {"chapter": Path("notes/sl-01-multivariate-normal.qmd")},
         }
-        self.assertIn("gauss1809", citations.citations_for_article(disambig))
+        self.assertIn("siegrist2022_normal_distribution", citations.citations_for_article(disambig))
 
         # Brand-new future slug falls back cleanly by keyword or chapter without crashing
         future_kw = {
@@ -354,6 +356,54 @@ class CitationTests(unittest.TestCase):
             f"{len(under)} articles have fewer than 3 inline citations; "
             f"not listed in citations-todo.md: {missing}",
         )
+
+    def test_researched_article_citations_have_locations(self) -> None:
+        articles_dir = ROOT / "articles"
+        if not articles_dir.is_dir():
+            self.skipTest("Generated wiki directories are not built yet")
+        progress = (ROOT / "research" / "PROGRESS.md").read_text(encoding="utf-8")
+        completed = int(re.search(r"Done:\s*\*\*(\d+)\*\*", progress).group(1))
+        rows = re.findall(r"^\|\s*(\d+)\s*\|\s*\[[^]]+\]\(([^)]+)\)", progress, re.M)
+        self.assertGreaterEqual(len(rows), completed)
+        for rank, ref in rows:
+            if int(rank) > completed:
+                continue
+            path = articles_dir / f"{Path(ref).stem}.qmd"
+            body = path.read_text(encoding="utf-8").split("## See also", 1)[0]
+            self.assertNotIn("## Check yourself", body, f"Duplicate question-link section in {path.name}")
+            self.assertIsNone(
+                re.search(r"\b(?:retained|existing|original definition|opened|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),
+                f"Editor-facing prose in {path.name}",
+            )
+            for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
+                self.assertRegex(
+                    body[match.end():match.end() + 60],
+                    r"^\s*\((?:Ch\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|Abstract|Description|entries\b|Price’s letter|[“\"])",
+                    f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
+                )
+
+    def test_replacement_lead_keeps_source_citation_locations(self) -> None:
+        blocks = [(True, "lead", "Definition.{{cite:fisher1922}} (pp. 309–316) and {{cite:nist_glossary2002}} (Glossary, ‘statistic’)")]
+        self.assertEqual(
+            build_wiki.source_lead_citations(blocks),
+            "{{cite:fisher1922}} (pp. 309–316){{cite:nist_glossary2002}} (Glossary, ‘statistic’)",
+        )
+
+    def test_completed_article_calculations_match_generated_text(self) -> None:
+        if not (ROOT / "articles").is_dir():
+            self.skipTest("Generated wiki directories are not built yet")
+        progress = (ROOT / "research" / "PROGRESS.md").read_text(encoding="utf-8")
+        completed = int(re.search(r"Done:\s*\*\*(\d+)\*\*", progress).group(1))
+        scripts = re.findall(r"^\|\s*(\d+)\s*\|[^\n]*?\[check\]\(\.\./checks/([\w-]+)\.py\)", progress, re.M)
+        self.assertEqual(len([rank for rank, _ in scripts if int(rank) <= completed]), completed)
+        for rank, slug in scripts:
+            if int(rank) > completed:
+                continue
+            path = ROOT / "checks" / f"{slug}.py"
+            source = path.read_text(encoding="utf-8")
+            self.assertTrue('"articles"' in source or "articles/" in source, f"{slug} does not inspect its generated article")
+            run = subprocess.run([sys.executable, str(path)], cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, f"{slug}: {run.stdout}{run.stderr}")
 
 
 def _prose_paths() -> list[Path]:

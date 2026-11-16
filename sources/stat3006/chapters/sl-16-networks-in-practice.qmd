@@ -151,7 +151,7 @@ An explicit simulation with $20$ observations and a $1$–$40$–$1$ sigmoid net
 
 ### Training, validation, and test sets
 
-To control generalisation the data are divided into a training set, a validation set, and a test set{{cite:bishop2006}}{{cite:hastie_esl2009}}{{cite:cawley_talbot2010}}.
+To assess generalisation, the data are divided into a training set, a validation set, and a test set. The final test cases are kept outside model fitting and model selection.{{cite:hastie_esl2009}} (p. 11; pp. 245–246){{cite:cawley_talbot2010}} (§5.3, p. 2102)
 
 - The training set is used to optimise the weights.
 - The validation set is monitored during or after training to choose when to stop, the number of nodes or weights, the learning rate, and the other tuning choices.
@@ -161,7 +161,7 @@ This is the same discipline as nested cross-validation. Anything chosen by looki
 
 ### Regularisation and weight decay
 
-A weight penalty changes the objective itself. With $L^2$ regularisation one charges for large squared weights, just as ridge regression does for linear coefficients. This is a modelling preference for smaller parameter values in the chosen representation. Equivalent reparameterisations need not receive the same penalty. Under ordinary gradient descent, the resulting update contains a literal multiplicative decay. That equivalence should not be transferred automatically to an adaptive optimiser.
+A weight penalty changes the objective itself. With $L^2$ regularisation, large squared weights cost more, as in ridge regression for linear coefficients. The penalty favours small values in the chosen parameterisation: rescaling an input and compensating in its weight can preserve predictions while changing the penalty. Under ordinary gradient descent, the derivative of a squared-weight penalty produces a multiplicative shrinkage in each update. With an adaptive optimiser such as Adam, the gradient is rescaled coordinate by coordinate, so the same penalty is generally different from a separate weight-decay step.{{cite:krogh_hertz1992}} (§1, eqs. 1–2, p. 951){{cite:loshchilov_hutter2019}} (§2, Proposition 1 and eq. 1)
 
 $L^2$ regularisation, also called weight decay, ridge regression{{cite:hoerl_kennard1970}}, or Tikhonov regularisation, adds a penalty proportional to the sum of squares of the weights{{cite:krogh_hertz1992}}{{cite:bishop2006}}. Optimise $E+\lambda\lVert w\rVert^2$ with $\lambda>0$ chosen by the user. After rescaling the tuning parameter, write the penalty as $E+\tfrac{\lambda}{2}\lVert w\rVert^2$. The gradient step becomes
 

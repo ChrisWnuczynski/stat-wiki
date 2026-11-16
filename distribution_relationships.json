@@ -14,8 +14,8 @@
   {
     "a": "binomial-distribution",
     "b": "normal-distribution",
-    "a_text": "{target} approximates a binomial count after centring and scaling when both $np$ and $n(1-p)$ are large. The approximation keeps the binomial mean and variance.{{cite:feller1968}}",
-    "b_text": "{target} is approximately normal for sufficiently large $np$ and $n(1-p)$, with mean $np$ and variance $np(1-p)$. The discrete count needs a continuity correction for tail probabilities.{{cite:feller1968}}"
+    "a_text": "{target} approximates a binomial count after centring and scaling when both $np$ and $n(1-p)$ are large. The approximation uses the binomial mean and variance.{{cite:siegrist2022_binomial_distribution}} (§11.2, “The Normal Approximation”)",
+    "b_text": "{target} is approximately normal when both $np$ and $n(1-p)$ are large, with mean $np$ and variance $np(1-p)$. A continuity correction improves many tail approximations for the discrete count.{{cite:siegrist2022_binomial_distribution}} (§11.2, “The Normal Approximation”)"
   },
   {
     "a": "beta-distribution",
@@ -122,8 +122,8 @@
   {
     "a": "lognormal-distribution",
     "b": "normal-distribution",
-    "a_text": "If $X$ has this law, then $\\log X$ has {target} mean $\\mu$ and variance $\\sigma^2$. The logarithm converts multiplicative spread to additive spread.{{cite:forbes2011}}",
-    "b_text": "Exponentiating a {target} variable with mean $\\mu$ and variance $\\sigma^2$ gives a lognormal variable.{{cite:forbes2011}}"
+    "a_text": "If $X$ has this law with log-location $\\mu$ and log-scale $\\sigma$, then $\\log X$ has {target} mean $\\mu$ and variance $\\sigma^2$.{{cite:siegrist2022_lognormal_distribution}} (§5.12, “Definition”)",
+    "b_text": "If $Z$ has this normal law with mean $\\mu$ and variance $\\sigma^2$, then $X=e^Z$ has {target} with log-location $\\mu$ and log-scale $\\sigma$.{{cite:siegrist2022_lognormal_distribution}} (§5.12, “Definition”)"
   },
   {
     "a": "multinomial-distribution",
@@ -134,8 +134,8 @@
   {
     "a": "multivariate-normal-distribution",
     "b": "normal-distribution",
-    "a_text": "Each component of this vector has a {target} marginal law, and every fixed linear combination is normal.{{cite:anderson2003_mva}}",
-    "b_text": "{target} in one dimension is this law; each component of a multivariate normal vector has a normal marginal distribution.{{cite:anderson2003_mva}}"
+    "a_text": "Each component of this vector has a {target} marginal law, and every fixed linear combination is normal.{{cite:gelman_bda2013}} (Ch. 3, §3.5, pp. 70–72)",
+    "b_text": "{target} in one dimension is this law; each component of a multivariate normal vector has a normal marginal distribution.{{cite:gelman_bda2013}} (Ch. 3, §3.5, pp. 70–72)"
   },
   {
     "a": "negative-binomial-distribution",
@@ -146,8 +146,8 @@
   {
     "a": "normal-distribution",
     "b": "student-t-distribution",
-    "a_text": "A {target} variable with $\\nu$ degrees of freedom arises as $Z/\\sqrt{V/\\nu}$ when $Z$ is standard normal and $V$ is an independent chi-squared variable with $\\nu$ degrees of freedom.{{cite:casella_berger2002}}",
-    "b_text": "This law is a standard {target} divided by the square root of an independent chi-squared variable scaled by its degrees of freedom.{{cite:casella_berger2002}}"
+    "a_text": "A {target} variable with $\\nu$ degrees of freedom arises as $Z/\\sqrt{V/\\nu}$ when $Z$ is standard normal and $V$ is an independent chi-squared variable with $\\nu$ degrees of freedom.{{cite:siegrist2022_normals}} (§6.08, “The One Sample Model”)",
+    "b_text": "This law is a standard {target} divided by the square root of an independent chi-squared variable scaled by its degrees of freedom.{{cite:siegrist2022_normals}} (§6.08, “The One Sample Model”)"
   },
   {
     "a": "wishart-distribution",

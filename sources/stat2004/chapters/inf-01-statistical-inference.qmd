@@ -40,7 +40,7 @@ It would be wrong to set $\mu=1.0512$. A second batch of 10 cartons would give a
 ::: {#def-random-sample .definition}
 ## Random sample
 
-$X_1,\ldots,X_n$ are a random sample from a distribution $F$ when they are independent and each has distribution $F$.{{cite:casella_berger2002}}{{cite:fisher1922}} The joint density or mass function is then the product of the marginals.{{cite:wasserman2004}}
+$X_1,\ldots,X_n$ are a random sample from a distribution $F$ when they are independent and each has distribution $F$.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”) The joint density or mass function is then the product of the marginals.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”)
 
 :::
 
@@ -53,7 +53,7 @@ Data are the observed numbers $x_1,\ldots,x_n$. The corresponding capital letter
 ::: {#def-statistic .definition}
 ## Statistic
 
-A statistic is a function of the sample that does not depend on the unknown parameter.{{cite:fisher1922}}{{cite:casella_berger2002}} Its sampling distribution is the distribution of that function when the sample is still random.{{cite:wasserman2004}}
+A statistic is a function of the sample that does not depend on the unknown parameter.{{cite:fisher1922}} (pp. 309–316) Its sampling distribution is the distribution of that function when the sample is still random.{{cite:nist_glossary2002}} (Glossary, “sampling distribution”)
 
 :::
 
@@ -76,7 +76,7 @@ $$
 \E\overline X=\mu,\qquad \Var(\overline X)=\frac{\sigma^2}{n},\qquad \E s^2=\sigma^2.
 $$
 
-No normality is needed.{{cite:casella_berger2002}}{{cite:wasserman2004}}{{cite:lehmann_casella1998}}
+No normality is needed.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
 
 :::
 
@@ -95,7 +95,7 @@ Normal samples lead to three families that are used for every interval and test 
 ::: {#def-chi-squared-distribution .definition}
 ## Chi-squared distribution
 
-If $Z_1,\ldots,Z_m$ are independent standard normal variables, then $V=Z_1^2+\cdots+Z_m^2$ has the chi-squared distribution with $m$ degrees of freedom, written $\chi^2_m$.{{cite:pearson1900}}{{cite:casella_berger2002}} It is the gamma law with shape $m/2$ and rate $1/2$, so $\E V=m$ and $\Var V=2m$.{{cite:forbes2011}}
+If $Z_1,\ldots,Z_m$ are independent standard normal variables, then $V=Z_1^2+\cdots+Z_m^2$ has the chi-squared distribution with $m$ degrees of freedom, written $\chi^2_m$.{{cite:siegrist2022_normals}} (§6.08) It is the gamma law with shape $m/2$ and rate $1/2$, so $\E V=m$ and $\Var V=2m$.{{cite:siegrist2022_normals}} (§6.08)
 
 :::
 
@@ -132,11 +132,11 @@ which is how a lower $F$ quantile is found from a table of upper ones.
 ::: {#thm-normal-sample-theorem .theorem}
 ## Normal sample theorem
 
-If $X_1,\ldots,X_n$ are a random sample from $\Normal(\mu,\sigma^2)$, then
+If $X_1,\ldots,X_n$ are a random sample from $\Normal(\mu,\sigma^2)$ with $n\ge2$, write $\overline X=n^{-1}\sum_iX_i$ and $s^2=(n-1)^{-1}\sum_i(X_i-\overline X)^2$. Then
 
-1. $\overline X$ is $\Normal(\mu,\sigma^2/n)$,{{cite:casella_berger2002}}
-2. $(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, and{{cite:student1908}}
-3. $\overline X$ and $s^2$ are independent.{{cite:fisher1925_smrw}}
+1. $\overline X$ is $\Normal(\mu,\sigma^2/n)$,{{cite:siegrist2022_normals}} (§6.08)
+2. $(n-1)s^2/\sigma^2$ is $\chi^2_{n-1}$, and{{cite:siegrist2022_normals}} (§6.08)
+3. $\overline X$ and $s^2$ are independent.{{cite:siegrist2022_normals}} (§6.08)
 
 :::
 

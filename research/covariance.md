@@ -21,3 +21,10 @@ Type: Concept/definition.
 - The new collapsed proof covers the equivalent covariance formula, bilinearity, sum variance, independence, correlation bound and equality, the existing affine-normal result, and unbiasedness of sample covariance. It uses the same $X,Y$ notation as the body.
 - All new numerical values and the two existing discrete examples were recomputed with exact fractions in `checks/covariance.py`.
 - The first sentence remains plain-language; the new context explains why covariance matters. The inaccessible original paper is reported here rather than used for unsupported historical priority claims.
+
+## Correction pass
+
+- Replaced unopened Pearson, Anderson, Grimmett–Stirzaker, Casella–Berger, and Schwarz citations attached to the source definition and correlation bound with the Grinstead–Snell exercises actually read. Added locations to the NIST and Grinstead–Snell citations throughout the researched prose.
+- The History section now makes only the publication-scope claim supported by Pearson's publisher abstract. Rephrased editor-facing references, cited the worked example and answer, and connected the printed values and inherited figure to the arithmetic check. The observational-causality caution uses the opened CDC chapter.
+- The first preservation check found the dependent Cauchy–Schwarz article four substantive words below its source baseline after the citation change. The source now states the zero-variance case explicitly, which also explains why the correlation ratio requires positive variances.
+- A later scan found unlocated citations on the inherited affine-normal result. Strimmer's [Chapter 3 §3.1](https://strimmerlab.github.io/publications/lecture-notes/MATH38161/03-transformations.html), including Example 3.9 and the affine covariance calculation, was opened and now supports both statements. Unopened Gauss, Feller, Casella–Berger, Anderson, and Grimmett–Stirzaker citations were removed from that result.

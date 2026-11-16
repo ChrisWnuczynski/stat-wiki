@@ -1,9 +1,14 @@
 """Recompute the article's variance, regression, and table counts."""
 
 from fractions import Fraction
+from pathlib import Path
 
 
 if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1]
+    prose = (root / "articles/degrees-of-freedom.qmd").read_text()
+    for printed in ("-2,-1,0,1,2", "2.5", "12-3=9", "18/9=2", "(4-1)(5-1)=12", "8-1-1=6", "10-1-2=7", "10-1=9"):
+        assert printed in prose, f"Worked value missing from generated article: {printed}"
     values = (8, 9, 10, 11, 12)
     mean = Fraction(sum(values), len(values))
     residuals = tuple(value - mean for value in values)
@@ -24,4 +29,4 @@ if __name__ == "__main__":
         sigma2 = 3
         mean_variance = Fraction(sigma2 * (1 + (n - 1) * rho), n)
         assert n * sigma2 - n * mean_variance == (n - 1) * sigma2 * (1 - rho)
-    print("degrees-of-freedom arithmetic: 15 exact checks passed")
+    print("degrees-of-freedom arithmetic and printed values passed")

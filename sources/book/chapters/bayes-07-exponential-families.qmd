@@ -243,18 +243,17 @@ This is why exponential families keep reappearing in elementary Bayesian calcula
 ::: {#prp-log-partition-moment-identities .proposition}
 ## Log-partition moment identities
 
-Whenever $c(\theta)$ can be used as a local parameter and differentiation under the normalising integral is valid, 
-
+For a regular full exponential family, write one observation as
 $$
- \nabla_c\log a(\theta)
- =\E_\theta\{T(X)\},
- \qquad
- \nabla_c^2\log a(\theta)
- =\Cov_\theta\{T(X)\}.
+f(x\mid\eta)=h(x)\exp\{\eta^{\mathsf T}T(x)-A(\eta)\},
 $$
-
-
- Here derivatives are taken with respect to $c=c(\theta)$, so $a(\theta)$ is regarded as a function of $c$ through the chosen parametrisation. Consequently $\log a(\theta)$ is convex as a function of $c$, and the one-observation Fisher information in the natural parameter is $\nabla_c^2\log a(\theta)$.{{cite:mccullagh_nelder1989}}{{cite:lehmann_casella1998}}{{cite:diaconis_ylvisaker1979}}
+where $x$ is a realised observation of $X$, $\eta$ is its natural parameter, $T(x)$ is the natural statistic, $h(x)$ is a parameter-free base factor, and $A(\eta)$ is the log-normalising function. If differentiation under the normalising integral or sum is valid, then
+$$
+\nabla_\eta A(\eta)=\mathbb E_\eta\{T(X)\},
+\qquad
+\nabla_\eta^2 A(\eta)=\operatorname{Cov}_\eta\{T(X)\}.
+$$
+The covariance matrix is positive semidefinite, so $A$ is convex. The one-observation Fisher information in $\eta$ is $\nabla_\eta^2 A(\eta)$ when the score identities hold. This notation uses $A$ for the log normaliser; in the GLM form, the parameter-only term $c$ is its negative after the dispersion scale is accounted for.{{cite:diaconis_ylvisaker1979}} (§2, eqs. 2.1–2.2, p. 271){{cite:geyer2022_exp_family}} (§§3.1, 4, “Exponential Families” and “Moments and Cumulants”)
 
 :::
 
@@ -301,7 +300,7 @@ $$
 ::: {#thm-pitman-koopman-darmois-informal-form .theorem}
 ## Pitman--Koopman--Darmois, informal form
 
-For regular iid models with parameter-independent support, the theorem says, roughly, that the existence for every $n$ of a sufficient statistic whose dimension stays fixed essentially characterises exponential families. The support condition matters: models such as $\operatorname{Uniform}(0,\theta)$ can have a fixed-dimensional sufficient statistic without having the regular form \eqref{eq:abcT-exponential-family}.
+Under regularity assumptions that include a continuous canonical-statistic distribution and support independent of the parameter, a fixed-dimensional sufficient statistic for every iid sample size characterises an exponential family. The support condition is necessary: for observations from $\operatorname{Uniform}(0,\theta)$, the sample maximum is sufficient and one-dimensional, but the support depends on $\theta$. The converse depends on the continuous-statistic and common-support hypotheses.{{cite:geyer2022_exp_family}} (§9.4, “The Pitman–Koopman–Darmois Theorem”)
 
 :::
 
@@ -345,16 +344,11 @@ Choose the prior kernel, where $\alpha$ has the same dimension as $c(\theta)$ an
 ::: {#prp-generic-exponential-family-conjugate-update .proposition}
 ## Generic exponential-family conjugate update
 
-Thus the hyperparameters update as \begin{equation}
- \boxed{
- \alpha\leftarrow
- \alpha+S(\xvec),
- \qquad
- \beta\leftarrow\beta+n.}
- \label{eq:generic-update}
-\end{equation}
-
-The conjugate hyperparameters add the sufficient statistic and the sample size.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}}{{cite:gelman_bda2013}}
+For the natural form above, take a proper prior on $\eta$ with kernel $\pi(\eta\mid\alpha,\nu)\propto\exp\{\eta^{\mathsf T}\alpha-\nu A(\eta)\}$, where the vector $\alpha$ has the dimension of $T(x)$ and $\nu$ is scalar. For independent observations $x_1,\ldots,x_n$, let $S(\boldsymbol x)=\sum_{i=1}^nT(x_i)$. Then the posterior has the same kernel with
+$$
+\boxed{\alpha\leftarrow\alpha+S(\boldsymbol x),\qquad\nu\leftarrow\nu+n.}
+$$
+The data add their sufficient-statistic total and sample size to the two hyperparameters. The displayed algebra requires the prior and posterior normalising integrals to be finite; propriety conditions depend on the family.{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3 and Theorem 1, pp. 271–272){{cite:geyer2025_conjugate}} (§§2.1–2.2, eqs. 2.3–2.5)
 
 :::
 

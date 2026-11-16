@@ -1,0 +1,7 @@
+[
+  {
+    "slug": "exponential-family#property-pitman-koopman-darmois-informal-form",
+    "title": "Pitman–Koopman–Darmois converse",
+    "reason": "The cited source states the converse with regularity conditions, but this article's Proof box proves only the forward exponential-family results. A reviewed converse proof is still needed."
+  }
+]

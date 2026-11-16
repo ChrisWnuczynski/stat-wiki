@@ -140,7 +140,7 @@ $$
  \label{eq:normal-post-mean}
 \end{align}
 
-The posterior of a normal mean with known variance is normal, and its precision is the prior precision plus $n/\sigma^2$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}
+The posterior of a normal mean with known variance is normal, and its precision is the prior precision plus $n/\sigma^2$.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65) {{cite:hoff2013_bayes_estimators}} (§1, pp. 1–2)
 
 :::
 
@@ -161,14 +161,14 @@ $$
 $$
 
 
- The posterior mean is therefore a precision-weighted average.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}} Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then 
+ The posterior mean is therefore a precision-weighted average.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65) {{cite:hoff2013_bayes_estimators}} (§1, pp. 1–2) Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then
 
 $$
  \mu_1=\frac{n\overline x+\kappa_0\mu_0}{n+\kappa_0}.
 $$
 
 
- Thus the prior behaves like $\kappa_0$ observations whose mean is $\mu_0$. In the special case $\sigma_0^2=\sigma^2$, it behaves like one extra observation at $\mu_0$.
+ Thus the prior behaves like $\kappa_0$ observations whose mean is $\mu_0$. In the special case $\sigma_0^2=\sigma^2$, it behaves like one extra observation at $\mu_0$.{{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65)
 
 :::
 
@@ -294,7 +294,7 @@ Hence \begin{equation}
  \label{eq:inv-gamma-update}
 \end{equation}
 
-An inverse-gamma prior for a normal variance, with the mean known, yields an inverse-gamma posterior.{{cite:gelman_bda2013}}{{cite:box_tiao1973}}{{cite:raiffa_schlaifer1961}}
+An inverse-gamma prior for a normal variance, with the mean known, yields an inverse-gamma posterior.{{cite:gelman_bda2013}} (Ch. 2, §2.6, pp. 42–43) {{cite:raiffa_schlaifer1961}} (Ch. 11, §11.1.3, pp. 290–291, using gamma precision)
 
 :::
 
@@ -359,7 +359,7 @@ With both parameters unknown, the joint posterior is \begin{align}
                     {\sigma^2}
               -\frac{(\mu-\mu_0)^2}{2\sigma_0^2}\right].
  \label{eq:joint-normal-post}
-\end{align} This joint density is not a product of independent posterior marginals. It is also not the normal--inverse-Gamma family in which the prior variance of $\mu$ is a multiple of $\sigma^2$. Here that prior variance stays $\sigma_0^2$, independent of $\sigma^2$. Nevertheless, both full conditional distributions are standard.
+\end{align} This joint posterior retains dependence between $\mu$ and $\sigma^2$: the likelihood contains both parameters. The independent prior fixes the variance of $\mu$ at $\sigma_0^2$, while a normal--inverse-Gamma prior makes it proportional to $\sigma^2$. In either model, conditioning on one parameter leaves a familiar distribution for the other, allowing coordinate-wise Gibbs updates.{{cite:geyer2005_markov_chain}} (§10.6, pp. 29–30)
 
 ::: {#prp-full-conditionals-under-independent-priors .proposition}
 ## Full conditionals under independent priors
@@ -383,7 +383,7 @@ Holding $\sigma^2$ fixed, the calculation from \eqref{eq:normal-mean-posterior} 
  \label{eq:full-cond-sigma}
 \end{equation}
 
-The full conditional of the mean is normal and the full conditional of the variance is inverse-gamma.{{cite:gelfand_smith1990}}{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}
+The full conditional of the mean is normal and the full conditional of the variance is inverse-gamma under the independent normal and inverse-gamma priors specified above.{{cite:geyer2005_markov_chain}} (§10.6, pp. 29–30)
 
 :::
 
