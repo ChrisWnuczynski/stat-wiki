@@ -1,0 +1,46 @@
+{
+  "bibliography": {
+    "siegrist2022_poisson_distribution": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Poisson Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / RandomServices",
+      "url": "https://www.randomservices.org/random/poisson/Poisson.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/poisson/Poisson.html"
+      }
+    }
+  },
+  "self_checks": [
+    "ex-sp-poisson-half-hour",
+    "ex-inf-poisson-information"
+  ],
+  "proofs_todo": [
+    {
+      "slug": "poisson-mode",
+      "title": "Poisson modal counts",
+      "reason": "The infobox mode formula and new ratio interpretation are algebraically checked, but no collapsed proof specifically derives the mode."
+    },
+    {
+      "slug": "poisson-higher-moments",
+      "title": "Poisson skewness and excess kurtosis",
+      "reason": "The infobox states skewness and excess kurtosis; the existing collapsed proof concerns independent sums, and the higher-moment formulas are not derived there."
+    },
+    {
+      "slug": "poisson-fisher-information",
+      "title": "Fisher information for a Poisson mean",
+      "reason": "The infobox states information 1/lambda per observation; an answered bank question derives it, but the article's collapsed proof does not."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "distributions.json",
+      "slug": "poisson-distribution",
+      "change": "Move the existing lead_context prose sentence, “It models counts over a fixed exposure and is the reference point for assessing count-data dispersion.”, into definition_note. Replace lead_context with citation-only {{cite:ross2019}} to preserve its support and satisfy the existing nonempty distribution lead_context invariant; the rendered lead then has one plain-language sentence."
+    }
+  ]
+}
