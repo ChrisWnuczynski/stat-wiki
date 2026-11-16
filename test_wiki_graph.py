@@ -1062,7 +1062,7 @@ class DistributionCatalogueTests(unittest.TestCase):
                 self.assertIn('aria-label="Probability distributions"', body)
                 headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
                 order = ["Motivating example", "Definition", "Properties", "Related distributions", "Statistical inference",
-                         "Generating random samples", "Worked example", "History", "Examples", "See also", "References"]
+                         "Generating random samples", "Worked example", "Check yourself", "History", "Examples", "See also", "References"]
                 self.assertEqual(headings, [name for name in order if name in headings], page.name)
                 self.assertEqual("Generating random samples" in headings, bool(build_wiki.DISTRIBUTIONS[slug]["sampling"]))
                 lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
@@ -1204,7 +1204,7 @@ class TheoremTemplateTests(unittest.TestCase):
             self.assertIn("## Statement {#statement}", body, page.name)
             headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
             order = ["Statement", "Motivating example", "Intuition", "Key results", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
-                     "History", "Examples", "See also", "References"]
+                     "Check yourself", "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
             proof_box = '::: {.callout-note collapse="true" title="Proof"}'
             self.assertTrue(proof_box in body or page.stem in todo, page.name)

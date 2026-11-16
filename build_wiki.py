@@ -3474,6 +3474,10 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 page["blocks"] = theorem_article_template(article, page["blocks"])
             else:
                 page["blocks"] = concept_article_template(article, page["blocks"])
+            if article["slug"] in SELF_CHECKS:
+                check = self_check_section(article, qmap)
+                at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label in {"history", "see-also"}), len(page["blocks"]))
+                page["blocks"].insert(at, (True, "check-yourself", check))
 
     import citations
 
@@ -4792,6 +4796,8 @@ from article_extras import (  # noqa: E402
     NOTES, PROPERTIES, THEOREM_INFO, THEOREM_PROOFS,
 )
 
+SELF_CHECKS = json.loads((WIKI / "research" / "self-checks.json").read_text(encoding="utf-8"))
+
 KERNEL_ROWS: dict[str, str] = {}  # distribution slug -> "Main summaries" cell of the kernel table
 CONJ_ROWS: list[dict] = []  # likelihood, prior, posterior cells, with the distributions they name
 OPERATOR_SLUGS = {
@@ -4985,6 +4991,18 @@ def check_extras(qmap: dict) -> None:
                 problems.append(f"EXAMPLES[{slug_}]: no question {qid}")
             elif not qmap[qid].get("answer"):
                 problems.append(f"EXAMPLES[{slug_}]: {qid} has no worked answer")
+    for slug_, ids in SELF_CHECKS.items():
+        if slug_ not in ARTICLES:
+            problems.append(f"SELF_CHECKS: no article {slug_}")
+        if len(ids) not in {2, 3} or len(set(ids)) != len(ids):
+            problems.append(f"SELF_CHECKS[{slug_}]: expected 2–3 distinct question IDs")
+        for qid in ids:
+            if qid not in qmap:
+                problems.append(f"SELF_CHECKS[{slug_}]: no question {qid}")
+            elif not qmap[qid].get("answer"):
+                problems.append(f"SELF_CHECKS[{slug_}]: {qid} has no worked answer")
+            if qid in EXAMPLES.get(slug_, []):
+                problems.append(f"SELF_CHECKS[{slug_}]: {qid} duplicates an embedded example")
     for exm, slugs in BOOK_EXAMPLES.items():
         if exm not in BOOK_EXAMPLE_BOXES:
             problems.append(f"BOOK_EXAMPLES: no example box {exm}")
@@ -4996,6 +5014,24 @@ def check_extras(qmap: dict) -> None:
             problems.append(f"CHAPTER_FIGURES[{chapter}]: no chapter figure {file}")
     if problems:
         raise SystemExit("article_extras.py:\n  " + "\n  ".join(problems))
+
+
+def self_check_section(article: dict, qmap: dict) -> str:
+    """Show selected bank questions on the article with their answers folded away."""
+    path = article["path"]
+    parts = ["\n\n## Check yourself {#check-yourself}\n\nTry these questions before opening an answer.\n"]
+    for qid in SELF_CHECKS[article["slug"]]:
+        q = qmap[qid]
+        body = demote_headings(copy_for_article(q["prepared_body"], q["path"], path))
+        answer = demote_headings(copy_for_article(q["prepared_answer"], q["path"], path))
+        parts.append(
+            f"\n### {q['title']} {{#self-check-{qid}}}\n\n"
+            f"[Question-bank page]({href(path, q['path'])})\n\n"
+            f"{body}\n\n"
+            f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
+            f"{answer}\n\n::::::::\n"
+        )
+    return "".join(parts)
 
 
 def article_sections(article: dict, qmap: dict) -> list[tuple[bool, str, str]]:

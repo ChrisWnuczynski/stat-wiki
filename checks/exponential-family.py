@@ -48,7 +48,7 @@ if __name__ == "__main__":
     assert page.count('collapse="true" title="Proof"') == 1
     assert r"\nabla_c\log a" not in body
     assert r"\beta\leftarrow\beta+n" not in body
-    assert r"\mathbf X_i" not in body
+    assert r"\mathbf X_i" not in body.split("## Check yourself", 1)[0]
     assert "{{cite:" not in body
     assert not re.search(r"!\[[^\]]*\]\(", page)
     assert len(set(re.findall(r"\.\./questions/([^.)]+)", body))) == 7

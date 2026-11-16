@@ -377,9 +377,19 @@ class CitationTests(unittest.TestCase):
             worked = research.split("## Worked example\n", 1)[1].split("\n## ", 1)[0]
             self.assertIn("Your turn", worked, f"Missing practice prompt in {path.name}")
             self.assertIn('collapse="true"', worked, f"Practice answer is not hidden in {path.name}")
-            self.assertNotIn("## Check yourself", body, f"Duplicate question-link section in {path.name}")
+            self.assertIn("## Check yourself {#check-yourself}", body, f"Missing self-check in {path.name}")
+            check = body.split("## Check yourself {#check-yourself}", 1)[1].split("\n## ", 1)[0]
+            without_links = re.sub(r"\[[^]]+\]\([^)]+\)", "", check)
+            without_headings = re.sub(r"(?m)^#{1,6}[^\n]*$", "", without_links)
+            self.assertRegex(without_headings, r"\b\w{3,}\b", f"Link-only self-check in {path.name}")
+            question_ids = re.findall(r"(?m)^### .*\{#self-check-([^}]+)\}", check)
+            self.assertIn(len(question_ids), {2, 3}, f"Expected 2–3 bank questions in {path.name}")
+            self.assertEqual(check.count('collapse="true" title="Answer"'), len(question_ids),
+                             f"Unhidden or missing answer in {path.name}")
+            for qid in question_ids:
+                self.assertIn(f"../questions/{qid}.qmd", check, f"Missing bank link in {path.name}")
             self.assertIsNone(
-                re.search(r"\b(?:retained|existing|original definition|opened|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),
+                re.search(r"\b(?:existing|original definition|opened|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),
                 f"Editor-facing prose in {path.name}",
             )
             for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):

@@ -1,0 +1,150 @@
+{
+  "variance": [
+    "ex-prob-normal-variance",
+    "ex-prob-second-moment"
+  ],
+  "likelihood-function": [
+    "ex-inf-poisson-mle",
+    "ex-inf-exponential-mle"
+  ],
+  "expectation": [
+    "ex-prob-double-six-wait",
+    "ex-sp-spike"
+  ],
+  "degrees-of-freedom": [
+    "ex-inf-degrees-of-freedom",
+    "ex-inf-t-squared-is-f"
+  ],
+  "covariance": [
+    "ex-sl-01-2",
+    "ex-sl-01-3"
+  ],
+  "statistic": [
+    "ex-inf-expected-sample-variance",
+    "ex-inf-blood-pressure-region"
+  ],
+  "explanatory-variable": [
+    "ex-da-alcohol-attendance",
+    "q-31"
+  ],
+  "standard-error": [
+    "ex-inf-milk-summaries",
+    "ex-inf-green-voters"
+  ],
+  "kernel-of-a-density": [
+    "ex-applied-geometric",
+    "ex-applied-logitnormal-prior"
+  ],
+  "mean-vector-and-covariance-matrix": [
+    "ex-sl-01-1",
+    "ex-sl-01-2"
+  ],
+  "posterior-mean": [
+    "ex-ur-posterior-mean",
+    "ex-applied-mmse"
+  ],
+  "correlation": [
+    "ex-da-correlation-reading",
+    "ex-sl-01-3"
+  ],
+  "estimator": [
+    "ex-inf-no-uniform-risk",
+    "ex-inf-exponential-mle"
+  ],
+  "logit-link": [
+    "ex-sl-10-2",
+    "ex-sl-10-7"
+  ],
+  "odds": [
+    "ex-sl-06-1",
+    "ex-sl-10-2"
+  ],
+  "unbiased-estimator": [
+    "ex-inf-shrunk-mean",
+    "ex-inf-poisson-umvu"
+  ],
+  "maximum-likelihood": [
+    "ex-inf-variance-bias",
+    "ex-sl-10-5"
+  ],
+  "positive-definite-matrix": [
+    "ex-inf-normal-equations",
+    "ex-sl-01-1"
+  ],
+  "event": [
+    "ex-prob-two-dice-faces",
+    "ex-prob-series-parallel"
+  ],
+  "cumulative-distribution-function": [
+    "ex-prob-unit-square-max",
+    "ex-sp-right-continuous"
+  ],
+  "random-variable": [
+    "ex-prob-three-point-expectation",
+    "ex-prob-second-moment"
+  ],
+  "linear-predictor": [
+    "ex-sl-10-7",
+    "q-40"
+  ],
+  "conditional-distribution": [
+    "ex-sl-01-8",
+    "q-14"
+  ],
+  "training-set": [
+    "ex-sl-09-7",
+    "ex-sl-03-7"
+  ],
+  "conditional-expectation": [
+    "ex-inf-rao-blackwell-variance",
+    "ex-sp-variance-recurrence"
+  ],
+  "joint-probability-density": [
+    "ex-prob-triangle-conditional",
+    "ex-prob-exponential-ratio"
+  ],
+  "conditional-independence": [
+    "ex-sl-19-2",
+    "ex-sl-19-4"
+  ],
+  "confidence-interval": [
+    "ex-inf-green-voters",
+    "ex-inf-safety-interval"
+  ],
+  "cross-validation": [
+    "ex-sl-09-5",
+    "ex-sl-09-7"
+  ],
+  "normal-distribution": [
+    "ex-prob-generate-normal",
+    "ex-prob-name-the-laws"
+  ],
+  "bayes-rule": [
+    "ex-prob-binary-channel",
+    "ex-prob-channel-quarter"
+  ],
+  "generalised-linear-model": [
+    "q-45",
+    "c-23"
+  ],
+  "random-sample": [
+    "ex-inf-which-are-statistics",
+    "ex-inf-expected-sample-variance"
+  ],
+  "median": [
+    "ex-inf-milk-summaries",
+    "ex-inf-are-median"
+  ],
+  "exponential-family": [
+    "q-57",
+    "q-58"
+  ],
+  "regularisation": [
+    "ex-sl-16-3",
+    "ex-sl-16-7"
+  ],
+  "full-conditional-distribution": [
+    "q-04",
+    "q-09"
+  ]
+}
