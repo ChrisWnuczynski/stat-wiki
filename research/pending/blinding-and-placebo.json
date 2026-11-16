@@ -1,0 +1,25 @@
+{
+  "self_checks": ["ex-da-devil-tumours", "depth-blinding-risk-difference", "depth-blinding-design-roles"],
+  "new_bank_questions": [
+    {
+      "id": "depth-blinding-risk-difference",
+      "title": "What does the placebo contrast estimate?",
+      "body": "In a randomized masked trial, 45 of 60 people assigned active treatment improve, compared with 30 of 60 assigned a matching placebo. Compute the two improvement proportions and the active-minus-placebo risk difference. Does the placebo group's improvement rate equal a pure expectancy effect?",
+      "answer": "The proportions are 45/60=0.75 and 30/60=0.50, so the risk difference is 0.25 or 25 percentage points. The placebo improvement rate includes natural recovery, measurement fluctuation, shared care and any expectancy influence; it does not isolate expectancy.",
+      "topic_code": "D1"
+    },
+    {
+      "id": "depth-blinding-design-roles",
+      "title": "Concealment and masking at different times",
+      "body": "A recruiter can see the next assignment before enrolling a participant, but participants and outcome assessors are masked after enrolment. Which design protection is missing? Give one route by which it could bias the comparison, and state whether masking afterward repairs it.",
+      "answer": "Allocation concealment is missing. A recruiter could preferentially enroll a sicker or healthier participant when the next assignment is known, producing baseline imbalance related to treatment. Later masking cannot undo that selection, although it can limit post-assignment behaviour and measurement biases.",
+      "topic_code": "D1"
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/stat1301/chapters/da-01-studies-and-data.qmd",
+      "description": "Correct overstatements in the source chapter's design explanation and Alice solution: around line 35, complete randomization balances covariates in expectation, not exactly for every variable in finite groups; around lines 45–50, it does not make chance confounding impossible or make observational causal inference categorically impossible with extra assumptions; around line 59, placebo is not the sole possible comparator; around the Alice solution, random assignment reduces selection bias rather than guaranteeing heart-rate groups differ only by caffeine, and diet/decaf cola may differ in more than caffeine. Preserve the Alice table and checked group means. Rebuild/check all dependent study-design pages and chapter."
+    }
+  ]
+}
