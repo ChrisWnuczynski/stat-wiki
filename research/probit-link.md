@@ -8,11 +8,11 @@ Rank 201. Type: Concept/link. Frozen baseline: 470 body words and zero figures. 
 - **Checked by proof:** One collapsed box derives the latent-normal threshold representation, normal symmetry, probability derivative, half-probability point and central logit/probit slope-matching constant.
 - **Checked by code:** `checks/probit-link.py` evaluates each printed normal probability, derivative, constant and practice answer.
 - **Assumed:** Bernoulli response conditional on stated covariates; standard-normal variance fixed to one in the latent-threshold interpretation; the worked doses are illustrative.
-- **Disputed:** A fixed 1.6–1.8 coefficient factor is only heuristic across comparable fitted models. The source chapter's claim that fitted links almost always agree is too broad. Pending shared fixes specify qualifications.
+- **Disputed:** A fixed 1.6–1.8 coefficient factor is only heuristic across comparable fitted models. The source chapter's claim that fitted links almost always agree is too broad. The shared topic and GLM chapter now qualify the central slope comparison and note that fitted tail behavior and calibration can matter.
 
 ## Sources used
 
-- Both complete repository sections and their worked reasoning were read. Inherited Bliss, Berkson and McCullagh–Nelder citations remain with inherited source material. The external originals were inaccessible in full, so no new citation to them is added.
+- Both complete repository sections and their worked reasoning were read. Unlocated inherited Bliss, Berkson and McCullagh–Nelder citations in the relevant source paragraph were removed during the citation audit. The slope factor is checked algebraically; no citation to an unopened original was added.
 - The authorized Dodge full text and index were searched for “probit”, “Bliss”, “Finney” and “bioassay”; no relevant entry was found, so there is no Dodge citation or added history claim.
 
 ## Changes

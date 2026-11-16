@@ -84,7 +84,7 @@ $$
 S(n,K)=\frac{1}{K!}\sum_{k=1}^K(-1)^{K-k}\binom{K}{k}k^n.
 $$
 
-For a very small sample, enumeration is possible. It rapidly becomes expensive: $S(10,3)=9330$, whereas $S(25,5)=2436684974110751$ and $S(100,5)\approx 6.6\times 10^{67}$. The limitation is computational size. Lloyd's algorithm trades an exhaustive search for inexpensive alternating improvements, so a stable answer has to be distinguished from the best possible answer.
+For a very small sample, enumeration is possible. It rapidly becomes expensive: $S(10,3)=9330$, whereas $S(25,5)=2436684974110751$ and $S(100,5)\approx 6.6\times 10^{67}$. The limitation is computational size. Those counts also apply to partitions considered for the unweighted objective $\widetilde W$, but Lloyd's alternating updates improve $\widetilde W$, not the size-weighted pairwise $W(C)$ used to introduce enumeration. Lloyd's algorithm trades an exhaustive search for inexpensive alternating improvements of its own objective, so a stable answer has to be distinguished from the best possible answer.
 
 ## Lloyd's algorithm
 

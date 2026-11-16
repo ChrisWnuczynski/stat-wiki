@@ -4,7 +4,7 @@ import sympy as sp
 
 
 body = Path("articles/knot.qmd").read_text().split("## See also", 1)[0]
-for token in ("6.375", "18", "-6", "24", "200", "M+4", "10", "30",
+for token in ("6.375", "18", "-6", "24", "200", "M+4", "M+2",
               'title="Proof"', 'title="Answer"'):
     assert token in body, token
 assert body.count('title="Proof"') == 1
@@ -25,4 +25,22 @@ for n,val in [(0,5),(1,3),(2,0)]:
     assert sp.diff(f_left,x,n).subs(x,1) == sp.diff(f_right,x,n).subs(x,1) == val
 assert sp.diff(f_right,x,3)-sp.diff(f_left,x,3) == -6
 assert (x+x**3).diff(x,2) == 6*x
+
+# With two distinct boundary knots, the unrestricted cubic basis has six
+# coefficients and the four independent linear-tail constraints leave a line.
+two_knot_constraints = sp.Matrix([
+    [0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 1, 1],
+    [0, 0, 1, 0, 0, -3],
+])
+assert 6 - two_knot_constraints.rank() == 2
+# One interior knot adds one free natural-spline coefficient.
+three_knot_constraints = sp.Matrix([
+    [0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1],
+    [0, 0, 2, 0, 0, -3, -6],
+])
+assert 7 - three_knot_constraints.rank() == 3
 print("knot spline arithmetic and structure passed")

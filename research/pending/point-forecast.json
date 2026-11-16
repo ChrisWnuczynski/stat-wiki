@@ -19,10 +19,5 @@
       "topic_code": "T2"
     }
   ],
-  "shared_changes": [
-    {
-      "file": "sources/book/chapters/11-forecasting.qmd",
-      "description": "At line 3, the sentence saying automatic order choice 'does what the autocorrelation plots would have suggested by hand' overstates the equivalence. Replace it with: 'Automatic selection evaluates candidate models by an information criterion, while autocorrelation plots remain useful for diagnosis and interpretation.' Rebuild/check the Forecasting chapter, Point forecast, and ARIMA model pages."
-    }
-  ]
+  "shared_changes": []
 }

@@ -19,14 +19,5 @@
       "topic_code": "B8"
     }
   ],
-  "shared_changes": [
-    {
-      "file": "sources/book/chapters/bayes-08-hierarchy.qmd",
-      "description": "In the 'Large and small tutorial classes' example around lines 170–190, the question suggests the more extreme raw mean might not give the more extreme posterior mean, but the printed results are A≈74.81 and B≈78.33, so B remains higher. Preserve both observations and calculations; ask instead why B shrinks much more and explain the raw gap 20 versus posterior gap ≈3.53. Recheck the tutorial example and dependent normal-hierarchical-shrinkage page."
-    },
-    {
-      "file": "sources/book/chapters/bayes-08-hierarchy.qmd",
-      "description": "Near the end of the rat-grid discussion, the statement that full Bayes 'usually widens the marginal intervals' relative to a plug-in estimate is too broad. The law of total variance adds a nonnegative hyperparameter-mean component to the average conditional variance, but this does not order all credible interval widths against a particular plug-in fit. Reword accordingly and check chapter plus dependent hierarchy/rat pages."
-    }
-  ]
+  "shared_changes": []
 }

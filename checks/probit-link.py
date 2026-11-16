@@ -15,6 +15,9 @@ for z, displayed in [(-.5,.30854),(.3,.61791),(1.1,.86433),(-1,.15866),(1,.84134
     assert round(Phi(z), 5) == displayed
 assert round(phi(0),5) == .39894
 assert round(sqrt(pi/8),5) == .62666
+# Matching the two inverse-link slopes at probability one half scales a
+# probit coefficient by this factor on the logit scale.
+assert round(4 * phi(0), 3) == 1.596
 assert round(.8*phi(.3),5) == .30511
 assert round(.5*phi(0),5) == .19947
 assert (-(-.5))/.8 == .625

@@ -20,10 +20,5 @@
       "topic_code": "G3"
     }
   ],
-  "shared_changes": [
-    {
-      "file": "topics.py",
-      "description": "At topic('Underdispersion') around line 823, replace the definition 'Variance smaller than the model implies, for counts a variance below the mean. It is rarer than overdispersion.' with 'Conditional variance smaller than the reference model predicts; for a Poisson reference this is variance below the conditional mean.' The unqualified rarity claim has no supporting source and a count reference need not always be Poisson. Rebuild and check dependent Underdispersion and related topic pages."
-    }
-  ]
+  "shared_changes": []
 }

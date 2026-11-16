@@ -338,7 +338,7 @@ The exercise asks you to check that the right-hand side lies in $(0,1)$ for ever
 
 ![Three inverse links, each with slope one. The logit and the probit are symmetric about one half. Complementary log-log reaches one faster than it leaves zero.](../figures/links.pdf){#fig-links}
 
-In @fig-links the logit and the probit differ in the tails and agree through the middle. In a fitted model they almost always agree, close enough that the two curves will not separate. A probit essentially never has to be the link reported to an applied scientist. A log-odds can be explained. A computer scientist or an engineer will sometimes prefer the probit, because a normal quantile is already their language. When there is a choice, and the person across the table is not one of those, use the logit. Goodness of fit will not be the reason to switch.
+In @fig-links the logit and probit are close through the middle but differ in the tails. When observed probabilities stay near the middle, their fitted curves can be similar; sparse tail data or a different scientific mechanism can make the distinction matter. A logit coefficient has an odds-ratio interpretation, while a probit can express a latent normal threshold model. Choose a link with the scientific question and the range of observed data in mind, then check calibration and fit. Goodness of fit may favor one link for a particular dataset.
 
 ### Interpreting a logistic regression
 

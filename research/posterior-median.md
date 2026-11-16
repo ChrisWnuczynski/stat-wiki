@@ -17,4 +17,4 @@ Rank 191. Type: Concept. Frozen baseline: 585 body words, zero figures. The orig
 
 ## Changes
 
-Added motivating use, precise median condition including atoms, interpretation of skewness, a single collapsed proof, verified Beta and discrete numerical examples, a hidden Your turn answer, distinct misconceptions, concrete failure examples, connections and sourced historical context. Two answered questions are pending for the shared bank. No figure was present or removed.
+Added motivating use, precise median condition including atoms, interpretation of skewness, a single collapsed proof, verified Beta and discrete numerical examples, a hidden Your turn answer, distinct misconceptions, concrete failure examples, connections and sourced historical context. Two answered questions remain recorded for the shared bank. The inherited absolute-loss citation now points only to the full author-hosted Gelman et al. (2013), Ch. 4, Ex. 6(b), p. 98. No figure was present or removed.

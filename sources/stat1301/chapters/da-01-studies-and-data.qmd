@@ -32,14 +32,14 @@ In a designed experiment some columns are controlled.{{cite:fisher1935_doe}} Tre
 
 :::
 
-The variables one hopes to explain are the response, also called the outcome. The variables used to explain it are explanatory variables, also called covariates or factors. A randomised design assigns each unit one of a small number of treatments with equal probability. After a large enough randomisation, the treatment groups agree, before treatment, on the distribution of every variable, measured or not. A difference that then appears in the response is evidence about the treatments, not about who happened to land in which group.
+The variables one hopes to explain are the response, also called the outcome. The variables used to explain it are explanatory variables, also called covariates or factors. A randomised design assigns treatments by a known chance mechanism, often with equal probabilities. Random assignment balances pretreatment variables, measured or not, in expectation across possible assignments; the realised groups can still differ by chance. A response difference is therefore evidence about the treatments, but its uncertainty must account for random assignment and chance imbalances.
 
 Measurements vary for more than one reason. Most of the variation in heights is natural diversity between people, from genetics, diet and environment. Some is measurement error.{{cite:gauss1809}}{{cite:laplace1812}}{{cite:fuller1987}} Later models try to explain part of the variation by other variables, such as sex or shoe size. What no variable in the model explains is the residual variability, and a good model leaves little of it while still predicting new data well. One or more measurements are taken on each experimental unit: a person, a plant, a plot of land, a household, a star or a manufactured object.
 
 ::: {#def-randomised-controlled-trial .definition}
 ## Randomised controlled trial
 
-In a randomised controlled trial each experimental unit receives one of several treatments, chosen at random with equal probability.{{cite:fisher1935_doe}}{{cite:hill1948_rct}} One of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.{{cite:hill1948_rct}}
+In a randomised controlled trial each experimental unit receives one of several treatments by a specified chance mechanism.{{cite:fisher1935_doe}}{{cite:hill1948_rct}} One of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.{{cite:hill1948_rct}}
 
 :::
 
@@ -50,13 +50,13 @@ A confounding variable affects both the explanatory variable and the response, s
 
 :::
 
-Taller people tend to have shorter hair. Within each sex there may be no relationship at all: women are on average shorter than men and on average have longer hair, and sex drives both. Sex confounds the comparison of height and hair length. In a well-run randomised experiment confounding cannot arise in this way, because the treatment groups have similar distributions of every variable.
+Taller people tend to have shorter hair. Within each sex there may be no relationship at all: women are on average shorter than men and on average have longer hair, and sex drives both. Sex confounds the comparison of height and hair length. Random treatment assignment prevents systematic selection by such variables, although finite treatment groups can still differ by chance.
 
 Observational studies are retrospective when they analyse data that already exist, collected for some other purpose, and prospective when they are planned and the measurements follow. Neither assigns treatments. Many attributes cannot be assigned, for physical or ethical reasons: sex, age and beliefs are examples. A comparison between groups defined by such an attribute can show association with the response, but by itself not causation.
 
-That is why a randomised comparison can support a causal sentence and an observational comparison usually cannot. In the smoking-and-height example the mothers were not assigned to smoke. A difference in sons' heights is compatible with an effect of smoking and also with diet, income, or anything else that differs between the two groups of mothers. Randomisation is what blocks that reading.
+That is why a randomised comparison supports a causal interpretation under its design assumptions. An observational comparison can also support a causal claim when its additional assumptions about confounding and selection are credible. In the smoking-and-height example the mothers were not assigned to smoke. A difference in sons' heights is compatible with an effect of smoking and also with diet, income, or anything else that differs between the two groups of mothers. Randomisation would make treatment assignment independent of those pretreatment factors in expectation.
 
-Blinding keeps the assignment from leaking into the response. In a blind experiment the unit does not know which treatment it received. In a double-blind experiment the person who measures the response does not know either. A placebo, an inactive treatment that otherwise resembles the active one, is what makes that possible when the act of being treated itself changes the response.
+Blinding keeps knowledge of the assignment from influencing the response or its measurement. In a blind experiment the unit does not know which treatment it received. In a double-blind experiment the person who measures the response does not know either. A matched placebo can help preserve blinding when receiving a treatment may itself change the response; an active comparator can serve when withholding treatment would be inappropriate.
 
 ::: {#def-blinding-and-placebo .definition}
 ## Blinding and placebo
@@ -65,7 +65,7 @@ In a blind experiment the units do not know which treatment they received. In a 
 
 :::
 
-Blinding matters because knowledge of the treatment can change the response. Patients given an inactive sugar pill sometimes report less pain; that is the placebo effect, and only a comparison against a placebo can separate it from the effect of the drug.
+Blinding matters because knowledge of the treatment can change the response. Patients given an inactive sugar pill sometimes report less pain; that is the placebo effect. A randomised comparison with an appropriate, credibly masked control helps separate expectation and natural recovery from a drug's specific effect.
 
 ::: {#exm-alices-caffeine-experiment .example}
 ## Alice's caffeine experiment
@@ -79,7 +79,7 @@ Alice asks whether caffeinated cola raises the heart rate more than decaffeinate
 
 **Question.** Identify the response, the explanatory variable and the design choices, and summarise the data.
 
-**Solution.** The experimental units are the 20 friends. The response is the change in heart rate, and the explanatory variable is caffeine, a factor with two levels. Several choices protect the comparison. Diet cola is compared with decaf diet cola because the two differ only in caffeine; regular and decaf regular cola also differ in sugar, energy and sodium. Half an hour is roughly the time caffeine takes to be absorbed. Choosing the 10 caffeine drinkers at random, rather than as, say, the 10 women, prevents a difference in heart rate from being a difference between the groups. Not telling the friends which drink they had, and ideally not telling whoever reads the pulse meter, prevents expectations from moving the response. Using friends at all limits the conclusion to people like Alice's friends.
+**Solution.** The experimental units are the 20 friends. The response is the change in heart rate, and the explanatory variable is the assigned drink, a factor with two levels intended to isolate caffeine. The two diet colas should be matched as closely as feasible; their labels must be checked because decaffeination or formulation can change ingredients besides caffeine. Half an hour allows time for caffeine to be absorbed. Choosing the 10 caffeine drinkers at random, rather than as, say, the 10 women, reduces selection bias, although the realised groups may still differ by chance. Not telling the friends which drink they had, and ideally not telling whoever reads the pulse meter, reduces the influence of expectations on the response. Using friends at all limits the conclusion to people like Alice's friends.
 
 The decaf group's mean change is $5.1$ beats per minute and the caffeinated group's is $15.8$, a difference of $10.7$. In a spreadsheet the data should be in standard form, one row per friend, with a column for the change and a column for the caffeine level:
 
@@ -97,7 +97,7 @@ Whether a difference of 10.7 could easily arise by chance, with no effect of caf
 
 ![Alice's caffeine data as a strip plot, one dot per friend, with the group means marked. Every caffeinated drinker but one gained more than the decaf group's mean.](../figures/da-alice-strip.pdf){#fig-da-alice-strip}
 
-A study that does not need every covariate recorded is one that randomised. Age, diet, and fitness still affect blood pressure, but if the drug and the control were assigned at random they are balanced across those variables, including the ones nobody wrote down. An observational study of the same question has to measure them, or the comparison stays confounded.
+Randomisation can protect a treatment comparison without recording every pretreatment covariate. Age, diet, and fitness still affect blood pressure, but random assignment balances their distributions in expectation, including variables nobody wrote down; a finite sample may remain imbalanced. An observational study of the same question needs credible control of such differences, through measurement, design, or additional assumptions.
 
 ## Sampling from a population
 

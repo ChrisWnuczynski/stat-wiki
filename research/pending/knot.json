@@ -4,18 +4,5 @@
     "description": "join between polynomial pieces that lets a spline bend locally while retaining its chosen degree of smoothness"
   },
   "self_checks": ["c-31", "c-32", "q-36"],
-  "shared_changes": [
-    {
-      "file": "topics.py",
-      "description": "In the Knot topic around line 891, distinguish full smoothing splines with knots at distinct observed x from reduced-basis regression or penalised splines with selected knots. Remove the blanket 'often ten equally spaced points or deciles' default. Check Knot, Spline, Cubic smoothing spline, Roughness penalty and all pages inheriting the Smooth means excerpt."
-    },
-    {
-      "file": "sources/book/chapters/06-smooth-means.qmd",
-      "description": "In 'A roughness penalty' around line 30, qualify universal claims that ten equally spaced knots are the usual default, lambda is chosen by cross-validation, edf equals a polynomial degree, lambda→0 always interpolates for every exponential-family likelihood, and the limiting edf is invariably one. State the chosen smoothing basis and fitting method, and distinguish Gaussian smoothing-spline limits from GLM cases. Recheck Smooth means plus all pages importing this paragraph."
-    },
-    {
-      "file": "article_extras.py",
-      "description": "In the Knot extra around line 2001, qualify the natural-spline dimension formula when M is one or two boundary knots: four tail constraints are not independent in those degenerate cases. Also replace unsupported blanket '10–30 quantile knots' guidance with basis-dependent wording. Preserve the valid truncated-cubic formula and numerical example. Check Knot and dependent Spline/Cubic smoothing spline pages."
-    }
-  ]
+  "shared_changes": []
 }

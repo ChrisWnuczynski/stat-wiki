@@ -16,10 +16,5 @@
       "topic_code": "D1"
     }
   ],
-  "shared_changes": [
-    {
-      "file": "sources/stat1301/chapters/da-01-studies-and-data.qmd",
-      "description": "Correct overstatements in the source chapter's design explanation and Alice solution: around line 35, complete randomization balances covariates in expectation, not exactly for every variable in finite groups; around lines 45–50, it does not make chance confounding impossible or make observational causal inference categorically impossible with extra assumptions; around line 59, placebo is not the sole possible comparator; around the Alice solution, random assignment reduces selection bias rather than guaranteeing heart-rate groups differ only by caffeine, and diet/decaf cola may differ in more than caffeine. Preserve the Alice table and checked group means. Rebuild/check all dependent study-design pages and chapter."
-    }
-  ]
+  "shared_changes": []
 }

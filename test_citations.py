@@ -593,8 +593,10 @@ class InlineCitationTests(unittest.TestCase):
         rendered = citations.PageCitationLinker(
             citations.ARTICLE_REFS["posterior-median"], self.works
         ).process_text(note)
-        self.assertIn('data-cite-key="lehmann_casella1998"', rendered)
+        # The absolute-loss result is located in the opened author-hosted BDA3.
+        self.assertNotIn('data-cite-key="lehmann_casella1998"', rendered)
         self.assertIn('data-cite-key="gelman_bda2013"', rendered)
+        self.assertIn('(Ch. 4, Ex. 6(b), p. 98)', rendered)
         self.assertIn("strobl2007", citations.ARTICLE_REFS["variable-importance"])
         importance = article_extras.NOTES["variable-importance"]
         self.assertIn("Strobl, Boulesteix, Zeileis, and Hothorn, 2007", importance)

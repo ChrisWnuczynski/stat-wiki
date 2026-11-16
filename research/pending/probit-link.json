@@ -14,14 +14,5 @@
       "topic_code": "G1"
     }
   ],
-  "shared_changes": [
-    {
-      "file": "topics.py",
-      "description": "In the Probit link definition around line 783, qualify the statement that fitted probit coefficients are smaller than logit coefficients by a factor of about 1.6–1.8. It is an approximate comparison under comparable fitted curves, not an identity for any binary dataset or every coefficient. Check Probit link and dependent GLM/link pages."
-    },
-    {
-      "file": "sources/book/chapters/01-introduction-to-glms.qmd",
-      "description": "In 'Three links' around lines 339–341, qualify the blanket claims that fitted logit and probit curves almost always agree and that goodness of fit will not motivate a switch. Their tails differ and model comparison depends on data and purpose. Check Introduction to GLMs, Probit link, Logit link and all linked comparison pages."
-    }
-  ]
+  "shared_changes": []
 }
