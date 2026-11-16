@@ -1,0 +1,18 @@
+{
+  "slug": "stationary-and-independent-increments",
+  "rank": 262,
+  "tier": "full",
+  "type": "definition",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — Levels versus changes", "Properties — A constant rate, and a rate that changes", "Statistical use — Which theorem the property unlocks", "Worked example", "Common misconceptions", "Assumptions and limits — Shared shocks and a random rate", "Connections", "Check yourself", "History"],
+  "words_before": 426,
+  "words_after": 2211,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["durrett2019 pp. 353–355"],
+  "proofs": ["Brownian increment law and the covariance min(s,t); Poisson empty probabilities multiply on disjoint windows"],
+  "tests": ["checks/stationary-and-independent-increments.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Grimmett and Stirzaker, Ross, and Doob were not reopened."],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": ["stationary-and-independent-increments: copied citations of Grimmett–Stirzaker, Ross and Doob have no new page locators."]
+}

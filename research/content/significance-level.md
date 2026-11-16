@@ -1,0 +1,73 @@
+## Lead context
+The significance level is the largest probability of rejecting a true null hypothesis that the tester is willing to allow, and it is fixed before the data are used to make that decision.
+
+## Motivating example
+A laboratory standard is supposed to have mean 5. A sample of 195 measurements has mean 9.261460 and standard deviation 0.022789. The measurements sit far from 5, but "far" needs a rule stated in advance. With a two-sided level of 0.05, the critical value of the $t_{194}$ law is 1.9723. The standardised distance from 5 is about 2611, vastly larger than 1.9723, so the rule rejects. The same level also builds the interval $9.261460\pm1.9723\times0.022789/\sqrt{195}$, which is $(9.258241,\ 9.264679)$ and does not contain 5. The level is the long-run false-rejection rate of that rule, not the probability that the mean really is 5.{{cite:nist_mean_limits2002}} (§1.3.5.2, significance level and critical region){{cite:dodge2008}} (pp. 250–251, step 2, the significance level)
+
+## Intuition
+A test divides the possible values of a statistic into a rejection region and its complement. The significance level $\alpha$ is the probability of the rejection region when the null hypothesis is true. Dodge lists it as the second step of a test, after the hypotheses are named and before the critical value is calculated. NIST's normal-mean page uses the same order: choose $\alpha$, then the critical point $t_{1-\alpha/2,\,N-1}$, then reject if the statistic falls beyond it. Choosing $\alpha=0.05$ means that, among samples drawn when the null is true, about 5% fall in the rejection region. It does not mean that a rejected null had a 5% chance of being true.{{cite:dodge2008}} (pp. 250–251, steps of a test){{cite:nist_mean_limits2002}} (§1.3.5.2, “Definition: Hypothesis Test”)
+
+## Definition
+For a test of $H_0$, the significance level is the probability of rejecting $H_0$ when $H_0$ is true, also called the size when that probability is constant on the null. For a two-sided $t$ test of a normal mean it is the probability that $|T|$ exceeds $t_{1-\alpha/2,\,n-1}$ under the null, which equals $\alpha$ by construction of the critical point. For a discrete statistic the probability of a chosen rejection region may be strictly smaller than a nominal $\alpha$, because the statistic cannot hit every probability. The level that is quoted should then be the actual probability of the region that will be used, or the nominal ceiling the region was built to respect.{{cite:nist_mean_limits2002}} (§1.3.5.2, critical region at level $\alpha$){{cite:dodge2008}} (p. 251, critical value and rejection region)
+
+## Interpretation — Level, critical value, and p-value
+The critical value is a cutoff computed from $\alpha$. The $p$-value is computed from the data: it is the smallest level at which this observed statistic would fall in the rejection region. Rejecting when the $p$-value is at most $\alpha$ is the same decision as rejecting when the statistic falls in the level-$\alpha$ region, provided the region was the one used to define the $p$-value. Reporting only "significant at 0.05" throws away how far inside the region the statistic landed. Reporting only the $p$-value, and then choosing a level after seeing it, is no longer the procedure whose false-rejection rate is $\alpha$.{{cite:nist_mean_limits2002}} (§1.3.5.2, confidence interval as the set of means not rejected){{cite:dodge2008}} (p. 251, decision after the region is fixed)
+
+## Properties — Where the level goes in a normal-mean test
+For independent $N(\mu,\sigma^2)$ observations with known $\sigma$, the level-$\alpha$ two-sided region for $Z=(\overline X-\mu_0)/(\sigma/\sqrt n)$ is $|Z|\ge z_{1-\alpha/2}$. The matching region for the sample mean is $|\overline X-\mu_0|\ge z_{1-\alpha/2}\,\sigma/\sqrt n$. With unknown $\sigma$ the normal quantile is replaced by a $t_{n-1}$ quantile and $\sigma$ by $s$. A one-sided level $\alpha$ uses one tail, $t_{1-\alpha,\,n-1}$, which is smaller than the two-sided critical value at the same $\alpha$. NIST's illustration with 194 degrees of freedom has two-sided critical value 1.9723 at $\alpha=0.05$ and one-sided critical value 1.6527.{{cite:nist_mean_limits2002}} (§1.3.5.2, two-sided and one-sided critical values)
+
+::: {.callout-note collapse="true" title="Proof"}
+::: {.proof}
+Under $H_0:\mu=\mu_0$ with known $\sigma$, $Z\sim N(0,1)$. The quantile $z_{1-\alpha/2}$ satisfies $\Pr(|Z|\ge z_{1-\alpha/2})=\alpha$, so the test that rejects for $|Z|\ge z_{1-\alpha/2}$ has level $\alpha$. Multiplying the inequality by $\sigma/\sqrt n$ gives the region for $\overline X$. Replacing $\sigma$ by $S$ and $z_{1-\alpha/2}$ by $t_{n-1,1-\alpha/2}$ preserves the level when the observations are independent and normal, because then $(\overline X-\mu_0)/(S/\sqrt n)\sim t_{n-1}$.
+
+If the statistic is discrete, a region $R$ has level $\Pr_{H_0}(T\in R)$, which need not equal a pre-chosen $\alpha$. Any region with that probability at most $\alpha$ is a level-$\alpha$ test in the sense of a ceiling. Its size is the actual probability, which can be smaller.{{cite:nist_mean_limits2002}} (§1.3.5.2, critical region){{cite:dodge2008}} (p. 251, rejection region)
+:::
+:::
+
+## Statistical use — Reading a reported level
+A reported level belongs to a named test and a named null. "Significant at 0.05" without the statistic, the direction, and the sample size is not a description of a region. The same data can reject at 0.05 on a one-sided test and not on a two-sided test, because the one-sided critical value is closer to zero. An interval of confidence $1-\alpha$ contains the parameter values that the two-sided level-$\alpha$ test would not reject. That duality fixes the relationship between the two procedures. It does not turn $\alpha$ into a posterior probability.{{cite:nist_mean_limits2002}} (§1.3.5.2, interval and the hypothesis test)
+
+## Worked example
+Blood pressure in a reference population has standard deviation 7. For a sample of 101 independent normal readings, the level-0.05 two-sided region for $T=(\overline X-127)/(7/\sqrt{101})$, using $z_{0.975}=1.960$, is $|T|\ge1.960$. The standard error is $7/\sqrt{101}=0.6965$, and $1.960\times0.6965=1.365$. The sample mean rejects $H_0:\mu=127$ when $\overline X\le125.635$ or $\overline X\ge128.365$.
+
+A discrete comparison shows why the nominal level and the size can differ. For $X\sim\mathrm{Bin}(15,0.6)$, the region $\{13,14,15\}$ has probability $0.0271$, not $0.05$. A tester who calls this a 5% test is quoting a ceiling. The size, the probability of a false rejection, is $0.0271$. At $p=0.9$ the power of the same region is $0.8159$.{{cite:nist_mean_limits2002}} (§1.3.5.2, level and critical region){{cite:dodge2008}} (p. 251, significance level chosen before the critical value)
+
+**Your turn.** Seven observations are used to test $H_0:\sigma^2=1.1$ against $\sigma^2<1.1$ at level 0.05, rejecting for small $s^2$. The critical point is $\chi^2_{6;0.05}=1.635$. Find the largest $s^2$ that still rejects.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Reject when $6s^2/1.1\le1.635$, so $s^2\le1.635\times1.1/6=0.29975$, which rounds to $0.2998$. Any larger sample variance is outside this level-0.05 region. The level is the chi-squared probability of that region under $\sigma^2=1.1$, not a probability that the variance is 1.1.{{cite:dodge2008}} (p. 251, critical value)
+:::
+
+## Common misconceptions
+The significance level is not the probability that the null hypothesis is true after a rejection, and it is not the $p$-value. A $p$-value of 0.04 and a level of 0.05 are different objects: one is computed from the sample, the other was chosen as a cutoff. A result that is not significant at 0.05 is not evidence that the null is true; the test was built to limit false rejections, not to limit missed effects. And 0.05 is a convention NIST and many textbooks record as common, not a law of nature. A different scientific cost can justify 0.01 or 0.10, provided the choice is made with the region, not after the $p$-value is known.{{cite:nist_mean_limits2002}} (§1.3.5.2, choice of $\alpha$){{cite:dodge2008}} (pp. 250–251, level as a step of the procedure)
+
+## Assumptions and limits — When the advertised level is not the error rate
+The $t$ critical value has level $\alpha$ when the observations are independent and normal and the null mean is the one in the statistic. Dependence, or a badly skewed population in a small sample, moves the true rejection probability away from $\alpha$. The binomial region above is a different failure, visible with no modelling surprise: the statistic is discrete, so the region $\{13,14,15\}$ cannot be given probability exactly 0.05. Quoting 0.05 as its size would overstate how often a fair null is rejected. A second limit is optional stopping. If the tester peeks and adds observations until the $p$-value drops below 0.05, the probability of eventually rejecting a true null is larger than 0.05. The level attaches to a region that was fixed, including the sample size.{{cite:nist_mean_limits2002}} (§1.3.5.2, the level is a property of the method){{cite:dodge2008}} (p. 251, region fixed before the decision)
+
+## Connections
+The [critical region](critical-region.qmd) is the set whose null probability is the level. [Type I and type II errors](type-i-and-type-ii-errors.qmd) name a false rejection and a missed rejection. The [p-value](p-value.qmd) is the smallest level at which the observed sample rejects. A [confidence interval](confidence-interval.qmd) of level $1-\alpha$ inverts the tests of level $\alpha$. The [Neyman–Pearson approach](neyman-pearson-approach.qmd) fixes a ceiling on the type I error and then looks for a region with small type II error.{{cite:dodge2008}} (pp. 250–251, type I and type II errors in the 1933 paper, as Dodge records it)
+
+## Check yourself
+
+### A critical region for a known variance {#self-check-ex-inf-blood-pressure-region}
+
+For the blood-pressure statistic $T=(\overline X-127)/(7/\sqrt{101})$ and $z_{0.975}=1.960$, state the level-0.05 region for $T$ and for $\overline X$.
+
+[Question-bank page](../questions/ex-inf-blood-pressure-region.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+Reject when $|T|\ge1.960$. Since $7/\sqrt{101}=0.6965$ and $1.960\times0.6965=1.365$, reject when $\overline X\le125.635$ or $\overline X\ge128.365$. The probability of that region is 0.05 when $\mu=127$ and the normal model holds.{{cite:nist_mean_limits2002}} (§1.3.5.2, two-sided critical region)
+:::
+
+### Power of a serve test {#self-check-ex-inf-serve-power}
+
+Serves follow $\mathrm{Bin}(15,p)$. The test of $p=0.6$ against $p>0.6$ rejects for $X\in\{13,14,15\}$. What is the size, and what is the power at $p=0.9$?
+
+[Question-bank page](../questions/ex-inf-serve-power.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The size is $\Pr(X\ge13)$ at $p=0.6$, which equals $0.0271$. The power at $p=0.9$ is $\Pr(X\ge13)=0.8159$. The nominal label 0.05 is a ceiling this region does not use up.{{cite:dodge2008}} (p. 251, the level is the probability of the rejection region)
+:::
+
+## History
+Dodge traces talk of the significance or insignificance of a batch of observations to the eighteenth century, naming Arbuthnot (1710), Daniel Bernoulli (1734) and Laplace (1773), and notes that such calculations became more common in the nineteenth century. The encyclopedia credits Neyman and Pearson's 1928 *Biometrika* paper with the mathematical theory that sets a null against an alternative, and their 1933 paper with the distinction between a type I error and a type II error. In that procedure the significance level is the allowed probability of the type I error, fixed when the rejection region is chosen.{{cite:dodge2008}} (pp. 250–251, History and mathematical steps)

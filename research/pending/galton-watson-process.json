@@ -1,0 +1,18 @@
+{
+  "slug": "galton-watson-process",
+  "rank": 254,
+  "tier": "full",
+  "type": "section",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — Mean, extinction, and a root of f", "Properties — The mean, a variance recurrence, and the critical limit", "Statistical use — What to compute before simulating a tree", "Worked example", "Common misconceptions", "Assumptions and limits — When the generation story fails", "Connections", "Check yourself", "History"],
+  "words_before": 316,
+  "words_after": 2165,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["durrett2019 pp. 230–232"],
+  "proofs": ["Extinction is the smallest fixed point; subcritical bound by Markov; critical and supercritical regimes as in Durrett"],
+  "tests": ["checks/galton-watson-process.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Feller, Grimmett–Stirzaker and Ross were not reopened."],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": ["galton-watson-process: copied citations of Feller, Grimmett–Stirzaker and Ross have no new page locators."]
+}

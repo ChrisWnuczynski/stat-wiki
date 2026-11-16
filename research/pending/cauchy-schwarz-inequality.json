@@ -1,0 +1,18 @@
+{
+  "slug": "cauchy-schwarz-inequality",
+  "rank": 253,
+  "tier": "full",
+  "type": "topic",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — What equality is saying", "Properties — The covariance bound and the vector norm", "Statistical use — Where the bound is the result", "Worked example", "Common misconceptions", "Assumptions and limits — When there is nothing to bound", "Connections", "Check yourself", "History"],
+  "words_before": 394,
+  "words_after": 2353,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["durrett2019 p. 26", "dodge2008 p. 378"],
+  "proofs": ["Quadratic discriminant proof and the centred covariance form"],
+  "tests": ["checks/cauchy-schwarz-inequality.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Schwarz 1885 was not opened."],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": ["cauchy-schwarz-inequality: copied Grinstead, Pearson, Student and Casella–Berger citations were not reopened for new locators."]
+}
