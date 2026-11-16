@@ -1,0 +1,40 @@
+{
+  "slug": "poisson-regression",
+  "rank": 228,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — Two wards, two lengths of observation",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — Quote a rate, and name the exposure",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the variance is not the mean",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 592,
+  "words_after": 2059,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "R glm manual"
+  ],
+  "proofs": [
+    "Poisson log-link score and the pooled-rate MLE"
+  ],
+  "tests": [
+    "checks/poisson-regression.py passed"
+  ],
+  "skipped": [
+    "McCullagh and Nelder was not opened"
+  ],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}
