@@ -39,15 +39,15 @@ Fix the architecture while differentiating. Its size is a separate choice. The w
    $$
    w'=w-\varepsilon\frac{\partial E}{\partial w}=w+\Delta w,
    $$
-   until a stopping condition holds: the performance is acceptable, or the weights are barely changing{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}{{cite:hastie_esl2009}}.
+   until a stopping condition holds: the performance is acceptable, or the weights are barely changing{{cite:goodfellow_bengio_courville2016}} (Ch. 8, §8.1.3, pp. 274–276, stopping and learning curves).
 
 :::
 
-The learning rate $\varepsilon>0$ is the step size along minus the gradient{{cite:rumelhart_hinton_williams1986}}{{cite:widrow_hoff1960}}{{cite:bishop2006}}. The value $0.1$ is an example of a step size. It is not a distinguished constant.
+The learning rate $\varepsilon>0$ is the step size along minus the gradient{{cite:goodfellow_bengio_courville2016}} (Ch. 4, §4.3, pp. 82–85). The value $0.1$ is an example of a step size. It is not a distinguished constant.
 
 In one dimension the error is a curve in the single weight. The update subtracts $\varepsilon$ times the derivative, so the step length is $\varepsilon$ times the slope. A steep region takes a longer step, and a large $\varepsilon$ can jump over a valley. A flat region, where the derivative is near zero, barely moves. A start in one basin stays in that basin under a small enough step. Momentum adds a fraction of the previous step and can cross a flat ridge. A mini-batch replaces the full gradient by an average over a random subset and so adds noise to the gradient. A line search spends several evaluations of the loss on one step. A second-order step uses the Hessian and costs more per iteration.
 
-A randomly sampled mini-batch can give an unbiased estimate of the gradient of the mean loss. That expectation, with the current weights held fixed, is the relevant property. The angle of one noisy draw is not a convergence argument. Its variance and the learning-rate schedule still affect the trajectory. One pass through all the training patterns is an epoch{{cite:bishop2006}}{{cite:hastie_esl2009}}. NETtalk, on [networks in practice](sl-16-networks-in-practice.qmd), is the count used later.
+A randomly sampled mini-batch can give an unbiased estimate of the gradient of the mean loss. That expectation, with the current weights held fixed, is the relevant property. The angle of one noisy draw is not a convergence argument. Its variance and the learning-rate schedule still affect the trajectory. One pass through all the training patterns is an epoch{{cite:goodfellow_bengio_courville2016}} (Ch. 8, §8.1.3, pp. 274–276). NETtalk, on [networks in practice](sl-16-networks-in-practice.qmd), is the count used later.
 
 For checking a gradient, perturb one weight at a time and compare the analytical derivative with $[E(w+\delta)-E(w-\delta)]/(2\delta)$. A very large $\delta$ causes approximation error. A very small one causes cancellation in floating-point arithmetic. Try a small range of steps and compare absolute as well as relative discrepancies, especially near zero derivatives. This check is expensive for training and useful for finding a missing sign or factor.
 

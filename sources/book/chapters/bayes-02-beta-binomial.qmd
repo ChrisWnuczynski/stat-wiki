@@ -111,7 +111,7 @@ Therefore \begin{equation}
   \label{eq:beta-binomial-posterior}
 \end{equation}
 
-A beta prior and a binomial likelihood produce a beta posterior.{{cite:laplace1812}}{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}
+A beta prior and a binomial likelihood produce a beta posterior.{{cite:mit_ocw_conjugate2022}} (§5.1, p. 5)
 
 :::
 

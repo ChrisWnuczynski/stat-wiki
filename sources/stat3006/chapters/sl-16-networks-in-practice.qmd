@@ -81,7 +81,7 @@ $$
 s_k=\frac{e^{z_k}}{\sum_{l=1}^{m} e^{z_l}},\qquad k=1,\ldots,m.
 $$
 
-Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label{{cite:shannon1948}}{{cite:hastie_esl2009}}. Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
+Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label{{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130). Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
 
 Let the target be a one-hot vector $y$, with $y_k=1$ for the true class $c$, and let the loss be{{cite:bridle1990}}{{cite:shannon1948}}{{cite:hastie_esl2009}}:
 

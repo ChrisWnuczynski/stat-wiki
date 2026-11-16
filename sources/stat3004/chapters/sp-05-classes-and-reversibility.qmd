@@ -23,7 +23,7 @@ $$
 d(i)=\gcd\{n\ge 1: p_{ii}^{(n)}>0\}.
 $$
 
-Period $1$ means aperiodic.{{cite:norris1997}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+Period $1$ means aperiodic.{{cite:berkeley_eecs1262019}} (§2.4, p. 12)
 
 :::
 

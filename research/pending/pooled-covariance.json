@@ -17,6 +17,15 @@
       "venue": "Technometrics",
       "url": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf",
       "verification": {"source": "archival_url", "id": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf"}
+    },
+    "stanford_stats305c_hotelling2025": {
+      "authors": ["Taylor, J."],
+      "year": 2025,
+      "title": "Hotelling T2",
+      "kind": "book",
+      "publisher": "Stanford University, STATS305C: Methods for Applied Statistics",
+      "url": "https://web.stanford.edu/class/stats305c/lectures/Hotelling_T2.html",
+      "verification": {"source": "archival_url", "id": "https://web.stanford.edu/class/stats305c/lectures/Hotelling_T2.html"}
     }
   },
   "self_checks": ["ex-sl-02-2", "ex-sl-18-7"],
@@ -25,6 +34,6 @@
     {"slug": "pooled-covariance-hotelling-f", "title": "Two-sample Hotelling T-squared F calibration", "reason": "The copied source states the exact F law and critical value. The added Proof does not derive the independent normal/Wishart quadratic-form law or the F scaling; prove this under p<n1+n2−1 and common positive-definite covariance."}
   ],
   "shared_changes": [
-    {"file": "sources/stat3006/chapters/sl-02-normal-inference.qmd", "description": "The pooled covariance excerpt contains unlocated citations to unopened Anderson 2003, Wishart 1928 and Hotelling 1931. Where the n−G pooled formula and Fisher historical role are claimed, opened NIST Description/Program 2 and Fisher 1936 pp. 179–181 provide located support. Retain the Wishart and Hotelling statements, with their precise assumptions and proof debt above; do not silently remove those results. Check dependent two-sample, Wishart and Hotelling articles after citation edits."}
+    {"file": "sources/stat3006/chapters/sl-02-normal-inference.qmd", "description": "Applied in G: replaced unlocated Anderson, Wishart and Hotelling markers with opened NIST, Strimmer and Stanford lecture passages, added the orthogonal-residual argument, and retained the exact two-sample F law and stated assumptions. The 2025 Stanford key is in this pending bibliography. The rebuilt rank-161 article and focused check passed; keep the proof debt above for the full normal/Wishart quadratic-form derivation."}
   ]
 }

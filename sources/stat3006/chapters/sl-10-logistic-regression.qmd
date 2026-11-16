@@ -231,7 +231,7 @@ $$
 \log\frac{\tau_1(x)}{\tau_0(x)}=\beta^\top x.
 $$
 
-Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}${{cite:cox1958_logistic}}{{cite:berkson1944}}{{cite:hastie_esl2009}}. The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
+Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}${{cite:james_islr2013}} (Ch. 4, §4.3.1, pp. 132–133). The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
 
 The same one-unit reading can be derived for the linear discriminant log-odds score, since under a shared covariance that score is also linear in $x$. A coefficient remains a conditional association inside the fitted model. It does not, by itself, measure the effect of intervening on $x_j$.
 
@@ -241,7 +241,7 @@ $$
 \beta^\top x=0.
 $$
 
-The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary{{cite:hastie_esl2009}}. The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
+The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary{{cite:james_islr2013}} (Ch. 4, §§4.3.1, 4.4.3, pp. 132–133, 142–145). The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
 
 $$
 \eta(\beta)=
@@ -257,7 +257,7 @@ Products and powers such as $x_1$, $x_1^2$, and $x_1 x_2$ can be added to the li
 
 ### Linear discriminant analysis implies a logistic model
 
-Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model{{cite:hastie_esl2009}}. Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
+Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model{{cite:james_islr2013}} (Ch. 4, §4.5, pp. 151–152). Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
 
 The algebra is Bayes' theorem plus cancellation of the quadratic terms. Let $X\given Y=1\sim\Normal(\mu_1,\Sigma)$ and $X\given Y=0\sim\Normal(\mu_0,\Sigma)$, with priors $\pi_1$ and $\pi_0$. Then
 

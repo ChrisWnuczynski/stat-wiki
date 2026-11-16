@@ -81,12 +81,12 @@ $$
 r=\frac{y_s(w^\top x_s+b)}{\lVert w\rVert}=\frac{1}{\lVert w\rVert},
 $$
 
-and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}.
+and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2${{cite:cortes_vapnik1995}} (§2.1, pp. 277–279){{cite:burges1998}} (§3.1, pp. 128–129).
 
 ::: {#def-sl-17-hard-margin .definition}
 ## Hard-margin primal
 
-Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to the constraints{{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}.
+Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to the constraints{{cite:cortes_vapnik1995}} (§2.1, pp. 277–279){{cite:burges1998}} (§3.1, pp. 128–129).
 
 $$
 y_i(w^\top x_i+b)\ge 1,\qquad i=1,\ldots,n.
@@ -136,9 +136,9 @@ $$
 
 :::
 
-This is again a quadratic programme, now in $\alpha${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}{{cite:hastie_esl2009}}. It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
+This is again a quadratic programme, now in $\alpha${{cite:cortes_vapnik1995}} (§2.1, pp. 278–279){{cite:burges1998}} (§3.1, pp. 129–130). It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
 
-The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector{{cite:cortes_vapnik1995}}{{cite:vapnik1995}}, and
+The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector{{cite:cortes_vapnik1995}} (§2.1, pp. 278–279){{cite:burges1998}} (§3.2, pp. 130–132), and
 
 $$
 w=\sum_i\alpha_i y_i x_i,

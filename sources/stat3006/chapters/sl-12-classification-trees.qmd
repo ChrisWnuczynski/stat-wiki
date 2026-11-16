@@ -35,7 +35,7 @@ I_M(m)&=1-\hat p_{mg^*},
 &&\text{misclassification rate},
 \end{align*}
 
-where $g^*=\operatorname{arg\,max}_g\hat p_{mg}${{cite:breiman_cart1984}}{{cite:gini1912}}{{cite:hastie_esl2009}}. In the cross-entropy, a term with $\hat p_{mg}=0$ is taken to be $0$, the limiting value of $p\log p$ as $p\to 0${{cite:shannon1948}}. The logarithm may be in any fixed base. The worked arithmetic below uses the natural logarithm. A change of base multiplies every entropy, and every entropy reduction, by the same positive constant, so it does not change which split wins. A plot drawn in bits uses base $2$.
+where $g^*=\operatorname{arg\,max}_g\hat p_{mg}${{cite:stanford_cs229_trees2018}} (§3, pp. 4–6, node losses). In the cross-entropy, a term with $\hat p_{mg}=0$ is taken to be $0$, the limiting value of $p\log p$ as $p\to 0${{cite:stanford_cs229_trees2018}} (§3, p. 5, zero-probability convention). The logarithm may be in any fixed base. The worked arithmetic below uses the natural logarithm. A change of base multiplies every entropy, and every entropy reduction, by the same positive constant, so it does not change which split wins. A plot drawn in bits uses base $2$.
 
 :::
 

@@ -93,7 +93,7 @@ $$
 =\frac1n\sum_{i=1}^n Q\bigl(y_i,\eta_{(X,y)}(x_i)\bigr),
 $$
 
-where $\eta_{(X,y)}$ is the classifier fitted to the whole observed sample $(X,y)=\{(x_i,y_i)\}_{i=1}^n${{cite:efron1983}}{{cite:hastie_esl2009}}.
+where $\eta_{(X,y)}$ is the classifier fitted to the whole observed sample $(X,y)=\{(x_i,y_i)\}_{i=1}^n${{cite:james_islr2013}} (Ch. 2, §2.2.3, pp. 38–43, training error).
 
 :::
 
@@ -103,7 +103,7 @@ $$
 \E(\mathrm{err}-\mathrm{Err}).
 $$
 
-The same pairs $(x_i,y_i)$ enter the fitted rule and the average that scores it, so the summands are not draws from the conditional law of $Q(Y,\eta(X))$ given that rule. The dependence pulls the average down. The apparent error describes the fit to the training cases, and it is usually optimistic as an estimate of future error{{cite:efron1983}}{{cite:stone1974}}. Optimism is a repeated-sampling tendency. It is not a promise that every observed training error sits below every test error.
+The same pairs $(x_i,y_i)$ enter the fitted rule and the average that scores it, so the summands are not draws from the conditional law of $Q(Y,\eta(X))$ given that rule. That dependence often pulls the average down. The apparent error describes the fit to the training cases, and it is usually optimistic as an estimate of future error{{cite:james_islr2013}} (Ch. 2, §2.2.3, pp. 38–43, training versus test error). Optimism is a repeated-sampling tendency. It is not a promise that every observed training error sits below every test error.
 
 The bias is exact for one neighbour. Suppose the inputs $x_i$ are distinct and $\eta$ is $1$-nearest neighbour. The nearest training point to $x_i$ is $x_i$ itself, so the rule returns $y_i$, the loss $Q(y_i,\eta(x_i))$ is $0$, and $\mathrm{err}=0$ on every sample. Then
 
