@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "an initial sampling period discarded to limit starting bias, whose removal cannot establish that a chain explored its target"
+  },
+  "self_checks": ["c-15", "q-25", "ex-gibbs-mh"]
+}
