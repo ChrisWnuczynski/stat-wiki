@@ -1,0 +1,36 @@
+{
+  "slug": "ordinal-responses",
+  "rank": 351,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — One slope, several thresholds",
+    "Definition — Cumulative logits with a common slope",
+    "Properties — The odds multiplier does not depend on the cut",
+    "Worked example — Two cuts, slope -1/2, at x=2",
+    "Connections — Nominal labels, binary logit, and collapsing",
+    "Check yourself — Ordering and a multiplier"
+  ],
+  "words_before": 1274,
+  "words_after": 1904,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "Algebra of the cumulative logit already displayed on the page. McCullagh (1980), Agresti (2002) and Yee (2015) were not opened."
+  ],
+  "proofs": [
+    "A unit increase in x multiplies every cumulative odds by e^β."
+  ],
+  "tests": [
+    "checks/ordinal-responses.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "The pneumonia table was not refit. No new citation to McCullagh, Agresti or Yee."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
