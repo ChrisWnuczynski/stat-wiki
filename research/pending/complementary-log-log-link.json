@@ -1,0 +1,33 @@
+{
+  "article_lead": {
+    "description": "an asymmetric link for binary event probabilities that can express multiplicative changes in a no-event or hazard scale"
+  },
+  "self_checks": ["depth-cloglog-probability", "depth-cloglog-interpretation", "depth-cloglog-reversal"],
+  "new_bank_questions": [
+    {
+      "id": "depth-cloglog-probability",
+      "title": "Complementary log-log probability update",
+      "body": "A complementary log-log model has baseline event probability 0.20. A one-unit covariate change has coefficient log(2). Find the new event probability and state which quantity doubles.",
+      "answer": "Write H=-log(1-p). Initially H=-log(0.8). The coefficient doubles H, so 1-p_new=exp(-2H)=0.8^2=0.64 and p_new=0.36. The negative log of the no-event probability doubles; the event probability does not.",
+      "topic_code": "G1"
+    },
+    {
+      "id": "depth-cloglog-interpretation",
+      "title": "Reading a complementary log-log coefficient",
+      "body": "In a binary cloglog regression, a coefficient is log(3). What exactly is multiplied by three, and when can it be called a hazard ratio?",
+      "answer": "The quantity -log(1-p), where p is the fitted event probability, is multiplied by three. A hazard-ratio interpretation additionally requires a suitable proportional-hazards model for event times; an arbitrary cross-sectional binary response does not supply that interpretation. Neither the odds nor probability generally triples.",
+      "topic_code": "G1"
+    },
+    {
+      "id": "depth-cloglog-reversal",
+      "title": "Reversing the event in a cloglog model",
+      "body": "A fitted complementary log-log model describes event probability p. Does negating its coefficients give the same-link model for the nonevent probability 1-p? Explain.",
+      "answer": "No. The inverse cloglog curve is asymmetric, so reversing the outcome changes the link to its log-log counterpart; simple coefficient sign reversal is the logit's symmetry. Refit or transform the model explicitly for the chosen event definition.",
+      "topic_code": "G1"
+    }
+  ],
+  "shared_changes": [{
+    "file": "sources/book/chapters/01-introduction-to-glms.qmd",
+    "fix": "Replace the blanket sentence calling a cloglog coefficient a 'log-hazard, an instantaneous risk' with the precise transformed-probability interpretation; under a grouped proportional-hazards model exp(beta) multiplies interval cumulative hazard, and an instantaneous hazard ratio needs that survival model. Preserve the chapter equation and examples."
+  }]
+}
