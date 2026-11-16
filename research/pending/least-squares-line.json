@@ -1,0 +1,40 @@
+{
+  "slug": "least-squares-line",
+  "rank": 227,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — Three points and a line through their centre",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — Say which gaps were squared",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When no line is defined",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 1021,
+  "words_after": 2549,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "NIST §4.4.3.1",
+    "NIST §4.1.4.1",
+    "dodge2008 pp. 304–305"
+  ],
+  "proofs": [
+    "Normal equations, origin-constrained slope, three-point residual sums"
+  ],
+  "tests": [
+    "checks/least-squares-line.py passed"
+  ],
+  "skipped": [],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}
