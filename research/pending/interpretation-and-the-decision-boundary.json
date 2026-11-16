@@ -1,0 +1,29 @@
+{
+  "bibliography": {
+    "james_islr2013": {
+      "authors": ["James, G.", "Witten, D.", "Hastie, T.", "Tibshirani, R."],
+      "year": 2013,
+      "title": "An Introduction to Statistical Learning: with Applications in R",
+      "kind": "book",
+      "edition": "1st ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4614-7138-7",
+      "url": "https://www.statlearning.com/s/ISLRSeventhPrinting.pdf",
+      "verification": {"source": "crossref", "id": "10.1007/978-1-4614-7138-7"}
+    },
+    "msaouel2022_cox": {
+      "authors": ["Msaouel, P.", "Jimenez-Fonseca, P.", "Lim, B.", "Carmona-Bayonas, A.", "Agnelli, G."],
+      "year": 2022,
+      "title": "Medicine before and after David Cox",
+      "kind": "article",
+      "venue": "European Journal of Internal Medicine",
+      "doi": "10.1016/j.ejim.2022.02.022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12262021/",
+      "verification": {"source": "archival_url", "id": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12262021/"}
+    }
+  },
+  "self_checks": ["ex-sl-10-7", "ex-sl-08-3"],
+  "shared_changes": [
+    {"file": "sources/stat3006/chapters/sl-10-logistic-regression.qmd", "description": "The interpretation excerpt has unlocated inherited Cox 1958/Berkson 1944/Hastie ESL citations for odds and LDA. The full opened ISLR first-edition seventh printing Ch. 4 §§4.3–4.5 pp. 131–152 directly supports the odds multiplier, LDA affine boundary and differing fits. Keep all original equations and prior-shift/ROC claims; give them located citations or the page proof. Original-history citations should be localized after reading originals, or supplement with opened Msaouel et al. 2022 editorial paras. 2–3. Rebuild and check dependent logistic, LDA and ROC pages."}
+  ]
+}
