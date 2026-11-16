@@ -1,0 +1,32 @@
+{
+  "article_lead": {
+    "description": "a model that links group-specific parameters through an uncertain population distribution so sparse groups can share information"
+  },
+  "self_checks": ["depth-hierarchy-normal-weight", "depth-hierarchy-shared-rate"],
+  "new_bank_questions": [
+    {
+      "id": "depth-hierarchy-normal-weight",
+      "title": "A class mean with partial pooling",
+      "body": "For a normal hierarchy with known population mean μ=40, between-class variance τ²=9 and within-class variance σ²=36, a class of four has sample mean 55. Find its conditional posterior weight on its own mean, posterior mean and posterior variance.",
+      "answer": "The weight is nτ²/(σ²+nτ²)=4(9)/(36+4(9))=1/2. The posterior mean is (1/2)55+(1/2)40=47.5. The variance is σ²τ²/(σ²+nτ²)=36(9)/72=4.5. This is conditional on the supplied population parameters.",
+      "topic_code": "B8"
+    },
+    {
+      "id": "depth-hierarchy-shared-rate",
+      "title": "Conditional independence can hide marginal dependence",
+      "body": "Let θ be uniform on [0,1], and conditionally on θ let Y₁ and Y₂ be independent Bernoulli(θ). Find P(Y₁=1), P(Y₁=1,Y₂=1), and Cov(Y₁,Y₂). Are the two observations marginally independent?",
+      "answer": "Eθ=1/2, so P(Y₁=1)=1/2. Conditional independence gives P(Y₁=1,Y₂=1)=Eθ²=1/3. Thus Cov(Y₁,Y₂)=1/3-(1/2)²=1/12>0. Sharing an uncertain θ makes them marginally dependent.",
+      "topic_code": "B8"
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/bayes-08-hierarchy.qmd",
+      "description": "In the 'Large and small tutorial classes' example around lines 170–190, the question suggests the more extreme raw mean might not give the more extreme posterior mean, but the printed results are A≈74.81 and B≈78.33, so B remains higher. Preserve both observations and calculations; ask instead why B shrinks much more and explain the raw gap 20 versus posterior gap ≈3.53. Recheck the tutorial example and dependent normal-hierarchical-shrinkage page."
+    },
+    {
+      "file": "sources/book/chapters/bayes-08-hierarchy.qmd",
+      "description": "Near the end of the rat-grid discussion, the statement that full Bayes 'usually widens the marginal intervals' relative to a plug-in estimate is too broad. The law of total variance adds a nonnegative hyperparameter-mean component to the average conditional variance, but this does not order all credible interval widths against a particular plug-in fit. Reword accordingly and check chapter plus dependent hierarchy/rat pages."
+    }
+  ]
+}
