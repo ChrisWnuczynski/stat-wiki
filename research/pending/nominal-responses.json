@@ -1,0 +1,36 @@
+{
+  "slug": "nominal-responses",
+  "rank": 345,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Only K-1 comparisons are free",
+    "Definition — Baseline-category logits",
+    "Properties — The omitted comparison is a difference",
+    "Worked example — Three probabilities, and one covariate value",
+    "Connections — Ordered labels use a different comparison",
+    "Check yourself — Two baseline calculations"
+  ],
+  "words_before": 842,
+  "words_after": 1410,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "The log-odds difference is proved from the definition. Agresti, McCullagh and Nelder, Tutz, and Fahrmeir and Tutz were not opened."
+  ],
+  "proofs": [
+    "log(p_k/p_j) equals the difference of the two baseline log-odds."
+  ],
+  "tests": [
+    "checks/nominal-responses.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "Compared with boosting after this eighth article: same lead, intuition, definition, short proof, numerical example, hidden Your turn, two checks, and connections. No new external citation, because the categorical-data books were not opened."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
