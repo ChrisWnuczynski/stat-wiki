@@ -1,0 +1,32 @@
+{
+  "slug": "voronoi-tessellation",
+  "rank": 357,
+  "tier": "lighter",
+  "type": "Concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 358,
+  "words_after": 1119,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman 2009 pp. 510 and 542"
+  ],
+  "proofs": [
+    "Two-centre perpendicular bisector"
+  ],
+  "tests": [
+    "checks/voronoi-tessellation.py passed"
+  ],
+  "skipped": [],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}
