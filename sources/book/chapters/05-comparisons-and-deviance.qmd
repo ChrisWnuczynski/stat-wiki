@@ -90,7 +90,7 @@ The gamma deviance, in the mean-and-variance parameterisation $\mathrm{Var}=\phi
 $$
 D=2\sum_{i=1}^n\left\{-\log\frac{y_i}{\hat\mu_i}+\frac{y_i-\hat\mu_i}{\hat\mu_i}\right\}.
 $$
-These are not interchangable across families. A smaller deviance is a closer fit only inside one family. Two non-nested models, such as a logit and a probit, have no likelihood-ratio test. AIC is the comparison that remains: deviance plus twice the number of parameters, up to the usual constants.
+These are not interchangable across families. A smaller deviance is a closer fit only inside one family. Two non-nested models, such as a logit and a probit, have no ordinary nested-model chi-squared likelihood-ratio test. AIC supplies one comparison: deviance plus twice the number of parameters, up to the usual constants.
 
 ### Three links, one cholesterol slope
 
@@ -117,7 +117,7 @@ The null deviance does not depend on the link. It is the intercept-only model, o
 
 ![The same cholesterol data under three links. The logit and the probit sit on each other. Complementary log-log stays a little lower through the middle and then climbs more steeply through the high-cholesterol cases.](../figures/cholesterol-links.pdf){#fig-chol-links}
 
-In @fig-chol-links the solid and dashed curves sit on each other. Complementary log-log has the smaller deviance and the smaller AIC. It rises more slowly and then more steeply, and it picks up the high-cholesterol ones a little better. We cannot test that improvement. The models are not nested. There is no constraint on the logit coefficients that turns the fitted curve into a probit.
+In @fig-chol-links the solid and dashed curves sit on each other. Complementary log-log has the smaller deviance and the smaller AIC. It rises more slowly and then more steeply, and it picks up the high-cholesterol ones a little better. We cannot use the ordinary nested-model chi-squared deviance test for that improvement. The models are not nested. There is no constraint on the logit coefficients that turns the fitted curve into a probit.
 
 ## Analysis of deviance
 
