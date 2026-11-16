@@ -1,0 +1,28 @@
+{
+  "bibliography": {
+    "gelman2005_anova": {
+      "authors": ["Gelman, A."],
+      "year": 2005,
+      "title": "Analysis of variance—why it is more important than ever",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "33",
+      "issue": "1",
+      "pages": "1–53",
+      "doi": "10.1214/009053604000001048",
+      "url": "https://sites.stat.columbia.edu/gelman/research/published/AOS259.pdf",
+      "verification": {"source": "crossref", "id": "10.1214/009053604000001048"}
+    }
+  },
+  "self_checks": ["q-39", "c-35"],
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/08-random-intercepts.qmd",
+      "description": "In the negative equicorrelation paragraph, replace the claim that a 3×3 matrix is positive definite for rho <= 1/2 with rho < 1/2; at equality its smallest eigenvalue is zero, so it is positive semidefinite but singular. Clarify the K-group lower bound similarly. The source text feeds this article and the chapter."
+    },
+    {
+      "file": "sources/book/chapters/08-random-intercepts.qmd",
+      "description": "Clarify the estimation sentence saying covariance parameters themselves depend on beta: the covariance parametrization can be independent of beta, though joint estimation couples fixed-effect and variance estimates. The source sentence feeds this article and the chapter."
+    }
+  ]
+}
