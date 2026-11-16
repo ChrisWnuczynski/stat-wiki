@@ -4093,6 +4093,28 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
     return [(False, "used-in", "".join(lines)), (False, "see-also", "".join(see))]
 
 
+def read_research_content(path: Path, allowed: set[str]) -> tuple[dict[str, str], dict[str, str]]:
+    """Read canonical section keys and optional page-specific display headings.
+
+    A heading such as ``Statistical use — Choosing a hyperparameter`` keeps the
+    section's stable anchor and placement while giving readers a useful title.
+    """
+    researched: dict[str, str] = {}
+    display_titles: dict[str, str] = {}
+    raw = path.read_text(encoding="utf-8")
+    for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
+        heading_spec, prose = match.group(1), match.group(2).strip()
+        key, separator, title = heading_spec.partition(" — ")
+        if key not in allowed or key in researched or not prose or (separator and not title.strip()):
+            raise ValueError(f"{path}: unknown, repeated or empty section {heading_spec!r}")
+        researched[key] = prose
+        if separator:
+            display_titles[key] = title.strip()
+    if not researched:
+        raise ValueError(f"{path}: no sections")
+    return researched, display_titles
+
+
 def distribution_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
     """Apply the fixed distribution section order to copied source material."""
     facts = DISTRIBUTIONS[article["slug"]]
@@ -4123,19 +4145,13 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
            (False, "infobox", "".join(by_label.get("infobox", [])))]
     research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
     researched: dict[str, str] = {}
+    display_titles: dict[str, str] = {}
     if research_file.is_file():
-        raw = research_file.read_text(encoding="utf-8")
-        for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
-            heading, prose = match.group(1), match.group(2).strip()
-            if heading in researched or not prose:
-                raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
-            researched[heading] = prose
         allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Properties",
                    "Related distributions", "Statistical inference", "Generating random samples",
                    "Worked example", "Examples", "Common misconceptions", "Assumptions and limits",
                    "Connections", "History"}
-        if not researched or set(researched) - allowed:
-            raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
+        researched, display_titles = read_research_content(research_file, allowed)
     lead = article_lead(article) + source_lead_citations(blocks, include_math=True)
     if facts.get("lead_context"):
         lead += " " + facts["lead_context"]
@@ -4195,7 +4211,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     )
     for title, ident, body in sections:
         if body.strip():
-            out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+            out.append((True, ident, f"\n\n## {display_titles.get(title, title)} {{#{ident}}}\n\n{body.strip()}\n\n"))
     return out
 
 
@@ -4288,18 +4304,12 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
     box = article["box"]
     research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
     researched: dict[str, str] = {}
+    display_titles: dict[str, str] = {}
     if research_file.is_file():
-        raw = research_file.read_text(encoding="utf-8")
-        for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
-            heading, prose = match.group(1), match.group(2).strip()
-            if heading in researched or not prose:
-                raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
-            researched[heading] = prose
         allowed = {"Lead context", "Motivating example", "Statement", "Intuition", "Key results",
                    "Proof", "Generalizations", "Related concepts", "Statistical use",
                    "Common misconceptions", "History", "Worked example"}
-        if not researched or set(researched) - allowed:
-            raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
+        researched, display_titles = read_research_content(research_file, allowed)
     depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
@@ -4395,7 +4405,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
             if ident == "proof":
                 out.append((True, ident, f"\n\n{body.strip()}\n\n"))
             else:
-                out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+                out.append((True, ident, f"\n\n## {display_titles.get(title, title)} {{#{ident}}}\n\n{body.strip()}\n\n"))
     return out
 
 
@@ -4437,18 +4447,10 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         # Page-specific researched prose lives in its own source file so each
         # article can be committed and reverted independently. Existing copied
         # definitions, examples, figures, and citations remain in place.
-        raw = research_file.read_text(encoding="utf-8")
-        researched: dict[str, str] = {}
-        for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
-            heading, prose = match.group(1), match.group(2).strip()
-            if heading in researched or not prose:
-                raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
-            researched[heading] = prose
         allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Interpretation", "Properties",
                    "Statistical use", "Worked example", "Common misconceptions", "Assumptions and limits",
                    "Connections", "Check yourself", "History"}
-        if not researched or set(researched) - allowed:
-            raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
+        researched, display_titles = read_research_content(research_file, allowed)
         out[2] = (True, "lead", article_lead(article) + source_lead_citations(blocks)
                   + " " + researched.get("Lead context", "") + "\n\n")
         ordered = (
@@ -4469,7 +4471,7 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         )
         for title, ident, body in ordered:
             if body.strip():
-                out.append((True, ident, f"\n\n## {title} {{#{ident}}}\n\n{body.strip()}\n\n"))
+                out.append((True, ident, f"\n\n## {display_titles.get(title, title)} {{#{ident}}}\n\n{body.strip()}\n\n"))
         return out
     sections = (
         ("Definition", "definition", definition),

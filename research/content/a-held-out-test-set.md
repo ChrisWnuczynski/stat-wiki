@@ -25,7 +25,7 @@ For a class $g$ with $n_g>0$ test members, divide its number of misclassificatio
 :::
 :::
 
-## Statistical use
+## Statistical use — Keeping test data separate
 Separate development from evaluation. Reserve the test cases before any data-driven preprocessing or feature selection. Fit preprocessing on the training side, apply the learned transformation to validation and test cases, use training or validation only to choose hyperparameters, then freeze the full procedure before its single test evaluation. Report the test size, metric, class distribution and interval or other uncertainty summary. If the test outcome changes what you fit, another untouched sample is needed for a fresh independent assessment.{{cite:cawley_talbot2010}} (§§2, 5.3, pp. 2080–2082, 2100–2103){{cite:cawley_talbot2010}} (§5.3, evaluation protocol)
 
 The holdout must follow the intended deployment unit. For repeated records from one person, putting one visit in training and another in test can test recognition of the same person rather than prediction for a new person. Hold people together when new-person performance is the target. For forecasting, a random split can let future observations help predict earlier ones; train on earlier periods and evaluate later periods instead. In either setting, an independent *row* is not necessarily an independent *unit*. A representative test set is also necessary: a hospital model tested only at the hospital where it was built may not estimate error at a second hospital.{{cite:cawley_talbot2010}} (§§2, 5.3, pp. 2080–2082, 2100–2103)
@@ -42,7 +42,7 @@ There are $6+12=18$ errors, giving total error $18/150=0.12$. The false-negative
 ## Common misconceptions
 “Held out” does not mean merely absent from the optimizer's final fit: using the test cases to select features or a threshold has already let them shape the rule. A test error is not the error of a future refit on all available data, because that refit is a different fitted rule. A narrow overall error interval does not ensure precise assessment of a rare class, whose denominator can be much smaller. Finally, a random row split is not a valid independence device when the prediction target is a new person, place or future period and records share a group or time structure.{{cite:cawley_talbot2010}} (§§2, 5.3, pp. 2080–2082, 2100–2103){{cite:cawley_talbot2010}} (pp. 2080–2081, selection bias)
 
-## Assumptions and limits
+## Assumptions and limits — Dependence and distribution shift
 The exact binomial calculation assumes a fixed classifier, independent test outcomes and one common error probability under the target population. With 20 test cases and zero observed errors, the naive standard-error plug-in is zero, but the rule's true error need not be zero; a better binomial interval or a larger test sample is needed. If ten test rows come from each of ten patients, treating 100 rows as 100 independent patients can make the reported interval far too narrow. If a rare class contributes only two test cases, its estimated error can be only $0$, $0.5$ or $1$, regardless of the overall sample size. Changes in case mix or measurement after deployment also limit what the old test estimates.{{cite:dodge2008}} (pp. 44–46, Binomial distribution and normal approximation){{cite:cawley_talbot2010}} (§§2, 5.3, pp. 2080–2082, 2100–2103)
 
 ## Connections

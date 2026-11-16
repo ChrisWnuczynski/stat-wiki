@@ -4,7 +4,7 @@ For independent coin tosses with one unknown probability $p$ of heads, a sequenc
 ## Intuition
 Think of the full sample as carrying two kinds of variation: one part changes the relative plausibility of parameter values, and another part does not. A sufficient statistic keeps the first part. Conditional on its value, the distribution of the remaining detail is the same for every parameter value in the model. The likelihood factorization says the same thing algebraically: all parameter dependence passes through the statistic. In a Poisson sample the sum of counts plays this role; in a normal sample with known variance, the sum or sample mean does.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
-## Definition
+## Definition — Sufficiency and factorisation
 For a family $\{P_\theta\}$ and a statistic $T(X)$, sufficiency for $\theta$ means that the conditional law of the complete data $X$ given $T(X)$ can be chosen independently of $\theta$. A statistic is a function of the data alone; it cannot contain the unknown parameter. Sufficiency says nothing until the parameter and model are specified. If $\theta$ is a vector, $T$ may also be a vector. A one-to-one transformation of a sufficient statistic remains sufficient, since it gives exactly the same conditioning information.{{cite:fisher1922}} (pp. 309–316, reduction of observations){{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
 The factorization criterion in the properties is the usual practical test. If $p_\theta(x)=g_\theta\{T(x)\}h(x)$ on a common support, the $h(x)$ factor cancels when conditioning on $T=t$. The converse identifies such a factorization from a parameter-free conditional law under a dominated family. For a discrete sample this is direct; for general dominated spaces it uses conditional distributions and Radon–Nikodym arguments. The factorization may fail when a support indicator depending on $\theta$ has been silently dropped.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
@@ -14,7 +14,7 @@ Sufficiency concerns information about a parameter *inside the model*. For a nor
 
 If a proper prior $\pi(\theta)$ is fixed, factorization also implies that the posterior given $x$ depends on $x$ through $T(x)$: $p(\theta\mid x)\propto g_\theta\{T(x)\}\pi(\theta)$. The factor $h(x)$ cancels in the normalizing integral. This does not mean that every Bayesian calculation uses only $T$: prediction of a future *pattern*, model checking, or comparison with a different sampling model can require details that the chosen statistic discarded.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
-## Properties
+## Properties — Minimal sufficiency and Basu’s theorem
 Sufficient statistics need not be unique. The entire sample is trivially sufficient, but it offers no reduction. A one-to-one recoding retains sufficiency; a coarser transformation may lose it. The useful question is whether a statistic is *minimal sufficient*, meaning no strictly coarser statistic retains all likelihood information under the model. Completeness is different again: it says a function of the statistic cannot have expectation zero for every parameter unless it is almost surely zero. Basu's theorem needs both sufficiency and completeness to conclude independence from an ancillary statistic.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514){{cite:dasgupta2007_basu}} (pp. 945–946, Basu's theorem)
 
 The Pitman–Koopman–Darmois statement is an informal converse about fixed-dimensional sufficient reduction across every iid sample size under regular common-support conditions. The common-support restriction matters: $\max_iX_i$ is sufficient for the upper endpoint of a $\operatorname{Uniform}(0,\theta)$ sample although that model's support depends on $\theta$. The informal statement cannot be used as an unconditional rule that only exponential families have small sufficient statistics. Its full converse proof requires the regularity hypotheses beyond the factorization argument here.{{cite:brown1964_sufficiency}} (§1, pp. 1456–1457, regularity conditions)
@@ -29,7 +29,7 @@ For Basu's theorem, let $T$ be complete sufficient and $U$ ancillary. For any me
 :::
 :::
 
-## Statistical use
+## Statistical use — Reducing data for inference
 Use a sufficient statistic to simplify a likelihood or posterior without losing parameter information under the current sampling model. For iid Poisson observations, $S=\sum_iX_i$ captures all rate dependence, since $L(\lambda;x)\propto\lambda^S e^{-n\lambda}$. For a Bernoulli sample, the success count does the same. Data collection can sometimes record just these summaries when the model is secure; in exploratory work, retaining the raw observations allows model checks and alternative analyses. Rao–Blackwellization conditions an unbiased estimator on a sufficient statistic to reduce variance, while conjugate Bayesian updating often adds the statistic to prior hyperparameters.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514){{cite:dasgupta2007_basu}} (pp. 945–946, sufficiency and completeness)
 
 ## Worked example
@@ -44,7 +44,7 @@ The count is $S=2$, and there are $\binom42=6$ ordered sequences with two succes
 ## Common misconceptions
 Sufficiency does not mean a statistic is the only possible summary; the full data and any one-to-one recoding of a sufficient statistic are sufficient too. It does not mean the discarded data are scientifically useless, since residual patterns can expose a false iid or normal assumption. It does not imply completeness: Basu's independence result needs that additional property. Finally, the sample mean is not sufficient for *both* mean and variance in an unrestricted normal model, even though it is sufficient for the mean when variance is known.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514){{cite:dasgupta2007_basu}} (pp. 945–946, sufficiency and completeness)
 
-## Assumptions and limits
+## Assumptions and limits — When a summary stops being sufficient
 For Bernoulli tosses with a changing probability, the order of successes affects inference about the changing mechanism; the one-count sufficiency claim belongs to a common-$p$ iid model. For a normal population with both $\mu$ and $\sigma^2$ unknown, dropping the sum of squares loses variance information. A moving support can also change the relevant statistic: the maximum of $\operatorname{Uniform}(0,\theta)$ data is sufficient for $\theta$ even though a fixed-support exponential-family characterization would not apply. These are concrete failures of carrying a sufficient statistic from one model to another without checking the likelihood.{{cite:brown1964_sufficiency}} (§§1–2, pp. 1456–1458)
 
 ## Connections

@@ -22,7 +22,7 @@ assert pi2[0]*qab2*r2==pi2[1]*qba2==F(1,15)
 for printed in ('1.5','0.6667','0.2667','0.7333','0.0667','11/15','4/15'):
  assert printed in body,printed
 assert body.count('title="Proof"')==1
-for heading in ('Motivating example','Worked example','Common misconceptions','Assumptions and limits','History','Check yourself'):
+for heading in ('Motivating example','Worked example','Common misconceptions','Reducibility and slow mixing','History','Check yourself'):
  assert f'## {heading}' in body
 assert '**Your turn.**' in body and body.count('title="Answer"')>=3
 for key in ('gelfand_smith1990','metropolis1953','hastings1970'):

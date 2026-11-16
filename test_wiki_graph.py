@@ -26,6 +26,17 @@ def _prose_word_count(text: str) -> int:
     return len(re.findall(r"\b[\w-]+\b", re.sub(r"</?[A-Za-z][\w-]*(?:\s+[^>\n]*)?/?>", " ", text)))
 
 
+def _canonical_article_headings(page: Path, body: str) -> list[str]:
+    research_path = build_wiki.WIKI / "research" / "content" / f"{page.stem}.md"
+    aliases = {}
+    if research_path.is_file():
+        aliases = {display.strip(): key for key, display in re.findall(
+            r"^## ([^\n—]+) — ([^\n]+)$", research_path.read_text(encoding="utf-8"), re.M
+        )}
+    headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+    return [aliases.get(heading, heading) for heading in headings]
+
+
 def _world(root: Path, answer_body: str = "Because.") -> dict:
     notes = root / "notes"
     questions = root / "questions"
@@ -1061,7 +1072,7 @@ class DistributionCatalogueTests(unittest.TestCase):
                 self.assertIn("::: {.infobox-title}", body)
                 self.assertIn("## Definition {#definition}", body)
                 self.assertIn('aria-label="Probability distributions"', body)
-                headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+                headings = _canonical_article_headings(page, body)
                 order = ["Motivating example", "Intuition", "Definition", "Properties", "Related distributions", "Statistical inference",
                          "Generating random samples", "Worked example", "Examples", "Common misconceptions",
                          "Assumptions and limits", "Connections", "Check yourself", "History", "See also", "References"]
@@ -1207,7 +1218,7 @@ class TheoremTemplateTests(unittest.TestCase):
                 continue
             results.append(page.stem)
             self.assertIn("## Statement {#statement}", body, page.name)
-            headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+            headings = _canonical_article_headings(page, body)
             order = ["Statement", "Motivating example", "Intuition", "Key results", "Generalizations", "Related concepts", "Statistical use", "Common misconceptions",
                      "Check yourself", "History", "Examples", "See also", "References"]
             self.assertEqual(headings, [name for name in order if name in headings], page.name)
@@ -1333,7 +1344,7 @@ class ConceptTemplateTests(unittest.TestCase):
             body = page.read_text(encoding="utf-8")
             if page.stem in build_wiki.DISTRIBUTIONS or "| Statement | [Read statement](#statement) |" in body:
                 continue
-            headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+            headings = _canonical_article_headings(page, body)
             if (build_wiki.WIKI / "research" / "content" / f"{page.stem}.md").is_file():
                 order = ["Motivating example", "Intuition", "Definition", "Interpretation", "Properties", "Statistical use",
                          "Worked example", "Examples", "Common misconceptions", "Assumptions and limits",
@@ -1584,8 +1595,9 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             self.assertEqual(body.count('title="Proof"'), 1, slug)
             self.assertIn("## Intuition {#intuition}", body, slug)
             self.assertIn("## Related concepts {#related-concepts}", body, slug)
-            self.assertIn("## Statistical use {#statistical-use}", body, slug)
-            self.assertIn("class=\"cite-ref\"", body.split("## Statistical use", 1)[1].split("\n## ", 1)[0], slug)
+            use_section = re.search(r"(?ms)^## [^\n]+ \{#statistical-use\}\n(.*?)(?=^## |\Z)", body)
+            self.assertIsNotNone(use_section, slug)
+            self.assertIn("class=\"cite-ref\"", use_section.group(1), slug)
             self.assertIn("## Examples {#examples}", body, slug)
             examples = body.split("## Examples {#examples}", 1)[1].split("\n## ", 1)[0]
             self.assertTrue(x.get("example") or "**Solution" in examples or "Worked answer" in examples, slug)

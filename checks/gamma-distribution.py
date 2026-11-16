@@ -20,7 +20,7 @@ for printed in ('1.5','0.75','0.2381','0.7619','0.1991','1.25','1.125','4/3','0.
  assert printed in body,printed
 assert body.count('title="Proof"')==1
 assert body.count('![')>=3
-for heading in ('Motivating example','Worked example','Common misconceptions','Assumptions and limits','History','Check yourself'):
+for heading in ('Motivating example','Worked example','Common misconceptions','When the waiting-time model fails','History','Check yourself'):
  assert f'## {heading}' in body
 assert '**Your turn.**' in body and body.count('title="Answer"')>=3
 for key in ('siegrist2022_gamma','siegrist2022_gamma_waiting','nist_gamma_handbook'):

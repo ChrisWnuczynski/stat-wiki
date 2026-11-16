@@ -30,7 +30,7 @@ Finally, multiplying a $\operatorname{Beta}(1,1)$ prior by the likelihood from t
 :::
 :::
 
-## Statistical use
+## Statistical use — Choosing a posterior summary
 First identify the parameter and the decision or reporting purpose. A mean is natural for squared-error decisions and many predictive averages; a median is appropriate for absolute deviations and can remain meaningful when a long tail makes a mean unstable. A mode may identify a local peak but should be labelled with its parameter scale. Report a posterior interval or other spread summary alongside any point estimate, especially when the posterior is skewed or has several peaks. In a multimodal mixture, the mean can fall in a low-density gap and misrepresent what values are individually plausible.{{cite:hoff2013_bayes_estimators}} (pp. 8–10){{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 32–34)
 
 With simulated posterior draws, distinguish the posterior spread of $\theta$ from numerical uncertainty in the calculated mean or quantile. More draws improve Monte Carlo precision under a working sampler; they do not make the posterior distribution narrower for the same data. When the posterior is available analytically, use its formulas or numerical integration to check a simulation-based summary.{{cite:gelman_bda2013}} (Ch. 1, §1.9, pp. 22–24)
@@ -47,7 +47,7 @@ The posterior is $\operatorname{Beta}(4,8)$. Its mean is $4/12=0.3333$, its medi
 ## Common misconceptions
 The mode is not a point with positive posterior probability in a continuous model; it maximizes density, which depends on scale. The posterior mean is not the best point under every loss function: absolute error selects a median instead. A point estimate does not describe posterior uncertainty, even when several summaries happen to agree. Finally, the spread of simulated draws is not the Monte Carlo error of a computed summary; one concerns the posterior, while the other concerns numerical approximation.{{cite:hoff2013_bayes_estimators}} (pp. 8–10){{cite:gelman_bda2013}} (Ch. 1, §1.9; Ch. 2, §2.3)
 
-## Assumptions and limits
+## Assumptions and limits — Undefined means and unstable modes
 A posterior must be proper before any of these probability summaries is defined. Even a proper heavy-tailed posterior may lack the needed moments. For a Pareto posterior with tail index $0.8$, the mean diverges; with index $1.5$, the mean exists but the second moment does not, so every finite squared-error action has infinite posterior risk. A symmetric two-component mixture concentrated near $-5$ and $5$ has mean zero even though almost no mass need lie near zero; a density plot exposes that failure of the mean as a typical-value summary. MAP has a different fragility: it changes under nonlinear reparameterisation, as the Beta-to-log-odds calculation proves. Choosing one number does not repair a misspecified prior or likelihood.{{cite:hoff2013_bayes_estimators}} (pp. 2, 8–10, existence of Bayes estimators){{cite:gelman_bda2013}} (Ch. 2, §2.3, skewed and multimodal posteriors)
 
 ## Connections

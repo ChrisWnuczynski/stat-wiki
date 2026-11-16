@@ -28,7 +28,7 @@ For a counterexample to the converse, put probabilities $1/20,1/2,1/4,1/5$ on $-
 :::
 :::
 
-## Statistical use
+## Statistical use — Reading a shape diagnostic
 Use a histogram, boxplot or normal quantile plot to identify the tail and any unusual observations, then use a named skewness coefficient as a compact supplement. If positive measurements are strongly right-skewed, a log transform may make their shape easier to display or model. Recalculate summaries on that scale and explain the change in interpretation: equal log differences represent equal ratios on the original scale. A reciprocal transformation reverses order and can reverse the sign of skewness. Neither transformation repairs dependence, censoring or an unsuitable sampling model.{{cite:nist_skewness2002}} (§1.3.5.11, “Examples” and “Dealing with Skewness and Kurtosis”)
 
 ## Worked example
@@ -43,7 +43,7 @@ The mean is $2$, giving deviations $-1,-1,0,2$. Thus $m_2=(1+1+0+4)/4=3/2$ and $
 ## Common misconceptions
 Zero skewness is not proof of symmetry, as the four-point counterexample in the proof shows. Positive skewness does not mean most observations exceed the mean; a few large observations can give a positive third moment even when most values lie below it. The coefficient is not the same as the distance between mean and median, although those summaries often move in related directions. Finally, a lower skewness after a log transform does not by itself establish a normal distribution or justify a normal-theory interval.{{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Skewness”, “Examples”, “Dealing with Skewness and Kurtosis”)
 
-## Assumptions and limits
+## Assumptions and limits — When the third moment fails
 Moment skewness is undefined for a constant variable because its standard deviation is zero. It is also undefined as a population moment when $\mathbb E|X|^3$ is infinite; a symmetric Cauchy law is a concrete example. A finite sample from that law still has a computable coefficient when its observed spread is nonzero, but NIST's Cauchy illustration shows how wildly it can be driven by extreme observations. With an even sample and the average-of-middle-values median convention, a nonlinear transform need not map the sample median to the new median, as the two-value reciprocal example proves. These limits matter when interpreting a seemingly precise shape summary.{{cite:nist_skewness2002}} (§1.3.5.11, “Examples”){{cite:nist_dataplot_skewness2023}} (“Description”)
 
 ## Connections

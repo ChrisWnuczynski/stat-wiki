@@ -13,7 +13,7 @@ for value in ('$6$','$18$','$72$','0.00248','0.00715','0.16','0.1912'):
  assert value in body,value
 assert body.count('title="Proof"')==1
 assert '**Your turn.**' in body and body.count('title="Answer"')>=3
-for heading in ('Motivating example','Worked example','Properties','Common misconceptions','Assumptions and limits','History','Check yourself'):
+for heading in ('Motivating example','Worked example','Properties','Common misconceptions','Support, spread and dependence','History','Check yourself'):
  assert f'## {heading}' in body
 for key in ('nelder_wedderburn1972','sas2012_glm','zhou2020_glm'):
  assert f'data-cite-key="{key}"' in body

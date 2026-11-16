@@ -30,7 +30,7 @@ For iid $N(\mu,\sigma^2)$ data, the normal-sample theorem gives $Z=(\overline X-
 :::
 :::
 
-## Statistical use
+## Statistical use — Constructing intervals from pivots
 Start by naming the target parameter and nuisance parameters, then find a function of data and a candidate target value whose sampling law is known without the nuisance quantities. Choose quantiles of that law and invert the inequality carefully. State whether the distribution is exact or an approximation and which assumptions make it so. For a normal mean with unknown variance, the central $t$ inequality gives $\overline X\pm t_{n-1,1-\alpha/2}S/\sqrt n$. A one-sided bound instead uses one tail. When no convenient exact pivot exists, a large-sample standardized estimator or bootstrap approximation may provide approximate coverage, which should be described as such.{{cite:siegrist2022_set_estimation}} (§8.1, Pivot Variables){{cite:siegrist2022_set_estimation}} (§8.1, pivot variables and inversion)
 
 ## Worked example
@@ -45,7 +45,7 @@ The standard error is $1.5/\sqrt9=0.5$ and the margin is $2.30600(0.5)=1.15300$.
 ## Common misconceptions
 A pivot is not necessarily a statistic: it usually contains a candidate parameter. Parameter-free *distribution* does not mean parameter-free *formula*. Replacing a nuisance scale by its sample estimate does not automatically produce an exact pivot; the exact $t$ law relies on normal sampling and the independence result in the proof. A 95% interval obtained from a pivot does not put 95% probability on the fixed parameter after observing the data. Finally, two pivots with the same nominal coverage need not have the same width or shape, since tail allocation and inversion matter.{{cite:siegrist2022_set_estimation}} (§8.1, pivot variables and inversion){{cite:siegrist2022_set_estimation}} (§8.1, Pivot Variables)
 
-## Assumptions and limits
+## Assumptions and limits — When the pivot law changes
 For a small sample from a strongly skewed population, the one-sample $t$ ratio need not have the exact $t_{n-1}$ law; its nominal 95% interval may miss more or less often. For two normal groups with very different variances, the pooled two-sample $t$ law fails because the pooled residual sum is no longer one common scaled chi-square. A ratio of two sample variances from heavy-tailed populations need not follow the stated $F$ distribution. And for regression with correlated errors, the residual-based slope standard error need not yield $t_{n-2}$. Each reference law attaches to a sampling model, not merely to an algebraic expression.{{cite:siegrist2022_normals}} (§6.08, normal-sample conditions){{cite:siegrist2022_set_estimation}} (§8.1, pivot variables and inversion)
 
 ## Connections

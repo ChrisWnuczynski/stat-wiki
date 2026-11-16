@@ -28,7 +28,7 @@ For an interval of fixed posterior probability $q$ with interior endpoints, $F(u
 :::
 :::
 
-## Statistical use
+## Statistical use — Reporting posterior intervals
 Derive the posterior for the particular quantity whose uncertainty matters, choose a probability level and interval rule, and then calculate its posterior quantiles or density threshold. When a closed-form CDF is available, numerical quantiles avoid simulation error. When only posterior draws are available, their empirical quantiles approximate a central interval; assess whether the sampler explores the tails well enough for the requested precision. The posterior-draw property gives one direct order-statistic convention for $1{,}000$ draws. Different software quantile conventions can shift the selected order statistics slightly.{{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 33–34; Ch. 1, §1.9, pp. 22–24)
 
 An interval for a parameter is distinct from a posterior predictive interval for a future observation. The latter averages over parameter uncertainty and includes outcome variation conditional on the parameter; it can be wider or have a different shape. State the parameter, its scale, the prior, and the sampling model when reporting a credible interval so that its conditional probability claim can be understood and checked.{{cite:gelman_bda2013}} (Ch. 1, §§1.3–1.4, 1.9, pp. 7–10, 22–24)
@@ -45,7 +45,7 @@ The likelihood contributes $\theta^3(1-\theta)^7$, so the posterior is $\operato
 ## Common misconceptions
 A $95\%$ credible interval does not automatically have $95\%$ frequentist coverage for every fixed parameter value; the probability statements condition on different things. A credible interval is not uniquely determined by its probability level: central and highest-density rules give different endpoints for the same skewed posterior. Highest-density does not mean “most likely value plus or minus a fixed distance”; its region can be disjoint when the posterior has separated modes. A parameter interval is also not a prediction interval for the next patient or trial. These are four different readings of what an interval reports.{{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 33–34; Ch. 4, §4.4, pp. 90–92)
 
-## Assumptions and limits
+## Assumptions and limits — Dependence on the model and prior
 Posterior probability requires a proper posterior. For example, under a binomial likelihood with zero successes, the improper prior kernel $1/\theta$ on $(0,1)$ leaves a posterior kernel $(1-\theta)^n/\theta$, whose integral diverges near zero; no $95\%$ posterior interval exists until the prior or model is changed. Even a proper posterior can be misleading if the binomial independence model is false for clustered patients, or if the prior concentrates on implausible rates. A two-mode posterior is a concrete case in which one contiguous interval can include a low-density gap; report the density or separate regions rather than hide that shape. Finally, extreme posterior quantiles estimated from too few effective draws can be unstable even when the posterior is well defined.{{cite:gelman_bda2013}} (Ch. 2, §2.3, bimodal illustration, pp. 33–34; Ch. 1, §1.9, pp. 22–24)
 
 ## Connections

@@ -20,7 +20,7 @@ For a Poisson variable, $\mathbb E(Y)=\operatorname{Var}(Y)=\mu$. A Bernoulli va
 :::
 :::
 
-## Statistical use
+## Statistical use — Selecting the response law
 Begin with the measurement scale: is the response binary, a count, or positive continuous? Then examine conditional spread at comparable fitted means. Counts with repeated zeros and occasional large values may be more variable than a Poisson law permits; a Gamma response cannot solve that because it does not assign probability to integer counts as counts. For positive times with spread increasing roughly in proportion to the mean, Gamma is a candidate, while a normal law can put mass on impossible negative times. Residual patterns, study design and prediction checks test the chosen law rather than the word “random” in its name.{{cite:nelder_wedderburn1972}} (§§1–2, pp. 370–375){{cite:zhou2020_glm}} (§Introduction, Examples)
 
 One should also state the sampling units and dependence assumptions. Monthly outcomes from the same ward can be correlated across time, so a conditionally independent GLM likelihood may understate uncertainty even with a plausible one-month distribution. A random intercept in a mixed model is an additional latent variable for between-ward differences; it is not the GLM's random component itself. A marginal estimating equation can retain a mean and working variance without claiming a complete joint response law.{{cite:nelder_wedderburn1972}} (§§1–2, pp. 370–375)
@@ -37,7 +37,7 @@ The Bernoulli variance is $p(1-p)=0.8(0.2)=0.16$, with $\Pr(Y=0)=0.2$ and $\Pr(Y
 ## Common misconceptions
 The random component is not a “random effect”; random effects introduce latent variables or group-level variation in a broader model. A link function does not choose the response distribution: Poisson and Gamma models may both use a log link but have different support and variance. A fitted mean does not determine a full probability law, as the six-infection example shows. Finally, the usual GLM assumption of independent responses does not say all means are identical: each $\mu_i$ may change with $\mathbf x_i$.{{cite:nelder_wedderburn1972}} (§§1–2, pp. 370–375)
 
-## Assumptions and limits
+## Assumptions and limits — Support, spread and dependence
 For an ordinary Poisson GLM, a ward-month with fitted mean six but empirical variance around thirty across otherwise comparable months violates the Poisson variance relation. For an ordinary Gamma response, a recorded zero duration or a negative correction value lies outside the law's positive support. For a Bernoulli response, a reported value of two is impossible unless the observation is really a binomial count with multiple trials. Strong within-patient or within-ward dependence also breaks the simple independent-response likelihood. These failures suggest checking the measurement and sampling scheme before changing a link or inflating standard errors.{{cite:zhou2020_glm}} (§Introduction, Examples, supports and variances){{cite:nelder_wedderburn1972}} (§§1–2, pp. 370–375)
 
 ## Connections

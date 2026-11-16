@@ -23,7 +23,7 @@ for v in ('5.70378','96.964','2121.6','2043.4','284','282','106','108','7.389'):
  assert v in body,v
 assert body.count('title="Proof"')==1
 assert '**Your turn.**' in body and body.count('title="Answer"')>=3
-for heading in ('Motivating example','Worked example','Properties','Common misconceptions','Assumptions and limits','History','Check yourself'):
+for heading in ('Motivating example','Worked example','Properties','Common misconceptions','When the ordinary penalty fails','History','Check yourself'):
  assert f'## {heading}' in body
 for qid in ('ex-sl-06-2','ex-sl-06-5'):
  assert f'../questions/{qid}.qmd' in body

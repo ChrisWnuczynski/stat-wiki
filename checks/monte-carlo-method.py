@@ -26,7 +26,7 @@ for printed in ('1.86', '0.372', '0.3333', '0.0387', '0.36108', '0.09027',
     assert printed in body, printed
 assert body.count('title="Proof"') == 1
 for heading in ('Motivating example', 'Worked example', 'Common misconceptions',
-                'Assumptions and limits', 'History', 'Check yourself'):
+                'Infinite variance and poor mixing', 'History', 'Check yourself'):
     assert f'## {heading}' in body
 assert '**Your turn.**' in body and body.count('title="Answer"') >= 3
 for key in ('dasgupta2011_graduate_probability', 'hastings1970', 'metropolis_ulam1949'):

@@ -12,7 +12,7 @@ The detailed-balance proof above covers the accepted moves and the rejection pro
 
 For numerical implementation, compute $\log r=\log h(y)-\log h(x)+\log q(x\mid y)-\log q(y\mid x)$ when the terms exist. Then compare $\log U$ with $\min(0,\log r)$ for $U\sim\operatorname{Uniform}(0,1)$. This avoids forming a very small product of densities, but it does not rescue an incorrectly coded target or proposal. The required support is also real: if a proposal never offers transitions between two regions of positive target mass, no acceptance formula can invent those moves.{{cite:hastings1970}} (§2.2, pp. 99–101, acceptance and reversibility)
 
-## Statistical use
+## Statistical use — Sampling from an unnormalised target
 Metropolis–Hastings is useful when a target density can be evaluated up to a constant but direct independent sampling is difficult. In Bayesian work, the target can be a nonconjugate posterior. In statistical physics, it can be a configuration distribution with a partition function that is difficult to sum. The states of the chain are dependent; after suitable exploration, averages estimate expectations under the target, but precision depends on autocorrelation as well as the count of iterations. Several chains from dispersed starting points, trace inspection and effective sample size are ways to assess the computation, not substitutes for a correctly specified transition rule.{{cite:metropolis1953}} (p. 1087, molecular configuration Monte Carlo){{cite:hastings1970}} (§2.1, pp. 98–99, dependent sample error)
 
 ## Worked example
@@ -32,7 +32,7 @@ The forward ratio is $r(A,B)=1(0.2)/\{2(0.6)\}=1/6$, so $\alpha(A,B)=1/6$; the r
 ## Common misconceptions
 A rejected proposal is not deleted from the chain: the current state is repeated, preserving the intended transition kernel. The Hastings factor is not optional for an independent proposal; it cancels only when forward and reverse proposal probabilities agree. Detailed balance establishes stationarity, not rapid convergence from an arbitrary start. A high acceptance rate is not automatically efficient: tiny proposals may nearly always be accepted while moving slowly across the target. Finally, a chain of dependent states cannot be assigned the independent-draw standard error simply by counting its iterations.{{cite:hastings1970}} (§2.1, pp. 98–99, dependent sample error)
 
-## Assumptions and limits
+## Assumptions and limits — Reducibility and slow mixing
 Suppose $\pi$ has equal mass on two separated islands and $q$ only proposes moves within the current island. The acceptance rule satisfies local balance, but a chain started on one island never visits the other; its average can be badly biased for a function that distinguishes them. If the proposal step is extremely large relative to a narrow target, most proposed moves fall in low-density regions and are rejected. If it is extremely small, the trace moves slowly despite high acceptance. If the target weight is zero at the current state, the usual ratio is undefined, so implementation should start in positive target support. These are failures of reachability, efficiency and arithmetic, respectively.{{cite:hastings1970}} (§2.2, pp. 99–101, acceptance and reversibility)
 
 ## Connections

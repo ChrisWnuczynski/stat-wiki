@@ -28,7 +28,7 @@ For the hyperposterior, integrate the joint density over each group rate. Its fa
 :::
 :::
 
-## Statistical use
+## Statistical use — Choosing a hyperparameter
 Hyperparameters are useful when related groups have uneven sample sizes. A shared population distribution can stabilise small-group estimates while allowing large groups to be driven mainly by their own data. Before fitting, specify what makes groups comparable, select a sensible distribution for their parameters, and check how conclusions change under plausible hyperpriors. With few groups, the hyperposterior can be broad and sensitive to its prior, especially for a between-group scale. A computational method must explore that hyperposterior rather than report the conditional update at a single convenient value.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.3, 5.7, pp. 102–110, 128–132)
 
 ## Worked example
@@ -43,7 +43,7 @@ The prior mean is $1/5=0.2$. The conditional posterior is $\operatorname{Beta}(3
 ## Common misconceptions
 A hyperparameter is not necessarily known: in full Bayes it can have a posterior. Assigning it a hyperprior does not mean every group has the same parameter; the group parameters still vary under their shared population law. Conditional independence of groups given $\phi$ does not make their marginal posteriors independent after $\phi$ is integrated out. Nor is a plug-in estimate of $\phi$ automatically a full Bayesian analysis: it leaves out the uncertainty over plausible population distributions.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.3, pp. 101–110)
 
-## Assumptions and limits
+## Assumptions and limits — Exchangeability and prior sensitivity
 The hierarchy can fail when groups are not meaningfully exchangeable. Gelman and colleagues note that historical animal studies conducted in one laboratory may not describe a current study in another, or that a time trend may invalidate a common population law. A Beta population also confines group rates to a particular shape family; a strongly bimodal set of groups may need a richer model. With only a handful of groups, a vague prior for a between-group scale can leave a very long posterior tail, as their three-school example shows. These are concrete model checks, not reasons to treat a fitted hyperparameter as certain.{{cite:gelman_bda2013}} (Ch. 5, §§5.1, 5.7, pp. 103–104, 128–132)
 
 ## Connections

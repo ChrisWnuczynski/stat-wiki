@@ -32,7 +32,7 @@ For the Gaussian singularity, take two distinct observations and at least two co
 :::
 :::
 
-## Statistical use
+## Statistical use — Fitting and interpreting components
 For density estimation or clustering, specify a component family and a candidate $H$, fit its weights and component parameters, and inspect the resulting density and responsibilities. The EM algorithm alternates between responsibilities given current parameters and parameter updates using those fractional memberships. It searches for a local fit; initialization matters. Comparing candidate counts with held-out predictive performance or a stated information criterion asks a separate question from computing responsibilities under one fixed fit.{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616)
 
 For a $p$-dimensional Gaussian mixture with unrestricted full covariances, one component has $p$ mean coordinates and $p(p+1)/2$ distinct covariance entries. Together with $H-1$ free weights, the count is $d=Hp+Hp(p+1)/2+(H-1)$. For $H=3$ and $p=2$, $d=6+9+2=17$. A common covariance or diagonal covariances change that count and the fitted geometry. For a binary variable alongside the continuous coordinates, the location-model construction fits a mixture within each binary category and multiplies by its category probability. It can ask whether the two categories occupy different continuous clouds, but it increases the number of parameters and shares no component parameters across categories unless additional structure is imposed.{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616)
@@ -51,7 +51,7 @@ At $x=3$, $\tau_1(3)=0.3e^{-9/2}/\{0.3e^{-9/2}+0.7e^{-1/2}\}=0.007788$. The obse
 ## Common misconceptions
 A mixing weight is not the posterior probability of a component for every observation: the latter changes with $x$. A fitted Gaussian component is not automatically a real cluster or a causal class; one population with a skewed shape might also be approximated by several normals. More components do not guarantee more density modes, as the close-mean normal example shows. Finally, EM's increasing likelihood does not certify a global maximum, especially when an unconstrained variance can collapse onto one data point.{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616)
 
-## Assumptions and limits
+## Assumptions and limits — Identifiability and singular fits
 The density formula requires nonnegative weights summing to one and component distributions on the same observation space. The ordinary iid likelihood additionally assumes observations are conditionally generated independently under fixed mixture parameters. A two-normal mixture may fit a long-tailed single population by placing a broad, low-weight component over outliers; reading that component as a distinct type of person would be an unsupported conclusion. With nearly identical components, membership probabilities remain close to the mixing weights over much of the data, so individual origin is poorly determined even when the overall density is precise. With an unconstrained Gaussian variance, the singular path proved above makes a largest finite likelihood unavailable; covariance constraints or regularization must be declared, and model-count comparisons then refer to that constrained fit.{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616)
 
 ## Connections

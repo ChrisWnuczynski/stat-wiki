@@ -27,7 +27,7 @@ For a transformation, $\{g(X)=y\}$ is the disjoint union of $\{X=x\}$ over all $
 :::
 :::
 
-## Statistical use
+## Statistical use — When a count model is appropriate
 Discrete laws arise for event counts, categories coded numerically, waiting times recorded in trials, and bounded numbers of successes. The figure of binomial, geometric and Poisson masses illustrates different shapes and supports; a bar height is a probability of that exact value. When fitting a model, choose a family whose possible values and dependence assumptions match the measurement process. A binomial count has a fixed number of trials, whereas a Poisson count has no finite upper bound. Probabilities from either fitted law are conditional on its model assumptions.{{cite:grinstead_snell1997}} (Ch. 5, §5.1)
 
 A mass function also supplies the likelihood for an observed value when its parameters are unknown. If independent observations $x_1,\ldots,x_n$ follow a proposed mass function $p_\theta$, their joint probability is $\prod_i p_\theta(x_i)$. The product uses independence, which is an extra assumption; the single-variable definition of a discrete distribution does not require independent observations.{{cite:durrett2019}} (Ch. 1, §§1.1–1.2, pp. 3–14)
@@ -44,7 +44,7 @@ The masses are $p_Y(0)=(2/3)^2=4/9$, $p_Y(1)=2(1/3)(2/3)=4/9$ and $p_Y(2)=(1/3)^
 ## Common misconceptions
 “Discrete” refers to concentration on a countable set, not equal probability for each listed value: the sum of two fair dice is a counterexample. A mass $p_X(x)$ *is* a probability for one value, unlike the height of a continuous density. The values in a probability table are possible outcomes, not an observed frequency table; frequencies estimate masses but do not have to equal them in a finite sample. Finally, a variable can take numerical values from a finite set without its distribution being uniform over that set.{{cite:grinstead_snell1997}} (Ch. 1, §1.2, pp. 25–27){{cite:durrett2019}} (Ch. 1, §1.2, pp. 13–14)
 
-## Assumptions and limits
+## Assumptions and limits — Limits of a probability mass function
 An ordinary mass function cannot describe a purely continuous uniform draw on $[0,1]$: every singleton has probability zero, and summing any countable collection of them still gives zero. A model that rounds such a draw to a fixed number of decimal places *does* produce a discrete recorded value, but its law depends on the rounding rule. A mixture that assigns half its probability to a point and half to a uniform interval is neither purely discrete nor described by a density alone; it needs both components. Durrett's Cantor example gives a further warning: a continuous distribution function need not have a density and need not be discrete.{{cite:durrett2019}} (Ch. 1, §1.2, pp. 12–14)
 
 ## Connections

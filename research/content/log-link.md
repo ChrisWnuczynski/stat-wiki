@@ -23,7 +23,7 @@ If exposure $t_i>0$ enters as an offset, $\eta_i=\log t_i+\mathbf x_i^\top\bolds
 :::
 :::
 
-## Statistical use
+## Statistical use — Rates and exposure offsets
 For counts, specify the count distribution and whether the observed units have equal exposure. If not, include $\log t_i$ as an offset with coefficient fixed at one. This gives a rate comparison while retaining a count response and its appropriate likelihood. A model of raw rates with the same weights is not automatically equivalent. If the count variance substantially exceeds its mean, changing the link does not repair the Poisson variance assumption; a quasi-Poisson or negative-binomial model may be needed.{{cite:nelder_wedderburn1972}} (§§1.3, 3.3–3.4, pp. 372, 378–380)
 
 For positive continuous measurements, a Gamma response with log link models $\mathbb E(Y_i\mid x_i)$ multiplicatively and allows variance proportional to its square. It is different from taking $\log Y_i$ and fitting a normal linear model: the latter describes the mean of the transformed response, and retransformation generally requires an adjustment. The clotting-time comparison below puts the log link beside inverse and inverse-square links; choosing among them changes both the predictor scale and what straight-line effects mean. R's default Gamma inverse link is a software default, not a rule that every Gamma analysis must use it.{{cite:rstats_family2026}} (Sec. Usage; Arguments, Gamma links and variance)
@@ -40,7 +40,7 @@ The fitted rate is $4(1.25)^2=6.25$ per exposure unit, so $\mu=3\times6.25=18.75
 ## Common misconceptions
 The log link models $\log\mathbb E(Y\mid x)$, not $\mathbb E(\log Y\mid x)$. For a positive variable equally likely to be $1$ or $9$, the first is $\log5\approx1.609$, while the second is $\log3\approx1.099$. A coefficient of $0.6$ on $\log A$ is an elasticity, not a $60\%$ increase for one extra unit of $A$; the lake-area question makes that distinction explicit. A fitted mean of $4.48$ is an expectation for a count, not a prediction that a fractional event will be observed. Finally, positivity of the mean does not prove a Gamma or Poisson distribution fits the response.{{cite:mccullagh1992_glm_intro}} (pp. 543–544, separate model components)
 
-## Assumptions and limits
+## Assumptions and limits — Zero means and missing exposure
 The link requires $\mu>0$; a structural mean of exactly zero cannot be represented by a finite log predictor. In a count study with ten times as much exposure in one group, omitting the offset can create an apparent group effect even when rates are identical. In a Poisson model with fitted mean $2$ but observed variance near $10$ across comparable units, the log link's positive mean does nothing to correct underestimated sampling variation. An additive log-scale effect also imposes a constant rate ratio; if a treatment's rate ratio changes sharply with age, include an interaction or another flexible term rather than interpret one coefficient as universal. Extreme positive predictors can overflow a naive numerical exponential, so computation also needs stable implementation.{{cite:nelder_wedderburn1972}} (§§1.3, 3.3–3.4, pp. 372, 378–380)
 
 ## Connections

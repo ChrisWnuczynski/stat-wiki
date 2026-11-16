@@ -34,7 +34,7 @@ For the rectified example below, inspect four intervals. When $x\leq0$, all thre
 :::
 :::
 
-## Statistical use
+## Statistical use — Learning features for prediction
 For classification, hidden layers can turn raw predictors into features that support a simple output decision. For regression, they can similarly represent a nonlinear mean function; the final activation should match the response scale. The chosen width and activation affect both expressiveness and estimation. In data analysis, use held-out observations or another honest validation procedure to assess whether extra flexibility improves prediction. An impressive boundary drawn through training points is not itself evidence that the learned representation generalizes.{{cite:bishop2006}} (Ch. 5, §§5.1, 5.3)
 
 The representation is also not uniquely interpretable. Swapping two hidden units and their outgoing weights changes parameter labels but leaves predictions intact, so one hidden node is rarely an identifiable scientific variable by itself. A node that correlates with a named feature in a fitted sample may be useful for interpretation, but that interpretation needs more than its location in the architecture. The tsetse example below illustrates a fitted nonlinear classification boundary; its application does not establish that every hidden unit has a one-to-one environmental meaning.{{cite:bishop2006}} (Ch. 5, §5.1, hidden-unit symmetry and mapping)
@@ -56,7 +56,7 @@ The tsetse classification example is a more complicated applied setting: climate
 ## Common misconceptions
 A hidden layer is not a collection of unobserved random variables unless a probabilistic model explicitly makes it one; in an ordinary feed-forward network its activations are deterministic functions of inputs and weights. Extra depth does not automatically create nonlinear decision boundaries: affine activations collapse to one affine map. Solving XOR by hand does not show that backpropagation will learn those exact weights from a small sample. Finally, more hidden units are not inherently better; they can fit training noise or make optimization more difficult without helping predictions.{{cite:bishop2006}} (Ch. 5, §§5.1–5.3){{cite:rumelhart_hinton_williams1986}} (pp. 533–534)
 
-## Assumptions and limits
+## Assumptions and limits — Expressivity and training limits
 The feed-forward equations assume a fixed layer order and specified activation functions. In the concrete XOR case, a single threshold fails because its four required inequalities contradict one another; the two-unit hidden construction succeeds only because the hidden units are nonlinear. If every activation is affine, any proposed hidden width fails to repair XOR. If sigmoid hidden scores start deep in a tail, their derivatives are small and weight updates can be slow. If a very wide network memorizes a small training set, its near-zero training error can coexist with poor held-out accuracy. Permutation symmetry makes individual hidden weights non-identifiable without additional conventions.{{cite:bishop2006}} (Ch. 5, §§5.1–5.3){{cite:rumelhart_hinton_williams1986}} (pp. 533–534)
 
 ## Connections

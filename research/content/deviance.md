@@ -27,7 +27,7 @@ Finally, if model $M_0$ is contained in $M_1$, $D_0-D_1=2\{(\ell_{\rm sat}-\ell_
 :::
 :::
 
-## Statistical use
+## Statistical use — Comparing fitted models
 The null deviance compares an intercept-only fit with the saturated fit. The residual deviance compares the chosen predictor model with the same saturated fit. Their difference therefore asks whether the predictors improve on the intercept-only model, subject to the usual nested-model conditions. A separate goodness-of-fit reading asks whether the residual deviance is plausible under the fitted response family; it depends on sample size, degrees of freedom, discreteness and dispersion. These are different questions. The answered model-adequacy check below makes the distinction with a null deviance of $410$ and a residual deviance of $310$.{{cite:nelder_wedderburn1972}} (§§2.3–2.4, pp. 375–376, deviance comparisons)
 
 When comparing models using different links but the same binomial likelihood and observations, each has a residual deviance relative to the same saturated fit. The smaller deviance has the larger in-sample likelihood. The usual chi-squared test based on their difference requires nesting and cannot be applied directly to logit and probit fits, which are not nested. AIC uses the likelihood with a penalty for model size; the cholesterol analysis reports it alongside deviance for three links. Close AIC values should be read as limited discrimination, not as proof that the curves are identical.{{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
@@ -44,7 +44,7 @@ The first contribution is $2\{2\log2-(2-1)\}=0.772589$. The second is $2\{0-(0-1
 ## Common misconceptions
 A significant reduction from null to residual deviance does not imply that the final model fits adequately; both models can fit poorly, as the answered question below shows. Deviance is not a raw sum of residuals and is not a universal metric independent of the family: its contributions depend on the assumed likelihood. A smaller deviance after adding predictors is not evidence of a scientifically useful improvement without considering model complexity and out-of-sample behavior. AIC is not always literally $D+2k$ across different response families, because constants and dispersion conventions matter.{{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
 
-## Assumptions and limits
+## Assumptions and limits — When deviance comparisons fail
 The likelihood comparison requires the fitted and saturated models to use the same observations and response family. If a Poisson model has mean near $2$ but conditional variance near $10$, the Poisson deviance is still computable but a naive chi-squared goodness-of-fit reference may be badly calibrated. A binomial model with many tiny group sizes can likewise make a simple residual-deviance chi-squared approximation unreliable. For nonnested links, the ordinary nested chi-squared difference test is unavailable even though both deviances can be computed. A very flexible model can approach zero training deviance and still predict poorly on new data. Missing or censored observations also change the likelihood and saturated reference; inserting their raw values into the complete-data formulas would be wrong.{{cite:mccullagh1992_glm_intro}} (p. 544, family and fit){{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
 
 ## Connections

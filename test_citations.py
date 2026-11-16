@@ -373,6 +373,16 @@ class CitationTests(unittest.TestCase):
             research_path = ROOT / "research" / "content" / f"{Path(ref).stem}.md"
             research = research_path.read_text(encoding="utf-8")
             if int(rank) >= 48:
+                custom_sections = re.findall(r"(?m)^## ([^\n—]+) — ([^\n]+)$", research)
+                self.assertTrue(custom_sections, f"No topic-specific section heading in {path.name}")
+                for canonical, display in custom_sections:
+                    self.assertRegex(
+                        body,
+                        rf"(?m)^## {re.escape(display.strip())} \{{#[^}}]+\}}$",
+                        f"Missing topic-specific heading in {path.name}",
+                    )
+                    self.assertNotIn(f"## {canonical} {{#", body,
+                                     f"Generic heading remains in {path.name}")
                 self.assertNotRegex(
                     research,
                     r"\{\{cite:[^}]+\}\}\s*\([^)]*(?:Abstract|publisher (?:contents|summary|record))",

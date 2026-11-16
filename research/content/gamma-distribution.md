@@ -37,7 +37,7 @@ The waiting time is $T_2\sim\operatorname{Gamma}(2,1)$, so its mean and variance
 ## Common misconceptions
 The second parameter here is a rate, not a scale; confusing them reverses the direction of the mean change. Shape need not be an integer, even though the waiting-time sum has a literal number-of-events interpretation only at integer shape. A Gamma law for a duration does not prove that the underlying events form a Poisson process. Finally, a Gamma prior on a Poisson rate is a distribution *over possible rates*, whereas a Gamma waiting-time model is a distribution *over observed times*; they share a mathematical family but play different roles in a model.{{cite:siegrist2022_gamma}} (§5.8, moments and parameterization){{cite:siegrist2022_gamma_waiting}} (§14.3, integer-shape waiting times)
 
-## Assumptions and limits
+## Assumptions and limits — When the waiting-time model fails
 A negative observation cannot come from the two-parameter Gamma law because its support is positive. If the call rate rises during a busy shift, the time to the third call no longer follows the stationary-Poisson Gamma law used in the worked example. Equal rates also matter for the sum property: independent $\operatorname{Exp}(1)$ and $\operatorname{Exp}(2)$ variables have sum mean $1+1/2=1.5$ and variance $1+1/4=1.25$; a Gamma law with shape two and mean $1.5$ would have rate $4/3$ and variance $2/(4/3)^2=1.125$, so that simple common-rate conclusion fails. These counterexamples concern support, process assumptions and algebra separately.{{cite:siegrist2022_gamma}} (§5.8, support and common-scale sum){{cite:siegrist2022_gamma_waiting}} (§14.3, stationary Poisson waiting times)
 
 ## Connections

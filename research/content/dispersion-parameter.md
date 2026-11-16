@@ -26,7 +26,7 @@ For a quasi-Poisson log link, $\mu_i=e^{\mathbf x_i^\top\boldsymbol\beta}$, $\pa
 :::
 :::
 
-## Statistical use
+## Statistical use — Checking extra variation
 Start by specifying the response and variance function, then examine whether the observed spread around fitted means is plausible. For a Poisson count model, a common descriptive estimate of extra dispersion is $\hat\phi_P=X_P^2/(n-p)$, where $X_P^2=\sum_i(y_i-\hat\mu_i)^2/V(\hat\mu_i)$ is the Pearson residual sum and $p$ is the fitted model rank. R's `summary.glm` uses residual Pearson chi-squared divided by residual degrees of freedom when it estimates dispersion. The ratio is a diagnostic and estimator under the chosen mean, variance and independence conditions, not a cure for a wrong mean pattern.{{cite:rstats_summary_glm2026}} (“Details”)
 
 An estimated $\phi>1$ enlarges coefficient standard errors relative to a fixed-one Poisson analysis. A quasi-Poisson fit provides mean and variance equations but no full count likelihood, so an ordinary likelihood-ratio comparison or likelihood-based AIC cannot simply be carried over. If distinct subgroups have different variance relationships, one shared $\phi$ may be too crude; if observations are dependent, treating them as independent will also distort a Pearson calculation. Inspect residuals and the data-generating setting before interpreting the scale estimate.{{cite:mccullagh1992_glm_intro}} (p. 544, common dispersion){{cite:nelder_wedderburn1972}} (§§1.1, 3, pp. 371–372, 377–380)
@@ -43,7 +43,7 @@ The mean is $\hat\mu=20/4=5$. The squared deviations sum to $4(3^2)=36$, so $X_P
 ## Common misconceptions
 Dispersion is not the fitted mean or the variance function; it multiplies that function at a given mean. A constant $\phi$ does not imply equal variance across predictor settings: the Gamma example's variance quadruples as its mean doubles. A Poisson model does not acquire an independently adjustable variance parameter merely by naming one; free $\phi$ in quasi-Poisson specifies a mean–variance relation without the original Poisson likelihood. Finally, $\hat\phi_P>1$ is evidence of extra residual spread under the fitted model, not proof that one specific alternative distribution generated the counts.{{cite:mccullagh1992_glm_intro}} (p. 544){{cite:nelder_wedderburn1972}} (§§1.1, 3, pp. 371–372, 377–380)
 
-## Assumptions and limits
+## Assumptions and limits — When one dispersion is inadequate
 The common-dispersion formula assumes the selected variance function applies at each mean. A data set of counts with a structural excess of zeros is a concrete failure of an ordinary Poisson shape: merely inflating all Poisson variances with one multiplier does not supply probabilities for those zeros. Repeated counts from the same patient offer another failure when within-patient dependence is ignored; a large Pearson ratio then blends dependence and marginal spread. For Bernoulli observations with one trial each, a free scale cannot turn the Bernoulli probability law into another Bernoulli law with the same mean, so quasi-binomial dispersion should be read as a variance or working-covariance convention. Model checking, study design and the unit of observation determine whether a reported $\phi$ is meaningful.{{cite:mccullagh1992_glm_intro}} (p. 544, independence and common dispersion){{cite:nelder_wedderburn1972}} (§§1.1, 3, pp. 371–372, 377–380)
 
 ## Connections
