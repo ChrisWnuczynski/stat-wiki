@@ -105,7 +105,7 @@ Extra zeros, relative to a Poisson or negative binomial, and dependence between 
 
 ## A gamma model for a positive response {#s-a-gamma-model-for-a-positive-response}
 
-On the 111 air-quality days with ozone, solar radiation, wind, and temperature all observed, ozone is strictly positive. A gamma model with a log link is a working model for the conditional distribution of ozone given those covariates. It is not a claim that a histogram of ozone, ignoring the covariates, is a gamma density.
+On the 111 air-quality days with ozone, solar radiation, wind, and temperature all observed, ozone is strictly positive. A gamma model with a log link is a working model for the conditional distribution of ozone given those covariates. The response model is conditional on the covariates; the unadjusted ozone histogram describes a different distribution.
 
 ```r
 aq_complete <- datasets::airquality |>

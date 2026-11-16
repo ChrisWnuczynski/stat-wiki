@@ -389,8 +389,14 @@ class CitationTests(unittest.TestCase):
             for qid in question_ids:
                 self.assertIn(f"../questions/{qid}.qmd", check, f"Missing bank link in {path.name}")
             self.assertIsNone(
-                # "Opened" by itself is ordinary prose in Monty Hall (the host opens a door).
-                re.search(r"\b(?:existing|original definition|opened (?:source|paper|pdf|book|text)|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),
+                # "Inherited traits", "retained draws" and an opened door are subject matter.
+                re.search(
+                    r"\b(?:inherited(?!\s+traits\b)|retained\s+(?:example|figure|formula|property|section|content|chapter)|"
+                    r"existing\s+(?:example|figure|formula|property|section|content|chapter)|"
+                    r"original definition|opened\s+(?:source|paper|pdf|book|text)|verified\s+source|"
+                    r"source chapter|the example above was kept|not claiming|not (?:a )?claim)\b",
+                    body, re.I,
+                ),
                 f"Editor-facing prose in {path.name}",
             )
             for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):

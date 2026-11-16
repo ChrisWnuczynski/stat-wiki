@@ -28,7 +28,7 @@ The likelihood is therefore a function of $\theta$; it is not generally a probab
 
 Statistical reduction asks whether the full data vector can be replaced by a lower-dimensional statistic without losing information about $\theta$ under the assumed model. This is the role of sufficiency.
 
-Sufficiency is not a claim that the discarded features are useless for every purpose. It says they add no information about the named parameter within the assumed model. Residual patterns can still be vital for checking that model. The parameter, the model, and the inferential purpose therefore belong in any careful statement that a statistic is sufficient.
+Under the assumed model, discarded features add no information about the named parameter. Residual patterns can still be vital for checking that model. The parameter, the model, and the inferential purpose therefore belong in any careful statement that a statistic is sufficient.
 
 ## Sufficiency and the Fisher--Neyman theorem
 

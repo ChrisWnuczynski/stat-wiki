@@ -30,7 +30,7 @@ The divisor $n$ in the variance, rather than $\sum_i\tau_{ik}$, is the maximum-l
 
 ## One EM update, written out {#s-one-em-update-written-out}
 
-Old Faithful's `faithful` table has one row per eruption. `waiting` is the time, in minutes, until the next eruption. The histogram is bimodal. A two-normal mixture is a model for that shape. It is not evidence that the geyser has two mechanisms, and successive eruptions are not independent, so the likelihood treated below as a product is already an approximation. The starting values are for the arithmetic. They are not a claim that the iteration has found a global maximum.
+Old Faithful's `faithful` table has one row per eruption. `waiting` is the time, in minutes, until the next eruption. The histogram is bimodal. A two-normal mixture is a model for that shape. It is not evidence that the geyser has two mechanisms, and successive eruptions are not independent, so the likelihood treated below as a product is already an approximation. The starting values are for the arithmetic. The iteration may converge to a local rather than global maximum.
 
 ```r
 x <- datasets::faithful$waiting
