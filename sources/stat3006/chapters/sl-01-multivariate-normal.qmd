@@ -349,7 +349,7 @@ $$
 (\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=\mathbf{u}^\top\Lambda^{-1}\mathbf{u}=\sum_{j=1}^p\frac{u_j^2}{\lambda_j}=C.
 $$
 
-This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}${{cite:anderson2003_mva}}. Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
+This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}$.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, covariance ellipsoids) Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
 
 ::: {#def-sl-01-mahalanobis .definition}
 ## Squared Mahalanobis distance
@@ -360,7 +360,7 @@ $$
 (\mathbf{X}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{X}-\boldsymbol{\mu}).
 $$
 
-{{cite:mahalanobis1936}}{{cite:anderson2003_mva}}{{cite:hastie_esl2009}}
+{{cite:strimmer2025_mva}} (Ch. 3, §3.1, Ex. 3.7)
 :::
 
 If $\mathbf{X}\sim\Normal_p(\boldsymbol{\mu},\Sigma)$, set $\mathbf{Z}=\Sigma^{-1/2}(\mathbf{X}-\boldsymbol{\mu})$, where $\Sigma^{-1/2}=\Gamma\Lambda^{-1/2}\Gamma^\top$ is the symmetric inverse square root. The linear-image formula for covariances gives
@@ -375,7 +375,7 @@ $$
 \mathbf{Z}^\top\mathbf{Z}=\sum_{j=1}^p Z_j^2\sim\chi^2_p,
 $$
 
-the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom{{cite:anderson2003_mva}}. A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
+the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Concentration of probability mass for small and large dimension”) A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
 
 ## Linear images and marginals
 

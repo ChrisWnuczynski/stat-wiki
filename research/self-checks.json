@@ -154,5 +154,9 @@
   "multivariate-normal-distribution": [
     "ex-sl-01-6",
     "ex-sl-02-9"
+  ],
+  "eigenvalues-and-eigenvectors": [
+    "ex-sl-03-1",
+    "ex-sl-01-1"
   ]
 }

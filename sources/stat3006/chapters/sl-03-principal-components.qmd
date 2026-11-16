@@ -53,7 +53,7 @@ $$
 S\mathbf{a}_1=\lambda\mathbf{a}_1.
 $$
 
-The stationary points are the eigenvectors of $S$, and the multipliers are the eigenvalues{{cite:hotelling1933_pca}}{{cite:golub_vanloan2013}}. Substitute a stationary point back into the objective:
+The stationary points are the eigenvectors of $S$, and the multipliers are the eigenvalues.{{cite:strimmer2025_mva}} (Ch. 3, §3.5, “PCA transformation”) Substitute a stationary point back into the objective:
 
 $$
 \mathbf{a}_1^\top S\mathbf{a}_1=\lambda\,\mathbf{a}_1^\top\mathbf{a}_1=\lambda.
