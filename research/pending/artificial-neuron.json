@@ -1,0 +1,14 @@
+{
+  "bibliography": {
+    "goodfellow2016_deep_learning": {
+      "authors": ["Goodfellow, I.", "Bengio, Y.", "Courville, A."],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/contents/mlp.html",
+      "verification": {"source": "archival_url", "id": "https://www.deeplearningbook.org/contents/mlp.html"}
+    }
+  },
+  "self_checks": ["ex-sl-14-3", "ex-sl-14-5"]
+}
