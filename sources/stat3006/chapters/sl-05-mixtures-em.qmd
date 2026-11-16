@@ -21,11 +21,11 @@ f(x)=\sum_{h=1}^{H}\pi_h f_h(x),
 \sum_{h=1}^{H}\pi_h=1.
 $$
 
-{{cite:mclachlan_peel2000_book}} Here $H$ is the number of components, $\pi_h$ is the probability that an observation is drawn from component $h$, and $f_h$ is the density of that component. Equivalently, each observation comes from one of a finite collection of parametric distributions{{cite:mclachlan_peel2000_book}}{{cite:bishop2006}}.
+{{cite:mclachlan_peel2000_book}} (Ch. 1, publisher chapter summary) Here $H$ is the number of components, $\pi_h$ is the probability that an observation is drawn from component $h$, and $f_h$ is the density of that component. Equivalently, each observation comes from one of a finite collection of parametric distributions{{cite:mclachlan_peel2000_book}} (Ch. 1, publisher summary).
 
 :::
 
-The weights are probabilities of a latent component, so they lie in $[0,1]$ and sum to one. The component densities used below are multivariate normal, which keeps the complete-data step inside ordinary normal maximum likelihood. Other families are possible. Mixtures of $t$ distributions, of beta distributions, and of generalised linear models are surveyed by {{cite:mclachlan_peel2000_book}}.
+The weights are probabilities of a latent component, so they lie in $[0,1]$ and sum to one. The component densities used below are multivariate normal, which keeps the complete-data step inside ordinary normal maximum likelihood. Other families are possible: the same weighted-sum construction permits $t$ or beta densities, and mixtures of generalised linear models are discussed by McLachlan and Peel{{cite:mclachlan_peel2000_book}} (Ch. 5, publisher contents).
 
 A binary coordinate sits outside the Gaussian density used here. The model on this page is for continuous measurements. One joint extension, the location model, fits a separate mixture at each value of a binary variable and multiplies by the probability of that value. Comparing the continuous distributions in the two binary groups asks whether the binary split corresponds to different clouds. The split multiplies the parameter count, and it shares no parameter across the two values. Several binary variables multiply the number of cells.
 

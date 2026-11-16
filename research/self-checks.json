@@ -230,5 +230,9 @@
   "a-held-out-test-set": [
     "ex-sl-09-7",
     "ex-sl-12-7"
+  ],
+  "finite-mixture-model": [
+    "ex-sl-05-1",
+    "ex-sl-05-4"
   ]
 }

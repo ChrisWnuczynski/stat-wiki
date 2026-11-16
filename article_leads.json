@@ -205,7 +205,7 @@
   "family-wise-control-implies-false-discovery-control": {"field": "statistical learning", "article": "", "term": "family-wise error control", "verb": "is", "description": "a guarantee that also bounds the false-discovery rate"},
   "family-wise-error-rate": {"field": "statistical learning", "article": "the", "term": "family-wise error rate", "verb": "is", "description": "the probability of at least one false rejection among a family of tests"},
   "finite-irreducible-chains": {"field": "stochastic processes", "article": "", "term": "finite irreducible chains", "verb": "are", "description": "Markov chains with a unique positive stationary distribution"},
-  "finite-mixture-model": {"field": "statistical learning", "article": "a", "term": "finite mixture model", "verb": "is", "description": "a model whose distribution is a weighted combination of component distributions"},
+  "finite-mixture-model": {"field": "statistical learning", "article": "a", "term": "finite mixture model", "verb": "is", "description": "a weighted model of observations from several distributions when their generating group is unknown"},
   "finite-state-markov-chain": {"field": "probability theory", "article": "the", "term": "finite-state Markov chain", "verb": "is", "description": "a Markov chain with a finite set of possible states"},
   "first-passage-time": {"field": "stochastic processes", "article": "the", "term": "first-passage time", "verb": "is", "description": "the first time a random process reaches a specified set of states"},
   "fisher-information": {"field": "generalised linear models", "article": "the", "term": "Fisher information", "verb": "is", "description": "a measure of how much an observation tells us about a model parameter", "proper": true},
