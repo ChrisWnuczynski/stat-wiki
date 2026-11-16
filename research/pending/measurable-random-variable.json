@@ -1,0 +1,44 @@
+{
+  "article_lead": {
+    "description": "a numerical measurement whose value sets correspond to events, so probabilities and expectations of the measurement are defined"
+  },
+  "self_checks": [
+    "exr-measurable-coarse-space",
+    "exr-measurable-square",
+    "ex-sp-right-continuous"
+  ],
+  "new_bank_questions": [
+    {
+      "id": "exr-measurable-coarse-space",
+      "topic_code": "SP10",
+      "title": "Which measurements can the events distinguish?",
+      "body": "Let Ω={a,b,c,d} and F={∅,{a,b},{c,d},Ω}. Is X with values (2,2,3,3) measurable? Is Y with values (0,1,0,1) measurable? Exhibit a threshold event for each answer.",
+      "answer": "X is measurable: for 2≤t<3, {X≤t}={a,b}, with ∅ below 2 and Ω at or above 3. All are in F. Y is not measurable: for 0≤t<1, {Y≤t}={a,c}, which is not in F. The same four numerical outcomes can support one measurement but not the other because F distinguishes only the two blocks."
+    },
+    {
+      "id": "exr-measurable-square",
+      "topic_code": "SP10",
+      "title": "A transformed uniform measurement",
+      "body": "On Ω=(0,1) with Borel events and uniform probability, let X(ω)=ω and W=X². Explain why W is measurable, then compute P(W≤1/4) and P(1/4<W≤9/16).",
+      "answer": "The square function is continuous, hence Borel measurable; its composition with X is measurable. Since ω is positive, {W≤1/4}=(0,1/2], whose probability is 1/2. Also {1/4<W≤9/16}=(1/2,3/4], whose probability is 3/4−1/2=1/4. These are probabilities of inverse-image events, not areas under a guessed density."
+    }
+  ],
+  "bibliography": {
+    "shafer_vovk2018_grundbegriffe": {
+      "authors": [
+        "Shafer, G.",
+        "Vovk, V."
+      ],
+      "year": 2018,
+      "title": "The Origins and Legacy of Kolmogorov's Grundbegriffe",
+      "kind": "article",
+      "publisher": "Game-Theoretic Probability and Finance Project, Working Paper 4",
+      "url": "https://www.probabilityandfinance.com/articles/04.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilityandfinance.com/articles/04.pdf"
+      },
+      "venue": "Game-Theoretic Probability and Finance Project, Working Paper 4"
+    }
+  }
+}
