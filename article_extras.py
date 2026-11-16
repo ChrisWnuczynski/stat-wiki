@@ -648,7 +648,7 @@ Suppose the weighted error is $\varepsilon_1=1/5$. Then $\alpha_1=\tfrac12\log 4
     "akaike-information-criterion": r"""
 ## A penalty aimed at prediction
 
-Several parametric models $M_k$ may be fitted to the same sample $X_{\mathrm{all}}$ of $n$ observations. Model $M_k$ has a parameter $\Psi_k$ of dimension $d_k$, and $\widehat\Psi_k$ is a maximiser of its log-likelihood $\ell(\Psi_k;X_{\mathrm{all}},M_k)$. The maximised value always rises, or at least does not fall, when the candidate is enlarged, so the largest model would win a raw likelihood comparison. Akaike's criterion charges two units per free parameter (Akaike, 1974),
+Several parametric models $M_k$ may be fitted to the same sample $X_{\mathrm{all}}$ of $n$ observations. Model $M_k$ has a parameter $\Psi_k$ of dimension $d_k$, and $\widehat\Psi_k$ is a maximiser of its log-likelihood $\ell(\Psi_k;X_{\mathrm{all}},M_k)$. The maximised value always rises, or at least does not fall, when the candidate is enlarged, so the largest model would win a raw likelihood comparison. Akaike's criterion charges two units per free parameter,{{cite:akaike1974}} (Abstract, pp. 716–723)
 
 $$
 \mathrm{AIC}_k=-2\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+2d_k,
@@ -3291,7 +3291,7 @@ The `p` and `q` results are properties of the beta posterior. Draws produced by 
     "random-component": r"""
 ## The distribution that fixes the noise
 
-A generalised linear model has a random component, a linear predictor and a link (Nelder and Wedderburn, 1972). The random component is the distribution of the response given the covariates. The responses are independent, and each comes from the same [exponential family](exponential-family.qmd), such as the normal, Poisson, binomial or gamma. The family supplies a variance function $V$ and a dispersion $\phi$ with
+A generalised linear model has a random component, a linear predictor and a link.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373) The random component is the distribution of the response given the covariates. The responses are independent, and each comes from the same [exponential family](exponential-family.qmd), such as the normal, Poisson, binomial or gamma. The family supplies a variance function $V$ and a dispersion $\phi$ with
 
 $$
 \operatorname{Var}(Y_i\mid\mathbf{x}_i)=\phi\, V(\mu_i).
@@ -4344,7 +4344,7 @@ ARTICLE_HISTORIES.update({
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
     "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
-    "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}}",
+    "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (Abstract, pp. 716–723)",
     "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}}",
     "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:dempster_laird_rubin1977}}",
     "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}}",

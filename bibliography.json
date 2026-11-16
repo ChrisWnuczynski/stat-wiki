@@ -7433,6 +7433,15 @@
         "source": "crossref",
         "id": "10.1198/016214506000000735"
       }
+    },
+    "rstats_aic2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Akaike’s An Information Criterion (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html",
+      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html"}
     }
   }
 }

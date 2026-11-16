@@ -262,5 +262,9 @@
   "random-component": [
     "c-16",
     "q-45"
+  ],
+  "akaike-information-criterion": [
+    "ex-sl-06-2",
+    "ex-sl-06-5"
   ]
 }

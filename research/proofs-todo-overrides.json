@@ -18,5 +18,10 @@
     "slug": "sufficient-statistic#property-fisher-neyman-factorisation",
     "title": "Dominated-space converse of Fisher–Neyman factorization",
     "reason": "The collapsed proof gives both directions for discrete samples and outlines the conditional-kernel argument, but not the full measure-theoretic dominated-space construction."
+  },
+  {
+    "slug": "akaike-information-criterion#property-asymptotic-kl-correction",
+    "title": "General asymptotic Kullback–Leibler optimism correction for AIC",
+    "reason": "The article proves the exact 2d correction for correctly specified known-variance Gaussian linear models. The stated general regular-likelihood result needs a separate asymptotic expansion and assumptions on identifiability and misspecification."
   }
 ]

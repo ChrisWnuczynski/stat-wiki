@@ -208,7 +208,7 @@ The integral $\int f\ln f$ does not depend on which candidate produced $\widehat
 
 ## The Akaike information criterion
 
-Akaike's criterion estimates the same Kullback–Leibler target from the training log-likelihood, with an asymptotic penalty in place of a test set{{cite:akaike1974}}.
+Akaike's criterion estimates the same Kullback–Leibler target from the training log-likelihood, with an asymptotic penalty in place of a test set{{cite:akaike1974}} (Abstract, pp. 716–723).
 
 ::: {#def-sl-06-aic .definition}
 ## Akaike information criterion
@@ -223,9 +223,9 @@ $$
 
 :::
 
-For $n>e^2$, one has $\log n>2$, so BIC charges more per parameter than AIC. This explains why AIC often favours more flexible candidates. It does not make every larger choice an error: predictive density estimation and recovery of a component count have different goals. The usual $2d_k$ correction is itself an asymptotic result for regular likelihood fitting. Singular mixtures and severe misspecification require care with that justification as well {{cite:akaike1974}}{{cite:drton_plummer2017}}.
+For $n>e^2$, one has $\log n>2$, so BIC charges more per parameter than AIC. This explains why AIC often favours more flexible candidates. It does not make every larger choice an error: predictive density estimation and recovery of a component count have different goals. The usual $2d_k$ correction is itself an asymptotic result for regular likelihood fitting. Singular mixtures and severe misspecification require care with that justification as well {{cite:akaike1974}} (Abstract, pp. 716–723){{cite:drton_plummer2017}} (Abstract, singular mixtures).
 
-The table supplies numbers for comparing the rules. The log-likelihood and cross-validation columns are inherited inputs for the arithmetic. The simulation that produced them is not reproduced by the calculation below. The preferred value of each criterion is in bold. Here $n=300$, $p=2$, and the covariances are full, so the parameter count $d=Hp+Hp(p+1)/2+(H-1)$ from the mixture page is $5,11,17,23,29,35$.
+The table compares six Gaussian-mixture candidates using the stated maximised log-likelihoods and five-fold cross-validation scores. Its AIC and BIC columns follow from the likelihoods and parameter counts. The preferred value of each criterion is in bold. Here $n=300$, $p=2$, and the covariances are full, so the parameter count $d=Hp+Hp(p+1)/2+(H-1)$ from the mixture page is $5,11,17,23,29,35$.
 
 | $H$ | $d$ | $\widehat\ell$ | BIC | AIC | 5-fold CV log-likelihood |
 |---:|---:|---:|---:|---:|---:|

@@ -20,7 +20,7 @@
 
 ## Build audit
 
-- Baseline 548 words and no figures; rebuilt 3,044 words and no figures.
+- Baseline 548 words and no figures; rebuilt 3,052 words and no figures.
 - The copied GLM definition, original mean-six comparison, links, and existing citations remain present.
 - One collapsed proof checks family variances and the Gamma comparison; no further theorem claim requires a proof log.
 - `checks/random-component.py` passed; full build passed; 67 unit tests passed; offline bibliography verification passed for 457 entries; `git diff --check` passed.

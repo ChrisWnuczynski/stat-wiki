@@ -23,3 +23,5 @@ Dodge index directory was absent from `~/statwiki-sources/dodge2008`.
 ## Changes and checks
 
 The generated article has 3,173 body words and zero figures. The article adds a context lead, latent-label interpretation, moment and responsibility derivations, Gaussian singularity proof, worked numeric posterior, hidden-answer practice, distinct misconceptions and concrete limits, two answered bank questions, and sourced history. The original definition, example, binary-coordinate discussion, infobox and links remain. Verification: the generator built 718 articles and 557 questions; all 67 Python tests pass; offline bibliography verification covers 445 entries; `git diff --check` passes. Full Quarto HTML rendering is unavailable because Quarto is not installed; the generator uses the system Pandoc shim.
+
+Final rank-67 citation gate standardized publisher-section locators in this article’s research content; the rebuilt page has 3,170 body words. The numerical check and full 67-test suite pass.

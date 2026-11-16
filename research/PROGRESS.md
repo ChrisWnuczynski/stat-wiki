@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-38-onward`. Ranking is frozen in [RANKING.md]
 
 ## Status
 
-Pages ranked: **718**. Done: **57**. Left: **661**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
+Pages ranked: **718**. Done: **67**. Left: **651**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -58,20 +58,32 @@ Pages ranked: **718**. Done: **57**. Left: **661**. Skipped: **0**. Ranks 1–37
 | 47 | [Interaction](interaction.md) | Concept/definition | [Prose](content/interaction.md), [check](../checks/interaction.py) | 1,163 → 3,912 | 3 → 3 | Four-cell contrast and practice; crop-table rounding corrected; source and dependent citations located |
 | 48 | [Discrete distribution](discrete-distribution.md) | Concept | [Prose](content/discrete-distribution.md), [check](../checks/discrete-distribution.py) | 435 → 2,330 | 2 → 2 | Grinstead–Snell and Durrett checked; proof and numeric examples |
 | 49 | [Hyperparameter](hyperparameter.md) | Concept | [Prose](content/hyperparameter.md), [check](../checks/hyperparameter.py) | 1,244 → 3,942 | 0 → 0 | Gelman and Raiffa–Schlaifer checked; prior hierarchy and practice |
-| 50 | [Skewness](skewness.md) | Concept | [Prose](content/skewness.md), [check](../checks/skewness.py) | 197 → 2,344 | 0 → 1 | NIST sources checked; new figure and moment calculations |
-| 51 | [Dispersion parameter](dispersion-parameter.md) | Concept | [Prose](content/dispersion-parameter.md), [check](../checks/dispersion-parameter.py) | 256 → 3,134 | 0 → 0 | McCullagh and R documentation checked; GLM scale distinguished |
+| 50 | [Skewness](skewness.md) | Concept | [Prose](content/skewness.md), [check](../checks/skewness.py) | 197 → 2,345 | 0 → 1 | NIST sources checked; new figure and moment calculations |
+| 51 | [Dispersion parameter](dispersion-parameter.md) | Concept | [Prose](content/dispersion-parameter.md), [check](../checks/dispersion-parameter.py) | 256 → 3,136 | 0 → 0 | McCullagh and R documentation checked; GLM scale distinguished |
 | 52 | [Bayesian credible interval](bayesian-credible-interval.md) | Concept | [Prose](content/bayesian-credible-interval.md), [check](../checks/bayesian-credible-interval.py) | 956 → 2,857 | 1 → 1 | Gelman checked; asymptotic coverage logged in proofs todo |
 | 53 | [Posterior point summaries](posterior-point-summaries.md) | Concept | [Prose](content/posterior-point-summaries.md), [check](../checks/posterior-point-summaries.py) | 711 → 3,490 | 0 → 0 | Gelman and Hoff checked; loss rules and MAP scale proved |
 | 54 | [Sigmoid function](sigmoid-function.md) | Concept | [Prose](content/sigmoid-function.md), [check](../checks/sigmoid-function.py) | 489 → 2,208 | 0 → 0 | Bishop and original neural-unit papers checked; gradients proved |
-| 55 | [Log link](log-link.md) | Concept | [Prose](content/log-link.md), [check](../checks/log-link.py) | 573 → 3,294 | 0 → 0 | McCullagh and R checked; shared link paragraph reconciled |
-| 56 | [Deviance](deviance.md) | Concept | [Prose](content/deviance.md), [check](../checks/deviance.py) | 639 → 3,086 | 1 → 1 | Four-family formulas proved; cholesterol data absent for refit |
-| 57 | [Hidden layer](hidden-layer.md) | Concept | [Prose](content/hidden-layer.md), [check](../checks/hidden-layer.py) | 870 → 3,380 | 0 → 0 | XOR and nonlinear maps proved; bank-question norm corrected |
+| 55 | [Log link](log-link.md) | Concept | [Prose](content/log-link.md), [check](../checks/log-link.py) | 573 → 3,305 | 0 → 0 | McCullagh and R checked; shared link paragraph reconciled |
+| 56 | [Deviance](deviance.md) | Concept | [Prose](content/deviance.md), [check](../checks/deviance.py) | 639 → 3,137 | 1 → 1 | Four-family formulas proved; cholesterol data absent for refit |
+| 57 | [Hidden layer](hidden-layer.md) | Concept | [Prose](content/hidden-layer.md), [check](../checks/hidden-layer.py) | 870 → 3,390 | 0 → 0 | XOR and nonlinear maps proved; bank-question norm corrected |
+| 58 | [A held-out test set](a-held-out-test-set.md) | Concept | [Prose](content/a-held-out-test-set.md), [check](../checks/a-held-out-test-set.py) | 721 → 3,058 | 0 → 0 | Binomial test error proved; leakage and grouped cases checked |
+| 59 | [Finite mixture model](finite-mixture-model.md) | Model | [Prose](content/finite-mixture-model.md), [check](../checks/finite-mixture-model.py) | 736 → 3,170 | 0 → 0 | Mixture moments and membership proved; singular likelihood limit noted |
+| 60 | [Pivot](pivot.md) | Concept | [Prose](content/pivot.md), [check](../checks/pivot.py) | 618 → 2,455 | 0 → 0 | Coverage inversion proved; normal-sample and regression examples checked |
+| 61 | [Generic exponential-family conjugate update](generic-exponential-family-conjugate-update.md) | Theorem | [Prose](content/generic-exponential-family-conjugate-update.md), [check](../checks/generic-exponential-family-conjugate-update.py) | 2,043 → 4,527 | 0 → 0 | Conjugate update derived; conjugate-prior examples checked |
+| 62 | [Sufficient statistic](sufficient-statistic.md) | Concept | [Prose](content/sufficient-statistic.md), [check](../checks/sufficient-statistic.py) | 1,019 → 3,092 | 0 → 0 | Factorization and Basu proof; two general converse claims logged |
+| 63 | [Monte Carlo method](monte-carlo-method.md) | Method | [Prose](content/monte-carlo-method.md), [check](../checks/monte-carlo-method.py) | 311 → 2,030 | 0 → 0 | Estimator and simulation error proved; MCMC scope checked |
+| 64 | [Metropolis–Hastings algorithm](metropolis-hastings-algorithm.md) | Method | [Prose](content/metropolis-hastings-algorithm.md), [check](../checks/metropolis-hastings-algorithm.py) | 958 → 2,325 | 0 → 0 | Detailed balance proof retained; asymmetric proposal calculation checked |
+| 65 | [Gamma distribution](gamma-distribution.md) | Distribution | [Prose](content/gamma-distribution.md), [check](../checks/gamma-distribution.py) | 3,039 → 5,263 | 3 → 3 | Moments, sums and conjugacy proved; relationship pages rebuilt |
+| 66 | [Random component](random-component.md) | Concept | [Prose](content/random-component.md), [check](../checks/random-component.py) | 548 → 3,052 | 0 → 0 | GLM family variances proved; response support compared |
+| 67 | [Akaike information criterion](akaike-information-criterion.md) | Concept | [Prose](content/akaike-information-criterion.md), [check](../checks/akaike-information-criterion.py) | 867 → 2,919 | 0 → 0 | Gaussian optimism and penalty proved; general KL expansion logged |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 58: `a-held-out-test-set`.** Continue with accessible primary or reputable page-located secondary sources. The rank-57 ten-article checkpoint is complete; the next checkpoint is the final rank 67. Rank 57 has 3,380 body words and 37 inline citations versus rank 48's 2,330 and 25. Both have motivating and worked examples, hidden practice answers and two answered bank questions. Rank 57's concept sections cover its topic; rank 48 has an additional distribution-specific Examples section.
+**Rank 68: `irreducible-markov-chain`.** The rank-67 checkpoint is complete. The 20 ranks from 48 through 67 each have a page commit, researched narrative sections and numerical checks. The final build produced 718 articles and 557 question pages; all 67 unit tests, all 20 rank-48–67 page checks, offline verification of 458 bibliography entries, and `git diff --check` passed. The general AIC asymptotic KL correction remains in `proofs-todo.json` while its Gaussian special case is proved on the page.
+
+The Dodge source directory was absent. Quarto was unavailable, so the generator used system Pandoc through a local shim; full Quarto HTML rendering was not performed. The inherited cholesterol fit in rank 56 could not be refitted without its source data, the inherited Williams tsetse-network size in rank 57 was not verified from the original chapter, and the inherited cross-validation scores in rank 67 could not be reproduced from their original simulation. Their internal arithmetic and printed values were checked where possible.
 
 ## Citation and prose correction pass
 
