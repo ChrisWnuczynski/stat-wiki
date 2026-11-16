@@ -1,0 +1,35 @@
+{
+  "slug": "weight-initialisation",
+  "rank": 312,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — Start near zero, and not all at zero",
+    "Definition — Two variance rules",
+    "Worked example — Four weights, and a square layer",
+    "Check yourself",
+    "Connections — Scale before the first step"
+  ],
+  "words_before": 408,
+  "words_after": 1229,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 §11.5.1, p. 397",
+    "glorot_bengio2010 eqs. 12 and 16, pp. 252–253",
+    "siegrist2022_normal_distribution §5.6"
+  ],
+  "proofs": [
+    "Marginal variance (p+1)σ^2 for centred independent weights",
+    "Uniform[-a,a] variance equals 2/(n_j+n_{j+1}) at Glorot and Bengio's half-width"
+  ],
+  "tests": [
+    "checks/weight-initialisation.py"
+  ],
+  "skipped": [
+    "LeCun et al. (1998) was not reopened"
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
