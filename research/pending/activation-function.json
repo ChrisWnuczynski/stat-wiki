@@ -1,0 +1,28 @@
+{
+  "bibliography": {
+    "mehlig_neural_networks2022": {
+      "authors": ["Mehlig, B."],
+      "year": 2022,
+      "title": "Machine Learning with Neural Networks: An Introduction for Scientists and Engineers",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://assets.cambridge.org/97811084/94939/excerpt/9781108494939_excerpt.pdf",
+      "verification": {"source": "archival_url", "id": "https://assets.cambridge.org/97811084/94939/excerpt/9781108494939_excerpt.pdf"}
+    },
+    "glorot_bordes_bengio2011": {
+      "authors": ["Glorot, X.", "Bordes, A.", "Bengio, Y."],
+      "year": 2011,
+      "title": "Deep Sparse Rectifier Neural Networks",
+      "kind": "article",
+      "venue": "Proceedings of Machine Learning Research",
+      "volume": "15",
+      "pages": "315–323",
+      "url": "https://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf",
+      "verification": {"source": "archival_url", "id": "https://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf"}
+    }
+  },
+  "article_lead": {
+    "description": "a rule that transforms a neuron's weighted input into an output, allowing hidden layers to form nonlinear features for prediction"
+  },
+  "self_checks": ["ex-sl-14-6", "ex-sl-15-7"]
+}
