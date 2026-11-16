@@ -1,0 +1,32 @@
+{
+  "slug": "clique",
+  "rank": 272,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Check yourself",
+    "Connections"
+  ],
+  "words_before": 310,
+  "words_after": 1211,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "evans2025_graphical \u00a74.3, equation 4.1"
+  ],
+  "proofs": [
+    "The cliques of the stated six-vertex graph are exactly the three listed triples."
+  ],
+  "tests": "checks/clique.py passed",
+  "skipped": [
+    "Lauritzen 1996 and the Hammersley\u2013Clifford equivalence were not opened or reproved."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

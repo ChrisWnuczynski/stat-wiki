@@ -1,0 +1,31 @@
+{
+  "slug": "average-linkage",
+  "rank": 276,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Check yourself",
+    "Connections"
+  ],
+  "words_before": 481,
+  "words_after": 1469,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 Ch. 14 \u00a714.3.12 pp. 523\u2013525",
+    "james_islr2021 Ch. 12 \u00a712.4 p. 524"
+  ],
+  "proofs": [
+    "Group-average fusion heights are nondecreasing because a weighted average of distances at least h is at least h."
+  ],
+  "tests": "checks/average-linkage.py passed",
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

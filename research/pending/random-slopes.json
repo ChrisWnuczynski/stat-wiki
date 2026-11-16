@@ -1,0 +1,37 @@
+{
+  "slug": "random-slopes",
+  "rank": 270,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Statistical use",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 355,
+  "words_after": 2245,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "bates_lme4_2015 pp. 1\u20133, equations 2\u20134"
+  ],
+  "proofs": [
+    "The marginal covariance of a random intercept and slope is the covariance of the random linear predictor, plus residual variance on the diagonal."
+  ],
+  "tests": "checks/random-slopes.py passed",
+  "skipped": [
+    "The sleep-study lmer summary was not refitted; R is not installed. Laird and Ware 1982 and Self and Liang 1987 were not opened."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

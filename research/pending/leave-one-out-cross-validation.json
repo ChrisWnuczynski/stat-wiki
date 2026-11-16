@@ -1,0 +1,37 @@
+{
+  "slug": "leave-one-out-cross-validation",
+  "rank": 266,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Statistical use",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 597,
+  "words_after": 2537,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 Ch. 7 \u00a77.10 pp. 241\u2013246"
+  ],
+  "proofs": [
+    "For a linear smoother, the leave-one-out residual equals the ordinary residual divided by one minus the leverage."
+  ],
+  "tests": "checks/leave-one-out-cross-validation.py passed",
+  "skipped": [
+    "Stone 1974 was not reopened; the copied chapter already cites it."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
