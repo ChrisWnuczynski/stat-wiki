@@ -45,7 +45,7 @@ The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch
 
 :::
 
-Two activations are used here. The threshold, the McCulloch–Pitts decision, and the logistic sigmoid are{{cite:mcculloch_pitts1943}}{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}:
+Two activations are used here. The threshold, the McCulloch–Pitts decision, and the logistic sigmoid are{{cite:mcculloch_pitts1943}} (Abstract, all-or-none neural events){{cite:rumelhart_hinton_williams1986}} (pp. 533–534){{cite:bishop2006}} (Ch. 4, §4.3.2, Eq. 4.88; Ch. 5, §5.1):
 
 $$
 f(\mathrm{net})=

@@ -210,5 +210,9 @@
   "posterior-point-summaries": [
     "q-12",
     "ex-norm-mean"
+  ],
+  "sigmoid-function": [
+    "ex-sl-15-6",
+    "ex-sl-15-7"
   ]
 }
