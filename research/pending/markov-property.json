@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a conditional rule that makes the present state sufficient for predicting the next state from a process's recorded history"
+  },
+  "self_checks": ["c-12", "ex-prob-markov-two-steps"]
+}
