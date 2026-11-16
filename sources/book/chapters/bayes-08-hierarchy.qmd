@@ -7,7 +7,7 @@ This chapter develops Bayesian models for related groups. The central idea is no
 ::: {#def-hierarchical-bayesian-model .definition}
 ## Hierarchical Bayesian model
 
-Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:gelman_bda2013}} Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}} This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
+Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:deligiannidis2022_foundations}} (§§9.2–9.4, pp. 53–57) Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
 
 :::
 
@@ -69,7 +69,7 @@ The modelling choice can be organised into three cases.
 | No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
 | Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
 
-Hierarchical Bayes produces partial pooling.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:efron_morris1975}} This movement is called *shrinkage* or *borrowing strength*.
+Hierarchical Bayes produces partial pooling.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) This movement is called *shrinkage* or *borrowing strength*.
 
 ### Where the shrinkage weight comes from
 
@@ -149,7 +149,7 @@ $$
  =w_j\overline y_j+(1-w_j)\mu.
 $$
 
-The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}}{{cite:efron_morris1975}}
+The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–56)
 
 :::
 

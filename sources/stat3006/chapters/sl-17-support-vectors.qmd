@@ -316,8 +316,8 @@ If $K_1$ and $K_2$ are kernels in this sense, so are $\alpha K_1+\beta K_2$ for 
 ### Common kernels
 
 - **Linear.** $K(x_i,x_j)=x_i^\top x_j$, with $\phi(x)=x$ itself.
-- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
-- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional{{cite:vapnik1995}}{{cite:scholkopf_smola2002}}{{cite:hastie_esl2009}}. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
+- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}${{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 80–81, polynomial covariance). For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
+- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional.{{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 80–83). The scale parameter controls how rapidly similarity falls with distance; at zero separation the kernel equals one. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
 
 $$
 \begin{aligned}
@@ -328,7 +328,7 @@ e^{-\lVert x-x'\rVert^2/(2\sigma^2)}
 \end{aligned}
 $$
 
-This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]${{cite:scholkopf_smola2002}}{{cite:burges1998}}{{cite:hastie_esl2009}}. The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
+This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]$.{{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, eq. 4.9, pp. 82–83). The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
 
 ### The nonlinear programme
 

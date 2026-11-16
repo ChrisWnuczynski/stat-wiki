@@ -172,7 +172,7 @@ $$
 $$
 
 
- implies $q(T)=0$ almost surely for every $\theta\in\Omega$.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
+ implies $q(T)=0$ almost surely for every $\theta\in\Omega$.{{cite:siegrist2022_sufficient_complete}} (§7.6, Complete Statistics)
 
 :::
 

@@ -111,7 +111,7 @@ Therefore \begin{equation}
   \label{eq:beta-binomial-posterior}
 \end{equation}
 
-A beta prior and a binomial likelihood produce a beta posterior.{{cite:laplace1812}}{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}
+A beta prior and a binomial likelihood produce a beta posterior.{{cite:gelman_bda2013}} (Ch. 2, §2.1, beta–binomial updating)
 
 :::
 
@@ -290,7 +290,7 @@ $$
 $$
 
 
- For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.{{cite:laplace1812}}{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}
+ For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.{{cite:gelman_bda2013}} (Ch. 2, §2.1, posterior prediction)
 
 :::
 

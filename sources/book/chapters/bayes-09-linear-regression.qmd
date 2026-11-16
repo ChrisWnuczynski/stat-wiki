@@ -764,7 +764,7 @@ $$
  \label{eq:lm-mean-response-posterior}
 \end{equation}
 
-A new response has a Student posterior predictive distribution, and the mean response omits the new observational error.{{cite:box_tiao1973}}{{cite:gelman_bda2013}}{{cite:jeffreys1961}}
+A new response has a Student posterior predictive distribution, and the mean response omits the new observational error.{{cite:gelman_bda2013}} (Ch. 3, §3.2, normal posterior prediction)
 
 :::
 

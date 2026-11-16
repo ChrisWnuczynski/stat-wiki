@@ -52,7 +52,7 @@ Think of the maximised likelihood as a peak height and the marginal likelihood a
 
 ## The Bayesian information criterion
 
-{{cite:schwarz1978}} derived the large-sample penalty now called BIC. A joint prior on the model index and that model's parameter organises the ingredients:
+Schwarz derived the large-sample penalty now called BIC.{{cite:schwarz1978}} (§§1–3, pp. 461–464) A joint prior on the model index and that model's parameter organises the ingredients:
 
 $$
 p(k,\Psi_k)=\Pr(M_k)\,p(\Psi_k\given M_k),
@@ -82,7 +82,7 @@ $$
 -\frac12(\Psi_k-\widetilde\Psi_k)^\top H(\widetilde\Psi_k)\,(\Psi_k-\widetilde\Psi_k).
 $$
 
-Here $H$ is the negative Hessian of the log joint density. An interior mode guarantees a positive semidefinite negative Hessian. Strict positive definiteness is an additional assumption. The function $-x^4$ has a maximum at zero and zero second derivative there. Laplace's Gaussian approximation needs nonzero curvature in every parameter direction{{cite:laplace1812}}. A singular direction breaks this particular argument.
+Here $H$ is the negative Hessian of the log joint density. An interior mode guarantees a positive semidefinite negative Hessian. Strict positive definiteness is an additional assumption. The function $-x^4$ has a maximum at zero and zero second derivative there. Laplace's Gaussian approximation needs nonzero curvature in every parameter direction.{{cite:schwarz1978}} (§3, pp. 463–464) A singular direction breaks this particular argument.
 
 Substitute the quadratic approximation into the integral for $k^*$:
 
@@ -96,7 +96,7 @@ $$
 
 Up to the normalising constant, the integrand is the density of the $d_k$-dimensional normal distribution with mean $\widetilde\Psi_k$ and covariance $H(\widetilde\Psi_k)^{-1}$. The domain $\Theta_k$ is not all of $\R^{d_k}$. Weights lie in $(0,1)$, variances are positive, and covariance matrices are constrained, so the integral of that normal kernel over the legal region is not exactly $1$.
 
-The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral{{cite:drton_plummer2017}}{{cite:schwarz1978}}. Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
+The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral.{{cite:schwarz1978}} (§3, pp. 463–464){{cite:drton_plummer2017}} (§1, preprint pp. 1–4) Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
 
 $$
 \int_{\Theta_k}
@@ -172,7 +172,7 @@ BIC retains the terms that grow with sample size and discards bounded terms. It 
 
 The penalty comes from integration, specifically the shrinking volume around a regular likelihood peak. With information of order $n$ in each of $d_k$ directions, that volume is of order $n^{-d_k/2}$. Taking logs gives $-(d_k/2)\log n$. Thus one extra parameter must improve the log-likelihood by more than $\tfrac12\log n$ to improve BIC. This is a comparison rule coming from the volume of the Laplace approximation around a regular likelihood peak.
 
-Mixtures need a separate qualification. Coincident components and zero weights make model-order comparison singular, so the ordinary Laplace argument is generally invalid there. BIC can nevertheless be consistent under particular mixture-model assumptions. Consistency and accuracy as a marginal-likelihood approximation are different properties{{cite:drton_plummer2017}}. The unconstrained Gaussian family with collapsing covariances does not acquire a finite global maximum likelihood estimator merely because a BIC penalty is attached. State the fitted covariance restrictions and the candidate component counts when reporting the comparison.
+Mixtures need a separate qualification. Coincident components and zero weights make model-order comparison singular, so the ordinary Laplace argument is generally invalid there. BIC can nevertheless be consistent under particular mixture-model assumptions. Consistency and accuracy as a marginal-likelihood approximation are different properties.{{cite:drton_plummer2017}} (§1, preprint pp. 1–4) The unconstrained Gaussian family with collapsing covariances does not acquire a finite global maximum likelihood estimator merely because a BIC penalty is attached. State the fitted covariance restrictions and the candidate component counts when reporting the comparison.
 
 ## Cross-validation of the likelihood
 

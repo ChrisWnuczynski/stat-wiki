@@ -33,7 +33,7 @@ b_1=\frac{\sum_{i=1}^n(x_i-\overline x)(y_i-\overline y)}{\sum_{i=1}^n(x_i-\over
 b_0=\overline y-b_1\overline x.
 $$
 
-{{cite:legendre1805}}{{cite:gauss1809}}{{cite:davison2003}}
+{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, linear least-squares formulas)
 
 :::
 
@@ -63,7 +63,7 @@ Not every relationship is a straight line. Two remedies keep the least-squares m
 
 The first fits a polynomial, $y=b_0+b_1x+\cdots+b_kx^k$. The sum of squares is still quadratic in the coefficients, so setting its $k+1$ partial derivatives to zero gives $k+1$ linear equations. The model is still linear in its parameters, even though the curve is not a line.
 
-The second transforms the variables. If theory says $y=ae^{bx}$, then $\log y=\log a+bx$ is linear in $x$, and a line is fitted to the points $(x_i,\log y_i)$.{{cite:legendre1805}}{{cite:gauss1809}} The same idea linearises $y=ax^b$, on the log–log scale, and a logistic curve, on the logit scale.{{cite:davison2003}} The fitted slope is then a slope on the transformed scale, and so are the errors.
+The second transforms the variables. If theory says $y=ae^{bx}$, then $\log y=\log a+bx$ is linear in $x$, and a line is fitted to the points $(x_i,\log y_i)$.{{cite:nist_nonnormal_errors_pmd2002}} (§4.4.5.3, response transformations) The same idea linearises $y=ax^b$, on the log–log scale, and a logistic curve, on the logit scale. The fitted slope is then a slope on the transformed scale, and so are the errors.
 
 ::: {#exm-melanoma-and-latitude .example}
 ## Melanoma and latitude
