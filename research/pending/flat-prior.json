@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a prior density held constant on a chosen parameter scale, useful as a reference calculation when its support and posterior are valid"
+  },
+  "self_checks": ["ex-improper-normal", "ex-applied-geometric", "q-11"]
+}
