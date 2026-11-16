@@ -1,0 +1,41 @@
+{
+  "bibliography": {
+    "nist_oneway_anova": {
+      "authors": ["NIST/SEMATECH"],
+      "year": 2002,
+      "title": "One-Way ANOVA (NIST e-Handbook of Statistical Methods)",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm"}
+    },
+    "rstats_oneway2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Test for Equal Means in a One-Way Layout (R documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/oneway.test.html",
+      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/oneway.test.html"}
+    }
+  },
+  "self_checks": ["ex-inf-anova-two-groups", "ex-da-sickle-anova", "ex-da-bonferroni"],
+  "proofs_todo": [
+    {
+      "slug": "one-way-analysis-of-variance",
+      "title": "Tukey simultaneous-interval coverage for all pairwise means",
+      "reason": "The collapsed proof covers the ANOVA decomposition, F reference law and two-group t relation; the inherited Tukey studentized-range simultaneous coverage statement is not proved there."
+    },
+    {
+      "slug": "one-way-analysis-of-variance",
+      "title": "Planned-contrast F distribution",
+      "reason": "The inherited prose gives a one-dimensional normal-square argument, but a complete collapsed derivation of contrast independence from pooled error and its exact F law remains to be added."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "figure_alts.py",
+      "description": "The alt text for `inf-corn-groups.png` says the dot plot has ‘four varieties’; the actual graphic, source table and article example all have five varieties (labels 1–5). Change ‘four’ to ‘five’ in the figure_alts.py string near line 181 without altering the figure or data."
+    }
+  ]
+}
