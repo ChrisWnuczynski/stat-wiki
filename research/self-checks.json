@@ -194,5 +194,9 @@
   "hyperparameter": [
     "q-02",
     "c-02"
+  ],
+  "skewness": [
+    "ex-da-correlation-reading",
+    "ex-prob-ten-components"
   ]
 }

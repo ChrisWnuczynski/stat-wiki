@@ -517,6 +517,8 @@ A component has an exponential lifetime with expectation $1/2$ year. On failure 
 
 (c) Name the exact distribution of $T$.
 
+(d) Explain why the symmetric normal approximation can miss the shape of the exact distribution in its right tail.
+
 [Solution](#sol-prob-ten-components)
 
 :::

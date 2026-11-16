@@ -4437,6 +4437,15 @@
       "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm",
       "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm"}
     },
+    "nist_dataplot_skewness2023": {
+      "authors": ["National Institute of Standards and Technology"],
+      "year": 2023,
+      "title": "Dataplot Reference Manual: Skewness",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/skewness.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/skewness.htm"}
+    },
     "nist_interactions2002": {
       "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
       "year": 2002,
@@ -4445,6 +4454,15 @@
       "publisher": "National Institute of Standards and Technology",
       "url": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm",
       "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm"}
+    },
+    "nist_skewness2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.11: Measures of Skewness and Kurtosis",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm"}
     },
     "nist_two_way_anova2002": {
       "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],

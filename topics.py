@@ -612,7 +612,7 @@ TOPICS += [
           r"An observation far from the bulk of the data. A boxplot flags points more than $1.5$ interquartile ranges beyond the quartiles. An outlier may be an error, or the most informative point in the sample; it is checked, not deleted by rule.",
           links=["outliers?", "outlying"]),
     topic("Skewness", "da-02-descriptive-statistics.qmd: the skewness, a measure of asymmetry",
-          r"A measure of asymmetry, zero for symmetric data, positive when the right tail is longer. Strongly right-skewed positive data are often summarised and modelled better after a log transformation.",
+          r"Moment skewness measures asymmetry through the third central moment when that moment and a positive variance exist. Positive values generally indicate a longer right tail; a symmetric law with a finite third moment has zero skewness.",
           links=["skewness", "skewed", "right-skewed", "left-skewed"]),
     topic("Median", "da-02-descriptive-statistics.qmd: the sample median is the middle value",
           r"For a random variable $X$, a population median is any point $m$ with $\mathbb{P}(X\le m)\ge\tfrac12$ and $\mathbb{P}(X\ge m)\ge\tfrac12$.{{cite:siegrist2022_quantiles}} (§3.6, ‘Quantile Functions’ and ‘Special Quantiles’)",

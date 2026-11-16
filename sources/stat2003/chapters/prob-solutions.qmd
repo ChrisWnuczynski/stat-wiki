@@ -624,6 +624,8 @@ $$
 
 (c) $T$ is exactly $\GammaDist(10,2)$, a sum of ten independent exponentials with a common rate. The exact probability is $\Pr(T>6)=\Pr(\Poisson(12)\le9)=0.242$; the normal approximation is a little high because the gamma law is skewed to the right.
 
+(d) The gamma sum is right-skewed, while the approximating normal law is symmetric. The two can therefore agree reasonably near the centre yet differ in the right-tail probability.
+
 []{#sol-prob-markov-two-steps} **[Two steps of a three-state chain](#ex-prob-markov-two-steps).**
 
 The distribution of $X_2$ is the first row of $P^2$:

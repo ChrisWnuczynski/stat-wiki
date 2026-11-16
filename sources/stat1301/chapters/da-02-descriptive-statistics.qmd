@@ -138,7 +138,7 @@ A histogram counts the data in a set of bins and draws a bar for each; its look 
 
 ### Transformations
 
-Strongly skewed data are often easier to summarise, and to model, after a transformation. A logarithm turns ratios into differences, so it spreads out the bunched values near zero and draws in the far tail. For serum creatinine the skewness, a measure of asymmetry that is zero for symmetric data, falls from $4.4$ to $1.6$ on the log scale.{{cite:pearson1895}}{{cite:tukey1977}}{{cite:wasserman2004}} The reciprocal, $1/x$, brings it to about zero. Transformations do not change the data, only the scale they are viewed on; the order of the patients stays the same, so the median of the transformed data is the transform of the median.
+Strongly skewed data are often easier to summarise, and to model, after a transformation. A logarithm turns ratios into differences, so it spreads out the bunched values near zero and draws in the far tail. For serum creatinine the skewness, a measure of asymmetry, falls from $4.4$ to $1.6$ on the log scale.{{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Skewness” and “Dealing with Skewness and Kurtosis”) The reciprocal, $1/x$, brings it to about zero. A one-to-one transformation changes the numerical scale of the observations; an increasing one preserves their order and a decreasing one reverses it. With 299 patients, the sample median is the middle observed value, so applying a strictly monotone transformation transforms that median too. For an even-sized sample whose median is defined as the average of the two middle values, this last identity need not hold.
 
 ::: {#def-normal-quantile-plot .definition}
 ## Normal quantile plot
@@ -204,6 +204,8 @@ The sample correlation between $\log_{10}$ serum creatinine and serum sodium in 
 (a) Which pair moves together, and which pair moves in opposite directions?
 
 (b) Why is neither correlation, by itself, a reason to conclude that one variable causes the other?
+
+(c) The moment skewness of serum creatinine is about $4.4$ on its original scale and $1.6$ after taking logarithms. Does the reduction in skewness prove that the transformed measurements are normally distributed?
 
 [Solution](#sol-da-correlation-reading)
 

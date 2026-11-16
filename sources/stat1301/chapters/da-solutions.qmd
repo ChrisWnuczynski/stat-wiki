@@ -233,3 +233,5 @@ Because the drug is assigned at random, the two treatment groups have, apart fro
 (a) Serum creatinine and age move together: the correlation $0.23$ is positive, so older patients tend to have somewhat higher creatinine. Creatinine and sodium move in opposite directions: the correlation $-0.26$ is negative. Both are weak; a correlation of about $\pm0.25$ means a straight line accounts for only about 6% of the variance of either variable.
 
 (b) A correlation measures linear association in this sample only. It can arise because a third variable drives both, here perhaps overall illness or kidney function, because the causal arrow points the other way, or by chance. These are observational data, so nothing was assigned and no causal reading follows from the correlation alone.
+
+(c) No. A reduction from $4.4$ to $1.6$ still leaves positive moment skewness, and even zero skewness alone would not imply normality. A histogram or quantile plot is needed to examine shape more fully.
