@@ -242,7 +242,7 @@ $Q(\Psi;\Psi^{(k)})$, plus a constant independent of $\Psi$, is a lower bound on
 ::: {#thm-sl-05-em-monotone .theorem}
 ## Monotonicity of EM
 
-An exact EM step cannot decrease the observed log-likelihood{{cite:dempster_laird_rubin1977}}. Convergence of the likelihood values requires an upper bound. Convergence of the parameters requires further conditions. Under the regularity conditions studied by {{cite:wu1983}}, limit points are stationary. A stationary point of a mixture likelihood can fail to be a global maximum.
+An exact EM step cannot decrease the observed log-likelihood{{cite:ng_cs229_em2006}} (§2, Part IX, Jensen-bound proof). Convergence of the likelihood values requires an upper bound. Convergence of the parameters requires further conditions. Under additional regularity conditions, a convergent fit can reach a local rather than global maximum{{cite:fraley_raftery2002}} (§3, p. 613, convergence qualification). A stationary point of a mixture likelihood can fail to be a global maximum.
 
 :::
 

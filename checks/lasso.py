@@ -29,6 +29,6 @@ for heading in ("## Motivating example", "## Intuition", "## Definition", "## Se
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert "Main article" in body
-for key in ("tibshirani1996", "friedman_glmnet2010", "hastie_esl2009", "james_islr2021"):
+for key in ("friedman_glmnet2010", "james_islr2013"):
     assert f'data-cite-key="{key}"' in body
 print("Lasso thresholds, nonuniqueness and preserved examples passed")

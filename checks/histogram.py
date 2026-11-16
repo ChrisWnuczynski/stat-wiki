@@ -74,8 +74,8 @@ def check_sources_and_structure() -> None:
     for heading in ("## Motivating example", "## Definition", "## Properties", "## Worked example",
                     "## Statistical use", "## Common misconceptions", "## Assumptions and limits", "## History"):
         assert heading in PAGE, heading
-    for key in ("pearson1895", "tukey1977", "wasserman2004", "nist_histogram",
-                "scott1979_histograms", "numpy_histogram_bins", "dodge2008", "chicco_jurman2020"):
+    for key in ("nist_histogram", "scott1979_histograms", "numpy_histogram_bins",
+                "dodge2008", "chicco_jurman2020", "r_histogram_classes"):
         assert f'data-cite-key="{key}"' in PAGE, key
 
 

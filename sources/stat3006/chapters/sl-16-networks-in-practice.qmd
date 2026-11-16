@@ -139,7 +139,7 @@ To construct a neural network: choose a network topology; determine the number o
 
 Minimising the error on the training set is a strategy for obtaining good performance on new data. It does not always work, for two reasons that show up as different shapes of the training loss.
 
-**Overfitting.** The model is a very good fit to the training data. It may have modelled some useful structure and has also modelled many irrelevant aspects{{cite:hastie_esl2009}}{{cite:bishop2006}}{{cite:lecun1998}}. This is common with overly complex models.
+**Overfitting.** The model is a very good fit to the training data. It may have modelled some useful structure and has also modelled many irrelevant aspects{{cite:james_islr2013}} (Ch. 2, §2.2.2, flexibility and test error). This is common with overly complex models.
 
 **Underfitting.** The model is not a good fit to the training data{{cite:hastie_esl2009}}{{cite:bishop2006}}{{cite:lecun1998}}. The size of $E$ is a good indication. The model may be too simple, there may not be enough data, or the data may be so noisy that the output can never be predicted very accurately.
 

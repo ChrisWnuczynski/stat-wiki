@@ -1,6 +1,6 @@
 # Graphical models
 
-Two measurements can move together because both track a third variable. To ask whether any dependence remains, one must specify what is being conditioned on. An undirected graphical model records conditional-independence restrictions through missing edges. In a nonsingular Gaussian model, these restrictions have a useful form: a missing edge corresponds to a zero off-diagonal entry of the precision matrix $K=\Sigma^{-1}${{cite:lauritzen1996}}{{cite:dempster1972_cov}}{{cite:speed_kiiveri1986}}.
+Two measurements can move together because both track a third variable. To ask whether any dependence remains, one must specify what is being conditioned on. An undirected graphical model records conditional-independence restrictions through missing edges. In a nonsingular Gaussian model, these restrictions have a useful form: a missing edge corresponds to a zero off-diagonal entry of the precision matrix $K=\Sigma^{-1}${{cite:evans_graphical_models2025}} (§5.1, Gaussian conditional independence).
 
 An undirected edge is not a causal arrow. An inverse covariance does not automatically describe conditional independence for non-Gaussian data. Pooling iris species, for example, mixes populations with different means and potentially different covariance matrices. A precision matrix computed from that pooled sample is a descriptive inverse-covariance summary. A Gaussian graphical interpretation needs an additional modelling assumption.
 
@@ -118,7 +118,7 @@ X_j\perp X_k\given X_{V\setminus\{j,k\}}
 k_{jk}=0.
 $$
 
-The zero entries of the precision matrix indicate conditional independence between the corresponding variables, with the conditioning on all the remaining variables{{cite:dempster1972_cov}}{{cite:lauritzen1996}}{{cite:speed_kiiveri1986}}.
+The zero entries of the precision matrix indicate conditional independence between the corresponding variables, with the conditioning on all the remaining variables{{cite:evans_graphical_models2025}} (§5.1, Gaussian concentration graph).
 
 :::
 

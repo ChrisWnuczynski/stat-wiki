@@ -34,6 +34,7 @@ for heading in ("## Motivating example", "## Intuition", "## Definition", "## In
     assert heading in body, heading
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and 'title="Answer"' in body
-for key in ("lauritzen1996", "dempster1972_cov", "speed_kiiveri1986", "friedman_glasso2008", "dodge2008", "evans_graphical_models2025"):
+for key in ("friedman_glasso2008", "dodge2008", "evans_graphical_models2025"):
     assert f'data-cite-key="{key}"' in body
+assert "§5.1" in body
 print("Precision inverses, conditional associations and preserved chain passed")

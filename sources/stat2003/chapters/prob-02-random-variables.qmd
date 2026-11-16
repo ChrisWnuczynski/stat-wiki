@@ -201,16 +201,16 @@ $X$ has the Poisson distribution with mean $\lambda>0$, written $X\sim\Poisson(\
 $$
 \Pr(X=x)=e^{-\lambda}\frac{\lambda^x}{x!},\qquad x=0,1,2,\ldots
 $$
-{{cite:poisson1837}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory)
 
-Then $\E X=\Var(X)=\lambda$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+Then $\E X=\Var(X)=\lambda$.{{cite:siegrist2022_poisson_distribution}} (§4, Moments)
 
 :::
 
 ::: {#thm-poisson-limit-of-the-binomial .theorem}
 ## Poisson limit of the binomial
 
-If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$.{{cite:poisson1837}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution)
 
 :::
 

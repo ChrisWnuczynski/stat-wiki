@@ -22,6 +22,7 @@ for heading in ("## Motivating example", "## Intuition", "## Definition", "## De
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert "Main article" in body
-for key in ("laird_ware1982", "henderson1975", "bates_lme4_2015"):
+for key in ("bates_lme4_2015",):
     assert f'data-cite-key="{key}"' in body
+assert "§1.1" in body
 print("Linear mixed-model covariance and preserved content passed")

@@ -120,7 +120,7 @@ A quantitative variable is summarised by its shape as well as its centre and spr
 ::: {#def-five-number-summary-and-boxplot .definition}
 ## Five-number summary and boxplot
 
-The five-number summary of a sample is its minimum, first quartile, median, third quartile and maximum.{{cite:tukey1977}} A boxplot draws the box from the first to the third quartile with a line at the median, and whiskers out to the most extreme data within $1.5$ interquartile ranges of the box.{{cite:tukey1977}} Points beyond the whiskers are drawn individually as possible outliers.{{cite:wasserman2004}}
+The five-number summary of a sample is its minimum, first quartile, median, third quartile and maximum.{{cite:nist_handbook2002}} (§1.3.3.7, five-number summary) A boxplot draws the box from the first to the third quartile with a line at the median, and whiskers out to the most extreme data within $1.5$ interquartile ranges of the box.{{cite:nist_handbook2002}} (§1.3.3.7, box plots with fences) Points beyond the whiskers are drawn individually as possible outliers.{{cite:nist_handbook2002}} (§1.3.3.7, box plots with fences)
 
 :::
 
@@ -132,7 +132,7 @@ summary(heart$serum_creatinine)
 
 The mean is pulled above the median by a long right tail: the largest value, 9.4, is more than six times the median. The interquartile range is $1.4-0.9=0.5$, so the upper whisker stops at the largest value below $1.4+1.5\times0.5=2.15$, and 29 patients lie beyond it.
 
-A histogram counts the data in a set of bins and draws a bar for each; its look depends on the choice of bins.{{cite:pearson1895}}{{cite:tukey1977}}{{cite:wasserman2004}} A kernel density estimate smooths the data instead, placing a small bump at each observation and adding them up; its look depends on the width of the bumps, the bandwidth. Both show the same thing here: most patients near 1 mg/dL and a thin tail stretching to 9.
+A histogram counts the data in a set of bins and draws a bar for each; its look depends on the choice of bins.{{cite:nist_histogram}} (§1.3.3.14, histogram construction and bin choice) A kernel density estimate smooths the data instead, placing a small bump at each observation and adding them up; its look depends on the width of the bumps, the bandwidth. Both show the same thing here: most patients near 1 mg/dL and a thin tail stretching to 9.
 
 ![Serum creatinine for the 299 patients. Left: a boxplot, with 29 points beyond the upper whisker. Middle: a histogram with a kernel density estimate. Right: the same data on a logarithmic scale, which pulls in the long right tail.](../figures/da-creatinine-shape.pdf){#fig-da-creatinine-shape}
 

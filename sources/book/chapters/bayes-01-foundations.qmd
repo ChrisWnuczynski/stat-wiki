@@ -125,7 +125,7 @@ Bayesian calculation multiplies a likelihood by a prior, followed by normalisati
 ::: {#def-proper-prior-and-proper-posterior .definition}
 ## Proper prior and proper posterior
 
-A prior is *proper* if it is a probability distribution, so its total mass is one.{{cite:gelman_bda2013}}{{cite:jeffreys1961}} A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant.{{cite:gelman_bda2013}} An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.{{cite:box_tiao1973}}
+A prior is *proper* if it is a probability distribution, so its total mass is one.{{cite:sas_statug2009_prior_distributions}} (§Prior Distributions, propriety discussion) A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant.{{cite:sas_statug2009_prior_distributions}} (§Prior Distributions, propriety discussion) An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.{{cite:sas_statug2009_prior_distributions}} (§Prior Distributions, propriety discussion)
 
 :::
 

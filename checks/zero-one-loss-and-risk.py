@@ -50,7 +50,7 @@ def check_structure() -> None:
         assert heading in PAGE, heading
     assert PAGE.count('title="Proof"') == 1
     assert "**Your turn.**" in PAGE
-    for key in ("shalev_bendavid2014", "young_smith2005", "wald1950", "hastie_esl2009"):
+    for key in ("shalev_bendavid2014", "young_smith2005"):
         assert f'data-cite-key="{key}"' in PAGE, key
     for qid in ("ex-sl-08-1", "ex-sl-12-1", "ex-sl-12-2"):
         q = (ROOT / f"questions/{qid}.qmd").read_text()

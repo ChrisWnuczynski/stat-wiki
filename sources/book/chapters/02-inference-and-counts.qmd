@@ -117,7 +117,7 @@ $$
 $$ {#eq-loglin}
 The identity link $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$ is the second thing people reach for. It can look acceptable on a short stretch of $x$, where an exponential and a straight line are hard to tell apart. It is still not a model we will use. Somewhere outside the window the line is negative, and a mean count cannot be. The log link is a legitimate model for any $\vect{X}$ and any $\boldsymbol{\beta}$.
 
-The outer distribution for a count, as a starting point, is Poisson.{{cite:poisson1837}} This log-link specification is a Poisson regression.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
+The outer distribution for a count, as a starting point, is Poisson.{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory) This log-link specification is a Poisson regression.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
 $$
 Y_i\mid \vect{X}_i\ind\mathrm{Poisson}\!\left(\mu_i=\exp(\vect{X}_i^\top\boldsymbol{\beta})\right).
 $$
@@ -190,7 +190,7 @@ with dispersion fixed at $1$. Inner burden and mine age are borderline. Percent 
 
 ## Two models with a real distribution
 
-A quasi-Poisson variance is not, by itself, a distribution you can draw from. If you want a distribution, and you only need extra variation in the direction of overdispersion, the usual next model is the negative binomial.{{cite:mccullagh_nelder1989}} One construction is a gamma mixture of Poissons: draw a rate from a gamma distribution, then draw a Poisson count at that rate.{{cite:greenwood_yule1920}} The mean and variance are $\mu$ and $\mu+\mu^2/\nu$.{{cite:venables_ripley2002}}
+A quasi-Poisson variance is not, by itself, a distribution you can draw from. If you want a distribution, and you only need extra variation in the direction of overdispersion, the usual next model is the negative binomial.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, count dispersion) One construction is a gamma mixture of Poissons: draw a rate from a gamma distribution, then draw a Poisson count at that rate.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, gamma mixture) The mean and variance are $\mu$ and $\mu+\mu^2/\nu$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, mean and variance)
 $$
 \mathrm{E}(Y)=\mu,
 \qquad
