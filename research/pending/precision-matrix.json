@@ -1,0 +1,17 @@
+{
+  "article_lead": {
+    "description": "the inverse of a covariance matrix, used in Gaussian models to read conditional relationships among variables"
+  },
+  "bibliography": {
+    "evans_graphical_models2025": {
+      "authors": ["Evans, R. J."],
+      "year": 2025,
+      "title": "Graphical Models, Chapter 5: Gaussian Graphical Models",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~evans/gms/_book/gauss.html",
+      "verification": {"source": "archival_url", "id": "https://www.stats.ox.ac.uk/~evans/gms/_book/gauss.html"}
+    }
+  },
+  "self_checks": ["ex-sl-19-2", "ex-sl-19-8"]
+}
