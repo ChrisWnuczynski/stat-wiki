@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a unit-free summary of the direction and strength of a straight-line pattern in paired sample measurements"
+  },
+  "self_checks": ["ex-inf-correlation-t", "ex-da-correlation-reading", "ex-sl-02-7"]
+}
