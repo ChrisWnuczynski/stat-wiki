@@ -1,0 +1,7 @@
+{
+  "article_lead": {
+    "description": "sample calculations that turn simulated posterior values into estimates of probabilities, point summaries, and intervals"
+  },
+  "self_checks": ["c-11", "q-25", "ex-ur-posterior-mean"],
+  "proofs_todo": []
+}
