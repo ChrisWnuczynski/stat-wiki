@@ -26,7 +26,7 @@ Suppose calls follow a Poisson process with rate $\lambda=2$ per hour. The waiti
 $$
 \Pr(T_3>2)=e^{-4}\left(1+4+\frac{4^2}{2}\right)=13e^{-4}\approx0.2381.
 $$
-This is less than one half despite a mean wait of $1.5$ hours: a right-skewed distribution can have substantial probability beyond two hours while most runs finish earlier. The CDF at two hours is $1-13e^{-4}\approx0.7619$.{{cite:siegrist2022_gamma_waiting}} (§14.3, Poisson count and arrival-time duality)
+The mean wait is $1.5$ hours. The tail calculation shows that about $24\%$ of waits exceed two hours; most finish by then, but a longer wait remains plausible. The CDF at two hours is $1-13e^{-4}\approx0.7619$.{{cite:siegrist2022_gamma_waiting}} (§14.3, Poisson count and arrival-time duality)
 
 **Your turn.** At rate one event per hour, let $T_2$ be the time to the second event. Find its Gamma shape and rate, mean, variance, and probability of exceeding three hours.
 
