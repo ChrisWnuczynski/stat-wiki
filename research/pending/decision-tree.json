@@ -1,0 +1,8 @@
+{
+  "article_lead": {
+    "article": "",
+    "verb": "predicts",
+    "description": "a class or value through a sequence of feature splits, giving an interpretable local rule for each prediction"
+  },
+  "self_checks": ["ex-sl-12-2", "ex-sl-12-3", "ex-sl-12-7"]
+}
