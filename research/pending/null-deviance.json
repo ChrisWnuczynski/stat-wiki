@@ -1,0 +1,36 @@
+{
+  "slug": "null-deviance",
+  "rank": 350,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — How far the grand mean is from a perfect fit",
+    "Definition — Deviance of the model with no covariates",
+    "Properties — Binary data, and a zero saturated log-likelihood",
+    "Worked example — Four binary observations, three of them ones",
+    "Connections — Residual deviance, degrees of freedom, and the likelihood ratio",
+    "Check yourself — Two null fits"
+  ],
+  "words_before": 491,
+  "words_after": 1145,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "R documentation for glm, entries null.deviance and df.null, https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html"
+  ],
+  "proofs": [
+    "For Bernoulli data the saturated log-likelihood is 0, so the null deviance is -2 times the intercept-only log-likelihood at p-hat = y-bar."
+  ],
+  "tests": [
+    "checks/null-deviance.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "McCullagh and Nelder was not opened. The cholesterol glm printout was not refit; data/cholest.csv is absent. The figure on the page is unchanged."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
