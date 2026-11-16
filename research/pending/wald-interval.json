@@ -1,0 +1,37 @@
+{
+  "slug": "wald-interval",
+  "rank": 311,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — A normal cutoff, with the standard error filled in",
+    "Definition — Plug-in standard error",
+    "Worked example — Forty successes in a hundred",
+    "Check yourself",
+    "Connections — Approximate intervals and their neighbours"
+  ],
+  "words_before": 638,
+  "words_after": 1394,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "durrett2019 Thm. 3.1.3, p. 115",
+    "siegrist2022_normal_distribution §5.6, standard normal density"
+  ],
+  "proofs": [],
+  "tests": [
+    "checks/wald-interval.py"
+  ],
+  "skipped": [
+    "Wald (1943) and Brown, Cai and DasGupta (2001) were not opened; the source definition still cites them"
+  ],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "wald-interval",
+      "title": "Coverage of the plug-in binomial interval",
+      "reason": "De Moivre–Laplace gives the normal limit at p=1/2 with the true standard error. The page does not prove that replacing the standard error by the estimate keeps the coverage near 95% for a general p."
+    }
+  ],
+  "todo": []
+}
