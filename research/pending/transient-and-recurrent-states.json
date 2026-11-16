@@ -1,0 +1,22 @@
+{
+  "article_lead": {
+    "description": "Markov-chain states distinguished by whether the process can leave them forever, a key to their long-run behaviour"
+  },
+  "self_checks": ["ex-sp-closed-classes", "depth-return-vs-selfloop"],
+  "new_bank_questions": [
+    {
+      "id": "depth-return-vs-selfloop",
+      "title": "A return without staying put",
+      "body": "A two-state chain has P(A→A)=0.7, P(A→B)=0.3, P(B→A)=0.4 and P(B→B)=0.6. Is A recurrent even though it may leave immediately? Find its expected first return time from A.",
+      "answer": "The finite chain is irreducible, so both states are positive recurrent. From B the geometric waiting time to hit A has mean 1/0.4=2.5. Starting A, return time is 1 with probability 0.7; otherwise it is 1 plus that waiting time. Its mean is 0.7(1)+0.3(1+2.5)=1.75. Leaving immediately does not prevent eventual return.",
+      "topic_code": "SP5"
+    }
+  ],
+  "proofs_todo": [
+    {
+      "slug": "transient-and-recurrent-states#class-recurrence-stationary-mass",
+      "title": "Recurrence type across communicating states and stationary return identity",
+      "reason": "The article proves finite closed-class positive recurrence and geometric visit counts, but inherits the class-wide positive/null classification and the identity π_i=1/E_i T_i^+ without a full proof."
+    }
+  ]
+}
