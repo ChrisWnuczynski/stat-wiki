@@ -1,0 +1,38 @@
+{
+  "slug": "false-discovery-rate",
+  "rank": 342,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — A proportion of the list, not a probability of any mistake",
+    "Definition — The ratio, with an empty list counted as zero",
+    "Properties — Family-wise control is the stronger demand",
+    "Worked example — Four ordered p-values at level 0.1",
+    "Connections — Bonferroni, the step-up line, and power",
+    "Check yourself — Reading the step-up rule"
+  ],
+  "words_before": 568,
+  "words_after": 1272,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman, ESL 2nd ed., pp. 687–688, equations 18.43 and 18.45, Algorithm 18.2"
+  ],
+  "proofs": [
+    "Q ≤ 1_{V≥1}, hence FDR ≤ FWER, with equality under the complete null."
+  ],
+  "tests": [
+    "checks/false-discovery-rate.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "Benjamini and Hochberg (1995) and Benjamini and Yekutieli (2001) were not opened. The independence bound is quoted from ESL, which calls the argument complicated."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": [
+    "The Benjamini–Hochberg independence bound remains the existing theorem-page entry benjamini-hochberg-controls-the-false-discovery-rate in proofs-todo.json. Do not add the concept slug itself: the theorem test only accepts theorem pages."
+  ]
+}
