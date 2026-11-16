@@ -1,0 +1,45 @@
+{
+  "slug": "little-s-law",
+  "rank": 343,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Headcount is a rate times a duration",
+    "Definition — One population, three averages",
+    "Worked example — Twenty arrivals an hour, each staying fifteen minutes",
+    "Connections — Queues, blocking, and the population you named",
+    "Check yourself — Matching the three numbers"
+  ],
+  "words_before": 434,
+  "words_after": 1008,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Arithmetic of L=λW as stated on the page. Little (1961), Ross (2019) and Kelly (1979) were not opened."
+  ],
+  "proofs": [],
+  "tests": [
+    "checks/little-s-law.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "Sample-path proof of L=λW was not opened. Kelly's PDF had no text layer."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": [
+    "Sample-path argument for L=λW remains unread."
+  ],
+  "article_leads": {
+    "little-s-law": {
+      "field": "stochastic processes",
+      "article": "",
+      "term": "Little's law",
+      "verb": "is",
+      "proper": true,
+      "description": "a queueing relation connecting average number in a system, arrival rate, and average time there"
+    }
+  }
+}

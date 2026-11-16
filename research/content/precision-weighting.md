@@ -1,0 +1,58 @@
+## Lead context
+Precision weighting gives the more precise of two normal estimates the larger share of their compromise.
+
+## Intuition — Add the precisions, and weight the estimates by them
+The precision of a normal estimate is the reciprocal of its variance. A sample mean from \(n\) observations with variance \(\sigma^2\) has precision \(n/\sigma^2\). A normal prior for the mean, with variance \(\sigma_0^2\), has precision \(1/\sigma_0^2\). The posterior precision is the sum, and the posterior mean is the corresponding weighted average of the sample mean and the prior mean. A vague prior has a small precision and barely moves the sample mean. A tight prior can outweigh a short sample.
+
+## Definition — Known-variance normal mean
+Let \(X_1,\ldots,X_n\) be independent \(N(\mu,\sigma^2)\) with \(\sigma^2\) known, and let the prior be \(\mu\sim N(\mu_0,\sigma_0^2)\). Write \(\kappa_0=\sigma^2/\sigma_0^2\). The posterior mean is
+\[
+\mu_1=\frac{n\bar x+\kappa_0\mu_0}{n+\kappa_0}.
+\]
+The weight on the sample mean is \(n/(n+\kappa_0)\), and the weight on the prior mean is \(\kappa_0/(n+\kappa_0)\).
+
+## Properties — Precisions add
+::: {.callout-note collapse="true" title="Proof"}
+::: {.proof}
+The log posterior density in \(\mu\), up to a constant, is
+\[
+-\frac{n}{2\sigma^2}(\mu-\bar x)^2-\frac{1}{2\sigma_0^2}(\mu-\mu_0)^2.
+\]
+This is a quadratic \(-\frac12 A(\mu-\mu_1)^2\) with \(A=n/\sigma^2+1/\sigma_0^2\) and
+\[
+\mu_1=\frac{(n/\sigma^2)\bar x+(1/\sigma_0^2)\mu_0}{A}.
+\]
+Dividing numerator and denominator by \(1/\sigma^2\) gives \((n\bar x+\kappa_0\mu_0)/(n+\kappa_0)\). Hoff's zero-mean unit-variance case is the same formula with \(\sigma^2=1\), \(\mu_0=0\) and \(\sigma_0^2=\tau^2\): the weight on \(\bar x\) is \(a=n/(n+1/\tau^2)\), and the posterior variance is \(a/n\).{{cite:hoff2013_bayes_estimators}} (p. 13)
+:::
+:::
+
+## Worked example — Four observations, prior standard deviation \(1\)
+Take \(n=4\), \(\bar x=10\), \(\sigma^2=1\), \(\mu_0=0\) and \(\tau^2=1\). Then \(a=4/(4+1)=0.8\), the posterior mean is \(0.8\times 10=8\), and the posterior variance is \(0.8/4=0.2\). The prior, which is as precise as one observation, pulls the sample mean two units toward \(0\).
+
+A second sample has \(n=5\), \(\bar x=20\), \(\sigma^2=4\), \(\mu_0=16\) and \(\sigma_0^2=4\). Then \(\kappa_0=1\), and
+\[
+\mu_1=\frac{5\cdot 20+1\cdot 16}{6}=\frac{116}{6}=\frac{58}{3}\approx 19.3333.
+\]
+The sample of five observations outweighs a prior that counts as one observation, so \(58/3\) sits closer to \(20\) than to \(16\).
+
+**Your turn.** Return to \(\sigma^2=1\), \(\mu_0=0\) and \(\tau^2=1\), now with \(n=9\) and \(\bar x=3\). Find the posterior mean and variance.
+
+::: {.callout-tip collapse="true" title="Answer"}
+\(a=9/(9+1)=0.9\). The mean is \(0.9\times 3=2.7\), and the variance is \(0.9/9=0.1\).{{cite:hoff2013_bayes_estimators}} (p. 13)
+:::
+
+## Connections — Squared error, pseudo-counts, and unequal studies
+Under squared error the Bayes estimator is the posterior mean, so this weighted average is the Bayes rule for the normal mean.{{cite:hoff2013_bayes_estimators}} (p. 13) The prior precision \(\kappa_0\) plays the role of a prior sample size when \(\sigma^2\) is the observation variance. The same weights combine two independent normal estimates of one mean: each estimate is weighted by the reciprocal of its variance. A [posterior mean](posterior-mean.qmd) that is not a normal–normal update need not be a precision-weighted average of this form.
+
+## Check yourself — Two weights
+With \(n=4\), \(\sigma^2=4\) and \(\sigma_0^2=1\), what are the weights on \(\bar x\) and on \(\mu_0\)?
+
+::: {.callout-tip collapse="true" title="Answer"}
+\(\kappa_0=4/1=4\). The data weight is \(4/(4+4)=1/2\), and the prior weight is also \(1/2\).
+:::
+
+In Hoff's example with \(a=0.8\) and \(n=4\), why is the posterior variance \(0.2\) rather than \(1/4\)?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The sampling variance of \(\bar x\) is \(1/4\). The posterior variance is \(a/n=0.8/4=0.2\), which is smaller, because the prior precision \(1\) has been added to the data precision \(4\). The reciprocal of \(5\) is \(0.2\).
+:::
