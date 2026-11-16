@@ -1,0 +1,30 @@
+{
+  "article_lead": {
+    "description": "the trace of a smoothing fit's response-influence matrix, measuring how much flexibility remains after penalisation so curves can be compared with ordinary regression fits"
+  },
+  "self_checks": ["ex-fish-poisson", "ex-cholesterol-gam"],
+  "bibliography": {
+    "efron2004_prediction_error": {
+      "authors": ["Efron, B."],
+      "year": 2004,
+      "title": "The Estimation of Prediction Error: Covariance Penalties and Cross-Validation",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "99",
+      "issue": "467",
+      "pages": "619–632",
+      "doi": "10.1198/016214504000000692",
+      "verification": {"source": "crossref", "id": "10.1198/016214504000000692"}
+    }
+  },
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/06-smooth-means.qmd",
+      "change": "In the paragraph beginning ‘Putting a knot at every x_i’ (around line 30), replace the claims that edf is a polynomial degree, that a full straight-line fit has one edf, and that a reduced basis necessarily interpolates when lambda tends to zero. State that edf is trace of the response influence matrix, a cubic spline's full intercept-plus-slope null space has two edf (a centred smooth term has one), and interpolation at zero penalty needs a full-rank basis spanning the observed responses. Keep all substantive knot/cross-validation discussion and citations, verify claims against the new effective-degrees-of-freedom page, and rebuild the notes and dependent articles."
+    },
+    {
+      "file": "sources/book/chapters/06-smooth-means.qmd",
+      "change": "At the kyphosis discussion around line 54, the statements comparing edf 2.22 to quadratic and cubic polynomial degrees are only an informal complexity analogy. Reword to an influence-matrix flexibility interpretation without removing the fitted edf, shape, intercept, chi-square or p-value. Rebuild dependent notes and articles."
+    }
+  ]
+}
