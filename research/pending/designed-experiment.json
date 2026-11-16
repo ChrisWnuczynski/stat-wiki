@@ -1,0 +1,66 @@
+{
+  "slug": "designed-experiment",
+  "rank": 249,
+  "tier": "full",
+  "type": "definition",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Interpretation — Assignment, response, and what stays fixed",
+    "Properties — Balance in expectation",
+    "Statistical use — What the plan has to state",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the assignment does not answer the question",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 1057,
+  "words_after": 2832,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "dodge2008 p. 162",
+    "NIST/SEMATECH e-Handbook §5.1.1"
+  ],
+  "proofs": [
+    "Inclusion probability gives the expected number of treated units with a given trait, and the hypergeometric variance follows from pairwise inclusion"
+  ],
+  "tests": [
+    "checks/designed-experiment.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "Fisher's 1926 paper was not opened; the history reports Dodge's account of it."
+  ],
+  "bibliography": {
+    "nist_doe_intro2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.1.1 What is experimental design?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": [
+    "designed-experiment: add nist_doe_intro2002 to bibliography.json and cite §5.1.1 in the article; the page was read but the key is not yet registered, so the prose cites Dodge only."
+  ]
+}
