@@ -1,0 +1,43 @@
+{
+  "slug": "roughness-penalty",
+  "rank": 234,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Interpretation — What the penalty does and does not see",
+    "Properties",
+    "Statistical use — Choosing the penalty weight",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the penalty misfires",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 661,
+  "words_after": 2572,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "hastie_esl2009 §5.4, pp. 151–152, equations 5.9 and 5.11–5.13",
+    "dodge2008 page search, no entry"
+  ],
+  "proofs": [
+    "null space of the penalty, three explicit integrals, three-point least-squares line"
+  ],
+  "tests": [
+    "checks/roughness-penalty.py passed",
+    "verify_citations.py --offline passed"
+  ],
+  "skipped": [
+    "Reinsch 1967 and Green and Silverman 1994 were not reopened; new prose cites the ESL pages that were read"
+  ],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}

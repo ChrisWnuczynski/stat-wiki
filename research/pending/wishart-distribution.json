@@ -1,0 +1,44 @@
+{
+  "slug": "wishart-distribution",
+  "rank": 236,
+  "tier": "full",
+  "type": "distribution",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Related distributions",
+    "Statistical inference — Scatter, mean, and degrees of freedom",
+    "Generating random samples",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the matrix is not Wishart",
+    "Connections",
+    "History"
+  ],
+  "words_before": 1165,
+  "words_after": 2970,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "durrett2019 Theorem 1.6.1 and Example 1.6.11",
+    "dodge2008 pp. 235 and 350"
+  ],
+  "proofs": [
+    "outer-product mean, Gaussian fourth moment, scalar variance 2νσ^4"
+  ],
+  "tests": [
+    "checks/wishart-distribution.py passed",
+    "verify_citations.py --offline passed"
+  ],
+  "skipped": [
+    "Wishart 1928 and Anderson 2003 were not reopened; the new proof uses Durrett's linearity and a derived Gaussian moment",
+    "The catalogue Laplace-transform proof is replaced by the outer-product proof because the generator keeps one proof box"
+  ],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}

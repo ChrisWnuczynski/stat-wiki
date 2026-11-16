@@ -1,0 +1,42 @@
+{
+  "slug": "strong-law",
+  "rank": 235,
+  "tier": "full",
+  "type": "theorem",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Statement",
+    "Intuition",
+    "Key results",
+    "Proof",
+    "Generalizations",
+    "Related concepts",
+    "Statistical use — Reading a long-run frequency",
+    "Common misconceptions",
+    "History",
+    "Worked example"
+  ],
+  "words_before": 378,
+  "words_after": 2242,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "durrett2019 Theorems 1.6.4, 2.4.1, 2.4.5, 2.4.7, 2.4.9",
+    "dodge2008 pp. 298–299"
+  ],
+  "proofs": [
+    "fourth-moment strong law via Borel–Cantelli; finite-mean truncation cited from Durrett"
+  ],
+  "tests": [
+    "checks/strong-law.py passed",
+    "verify_citations.py --offline passed"
+  ],
+  "skipped": [
+    "Dodge p. 299 numerical display is not used; it treats a Chebyshev upper bound as a two-sided constraint"
+  ],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}

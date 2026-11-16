@@ -1,0 +1,19 @@
+{
+  "slug": "output-coding-softmax-and-cross-entropy",
+  "rank": 247,
+  "tier": "full",
+  "type": "concept",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — The gradient cancels the Jacobian", "Properties", "Statistical use — Codes and a linear model on learned features", "Worked example", "Common misconceptions", "Assumptions and limits — Overflow, and a label that is not one-hot", "Connections", "Check yourself", "History"],
+  "words_before": 750,
+  "words_after": 2231,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["hastie_esl2009 §§11.3–11.4 pp. 393–395", "shannon1948 Theorem 2"],
+  "proofs": ["shift invariance, two-class reduction, gradient s-y"],
+  "tests": ["checks/output-coding-softmax-and-cross-entropy.py passed", "verify_citations.py --offline passed"],
+  "skipped": ["Bridle 1990 was not reopened"],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}
