@@ -4218,6 +4218,16 @@
         "id": "10.1111/j.2517-6161.1980.tb01109.x"
       }
     },
+    "mccullagh1992_glm_intro": {
+      "authors": ["McCullagh, P."],
+      "year": 1992,
+      "title": "Introduction to Nelder and Wedderburn (1972): Generalized Linear Models",
+      "kind": "book",
+      "publisher": "Springer",
+      "pages": "543–545",
+      "url": "https://www.stat.uchicago.edu/~pmcc/pubs/paper32.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.uchicago.edu/~pmcc/pubs/paper32.pdf"}
+    },
     "mccullagh_nelder1989": {
       "authors": [
         "McCullagh, P.",
@@ -5448,6 +5458,15 @@
         "source": "archival_url",
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html"
       }
+    },
+    "rstats_summary_glm2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Summarizing Generalized Linear Model Fits (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html",
+      "verification": {"source": "archival_url", "id": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html"}
     },
     "sas2012_glm": {
       "authors": [

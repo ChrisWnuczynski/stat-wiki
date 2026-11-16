@@ -198,5 +198,9 @@
   "skewness": [
     "ex-da-correlation-reading",
     "ex-prob-ten-components"
+  ],
+  "dispersion-parameter": [
+    "q-47",
+    "q-55"
   ]
 }
