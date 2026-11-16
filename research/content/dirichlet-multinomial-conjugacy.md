@@ -1,11 +1,11 @@
 ## Lead context
 After a multinomial sample, a Dirichlet prior is updated by adding the observed category counts to its concentrations.
 
-## Intuition — Counts add, and the shares stay on the simplex
-A Dirichlet draw is a vector of category probabilities that sum to \(1\). A multinomial likelihood contributes a factor \(p_k^{x_k}\) for each category. The Dirichlet density already contains \(p_k^{\alpha_k-1}\). The product is another Dirichlet density, with concentrations \(\alpha_k+x_k\). The normalising constant changes, and the probabilities are still forced to sum to \(1\). The posterior mean of coordinate \(k\) pulls the sample proportion toward the prior proportion, with weights \(n\) and \(\alpha_0=\sum_j\alpha_j\).
+## Intuition
+**Counts add, and the shares stay on the simplex.** A Dirichlet draw is a vector of category probabilities that sum to \(1\). A multinomial likelihood contributes a factor \(p_k^{x_k}\) for each category. The Dirichlet density already contains \(p_k^{\alpha_k-1}\). The product is another Dirichlet density, with concentrations \(\alpha_k+x_k\). The normalising constant changes, and the probabilities are still forced to sum to \(1\). The posterior mean of coordinate \(k\) pulls the sample proportion toward the prior proportion, with weights \(n\) and \(\alpha_0=\sum_j\alpha_j\).
 
-## Statement — The updated concentrations
-If \(x_k\) are the category counts in \(n\) trials and every prior concentration \(\alpha_k\) is positive, the posterior is Dirichlet\((\alpha_1+x_1,\ldots,\alpha_K+x_K)\). The coordinate mean is \((\alpha_k+x_k)/(\alpha_0+n)\). When every \(\alpha_k+x_k>1\), the posterior mode is \((x_k+\alpha_k-1)/(n+\alpha_0-K)\).
+## Statement
+**The updated concentrations.** If \(x_k\) are the category counts in \(n\) trials and every prior concentration \(\alpha_k\) is positive, the posterior is Dirichlet\((\alpha_1+x_1,\ldots,\alpha_K+x_K)\). The coordinate mean is \((\alpha_k+x_k)/(\alpha_0+n)\). When every \(\alpha_k+x_k>1\), the posterior mode is \((x_k+\alpha_k-1)/(n+\alpha_0-K)\).
 
 ## Worked example — Three categories, prior concentrations \(2,2,2\)
 The prior is symmetric, so each prior mean is \(2/6=1/3\). The counts are \(3,1,2\), and \(n=6\). The posterior concentrations are \(5,3,4\), with total \(12\). The posterior means are
@@ -41,5 +41,6 @@ Prior concentrations \(2,2,2\) and counts \(3,1,2\), as in the worked example. T
 Nothing is wrong in this particular example, because every concentration is at least \(3\). The formula \((x_k+\alpha_k-1)/(n+\alpha_0-K)\) is the interior mode only when every posterior concentration exceeds \(1\). A concentration of \(1\) puts a coordinate on the boundary of the region where that expression was derived, and the density need not have an interior mode.
 :::
 
-## Related concepts — Beta, pseudo-counts, and the next trial
+## Related concepts
+**Beta, pseudo-counts, and the next trial.**
 The two-category Dirichlet is a [beta distribution](beta-distribution.qmd), and the same addition of counts is the beta–binomial update. The concentrations act as [pseudo-counts](pseudo-counts-and-sequential-updating.qmd) in the posterior mean. The probability of the next category is that mean, because the predictive probability is the posterior expectation of \(p_k\).

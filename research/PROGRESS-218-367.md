@@ -153,3 +153,26 @@ Unverified:
 - New bibliography keys passed the offline schema only: `schapire2013_explaining_adaboost`, `nist_f_distribution`, `nist_qq_plot`, `nist_least_squares`. Live URL checks were not run.
 - The variance-ratio F pivot and the ANOVA F law are not proved on the F page.
 - Spot-check of discrete-time-markov-chain and bias-of-an-estimator found sourced definitions. No further prose change.
+
+## Batch S — ranks 338–352
+
+Ranks: 338 boosting, 339 borel-cantelli-lemmas, 340 confounding-variable, 341 dirichlet-multinomial-conjugacy, 342 false-discovery-rate, 343 little-s-law, 344 local-balance, 345 nominal-responses, 346 precision-weighting, 347 product-rule, 348 dendrogram, 349 extinction-probability, 350 null-deviance, 351 ordinal-responses, 352 partial-autocorrelation.
+
+Pages fixed:
+
+- little-s-law: the shared lead now uses the name “Little's law”.
+- partial-autocorrelation: the opening sentence no longer places mathematics on the generated lead line.
+- dirichlet-multinomial-conjugacy and product-rule: statement, intuition, and related-concept headings that the result tests read stay canonical. The specific labels remain in the sections.
+- borel-cantelli-lemmas: removed from `proofs-todo.json` because the page now proves the logged lemmas. No other proof-todo slug was removed.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (474 works). `git diff --check` passed. All 15 page checks passed.
+
+Unverified:
+
+- No new bibliography keys.
+- Durrett's pairwise second lemma (Theorem 2.3.9) is not proved on the Borel–Cantelli page.
+- The critical Galton–Watson case is cited and not rewritten. The sample-path argument for Little's law was not opened.
+- The Benjamini–Hochberg bound stays on the existing theorem-page entry in `proofs-todo.json`.
+- Spot-check of boosting and partial-autocorrelation found sourced definitions. No further prose change.

@@ -1,5 +1,5 @@
 ## Lead context
-The partial autocorrelation at lag \(k\) is the correlation between a series and its lag \(k\) after the linear effect of the lags in between has been removed.
+The partial autocorrelation at a lag is the correlation between a series and that lag after the linear effect of the lags in between has been removed.
 
 ## Intuition — Take out the path through the intermediate times
 The ordinary autocorrelation at lag \(2\) includes the route \(X_t\leftarrow X_{t-1}\leftarrow X_{t-2}\). An autoregression of order \(1\) uses exactly that route, so once \(X_{t-1}\) is accounted for, lag \(2\) has nothing left to explain. The partial autocorrelation is the correlation of the two residuals from regressing \(X_t\) and \(X_{t-k}\) on the intermediate lags. At lag \(1\) there is no intermediate time, so the partial autocorrelation equals the lag-\(1\) autocorrelation.{{cite:hyndman_athanasopoulos2021}} (§9.5, ACF and PACF plots){{cite:dodge2008}} (p. 412)

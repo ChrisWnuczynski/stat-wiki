@@ -44,3 +44,7 @@ Add uncertain claims here before writing them into an article.
 - early-stopping: unproved result kept out of proofs-todo.json (Quantitative link between stopping time and weight decay). Bishop states that, for a quadratic error and a gradient path from the origin, the product of iteration index and learning rate plays the role of the reciprocal penalty. The page records the similarity and does not prove that identification.
 - stochastic-gradient-descent: unproved result kept out of proofs-todo.json (Convergence under decreasing step sizes). The page states the step-size conditions Hastie, Tibshirani and Friedman record for stochastic approximation, without proving that those conditions make the iterates converge.
 - wald-interval: unproved result kept out of proofs-todo.json (Coverage of the plug-in binomial interval). De Moivre–Laplace gives the normal limit at p=1/2 with the true standard error. The page does not prove that replacing the standard error by the estimate keeps the coverage near 95% for a general p.
+- The critical case m=1 with P(ξ=1)<1 is cited from Durrett Theorem 4.3.11; the martingale argument is not rewritten on the page.
+- The Benjamini–Hochberg independence bound remains the existing theorem-page entry benjamini-hochberg-controls-the-false-discovery-rate in proofs-todo.json. Do not add the concept slug itself: the theorem test only accepts theorem pages.
+- Sample-path argument for L=λW remains unread.
+- borel-cantelli-lemmas: Durrett Theorem 2.3.9, the pairwise form of the second lemma, was not proved on the page.

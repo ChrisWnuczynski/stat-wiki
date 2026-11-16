@@ -4,8 +4,8 @@ The product rule prices a chain of events by multiplying the probability of the 
 ## Intuition — Each factor is the chance of the next step given the steps so far
 The two-event identity \(\mathrm{P}(A\cap B)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)\) is the definition of conditional probability, rearranged. A third event multiplies by one more conditional probability, given both of the earlier events. The intermediate intersections cancel, so the joint probability is a product and not a sum. Independence is the special case in which every conditional probability equals the matching marginal. Using a marginal in place of a conditional that is smaller is how the product overstates a joint event.
 
-## Statement — The chain for \(n\) events
-If \(\mathrm{P}(A_1\cap\cdots\cap A_{n-1})>0\), then
+## Statement
+**The chain for n events.** If \(\mathrm{P}(A_1\cap\cdots\cap A_{n-1})>0\), then
 \[
 \mathrm{P}(A_1\cap\cdots\cap A_n)
 =\mathrm{P}(A_1)\,\mathrm{P}(A_2\mid A_1)\cdots\mathrm{P}(A_n\mid A_1\cap\cdots\cap A_{n-1}).
