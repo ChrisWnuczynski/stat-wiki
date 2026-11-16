@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a mean model that reproduces every observed response and supplies the reference fit for deviance"
+  },
+  "self_checks": ["q-34", "c-29"]
+}
