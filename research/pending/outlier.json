@@ -1,0 +1,28 @@
+{
+  "article_lead": {
+    "description": "an observation unusually distant from a data pattern, whose investigation can reveal a measurement error or a model that misses genuine extremes"
+  },
+  "self_checks": ["exr-outlier-fence-diagnosis", "exr-outlier-small-sample-z"],
+  "new_bank_questions": [
+    {
+      "id": "exr-outlier-fence-diagnosis",
+      "topic_code": "D2",
+      "title": "A boxplot flag is a question",
+      "body": "The ordered observations are $1,2,3,3,4,5,6,7,16$. Using hinges that include the median in both halves, find the $1.5IQR$ fences and identify any flagged value. The record confirms that the flagged value was measured correctly. Should it be deleted solely because of the fence?",
+      "answer": "The median is $4$. The lower and upper hinges are $3$ and $6$, so $IQR=3$. The fences are $3-1.5(3)=-1.5$ and $6+1.5(3)=10.5$. Only $16$ is flagged. The fence signals an observation worth investigating; a confirmed genuine measurement should not be silently deleted. Report a sensitivity analysis or fit a model suitable for the tail if its influence matters."
+    },
+    {
+      "id": "exr-outlier-small-sample-z",
+      "topic_code": "D2",
+      "title": "A distant point with a modest z-score",
+      "body": "For the observations $0,0,0,24$, compute the mean, the usual sample standard deviation, and the z-score of $24$. Would a rule requiring absolute z-score above $2$ flag it? Explain the self-masking effect.",
+      "answer": "The mean is $6$. The squared deviations sum to $432$, so the sample variance is $432/3=144$ and the sample standard deviation is $12$. The score of $24$ is $(24-6)/12=1.5$, below $2$. The distant point also raises the mean and standard deviation used to judge itself. For $n=4$, the sharp upper bound on any ordinary sample z-score is $(n-1)/\\sqrt n=3/2=1.5$."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "question bank and research/self-checks.json",
+      "description": "Add the two exact new_bank_questions above to the bank and select their IDs for outlier. The current bank has no substantive answered pair for this concept."
+    }
+  ]
+}
