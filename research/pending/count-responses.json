@@ -1,0 +1,32 @@
+{
+  "slug": "count-responses",
+  "rank": 292,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — A mean that must not cross zero",
+    "Definition — Nonnegative integers and a log mean",
+    "Properties — The multiplier",
+    "Worked example — A slope on the log scale",
+    "Connections — Poisson, overdispersion and the link",
+    "Check yourself — Multipliers and an impossible mean"
+  ],
+  "words_before": 1332,
+  "words_after": 2001,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman (2009), ESL 12th printing, p. 296"
+  ],
+  "proofs": [
+    "Multiplicative effect of a log-link coefficient"
+  ],
+  "tests": [
+    "checks/count-responses.py"
+  ],
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
