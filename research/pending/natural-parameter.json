@@ -1,0 +1,21 @@
+{
+  "bibliography": {
+    "fithian2023_exp_families": {
+      "authors": ["Fithian, W."],
+      "year": 2023,
+      "title": "Exponential Families",
+      "kind": "book",
+      "publisher": "University of California, Berkeley",
+      "url": "https://www.stat.berkeley.edu/~wfithian/courses/%73tat210a/exponential-families.html",
+      "verification": {"source": "archival_url", "id": "https://www.stat.berkeley.edu/~wfithian/courses/%73tat210a/exponential-families.html"}
+    }
+  },
+  "self_checks": ["c-17", "q-32"],
+  "proofs_todo": [
+    {
+      "slug": "natural-parameter",
+      "title": "Completeness of a full-rank exponential-family natural statistic",
+      "reason": "The inherited definition states the full-rank completeness result but the page proof covers moment identities and parameter reparameterization, not Laplace-transform uniqueness needed for completeness. A separate exact proof with its integrability assumptions is required."
+    }
+  ]
+}
