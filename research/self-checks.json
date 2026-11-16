@@ -206,5 +206,9 @@
   "bayesian-credible-interval": [
     "q-08",
     "ex-applied-iq"
+  ],
+  "posterior-point-summaries": [
+    "q-12",
+    "ex-norm-mean"
   ]
 }
