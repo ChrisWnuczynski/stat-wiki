@@ -1,0 +1,18 @@
+{
+  "bibliography": {
+    "siegrist2022_testing": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §9.1: Introduction to Hypothesis Testing",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.01:_Introduction_to_Hypothesis_Testing",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.01:_Introduction_to_Hypothesis_Testing"}
+    }
+  },
+  "proofs_todo": [],
+  "self_checks": ["ex-inf-serve-power", "ex-inf-np-critical"],
+  "shared_changes": [
+    {"file": "sources/stat3006/chapters/inf-04-hypothesis-tests.qmd", "description": "At the Type I/II definition, replace 'accept H0 when H1 is true' with 'fail to reject H0 when H1 is true'; locate the supporting citation in Siegrist §9.1, Errors. Verify all dependent pages including Type I and type II errors, power function and hypothesis tests."}
+  ]
+}
