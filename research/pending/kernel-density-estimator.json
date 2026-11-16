@@ -1,0 +1,23 @@
+{
+  "bibliography": {
+    "wasserman705_lecture26": {
+      "authors": ["Wasserman, L."],
+      "year": 2020,
+      "title": "Non-parametric Density Estimation and Non-parametric Regression (36-705, lecture 26)",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University, 36-705",
+      "url": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf",
+      "verification": {"source": "archival_url", "id": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf"}
+    },
+    "rstats_density2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Kernel Density Estimation (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/density.html",
+      "verification": {"source": "archival_url", "id": "https://search.r-project.org/R/refmans/stats/html/density.html"}
+    }
+  },
+  "self_checks": ["ex-sl-07-5", "ex-sl-07-6"]
+}
