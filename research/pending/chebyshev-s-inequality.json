@@ -1,0 +1,16 @@
+{
+  "article_lead": {
+    "field": "probability theory",
+    "description": "a variance-based bound on large deviations from the mean that works without assuming a distributional shape"
+  },
+  "self_checks": ["ex-sp-proportion-bound", "depth-chebyshev-sample-size"],
+  "new_bank_questions": [
+    {
+      "id": "depth-chebyshev-sample-size",
+      "title": "A sample size from Chebyshev's bound",
+      "body": "Independent observations have population variance 25. How many are needed so that Chebyshev's inequality guarantees P(|sample mean - population mean|≥1)≤0.05? State why the calculation could fail for correlated observations.",
+      "answer": "For n independent observations, Var(sample mean)=25/n and Chebyshev bounds the probability by 25/n. Requiring 25/n≤0.05 gives n≥500. Correlation changes the variance of the average, so the 25/n formula may fail.",
+      "topic_code": "SP11"
+    }
+  ]
+}
