@@ -1,0 +1,42 @@
+{
+  "article_lead": {
+    "description": "a population-average mean model for repeated or clustered responses, paired with a working description of their dependence"
+  },
+  "proofs_todo": [
+    {
+      "slug": "marginal-model#gee-robust-consistency",
+      "title": "GEE consistency and sandwich covariance under working-correlation misspecification",
+      "reason": "The article proves the estimating equation is unbiased at a correct marginal mean, but a reviewed independent-cluster asymptotic argument is still needed to establish consistency and sandwich convergence under the stated regularity and missingness conditions."
+    }
+  ],
+  "self_checks": ["depth-marginal-risk-contrast", "depth-marginal-bernoulli-bound", "depth-marginal-working-covariance"],
+  "new_bank_questions": [
+    {
+      "id": "depth-marginal-risk-contrast",
+      "title": "Population-average risk contrast",
+      "body": "Four control patients each have two binary outcomes, (0,0), (0,0), (1,1), (0,0). Four treated patients have (1,1), (1,1), (0,0), (1,1). Calculate the observed marginal risks, risk difference, and odds ratio. How many independent patients, rather than visits, contribute?",
+      "answer": "There are 2 control events in 8 visits and 6 treated events in 8 visits, so the marginal risks are 1/4 and 3/4 and the risk difference is 1/2. Their odds are 1/3 and 3, giving odds ratio 9. There are 8 independent patient clusters, four per group, even though there are 16 visits.",
+      "topic_code": "C3"
+    },
+    {
+      "id": "depth-marginal-bernoulli-bound",
+      "title": "Can binary margins correlate perfectly?",
+      "body": "Binary variables A and B have success probabilities 0.2 and 0.8. What is the largest possible value of P(A=1,B=1)? Use it to find their maximum possible covariance and correlation. Explain why a proposed correlation of 0.6 cannot describe a true joint Bernoulli law with these margins.",
+      "answer": "The joint success probability cannot exceed min(0.2,0.8)=0.2. The maximum covariance is 0.2-(0.2)(0.8)=0.04. Both variances equal 0.16, so their standard-deviation product is 0.16 and the maximum correlation is 0.04/0.16=0.25. A correlation of 0.6 exceeds that bound and cannot arise from these margins.",
+      "topic_code": "C3"
+    },
+    {
+      "id": "depth-marginal-working-covariance",
+      "title": "Working correlation and mean validity",
+      "body": "An analyst models a repeated binary outcome's marginal mean correctly but uses an independence working correlation when within-person responses are positively associated. Another analyst uses an exchangeable working correlation but omits an important mean covariate. Which analyst has the usual GEE consistency argument for the target mean coefficient, and what role does a sandwich covariance play? State the sampling condition that matters.",
+      "answer": "The first analyst retains the usual consistency argument: with many independent clusters, regularity and suitable missingness, a correct mean makes the GEE score unbiased even if the working association is wrong. A cluster sandwich covariance estimates the resulting coefficient uncertainty. The second analyst's correct-looking working correlation does not repair an omitted mean covariate; a sandwich only changes uncertainty around the fitted estimating equation. Few or dependent clusters undermine the large-sample argument.",
+      "topic_code": "C3"
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/09-marginal-models.qmd",
+      "description": "Compatible with E rank134's independent-cluster/efficiency correction: in the opening 'average, and the person' discussion, replace 'The blue slope is the average association, and it does not have to move when the working correlation changes' with 'The blue slope describes a population-average association. Estimates from different working correlations can differ in finite samples, although each can target the same mean coefficient under the GEE assumptions.' Also replace 'If the mean is the right function of the covariates, the estimates of beta and the sandwich standard errors settle in the same place whatever working correlation the fit starts from. The naive standard errors move' in the Key idea with 'With a correct mean and many independent clusters, different working correlations can target the same mean coefficient, while their finite-sample estimates and asymptotic efficiencies can differ. A cluster sandwich estimates uncertainty for the chosen fit; model-based standard errors assume the working covariance is correct.' Keep the actual warp-break fit numbers and the two-factory warning; do not claim its near-equal robust SEs are a theorem. Liang–Zeger (1986) §§2–3, pp. 14–16."
+    }
+  ]
+}
