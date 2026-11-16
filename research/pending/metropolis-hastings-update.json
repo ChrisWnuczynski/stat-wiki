@@ -1,0 +1,18 @@
+{
+  "proofs_todo": [
+    {
+      "slug": "metropolis-hastings-update",
+      "title": "Convergence and Monte Carlo error of the retained chain",
+      "reason": "The collapsed proof establishes detailed balance and invariance, while convergence from a chosen start and uncertainty for dependent averages need additional recurrence and Markov-chain limit arguments."
+    }
+  ],
+  "self_checks": [
+    "c-14",
+    "q-19",
+    "ex-gibbs-mh"
+  ],
+  "article_lead": {
+    "field": "Bayesian computation",
+    "description": "a proposal-and-acceptance step that preserves a target distribution, enabling simulation when direct sampling is difficult"
+  }
+}
