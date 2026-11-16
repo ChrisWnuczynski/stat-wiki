@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from collections import Counter
 from pathlib import Path
@@ -13,6 +14,7 @@ from pathlib import Path
 import article_extras
 import build_wiki
 import citations
+import research_pending
 import verify_citations
 import wiki_graph
 
@@ -73,6 +75,21 @@ class CitationTests(unittest.TestCase):
         errors = verify_citations.validate_schema(self.bib)
         self.assertEqual(errors, [])
         self.assertGreaterEqual(len(self.works), 300)
+
+    def test_parallel_pending_bibliography_detects_conflicts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            pending = root / "research" / "pending"
+            pending.mkdir(parents=True)
+            work = self.works["dodge2008"]
+            (pending / "first.json").write_text(json.dumps({"bibliography": {"new_key": work}}))
+            merged = research_pending.merge_pending_works(root, self.works)
+            self.assertEqual(merged["new_key"], work)
+            (pending / "second.json").write_text(json.dumps({"bibliography": {
+                "new_key": {**work, "year": work["year"] + 1}
+            }}))
+            with self.assertRaisesRegex(ValueError, "conflicting bibliography entry new_key"):
+                research_pending.merge_pending_works(root, self.works)
 
     def test_zero_banned_terms_in_bibliography_and_mappings(self) -> None:
         for rel in ("bibliography.json", "citations.py", "overview.qmd"):
