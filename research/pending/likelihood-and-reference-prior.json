@@ -1,0 +1,26 @@
+{
+  "article_lead": {
+    "field": "Bayesian linear regression",
+    "article": "",
+    "term": "likelihood and reference prior",
+    "verb": "combine",
+    "description": "the data model with a conventional prior measure whose posterior must be checked for propriety"
+  },
+  "self_checks": ["depth-reference-prior-propriety", "depth-reference-prior-update"],
+  "new_bank_questions": [
+    {
+      "id": "depth-reference-prior-propriety",
+      "title": "Does this reference posterior exist?",
+      "body": "For a Gaussian linear model with the reference measure π(β,σ²)∝1/σ², consider (a) n=5, p=2, full-rank X and residual sum of squares 6; (b) the same n and p but a rank-one X; (c) full-rank X but residual sum of squares zero. In which cases is the posterior proper, and why?",
+      "answer": "Only (a) is proper: n-p=3>0 and the positive residual sum of squares controls the variance integral. In (b), a coefficient direction is unidentified and the flat prior leaves infinite mass. In (c), the variance kernel diverges near zero.",
+      "topic_code": "B9"
+    },
+    {
+      "id": "depth-reference-prior-update",
+      "title": "A reference posterior from three observations",
+      "body": "In an intercept-only normal model, observations are 1, 2 and 3. Under π(β,σ²)∝1/σ², find the fitted mean, residual sum of squares, residual degrees of freedom and inverse-Gamma posterior parameters for σ².",
+      "answer": "The fitted mean is 2 and the squared residuals are 1, 0 and 1, summing to 2. With n=3 and p=1, the residual degrees of freedom are 2. Hence σ² given the data is inverse-Gamma with shape (n-p)/2=1 and scale SSE/2=1. It is proper, but its mean is infinite.",
+      "topic_code": "B9"
+    }
+  ]
+}
