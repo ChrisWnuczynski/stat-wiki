@@ -1,0 +1,19 @@
+{
+  "slug": "generator",
+  "rank": 244,
+  "tier": "full",
+  "type": "concept",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — Where the time is spent", "Properties", "Statistical use — Reading a rate diagram", "Worked example", "Common misconceptions", "Assumptions and limits — Explosion and a moving rate", "Connections", "Check yourself", "History"],
+  "words_before": 435,
+  "words_after": 1799,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["The two-state balance, exponential mean, and forward solution are derived in the article."],
+  "proofs": ["stationary balance, exponential mean, explicit busy probability"],
+  "tests": ["checks/generator.py passed", "verify_citations.py --offline passed"],
+  "skipped": ["Norris 1997, Ross 2019, and Grimmett and Stirzaker 2020 were not reopened"],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}
