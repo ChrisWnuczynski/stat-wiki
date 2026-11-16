@@ -1,0 +1,54 @@
+{
+  "article_lead": {
+    "description": "a score for how mixed the class labels are inside a tree node, used to choose useful training-data splits"
+  },
+  "bibliography": {
+    "rpart_longintro2023": {
+      "authors": [
+        "Therneau, T. M.",
+        "Atkinson, E. J."
+      ],
+      "year": 2023,
+      "title": "An Introduction to Recursive Partitioning Using the RPART Routines",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/doc/longintro.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/doc/longintro.pdf"
+      }
+    },
+    "sklearn_tree2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Decision Trees (scikit-learn User Guide, §1.10)",
+      "kind": "book",
+      "publisher": "scikit-learn",
+      "url": "https://scikit-learn.org/stable/modules/tree",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/tree"
+      }
+    },
+    "stanford_cs229_trees2018": {
+      "authors": [
+        "Townshend, R. J. L."
+      ],
+      "year": 2018,
+      "title": "Decision Trees",
+      "kind": "book",
+      "publisher": "Stanford University, CS229",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf"
+      }
+    }
+  },
+  "self_checks": [
+    "ex-sl-12-2",
+    "ex-sl-12-5"
+  ]
+}
