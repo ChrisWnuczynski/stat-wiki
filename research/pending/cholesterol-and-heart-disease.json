@@ -1,0 +1,26 @@
+{
+  "article_lead": {
+    "description": "a hundred-patient example relating cholesterol, sex and binary disease records to fitted probabilities"
+  },
+  "self_checks": ["q-35", "depth-chol-prediction", "depth-chol-interpretation"],
+  "new_bank_questions": [
+    {
+      "id": "depth-chol-prediction",
+      "title": "A fitted cholesterol probability",
+      "body": "The displayed logistic model has score -9.3203-0.1094 I(male)+1.5842 cholesterol. Find the fitted disease probability for a male at cholesterol 5.5 and compare with a female at the same value.",
+      "answer": "The male score is -0.7166 and the inverse-logit probability is about 0.32814. The female score is -0.6072 and probability about 0.35270. Their conditional probability difference is about -0.02456; this does not determine the marginal sex difference.",
+      "topic_code": "G1"
+    },
+    {
+      "id": "depth-chol-interpretation",
+      "title": "Odds and causation in the cholesterol example",
+      "body": "The fitted cholesterol slope is 1.5842. Explain what exp(1.5842) compares and why it does not prove that an intervention lowering cholesterol would change disease risk.",
+      "answer": "At the same sex, a one-unit higher cholesterol value has fitted disease odds exp(1.5842), about 4.88 times as large. The data description does not establish random assignment, control all confounders or document a causal intervention; the coefficient is an adjusted association in the fitted model.",
+      "topic_code": "G1"
+    }
+  ],
+  "shared_changes": [{
+    "file": "sources/book/chapters/01-introduction-to-glms.qmd",
+    "fix": "In 'The cholesterol fit', replace the unsupported causal wording that sex is 'acting through cholesterol' and unverified statements about male patients tending to arrive with higher cholesterol. State only the fitted conditional association and that it need not match a crude comparison; the absent data/cholest.csv and unspecified collection cannot establish mediation or actual group distributions. Preserve coefficients, graph and arithmetic. Rebuild/check dependent cholesterol and logistic-regression pages."
+  }]
+}
