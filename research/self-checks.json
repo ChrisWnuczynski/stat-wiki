@@ -146,5 +146,9 @@
   "full-conditional-distribution": [
     "q-04",
     "q-09"
+  ],
+  "inverse-gamma-distribution": [
+    "c-10",
+    "q-43"
   ]
 }

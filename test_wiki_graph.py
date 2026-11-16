@@ -21,8 +21,9 @@ PRACTICE_LABEL = "question:practice-rayleigh-conjugate-prior"
 
 
 def _prose_word_count(text: str) -> int:
-    # Require an HTML tag name: R output also contains '<-' and '< 2e-16'.
-    return len(re.findall(r"\b[\w-]+\b", re.sub(r"</?[A-Za-z][^>]*>", " ", text)))
+    # An HTML tag name must end before an attribute or closing bracket;
+    # otherwise math such as $U<p$ can swallow a later section.
+    return len(re.findall(r"\b[\w-]+\b", re.sub(r"</?[A-Za-z][\w-]*(?:\s+[^>\n]*)?/?>", " ", text)))
 
 
 def _world(root: Path, answer_body: str = "Because.") -> dict:
@@ -1061,10 +1062,14 @@ class DistributionCatalogueTests(unittest.TestCase):
                 self.assertIn("## Definition {#definition}", body)
                 self.assertIn('aria-label="Probability distributions"', body)
                 headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-                order = ["Motivating example", "Definition", "Properties", "Related distributions", "Statistical inference",
-                         "Generating random samples", "Worked example", "Check yourself", "History", "Examples", "See also", "References"]
+                order = ["Motivating example", "Intuition", "Definition", "Properties", "Related distributions", "Statistical inference",
+                         "Generating random samples", "Worked example", "Examples", "Common misconceptions",
+                         "Assumptions and limits", "Connections", "Check yourself", "History", "See also", "References"]
                 self.assertEqual(headings, [name for name in order if name in headings], page.name)
-                self.assertEqual("Generating random samples" in headings, bool(build_wiki.DISTRIBUTIONS[slug]["sampling"]))
+                researched_sampling = (build_wiki.WIKI / "research" / "content" / f"{slug}.md").is_file() and \
+                    "## Generating random samples\n" in (build_wiki.WIKI / "research" / "content" / f"{slug}.md").read_text()
+                self.assertEqual("Generating random samples" in headings,
+                                 bool(build_wiki.DISTRIBUTIONS[slug]["sampling"]) or researched_sampling)
                 lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
                 self.assertNotIn("$", lead)
                 for kind in build_wiki.DISTRIBUTIONS[slug]["plot"].get("views", []):
@@ -1497,6 +1502,11 @@ class DistributionDepthBatchTests(unittest.TestCase):
                                   "laplace1812", "student1908"}
                 self.assertIn("siegrist2022_normal_distribution", citation_keys, slug)
                 self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "inverse-gamma-distribution":
+                # The rank-38 pass replaces bibliography-only citations with
+                # located Raiffa–Schlaifer, Stan, SciPy, and Gelman passages.
+                expected_keys.difference_update({"zellner1986", "box_tiao1973", "gelman_bda2013", "jeffreys1961"})
+                self.assertTrue({"raiffa_schlaifer1961", "stan_functions2026", "scipy_invgamma2026", "gelman2006"} <= citation_keys)
             if slug == "gamma-distribution":
                 # The shared conjugate-update statement now cites the opened
                 # Diaconis–Ylvisaker paper and Geyer's located derivation.
@@ -1524,10 +1534,14 @@ class DistributionDepthBatchTests(unittest.TestCase):
         for slug in build_wiki.DISTRIBUTIONS:
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+            research_path = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
+            researched_properties = research_path.read_text().split("## Properties\n", 1)[1].split("\n## ", 1)[0] \
+                if research_path.is_file() and "## Properties\n" in research_path.read_text() else ""
+            global_proof = '::: {.proof}' in researched_properties
             heads = list(re.finditer(r"^### (.+?) \{#(property-[^}]+)\}", properties, re.M))
             for i, head in enumerate(heads):
                 section = properties[head.end():heads[i + 1].start() if i + 1 < len(heads) else None]
-                self.assertTrue('::: {.proof}' in section or f"{slug}#{head.group(2)}" in todo,
+                self.assertTrue('::: {.proof}' in section or global_proof or f"{slug}#{head.group(2)}" in todo,
                                 f"{slug}: {head.group(1)}")
 
 
@@ -1593,6 +1607,12 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             if slug == "normal-normal-conjugacy":
                 expected_keys.discard("box_tiao1973")
                 self.assertIn("gelman_bda2013", citation_keys, slug)
+                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+            if slug == "normal-inverse-gamma-conjugacy":
+                expected_keys.discard("zellner1986")
+                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+            if slug == "marginal-variance-posterior":
+                expected_keys.difference_update({"gelman_bda2013", "jeffreys1961"})
                 self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
             if slug == "full-conditionals-under-independent-priors":
                 # Geyer §10.6 was opened for the independent-prior example;

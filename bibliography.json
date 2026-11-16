@@ -5876,6 +5876,20 @@
         "id": "10.1214/aos/1176349846"
       }
     },
+    "scipy_invgamma2026": {
+      "authors": [
+        "SciPy community"
+      ],
+      "year": 2026,
+      "title": "scipy.stats.invgamma — SciPy Manual",
+      "kind": "book",
+      "publisher": "SciPy community",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.invgamma.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.invgamma.html"
+      }
+    },
     "stan_functions2026": {
       "authors": [
         "Stan Development Team"

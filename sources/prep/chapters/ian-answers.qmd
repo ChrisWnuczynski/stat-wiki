@@ -142,13 +142,13 @@ $$
 }
 $$
 
-Each observation adds $1/2$ to the shape. Half the sum of squared deviations from the known mean is added to the rate.
+Each observation adds $1/2$ to the shape. Half the sum of squared deviations from the known mean is added to the inverse-Gamma scale.
 
 ```{=latex}
 \Needspace{8\baselineskip}
 ```
 
-**(b)** For this shape--rate kernel, and for $\beta_n>0$,
+**(b)** For this shape--scale inverse-Gamma kernel, and for $\beta_n>0$,
 
 $$
 \E(\sigma^2\given\xvec)=\frac{\beta_n}{\alpha_n-1}
@@ -382,7 +382,7 @@ $$
 f(\sigma^2)\propto(\sigma^2)^{-\alpha-1}\exp(-\beta/\sigma^2),
 $$
 
-before a moment or a software default is used. Packages do not all take $(\alpha,\beta)$ in this shape--rate order.
+before a moment or a software default is used. Packages do not all take $(\alpha,\beta)$ in this shape--scale order.
 
 ```{=latex}
 \Needspace{8\baselineskip}

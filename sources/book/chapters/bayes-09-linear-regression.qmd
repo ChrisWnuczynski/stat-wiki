@@ -442,7 +442,7 @@ Integrating the coefficient kernel over $\R^p$ contributes \begin{align*}
  \exp\!\left\{-\frac{\operatorname{SSE}}{2\sigma^2}\right\}\\
  &=(\sigma^2)^{-\{(n-p)/2+1\}}
  \exp\!\left\{-\frac{\operatorname{SSE}/2}{\sigma^2}\right\}.
-\end{align*} Under the shape--rate convention, $\InvGamma(a,b)$ has kernel $(\sigma^2)^{-a-1}\exp(-b/\sigma^2)$. Matching the powers gives
+\end{align*} Under the shape--scale convention, $\InvGamma(a,b)$ has kernel $(\sigma^2)^{-a-1}\exp(-b/\sigma^2)$. Matching the powers gives
 
 ::: {#prp-marginal-variance-posterior .proposition}
 ## Marginal variance posterior
@@ -453,7 +453,7 @@ Integrating the coefficient kernel over $\R^p$ contributes \begin{align*}
  \sim\InvGamma\!\left(
  \frac{n-p}{2},\frac{\operatorname{SSE}}2\right).}
  \label{eq:lm-sigma-marginal}
-\end{equation} The $p/2$ from the normalising constant is subtracted from $n/2$; it is not added.{{cite:box_tiao1973}}{{cite:gelman_bda2013}} Equivalently, \begin{equation}
+\end{equation} The $p/2$ from the normalising constant is subtracted from $n/2$; it is not added.{{cite:raiffa_schlaifer1961}} (Ch. 13, §13.5, pp. 342–344) Equivalently, \begin{equation}
  \frac{\operatorname{SSE}}{\sigma^2}\given\yvec,\mat X
  \sim\chi^2_{n-p}.
  \label{eq:lm-posterior-chi-square}
@@ -466,7 +466,7 @@ $$
 $$
 
 
- The posterior mode is $\operatorname{SSE}/(n-p+2)$.{{cite:jeffreys1961}} Thus the unbiased estimator $s^2$ is generally neither the posterior mean nor the posterior mode; calling any one quantity "the estimate" implicitly chooses a loss function.
+ The posterior mode is $\operatorname{SSE}/(n-p+2)$.{{cite:stan_functions2026}} (§“Inverse gamma Distribution”) Thus the unbiased estimator $s^2$ is generally neither the posterior mean nor the posterior mode; calling any one quantity "the estimate" implicitly chooses a loss function.
 
 :::
 
@@ -634,7 +634,7 @@ Full joint conjugacy is obtained from the scaled prior \begin{equation}
  \label{eq:lm-nig-prior}
 \end{equation}
 
-The coefficient prior scales with $\sigma^2$, and $\sigma^2$ has an inverse-gamma prior.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}{{cite:zellner1986}}
+The coefficient prior scales with $\sigma^2$, and $\sigma^2$ has an inverse-gamma prior.{{cite:raiffa_schlaifer1961}} (Ch. 13, §13.5, pp. 342–344)
 
 :::
 
@@ -684,7 +684,7 @@ $$
  \label{eq:lm-nig-posterior}
 \end{equation}
 
-The normal--inverse-gamma prior is conjugate for the Gaussian linear model.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}{{cite:zellner1986}}
+The normal--inverse-gamma prior is conjugate for the Gaussian linear model.{{cite:raiffa_schlaifer1961}} (Ch. 13, §13.5, pp. 342–344)
 
 :::
 

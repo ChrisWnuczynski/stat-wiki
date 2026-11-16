@@ -3502,10 +3502,18 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for dist_slug in DISTRIBUTIONS:
         body = (ARTICLE_DIR / f"{dist_slug}.qmd").read_text(encoding="utf-8")
         properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+        research_path = WIKI / "research" / "content" / f"{dist_slug}.md"
+        researched_properties = ""
+        if research_path.is_file():
+            match = re.search(r"(?ms)^## Properties\n(.*?)(?=^## |\Z)", research_path.read_text(encoding="utf-8"))
+            researched_properties = match.group(1) if match else ""
+        # A single researched Proof box may establish several linked results.
+        # Page reports review its coverage; unresolved exceptions belong in overrides.
+        full_researched_proof = '::: {.proof}' in researched_properties
         heads = list(re.finditer(r"^### (.+?) \{#(property-[^}]+)\}", properties, re.M))
         for i, head in enumerate(heads):
             section = properties[head.end():heads[i + 1].start() if i + 1 < len(heads) else None]
-            if '::: {.proof}' not in section:
+            if '::: {.proof}' not in section and not full_researched_proof:
                 todo.append({"slug": f"{dist_slug}#{head.group(2)}", "title": head.group(1),
                              "reason": "The distribution page states this result without a reviewed proof sketch."})
     # A page can prove its other results while leaving one stated converse open.
@@ -4122,9 +4130,10 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
             if heading in researched or not prose:
                 raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
             researched[heading] = prose
-        allowed = {"Lead context", "Motivating example", "Definition", "Properties",
+        allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Properties",
                    "Related distributions", "Statistical inference", "Generating random samples",
-                   "Worked example", "History", "Examples"}
+                   "Worked example", "Examples", "Common misconceptions", "Assumptions and limits",
+                   "Connections", "History"}
         if not researched or set(researched) - allowed:
             raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
     lead = article_lead(article) + source_lead_citations(blocks, include_math=True)
@@ -4157,25 +4166,31 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
         else:
             continue
         link = f"[{DISTRIBUTIONS[target]['name']} distribution]({href(path, ARTICLE_DIR / f'{target}.qmd')})"
+        if facts.get("relationship_citation"):
+            prose = re.sub(r"\{\{cite:[^}]+\}\}", facts["relationship_citation"], prose)
         relationships.append(prose.replace("{target}", link))
     result = facts.get("key_result", {})
     key_result = ""
     if result:
         key_result = f"### {result['title']}\n\n{result['statement']}\n\n{result['meaning']}"
-        if result.get("proof"):
+        if result.get("proof") and 'title="Proof"' not in researched.get("Properties", ""):
             key_result += ('\n\n::: {.callout-note collapse="true" title="Proof"}\n::: {.proof}\n'
                            f"{result['proof']}\n:::\n:::")
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close"), facts.get("worked_example", ""), researched.get("Examples", "")]))
     sections = (
         ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
+        ("Intuition", "intuition", researched.get("Intuition", "")),
         ("Definition", "definition", definition),
         ("Properties", "properties", "\n\n".join(filter(None, [key_result, facts.get("mode_explanation", ""), content("property-head", "property", "figures-head", "figure"), researched.get("Properties", "")]))),
         ("Related distributions", "related-distributions", "\n\n".join(filter(None, [*relationships, researched.get("Related distributions", "")]))),
         ("Statistical inference", "used-in", "\n\n".join(filter(None, [facts.get("statistical_use", ""), researched.get("Statistical inference", ""), content("used-in")]))),
         ("Generating random samples", "generating-random-samples", "\n\n".join(filter(None, [facts["sampling"], researched.get("Generating random samples", "")]))),
         ("Worked example", "worked-example", researched.get("Worked example", "")),
-        ("History", "history", "\n\n".join(filter(None, [facts["history"], researched.get("History", "")]))),
         ("Examples", "examples", examples),
+        ("Common misconceptions", "common-misconceptions", researched.get("Common misconceptions", "")),
+        ("Assumptions and limits", "assumptions-and-limits", researched.get("Assumptions and limits", "")),
+        ("Connections", "connections", researched.get("Connections", "")),
+        ("History", "history", "\n\n".join(filter(None, [facts["history"], researched.get("History", "")]))),
         ("See also", "see-also", content("see-also")),
     )
     for title, ident, body in sections:

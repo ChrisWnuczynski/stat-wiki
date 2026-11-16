@@ -390,21 +390,6 @@
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
-    "slug": "inverse-gamma-distribution#property-normal-inverse-gamma-variance-update",
-    "title": "Normal–inverse-Gamma variance update",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "inverse-gamma-distribution#property-normal-inverse-gamma-conjugacy",
-    "title": "Normal–inverse-Gamma conjugacy",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "inverse-gamma-distribution#property-marginal-variance-posterior",
-    "title": "Marginal variance posterior",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
     "slug": "multinomial-distribution#property-multinomial-central-limit-theorem",
     "title": "Multinomial central limit theorem",
     "reason": "The distribution page states this result without a reviewed proof sketch."
@@ -417,26 +402,6 @@
   {
     "slug": "multivariate-normal-distribution#property-affine-images-of-normal-vectors",
     "title": "Affine images of normal vectors",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "normal-distribution#property-normal-normal-conjugacy",
-    "title": "Normal–Normal conjugacy",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "normal-distribution#property-normal-inverse-gamma-variance-update",
-    "title": "Normal–inverse-Gamma variance update",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "normal-distribution#property-full-conditionals-under-independent-priors",
-    "title": "Full conditionals under independent priors",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "normal-distribution#property-precision-weighting",
-    "title": "Precision weighting",
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {

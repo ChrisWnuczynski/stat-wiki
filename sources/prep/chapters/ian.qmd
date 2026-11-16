@@ -45,7 +45,7 @@ $$
 \sigma^2\sim\InvGamma(\alpha_0,\beta_0),
 $$
 
-in the shape--rate parameterisation
+with inverse-Gamma shape $\alpha_0$ and scale $\beta_0$
 
 $$
 f(\sigma^2)\propto(\sigma^2)^{-\alpha_0-1}\exp(-\beta_0/\sigma^2).
@@ -365,7 +365,7 @@ with $n\geq 2$.
 
 **(iii)** Show that $\mu\given\sigma^{2},\xvec$ is normal, and give its mean and variance. [2 marks]
 
-**(iv)** Show that $\sigma^{2}\given\mu,\xvec$ is inverse-gamma, and give its shape and rate. [2 marks]
+**(iv)** Show that $\sigma^{2}\given\mu,\xvec$ is inverse-gamma, and give its shape and scale. [2 marks]
 
 **(v)** Describe how to sample from the joint posterior. [4 marks]
 

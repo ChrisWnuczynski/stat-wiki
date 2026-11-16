@@ -227,7 +227,7 @@ The natural candidates can be rejected or repaired one at a time. An exponential
 ::: {#def-inverse-gamma-distribution .definition}
 ## Inverse-Gamma distribution
 
-In the shape--rate convention, 
+Take the inverse-Gamma's second parameter as a scale; the reciprocal precision then has a Gamma distribution whose second parameter is a rate.
 
 $$
  \sigma^2\sim\InvGamma(\alpha_0,\beta_0),
@@ -243,7 +243,7 @@ $$
  \exp\!\left(-\frac{\beta_0}{\sigma^2}\right).
 $$
 
-In the shape--rate parameterisation this is the inverse-gamma density.{{cite:gelman_bda2013}}{{cite:box_tiao1973}}{{cite:raiffa_schlaifer1961}}
+This is the inverse-Gamma density with shape $\alpha_0$ and scale $\beta_0$.{{cite:stan_functions2026}} (§“Inverse gamma Distribution”) {{cite:raiffa_schlaifer1961}} (Ch. 11, §11.1.3, pp. 290–291, using Gamma precision)
 
 :::
 
@@ -294,7 +294,8 @@ Hence \begin{equation}
  \label{eq:inv-gamma-update}
 \end{equation}
 
-An inverse-gamma prior for a normal variance, with the mean known, yields an inverse-gamma posterior.{{cite:gelman_bda2013}} (Ch. 2, §2.6, pp. 42–43) {{cite:raiffa_schlaifer1961}} (Ch. 11, §11.1.3, pp. 290–291, using gamma precision)
+An inverse-gamma prior for a normal variance, with the mean known, yields an inverse-gamma posterior.{{cite:raiffa_schlaifer1961}} (Ch. 11, §11.1.3, pp. 290–291, using gamma precision)
+
 
 :::
 
