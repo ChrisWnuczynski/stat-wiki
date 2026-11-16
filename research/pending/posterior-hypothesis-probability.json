@@ -1,0 +1,32 @@
+{
+  "slug": "posterior-hypothesis-probability",
+  "rank": 252,
+  "tier": "full",
+  "type": "definition",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Interpretation — Probability, odds, and a decision",
+    "Properties — Conjugacy and a continuous boundary",
+    "Statistical use — Reporting the probability and the action separately",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the integral is not the scientific hypothesis",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 1697,
+  "words_after": 3769,
+  "figures_before": 2,
+  "figures_after": 2,
+  "sources_read": ["dodge2008 pp. 32–33"],
+  "proofs": ["Beta-binomial update and the binomial-tail expression for Pr(p ≤ 1/2)"],
+  "tests": ["checks/posterior-hypothesis-probability.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Gelman, Jeffreys and Kass–Raftery were not reopened."],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": ["posterior-hypothesis-probability: copied citations of Gelman, Jeffreys and Kass–Raftery have no page locators in the new sense; they were not reopened."]
+}
