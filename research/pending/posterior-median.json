@@ -1,0 +1,22 @@
+{
+  "article_lead": {
+    "description": "a central value of the posterior distribution used when absolute errors in a parameter estimate matter"
+  },
+  "self_checks": ["depth-posterior-median-discrete", "depth-posterior-median-transform"],
+  "new_bank_questions": [
+    {
+      "id": "depth-posterior-median-discrete",
+      "title": "A nonunique posterior median",
+      "body": "A posterior puts probability 0.5 on θ=1 and 0.5 on θ=5. Which actions minimize posterior expected absolute error, and which action minimizes squared error? Give both risks at action 2.",
+      "answer": "Every action in [1,5] is a posterior median and has absolute-error risk 0.5|a-1|+0.5|a-5|=2, including a=2. The posterior mean 3 uniquely minimizes squared error. At a=2 the squared-error risk is 0.5(1²)+0.5(3²)=5.",
+      "topic_code": "B1"
+    },
+    {
+      "id": "depth-posterior-median-transform",
+      "title": "Transforming a posterior median",
+      "body": "A probability θ has a posterior median 0.25. What is the posterior median of its odds θ/(1-θ)? Explain whether the odds of the posterior mean must equal the posterior mean of the odds.",
+      "answer": "Odds are a strictly increasing function of θ, so their median is 0.25/(1-0.25)=1/3. Means do not generally commute with nonlinear transformations: E[θ/(1-θ)|x] need not equal E[θ|x]/(1-E[θ|x]), and the former may not even exist for some posteriors.",
+      "topic_code": "B1"
+    }
+  ]
+}
