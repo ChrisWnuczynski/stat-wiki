@@ -1,0 +1,11 @@
+{
+  "bibliography": {
+    "sklearn_neighbors": {"authors": ["scikit-learn developers"], "year": 2026, "title": "Nearest Neighbors", "kind": "book", "publisher": "scikit-learn User Guide", "url": "https://scikit-learn.org/stable/modules/neighbors.html", "verification": {"source": "archival_url", "id": "https://scikit-learn.org/stable/modules/neighbors.html"}}
+  },
+  "article_lead": {"description": "a prediction rule that uses nearby labelled cases to learn local patterns without specifying one global regression form"},
+  "self_checks": ["ex-sl-11-2", "ex-sl-11-4", "ex-sl-11-7"],
+  "proofs_todo": [
+    {"slug": "nearest-neighbours#cover-hart-risk-bound", "title": "Cover–Hart risk bound", "reason": "The page retains the asymptotic risk claim, but its collapsed proof establishes only finite-sample vote algebra and does not prove the original risk bound."},
+    {"slug": "nearest-neighbours#knn-bayes-consistency", "title": "Bayes consistency of growing nearest-neighbour votes", "reason": "The page describes k growing with sample size and k/n tending to zero but does not prove consistency under regularity conditions."}
+  ]
+}
