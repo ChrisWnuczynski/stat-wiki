@@ -242,7 +242,7 @@ Initialise with small random weights scaled by the fan-in, normalise the inputs,
 ::: {#ex-sl-16-1 .exercise}
 ## Initial weights
 
-A hidden layer has fan-in $p+1=26$ ($25$ standardised inputs plus bias). What standard deviation should the initial weights have so that the net input has unit variance? What is the variance of the net input if the weights have standard deviation $0.5$? For a fixed input with squared norm $25$ and independent Gaussian initial weights, how likely is $|u|>2$?
+A hidden layer has fan-in $p+1=26$ ($25$ standardised inputs plus bias). What standard deviation should the initial weights have so that the net input has unit variance? What is the variance of the net input if the weights have standard deviation $0.5$? For a fixed augmented input with squared norm $26$ and independent Gaussian initial weights, how likely is $|u|>2$?
 
 [Solution](#sol-sl-16-1)
 

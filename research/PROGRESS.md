@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-38-onward`. Ranking is frozen in [RANKING.md]
 
 ## Status
 
-Pages ranked: **718**. Done: **47**. Left: **671**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
+Pages ranked: **718**. Done: **57**. Left: **661**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -56,12 +56,22 @@ Pages ranked: **718**. Done: **47**. Left: **671**. Skipped: **0**. Ranks 1–37
 | 45 | [Marginal likelihood and Bayes factor](marginal-likelihood-and-bayes-factor.md) | Concept/definition | [Prose](content/marginal-likelihood-and-bayes-factor.md), [check](../checks/marginal-likelihood-and-bayes-factor.py) | 1,664 → 3,794 | 0 → 0 | Beta-binomial derivation and practice; Kass–Raftery source located |
 | 46 | [Gibbs sampling](gibbs-sampling.md) | Method/topic | [Prose](content/gibbs-sampling.md), [check](../checks/gibbs-sampling.py) | 1,180 → 3,536 | 1 → 1 | Exact sweep proof and practice; MCMC citations located |
 | 47 | [Interaction](interaction.md) | Concept/definition | [Prose](content/interaction.md), [check](../checks/interaction.py) | 1,163 → 3,912 | 3 → 3 | Four-cell contrast and practice; crop-table rounding corrected; source and dependent citations located |
+| 48 | [Discrete distribution](discrete-distribution.md) | Concept | [Prose](content/discrete-distribution.md), [check](../checks/discrete-distribution.py) | 435 → 2,330 | 2 → 2 | Grinstead–Snell and Durrett checked; proof and numeric examples |
+| 49 | [Hyperparameter](hyperparameter.md) | Concept | [Prose](content/hyperparameter.md), [check](../checks/hyperparameter.py) | 1,244 → 3,942 | 0 → 0 | Gelman and Raiffa–Schlaifer checked; prior hierarchy and practice |
+| 50 | [Skewness](skewness.md) | Concept | [Prose](content/skewness.md), [check](../checks/skewness.py) | 197 → 2,344 | 0 → 1 | NIST sources checked; new figure and moment calculations |
+| 51 | [Dispersion parameter](dispersion-parameter.md) | Concept | [Prose](content/dispersion-parameter.md), [check](../checks/dispersion-parameter.py) | 256 → 3,134 | 0 → 0 | McCullagh and R documentation checked; GLM scale distinguished |
+| 52 | [Bayesian credible interval](bayesian-credible-interval.md) | Concept | [Prose](content/bayesian-credible-interval.md), [check](../checks/bayesian-credible-interval.py) | 956 → 2,857 | 1 → 1 | Gelman checked; asymptotic coverage logged in proofs todo |
+| 53 | [Posterior point summaries](posterior-point-summaries.md) | Concept | [Prose](content/posterior-point-summaries.md), [check](../checks/posterior-point-summaries.py) | 711 → 3,490 | 0 → 0 | Gelman and Hoff checked; loss rules and MAP scale proved |
+| 54 | [Sigmoid function](sigmoid-function.md) | Concept | [Prose](content/sigmoid-function.md), [check](../checks/sigmoid-function.py) | 489 → 2,208 | 0 → 0 | Bishop and original neural-unit papers checked; gradients proved |
+| 55 | [Log link](log-link.md) | Concept | [Prose](content/log-link.md), [check](../checks/log-link.py) | 573 → 3,294 | 0 → 0 | McCullagh and R checked; shared link paragraph reconciled |
+| 56 | [Deviance](deviance.md) | Concept | [Prose](content/deviance.md), [check](../checks/deviance.py) | 639 → 3,086 | 1 → 1 | Four-family formulas proved; cholesterol data absent for refit |
+| 57 | [Hidden layer](hidden-layer.md) | Concept | [Prose](content/hidden-layer.md), [check](../checks/hidden-layer.py) | 870 → 3,380 | 0 → 0 | XOR and nonlinear maps proved; bank-question norm corrected |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 48: `discrete-distribution`.** Continue with accessible primary or reputable page-located secondary sources. Rank 47 completed the ten-article checkpoint on this branch; the next checkpoint is rank 57.
+**Rank 58: `a-held-out-test-set`.** Continue with accessible primary or reputable page-located secondary sources. The rank-57 ten-article checkpoint is complete; the next checkpoint is the final rank 67. Rank 57 has 3,380 body words and 37 inline citations versus rank 48's 2,330 and 25. Both have motivating and worked examples, hidden practice answers and two answered bank questions. Rank 57's concept sections cover its topic; rank 48 has an additional distribution-specific Examples section.
 
 ## Citation and prose correction pass
 
@@ -143,4 +153,4 @@ Current batch gate: all 37 arithmetic and printed-value scripts pass against the
 - Exponential family: the displayed Poisson–Gamma update and inherited numbers pass exact checks; generator completed with 718 articles and 557 questions; all 35 page checks, 67 Python tests and offline verification of 420 bibliography entries pass. The two notation systems now have distinct symbols, the normal, Poisson, binomial and Gamma examples remain, and one collapsed proof covers the derived identities. The Pitman–Koopman–Darmois converse remains in the generated proofs todo. No figures existed.
 - Regularisation: the displayed ridge and lasso vectors pass exact checks; generator completed with 718 articles and 557 questions; all 36 page checks, 67 Python tests and offline verification of 421 bibliography entries pass. One collapsed proof covers the stated algebraic properties. All eleven question links remain; no figures existed.
 - Full conditional distribution: the displayed binary conditional and sweep fractions pass exact checks; generator completed with 718 articles and 557 questions; all 37 page checks, 67 Python tests and offline verification of 423 bibliography entries pass. One collapsed proof covers normalization, invariance and the finite positive-state convergence case. All 23 question links remain; no figures existed.
-- No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).
+- No pages skipped. At this checkpoint the generator produced 718 articles and 557 questions, all 67 Python tests passed, offline verification covered 442 bibliography entries, and `git diff --check` passed. The Dodge text was absent from `~/statwiki-sources/dodge2008`; work continued with publisher and author-hosted sources. Rank 56's inherited cholesterol fitted numbers could not be refit because `data/cholest.csv` is absent; their internal arithmetic was checked. Rank 57's inherited claim of 24 hidden neurons in the tsetse example could not be verified from the original chapter. Future uncertain facts go in [todo.md](todo.md).

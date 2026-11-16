@@ -1911,7 +1911,7 @@ The factors traverse the path from the loss to the output, the output net input,
 
 []{#sol-sl-16-1} **[Initial weights](#ex-sl-16-1).**
 
-$\Var(u)=(p+1)\sigma^2=1$ gives $\sigma=26^{-1/2}=0.196$. With $\sigma=0.5$, $\Var(u)=26\times 0.25=6.5$, standard deviation $2.55$. Conditional on the fixed input with squared norm $25$ and Gaussian initial weights,
+$\Var(u)=(p+1)\sigma^2=1$ gives $\sigma=26^{-1/2}=0.196$. With $\sigma=0.5$, $\Var(u)=26\times 0.25=6.5$, standard deviation $2.55$. Conditional on the fixed augmented input with squared norm $26$ and Gaussian initial weights,
 
 $$
 \Pr(|u|>2\given x)=2\bigl[1-\Phi(2/2.55)\bigr]=2\bigl[1-\Phi(0.784)\bigr]=2(0.2165)=0.43.

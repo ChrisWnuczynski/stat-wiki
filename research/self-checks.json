@@ -222,5 +222,9 @@
   "deviance": [
     "q-34",
     "c-29"
+  ],
+  "hidden-layer": [
+    "ex-sl-14-7",
+    "ex-sl-16-1"
   ]
 }
