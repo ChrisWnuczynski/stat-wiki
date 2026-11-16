@@ -122,10 +122,10 @@ An oil company samples 51 households at random from a city. They spent on averag
 
 **Question.** Give a 95% confidence interval for the mean spending $\mu$ in the city, and say what the model assumes.
 
-**Solution.** Model the spending of the 51 households as independent observations from $\Normal(\mu,\sigma^2)$, both unknown. Under this model the $t$ interval has exact coverage; an approximation for non-normal spending needs its own justification. With $t_{50;0.975}=2.009$, the standard error is $178/\sqrt{51}=24.92$, and{{cite:nist_mean_limits2002}} (§1.3.5.2)
+**Solution.** Model the spending of the 51 households as independent observations from $\Normal(\mu,\sigma^2)$, both unknown. Under this model the $t$ interval has exact coverage; an approximation for non-normal spending needs its own justification. With $t_{50;0.975}=2.009$, the standard error is $178/\sqrt{51}=24.92$.{{cite:nist_mean_limits2002}} (§1.3.5.2) The 95% interval is
 
 $$
-1136\pm2.009\times24.93=1136\pm50.1=(1085.9,\ 1186.1).
+1136\pm2.009\times24.92=1136\pm50.1=(1085.9,\ 1186.1).
 $$
 
 :::

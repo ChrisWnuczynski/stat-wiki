@@ -6,11 +6,14 @@ from statistics import NormalDist
 
 
 if __name__ == "__main__":
-    page = (Path(__file__).resolve().parents[1] / "articles" / "confidence-interval.qmd").read_text()
+    root = Path(__file__).resolve().parents[1]
+    page = (root / "articles" / "confidence-interval.qmd").read_text()
+    chapter = (root / "sources" / "stat2004" / "chapters" / "inf-03-confidence-intervals.qmd").read_text()
     printed = (
         "20(0.95)=19",
         r"0.95^{20}\approx0.3585",
         "178/\\sqrt{51}=24.92",
+        "1136\\pm2.009\\times24.92",
         "1136\\pm50.1=(1085.9,\\ 1186.1)",
         "40.56",
         "(1.03,\\ 3.27)",
@@ -20,6 +23,9 @@ if __name__ == "__main__":
     )
     for value in printed:
         assert value in page, f"Value missing from generated article: {value}"
+        if "24.92" in value:
+            assert value in chapter, f"Value missing from source chapter: {value}"
+    assert "24.93" not in page and "24.93" not in chapter
     assert isclose(0.95**20, 0.3585, abs_tol=0.00005)
     assert 20 * 0.95 == 19
     assert isclose(178 / sqrt(51), 24.92, abs_tol=0.005)
