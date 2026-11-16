@@ -246,5 +246,9 @@
   "sufficient-statistic": [
     "ex-inf-poisson-umvu",
     "ex-inf-rao-blackwell-variance"
+  ],
+  "monte-carlo-method": [
+    "c-11",
+    "c-15"
   ]
 }

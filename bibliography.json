@@ -5427,6 +5427,24 @@
         "id": "https://www.stat.umn.edu/geyer/5421/notes/prior.html"
       }
     },
+    "geyer2026_mcmc_notes": {
+      "authors": ["Geyer, C. J."],
+      "year": 2026,
+      "title": "Bayesian Inference via Markov Chain Monte Carlo (MCMC)",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html",
+      "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html"}
+    },
+    "nist_dlmf_quadrature": {
+      "authors": ["National Institute of Standards and Technology"],
+      "year": 2026,
+      "title": "DLMF: Quadrature",
+      "kind": "book",
+      "publisher": "NIST Digital Library of Mathematical Functions",
+      "url": "https://dlmf.nist.gov/3.5",
+      "verification": {"source": "archival_url", "id": "https://dlmf.nist.gov/3.5"}
+    },
     "siegrist2020_poisson_process": {
       "authors": ["Siegrist, K."],
       "year": 2020,

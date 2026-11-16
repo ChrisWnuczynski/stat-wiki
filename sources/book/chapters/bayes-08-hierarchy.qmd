@@ -591,7 +591,7 @@ $$
 $$
 
 
- Sampling from the approximate full posterior proceeds as follows.
+ Sampling from the approximate full posterior proceeds as follows.{{cite:geyer2026_mcmc_notes}} (§8.2, simulation averages)
 
 1.  Flatten the grid weights into a one-dimensional list, form cumulative probabilities, draw $U\sim\operatorname{Uniform}(0,1)$, and select the first cell whose cumulative probability exceeds $U$. Equivalently, draw a grid cell $(Z_1,Z_2)$ with probabilities $\widehat p_{ab}$. Optionally add independent uniform jitter within the selected cell.
 
@@ -608,7 +608,7 @@ $$
 
 4.  Repeat to obtain $(\alpha^{(l)},\beta^{(l)},\thetavec^{(l)})$, $l=1,\ldots,L$.
 
-These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo.{{cite:metropolis_ulam1949}}{{cite:gelman_bda2013}}{{cite:robert_casella2004}} A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
+These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo.{{cite:geyer2026_mcmc_notes}} (§§8.2 and 9.1, ordinary versus Markov-chain Monte Carlo){{cite:nist_dlmf_quadrature}} (§3.5, sampling for integration) A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
 
 :::
 
