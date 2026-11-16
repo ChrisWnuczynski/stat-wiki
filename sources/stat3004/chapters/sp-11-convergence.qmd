@@ -6,7 +6,7 @@ The weak law under a finite variance, and the central limit theorem for a sum of
 
 ## Inequalities, and passing a limit inside the expectation
 
-Expectation is linear on integrable variables, and it is monotone: $X\le Y$ implies $\E X\le\E Y$ when both expectations exist. If $\varphi$ is convex and $X$ is integrable, with $\varphi(X)$ integrable as well, Jensen's inequality says $\varphi(\E X)\le\E\varphi(X)$.{{cite:jensen1906}}{{cite:billingsley1995}}{{cite:durrett2019}} For $\varphi(x)=x^2$ this is $(\E X)^2\le\E X^2$, which rearranges to $\Var(X)\ge 0$.
+Expectation is linear on integrable variables, and it is monotone: $X\le Y$ implies $\E X\le\E Y$ when both expectations exist. If $\varphi$ is convex and $X$ is integrable, with $\varphi(X)$ integrable as well, Jensen's inequality says $\varphi(\E X)\le\E\varphi(X)$.{{cite:jensen1906}} (pp. 175–181, convex mean inequality){{cite:wang2025_foundations}} (Ch. 7, §8.7) For $\varphi(x)=x^2$ this is $(\E X)^2\le\E X^2$, which rearranges to $\Var(X)\ge 0$.
 
 ::: {#thm-sp-convergence-theorems .theorem}
 ## Monotone convergence, Fatou, and dominated convergence

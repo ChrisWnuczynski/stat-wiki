@@ -320,7 +320,7 @@ The same skeleton covers the usual applied questions: whether a firm has an indu
 
 The logistic link is @eq-logit. It is the link we will interpret, and it is the canonical link.
 
-The probit link replaces the logistic curve by a standard normal distribution function.{{cite:bliss1935}}{{cite:berkson1944}}{{cite:mccullagh_nelder1989}} If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
+The probit link replaces the logistic curve by a standard normal distribution function.{{cite:mccullagh1980}} (§4.1, pp. 115–116, link comparisons){{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380, binomial links) If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
 $$
 \Phi^{-1}(p_i)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
@@ -328,7 +328,7 @@ p_i=\Phi(\vect{X}_i^\top\boldsymbol{\beta}).
 $$
 Read it as a quantile. Compute $\vect{X}_i^\top\boldsymbol{\beta}$, find that point on the standard normal axis, and take the probability to its left. That left-tail probability is $p_i$. Any other continuous distribution function would give a link of the same type. The normal is the default.
 
-The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} It is a binomial link.{{cite:wood2017}} Its equation is
+The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh1980}} (§4.2, p. 116) It is a binomial link.{{cite:mccullagh1980}} (§§3.1, 4.1–4.2, pp. 113–116) Its equation is
 $$
 \log\bigl(-\log(1-p_i)\bigr)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad

@@ -162,7 +162,7 @@ The two arguments of $Q$ have different jobs. The current value $\Psi^{(k)}$ det
 
 ### The E step
 
-The complete log-likelihood is linear in the indicators, so the conditional expectation passes inside the sum. The expectation of a binary indicator is the probability that it equals one. Bayes' rule for a discrete label and a continuous measurement identifies that probability with the posterior membership, evaluated at the current parameter{{cite:dempster_laird_rubin1977}}{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting):
+The complete log-likelihood is linear in the indicators, so the conditional expectation passes inside the sum. The expectation of a binary indicator is the probability that it equals one. Bayes' rule for a discrete label and a continuous measurement identifies that probability with the posterior membership, evaluated at the current parameter{{cite:dempster_laird_rubin1977}} (§2, p. 6, eq. 2.17; §4, mixtures){{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting):
 
 \begin{align*}
 Q(\Psi;\Psi^{(k)})
@@ -178,7 +178,7 @@ Q(\Psi;\Psi^{(k)})
 \bigl[\ln\pi_h+\ln f_h(\mathbf{x}_i;\theta_h)\bigr].
 \end{align*}
 
-The current parameter $\Psi^{(k)}$ is held fixed inside $\tau_h$. The free parameter $\Psi$ remains in $\ln\pi_h+\ln f_h$, which is what the M step maximises{{cite:dempster_laird_rubin1977}}{{cite:bishop2006}}. Explicitly,
+The current parameter $\Psi^{(k)}$ is held fixed inside $\tau_h$. The free parameter $\Psi$ remains in $\ln\pi_h+\ln f_h$, which is what the M step maximises.{{cite:dempster_laird_rubin1977}} (§2, p. 6, eq. 2.17) Explicitly,
 
 $$
 \tau_h\bigl(\mathbf{x}_i;\Psi^{(k)}\bigr)
@@ -222,20 +222,20 @@ $$
 {\sum_{i=1}^{n}\tau_{ih}}.
 $$
 
-The formulas now have a familiar shape: proportions, means, and covariance matrices, with fractional membership replacing a hard group label. The divisor is $N_h$. Likelihood maximisation uses $N_h$ in the denominator{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting){{cite:bishop2006}}; an unbiased sample covariance would subtract one from a hard group size, and that correction is a different estimator. These updates require $N_h>0$ and positive definite updated covariance matrices. A collapsed component is a failure of those conditions.
+The formulas now have a familiar shape: proportions, means, and covariance matrices, with fractional membership replacing a hard group label. The divisor is $N_h$. Likelihood maximisation uses $N_h$ in the denominator{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting); an unbiased sample covariance would subtract one from a hard group size, and that correction is a different estimator. These updates require $N_h>0$ and positive definite updated covariance matrices. A collapsed component is a failure of those conditions.
 
 ::: {#def-sl-05-em-algorithm .definition}
 ## EM for a normal mixture
 
 Choose initial values $\Psi^{(0)}$. For $k=0,1,2,\ldots$:
 
-1. E step: compute $\tau_{ih}=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ for all $i,h${{cite:dempster_laird_rubin1977}}.
+1. E step: compute $\tau_{ih}=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ for all $i,h${{cite:dempster_laird_rubin1977}} (§2, p. 6, eq. 2.17).
 2. M step: compute $\pi_h^{(k+1)}$, $\boldsymbol\mu_h^{(k+1)}$, and $\Sigma_h^{(k+1)}$ from the three updates above{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting).
-3. Stop when the change in $\ell(\Psi^{(k)};X_{\mathrm{all}})$ is smaller than a threshold{{cite:bishop2006}}.
+3. Stop when the change in $\ell(\Psi^{(k)};X_{\mathrm{all}})$ is smaller than a chosen numerical threshold; this rule does not establish parameter convergence.{{cite:dempster_laird_rubin1977}} (§3, pp. 6–8, convergence discussion)
 
 :::
 
-$Q(\Psi;\Psi^{(k)})$, plus a constant independent of $\Psi$, is a lower bound on the observed log-likelihood, touching it at the current parameter. The constant matters for the touching statement, and it does not change the maximiser. EM is the minorisation–maximisation step for that bound{{cite:lange2013_opt}}.
+$Q(\Psi;\Psi^{(k)})$, plus a constant independent of $\Psi$, is a lower bound on the observed log-likelihood, touching it at the current parameter. The constant matters for the touching statement, and it does not change the maximiser. EM maximises this touching lower bound.{{cite:dempster_laird_rubin1977}} (§3, pp. 6–8, ascent argument)
 
 ## Why the likelihood never decreases
 

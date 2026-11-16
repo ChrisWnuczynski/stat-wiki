@@ -69,7 +69,7 @@ The modelling choice can be organised into three cases.
 | No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
 | Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
 
-Hierarchical Bayes produces partial pooling.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:efron_morris1975}} This movement is called *shrinkage* or *borrowing strength*.
+Hierarchical Bayes produces partial pooling.{{cite:gelman_bda2013}} (Ch. 5, §5.4, pp. 113–117){{cite:lindley_smith1972}} (pp. 1–3, eq. 1) A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:efron_morris1975}} (pp. 311–312, shrinkage examples) This movement is called *shrinkage* or *borrowing strength*.
 
 ### Where the shrinkage weight comes from
 

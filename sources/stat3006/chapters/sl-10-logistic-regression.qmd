@@ -50,7 +50,7 @@ also called the logit, and the model statement is $h(\tau_1)=\beta^\top x$. The 
 
 ### Logistic and probit
 
-Both links are smooth curves from $0$ to $1$, so the choice is not forced by the range of a probability. The scale of the linear predictor can be absorbed into $\beta$, which means the two curves should be compared after they are given the same slope at $0$.
+Both links are smooth curves from $0$ to $1$, so the choice is not forced by the range of a probability. The scale of the linear predictor can be absorbed into $\beta$, which means the two curves should be compared after they are given the same slope at $0$.{{cite:mccullagh1980}} (§4.1, pp. 115–116, link comparisons)
 
 Differentiate $\sigma(\eta)=(1+e^{-\eta})^{-1}$. The chain rule gives
 

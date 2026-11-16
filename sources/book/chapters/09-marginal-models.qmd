@@ -17,12 +17,12 @@ For two binary variables the correlation cannot be chosen freely. A coin with su
 ::: {#def-marginal .definition}
 A marginal model for clustered responses has three parts.
 
-1. A mean, $g(\mathrm{E}(Y_{ji}\mid \vect{X}_{ji}))=\vect{X}_{ji}^\top\boldsymbol{\beta}$, the same link and the same linear predictor as for independent data.{{cite:liang_zeger1986}}
+1. A mean, $g(\mathrm{E}(Y_{ji}\mid \vect{X}_{ji}))=\vect{X}_{ji}^\top\boldsymbol{\beta}$, the same link and the same linear predictor as for independent data.{{cite:liang_zeger1986}} (§3.1, pp. 15–16, eq. 6)
 2. A variance, $\mathrm{Var}(Y_{ji}\mid \vect{X}_{ji})=\phi V(\mu_{ji})$, depending on the covariates only through the mean.{{cite:zeger_liang_albert1988}}
 3. A working association within a cluster, allowed to depend on the two means and on further association parameters.{{cite:liang_zeger1986}}
 :::
 
-The estimator solves the generalised estimating equations, the dependent version of the quasi-score.{{cite:liang_zeger1986}} The fit does not require integrating up to a likelihood.{{cite:liang_zeger1986}}{{cite:zeger_liang_albert1988}} If the working variance happens to equal the truth, the sandwich collapses to the model-based inverse information, which is the best variance available. If it does not, the variance of $\hat{\boldsymbol{\beta}}$ is the sandwich: model-based bread on the outside, the empirical residual covariance in the middle. Packages still call those pieces bread and meat.
+The estimator solves the generalised estimating equations, the dependent version of the quasi-score.{{cite:liang_zeger1986}} (§3.1, pp. 15–16, eq. 6) The fit does not require integrating up to a likelihood.{{cite:liang_zeger1986}} (§§2–3.1, pp. 14–16) If the working variance happens to equal the truth, the sandwich collapses to the model-based inverse information, which is the best variance available. If it does not, the variance of $\hat{\boldsymbol{\beta}}$ is the sandwich: model-based bread on the outside, the empirical residual covariance in the middle. Packages still call those pieces bread and meat.
 
 ## Warp breaks
 

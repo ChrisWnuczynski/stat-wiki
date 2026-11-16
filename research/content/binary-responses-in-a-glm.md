@@ -64,4 +64,4 @@ No. For a given $p_i$, an observed zero contributes $1-p_i$ and an observed one 
 
 ## History
 
-Nelder and Wedderburn's 1972 paper brought binomial regression together with other exponential-family responses under a common likelihood, linear predictor and link structure. They included the older probit setting as one example, making clear that the binary response distribution and the function linking its mean to predictors can be chosen as distinct components. That distinction is what permits logit, probit and other binary links to share the same Bernoulli likelihood.{{cite:nelder_wedderburn1972}} (introduction and §§1, 3.3, pp. 370–380)
+Nelder and Wedderburn's 1972 paper brought binomial regression together with other exponential-family responses under a common likelihood, linear predictor and link structure. They included the older probit setting as one example, making clear that the binary response distribution and the function linking its mean to predictors can be chosen as distinct components. That distinction is what permits logit, probit and other binary links to share the same Bernoulli likelihood.{{cite:nelder_wedderburn1972}} (§§1, 3.3, pp. 370–380)
