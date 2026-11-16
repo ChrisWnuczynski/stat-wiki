@@ -83,16 +83,16 @@ Y_{ijk}=\mu+\alpha_i+\beta_j+\gamma_{ij}+\varepsilon_{ijk},
 \qquad \varepsilon_{ijk}\ \text{independent}\ \Normal(0,\sigma^2).
 $$
 
-Here $\mu$ is a baseline mean, $\alpha_i$ and $\beta_j$ are the main effects of the two factors, and $\gamma_{ij}$ is their interaction.{{cite:fisher1935_doe}}{{cite:scheffe1959}}{{cite:casella_berger2002}} The parameters are not all identifiable as written; R fixes them by setting the effects of the first level of each factor to zero. Those contrast constraints, the sum-to-zero alternative, and the $F$ tests as linear hypotheses are derived in [Two-factor analysis of variance](inf-15-two-factor-anova.qmd).
+Here $\mu$ is a baseline mean, $\alpha_i$ and $\beta_j$ are the main effects of the two factors, and $\gamma_{ij}$ is their interaction.{{cite:nist_two_way_anova2002}} (§7.4.3.7, model for the two-way factorial experiment) The parameters are not all identifiable as written; R fixes them by setting the effects of the first level of each factor to zero. Those contrast constraints, the sum-to-zero alternative, and the $F$ tests as linear hypotheses are derived in [Two-factor analysis of variance](inf-15-two-factor-anova.qmd).
 
 ::: {#def-interaction .definition}
 ## Interaction
 
-Two factors interact when the effect of one depends on the level of the other: the difference in mean response between two levels of the first factor is not the same at every level of the second.{{cite:fisher1935_doe}}{{cite:scheffe1959}} In the two-factor model, there is no interaction when every $\gamma_{ij}=0$.{{cite:casella_berger2002}}
+Two factors interact when the effect of one depends on the level of the other: the difference in mean response between two levels of the first factor is not the same at every level of the second.{{cite:nist_interactions2002}} (§3.4.2.3){{cite:dodge2008}} (p. 266) In the two-factor model, there is no interaction when every $\gamma_{ij}=0$.{{cite:nist_two_way_anova2002}} (§7.4.3.7, model for the two-way factorial experiment)
 
 :::
 
-An interaction plot draws the cell means of one factor against its levels, one line per level of the other factor. Parallel lines mean no interaction. With interaction present, the main effects on their own are hard to interpret: "the effect of fertilizer" is not a single number if it depends on the region.
+An interaction plot draws the cell means of one factor against its levels, one line per level of the other factor. Parallel lines mean no interaction. With interaction present, the main effects on their own are hard to interpret: "the effect of fertilizer" is not a single number if it depends on the region.{{cite:nist_interactions2002}} (§3.4.2.3)
 
 The two-factor ANOVA table splits the total sum of squares into a part for each factor, a part for the interaction, and the error:
 
@@ -147,7 +147,7 @@ A crop was grown with pesticide (no or yes) and fertilizer (low, medium or high)
 
 **Question.** What does a two-factor analysis show?
 
-**Solution.** A two-sample $t$ test of pesticide alone, ignoring fertilizer, gives $t=-7.30$ and $p=1.8\times10^{-6}$. The two-factor analysis with interaction shows why that single number is incomplete. The interaction is enormous, $F=574$ on $(2,12)$ degrees of freedom: without pesticide the yield is best at high fertilizer, with pesticide it is best at medium. The effect of pesticide is $3.57$ at low fertilizer, $6.14$ at medium and $2.45$ at high. Reporting one average "pesticide effect" would hide that the best fertilizer level depends on whether pesticide is used. With interaction this strong, the useful summary is the table of cell means.
+**Solution.** A two-sample $t$ test of pesticide alone, ignoring fertilizer, gives $t=-7.30$ and $p=1.8\times10^{-6}$. The two-factor analysis with interaction shows why that single number is incomplete. The interaction is enormous, $F=574$ on $(2,12)$ degrees of freedom: without pesticide the yield is best at high fertilizer, with pesticide it is best at medium. The effect of pesticide is $3.57$ at low fertilizer, $6.14$ at medium and $2.46$ at high, as calculated from the displayed means. Reporting one average "pesticide effect" would hide that the best fertilizer level depends on whether pesticide is used. With interaction this strong, the useful summary is the table of cell means.
 
 :::
 

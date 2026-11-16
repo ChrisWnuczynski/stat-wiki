@@ -4437,6 +4437,24 @@
       "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm",
       "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm"}
     },
+    "nist_interactions2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §3.4.2.3: Exploring First Order Interactions",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm"}
+    },
+    "nist_two_way_anova2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.7: The Two-Way ANOVA",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm"}
+    },
     "nist_process_model2002": {
       "authors": [
         "Heckert, N. A.",

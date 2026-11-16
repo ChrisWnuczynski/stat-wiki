@@ -389,7 +389,8 @@ class CitationTests(unittest.TestCase):
             for qid in question_ids:
                 self.assertIn(f"../questions/{qid}.qmd", check, f"Missing bank link in {path.name}")
             self.assertIsNone(
-                re.search(r"\b(?:existing|original definition|opened|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),
+                # "Opened" by itself is ordinary prose in Monty Hall (the host opens a door).
+                re.search(r"\b(?:existing|original definition|opened (?:source|paper|pdf|book|text)|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),
                 f"Editor-facing prose in {path.name}",
             )
             for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):

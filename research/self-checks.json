@@ -182,5 +182,9 @@
   "gibbs-sampling": [
     "q-59",
     "q-26"
+  ],
+  "interaction": [
+    "q-39",
+    "q-40"
   ]
 }

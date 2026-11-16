@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-38-onward`. Ranking is frozen in [RANKING.md]
 
 ## Status
 
-Pages ranked: **718**. Done: **43**. Left: **675**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
+Pages ranked: **718**. Done: **47**. Left: **671**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -52,12 +52,16 @@ Pages ranked: **718**. Done: **43**. Left: **675**. Skipped: **0**. Ranks 1–37
 | 41 | [Systematic-scan Gibbs sampler](systematic-scan-gibbs-sampler.md) | Concept/definition | [Prose](content/systematic-scan-gibbs-sampler.md), [check](../checks/systematic-scan-gibbs-sampler.py) | 2,043 → 4,935 | 1 → 1 | Full sweep proof and order-specific worked transitions; MCMC citations located |
 | 42 | [Observed and expected counts](observed-and-expected-counts.md) | Concept/topic | [Prose](content/observed-and-expected-counts.md), [check](../checks/observed-and-expected-counts.py) | 254 → 2,478 | 0 → 0 | Known and fitted count models distinguished; full proof, practice, and Pearson history sourced |
 | 43 | [Central limit theorem](central-limit-theorem.md) | Theorem | [Prose](content/central-limit-theorem.md), [check](../checks/central-limit-theorem.py) | 1,329 → 3,512 | 2 → 2 | Characteristic-function proof, exponential-sum practice, and located multivariate citations |
+| 44 | [Conditional probability](conditional-probability.md) | Concept/definition | [Prose](content/conditional-probability.md), [check](../checks/conditional-probability.py) | 1,910 → 4,637 | 2 → 2 | Car-table conditioning and practice; inherited citations located; Dodge pp. 104–106 read |
+| 45 | [Marginal likelihood and Bayes factor](marginal-likelihood-and-bayes-factor.md) | Concept/definition | [Prose](content/marginal-likelihood-and-bayes-factor.md), [check](../checks/marginal-likelihood-and-bayes-factor.py) | 1,664 → 3,794 | 0 → 0 | Beta-binomial derivation and practice; Kass–Raftery source located |
+| 46 | [Gibbs sampling](gibbs-sampling.md) | Method/topic | [Prose](content/gibbs-sampling.md), [check](../checks/gibbs-sampling.py) | 1,180 → 3,536 | 1 → 1 | Exact sweep proof and practice; MCMC citations located |
+| 47 | [Interaction](interaction.md) | Concept/definition | [Prose](content/interaction.md), [check](../checks/interaction.py) | 1,163 → 3,912 | 3 → 3 | Four-cell contrast and practice; crop-table rounding corrected; source and dependent citations located |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 44: `conditional-probability`.** Continue with accessible primary or reputable page-located secondary sources. The next ten-article checkpoint and branch push is rank 47.
+**Rank 48: `discrete-distribution`.** Continue with accessible primary or reputable page-located secondary sources. Rank 47 completed the ten-article checkpoint on this branch; the next checkpoint is rank 57.
 
 ## Citation and prose correction pass
 
