@@ -1,0 +1,37 @@
+{
+  "slug": "single-linkage",
+  "rank": 265,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Statistical use",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 289,
+  "words_after": 1960,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "dodge2008 pp. 84\u201385, 102",
+    "hastie_esl2009 Ch. 14 \u00a714.3.12 pp. 522\u2013525",
+    "james_islr2021 Ch. 12 \u00a712.4 p. 524"
+  ],
+  "proofs": [
+    "Single-linkage fusion heights are nondecreasing, while the diameter of a chain can exceed the fusion height."
+  ],
+  "tests": "checks/single-linkage.py passed",
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
