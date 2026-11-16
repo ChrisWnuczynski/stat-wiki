@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "the expected squared gap between an estimate and its target, combining sampling variability and bias in one accuracy measure"
+  },
+  "self_checks": ["ex-inf-poisson-mle", "ex-applied-mmse"]
+}
