@@ -250,5 +250,9 @@
   "monte-carlo-method": [
     "c-11",
     "c-15"
+  ],
+  "metropolis-hastings-algorithm": [
+    "c-14",
+    "c-12"
   ]
 }

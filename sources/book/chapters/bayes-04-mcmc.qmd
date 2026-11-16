@@ -350,7 +350,7 @@ $$
 $$
 
 
- so the normalising constant cancels.{{cite:hastings1970}}{{cite:metropolis1953}}{{cite:robert_casella2004}}
+ so the normalising constant cancels.{{cite:geyer2020_markov_chains}} (§5.5, unnormalised target ratios)
 
 :::
 
@@ -363,7 +363,7 @@ $$
 
  This avoids numerical underflow when an unnormalised target is a product of many small terms.
 
-This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations.{{cite:ising1925}} Its partition function is impractical to sum, but ratios of unnormalised target weights are immediate.{{cite:metropolis1953}} The original Metropolis algorithm used symmetric proposals.{{cite:metropolis1953}} Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.{{cite:hastings1970}}[^b04-mcmc-3]
+This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations.{{cite:ising1925}} (pp. 253–254, binary-state model) Its partition function is impractical to sum, but ratios of unnormalised target weights are immediate.{{cite:metropolis1953}} (p. 1087, molecular configuration sampling) The original Metropolis algorithm used symmetric proposals.{{cite:geyer2020_markov_chains}} (§5.5, symmetric proposal special case) Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.{{cite:hastings1970}} (p. 97, generalization){{cite:geyer2020_markov_chains}} (§5.5, Hastings ratio)[^b04-mcmc-3]
 
 The wartime history surrounding Los Alamos also includes Leó Szilárd.[^b04-mcmc-4]
 
@@ -399,7 +399,7 @@ $$
 ::: {#thm-metropolis-hastings-invariance .theorem}
 ## Metropolis--Hastings invariance
 
-The Metropolis--Hastings transition defined by \eqref{eq:mh-accept} satisfies detailed balance with respect to $\pi$.{{cite:hastings1970}}{{cite:robert_casella2004}} Consequently, $\pi$ is stationary.{{cite:gelman_bda2013}}
+The Metropolis--Hastings transition defined by \eqref{eq:mh-accept} satisfies detailed balance with respect to $\pi$.{{cite:geyer2020_markov_chains}} (§5.5, Theorem 4) Consequently, $\pi$ is stationary.{{cite:geyer2020_markov_chains}} (§4.6, reversibility and stationarity)
 
 :::
 

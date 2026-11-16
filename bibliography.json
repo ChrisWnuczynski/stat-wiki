@@ -5436,6 +5436,15 @@
       "url": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html",
       "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html"}
     },
+    "geyer2020_markov_chains": {
+      "authors": ["Geyer, C. J."],
+      "year": 2020,
+      "title": "Markov Chains",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/8501/markov.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/8501/markov.pdf"}
+    },
     "nist_dlmf_quadrature": {
       "authors": ["National Institute of Standards and Technology"],
       "year": 2026,
