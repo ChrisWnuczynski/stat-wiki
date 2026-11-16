@@ -61,6 +61,11 @@ python build_wiki.py
 quarto preview
 ```
 
+Before starting a research depth pass, run `python research/check_sources.py`. It
+checks the private Dodge source outside the repository and stops with a clear
+error when the index, extracted pages, or PDF are missing. Set
+`STATWIKI_DODGE_DIR` if the source is in another directory.
+
 ## Desktop app
 
 `_app/launch_wiki.pyw` opens the local `_site` folder in its own window, and works offline. After changes made elsewhere, refresh it with:
