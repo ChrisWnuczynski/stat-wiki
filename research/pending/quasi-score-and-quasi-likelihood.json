@@ -1,0 +1,19 @@
+{
+  "bibliography": {
+    "wuthrich_merz2022_glm": {
+      "authors": ["Wüthrich, M. V.", "Merz, M."],
+      "year": 2022,
+      "title": "Generalized Linear Models",
+      "kind": "incollection",
+      "venue": "Statistical Foundations of Actuarial Learning and its Applications",
+      "publisher": "Springer",
+      "pages": "111–205",
+      "doi": "10.1007/978-3-031-12409-9_5",
+      "verification": {"source": "crossref", "id": "10.1007/978-3-031-12409-9_5"}
+    }
+  },
+  "article_lead": {
+    "description": "an estimating framework that uses a regression mean and variance function when a full response distribution is unavailable"
+  },
+  "self_checks": ["q-54", "c-28"]
+}
