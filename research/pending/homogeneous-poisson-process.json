@@ -1,0 +1,18 @@
+{
+  "bibliography": {
+    "bertsekas_tsitsiklis2008_summary": {
+      "authors": ["Bertsekas, D. P.", "Tsitsiklis, J. N."],
+      "year": 2008,
+      "title": "Introduction to Probability",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "Athena Scientific / Massachusetts Institute of Technology",
+      "url": "https://live.ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/d973b10c2587781f86ca4f2aff49098f_MITRES_6_012S18_Textbook.pdf",
+      "verification": {"source": "archival_url", "id": "https://live.ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/d973b10c2587781f86ca4f2aff49098f_MITRES_6_012S18_Textbook.pdf"}
+    }
+  },
+  "article_lead": {
+    "description": "a model of random arrivals at a constant rate, connecting counts in time windows to the waits between events"
+  },
+  "self_checks": ["ex-sp-poisson-half-hour", "ex-sp-increments-and-levels"]
+}
