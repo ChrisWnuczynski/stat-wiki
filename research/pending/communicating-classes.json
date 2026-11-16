@@ -1,0 +1,68 @@
+{
+  "slug": "communicating-classes",
+  "rank": 222,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — A state you can leave and not return to",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — Which long-run sentence is available",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the class picture is not the chain",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 194,
+  "words_after": 2161,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Siegrist Recurrence §4",
+    "Siegrist Periodicity §5"
+  ],
+  "proofs": [
+    "Equivalence relation, shared period, alternation stationary law without a limit"
+  ],
+  "tests": [
+    "checks/communicating-classes.py passed"
+  ],
+  "skipped": [],
+  "bibliography": {
+    "siegrist2022_markov_recurrence": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Transience and Recurrence",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/Recurrence.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/Recurrence.html"
+      }
+    },
+    "siegrist2022_markov_period": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Periodicity",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/Periodicity.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/Periodicity.html"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}
