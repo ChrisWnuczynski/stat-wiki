@@ -10,7 +10,7 @@ $$
 \Lambda=\frac{\sup_{\theta\in\Omega_0}L(\theta)}{\sup_{\theta\in\Omega_1}L(\theta)}.
 $$
 
-The numerator is the largest likelihood allowed by the null. The denominator is the largest likelihood allowed by the alternative. When the null set sits inside the alternative set, the denominator is the unrestricted maximum and $\Lambda\le 1$. Small $\Lambda$ means the null cannot reach the fit of the larger model. The generalised likelihood-ratio test rejects $H_0$ when $\Lambda$ is smaller than a threshold chosen to control the type I error.{{cite:neyman_pearson1928}}{{cite:lehmann_romano2005}}{{cite:wilks1938}}
+The numerator is the largest likelihood allowed by the null. The denominator is the largest likelihood allowed by the alternative. When the null set sits inside the alternative set, the denominator is the unrestricted maximum and $\Lambda\le 1$. Small $\Lambda$ means the null cannot reach the fit of the larger model. The generalised likelihood-ratio test rejects $H_0$ when $\Lambda$ is smaller than a threshold chosen to control the type I error.{{cite:siegrist2022_lrt}} (§9.5, Basic Theory){{cite:taboga2021_lrt}} (§ “The likelihood ratio statistic”)
 
 For a normal mean with known variance the supremum under $H_0:\mu=\mu_0$ is the likelihood at $\mu_0$, and the supremum under $H_1:\mu\ne\mu_0$ is the likelihood at $\overline X$. The ratio is a monotone function of $|\overline X-\mu_0|/(\sigma/\sqrt n)$, so the test is the two-sided $z$ test. Nothing new happens until a parameter remains free under the null.
 

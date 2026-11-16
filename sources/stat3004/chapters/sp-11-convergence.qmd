@@ -39,10 +39,10 @@ for every $n$. There is no integrable $Y$ with $|X_n|\le Y$ for all $n$. Any suc
 ::: {#def-sp-modes .definition}
 ## Modes of convergence
 
-- $X_n\to X$ almost surely when $\mathrm{P}\{\omega: X_n(\omega)\to X(\omega)\}=1$.{{cite:billingsley1995}}
-- $X_n\to X$ in probability when $\mathrm{P}(|X_n-X|>\varepsilon)\to 0$ for every $\varepsilon>0$.{{cite:durrett2019}}
+- $X_n\to X$ almost surely when $\mathrm{P}\{\omega: X_n(\omega)\to X(\omega)\}=1$.{{cite:siegrist_convergence_prob}} (Convergence, With Probability 1)
+- $X_n\to X$ in probability when $\mathrm{P}(|X_n-X|>\varepsilon)\to 0$ for every $\varepsilon>0$.{{cite:siegrist_convergence_prob}} (Convergence, Convergence in Probability)
 - $X_n\to X$ in $L^p$, for $p\ge 1$, when $\E|X_n-X|^p\to 0$.
-- $X_n\to X$ in distribution when $F_{X_n}(x)\to F_X(x)$ at every continuity point $x$ of $F_X$.{{cite:doob1953}}
+- $X_n\to X$ in distribution when $F_{X_n}(x)\to F_X(x)$ at every continuity point $x$ of $F_X$.{{cite:siegrist_convergence_dist}} (Convergence in Distribution, Definition)
 
 :::
 

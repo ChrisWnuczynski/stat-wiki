@@ -200,16 +200,16 @@ If the mean $\mu$ exists, the strong law says
 $$
 \Pr\Bigl(\lim_{n\to\infty} S_n/n=\mu\Bigr)=1.
 $$
-{{cite:kolmogorov1933_slln}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}}
+{{cite:siegrist2022_lln}} (§6.3, Weak and Strong Laws of Large Numbers)
 
 If in addition the variance is finite, the weak law says that for every $\varepsilon>0$,
 
 $$
 \lim_{n\to\infty}\Pr\bigl(|S_n/n-\mu|>\varepsilon\bigr)=0.
 $$
-{{cite:bernoulli1713}}{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}
+{{cite:siegrist2022_lln}} (§6.3, Weak and Strong Laws of Large Numbers){{cite:dodge2008}} (p. 39, “Bernoulli’s Theorem”)
 
-The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero.{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}
+The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero.{{cite:siegrist2022_lln}} (§6.3, Sample Mean and Weak Law)
 
 :::
 

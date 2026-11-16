@@ -5,6 +5,7 @@ Type: concept. Baseline 438 words, no figures. Preserve the finite-equally-likel
 ## Sources opened
 
 - **Checked:** Siegrist, *Probability, Mathematical Statistics, and Stochastic Processes*, §§2.1–2.2, full online sections on experiments, outcome sets, events, sigma-algebras, random variables and finite/Euclidean examples.
+- **Checked:** Siegrist, “Combinatorial Structures,” full author-hosted chapter at https://www.randomservices.org/random/foundations/Structures.html , Sampling section, which derives all four order-and-replacement counts, including the multiset count via bit strings. Proposed bibliography key: `siegrist2022_combinatorial_structures`.
 - **Checked:** Vovk and Shafer (2003), author-hosted full article, §§1–2, on Kolmogorov's 1933 probability-space formalization. Bibliographic publication metadata cross-checked with the publisher index.
 - **Checked:** authorized Dodge (2008), printed p. 467 “Sample Space”: finite/countable/uncountable outcome sets, sure event probability one, and coin/die examples.
 - **Checked:** answered bank items `ex-prob-three-cards` and `ex-prob-dice-sum-pmf`; both substantively use sample-space choice and neither repeats the two embedded three-toss examples.

@@ -44,7 +44,7 @@ $$
 =\frac{f_g(\mathbf{x})\,\pi_g}{f_X(\mathbf{x})},
 $$
 
-where $f_g(\mathbf{x})$ is the density of class $g$ and $f_X(\mathbf{x})$ is the marginal density of the measurements{{cite:wald1950}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. The marginal is the mixture of the class densities,
+where $f_g(\mathbf{x})$ is the density of class $g$ and $f_X(\mathbf{x})$ is the marginal density of the measurements{{cite:james_islr2013}} (§4.4.1, pp. 138–140, Bayes classifier). The marginal is the mixture of the class densities,
 
 $$
 f_X(\mathbf{x})=\sum_{g=1}^{G}\pi_g f_g(\mathbf{x}).
@@ -62,7 +62,7 @@ $$
 =\frac{\pi_g f_g(\mathbf{x})}{\sum_{g'=1}^{G}\pi_{g'} f_{g'}(\mathbf{x})}.
 $$
 
-{{cite:wald1950}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}
+{{cite:james_islr2013}} (§4.4.1, pp. 138–140, posterior class probabilities)
 :::
 
 The class that this posterior says is most probable is
@@ -72,7 +72,7 @@ B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x})
 =\arg\max_{g\in\{1,\ldots,G\}}\pi_g f_g(\mathbf{x}).
 $$
 
-The second equality holds because the marginal density $f_X(\mathbf{x})$ is the same for every class, so it cannot change which class wins. When the densities and the priors are the true ones, this rule has the lowest expected zero–one risk{{cite:wald1950}}{{cite:hastie_esl2009}}. The plug-in rule keeps the same comparison and replaces each unknown quantity by an estimate from the training sample:
+The second equality holds because the marginal density $f_X(\mathbf{x})$ is the same for every class, so it cannot change which class wins. When the densities and the priors are the true ones, this rule has the lowest expected zero–one risk{{cite:james_islr2013}} (§2.2.3, pp. 37–39, Bayes classifier). The plug-in rule keeps the same comparison and replaces each unknown quantity by an estimate from the training sample:
 
 $$
 \eta^{(X_{\mathrm{all}},\mathbf{y}_{\mathrm{all}})}(\mathbf{x})
@@ -146,7 +146,7 @@ $$
 \eta(\mathbf{x})=B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x}).
 $$
 
-{{cite:wald1950}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}
+{{cite:james_islr2013}} (§2.2.3, pp. 37–39, Bayes decision rule)
 :::
 
 At a fixed $\mathbf{x}$, predicting $h$ incurs conditional error $1-\tau_h(\mathbf{x})$. Choose a largest posterior to make this as small as possible. Integrating that pointwise inequality over $X$ proves optimality for overall error as well. Ties can be resolved by any fixed convention; the risk is the same.
@@ -171,13 +171,13 @@ $$
 =\arg\min_{h\in\{1,\ldots,G\}}\sum_{g\ne h}\tau_g(\mathbf{x})\,c_{gh}.
 $$
 
-For two classes the comparison simplifies. The rule predicts class $1$ when $\tau_2(\mathbf{x})\,c_{21}<\tau_1(\mathbf{x})\,c_{12}$, which is $\tau_1(\mathbf{x})/\tau_2(\mathbf{x})>c_{21}/c_{12}$. The threshold on the posterior odds moves toward the class whose misclassification costs more{{cite:wald1950}}. Equal costs put the threshold at $1$ and recover the maximum-posterior rule{{cite:wald1950}}{{cite:hastie_esl2009}}. The posteriors themselves still come from Bayes' theorem. Only the cutoff has changed.
+For two classes the comparison simplifies. The rule predicts class $1$ when $\tau_2(\mathbf{x})\,c_{21}<\tau_1(\mathbf{x})\,c_{12}$, which is $\tau_1(\mathbf{x})/\tau_2(\mathbf{x})>c_{21}/c_{12}$. The threshold on the posterior odds moves toward the class whose misclassification costs more. Equal costs put the threshold at $1$ and recover the maximum-posterior rule{{cite:james_islr2013}} (§2.2.3, pp. 37–39, maximum-posterior rule). The posteriors themselves still come from Bayes' theorem. Only the cutoff has changed.
 
 ## Linear discriminant analysis
 
-LDA supplies the missing class densities by assuming $X\given Y=g\sim\Normal_p(\boldsymbol\mu_g,\Sigma)$, with one covariance shared across classes. This is a distribution conditional on a class label. Different means move the class centres. The common covariance gives them the same shape and orientation. The reward for that restriction is a linear log-odds comparison{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}.
+LDA supplies the missing class densities by assuming $X\given Y=g\sim\Normal_p(\boldsymbol\mu_g,\Sigma)$, with one covariance shared across classes. This is a distribution conditional on a class label. Different means move the class centres. The common covariance gives them the same shape and orientation. The reward for that restriction is a linear log-odds comparison{{cite:james_islr2013}} (§4.4.3, pp. 142–144, shared-covariance model).
 
-The labels are known, so the training sample splits into classes and each piece can be estimated on its own. The priors are the training proportions above, unless the design fixed the class sizes or a better external estimate exists. The mean of each class is the ordinary sample mean of its own observations. The common covariance centres every observation by its own class mean, pools the cross-products, and divides by $n-G$. That divisor is the unbiased one: one degree of freedom is spent on each of the $G$ estimated means{{cite:anderson2003_mva}},
+The labels are known, so the training sample splits into classes and each piece can be estimated on its own. The priors are the training proportions above, unless the design fixed the class sizes or a better external estimate exists. The mean of each class is the ordinary sample mean of its own observations. The common covariance centres every observation by its own class mean, pools the cross-products, and divides by $n-G$. That divisor is the unbiased one: one degree of freedom is spent on each of the $G$ estimated means{{cite:james_islr2013}} (§4.4.3, pp. 142–144, pooled covariance estimate),
 
 $$
 \widehat\Sigma
@@ -245,7 +245,7 @@ $$
 \alpha+\mathbf{x}^\top\boldsymbol\beta=0.
 $$
 
-{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}
+{{cite:james_islr2013}} (§4.4.3, pp. 142–144, linear boundary)
 
 Predicting the class with the larger weighted density is the sign rule
 
@@ -428,7 +428,7 @@ The ratio depends on the direction of $\mathbf{a}$ and not on its length. One ro
 ::: {#thm-sl-08-fisher .theorem}
 ## Fisher's direction
 
-Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}${{cite:fisher1936}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
+Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}${{cite:fisher1936}} (§§I–II, p. 179, discriminant criterion){{cite:james_islr2013}} (§4.4.3, pp. 142–144, Fisher direction). If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
 
 :::
 
