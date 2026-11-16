@@ -1,0 +1,32 @@
+{
+  "bibliography": {
+    "bell_kenward2013": {
+      "authors": ["Bell, M. L.", "Kenward, M. G.", "Fairclough, D. L.", "Horton, N. J."],
+      "year": 2013,
+      "title": "Differential dropout and bias in randomised controlled trials: when it matters and when it may not",
+      "kind": "article",
+      "venue": "BMJ",
+      "volume": "346",
+      "pages": "e8668",
+      "doi": "10.1136/bmj.e8668",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4688419/",
+      "verification": {"source": "crossref", "id": "10.1136/bmj.e8668"}
+    },
+    "schober_vetter2018": {
+      "authors": ["Schober, P.", "Vetter, T. R."],
+      "year": 2018,
+      "title": "Repeated Measures Designs and Analysis of Longitudinal Data: If at First You Do Not Succeed—Try, Try Again",
+      "kind": "article",
+      "venue": "Anesthesia & Analgesia",
+      "volume": "127",
+      "issue": "2",
+      "pages": "569–575",
+      "doi": "10.1213/ANE.0000000000003511",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6072386/",
+      "verification": {"source": "crossref", "id": "10.1213/ANE.0000000000003511"}
+    }
+  },
+  "proofs_todo": [],
+  "self_checks": ["ex-orthodont-lmm", "ex-toenail-glmm"],
+  "shared_changes": []
+}
