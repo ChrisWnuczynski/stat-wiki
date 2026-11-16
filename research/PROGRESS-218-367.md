@@ -99,3 +99,18 @@ Unverified:
 - No new bibliography keys.
 - Ten partial proofs are logged in `research/todo.md`: Basu independence, the false-discovery-rate bound, convergence of transition powers, the multiparameter Cramér–Rao bound, the dominated-family converse, successive principal-component directions, the soft-margin KKT characterisation, the studentised-range density, Lehmann–Scheffé uniqueness, and the Wald asymptotic null.
 - Spot-check of gram-matrix and count-responses found sourced definitions and proofs. No further prose change.
+
+## Batch P — ranks 293–307
+
+Ranks: 293 first-passage-time, 294 five-number-summary-and-boxplot, 295 identity-link, 296 newton-raphson-method, 297 normal-sample-theorem, 298 sigma-algebra, 299 complete-separation, 300 dummy-variable-coding, 301 lloyd-s-k-means-algorithm, 302 m-m-1-queue, 303 markov-properties-and-factorisation, 304 maximum-likelihood-in-a-glm, 305 proportional-odds-model, 306 restricted-maximum-likelihood, 307 sparsity.
+
+Pages fixed: none. Spot-check of first-passage-time and sparsity found sourced definitions and worked calculations.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (470 works). `git diff --check` passed. All 15 page checks passed. The normal-sample-theorem entry in `proofs-todo.json` now records why the orthogonal-transformation argument is not in a proof box.
+
+Unverified:
+
+- No new bibliography keys.
+- Complete separation's general existence theorem, the Hammersley–Clifford converse, and general REML remain unproved and are logged in `research/todo.md`.

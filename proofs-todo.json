@@ -142,7 +142,7 @@
   {
     "slug": "normal-sample-theorem",
     "title": "Normal sample theorem",
-    "reason": "A reviewed proof sketch is still needed."
+    "reason": "The chi-squared law and the independence of the sample mean and variance use an orthogonal transformation of the standard normal vector. That argument is longer than a short proof box, so no proof box was added."
   },
   {
     "slug": "null-distribution-of-hotelling-s",
