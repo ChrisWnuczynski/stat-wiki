@@ -1,0 +1,38 @@
+{
+  "slug": "soft-margin-primal",
+  "rank": 279,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — A budget for overlap",
+    "Definition — The primal cost",
+    "Properties — The smallest feasible slack",
+    "Worked example — A feasible plane, not yet the optimum",
+    "Connections — Dual bounds and the hinge",
+    "Check yourself — Reading a slack"
+  ],
+  "words_before": 423,
+  "words_after": 1111,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman (2009), ESL 12th printing, pp. 418–421 and 424"
+  ],
+  "proofs": [
+    "Smallest feasible slack for a fixed plane"
+  ],
+  "tests": [
+    "checks/soft-margin-primal.py"
+  ],
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "soft-margin-primal#kkt-characterisation",
+      "title": "KKT characterisation of the soft-margin solution",
+      "reason": "The article proves the smallest feasible slack for a fixed plane. It does not prove the KKT characterisation of the minimiser."
+    }
+  ],
+  "todo": []
+}
