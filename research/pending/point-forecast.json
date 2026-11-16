@@ -1,0 +1,28 @@
+{
+  "article_lead": {
+    "description": "a single prediction for a stated future observation that anchors planning while its uncertainty is assessed separately"
+  },
+  "self_checks": ["depth-point-forecast-ar-two-step", "depth-point-forecast-loss"],
+  "new_bank_questions": [
+    {
+      "id": "depth-point-forecast-ar-two-step",
+      "title": "An autoregression two steps ahead",
+      "body": "A stationary AR(1) series has mean 20, coefficient 0.6, innovation variance 9, and latest value 30. Find the conditional-mean forecasts one and two steps ahead and the corresponding forecast-error variances.",
+      "answer": "The forecasts are 20+0.6(30-20)=26 and 20+0.6²(30-20)=23.6. The error variances are 9 and 9(1+0.6²)=12.24. The second forecast has moved toward the mean while uncertainty has increased.",
+      "topic_code": "T2"
+    },
+    {
+      "id": "depth-point-forecast-loss",
+      "title": "Which forecast is best under each loss?",
+      "body": "Conditional on today's information, tomorrow's demand is 10 with probability 0.8 and 30 with probability 0.2. Give a forecast minimizing squared error and one minimizing absolute error. Explain why they differ.",
+      "answer": "The conditional mean is 0.8(10)+0.2(30)=14, which minimizes squared error. The conditional median is 10, which minimizes absolute error because 80% of the conditional probability lies there. The two losses penalize misses differently.",
+      "topic_code": "T2"
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/11-forecasting.qmd",
+      "description": "At line 3, the sentence saying automatic order choice 'does what the autocorrelation plots would have suggested by hand' overstates the equivalence. Replace it with: 'Automatic selection evaluates candidate models by an information criterion, while autocorrelation plots remain useful for diagnosis and interpretation.' Rebuild/check the Forecasting chapter, Point forecast, and ARIMA model pages."
+    }
+  ]
+}
