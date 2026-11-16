@@ -33,7 +33,7 @@ Sufficiency is not a claim that the discarded features are useless for every pur
 ## Sufficiency and the Fisher--Neyman theorem
 
 ::: {#def-definition .definition}
-A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.{{cite:fisher1922}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
+A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.{{cite:fisher1922}} (pp. 309–316, sufficiency){{cite:geyer2022_exp_family}} (§8.1, Definition)
 
 :::
 
@@ -49,11 +49,11 @@ Suppose the family $\{p(\xvec\given\theta):\theta\in\Omega\}$ is dominated by a 
  =g_\theta\{T(\xvec)\}h(\xvec),
  \qquad \theta\in\Omega,
  \label{eq:fisher-neyman-factorisation}
-\end{equation} where $h$ does not depend on $\theta$.{{cite:neyman1937}}{{cite:halmos_savage1949}}{{cite:casella_berger2002}}
+\end{equation} where $h$ does not depend on $\theta$.{{cite:geyer2022_exp_family}} (§8.3, Neyman–Fisher Factorization Criterion)
 
 :::
 
-The factorisation says that every part of the likelihood that depends on $\theta$ must pass through $T(\xvec)$. For a discrete sample, the easy direction of the theorem can be seen directly. If $T(\xvec)=t$, then \begin{align*}
+The factorisation says that every part of the likelihood that depends on $\theta$ must pass through $T(\xvec)$.{{cite:geyer2022_exp_family}} (§8.3, factorization criterion) For a discrete sample, the easy direction of the theorem can be seen directly. If $T(\xvec)=t$, then \begin{align*}
  \Pr_\theta(\Xvec=\xvec\given T=t)
  &=\frac{p(\xvec\given\theta)}
          {\sum_{\vect u:T(\vect u)=t}
@@ -118,9 +118,9 @@ $$
 $$
 
 
- The factorisation theorem therefore proves that $\sum_iX_i$ is sufficient for $\mu$. Since $\overline X=T/n$ is a one-to-one function of $T$ when $n$ is fixed, $\overline X$ is equivalent and is also sufficient.
+ The factorisation theorem therefore proves that $\sum_iX_i$ is sufficient for $\mu$.{{cite:geyer2022_exp_family}} (§9.1, iid natural statistic) Since $\overline X=T/n$ is a one-to-one function of $T$ when $n$ is fixed, $\overline X$ is equivalent and is also sufficient.
 
-If both $\mu$ and $\sigma^2$ are unknown, the displayed factorisation no longer isolates all parameter dependence through $\sum_iX_i$. A sufficient statistic for $(\mu,\sigma^2)$ is instead 
+If both $\mu$ and $\sigma^2$ are unknown, the displayed factorisation no longer isolates all parameter dependence through $\sum_iX_i$.{{cite:geyer2022_exp_family}} (§9.1, natural statistic for iid samples) A sufficient statistic for $(\mu,\sigma^2)$ is instead
 
 $$
  \left(\sum_{i=1}^nX_i,\sum_{i=1}^nX_i^2\right),
@@ -190,7 +190,7 @@ A statistic $A(\Xvec)$ is *ancillary* if its sampling distribution does not depe
 ::: {#thm-basu-s-theorem .theorem}
 ## Basu's theorem
 
-A complete sufficient statistic is independent of every ancillary statistic.{{cite:basu1955}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
+A complete sufficient statistic is independent of every ancillary statistic.{{cite:dasgupta2007_basu}} (pp. 945–946, Basu's theorem)
 
 :::
 

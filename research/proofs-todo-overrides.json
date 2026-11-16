@@ -8,5 +8,15 @@
     "slug": "bayesian-credible-interval#property-asymptotic-coverage",
     "title": "Large-sample frequentist coverage of Bayesian central intervals",
     "reason": "The source states asymptotic correspondence under regularity conditions; a complete Bernstein–von Mises argument is outside the article's collapsed finite-sample proof."
+  },
+  {
+    "slug": "sufficient-statistic#property-pitman-koopman-darmois-informal-form",
+    "title": "Pitman–Koopman–Darmois converse for sufficient statistics",
+    "reason": "The page proves factorization and Basu’s theorem, but a full converse needs the cited regularity and common-support argument."
+  },
+  {
+    "slug": "sufficient-statistic#property-fisher-neyman-factorisation",
+    "title": "Dominated-space converse of Fisher–Neyman factorization",
+    "reason": "The collapsed proof gives both directions for discrete samples and outlines the conditional-kernel argument, but not the full measure-theoretic dominated-space construction."
   }
 ]

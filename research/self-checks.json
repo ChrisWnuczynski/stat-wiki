@@ -242,5 +242,9 @@
   "generic-exponential-family-conjugate-update": [
     "ex-applied-exp-rate",
     "ex-applied-exp-scale"
+  ],
+  "sufficient-statistic": [
+    "ex-inf-poisson-umvu",
+    "ex-inf-rao-blackwell-variance"
   ]
 }

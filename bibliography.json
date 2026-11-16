@@ -248,6 +248,18 @@
         "id": "10.1093/biomet/34.1-2.123"
       }
     },
+    "dasgupta2007_basu": {
+      "authors": ["DasGupta, A."],
+      "year": 2007,
+      "title": "Extensions to Basu's theorem, factorizations, and infinite divisibility",
+      "kind": "article",
+      "venue": "Journal of Statistical Planning and Inference",
+      "volume": "137",
+      "pages": "945–952",
+      "doi": "10.1016/j.jspi.2006.06.018",
+      "url": "https://www.stat.purdue.edu/~dasgupta/basuinfdiv.pdf",
+      "verification": {"source": "crossref", "id": "10.1016/j.jspi.2006.06.018"}
+    },
     "basu1955": {
       "authors": [
         "Basu, D."
