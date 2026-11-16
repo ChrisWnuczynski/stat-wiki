@@ -1,0 +1,27 @@
+{
+  "article_lead": {
+    "article": "",
+    "verb": "maps",
+    "description": "a binary response probability to a normal score so a linear predictor yields valid fitted probabilities"
+  },
+  "self_checks": ["q-38", "c-20", "depth-probit-dose"],
+  "new_bank_questions": [
+    {
+      "id": "depth-probit-dose",
+      "title": "Interpret a fitted probit dose curve",
+      "body": "A binary probit model is p(x)=Φ(-1+0.5x). Find p at x=0, 2 and 4, the dose where p=0.5, and the local probability derivative at that dose. Explain why the coefficient is not a probability increase.",
+      "answer": "The normal scores are -1, 0 and 1, giving p≈0.15866, 0.5 and 0.84134. The half-probability dose is x=2. The derivative there is 0.5φ(0)=0.5/√(2π)≈0.19947 per unit of x; elsewhere the derivative is 0.5φ(-1+0.5x), so it is not constant.",
+      "topic_code": "G1"
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "topics.py",
+      "description": "In the Probit link definition around line 783, qualify the statement that fitted probit coefficients are smaller than logit coefficients by a factor of about 1.6–1.8. It is an approximate comparison under comparable fitted curves, not an identity for any binary dataset or every coefficient. Check Probit link and dependent GLM/link pages."
+    },
+    {
+      "file": "sources/book/chapters/01-introduction-to-glms.qmd",
+      "description": "In 'Three links' around lines 339–341, qualify the blanket claims that fitted logit and probit curves almost always agree and that goodness of fit will not motivate a switch. Their tails differ and model comparison depends on data and purpose. Check Introduction to GLMs, Probit link, Logit link and all linked comparison pages."
+    }
+  ]
+}
