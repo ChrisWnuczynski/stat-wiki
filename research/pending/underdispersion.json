@@ -1,0 +1,29 @@
+{
+  "article_lead": {
+    "article": "",
+    "description": "conditional count variation smaller than a fitted reference model predicts, which changes uncertainty estimates"
+  },
+  "self_checks": ["c-28", "depth-underdispersion-binomial", "depth-underdispersion-conditional"],
+  "new_bank_questions": [
+    {
+      "id": "depth-underdispersion-binomial",
+      "title": "A binomial count below Poisson variance",
+      "body": "A count is binomial with five trials and success probability 0.4. Find its mean, variance and variance-to-mean ratio. Compare its variance with a Poisson count having the same mean.",
+      "answer": "The mean is 5(0.4)=2 and the variance is 5(0.4)(0.6)=1.2. Its variance-to-mean ratio is 1.2/2=0.6. A Poisson count with mean 2 has variance 2, so this binomial mechanism is underdispersed relative to that Poisson reference.",
+      "topic_code": "G3"
+    },
+    {
+      "id": "depth-underdispersion-conditional",
+      "title": "Conditional spread versus pooled spread",
+      "body": "Five units in group A each have count 1; five in group B each have count 5. Compute the pooled sample mean and variance, then describe the within-group variance. Why can a pooled mean–variance comparison misdiagnose dispersion?",
+      "answer": "The pooled mean is 3 and the pooled sample variance is 40/9≈4.444, greater than the pooled mean. Within each group the sample variance is zero. The group indicator explains the mean shift; dispersion should be assessed conditional on fitted group means rather than from the pooled counts.",
+      "topic_code": "G3"
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "topics.py",
+      "description": "At topic('Underdispersion') around line 823, replace the definition 'Variance smaller than the model implies, for counts a variance below the mean. It is rarer than overdispersion.' with 'Conditional variance smaller than the reference model predicts; for a Poisson reference this is variance below the conditional mean.' The unqualified rarity claim has no supporting source and a count reference need not always be Poisson. Rebuild and check dependent Underdispersion and related topic pages."
+    }
+  ]
+}
