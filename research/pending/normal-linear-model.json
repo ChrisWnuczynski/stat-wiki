@@ -1,0 +1,18 @@
+{
+  "bibliography": {
+    "kulich2022_regression": {
+      "authors": ["Kulich, M."],
+      "year": 2022,
+      "title": "Advanced Regression Models",
+      "kind": "book",
+      "publisher": "Charles University, Faculty of Mathematics and Physics",
+      "url": "https://www.karlin.mff.cuni.cz/~kulich/vyuka/pokreg/doc/advreg_notes_ext_220218.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.karlin.mff.cuni.cz/~kulich/vyuka/pokreg/doc/advreg_notes_ext_220218.pdf"}
+    }
+  },
+  "self_checks": ["ex-inf-extra-ss", "ex-inf-prediction-width"],
+  "shared_changes": [
+    {"file": "sources/stat2003/chapters/prob-05-transforms-and-limits.qmd", "description": "The normal linear model definition cites unopened Fisher 1925, Gauss 1809 and Davison 2003 as if each supported modern iid-normal wording. Opened Kulich 2022 §§1.1–1.3 pp. 6–8 supplies the exact matrix and simple-regression model; preserve the definition and separate historical uses of original citations only after original passages are read. Recheck its dependent probability pages."},
+    {"file": "sources/stat2004/chapters/inf-06-regression.qmd", "description": "The heart-rate regression example and nearby sampling theorem have inherited Fox 2016 and Casella–Berger 2002 citations not fully verified in the page ranges. Opened Kulich 2022 §1.3 p. 8 and ISLR 2013 Ch. 3 §§3.1–3.3 pp. 61–101 support regression formulas and exact pivot claims. Preserve the heart-rate table and all results; retain it as source-chapter data, add located general-formula citations, and check dependent inference pages."}
+  ]
+}
