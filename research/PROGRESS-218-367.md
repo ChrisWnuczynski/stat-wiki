@@ -114,3 +114,23 @@ Unverified:
 
 - No new bibliography keys.
 - Complete separation's general existence theorem, the Hammersley–Clifford converse, and general REML remain unproved and are logged in `research/todo.md`.
+
+## Batch Q — ranks 308–322
+
+Ranks: 308 stochastic-gradient-descent, 309 stochastic-process, 310 tower-property, 311 wald-interval, 312 weight-initialisation, 313 early-stopping, 314 epoch, 315 random-forest, 316 gini-index, 317 out-of-bag-estimation-and-variable-importance, 318 adjusted-rand-index, 319 bids-for-a-bankrupt-firm, 320 chi-squared-test-of-independence, 321 complete-data-likelihood, 322 countable-additivity.
+
+Pages fixed:
+
+- adjusted-rand-index: the shared lead now ends with identical partitions scoring one and chance agreement scoring about zero.
+- tower-property: the statement heading stays `Statement`. The specific label remains the first sentence.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (470 works). `git diff --check` passed. All 15 page checks passed.
+
+Unverified:
+
+- No new bibliography keys.
+- The bankrupt-firm log-mean multiplier still needs a page-located source. Dodge's name for a stochastic process is the infinite-index case; the page also allows a finite index.
+- Chi-squared convergence under estimated margins, the early-stopping weight-decay identification, stochastic-approximation convergence, and plug-in Wald coverage remain unproved and are logged in `research/todo.md`.
+- Spot-check of stochastic-gradient-descent and countable-additivity found sourced definitions. No further prose change.

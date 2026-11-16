@@ -1,8 +1,8 @@
 ## Intuition — Average in stages
 The conditional expectation $\mathbb E(Y\mid X)$ is a random variable: it is the mean of $Y$ once $X$ is known, and it still varies with $X$. Averaging that random mean, over the distribution of $X$, returns the ordinary mean of $Y$. The same idea nests. If one conditions first on a larger collection of variables and then on a smaller one, the smaller conditioning is what remains.{{cite:durrett2019}} (eq. 4.1.5 and Thm. 4.1.13, p. 211)
 
-## Statement — The smaller sigma-field wins
-Let $Y$ be integrable. For a sub-sigma-algebra $\mathcal G$,
+## Statement
+**The smaller sigma-field wins.** Let $Y$ be integrable. For a sub-sigma-algebra $\mathcal G$,
 $$
 \mathbb E\bigl(\mathbb E(Y\mid\mathcal G)\bigr)=\mathbb E(Y).
 $$
