@@ -667,7 +667,7 @@ TOPICS += [
           r"A plot of the sampled values of a parameter against iteration number. A chain that drifts, sticks, or disagrees with other chains shows a problem; a tidy plot is evidence of mixing, not a proof of convergence.",
           links=["trace plots?"]),
     topic("Full conditional distribution", "bayes-04-mcmc.qmd: while every full conditional is available",
-          r"The distribution of one parameter given the data and all the other parameters, $\pi(x_j\mid x_{-j})$. A Gibbs sampler draws from each full conditional in turn. Up to a constant it is the joint density read as a function of $x_j$ alone, which is how it is found.",
+          r"For a posterior distribution of parameters $X=(X_1,\ldots,X_p)$ given observed data $y$, the full conditional of $X_j$ is its distribution given $y$ and the realised values $x_{-j}$ of every other parameter. Its density is proportional to the joint posterior density as a function of $x_j$ with $x_{-j}$ fixed; normalising in $x_j$ gives $\pi(x_j\mid x_{-j},y)$. This is the update law for coordinate $j$ in a Gibbs sampler.{{cite:gelfand_smith1990}} (§§1, 2.3, pp. 398–401){{cite:geyer2005_markov_chain}} (§§10.1, 10.6, pp. 27–29)",
           also=["bayes-03-normal-models.qmd#s-both-normal-parameters-unknown"],
           links=["full conditionals?(?: distributions?)?", "full conditional densit(?:y|ies)"]),
     topic("Lehmann–Scheffé theorem", "bayes-07-exponential-families.qmd: The Lehmann--Scheffé theorem further says",

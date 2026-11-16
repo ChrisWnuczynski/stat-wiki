@@ -4,7 +4,7 @@ Branch: `research/depth-pass-continuation`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **36**. Left: **682**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **37**. Left: **681**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -44,12 +44,13 @@ Pages ranked: **718**. Done: **36**. Left: **682**. Skipped: **0**. Ranks 1–23
 | 34 | [Median](median.md) | Concept/topic | [Prose](content/median.md), [check](../checks/median.py) | 214 → 1,481 | 0 → 0 | Replaced unread definition citations; proved absolute-error and robustness results; early-origin history left in todo |
 | 35 | [Exponential family](exponential-family.md) | Concept/definition | [Prose](content/exponential-family.md), [check](../checks/exponential-family.py) | 2,993 → 4,894 | 0 → 0 | Aligned two exponential-family notations; opened original and modern sources; converse theorem remains in proofs todo |
 | 36 | [Regularisation](regularisation.md) | Concept/topic | [Prose](content/regularisation.md), [check](../checks/regularisation.py) | 587 → 2,433 | 0 → 0 | Ridge, lasso and weight-decay derivations checked against opened originals; copied passages corrected |
+| 37 | [Full conditional distribution](full-conditional-distribution.md) | Concept/topic | [Prose](content/full-conditional-distribution.md), [check](../checks/full-conditional-distribution.py) | 384 → 1,880 | 0 → 0 | Gibbs invariance and finite positive-state convergence proved; copied citations replaced with opened sources |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed.
 
 ## Next page
 
-**Rank 37: `full-conditional-distribution`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 38: `inverse-gamma-distribution`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 
@@ -88,7 +89,7 @@ The user added citation-location, source-access, reader-facing prose, paragraph-
 
 ## Verification for completed pages
 
-Current batch gate: all 36 arithmetic and printed-value scripts pass against the generated articles; 67 Python tests pass; all 421 bibliography records pass offline verification. The build generates 718 articles and 557 question pages. All 36 completed articles retain their question links and meet the figure and substantive-text preservation tests. The first-batch citation-location and reader-facing prose tests pass.
+Current batch gate: all 37 arithmetic and printed-value scripts pass against the generated articles; 67 Python tests pass; all 423 bibliography records pass offline verification. The build generates 718 articles and 557 question pages. All 37 completed articles retain their question links and meet the figure and substantive-text preservation tests. The first-batch citation-location and reader-facing prose tests pass.
 
 - Variance: exact rational arithmetic 5 checks passed; generator completed; 63 Python tests passed; offline schema and citation verification passed for 383 works. A direct Quarto render produced the variance HTML with one Proof box. Its site-wide redirect post-check cannot pass when only one of 1,482 pages is rendered; a full render was stopped after 96 pages to keep the per-page workflow moving. Publisher page and open full text were read. Live Crossref verification failed because the environment's proxy returned HTTP 403, not because of a metadata mismatch.
 - Likelihood function: Poisson and binomial arithmetic plus the boundary case passed 10 checks; generator completed; 63 Python tests passed; offline bibliography verification passed for 385 works. Existing interpretation and invariant-MLE statement remain; the new proof covers non-injective parameter transforms.
@@ -128,4 +129,5 @@ Current batch gate: all 36 arithmetic and printed-value scripts pass against the
 - Median: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 416 works. No figures existed.
 - Exponential family: the displayed Poisson–Gamma update and inherited numbers pass exact checks; generator completed with 718 articles and 557 questions; all 35 page checks, 67 Python tests and offline verification of 420 bibliography entries pass. The two notation systems now have distinct symbols, the normal, Poisson, binomial and Gamma examples remain, and one collapsed proof covers the derived identities. The Pitman–Koopman–Darmois converse remains in the generated proofs todo. No figures existed.
 - Regularisation: the displayed ridge and lasso vectors pass exact checks; generator completed with 718 articles and 557 questions; all 36 page checks, 67 Python tests and offline verification of 421 bibliography entries pass. One collapsed proof covers the stated algebraic properties. All eleven question links remain; no figures existed.
+- Full conditional distribution: the displayed binary conditional and sweep fractions pass exact checks; generator completed with 718 articles and 557 questions; all 37 page checks, 67 Python tests and offline verification of 423 bibliography entries pass. One collapsed proof covers normalization, invariance and the finite positive-state convergence case. All 23 question links remain; no figures existed.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

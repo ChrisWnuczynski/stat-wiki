@@ -39,7 +39,7 @@ if __name__ == "__main__":
         "siegrist2022_normal_distribution", "siegrist2022_lognormal_distribution",
         "siegrist2022_binomial_distribution", "siegrist2022_normals",
         "gelman_bda2013", "raiffa_schlaifer1961", "hoff2013_bayes_estimators",
-        "box_muller1958",
+        "box_muller1958", "geyer2005_markov_chain",
     }
     assert keys <= opened, f"Normal article cites sources not checked for this pass: {keys-opened}"
     for line in page.splitlines():

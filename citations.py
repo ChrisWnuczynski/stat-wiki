@@ -1316,6 +1316,8 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
   ('metropolis1953', 'hastings1970', 'gelman_bda2013', 'robert_casella2004')),
  (('gibbs-sampling', 'systematic-scan-gibbs-sampler', 'full-conditional-distribution'),
   ('geman_geman1984', 'gelfand_smith1990', 'gelman_bda2013', 'robert_casella2004')),
+ (('full-conditional-distribution',),
+  ('geman_geman1984', 'gelfand_smith1990', 'geyer2005_markov_chain', 'chen_ip2015')),
  (('burn-in',
    'warm-up-is-not-a-convergence-proof',
    'effective-sample-size',

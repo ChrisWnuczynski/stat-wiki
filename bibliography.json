@@ -5283,6 +5283,34 @@
         "id": "https://openreview.net/pdf?id=Bkg6RiCqY7"
       }
     },
+    "geyer2005_markov_chain": {
+      "authors": ["Geyer, C. J."],
+      "year": 2005,
+      "title": "Some Markov Chain Theory",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/f05/8931/theo.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/f05/8931/theo.pdf"
+      }
+    },
+    "chen_ip2015": {
+      "authors": ["Chen, S.-H.", "Ip, E. H."],
+      "year": 2015,
+      "title": "Behavior of the Gibbs Sampler When Conditional Distributions Are Potentially Incompatible",
+      "kind": "article",
+      "venue": "Journal of Statistical Computation and Simulation",
+      "volume": "85",
+      "issue": "16",
+      "pages": "3266–3275",
+      "doi": "10.1080/00949655.2014.968159",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4572746/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00949655.2014.968159"
+      }
+    },
     "rstats_family2026": {
       "authors": ["R Core Team"],
       "year": 2026,

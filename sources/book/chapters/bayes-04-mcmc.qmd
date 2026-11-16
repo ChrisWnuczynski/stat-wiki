@@ -124,7 +124,7 @@ Suppose the target is a joint density $\pi(x_1,\ldots,x_p)$ that is difficult to
  &\ \vdots\\
  X_p^{(t+1)}&\sim
  \pi(x_p\given X_1^{(t+1)},\ldots,X_{p-1}^{(t+1)}).
-\end{align*} Each update uses the newest available coordinate values.{{cite:geman_geman1984}}{{cite:gelfand_smith1990}} Under standard ergodicity conditions, $X^{(t)}$ converges in distribution to $\pi$.{{cite:robert_casella2004}} For a full conditional, the other coordinates are held fixed. Therefore 
+\end{align*} Each update uses the newest available coordinate values.{{cite:geman_geman1984}} (§XI, pp. 731–733){{cite:gelfand_smith1990}} (§2.3, pp. 400–401) For a finite state space with a strictly positive target mass function, repeated Gibbs sweeps converge in distribution to $\pi$.{{cite:geman_geman1984}} (§XII, Theorem A, p. 733) For a full conditional, the other coordinates are held fixed. Therefore
 
 $$
  \pi(x_i\given x_{-i})

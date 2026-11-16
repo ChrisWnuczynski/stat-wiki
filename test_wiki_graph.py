@@ -1590,11 +1590,10 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 self.assertIn("gelman_bda2013", citation_keys, slug)
                 self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
             if slug == "full-conditionals-under-independent-priors":
-                # Gelfand–Smith discusses a different multivariate model;
-                # the displayed normal and inverse-gamma forms use these texts.
-                expected_keys.discard("gelfand_smith1990")
-                self.assertIn("gelman_bda2013", citation_keys, slug)
-                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+                # Geyer §10.6 was opened for the independent-prior example;
+                # the previous textbook citations were not checked in source.
+                expected_keys.difference_update({"gelfand_smith1990", "gelman_bda2013", "raiffa_schlaifer1961"})
+                self.assertIn("geyer2005_markov_chain", citation_keys, slug)
             if slug == "bayes-rule":
                 # Replace the bibliography-only Laplace and Jeffreys entries and
                 # the unlocated Gelman passage with passages read for this article.
