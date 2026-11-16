@@ -214,5 +214,9 @@
   "sigmoid-function": [
     "ex-sl-15-6",
     "ex-sl-15-7"
+  ],
+  "log-link": [
+    "q-31",
+    "q-55"
   ]
 }

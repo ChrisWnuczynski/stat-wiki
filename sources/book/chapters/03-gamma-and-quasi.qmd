@@ -35,7 +35,7 @@ Why the underdispersion is plausible is the same selection story as the mines, i
 
 ## Positive continuous responses
 
-A clotting time, or an insurance claim amount, is continuous and cannot be negative. Three links are in ordinary use.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+A clotting time, or an insurance claim amount, is continuous and cannot be negative. In a GLM, its distribution and the link for its mean are separate components.{{cite:mccullagh1992_glm_intro}} (p. 544) Davison likewise places exponential-family response distributions within the GLM framework.{{cite:davison2003}} (Ch. 10, opening extract) Three links are in ordinary use for the positive-response families described by R.{{cite:rstats_family2026}} (Usage; Arguments, Gamma and inverse-Gaussian links)
 \begin{align*}
 \log\mu_i&=\vect{X}_i^\top\boldsymbol{\beta},
 &
