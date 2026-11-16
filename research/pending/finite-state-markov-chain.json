@@ -1,0 +1,28 @@
+{
+  "bibliography": {
+    "levin_peres2017": {
+      "authors": [
+        "Levin, David A.",
+        "Peres, Yuval"
+      ],
+      "year": 2017,
+      "title": "Markov Chains and Mixing Times",
+      "edition": "2nd",
+      "kind": "book",
+      "publisher": "American Mathematical Society",
+      "doi": "10.1090/mbk/107",
+      "isbn": "978-1-4704-2962-1",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf"
+      }
+    }
+  },
+  "article_lead": {
+    "description": "a process on finitely many states whose transition probabilities support exact predictions and, under suitable conditions, a long-run distribution"
+  },
+  "self_checks": [
+    "ex-prob-markov-two-steps",
+    "ex-prob-markov-periodic"
+  ]
+}
