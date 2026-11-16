@@ -21,6 +21,7 @@ Type: Concept/definition.
 - Added a plain-language lead context, battery example, fully symbolised iid definition and joint factorisation, interpretation, statistical use, a numerical Bernoulli example, specific relationships, and two cited History paragraphs. One collapsed proof covers the product form, both general sample moment formulas, and all three normal-sample conclusions. The earlier property statements and thirteen question links remain.
 - Replaced unopened Casella–Berger and Wasserman citations in the shared definition with the opened Siegrist section and a locator. The random-sample citation map is now page-specific; the other members of the former shared map retain their mapping.
 - `checks/random-sample.py` asserts the exact printed fractions and sample variance, proof count, source keys, figure count and thirteen distinct question links. The numerical Bernoulli example was computed with exact fractions.
+- The battery motivation now states explicitly that a shared batch effect violates the iid assumption and calls for a model with that batch effect.
 
 ## Verification
 

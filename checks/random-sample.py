@@ -8,6 +8,7 @@ import re
 if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
     prose = (root / "research/content/random-sample.md").read_text()
+    assert "the iid assumption fails and a model with a batch effect is needed" in prose
     page = (root / "articles/random-sample.qmd").read_text()
     for match in re.finditer(r"\{\{cite:([^}]+)\}\}", prose):
         assert re.match(r" \((?:§|pp\.|p\.)", prose[match.end():]), (
