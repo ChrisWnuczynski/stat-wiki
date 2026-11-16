@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "the ratio of probabilities assigned to two hypotheses before seeing data, setting the baseline that a Bayes factor updates"
+  },
+  "self_checks": ["ex-sl-06-1", "q-21", "q-44"]
+}
