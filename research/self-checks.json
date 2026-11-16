@@ -663,5 +663,65 @@
     "ex-sl-08-1",
     "ex-sl-12-1",
     "ex-sl-12-2"
+  ],
+  "aperiodic-markov-chain": [
+    "ex-prob-markov-limit",
+    "ex-prob-markov-two-state"
+  ],
+  "apparent-error": [
+    "ex-sl-11-5",
+    "ex-sl-12-7"
+  ],
+  "beta-binomial-conjugacy": [
+    "ex-ur-posterior-mean",
+    "q-23"
+  ],
+  "chi-squared-distribution": [
+    "ex-inf-die-fairness",
+    "ex-inf-degrees-of-freedom"
+  ],
+  "cross-entropy": [
+    "ex-sl-12-1",
+    "ex-sl-16-2"
+  ],
+  "gradient-descent": [
+    "ex-sl-15-4",
+    "ex-sl-15-7"
+  ],
+  "hard-margin-support-vector-machine": [
+    "ex-sl-17-2",
+    "ex-sl-17-9"
+  ],
+  "interpretation-and-the-decision-boundary": [
+    "ex-sl-10-7",
+    "ex-sl-08-3"
+  ],
+  "lognormal-distribution": [
+    "q-28",
+    "q-45"
+  ],
+  "normal-linear-model": [
+    "ex-inf-extra-ss",
+    "ex-inf-prediction-width"
+  ],
+  "pooled-covariance": [
+    "ex-sl-02-2",
+    "ex-sl-18-7"
+  ],
+  "repeated-measures": [
+    "ex-orthodont-lmm",
+    "ex-toenail-glmm"
+  ],
+  "sandwich-estimator": [
+    "c-40",
+    "depth-sandwich-cluster-calculation"
+  ],
+  "squared-mahalanobis-distance": [
+    "ex-sl-01-4",
+    "ex-applied-bvn-rwmh"
+  ],
+  "type-i-and-type-ii-errors": [
+    "ex-inf-serve-power",
+    "ex-inf-np-critical"
   ]
 }

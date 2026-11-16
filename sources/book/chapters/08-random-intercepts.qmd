@@ -1,6 +1,6 @@
 # Random intercepts
 
-Every model so far has taken the responses to be independent given the covariates. Clustering, proximity in space or time, and repeated measures on the same person all break that.{{cite:laird_ware1982}}{{cite:henderson1975}}{{cite:bates_lme4_2015}} Two trees in the same soil can be positively dependent because they share conditions, or negatively dependent because they compete. The negative case is real and, as a correlation matrix for a whole block, surprisingly rigid.
+Every model so far has taken the responses to be independent given the covariates. Clustering, proximity in space or time, and repeated measures on the same person all break that.{{cite:schober_vetter2018}} (pp. 569–570, subject as sampling unit) Two trees in the same soil can be positively dependent because they share conditions, or negatively dependent because they compete. The negative case is real and, as a correlation matrix for a whole block, surprisingly rigid.
 
 We generate the dependence with a mixed model rather than write down a correlation matrix and stop.{{cite:bates_lme4_2015}} (§1.1, conditional and marginal model) A correlation matrix describes association. For a normal response, a mean and a covariance do define a distribution. For a Poisson or a binomial they do not: there is no unique multivariate Poisson with a given set of correlations. A mixed model gives a mechanism. The price is that the correlations it can produce are a narrower set.
 

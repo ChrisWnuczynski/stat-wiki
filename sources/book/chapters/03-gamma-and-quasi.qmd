@@ -119,7 +119,11 @@ The coefficients come back to $-0.0178$, $-0.0074$, $0.0158$, $0.0083$, close to
 The link chooses the mean curve. The response distribution mainly chooses the standard errors. Those two pieces are essentially orthogonal: you may pair a scientifically sensible link with a distribution that matches the scatter, and neither choice is doing the other's job.
 :::
 
-That separation of the mean curve from the error distribution holds in general.{{cite:huang_rathouz2017}} It is why families and links can be mixed, and why a worse AIC for the inverse quadratic is a statement about the link, not a mystery of the inverse Gaussian, whose variance is proportional to the cube of its mean.{{cite:tweedie1957}}{{cite:mccullagh_nelder1989}} Other positive families exist and are not in the default `glm` list: inverse gamma, lognormal, and Weibull with the second parameter fixed.{{cite:mcalister1879}} A custom family needs a log-likelihood, or, as the next section shows, sometimes only a mean and a variance.
+That separation of the mean curve from the response distribution is the point of a GLM's link and random components.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373){{cite:sas2012_glm}} (Ch. 3, “Generalized Linear Models”, systematic, link and random components) Families and links can therefore be paired according to the response and the scientific mean relationship. The worse AIC for the inverse-quadratic fit is a statement about the chosen link, not a mystery of the inverse Gaussian, whose variance here is proportional to the cube of its mean, as the fitted family and standard-error comparison above show.
+
+Other positive families outside the default R `glm` list include inverse gamma, lognormal, and Weibull with the second parameter fixed.
+
+A custom family needs a log-likelihood, or, as the next section shows, sometimes only a mean and a variance.
 
 ## Quasi-likelihood
 

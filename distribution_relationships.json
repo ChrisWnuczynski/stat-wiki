@@ -44,14 +44,14 @@
   {
     "a": "chi-squared-distribution",
     "b": "f-distribution",
-    "a_text": "{target} is the ratio $(U/d_1)/(V/d_2)$ when independent $U$ and $V$ have chi-squared laws with $d_1$ and $d_2$ degrees of freedom.{{cite:forbes2011}}",
-    "b_text": "{target} supplies the numerator and denominator of an F ratio: independent $U\\sim\\chi^2_{d_1}$ and $V\\sim\\chi^2_{d_2}$ give $(U/d_1)/(V/d_2)$.{{cite:forbes2011}}"
+    "a_text": "{target} is the ratio $(U/d_1)/(V/d_2)$ when independent $U$ and $V$ have chi-squared laws with $d_1$ and $d_2$ degrees of freedom.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)",
+    "b_text": "{target} supplies the numerator and denominator of an F ratio: independent $U\\sim\\chi^2_{d_1}$ and $V\\sim\\chi^2_{d_2}$ give $(U/d_1)/(V/d_2)$.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)"
   },
   {
     "a": "chi-squared-distribution",
     "b": "wishart-distribution",
-    "a_text": "{target} in one dimension, with scale matrix equal to one, is a chi-squared law with $\\nu$ degrees of freedom.{{cite:forbes2011}}",
-    "b_text": "{target} is the one-dimensional case of this matrix law when the scale is one. The Wishart construction generalises a sum of squared normals.{{cite:forbes2011}}"
+    "a_text": "{target} in one dimension, with scale matrix equal to one, is a chi-squared law with $\\nu$ degrees of freedom.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)",
+    "b_text": "{target} is the one-dimensional case of this matrix law when the scale is one. The Wishart construction generalises a sum of squared normals.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)"
   },
   {
     "a": "conway-maxwell-poisson-distribution",

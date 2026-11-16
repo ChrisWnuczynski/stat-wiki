@@ -75,15 +75,15 @@ Consider a table of patient attributes such as age, blood pressure, chest-pain c
 
 Separate sigmoid outputs, one per class, need not sum to $1$. They are scores. A probability model for a single class label needs a distribution. For $v$ classes, the simplest coding still uses $v$ output units: for each pattern, output $k$ is $1$ if the pattern is in class $k$ and $0$ otherwise. This treats each class equally. On test data, and often on training data, every output lies in $(0,1)$. The usual prediction is the class of the largest output.
 
-When the outputs are meant to be class probabilities, they have to add to one. The softmax of {{cite:bridle1990}} exponentiates and then normalises:
+When the outputs are meant to be class probabilities, they have to add to one. The softmax transform{{cite:goodfellow_bengio_courville2016}} (Ch. 6, §6.2.2) exponentiates and then normalises:
 
 $$
 s_k=\frac{e^{z_k}}{\sum_{l=1}^{m} e^{z_l}},\qquad k=1,\ldots,m.
 $$
 
-Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label{{cite:shannon1948}}{{cite:hastie_esl2009}}. Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
+Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label{{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130). Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
 
-Let the target be a one-hot vector $y$, with $y_k=1$ for the true class $c$, and let the loss be{{cite:bridle1990}}{{cite:shannon1948}}{{cite:hastie_esl2009}}:
+Let the target be a one-hot vector $y$, with $y_k=1$ for the true class $c$, and let the loss be{{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130):
 
 $$
 E=-\sum_{k=1}^{m} y_k\ln s_k=-\ln s_c.

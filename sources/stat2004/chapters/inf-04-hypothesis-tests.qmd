@@ -74,7 +74,7 @@ A small $p$-value is stronger evidence against $H_0$ than a large one. Conventio
 ::: {#def-type-i-and-type-ii-errors .definition}
 ## Type I and type II errors
 
-A type I error rejects $H_0$ when $H_0$ is true.{{cite:neyman_pearson1933}} A type II error accepts $H_0$ when $H_1$ is true.{{cite:lehmann_romano2005}} The size, or significance level, is the probability of a type I error.{{cite:casella_berger2002}} The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
+A type I error rejects $H_0$ when $H_0$ is true.{{cite:siegrist2022_testing}} (§9.1, Errors) A type II error fails to reject $H_0$ when $H_1$ is true.{{cite:siegrist2022_testing}} (§9.1, Errors) The size, or significance level when it is the achieved error probability under a simple null, is the probability of a type I error. Under a composite null the size is the supremum of that probability; a nominal level bounds it.{{cite:siegrist2022_testing}} (§9.1, Size and Power) The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
 
 :::
 

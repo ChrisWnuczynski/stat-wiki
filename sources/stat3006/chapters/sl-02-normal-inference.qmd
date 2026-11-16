@@ -588,13 +588,13 @@ S=\frac{1}{n_1+n_2-2}
 \Biggr).
 $$
 
-This is the pooled formula with $G=2${{cite:anderson2003_mva}}. The Wishart statement applied to the pooled residuals gives
+This is the pooled formula with $G=2${{cite:nist_poolcov1998}} ("Description", pooled covariance formula). The Wishart statement applied to the pooled residuals gives
 
 $$
 (n_1+n_2-2)S\sim W_p(\Sigma,\,n_1+n_2-2),
 $$
 
-{{cite:wishart1928}} independent of both sample means and therefore of their difference{{cite:anderson2003_mva}}. The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
+{{cite:strimmer2025_mva}} (Ch. 2, §2.4, Gaussian sample-covariance Wishart law){{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test”, pooled Wishart law) independent of both sample means and therefore of their difference. To see the independence, in each group project the Gaussian observation rows onto an orthonormal basis of the residual subspace perpendicular to its all-ones vector. The resulting $n_g-1$ centred coordinates are independent $N_p(0,\Sigma)$ vectors, while the orthogonal mean coordinate is independent of them. The two independent groups contribute $n_1+n_2-2$ such residual coordinates, whose sum of outer products has the displayed Wishart law.{{cite:strimmer2025_mva}} (Ch. 2, §2.4, Gaussian covariance sampling law) The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
 
 $$
 T^2=\frac{n_1 n_2}{n_1+n_2}
@@ -620,7 +620,7 @@ $$
 >F_{\alpha;\,p,\,n_1+n_2-p-1}.
 $$
 
-{{cite:anderson2003_mva}}{{cite:hotelling1931}} The second degree of freedom is $n_1+n_2-p-1${{cite:anderson2003_mva}}. It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
+{{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test” and “Distribution of test statistic”) The second degree of freedom is $n_1+n_2-p-1${{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test”, F rescaling). It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
 
 :::
 

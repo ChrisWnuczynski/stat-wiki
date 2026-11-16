@@ -617,7 +617,7 @@ Use the posterior kernel in [the logit-normal prior exercise](#ex-applied-logitn
 ::: {#ex-applied-bvn-rwmh .exercise}
 ## Random-walk Metropolis for a correlated normal
 
-For the bivariate-normal target of [the bivariate-normal Gibbs exercise](#ex-applied-bvn-gibbs), describe a random-walk Metropolis--Hastings sampler using increments 
+For the bivariate-normal target of [the bivariate-normal Gibbs exercise](/questions/ex-applied-bvn-gibbs.qmd), describe a random-walk Metropolis--Hastings sampler using increments
 
 $$
  \vect\varepsilon\sim\Normal_2(\vect0,\mat{\Psi}),

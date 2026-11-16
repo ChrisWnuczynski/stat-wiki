@@ -81,3 +81,11 @@ These articles do not yet have three inline citations. A further marker would na
 - soft-thresholding-for-orthonormal-predictors | The orthonormal lasso solution is derived directly and supported by the opened glmnet discussion; another independent source has not been checked.
 - sparsity | The inherited short definition and example have fewer than three checked citations; an additional source should be checked in its own depth pass.
 - subset-selection-and-shrinkage | The copied variable-selection comparison cites the opened ISLR chapter; a third independent source for this exact account has not been checked.
+
+- basic-gradient-descent-learning | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- generalised-estimating-equations | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- gini-index | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- hard-margin-primal | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- learning-rate | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- one-hot-encoding | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- two-sample-hotelling-test | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.

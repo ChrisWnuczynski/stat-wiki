@@ -208,5 +208,20 @@
     "slug": "poisson-distribution#property-fisher-information",
     "title": "Fisher information for a Poisson mean",
     "reason": "The infobox states information 1/lambda per observation; an answered bank question derives it, but the article's collapsed proof does not."
+  },
+  {
+    "slug": "hard-margin-support-vector-machine#property-general-slater-strong-duality-theorem-for-convex-programmes",
+    "title": "General Slater strong-duality theorem for convex programmes",
+    "reason": "The page verifies strict feasibility for the finite hard-margin primal and derives its dual/KKT conditions, but invokes the general Slater theorem for zero duality gap rather than proving that theorem."
+  },
+  {
+    "slug": "pooled-covariance#property-wishart-independence",
+    "title": "Pooled normal scatter Wishart law and independence of group means",
+    "reason": "The copied source states (n1+n2−2)S has Wishart law and is independent of the two sample means. The added Proof proves pooling/unbiasedness/rank but does not derive the normal orthogonal-projection Wishart decomposition; give a full proof on this page or a linked theorem page."
+  },
+  {
+    "slug": "pooled-covariance#property-hotelling-f",
+    "title": "Two-sample Hotelling T-squared F calibration",
+    "reason": "The copied source states the exact F law and critical value. The added Proof does not derive the independent normal/Wishart quadratic-form law or the F scaling; prove this under p<n1+n2−1 and common positive-definite covariance."
   }
 ]

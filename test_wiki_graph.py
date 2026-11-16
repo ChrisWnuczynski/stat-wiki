@@ -1585,6 +1585,20 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # passages for the inverse-transform claim.
                 expected_keys.difference_update({"robert_casella2004", "vonneumann1951", "ross2019"})
                 self.assertTrue({"siegrist2022_uniform_interval", "von_neumann1951_random_digits"} <= citation_keys)
+            if slug == "lognormal-distribution":
+                # The old GLM bibliography entries had no checked lognormal passages;
+                # the opened Siegrist chapter and Dodge entry supply the facts.
+                expected_keys.difference_update({"tweedie1957", "huang_rathouz2017", "mccullagh_nelder1989", "mcalister1879"})
+                self.assertTrue({"siegrist2022_lognormal_distribution", "dodge2008"} <= citation_keys, slug)
+            if slug == "inverse-gaussian-distribution":
+                # Historical bibliography-only entries are absent after the rebuild;
+                # the GLM account retains checked Nelder–Wedderburn and SAS citations.
+                expected_keys.difference_update({"tweedie1957", "mcalister1879", "huang_rathouz2017"})
+                self.assertTrue({"nelder_wedderburn1972", "sas2012_glm"} <= citation_keys, slug)
+            if slug == "chi-squared-distribution":
+                # The opened Siegrist, NIST and Dodge accounts replace unread inherited markers.
+                expected_keys.difference_update({"student1908", "fisher1924_chisq", "fisher1925_smrw", "casella_berger2002", "agresti2002", "pearson1900", "forbes2011"})
+                self.assertTrue({"siegrist2022_chisq", "siegrist2022_normals", "nist_chisq_handbook", "dodge2008"} <= citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
@@ -1766,6 +1780,10 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # the authors' full textbook in place of a publisher record.
                 expected_keys.discard("raiffa_schlaifer1961")
                 self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
+            if slug == "beta-binomial-conjugacy":
+                # Opened MIT derivation and Dodge history replace unread originals.
+                expected_keys.difference_update({"laplace1812", "raiffa_schlaifer1961"})
+                self.assertTrue({"mit_ocw_conjugate2022", "dodge2008"} <= citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

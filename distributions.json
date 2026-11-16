@@ -299,17 +299,17 @@
         "meaning": "degrees of freedom"
       }
     ],
-    "history": "Pearson’s 1900 paper studied the discrepancy between observed and expected frequencies under a probability model. That problem led to the chi-squared goodness-of-fit statistic and its reference distribution.{{cite:pearson1900}}\n\nThe same distribution also arises exactly as a sum of squared standard normal variables. Modern texts separate that exact normal-sampling result from the asymptotic chi-squared calibration of many fit statistics.{{cite:casella_berger2002}}",
+    "history": "Pearson’s 1900 paper studied the discrepancy between observed and expected frequencies under a probability model. That problem led to the chi-squared goodness-of-fit statistic and its reference distribution.{{cite:dodge2008}} (pp. 70–72, historical account of Pearson 1900)\n\nThe same distribution also arises exactly as a sum of squared standard normal variables. Modern texts separate that exact normal-sampling result from the asymptotic chi-squared calibration of many fit statistics.{{cite:siegrist2022_normals}} (§6.08)",
     "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom.",
     "conjugate_prior_for": "",
-    "lead_context": "It calibrates sample-variance inference under normal sampling and appears in large-sample goodness-of-fit tests, where fitted parameters change the reference degrees of freedom.{{cite:siegrist2022_normals}} (§6.08) {{cite:fisher1922_chisq}} (pp. 87–90)",
-    "statistical_use": "For independent normal observations, a scaled sample variance has a chi-squared law and gives exact variance intervals. Pearson-type goodness-of-fit statistics use a chi-squared reference asymptotically, with degrees of freedom adjusted for fitted parameters.{{cite:casella_berger2002}}",
-    "worked_example": "### Four squared normal components\n\nIf $X$ is the sum of squares of four independent standard normal variables, then $X\\sim\\chi^2_4$. Its mean is $4$ and its variance is $8$, so a value near $4$ is typical but the distribution is not symmetric.{{cite:forbes2011}}",
+    "lead_context": "{{cite:siegrist2022_normals}} (§6.08) {{cite:fisher1922_chisq}} (pp. 87–90)",
+    "statistical_use": "For independent normal observations, a scaled sample variance has a chi-squared law and gives exact variance intervals. Pearson-type goodness-of-fit statistics use a chi-squared reference asymptotically, with degrees of freedom adjusted for fitted parameters.{{cite:siegrist2022_normals}} (§6.08, Sample Variance) {{cite:nist_chisq_handbook}} (§1.3.6.6.6)",
+    "worked_example": "### Four squared normal components\n\nIf $X$ is the sum of squares of four independent standard normal variables, then $X\\sim\\chi^2_4$. Its mean is $4$ and its variance is $8$, so a value near $4$ is typical but the distribution is not symmetric.{{cite:siegrist2022_chisq}} (§5.9, Moments)",
     "key_result": {
       "title": "Mean and variance of squared normals",
-      "statement": "If $X\\sim\\chi^2_\\nu$ with integer $\\nu\\ge1$, then $\\mathrm E(X)=\\nu$ and $\\operatorname{Var}(X)=2\\nu$.{{cite:casella_berger2002}}",
+      "statement": "If $X\\sim\\chi^2_\\nu$ with integer $\\nu\\ge1$, then $\\mathrm E(X)=\\nu$ and $\\operatorname{Var}(X)=2\\nu$.{{cite:siegrist2022_chisq}} (§5.9, Moments)",
       "meaning": "Each squared standard-normal component adds one to the mean and two to the variance.",
-      "proof": "Write $X=\\sum_{i=1}^{\\nu}Z_i^2$ with independent standard normals. Their second and fourth moments are $\\mathrm E(Z_i^2)=1$ and $\\mathrm E(Z_i^4)=3$, so $\\operatorname{Var}(Z_i^2)=3-1=2$. Sum expectations and, by independence, variances to obtain $\\nu$ and $2\\nu$.{{cite:casella_berger2002}}"
+      "proof": "Write $X=\\sum_{i=1}^{\\nu}Z_i^2$ with independent standard normals. Their second and fourth moments are $\\mathrm E(Z_i^2)=1$ and $\\mathrm E(Z_i^4)=3$, so $\\operatorname{Var}(Z_i^2)=3-1=2$. Sum expectations and, by independence, variances to obtain $\\nu$ and $2\\nu$.{{cite:siegrist2022_chisq}} (§5.9, Moments)"
     }
   },
   "conway-maxwell-poisson-distribution": {
@@ -908,14 +908,14 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "",
-    "lead_context": "It describes positive measurements built from multiplicative changes and is analysed conveniently on a logarithmic scale.{{cite:forbes2011}}",
-    "statistical_use": "A lognormal model can be fitted by analysing the logarithms with normal-model tools, then transforming predictions back carefully. The arithmetic mean on the original scale exceeds the median, so exponentiating a fitted log mean gives the median rather than the mean.{{cite:forbes2011}}",
-    "worked_example": "### A threshold on the original scale\n\nIf $\\log X\\sim N(0,1)$, then $P(X>e)=P(Z>1)\\approx0.1587$ for a standard normal $Z$. The median of $X$ is $1$ while its mean is $e^{1/2}\\approx1.6487$.{{cite:forbes2011}}",
+    "lead_context": "{{cite:siegrist2022_lognormal_distribution}} (§5.12, Definition)",
+    "statistical_use": "It describes positive measurements built from multiplicative changes and is analysed conveniently on a logarithmic scale. A lognormal model can be fitted by analysing the logarithms with normal-model tools, then transforming predictions back carefully. The arithmetic mean on the original scale exceeds the median, so exponentiating a fitted log mean gives the median rather than the mean.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Mean and Variance)",
+    "worked_example": "### A threshold on the original scale\n\nIf $\\log X\\sim N(0,1)$, then $P(X>e)=P(Z>1)\\approx0.1587$ for a standard normal $Z$. The median of $X$ is $1$ while its mean is $e^{1/2}\\approx1.6487$.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Distribution and Mean)",
     "key_result": {
       "title": "Moments from a normal logarithm",
-      "statement": "If $\\log X\\sim N(\\mu,\\sigma^2)$, then $\\mathrm E(X)=e^{\\mu+\\sigma^2/2}$ and $\\operatorname{Var}(X)=(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$.{{cite:forbes2011}}",
+      "statement": "If $\\log X\\sim N(\\mu,\\sigma^2)$, then $\\mathrm E(X)=e^{\\mu+\\sigma^2/2}$ and $\\operatorname{Var}(X)=(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Mean and Variance)",
       "meaning": "The arithmetic mean exceeds the median because the upper tail contributes strongly to the average.",
-      "proof": "For $Y=\\log X\\sim N(\\mu,\\sigma^2)$, the normal moment-generating formula gives $\\mathrm E(X^k)=\\mathrm E(e^{kY})=e^{k\\mu+k^2\\sigma^2/2}$. Take $k=1,2$ and subtract $[\\mathrm E(X)]^2$ from $\\mathrm E(X^2)$ to obtain the variance.{{cite:forbes2011}}"
+      "proof": "For $Y=\\log X\\sim N(\\mu,\\sigma^2)$, the normal moment-generating formula gives $\\mathrm E(X^k)=\\mathrm E(e^{kY})=e^{k\\mu+k^2\\sigma^2/2}$. Take $k=1,2$ and subtract $[\\mathrm E(X)]^2$ from $\\mathrm E(X^2)$ to obtain the variance.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Mean and Variance)"
     }
   },
   "multinomial-distribution": {

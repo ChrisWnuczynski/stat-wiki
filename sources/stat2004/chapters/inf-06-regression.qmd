@@ -130,7 +130,7 @@ Y_i=\beta_0+\beta_1 x_i+\varepsilon_i,
 \varepsilon_i\ \text{independent}\ \Normal(0,\sigma^2),
 $$
 
-with the $x_i$ treated as fixed and not all equal.{{cite:fisher1925_smrw}} Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.{{cite:gauss1809}}{{cite:davison2003}}
+with the $x_i$ treated as fixed and not all equal.{{cite:kulich2022_regression}} (§1.1, pp. 6–7, fixed-design normal model) Equivalently, the $Y_i$ are independent and $Y_i\sim\Normal(\beta_0+\beta_1 x_i,\sigma^2)$.{{cite:kulich2022_regression}} (§1.2, p. 7)
 
 :::
 
@@ -159,7 +159,7 @@ $$
 \frac{(n-2)S^2}{\sigma^2}\sim\chi^2_{n-2},
 $$
 
-independently of $(\widehat\beta_0,\widehat\beta_1)$.{{cite:casella_berger2002}} In particular $S^2$ is unbiased for $\sigma^2$.{{cite:fisher1925_smrw}} Moreover $\widehat\beta_1$ and $\overline Y$ are independent.{{cite:davison2003}}
+independently of $(\widehat\beta_0,\widehat\beta_1)$.{{cite:kulich2022_regression}} (§1.3, p. 8, orthogonal normal projections) In particular $S^2$ is unbiased for $\sigma^2$.{{cite:kulich2022_regression}} (§1.3, p. 8, residual degrees of freedom) Moreover $\widehat\beta_1$ and $\overline Y$ are independent.{{cite:kulich2022_regression}} (§1.3, p. 8, coefficient covariance for centred design)
 
 :::
 

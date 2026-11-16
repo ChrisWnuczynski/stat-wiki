@@ -138,5 +138,12 @@
     "title": "A distant point with a modest z-score",
     "body": "For the observations $0,0,0,24$, compute the mean, the usual sample standard deviation, and the z-score of $24$. Would a rule requiring absolute z-score above $2$ flag it? Explain the self-masking effect.",
     "answer": "The mean is $6$. The squared deviations sum to $432$, so the sample variance is $432/3=144$ and the sample standard deviation is $12$. The score of $24$ is $(24-6)/12=1.5$, below $2$. The distant point also raises the mean and standard deviation used to judge itself. For $n=4$, the sharp upper bound on any ordinary sample z-score is $(n-1)/\\sqrt n=3/2=1.5$."
+  },
+  {
+    "id": "depth-sandwich-cluster-calculation",
+    "title": "A cluster sandwich calculation",
+    "topic_code": "C3",
+    "body": "An intercept-only model has three independent clusters, each with two observations: $(1,2)$, $(3,4)$ and $(5,6)$. Compute the fitted mean, the bread $A$, the sum of squared cluster residual totals $B$, and the uncorrected sandwich variance $A^{-1}BA^{-1}$. Why should the usual large-cluster normal approximation be treated cautiously?",
+    "answer": "The fitted mean is $3.5$. Cluster residual totals are $-4,0,4$, so $A=6$ and $B=16+0+16=32$. The variance is $32/36\\approx0.8889$. With only three independent clusters the asymptotic normal approximation for inference can be poor."
   }
 ]

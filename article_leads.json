@@ -4378,7 +4378,7 @@
     "article": "the",
     "term": "squared Mahalanobis distance",
     "verb": "is",
-    "description": "a measure of how far apart two observations are"
+    "description": "a covariance-adjusted measure of departure from a reference centre, useful for judging multivariate outliers and normal contours"
   },
   "standard-error": {
     "field": "statistical inference",

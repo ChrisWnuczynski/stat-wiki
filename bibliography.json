@@ -4191,7 +4191,8 @@
         "source": "crossref",
         "id": "10.1007/s13171-019-00164-5",
         "reprint_year": 2018
-      }
+      },
+      "note": "Linked DOI identifies the Sankhya A reprint (2018 issue, published online in 2019), not the 1936 original."
     },
     "makridakis1998": {
       "authors": [
@@ -9171,6 +9172,271 @@
       "verification": {
         "source": "archival_url",
         "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/boxplot.htm"
+      }
+    },
+    "berkeley_eecs1262019": {
+      "authors": [
+        "University of California, Berkeley, EECS 126"
+      ],
+      "year": 2019,
+      "title": "Markov Chains",
+      "kind": "book",
+      "publisher": "University of California, Berkeley",
+      "url": "https://www-inst.cs.berkeley.edu/~ee126/fa22/notes/markov_chains.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www-inst.cs.berkeley.edu/~ee126/fa22/notes/markov_chains.pdf"
+      }
+    },
+    "mit_ocw_conjugate2022": {
+      "authors": [
+        "Massachusetts Institute of Technology, 18.05"
+      ],
+      "year": 2022,
+      "title": "Conjugate priors: Beta and normal",
+      "kind": "book",
+      "publisher": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class15-prep.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class15-prep.pdf"
+      }
+    },
+    "siegrist2022_chisq": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.9: Chi-Square and Related Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.09:_Chi-Square_and_Related_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.09:_Chi-Square_and_Related_Distribution"
+      }
+    },
+    "nist_chisq_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Chi-Square Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3666.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3666.htm"
+      }
+    },
+    "nist_chisq_gof": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Chi-Square Goodness-of-Fit Test",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm"
+      }
+    },
+    "goodfellow_bengio_courville2016": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/"
+      }
+    },
+    "stanford_cs229_trees2018": {
+      "authors": [
+        "Townshend, R. J. L."
+      ],
+      "year": 2018,
+      "title": "Decision Trees",
+      "kind": "book",
+      "publisher": "Stanford University, CS229",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf"
+      }
+    },
+    "stanford_cs231n_training": {
+      "authors": [
+        "Stanford University, CS231n"
+      ],
+      "year": 2026,
+      "title": "Neural Networks Part 3: Learning and Evaluation",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://cs231n.github.io/neural-networks-3/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs231n.github.io/neural-networks-3/"
+      }
+    },
+    "lemarechal2012_cauchy": {
+      "authors": [
+        "Lemaréchal, C."
+      ],
+      "year": 2012,
+      "title": "Cauchy and the Gradient Method",
+      "kind": "article",
+      "venue": "Documenta Mathematica, Extra Volume ISMP",
+      "pages": "251–254",
+      "url": "https://www2.math.ethz.ch/EMIS/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.math.ethz.ch/EMIS/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf"
+      }
+    },
+    "msaouel2022_cox": {
+      "authors": [
+        "Msaouel, P.",
+        "Jimenez-Fonseca, P.",
+        "Lim, B.",
+        "Carmona-Bayonas, A.",
+        "Agnelli, G."
+      ],
+      "year": 2022,
+      "title": "Medicine before and after David Cox",
+      "kind": "article",
+      "venue": "European Journal of Internal Medicine",
+      "doi": "10.1016/j.ejim.2022.02.022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12262021/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12262021/"
+      }
+    },
+    "kulich2022_regression": {
+      "authors": [
+        "Kulich, M."
+      ],
+      "year": 2022,
+      "title": "Advanced Regression Models",
+      "kind": "book",
+      "publisher": "Charles University, Faculty of Mathematics and Physics",
+      "url": "https://www.karlin.mff.cuni.cz/~kulich/vyuka/pokreg/doc/advreg_notes_ext_220218.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.karlin.mff.cuni.cz/~kulich/vyuka/pokreg/doc/advreg_notes_ext_220218.pdf"
+      }
+    },
+    "nist_poolcov1998": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 1998,
+      "title": "Pooled Variance-Covariance Matrix",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/poolcov.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/poolcov.htm"
+      }
+    },
+    "clemmensen2011_sda": {
+      "authors": [
+        "Clemmensen, L.",
+        "Hastie, T.",
+        "Witten, D.",
+        "Ersbøll, B."
+      ],
+      "year": 2011,
+      "title": "Sparse Discriminant Analysis",
+      "kind": "article",
+      "venue": "Technometrics",
+      "url": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf"
+      }
+    },
+    "stanford_stats305c_hotelling2025": {
+      "authors": [
+        "Taylor, J."
+      ],
+      "year": 2025,
+      "title": "Hotelling T2",
+      "kind": "book",
+      "publisher": "Stanford University, STATS305C: Methods for Applied Statistics",
+      "url": "https://web.stanford.edu/class/stats305c/lectures/Hotelling_T2.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://web.stanford.edu/class/stats305c/lectures/Hotelling_T2.html"
+      }
+    },
+    "bell_kenward2013": {
+      "authors": [
+        "Bell, M. L.",
+        "Kenward, M. G.",
+        "Fairclough, D. L.",
+        "Horton, N. J."
+      ],
+      "year": 2013,
+      "title": "Differential dropout and bias in randomised controlled trials: when it matters and when it may not",
+      "kind": "article",
+      "venue": "BMJ",
+      "volume": "346",
+      "pages": "e8668",
+      "doi": "10.1136/bmj.e8668",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4688419/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1136/bmj.e8668"
+      }
+    },
+    "schober_vetter2018": {
+      "authors": [
+        "Schober, P.",
+        "Vetter, T. R."
+      ],
+      "year": 2018,
+      "title": "Repeated Measures Designs and Analysis of Longitudinal Data: If at First You Do Not Succeed—Try, Try Again",
+      "kind": "article",
+      "venue": "Anesthesia & Analgesia",
+      "volume": "127",
+      "issue": "2",
+      "pages": "569–575",
+      "doi": "10.1213/ANE.0000000000003511",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6072386/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1213/ANE.0000000000003511"
+      }
+    },
+    "cameron_miller2015": {
+      "authors": [
+        "Cameron, A. C.",
+        "Miller, D. L."
+      ],
+      "year": 2015,
+      "title": "A Practitioner's Guide to Cluster-Robust Inference",
+      "kind": "article",
+      "venue": "Journal of Human Resources",
+      "volume": "50",
+      "issue": "2",
+      "pages": "317–372",
+      "doi": "10.3368/jhr.50.2.317",
+      "url": "https://facultysites.dss.ucdavis.edu/research/Cameron_Miller_JHR_2015_February.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3368/jhr.50.2.317"
       }
     }
   }
