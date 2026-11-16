@@ -170,5 +170,9 @@
   "central-limit-theorem": [
     "ex-prob-clt-binomial-band",
     "ex-prob-voltage-mean"
+  ],
+  "conditional-probability": [
+    "q-22",
+    "c-37"
   ]
 }
