@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a factor's average contrast across the levels of other factors, whose meaning depends on interactions and the averaging weights"
+  },
+  "self_checks": ["ex-inf-contrast-cell", "ex-inf-interaction-ss"]
+}
