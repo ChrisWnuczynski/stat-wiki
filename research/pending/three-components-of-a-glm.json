@@ -1,0 +1,10 @@
+{
+  "article_lead": {"verb": "are"},
+  "self_checks": ["q-45", "q-54"],
+  "shared_changes": [
+    {
+      "file": "article_leads.json",
+      "description": "For three-components-of-a-glm, change the singular verb `is` to plural `are`, and adjust the description if needed so the generated lead reads grammatically: the three components of a GLM are the response distribution, linear predictor, and link function. The existing generated lead currently says `the ... components ... is`."
+    }
+  ]
+}
