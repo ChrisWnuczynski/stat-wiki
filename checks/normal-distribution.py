@@ -20,6 +20,9 @@ if __name__ == "__main__":
         r"0.6915-0.1587=0.5328",
         r"\operatorname{diag}(1/\sigma^2,2/\sigma^2)",
         r"\tfrac12\log(2\pi e\sigma^2)",
+        r"P(X<496)=\Phi(-1)\approx0.1587",
+        r"1-\Phi(\sqrt2)\approx0.07865",
+        r"1-\Phi(2)\approx0.02275",
     )
     for value in printed:
         assert value in page, f"Value missing from generated article: {value}"
@@ -33,6 +36,8 @@ if __name__ == "__main__":
     for z, expected in ((1.3, 0.9032), (1.4, 0.9192), (0.5, 0.6915), (1, 0.8413)):
         assert isclose(normal.cdf(z), expected, abs_tol=0.00005)
     assert round(normal.cdf(0.5) - (1-normal.cdf(1)), 4) == 0.5328
+    assert round(1-normal.cdf(2**0.5), 5) == 0.07865
+    assert round(1-normal.cdf(2), 5) == 0.02275
     assert isclose(0.5*log(2*pi*2.718281828459045), 0.5*log(2*pi)+0.5)
     keys = set(re.findall(r'data-cite-key="([^"]+)"', page.split('## References')[0]))
     opened = {
@@ -40,6 +45,7 @@ if __name__ == "__main__":
         "siegrist2022_binomial_distribution", "siegrist2022_normals",
         "gelman_bda2013", "raiffa_schlaifer1961", "hoff2013_bayes_estimators",
         "box_muller1958", "geyer2005_markov_chain",
+        "daw1966_normal_history", "oliveira2022_probability_history",
     }
     assert keys <= opened, f"Normal article cites sources not checked for this pass: {keys-opened}"
     for line in page.splitlines():

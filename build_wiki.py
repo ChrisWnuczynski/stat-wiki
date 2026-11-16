@@ -4118,8 +4118,9 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
             if heading in researched or not prose:
                 raise ValueError(f"{research_file}: repeated or empty section {heading!r}")
             researched[heading] = prose
-        allowed = {"Lead context", "Definition", "Properties", "Related distributions",
-                   "Statistical inference", "Generating random samples", "History", "Examples"}
+        allowed = {"Lead context", "Motivating example", "Definition", "Properties",
+                   "Related distributions", "Statistical inference", "Generating random samples",
+                   "Worked example", "History", "Examples"}
         if not researched or set(researched) - allowed:
             raise ValueError(f"{research_file}: unknown or missing sections {set(researched) - allowed}")
     lead = article_lead(article) + source_lead_citations(blocks, include_math=True)
@@ -4162,11 +4163,13 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
                            f"{result['proof']}\n:::\n:::")
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close"), facts.get("worked_example", ""), researched.get("Examples", "")]))
     sections = (
+        ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
         ("Definition", "definition", definition),
         ("Properties", "properties", "\n\n".join(filter(None, [key_result, facts.get("mode_explanation", ""), content("property-head", "property", "figures-head", "figure"), researched.get("Properties", "")]))),
         ("Related distributions", "related-distributions", "\n\n".join(filter(None, [*relationships, researched.get("Related distributions", "")]))),
         ("Statistical inference", "used-in", "\n\n".join(filter(None, [facts.get("statistical_use", ""), researched.get("Statistical inference", ""), content("used-in")]))),
         ("Generating random samples", "generating-random-samples", "\n\n".join(filter(None, [facts["sampling"], researched.get("Generating random samples", "")]))),
+        ("Worked example", "worked-example", researched.get("Worked example", "")),
         ("History", "history", "\n\n".join(filter(None, [facts["history"], researched.get("History", "")]))),
         ("Examples", "examples", examples),
         ("See also", "see-also", content("see-also")),

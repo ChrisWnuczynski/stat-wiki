@@ -1349,6 +1349,23 @@
         "id": "10.1017/cbo9780511802843"
       }
     },
+    "daw1966_normal_history": {
+      "authors": [
+        "Daw, R. H."
+      ],
+      "year": 1966,
+      "title": "Why the Normal Distribution",
+      "kind": "article",
+      "venue": "Journal of the Staple Inn Actuarial Society",
+      "volume": "18",
+      "issue": "1",
+      "pages": "2–15",
+      "doi": "10.1017/S0020269X00008008",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/S0020269X00008008"
+      }
+    },
     "dawid1979": {
       "authors": [
         "Dawid, A. P."
@@ -4669,6 +4686,22 @@
       "verification": {
         "source": "crossref",
         "id": "10.1017/cbo9780511810633"
+      }
+    },
+    "oliveira2022_probability_history": {
+      "authors": [
+        "de Oliveira, M. J."
+      ],
+      "year": 2022,
+      "title": "Structure of the theories of probability",
+      "kind": "article",
+      "venue": "Revista Brasileira de Ensino de Física",
+      "volume": "44",
+      "pages": "e20220087",
+      "doi": "10.1590/1806-9126-RBEF-2022-0087",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1590/1806-9126-RBEF-2022-0087"
       }
     },
     "olshen1977": {

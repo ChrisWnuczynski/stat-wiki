@@ -1061,8 +1061,8 @@ class DistributionCatalogueTests(unittest.TestCase):
                 self.assertIn("## Definition {#definition}", body)
                 self.assertIn('aria-label="Probability distributions"', body)
                 headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
-                order = ["Definition", "Properties", "Related distributions", "Statistical inference",
-                         "Generating random samples", "History", "Examples", "See also", "References"]
+                order = ["Motivating example", "Definition", "Properties", "Related distributions", "Statistical inference",
+                         "Generating random samples", "Worked example", "History", "Examples", "See also", "References"]
                 self.assertEqual(headings, [name for name in order if name in headings], page.name)
                 self.assertEqual("Generating random samples" in headings, bool(build_wiki.DISTRIBUTIONS[slug]["sampling"]))
                 lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
@@ -1436,7 +1436,7 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertIn(".qmd", related, slug)
             self.assertGreaterEqual(len(related.split()), 20, slug)
             if slug not in history_todo:
-                self.assertEqual(len(facts["history"].split("\n\n")), 2, slug)
+                self.assertGreaterEqual(len(facts["history"].split("\n\n")), 2, slug)
                 self.assertGreaterEqual(facts["history"].count("{{cite:"), 2, slug)
 
     def test_relationships_are_reciprocal_and_cover_old_links(self) -> None:
@@ -1511,6 +1511,11 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
             box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]
             for label, value in old["infobox_rows"].items():
+                if label == "Worked examples" and "## Worked example {#worked-example}" in body:
+                    match = re.search(r"\| Worked examples \| \[(\d+)\]\(#worked-example\) \|", box)
+                    self.assertIsNotNone(match, slug)
+                    self.assertGreaterEqual(int(match.group(1)), int(re.search(r"\[(\d+)\]", value).group(1)), slug)
+                    continue
                 self.assertIn(f"| {label} | {value} |", box, slug)
 
     def test_copied_distribution_results_have_proofs_or_todos(self) -> None:
