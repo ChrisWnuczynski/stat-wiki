@@ -1,0 +1,6 @@
+{
+  "self_checks": ["q-55", "c-41"],
+  "article_lead": {
+    "description": "a rule linking a response's mean to its spread, helping a regression model assign uncertainty across different predictor settings"
+  }
+}
