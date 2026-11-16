@@ -1,0 +1,49 @@
+{
+  "slug": "convolution",
+  "rank": 360,
+  "tier": "lighter",
+  "type": "Concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 463,
+  "words_after": 1131,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Pishro-Nik 2014 §5.2"
+  ],
+  "proofs": [
+    "Discrete convolution by partitioning on one variable"
+  ],
+  "tests": [
+    "checks/convolution.py passed"
+  ],
+  "skipped": [
+    "Laplace, Cramér and Casella–Berger were not opened."
+  ],
+  "bibliography": {
+    "pishro_nik2014": {
+      "authors": [
+        "Pishro-Nik, H."
+      ],
+      "year": 2014,
+      "title": "Introduction to Probability, Statistics, and Random Processes",
+      "kind": "book",
+      "publisher": "Kappa Research, LLC",
+      "url": "https://www.probabilitycourse.com/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilitycourse.com/"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}
