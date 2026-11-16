@@ -1,0 +1,40 @@
+{
+  "bibliography": {
+    "goodfellow_bengio_courville2016": {
+      "authors": ["Goodfellow, I.", "Bengio, Y.", "Courville, A."],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/",
+      "verification": {"source": "archival_url", "id": "https://www.deeplearningbook.org/"}
+    }
+  },
+  "article_lead": {
+    "description": "a way to limit the size of fitted weights so a flexible model is less likely to follow noise in its training data"
+  },
+  "self_checks": ["depth-weight-update", "depth-weight-scale", "depth-weight-adam"],
+  "new_bank_questions": [
+    {
+      "id": "depth-weight-update",
+      "title": "One weight-decay update",
+      "body": "For one weight w=4, current loss gradient 6, learning rate 0.1 and L2 penalty strength 0.2, calculate the ordinary penalized gradient step. Compare it with the unpenalized step.",
+      "answer": "The penalized gradient is 6+0.2(4)=6.8, so w_new=4-0.1(6.8)=3.32. Equivalently, 0.98(4)-0.1(6)=3.32. Without the penalty the step gives 3.4.",
+      "topic_code": "L16"
+    },
+    {
+      "id": "depth-weight-scale",
+      "title": "Feature units and weight penalties",
+      "body": "An input is multiplied by ten and its linear-model weight divided by ten, leaving predictions identical. By what factor does that weight's squared penalty contribution change?",
+      "answer": "It is divided by 100, because (w/10)^2=w^2/100. A raw squared-weight penalty depends on predictor units even when fitted predictions are unchanged.",
+      "topic_code": "L16"
+    },
+    {
+      "id": "depth-weight-adam",
+      "title": "Coupled penalty versus separate decay",
+      "body": "Why can adding an L2 penalty to a loss produce a different update from a separate weight-decay step under Adam, although they can coincide for ordinary SGD?",
+      "answer": "An L2 penalty contributes lambda times the weight to the gradient, so Adam's adaptive coordinate scaling also acts on the penalty gradient. A separate decay step scales the weight directly outside the adaptive gradient calculation. Ordinary scalar-step SGD gives the same algebra after matching the coefficients.",
+      "topic_code": "L16"
+    }
+  ]
+}
