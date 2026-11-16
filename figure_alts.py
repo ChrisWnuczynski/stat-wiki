@@ -178,7 +178,7 @@ FIGURE_ALTS: dict[str, str] = {
         "SS_error from level-mean deviations going into SS_treatment."
     ),
     "inf-corn-groups.png": (
-        "Dot plot of corn yields across four varieties (three plots per variety) with red horizontal bars at variety "
+        "Dot plot of corn yields across five varieties (three plots per variety) with red horizontal bars at variety "
         "means and a dashed grand mean line, showing small within-variety scatter compared with Variety 3 standing "
         "well above the others."
     ),

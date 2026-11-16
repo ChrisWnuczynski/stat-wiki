@@ -537,5 +537,67 @@
     "ex-inf-milk-summaries",
     "exr-sample-quantile-type7",
     "exr-sample-quantile-ties"
+  ],
+  "artificial-neuron": [
+    "ex-sl-14-3",
+    "ex-sl-14-5"
+  ],
+  "continuous-distribution": [
+    "ex-prob-random-radius",
+    "ex-prob-component-five-years",
+    "ex-prob-shifted-exp-generate"
+  ],
+  "dirichlet-distribution": [
+    "depth-dirichlet-marginal",
+    "depth-dirichlet-prediction"
+  ],
+  "exchangeability": [
+    "depth-exchangeability-01",
+    "depth-exchangeability-mixture"
+  ],
+  "fixed-and-random-effects": [
+    "q-39",
+    "c-35"
+  ],
+  "identifiability": [
+    "depth-identifiability-01",
+    "depth-identifiability-02"
+  ],
+  "inverse-link": [
+    "q-38",
+    "q-57"
+  ],
+  "kernel-density-estimator": [
+    "ex-sl-07-5",
+    "ex-sl-07-6"
+  ],
+  "natural-parameter": [
+    "c-17",
+    "q-32"
+  ],
+  "one-way-analysis-of-variance": [
+    "ex-da-sickle-anova",
+    "ex-da-bonferroni"
+  ],
+  "overdispersion": [
+    "q-47",
+    "q-54"
+  ],
+  "random-intercept-model": [
+    "q-40",
+    "q-41",
+    "ex-orthodont-lmm"
+  ],
+  "support-vectors-and-their-multipliers": [
+    "ex-sl-17-2",
+    "ex-sl-17-6"
+  ],
+  "three-components-of-a-glm": [
+    "q-45",
+    "q-54"
+  ],
+  "working-correlation": [
+    "ex-ur-exchangeable-bound",
+    "c-40"
   ]
 }

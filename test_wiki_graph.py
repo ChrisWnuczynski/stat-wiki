@@ -1559,6 +1559,16 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # unlocated historical textbook markers.
                 expected_keys.difference_update({"grimmett_stirzaker2020", "erlang1909", "ross2019", "feller1968"})
                 self.assertTrue({"siegrist2022_exponential", "nist_exponential_handbook", "dodge2008"} <= citation_keys, slug)
+            if slug == "dirichlet-distribution":
+                # The opened Gelman and Tokdar texts support the simplex
+                # definition and beta marginal without unread originals.
+                expected_keys.difference_update({"jeffreys1961", "raiffa_schlaifer1961", "dirichlet1839"})
+                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
+            if slug == "multinomial-distribution":
+                # The opened categorical-model treatment replaces two
+                # inherited markers without inspected passages.
+                expected_keys.difference_update({"jeffreys1961", "raiffa_schlaifer1961"})
+                self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "poisson-distribution":
                 # The shared update replaces two unlocated book markers.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
@@ -1720,6 +1730,21 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # used here in place of two uninspected older references.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "box_tiao1973"})
                 self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "dirichlet-multinomial-conjugacy":
+                # The opened BDA3 §3.4 update replaces inherited source
+                # markers without inspected supporting passages.
+                expected_keys.difference_update({"jeffreys1961", "raiffa_schlaifer1961"})
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "dirichlet-moments":
+                # Tokdar's full handout derives the beta marginal and
+                # moment formulas in place of uninspected old citations.
+                expected_keys.difference_update({"dirichlet1839", "raiffa_schlaifer1961"})
+                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
+            if slug == "interior-dirichlet-mode":
+                # The opened Gelman and Tokdar derivations replace an
+                # inherited bibliography-only reference.
+                expected_keys.discard("raiffa_schlaifer1961")
+                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
             if slug == "sequential-coherence":
                 # The beta updates are derived from the opened Gelman passage;
                 # inherited Laplace and Raiffa references were not inspected.

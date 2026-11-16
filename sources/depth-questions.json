@@ -61,5 +61,47 @@
     "title": "A quartile with tied observations",
     "body": "The ordered sample is 2, 2, 2, 9. Find the 0.75 quantile by the empirical-CDF inverse and by R's type-7 rule. What does the difference show?",
     "answer": "The empirical inverse uses ceil(4×0.75)=3 and returns x_(3)=2: three of four values are already at most 2. Type 7 uses h=1+3×0.75=3.25 and returns 2+0.25(9−2)=3.75. Interpolation can put a reported quantile where no value was observed, especially when a large CDF jump from ties sits beside a gap."
+  },
+  {
+    "id": "depth-exchangeability-01",
+    "topic_code": "B8",
+    "title": "Exchangeable but dependent draws",
+    "body": "A bag has one red and one blue ball. Draw both without replacement, marking red as 1. Give the probabilities of (1,0) and (0,1). Are the draws exchangeable? Are they independent?",
+    "answer": "The two ordered outcomes each have probability 1/2, so permuting draw positions preserves the joint law: the pair is exchangeable. Each marginal probability of red is 1/2, but P(1,1)=0 rather than (1/2)(1/2)=1/4, so the draws are dependent. Their covariance is -1/4."
+  },
+  {
+    "id": "depth-identifiability-01",
+    "topic_code": "L5",
+    "title": "A smooth and its intercept",
+    "body": "At three observed inputs a fitted additive predictor has intercept 2 and smooth values (-1, 0, 1). Give its three fitted predictors. If the intercept is changed to 5, choose smooth values that give the same predictors. State one constraint that picks a unique intercept in this example.",
+    "answer": "The fitted predictors are (1, 2, 3). Raising the intercept by 3 and lowering every smooth value by 3 gives intercept 5 and smooth values (-4, -3, -2), with the same predictors. The sum-to-zero constraint on the smooth selects the original values, whose sum is 0; the shifted smooth sums to -9."
+  },
+  {
+    "id": "depth-identifiability-02",
+    "topic_code": "L5",
+    "title": "Only a product is visible",
+    "body": "A binary response has success probability p=ab, where 0<a<1 and 0<b<1. Compare (a,b)=(0.2,0.5) with (0.5,0.2). Are a and b separately identifiable from any number of these binary responses? Is their product identifiable?",
+    "answer": "Both pairs give p=0.1, so each generates the same Bernoulli law for every response and every sample size. The individual factors a and b are not identified. The product ab is identified because distinct products give distinct Bernoulli success probabilities."
+  },
+  {
+    "id": "depth-dirichlet-marginal",
+    "topic_code": "B5",
+    "title": "One category from a Dirichlet vector",
+    "body": "A three-category probability vector has a Dirichlet(1,2,3) prior. What is the marginal distribution and variance of the first probability? What is its covariance with the second probability?",
+    "answer": "The first coordinate is Beta(1,5). Its variance is 1·5/[6²(6+1)]=5/252≈0.01984. The covariance of the first and second coordinates is -1·2/[6²(6+1)]=-1/126≈-0.00794. The negative covariance reflects that the shares must sum to one."
+  },
+  {
+    "id": "depth-dirichlet-prediction",
+    "topic_code": "B5",
+    "title": "A new category after counts",
+    "body": "Start with Dirichlet(1,1,1) probabilities and observe category counts (2,0,1). What is the posterior vector of concentrations, and what is the posterior predictive probability that the next observation is in category 2?",
+    "answer": "Adding the counts gives Dirichlet(3,1,2), total concentration 6. Integrating the category-2 probability over this posterior gives its posterior mean 1/6≈0.1667. The zero observed count does not make its predictive probability zero."
+  },
+  {
+    "id": "depth-exchangeability-mixture",
+    "topic_code": "B8",
+    "title": "A shared coin probability",
+    "body": "Choose a coin probability Θ to be 0.2 or 0.8 with equal probability, then toss twice independently conditional on Θ. Are the two results exchangeable? Are they independent after Θ is integrated out? Calculate P(1,0) and P(1,1).",
+    "answer": "The conditional iid construction makes the joint law exchangeable. P(1,0)=0.5(0.2·0.8)+0.5(0.8·0.2)=0.16, while P(1,1)=0.5(0.2²)+0.5(0.8²)=0.34. Each marginal success probability is 0.5, so independence would require P(1,1)=0.25. The shared random Θ creates dependence."
   }
 ]

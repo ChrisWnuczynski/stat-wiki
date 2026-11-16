@@ -40,7 +40,7 @@ A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function d
 ::: {#def-continuous-distribution .definition}
 ## Continuous distribution
 
-$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:billingsley1995}} (§12) The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.{{cite:billingsley1995}} (§12)
+The absolutely continuous subclass studied here has a distribution function that can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:billingsley1995}} (§12) The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.{{cite:billingsley1995}} (§12)
 
 For such a density, the probability of an interval is the area under $f$ between its endpoints. Each singleton has probability zero, so including an endpoint does not change that integral. The resulting distribution function is continuous, but continuity alone does not ensure a density exists. A model with both point masses and a continuous component needs both pieces to describe its law.{{cite:billingsley1995}} (§12)
 
@@ -392,7 +392,7 @@ For three events at rate 2 per hour, the probability that the third takes more t
 
 ::: {.callout-note}
 ## Key idea
-The distribution is the probability of the events $\{X\in B\}$. Discrete distributions are specified by a mass function, continuous distributions by a density. The expectation of a function is the average of that function against the mass or the density, and linearity does not need independence.
+The distribution is the probability of the events $\{X\in B\}$. Discrete distributions are specified by a mass function, the absolutely continuous models treated here by a density. The expectation of a function is the average of that function against the mass or the density, and linearity does not need independence.
 :::
 
 ## Exercises

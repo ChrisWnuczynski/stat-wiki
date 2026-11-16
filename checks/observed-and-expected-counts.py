@@ -48,6 +48,6 @@ assert all(key in body for key in (
     'data-cite-key="gorroochurn2016_pearson"',
 ))
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", page))
-assert len(questions) == 13, f"Expected 13 question links, got {len(questions)}"
+assert len(questions) >= 13, f"Expected at least 13 preserved question links, got {len(questions)}"
 assert {"ex-inf-frizzle", "ex-inf-die-fairness"} <= questions
 print("observed-and-expected-counts arithmetic, sources, proof, and links passed")

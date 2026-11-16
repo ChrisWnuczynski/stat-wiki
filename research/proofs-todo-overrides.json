@@ -153,5 +153,40 @@
     "slug": "prior-and-posterior-predictive-distributions#property-normal-regression-predictive-t",
     "title": "Student posterior prediction under the normal regression reference prior",
     "reason": "The inherited properties state the multivariate regression Student distribution and scale, while the page's collapsed proof covers predictive mixtures, variance decomposition, and beta–binomial prediction; the regression calculation needs a complete derivation."
+  },
+  {
+    "slug": "continuous-distribution#property-almost-everywhere-derivative-of-an-indefinite-integral",
+    "title": "Almost-everywhere derivative of an indefinite integral",
+    "reason": "The collapsed proof establishes interval probabilities, point masses and continuity, and cites the standard differentiation theorem for the inherited general assertion F'=f almost everywhere; a full proof of that theorem is beyond this page."
+  },
+  {
+    "slug": "exchangeability#property-converse-de-finetti-representation-for-infinitely-exchangeable-bernoulli-sequences",
+    "title": "Converse de Finetti representation for infinitely exchangeable Bernoulli sequences",
+    "reason": "The collapsed proof establishes that iid Bernoulli mixtures are exchangeable and gives a finite counterexample; it does not derive the converse via limiting empirical-frequency measures and uniqueness."
+  },
+  {
+    "slug": "identifiability#property-general-finite-normal-mixture-identifiability-up-to-permutation",
+    "title": "General finite-normal-mixture identifiability up to permutation",
+    "reason": "The collapsed proof establishes label symmetry and elementary rank examples, but it does not prove Teicher's general finite-normal-mixture identification result under distinct components and positive weights."
+  },
+  {
+    "slug": "identifiability#property-rothenberg-local-information-criterion-under-regularity-conditions",
+    "title": "Rothenberg local information criterion under regularity conditions",
+    "reason": "The page explains and illustrates the criterion but does not reproduce the full regular-point proof from the original paper."
+  },
+  {
+    "slug": "natural-parameter#property-completeness-of-a-full-rank-exponential-family-natural-statistic",
+    "title": "Completeness of a full-rank exponential-family natural statistic",
+    "reason": "The inherited definition states the full-rank completeness result but the page proof covers moment identities and parameter reparameterization, not Laplace-transform uniqueness needed for completeness. A separate exact proof with its integrability assumptions is required."
+  },
+  {
+    "slug": "one-way-analysis-of-variance#property-tukey-simultaneous-interval-coverage-for-all-pairwise-means",
+    "title": "Tukey simultaneous-interval coverage for all pairwise means",
+    "reason": "The collapsed proof covers the ANOVA decomposition, F reference law and two-group t relation; the inherited Tukey studentized-range simultaneous coverage statement is not proved there."
+  },
+  {
+    "slug": "one-way-analysis-of-variance#property-planned-contrast-f-distribution",
+    "title": "Planned-contrast F distribution",
+    "reason": "The inherited prose gives a one-dimensional normal-square argument, but a complete collapsed derivation of contrast independence from pooled error and its exact F law remains to be added."
   }
 ]

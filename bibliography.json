@@ -8579,6 +8579,254 @@
         "source": "archival_url",
         "id": "https://www.randomservices.org/random/special/Pareto.html"
       }
+    },
+    "goodfellow2016_deep_learning": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/contents/mlp.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/contents/mlp.html"
+      }
+    },
+    "siegrist2022_continuous": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Continuous Distributions (Probability, Mathematical Statistics, and Stochastic Processes)",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.02:_Continuous_Distributions",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.02:_Continuous_Distributions"
+      }
+    },
+    "knill2009_probability": {
+      "authors": [
+        "Knill, O."
+      ],
+      "year": 2009,
+      "title": "Probability and Stochastic Processes with Applications",
+      "kind": "book",
+      "publisher": "Overseas Press",
+      "url": "https://abel.math.harvard.edu/~knill/books/KnillProbability.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://abel.math.harvard.edu/~knill/books/KnillProbability.pdf"
+      }
+    },
+    "tokdar2018_dirichlet": {
+      "authors": [
+        "Tokdar, S. T."
+      ],
+      "year": 2018,
+      "title": "The Dirichlet Distributions",
+      "kind": "book",
+      "publisher": "Duke University",
+      "url": "https://www2.stat.duke.edu/~st118/sta941/dirichlet.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.stat.duke.edu/~st118/sta941/dirichlet.pdf"
+      }
+    },
+    "stephens2023_definetti": {
+      "authors": [
+        "Stephens, D. A."
+      ],
+      "year": 2023,
+      "title": "The de Finetti Representation Theorem",
+      "kind": "book",
+      "publisher": "McGill University",
+      "url": "https://www.math.mcgill.ca/dstephens/559/Handouts/Math559-Fall2023-01-DeFinetti.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.math.mcgill.ca/dstephens/559/Handouts/Math559-Fall2023-01-DeFinetti.pdf"
+      }
+    },
+    "gelman2005_anova": {
+      "authors": [
+        "Gelman, A."
+      ],
+      "year": 2005,
+      "title": "Analysis of variance—why it is more important than ever",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "33",
+      "issue": "1",
+      "pages": "1–53",
+      "doi": "10.1214/009053604000001048",
+      "url": "https://sites.stat.columbia.edu/gelman/research/published/AOS259.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/009053604000001048"
+      }
+    },
+    "rothenberg1971": {
+      "authors": [
+        "Rothenberg, T. J."
+      ],
+      "year": 1971,
+      "title": "Identification in Parametric Models",
+      "kind": "article",
+      "venue": "Econometrica",
+      "volume": "39",
+      "issue": "3",
+      "pages": "577–591",
+      "doi": "10.2307/1913267",
+      "verification": {
+        "source": "crossref",
+        "id": "10.2307/1913267"
+      }
+    },
+    "mgcv_identifiability2026": {
+      "authors": [
+        "Wood, S. N."
+      ],
+      "year": 2026,
+      "title": "Identifiability constraints (mgcv documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html"
+      }
+    },
+    "green2019_finite_mixtures": {
+      "authors": [
+        "Green, P. J."
+      ],
+      "year": 2019,
+      "title": "Introduction to Finite Mixtures (Handbook of Mixture Analysis)",
+      "kind": "book",
+      "publisher": "CRC Press",
+      "url": "https://api.pageplace.de/preview/DT0400.9780429508240_A35885599/preview-9780429508240_A35885599.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://api.pageplace.de/preview/DT0400.9780429508240_A35885599/preview-9780429508240_A35885599.pdf"
+      }
+    },
+    "wasserman705_lecture26": {
+      "authors": [
+        "Wasserman, L."
+      ],
+      "year": 2020,
+      "title": "Non-parametric Density Estimation and Non-parametric Regression (36-705, lecture 26)",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University, 36-705",
+      "url": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf"
+      }
+    },
+    "rstats_density2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Kernel Density Estimation (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/density.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/R/refmans/stats/html/density.html"
+      }
+    },
+    "fithian2023_exp_families": {
+      "authors": [
+        "Fithian, W."
+      ],
+      "year": 2023,
+      "title": "Exponential Families",
+      "kind": "book",
+      "publisher": "University of California, Berkeley",
+      "url": "https://www.stat.berkeley.edu/~wfithian/courses/%73tat210a/exponential-families.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.berkeley.edu/~wfithian/courses/%73tat210a/exponential-families.html"
+      }
+    },
+    "nist_oneway_anova": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "One-Way ANOVA (NIST e-Handbook of Statistical Methods)",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm"
+      }
+    },
+    "rstats_oneway2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Test for Equal Means in a One-Way Layout (R documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/oneway.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/oneway.test.html"
+      }
+    },
+    "rstats_negbin2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "The Negative Binomial Distribution (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/NegBinomial.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/R/refmans/stats/html/NegBinomial.html"
+      }
+    },
+    "bailey2011_nelder": {
+      "authors": [
+        "Bailey, R. A."
+      ],
+      "year": 2011,
+      "title": "John Ashworth Nelder 1924–2010: Contributions to Statistics",
+      "kind": "book",
+      "publisher": "Queen Mary University of London",
+      "url": "https://webspace.maths.qmul.ac.uk/r.a.bailey/neldbeam.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://webspace.maths.qmul.ac.uk/r.a.bailey/neldbeam.pdf"
+      }
+    },
+    "bowman_azzalini1997": {
+      "authors": [
+        "Bowman, A. W.",
+        "Azzalini, A."
+      ],
+      "year": 1997,
+      "title": "Applied Smoothing Techniques for Data Analysis: The Kernel Approach with S-Plus Illustrations",
+      "kind": "book",
+      "publisher": "Oxford University Press",
+      "url": "https://api.pageplace.de/preview/DT0400.9780191545696_A37880811/preview-9780191545696_A37880811.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://api.pageplace.de/preview/DT0400.9780191545696_A37880811/preview-9780191545696_A37880811.pdf"
+      }
     }
   }
 }

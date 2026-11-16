@@ -266,7 +266,7 @@ $$
 $$
 
 
- Conditional iid sampling from a common Beta distribution implies exchangeability.{{cite:definetti1937}}{{cite:gelman_bda2013}} 
+ Conditional iid sampling from a common Beta distribution implies exchangeability.{{cite:gelman_bda2013}} (Ch. 5, §5.2, pp. 104–105, conditional iid construction)
 
 $$
  p(\thetavec\given\alpha,\beta)
@@ -274,7 +274,7 @@ $$
 $$
 
 
- The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition.{{cite:gelman_bda2013}} The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
+ The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition.{{cite:gelman_bda2013}} (Ch. 5, §5.2, pp. 104–106, exchangeability conditional on available information) The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
 
 :::
 

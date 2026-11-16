@@ -417,15 +417,15 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "$\\boldsymbol X\\mid\\boldsymbol p\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$",
-    "lead_context": "It models uncertain category-probability vectors and updates directly with multinomial counts.{{cite:gelman_bda2013}}",
-    "statistical_use": "A Dirichlet prior adds observed counts componentwise to its concentration vector in a multinomial analysis. The posterior means combine prior category weights with observed frequencies, while the common total means the components are dependent.{{cite:gelman_bda2013}}",
-    "worked_example": "### Updating three categories\n\nStart with $\\boldsymbol p\\sim\\operatorname{Dirichlet}(2,3,5)$ and observe counts $(4,1,0)$. The posterior is $\\operatorname{Dirichlet}(6,4,5)$, so the posterior mean of $p_1$ is $6/15=0.4$, compared with prior mean $2/10=0.2$.{{cite:gelman_bda2013}}",
-    "definition_note": "The vector $\\boldsymbol\\alpha=(\\alpha_1,\\ldots,\\alpha_K)$ has $K$ positive components, $\\alpha_0=\\sum_k\\alpha_k$, and an observed vector $\\boldsymbol x=(x_1,\\ldots,x_K)$ lies on the simplex: each $x_k>0$ and $\\sum_kx_k=1$.{{cite:forbes2011}}",
+    "lead_context": "{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "statistical_use": "It models uncertain category-probability vectors and updates directly with multinomial counts. A Dirichlet prior adds observed counts componentwise to its concentration vector in a multinomial analysis. The posterior means combine prior category weights with observed frequencies, while the common total means the components are dependent.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "worked_example": "### Updating three categories\n\nStart with $\\boldsymbol p\\sim\\operatorname{Dirichlet}(2,3,5)$ and observe counts $(4,1,0)$. The posterior is $\\operatorname{Dirichlet}(6,4,5)$, so the posterior mean of $p_1$ is $6/15=0.4$, compared with prior mean $2/10=0.2$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "definition_note": "The vector $\\boldsymbol\\alpha=(\\alpha_1,\\ldots,\\alpha_K)$ has $K$ positive components, $\\alpha_0=\\sum_k\\alpha_k$, and an observed vector $\\boldsymbol x=(x_1,\\ldots,x_K)$ lies on the simplex: each $x_k>0$ and $\\sum_kx_k=1$.{{cite:tokdar2018_dirichlet}} (p. 1, density on the simplex)",
     "key_result": {
       "title": "Beta marginal of one component",
-      "statement": "If $\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\alpha_1,\\ldots,\\alpha_K)$ and $\\alpha_0=\\sum_k\\alpha_k$, then $X_j\\sim\\operatorname{Beta}(\\alpha_j,\\alpha_0-\\alpha_j)$ for $K\\ge2$.{{cite:gelman_bda2013}}",
+      "statement": "If $\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\alpha_1,\\ldots,\\alpha_K)$ and $\\alpha_0=\\sum_k\\alpha_k$, then $X_j\\sim\\operatorname{Beta}(\\alpha_j,\\alpha_0-\\alpha_j)$ for $K\\ge2$.{{cite:tokdar2018_dirichlet}} (p. 1, beta marginal and gamma representation)",
       "meaning": "Each category probability has a beta marginal even though the category probabilities are dependent.",
-      "proof": "Let independent $G_k\\sim\\operatorname{Gamma}(\\alpha_k,1)$ and set $X_k=G_k/\\sum_iG_i$. The sum $S_{-j}=\\sum_{i\\ne j}G_i$ is independent of $G_j$ and has gamma shape $\\alpha_0-\\alpha_j$ with the same rate. The ratio $G_j/(G_j+S_{-j})$ is beta with the stated shapes.{{cite:gelman_bda2013}}"
+      "proof": "Let independent $G_k\\sim\\operatorname{Gamma}(\\alpha_k,1)$ and set $X_k=G_k/\\sum_iG_i$. The sum $S_{-j}=\\sum_{i\\ne j}G_i$ is independent of $G_j$ and has gamma shape $\\alpha_0-\\alpha_j$ with the same rate. The ratio $G_j/(G_j+S_{-j})$ is beta with the stated shapes.{{cite:tokdar2018_dirichlet}} (p. 1, beta marginal and gamma representation)"
     }
   },
   "exponential-distribution": {

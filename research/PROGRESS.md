@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **127**. Left: **591**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **142**. Left: **576**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -100,7 +100,7 @@ Pages ranked: **718**. Done: **127**. Left: **591**. Skipped: **0**. Ranks 1–6
 | 89 | [Linear discriminant analysis](linear-discriminant-analysis.md) | Section | [Prose](content/linear-discriminant-analysis.md), [check](../checks/linear-discriminant-analysis.py) | 1,542 → 3,526 | 0 → 0 | See [research record](linear-discriminant-analysis.md) |
 | 90 | [Validation set](validation-set.md) | Topic | [Prose](content/validation-set.md), [check](../checks/validation-set.py) | 272 → 2,445 | 0 → 0 | See [research record](validation-set.md) |
 | 91 | [p-value](p-value.md) | Definition | [Prose](content/p-value.md), [check](../checks/p-value.py) | 731 → 2,556 | 2 → 2 | See [research record](p-value.md) |
-| 92 | [Beta distribution](beta-distribution.md) | Distribution | [Prose](content/beta-distribution.md), [check](../checks/beta-distribution.py) | 2,597 → 5,682 | 4 → 4 | See [research record](beta-distribution.md) |
+| 92 | [Beta distribution](beta-distribution.md) | Distribution | [Prose](content/beta-distribution.md), [check](../checks/beta-distribution.py) | 2,597 → 5,689 | 4 → 4 | See [research record](beta-distribution.md) |
 | 93 | [Law of large numbers](law-of-large-numbers.md) | Theorem | [Prose](content/law-of-large-numbers.md), [check](../checks/law-of-large-numbers.py) | 426 → 2,594 | 1 → 1 | See [research record](law-of-large-numbers.md) |
 | 94 | [Treatment](treatment.md) | Topic | [Prose](content/treatment.md), [check](../checks/treatment.py) | 420 → 2,114 | 0 → 0 | See [research record](treatment.md) |
 | 95 | [Sample space](sample-space.md) | Definition | [Prose](content/sample-space.md), [check](../checks/sample-space.py) | 438 → 1,847 | 0 → 0 | See [research record](sample-space.md) |
@@ -124,7 +124,7 @@ Pages ranked: **718**. Done: **127**. Left: **591**. Skipped: **0**. Ranks 1–6
 | 113 | [Fisher information](fisher-information.md) | Topic | [Prose](content/fisher-information.md), [check](../checks/fisher-information.py) | 455 → 2,848 | 0 → 0 | See [research record](fisher-information.md) |
 | 114 | [Prior and posterior predictive distributions](prior-and-posterior-predictive-distributions.md) | Definition | [Prose](content/prior-and-posterior-predictive-distributions.md), [check](../checks/prior-and-posterior-predictive-distributions.py) | 1,628 → 5,229 | 0 → 0 | See [research record](prior-and-posterior-predictive-distributions.md) |
 | 115 | [Binomial distribution](binomial-distribution.md) | Distribution | [Prose](content/binomial-distribution.md), [check](../checks/binomial-distribution.py) | 3,113 → 5,355 | 4 → 4 | See [research record](binomial-distribution.md) |
-| 116 | [Canonical link](canonical-link.md) | Definition | [Prose](content/canonical-link.md), [check](../checks/canonical-link.py) | 586 → 3,702 | 1 → 1 | See [research record](canonical-link.md) |
+| 116 | [Canonical link](canonical-link.md) | Definition | [Prose](content/canonical-link.md), [check](../checks/canonical-link.py) | 586 → 3,710 | 1 → 1 | See [research record](canonical-link.md) |
 | 117 | [Complete statistic](complete-statistic.md) | Definition | [Prose](content/complete-statistic.md), [check](../checks/complete-statistic.py) | 465 → 2,344 | 0 → 0 | See [research record](complete-statistic.md) |
 | 118 | [Credible-region constructions](credible-region-constructions.md) | Definition | [Prose](content/credible-region-constructions.md), [check](../checks/credible-region-constructions.py) | 1,303 → 5,078 | 1 → 1 | See [research record](credible-region-constructions.md) |
 | 119 | [Bayesian information criterion](bayesian-information-criterion.md) | Definition | [Prose](content/bayesian-information-criterion.md), [check](../checks/bayesian-information-criterion.py) | 1,746 → 3,702 | 0 → 0 | See [research record](bayesian-information-criterion.md) |
@@ -136,12 +136,27 @@ Pages ranked: **718**. Done: **127**. Left: **591**. Skipped: **0**. Ranks 1–6
 | 125 | [Exponential distribution](exponential-distribution.md) | Distribution | [Prose](content/exponential-distribution.md), [check](../checks/exponential-distribution.py) | 2,353 → 5,478 | 3 → 3 | See [research record](exponential-distribution.md) |
 | 126 | [K-nearest neighbours](nearest-neighbours.md) | Definition | [Prose](content/nearest-neighbours.md), [check](../checks/nearest-neighbours.py) | 397 → 2,733 | 0 → 0 | See [research record](nearest-neighbours.md) |
 | 127 | [Normal hierarchical shrinkage](normal-hierarchical-shrinkage.md) | Theorem | [Prose](content/normal-hierarchical-shrinkage.md), [check](../checks/normal-hierarchical-shrinkage.py) | 1,713 → 4,816 | 1 → 1 | See [research record](normal-hierarchical-shrinkage.md) |
+| 128 | [Overdispersion](overdispersion.md) | Topic | [Prose](content/overdispersion.md), [check](../checks/overdispersion.py) | 394 → 3,686 | 0 → 0 | See [research record](overdispersion.md) |
+| 129 | [Fixed and random effects](fixed-and-random-effects.md) | Section | [Prose](content/fixed-and-random-effects.md), [check](../checks/fixed-and-random-effects.py) | 657 → 2,969 | 0 → 0 | See [research record](fixed-and-random-effects.md) |
+| 130 | [Three components of a GLM](three-components-of-a-glm.md) | Section | [Prose](content/three-components-of-a-glm.md), [check](../checks/three-components-of-a-glm.py) | 624 → 4,058 | 0 → 0 | See [research record](three-components-of-a-glm.md) |
+| 131 | [Kernel density estimator](kernel-density-estimator.md) | Definition | [Prose](content/kernel-density-estimator.md), [check](../checks/kernel-density-estimator.py) | 608 → 2,402 | 0 → 0 | See [research record](kernel-density-estimator.md) |
+| 132 | [Natural parameter](natural-parameter.md) | Topic | [Prose](content/natural-parameter.md), [check](../checks/natural-parameter.py) | 316 → 2,361 | 0 → 0 | See [research record](natural-parameter.md) |
+| 133 | [Exchangeability](exchangeability.md) | Definition | [Prose](content/exchangeability.md), [check](../checks/exchangeability.py) | 483 → 2,361 | 0 → 0 | See [research record](exchangeability.md) |
+| 134 | [Working correlation](working-correlation.md) | Topic | [Prose](content/working-correlation.md), [check](../checks/working-correlation.py) | 307 → 2,028 | 0 → 0 | See [research record](working-correlation.md) |
+| 135 | [Dirichlet distribution](dirichlet-distribution.md) | Distribution | [Prose](content/dirichlet-distribution.md), [check](../checks/dirichlet-distribution.py) | 2,713 → 4,738 | 3 → 3 | See [research record](dirichlet-distribution.md) |
+| 136 | [Identifiability](identifiability.md) | Topic | [Prose](content/identifiability.md), [check](../checks/identifiability.py) | 289 → 2,198 | 0 → 0 | See [research record](identifiability.md) |
+| 137 | [One-way analysis of variance](one-way-analysis-of-variance.md) | Definition | [Prose](content/one-way-analysis-of-variance.md), [check](../checks/one-way-analysis-of-variance.py) | 3,808 → 6,117 | 6 → 6 | See [research record](one-way-analysis-of-variance.md) |
+| 138 | [Artificial neuron](artificial-neuron.md) | Definition | [Prose](content/artificial-neuron.md), [check](../checks/artificial-neuron.py) | 794 → 2,725 | 0 → 0 | See [research record](artificial-neuron.md) |
+| 139 | [Inverse link](inverse-link.md) | Topic | [Prose](content/inverse-link.md), [check](../checks/inverse-link.py) | 522 → 3,089 | 0 → 0 | See [research record](inverse-link.md) |
+| 140 | [Support vectors and their multipliers](support-vectors-and-their-multipliers.md) | Section | [Prose](content/support-vectors-and-their-multipliers.md), [check](../checks/support-vectors-and-their-multipliers.py) | 168 → 2,386 | 0 → 0 | See [research record](support-vectors-and-their-multipliers.md) |
+| 141 | [Random intercept model](random-intercept-model.md) | Section | [Prose](content/random-intercept-model.md), [check](../checks/random-intercept-model.py) | 554 → 5,271 | 1 → 2 | See [research record](random-intercept-model.md) |
+| 142 | [Continuous distribution](continuous-distribution.md) | Definition | [Prose](content/continuous-distribution.md), [check](../checks/continuous-distribution.py) | 475 → 2,816 | 2 → 2 | See [research record](continuous-distribution.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 128: `overdispersion`.** Ranks 113–127 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 143: `outlier`.** Ranks 128–142 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

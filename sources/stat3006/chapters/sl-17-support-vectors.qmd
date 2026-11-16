@@ -241,7 +241,7 @@ Complementary slackness gives three cases for a training point.
 | $0<\alpha_i<C$ | $y_i f(x_i)=1$: exactly on the margin, a free support vector | $\xi_i=0$ |
 | $\alpha_i=C$ | $y_i f(x_i)\le 1$: inside the margin or misclassified, a bound support vector | $\xi_i=1-y_i f(x_i)\ge 0$ |
 
-Only points on or inside the margin influence the fit{{cite:cortes_vapnik1995}}{{cite:burges1998}}{{cite:hastie_esl2009}}. On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
+Only points on or inside the margin influence the fit{{cite:burges1998}} (§§3.2 and 3.5, KKT conditions and soft margins). On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
 
 ### The hinge loss
 

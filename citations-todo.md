@@ -64,3 +64,13 @@ These articles do not yet have three inline citations. A further marker would na
 - pearson-test-with-estimated-parameters | The fitted-parameter qualification has one checked account; its specific degrees-of-freedom condition needs independent review.
 - polynomial-kernel | The kernel identity is checked algebraically and against the opened source; another independent reference has not been checked.
 - regression-slope | The inherited slope definition and least-squares algebra are supported by the opened source; an additional distinct citation remains to be checked.
+- anova-f-distribution | The copied F reference distribution is derived from normal errors and a variance decomposition; another independent source on these conditions has not been checked.
+- anova-sum-of-squares-decomposition | The algebraic decomposition is shown in the copied ANOVA passage; a third independent citation would repeat the same identity.
+- bonferroni-correction | The familywise union-bound result has a checked source and direct proof; another work on its exact statement remains to be checked.
+- contrast | The source chapter gives the coefficient-sum condition and example; an independent reference for the same definition has not been checked.
+- identity-link | The GLM source chapter uses the identity link as a direct example; a further independent citation has not been checked.
+- intraclass-correlation | The random-intercept source derives its correlation directly; further independent support for the exact variance ratio remains to be checked.
+- multiple-comparisons | The ANOVA source describes its pairwise testing setting; a distinct source on the same numerical example has not been checked.
+- pearson-dispersion-ratio | The copied count-model paragraph gives the ratio and interpretation; another independent source has not been checked.
+- restricted-maximum-likelihood | The source chapter now cites the opened lme4 likelihood discussion; further independent support for the copied sentence has not been checked.
+- tukey-intervals | The copied simultaneous-interval construction has a checked ANOVA source; an independent source for its exact coverage conditions remains to be checked.

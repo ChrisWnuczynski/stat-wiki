@@ -62,8 +62,8 @@
   {
     "a": "dirichlet-distribution",
     "b": "multinomial-distribution",
-    "a_text": "{target} counts categories whose probability vector can be given a Dirichlet prior. Updating with counts adds each observed count to the corresponding concentration parameter.{{cite:gelman_bda2013}}",
-    "b_text": "{target} is conjugate for the vector of category probabilities in this sampling model. A Dirichlet prior and multinomial counts produce a Dirichlet posterior.{{cite:gelman_bda2013}}"
+    "a_text": "{target} counts categories whose probability vector can be given a Dirichlet prior. Updating with counts adds each observed count to the corresponding concentration parameter.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "b_text": "{target} is conjugate for the vector of category probabilities in this sampling model. A Dirichlet prior and multinomial counts produce a Dirichlet posterior.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)"
   },
   {
     "a": "exponential-distribution",
