@@ -1,0 +1,49 @@
+{
+  "slug": "structure-function",
+  "rank": 359,
+  "tier": "lighter",
+  "type": "Concept/definition",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 813,
+  "words_after": 1559,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "Pishro-Nik 2014 §5.1"
+  ],
+  "proofs": [
+    "Two-out-of-three polynomial and independent reliability"
+  ],
+  "tests": [
+    "checks/structure-function.py passed"
+  ],
+  "skipped": [
+    "Birnbaum, Esary and Saunders 1961 had no open copy in Unpaywall, so it is not newly cited."
+  ],
+  "bibliography": {
+    "pishro_nik2014": {
+      "authors": [
+        "Pishro-Nik, H."
+      ],
+      "year": 2014,
+      "title": "Introduction to Probability, Statistics, and Random Processes",
+      "kind": "book",
+      "publisher": "Kappa Research, LLC",
+      "url": "https://www.probabilitycourse.com/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilitycourse.com/"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}
