@@ -1,0 +1,54 @@
+{
+  "slug": "randomised-block-design",
+  "rank": 356,
+  "tier": "lighter",
+  "type": "Concept/definition",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 974,
+  "words_after": 1798,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "Dodge 2008 p. 447",
+    "NIST/SEMATECH §5.3.3.2"
+  ],
+  "proofs": [],
+  "tests": [
+    "checks/randomised-block-design.py passed"
+  ],
+  "skipped": [
+    "Fisher 1925 and 1935 were not opened. The chi-squared null distribution of the sums of squares is not proved."
+  ],
+  "bibliography": {
+    "nist_randomized_block": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Randomized block designs",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
+      }
+    }
+  },
+  "proofs_todo": [
+    {
+      "slug": "randomised-block-design",
+      "result": "Null chi-squared laws of the block and treatment sums of squares",
+      "reason": "The page uses the F reference distribution for one table. The normal-theory chi-squared derivation is longer than the worked arithmetic."
+    }
+  ],
+  "todo": []
+}
