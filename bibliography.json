@@ -1086,6 +1086,15 @@
         "id": "http://www.numdam.org/item/JMPA_1867_2_12__177_0/"
       }
     },
+    "cameron2004_asymptotic": {
+      "authors": ["Cameron, A. C."],
+      "year": 2004,
+      "title": "Asymptotic Theory for OLS",
+      "kind": "book",
+      "publisher": "University of California, Davis",
+      "url": "https://cameron.econ.ucdavis.edu/e240a/asymptotic.pdf",
+      "verification": {"source": "archival_url", "id": "https://cameron.econ.ucdavis.edu/e240a/asymptotic.pdf"}
+    },
     "chicco_jurman2020": {
       "authors": [
         "Chicco, D.",
@@ -6089,6 +6098,15 @@
         "source": "archival_url",
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.02:_The_Binomial_Distribution"
       }
+    },
+    "siegrist2022_clt": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Random Services, Random Samples §5.4: The Central Limit Theorem",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/sample/CLT.html",
+      "verification": {"source": "archival_url", "id": "https://www.randomservices.org/random/sample/CLT.html"}
     },
     "siegrist2022_lognormal_distribution": {
       "authors": [

@@ -166,5 +166,9 @@
   "observed-and-expected-counts": [
     "ex-inf-frizzle",
     "ex-inf-die-fairness"
+  ],
+  "central-limit-theorem": [
+    "ex-prob-clt-binomial-band",
+    "ex-prob-voltage-mean"
   ]
 }

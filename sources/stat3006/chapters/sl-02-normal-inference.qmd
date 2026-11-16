@@ -264,7 +264,7 @@ $$
 \lim_{n\to\infty}\Pr\Bigl(\frac{\bar X_n-\mu}{\sigma/\sqrt{n}}\le z\Bigr)=\Phi(z).
 $$
 
-The theorem is a limiting statement, not a sample-size threshold. Heavy tails or strong skewness can make the approximation poor at a sample size that works well for another distribution. Finite variance is enough for the independent identically distributed theorem. It does not guarantee that a moment-generating function exists. For products of positive observations, a central limit theorem for their logarithms needs the corresponding moments of those logarithms. Taking a logarithm does not supply missing assumptions.
+The theorem is a limiting statement, not a sample-size threshold. Heavy tails or strong skewness can make the approximation poor at a sample size that works well for another distribution. Finite variance is enough for the independent identically distributed theorem. It does not guarantee that a moment-generating function exists. For products of positive observations, a central limit theorem for their logarithms needs the corresponding moments of those logarithms. Taking a logarithm does not supply missing assumptions.{{cite:siegrist2022_clt}} (§5.4, “The Central Limit Theorem”; “Normal Approximations”)
 
 ::: {#thm-sl-02-multivariate-clt .theorem}
 ## Multivariate central limit theorem
@@ -277,10 +277,10 @@ $$
 
 converges in distribution to $\Normal_p(\mathbf{0},\Sigma)$ as $n\to\infty$.
 
-{{cite:anderson2003_mva}}{{cite:cramer1946}}{{cite:wasserman2004}}
+{{cite:cameron2004_asymptotic}} (§7, pp. 10–11) The scalar projections satisfy the one-dimensional theorem, and the Cramér–Wold device joins them into the vector limit.{{cite:siegrist2022_clt}} (§5.4, “The Central Limit Theorem”) {{cite:cameron2004_asymptotic}} (§7, pp. 10–11)
 :::
 
-Convergence in distribution means that the distribution function of $\sqrt{n}(\overline{\mathbf{X}}_n-\boldsymbol{\mu})$ converges at every continuity point to the $\Normal_p(\mathbf{0},\Sigma)$ distribution function. The exact null distribution of $T^2$ in the next section needs the normal model. What survives without normality is the limit in the following remark.
+Convergence in distribution means that the distribution function of $\sqrt{n}(\overline{\mathbf{X}}_n-\boldsymbol{\mu})$ converges at every continuity point to the $\Normal_p(\mathbf{0},\Sigma)$ distribution function. The exact null distribution of $T^2$ in the next section needs the normal model. What survives without normality is the limit in the following remark.{{cite:wang2025_foundations}} (Ch. 9, §14, Def. 7) {{cite:cameron2004_asymptotic}} (§7, pp. 10–11)
 
 ::: {#rem-sl-02-t2-limit .remark}
 ## The limit of Hotelling's statistic
@@ -291,7 +291,7 @@ $$
 n(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)^\top S^{-1}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)
 $$
 
-is asymptotically $\chi^2_p${{cite:anderson2003_mva}}. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)${{cite:cramer1946}}, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form{{cite:anderson2003_mva}}.
+is asymptotically $\chi^2_p$. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)$, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form.{{cite:cameron2004_asymptotic}} (§7, pp. 10–11) {{cite:wang2025_foundations}} (Ch. 9, §21.2, Thm. 34) The usual $S$ here divides the centred sum of squares and cross-products by $n-1$.{{cite:strimmer2025_mva}} (Ch. 2, §2.4)
 
 :::
 

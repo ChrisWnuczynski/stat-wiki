@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-38-onward`. Ranking is frozen in [RANKING.md]
 
 ## Status
 
-Pages ranked: **718**. Done: **42**. Left: **676**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
+Pages ranked: **718**. Done: **43**. Left: **675**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -51,12 +51,13 @@ Pages ranked: **718**. Done: **42**. Left: **676**. Skipped: **0**. Ranks 1–37
 | 40 | [Eigenvalues and eigenvectors](eigenvalues-and-eigenvectors.md) | Concept/topic | [Prose](content/eigenvalues-and-eigenvectors.md), [check](../checks/eigenvalues-and-eigenvectors.py) | 696 → 3,168 | 0 → 0 | Spectral interpretation, full proof and matrix practice added; copied citations located |
 | 41 | [Systematic-scan Gibbs sampler](systematic-scan-gibbs-sampler.md) | Concept/definition | [Prose](content/systematic-scan-gibbs-sampler.md), [check](../checks/systematic-scan-gibbs-sampler.py) | 2,043 → 4,935 | 1 → 1 | Full sweep proof and order-specific worked transitions; MCMC citations located |
 | 42 | [Observed and expected counts](observed-and-expected-counts.md) | Concept/topic | [Prose](content/observed-and-expected-counts.md), [check](../checks/observed-and-expected-counts.py) | 254 → 2,478 | 0 → 0 | Known and fitted count models distinguished; full proof, practice, and Pearson history sourced |
+| 43 | [Central limit theorem](central-limit-theorem.md) | Theorem | [Prose](content/central-limit-theorem.md), [check](../checks/central-limit-theorem.py) | 1,329 → 3,512 | 2 → 2 | Characteristic-function proof, exponential-sum practice, and located multivariate citations |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 43: `central-limit-theorem`.** Continue with accessible primary or reputable page-located secondary sources. The next ten-article checkpoint and branch push is rank 47.
+**Rank 44: `conditional-probability`.** Continue with accessible primary or reputable page-located secondary sources. The next ten-article checkpoint and branch push is rank 47.
 
 ## Citation and prose correction pass
 
