@@ -13,9 +13,5 @@
   "article_lead": {
     "description": "a joint prior for normal-regression coefficients and error variance that makes both uncertainties exactly updatable"
   },
-  "self_checks": ["q-58", "ex-norm-nig"],
-  "shared_changes": [{
-    "file": "theorem_depth.py",
-    "fix": "For normal-inverse-gamma-conjugacy, move the substantive dependence/independent-priors sentence from RESULT_DEPTH context into the theorem body; leave only a located citation in nonempty context so the one-sentence formula-free lead is preserved."
-  }]
+  "self_checks": ["q-58", "ex-norm-nig"]
 }

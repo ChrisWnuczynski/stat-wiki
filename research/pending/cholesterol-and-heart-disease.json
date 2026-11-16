@@ -18,9 +18,5 @@
       "answer": "At the same sex, a one-unit higher cholesterol value has fitted disease odds exp(1.5842), about 4.88 times as large. The data description does not establish random assignment, control all confounders or document a causal intervention; the coefficient is an adjusted association in the fitted model.",
       "topic_code": "G1"
     }
-  ],
-  "shared_changes": [{
-    "file": "sources/book/chapters/01-introduction-to-glms.qmd",
-    "fix": "In 'The cholesterol fit', replace the unsupported causal wording that sex is 'acting through cholesterol' and unverified statements about male patients tending to arrive with higher cholesterol. State only the fitted conditional association and that it need not match a crude comparison; the absent data/cholest.csv and unspecified collection cannot establish mediation or actual group distributions. Preserve coefficients, graph and arithmetic. Rebuild/check dependent cholesterol and logistic-regression pages."
-  }]
+  ]
 }

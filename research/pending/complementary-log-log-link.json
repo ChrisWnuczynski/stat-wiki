@@ -25,9 +25,5 @@
       "answer": "No. The inverse cloglog curve is asymmetric, so reversing the outcome changes the link to its log-log counterpart; simple coefficient sign reversal is the logit's symmetry. Refit or transform the model explicitly for the chosen event definition.",
       "topic_code": "G1"
     }
-  ],
-  "shared_changes": [{
-    "file": "sources/book/chapters/01-introduction-to-glms.qmd",
-    "fix": "Replace the blanket sentence calling a cloglog coefficient a 'log-hazard, an instantaneous risk' with the precise transformed-probability interpretation; under a grouped proportional-hazards model exp(beta) multiplies interval cumulative hazard, and an instantaneous hazard ratio needs that survival model. Preserve the chapter equation and examples."
-  }]
+  ]
 }
