@@ -1,0 +1,20 @@
+{
+  "bibliography": {
+    "tokdar2018_dirichlet": {
+      "authors": ["Tokdar, S. T."],
+      "year": 2018,
+      "title": "The Dirichlet Distributions",
+      "kind": "book",
+      "publisher": "Duke University",
+      "url": "https://www2.stat.duke.edu/~st118/sta941/dirichlet.pdf",
+      "verification": {"source": "archival_url", "id": "https://www2.stat.duke.edu/~st118/sta941/dirichlet.pdf"}
+    }
+  },
+  "self_checks": ["q-22", "ex-applied-restaurant"],
+  "shared_changes": [
+    {
+      "file": "distributions.json",
+      "description": "For `dirichlet-distribution`, move the exact substantive sentence `It models uncertain category-probability vectors and updates directly with multinomial counts.` out of `lead_context` and into a body field, preferably the beginning of `statistical_use`. Leave the nonempty `lead_context` as only `{{cite:gelman_bda2013}}` so DistributionDepthBatchTests passes and the lead remains one sentence. Keep all existing worked_example, definition_note, key_result, plot and infobox fields."
+    }
+  ]
+}
