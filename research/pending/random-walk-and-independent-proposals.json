@@ -1,0 +1,4 @@
+{
+  "article_lead": {"description": "two ways to propose a new MCMC state, using either a step from the current state or a draw from a fixed distribution, with different acceptance corrections"},
+  "self_checks": ["c-14", "ex-applied-gamma-mh"]
+}

@@ -1,0 +1,7 @@
+{
+  "self_checks": ["q-11", "q-44"],
+  "article_lead": {"description": "an identity showing how data update prior odds between two models, making the evidence's contribution explicit"},
+  "shared_changes": [
+    {"file": "theorem_depth.py", "description": "Remove RESULT_DEPTH['posterior-odds-factorisation']['context']; it appends a second sentence to the otherwise adequate one-sentence lead. The idea is covered in the theorem's Intuition section."}
+  ]
+}

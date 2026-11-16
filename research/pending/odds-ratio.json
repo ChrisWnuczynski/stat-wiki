@@ -1,0 +1,16 @@
+{
+  "article_lead": {"description": "a comparison of event odds between groups, giving a common effect scale for two-way tables and logistic regression"},
+  "self_checks": ["ex-sl-10-2", "q-35"],
+  "bibliography": {
+    "agresti_tarantola_varriale2023": {
+      "authors": ["Agresti, A.", "Tarantola, C.", "Varriale, R."],
+      "year": 2023,
+      "title": "Simple Ways to Interpret Effects in Modeling Binary Data",
+      "kind": "incollection",
+      "venue": "Trends and Challenges in Categorical Data Analysis",
+      "publisher": "Springer Nature Switzerland",
+      "doi": "10.1007/978-3-031-31186-4_5",
+      "verification": {"source": "archival_url", "id": "https://users.stat.ufl.edu/~aa/articles/Challenges.pdf"}
+    }
+  }
+}

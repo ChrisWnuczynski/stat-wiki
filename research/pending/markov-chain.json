@@ -1,0 +1,11 @@
+{
+  "article_lead": {"description": "a random process whose next state depends only on its present state, letting a transition rule describe future paths"},
+  "self_checks": ["q-05", "c-15"],
+  "proofs_todo": [
+    {
+      "slug": "markov-chain",
+      "title": "Finite irreducible aperiodic Markov-chain convergence",
+      "reason": "The inherited article mentions convergence of finite irreducible aperiodic chains. Its local proof derives path probabilities and Chapman–Kolmogorov, while the full convergence theorem is cited to Levin and Peres, §4.3, and deferred."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "bibliography": {
+    "levin_peres2017": {
+      "authors": ["Levin, David A.", "Peres, Yuval"],
+      "year": 2017,
+      "title": "Markov Chains and Mixing Times",
+      "edition": "2nd",
+      "kind": "book",
+      "publisher": "American Mathematical Society",
+      "doi": "10.1090/mbk/107",
+      "isbn": "978-1-4704-2962-1",
+      "verification": {"source": "archival_url", "id": "https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf"}
+    }
+  },
+  "self_checks": ["ex-prob-markov-limit", "ex-prob-markov-periodic"],
+  "article_lead": {"description": "a chain in which every state can reach every other, giving a finite chain a single stationary equilibrium"},
+  "proofs_todo": [
+    {
+      "slug": "irreducible-markov-chain",
+      "title": "Finite irreducible chains have a unique positive stationary distribution and converge when aperiodic",
+      "reason": "The page cites Levin and Peres, §1.5.3 and Theorem 4.9, but its local proof covers only the path criterion and communication relation. A self-contained proof of the finite stationary and convergence claims is deferred."
+    }
+  ]
+}
