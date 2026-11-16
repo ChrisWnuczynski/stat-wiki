@@ -3475,6 +3475,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             else:
                 page["blocks"] = concept_article_template(article, page["blocks"])
             if article["slug"] in SELF_CHECKS:
+                if any(label == "check-yourself" for _, label, _ in page["blocks"]):
+                    raise SystemExit(f"{article['slug']}: Check yourself comes from both self-checks.json and research content")
                 check = self_check_section(article, qmap)
                 at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label in {"history", "see-also"}), len(page["blocks"]))
                 page["blocks"].insert(at, (True, "check-yourself", check))
@@ -4150,7 +4152,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
         allowed = {"Lead context", "Motivating example", "Intuition", "Definition", "Properties",
                    "Related distributions", "Statistical inference", "Generating random samples",
                    "Worked example", "Examples", "Common misconceptions", "Assumptions and limits",
-                   "Connections", "History"}
+                   "Connections", "Check yourself", "History"}
         researched, display_titles = read_research_content(research_file, allowed)
     lead = article_lead(article) + source_lead_citations(blocks, include_math=True)
     if facts.get("lead_context"):
@@ -4206,6 +4208,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
         ("Common misconceptions", "common-misconceptions", researched.get("Common misconceptions", "")),
         ("Assumptions and limits", "assumptions-and-limits", researched.get("Assumptions and limits", "")),
         ("Connections", "connections", researched.get("Connections", "")),
+        ("Check yourself", "check-yourself", researched.get("Check yourself", "")),
         ("History", "history", "\n\n".join(filter(None, [facts["history"], researched.get("History", "")]))),
         ("See also", "see-also", content("see-also")),
     )
@@ -4308,7 +4311,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
     if research_file.is_file():
         allowed = {"Lead context", "Motivating example", "Statement", "Intuition", "Key results",
                    "Proof", "Generalizations", "Related concepts", "Statistical use",
-                   "Common misconceptions", "History", "Worked example"}
+                   "Common misconceptions", "Check yourself", "History", "Worked example"}
         researched, display_titles = read_research_content(research_file, allowed)
     depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
@@ -4396,6 +4399,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         ("Related concepts", "related-concepts", "\n\n".join(filter(None, [*related, researched.get("Related concepts", "")]))),
         ("Statistical use", "statistical-use", "\n\n".join(filter(None, [depth.get("use", ""), researched.get("Statistical use", ""), uses if depth or researched else ""]))),
         ("Common misconceptions", "common-misconceptions", "\n\n".join(filter(None, [*misconception_parts, researched.get("Common misconceptions", "")]))),
+        ("Check yourself", "check-yourself", researched.get("Check yourself", "")),
         ("History", "history", history),
         ("Examples", "examples", examples),
         ("See also", "see-also", see_also),

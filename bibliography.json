@@ -7750,6 +7750,64 @@
         "source": "archival_url",
         "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
       }
+    },
+    "levin_peres2017": {
+      "authors": [
+        "Levin, D. A.",
+        "Peres, Y."
+      ],
+      "year": 2017,
+      "title": "Markov Chains and Mixing Times",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "American Mathematical Society",
+      "url": "https://pages.uoregon.edu/dlevin/MARKOV/mcmt2e.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pages.uoregon.edu/dlevin/MARKOV/mcmt2e.pdf"
+      }
+    },
+    "mackay2003": {
+      "authors": [
+        "MacKay, D. J. C."
+      ],
+      "year": 2003,
+      "title": "Information Theory, Inference, and Learning Algorithms",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://www.inference.org.uk/itprnn/book.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.inference.org.uk/itprnn/book.pdf"
+      }
+    },
+    "shalizi_ada2026": {
+      "authors": [
+        "Shalizi, C. R."
+      ],
+      "year": 2026,
+      "title": "Advanced Data Analysis from an Elementary Point of View",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University (draft manuscript)",
+      "url": "https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf"
+      }
+    },
+    "owen2013_mc": {
+      "authors": [
+        "Owen, A. B."
+      ],
+      "year": 2013,
+      "title": "Monte Carlo Theory, Methods and Examples",
+      "kind": "book",
+      "publisher": "Self-published online",
+      "url": "https://artowen.su.domains/mc/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://artowen.su.domains/mc/"
+      }
     }
   }
 }

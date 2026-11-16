@@ -35,3 +35,6 @@ __pycache__/
 /ask/worker/wrangler.config.ts
 /webr/node_modules/
 /labs/node_modules/
+
+# OpenAI helper cache and usage log
+/research/.oai-cache/
