@@ -1,0 +1,64 @@
+{
+  "article_lead": {
+    "description": "a display of numerical data in adjacent intervals whose bar areas reveal how the observations are distributed across the measurement scale"
+  },
+  "self_checks": ["depth-histogram-1", "depth-histogram-2"],
+  "new_bank_questions": [
+    {
+      "id": "depth-histogram-1",
+      "topic_code": "D2",
+      "title": "A density bar taller than one",
+      "body": "Ten observations fall in two adjacent bins. Six are in $[0,0.2)$ and four are in $[0.2,1)$. Find the heights and areas of a density histogram. Is a bar height greater than one an error?",
+      "answer": "The widths are $0.2$ and $0.8$. The density heights are $6/(10\\cdot0.2)=3$ and $4/(10\\cdot0.8)=0.5$. The areas are $3\\cdot0.2=0.6$ and $0.5\\cdot0.8=0.4$, summing to one. Height $3$ is valid: density is probability per unit of the horizontal scale, while each bar's area is its probability share."
+    },
+    {
+      "id": "depth-histogram-2",
+      "topic_code": "D2",
+      "title": "Shifting histogram boundaries",
+      "body": "The measurements are $0.4,0.6,1.4,1.6,2.4$. Count them first in $[0,1),[1,2),[2,3)$, then in $[-0.5,0.5),[0.5,1.5),[1.5,2.5)$. What changes, and what should that tell you about interpreting a peak from five values?",
+      "answer": "The first grid has counts $(2,2,1)$. The shifted grid has counts $(1,2,2)$. The data have not changed: one measurement moves from the first bar to the second, and another from the second to the third because the boundaries moved. A peak or asymmetry inferred from five binned observations is sensitive to that choice; inspect the raw values and several reasonable grids."
+    }
+  ],
+  "bibliography": {
+    "nist_histogram": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.14: Histogram",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm"}
+    },
+    "scott1979_histograms": {
+      "authors": ["Scott, D. W."],
+      "year": 1979,
+      "title": "On optimal and data-based histograms",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "66",
+      "issue": "3",
+      "pages": "605–610",
+      "doi": "10.1093/biomet/66.3.605",
+      "url": "https://www.stat.rice.edu/~scottdw/stat550/DEMOS/09-19-hist-bw/scott-hist-biometrika.pdf",
+      "verification": {"source": "crossref", "id": "10.1093/biomet/66.3.605"}
+    },
+    "numpy_histogram_bins": {
+      "authors": ["NumPy Developers"],
+      "year": 2026,
+      "title": "numpy.histogram_bin_edges — NumPy v2.5 Manual",
+      "kind": "book",
+      "publisher": "NumPy",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html",
+      "verification": {"source": "archival_url", "id": "https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html"}
+    },
+    "r_histogram_classes": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Compute the Number of Classes for a Histogram",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/nclass.html",
+      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/nclass.html"}
+    }
+  }
+}
