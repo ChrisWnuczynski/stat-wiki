@@ -1,0 +1,47 @@
+{
+  "slug": "fisher-neyman-factorisation",
+  "rank": 283,
+  "tier": "lighter",
+  "type": "theorem",
+  "sections": [
+    "Lead context",
+    "Statement — A product with one parameter-free factor",
+    "Intuition — Everything about \\(\\theta\\) has to pass through \\(T\\)",
+    "Proof",
+    "Worked example — Four Bernoulli trials",
+    "Related concepts — Sufficiency, ancillarity and the exponential family"
+  ],
+  "words_before": 749,
+  "words_after": 1446,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Discrete cancellation derived in the research note"
+  ],
+  "proofs": [
+    "Discrete direction of Fisher–Neyman factorisation"
+  ],
+  "tests": [
+    "checks/fisher-neyman-factorisation.py"
+  ],
+  "skipped": [
+    "The result template has no Check yourself slot, so the two extra questions sit in the worked example."
+  ],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "fisher-neyman-factorisation#dominated-converse",
+      "title": "Dominated-family converse",
+      "reason": "The article proves the discrete direction. The converse on a general dominated space is not proved."
+    }
+  ],
+  "todo": [],
+  "article_leads": {
+    "field": "statistical inference",
+    "article": "the",
+    "term": "Fisher–Neyman factorisation",
+    "verb": "is",
+    "description": "a criterion for sufficiency based on factorising the sampling density through a statistic",
+    "proper": true
+  }
+}
