@@ -1,0 +1,28 @@
+{
+  "bibliography": {
+    "goodfellow_bengio_courville2016": {
+      "authors": ["Goodfellow, I.", "Bengio, Y.", "Courville, A."],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/",
+      "verification": {"source": "archival_url", "id": "https://www.deeplearningbook.org/"}
+    },
+    "stanford_cs229_trees2018": {
+      "authors": ["Townshend, R. J. L."],
+      "year": 2018,
+      "title": "Decision Trees",
+      "kind": "book",
+      "publisher": "Stanford University, CS229",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf",
+      "verification": {"source": "archival_url", "id": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf"}
+    }
+  },
+  "self_checks": ["ex-sl-12-1", "ex-sl-16-2"],
+  "shared_changes": [
+    {"file": "topics.py", "description": "The Cross-entropy topic definition around lines 1062–1065 currently equates general cross-entropy with the node self-entropy. Qualify: tree 'cross-entropy impurity' is H(p,p)=H(p), while forecast cross-entropy is H(p,q). Preserve one-hot/softmax statement, cite opened Goodfellow Ch. 3 §3.13 and Ch. 5 §5.5 with locations."},
+    {"file": "sources/stat3006/chapters/sl-12-classification-trees.qmd", "description": "In Node impurity, source currently cites unread Shannon1948 for 0log0 and unread CART/HTF/Gini for all formulas. Opened Stanford CS229 Decision Trees §3 pp. 4–6 supports node entropy, zero convention and weighted split reduction. Replace unsupported citations where appropriate while preserving the Gini and misclassification formulas and question links; check dependent Node impurity/Gini pages."},
+    {"file": "sources/stat3006/chapters/sl-16-networks-in-practice.qmd", "description": "The cross-entropy excerpt uses Shannon1948 for negative softmax log-likelihood, which is not specifically in that original and was not read in full. Opened Goodfellow et al. Ch. 5 §5.5 p. 130 supports empirical cross-entropy/likelihood; use it with locator while preserving the gradient claim and dependent network articles."}
+  ]
+}
