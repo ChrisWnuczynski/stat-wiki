@@ -1,0 +1,30 @@
+{
+  "bibliography": {},
+  "article_lead": {
+    "description": "the part of EM that uses a current model to assign probabilities to missing labels, making a difficult likelihood easier to fit"
+  },
+  "self_checks": ["depth-e-argument", "depth-e-equal-density", "depth-e-numeric"],
+  "new_bank_questions": [
+    {
+      "id": "depth-e-argument",
+      "title": "Which parameter supplies E-step weights?",
+      "body": "In Q(Psi;Psi_old), which argument determines the conditional distribution of the missing labels, and which is optimized in the M step?",
+      "answer": "Psi_old fixes the conditional distribution and therefore all E-step responsibilities. The candidate Psi is varied in the M step while those responsibilities stay fixed.",
+      "topic_code": "L5"
+    },
+    {
+      "id": "depth-e-equal-density",
+      "title": "Equal component densities",
+      "body": "Two mixture components have equal density at x, but current weights 0.8 and 0.2. Find the E-step responsibility of the first component.",
+      "answer": "It is 0.8: Bayes' numerator multiplies each density by its current mixture weight, and the equal densities cancel.",
+      "topic_code": "L5"
+    },
+    {
+      "id": "depth-e-numeric",
+      "title": "A symmetric normal-mixture E step",
+      "body": "Two unit-variance normal components have equal current weights and means 0 and 2. Find the responsibility for the first component at x=1.",
+      "answer": "Both weighted densities agree at the midpoint, so the responsibility is 1/2. This is conditional uncertainty, not an observed class label.",
+      "topic_code": "L5"
+    }
+  ]
+}
