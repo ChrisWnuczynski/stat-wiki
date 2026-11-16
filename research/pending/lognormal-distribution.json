@@ -1,0 +1,7 @@
+{
+  "self_checks": ["q-28", "q-45"],
+  "shared_changes": [
+    {"file": "distributions.json", "description": "For lognormal-distribution, move the substantive lead_context sentence about multiplicative changes to statistical_use or another body field; retain citation-only lead_context {{cite:siegrist2022_lognormal_distribution}} (§5.12, Definition). Replace unread unlocated Forbes citations in statistical_use, worked_example and key_result with opened Siegrist §5.12 locations while keeping their facts/numbers. The researched Properties box replaces the old key_result Proof, retaining the moment derivation and extending it; keep exactly one Proof box."},
+    {"file": "sources/book/chapters/03-gamma-and-quasi.qmd", "description": "The whole paragraph at line ~122 starting 'That separation of the mean curve...' is currently copied into Lognormal distribution Definition because the topic anchor matches its last sentence. Split this paragraph before 'Other positive families exist...' and after its sentence, preserving all wording in the source GLM chapter. Then the topic excerpt is the relevant sentence alone. Verify the dependent Inverse Gaussian and positive-response pages preserve the remainder. The lognormal topic definition in topics.py also overstates that lognormal and gamma GLM 'often agree' merely because their variance functions match; qualify this with distinct likelihood/tails and model-checking, retaining the comparison."}
+  ]
+}
