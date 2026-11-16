@@ -1,0 +1,8 @@
+{
+  "article_lead": {
+    "article": "",
+    "verb": "measures",
+    "description": "how much likelihood a fitted model loses to a perfect fit to the observed responses, helping assess and compare models"
+  },
+  "self_checks": ["ex-sl-10-6", "q-34", "ex-fish-poisson"]
+}
