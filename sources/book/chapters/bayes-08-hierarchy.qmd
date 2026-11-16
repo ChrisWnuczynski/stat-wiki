@@ -55,7 +55,7 @@ $$
 $$
 
 
- The quantities controlling the distribution of the $\theta_j$'s are called *hyperparameters*, or higher-level parameters.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} Once priors are assigned to them, their uncertainty is propagated into every class-specific posterior.{{cite:gelman_bda2013}}
+ The quantities controlling the distribution of the $\theta_j$'s are called *hyperparameters*, or higher-level parameters.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.3, pp. 101–110) Once priors are assigned to them, their uncertainty is propagated into every class-specific posterior.{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 108–110)
 
 :::
 
@@ -221,7 +221,7 @@ $$
 ::: {#exm-rat-tumour-hierarchy .example}
 ## Rat-tumour hierarchy
 
-Tumour rates in female F344 rats supply a second hierarchical example. In a current control study, $y=4$ of $n=14$ rats developed one or more tumours over two years.{{cite:tarone1982}}[^b08-hierarchy-3] A one-study model is 
+Tumour rates in female F344 rats supply a second hierarchical example. In a current control study, $y=4$ of $n=14$ rats developed one or more tumours over two years.{{cite:gelman_bda2013}} (Ch. 5, §5.1, pp. 102–103)[^b08-hierarchy-3] A one-study model is
 
 $$
  Y\given\theta\sim\Bin(14,\theta),
@@ -435,7 +435,7 @@ The binomial coefficient does not depend on $(\alpha,\beta)$, so the hyperposter
       {\Gamma(\alpha)\Gamma(\beta)
        \Gamma(n_j+\alpha+\beta)}}.
  \label{eq:hyperposterior}
-\end{equation} The kernel multiplies the hyperprior by a product of beta--binomial marginal likelihoods.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} This expression is available pointwise but is not a familiar normalised density.{{cite:gelman_bda2013}}
+\end{equation} The kernel multiplies the hyperprior by a product of beta--binomial marginal likelihoods.{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 108–110) Raiffa and Schlaifer also treat the beta--binomial compound law.{{cite:raiffa_schlaifer1961}} (Ch. 7, “Beta-Binomial and Beta-Pascal Functions”, pp. 232–241) This expression is available pointwise but is not a familiar normalised density.{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 109–110)
 
 :::
 

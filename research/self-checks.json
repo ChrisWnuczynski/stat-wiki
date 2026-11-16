@@ -190,5 +190,9 @@
   "discrete-distribution": [
     "ex-prob-wait-pmf",
     "ex-prob-joint-table"
+  ],
+  "hyperparameter": [
+    "q-02",
+    "c-02"
   ]
 }
