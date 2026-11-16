@@ -1,0 +1,20 @@
+{
+  "bibliography": {
+    "siegrist2022_best_unbiased": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §7.5: Best Unbiased Estimators",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.05:_Best_Unbiased_Estimators",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.05:_Best_Unbiased_Estimators"}
+    }
+  },
+  "self_checks": ["ex-inf-poisson-information", "q-33", "c-18"],
+  "proofs_todo": [
+    {"slug": "fisher-information", "title": "Asymptotic inverse-information covariance of the maximum likelihood estimator", "reason": "The page states the regular large-sample covariance approximation, but the collapsed proof covers the information identity, additivity, and Cramér–Rao inequality only."}
+  ],
+  "shared_changes": [
+    {"file": "article_leads.json", "description": "Set the Fisher information lead to the single sentence in research/content/fisher-information.md under Lead context, and prevent the legacy lead from being prepended. The current generator concatenates them into two sentences."}
+  ]
+}
