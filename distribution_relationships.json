@@ -38,8 +38,8 @@
   {
     "a": "chi-squared-distribution",
     "b": "gamma-distribution",
-    "a_text": "{target} with shape $\\nu/2$ and rate $1/2$ is a chi-squared law with $\\nu$ degrees of freedom.{{cite:forbes2011}}",
-    "b_text": "{target} with $\\nu$ degrees of freedom is this law with shape $\\alpha=\\nu/2$ and rate $\\lambda=1/2$.{{cite:forbes2011}}"
+    "a_text": "{target} with shape $\\nu/2$ and rate $1/2$ is a chi-squared law with $\\nu$ degrees of freedom.{{cite:nist_gamma_handbook}} (§8.1.6.5, chi-square special case)",
+    "b_text": "{target} with $\\nu$ degrees of freedom is this law with shape $\\alpha=\\nu/2$ and rate $\\lambda=1/2$.{{cite:nist_gamma_handbook}} (§8.1.6.5, chi-square special case)"
   },
   {
     "a": "chi-squared-distribution",
@@ -68,8 +68,8 @@
   {
     "a": "exponential-distribution",
     "b": "gamma-distribution",
-    "a_text": "{target} with shape one and rate $\\lambda$ is an exponential waiting time of rate $\\lambda$.{{cite:forbes2011}}",
-    "b_text": "{target} is the special case $\\alpha=1$ of this shape-rate family. Its density then has a constant hazard.{{cite:forbes2011}}"
+    "a_text": "{target} with shape one and rate $\\lambda$ is an exponential waiting time of rate $\\lambda$.{{cite:nist_gamma_handbook}} (§8.1.6.5, exponential special case)",
+    "b_text": "{target} is the special case $\\alpha=1$ of this shape-rate family. Its density then has a constant hazard.{{cite:nist_gamma_handbook}} (§8.1.6.5, exponential special case)"
   },
   {
     "a": "exponential-distribution",
@@ -92,14 +92,14 @@
   {
     "a": "gamma-distribution",
     "b": "inverse-gamma-distribution",
-    "a_text": "The reciprocal of a {target} variable with shape $\\alpha$ and scale $\\beta$ has this gamma law with shape $\\alpha$ and rate $\\beta$.{{cite:forbes2011}}",
-    "b_text": "If $X$ has {target} shape $\\alpha$ and rate $\\lambda$, then $1/X$ has this inverse gamma law with shape $\\alpha$ and scale $\\lambda$.{{cite:forbes2011}}"
+    "a_text": "The reciprocal of a {target} variable with shape $\\alpha$ and scale $\\beta$ has this gamma law with shape $\\alpha$ and rate $\\beta$.{{cite:stan_functions2026}} (§“Gamma distribution” and §“Inverse gamma Distribution”)",
+    "b_text": "If $X$ has {target} shape $\\alpha$ and rate $\\lambda$, then $1/X$ has this inverse gamma law with shape $\\alpha$ and scale $\\lambda$.{{cite:stan_functions2026}} (§“Gamma distribution” and §“Inverse gamma Distribution”)"
   },
   {
     "a": "gamma-distribution",
     "b": "weibull-distribution",
-    "a_text": "Raising a {target} variable divided by its scale to the power of its shape gives this gamma law with shape one and rate one.{{cite:forbes2011}}",
-    "b_text": "If $Y$ has {target} shape one and rate one, then $\\lambda Y^{1/k}$ has this Weibull law with shape $k$ and scale $\\lambda$.{{cite:forbes2011}}"
+    "a_text": "Raising a {target} variable divided by its scale to the power of its shape gives this gamma law with shape one and rate one.{{cite:nist_weibull_handbook}} (§8.1.6.2, Weibull CDF transformation)",
+    "b_text": "If $Y$ has {target} shape one and rate one, then $\\lambda Y^{1/k}$ has this Weibull law with shape $k$ and scale $\\lambda$.{{cite:nist_weibull_handbook}} (§8.1.6.2, Weibull CDF transformation)"
   },
   {
     "a": "geometric-distribution",
@@ -116,8 +116,8 @@
   {
     "a": "inverse-gaussian-distribution",
     "b": "gamma-distribution",
-    "a_text": "{target} is another positive family used in regression, but its variance at a fixed shape grows as the cube of its mean rather than the square.{{cite:mccullagh_nelder1989}}",
-    "b_text": "An {target} law has variance growing cubically in its mean at fixed shape; this gamma law has variance growing quadratically at fixed shape.{{cite:mccullagh_nelder1989}}"
+    "a_text": "{target} is another positive family used in regression, but its variance at a fixed shape grows as the cube of its mean rather than the square.{{cite:zhou2020_glm}} (§“Link function”, variance-function table)",
+    "b_text": "An {target} law has variance growing cubically in its mean at fixed shape; this gamma law has variance growing quadratically at fixed shape.{{cite:zhou2020_glm}} (§“Link function”, variance-function table)"
   },
   {
     "a": "lognormal-distribution",

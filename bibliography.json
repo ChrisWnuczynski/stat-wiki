@@ -5445,6 +5445,60 @@
       "url": "https://www.stat.umn.edu/geyer/8501/markov.pdf",
       "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/8501/markov.pdf"}
     },
+    "siegrist2022_gamma": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "The Gamma Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.08:_The_Gamma_Distribution",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.08:_The_Gamma_Distribution"}
+    },
+    "siegrist2022_gamma_waiting": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Gamma Waiting Times in the Poisson Process",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.03:_The_Gamma_Distribution",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.03:_The_Gamma_Distribution"}
+    },
+    "nist_gamma_handbook": {
+      "authors": ["NIST/SEMATECH"],
+      "year": 2026,
+      "title": "Gamma Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr165.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr165.htm"}
+    },
+    "scipy_gamma2026": {
+      "authors": ["SciPy Developers"],
+      "year": 2026,
+      "title": "scipy.stats.gamma — SciPy Manual",
+      "kind": "book",
+      "publisher": "SciPy",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html",
+      "verification": {"source": "archival_url", "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html"}
+    },
+    "nist_weibull_handbook": {
+      "authors": ["NIST/SEMATECH"],
+      "year": 2026,
+      "title": "Weibull Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://itl.nist.gov/div898/handbook/apr/section1/apr162.htm",
+      "verification": {"source": "archival_url", "id": "https://itl.nist.gov/div898/handbook/apr/section1/apr162.htm"}
+    },
+    "zhou2020_glm": {
+      "authors": ["Zhou, H."],
+      "year": 2020,
+      "title": "Generalized Linear Models",
+      "kind": "book",
+      "publisher": "UCLA Biostatistics",
+      "url": "https://ucla-biostat-200c-2020spring.github.io/slides/09-glm/glm.html",
+      "verification": {"source": "archival_url", "id": "https://ucla-biostat-200c-2020spring.github.io/slides/09-glm/glm.html"}
+    },
     "nist_dlmf_quadrature": {
       "authors": ["National Institute of Standards and Technology"],
       "year": 2026,

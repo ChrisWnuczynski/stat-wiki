@@ -254,5 +254,9 @@
   "metropolis-hastings-algorithm": [
     "c-14",
     "c-12"
+  ],
+  "gamma-distribution": [
+    "c-10",
+    "c-23"
   ]
 }

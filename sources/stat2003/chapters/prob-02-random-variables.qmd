@@ -376,7 +376,7 @@ $$
 \frac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}{\Gamma(\alpha)},\qquad x>0,
 $$
 
-where $\Gamma(\alpha)=\int_0^\infty u^{\alpha-1}e^{-u}\dd u$.{{cite:pearson1895}}{{cite:laplace1812}}{{cite:grimmett_stirzaker2020}} Then $\E X=\alpha/\lambda$ and $\Var(X)=\alpha/\lambda^2$.{{cite:grimmett_stirzaker2020}}{{cite:forbes2011}}
+where $\Gamma(\alpha)=\int_0^\infty u^{\alpha-1}e^{-u}\dd u$.{{cite:siegrist2022_gamma}} (§5.8, density and gamma function) Then $\E X=\alpha/\lambda$ and $\Var(X)=\alpha/\lambda^2$.{{cite:nist_gamma_handbook}} (§8.1.6.5, moments)
 
 :::
 
