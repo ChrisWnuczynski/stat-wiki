@@ -1,0 +1,35 @@
+{
+  "article_lead": {
+    "description": "the smoothing scale for a kernel density estimate, chosen to retain meaningful shape without letting sampling noise dominate"
+  },
+  "bibliography": {
+    "wasserman_lecture26": {
+      "authors": ["Wasserman, L."],
+      "year": 2020,
+      "title": "Non-parametric Density Estimation (36-705, Lecture 26)",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University, 36-705",
+      "url": "https://www.stat.cmu.edu/~larry/%3D%73tat705/Lecture26.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.cmu.edu/~larry/%3D%73tat705/Lecture26.pdf"}
+    },
+    "hansen_larsson2026_density": {
+      "authors": ["Hansen, N. R.", "Larsson, J."],
+      "year": 2026,
+      "title": "Computational Statistics with R: Density Estimation",
+      "kind": "book",
+      "publisher": "University of Copenhagen",
+      "url": "https://cswr.nrhstat.org/density.html",
+      "verification": {"source": "archival_url", "id": "https://cswr.nrhstat.org/density.html"}
+    },
+    "rstats_bandwidth2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Bandwidth Selectors for Kernel Density Estimation",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing, stats documentation",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/RHOME/library/stats/html/bandwidth.html",
+      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/RHOME/library/stats/html/bandwidth.html"}
+    }
+  },
+  "self_checks": ["ex-sl-07-3", "ex-sl-07-4", "ex-sl-07-6"]
+}
