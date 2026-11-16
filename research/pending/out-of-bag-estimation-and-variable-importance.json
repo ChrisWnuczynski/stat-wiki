@@ -1,0 +1,33 @@
+{
+  "slug": "out-of-bag-estimation-and-variable-importance",
+  "rank": 317,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — The trees that never saw this case",
+    "Definition — Omission, error, and a permutation drop",
+    "Worked example — Five draws, and three drops",
+    "Check yourself",
+    "Connections — Error and rank from the same leftovers"
+  ],
+  "words_before": 386,
+  "words_after": 1187,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 §8.2, p. 264",
+    "hastie_esl2009 §§15.3.1–15.3.2, pp. 592–594"
+  ],
+  "proofs": [
+    "Bootstrap omission probability (1-1/n)^n and its limit e^{-1}"
+  ],
+  "tests": [
+    "checks/out-of-bag-estimation-and-variable-importance.py"
+  ],
+  "skipped": [
+    "The three accuracies are an illustration of the average, not a fitted forest"
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
