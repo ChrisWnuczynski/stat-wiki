@@ -16,7 +16,7 @@ A stochastic process $X_0,X_1,\ldots$ is a Markov chain if \begin{equation}
 ::: {#def-stationarity-and-detailed-balance .definition}
 ## Stationarity and detailed balance
 
-A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition.{{cite:norris1997}}{{cite:robert_casella2004}} The global balance equation is \begin{equation}
+A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition.{{cite:levin_peres2017}} (§§1.5.1 and 1.6, pp. 10–14) The global balance equation is \begin{equation}
  \pi(y)=\sum_x\pi(x)q(y\given x)
  \quad\text{or}\quad
  \pi(y)=\int\pi(x)q(y\given x)\dd x.
@@ -27,14 +27,14 @@ A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distr
  \label{eq:detailed-balance}
 \end{equation}
 
-Detailed balance equates the probability flow from $x$ to $y$ with the flow from $y$ to $x$.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+Detailed balance equates the probability flow from $x$ to $y$ with the flow from $y$ to $x$.{{cite:levin_peres2017}} (§1.6, pp. 13–14)
 
 :::
 
 ::: {#thm-detailed-balance-implies-stationarity .theorem}
 ## Detailed balance implies stationarity
 
-If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.{{cite:levin_peres2017}} (§1.6, pp. 13–14, balance proof)
 
 :::
 
@@ -54,7 +54,7 @@ MCMC is not intrinsically Bayesian. It is a general method for sampling difficul
 
 ## A four-state random walk
 
-Detailed balance supplies the stationary distribution of a finite chain once the pairwise equations are solved and the result is normalised.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+Detailed balance supplies the stationary distribution of a finite chain once the pairwise equations are solved and the result is normalised.{{cite:levin_peres2017}} (§1.6, pp. 13–14)
 
 ::: {#exm-four-state-random-walk .example}
 ## Four-state random walk

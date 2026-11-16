@@ -204,7 +204,7 @@ Assume that $\operatorname{rank}(\mat X)=p$. Then $\mat X^\top\mat X$ is inverti
  \boxed{\widehat\betavec
   =(\mat X^\top\mat X)^{-1}\mat X^\top\yvec.}
  \label{eq:lm-ols}
-\end{equation} The ordinary least-squares coefficient vector minimises the residual sum of squares.{{cite:legendre1805}}{{cite:gauss1809}} The fitted residual vector and residual sum of squares are \begin{equation}
+\end{equation} The ordinary least-squares coefficient vector minimises the residual sum of squares.{{cite:shalizi2025_truth_regression}} (Ch. 11, §11.1, pp. 187–190) The fitted residual vector and residual sum of squares are \begin{equation}
  \widehat{\vect e}=\yvec-\mat X\widehat\betavec,
  \qquad
  \operatorname{SSE}
@@ -214,7 +214,7 @@ Assume that $\operatorname{rank}(\mat X)=p$. Then $\mat X^\top\mat X$ is inverti
  \label{eq:lm-fitted-sse}
 \end{equation}
 
-The maximum-likelihood estimator of $\sigma^2$ is $\operatorname{SSE}/n$.{{cite:fisher1925_smrw}} Estimating $p$ coefficients consumes $p$ degrees of freedom, so the usual unbiased estimator is \begin{equation}
+The maximum-likelihood estimator of $\sigma^2$ is $\operatorname{SSE}/n$.{{cite:shalizi2025_truth_regression}} (Ch. 12, §12.4, pp. 208–209) Estimating $p$ coefficients consumes $p$ degrees of freedom, so the usual unbiased estimator is \begin{equation}
  s^2=\widehat\sigma^2=\frac{\operatorname{SSE}}{n-p}.
  \label{eq:lm-s2}
 \end{equation}
@@ -253,7 +253,7 @@ To see the sampling distribution of the OLS estimator, substitute $\vect Y=\mat 
  \label{eq:lm-classical-pivots}
 \end{equation}
 
-The least-squares estimator is normal about the true coefficient vector, and the residual sum of squares is an independent chi-squared multiple of $\sigma^2$.{{cite:fisher1925_smrw}}{{cite:gauss1809}}{{cite:box_tiao1973}}
+The least-squares estimator is normal about the true coefficient vector, and the residual sum of squares is an independent chi-squared multiple of $\sigma^2$.{{cite:shalizi2025_truth_regression}} (Ch. 12, §12.4, pp. 208–209)
 
 :::
 
@@ -266,7 +266,7 @@ If $c_{jj}=[(\mat X^\top\mat X)^{-1}]_{jj}$, then
  \frac{\widehat\beta_j-\beta_j}{s\sqrt{c_{jj}}}
  \sim t_{n-p}.
  \label{eq:lm-student-pivot}
-\end{equation} Thus $\widehat\betavec$ itself has the normal distribution \eqref{eq:lm-frequentist-beta-law}; the Student distribution appears only after replacing the unknown $\sigma$ by $s$ and standardising.{{cite:fisher1925_smrw}}{{cite:box_tiao1973}}{{cite:gelman_bda2013}}
+\end{equation} Thus $\widehat\betavec$ itself has the normal distribution \eqref{eq:lm-frequentist-beta-law}; the Student distribution appears only after replacing the unknown $\sigma$ by $s$ and standardising.{{cite:shalizi2025_truth_regression}} (Ch. 12, §12.4, pp. 208–209)
 
 :::
 
@@ -373,7 +373,7 @@ $$
   +\lVert\mat X(\betavec-\widehat\betavec)\rVert_2^2.
  \end{aligned}}
  \label{eq:lm-sse-decomposition}
-\end{equation} The second term is nonnegative because $\mat X^\top\mat X$ is positive definite.{{cite:gauss1809}}{{cite:legendre1805}} This both proves that OLS minimises the SSE and separates the posterior's coefficient uncertainty from its fitted residual variation.{{cite:box_tiao1973}} Geometrically, $\widehat{\vect e}$ is orthogonal to the column space of $\mat X$, while $\mat X(\widehat\betavec-\betavec)$ lies in that column space. The theorem is therefore the Pythagorean theorem for those two orthogonal components of the candidate residual vector.
+\end{equation} The second term is nonnegative because $\mat X^\top\mat X$ is positive definite.{{cite:shalizi2025_truth_regression}} (Ch. 11, §§11.1–11.2, pp. 187–193) This both proves that OLS minimises the SSE and separates the posterior's coefficient uncertainty from its fitted residual variation.{{cite:shalizi2025_truth_regression}} (Ch. 11, §§11.1–11.2, pp. 187–193) Geometrically, $\widehat{\vect e}$ is orthogonal to the column space of $\mat X$, while $\mat X(\widehat\betavec-\betavec)$ lies in that column space. The theorem is therefore the Pythagorean theorem for those two orthogonal components of the candidate residual vector.
 
 :::
 

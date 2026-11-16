@@ -2,5 +2,18 @@
   "article_lead": {
     "description": "a resampling method that approximates how a statistic varies across repeated samples, helping quantify uncertainty when exact formulas are unavailable"
   },
-  "self_checks": ["ex-ur-bootstrap-unit", "ex-sl-09-3", "ex-sl-12-6"]
+  "self_checks": ["ex-ur-bootstrap-unit", "ex-sl-09-3", "ex-sl-12-6"],
+  "bibliography": {
+    "simon_aliferis2024_evaluation": {
+      "authors": ["Simon, G.", "Aliferis, C."],
+      "year": 2024,
+      "title": "Evaluation",
+      "kind": "incollection",
+      "venue": "Artificial Intelligence and Machine Learning in Health Care and Medical Sciences",
+      "publisher": "Springer",
+      "pages": "415–476",
+      "doi": "10.1007/978-3-031-39355-6_9",
+      "verification": {"source": "crossref", "id": "10.1007/978-3-031-39355-6_9"}
+    }
+  }
 }

@@ -36,7 +36,7 @@ $$
  p_C(\mu)=\frac1{2C}\mathbf{1}\{-C\leq\mu\leq C\}.
 $$
 
-constant on $[-C,C]$, and proper.{{cite:box_tiao1973}}{{cite:jeffreys1961}}{{cite:gelman_bda2013}}
+constant on $[-C,C]$, and proper.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 51–54)
 
  Taking, for example, $C=10^4$ makes this density nearly constant over an ordinary data range while keeping it proper. It also exposes what "very diffuse" means. For any fixed $0<M<C$, 
 
