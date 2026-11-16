@@ -1,0 +1,31 @@
+{
+  "article_lead": {
+    "article": "",
+    "verb": "are",
+    "description": "Bernoulli outcomes whose event probabilities vary with predictors through a chosen link function"
+  },
+  "self_checks": ["depth-binary-glm-likelihood", "depth-binary-glm-variance", "depth-binary-glm-link"],
+  "new_bank_questions": [
+    {
+      "id": "depth-binary-glm-likelihood",
+      "title": "Binary GLM likelihood contribution",
+      "body": "Two conditionally independent binary outcomes are y=(0,1), with fitted event probabilities p=(0.25,0.60). What is their joint likelihood contribution?",
+      "answer": "The zero contributes 1-0.25=0.75 and the one contributes 0.60. Conditional independence gives 0.75*0.60=0.45.",
+      "topic_code": "G1"
+    },
+    {
+      "id": "depth-binary-glm-variance",
+      "title": "Bernoulli mean and variance",
+      "body": "A binary GLM predicts event probability 0.8 for a patient. Give the conditional mean and variance of that patient's zero-one response, and explain why its variance is not 0.8.",
+      "answer": "The mean is p=0.8 and variance is p(1-p)=0.8*0.2=0.16. Bernoulli variance accounts for both possible outcomes and is largest at p=0.5.",
+      "topic_code": "G1"
+    },
+    {
+      "id": "depth-binary-glm-link",
+      "title": "Changing a binary GLM link",
+      "body": "If a logit and probit model both assign probability p=0.4 to an observed event, do they give different Bernoulli likelihood contributions for that observation? What does the link change?",
+      "answer": "No; each gives likelihood contribution 0.4 for an observed one. The link changes how the predictors map to the probability and therefore can change fitted probabilities and coefficient meanings, while the Bernoulli mass at a given p is unchanged.",
+      "topic_code": "G1"
+    }
+  ]
+}
