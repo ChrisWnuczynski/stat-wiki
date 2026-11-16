@@ -854,5 +854,75 @@
   "within-cluster-scatter": [
     "ex-sl-04-1",
     "ex-sl-04-6"
+  ],
+  "binary-responses-in-a-glm": [
+    "depth-binary-glm-likelihood",
+    "depth-binary-glm-variance",
+    "depth-binary-glm-link"
+  ],
+  "cholesterol-and-heart-disease": [
+    "q-35",
+    "depth-chol-prediction",
+    "depth-chol-interpretation"
+  ],
+  "complementary-log-log-link": [
+    "depth-cloglog-probability",
+    "depth-cloglog-interpretation",
+    "depth-cloglog-reversal"
+  ],
+  "complete-pooling-no-pooling-and-partial-pooling": [
+    "c-09",
+    "q-23",
+    "ex-pois-hier"
+  ],
+  "e-step": [
+    "depth-e-argument",
+    "depth-e-equal-density",
+    "depth-e-numeric"
+  ],
+  "ensemble-method": [
+    "depth-ensemble-correlation",
+    "depth-ensemble-vote",
+    "depth-ensemble-mechanism"
+  ],
+  "generalised-estimating-equations": [
+    "c-38",
+    "c-39",
+    "c-40"
+  ],
+  "jensen-s-inequality": [
+    "depth-jensen-square-log",
+    "depth-jensen-equality",
+    "depth-jensen-domain"
+  ],
+  "m-step": [
+    "depth-m-fixed",
+    "depth-m-vanished",
+    "depth-m-numeric"
+  ],
+  "normal-inverse-gamma-conjugacy": [
+    "ex-norm-nig",
+    "ex-norm-both"
+  ],
+  "posterior-summaries-from-draws": [
+    "ex-ur-posterior-mean",
+    "q-42"
+  ],
+  "regularisation-and-weight-decay": [
+    "depth-weight-update",
+    "depth-weight-scale",
+    "depth-weight-adam"
+  ],
+  "survival-function": [
+    "ex-prob-hazard-survival",
+    "ex-prob-series-parallel"
+  ],
+  "transformation-rule": [
+    "ex-prob-square-uniform",
+    "ex-prob-affine-exponential"
+  ],
+  "warm-up-is-not-a-convergence-proof": [
+    "q-25",
+    "ex-gibbs-mh"
   ]
 }

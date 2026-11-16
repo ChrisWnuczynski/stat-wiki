@@ -320,7 +320,7 @@ The same skeleton covers the usual applied questions: whether a firm has an indu
 
 The logistic link is @eq-logit. It is the link we will interpret, and it is the canonical link.
 
-The probit link replaces the logistic curve by a standard normal distribution function. If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
+The probit link replaces the logistic curve by a standard normal distribution function.{{cite:mccullagh1980}} (§4.1, pp. 115–116, link comparisons){{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380, binomial links) If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
 $$
 \Phi^{-1}(p_i)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
@@ -328,13 +328,13 @@ p_i=\Phi(\vect{X}_i^\top\boldsymbol{\beta}).
 $$
 Read it as a quantile. Compute $\vect{X}_i^\top\boldsymbol{\beta}$, find that point on the standard normal axis, and take the probability to its left. That left-tail probability is $p_i$. Any other continuous distribution function would give a link of the same type. The normal is the default. This choice also gives a latent standard-normal threshold interpretation of a binary response.
 
-The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} It is a binomial link.{{cite:wood2017}} Its equation is
+The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh1980}} (§4.2, p. 116) It is a binomial link.{{cite:mccullagh1980}} (§§3.1, 4.1–4.2, pp. 113–116) Its equation is
 $$
 \log\bigl(-\log(1-p_i)\bigr)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
 p_i=1-\exp\bigl\{-\exp(\vect{X}_i^\top\boldsymbol{\beta})\bigr\}.
 $$ {#eq-cloglog}
-The exercise asks you to check that the right-hand side lies in $(0,1)$ for every real linear predictor. This link is the one that does not treat the two tails symmetrically. Logit and probit both approach $0$ and $1$ in the same fashion, one a mirror of the other. Complementary log-log can stay near zero for longer and then rise more sharply towards one, or the reverse, depending on the sign of the slope. Use it when that asymmetry is the scientific point. Do not use it because you want a sentence about odds. The coefficient is a log-hazard, an instantaneous risk, and a hazard is much harder to explain to a medical collaborator than an odds ratio.
+The exercise asks you to check that the right-hand side lies in $(0,1)$ for every real linear predictor. This link is the one that does not treat the two tails symmetrically. Logit and probit both approach $0$ and $1$ in the same fashion, one a mirror of the other. Complementary log-log can stay near zero for longer and then rise more sharply towards one, or the reverse, depending on the sign of the slope. Use it when that asymmetry is the scientific point. Do not use it because you want a sentence about odds. The coefficient is a log multiplier of $H=-\log(1-p)$, the negative log of the no-event probability. In grouped event-time data derived from a proportional-hazards model, $H$ is an interval cumulative hazard and $e^{\beta}$ also has a hazard-ratio interpretation under that additional survival model. An arbitrary binary response does not supply an instantaneous-hazard interpretation.{{cite:mccullagh1980}} (§3.1, pp. 113–114, eqs. 3.4–3.5)
 
 ![Three inverse links, each with slope one. The logit and the probit are symmetric about one half. Complementary log-log reaches one faster than it leaves zero.](../figures/links.pdf){#fig-links}
 
@@ -377,7 +377,7 @@ The sex coefficient $-0.1094$ says that, at the same cholesterol, males have log
 $$
 \exp(-0.1094)=0.90
 $$
-times the odds for a female at that same cholesterol. About $10\%$ lower. This is the opposite of the crude comparison, and the resolution is the phrase "at the same cholesterol." Male patients in this kind of study tend to arrive with higher cholesterol. A woman whose cholesterol is $6.5$ is further into the upper tail of the female distribution than a man at $6.5$ is into his. Comparing them at a common cholesterol value is not the same statement as comparing men and women on average. A paper should not say that males are at lower risk. The sentence to write is that, conditionally on cholesterol, the sex coefficient is small. We will test it properly when we do inference. Ahead of that test, this particular coefficient does not survive it: once cholesterol is in the model, sex is the term expected to drop. The mechanism worth saying out loud is that sex, in this fit, is acting through cholesterol rather than as a separate shift in risk.
+times the odds for a female at that same cholesterol, about $10\%$ lower. This conditional comparison can differ from an unadjusted comparison because the sex groups may have different cholesterol distributions. The fitted equation and plot do not show those distributions, so they cannot establish the direction of a crude sex comparison or whether sex acts through cholesterol as a causal mechanism. The fitted coefficient describes a small conditional sex association after cholesterol enters the model; assessing its uncertainty requires the observations or reported standard errors. A report should state the conditional odds comparison without claiming a causal change in risk.{{cite:geyer2022_exp_family}} (§7.1, inverse logit and conditional odds)
 
 ## Maximum likelihood and Fisher scoring
 

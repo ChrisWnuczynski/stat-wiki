@@ -129,7 +129,7 @@ where $\kappa_0,\alpha_0,\beta_0>0$. The inverse-gamma kernel is $(\sigma^2)^{-\
 
 **(i)** Interpret $\kappa_0$ and the weighted-average form of the posterior mean.
 
-**(j)** Explain how this model differs from the independent-prior model in [Question 3](#ex-norm-both).
+**(j)** Explain how this model differs from the independent-prior model in [Question 3](/questions/ex-norm-both.qmd).
 
 [Solution](#sol-norm-nig)
 :::

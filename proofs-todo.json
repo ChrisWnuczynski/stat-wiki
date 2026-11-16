@@ -175,11 +175,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "posterior-summaries-from-draws",
-    "title": "Posterior summaries from draws",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "principal-component-directions",
     "title": "Principal component directions",
     "reason": "A reviewed proof sketch is still needed."
@@ -242,11 +237,6 @@
   {
     "slug": "the-reweighted-error-is-one-half",
     "title": "The reweighted error is one half",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "transformation-rule",
-    "title": "Transformation rule",
     "reason": "A reviewed proof sketch is still needed."
   },
   {

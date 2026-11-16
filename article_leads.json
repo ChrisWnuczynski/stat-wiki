@@ -432,10 +432,10 @@
   },
   "binary-responses-in-a-glm": {
     "field": "generalised linear models",
-    "article": "the",
+    "article": "",
     "term": "binary responses in a GLM",
-    "verb": "is",
-    "description": "a way to model two-outcome responses using a generalised linear model"
+    "verb": "are",
+    "description": "Bernoulli outcomes whose event probabilities vary with predictors through a chosen link function"
   },
   "binomial-distribution": {
     "field": "probability theory",
@@ -667,7 +667,7 @@
     "article": "the",
     "term": "cholesterol–heart-disease example",
     "verb": "is",
-    "description": "a data example about the association between cholesterol measurements and disease outcomes"
+    "description": "a hundred-patient example relating cholesterol, sex and binary disease records to fitted probabilities"
   },
   "choosing-k-the-gap-statistic": {
     "field": "statistical learning",
@@ -737,7 +737,7 @@
     "article": "the",
     "term": "complementary log-log link",
     "verb": "is",
-    "description": "a link function for binary probabilities based on an asymmetric extreme-value transform"
+    "description": "an asymmetric link for binary event probabilities that can express multiplicative changes in a no-event or hazard scale"
   },
   "complete-data-likelihood": {
     "field": "statistical learning",
@@ -758,7 +758,7 @@
     "article": "",
     "term": "complete pooling, no pooling, and partial pooling",
     "verb": "are",
-    "description": "three ways to share information across groups in a hierarchical model"
+    "description": "three ways to estimate related groups that determine how much data from one group should inform another"
   },
   "complete-separation": {
     "field": "statistical learning",
@@ -1211,7 +1211,7 @@
     "article": "the",
     "term": "e step",
     "verb": "is",
-    "description": "the expectation step of EM that averages missing-data information under current parameters"
+    "description": "the part of EM that uses a current model to assign probabilities to missing labels, making a difficult likelihood easier to fit"
   },
   "early-stopping": {
     "field": "statistical learning",
@@ -1268,7 +1268,7 @@
     "article": "the",
     "term": "ensemble method",
     "verb": "is",
-    "description": "a predictor that combines many fitted models by averaging or voting"
+    "description": "a predictor that combines several fitted models so their differing errors can partly cancel or be corrected"
   },
   "epanechnikov-kernel": {
     "field": "statistical learning",
@@ -1695,7 +1695,7 @@
     "article": "",
     "term": "generalised estimating equations",
     "verb": "are",
-    "description": "estimating equations for marginal response effects with correlated observations"
+    "description": "a way to estimate population-average effects from repeated observations while accounting for correlation within each group"
   },
   "generalised-likelihood-ratio-test": {
     "field": "statistical inference",
@@ -2178,7 +2178,7 @@
     "article": "",
     "term": "Jensen's inequality",
     "verb": "is",
-    "description": "a bound relating a convex function of an expectation to the expectation of that function",
+    "description": "a convexity bound that compares a transformed average with the average of transformed values, useful when variation matters",
     "proper": true
   },
   "joint-distribution-and-density": {
@@ -2629,7 +2629,7 @@
     "article": "the",
     "term": "m step",
     "verb": "is",
-    "description": "the maximisation step of EM that updates parameters using expected complete-data information"
+    "description": "the part of EM that converts probabilities for missing data into updated model parameters by maximizing a weighted likelihood"
   },
   "machine-repair-model": {
     "field": "stochastic processes",
@@ -3183,7 +3183,7 @@
     "article": "the",
     "term": "normal–inverse-gamma conjugacy",
     "verb": "is",
-    "description": "a joint update that handles uncertainty in regression coefficients and residual variance"
+    "description": "a joint prior for normal-regression coefficients and error variance that makes both uncertainties exactly updatable"
   },
   "normal-inverse-gamma-prior": {
     "field": "Bayesian statistics",
@@ -3641,7 +3641,7 @@
     "article": "",
     "term": "posterior summaries from draws",
     "verb": "are",
-    "description": "estimates of posterior features computed from simulated draws"
+    "description": "sample calculations that turn simulated posterior values into estimates of probabilities, point summaries, and intervals"
   },
   "power-function": {
     "field": "statistical inference",
@@ -4000,7 +4000,7 @@
     "article": "",
     "term": "regularisation and weight decay",
     "verb": "are",
-    "description": "methods that penalise large model coefficients during fitting"
+    "description": "a way to limit the size of fitted weights so a flexible model is less likely to follow noise in its training data"
   },
   "regularisation": {
     "field": "statistical learning",
@@ -4561,7 +4561,7 @@
     "article": "the",
     "term": "survival function",
     "verb": "is",
-    "description": "the probability that a lifetime exceeds a given time"
+    "description": "the chance that an event has not yet occurred by a given time, used to compare lifetimes and follow-up"
   },
   "sylvester-s-criterion": {
     "field": "linear algebra",
@@ -4690,7 +4690,7 @@
     "article": "the",
     "term": "transformation rule",
     "verb": "is",
-    "description": "a change-of-variables rule for finding the density of a smooth transformation of a random vector"
+    "description": "the change-of-variables theorem that preserves probabilities when the coordinates of a random vector are transformed"
   },
   "transformations-of-data": {
     "field": "data analysis",
@@ -5010,7 +5010,7 @@
     "article": "",
     "term": "MCMC warm-up",
     "verb": "is",
-    "description": "an initial sampling period whose removal does not prove convergence",
+    "description": "an initial sampling period discarded to limit starting bias, whose removal cannot establish that a chain explored its target",
     "proper": true
   },
   "warp-breaks-data": {

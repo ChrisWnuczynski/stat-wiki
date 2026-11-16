@@ -320,5 +320,166 @@
     "body": "Independent even-time values equal -1 or 1 with equal chances. Independent odd-time values are uniform on [-√3,√3]. Is the combined series weakly stationary? Is it strictly stationary? Explain from means, variances, covariances and one-time distributions.",
     "answer": "Both marginals have mean 0 and variance 1; independence makes every nonzero-lag covariance 0. Hence the process is weakly stationary. The even-time law has two atoms but the odd-time law is continuous, so a one-step shift changes the marginal distribution and strict stationarity fails.",
     "topic_code": "T1"
+  },
+  {
+    "id": "depth-binary-glm-likelihood",
+    "title": "Binary GLM likelihood contribution",
+    "body": "Two conditionally independent binary outcomes are y=(0,1), with fitted event probabilities p=(0.25,0.60). What is their joint likelihood contribution?",
+    "answer": "The zero contributes 1-0.25=0.75 and the one contributes 0.60. Conditional independence gives 0.75*0.60=0.45.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-binary-glm-variance",
+    "title": "Bernoulli mean and variance",
+    "body": "A binary GLM predicts event probability 0.8 for a patient. Give the conditional mean and variance of that patient's zero-one response, and explain why its variance is not 0.8.",
+    "answer": "The mean is p=0.8 and variance is p(1-p)=0.8*0.2=0.16. Bernoulli variance accounts for both possible outcomes and is largest at p=0.5.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-binary-glm-link",
+    "title": "Changing a binary GLM link",
+    "body": "If a logit and probit model both assign probability p=0.4 to an observed event, do they give different Bernoulli likelihood contributions for that observation? What does the link change?",
+    "answer": "No; each gives likelihood contribution 0.4 for an observed one. The link changes how the predictors map to the probability and therefore can change fitted probabilities and coefficient meanings, while the Bernoulli mass at a given p is unchanged.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-chol-prediction",
+    "title": "A fitted cholesterol probability",
+    "body": "The displayed logistic model has score -9.3203-0.1094 I(male)+1.5842 cholesterol. Find the fitted disease probability for a male at cholesterol 5.5 and compare with a female at the same value.",
+    "answer": "The male score is -0.7166 and the inverse-logit probability is about 0.32814. The female score is -0.6072 and probability about 0.35270. Their conditional probability difference is about -0.02456; this does not determine the marginal sex difference.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-chol-interpretation",
+    "title": "Odds and causation in the cholesterol example",
+    "body": "The fitted cholesterol slope is 1.5842. Explain what exp(1.5842) compares and why it does not prove that an intervention lowering cholesterol would change disease risk.",
+    "answer": "At the same sex, a one-unit higher cholesterol value has fitted disease odds exp(1.5842), about 4.88 times as large. The data description does not establish random assignment, control all confounders or document a causal intervention; the coefficient is an adjusted association in the fitted model.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-cloglog-probability",
+    "title": "Complementary log-log probability update",
+    "body": "A complementary log-log model has baseline event probability 0.20. A one-unit covariate change has coefficient log(2). Find the new event probability and state which quantity doubles.",
+    "answer": "Write H=-log(1-p). Initially H=-log(0.8). The coefficient doubles H, so 1-p_new=exp(-2H)=0.8^2=0.64 and p_new=0.36. The negative log of the no-event probability doubles; the event probability does not.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-cloglog-interpretation",
+    "title": "Reading a complementary log-log coefficient",
+    "body": "In a binary cloglog regression, a coefficient is log(3). What exactly is multiplied by three, and when can it be called a hazard ratio?",
+    "answer": "The quantity -log(1-p), where p is the fitted event probability, is multiplied by three. A hazard-ratio interpretation additionally requires a suitable proportional-hazards model for event times; an arbitrary cross-sectional binary response does not supply that interpretation. Neither the odds nor probability generally triples.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-cloglog-reversal",
+    "title": "Reversing the event in a cloglog model",
+    "body": "A fitted complementary log-log model describes event probability p. Does negating its coefficients give the same-link model for the nonevent probability 1-p? Explain.",
+    "answer": "No. The inverse cloglog curve is asymmetric, so reversing the outcome changes the link to its log-log counterpart; simple coefficient sign reversal is the logit's symmetry. Refit or transform the model explicitly for the chosen event definition.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-e-argument",
+    "title": "Which parameter supplies E-step weights?",
+    "body": "In Q(Psi;Psi_old), which argument determines the conditional distribution of the missing labels, and which is optimized in the M step?",
+    "answer": "Psi_old fixes the conditional distribution and therefore all E-step responsibilities. The candidate Psi is varied in the M step while those responsibilities stay fixed.",
+    "topic_code": "L5"
+  },
+  {
+    "id": "depth-e-equal-density",
+    "title": "Equal component densities",
+    "body": "Two mixture components have equal density at x, but current weights 0.8 and 0.2. Find the E-step responsibility of the first component.",
+    "answer": "It is 0.8: Bayes' numerator multiplies each density by its current mixture weight, and the equal densities cancel.",
+    "topic_code": "L5"
+  },
+  {
+    "id": "depth-e-numeric",
+    "title": "A symmetric normal-mixture E step",
+    "body": "Two unit-variance normal components have equal current weights and means 0 and 2. Find the responsibility for the first component at x=1.",
+    "answer": "Both weighted densities agree at the midpoint, so the responsibility is 1/2. This is conditional uncertainty, not an observed class label.",
+    "topic_code": "L5"
+  },
+  {
+    "id": "depth-ensemble-correlation",
+    "title": "Correlation in an ensemble average",
+    "body": "Four numerical predictors have error variance 1 each and pairwise correlation 0.5. Find the variance of their average under this equal-correlation model.",
+    "answer": "It is 0.5+(1-0.5)/4=0.625. The independent case would give 0.25; common error does not disappear as the ensemble grows.",
+    "topic_code": "L13"
+  },
+  {
+    "id": "depth-ensemble-vote",
+    "title": "Voting is not averaging labels",
+    "body": "Three classifiers predict category labels A, A and B. What is the plurality result, and why does the numerical squared-error identity for a mean not prove anything about this vote?",
+    "answer": "A wins with two votes. Category names are not numerical values, and zero-one classification loss after a vote is not squared loss of an average.",
+    "topic_code": "L13"
+  },
+  {
+    "id": "depth-ensemble-mechanism",
+    "title": "How members differ",
+    "body": "Contrast the mechanism making members different in bagging, a random forest, and AdaBoost.",
+    "answer": "Bagging fits the base learner to bootstrap resamples. A random forest adds random candidate-variable choices at tree splits. AdaBoost sequentially changes training-example weights to emphasize difficult cases and combines weighted learners.",
+    "topic_code": "L13"
+  },
+  {
+    "id": "depth-jensen-square-log",
+    "title": "Two directions of Jensen's inequality",
+    "body": "Let X equal 1 or 4, each with probability one half. Compare E(X^2) with (EX)^2 and E(log X) with log(EX). Explain the opposite directions.",
+    "answer": "EX=2.5, E(X^2)=8.5, and (EX)^2=6.25, so the convex square gives 8.5>=6.25. E(log X)=log(4)/2≈0.69315, while log(EX)=log(2.5)≈0.91629, so concavity of log reverses the inequality. Both are strict because X is nonconstant and each function has strict curvature over the support.",
+    "topic_code": "SP11"
+  },
+  {
+    "id": "depth-jensen-equality",
+    "title": "When Jensen's inequality is equality",
+    "body": "Can Jensen's inequality be equality when X is nonconstant? Give an explicit convex function and explain why.",
+    "answer": "Yes. An affine function such as phi(x)=2x+1 is convex, and E[phi(X)]=2EX+1=phi(EX) for every integrable X. Strict inequality for nonconstant X requires strict convexity on its support.",
+    "topic_code": "SP11"
+  },
+  {
+    "id": "depth-jensen-domain",
+    "title": "A failed Jensen application",
+    "body": "Someone applies E(log X)<=log(EX) to a random variable that equals zero with positive probability. What is wrong with the calculation?",
+    "answer": "The real logarithm is undefined at zero, and a finite E(log X) is unavailable. Jensen's finite-expectation form requires the function to be defined on the support and the transformed expectation to exist.",
+    "topic_code": "SP11"
+  },
+  {
+    "id": "depth-m-fixed",
+    "title": "Fixed weights during the M step",
+    "body": "When maximizing Q(Psi;Psi_old) for a mixture, are the responsibilities recomputed for each candidate Psi? Explain.",
+    "answer": "No. The E step computed responsibilities using Psi_old; they stay fixed while the M step varies candidate Psi. The next E step recomputes them after the parameter update.",
+    "topic_code": "L5"
+  },
+  {
+    "id": "depth-m-vanished",
+    "title": "Zero effective component count",
+    "body": "A mixture component has effective count N_h=0 after the E step. What fails in the usual weighted-mean M-step update?",
+    "answer": "Its denominator is zero, so the mean is undefined by that formula. A fitting procedure must handle the boundary or alter initialization or constraints.",
+    "topic_code": "L5"
+  },
+  {
+    "id": "depth-m-numeric",
+    "title": "Two-point mixture M step",
+    "body": "For x=(0,2), the component-one E-step responsibilities are (0.75,0.25). Find both updated weights and both updated means, with variances fixed.",
+    "answer": "Effective counts are 1 and 1, so weights are 0.5 and 0.5. The weighted means are 0.5 for component one and 1.5 for component two.",
+    "topic_code": "L5"
+  },
+  {
+    "id": "depth-weight-update",
+    "title": "One weight-decay update",
+    "body": "For one weight w=4, current loss gradient 6, learning rate 0.1 and L2 penalty strength 0.2, calculate the ordinary penalized gradient step. Compare it with the unpenalized step.",
+    "answer": "The penalized gradient is 6+0.2(4)=6.8, so w_new=4-0.1(6.8)=3.32. Equivalently, 0.98(4)-0.1(6)=3.32. Without the penalty the step gives 3.4.",
+    "topic_code": "L16"
+  },
+  {
+    "id": "depth-weight-scale",
+    "title": "Feature units and weight penalties",
+    "body": "An input is multiplied by ten and its linear-model weight divided by ten, leaving predictions identical. By what factor does that weight's squared penalty contribution change?",
+    "answer": "It is divided by 100, because (w/10)^2=w^2/100. A raw squared-weight penalty depends on predictor units even when fitted predictions are unchanged.",
+    "topic_code": "L16"
+  },
+  {
+    "id": "depth-weight-adam",
+    "title": "Coupled penalty versus separate decay",
+    "body": "Why can adding an L2 penalty to a loss produce a different update from a separate weight-decay step under Adam, although they can coincide for ordinary SGD?",
+    "answer": "An L2 penalty contributes lambda times the weight to the gradient, so Adam's adaptive coordinate scaling also acts on the penalty gradient. A separate decay step scales the weight directly outside the adaptive gradient calculation. Ordinary scalar-step SGD gives the same algebra after matching the coefficients.",
+    "topic_code": "L16"
   }
 ]

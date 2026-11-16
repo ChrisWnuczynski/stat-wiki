@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **202**. Left: **516**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **217**. Left: **501**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -130,7 +130,7 @@ Pages ranked: **718**. Done: **202**. Left: **516**. Skipped: **0**. Ranks 1–6
 | 119 | [Bayesian information criterion](bayesian-information-criterion.md) | Definition | [Prose](content/bayesian-information-criterion.md), [check](../checks/bayesian-information-criterion.py) | 1,746 → 3,702 | 0 → 0 | See [research record](bayesian-information-criterion.md) |
 | 120 | [Gaussian kernel](gaussian-kernel.md) | Topic | [Prose](content/gaussian-kernel.md), [check](../checks/gaussian-kernel.py) | 546 → 2,589 | 0 → 0 | See [research record](gaussian-kernel.md) |
 | 121 | [Pearson statistic](pearson-statistic.md) | Definition | [Prose](content/pearson-statistic.md), [check](../checks/pearson-statistic.py) | 579 → 2,833 | 0 → 0 | See [research record](pearson-statistic.md) |
-| 122 | [Measurable random variable](measurable-random-variable.md) | Definition | [Prose](content/measurable-random-variable.md), [check](../checks/measurable-random-variable.py) | 446 → 2,329 | 0 → 0 | See [research record](measurable-random-variable.md) |
+| 122 | [Measurable random variable](measurable-random-variable.md) | Definition | [Prose](content/measurable-random-variable.md), [check](../checks/measurable-random-variable.py) | 446 → 2,334 | 0 → 0 | See [research record](measurable-random-variable.md) |
 | 123 | [Least squares](least-squares.md) | Section | [Prose](content/least-squares.md), [check](../checks/least-squares.py) | 780 → 3,239 | 0 → 0 | See [research record](least-squares.md) |
 | 124 | [Sample quantile](sample-quantile.md) | Definition | [Prose](content/sample-quantile.md), [check](../checks/sample-quantile.py) | 318 → 2,411 | 1 → 1 | See [research record](sample-quantile.md) |
 | 125 | [Exponential distribution](exponential-distribution.md) | Distribution | [Prose](content/exponential-distribution.md), [check](../checks/exponential-distribution.py) | 2,353 → 5,478 | 3 → 3 | See [research record](exponential-distribution.md) |
@@ -209,14 +209,29 @@ Pages ranked: **718**. Done: **202**. Left: **516**. Skipped: **0**. Ranks 1–6
 | 198 | [Within-cluster scatter](within-cluster-scatter.md) | Section | [Prose](content/within-cluster-scatter.md), [check](../checks/within-cluster-scatter.py) | 746 → 2,592 | 0 → 0 | See [research record](within-cluster-scatter.md) |
 | 199 | [Decision tree](decision-tree.md) | Topic | [Prose](content/decision-tree.md), [check](../checks/decision-tree.py) | 359 → 2,644 | 0 → 0 | See [research record](decision-tree.md) |
 | 200 | [Knot](knot.md) | Topic | [Prose](content/knot.md), [check](../checks/knot.py) | 516 → 2,631 | 0 → 0 | See [research record](knot.md) |
-| 201 | [Probit link](probit-link.md) | Topic | [Prose](content/probit-link.md), [check](../checks/probit-link.py) | 470 → 2,226 | 0 → 0 | See [research record](probit-link.md) |
+| 201 | [Probit link](probit-link.md) | Topic | [Prose](content/probit-link.md), [check](../checks/probit-link.py) | 470 → 2,250 | 0 → 0 | See [research record](probit-link.md) |
 | 202 | [Residual deviance](residual-deviance.md) | Topic | [Prose](content/residual-deviance.md), [check](../checks/residual-deviance.py) | 354 → 5,227 | 0 → 2 | See [research record](residual-deviance.md) |
+| 203 | [Survival function](survival-function.md) | Definition | [Prose](content/survival-function.md), [check](../checks/survival-function.py) | 616 → 2,219 | 1 → 1 | See [research record](survival-function.md) |
+| 204 | [Transformation rule](transformation-rule.md) | Theorem | [Prose](content/transformation-rule.md), [check](../checks/transformation-rule.py) | 858 → 2,519 | 0 → 0 | See [research record](transformation-rule.md) |
+| 205 | [Complete pooling, no pooling, and partial pooling](complete-pooling-no-pooling-and-partial-pooling.md) | Section | [Prose](content/complete-pooling-no-pooling-and-partial-pooling.md), [check](../checks/complete-pooling-no-pooling-and-partial-pooling.py) | 203 → 3,616 | 0 → 0 | See [research record](complete-pooling-no-pooling-and-partial-pooling.md) |
+| 206 | [Generalised estimating equations](generalised-estimating-equations.md) | Topic | [Prose](content/generalised-estimating-equations.md), [check](../checks/generalised-estimating-equations.py) | 250 → 1,960 | 0 → 0 | See [research record](generalised-estimating-equations.md) |
+| 207 | [Normal–inverse-Gamma conjugacy](normal-inverse-gamma-conjugacy.md) | Theorem | [Prose](content/normal-inverse-gamma-conjugacy.md), [check](../checks/normal-inverse-gamma-conjugacy.py) | 3,319 → 6,508 | 0 → 0 | See [research record](normal-inverse-gamma-conjugacy.md) |
+| 208 | [Warm-up is not a convergence proof](warm-up-is-not-a-convergence-proof.md) | Remark | [Prose](content/warm-up-is-not-a-convergence-proof.md), [check](../checks/warm-up-is-not-a-convergence-proof.py) | 821 → 4,021 | 1 → 1 | See [research record](warm-up-is-not-a-convergence-proof.md) |
+| 209 | [Posterior summaries from draws](posterior-summaries-from-draws.md) | Theorem | [Prose](content/posterior-summaries-from-draws.md), [check](../checks/posterior-summaries-from-draws.py) | 1,470 → 3,669 | 0 → 0 | See [research record](posterior-summaries-from-draws.md) |
+| 210 | [Complementary log-log link](complementary-log-log-link.md) | Topic | [Prose](content/complementary-log-log-link.md), [check](../checks/complementary-log-log-link.py) | 563 → 2,367 | 0 → 0 | See [research record](complementary-log-log-link.md) |
+| 211 | [Jensen's inequality](jensen-s-inequality.md) | Topic | [Prose](content/jensen-s-inequality.md), [check](../checks/jensen-s-inequality.py) | 595 → 2,275 | 0 → 0 | See [research record](jensen-s-inequality.md) |
+| 212 | [Regularisation and weight decay](regularisation-and-weight-decay.md) | Section | [Prose](content/regularisation-and-weight-decay.md), [check](../checks/regularisation-and-weight-decay.py) | 376 → 2,246 | 0 → 0 | See [research record](regularisation-and-weight-decay.md) |
+| 213 | [Binary responses in a GLM](binary-responses-in-a-glm.md) | Section | [Prose](content/binary-responses-in-a-glm.md), [check](../checks/binary-responses-in-a-glm.py) | 1,396 → 3,089 | 1 → 1 | See [research record](binary-responses-in-a-glm.md) |
+| 214 | [Cholesterol and heart disease](cholesterol-and-heart-disease.md) | Section | [Prose](content/cholesterol-and-heart-disease.md), [check](../checks/cholesterol-and-heart-disease.py) | 1,605 → 3,497 | 1 → 1 | See [research record](cholesterol-and-heart-disease.md) |
+| 215 | [E step](e-step.md) | Section | [Prose](content/e-step.md), [check](../checks/e-step.py) | 606 → 2,431 | 0 → 0 | See [research record](e-step.md) |
+| 216 | [Ensemble method](ensemble-method.md) | Topic | [Prose](content/ensemble-method.md), [check](../checks/ensemble-method.py) | 280 → 2,151 | 0 → 0 | See [research record](ensemble-method.md) |
+| 217 | [M step](m-step.md) | Section | [Prose](content/m-step.md), [check](../checks/m-step.py) | 652 → 2,514 | 0 → 0 | See [research record](m-step.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 203: `survival-function`.** Ranks 188–202 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 218: `memoryless-property`.** Ranks 203–217 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

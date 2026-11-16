@@ -5787,7 +5787,9 @@
       }
     },
     "rstats_intro2026": {
-      "authors": ["R Core Team"],
+      "authors": [
+        "R Core Team"
+      ],
       "year": 2026,
       "title": "An Introduction to R (R-devel manual, accessed November 2026)",
       "kind": "book",
@@ -9601,6 +9603,41 @@
       "verification": {
         "source": "archival_url",
         "id": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf"
+      }
+    },
+    "forssen_ekstrom2026": {
+      "authors": [
+        "Forssén, C.",
+        "Ekström, A."
+      ],
+      "year": 2026,
+      "title": "Learning from data: Assigning probabilities (III): Conjugate priors",
+      "kind": "book",
+      "publisher": "Chalmers University of Technology",
+      "url": "https://cforssen.gitlab.io/tif285-book/content/BayesianStatistics/BayesianLinearRegression/BayesianLinearRegression_ConjugatePrior.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cforssen.gitlab.io/tif285-book/content/BayesianStatistics/BayesianLinearRegression/BayesianLinearRegression_ConjugatePrior.html"
+      }
+    },
+    "nist_reliability2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods: Reliability or survival function",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr122.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr122.htm"
       }
     }
   }
