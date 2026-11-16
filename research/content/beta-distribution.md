@@ -1,7 +1,7 @@
 ## Motivating example
 A coin's success probability is unknown, and ten tosses may not settle whether it is above one half. The beta distribution places a probability law on that unknown probability before observing the tosses. Its two shape parameters can express a centre and a degree of concentration, while the binomial likelihood changes those parameters in a particularly simple way. The distinction between a distribution for the unknown chance and the binary outcomes themselves will guide the calculations below.{{cite:gelman_bda2013}} (§2.1, pp. 29–31){{cite:siegrist2022_beta}} (§5.17, The Standard Beta Distribution)
 
-## Intuition
+## Intuition — How the shapes change the density
 On the interval $(0,1)$, the factor $x^{\alpha-1}$ controls behaviour near zero and $(1-x)^{\beta-1}$ controls behaviour near one. With both shapes above one the density has an interior peak; with both below one it rises toward both endpoints. Equal shapes give a symmetric law, and $\alpha=\beta=1$ is uniform. The mean $\alpha/(\alpha+\beta)$ describes the centre, while $\alpha+\beta$ helps describe concentration: two beta laws can share a mean yet express very different uncertainty. A density that rises without bound at an endpoint can still integrate to one and assigns no positive probability to that single endpoint.{{cite:siegrist2022_beta}} (§5.17, Distribution Functions and Moments)
 
 ## Properties

@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **82**. Left: **636**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **97**. Left: **621**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -91,12 +91,27 @@ Pages ranked: **718**. Done: **82**. Left: **636**. Skipped: **0**. Ranks 1–67
 | 80 | [Random-walk and independent proposals](random-walk-and-independent-proposals.md) | Section | [Prose](content/random-walk-and-independent-proposals.md), [check](../checks/random-walk-and-independent-proposals.py) | 807 → 2,899 | 1 → 1 | See [research record](random-walk-and-independent-proposals.md) |
 | 81 | [Interpreting a logistic regression](interpreting-a-logistic-regression.md) | Section | [Prose](content/interpreting-a-logistic-regression.md), [check](../checks/interpreting-a-logistic-regression.py) | 259 → 2,388 | 0 → 0 | See [research record](interpreting-a-logistic-regression.md) |
 | 82 | [Transition matrix](transition-matrix.md) | Section | [Prose](content/transition-matrix.md), [check](../checks/transition-matrix.py) | 554 → 2,605 | 0 → 0 | See [research record](transition-matrix.md) |
+| 83 | [Precision](precision.md) | Topic | [Prose](content/precision.md), [check](../checks/precision.py) | 203 → 2,729 | 0 → 0 | See [research record](precision.md) |
+| 84 | [Bernoulli distribution](bernoulli-distribution.md) | Distribution | [Prose](content/bernoulli-distribution.md), [check](../checks/bernoulli-distribution.py) | 862 → 2,330 | 2 → 2 | See [research record](bernoulli-distribution.md) |
+| 85 | [Bayes classifier](bayes-classifier.md) | Section | [Prose](content/bayes-classifier.md), [check](../checks/bayes-classifier.py) | 496 → 2,264 | 0 → 0 | See [research record](bayes-classifier.md) |
+| 86 | [Iris data](iris-data.md) | Topic | [Prose](content/iris-data.md), [check](../checks/iris-data.py) | 1,769 → 4,864 | 0 → 0 | See [research record](iris-data.md) |
+| 87 | [Modes of convergence](modes-of-convergence.md) | Definition | [Prose](content/modes-of-convergence.md), [check](../checks/modes-of-convergence.py) | 385 → 1,648 | 0 → 0 | See [research record](modes-of-convergence.md) |
+| 88 | [Likelihood-ratio test](likelihood-ratio-test.md) | Topic | [Prose](content/likelihood-ratio-test.md), [check](../checks/likelihood-ratio-test.py) | 1,499 → 3,682 | 0 → 0 | See [research record](likelihood-ratio-test.md) |
+| 89 | [Linear discriminant analysis](linear-discriminant-analysis.md) | Section | [Prose](content/linear-discriminant-analysis.md), [check](../checks/linear-discriminant-analysis.py) | 1,542 → 3,526 | 0 → 0 | See [research record](linear-discriminant-analysis.md) |
+| 90 | [Validation set](validation-set.md) | Topic | [Prose](content/validation-set.md), [check](../checks/validation-set.py) | 272 → 2,445 | 0 → 0 | See [research record](validation-set.md) |
+| 91 | [p-value](p-value.md) | Definition | [Prose](content/p-value.md), [check](../checks/p-value.py) | 731 → 2,556 | 2 → 2 | See [research record](p-value.md) |
+| 92 | [Beta distribution](beta-distribution.md) | Distribution | [Prose](content/beta-distribution.md), [check](../checks/beta-distribution.py) | 2,597 → 5,682 | 4 → 4 | See [research record](beta-distribution.md) |
+| 93 | [Law of large numbers](law-of-large-numbers.md) | Theorem | [Prose](content/law-of-large-numbers.md), [check](../checks/law-of-large-numbers.py) | 426 → 2,594 | 1 → 1 | See [research record](law-of-large-numbers.md) |
+| 94 | [Treatment](treatment.md) | Topic | [Prose](content/treatment.md), [check](../checks/treatment.py) | 420 → 2,114 | 0 → 0 | See [research record](treatment.md) |
+| 95 | [Sample space](sample-space.md) | Definition | [Prose](content/sample-space.md), [check](../checks/sample-space.py) | 438 → 1,847 | 0 → 0 | See [research record](sample-space.md) |
+| 96 | [Uniform distribution](uniform-distribution.md) | Distribution | [Prose](content/uniform-distribution.md), [check](../checks/uniform-distribution.py) | 710 → 2,506 | 2 → 2 | See [research record](uniform-distribution.md) |
+| 97 | [Kernel](kernel.md) | Definition | [Prose](content/kernel.md), [check](../checks/kernel.py) | 488 → 2,216 | 0 → 0 | See [research record](kernel.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 83: `precision`.** Ranks 68–82 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 98: `stationary-distribution`.** Ranks 83–97 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

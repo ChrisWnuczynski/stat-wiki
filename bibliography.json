@@ -4402,14 +4402,13 @@
       "year": 1909,
       "title": "Functions of positive and negative type, and their connection with the theory of integral equations",
       "kind": "article",
-      "venue": "Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character",
-      "volume": "83",
-      "issue": "559",
-      "pages": "69–70",
-      "doi": "10.1098/rspa.1909.0075",
+      "venue": "Philosophical Transactions of the Royal Society of London. Series A",
+      "volume": "209",
+      "pages": "415–446",
+      "doi": "10.1098/rsta.1909.0016",
       "verification": {
         "source": "crossref",
-        "id": "10.1098/rspa.1909.0075"
+        "id": "10.1098/rsta.1909.0016"
       }
     },
     "metropolis1953": {
@@ -7798,6 +7797,349 @@
       "verification": {
         "source": "archival_url",
         "id": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf"
+      }
+    },
+    "james_islr2013": {
+      "authors": [
+        "James, G.",
+        "Witten, D.",
+        "Hastie, T.",
+        "Tibshirani, R."
+      ],
+      "year": 2013,
+      "title": "An Introduction to Statistical Learning: with Applications in R",
+      "kind": "book",
+      "edition": "1st ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4614-7138-7",
+      "url": "https://www.statlearning.com/s/ISLRSeventhPrinting.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4614-7138-7"
+      }
+    },
+    "siegrist2022_bernoulli_intro": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §11.1: Introduction to Bernoulli Trials",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.01:_Introduction_to_Bernoulli_Trials",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.01:_Introduction_to_Bernoulli_Trials"
+      }
+    },
+    "siegrist2022_beta": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.17: The Beta Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.17:_The_Beta_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.17:_The_Beta_Distribution"
+      }
+    },
+    "r_iris_doc2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Edgar Anderson's Iris Data (R-devel datasets documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"
+      }
+    },
+    "scholkopf_smola2003_intro": {
+      "authors": [
+        "Schölkopf, B.",
+        "Smola, A. J."
+      ],
+      "year": 2003,
+      "title": "A Short Introduction to Learning with Kernels",
+      "kind": "incollection",
+      "venue": "Advanced Lectures on Machine Learning",
+      "publisher": "Springer",
+      "pages": "41–64",
+      "doi": "10.1007/3-540-36434-X_2",
+      "url": "https://alex.smola.org/papers/2003/SchSmo03c.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/3-540-36434-X_2"
+      }
+    },
+    "siegrist2022_lln": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.3: The Law of Large Numbers",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.03:_The_Law_of_Large_Numbers",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.03:_The_Law_of_Large_Numbers"
+      }
+    },
+    "siegrist2022_lrt": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §9.5: Likelihood Ratio Tests",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.05:_Likelihood_Ratio_Tests",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.05:_Likelihood_Ratio_Tests"
+      }
+    },
+    "anastasiou_reinert2020": {
+      "authors": [
+        "Anastasiou, A.",
+        "Reinert, G."
+      ],
+      "year": 2020,
+      "title": "Bounds for the asymptotic distribution of the likelihood ratio",
+      "kind": "article",
+      "venue": "The Annals of Applied Probability",
+      "volume": "30",
+      "issue": "2",
+      "pages": "608–643",
+      "doi": "10.1214/19-AAP1510",
+      "url": "https://www.andreasanastasiou-statistics.com/_files/ugd/24cdcc_ca5285583f6d4acdaddbf7aab0a86d28.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/19-AAP1510"
+      }
+    },
+    "taboga2021_lrt": {
+      "authors": [
+        "Taboga, M."
+      ],
+      "year": 2021,
+      "title": "Likelihood Ratio Test",
+      "kind": "book",
+      "publisher": "Lectures on Probability Theory and Mathematical Statistics",
+      "url": "https://statlect.com/fundamentals-of-statistics/likelihood-ratio-test",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://statlect.com/fundamentals-of-statistics/likelihood-ratio-test"
+      }
+    },
+    "siegrist_convergence_prob": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Convergence",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/prob/Convergence.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/prob/Convergence.html"
+      }
+    },
+    "siegrist_convergence_dist": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Convergence in Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/dist/Convergence.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/dist/Convergence.html"
+      }
+    },
+    "siegrist_convergence_lp": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Vector Spaces of Random Variables",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/expect/Spaces.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/expect/Spaces.html"
+      }
+    },
+    "siegrist2022_testing": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §9.1: Introduction to Hypothesis Testing",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.01:_Introduction_to_Hypothesis_Testing",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.01:_Introduction_to_Hypothesis_Testing"
+      }
+    },
+    "asa2016_pvalues": {
+      "authors": [
+        "American Statistical Association"
+      ],
+      "year": 2016,
+      "title": "American Statistical Association Releases Statement on Statistical Significance and P-Values",
+      "kind": "article",
+      "venue": "ASA News",
+      "url": "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf"
+      }
+    },
+    "siegrist2022_random_experiments": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §2.1: Random Experiments",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.01:_Random_Experiments",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.01:_Random_Experiments"
+      }
+    },
+    "siegrist2022_events": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §2.2: Events and Random Variables",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.02:_Events_and_Random_Variables",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.02:_Events_and_Random_Variables"
+      }
+    },
+    "vovk_shafer2003_kolmogorov": {
+      "authors": [
+        "Vovk, V. G.",
+        "Shafer, G. R."
+      ],
+      "year": 2003,
+      "title": "Kolmogorov's Contributions to the Foundations of Probability",
+      "kind": "article",
+      "venue": "Problems of Information Transmission",
+      "volume": "39",
+      "issue": "1",
+      "pages": "21–31",
+      "url": "https://glennshafer.com/assets/downloads/articles/article68.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://glennshafer.com/assets/downloads/articles/article68.pdf"
+      }
+    },
+    "hernan_robins2020": {
+      "authors": [
+        "Hernán, M. A.",
+        "Robins, J. M."
+      ],
+      "year": 2020,
+      "title": "Causal Inference: What If",
+      "kind": "book",
+      "publisher": "Chapman & Hall/CRC",
+      "url": "https://miguelhernan.org/s/hernanrobins_WhatIf_19aug26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://miguelhernan.org/s/hernanrobins_WhatIf_19aug26.pdf"
+      }
+    },
+    "siegrist2022_uniform_interval": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.21: The Uniform Distribution on an Interval",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.21:_The_Uniform_Distribution_on_an_Interval",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.21:_The_Uniform_Distribution_on_an_Interval"
+      }
+    },
+    "von_neumann1951_random_digits": {
+      "authors": [
+        "von Neumann, J."
+      ],
+      "year": 1951,
+      "title": "Various Techniques Used in Connection With Random Digits",
+      "kind": "article",
+      "venue": "Journal of Research of the National Bureau of Standards, Applied Mathematics Series",
+      "volume": "3",
+      "pages": "36–38",
+      "url": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf"
+      }
+    },
+    "sklearn_ari2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "adjusted_rand_score — scikit-learn documentation",
+      "kind": "book",
+      "publisher": "scikit-learn developers",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html"
+      }
+    },
+    "sklearn_brier2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "brier_score_loss — scikit-learn documentation",
+      "kind": "book",
+      "publisher": "scikit-learn developers",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html"
+      }
+    },
+    "siegrist2022_combinatorial_structures": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Combinatorial Structures",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/foundations/Structures.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/foundations/Structures.html"
       }
     }
   }

@@ -1,7 +1,7 @@
 ## Motivating example
 Points arranged in an XOR pattern cannot be separated by one straight line in their original two coordinates. A kernel lets a learning algorithm compare those points as though they had first been mapped into a richer feature space. The classifier can then fit a linear boundary in that space while producing a curved boundary in the original coordinates. The choice of kernel determines which similarities the algorithm can use, so it is part of the model rather than a harmless computational shortcut.{{cite:scholkopf_smola2003_intro}} (§§1, 4, 6.1–6.2, pp. 41–54)
 
-## Intuition
+## Intuition — Inner products without coordinates
 An ordinary dot product measures alignment of two vectors. A feature map $\phi$ changes what counts as alignment: $K(x,z)=\langle\phi(x),\phi(z)\rangle$ computes a dot product after that change. The map can contain polynomial terms, local radial features, or infinitely many coordinates, yet an algorithm may need only the value of $K$. For support-vector machines, the training dual and prediction function use pairwise feature-space dot products, so replacing them by kernel evaluations avoids constructing every feature vector explicitly. It does not avoid choosing a regularisation level or evaluating the resulting model on new data.{{cite:scholkopf_smola2003_intro}} (§§4, 6.1–6.2, pp. 48–55)
 
 ## Definition

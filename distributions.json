@@ -50,17 +50,17 @@
         "meaning": "binary outcome"
       }
     ],
-    "history": "Bernoulli’s posthumously published *Ars Conjectandi* (1713) studied chance in repeated trials. Its binary trial is the setting from which the success-or-failure model takes its name.{{cite:bernoulli1713}}\n\nModern probability texts use the Bernoulli variable as the elementary unit whose sums give binomial counts. Binary-response models then let its success probability depend on observed predictors.{{cite:ross2019}}{{cite:agresti2002}}",
+    "history": "Bernoulli’s posthumously published *Ars Conjectandi* (1713) studied chance in repeated trials. Its binary trial is the setting from which the success-or-failure model takes its name.{{cite:dodge2008}} (p. 37, “Bernoulli, Jakob”)\n\nModern probability texts use the Bernoulli variable as the elementary unit whose sums give binomial counts. Binary-response models then let its success probability depend on observed predictors.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory){{cite:nelder_wedderburn1972}} (§3.3, p. 379)",
     "sampling": "Draw a uniform value $U$ between zero and one, then return $1$ when $U<p$ and $0$ otherwise, where $p$ is the success probability.",
     "conjugate_prior_for": "",
-    "lead_context": "It is the observation model behind binary-response regression and the single-trial component of a binomial count.{{cite:agresti2002}}",
-    "statistical_use": "For an observed yes-or-no outcome, the success probability is estimated by the sample proportion across independent trials. A logistic model lets that probability vary with predictors; the Bernoulli likelihood supplies each observation’s contribution.{{cite:agresti2002}}",
-    "worked_example": "### A binary check\n\nIf a test flags a defect with probability $p=0.2$, then $P(X=1)=0.2$ and $P(X=0)=0.8$. Its mean is $0.2$, while its variance is $0.2(0.8)=0.16$; the mean is a probability, not a fractional observed outcome.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)",
+    "statistical_use": "For an observed yes-or-no outcome, the success probability is estimated by the sample proportion across independent trials. A logistic model lets that probability vary with predictors; the Bernoulli likelihood supplies each observation’s contribution.{{cite:nelder_wedderburn1972}} (§3.3, p. 379) It is the observation model behind binary-response regression and the single-trial component of a binomial count.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)",
+    "worked_example": "### A binary check\n\nIf a test flags a defect with probability $p=0.2$, then $P(X=1)=0.2$ and $P(X=0)=0.8$. Its mean is $0.2$, while its variance is $0.2(0.8)=0.16$; the mean is a probability, not a fractional observed outcome.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)",
     "key_result": {
       "title": "Mean and variance of one trial",
-      "statement": "For $X\\sim\\operatorname{Bernoulli}(p)$, $\\mathrm E(X)=p$ and $\\operatorname{Var}(X)=p(1-p)$.{{cite:ross2019}}",
+      "statement": "For $X\\sim\\operatorname{Bernoulli}(p)$, $\\mathrm E(X)=p$ and $\\operatorname{Var}(X)=p(1-p)$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)",
       "meaning": "The expected value is the success probability, while the variance is largest near an even chance.",
-      "proof": "Since $X$ is either zero or one, $X^2=X$. Thus $\\mathrm E(X)=0(1-p)+1p=p$ and $\\operatorname{Var}(X)=\\mathrm E(X^2)-\\mathrm E(X)^2=p-p^2=p(1-p)$.{{cite:ross2019}}"
+      "proof": "Since $X$ is either zero or one, $X^2=X$. Thus $\\mathrm E(X)=0(1-p)+1p=p$ and $\\operatorname{Var}(X)=\\mathrm E(X^2)-\\mathrm E(X)^2=p-p^2=p(1-p)$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)"
     }
   },
   "beta-distribution": {
@@ -116,14 +116,14 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "$X\\mid p\\sim\\operatorname{Bin}(n,p)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$",
-    "lead_context": "Its adjustable shapes make it a standard model for uncertain proportions and a conjugate prior for a binomial success probability.{{cite:gelman_bda2013}}",
-    "statistical_use": "In binomial inference, a beta prior updates by adding observed successes and failures to its two shape parameters. The posterior can be summarised by a mean or credible interval, but those summaries need not coincide when the posterior is skewed.{{cite:gelman_bda2013}}",
-    "worked_example": "### A probability below one half\n\nFor $X\\sim\\operatorname{Beta}(2,3)$, integration of the density gives $P(X<1/2)=11/16=0.6875$. This is a probability about the unknown proportion under the model; it is not the proportion of successes in any one sample.{{cite:forbes2011}}",
+    "lead_context": "{{cite:gelman_bda2013}} (§2.1, pp. 29–31)",
+    "statistical_use": "Its adjustable shapes make it a standard model for uncertain proportions and a conjugate prior for a binomial success probability. In binomial inference, a beta prior updates by adding observed successes and failures to its two shape parameters. The posterior can be summarised by a mean or credible interval, but those summaries need not coincide when the posterior is skewed.{{cite:gelman_bda2013}} (§2.1, pp. 29–31)",
+    "worked_example": "### A probability below one half\n\nFor $X\\sim\\operatorname{Beta}(2,3)$, integration of the density gives $P(X<1/2)=11/16=0.6875$. This is a probability about the unknown proportion under the model; it is not the proportion of successes in any one sample.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)",
     "key_result": {
       "title": "Mean of a beta probability",
-      "statement": "For $X\\sim\\operatorname{Beta}(\\alpha,\\beta)$, $\\mathrm E(X)=\\alpha/(\\alpha+\\beta)$.{{cite:forbes2011}}",
+      "statement": "For $X\\sim\\operatorname{Beta}(\\alpha,\\beta)$, $\\mathrm E(X)=\\alpha/(\\alpha+\\beta)$.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)",
       "meaning": "Each shape contributes to the expected share of the total concentration.",
-      "proof": "The density normaliser is $B(\\alpha,\\beta)$. Multiplying its kernel by $x$ makes the integral $B(\\alpha+1,\\beta)/B(\\alpha,\\beta)$. The beta-function identity $B(\\alpha+1,\\beta)=\\alpha B(\\alpha,\\beta)/(\\alpha+\\beta)$ gives the stated mean.{{cite:forbes2011}}"
+      "proof": "The density normaliser is $B(\\alpha,\\beta)$. Multiplying its kernel by $x$ makes the integral $B(\\alpha+1,\\beta)/B(\\alpha,\\beta)$. The beta-function identity $B(\\alpha+1,\\beta)=\\alpha B(\\alpha,\\beta)/(\\alpha+\\beta)$ gives the stated mean.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)"
     }
   },
   "binomial-distribution": {
@@ -1403,14 +1403,14 @@
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=a+(b-a)U$, where $a$ and $b$ are the interval endpoints.",
     "conjugate_prior_for": "",
-    "lead_context": "It provides the starting random draws for inverse-transform simulation and a simple model of equal likelihood over a bounded range.{{cite:robert_casella2004}}",
-    "statistical_use": "Uniform random numbers are transformed into draws from many other distributions by applying a quantile function. A uniform model for observed measurements requires a bounded range and a defensible constant-density assumption.{{cite:robert_casella2004}}",
-    "worked_example": "### Half the interval\n\nFor $X\\sim U[2,6]$, $P(3<X<5)=(5-3)/(6-2)=1/2$. The probability is the length of the subinterval divided by the length of the full support.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)",
+    "statistical_use": "It provides the starting random draws for inverse-transform simulation and a simple model that gives equal probabilities to equal-length intervals within a bounded range. Uniform random numbers are transformed into draws from many other distributions by applying a quantile function. A uniform model for observed measurements requires a bounded range and a defensible constant-density assumption.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory){{cite:von_neumann1951_random_digits}} (pp. 36–38)",
+    "worked_example": "### Half the interval\n\nFor $X\\sim U[2,6]$, $P(3<X<5)=(5-3)/(6-2)=1/2$. The probability is the length of the subinterval divided by the length of the full support.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)",
     "key_result": {
       "title": "Mean and variance on an interval",
-      "statement": "For $X\\sim U[a,b]$ with $a<b$, $\\mathrm E(X)=(a+b)/2$ and $\\operatorname{Var}(X)=(b-a)^2/12$.{{cite:ross2019}}",
+      "statement": "For $X\\sim U[a,b]$ with $a<b$, $\\mathrm E(X)=(a+b)/2$ and $\\operatorname{Var}(X)=(b-a)^2/12$.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)",
       "meaning": "The centre is the midpoint and the spread depends on interval width, not its location.",
-      "proof": "Integrating $x/(b-a)$ from $a$ to $b$ gives $\\mathrm E(X)=(a+b)/2$. Integrating $x^2/(b-a)$ gives $\\mathrm E(X^2)=(a^2+ab+b^2)/3$. Subtracting the squared mean simplifies to $(b-a)^2/12$.{{cite:ross2019}}"
+      "proof": "Integrating $x/(b-a)$ from $a$ to $b$ gives $\\mathrm E(X)=(a+b)/2$. Integrating $x^2/(b-a)$ gives $\\mathrm E(X^2)=(a^2+ab+b^2)/3$. Subtracting the squared mean simplifies to $(b-a)^2/12$.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)"
     }
   },
   "weibull-distribution": {

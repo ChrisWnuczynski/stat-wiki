@@ -410,9 +410,12 @@ class CitationTests(unittest.TestCase):
                     r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>\s*\([^)]*(?:Abstract|publisher (?:contents|summary|record))',
                     f"Abstract or publisher listing passed through to {path.name}",
                 )
-            for heading in ("Motivating example", "Worked example"):
-                self.assertIn(f"## {heading}\n", research, f"Missing {heading} in {path.name}")
-            worked = research.split("## Worked example\n", 1)[1].split("\n## ", 1)[0]
+            self.assertIn("## Motivating example\n", research, f"Missing Motivating example in {path.name}")
+            worked_heading = re.search(r"(?m)^(#{2,3}) Worked example(?: — [^\n]+)?\n", research)
+            self.assertIsNotNone(worked_heading, f"Missing Worked example in {path.name}")
+            worked_tail = research[worked_heading.end():]
+            next_section = re.search(rf"(?m)^#{{2,{len(worked_heading.group(1))}}} ", worked_tail)
+            worked = worked_tail[:next_section.start()] if next_section else worked_tail
             self.assertIn("Your turn", worked, f"Missing practice prompt in {path.name}")
             self.assertIn('collapse="true"', worked, f"Practice answer is not hidden in {path.name}")
             self.assertIn("## Check yourself {#check-yourself}", body, f"Missing self-check in {path.name}")
@@ -440,7 +443,7 @@ class CitationTests(unittest.TestCase):
             for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
                 self.assertRegex(
                     body[match.end():match.end() + 60],
-                    r"^\s*\((?:(?i:ch\.)|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|lecture\s+\d+,\s*§|biography,|Abstract|Description|entries\b|Price’s letter|[“\"])",
+                    r"^\s*\((?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|lecture\s+\d+,\s*§|biography,|Abstract|Introduction|Description|Format|Source|References|Examples|Notes|Basic Theory|Convergence(?: in Distribution)?|Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|Value|six principles|principles|principle\s+\d+|entries\b|Price’s letter|[“\"])",
                     f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
                 )
 

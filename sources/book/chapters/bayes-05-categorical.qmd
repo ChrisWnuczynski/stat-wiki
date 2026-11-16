@@ -110,7 +110,7 @@ $$
 $$
 
 
- which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.{{cite:dirichlet1839}}
+ which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70) The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.
 
 :::
 

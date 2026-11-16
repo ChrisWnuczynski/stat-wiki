@@ -1,7 +1,7 @@
 ## Motivating example
 A measurement reported to the nearest centimetre may have a rounding error somewhere between minus half and plus half a centimetre. If the unrounded position within that interval has no preferred location, a uniform law models the error: equal-length subintervals receive equal probability. The model is useful precisely because it states that assumption openly, not because every measurement error is flat. The density and cumulative plots above show its constant height and linear accumulation.{{cite:dodge2008}} (pp. 553–554, “Uniform Distribution”){{cite:siegrist2022_uniform_interval}} (§5.21, Uniform Distribution on a General Interval)
 
-## Intuition
+## Intuition — Why interval length governs probability
 For $X\sim U[a,b]$, the support has length $b-a$ and the constant density must be $1/(b-a)$ so its total area is one. An interval of length $d$ entirely inside $[a,b]$ therefore has probability $d/(b-a)$. This is the continuous counterpart of counting equally likely outcomes, but each exact point has probability zero. The interval midpoint is both mean and median; moving the support without changing its width moves the centre but leaves the variance unchanged.{{cite:siegrist2022_uniform_interval}} (§5.21, Definition; Distribution Functions; Moments)
 
 ## Definition

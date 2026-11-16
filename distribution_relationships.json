@@ -2,8 +2,8 @@
   {
     "a": "bernoulli-distribution",
     "b": "binomial-distribution",
-    "a_text": "{target} with one trial has the same two possible outcomes and success probability $p$. This is the single-trial building block of a binomial count.{{cite:forbes2011}}",
-    "b_text": "{target} is the special case $n=1$. A binomial count with $n$ trials is a sum of $n$ independent Bernoulli outcomes.{{cite:forbes2011}}"
+    "a_text": "{target} with one trial has the same two possible outcomes and success probability $p$. This is the single-trial building block of a binomial count.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)",
+    "b_text": "{target} is the special case $n=1$. A binomial count with $n$ trials is a sum of $n$ independent Bernoulli outcomes.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)"
   },
   {
     "a": "binomial-distribution",
@@ -20,14 +20,14 @@
   {
     "a": "beta-distribution",
     "b": "uniform-distribution",
-    "a_text": "{target} on $(0,1)$ is exactly $\\operatorname{Beta}(1,1)$: setting both beta shapes to one leaves a constant density.{{cite:forbes2011}}",
-    "b_text": "{target} with $\\alpha=\\beta=1$ is this law on $(0,1)$. Its beta density then equals one throughout the unit interval.{{cite:forbes2011}}"
+    "a_text": "{target} on $(0,1)$ is exactly $\\operatorname{Beta}(1,1)$: setting both beta shapes to one leaves a constant density.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)",
+    "b_text": "{target} with $\\alpha=\\beta=1$ is this law on $(0,1)$. Its beta density then equals one throughout the unit interval.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)"
   },
   {
     "a": "beta-distribution",
     "b": "dirichlet-distribution",
-    "a_text": "{target} with two categories reduces to a beta law: its first component has distribution $\\operatorname{Beta}(\\alpha_1,\\alpha_2)$ and the second is one minus the first.{{cite:gelman_bda2013}}",
-    "b_text": "{target} is the two-category case of this law. The first probability component has beta parameters $\\alpha_1,\\alpha_2$.{{cite:gelman_bda2013}}"
+    "a_text": "{target} with two categories reduces to a beta law: its first component has distribution $\\operatorname{Beta}(\\alpha_1,\\alpha_2)$ and the second is one minus the first.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "b_text": "{target} is the two-category case of this law. The first probability component has beta parameters $\\alpha_1,\\alpha_2$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)"
   },
   {
     "a": "cauchy-distribution",
@@ -86,8 +86,8 @@
   {
     "a": "f-distribution",
     "b": "beta-distribution",
-    "a_text": "If $X$ has this F law, then $d_1X/(d_1X+d_2)$ has {target} parameters $d_1/2$ and $d_2/2$.{{cite:forbes2011}}",
-    "b_text": "If $U$ has this beta law with shapes $d_1/2,d_2/2$, then $(d_2/d_1)U/(1-U)$ has {target} degrees $d_1,d_2$.{{cite:forbes2011}}"
+    "a_text": "If $X$ has this F law, then $d_1X/(d_1X+d_2)$ has {target} parameters $d_1/2$ and $d_2/2$.{{cite:siegrist2022_beta}} (§5.17, F transformation)",
+    "b_text": "If $U$ has this beta law with shapes $d_1/2,d_2/2$, then $(d_2/d_1)U/(1-U)$ has {target} degrees $d_1,d_2$.{{cite:siegrist2022_beta}} (§5.17, F transformation)"
   },
   {
     "a": "gamma-distribution",

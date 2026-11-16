@@ -4,7 +4,7 @@ The statement concerns an independent, identically distributed sequence $X_1,X_2
 ## Motivating example
 A run of ten fair-coin tosses can have an unbalanced fraction of heads. If the tosses are independent and identically distributed, adding many more makes a persistent large discrepancy less likely. The figure shows twenty possible runs: they need not move steadily toward one half, and some wander away from it temporarily. The theorem concerns the limiting fraction over arbitrarily long runs, not a guarantee for the next hundred tosses.{{cite:siegrist2022_lln}} (§6.3, Empirical Probability)
 
-## Intuition
+## Intuition — From averages to limits
 The average $\overline X_n=S_n/n$ has mean $\mu$. Under finite variance $\sigma^2$ and independence, its variance is $\sigma^2/n$: noise from separate observations partly cancels when we average. Chebyshev's inequality turns that shrinking variance into an explicit probability bound. The strong law asks for more: along almost every single infinite sequence, all sufficiently late averages stay close to $\mu$. The weak law permits rare excursions at infinitely many sample sizes; it only controls the error probability at each separate $n$.{{cite:siegrist2022_lln}} (§6.3, Sample Mean; Weak and Strong Laws)
 
 ## Key results

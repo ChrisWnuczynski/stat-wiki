@@ -1,7 +1,7 @@
 ## Motivating example
 A researcher wants to know whether a fertiliser increases wheat yield. The treatment is a specified fertiliser dose given to a plot; the comparison condition might be no fertiliser. Yield is the response measured later. If the researcher gives fertiliser to plots that already have richer soil, a higher observed mean need not come from the fertiliser. Randomly assigning plots makes the treatment comparison informative about an effect, while the outcome measurement and target population still need careful definition.{{cite:dodge2008}} (p. 541, “Treatment”){{cite:hernan_robins2020}} (Ch. 2, §2.1)
 
-## Intuition
+## Intuition — Assignment creates a comparison
 A treatment can be a single factor level, such as a dose, or a combination of levels, such as a particular dose plus irrigation schedule. It must be specified well enough that another investigator could say what each unit would receive. In a trial, the assignment is a deliberate action; in an observational study, the analogous variable may record an exposure people chose or happened to receive. Calling both variables $A$ does not make their comparisons equally interpretable.{{cite:dodge2008}} (p. 541, “Treatment”){{cite:hernan_robins2020}} (Ch. 1, §§1.1–1.2; Ch. 3, §3.4)
 
 ## Definition

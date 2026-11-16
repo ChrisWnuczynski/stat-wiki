@@ -2,6 +2,14 @@
 
 These articles do not yet have three inline citations. A further marker would name a work that does not state the claim on the page.
 
+- bayes-optimal-rule | The copied risk-minimisation rule is supported by the opened ISLR §2.2.3 derivation. The remaining page is the same conditional-risk calculation, so another independent source has not been checked.
+- classification-with-unequal-costs | The class choice follows from comparing two posterior expected losses. The opened classifier source and the page's direct calculation support it; a third independent reference remains to be checked.
+- conjugacy-is-optional | The inherited example contrasts conjugate and nonconjugate priors. The replacement Gelman passage supports the point, while another distinct source on that exact example has not been checked.
+- generalised-likelihood-ratio-test | The copied nested-model construction now cites the opened likelihood-ratio chapter. The remaining material is its derivation and example; a third source remains to be checked.
+- posterior-class-probability | The class-posterior formula is Bayes' rule applied to class densities and priors, covered by the opened ISLR passage. More citations would duplicate the same formula without a new checked claim.
+- prior-sensitivity | The opened Bayesian source supports the prior-sensitivity comparison; an independent source for the inherited numerical example has not been checked.
+- two-pseudo-count-conventions | The two beta-prior interpretations follow from the displayed posterior mean and mode. The opened Bayesian passage covers the update; another independent source on both conventions has not been checked.
+
 - addiction-data | The inherited study description has fewer than three independently checked sources; the original dataset citation should be verified during its own depth pass.
 - discrete-time-markov-chain | The copied transition-law prose now cites the opened Levin–Peres sections. An additional independent source has not been checked for this paragraph.
 - four-state-random-walk | The inherited numerical walk example is checked within the course chapter; fewer than three independent works address this exact example.

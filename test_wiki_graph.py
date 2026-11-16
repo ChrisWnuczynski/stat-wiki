@@ -1491,8 +1491,16 @@ class DistributionDepthBatchTests(unittest.TestCase):
             if slug == "uniform-distribution":
                 # The inherited inverse-transform statement now cites the
                 # opened proof in Billingsley §14.
-                expected_keys -= {"vonneumann1951"}
+                expected_keys -= {"vonneumann1951", "laplace1812", "feller1968",
+                                  "grimmett_stirzaker2020", "casella_berger2002"}
                 self.assertIn("billingsley1995", citation_keys, slug)
+                self.assertIn("siegrist2022_uniform_interval", citation_keys, slug)
+            if slug == "bernoulli-distribution":
+                # The opened Siegrist trial definitions and Dodge history
+                # replace unread early books in the inherited definition.
+                expected_keys -= {"bernoulli1713", "demoivre1756", "feller1968",
+                                  "grimmett_stirzaker2020"}
+                self.assertTrue({"siegrist2022_bernoulli_intro", "dodge2008"} <= citation_keys)
             if slug == "multivariate-normal-distribution":
                 # Definition, affine-normal result, and history now use opened,
                 # located Strimmer, Wang, and Stigler passages.
@@ -1528,11 +1536,30 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 expected_keys.discard("raiffa_schlaifer1961")
                 expected_keys.discard("geyer2025_conjugate")
                 self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
+            if slug == "beta-distribution":
+                # The opened Siegrist beta chapter and Gelman §3.4 replace
+                # inherited markers without inspected passages for these claims.
+                expected_keys.difference_update({"diaconis_ylvisaker1979", "laplace1812",
+                                                 "raiffa_schlaifer1961", "dirichlet1839",
+                                                 "forbes2011"})
+                self.assertIn("siegrist2022_beta", citation_keys, slug)
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "binomial-distribution":
+                # The shared beta-binomial update now cites the opened Gelman
+                # and Siegrist passages in place of two unread books.
+                expected_keys.difference_update({"raiffa_schlaifer1961", "laplace1812"})
+                self.assertTrue({"gelman_bda2013", "siegrist2022_binomial_distribution"} <= citation_keys)
             if slug == "poisson-distribution":
                 # The shared update replaces two unlocated book markers.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
                 expected_keys.discard("geyer2025_conjugate")
                 self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
+            if slug == "uniform-distribution":
+                # The opened Siegrist chapter and von Neumann's laboratory
+                # reprint replace two inherited citations without checked
+                # passages for the inverse-transform claim.
+                expected_keys.difference_update({"robert_casella2004", "vonneumann1951", "ross2019"})
+                self.assertTrue({"siegrist2022_uniform_interval", "von_neumann1951_random_digits"} <= citation_keys)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
@@ -1648,6 +1675,26 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # lacked inspected passages for the identity and history.
                 expected_keys.difference_update({"gelman_bda2013", "jeffreys1961"})
                 self.assertTrue({"kass_raftery1995", "dodge2008"} <= citation_keys)
+            if slug == "beta-binomial-conjugacy":
+                # The copied beta-binomial passage now uses the opened Gelman
+                # derivation in place of an uninspected book reference.
+                expected_keys.discard("raiffa_schlaifer1961")
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "beta-binomial-posterior-prediction":
+                # The opened Gelman derivation replaces inherited Laplace
+                # and Raiffa–Schlaifer references without checked passages.
+                expected_keys.difference_update({"laplace1812", "raiffa_schlaifer1961"})
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "the-beta-distribution-is-the-two-category-dirichlet":
+                # The two-category density reduction is supported by the
+                # opened Gelman §3.4 in place of unread historical markers.
+                expected_keys.difference_update({"raiffa_schlaifer1961", "dirichlet1839"})
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "sequential-coherence":
+                # The beta updates are derived from the opened Gelman passage;
+                # inherited Laplace and Raiffa references were not inspected.
+                expected_keys.difference_update({"raiffa_schlaifer1961", "laplace1812"})
+                self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "log-partition-moment-identities":
                 # Replace two unopened textbooks in the shared proposition
                 # with an opened, located original-paper derivation.

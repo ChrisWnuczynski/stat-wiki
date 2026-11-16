@@ -1,7 +1,7 @@
 ## Motivating example
 Drawing two balls from a bag can be recorded as an ordered pair of labelled balls, an ordered pair of colours, or simply the number of red balls. Each choice asks a different question about the same physical draw. A sample space fixes which outcome is recorded before any probability is assigned; choosing it carefully prevents a count of colour descriptions from being mistaken for a count of equally likely draws.{{cite:siegrist2022_random_experiments}} (§2.1, Experiments){{cite:siegrist2022_events}} (§2.2, Sample Spaces)
 
-## Intuition
+## Intuition — Outcomes before events
 An outcome is one complete result at the chosen level of detail, while an event is a collection of outcomes. For a die whose face is recorded, $\Omega=\{1,2,3,4,5,6\}$ and “even” is the event $\{2,4,6\}$. If only parity is recorded, the sample space can instead be $\{\text{even},\text{odd}\}$. Those two spaces describe the same experiment at different resolutions; neither carries probabilities until a model supplies them.{{cite:siegrist2022_events}} (§2.2, The Set of Outcomes; Events)
 
 ## Definition

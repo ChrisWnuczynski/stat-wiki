@@ -124,7 +124,7 @@ A handful of distributions recur because a handful of experiments recur. Each is
 ::: {#def-bernoulli-distribution .definition}
 ## Bernoulli distribution
 
-$X$ has the Bernoulli distribution with success probability $p\in[0,1]$, written $X\sim\Bern(p)$, when $\Pr(X=1)=p$ and $\Pr(X=0)=1-p$.{{cite:bernoulli1713}}{{cite:demoivre1756}}{{cite:feller1968}} Then $\E X=p$ and $\Var(X)=p(1-p)$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+$X$ has the Bernoulli distribution with success probability $p\in[0,1]$, written $X\sim\Bern(p)$, when $\Pr(X=1)=p$ and $\Pr(X=0)=1-p$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory) Then $\E X=p$ and $\Var(X)=p(1-p)$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)
 
 :::
 
@@ -285,7 +285,7 @@ The full distribution is $0.6588$, $0.2995$, $0.0399$, $0.0017$ and $0.00002$ fo
 ::: {#def-uniform-distribution .definition}
 ## Uniform distribution
 
-$X$ is uniform on the interval $[a,b]$, written $X\sim\operatorname{U}[a,b]$, when its density is $1/(b-a)$ on that interval and zero elsewhere.{{cite:laplace1812}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}} Then $\E X=(a+b)/2$ and $\Var(X)=(b-a)^2/12$.{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}}
+$X$ is uniform on the interval $[a,b]$, written $X\sim\operatorname{U}[a,b]$, when its density is $1/(b-a)$ on that interval and zero elsewhere.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory) Then $\E X=(a+b)/2$ and $\Var(X)=(b-a)^2/12$.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)
 
 :::
 
