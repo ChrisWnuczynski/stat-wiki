@@ -186,5 +186,9 @@
   "interaction": [
     "q-39",
     "q-40"
+  ],
+  "discrete-distribution": [
+    "ex-prob-wait-pmf",
+    "ex-prob-joint-table"
   ]
 }

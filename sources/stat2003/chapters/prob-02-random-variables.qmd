@@ -31,7 +31,7 @@ $$
 ::: {#def-discrete-distribution .definition}
 ## Discrete distribution
 
-$X$ is discrete when it takes values in a countable set $S$. Its probability mass function is $f(x)=\Pr(X=x)$ for $x\in S$, and $\Pr(X\in B)=\sum_{x\in B}f(x)$.{{cite:billingsley1995}} (§14){{cite:durrett2019}} (Ch. 1, §1.2){{cite:grinstead_snell1997}} (Ch. 6, §6.1)
+$X$ is discrete when it takes values in a countable set $S$. Its probability mass function is $f(x)=\Pr(X=x)$ for $x\in S$, and $\Pr(X\in B)=\sum_{x\in B}f(x)$.{{cite:durrett2019}} (Ch. 1, §1.2, pp. 13–14){{cite:grinstead_snell1997}} (Ch. 1, §1.2, pp. 19–21)
 
 :::
 
