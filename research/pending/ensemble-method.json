@@ -1,0 +1,30 @@
+{
+  "bibliography": {},
+  "article_lead": {
+    "description": "a predictor that combines several fitted models so their differing errors can partly cancel or be corrected"
+  },
+  "self_checks": ["depth-ensemble-correlation", "depth-ensemble-vote", "depth-ensemble-mechanism"],
+  "new_bank_questions": [
+    {
+      "id": "depth-ensemble-correlation",
+      "title": "Correlation in an ensemble average",
+      "body": "Four numerical predictors have error variance 1 each and pairwise correlation 0.5. Find the variance of their average under this equal-correlation model.",
+      "answer": "It is 0.5+(1-0.5)/4=0.625. The independent case would give 0.25; common error does not disappear as the ensemble grows.",
+      "topic_code": "L13"
+    },
+    {
+      "id": "depth-ensemble-vote",
+      "title": "Voting is not averaging labels",
+      "body": "Three classifiers predict category labels A, A and B. What is the plurality result, and why does the numerical squared-error identity for a mean not prove anything about this vote?",
+      "answer": "A wins with two votes. Category names are not numerical values, and zero-one classification loss after a vote is not squared loss of an average.",
+      "topic_code": "L13"
+    },
+    {
+      "id": "depth-ensemble-mechanism",
+      "title": "How members differ",
+      "body": "Contrast the mechanism making members different in bagging, a random forest, and AdaBoost.",
+      "answer": "Bagging fits the base learner to bootstrap resamples. A random forest adds random candidate-variable choices at tree splits. AdaBoost sequentially changes training-example weights to emphasize difficult cases and combines weighted learners.",
+      "topic_code": "L13"
+    }
+  ]
+}
