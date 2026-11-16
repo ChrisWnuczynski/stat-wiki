@@ -1,8 +1,8 @@
 ## Lead context
 Fisher–Neyman factorisation is a test for sufficiency: the parameter may enter the joint density only through the statistic being tested.
 
-## Statement — A product with one parameter-free factor
-Suppose a dominated family has joint density or mass function \(p(x\mid\theta)\). A statistic \(T\) is sufficient for \(\theta\) when
+## Statement
+**A product with one parameter-free factor.** Suppose a dominated family has joint density or mass function \(p(x\mid\theta)\). A statistic \(T\) is sufficient for \(\theta\) when
 \[
 p(x\mid\theta)=g_\theta\{T(x)\}\,h(x)
 \]

@@ -80,3 +80,22 @@ Unverified:
 
 - No new bibliography keys.
 - Cauchy sample averages, the natural-cubic minimiser, and the Gaussian precision-block identity remain unproved and are logged in `research/todo.md`.
+
+## Batch O — ranks 278–292
+
+Ranks: 278 gram-matrix, 279 soft-margin-primal, 280 tukey-intervals, 281 uniformly-minimum-variance-unbiased-estimator, 282 cramer-rao-lower-bound, 283 fisher-neyman-factorisation, 284 logit-probit-and-complementary-log-log-links, 285 principal-component-directions-and-scores, 286 benjamini-hochberg, 287 sample-variance-and-standard-deviation, 288 link-function, 289 wald-test, 290 ancillary-statistic, 291 chapman-kolmogorov-equations, 292 count-responses.
+
+Pages fixed:
+
+- ancillary-statistic, cramer-rao-lower-bound, and fisher-neyman-factorisation: shared leads now use the pending field, capitalisation, and proper-name flag.
+- fisher-neyman-factorisation: the statement heading stays `Statement`, which the result-page test requires. The specific label remains the first sentence.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (470 works). `git diff --check` passed. All 15 page checks passed. Fisher–Neyman left `proofs-todo.json` because the discrete direction is proved on the page.
+
+Unverified:
+
+- No new bibliography keys.
+- Ten partial proofs are logged in `research/todo.md`: Basu independence, the false-discovery-rate bound, convergence of transition powers, the multiparameter Cramér–Rao bound, the dominated-family converse, successive principal-component directions, the soft-margin KKT characterisation, the studentised-range density, Lehmann–Scheffé uniqueness, and the Wald asymptotic null.
+- Spot-check of gram-matrix and count-responses found sourced definitions and proofs. No further prose change.
