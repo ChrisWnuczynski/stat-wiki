@@ -1,0 +1,23 @@
+{
+  "article_lead": {
+    "article": "",
+    "description": "constant mean and lag-dependent covariance in a time series, allowing one dependence pattern to be used across dates"
+  },
+  "self_checks": ["c-43", "depth-weak-stationarity-ar", "depth-weak-not-strict"],
+  "new_bank_questions": [
+    {
+      "id": "depth-weak-stationarity-ar",
+      "title": "Autocovariances of a stationary AR(1)",
+      "body": "A stationary AR(1) has coefficient 0.4 and independent innovation variance 9. Find its variance γ(0), lag-one autocovariance γ(1), and lag-two autocorrelation ρ(2).",
+      "answer": "The variance is 9/(1-0.4²)=75/7≈10.7143. Then γ(1)=0.4(75/7)=30/7≈4.2857, while ρ(2)=0.4²=0.16. These values are independent of the calendar origin under stationarity.",
+      "topic_code": "T1"
+    },
+    {
+      "id": "depth-weak-not-strict",
+      "title": "Stable moments, changing distributions",
+      "body": "Independent even-time values equal -1 or 1 with equal chances. Independent odd-time values are uniform on [-√3,√3]. Is the combined series weakly stationary? Is it strictly stationary? Explain from means, variances, covariances and one-time distributions.",
+      "answer": "Both marginals have mean 0 and variance 1; independence makes every nonzero-lag covariance 0. Hence the process is weakly stationary. The even-time law has two atoms but the odd-time law is continuous, so a one-step shift changes the marginal distribution and strict stationarity fails.",
+      "topic_code": "T1"
+    }
+  ]
+}
