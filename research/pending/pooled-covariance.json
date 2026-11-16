@@ -1,0 +1,30 @@
+{
+  "bibliography": {
+    "nist_poolcov1998": {
+      "authors": ["National Institute of Standards and Technology"],
+      "year": 1998,
+      "title": "Pooled Variance-Covariance Matrix",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/poolcov.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/poolcov.htm"}
+    },
+    "clemmensen2011_sda": {
+      "authors": ["Clemmensen, L.", "Hastie, T.", "Witten, D.", "Ersbøll, B."],
+      "year": 2011,
+      "title": "Sparse Discriminant Analysis",
+      "kind": "article",
+      "venue": "Technometrics",
+      "url": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf",
+      "verification": {"source": "archival_url", "id": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf"}
+    }
+  },
+  "self_checks": ["ex-sl-02-2", "ex-sl-18-7"],
+  "proofs_todo": [
+    {"slug": "pooled-covariance-wishart-independence", "title": "Pooled normal scatter Wishart law and independence of group means", "reason": "The copied source states (n1+n2−2)S has Wishart law and is independent of the two sample means. The added Proof proves pooling/unbiasedness/rank but does not derive the normal orthogonal-projection Wishart decomposition; give a full proof on this page or a linked theorem page."},
+    {"slug": "pooled-covariance-hotelling-f", "title": "Two-sample Hotelling T-squared F calibration", "reason": "The copied source states the exact F law and critical value. The added Proof does not derive the independent normal/Wishart quadratic-form law or the F scaling; prove this under p<n1+n2−1 and common positive-definite covariance."}
+  ],
+  "shared_changes": [
+    {"file": "sources/stat3006/chapters/sl-02-normal-inference.qmd", "description": "The pooled covariance excerpt contains unlocated citations to unopened Anderson 2003, Wishart 1928 and Hotelling 1931. Where the n−G pooled formula and Fisher historical role are claimed, opened NIST Description/Program 2 and Fisher 1936 pp. 179–181 provide located support. Retain the Wishart and Hotelling statements, with their precise assumptions and proof debt above; do not silently remove those results. Check dependent two-sample, Wishart and Hotelling articles after citation edits."}
+  ]
+}
