@@ -1,0 +1,10 @@
+{
+  "article_lead": {
+    "description": "the change-of-variables theorem that preserves probabilities when the coordinates of a random vector are transformed"
+  },
+  "self_checks": [
+    "ex-prob-exponential-ratio",
+    "ex-prob-quadratic-transform",
+    "ex-prob-square-uniform"
+  ]
+}
