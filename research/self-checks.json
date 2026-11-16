@@ -238,5 +238,9 @@
   "pivot": [
     "ex-inf-two-standard-errors",
     "ex-inf-t-squared-is-f"
+  ],
+  "generic-exponential-family-conjugate-update": [
+    "ex-applied-exp-rate",
+    "ex-applied-exp-scale"
   ]
 }

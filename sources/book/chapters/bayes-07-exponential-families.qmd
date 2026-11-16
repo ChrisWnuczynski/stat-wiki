@@ -344,11 +344,13 @@ Choose the prior kernel, where $\alpha$ has the same dimension as $c(\theta)$ an
 ::: {#prp-generic-exponential-family-conjugate-update .proposition}
 ## Generic exponential-family conjugate update
 
-For the natural form above, take a proper prior on $\eta$ with kernel $\pi(\eta\mid\alpha,\nu)\propto\exp\{\eta^{\mathsf T}\alpha-\nu A(\eta)\}$, where the vector $\alpha$ has the dimension of $T(x)$ and $\nu$ is scalar. For independent observations $x_1,\ldots,x_n$, let $S(\boldsymbol x)=\sum_{i=1}^nT(x_i)$. Then the posterior has the same kernel with
+Put $\eta=c(\theta)$ and $A(\eta)=\log a(\theta)$. On the natural-parameter scale, take a proper prior density with respect to $d\eta$ with kernel $\pi(\eta\mid\alpha,\nu)\propto\exp\{\eta^{\mathsf T}\alpha-\nu A(\eta)\}$, where the vector $\alpha$ has the dimension of $T(x)$ and $\nu$ is scalar. For independent observations $x_1,\ldots,x_n$, let $S(\boldsymbol x)=\sum_{i=1}^nT(x_i)$. Then the posterior has the same kernel with
 $$
 \boxed{\alpha\leftarrow\alpha+S(\boldsymbol x),\qquad\nu\leftarrow\nu+n.}
 $$
 The data add their sufficient-statistic total and sample size to the two hyperparameters. The displayed algebra requires the prior and posterior normalising integrals to be finite; propriety conditions depend on the family.{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3 and Theorem 1, pp. 271–272){{cite:geyer2025_conjugate}} (§§2.1–2.2, eqs. 2.3–2.5)
+
+The underlying parameter measure matters. A prior density stated in $\theta$ rather than $\eta$ acquires a Jacobian when changed to the natural scale. The Poisson example below deliberately uses a density with respect to $d\theta$, so its Gamma shape is read from the exponent of $\theta$ on that scale.{{cite:geyer2025_conjugate}} (§2.1, choice of natural parameter)
 
 :::
 
