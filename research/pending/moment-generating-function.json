@@ -1,0 +1,29 @@
+{
+  "article_lead": {
+    "description": "the expected exponential transform of a random variable that recovers moments and simplifies independent sums when it exists near zero"
+  },
+  "self_checks": ["depth-mgf-bernoulli-sum", "depth-mgf-domain"],
+  "new_bank_questions": [
+    {
+      "id": "depth-mgf-bernoulli-sum",
+      "title": "A Bernoulli sum through its MGF",
+      "body": "Let X and Y be independent Bernoulli variables with success probability 0.4. Find the MGF of S=X+Y, its mean and variance, and P(S=2). What part fails if X=Y instead?",
+      "answer": "One MGF is 0.6+0.4e^t, so independence gives M_S(t)=(0.6+0.4e^t)². The mean is 0.8, variance 2(0.4)(0.6)=0.48, and P(S=2)=0.4²=0.16. If X=Y, the sum's MGF is 0.6+0.4e^{2t}; the product rule and binomial law do not apply.",
+      "topic_code": "P2"
+    },
+    {
+      "id": "depth-mgf-domain",
+      "title": "An exponential transform's domain",
+      "body": "For X exponential with rate 3, derive M_X(t), give its domain, then calculate E(X), Var(X) and M_X(2). Why is substituting t=4 into the rational expression invalid as an MGF calculation?",
+      "answer": "Integrating 3e^{-(3-t)x} over x≥0 gives M_X(t)=3/(3-t) for t<3. Thus E(X)=1/3, Var(X)=1/9, and M_X(2)=3. At t=4 the defining integral diverges; the algebraic value -3 is not an expectation.",
+      "topic_code": "P2"
+    }
+  ],
+  "proofs_todo": [
+    {
+      "slug": "moment-generating-function#uniqueness",
+      "title": "Uniqueness of an MGF on a neighbourhood of zero",
+      "reason": "The article proves derivative and independence identities but invokes, without proving, uniqueness of the bilateral Laplace transform on a neighbourhood of zero."
+    }
+  ]
+}
