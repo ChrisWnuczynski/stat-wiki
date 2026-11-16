@@ -1,0 +1,6 @@
+{
+  "self_checks": ["ex-sl-08-3", "ex-sl-08-7", "ex-sl-18-7"],
+  "article_lead": {
+    "description": "a classifier that uses labelled group means and shared within-group variation to separate classes with linear boundaries"
+  }
+}
