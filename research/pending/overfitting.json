@@ -1,0 +1,37 @@
+{
+  "bibliography": {
+    "james_islr2013": {
+      "authors": ["James, G.", "Witten, D.", "Hastie, T.", "Tibshirani, R."],
+      "year": 2013,
+      "title": "An Introduction to Statistical Learning: with Applications in R",
+      "kind": "book",
+      "edition": "1st ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4614-7138-7",
+      "url": "https://www.statlearning.com/s/ISLRSeventhPrinting.pdf",
+      "verification": {"source": "crossref", "id": "10.1007/978-1-4614-7138-7"}
+    },
+    "google_ml_overfitting2026": {
+      "authors": ["Google for Developers"],
+      "year": 2026,
+      "title": "Overfitting",
+      "kind": "book",
+      "publisher": "Google for Developers, Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting",
+      "verification": {"source": "archival_url", "id": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting"}
+    },
+    "google_ml_regularization2026": {
+      "authors": ["Google for Developers"],
+      "year": 2026,
+      "title": "Overfitting: L2 regularization",
+      "kind": "book",
+      "publisher": "Google for Developers, Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/regularization",
+      "verification": {"source": "archival_url", "id": "https://developers.google.com/machine-learning/crash-course/overfitting/regularization"}
+    }
+  },
+  "self_checks": ["ex-sl-09-6", "ex-sl-09-7", "ex-sl-16-7"],
+  "article_lead": {
+    "description": "the fitting of sample-specific noise that harms predictions on new data despite an apparently good training fit"
+  }
+}
