@@ -1,0 +1,38 @@
+{
+  "slug": "cubic-smoothing-spline",
+  "rank": 277,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Check yourself",
+    "Connections"
+  ],
+  "words_before": 534,
+  "words_after": 1498,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 Ch. 5 \u00a75.4\u20135.4.1 pp. 151\u2013154"
+  ],
+  "proofs": [
+    "As the penalty weight grows without bound, the minimiser is the least-squares straight line."
+  ],
+  "tests": "checks/cubic-smoothing-spline.py passed",
+  "skipped": [
+    "Reinsch 1967, Green and Silverman, de Boor, and Wahba were not opened."
+  ],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "cubic-smoothing-spline#natural-cubic-minimiser",
+      "title": "The penalised residual sum of squares is minimised by a natural cubic spline",
+      "reason": "ESL states that the minimiser is a natural cubic spline with knots at the distinct inputs. The article proves only the infinite-penalty limit, the least-squares line."
+    }
+  ],
+  "todo": []
+}
