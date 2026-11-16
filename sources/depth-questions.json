@@ -145,5 +145,47 @@
     "topic_code": "C3",
     "body": "An intercept-only model has three independent clusters, each with two observations: $(1,2)$, $(3,4)$ and $(5,6)$. Compute the fitted mean, the bread $A$, the sum of squared cluster residual totals $B$, and the uncorrected sandwich variance $A^{-1}BA^{-1}$. Why should the usual large-cluster normal approximation be treated cautiously?",
     "answer": "The fitted mean is $3.5$. Cluster residual totals are $-4,0,4$, so $A=6$ and $B=16+0+16=32$. The variance is $32/36\\approx0.8889$. With only three independent clusters the asymptotic normal approximation for inference can be poor."
+  },
+  {
+    "id": "depth-marginal-risk-contrast",
+    "title": "Population-average risk contrast",
+    "body": "Four control patients each have two binary outcomes, (0,0), (0,0), (1,1), (0,0). Four treated patients have (1,1), (1,1), (0,0), (1,1). Calculate the observed marginal risks, risk difference, and odds ratio. How many independent patients, rather than visits, contribute?",
+    "answer": "There are 2 control events in 8 visits and 6 treated events in 8 visits, so the marginal risks are 1/4 and 3/4 and the risk difference is 1/2. Their odds are 1/3 and 3, giving odds ratio 9. There are 8 independent patient clusters, four per group, even though there are 16 visits.",
+    "topic_code": "C3"
+  },
+  {
+    "id": "depth-marginal-bernoulli-bound",
+    "title": "Can binary margins correlate perfectly?",
+    "body": "Binary variables A and B have success probabilities 0.2 and 0.8. What is the largest possible value of P(A=1,B=1)? Use it to find their maximum possible covariance and correlation. Explain why a proposed correlation of 0.6 cannot describe a true joint Bernoulli law with these margins.",
+    "answer": "The joint success probability cannot exceed min(0.2,0.8)=0.2. The maximum covariance is 0.2-(0.2)(0.8)=0.04. Both variances equal 0.16, so their standard-deviation product is 0.16 and the maximum correlation is 0.04/0.16=0.25. A correlation of 0.6 exceeds that bound and cannot arise from these margins.",
+    "topic_code": "C3"
+  },
+  {
+    "id": "depth-marginal-working-covariance",
+    "title": "Working correlation and mean validity",
+    "body": "An analyst models a repeated binary outcome's marginal mean correctly but uses an independence working correlation when within-person responses are positively associated. Another analyst uses an exchangeable working correlation but omits an important mean covariate. Which analyst has the usual GEE consistency argument for the target mean coefficient, and what role does a sandwich covariance play? State the sampling condition that matters.",
+    "answer": "The first analyst retains the usual consistency argument: with many independent clusters, regularity and suitable missingness, a correct mean makes the GEE score unbiased even if the working association is wrong. A cluster sandwich covariance estimates the resulting coefficient uncertainty. The second analyst's correct-looking working correlation does not repair an omitted mean covariate; a sandwich only changes uncertainty around the fitted estimating equation. Few or dependent clusters undermine the large-sample argument.",
+    "topic_code": "C3"
+  },
+  {
+    "id": "depth-scatterplot-curve",
+    "title": "A curve hidden by correlation",
+    "body": "Five paired values have $x=(-2,-1,0,1,2)$ and $y=(4,1,0,1,4)$. What does their scatterplot show? Compute the centered cross-product sum and say whether zero correlation would imply no relationship here.",
+    "answer": "The points lie exactly on the parabola $y=x^2$. The means are $\\bar x=0$ and $\\bar y=2$, so the cross-product sum is $-4+1+0-1+4=0$ and the sample correlation is zero. The relationship is exact but nonlinear; zero correlation rules out a linear trend in these five points, not a relationship.",
+    "topic_code": "D2"
+  },
+  {
+    "id": "depth-scatterplot-overplotting",
+    "title": "Repeated pairs on a scatterplot",
+    "body": "A plot of rounded height and weight contains a dot at one coordinate. Twenty people may have that same recorded pair. What can the dot tell you, what can it not tell you, and how could you show the multiplicity without changing the measurements used in analysis?",
+    "answer": "The dot shows at least one observed pair at that coordinate, but a conventional point plot does not reveal whether one or twenty observations overlap there. Transparency, a count-sized symbol, or small display-only jitter can show the pile. The original recorded pairs, not the jittered drawing positions, remain the data for a correlation or regression.",
+    "topic_code": "D2"
+  },
+  {
+    "id": "depth-stationarity-changing-laws",
+    "title": "Equal moments with changing laws",
+    "body": "Let independent $X_t$ be $-1$ or $1$ equally likely at even times, and let it be $0$ with probability $1/2$ and each of $-\\sqrt2,\\sqrt2$ with probability $1/4$ at odd times. Compute the mean, variance and nonzero-lag covariance. Is the process weakly stationary? Is it strictly stationary? Explain.",
+    "answer": "At either parity the mean is $0$. The even-time variance is $1$; the odd-time variance is $(1/4)2+(1/4)2=1$. Independence makes covariance $0$ at every nonzero lag. Thus the mean and lag covariance are time invariant and the process is weakly stationary. Its one-time law alternates between a two-point and a three-point distribution, so it is not strictly stationary.",
+    "topic_code": "T1"
   }
 ]

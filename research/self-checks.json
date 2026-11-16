@@ -723,5 +723,69 @@
   "type-i-and-type-ii-errors": [
     "ex-inf-serve-power",
     "ex-inf-np-critical"
+  ],
+  "choosing-the-bandwidth": [
+    "ex-sl-07-3",
+    "ex-sl-07-4",
+    "ex-sl-07-6"
+  ],
+  "contrast": [
+    "ex-inf-contrast-cell",
+    "ex-inf-anova-two-groups"
+  ],
+  "family-wise-error-rate": [
+    "ex-sl-18-3",
+    "ex-inf-tukey-corn"
+  ],
+  "finite-state-markov-chain": [
+    "ex-prob-markov-limit",
+    "ex-prob-markov-periodic"
+  ],
+  "main-effect": [
+    "ex-inf-contrast-cell",
+    "ex-inf-interaction-ss"
+  ],
+  "marginal-model": [
+    "depth-marginal-risk-contrast",
+    "depth-marginal-bernoulli-bound",
+    "depth-marginal-working-covariance"
+  ],
+  "markov-property": [
+    "c-12",
+    "ex-prob-markov-two-steps"
+  ],
+  "node-impurity": [
+    "ex-sl-12-2",
+    "ex-sl-12-5"
+  ],
+  "probability-measure": [
+    "ex-prob-three-toss-weights",
+    "ex-prob-intersection-bound"
+  ],
+  "pseudo-counts-and-sequential-updating": [
+    "ex-ur-posterior-mean",
+    "ex-geom-beta"
+  ],
+  "sample-correlation-coefficient": [
+    "ex-inf-advertising-r2",
+    "ex-sl-02-7"
+  ],
+  "saturated-model": [
+    "q-34",
+    "c-29"
+  ],
+  "scatterplot": [
+    "ex-da-correlation-reading",
+    "depth-scatterplot-curve",
+    "depth-scatterplot-overplotting"
+  ],
+  "score-function": [
+    "q-33",
+    "q-56"
+  ],
+  "stationarity-of-a-time-series": [
+    "ex-sp-increments-and-levels",
+    "ex-sp-same-marginals",
+    "depth-stationarity-changing-laws"
   ]
 }

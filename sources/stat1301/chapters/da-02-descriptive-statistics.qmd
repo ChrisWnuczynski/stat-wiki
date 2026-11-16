@@ -165,7 +165,7 @@ The median serum creatinine is 1.0 mg/dL for patients who survived and 1.3 for t
 
 ## Two quantitative variables
 
-Two quantitative variables are plotted against each other in a scatterplot, and their linear association is summarised by the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient).{{cite:galton1886}}{{cite:chambers1983_gmda}}{{cite:wasserman2004}}
+Two quantitative variables are plotted against each other in a scatterplot, and their linear association is summarised by the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient).{{cite:nist_scatterplot2002}} (§1.3.3.26, scatter plot and linear association)
 
 The ejection fraction was recorded in steps of 5 percentage points or so, with only 17 distinct values, and serum sodium as whole numbers. Many patients therefore share exactly the same point, and a plain scatterplot hides how many. Jittering, adding a small random amount to each coordinate before plotting, separates them; it changes the picture, not the data.
 

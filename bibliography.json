@@ -9438,6 +9438,158 @@
         "source": "crossref",
         "id": "10.3368/jhr.50.2.317"
       }
+    },
+    "wasserman_lecture26": {
+      "authors": [
+        "Wasserman, L."
+      ],
+      "year": 2020,
+      "title": "Non-parametric Density Estimation (36-705, Lecture 26)",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University, 36-705",
+      "url": "https://www.stat.cmu.edu/~larry/%3D%73tat705/Lecture26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.cmu.edu/~larry/%3D%73tat705/Lecture26.pdf"
+      }
+    },
+    "rstats_bandwidth2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Bandwidth Selectors for Kernel Density Estimation",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing, stats documentation",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/RHOME/library/stats/html/bandwidth.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/RHOME/library/stats/html/bandwidth.html"
+      }
+    },
+    "nist_contrasts2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.6: Assessing the Response from Any Factor Combination",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc436.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc436.htm"
+      }
+    },
+    "nist_scheffe2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.2: Scheffe's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc472.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc472.htm"
+      }
+    },
+    "nist_bonferroni2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.3: Bonferroni's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm"
+      }
+    },
+    "rpart_longintro2023": {
+      "authors": [
+        "Therneau, T. M.",
+        "Atkinson, E. J."
+      ],
+      "year": 2023,
+      "title": "An Introduction to Recursive Partitioning Using the RPART Routines",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/doc/longintro.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/doc/longintro.pdf"
+      }
+    },
+    "sklearn_tree2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Decision Trees (scikit-learn User Guide, §1.10)",
+      "kind": "book",
+      "publisher": "scikit-learn",
+      "url": "https://scikit-learn.org/stable/modules/tree",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/tree"
+      }
+    },
+    "nist_scatterplot2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.26: Scatter Plot",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm"
+      }
+    },
+    "mikusheva2012_wold": {
+      "authors": [
+        "Mikusheva, A.",
+        "Schrimpf, P."
+      ],
+      "year": 2012,
+      "title": "Introduction to VARs: Wold Decomposition Theorem",
+      "kind": "book",
+      "publisher": "MIT OpenCourseWare, 14.384 Time Series Analysis, Lecture 10",
+      "url": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf"
+      }
     }
   }
 }

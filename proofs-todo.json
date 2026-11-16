@@ -598,5 +598,10 @@
     "slug": "pooled-covariance#property-hotelling-f",
     "title": "Two-sample Hotelling T-squared F calibration",
     "reason": "The copied source states the exact F law and critical value. The added Proof does not derive the independent normal/Wishart quadratic-form law or the F scaling; prove this under p<n1+n2−1 and common positive-definite covariance."
+  },
+  {
+    "slug": "marginal-model#property-gee-robust-consistency",
+    "title": "GEE consistency and sandwich covariance under working-correlation misspecification",
+    "reason": "The article proves the estimating equation is unbiased at a correct marginal mean, but a reviewed independent-cluster asymptotic argument is still needed to establish consistency and sandwich convergence under the stated regularity and missingness conditions."
   }
 ]

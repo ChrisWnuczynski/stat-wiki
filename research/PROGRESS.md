@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **172**. Left: **546**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **187**. Left: **531**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -76,9 +76,9 @@ Pages ranked: **718**. Done: **172**. Left: **546**. Skipped: **0**. Ranks 1–6
 | 65 | [Gamma distribution](gamma-distribution.md) | Distribution | [Prose](content/gamma-distribution.md), [check](../checks/gamma-distribution.py) | 3,039 → 5,263 | 3 → 3 | Moments, sums and conjugacy proved; relationship pages rebuilt |
 | 66 | [Random component](random-component.md) | Concept | [Prose](content/random-component.md), [check](../checks/random-component.py) | 548 → 3,052 | 0 → 0 | GLM family variances proved; response support compared |
 | 67 | [Akaike information criterion](akaike-information-criterion.md) | Concept | [Prose](content/akaike-information-criterion.md), [check](../checks/akaike-information-criterion.py) | 867 → 2,919 | 0 → 0 | Gaussian optimism and penalty proved; general KL expansion logged |
-| 68 | [Irreducible Markov chain](irreducible-markov-chain.md) | Topic | [Prose](content/irreducible-markov-chain.md), [check](../checks/irreducible-markov-chain.py) | 321 → 2,137 | 0 → 0 | See [research record](irreducible-markov-chain.md) |
+| 68 | [Irreducible Markov chain](irreducible-markov-chain.md) | Topic | [Prose](content/irreducible-markov-chain.md), [check](../checks/irreducible-markov-chain.py) | 321 → 2,149 | 0 → 0 | See [research record](irreducible-markov-chain.md) |
 | 69 | [Null and alternative hypotheses](null-and-alternative-hypotheses.md) | Definition | [Prose](content/null-and-alternative-hypotheses.md), [check](../checks/null-and-alternative-hypotheses.py) | 431 → 2,415 | 0 → 0 | See [research record](null-and-alternative-hypotheses.md) |
-| 70 | [Autocorrelation function](autocorrelation-function.md) | Topic | [Prose](content/autocorrelation-function.md), [check](../checks/autocorrelation-function.py) | 299 → 2,085 | 0 → 0 | See [research record](autocorrelation-function.md) |
+| 70 | [Autocorrelation function](autocorrelation-function.md) | Topic | [Prose](content/autocorrelation-function.md), [check](../checks/autocorrelation-function.py) | 299 → 2,115 | 0 → 0 | See [research record](autocorrelation-function.md) |
 | 71 | [Posterior-odds factorisation](posterior-odds-factorisation.md) | Theorem | [Prose](content/posterior-odds-factorisation.md), [check](../checks/posterior-odds-factorisation.py) | 1,537 → 3,882 | 0 → 0 | See [research record](posterior-odds-factorisation.md) |
 | 72 | [Markov chain](markov-chain.md) | Definition | [Prose](content/markov-chain.md), [check](../checks/markov-chain.py) | 987 → 3,609 | 0 → 0 | See [research record](markov-chain.md) |
 | 73 | [Maximum a posteriori estimate](maximum-a-posteriori-estimate.md) | Topic | [Prose](content/maximum-a-posteriori-estimate.md), [check](../checks/maximum-a-posteriori-estimate.py) | 389 → 3,303 | 0 → 0 | See [research record](maximum-a-posteriori-estimate.md) |
@@ -145,7 +145,7 @@ Pages ranked: **718**. Done: **172**. Left: **546**. Skipped: **0**. Ranks 1–6
 | 134 | [Working correlation](working-correlation.md) | Topic | [Prose](content/working-correlation.md), [check](../checks/working-correlation.py) | 307 → 2,034 | 0 → 0 | See [research record](working-correlation.md) |
 | 135 | [Dirichlet distribution](dirichlet-distribution.md) | Distribution | [Prose](content/dirichlet-distribution.md), [check](../checks/dirichlet-distribution.py) | 2,713 → 4,738 | 3 → 3 | See [research record](dirichlet-distribution.md) |
 | 136 | [Identifiability](identifiability.md) | Topic | [Prose](content/identifiability.md), [check](../checks/identifiability.py) | 289 → 2,198 | 0 → 0 | See [research record](identifiability.md) |
-| 137 | [One-way analysis of variance](one-way-analysis-of-variance.md) | Definition | [Prose](content/one-way-analysis-of-variance.md), [check](../checks/one-way-analysis-of-variance.py) | 3,808 → 6,117 | 6 → 6 | See [research record](one-way-analysis-of-variance.md) |
+| 137 | [One-way analysis of variance](one-way-analysis-of-variance.md) | Definition | [Prose](content/one-way-analysis-of-variance.md), [check](../checks/one-way-analysis-of-variance.py) | 3,808 → 6,140 | 6 → 6 | See [research record](one-way-analysis-of-variance.md) |
 | 138 | [Artificial neuron](artificial-neuron.md) | Definition | [Prose](content/artificial-neuron.md), [check](../checks/artificial-neuron.py) | 794 → 2,725 | 0 → 0 | See [research record](artificial-neuron.md) |
 | 139 | [Inverse link](inverse-link.md) | Topic | [Prose](content/inverse-link.md), [check](../checks/inverse-link.py) | 522 → 3,089 | 0 → 0 | See [research record](inverse-link.md) |
 | 140 | [Support vectors and their multipliers](support-vectors-and-their-multipliers.md) | Section | [Prose](content/support-vectors-and-their-multipliers.md), [check](../checks/support-vectors-and-their-multipliers.py) | 168 → 2,386 | 0 → 0 | See [research record](support-vectors-and-their-multipliers.md) |
@@ -170,7 +170,7 @@ Pages ranked: **718**. Done: **172**. Left: **546**. Skipped: **0**. Ranks 1–6
 | 159 | [Beta–Binomial conjugacy](beta-binomial-conjugacy.md) | Theorem | [Prose](content/beta-binomial-conjugacy.md), [check](../checks/beta-binomial-conjugacy.py) | 1,304 → 4,022 | 1 → 1 | See [research record](beta-binomial-conjugacy.md) |
 | 160 | [Lognormal distribution](lognormal-distribution.md) | Distribution | [Prose](content/lognormal-distribution.md), [check](../checks/lognormal-distribution.py) | 668 → 3,922 | 2 → 2 | See [research record](lognormal-distribution.md) |
 | 161 | [Pooled covariance](pooled-covariance.md) | Section | [Prose](content/pooled-covariance.md), [check](../checks/pooled-covariance.py) | 426 → 2,878 | 0 → 0 | See [research record](pooled-covariance.md) |
-| 162 | [Cross-entropy](cross-entropy.md) | Topic | [Prose](content/cross-entropy.md), [check](../checks/cross-entropy.py) | 381 → 2,360 | 0 → 0 | See [research record](cross-entropy.md) |
+| 162 | [Cross-entropy](cross-entropy.md) | Topic | [Prose](content/cross-entropy.md), [check](../checks/cross-entropy.py) | 381 → 2,369 | 0 → 0 | See [research record](cross-entropy.md) |
 | 163 | [Interpretation and the decision boundary](interpretation-and-the-decision-boundary.md) | Section | [Prose](content/interpretation-and-the-decision-boundary.md), [check](../checks/interpretation-and-the-decision-boundary.py) | 772 → 3,027 | 0 → 0 | See [research record](interpretation-and-the-decision-boundary.md) |
 | 164 | [Chi-squared distribution](chi-squared-distribution.md) | Distribution | [Prose](content/chi-squared-distribution.md), [check](../checks/chi-squared-distribution.py) | 1,009 → 3,434 | 2 → 2 | See [research record](chi-squared-distribution.md) |
 | 165 | [Normal linear model](normal-linear-model.md) | Definition | [Prose](content/normal-linear-model.md), [check](../checks/normal-linear-model.py) | 1,876 → 4,171 | 0 → 0 | See [research record](normal-linear-model.md) |
@@ -181,12 +181,27 @@ Pages ranked: **718**. Done: **172**. Left: **546**. Skipped: **0**. Ranks 1–6
 | 170 | [Gradient descent](gradient-descent.md) | Section | [Prose](content/gradient-descent.md), [check](../checks/gradient-descent.py) | 586 → 2,461 | 0 → 0 | See [research record](gradient-descent.md) |
 | 171 | [Squared Mahalanobis distance](squared-mahalanobis-distance.md) | Definition | [Prose](content/squared-mahalanobis-distance.md), [check](../checks/squared-mahalanobis-distance.py) | 457 → 2,491 | 0 → 0 | See [research record](squared-mahalanobis-distance.md) |
 | 172 | [Hard-margin support vector machine](hard-margin-support-vector-machine.md) | Section | [Prose](content/hard-margin-support-vector-machine.md), [check](../checks/hard-margin-support-vector-machine.py) | 1,343 → 3,562 | 0 → 0 | See [research record](hard-margin-support-vector-machine.md) |
+| 173 | [Saturated model](saturated-model.md) | Topic | [Prose](content/saturated-model.md), [check](../checks/saturated-model.py) | 197 → 2,288 | 0 → 0 | See [research record](saturated-model.md) |
+| 174 | [Pseudo-counts and sequential updating](pseudo-counts-and-sequential-updating.md) | Section | [Prose](content/pseudo-counts-and-sequential-updating.md), [check](../checks/pseudo-counts-and-sequential-updating.py) | 376 → 2,484 | 0 → 0 | See [research record](pseudo-counts-and-sequential-updating.md) |
+| 175 | [Score function](score-function.md) | Topic | [Prose](content/score-function.md), [check](../checks/score-function.py) | 1,122 → 3,950 | 0 → 0 | See [research record](score-function.md) |
+| 176 | [Finite-state Markov chain](finite-state-markov-chain.md) | Definition | [Prose](content/finite-state-markov-chain.md), [check](../checks/finite-state-markov-chain.py) | 1,076 → 2,885 | 2 → 2 | See [research record](finite-state-markov-chain.md) |
+| 177 | [Main effect](main-effect.md) | Topic | [Prose](content/main-effect.md), [check](../checks/main-effect.py) | 455 → 2,219 | 0 → 0 | See [research record](main-effect.md) |
+| 178 | [Probability measure](probability-measure.md) | Definition | [Prose](content/probability-measure.md), [check](../checks/probability-measure.py) | 388 → 1,958 | 1 → 1 | See [research record](probability-measure.md) |
+| 179 | [Markov property](markov-property.md) | Section | [Prose](content/markov-property.md), [check](../checks/markov-property.py) | 902 → 2,584 | 1 → 1 | See [research record](markov-property.md) |
+| 180 | [Scatterplot](scatterplot.md) | Topic | [Prose](content/scatterplot.md), [check](../checks/scatterplot.py) | 477 → 2,711 | 0 → 0 | See [research record](scatterplot.md) |
+| 181 | [Contrast](contrast.md) | Definition | [Prose](content/contrast.md), [check](../checks/contrast.py) | 552 → 2,628 | 0 → 0 | See [research record](contrast.md) |
+| 182 | [Family-wise error rate](family-wise-error-rate.md) | Topic | [Prose](content/family-wise-error-rate.md), [check](../checks/family-wise-error-rate.py) | 280 → 2,224 | 0 → 0 | See [research record](family-wise-error-rate.md) |
+| 183 | [Node impurity](node-impurity.md) | Definition | [Prose](content/node-impurity.md), [check](../checks/node-impurity.py) | 1,131 → 3,277 | 0 → 0 | See [research record](node-impurity.md) |
+| 184 | [Stationarity of a time series](stationarity-of-a-time-series.md) | Section | [Prose](content/stationarity-of-a-time-series.md), [check](../checks/stationarity-of-a-time-series.py) | 662 → 2,788 | 0 → 0 | See [research record](stationarity-of-a-time-series.md) |
+| 185 | [Choosing the bandwidth](choosing-the-bandwidth.md) | Section | [Prose](content/choosing-the-bandwidth.md), [check](../checks/choosing-the-bandwidth.py) | 427 → 2,666 | 0 → 0 | See [research record](choosing-the-bandwidth.md) |
+| 186 | [Sample correlation coefficient](sample-correlation-coefficient.md) | Definition | [Prose](content/sample-correlation-coefficient.md), [check](../checks/sample-correlation-coefficient.py) | 802 → 3,280 | 2 → 2 | See [research record](sample-correlation-coefficient.md) |
+| 187 | [Marginal model](marginal-model.md) | Definition | [Prose](content/marginal-model.md), [check](../checks/marginal-model.py) | 603 → 2,944 | 2 → 2 | See [research record](marginal-model.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 173: `saturated-model`.** Ranks 158–172 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 188: `point-forecast`.** Ranks 173–187 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

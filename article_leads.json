@@ -681,7 +681,7 @@
     "article": "",
     "term": "bandwidth selection",
     "verb": "is",
-    "description": "the choice of smoothing scale for a kernel estimate"
+    "description": "the smoothing scale for a kernel density estimate, chosen to retain meaningful shape without letting sampling noise dominate"
   },
   "choosing-the-number-of-principal-components": {
     "field": "statistical learning",
@@ -877,7 +877,7 @@
     "article": "the",
     "term": "contrast",
     "verb": "is",
-    "description": "a linear combination of group means whose coefficients sum to zero"
+    "description": "a weighted comparison of treatment means that isolates a scientific question and gives it a measurable uncertainty"
   },
   "convolution": {
     "field": "probability theory",
@@ -1466,7 +1466,7 @@
     "article": "the",
     "term": "family-wise error rate",
     "verb": "is",
-    "description": "the probability of at least one false rejection among a family of tests"
+    "description": "the chance that a testing procedure makes at least one false rejection across a stated family of hypotheses"
   },
   "finite-irreducible-chains": {
     "field": "stochastic processes",
@@ -1487,7 +1487,7 @@
     "article": "the",
     "term": "finite-state Markov chain",
     "verb": "is",
-    "description": "a Markov chain with a finite set of possible states"
+    "description": "a process on finitely many states whose transition probabilities support exact predictions and, under suitable conditions, a long-run distribution"
   },
   "first-passage-time": {
     "field": "stochastic processes",
@@ -2643,7 +2643,7 @@
     "article": "the",
     "term": "main effect",
     "verb": "is",
-    "description": "a predictor's model contribution before accounting for interactions"
+    "description": "a factor's average contrast across the levels of other factors, whose meaning depends on interactions and the averaging weights"
   },
   "margin-of-error": {
     "field": "data analysis",
@@ -2678,7 +2678,7 @@
     "article": "the",
     "term": "marginal model",
     "verb": "is",
-    "description": "a model for correlated responses that specifies their population-average mean and within-group association"
+    "description": "a population-average mean model for repeated or clustered responses, paired with a working description of their dependence"
   },
   "marginal-student-posterior": {
     "field": "Bayesian statistics",
@@ -2723,7 +2723,7 @@
     "article": "the",
     "term": "Markov property",
     "verb": "is",
-    "description": "the rule that the next state depends on the present state rather than the complete past",
+    "description": "a conditional rule that makes the present state sufficient for predicting the next state from a process's recorded history",
     "proper": true
   },
   "markov-random-field": {
@@ -3141,7 +3141,7 @@
     "article": "",
     "term": "node impurity",
     "verb": "is",
-    "description": "a measure of how mixed the classes are within a decision-tree node"
+    "description": "a score for how mixed the class labels are inside a tree node, used to choose useful training-data splits"
   },
   "nominal-responses": {
     "field": "generalised linear models",
@@ -3739,7 +3739,7 @@
     "article": "the",
     "term": "probability measure",
     "verb": "is",
-    "description": "a function that assigns probabilities to the events in a sample space"
+    "description": "a consistent assignment of probabilities to events that supports calculations on finite and continuous sample spaces"
   },
   "probability-space": {
     "field": "stochastic processes",
@@ -4070,7 +4070,7 @@
     "article": "the",
     "term": "sample correlation coefficient",
     "verb": "is",
-    "description": "the correlation calculated from paired sample observations"
+    "description": "a unit-free summary of the direction and strength of a straight-line pattern in paired sample measurements"
   },
   "sample-quantile": {
     "field": "data analysis",
@@ -4140,7 +4140,7 @@
     "article": "the",
     "term": "saturated model",
     "verb": "is",
-    "description": "a statistical model with enough parameters to reproduce the observed data exactly"
+    "description": "a mean model that reproduces every observed response and supplies the reference fit for deviance"
   },
   "scaled-deviance": {
     "field": "generalised linear models",
@@ -4161,14 +4161,14 @@
     "article": "the",
     "term": "scatterplot",
     "verb": "is",
-    "description": "a plot of one quantitative variable against another, one point per unit"
+    "description": "a plot of paired measurements that reveals the shape, spread, and unusual points in a relationship before it is summarized"
   },
   "score-function": {
     "field": "generalised linear models",
     "article": "the",
     "term": "score function",
     "verb": "is",
-    "description": "the gradient of the log-likelihood with respect to the model parameters"
+    "description": "the log-likelihood gradient that guides parameter fitting and measures how observations inform an estimate"
   },
   "scree-plot": {
     "field": "statistical learning",
@@ -4406,7 +4406,7 @@
     "article": "the",
     "term": "stationarity of a time series",
     "verb": "is",
-    "description": "the stability of a time series' mean and dependence structure over time"
+    "description": "stability of a process's distribution or its mean and lag dependence across time, which lets one model many time windows together"
   },
   "stationary-and-independent-increments": {
     "field": "stochastic processes",

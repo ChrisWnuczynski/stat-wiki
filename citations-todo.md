@@ -89,3 +89,4 @@ These articles do not yet have three inline citations. A further marker would na
 - learning-rate | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - one-hot-encoding | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - two-sample-hotelling-test | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
+- time-series | The shared overview now uses the opened forecasting passage and its own concrete examples; a further independent source for the overview has not been checked.

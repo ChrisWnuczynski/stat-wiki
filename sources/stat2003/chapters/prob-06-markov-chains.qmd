@@ -14,13 +14,13 @@ Let $E$ be a finite set of states and let $X_0,X_1,X_2,\ldots$ take values in $E
 $$
 \Pr(X_{n+1}=j\given X_n=i, X_{n-1}=i_{n-1},\ldots,X_0=i_0)=\Pr(X_{n+1}=j\given X_n=i).
 $$
-{{cite:markov1906}}{{cite:feller1968}}{{cite:norris1997}}
+{{cite:levin_peres2017}} (§1.1, pp. 2–4, Markov property on positive-probability histories)
 
-It is time-homogeneous when the right-hand side does not depend on $n$.{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}} The transition matrix $P$ then has entries $P_{ij}=\Pr(X_{n+1}=j\given X_n=i)$.{{cite:feller1968}}{{cite:norris1997}}{{cite:ross2019}}
+It is time-homogeneous when the right-hand side does not depend on $n$.{{cite:levin_peres2017}} (§1.1, pp. 2–4, homogeneous transition rule) The transition matrix $P$ then has entries $P_{ij}=\Pr(X_{n+1}=j\given X_n=i)$.{{cite:levin_peres2017}} (§1.1, pp. 2–4, transition matrix)
 
 :::
 
-Each row of $P$ is a probability distribution: the entries are non-negative and sum to $1$.{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}} If the row vector $\boldsymbol\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\boldsymbol\pi^{(0)} P^n$.{{cite:feller1968}}{{cite:norris1997}}{{cite:ross2019}} The Chapman–Kolmogorov equations are the matrix product $P^{m+n}=P^m P^n$:{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}} the way to be at $j$ after $m+n$ steps is to be somewhere after $m$ steps and then travel for $n$ more.{{cite:chapman1928}}{{cite:kolmogorov1931}}
+Each row of $P$ is a probability distribution: the entries are non-negative and sum to $1$.{{cite:levin_peres2017}} (§1.1, pp. 2–4, transition rows) If the row vector $\boldsymbol\pi^{(0)}$ is the distribution of $X_0$, the distribution of $X_n$ is $\boldsymbol\pi^{(0)} P^n$.{{cite:levin_peres2017}} (§1.1, pp. 2–4, transition powers) The Chapman–Kolmogorov equations are the matrix product $P^{m+n}=P^m P^n$:{{cite:levin_peres2017}} (§1.1, transition powers) the way to be at $j$ after $m+n$ steps is to be somewhere after $m$ steps and then travel for $n$ more. Entrywise, $(P^{m+n})_{ij}=\sum_{k\in E}(P^m)_{ik}(P^n)_{kj}$. The events $\{X_m=k\}$ partition the possibilities at the intermediate time. Conditional on each such event, the Markov property makes the probability of reaching $j$ after $n$ more steps equal to $(P^n)_{kj}$, regardless of how the chain reached $k$. The law of total probability then sums those products. The order of factors matters: row $i$ identifies the starting state, column $j$ the destination, and a row distribution evolves by multiplying $P$ on the right. The identity concerns every finite step count; it does not require the chain to have a limiting distribution.{{cite:levin_peres2017}} (§1.1, transition powers and path probabilities)
 
 A path of length $n$ has probability equal to the product of the $n$ transition probabilities along it, times the probability of the starting state. That product is the Markov property written out by the chain rule. A chain is conveniently drawn as a transition graph: one node per state, and an arrow from $i$ to $j$, labelled $P_{ij}$, whenever $P_{ij}>0$.
 
@@ -77,13 +77,13 @@ A random walk on the integers is even simpler. Draw independent steps $\xi_k\in\
 ::: {#thm-limiting-distribution .theorem}
 ## Limiting distribution
 
-Suppose $P$ is the transition matrix of an irreducible aperiodic chain on a finite set. Then there is a unique probability row vector $\boldsymbol\pi$ with $\boldsymbol\pi=\boldsymbol\pi P$, and for every start $i$ and every state $j$,
+Suppose $P$ is the transition matrix of an irreducible aperiodic chain on a finite set. Then there is a unique probability row vector $\boldsymbol\pi$ with $\boldsymbol\pi=\boldsymbol\pi P$, and for every start $i$ and every state $j$,{{cite:levin_peres2017}} (§§1.5, 4.3, stationary distribution and convergence)
 
 $$
 \lim_{n\to\infty}(P^n)_{ij}=\pi_j.
 $$
 
-Every row of $P^n$ converges to $\boldsymbol\pi$.{{cite:markov1906}}{{cite:feller1968}}{{cite:norris1997}} The equations $\boldsymbol\pi=\boldsymbol\pi P$ together with $\sum_j \pi_j=1$ determine $\boldsymbol\pi$.{{cite:feller1968}}{{cite:norris1997}}{{cite:grimmett_stirzaker2020}}
+Every row of $P^n$ converges to $\boldsymbol\pi$.{{cite:levin_peres2017}} (§4.3, convergence of finite irreducible aperiodic chains) The equations $\boldsymbol\pi=\boldsymbol\pi P$ together with $\sum_j \pi_j=1$ determine $\boldsymbol\pi$.{{cite:levin_peres2017}} (§§1.5, 4.3, stationary distribution and uniqueness)
 
 :::
 

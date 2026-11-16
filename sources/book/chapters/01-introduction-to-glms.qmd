@@ -388,7 +388,7 @@ For a single Bernoulli trial the likelihood contribution is $p^{y}(1-p)^{1-y}$, 
 \end{align*}
 where $p_i=\mu(\vect{X}_i^\top\boldsymbol{\beta})$ depends on $\boldsymbol{\beta}$ through whichever inverse link we chose. The binomial coefficient, if you are in fact looking at a binomial count rather than a single trial, does not depend on $\boldsymbol{\beta}$ and does not change the maximiser.
 
-Differentiate with respect to $\boldsymbol{\beta}$. The chain rule runs through $p_i$ and then through the linear predictor. Write $\mu'(\eta)$ for the derivative of the mean function with respect to $\eta=\vect{X}^\top\boldsymbol{\beta}$, so $\partial p_i/\partial\boldsymbol{\beta}=\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i$. Then the score is the derivative below.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+Differentiate with respect to $\boldsymbol{\beta}$. The chain rule runs through $p_i$ and then through the linear predictor. Write $\mu'(\eta)$ for the derivative of the mean function with respect to $\eta=\vect{X}^\top\boldsymbol{\beta}$, so $\partial p_i/\partial\boldsymbol{\beta}=\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i$. Then the score is the derivative below.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, generalized linear score)
 
 \begin{align*}
 \frac{\partial\ell}{\partial\boldsymbol{\beta}}
