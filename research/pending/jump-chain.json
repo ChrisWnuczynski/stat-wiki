@@ -1,0 +1,49 @@
+{
+  "slug": "jump-chain",
+  "rank": 363,
+  "tier": "lighter",
+  "type": "Concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 517,
+  "words_after": 1271,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Pishro-Nik 2014 §11.3"
+  ],
+  "proofs": [
+    "Two exponential clocks: the first to ring has probability a/(a+b)"
+  ],
+  "tests": [
+    "checks/jump-chain.py passed"
+  ],
+  "skipped": [
+    "Norris 1997 was not opened."
+  ],
+  "bibliography": {
+    "pishro_nik2014": {
+      "authors": [
+        "Pishro-Nik, H."
+      ],
+      "year": 2014,
+      "title": "Introduction to Probability, Statistics, and Random Processes",
+      "kind": "book",
+      "publisher": "Kappa Research, LLC",
+      "url": "https://www.probabilitycourse.com/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilitycourse.com/"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}
