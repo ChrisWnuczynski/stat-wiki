@@ -1,0 +1,23 @@
+{
+  "bibliography": {
+    "rstats_negbin2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "The Negative Binomial Distribution (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/NegBinomial.html",
+      "verification": {"source": "archival_url", "id": "https://search.r-project.org/R/refmans/stats/html/NegBinomial.html"}
+    },
+    "bailey2011_nelder": {
+      "authors": ["Bailey, R. A."],
+      "year": 2011,
+      "title": "John Ashworth Nelder 1924–2010: Contributions to Statistics",
+      "kind": "book",
+      "publisher": "Queen Mary University of London",
+      "url": "https://webspace.maths.qmul.ac.uk/r.a.bailey/neldbeam.pdf",
+      "verification": {"source": "archival_url", "id": "https://webspace.maths.qmul.ac.uk/r.a.bailey/neldbeam.pdf"}
+    }
+  },
+  "self_checks": ["q-47", "q-54"]
+}
