@@ -1,0 +1,24 @@
+{
+  "bibliography": {
+    "zeileis_kleiber_jackman2008": {
+      "authors": ["Zeileis, A.", "Kleiber, C.", "Jackman, S."],
+      "year": 2008,
+      "title": "Regression Models for Count Data in R",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "27",
+      "issue": "8",
+      "doi": "10.18637/jss.v027.i08",
+      "url": "https://cloud.r-project.org/web/packages/pscl/vignettes/countreg.pdf",
+      "verification": {"source": "crossref", "id": "10.18637/jss.v027.i08"}
+    }
+  },
+  "self_checks": ["c-22", "q-57"],
+  "shared_changes": [
+    {
+      "file": "distributions.json",
+      "slug": "negative-binomial-distribution",
+      "change": "Move the substantive existing lead_context sentence, ‘It accommodates count variation beyond the mean–variance equality imposed by a Poisson model.’, into definition_note, after the existing Forbes-cited text. Replace lead_context with citation-only {{cite:venables_ripley2002}}. This keeps its citation and the nonempty lead_context invariant while leaving one plain-language lead sentence."
+    }
+  ]
+}
