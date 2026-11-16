@@ -72,7 +72,7 @@ Let $\xvec_i^\top$ denote row $i$ of $\mat X$. The Gaussian linear model is \beg
  \label{eq:lm-sampling-distribution}
 \end{equation} Equivalently, the errors are independent with $\varepsilon_i\sim\Normal(0,\sigma^2)$, so every response has variance $\sigma^2$ and distinct responses have zero covariance.{{cite:gauss1809}}{{cite:fisher1925_smrw}}
 
-The design matrix is conditioned on and treated as fixed.{{cite:box_tiao1973}} This does not claim that its entries were never measured; it says that their uncertainty is not part of this particular model.
+The design matrix is conditioned on and treated as fixed.{{cite:box_tiao1973}} Its entries may have been measured, and their uncertainty is not part of this particular model.
 
 :::
 

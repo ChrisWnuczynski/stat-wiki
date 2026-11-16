@@ -10,3 +10,14 @@ Add uncertain claims here before writing them into an article.
 - hotelling-s-t2-test: unproved result kept out of proofs-todo.json (Wishart null distribution of Hotelling's T squared). The added proof shows the one-dimensional reduction and the numerical F transform. It does not derive the normal-sample Wishart calibration.
 - undirected-graph: unproved result kept out of proofs-todo.json (Hammersley–Clifford equivalence). The page proves the Gaussian path factorisation for one precision matrix. The general equivalence between a positive density's clique factorisation and its pairwise Markov property was not derived.
 - Compared with probability-space (2,913 words) after this eighth article; added the Poisson tail so the numerical contrast matches the care of the first page.
+- cauchy-schwarz-inequality: copied Grinstead, Pearson, Student and Casella–Berger citations were not reopened for new locators.
+- designed-experiment: nist_doe_intro2002 is registered. The article still cites Dodge only; a §5.1.1 citation was not inserted.
+- detailed-balance: copied citations of Kelly, Norris and Grimmett–Stirzaker have no new page locators.
+- galton-watson-process: copied citations of Feller, Grimmett–Stirzaker and Ross have no new page locators.
+- inverse-gaussian-distribution: open Tweedie (1957) before adding a history of the hitting-time representation. A Check yourself heading needs a self-checks entry because the distribution template rejects that research section.
+- marginal-and-conditional-effects: reopen Liang and Zeger (1986) before adding a page-located citation for the generalised estimating equation.
+- pearson-residual: copied citations of McCullagh–Nelder, Davison and Dunn–Smyth have no new page locators.
+- pooled-variance: copied chapter citations fisher1925_smrw, casella_berger2002, and wasserman2004 still have no page locator; the books were not reopened for this pass.
+- posterior-hypothesis-probability: copied citations of Gelman, Jeffreys and Kass–Raftery have no page locators in the new sense; they were not reopened.
+- significance-level: the copied chapter citations of Neyman–Pearson, Lehmann–Romano and Casella–Berger have no page locators.
+- stationary-and-independent-increments: copied citations of Grimmett–Stirzaker, Ross and Doob have no new page locators.

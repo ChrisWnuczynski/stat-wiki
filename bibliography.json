@@ -7598,6 +7598,26 @@
         "source": "archival_url",
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html"
       }
+    },
+    "nist_doe_intro2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.1.1 What is experimental design?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm"
+      }
     }
   }
 }

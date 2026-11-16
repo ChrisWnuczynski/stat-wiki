@@ -1,5 +1,5 @@
 ## Lead context
-Detailed balance means that, in the stationary chain, the probability flow from state $i$ to state $j$ equals the flow from $j$ back to $i$.
+Detailed balance means that, in the stationary chain, the probability flow from one state to another equals the flow in the opposite direction.
 
 ## Motivating example
 A two-state chain steps from 0 to 1 with probability $a=1/5$ and from 1 to 0 with probability $b=1/2$. The weights $\pi_0=b/(a+b)=5/7$ and $\pi_1=a/(a+b)=2/7$ make the two directed flows equal: $(5/7)\times(1/5)=1/7$ and $(2/7)\times(1/2)=1/7$. Every departure toward 1 is matched by a return toward 0. That pairwise match is detailed balance. Global balance only asks that the total probability arriving at a state equal the probability sitting there. The pairwise match is stronger, and it is the one a sampler is usually built to satisfy.{{cite:durrett2019}} (pp. 300–301, detailed balance and reversible measures){{cite:geyer2005_markov_chain}} (pp. 9–10, reversibility implies invariance)
