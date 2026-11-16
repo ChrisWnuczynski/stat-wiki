@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a consistent assignment of probabilities to events that supports calculations on finite and continuous sample spaces"
+  },
+  "self_checks": ["ex-prob-three-toss-weights", "ex-prob-intersection-bound"]
+}
