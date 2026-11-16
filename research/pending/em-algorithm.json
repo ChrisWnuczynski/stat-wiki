@@ -1,0 +1,46 @@
+{
+  "bibliography": {
+    "ng_cs229_em2006": {
+      "authors": [
+        "Ng, A."
+      ],
+      "year": 2006,
+      "title": "The EM algorithm",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes8.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs229.stanford.edu/notes_archive/cs229-notes8.pdf"
+      }
+    },
+    "sklearn2026_mixture": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Gaussian mixture models",
+      "kind": "book",
+      "publisher": "scikit-learn User Guide",
+      "url": "https://scikit-learn.org/stable/modules/mixture.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/mixture.html"
+      }
+    }
+  },
+  "article_lead": {
+    "description": "an iterative method that fits models with missing or latent data by alternating conditional averaging and parameter updates"
+  },
+  "self_checks": [
+    "ex-sl-05-2",
+    "ex-sl-05-3",
+    "ex-sl-05-4"
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/stat3006/chapters/sl-05-mixtures-em.qmd",
+      "description": "The generated EM article has malformed inherited prose ‘Under the regularity conditions studied by ,<citation> limit points are stationary.’ Move the citation marker adjacent to Wu's name in the source so the sentence reads ‘Under the regularity conditions studied by Wu, ...’ while preserving its citation."
+    }
+  ]
+}
