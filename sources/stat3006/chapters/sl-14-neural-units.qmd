@@ -41,7 +41,7 @@ $$
 \mathrm{net}=\sum_{j=0}^{p} w_j x_j=w_0+w^\top x,\qquad x_0\equiv 1.
 $$
 
-The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}}{{cite:rosenblatt1958}}{{cite:bishop2006}}. The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
+The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}} (pp. 115–117, threshold units){{cite:rosenblatt1958}} (pp. 386–390, perceptron model){{cite:goodfellow2016_deep_learning}} (Ch. 6, §§6.1–6.3, affine units and activations). The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
 
 :::
 

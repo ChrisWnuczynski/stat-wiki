@@ -287,7 +287,7 @@ Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three o
 The three choices are separate, and all three are yours. You choose the distribution. You choose which covariates go into $\vect{x}_i$, and whether to transform them first: log dose is still just a column of $\mat{X}$. You choose the link. Nothing forces the link that is "canonical" for the distribution you chose.
 
 ::: {#def-canonical .definition}
-The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.{{cite:zhou2020_glm}} (§ Link function, canonical links)
 :::
 
 For the families above, the canonical links are
@@ -299,7 +299,7 @@ For the families above, the canonical links are
 
 If you call `glm` in R and name the family but not the link, you get the canonical link. That is a software default, not a scientific one. The canonical link for the gamma is the inverse link. The link used most often here for a positive continuous response is still the log link, because a slope is then a multiplicative change in the mean, and that is a sentence one can say to a collaborator. Canonical links are the natural mathematical choice. They are not always the appropriate one. You override the default by stating the link yourself.
 
-The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{x}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}} Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:davison2003}} Writing those two out is not a new model. It is the definition, specialised.
+The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{x}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:zhou2020_glm}} (§ Exponential family distribution, normal example; § Link function) Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:zhou2020_glm}} (§ Exponential family distribution, Bernoulli example; § Link function) Writing those two out is not a new model. It is the definition, specialised.
 
 ::: {.callout-note}
 ## Key idea
