@@ -1,0 +1,18 @@
+{
+  "bibliography": {
+    "mit_ocw_conjugate2022": {
+      "authors": ["Massachusetts Institute of Technology, 18.05"],
+      "year": 2022,
+      "title": "Conjugate priors: Beta and normal",
+      "kind": "book",
+      "publisher": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class15-prep.pdf",
+      "verification": {"source": "archival_url", "id": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class15-prep.pdf"}
+    }
+  },
+  "self_checks": ["ex-ur-posterior-mean", "q-23"],
+  "shared_changes": [
+    {"file": "theorem_depth.py", "description": "For beta-binomial-conjugacy, move the substantive context sentence ('The posterior distribution supports uncertainty intervals...') into use or another body section and leave context as citation-only {{cite:mit_ocw_conjugate2022}} (§§4–5.1, pp. 3–5) so the lead stays one sentence. Locate or replace unread Gelman citations in setup/intuition/use with this full opened MIT source; keep all facts. Replace proof if needed with the researched single Proof box, not a second box. Locate historical Laplace claim with a read source or keep as source-supported background."},
+    {"file": "sources/book/chapters/bayes-02-beta-binomial.qmd", "description": "Review the inherited statement and formula citations for beta-binomial-conjugacy; the opened MIT source §5.1 p. 5 supports the update. Keep the source figure and all examples. Check dependent articles after any change."}
+  ]
+}
