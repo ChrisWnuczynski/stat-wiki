@@ -44,3 +44,24 @@ Unverified:
 - No new bibliography keys.
 - Markov's inequality todo records a comparison note only; no further source was opened for that line.
 - Spot-check of probability-space and output-coding-softmax-and-cross-entropy found complete proofs and worked numbers. No further prose change.
+
+## Batch M — ranks 248–262
+
+Ranks: 248 pooled-variance, 249 designed-experiment, 250 marginal-and-conditional-effects, 251 significance-level, 252 posterior-hypothesis-probability, 253 cauchy-schwarz-inequality, 254 galton-watson-process, 255 gaussian-linear-model, 256 interquartile-range, 257 inverse-gaussian-distribution, 258 detailed-balance, 259 effective-sample-size, 260 global-balance-and-detailed-balance, 261 pearson-residual, 262 stationary-and-independent-increments.
+
+Pages fixed:
+
+- gaussian-linear-model: the design-matrix sentence now states that the entries may have been measured and that their uncertainty is outside the model.
+- effective-sample-size: the shared lead now finishes the sentence from the research prose.
+- detailed-balance: the opening sentence no longer places mathematics on the generated lead line.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (470 works). `git diff --check` passed. All 15 page checks passed.
+
+Unverified:
+
+- `nist_doe_intro2002` passed the offline schema. The designed-experiment article still cites Dodge only; §5.1.1 was not inserted into the prose.
+- Copied citations listed in the research todo still have no new page locators: Cauchy–Schwarz, detailed balance, Galton–Watson, marginal effects, Pearson residual, pooled variance, posterior hypothesis probability, significance level, and stationary increments.
+- Inverse Gaussian: Tweedie (1957) was not opened. The distribution template has no Check yourself slot, so that research heading is not a generated section.
+- Spot-check of pooled-variance and stationary-and-independent-increments found numerical examples and sourced definitions. No further prose change.
