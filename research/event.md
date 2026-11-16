@@ -16,6 +16,8 @@ Type: Concept/definition.
 
 ## Verification and decisions
 
+- Removed the repeated “Statistical use” and “Assumptions and limits” sections. The event operations, conditioning calculation, aircraft-model qualification, and measurable-event caveat remain in the definition, properties, worked material, or inherited source example.
+
 - The hand-specified lead now says “an event,” rather than “the event.”
 - The article distinguishes a member of a sigma-algebra from an arbitrary subset of an uncountable space. It keeps the elementary finite-space wording as a special case.
 - One collapsed Proof box establishes complement and monotonicity, finite inclusion–exclusion, both De Morgan identities, and the countable union bound. It uses only the probability axioms stated in the new Definition.

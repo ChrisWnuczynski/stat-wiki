@@ -43,11 +43,6 @@ Finally, if a logistic predictor changes by $\beta_1$ while all other terms stay
 :::
 :::
 
-## Statistical use
-In a binary-outcome report, give the event definition and response coding before quoting odds. Convert predicted odds back to probabilities for decisions that depend on absolute risk. When reporting an odds ratio, state which group is in the numerator and which covariates are held fixed. A logistic-regression coefficient is a conditional log-odds comparison under its fitted model; a before-and-after probability difference requires a specified starting predictor.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
-
-In Bayesian model comparison, first calculate the prior odds between the stated models, then multiply by their Bayes factor, and finally convert the resulting posterior odds to a probability if the two models exhaust the alternatives. The evidence factor records how the data changed the odds; the posterior odds also reflect the starting model probabilities.{{cite:kass_raftery1995}} (§3.1, p. 777)
-
 ## Worked example
 Suppose a screening programme has a predicted event probability of $0.30$ in a reference group and $0.60$ in a comparison group. Their odds are $0.30/0.70=3/7$ and $0.60/0.40=3/2$. The comparison-to-reference odds ratio is $(3/2)/(3/7)=7/2=3.5$. The probability ratio is $0.60/0.30=2$, and the probability difference is $0.30$. Give the actual probabilities with the odds ratio: each answers a different question.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
 
@@ -58,10 +53,7 @@ The prior odds for the first model are $0.25/0.75=1/3$. Multiplication by $6$ gi
 :::
 
 ## Common misconceptions
-Odds of $4$ mean probability $4/5$, not probability $4$. “Four to one against” reverses the direction and means probability $1/5$ for the named event. Odds ratios compare *two odds* and need not equal probability ratios or differences. The odds of two different hypotheses are meaningful only after specifying which hypotheses are compared and whether they exhaust the alternatives. Bayes factors multiply prior odds; they are not themselves posterior probabilities.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
-
-## Assumptions and limits
-The odds conversion is an algebraic identity and needs no sample or regression model. Estimated odds inherit uncertainty from the estimated probability. A finite sample with zero observed successes has empirical odds zero, but that observation alone does not prove the population event probability is zero. In a logistic model, a common coefficient-based odds multiplier presumes the stated additive predictor and fixed other covariates; an interaction can make the multiplier vary by setting.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
+Odds of $4$ mean probability $4/5$, not probability $4$. “Four to one against” reverses the direction and means probability $1/5$ for the named event. Odds ratios compare *two odds* and need not equal probability ratios or differences. The odds of two different hypotheses are meaningful only after specifying which hypotheses are compared and whether they exhaust the alternatives. Bayes factors multiply prior odds; they are not themselves posterior probabilities. Zero successes in a finite sample give empirical odds zero but do not prove that the population event is impossible.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)
 
 ## Connections
 The [logit link](logit-link.qmd) is the logarithm of the odds, mapping a probability to an unrestricted linear-predictor scale. An [odds ratio](odds-ratio.qmd) divides the odds of one group by those of another. [Prior odds](prior-odds.qmd) describe the balance between two hypotheses before observing data, while [posterior odds](posterior-odds-factorisation.qmd) describe it after a Bayes-factor update. These uses share the same probability-to-odds conversion; they differ in which event is being compared with its complement.{{cite:nelder_wedderburn1972}} (§3.3, p. 379){{cite:kass_raftery1995}} (§3.1, p. 777)

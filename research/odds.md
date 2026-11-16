@@ -20,6 +20,8 @@ Agresti (2002) and McCullagh and Nelder (1989) were not opened. The correction r
 
 ## Verification and decisions
 
+- Removed the repeated “Statistical use” and “Assumptions and limits” sections. The logistic and Bayes-factor uses remain in the definition and properties; the finite-sample zero-odds caveat now sits with common misconceptions.
+
 - The $p/(1-p)$ definition, $0.8\mapsto4$ example, coefficient interpretation, and all 23 question links remain. No figure or example was removed.
 - The collapsed proof covers odds conversion and monotonicity, reciprocal odds, the odds-ratio comparison, posterior odds from Bayes' rule, and the logistic coefficient multiplier.
 - `checks/odds.py` checks the probability, odds-ratio, and posterior-odds examples with rational arithmetic and asserts the values printed on the page.

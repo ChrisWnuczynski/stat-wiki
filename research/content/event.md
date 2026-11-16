@@ -29,11 +29,6 @@ For a finite or countable family, put $B_1=A_1$ and $B_i=A_i\setminus\bigcup_{j<
 :::
 :::
 
-## Statistical use
-In a reliability calculation, define “system works” as a union or intersection of component events, then apply the component failure model. Writing the event first separates the question from assumptions, such as independence, used to compute its probability.{{cite:durrett2019}} (Ch. 1, §1.1)
-
-The choice of observed information also matters for [conditional probability](conditional-probability.qmd). If $B$ is the event known to have occurred and $\mathbb P(B)>0$, then $\mathbb P(A\mid B)=\mathbb P(A\cap B)/\mathbb P(B)$. The ratio measures the intersection relative to the conditioning event while $A$ still identifies the same outcomes. A zero-probability $B$ cannot be inserted into this ratio; more general conditioning on continuous observations requires conditional distributions.{{cite:kolmogorov1933_slln}} (Ch. I, §§1–2){{cite:durrett2019}} (Ch. 1, §1.1)
-
 ## Worked example
 Roll a fair six-sided die and let $A=\{2,4,6\}$ be “even” and $B=\{4,5,6\}$ be “at least four.” The two events overlap in $A\cap B=\{4,6\}$, so $\mathbb P(A\cap B)=2/6=1/3$. Their union is $\{2,4,5,6\}$ and has probability $4/6=2/3$. Inclusion–exclusion agrees: $3/6+3/6-2/6=4/6$. Conditioning on $B$ gives $\mathbb P(A\mid B)=(2/6)/(3/6)=2/3$; two of the three outcomes in $B$ are even.{{cite:durrett2019}} (Ch. 1, §1.1)
 
@@ -45,9 +40,6 @@ Its outcomes are $(A\cup B)^c=\{1,3\}$. There are two of the six equally likely 
 
 ## Common misconceptions
 An event is a set of outcomes, not its numerical probability. Disjoint events cannot occur together, whereas independent events can occur together; disjoint nonempty events of positive probability cannot be independent. A nonempty event can have probability zero in a continuous model. In a general uncountable sample space, “every subset has a probability” is too strong: the probability measure is defined on the specified sigma-algebra. Finally, an overlapping union cannot be evaluated by simply adding its two probabilities.{{cite:kolmogorov1933_slln}} (Ch. I, §§1–2){{cite:durrett2019}} (Ch. 1, §1.1)
-
-## Assumptions and limits
-The set identities and union bound require no independence. Calculating probabilities from equal outcome counts does require a finite space with equal probability for each elementary outcome. The aircraft example below assumes independent engine failures with a common failure probability; its event expression remains correct even if either assumption fails, but the numerical product formula would change. In a continuous model, the choice of sigma-algebra and probability measure is part of the model, and probability-zero sets need not be logically impossible.{{cite:durrett2019}} (Ch. 1, §1.1)
 
 ## Connections
 The [sample space](sample-space.qmd) supplies possible outcomes; a [probability measure](probability-measure.qmd) assigns weights to its measurable events. A [sigma-algebra](generated-and-borel-sigma-algebras.qmd) specifies which subsets stay measurable under complements and countable combinations. [Conditional probability](conditional-probability.qmd) rescales an intersection relative to a positive-probability event, while [independent events](independent-events.qmd) satisfy $\mathbb P(A\cap B)=\mathbb P(A)\mathbb P(B)$. A [random variable](random-variable.qmd) links numerical statements back to events through preimages such as $\{\omega:X(\omega)\le x\}$.{{cite:kolmogorov1933_slln}} (Ch. I, §§1–2){{cite:durrett2019}} (Ch. 1, §1.1)
