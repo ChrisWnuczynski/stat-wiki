@@ -1,0 +1,19 @@
+{
+  "bibliography": {
+    "siegrist2022_sufficient_complete": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §7.6: Sufficient, Complete and Ancillary Statistics",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics"}
+    }
+  },
+  "article_lead": {"field": "statistical inference", "description": "a statistic whose expectation distinguishes all its nonzero functions across a model, making unbiased estimation through it unique"},
+  "self_checks": ["ex-inf-poisson-umvu", "exr-completeness-binomial", "exr-completeness-restricted"],
+  "new_bank_questions": [
+    {"id": "exr-completeness-binomial", "topic_code": "I9", "title": "Completeness and an unbiased pair probability", "body": "In three independent Bernoulli trials let T be the success count. Show that h(T)=T(T-1)/6 is unbiased for p², and evaluate it at T=2. Why is this function unique among unbiased functions of T when p ranges over (0,1)?", "answer": "There are six ordered pairs of distinct trials. Each pair succeeds with probability p², so E[T(T-1)/6]=p². At T=2 the estimate is 2/6=1/3. If another function of T were unbiased for p², its difference from h would have expectation zero for every p. The binomial count is complete on (0,1), so the difference is zero almost surely."},
+    {"id": "exr-completeness-restricted", "topic_code": "I9", "title": "A sufficient count that is not complete", "body": "Let T count successes in two independent Bernoulli trials, but suppose the model permits only p=1/2. Find a nonzero function q(T) whose expectation is zero, and explain what changes if p can range through (0,1).", "answer": "Take q(T)=T-1. At the sole allowed value p=1/2, E[T]=2p=1, so E[q(T)]=0, although q(T) is -1 or 1 with positive probability. Thus T is not complete for the restricted model. If p varies through (0,1), E[q(T)]=2p-1 is not identically zero; indeed the binomial polynomial argument shows no nonzero q has zero expectation for every p in that interval."}
+  ]
+}
