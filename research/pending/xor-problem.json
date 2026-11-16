@@ -1,0 +1,28 @@
+{
+  "bibliography": {
+    "goodfellow_deep_learning2016_ch6": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/contents/mlp.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/contents/mlp.html"
+      }
+    }
+  },
+  "article_lead": {
+    "term": "XOR problem",
+    "description": "the four-corner classification pattern that exposes why a linear decision boundary needs nonlinear features to separate alternating labels"
+  },
+  "self_checks": [
+    "ex-sl-14-5",
+    "ex-sl-17-10"
+  ]
+}
