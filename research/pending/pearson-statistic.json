@@ -1,0 +1,7 @@
+{
+  "article_lead": {"description": "a scaled sum of observed-versus-expected category-count differences used to assess how well a categorical model fits"},
+  "self_checks": ["ex-inf-pearson-one-cell", "ex-inf-degrees-of-freedom", "ex-inf-two-by-two"],
+  "proofs_todo": [
+    {"slug": "pearson-statistic#estimated-parameters", "title": "Pearson reference law after grouped-data parameter estimation", "reason": "The page states the regular chi-squared k-1-r limit, but its collapsed proof derives the fixed-probability k-1 case and the likelihood-ratio expansion only."}
+  ]
+}
