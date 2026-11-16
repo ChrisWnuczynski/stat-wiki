@@ -1,0 +1,14 @@
+{
+  "article_lead": {
+    "article": "",
+    "verb": "measures",
+    "description": "squared separation among observations assigned to the same group, helping compare candidate partitions"
+  },
+  "self_checks": ["ex-sl-04-1", "ex-sl-04-6"],
+  "shared_changes": [
+    {
+      "file": "sources/stat3006/chapters/sl-04-kmeans.qmd",
+      "description": "In 'Why the partitions are not all searched' around line 110, the paragraph counts partitions for the pairwise size-weighted W(C), then says Lloyd's algorithm trades exhaustive search for alternating improvements. Clarify explicitly that Lloyd optimizes the distinct unweighted tilde-W objective, not W(C). Retain the verified Stirling counts and check the K-means chapter plus all dependent criterion/scatter/algorithm pages."
+    }
+  ]
+}
