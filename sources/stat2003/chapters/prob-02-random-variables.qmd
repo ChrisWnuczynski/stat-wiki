@@ -210,7 +210,7 @@ Then $\E X=\Var(X)=\lambda$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
 ::: {#thm-poisson-limit-of-the-binomial .theorem}
 ## Poisson limit of the binomial
 
-If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$.{{cite:poisson1837}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$.{{cite:siegrist2022_binomial_distribution}} (§11.2, The Poisson Approximation)
 
 :::
 
@@ -296,7 +296,7 @@ The continuous analogue of an equally likely finite set is the uniform distribut
 ::: {#def-exponential-distribution .definition}
 ## Exponential distribution
 
-$X$ has the exponential distribution with rate $\lambda>0$, written $X\sim\Exp(\lambda)$, when its density is $\lambda e^{-\lambda x}$ for $x>0$.{{cite:erlang1909}}{{cite:feller1968}}{{cite:ross2019}} Its distribution function is $1-e^{-\lambda x}$, its mean is $1/\lambda$ and its variance is $1/\lambda^2$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+$X$ has the exponential distribution with rate $\lambda>0$, written $X\sim\Exp(\lambda)$, when its density is $\lambda e^{-\lambda x}$ for $x>0$.{{cite:siegrist2022_exponential}} (§14.2, density and rate parameter) Its distribution function is $1-e^{-\lambda x}$, its mean is $1/\lambda$ and its variance is $1/\lambda^2$.{{cite:siegrist2022_exponential}} (§14.2, Moments)
 
 :::
 
@@ -305,7 +305,7 @@ The moment generating function is $M(s)=\int_0^\infty e^{sx}\lambda e^{-\lambda 
 ::: {#thm-memoryless .theorem}
 ## Memoryless property
 
-A positive random variable $X$ is memoryless when $\Pr(X>s+t\given X>s)=\Pr(X>t)$ for all $s,t>0$.{{cite:feller1968}}{{cite:ross2019}}{{cite:grimmett_stirzaker2020}} The exponential distributions are the continuous memoryless laws, and the geometric distributions are the discrete ones.{{cite:feller1968}}{{cite:ross2019}}
+A positive random variable $X$ is memoryless when $\Pr(X>s+t\given X>s)=\Pr(X>t)$ for all $s,t>0$.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property) The exponential distributions are the continuous memoryless laws, and the geometric distributions are the discrete ones.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)
 
 For the exponential law with rate $\lambda$, the survival probability is $e^{-\lambda x}$, so
 

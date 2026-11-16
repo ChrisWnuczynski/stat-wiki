@@ -8,8 +8,8 @@
   {
     "a": "binomial-distribution",
     "b": "poisson-distribution",
-    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:feller1968}}",
-    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:feller1968}}"
+    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:siegrist2022_binomial_distribution}} (§11.2, Poisson Approximation)",
+    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:siegrist2022_binomial_distribution}} (§11.2, Poisson Approximation)"
   },
   {
     "a": "binomial-distribution",
@@ -74,14 +74,14 @@
   {
     "a": "exponential-distribution",
     "b": "weibull-distribution",
-    "a_text": "A {target} law with shape one is exponential with rate equal to the reciprocal of its scale. Only this Weibull shape has constant hazard.{{cite:ross2019}}",
-    "b_text": "{target} with rate $1/\\lambda$ is the $k=1$ case of this shape-scale Weibull law.{{cite:ross2019}}"
+    "a_text": "A {target} law with shape one is exponential with rate equal to the reciprocal of its scale. Only this Weibull shape has constant hazard.{{cite:nist_weibull_handbook}} (§8.1.6.2, Special Case)",
+    "b_text": "{target} with rate $1/\\lambda$ is the $k=1$ case of this shape-scale Weibull law.{{cite:nist_weibull_handbook}} (§8.1.6.2, Special Case)"
   },
   {
     "a": "exponential-distribution",
     "b": "pareto-distribution",
-    "a_text": "If $X$ has {target} minimum $x_m$ and tail parameter $\\alpha$, then $\\log(X/x_m)$ has exponential rate $\\alpha$.{{cite:forbes2011}}",
-    "b_text": "If $Y$ has {target} rate $\\alpha$, then $x_m e^Y$ has this Pareto law with minimum $x_m$.{{cite:forbes2011}}"
+    "a_text": "If $X$ has {target} minimum $x_m$ and tail parameter $\\alpha$, then $\\log(X/x_m)$ has exponential rate $\\alpha$: for $t\\ge0$, $P(\\log(X/x_m)>t)=P(X>x_me^t)=e^{-\\alpha t}$.{{cite:siegrist2022_pareto}} (§The Basic Pareto Distribution, Related Distributions; §The General Pareto Distribution)",
+    "b_text": "If $Y$ has {target} rate $\\alpha$, then $x_m e^Y$ has this Pareto law with minimum $x_m$, since $P(x_m e^Y>x)=P(Y>\\log(x/x_m))=(x_m/x)^\\alpha$ for $x\\ge x_m$.{{cite:siegrist2022_pareto}} (§The Basic Pareto Distribution, Related Distributions; §The General Pareto Distribution)"
   },
   {
     "a": "f-distribution",
@@ -110,8 +110,8 @@
   {
     "a": "hypergeometric-distribution",
     "b": "binomial-distribution",
-    "a_text": "{target} approximates this without-replacement count as population size $N$ grows while marked fraction $r/N$ tends to $p$ and draw size $n$ stays fixed.{{cite:feller1968}}",
-    "b_text": "{target} is the without-replacement counterpart of this independent-trial count. For fixed $n$ and a growing population with marked fraction tending to $p$, its law tends to $\\operatorname{Bin}(n,p)$.{{cite:feller1968}}"
+    "a_text": "{target} approximates this without-replacement count as population size $N$ grows while marked fraction $r/N$ tends to $p$ and draw size $n$ stays fixed.{{cite:siegrist2022_binomial_distribution}} (§11.2, Sampling Without Replacement)",
+    "b_text": "{target} is the without-replacement counterpart of this independent-trial count. For fixed $n$ and a growing population with marked fraction tending to $p$, its law tends to $\\operatorname{Bin}(n,p)$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Sampling Without Replacement)"
   },
   {
     "a": "inverse-gaussian-distribution",
@@ -128,8 +128,8 @@
   {
     "a": "multinomial-distribution",
     "b": "binomial-distribution",
-    "a_text": "Each single category count in this model has {target} distribution $\\operatorname{Bin}(n,p_k)$, although the category counts are dependent.{{cite:forbes2011}}",
-    "b_text": "A category count within {target} sampling has this binomial law with success probability $p_k$. The counts across categories sum to $n$.{{cite:forbes2011}}"
+    "a_text": "Each single category count in this model has {target} distribution $\\operatorname{Bin}(n,p_k)$, although the category counts are dependent.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)",
+    "b_text": "A category count within {target} sampling has this binomial law with success probability $p_k$. The counts across categories sum to $n$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)"
   },
   {
     "a": "multivariate-normal-distribution",

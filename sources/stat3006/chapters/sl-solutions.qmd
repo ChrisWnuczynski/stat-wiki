@@ -2031,13 +2031,14 @@ For the sandwiched sample, the middle class has $|x|\le 0.9$, so $\phi_3=x^2\le 
 
 []{#sol-sl-17-5} **[A Gram matrix](#ex-sl-17-5).**
 
-$K_{ij}=\exp\bigl(-(i-j)^2/2\bigr)$ gives $K_{12}=K_{23}=e^{-1/2}=0.6065$ and $K_{13}=e^{-2}=0.1353$, with ones on the diagonal. The leading principal minors are $1$, then $1-0.6065^2=0.632$, and
+$K_{ij}=\exp\bigl(-(i-j)^2/2\bigr)$ gives $K_{12}=K_{23}=e^{-1/2}=0.6065$ and $K_{13}=e^{-2}=0.1353$, with ones on the diagonal. The leading principal minors are $1$, then $1-e^{-1}\approx0.6321$, and
 
 $$
 \begin{aligned}
 \det K
-&=1(0.632)-0.6065\bigl(0.6065-0.6065\times 0.1353\bigr)+0.1353(0.3679-0.1353)\\
-&=0.632-0.318+0.031=0.346.
+&=1-e^{-1}-e^{-1}(1-e^{-2})+e^{-2}(e^{-1}-e^{-2})\\
+&\approx0.6321205588-0.3180923728+0.0314714295\\
+&\approx0.3454996155\approx0.3455.
 \end{aligned}
 $$
 

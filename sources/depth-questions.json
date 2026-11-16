@@ -5,5 +5,61 @@
     "title": "Accuracy under a prevalence shift",
     "body": "A fixed binary classifier has sensitivity 0.80 and specificity 0.90. What is its accuracy when the positive-class prevalence is 0.10? What is it when the prevalence is 0.50, assuming the class-specific rates stay fixed? Explain why the two accuracies differ.",
     "answer": "With prevalence π, accuracy = π·sensitivity + (1−π)·specificity. At prevalence 0.10 it is 0.10(0.80)+0.90(0.90)=0.89. At prevalence 0.50 it is 0.50(0.80)+0.50(0.90)=0.85. The classifier's conditional error rates are unchanged, but overall accuracy weights them by the class mix, which has changed."
+  },
+  {
+    "id": "exr-completeness-binomial",
+    "topic_code": "I9",
+    "title": "Completeness and an unbiased pair probability",
+    "body": "In three independent Bernoulli trials let T be the success count. Show that h(T)=T(T-1)/6 is unbiased for p², and evaluate it at T=2. Why is this function unique among unbiased functions of T when p ranges over (0,1)?",
+    "answer": "There are six ordered pairs of distinct trials. Each pair succeeds with probability p², so E[T(T-1)/6]=p². At T=2 the estimate is 2/6=1/3. If another function of T were unbiased for p², its difference from h would have expectation zero for every p. The binomial count is complete on (0,1), so the difference is zero almost surely."
+  },
+  {
+    "id": "exr-completeness-restricted",
+    "topic_code": "I9",
+    "title": "A sufficient count that is not complete",
+    "body": "Let T count successes in two independent Bernoulli trials, but suppose the model permits only p=1/2. Find a nonzero function q(T) whose expectation is zero, and explain what changes if p can range through (0,1).",
+    "answer": "Take q(T)=T-1. At the sole allowed value p=1/2, E[T]=2p=1, so E[q(T)]=0, although q(T) is -1 or 1 with positive probability. Thus T is not complete for the restricted model. If p varies through (0,1), E[q(T)]=2p-1 is not identically zero; indeed the binomial polynomial argument shows no nonzero q has zero expectation for every p in that interval."
+  },
+  {
+    "id": "exr-credible-discrete-hpd",
+    "topic_code": "B1",
+    "title": "A highest-posterior-probability set on a grid",
+    "body": "A parameter can take values 1, 2 and 3 with posterior probabilities 0.50, 0.30 and 0.20. Give a smallest set with posterior probability at least 80%, choosing the most probable points first. Why does a continuous-density threshold formula need care here?",
+    "answer": "The set {1,2} has posterior probability 0.50+0.30=0.80 and uses two points; no one-point set reaches 0.80. In a discrete distribution probability arrives in jumps, so an exact target may be unattainable at some levels and a threshold may include tied points. Specify at-least content and a rule for ties or excess mass."
+  },
+  {
+    "id": "exr-measurable-coarse-space",
+    "topic_code": "SP10",
+    "title": "Which measurements can the events distinguish?",
+    "body": "Let Ω={a,b,c,d} and F={∅,{a,b},{c,d},Ω}. Is X with values (2,2,3,3) measurable? Is Y with values (0,1,0,1) measurable? Exhibit a threshold event for each answer.",
+    "answer": "X is measurable: for 2≤t<3, {X≤t}={a,b}, with ∅ below 2 and Ω at or above 3. All are in F. Y is not measurable: for 0≤t<1, {Y≤t}={a,c}, which is not in F. The same four numerical outcomes can support one measurement but not the other because F distinguishes only the two blocks."
+  },
+  {
+    "id": "exr-measurable-square",
+    "topic_code": "SP10",
+    "title": "A transformed uniform measurement",
+    "body": "On Ω=(0,1) with Borel events and uniform probability, let X(ω)=ω and W=X². Explain why W is measurable, then compute P(W≤1/4) and P(1/4<W≤9/16).",
+    "answer": "The square function is continuous, hence Borel measurable; its composition with X is measurable. Since ω is positive, {W≤1/4}=(0,1/2], whose probability is 1/2. Also {1/4<W≤9/16}=(1/2,3/4], whose probability is 3/4−1/2=1/4. These are probabilities of inverse-image events, not areas under a guessed density."
+  },
+  {
+    "id": "exr-normal-hierarchy-hyperuncertainty",
+    "topic_code": "B8",
+    "title": "Uncertainty beyond a conditional shrinkage rule",
+    "body": "A hierarchical analysis assigns equal posterior probability to two hyperparameter regimes. In regime A a group effect has conditional posterior N(5,1), and in regime B it has conditional posterior N(9,1). Find the marginal posterior mean and variance of the group effect. What variance term would a calculation based on only one regime omit?",
+    "answer": "The marginal mean is (5+9)/2=7. The law of total variance gives E[Var(theta|regime,y)]+Var(E[theta|regime,y])=1+[(5−7)^2+(9−7)^2]/2=1+4=5. Fixing a single regime would retain only conditional variance 1 and omit the between-regime variance 4. This is the distinction between a conditional shrinkage calculation and full averaging over uncertain hyperparameters."
+  },
+  {
+    "id": "exr-sample-quantile-type7",
+    "topic_code": "D2",
+    "title": "A percentile between observations",
+    "body": "The ordered sample is 1, 3, 5, 9, 12. Find its p=0.6 quantile by (a) the empirical-CDF inverse and (b) R's type-7 interpolation rule. Explain why they differ.",
+    "answer": "The empirical inverse uses index ceil(5×0.6)=3 and gives x_(3)=5. Type 7 uses h=1+(5−1)×0.6=3.4, so it interpolates 40% from x_(3)=5 to x_(4)=9, giving 5+0.4(9−5)=6.6. The empirical CDF is a step function, whereas type 7 fills the gap between adjacent order statistics."
+  },
+  {
+    "id": "exr-sample-quantile-ties",
+    "topic_code": "D2",
+    "title": "A quartile with tied observations",
+    "body": "The ordered sample is 2, 2, 2, 9. Find the 0.75 quantile by the empirical-CDF inverse and by R's type-7 rule. What does the difference show?",
+    "answer": "The empirical inverse uses ceil(4×0.75)=3 and returns x_(3)=2: three of four values are already at most 2. Type 7 uses h=1+3×0.75=3.25 and returns 2+0.25(9−2)=3.75. Interpolation can put a reported quantile where no value was observed, especially when a large CDF jump from ties sits beside a gap."
   }
 ]

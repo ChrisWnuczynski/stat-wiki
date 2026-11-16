@@ -54,3 +54,13 @@ These articles do not yet have three inline citations. A further marker would na
 - ward-s-method | The copied paragraph reports adjusted Rand indices for four linkages. It does not state Ward's within-cluster sum-of-squares merge rule.
 - moments-of-the-sample-mean-and-variance | The normal-sample and iid moment results are supported by the opened Siegrist §6.08 source. Earlier extra citations to unopened books were removed; another source should be checked before adding an independent citation.
 - posterior-summaries-from-draws | The copied proposition is supported by Geyer (1992, pp. 473–475) and Wang (2025, Ch. 20, §§24.1, 28.1). A third source has not been checked for this exact claim.
+- chi-squared-test-with-estimated-parameters | The copied Pearson approximation cites the opened degrees-of-freedom source; its parameter-estimation qualification needs another independent checked reference.
+- chi-squared-test-with-known-cell-probabilities | The copied chi-squared calibration is a short proposition supported by the opened source; further independent support has not been checked.
+- complete-pooling-no-pooling-and-partial-pooling | The shared hierarchy chapter now cites the opened BDA discussion; additional sources on this exact comparison remain to be checked.
+- epanechnikov-kernel | The copied kernel example uses the opened density-estimation account; another distinct source for its normalization has not been checked.
+- fisher-scoring | The copied GLM update is supported by the opened source and direct matrix algebra; a further independent citation has not been verified.
+- least-squares-line | The copied normal-equation derivation and source support its slope formula; additional citation would duplicate that derivation.
+- pearson-chi-squared-approximation | The short copied asymptotic result uses the opened Pearson source; another source on its conditions should be checked.
+- pearson-test-with-estimated-parameters | The fitted-parameter qualification has one checked account; its specific degrees-of-freedom condition needs independent review.
+- polynomial-kernel | The kernel identity is checked algebraically and against the opened source; another independent reference has not been checked.
+- regression-slope | The inherited slope definition and least-squares algebra are supported by the opened source; an additional distinct citation remains to be checked.

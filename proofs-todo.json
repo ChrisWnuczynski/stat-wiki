@@ -295,26 +295,6 @@
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
-    "slug": "binomial-distribution#property-beta-binomial-conjugacy",
-    "title": "Beta–Binomial conjugacy",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "binomial-distribution#property-beta-binomial-posterior-prediction",
-    "title": "Beta–Binomial posterior prediction",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "binomial-distribution#property-poisson-limit-of-the-binomial",
-    "title": "Poisson limit of the binomial",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "binomial-distribution#property-central-limit-theorem",
-    "title": "Central limit theorem",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
     "slug": "chi-squared-distribution#property-normal-sample-theorem",
     "title": "Normal sample theorem",
     "reason": "The distribution page states this result without a reviewed proof sketch."
@@ -347,11 +327,6 @@
   {
     "slug": "dirichlet-distribution#property-the-beta-distribution-is-the-two-category-dirichlet",
     "title": "The Beta distribution is the two-category Dirichlet",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "exponential-distribution#property-memoryless-property",
-    "title": "Memoryless property",
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
@@ -493,5 +468,80 @@
     "slug": "stationary-distribution#property-aperiodic-convergence-closed-classes",
     "title": "Aperiodic convergence and closed-class decomposition",
     "reason": "The page states Theorem 4.9 and finite closed-class mixture results; their full proofs require coupling and communication-class theory beyond the displayed proof."
+  },
+  {
+    "slug": "bayesian-information-criterion#property-mixture-consistency",
+    "title": "BIC consistency in particular singular mixture models",
+    "reason": "The page retains a qualified consistency statement about some mixtures; its collapsed proof establishes only the regular Laplace expansion, not a singular-mixture consistency theorem."
+  },
+  {
+    "slug": "binomial-distribution#property-beta-binomial-conjugacy",
+    "title": "Beta–Binomial conjugacy",
+    "reason": "The new collapsed proof establishes the binomial mass function and moments but does not derive the inherited beta-posterior update."
+  },
+  {
+    "slug": "binomial-distribution#property-beta-binomial-posterior-prediction",
+    "title": "Beta–Binomial posterior prediction",
+    "reason": "The new collapsed proof does not integrate the inherited beta–binomial predictive formula."
+  },
+  {
+    "slug": "binomial-distribution#property-poisson-limit-of-the-binomial",
+    "title": "Poisson limit of the binomial",
+    "reason": "The new collapsed proof does not establish the inherited Poisson limit for fixed counts."
+  },
+  {
+    "slug": "binomial-distribution#property-central-limit-theorem",
+    "title": "Central limit theorem",
+    "reason": "The new collapsed proof does not establish the inherited normal limit."
+  },
+  {
+    "slug": "exponential-distribution#property-gamma-conjugate-update",
+    "title": "Gamma prior update for exponential rate",
+    "reason": "The page retains the existing Bayesian example but its collapsed proof does not derive the Gamma posterior."
+  },
+  {
+    "slug": "exponential-distribution#property-bayes-factor-exponential-versus-gamma",
+    "title": "Exponential versus Gamma marginal likelihoods",
+    "reason": "The retained model-comparison example states the two integrated marginal likelihood formulas but the page proof does not derive them."
+  },
+  {
+    "slug": "exponential-distribution#property-moments-higher-order",
+    "title": "Higher moments and entropy",
+    "reason": "The collapsed proof derives mean, variance, MGF, quantile and minimum law, but does not derive skewness, excess kurtosis or differential entropy."
+  },
+  {
+    "slug": "fisher-information#property-mle-asymptotic-covariance",
+    "title": "Asymptotic inverse-information covariance of the maximum likelihood estimator",
+    "reason": "The page states the regular large-sample covariance approximation, but the collapsed proof covers the information identity, additivity, and Cramér–Rao inequality only."
+  },
+  {
+    "slug": "nearest-neighbours#property-cover-hart-risk-bound",
+    "title": "Cover–Hart risk bound",
+    "reason": "The page retains the asymptotic risk claim, but its collapsed proof establishes only finite-sample vote algebra and does not prove the original risk bound."
+  },
+  {
+    "slug": "nearest-neighbours#property-knn-bayes-consistency",
+    "title": "Bayes consistency of growing nearest-neighbour votes",
+    "reason": "The page describes k growing with sample size and k/n tending to zero but does not prove consistency under regularity conditions."
+  },
+  {
+    "slug": "normal-hierarchical-shrinkage#property-full-hyperparameter-marginal",
+    "title": "Marginal posterior after learning normal hyperparameters",
+    "reason": "The page proves the conditional normal update but does not derive a general marginal posterior after integrating uncertain population mean and between-group variance."
+  },
+  {
+    "slug": "normal-hierarchical-shrinkage#property-beta-binomial-rat-study",
+    "title": "Rat-tumour beta hierarchy",
+    "reason": "The preserved linked worked example derives a beta-binomial hyperposterior; the single collapsed proof on this theorem page concerns normal group means, so the beta-hierarchy derivation remains outside its proof box."
+  },
+  {
+    "slug": "pearson-statistic#property-estimated-parameters",
+    "title": "Pearson reference law after grouped-data parameter estimation",
+    "reason": "The page states the regular chi-squared k-1-r limit, but its collapsed proof derives the fixed-probability k-1 case and the likelihood-ratio expansion only."
+  },
+  {
+    "slug": "prior-and-posterior-predictive-distributions#property-normal-regression-predictive-t",
+    "title": "Student posterior prediction under the normal regression reference prior",
+    "reason": "The inherited properties state the multivariate regression Student distribution and scale, while the page's collapsed proof covers predictive mixtures, variance decomposition, and beta–binomial prediction; the regression calculation needs a complete derivation."
   }
 ]

@@ -463,5 +463,79 @@
     "ex-sp-deterministic-cycle",
     "ex-sp-path-graph",
     "ex-sp-closed-classes"
+  ],
+  "bayesian-information-criterion": [
+    "ex-sl-06-2",
+    "ex-sl-06-5",
+    "ex-sl-06-7"
+  ],
+  "binomial-distribution": [
+    "ex-prob-five-evens-replace",
+    "ex-inf-sign-test-one-sided",
+    "ex-prob-clt-binomial-tail"
+  ],
+  "canonical-link": [
+    "c-04",
+    "q-35",
+    "q-54"
+  ],
+  "complete-statistic": [
+    "ex-inf-poisson-umvu",
+    "exr-completeness-binomial",
+    "exr-completeness-restricted"
+  ],
+  "credible-region-constructions": [
+    "ex-applied-iq",
+    "ex-lognormal-var",
+    "exr-credible-discrete-hpd"
+  ],
+  "exponential-distribution": [
+    "ex-prob-generate-exp",
+    "ex-inf-exponential-mle",
+    "q-29"
+  ],
+  "fisher-information": [
+    "ex-inf-poisson-information",
+    "q-33",
+    "c-18"
+  ],
+  "gaussian-kernel": [
+    "ex-sl-07-3",
+    "ex-sl-07-4",
+    "ex-sl-17-5"
+  ],
+  "least-squares": [
+    "ex-inf-normal-equations",
+    "ex-inf-line-through-origin",
+    "ex-sl-18-2"
+  ],
+  "measurable-random-variable": [
+    "exr-measurable-coarse-space",
+    "exr-measurable-square",
+    "ex-sp-right-continuous"
+  ],
+  "nearest-neighbours": [
+    "ex-sl-11-2",
+    "ex-sl-11-4",
+    "ex-sl-11-7"
+  ],
+  "normal-hierarchical-shrinkage": [
+    "ex-inf-shrunk-mean",
+    "q-53",
+    "exr-normal-hierarchy-hyperuncertainty"
+  ],
+  "pearson-statistic": [
+    "ex-inf-pearson-one-cell",
+    "ex-inf-degrees-of-freedom",
+    "ex-inf-two-by-two"
+  ],
+  "prior-and-posterior-predictive-distributions": [
+    "q-24",
+    "ex-norm-mean"
+  ],
+  "sample-quantile": [
+    "ex-inf-milk-summaries",
+    "exr-sample-quantile-type7",
+    "exr-sample-quantile-ties"
   ]
 }

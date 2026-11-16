@@ -178,17 +178,17 @@
         "meaning": "number of successes"
       }
     ],
-    "history": "Bernoulli’s *Ars Conjectandi*, published in 1713, developed combinatorial calculations for repeated trials. Counting the number of successes gives the binomial sampling problem.{{cite:bernoulli1713}}\n\nThe distribution later became a standard likelihood for a population proportion. Modern inference distinguishes exact binomial calculations from approximations that rely on larger samples.{{cite:casella_berger2002}}",
+    "history": "Bernoulli’s *Ars Conjectandi*, published in 1713, developed combinatorial calculations for repeated trials. Counting the number of successes gives the binomial sampling problem.{{cite:edwards2013_ars}} (§§“Part I” and “Part IV”)\n\nThe distribution later became a standard likelihood for a population proportion. Modern inference distinguishes exact binomial calculations from approximations that rely on larger samples.{{cite:dodge2008}} (pp. 44–45, “Binomial Distribution”){{cite:siegrist2022_binomial_distribution}} (§11.2, The Normal Approximation)",
     "sampling": "Draw $n$ independent Bernoulli values with success probability $p$ and add them, where $n$ is the trial count.",
     "conjugate_prior_for": "",
-    "lead_context": "It supplies exact probabilities for repeated binary trials and underlies tests and intervals for a population proportion.{{cite:casella_berger2002}}",
-    "statistical_use": "A binomial likelihood estimates a common success probability from a fixed number of independent trials. Exact tail probabilities support tests and confidence intervals; if trials are dependent or their probabilities differ, the binomial model needs reconsideration.{{cite:casella_berger2002}}",
-    "worked_example": "### Three successes in ten trials\n\nFor $n=10$ and $p=0.3$, $P(X=3)=\\binom{10}{3}(0.3)^3(0.7)^7\\approx0.2668$. The count $3$ is one possible outcome; its probability is not the same as the estimated success rate $3/10$.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_binomial_distribution}} (§11.2, The Probability Mass Function)",
+    "statistical_use": "A binomial likelihood estimates a common success probability from a fixed number of independent trials. Exact tail probabilities support tests and confidence intervals; if trials are dependent or their probabilities differ, the binomial model needs reconsideration. It supplies exact probabilities for repeated binary trials and underlies inference about a population proportion.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions and The Normal Approximation)",
+    "worked_example": "### Three successes in ten trials\n\nFor $n=10$ and $p=0.3$, $P(X=3)=\\binom{10}{3}(0.3)^3(0.7)^7\\approx0.2668$. The count $3$ is one possible outcome; its probability is not the same as the estimated success rate $3/10$.{{cite:siegrist2022_binomial_distribution}} (§11.2, The Probability Mass Function)",
     "key_result": {
       "title": "Mean and variance of a trial count",
-      "statement": "For $X\\sim\\operatorname{Bin}(n,p)$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)$.{{cite:ross2019}}",
+      "statement": "For $X\\sim\\operatorname{Bin}(n,p)$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Moments)",
       "meaning": "The count grows as a sum of independent binary outcomes, so both its mean and variance scale with the number of trials.",
-      "proof": "Write $X=\\sum_{i=1}^n B_i$ for independent Bernoulli variables with success probability $p$. Linearity gives $\\mathrm E(X)=\\sum_i p=np$; independence removes cross-covariances, so $\\operatorname{Var}(X)=\\sum_i p(1-p)=np(1-p)$.{{cite:ross2019}}"
+      "proof": "Write $X=\\sum_{i=1}^n B_i$ for independent Bernoulli variables with success probability $p$. Linearity gives $\\mathrm E(X)=\\sum_i p=np$; independence removes cross-covariances, so $\\operatorname{Var}(X)=\\sum_i p(1-p)=np(1-p)$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Moments)"
     }
   },
   "cauchy-distribution": {
@@ -476,14 +476,14 @@
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=-\\log U/\\lambda$, where $\\lambda$ is the event rate.",
     "conjugate_prior_for": "",
-    "lead_context": "Its constant event rate makes it the basic waiting-time model for Poisson processes and reliability calculations.{{cite:ross2019}}",
-    "statistical_use": "An exponential likelihood estimates a constant event rate from observed waiting times, with total exposure carrying the information about the rate. The constant-hazard assumption should be checked when failure risk changes with age.{{cite:ross2019}}",
-    "worked_example": "### Waiting longer than five units\n\nAt rate $\\lambda=0.2$ per unit, $P(X>5)=e^{-0.2(5)}=e^{-1}\\approx0.3679$. Conditional on surviving five units, the chance of surviving another five is the same $e^{-1}$ by memorylessness.{{cite:ross2019}}",
+    "lead_context": "{{cite:nist_exponential_reliability}} (§8.1.6.1, failure rate)",
+    "statistical_use": "Its constant event rate makes it the basic waiting-time model for Poisson processes and reliability calculations. An exponential likelihood estimates a constant event rate from observed waiting times, with total exposure carrying the information about the rate. The constant-hazard assumption should be checked when failure risk changes with age.{{cite:nist_exponential_reliability}} (§8.1.6.1, failure and reliability functions)",
+    "worked_example": "### Waiting longer than five units\n\nAt rate $\\lambda=0.2$ per unit, $P(X>5)=e^{-0.2(5)}=e^{-1}\\approx0.3679$. Conditional on surviving five units, the chance of surviving another five is the same $e^{-1}$ by memorylessness.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)",
     "key_result": {
       "title": "Memorylessness",
-      "statement": "For $X\\sim\\operatorname{Exp}(\\lambda)$ and $s,t\\ge0$, $P(X>s+t\\mid X>s)=P(X>t)=e^{-\\lambda t}$.{{cite:ross2019}}",
+      "statement": "For $X\\sim\\operatorname{Exp}(\\lambda)$ and $s,t\\ge0$, $P(X>s+t\\mid X>s)=P(X>t)=e^{-\\lambda t}$.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)",
       "meaning": "Elapsed waiting time does not change the distribution of the remaining wait.",
-      "proof": "The survival function is $S(u)=e^{-\\lambda u}$, which is positive for every finite $u$. Hence $P(X>s+t\\mid X>s)=S(s+t)/S(s)=e^{-\\lambda(s+t)}/e^{-\\lambda s}=e^{-\\lambda t}=S(t)$.{{cite:ross2019}}"
+      "proof": "The survival function is $S(u)=e^{-\\lambda u}$, which is positive for every finite $u$. Hence $P(X>s+t\\mid X>s)=S(s+t)/S(s)=e^{-\\lambda(s+t)}/e^{-\\lambda s}=e^{-\\lambda t}=S(t)$.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)"
     }
   },
   "f-distribution": {

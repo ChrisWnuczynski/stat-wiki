@@ -1,0 +1,9 @@
+# Bayesian information criterion research notes
+
+- **Checked:** Schwarz (1978), original JSTOR article scan distributed for university course reading, and the publisher DOI page https://doi.org/10.1214/aos/1176344136 . Read §§1–3 pp. 461–464. It states the log-likelihood minus half dimension times log sample size rule and proves the leading expansion for linear subfamilies of exponential families. The source scan includes JSTOR's personal/noncommercial use notice; no further distribution was made.
+- **Checked:** Kass and Raftery (1995), original full paper hosted by author Robert Kass https://www.stat.cmu.edu/~kass/papers/bayesfactors.pdf , §§3.1, 4.1–4.1.3 pp. 776–779. It distinguishes the exact Laplace approximation from the rough Schwarz criterion, notes prior constants, and discusses effective sample-size choice.
+- **Checked:** Drton and Plummer (2017), author-posted preprint https://arxiv.org/pdf/1309.0911 , §1 pp. 1–4. It documents singular Fisher information in mixtures and failure of the ordinary BIC marginal-likelihood penalty, while noting that BIC consistency may still hold under other assumptions.
+- **Checked:** Dodge (2008) authorized index has no BIC or Schwarz-criterion entry; no Dodge claim is cited on this page.
+- **Checked by code:** Existing $n=100$ BIC/AIC scores, new $n=150$ near tie, $n=400$ practice comparison and grouped-binomial trial counts in `checks/bayesian-information-criterion.py`.
+- **Assumed:** Fixed candidate set, same observations and likelihood convention, proper smooth positive priors, fixed parameter dimension, identifiable interior maximum and information scaling as $n$ for the displayed Laplace calculation.
+- **Disputed:** BIC's leading-order log-evidence equivalence does not make exponentiated BIC differences accurate Bayes factors; the omitted $O(1)$ term can reverse a near tie. Mixture consistency can coexist with a failed regular Laplace derivation.

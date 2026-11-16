@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **112**. Left: **606**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **127**. Left: **591**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -92,7 +92,7 @@ Pages ranked: **718**. Done: **112**. Left: **606**. Skipped: **0**. Ranks 1–6
 | 81 | [Interpreting a logistic regression](interpreting-a-logistic-regression.md) | Section | [Prose](content/interpreting-a-logistic-regression.md), [check](../checks/interpreting-a-logistic-regression.py) | 259 → 2,388 | 0 → 0 | See [research record](interpreting-a-logistic-regression.md) |
 | 82 | [Transition matrix](transition-matrix.md) | Section | [Prose](content/transition-matrix.md), [check](../checks/transition-matrix.py) | 554 → 2,618 | 0 → 0 | See [research record](transition-matrix.md) |
 | 83 | [Precision](precision.md) | Topic | [Prose](content/precision.md), [check](../checks/precision.py) | 203 → 2,729 | 0 → 0 | See [research record](precision.md) |
-| 84 | [Bernoulli distribution](bernoulli-distribution.md) | Distribution | [Prose](content/bernoulli-distribution.md), [check](../checks/bernoulli-distribution.py) | 862 → 2,330 | 2 → 2 | See [research record](bernoulli-distribution.md) |
+| 84 | [Bernoulli distribution](bernoulli-distribution.md) | Distribution | [Prose](content/bernoulli-distribution.md), [check](../checks/bernoulli-distribution.py) | 862 → 2,349 | 2 → 2 | See [research record](bernoulli-distribution.md) |
 | 85 | [Bayes classifier](bayes-classifier.md) | Section | [Prose](content/bayes-classifier.md), [check](../checks/bayes-classifier.py) | 496 → 2,264 | 0 → 0 | See [research record](bayes-classifier.md) |
 | 86 | [Iris data](iris-data.md) | Topic | [Prose](content/iris-data.md), [check](../checks/iris-data.py) | 1,769 → 4,864 | 0 → 0 | See [research record](iris-data.md) |
 | 87 | [Modes of convergence](modes-of-convergence.md) | Definition | [Prose](content/modes-of-convergence.md), [check](../checks/modes-of-convergence.py) | 385 → 1,648 | 0 → 0 | See [research record](modes-of-convergence.md) |
@@ -121,12 +121,27 @@ Pages ranked: **718**. Done: **112**. Left: **606**. Skipped: **0**. Ranks 1–6
 | 110 | [Quasi-score and quasi-likelihood](quasi-score-and-quasi-likelihood.md) | Definition | [Prose](content/quasi-score-and-quasi-likelihood.md), [check](../checks/quasi-score-and-quasi-likelihood.py) | 1,125 → 3,304 | 2 → 2 | See [research record](quasi-score-and-quasi-likelihood.md) |
 | 111 | [Stationarity and detailed balance](stationarity-and-detailed-balance.md) | Definition | [Prose](content/stationarity-and-detailed-balance.md), [check](../checks/stationarity-and-detailed-balance.py) | 573 → 1,983 | 0 → 0 | See [research record](stationarity-and-detailed-balance.md) |
 | 112 | [Quasi-Poisson](quasi-poisson.md) | Section | [Prose](content/quasi-poisson.md), [check](../checks/quasi-poisson.py) | 276 → 4,210 | 0 → 2 | See [research record](quasi-poisson.md) |
+| 113 | [Fisher information](fisher-information.md) | Topic | [Prose](content/fisher-information.md), [check](../checks/fisher-information.py) | 455 → 2,848 | 0 → 0 | See [research record](fisher-information.md) |
+| 114 | [Prior and posterior predictive distributions](prior-and-posterior-predictive-distributions.md) | Definition | [Prose](content/prior-and-posterior-predictive-distributions.md), [check](../checks/prior-and-posterior-predictive-distributions.py) | 1,628 → 5,229 | 0 → 0 | See [research record](prior-and-posterior-predictive-distributions.md) |
+| 115 | [Binomial distribution](binomial-distribution.md) | Distribution | [Prose](content/binomial-distribution.md), [check](../checks/binomial-distribution.py) | 3,113 → 5,355 | 4 → 4 | See [research record](binomial-distribution.md) |
+| 116 | [Canonical link](canonical-link.md) | Definition | [Prose](content/canonical-link.md), [check](../checks/canonical-link.py) | 586 → 3,702 | 1 → 1 | See [research record](canonical-link.md) |
+| 117 | [Complete statistic](complete-statistic.md) | Definition | [Prose](content/complete-statistic.md), [check](../checks/complete-statistic.py) | 465 → 2,344 | 0 → 0 | See [research record](complete-statistic.md) |
+| 118 | [Credible-region constructions](credible-region-constructions.md) | Definition | [Prose](content/credible-region-constructions.md), [check](../checks/credible-region-constructions.py) | 1,303 → 5,078 | 1 → 1 | See [research record](credible-region-constructions.md) |
+| 119 | [Bayesian information criterion](bayesian-information-criterion.md) | Definition | [Prose](content/bayesian-information-criterion.md), [check](../checks/bayesian-information-criterion.py) | 1,746 → 3,702 | 0 → 0 | See [research record](bayesian-information-criterion.md) |
+| 120 | [Gaussian kernel](gaussian-kernel.md) | Topic | [Prose](content/gaussian-kernel.md), [check](../checks/gaussian-kernel.py) | 546 → 2,589 | 0 → 0 | See [research record](gaussian-kernel.md) |
+| 121 | [Pearson statistic](pearson-statistic.md) | Definition | [Prose](content/pearson-statistic.md), [check](../checks/pearson-statistic.py) | 579 → 2,771 | 0 → 0 | See [research record](pearson-statistic.md) |
+| 122 | [Measurable random variable](measurable-random-variable.md) | Definition | [Prose](content/measurable-random-variable.md), [check](../checks/measurable-random-variable.py) | 446 → 2,329 | 0 → 0 | See [research record](measurable-random-variable.md) |
+| 123 | [Least squares](least-squares.md) | Section | [Prose](content/least-squares.md), [check](../checks/least-squares.py) | 780 → 3,239 | 0 → 0 | See [research record](least-squares.md) |
+| 124 | [Sample quantile](sample-quantile.md) | Definition | [Prose](content/sample-quantile.md), [check](../checks/sample-quantile.py) | 318 → 2,411 | 1 → 1 | See [research record](sample-quantile.md) |
+| 125 | [Exponential distribution](exponential-distribution.md) | Distribution | [Prose](content/exponential-distribution.md), [check](../checks/exponential-distribution.py) | 2,353 → 5,478 | 3 → 3 | See [research record](exponential-distribution.md) |
+| 126 | [K-nearest neighbours](nearest-neighbours.md) | Definition | [Prose](content/nearest-neighbours.md), [check](../checks/nearest-neighbours.py) | 397 → 2,733 | 0 → 0 | See [research record](nearest-neighbours.md) |
+| 127 | [Normal hierarchical shrinkage](normal-hierarchical-shrinkage.md) | Theorem | [Prose](content/normal-hierarchical-shrinkage.md), [check](../checks/normal-hierarchical-shrinkage.py) | 1,713 → 4,816 | 1 → 1 | See [research record](normal-hierarchical-shrinkage.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 113: `fisher-information`.** Ranks 98–112 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 128: `overdispersion`.** Ranks 113–127 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

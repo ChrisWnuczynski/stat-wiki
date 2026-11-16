@@ -831,7 +831,7 @@ At a point with $\tau(x)=(0.20,0.55,0.25)$ the minimum conditional risk is $1-0.
     "bayesian-information-criterion": r"""
 ## The penalty that remains after a Laplace approximation
 
-BIC compares models $M_k$ on one sample $X_{\mathrm{all}}$ of size $n$ by approximating a posterior probability of the model (Schwarz, 1978). Let $\Psi_k$ be the $d_k$-dimensional parameter of $M_k$, and let $\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)$ be the log-likelihood at a maximiser. A Gaussian integral around a regular interior peak has volume of order $n^{-d_k/2}$: each of the $d_k$ parameter directions is localised by an information that grows like $n$. Multiplying the marginal likelihood by $-2$ and dropping terms that stay bounded as $n$ grows leaves
+BIC compares models $M_k$ on one sample $X_{\mathrm{all}}$ of size $n$ by approximating a posterior probability of the model {{cite:schwarz1978}} (§§1–3, pp. 461–464). Let $\Psi_k$ be the $d_k$-dimensional parameter of $M_k$, and let $\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)$ be the log-likelihood at a maximiser. A Gaussian integral around a regular interior peak has volume of order $n^{-d_k/2}$: each of the $d_k$ parameter directions is localised by an information that grows like $n$. Multiplying the marginal likelihood by $-2$ and dropping terms that stay bounded as $n$ grows leaves
 
 $$
 \mathrm{BIC}_k=-2\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+d_k\log n.
@@ -1164,7 +1164,7 @@ Let $\Omega=\{1,2,\ldots\}$ and put mass $\mathbb{P}(\{n\})=2^{-n}$. The masses 
     "cover-hart-bound": r"""
 ## One neighbour samples the conditional label
 
-For two classes, let $\tau(x)=\mathbb{P}(Y=1\mid X=x)$ and let $r(x)=\min\bigl(\tau(x),1-\tau(x)\bigr)$ be the conditional [Bayes risk](bayes-classifier.qmd) at $x$. The unconditional Bayes risk is $R^*=\mathbb{E}[r(X)]$. As the training sample grows, the nearest neighbour of a continuity point $x$ approaches $x$, so its label is almost a fresh draw from the same conditional distribution that produces a new label at $x$. The two labels disagree with probability $2\tau(1-\tau)$. The identity $\tau(1-\tau)=r(1-r)$ rewrites that probability as $2r(x)\bigl(1-r(x)\bigr)$. Averaging over $X$ gives the asymptotic one-nearest-neighbour error. Because $1-r(x)\le 1$, this error is at most $2R^*$. [Jensen's inequality](jensen-s-inequality.qmd), using the concavity of $u\mapsto u(1-u)$ on $[0,1]$, sharpens the constant: $\mathbb{E}[r(1-r)]\le R^*(1-R^*)$, and therefore the asymptotic error is at most $2R^*(1-R^*)$ (Cover and Hart, 1967).
+For two classes, let $\tau(x)=\mathbb{P}(Y=1\mid X=x)$ and let $r(x)=\min\bigl(\tau(x),1-\tau(x)\bigr)$ be the conditional [Bayes risk](bayes-classifier.qmd) at $x$. The unconditional Bayes risk is $R^*=\mathbb{E}[r(X)]$. As the training sample grows, the nearest neighbour of a continuity point $x$ approaches $x$, so its label is almost a fresh draw from the same conditional distribution that produces a new label at $x$. The two labels disagree with probability $2\tau(1-\tau)$. The identity $\tau(1-\tau)=r(1-r)$ rewrites that probability as $2r(x)\bigl(1-r(x)\bigr)$. Averaging over $X$ gives the asymptotic one-nearest-neighbour error. Because $1-r(x)\le 1$, this error is at most $2R^*$. [Jensen's inequality](jensen-s-inequality.qmd), using the concavity of $u\mapsto u(1-u)$ on $[0,1]$, sharpens the constant: $\mathbb{E}[r(1-r)]\le R^*(1-R^*)$, and therefore the asymptotic error is at most $2R^*(1-R^*)$ {{cite:cover_hart1967}} (pp. 22–23).
 
 ## Equality when the conditional risk is constant
 
@@ -2684,7 +2684,7 @@ A query $x$ arrives with no label. Fix a distance, sort the [training set](train
 
 Small $k$ follows local labels, including their noise. Large $k$ averages over a wider region and is pulled towards the majority class. At $k=n$ every query has the same neighbourhood, the whole sample, and the rule always returns the majority label. The apparent error on the training points favours $k=1$, because each training point is its own nearest neighbour and is classified correctly. [Cross-validation](cross-validation.qmd) on held-out points is what can prefer a larger neighbourhood.
 
-Under the conditions of the [Cover–Hart bound](cover-hart-bound.qmd), the asymptotic risk of one neighbour is at most twice the Bayes risk (Cover and Hart, 1967). The distance itself is a modelling choice: multiplying one coordinate by $10$ can change which point is nearest, and a standardisation fitted on the training sample has to be reused, unchanged, on each query.
+Under the conditions of the [Cover–Hart bound](cover-hart-bound.qmd), the asymptotic risk of one neighbour is at most twice the Bayes risk {{cite:cover_hart1967}} (pp. 22–23). The distance itself is a modelling choice: multiplying one coordinate by $10$ can change which point is nearest, and a standardisation fitted on the training sample has to be reused, unchanged, on each query.
 """,
     "nettalk": r"""
 ## From a window of letters to a pronunciation code
@@ -4345,7 +4345,7 @@ ARTICLE_HISTORIES.update({
     "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:dodge2008}} (pp. 51–53, “Bootstrap”)",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
     "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (§V, p. 719, AIC formula)",
-    "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}}",
+    "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}} (§§1–3, pp. 461–464)",
     "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:dempster_laird_rubin1977}}",
     "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}}",
     "lasso": "Tibshirani introduced the lasso in 1996.{{cite:tibshirani1996}}",

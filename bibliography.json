@@ -8233,6 +8233,352 @@
         "source": "crossref",
         "id": "10.1007/978-3-031-12409-9_5"
       }
+    },
+    "edwards2013_ars": {
+      "authors": [
+        "Edwards, A. W. F."
+      ],
+      "year": 2013,
+      "title": "Ars conjectandi three hundred years on",
+      "kind": "article",
+      "venue": "Significance",
+      "doi": "10.1111/j.1740-9713.2013.00666.x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.1740-9713.2013.00666.x"
+      }
+    },
+    "siegrist2022_sufficient_complete": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §7.6: Sufficient, Complete and Ancillary Statistics",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics"
+      }
+    },
+    "liu_gelman_zheng2015": {
+      "authors": [
+        "Liu, Y.",
+        "Gelman, A.",
+        "Zheng, T."
+      ],
+      "year": 2015,
+      "title": "Simulation-efficient shortest probability intervals",
+      "kind": "article",
+      "venue": "Statistics and Computing",
+      "volume": "25",
+      "pages": "809–819",
+      "doi": "10.1007/s11222-015-9563-8",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s11222-015-9563-8"
+      }
+    },
+    "siegrist2022_bayesian_set_estimation": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §8.5: Bayesian Set Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.05:_Bayesian_Set_Estimation",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.05:_Bayesian_Set_Estimation"
+      }
+    },
+    "siegrist2022_exponential": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Exponential Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.02:_The_Exponential_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.02:_The_Exponential_Distribution"
+      }
+    },
+    "nist_exponential_reliability": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "The Exponential Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm"
+      }
+    },
+    "nist_exponential_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Exponential Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm"
+      }
+    },
+    "shortle2018_queueing": {
+      "authors": [
+        "Shortle, J. F.",
+        "Thompson, J. M.",
+        "Gross, D.",
+        "Harris, C. M."
+      ],
+      "year": 2018,
+      "title": "Fundamentals of Queueing Theory, Fifth Edition",
+      "kind": "book",
+      "publisher": "John Wiley & Sons",
+      "url": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf"
+      }
+    },
+    "siegrist2022_best_unbiased": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §7.5: Best Unbiased Estimators",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.05:_Best_Unbiased_Estimators",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.05:_Best_Unbiased_Estimators"
+      }
+    },
+    "polonik2020_kde": {
+      "authors": [
+        "Polonik, W."
+      ],
+      "year": 2020,
+      "title": "Nonparametric Inference - Kernel Density Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Computing_and_Modeling/Supplemental_Modules_(Computing_and_Modeling)/Regression_Analysis/Nonparametric_Inference_-_Kernel_Density_Estimation",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Computing_and_Modeling/Supplemental_Modules_(Computing_and_Modeling)/Regression_Analysis/Nonparametric_Inference_-_Kernel_Density_Estimation"
+      }
+    },
+    "hansen_larsson2026_density": {
+      "authors": [
+        "Hansen, N. R.",
+        "Larsson, J."
+      ],
+      "year": 2026,
+      "title": "Computational Statistics with R: Density Estimation",
+      "kind": "book",
+      "publisher": "University of Copenhagen",
+      "url": "https://cswr.nrhstat.org/density.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cswr.nrhstat.org/density.html"
+      }
+    },
+    "nist_least_squares_pmd2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1: Least Squares",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"
+      }
+    },
+    "nist_linear_least_squares_pmd2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
+      }
+    },
+    "nist_nonnormal_errors_pmd2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.5.3: Accounting for Errors with a Non-Normal Distribution",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm"
+      }
+    },
+    "shafer_vovk2018_grundbegriffe": {
+      "authors": [
+        "Shafer, G.",
+        "Vovk, V."
+      ],
+      "year": 2018,
+      "title": "The Origins and Legacy of Kolmogorov's Grundbegriffe",
+      "kind": "article",
+      "publisher": "Game-Theoretic Probability and Finance Project, Working Paper 4",
+      "url": "https://www.probabilityandfinance.com/articles/04.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilityandfinance.com/articles/04.pdf"
+      },
+      "venue": "Game-Theoretic Probability and Finance Project, Working Paper 4"
+    },
+    "sklearn_neighbors": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Nearest Neighbors",
+      "kind": "book",
+      "publisher": "scikit-learn User Guide",
+      "url": "https://scikit-learn.org/stable/modules/neighbors.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/neighbors.html"
+      }
+    },
+    "deligiannidis2022_foundations": {
+      "authors": [
+        "Deligiannidis, G."
+      ],
+      "year": 2022,
+      "title": "Foundations of Statistical Inference",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf"
+      }
+    },
+    "lancaster2004_bayesian_econometrics": {
+      "authors": [
+        "Lancaster, T."
+      ],
+      "year": 2004,
+      "title": "An Introduction to Modern Bayesian Econometrics",
+      "kind": "book",
+      "publisher": "Blackwell Publishing",
+      "url": "https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf"
+      }
+    },
+    "casella1985_empirical_bayes": {
+      "authors": [
+        "Casella, G."
+      ],
+      "year": 1985,
+      "title": "An Introduction to Empirical Bayes Data Analysis",
+      "kind": "article",
+      "publisher": "The American Statistician 39(2), 83–87",
+      "url": "https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf"
+      },
+      "venue": "The American Statistician",
+      "volume": "39",
+      "issue": "2",
+      "pages": "83–87",
+      "doi": "10.1080/00031305.1985.10479400"
+    },
+    "gelman_meng_stern1996": {
+      "authors": [
+        "Gelman, A.",
+        "Meng, X.-L.",
+        "Stern, H."
+      ],
+      "year": 1996,
+      "title": "Posterior predictive assessment of model fitness via realized discrepancies",
+      "kind": "article",
+      "venue": "Statistica Sinica",
+      "volume": "6",
+      "issue": "4",
+      "pages": "733–760",
+      "url": "https://stat.columbia.edu/~gelman/research/published/A6n41.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.columbia.edu/~gelman/research/published/A6n41.pdf"
+      }
+    },
+    "hyndman_fan1996": {
+      "authors": [
+        "Hyndman, R. J.",
+        "Fan, Y."
+      ],
+      "year": 1996,
+      "title": "Sample Quantiles in Statistical Packages",
+      "kind": "article",
+      "venue": "The American Statistician",
+      "volume": "50",
+      "number": "4",
+      "pages": "361–365",
+      "doi": "10.1080/00031305.1996.10473566",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00031305.1996.10473566"
+      }
+    },
+    "r_stats_quantile": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Sample Quantiles: stats::quantile",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html"
+      }
+    },
+    "siegrist2022_pareto": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Pareto Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/special/Pareto.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/special/Pareto.html"
+      }
     }
   }
 }

@@ -41,7 +41,7 @@ For data $x_1,\ldots,x_n$, the sample mean $\overline x=\frac1n\sum x_i$ is the 
 ::: {#def-sample-quantile .definition}
 ## Sample quantile
 
-A sample $p$-quantile, for $0<p<1$, is a value $q_p$ such that a fraction $p$ of the data is at most $q_p$.{{cite:tukey1977}}{{cite:wasserman2004}} The $0.25$, $0.5$ and $0.75$ quantiles are the first quartile, the median and the third quartile; the $p$-quantile is also the $100p$th percentile.{{cite:fisher1925_smrw}}
+A sample $p$-quantile, for $0<p<1$, is a value $q_p$ such that a fraction $p$ of the data is at most $q_p$.{{cite:hyndman_fan1996}} (pp. 361–362, order-statistic definitions) The $0.25$, $0.5$ and $0.75$ quantiles are the first quartile, the median and the third quartile; the $p$-quantile is also the $100p$th percentile.{{cite:hyndman_fan1996}} (pp. 361–362, quartile and percentile definitions)
 
 :::
 

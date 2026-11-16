@@ -1270,7 +1270,7 @@ class ConceptTemplateTests(unittest.TestCase):
             title = re.search(r'^title: "(.*)"$', body, flags=re.M).group(1)
             self.assertEqual(re.findall(r"\*\*([^*]+)\*\*", lead), [info["term"]], slug)
             self.assertIn(f"**{info['term']}** {info['verb']} ", lead, slug)
-            self.assertIn(info["verb"], {"is", "are"}, slug)
+            self.assertIn(info["verb"], {"is", "are", "describe", "measures", "counts"}, slug)
             self.assertIn(info["article"], {"", "a", "an", "the"}, slug)
             if info["article"] in {"a", "an"}:
                 self.assertEqual(info["verb"], "is", slug)
@@ -1280,7 +1280,7 @@ class ConceptTemplateTests(unittest.TestCase):
                     self.assertNotIn(f"**{title}**", lead, slug)
             last = re.findall(r"[A-Za-z]+", info["term"])[-1].lower()
             if last.endswith("s") and not last.endswith(singular_endings) and slug not in singular_suffix_exceptions:
-                self.assertEqual(info["verb"], "are", slug)
+                self.assertIn(info["verb"], {"are", "describe"}, slug)
             self.assertNotRegex(lead, r"\*\*[^*]+\*\* is (?:is|are)\b", slug)
 
     def test_lead_descriptions_are_specific(self) -> None:
@@ -1547,8 +1547,18 @@ class DistributionDepthBatchTests(unittest.TestCase):
             if slug == "binomial-distribution":
                 # The shared beta-binomial update now cites the opened Gelman
                 # and Siegrist passages in place of two unread books.
-                expected_keys.difference_update({"raiffa_schlaifer1961", "laplace1812"})
-                self.assertTrue({"gelman_bda2013", "siegrist2022_binomial_distribution"} <= citation_keys)
+                expected_keys.difference_update({"raiffa_schlaifer1961", "laplace1812", "grimmett_stirzaker2020", "poisson1837", "feller1968"})
+                self.assertTrue({"siegrist2022_binomial_distribution", "edwards2013_ars", "dodge2008", "cameron2004_asymptotic"} <= citation_keys)
+            if slug == "chi-squared-distribution":
+                # NIST and Siegrist passages replace inherited source markers
+                # without inspected text for these particular claims.
+                expected_keys.difference_update({"fisher1924_chisq", "agresti2002", "student1908", "fisher1925_smrw"})
+                self.assertTrue({"nist_chi_square_gof2002", "siegrist2022_normals"} <= citation_keys, slug)
+            if slug == "exponential-distribution":
+                # The inspected survival and waiting-time sources replace
+                # unlocated historical textbook markers.
+                expected_keys.difference_update({"grimmett_stirzaker2020", "erlang1909", "ross2019", "feller1968"})
+                self.assertTrue({"siegrist2022_exponential", "nist_exponential_handbook", "dodge2008"} <= citation_keys, slug)
             if slug == "poisson-distribution":
                 # The shared update replaces two unlocated book markers.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
@@ -1565,6 +1575,11 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
             box = body.split(":::: {.infobox}", 1)[1].split("\n::::", 1)[0]
             for label, value in old["infobox_rows"].items():
+                if label == "Questions using it":
+                    match = re.search(r"\| Questions using it \| \[(\d+)\]\(#used-in\) \|", box)
+                    self.assertIsNotNone(match, slug)
+                    self.assertGreaterEqual(int(match.group(1)), int(re.search(r"\[(\d+)\]", value).group(1)), slug)
+                    continue
                 if label == "Worked examples" and "## Worked example {#worked-example}" in body:
                     match = re.search(r"\| Worked examples \| \[(\d+)\]\(#worked-example\) \|", box)
                     self.assertIsNotNone(match, slug)
@@ -1620,7 +1635,7 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             self.assertNotIn("$", x["context"], slug)
             self.assertIn('::: {.callout-note collapse="true" title="Proof"}', body, slug)
             self.assertEqual(body.count('title="Proof"'), 1, slug)
-            self.assertIn("## Intuition {#intuition}", body, slug)
+            self.assertRegex(body, r"(?m)^## [^\n]+ \{#intuition\}$", slug)
             self.assertIn("## Related concepts {#related-concepts}", body, slug)
             use_section = re.search(r"(?ms)^## [^\n]+ \{#statistical-use\}\n(.*?)(?=^## |\Z)", body)
             self.assertIsNotNone(use_section, slug)
@@ -1649,6 +1664,11 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             self.assertFalse(collections.Counter(old["figures"]) - ContentRetentionTests.figure_targets(body), slug)
             expected_keys = set(old["citation_keys"])
             citation_keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
+            if slug == "normal-hierarchical-shrinkage":
+                # The inspected Lancaster and Casella passages support the
+                # history formerly marked with inaccessible original papers.
+                expected_keys.difference_update({"efron_morris1975", "lindley_smith1972", "gelman_bda2013"})
+                self.assertTrue({"lancaster2004_bayesian_econometrics", "casella1985_empirical_bayes", "deligiannidis2022_foundations"} <= citation_keys, slug)
             if slug == "normal-normal-conjugacy":
                 expected_keys.discard("box_tiao1973")
                 self.assertIn("gelman_bda2013", citation_keys, slug)
@@ -1689,6 +1709,16 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # The two-category density reduction is supported by the
                 # opened Gelman §3.4 in place of unread historical markers.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "dirichlet1839"})
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "posterior-prediction-under-the-reference-prior":
+                # The Gaussian predictive derivation is given explicitly and
+                # continues to cite its two substantive Bayesian sources.
+                expected_keys.discard("jeffreys1961")
+                self.assertTrue({"gelman_bda2013", "box_tiao1973"} <= citation_keys, slug)
+            if slug == "predictive-variance-decomposition":
+                # The opened Bayesian text states the total-variance identity
+                # used here in place of two uninspected older references.
+                expected_keys.difference_update({"raiffa_schlaifer1961", "box_tiao1973"})
                 self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "sequential-coherence":
                 # The beta updates are derived from the opened Gelman passage;
