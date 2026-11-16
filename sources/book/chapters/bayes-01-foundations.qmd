@@ -55,7 +55,7 @@ $$
 $$
 
 
- is meaningful. The interval $(a(x),b(x))$ is a $95\%$ *credible interval*.{{cite:gelman_bda2013}}{{cite:box_tiao1973}} This is not a reworded confidence interval: the two calculations can coincide in large samples, but their probability statements condition on different objects.{{cite:jeffreys1961}}
+ is meaningful. The interval $(a(x),b(x))$ is a $95\%$ *credible interval*.{{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 32–34) This is not a reworded confidence interval: the two calculations can coincide in large samples, but their probability statements condition on different objects.{{cite:gelman_bda2013}} (Ch. 4, §4.4, pp. 90–92)
 
 :::
 

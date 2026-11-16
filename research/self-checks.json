@@ -202,5 +202,9 @@
   "dispersion-parameter": [
     "q-47",
     "q-55"
+  ],
+  "bayesian-credible-interval": [
+    "q-08",
+    "ex-applied-iq"
   ]
 }

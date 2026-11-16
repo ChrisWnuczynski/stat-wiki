@@ -428,5 +428,10 @@
     "slug": "exponential-family#property-pitman-koopman-darmois-informal-form",
     "title": "Pitman–Koopman–Darmois converse",
     "reason": "The cited source states the converse with regularity conditions, but this article's Proof box proves only the forward exponential-family results. A reviewed converse proof is still needed."
+  },
+  {
+    "slug": "bayesian-credible-interval#property-asymptotic-coverage",
+    "title": "Large-sample frequentist coverage of Bayesian central intervals",
+    "reason": "The source states asymptotic correspondence under regularity conditions; a complete Bernstein–von Mises argument is outside the article's collapsed finite-sample proof."
   }
 ]
