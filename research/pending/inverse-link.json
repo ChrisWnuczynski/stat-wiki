@@ -1,0 +1,12 @@
+{
+  "article_lead": {
+    "description": "the reciprocal transformation that puts a positive response mean on a rate-like linear scale"
+  },
+  "self_checks": ["q-38", "q-57"],
+  "shared_changes": [
+    {
+      "file": "article_leads.json",
+      "description": "The stock description makes the article sound like the inverse of any link, whereas the article definition is the reciprocal link. Use the structured description override above to give a single accurate lead sentence."
+    }
+  ]
+}
