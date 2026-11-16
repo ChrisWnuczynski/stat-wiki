@@ -34,6 +34,7 @@ SOURCES = WIKI / "sources"
 BOOK = SOURCES / "book"  # the lecture book (index, chapters, figures)
 PREP = SOURCES / "prep"  # the final-exam booklet (index, chapters, figures)
 PRACTICE_TEX = SOURCES / "practice" / "stat3500_final_practice.tex"
+DEPTH_QUESTIONS = SOURCES / "depth-questions.json"
 PROBABILITY = SOURCES / "stat2003"  # probability notes (chapters and worked solutions)
 INFERENCE = SOURCES / "stat2004"  # inference notes; the probability part is not copied
 DATA = SOURCES / "stat1301"  # studies, description, and examples that point at inference
@@ -1250,7 +1251,7 @@ FINAL_TOPICS = {
     "ex-orthodont-lmm": "C2",
 }
 
-SOURCE_ORDER = ["book", "practice", "final", "concepts"]
+SOURCE_ORDER = ["book", "practice", "final", "concepts", "depth"]
 
 
 def assign_topics(questions: list[dict]) -> None:
@@ -1263,6 +1264,8 @@ def assign_topics(questions: list[dict]) -> None:
             q["topic"] = CHAPTER_CODES[PRACTICE_TOPICS[q["n"] - 1]]
         elif q["group"] == "concepts":
             q["topic"] = CHAPTER_CODES[CONCEPT_TOPICS[q["n"] - 1]]
+        elif q["group"] == "depth":
+            q["topic"] = CHAPTER_CODES[q["topic_code"]]
         else:
             code = FINAL_TOPICS.get(q["id"])
             if not code:
@@ -6903,6 +6906,29 @@ def main() -> None:
                 "categories": ["Practice answers"],
             }
         )
+
+    # Independently researched depth checks live in a source file alongside
+    # the teaching materials. They become ordinary answered question-bank pages.
+    for n, item in enumerate(json.loads(DEPTH_QUESTIONS.read_text(encoding="utf-8")), 1):
+        qid = item["id"]
+        if not re.fullmatch(r"(?:depth|exr)-[a-z0-9-]+", qid):
+            raise SystemExit(f"Invalid depth question id: {qid}")
+        if item["topic_code"] not in CHAPTER_CODES:
+            raise SystemExit(f"Invalid depth question topic: {qid}")
+        questions.append({
+            "group": "depth", "n": n, "id": qid, "label": "question:" + qid,
+            "title": item["title"], "body": item["body"],
+            "path": WIKI / "questions" / f"{qid}.qmd", "notes_path": None,
+            "answer_id": qid, "description": "Depth check", "topic_code": item["topic_code"],
+            "categories": ["Depth checks"],
+        })
+        answers.append({
+            "group": "depth", "id": qid, "title": "Answer: " + item["title"],
+            "body": item["answer"], "path": WIKI / "answers" / "depth" / f"{qid}.qmd",
+            "question_path": WIKI / "questions" / f"{qid}.qmd",
+            "notes_path": None, "description": "Depth-check answer",
+            "categories": ["Depth-check answers"],
+        })
 
     print("Writing pages")
     book_index = strip_first_heading((BOOK / "index.qmd").read_text(encoding="utf-8"))
