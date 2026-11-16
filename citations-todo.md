@@ -20,6 +20,7 @@ These articles do not yet have three inline citations. A further marker would na
 - r-s-distribution-interface | The remark states R's d/p/q/r prefixes. Chambers and Hastie (1992) and Ihaka and Gentleman (1996) are the allowed sources, and it is not clear that either paper states that prefix convention.
 - squared-error-of-an-average | The box is the Krogh–Vedelsby ambiguity decomposition. The other works allowed for this article do not state that identity.
 - squared-mahalanobis-distance | The definition now cites the opened Strimmer transformation example. The rest of this short page interprets that same distance and works a two-point calculation; further independent citations should be checked during its own depth pass.
+- thinning-a-markov-chain | The copied thinning explanation now cites Geyer (1992, §3.6, p. 480) for the spacing argument. A second independent source on this exact efficiency claim should be checked during its own depth pass.
 - unit-root | No chapter paragraph is copied onto the article. The page is a short lead.
 - variable-importance | The page copies no chapter prose. Breiman (2001) and Strobl, Boulesteix, Zeileis, and Hothorn (2007) are the two claims in the note. No third of those works states a further claim on the page.
 - variogram | The copied paragraph states the variogram. Only Matheron (1963) and Brockwell and Davis (1991) state that definition.

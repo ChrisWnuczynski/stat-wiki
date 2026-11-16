@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-38-onward`. Ranking is frozen in [RANKING.md]
 
 ## Status
 
-Pages ranked: **718**. Done: **40**. Left: **678**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
+Pages ranked: **718**. Done: **41**. Left: **677**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -49,12 +49,13 @@ Pages ranked: **718**. Done: **40**. Left: **678**. Skipped: **0**. Ranks 1–37
 | 38 | [Inverse-Gamma distribution](inverse-gamma-distribution.md) | Distribution | [Prose](content/inverse-gamma-distribution.md), [check](../checks/inverse-gamma-distribution.py) | 2,235 → 5,567 | 2 → 2 | Scale convention and dependent sources corrected; full proof and hidden-answer practice added |
 | 39 | [Multivariate normal distribution](multivariate-normal-distribution.md) | Distribution | [Prose](content/multivariate-normal-distribution.md), [check](../checks/multivariate-normal-distribution.py) | 1,123 → 3,996 | 3 → 3 | Located affine, conditional and geometry sources; full proof and hidden-answer practice added |
 | 40 | [Eigenvalues and eigenvectors](eigenvalues-and-eigenvectors.md) | Concept/topic | [Prose](content/eigenvalues-and-eigenvectors.md), [check](../checks/eigenvalues-and-eigenvectors.py) | 696 → 3,168 | 0 → 0 | Spectral interpretation, full proof and matrix practice added; copied citations located |
+| 41 | [Systematic-scan Gibbs sampler](systematic-scan-gibbs-sampler.md) | Concept/definition | [Prose](content/systematic-scan-gibbs-sampler.md), [check](../checks/systematic-scan-gibbs-sampler.py) | 2,043 → 4,935 | 1 → 1 | Full sweep proof and order-specific worked transitions; MCMC citations located |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 41: `systematic-scan-gibbs-sampler`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 42: `observed-and-expected-counts`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 

@@ -158,5 +158,9 @@
   "eigenvalues-and-eigenvectors": [
     "ex-sl-03-1",
     "ex-sl-01-1"
+  ],
+  "systematic-scan-gibbs-sampler": [
+    "q-51",
+    "q-25"
   ]
 }

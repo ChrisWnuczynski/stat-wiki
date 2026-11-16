@@ -243,9 +243,9 @@ $$
 
 The chain should be initialised in a plausible region when one is available. A start many standard deviations from the typical set can require a long time to return, while a start at the mean of a separated mixture can lie in a low-density gap. Multiple dispersed chains help reveal failure to explore all modes; they do not repair it automatically.
 
-Discarding early draws is called warm-up or burn-in.{{cite:gelman_bda2013}} It limits dependence on the chosen initial state, but it is not a proof of convergence.{{cite:gelman_rubin1992}}{{cite:geyer1992}} Strong posterior correlation produces staircase-like Gibbs paths and high autocorrelation. Separated modes are harder still because a coordinate-wise move may have to cross a low-density barrier.
+Discarding early draws is called warm-up or burn-in.{{cite:geyer1992}} (§3.7, p. 480) It limits dependence on the chosen initial state, but it is not a proof of convergence.{{cite:gelman_rubin1992}} (§§1–2, pp. 457–460) {{cite:geyer1992}} (§§3.7–4, pp. 480–482) Strong posterior correlation produces staircase-like Gibbs paths and high autocorrelation. Separated modes are harder still because a coordinate-wise move may have to cross a low-density barrier.
 
-Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information.{{cite:geyer1992}}{{cite:gelman_bda2013}} Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size.{{cite:geyer1992}} Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
+Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information.{{cite:geyer1992}} (§3.6, p. 480) Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size.{{cite:geyer1992}} (§§3.3–3.6, pp. 477–480) Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
 
 :::
 
