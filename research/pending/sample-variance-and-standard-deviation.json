@@ -1,0 +1,33 @@
+{
+  "slug": "sample-variance-and-standard-deviation",
+  "rank": 287,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Average the squared deviations, then restore the units",
+    "Definition — Divisor \\(n-1\\)",
+    "Properties — Unbiasedness, and a biased square root",
+    "Worked example — Four numbers",
+    "Connections — Population variance and standard errors",
+    "Check yourself — Two divisors"
+  ],
+  "words_before": 306,
+  "words_after": 984,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Siegrist (2022), §6.5",
+    "Dodge (2008), printed pp. 505–507, Standard Deviation"
+  ],
+  "proofs": [
+    "Unbiasedness of S^2 and the direction of the bias of S"
+  ],
+  "tests": [
+    "checks/sample-variance-and-standard-deviation.py"
+  ],
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
