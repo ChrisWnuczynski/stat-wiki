@@ -133,7 +133,7 @@ The Epanechnikov kernel has bounded support, so a sample point contributes nothi
 
 The matrix $H$ may be constrained to be diagonal, or left unconstrained. Either way the target is approximation of the density $f$ that generated the sample. There is no unique choice, and the multivariate problem is not a coordinate-wise copy of the univariate one. Likelihood cross-validation, as on [Model selection](sl-06-model-selection.qmd), fits the estimate on one part of the sample and scores the log-likelihood on the left-out part. The bandwidth with the highest held-out score is preferred. With a short sample the split is repeated over folds.
 
-A standard distance between $f$ and $\widehat f$, different from Kullback–Leibler divergence, is the mean integrated squared error{{cite:rosenblatt1956}}{{cite:parzen1962}}{{cite:silverman1986}},
+A standard distance between $f$ and $\widehat f$, different from Kullback–Leibler divergence, is the mean integrated squared error{{cite:wasserman_lecture26}} (§2, pp. 2–3, integrated squared error),
 
 $$
 \mathrm{MISE}(H)

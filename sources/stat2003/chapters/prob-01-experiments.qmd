@@ -123,7 +123,7 @@ If $\Omega$ is finite and every outcome has the same probability, then for every
 $$
 \Pr(A)=\frac{|A|}{|\Omega|}.
 $$
-{{cite:huygens1657}}{{cite:bernoulli1713}}{{cite:laplace1812}}{{cite:feller1968}}
+{{cite:durrett2019}} (Ch. 1 §1.1, finite uniform probability spaces)
 
 :::
 

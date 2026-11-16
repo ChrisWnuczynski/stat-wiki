@@ -37,7 +37,9 @@ assert pending["self_checks"] == ["c-12", "ex-prob-markov-two-steps"]
 for q in pending["self_checks"]:
     assert "## Worked answer" in (root / "questions" / f"{q}.qmd").read_text()
 assert "../questions/c-12.qmd" in page
-for key in ("levin_peres2017", "dodge2008", "markov1906"):
+for key in ("levin_peres2017", "dodge2008"):
     assert f'data-cite-key="{key}"' in body
+for unread in ("markov1906", "feller1968", "norris1997", "grimmett_stirzaker2020", "ross2019", "chapman1928", "kolmogorov1931"):
+    assert f'data-cite-key="{unread}"' not in body
 assert json.loads((root / "research/baseline.json").read_text())["markov-property"]["figures"] == 1
 print("Markov property probabilities and preservation passed")

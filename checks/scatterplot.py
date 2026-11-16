@@ -31,8 +31,10 @@ assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["scatterplot"]["figures"]
-for key in ("dodge2008", "nist_scatterplot2002", "galton1886", "chambers1983_gmda", "wasserman2004"):
+for key in ("dodge2008", "nist_scatterplot2002"):
     assert f'data-cite-key="{key}"' in body, key
+for unread in ("galton1886", "chambers1983_gmda", "wasserman2004"):
+    assert f'data-cite-key="{unread}"' not in body
 assert "ex-fish-poisson.qmd" in page
 assert pending["self_checks"] == ["ex-da-correlation-reading", "depth-scatterplot-curve", "depth-scatterplot-overplotting"]
 assert "## Worked answer" in (root / "questions/ex-da-correlation-reading.qmd").read_text()

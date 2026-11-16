@@ -182,7 +182,7 @@ For the posterior mode, \begin{align*}
 ::: {#rem-two-pseudo-count-conventions .remark}
 ## Two pseudo-count conventions
 
-For posterior means, $(\alpha,\beta)$ act as prior success and failure counts.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}} For an interior posterior mode, the corresponding counts are $(\alpha-1,\beta-1)$.{{cite:gelman_bda2013}} A pseudo-count statement is incomplete unless the posterior summary being interpreted is also named.
+For posterior means, $(\alpha,\beta)$ act as prior success and failure counts.{{cite:diaconis_ylvisaker1979}} (§1, pp. 269–270, beta-binomial update and mean) For an interior posterior mode, the corresponding counts are $(\alpha-1,\beta-1)$.{{cite:diaconis_ylvisaker1979}} (§1, p. 269, beta density; mode by differentiation){{cite:dodge2008}} (p. 40, beta density and mode) A pseudo-count statement is incomplete unless the posterior summary being interpreted is also named.
 
 :::
 
@@ -201,7 +201,7 @@ Sequential updating is exact. If data arrive in batches $(x_1,n_1)$ and $(x_2,n_
   \theta\given x_1,x_2
   &\sim\BetaDist(\alpha+x_1+x_2,
                  \beta+n_1+n_2-x_1-x_2),
-\end{align*} which is the same posterior obtained by combining both batches first.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}{{cite:laplace1812}}
+\end{align*} which is the same posterior obtained by combining both batches first.{{cite:diaconis_ylvisaker1979}} (§1, pp. 269–270, conjugate shape update)
 
 :::
 

@@ -140,17 +140,17 @@ where $W=\mathrm{diag}\bigl(p_i(1-p_i)\bigr)$. The identity $p_i(1-p_i)=\sigma'(
 ::: {#thm-sl-10-concave .theorem}
 ## A finite stationary point is a global maximiser
 
-At every finite coefficient vector the weights $p_i(1-p_i)$ are positive. The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}. If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser{{cite:agresti2002}}.
+At every finite coefficient vector the weights $p_i(1-p_i)$ are positive.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, binomial variance weights) The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave.{{cite:albert_anderson1984}} (§2, pp. 2–3, likelihood geometry) If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser by the displayed Hessian calculation.{{cite:albert_anderson1984}} (§2, pp. 2–3, finite maximum conditions)
 
 :::
 
 Concavity does not prove that a finite stationary point exists, and it does not prove that an unguarded numerical iteration will find one.
 
-Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0${{cite:albert_anderson1984}}. Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector{{cite:albert_anderson1984}}. The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate{{cite:albert_anderson1984}}. Check convergence and separation before interpreting standard errors.
+Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0${{cite:albert_anderson1984}} (§2, pp. 2–3, complete separation). Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector{{cite:albert_anderson1984}} (§3, pp. 4–5, nonexistence of a finite maximum). The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate{{cite:albert_anderson1984}} (§3, pp. 4–5, separation cases). Check convergence and separation before interpreting standard errors.
 
 ### Iteratively reweighted least squares
 
-Newton–Raphson updates{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}.
+Newton–Raphson updates follow from the score and Hessian above.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, iterative weighted least squares)
 
 $$
 \beta\leftarrow\beta+(X^\top W X)^{-1}X^\top(y-p).

@@ -38,7 +38,9 @@ assert "**Your turn.**" in body and 'title="Answer"' in body
 assert pending["self_checks"] == ["ex-prob-markov-two-steps", "ex-prob-markov-periodic"]
 for q in pending["self_checks"]:
     assert (root / "questions" / f"{q}.qmd").exists()
-for key in ("levin_peres2017", "dodge2008", "markov1906"):
+for key in ("levin_peres2017", "dodge2008"):
     assert f'data-cite-key="{key}"' in body
+for unread in ("markov1906", "feller1968", "norris1997", "grimmett_stirzaker2020", "ross2019"):
+    assert f'data-cite-key="{unread}"' not in body
 assert json.loads((root / "research/baseline.json").read_text())["finite-state-markov-chain"]["figures"] == 2
 print("finite-state chain calculations and preservation passed")

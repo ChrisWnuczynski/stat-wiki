@@ -133,7 +133,7 @@ The $p$-value is $0.008$, so the varieties differ. The pooled standard deviation
 ::: {#def-contrast .definition}
 ## Contrast
 
-A contrast is a linear combination $C=\sum_j c_j\mu_j$ of the treatment means whose coefficients sum to zero.{{cite:scheffe1959}} It is estimated by $\widehat C=\sum_j c_j\overline Y_{\cdot j}$, which is unbiased with variance $\sigma^2\sum_j c_j^2/n_j$.{{cite:tukey1949}}{{cite:scheffe1959}}
+A contrast is a linear combination $C=\sum_j c_j\mu_j$ of the treatment means whose coefficients sum to zero.{{cite:nist_contrasts2002}} (§7.4.3.6, contrast definition) It is estimated by $\widehat C=\sum_j c_j\overline Y_{\cdot j}$, which is unbiased with variance $\sigma^2\sum_j c_j^2/n_j$.{{cite:nist_contrasts2002}} (§7.4.3.6, estimate and variance)
 
 :::
 

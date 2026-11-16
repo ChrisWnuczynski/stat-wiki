@@ -55,8 +55,10 @@ assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["choosing-the-bandwidth"]["figures"]
-for key in ("rosenblatt1956", "parzen1962", "silverman1986", "wasserman_lecture26", "hansen_larsson2026_density", "rstats_bandwidth2026"):
+for key in ("silverman1986", "wasserman_lecture26", "hansen_larsson2026_density", "rstats_bandwidth2026"):
     assert f'data-cite-key="{key}"' in body, key
+for unread in ("rosenblatt1956", "parzen1962"):
+    assert f'data-cite-key="{unread}"' not in body
 assert pending["self_checks"] == ["ex-sl-07-3", "ex-sl-07-4", "ex-sl-07-6"]
 for slug in pending["self_checks"]:
     assert "## Worked answer" in (root / "questions" / f"{slug}.qmd").read_text()

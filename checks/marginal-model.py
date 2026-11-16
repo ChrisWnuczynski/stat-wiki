@@ -56,8 +56,9 @@ assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["marginal-model"]["figures"]
-for key in ("liang_zeger1986", "zeger_liang_albert1988"):
+for key in ("liang_zeger1986",):
     assert f'data-cite-key="{key}"' in body, key
+assert 'data-cite-key="zeger_liang_albert1988"' not in body
 for slug in ("c-38", "c-40"):
     assert f"{slug}.qmd" in page
 assert pending["self_checks"] == [item["id"] for item in pending["new_bank_questions"]]

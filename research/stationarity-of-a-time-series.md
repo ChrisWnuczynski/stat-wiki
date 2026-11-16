@@ -4,6 +4,7 @@
 
 - Hyndman and Athanasopoulos, *Forecasting: Principles and Practice*, 3rd ed., full author-hosted online textbook, Ch. 9 §9.1 at `https://otexts.com/fpp3/arima.html#stationarity-and-differencing`; read stationarity, plots/ACF and differencing sections.
 - Meinshausen, *Time Series Analysis* ETH Zurich course notes (2022), full university-hosted text, §§1.1–1.6, especially §1.3 pp. 5–6 definitions/examples and §1.4 p. 7 covariance properties.
+- Mikusheva and Schrimpf, MIT OpenCourseWare *Introduction to VARs: Wold Decomposition Theorem*, corrected 2012 lecture 10, full official MIT-hosted PDF at `https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf`; opened the stated weak-stationarity representation and scalar proof. Added as support for the preserved Wold box after removing unread original-source citations.
 - Dodge (2008), authorized local "Time Series" entry, printed p. 536, including history of trend/seasonal decomposition and Persons's 1919 proposal.
 - Generated baseline page, 662 words, zero figures; Wold box, strict/weak definitions, variogram equation, and question links preserved.
 

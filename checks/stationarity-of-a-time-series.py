@@ -30,8 +30,10 @@ assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert "wold-decomposition.qmd" in page
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["stationarity-of-a-time-series"]["figures"]
-for key in ("hyndman_athanasopoulos2021", "meinshausen2022_timeseries", "dodge2008", "wold1938", "brockwell_davis1991"):
+for key in ("hyndman_athanasopoulos2021", "meinshausen2022_timeseries", "mikusheva2012_wold", "dodge2008"):
     assert f'data-cite-key="{key}"' in body, key
+for unread in ("wold1938", "brockwell_davis1991", "box_jenkins1970", "matheron1963", "yule1927", "khinchin1934"):
+    assert f'data-cite-key="{unread}"' not in body
 assert pending["self_checks"] == ["ex-sp-increments-and-levels", "ex-sp-same-marginals", "depth-stationarity-changing-laws"]
 for slug in pending["self_checks"][:2]:
     assert "## Worked answer" in (root / "questions" / f"{slug}.qmd").read_text()

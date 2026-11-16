@@ -11,6 +11,15 @@
       "publisher": "ETH Zurich",
       "url": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf",
       "verification": {"source": "archival_url", "id": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf"}
+    },
+    "mikusheva2012_wold": {
+      "authors": ["Mikusheva, A.", "Schrimpf, P."],
+      "year": 2012,
+      "title": "Introduction to VARs: Wold Decomposition Theorem",
+      "kind": "book",
+      "publisher": "MIT OpenCourseWare, 14.384 Time Series Analysis, Lecture 10",
+      "url": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf",
+      "verification": {"source": "archival_url", "id": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf"}
     }
   },
   "self_checks": ["ex-sp-increments-and-levels", "ex-sp-same-marginals", "depth-stationarity-changing-laws"],

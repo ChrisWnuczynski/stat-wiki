@@ -35,7 +35,7 @@ I_M(m)&=1-\hat p_{mg^*},
 &&\text{misclassification rate},
 \end{align*}
 
-where $g^*=\operatorname{arg\,max}_g\hat p_{mg}${{cite:breiman_cart1984}}{{cite:gini1912}}{{cite:hastie_esl2009}}. In the cross-entropy, a term with $\hat p_{mg}=0$ is taken to be $0$, the limiting value of $p\log p$ as $p\to 0${{cite:shannon1948}}. The logarithm may be in any fixed base. The worked arithmetic below uses the natural logarithm. A change of base multiplies every entropy, and every entropy reduction, by the same positive constant, so it does not change which split wins. A plot drawn in bits uses base $2$.
+where $g^*=\operatorname{arg\,max}_g\hat p_{mg}${{cite:stanford_cs229_trees2018}} (§3, pp. 4–5, impurity criteria). In the cross-entropy, a term with $\hat p_{mg}=0$ is taken to be $0$, the limiting value of $p\log p$ as $p\to 0${{cite:stanford_cs229_trees2018}} (§3, p. 4, entropy convention). The logarithm may be in any fixed base. The worked arithmetic below uses the natural logarithm. A change of base multiplies every entropy, and every entropy reduction, by the same positive constant, so it does not change which split wins.{{cite:stanford_cs229_trees2018}} (§3, p. 4, entropy scaling for split comparison) A plot drawn in bits uses base $2$.
 
 :::
 
@@ -47,7 +47,7 @@ $$
 =1-\sum_{g=1}^G\hat p_{mg}^2.
 $$
 
-For two classes, write $p$ for the proportion of class $1$. Then the Gini index is $2p(1-p)${{cite:gini1912}}{{cite:breiman_cart1984}} and the cross-entropy is $-p\log p-(1-p)\log(1-p)${{cite:shannon1948}}. Both are strictly concave functions of $p$, zero at $p=0$ and at $p=1$, and largest at $p=1/2$. Misclassification impurity is $\min(p,1-p)$, piecewise linear, zero at the endpoints and equal to $1/2$ at $p=1/2$. Entropy is differentiable in the interior. Its derivative is not finite at the endpoints.
+For two classes, write $p$ for the proportion of class $1$. Then the Gini index is $2p(1-p)${{cite:stanford_cs229_trees2018}} (§3, pp. 4–5, Gini criterion) and the cross-entropy is $-p\log p-(1-p)\log(1-p)${{cite:stanford_cs229_trees2018}} (§3, p. 4, entropy criterion). Both are strictly concave functions of $p$, zero at $p=0$ and at $p=1$, and largest at $p=1/2$. Misclassification impurity is $\min(p,1-p)$, piecewise linear, zero at the endpoints and equal to $1/2$ at $p=1/2$. Entropy is differentiable in the interior. Its derivative is not finite at the endpoints.
 
 If both children retain the parent's majority class, their weighted misclassification impurity equals the parent's even when their proportions differ. Suppose the parent has class-$1$ proportion $p>1/2$, so $I_M=1-p$, and both children have class-$1$ proportions $p_L>1/2$ and $p_R>1/2$. If a fraction $w$ of the node goes left,
 

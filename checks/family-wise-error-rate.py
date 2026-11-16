@@ -23,8 +23,10 @@ assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert "ex-inf-tukey-corn.qmd" in page and "ex-da-bonferroni.qmd" in page
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["family-wise-error-rate"]["figures"]
-for key in ("benjamini_hochberg1995", "nist_bonferroni2002", "dodge2008", "bonferroni1936", "hastie_esl2009"):
+for key in ("benjamini_hochberg1995", "nist_bonferroni2002", "dodge2008"):
     assert f'data-cite-key="{key}"' in body, key
+for unread in ("bonferroni1936", "hastie_esl2009"):
+    assert f'data-cite-key="{unread}"' not in body
 assert pending["self_checks"] == ["ex-sl-18-3", "ex-inf-tukey-corn"]
 for slug in pending["self_checks"]:
     assert "## Worked answer" in (root / "questions" / f"{slug}.qmd").read_text()
