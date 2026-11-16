@@ -45,6 +45,12 @@ A penalised coefficient is an estimate under the chosen criterion. For uncertain
 ## Worked example
 Take a centred two-coordinate problem with $\boldsymbol X=I_2$ and observed $\boldsymbol y=(3,0.5)^{\mathsf T}$. Ordinary least squares gives $(3,0.5)^{\mathsf T}$. Using $\lambda=1$ in the two objectives defined above, ridge gives $(3/2,0.5/2)^{\mathsf T}=(1.5,0.25)^{\mathsf T}$; lasso gives $(3-1,\max(0.5-1,0))^{\mathsf T}=(2,0)^{\mathsf T}$. The example shows continuous shrinkage beside an exact zero. Equal numerical values of $\lambda$ in these two different penalty formulas do not represent equal effective complexity.{{cite:tibshirani1996}} (§2.2, eqs. 3–4, pp. 269–270)
 
+**Your turn.** With $\boldsymbol X=I_2$, $\boldsymbol y=(2,0.5)^{\mathsf T}$, and $\lambda=1$ in the same objectives, find the ridge and lasso estimates.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Ridge divides both coordinates by $2$, giving $(1,0.25)^{\mathsf T}$. Lasso soft-thresholds each coordinate by $1$, giving $(1,0)^{\mathsf T}$.{{cite:tibshirani1996}} (§2.2, eqs. 3–4, pp. 269–270)
+:::
+
 ## Assumptions and limits
 Penalties depend on parameterisation and predictor scale. A coefficient that becomes small after standardisation may not look small in the original units, and changing one input's units without refitting the penalty changes the estimator. The lasso can select one of several correlated predictors, so a zero coefficient is not evidence that its underlying measurement is scientifically irrelevant.{{cite:hoerl_kennard1970}} (§§1–2, pp. 55–58){{cite:tibshirani1996}} (§§1–2.2, pp. 267–270)
 

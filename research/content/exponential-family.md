@@ -35,6 +35,12 @@ Suppose four independent Poisson counts are $1,0,2,1$. Their total is $S=1+0+2+1
 
 Give $\lambda$ a Gamma prior with shape $2$ and rate $1$, whose density is proportional to $\lambda^{2-1}e^{-\lambda}$. Multiplication by the likelihood gives a Gamma posterior with shape $2+4=6$ and rate $1+4=5$, hence posterior mean $6/5=1.2$. In the natural parameter $\eta$, the prior density includes the Jacobian $d\lambda/d\eta=\lambda$ and has kernel $\exp\{2\eta-e^\eta\}$: its hyperparameters are $\alpha=2$ and $\nu=1$. The general update gives $\alpha'=2+4=6$ and $\nu'=1+4=5$, agreeing with the Gamma calculation.{{cite:diaconis_ylvisaker1979}} (§§1–2, pp. 269–272){{cite:geyer2025_conjugate}} (§§2.1–2.2, eqs. 2.3–2.5)
 
+**Your turn.** Four independent Poisson counts are $0,1,1,0$. Find the maximum-likelihood estimate of their common mean $\lambda$, then update a Gamma prior with shape $2$ and rate $1$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The total is $S=2$, so $\widehat\lambda=S/4=1/2$. The likelihood contributes $\lambda^2e^{-4\lambda}$; the posterior is Gamma with shape $2+2=4$ and rate $1+4=5$, giving posterior mean $4/5$.{{cite:geyer2025_conjugate}} (§§2.1–2.2, eqs. 2.3–2.5)
+:::
+
 ## Assumptions and limits
 The displayed densities use a common support for parameter values in the regular family. If support moves with the parameter, the usual derivative interchange and the Pitman–Koopman–Darmois characterisation can fail: a sample maximum remains sufficient for a $\operatorname{Uniform}(0,\theta)$ model even though its support depends on $\theta$. The converse characterisation requires additional regularity conditions on the distribution of the sufficient statistic.{{cite:geyer2022_exp_family}} (§§3.7, 9.4, “Probability Mass-Density Functions” and “The Pitman–Koopman–Darmois Theorem”)
 

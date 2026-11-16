@@ -39,6 +39,12 @@ For the five waits $2,4,5,8,100$, the sample median is $5$ and the sample mean i
 
 For the even sample $2,4,8,100$, the reported median is $(4+8)/2=6$. Every $a$ from $4$ through $8$ gives the same absolute-error sum: at $a=6$ it is $4+2+2+94=102$, and at $a=4$ it is $2+0+4+96=102$. The interval of minimizers explains why the midpoint convention does not change the absolute-error property.{{cite:siegrist2022_order_statistics}} (§6.6, “The Sample Median”){{cite:schwertman_gilks_cameron1990}} (p. 38, Theorem and proof)
 
+**Your turn.** Find the median of $1,3,7,9,20$ and compare the total absolute deviations at $a=7$ and $a=3$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The middle ordered value is $7$. The absolute-deviation sum is $6+4+0+2+13=25$ at $a=7$ and $2+0+4+6+17=29$ at $a=3$, illustrating the median's minimising property.{{cite:schwertman_gilks_cameron1990}} (p. 38, Theorem and proof)
+:::
+
 ## Common misconceptions
 An even-sample median need not be an observed value; it is commonly the midpoint of the two central observations. A population median need not be unique, especially with a discrete distribution. The median's resistance to tail magnitudes does not make every inference based on it insensitive to selection bias or dependence: those are properties of how data were gathered.{{cite:siegrist2022_order_statistics}} (§6.6, “The Sample Median”){{cite:siegrist2022_quantiles}} (§3.6, “Quantile Functions”){{cite:nist_location2002}} (§1.3.5.1, “Measures of Location”)
 

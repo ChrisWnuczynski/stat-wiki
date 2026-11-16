@@ -41,6 +41,12 @@ Let four independent Bernoulli observations have success probability $p=1/4$. On
 
 Before the four outcomes are seen, $\mathbb E\bar X=p=1/4$ and $\operatorname{Var}(\bar X)=p(1-p)/4=3/64$. The realised $\bar x=1/2$ is one draw from that sampling distribution. If the four recorded values were copies of the same Bernoulli outcome instead, their means would still be $1/4$ but $\operatorname{Var}(\bar X)$ would be $3/16$; the independent-sample variance formula would be wrong.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”){{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
 
+**Your turn.** Under the four independent Bernoulli$(1/4)$ draws in the example, what is the probability that all four outcomes are zero? What is $\mathbb E\bar X$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Each draw is zero with probability $3/4$. Independence gives $(3/4)^4=81/256$ for four zeros. The sample mean still has expectation $1/4$ over repeated samples.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”)
+:::
+
 ## Common misconceptions
 The iid definition describes a joint law for measurements; simple random sampling describes an equal-probability selection design for distinct units. That survey design may make inclusion probabilities equal while measurements remain dependent through selection or shared circumstances. The properties of $\bar X$ and $s^2$ on this page rely on the iid model; apply design-specific or dependence-aware formulas when the data collection differs.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples” and “Difficulties”){{cite:statistics_canada2003_survey}} (§6.2.2, pp. 93–94)
 

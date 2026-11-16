@@ -22,3 +22,9 @@ The inherited Laplace and Jeffreys references were bibliography-only citations w
 - Corrected the event formula's conditions in the shared source chapter and added located citations there. The theorem template gained page-specific research slots because result articles did not previously read `research/content/<slug>.md`; the other result pages retain their existing order and content.
 - The original restricted-prior question, its answer, the infobox values, and all nine question links remain. No figures existed. `checks/bayes-rule.py` verifies the exact printed counts and rounded probabilities, the single Proof box, and the article's source keys.
 - Generated article: 1,904 body words, no figures, one Proof callout. The build produced 718 articles and 557 question pages; all 67 Python tests and offline verification of 408 bibliography entries pass. The global proofs todo has 94 entries, none for this article.
+
+## Rank 28–37 practice correction
+
+- Added a motivating example grounded in the already opened source.
+- The existing worked example and hidden “Your turn” answer already met the practice requirement.
+- After rebuilding, the generated body has 1,969 words by the progress-table method.

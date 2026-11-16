@@ -1,6 +1,9 @@
 ## Lead context
 The calculation combines the starting frequency of a hypothesis with the probability of the finding under each alternative.{{cite:wang2025_foundations}} (Ch. 1, §2.11.2, Thm. 45; §2.12.1)
 
+## Motivating example
+A positive test result is more informative when the tested condition is common than when it is rare, even if the test has the same sensitivity. Bayes’ rule combines the test’s behaviour with the condition’s prevalence to answer the question a patient actually asks: among positive results, how many indicate the condition?{{cite:wang2025_foundations}} (Ch. 1, §2.12.1, Example 46)
+
 ## Statement
 The event formula above requires both conditional probabilities to exist: $\mathbb P(A)>0$ to define $\mathbb P(B\mid A)$, and $\mathbb P(B)>0$ to define the posterior $\mathbb P(A\mid B)$. Here $A$ is the hypothesis event, $B$ is the observed event, $\mathbb P(A)$ is the prior probability, and $\mathbb P(B\mid A)$ is the probability of the observation if $A$ occurs. The denominator is the overall probability of $B$.{{cite:wang2025_foundations}} (Ch. 1, §2.11.2, Thm. 45)
 

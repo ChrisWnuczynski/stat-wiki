@@ -1,6 +1,9 @@
 ## Lead context
 Cross-validation uses each observation for assessment while keeping it out of the fit that predicts it. It is useful when a permanent test set would leave too little data for training, and it evaluates a training procedure at the size of the folds' training portions. Choosing a model with those scores requires a separate assessment of the choice itself.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244) {{cite:cawley_talbot2010}} (§1, pp. 2079–2081)
 
+## Motivating example
+A prediction rule can look accurate on observations used to fit it. To estimate how it might perform on new observations, divide the available data into folds, fit without one fold, and score predictions on that held-out fold. Repeating this over folds gives each observation a prediction from a fit that did not use its response.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–243)
+
 ## Intuition
 Imagine five piles of labelled observations. Fit on four piles, predict the fifth, and rotate the held-out pile until each has been predicted. Each prediction is made without its own observation in the fit. A score computed from those predictions answers how the fitting recipe performs with roughly four-fifths of the available data; a final fit on all five piles is a different fitted rule.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
 
@@ -36,6 +39,12 @@ For a fixed tuning value, a cross-validation score can compare candidate procedu
 
 ## Worked example
 Suppose a classifier is assessed on eleven observations in three folds of sizes four, four, and three. It makes one error in the first fold, none in the second, and one in the third. The pooled error is \(2/11\approx0.1818\). Averaging the three fold rates without weighting gives \((1/4+0+1/3)/3=7/36\approx0.1944\). The pooled value answers the error per held-out observation; the unweighted value answers the error per fold.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–243)
+
+**Your turn.** Keep fold sizes $4,4,3$, but suppose the error counts are $1,1,0$. Compute the pooled error and the unweighted average of fold rates.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The pooled error is $2/11\approx0.1818$. The fold rates are $1/4,1/4,0$, whose unweighted average is $1/6\approx0.1667$. Unequal fold sizes make the two summaries differ.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–243)
+:::
 
 ## Common misconceptions
 A held-out observation must be absent from every part of the fit that predicts it. Scaling on all observations before splitting lets the held-out values influence the transformation, and selecting features on all cases can make performance look better than a genuinely new sample would allow. Different folds share training cases, so their scores do not amount to independent replications of the whole study.{{cite:hastie_esl2009}} (Ch. 7, §§7.10.1–7.10.2, pp. 242–246)

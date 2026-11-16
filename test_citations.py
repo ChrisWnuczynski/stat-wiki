@@ -370,6 +370,13 @@ class CitationTests(unittest.TestCase):
                 continue
             path = articles_dir / f"{Path(ref).stem}.qmd"
             body = path.read_text(encoding="utf-8").split("## See also", 1)[0]
+            research_path = ROOT / "research" / "content" / f"{Path(ref).stem}.md"
+            research = research_path.read_text(encoding="utf-8")
+            for heading in ("Motivating example", "Worked example"):
+                self.assertIn(f"## {heading}\n", research, f"Missing {heading} in {path.name}")
+            worked = research.split("## Worked example\n", 1)[1].split("\n## ", 1)[0]
+            self.assertIn("Your turn", worked, f"Missing practice prompt in {path.name}")
+            self.assertIn('collapse="true"', worked, f"Practice answer is not hidden in {path.name}")
             self.assertNotIn("## Check yourself", body, f"Duplicate question-link section in {path.name}")
             self.assertIsNone(
                 re.search(r"\b(?:retained|existing|original definition|opened|verified source|the example above was kept|not claiming|not claim)\b", body, re.I),

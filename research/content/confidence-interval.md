@@ -37,6 +37,12 @@ The normal-variance interval in the worked examples uses chi-squared quantiles, 
 ## Worked example
 Suppose twenty independent repetitions each produce a 95% confidence interval by a correctly calibrated procedure. If $C_j$ is one when repetition $j$ covers the true parameter and zero otherwise, then $\mathbb E\sum_{j=1}^{20}C_j=20(0.95)=19$. The count need not equal 19: independence would make the probability that *all* twenty cover $0.95^{20}\approx0.3585$. A run with two misses does not, by itself, change the procedure's 95% coverage claim.{{cite:neyman1937}} (pp. 347–350, 378–379) {{cite:nist_mean_limits2002}} (§1.3.5.2)
 
+**Your turn.** If the same independent 95% procedure is repeated ten times, what is the expected number of intervals that cover, and what is the probability that all ten cover?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The expected count is $10(0.95)=9.5$. Under independence, the probability that all ten cover is $0.95^{10}\approx0.5987$. An expected count need not be an integer.{{cite:neyman1937}} (pp. 347–350, 378–379)
+:::
+
 ## Common misconceptions
 After observing $(l,u)$, a frequentist confidence statement does not assign a 95% probability to the fixed parameter being inside these fixed endpoints. The probability statement concerns the random endpoints before sampling. A 95% interval also does not say that 95% of future observations fall inside it; a [prediction interval](prediction-interval.qmd) has a different target. Narrowness alone is no proof of good calibration: an interval method must still attain its promised coverage under the stated model.{{cite:neyman1937}} (pp. 347–350, 378–379) {{cite:nist_mean_limits2002}} (§1.3.5.2)
 

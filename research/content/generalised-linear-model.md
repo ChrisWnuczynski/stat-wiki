@@ -43,6 +43,12 @@ Consider two possible models using the predictor $\eta=\log 2+x\log 3$, where $x
 
 At $x=2$, the same predictor is $\log18$. The Poisson expected count is $18$; the Bernoulli probability is $18/19\approx0.9474$. Each additional unit of $x$ multiplies the Poisson mean or the Bernoulli odds by $3$, with different consequences on the response scales.{{cite:nelder_wedderburn1972}} (§§3.2–3.3, pp. 377–380)
 
+**Your turn.** For the same predictor $\eta=\log2+x\log3$, find the Poisson mean and Bernoulli success probability when $x=-1$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Now $e^\eta=2/3$. The Poisson mean is $2/3$, while the Bernoulli odds are $2/3$ and its success probability is $(2/3)/(1+2/3)=2/5$.{{cite:nelder_wedderburn1972}} (§§3.2–3.3, pp. 377–380)
+:::
+
 ## Common misconceptions
 A link transforms the *mean*, not each observed response. Logging a predictor such as lake area is also separate from choosing a log link. The word “linear” permits transformed columns and interactions while requiring an additive coefficient sum in the chosen columns. A canonical link is a mathematical match to the exponential-family parameter; another permitted link may suit the response question better.{{cite:nelder_wedderburn1972}} (§§1.2–1.3, 3.3, pp. 372–373, 379–380) {{cite:sas2012_glm}} (Ch. 3, “Generalized Linear Models”)
 

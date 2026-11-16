@@ -27,3 +27,8 @@ Type: Concept/definition. Rank 35.
 ## Verification
 
 Generated article: 4,894 body words versus 2,993 before; zero figures versus zero before; seven distinct question links; one collapsed Proof box and one specifically listed converse todo item. The page-specific check asserts its printed Poisson–Gamma values and inherited numerical examples, symbols, citations and preserved links. All 35 completed pages' exact-value checks, 67 Python tests, and offline validation of 420 bibliography entries pass. `git diff --check` is clean. The temporary Quarto-to-Pandoc shim was used for the generator's Pandoc call; no HTML render was attempted.
+
+## Rank 28–37 practice correction
+
+- Kept the worked example and added a “Your turn” problem with its answer in a collapsed callout.
+- After rebuilding, the generated body has 4,979 words by the progress-table method.

@@ -37,6 +37,12 @@ Before using a collection of separately supplied conditional models, check that 
 ## Worked example
 Suppose a joint posterior for binary parameters $X$ and $Z$, after observing fixed data $y$, has masses $\pi(0,0\mid y)=2/5$, $\pi(0,1\mid y)=1/10$, $\pi(1,0\mid y)=1/5$ and $\pi(1,1\mid y)=3/10$. The four masses sum to one. Holding $Z=0$ gives $\Pr(X=0\mid Z=0,y)=(2/5)/(3/5)=2/3$ and $\Pr(X=1\mid Z=0,y)=1/3$. Holding $X=0$ gives $\Pr(Z=1\mid X=0,y)=(1/10)/(1/2)=1/5$. Starting a sweep at $(X,Z)=(1,0)$ and updating $X$ then $Z$, the chance of reaching $(0,1)$ in that sweep is $(2/3)(1/5)=2/15$. That transition probability conditions on the starting state; the posterior mass of $(0,1)$ is $\pi(0,1\mid y)=1/10$.{{cite:gelfand_smith1990}} (§2.3, pp. 400–401){{cite:geyer2005_markov_chain}} (§§10.1, 10.4, pp. 27–28)
 
+**Your turn.** For the same four-cell posterior, find $\Pr(Z=1\mid X=1,y)$. Starting at $(1,0)$ and updating $X$ then $Z$, what is the chance of reaching $(1,1)$ in one sweep?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The first probability is $(3/10)/(1/5+3/10)=3/5$. The $X$ update retains $X=1$ with probability $(1/5)/(3/5)=1/3$ while $Z=0$; the subsequent $Z$ update selects $1$ with probability $3/5$. The transition probability is $(1/3)(3/5)=1/5$.{{cite:gelfand_smith1990}} (§2.3, pp. 400–401)
+:::
+
 ## Assumptions and limits
 The displayed density quotient requires a positive, finite marginal density at the fixed conditioning value. For continuous parameters it is defined only up to choices on marginal-null sets. A Gibbs update also requires a way to sample from its full conditional; recognizing a kernel without an available sampler does not by itself produce a draw. On a finite state space, strictly positive joint mass gives the convergence result proved above. If conditionals are specified separately rather than derived from one joint law, their compatibility needs checking.{{cite:geyer2005_markov_chain}} (§§10.1, 10.6, pp. 27–30){{cite:chen_ip2015}} (§1, pp. 3266–3268)
 

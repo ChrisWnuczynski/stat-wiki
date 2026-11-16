@@ -26,3 +26,8 @@ The McCullagh–Nelder and Davison books were unavailable for this pass and are 
 ## Verification
 
 Generated article: 4,437 body words versus 2,613 before; three figure instances versus three before; six distinct question links; one collapsed Proof box. The exact-value check passes. The generator produced 718 articles and 557 question pages, all 67 Python tests pass, and offline validation passes for 410 bibliography entries. `git diff --check` is clean. The container lacked Quarto's executable for the final rebuild, so a temporary `/tmp/quarto` shim invoked the installed Pandoc for the generator's sole `quarto pandoc` call; no repository build command was changed. No rendered HTML build was attempted.
+
+## Rank 28–37 practice correction
+
+- Kept the worked example and added a “Your turn” problem with its answer in a collapsed callout.
+- After rebuilding, the generated body has 4,501 words by the progress-table method.

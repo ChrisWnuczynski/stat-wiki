@@ -22,3 +22,9 @@ The Geisser 1975 journal text was unavailable in full. Its attribution to K-fold
 - Corrected the lead’s grammatical article through `article_leads.json`, because the generator reads its hand-specified subject there. Corrected unsupported attribution, unlocated citations, and selection terminology in the shared source; removed the unopened Geisser key from the citation map.
 - `checks/cross-validation.py` recomputes the values printed in the generated article. No figures or questions were removed.
 - The generated page has 2,716 words, zero figures, one Proof callout, eleven distinct question links, and three bibliography entries. The build produced 718 articles and 557 question pages; all 67 Python tests, the exact-value check, and offline verification of 405 bibliography records pass.
+
+## Rank 28–37 practice correction
+
+- Added a motivating example grounded in the already opened source.
+- Kept the worked example and added a “Your turn” problem with its answer in a collapsed callout.
+- After rebuilding, the generated body has 2,859 words by the progress-table method.

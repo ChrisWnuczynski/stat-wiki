@@ -24,3 +24,8 @@ Type: Concept/topic. Rank 37.
 ## Verification
 
 Generated article: 1,880 body words versus 384 before; zero figures versus zero before; 23 distinct question links; one collapsed Proof box. The generator produced 718 articles and 557 question pages. All 37 page checks, 67 Python tests and offline validation of 423 bibliography entries pass. `git diff --check` is clean. The temporary Quarto-to-Pandoc shim handled the generator's `quarto pandoc` call; a full rendered HTML build was not run.
+
+## Rank 28–37 practice correction
+
+- Kept the worked example and added a “Your turn” problem with its answer in a collapsed callout.
+- After rebuilding, the generated body has 1,975 words by the progress-table method.

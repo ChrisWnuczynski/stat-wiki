@@ -26,3 +26,8 @@ Type: Concept/definition.
 ## Verification
 
 Generated article: 1,775 body words versus 245 before; zero figures versus zero before; thirteen distinct question links; one collapsed Proof box. The exact-value check passes. The generator produced 718 articles and 557 question pages, all 67 Python tests pass, and offline validation passes for 412 bibliography entries. `git diff --check` is clean. The temporary Quarto-to-Pandoc shim used in the preceding page was used for the generator's sole `quarto pandoc` call. No rendered HTML build was attempted.
+
+## Rank 28–37 practice correction
+
+- Kept the worked example and added a “Your turn” problem with its answer in a collapsed callout.
+- After rebuilding, the generated body has 1,841 words by the progress-table method.

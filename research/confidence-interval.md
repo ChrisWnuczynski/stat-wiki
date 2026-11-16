@@ -27,3 +27,8 @@ The Casella–Berger, Davison, Fisher 1925, and Snedecor citations attached to i
 - `checks/confidence-interval.py` recomputes the new repetition example and numerical results printed in the inherited examples and answer.
 - Corrected the household standard error from $178/\sqrt{51}=24.93$ to $24.92$ and stated the normal-sampling assumption precisely. A follow-up correction also changed the source chapter's displayed interval multiplication to $2.009\times24.92$, moved its citation to the end of the preceding sentence, and scanned both the generated page and source chapter for the obsolete value. The page has one figure, one Proof box, and at least the original question links. Four dependent pivot pages received located citations in the shared source and explanation data so the site-wide three-citation test still passes.
 - Build: 718 articles and 557 question pages. `checks/confidence-interval.py`, 67 Python tests, and offline verification of 405 bibliography records pass. The proof todo entries for the four standalone pivot articles remain for their ranked depth passes; the confidence-interval page proves those same results in one collapsed box.
+
+## Rank 28–37 practice correction
+
+- Kept the worked example and added a “Your turn” problem with its answer in a collapsed callout.
+- After rebuilding, the generated body has 2,367 words by the progress-table method.
