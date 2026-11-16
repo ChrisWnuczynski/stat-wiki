@@ -1,0 +1,87 @@
+{
+  "bibliography": {
+    "deligiannidis2022_foundations": {
+      "authors": [
+        "Deligiannidis, G."
+      ],
+      "year": 2022,
+      "title": "Foundations of Statistical Inference",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf"
+      }
+    },
+    "lancaster2004_bayesian_econometrics": {
+      "authors": [
+        "Lancaster, T."
+      ],
+      "year": 2004,
+      "title": "An Introduction to Modern Bayesian Econometrics",
+      "kind": "book",
+      "publisher": "Blackwell Publishing",
+      "url": "https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf"
+      }
+    },
+    "casella1985_empirical_bayes": {
+      "authors": [
+        "Casella, G."
+      ],
+      "year": 1985,
+      "title": "An Introduction to Empirical Bayes Data Analysis",
+      "kind": "article",
+      "publisher": "The American Statistician 39(2), 83–87",
+      "url": "https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf"
+      },
+      "venue": "The American Statistician",
+      "volume": "39",
+      "issue": "2",
+      "pages": "83–87",
+      "doi": "10.1080/00031305.1985.10479400"
+    }
+  },
+  "self_checks": [
+    "ex-inf-shrunk-mean",
+    "q-53",
+    "exr-normal-hierarchy-hyperuncertainty"
+  ],
+  "new_bank_questions": [
+    {
+      "id": "exr-normal-hierarchy-hyperuncertainty",
+      "topic_code": "B8",
+      "title": "Uncertainty beyond a conditional shrinkage rule",
+      "body": "A hierarchical analysis assigns equal posterior probability to two hyperparameter regimes. In regime A a group effect has conditional posterior N(5,1), and in regime B it has conditional posterior N(9,1). Find the marginal posterior mean and variance of the group effect. What variance term would a calculation based on only one regime omit?",
+      "answer": "The marginal mean is (5+9)/2=7. The law of total variance gives E[Var(theta|regime,y)]+Var(E[theta|regime,y])=1+[(5−7)^2+(9−7)^2]/2=1+4=5. Fixing a single regime would retain only conditional variance 1 and omit the between-regime variance 4. This is the distinction between a conditional shrinkage calculation and full averaging over uncertain hyperparameters."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "theorem_depth.py",
+      "description": "For normal-hierarchical-shrinkage, move the exact substantive context sentence ('Small or noisy groups receive more influence from the shared mean than well-measured groups.') into the existing intuition or statistical-use body field. Retain only '{{cite:gelman_bda2013}}' in the nonempty context field, preserving TheoremDepthBatchTests and leaving the stock one-sentence lead."
+    },
+    {
+      "file": "theorem-history-todo.json",
+      "description": "Remove normal-hierarchical-shrinkage from history debt because research/content/normal-hierarchical-shrinkage.md now contains sourced history. During integration, normalize its source heading from '## History — Origins of partial pooling' to '## History' so the theorem history test detects the completed item. The temporary displayed title lets this isolated worktree pass the unmodified shared bookkeeping gate."
+    }
+  ],
+  "proofs_todo": [
+    {
+      "slug": "normal-hierarchical-shrinkage#full-hyperparameter-marginal",
+      "title": "Marginal posterior after learning normal hyperparameters",
+      "reason": "The page proves the conditional normal update but does not derive a general marginal posterior after integrating uncertain population mean and between-group variance."
+    },
+    {
+      "slug": "normal-hierarchical-shrinkage#beta-binomial-rat-study",
+      "title": "Rat-tumour beta hierarchy",
+      "reason": "The preserved linked worked example derives a beta-binomial hyperposterior; the single collapsed proof on this theorem page concerns normal group means, so the beta-hierarchy derivation remains outside its proof box."
+    }
+  ]
+}
