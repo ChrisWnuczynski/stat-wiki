@@ -209,7 +209,7 @@ $$
 $$
 {{cite:bernoulli1713}}{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}
 
-The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero.{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}
+The weak law under a finite variance follows from Chebyshev's inequality: $\Pr(|S_n/n-\mu|>\varepsilon)\le \Var(S_n/n)/\varepsilon^2=\Var(X_1)/(n\varepsilon^2)$, which tends to zero as the sample size increases.
 
 :::
 

@@ -8,7 +8,7 @@ The zero–one Bayes rule, which predicts a class of largest posterior, is on [L
 
 ## Building a tree
 
-At a node, compare possible splits and choose one that makes the children purer according to a stated criterion. Repeat inside each child. This is a greedy search: a split is judged by its immediate improvement, not by every tree that could eventually grow beneath it{{cite:breiman_cart1984}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}. Stopping rules and pruning control the size. Contradictory labels at identical predictor values cannot be separated by further predictor-based splits.
+At a node, compare possible splits and choose one that makes the children purer according to a stated criterion. Repeat inside each child. This is a greedy search: a split is judged by its immediate improvement, not by every tree that could eventually grow beneath it. Stopping rules and pruning control the size. Contradictory labels at identical predictor values cannot be separated by further predictor-based splits.
 
 After the tree is built, each training case is passed from the root along the branch its measurements select, until it reaches a leaf. The class proportions in that leaf are recorded, and the leaf is labelled with its majority class. A new $x$ follows the same questions and receives the label of the leaf it reaches. The proportions in the leaf are a crude local estimate of the posterior $\tau_g(x)$, constant on the rectangle the leaf owns. The Bayes rule would use the true posterior. The tree uses the majority in the rectangle that contains $x$.
 

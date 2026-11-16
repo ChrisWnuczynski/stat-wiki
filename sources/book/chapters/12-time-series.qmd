@@ -22,7 +22,7 @@ A series we record is a finite piece of a process that could have been running f
 
 ## Stationarity
 
-Without some repetition, a series of length $T$ does not identify a different mean at every time and a different covariance for every pair. Strict stationarity says that any block of observations has the same joint distribution as the same block shifted by $\tau$.{{cite:khinchin1934}}{{cite:brockwell_davis1991}} The path changes. The distribution does not. Weak stationarity asks only for two moments: a mean $\mu$ that does not depend on time, and a covariance that depends on the two times only through their difference.{{cite:wold1938}}
+Without some repetition, a series of length $T$ does not identify a different mean at every time and a different covariance for every pair. Strict stationarity says that any block of observations has the same joint distribution as the same block shifted by $\tau$. The path changes. The distribution does not. The requirement concerns the entire joint law of every finite block, including tails and nonlinear dependence, even if the observed trajectory looks stable across a short window. Weak stationarity asks only for two moments: a mean $\mu$ that does not depend on time, and a covariance that depends on the two times only through their difference.
 $$
 \gamma_{t-s}=\mathrm{Cov}(X_s,X_t).
 $$

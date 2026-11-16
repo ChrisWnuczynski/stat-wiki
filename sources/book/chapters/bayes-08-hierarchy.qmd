@@ -7,7 +7,7 @@ This chapter develops Bayesian models for related groups. The central idea is no
 ::: {#def-hierarchical-bayesian-model .definition}
 ## Hierarchical Bayesian model
 
-Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:gelman_bda2013}} Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}} This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
+Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:gelman_bda2013}} (Ch. 5, p. 101) Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution. This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
 
 :::
 
@@ -69,7 +69,7 @@ The modelling choice can be organised into three cases.
 | No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
 | Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
 
-Hierarchical Bayes produces partial pooling.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:efron_morris1975}} This movement is called *shrinkage* or *borrowing strength*.
+Hierarchical Bayes produces partial pooling. A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre. This movement is called *shrinkage* or *borrowing strength*. If every class were pooled completely, a genuinely exceptional class would disappear into the common mean. If none were pooled, the mean of a class with only two students could move wildly with one unusual mark. Partial pooling balances these errors by letting the data and the estimated between-class variation determine how much each class moves.{{cite:gelman_bda2013}} (Ch. 5, pp. 101–104)
 
 ### Where the shrinkage weight comes from
 
@@ -149,7 +149,7 @@ $$
  =w_j\overline y_j+(1-w_j)\mu.
 $$
 
-The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}}{{cite:efron_morris1975}}
+The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:lindley_smith1972}} (§1, eq. (1), pp. 2–3){{cite:gelman_bda2013}} (Ch. 5, p. 104)
 
 :::
 
@@ -191,9 +191,9 @@ The practical difficulty begins even earlier. A proper meta-analysis tries to fi
 ::: {#exm-tg5-cattle-hierarchy .example}
 ## TG5 cattle hierarchy
 
-A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling. The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.
+A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling.{{cite:wood_mengersen2006_tg5}} (§2.1, pp. 480–482) The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.
 
- The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation.{{cite:barendse2004_tg5}} A schematic version of the hierarchy is \begin{align*}
+ The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation.{{cite:wood_mengersen2006_tg5}} (§2.1, pp. 481–482) A schematic version of the hierarchy is \begin{align*}
  y_{ij}\given\delta_i,w_{ij}
  &\sim\Normal(\delta_i,w_{ij}^{-1}),\\
  \delta_i\given\mu_{b(i)},\tau_{\mathrm{study}}
@@ -212,7 +212,7 @@ $$
 $$
 
 
- The hierarchy performs partial pooling at more than one level.{{cite:wood_mengersen2006_tg5}} The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy, but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.{{cite:lunn_winbugs2000}}
+ The hierarchy performs partial pooling at more than one level.{{cite:wood_mengersen2006_tg5}} (§2.2, pp. 482–483) The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy,{{cite:wood_mengersen2006_tg5}} (§3, p. 485) but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.{{cite:lunn_winbugs2000}} (p. 325, §1)
 
 :::
 
@@ -391,7 +391,7 @@ Normalising gives \begin{equation}
  \theta_j\given\alpha,\beta,\vect y
  \sim\BetaDist(y_j+\alpha,n_j-y_j+\beta)}.
  \label{eq:theta-full-cond-hierarchy}
-\end{equation} Conditional on the hyperparameters, the study rates are independent.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} The joint conditional is the product of these $J$ Beta densities.{{cite:gelman_bda2013}}
+\end{equation} Conditional on the hyperparameters, the study rates are independent. The joint conditional is the product of these $J$ Beta densities.{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 108–109)
 
 :::
 
