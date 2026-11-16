@@ -117,7 +117,7 @@ Parameter count alone does not give the size of the optimism. Stability, regular
 
 ## A held-out test set
 
-The apparent rate fails because the cases used to estimate the error helped to build the rule. Holding labelled cases out of the fit removes that dependence. The training set builds the classifier and the test set estimates the error. This is the test-set, or holdout, method{{cite:hastie_esl2009}}{{cite:stone1974}}. It raises four questions.
+An error rate measured on training cases can be too optimistic because those cases helped build the rule.{{cite:cawley_talbot2010}} (pp. 2079–2081, selection and assessment) Holding labelled cases out of the fit removes that dependence.{{cite:sklearn_common_pitfalls2026}} (§12.2, Data leakage) The training set builds the classifier and the test set estimates the error of that fitted rule.{{cite:efron1983}} (Abstract, error of a prediction rule) This is the test-set, or holdout, method. It raises four questions.
 
 1. Which classifier is the error rate being estimated for?
 2. What proportion of the data is allocated to the test set?
@@ -128,7 +128,7 @@ An independent test sample evaluates the particular fit trained without it. If t
 
 Choosing the split is a trade-off. More training observations may improve the rule, while more test observations make its estimated error more precise. Improvement with training size is not a universal monotone theorem. Choose a split large enough to assess the errors that matter, especially inside rare classes, and report the training and test sizes alongside the score.
 
-If the test cases are independent draws and the trained rule is held fixed, the number of errors on the test set is a binomial count{{cite:efron1983}}. A confidence interval for a binomial proportion then covers the error of that particular trained rule. Its width is proportional to $1/\sqrt{n_{\mathrm{test}}}$, which is why a small test set, however carefully held out, still gives a coarse estimate. The interval does not cover the extra uncertainty that comes from having trained the rule on one sample rather than another.
+If the test cases are independent draws and the trained rule is held fixed, the number of errors on the test set is a binomial count{{cite:efron1983}} (Abstract, prediction-rule error). A confidence interval for a binomial proportion then covers the error of that particular trained rule. Its width is proportional to $1/\sqrt{n_{\mathrm{test}}}$, which is why a small test set, however carefully held out, still gives a coarse estimate. The interval does not cover the extra uncertainty that comes from having trained the rule on one sample rather than another.
 
 For independent identically distributed observations, a random split keeps a file's sorting order from determining the assessment. It does not repair dependence. Repeated measurements from the same person require group-based splits when the target is a new person. Prediction of a future time requires a time-ordered split. The sampling unit and the deployment target determine what must be held out together.
 

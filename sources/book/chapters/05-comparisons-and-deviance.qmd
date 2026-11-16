@@ -68,9 +68,9 @@ A draw can be coded as half a win and half a loss, which says the two teams were
 
 ## Deviance
 
-Fitting a model replaces the data $y_1,\ldots,y_n$ by fitted means $\hat\mu_1,\ldots,\hat\mu_n$ that depend on fewer parameters than there are observations.{{cite:mccullagh_nelder1989}} A model with $n$ parameters can repeat the sample exactly and then cannot predict anything else. The saturated fit is the baseline you compare with, not the fit you report.{{cite:nelder_wedderburn1972}}{{cite:davison2003}}
+Fitting a model replaces the data $y_1,\ldots,y_n$ by fitted means $\hat\mu_1,\ldots,\hat\mu_n$ that depend on fewer parameters than there are observations.{{cite:mccullagh1992_glm_intro}} (p. 544) A model with $n$ parameters can repeat the sample exactly and then cannot predict anything else. The saturated fit is the baseline you compare with, not the fit you report.{{cite:rstats_glm2026}} (Sec. Value, deviance){{cite:rstats_family2026}} (Sec. Value, dev.resids)
 
-The deviance is twice the drop in log-likelihood from the saturated fit to the model you actually fitted.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
+The deviance is twice the drop in log-likelihood from the saturated fit to the model you actually fitted.{{cite:rstats_glm2026}} (Sec. Value, deviance){{cite:mccullagh1992_glm_intro}} (p. 544){{cite:rstats_family2026}} (Sec. Value, dev.resids)
 $$
 D(\vect{y};\hat{\boldsymbol{\mu}})=2\bigl\{\ell(\vect{y};\vect{y})-\ell(\hat{\boldsymbol{\mu}};\vect{y})\bigr\},
 $$
@@ -113,7 +113,7 @@ binomial logit:    null 137.63 on 99 df,  residual 114.04 on 98 df,  AIC 118.04
 binomial probit:   null 137.63 on 99 df,  residual 114.12 on 98 df,  AIC 118.12
 binomial cloglog:  null 137.63 on 99 df,  residual 111.90 on 98 df,  AIC 115.90
 ```
-The null deviance does not depend on the link. It is the intercept-only model, one probability for everyone.{{cite:mccullagh_nelder1989}}{{cite:nelder_wedderburn1972}}{{cite:myers_glm2010}} Logit and probit are not separable on this sample.
+The null deviance does not depend on the link. It is the intercept-only model, one probability for everyone.{{cite:mccullagh1992_glm_intro}} (p. 544){{cite:rstats_glm2026}} (Sec. Value, deviance){{cite:rstats_family2026}} (Sec. Value, dev.resids) Logit and probit are not separable on this sample.
 
 ![The same cholesterol data under three links. The logit and the probit sit on each other. Complementary log-log stays a little lower through the middle and then climbs more steeply through the high-cholesterol cases.](../figures/cholesterol-links.pdf){#fig-chol-links}
 

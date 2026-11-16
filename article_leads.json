@@ -1,7 +1,7 @@
 {
   "a-finite-endpoint-and-a-weibull-extreme-value-law": {"field": "stochastic processes", "article": "the", "term": "finite-endpoint Weibull limit", "verb": "is", "description": "an extreme-value law for maxima from distributions with a finite upper endpoint"},
   "a-finite-stationary-point-is-a-global-maximiser": {"field": "statistical learning", "article": "a", "term": "finite stationary point of the logistic log-likelihood", "verb": "is", "description": "a global maximiser because the log-likelihood is concave"},
-  "a-held-out-test-set": {"field": "statistical learning", "article": "the", "term": "held-out test set", "verb": "is", "description": "the apparent rate fails because the cases used to estimate the error helped to build the rule"},
+  "a-held-out-test-set": {"field": "statistical learning", "article": "the", "term": "held-out test set", "verb": "is", "description": "a set of untouched cases used to estimate how a fitted rule will perform on new observations"},
   "a-hypothesis-region-is-not-a-separate-model": {"field": "Bayesian statistics", "article": "a", "term": "hypothesis region", "verb": "is", "description": "a subset of one model’s parameter space rather than a separate model"},
   "a-permutation-test": {"field": "R", "article": "the", "term": "permutation test", "verb": "is", "description": "a test that compares an observed statistic with values obtained by rearranging labels under a null hypothesis"},
   "a-proper-approximation-to-the-flat-prior": {"field": "Bayesian statistics", "article": "the", "term": "proper approximation to the flat prior", "verb": "is", "description": "the honest bounded version of the improper kernel"},

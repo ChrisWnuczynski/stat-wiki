@@ -5480,6 +5480,18 @@
       "url": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html",
       "verification": {"source": "archival_url", "id": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html"}
     },
+    "sklearn_common_pitfalls2026": {
+      "authors": ["scikit-learn developers"],
+      "year": 2026,
+      "title": "Common pitfalls and recommended practices (scikit-learn 1.9.1 documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "scikit-learn project",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/common_pitfalls.html"
+      }
+    },
     "sas2012_glm": {
       "authors": [
         "SAS Institute Inc."

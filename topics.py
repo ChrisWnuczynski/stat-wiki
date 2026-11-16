@@ -825,7 +825,7 @@ TOPICS += [
           also=["03-gamma-and-quasi.qmd#s-bids-for-a-bankrupt-firm"],
           links=["under-?dispersion", "under-?dispersed"]),
     topic("Dispersion parameter", "01-introduction-to-glms.qmd: a dispersion, which plays the role",
-          r"The parameter $\phi$ that scales the conditional variance of a GLM, $\operatorname{Var}(Y\mid\mathbf x)=\phi V(\mu)$. It is $\sigma^2$ for the normal and $1/\alpha$ for a gamma with shape $\alpha$; it is fixed at $1$ for the Poisson and binomial unless a quasi-likelihood frees it.{{cite:mccullagh1992_glm_intro}} (p. 544){{cite:rstats_family2026}} (‘Details’)",
+          r"The parameter $\phi$ that scales the conditional variance of a GLM, $\operatorname{Var}(Y\mid\mathbf x)=\phi V(\mu)$. It is $\sigma^2$ for the normal and $1/\alpha$ for a gamma with shape $\alpha$; it is fixed at $1$ for the Poisson and binomial unless a quasi-likelihood frees it.{{cite:mccullagh1992_glm_intro}} (p. 544){{cite:rstats_family2026}} (Sec. Details)",
           links=["dispersion parameters?", "dispersions?"], scope=[G, S, C]),
     topic("Variance function", "03-gamma-and-quasi.qmd#s-quasi-likelihood",
           r"The function $V(\mu)$ in $\operatorname{Var}(Y)=\phi V(\mu)$: $1$ for the normal, $\mu$ for the Poisson, $\mu(1-\mu)$ for the Bernoulli, $\mu^2$ for the gamma, $\mu^3$ for the inverse Gaussian. Quasi-likelihood needs only a mean and a variance function, not a full distribution.",

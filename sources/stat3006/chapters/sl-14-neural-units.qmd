@@ -152,7 +152,7 @@ a contradiction. The four requirements cannot hold together. This is the failure
 
 ## A hidden layer
 
-If no hyperplane separates the classes in the input space, the next step is to build new coordinates in which a hyperplane does. A hidden layer is that change of coordinates. The activation flows from input to output through intermediate hidden nodes $h_1,\ldots,h_l$, whose activations depend on the weights between the input and the hidden nodes{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}{{cite:ripley1996}}. With $l$ hidden units and $m$ outputs,
+If no hyperplane separates the classes in the input space, the next step is to build new coordinates in which a hyperplane does. A hidden layer is that change of coordinates. The activation flows from input to output through intermediate hidden nodes $h_1,\ldots,h_l$, whose activations depend on the weights between the input and the hidden nodes{{cite:rumelhart_hinton_williams1986}} (pp. 533–534){{cite:bishop2006}} (Ch. 5, §5.1). With $l$ hidden units and $m$ outputs,
 
 $$
 \begin{aligned}
@@ -163,7 +163,7 @@ $$
 
 The backpropagation page adds the pattern index $i$ and fixes the notation.
 
-The input–hidden weights map $x$ to the vector of hidden activations. The output unit then solves a linear problem in that new vector. The aim is to choose the weights so that the problem at the hidden–output layer is linearly separable. Seen back in the original input space, the set where the output unit fires is bounded by curves, because each hidden unit folds the space before the output unit cuts it. One published example is the predicted presence and absence of tsetse flies in Zimbabwe from climate and vegetation, using a network with $24$ hidden neurons{{cite:williams1994_tsetse}}: the boundary between the two regions is an irregular curve that no linear classifier could draw.
+The input–hidden weights map $x$ to the vector of hidden activations. The output unit then solves a linear problem in that new vector. The aim is to choose the weights so that the problem at the hidden–output layer is linearly separable. Seen back in the original input space, the set where the output unit fires is bounded by curves, because each hidden unit folds the space before the output unit cuts it. One published example is the predicted presence and absence of tsetse flies in Zimbabwe from climate and vegetation, using a network with $24$ hidden neurons{{cite:williams1994_tsetse}} (Description, reported Zimbabwe application): the boundary between the two regions is an irregular curve that no linear classifier could draw.
 
 One construction of XOR places an OR gate and an AND gate in the hidden layer and combines them so that the output fires for OR and stays off for AND. A wider construction copies each input through a hidden unit and computes AND in a third unit. Copying an input through a hidden unit does no new work: that unit can be removed and the connection taken directly from the input. A coordinate that repeats an input does not enlarge the set of functions the output unit can compute.
 
