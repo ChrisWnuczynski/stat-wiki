@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "the invariant-law and pairwise-flow conditions used to verify Markov-chain equilibrium and reversible samplers"
+  },
+  "self_checks": ["ex-sp-birth-death-pi", "ex-prob-markov-periodic"]
+}
