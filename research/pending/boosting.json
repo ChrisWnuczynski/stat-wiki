@@ -1,0 +1,38 @@
+{
+  "slug": "boosting",
+  "rank": 338,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Aim the next rule at the remaining mistakes",
+    "Definition — The half-log vote and the weight update",
+    "Properties — The rule just fitted becomes a coin toss",
+    "Worked example — One mistake among four equally weighted cases",
+    "Connections — What boosting is not averaging",
+    "Check yourself — Two calculations with the weight update"
+  ],
+  "words_before": 3311,
+  "words_after": 4080,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Schapire (1990), Machine Learning 5, pp. 197–198",
+    "Freund and Schapire, December 1996 preprint of JCSS 1997, p. 12",
+    "Hastie, Tibshirani and Friedman, ESL 2nd ed., p. 339, Algorithm 10.1"
+  ],
+  "proofs": [
+    "Half-log update makes the reweighted error of the latest rule equal to 1/2."
+  ],
+  "tests": [
+    "checks/boosting.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "Friedman, Hastie and Tibshirani (2000) exponential-loss paper was not opened. Dodge has no boosting entry. ESL simulation error rates 45.8% and 5.8% were not reprinted."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
