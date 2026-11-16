@@ -1,0 +1,69 @@
+{
+  "bibliography": {
+    "rothenberg1971": {
+      "authors": ["Rothenberg, T. J."],
+      "year": 1971,
+      "title": "Identification in Parametric Models",
+      "kind": "article",
+      "venue": "Econometrica",
+      "volume": "39",
+      "issue": "3",
+      "pages": "577–591",
+      "doi": "10.2307/1913267",
+      "verification": {"source": "crossref", "id": "10.2307/1913267"}
+    },
+    "mgcv_identifiability2026": {
+      "authors": ["Wood, S. N."],
+      "year": 2026,
+      "title": "Identifiability constraints (mgcv documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html",
+      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html"}
+    },
+    "green2019_finite_mixtures": {
+      "authors": ["Green, P. J."],
+      "year": 2019,
+      "title": "Introduction to Finite Mixtures (Handbook of Mixture Analysis)",
+      "kind": "book",
+      "publisher": "CRC Press",
+      "url": "https://api.pageplace.de/preview/DT0400.9780429508240_A35885599/preview-9780429508240_A35885599.pdf",
+      "verification": {"source": "archival_url", "id": "https://api.pageplace.de/preview/DT0400.9780429508240_A35885599/preview-9780429508240_A35885599.pdf"}
+    }
+  },
+  "self_checks": ["depth-identifiability-01", "depth-identifiability-02"],
+  "new_bank_questions": [
+    {
+      "id": "depth-identifiability-01",
+      "topic_code": "L5",
+      "title": "A smooth and its intercept",
+      "body": "At three observed inputs a fitted additive predictor has intercept 2 and smooth values (-1, 0, 1). Give its three fitted predictors. If the intercept is changed to 5, choose smooth values that give the same predictors. State one constraint that picks a unique intercept in this example.",
+      "answer": "The fitted predictors are (1, 2, 3). Raising the intercept by 3 and lowering every smooth value by 3 gives intercept 5 and smooth values (-4, -3, -2), with the same predictors. The sum-to-zero constraint on the smooth selects the original values, whose sum is 0; the shifted smooth sums to -9."
+    },
+    {
+      "id": "depth-identifiability-02",
+      "topic_code": "L5",
+      "title": "Only a product is visible",
+      "body": "A binary response has success probability p=ab, where 0<a<1 and 0<b<1. Compare (a,b)=(0.2,0.5) with (0.5,0.2). Are a and b separately identifiable from any number of these binary responses? Is their product identifiable?",
+      "answer": "Both pairs give p=0.1, so each generates the same Bernoulli law for every response and every sample size. The individual factors a and b are not identified. The product ab is identified because distinct products give distinct Bernoulli success probabilities."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/stat3006/chapters/sl-05-mixtures-em.qmd",
+      "description": "Near line 383, the inherited label-switching paragraph cites `{{cite:teicher1963}}` without a locator. The full original was inaccessible in this pass. Preserve the correct finite-Gaussian-mixture result and replace that marker with `{{cite:green2019_finite_mixtures}} (Ch. 1, §1.3.1, pp. 13–14, citing Teicher's finite-mixture result)` using the full authorized publisher preview read for rank 136. Check the source chapter and dependent generated article after integration."
+    }
+  ],
+  "proofs_todo": [
+    {
+      "slug": "identifiability",
+      "title": "General finite-normal-mixture identifiability up to permutation",
+      "reason": "The collapsed proof establishes label symmetry and elementary rank examples, but it does not prove Teicher's general finite-normal-mixture identification result under distinct components and positive weights."
+    },
+    {
+      "slug": "identifiability",
+      "title": "Rothenberg local information criterion under regularity conditions",
+      "reason": "The page explains and illustrates the criterion but does not reproduce the full regular-point proof from the original paper."
+    }
+  ]
+}
