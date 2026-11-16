@@ -1,0 +1,29 @@
+{
+  "bibliography": {
+    "liu_gelman_zheng2015": {
+      "authors": ["Liu, Y.", "Gelman, A.", "Zheng, T."],
+      "year": 2015,
+      "title": "Simulation-efficient shortest probability intervals",
+      "kind": "article",
+      "venue": "Statistics and Computing",
+      "volume": "25",
+      "pages": "809–819",
+      "doi": "10.1007/s11222-015-9563-8",
+      "verification": {"source": "crossref", "id": "10.1007/s11222-015-9563-8"}
+    },
+    "siegrist2022_bayesian_set_estimation": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §8.5: Bayesian Set Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.05:_Bayesian_Set_Estimation",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.05:_Bayesian_Set_Estimation"}
+    }
+  },
+  "article_lead": {"description": "rules for selecting sets with a specified posterior probability so uncertainty can be reported consistently"},
+  "self_checks": ["ex-applied-iq", "ex-lognormal-var", "exr-credible-discrete-hpd"],
+  "new_bank_questions": [
+    {"id": "exr-credible-discrete-hpd", "topic_code": "B1", "title": "A highest-posterior-probability set on a grid", "body": "A parameter can take values 1, 2 and 3 with posterior probabilities 0.50, 0.30 and 0.20. Give a smallest set with posterior probability at least 80%, choosing the most probable points first. Why does a continuous-density threshold formula need care here?", "answer": "The set {1,2} has posterior probability 0.50+0.30=0.80 and uses two points; no one-point set reaches 0.80. In a discrete distribution probability arrives in jumps, so an exact target may be unattainable at some levels and a threshold may include tied points. Specify at-least content and a rule for ties or excess mass."}
+  ]
+}
