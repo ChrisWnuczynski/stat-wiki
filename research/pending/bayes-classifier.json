@@ -1,0 +1,16 @@
+{
+  "bibliography": {
+    "james_islr2013": {
+      "authors": ["James, G.", "Witten, D.", "Hastie, T.", "Tibshirani, R."],
+      "year": 2013,
+      "title": "An Introduction to Statistical Learning: with Applications in R",
+      "kind": "book",
+      "edition": "1st ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4614-7138-7",
+      "url": "https://www.statlearning.com/s/ISLRSeventhPrinting.pdf",
+      "verification": {"source": "crossref", "id": "10.1007/978-1-4614-7138-7"}
+    }
+  },
+  "self_checks": ["ex-sl-08-1", "ex-sl-08-2", "ex-sl-11-4"]
+}
