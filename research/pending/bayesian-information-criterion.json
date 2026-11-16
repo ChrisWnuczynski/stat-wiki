@@ -1,0 +1,6 @@
+{
+  "self_checks": ["ex-sl-06-2", "ex-sl-06-5", "ex-sl-06-7"],
+  "proofs_todo": [
+    {"slug": "bayesian-information-criterion#mixture-consistency", "title": "BIC consistency in particular singular mixture models", "reason": "The page retains a qualified consistency statement about some mixtures; its collapsed proof establishes only the regular Laplace expansion, not a singular-mixture consistency theorem."}
+  ]
+}
