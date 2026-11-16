@@ -10,7 +10,7 @@ The theory stopped at the Wold decomposition. This chapter is about using it. Th
 
 Plotting a series that R already knows is a time series puts time on the horizontal axis. @fig-deaths is not white noise. Deaths are higher in the middle of the year, the northern summer, and lower in winter. A twelve-month cycle is the obvious feature.{{cite:hyndman_athanasopoulos2021}}{{cite:box_jenkins1970}} The overall level is not a straight trend.{{cite:brockwell_davis1991}} It sags and then recovers, the sort of slow movement produced when a temporary legal or behavioural change pulls a series down and then lets it drift back.
 
-The autocorrelation and the partial autocorrelation both keep oscillating. An MA process would cut the autocorrelation off after a finite lag.{{cite:box_jenkins1970}} An AR process would cut the partial autocorrelation off.{{cite:brockwell_davis1991}} Neither plot dies. That is the seasonality, still in the correlations.{{cite:hyndman_athanasopoulos2021}}
+The autocorrelation and the partial autocorrelation both keep oscillating. An MA process would cut the autocorrelation off after a finite lag.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.4) An AR process would cut the partial autocorrelation off.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.3) Neither plot dies. That is the seasonality, still in the correlations.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.1)
 
 Differencing at lag $12$,
 $$

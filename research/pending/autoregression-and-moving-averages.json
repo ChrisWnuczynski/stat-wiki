@@ -1,4 +1,0 @@
-{
-  "article_lead": {"description": "time-series models that forecast from past values or past shocks, revealing two distinct forms of serial dependence"},
-  "self_checks": ["c-46", "c-48"]
-}

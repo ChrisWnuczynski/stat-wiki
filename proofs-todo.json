@@ -448,5 +448,20 @@
     "slug": "akaike-information-criterion#property-asymptotic-kl-correction",
     "title": "General asymptotic Kullback–Leibler optimism correction for AIC",
     "reason": "The article proves the exact 2d correction for correctly specified known-variance Gaussian linear models. The stated general regular-likelihood result needs a separate asymptotic expansion and assumptions on identifiability and misspecification."
+  },
+  {
+    "slug": "irreducible-markov-chain#property-finite-stationary-convergence",
+    "title": "Finite irreducible chains have a unique positive stationary distribution and converge when aperiodic",
+    "reason": "The page cites Levin and Peres, §1.5.3 and Theorem 4.9, but its local proof covers only the path criterion and communication relation. A self-contained proof of the finite stationary and convergence claims is deferred."
+  },
+  {
+    "slug": "jacobian#property-general-change-of-variables",
+    "title": "General multivariate density change of variables",
+    "reason": "The local proof checks linear volume scaling, the triangular marginal and a one-dimensional two-branch example. A full analytic proof of the differentiable bijection change-of-variables theorem stated in the inherited definition is deferred; Cambridge Statistics 1B, §1.13, states it."
+  },
+  {
+    "slug": "markov-chain#property-finite-aperiodic-convergence",
+    "title": "Finite irreducible aperiodic Markov-chain convergence",
+    "reason": "The inherited article mentions convergence of finite irreducible aperiodic chains. Its local proof derives path probabilities and Chapman–Kolmogorov, while the full convergence theorem is cited to Levin and Peres, §4.3, and deferred."
   }
 ]

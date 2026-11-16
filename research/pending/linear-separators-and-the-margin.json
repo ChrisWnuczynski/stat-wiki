@@ -1,4 +1,0 @@
-{
-  "article_lead": {"description": "a hyperplane classifier whose geometric gap from the nearest labelled observations provides a principled way to choose among separators"},
-  "self_checks": ["ex-sl-17-1", "ex-sl-17-3"]
-}

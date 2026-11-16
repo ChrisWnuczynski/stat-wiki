@@ -33,7 +33,7 @@ The model is a random sample, or a count, whose distribution depends on $\theta$
 ::: {#def-null-and-alternative-hypotheses .definition}
 ## Null and alternative hypotheses
 
-The null hypothesis $H_0$ and the alternative hypothesis $H_1$ are two disjoint statements about the parameter, $H_0:\theta\in\Theta_0$ and $H_1:\theta\in\Theta_1$.{{cite:neyman_pearson1933}} $H_0$ is the statement being tested, often a single value $\theta_0$.{{cite:lehmann_romano2005}} $H_1$ is the claim the test is trying to detect.{{cite:casella_berger2002}}
+The null hypothesis $H_0$ and the alternative hypothesis $H_1$ are two disjoint statements about the parameter, $H_0:\theta\in\Theta_0$ and $H_1:\theta\in\Theta_1$.{{cite:neyman_pearson1933}} (p. 294) $H_0$ is the statement being tested, often a single value $\theta_0$.{{cite:neyman_pearson1933}} (pp. 293–294) $H_1$ is the claim the test is trying to detect.{{cite:neyman_pearson1933}} (p. 294)
 
 :::
 

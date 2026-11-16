@@ -2,6 +2,16 @@
 
 These articles do not yet have three inline citations. A further marker would name a work that does not state the claim on the page.
 
+- addiction-data | The inherited study description has fewer than three independently checked sources; the original dataset citation should be verified during its own depth pass.
+- discrete-time-markov-chain | The copied transition-law prose now cites the opened Levin–Peres sections. An additional independent source has not been checked for this paragraph.
+- four-state-random-walk | The inherited numerical walk example is checked within the course chapter; fewer than three independent works address this exact example.
+- gaussian-process | The finite-dimensional Gaussian definition is supported by the opened Rasmussen–Williams chapter. Additional works have not been checked for the inherited paragraph.
+- hastings-correction | The copied acceptance-ratio derivation cites the opened Hastings paper. A third independent source is pending review.
+- signed-distance | The geometric calculation cites the opened Burges and Boser passages. The remaining text is a direct derivation of that calculation.
+- strict-stationarity | The time-series chapter now cites the opened Meinshausen definition. Another independent source should be checked in the page's depth pass.
+- vapnik-s-radius-margin-bound | Burges's opened §3.4 supports the stated bound; a second independent derivation remains to be checked.
+- weak-stationarity | The time-series chapter now cites the opened Meinshausen definition. Another independent source should be checked in the page's depth pass.
+
 - adjusted-r-squared | The copied box is the adjusted R-squared formula. Wherry (1931) and Davison (2003) state it. The other sources on that chapter do not.
 - interquartile-range | Tukey (1977) and Wasserman (2004) support the quartile-difference definition. The remaining article material is a worked example, so an additional citation would repeat those sources without a new claim.
 - randomised-controlled-trial | Fisher (1935) supports random assignment and the Medical Research Council (1948) supplies the historical controlled-trial example. The rest of the page is an illustrative experiment rather than a separately sourced claim.

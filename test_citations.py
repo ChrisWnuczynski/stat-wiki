@@ -440,7 +440,7 @@ class CitationTests(unittest.TestCase):
             for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
                 self.assertRegex(
                     body[match.end():match.end() + 60],
-                    r"^\s*\((?:Ch\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|Abstract|Description|entries\b|Price’s letter|[“\"])",
+                    r"^\s*\((?:(?i:ch\.)|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|lecture\s+\d+,\s*§|biography,|Abstract|Description|entries\b|Price’s letter|[“\"])",
                     f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
                 )
 

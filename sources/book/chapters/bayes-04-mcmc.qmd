@@ -9,14 +9,14 @@ A stochastic process $X_0,X_1,\ldots$ is a Markov chain if \begin{equation}
  \Pr(X_{t+1}\in A\given X_t,X_{t-1},\ldots,X_0)
  =\Pr(X_{t+1}\in A\given X_t)
  \label{eq:markov-property}
-\end{equation} for every measurable set $A$.{{cite:norris1997}}{{cite:markov1906}} In a discrete state space, write $q(y\given x)$ for the transition probability from $x$ to $y$; in a continuous state space it is a transition density.{{cite:robert_casella2004}}
+\end{equation} for every measurable set $A$.{{cite:levin_peres2017}} (§1.1, pp. 2–4) In a discrete state space, write $q(y\given x)$ for the transition probability from $x$ to $y$; in a continuous state space it is a transition density.{{cite:levin_peres2017}} (§1.1, pp. 2–4)
 
 :::
 
 ::: {#def-stationarity-and-detailed-balance .definition}
 ## Stationarity and detailed balance
 
-A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition.{{cite:norris1997}}{{cite:robert_casella2004}} The global balance equation is \begin{equation}
+A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distributed as $\pi$ after one transition.{{cite:levin_peres2017}} (§1.5, pp. 9–12) The global balance equation is \begin{equation}
  \pi(y)=\sum_x\pi(x)q(y\given x)
  \quad\text{or}\quad
  \pi(y)=\int\pi(x)q(y\given x)\dd x.
@@ -27,14 +27,14 @@ A distribution $\pi$ is stationary if a state distributed as $\pi$ remains distr
  \label{eq:detailed-balance}
 \end{equation}
 
-Detailed balance equates the probability flow from $x$ to $y$ with the flow from $y$ to $x$.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+Detailed balance equates the probability flow from $x$ to $y$ with the flow from $y$ to $x$.{{cite:hastings1970}} (§2.1, pp. 99–100)
 
 :::
 
 ::: {#thm-detailed-balance-implies-stationarity .theorem}
 ## Detailed balance implies stationarity
 
-If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+If a transition kernel $q$ satisfies \eqref{eq:detailed-balance} for a probability distribution $\pi$, then $\pi$ satisfies global balance and is a stationary distribution of the chain.{{cite:hastings1970}} (§2.1, pp. 99–100){{cite:levin_peres2017}} (§1.5, pp. 9–12)
 
 :::
 
@@ -54,7 +54,7 @@ MCMC is not intrinsically Bayesian. It is a general method for sampling difficul
 
 ## A four-state random walk
 
-Detailed balance supplies the stationary distribution of a finite chain once the pairwise equations are solved and the result is normalised.{{cite:norris1997}}{{cite:hastings1970}}{{cite:robert_casella2004}}
+Detailed balance supplies the stationary distribution of a finite chain once the pairwise equations are solved and the result is normalised.{{cite:hastings1970}} (§2.1, pp. 99–100)
 
 ::: {#exm-four-state-random-walk .example}
 ## Four-state random walk
@@ -466,7 +466,7 @@ $$
 $$
 
 
- Every proposed move to higher target density is accepted; a move to a point with two-thirds as much density is accepted with probability $2/3$.{{cite:metropolis1953}}{{cite:gelman_bda2013}}
+ Every proposed move to higher target density is accepted; a move to a point with two-thirds as much density is accepted with probability $2/3$.{{cite:metropolis1953}} (§II, p. 1088)
 
 For an independent proposal $q(y\given x)=g(y)$, 
 
@@ -484,7 +484,7 @@ $$
 $$
 
 
- The Hastings factor $g(x)/g(y)$ corrects for the fact that $g$ may propose some regions too often and others too rarely.{{cite:hastings1970}}{{cite:robert_casella2004}} It must not be discarded merely because the proposal is independent of the current state. An independent proposal can jump between separated modes, but it performs poorly if $g$ under-covers a region where $\pi$ is large. A local random walk can represent local shape well but may become trapped in one mode. Proposal scale is therefore a genuine tuning decision, not a cosmetic one.
+ The Hastings factor $g(x)/g(y)$ corrects for the fact that $g$ may propose some regions too often and others too rarely.{{cite:hastings1970}} (§§2.1–2.3, pp. 99–101) It must not be discarded merely because the proposal is independent of the current state. An independent proposal can jump between separated modes, but it performs poorly if $g$ under-covers a region where $\pi$ is large. A local random walk can represent local shape well but may become trapped in one mode. Proposal scale is therefore a genuine tuning decision, not a cosmetic one.
 
 ### Gibbs sampling as an always-accepted MH update
 
@@ -517,7 +517,7 @@ $$
  &=1.
 \end{align*} Every Gibbs coordinate proposal is therefore accepted. This does not imply that every Gibbs sampler moves efficiently. In the bivariate-normal example, as $|\rho|\to1$ the conditional standard deviation $\sqrt{1-\rho^2}$ tends to zero: acceptance remains one while successive states move only a very short distance.
 
-Proposal design is an art because local and global exploration pull in different directions. Tiny random-walk steps are accepted but travel slowly; huge steps travel far but are mostly rejected. An independent proposal can jump between modes, yet it wastes effort if it puts mass where the target has almost none. The Hastings correction guarantees the right equilibrium under the required conditions.{{cite:hastings1970}}{{cite:robert_casella2004}} It does not guarantee an efficient journey there.{{cite:gelman_bda2013}}
+Proposal design is an art because local and global exploration pull in different directions. Tiny random-walk steps are accepted but travel slowly; huge steps travel far but are mostly rejected. An independent proposal can jump between modes, yet it wastes effort if it puts mass where the target has almost none. The Hastings correction guarantees the right equilibrium under the required conditions.{{cite:hastings1970}} (§§2.1–2.3, pp. 99–101) It does not guarantee an efficient journey there.{{cite:hastings1970}} (§2.3, pp. 100–101)
 
 ![Three random-walk Metropolis chains with the same $\Normal(0,1)$ target and different proposal standard deviations $s_q$. The tiny proposal is accepted almost every time but advances slowly; the huge proposal repeats its current value through long runs of rejections. A moderate acceptance rate is useful only because it accompanies larger moves and much weaker autocorrelation. The displayed acceptance rate is $a$.](../figures/part1-fig-04-proposal-scale.pdf){#fig-04-proposal-scale}
 

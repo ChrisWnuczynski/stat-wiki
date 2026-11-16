@@ -4340,7 +4340,7 @@ CONCEPT_LEADS = {
 }
 
 ARTICLE_HISTORIES.update({
-    "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:markov1906}}",
+    "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:dodge2008}} (pp. 330–331)",
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
     "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",

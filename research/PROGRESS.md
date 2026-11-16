@@ -1,10 +1,10 @@
 # Full research depth pass
 
-Branch: `research/depth-pass-ranks-38-onward`. Ranking is frozen in [RANKING.md](RANKING.md) and [ranking.json](ranking.json). Score is unique substantive incoming pages plus unique practice questions. Work strictly by rank, one page per commit, pushing this branch after each ten page commits. Generated `articles/*.qmd` are build output; researched article source belongs in `research/content/<slug>.md` and the research log in `research/<slug>.md`.
+Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RANKING.md) and [ranking.json](ranking.json). Score is unique substantive incoming pages plus unique practice questions. Work strictly by rank, one page per commit, pushing this branch after each integrated fifteen-page batch. Generated `articles/*.qmd` are build output; researched article source belongs in `research/content/<slug>.md` and the research log in `research/<slug>.md`.
 
 ## Status
 
-Pages ranked: **718**. Done: **67**. Left: **651**. Skipped: **0**. Ranks 1–37 were completed before this branch. This branch continues from rank 38.
+Pages ranked: **718**. Done: **82**. Left: **636**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -76,14 +76,27 @@ Pages ranked: **718**. Done: **67**. Left: **651**. Skipped: **0**. Ranks 1–37
 | 65 | [Gamma distribution](gamma-distribution.md) | Distribution | [Prose](content/gamma-distribution.md), [check](../checks/gamma-distribution.py) | 3,039 → 5,263 | 3 → 3 | Moments, sums and conjugacy proved; relationship pages rebuilt |
 | 66 | [Random component](random-component.md) | Concept | [Prose](content/random-component.md), [check](../checks/random-component.py) | 548 → 3,052 | 0 → 0 | GLM family variances proved; response support compared |
 | 67 | [Akaike information criterion](akaike-information-criterion.md) | Concept | [Prose](content/akaike-information-criterion.md), [check](../checks/akaike-information-criterion.py) | 867 → 2,919 | 0 → 0 | Gaussian optimism and penalty proved; general KL expansion logged |
+| 68 | [Irreducible Markov chain](irreducible-markov-chain.md) | Topic | [Prose](content/irreducible-markov-chain.md), [check](../checks/irreducible-markov-chain.py) | 321 → 2,122 | 0 → 0 | See [research record](irreducible-markov-chain.md) |
+| 69 | [Null and alternative hypotheses](null-and-alternative-hypotheses.md) | Definition | [Prose](content/null-and-alternative-hypotheses.md), [check](../checks/null-and-alternative-hypotheses.py) | 431 → 2,408 | 0 → 0 | See [research record](null-and-alternative-hypotheses.md) |
+| 70 | [Autocorrelation function](autocorrelation-function.md) | Topic | [Prose](content/autocorrelation-function.md), [check](../checks/autocorrelation-function.py) | 299 → 2,064 | 0 → 0 | See [research record](autocorrelation-function.md) |
+| 71 | [Posterior-odds factorisation](posterior-odds-factorisation.md) | Unknown | [Prose](content/posterior-odds-factorisation.md), [check](../checks/posterior-odds-factorisation.py) | 1,537 → 3,850 | 0 → 0 | See [research record](posterior-odds-factorisation.md) |
+| 72 | [Markov chain](markov-chain.md) | Definition | [Prose](content/markov-chain.md), [check](../checks/markov-chain.py) | 987 → 3,586 | 0 → 0 | See [research record](markov-chain.md) |
+| 73 | [Maximum a posteriori estimate](maximum-a-posteriori-estimate.md) | Topic | [Prose](content/maximum-a-posteriori-estimate.md), [check](../checks/maximum-a-posteriori-estimate.py) | 389 → 3,303 | 0 → 0 | See [research record](maximum-a-posteriori-estimate.md) |
+| 74 | [Autoregression and moving averages](autoregression-and-moving-averages.md) | Section | [Prose](content/autoregression-and-moving-averages.md), [check](../checks/autoregression-and-moving-averages.py) | 499 → 2,045 | 1 → 1 | See [research record](autoregression-and-moving-averages.md) |
+| 75 | [Odds ratio](odds-ratio.md) | Topic | [Prose](content/odds-ratio.md), [check](../checks/odds-ratio.py) | 469 → 2,661 | 0 → 0 | See [research record](odds-ratio.md) |
+| 76 | [Classification accuracy](classification-accuracy.md) | Topic | [Prose](content/classification-accuracy.md), [check](../checks/classification-accuracy.py) | 227 → 1,966 | 0 → 0 | See [research record](classification-accuracy.md) |
+| 77 | [Jacobian](jacobian.md) | Topic | [Prose](content/jacobian.md), [check](../checks/jacobian.py) | 575 → 2,773 | 0 → 0 | See [research record](jacobian.md) |
+| 78 | [Burn-in](burn-in.md) | Topic | [Prose](content/burn-in.md), [check](../checks/burn-in.py) | 234 → 3,782 | 0 → 0 | See [research record](burn-in.md) |
+| 79 | [Linear separators and the margin](linear-separators-and-the-margin.md) | Section | [Prose](content/linear-separators-and-the-margin.md), [check](../checks/linear-separators-and-the-margin.py) | 893 → 2,896 | 0 → 0 | See [research record](linear-separators-and-the-margin.md) |
+| 80 | [Random-walk and independent proposals](random-walk-and-independent-proposals.md) | Section | [Prose](content/random-walk-and-independent-proposals.md), [check](../checks/random-walk-and-independent-proposals.py) | 807 → 2,899 | 1 → 1 | See [research record](random-walk-and-independent-proposals.md) |
+| 81 | [Interpreting a logistic regression](interpreting-a-logistic-regression.md) | Section | [Prose](content/interpreting-a-logistic-regression.md), [check](../checks/interpreting-a-logistic-regression.py) | 259 → 2,388 | 0 → 0 | See [research record](interpreting-a-logistic-regression.md) |
+| 82 | [Transition matrix](transition-matrix.md) | Section | [Prose](content/transition-matrix.md), [check](../checks/transition-matrix.py) | 554 → 2,605 | 0 → 0 | See [research record](transition-matrix.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 68: `irreducible-markov-chain`.** The rank-67 checkpoint is complete. The 20 ranks from 48 through 67 each have a page commit, researched narrative sections and numerical checks. The final build produced 718 articles and 557 question pages; all 67 unit tests, all 20 rank-48–67 page checks, offline verification of 458 bibliography entries, and `git diff --check` passed. The general AIC asymptotic KL correction remains in `proofs-todo.json` while its Gaussian special case is proved on the page.
-
-At the rank-67 checkpoint the Dodge source directory was absent. The authorized PDF was supplied on 16 November 2026 and extracted outside the repository at `/workspace/statwiki-sources/dodge2008/`, with a 472-entry printed-page index and 612 individually marked PDF pages. `python research/check_sources.py` now verifies that source before new research writing. Quarto was unavailable, so the generator used system Pandoc through a local shim; full Quarto HTML rendering was not performed. The cholesterol fit in rank 56 could not be refitted without its source data, the Williams tsetse-network size in rank 57 was not verified from the original chapter, and the cross-validation scores in rank 67 could not be reproduced from their original simulation. Their internal arithmetic and printed values were checked where possible.
+**Rank 83: `precision`.** Ranks 68–82 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

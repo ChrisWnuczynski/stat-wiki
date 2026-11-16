@@ -15,7 +15,8 @@ def rates(tp: int, fn: int, fp: int, tn: int) -> tuple[F, F, F, F]:
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
     article = (root / "articles/classification-accuracy.qmd").read_text()
-    pending = json.loads((root / "research/pending/classification-accuracy.json").read_text())
+    bank = next(q for q in json.loads((root / "sources/depth-questions.json").read_text())
+                if q["id"] == "depth-classification-prevalence")
     assert 20 + 180 == 200
     assert F(180, 200) == F("0.90")
     assert F(0, 20) == 0 and F(180, 180) == 1
@@ -39,7 +40,6 @@ def main() -> None:
         "15 | 5 | 20", "20 | 160 | 180",
     ):
         assert printed in article, f"Missing printed value: {printed}"
-    bank = pending["new_bank_questions"][0]
     assert bank["id"] == "depth-classification-prevalence"
     for printed in ("0.80", "0.90", "0.10", "0.50", "0.89", "0.85"):
         assert printed in bank["answer"] + bank["body"]

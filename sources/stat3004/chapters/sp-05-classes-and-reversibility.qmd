@@ -6,7 +6,7 @@ The limit of $P^n$ for an irreducible aperiodic finite chain, and the two-state 
 
 ## Communication and closed classes
 
-State $j$ is accessible from $i$, written $i\to j$, when $p_{ij}^{(n)}>0$ for some $n\ge 0$.{{cite:norris1997}} The case $n=0$ counts: every state is accessible from itself. States $i$ and $j$ communicate when each is accessible from the other.{{cite:feller1968}} Communication is an equivalence relation, so it partitions $S$ into classes. A class is closed when no transition leaves it. A chain with a single communicating class is irreducible.{{cite:grimmett_stirzaker2020}} An absorbing state is a closed class of one state, with $p_{ii}=1$.
+State $j$ is accessible from $i$, written $i\to j$, when $p_{ij}^{(n)}>0$ for some $n\ge 0$.{{cite:levin_peres2017}} (§1.3, pp. 7–8) The case $n=0$ counts: every state is accessible from itself. States $i$ and $j$ communicate when each is accessible from the other.{{cite:levin_peres2017}} (§1.3, pp. 7–8) Communication is an equivalence relation, so it partitions $S$ into classes. A class is closed when no transition leaves it. A chain with a single communicating class is irreducible.{{cite:levin_peres2017}} (§1.3, pp. 7–8) An absorbing state is a closed class of one state, with $p_{ii}=1$.
 
 On a finite set, the states that can still reach a given closed class, and are not in it, are on their way out. They are visited only finitely often.
 

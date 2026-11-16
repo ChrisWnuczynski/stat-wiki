@@ -266,5 +266,66 @@
   "akaike-information-criterion": [
     "ex-sl-06-2",
     "ex-sl-06-5"
+  ],
+  "autocorrelation-function": [
+    "c-45",
+    "c-49"
+  ],
+  "autoregression-and-moving-averages": [
+    "c-46",
+    "c-48"
+  ],
+  "burn-in": [
+    "q-25",
+    "q-43"
+  ],
+  "classification-accuracy": [
+    "ex-sl-12-6",
+    "depth-classification-prevalence"
+  ],
+  "interpreting-a-logistic-regression": [
+    "q-35",
+    "ex-sl-10-2"
+  ],
+  "irreducible-markov-chain": [
+    "ex-prob-markov-limit",
+    "ex-prob-markov-periodic"
+  ],
+  "jacobian": [
+    "ex-applied-logitnormal-prior",
+    "ex-sl-07-4"
+  ],
+  "linear-separators-and-the-margin": [
+    "ex-sl-17-1",
+    "ex-sl-17-3"
+  ],
+  "markov-chain": [
+    "q-05",
+    "c-15"
+  ],
+  "maximum-a-posteriori-estimate": [
+    "q-12",
+    "q-22"
+  ],
+  "null-and-alternative-hypotheses": [
+    "ex-inf-blood-pressure-region",
+    "ex-inf-serve-power"
+  ],
+  "odds-ratio": [
+    "ex-sl-10-2",
+    "q-35"
+  ],
+  "posterior-odds-factorisation": [
+    "q-11",
+    "q-44"
+  ],
+  "random-walk-and-independent-proposals": [
+    "c-14",
+    "ex-applied-gamma-mh"
+  ],
+  "transition-matrix": [
+    "ex-prob-markov-two-steps",
+    "ex-sp-doubly-stochastic",
+    "ex-sp-closed-classes"
   ]
 }

@@ -94,11 +94,11 @@ $$
 $$
 The $z$ statistic on that slope is $6.81$. Exposure time is strongly associated with worse pneumonia, and the multiplier is the same for "any pneumonia" and for "severe pneumonia". That is the proportional-odds claim.
 
-Replacing the logit by the complementary log-log gives a proportional-hazards model.{{cite:cox1972}}{{cite:mccullagh1980}}
+With a grouped survival interpretation, replacing the logit by the complementary log-log gives a proportional cumulative-hazards model.{{cite:mccullagh1980}} (§3.1, pp. 113–114)
 $$
 \log\bigl(-\log(1-\gamma_k)\bigr)=\beta_{0k}+\vect{x}^\top\boldsymbol{\beta},
 $$
-with the same parallel-slope constraint and the same ordering of intercepts. The coefficient is a log hazard, not a log odds ratio.{{cite:agresti2002}} We can say what an odds ratio is. A hazard is a definition we can write down and a quantity we cannot usually explain. The call that forces the cumulative, reversed, parallel, complementary-log-log model is
+with the same parallel-slope constraint and the same ordering of intercepts. Under that grouped survival model, $\exp(\beta)$ multiplies the interval cumulative hazard; outside it, $\beta$ is a coefficient on the transformed-probability scale, not a log odds ratio.{{cite:mccullagh1980}} (§3.1, pp. 113–114) The call that fits the cumulative, reversed, parallel, complementary-log-log model is
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -181,7 +181,7 @@ Predictor $1$ is $\log(\hat p_1/\hat p_0)$, disease versus weak-willed. Predicto
 \log\frac{\hat p_2}{\hat p_0}
 &=-2.016+0.288\,\mathrm{female}+0.0421\,\mathrm{age}+1.067\,\mathrm{university}.
 \end{align*}
-Reading those coefficients as odds ratios, and the comparison of category $2$ against category $1$, is the next chapter. The fit itself is the multinomial likelihood with these two linear predictors, dispersion fixed at $1$.{{cite:agresti2002}} It records one independent choice of a single category per person. If a questionnaire let you tick several categories, that $1$ would be the wrong dispersion, and this would be the wrong model.
+Reading those coefficients as odds ratios, and the comparison of category $2$ against category $1$, is the next chapter. The fit itself is the multinomial likelihood with these two linear predictors, dispersion fixed at $1$. It records one independent choice of a single category per person. If a questionnaire let you tick several categories, that $1$ would be the wrong dispersion, and this would be the wrong model.
 
 ## Exercises
 

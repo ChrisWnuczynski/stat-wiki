@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "id": "depth-classification-prevalence",
+    "topic_code": "L9",
+    "title": "Accuracy under a prevalence shift",
+    "body": "A fixed binary classifier has sensitivity 0.80 and specificity 0.90. What is its accuracy when the positive-class prevalence is 0.10? What is it when the prevalence is 0.50, assuming the class-specific rates stay fixed? Explain why the two accuracies differ.",
+    "answer": "With prevalence π, accuracy = π·sensitivity + (1−π)·specificity. At prevalence 0.10 it is 0.10(0.80)+0.90(0.90)=0.89. At prevalence 0.50 it is 0.50(0.80)+0.50(0.90)=0.85. The classifier's conditional error rates are unchanged, but overall accuracy weights them by the class mix, which has changed."
+  }
+]

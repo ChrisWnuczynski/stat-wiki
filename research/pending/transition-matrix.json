@@ -1,4 +1,0 @@
-{
-  "article_lead": {"description": "a table of one-step Markov-chain probabilities whose rows describe current states and whose powers give later-state forecasts"},
-  "self_checks": ["ex-prob-markov-two-steps", "ex-sp-doubly-stochastic", "ex-sp-closed-classes"]
-}

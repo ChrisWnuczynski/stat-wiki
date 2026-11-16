@@ -21,7 +21,7 @@ where $w$ is the weight vector, $x$ the input vector, and $b$ the bias (called $
 ::: {#thm-sl-17-signed-distance .theorem}
 ## Signed distance
 
-For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm{{cite:burges1998}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}.
+For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm{{cite:burges1998}} (§3.1, pp. 128–131). In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert${{cite:boser_guyon_vapnik1992}} (§2.1, pp. 144–146).
 
 :::
 
@@ -37,18 +37,20 @@ so $r=(w^\top x+b)/\lVert w\rVert$.
 
 Rescaling $(w,b)$ by a positive constant leaves the separating plane unchanged. It also rescales the numerator and denominator of the distance formula by the same factor. A functional score $w^\top x+b$ is not itself a geometric distance until the norm of $w$ has been accounted for.
 
-The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. For hard-margin separation, only the points on the margin determine the solution. Moving a point that is strictly beyond the margin, without crossing it, does not change the optimum.
+The sign tells which side of the plane contains the point, while the magnitude tells how far away it lies. Two separators can give the same label and different distances, so the distance is useful when comparing their margins.
+
+The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho${{cite:boser_guyon_vapnik1992}} (§2.1, pp. 144–146). For hard-margin separation, only the points on the margin determine the solution. Moving a point that is strictly beyond the margin, without crossing it, does not change the optimum.
 
 ### Why maximise the margin?
 
 A large margin gives a training point some tolerance to perturbation along the normal before its classification changes. Learning theory also relates margins to the richness of a class of decision rules. A set is shattered if every binary labelling of it can be realised by the class. The VC dimension is the largest size of any shattered set. General position is not part of the definition. Affine half-spaces in $\mathbb{R}^p$ have VC dimension $p+1$. Some smaller degenerate configurations fail to be shattered, which is compatible with that maximum. The four XOR corners are one such configuration: half-spaces in the plane have VC dimension $3$, and those four points are not shattered.
 
-The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D${{cite:burges1998}}.
+The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D${{cite:burges1998}} (§3.4, pp. 134–136).
 
 ::: {#thm-sl-17-vapnik .theorem}
 ## Vapnik's radius–margin bound
 
-For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0${{cite:vapnik1998}}{{cite:burges1998}}{{cite:hastie_esl2009}}. The classical radius–margin bound is
+For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0${{cite:burges1998}} (§3.4, pp. 134–136). The classical radius–margin bound is
 
 $$
 h\le\min\Bigl\{\Bigl\lceil\frac{D^2}{\rho^2}\Bigr\rceil,\, p\Bigr\}+1.

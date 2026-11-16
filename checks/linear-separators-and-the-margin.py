@@ -3,6 +3,7 @@ from fractions import Fraction as F
 from pathlib import Path
 
 text = (Path(__file__).parents[1] / "research/content/linear-separators-and-the-margin.md").read_text()
+page = (Path(__file__).parents[1] / "articles/linear-separators-and-the-margin.qmd").read_text()
 points = [((-1, 0), -1), ((-1, 2), -1), ((1, 0), 1), ((1, 2), 1), ((-2, 1), -1), ((2, 1), 1)]
 w = (F(1), F(0))
 b = F(0)
@@ -19,4 +20,5 @@ assert sum(scaled[j]*candidate[j] for j in range(2)) == 1
 assert sum(scaled[j]*candidate[j] for j in range(2)) / 2 == score
 for token in ("(-1,0)", "(-1,2)", "(1,0)", "(1,2)", "(-2,1)", "(2,1)", "1/2", "2/\\lVert w\\rVert", "0.5"):
     assert token in text, token
+    assert token in page, token
 print("linear-separator geometry: 15 checks passed")

@@ -3,6 +3,7 @@ from fractions import Fraction as F
 from pathlib import Path
 
 text = (Path(__file__).parents[1] / "research/content/random-walk-and-independent-proposals.md").read_text()
+page = (Path(__file__).parents[1] / "articles/random-walk-and-independent-proposals.qmd").read_text()
 pi = (F(1, 2), F(1, 3), F(1, 6))
 g = (F(1, 6), F(1, 2), F(1, 3))
 q = ((F(1, 2), F(1, 2), F(0)), (F(1, 2), F(0), F(1, 2)), (F(0), F(1, 2), F(1, 2)))
@@ -19,4 +20,5 @@ assert pi[0] * g[1] * ind01 == pi[1] * g[0] * ind10 == F(1, 18)
 assert pi[1] / pi[0] == F(2, 3) != ind01
 for token in ("(1/2,1/3,1/6)", "(1/6,1/2,1/3)", "2/3", "2/9", "1/6", "1/18", "1/2", "3/4"):
     assert token in text, token
+    assert token in page, token
 print("proposal arithmetic: 18 checks passed")

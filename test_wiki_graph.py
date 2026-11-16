@@ -1642,6 +1642,12 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # the unlocated Gelman passage with passages read for this article.
                 expected_keys.difference_update({"laplace1812", "jeffreys1961", "gelman_bda2013"})
                 self.assertTrue({"wang2025_foundations", "hoff2013_bayes_estimators"} <= citation_keys)
+            if slug == "posterior-odds-factorisation":
+                # Kass and Raftery §3.1 and Dodge's Jeffreys biography were
+                # opened for this page; the inherited textbook references
+                # lacked inspected passages for the identity and history.
+                expected_keys.difference_update({"gelman_bda2013", "jeffreys1961"})
+                self.assertTrue({"kass_raftery1995", "dodge2008"} <= citation_keys)
             if slug == "log-partition-moment-identities":
                 # Replace two unopened textbooks in the shared proposition
                 # with an opened, located original-paper derivation.
