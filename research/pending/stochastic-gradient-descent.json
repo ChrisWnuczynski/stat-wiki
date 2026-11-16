@@ -1,0 +1,38 @@
+{
+  "slug": "stochastic-gradient-descent",
+  "rank": 308,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — A cheap, noisy step",
+    "Definition — The one-case gradient",
+    "Worked example — Three squared errors",
+    "Check yourself",
+    "Connections — Where the noise is spent"
+  ],
+  "words_before": 272,
+  "words_after": 1097,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 pp. 397–398"
+  ],
+  "proofs": [
+    "Unbiasedness of one uniformly chosen case gradient for the sum of case gradients"
+  ],
+  "tests": [
+    "checks/stochastic-gradient-descent.py"
+  ],
+  "skipped": [
+    "Robbins and Monro (1951) was not opened; step-size conditions are cited from ESL's statement of them"
+  ],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "stochastic-gradient-descent",
+      "title": "Convergence under decreasing step sizes",
+      "reason": "The page states the step-size conditions Hastie, Tibshirani and Friedman record for stochastic approximation, without proving that those conditions make the iterates converge."
+    }
+  ],
+  "todo": []
+}

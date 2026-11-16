@@ -1,0 +1,28 @@
+{
+  "slug": "epoch",
+  "rank": 314,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — One pass, however the weights are updated",
+    "Definition — A sweep of the training set",
+    "Worked example — Twenty cases, batches of four",
+    "Check yourself",
+    "Connections — The unit on the training curve"
+  ],
+  "words_before": 305,
+  "words_after": 839,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 §11.4, p. 397"
+  ],
+  "proofs": [],
+  "tests": [
+    "checks/epoch.py"
+  ],
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

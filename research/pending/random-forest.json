@@ -1,0 +1,32 @@
+{
+  "slug": "random-forest",
+  "rank": 315,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — Averaging helps only while the trees disagree",
+    "Definition — Bootstrap sample, then a random subset of predictors",
+    "Worked example — A floor of 0.8",
+    "Check yourself",
+    "Connections — What the average is made of"
+  ],
+  "words_before": 523,
+  "words_after": 1242,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "hastie_esl2009 §15.2, pp. 587–589"
+  ],
+  "proofs": [
+    "Variance of an average of equicorrelated tree predictions"
+  ],
+  "tests": [
+    "checks/random-forest.py"
+  ],
+  "skipped": [
+    "Breiman (2001) was not reopened; the source definition still cites it"
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

@@ -1,0 +1,19 @@
+{
+  "slug": "bonferroni-correction",
+  "rank": 243,
+  "tier": "full",
+  "type": "concept",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — The cap is not the exact error", "Properties", "Statistical use — p-values and critical values", "Worked example", "Common misconceptions", "Assumptions and limits — A valid bound can still be useless", "Connections", "Check yourself", "History"],
+  "words_before": 401,
+  "words_after": 1998,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": ["hastie_esl2009 §18.7 p. 686", "dodge2008 pp. 50–51", "durrett2019 Theorem 1.1.1(ii)"],
+  "proofs": ["union bound and the independent family-wise formula"],
+  "tests": ["checks/bonferroni-correction.py passed", "verify_citations.py --offline passed"],
+  "skipped": ["Dunn 1961 was not reopened"],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}

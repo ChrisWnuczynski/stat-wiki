@@ -1,0 +1,32 @@
+{
+  "slug": "link-function",
+  "rank": 288,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Choose the scale on which the covariates act",
+    "Definition — Three classical links",
+    "Properties — Which means stay legal",
+    "Worked example — One predictor, three means",
+    "Connections — The GLM pieces around the link",
+    "Check yourself — Legal and illegal means"
+  ],
+  "words_before": 593,
+  "words_after": 1304,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman (2009), ESL 12th printing, p. 296"
+  ],
+  "proofs": [
+    "Positivity of the log-link mean and the unit interval for the logit"
+  ],
+  "tests": [
+    "checks/link-function.py"
+  ],
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

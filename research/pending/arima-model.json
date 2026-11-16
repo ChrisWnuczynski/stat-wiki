@@ -1,0 +1,33 @@
+{
+  "slug": "arima-model",
+  "rank": 336,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 450,
+  "words_after": 1129,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hyndman and Athanasopoulos, Forecasting: Principles and Practice, chapter 9",
+    "Dodge, The Concise Encyclopedia of Statistics, printed p. 20"
+  ],
+  "proofs": [
+    "over-differencing white noise produces lag-1 autocorrelation minus one half"
+  ],
+  "tests": [
+    "checks/arima-model.py"
+  ],
+  "skipped": "Box and Jenkins 1970 was not opened.",
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}

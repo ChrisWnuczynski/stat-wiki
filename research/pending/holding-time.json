@@ -1,0 +1,32 @@
+{
+  "slug": "holding-time",
+  "rank": 327,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 485,
+  "words_after": 1221,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "NIST/SEMATECH e-Handbook \u00a78.1.6.2, Weibull, including the exponential case"
+  ],
+  "proofs": [
+    "the minimum of independent exponential clocks is exponential with rate equal to the sum"
+  ],
+  "tests": [
+    "checks/holding-time.py"
+  ],
+  "skipped": "Norris \u00a72.6 on holding times is not among the author-preview PDFs.",
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}

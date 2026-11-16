@@ -1,0 +1,32 @@
+{
+  "slug": "positive-continuous-responses",
+  "rank": 332,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 994,
+  "words_after": 1975,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "McCullagh, Introduction to Nelder and Wedderburn (1972), printed p. 544"
+  ],
+  "proofs": [
+    "the log link stays positive and multiplies the mean by a constant factor"
+  ],
+  "tests": [
+    "checks/positive-continuous-responses.py"
+  ],
+  "skipped": "The gamma variance function \u03bc\u00b2 is not stated on the opened page and is not claimed.",
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}

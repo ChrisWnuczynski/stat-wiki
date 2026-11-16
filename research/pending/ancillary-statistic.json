@@ -1,0 +1,45 @@
+{
+  "slug": "ancillary-statistic",
+  "rank": 290,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Variation the parameter does not move",
+    "Definition — A distribution free of \\(\\theta\\)",
+    "Properties — Centring removes a location",
+    "Worked example — A shift that disappears",
+    "Connections — Sufficiency and Basu",
+    "Check yourself — What the location does and does not change"
+  ],
+  "words_before": 401,
+  "words_after": 1029,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Location cancellation derived in the research note"
+  ],
+  "proofs": [
+    "A location shift cancels in the centred vector"
+  ],
+  "tests": [
+    "checks/ancillary-statistic.py"
+  ],
+  "skipped": [],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "ancillary-statistic#basu",
+      "title": "Basu independence",
+      "reason": "The article proves ancillarity of the centred vector for a location parameter. It does not prove independence from a complete sufficient statistic."
+    }
+  ],
+  "todo": [],
+  "article_leads": {
+    "field": "statistical inference",
+    "article": "the",
+    "term": "ancillary statistic",
+    "verb": "is",
+    "description": "a statistic whose sampling distribution does not depend on the parameter of interest"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "slug": "chi-squared-test-of-independence",
+  "rank": 320,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Intuition — Compare the table with the product of its margins",
+    "Definition — Statistic, degrees of freedom, and a small-cell warning",
+    "Worked example — A 2×2 trial",
+    "Check yourself",
+    "Connections — The same statistic, several readings"
+  ],
+  "words_before": 929,
+  "words_after": 1626,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "dodge2008 pp. 79–80"
+  ],
+  "proofs": [
+    "Degrees of freedom (r-1)(c-1) by counting free cells and estimated margins"
+  ],
+  "tests": [
+    "checks/chi-squared-test-of-independence.py"
+  ],
+  "skipped": [
+    "The chi-squared limit law is not proved. Pearson (1900), Fisher (1922) and Agresti were not reopened."
+  ],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "chi-squared-test-of-independence",
+      "title": "Chi-squared limit under estimated independence margins",
+      "reason": "The page proves the degree-of-freedom count (r-1)(c-1) and does not prove that the Pearson statistic converges to that chi-squared law."
+    }
+  ],
+  "todo": []
+}

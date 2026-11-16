@@ -1,0 +1,54 @@
+{
+  "slug": "mini-batch",
+  "rank": 365,
+  "tier": "lighter",
+  "type": "Concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 208,
+  "words_after": 1011,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "LeCun, Bottou, Orr and Müller 1998 §4.1",
+    "Hastie, Tibshirani and Friedman 2009 §11.4 pp. 396–397"
+  ],
+  "proofs": [
+    "Uniform average of subset gradients equals the full gradient for squared error"
+  ],
+  "tests": [
+    "checks/mini-batch.py passed"
+  ],
+  "skipped": [
+    "Bishop 2006 was not opened. The bibliography key lecun1998 is a different 1998 paper and is not used for this claim."
+  ],
+  "bibliography": {
+    "lecun_efficient_backprop1998": {
+      "authors": [
+        "LeCun, Y.",
+        "Bottou, L.",
+        "Orr, G. B.",
+        "Müller, K.-R."
+      ],
+      "year": 1998,
+      "title": "Efficient BackProp",
+      "kind": "incollection",
+      "venue": "Neural Networks: Tricks of the Trade",
+      "publisher": "Springer",
+      "url": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}

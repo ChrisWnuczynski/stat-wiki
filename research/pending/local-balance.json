@@ -1,0 +1,36 @@
+{
+  "slug": "local-balance",
+  "rank": 344,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — On a path, one cut carries the whole flow",
+    "Definition — The cut equation and the product",
+    "Properties — The product satisfies every cut",
+    "Worked example — Three states, births 1, 1, 0 and deaths 2, 2",
+    "Connections — Detailed balance on a path",
+    "Check yourself — Two cuts"
+  ],
+  "words_before": 559,
+  "words_after": 1127,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Algebra of the cut equation. Kelly (1979) scan had no text layer and was not cited anew. Ross and Norris were not opened."
+  ],
+  "proofs": [
+    "The product weights satisfy each neighbouring cut, and normalise when the sum is finite."
+  ],
+  "tests": [
+    "checks/local-balance.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "No new citation to Kelly, Ross or Norris."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

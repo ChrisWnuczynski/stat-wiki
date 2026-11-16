@@ -45,11 +45,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "borel-cantelli-lemmas",
-    "title": "Borel–Cantelli lemmas",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "conditional-distribution-of-a-multivariate-normal",
     "title": "Conditional distribution of a multivariate normal",
     "reason": "A reviewed proof sketch is still needed."
@@ -75,11 +70,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "fisher-neyman-factorisation",
-    "title": "Fisher–Neyman factorisation",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "fisher-s-direction",
     "title": "Fisher's direction",
     "reason": "A reviewed proof sketch is still needed."
@@ -92,7 +82,7 @@
   {
     "slug": "hammersley-clifford",
     "title": "Hammersley–Clifford",
-    "reason": "A reviewed proof sketch is still needed."
+    "reason": "The equivalence of the pairwise Markov property and clique factorisation for a positive distribution is longer than a short proof box."
   },
   {
     "slug": "invariance-of-maximum-likelihood",
@@ -142,12 +132,12 @@
   {
     "slug": "multivariate-central-limit-theorem",
     "title": "Multivariate central limit theorem",
-    "reason": "A reviewed proof sketch is still needed."
+    "reason": "The iid vector limit, including the Cramér–Wold argument under Lindeberg conditions, is longer than a short proof box."
   },
   {
     "slug": "normal-sample-theorem",
     "title": "Normal sample theorem",
-    "reason": "A reviewed proof sketch is still needed."
+    "reason": "The chi-squared law and the independence of the sample mean and variance use an orthogonal transformation of the standard normal vector. That argument is longer than a short proof box, so no proof box was added."
   },
   {
     "slug": "null-distribution-of-hotelling-s",
@@ -237,11 +227,6 @@
   {
     "slug": "squared-error-is-not-the-logistic-likelihood",
     "title": "Squared error is not the logistic likelihood",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "strong-law",
-    "title": "Strong law",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -365,23 +350,8 @@
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
-    "slug": "f-distribution#property-variance-ratio-f-pivot",
-    "title": "Variance-ratio F pivot",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "f-distribution#property-anova-f-distribution",
-    "title": "ANOVA F distribution",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
     "slug": "gamma-distribution#property-generic-exponential-family-conjugate-update",
     "title": "Generic exponential-family conjugate update",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "geometric-distribution#property-memoryless-property",
-    "title": "Memoryless property",
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {

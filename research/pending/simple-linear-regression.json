@@ -1,0 +1,85 @@
+{
+  "slug": "simple-linear-regression",
+  "rank": 219,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — Light and five seedlings",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — Reading a slope inside the observed hours",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the squared-error line misleads",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 1101,
+  "words_after": 3329,
+  "figures_before": 2,
+  "figures_after": 2,
+  "sources_read": [
+    "NIST/SEMATECH Handbook §4.1.4.1",
+    "NIST/SEMATECH Handbook §4.4.3.1",
+    "dodge2008 pp. 304–305"
+  ],
+  "proofs": [
+    "Normal equations, passage through the sample mean, unbiasedness of the straight-line estimators, variance σ²/Sxx"
+  ],
+  "tests": [
+    "checks/simple-linear-regression.py passed"
+  ],
+  "skipped": [
+    "The t with n-2 degrees of freedom was not added; Fox was not opened in this pass"
+  ],
+  "bibliography": {
+    "nist_linear_model2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
+      }
+    },
+    "nist_ls_straight2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": [
+    "simple-linear-regression: the t_{n-2} slope pivot is already in the source chapter via Fox; it was not re-derived here because that book was not opened."
+  ]
+}

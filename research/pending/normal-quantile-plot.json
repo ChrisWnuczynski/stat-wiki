@@ -1,0 +1,45 @@
+{
+  "slug": "normal-quantile-plot",
+  "rank": 331,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 576,
+  "words_after": 1292,
+  "figures_before": 2,
+  "figures_after": 2,
+  "sources_read": [
+    "Dodge, The Concise Encyclopedia of Statistics, printed p. 437",
+    "NIST/SEMATECH e-Handbook \u00a71.3.3.24, quantile-quantile plot"
+  ],
+  "proofs": [],
+  "tests": [
+    "checks/normal-quantile-plot.py"
+  ],
+  "skipped": "Wilk and Gnanadesikan 1968 was not opened.",
+  "bibliography": {
+    "nist_qq_plot": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a71.3.3.24: Quantile-Quantile Plot",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}

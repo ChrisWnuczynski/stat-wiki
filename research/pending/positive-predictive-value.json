@@ -1,0 +1,49 @@
+{
+  "slug": "positive-predictive-value",
+  "rank": 353,
+  "tier": "lighter",
+  "type": "Concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 999,
+  "words_after": 1720,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "Pishro-Nik 2014 §5.1"
+  ],
+  "proofs": [
+    "Bayes ratio for a positive test"
+  ],
+  "tests": [
+    "checks/positive-predictive-value.py passed"
+  ],
+  "skipped": [
+    "Vecchio 1966 and Yerushalmy 1947 were not re-opened; the source page already cites them."
+  ],
+  "bibliography": {
+    "pishro_nik2014": {
+      "authors": [
+        "Pishro-Nik, H."
+      ],
+      "year": 2014,
+      "title": "Introduction to Probability, Statistics, and Random Processes",
+      "kind": "book",
+      "publisher": "Kappa Research, LLC",
+      "url": "https://www.probabilitycourse.com/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilitycourse.com/"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}

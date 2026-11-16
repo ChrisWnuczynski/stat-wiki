@@ -1,0 +1,50 @@
+{
+  "slug": "prediction-interval",
+  "rank": 354,
+  "tier": "lighter",
+  "type": "Concept/definition",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 864,
+  "words_after": 1786,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "Hyndman and Athanasopoulos 2021 §5.5",
+    "NIST/SEMATECH §4.5.1.2"
+  ],
+  "proofs": [
+    "Straight-line prediction variance"
+  ],
+  "tests": [
+    "checks/prediction-interval.py passed"
+  ],
+  "skipped": [
+    "Casella and Berger was not opened. Hyndman's printed 80% lower endpoint 744.5 does not match 1.28×11.19 and was not repeated."
+  ],
+  "bibliography": {
+    "nist_prediction_interval": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "How can I predict the value and estimate the uncertainty of a single response?",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}

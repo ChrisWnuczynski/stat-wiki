@@ -1,0 +1,34 @@
+{
+  "slug": "logit-probit-and-complementary-log-log-links",
+  "rank": 284,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — Three curves through the unit interval",
+    "Definition — The three inverses",
+    "Properties — Range and symmetry",
+    "Worked example — One predictor, three probabilities",
+    "Connections — One linear predictor, three mean functions",
+    "Check yourself — Reading a probability"
+  ],
+  "words_before": 591,
+  "words_after": 1262,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman (2009), ESL 12th printing, p. 296"
+  ],
+  "proofs": [
+    "Range of the three inverses and the symmetry contrast"
+  ],
+  "tests": [
+    "checks/logit-probit-and-complementary-log-log-links.py"
+  ],
+  "skipped": [
+    "Complementary log-log is not on the ESL page cited for the logit and the probit."
+  ],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

@@ -1,0 +1,26 @@
+{
+  "slug": "dummy-variable-coding",
+  "rank": 300,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition — Drop one level so the columns are independent",
+    "Definition — Saturated group means",
+    "Worked example",
+    "Connections — Factors in a linear mean",
+    "Check yourself"
+  ],
+  "words_before": 680,
+  "words_after": 1554,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": ["James et al., ISLR corrected 7th printing, §3.3.1, pp. 84–86"],
+  "proofs": ["Dropping one indicator removes the dependence on the intercept, and least squares recovers group-mean differences"],
+  "tests": ["checks/dummy-variable-coding.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Wilkinson and Rogers (1973) was read and is about symbolic factorial formulae, so it is not cited for the column sum"],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}

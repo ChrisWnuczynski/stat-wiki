@@ -1,0 +1,37 @@
+{
+  "slug": "benjamini-hochberg",
+  "rank": 286,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition — A line that gets more lenient",
+    "Definition — The largest rank under the line",
+    "Worked example — Five ordered \\(p\\)-values",
+    "Connections — Family-wise error and a plug-in estimate",
+    "Check yourself — On the line, and an empty rejection set"
+  ],
+  "words_before": 435,
+  "words_after": 983,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Hastie, Tibshirani and Friedman (2009), ESL 12th printing, pp. 687–689"
+  ],
+  "proofs": [],
+  "tests": [
+    "checks/benjamini-hochberg.py"
+  ],
+  "skipped": [
+    "Benjamini and Hochberg (1995) was not opened. ESL's algorithm uses a strict inequality; the worked examples record where that differs from the closed cutoff."
+  ],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "benjamini-hochberg#fdr-bound",
+      "title": "False-discovery-rate bound",
+      "reason": "ESL states FDR at most (M0/M) alpha under independence and says the proof is complicated. The article does not prove that bound."
+    }
+  ],
+  "todo": []
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "undirected-graph",
+  "rank": 229,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — Three measurements in a line",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — Read a missing edge as a conditional statement",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When a separator is only a picture",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 412,
+  "words_after": 1896,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "grinstead_snell1997 p. 164"
+  ],
+  "proofs": [
+    "Gaussian quadratic form factors when K_13=0; K is positive definite"
+  ],
+  "tests": [
+    "checks/undirected-graph.py passed"
+  ],
+  "skipped": [
+    "Hammersley–Clifford equivalence not re-proved; Besag and Lauritzen not opened"
+  ],
+  "bibliography": {},
+  "proofs_todo": [
+    {
+      "slug": "undirected-graph",
+      "title": "Hammersley–Clifford equivalence",
+      "reason": "The page proves the Gaussian path factorisation for one precision matrix. The general equivalence between a positive density's clique factorisation and its pairwise Markov property was not derived."
+    }
+  ],
+  "todo": []
+}

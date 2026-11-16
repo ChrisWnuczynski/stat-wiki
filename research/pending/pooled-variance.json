@@ -1,0 +1,46 @@
+{
+  "slug": "pooled-variance",
+  "rank": 248,
+  "tier": "full",
+  "type": "definition",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Interpretation — What the weights are doing",
+    "Properties — Chi-squared sum and the two-sample pivot",
+    "Statistical use — Intervals, tests, and the equal-variance check",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the groups do not share a variance",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 602,
+  "words_after": 2592,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "dodge2008 pp. 427–428",
+    "siegrist2022_normals §6.08",
+    "nist_mean_limits2002 §1.3.5.2"
+  ],
+  "proofs": [
+    "Chi-squared sum, unbiasedness, and the two-sample t ratio"
+  ],
+  "tests": [
+    "checks/pooled-variance.py passed",
+    "verify_citations.py --offline passed",
+    "git diff --check passed"
+  ],
+  "skipped": [
+    "The chapter safety-programme margin 5.64 was left in the copied interval and not recomputed in the new prose."
+  ],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [
+    "pooled-variance: copied chapter citations fisher1925_smrw, casella_berger2002, and wasserman2004 still have no page locator; the books were not reopened for this pass."
+  ]
+}
