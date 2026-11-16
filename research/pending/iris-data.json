@@ -1,0 +1,14 @@
+{
+  "bibliography": {
+    "r_iris_doc2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Edgar Anderson's Iris Data (R-devel datasets documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html",
+      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"}
+    }
+  },
+  "self_checks": ["ex-sl-03-7", "ex-sl-08-7", "ex-ur-held-out-label"]
+}

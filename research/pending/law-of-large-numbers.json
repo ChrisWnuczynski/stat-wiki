@@ -1,0 +1,17 @@
+{
+  "bibliography": {
+    "siegrist2022_lln": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.3: The Law of Large Numbers",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.03:_The_Law_of_Large_Numbers",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.03:_The_Law_of_Large_Numbers"}
+    }
+  },
+  "proofs_todo": [
+    {"slug": "law-of-large-numbers#iid-strong-law", "title": "Iid strong law under finite first absolute moment", "reason": "The Statement section retains the source strong-law claim, but the page's single collapsed proof covers the finite-variance weak law only. Siegrist §6.3 gives a strong-law proof under finite variance and points to the broader integrable theorem."}
+  ],
+  "self_checks": ["ex-inf-poisson-mle", "ex-norm-mean"]
+}

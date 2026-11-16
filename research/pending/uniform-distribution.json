@@ -1,0 +1,23 @@
+{
+  "bibliography": {
+    "siegrist2022_uniform_interval": {
+      "authors": ["Siegrist, K."], "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.21: The Uniform Distribution on an Interval",
+      "kind": "book", "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.21:_The_Uniform_Distribution_on_an_Interval",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.21:_The_Uniform_Distribution_on_an_Interval"}
+    },
+    "von_neumann1951_random_digits": {
+      "authors": ["von Neumann, J."], "year": 1951,
+      "title": "Various Techniques Used in Connection With Random Digits",
+      "kind": "article", "venue": "Journal of Research of the National Bureau of Standards, Applied Mathematics Series",
+      "volume": "3", "pages": "36–38",
+      "url": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf",
+      "verification": {"source": "archival_url", "id": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf"}
+    }
+  },
+  "self_checks": ["ex-prob-generate-uniform", "ex-prob-min-and-mean", "ex-prob-name-the-laws"],
+  "shared_changes": [
+    {"file": "distributions.json", "description": "For uniform-distribution, move the factual lead_context sentence 'It provides the starting random draws for inverse-transform simulation and a simple model of equal likelihood over a bounded range.' into statistical_use, preserving its Robert–Casella citation, and leave lead_context nonempty as citation-only '{{cite:robert_casella2004}}'. This gives one generated lead sentence and retains the distribution-template test condition. Interpret equal likelihood as equal probability for equal-length intervals, as explained in body."}
+  ]
+}
