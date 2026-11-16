@@ -1,0 +1,12 @@
+{
+  "article_lead": {
+    "description": "the log-likelihood gradient that guides parameter fitting and measures how observations inform an estimate"
+  },
+  "self_checks": ["q-33", "q-56"],
+  "shared_changes": [
+    {
+      "file": "topics.py",
+      "description": "In topic(\"Score function\") near line 811, qualify 'The maximum likelihood estimate solves U(hat theta)=0' as 'A finite interior maximum of a differentiable log-likelihood has score zero; boundary or nonattained maxima need not.' Qualify mean-zero and information equality with fixed-support differentiation/integrability conditions. Rebuild and check score-function and all pages linked from this shared topic. Preserve the original displayed score definition."
+    }
+  ]
+}
