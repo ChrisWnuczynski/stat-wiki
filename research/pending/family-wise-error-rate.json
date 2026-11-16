@@ -1,0 +1,23 @@
+{
+  "article_lead": {
+    "description": "the chance that a testing procedure makes at least one false rejection across a stated family of hypotheses"
+  },
+  "bibliography": {
+    "nist_bonferroni2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.3: Bonferroni's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm"}
+    }
+  },
+  "self_checks": ["ex-sl-18-3", "ex-inf-tukey-corn"],
+  "shared_changes": [
+    {
+      "file": "topics.py",
+      "fix": "For the Family-wise error rate topic at approximately lines 601–604, replace 'with thousands of tests it leaves almost no power' and the unqualified 'It is stricter than the false discovery rate' with a precise description: FWER controls the chance of any false rejection, while FDR controls an expected false-discovery proportion; Bonferroni can lose power in large families, depending on effect sizes, dependence, and design. Preserve links, exact definition, and supported methods."
+    }
+  ]
+}
