@@ -268,7 +268,7 @@ $$
 K(x_i,x_j)=\phi(x_i)^\top\phi(x_j).
 $$
 
-The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points{{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. The feature map is never computed.
+The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points{{cite:scholkopf_smola2003_intro}} (§6.2, pp. 54–56, kernel trick). The feature map is never computed.
 
 :::
 

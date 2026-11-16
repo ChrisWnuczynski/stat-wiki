@@ -385,7 +385,7 @@ These calculations check the interpretation of the supplied numbers. They are no
 
 ## Laboratory: odds and probabilities for two iris species
 
-Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:brier1950}}.
+Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:sklearn_brier2026}} (Notes, brier_score_loss).
 
 ```r
 btrain <- droplevels(subset(train, Species != "setosa"))

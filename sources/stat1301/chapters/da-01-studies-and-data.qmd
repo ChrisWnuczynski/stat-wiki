@@ -28,7 +28,7 @@ In an observational study the investigator does not assign the conditions being 
 ::: {#def-designed-experiment .definition}
 ## Designed experiment
 
-In a designed experiment some columns are controlled.{{cite:fisher1935_doe}} Treatments are assigned to units, often at random, and those assignments stay the same if the measurements are repeated.{{cite:box_hunter_hunter2005}}{{cite:wasserman2004}} The response column changes; the treatment column does not.
+In a designed experiment some columns are controlled.{{cite:hernan_robins2020}} (Ch. 2, randomized experiments) Treatments are assigned to units, often at random, and those assignments stay the same if the measurements are repeated.{{cite:hernan_robins2020}} (Ch. 2, randomized experiments) The response column changes; the treatment column does not.
 
 :::
 
