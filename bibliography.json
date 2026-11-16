@@ -5939,6 +5939,23 @@
         "id": "10.1111/1467-9868.00265"
       }
     },
+    "stigler2010_galton_multivariate": {
+      "authors": [
+        "Stigler, S. M."
+      ],
+      "year": 2010,
+      "title": "Darwin, Galton and the Statistical Enlightenment",
+      "kind": "article",
+      "venue": "Journal of the Royal Statistical Society: Series A",
+      "volume": "173",
+      "issue": "3",
+      "pages": "469–482",
+      "doi": "10.1111/j.1467-985X.2010.00643.x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.1467-985X.2010.00643.x"
+      }
+    },
     "stone1974": {
       "authors": [
         "Stone, M."
@@ -5985,6 +6002,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://strimmerlab.github.io/publications/lecture-notes/MATH38161/"
+      }
+    },
+    "strimmer2026_prob_refresher": {
+      "authors": [
+        "Strimmer, K."
+      ],
+      "year": 2026,
+      "title": "Probability and Distribution Refresher",
+      "kind": "book",
+      "publisher": "University of Manchester",
+      "url": "https://strimmerlab.github.io/publications/lecture-notes/probability-distribution-refresher/probability-distribution-refresher-a4.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://strimmerlab.github.io/publications/lecture-notes/probability-distribution-refresher/probability-distribution-refresher-a4.pdf"
       }
     },
     "strobl2007": {

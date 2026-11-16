@@ -400,11 +400,6 @@
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
-    "slug": "multivariate-normal-distribution#property-affine-images-of-normal-vectors",
-    "title": "Affine images of normal vectors",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
     "slug": "poisson-distribution#property-generic-exponential-family-conjugate-update",
     "title": "Generic exponential-family conjugate update",
     "reason": "The distribution page states this result without a reviewed proof sketch."

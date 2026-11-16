@@ -152,7 +152,7 @@
   {
     "a": "wishart-distribution",
     "b": "multivariate-normal-distribution",
-    "a_text": "For integer $\\nu$, a sum of $\\nu$ outer products of independent centred {target} vectors with covariance $\\Sigma$ has this Wishart law.{{cite:anderson2003_mva}}",
-    "b_text": "For integer $\\nu$, independent centred vectors with this law generate a {target} matrix when their outer products are summed.{{cite:anderson2003_mva}}"
+    "a_text": "For integer $\\nu$, a sum of $\\nu$ outer products of independent centred {target} vectors with covariance $\\Sigma$ has this Wishart law.{{cite:strimmer2026_prob_refresher}} (Ch. 6, §6.4, pp. 69–72)",
+    "b_text": "For integer $\\nu$, independent centred vectors with this law generate a {target} matrix when their outer products are summed.{{cite:strimmer2026_prob_refresher}} (Ch. 6, §6.4, pp. 69–72)"
   }
 ]

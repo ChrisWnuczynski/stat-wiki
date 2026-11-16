@@ -150,5 +150,9 @@
   "inverse-gamma-distribution": [
     "c-10",
     "q-43"
+  ],
+  "multivariate-normal-distribution": [
+    "ex-sl-01-6",
+    "ex-sl-02-9"
   ]
 }

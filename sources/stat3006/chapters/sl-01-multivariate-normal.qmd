@@ -292,7 +292,7 @@ f(\mathbf{x})=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}
 \qquad\mathbf{x}\in\R^p.
 $$
 
-The mean vector is $\boldsymbol{\mu}$ and the covariance matrix is $\Sigma$. The subscript $p$ is dropped when the dimension is clear.
+The mean vector is $\boldsymbol{\mu}$ and the covariance matrix is $\Sigma$. The subscript $p$ is dropped when the dimension is clear.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Multivariate normal model”)
 
 :::
 

@@ -1483,11 +1483,15 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 expected_keys -= {"vonneumann1951"}
                 self.assertIn("billingsley1995", citation_keys, slug)
             if slug == "multivariate-normal-distribution":
-                # The affine-normal statement now cites the opened treatments
-                # by Strimmer and Wang in place of unexamined textbook entries.
-                expected_keys -= {"feller1968", "casella_berger2002"}
+                # Definition, affine-normal result, and history now use opened,
+                # located Strimmer, Wang, and Stigler passages.
+                expected_keys -= {"feller1968", "casella_berger2002", "gauss1809",
+                                  "pearson1896", "grimmett_stirzaker2020", "wasserman2004",
+                                  "anderson2003_mva"}
                 self.assertIn("strimmer2025_mva", citation_keys, slug)
+                self.assertIn("strimmer2026_prob_refresher", citation_keys, slug)
                 self.assertIn("wang2025_foundations", citation_keys, slug)
+                self.assertIn("stigler2010_galton_multivariate", citation_keys, slug)
             if slug == "student-t-distribution":
                 # The shared normal-sample and slope passages now cite the
                 # opened Siegrist and Fox derivations.

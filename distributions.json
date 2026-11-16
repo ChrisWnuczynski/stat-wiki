@@ -990,12 +990,12 @@
     "cdf": "",
     "quantile": "",
     "median": "",
-    "mode": "",
+    "mode": "$\\boldsymbol\\mu$",
     "skewness": "",
     "excess_kurtosis": "",
-    "entropy": "",
-    "mgf": "",
-    "characteristic_function": "",
+    "entropy": "$\\tfrac12\\log[(2\\pi e)^p|\\Sigma|]$",
+    "mgf": "$M(\\boldsymbol t)=\\exp(\\boldsymbol t^\\top\\boldsymbol\\mu+\\boldsymbol t^\\top\\Sigma\\boldsymbol t/2)$",
+    "characteristic_function": "$\\varphi(\\boldsymbol t)=\\exp(i\\boldsymbol t^\\top\\boldsymbol\\mu-\\boldsymbol t^\\top\\Sigma\\boldsymbol t/2)$",
     "fisher_information": "",
     "conjugate_prior": "",
     "related": [],
@@ -1038,15 +1038,15 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "",
-    "lead_context": "Its mean vector and covariance matrix make it a basic joint model for correlated measurements.{{cite:anderson2003_mva}}",
-    "statistical_use": "Multivariate-normal models support joint mean estimation, discriminant analysis and covariance-based testing. Their covariance matrix describes dependence between components; a separate univariate normal fit to each component misses that joint structure.{{cite:anderson2003_mva}}",
-    "worked_example": "### A correlated sum\n\nLet $(X_1,X_2)$ have means zero, unit variances and correlation $0.6$. Then $X_1+X_2$ is normal with variance $1+1+2(0.6)=3.2$, and symmetry gives $P(X_1+X_2>0)=1/2$.{{cite:anderson2003_mva}}",
-    "definition_note": "For a $p$-component vector, $\\boldsymbol\\mu$ is its $p$-component mean, $\\Sigma$ is a positive-definite $p\\times p$ covariance matrix, and $\\boldsymbol x$ is an observed vector; $|\\Sigma|$ denotes its determinant.{{cite:anderson2003_mva}}",
+    "lead_context": "Its mean vector and covariance matrix describe location, spread and dependence for measurements recorded together.{{cite:strimmer2025_mva}} (Ch. 1, §§1.1, 1.3)",
+    "statistical_use": "Multivariate-normal models describe correlated measurements jointly in mean estimation, prediction and classification. Fitting each coordinate separately discards the cross-covariances needed for joint uncertainty.{{cite:strimmer2025_mva}} (Ch. 1, §§1.1, 1.3)",
+    "worked_example": "### A correlated sum\n\nLet $(X_1,X_2)$ have means zero, unit variances and correlation $0.6$. Then $X_1+X_2$ is normal with variance $1+1+2(0.6)=3.2$, and symmetry gives $P(X_1+X_2>0)=1/2$.{{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31, Ex. 32)",
+    "definition_note": "For a $p$-component vector, $\\boldsymbol\\mu$ is its $p$-component mean, $\\Sigma$ is a positive-definite $p\\times p$ covariance matrix, and $\\boldsymbol x$ is an observed vector; $|\\Sigma|$ denotes its determinant.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Multivariate normal model”)",
     "key_result": {
       "title": "Affine images remain jointly normal",
-      "statement": "If $\\boldsymbol X\\sim N_p(\\boldsymbol\\mu,\\Sigma)$, $A$ is a fixed $q\\times p$ matrix, and $\\boldsymbol b$ is a fixed $q$-vector, then $A\\boldsymbol X+\\boldsymbol b$ is jointly normal with mean $A\\boldsymbol\\mu+\\boldsymbol b$ and covariance $A\\Sigma A^\\top$.{{cite:anderson2003_mva}}",
+      "statement": "If $\\boldsymbol X\\sim\\operatorname N_p(\\boldsymbol\\mu,\\Sigma)$, $A$ is a fixed $q\\times p$ matrix, and $\\boldsymbol b$ is a fixed $q$-vector, then $A\\boldsymbol X+\\boldsymbol b$ is jointly normal with mean $A\\boldsymbol\\mu+\\boldsymbol b$ and covariance $A\\Sigma A^\\top$.{{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31)",
       "meaning": "Linear combinations and marginals can be analysed without leaving the normal family.",
-      "proof": "The characteristic function of $\\boldsymbol X$ at $\\boldsymbol t$ is $\\exp(i\\boldsymbol t^\\top\\boldsymbol\\mu-\\boldsymbol t^\\top\\Sigma\\boldsymbol t/2)$. Substituting $A^\\top\\boldsymbol t$ and multiplying by $e^{i\\boldsymbol t^\\top\\boldsymbol b}$ yields the characteristic function of a normal vector with the stated mean and covariance, including a possibly singular covariance when $A$ has deficient rank.{{cite:anderson2003_mva}}"
+      "proof": "The characteristic function of $\\boldsymbol X$ at $\\boldsymbol t$ is $\\exp(i\\boldsymbol t^\\top\\boldsymbol\\mu-\\boldsymbol t^\\top\\Sigma\\boldsymbol t/2)$. Substituting $A^\\top\\boldsymbol t$ and multiplying by $e^{i\\boldsymbol t^\\top\\boldsymbol b}$ yields the characteristic function of a normal vector with the stated mean and covariance, including a possibly singular covariance when $A$ has deficient rank.{{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31 and proof)"
     }
   },
   "negative-binomial-distribution": {

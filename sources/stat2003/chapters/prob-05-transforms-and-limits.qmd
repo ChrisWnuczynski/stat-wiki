@@ -128,9 +128,9 @@ A random vector $\mathbf{Z}$ in $\R^n$ is multivariate normal with mean $\boldsy
 $$
 f(\mathbf{z})=(2\pi)^{-n/2}\,|\Sigma|^{-1/2}\,\exp\Bigl(-\tfrac12(\mathbf{z}-\boldsymbol\mu)^\top\Sigma^{-1}(\mathbf{z}-\boldsymbol\mu)\Bigr).
 $$
-{{cite:anderson2003_mva}}{{cite:grimmett_stirzaker2020}}{{cite:wasserman2004}}
+{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Multivariate normal model”)
 
-If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution.{{cite:anderson2003_mva}}{{cite:gauss1809}}{{cite:pearson1896}} The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
+If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution.{{cite:strimmer2025_mva}} (Ch. 3, §3.1, Ex. 3.9) {{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31) The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
 
 :::
 
