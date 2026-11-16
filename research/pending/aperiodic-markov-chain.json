@@ -1,0 +1,18 @@
+{
+  "bibliography": {
+    "berkeley_eecs1262019": {
+      "authors": ["University of California, Berkeley, EECS 126"],
+      "year": 2019,
+      "title": "Markov Chains",
+      "kind": "book",
+      "publisher": "University of California, Berkeley",
+      "url": "https://www-inst.cs.berkeley.edu/~ee126/fa22/notes/markov_chains.pdf",
+      "verification": {"source": "archival_url", "id": "https://www-inst.cs.berkeley.edu/~ee126/fa22/notes/markov_chains.pdf"}
+    }
+  },
+  "self_checks": ["ex-prob-markov-limit", "ex-prob-markov-two-state"],
+  "shared_changes": [
+    {"file": "topics.py", "description": "Locate the Aperiodic Markov chain topic definition at lines 429–431. Append {{cite:berkeley_eecs1262019}} (§2.4, p. 12) to its period/class claim. This replaces source citations to unopened Norris/Feller/Grimmett in the generated definition without changing its factual content."},
+    {"file": "sources/stat3004/chapters/sp-05-classes-and-reversibility.qmd", "description": "In the extracted sentence 'Period 1 means aperiodic' near line 26, replace the three unlocated inherited references to Norris/Feller/Grimmett with {{cite:berkeley_eecs1262019}} (§2.4, p. 12), which was opened in full. Check all articles depending on that source excerpt."}
+  ]
+}
