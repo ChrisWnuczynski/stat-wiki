@@ -1,0 +1,33 @@
+{
+  "article_lead": {
+    "description": "a plot of paired measurements that reveals the shape, spread, and unusual points in a relationship before it is summarized"
+  },
+  "bibliography": {
+    "nist_scatterplot2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.26: Scatter Plot",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm"}
+    }
+  },
+  "self_checks": ["ex-da-correlation-reading", "depth-scatterplot-curve", "depth-scatterplot-overplotting"],
+  "new_bank_questions": [
+    {
+      "id": "depth-scatterplot-curve",
+      "title": "A curve hidden by correlation",
+      "body": "Five paired values have $x=(-2,-1,0,1,2)$ and $y=(4,1,0,1,4)$. What does their scatterplot show? Compute the centered cross-product sum and say whether zero correlation would imply no relationship here.",
+      "answer": "The points lie exactly on the parabola $y=x^2$. The means are $\\bar x=0$ and $\\bar y=2$, so the cross-product sum is $-4+1+0-1+4=0$ and the sample correlation is zero. The relationship is exact but nonlinear; zero correlation rules out a linear trend in these five points, not a relationship.",
+      "topic_code": "D2"
+    },
+    {
+      "id": "depth-scatterplot-overplotting",
+      "title": "Repeated pairs on a scatterplot",
+      "body": "A plot of rounded height and weight contains a dot at one coordinate. Twenty people may have that same recorded pair. What can the dot tell you, what can it not tell you, and how could you show the multiplicity without changing the measurements used in analysis?",
+      "answer": "The dot shows at least one observed pair at that coordinate, but a conventional point plot does not reveal whether one or twenty observations overlap there. Transparency, a count-sized symbol, or small display-only jitter can show the pile. The original recorded pairs, not the jittered drawing positions, remain the data for a correlation or regression.",
+      "topic_code": "D2"
+    }
+  ]
+}
