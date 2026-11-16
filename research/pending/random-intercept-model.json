@@ -1,0 +1,9 @@
+{
+  "self_checks": ["q-40", "q-41", "ex-orthodont-lmm"],
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/08-random-intercepts.qmd",
+      "description": "In the paragraph that feeds random-intercept-model, the sentence that dismisses common negative correlation as ‘not a structure worth having’ is too broad. Preserve the mathematical $-1/(K-1)$ bound but acknowledge resource competition, compositional outcomes or sampling without replacement as concrete settings where valid negative dependence matters. The positive-definite versus semidefinite equality correction is already requested in rank 129 pending."
+    }
+  ]
+}
