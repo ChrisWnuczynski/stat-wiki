@@ -27,6 +27,6 @@ for heading in ('Motivating example','Worked example','Properties','Common misco
  assert f'## {heading}' in body
 for qid in ('ex-sl-06-2','ex-sl-06-5'):
  assert f'../questions/{qid}.qmd' in body
-for key in ('akaike1974','drton_plummer2017','rstats_aic2026','hyndman_athanasopoulos2021'):
+for key in ('akaike1974','fraley_raftery2002','hyndman_athanasopoulos2021'):
  assert f'data-cite-key="{key}"' in body
 print('AIC table, model comparisons, penalty and practice passed')

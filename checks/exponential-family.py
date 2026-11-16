@@ -57,6 +57,8 @@ if __name__ == "__main__":
         "nelder_wedderburn1972", "diaconis_ylvisaker1979",
         "geyer2022_exp_family", "geyer2025_conjugate",
         "sas2012_glm", "siegrist2020_poisson_process", "rstats_family2026",
+        "brown1964_sufficiency", "gelman_bda2013",
     }, keys
+    assert {"diaconis_ylvisaker1979", "brown1964_sufficiency"} <= keys
     assert any(x["slug"] == "exponential-family#property-pitman-koopman-darmois-informal-form" for x in todo)
     print("exponential-family printed values, symbols, citations, preservation, and proof passed")

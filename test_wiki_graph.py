@@ -1512,14 +1512,16 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 expected_keys.difference_update({"zellner1986", "box_tiao1973", "gelman_bda2013", "jeffreys1961"})
                 self.assertTrue({"raiffa_schlaifer1961", "stan_functions2026", "scipy_invgamma2026", "gelman2006"} <= citation_keys)
             if slug == "gamma-distribution":
-                # The shared conjugate-update statement now cites the opened
-                # Diaconis–Ylvisaker paper and Geyer's located derivation.
+                # The shared update cites the opened original paper and
+                # the authors' full Bayesian Data Analysis text.
                 expected_keys.discard("raiffa_schlaifer1961")
-                self.assertIn("geyer2025_conjugate", citation_keys, slug)
+                expected_keys.discard("geyer2025_conjugate")
+                self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
             if slug == "poisson-distribution":
-                # The same shared update replaces two unlocated book markers.
+                # The shared update replaces two unlocated book markers.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
-                self.assertIn("geyer2025_conjugate", citation_keys, slug)
+                expected_keys.discard("geyer2025_conjugate")
+                self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
@@ -1630,9 +1632,15 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 self.assertTrue({"wang2025_foundations", "hoff2013_bayes_estimators"} <= citation_keys)
             if slug == "log-partition-moment-identities":
                 # Replace two unopened textbooks in the shared proposition
-                # with an opened, located exponential-family derivation.
+                # with an opened, located original-paper derivation.
                 expected_keys.difference_update({"lehmann_casella1998", "mccullagh_nelder1989"})
-                self.assertIn("geyer2022_exp_family", citation_keys, slug)
+                expected_keys.discard("geyer2022_exp_family")
+                self.assertIn("diaconis_ylvisaker1979", citation_keys, slug)
+            if slug == "generic-exponential-family-conjugate-update":
+                # The shared update now cites the opened original paper and
+                # the authors' full textbook in place of a publisher record.
+                expected_keys.discard("raiffa_schlaifer1961")
+                self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

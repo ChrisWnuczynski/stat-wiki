@@ -52,7 +52,7 @@ Suppose a 90% interval for $\mu$ comes out as $(9.5,10.5)$. It is tempting to wr
 ::: {#def-pivot .definition}
 ## Pivot
 
-A pivot is a function $h(\vect X;\theta)$ of the data and the parameter whose distribution does not depend on any unknown parameter.{{cite:siegrist2022_set_estimation}} (§8.1, Pivot Variables){{cite:geyer2023_pivots}} (§4.4.2, exact pivotal quantities)
+A pivot is a function $h(\vect X;\theta)$ of the data and the parameter whose distribution does not depend on any unknown parameter.{{cite:siegrist2022_set_estimation}} (§8.1, Pivot Variables)
 
 :::
 

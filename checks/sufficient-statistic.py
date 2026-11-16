@@ -32,6 +32,6 @@ assert '**Your turn.**' in body and '## Check yourself' in body
 assert body.count('title="Answer"') >= 3
 for qid in ('ex-inf-poisson-umvu', 'ex-inf-rao-blackwell-variance'):
     assert f'../questions/{qid}.qmd' in page
-for key in ('fisher1922', 'geyer2022_exp_family', 'dasgupta2007_basu'):
+for key in ('fisher1922', 'dasgupta2011_exponential_family', 'brown1964_sufficiency', 'dasgupta2007_basu'):
     assert f'data-cite-key="{key}"' in body
 print('sufficiency, Bernoulli and Poisson arithmetic and practice passed')

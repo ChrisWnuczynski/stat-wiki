@@ -25,7 +25,7 @@ assert body.count('title="Proof"')==1
 for heading in ('Motivating example','Worked example','Common misconceptions','Assumptions and limits','History','Check yourself'):
  assert f'## {heading}' in body
 assert '**Your turn.**' in body and body.count('title="Answer"')>=3
-for key in ('geyer2020_markov_chains','metropolis1953','hastings1970'):
+for key in ('gelfand_smith1990','metropolis1953','hastings1970'):
  assert f'data-cite-key="{key}"' in body
 for qid in ('c-12','c-14'):
  assert f'../questions/{qid}.qmd' in (root/'articles/metropolis-hastings-algorithm.qmd').read_text()

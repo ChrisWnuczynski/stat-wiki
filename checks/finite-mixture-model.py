@@ -44,7 +44,7 @@ assert '**Your turn.**' in body and '## Check yourself' in body
 assert body.count('title="Answer"') >= 3
 for qid in ('ex-sl-05-1', 'ex-sl-05-4'):
     assert f'../questions/{qid}.qmd' in page
-for key in ('mclachlan_peel2000_book', 'sklearn_mixture2026',
-            'pearson1894_mixture', 'dempster_laird_rubin1977'):
+for key in ('fraley_raftery2002', 'pearson1894_mixture',
+            'dempster_laird_rubin1977'):
     assert f'data-cite-key="{key}"' in body
 print('mixture moments, membership, proof and practice passed')

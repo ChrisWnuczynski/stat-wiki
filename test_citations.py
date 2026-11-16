@@ -372,6 +372,17 @@ class CitationTests(unittest.TestCase):
             body = path.read_text(encoding="utf-8").split("## See also", 1)[0]
             research_path = ROOT / "research" / "content" / f"{Path(ref).stem}.md"
             research = research_path.read_text(encoding="utf-8")
+            if int(rank) >= 48:
+                self.assertNotRegex(
+                    research,
+                    r"\{\{cite:[^}]+\}\}\s*\([^)]*(?:Abstract|publisher (?:contents|summary|record))",
+                    f"Abstract or publisher listing used as article evidence in {path.name}",
+                )
+                self.assertNotRegex(
+                    body,
+                    r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>\s*\([^)]*(?:Abstract|publisher (?:contents|summary|record))',
+                    f"Abstract or publisher listing passed through to {path.name}",
+                )
             for heading in ("Motivating example", "Worked example"):
                 self.assertIn(f"## {heading}\n", research, f"Missing {heading} in {path.name}")
             worked = research.split("## Worked example\n", 1)[1].split("\n## ", 1)[0]

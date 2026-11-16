@@ -36,6 +36,6 @@ for printed in ('0.9545', '2.576', '2.776', '7.71'):
 for qid in ('ex-inf-two-standard-errors', 'ex-inf-t-squared-is-f'):
     assert f'../questions/{qid}.qmd' in page
 for key in ('siegrist2022_set_estimation', 'siegrist2022_normals',
-            'geyer2023_pivots', 'student1908', 'neyman1937'):
+            'student1908', 'neyman1937'):
     assert f'data-cite-key="{key}"' in body
 print('pivot intervals, proof and practice passed')

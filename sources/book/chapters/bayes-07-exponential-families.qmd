@@ -33,7 +33,7 @@ Under the assumed model, discarded features add no information about the named p
 ## Sufficiency and the Fisher--Neyman theorem
 
 ::: {#def-definition .definition}
-A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.{{cite:fisher1922}} (pp. 309–316, sufficiency){{cite:geyer2022_exp_family}} (§8.1, Definition)
+A statistic $T(\Xvec)$ is *sufficient* for $\theta$ if the conditional distribution of $\Xvec$ given $T(\Xvec)=t$ does not depend on $\theta$.{{cite:fisher1922}} (pp. 309–316, sufficiency){{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514, sufficiency)
 
 :::
 
@@ -49,11 +49,11 @@ Suppose the family $\{p(\xvec\given\theta):\theta\in\Omega\}$ is dominated by a 
  =g_\theta\{T(\xvec)\}h(\xvec),
  \qquad \theta\in\Omega,
  \label{eq:fisher-neyman-factorisation}
-\end{equation} where $h$ does not depend on $\theta$.{{cite:geyer2022_exp_family}} (§8.3, Neyman–Fisher Factorization Criterion)
+\end{equation} where $h$ does not depend on $\theta$.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514, factorization)
 
 :::
 
-The factorisation says that every part of the likelihood that depends on $\theta$ must pass through $T(\xvec)$.{{cite:geyer2022_exp_family}} (§8.3, factorization criterion) For a discrete sample, the easy direction of the theorem can be seen directly. If $T(\xvec)=t$, then \begin{align*}
+The factorisation says that every part of the likelihood that depends on $\theta$ must pass through $T(\xvec)$.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514, factorization) For a discrete sample, the easy direction of the theorem can be seen directly. If $T(\xvec)=t$, then \begin{align*}
  \Pr_\theta(\Xvec=\xvec\given T=t)
  &=\frac{p(\xvec\given\theta)}
          {\sum_{\vect u:T(\vect u)=t}
@@ -118,9 +118,9 @@ $$
 $$
 
 
- The factorisation theorem therefore proves that $\sum_iX_i$ is sufficient for $\mu$.{{cite:geyer2022_exp_family}} (§9.1, iid natural statistic) Since $\overline X=T/n$ is a one-to-one function of $T$ when $n$ is fixed, $\overline X$ is equivalent and is also sufficient.
+ The factorisation theorem therefore proves that $\sum_iX_i$ is sufficient for $\mu$.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514, natural statistic) Since $\overline X=T/n$ is a one-to-one function of $T$ when $n$ is fixed, $\overline X$ is equivalent and is also sufficient.
 
-If both $\mu$ and $\sigma^2$ are unknown, the displayed factorisation no longer isolates all parameter dependence through $\sum_iX_i$.{{cite:geyer2022_exp_family}} (§9.1, natural statistic for iid samples) A sufficient statistic for $(\mu,\sigma^2)$ is instead
+If both $\mu$ and $\sigma^2$ are unknown, the displayed factorisation no longer isolates all parameter dependence through $\sum_iX_i$.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514, natural statistic) A sufficient statistic for $(\mu,\sigma^2)$ is instead
 
 $$
  \left(\sum_{i=1}^nX_i,\sum_{i=1}^nX_i^2\right),
@@ -253,7 +253,7 @@ $$
 \qquad
 \nabla_\eta^2 A(\eta)=\operatorname{Cov}_\eta\{T(X)\}.
 $$
-The covariance matrix is positive semidefinite, so $A$ is convex. The one-observation Fisher information in $\eta$ is $\nabla_\eta^2 A(\eta)$ when the score identities hold. This notation uses $A$ for the log normaliser; in the GLM form, the parameter-only term $c$ is its negative after the dispersion scale is accounted for.{{cite:diaconis_ylvisaker1979}} (§2, eqs. 2.1–2.2, p. 271){{cite:geyer2022_exp_family}} (§§3.1, 4, “Exponential Families” and “Moments and Cumulants”)
+The covariance matrix is positive semidefinite, so $A$ is convex. The one-observation Fisher information in $\eta$ is $\nabla_\eta^2 A(\eta)$ when the score identities hold. This notation uses $A$ for the log normaliser; in the GLM form, the parameter-only term $c$ is its negative after the dispersion scale is accounted for.{{cite:diaconis_ylvisaker1979}} (§2, eqs. 2.1–2.2, p. 271)
 
 :::
 
@@ -300,7 +300,7 @@ $$
 ::: {#thm-pitman-koopman-darmois-informal-form .theorem}
 ## Pitman--Koopman--Darmois, informal form
 
-Under regularity assumptions that include a continuous canonical-statistic distribution and support independent of the parameter, a fixed-dimensional sufficient statistic for every iid sample size characterises an exponential family. The support condition is necessary: for observations from $\operatorname{Uniform}(0,\theta)$, the sample maximum is sufficient and one-dimensional, but the support depends on $\theta$. The converse depends on the continuous-statistic and common-support hypotheses.{{cite:geyer2022_exp_family}} (§9.4, “The Pitman–Koopman–Darmois Theorem”)
+Under regularity assumptions that include a continuous canonical-statistic distribution and support independent of the parameter, a fixed-dimensional sufficient statistic for every iid sample size characterises an exponential family. The support condition is necessary: for observations from $\operatorname{Uniform}(0,\theta)$, the sample maximum is sufficient and one-dimensional, but the support depends on $\theta$. The converse depends on the continuous-statistic and common-support hypotheses.{{cite:brown1964_sufficiency}} (§1, pp. 1456–1457, regularity conditions)
 
 :::
 
@@ -348,9 +348,9 @@ Put $\eta=c(\theta)$ and $A(\eta)=\log a(\theta)$. On the natural-parameter scal
 $$
 \boxed{\alpha\leftarrow\alpha+S(\boldsymbol x),\qquad\nu\leftarrow\nu+n.}
 $$
-The data add their sufficient-statistic total and sample size to the two hyperparameters. The displayed algebra requires the prior and posterior normalising integrals to be finite; propriety conditions depend on the family.{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3 and Theorem 1, pp. 271–272){{cite:geyer2025_conjugate}} (§§2.1–2.2, eqs. 2.3–2.5)
+The data add their sufficient-statistic total and sample size to the two hyperparameters. The displayed algebra requires the prior and posterior normalising integrals to be finite; propriety conditions depend on the family.{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3 and Theorem 1, pp. 271–272)
 
-The underlying parameter measure matters. A prior density stated in $\theta$ rather than $\eta$ acquires a Jacobian when changed to the natural scale. The Poisson example below deliberately uses a density with respect to $d\theta$, so its Gamma shape is read from the exponent of $\theta$ on that scale.{{cite:geyer2025_conjugate}} (§2.1, choice of natural parameter)
+The underlying parameter measure matters. A prior density stated in $\theta$ rather than $\eta$ acquires a Jacobian when changed to the natural scale. The Poisson example below deliberately uses a density with respect to $d\theta$, so its Gamma shape is read from the exponent of $\theta$ on that scale.{{cite:gelman_bda2013}} (§2.4, pp. 36–37, parameter measure in conjugate updating)
 
 :::
 

@@ -260,6 +260,36 @@
       "url": "https://www.stat.purdue.edu/~dasgupta/basuinfdiv.pdf",
       "verification": {"source": "crossref", "id": "10.1016/j.jspi.2006.06.018"}
     },
+    "dasgupta2011_exponential_family": {
+      "authors": ["DasGupta, A."],
+      "year": 2011,
+      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
+      "kind": "book",
+      "publisher": "Springer",
+      "url": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf"}
+    },
+    "dasgupta2011_graduate_probability": {
+      "authors": ["DasGupta, A."],
+      "year": 2011,
+      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
+      "kind": "book",
+      "publisher": "Springer",
+      "url": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf"}
+    },
+    "brown1964_sufficiency": {
+      "authors": ["Brown, L."],
+      "year": 1964,
+      "title": "Sufficient Statistics in the Case of Independent Random Variables",
+      "kind": "article",
+      "venue": "The Annals of Mathematical Statistics",
+      "volume": "35",
+      "issue": "4",
+      "pages": "1456–1474",
+      "url": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf",
+      "verification": {"source": "archival_url", "id": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf"}
+    },
     "basu1955": {
       "authors": [
         "Basu, D."

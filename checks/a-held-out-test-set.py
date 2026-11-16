@@ -54,6 +54,6 @@ assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
 for qid in ("ex-sl-09-7", "ex-sl-12-7"):
     assert f"../questions/{qid}.qmd" in page
-for key in ("cawley_talbot2010", "sklearn_common_pitfalls2026", "efron1983"):
+for key in ("cawley_talbot2010", "dodge2008", "efron1983"):
     assert f'data-cite-key="{key}"' in body
 print("held-out set arithmetic, proof and practice passed")

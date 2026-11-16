@@ -909,7 +909,7 @@ The first term does not depend on the fitted model, so maximising $\E[\ln\wideha
 
 If the candidate parameter spaces are nested, the supremum of the training log-likelihood cannot decrease as $H$ increases. It need not strictly increase at every step. For unrestricted Gaussian mixtures with at least two components, the supremum is already infinite by the covariance-collapse construction: a component can be pinned on one observation while another component keeps the remaining likelihood factors positive. A numerical finite local fit does not remove that pathology. Meaningful comparisons require a stated fitting or constraint convention.
 
-Two changes address the selection. A complexity criterion such as BIC or AIC charges a penalty that grows with the parameter count. A held-out log-likelihood scores observations that were excluded from the fit. The two targets differ: BIC approximates a marginal likelihood in regular models, and held-out log-likelihood estimates predictive performance. The ordinary Laplace justification of BIC needs qualification for singular mixtures{{cite:drton_plummer2017}} (Abstract, mixture models).
+Two changes address the selection. A complexity criterion such as BIC or AIC charges a penalty that grows with the parameter count. A held-out log-likelihood scores observations that were excluded from the fit. The two targets differ: BIC approximates a marginal likelihood in regular models, and held-out log-likelihood estimates predictive performance. The ordinary Laplace justification of BIC needs qualification for singular mixtures{{cite:fraley_raftery2002}} (§3, pp. 614–615, Gaussian-mixture singularity).
 
 []{#sol-sl-06-6} **[Choosing model complexity](#ex-sl-06-6).**
 

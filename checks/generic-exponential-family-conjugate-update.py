@@ -31,6 +31,6 @@ assert '**Your turn.**' in body and '## Check yourself' in body
 assert body.count('title="Answer"') >= 3
 for qid in ('ex-applied-exp-rate', 'ex-applied-exp-scale'):
     assert f'../questions/{qid}.qmd' in page
-for key in ('diaconis_ylvisaker1979', 'geyer2025_conjugate'):
+for key in ('diaconis_ylvisaker1979', 'gelman_bda2013', 'dasgupta2011_exponential_family'):
     assert f'data-cite-key="{key}"' in body
 print('conjugate update, Gamma convention and practice passed')

@@ -15,7 +15,7 @@ assert body.count('title="Proof"')==1
 assert '**Your turn.**' in body and body.count('title="Answer"')>=3
 for heading in ('Motivating example','Worked example','Properties','Common misconceptions','Assumptions and limits','History','Check yourself'):
  assert f'## {heading}' in body
-for key in ('nelder_wedderburn1972','mccullagh_nelder1989','zhou2020_glm'):
+for key in ('nelder_wedderburn1972','sas2012_glm','zhou2020_glm'):
  assert f'data-cite-key="{key}"' in body
 for qid in ('c-16','q-45'):
  assert f'../questions/{qid}.qmd' in body

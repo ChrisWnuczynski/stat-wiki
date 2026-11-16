@@ -1,0 +1,28 @@
+# Source-quality review for ranks 48–67
+
+## Checked sources and claims
+
+- Dodge, *The Concise Encyclopedia of Statistics* (2008), user-supplied PDF: printed pp. 44–46 derive the binomial model, mean, variance and normal approximation used for independent test-error indicators; pp. 92–94 define the moment skewness coefficient and discuss Pearson's history; p. 359 defines Monte Carlo methods. The local extracted text and entry index are in `/workspace/statwiki-sources/dodge2008/` (outside the repository).
+- Efron (1983), *JASA* §1, p. 316: the true classification error of a trained rule is its error on a new case, conditional on its training set. The paper's abstract was insufficient for the held-out page's numerical intervals, so the conditional binomial calculation is proved on the page and checked against Dodge.
+- Fraley and Raftery (2002), *JASA* §§2–4, pp. 613–616, author-hosted original: mixture likelihood, latent membership probabilities, EM updates, covariance singularities and candidate component counts. Dempster, Laird and Rubin (1977), §1, p. 1, describes incomplete-data EM, including finite mixtures. These replace citations to McLachlan and Peel's publisher contents and scikit-learn's explanatory docs.
+- Akaike (1974), *IEEE TAC* §§IV–V, pp. 718–719, original paper: derives the information-theoretic target and states the AIC formula in §V. Fraley and Raftery §3 supplies the Gaussian-mixture singularity example. R's AIC help page is no longer used as evidence for the mathematical criterion.
+- Nelder and Wedderburn (1972), *JRSS A* §§1–3, pp. 370–381, original paper: separates random response family, predictor and link; derives the variance function and gives normal, Poisson, binomial and Gamma deviances in §2.3, p. 375. R's `family`, `glm` and `summary.glm` documentation remains only where the prose describes their software behavior.
+- DasGupta, *Probability for Statistics and Machine Learning*, author-hosted chapter 18, §18.4.1, manuscript pp. 512–514: sufficient statistics, the factorization theorem and Basu's theorem. Brown (1964), *Annals of Mathematical Statistics* §1, pp. 1456–1457, discusses the regularity conditions behind the fixed-dimensional sufficiency/exponential-family converse. Diaconis and Ylvisaker (1979), *Annals of Statistics* §§1–2, pp. 269–273, develops the general conjugate prior kernel and its propriety conditions. These support the sufficient-statistic and conjugate-update pages.
+- Siegrist, *Introduction to Set Estimation* §8.1, develops pivot inversion. The pivot page proves exact coverage directly; the Student example has its own cited normal-sample source. The Geyer lecture-note citations on this page were replaced.
+- DasGupta, author-hosted graduate-probability chapter §1.29.10, manuscript pp. 180–182, derives iid Monte Carlo estimation and its CLT error. Hastings (1970), *Biometrika* §§1–2.2, pp. 97–101, original paper, develops the proposal ratio, reversibility, rejection stay probability and correlated Monte Carlo error. These replace Geyer and DLMF citations on the two Monte Carlo pages.
+- McCulloch and Pitts (1943), p. 115, original paper, describes the all-or-none neural event. Pearson (1895), §1, pp. 343–344, original paper, treats asymmetric frequency curves. Their historical citations now point to the text rather than an abstract or bibliographic description.
+- Gelman et al., *Bayesian Data Analysis*, third edition, author-hosted non-commercial PDF, §2.4, pp. 36–37 and §2.7, pp. 47–50: conjugate-prior updating and the Poisson–Gamma county cancer-rate example. The book's own website links to the complete PDF, so these retained citations were checked against its text.
+- Shared course chapters used by these pages were checked too: the sufficiency and conjugacy passages now cite DasGupta, Brown, Diaconis and Ylvisaker, or Gelman et al.; the Metropolis–Hastings passage cites Hastings; and the grid-simulation passage cites DasGupta and Hastings. The pivot definition cites Siegrist's full treatment. These replacements remove lecture-note and numerical-handbook citations from those mathematical passages.
+
+## Assumptions and limits
+
+- The held-out error calculation conditions on a fixed classifier and iid future test cases. Its Wald interval is explicitly approximate.
+- Mixture calculations fix the component family and number of components. The Gaussian singularity needs unconstrained component variance and a positive-weight component that continues to cover the other observations.
+- The usual GLM likelihood and deviance calculations assume the stated response family and independent observational contributions. Quasi-family mean and variance equations alone do not supply an ordinary full likelihood.
+- The sufficiency claim is relative to a named sampling model and parameter. The regularity qualifications for the Pitman–Koopman–Darmois converse remain explicit; its full proof is logged separately in the proofs ledger.
+- NIST's statistical handbook is retained where it actually develops the skewness coefficient and its data-display interpretation. NIST Dataplot, SciPy and R references are retained for software conventions only.
+
+## Disputed or unavailable
+
+- The full McLachlan–Peel, McCullagh–Nelder and Casella–Berger textbook chapters were not available through their publisher previews. They are not cited for claims on the revised pages. Original papers and author-hosted textbook chapters above supply the corresponding technical evidence. Gelman et al. was subsequently checked through the authors' authorized full-text edition.
+- A finite Gaussian mixture component need not be a physical subpopulation. A held-out result for a frozen rule does not evaluate a later refit that uses the test cases.
