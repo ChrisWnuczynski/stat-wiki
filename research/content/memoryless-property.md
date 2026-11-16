@@ -40,7 +40,7 @@ Let $S(u)=\Pr(X>u)$. The exponential density $\lambda e^{-\lambda x}$ on $(0,\in
 
 For the geometric law of the trial of the first success, $S(k)=q^k$ for each integer $k\ge 0$, because the first $k$ trials are failures. The ratio $S(r+s)/S(r)$ is $q^s$.{{cite:grinstead_snell1997}} (p. 186)
 
-For the converse on the positive reals, assume $S$ is continuous, $S(0)=1$, $S(t)>0$, and $S(s+t)=S(s)S(t)$ for all $s,t\ge 0$. Then $S(nt)=S(t)^n$ and $S(t)=S(t/n)^n$, so $S(m/n)=S(1)^{m/n}$. Continuity extends the identity from the rationals to every $t\ge 0$, giving $S(t)=S(1)^t$. A proper waiting time has $S(t)\to 0$, so $0<S(1)<1$. Set $\lambda=-\log S(1)>0$. Then $S(t)=e^{-\lambda t}$, which is the exponential survival. Among continuous laws, that survival is the exponential family.{{cite:grinstead_snell1997}} (p. 68, only the exponential density)
+Conversely, on the positive reals, assume $S$ is continuous, $S(0)=1$, $S(t)>0$, and $S(s+t)=S(s)S(t)$ for all $s,t\ge 0$. Then $S(nt)=S(t)^n$ and $S(t)=S(t/n)^n$, so $S(m/n)=S(1)^{m/n}$. Continuity extends the identity from the rationals to every $t\ge 0$, giving $S(t)=S(1)^t$. A proper waiting time has $S(t)\to 0$, so $0<S(1)<1$. Set $\lambda=-\log S(1)>0$. Then $S(t)=e^{-\lambda t}$, which is the exponential survival. The exponential laws are the only continuous memoryless waiting-time laws.{{cite:grinstead_snell1997}} (p. 68, only the exponential density)
 
 On the positive integers the same multiplicative rule with $S(0)=1$ gives $S(n)=S(1)^n$. Set $q=S(1)$. Properness forces $0\le q<1$, and the point masses are $S(n-1)-S(n)=(1-q)q^{n-1}$ for $n\ge 1$. That is the geometric law with success probability $1-q$.{{cite:grinstead_snell1997}} (p. 186){{cite:dodge2008}} (p. 226)
 :::

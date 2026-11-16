@@ -1,5 +1,5 @@
 ## Lead context
-Hotelling's $T^2$ test asks whether a sample of vector measurements is centred at a proposed mean, using the sample covariance so that correlated coordinates are not treated as separate one-coordinate tests.{{cite:scipy_f2026}} (Notes, the $F$ distribution used for the normal-sample critical value)
+Hotelling's T-squared test asks whether a sample of vector measurements is centred at a proposed mean, using the sample covariance so that correlated coordinates are not treated as separate one-coordinate tests.{{cite:scipy_f2026}} (Notes, the F distribution used for the normal-sample critical value)
 
 ## Motivating example — Two coordinates that move together
 Five paired measurements have sample mean $(2,0)$ and a sample covariance that is the identity. Each coordinate, looked at alone, has the same mean difference in the first coordinate and none in the second. A joint test has to say whether the pair $(2,0)$ is far from $(0,0)$ in the metric of that covariance. With the identity covariance the squared distance is $2^2+0^2=4$, and $T^2=n\times 4=20$. The same number is the square of the ordinary one-sample $t$ on the first coordinate, because the second coordinate contributes nothing and the coordinates are uncorrelated in this covariance.{{cite:scipy_f2026}} (Methods, `cdf` and `ppf` for comparing a transformed statistic)
