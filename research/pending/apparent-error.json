@@ -1,0 +1,8 @@
+{
+  "bibliography": {},
+  "proofs_todo": [],
+  "self_checks": ["ex-sl-11-5", "ex-sl-12-7"],
+  "shared_changes": [
+    {"file": "sources/stat3006/chapters/sl-09-error-rates.qmd", "description": "The Apparent error source excerpt cites Efron1983 and Stone1974 without locators and neither original full text was accessible in this pass. The full authorized ISLR first-edition Ch. 2 §2.2.3 pp. 38–43 and Ch. 5 §5.1 pp. 176–185 directly support training/test error, one-nearest-neighbour and validation claims. Add precise ISLR locators to those claims while preserving formulas and historically correct source citations; verify downstream Apparent error, fixed-rule error and resampling pages."}
+  ]
+}
