@@ -1,0 +1,39 @@
+{
+  "slug": "white-noise",
+  "rank": 226,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — A forecast that stays at zero",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — What a residual check can see",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the spike is only second-moment",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 495,
+  "words_after": 1988,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "dodge2008 p. 20",
+    "hyndman_athanasopoulos2021 §§9.1 and 9.3"
+  ],
+  "proofs": [
+    "Uncorrelated dependent Gaussian pair; difference correlation -1/2"
+  ],
+  "tests": [
+    "checks/white-noise.py passed"
+  ],
+  "skipped": [],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}
