@@ -1,0 +1,23 @@
+{
+  "bibliography": {
+    "gelman_meng_stern1996": {
+      "authors": ["Gelman, A.", "Meng, X.-L.", "Stern, H."],
+      "year": 1996,
+      "title": "Posterior predictive assessment of model fitness via realized discrepancies",
+      "kind": "article",
+      "venue": "Statistica Sinica",
+      "volume": "6",
+      "issue": "4",
+      "pages": "733–760",
+      "url": "https://stat.columbia.edu/~gelman/research/published/A6n41.pdf",
+      "verification": {"source": "archival_url", "id": "https://stat.columbia.edu/~gelman/research/published/A6n41.pdf"}
+    }
+  },
+  "self_checks": ["q-24", "ex-norm-mean"],
+  "proofs_todo": [
+    {"slug": "prior-and-posterior-predictive-distributions", "title": "Student posterior prediction under the normal regression reference prior", "reason": "The inherited properties state the multivariate regression Student distribution and scale, while the page's collapsed proof covers predictive mixtures, variance decomposition, and beta–binomial prediction; the regression calculation needs a complete derivation."}
+  ],
+  "shared_changes": [
+    {"file": "article_leads.json", "description": "Use the single lead sentence in research/content/prior-and-posterior-predictive-distributions.md rather than concatenating it with the existing generic lead."}
+  ]
+}
