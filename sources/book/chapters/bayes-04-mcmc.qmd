@@ -134,7 +134,7 @@ $$
 $$
 
 
- Terms involving only $x_{-i}$ may be dropped, but any term that still contains $x_i$ must remain. Gibbs accepts every coordinate draw because it samples from the exact conditional rather than proposing and rejecting a candidate.
+ Terms involving only $x_{-i}$ may be dropped, but any term that still contains $x_i$ must remain. Gibbs accepts every coordinate draw because it samples from the exact conditional rather than proposing and rejecting a candidate.{{cite:geyer2005_markov_chain}} (§§10.1, 10.4, pp. 27–28)
 
 :::
 
@@ -208,7 +208,7 @@ matplot(keep, type = "l", lty = 1)
 acf(keep[, 1])
 ```
 
-The trace plot and autocorrelation function are not substitutes for the stationarity argument.{{cite:geyer1992}}{{cite:gelman_bda2013}} They address the separate practical question of whether this finite run appears to have explored the target well enough for the posterior summary at hand.{{cite:gelman_rubin1992}}
+The trace plot and autocorrelation function are not substitutes for the stationarity argument.{{cite:geyer1992}} (§§3.3–3.7, pp. 477–480) They address the separate practical question of whether this finite run appears to have explored the target well enough for the posterior summary at hand.{{cite:gelman_rubin1992}} (§§1–2, pp. 457–460)
 
 ### Normal mean and variance example
 

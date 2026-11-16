@@ -178,5 +178,9 @@
   "marginal-likelihood-and-bayes-factor": [
     "q-44",
     "c-08"
+  ],
+  "gibbs-sampling": [
+    "q-59",
+    "q-26"
   ]
 }
