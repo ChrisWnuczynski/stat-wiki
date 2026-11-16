@@ -1,0 +1,29 @@
+{
+  "article_lead": {
+    "description": "a convexity bound that compares a transformed average with the average of transformed values, useful when variation matters"
+  },
+  "self_checks": ["depth-jensen-square-log", "depth-jensen-equality", "depth-jensen-domain"],
+  "new_bank_questions": [
+    {
+      "id": "depth-jensen-square-log",
+      "title": "Two directions of Jensen's inequality",
+      "body": "Let X equal 1 or 4, each with probability one half. Compare E(X^2) with (EX)^2 and E(log X) with log(EX). Explain the opposite directions.",
+      "answer": "EX=2.5, E(X^2)=8.5, and (EX)^2=6.25, so the convex square gives 8.5>=6.25. E(log X)=log(4)/2≈0.69315, while log(EX)=log(2.5)≈0.91629, so concavity of log reverses the inequality. Both are strict because X is nonconstant and each function has strict curvature over the support.",
+      "topic_code": "SP11"
+    },
+    {
+      "id": "depth-jensen-equality",
+      "title": "When Jensen's inequality is equality",
+      "body": "Can Jensen's inequality be equality when X is nonconstant? Give an explicit convex function and explain why.",
+      "answer": "Yes. An affine function such as phi(x)=2x+1 is convex, and E[phi(X)]=2EX+1=phi(EX) for every integrable X. Strict inequality for nonconstant X requires strict convexity on its support.",
+      "topic_code": "SP11"
+    },
+    {
+      "id": "depth-jensen-domain",
+      "title": "A failed Jensen application",
+      "body": "Someone applies E(log X)<=log(EX) to a random variable that equals zero with positive probability. What is wrong with the calculation?",
+      "answer": "The real logarithm is undefined at zero, and a finite E(log X) is unavailable. Jensen's finite-expectation form requires the function to be defined on the support and the transformed expectation to exist.",
+      "topic_code": "SP11"
+    }
+  ]
+}
