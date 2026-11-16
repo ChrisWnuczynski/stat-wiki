@@ -1,0 +1,32 @@
+{
+  "slug": "complete-separation",
+  "rank": 299,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition — The likelihood rises and the coefficient runs away",
+    "Definition — A one-predictor path",
+    "Worked example",
+    "Connections — What the software is chasing",
+    "Check yourself"
+  ],
+  "words_before": 238,
+  "words_after": 963,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["Direct expansion of the intercept-free logistic log-likelihood"],
+  "proofs": ["The separated intercept-free logit has no finite maximizer"],
+  "tests": ["checks/complete-separation.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Albert and Anderson (1984) was not opened; the general existence theorem is not cited"],
+  "bibliography": [],
+  "proofs_todo": [
+    {
+      "slug": "complete-separation",
+      "title": "Albert–Anderson existence theorem",
+      "reason": "The article proves an intercept-free one-predictor case. The general separating-hyperplane theorem was not given a proof box because the 1984 paper was not opened."
+    }
+  ],
+  "todo": []
+}

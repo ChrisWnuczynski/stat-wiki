@@ -1,0 +1,18 @@
+{
+  "slug": "proportional-odds-model",
+  "rank": 305,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": ["Lead context", "Motivating example", "Intuition — Parallel cumulative logits", "Definition — One covariate, three categories", "Worked example", "Connections — Other cumulative links", "Check yourself"],
+  "words_before": 305,
+  "words_after": 926,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": ["Yee (2010), Journal of Statistical Software 32(10), p. 7"],
+  "proofs": ["A shared slope multiplies every cumulative odds by the same factor, and the intercepts must decrease"],
+  "tests": ["checks/proportional-odds-model.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["McCullagh (1980) was not opened; Yee (2010) was read and not given a new bibliography key"],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
