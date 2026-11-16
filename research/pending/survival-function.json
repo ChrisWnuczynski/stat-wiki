@@ -1,0 +1,21 @@
+{
+  "bibliography": {
+    "nist_reliability2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods: Reliability or survival function",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr122.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr122.htm"}
+    }
+  },
+  "article_lead": {
+    "description": "the chance that an event has not yet occurred by a given time, used to compare lifetimes and follow-up"
+  },
+  "self_checks": [
+    "ex-prob-mttf-integral",
+    "ex-prob-hazard-survival",
+    "ex-prob-christmas-lights"
+  ]
+}
