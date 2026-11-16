@@ -65,3 +65,18 @@ Unverified:
 - Copied citations listed in the research todo still have no new page locators: Cauchy–Schwarz, detailed balance, Galton–Watson, marginal effects, Pearson residual, pooled variance, posterior hypothesis probability, significance level, and stationary increments.
 - Inverse Gaussian: Tweedie (1957) was not opened. The distribution template has no Check yourself slot, so that research heading is not a generated section.
 - Spot-check of pooled-variance and stationary-and-independent-increments found numerical examples and sourced definitions. No further prose change.
+
+## Batch N — ranks 263–277
+
+Ranks: 263 complete-linkage, 264 count-models-beyond-the-poisson, 265 single-linkage, 266 leave-one-out-cross-validation, 267 nested-cross-validation, 268 trace-plot, 269 partial-correlation, 270 random-slopes, 271 cauchy-distribution, 272 clique, 273 conway-maxwell-poisson-distribution, 274 multinomial-distribution, 275 student-t-distribution, 276 average-linkage, 277 cubic-smoothing-spline.
+
+Pages fixed: none. Spot-check of complete-linkage and cubic-smoothing-spline found sourced definitions, proofs, and worked numbers. “Retained draws” on the trace plot is the Monte Carlo term.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (470 works). `git diff --check` passed. All 15 page checks passed.
+
+Unverified:
+
+- No new bibliography keys.
+- Cauchy sample averages, the natural-cubic minimiser, and the Gaussian precision-block identity remain unproved and are logged in `research/todo.md`.
