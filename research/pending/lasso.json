@@ -1,0 +1,19 @@
+{
+  "article_lead": {
+    "description": "a regression method that shrinks coefficients and can set some to zero to build sparse predictive models from many predictors"
+  },
+  "self_checks": ["ex-sl-18-5", "ex-sl-18-6", "ex-sl-18-9"],
+  "proofs_todo": [
+    {
+      "slug": "lasso-adaptive-oracle-properties",
+      "title": "Adaptive lasso oracle properties",
+      "reason": "The existing article reports Zou's conditional asymptotic oracle properties; its new collapsed proof concerns soft thresholding and does not establish the asymptotic design, pilot-estimator and penalty-rate conditions."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "notes/sl-18-high-dimensional.qmd",
+      "change": "Repair three inherited citation-adjacent sentences without deleting claims or citations: around line 267 put the punctuation after all three citations for forward selection; around line 308 write ‘Tibshirani, building in part on work by Donoho and Johnstone and by Breiman, replaced the L2 penalty with an L1 penalty’ with the existing citations attached to the named sources; around line 369 write ‘Another option, proposed by Zou, is the adaptive lasso’ with the existing zou2006 citation after Zou. Rebuild both the note and dependent articles, including lasso, and verify citation backlinks."
+    }
+  ]
+}
