@@ -1,0 +1,9 @@
+{
+  "bibliography": {
+    "nist_least_squares_pmd2002": {"authors": ["NIST/SEMATECH"], "year": 2002, "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1: Least Squares", "kind": "book", "publisher": "National Institute of Standards and Technology", "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm", "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"}},
+    "nist_linear_least_squares_pmd2002": {"authors": ["NIST/SEMATECH"], "year": 2002, "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression", "kind": "book", "publisher": "National Institute of Standards and Technology", "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm", "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"}},
+    "nist_nonnormal_errors_pmd2002": {"authors": ["NIST/SEMATECH"], "year": 2002, "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.5.3: Accounting for Errors with a Non-Normal Distribution", "kind": "book", "publisher": "National Institute of Standards and Technology", "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm", "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm"}}
+  },
+  "article_lead": {"description": "a rule for fitting a model by minimizing squared prediction errors, making a reproducible compromise among imperfect observations"},
+  "self_checks": ["ex-inf-normal-equations", "ex-inf-line-through-origin", "ex-sl-18-2"]
+}
