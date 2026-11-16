@@ -1,0 +1,43 @@
+{
+  "slug": "probability-space",
+  "rank": 233,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example",
+    "Intuition",
+    "Definition",
+    "Interpretation — What is and is not an event",
+    "Properties",
+    "Statistical use — Building later results on one space",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — Where the axioms stop",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 504,
+  "words_after": 2913,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "durrett2019 §§1.1–1.2, Theorem 1.1.1, Examples 1.1.2 and 1.1.6, Theorem 2.4.1",
+    "dodge2008 index and page search, no entry"
+  ],
+  "proofs": [
+    "empty-set probability, monotonicity, countable union bound, continuity from below and above"
+  ],
+  "tests": [
+    "checks/probability-space.py passed",
+    "verify_citations.py --offline passed"
+  ],
+  "skipped": [
+    "Dodge has no probability-space entry, so it is not cited"
+  ],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": [],
+  "article_leads": {}
+}
