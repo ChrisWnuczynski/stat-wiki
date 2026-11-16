@@ -1,0 +1,51 @@
+## Motivating example
+A histogram of three measurements at $0$, $2$ and $4$ jumps at bin edges, even though the underlying quantity may vary continuously. Placing a smooth bell at each observation and averaging the bells gives a density estimate without those artificial jumps. The same bell-shaped dependence on distance is used in support vector machines and Gaussian processes to say that nearby inputs are similar. These uses share an exponential shape, but a density kernel must integrate to one while a similarity kernel must yield positive-semidefinite Gram matrices.{{cite:polonik2020_kde}} (Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 79–83)
+
+## Intuition
+For density estimation, every observation contributes a little probability mass around itself. The bandwidth $h$ controls the width of each contribution: small $h$ resolves narrow structure but makes the estimate variable; large $h$ hides bumps. For a radial-basis similarity kernel, $\sigma$ instead controls how quickly similarity decays with distance. Both parameters have units of the input variable, but the density version includes a normalising factor that the similarity version usually omits. The word “Gaussian” describes the shape, not an assumption that the observed data are normally distributed.{{cite:polonik2020_kde}} (Introduction and definition; Oversmoothing and undersmoothing){{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, pp. 82–83)
+
+## Definition
+For one-dimensional density estimation, the **Gaussian kernel** is the standard normal density $\varphi(u)=(2\pi)^{-1/2}e^{-u^2/2}$. With $n$ observations $x_i$ and bandwidth $h>0$, the Gaussian kernel-density estimate is
+
+$$\widehat f_h(x)=\frac1{nh}\sum_{i=1}^n\varphi\!\left(\frac{x-x_i}{h}\right).$$
+
+The factor $1/h$ rescales each bell so that its area remains one. In $d$ dimensions a positive-definite bandwidth matrix $H$ similarly produces a normal density with covariance $H$ centred at each observation. By contrast, the common Gaussian radial-basis kernel is $k_\sigma(x,x')=\exp\{-\|x-x'\|^2/(2\sigma^2)\}$, with $k_\sigma(x,x)=1$; it is a pairwise similarity and usually lacks the density normaliser.{{cite:polonik2020_kde}} (Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, eq. 4.9, pp. 82–83)
+
+## Properties
+The density estimate is nonnegative, smooth and integrates to one because it is an average of normal densities. Its support is all of $\mathbb R$, so no observation has *exactly* zero influence at a finite distance. An Epanechnikov density kernel, in contrast, has bounded support and makes a sample's contribution exactly zero outside its window. A full bandwidth matrix allows elliptical smoothing along tilted directions; a scalar or diagonal bandwidth has axis-aligned contours and cannot follow a strongly rotated cloud. Even a full matrix used everywhere imposes one orientation on a cloud whose orientation changes by location. The bandwidth often matters more to the resulting density than the choice among common smooth kernel shapes.{{cite:polonik2020_kde}} (Introduction and definition; Oversmoothing and undersmoothing)
+
+The radial-basis version is positive semidefinite: for any finite inputs, its Gram matrix can be used as a valid covariance or inner-product matrix. It equals one for identical inputs and approaches zero as their separation grows. A linear kernel $x^\top x'$ uses the input coordinates as features; a polynomial kernel $(1+x^\top x')^d$ uses monomials through degree $d$. For $p=2$ coordinates and $d=2$, that gives $\binom{p+d}{d}=\binom42=6$ monomials. The Gaussian RBF's Taylor expansion instead includes every degree, so its feature representation is infinite dimensional. A very large $\sigma$ makes all entries close to one, leaving little discrimination; a very small $\sigma$ makes distinct points nearly unrelated. The Gaussian covariance function is infinitely differentiable, expressing a strong smoothness assumption when it is used for a Gaussian process.{{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, eq. 4.9, pp. 80–83)
+
+::: {.callout-note collapse="true" title="Proof"}
+::: {.proof}
+Each summand $h^{-1}\varphi((x-x_i)/h)$ is nonnegative. Substituting $u=(x-x_i)/h$ shows its integral over $x\in\mathbb R$ is $\int\varphi(u)\,du=1$, so averaging gives $\int\widehat f_h(x)\,dx=1$. For the radial-basis kernel, write
+
+$$k_\sigma(x,x')=e^{-\|x\|^2/(2\sigma^2)}e^{-\|x'\|^2/(2\sigma^2)}\sum_{m=0}^{\infty}\frac{(x^\top x')^m}{m!\sigma^{2m}}.$$
+
+For any coefficients $a_i$, the quadratic form of the Gram matrix is $\sum_{m\ge0}(m!\sigma^{2m})^{-1}\left\|\sum_i a_i e^{-\|x_i\|^2/(2\sigma^2)}x_i^{\otimes m}\right\|^2\ge0$. This proves positive semidefiniteness and exhibits features of every polynomial degree. The same Gaussian change of variables extends the density normalization to a positive-definite matrix $H$, with Jacobian factor $|H|^{1/2}$.{{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 80–84){{cite:polonik2020_kde}} (Introduction and definition)
+:::
+:::
+
+## Statistical use
+Use the density kernel when the goal is to estimate a distribution's shape or a class-conditional density without specifying a parametric family. Use the positive-semidefinite pairwise kernel when a method needs similarities or covariances between input points. This distinction is operational: multiplying every RBF similarity by the density normaliser changes its scale but is irrelevant to the shape of a KDE bell, while omitting the $1/h$ in a KDE makes its total area equal to $h$ rather than one.{{cite:polonik2020_kde}} (Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 79–80)
+
+## Worked example
+At $x=2$, observations $0,2,4$ with Gaussian bandwidth $h=2$ have standardised offsets $1,0,-1$. Since $\varphi(0)\approx0.39894$ and $\varphi(1)=\varphi(-1)\approx0.24197$, the estimate is $\widehat f_2(2)=(0.24197+0.39894+0.24197)/(3\cdot2)\approx0.14715$. This is a density height, not the probability that a measurement equals exactly $2$. Halving the bandwidth to $h=1$ gives $\widehat f_1(2)=\{\varphi(2)+\varphi(0)+\varphi(-2)\}/3\approx0.16897$: the centre bell grows taller as the smoothing narrows.{{cite:polonik2020_kde}} (Introduction and definition; Oversmoothing and undersmoothing)
+
+**Your turn.** For two one-dimensional inputs $0$ and $2$, calculate their Gaussian RBF similarity at $\sigma=1$ and at $\sigma=2$. Which setting treats the inputs as more alike?
+
+::: {.callout-tip collapse="true" title="Answer"}
+At $\sigma=1$, $k(0,2)=e^{-2}\approx0.13534$. At $\sigma=2$, $k(0,2)=e^{-1/2}\approx0.60653$. The larger scale treats the same separation as more similar. These are similarity values, not probabilities or density heights.{{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, eq. 4.9, pp. 82–83)
+:::
+
+## Common misconceptions
+A Gaussian KDE does not assert a Gaussian population: a mixture of Gaussian bells can be multimodal or skewed. The KDE bell and RBF Gram kernel have related shapes but different normalization and roles; neither can be substituted into every formula without checking units. An infinitely supported Gaussian kernel does not mean distant points have important influence, only that their contribution is never exactly zero. And a smooth density curve does not guarantee an appropriate bandwidth; one broad hill may conceal genuine peaks while many narrow spikes may reflect noise.{{cite:polonik2020_kde}} (Introduction and definition; Oversmoothing and undersmoothing){{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, pp. 82–83)
+
+## Assumptions and limits
+For a waiting time that cannot be negative, a standard Gaussian KDE centred near zero assigns some estimated mass to impossible negative values; boundary correction or a suitable transformation is needed. If a two-dimensional cloud lies along a diagonal, separate axis-aligned bandwidths spread mass into off-cloud corners, whereas a full $H$ can follow its orientation. In classification, taking $\sigma$ almost zero makes the RBF Gram matrix nearly the identity for distinct training points, favouring highly local fits; taking it extremely large makes the matrix nearly all ones and erases separation. These are concrete consequences of kernel scale, not defects cured by the word “Gaussian.”{{cite:polonik2020_kde}} (Introduction and definition; Oversmoothing and undersmoothing){{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 80–83)
+
+## Connections
+The [kernel density estimator](kernel-density-estimator.qmd) averages density kernels; the [bandwidth](choosing-the-bandwidth.qmd) controls its smoothness. The [kernel-density laboratory](../labs/kernel-density.qmd) lets the reader vary that bandwidth. The answered [density-by-hand exercise](../questions/ex-sl-07-3.qmd) calculates one Gaussian KDE value, while the [kernel-integral exercise](../questions/ex-sl-07-4.qmd) checks normalization. The [Gram-matrix exercise](../questions/ex-sl-17-5.qmd) instead applies the pairwise RBF kernel and checks positive definiteness. This split also explains why a [support vector machine](../notes/sl-17-support-vectors.qmd) uses a kernel matrix rather than a density estimate.{{cite:polonik2020_kde}} (Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 79–80)
+
+## History
+Parzen's 1962 contribution gave kernel density estimation one of its enduring names: the Parzen–Rosenblatt window method.{{cite:hansen_larsson2026_density}} (§2.1, Parzen–Rosenblatt history) Later kernel methods also used Gaussian-shaped functions as positive-semidefinite similarities. Rasmussen and Williams' treatment of the squared-exponential covariance function makes that second meaning explicit and connects its shape to smoothness assumptions in Gaussian-process models.{{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 79–83)

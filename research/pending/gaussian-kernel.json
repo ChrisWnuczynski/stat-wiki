@@ -1,0 +1,47 @@
+{
+  "bibliography": {
+    "polonik2020_kde": {
+      "authors": [
+        "Polonik, W."
+      ],
+      "year": 2020,
+      "title": "Nonparametric Inference - Kernel Density Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Computing_and_Modeling/Supplemental_Modules_(Computing_and_Modeling)/Regression_Analysis/Nonparametric_Inference_-_Kernel_Density_Estimation",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Computing_and_Modeling/Supplemental_Modules_(Computing_and_Modeling)/Regression_Analysis/Nonparametric_Inference_-_Kernel_Density_Estimation"
+      }
+    },
+    "hansen_larsson2026_density": {
+      "authors": [
+        "Hansen, N. R.",
+        "Larsson, J."
+      ],
+      "year": 2026,
+      "title": "Computational Statistics with R: Density Estimation",
+      "kind": "book",
+      "publisher": "University of Copenhagen",
+      "url": "https://cswr.nrhstat.org/density.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cswr.nrhstat.org/density.html"
+      }
+    }
+  },
+  "article_lead": {
+    "description": "a bell-shaped function that smooths observed values for density estimation or measures similarity between inputs"
+  },
+  "self_checks": [
+    "ex-sl-07-3",
+    "ex-sl-07-4",
+    "ex-sl-17-5"
+  ],
+  "shared_changes": [
+    {
+      "file": "source question ex-sl-17-5",
+      "description": "Correct the Gram-matrix answer's coarse determinant arithmetic: exact determinant is 0.3454996155. Its stated 0.346 differs by rounding the intermediate terms; use 0.3455 to four decimals and verify the displayed expansion."
+    }
+  ]
+}
