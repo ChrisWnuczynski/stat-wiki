@@ -1,0 +1,17 @@
+{
+  "bibliography": {},
+  "proofs_todo": [
+    {
+      "slug": "hard-margin-support-vector-machine",
+      "title": "General Slater strong-duality theorem for convex programmes",
+      "reason": "The page verifies strict feasibility for the finite hard-margin primal and derives its dual/KKT conditions, but invokes the general Slater theorem for zero duality gap rather than proving that theorem."
+    }
+  ],
+  "self_checks": ["ex-sl-17-2", "ex-sl-17-9"],
+  "shared_changes": [
+    {
+      "file": "sources/stat3006/chapters/sl-17-support-vectors.qmd",
+      "description": "For the hard-margin excerpt at lines 60–180, add precise located support from the full publisher Cortes–Vapnik (1995) §2.1 pp. 277–279 and full author-hosted Burges (1998) §§3.1–3.2 pp. 128–132 to the original margin, primal, dual, KKT and strong-duality paragraphs, and §3.5 pp. 134–136 for the soft-margin comparison. Keep original formulas, objective-factor discussion and three-point example. Retain the Boser/Vapnik/ESL facts but replace unread or unlocated citations with these opened source locators where the claim is supported. Correct the unqualified 'only points on the margin determine the solution' to allow a margin point with zero multiplier in a degenerate fit. Rebuild and inspect all dependent SVM pages, including hard-margin primal/dual, support vectors and their multipliers, linear separators and margin, and soft-margin primal."
+    }
+  ]
+}
