@@ -5271,6 +5271,18 @@
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process"
       }
     },
+    "loshchilov_hutter2019": {
+      "authors": ["Loshchilov, I.", "Hutter, F."],
+      "year": 2019,
+      "title": "Decoupled Weight Decay Regularization",
+      "kind": "article",
+      "venue": "International Conference on Learning Representations",
+      "url": "https://openreview.net/pdf?id=Bkg6RiCqY7",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://openreview.net/pdf?id=Bkg6RiCqY7"
+      }
+    },
     "rstats_family2026": {
       "authors": ["R Core Team"],
       "year": 2026,

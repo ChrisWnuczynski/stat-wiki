@@ -558,7 +558,7 @@
   "regression-tree": {"field": "statistical learning", "article": "the", "term": "regression tree", "verb": "is", "description": "a tree whose leaves predict a numerical response by the mean of the training responses in the leaf"},
   "regression-when-p-n": {"field": "statistical learning", "article": "", "term": "high-dimensional regression", "verb": "is", "description": "the setting where predictors outnumber observations"},
   "regularisation-and-weight-decay": {"field": "statistical learning", "article": "", "term": "regularisation and weight decay", "verb": "are", "description": "methods that penalise large model coefficients during fitting"},
-  "regularisation": {"field": "statistical learning", "article": "the", "term": "regularisation", "verb": "is", "description": "a method for controlling model complexity during fitting"},
+  "regularisation": {"field": "statistical learning", "article": "", "term": "regularisation", "verb": "is", "description": "the practice of constraining a fitted model to make its predictions less sensitive to the training data"},
   "reliability-function": {"field": "probability theory", "article": "the", "term": "reliability function", "verb": "is", "description": "the probability that a lifetime exceeds a specified time"},
   "repeated-measures": {"field": "correlated data", "article": "", "term": "repeated measures", "verb": "are", "description": "observations collected more than once from the same unit"},
   "residual-deviance": {"field": "generalised linear models", "article": "the", "term": "residual deviance", "verb": "is", "description": "the deviance of a fitted model"},
