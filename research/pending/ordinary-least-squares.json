@@ -1,0 +1,18 @@
+{
+  "bibliography": {
+    "shalizi2025_truth_regression": {
+      "authors": ["Shalizi, C. R."],
+      "year": 2025,
+      "title": "The Truth about Linear Regression",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University",
+      "url": "https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf"}
+    }
+  },
+  "article_lead": {
+    "field": "regression",
+    "description": "the method that fits a linear relationship by minimizing squared residuals, providing a foundation for prediction and regression inference"
+  },
+  "self_checks": ["ex-inf-normal-equations", "ex-inf-line-through-origin", "ex-inf-advertising-r2"]
+}
