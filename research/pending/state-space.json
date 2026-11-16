@@ -1,0 +1,11 @@
+{
+  "self_checks": [
+    "c-12",
+    "ex-sp-same-marginals",
+    "ex-sp-increments-and-levels"
+  ],
+  "article_lead": {
+    "field": "stochastic processes",
+    "description": "the set of values a process can occupy, defining what a model must track to describe its evolution"
+  }
+}
