@@ -9,3 +9,4 @@ Add uncertain claims here before writing them into an article.
 - simple-linear-regression: the t_{n-2} slope pivot is already in the source chapter via Fox; it was not re-derived here because that book was not opened.
 - hotelling-s-t2-test: unproved result kept out of proofs-todo.json (Wishart null distribution of Hotelling's T squared). The added proof shows the one-dimensional reduction and the numerical F transform. It does not derive the normal-sample Wishart calibration.
 - undirected-graph: unproved result kept out of proofs-todo.json (Hammersley–Clifford equivalence). The page proves the Gaussian path factorisation for one precision matrix. The general equivalence between a positive density's clique factorisation and its pairwise Markov property was not derived.
+- Compared with probability-space (2,913 words) after this eighth article; added the Poisson tail so the numerical contrast matches the care of the first page.

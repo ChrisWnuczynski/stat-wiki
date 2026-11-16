@@ -38,8 +38,8 @@ provided $p<1$. The conditional remaining wait has the same law as $X$.
 ## Related distributions
 A single Bernoulli trial is the success indicator on one attempt. The geometric law stacks independent copies of that trial until the first success. A negative binomial count of trials until $r$ successes is the sum of $r$ independent copies of this geometric law, all with the same $p$. A Poisson number of events in a fixed interval is a different story: it counts events in time, rather than trials until one success.
 
-## Statistical inference — One success probability, independent trials
-The likelihood for an observed trial count $x$ is $p(1-p)^{x-1}$. For one observation the maximiser is $1/x$ when $x\ge 1$. For independent copies $X_1,\ldots,X_n$ the likelihood depends on the data through $\sum X_i$, and the maximiser is $n/\sum X_i$, the reciprocal of the sample mean. That estimator is the success probability that matches the observed mean wait to $1/p$. It is biased for finite $n$, because $1/\overline X$ is not linear, even though $\overline X$ is unbiased for $1/p$.
+## Statistical inference
+**One success probability, independent trials.** The likelihood for an observed trial count $x$ is $p(1-p)^{x-1}$. For one observation the maximiser is $1/x$ when $x\ge 1$. For independent copies $X_1,\ldots,X_n$ the likelihood depends on the data through $\sum X_i$, and the maximiser is $n/\sum X_i$, the reciprocal of the sample mean. That estimator is the success probability that matches the observed mean wait to $1/p$. It is biased for finite $n$, because $1/\overline X$ is not linear, even though $\overline X$ is unbiased for $1/p$.
 
 A sample that includes a coded zero, from software that counts failures, is one smaller than the trial count used here. Feeding those zeros to the trial-count likelihood treats an immediate success as an impossible observation.
 

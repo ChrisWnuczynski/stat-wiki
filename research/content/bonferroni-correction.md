@@ -1,5 +1,5 @@
 ## Lead context
-The Bonferroni correction runs each of $m$ tests at level $\alpha/m$, so that the chance of any false rejection is at most $\alpha$.
+The Bonferroni correction runs each test at the family level divided by the number of tests, so that the chance of any false rejection is at most that family level.
 
 ## Motivating example
 Four independent tests, each at level $0.05$, have family-wise error $1-(0.95)^4\approx 0.1855$ when all four nulls are true. That is more than three times the nominal $0.05$. Splitting the level into four pieces, $0.05/4=0.0125$, brings the union bound back to $0.05$. The exact independent error is then $1-(0.9875)^4\approx 0.0491$, just under the cap.{{cite:hastie_esl2009}} (§18.7, p. 686)
@@ -39,7 +39,7 @@ The inequality $(1-\alpha/m)^m\ge e^{-\alpha m/(m-\alpha)}$ is not needed. The e
 ## Statistical use — $p$-values and critical values
 Multiplying a $p$-value by $m$ and rejecting when the product is below $\alpha$ is the same test as comparing the raw $p$-value with $\alpha/m$, except that a product above $1$ is reported as $1$. For four tests and $\alpha=0.05$, a raw $p$-value of $0.02$ becomes $0.08$ and is not rejected. A raw $p$-value of $0.01$ becomes $0.04$ and is rejected. The uncorrected tests would have rejected both.
 
-The correction applies to any collection of tests, not only to pairwise comparisons of means. It pays for that generality by being conservative when the tests are highly dependent or when $m$ is large. A procedure built for one family of contrasts can be sharper. The correction does not claim to be sharp.{{cite:hastie_esl2009}} (§18.7, p. 686)
+The correction applies to any collection of tests, not only to pairwise comparisons of means. It pays for that generality by being conservative when the tests are highly dependent or when $m$ is large. A procedure built for one family of contrasts can be sharper. The resulting bound can be strictly loose.{{cite:hastie_esl2009}} (§18.7, p. 686)
 
 ## Worked example
 Four nulls, family-wise level $0.05$. Each Bonferroni test uses $0.0125$.

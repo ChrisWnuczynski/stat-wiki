@@ -25,3 +25,22 @@ Unverified:
 - Simple linear regression: the \(t_{n-2}\) slope pivot was not re-derived.
 - Baseline-category logit: a textbook page beyond the nnet manual was not opened.
 - Hotelling's Wishart null distribution and the general Hammersley–Clifford equivalence for undirected graphs remain unproved. They are logged in `research/todo.md` rather than `proofs-todo.json`.
+
+## Batch L — ranks 233–247
+
+Ranks: 233 probability-space, 234 roughness-penalty, 235 strong-law, 236 wishart-distribution, 237 geometric-distribution, 238 kullback-leibler-divergence, 239 learning-rate, 240 markov-s-inequality, 241 minimal-sufficiency, 242 single-complete-and-average-linkage, 243 bonferroni-correction, 244 generator, 245 hierarchical-clustering, 246 limit-theorems, 247 output-coding-softmax-and-cross-entropy.
+
+Pages fixed:
+
+- bonferroni-correction: the opening sentence no longer uses mathematics, and the loose-bound sentence states the fact directly.
+- geometric-distribution and wishart-distribution: the statistical-inference heading keeps the canonical title the distribution test requires. The specific labels stay as the first sentence of each section.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (469 works). `git diff --check` passed. All 15 page checks passed. The strong-law page and the geometric memoryless property left `proofs-todo.json` because those proofs are now on the pages.
+
+Unverified:
+
+- No new bibliography keys.
+- Markov's inequality todo records a comparison note only; no further source was opened for that line.
+- Spot-check of probability-space and output-coding-softmax-and-cross-entropy found complete proofs and worked numbers. No further prose change.

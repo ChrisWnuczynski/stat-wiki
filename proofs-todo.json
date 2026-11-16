@@ -240,11 +240,6 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "strong-law",
-    "title": "Strong law",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "studentised-coefficient-pivot",
     "title": "Studentised coefficient pivot",
     "reason": "A reviewed proof sketch is still needed."
@@ -377,11 +372,6 @@
   {
     "slug": "gamma-distribution#property-generic-exponential-family-conjugate-update",
     "title": "Generic exponential-family conjugate update",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "geometric-distribution#property-memoryless-property",
-    "title": "Memoryless property",
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
