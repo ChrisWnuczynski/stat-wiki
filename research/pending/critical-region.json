@@ -1,0 +1,17 @@
+{
+  "bibliography": {
+    "nist_process_mean2002": {
+      "authors": ["NIST/SEMATECH"],
+      "year": 2002,
+      "title": "e-Handbook of Statistical Methods: Are the data consistent with the assumed process mean?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc22.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc22.htm"}
+    }
+  },
+  "article_lead": {
+    "description": "the prechosen set of test outcomes that triggers rejection of a null hypothesis, connecting a decision to its false-rejection rate"
+  },
+  "self_checks": ["ex-inf-np-critical", "ex-inf-serve-power", "ex-inf-ump-two-sided"]
+}
