@@ -1683,6 +1683,16 @@
         "id": "10.1080/01621459.1946.10501898"
       }
     },
+    "dodge2008": {
+      "authors": ["Dodge, Yadolah"],
+      "year": 2008,
+      "title": "The Concise Encyclopedia of Statistics",
+      "kind": "book",
+      "publisher": "Springer",
+      "isbn": "978-0-387-32833-1",
+      "doi": "10.1007/978-0-387-32833-1",
+      "verification": {"source": "crossref", "id": "10.1007/978-0-387-32833-1"}
+    },
     "donoho_johnstone1994": {
       "authors": [
         "Donoho, D. L.",
