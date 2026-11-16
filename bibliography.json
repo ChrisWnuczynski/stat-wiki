@@ -7676,6 +7676,80 @@
         "source": "archival_url",
         "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
       }
+    },
+    "pishro_nik2014": {
+      "authors": [
+        "Pishro-Nik, H."
+      ],
+      "year": 2014,
+      "title": "Introduction to Probability, Statistics, and Random Processes",
+      "kind": "book",
+      "publisher": "Kappa Research, LLC",
+      "url": "https://www.probabilitycourse.com/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilitycourse.com/"
+      }
+    },
+    "nist_extreme_value": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Extreme value distributions",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr163.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr163.htm"
+      }
+    },
+    "lecun_efficient_backprop1998": {
+      "authors": [
+        "LeCun, Y.",
+        "Bottou, L.",
+        "Orr, G. B.",
+        "Müller, K.-R."
+      ],
+      "year": 1998,
+      "title": "Efficient BackProp",
+      "kind": "incollection",
+      "venue": "Neural Networks: Tricks of the Trade",
+      "publisher": "Springer",
+      "url": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf"
+      }
+    },
+    "nist_prediction_interval": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "How can I predict the value and estimate the uncertainty of a single response?",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm"
+      }
+    },
+    "nist_randomized_block": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Randomized block designs",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
+      }
     }
   }
 }

@@ -176,3 +176,22 @@ Unverified:
 - The critical Galton–Watson case is cited and not rewritten. The sample-path argument for Little's law was not opened.
 - The Benjamini–Hochberg bound stays on the existing theorem-page entry in `proofs-todo.json`.
 - Spot-check of boosting and partial-autocorrelation found sourced definitions. No further prose change.
+
+## Batch T — ranks 353–367
+
+Ranks: 353 positive-predictive-value, 354 prediction-interval, 355 quadratic-discriminant-analysis, 356 randomised-block-design, 357 voronoi-tessellation, 358 hastings-correction, 359 structure-function, 360 convolution, 361 extreme-value-classification, 362 independent-random-variables, 363 jump-chain, 364 markov-random-field, 365 mini-batch, 366 multiple-testing, 367 polynomial-kernel.
+
+Pages fixed: none. Spot-check of positive-predictive-value and polynomial-kernel found sourced definitions and worked numbers.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (479 works). `git diff --check` passed. All 15 page checks passed. The same full checks were run again after this last batch.
+
+Unverified:
+
+- New bibliography keys passed the offline schema only: `pishro_nik2014`, `nist_extreme_value`, `lecun_efficient_backprop1998`, `nist_prediction_interval`, `nist_randomized_block`. Live URL checks were not run. The same Pishro-Nik work is cited from several pages and was added once.
+- The general extreme-value classification, the Hastings stationarity argument, the positive-density Hammersley–Clifford equivalence, the Benjamini–Hochberg independence proof, and the randomised-block chi-squared laws remain unproved and are logged in `research/todo.md`.
+
+## After rank 367
+
+The next unstarted rank is **368**.
