@@ -1,0 +1,26 @@
+{
+  "article_lead": {
+    "description": "stability of a process's distribution or its mean and lag dependence across time, which lets one model many time windows together"
+  },
+  "bibliography": {
+    "meinshausen2022_timeseries": {
+      "authors": ["Meinshausen, N."],
+      "year": 2022,
+      "title": "Time Series Analysis: Notes for the Course HS 2022",
+      "kind": "book",
+      "publisher": "ETH Zurich",
+      "url": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf",
+      "verification": {"source": "archival_url", "id": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf"}
+    }
+  },
+  "self_checks": ["ex-sp-increments-and-levels", "ex-sp-same-marginals", "depth-stationarity-changing-laws"],
+  "new_bank_questions": [
+    {
+      "id": "depth-stationarity-changing-laws",
+      "title": "Equal moments with changing laws",
+      "body": "Let independent $X_t$ be $-1$ or $1$ equally likely at even times, and let it be $0$ with probability $1/2$ and each of $-\\sqrt2,\\sqrt2$ with probability $1/4$ at odd times. Compute the mean, variance and nonzero-lag covariance. Is the process weakly stationary? Is it strictly stationary? Explain.",
+      "answer": "At either parity the mean is $0$. The even-time variance is $1$; the odd-time variance is $(1/4)2+(1/4)2=1$. Independence makes covariance $0$ at every nonzero lag. Thus the mean and lag covariance are time invariant and the process is weakly stationary. Its one-time law alternates between a two-point and a three-point distribution, so it is not strictly stationary.",
+      "topic_code": "T1"
+    }
+  ]
+}
