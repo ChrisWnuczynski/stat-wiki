@@ -3504,6 +3504,10 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             if '::: {.proof}' not in section:
                 todo.append({"slug": f"{dist_slug}#{head.group(2)}", "title": head.group(1),
                              "reason": "The distribution page states this result without a reviewed proof sketch."})
+    # A page can prove its other results while leaving one stated converse open.
+    overrides = WIKI / "research" / "proofs-todo-overrides.json"
+    if overrides.is_file():
+        todo.extend(json.loads(overrides.read_text(encoding="utf-8")))
     (WIKI / "proofs-todo.json").write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_glossary(questions)
     write_config(chapters, final_notes, questions)

@@ -2200,10 +2200,12 @@ information about $\theta$ once $T(X)$ is known.
 
 \begin{conceptanswer}{4}{Exponential family}
 An exponential family has density or mass function
-$f(x\mid\theta)=b(x)\exp\{c(\theta)^\top T(x)\}/a(\theta)$,
-where $c(\theta)$ is the natural parameter, $T(x)$ the natural statistic,
-$b(x)$ a parameter-free base factor and $a(\theta)$ the normalising function.
-In the regular form used here, the support is independent of $\theta$.
+$f(x\mid\eta)=h(x)\exp\{\eta^\top T(x)-A(\eta)\}$,
+where $x$ is a realised value of $X$, $\eta$ is the natural parameter,
+$T(x)$ the natural statistic, $h(x)$ a parameter-free base factor and
+$A(\eta)$ the log-normalising function. In the regular form used here,
+the support is independent of $\eta$.
+\{\{cite:geyer2022_exp_family\}\} (§§3.1, 3.7, “Exponential Families”)
 \end{conceptanswer}
 
 \begin{conceptanswer}{5}{Posterior prediction}
@@ -6993,8 +6995,9 @@ $M_1$ with the probability after allowing both models.
 \studyheading{Definitions}
 A Gamma variable with shape $k$ and rate $k/\mu$ has mean $\mu$ and variance $\mu^2/k$; set $\phi=1/k$.
 In the exponential-family form of part (a), $b(\theta)$ is the coefficient paired with the statistic $a(y)$ after division by $e(\phi)$.
-For regression, $\mathbf X_i=(1,x_i)^\top$, $\boldsymbol\beta=(\beta_0,\beta_1)^\top$, and $\mu_i=e^{\mathbf X_i^\top\boldsymbol\beta}$.
+For regression, $\mathbf x_i=(1,x_i)^\top$, $\boldsymbol\beta=(\beta_0,\beta_1)^\top$, and $\mu_i=e^{\mathbf x_i^\top\boldsymbol\beta}$.
 Responses are independent and covariates fixed; the score calculation holds $k>0$ known.
+\{\{cite:nelder_wedderburn1972\}\} (§§1.1, 3.4, pp. 371, 380–381)
 
 \textbf{(a) Exponential-family representation.}
 For one observation, taking logarithms gives
@@ -7024,6 +7027,7 @@ d(y;\phi)=\frac1\phi\log\frac1\phi
 }
 \]
 The support is $y>0$, with $\theta>0$ and $\phi>0$.
+\{\{cite:nelder_wedderburn1972\}\} (§3.4, pp. 380–381)
 
 \textbf{(b) Mean and variance.}
 The given density is Gamma with shape $k$ and rate $k/\mu_i$. Therefore
@@ -7032,6 +7036,7 @@ The given density is Gamma with shape $k$ and rate $k/\mu_i$. Therefore
 \operatorname{Var}(Y_i)=\frac{k}{(k/\mu_i)^2}
 =\frac{\mu_i^2}{k}=\phi\mu_i^2.}
 \]
+\{\{cite:nelder_wedderburn1972\}\} (§3.4, pp. 380–381)
 
 \textbf{(c) Interpretation of the coefficient.}
 The log link gives $\mu(x)=e^{\beta_0+\beta_1x}$, so
@@ -7044,11 +7049,12 @@ Thus a one-unit increase in $x$ multiplies the expected response by
 $e^{\beta_1}$, corresponding to a percentage change
 $100(e^{\beta_1}-1)\%$. The coefficient $\beta_1$ itself is the change
 in the log of the mean, not an additive change in the response.
+\{\{cite:nelder_wedderburn1972\}\} (§§1.3, 3.4, pp. 372–373, 380–381)
 
 \textbf{(d) Score vector.}
-Let $\mathbf X_i=(1,x_i)^\top$ and
+Let $\mathbf x_i=(1,x_i)^\top$ and
 $\boldsymbol\beta=(\beta_0,\beta_1)^\top$, so that
-$\mu_i=e^{\mathbf X_i^\top\boldsymbol\beta}$. Treating $k$ as known,
+$\mu_i=e^{\mathbf x_i^\top\boldsymbol\beta}$. Treating $k$ as known,
 \[
 \ell(\boldsymbol\beta)
 =-k\sum_{i=1}^n\left(\log\mu_i+\frac{y_i}{\mu_i}\right)+C,
@@ -7059,14 +7065,14 @@ summand with respect to its mean and apply the chain rule:
 \frac{\partial\ell_i}{\partial\mu_i}
 =-\frac{k}{\mu_i}+\frac{ky_i}{\mu_i^2},
 \qquad
-\frac{\partial\mu_i}{\partial\boldsymbol\beta}=\mu_i\mathbf X_i.
+\frac{\partial\mu_i}{\partial\boldsymbol\beta}=\mu_i\mathbf x_i.
 \]
 It follows that
 \begin{align*}
 S(\boldsymbol\beta)
 &=\sum_{i=1}^n
-\left(-\frac{k}{\mu_i}+\frac{ky_i}{\mu_i^2}\right)\mu_i\mathbf X_i\\
-&=\boxed{k\sum_{i=1}^n\mathbf X_i\left(\frac{y_i}{\mu_i}-1\right)}.
+\left(-\frac{k}{\mu_i}+\frac{ky_i}{\mu_i^2}\right)\mu_i\mathbf x_i\\
+&=\boxed{k\sum_{i=1}^n\mathbf x_i\left(\frac{y_i}{\mu_i}-1\right)}.
 \end{align*}
 In components,
 \[
@@ -7076,12 +7082,14 @@ S(\boldsymbol\beta)
 \sum_i x_i(y_i/\mu_i-1)
 \end{pmatrix}.
 \]
+\{\{cite:nelder_wedderburn1972\}\} (§§2.1, 3.4, pp. 372–374, 380–381)
 
 \textbf{(e) Why this is not a lognormal model.}
 The model specifies a Gamma distribution for $Y_i$ and a linear predictor
 for $\log\mu_i=\log\E(Y_i)$. It does not specify a Normal distribution for
 $\log Y_i$. Applying a log link to a conditional mean is not the same
 operation as transforming the response and assuming Normal errors.
+\{\{cite:sas2012_glm\}\} (Ch. 3, “Generalized Linear Models”)
 
 \begin{keyresult}
 Keep the response distribution and the link separate:

@@ -4,7 +4,7 @@ Branch: `research/depth-pass-continuation`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **34**. Left: **684**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
+Pages ranked: **718**. Done: **35**. Left: **683**. Skipped: **0**. Ranks 1–23 are on `main`. This branch continues from rank 24.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -42,12 +42,13 @@ Pages ranked: **718**. Done: **34**. Left: **684**. Skipped: **0**. Ranks 1–23
 | 32 | [Generalised linear model](generalised-linear-model.md) | Concept/definition | [Prose](content/generalised-linear-model.md), [check](../checks/generalised-linear-model.py) | 2,613 → 4,437 | 3 → 3 | Opened Nelder–Wedderburn, SAS and mgcv sources; aligned fish-exercise notation and located inherited answer citations |
 | 33 | [Random sample](random-sample.md) | Concept/definition | [Prose](content/random-sample.md), [check](../checks/random-sample.py) | 245 → 1,775 | 0 → 0 | Replaced unread definition citations; distinguished iid model from simple random sampling using opened sources |
 | 34 | [Median](median.md) | Concept/topic | [Prose](content/median.md), [check](../checks/median.py) | 214 → 1,481 | 0 → 0 | Replaced unread definition citations; proved absolute-error and robustness results; early-origin history left in todo |
+| 35 | [Exponential family](exponential-family.md) | Concept/definition | [Prose](content/exponential-family.md), [check](../checks/exponential-family.py) | 2,993 → 4,894 | 0 → 0 | Aligned two exponential-family notations; opened original and modern sources; converse theorem remains in proofs todo |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with HTML tags removed. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed.
 
 ## Next page
 
-**Rank 35: `exponential-family`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
+**Rank 36: `regularisation`.** The missing local McCullagh–Nelder PDF was waived by the user; use accessible opened sources for relevant GLM pages.
 
 ## Citation and prose correction pass
 
@@ -124,4 +125,5 @@ Current batch gate: all 34 arithmetic and printed-value scripts pass against the
 - Random sample: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 412 works. No figures existed, and all thirteen question links remain.
 - Median: replaced unopened Tukey, Fisher 1925 and Wasserman citations with located Siegrist and NIST sources; proved the absolute-error minimizer using the opened Schwertman–Gilks–Cameron 1990 paper; kept all five question links and removed only duplicated sample-definition wording. Early-origin history is in todo.
 - Median: printed-value check passed; generator completed with 718 articles and 557 questions; 67 Python tests passed; offline bibliography verification passed for 416 works. No figures existed.
+- Exponential family: the displayed Poisson–Gamma update and inherited numbers pass exact checks; generator completed with 718 articles and 557 questions; all 35 page checks, 67 Python tests and offline verification of 420 bibliography entries pass. The two notation systems now have distinct symbols, the normal, Poisson, binomial and Gamma examples remain, and one collapsed proof covers the derived identities. The Pitman–Koopman–Darmois converse remains in the generated proofs todo. No figures existed.
 - No pages skipped. Unverified article claims: none. Future uncertain facts go in [todo.md](todo.md).

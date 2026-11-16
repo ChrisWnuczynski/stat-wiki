@@ -1497,6 +1497,15 @@ class DistributionDepthBatchTests(unittest.TestCase):
                                   "laplace1812", "student1908"}
                 self.assertIn("siegrist2022_normal_distribution", citation_keys, slug)
                 self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "gamma-distribution":
+                # The shared conjugate-update statement now cites the opened
+                # Diaconis–Ylvisaker paper and Geyer's located derivation.
+                expected_keys.discard("raiffa_schlaifer1961")
+                self.assertIn("geyer2025_conjugate", citation_keys, slug)
+            if slug == "poisson-distribution":
+                # The same shared update replaces two unlocated book markers.
+                expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
+                self.assertIn("geyer2025_conjugate", citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)
@@ -1591,6 +1600,11 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # the unlocated Gelman passage with passages read for this article.
                 expected_keys.difference_update({"laplace1812", "jeffreys1961", "gelman_bda2013"})
                 self.assertTrue({"wang2025_foundations", "hoff2013_bayes_estimators"} <= citation_keys)
+            if slug == "log-partition-moment-identities":
+                # Replace two unopened textbooks in the shared proposition
+                # with an opened, located exponential-family derivation.
+                expected_keys.difference_update({"lehmann_casella1998", "mccullagh_nelder1989"})
+                self.assertIn("geyer2022_exp_family", citation_keys, slug)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

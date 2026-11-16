@@ -129,18 +129,16 @@ A random variable $Y$ whose distribution depends on a parameter $\theta$ belongs
 $$
 f(y;\theta)=\exp\left\{\frac{a(y)\,b(\theta)+c(\theta)}{e(\phi)}+d(y;\phi)\right\},
 $$ {#eq-expfam}
-where $a$, $b$, $c$, $d$ and $e$ are known functions.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}} The dispersion $\phi$ is treated as a nuisance: often known, and at least constant across observations. It is the family's variance parameter.
+where $a$, $b$, $c$, $d$ and $e$ are known functions and $e(\phi)>0$. The value $y$ is an observation of $Y$, $\theta$ is the parameter of interest, and $\phi$ is a fixed or separately estimated dispersion parameter. Its role in the variance depends on the family.{{cite:nelder_wedderburn1972}} (§1.1, p. 371){{cite:geyer2022_exp_family}} (§3.1, “Definitions”)
 :::
 
-The product $a(y)\,b(\theta)$ is the only place where the observation and the parameter of interest appear together. The data may appear alone, inside $d$. The parameter may appear alone, inside $c$. They may not appear together in any other way.
+The product $a(y)\,b(\theta)$ is the only place where the observation and the parameter of interest appear together. The data may appear alone, inside $d$. The parameter may appear alone, inside $c$. They may not appear together in any other way.{{cite:geyer2022_exp_family}} (§§3.1, 3.7, “Definitions” and “Probability Mass-Density Functions”)
 
-Two reductions have names. If $b(\theta)=\theta$, the density is in *canonical form*, and $\theta$ is already the natural parameter.{{cite:mccullagh_nelder1989}} If $a(y)=y$, the family is a *linear* exponential family, and $b(\theta)$ is its natural parameter.{{cite:nelder_wedderburn1972}}{{cite:davison2003}} In the linear canonical case both happen at once, and @eq-expfam simplifies to
+Two reductions have names. If $b(\theta)=\theta$, the density is in *canonical form*, and $\theta$ is already the natural parameter. If $a(y)=y$, the family is a *linear* exponential family, and $b(\theta)$ is its natural parameter.{{cite:nelder_wedderburn1972}} (§1.1, p. 371){{cite:geyer2022_exp_family}} (§§3.1–3.4, “Exponential Families”) In the linear canonical case both happen at once, and @eq-expfam simplifies to
 $$
 f(y;\theta)=\exp\left\{\frac{y\theta+c(\theta)}{e(\phi)}+d(y;\phi)\right\}.
 $$ {#eq-lef}
-You can always rename the parameter, or replace $Y$ by $a(Y)$, to reach this form. Definitions that start from @eq-lef have already done that renaming. We will use @eq-expfam when the natural parameter should appear by itself, as $\log\lambda$ does for the Poisson, and @eq-lef once that parameter has been named $\theta$.
-
-The dispersion does not affect the maximiser for the mean parameter. We estimate $\boldsymbol{\beta}$ first and recover $\phi$ afterwards, just as in normal linear regression we estimate the line before we estimate $\sigma^2$.
+A one-to-one reparametrisation can put $b(\theta)$ on the natural-parameter scale. Replacing the observation by $a(Y)$ is a different operation: if $a$ is not one-to-one, it can discard information. In the normal, Poisson and binomial examples below, $a(y)=y$, so the simpler form applies directly. For a generalised linear model with common dispersion, the regression coefficients and dispersion can sometimes be fitted in stages; this is a property of the specified model, not part of the exponential-family definition.{{cite:geyer2022_exp_family}} (§§3.1–3.4, “Exponential Families”){{cite:nelder_wedderburn1972}} (§§1.1, 2.1, pp. 371–373)
 
 ### The normal distribution
 
@@ -166,17 +164,13 @@ This is @eq-lef with natural parameter $\theta=\mu$, so $b(\mu)=\mu$, with
 $$
 e(\phi)=\phi=\sigma^2,\qquad c(\mu)=-\frac{\mu^2}{2},\qquad d(y;\phi)=-\frac{y^2}{2\sigma^2}-\frac12\log(2\pi\sigma^2).
 $$
-The observation $y$ stands alone as the coefficient of the natural parameter. For a normal sample, the data inform us about the mean directly: the observations are centred on it. The natural parameter really is the mean. That will not be true of the next two families, and the algebra will tell us the scale on which to put the linear predictor.
+The observation $y$ stands alone as the coefficient of the natural parameter. For a normal sample, the data inform us about the mean directly: the observations are centred on it. The natural parameter is the mean in this fixed-variance normal family. For the Poisson and binomial families below, it is a transformation of the mean.{{cite:nelder_wedderburn1972}} (§§3.1–3.3, pp. 376–380)
 
-There is a second, equally standard, writing of the same density,
-$$
-f(y;\theta)=\exp\left\{\frac{y\theta-b(\theta)}{a(\phi)}+c(y,\phi)\right\},
-$$
-in which $b(\theta)=\theta^2/2$ and $a(\phi)=\sigma^2$. Then $\mathrm{E}(Y)=b'(\theta)$ and $\mathrm{Var}(Y)=b''(\theta)\,a(\phi)$, with no minus signs. In this chapter $c(\theta)$ is the negative of that $b(\theta)$. Both are the normal density. The sign convention used here is the one carried into the mean and variance formulae below. If you differentiate the other convention, the minus signs are absorbed into the definition of $b$ and the means match.
+An alternative convention writes the parameter-only term as the negative of the *cumulant function*. The convention in @eq-lef keeps the name $c(\theta)$ for that negative term; the two conventions give the same mean and variance after the sign is changed consistently.{{cite:nelder_wedderburn1972}} (§1.1, p. 371){{cite:geyer2022_exp_family}} (§§3.1, 4, “Exponential Families” and “Moments and Cumulants”)
 
-The normal model is used for three good reasons, and then it is used too often. Some measurements really are normal: measurement error is the usual example. Even when the individual responses are skewed, a group average is approximately normal for a large enough group, by the central limit theorem, and sometimes the data we receive are already averages. And a great deal of exact theory has been built for the normal, so people reach for it because they know what the inference will look like. That last reason is also why it is overused. A five-point or seven-point agreement scale is an ordered category. Averaging "strongly disagree" through "strongly agree" and calling the result normal pretends that the gaps between categories are equal numbers. A grade of $7$ is not a number of which a grade of $1$ is one seventh. Treat the labels as an ordered categorical response, not as a normal measurement.^[The same habit shows up in grade-point averages. The point of the example is the scale.]
+For normal measurement error, the normal member gives a constant conditional variance when $\sigma^2$ is common across observations. Its support is the entire real line, so it may be unsuitable for a count, a binary outcome or a strictly positive waiting time. A five-point agreement scale records ordered categories rather than measurements with known equal spacing; its numerical labels alone do not justify a normal response model. For a repeated measurement of a fixed quantity $t$, a simple additive-error model takes $Z_j=t+\varepsilon_j$ with independent normal errors $\varepsilon_j$ of mean zero and common variance $\sigma^2$. Then each observed $Z_j$ is normal with centre $t$, while the average of $m$ observations has variance $\sigma^2/m$. A calibration shift changes the centre and calls for a different error description; a recorder that rounds readings changes the observed scale. These features should be considered before assigning a normal law. For a count or a binary outcome, Poisson or binomial families instead respect the discrete support and impose their own mean–variance relations. The response scale and observed spread should guide the model choice.{{cite:nelder_wedderburn1972}} (§§1.1, 3.1–3.3, pp. 371, 376–380)
 
-If both $\mu$ and $\sigma^2$ are parameters of interest, the normal is a two-parameter exponential family. The sufficient statistic is then $(Y,Y^2)$, not $Y$ alone: the sample variance needs the squares. If $\sigma^2$ is only a nuisance and the mean is the target, $Y$ itself carries the information about $\mu$.^[This is the multiparameter extension of the one-parameter exponential family. For the GLM below, the dispersion stays a nuisance and the mean is the parameter in the linear predictor.]
+If both $\mu$ and $\sigma^2$ are parameters of interest, the normal is a two-parameter exponential family. The sufficient statistic is then $(Y,Y^2)$, not $Y$ alone: the sample variance needs the squares. If $\sigma^2$ is fixed and the mean is the target, $Y$ itself is the natural statistic for a single observation.{{cite:geyer2022_exp_family}} (§§7.5, 8.3, “The Normal Distribution” and “The Neyman-Fisher Factorization Criterion”)
 
 ### The Poisson distribution
 
@@ -189,11 +183,13 @@ Set $\theta=\log\lambda$, so $\lambda=e^{\theta}$. Then
 $$
 f(y;\lambda)=\exp\bigl(y\theta-e^{\theta}-\log(y!)\bigr),
 $$
-which is @eq-lef with $e(\phi)=\phi=1$, $c(\theta)=-e^{\theta}$ and $d(y;\phi)=-\log(y!)$. There is no free dispersion. The mean determines the variance, so there is no second parameter left to estimate.
+which is @eq-lef with $e(\phi)=\phi=1$, $c(\theta)=-e^{\theta}$ and $d(y;\phi)=-\log(y!)$. There is no free dispersion in this Poisson law: its mean and variance both equal $\lambda$.{{cite:nelder_wedderburn1972}} (§3.2, pp. 377–378){{cite:geyer2022_exp_family}} (§7.2, “The Poisson Distribution”)
 
-The natural parameter is $\log\lambda$, not $\lambda$. The exponential family has told us the scale on which this parameter wants to live: $\lambda$ itself must be positive, while $\log\lambda$ can be any real number and can therefore be a linear predictor. That is why @eq-log-link was the Poisson model in the running example, rather than a straight line for $\lambda$.
+The natural parameter is $\log\lambda$, not $\lambda$. The exponential family has told us the scale on which this parameter wants to live: $\lambda$ itself must be positive, while $\log\lambda$ can be any real number and can therefore be a linear predictor. A log link can therefore use the natural parameter as an unrestricted linear predictor while keeping the mean positive.{{cite:nelder_wedderburn1972}} (§§1.3, 3.2, pp. 372–373, 377–378)
 
-Use a Poisson model for a count of events in a fixed interval of time or space: reported medical conditions, epileptic episodes in a year, cyclones in a season, spelling mistakes on a newspaper page. It is a pure count process. Non-overlapping intervals are independent, and the rate is constant. Those assumptions are strong. One seizure may make another more likely, and one cyclone may change the chance of the next, and either dependence takes you outside the Poisson. The newspaper example is kinder than it first looks, because different articles on the same page are written by different people, so a mistake in one corner need not share a cause with a mistake in another. Even then the rate need not be the same author to author. The variance can be freed from the mean by multiplying it by a dispersion, or by adding a second positive term, as in the quasi-Poisson and negative binomial models. The Poisson mass function in this section keeps $\mathrm{Var}(Y)=\mu$.
+A Poisson distribution describes a count in a specified interval, such as episodes in a year or mistakes on a printed page. One count can follow this law without the entire sequence of counts being a Poisson process. A *homogeneous Poisson process* adds stationary, independent increments: counts in disjoint intervals are independent, and their expected number is proportional to interval length. Those are stronger assumptions than a Poisson model for one interval.{{cite:siegrist2020_poisson_process}} (§14.1, “The Poisson Model” and “The Basic Assumption”){{cite:nelder_wedderburn1972}} (§3.2, pp. 377–378)
+
+If an earlier event changes the rate of later events, the independent-increments model is unsuitable. Variation in rate between people or places can also create more spread than a single Poisson mean allows. In a Poisson GLM the conditional variance equals the conditional mean; a negative binomial model or a quasi-Poisson mean–variance specification can accommodate different spread, with different inferential consequences. The interval and the population at risk must therefore be specified before interpreting a count model.{{cite:nelder_wedderburn1972}} (§§1.1, 3.2, pp. 371, 377–378){{cite:geyer2022_exp_family}} (§7.3, “The Negative Binomial Distribution”){{cite:rstats_family2026}} (Sec. “Details,” “quasibinomial and quasipoisson”)
 
 ### The binomial distribution
 
@@ -211,11 +207,11 @@ The observation and the parameter meet only in $y\log\{p/(1-p)\}$. The natural p
 $$
 n\log(1-p)=-n\log(1+e^{\theta}).
 $$
-Hence $c(\theta)=-n\log(1+e^{\theta})$, and the binomial coefficient sits in $d$. As with the Poisson, there is no free dispersion: the variance is determined by the mean.
+Hence $c(\theta)=-n\log(1+e^{\theta})$, and the binomial coefficient sits in $d$. As with the Poisson, there is no free dispersion in this binomial law: its variance is $np(1-p)$.{{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380){{cite:geyer2022_exp_family}} (§7.1, “The Binomial Distribution”)
 
-The same algebra is why a probability is a bad scale for a linear model. Doubling a survival probability of $5\%$ produces $10\%$, which is a possible probability. Doubling $51\%$ produces something above $1$, which is not. Odds can be doubled all day: $3$ to $1$, $6$ to $1$, $12$ to $1$. The log-odds then spread that multiplicative scale over the whole real line. The natural parameter of the binomial is the logistic transform because that is the scale on which "twice the chance" is a coherent sentence.
+The same algebra is why a probability is a bad scale for a linear model. Doubling a survival probability of $5\%$ produces $10\%$, which is a possible probability. Doubling $51\%$ produces something above $1$, which is not. Odds can be doubled all day: $3$ to $1$, $6$ to $1$, $12$ to $1$. The log-odds then spread that multiplicative scale over the whole real line. The natural parameter of the binomial is the logit of $p$; multiplying the odds by a factor adds the logarithm of that factor to the natural parameter.{{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380)
 
-A binomial count is the right model for a binary outcome that has been added up: candidates who pass a test, patients still alive at a fixed time after diagnosis. One trial is the Bernoulli, which is the binomial with $n=1$. The cholesterol data are of that one-trial kind. We will not need a new theory when several people share a covariate and we record only the total.
+A binomial count is the right model for a binary outcome that has been added up: candidates who pass a test, patients still alive at a fixed time after diagnosis. One trial is the Bernoulli, which is the binomial with $n=1$. The cholesterol data are of that one-trial kind. For independent Bernoulli trials with a common probability, their sum has the binomial law; the count has the same natural parameter as one trial.{{cite:geyer2022_exp_family}} (§§7.1, 9.1, “The Binomial Distribution” and “Independent and Identically Distributed Sampling”)
 
 ## Mean and variance
 

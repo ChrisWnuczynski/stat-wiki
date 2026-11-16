@@ -22,6 +22,7 @@ These articles do not yet have three inline citations. A further marker would na
 - unit-root | No chapter paragraph is copied onto the article. The page is a short lead.
 - variable-importance | The page copies no chapter prose. Breiman (2001) and Strobl, Boulesteix, Zeileis, and Hothorn (2007) are the two claims in the note. No third of those works states a further claim on the page.
 - variogram | The copied paragraph states the variogram. Only Matheron (1963) and Brockwell and Davis (1991) state that definition.
+- natural-parameter | The copied GLM definition now cites the opened Nelder–Wedderburn §1.1 and Geyer §§3.1–3.4. The separate completeness claim needs its own checked source before another marker is attached.
 - ward-s-method | The copied paragraph reports adjusted Rand indices for four linkages. It does not state Ward's within-cluster sum-of-squares merge rule.
 - moments-of-the-sample-mean-and-variance | The normal-sample and iid moment results are supported by the opened Siegrist §6.08 source. Earlier extra citations to unopened books were removed; another source should be checked before adding an independent citation.
 - posterior-summaries-from-draws | The copied proposition is supported by Geyer (1992, pp. 473–475) and Wang (2025, Ch. 20, §§24.1, 28.1). A third source has not been checked for this exact claim.

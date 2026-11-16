@@ -5235,6 +5235,54 @@
         "id": "10.1017/cbo9780511755453"
       }
     },
+    "geyer2022_exp_family": {
+      "authors": ["Geyer, C. J."],
+      "year": 2022,
+      "title": "Exponential Families",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/f22/5421/notes/expfam.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/f22/5421/notes/expfam.html"
+      }
+    },
+    "geyer2025_conjugate": {
+      "authors": ["Geyer, C. J."],
+      "year": 2025,
+      "title": "Proper Conjugate Priors for Exponential Families",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/5421/notes/prior.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/5421/notes/prior.html"
+      }
+    },
+    "siegrist2020_poisson_process": {
+      "authors": ["Siegrist, K."],
+      "year": 2020,
+      "title": "Introduction to the Poisson Process",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes, RandomServices / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process"
+      }
+    },
+    "rstats_family2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "Family Objects for Models (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html"
+      }
+    },
     "sas2012_glm": {
       "authors": [
         "SAS Institute Inc."
