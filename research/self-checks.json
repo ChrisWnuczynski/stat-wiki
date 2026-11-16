@@ -162,5 +162,9 @@
   "systematic-scan-gibbs-sampler": [
     "q-51",
     "q-25"
+  ],
+  "observed-and-expected-counts": [
+    "ex-inf-frizzle",
+    "ex-inf-die-fairness"
   ]
 }

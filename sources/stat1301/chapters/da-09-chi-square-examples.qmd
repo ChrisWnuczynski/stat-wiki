@@ -7,7 +7,7 @@ The Pearson statistic, its chi-squared approximation, the loss of a degree of fr
 ::: {#exm-a-hundred-balls-in-ten-boxes .example}
 ## A hundred balls in ten boxes
 
-Throw $n=100$ balls at random into $k=10$ boxes, each equally likely. The counts are multinomial, and each expected count is 10.
+Throw $n=100$ balls at random into $k=10$ boxes, each equally likely. The counts are multinomial, and each expected count is 10.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, test-statistic subsection)
 
 **Question.** What is the distribution of the Pearson statistic, and does it match $\chi^2_9$?
 
