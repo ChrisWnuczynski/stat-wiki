@@ -3200,7 +3200,7 @@ then $\mathbf{a}_1=(1,0)^\top$, $\lambda_1=4$, $\mathbf{a}_2=(0,1)^\top$ and $\l
     "prior-odds": r"""
 ## Model probabilities before the sample arrives
 
-Prior odds compare two models before the data are used. For models $M_1$ and $M_2$, the prior odds of $M_1$ against $M_2$ are $\mathbb{P}(M_1)/\mathbb{P}(M_2)$. The ratio is a ratio of probabilities of models, not a ratio of parameter values inside one model, and it is not a likelihood ratio. Equal model probabilities are a special case rather than a requirement. Prior odds of $1/9$ mean that $M_2$ is nine times as plausible as $M_1$ before $x$ is seen. Those odds are part of the comparison. Setting them silently to one hides an assumption, especially when one model is a sharp simplification of the other and the analyst does not regard the two as equally credible.
+Prior odds compare two models before the data are used. For models $M_1$ and $M_2$, the prior odds of $M_1$ against $M_2$ are $\mathbb{P}(M_1)/\mathbb{P}(M_2)$. The ratio is a ratio of probabilities of models, not a ratio of parameter values inside one model, and it is not a likelihood ratio. Equal model probabilities are a special case rather than a requirement. Prior odds of $1/9$ mean that $M_2$ is nine times as plausible as $M_1$ before $x$ is seen. Those odds are part of the comparison. Setting them silently to one hides an assumption, especially when one model is a sharp simplification of the other and the analyst does not regard the two as equally credible.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
 
 ## Multiply by the marginal-likelihood ratio
 
@@ -3210,7 +3210,7 @@ $$
 p(x \mid M_j) = \int p(x \mid \theta_j, M_j)\, p(\theta_j \mid M_j) \,\mathrm{d}\theta_j.
 $$
 
-This average of the sampling density over the parameter prior is not the likelihood at a fitted point. The ratio of posterior model probabilities cancels the shared evidence $p(x)$ and leaves the Bayes factor $p(x \mid M_1)/p(x \mid M_2)$ times the prior odds. If the Bayes factor is $4$ and the prior odds are $1/2$, the [posterior odds](posterior-odds-factorisation.qmd) are $2$, so $M_1$ is favoured after the data even though it started behind. A large Bayes factor in favour of a model that was given tiny prior odds need not change which model the posterior prefers. Reporting the Bayes factor without the prior odds leaves that comparison unfinished.
+This average of the sampling density over the parameter prior is not the likelihood at a fitted point. The ratio of posterior model probabilities cancels the shared evidence $p(x)$ and leaves the Bayes factor $p(x \mid M_1)/p(x \mid M_2)$ times the prior odds. If the Bayes factor is $4$ and the prior odds are $1/2$, the [posterior odds](posterior-odds-factorisation.qmd) are $2$, so $M_1$ is favoured after the data even though it started behind. A large Bayes factor in favour of a model that was given tiny prior odds need not change which model the posterior prefers. Reporting the Bayes factor without the prior odds leaves that comparison unfinished.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
 """,
     "probability-generating-function": r"""
 ## A power series whose coefficients are the probabilities

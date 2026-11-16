@@ -174,5 +174,9 @@
   "conditional-probability": [
     "q-22",
     "c-37"
+  ],
+  "marginal-likelihood-and-bayes-factor": [
+    "q-44",
+    "c-08"
   ]
 }

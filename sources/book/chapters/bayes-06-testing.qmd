@@ -152,7 +152,7 @@ $$
 $$
 
 
- Taking the ratio cancels the common evidence $p(x)$.{{cite:jeffreys1961}}{{cite:kass_raftery1995}}{{cite:gelman_bda2013}} \begin{align*}
+ Taking the ratio cancels the common evidence $p(x)$.{{cite:kass_raftery1995}} (§3.1, pp. 777–778) \begin{align*}
  \frac{\Pr(M_1\given x)}{\Pr(M_2\given x)}
  &=\frac{p(x\given M_1)\Pr(M_1)/p(x)}
          {p(x\given M_2)\Pr(M_2)/p(x)}\\
@@ -173,20 +173,20 @@ The marginal likelihood in model $M_j$ is \begin{equation}
  =\int p(x\given\theta_j,M_j)
        p(\theta_j\given M_j)\dd\theta_j.
  \label{eq:marginal-model-book}
-\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum.{{cite:kass_raftery1995}}{{cite:jeffreys1961}} The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.{{cite:kass_raftery1995}}{{cite:gelman_bda2013}}
+\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum.{{cite:kass_raftery1995}} (§3.1, pp. 777–778) The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
 
 :::
 
-A Bayes factor compares whole models, not merely their best-fitting parameter values. The marginal likelihood averages over each model's prior parameter space, so diffuse priors can spread support across many poor explanations and change the comparison. Equal prior model probabilities are a transparent modelling choice, not a mathematical requirement. Model probabilities, parameter priors, and the set of models under consideration must all be stated before a numerical ratio can be interpreted responsibly.
+A Bayes factor compares whole models, not merely their best-fitting parameter values. The marginal likelihood averages over each model's prior parameter space, so diffuse priors can spread support across many poor explanations and change the comparison. Equal prior model probabilities are a transparent modelling choice, not a mathematical requirement. Model probabilities, parameter priors, and the set of models under consideration must all be stated before a numerical ratio can be interpreted responsibly.{{cite:kass_raftery1995}} (§§3.1, 5.1, pp. 777–778, 783–784)
 
 ::: {#rem-a-hypothesis-region-is-not-a-separate-model .remark}
 ## A hypothesis region is not a separate model
 
 Two constructions must not be confused:
 
-1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.{{cite:gelman_bda2013}}
+1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
 
-2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood.{{cite:kass_raftery1995}}{{cite:jeffreys1961}} A continuous prior on the larger space assigns probability zero to a lower-dimensional surface.{{cite:kass_raftery1995}}
+2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood.{{cite:kass_raftery1995}} (§§3.1, 5.1, pp. 777–778, 783–784) A continuous prior on the larger space assigns probability zero to a lower-dimensional surface.{{cite:kass_raftery1995}} (§5.1, pp. 783–784)
 
 The fruit example is the first construction. Independence in the advertising table is the second.
 
