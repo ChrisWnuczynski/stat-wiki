@@ -1,0 +1,67 @@
+{
+  "bibliography": {
+    "sas_statug2009_prior_distributions": {
+      "authors": [
+        "SAS Institute Inc."
+      ],
+      "year": 2009,
+      "title": "Prior Distributions",
+      "kind": "book",
+      "publisher": "SAS Institute",
+      "url": "https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_introbayes_sect004.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_introbayes_sect004.htm"
+      }
+    },
+    "stan_users_guide_problematic_posteriors": {
+      "authors": [
+        "Stan Development Team"
+      ],
+      "year": 2026,
+      "title": "Problematic Posteriors",
+      "kind": "book",
+      "publisher": "Stan User's Guide, version 2.40",
+      "url": "https://mc-stan.org/docs/stan-users-guide/problematic-posteriors.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mc-stan.org/docs/stan-users-guide/problematic-posteriors.html"
+      }
+    },
+    "taraldsen2022_improper": {
+      "authors": [
+        "Taraldsen, G.",
+        "Tufto, J.",
+        "Lindqvist, B. H."
+      ],
+      "year": 2022,
+      "title": "Improper priors and improper posteriors",
+      "kind": "article",
+      "venue": "Scandinavian Journal of Statistics",
+      "volume": "49",
+      "issue": "3",
+      "pages": "969–991",
+      "doi": "10.1111/sjos.12550",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/sjos.12550"
+      }
+    }
+  },
+  "article_lead": {
+    "description": "an unnormalised prior weight that can still give a valid posterior when the data make its normalising integral finite"
+  },
+  "self_checks": [
+    "ex-improper-normal",
+    "depth-improper-boundary"
+  ],
+  "new_bank_questions": [
+    {
+      "id": "depth-improper-boundary",
+      "topic_code": "B1",
+      "title": "A boundary left by an improper prior",
+      "body": "A binomial success probability has prior weight $w(\\theta)\\propto[\\theta(1-\\theta)]^{-1}$. For five trials, determine the posterior kernel and whether it is proper (a) if two trials succeed and (b) if none succeed. Give the posterior mean in the proper case.",
+      "answer": "For two successes, the kernel is $\\theta^{2-1}(1-\\theta)^{3-1}$, hence the proper $\\operatorname{Beta}(2,3)$ posterior has mean $2/(2+3)=0.4$. With no successes, the kernel is $\\theta^{-1}(1-\\theta)^4$; its integral diverges at zero, so there is no posterior probability distribution."
+    }
+  ]
+}
