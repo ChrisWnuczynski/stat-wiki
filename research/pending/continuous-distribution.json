@@ -1,0 +1,39 @@
+{
+  "bibliography": {
+    "siegrist2022_continuous": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Continuous Distributions (Probability, Mathematical Statistics, and Stochastic Processes)",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.02:_Continuous_Distributions",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.02:_Continuous_Distributions"}
+    },
+    "knill2009_probability": {
+      "authors": ["Knill, O."],
+      "year": 2009,
+      "title": "Probability and Stochastic Processes with Applications",
+      "kind": "book",
+      "publisher": "Overseas Press",
+      "url": "https://abel.math.harvard.edu/~knill/books/KnillProbability.pdf",
+      "verification": {"source": "archival_url", "id": "https://abel.math.harvard.edu/~knill/books/KnillProbability.pdf"}
+    }
+  },
+  "article_lead": {
+    "description": "an atom-free probability law used to calculate chances for ranges of real-valued outcomes"
+  },
+  "self_checks": ["ex-prob-random-radius", "ex-prob-component-five-years", "ex-prob-shifted-exp-generate"],
+  "proofs_todo": [
+    {
+      "slug": "continuous-distribution",
+      "title": "Almost-everywhere derivative of an indefinite integral",
+      "reason": "The collapsed proof establishes interval probabilities, point masses and continuity, and cites the standard differentiation theorem for the inherited general assertion F'=f almost everywhere; a full proof of that theorem is beyond this page."
+    }
+  ],
+  "shared_changes": [
+    {
+      "file": "sources/stat2003/chapters/prob-02-random-variables.qmd",
+      "description": "At the density-based `#def-continuous-distribution` near line 42, qualify the wording as the absolutely continuous subclass studied in that chapter, while retaining its full formulas and the following sentence that continuity alone does not ensure a density. This makes the copied Definition agree with the broader atom-free lead and body. At the Key idea near line 395, change ‘continuous distributions by a density’ to ‘the absolutely continuous models treated here by a density’ (or equivalent), because singular continuous laws have no density. Check the source chapter and generated page after this shared edit."
+    }
+  ]
+}
