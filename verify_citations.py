@@ -18,6 +18,8 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from research_pending import merge_pending_works
+
 ROOT = Path(__file__).resolve().parent
 BIB_PATH = ROOT / "bibliography.json"
 
@@ -212,6 +214,7 @@ def check_pandoc_citation_keys(root: Path = ROOT, works: dict | None = None) -> 
     errors: list[str] = []
     skip = {"_site", ".git", "node_modules", ".quarto", "_build", "__pycache__"}
     files = list(root.rglob("*.qmd"))
+    files.extend((root / "research" / "content").glob("*.md"))
     extras = root / "article_extras.py"
     if extras.is_file():
         files.append(extras)
@@ -238,6 +241,7 @@ def check_pandoc_citation_keys(root: Path = ROOT, works: dict | None = None) -> 
 
 def verify_all(bib_path: Path = BIB_PATH, *, offline: bool = False, workers: int = 8) -> list[str]:
     bib = json.loads(bib_path.read_text(encoding="utf-8"))
+    bib["works"] = merge_pending_works(bib_path.parent, bib["works"])
     errors = validate_schema(bib)
     errors.extend(check_pandoc_citation_keys(bib_path.parent, bib.get("works", {})))
     if errors or offline:
@@ -258,7 +262,7 @@ def main(argv: list[str] | None = None) -> int:
 
     t0 = time.time()
     errors = verify_all(BIB_PATH, offline=args.offline, workers=args.workers)
-    works_count = len(json.loads(BIB_PATH.read_text(encoding="utf-8")).get("works", {}))
+    works_count = len(merge_pending_works(ROOT, json.loads(BIB_PATH.read_text(encoding="utf-8"))["works"]))
     if errors:
         print(f"Verification FAILED ({len(errors)} problems across {works_count} works):", file=sys.stderr)
         for err in errors:

@@ -15,6 +15,23 @@
         "id": "10.1002/0471249688"
       }
     },
+    "agresti_tarantola_varriale2023": {
+      "authors": [
+        "Agresti, A.",
+        "Tarantola, C.",
+        "Varriale, R."
+      ],
+      "year": 2023,
+      "title": "Simple Ways to Interpret Effects in Modeling Binary Data",
+      "kind": "incollection",
+      "venue": "Trends and Challenges in Categorical Data Analysis",
+      "publisher": "Springer Nature Switzerland",
+      "doi": "10.1007/978-3-031-31186-4_5",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://users.stat.ufl.edu/~aa/articles/Challenges.pdf"
+      }
+    },
     "akaike1974": {
       "authors": [
         "Akaike, H."
@@ -73,6 +90,25 @@
         "id": "10.1073/pnas.96.12.6745"
       }
     },
+    "anastasiou_reinert2020": {
+      "authors": [
+        "Anastasiou, A.",
+        "Reinert, G."
+      ],
+      "year": 2020,
+      "title": "Bounds for the asymptotic distribution of the likelihood ratio",
+      "kind": "article",
+      "venue": "The Annals of Applied Probability",
+      "volume": "30",
+      "issue": "2",
+      "pages": "608–643",
+      "doi": "10.1214/19-AAP1510",
+      "url": "https://www.andreasanastasiou-statistics.com/_files/ugd/24cdcc_ca5285583f6d4acdaddbf7aab0a86d28.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/19-AAP1510"
+      }
+    },
     "anderson1936_iris": {
       "authors": [
         "Anderson, E."
@@ -122,6 +158,20 @@
         "id": "10.1098/rstl.1710.0011"
       }
     },
+    "asa2016_pvalues": {
+      "authors": [
+        "American Statistical Association"
+      ],
+      "year": 2016,
+      "title": "American Statistical Association Releases Statement on Statistical Significance and P-Values",
+      "kind": "article",
+      "venue": "ASA News",
+      "url": "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf"
+      }
+    },
     "ashford1959": {
       "authors": [
         "Ashford, J. R."
@@ -157,6 +207,21 @@
         "id": "10.2307/2347385"
       }
     },
+    "bacallado_taylor2022_stats202": {
+      "authors": [
+        "Bacallado, S.",
+        "Taylor, J."
+      ],
+      "year": 2022,
+      "title": "STATS 202: Classification and validation",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://web.stanford.edu/class/stats202/notes/Classification/Evaluating-classifiers.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://web.stanford.edu/class/stats202/notes/Classification/Evaluating-classifiers.html"
+      }
+    },
     "baek_mclachlan_flack2010": {
       "authors": [
         "Baek, J.",
@@ -174,6 +239,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1109/tpami.2009.149"
+      }
+    },
+    "bailey2011_nelder": {
+      "authors": [
+        "Bailey, R. A."
+      ],
+      "year": 2011,
+      "title": "John Ashworth Nelder 1924–2010: Contributions to Statistics",
+      "kind": "book",
+      "publisher": "Queen Mary University of London",
+      "url": "https://webspace.maths.qmul.ac.uk/r.a.bailey/neldbeam.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://webspace.maths.qmul.ac.uk/r.a.bailey/neldbeam.pdf"
       }
     },
     "barbour_brown1974": {
@@ -247,48 +326,6 @@
         "source": "crossref",
         "id": "10.1093/biomet/34.1-2.123"
       }
-    },
-    "dasgupta2007_basu": {
-      "authors": ["DasGupta, A."],
-      "year": 2007,
-      "title": "Extensions to Basu's theorem, factorizations, and infinite divisibility",
-      "kind": "article",
-      "venue": "Journal of Statistical Planning and Inference",
-      "volume": "137",
-      "pages": "945–952",
-      "doi": "10.1016/j.jspi.2006.06.018",
-      "url": "https://www.stat.purdue.edu/~dasgupta/basuinfdiv.pdf",
-      "verification": {"source": "crossref", "id": "10.1016/j.jspi.2006.06.018"}
-    },
-    "dasgupta2011_exponential_family": {
-      "authors": ["DasGupta, A."],
-      "year": 2011,
-      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
-      "kind": "book",
-      "publisher": "Springer",
-      "url": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf",
-      "verification": {"source": "archival_url", "id": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf"}
-    },
-    "dasgupta2011_graduate_probability": {
-      "authors": ["DasGupta, A."],
-      "year": 2011,
-      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
-      "kind": "book",
-      "publisher": "Springer",
-      "url": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf",
-      "verification": {"source": "archival_url", "id": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf"}
-    },
-    "brown1964_sufficiency": {
-      "authors": ["Brown, L."],
-      "year": 1964,
-      "title": "Sufficient Statistics in the Case of Independent Random Variables",
-      "kind": "article",
-      "venue": "The Annals of Mathematical Statistics",
-      "volume": "35",
-      "issue": "4",
-      "pages": "1456–1474",
-      "url": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf",
-      "verification": {"source": "archival_url", "id": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf"}
     },
     "basu1955": {
       "authors": [
@@ -384,6 +421,26 @@
         "id": "10.1046/j.1365-2869.2003.00337.x"
       }
     },
+    "bell_kenward2013": {
+      "authors": [
+        "Bell, M. L.",
+        "Kenward, M. G.",
+        "Fairclough, D. L.",
+        "Horton, N. J."
+      ],
+      "year": 2013,
+      "title": "Differential dropout and bias in randomised controlled trials: when it matters and when it may not",
+      "kind": "article",
+      "venue": "BMJ",
+      "volume": "346",
+      "pages": "e8668",
+      "doi": "10.1136/bmj.e8668",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4688419/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1136/bmj.e8668"
+      }
+    },
     "benjamini_hochberg1995": {
       "authors": [
         "Benjamini, Y.",
@@ -439,6 +496,20 @@
         "id": "10.1214/07-aos587"
       }
     },
+    "berkeley_eecs1262019": {
+      "authors": [
+        "University of California, Berkeley, EECS 126"
+      ],
+      "year": 2019,
+      "title": "Markov Chains",
+      "kind": "book",
+      "publisher": "University of California, Berkeley",
+      "url": "https://www-inst.cs.berkeley.edu/~ee126/fa22/notes/markov_chains.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www-inst.cs.berkeley.edu/~ee126/fa22/notes/markov_chains.pdf"
+      }
+    },
     "berkson1944": {
       "authors": [
         "Berkson, J."
@@ -469,6 +540,22 @@
         "source": "archival_url",
         "id": "https://www.e-rara.ch/zut/content/titleinfo/1250279",
         "openlibrary": "/works/OL15459656W"
+      }
+    },
+    "bertsekas_tsitsiklis2008_summary": {
+      "authors": [
+        "Bertsekas, D. P.",
+        "Tsitsiklis, J. N."
+      ],
+      "year": 2008,
+      "title": "Introduction to Probability",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "Athena Scientific / Massachusetts Institute of Technology",
+      "url": "https://live.ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/d973b10c2587781f86ca4f2aff49098f_MITRES_6_012S18_Textbook.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://live.ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/d973b10c2587781f86ca4f2aff49098f_MITRES_6_012S18_Textbook.pdf"
       }
     },
     "besag1974": {
@@ -671,6 +758,21 @@
       "verification": {
         "source": "crossref",
         "id": "10.1145/130385.130401"
+      }
+    },
+    "bowman_azzalini1997": {
+      "authors": [
+        "Bowman, A. W.",
+        "Azzalini, A."
+      ],
+      "year": 1997,
+      "title": "Applied Smoothing Techniques for Data Analysis: The Kernel Approach with S-Plus Illustrations",
+      "kind": "book",
+      "publisher": "Oxford University Press",
+      "url": "https://api.pageplace.de/preview/DT0400.9780191545696_A37880811/preview-9780191545696_A37880811.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://api.pageplace.de/preview/DT0400.9780191545696_A37880811/preview-9780191545696_A37880811.pdf"
       }
     },
     "box1953": {
@@ -941,6 +1043,23 @@
         "id": "10.1007/978-1-4419-0320-4"
       }
     },
+    "brown1964_sufficiency": {
+      "authors": [
+        "Brown, L."
+      ],
+      "year": 1964,
+      "title": "Sufficient Statistics in the Case of Independent Random Variables",
+      "kind": "article",
+      "venue": "The Annals of Mathematical Statistics",
+      "volume": "35",
+      "issue": "4",
+      "pages": "1456–1474",
+      "url": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf"
+      }
+    },
     "brown_cai_dasgupta2001": {
       "authors": [
         "Brown, L. D.",
@@ -977,6 +1096,34 @@
         "id": "10.1023/a:1009715923555"
       }
     },
+    "cambridge_stats1b2016": {
+      "authors": [
+        "University of Cambridge Statistical Laboratory"
+      ],
+      "year": 2016,
+      "title": "Statistics 1B: Introduction and probability review",
+      "kind": "book",
+      "publisher": "University of Cambridge",
+      "url": "https://www.statslab.cam.ac.uk/Dept/People/djsteaching/S1B-16-all-lectures.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.statslab.cam.ac.uk/Dept/People/djsteaching/S1B-16-all-lectures.pdf"
+      }
+    },
+    "cameron2004_asymptotic": {
+      "authors": [
+        "Cameron, A. C."
+      ],
+      "year": 2004,
+      "title": "Asymptotic Theory for OLS",
+      "kind": "book",
+      "publisher": "University of California, Davis",
+      "url": "https://cameron.econ.ucdavis.edu/e240a/asymptotic.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cameron.econ.ucdavis.edu/e240a/asymptotic.pdf"
+      }
+    },
     "cameron_johansson1997": {
       "authors": [
         "Cameron, A. C.",
@@ -995,6 +1142,25 @@
         "id": "10.1002/(sici)1099-1255(199705)12:3<203::aid-jae446>3.0.co;2-2"
       }
     },
+    "cameron_miller2015": {
+      "authors": [
+        "Cameron, A. C.",
+        "Miller, D. L."
+      ],
+      "year": 2015,
+      "title": "A Practitioner's Guide to Cluster-Robust Inference",
+      "kind": "article",
+      "venue": "Journal of Human Resources",
+      "volume": "50",
+      "issue": "2",
+      "pages": "317–372",
+      "doi": "10.3368/jhr.50.2.317",
+      "url": "https://facultysites.dss.ucdavis.edu/research/Cameron_Miller_JHR_2015_February.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3368/jhr.50.2.317"
+      }
+    },
     "cantelli1917": {
       "authors": [
         "Cantelli, F. P."
@@ -1010,6 +1176,25 @@
         "source": "archival_url",
         "id": "https://openlibrary.org/authors/OL1966171A"
       }
+    },
+    "casella1985_empirical_bayes": {
+      "authors": [
+        "Casella, G."
+      ],
+      "year": 1985,
+      "title": "An Introduction to Empirical Bayes Data Analysis",
+      "kind": "article",
+      "publisher": "The American Statistician 39(2), 83–87",
+      "url": "https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf"
+      },
+      "venue": "The American Statistician",
+      "volume": "39",
+      "issue": "2",
+      "pages": "83–87",
+      "doi": "10.1080/00031305.1985.10479400"
     },
     "casella_berger2002": {
       "authors": [
@@ -1128,14 +1313,43 @@
         "id": "http://www.numdam.org/item/JMPA_1867_2_12__177_0/"
       }
     },
-    "cameron2004_asymptotic": {
-      "authors": ["Cameron, A. C."],
-      "year": 2004,
-      "title": "Asymptotic Theory for OLS",
-      "kind": "book",
-      "publisher": "University of California, Davis",
-      "url": "https://cameron.econ.ucdavis.edu/e240a/asymptotic.pdf",
-      "verification": {"source": "archival_url", "id": "https://cameron.econ.ucdavis.edu/e240a/asymptotic.pdf"}
+    "chen_ip2015": {
+      "authors": [
+        "Chen, S.-H.",
+        "Ip, E. H."
+      ],
+      "year": 2015,
+      "title": "Behavior of the Gibbs Sampler When Conditional Distributions Are Potentially Incompatible",
+      "kind": "article",
+      "venue": "Journal of Statistical Computation and Simulation",
+      "volume": "85",
+      "issue": "16",
+      "pages": "3266–3275",
+      "doi": "10.1080/00949655.2014.968159",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4572746/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00949655.2014.968159"
+      }
+    },
+    "chen_valliant_elliott2018": {
+      "authors": [
+        "Chen, J. K. T.",
+        "Valliant, R. L.",
+        "Elliott, M. R."
+      ],
+      "year": 2018,
+      "title": "Model-assisted calibration of non-probability sample survey data using adaptive LASSO",
+      "kind": "article",
+      "venue": "Survey Methodology",
+      "volume": "44",
+      "issue": "1",
+      "pages": "117–144",
+      "url": "https://www150.statcan.gc.ca/n1/pub/12-001-x/2018001/article/54963/03-eng.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www150.statcan.gc.ca/n1/pub/12-001-x/2018001/article/54963/03-eng.htm"
+      }
     },
     "chicco_jurman2020": {
       "authors": [
@@ -1153,6 +1367,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1186/s12911-020-1023-5"
+      }
+    },
+    "clemmensen2011_sda": {
+      "authors": [
+        "Clemmensen, L.",
+        "Hastie, T.",
+        "Witten, D.",
+        "Ersbøll, B."
+      ],
+      "year": 2011,
+      "title": "Sparse Discriminant Analysis",
+      "kind": "article",
+      "venue": "Technometrics",
+      "url": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://hastie.su.domains/public/Papers/sda_resubm_daniela-final.pdf"
       }
     },
     "clifford1990_hc": {
@@ -1371,6 +1602,51 @@
         "id": "https://openlibrary.org/authors/OL118675A"
       }
     },
+    "dasgupta2007_basu": {
+      "authors": [
+        "DasGupta, A."
+      ],
+      "year": 2007,
+      "title": "Extensions to Basu's theorem, factorizations, and infinite divisibility",
+      "kind": "article",
+      "venue": "Journal of Statistical Planning and Inference",
+      "volume": "137",
+      "pages": "945–952",
+      "doi": "10.1016/j.jspi.2006.06.018",
+      "url": "https://www.stat.purdue.edu/~dasgupta/basuinfdiv.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.jspi.2006.06.018"
+      }
+    },
+    "dasgupta2011_exponential_family": {
+      "authors": [
+        "DasGupta, A."
+      ],
+      "year": 2011,
+      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
+      "kind": "book",
+      "publisher": "Springer",
+      "url": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf"
+      }
+    },
+    "dasgupta2011_graduate_probability": {
+      "authors": [
+        "DasGupta, A."
+      ],
+      "year": 2011,
+      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
+      "kind": "book",
+      "publisher": "Springer",
+      "url": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf"
+      }
+    },
     "davison2003": {
       "authors": [
         "Davison, A. C."
@@ -1501,6 +1777,20 @@
       "verification": {
         "source": "archival_url",
         "id": "http://www.numdam.org/item/AIHP_1937__7_1_1_0/"
+      }
+    },
+    "deligiannidis2022_foundations": {
+      "authors": [
+        "Deligiannidis, G."
+      ],
+      "year": 2022,
+      "title": "Foundations of Statistical Inference",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf"
       }
     },
     "demoivre1756": {
@@ -1726,14 +2016,19 @@
       }
     },
     "dodge2008": {
-      "authors": ["Dodge, Yadolah"],
+      "authors": [
+        "Dodge, Yadolah"
+      ],
       "year": 2008,
       "title": "The Concise Encyclopedia of Statistics",
       "kind": "book",
       "publisher": "Springer",
       "isbn": "978-0-387-32833-1",
       "doi": "10.1007/978-0-387-32833-1",
-      "verification": {"source": "crossref", "id": "10.1007/978-0-387-32833-1"}
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-0-387-32833-1"
+      }
     },
     "donoho_johnstone1994": {
       "authors": [
@@ -1868,6 +2163,20 @@
         "id": "10.1007/bf02288367"
       }
     },
+    "edwards2013_ars": {
+      "authors": [
+        "Edwards, A. W. F."
+      ],
+      "year": 2013,
+      "title": "Ars conjectandi three hundred years on",
+      "kind": "article",
+      "venue": "Significance",
+      "doi": "10.1111/j.1740-9713.2013.00666.x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.1740-9713.2013.00666.x"
+      }
+    },
     "efron1979": {
       "authors": [
         "Efron, B."
@@ -1917,6 +2226,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/01621459.1983.10477973"
+      }
+    },
+    "efron2004_prediction_error": {
+      "authors": [
+        "Efron, B."
+      ],
+      "year": 2004,
+      "title": "The Estimation of Prediction Error: Covariance Penalties and Cross-Validation",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "99",
+      "issue": "467",
+      "pages": "619–632",
+      "doi": "10.1198/016214504000000692",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1198/016214504000000692"
       }
     },
     "efron_morris1975": {
@@ -2035,6 +2361,20 @@
       "verification": {
         "source": "archival_url",
         "id": "https://www.stats.ox.ac.uk/~evans/gms/_book/"
+      }
+    },
+    "evans_graphical_models2025": {
+      "authors": [
+        "Evans, R. J."
+      ],
+      "year": 2025,
+      "title": "Graphical Models, Chapter 5: Gaussian Graphical Models",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~evans/gms/_book/gauss.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stats.ox.ac.uk/~evans/gms/_book/gauss.html"
       }
     },
     "fahrmeir_tutz2001": {
@@ -2249,6 +2589,20 @@
         "id": "10.1017/s0305004100015681"
       }
     },
+    "fithian2023_exp_families": {
+      "authors": [
+        "Fithian, W."
+      ],
+      "year": 2023,
+      "title": "Exponential Families",
+      "kind": "book",
+      "publisher": "University of California, Berkeley",
+      "url": "https://www.stat.berkeley.edu/~wfithian/courses/%73tat210a/exponential-families.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.berkeley.edu/~wfithian/courses/%73tat210a/exponential-families.html"
+      }
+    },
     "fix_hodges1989": {
       "authors": [
         "Fix, E.",
@@ -2265,21 +2619,6 @@
       "verification": {
         "source": "crossref",
         "id": "10.2307/1403797"
-      }
-    },
-    "fox2016_regression": {
-      "authors": [
-        "Fox, J."
-      ],
-      "year": 2016,
-      "title": "Applied Regression Analysis and Generalized Linear Models",
-      "kind": "book",
-      "edition": "3rd ed.",
-      "publisher": "SAGE Publications",
-      "url": "https://www.sagepub.com/shop/buy-a-book/applied-regression-analysis-and-generalized-linear-models-3-237254",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.sagepub.com/shop/buy-a-book/applied-regression-analysis-and-generalized-linear-models-3-237254"
       }
     },
     "forbes2011": {
@@ -2299,6 +2638,36 @@
         "source": "crossref",
         "id": "10.1002/9780470627242",
         "year_tolerance": 1
+      }
+    },
+    "forssen_ekstrom2026": {
+      "authors": [
+        "Forssén, C.",
+        "Ekström, A."
+      ],
+      "year": 2026,
+      "title": "Learning from data: Assigning probabilities (III): Conjugate priors",
+      "kind": "book",
+      "publisher": "Chalmers University of Technology",
+      "url": "https://cforssen.gitlab.io/tif285-book/content/BayesianStatistics/BayesianLinearRegression/BayesianLinearRegression_ConjugatePrior.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cforssen.gitlab.io/tif285-book/content/BayesianStatistics/BayesianLinearRegression/BayesianLinearRegression_ConjugatePrior.html"
+      }
+    },
+    "fox2016_regression": {
+      "authors": [
+        "Fox, J."
+      ],
+      "year": 2016,
+      "title": "Applied Regression Analysis and Generalized Linear Models",
+      "kind": "book",
+      "edition": "3rd ed.",
+      "publisher": "SAGE Publications",
+      "url": "https://www.sagepub.com/shop/buy-a-book/applied-regression-analysis-and-generalized-linear-models-3-237254",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.sagepub.com/shop/buy-a-book/applied-regression-analysis-and-generalized-linear-models-3-237254"
       }
     },
     "foygel_drton2010": {
@@ -2574,6 +2943,24 @@
         "id": "10.1080/01621459.1990.10476213"
       }
     },
+    "gelman2005_anova": {
+      "authors": [
+        "Gelman, A."
+      ],
+      "year": 2005,
+      "title": "Analysis of variance—why it is more important than ever",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "33",
+      "issue": "1",
+      "pages": "1–53",
+      "doi": "10.1214/009053604000001048",
+      "url": "https://sites.stat.columbia.edu/gelman/research/published/AOS259.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/009053604000001048"
+      }
+    },
     "gelman2006": {
       "authors": [
         "Gelman, A."
@@ -2608,6 +2995,25 @@
       "verification": {
         "source": "crossref",
         "id": "10.1201/b16018"
+      }
+    },
+    "gelman_meng_stern1996": {
+      "authors": [
+        "Gelman, A.",
+        "Meng, X.-L.",
+        "Stern, H."
+      ],
+      "year": 1996,
+      "title": "Posterior predictive assessment of model fitness via realized discrepancies",
+      "kind": "article",
+      "venue": "Statistica Sinica",
+      "volume": "6",
+      "issue": "4",
+      "pages": "733–760",
+      "url": "https://stat.columbia.edu/~gelman/research/published/A6n41.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.columbia.edu/~gelman/research/published/A6n41.pdf"
       }
     },
     "gelman_rubin1992": {
@@ -2663,6 +3069,90 @@
         "id": "10.1214/ss/1177011137"
       }
     },
+    "geyer2005_markov_chain": {
+      "authors": [
+        "Geyer, C. J."
+      ],
+      "year": 2005,
+      "title": "Some Markov Chain Theory",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/f05/8931/theo.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/f05/8931/theo.pdf"
+      }
+    },
+    "geyer2020_markov_chains": {
+      "authors": [
+        "Geyer, C. J."
+      ],
+      "year": 2020,
+      "title": "Markov Chains",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/8501/markov.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/8501/markov.pdf"
+      }
+    },
+    "geyer2022_exp_family": {
+      "authors": [
+        "Geyer, C. J."
+      ],
+      "year": 2022,
+      "title": "Exponential Families",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/f22/5421/notes/expfam.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/f22/5421/notes/expfam.html"
+      }
+    },
+    "geyer2023_pivots": {
+      "authors": [
+        "Geyer, C. J."
+      ],
+      "year": 2023,
+      "title": "Supplement to Agresti Chapter 9: Pivotal Quantities",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/f22/5421/notes/ch9.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/f22/5421/notes/ch9.html"
+      }
+    },
+    "geyer2025_conjugate": {
+      "authors": [
+        "Geyer, C. J."
+      ],
+      "year": 2025,
+      "title": "Proper Conjugate Priors for Exponential Families",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/5421/notes/prior.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/5421/notes/prior.html"
+      }
+    },
+    "geyer2026_mcmc_notes": {
+      "authors": [
+        "Geyer, C. J."
+      ],
+      "year": 2026,
+      "title": "Bayesian Inference via Markov Chain Monte Carlo (MCMC)",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html"
+      }
+    },
     "gini1912": {
       "authors": [
         "Gini, C."
@@ -2693,6 +3183,24 @@
       "verification": {
         "source": "openalex",
         "id": "W1533861849"
+      }
+    },
+    "glorot_bordes_bengio2011": {
+      "authors": [
+        "Glorot, X.",
+        "Bordes, A.",
+        "Bengio, Y."
+      ],
+      "year": 2011,
+      "title": "Deep Sparse Rectifier Neural Networks",
+      "kind": "article",
+      "venue": "Proceedings of Machine Learning Research",
+      "volume": "15",
+      "pages": "315–323",
+      "url": "https://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf"
       }
     },
     "gnedenko1943": {
@@ -2728,8 +3236,86 @@
         "id": "/works/OL3261782W"
       }
     },
+    "goodfellow2016_deep_learning": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/contents/mlp.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/contents/mlp.html"
+      }
+    },
+    "goodfellow_bengio_courville2016": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/"
+      }
+    },
+    "goodfellow_deep_learning2016_ch6": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/contents/mlp.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/contents/mlp.html"
+      }
+    },
+    "google_ml_overfitting2026": {
+      "authors": [
+        "Google for Developers"
+      ],
+      "year": 2026,
+      "title": "Overfitting",
+      "kind": "book",
+      "publisher": "Google for Developers, Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting"
+      }
+    },
+    "google_ml_regularization2026": {
+      "authors": [
+        "Google for Developers"
+      ],
+      "year": 2026,
+      "title": "Overfitting: L2 regularization",
+      "kind": "book",
+      "publisher": "Google for Developers, Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/regularization",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://developers.google.com/machine-learning/crash-course/overfitting/regularization"
+      }
+    },
     "gorroochurn2016_pearson": {
-      "authors": ["Gorroochurn, P."],
+      "authors": [
+        "Gorroochurn, P."
+      ],
       "year": 2016,
       "title": "Karl Pearson's Chi-Squared Goodness-of-Fit Test",
       "kind": "incollection",
@@ -2737,7 +3323,10 @@
       "publisher": "John Wiley & Sons",
       "pages": "293–347",
       "doi": "10.1002/9781119127963.ch3",
-      "verification": {"source": "crossref", "id": "10.1002/9781119127963.ch3"}
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/9781119127963.ch3"
+      }
     },
     "granger_newbold1974": {
       "authors": [
@@ -2757,6 +3346,20 @@
         "id": "10.1016/0304-4076(74)90034-7"
       }
     },
+    "green2019_finite_mixtures": {
+      "authors": [
+        "Green, P. J."
+      ],
+      "year": 2019,
+      "title": "Introduction to Finite Mixtures (Handbook of Mixture Analysis)",
+      "kind": "book",
+      "publisher": "CRC Press",
+      "url": "https://api.pageplace.de/preview/DT0400.9780429508240_A35885599/preview-9780429508240_A35885599.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://api.pageplace.de/preview/DT0400.9780429508240_A35885599/preview-9780429508240_A35885599.pdf"
+      }
+    },
     "green_silverman1994": {
       "authors": [
         "Green, P. J.",
@@ -2770,22 +3373,6 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/978-1-4899-4473-3"
-      }
-    },
-    "grinstead_snell1997": {
-      "authors": [
-        "Grinstead, C. M.",
-        "Snell, J. L."
-      ],
-      "year": 1997,
-      "title": "Introduction to Probability",
-      "kind": "book",
-      "edition": "2nd rev. ed.",
-      "publisher": "American Mathematical Society",
-      "url": "https://math.dartmouth.edu/~prob/prob/prob.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://math.dartmouth.edu/~prob/prob/prob.pdf"
       }
     },
     "greenwood_yule1920": {
@@ -2820,6 +3407,22 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL25253617W"
+      }
+    },
+    "grinstead_snell1997": {
+      "authors": [
+        "Grinstead, C. M.",
+        "Snell, J. L."
+      ],
+      "year": 1997,
+      "title": "Introduction to Probability",
+      "kind": "book",
+      "edition": "2nd rev. ed.",
+      "publisher": "American Mathematical Society",
+      "url": "https://math.dartmouth.edu/~prob/prob/prob.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://math.dartmouth.edu/~prob/prob/prob.pdf"
       }
     },
     "gubernatis2005": {
@@ -2883,6 +3486,21 @@
       "verification": {
         "source": "archival_url",
         "id": "https://faculty.nps.edu/rbassett/_book/"
+      }
+    },
+    "hansen_larsson2026_density": {
+      "authors": [
+        "Hansen, N. R.",
+        "Larsson, J."
+      ],
+      "year": 2026,
+      "title": "Computational Statistics with R: Density Estimation",
+      "kind": "book",
+      "publisher": "University of Copenhagen",
+      "url": "https://cswr.nrhstat.org/density.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cswr.nrhstat.org/density.html"
       }
     },
     "hartigan_wong1979": {
@@ -3005,6 +3623,21 @@
         "id": "10.2307/2529430"
       }
     },
+    "hernan_robins2020": {
+      "authors": [
+        "Hernán, M. A.",
+        "Robins, J. M."
+      ],
+      "year": 2020,
+      "title": "Causal Inference: What If",
+      "kind": "book",
+      "publisher": "Chapman & Hall/CRC",
+      "url": "https://miguelhernan.org/s/hernanrobins_WhatIf_19aug26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://miguelhernan.org/s/hernanrobins_WhatIf_19aug26.pdf"
+      }
+    },
     "hill1948_rct": {
       "authors": [
         "Medical Research Council"
@@ -3074,6 +3707,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/00401706.1970.10488634"
+      }
+    },
+    "hoff2013_bayes_estimators": {
+      "authors": [
+        "Hoff, P. D."
+      ],
+      "year": 2013,
+      "title": "Bayes estimators",
+      "kind": "book",
+      "publisher": "Duke University",
+      "url": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf"
       }
     },
     "hojsgaard2006_geepack": {
@@ -3147,20 +3794,6 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/0471722146"
-      }
-    },
-    "hoff2013_bayes_estimators": {
-      "authors": [
-        "Hoff, P. D."
-      ],
-      "year": 2013,
-      "title": "Bayes estimators",
-      "kind": "book",
-      "publisher": "Duke University",
-      "url": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www2.stat.duke.edu/~pdh10/Teaching/581/LectureNotes/Static/bayes.pdf"
       }
     },
     "hotelling1931": {
@@ -3334,6 +3967,24 @@
         "id": "https://otexts.com/fpp3/"
       }
     },
+    "hyndman_fan1996": {
+      "authors": [
+        "Hyndman, R. J.",
+        "Fan, Y."
+      ],
+      "year": 1996,
+      "title": "Sample Quantiles in Statistical Packages",
+      "kind": "article",
+      "venue": "The American Statistician",
+      "volume": "50",
+      "number": "4",
+      "pages": "361–365",
+      "doi": "10.1080/00031305.1996.10473566",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00031305.1996.10473566"
+      }
+    },
     "hyndman_khandakar2008": {
       "authors": [
         "Hyndman, R. J.",
@@ -3384,6 +4035,25 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/bf02980577"
+      }
+    },
+    "james_islr2013": {
+      "authors": [
+        "James, G.",
+        "Witten, D.",
+        "Hastie, T.",
+        "Tibshirani, R."
+      ],
+      "year": 2013,
+      "title": "An Introduction to Statistical Learning: with Applications in R",
+      "kind": "book",
+      "edition": "1st ed.",
+      "publisher": "Springer, New York",
+      "doi": "10.1007/978-1-4614-7138-7",
+      "url": "https://www.statlearning.com/s/ISLRSeventhPrinting.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4614-7138-7"
       }
     },
     "james_islr2021": {
@@ -3572,6 +4242,20 @@
         "year_tolerance": 1
       }
     },
+    "knill2009_probability": {
+      "authors": [
+        "Knill, O."
+      ],
+      "year": 2009,
+      "title": "Probability and Stochastic Processes with Applications",
+      "kind": "book",
+      "publisher": "Overseas Press",
+      "url": "https://abel.math.harvard.edu/~knill/books/KnillProbability.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://abel.math.harvard.edu/~knill/books/KnillProbability.pdf"
+      }
+    },
     "kolmogorov1931": {
       "authors": [
         "Kolmogoroff, A."
@@ -3689,6 +4373,20 @@
         "id": "https://proceedings.neurips.cc/paper/1994/hash/b8c37e33defde51cf91e1e03e51657da-Abstract.html"
       }
     },
+    "kulich2022_regression": {
+      "authors": [
+        "Kulich, M."
+      ],
+      "year": 2022,
+      "title": "Advanced Regression Models",
+      "kind": "book",
+      "publisher": "Charles University, Faculty of Mathematics and Physics",
+      "url": "https://www.karlin.mff.cuni.cz/~kulich/vyuka/pokreg/doc/advreg_notes_ext_220218.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.karlin.mff.cuni.cz/~kulich/vyuka/pokreg/doc/advreg_notes_ext_220218.pdf"
+      }
+    },
     "kullback_leibler1951": {
       "authors": [
         "Kullback, S.",
@@ -3723,6 +4421,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.2307/2529876"
+      }
+    },
+    "lancaster2004_bayesian_econometrics": {
+      "authors": [
+        "Lancaster, T."
+      ],
+      "year": 2004,
+      "title": "An Introduction to Modern Bayesian Econometrics",
+      "kind": "book",
+      "publisher": "Blackwell Publishing",
+      "url": "https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf"
       }
     },
     "landauer_dunn1930": {
@@ -3820,6 +4532,24 @@
       "verification": {
         "source": "crossref",
         "id": "10.1109/5.726791"
+      }
+    },
+    "lecun_efficient_backprop1998": {
+      "authors": [
+        "LeCun, Y.",
+        "Bottou, L.",
+        "Orr, G. B.",
+        "Müller, K.-R."
+      ],
+      "year": 1998,
+      "title": "Efficient BackProp",
+      "kind": "incollection",
+      "venue": "Neural Networks: Tricks of the Trade",
+      "publisher": "Springer",
+      "url": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf"
       }
     },
     "lee_seung1999": {
@@ -3921,6 +4651,21 @@
         "id": "https://openlibrary.org/authors/OL697967A"
       }
     },
+    "lemarechal2012_cauchy": {
+      "authors": [
+        "Lemaréchal, C."
+      ],
+      "year": 2012,
+      "title": "Cauchy and the Gradient Method",
+      "kind": "article",
+      "venue": "Documenta Mathematica, Extra Volume ISMP",
+      "pages": "251–254",
+      "url": "https://www2.math.ethz.ch/EMIS/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.math.ethz.ch/EMIS/journals/DMJDMV/vol-ismp/40_lemarechal-claude.pdf"
+      }
+    },
     "lesaffre_spiessens2001": {
       "authors": [
         "Lesaffre, E.",
@@ -3937,6 +4682,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1111/1467-9876.00237"
+      }
+    },
+    "levin_peres2017": {
+      "authors": [
+        "Levin, David A.",
+        "Peres, Yuval"
+      ],
+      "year": 2017,
+      "title": "Markov Chains and Mixing Times",
+      "edition": "2nd",
+      "kind": "book",
+      "publisher": "American Mathematical Society",
+      "doi": "10.1090/mbk/107",
+      "isbn": "978-1-4704-2962-1",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf"
       }
     },
     "levy1925": {
@@ -4037,6 +4799,24 @@
         "id": "10.1287/opre.9.3.383"
       }
     },
+    "liu_gelman_zheng2015": {
+      "authors": [
+        "Liu, Y.",
+        "Gelman, A.",
+        "Zheng, T."
+      ],
+      "year": 2015,
+      "title": "Simulation-efficient shortest probability intervals",
+      "kind": "article",
+      "venue": "Statistics and Computing",
+      "volume": "25",
+      "pages": "809–819",
+      "doi": "10.1007/s11222-015-9563-8",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s11222-015-9563-8"
+      }
+    },
     "ljung_box1978": {
       "authors": [
         "Ljung, G. M.",
@@ -4084,6 +4864,21 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/b98858"
+      }
+    },
+    "loshchilov_hutter2019": {
+      "authors": [
+        "Loshchilov, I.",
+        "Hutter, F."
+      ],
+      "year": 2019,
+      "title": "Decoupled Weight Decay Regularization",
+      "kind": "article",
+      "venue": "International Conference on Learning Representations",
+      "url": "https://openreview.net/pdf?id=Bkg6RiCqY7",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://openreview.net/pdf?id=Bkg6RiCqY7"
       }
     },
     "lunn_winbugs2000": {
@@ -4156,7 +4951,8 @@
         "source": "crossref",
         "id": "10.1007/s13171-019-00164-5",
         "reprint_year": 2018
-      }
+      },
+      "note": "Linked DOI identifies the Sankhya A reprint (2018 issue, published online in 2019), not the 1936 original."
     },
     "makridakis1998": {
       "authors": [
@@ -4261,14 +5057,19 @@
       }
     },
     "mccullagh1992_glm_intro": {
-      "authors": ["McCullagh, P."],
+      "authors": [
+        "McCullagh, P."
+      ],
       "year": 1992,
       "title": "Introduction to Nelder and Wedderburn (1972): Generalized Linear Models",
       "kind": "book",
       "publisher": "Springer",
       "pages": "543–545",
       "url": "https://www.stat.uchicago.edu/~pmcc/pubs/paper32.pdf",
-      "verification": {"source": "archival_url", "id": "https://www.stat.uchicago.edu/~pmcc/pubs/paper32.pdf"}
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.uchicago.edu/~pmcc/pubs/paper32.pdf"
+      }
     },
     "mccullagh_nelder1989": {
       "authors": [
@@ -4337,6 +5138,34 @@
         "id": "10.1016/s0167-9473(02)00183-4"
       }
     },
+    "mehlig_neural_networks2022": {
+      "authors": [
+        "Mehlig, B."
+      ],
+      "year": 2022,
+      "title": "Machine Learning with Neural Networks: An Introduction for Scientists and Engineers",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://assets.cambridge.org/97811084/94939/excerpt/9781108494939_excerpt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://assets.cambridge.org/97811084/94939/excerpt/9781108494939_excerpt.pdf"
+      }
+    },
+    "meinshausen2022_timeseries": {
+      "authors": [
+        "Meinshausen, N."
+      ],
+      "year": 2022,
+      "title": "Time Series Analysis: Notes for the Course HS 2022",
+      "kind": "book",
+      "publisher": "ETH Zurich",
+      "url": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.ethz.ch/~nicolai/timeseries/TimeSeries2022b.pdf"
+      }
+    },
     "meinshausen_buhlmann2006": {
       "authors": [
         "Meinshausen, N.",
@@ -4362,14 +5191,13 @@
       "year": 1909,
       "title": "Functions of positive and negative type, and their connection with the theory of integral equations",
       "kind": "article",
-      "venue": "Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character",
-      "volume": "83",
-      "issue": "559",
-      "pages": "69–70",
-      "doi": "10.1098/rspa.1909.0075",
+      "venue": "Philosophical Transactions of the Royal Society of London. Series A",
+      "volume": "209",
+      "pages": "415–446",
+      "doi": "10.1098/rsta.1909.0016",
       "verification": {
         "source": "crossref",
-        "id": "10.1098/rspa.1909.0075"
+        "id": "10.1098/rsta.1909.0016"
       }
     },
     "metropolis1953": {
@@ -4411,6 +5239,35 @@
         "id": "10.1080/01621459.1949.10483310"
       }
     },
+    "mgcv_identifiability2026": {
+      "authors": [
+        "Wood, S. N."
+      ],
+      "year": 2026,
+      "title": "Identifiability constraints (mgcv documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/identifiability.html"
+      }
+    },
+    "mikusheva2012_wold": {
+      "authors": [
+        "Mikusheva, A.",
+        "Schrimpf, P."
+      ],
+      "year": 2012,
+      "title": "Introduction to VARs: Wold Decomposition Theorem",
+      "kind": "book",
+      "publisher": "MIT OpenCourseWare, 14.384 Time Series Analysis, Lecture 10",
+      "url": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ocw.mit.edu/courses/14-384-time-series-analysis-fall-2013/c513d2c0f8b1949efacd64e27df0fe07_MIT14_384F13_lec10.pdf"
+      }
+    },
     "minsky_papert1969": {
       "authors": [
         "Minsky, M.",
@@ -4425,6 +5282,39 @@
         "source": "crossref",
         "id": "10.7551/mitpress/11301.001.0001",
         "reprint_year": 2017
+      }
+    },
+    "mit_ocw_conjugate2022": {
+      "authors": [
+        "Massachusetts Institute of Technology, 18.05"
+      ],
+      "year": 2022,
+      "title": "Conjugate priors: Beta and normal",
+      "kind": "book",
+      "publisher": "MIT OpenCourseWare",
+      "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class15-prep.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/mit18_05_s22_class15-prep.pdf"
+      }
+    },
+    "msaouel2022_cox": {
+      "authors": [
+        "Msaouel, P.",
+        "Jimenez-Fonseca, P.",
+        "Lim, B.",
+        "Carmona-Bayonas, A.",
+        "Agnelli, G."
+      ],
+      "year": 2022,
+      "title": "Medicine before and after David Cox",
+      "kind": "article",
+      "venue": "European Journal of Internal Medicine",
+      "doi": "10.1016/j.ejim.2022.02.022",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12262021/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12262021/"
       }
     },
     "murtagh_legendre2014": {
@@ -4460,275 +5350,6 @@
       "verification": {
         "source": "crossref",
         "id": "10.1002/9780470556986"
-      }
-    },
-    "nist_chi_square_gof2002": {
-      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.15: Chi-Square Goodness-of-Fit Test",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35f.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35f.htm"}
-    },
-    "nist_dataplot_chisq_gof2002": {
-      "authors": ["National Institute of Standards and Technology"],
-      "year": 2002,
-      "title": "Dataplot Reference Manual: Chi Square Goodness of Fit Test",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/chsqgood.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/chsqgood.htm"}
-    },
-    "nist_contingency2002": {
-      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.5: Contingency Tables",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm"}
-    },
-    "nist_dataplot_skewness2023": {
-      "authors": ["National Institute of Standards and Technology"],
-      "year": 2023,
-      "title": "Dataplot Reference Manual: Skewness",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/skewness.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/skewness.htm"}
-    },
-    "nist_interactions2002": {
-      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §3.4.2.3: Exploring First Order Interactions",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm"}
-    },
-    "nist_skewness2002": {
-      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.11: Measures of Skewness and Kurtosis",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm"}
-    },
-    "nist_two_way_anova2002": {
-      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.7: The Two-Way ANOVA",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm"}
-    },
-    "nist_process_model2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.2",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm"
-      }
-    },
-    "nist_model_fit2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.4",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm"
-      }
-    },
-    "nist_location2002": {
-      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.1 Measures of Location",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm"
-      }
-    },
-    "nist_mean_limits2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, 1.3.5.2 Confidence Limits for the Mean",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm"
-      }
-    },
-    "nist_glossary2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/glossary.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/glossary.htm"
-      }
-    },
-    "nist_correlation2013": {
-      "authors": [
-        "National Institute of Standards and Technology"
-      ],
-      "year": 2013,
-      "title": "Dataplot Reference Manual, CORRELATION",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm"
-      }
-    },
-    "nist_covariance2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §6.5.4.1",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc541.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc541.htm"
-      }
-    },
-    "nist_error_propagation2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §3.1.3.3",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section1/ppc133.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/ppc/section1/ppc133.htm"
-      }
-    },
-    "nist_residual_std2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.5.9.9.2",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm"
-      }
-    },
-    "nist_handbook_mle2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.5.2",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm"
-      }
-    },
-    "nist_handbook2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm"
       }
     },
     "nelder_wedderburn1972": {
@@ -4819,6 +5440,822 @@
         "id": "10.1098/rsta.1933.0009"
       }
     },
+    "ng_cs229_em2006": {
+      "authors": [
+        "Ng, A."
+      ],
+      "year": 2006,
+      "title": "The EM algorithm",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes8.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs229.stanford.edu/notes_archive/cs229-notes8.pdf"
+      }
+    },
+    "nist_bonferroni2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.3: Bonferroni's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc473.htm"
+      }
+    },
+    "nist_boxplot2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "e-Handbook of Statistical Methods, §1.3.3.7: Box Plot",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/boxplot.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/boxplot.htm"
+      }
+    },
+    "nist_chi_square_gof2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.15: Chi-Square Goodness-of-Fit Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35f.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35f.htm"
+      }
+    },
+    "nist_chisq_gof": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Chi-Square Goodness-of-Fit Test",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm"
+      }
+    },
+    "nist_chisq_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Chi-Square Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3666.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3666.htm"
+      }
+    },
+    "nist_contingency2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.5: Contingency Tables",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc45.htm"
+      }
+    },
+    "nist_contrasts2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.6: Assessing the Response from Any Factor Combination",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc436.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc436.htm"
+      }
+    },
+    "nist_correlation2013": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2013,
+      "title": "Dataplot Reference Manual, CORRELATION",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/correlat.htm"
+      }
+    },
+    "nist_covariance2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §6.5.4.1",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc541.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc541.htm"
+      }
+    },
+    "nist_dataplot_chisq_gof2002": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2002,
+      "title": "Dataplot Reference Manual: Chi Square Goodness of Fit Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/chsqgood.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/chsqgood.htm"
+      }
+    },
+    "nist_dataplot_skewness2023": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2023,
+      "title": "Dataplot Reference Manual: Skewness",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/skewness.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/skewness.htm"
+      }
+    },
+    "nist_dlmf_quadrature": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2026,
+      "title": "DLMF: Quadrature",
+      "kind": "book",
+      "publisher": "NIST Digital Library of Mathematical Functions",
+      "url": "https://dlmf.nist.gov/3.5",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://dlmf.nist.gov/3.5"
+      }
+    },
+    "nist_doe_intro2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.1.1 What is experimental design?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm"
+      }
+    },
+    "nist_error_propagation2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §3.1.3.3",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section1/ppc133.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/ppc/section1/ppc133.htm"
+      }
+    },
+    "nist_exponential_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Exponential Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm"
+      }
+    },
+    "nist_exponential_reliability": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "The Exponential Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm"
+      }
+    },
+    "nist_extreme_value": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Extreme value distributions",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr163.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr163.htm"
+      }
+    },
+    "nist_f_distribution": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.6.5: F Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm"
+      }
+    },
+    "nist_gamma_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Gamma Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr165.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr165.htm"
+      }
+    },
+    "nist_glossary2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/glossary.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/glossary.htm"
+      }
+    },
+    "nist_handbook2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda356.htm"
+      }
+    },
+    "nist_handbook_mle2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.5.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm"
+      }
+    },
+    "nist_histogram": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.14: Histogram",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm"
+      }
+    },
+    "nist_interactions2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §3.4.2.3: Exploring First Order Interactions",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm"
+      }
+    },
+    "nist_least_squares": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
+      }
+    },
+    "nist_least_squares_pmd2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1: Least Squares",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"
+      }
+    },
+    "nist_linear_least_squares_pmd2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
+      }
+    },
+    "nist_linear_model2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
+      }
+    },
+    "nist_location2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.1 Measures of Location",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda351.htm"
+      }
+    },
+    "nist_ls_straight2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"
+      }
+    },
+    "nist_mean_limits2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, 1.3.5.2 Confidence Limits for the Mean",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm"
+      }
+    },
+    "nist_model_fit2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.4",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm"
+      }
+    },
+    "nist_nonnormal_errors_pmd2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.5.3: Accounting for Errors with a Non-Normal Distribution",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm"
+      }
+    },
+    "nist_oneway_anova": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "One-Way ANOVA (NIST e-Handbook of Statistical Methods)",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm"
+      }
+    },
+    "nist_poolcov1998": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 1998,
+      "title": "Pooled Variance-Covariance Matrix",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/poolcov.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman2/auxillar/poolcov.htm"
+      }
+    },
+    "nist_prediction_interval": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "How can I predict the value and estimate the uncertainty of a single response?",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm"
+      }
+    },
+    "nist_process_mean2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "e-Handbook of Statistical Methods: Are the data consistent with the assumed process mean?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc22.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc22.htm"
+      }
+    },
+    "nist_process_model2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd12.htm"
+      }
+    },
+    "nist_qq_plot": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.24: Quantile-Quantile Plot",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm"
+      }
+    },
+    "nist_randomized_block": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Randomized block designs",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
+      }
+    },
+    "nist_reliability2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods: Reliability or survival function",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr122.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr122.htm"
+      }
+    },
+    "nist_residual_std2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.5.9.9.2",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri5992.htm"
+      }
+    },
+    "nist_scatterplot2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.26: Scatter Plot",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33q.htm"
+      }
+    },
+    "nist_scheffe2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.2: Scheffe's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc472.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc472.htm"
+      }
+    },
+    "nist_skewness2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.11: Measures of Skewness and Kurtosis",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm"
+      }
+    },
+    "nist_two_way_anova2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.7: The Two-Way ANOVA",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm"
+      }
+    },
+    "nist_weibull_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Weibull Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://itl.nist.gov/div898/handbook/apr/section1/apr162.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://itl.nist.gov/div898/handbook/apr/section1/apr162.htm"
+      }
+    },
     "norris1997": {
       "authors": [
         "Norris, J. R."
@@ -4831,6 +6268,35 @@
       "verification": {
         "source": "crossref",
         "id": "10.1017/cbo9780511810633"
+      }
+    },
+    "numpy_histogram_bins": {
+      "authors": [
+        "NumPy Developers"
+      ],
+      "year": 2026,
+      "title": "numpy.histogram_bin_edges — NumPy v2.5 Manual",
+      "kind": "book",
+      "publisher": "NumPy",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html"
+      }
+    },
+    "oconnor_robertson2000_jacobi": {
+      "authors": [
+        "O'Connor, J. J.",
+        "Robertson, E. F."
+      ],
+      "year": 2000,
+      "title": "Carl Gustav Jacob Jacobi",
+      "kind": "book",
+      "publisher": "MacTutor History of Mathematics, University of St Andrews",
+      "url": "https://mathshistory.st-andrews.ac.uk/Biographies/Jacobi/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mathshistory.st-andrews.ac.uk/Biographies/Jacobi/"
       }
     },
     "oliveira2022_probability_history": {
@@ -4916,7 +6382,9 @@
       }
     },
     "pearson1894_mixture": {
-      "authors": ["Pearson, K."],
+      "authors": [
+        "Pearson, K."
+      ],
       "year": 1894,
       "title": "Contributions to the Mathematical Theory of Evolution",
       "kind": "article",
@@ -4924,7 +6392,10 @@
       "volume": "185",
       "pages": "71–110",
       "doi": "10.1098/rsta.1894.0003",
-      "verification": {"source": "crossref", "id": "10.1098/rsta.1894.0003"}
+      "verification": {
+        "source": "crossref",
+        "id": "10.1098/rsta.1894.0003"
+      }
     },
     "pearson1895": {
       "authors": [
@@ -5027,6 +6498,20 @@
         "id": "10.2202/1544-6115.1585"
       }
     },
+    "pishro_nik2014": {
+      "authors": [
+        "Pishro-Nik, H."
+      ],
+      "year": 2014,
+      "title": "Introduction to Probability, Statistics, and Random Processes",
+      "kind": "book",
+      "publisher": "Kappa Research, LLC",
+      "url": "https://www.probabilitycourse.com/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilitycourse.com/"
+      }
+    },
     "pitman1936": {
       "authors": [
         "Pitman, E. J. G."
@@ -5073,6 +6558,20 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL18130930W"
+      }
+    },
+    "polonik2020_kde": {
+      "authors": [
+        "Polonik, W."
+      ],
+      "year": 2020,
+      "title": "Nonparametric Inference - Kernel Density Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Computing_and_Modeling/Supplemental_Modules_(Computing_and_Modeling)/Regression_Analysis/Nonparametric_Inference_-_Kernel_Density_Estimation",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Computing_and_Modeling/Supplemental_Modules_(Computing_and_Modeling)/Regression_Analysis/Nonparametric_Inference_-_Kernel_Density_Estimation"
       }
     },
     "pomerleau1989": {
@@ -5156,6 +6655,78 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL4304603W"
+      }
+    },
+    "r_histogram_classes": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Compute the Number of Classes for a Histogram",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/nclass.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/nclass.html"
+      }
+    },
+    "r_iris_doc2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Edgar Anderson's Iris Data (R-devel datasets documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"
+      }
+    },
+    "r_mgcv_gam2026": {
+      "authors": [
+        "Wood, S. N."
+      ],
+      "year": 2026,
+      "title": "Generalized additive models with integrated smoothness estimation (mgcv::gam, R-devel documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html"
+      }
+    },
+    "r_nnet_multinom2026": {
+      "authors": [
+        "R Core Team",
+        "Venables, W. N.",
+        "Ripley, B. D."
+      ],
+      "year": 2026,
+      "title": "Fit Multinomial Log-linear Models (nnet::multinom, R-devel documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/nnet/html/multinom.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/nnet/html/multinom.html"
+      }
+    },
+    "r_stats_quantile": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Sample Quantiles: stats::quantile",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html"
       }
     },
     "raiffa_schlaifer1961": {
@@ -5288,6 +6859,20 @@
         "id": "10.1007/978-1-4757-4145-2"
       }
     },
+    "rodriguez_glm_binomial": {
+      "authors": [
+        "Rodríguez, G."
+      ],
+      "year": 2026,
+      "title": "Generalized Linear Models: Binomial Errors and Link Logit",
+      "kind": "book",
+      "publisher": "Princeton University",
+      "url": "https://grodri.github.io/glms/notes/a2s4",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://grodri.github.io/glms/notes/a2s4"
+      }
+    },
     "rosenblatt1952_pit": {
       "authors": [
         "Rosenblatt, M."
@@ -5352,6 +6937,164 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL65244W"
+      }
+    },
+    "rothenberg1971": {
+      "authors": [
+        "Rothenberg, T. J."
+      ],
+      "year": 1971,
+      "title": "Identification in Parametric Models",
+      "kind": "article",
+      "venue": "Econometrica",
+      "volume": "39",
+      "issue": "3",
+      "pages": "577–591",
+      "doi": "10.2307/1913267",
+      "verification": {
+        "source": "crossref",
+        "id": "10.2307/1913267"
+      }
+    },
+    "rpart_longintro2023": {
+      "authors": [
+        "Therneau, T. M.",
+        "Atkinson, E. J."
+      ],
+      "year": 2023,
+      "title": "An Introduction to Recursive Partitioning Using the RPART Routines",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/doc/longintro.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/doc/longintro.pdf"
+      }
+    },
+    "rstats_aic2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Akaike’s An Information Criterion (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html"
+      }
+    },
+    "rstats_bandwidth2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Bandwidth Selectors for Kernel Density Estimation",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing, stats documentation",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/RHOME/library/stats/html/bandwidth.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/RHOME/library/stats/html/bandwidth.html"
+      }
+    },
+    "rstats_density2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Kernel Density Estimation (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/density.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/R/refmans/stats/html/density.html"
+      }
+    },
+    "rstats_family2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Family Objects for Models (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html"
+      }
+    },
+    "rstats_glm2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Fitting Generalized Linear Models (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html"
+      }
+    },
+    "rstats_intro2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "An Introduction to R (R-devel manual, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/doc/manual/R-intro.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/doc/manual/R-intro.html"
+      }
+    },
+    "rstats_negbin2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "The Negative Binomial Distribution (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/NegBinomial.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/R/refmans/stats/html/NegBinomial.html"
+      }
+    },
+    "rstats_oneway2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Test for Equal Means in a One-Way Layout (R documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/oneway.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/oneway.test.html"
+      }
+    },
+    "rstats_summary_glm2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Summarizing Generalized Linear Model Fits (R-devel documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html"
       }
     },
     "rubin1976_missing": {
@@ -5424,226 +7167,6 @@
         "id": "10.1017/cbo9780511755453"
       }
     },
-    "geyer2023_pivots": {
-      "authors": ["Geyer, C. J."],
-      "year": 2023,
-      "title": "Supplement to Agresti Chapter 9: Pivotal Quantities",
-      "kind": "book",
-      "publisher": "University of Minnesota",
-      "url": "https://www.stat.umn.edu/geyer/f22/5421/notes/ch9.html",
-      "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/f22/5421/notes/ch9.html"}
-    },
-    "geyer2022_exp_family": {
-      "authors": ["Geyer, C. J."],
-      "year": 2022,
-      "title": "Exponential Families",
-      "kind": "book",
-      "publisher": "University of Minnesota",
-      "url": "https://www.stat.umn.edu/geyer/f22/5421/notes/expfam.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.stat.umn.edu/geyer/f22/5421/notes/expfam.html"
-      }
-    },
-    "geyer2025_conjugate": {
-      "authors": ["Geyer, C. J."],
-      "year": 2025,
-      "title": "Proper Conjugate Priors for Exponential Families",
-      "kind": "book",
-      "publisher": "University of Minnesota",
-      "url": "https://www.stat.umn.edu/geyer/5421/notes/prior.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.stat.umn.edu/geyer/5421/notes/prior.html"
-      }
-    },
-    "geyer2026_mcmc_notes": {
-      "authors": ["Geyer, C. J."],
-      "year": 2026,
-      "title": "Bayesian Inference via Markov Chain Monte Carlo (MCMC)",
-      "kind": "book",
-      "publisher": "University of Minnesota",
-      "url": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html",
-      "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/5421/notes/mcmc-bayes.html"}
-    },
-    "geyer2020_markov_chains": {
-      "authors": ["Geyer, C. J."],
-      "year": 2020,
-      "title": "Markov Chains",
-      "kind": "book",
-      "publisher": "University of Minnesota",
-      "url": "https://www.stat.umn.edu/geyer/8501/markov.pdf",
-      "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/8501/markov.pdf"}
-    },
-    "siegrist2022_gamma": {
-      "authors": ["Siegrist, K."],
-      "year": 2022,
-      "title": "The Gamma Distribution",
-      "kind": "book",
-      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.08:_The_Gamma_Distribution",
-      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.08:_The_Gamma_Distribution"}
-    },
-    "siegrist2022_gamma_waiting": {
-      "authors": ["Siegrist, K."],
-      "year": 2022,
-      "title": "Gamma Waiting Times in the Poisson Process",
-      "kind": "book",
-      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.03:_The_Gamma_Distribution",
-      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.03:_The_Gamma_Distribution"}
-    },
-    "nist_gamma_handbook": {
-      "authors": ["NIST/SEMATECH"],
-      "year": 2026,
-      "title": "Gamma Distribution",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr165.htm",
-      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr165.htm"}
-    },
-    "scipy_gamma2026": {
-      "authors": ["SciPy Developers"],
-      "year": 2026,
-      "title": "scipy.stats.gamma — SciPy Manual",
-      "kind": "book",
-      "publisher": "SciPy",
-      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html",
-      "verification": {"source": "archival_url", "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html"}
-    },
-    "nist_weibull_handbook": {
-      "authors": ["NIST/SEMATECH"],
-      "year": 2026,
-      "title": "Weibull Distribution",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://itl.nist.gov/div898/handbook/apr/section1/apr162.htm",
-      "verification": {"source": "archival_url", "id": "https://itl.nist.gov/div898/handbook/apr/section1/apr162.htm"}
-    },
-    "zhou2020_glm": {
-      "authors": ["Zhou, H."],
-      "year": 2020,
-      "title": "Generalized Linear Models",
-      "kind": "book",
-      "publisher": "UCLA Biostatistics",
-      "url": "https://ucla-biostat-200c-2020spring.github.io/slides/09-glm/glm.html",
-      "verification": {"source": "archival_url", "id": "https://ucla-biostat-200c-2020spring.github.io/slides/09-glm/glm.html"}
-    },
-    "nist_dlmf_quadrature": {
-      "authors": ["National Institute of Standards and Technology"],
-      "year": 2026,
-      "title": "DLMF: Quadrature",
-      "kind": "book",
-      "publisher": "NIST Digital Library of Mathematical Functions",
-      "url": "https://dlmf.nist.gov/3.5",
-      "verification": {"source": "archival_url", "id": "https://dlmf.nist.gov/3.5"}
-    },
-    "siegrist2020_poisson_process": {
-      "authors": ["Siegrist, K."],
-      "year": 2020,
-      "title": "Introduction to the Poisson Process",
-      "kind": "book",
-      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes, RandomServices / Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process"
-      }
-    },
-    "loshchilov_hutter2019": {
-      "authors": ["Loshchilov, I.", "Hutter, F."],
-      "year": 2019,
-      "title": "Decoupled Weight Decay Regularization",
-      "kind": "article",
-      "venue": "International Conference on Learning Representations",
-      "url": "https://openreview.net/pdf?id=Bkg6RiCqY7",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://openreview.net/pdf?id=Bkg6RiCqY7"
-      }
-    },
-    "geyer2005_markov_chain": {
-      "authors": ["Geyer, C. J."],
-      "year": 2005,
-      "title": "Some Markov Chain Theory",
-      "kind": "book",
-      "publisher": "University of Minnesota",
-      "url": "https://www.stat.umn.edu/geyer/f05/8931/theo.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.stat.umn.edu/geyer/f05/8931/theo.pdf"
-      }
-    },
-    "chen_ip2015": {
-      "authors": ["Chen, S.-H.", "Ip, E. H."],
-      "year": 2015,
-      "title": "Behavior of the Gibbs Sampler When Conditional Distributions Are Potentially Incompatible",
-      "kind": "article",
-      "venue": "Journal of Statistical Computation and Simulation",
-      "volume": "85",
-      "issue": "16",
-      "pages": "3266–3275",
-      "doi": "10.1080/00949655.2014.968159",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4572746/",
-      "verification": {
-        "source": "crossref",
-        "id": "10.1080/00949655.2014.968159"
-      }
-    },
-    "rstats_family2026": {
-      "authors": ["R Core Team"],
-      "year": 2026,
-      "title": "Family Objects for Models (R-devel documentation, accessed November 2026)",
-      "kind": "book",
-      "publisher": "R Foundation for Statistical Computing",
-      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html"
-      }
-    },
-    "rstats_glm2026": {
-      "authors": ["R Core Team"],
-      "year": 2026,
-      "title": "Fitting Generalized Linear Models (R-devel documentation, accessed November 2026)",
-      "kind": "book",
-      "publisher": "R Foundation for Statistical Computing",
-      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html"
-      }
-    },
-    "rstats_summary_glm2026": {
-      "authors": ["R Core Team"],
-      "year": 2026,
-      "title": "Summarizing Generalized Linear Model Fits (R-devel documentation, accessed November 2026)",
-      "kind": "book",
-      "publisher": "R Foundation for Statistical Computing",
-      "url": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html",
-      "verification": {"source": "archival_url", "id": "https://search.r-project.org/R/refmans/stats/html/summary.glm.html"}
-    },
-    "sklearn_mixture2026": {
-      "authors": ["scikit-learn developers"],
-      "year": 2026,
-      "title": "Gaussian mixture models",
-      "kind": "book",
-      "publisher": "scikit-learn",
-      "url": "https://scikit-learn.org/stable/modules/mixture.html",
-      "verification": {"source": "archival_url", "id": "https://scikit-learn.org/stable/modules/mixture.html"}
-    },
-    "sklearn_common_pitfalls2026": {
-      "authors": ["scikit-learn developers"],
-      "year": 2026,
-      "title": "Common pitfalls and recommended practices (scikit-learn 1.9.1 documentation, accessed November 2026)",
-      "kind": "book",
-      "publisher": "scikit-learn project",
-      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://scikit-learn.org/stable/common_pitfalls.html"
-      }
-    },
     "sas2012_glm": {
       "authors": [
         "SAS Institute Inc."
@@ -5658,18 +7181,18 @@
         "id": "https://support.sas.com/documentation/cdl/en/statug/65328/HTML/default/statug_intromod_sect011.htm"
       }
     },
-    "wood2025_mgcv_docs": {
+    "sas_statug2009_prior_distributions": {
       "authors": [
-        "Wood, S. N."
+        "SAS Institute Inc."
       ],
-      "year": 2025,
-      "title": "mgcv: Mixed GAM Computation Vehicle with Automatic Smoothness Estimation, version 1.9-4",
+      "year": 2009,
+      "title": "Prior Distributions",
       "kind": "book",
-      "publisher": "CRAN",
-      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html",
+      "publisher": "SAS Institute",
+      "url": "https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_introbayes_sect004.htm",
       "verification": {
         "source": "archival_url",
-        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html"
+        "id": "https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_introbayes_sect004.htm"
       }
     },
     "satterthwaite1946": {
@@ -5706,6 +7229,22 @@
         "id": "10.1023/a:1022648800760"
       }
     },
+    "schapire2013_explaining_adaboost": {
+      "authors": [
+        "Schapire, R. E."
+      ],
+      "year": 2013,
+      "title": "Explaining AdaBoost",
+      "kind": "incollection",
+      "publisher": "Springer",
+      "venue": "Empirical Inference",
+      "url": "https://rob.schapire.net/papers/explaining-adaboost.pdf",
+      "doi": "10.1007/978-3-642-41136-6_5",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://rob.schapire.net/papers/explaining-adaboost.pdf"
+      }
+    },
     "scheffe1959": {
       "authors": [
         "Scheffé, H."
@@ -5718,6 +7257,25 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL736318W"
+      }
+    },
+    "schober_vetter2018": {
+      "authors": [
+        "Schober, P.",
+        "Vetter, T. R."
+      ],
+      "year": 2018,
+      "title": "Repeated Measures Designs and Analysis of Longitudinal Data: If at First You Do Not Succeed—Try, Try Again",
+      "kind": "article",
+      "venue": "Anesthesia & Analgesia",
+      "volume": "127",
+      "issue": "2",
+      "pages": "569–575",
+      "doi": "10.1213/ANE.0000000000003511",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6072386/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1213/ANE.0000000000003511"
       }
     },
     "scholkopf_smola2002": {
@@ -5734,6 +7292,24 @@
         "source": "crossref",
         "id": "10.7551/mitpress/4175.001.0001",
         "year_tolerance": 1
+      }
+    },
+    "scholkopf_smola2003_intro": {
+      "authors": [
+        "Schölkopf, B.",
+        "Smola, A. J."
+      ],
+      "year": 2003,
+      "title": "A Short Introduction to Learning with Kernels",
+      "kind": "incollection",
+      "venue": "Advanced Lectures on Machine Learning",
+      "publisher": "Springer",
+      "pages": "41–64",
+      "doi": "10.1007/3-540-36434-X_2",
+      "url": "https://alex.smola.org/papers/2003/SchSmo03c.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/3-540-36434-X_2"
       }
     },
     "scholkopf_smola_muller1999": {
@@ -5753,21 +7329,6 @@
         "source": "crossref",
         "id": "10.7551/mitpress/1130.003.0026",
         "year_tolerance": 1
-      }
-    },
-    "schwertman_gilks_cameron1990": {
-      "authors": ["Schwertman, N. C.", "Gilks, A. J.", "Cameron, J."],
-      "year": 1990,
-      "title": "A Simple Noncalculus Proof That the Median Minimizes the Sum of the Absolute Deviations",
-      "kind": "article",
-      "venue": "The American Statistician",
-      "volume": "44",
-      "issue": "1",
-      "pages": "38",
-      "doi": "10.1080/00031305.1990.10475690",
-      "verification": {
-        "source": "crossref",
-        "id": "10.1080/00031305.1990.10475690"
       }
     },
     "schwarz1885": {
@@ -5801,6 +7362,98 @@
       "verification": {
         "source": "crossref",
         "id": "10.1214/aos/1176344136"
+      }
+    },
+    "schwertman_gilks_cameron1990": {
+      "authors": [
+        "Schwertman, N. C.",
+        "Gilks, A. J.",
+        "Cameron, J."
+      ],
+      "year": 1990,
+      "title": "A Simple Noncalculus Proof That the Median Minimizes the Sum of the Absolute Deviations",
+      "kind": "article",
+      "venue": "The American Statistician",
+      "volume": "44",
+      "issue": "1",
+      "pages": "38",
+      "doi": "10.1080/00031305.1990.10475690",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/00031305.1990.10475690"
+      }
+    },
+    "scipy_f2026": {
+      "authors": [
+        "SciPy Developers"
+      ],
+      "year": 2026,
+      "title": "scipy.stats.f — SciPy Manual",
+      "kind": "book",
+      "publisher": "SciPy",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f.html"
+      }
+    },
+    "scipy_gamma2026": {
+      "authors": [
+        "SciPy Developers"
+      ],
+      "year": 2026,
+      "title": "scipy.stats.gamma — SciPy Manual",
+      "kind": "book",
+      "publisher": "SciPy",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gamma.html"
+      }
+    },
+    "scipy_invgamma2026": {
+      "authors": [
+        "SciPy community"
+      ],
+      "year": 2026,
+      "title": "scipy.stats.invgamma — SciPy Manual",
+      "kind": "book",
+      "publisher": "SciPy community",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.invgamma.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.invgamma.html"
+      }
+    },
+    "scipy_pareto2026": {
+      "authors": [
+        "SciPy Developers"
+      ],
+      "year": 2026,
+      "title": "scipy.stats.pareto — SciPy Manual",
+      "kind": "book",
+      "publisher": "SciPy",
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pareto.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pareto.html"
+      }
+    },
+    "scott1979_histograms": {
+      "authors": [
+        "Scott, D. W."
+      ],
+      "year": 1979,
+      "title": "On optimal and data-based histograms",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "66",
+      "issue": "3",
+      "pages": "605–610",
+      "doi": "10.1093/biomet/66.3.605",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/66.3.605"
       }
     },
     "scrucca2016_mclust": {
@@ -5893,6 +7546,52 @@
         "id": "10.1080/00031305.1975.10479121"
       }
     },
+    "shafer_vovk2018_grundbegriffe": {
+      "authors": [
+        "Shafer, G.",
+        "Vovk, V."
+      ],
+      "year": 2018,
+      "title": "The Origins and Legacy of Kolmogorov's Grundbegriffe",
+      "kind": "article",
+      "publisher": "Game-Theoretic Probability and Finance Project, Working Paper 4",
+      "url": "https://www.probabilityandfinance.com/articles/04.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.probabilityandfinance.com/articles/04.pdf"
+      },
+      "venue": "Game-Theoretic Probability and Finance Project, Working Paper 4"
+    },
+    "shalev_bendavid2014": {
+      "authors": [
+        "Shalev-Shwartz, S.",
+        "Ben-David, S."
+      ],
+      "year": 2014,
+      "title": "Understanding Machine Learning: From Theory to Algorithms",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9781107298019",
+      "url": "https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9781107298019"
+      }
+    },
+    "shalizi2025_truth_regression": {
+      "authors": [
+        "Shalizi, C. R."
+      ],
+      "year": 2025,
+      "title": "The Truth about Linear Regression",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University",
+      "url": "https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf"
+      }
+    },
     "shannon1948": {
       "authors": [
         "Shannon, C. E."
@@ -5949,6 +7648,513 @@
         "id": "10.1111/j.1467-9876.2005.00474.x"
       }
     },
+    "shortle2018_queueing": {
+      "authors": [
+        "Shortle, J. F.",
+        "Thompson, J. M.",
+        "Gross, D.",
+        "Harris, C. M."
+      ],
+      "year": 2018,
+      "title": "Fundamentals of Queueing Theory, Fifth Edition",
+      "kind": "book",
+      "publisher": "John Wiley & Sons",
+      "url": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf"
+      }
+    },
+    "siegrist2020_poisson_process": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2020,
+      "title": "Introduction to the Poisson Process",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes, RandomServices / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.01:_Introduction_to_the_Poisson_Process"
+      }
+    },
+    "siegrist2022_bayesian_set_estimation": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §8.5: Bayesian Set Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.05:_Bayesian_Set_Estimation",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.05:_Bayesian_Set_Estimation"
+      }
+    },
+    "siegrist2022_bernoulli_intro": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §11.1: Introduction to Bernoulli Trials",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.01:_Introduction_to_Bernoulli_Trials",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.01:_Introduction_to_Bernoulli_Trials"
+      }
+    },
+    "siegrist2022_best_unbiased": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §7.5: Best Unbiased Estimators",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.05:_Best_Unbiased_Estimators",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.05:_Best_Unbiased_Estimators"
+      }
+    },
+    "siegrist2022_beta": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.17: The Beta Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.17:_The_Beta_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.17:_The_Beta_Distribution"
+      }
+    },
+    "siegrist2022_binomial_distribution": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §11.2: The Binomial Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.02:_The_Binomial_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.02:_The_Binomial_Distribution"
+      }
+    },
+    "siegrist2022_chisq": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.9: Chi-Square and Related Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.09:_Chi-Square_and_Related_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.09:_Chi-Square_and_Related_Distribution"
+      }
+    },
+    "siegrist2022_clt": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Random Services, Random Samples §5.4: The Central Limit Theorem",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/sample/CLT.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/sample/CLT.html"
+      }
+    },
+    "siegrist2022_combinatorial_structures": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Combinatorial Structures",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/foundations/Structures.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/foundations/Structures.html"
+      }
+    },
+    "siegrist2022_continuous": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Continuous Distributions (Probability, Mathematical Statistics, and Stochastic Processes)",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.02:_Continuous_Distributions",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.02:_Continuous_Distributions"
+      }
+    },
+    "siegrist2022_events": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §2.2: Events and Random Variables",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.02:_Events_and_Random_Variables",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.02:_Events_and_Random_Variables"
+      }
+    },
+    "siegrist2022_exponential": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Exponential Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.02:_The_Exponential_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.02:_The_Exponential_Distribution"
+      }
+    },
+    "siegrist2022_gamma": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Gamma Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.08:_The_Gamma_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.08:_The_Gamma_Distribution"
+      }
+    },
+    "siegrist2022_gamma_waiting": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Gamma Waiting Times in the Poisson Process",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.03:_The_Gamma_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.03:_The_Gamma_Distribution"
+      }
+    },
+    "siegrist2022_lln": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.3: The Law of Large Numbers",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.03:_The_Law_of_Large_Numbers",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.03:_The_Law_of_Large_Numbers"
+      }
+    },
+    "siegrist2022_lognormal_distribution": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.12: The Lognormal Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.12:_The_Lognormal_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.12:_The_Lognormal_Distribution"
+      }
+    },
+    "siegrist2022_lrt": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §9.5: Likelihood Ratio Tests",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.05:_Likelihood_Ratio_Tests",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.05:_Likelihood_Ratio_Tests"
+      }
+    },
+    "siegrist2022_markov_period": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Periodicity",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/Periodicity.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/Periodicity.html"
+      }
+    },
+    "siegrist2022_markov_recurrence": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Transience and Recurrence",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/Recurrence.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/Recurrence.html"
+      }
+    },
+    "siegrist2022_normal_distribution": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.6: The Normal Distribution",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.06:_The_Normal_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.06:_The_Normal_Distribution"
+      }
+    },
+    "siegrist2022_normals": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.8: Special Properties of Normal Samples",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples"
+      }
+    },
+    "siegrist2022_order_statistics": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.6: Order Statistics",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.06:_Order_Statistics",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.06:_Order_Statistics"
+      }
+    },
+    "siegrist2022_pareto": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Pareto Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/special/Pareto.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/special/Pareto.html"
+      }
+    },
+    "siegrist2022_poisson_distribution": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Poisson Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / RandomServices",
+      "url": "https://www.randomservices.org/random/poisson/Poisson.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/poisson/Poisson.html"
+      }
+    },
+    "siegrist2022_quantiles": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §3.6: Distribution and Quantile Functions",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.06:_Distribution_and_Quantile_Functions",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.06:_Distribution_and_Quantile_Functions"
+      }
+    },
+    "siegrist2022_random_experiments": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §2.1: Random Experiments",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.01:_Random_Experiments",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/02:_Probability_Spaces/2.01:_Random_Experiments"
+      }
+    },
+    "siegrist2022_random_samples": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.1: Introduction",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.01:_Introduction",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.01:_Introduction"
+      }
+    },
+    "siegrist2022_sample_variance": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.5: The Sample Variance",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance"
+      }
+    },
+    "siegrist2022_set_estimation": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §8.1: Introduction to Set Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation"
+      }
+    },
+    "siegrist2022_sufficient_complete": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §7.6: Sufficient, Complete and Ancillary Statistics",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics"
+      }
+    },
+    "siegrist2022_testing": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §9.1: Introduction to Hypothesis Testing",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.01:_Introduction_to_Hypothesis_Testing",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/09:_Hypothesis_Testing/9.01:_Introduction_to_Hypothesis_Testing"
+      }
+    },
+    "siegrist2022_uniform_interval": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.21: The Uniform Distribution on an Interval",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.21:_The_Uniform_Distribution_on_an_Interval",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.21:_The_Uniform_Distribution_on_an_Interval"
+      }
+    },
+    "siegrist_convergence_dist": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Convergence in Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/dist/Convergence.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/dist/Convergence.html"
+      }
+    },
+    "siegrist_convergence_lp": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Vector Spaces of Random Variables",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/expect/Spaces.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/expect/Spaces.html"
+      }
+    },
+    "siegrist_convergence_prob": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Convergence",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/prob/Convergence.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/prob/Convergence.html"
+      }
+    },
     "silverman1986": {
       "authors": [
         "Silverman, B. W."
@@ -5962,6 +8168,23 @@
         "source": "crossref",
         "id": "10.1201/9781315140919",
         "reprint_year": 2018
+      }
+    },
+    "simon_aliferis2024_evaluation": {
+      "authors": [
+        "Simon, G.",
+        "Aliferis, C."
+      ],
+      "year": 2024,
+      "title": "Evaluation",
+      "kind": "incollection",
+      "venue": "Artificial Intelligence and Machine Learning in Health Care and Medical Sciences",
+      "publisher": "Springer",
+      "pages": "415–476",
+      "doi": "10.1007/978-3-031-39355-6_9",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-031-39355-6_9"
       }
     },
     "simpson1951": {
@@ -5979,6 +8202,104 @@
       "verification": {
         "source": "crossref",
         "id": "10.1111/j.2517-6161.1951.tb00088.x"
+      }
+    },
+    "sklearn2026_mixture": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Gaussian mixture models",
+      "kind": "book",
+      "publisher": "scikit-learn User Guide",
+      "url": "https://scikit-learn.org/stable/modules/mixture.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/mixture.html"
+      }
+    },
+    "sklearn_ari2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "adjusted_rand_score — scikit-learn documentation",
+      "kind": "book",
+      "publisher": "scikit-learn developers",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_rand_score.html"
+      }
+    },
+    "sklearn_brier2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "brier_score_loss — scikit-learn documentation",
+      "kind": "book",
+      "publisher": "scikit-learn developers",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/generated/sklearn.metrics.brier_score_loss.html"
+      }
+    },
+    "sklearn_common_pitfalls2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Common pitfalls and recommended practices (scikit-learn 1.9.1 documentation, accessed November 2026)",
+      "kind": "book",
+      "publisher": "scikit-learn project",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/common_pitfalls.html"
+      }
+    },
+    "sklearn_mixture2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Gaussian mixture models",
+      "kind": "book",
+      "publisher": "scikit-learn",
+      "url": "https://scikit-learn.org/stable/modules/mixture.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/mixture.html"
+      }
+    },
+    "sklearn_neighbors": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Nearest Neighbors",
+      "kind": "book",
+      "publisher": "scikit-learn User Guide",
+      "url": "https://scikit-learn.org/stable/modules/neighbors.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/neighbors.html"
+      }
+    },
+    "sklearn_tree2026": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Decision Trees (scikit-learn User Guide, §1.10)",
+      "kind": "book",
+      "publisher": "scikit-learn",
+      "url": "https://scikit-learn.org/stable/modules/tree",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/tree"
       }
     },
     "slutsky1937": {
@@ -6164,20 +8485,6 @@
         "id": "10.1214/aos/1176349846"
       }
     },
-    "scipy_invgamma2026": {
-      "authors": [
-        "SciPy community"
-      ],
-      "year": 2026,
-      "title": "scipy.stats.invgamma — SciPy Manual",
-      "kind": "book",
-      "publisher": "SciPy community",
-      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.invgamma.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.invgamma.html"
-      }
-    },
     "stan_functions2026": {
       "authors": [
         "Stan Development Team"
@@ -6190,6 +8497,90 @@
       "verification": {
         "source": "archival_url",
         "id": "https://mc-stan.org/docs/functions-reference/positive_continuous_distributions.html#inverse-gamma-distribution"
+      }
+    },
+    "stan_reference_mcmc2026": {
+      "authors": [
+        "Stan Development Team"
+      ],
+      "year": 2026,
+      "title": "Stan Reference Manual, MCMC Sampling",
+      "kind": "book",
+      "publisher": "Stan Development Team",
+      "url": "https://mc-stan.org/docs/reference-manual/mcmc.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mc-stan.org/docs/reference-manual/mcmc.html"
+      }
+    },
+    "stan_users_guide_problematic_posteriors": {
+      "authors": [
+        "Stan Development Team"
+      ],
+      "year": 2026,
+      "title": "Problematic Posteriors",
+      "kind": "book",
+      "publisher": "Stan User's Guide, version 2.40",
+      "url": "https://mc-stan.org/docs/stan-users-guide/problematic-posteriors.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mc-stan.org/docs/stan-users-guide/problematic-posteriors.html"
+      }
+    },
+    "stanford_cs229_trees2018": {
+      "authors": [
+        "Townshend, R. J. L."
+      ],
+      "year": 2018,
+      "title": "Decision Trees",
+      "kind": "book",
+      "publisher": "Stanford University, CS229",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs229.stanford.edu/notes_archive/cs229-notes-dt.pdf"
+      }
+    },
+    "stanford_cs231n_training": {
+      "authors": [
+        "Stanford University, CS231n"
+      ],
+      "year": 2026,
+      "title": "Neural Networks Part 3: Learning and Evaluation",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://cs231n.github.io/neural-networks-3/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs231n.github.io/neural-networks-3/"
+      }
+    },
+    "stanford_stats305c_hotelling2025": {
+      "authors": [
+        "Taylor, J."
+      ],
+      "year": 2025,
+      "title": "Hotelling T2",
+      "kind": "book",
+      "publisher": "Stanford University, STATS305C: Methods for Applied Statistics",
+      "url": "https://web.stanford.edu/class/stats305c/lectures/Hotelling_T2.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://web.stanford.edu/class/stats305c/lectures/Hotelling_T2.html"
+      }
+    },
+    "statistics_canada2003_survey": {
+      "authors": [
+        "Statistics Canada"
+      ],
+      "year": 2003,
+      "title": "Survey Methods and Practices",
+      "kind": "book",
+      "publisher": "Statistics Canada, Ottawa",
+      "url": "https://www150.statcan.gc.ca/n1/pub/12-587-x/12-587-x2003001-eng.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www150.statcan.gc.ca/n1/pub/12-587-x/12-587-x2003001-eng.pdf"
       }
     },
     "steele_diamond1999": {
@@ -6225,6 +8616,20 @@
       "verification": {
         "source": "crossref",
         "id": "10.1111/1467-9868.00265"
+      }
+    },
+    "stephens2023_definetti": {
+      "authors": [
+        "Stephens, D. A."
+      ],
+      "year": 2023,
+      "title": "The de Finetti Representation Theorem",
+      "kind": "book",
+      "publisher": "McGill University",
+      "url": "https://www.math.mcgill.ca/dstephens/559/Handouts/Math559-Fall2023-01-DeFinetti.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.math.mcgill.ca/dstephens/559/Handouts/Math559-Fall2023-01-DeFinetti.pdf"
       }
     },
     "stigler2010_galton_multivariate": {
@@ -6326,146 +8731,6 @@
         "id": "10.1186/1471-2105-8-25"
       }
     },
-    "siegrist2022_binomial_distribution": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §11.2: The Binomial Distribution",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.02:_The_Binomial_Distribution",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/11:_Bernoulli_Trials/11.02:_The_Binomial_Distribution"
-      }
-    },
-    "siegrist2022_clt": {
-      "authors": ["Siegrist, K."],
-      "year": 2022,
-      "title": "Random Services, Random Samples §5.4: The Central Limit Theorem",
-      "kind": "book",
-      "publisher": "Random Services",
-      "url": "https://www.randomservices.org/random/sample/CLT.html",
-      "verification": {"source": "archival_url", "id": "https://www.randomservices.org/random/sample/CLT.html"}
-    },
-    "siegrist2022_lognormal_distribution": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.12: The Lognormal Distribution",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.12:_The_Lognormal_Distribution",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.12:_The_Lognormal_Distribution"
-      }
-    },
-    "siegrist2022_normal_distribution": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §5.6: The Normal Distribution",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.06:_The_Normal_Distribution",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/05:_Special_Distributions/5.06:_The_Normal_Distribution"
-      }
-    },
-    "siegrist2022_order_statistics": {
-      "authors": ["Siegrist, K."],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.6: Order Statistics",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.06:_Order_Statistics",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.06:_Order_Statistics"
-      }
-    },
-    "siegrist2022_quantiles": {
-      "authors": ["Siegrist, K."],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §3.6: Distribution and Quantile Functions",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.06:_Distribution_and_Quantile_Functions",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.06:_Distribution_and_Quantile_Functions"
-      }
-    },
-    "siegrist2022_set_estimation": {
-      "authors": ["Siegrist, K."],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §8.1: Introduction to Set Estimation",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation",
-      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation"}
-    },
-    "siegrist2022_normals": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.8: Special Properties of Normal Samples",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.08:_Special_Properties_of_Normal_Samples"
-      }
-    },
-    "siegrist2022_random_samples": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.1: Introduction",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.01:_Introduction",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.01:_Introduction"
-      }
-    },
-    "siegrist2022_sample_variance": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §6.5: The Sample Variance",
-      "kind": "book",
-      "publisher": "Statistics LibreTexts",
-      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.05:_The_Sample_Variance"
-      }
-    },
-    "statistics_canada2003_survey": {
-      "authors": [
-        "Statistics Canada"
-      ],
-      "year": 2003,
-      "title": "Survey Methods and Practices",
-      "kind": "book",
-      "publisher": "Statistics Canada, Ottawa",
-      "url": "https://www150.statcan.gc.ca/n1/pub/12-587-x/12-587-x2003001-eng.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www150.statcan.gc.ca/n1/pub/12-587-x/12-587-x2003001-eng.pdf"
-      }
-    },
     "student1908": {
       "authors": [
         "Student [Gosset, W. S.]"
@@ -6515,6 +8780,39 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/14786445208647087"
+      }
+    },
+    "taboga2021_lrt": {
+      "authors": [
+        "Taboga, M."
+      ],
+      "year": 2021,
+      "title": "Likelihood Ratio Test",
+      "kind": "book",
+      "publisher": "Lectures on Probability Theory and Mathematical Statistics",
+      "url": "https://statlect.com/fundamentals-of-statistics/likelihood-ratio-test",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://statlect.com/fundamentals-of-statistics/likelihood-ratio-test"
+      }
+    },
+    "taraldsen2022_improper": {
+      "authors": [
+        "Taraldsen, G.",
+        "Tufto, J.",
+        "Lindqvist, B. H."
+      ],
+      "year": 2022,
+      "title": "Improper priors and improper posteriors",
+      "kind": "article",
+      "venue": "Scandinavian Journal of Statistics",
+      "volume": "49",
+      "issue": "3",
+      "pages": "969–991",
+      "doi": "10.1111/sjos.12550",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/sjos.12550"
       }
     },
     "tarone1982": {
@@ -6599,6 +8897,20 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL10544330W"
+      }
+    },
+    "tokdar2018_dirichlet": {
+      "authors": [
+        "Tokdar, S. T."
+      ],
+      "year": 2018,
+      "title": "The Dirichlet Distributions",
+      "kind": "book",
+      "publisher": "Duke University",
+      "url": "https://www2.stat.duke.edu/~st118/sta941/dirichlet.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www2.stat.duke.edu/~st118/sta941/dirichlet.pdf"
       }
     },
     "tukey1949": {
@@ -6754,6 +9066,22 @@
         "id": "10.1007/978-0-387-21706-2"
       }
     },
+    "von_neumann1951_random_digits": {
+      "authors": [
+        "von Neumann, J."
+      ],
+      "year": 1951,
+      "title": "Various Techniques Used in Connection With Random Digits",
+      "kind": "article",
+      "venue": "Journal of Research of the National Bureau of Standards, Applied Mathematics Series",
+      "volume": "3",
+      "pages": "36–38",
+      "url": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf"
+      }
+    },
     "vonmises1939": {
       "authors": [
         "von Mises, R."
@@ -6800,6 +9128,24 @@
       "verification": {
         "source": "crossref",
         "id": "10.1515/crll.1908.134.198"
+      }
+    },
+    "vovk_shafer2003_kolmogorov": {
+      "authors": [
+        "Vovk, V. G.",
+        "Shafer, G. R."
+      ],
+      "year": 2003,
+      "title": "Kolmogorov's Contributions to the Foundations of Probability",
+      "kind": "article",
+      "venue": "Problems of Information Transmission",
+      "volume": "39",
+      "issue": "1",
+      "pages": "21–31",
+      "url": "https://glennshafer.com/assets/downloads/articles/article68.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://glennshafer.com/assets/downloads/articles/article68.pdf"
       }
     },
     "wahba1990": {
@@ -6907,6 +9253,34 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/978-0-387-21736-9"
+      }
+    },
+    "wasserman705_lecture26": {
+      "authors": [
+        "Wasserman, L."
+      ],
+      "year": 2020,
+      "title": "Non-parametric Density Estimation and Non-parametric Regression (36-705, lecture 26)",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University, 36-705",
+      "url": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf"
+      }
+    },
+    "wasserman_lecture26": {
+      "authors": [
+        "Wasserman, L."
+      ],
+      "year": 2020,
+      "title": "Non-parametric Density Estimation (36-705, Lecture 26)",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University, 36-705",
+      "url": "https://www.stat.cmu.edu/~larry/%3D%73tat705/Lecture26.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.cmu.edu/~larry/%3D%73tat705/Lecture26.pdf"
       }
     },
     "watson_galton1875": {
@@ -7274,6 +9648,20 @@
         "id": "10.1201/9781315370279"
       }
     },
+    "wood2025_mgcv_docs": {
+      "authors": [
+        "Wood, S. N."
+      ],
+      "year": 2025,
+      "title": "mgcv: Mixed GAM Computation Vehicle with Automatic Smoothness Estimation, version 1.9-4",
+      "kind": "book",
+      "publisher": "CRAN",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/summary.gam.html"
+      }
+    },
     "wood_mengersen2006_tg5": {
       "authors": [
         "Wood, I. A.",
@@ -7310,6 +9698,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.1214/aos/1176346060"
+      }
+    },
+    "wuthrich_merz2022_glm": {
+      "authors": [
+        "Wüthrich, M. V.",
+        "Merz, M."
+      ],
+      "year": 2022,
+      "title": "Generalized Linear Models",
+      "kind": "incollection",
+      "venue": "Statistical Foundations of Actuarial Learning and its Applications",
+      "publisher": "Springer",
+      "pages": "111–205",
+      "doi": "10.1007/978-3-031-12409-9_5",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-031-12409-9_5"
       }
     },
     "yates1934": {
@@ -7378,6 +9783,22 @@
         "id": "10.2307/4586294"
       }
     },
+    "young_smith2005": {
+      "authors": [
+        "Young, G. A.",
+        "Smith, R. L."
+      ],
+      "year": 2005,
+      "title": "Essentials of Statistical Inference",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511755392",
+      "url": "https://assets.cambridge.org/97805218/39716/excerpt/9780521839716_excerpt.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9780511755392"
+      }
+    },
     "yule1907_pcorr": {
       "authors": [
         "Yule, G. U."
@@ -7431,6 +9852,25 @@
         "id": "10.2307/2531734"
       }
     },
+    "zeileis_kleiber_jackman2008": {
+      "authors": [
+        "Zeileis, A.",
+        "Kleiber, C.",
+        "Jackman, S."
+      ],
+      "year": 2008,
+      "title": "Regression Models for Count Data in R",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "27",
+      "issue": "8",
+      "doi": "10.18637/jss.v027.i08",
+      "url": "https://cloud.r-project.org/web/packages/pscl/vignettes/countreg.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.18637/jss.v027.i08"
+      }
+    },
     "zellner1986": {
       "authors": [
         "Zellner, A."
@@ -7445,6 +9885,20 @@
       "verification": {
         "source": "openalex",
         "id": "W3214323364"
+      }
+    },
+    "zhou2020_glm": {
+      "authors": [
+        "Zhou, H."
+      ],
+      "year": 2020,
+      "title": "Generalized Linear Models",
+      "kind": "book",
+      "publisher": "UCLA Biostatistics",
+      "url": "https://ucla-biostat-200c-2020spring.github.io/slides/09-glm/glm.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ucla-biostat-200c-2020spring.github.io/slides/09-glm/glm.html"
       }
     },
     "zou2006": {
@@ -7462,293 +9916,6 @@
       "verification": {
         "source": "crossref",
         "id": "10.1198/016214506000000735"
-      }
-    },
-    "rstats_aic2026": {
-      "authors": ["R Core Team"],
-      "year": 2026,
-      "title": "Akaike’s An Information Criterion (R-devel documentation, accessed November 2026)",
-      "kind": "book",
-      "publisher": "R Foundation for Statistical Computing",
-      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html",
-      "verification": {"source": "archival_url", "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/AIC.html"}
-    },
-    "r_nnet_multinom2026": {
-      "authors": [
-        "R Core Team",
-        "Venables, W. N.",
-        "Ripley, B. D."
-      ],
-      "year": 2026,
-      "title": "Fit Multinomial Log-linear Models (nnet::multinom, R-devel documentation)",
-      "kind": "book",
-      "publisher": "R Foundation for Statistical Computing",
-      "url": "https://stat.ethz.ch/R-manual/R-devel/library/nnet/html/multinom.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stat.ethz.ch/R-manual/R-devel/library/nnet/html/multinom.html"
-      }
-    },
-    "siegrist2022_markov_recurrence": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Transience and Recurrence",
-      "kind": "book",
-      "publisher": "Random Services",
-      "url": "https://www.randomservices.org/random/markov/Recurrence.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.randomservices.org/random/markov/Recurrence.html"
-      }
-    },
-    "siegrist2022_markov_period": {
-      "authors": [
-        "Siegrist, K."
-      ],
-      "year": 2022,
-      "title": "Periodicity",
-      "kind": "book",
-      "publisher": "Random Services",
-      "url": "https://www.randomservices.org/random/markov/Periodicity.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.randomservices.org/random/markov/Periodicity.html"
-      }
-    },
-    "scipy_f2026": {
-      "authors": [
-        "SciPy Developers"
-      ],
-      "year": 2026,
-      "title": "scipy.stats.f — SciPy Manual",
-      "kind": "book",
-      "publisher": "SciPy",
-      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f.html"
-      }
-    },
-    "scipy_pareto2026": {
-      "authors": [
-        "SciPy Developers"
-      ],
-      "year": 2026,
-      "title": "scipy.stats.pareto — SciPy Manual",
-      "kind": "book",
-      "publisher": "SciPy",
-      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pareto.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pareto.html"
-      }
-    },
-    "nist_linear_model2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
-      }
-    },
-    "nist_ls_straight2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"
-      }
-    },
-    "r_mgcv_gam2026": {
-      "authors": [
-        "Wood, S. N."
-      ],
-      "year": 2026,
-      "title": "Generalized additive models with integrated smoothness estimation (mgcv::gam, R-devel documentation)",
-      "kind": "book",
-      "publisher": "R Foundation for Statistical Computing",
-      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html"
-      }
-    },
-    "nist_doe_intro2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §5.1.1 What is experimental design?",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pri/section1/pri11.htm"
-      }
-    },
-    "schapire2013_explaining_adaboost": {
-      "authors": [
-        "Schapire, R. E."
-      ],
-      "year": 2013,
-      "title": "Explaining AdaBoost",
-      "kind": "incollection",
-      "publisher": "Springer",
-      "venue": "Empirical Inference",
-      "url": "https://rob.schapire.net/papers/explaining-adaboost.pdf",
-      "doi": "10.1007/978-3-642-41136-6_5",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://rob.schapire.net/papers/explaining-adaboost.pdf"
-      }
-    },
-    "nist_f_distribution": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.6.5: F Distribution",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm"
-      }
-    },
-    "nist_qq_plot": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.24: Quantile-Quantile Plot",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm"
-      }
-    },
-    "nist_least_squares": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
-      }
-    },
-    "pishro_nik2014": {
-      "authors": [
-        "Pishro-Nik, H."
-      ],
-      "year": 2014,
-      "title": "Introduction to Probability, Statistics, and Random Processes",
-      "kind": "book",
-      "publisher": "Kappa Research, LLC",
-      "url": "https://www.probabilitycourse.com/",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.probabilitycourse.com/"
-      }
-    },
-    "nist_extreme_value": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2026,
-      "title": "Extreme value distributions",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr163.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr163.htm"
-      }
-    },
-    "lecun_efficient_backprop1998": {
-      "authors": [
-        "LeCun, Y.",
-        "Bottou, L.",
-        "Orr, G. B.",
-        "Müller, K.-R."
-      ],
-      "year": 1998,
-      "title": "Efficient BackProp",
-      "kind": "incollection",
-      "venue": "Neural Networks: Tricks of the Trade",
-      "publisher": "Springer",
-      "url": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf"
-      }
-    },
-    "nist_prediction_interval": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2026,
-      "title": "How can I predict the value and estimate the uncertainty of a single response?",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm"
-      }
-    },
-    "nist_randomized_block": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2026,
-      "title": "Randomized block designs",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm"
       }
     }
   }

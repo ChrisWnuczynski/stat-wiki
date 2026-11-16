@@ -1,0 +1,8 @@
+# Pearson statistic research notes
+
+- **Checked:** NIST/SEMATECH, *e-Handbook of Statistical Methods*, §1.3.5.15, https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm . Read full entry, including grouped maximum-likelihood estimation, statistic, degrees of freedom, and small-cell/binning limitations. Existing bibliography key `nist_chi_square_gof2002`.
+- **Checked:** Karl Pearson (1900), original full journal PDF supplied by publisher through McGill's teaching page https://jhanley.biostat.mcgill.ca/bios601/Proportion/Pearson1900.pdf , pp. 157–160 and 165–169; read criterion, chi-squared tail calculation and dice example. Existing bibliography key `pearson1900`.
+- **Checked:** Dodge (2008), authorized extraction, printed pp. 74–75 (Chi-square Goodness of Fit Test) and p. 79 (history under Chi-square Test of Independence). The historical point about Pearson and later parameter-fitting calibration is qualified in the page.
+- **Checked by code:** Chicken and die statistics, component contributions, critical values and upper tails, the Your turn counts, and the linked two-by-two and likelihood-expansion bank arithmetic in `checks/pearson-statistic.py`.
+- **Assumed:** Fixed mutually exclusive categories, independent categorical observations, and positive specified null probabilities for the $k-1$ approximation; regularity and grouped-data maximum likelihood for the $k-1-r$ statement.
+- **Disputed:** The simplistic rule that all expected counts must exceed five is a rough diagnostic, not a mathematical theorem. The page says small expected counts can undermine the approximation and recommends design-aware calibration.

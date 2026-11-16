@@ -55,7 +55,7 @@ Any strictly increasing transformation of a single coordinate, including a chang
 ::: {#def-sl-11-knn .definition}
 ## $k$-nearest neighbours
 
-Given a metric, order the training points by increasing distance from a query $x$. The $1$-nearest-neighbour rule predicts the label of the closest training point{{cite:cover_hart1967}}{{cite:fix_hodges1989}}. The $k$-nearest-neighbour rule predicts the majority label among the $k$ closest{{cite:fix_hodges1989}}{{cite:hastie_esl2009}}. A soft version uses the class proportions in that neighbourhood as an estimate of $\tau_g(x)${{cite:hastie_esl2009}}.
+Given a metric, order the training points by increasing distance from a query $x$. The $1$-nearest-neighbour rule predicts the label of the closest training point.{{cite:cover_hart1967}} (pp. 21–22, nearest-neighbour rule). The $k$-nearest-neighbour rule predicts the majority label among the $k$ closest.{{cite:sklearn_neighbors}} (§1.6.2, nearest-neighbour classification). A soft version uses the class proportions in that neighbourhood as an estimate of $\tau_g(x)$.{{cite:sklearn_neighbors}} (§1.6.2, class-probability estimates).
 
 :::
 
@@ -98,7 +98,7 @@ $$
 \E\bigl[2r(X)\bigl(1-r(X)\bigr)\bigr]\le 2\E\bigl[r(X)\bigr]=2R^*,
 $$
 
-where $R^*=\E[r(X)]$ is the Bayes risk, because $1-r\le 1${{cite:cover_hart1967}}. Jensen's inequality, using the concavity of $u\mapsto u(1-u)$ on $[0,1]$ together with $\E[r(X)]=R^*$, gives the sharper Cover–Hart bound{{cite:cover_hart1967}}{{cite:hastie_esl2009}}
+where $R^*=\E[r(X)]$ is the Bayes risk, because $1-r\le 1$.{{cite:cover_hart1967}} (pp. 22–23, risk bound). Jensen's inequality, using the concavity of $u\mapsto u(1-u)$ on $[0,1]$ together with $\E[r(X)]=R^*$, gives the sharper Cover–Hart bound.{{cite:cover_hart1967}} (pp. 22–23, risk bound)
 
 $$
 \E\bigl[2r(1-r)\bigr]\le 2R^*(1-R^*).

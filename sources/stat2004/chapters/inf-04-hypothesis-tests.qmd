@@ -33,7 +33,7 @@ The model is a random sample, or a count, whose distribution depends on $\theta$
 ::: {#def-null-and-alternative-hypotheses .definition}
 ## Null and alternative hypotheses
 
-The null hypothesis $H_0$ and the alternative hypothesis $H_1$ are two disjoint statements about the parameter, $H_0:\theta\in\Theta_0$ and $H_1:\theta\in\Theta_1$.{{cite:neyman_pearson1933}} $H_0$ is the statement being tested, often a single value $\theta_0$.{{cite:lehmann_romano2005}} $H_1$ is the claim the test is trying to detect.{{cite:casella_berger2002}}
+The null hypothesis $H_0$ and the alternative hypothesis $H_1$ are two disjoint statements about the parameter, $H_0:\theta\in\Theta_0$ and $H_1:\theta\in\Theta_1$.{{cite:neyman_pearson1933}} (p. 294) $H_0$ is the statement being tested, often a single value $\theta_0$.{{cite:neyman_pearson1933}} (pp. 293–294) $H_1$ is the claim the test is trying to detect.{{cite:neyman_pearson1933}} (p. 294)
 
 :::
 
@@ -44,7 +44,7 @@ A test statistic $T$ is a statistic that is sensitive to the difference between 
 ::: {#def-critical-region .definition}
 ## Critical region
 
-A critical region $C$ is a set of values of the test statistic.{{cite:neyman_pearson1933}} The test rejects $H_0$ when $T\in C$.{{cite:lehmann_romano2005}} A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is $(-\infty,c_1]\cup[c_2,\infty)$.{{cite:casella_berger2002}}
+A critical region $C$ is a set of values of the test statistic.{{cite:dodge2008}} (pp. 452–454, “Rejection Region”) The test rejects $H_0$ when $T\in C$.{{cite:nist_process_mean2002}} (§7.2.2, test decision rule) A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is $(-\infty,c_1]\cup[c_2,\infty)$.{{cite:nist_process_mean2002}} (§7.2.2, one- and two-sided regions)
 
 :::
 
@@ -53,7 +53,7 @@ The shape of $C$ follows from $H_1$. For the blood pressures, a mean much larger
 ::: {#def-p-value .definition}
 ## p-value
 
-The $p$-value of an observed statistic $t$ is the probability, under $H_0$, that $T$ is at least as extreme as $t$, in the direction of $H_1$.{{cite:fisher1925_smrw}}{{cite:lehmann_romano2005}} For a two-sided normal or $t$ statistic it is twice the one-sided tail probability beyond $|t|$.{{cite:casella_berger2002}}
+The $p$-value of an observed statistic $t$ is the probability, under $H_0$, that $T$ is at least as extreme as $t$, in the direction of $H_1$.{{cite:siegrist2022_testing}} (§9.1, P-value) For a two-sided normal or $t$ statistic it is twice the one-sided tail probability beyond $|t|$.{{cite:siegrist2022_testing}} (§9.1, P-value, two-sided tests)
 
 :::
 
@@ -74,7 +74,7 @@ A small $p$-value is stronger evidence against $H_0$ than a large one. Conventio
 ::: {#def-type-i-and-type-ii-errors .definition}
 ## Type I and type II errors
 
-A type I error rejects $H_0$ when $H_0$ is true.{{cite:neyman_pearson1933}} A type II error accepts $H_0$ when $H_1$ is true.{{cite:lehmann_romano2005}} The size, or significance level, is the probability of a type I error.{{cite:casella_berger2002}} The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
+A type I error rejects $H_0$ when $H_0$ is true.{{cite:siegrist2022_testing}} (§9.1, Errors) A type II error fails to reject $H_0$ when $H_1$ is true.{{cite:siegrist2022_testing}} (§9.1, Errors) The size, or significance level when it is the achieved error probability under a simple null, is the probability of a type I error. Under a composite null the size is the supremum of that probability; a nominal level bounds it.{{cite:siegrist2022_testing}} (§9.1, Size and Power) The power at a particular alternative is the probability of rejecting $H_0$ there, which is one minus the type II error at that alternative.
 
 :::
 

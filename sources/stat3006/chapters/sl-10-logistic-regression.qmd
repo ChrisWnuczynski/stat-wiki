@@ -50,7 +50,7 @@ also called the logit, and the model statement is $h(\tau_1)=\beta^\top x$. The 
 
 ### Logistic and probit
 
-Both links are smooth curves from $0$ to $1$, so the choice is not forced by the range of a probability. The scale of the linear predictor can be absorbed into $\beta$, which means the two curves should be compared after they are given the same slope at $0$.
+Both links are smooth curves from $0$ to $1$, so the choice is not forced by the range of a probability. The scale of the linear predictor can be absorbed into $\beta$, which means the two curves should be compared after they are given the same slope at $0$.{{cite:mccullagh1980}} (§4.1, pp. 115–116, link comparisons)
 
 Differentiate $\sigma(\eta)=(1+e^{-\eta})^{-1}$. The chain rule gives
 
@@ -91,7 +91,7 @@ L(\beta)&=\prod_{i=1}^n p_i^{y_i}(1-p_i)^{1-y_i},\\
 \ell(\beta)&=\sum_{i=1}^n\bigl\{y_i\log p_i+(1-y_i)\log(1-p_i)\bigr\},
 \end{align*}
 
-with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}${{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}.
+with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}${{cite:rodriguez_glm_binomial}} (§B.4.1, equations B.14–B.15).
 
 :::
 
@@ -140,17 +140,17 @@ where $W=\mathrm{diag}\bigl(p_i(1-p_i)\bigr)$. The identity $p_i(1-p_i)=\sigma'(
 ::: {#thm-sl-10-concave .theorem}
 ## A finite stationary point is a global maximiser
 
-At every finite coefficient vector the weights $p_i(1-p_i)$ are positive. The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}. If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser{{cite:agresti2002}}.
+At every finite coefficient vector the weights $p_i(1-p_i)$ are positive.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, binomial variance weights) The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave.{{cite:albert_anderson1984}} (§2, pp. 2–3, likelihood geometry) If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser by the displayed Hessian calculation.{{cite:albert_anderson1984}} (§2, pp. 2–3, finite maximum conditions)
 
 :::
 
 Concavity does not prove that a finite stationary point exists, and it does not prove that an unguarded numerical iteration will find one.
 
-Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0${{cite:albert_anderson1984}}. Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector{{cite:albert_anderson1984}}. The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate{{cite:albert_anderson1984}}. Check convergence and separation before interpreting standard errors.
+Complete separation is a concrete failure. Suppose there is a direction $v$ such that $v^\top x_i>0$ whenever $y_i=1$ and $v^\top x_i<0$ whenever $y_i=0${{cite:albert_anderson1984}} (§2, pp. 2–3, complete separation). Move the coefficient vector farther along that direction: the probabilities approach the observed zeroes and ones, and the log-likelihood approaches its upper bound $0$ without attaining it at a finite vector{{cite:albert_anderson1984}} (§3, pp. 4–5, nonexistence of a finite maximum). The bound holds because each Bernoulli factor is at most $1$, so $L(\beta)\le 1$ and $\ell(\beta)\le 0$, with equality only in the limit where every fitted probability is exactly the observed label. The likelihood stays bounded. The coefficients diverge. Quasi-complete separation can also prevent a finite maximum likelihood estimate{{cite:albert_anderson1984}} (§3, pp. 4–5, separation cases). Check convergence and separation before interpreting standard errors.
 
 ### Iteratively reweighted least squares
 
-Newton–Raphson updates{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}.
+Newton–Raphson updates follow from the score and Hessian above.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, iterative weighted least squares)
 
 $$
 \beta\leftarrow\beta+(X^\top W X)^{-1}X^\top(y-p).
@@ -231,7 +231,7 @@ $$
 \log\frac{\tau_1(x)}{\tau_0(x)}=\beta^\top x.
 $$
 
-Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}${{cite:cox1958_logistic}}{{cite:berkson1944}}{{cite:hastie_esl2009}}. The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
+Hold every predictor other than $x_j$ fixed and increase $x_j$ by one unit. The linear predictor increases by $\beta_j$, so the log odds of class $1$ increase by $\beta_j$ and the odds are multiplied by $e^{\beta_j}${{cite:james_islr2013}} (Ch. 4, §4.3.1, pp. 132–133). The probability does not increase by a constant, because the logistic curve flattens near $0$ and near $1$. If the baseline probability is $p$ and the odds multiplier is $a$, the new probability is $ap/(1-p+ap)$.
 
 The same one-unit reading can be derived for the linear discriminant log-odds score, since under a shared covariance that score is also linear in $x$. A coefficient remains a conditional association inside the fitted model. It does not, by itself, measure the effect of intervening on $x_j$.
 
@@ -241,7 +241,7 @@ $$
 \beta^\top x=0.
 $$
 
-The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary{{cite:hastie_esl2009}}. The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
+The boundary is a hyperplane, one dimension below the predictor space, and it has the same shape as the linear discriminant boundary{{cite:james_islr2013}} (Ch. 4, §§4.3.1, 4.4.3, pp. 132–133, 142–145). The agreement in shape is not an agreement in estimates. The classification rule at the probability threshold $1/2$ is the sign of the linear predictor,
 
 $$
 \eta(\beta)=
@@ -257,7 +257,7 @@ Products and powers such as $x_1$, $x_1^2$, and $x_1 x_2$ can be added to the li
 
 ### Linear discriminant analysis implies a logistic model
 
-Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model{{cite:hastie_esl2009}}. Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
+Two Gaussian classes with a common covariance imply linear posterior log odds, so the population linear discriminant model implies a logistic model{{cite:james_islr2013}} (Ch. 4, §4.5, pp. 151–152). Their estimates differ. Linear discriminant analysis uses a joint model for measurements and labels. Logistic regression uses the conditional likelihood of the labels and does not model the marginal of $x$. Correct extra assumptions can improve statistical efficiency. Incorrect ones can hurt. Logistic regression avoids Gaussian predictor assumptions, and it can still be misspecified through its linear log-odds form.
 
 The algebra is Bayes' theorem plus cancellation of the quadratic terms. Let $X\given Y=1\sim\Normal(\mu_1,\Sigma)$ and $X\given Y=0\sim\Normal(\mu_0,\Sigma)$, with priors $\pi_1$ and $\pi_0$. Then
 
@@ -385,7 +385,7 @@ These calculations check the interpretation of the supplied numbers. They are no
 
 ## Laboratory: odds and probabilities for two iris species
 
-Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:brier1950}}.
+Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:sklearn_brier2026}} (Notes, brier_score_loss).
 
 ```r
 btrain <- droplevels(subset(train, Species != "setosa"))

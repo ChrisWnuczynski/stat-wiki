@@ -1,0 +1,35 @@
+## Motivating example
+A coin's success probability is unknown, and ten tosses may not settle whether it is above one half. The beta distribution places a probability law on that unknown probability before observing the tosses. Its two shape parameters can express a centre and a degree of concentration, while the binomial likelihood changes those parameters in a particularly simple way. The distinction between a distribution for the unknown chance and the binary outcomes themselves will guide the calculations below.{{cite:gelman_bda2013}} (§2.1, pp. 29–31){{cite:siegrist2022_beta}} (§5.17, The Standard Beta Distribution)
+
+## Intuition — How the shapes change the density
+On the interval $(0,1)$, the factor $x^{\alpha-1}$ controls behaviour near zero and $(1-x)^{\beta-1}$ controls behaviour near one. With both shapes above one the density has an interior peak; with both below one it rises toward both endpoints. Equal shapes give a symmetric law, and $\alpha=\beta=1$ is uniform. The mean $\alpha/(\alpha+\beta)$ describes the centre, while $\alpha+\beta$ helps describe concentration: two beta laws can share a mean yet express very different uncertainty. A density that rises without bound at an endpoint can still integrate to one and assigns no positive probability to that single endpoint.{{cite:siegrist2022_beta}} (§5.17, Distribution Functions and Moments)
+
+## Properties
+The beta function $B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}\,dx$ is the area under the unnormalised kernel. Dividing by that area produces the density in the infobox. For $\alpha,\beta>1$, differentiating its log density gives the interior mode $(\alpha-1)/(\alpha+\beta-2)$; the formula does not describe the two endpoint peaks when both shapes are below one. The proof below derives the mean using a beta-function ratio, and the same moment method gives the displayed variance. Thus a beta law for a probability can be right-skewed, left-skewed, symmetric, U-shaped or flat, rather than merely bell-shaped.{{cite:siegrist2022_beta}} (§5.17, The Beta Function; Distribution Functions; Moments)
+
+## Related distributions
+If $G_1$ and $G_2$ are independent gamma variables with shapes $\alpha$ and $\beta$ and the same rate, the fraction $G_1/(G_1+G_2)$ has a $\operatorname{Beta}(\alpha,\beta)$ law. This construction explains why beta laws describe a random share of a positive total. The [uniform distribution](uniform-distribution.qmd) is the $\operatorname{Beta}(1,1)$ case; the [Dirichlet distribution](dirichlet-distribution.qmd) extends the same share idea to more than two categories. The F transformation listed above provides a further link to sampling distributions.{{cite:siegrist2022_beta}} (§5.17, Related Distributions)
+
+## Statistical inference
+For a beta prior and binomial data, the posterior shapes become $\alpha+x$ and $\beta+n-x$. The resulting mean is a weighted average of the prior mean $\alpha/(\alpha+\beta)$ and the observed success fraction $x/n$, with weights proportional to $\alpha+\beta$ and $n$. The weight interpretation does not mean that the prior was literally collected as extra trials. It also does not rescue a prior that excludes plausible probabilities: if the prior puts zero density above one half, multiplying by a binomial likelihood cannot create posterior mass there. Report a posterior interval or probability for the scientific threshold along with any point summary.{{cite:gelman_bda2013}} (§2.1–2.3, pp. 29–34)
+
+## Worked example — Updating a probability
+Start with $p\sim\operatorname{Beta}(2,3)$, whose mean is $2/5=0.4$ and variance $0.04$. Observe $8$ successes in $10$ conditionally independent trials. Multiplying the beta kernel by the binomial likelihood gives $p\mid x\sim\operatorname{Beta}(10,5)$. The posterior mean and the predictive probability of success on one more trial are both $10/15\approx0.666667$, below the raw proportion $8/10=0.8$. The interior posterior mode is $9/13\approx0.692308$. The posterior probability $\Pr(p>0.5\mid x)$ is about $0.910217$. A mean, a mode and a threshold probability answer different questions even for the same posterior.{{cite:gelman_bda2013}} (§2.1–2.3, pp. 29–34){{cite:siegrist2022_beta}} (§5.17, Moments and Distribution Functions)
+
+**Your turn.** Keep the $\operatorname{Beta}(2,3)$ prior, but observe $3$ successes in $4$ trials. Find the posterior family and parameters, its mean, and the probability that $p>0.5$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+Adding $3$ successes and $1$ failure gives $p\mid x\sim\operatorname{Beta}(5,4)$. Its mean is $5/9\approx0.555556$. Using the beta CDF, $\Pr(p>0.5\mid x)=1-I_{0.5}(5,4)=0.636719$. The mean exceeds one half, but the posterior still leaves substantial probability below it.{{cite:gelman_bda2013}} (§2.1–2.3, pp. 29–34){{cite:siegrist2022_beta}} (§5.17, Distribution Functions and Moments)
+:::
+
+## Common misconceptions
+A beta density for $p$ is not the sampling distribution of the observed binary outcomes; conditional on $p$, those outcomes follow Bernoulli or binomial laws. Shape parameters do not have to be integers, even when a posterior update can be described through success and failure counts. A density above one near an endpoint is possible because density height is not point probability. Finally, a beta prior is computationally convenient, but a nonconjugate prior can be valid when it better represents the available knowledge.{{cite:siegrist2022_beta}} (§5.17, Distribution Functions){{cite:gelman_bda2013}} (§2.1–2.4, pp. 29–39)
+
+## Assumptions and limits
+The binomial update assumes conditionally exchangeable trials at one stable success probability. If the probability changes across time or varies strongly by group, a single beta law for one shared $p$ can conceal that structure. A beta law also assigns no positive point mass to $p=0$ or $p=1$, even when its density becomes unbounded there; a scientific model that allows a genuinely fixed zero or one probability needs a separate point mass. A proportion rounded from a continuous measurement may need a different observation model than binomial successes. These are modeling limits, not algebraic failures of the beta density.{{cite:gelman_bda2013}} (§2.1, pp. 29–31){{cite:siegrist2022_beta}} (§5.17, Distribution Functions)
+
+## Connections
+[Choosing a conjugate prior](../questions/q-17.qmd) asks why the beta family simplifies updating without making other priors invalid. [Testing whether a coin is fair](../questions/q-44.qmd) separates a continuous beta alternative from a point-null model. [Geometric success probability](../questions/ex-geom-beta.qmd) shows that the same beta prior updates after counts of failures before successes. The two longer examples below develop prior influence and hierarchical shrinkage.{{cite:gelman_bda2013}} (§2.1–2.3, pp. 29–34)
+
+## History
+Bayes's published 1763 analysis of a binomial success probability yielded what is now recognized as a beta posterior under a uniform prior. That inverse-probability problem remains a natural starting point for the beta–binomial update above.{{cite:gelman_bda2013}} (§2.1, historical note, pp. 30–31)

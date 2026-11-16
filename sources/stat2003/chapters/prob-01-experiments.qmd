@@ -123,7 +123,7 @@ If $\Omega$ is finite and every outcome has the same probability, then for every
 $$
 \Pr(A)=\frac{|A|}{|\Omega|}.
 $$
-{{cite:huygens1657}}{{cite:bernoulli1713}}{{cite:laplace1812}}{{cite:feller1968}}
+{{cite:siegrist2022_events}} (§2.2, Sample Spaces and Events)
 
 :::
 
@@ -149,7 +149,7 @@ When outcomes are equally likely, a probability is a ratio of two counts. Many c
 | no | no | $\binom{n}{k}$ |
 | no | yes | $\binom{n+k-1}{k}$ |
 
-{{cite:feller1968}}{{cite:bernoulli1713}}{{cite:laplace1812}}
+{{cite:siegrist2022_combinatorial_structures}} (Sampling, four order-and-replacement cases)
 Ordered outcomes are written as vectors, so $(1,2,3)\ne(3,2,1)$. Unordered outcomes are written as sets, so $\{1,2,3\}=\{3,2,1\}$.
 
 :::

@@ -33,7 +33,9 @@ if __name__ == "__main__":
     assert Fraction(1, 2) - 1 < 0 and Fraction(3) - 1 == 2
 
     assert page.count('collapse="true" title="Proof"') == 1
-    assert len(set(re.findall(r"\.\./questions/([^.)]+)", body))) == 11
+    questions = set(re.findall(r"\.\./questions/([^.)]+)", body))
+    assert len(questions) >= 11
+    assert {"ex-sl-16-3", "ex-sl-16-7", "depth-weight-update"} <= questions
     assert not re.search(r"!\[[^]]*\]\(", page)
     assert "{{cite:" not in page
     assert "the **regularisation**" not in body

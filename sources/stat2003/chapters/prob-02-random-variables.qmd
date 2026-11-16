@@ -40,7 +40,7 @@ A fair die has mass function $f(x)=1/6$ on $\{1,\ldots,6\}$. The mass function d
 ::: {#def-continuous-distribution .definition}
 ## Continuous distribution
 
-$X$ is continuous when its distribution function can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:billingsley1995}} (§12) The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.{{cite:billingsley1995}} (§12)
+The absolutely continuous subclass studied here has a distribution function that can be written $F(x)=\int_{-\infty}^{x} f(u)\,\dd u$ for a non-negative function $f$ with $\int_{-\infty}^{\infty} f=1$.{{cite:billingsley1995}} (§12) The function $f$ is a probability density. Then $\Pr(X\in B)=\int_B f$, and $F'=f$ almost everywhere. Changing a density at a single point leaves every probability unchanged, so pointwise equality is not required.{{cite:billingsley1995}} (§12)
 
 For such a density, the probability of an interval is the area under $f$ between its endpoints. Each singleton has probability zero, so including an endpoint does not change that integral. The resulting distribution function is continuous, but continuity alone does not ensure a density exists. A model with both point masses and a continuous component needs both pieces to describe its law.{{cite:billingsley1995}} (§12)
 
@@ -107,7 +107,7 @@ For a fair comparison with the sheet, the generating functions of the named non-
 ::: {#def-moment-generating-function .definition}
 ## Moment generating function
 
-The moment generating function of $X$ is $M(s)=\E e^{sX}$, for those $s$ at which the expectation exists.{{cite:laplace1812}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+The moment generating function of $X$ is $M(s)=\E e^{sX}$, for those $s$ at which the expectation exists.
 
 :::
 
@@ -124,7 +124,7 @@ A handful of distributions recur because a handful of experiments recur. Each is
 ::: {#def-bernoulli-distribution .definition}
 ## Bernoulli distribution
 
-$X$ has the Bernoulli distribution with success probability $p\in[0,1]$, written $X\sim\Bern(p)$, when $\Pr(X=1)=p$ and $\Pr(X=0)=1-p$.{{cite:bernoulli1713}}{{cite:demoivre1756}}{{cite:feller1968}} Then $\E X=p$ and $\Var(X)=p(1-p)$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+$X$ has the Bernoulli distribution with success probability $p\in[0,1]$, written $X\sim\Bern(p)$, when $\Pr(X=1)=p$ and $\Pr(X=0)=1-p$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory) Then $\E X=p$ and $\Var(X)=p(1-p)$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)
 
 :::
 
@@ -201,16 +201,16 @@ $X$ has the Poisson distribution with mean $\lambda>0$, written $X\sim\Poisson(\
 $$
 \Pr(X=x)=e^{-\lambda}\frac{\lambda^x}{x!},\qquad x=0,1,2,\ldots
 $$
-{{cite:poisson1837}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory)
 
-Then $\E X=\Var(X)=\lambda$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+Then $\E X=\Var(X)=\lambda$.{{cite:siegrist2022_poisson_distribution}} (§4, Moments)
 
 :::
 
 ::: {#thm-poisson-limit-of-the-binomial .theorem}
 ## Poisson limit of the binomial
 
-If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$.{{cite:poisson1837}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+If $X_n\sim\Bin(n,p_n)$ with $np_n\to\lambda$ as $n\to\infty$, then $\Pr(X_n=x)\to e^{-\lambda}\lambda^x/x!$ for every $x=0,1,2,\ldots$.{{cite:siegrist2022_binomial_distribution}} (§11.2, The Poisson Approximation)
 
 :::
 
@@ -285,7 +285,7 @@ The full distribution is $0.6588$, $0.2995$, $0.0399$, $0.0017$ and $0.00002$ fo
 ::: {#def-uniform-distribution .definition}
 ## Uniform distribution
 
-$X$ is uniform on the interval $[a,b]$, written $X\sim\operatorname{U}[a,b]$, when its density is $1/(b-a)$ on that interval and zero elsewhere.{{cite:laplace1812}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}} Then $\E X=(a+b)/2$ and $\Var(X)=(b-a)^2/12$.{{cite:grimmett_stirzaker2020}}{{cite:casella_berger2002}}
+$X$ is uniform on the interval $[a,b]$, written $X\sim\operatorname{U}[a,b]$, when its density is $1/(b-a)$ on that interval and zero elsewhere.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory) Then $\E X=(a+b)/2$ and $\Var(X)=(b-a)^2/12$.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)
 
 :::
 
@@ -296,7 +296,7 @@ The continuous analogue of an equally likely finite set is the uniform distribut
 ::: {#def-exponential-distribution .definition}
 ## Exponential distribution
 
-$X$ has the exponential distribution with rate $\lambda>0$, written $X\sim\Exp(\lambda)$, when its density is $\lambda e^{-\lambda x}$ for $x>0$.{{cite:erlang1909}}{{cite:feller1968}}{{cite:ross2019}} Its distribution function is $1-e^{-\lambda x}$, its mean is $1/\lambda$ and its variance is $1/\lambda^2$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+$X$ has the exponential distribution with rate $\lambda>0$, written $X\sim\Exp(\lambda)$, when its density is $\lambda e^{-\lambda x}$ for $x>0$.{{cite:siegrist2022_exponential}} (§14.2, density and rate parameter) Its distribution function is $1-e^{-\lambda x}$, its mean is $1/\lambda$ and its variance is $1/\lambda^2$.{{cite:siegrist2022_exponential}} (§14.2, Moments)
 
 :::
 
@@ -305,7 +305,7 @@ The moment generating function is $M(s)=\int_0^\infty e^{sx}\lambda e^{-\lambda 
 ::: {#thm-memoryless .theorem}
 ## Memoryless property
 
-A positive random variable $X$ is memoryless when $\Pr(X>s+t\given X>s)=\Pr(X>t)$ for all $s,t>0$.{{cite:feller1968}}{{cite:ross2019}}{{cite:grimmett_stirzaker2020}} The exponential distributions are the continuous memoryless laws, and the geometric distributions are the discrete ones.{{cite:feller1968}}{{cite:ross2019}}
+A positive random variable $X$ is memoryless when $\Pr(X>s+t\given X>s)=\Pr(X>t)$ for all $s,t>0$.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property) The exponential distributions are the continuous memoryless laws, and the geometric distributions are the discrete ones.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)
 
 For the exponential law with rate $\lambda$, the survival probability is $e^{-\lambda x}$, so
 
@@ -392,7 +392,7 @@ For three events at rate 2 per hour, the probability that the third takes more t
 
 ::: {.callout-note}
 ## Key idea
-The distribution is the probability of the events $\{X\in B\}$. Discrete distributions are specified by a mass function, continuous distributions by a density. The expectation of a function is the average of that function against the mass or the density, and linearity does not need independence.
+The distribution is the probability of the events $\{X\in B\}$. Discrete distributions are specified by a mass function, the absolutely continuous models treated here by a density. The expectation of a function is the average of that function against the mass or the density, and linearity does not need independence.
 :::
 
 ## Exercises

@@ -6,7 +6,7 @@ The previous chapter stopped at the reason for reparameterising the Conway–Max
 
 The number of takeover bids received by 126 US firms between 1978 and 1985 is the count below.{{cite:cameron_johansson1997}} The covariates split into three groups. Defensive actions by the target: a lawsuit (`leglrest`), a proposed change in asset structure (`rearest`), a proposed change in ownership structure (`finrest`), and an invitation to a friendly third party, a white knight (`whtknght`). Characteristics of the firm: the bid premium (`bidprem`), the percentage of stock held by institutions (`insthold`), book value in billions (`size`), and its square. And one indicator for Department of Justice intervention (`regulatn`).
 
-After those covariates, the counts are tightly bunched. A Poisson mean of 7 would happily produce anything from about 3 to 13. These firms, when the fit said 7, mostly produced 6, 7, or 8. That is underdispersion, which neither the Poisson nor the negative binomial can represent.{{cite:huang2017_cmp}} The mean-parameterised Conway–Maxwell–Poisson can.
+After those covariates, the counts are tightly bunched. A Poisson mean of 7 would happily produce anything from about 3 to 13. These firms, when the fit said 7, mostly produced 6, 7, or 8. That is underdispersion, which neither the Poisson nor the negative binomial can represent. The mean-parameterised Conway–Maxwell–Poisson model can represent such a pattern.
 
 The R package that fitted it was withdrawn from CRAN in 2022, ahead of a replacement that did not arrive. The fit given here is a MATLAB fit of a log-linear mean. There is no formula interface. You build $\mat{X}$ yourself: a column of ones and the nine covariates, $126$ rows. The call returns the coefficient vector, the dispersion $\nu$, the implied rates $\lambda(\mu,\nu)$, the maximised log-likelihood, and standard errors for $\boldsymbol{\beta}$. The estimates, standard errors, and ratios are
 
@@ -119,7 +119,11 @@ The coefficients come back to $-0.0178$, $-0.0074$, $0.0158$, $0.0083$, close to
 The link chooses the mean curve. The response distribution mainly chooses the standard errors. Those two pieces are essentially orthogonal: you may pair a scientifically sensible link with a distribution that matches the scatter, and neither choice is doing the other's job.
 :::
 
-That separation of the mean curve from the error distribution holds in general.{{cite:huang_rathouz2017}} It is why families and links can be mixed, and why a worse AIC for the inverse quadratic is a statement about the link, not a mystery of the inverse Gaussian, whose variance is proportional to the cube of its mean.{{cite:tweedie1957}}{{cite:mccullagh_nelder1989}} Other positive families exist and are not in the default `glm` list: inverse gamma, lognormal, and Weibull with the second parameter fixed.{{cite:mcalister1879}} A custom family needs a log-likelihood, or, as the next section shows, sometimes only a mean and a variance.
+That separation of the mean curve from the response distribution is the point of a GLM's link and random components.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373){{cite:sas2012_glm}} (Ch. 3, “Generalized Linear Models”, systematic, link and random components) Families and links can therefore be paired according to the response and the scientific mean relationship. The worse AIC for the inverse-quadratic fit is a statement about the chosen link, not a mystery of the inverse Gaussian, whose variance here is proportional to the cube of its mean, as the fitted family and standard-error comparison above show.
+
+Other positive families outside the default R `glm` list include inverse gamma, lognormal, and Weibull with the second parameter fixed.
+
+A custom family needs a log-likelihood, or, as the next section shows, sometimes only a mean and a variance.
 
 ## Quasi-likelihood
 
@@ -132,11 +136,11 @@ $$
 is the quasi-Poisson and quasi-binomial we have already used for dead time, spurts, and pseudo-replication. In general, any non-negative function $V$ gives a variance $\phi V(\mu)$. Most of those choices are not the variance of an exponential family. They describe the data. They do not, by themselves, prescribe a distribution you can simulate from. That is the whole of the name *quasi*.
 
 ::: {#def-quasi .definition}
-If $\mathrm{Var}(Y)=\phi V(\mu)$, the quasi-score in the mean is the ratio below.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}}
+If $\mathrm{Var}(Y)=\phi V(\mu)$, the quasi-score in the mean is the ratio below.{{cite:wuthrich_merz2022_glm}} (§5.4, quasi-score definition)
 $$
 S_\mu=\frac{Y-\mu}{\phi V(\mu)}.
 $$
-If the mean depends on covariates through $\mu(\vect{X}^\top\boldsymbol{\beta})$, the quasi-score in $\boldsymbol{\beta}$ is the weighted derivative below.{{cite:davison2003}}
+If the mean depends on covariates through $\mu(\vect{X}^\top\boldsymbol{\beta})$, the quasi-score in $\boldsymbol{\beta}$ is the weighted derivative below.{{cite:wuthrich_merz2022_glm}} (§5.4, regression score)
 $$
 \vect{S}_{\boldsymbol{\beta}}
 =\frac{Y-\mu}{\phi V(\mu)}\,\mu'(\vect{X}^\top\boldsymbol{\beta})\,\vect{X}.
@@ -148,7 +152,7 @@ $$
 \mathrm{Var}(S_\mu)=\frac{1}{\phi^2 V(\mu)^2}\mathrm{Var}(Y)=\frac{1}{\phi V(\mu)}
 =-\mathrm{E}\!\left(\frac{\partial S_\mu}{\partial\mu}\right).
 $$
-Every GLM score has the shape of $\vect{S}_{\boldsymbol{\beta}}$. Not every choice of $V$ comes from a GLM. Inside an exponential family the variance function determines the family, so $V(\mu)=\mu$ is the Poisson and $V(\mu)=np(1-p)$ is the binomial.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}} A free $\phi$ takes you outside that class. You can still invent a probability model with the same moments, for example a normal with variance $\phi\mu$, but that normal is not a distribution on the counts, and it is not an exponential family in $\mu$ because $\mu$ appears in both the mean and the variance. Fitting it needs its own algorithm. The quasi-score does not: `glm` only solves $\vect{S}_{\boldsymbol{\beta}}=\vect{0}$.
+Every GLM score has the shape of $\vect{S}_{\boldsymbol{\beta}}$. Not every choice of $V$ comes from a GLM. Within the standard one-parameter exponential families, the Poisson variance function is $V(\mu)=\mu$; for a binomial count of $n$ trials with mean $\mu=np$, its variance is $\mu(1-\mu/n)=np(1-p)$.{{cite:zhou2020_glm}} (§“Exponential family distribution,” examples and moments) A free $\phi$ takes you outside that class. You can still invent a probability model with the same moments, for example a normal with variance $\phi\mu$, but that normal is not a distribution on the counts, and it is not an exponential family in $\mu$ because $\mu$ appears in both the mean and the variance. Fitting it needs its own algorithm. The quasi-score does not: `glm` only solves $\vect{S}_{\boldsymbol{\beta}}=\vect{0}$.
 
 The quasi-log-likelihood is the integral of that score,
 $$

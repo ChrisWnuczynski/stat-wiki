@@ -117,7 +117,7 @@ $$
 $$ {#eq-loglin}
 The identity link $\mu_i=\vect{X}_i^\top\boldsymbol{\beta}$ is the second thing people reach for. It can look acceptable on a short stretch of $x$, where an exponential and a straight line are hard to tell apart. It is still not a model we will use. Somewhere outside the window the line is negative, and a mean count cannot be. The log link is a legitimate model for any $\vect{X}$ and any $\boldsymbol{\beta}$.
 
-The outer distribution for a count, as a starting point, is Poisson.{{cite:poisson1837}} This log-link specification is a Poisson regression.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
+The outer distribution for a count, as a starting point, is Poisson.{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory) This log-link specification is a Poisson regression.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:myers_glm2010}}
 $$
 Y_i\mid \vect{X}_i\ind\mathrm{Poisson}\!\left(\mu_i=\exp(\vect{X}_i^\top\boldsymbol{\beta})\right).
 $$
@@ -129,7 +129,7 @@ Unless there is a strong reason to insist on a pure Poisson process, use
 $$
 \mathrm{Var}(Y_i\mid \vect{X}_i)=\phi\mu_i=\phi\exp(\vect{X}_i^\top\boldsymbol{\beta}).
 $$ {#eq-quasi-pois}
-Here $\phi>1$ is overdispersion and $\phi<1$ is underdispersion.{{cite:wedderburn1974}} The case $\phi=1$ is the Poisson. This is a quasi-Poisson model.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} The variance function is a legitimate description of spread. Inside the exponential family, a variance exactly proportional to the mean forces the Poisson, so there is no exponential-family distribution with a free $\phi$ in @eq-quasi-pois. You cannot simulate a new count from a quasi-Poisson specification alone. We will use it as a description. A stricter view, which reserves the name model for something one can simulate from, would refuse the name. We will come back to that distinction when we treat quasi-likelihood properly. For fitting, `glm` only needs the mean and the variance, so `family = quasipoisson` runs.
+Here $\phi>1$ is overdispersion and $\phi<1$ is underdispersion.{{cite:wuthrich_merz2022_glm}} (§5.4, quasi-Poisson variance) The case $\phi=1$ is the Poisson. This is a quasi-Poisson model.{{cite:wuthrich_merz2022_glm}} (§5.4, moment model) The variance function is a legitimate description of spread. Inside the exponential family, a variance exactly proportional to the mean forces the Poisson, so there is no exponential-family distribution with a free $\phi$ in @eq-quasi-pois. You cannot simulate a new count from a quasi-Poisson specification alone. We will use it as a description. A stricter view, which reserves the name model for something one can simulate from, would refuse the name. We will come back to that distinction when we treat quasi-likelihood properly. For fitting, `glm` only needs the mean and the variance, so `family = quasipoisson` runs. The fitted means can therefore be compared with the Poisson fit, while the estimated dispersion changes the uncertainty attached to their coefficients. The variance rule alone still leaves the probabilities of individual future counts unspecified.
 
 ### Reading a log-linear coefficient
 
@@ -190,7 +190,7 @@ with dispersion fixed at $1$. Inner burden and mine age are borderline. Percent 
 
 ## Two models with a real distribution
 
-A quasi-Poisson variance is not, by itself, a distribution you can draw from. If you want a distribution, and you only need extra variation in the direction of overdispersion, the usual next model is the negative binomial.{{cite:mccullagh_nelder1989}} One construction is a gamma mixture of Poissons: draw a rate from a gamma distribution, then draw a Poisson count at that rate.{{cite:greenwood_yule1920}} The mean and variance are $\mu$ and $\mu+\mu^2/\nu$.{{cite:venables_ripley2002}}
+A quasi-Poisson variance is not, by itself, a distribution you can draw from. If you want a distribution, and you only need extra variation in the direction of overdispersion, the usual next model is the negative binomial.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, count dispersion) One construction is a gamma mixture of Poissons: draw a rate from a gamma distribution, then draw a Poisson count at that rate.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, gamma mixture) The mean and variance are $\mu$ and $\mu+\mu^2/\nu$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, mean and variance)
 $$
 \mathrm{E}(Y)=\mu,
 \qquad

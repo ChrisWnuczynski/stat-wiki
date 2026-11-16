@@ -1,0 +1,8 @@
+# Complete statistic research notes
+
+- **Checked:** Siegrist, *Probability, Mathematical Statistics, and Stochastic Processes*, §7.6, official LibreTexts full section, https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/07:_Point_Estimation/7.06:_Sufficient_Complete_and_Ancillary_Statistics . Read Complete Statistics, Ancillary Statistics, Bernoulli, Poisson, Exponential Families; supports definition, binomial/Poisson completeness, Lehmann–Scheffé and Basu statements and proofs.
+- **Checked:** Siegrist §6.6, official LibreTexts full section, https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/06:_Random_Samples/6.06:_Order_Statistics . Read Uniform Distribution subsection; supports order-statistic expectations, range distribution and nonconstant ancillary example.
+- **Checked:** Dodge (2008) authorized index has no completeness entry. Lehmann biography, printed pp. 307–308, is orientation only, not cited for technical claims.
+- **Checked by code:** All illustrative counts, probabilities, bias terms, range expectation and finite-parameter counterexample in `checks/complete-statistic.py`.
+- **Assumed:** Integrability for expectation identity and finite variance for the UMVU comparison; stated where used. Standard sufficiency via conditional distribution or factorisation.
+- **Disputed/unverified:** Full original Lehmann–Scheffé (1950) and Basu (1955) articles were not accessible from their publisher pages; chronology and names are attributed by Siegrist's full textbook section, with no direct citation to unread originals.

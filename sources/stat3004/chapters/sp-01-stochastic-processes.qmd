@@ -9,7 +9,7 @@ A single random variable, its expectation, and its variance are on [Random varia
 ::: {#def-sp-stochastic-process .definition}
 ## Stochastic process
 
-A stochastic process on a probability space $(\Omega,\mathcal{F},\mathrm{P})$, with state space $S$ and index set $T$, is a family $\{X_t:t\in T\}$ of $S$-valued random variables.{{cite:doob1953}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}} If $T=\{0,1,2,\ldots\}$, time is discrete. If $T=[0,\infty)$, time is continuous.
+A stochastic process on a probability space $(\Omega,\mathcal{F},\mathrm{P})$, with state space $S$ and index set $T$, is a family $\{X_t:t\in T\}$ of $S$-valued random variables.{{cite:levin_peres2017}} (§1.1, pp. 2–5, discrete-state processes){{cite:hastings1970}} (§2.2, pp. 100–101, continuous states) If $T=\{0,1,2,\ldots\}$, time is discrete. If $T=[0,\infty)$, time is continuous.
 
 :::
 
@@ -71,7 +71,7 @@ $$
 \Pr(X\ge a)\le\frac{\E X}{a}.
 $$
 
-If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality.{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}}
+If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality.
 
 $$
 \Pr\bigl(|X-\E X|\ge\varepsilon\bigr)\le\frac{\Var(X)}{\varepsilon^2}.

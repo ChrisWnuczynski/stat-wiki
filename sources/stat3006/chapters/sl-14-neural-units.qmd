@@ -41,7 +41,7 @@ $$
 \mathrm{net}=\sum_{j=0}^{p} w_j x_j=w_0+w^\top x,\qquad x_0\equiv 1.
 $$
 
-The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}}{{cite:rosenblatt1958}}{{cite:bishop2006}}. The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
+The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}} (pp. 115–117, threshold units){{cite:rosenblatt1958}} (pp. 386–390, perceptron model){{cite:goodfellow2016_deep_learning}} (Ch. 6, §§6.1–6.3, affine units and activations). The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
 
 :::
 
@@ -132,7 +132,7 @@ The function is $g:\{0,1\}\times\{0,1\}\to\{0,1\}$ with desired triples $(x_1,x_
 ::: {#thm-sl-14-xor .theorem}
 ## A single threshold unit cannot compute XOR
 
-No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2${{cite:minsky_papert1969}}{{cite:bishop2006}}{{cite:ripley1996}}.
+No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2${{cite:goodfellow_deep_learning2016_ch6}} (§6.1, XOR example).
 
 :::
 
@@ -148,7 +148,7 @@ $$
 2w_0+w_1+w_2=w_0+(w_0+w_1+w_2)<0,
 $$
 
-a contradiction. The four requirements cannot hold together. This is the failure Minsky and Papert pointed out for the perceptron{{cite:minsky_papert1969}}. These four points, with this labelling, are one configuration a linear classifier leaves unshattered. The VC dimension of half-spaces in the plane is $3$. The [support vector](sl-17-support-vectors.qmd) page records that count: it uses a general-position argument, and a single failed labelling is the witness that these four points are not a shattered set.
+a contradiction. The four requirements cannot hold together. This is the failure identified in early work on the perceptron{{cite:rumelhart_hinton_williams1986}} (pp. 533–534, limitations of single-layer networks). These four points, with this labelling, are one configuration a linear classifier leaves unshattered. The VC dimension of half-spaces in the plane is $3$. The [support vector](sl-17-support-vectors.qmd) page records that count: it uses a general-position argument, and a single failed labelling is the witness that these four points are not a shattered set.
 
 ## A hidden layer
 

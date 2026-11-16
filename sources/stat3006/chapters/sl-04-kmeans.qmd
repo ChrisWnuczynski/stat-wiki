@@ -22,7 +22,7 @@ $$
 
 ## Within-cluster scatter
 
-A clustering is a map $C$ from the observation indices $i=1,\ldots,n$ to the labels $1,\ldots,K$. To compare maps one needs a single number. The number used here is the total squared distance between observations that share a label, the within-cluster point scatter{{cite:hastie_esl2009}}{{cite:macqueen1967}},
+A clustering is a map $C$ from the observation indices $i=1,\ldots,n$ to the labels $1,\ldots,K$. To compare maps one needs a single number. The number used here is the total squared distance between observations that share a label, the within-cluster point scatter,
 
 $$
 W(C)=\frac12\sum_{k=1}^K\sum_{C(i)=k}\sum_{C(l)=k}\|\mathbf{x}_i-\mathbf{x}_l\|^2.
@@ -67,7 +67,7 @@ $$
 W(C)=\sum_{k=1}^K N_k\sum_{C(i)=k}\|\mathbf{x}_i-\bar{\mathbf{x}}_k\|^2.
 $$
 
-This writes the pairwise criterion as a size-weighted sum of squared distances to the cluster means{{cite:hastie_esl2009}}. Each point is weighted by $N_k$. The algorithm of the next section does not descend on that weighted sum. It descends on the unweighted sum of squares{{cite:lloyd1982}}
+This writes the pairwise criterion as a size-weighted sum of squared distances to the cluster means. Each point is weighted by $N_k$. The algorithm of the next section does not descend on that weighted sum. It descends on the unweighted sum of squares
 
 $$
 \widetilde W(C,\mathbf{m}_1,\ldots,\mathbf{m}_K)
@@ -84,7 +84,7 @@ $$
 S(n,K)=\frac{1}{K!}\sum_{k=1}^K(-1)^{K-k}\binom{K}{k}k^n.
 $$
 
-For a very small sample, enumeration is possible. It rapidly becomes expensive: $S(10,3)=9330$, whereas $S(25,5)=2436684974110751$ and $S(100,5)\approx 6.6\times 10^{67}$. The limitation is computational size. Lloyd's algorithm trades an exhaustive search for inexpensive alternating improvements, so a stable answer has to be distinguished from the best possible answer.
+For a very small sample, enumeration is possible. It rapidly becomes expensive: $S(10,3)=9330$, whereas $S(25,5)=2436684974110751$ and $S(100,5)\approx 6.6\times 10^{67}$. The limitation is computational size. Those counts also apply to partitions considered for the unweighted objective $\widetilde W$, but Lloyd's alternating updates improve $\widetilde W$, not the size-weighted pairwise $W(C)$ used to introduce enumeration. Lloyd's algorithm trades an exhaustive search for inexpensive alternating improvements of its own objective, so a stable answer has to be distinguished from the best possible answer.
 
 ## Lloyd's algorithm
 
@@ -276,7 +276,7 @@ within_SSE   adjusted_Rand_index
   138.8884                0.6201
 ```
 
-Setosa is recovered as its own cluster: all $50$ setosa flowers sit in cluster $2$, and nothing else does. Versicolor and virginica are mixed, $39$ against $14$ in one cluster and $11$ against $36$ in the other. The adjusted Rand index compares the clustering with the species partition without requiring cluster $1$ to mean species $1${{cite:hubert_arabie1985}}. On its chance-corrected scale, identical partitions score $1$, and the index can be negative{{cite:hubert_arabie1985}}. The value $0.6201$ is the agreement on this run. The direct sum of squared distances to the assigned centres reproduces `tot.withinss` to the tolerance in the check, which is the unweighted criterion $\widetilde W$.
+Setosa is recovered as its own cluster: all $50$ setosa flowers sit in cluster $2$, and nothing else does. Versicolor and virginica are mixed, $39$ against $14$ in one cluster and $11$ against $36$ in the other. The adjusted Rand index compares the clustering with the species partition without requiring cluster $1$ to mean species $1${{cite:sklearn_ari2026}} (Examples, adjusted_rand_score). On its chance-corrected scale, identical partitions score $1$, and the index can be negative{{cite:sklearn_ari2026}} (Examples, adjusted_rand_score). The value $0.6201$ is the agreement on this run. The direct sum of squared distances to the assigned centres reproduces `tot.withinss` to the tolerance in the check, which is the unweighted criterion $\widetilde W$.
 
 K-means favours compact groups in the standardised Euclidean metric. A species can have a shape, or an overlap, that this geometry does not represent. The Voronoi picture for three fixed centres in the plane is a partition into three convex cells, with boundaries that are pieces of the perpendicular bisectors. Those cells are what the assignment step builds, in the standardised four-dimensional measurement space as well as in a two-dimensional illustration.
 

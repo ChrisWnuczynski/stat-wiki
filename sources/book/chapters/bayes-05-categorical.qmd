@@ -34,7 +34,7 @@ $$
  \xvec\given\pvec\sim\Mult(n,\pvec).
 $$
 
-The counts of conditionally independent category trials are multinomial.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:jeffreys1961}}
+The counts of conditionally independent category trials are multinomial.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70, multinomial sampling)
 
 :::
 
@@ -62,7 +62,7 @@ $$
 ::: {#def-dirichlet-distribution .definition}
 ## Dirichlet distribution
 
-The conjugate prior for $\pvec$ is the Dirichlet distribution.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}} Write 
+The conjugate prior for $\pvec$ is the Dirichlet distribution.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70, Dirichlet prior) Write
 
 $$
  \alpha_0=\sum_{k=1}^K\alpha_k,
@@ -93,7 +93,7 @@ $$
 $$
 
 
- is the probability simplex. The normalising constant is the multivariate beta integral.{{cite:dirichlet1839}}
+ is the probability simplex. The normalising constant is the multivariate beta integral.{{cite:tokdar2018_dirichlet}} (p. 1, simplex density and multivariate beta normalizer)
 
 :::
 
@@ -110,7 +110,7 @@ $$
 $$
 
 
- which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.{{cite:dirichlet1839}}
+ which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70){{cite:tokdar2018_dirichlet}} (p. 1, two-category beta special case) The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.
 
 :::
 
@@ -170,7 +170,7 @@ Standard Dirichlet integrals give \begin{align*}
                   {\alpha_0(\alpha_0+1)},\qquad j\neq k.
 \end{align*}
 
-The coordinate mean is $\alpha_k/\alpha_0$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:dirichlet1839}}
+The coordinate mean is $\alpha_k/\alpha_0$.{{cite:tokdar2018_dirichlet}} (p. 1, beta marginal and mean)
 
 :::
 
@@ -237,7 +237,7 @@ Consequently, \begin{equation}
  \operatorname{mode}(P_k)
  =\frac{\alpha_k-1}{\alpha_0-K}.
  \label{eq:dir-mode-book}
-\end{equation} This derivation requires every $\alpha_k>1$.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}} Otherwise the mode may lie on a face or corner of the simplex.{{cite:gelman_bda2013}}
+\end{equation} This derivation requires every $\alpha_k>1$.{{cite:tokdar2018_dirichlet}} (p. 1, density exponents and interior-mode condition) Otherwise the mode may lie on a face or corner of the simplex.{{cite:tokdar2018_dirichlet}} (p. 1, boundary behavior from density exponents)
 
 :::
 
@@ -273,7 +273,7 @@ After division by this evidence, \begin{equation}
  \label{eq:dir-mult-post-book}
 \end{equation}
 
-A Dirichlet prior and a multinomial likelihood produce a Dirichlet posterior.{{cite:raiffa_schlaifer1961}}{{cite:gelman_bda2013}}{{cite:jeffreys1961}}
+A Dirichlet prior and a multinomial likelihood produce a Dirichlet posterior.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70, multinomial–Dirichlet update)
 
 :::
 

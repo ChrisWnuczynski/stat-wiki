@@ -1,0 +1,22 @@
+# Normal hierarchical shrinkage — source check
+
+## Sources opened
+- George Deligiannidis, *Foundations of Statistical Inference* (Oxford, 2022), full university-hosted lecture text, https://www.stats.ox.ac.uk/~deligian/pdf/sb21/sb21_notes.pdf, §§9.2–9.4, especially printed pp. 53–57. Read the binomial/beta example, exchangeability discussion, Gaussian conditional posterior and hyperparameter marginal. It explicitly points to Gelman and colleagues for a parallel account.
+- Gelman et al., *Bayesian Data Analysis* (2013), author-sanctioned noncommercial book page https://sites.stat.columbia.edu/gelman/book/ and publisher DOI page. The 55 MB book PDF exceeded the web reader limit and the direct sandbox connection was denied, so technical claims newly written here cite the fully read Oxford treatment instead. Existing citations and figure remain in generator output.
+- Lindley and Smith (1972), publisher journal metadata and abstract at https://academic.oup.com/jrsssb/article/34/1/1/7027158. Checked title, authors, date and pp. 1–18; the full paper was unavailable in the licensed reader. This metadata is retained only in these notes.
+- Efron and Morris (1975), publisher DOI metadata/abstract at https://doi.org/10.1080/01621459.1975.10479864. Checked title, authors, year and pp. 311–319. Full publisher text was unavailable; this metadata is retained only in these notes.
+- Thomas Lancaster, *An Introduction to Modern Bayesian Econometrics* (Blackwell, 2004), full publisher-provided sample Chapter 1 https://www.blackwellpublishing.com/content/BPL_Images/Content_store/Sample_chapter/1405117192/Lancaster_sample%20chapter_Intro%20to%20modern%20Bayesian%20Econometrics.pdf , §1.8 pp. 68–69. Read its discussion of Lindley and Smith’s hierarchical prior structures for linear regression; this full source supports the historical sentence.
+- George Casella, “An Introduction to Empirical Bayes Data Analysis” (1985), full article at Virginia Tech faculty course site https://leman.stat.vt.edu/VTCourses/CasellaEmpBayes.pdf , §1 p. 83 and bibliography p. 87. The same work is archived by Cornell University Library at https://ecommons.cornell.edu/entities/publication/1702f9ac-0d08-4e91-9584-8e1bdd5178d7 . Read the full article’s history of Efron and Morris’s early-1970s series and its exact 1975 paper citation; this supports the reader-facing history without relying on an abstract.
+- Dodge (2008), authorized index under `/workspace/statwiki-sources/dodge2008/`. There was no specific normal hierarchical shrinkage entry; no Dodge citation was added.
+- Read the complete current article, tutorial-class example, rat-tumour question and answered shrinkage/risk questions to preserve their meaning.
+
+## Fact status
+- **Checked:** conditional normal precision, posterior mean and variance against Deligiannidis §9.4; the page proof derives the formulas directly.
+- **Checked:** hyperparameter marginalization and shared learning across groups against Deligiannidis §§9.2–9.4; distinction between a fixed-hyperparameter conditional calculation and full Bayes is explicit.
+- **Checked:** the figure is from a binomial/beta rat-tumour hierarchy, not a normal likelihood; the article calls out this difference.
+- **Checked:** all new laboratory and Your turn arithmetic, preserved tutorial-class arithmetic, rat-tumour numerical updates, and the proposed bank mixture example in `checks/normal-hierarchical-shrinkage.py`.
+- **Assumed:** normal observations, known common within-group variance and exchangeable normal group means for the conditional theorem; example conclusions are contingent on these assumptions.
+- **Disputed or unresolved:** no mathematical contradiction found. Full Gelman book chapter and full original historical papers were not accessible in the authorized reader; new technical citations use the Oxford full text. The full hyperparameter marginal and retained beta-hierarchy example remain proof debt for this theorem page.
+
+## Preservation
+The original statement, algebraic weight forms, one collapsed proof, rat-tumour figure, tutorial-class worked example, rat-tumour example, infobox, supported citations and question backlinks remain. New prose explains the conditional theorem, distinguishes the figure's likelihood, and adds a separate numerical laboratory example and Your turn. The pending theorem-depth change requests one lead sentence while preserving its source marker.

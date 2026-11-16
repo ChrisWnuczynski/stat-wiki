@@ -266,5 +266,663 @@
   "akaike-information-criterion": [
     "ex-sl-06-2",
     "ex-sl-06-5"
+  ],
+  "autocorrelation-function": [
+    "c-45",
+    "c-49"
+  ],
+  "autoregression-and-moving-averages": [
+    "c-46",
+    "c-48"
+  ],
+  "burn-in": [
+    "q-25",
+    "q-43"
+  ],
+  "classification-accuracy": [
+    "ex-sl-12-6",
+    "depth-classification-prevalence"
+  ],
+  "interpreting-a-logistic-regression": [
+    "q-35",
+    "ex-sl-10-2"
+  ],
+  "irreducible-markov-chain": [
+    "ex-prob-markov-limit",
+    "ex-prob-markov-periodic"
+  ],
+  "jacobian": [
+    "ex-applied-logitnormal-prior",
+    "ex-sl-07-4"
+  ],
+  "linear-separators-and-the-margin": [
+    "ex-sl-17-1",
+    "ex-sl-17-3"
+  ],
+  "markov-chain": [
+    "q-05",
+    "c-15"
+  ],
+  "maximum-a-posteriori-estimate": [
+    "q-12",
+    "q-22"
+  ],
+  "null-and-alternative-hypotheses": [
+    "ex-inf-blood-pressure-region",
+    "ex-inf-serve-power"
+  ],
+  "odds-ratio": [
+    "ex-sl-10-2",
+    "q-35"
+  ],
+  "posterior-odds-factorisation": [
+    "q-11",
+    "q-44"
+  ],
+  "random-walk-and-independent-proposals": [
+    "c-14",
+    "ex-applied-gamma-mh"
+  ],
+  "transition-matrix": [
+    "ex-prob-markov-two-steps",
+    "ex-sp-doubly-stochastic",
+    "ex-sp-closed-classes"
+  ],
+  "bayes-classifier": [
+    "ex-sl-08-1",
+    "ex-sl-08-2",
+    "ex-sl-11-4"
+  ],
+  "bernoulli-distribution": [
+    "ex-sp-bernoulli-pairs",
+    "ex-sp-proportion-bound"
+  ],
+  "beta-distribution": [
+    "q-17",
+    "q-44",
+    "ex-geom-beta"
+  ],
+  "iris-data": [
+    "ex-sl-03-7",
+    "ex-sl-08-7",
+    "ex-ur-held-out-label"
+  ],
+  "kernel": [
+    "ex-sl-17-7",
+    "ex-sl-17-10"
+  ],
+  "law-of-large-numbers": [
+    "ex-inf-poisson-mle",
+    "ex-norm-mean"
+  ],
+  "likelihood-ratio-test": [
+    "ex-inf-glrt-two-means",
+    "ex-inf-pearson-one-cell",
+    "q-47"
+  ],
+  "linear-discriminant-analysis": [
+    "ex-sl-08-3",
+    "ex-sl-08-7",
+    "ex-sl-18-7"
+  ],
+  "modes-of-convergence": [
+    "ex-sp-l2-markov",
+    "ex-sp-borel-cantelli"
+  ],
+  "p-value": [
+    "ex-da-brexit-poll",
+    "ex-da-possums",
+    "q-37"
+  ],
+  "precision": [
+    "ex-norm-mean",
+    "q-07"
+  ],
+  "sample-space": [
+    "ex-prob-three-cards",
+    "ex-prob-dice-sum-pmf"
+  ],
+  "treatment": [
+    "ex-da-devil-tumours",
+    "ex-da-blood-pressure-covariates"
+  ],
+  "uniform-distribution": [
+    "ex-prob-generate-uniform",
+    "ex-prob-min-and-mean",
+    "ex-prob-name-the-laws"
+  ],
+  "validation-set": [
+    "ex-sl-09-7",
+    "ex-sl-11-7",
+    "ex-sl-16-7"
+  ],
+  "binary-logistic-regression": [
+    "ex-sl-10-7",
+    "ex-sl-18-6"
+  ],
+  "bootstrap": [
+    "ex-ur-bootstrap-unit",
+    "ex-sl-09-3",
+    "ex-sl-12-6"
+  ],
+  "critical-region": [
+    "ex-inf-np-critical",
+    "ex-inf-serve-power",
+    "ex-inf-ump-two-sided"
+  ],
+  "flat-prior": [
+    "ex-improper-normal",
+    "ex-applied-geometric",
+    "q-11"
+  ],
+  "homogeneous-poisson-process": [
+    "ex-sp-poisson-half-hour",
+    "ex-sp-increments-and-levels"
+  ],
+  "mean-squared-error": [
+    "ex-inf-poisson-mle",
+    "ex-applied-mmse"
+  ],
+  "metropolis-hastings-update": [
+    "c-14",
+    "q-19",
+    "ex-gibbs-mh"
+  ],
+  "ordinary-least-squares": [
+    "ex-inf-normal-equations",
+    "ex-inf-line-through-origin",
+    "ex-inf-advertising-r2"
+  ],
+  "prior-odds": [
+    "ex-sl-06-1",
+    "q-21",
+    "q-44"
+  ],
+  "quasi-poisson": [
+    "q-47",
+    "ex-fish-poisson"
+  ],
+  "quasi-score-and-quasi-likelihood": [
+    "q-54",
+    "c-28"
+  ],
+  "ridge-regression": [
+    "ex-sl-18-2",
+    "ex-sl-18-5"
+  ],
+  "state-space": [
+    "c-12",
+    "ex-sp-same-marginals",
+    "ex-sp-increments-and-levels"
+  ],
+  "stationarity-and-detailed-balance": [
+    "ex-sp-birth-death-pi",
+    "ex-prob-markov-periodic"
+  ],
+  "stationary-distribution": [
+    "ex-sp-deterministic-cycle",
+    "ex-sp-path-graph",
+    "ex-sp-closed-classes"
+  ],
+  "bayesian-information-criterion": [
+    "ex-sl-06-2",
+    "ex-sl-06-5",
+    "ex-sl-06-7"
+  ],
+  "binomial-distribution": [
+    "ex-prob-five-evens-replace",
+    "ex-inf-sign-test-one-sided",
+    "ex-prob-clt-binomial-tail"
+  ],
+  "canonical-link": [
+    "c-04",
+    "q-35",
+    "q-54"
+  ],
+  "complete-statistic": [
+    "ex-inf-poisson-umvu",
+    "exr-completeness-binomial",
+    "exr-completeness-restricted"
+  ],
+  "credible-region-constructions": [
+    "ex-applied-iq",
+    "ex-lognormal-var",
+    "exr-credible-discrete-hpd"
+  ],
+  "exponential-distribution": [
+    "ex-prob-generate-exp",
+    "ex-inf-exponential-mle",
+    "q-29"
+  ],
+  "fisher-information": [
+    "ex-inf-poisson-information",
+    "q-33",
+    "c-18"
+  ],
+  "gaussian-kernel": [
+    "ex-sl-07-3",
+    "ex-sl-07-4",
+    "ex-sl-17-5"
+  ],
+  "least-squares": [
+    "ex-inf-normal-equations",
+    "ex-inf-line-through-origin",
+    "ex-sl-18-2"
+  ],
+  "measurable-random-variable": [
+    "exr-measurable-coarse-space",
+    "exr-measurable-square",
+    "ex-sp-right-continuous"
+  ],
+  "nearest-neighbours": [
+    "ex-sl-11-2",
+    "ex-sl-11-4",
+    "ex-sl-11-7"
+  ],
+  "normal-hierarchical-shrinkage": [
+    "ex-inf-shrunk-mean",
+    "q-53",
+    "exr-normal-hierarchy-hyperuncertainty"
+  ],
+  "pearson-statistic": [
+    "ex-inf-pearson-one-cell",
+    "ex-inf-degrees-of-freedom",
+    "ex-inf-two-by-two"
+  ],
+  "prior-and-posterior-predictive-distributions": [
+    "q-24",
+    "ex-norm-mean"
+  ],
+  "sample-quantile": [
+    "ex-inf-milk-summaries",
+    "exr-sample-quantile-type7",
+    "exr-sample-quantile-ties"
+  ],
+  "artificial-neuron": [
+    "ex-sl-14-3",
+    "ex-sl-14-5"
+  ],
+  "continuous-distribution": [
+    "ex-prob-random-radius",
+    "ex-prob-component-five-years",
+    "ex-prob-shifted-exp-generate"
+  ],
+  "dirichlet-distribution": [
+    "depth-dirichlet-marginal",
+    "depth-dirichlet-prediction"
+  ],
+  "exchangeability": [
+    "depth-exchangeability-01",
+    "depth-exchangeability-mixture"
+  ],
+  "fixed-and-random-effects": [
+    "q-39",
+    "c-35"
+  ],
+  "identifiability": [
+    "depth-identifiability-01",
+    "depth-identifiability-02"
+  ],
+  "inverse-link": [
+    "q-38",
+    "q-57"
+  ],
+  "kernel-density-estimator": [
+    "ex-sl-07-5",
+    "ex-sl-07-6"
+  ],
+  "natural-parameter": [
+    "c-17",
+    "q-32"
+  ],
+  "one-way-analysis-of-variance": [
+    "ex-da-sickle-anova",
+    "ex-da-bonferroni"
+  ],
+  "overdispersion": [
+    "q-47",
+    "q-54"
+  ],
+  "random-intercept-model": [
+    "q-40",
+    "q-41",
+    "ex-orthodont-lmm"
+  ],
+  "support-vectors-and-their-multipliers": [
+    "ex-sl-17-2",
+    "ex-sl-17-6"
+  ],
+  "three-components-of-a-glm": [
+    "q-45",
+    "q-54"
+  ],
+  "working-correlation": [
+    "ex-ur-exchangeable-bound",
+    "c-40"
+  ],
+  "activation-function": [
+    "ex-sl-14-6",
+    "ex-sl-15-7"
+  ],
+  "effective-degrees-of-freedom": [
+    "ex-fish-poisson",
+    "ex-cholesterol-gam"
+  ],
+  "em-algorithm": [
+    "ex-sl-05-2",
+    "ex-sl-05-3",
+    "ex-sl-05-4"
+  ],
+  "histogram": [
+    "depth-histogram-1",
+    "depth-histogram-2"
+  ],
+  "improper-prior": [
+    "ex-improper-normal",
+    "depth-improper-boundary"
+  ],
+  "lasso": [
+    "ex-sl-18-5",
+    "ex-sl-18-6",
+    "ex-sl-18-9"
+  ],
+  "linear-mixed-model": [
+    "c-34",
+    "ex-orthodont-lmm"
+  ],
+  "negative-binomial-distribution": [
+    "c-22",
+    "q-57"
+  ],
+  "outlier": [
+    "exr-outlier-fence-diagnosis",
+    "exr-outlier-small-sample-z"
+  ],
+  "overfitting": [
+    "ex-sl-09-6",
+    "ex-sl-09-7",
+    "ex-sl-16-7"
+  ],
+  "poisson-distribution": [
+    "ex-sp-poisson-half-hour",
+    "ex-inf-poisson-information"
+  ],
+  "precision-matrix": [
+    "ex-sl-19-2",
+    "ex-sl-19-8"
+  ],
+  "variance-function": [
+    "q-55",
+    "c-41"
+  ],
+  "xor-problem": [
+    "ex-sl-14-5",
+    "ex-sl-17-10"
+  ],
+  "zero-one-loss-and-risk": [
+    "ex-sl-08-1",
+    "ex-sl-12-1",
+    "ex-sl-12-2"
+  ],
+  "aperiodic-markov-chain": [
+    "ex-prob-markov-limit",
+    "ex-prob-markov-two-state"
+  ],
+  "apparent-error": [
+    "ex-sl-11-5",
+    "ex-sl-12-7"
+  ],
+  "beta-binomial-conjugacy": [
+    "ex-ur-posterior-mean",
+    "q-23"
+  ],
+  "chi-squared-distribution": [
+    "ex-inf-die-fairness",
+    "ex-inf-degrees-of-freedom"
+  ],
+  "cross-entropy": [
+    "ex-sl-12-1",
+    "ex-sl-16-2"
+  ],
+  "gradient-descent": [
+    "ex-sl-15-4",
+    "ex-sl-15-7"
+  ],
+  "hard-margin-support-vector-machine": [
+    "ex-sl-17-2",
+    "ex-sl-17-9"
+  ],
+  "interpretation-and-the-decision-boundary": [
+    "ex-sl-10-7",
+    "ex-sl-08-3"
+  ],
+  "lognormal-distribution": [
+    "q-28",
+    "q-45"
+  ],
+  "normal-linear-model": [
+    "ex-inf-extra-ss",
+    "ex-inf-prediction-width"
+  ],
+  "pooled-covariance": [
+    "ex-sl-02-2",
+    "ex-sl-18-7"
+  ],
+  "repeated-measures": [
+    "ex-orthodont-lmm",
+    "ex-toenail-glmm"
+  ],
+  "sandwich-estimator": [
+    "c-40",
+    "depth-sandwich-cluster-calculation"
+  ],
+  "squared-mahalanobis-distance": [
+    "ex-sl-01-4",
+    "ex-applied-bvn-rwmh"
+  ],
+  "type-i-and-type-ii-errors": [
+    "ex-inf-serve-power",
+    "ex-inf-np-critical"
+  ],
+  "choosing-the-bandwidth": [
+    "ex-sl-07-3",
+    "ex-sl-07-4",
+    "ex-sl-07-6"
+  ],
+  "contrast": [
+    "ex-inf-contrast-cell",
+    "ex-inf-anova-two-groups"
+  ],
+  "family-wise-error-rate": [
+    "ex-sl-18-3",
+    "ex-inf-tukey-corn"
+  ],
+  "finite-state-markov-chain": [
+    "ex-prob-markov-limit",
+    "ex-prob-markov-periodic"
+  ],
+  "main-effect": [
+    "ex-inf-contrast-cell",
+    "ex-inf-interaction-ss"
+  ],
+  "marginal-model": [
+    "depth-marginal-risk-contrast",
+    "depth-marginal-bernoulli-bound",
+    "depth-marginal-working-covariance"
+  ],
+  "markov-property": [
+    "c-12",
+    "ex-prob-markov-two-steps"
+  ],
+  "node-impurity": [
+    "ex-sl-12-2",
+    "ex-sl-12-5"
+  ],
+  "probability-measure": [
+    "ex-prob-three-toss-weights",
+    "ex-prob-intersection-bound"
+  ],
+  "pseudo-counts-and-sequential-updating": [
+    "ex-ur-posterior-mean",
+    "ex-geom-beta"
+  ],
+  "sample-correlation-coefficient": [
+    "ex-inf-advertising-r2",
+    "ex-sl-02-7"
+  ],
+  "saturated-model": [
+    "q-34",
+    "c-29"
+  ],
+  "scatterplot": [
+    "ex-da-correlation-reading",
+    "depth-scatterplot-curve",
+    "depth-scatterplot-overplotting"
+  ],
+  "score-function": [
+    "q-33",
+    "q-56"
+  ],
+  "stationarity-of-a-time-series": [
+    "ex-sp-increments-and-levels",
+    "ex-sp-same-marginals",
+    "depth-stationarity-changing-laws"
+  ],
+  "blinding-and-placebo": [
+    "ex-da-devil-tumours",
+    "depth-blinding-risk-difference",
+    "depth-blinding-design-roles"
+  ],
+  "chebyshev-s-inequality": [
+    "ex-sp-proportion-bound",
+    "depth-chebyshev-sample-size"
+  ],
+  "decision-tree": [
+    "ex-sl-12-2",
+    "ex-sl-12-3",
+    "ex-sl-12-7"
+  ],
+  "hierarchical-bayesian-model": [
+    "depth-hierarchy-normal-weight",
+    "depth-hierarchy-shared-rate"
+  ],
+  "knot": [
+    "c-31",
+    "c-32",
+    "q-36"
+  ],
+  "likelihood-and-reference-prior": [
+    "depth-reference-prior-propriety",
+    "depth-reference-prior-update"
+  ],
+  "moment-generating-function": [
+    "depth-mgf-bernoulli-sum",
+    "depth-mgf-domain"
+  ],
+  "point-forecast": [
+    "depth-point-forecast-ar-two-step",
+    "depth-point-forecast-loss"
+  ],
+  "posterior-median": [
+    "depth-posterior-median-discrete",
+    "depth-posterior-median-transform"
+  ],
+  "probit-link": [
+    "q-38",
+    "c-20",
+    "depth-probit-dose"
+  ],
+  "residual-deviance": [
+    "ex-sl-10-6",
+    "q-34",
+    "ex-fish-poisson"
+  ],
+  "transient-and-recurrent-states": [
+    "ex-sp-closed-classes",
+    "depth-return-vs-selfloop"
+  ],
+  "underdispersion": [
+    "c-28",
+    "depth-underdispersion-binomial",
+    "depth-underdispersion-conditional"
+  ],
+  "weak-stationarity": [
+    "c-43",
+    "depth-weak-stationarity-ar",
+    "depth-weak-not-strict"
+  ],
+  "within-cluster-scatter": [
+    "ex-sl-04-1",
+    "ex-sl-04-6"
+  ],
+  "binary-responses-in-a-glm": [
+    "depth-binary-glm-likelihood",
+    "depth-binary-glm-variance",
+    "depth-binary-glm-link"
+  ],
+  "cholesterol-and-heart-disease": [
+    "q-35",
+    "depth-chol-prediction",
+    "depth-chol-interpretation"
+  ],
+  "complementary-log-log-link": [
+    "depth-cloglog-probability",
+    "depth-cloglog-interpretation",
+    "depth-cloglog-reversal"
+  ],
+  "complete-pooling-no-pooling-and-partial-pooling": [
+    "c-09",
+    "q-23",
+    "ex-pois-hier"
+  ],
+  "e-step": [
+    "depth-e-argument",
+    "depth-e-equal-density",
+    "depth-e-numeric"
+  ],
+  "ensemble-method": [
+    "depth-ensemble-correlation",
+    "depth-ensemble-vote",
+    "depth-ensemble-mechanism"
+  ],
+  "generalised-estimating-equations": [
+    "c-38",
+    "c-39",
+    "c-40"
+  ],
+  "jensen-s-inequality": [
+    "depth-jensen-square-log",
+    "depth-jensen-equality",
+    "depth-jensen-domain"
+  ],
+  "m-step": [
+    "depth-m-fixed",
+    "depth-m-vanished",
+    "depth-m-numeric"
+  ],
+  "normal-inverse-gamma-conjugacy": [
+    "ex-norm-nig",
+    "ex-norm-both"
+  ],
+  "posterior-summaries-from-draws": [
+    "ex-ur-posterior-mean",
+    "q-42"
+  ],
+  "regularisation-and-weight-decay": [
+    "depth-weight-update",
+    "depth-weight-scale",
+    "depth-weight-adam"
+  ],
+  "survival-function": [
+    "ex-prob-hazard-survival",
+    "ex-prob-series-parallel"
+  ],
+  "transformation-rule": [
+    "ex-prob-square-uniform",
+    "ex-prob-affine-exponential"
+  ],
+  "warm-up-is-not-a-convergence-proof": [
+    "q-25",
+    "ex-gibbs-mh"
   ]
 }

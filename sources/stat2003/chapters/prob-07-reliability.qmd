@@ -137,7 +137,7 @@ The 2-out-of-3 system lives on average *less* long than a single component, even
 ::: {#def-survival .definition}
 ## Survival function
 
-The survival function of a lifetime $T$ with distribution function $F$ is $R(t)=\Pr(T>t)=1-F(t)$ for $t\ge 0$.{{cite:barlow_proschan1975}}{{cite:kaplan_meier1958}}{{cite:cox1972}}
+The survival function of a lifetime $T$ with distribution function $F$ is $R(t)=\Pr(T>t)=1-F(t)$ for $t\ge 0$.{{cite:nist_reliability2002}} (§8.1.2.2){{cite:kaplan_meier1958}} (pp. 457–458, introduction){{cite:cox1972}} (§1, pp. 187–188, continuous lifetimes)
 
 :::
 

@@ -75,15 +75,15 @@ Consider a table of patient attributes such as age, blood pressure, chest-pain c
 
 Separate sigmoid outputs, one per class, need not sum to $1$. They are scores. A probability model for a single class label needs a distribution. For $v$ classes, the simplest coding still uses $v$ output units: for each pattern, output $k$ is $1$ if the pattern is in class $k$ and $0$ otherwise. This treats each class equally. On test data, and often on training data, every output lies in $(0,1)$. The usual prediction is the class of the largest output.
 
-When the outputs are meant to be class probabilities, they have to add to one. The softmax of {{cite:bridle1990}} exponentiates and then normalises:
+When the outputs are meant to be class probabilities, they have to add to one. The softmax transform{{cite:goodfellow_bengio_courville2016}} (Ch. 6, §6.2.2) exponentiates and then normalises:
 
 $$
 s_k=\frac{e^{z_k}}{\sum_{l=1}^{m} e^{z_l}},\qquad k=1,\ldots,m.
 $$
 
-Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label{{cite:shannon1948}}{{cite:hastie_esl2009}}. Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
+Here $z_k$ is the output of the last linear stage, often called a logit. Cross-entropy is the negative log-likelihood for the observed categorical label{{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130). Squared error is also a possible probability-scoring loss. Cross-entropy has a particularly convenient derivative with softmax: a confidently wrong output produces a substantial gradient with respect to its logits. This is a statement about the output layer, not a guarantee against vanishing gradients throughout the network.
 
-Let the target be a one-hot vector $y$, with $y_k=1$ for the true class $c$, and let the loss be{{cite:bridle1990}}{{cite:shannon1948}}{{cite:hastie_esl2009}}:
+Let the target be a one-hot vector $y$, with $y_k=1$ for the true class $c$, and let the loss be{{cite:goodfellow_bengio_courville2016}} (Ch. 5, §5.5, p. 130):
 
 $$
 E=-\sum_{k=1}^{m} y_k\ln s_k=-\ln s_c.
@@ -139,7 +139,7 @@ To construct a neural network: choose a network topology; determine the number o
 
 Minimising the error on the training set is a strategy for obtaining good performance on new data. It does not always work, for two reasons that show up as different shapes of the training loss.
 
-**Overfitting.** The model is a very good fit to the training data. It may have modelled some useful structure and has also modelled many irrelevant aspects{{cite:hastie_esl2009}}{{cite:bishop2006}}{{cite:lecun1998}}. This is common with overly complex models.
+**Overfitting.** The model is a very good fit to the training data. It may have modelled some useful structure and has also modelled many irrelevant aspects{{cite:james_islr2013}} (Ch. 2, §2.2.2, flexibility and test error). This is common with overly complex models.
 
 **Underfitting.** The model is not a good fit to the training data{{cite:hastie_esl2009}}{{cite:bishop2006}}{{cite:lecun1998}}. The size of $E$ is a good indication. The model may be too simple, there may not be enough data, or the data may be so noisy that the output can never be predicted very accurately.
 
@@ -163,14 +163,14 @@ This is the same discipline as nested cross-validation. Anything chosen by looki
 
 A weight penalty changes the objective itself. With $L^2$ regularisation, large squared weights cost more, as in ridge regression for linear coefficients. The penalty favours small values in the chosen parameterisation: rescaling an input and compensating in its weight can preserve predictions while changing the penalty. Under ordinary gradient descent, the derivative of a squared-weight penalty produces a multiplicative shrinkage in each update. With an adaptive optimiser such as Adam, the gradient is rescaled coordinate by coordinate, so the same penalty is generally different from a separate weight-decay step.{{cite:krogh_hertz1992}} (§1, eqs. 1–2, p. 951){{cite:loshchilov_hutter2019}} (§2, Proposition 1 and eq. 1)
 
-$L^2$ regularisation, also called weight decay, ridge regression{{cite:hoerl_kennard1970}}, or Tikhonov regularisation, adds a penalty proportional to the sum of squares of the weights{{cite:krogh_hertz1992}}{{cite:bishop2006}}. Optimise $E+\lambda\lVert w\rVert^2$ with $\lambda>0$ chosen by the user. After rescaling the tuning parameter, write the penalty as $E+\tfrac{\lambda}{2}\lVert w\rVert^2$. The gradient step becomes
+$L^2$ regularisation, called ridge regression for linear coefficients and weight decay in neural networks, is a form of Tikhonov regularisation.{{cite:goodfellow_bengio_courville2016}} (Ch. 7, §7.1.1, pp. 226–230) It adds a penalty proportional to the sum of squares of the weights.{{cite:krogh_hertz1992}} (§1, p. 951, eqs. 1–2) Optimise $E+\lambda\lVert w\rVert^2$ with $\lambda>0$ chosen by the user. After rescaling the tuning parameter, write the penalty as $E+\tfrac{\lambda}{2}\lVert w\rVert^2$. The gradient step becomes
 
 $$
 w\leftarrow w-\varepsilon\Bigl(\frac{\partial E}{\partial w}+\lambda w\Bigr)
 =(1-\varepsilon\lambda)\,w-\varepsilon\frac{\partial E}{\partial w}.
 $$
 
-When $0\le\varepsilon\lambda\le 1$, the factor $1-\varepsilon\lambda$ shrinks a weight towards zero without reversing its sign{{cite:krogh_hertz1992}}{{cite:hastie_esl2009}}. With no data-gradient term, $t$ steps multiply it by $(1-\varepsilon\lambda)^t$. For $\varepsilon=0.1$, $\lambda=0.5$ and $t=10$, this factor is $0.95^{10}\approx 0.599$. A step size is part of the statement: an excessive value can cause oscillation or divergence even in this simple recurrence. The penalty encourages small weights. It does not have the lasso's thresholding mechanism. That mechanism is derived on [high-dimensional analysis](sl-18-high-dimensional.qmd).
+When $0\le\varepsilon\lambda\le 1$, the factor $1-\varepsilon\lambda$ shrinks a weight towards zero without reversing its sign.{{cite:krogh_hertz1992}} (§1, p. 951, eqs. 1–2){{cite:goodfellow_bengio_courville2016}} (Ch. 7, §7.1.1, pp. 226–230) With no data-gradient term, $t$ steps multiply it by $(1-\varepsilon\lambda)^t$. For $\varepsilon=0.1$, $\lambda=0.5$ and $t=10$, this factor is $0.95^{10}\approx 0.599$. A step size is part of the statement: an excessive value can cause oscillation or divergence even in this simple recurrence. The penalty encourages small weights. It does not have the lasso's thresholding mechanism. That mechanism is derived on [high-dimensional analysis](sl-18-high-dimensional.qmd).
 
 $L^1$ regularisation uses $E+\lambda\sum|w|$. The derivative at zero is replaced by a subgradient or a proximal update. Such algorithms can produce exact zeros. The non-differentiability changes the optimisation method. It does not make the penalty unusable.
 

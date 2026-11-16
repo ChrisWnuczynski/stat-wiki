@@ -93,7 +93,7 @@ $$
 =\frac1n\sum_{i=1}^n Q\bigl(y_i,\eta_{(X,y)}(x_i)\bigr),
 $$
 
-where $\eta_{(X,y)}$ is the classifier fitted to the whole observed sample $(X,y)=\{(x_i,y_i)\}_{i=1}^n${{cite:efron1983}}{{cite:hastie_esl2009}}.
+where $\eta_{(X,y)}$ is the classifier fitted to the whole observed sample $(X,y)=\{(x_i,y_i)\}_{i=1}^n${{cite:james_islr2013}} (Ch. 2, §2.2.3, pp. 38–43, training error).
 
 :::
 
@@ -103,7 +103,7 @@ $$
 \E(\mathrm{err}-\mathrm{Err}).
 $$
 
-The same pairs $(x_i,y_i)$ enter the fitted rule and the average that scores it, so the summands are not draws from the conditional law of $Q(Y,\eta(X))$ given that rule. The dependence pulls the average down. The apparent error describes the fit to the training cases, and it is usually optimistic as an estimate of future error{{cite:efron1983}}{{cite:stone1974}}. Optimism is a repeated-sampling tendency. It is not a promise that every observed training error sits below every test error.
+The same pairs $(x_i,y_i)$ enter the fitted rule and the average that scores it, so the summands are not draws from the conditional law of $Q(Y,\eta(X))$ given that rule. That dependence often pulls the average down. The apparent error describes the fit to the training cases, and it is usually optimistic as an estimate of future error{{cite:james_islr2013}} (Ch. 2, §2.2.3, pp. 38–43, training versus test error). Optimism is a repeated-sampling tendency. It is not a promise that every observed training error sits below every test error.
 
 The bias is exact for one neighbour. Suppose the inputs $x_i$ are distinct and $\eta$ is $1$-nearest neighbour. The nearest training point to $x_i$ is $x_i$ itself, so the rule returns $y_i$, the loss $Q(y_i,\eta(x_i))$ is $0$, and $\mathrm{err}=0$ on every sample. Then
 
@@ -264,7 +264,7 @@ The same pattern appears when $k$ for nearest neighbours is chosen on one sample
 
 ## The bootstrap
 
-A holdout and a cross-validation fold both train on a subset and test on the complement. The bootstrap builds the training set differently{{cite:efron1981}}{{cite:efron1983}}. A non-parametric bootstrap sample of size $n$ is drawn with replacement from the observed $n$ cases, that is, from the empirical distribution{{cite:efron1979}}. Some observations are missing from the draw and others appear more than once.
+A holdout and a cross-validation fold both train on a subset and test on the complement. The bootstrap builds the training set differently{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.2–24.3, pp. 390–393). A non-parametric bootstrap sample of size $n$ is drawn with replacement from the observed $n$ cases, that is, from the empirical distribution{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.2–24.3, pp. 390–393). Some observations are missing from the draw and others appear more than once.
 
 The probability that a given observation enters a bootstrap sample is one minus the probability that it is left out of all $n$ draws,
 
@@ -302,7 +302,7 @@ $$
 Q\bigl(y_i,\eta_b(x_i)\bigr).
 $$
 
-Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, the trained rules are weaker than a rule trained on all $n$ distinct cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:efron1983}}.
+Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, the trained rules are weaker than a rule trained on all $n$ distinct cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:simon_aliferis2024_evaluation}} (§9.4, “The 0.632 and the 0.632+ bootstrap”).
 
 The $.632$ estimator pulls that upward bias back toward the apparent error, with weights taken from the limiting inclusion probability and its complement:
 
@@ -311,7 +311,7 @@ $$
 =0.368\,\mathrm{err}+0.632\,\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}.
 $$
 
-{{cite:efron1983}}{{cite:hastie_esl2009}}
+{{cite:simon_aliferis2024_evaluation}} (§9.4, “The 0.632 and the 0.632+ bootstrap”)
 :::
 
 The weight $0.632$ is the limiting probability that a case is inside the bootstrap sample, and $0.368=1-0.632$ is the limiting probability that it is left out. The formula combines the optimistic apparent error with the pessimistic out-of-bag bootstrap error. It is a correction with assumptions, not an identity that recovers the unknown generalisation error. Severe overfitting can still make it optimistic. Compare it with a resampling design suited to the full fitting procedure, rather than treating the numerical weights as a guarantee.

@@ -287,7 +287,7 @@ Observations $Y_1,\ldots,Y_n$ follow a generalised linear model when all three o
 The three choices are separate, and all three are yours. You choose the distribution. You choose which covariates go into $\vect{x}_i$, and whether to transform them first: log dose is still just a column of $\mat{X}$. You choose the link. Nothing forces the link that is "canonical" for the distribution you chose.
 
 ::: {#def-canonical .definition}
-The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+The link $g$ is *canonical* when the linear predictor is the natural parameter of the family: $g(\mu_i)=b(\theta_i)$, in the notation of @eq-expfam.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373){{cite:zhou2020_glm}} (§ Link function, canonical links)
 :::
 
 For the families above, the canonical links are
@@ -299,7 +299,7 @@ For the families above, the canonical links are
 
 If you call `glm` in R and name the family but not the link, you get the canonical link. That is a software default, not a scientific one. The canonical link for the gamma is the inverse link. The link used most often here for a positive continuous response is still the log link, because a slope is then a multiplicative change in the mean, and that is a sentence one can say to a collaborator. Canonical links are the natural mathematical choice. They are not always the appropriate one. You override the default by stating the link yourself.
 
-The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{x}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}} Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:davison2003}} Writing those two out is not a new model. It is the definition, specialised.
+The normal linear model is the GLM with identity link and normal random component: $\mu_i=\vect{x}_i^\top\boldsymbol{\beta}$ and $\mathrm{Var}(Y_i)=\sigma^2$.{{cite:zhou2020_glm}} (§ Exponential family distribution, normal example; § Link function) Logistic regression is the GLM with Bernoulli random component and the logit link @eq-logit.{{cite:zhou2020_glm}} (§ Exponential family distribution, Bernoulli example; § Link function) Writing those two out is not a new model. It is the definition, specialised.
 
 ::: {.callout-note}
 ## Key idea
@@ -320,25 +320,25 @@ The same skeleton covers the usual applied questions: whether a firm has an indu
 
 The logistic link is @eq-logit. It is the link we will interpret, and it is the canonical link.
 
-The probit link replaces the logistic curve by a standard normal distribution function.{{cite:bliss1935}}{{cite:berkson1944}}{{cite:mccullagh_nelder1989}} If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
+The probit link replaces the logistic curve by a standard normal distribution function.{{cite:mccullagh1980}} (§4.1, pp. 115–116, link comparisons){{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380, binomial links) If $\Phi$ is the cumulative distribution function of $\mathrm{N}(0,1)$,
 $$
 \Phi^{-1}(p_i)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
 p_i=\Phi(\vect{X}_i^\top\boldsymbol{\beta}).
 $$
-Read it as a quantile. Compute $\vect{X}_i^\top\boldsymbol{\beta}$, find that point on the standard normal axis, and take the probability to its left. That left-tail probability is $p_i$. Any other continuous distribution function would give a link of the same type. The normal is the default.
+Read it as a quantile. Compute $\vect{X}_i^\top\boldsymbol{\beta}$, find that point on the standard normal axis, and take the probability to its left. That left-tail probability is $p_i$. Any other continuous distribution function would give a link of the same type. The normal is the default. This choice also gives a latent standard-normal threshold interpretation of a binary response.
 
-The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh_nelder1989}}{{cite:davison2003}} It is a binomial link.{{cite:wood2017}} Its equation is
+The complementary log-log link is not symmetric in the two tails.{{cite:mccullagh1980}} (§4.2, p. 116) It is a binomial link.{{cite:mccullagh1980}} (§§3.1, 4.1–4.2, pp. 113–116) Its equation is
 $$
 \log\bigl(-\log(1-p_i)\bigr)=\vect{X}_i^\top\boldsymbol{\beta}
 \qquad\text{equivalently}\qquad
 p_i=1-\exp\bigl\{-\exp(\vect{X}_i^\top\boldsymbol{\beta})\bigr\}.
 $$ {#eq-cloglog}
-The exercise asks you to check that the right-hand side lies in $(0,1)$ for every real linear predictor. This link is the one that does not treat the two tails symmetrically. Logit and probit both approach $0$ and $1$ in the same fashion, one a mirror of the other. Complementary log-log can stay near zero for longer and then rise more sharply towards one, or the reverse, depending on the sign of the slope. Use it when that asymmetry is the scientific point. Do not use it because you want a sentence about odds. The coefficient is a log-hazard, an instantaneous risk, and a hazard is much harder to explain to a medical collaborator than an odds ratio.
+The exercise asks you to check that the right-hand side lies in $(0,1)$ for every real linear predictor. This link is the one that does not treat the two tails symmetrically. Logit and probit both approach $0$ and $1$ in the same fashion, one a mirror of the other. Complementary log-log can stay near zero for longer and then rise more sharply towards one, or the reverse, depending on the sign of the slope. Use it when that asymmetry is the scientific point. Do not use it because you want a sentence about odds. The coefficient is a log multiplier of $H=-\log(1-p)$, the negative log of the no-event probability. In grouped event-time data derived from a proportional-hazards model, $H$ is an interval cumulative hazard and $e^{\beta}$ also has a hazard-ratio interpretation under that additional survival model. An arbitrary binary response does not supply an instantaneous-hazard interpretation.{{cite:mccullagh1980}} (§3.1, pp. 113–114, eqs. 3.4–3.5)
 
 ![Three inverse links, each with slope one. The logit and the probit are symmetric about one half. Complementary log-log reaches one faster than it leaves zero.](../figures/links.pdf){#fig-links}
 
-In @fig-links the logit and the probit differ in the tails and agree through the middle. In a fitted model they almost always agree, close enough that the two curves will not separate. A probit essentially never has to be the link reported to an applied scientist. A log-odds can be explained. A computer scientist or an engineer will sometimes prefer the probit, because a normal quantile is already their language. When there is a choice, and the person across the table is not one of those, use the logit. Goodness of fit will not be the reason to switch.
+In @fig-links the logit and probit are close through the middle but differ in the tails. When observed probabilities stay near the middle, their fitted curves can be similar; sparse tail data or a different scientific mechanism can make the distinction matter. A logit coefficient has an odds-ratio interpretation, while a probit can express a latent normal threshold model. Choose a link with the scientific question and the range of observed data in mind, then check calibration and fit. Goodness of fit may favor one link for a particular dataset.
 
 ### Interpreting a logistic regression
 
@@ -377,7 +377,7 @@ The sex coefficient $-0.1094$ says that, at the same cholesterol, males have log
 $$
 \exp(-0.1094)=0.90
 $$
-times the odds for a female at that same cholesterol. About $10\%$ lower. This is the opposite of the crude comparison, and the resolution is the phrase "at the same cholesterol." Male patients in this kind of study tend to arrive with higher cholesterol. A woman whose cholesterol is $6.5$ is further into the upper tail of the female distribution than a man at $6.5$ is into his. Comparing them at a common cholesterol value is not the same statement as comparing men and women on average. A paper should not say that males are at lower risk. The sentence to write is that, conditionally on cholesterol, the sex coefficient is small. We will test it properly when we do inference. Ahead of that test, this particular coefficient does not survive it: once cholesterol is in the model, sex is the term expected to drop. The mechanism worth saying out loud is that sex, in this fit, is acting through cholesterol rather than as a separate shift in risk.
+times the odds for a female at that same cholesterol, about $10\%$ lower. This conditional comparison can differ from an unadjusted comparison because the sex groups may have different cholesterol distributions. The fitted equation and plot do not show those distributions, so they cannot establish the direction of a crude sex comparison or whether sex acts through cholesterol as a causal mechanism. The fitted coefficient describes a small conditional sex association after cholesterol enters the model; assessing its uncertainty requires the observations or reported standard errors. A report should state the conditional odds comparison without claiming a causal change in risk.{{cite:geyer2022_exp_family}} (§7.1, inverse logit and conditional odds)
 
 ## Maximum likelihood and Fisher scoring
 
@@ -388,7 +388,7 @@ For a single Bernoulli trial the likelihood contribution is $p^{y}(1-p)^{1-y}$, 
 \end{align*}
 where $p_i=\mu(\vect{X}_i^\top\boldsymbol{\beta})$ depends on $\boldsymbol{\beta}$ through whichever inverse link we chose. The binomial coefficient, if you are in fact looking at a binomial count rather than a single trial, does not depend on $\boldsymbol{\beta}$ and does not change the maximiser.
 
-Differentiate with respect to $\boldsymbol{\beta}$. The chain rule runs through $p_i$ and then through the linear predictor. Write $\mu'(\eta)$ for the derivative of the mean function with respect to $\eta=\vect{X}^\top\boldsymbol{\beta}$, so $\partial p_i/\partial\boldsymbol{\beta}=\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i$. Then the score is the derivative below.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}}
+Differentiate with respect to $\boldsymbol{\beta}$. The chain rule runs through $p_i$ and then through the linear predictor. Write $\mu'(\eta)$ for the derivative of the mean function with respect to $\eta=\vect{X}^\top\boldsymbol{\beta}$, so $\partial p_i/\partial\boldsymbol{\beta}=\mu'(\vect{X}_i^\top\boldsymbol{\beta})\,\vect{X}_i$. Then the score is the derivative below.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, generalized linear score)
 
 \begin{align*}
 \frac{\partial\ell}{\partial\boldsymbol{\beta}}
@@ -432,7 +432,7 @@ The update is one step of weighted least squares,
 $$
 \boldsymbol{\beta}^{(1)}=\boldsymbol{\beta}^{(0)}+\bigl(\mat{I}^{(0)}\bigr)^{-1}\vect{U}^{(0)}.
 $$ {#eq-fisher}
-Iterate until $\boldsymbol{\beta}$ stops moving. The matrix $\mat{I}$ is the expected negative Hessian of $\ell$, which is the Fisher information.{{cite:fisher1925_est}}{{cite:mccullagh_nelder1989}} The algorithm is Newton–Raphson with that expected second derivative in place of the observed one, and for that reason it is called Fisher scoring.{{cite:nelder_wedderburn1972}} It is the same algorithm for every exponential family we put in the random component. A model outside that class does not inherit it; you would write a separate optimiser.
+Iterate until $\boldsymbol{\beta}$ stops moving. The matrix $\mat{I}$ is the expected negative Hessian of $\ell$, which is the Fisher information.{{cite:nelder_wedderburn1972}} (§2.1, pp. 373–374) The algorithm is Newton–Raphson with that expected second derivative in place of the observed one, and for that reason it is called Fisher scoring.{{cite:nelder_wedderburn1972}} (§2.1, pp. 373–374) It is the same algorithm for every exponential family we put in the random component. A model outside that class does not inherit it; you would write a separate optimiser.
 
 For the binomial this rarely takes more than five or six iterations, and the start does not matter much. The cholesterol fit below takes four. A first reading does not require the iteration by hand; working a few steps by hand is still a reasonable exercise. Either way, the update is @eq-fisher, and a GLM fit is that update and not a closed form.
 

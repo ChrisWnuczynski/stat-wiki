@@ -21,7 +21,7 @@ where $w$ is the weight vector, $x$ the input vector, and $b$ the bias (called $
 ::: {#thm-sl-17-signed-distance .theorem}
 ## Signed distance
 
-For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm{{cite:burges1998}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}.
+For $w\neq 0$, the signed distance from a point $x$ to the hyperplane $\{x:w^\top x+b=0\}$ is $(w^\top x+b)/\lVert w\rVert$, where $\lVert\cdot\rVert$ is the Euclidean norm{{cite:burges1998}} (§3.1, pp. 128–131). In particular the distance between the parallel hyperplanes $w^\top x+b=-1$ and $w^\top x+b=1$ is $2/\lVert w\rVert${{cite:boser_guyon_vapnik1992}} (§2.1, pp. 144–146).
 
 :::
 
@@ -37,18 +37,20 @@ so $r=(w^\top x+b)/\lVert w\rVert$.
 
 Rescaling $(w,b)$ by a positive constant leaves the separating plane unchanged. It also rescales the numerator and denominator of the distance formula by the same factor. A functional score $w^\top x+b$ is not itself a geometric distance until the norm of $w$ has been accounted for.
 
-The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. For hard-margin separation, only the points on the margin determine the solution. Moving a point that is strictly beyond the margin, without crossing it, does not change the optimum.
+The sign tells which side of the plane contains the point, while the magnitude tells how far away it lies. Two separators can give the same label and different distances, so the distance is useful when comparing their margins.
+
+The margin $\rho$ of a separator is the distance between the closest points of the two classes, measured perpendicular to the separator. Those closest examples are the support vectors. The maximum-margin separator maximises $\rho${{cite:boser_guyon_vapnik1992}} (§2.1, pp. 144–146). For hard-margin separation, margin points with positive dual multipliers determine the separating plane. A degenerate margin point may have zero multiplier and need not affect the optimum. Moving a point strictly beyond the margin, without changing the active constraints, does not change that optimum.{{cite:burges1998}} (§3.2, pp. 127–131)
 
 ### Why maximise the margin?
 
 A large margin gives a training point some tolerance to perturbation along the normal before its classification changes. Learning theory also relates margins to the richness of a class of decision rules. A set is shattered if every binary labelling of it can be realised by the class. The VC dimension is the largest size of any shattered set. General position is not part of the definition. Affine half-spaces in $\mathbb{R}^p$ have VC dimension $p+1$. Some smaller degenerate configurations fail to be shattered, which is compatible with that maximum. The four XOR corners are one such configuration: half-spaces in the plane have VC dimension $3$, and those four points are not shattered.
 
-The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D${{cite:burges1998}}.
+The radius–margin bound uses a stronger requirement: each labelling of a set must be realisable with a prescribed geometric margin. State both the radius and the margin before applying it. The classical form uses full slab width $\rho$ and enclosing-ball diameter $D${{cite:burges1998}} (§3.4, pp. 134–136).
 
 ::: {#thm-sl-17-vapnik .theorem}
 ## Vapnik's radius–margin bound
 
-For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0${{cite:vapnik1998}}{{cite:burges1998}}{{cite:hastie_esl2009}}. The classical radius–margin bound is
+For points in a fixed ball of diameter $D$ in $\mathbb{R}^p$, let $h$ be the largest number that can be shattered by affine separators while every labelling has full geometric margin at least $\rho>0${{cite:burges1998}} (§3.4, pp. 134–136). The classical radius–margin bound is
 
 $$
 h\le\min\Bigl\{\Bigl\lceil\frac{D^2}{\rho^2}\Bigr\rceil,\, p\Bigr\}+1.
@@ -81,12 +83,12 @@ $$
 r=\frac{y_s(w^\top x_s+b)}{\lVert w\rVert}=\frac{1}{\lVert w\rVert},
 $$
 
-and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}.
+and the new margin is $\rho'=2r=2/\lVert w\rVert$ in terms of the rescaled $w$ and $b$, with constraints $y_i(w^\top x_i+b)\ge 1$. Maximising $2/\lVert w\rVert$ is equivalent to minimising $\lVert w\rVert^2${{cite:cortes_vapnik1995}} (§2.1, pp. 277–279){{cite:burges1998}} (§3.1, pp. 128–129).
 
 ::: {#def-sl-17-hard-margin .definition}
 ## Hard-margin primal
 
-Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to the constraints{{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}.
+Find $w$ and $b$ such that $\Phi(w)=\tfrac12 w^\top w$ is minimised subject to the constraints{{cite:cortes_vapnik1995}} (§2.1, pp. 277–279){{cite:burges1998}} (§3.1, pp. 128–129).
 
 $$
 y_i(w^\top x_i+b)\ge 1,\qquad i=1,\ldots,n.
@@ -136,9 +138,9 @@ $$
 
 :::
 
-This is again a quadratic programme, now in $\alpha${{cite:boser_guyon_vapnik1992}}{{cite:cortes_vapnik1995}}{{cite:hastie_esl2009}}. It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
+This is again a quadratic programme, now in $\alpha${{cite:cortes_vapnik1995}} (§2.1, pp. 278–279){{cite:burges1998}} (§3.1, pp. 129–130). It is concave, since the matrix $(y_i y_j x_i^\top x_j)$ is positive semi-definite.
 
-The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector{{cite:cortes_vapnik1995}}{{cite:vapnik1995}}, and
+The Karush–Kuhn–Tucker conditions include complementary slackness, $\alpha_i\bigl[y_i(w^\top x_i+b)-1\bigr]=0$ for every $i$. So either $\alpha_i=0$, or $y_i(w^\top x_i+b)=1$, that is, $x_i$ lies exactly on the margin. Each nonzero $\alpha_i$ therefore identifies a support vector{{cite:cortes_vapnik1995}} (§2.1, pp. 278–279){{cite:burges1998}} (§3.2, pp. 130–132), and
 
 $$
 w=\sum_i\alpha_i y_i x_i,
@@ -239,7 +241,7 @@ Complementary slackness gives three cases for a training point.
 | $0<\alpha_i<C$ | $y_i f(x_i)=1$: exactly on the margin, a free support vector | $\xi_i=0$ |
 | $\alpha_i=C$ | $y_i f(x_i)\le 1$: inside the margin or misclassified, a bound support vector | $\xi_i=1-y_i f(x_i)\ge 0$ |
 
-Only points on or inside the margin influence the fit{{cite:cortes_vapnik1995}}{{cite:burges1998}}{{cite:hastie_esl2009}}. On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
+Only points on or inside the margin influence the fit{{cite:burges1998}} (§§3.2 and 3.5, KKT conditions and soft margins). On one overlapping Gaussian sample, a linear fit at $C=0.03$ uses a wide slab and many support vectors, a fit at $C=1$ tightens the slab, and a fit at $C=100$ hugs the overlapping points. The rings in such a picture are the points with nonzero multipliers.
 
 ### The hinge loss
 
@@ -266,7 +268,7 @@ $$
 K(x_i,x_j)=\phi(x_i)^\top\phi(x_j).
 $$
 
-The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points{{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. The feature map is never computed.
+The kernel trick replaces inner products in the feature space by $K$ evaluated on the original points{{cite:scholkopf_smola2003_intro}} (§6.2, pp. 54–56, kernel trick). The feature map is never computed.
 
 :::
 
@@ -316,8 +318,8 @@ If $K_1$ and $K_2$ are kernels in this sense, so are $\alpha K_1+\beta K_2$ for 
 ### Common kernels
 
 - **Linear.** $K(x_i,x_j)=x_i^\top x_j$, with $\phi(x)=x$ itself.
-- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}${{cite:boser_guyon_vapnik1992}}{{cite:vapnik1995}}{{cite:hastie_esl2009}}. For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
-- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional{{cite:vapnik1995}}{{cite:scholkopf_smola2002}}{{cite:hastie_esl2009}}. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
+- **Polynomial of power $d$.** $K(x_i,x_j)=(1+x_i^\top x_j)^d$, with $\phi(x)$ of dimension $\binom{p+d}{d}${{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 80–81, polynomial covariance). For $p=2$ and $d=2$ that dimension is $\binom{4}{2}=6$, as in the expansion above. The higher-dimensional space still has intrinsic dimension $p$, because the map is not onto. Linear separators in it correspond to nonlinear separators in the original space.
+- **Gaussian, or radial basis function.** $K(x_i,x_j)=\exp\bigl(-\lVert x_i-x_j\rVert^2/(2\sigma^2)\bigr)$, with $\phi(x)$ infinite-dimensional.{{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 80–83). The scale parameter controls how rapidly similarity falls with distance; at zero separation the kernel equals one. Every point is mapped to a function, a Gaussian, and a combination of such functions for the support vectors is the separator. The Taylor expansion shows the infinite dimension:
 
 $$
 \begin{aligned}
@@ -328,7 +330,7 @@ e^{-\lVert x-x'\rVert^2/(2\sigma^2)}
 \end{aligned}
 $$
 
-This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]${{cite:scholkopf_smola2002}}{{cite:burges1998}}{{cite:hastie_esl2009}}. The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
+This is a positive combination of the polynomial kernels $(x^\top x')^n$ of every degree $n$, times $a(x)a(x')$, where $a(x)=\exp\bigl[-\lVert x\rVert^2/(2\sigma^2)\bigr]$.{{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, eq. 4.9, pp. 82–83). The paired product is a rank-one kernel. Either one-variable factor by itself is not a two-input kernel.
 
 ### The nonlinear programme
 

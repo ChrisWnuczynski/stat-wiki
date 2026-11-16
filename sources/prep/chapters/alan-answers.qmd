@@ -205,7 +205,7 @@ Y_{ji}\given \alpha_j
 \end{aligned}
 $$
 
-with visits conditionally independent given $\alpha_j$, patients independent of one another, and random intercepts independent of the assigned treatment. Equivalently, $p_{ji}$ is the expit of the linear predictor. The normal distribution is a model for a latent intercept on the log-odds scale. It is not a claim that a normal measurement was observed. The likelihood integrates $\alpha_j$ out, and there is no closed form.
+with visits conditionally independent given $\alpha_j$, patients independent of one another, and random intercepts independent of the assigned treatment. Equivalently, $p_{ji}$ is the expit of the linear predictor. The normal distribution describes a latent intercept on the log-odds scale rather than an observed normal measurement. The likelihood integrates $\alpha_j$ out, and there is no closed form.
 
 For patient $j$ the likelihood contribution is the one-dimensional integral of the product of the visit-specific Bernoulli masses against the normal random-intercept density. Integration is performed once per patient, since all visits share that intercept. Similarly, the population-averaged probability is $\E_{\alpha_j}\{p_{ji}(\alpha_j)\}$. Because expit is nonlinear, this generally differs from setting $\alpha_j=0$ in the predictor.
 

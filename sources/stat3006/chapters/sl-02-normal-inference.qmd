@@ -319,13 +319,13 @@ H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0
 H_1:\boldsymbol{\mu}\neq\boldsymbol{\mu}_0.
 $$
 
-The unrestricted fit uses $\bar{\mathbf{x}}$ and $A/n$. Under the null, the mean is fixed and only the covariance can adapt. The likelihood-ratio statistic compares those two best fits{{cite:neyman_pearson1928}}. The construction does not by itself establish uniform optimality against every multivariate alternative. Compare the maximised likelihood with $\boldsymbol{\mu}$ fixed at $\boldsymbol{\mu}_0$ to the maximised likelihood with $\boldsymbol{\mu}$ free:
+The unrestricted fit uses $\bar{\mathbf{x}}$ and $A/n$. Under the null, the mean is fixed and only the covariance can adapt. The likelihood-ratio statistic compares those two best fits{{cite:siegrist2022_lrt}} (§9.5, Basic Theory). The construction does not by itself establish uniform optimality against every multivariate alternative. Compare the maximised likelihood with $\boldsymbol{\mu}$ fixed at $\boldsymbol{\mu}_0$ to the maximised likelihood with $\boldsymbol{\mu}$ free:
 
 $$
 \lambda=\frac{\max_\Sigma L(\boldsymbol{\mu}_0,\Sigma)}{\max_{\boldsymbol{\mu},\Sigma}L(\boldsymbol{\mu},\Sigma)}\in[0,1].
 $$
 
-The numerator maximises over a subset of the denominator's parameter space, so the ratio cannot exceed one{{cite:neyman_pearson1928}}. If it is small, imposing the proposed mean costs a great deal of fit.
+The numerator maximises over a subset of the denominator's parameter space, so the ratio cannot exceed one{{cite:siegrist2022_lrt}} (§9.5, Basic Theory). If it is small, imposing the proposed mean costs a great deal of fit.
 
 **Maximisation under $H_0$.** Under $H_0$ only $\Sigma$ is free. The derivative that produced $\widehat\Sigma=A/n$ measures residuals from the centring point in use. With residuals measured from $\boldsymbol{\mu}_0$ rather than from a free mean, the same derivative gives
 
@@ -588,13 +588,13 @@ S=\frac{1}{n_1+n_2-2}
 \Biggr).
 $$
 
-This is the pooled formula with $G=2${{cite:anderson2003_mva}}. The Wishart statement applied to the pooled residuals gives
+This is the pooled formula with $G=2${{cite:nist_poolcov1998}} ("Description", pooled covariance formula). The Wishart statement applied to the pooled residuals gives
 
 $$
 (n_1+n_2-2)S\sim W_p(\Sigma,\,n_1+n_2-2),
 $$
 
-{{cite:wishart1928}} independent of both sample means and therefore of their difference{{cite:anderson2003_mva}}. The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
+{{cite:strimmer2025_mva}} (Ch. 2, §2.4, Gaussian sample-covariance Wishart law){{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test”, pooled Wishart law) independent of both sample means and therefore of their difference. To see the independence, in each group project the Gaussian observation rows onto an orthonormal basis of the residual subspace perpendicular to its all-ones vector. The resulting $n_g-1$ centred coordinates are independent $N_p(0,\Sigma)$ vectors, while the orthogonal mean coordinate is independent of them. The two independent groups contribute $n_1+n_2-2$ such residual coordinates, whose sum of outer products has the displayed Wishart law.{{cite:strimmer2025_mva}} (Ch. 2, §2.4, Gaussian covariance sampling law) The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
 
 $$
 T^2=\frac{n_1 n_2}{n_1+n_2}
@@ -620,7 +620,7 @@ $$
 >F_{\alpha;\,p,\,n_1+n_2-p-1}.
 $$
 
-{{cite:anderson2003_mva}}{{cite:hotelling1931}} The second degree of freedom is $n_1+n_2-p-1${{cite:anderson2003_mva}}. It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
+{{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test” and “Distribution of test statistic”) The second degree of freedom is $n_1+n_2-p-1${{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test”, F rescaling). It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
 
 :::
 

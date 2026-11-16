@@ -23,7 +23,7 @@ The observations are independent and normal with known variance, and the unknown
 
 :::
 
-The normal prior respects the fact that $\mu$ may be positive or negative. A log-normal prior would impose positivity, while a bounded uniform prior would assign permanent posterior probability zero outside its bounds. The normal prior can be badly centred, but its nonzero tails allow enough data eventually to overcome that error. It is often convenient to work in precisions $\sigma^{-2}$ and $\sigma_0^{-2}$ because independent information then adds.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}[^b03-normal-models-1]
+The normal prior respects the fact that $\mu$ may be positive or negative. A log-normal prior would impose positivity, while a bounded uniform prior would assign permanent posterior probability zero outside its bounds. The normal prior can be badly centred, but its nonzero tails allow enough data eventually to overcome that error. It is often convenient to work in precisions $\sigma^{-2}$ and $\sigma_0^{-2}$ because independent information then adds.{{cite:gelman_bda2013}} (§2.5, p. 40, normal conjugate analysis)[^b03-normal-models-1]
 
 When the aim is to be weakly informative, it is safer to give the model room to recover than to impose a hard boundary that cannot be defended. A broad normal prior may put too much mass in uninteresting regions, but it does not make a plausible value impossible. A bounded prior that misses the truth cannot be repaired by any amount of data. Weak information is therefore about scale and support, not simply about making a variance enormous.
 
@@ -36,7 +36,7 @@ $$
  p_C(\mu)=\frac1{2C}\mathbf{1}\{-C\leq\mu\leq C\}.
 $$
 
-constant on $[-C,C]$, and proper.{{cite:box_tiao1973}}{{cite:jeffreys1961}}{{cite:gelman_bda2013}}
+constant on $[-C,C]$, and proper.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 51–54)
 
  Taking, for example, $C=10^4$ makes this density nearly constant over an ordinary data range while keeping it proper. It also exposes what "very diffuse" means. For any fixed $0<M<C$, 
 

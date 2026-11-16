@@ -50,17 +50,17 @@
         "meaning": "binary outcome"
       }
     ],
-    "history": "Bernoulli’s posthumously published *Ars Conjectandi* (1713) studied chance in repeated trials. Its binary trial is the setting from which the success-or-failure model takes its name.{{cite:bernoulli1713}}\n\nModern probability texts use the Bernoulli variable as the elementary unit whose sums give binomial counts. Binary-response models then let its success probability depend on observed predictors.{{cite:ross2019}}{{cite:agresti2002}}",
+    "history": "Bernoulli’s posthumously published *Ars Conjectandi* (1713) studied chance in repeated trials. Its binary trial is the setting from which the success-or-failure model takes its name.{{cite:dodge2008}} (p. 37, “Bernoulli, Jakob”)\n\nModern probability texts use the Bernoulli variable as the elementary unit whose sums give binomial counts. Binary-response models then let its success probability depend on observed predictors.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory){{cite:nelder_wedderburn1972}} (§3.3, p. 379)",
     "sampling": "Draw a uniform value $U$ between zero and one, then return $1$ when $U<p$ and $0$ otherwise, where $p$ is the success probability.",
     "conjugate_prior_for": "",
-    "lead_context": "It is the observation model behind binary-response regression and the single-trial component of a binomial count.{{cite:agresti2002}}",
-    "statistical_use": "For an observed yes-or-no outcome, the success probability is estimated by the sample proportion across independent trials. A logistic model lets that probability vary with predictors; the Bernoulli likelihood supplies each observation’s contribution.{{cite:agresti2002}}",
-    "worked_example": "### A binary check\n\nIf a test flags a defect with probability $p=0.2$, then $P(X=1)=0.2$ and $P(X=0)=0.8$. Its mean is $0.2$, while its variance is $0.2(0.8)=0.16$; the mean is a probability, not a fractional observed outcome.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)",
+    "statistical_use": "For an observed yes-or-no outcome, the success probability is estimated by the sample proportion across independent trials. A logistic model lets that probability vary with predictors; the Bernoulli likelihood supplies each observation’s contribution.{{cite:nelder_wedderburn1972}} (§3.3, p. 379) It is the observation model behind binary-response regression and the single-trial component of a binomial count.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)",
+    "worked_example": "### A binary check\n\nIf a test flags a defect with probability $p=0.2$, then $P(X=1)=0.2$ and $P(X=0)=0.8$. Its mean is $0.2$, while its variance is $0.2(0.8)=0.16$; the mean is a probability, not a fractional observed outcome.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)",
     "key_result": {
       "title": "Mean and variance of one trial",
-      "statement": "For $X\\sim\\operatorname{Bernoulli}(p)$, $\\mathrm E(X)=p$ and $\\operatorname{Var}(X)=p(1-p)$.{{cite:ross2019}}",
+      "statement": "For $X\\sim\\operatorname{Bernoulli}(p)$, $\\mathrm E(X)=p$ and $\\operatorname{Var}(X)=p(1-p)$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)",
       "meaning": "The expected value is the success probability, while the variance is largest near an even chance.",
-      "proof": "Since $X$ is either zero or one, $X^2=X$. Thus $\\mathrm E(X)=0(1-p)+1p=p$ and $\\operatorname{Var}(X)=\\mathrm E(X^2)-\\mathrm E(X)^2=p-p^2=p(1-p)$.{{cite:ross2019}}"
+      "proof": "Since $X$ is either zero or one, $X^2=X$. Thus $\\mathrm E(X)=0(1-p)+1p=p$ and $\\operatorname{Var}(X)=\\mathrm E(X^2)-\\mathrm E(X)^2=p-p^2=p(1-p)$.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory)"
     }
   },
   "beta-distribution": {
@@ -116,14 +116,14 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "$X\\mid p\\sim\\operatorname{Bin}(n,p)$, giving $p\\mid x\\sim\\operatorname{Beta}(\\alpha+x,\\beta+n-x)$",
-    "lead_context": "Its adjustable shapes make it a standard model for uncertain proportions and a conjugate prior for a binomial success probability.{{cite:gelman_bda2013}}",
-    "statistical_use": "In binomial inference, a beta prior updates by adding observed successes and failures to its two shape parameters. The posterior can be summarised by a mean or credible interval, but those summaries need not coincide when the posterior is skewed.{{cite:gelman_bda2013}}",
-    "worked_example": "### A probability below one half\n\nFor $X\\sim\\operatorname{Beta}(2,3)$, integration of the density gives $P(X<1/2)=11/16=0.6875$. This is a probability about the unknown proportion under the model; it is not the proportion of successes in any one sample.{{cite:forbes2011}}",
+    "lead_context": "{{cite:gelman_bda2013}} (§2.1, pp. 29–31)",
+    "statistical_use": "Its adjustable shapes make it a standard model for uncertain proportions and a conjugate prior for a binomial success probability. In binomial inference, a beta prior updates by adding observed successes and failures to its two shape parameters. The posterior can be summarised by a mean or credible interval, but those summaries need not coincide when the posterior is skewed.{{cite:gelman_bda2013}} (§2.1, pp. 29–31)",
+    "worked_example": "### A probability below one half\n\nFor $X\\sim\\operatorname{Beta}(2,3)$, integration of the density gives $P(X<1/2)=11/16=0.6875$. This is a probability about the unknown proportion under the model; it is not the proportion of successes in any one sample.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)",
     "key_result": {
       "title": "Mean of a beta probability",
-      "statement": "For $X\\sim\\operatorname{Beta}(\\alpha,\\beta)$, $\\mathrm E(X)=\\alpha/(\\alpha+\\beta)$.{{cite:forbes2011}}",
+      "statement": "For $X\\sim\\operatorname{Beta}(\\alpha,\\beta)$, $\\mathrm E(X)=\\alpha/(\\alpha+\\beta)$.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)",
       "meaning": "Each shape contributes to the expected share of the total concentration.",
-      "proof": "The density normaliser is $B(\\alpha,\\beta)$. Multiplying its kernel by $x$ makes the integral $B(\\alpha+1,\\beta)/B(\\alpha,\\beta)$. The beta-function identity $B(\\alpha+1,\\beta)=\\alpha B(\\alpha,\\beta)/(\\alpha+\\beta)$ gives the stated mean.{{cite:forbes2011}}"
+      "proof": "The density normaliser is $B(\\alpha,\\beta)$. Multiplying its kernel by $x$ makes the integral $B(\\alpha+1,\\beta)/B(\\alpha,\\beta)$. The beta-function identity $B(\\alpha+1,\\beta)=\\alpha B(\\alpha,\\beta)/(\\alpha+\\beta)$ gives the stated mean.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)"
     }
   },
   "binomial-distribution": {
@@ -178,17 +178,17 @@
         "meaning": "number of successes"
       }
     ],
-    "history": "Bernoulli’s *Ars Conjectandi*, published in 1713, developed combinatorial calculations for repeated trials. Counting the number of successes gives the binomial sampling problem.{{cite:bernoulli1713}}\n\nThe distribution later became a standard likelihood for a population proportion. Modern inference distinguishes exact binomial calculations from approximations that rely on larger samples.{{cite:casella_berger2002}}",
+    "history": "Bernoulli’s *Ars Conjectandi*, published in 1713, developed combinatorial calculations for repeated trials. Counting the number of successes gives the binomial sampling problem.{{cite:edwards2013_ars}} (§§“Part I” and “Part IV”)\n\nThe distribution later became a standard likelihood for a population proportion. Modern inference distinguishes exact binomial calculations from approximations that rely on larger samples.{{cite:dodge2008}} (pp. 44–45, “Binomial Distribution”){{cite:siegrist2022_binomial_distribution}} (§11.2, The Normal Approximation)",
     "sampling": "Draw $n$ independent Bernoulli values with success probability $p$ and add them, where $n$ is the trial count.",
     "conjugate_prior_for": "",
-    "lead_context": "It supplies exact probabilities for repeated binary trials and underlies tests and intervals for a population proportion.{{cite:casella_berger2002}}",
-    "statistical_use": "A binomial likelihood estimates a common success probability from a fixed number of independent trials. Exact tail probabilities support tests and confidence intervals; if trials are dependent or their probabilities differ, the binomial model needs reconsideration.{{cite:casella_berger2002}}",
-    "worked_example": "### Three successes in ten trials\n\nFor $n=10$ and $p=0.3$, $P(X=3)=\\binom{10}{3}(0.3)^3(0.7)^7\\approx0.2668$. The count $3$ is one possible outcome; its probability is not the same as the estimated success rate $3/10$.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_binomial_distribution}} (§11.2, The Probability Mass Function)",
+    "statistical_use": "A binomial likelihood estimates a common success probability from a fixed number of independent trials. Exact tail probabilities support tests and confidence intervals; if trials are dependent or their probabilities differ, the binomial model needs reconsideration. It supplies exact probabilities for repeated binary trials and underlies inference about a population proportion.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions and The Normal Approximation)",
+    "worked_example": "### Three successes in ten trials\n\nFor $n=10$ and $p=0.3$, $P(X=3)=\\binom{10}{3}(0.3)^3(0.7)^7\\approx0.2668$. The count $3$ is one possible outcome; its probability is not the same as the estimated success rate $3/10$.{{cite:siegrist2022_binomial_distribution}} (§11.2, The Probability Mass Function)",
     "key_result": {
       "title": "Mean and variance of a trial count",
-      "statement": "For $X\\sim\\operatorname{Bin}(n,p)$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)$.{{cite:ross2019}}",
+      "statement": "For $X\\sim\\operatorname{Bin}(n,p)$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Moments)",
       "meaning": "The count grows as a sum of independent binary outcomes, so both its mean and variance scale with the number of trials.",
-      "proof": "Write $X=\\sum_{i=1}^n B_i$ for independent Bernoulli variables with success probability $p$. Linearity gives $\\mathrm E(X)=\\sum_i p=np$; independence removes cross-covariances, so $\\operatorname{Var}(X)=\\sum_i p(1-p)=np(1-p)$.{{cite:ross2019}}"
+      "proof": "Write $X=\\sum_{i=1}^n B_i$ for independent Bernoulli variables with success probability $p$. Linearity gives $\\mathrm E(X)=\\sum_i p=np$; independence removes cross-covariances, so $\\operatorname{Var}(X)=\\sum_i p(1-p)=np(1-p)$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Moments)"
     }
   },
   "cauchy-distribution": {
@@ -299,17 +299,17 @@
         "meaning": "degrees of freedom"
       }
     ],
-    "history": "Pearson’s 1900 paper studied the discrepancy between observed and expected frequencies under a probability model. That problem led to the chi-squared goodness-of-fit statistic and its reference distribution.{{cite:pearson1900}}\n\nThe same distribution also arises exactly as a sum of squared standard normal variables. Modern texts separate that exact normal-sampling result from the asymptotic chi-squared calibration of many fit statistics.{{cite:casella_berger2002}}",
+    "history": "Pearson’s 1900 paper studied the discrepancy between observed and expected frequencies under a probability model. That problem led to the chi-squared goodness-of-fit statistic and its reference distribution.{{cite:dodge2008}} (pp. 70–72, historical account of Pearson 1900)\n\nThe same distribution also arises exactly as a sum of squared standard normal variables. Modern texts separate that exact normal-sampling result from the asymptotic chi-squared calibration of many fit statistics.{{cite:siegrist2022_normals}} (§6.08)",
     "sampling": "For a positive integer $\\nu$, draw $\\nu$ independent standard normal values and add their squares, where $\\nu$ is the degrees of freedom.",
     "conjugate_prior_for": "",
-    "lead_context": "It calibrates sample-variance inference under normal sampling and appears in large-sample goodness-of-fit tests, where fitted parameters change the reference degrees of freedom.{{cite:siegrist2022_normals}} (§6.08) {{cite:fisher1922_chisq}} (pp. 87–90)",
-    "statistical_use": "For independent normal observations, a scaled sample variance has a chi-squared law and gives exact variance intervals. Pearson-type goodness-of-fit statistics use a chi-squared reference asymptotically, with degrees of freedom adjusted for fitted parameters.{{cite:casella_berger2002}}",
-    "worked_example": "### Four squared normal components\n\nIf $X$ is the sum of squares of four independent standard normal variables, then $X\\sim\\chi^2_4$. Its mean is $4$ and its variance is $8$, so a value near $4$ is typical but the distribution is not symmetric.{{cite:forbes2011}}",
+    "lead_context": "{{cite:siegrist2022_normals}} (§6.08) {{cite:fisher1922_chisq}} (pp. 87–90)",
+    "statistical_use": "For independent normal observations, a scaled sample variance has a chi-squared law and gives exact variance intervals. Pearson-type goodness-of-fit statistics use a chi-squared reference asymptotically, with degrees of freedom adjusted for fitted parameters.{{cite:siegrist2022_normals}} (§6.08, Sample Variance) {{cite:nist_chisq_handbook}} (§1.3.6.6.6)",
+    "worked_example": "### Four squared normal components\n\nIf $X$ is the sum of squares of four independent standard normal variables, then $X\\sim\\chi^2_4$. Its mean is $4$ and its variance is $8$, so a value near $4$ is typical but the distribution is not symmetric.{{cite:siegrist2022_chisq}} (§5.9, Moments)",
     "key_result": {
       "title": "Mean and variance of squared normals",
-      "statement": "If $X\\sim\\chi^2_\\nu$ with integer $\\nu\\ge1$, then $\\mathrm E(X)=\\nu$ and $\\operatorname{Var}(X)=2\\nu$.{{cite:casella_berger2002}}",
+      "statement": "If $X\\sim\\chi^2_\\nu$ with integer $\\nu\\ge1$, then $\\mathrm E(X)=\\nu$ and $\\operatorname{Var}(X)=2\\nu$.{{cite:siegrist2022_chisq}} (§5.9, Moments)",
       "meaning": "Each squared standard-normal component adds one to the mean and two to the variance.",
-      "proof": "Write $X=\\sum_{i=1}^{\\nu}Z_i^2$ with independent standard normals. Their second and fourth moments are $\\mathrm E(Z_i^2)=1$ and $\\mathrm E(Z_i^4)=3$, so $\\operatorname{Var}(Z_i^2)=3-1=2$. Sum expectations and, by independence, variances to obtain $\\nu$ and $2\\nu$.{{cite:casella_berger2002}}"
+      "proof": "Write $X=\\sum_{i=1}^{\\nu}Z_i^2$ with independent standard normals. Their second and fourth moments are $\\mathrm E(Z_i^2)=1$ and $\\mathrm E(Z_i^4)=3$, so $\\operatorname{Var}(Z_i^2)=3-1=2$. Sum expectations and, by independence, variances to obtain $\\nu$ and $2\\nu$.{{cite:siegrist2022_chisq}} (§5.9, Moments)"
     }
   },
   "conway-maxwell-poisson-distribution": {
@@ -417,15 +417,15 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "$\\boldsymbol X\\mid\\boldsymbol p\\sim\\operatorname{Mult}(n,\\boldsymbol p)$, giving $\\boldsymbol p\\mid\\boldsymbol x\\sim\\operatorname{Dirichlet}(\\boldsymbol\\alpha+\\boldsymbol x)$",
-    "lead_context": "It models uncertain category-probability vectors and updates directly with multinomial counts.{{cite:gelman_bda2013}}",
-    "statistical_use": "A Dirichlet prior adds observed counts componentwise to its concentration vector in a multinomial analysis. The posterior means combine prior category weights with observed frequencies, while the common total means the components are dependent.{{cite:gelman_bda2013}}",
-    "worked_example": "### Updating three categories\n\nStart with $\\boldsymbol p\\sim\\operatorname{Dirichlet}(2,3,5)$ and observe counts $(4,1,0)$. The posterior is $\\operatorname{Dirichlet}(6,4,5)$, so the posterior mean of $p_1$ is $6/15=0.4$, compared with prior mean $2/10=0.2$.{{cite:gelman_bda2013}}",
-    "definition_note": "The vector $\\boldsymbol\\alpha=(\\alpha_1,\\ldots,\\alpha_K)$ has $K$ positive components, $\\alpha_0=\\sum_k\\alpha_k$, and an observed vector $\\boldsymbol x=(x_1,\\ldots,x_K)$ lies on the simplex: each $x_k>0$ and $\\sum_kx_k=1$.{{cite:forbes2011}}",
+    "lead_context": "{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "statistical_use": "It models uncertain category-probability vectors and updates directly with multinomial counts. A Dirichlet prior adds observed counts componentwise to its concentration vector in a multinomial analysis. The posterior means combine prior category weights with observed frequencies, while the common total means the components are dependent.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "worked_example": "### Updating three categories\n\nStart with $\\boldsymbol p\\sim\\operatorname{Dirichlet}(2,3,5)$ and observe counts $(4,1,0)$. The posterior is $\\operatorname{Dirichlet}(6,4,5)$, so the posterior mean of $p_1$ is $6/15=0.4$, compared with prior mean $2/10=0.2$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "definition_note": "The vector $\\boldsymbol\\alpha=(\\alpha_1,\\ldots,\\alpha_K)$ has $K$ positive components, $\\alpha_0=\\sum_k\\alpha_k$, and an observed vector $\\boldsymbol x=(x_1,\\ldots,x_K)$ lies on the simplex: each $x_k>0$ and $\\sum_kx_k=1$.{{cite:tokdar2018_dirichlet}} (p. 1, density on the simplex)",
     "key_result": {
       "title": "Beta marginal of one component",
-      "statement": "If $\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\alpha_1,\\ldots,\\alpha_K)$ and $\\alpha_0=\\sum_k\\alpha_k$, then $X_j\\sim\\operatorname{Beta}(\\alpha_j,\\alpha_0-\\alpha_j)$ for $K\\ge2$.{{cite:gelman_bda2013}}",
+      "statement": "If $\\boldsymbol X\\sim\\operatorname{Dirichlet}(\\alpha_1,\\ldots,\\alpha_K)$ and $\\alpha_0=\\sum_k\\alpha_k$, then $X_j\\sim\\operatorname{Beta}(\\alpha_j,\\alpha_0-\\alpha_j)$ for $K\\ge2$.{{cite:tokdar2018_dirichlet}} (p. 1, beta marginal and gamma representation)",
       "meaning": "Each category probability has a beta marginal even though the category probabilities are dependent.",
-      "proof": "Let independent $G_k\\sim\\operatorname{Gamma}(\\alpha_k,1)$ and set $X_k=G_k/\\sum_iG_i$. The sum $S_{-j}=\\sum_{i\\ne j}G_i$ is independent of $G_j$ and has gamma shape $\\alpha_0-\\alpha_j$ with the same rate. The ratio $G_j/(G_j+S_{-j})$ is beta with the stated shapes.{{cite:gelman_bda2013}}"
+      "proof": "Let independent $G_k\\sim\\operatorname{Gamma}(\\alpha_k,1)$ and set $X_k=G_k/\\sum_iG_i$. The sum $S_{-j}=\\sum_{i\\ne j}G_i$ is independent of $G_j$ and has gamma shape $\\alpha_0-\\alpha_j$ with the same rate. The ratio $G_j/(G_j+S_{-j})$ is beta with the stated shapes.{{cite:tokdar2018_dirichlet}} (p. 1, beta marginal and gamma representation)"
     }
   },
   "exponential-distribution": {
@@ -476,14 +476,14 @@
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=-\\log U/\\lambda$, where $\\lambda$ is the event rate.",
     "conjugate_prior_for": "",
-    "lead_context": "Its constant event rate makes it the basic waiting-time model for Poisson processes and reliability calculations.{{cite:ross2019}}",
-    "statistical_use": "An exponential likelihood estimates a constant event rate from observed waiting times, with total exposure carrying the information about the rate. The constant-hazard assumption should be checked when failure risk changes with age.{{cite:ross2019}}",
-    "worked_example": "### Waiting longer than five units\n\nAt rate $\\lambda=0.2$ per unit, $P(X>5)=e^{-0.2(5)}=e^{-1}\\approx0.3679$. Conditional on surviving five units, the chance of surviving another five is the same $e^{-1}$ by memorylessness.{{cite:ross2019}}",
+    "lead_context": "{{cite:nist_exponential_reliability}} (§8.1.6.1, failure rate)",
+    "statistical_use": "Its constant event rate makes it the basic waiting-time model for Poisson processes and reliability calculations. An exponential likelihood estimates a constant event rate from observed waiting times, with total exposure carrying the information about the rate. The constant-hazard assumption should be checked when failure risk changes with age.{{cite:nist_exponential_reliability}} (§8.1.6.1, failure and reliability functions)",
+    "worked_example": "### Waiting longer than five units\n\nAt rate $\\lambda=0.2$ per unit, $P(X>5)=e^{-0.2(5)}=e^{-1}\\approx0.3679$. Conditional on surviving five units, the chance of surviving another five is the same $e^{-1}$ by memorylessness.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)",
     "key_result": {
       "title": "Memorylessness",
-      "statement": "For $X\\sim\\operatorname{Exp}(\\lambda)$ and $s,t\\ge0$, $P(X>s+t\\mid X>s)=P(X>t)=e^{-\\lambda t}$.{{cite:ross2019}}",
+      "statement": "For $X\\sim\\operatorname{Exp}(\\lambda)$ and $s,t\\ge0$, $P(X>s+t\\mid X>s)=P(X>t)=e^{-\\lambda t}$.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)",
       "meaning": "Elapsed waiting time does not change the distribution of the remaining wait.",
-      "proof": "The survival function is $S(u)=e^{-\\lambda u}$, which is positive for every finite $u$. Hence $P(X>s+t\\mid X>s)=S(s+t)/S(s)=e^{-\\lambda(s+t)}/e^{-\\lambda s}=e^{-\\lambda t}=S(t)$.{{cite:ross2019}}"
+      "proof": "The survival function is $S(u)=e^{-\\lambda u}$, which is positive for every finite $u$. Hence $P(X>s+t\\mid X>s)=S(s+t)/S(s)=e^{-\\lambda(s+t)}/e^{-\\lambda s}=e^{-\\lambda t}=S(t)$.{{cite:siegrist2022_exponential}} (§14.2, Memoryless Property)"
     }
   },
   "f-distribution": {
@@ -908,14 +908,14 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "",
-    "lead_context": "It describes positive measurements built from multiplicative changes and is analysed conveniently on a logarithmic scale.{{cite:forbes2011}}",
-    "statistical_use": "A lognormal model can be fitted by analysing the logarithms with normal-model tools, then transforming predictions back carefully. The arithmetic mean on the original scale exceeds the median, so exponentiating a fitted log mean gives the median rather than the mean.{{cite:forbes2011}}",
-    "worked_example": "### A threshold on the original scale\n\nIf $\\log X\\sim N(0,1)$, then $P(X>e)=P(Z>1)\\approx0.1587$ for a standard normal $Z$. The median of $X$ is $1$ while its mean is $e^{1/2}\\approx1.6487$.{{cite:forbes2011}}",
+    "lead_context": "{{cite:siegrist2022_lognormal_distribution}} (§5.12, Definition)",
+    "statistical_use": "It describes positive measurements built from multiplicative changes and is analysed conveniently on a logarithmic scale. A lognormal model can be fitted by analysing the logarithms with normal-model tools, then transforming predictions back carefully. The arithmetic mean on the original scale exceeds the median, so exponentiating a fitted log mean gives the median rather than the mean.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Mean and Variance)",
+    "worked_example": "### A threshold on the original scale\n\nIf $\\log X\\sim N(0,1)$, then $P(X>e)=P(Z>1)\\approx0.1587$ for a standard normal $Z$. The median of $X$ is $1$ while its mean is $e^{1/2}\\approx1.6487$.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Distribution and Mean)",
     "key_result": {
       "title": "Moments from a normal logarithm",
-      "statement": "If $\\log X\\sim N(\\mu,\\sigma^2)$, then $\\mathrm E(X)=e^{\\mu+\\sigma^2/2}$ and $\\operatorname{Var}(X)=(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$.{{cite:forbes2011}}",
+      "statement": "If $\\log X\\sim N(\\mu,\\sigma^2)$, then $\\mathrm E(X)=e^{\\mu+\\sigma^2/2}$ and $\\operatorname{Var}(X)=(e^{\\sigma^2}-1)e^{2\\mu+\\sigma^2}$.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Mean and Variance)",
       "meaning": "The arithmetic mean exceeds the median because the upper tail contributes strongly to the average.",
-      "proof": "For $Y=\\log X\\sim N(\\mu,\\sigma^2)$, the normal moment-generating formula gives $\\mathrm E(X^k)=\\mathrm E(e^{kY})=e^{k\\mu+k^2\\sigma^2/2}$. Take $k=1,2$ and subtract $[\\mathrm E(X)]^2$ from $\\mathrm E(X^2)$ to obtain the variance.{{cite:forbes2011}}"
+      "proof": "For $Y=\\log X\\sim N(\\mu,\\sigma^2)$, the normal moment-generating formula gives $\\mathrm E(X^k)=\\mathrm E(e^{kY})=e^{k\\mu+k^2\\sigma^2/2}$. Take $k=1,2$ and subtract $[\\mathrm E(X)]^2$ from $\\mathrm E(X^2)$ to obtain the variance.{{cite:siegrist2022_lognormal_distribution}} (§5.12, Mean and Variance)"
     }
   },
   "multinomial-distribution": {
@@ -1098,16 +1098,16 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "",
-    "lead_context": "It accommodates count variation beyond the mean–variance equality imposed by a Poisson model.{{cite:venables_ripley2002}}",
-    "statistical_use": "Negative-binomial regression is used for overdispersed counts when a Poisson fit understates variation. In this parameterisation $\\mu$ is the mean and $\\nu$ controls extra variance; larger $\\nu$ brings the law closer to Poisson.{{cite:venables_ripley2002}}",
-    "worked_example": "### Extra variation in counts\n\nFor $X\\sim\\operatorname{NegBin}(\\mu=4,\\nu=2)$, the variance is $4+4^2/2=12$, three times the mean. The chance of zero counts is $(2/(4+2))^2=1/9$, larger than the Poisson zero chance $e^{-4}$.{{cite:venables_ripley2002}}",
+    "lead_context": "{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
+    "statistical_use": "Negative-binomial regression is used for overdispersed counts when a Poisson fit understates variation. In this parameterisation $\\mu$ is the mean and $\\nu$ controls extra variance; larger $\\nu$ brings the law closer to Poisson.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
+    "worked_example": "### Extra variation in counts\n\nFor $X\\sim\\operatorname{NegBin}(\\mu=4,\\nu=2)$, the variance is $4+4^2/2=12$, three times the mean. The chance of zero counts is $(2/(4+2))^2=1/9$, larger than the Poisson zero chance $e^{-4}$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
     "key_result": {
       "title": "Extra variance from rate mixing",
-      "statement": "For the mean-dispersion parameterisation $X\\sim\\operatorname{NegBin}(\\mu,\\nu)$, $\\mathrm E(X)=\\mu$ and $\\operatorname{Var}(X)=\\mu+\\mu^2/\\nu$.{{cite:venables_ripley2002}}",
+      "statement": "For the mean-dispersion parameterisation $X\\sim\\operatorname{NegBin}(\\mu,\\nu)$, $\\mathrm E(X)=\\mu$ and $\\operatorname{Var}(X)=\\mu+\\mu^2/\\nu$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
       "meaning": "The additional term measures variation beyond the Poisson mean–variance equality.",
-      "proof": "Let $\\Lambda\\sim\\operatorname{Gamma}(\\nu,\\nu/\\mu)$ in shape-rate form and $X\\mid\\Lambda\\sim\\operatorname{Poisson}(\\Lambda)$. Integrating the Poisson mass against the gamma density gives the displayed negative-binomial mass. The laws of total expectation and variance give $\\mathrm E(X)=\\mathrm E(\\Lambda)=\\mu$ and $\\operatorname{Var}(X)=\\mathrm E(\\Lambda)+\\operatorname{Var}(\\Lambda)=\\mu+\\mu^2/\\nu$.{{cite:venables_ripley2002}}"
+      "proof": "Let $\\Lambda\\sim\\operatorname{Gamma}(\\nu,\\nu/\\mu)$ in shape-rate form and $X\\mid\\Lambda\\sim\\operatorname{Poisson}(\\Lambda)$. Integrating the Poisson mass against the gamma density gives the displayed negative-binomial mass. The laws of total expectation and variance give $\\mathrm E(X)=\\mathrm E(\\Lambda)=\\mu$ and $\\operatorname{Var}(X)=\\mathrm E(\\Lambda)+\\operatorname{Var}(\\Lambda)=\\mu+\\mu^2/\\nu$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)"
     },
-    "definition_note": "This page uses mean $\\mu$ and dispersion $\\nu$. For integer $\\nu$, a common alternative counts failures before $\\nu$ successes with success probability $p=\\nu/(\\mu+\\nu)$; that convention yields the same mass function.{{cite:forbes2011}}"
+    "definition_note": "This page uses mean $\\mu$ and dispersion $\\nu$. For integer $\\nu$, a common alternative counts failures before $\\nu$ successes with success probability $p=\\nu/(\\mu+\\nu)$; that convention yields the same mass function.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5) It accommodates count variation beyond the mean–variance equality imposed by a Poisson model.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)"
   },
   "normal-distribution": {
     "name": "Normal",
@@ -1282,18 +1282,19 @@
         "meaning": "mean event count"
       }
     ],
-    "history": "Poisson’s 1837 treatise addressed probability questions about civil and criminal judgements and presented the count law now associated with his name.{{cite:poisson1837}}\n\nLater probability models linked Poisson counts to events in time and space and to the rare-event limit of binomial trials. Contemporary count regression still uses the equal-mean-and-variance law as a baseline.{{cite:ross2019}}{{cite:agresti2002}}",
+    "history": "Poisson’s 1837 treatise addressed probability questions about civil and criminal judgements and presented the count law now associated with his name.{{cite:dodge2008}} (pp. 425–426, “Poisson Distribution”)\n\nLater probability models linked Poisson counts to events in time and space and to the rare-event limit of binomial trials. Contemporary count regression still uses the equal-mean-and-variance law as a baseline.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution){{cite:zhou2020_glm}} (§3.2, Poisson regression)",
     "sampling": "Draw a uniform value $U$ and return the smallest count $x$ whose cumulative probability is at least $U$.",
     "conjugate_prior_for": "",
-    "lead_context": "It models counts over a fixed exposure and is the reference point for assessing count-data dispersion.{{cite:ross2019}}",
-    "statistical_use": "A Poisson likelihood estimates an event rate from counts and their exposures; a regression offset can account for different exposure lengths. A variance much larger or smaller than the fitted mean indicates that its equal-mean-and-variance assumption needs checking.{{cite:agresti2002}}",
-    "worked_example": "### Two arrivals at mean three\n\nFor $X\\sim\\operatorname{Poisson}(3)$, $P(X=2)=e^{-3}3^2/2!\\approx0.2240$. The value $3$ is the expected count for the exposure, not a maximum possible count.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory and Moments)",
+    "statistical_use": "A Poisson likelihood estimates an event rate from counts and their exposures; a regression offset can account for different exposure lengths. A variance much larger or smaller than the fitted mean indicates that its equal-mean-and-variance assumption needs checking.{{cite:zhou2020_glm}} (§3.2, count regression and dispersion)",
+    "worked_example": "### Two arrivals at mean three\n\nFor $X\\sim\\operatorname{Poisson}(3)$, $P(X=2)=e^{-3}3^2/2!\\approx0.2240$. The value $3$ is the expected count for the exposure, not a maximum possible count.{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory)",
     "key_result": {
       "title": "Adding independent Poisson counts",
-      "statement": "If $X_1\\sim\\operatorname{Poisson}(\\lambda_1)$ and $X_2\\sim\\operatorname{Poisson}(\\lambda_2)$ are independent, then $X_1+X_2\\sim\\operatorname{Poisson}(\\lambda_1+\\lambda_2)$.{{cite:ross2019}}",
+      "statement": "If $X_1\\sim\\operatorname{Poisson}(\\lambda_1)$ and $X_2\\sim\\operatorname{Poisson}(\\lambda_2)$ are independent, then $X_1+X_2\\sim\\operatorname{Poisson}(\\lambda_1+\\lambda_2)$.{{cite:siegrist2022_poisson_distribution}} (§4, Sums)",
       "meaning": "Counts from disjoint independent exposures can be pooled by adding their expected counts.",
-      "proof": "The probability-generating function of a Poisson count is $G_i(z)=\\exp[\\lambda_i(z-1)]$. Independence makes the generating function of the sum the product $G_1(z)G_2(z)=\\exp[(\\lambda_1+\\lambda_2)(z-1)]$, which identifies the stated Poisson law.{{cite:ross2019}}"
-    }
+      "proof": "The probability-generating function of a Poisson count is $G_i(z)=\\exp[\\lambda_i(z-1)]$. Independence makes the generating function of the sum the product $G_1(z)G_2(z)=\\exp[(\\lambda_1+\\lambda_2)(z-1)]$, which identifies the stated Poisson law.{{cite:siegrist2022_poisson_distribution}} (§4, Sums)"
+    },
+    "definition_note": "It models counts over a fixed exposure and is the reference point for assessing count-data dispersion.{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory and Moments)"
   },
   "student-t-distribution": {
     "name": "Student t",
@@ -1403,14 +1404,14 @@
     "history": "",
     "sampling": "Draw $U$ uniformly between zero and one and set $X=a+(b-a)U$, where $a$ and $b$ are the interval endpoints.",
     "conjugate_prior_for": "",
-    "lead_context": "It provides the starting random draws for inverse-transform simulation and a simple model of equal likelihood over a bounded range.{{cite:robert_casella2004}}",
-    "statistical_use": "Uniform random numbers are transformed into draws from many other distributions by applying a quantile function. A uniform model for observed measurements requires a bounded range and a defensible constant-density assumption.{{cite:robert_casella2004}}",
-    "worked_example": "### Half the interval\n\nFor $X\\sim U[2,6]$, $P(3<X<5)=(5-3)/(6-2)=1/2$. The probability is the length of the subinterval divided by the length of the full support.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)",
+    "statistical_use": "It provides the starting random draws for inverse-transform simulation and a simple model that gives equal probabilities to equal-length intervals within a bounded range. Uniform random numbers are transformed into draws from many other distributions by applying a quantile function. A uniform model for observed measurements requires a bounded range and a defensible constant-density assumption.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory){{cite:von_neumann1951_random_digits}} (pp. 36–38)",
+    "worked_example": "### Half the interval\n\nFor $X\\sim U[2,6]$, $P(3<X<5)=(5-3)/(6-2)=1/2$. The probability is the length of the subinterval divided by the length of the full support.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)",
     "key_result": {
       "title": "Mean and variance on an interval",
-      "statement": "For $X\\sim U[a,b]$ with $a<b$, $\\mathrm E(X)=(a+b)/2$ and $\\operatorname{Var}(X)=(b-a)^2/12$.{{cite:ross2019}}",
+      "statement": "For $X\\sim U[a,b]$ with $a<b$, $\\mathrm E(X)=(a+b)/2$ and $\\operatorname{Var}(X)=(b-a)^2/12$.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)",
       "meaning": "The centre is the midpoint and the spread depends on interval width, not its location.",
-      "proof": "Integrating $x/(b-a)$ from $a$ to $b$ gives $\\mathrm E(X)=(a+b)/2$. Integrating $x^2/(b-a)$ gives $\\mathrm E(X^2)=(a^2+ab+b^2)/3$. Subtracting the squared mean simplifies to $(b-a)^2/12$.{{cite:ross2019}}"
+      "proof": "Integrating $x/(b-a)$ from $a$ to $b$ gives $\\mathrm E(X)=(a+b)/2$. Integrating $x^2/(b-a)$ gives $\\mathrm E(X^2)=(a^2+ab+b^2)/3$. Subtracting the squared mean simplifies to $(b-a)^2/12$.{{cite:siegrist2022_uniform_interval}} (§5.21, Basic Theory)"
     }
   },
   "weibull-distribution": {

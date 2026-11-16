@@ -2,14 +2,14 @@
   {
     "a": "bernoulli-distribution",
     "b": "binomial-distribution",
-    "a_text": "{target} with one trial has the same two possible outcomes and success probability $p$. This is the single-trial building block of a binomial count.{{cite:forbes2011}}",
-    "b_text": "{target} is the special case $n=1$. A binomial count with $n$ trials is a sum of $n$ independent Bernoulli outcomes.{{cite:forbes2011}}"
+    "a_text": "{target} with one trial has the same two possible outcomes and success probability $p$. This is the single-trial building block of a binomial count.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)",
+    "b_text": "{target} is the special case $n=1$. A binomial count with $n$ trials is a sum of $n$ independent Bernoulli outcomes.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)"
   },
   {
     "a": "binomial-distribution",
     "b": "poisson-distribution",
-    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:feller1968}}",
-    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:feller1968}}"
+    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution)",
+    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution)"
   },
   {
     "a": "binomial-distribution",
@@ -20,14 +20,14 @@
   {
     "a": "beta-distribution",
     "b": "uniform-distribution",
-    "a_text": "{target} on $(0,1)$ is exactly $\\operatorname{Beta}(1,1)$: setting both beta shapes to one leaves a constant density.{{cite:forbes2011}}",
-    "b_text": "{target} with $\\alpha=\\beta=1$ is this law on $(0,1)$. Its beta density then equals one throughout the unit interval.{{cite:forbes2011}}"
+    "a_text": "{target} on $(0,1)$ is exactly $\\operatorname{Beta}(1,1)$: setting both beta shapes to one leaves a constant density.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)",
+    "b_text": "{target} with $\\alpha=\\beta=1$ is this law on $(0,1)$. Its beta density then equals one throughout the unit interval.{{cite:siegrist2022_beta}} (§5.17, Basic Theory)"
   },
   {
     "a": "beta-distribution",
     "b": "dirichlet-distribution",
-    "a_text": "{target} with two categories reduces to a beta law: its first component has distribution $\\operatorname{Beta}(\\alpha_1,\\alpha_2)$ and the second is one minus the first.{{cite:gelman_bda2013}}",
-    "b_text": "{target} is the two-category case of this law. The first probability component has beta parameters $\\alpha_1,\\alpha_2$.{{cite:gelman_bda2013}}"
+    "a_text": "{target} with two categories reduces to a beta law: its first component has distribution $\\operatorname{Beta}(\\alpha_1,\\alpha_2)$ and the second is one minus the first.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "b_text": "{target} is the two-category case of this law. The first probability component has beta parameters $\\alpha_1,\\alpha_2$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)"
   },
   {
     "a": "cauchy-distribution",
@@ -44,26 +44,26 @@
   {
     "a": "chi-squared-distribution",
     "b": "f-distribution",
-    "a_text": "{target} is the ratio $(U/d_1)/(V/d_2)$ when independent $U$ and $V$ have chi-squared laws with $d_1$ and $d_2$ degrees of freedom.{{cite:forbes2011}}",
-    "b_text": "{target} supplies the numerator and denominator of an F ratio: independent $U\\sim\\chi^2_{d_1}$ and $V\\sim\\chi^2_{d_2}$ give $(U/d_1)/(V/d_2)$.{{cite:forbes2011}}"
+    "a_text": "{target} is the ratio $(U/d_1)/(V/d_2)$ when independent $U$ and $V$ have chi-squared laws with $d_1$ and $d_2$ degrees of freedom.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)",
+    "b_text": "{target} supplies the numerator and denominator of an F ratio: independent $U\\sim\\chi^2_{d_1}$ and $V\\sim\\chi^2_{d_2}$ give $(U/d_1)/(V/d_2)$.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)"
   },
   {
     "a": "chi-squared-distribution",
     "b": "wishart-distribution",
-    "a_text": "{target} in one dimension, with scale matrix equal to one, is a chi-squared law with $\\nu$ degrees of freedom.{{cite:forbes2011}}",
-    "b_text": "{target} is the one-dimensional case of this matrix law when the scale is one. The Wishart construction generalises a sum of squared normals.{{cite:forbes2011}}"
+    "a_text": "{target} in one dimension, with scale matrix equal to one, is a chi-squared law with $\\nu$ degrees of freedom.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)",
+    "b_text": "{target} is the one-dimensional case of this matrix law when the scale is one. The Wishart construction generalises a sum of squared normals.{{cite:siegrist2022_chisq}} (§5.9, Related Distributions)"
   },
   {
     "a": "conway-maxwell-poisson-distribution",
     "b": "poisson-distribution",
-    "a_text": "{target} is the special case $\\nu=1$: the normalising constant becomes $e^\\lambda$ and the masses become Poisson masses.{{cite:shmueli2005}}",
-    "b_text": "{target} extends this law by raising the factorial term to a power $\\nu$. At $\\nu=1$ the usual Poisson law is recovered.{{cite:shmueli2005}}"
+    "a_text": "{target} is the special case $\\nu=1$: the normalising constant becomes $e^\\lambda$ and the masses become Poisson masses.{{cite:shmueli2005}} (§2, Poisson special case)",
+    "b_text": "{target} extends this law by raising the factorial term to a power $\\nu$. At $\\nu=1$ the usual Poisson law is recovered.{{cite:shmueli2005}} (§2, Poisson special case)"
   },
   {
     "a": "dirichlet-distribution",
     "b": "multinomial-distribution",
-    "a_text": "{target} counts categories whose probability vector can be given a Dirichlet prior. Updating with counts adds each observed count to the corresponding concentration parameter.{{cite:gelman_bda2013}}",
-    "b_text": "{target} is conjugate for the vector of category probabilities in this sampling model. A Dirichlet prior and multinomial counts produce a Dirichlet posterior.{{cite:gelman_bda2013}}"
+    "a_text": "{target} counts categories whose probability vector can be given a Dirichlet prior. Updating with counts adds each observed count to the corresponding concentration parameter.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)",
+    "b_text": "{target} is conjugate for the vector of category probabilities in this sampling model. A Dirichlet prior and multinomial counts produce a Dirichlet posterior.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70)"
   },
   {
     "a": "exponential-distribution",
@@ -74,20 +74,20 @@
   {
     "a": "exponential-distribution",
     "b": "weibull-distribution",
-    "a_text": "A {target} law with shape one is exponential with rate equal to the reciprocal of its scale. Only this Weibull shape has constant hazard.{{cite:ross2019}}",
-    "b_text": "{target} with rate $1/\\lambda$ is the $k=1$ case of this shape-scale Weibull law.{{cite:ross2019}}"
+    "a_text": "A {target} law with shape one is exponential with rate equal to the reciprocal of its scale. Only this Weibull shape has constant hazard.{{cite:nist_weibull_handbook}} (§8.1.6.2, Special Case)",
+    "b_text": "{target} with rate $1/\\lambda$ is the $k=1$ case of this shape-scale Weibull law.{{cite:nist_weibull_handbook}} (§8.1.6.2, Special Case)"
   },
   {
     "a": "exponential-distribution",
     "b": "pareto-distribution",
-    "a_text": "If $X$ has {target} minimum $x_m$ and tail parameter $\\alpha$, then $\\log(X/x_m)$ has exponential rate $\\alpha$.{{cite:forbes2011}}",
-    "b_text": "If $Y$ has {target} rate $\\alpha$, then $x_m e^Y$ has this Pareto law with minimum $x_m$.{{cite:forbes2011}}"
+    "a_text": "If $X$ has {target} minimum $x_m$ and tail parameter $\\alpha$, then $\\log(X/x_m)$ has exponential rate $\\alpha$: for $t\\ge0$, $P(\\log(X/x_m)>t)=P(X>x_me^t)=e^{-\\alpha t}$.{{cite:siegrist2022_pareto}} (§The Basic Pareto Distribution, Related Distributions; §The General Pareto Distribution)",
+    "b_text": "If $Y$ has {target} rate $\\alpha$, then $x_m e^Y$ has this Pareto law with minimum $x_m$, since $P(x_m e^Y>x)=P(Y>\\log(x/x_m))=(x_m/x)^\\alpha$ for $x\\ge x_m$.{{cite:siegrist2022_pareto}} (§The Basic Pareto Distribution, Related Distributions; §The General Pareto Distribution)"
   },
   {
     "a": "f-distribution",
     "b": "beta-distribution",
-    "a_text": "If $X$ has this F law, then $d_1X/(d_1X+d_2)$ has {target} parameters $d_1/2$ and $d_2/2$.{{cite:forbes2011}}",
-    "b_text": "If $U$ has this beta law with shapes $d_1/2,d_2/2$, then $(d_2/d_1)U/(1-U)$ has {target} degrees $d_1,d_2$.{{cite:forbes2011}}"
+    "a_text": "If $X$ has this F law, then $d_1X/(d_1X+d_2)$ has {target} parameters $d_1/2$ and $d_2/2$.{{cite:siegrist2022_beta}} (§5.17, F transformation)",
+    "b_text": "If $U$ has this beta law with shapes $d_1/2,d_2/2$, then $(d_2/d_1)U/(1-U)$ has {target} degrees $d_1,d_2$.{{cite:siegrist2022_beta}} (§5.17, F transformation)"
   },
   {
     "a": "gamma-distribution",
@@ -104,14 +104,14 @@
   {
     "a": "geometric-distribution",
     "b": "negative-binomial-distribution",
-    "a_text": "{target} counts failures before a specified number of successes in one common parameterisation. With one required success and mean failures $(1-p)/p$, that count equals a geometric trial count minus one.{{cite:forbes2011}}",
-    "b_text": "{target} counts trials through the first success; subtracting one gives this law with dispersion $\\nu=1$ and mean $\\mu=(1-p)/p$.{{cite:forbes2011}}"
+    "a_text": "{target} counts failures before a specified number of successes in one common parameterisation. With one required success and mean failures $(1-p)/p$, that count equals a geometric trial count minus one.{{cite:zeileis_kleiber_jackman2008}} (§2, p. 5, geometric special case)",
+    "b_text": "{target} counts trials through the first success; subtracting one gives this law with dispersion $\\nu=1$ and mean $\\mu=(1-p)/p$.{{cite:zeileis_kleiber_jackman2008}} (§2, p. 5, geometric special case)"
   },
   {
     "a": "hypergeometric-distribution",
     "b": "binomial-distribution",
-    "a_text": "{target} approximates this without-replacement count as population size $N$ grows while marked fraction $r/N$ tends to $p$ and draw size $n$ stays fixed.{{cite:feller1968}}",
-    "b_text": "{target} is the without-replacement counterpart of this independent-trial count. For fixed $n$ and a growing population with marked fraction tending to $p$, its law tends to $\\operatorname{Bin}(n,p)$.{{cite:feller1968}}"
+    "a_text": "{target} approximates this without-replacement count as population size $N$ grows while marked fraction $r/N$ tends to $p$ and draw size $n$ stays fixed.{{cite:siegrist2022_binomial_distribution}} (§11.2, Sampling Without Replacement)",
+    "b_text": "{target} is the without-replacement counterpart of this independent-trial count. For fixed $n$ and a growing population with marked fraction tending to $p$, its law tends to $\\operatorname{Bin}(n,p)$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Sampling Without Replacement)"
   },
   {
     "a": "inverse-gaussian-distribution",
@@ -128,8 +128,8 @@
   {
     "a": "multinomial-distribution",
     "b": "binomial-distribution",
-    "a_text": "Each single category count in this model has {target} distribution $\\operatorname{Bin}(n,p_k)$, although the category counts are dependent.{{cite:forbes2011}}",
-    "b_text": "A category count within {target} sampling has this binomial law with success probability $p_k$. The counts across categories sum to $n$.{{cite:forbes2011}}"
+    "a_text": "Each single category count in this model has {target} distribution $\\operatorname{Bin}(n,p_k)$, although the category counts are dependent.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)",
+    "b_text": "A category count within {target} sampling has this binomial law with success probability $p_k$. The counts across categories sum to $n$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)"
   },
   {
     "a": "multivariate-normal-distribution",
@@ -140,8 +140,8 @@
   {
     "a": "negative-binomial-distribution",
     "b": "poisson-distribution",
-    "a_text": "As dispersion $\\nu$ grows with mean $\\mu$ fixed, this law converges to {target} with mean $\\lambda=\\mu$. The extra variance shrinks to zero.{{cite:venables_ripley2002}}",
-    "b_text": "{target} with mean $\\lambda=\\mu$ is the limit of this negative-binomial parameterisation as $\\nu\\to\\infty$.{{cite:venables_ripley2002}}"
+    "a_text": "As dispersion $\\nu$ grows with mean $\\mu$ fixed, this law converges to {target} with mean $\\lambda=\\mu$. The extra variance shrinks to zero.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, Poisson limit)",
+    "b_text": "{target} with mean $\\lambda=\\mu$ is the limit of this negative-binomial parameterisation as $\\nu\\to\\infty$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, Poisson limit)"
   },
   {
     "a": "normal-distribution",

@@ -125,7 +125,7 @@ Bayesian calculation multiplies a likelihood by a prior, followed by normalisati
 ::: {#def-proper-prior-and-proper-posterior .definition}
 ## Proper prior and proper posterior
 
-A prior is *proper* if it is a probability distribution, so its total mass is one.{{cite:gelman_bda2013}}{{cite:jeffreys1961}} A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant.{{cite:gelman_bda2013}} An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.{{cite:box_tiao1973}}
+A prior is *proper* if it is a probability distribution, so its total mass is one.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 51–54) A posterior is proper if the product of likelihood and prior has a finite, nonzero normalising constant.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 51–54) An improper prior may sometimes produce a proper posterior, but this must be checked rather than assumed.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 51–54)
 
 :::
 
@@ -280,9 +280,9 @@ After observing $x$, the analogous calculation uses the posterior: \begin{align*
   &=\int p(\widetilde x,\theta\given x)\dd\theta\\
   &=\int p(\widetilde x\given\theta,x)p(\theta\given x)\dd\theta\\
   &=\int p(\widetilde x\given\theta)p(\theta\given x)\dd\theta.
-\end{align*} The last equality uses conditional independence of future and observed data given $\theta$.{{cite:gelman_bda2013}} Prediction therefore averages the sampling model over parameter uncertainty instead of plugging in a single estimate.{{cite:raiffa_schlaifer1961}}
+\end{align*} The last equality uses conditional independence of future and observed data given $\theta$.{{cite:gelman_bda2013}} (Ch. 1, §1.3, pp. 6–7) Prediction therefore averages the sampling model over parameter uncertainty instead of plugging in a single estimate.{{cite:gelman_bda2013}} (Ch. 1, §1.3, pp. 6–7)
 
-The prior predictive distribution asks what data the complete model regarded as plausible before seeing the observations.{{cite:box_tiao1973}} It is therefore useful for study design and for detecting a prior that places most of its mass on scientifically absurd data. The posterior predictive distribution asks what future data are plausible after learning from $x$.{{cite:gelman_bda2013}} It is used for forecasting and for posterior predictive model checks. Although both are mixtures of the sampling distribution, they mix with different distributions for $\theta$: $p(\theta)$ before the data and $p(\theta\given x)$ after the data.
+The prior predictive distribution asks what data the complete model regarded as plausible before seeing the observations.{{cite:gelman_bda2013}} (Ch. 1, §1.3, pp. 6–7) It is therefore useful for study design and for detecting a prior that places most of its mass on scientifically absurd data. The posterior predictive distribution asks what future data are plausible after learning from $x$.{{cite:gelman_bda2013}} (Ch. 1, §1.3, pp. 6–7) It is used for forecasting and for posterior predictive model checks. Although both are mixtures of the sampling distribution, they mix with different distributions for $\theta$: $p(\theta)$ before the data and $p(\theta\given x)$ after the data.
 
 :::
 
@@ -343,7 +343,7 @@ Under the conditional-independence assumption above, \begin{equation}
  \label{eq:posterior-predictive-total-variance}
 \end{equation}
 
-The posterior predictive variance is the expected sampling variance plus the variance of the conditional mean.{{cite:gelman_bda2013}}{{cite:raiffa_schlaifer1961}}{{cite:box_tiao1973}}
+The posterior predictive variance is the expected sampling variance plus the variance of the conditional mean.{{cite:gelman_bda2013}} (Ch. 3, §3.2, predictive variance)
 
 :::
 

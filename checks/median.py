@@ -33,7 +33,8 @@ if __name__ == "__main__":
     assert Fraction(even[1]+even[2], 2) == 6
     assert sum(abs(x-6) for x in even) == sum(abs(x-4) for x in even) == 102
     assert page.count('collapse="true" title="Proof"') == 1
-    assert len(set(re.findall(r"\.\./questions/([^.)]+)", page))) == 5
+    questions = set(re.findall(r"\.\./questions/([^.)]+)", page))
+    assert {"ex-inf-are-median", "ex-inf-exponential-mle", "ex-inf-milk-summaries", "ex-sp-nearest-point", "exr-one-thousand-posterior-draws"} <= questions
     assert not re.search(r"!\[[^\]]*\]\(", page)
     keys = set(re.findall(r'data-cite-key="([^"]+)"', page.split("## References")[0]))
     assert keys <= {

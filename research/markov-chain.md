@@ -1,0 +1,8 @@
+# Markov chain — source notes
+
+- Checked: Levin and Peres, *Markov Chains and Mixing Times*, 2nd ed. (2017), author-hosted full text at https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf, §1.1: formal Markov property, homogeneous transition matrix, and evolution by matrix powers. §1.3 treats reachability and periods; §1.5 stationary distributions; §4.3 convergence under irreducibility and aperiodicity. Existing pending bibliography key `levin_peres2017` was introduced by rank 68.
+- Checked: Dodge (2008), *The Concise Encyclopedia of Statistics*, printed pp. 330–331, “Markov, Andrei Andreevich”: early work on dependent sequences and the emergence of Markov chains; used for history, not modern proof.
+- Checked: `sources/stat2003/chapters/prob-06-markov-chains.qmd`: existing six-stone and weather-chain examples, random-walk illustrations, and citations are part of baseline. The new worked example will use a different three-state traffic process and foreground path probability and the Markov property rather than reusing those examples.
+- Checked: Exact matrix multiplication of the proposed traffic transition matrix yields its first-row two-step distribution $(1/25,2/5,14/25)$ and path probability $14/25$ for red→green→yellow. Numerical checks will assert every printed value.
+- Assumed: The traffic process is a hypothetical time-homogeneous model; real signals may be scheduled, making the transition probabilities depend on time or elapsed dwell time.
+- Disputed: The Markov property does not imply independent successive states and does not by itself imply stationarity, irreducibility, or convergence. Enlarging the state to include elapsed time can sometimes restore a Markov description of a duration-dependent system.

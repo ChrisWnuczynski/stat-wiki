@@ -19,6 +19,8 @@ import urllib.parse
 from functools import lru_cache
 from pathlib import Path
 
+from research_pending import merge_pending_works
+
 ROOT = Path(__file__).resolve().parent
 BIB_PATH = ROOT / "bibliography.json"
 
@@ -1987,7 +1989,7 @@ _SURNAME_ALIASES = {
 @lru_cache(maxsize=1)
 def load_works(bib_path: Path = BIB_PATH) -> dict[str, dict]:
     data = json.loads(bib_path.read_text(encoding="utf-8"))
-    return data["works"]
+    return merge_pending_works(bib_path.parent, data["works"])
 
 
 def _fold_alpha(text: str) -> str:

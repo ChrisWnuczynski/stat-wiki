@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 from collections import Counter
 from pathlib import Path
@@ -13,6 +14,7 @@ from pathlib import Path
 import article_extras
 import build_wiki
 import citations
+import research_pending
 import verify_citations
 import wiki_graph
 
@@ -73,6 +75,24 @@ class CitationTests(unittest.TestCase):
         errors = verify_citations.validate_schema(self.bib)
         self.assertEqual(errors, [])
         self.assertGreaterEqual(len(self.works), 300)
+
+    def test_parallel_pending_bibliography_detects_conflicts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            pending = root / "research" / "pending"
+            pending.mkdir(parents=True)
+            work = self.works["dodge2008"]
+            (pending / "first.json").write_text(json.dumps({"bibliography": {"new_key": work}}))
+            merged = research_pending.merge_pending_works(root, self.works)
+            self.assertEqual(merged["new_key"], work)
+            (pending / "empty.json").write_text(json.dumps({"bibliography": []}))
+            merged = research_pending.merge_pending_works(root, self.works)
+            self.assertEqual(merged["new_key"], work)
+            (pending / "second.json").write_text(json.dumps({"bibliography": {
+                "new_key": {**work, "year": work["year"] + 1}
+            }}))
+            with self.assertRaisesRegex(ValueError, "conflicting bibliography entry new_key"):
+                research_pending.merge_pending_works(root, self.works)
 
     def test_zero_banned_terms_in_bibliography_and_mappings(self) -> None:
         for rel in ("bibliography.json", "citations.py", "overview.qmd"):
@@ -393,9 +413,12 @@ class CitationTests(unittest.TestCase):
                     r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>\s*\([^)]*(?:Abstract|publisher (?:contents|summary|record))',
                     f"Abstract or publisher listing passed through to {path.name}",
                 )
-            for heading in ("Motivating example", "Worked example"):
-                self.assertIn(f"## {heading}\n", research, f"Missing {heading} in {path.name}")
-            worked = research.split("## Worked example\n", 1)[1].split("\n## ", 1)[0]
+            self.assertIn("## Motivating example\n", research, f"Missing Motivating example in {path.name}")
+            worked_heading = re.search(r"(?m)^(#{2,3}) Worked example(?: — [^\n]+)?\n", research)
+            self.assertIsNotNone(worked_heading, f"Missing Worked example in {path.name}")
+            worked_tail = research[worked_heading.end():]
+            next_section = re.search(rf"(?m)^#{{2,{len(worked_heading.group(1))}}} ", worked_tail)
+            worked = worked_tail[:next_section.start()] if next_section else worked_tail
             self.assertIn("Your turn", worked, f"Missing practice prompt in {path.name}")
             self.assertIn('collapse="true"', worked, f"Practice answer is not hidden in {path.name}")
             self.assertIn("## Check yourself {#check-yourself}", body, f"Missing self-check in {path.name}")
@@ -423,7 +446,7 @@ class CitationTests(unittest.TestCase):
             for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
                 self.assertRegex(
                     body[match.end():match.end() + 60],
-                    r"^\s*\((?:Ch\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|Abstract|Description|entries\b|Price’s letter|[“\"])",
+                    r"^\s*\((?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|lecture\s+\d+,\s*§|biography,|Abstract|Introduction|Description|Format|Source|References|Examples|Notes|Basic Theory|Convergence(?: in Distribution)?|Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|Value|six principles|principles|principle\s+\d+|entries\b|Price’s letter|[“\"])",
                     f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
                 )
 
@@ -576,8 +599,10 @@ class InlineCitationTests(unittest.TestCase):
         rendered = citations.PageCitationLinker(
             citations.ARTICLE_REFS["posterior-median"], self.works
         ).process_text(note)
-        self.assertIn('data-cite-key="lehmann_casella1998"', rendered)
+        # The absolute-loss result is located in the opened author-hosted BDA3.
+        self.assertNotIn('data-cite-key="lehmann_casella1998"', rendered)
         self.assertIn('data-cite-key="gelman_bda2013"', rendered)
+        self.assertIn('(Ch. 4, Ex. 6(b), p. 98)', rendered)
         self.assertIn("strobl2007", citations.ARTICLE_REFS["variable-importance"])
         importance = article_extras.NOTES["variable-importance"]
         self.assertIn("Strobl, Boulesteix, Zeileis, and Hothorn, 2007", importance)

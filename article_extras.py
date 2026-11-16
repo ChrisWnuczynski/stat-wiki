@@ -831,7 +831,7 @@ At a point with $\tau(x)=(0.20,0.55,0.25)$ the minimum conditional risk is $1-0.
     "bayesian-information-criterion": r"""
 ## The penalty that remains after a Laplace approximation
 
-BIC compares models $M_k$ on one sample $X_{\mathrm{all}}$ of size $n$ by approximating a posterior probability of the model (Schwarz, 1978). Let $\Psi_k$ be the $d_k$-dimensional parameter of $M_k$, and let $\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)$ be the log-likelihood at a maximiser. A Gaussian integral around a regular interior peak has volume of order $n^{-d_k/2}$: each of the $d_k$ parameter directions is localised by an information that grows like $n$. Multiplying the marginal likelihood by $-2$ and dropping terms that stay bounded as $n$ grows leaves
+BIC compares models $M_k$ on one sample $X_{\mathrm{all}}$ of size $n$ by approximating a posterior probability of the model {{cite:schwarz1978}} (§§1–3, pp. 461–464). Let $\Psi_k$ be the $d_k$-dimensional parameter of $M_k$, and let $\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)$ be the log-likelihood at a maximiser. A Gaussian integral around a regular interior peak has volume of order $n^{-d_k/2}$: each of the $d_k$ parameter directions is localised by an information that grows like $n$. Multiplying the marginal likelihood by $-2$ and dropping terms that stay bounded as $n$ grows leaves
 
 $$
 \mathrm{BIC}_k=-2\ell(\widehat\Psi_k;X_{\mathrm{all}},M_k)+d_k\log n.
@@ -1164,7 +1164,7 @@ Let $\Omega=\{1,2,\ldots\}$ and put mass $\mathbb{P}(\{n\})=2^{-n}$. The masses 
     "cover-hart-bound": r"""
 ## One neighbour samples the conditional label
 
-For two classes, let $\tau(x)=\mathbb{P}(Y=1\mid X=x)$ and let $r(x)=\min\bigl(\tau(x),1-\tau(x)\bigr)$ be the conditional [Bayes risk](bayes-classifier.qmd) at $x$. The unconditional Bayes risk is $R^*=\mathbb{E}[r(X)]$. As the training sample grows, the nearest neighbour of a continuity point $x$ approaches $x$, so its label is almost a fresh draw from the same conditional distribution that produces a new label at $x$. The two labels disagree with probability $2\tau(1-\tau)$. The identity $\tau(1-\tau)=r(1-r)$ rewrites that probability as $2r(x)\bigl(1-r(x)\bigr)$. Averaging over $X$ gives the asymptotic one-nearest-neighbour error. Because $1-r(x)\le 1$, this error is at most $2R^*$. [Jensen's inequality](jensen-s-inequality.qmd), using the concavity of $u\mapsto u(1-u)$ on $[0,1]$, sharpens the constant: $\mathbb{E}[r(1-r)]\le R^*(1-R^*)$, and therefore the asymptotic error is at most $2R^*(1-R^*)$ (Cover and Hart, 1967).
+For two classes, let $\tau(x)=\mathbb{P}(Y=1\mid X=x)$ and let $r(x)=\min\bigl(\tau(x),1-\tau(x)\bigr)$ be the conditional [Bayes risk](bayes-classifier.qmd) at $x$. The unconditional Bayes risk is $R^*=\mathbb{E}[r(X)]$. As the training sample grows, the nearest neighbour of a continuity point $x$ approaches $x$, so its label is almost a fresh draw from the same conditional distribution that produces a new label at $x$. The two labels disagree with probability $2\tau(1-\tau)$. The identity $\tau(1-\tau)=r(1-r)$ rewrites that probability as $2r(x)\bigl(1-r(x)\bigr)$. Averaging over $X$ gives the asymptotic one-nearest-neighbour error. Because $1-r(x)\le 1$, this error is at most $2R^*$. [Jensen's inequality](jensen-s-inequality.qmd), using the concavity of $u\mapsto u(1-u)$ on $[0,1]$, sharpens the constant: $\mathbb{E}[r(1-r)]\le R^*(1-R^*)$, and therefore the asymptotic error is at most $2R^*(1-R^*)$ {{cite:cover_hart1967}} (pp. 22–23).
 
 ## Equality when the conditional risk is constant
 
@@ -1173,11 +1173,11 @@ If $r(x)=0.2$ for almost every $x$, then $R^*=0.2$ and the nearest-neighbour con
     "cubic-smoothing-spline": r"""
 ## A curve charged for bending
 
-A scatter asks for a curve that follows the signal and not the jitter. One statement of that request is to maximise the log-likelihood of the responses and subtract a penalty $\lambda\int\{g''(x)\}^2\,\mathrm{d}x$. The integral is zero for every straight line, because a line has second derivative $0$, and it grows as the curve bends. The multiplier $\lambda\ge 0$ is the price of bending. For any fixed $\lambda>0$ the maximiser is a natural cubic [spline](spline.qmd), linear beyond the outermost knots with second derivative zero at those knots. Between consecutive distinct covariate values the fitted function is a cubic polynomial, and at each of those [knots](knot.qmd) the value, the first derivative and the second derivative agree from the left and the right. A jump is allowed only in the third derivative, which the plot does not show.
+A scatter asks for a curve that follows the signal and not the jitter. One statement of that request is to maximise the log-likelihood of the responses and subtract a penalty $\lambda\int\{g''(x)\}^2\,\mathrm{d}x$. The integral is zero for every straight line, because a line has second derivative $0$, and it grows as the curve bends. The multiplier $\lambda\ge 0$ is the price of bending. When a finite maximiser exists for fixed $\lambda>0$, it has a natural cubic [spline](spline.qmd) representation, linear beyond the outermost knots with second derivative zero at those knots. Between consecutive distinct covariate values the fitted function is a cubic polynomial, and at each of those [knots](knot.qmd) the value, the first derivative and the second derivative agree from the left and the right. A jump is allowed only in the third derivative, which the plot does not show.
 
 ## The line at one extreme, the interpolant at the other
 
-The points $(0,0)$, $(1,1)$ and $(2,0)$ have least-squares line equal to the constant $1/3$. Once the covariate is centred it is uncorrelated with the response, and the residual sum of squares about $1/3$ is $2/3$. That constant is the fitted curve as $\lambda\to\infty$. As $\lambda\to 0$, with the $x$ values distinct, the curve interpolates, so the fitted height at $x=1$ is $1$ rather than $1/3$. A moderate penalty places that height between the two. The number $\lambda$ itself travels badly: a different likelihood changes the units of the penalty, so two samples can share a $\lambda$ and not share a smoothness. The summary that does travel is the equivalent degrees of freedom of the fitted curve. The interpolating end fits noise as well as signal.
+For Gaussian squared-error fitting, the points $(0,0)$, $(1,1)$ and $(2,0)$ have least-squares line equal to the constant $1/3$. Once the covariate is centred it is uncorrelated with the response, and the residual sum of squares about $1/3$ is $2/3$. That constant is the fitted curve as $\lambda\to\infty$. As $\lambda\to 0$, with the $x$ values distinct, the curve interpolates, so the fitted height at $x=1$ is $1$ rather than $1/3$. A moderate penalty places that height between the two. The number $\lambda$ itself travels badly: a different likelihood changes the units of the penalty, so two samples can share a $\lambda$ and not share a smoothness. The summary that does travel is the equivalent degrees of freedom of the fitted curve. The interpolating end fits noise as well as signal.
 """,
     "cycle": r"""
 ## A repeated swing with no fixed clock
@@ -1321,7 +1321,7 @@ A hard label would discard the second component. The E step keeps a fractional c
     "effective-degrees-of-freedom": r"""
 ## Trace of the smoother matrix
 
-In an unpenalised linear fit $\hat{\mathbf{y}}=X(X^\top X)^{-1}X^\top\mathbf{y}$, the hat matrix $H=X(X^\top X)^{-1}X^\top$ projects onto a $p$-dimensional subspace, so $\operatorname{tr}(H)=p$. A penalised spline or ridge smoother replaces $H$ by a linear smoother matrix $S_\lambda=B(B^\top B+\lambda\Omega)^{-1}B^\top$, where $B$ is the $n\times K$ basis matrix, $\Omega$ is a symmetric positive semi-definite roughness matrix, and $\lambda\ge 0$ is the smoothing parameter (Hastie and Tibshirani, 1990). The fitted vector is still linear in $\mathbf{y}$, $\hat{\mathbf{y}}=S_\lambda\mathbf{y}$, and the effective degrees of freedom of the fit are defined as
+In an unpenalised linear fit $\hat{\mathbf{y}}=X(X^\top X)^{-1}X^\top\mathbf{y}$, the hat matrix $H=X(X^\top X)^{-1}X^\top$ projects onto a $p$-dimensional subspace, so $\operatorname{tr}(H)=p$. A penalised spline or ridge smoother replaces $H$ by a linear smoother matrix $S_\lambda=B(B^\top B+\lambda\Omega)^{-1}B^\top$, where $B$ is the $n\times K$ basis matrix, $\Omega$ is a symmetric positive semi-definite roughness matrix, and $\lambda\ge 0$ is the smoothing parameter {{cite:efron2004_prediction_error}} (§2, trace of a linear smoother). The fitted vector is still linear in $\mathbf{y}$, $\hat{\mathbf{y}}=S_\lambda\mathbf{y}$, and the effective degrees of freedom of the fit are defined as
 
 $$
 \mathrm{edf}(\lambda)=\operatorname{tr}(S_\lambda).
@@ -1342,7 +1342,7 @@ $$
 Q(\Psi;\Psi^{(k)})=\mathbb{E}\bigl[\ell_C(\Psi)\mid X_{\mathrm{all}},\Psi^{(k)}\bigr],
 $$
 
-the expectation of $\ell_C$ under the conditional law of $Z$ given the observations. For a Gaussian mixture that conditional law is the list of responsibilities $\tau_h(\mathbf{x}_i;\Psi^{(k)})$. The M step maximises $Q$ in $\Psi$, with those responsibilities held fixed, and the maximiser becomes $\Psi^{(k+1)}$. An exact M step does not decrease $\ell$ (Dempster, Laird, and Rubin, 1977). Updating the responsibilities inside the M-step derivatives would differentiate a different function.
+the expectation of $\ell_C$ under the conditional law of $Z$ given the observations. For a Gaussian mixture that conditional law is the list of responsibilities $\tau_h(\mathbf{x}_i;\Psi^{(k)})$. The M step maximises $Q$ in $\Psi$, with those responsibilities held fixed, and the maximiser becomes $\Psi^{(k+1)}$. An exact M step does not decrease $\ell$ {{cite:ng_cs229_em2006}} (§2, EM monotonicity). Updating the responsibilities inside the M-step derivatives would differentiate a different function.
 
 ## A weighted M step on three points
 
@@ -1351,7 +1351,7 @@ Take responsibilities $0.9$, $0.2$ and $0.5$ for component $1$ on the points $0$
     "em-for-a-normal-mixture": r"""
 ## Alternating soft counts with weighted normal fits
 
-A normal mixture has weights $\pi_h$, means $\mu_h$ and covariances $\Sigma_h$, collected in $\Psi$. The observed log-likelihood $\ell(\Psi;X_{\mathrm{all}})$ contains a logarithm of a sum over components, so a direct score equation couples every parameter. EM replaces that problem by two closed updates (Dempster, Laird and Rubin, 1977). The [E step](e-step.qmd) computes memberships $\tau_{ih}=\tau_h(x_i;\Psi^{(k)})$. The [M step](m-step.qmd) then maximises the expected complete log-likelihood with those memberships frozen. Writing $N_h=\sum_i\tau_{ih}$, the updates are $\pi_h=N_h/n$, the weighted mean $\mu_h=\sum_i\tau_{ih}x_i/N_h$, and the weighted covariance that divides $\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$ by $N_h$ rather than by $N_h-1$. An exact step cannot decrease $\ell$. The iteration stops when the rise in $\ell$ falls below a tolerance. A stationary point of a mixture likelihood need not be the global maximum.
+A normal mixture has weights $\pi_h$, means $\mu_h$ and covariances $\Sigma_h$, collected in $\Psi$. The observed log-likelihood $\ell(\Psi;X_{\mathrm{all}})$ contains a logarithm of a sum over components, so a direct score equation couples every parameter. EM replaces that problem by two closed updates {{cite:ng_cs229_em2006}} (§2, E and M steps). The [E step](e-step.qmd) computes memberships $\tau_{ih}=\tau_h(x_i;\Psi^{(k)})$. The [M step](m-step.qmd) then maximises the expected complete log-likelihood with those memberships frozen. Writing $N_h=\sum_i\tau_{ih}$, the updates are $\pi_h=N_h/n$, the weighted mean $\mu_h=\sum_i\tau_{ih}x_i/N_h$, and the weighted covariance that divides $\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$ by $N_h$ rather than by $N_h-1$. An exact step cannot decrease $\ell$. The iteration stops when the rise in $\ell$ falls below a tolerance. A stationary point of a mixture likelihood need not be the global maximum.
 
 ## One update from a poor start
 
@@ -1945,7 +1945,7 @@ Take rates $\alpha=2$ from $0$ to $1$ and $\beta=4$ from $1$ to $0$. Time-statio
     "kernel": r"""
 ## An inner product that is never written in feature coordinates
 
-In a support-vector classifier the training points enter the dual only through inner products $x_i^\top x_j$. A feature map $\phi$ replaces that inner product by $\phi(x_i)^\top\phi(x_j)$. A kernel is any function $K$ that equals such an inner product for some $\phi$, possibly into an infinite-dimensional space. The decision function becomes $\sum_i\alpha_i y_i K(x_i,x)+b$. The vector $\phi(x)$ is never required, which is the [kernel trick](kernel-trick.qmd). A necessary and sufficient condition is that every finite Gram matrix $K(x_i,x_j)$ be symmetric and positive semi-definite. Mercer's theorem adds continuity and domain conditions under which $K$ has an eigen-expansion; the Gram-matrix condition is the one used to keep the dual concave. The word kernel is also used for the bump function in density estimation. That bump integrates to one. The kernel on this page is a covariance of features, and it need not integrate to anything.
+In a support-vector classifier the training points enter the dual only through inner products $x_i^\top x_j$. A feature map $\phi$ replaces that inner product by $\phi(x_i)^\top\phi(x_j)$. A kernel is any function $K$ that equals such an inner product for some $\phi$, possibly into an infinite-dimensional space. The decision function becomes $\sum_i\alpha_i y_i K(x_i,x)+b$. The vector $\phi(x)$ is never required, which is the [kernel trick](kernel-trick.qmd). A necessary and sufficient condition is that every finite Gram matrix $K(x_i,x_j)$ be symmetric and positive semi-definite. Mercer's theorem adds continuity and domain conditions under which $K$ has an eigen-expansion; the Gram-matrix condition is the one used to keep the dual concave. The word kernel is also used for the bump function in density estimation. That bump integrates to one. The kernel on this page is an inner product of features, and it need not integrate to anything.
 
 ## A quadratic map, and a function that fails
 
@@ -2006,11 +2006,11 @@ $$
 g(x)=\beta_0+\beta_1 x+\beta_2 x^2+\beta_3 x^3+\sum_{m=1}^M \gamma_m (x-\xi_m)_+^3,
 $$
 
-where $(u)_+=\max(u,0)$ (de Boor, 1978). Because $(x-\xi_m)_+^3$ and its first two derivatives vanish at $x=\xi_m$, adding $\gamma_m(x-\xi_m)_+^3$ leaves $g(\xi_m)$, $g'(\xi_m)$ and $g''(\xi_m)$ continuous while shifting the third derivative by $6\gamma_m$. Thus a cubic spline with these $M$ knots spans a linear space of dimension $M+4$; adding natural boundary constraints (linearity outside $[\xi_1,\xi_M]$) removes $4$ parameters and leaves $M$ free dimensions when $\xi_1$ and $\xi_M$ are the boundary knots (or $M+2$ free dimensions when $M$ counts strictly interior knots between two separate boundary knots).
+where $(u)_+=\max(u,0)$. Because $(x-\xi_m)_+^3$ and its first two derivatives vanish at $x=\xi_m$, adding $\gamma_m(x-\xi_m)_+^3$ leaves $g(\xi_m)$, $g'(\xi_m)$ and $g''(\xi_m)$ continuous while shifting the third derivative by $6\gamma_m$. Thus a cubic spline with these $M$ knots spans a linear space of dimension $M+4$. If $M\ge2$ and $\xi_1$ and $\xi_M$ are distinct boundary knots, requiring linear tails leaves $M$ free dimensions; with just two boundary knots, these are the straight lines. If instead $M$ counts strictly interior knots between two separate boundary knots, the natural spline space has dimension $M+2$. One knot alone cannot supply two distinct boundaries.
 
 ## Placement and number of knots
 
-With $M=1$ knot at $\xi_1=0$, $g(x)=x+(x)_+^3$ equals $x$ for $x\le 0$ and $x+x^3$ for $x>0$: value $0$, slope $1$, and curvature $0$ match at the join, while curvature grows smoothly as $6x$ to the right. In unpenalised regression splines, too many knots overfit and knot locations matter; in penalised regression splines, placing $10$–$30$ knots at sample quantiles gives ample local flexibility while the roughness penalty controls [effective degrees of freedom](effective-degrees-of-freedom.qmd).
+With $M=1$ knot at $\xi_1=0$, $g(x)=x+(x)_+^3$ equals $x$ for $x\le 0$ and $x+x^3$ for $x>0$: value $0$, slope $1$, and curvature $0$ match at the join, while curvature grows smoothly as $6x$ to the right. In an unpenalised regression spline, too many knots can overfit and their locations matter. A reduced-basis penalised spline may use selected knots at sample quantiles or another basis construction; the basis size sets the available detail, while the roughness penalty controls the fitted [effective degrees of freedom](effective-degrees-of-freedom.qmd).
 """,
     "kolmogorov-extension-theorem": r"""
 ## A process specified only through finite collections of times
@@ -2684,7 +2684,7 @@ A query $x$ arrives with no label. Fix a distance, sort the [training set](train
 
 Small $k$ follows local labels, including their noise. Large $k$ averages over a wider region and is pulled towards the majority class. At $k=n$ every query has the same neighbourhood, the whole sample, and the rule always returns the majority label. The apparent error on the training points favours $k=1$, because each training point is its own nearest neighbour and is classified correctly. [Cross-validation](cross-validation.qmd) on held-out points is what can prefer a larger neighbourhood.
 
-Under the conditions of the [Cover–Hart bound](cover-hart-bound.qmd), the asymptotic risk of one neighbour is at most twice the Bayes risk (Cover and Hart, 1967). The distance itself is a modelling choice: multiplying one coordinate by $10$ can change which point is nearest, and a standardisation fitted on the training sample has to be reused, unchanged, on each query.
+Under the conditions of the [Cover–Hart bound](cover-hart-bound.qmd), the asymptotic risk of one neighbour is at most twice the Bayes risk {{cite:cover_hart1967}} (pp. 22–23). The distance itself is a modelling choice: multiplying one coordinate by $10$ can change which point is nearest, and a standardisation fitted on the training sample has to be reused, unchanged, on each query.
 """,
     "nettalk": r"""
 ## From a window of letters to a pronunciation code
@@ -2864,7 +2864,7 @@ In a [linear model](gaussian-linear-model.qmd) with an intercept, the $K$ indica
     "outlier": r"""
 ## A point sitting far from the bulk
 
-An outlier is an observation far from the rest of the sample. On a [boxplot](five-number-summary-and-boxplot.qmd) the usual flag is a point more than $1.5$ interquartile ranges beyond the first or third quartile, the fence associated with Tukey (1977). In the ordered sample $2,3,3,4,5,6,7,8,20$, hinges that include the median in both halves are $3$ and $7$. The interquartile range is $4$ and the upper fence is $13$. The value $20$ lies past the fence and $8$ does not. The rule decides which points to draw one by one. It does not decide that $20$ was mistyped, and it is not permission to delete the row and refit as though that row had never been collected.
+An outlier is an observation far from the rest of the sample. On a [boxplot](five-number-summary-and-boxplot.qmd) the usual flag is a point more than $1.5$ interquartile ranges beyond the first or third quartile, the boxplot fence.{{cite:nist_boxplot2002}} (§1.3.3.7, Box plots with fences) In the ordered sample $2,3,3,4,5,6,7,8,20$, hinges that include the median in both halves are $3$ and $7$. The interquartile range is $4$ and the upper fence is $13$. The value $20$ lies past the fence and $8$ does not. The rule decides which points to draw one by one. It does not decide that $20$ was mistyped, and it is not permission to delete the row and refit as though that row had never been collected.
 
 ## A mistake, a tail, or the point that matters
 
@@ -3081,7 +3081,7 @@ $$
 \rho'(d) = 2F_{\theta\mid x}(d) - 1.
 $$
 
-The slope is negative while less than half the posterior mass lies at or below $d$, and positive while more than half lies there, so a minimiser satisfies $F_{\theta\mid x}(m) = \tfrac12$. With atoms, zero lies in the subgradient precisely when $\mathbb{P}(\theta \le m \mid x) \ge \tfrac12$ and $\mathbb{P}(\theta \ge m \mid x) \ge \tfrac12$. Mass on the left pulls the action down and mass on the right pulls it up. Under absolute-error loss, that minimiser is a posterior median.{{cite:lehmann_casella1998,gelman_bda2013}}
+The slope is negative while less than half the posterior mass lies at or below $d$, and positive while more than half lies there, so a minimiser satisfies $F_{\theta\mid x}(m) = \tfrac12$. With atoms, zero lies in the subgradient precisely when $\mathbb{P}(\theta \le m \mid x) \ge \tfrac12$ and $\mathbb{P}(\theta \ge m \mid x) \ge \tfrac12$. Mass on the left pulls the action down and mass on the right pulls it up. Under absolute-error loss, that minimiser is a posterior median.{{cite:gelman_bda2013}} (Ch. 4, Ex. 6(b), p. 98)
 
 ## Monotone reparameterisation, with a Beta comparison
 
@@ -3134,7 +3134,7 @@ Take $\alpha=2$ and $n=10000$, so $a_n=100$. The median of $\Phi_{2}$ solves $x^
     "precision-matrix": r"""
 ## The inverse covariance as a conditional parameter
 
-For a random vector with covariance $\Sigma$ positive definite, the precision is $K=\Sigma^{-1}$. In a nonsingular multivariate normal model, $K$ carries the conditional structure. The conditional variance of coordinate $i$ given all the others is $1/K_{ii}$. The coefficient of $X_j$ in the linear regression of $X_i$ on the remaining coordinates is $-K_{ij}/K_{ii}$. In particular $K_{ij}=0$ if and only if $X_i$ and $X_j$ are conditionally independent given the rest, and the partial correlation is $-K_{ij}/\sqrt{K_{ii}K_{jj}}$ (Lauritzen, 1996). A zero in $K$ is a missing edge of the [Gaussian graphical model](gaussian-graphical-models.qmd). A zero in $\Sigma$ is a different statement: it says that the two coordinates are uncorrelated, with no conditioning.
+For a random vector with covariance $\Sigma$ positive definite, the precision is $K=\Sigma^{-1}$. In a nonsingular multivariate normal model, $K$ carries the conditional structure. The conditional variance of coordinate $i$ given all the others is $1/K_{ii}$. The coefficient of $X_j$ in the linear regression of $X_i$ on the remaining coordinates is $-K_{ij}/K_{ii}$. In particular $K_{ij}=0$ if and only if $X_i$ and $X_j$ are conditionally independent given the rest, and the partial correlation is $-K_{ij}/\sqrt{K_{ii}K_{jj}}$ {{cite:evans_graphical_models2025}} (Ch. 5, §5.1, Gaussian conditional independence). A zero in $K$ is a missing edge of the [Gaussian graphical model](gaussian-graphical-models.qmd). A zero in $\Sigma$ is a different statement: it says that the two coordinates are uncorrelated, with no conditioning.
 
 ## Reading a chain
 
@@ -4340,15 +4340,15 @@ CONCEPT_LEADS = {
 }
 
 ARTICLE_HISTORIES.update({
-    "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:markov1906}}",
-    "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
-    "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
+    "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:dodge2008}} (pp. 330–331)",
+    "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:bowman_azzalini1997}} (§1.2, p. 4)",
+    "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:dodge2008}} (pp. 51–53, “Bootstrap”)",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
     "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (§V, p. 719, AIC formula)",
-    "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}}",
-    "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:dempster_laird_rubin1977}}",
+    "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}} (§§1–3, pp. 461–464)",
+    "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:ng_cs229_em2006}} (§1, historical introduction)",
     "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}}",
-    "lasso": "Tibshirani introduced the lasso in 1996.{{cite:tibshirani1996}}",
+    "lasso": "Tibshirani introduced the lasso in 1996.{{cite:friedman_glmnet2010}} (§1, lasso history)",
     "simple-linear-regression": "Legendre published the least-squares method in 1805; Gauss developed its use in 1809.{{cite:legendre1805,gauss1809}}",
 })
 

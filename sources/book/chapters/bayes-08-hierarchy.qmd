@@ -7,7 +7,7 @@ This chapter develops Bayesian models for related groups. The central idea is no
 ::: {#def-hierarchical-bayesian-model .definition}
 ## Hierarchical Bayesian model
 
-Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:gelman_bda2013}} Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}} This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
+Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:deligiannidis2022_foundations}} (§§9.2–9.4, pp. 53–57) Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
 
 :::
 
@@ -69,7 +69,7 @@ The modelling choice can be organised into three cases.
 | No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
 | Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
 
-Hierarchical Bayes produces partial pooling.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:efron_morris1975}} This movement is called *shrinkage* or *borrowing strength*.
+Hierarchical Bayes produces partial pooling.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) Complete pooling can hide a genuinely exceptional class, while no pooling leaves a class with few observations sensitive to one unusual value. The estimated between-class variation helps determine the shrinkage.{{cite:gelman_bda2013}} (Ch. 5, pp. 101–104) This movement is called *shrinkage* or *borrowing strength*.
 
 ### Where the shrinkage weight comes from
 
@@ -149,7 +149,7 @@ $$
  =w_j\overline y_j+(1-w_j)\mu.
 $$
 
-The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:lindley_smith1972}}{{cite:gelman_bda2013}}{{cite:efron_morris1975}}
+The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–56)
 
 :::
 
@@ -160,7 +160,7 @@ If $n_j$ is large, then $w_j$ is close to one and class $j$ mainly trusts its ow
 
 Suppose the overall mean is $\mu=70$, the within-class standard deviation is $\sigma=10$, and the between-class standard deviation is $\tau=5$. Class A has $100$ students and $\overline y_A=75$, while Class B has only two students and $\overline y_B=95$.
 
-**Question.** Compute the two shrinkage weights and posterior means, treating $\mu$, $\sigma^2$, and $\tau^2$ as fixed, and explain why the more extreme sample mean need not produce the more extreme posterior mean.
+**Question.** Compute the two shrinkage weights and posterior means, treating $\mu$, $\sigma^2$, and $\tau^2$ as fixed. Why does Class B move much farther toward the population mean, and how do the raw and posterior gaps compare?
 
 **Solution.** For Class A, \begin{align*}
  w_A&=\frac{100(25)}{100+100(25)}=\frac{25}{26}\approx0.962,\\
@@ -170,7 +170,7 @@ Suppose the overall mean is $\mu=70$, the within-class standard deviation is $\s
  w_B&=\frac{2(25)}{100+2(25)}=\frac13,\\
  \E(\theta_B\given\overline y_B,\mu,\tau^2,\sigma^2)
  &=\frac13(95)+\frac23(70)\approx78.33.
-\end{align*} The extreme average from the small class is not ignored, but it is recognised as much less precise.
+\end{align*} The extreme average from the small class is not ignored, but it is recognised as much less precise. B remains higher: the raw means differ by $20$, while the posterior means differ by about $3.53$.
 
 :::
 
@@ -191,9 +191,9 @@ The practical difficulty begins even earlier. A proper meta-analysis tries to fi
 ::: {#exm-tg5-cattle-hierarchy .example}
 ## TG5 cattle hierarchy
 
-A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling. The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.
+A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was not exhaustive, but it recovered 14 independent studies, many of them unpublished, which produced 19 standardised estimates of a TG5 genotype effect on beef marbling.{{cite:wood_mengersen2006_tg5}} (§2.1, pp. 480–482) The studies covered four breed groups and four marbling measurements, so treating every estimate as an exchangeable replicate would erase scientifically meaningful structure.
 
- The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation.{{cite:barendse2004_tg5}} A schematic version of the hierarchy is \begin{align*}
+ The original study-level analyses compared the CC and TT genotypes with CT, then divided each contrast by its residual standard deviation.{{cite:wood_mengersen2006_tg5}} (§2.1, pp. 481–482) A schematic version of the hierarchy is \begin{align*}
  y_{ij}\given\delta_i,w_{ij}
  &\sim\Normal(\delta_i,w_{ij}^{-1}),\\
  \delta_i\given\mu_{b(i)},\tau_{\mathrm{study}}
@@ -212,7 +212,7 @@ $$
 $$
 
 
- The hierarchy performs partial pooling at more than one level.{{cite:wood_mengersen2006_tg5}} The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy, but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.{{cite:lunn_winbugs2000}}
+ The hierarchy performs partial pooling at more than one level.{{cite:wood_mengersen2006_tg5}} (§2.2, pp. 482–483) The reported posterior for TT minus CC lay mostly above zero, with a smaller shift for one T copy,{{cite:wood_mengersen2006_tg5}} (§3, p. 485) but the important methodological point is that every conclusion and every uncertainty interval came from one coherent multilevel fit. The example connects Bayesian random parameters to mixed models. The analysis was fitted in WinBUGS using a Gibbs sampler; the "GS" in the software name stands for Gibbs sampling.{{cite:lunn_winbugs2000}} (p. 325, §1)
 
 :::
 
@@ -266,7 +266,7 @@ $$
 $$
 
 
- Conditional iid sampling from a common Beta distribution implies exchangeability.{{cite:definetti1937}}{{cite:gelman_bda2013}} 
+ Conditional iid sampling from a common Beta distribution implies exchangeability.{{cite:gelman_bda2013}} (Ch. 5, §5.2, pp. 104–105, conditional iid construction)
 
 $$
  p(\thetavec\given\alpha,\beta)
@@ -274,7 +274,7 @@ $$
 $$
 
 
- The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition.{{cite:gelman_bda2013}} The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
+ The scientific claim is that study labels do not encode systematic differences in strain, laboratory, protocol, calendar time, or tumour definition.{{cite:gelman_bda2013}} (Ch. 5, §5.2, pp. 104–106, exchangeability conditional on available information) The sample sizes $n_j$ may differ; exchangeability requires the latent rates not to be systematically related to those sizes.
 
 :::
 
@@ -391,7 +391,7 @@ Normalising gives \begin{equation}
  \theta_j\given\alpha,\beta,\vect y
  \sim\BetaDist(y_j+\alpha,n_j-y_j+\beta)}.
  \label{eq:theta-full-cond-hierarchy}
-\end{equation} Conditional on the hyperparameters, the study rates are independent.{{cite:gelman_bda2013}}{{cite:lindley_smith1972}} The joint conditional is the product of these $J$ Beta densities.{{cite:gelman_bda2013}}
+\end{equation} Conditional on the hyperparameters, the study rates are independent. The joint conditional is the product of these $J$ Beta densities.{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 108–109)
 
 :::
 
@@ -661,7 +661,7 @@ $$
 
 Study-specific posterior medians and $95\%$ intervals, ordered by the raw rates $y_j/n_j$, do not follow the 45-degree line: small and noisy studies move toward the population centre. This is *shrinkage*, also called borrowing strength. No observation is literally passed from one study to another. All studies help estimate the shared population quantities, and those quantities then influence every study-specific posterior. The model does not force the rates to be equal; the amount of movement is learned from the between-study spread and each study's sample size.
 
-Compared with plugging in one estimate of $(\alpha,\beta)$, full Bayes usually widens the marginal intervals for $\theta_j$ because it adds the variance due to hyperparameter uncertainty. Omitting that variance component makes the intervals over-precise.
+The law of total variance separates the marginal posterior variance of $\theta_j$ into its average conditional variance and the nonnegative variance of its conditional mean as $(\alpha,\beta)$ vary. A plug-in analysis fixes those hyperparameters and omits the second component. This decomposition does not guarantee that every full-Bayes credible interval is wider than an interval from a particular plug-in fit, whose centre and conditional spread may differ.
 
 ::: {.callout-note}
 ## Key idea
@@ -711,7 +711,7 @@ You are given a $100\times100$ table of nonnegative unnormalised heights. Descri
 ::: {#exr-full-bayes-and-interval-width .exercise}
 ## Full Bayes and interval width
 
-Use the law of total variance to explain why integrating over uncertainty in $(\alpha,\beta)$ generally gives wider marginal intervals for $\theta_j$ than plugging in a single estimate. Identify the variance term omitted by the plug-in analysis.
+Use the law of total variance to identify the nonnegative component contributed by uncertainty in $(\alpha,\beta)$. Explain why that decomposition alone does not order the width of every marginal credible interval against an interval from a particular plug-in fit.
 
 :::
 

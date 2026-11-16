@@ -61,11 +61,11 @@ A significant $F$ says the means are not all equal; it does not say which ones d
 ::: {#def-bonferroni-correction .definition}
 ## Bonferroni correction
 
-To make $m$ comparisons with a familywise error rate of at most $\alpha$, run each at level $\alpha/m$.{{cite:dunn1961}}{{cite:bonferroni1936}} Equivalently, multiply each $p$-value by $m$, capping at 1.{{cite:casella_berger2002}}
+To make $m$ comparisons with a familywise error rate of at most $\alpha$, run each at level $\alpha/m$. Equivalently, multiply each $p$-value by $m$, capping at 1.
 
 :::
 
-The correction works because the probability that at least one of $m$ events occurs is at most the sum of their probabilities. It is simple and always valid, but conservative when $m$ is large. [Tukey intervals](inf-07-anova.qmd#def-tukey-intervals), built for all pairwise differences of means, are sharper. For the cold sores, Tukey's method at familywise level $0.05$ separates only one pair: placebo against treatment 3, with difference $3.17$ days and 95% simultaneous interval $(0.57,\ 5.76)$. The Bonferroni version agrees: the $t$ statistic for that pair is $3.59$, beyond the corrected critical value $t_{25;\,1-0.05/20}=3.08$, and no other pair passes.
+The correction works because the probability that at least one of $m$ events occurs is at most the sum of their probabilities. This bound applies without assuming that the comparison tests are independent of one another. It is simple and always valid, but conservative when $m$ is large. [Tukey intervals](inf-07-anova.qmd#def-tukey-intervals), built for all pairwise differences of means, are sharper. For the cold sores, Tukey's method at familywise level $0.05$ separates only one pair: placebo against treatment 3, with difference $3.17$ days and 95% simultaneous interval $(0.57,\ 5.76)$. The Bonferroni version agrees: the $t$ statistic for that pair is $3.59$, beyond the corrected critical value $t_{25;\,1-0.05/20}=3.08$, and no other pair passes.
 
 ```r
 TukeyHSD(aov(times ~ treatment, data = coldsore))

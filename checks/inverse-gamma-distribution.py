@@ -1,10 +1,12 @@
 """Check the inverse-Gamma examples and preservation in the generated page."""
 
+import json
 from fractions import Fraction
 from pathlib import Path
 import re
 
-page = (Path(__file__).resolve().parents[1] / "articles" / "inverse-gamma-distribution.qmd").read_text()
+root = Path(__file__).resolve().parents[1]
+page = (root / "articles" / "inverse-gamma-distribution.qmd").read_text()
 body = page.split("## See also", 1)[0]
 
 for printed in (
@@ -38,6 +40,8 @@ assert Fraction(2**2, (3 - 1)**2 * (3 - 2)) == 1
 assert body.count('title="Proof"') == 1
 assert body.count("../reference/plots/inverse-gamma-distribution-") == 2
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", body))
-assert len(questions) == 19, f"Expected 19 question links, got {len(questions)}"
+assert len(questions) >= 19, f"Expected at least 19 preserved question links, got {len(questions)}"
+original = json.loads((root / "depth_distribution_baseline.json").read_text())["articles"]["inverse-gamma-distribution"]["question_links"]
+assert {link.split("/")[-1].removesuffix(".qmd") for link in original} <= questions
 assert all(key in body for key in ('data-cite-key="stan_functions2026"', 'data-cite-key="gelman2006"', 'data-cite-key="raiffa_schlaifer1961"'))
 print("inverse-gamma-distribution printed values, proof, figures, and question links passed")
