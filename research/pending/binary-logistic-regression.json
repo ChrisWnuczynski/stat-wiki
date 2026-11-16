@@ -1,0 +1,17 @@
+{
+  "bibliography": {
+    "rodriguez_glm_binomial": {
+      "authors": ["Rodríguez, G."],
+      "year": 2026,
+      "title": "Generalized Linear Models: Binomial Errors and Link Logit",
+      "kind": "book",
+      "publisher": "Princeton University",
+      "url": "https://grodri.github.io/glms/notes/a2s4",
+      "verification": {"source": "archival_url", "id": "https://grodri.github.io/glms/notes/a2s4"}
+    }
+  },
+  "article_lead": {
+    "description": "a regression model that links predictors to the probability of a binary event through its log odds"
+  },
+  "self_checks": ["ex-sl-10-7", "ex-sl-18-6"]
+}
