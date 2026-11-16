@@ -599,5 +599,69 @@
   "working-correlation": [
     "ex-ur-exchangeable-bound",
     "c-40"
+  ],
+  "activation-function": [
+    "ex-sl-14-6",
+    "ex-sl-15-7"
+  ],
+  "effective-degrees-of-freedom": [
+    "ex-fish-poisson",
+    "ex-cholesterol-gam"
+  ],
+  "em-algorithm": [
+    "ex-sl-05-2",
+    "ex-sl-05-3",
+    "ex-sl-05-4"
+  ],
+  "histogram": [
+    "depth-histogram-1",
+    "depth-histogram-2"
+  ],
+  "improper-prior": [
+    "ex-improper-normal",
+    "depth-improper-boundary"
+  ],
+  "lasso": [
+    "ex-sl-18-5",
+    "ex-sl-18-6",
+    "ex-sl-18-9"
+  ],
+  "linear-mixed-model": [
+    "c-34",
+    "ex-orthodont-lmm"
+  ],
+  "negative-binomial-distribution": [
+    "c-22",
+    "q-57"
+  ],
+  "outlier": [
+    "exr-outlier-fence-diagnosis",
+    "exr-outlier-small-sample-z"
+  ],
+  "overfitting": [
+    "ex-sl-09-6",
+    "ex-sl-09-7",
+    "ex-sl-16-7"
+  ],
+  "poisson-distribution": [
+    "ex-sp-poisson-half-hour",
+    "ex-inf-poisson-information"
+  ],
+  "precision-matrix": [
+    "ex-sl-19-2",
+    "ex-sl-19-8"
+  ],
+  "variance-function": [
+    "q-55",
+    "c-41"
+  ],
+  "xor-problem": [
+    "ex-sl-14-5",
+    "ex-sl-17-10"
+  ],
+  "zero-one-loss-and-risk": [
+    "ex-sl-08-1",
+    "ex-sl-12-1",
+    "ex-sl-12-2"
   ]
 }

@@ -103,5 +103,40 @@
     "title": "A shared coin probability",
     "body": "Choose a coin probability Θ to be 0.2 or 0.8 with equal probability, then toss twice independently conditional on Θ. Are the two results exchangeable? Are they independent after Θ is integrated out? Calculate P(1,0) and P(1,1).",
     "answer": "The conditional iid construction makes the joint law exchangeable. P(1,0)=0.5(0.2·0.8)+0.5(0.8·0.2)=0.16, while P(1,1)=0.5(0.2²)+0.5(0.8²)=0.34. Each marginal success probability is 0.5, so independence would require P(1,1)=0.25. The shared random Θ creates dependence."
+  },
+  {
+    "id": "depth-histogram-1",
+    "topic_code": "D2",
+    "title": "A density bar taller than one",
+    "body": "Ten observations fall in two adjacent bins. Six are in $[0,0.2)$ and four are in $[0.2,1)$. Find the heights and areas of a density histogram. Is a bar height greater than one an error?",
+    "answer": "The widths are $0.2$ and $0.8$. The density heights are $6/(10\\cdot0.2)=3$ and $4/(10\\cdot0.8)=0.5$. The areas are $3\\cdot0.2=0.6$ and $0.5\\cdot0.8=0.4$, summing to one. Height $3$ is valid: density is probability per unit of the horizontal scale, while each bar's area is its probability share."
+  },
+  {
+    "id": "depth-histogram-2",
+    "topic_code": "D2",
+    "title": "Shifting histogram boundaries",
+    "body": "The measurements are $0.4,0.6,1.4,1.6,2.4$. Count them first in $[0,1),[1,2),[2,3)$, then in $[-0.5,0.5),[0.5,1.5),[1.5,2.5)$. What changes, and what should that tell you about interpreting a peak from five values?",
+    "answer": "The first grid has counts $(2,2,1)$. The shifted grid has counts $(1,2,2)$. The data have not changed: one measurement moves from the first bar to the second, and another from the second to the third because the boundaries moved. A peak or asymmetry inferred from five binned observations is sensitive to that choice; inspect the raw values and several reasonable grids."
+  },
+  {
+    "id": "depth-improper-boundary",
+    "topic_code": "B1",
+    "title": "A boundary left by an improper prior",
+    "body": "A binomial success probability has prior weight $w(\\theta)\\propto[\\theta(1-\\theta)]^{-1}$. For five trials, determine the posterior kernel and whether it is proper (a) if two trials succeed and (b) if none succeed. Give the posterior mean in the proper case.",
+    "answer": "For two successes, the kernel is $\\theta^{2-1}(1-\\theta)^{3-1}$, hence the proper $\\operatorname{Beta}(2,3)$ posterior has mean $2/(2+3)=0.4$. With no successes, the kernel is $\\theta^{-1}(1-\\theta)^4$; its integral diverges at zero, so there is no posterior probability distribution."
+  },
+  {
+    "id": "exr-outlier-fence-diagnosis",
+    "topic_code": "D2",
+    "title": "A boxplot flag is a question",
+    "body": "The ordered observations are $1,2,3,3,4,5,6,7,16$. Using hinges that include the median in both halves, find the $1.5IQR$ fences and identify any flagged value. The record confirms that the flagged value was measured correctly. Should it be deleted solely because of the fence?",
+    "answer": "The median is $4$. The lower and upper hinges are $3$ and $6$, so $IQR=3$. The fences are $3-1.5(3)=-1.5$ and $6+1.5(3)=10.5$. Only $16$ is flagged. The fence signals an observation worth investigating; a confirmed genuine measurement should not be silently deleted. Report a sensitivity analysis or fit a model suitable for the tail if its influence matters."
+  },
+  {
+    "id": "exr-outlier-small-sample-z",
+    "topic_code": "D2",
+    "title": "A distant point with a modest z-score",
+    "body": "For the observations $0,0,0,24$, compute the mean, the usual sample standard deviation, and the z-score of $24$. Would a rule requiring absolute z-score above $2$ flag it? Explain the self-masking effect.",
+    "answer": "The mean is $6$. The squared deviations sum to $432$, so the sample variance is $432/3=144$ and the sample standard deviation is $12$. The score of $24$ is $(24-6)/12=1.5$, below $2$. The distant point also raises the mean and standard deviation used to judge itself. For $n=4$, the sharp upper bound on any ordinary sample z-score is $(n-1)/\\sqrt n=3/2=1.5$."
   }
 ]

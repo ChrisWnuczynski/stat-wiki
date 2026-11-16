@@ -8,8 +8,8 @@
   {
     "a": "binomial-distribution",
     "b": "poisson-distribution",
-    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:siegrist2022_binomial_distribution}} (§11.2, Poisson Approximation)",
-    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:siegrist2022_binomial_distribution}} (§11.2, Poisson Approximation)"
+    "a_text": "{target} is the limit of a binomial count when $n$ grows, $p$ shrinks, and $np$ tends to the Poisson mean $\\lambda$. The approximation is useful for rare events.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution)",
+    "b_text": "{target} converges to this law when $n\\to\\infty$ and $p=\\lambda/n$. This rare-event limit explains the Poisson count model.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution)"
   },
   {
     "a": "binomial-distribution",
@@ -56,8 +56,8 @@
   {
     "a": "conway-maxwell-poisson-distribution",
     "b": "poisson-distribution",
-    "a_text": "{target} is the special case $\\nu=1$: the normalising constant becomes $e^\\lambda$ and the masses become Poisson masses.{{cite:shmueli2005}}",
-    "b_text": "{target} extends this law by raising the factorial term to a power $\\nu$. At $\\nu=1$ the usual Poisson law is recovered.{{cite:shmueli2005}}"
+    "a_text": "{target} is the special case $\\nu=1$: the normalising constant becomes $e^\\lambda$ and the masses become Poisson masses.{{cite:shmueli2005}} (§2, Poisson special case)",
+    "b_text": "{target} extends this law by raising the factorial term to a power $\\nu$. At $\\nu=1$ the usual Poisson law is recovered.{{cite:shmueli2005}} (§2, Poisson special case)"
   },
   {
     "a": "dirichlet-distribution",
@@ -104,8 +104,8 @@
   {
     "a": "geometric-distribution",
     "b": "negative-binomial-distribution",
-    "a_text": "{target} counts failures before a specified number of successes in one common parameterisation. With one required success and mean failures $(1-p)/p$, that count equals a geometric trial count minus one.{{cite:forbes2011}}",
-    "b_text": "{target} counts trials through the first success; subtracting one gives this law with dispersion $\\nu=1$ and mean $\\mu=(1-p)/p$.{{cite:forbes2011}}"
+    "a_text": "{target} counts failures before a specified number of successes in one common parameterisation. With one required success and mean failures $(1-p)/p$, that count equals a geometric trial count minus one.{{cite:zeileis_kleiber_jackman2008}} (§2, p. 5, geometric special case)",
+    "b_text": "{target} counts trials through the first success; subtracting one gives this law with dispersion $\\nu=1$ and mean $\\mu=(1-p)/p$.{{cite:zeileis_kleiber_jackman2008}} (§2, p. 5, geometric special case)"
   },
   {
     "a": "hypergeometric-distribution",
@@ -140,8 +140,8 @@
   {
     "a": "negative-binomial-distribution",
     "b": "poisson-distribution",
-    "a_text": "As dispersion $\\nu$ grows with mean $\\mu$ fixed, this law converges to {target} with mean $\\lambda=\\mu$. The extra variance shrinks to zero.{{cite:venables_ripley2002}}",
-    "b_text": "{target} with mean $\\lambda=\\mu$ is the limit of this negative-binomial parameterisation as $\\nu\\to\\infty$.{{cite:venables_ripley2002}}"
+    "a_text": "As dispersion $\\nu$ grows with mean $\\mu$ fixed, this law converges to {target} with mean $\\lambda=\\mu$. The extra variance shrinks to zero.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, Poisson limit)",
+    "b_text": "{target} with mean $\\lambda=\\mu$ is the limit of this negative-binomial parameterisation as $\\nu\\to\\infty$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, Poisson limit)"
   },
   {
     "a": "normal-distribution",

@@ -204,7 +204,7 @@ Single-variable tests ignore the other explanatory variables. If the selected va
 
 One way of limiting overfitting is to penalise the magnitude of the parameters. Another, as with the Bayesian information criterion, is to penalise the number of parameters. Another way to choose a subset begins with a method of assessing predictive accuracy: the cross-validation PRESS statistic for a continuous response, or classical cross-validation for a nominal response. One then searches over all possible combinations of the available variables. With $p$ explanatory variables the number of subsets is $2^p$. For $p=30$ this is more than $10^9$, and for $p=100$ about $10^{30}$.
 
-Greedy searches make a manageable sequence of comparisons. Forward selection adds one variable at a time{{cite:hastie_esl2009}}{{cite:james_islr2021}}{{cite:tibshirani1996}}. Backward selection removes one from an initially fitted model. That reduces the search, and it does not guarantee the best subset. A better training fit does not settle the prediction question. For nested least-squares models, training $R^2$ cannot decrease as variables are added. Selection therefore needs a criterion that accounts for complexity or evaluates predictions on observations excluded from the relevant fitting and selection steps.
+Greedy searches make a manageable sequence of comparisons. Forward selection adds one variable at a time{{cite:james_islr2013}} (Ch. 6, §6.1.2, pp. 207–210). Backward selection removes one from an initially fitted model. That reduces the search, and it does not guarantee the best subset. A better training fit does not settle the prediction question. For nested least-squares models, training $R^2$ cannot decrease as variables are added. Selection therefore needs a criterion that accounts for complexity or evaluates predictions on observations excluded from the relevant fitting and selection steps.
 
 Best subset selection fixes the number of selected variables at some value $k<p$ and searches over this smaller domain. It can be viewed as a hard-constraint version of the information criterion, or as a method that uses an $L^0$ penalty, which counts the nonzero elements:
 
@@ -245,7 +245,7 @@ $$
 
 Adding $\lambda I$ reduces the condition number of the matrix to be inverted. If $p>n$ then $X^\top X$ is rank-deficient, so not invertible. It is positive semi-definite, so at least one eigenvalue is zero and the others are nonnegative. Adding $\lambda I$ raises every eigenvalue by $\lambda>0$, making the matrix positive definite and invertible, and hence allowing a unique solution even when $p>n$.
 
-Tibshirani’s lasso, building in part on Donoho and Johnstone’s wavelet shrinkage and Breiman’s nonnegative garrote, replaces the $L^2$ penalty by an $L^1$ penalty. The resulting estimator is the lasso, the least absolute shrinkage and selection operator{{cite:shalizi2025_truth_regression}} (Ch. 15, §15.4, pp. 268–269):
+Tibshirani's lasso replaces the $L^2$ penalty by an $L^1$ penalty. Related earlier work included Donoho and Johnstone's wavelet shrinkage and Breiman's nonnegative garrote; the soft-threshold calculation below makes the connection to wavelet shrinkage explicit.{{cite:james_islr2013}} (Ch. 6, §6.2.2, pp. 219–224){{cite:friedman_glmnet2010}} (§1 and §2, lasso and soft thresholding) The resulting estimator is the lasso, the least absolute shrinkage and selection operator{{cite:friedman_glmnet2010}} (§2, penalised least-squares objective):
 
 $$
 (\hat\beta_0,\hat\beta)
@@ -262,7 +262,7 @@ On the Bayesian page, a Laplace prior on the slopes has a posterior mode at this
 
 ### Why the $L^1$ penalty gives zeros
 
-The ellipses of a least-squares cost are centred at the unpenalised estimate. The constraint sets are $|\beta_1|+|\beta_2|\le t$ and $\beta_1^2+\beta_2^2\le t^2$. The penalised estimate is the point where the lowest contour still touches the constraint. The $L^1$ set is a diamond. A smooth ellipse tends to touch it at a corner, and a corner sets one coefficient to zero{{cite:tibshirani1996}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}. The $L^2$ set is a disk. The ellipse meets the disk at a smooth point, and both coefficients stay nonzero. Sparsity depends on the penalty, the loss, and the data. High dimension alone does not force the right variables to be the ones selected.
+The ellipses of a least-squares cost are centred at the unpenalised estimate. The constraint sets are $|\beta_1|+|\beta_2|\le t$ and $\beta_1^2+\beta_2^2\le t^2$. The penalised estimate is the point where the lowest contour still touches the constraint. The $L^1$ set is a diamond. A smooth ellipse tends to touch it at a corner, and a corner sets one coefficient to zero{{cite:james_islr2013}} (Ch. 6, §6.2.2, pp. 222–224, constraint geometry). The $L^2$ set is a disk. The ellipse meets the disk at a smooth point, and both coefficients stay nonzero. Sparsity depends on the penalty, the loss, and the data. High dimension alone does not force the right variables to be the ones selected.
 
 The diamond does not force the optimum to a corner on every data set. It makes corners available over a range of loss contours, which is the mechanism for exact zeros. Ridge can have a zero coefficient through cancellation or symmetry. Its smooth penalty does not create a thresholding region around zero.
 
@@ -280,7 +280,7 @@ $$
 \hat\beta_j^{\mathrm{lasso}}=\operatorname{sign}(b)\bigl(|b|-\lambda/2\bigr)_+,
 $$
 
-the soft-thresholding operator{{cite:tibshirani1996}}{{cite:donoho_johnstone1994}}{{cite:hastie_esl2009}}. Coefficients smaller than $\lambda/2$ in magnitude are set to zero, and the others are shrunk towards zero by $\lambda/2$. The factor $\lambda/2$, rather than $\lambda$, is the derivative of a square that was not written with a leading $\tfrac12$.
+the soft-thresholding operator{{cite:friedman_glmnet2010}} (§2, coordinate update and Donoho–Johnstone attribution). Coefficients smaller than $\lambda/2$ in magnitude are set to zero, and the others are shrunk towards zero by $\lambda/2$. The factor $\lambda/2$, rather than $\lambda$, is the derivative of a square that was not written with a leading $\tfrac12$.
 
 Best-subset selection with a penalty $\lambda$ on $\lVert\beta\rVert_{L^0}$ gives hard thresholding: keep $b$ unchanged if $|b|>\sqrt{\lambda}$ and set it to $0$ otherwise. At $|b|=\sqrt{\lambda}$, both $0$ and $b$ minimise the criterion $(\beta-b)^2+\lambda\,1_{\beta\neq 0}$. The displayed rule chooses zero.
 
@@ -288,7 +288,7 @@ For example, with least-squares estimates $(3,-1.5,0.8,-0.3,0.1)$ and $\lambda=1
 
 ### Choosing $\lambda$
 
-The penalty determines a trade-off, so it must be chosen for an objective. Prediction-oriented tuning can use cross-validation with the entire fitting procedure repeated within each fold. The broader family $\lambda\sum_j|\beta_j|^q$ connects several familiar penalties: $q=2$ gives ridge, $q=1$ gives the lasso, and counting nonzero coefficients gives the $L^0$ formulation. The mathematical appeal of $q=1$ is concrete: it retains convexity while introducing a corner at zero. For $0<q<1$, the penalty is nonconvex. These geometric facts do not by themselves select a penalty value{{cite:tibshirani1996}}{{cite:frank_friedman1993}}.
+The penalty determines a trade-off, so it must be chosen for an objective. Prediction-oriented tuning can use cross-validation with the entire fitting procedure repeated within each fold. The broader family $\lambda\sum_j|\beta_j|^q$ connects several familiar penalties: $q=2$ gives ridge, $q=1$ gives the lasso, and counting nonzero coefficients gives the $L^0$ formulation. The mathematical appeal of $q=1$ is concrete: it retains convexity while introducing a corner at zero. For $0<q<1$, the penalty is nonconvex. These geometric facts do not by themselves select a penalty value{{cite:james_islr2013}} (Ch. 6, §§6.2.2–6.2.3, pp. 219–227).
 
 A path algorithm computes fits over a range of penalties. Each fixed-$\lambda$ least-squares lasso problem is convex. Under the usual nondegeneracy conditions, coefficients vary piecewise linearly with $\lambda$, with changes when variables enter or leave the active set. Calling the path itself convex is a different claim. Efficient path algorithms exploit the piecewise-linear structure. Their workload still depends on the design and the number of changes.
 
@@ -296,13 +296,13 @@ Read a coefficient path as a sequence of fitted models, not a ranking of biologi
 
 ### Extensions
 
-The lasso can also be used with a generalised linear model, one with $g(\mu(x))=x^\top\beta$ where $\mu(x)=\E(Y\given X=x)$, $g$ is monotone, and $Y$ has a distribution from the exponential family. In particular it applies to logistic regression: minimise the negative log-likelihood plus $\lambda\sum_j|\beta_j|$, with $\lambda$ chosen by cross-validation of the binomial deviance{{cite:tibshirani1996}}{{cite:friedman_glmnet2010}}{{cite:hastie_esl2009}}.
+The lasso can also be used with a generalised linear model, one with $g(\mu(x))=x^\top\beta$ where $\mu(x)=\E(Y\given X=x)$, $g$ is monotone, and $Y$ has a distribution from the exponential family. In particular it applies to logistic regression: minimise the negative log-likelihood plus $\lambda\sum_j|\beta_j|$, with $\lambda$ chosen by cross-validation of the binomial deviance{{cite:friedman_glmnet2010}} (§3, regularised logistic regression and tuning).
 
 The lasso is a shrinkage method. An $L^1$ penalty constrains the overall coefficient size, but with correlated predictors an individual coefficient need not be smaller in magnitude than its least-squares counterpart, so the estimator is biased. One question is whether this bias can be reduced, at least as $n$ grows.
 
 Assume a lasso is fit with $\lambda$ chosen by cross-validation. This typically removes many variables. Refitting an unpenalised model on the same data the lasso selected is biased. A sample the lasso did not see is the clean check. Only about half the data is then used for each of selection and fitting.
 
-Another option, proposed by {{cite:zou2006}}, is the adaptive lasso
+Another option, proposed by Zou, is the adaptive lasso{{cite:friedman_glmnet2010}} (§2.6, penalty rescaling and Zou attribution)
 
 $$
 (\hat\beta_0,\hat\beta)
@@ -313,7 +313,7 @@ $$
 \Biggr\}.
 $$
 
-The displayed version uses $w_j=1/|\tilde\beta_j|$ from a pilot fit. The general adaptive lasso permits powers $|\tilde\beta_j|^{-\gamma}$ with $\gamma>0$. Large pilot coefficients receive less shrinkage. A zero pilot requires an explicit rule, such as exclusion or a stated stabilisation. {{cite:zou2006}} gives oracle properties under assumptions on the design, a sufficiently accurate pilot, and the rate of the penalty sequence. These are not guarantees for any cross-validated penalty or any marginal-regression pilot, particularly with correlated predictors and growing dimension. Selection consistency and coefficient consistency must be checked under the stated asymptotic regime.
+The displayed version uses $w_j=1/|\tilde\beta_j|$ from a pilot fit. The general adaptive lasso permits powers $|\tilde\beta_j|^{-\gamma}$ with $\gamma>0$. Large pilot coefficients receive less shrinkage. A zero pilot requires an explicit rule, such as exclusion or a stated stabilisation. Chen, Valliant and Elliott summarize Zou's oracle property under assumptions on the design, a sufficiently accurate pilot, and the rate of the penalty sequence.{{cite:chen_valliant_elliott2018}} (§3.1.2, oracle property and penalty-rate conditions) These are not guarantees for any cross-validated penalty or any marginal-regression pilot, particularly with correlated predictors and growing dimension. Selection consistency and coefficient consistency must be checked under the stated asymptotic regime.
 
 ## The Alon colon-cancer matrix
 

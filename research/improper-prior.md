@@ -1,0 +1,11 @@
+# Improper prior — research notes
+
+- **Checked:** SAS/STAT 9.2 User's Guide, “Prior Distributions,” sections “Noninformative Priors,” “Improper Priors,” and “Jeffreys' Prior”: flat real-line weight is improper, posterior normalising integral must be finite, flatness changes under reparameterisation, and Jeffreys prior may itself be improper. Opened full official HTML.
+- **Checked:** Stan User's Guide 2.40, “Problematic Posteriors,” especially “Redundant intercepts,” “Removing redundant parameters,” and “Adding priors”: an unidentified two-intercept ridge remains improper under flat weights; proper priors or a single identified intercept resolve it. Opened full official HTML.
+- **Checked with qualification:** Haldane (1932), Cambridge publisher page, extract and bibliographic data at printed p. 55, was inspected for orientation. The full paper was unavailable, so the revised historical prose cites Taraldsen et al.'s full §2 account of Haldane's weight.
+- **Checked with qualification:** Jeffreys (1946), DOI/title and publisher-linked abstract inspected for orientation; original full paper did not open. The revised invariance statement cites the full SAS guide's “Jeffreys' Prior” section.
+- **Checked:** Taraldsen, Tufto and Lindqvist (2022), full open-access Wiley article §2: identifies the Haldane Beta(0,0) kernel and the all-success/all-failure improper cases. It also develops a generalized unbounded-measure interpretation of posteriors, which is beyond the conventional probability-posterior scope of this page.
+- **Checked by algebra and code:** flat normal-mean posterior; Haldane beta kernel and positive shape criterion; numerical examples and hidden answers. `checks/improper-prior.py` verifies them.
+- **Assumed:** known variance and iid normal observations in the normal worked exercise; independent trials in the binomial example. These are model assumptions, not empirical facts.
+- **Disputed/limited:** a flat weight has no parameterisation-independent claim to represent ignorance. Bayes factors under arbitrary normalising multipliers require special treatment; the page states only the ordinary caution.
+- **Dodge:** the Bayesian Statistics entry (printed p. 32; pdf-0039.txt) gives Bayes' rule and prior/likelihood framing, but does not substantiate a history of improper priors, so it is not cited for that claim.

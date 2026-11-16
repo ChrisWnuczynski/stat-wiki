@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **142**. Left: **576**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **157**. Left: **561**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -115,7 +115,7 @@ Pages ranked: **718**. Done: **142**. Left: **576**. Skipped: **0**. Ranks 1–6
 | 104 | [Bootstrap](bootstrap.md) | Section | [Prose](content/bootstrap.md), [check](../checks/bootstrap.py) | 725 → 2,493 | 0 → 0 | See [research record](bootstrap.md) |
 | 105 | [Prior odds](prior-odds.md) | Topic | [Prose](content/prior-odds.md), [check](../checks/prior-odds.py) | 486 → 2,792 | 0 → 0 | See [research record](prior-odds.md) |
 | 106 | [Mean squared error](mean-squared-error.md) | Definition | [Prose](content/mean-squared-error.md), [check](../checks/mean-squared-error.py) | 802 → 2,648 | 0 → 0 | See [research record](mean-squared-error.md) |
-| 107 | [Ridge regression](ridge-regression.md) | Topic | [Prose](content/ridge-regression.md), [check](../checks/ridge-regression.py) | 1,038 → 2,723 | 0 → 0 | See [research record](ridge-regression.md) |
+| 107 | [Ridge regression](ridge-regression.md) | Topic | [Prose](content/ridge-regression.md), [check](../checks/ridge-regression.py) | 1,038 → 2,751 | 0 → 0 | See [research record](ridge-regression.md) |
 | 108 | [Binary logistic regression](binary-logistic-regression.md) | Definition | [Prose](content/binary-logistic-regression.md), [check](../checks/binary-logistic-regression.py) | 453 → 1,996 | 0 → 0 | See [research record](binary-logistic-regression.md) |
 | 109 | [Homogeneous Poisson process](homogeneous-poisson-process.md) | Definition | [Prose](content/homogeneous-poisson-process.md), [check](../checks/homogeneous-poisson-process.py) | 445 → 1,776 | 0 → 0 | See [research record](homogeneous-poisson-process.md) |
 | 110 | [Quasi-score and quasi-likelihood](quasi-score-and-quasi-likelihood.md) | Definition | [Prose](content/quasi-score-and-quasi-likelihood.md), [check](../checks/quasi-score-and-quasi-likelihood.py) | 1,125 → 3,304 | 2 → 2 | See [research record](quasi-score-and-quasi-likelihood.md) |
@@ -151,12 +151,27 @@ Pages ranked: **718**. Done: **142**. Left: **576**. Skipped: **0**. Ranks 1–6
 | 140 | [Support vectors and their multipliers](support-vectors-and-their-multipliers.md) | Section | [Prose](content/support-vectors-and-their-multipliers.md), [check](../checks/support-vectors-and-their-multipliers.py) | 168 → 2,386 | 0 → 0 | See [research record](support-vectors-and-their-multipliers.md) |
 | 141 | [Random intercept model](random-intercept-model.md) | Section | [Prose](content/random-intercept-model.md), [check](../checks/random-intercept-model.py) | 554 → 5,271 | 1 → 2 | See [research record](random-intercept-model.md) |
 | 142 | [Continuous distribution](continuous-distribution.md) | Definition | [Prose](content/continuous-distribution.md), [check](../checks/continuous-distribution.py) | 475 → 2,816 | 2 → 2 | See [research record](continuous-distribution.md) |
+| 143 | [Outlier](outlier.md) | Topic | [Prose](content/outlier.md), [check](../checks/outlier.py) | 471 → 2,508 | 0 → 0 | See [research record](outlier.md) |
+| 144 | [Variance function](variance-function.md) | Topic | [Prose](content/variance-function.md), [check](../checks/variance-function.py) | 286 → 2,597 | 0 → 0 | See [research record](variance-function.md) |
+| 145 | [Overfitting](overfitting.md) | Topic | [Prose](content/overfitting.md), [check](../checks/overfitting.py) | 456 → 2,698 | 0 → 0 | See [research record](overfitting.md) |
+| 146 | [Poisson distribution](poisson-distribution.md) | Distribution | [Prose](content/poisson-distribution.md), [check](../checks/poisson-distribution.py) | 3,061 → 5,409 | 3 → 3 | See [research record](poisson-distribution.md) |
+| 147 | [Improper prior](improper-prior.md) | Topic | [Prose](content/improper-prior.md), [check](../checks/improper-prior.py) | 453 → 2,745 | 0 → 0 | See [research record](improper-prior.md) |
+| 148 | [XOR problem](xor-problem.md) | Section | [Prose](content/xor-problem.md), [check](../checks/xor-problem.py) | 329 → 2,240 | 0 → 0 | See [research record](xor-problem.md) |
+| 149 | [EM algorithm](em-algorithm.md) | Topic | [Prose](content/em-algorithm.md), [check](../checks/em-algorithm.py) | 723 → 2,895 | 0 → 0 | See [research record](em-algorithm.md) |
+| 150 | [Negative binomial distribution](negative-binomial-distribution.md) | Distribution | [Prose](content/negative-binomial-distribution.md), [check](../checks/negative-binomial-distribution.py) | 701 → 2,802 | 2 → 2 | See [research record](negative-binomial-distribution.md) |
+| 151 | [Linear mixed model](linear-mixed-model.md) | Topic | [Prose](content/linear-mixed-model.md), [check](../checks/linear-mixed-model.py) | 299 → 3,336 | 0 → 1 | See [research record](linear-mixed-model.md) |
+| 152 | [Activation function](activation-function.md) | Topic | [Prose](content/activation-function.md), [check](../checks/activation-function.py) | 264 → 2,256 | 0 → 0 | See [research record](activation-function.md) |
+| 153 | [Lasso](lasso.md) | Section | [Prose](content/lasso.md), [check](../checks/lasso.py) | 1,938 → 4,204 | 0 → 0 | See [research record](lasso.md) |
+| 154 | [Precision matrix](precision-matrix.md) | Topic | [Prose](content/precision-matrix.md), [check](../checks/precision-matrix.py) | 483 → 2,293 | 0 → 0 | See [research record](precision-matrix.md) |
+| 155 | [Effective degrees of freedom](effective-degrees-of-freedom.md) | Topic | [Prose](content/effective-degrees-of-freedom.md), [check](../checks/effective-degrees-of-freedom.py) | 712 → 5,741 | 0 → 4 | See [research record](effective-degrees-of-freedom.md) |
+| 156 | [Zero–one loss and risk](zero-one-loss-and-risk.md) | Definition | [Prose](content/zero-one-loss-and-risk.md), [check](../checks/zero-one-loss-and-risk.py) | 507 → 2,711 | 0 → 0 | See [research record](zero-one-loss-and-risk.md) |
+| 157 | [Histogram](histogram.md) | Topic | [Prose](content/histogram.md), [check](../checks/histogram.py) | 189 → 2,449 | 0 → 1 | See [research record](histogram.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 143: `outlier`.** Ranks 128–142 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 158: `aperiodic-markov-chain`.** Ranks 143–157 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

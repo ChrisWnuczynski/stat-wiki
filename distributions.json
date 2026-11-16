@@ -1098,16 +1098,16 @@
     "history": "",
     "sampling": "",
     "conjugate_prior_for": "",
-    "lead_context": "It accommodates count variation beyond the mean–variance equality imposed by a Poisson model.{{cite:venables_ripley2002}}",
-    "statistical_use": "Negative-binomial regression is used for overdispersed counts when a Poisson fit understates variation. In this parameterisation $\\mu$ is the mean and $\\nu$ controls extra variance; larger $\\nu$ brings the law closer to Poisson.{{cite:venables_ripley2002}}",
-    "worked_example": "### Extra variation in counts\n\nFor $X\\sim\\operatorname{NegBin}(\\mu=4,\\nu=2)$, the variance is $4+4^2/2=12$, three times the mean. The chance of zero counts is $(2/(4+2))^2=1/9$, larger than the Poisson zero chance $e^{-4}$.{{cite:venables_ripley2002}}",
+    "lead_context": "{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
+    "statistical_use": "Negative-binomial regression is used for overdispersed counts when a Poisson fit understates variation. In this parameterisation $\\mu$ is the mean and $\\nu$ controls extra variance; larger $\\nu$ brings the law closer to Poisson.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
+    "worked_example": "### Extra variation in counts\n\nFor $X\\sim\\operatorname{NegBin}(\\mu=4,\\nu=2)$, the variance is $4+4^2/2=12$, three times the mean. The chance of zero counts is $(2/(4+2))^2=1/9$, larger than the Poisson zero chance $e^{-4}$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
     "key_result": {
       "title": "Extra variance from rate mixing",
-      "statement": "For the mean-dispersion parameterisation $X\\sim\\operatorname{NegBin}(\\mu,\\nu)$, $\\mathrm E(X)=\\mu$ and $\\operatorname{Var}(X)=\\mu+\\mu^2/\\nu$.{{cite:venables_ripley2002}}",
+      "statement": "For the mean-dispersion parameterisation $X\\sim\\operatorname{NegBin}(\\mu,\\nu)$, $\\mathrm E(X)=\\mu$ and $\\operatorname{Var}(X)=\\mu+\\mu^2/\\nu$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)",
       "meaning": "The additional term measures variation beyond the Poisson mean–variance equality.",
-      "proof": "Let $\\Lambda\\sim\\operatorname{Gamma}(\\nu,\\nu/\\mu)$ in shape-rate form and $X\\mid\\Lambda\\sim\\operatorname{Poisson}(\\Lambda)$. Integrating the Poisson mass against the gamma density gives the displayed negative-binomial mass. The laws of total expectation and variance give $\\mathrm E(X)=\\mathrm E(\\Lambda)=\\mu$ and $\\operatorname{Var}(X)=\\mathrm E(\\Lambda)+\\operatorname{Var}(\\Lambda)=\\mu+\\mu^2/\\nu$.{{cite:venables_ripley2002}}"
+      "proof": "Let $\\Lambda\\sim\\operatorname{Gamma}(\\nu,\\nu/\\mu)$ in shape-rate form and $X\\mid\\Lambda\\sim\\operatorname{Poisson}(\\Lambda)$. Integrating the Poisson mass against the gamma density gives the displayed negative-binomial mass. The laws of total expectation and variance give $\\mathrm E(X)=\\mathrm E(\\Lambda)=\\mu$ and $\\operatorname{Var}(X)=\\mathrm E(\\Lambda)+\\operatorname{Var}(\\Lambda)=\\mu+\\mu^2/\\nu$.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)"
     },
-    "definition_note": "This page uses mean $\\mu$ and dispersion $\\nu$. For integer $\\nu$, a common alternative counts failures before $\\nu$ successes with success probability $p=\\nu/(\\mu+\\nu)$; that convention yields the same mass function.{{cite:forbes2011}}"
+    "definition_note": "This page uses mean $\\mu$ and dispersion $\\nu$. For integer $\\nu$, a common alternative counts failures before $\\nu$ successes with success probability $p=\\nu/(\\mu+\\nu)$; that convention yields the same mass function.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5) It accommodates count variation beyond the mean–variance equality imposed by a Poisson model.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5)"
   },
   "normal-distribution": {
     "name": "Normal",
@@ -1282,18 +1282,19 @@
         "meaning": "mean event count"
       }
     ],
-    "history": "Poisson’s 1837 treatise addressed probability questions about civil and criminal judgements and presented the count law now associated with his name.{{cite:poisson1837}}\n\nLater probability models linked Poisson counts to events in time and space and to the rare-event limit of binomial trials. Contemporary count regression still uses the equal-mean-and-variance law as a baseline.{{cite:ross2019}}{{cite:agresti2002}}",
+    "history": "Poisson’s 1837 treatise addressed probability questions about civil and criminal judgements and presented the count law now associated with his name.{{cite:dodge2008}} (pp. 425–426, “Poisson Distribution”)\n\nLater probability models linked Poisson counts to events in time and space and to the rare-event limit of binomial trials. Contemporary count regression still uses the equal-mean-and-variance law as a baseline.{{cite:siegrist2022_poisson_distribution}} (§4, The Binomial Distribution){{cite:zhou2020_glm}} (§3.2, Poisson regression)",
     "sampling": "Draw a uniform value $U$ and return the smallest count $x$ whose cumulative probability is at least $U$.",
     "conjugate_prior_for": "",
-    "lead_context": "It models counts over a fixed exposure and is the reference point for assessing count-data dispersion.{{cite:ross2019}}",
-    "statistical_use": "A Poisson likelihood estimates an event rate from counts and their exposures; a regression offset can account for different exposure lengths. A variance much larger or smaller than the fitted mean indicates that its equal-mean-and-variance assumption needs checking.{{cite:agresti2002}}",
-    "worked_example": "### Two arrivals at mean three\n\nFor $X\\sim\\operatorname{Poisson}(3)$, $P(X=2)=e^{-3}3^2/2!\\approx0.2240$. The value $3$ is the expected count for the exposure, not a maximum possible count.{{cite:ross2019}}",
+    "lead_context": "{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory and Moments)",
+    "statistical_use": "A Poisson likelihood estimates an event rate from counts and their exposures; a regression offset can account for different exposure lengths. A variance much larger or smaller than the fitted mean indicates that its equal-mean-and-variance assumption needs checking.{{cite:zhou2020_glm}} (§3.2, count regression and dispersion)",
+    "worked_example": "### Two arrivals at mean three\n\nFor $X\\sim\\operatorname{Poisson}(3)$, $P(X=2)=e^{-3}3^2/2!\\approx0.2240$. The value $3$ is the expected count for the exposure, not a maximum possible count.{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory)",
     "key_result": {
       "title": "Adding independent Poisson counts",
-      "statement": "If $X_1\\sim\\operatorname{Poisson}(\\lambda_1)$ and $X_2\\sim\\operatorname{Poisson}(\\lambda_2)$ are independent, then $X_1+X_2\\sim\\operatorname{Poisson}(\\lambda_1+\\lambda_2)$.{{cite:ross2019}}",
+      "statement": "If $X_1\\sim\\operatorname{Poisson}(\\lambda_1)$ and $X_2\\sim\\operatorname{Poisson}(\\lambda_2)$ are independent, then $X_1+X_2\\sim\\operatorname{Poisson}(\\lambda_1+\\lambda_2)$.{{cite:siegrist2022_poisson_distribution}} (§4, Sums)",
       "meaning": "Counts from disjoint independent exposures can be pooled by adding their expected counts.",
-      "proof": "The probability-generating function of a Poisson count is $G_i(z)=\\exp[\\lambda_i(z-1)]$. Independence makes the generating function of the sum the product $G_1(z)G_2(z)=\\exp[(\\lambda_1+\\lambda_2)(z-1)]$, which identifies the stated Poisson law.{{cite:ross2019}}"
-    }
+      "proof": "The probability-generating function of a Poisson count is $G_i(z)=\\exp[\\lambda_i(z-1)]$. Independence makes the generating function of the sum the product $G_1(z)G_2(z)=\\exp[(\\lambda_1+\\lambda_2)(z-1)]$, which identifies the stated Poisson law.{{cite:siegrist2022_poisson_distribution}} (§4, Sums)"
+    },
+    "definition_note": "It models counts over a fixed exposure and is the reference point for assessing count-data dispersion.{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory and Moments)"
   },
   "student-t-distribution": {
     "name": "Student t",

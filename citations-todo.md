@@ -74,3 +74,10 @@ These articles do not yet have three inline citations. A further marker would na
 - pearson-dispersion-ratio | The copied count-model paragraph gives the ratio and interpretation; another independent source has not been checked.
 - restricted-maximum-likelihood | The source chapter now cites the opened lme4 likelihood discussion; further independent support for the copied sentence has not been checked.
 - tukey-intervals | The copied simultaneous-interval construction has a checked ANOVA source; an independent source for its exact coverage conditions remains to be checked.
+- a-single-threshold-unit-cannot-compute-xor | The geometric contradiction is proved on the page and supported by the opened neural-network account; another independent citation for this four-point example has not been checked.
+- a-zero-precision-entry-is-conditional-independence | The Gaussian graphical-model identity is supported by the opened Evans chapter and direct conditional-normal algebra; a further independent reference remains to be checked.
+- gaussian-graphical-models | The copied graph example cites the opened Gaussian graphical-model chapter; a third source for its specific conditional-independence statement has not been checked.
+- knot | The spline continuity calculation is given explicitly; a distinct checked source for the inherited historical knot discussion remains to be found.
+- soft-thresholding-for-orthonormal-predictors | The orthonormal lasso solution is derived directly and supported by the opened glmnet discussion; another independent source has not been checked.
+- sparsity | The inherited short definition and example have fewer than three checked citations; an additional source should be checked in its own depth pass.
+- subset-selection-and-shrinkage | The copied variable-selection comparison cites the opened ISLR chapter; a third independent source for this exact account has not been checked.

@@ -8827,6 +8827,351 @@
         "source": "archival_url",
         "id": "https://api.pageplace.de/preview/DT0400.9780191545696_A37880811/preview-9780191545696_A37880811.pdf"
       }
+    },
+    "mehlig_neural_networks2022": {
+      "authors": [
+        "Mehlig, B."
+      ],
+      "year": 2022,
+      "title": "Machine Learning with Neural Networks: An Introduction for Scientists and Engineers",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://assets.cambridge.org/97811084/94939/excerpt/9781108494939_excerpt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://assets.cambridge.org/97811084/94939/excerpt/9781108494939_excerpt.pdf"
+      }
+    },
+    "glorot_bordes_bengio2011": {
+      "authors": [
+        "Glorot, X.",
+        "Bordes, A.",
+        "Bengio, Y."
+      ],
+      "year": 2011,
+      "title": "Deep Sparse Rectifier Neural Networks",
+      "kind": "article",
+      "venue": "Proceedings of Machine Learning Research",
+      "volume": "15",
+      "pages": "315–323",
+      "url": "https://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://proceedings.mlr.press/v15/glorot11a/glorot11a.pdf"
+      }
+    },
+    "efron2004_prediction_error": {
+      "authors": [
+        "Efron, B."
+      ],
+      "year": 2004,
+      "title": "The Estimation of Prediction Error: Covariance Penalties and Cross-Validation",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "99",
+      "issue": "467",
+      "pages": "619–632",
+      "doi": "10.1198/016214504000000692",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1198/016214504000000692"
+      }
+    },
+    "ng_cs229_em2006": {
+      "authors": [
+        "Ng, A."
+      ],
+      "year": 2006,
+      "title": "The EM algorithm",
+      "kind": "book",
+      "publisher": "Stanford University",
+      "url": "https://cs229.stanford.edu/notes_archive/cs229-notes8.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cs229.stanford.edu/notes_archive/cs229-notes8.pdf"
+      }
+    },
+    "sklearn2026_mixture": {
+      "authors": [
+        "scikit-learn developers"
+      ],
+      "year": 2026,
+      "title": "Gaussian mixture models",
+      "kind": "book",
+      "publisher": "scikit-learn User Guide",
+      "url": "https://scikit-learn.org/stable/modules/mixture.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://scikit-learn.org/stable/modules/mixture.html"
+      }
+    },
+    "nist_histogram": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.3.14: Histogram",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/histogra.htm"
+      }
+    },
+    "scott1979_histograms": {
+      "authors": [
+        "Scott, D. W."
+      ],
+      "year": 1979,
+      "title": "On optimal and data-based histograms",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "66",
+      "issue": "3",
+      "pages": "605–610",
+      "doi": "10.1093/biomet/66.3.605",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/66.3.605"
+      }
+    },
+    "numpy_histogram_bins": {
+      "authors": [
+        "NumPy Developers"
+      ],
+      "year": 2026,
+      "title": "numpy.histogram_bin_edges — NumPy v2.5 Manual",
+      "kind": "book",
+      "publisher": "NumPy",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://numpy.org/doc/stable/reference/generated/numpy.histogram_bin_edges.html"
+      }
+    },
+    "r_histogram_classes": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Compute the Number of Classes for a Histogram",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/nclass.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/nclass.html"
+      }
+    },
+    "sas_statug2009_prior_distributions": {
+      "authors": [
+        "SAS Institute Inc."
+      ],
+      "year": 2009,
+      "title": "Prior Distributions",
+      "kind": "book",
+      "publisher": "SAS Institute",
+      "url": "https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_introbayes_sect004.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/statug_introbayes_sect004.htm"
+      }
+    },
+    "stan_users_guide_problematic_posteriors": {
+      "authors": [
+        "Stan Development Team"
+      ],
+      "year": 2026,
+      "title": "Problematic Posteriors",
+      "kind": "book",
+      "publisher": "Stan User's Guide, version 2.40",
+      "url": "https://mc-stan.org/docs/stan-users-guide/problematic-posteriors.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mc-stan.org/docs/stan-users-guide/problematic-posteriors.html"
+      }
+    },
+    "taraldsen2022_improper": {
+      "authors": [
+        "Taraldsen, G.",
+        "Tufto, J.",
+        "Lindqvist, B. H."
+      ],
+      "year": 2022,
+      "title": "Improper priors and improper posteriors",
+      "kind": "article",
+      "venue": "Scandinavian Journal of Statistics",
+      "volume": "49",
+      "issue": "3",
+      "pages": "969–991",
+      "doi": "10.1111/sjos.12550",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/sjos.12550"
+      }
+    },
+    "zeileis_kleiber_jackman2008": {
+      "authors": [
+        "Zeileis, A.",
+        "Kleiber, C.",
+        "Jackman, S."
+      ],
+      "year": 2008,
+      "title": "Regression Models for Count Data in R",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "27",
+      "issue": "8",
+      "doi": "10.18637/jss.v027.i08",
+      "url": "https://cloud.r-project.org/web/packages/pscl/vignettes/countreg.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.18637/jss.v027.i08"
+      }
+    },
+    "google_ml_overfitting2026": {
+      "authors": [
+        "Google for Developers"
+      ],
+      "year": 2026,
+      "title": "Overfitting",
+      "kind": "book",
+      "publisher": "Google for Developers, Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting"
+      }
+    },
+    "google_ml_regularization2026": {
+      "authors": [
+        "Google for Developers"
+      ],
+      "year": 2026,
+      "title": "Overfitting: L2 regularization",
+      "kind": "book",
+      "publisher": "Google for Developers, Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/regularization",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://developers.google.com/machine-learning/crash-course/overfitting/regularization"
+      }
+    },
+    "siegrist2022_poisson_distribution": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Poisson Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / RandomServices",
+      "url": "https://www.randomservices.org/random/poisson/Poisson.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/poisson/Poisson.html"
+      }
+    },
+    "evans_graphical_models2025": {
+      "authors": [
+        "Evans, R. J."
+      ],
+      "year": 2025,
+      "title": "Graphical Models, Chapter 5: Gaussian Graphical Models",
+      "kind": "book",
+      "publisher": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/~evans/gms/_book/gauss.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stats.ox.ac.uk/~evans/gms/_book/gauss.html"
+      }
+    },
+    "goodfellow_deep_learning2016_ch6": {
+      "authors": [
+        "Goodfellow, I.",
+        "Bengio, Y.",
+        "Courville, A."
+      ],
+      "year": 2016,
+      "title": "Deep Learning",
+      "kind": "book",
+      "publisher": "MIT Press",
+      "url": "https://www.deeplearningbook.org/contents/mlp.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.deeplearningbook.org/contents/mlp.html"
+      }
+    },
+    "shalev_bendavid2014": {
+      "authors": [
+        "Shalev-Shwartz, S.",
+        "Ben-David, S."
+      ],
+      "year": 2014,
+      "title": "Understanding Machine Learning: From Theory to Algorithms",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9781107298019",
+      "url": "https://www.cs.huji.ac.il/~shais/UnderstandingMachineLearning/understanding-machine-learning-theory-algorithms.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9781107298019"
+      }
+    },
+    "young_smith2005": {
+      "authors": [
+        "Young, G. A.",
+        "Smith, R. L."
+      ],
+      "year": 2005,
+      "title": "Essentials of Statistical Inference",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511755392",
+      "url": "https://assets.cambridge.org/97805218/39716/excerpt/9780521839716_excerpt.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/CBO9780511755392"
+      }
+    },
+    "chen_valliant_elliott2018": {
+      "authors": [
+        "Chen, J. K. T.",
+        "Valliant, R. L.",
+        "Elliott, M. R."
+      ],
+      "year": 2018,
+      "title": "Model-assisted calibration of non-probability sample survey data using adaptive LASSO",
+      "kind": "article",
+      "venue": "Survey Methodology",
+      "volume": "44",
+      "issue": "1",
+      "pages": "117–144",
+      "url": "https://www150.statcan.gc.ca/n1/pub/12-001-x/2018001/article/54963/03-eng.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www150.statcan.gc.ca/n1/pub/12-001-x/2018001/article/54963/03-eng.htm"
+      }
+    },
+    "nist_boxplot2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "e-Handbook of Statistical Methods, §1.3.3.7: Box Plot",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/boxplot.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/boxplot.htm"
+      }
     }
   }
 }

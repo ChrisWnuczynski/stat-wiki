@@ -1321,7 +1321,7 @@ A hard label would discard the second component. The E step keeps a fractional c
     "effective-degrees-of-freedom": r"""
 ## Trace of the smoother matrix
 
-In an unpenalised linear fit $\hat{\mathbf{y}}=X(X^\top X)^{-1}X^\top\mathbf{y}$, the hat matrix $H=X(X^\top X)^{-1}X^\top$ projects onto a $p$-dimensional subspace, so $\operatorname{tr}(H)=p$. A penalised spline or ridge smoother replaces $H$ by a linear smoother matrix $S_\lambda=B(B^\top B+\lambda\Omega)^{-1}B^\top$, where $B$ is the $n\times K$ basis matrix, $\Omega$ is a symmetric positive semi-definite roughness matrix, and $\lambda\ge 0$ is the smoothing parameter (Hastie and Tibshirani, 1990). The fitted vector is still linear in $\mathbf{y}$, $\hat{\mathbf{y}}=S_\lambda\mathbf{y}$, and the effective degrees of freedom of the fit are defined as
+In an unpenalised linear fit $\hat{\mathbf{y}}=X(X^\top X)^{-1}X^\top\mathbf{y}$, the hat matrix $H=X(X^\top X)^{-1}X^\top$ projects onto a $p$-dimensional subspace, so $\operatorname{tr}(H)=p$. A penalised spline or ridge smoother replaces $H$ by a linear smoother matrix $S_\lambda=B(B^\top B+\lambda\Omega)^{-1}B^\top$, where $B$ is the $n\times K$ basis matrix, $\Omega$ is a symmetric positive semi-definite roughness matrix, and $\lambda\ge 0$ is the smoothing parameter {{cite:efron2004_prediction_error}} (§2, trace of a linear smoother). The fitted vector is still linear in $\mathbf{y}$, $\hat{\mathbf{y}}=S_\lambda\mathbf{y}$, and the effective degrees of freedom of the fit are defined as
 
 $$
 \mathrm{edf}(\lambda)=\operatorname{tr}(S_\lambda).
@@ -1342,7 +1342,7 @@ $$
 Q(\Psi;\Psi^{(k)})=\mathbb{E}\bigl[\ell_C(\Psi)\mid X_{\mathrm{all}},\Psi^{(k)}\bigr],
 $$
 
-the expectation of $\ell_C$ under the conditional law of $Z$ given the observations. For a Gaussian mixture that conditional law is the list of responsibilities $\tau_h(\mathbf{x}_i;\Psi^{(k)})$. The M step maximises $Q$ in $\Psi$, with those responsibilities held fixed, and the maximiser becomes $\Psi^{(k+1)}$. An exact M step does not decrease $\ell$ (Dempster, Laird, and Rubin, 1977). Updating the responsibilities inside the M-step derivatives would differentiate a different function.
+the expectation of $\ell_C$ under the conditional law of $Z$ given the observations. For a Gaussian mixture that conditional law is the list of responsibilities $\tau_h(\mathbf{x}_i;\Psi^{(k)})$. The M step maximises $Q$ in $\Psi$, with those responsibilities held fixed, and the maximiser becomes $\Psi^{(k+1)}$. An exact M step does not decrease $\ell$ {{cite:ng_cs229_em2006}} (§2, EM monotonicity). Updating the responsibilities inside the M-step derivatives would differentiate a different function.
 
 ## A weighted M step on three points
 
@@ -1351,7 +1351,7 @@ Take responsibilities $0.9$, $0.2$ and $0.5$ for component $1$ on the points $0$
     "em-for-a-normal-mixture": r"""
 ## Alternating soft counts with weighted normal fits
 
-A normal mixture has weights $\pi_h$, means $\mu_h$ and covariances $\Sigma_h$, collected in $\Psi$. The observed log-likelihood $\ell(\Psi;X_{\mathrm{all}})$ contains a logarithm of a sum over components, so a direct score equation couples every parameter. EM replaces that problem by two closed updates (Dempster, Laird and Rubin, 1977). The [E step](e-step.qmd) computes memberships $\tau_{ih}=\tau_h(x_i;\Psi^{(k)})$. The [M step](m-step.qmd) then maximises the expected complete log-likelihood with those memberships frozen. Writing $N_h=\sum_i\tau_{ih}$, the updates are $\pi_h=N_h/n$, the weighted mean $\mu_h=\sum_i\tau_{ih}x_i/N_h$, and the weighted covariance that divides $\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$ by $N_h$ rather than by $N_h-1$. An exact step cannot decrease $\ell$. The iteration stops when the rise in $\ell$ falls below a tolerance. A stationary point of a mixture likelihood need not be the global maximum.
+A normal mixture has weights $\pi_h$, means $\mu_h$ and covariances $\Sigma_h$, collected in $\Psi$. The observed log-likelihood $\ell(\Psi;X_{\mathrm{all}})$ contains a logarithm of a sum over components, so a direct score equation couples every parameter. EM replaces that problem by two closed updates {{cite:ng_cs229_em2006}} (§2, E and M steps). The [E step](e-step.qmd) computes memberships $\tau_{ih}=\tau_h(x_i;\Psi^{(k)})$. The [M step](m-step.qmd) then maximises the expected complete log-likelihood with those memberships frozen. Writing $N_h=\sum_i\tau_{ih}$, the updates are $\pi_h=N_h/n$, the weighted mean $\mu_h=\sum_i\tau_{ih}x_i/N_h$, and the weighted covariance that divides $\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$ by $N_h$ rather than by $N_h-1$. An exact step cannot decrease $\ell$. The iteration stops when the rise in $\ell$ falls below a tolerance. A stationary point of a mixture likelihood need not be the global maximum.
 
 ## One update from a poor start
 
@@ -2864,7 +2864,7 @@ In a [linear model](gaussian-linear-model.qmd) with an intercept, the $K$ indica
     "outlier": r"""
 ## A point sitting far from the bulk
 
-An outlier is an observation far from the rest of the sample. On a [boxplot](five-number-summary-and-boxplot.qmd) the usual flag is a point more than $1.5$ interquartile ranges beyond the first or third quartile, the fence associated with Tukey (1977). In the ordered sample $2,3,3,4,5,6,7,8,20$, hinges that include the median in both halves are $3$ and $7$. The interquartile range is $4$ and the upper fence is $13$. The value $20$ lies past the fence and $8$ does not. The rule decides which points to draw one by one. It does not decide that $20$ was mistyped, and it is not permission to delete the row and refit as though that row had never been collected.
+An outlier is an observation far from the rest of the sample. On a [boxplot](five-number-summary-and-boxplot.qmd) the usual flag is a point more than $1.5$ interquartile ranges beyond the first or third quartile, the boxplot fence.{{cite:nist_boxplot2002}} (§1.3.3.7, Box plots with fences) In the ordered sample $2,3,3,4,5,6,7,8,20$, hinges that include the median in both halves are $3$ and $7$. The interquartile range is $4$ and the upper fence is $13$. The value $20$ lies past the fence and $8$ does not. The rule decides which points to draw one by one. It does not decide that $20$ was mistyped, and it is not permission to delete the row and refit as though that row had never been collected.
 
 ## A mistake, a tail, or the point that matters
 
@@ -3134,7 +3134,7 @@ Take $\alpha=2$ and $n=10000$, so $a_n=100$. The median of $\Phi_{2}$ solves $x^
     "precision-matrix": r"""
 ## The inverse covariance as a conditional parameter
 
-For a random vector with covariance $\Sigma$ positive definite, the precision is $K=\Sigma^{-1}$. In a nonsingular multivariate normal model, $K$ carries the conditional structure. The conditional variance of coordinate $i$ given all the others is $1/K_{ii}$. The coefficient of $X_j$ in the linear regression of $X_i$ on the remaining coordinates is $-K_{ij}/K_{ii}$. In particular $K_{ij}=0$ if and only if $X_i$ and $X_j$ are conditionally independent given the rest, and the partial correlation is $-K_{ij}/\sqrt{K_{ii}K_{jj}}$ (Lauritzen, 1996). A zero in $K$ is a missing edge of the [Gaussian graphical model](gaussian-graphical-models.qmd). A zero in $\Sigma$ is a different statement: it says that the two coordinates are uncorrelated, with no conditioning.
+For a random vector with covariance $\Sigma$ positive definite, the precision is $K=\Sigma^{-1}$. In a nonsingular multivariate normal model, $K$ carries the conditional structure. The conditional variance of coordinate $i$ given all the others is $1/K_{ii}$. The coefficient of $X_j$ in the linear regression of $X_i$ on the remaining coordinates is $-K_{ij}/K_{ii}$. In particular $K_{ij}=0$ if and only if $X_i$ and $X_j$ are conditionally independent given the rest, and the partial correlation is $-K_{ij}/\sqrt{K_{ii}K_{jj}}$ {{cite:evans_graphical_models2025}} (Ch. 5, §5.1, Gaussian conditional independence). A zero in $K$ is a missing edge of the [Gaussian graphical model](gaussian-graphical-models.qmd). A zero in $\Sigma$ is a different statement: it says that the two coordinates are uncorrelated, with no conditioning.
 
 ## Reading a chain
 
@@ -4346,9 +4346,9 @@ ARTICLE_HISTORIES.update({
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
     "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (§V, p. 719, AIC formula)",
     "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}} (§§1–3, pp. 461–464)",
-    "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:dempster_laird_rubin1977}}",
+    "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:ng_cs229_em2006}} (§1, historical introduction)",
     "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}}",
-    "lasso": "Tibshirani introduced the lasso in 1996.{{cite:tibshirani1996}}",
+    "lasso": "Tibshirani introduced the lasso in 1996.{{cite:friedman_glmnet2010}} (§1, lasso history)",
     "simple-linear-regression": "Legendre published the least-squares method in 1805; Gauss developed its use in 1809.{{cite:legendre1805,gauss1809}}",
 })
 

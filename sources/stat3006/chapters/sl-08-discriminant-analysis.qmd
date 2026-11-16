@@ -122,7 +122,7 @@ l\bigl(Y,\eta(X)\bigr)
 =\sum_{g=1}^{G} Y_g\, Q\bigl[g,\eta(X)\bigr].
 $$
 
-{{cite:wald1950}} The conditional risk at $X=\mathbf{x}$ is the expected loss over $Y$ drawn from its conditional distribution, which is multinomial with a single trial and probabilities $\tau_1(\mathbf{x}),\ldots,\tau_G(\mathbf{x})${{cite:wald1950}}{{cite:hastie_esl2009}}.
+{{cite:young_smith2005}} (§Ch. 2, pp. 4–7, loss and risk) The conditional risk at $X=\mathbf{x}$ is the expected loss over $Y$ drawn from its conditional distribution, which is multinomial with a single trial and probabilities $\tau_1(\mathbf{x}),\ldots,\tau_G(\mathbf{x})${{cite:shalev_bendavid2014}} (§3.2.1, conditional class probabilities and Bayes rule).
 
 :::
 

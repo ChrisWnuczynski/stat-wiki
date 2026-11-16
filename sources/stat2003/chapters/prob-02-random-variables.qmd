@@ -201,9 +201,9 @@ $X$ has the Poisson distribution with mean $\lambda>0$, written $X\sim\Poisson(\
 $$
 \Pr(X=x)=e^{-\lambda}\frac{\lambda^x}{x!},\qquad x=0,1,2,\ldots
 $$
-{{cite:poisson1837}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+{{cite:siegrist2022_poisson_distribution}} (§4, Basic Theory)
 
-Then $\E X=\Var(X)=\lambda$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+Then $\E X=\Var(X)=\lambda$.{{cite:siegrist2022_poisson_distribution}} (§4, Moments)
 
 :::
 

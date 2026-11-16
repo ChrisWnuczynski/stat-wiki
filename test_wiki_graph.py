@@ -1569,11 +1569,16 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # inherited markers without inspected passages.
                 expected_keys.difference_update({"jeffreys1961", "raiffa_schlaifer1961"})
                 self.assertIn("gelman_bda2013", citation_keys, slug)
+            if slug == "negative-binomial-distribution":
+                # Opened Zeileis–Kleiber–Jackman and Dodge passages replace
+                # inherited citations not checked for the current parameterisation.
+                expected_keys.difference_update({"greenwood_yule1920", "venables_ripley2002", "mccullagh_nelder1989"})
+                self.assertTrue({"zeileis_kleiber_jackman2008", "dodge2008"} <= citation_keys, slug)
             if slug == "poisson-distribution":
                 # The shared update replaces two unlocated book markers.
-                expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013"})
+                expected_keys.difference_update({"raiffa_schlaifer1961", "gelman_bda2013", "poisson1837", "feller1968", "grimmett_stirzaker2020"})
                 expected_keys.discard("geyer2025_conjugate")
-                self.assertTrue({"diaconis_ylvisaker1979", "gelman_bda2013"} <= citation_keys)
+                self.assertTrue({"siegrist2022_poisson_distribution", "dodge2008", "zhou2020_glm"} <= citation_keys)
             if slug == "uniform-distribution":
                 # The opened Siegrist chapter and von Neumann's laboratory
                 # reprint replace two inherited citations without checked
