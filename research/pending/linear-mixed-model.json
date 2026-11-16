@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a regression model that combines population coefficients with group-specific random effects to account for dependence among repeated or grouped observations"
+  },
+  "self_checks": ["c-34", "ex-orthodont-lmm"]
+}
