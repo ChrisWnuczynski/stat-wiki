@@ -258,5 +258,9 @@
   "gamma-distribution": [
     "c-10",
     "c-23"
+  ],
+  "random-component": [
+    "c-16",
+    "q-45"
   ]
 }
