@@ -1,0 +1,32 @@
+{
+  "article_lead": {
+    "description": "a weighted comparison of treatment means that isolates a scientific question and gives it a measurable uncertainty"
+  },
+  "bibliography": {
+    "nist_contrasts2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.6: Assessing the Response from Any Factor Combination",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc436.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc436.htm"}
+    },
+    "nist_scheffe2002": {
+      "authors": ["Heckert, N. A.", "Filliben, J. J.", "Croarkin, C. M.", "Hembree, B.", "Guthrie, W. F.", "Tobias, P.", "Prinz, J."],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.7.2: Scheffe's Method",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc472.htm",
+      "verification": {"source": "archival_url", "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc472.htm"}
+    }
+  },
+  "self_checks": ["ex-inf-corn-contrast", "ex-inf-anova-two-groups"],
+  "shared_changes": [
+    {
+      "file": "sources/stat2004/chapters/inf-07-anova.qmd",
+      "fix": "In the contrast definition after the F statistic, replace the assertion that data-suggested contrasts do not keep the null distribution and that contrasts have to be chosen before viewing data. Explain that a fixed contrast has the displayed F null law, while selecting the most extreme contrast using the same responses requires a multiple-comparison calibration such as simultaneous Scheffe intervals. Preserve both corn examples and arithmetic."
+    }
+  ]
+}
