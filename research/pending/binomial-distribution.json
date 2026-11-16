@@ -1,0 +1,24 @@
+{
+  "bibliography": {
+    "edwards2013_ars": {
+      "authors": ["Edwards, A. W. F."],
+      "year": 2013,
+      "title": "Ars conjectandi three hundred years on",
+      "kind": "article",
+      "venue": "Significance",
+      "doi": "10.1111/j.1740-9713.2013.00666.x",
+      "verification": {"source": "crossref", "id": "10.1111/j.1740-9713.2013.00666.x"}
+    }
+  },
+  "self_checks": ["ex-prob-five-evens-replace", "ex-inf-sign-test-one-sided", "ex-prob-clt-binomial-tail"],
+  "proofs_todo": [
+    {"slug": "binomial-distribution#property-beta-binomial-conjugacy", "title": "Beta–Binomial conjugacy", "reason": "The new collapsed proof establishes the binomial mass function and moments but does not derive the inherited beta-posterior update."},
+    {"slug": "binomial-distribution#property-beta-binomial-posterior-prediction", "title": "Beta–Binomial posterior prediction", "reason": "The new collapsed proof does not integrate the inherited beta–binomial predictive formula."},
+    {"slug": "binomial-distribution#property-poisson-limit-of-the-binomial", "title": "Poisson limit of the binomial", "reason": "The new collapsed proof does not establish the inherited Poisson limit for fixed counts."},
+    {"slug": "binomial-distribution#property-central-limit-theorem", "title": "Central limit theorem", "reason": "The new collapsed proof does not establish the inherited normal limit."}
+  ],
+  "shared_changes": [
+    {"file": "article_leads.json", "description": "Use the single sentence in research/content/binomial-distribution.md under Lead context as the lead instead of concatenating it with the existing two-sentence lead."},
+    {"file": "distributions.json", "description": "For binomial-distribution, move the exact substantive lead_context sentence ('It supplies exact probabilities for repeated binary trials and underlies tests and intervals for a population proportion.') into the statistical_use body field, with its {{cite:casella_berger2002}} citation. Retain only '{{cite:casella_berger2002}}' in lead_context so DistributionDepthBatchTests sees a nonempty field while the rendered lead stays one sentence."}
+  ]
+}
