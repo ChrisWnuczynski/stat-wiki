@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a count-regression moment model that lets variance exceed or fall below the Poisson mean while retaining a log-mean fit"
+  },
+  "self_checks": ["q-47", "ex-fish-poisson"]
+}
