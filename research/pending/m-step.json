@@ -1,0 +1,30 @@
+{
+  "bibliography": {},
+  "article_lead": {
+    "description": "the part of EM that converts probabilities for missing data into updated model parameters by maximizing a weighted likelihood"
+  },
+  "self_checks": ["depth-m-fixed", "depth-m-vanished", "depth-m-numeric"],
+  "new_bank_questions": [
+    {
+      "id": "depth-m-fixed",
+      "title": "Fixed weights during the M step",
+      "body": "When maximizing Q(Psi;Psi_old) for a mixture, are the responsibilities recomputed for each candidate Psi? Explain.",
+      "answer": "No. The E step computed responsibilities using Psi_old; they stay fixed while the M step varies candidate Psi. The next E step recomputes them after the parameter update.",
+      "topic_code": "L5"
+    },
+    {
+      "id": "depth-m-vanished",
+      "title": "Zero effective component count",
+      "body": "A mixture component has effective count N_h=0 after the E step. What fails in the usual weighted-mean M-step update?",
+      "answer": "Its denominator is zero, so the mean is undefined by that formula. A fitting procedure must handle the boundary or alter initialization or constraints.",
+      "topic_code": "L5"
+    },
+    {
+      "id": "depth-m-numeric",
+      "title": "Two-point mixture M step",
+      "body": "For x=(0,2), the component-one E-step responsibilities are (0.75,0.25). Find both updated weights and both updated means, with variances fixed.",
+      "answer": "Effective counts are 1 and 1, so weights are 0.5 and 0.5. The weighted means are 0.5 for component one and 1.5 for component two.",
+      "topic_code": "L5"
+    }
+  ]
+}
