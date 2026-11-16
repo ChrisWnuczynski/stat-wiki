@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a regression method that stabilizes correlated coefficient estimates by shrinking them toward zero, often improving prediction"
+  },
+  "self_checks": ["ex-sl-18-2", "ex-sl-18-5"]
+}
