@@ -1,0 +1,42 @@
+{
+  "bibliography": {
+    "levin_peres2017": {
+      "authors": [
+        "Levin, David A.",
+        "Peres, Yuval"
+      ],
+      "year": 2017,
+      "title": "Markov Chains and Mixing Times",
+      "edition": "2nd",
+      "kind": "book",
+      "publisher": "American Mathematical Society",
+      "doi": "10.1090/mbk/107",
+      "isbn": "978-1-4704-2962-1",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pages.uoregon.edu/dlevin/MARKOV/markovmixing.pdf"
+      }
+    }
+  },
+  "proofs_todo": [
+    {
+      "slug": "stationary-distribution",
+      "title": "Existence, uniqueness and return times in finite irreducible chains",
+      "reason": "The page states Corollary 1.17 and Proposition 1.19 of Levin and Peres; the collapsed proof derives the balance shortcuts but does not prove these recurrence results."
+    },
+    {
+      "slug": "stationary-distribution",
+      "title": "Aperiodic convergence and closed-class decomposition",
+      "reason": "The page states Theorem 4.9 and finite closed-class mixture results; their full proofs require coupling and communication-class theory beyond the displayed proof."
+    }
+  ],
+  "self_checks": [
+    "ex-sp-deterministic-cycle",
+    "ex-sp-path-graph",
+    "ex-sp-closed-classes"
+  ],
+  "article_lead": {
+    "field": "stochastic processes",
+    "description": "a probability law preserved by each Markov-chain step, used to describe equilibrium and design samplers"
+  }
+}
