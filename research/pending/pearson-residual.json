@@ -1,0 +1,18 @@
+{
+  "slug": "pearson-residual",
+  "rank": 261,
+  "tier": "full",
+  "type": "topic",
+  "sections": ["Lead context", "Motivating example", "Intuition", "Definition", "Interpretation — Two misses of size five", "Properties — Binary scores", "Statistical use — Plots, not a single threshold", "Worked example", "Common misconceptions", "Assumptions and limits — When the denominator is the wrong scale", "Connections", "Check yourself", "History"],
+  "words_before": 238,
+  "words_after": 1837,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["dodge2008 p. 457"],
+  "proofs": ["Mean-zero unit-variance identity when mu is known; Poisson and binary denominators"],
+  "tests": ["checks/pearson-residual.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["McCullagh and Nelder was not reopened."],
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": ["pearson-residual: copied citations of McCullagh–Nelder, Davison and Dunn–Smyth have no new page locators."]
+}
