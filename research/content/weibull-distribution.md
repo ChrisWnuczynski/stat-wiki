@@ -4,8 +4,8 @@ The Weibull distribution is a lifetime law whose shape lets the hazard rise, sta
 ## Intuition — Ageing is a power of time
 An exponential lifetime has a constant hazard, so it does not age. The Weibull family keeps a simple survival function and lets that hazard be a power of time. Shape above one means wear-out. Shape below one means early failures that then become rarer. Shape one returns the exponential law.{{cite:nist_weibull_handbook}} (§8.1.6.2, failure-rate shapes and the exponential case)
 
-## Definition — Shape and scale
-In the shape–scale form used here, a lifetime $T$ with shape $k>0$ and scale $\lambda>0$ has survival function $\Pr(T>t)=\exp\{-(t/\lambda)^k\}$ for $t>0$, density $(k/\lambda)(t/\lambda)^{k-1}\exp\{-(t/\lambda)^k\}$, and hazard $(k/\lambda)(t/\lambda)^{k-1}$. The mean is $\lambda\Gamma(1+1/k)$ and the median is $\lambda(\log 2)^{1/k}$. The same law is often written with shape $\gamma$ and characteristic life $\alpha$ in place of $k$ and $\lambda$.{{cite:nist_weibull_handbook}} (§8.1.6.2, reliability, hazard, mean and median)
+## Definition
+**Shape and scale.** In the shape–scale form used here, a lifetime $T$ with shape $k>0$ and scale $\lambda>0$ has survival function $\Pr(T>t)=\exp\{-(t/\lambda)^k\}$ for $t>0$, density $(k/\lambda)(t/\lambda)^{k-1}\exp\{-(t/\lambda)^k\}$, and hazard $(k/\lambda)(t/\lambda)^{k-1}$. The mean is $\lambda\Gamma(1+1/k)$ and the median is $\lambda(\log 2)^{1/k}$. The same law is often written with shape $\gamma$ and characteristic life $\alpha$ in place of $k$ and $\lambda$.{{cite:nist_weibull_handbook}} (§8.1.6.2, reliability, hazard, mean and median)
 
 ## Properties
 Setting the survival function equal to $1/2$ gives $(t/\lambda)^k=\log 2$, so the median is $\lambda(\log 2)^{1/k}$. At shape $k=1$ the hazard is the constant $1/\lambda$, the mean equals the scale, and the law is exponential.

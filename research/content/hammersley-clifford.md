@@ -1,8 +1,8 @@
 ## Lead context
 The Hammersley–Clifford theorem ties the missing edges of an undirected graph to a factorisation of a positive joint distribution.
 
-## Statement — Positive laws factorise on the cliques
-Let $G$ be an undirected graph on the coordinates of a random vector. The pairwise Markov property says that if two coordinates are not joined by an edge, they are conditionally independent given the rest. For a distribution that is positive on a product space, that property is equivalent to a factorisation of the joint density into clique potentials,
+## Statement
+**Positive laws factorise on the cliques.** Let $G$ be an undirected graph on the coordinates of a random vector. The pairwise Markov property says that if two coordinates are not joined by an edge, they are conditionally independent given the rest. For a distribution that is positive on a product space, that property is equivalent to a factorisation of the joint density into clique potentials,
 $$
 f(x)=\frac1Z\prod_{C}\psi_C(x_C),
 $$

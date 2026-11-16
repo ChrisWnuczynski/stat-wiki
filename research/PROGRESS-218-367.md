@@ -134,3 +134,22 @@ Unverified:
 - The bankrupt-firm log-mean multiplier still needs a page-located source. Dodge's name for a stochastic process is the infinite-index case; the page also allows a finite index.
 - Chi-squared convergence under estimated margins, the early-stopping weight-decay identification, stochastic-approximation convergence, and plug-in Wald coverage remain unproved and are logged in `research/todo.md`.
 - Spot-check of stochastic-gradient-descent and countable-additivity found sourced definitions. No further prose change.
+
+## Batch R — ranks 323–337
+
+Ranks: 323 discrete-time-markov-chain, 324 f-distribution, 325 hammersley-clifford, 326 hinge-loss, 327 holding-time, 328 loadings, 329 missing-data, 330 multivariate-central-limit-theorem, 331 normal-quantile-plot, 332 positive-continuous-responses, 333 regression-slope, 334 weibull-distribution, 335 adaboost, 336 arima-model, 337 bias-of-an-estimator.
+
+Pages fixed:
+
+- f-distribution and weibull-distribution: the definition heading stays `Definition`.
+- hammersley-clifford and multivariate-central-limit-theorem: the statement heading stays `Statement`.
+
+Conflicts: none.
+
+Tests: `build_wiki.py` wrote 718 articles and 557 question pages. Unit tests passed (67). Offline citation check passed (474 works). `git diff --check` passed. All 15 page checks passed. The F reciprocal proof cleared the catalogue variance-ratio and ANOVA entries from `proofs-todo.json`. Those two gaps are in `research/todo.md`. Hammersley–Clifford and the multivariate central limit theorem remain in `proofs-todo.json` with the longer reasons from the pending files.
+
+Unverified:
+
+- New bibliography keys passed the offline schema only: `schapire2013_explaining_adaboost`, `nist_f_distribution`, `nist_qq_plot`, `nist_least_squares`. Live URL checks were not run.
+- The variance-ratio F pivot and the ANOVA F law are not proved on the F page.
+- Spot-check of discrete-time-markov-chain and bias-of-an-estimator found sourced definitions. No further prose change.

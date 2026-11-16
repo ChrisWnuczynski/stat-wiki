@@ -87,7 +87,7 @@
   {
     "slug": "hammersley-clifford",
     "title": "Hammersley–Clifford",
-    "reason": "A reviewed proof sketch is still needed."
+    "reason": "The equivalence of the pairwise Markov property and clique factorisation for a positive distribution is longer than a short proof box."
   },
   {
     "slug": "invariance-of-maximum-likelihood",
@@ -137,7 +137,7 @@
   {
     "slug": "multivariate-central-limit-theorem",
     "title": "Multivariate central limit theorem",
-    "reason": "A reviewed proof sketch is still needed."
+    "reason": "The iid vector limit, including the Cramér–Wold argument under Lindeberg conditions, is longer than a short proof box."
   },
   {
     "slug": "normal-sample-theorem",
@@ -352,16 +352,6 @@
   {
     "slug": "exponential-distribution#property-memoryless-property",
     "title": "Memoryless property",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "f-distribution#property-variance-ratio-f-pivot",
-    "title": "Variance-ratio F pivot",
-    "reason": "The distribution page states this result without a reviewed proof sketch."
-  },
-  {
-    "slug": "f-distribution#property-anova-f-distribution",
-    "title": "ANOVA F distribution",
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {

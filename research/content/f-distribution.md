@@ -4,8 +4,8 @@ The F distribution is the law of a ratio of two independent scaled chi-squared v
 ## Intuition — A comparison of two scatter estimates
 A variance estimate from normal data is a chi-squared variable divided by its degrees of freedom. Comparing two such estimates, from independent samples, cancels the unknown population variance and leaves a ratio. Large values mean the numerator scatter is large relative to the denominator scatter. The ratio is not centred at one: its mean, when the mean exists, sits above one because the reciprocal of a chi-squared denominator is pulled upward by its right tail.{{cite:nist_f_distribution}} (§1.3.6.6.5, mean)
 
-## Definition — Numerator and denominator degrees of freedom
-If $U\sim\chi^2_{d_1}$ and $V\sim\chi^2_{d_2}$ are independent, then
+## Definition
+**Numerator and denominator degrees of freedom.** If $U\sim\chi^2_{d_1}$ and $V\sim\chi^2_{d_2}$ are independent, then
 $$
 X=\frac{U/d_1}{V/d_2}
 $$
