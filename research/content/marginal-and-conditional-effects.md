@@ -1,0 +1,81 @@
+## Lead context
+A conditional effect describes how a response changes for one person, or one cluster, when a covariate moves and that person's latent level is held fixed; a marginal effect describes how the average response in the population changes when the covariate moves.
+
+## Motivating example
+A logistic model for a repeated binary measurement can give a coefficient of 1 on a covariate $x$, meaning that for a person whose random intercept is held fixed, the log odds rise by 1 when $x$ rises by 1. That is not the change in the proportion of people for whom the event happens. If the intercept is $+1$ or $-1$ with equal probability and the fixed intercept is 0, then at $x=0$ the two conditional probabilities are $\operatorname{expit}(1)=0.7311$ and $\operatorname{expit}(-1)=0.2689$, and the population proportion is their average, $0.5$. At $x=1$ the conditional probabilities are $\operatorname{expit}(2)=0.8808$ and $\operatorname{expit}(0)=0.5$, and the population proportion is $0.6904$. The population change is $0.1904$, while the change for a person with intercept 0 is $\operatorname{expit}(1)-\operatorname{expit}(0)=0.2311$. The coefficient 1 did not move. The two questions used it differently.
+
+## Intuition
+A conditional, or subject-specific, statement freezes the latent piece and then moves $x$. A marginal, or population-average, statement mixes over that latent piece first and then compares the mixtures. For a linear model the two operations commute, because expectation passes inside a linear function: averaging $a+bx+U$ over $U$ with mean 0 leaves $a+bx$. For a probability the link is curved. Averaging $\operatorname{expit}(a+bx+U)$ is not $\operatorname{expit}(a+bx)$, so a slope fitted on the conditional scale is not the slope of the averaged curve. Changing the distribution of $U$ can change the conditional curves without changing what a marginal model was asked to estimate, and the converse is also true: a marginal slope does not name the change inside one person.
+
+## Definition
+For clustered responses $Y_{ji}$ on cluster $j$, a conditional model puts a cluster term $U_j$ in the linear predictor and interprets a coefficient as a contrast at a fixed value of $U_j$. A marginal model specifies three pieces for the observables alone: a mean $g(\E(Y_{ji}\mid X_{ji}))=X_{ji}^\top\beta$, a variance $\phi V(\mu_{ji})$ that depends on covariates only through that mean, and a working association inside the cluster. The coefficient $\beta$ in the marginal mean is a population-average association. It is not, in a nonlinear model, the coefficient one would get by holding a random effect fixed. The working association is a device for estimation. It is not required to be the true dependence, and the marginal model does not need a full joint distribution of the responses inside a cluster.
+
+## Interpretation — Where the two slopes part company
+In the two-point example the subject-specific changes in probability, for the same unit increase in $x$, are $0.2311$ when $U=-1$, $0.2311$ when $U=0$, and $\operatorname{expit}(2)-\operatorname{expit}(1)=0.1497$ when $U=1$. The marginal change is $0.1904$, which is the average of the $U=\pm1$ changes only because those two points were equally likely: $(0.2311+0.1497)/2=0.1904$. It is not the change at the average intercept $U=0$. Reporting "the effect is 0.23" after fitting a conditional logistic model, or "the effect is 0.19" after fitting a marginal model, answers two different sentences. Both numbers are effects. They are effects on different scales of conditioning.
+
+## Properties — A bound that a correlation cannot ignore
+Binary variables with means $0.2$ and $0.8$ cannot have correlation 1. The largest covariance is $\min(0.2,0.8)-0.2\times0.8=0.04$, and the product of standard deviations is $\sqrt{0.2\times0.8}\times\sqrt{0.8\times0.2}=0.16$, so the largest correlation is $0.04/0.16=0.25$. A marginal model that treats a within-cluster correlation as a free parameter, the way a bivariate normal correlation is free, can ask for an impossible value once the means are fixed. An odds ratio does not have that constraint. This is why a working association for binary responses is often an odds ratio, or another measure that can stay constant while the means move, rather than a single correlation copied from the normal model.
+
+For a linear random-intercept model $Y_{ij}=m_{ij}+b_i+\varepsilon_{ij}$, with $b_i$ independent of the errors and of mean 0, the marginal mean is $m_{ij}$ and the marginal covariance of two observations in the same cluster is $\Var(b_i)$. The conditional effect of a covariate inside $m_{ij}$, given $b_i$, and the marginal effect, after averaging $b_i$, are the same number. Linearity is what makes them agree. The logistic calculation is the case where they do not.
+
+::: {.callout-note collapse="true" title="Proof"}
+::: {.proof}
+Let $X$ and $Y$ be indicators with $\E X=p$ and $\E Y=q$. Then $\E(XY)=\Pr(X=Y=1)\le\min(p,q)$, so $\Cov(X,Y)\le\min(p,q)-pq$. Also $\Pr(X=Y=1)\ge0$, and more sharply $\Pr(X=Y=1)\ge p+q-1$ when that quantity is positive, which is the Fréchet lower bound. With $p=0.2$ and $q=0.8$, the upper covariance is $0.2-0.16=0.04$ and $\sqrt{p(1-p)q(1-q)}=0.16$, so the correlation is at most $0.25$.
+
+For the two-point logistic mixture, let $U=\pm1$ with equal probability and $\operatorname{logit}\Pr(Y=1\mid x,U)=x+U$. Then
+$$
+\Pr(Y=1\mid x)=\tfrac12\operatorname{expit}(x+1)+\tfrac12\operatorname{expit}(x-1).
+$$
+At $x=0$ this equals $1/2$ because $\operatorname{expit}(1)+\operatorname{expit}(-1)=1$. At $x=1$ it equals $(\operatorname{expit}(2)+\operatorname{expit}(0))/2$. The conditional change at a fixed $u$ is $\operatorname{expit}(1+u)-\operatorname{expit}(u)$. These two functions of $u$ agree only at particular $u$, not as functions. Averaging the conditional probabilities is not the same operation as evaluating the conditional probability at the average of $U$.
+
+For the linear model, $\E(Y_{ij}\mid b_i)=m_{ij}+b_i$, so $\E(Y_{ij})=m_{ij}$ when $\E b_i=0$. A unit increase in a covariate that raises $m_{ij}$ by $\beta$ raises both the conditional mean and the marginal mean by $\beta$. For $j\neq k$, the errors drop out of the covariance and $\Cov(Y_{ij},Y_{ik})=\Var(b_i)$.
+:::
+:::
+
+## Statistical use — Which sentence the coefficient is for
+Use a conditional coefficient when the question is about a change inside one cluster: the same mother as she ages, the same patient as the dose changes, with that mother's or patient's latent level held fixed. Use a marginal coefficient when the question is about the population curve: the risk at a given age among all births, or the proportion of patients responding at a given dose. A generalised estimating equation targets the marginal mean and does not require the joint distribution inside a cluster. Its working correlation affects efficiency and the model-based standard errors. Consistency of the coefficient, when the mean is correct and clusters are independent, does not require the working correlation to be correct; a sandwich variance is what replaces the model-based variance in that case. Two clusters, or one cluster that holds almost all the observations, is not a setting in which that sandwich has many degrees of freedom.
+
+## Worked example
+Take the two-point mixture above and also the impossible correlation. The marginal probabilities are $0.5000$ at $x=0$ and $0.6904$ at $x=1$, a difference of $0.1904$. The conditional differences are $0.2311$, $0.2311$ and $0.1497$ at $U=-1$, $0$ and $1$. None of those three numbers equals the coefficient on the log-odds scale. That coefficient is 1 on every conditional curve, because $\operatorname{logit}(\operatorname{expit}(2))-\operatorname{logit}(\operatorname{expit}(1))=1$ and $\operatorname{logit}(\operatorname{expit}(0))-\operatorname{logit}(\operatorname{expit}(-1))=1$. The printed probabilities 0.8808, 0.7311 and 0.2689 are those expit values to four decimals. Dividing a probability difference by the coefficient mixes the probability scale with the log-odds scale.
+
+For the binary bound, a fitted working correlation of $0.6$ between a measurement with mean $0.2$ and one with mean $0.8$ is not a strong association that the data revealed. It is a value the Bernoulli margins cannot attain, since $0.6>0.25$. The estimating equation that asks for it is asking for a joint distribution that does not exist.
+
+**Your turn.** Keep $U=\pm1$ with equal probability and $\operatorname{logit}\Pr(Y=1\mid x,U)=0.5x+U$. Find the marginal probabilities at $x=0$ and $x=2$, and the conditional change at $U=0$.
+
+::: {.callout-tip collapse="true" title="Answer"}
+At $x=0$ the marginal probability is again $(\operatorname{expit}(1)+\operatorname{expit}(-1))/2=0.5$. At $x=2$ the linear predictors are $1+1=2$ and $1-1=0$, so the marginal probability is $(\operatorname{expit}(2)+0.5)/2=0.6904$. The change is $0.1904$. At $U=0$ the conditional probabilities are $\operatorname{expit}(0)=0.5$ and $\operatorname{expit}(1)=0.7311$, a change of $0.2311$. The marginal change and the conditional change still differ, and the log-odds coefficient is $0.5$ on both conditional curves.
+:::
+
+## Common misconceptions
+A marginal coefficient is not "the conditional coefficient with the random effect set to zero", except in linear models. In the logistic example that plug-in change is $0.2311$ and the marginal change is $0.1904$. A random-intercept variance of zero does make them agree, because then there is nothing to average over. A significant conditional coefficient is not evidence that the population proportion moves by the same amount on the probability scale. And a working correlation is not a parameter that can be chosen after looking only at the means: the Bernoulli calculation shows a hard ceiling of $0.25$ for those two means.
+
+## Assumptions and limits — When the population curve is the wrong target
+The marginal probability averages over the distribution of the latent intercept in the population being described. If that distribution changes, the marginal curve can change while every conditional curve stays the same. A clinic that treats only patients with a high random intercept is not the population the marginal probability was averaged over, and the conditional coefficient is the one that travels with a patient. Conversely, a conditional coefficient from a random-intercept logistic model depends on the intercept distribution that was assumed. If the intercepts are bimodal rather than two-point or normal, both the fitted conditional variance and the implied marginal curve move. The linear case is the exception that hides this: there the coefficient is the same number in both descriptions, so a change of intercept distribution changes the correlation and not the mean slope.
+
+## Connections
+A [generalised linear mixed model](generalised-linear-mixed-model.qmd) is the usual home of the conditional coefficient. [Generalised estimating equations](generalised-estimating-equations.qmd) target the marginal mean. The [logit link](logit-link.qmd) is the curved map that makes averaging and transforming fail to commute. A [random intercept](random-intercept-model.qmd) is the latent term being held fixed or averaged. The [sandwich estimator](sandwich-estimator.qmd) is the variance used when the working association may be wrong.
+
+## Check yourself
+
+### Conditional versus marginal effects {#self-check-c-37}
+
+In one sentence each, say what a logistic random-intercept coefficient and a population-average coefficient describe, and why they need not match.
+
+[Question-bank page](../questions/c-37.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The logistic random-intercept coefficient is a log-odds change at a fixed random intercept. The population-average coefficient describes the marginal mean after the random intercept has been averaged out. Because the inverse logit is nonlinear, the average of the conditional probabilities is not the conditional probability at the average intercept, so the two coefficients describe different contrasts. In the two-point example those contrasts are a log-odds change of 1 and a probability change of 0.1904.
+:::
+
+### Generalised estimating equations {#self-check-c-38}
+
+What does a generalised estimating equation estimate, and what does it not require?
+
+[Question-bank page](../questions/c-38.qmd)
+
+::: {.callout-tip collapse="true" title="Answer"}
+It estimates the coefficients of a marginal mean for correlated responses, using the derivative of that mean and a working within-cluster covariance. It does not require a full joint distribution of the responses inside a cluster. Consistency of the coefficient, under the usual regularity conditions, needs a correct marginal mean and independent clusters. It does not need the working covariance to be the true one. A sandwich variance is the corresponding uncertainty statement.
+:::
+
+## History
+The split between a curve for one person and a curve for the population is the reason the same study can be analysed twice and produce two slopes. Marginal models were developed so that the population curve could be estimated without building a full probability model for the dependence inside each cluster. The numerical gap in the logistic example is not a defect in either slope. It is the difference between holding a latent intercept fixed and averaging it.
