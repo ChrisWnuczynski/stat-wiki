@@ -6,6 +6,8 @@ from pathlib import Path
 
 if __name__ == "__main__":
     article = (Path(__file__).resolve().parents[1] / "articles/conditional-independence.qmd").read_text()
+    proof = article.split('title="Proof"', 1)[1].split("\n:::\n:::", 1)[0]
+    assert proof.rstrip().endswith(r"so \(P(Y\mid X,Z,U)=P(Y\mid Z,U)\), i.e. \(X\perp Y\mid(Z,U)\).")
     for printed in ("5/16", "1/4", "5/8", "1/16", "1/2", "3/4"):
         assert printed in article, f"Worked value missing from article: {printed}"
     # Marginally independent fair bits become dependent given their equality indicator.

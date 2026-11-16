@@ -28,16 +28,6 @@ A further equivalent form is \((X,Z)\perp (Y,Z)\mid Z\). Adding \(Z\) to both si
 ::: {.proof}
 Assume discrete variables and conditioning values with positive probability. If \(\mathbb P(X=x,Y=y\mid Z=z)=\mathbb P(X=x\mid Z=z)\mathbb P(Y=y\mid Z=z)\), the right-hand side is symmetric in \(X\) and \(Y\), so \(Y\perp X\mid Z\). Dividing by \(\mathbb P(Y=y\mid Z=z)\) gives \(\mathbb P(X=x\mid Y=y,Z=z)=\mathbb P(X=x\mid Z=z)\). The same division with the roles reversed gives the other conditional probability.{{cite:dawid1979}} (§§3–4)
 
-Let \(U=h(X)\). Summing the product formula over the \(x\) with \(h(x)=u\) yields
-\[
-\mathbb P(U=u,Y=y\mid Z=z)=\mathbb P(U=u\mid Z=z)\mathbb P(Y=y\mid Z=z),
-\]
-which is \(U\perp Y\mid Z\). For the refined conditioning, the event \(\{U=u\}\) restricts \(X\) to \(h^{-1}(u)\). On that event,
-\[
-\mathbb P(Y=y\mid X=x,Z=z,U=u)=\mathbb P(Y=y\mid X=x,Z=z)=\mathbb P(Y=y\mid Z=z),
-\]
-using \(X\perp Y\mid Z\). The right-hand side does not depend on \(x\) or \(u\), so \(Y\)'s conditional distribution given \((Z,U)\) is a function of \(Z\) alone.{{cite:dawid1979}} (§§3–4)
-
 If also \(X\perp W\mid (Y,Z)\), then
 \[
 \mathbb P(X=x\mid W=w,Y=y,Z=z)=\mathbb P(X=x\mid Y=y,Z=z)=\mathbb P(X=x\mid Z=z).
@@ -47,6 +37,16 @@ The conditional distribution of \(X\) given \((W,Y,Z)\) depends only on \(Z\), w
 When second moments exist, the conditional product law gives \(\mathbb E(XY\mid Z)=\mathbb E(X\mid Z)\mathbb E(Y\mid Z)\), so the conditional covariance is zero. This says nothing about the marginal covariance, because averaging over \(Z\) can make both conditional means move together. Conversely, take independent fair Bernoulli variables \(X\) and \(Y\), and let \(Z=\mathbf1_{\{X=Y\}}\). Their marginal covariance is zero. Given \(Z=1\), however, \(\mathbb P(X=1,Y=1\mid Z=1)=1/2\), while \(\mathbb P(X=1\mid Z=1)\mathbb P(Y=1\mid Z=1)=1/4\). Thus zero marginal correlation does not imply conditional independence.{{cite:dawid1979}} (§3)
 
 For a joint density, \(f(x\mid y,z)=f(x,y,z)/f(y,z)\) where \(f(y,z)>0\). Substituting \(f(x,y,z)=f(x\mid z)f(y,z)\) cancels \(f(y,z)\) and leaves \(f(x\mid z)\). Multiplying the resulting equality by \(f(z\mid y)\) gives \(f(x,z\mid y)=f(x\mid z)f(z\mid y)\).{{cite:dawid1979}} (§§3–4)
+
+Let \(U=h(X)\). Summing the product formula over the \(x\) with \(h(x)=u\) yields
+\[
+\mathbb P(U=u,Y=y\mid Z=z)=\mathbb P(U=u\mid Z=z)\mathbb P(Y=y\mid Z=z),
+\]
+which is \(U\perp Y\mid Z\). For the refined conditioning, the event \(\{U=u\}\) restricts \(X\) to \(h^{-1}(u)\). On that event,
+\[
+\mathbb P(Y=y\mid X=x,Z=z,U=u)=\mathbb P(Y=y\mid X=x,Z=z)=\mathbb P(Y=y\mid Z=z),
+\]
+using \(X\perp Y\mid Z\). Summing over \(x\) conditional on \((Z,U)\) also gives \(P(Y\mid Z,U)=P(Y\mid Z)\).{{cite:dawid1979}} (§§3–4) Therefore the two conditional laws agree, so \(P(Y\mid X,Z,U)=P(Y\mid Z,U)\), i.e. \(X\perp Y\mid(Z,U)\).
 :::
 :::
 
