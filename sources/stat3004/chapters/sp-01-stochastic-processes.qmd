@@ -71,7 +71,7 @@ $$
 \Pr(X\ge a)\le\frac{\E X}{a}.
 $$
 
-If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality.{{cite:chebyshev1867}}{{cite:grimmett_stirzaker2020}}{{cite:durrett2019}}
+If $X$ has a finite variance, apply the same bound to $(X-\E X)^2$ at level $\varepsilon^2$. That is Chebyshev's inequality.
 
 $$
 \Pr\bigl(|X-\E X|\ge\varepsilon\bigr)\le\frac{\Var(X)}{\varepsilon^2}.

@@ -187,5 +187,138 @@
     "body": "Let independent $X_t$ be $-1$ or $1$ equally likely at even times, and let it be $0$ with probability $1/2$ and each of $-\\sqrt2,\\sqrt2$ with probability $1/4$ at odd times. Compute the mean, variance and nonzero-lag covariance. Is the process weakly stationary? Is it strictly stationary? Explain.",
     "answer": "At either parity the mean is $0$. The even-time variance is $1$; the odd-time variance is $(1/4)2+(1/4)2=1$. Independence makes covariance $0$ at every nonzero lag. Thus the mean and lag covariance are time invariant and the process is weakly stationary. Its one-time law alternates between a two-point and a three-point distribution, so it is not strictly stationary.",
     "topic_code": "T1"
+  },
+  {
+    "id": "depth-blinding-risk-difference",
+    "title": "What does the placebo contrast estimate?",
+    "body": "In a randomized masked trial, 45 of 60 people assigned active treatment improve, compared with 30 of 60 assigned a matching placebo. Compute the two improvement proportions and the active-minus-placebo risk difference. Does the placebo group's improvement rate equal a pure expectancy effect?",
+    "answer": "The proportions are 45/60=0.75 and 30/60=0.50, so the risk difference is 0.25 or 25 percentage points. The placebo improvement rate includes natural recovery, measurement fluctuation, shared care and any expectancy influence; it does not isolate expectancy.",
+    "topic_code": "D1"
+  },
+  {
+    "id": "depth-blinding-design-roles",
+    "title": "Concealment and masking at different times",
+    "body": "A recruiter can see the next assignment before enrolling a participant, but participants and outcome assessors are masked after enrolment. Which design protection is missing? Give one route by which it could bias the comparison, and state whether masking afterward repairs it.",
+    "answer": "Allocation concealment is missing. A recruiter could preferentially enroll a sicker or healthier participant when the next assignment is known, producing baseline imbalance related to treatment. Later masking cannot undo that selection, although it can limit post-assignment behaviour and measurement biases.",
+    "topic_code": "D1"
+  },
+  {
+    "id": "depth-chebyshev-sample-size",
+    "title": "A sample size from Chebyshev's bound",
+    "body": "Independent observations have population variance 25. How many are needed so that Chebyshev's inequality guarantees P(|sample mean - population mean|≥1)≤0.05? State why the calculation could fail for correlated observations.",
+    "answer": "For n independent observations, Var(sample mean)=25/n and Chebyshev bounds the probability by 25/n. Requiring 25/n≤0.05 gives n≥500. Correlation changes the variance of the average, so the 25/n formula may fail.",
+    "topic_code": "SP11"
+  },
+  {
+    "id": "depth-hierarchy-normal-weight",
+    "title": "A class mean with partial pooling",
+    "body": "For a normal hierarchy with known population mean μ=40, between-class variance τ²=9 and within-class variance σ²=36, a class of four has sample mean 55. Find its conditional posterior weight on its own mean, posterior mean and posterior variance.",
+    "answer": "The weight is nτ²/(σ²+nτ²)=4(9)/(36+4(9))=1/2. The posterior mean is (1/2)55+(1/2)40=47.5. The variance is σ²τ²/(σ²+nτ²)=36(9)/72=4.5. This is conditional on the supplied population parameters.",
+    "topic_code": "B8"
+  },
+  {
+    "id": "depth-hierarchy-shared-rate",
+    "title": "Conditional independence can hide marginal dependence",
+    "body": "Let θ be uniform on [0,1], and conditionally on θ let Y₁ and Y₂ be independent Bernoulli(θ). Find P(Y₁=1), P(Y₁=1,Y₂=1), and Cov(Y₁,Y₂). Are the two observations marginally independent?",
+    "answer": "Eθ=1/2, so P(Y₁=1)=1/2. Conditional independence gives P(Y₁=1,Y₂=1)=Eθ²=1/3. Thus Cov(Y₁,Y₂)=1/3-(1/2)²=1/12>0. Sharing an uncertain θ makes them marginally dependent.",
+    "topic_code": "B8"
+  },
+  {
+    "id": "depth-reference-prior-propriety",
+    "title": "Does this reference posterior exist?",
+    "body": "For a Gaussian linear model with the reference measure π(β,σ²)∝1/σ², consider (a) n=5, p=2, full-rank X and residual sum of squares 6; (b) the same n and p but a rank-one X; (c) full-rank X but residual sum of squares zero. In which cases is the posterior proper, and why?",
+    "answer": "Only (a) is proper: n-p=3>0 and the positive residual sum of squares controls the variance integral. In (b), a coefficient direction is unidentified and the flat prior leaves infinite mass. In (c), the variance kernel diverges near zero.",
+    "topic_code": "B9"
+  },
+  {
+    "id": "depth-reference-prior-update",
+    "title": "A reference posterior from three observations",
+    "body": "In an intercept-only normal model, observations are 1, 2 and 3. Under π(β,σ²)∝1/σ², find the fitted mean, residual sum of squares, residual degrees of freedom and inverse-Gamma posterior parameters for σ².",
+    "answer": "The fitted mean is 2 and the squared residuals are 1, 0 and 1, summing to 2. With n=3 and p=1, the residual degrees of freedom are 2. Hence σ² given the data is inverse-Gamma with shape (n-p)/2=1 and scale SSE/2=1. It is proper, but its mean is infinite.",
+    "topic_code": "B9"
+  },
+  {
+    "id": "depth-mgf-bernoulli-sum",
+    "title": "A Bernoulli sum through its MGF",
+    "body": "Let X and Y be independent Bernoulli variables with success probability 0.4. Find the MGF of S=X+Y, its mean and variance, and P(S=2). What part fails if X=Y instead?",
+    "answer": "One MGF is 0.6+0.4e^t, so independence gives M_S(t)=(0.6+0.4e^t)². The mean is 0.8, variance 2(0.4)(0.6)=0.48, and P(S=2)=0.4²=0.16. If X=Y, the sum's MGF is 0.6+0.4e^{2t}; the product rule and binomial law do not apply.",
+    "topic_code": "P2"
+  },
+  {
+    "id": "depth-mgf-domain",
+    "title": "An exponential transform's domain",
+    "body": "For X exponential with rate 3, derive M_X(t), give its domain, then calculate E(X), Var(X) and M_X(2). Why is substituting t=4 into the rational expression invalid as an MGF calculation?",
+    "answer": "Integrating 3e^{-(3-t)x} over x≥0 gives M_X(t)=3/(3-t) for t<3. Thus E(X)=1/3, Var(X)=1/9, and M_X(2)=3. At t=4 the defining integral diverges; the algebraic value -3 is not an expectation.",
+    "topic_code": "P2"
+  },
+  {
+    "id": "depth-point-forecast-ar-two-step",
+    "title": "An autoregression two steps ahead",
+    "body": "A stationary AR(1) series has mean 20, coefficient 0.6, innovation variance 9, and latest value 30. Find the conditional-mean forecasts one and two steps ahead and the corresponding forecast-error variances.",
+    "answer": "The forecasts are 20+0.6(30-20)=26 and 20+0.6²(30-20)=23.6. The error variances are 9 and 9(1+0.6²)=12.24. The second forecast has moved toward the mean while uncertainty has increased.",
+    "topic_code": "T2"
+  },
+  {
+    "id": "depth-point-forecast-loss",
+    "title": "Which forecast is best under each loss?",
+    "body": "Conditional on today's information, tomorrow's demand is 10 with probability 0.8 and 30 with probability 0.2. Give a forecast minimizing squared error and one minimizing absolute error. Explain why they differ.",
+    "answer": "The conditional mean is 0.8(10)+0.2(30)=14, which minimizes squared error. The conditional median is 10, which minimizes absolute error because 80% of the conditional probability lies there. The two losses penalize misses differently.",
+    "topic_code": "T2"
+  },
+  {
+    "id": "depth-posterior-median-discrete",
+    "title": "A nonunique posterior median",
+    "body": "A posterior puts probability 0.5 on θ=1 and 0.5 on θ=5. Which actions minimize posterior expected absolute error, and which action minimizes squared error? Give both risks at action 2.",
+    "answer": "Every action in [1,5] is a posterior median and has absolute-error risk 0.5|a-1|+0.5|a-5|=2, including a=2. The posterior mean 3 uniquely minimizes squared error. At a=2 the squared-error risk is 0.5(1²)+0.5(3²)=5.",
+    "topic_code": "B1"
+  },
+  {
+    "id": "depth-posterior-median-transform",
+    "title": "Transforming a posterior median",
+    "body": "A probability θ has a posterior median 0.25. What is the posterior median of its odds θ/(1-θ)? Explain whether the odds of the posterior mean must equal the posterior mean of the odds.",
+    "answer": "Odds are a strictly increasing function of θ, so their median is 0.25/(1-0.25)=1/3. Means do not generally commute with nonlinear transformations: E[θ/(1-θ)|x] need not equal E[θ|x]/(1-E[θ|x]), and the former may not even exist for some posteriors.",
+    "topic_code": "B1"
+  },
+  {
+    "id": "depth-probit-dose",
+    "title": "Interpret a fitted probit dose curve",
+    "body": "A binary probit model is p(x)=Φ(-1+0.5x). Find p at x=0, 2 and 4, the dose where p=0.5, and the local probability derivative at that dose. Explain why the coefficient is not a probability increase.",
+    "answer": "The normal scores are -1, 0 and 1, giving p≈0.15866, 0.5 and 0.84134. The half-probability dose is x=2. The derivative there is 0.5φ(0)=0.5/√(2π)≈0.19947 per unit of x; elsewhere the derivative is 0.5φ(-1+0.5x), so it is not constant.",
+    "topic_code": "G1"
+  },
+  {
+    "id": "depth-return-vs-selfloop",
+    "title": "A return without staying put",
+    "body": "A two-state chain has P(A→A)=0.7, P(A→B)=0.3, P(B→A)=0.4 and P(B→B)=0.6. Is A recurrent even though it may leave immediately? Find its expected first return time from A.",
+    "answer": "The finite chain is irreducible, so both states are positive recurrent. From B the geometric waiting time to hit A has mean 1/0.4=2.5. Starting A, return time is 1 with probability 0.7; otherwise it is 1 plus that waiting time. Its mean is 0.7(1)+0.3(1+2.5)=1.75. Leaving immediately does not prevent eventual return.",
+    "topic_code": "SP5"
+  },
+  {
+    "id": "depth-underdispersion-binomial",
+    "title": "A binomial count below Poisson variance",
+    "body": "A count is binomial with five trials and success probability 0.4. Find its mean, variance and variance-to-mean ratio. Compare its variance with a Poisson count having the same mean.",
+    "answer": "The mean is 5(0.4)=2 and the variance is 5(0.4)(0.6)=1.2. Its variance-to-mean ratio is 1.2/2=0.6. A Poisson count with mean 2 has variance 2, so this binomial mechanism is underdispersed relative to that Poisson reference.",
+    "topic_code": "G3"
+  },
+  {
+    "id": "depth-underdispersion-conditional",
+    "title": "Conditional spread versus pooled spread",
+    "body": "Five units in group A each have count 1; five in group B each have count 5. Compute the pooled sample mean and variance, then describe the within-group variance. Why can a pooled mean–variance comparison misdiagnose dispersion?",
+    "answer": "The pooled mean is 3 and the pooled sample variance is 40/9≈4.444, greater than the pooled mean. Within each group the sample variance is zero. The group indicator explains the mean shift; dispersion should be assessed conditional on fitted group means rather than from the pooled counts.",
+    "topic_code": "G3"
+  },
+  {
+    "id": "depth-weak-stationarity-ar",
+    "title": "Autocovariances of a stationary AR(1)",
+    "body": "A stationary AR(1) has coefficient 0.4 and independent innovation variance 9. Find its variance γ(0), lag-one autocovariance γ(1), and lag-two autocorrelation ρ(2).",
+    "answer": "The variance is 9/(1-0.4²)=75/7≈10.7143. Then γ(1)=0.4(75/7)=30/7≈4.2857, while ρ(2)=0.4²=0.16. These values are independent of the calendar origin under stationarity.",
+    "topic_code": "T1"
+  },
+  {
+    "id": "depth-weak-not-strict",
+    "title": "Stable moments, changing distributions",
+    "body": "Independent even-time values equal -1 or 1 with equal chances. Independent odd-time values are uniform on [-√3,√3]. Is the combined series weakly stationary? Is it strictly stationary? Explain from means, variances, covariances and one-time distributions.",
+    "answer": "Both marginals have mean 0 and variance 1; independence makes every nonzero-lag covariance 0. Hence the process is weakly stationary. The even-time law has two atoms but the odd-time law is continuous, so a one-step shift changes the marginal distribution and strict stationarity fails.",
+    "topic_code": "T1"
   }
 ]

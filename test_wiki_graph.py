@@ -1784,6 +1784,18 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # Opened MIT derivation and Dodge history replace unread originals.
                 expected_keys.difference_update({"laplace1812", "raiffa_schlaifer1961"})
                 self.assertTrue({"mit_ocw_conjugate2022", "dodge2008"} <= citation_keys, slug)
+            if slug == "normal-hierarchical-shrinkage":
+                # The unopened Efron–Morris marker is replaced on this theorem
+                # by the opened normal-hierarchy derivation.
+                expected_keys.discard("efron_morris1975")
+                self.assertIn("deligiannidis2022_foundations", citation_keys)
+                self.assertIn("(§9.4, pp. 55–57)", body)
+            if slug == "study-rate-full-conditional":
+                # Lindley–Smith treats normal hierarchy, not the beta update;
+                # the opened BDA3 chapter states this conditional directly.
+                expected_keys.discard("lindley_smith1972")
+                self.assertIn("gelman_bda2013", citation_keys)
+                self.assertIn("(Ch. 5, §5.3, pp. 108–109)", body)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

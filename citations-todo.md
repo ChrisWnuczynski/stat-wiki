@@ -90,3 +90,18 @@ These articles do not yet have three inline citations. A further marker would na
 - one-hot-encoding | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - two-sample-hotelling-test | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - time-series | The shared overview now uses the opened forecasting passage and its own concrete examples; a further independent source for the overview has not been checked.
+- bids-for-a-bankrupt-firm | The bids example and numerical fit remain in the source chapter. A removed unlocated Conway–Maxwell–Poisson marker needs a checked full-text replacement before another citation is added.
+- chebyshev-s-inequality | The bound and its worked probabilities are proved directly. Unlocated historical and textbook markers were removed; an independent full source should be checked before adding another citation.
+- complete-pooling-no-pooling-and-partial-pooling | The three modelling choices and shrinkage explanation now cite the opened Gelman et al. chapter. Additional independent sources on the same comparison have not been checked in full.
+- decision-tree | The impurity calculations are derived on the page. Unlocated inherited classification-book markers were removed pending full-text verification.
+- effective-degrees-of-freedom | The smoother explanation is supported by its derivation in the source chapter. Another independent full source for the exact definition and limits remains to be checked.
+- knot | The truncated-cubic continuity and dimension claims are proved and numerically checked. The inherited de Boor marker was unread and removed, leaving further sourcing to a full text.
+- likelihood-and-reference-prior | The reference-prior calculation is derived on the page. Unlocated inherited prior-book citations were removed pending full-text verification of the precise claims.
+- moment-generating-function | The transform and examples are derived directly. Inherited unlocated probability-book markers were removed pending full-text source checks.
+- overdispersion | The Poisson variance comparison is worked in the source chapter. Independent full-text support for the copied short definition remains to be checked.
+- probit-link | The opened R Core Team manual §11.6.2 supports the inverse-normal link and half-probability interpretation. The central-slope calculation is proved on the page; inherited unlocated historical and GLM-book markers remain excluded pending full-text verification.
+- quasi-poisson | The conditional variance rule is stated in the source chapter. Another full source on this exact specification remains to be checked.
+- strict-stationarity | The source chapter states the finite-block definition and contrasts it with weak stationarity. Inherited unlocated time-series markers were removed pending full-text verification.
+- transient-and-recurrent-states | The return-probability conditions are derived in the source chapter. Inherited unlocated probability-book markers were removed pending full-text verification.
+- within-cluster-scatter | The pairwise identity and unequal-size counterexample are proved and checked. Inherited unlocated clustering-book markers were removed pending full-text verification.
+- recurrence-and-period | The source chapter gives direct return-time and period examples; an additional independent full-text citation for its inherited definition has not been checked.

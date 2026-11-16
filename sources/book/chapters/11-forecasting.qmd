@@ -1,6 +1,6 @@
 # Forecasting
 
-The theory stopped at the Wold decomposition. This chapter is about using it. The `forecast` package fits a model and returns a point forecast and a prediction interval.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}}{{cite:hyndman_athanasopoulos2021}} Once the package is installed, the function is left to choose the orders. The point is that the automatic choice does what the autocorrelation plots would have suggested by hand.
+The theory stopped at the Wold decomposition. This chapter is about using it. The `forecast` package fits a model and returns a point forecast and a prediction interval. Once the package is installed, the function is left to choose the orders. Automatic selection evaluates candidate models by an information criterion, while autocorrelation plots remain useful for diagnosis and interpretation.
 
 ## Accidental deaths
 

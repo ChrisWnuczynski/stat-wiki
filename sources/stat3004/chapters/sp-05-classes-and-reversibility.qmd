@@ -17,13 +17,15 @@ Let $T_i^+=\inf\{n\ge 1: X_n=i\}$ be the first return time to $i$.
 ::: {#def-sp-recurrence .definition}
 ## Recurrence and period
 
-State $i$ is recurrent when $\Pr_i(T_i^+<\infty)=1$, and transient otherwise.{{cite:norris1997}}{{cite:feller1968}} A recurrent state is positive recurrent when $\E_i T_i^+<\infty$, and null recurrent when the return time is almost surely finite and has infinite mean.{{cite:grimmett_stirzaker2020}} The period of $i$ is
+State $i$ is recurrent when $\Pr_i(T_i^+<\infty)=1$, and transient otherwise. A recurrent state is positive recurrent when $\E_i T_i^+<\infty$, and null recurrent when the return time is almost surely finite and has infinite mean. The period of $i$ is
 
 $$
 d(i)=\gcd\{n\ge 1: p_{ii}^{(n)}>0\}.
 $$
 
 Period $1$ means aperiodic.{{cite:berkeley_eecs1262019}} (§2.4, p. 12)
+
+For example, deterministic alternation between two states returns at even times only: both states are recurrent but periodic. In contrast, a state that self-loops with probability $q$ in $(0,1)$ and otherwise enters a distinct absorbing state is transient. Its probability of a first return is $q$, although the self-loop gives it period $1$. Aperiodicity therefore says nothing by itself about whether return is certain.
 
 :::
 

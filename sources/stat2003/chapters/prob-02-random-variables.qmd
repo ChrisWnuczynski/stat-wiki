@@ -107,7 +107,7 @@ For a fair comparison with the sheet, the generating functions of the named non-
 ::: {#def-moment-generating-function .definition}
 ## Moment generating function
 
-The moment generating function of $X$ is $M(s)=\E e^{sX}$, for those $s$ at which the expectation exists.{{cite:laplace1812}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+The moment generating function of $X$ is $M(s)=\E e^{sX}$, for those $s$ at which the expectation exists.
 
 :::
 

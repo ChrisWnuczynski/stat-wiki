@@ -286,7 +286,7 @@ Conditional independence in \eqref{eq:lm-scalar-model} gives \begin{align}
  p(\betavec,\sigma^2)\propto\frac1{\sigma^2},
  \qquad \betavec\in\R^p,\quad\sigma^2>0.
  \label{eq:lm-reference-prior}
-\end{equation} It is flat in $\betavec$ and flat in $\log\sigma^2$, since $\dd(\log\sigma^2)=\dd\sigma^2/\sigma^2$.{{cite:jeffreys1961}}{{cite:box_tiao1973}} Neither factor integrates to one, so "uninformative" is a modelling convention, not the absence of assumptions.{{cite:gelman_bda2013}}{{cite:berger_bernardo_sun2009}}
+\end{equation} It is flat in $\betavec$ and flat in $\log\sigma^2$, since $\dd(\log\sigma^2)=\dd\sigma^2/\sigma^2$. Neither factor integrates to one, so "uninformative" is a modelling convention, not the absence of assumptions.
 
 An improper reference prior is usable only when the posterior is proper. Here that requires enough information to identify all $p$ regression coefficients, including full column rank and, in the ordinary derivation, $n>p$. The prior is a limiting device rather than a population from which parameters could literally be simulated, so prior prediction is unavailable under it even when posterior inference is valid.
 

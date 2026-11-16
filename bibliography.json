@@ -5786,6 +5786,18 @@
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html"
       }
     },
+    "rstats_intro2026": {
+      "authors": ["R Core Team"],
+      "year": 2026,
+      "title": "An Introduction to R (R-devel manual, accessed November 2026)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/doc/manual/R-intro.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/doc/manual/R-intro.html"
+      }
+    },
     "rstats_glm2026": {
       "authors": [
         "R Core Team"

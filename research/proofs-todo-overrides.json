@@ -228,5 +228,15 @@
     "slug": "marginal-model#property-gee-robust-consistency",
     "title": "GEE consistency and sandwich covariance under working-correlation misspecification",
     "reason": "The article proves the estimating equation is unbiased at a correct marginal mean, but a reviewed independent-cluster asymptotic argument is still needed to establish consistency and sandwich convergence under the stated regularity and missingness conditions."
+  },
+  {
+    "slug": "moment-generating-function#property-uniqueness",
+    "title": "Uniqueness of an MGF on a neighbourhood of zero",
+    "reason": "The article proves derivative and independence identities but invokes, without proving, uniqueness of the bilateral Laplace transform on a neighbourhood of zero."
+  },
+  {
+    "slug": "transient-and-recurrent-states#property-class-recurrence-stationary-mass",
+    "title": "Recurrence type across communicating states and stationary return identity",
+    "reason": "The article proves finite closed-class positive recurrence and geometric visit counts, but inherits the class-wide positive/null classification and the identity π_i=1/E_i T_i^+ without a full proof."
   }
 ]

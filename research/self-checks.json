@@ -787,5 +787,72 @@
     "ex-sp-increments-and-levels",
     "ex-sp-same-marginals",
     "depth-stationarity-changing-laws"
+  ],
+  "blinding-and-placebo": [
+    "ex-da-devil-tumours",
+    "depth-blinding-risk-difference",
+    "depth-blinding-design-roles"
+  ],
+  "chebyshev-s-inequality": [
+    "ex-sp-proportion-bound",
+    "depth-chebyshev-sample-size"
+  ],
+  "decision-tree": [
+    "ex-sl-12-2",
+    "ex-sl-12-3",
+    "ex-sl-12-7"
+  ],
+  "hierarchical-bayesian-model": [
+    "depth-hierarchy-normal-weight",
+    "depth-hierarchy-shared-rate"
+  ],
+  "knot": [
+    "c-31",
+    "c-32",
+    "q-36"
+  ],
+  "likelihood-and-reference-prior": [
+    "depth-reference-prior-propriety",
+    "depth-reference-prior-update"
+  ],
+  "moment-generating-function": [
+    "depth-mgf-bernoulli-sum",
+    "depth-mgf-domain"
+  ],
+  "point-forecast": [
+    "depth-point-forecast-ar-two-step",
+    "depth-point-forecast-loss"
+  ],
+  "posterior-median": [
+    "depth-posterior-median-discrete",
+    "depth-posterior-median-transform"
+  ],
+  "probit-link": [
+    "q-38",
+    "c-20",
+    "depth-probit-dose"
+  ],
+  "residual-deviance": [
+    "ex-sl-10-6",
+    "q-34",
+    "ex-fish-poisson"
+  ],
+  "transient-and-recurrent-states": [
+    "ex-sp-closed-classes",
+    "depth-return-vs-selfloop"
+  ],
+  "underdispersion": [
+    "c-28",
+    "depth-underdispersion-binomial",
+    "depth-underdispersion-conditional"
+  ],
+  "weak-stationarity": [
+    "c-43",
+    "depth-weak-stationarity-ar",
+    "depth-weak-not-strict"
+  ],
+  "within-cluster-scatter": [
+    "ex-sl-04-1",
+    "ex-sl-04-6"
   ]
 }

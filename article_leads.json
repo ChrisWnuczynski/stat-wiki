@@ -613,11 +613,11 @@
     "description": "transforms that encode probability distributions through complex-valued expectations"
   },
   "chebyshev-s-inequality": {
-    "field": "stochastic processes",
+    "field": "probability theory",
     "article": "",
     "term": "Chebyshev's inequality",
     "verb": "is",
-    "description": "a bound on the chance that a random variable lies far from its mean",
+    "description": "a variance-based bound on large deviations from the mean that works without assuming a distributional shape",
     "proper": true
   },
   "chi-squared-distribution": {
@@ -1029,10 +1029,10 @@
   },
   "decision-tree": {
     "field": "statistical learning",
-    "article": "the",
+    "article": "",
     "term": "decision tree",
     "verb": "is",
-    "description": "a prediction model that partitions feature space through a sequence of rules"
+    "description": "a predictor that assigns a class or value through a sequence of feature splits, giving an interpretable local rule for each prediction"
   },
   "degrees-of-freedom": {
     "field": "statistical inference",
@@ -1881,7 +1881,7 @@
     "article": "the",
     "term": "hierarchical Bayesian model",
     "verb": "is",
-    "description": "a Bayesian model with multiple levels of uncertain parameters"
+    "description": "a model that links group-specific parameters through an uncertain population distribution so sparse groups can share information"
   },
   "hierarchical-clustering": {
     "field": "statistical learning",
@@ -2269,10 +2269,10 @@
   },
   "knot": {
     "field": "smoothing methods",
-    "article": "the",
+    "article": "a",
     "term": "knot",
     "verb": "is",
-    "description": "a point where the pieces of a spline join"
+    "description": "join between polynomial pieces that lets a spline bend locally while retaining its chosen degree of smoothness"
   },
   "kolmogorov-extension-theorem": {
     "field": "stochastic processes",
@@ -2428,11 +2428,11 @@
     "description": "a set of laser-return measurements used to illustrate nonlinear smoothing"
   },
   "likelihood-and-reference-prior": {
-    "field": "Bayesian statistics",
-    "article": "the",
+    "field": "Bayesian linear regression",
+    "article": "",
     "term": "likelihood and reference prior",
     "verb": "are",
-    "description": "the data evidence and baseline prior combined in Bayesian inference"
+    "description": "the data model and a conventional prior measure that together define a posterior whose propriety must be checked"
   },
   "likelihood-function": {
     "field": "statistical inference",
@@ -2954,7 +2954,7 @@
     "article": "the",
     "term": "moment generating function",
     "verb": "is",
-    "description": "the expectation of an exponential transform of a random variable near zero"
+    "description": "the expected exponential transform of a random variable that recovers moments and simplifies independent sums when it exists near zero"
   },
   "moments-of-the-sample-mean-and-variance": {
     "field": "statistical inference",
@@ -3505,7 +3505,7 @@
     "article": "the",
     "term": "point forecast",
     "verb": "is",
-    "description": "a single predicted value of a future observation, usually the conditional mean given the series so far"
+    "description": "a single prediction for a stated future observation that anchors planning while its uncertainty is assessed separately"
   },
   "poisson-distribution": {
     "field": "probability theory and statistics",
@@ -3599,7 +3599,7 @@
     "article": "the",
     "term": "posterior median",
     "verb": "is",
-    "description": "the median of the posterior distribution, the Bayes estimate under absolute-error loss"
+    "description": "a central value of the posterior distribution used when absolute errors in a parameter estimate matter"
   },
   "posterior-membership": {
     "field": "statistical learning",
@@ -3750,10 +3750,10 @@
   },
   "probit-link": {
     "field": "generalised linear models",
-    "article": "the",
+    "article": "",
     "term": "probit link",
     "verb": "is",
-    "description": "a link function that uses the inverse standard-normal distribution function for a binary response"
+    "description": "a transformation that maps a binary response probability to a normal score so a linear predictor yields valid fitted probabilities"
   },
   "product-rule": {
     "field": "probability theory",
@@ -4025,10 +4025,10 @@
   },
   "residual-deviance": {
     "field": "generalised linear models",
-    "article": "the",
+    "article": "",
     "term": "residual deviance",
-    "verb": "is",
-    "description": "the deviance of a fitted model"
+    "verb": "measures",
+    "description": "how much likelihood a fitted model loses to a perfect fit to the observed responses, helping assess and compare models"
   },
   "residuals-in-a-glm": {
     "field": "generalised linear models",
@@ -4704,7 +4704,7 @@
     "article": "",
     "term": "transient and recurrent states",
     "verb": "are",
-    "description": "states of a Markov chain classified by whether a return is certain"
+    "description": "Markov-chain states distinguished by whether the process can leave them forever, a key to their long-run behaviour"
   },
   "transition-matrix": {
     "field": "stochastic processes",
@@ -4828,10 +4828,10 @@
   },
   "underdispersion": {
     "field": "generalised linear models",
-    "article": "the",
+    "article": "",
     "term": "underdispersion",
     "verb": "is",
-    "description": "variation in counts smaller than the amount a reference model predicts"
+    "description": "conditional count variation smaller than a fitted reference model predicts, which changes uncertainty estimates"
   },
   "underfitting": {
     "field": "statistical learning",
@@ -5022,10 +5022,10 @@
   },
   "weak-stationarity": {
     "field": "time series",
-    "article": "the",
+    "article": "",
     "term": "weak stationarity",
     "verb": "is",
-    "description": "the property that a time series has constant mean and lag-dependent covariance"
+    "description": "constant mean and lag-dependent covariance in a time series, allowing one dependence pattern to be used across dates"
   },
   "weibull-distribution": {
     "field": "probability theory and statistics",
@@ -5097,10 +5097,10 @@
   },
   "within-cluster-scatter": {
     "field": "statistical learning",
-    "article": "the",
+    "article": "",
     "term": "within-cluster scatter",
-    "verb": "is",
-    "description": "the sum of squared distances of observations from their assigned cluster centres"
+    "verb": "measures",
+    "description": "squared separation among observations assigned to the same group, helping compare candidate partitions"
   },
   "wold-decomposition": {
     "field": "time series",
