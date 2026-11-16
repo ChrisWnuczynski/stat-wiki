@@ -132,11 +132,11 @@ $$
 is the quasi-Poisson and quasi-binomial we have already used for dead time, spurts, and pseudo-replication. In general, any non-negative function $V$ gives a variance $\phi V(\mu)$. Most of those choices are not the variance of an exponential family. They describe the data. They do not, by themselves, prescribe a distribution you can simulate from. That is the whole of the name *quasi*.
 
 ::: {#def-quasi .definition}
-If $\mathrm{Var}(Y)=\phi V(\mu)$, the quasi-score in the mean is the ratio below.{{cite:wedderburn1974}}{{cite:mccullagh_nelder1989}}
+If $\mathrm{Var}(Y)=\phi V(\mu)$, the quasi-score in the mean is the ratio below.{{cite:wuthrich_merz2022_glm}} (§5.4, quasi-score definition)
 $$
 S_\mu=\frac{Y-\mu}{\phi V(\mu)}.
 $$
-If the mean depends on covariates through $\mu(\vect{X}^\top\boldsymbol{\beta})$, the quasi-score in $\boldsymbol{\beta}$ is the weighted derivative below.{{cite:davison2003}}
+If the mean depends on covariates through $\mu(\vect{X}^\top\boldsymbol{\beta})$, the quasi-score in $\boldsymbol{\beta}$ is the weighted derivative below.{{cite:wuthrich_merz2022_glm}} (§5.4, regression score)
 $$
 \vect{S}_{\boldsymbol{\beta}}
 =\frac{Y-\mu}{\phi V(\mu)}\,\mu'(\vect{X}^\top\boldsymbol{\beta})\,\vect{X}.

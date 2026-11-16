@@ -4,7 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **97**. Left: **621**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
+Pages ranked: **718**. Done: **112**. Left: **606**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -76,21 +76,21 @@ Pages ranked: **718**. Done: **97**. Left: **621**. Skipped: **0**. Ranks 1–67
 | 65 | [Gamma distribution](gamma-distribution.md) | Distribution | [Prose](content/gamma-distribution.md), [check](../checks/gamma-distribution.py) | 3,039 → 5,263 | 3 → 3 | Moments, sums and conjugacy proved; relationship pages rebuilt |
 | 66 | [Random component](random-component.md) | Concept | [Prose](content/random-component.md), [check](../checks/random-component.py) | 548 → 3,052 | 0 → 0 | GLM family variances proved; response support compared |
 | 67 | [Akaike information criterion](akaike-information-criterion.md) | Concept | [Prose](content/akaike-information-criterion.md), [check](../checks/akaike-information-criterion.py) | 867 → 2,919 | 0 → 0 | Gaussian optimism and penalty proved; general KL expansion logged |
-| 68 | [Irreducible Markov chain](irreducible-markov-chain.md) | Topic | [Prose](content/irreducible-markov-chain.md), [check](../checks/irreducible-markov-chain.py) | 321 → 2,122 | 0 → 0 | See [research record](irreducible-markov-chain.md) |
-| 69 | [Null and alternative hypotheses](null-and-alternative-hypotheses.md) | Definition | [Prose](content/null-and-alternative-hypotheses.md), [check](../checks/null-and-alternative-hypotheses.py) | 431 → 2,408 | 0 → 0 | See [research record](null-and-alternative-hypotheses.md) |
-| 70 | [Autocorrelation function](autocorrelation-function.md) | Topic | [Prose](content/autocorrelation-function.md), [check](../checks/autocorrelation-function.py) | 299 → 2,064 | 0 → 0 | See [research record](autocorrelation-function.md) |
-| 71 | [Posterior-odds factorisation](posterior-odds-factorisation.md) | Unknown | [Prose](content/posterior-odds-factorisation.md), [check](../checks/posterior-odds-factorisation.py) | 1,537 → 3,850 | 0 → 0 | See [research record](posterior-odds-factorisation.md) |
-| 72 | [Markov chain](markov-chain.md) | Definition | [Prose](content/markov-chain.md), [check](../checks/markov-chain.py) | 987 → 3,586 | 0 → 0 | See [research record](markov-chain.md) |
+| 68 | [Irreducible Markov chain](irreducible-markov-chain.md) | Topic | [Prose](content/irreducible-markov-chain.md), [check](../checks/irreducible-markov-chain.py) | 321 → 2,137 | 0 → 0 | See [research record](irreducible-markov-chain.md) |
+| 69 | [Null and alternative hypotheses](null-and-alternative-hypotheses.md) | Definition | [Prose](content/null-and-alternative-hypotheses.md), [check](../checks/null-and-alternative-hypotheses.py) | 431 → 2,415 | 0 → 0 | See [research record](null-and-alternative-hypotheses.md) |
+| 70 | [Autocorrelation function](autocorrelation-function.md) | Topic | [Prose](content/autocorrelation-function.md), [check](../checks/autocorrelation-function.py) | 299 → 2,085 | 0 → 0 | See [research record](autocorrelation-function.md) |
+| 71 | [Posterior-odds factorisation](posterior-odds-factorisation.md) | Theorem | [Prose](content/posterior-odds-factorisation.md), [check](../checks/posterior-odds-factorisation.py) | 1,537 → 3,882 | 0 → 0 | See [research record](posterior-odds-factorisation.md) |
+| 72 | [Markov chain](markov-chain.md) | Definition | [Prose](content/markov-chain.md), [check](../checks/markov-chain.py) | 987 → 3,609 | 0 → 0 | See [research record](markov-chain.md) |
 | 73 | [Maximum a posteriori estimate](maximum-a-posteriori-estimate.md) | Topic | [Prose](content/maximum-a-posteriori-estimate.md), [check](../checks/maximum-a-posteriori-estimate.py) | 389 → 3,303 | 0 → 0 | See [research record](maximum-a-posteriori-estimate.md) |
-| 74 | [Autoregression and moving averages](autoregression-and-moving-averages.md) | Section | [Prose](content/autoregression-and-moving-averages.md), [check](../checks/autoregression-and-moving-averages.py) | 499 → 2,045 | 1 → 1 | See [research record](autoregression-and-moving-averages.md) |
-| 75 | [Odds ratio](odds-ratio.md) | Topic | [Prose](content/odds-ratio.md), [check](../checks/odds-ratio.py) | 469 → 2,661 | 0 → 0 | See [research record](odds-ratio.md) |
+| 74 | [Autoregression and moving averages](autoregression-and-moving-averages.md) | Section | [Prose](content/autoregression-and-moving-averages.md), [check](../checks/autoregression-and-moving-averages.py) | 499 → 2,067 | 1 → 1 | See [research record](autoregression-and-moving-averages.md) |
+| 75 | [Odds ratio](odds-ratio.md) | Topic | [Prose](content/odds-ratio.md), [check](../checks/odds-ratio.py) | 469 → 2,649 | 0 → 0 | See [research record](odds-ratio.md) |
 | 76 | [Classification accuracy](classification-accuracy.md) | Topic | [Prose](content/classification-accuracy.md), [check](../checks/classification-accuracy.py) | 227 → 1,966 | 0 → 0 | See [research record](classification-accuracy.md) |
-| 77 | [Jacobian](jacobian.md) | Topic | [Prose](content/jacobian.md), [check](../checks/jacobian.py) | 575 → 2,773 | 0 → 0 | See [research record](jacobian.md) |
+| 77 | [Jacobian](jacobian.md) | Topic | [Prose](content/jacobian.md), [check](../checks/jacobian.py) | 575 → 2,778 | 0 → 0 | See [research record](jacobian.md) |
 | 78 | [Burn-in](burn-in.md) | Topic | [Prose](content/burn-in.md), [check](../checks/burn-in.py) | 234 → 3,782 | 0 → 0 | See [research record](burn-in.md) |
-| 79 | [Linear separators and the margin](linear-separators-and-the-margin.md) | Section | [Prose](content/linear-separators-and-the-margin.md), [check](../checks/linear-separators-and-the-margin.py) | 893 → 2,896 | 0 → 0 | See [research record](linear-separators-and-the-margin.md) |
-| 80 | [Random-walk and independent proposals](random-walk-and-independent-proposals.md) | Section | [Prose](content/random-walk-and-independent-proposals.md), [check](../checks/random-walk-and-independent-proposals.py) | 807 → 2,899 | 1 → 1 | See [research record](random-walk-and-independent-proposals.md) |
+| 79 | [Linear separators and the margin](linear-separators-and-the-margin.md) | Section | [Prose](content/linear-separators-and-the-margin.md), [check](../checks/linear-separators-and-the-margin.py) | 893 → 2,952 | 0 → 0 | See [research record](linear-separators-and-the-margin.md) |
+| 80 | [Random-walk and independent proposals](random-walk-and-independent-proposals.md) | Section | [Prose](content/random-walk-and-independent-proposals.md), [check](../checks/random-walk-and-independent-proposals.py) | 807 → 2,918 | 1 → 1 | See [research record](random-walk-and-independent-proposals.md) |
 | 81 | [Interpreting a logistic regression](interpreting-a-logistic-regression.md) | Section | [Prose](content/interpreting-a-logistic-regression.md), [check](../checks/interpreting-a-logistic-regression.py) | 259 → 2,388 | 0 → 0 | See [research record](interpreting-a-logistic-regression.md) |
-| 82 | [Transition matrix](transition-matrix.md) | Section | [Prose](content/transition-matrix.md), [check](../checks/transition-matrix.py) | 554 → 2,605 | 0 → 0 | See [research record](transition-matrix.md) |
+| 82 | [Transition matrix](transition-matrix.md) | Section | [Prose](content/transition-matrix.md), [check](../checks/transition-matrix.py) | 554 → 2,618 | 0 → 0 | See [research record](transition-matrix.md) |
 | 83 | [Precision](precision.md) | Topic | [Prose](content/precision.md), [check](../checks/precision.py) | 203 → 2,729 | 0 → 0 | See [research record](precision.md) |
 | 84 | [Bernoulli distribution](bernoulli-distribution.md) | Distribution | [Prose](content/bernoulli-distribution.md), [check](../checks/bernoulli-distribution.py) | 862 → 2,330 | 2 → 2 | See [research record](bernoulli-distribution.md) |
 | 85 | [Bayes classifier](bayes-classifier.md) | Section | [Prose](content/bayes-classifier.md), [check](../checks/bayes-classifier.py) | 496 → 2,264 | 0 → 0 | See [research record](bayes-classifier.md) |
@@ -106,12 +106,27 @@ Pages ranked: **718**. Done: **97**. Left: **621**. Skipped: **0**. Ranks 1–67
 | 95 | [Sample space](sample-space.md) | Definition | [Prose](content/sample-space.md), [check](../checks/sample-space.py) | 438 → 1,847 | 0 → 0 | See [research record](sample-space.md) |
 | 96 | [Uniform distribution](uniform-distribution.md) | Distribution | [Prose](content/uniform-distribution.md), [check](../checks/uniform-distribution.py) | 710 → 2,506 | 2 → 2 | See [research record](uniform-distribution.md) |
 | 97 | [Kernel](kernel.md) | Definition | [Prose](content/kernel.md), [check](../checks/kernel.py) | 488 → 2,216 | 0 → 0 | See [research record](kernel.md) |
+| 98 | [Stationary distribution](stationary-distribution.md) | Definition | [Prose](content/stationary-distribution.md), [check](../checks/stationary-distribution.py) | 667 → 2,696 | 0 → 0 | See [research record](stationary-distribution.md) |
+| 99 | [Metropolis–Hastings update](metropolis-hastings-update.md) | Definition | [Prose](content/metropolis-hastings-update.md), [check](../checks/metropolis-hastings-update.py) | 2,572 → 5,565 | 1 → 1 | See [research record](metropolis-hastings-update.md) |
+| 100 | [State space](state-space.md) | Topic | [Prose](content/state-space.md), [check](../checks/state-space.py) | 285 → 2,091 | 0 → 0 | See [research record](state-space.md) |
+| 101 | [Ordinary least squares](ordinary-least-squares.md) | Theorem | [Prose](content/ordinary-least-squares.md), [check](../checks/ordinary-least-squares.py) | 2,712 → 5,033 | 1 → 1 | See [research record](ordinary-least-squares.md) |
+| 102 | [Critical region](critical-region.md) | Definition | [Prose](content/critical-region.md), [check](../checks/critical-region.py) | 723 → 2,574 | 1 → 1 | See [research record](critical-region.md) |
+| 103 | [Flat prior](flat-prior.md) | Topic | [Prose](content/flat-prior.md), [check](../checks/flat-prior.py) | 450 → 3,590 | 0 → 0 | See [research record](flat-prior.md) |
+| 104 | [Bootstrap](bootstrap.md) | Section | [Prose](content/bootstrap.md), [check](../checks/bootstrap.py) | 725 → 2,493 | 0 → 0 | See [research record](bootstrap.md) |
+| 105 | [Prior odds](prior-odds.md) | Topic | [Prose](content/prior-odds.md), [check](../checks/prior-odds.py) | 486 → 2,792 | 0 → 0 | See [research record](prior-odds.md) |
+| 106 | [Mean squared error](mean-squared-error.md) | Definition | [Prose](content/mean-squared-error.md), [check](../checks/mean-squared-error.py) | 802 → 2,648 | 0 → 0 | See [research record](mean-squared-error.md) |
+| 107 | [Ridge regression](ridge-regression.md) | Topic | [Prose](content/ridge-regression.md), [check](../checks/ridge-regression.py) | 1,038 → 2,723 | 0 → 0 | See [research record](ridge-regression.md) |
+| 108 | [Binary logistic regression](binary-logistic-regression.md) | Definition | [Prose](content/binary-logistic-regression.md), [check](../checks/binary-logistic-regression.py) | 453 → 1,996 | 0 → 0 | See [research record](binary-logistic-regression.md) |
+| 109 | [Homogeneous Poisson process](homogeneous-poisson-process.md) | Definition | [Prose](content/homogeneous-poisson-process.md), [check](../checks/homogeneous-poisson-process.py) | 445 → 1,776 | 0 → 0 | See [research record](homogeneous-poisson-process.md) |
+| 110 | [Quasi-score and quasi-likelihood](quasi-score-and-quasi-likelihood.md) | Definition | [Prose](content/quasi-score-and-quasi-likelihood.md), [check](../checks/quasi-score-and-quasi-likelihood.py) | 1,125 → 3,304 | 2 → 2 | See [research record](quasi-score-and-quasi-likelihood.md) |
+| 111 | [Stationarity and detailed balance](stationarity-and-detailed-balance.md) | Definition | [Prose](content/stationarity-and-detailed-balance.md), [check](../checks/stationarity-and-detailed-balance.py) | 573 → 1,983 | 0 → 0 | See [research record](stationarity-and-detailed-balance.md) |
+| 112 | [Quasi-Poisson](quasi-poisson.md) | Section | [Prose](content/quasi-poisson.md), [check](../checks/quasi-poisson.py) | 276 → 4,210 | 0 → 2 | See [research record](quasi-poisson.md) |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 
 ## Next page
 
-**Rank 98: `stationary-distribution`.** Ranks 83–97 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
+**Rank 113: `fisher-information`.** Ranks 98–112 have researched page sources, numeric checks, answered practice, and integrated bibliography and proof records.
 
 ## Citation and prose correction pass
 

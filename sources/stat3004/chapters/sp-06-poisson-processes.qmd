@@ -15,7 +15,7 @@ $$
 N(t+h)-N(t)\sim\mathrm{Poisson}(\lambda h)
 $$
 
-for all $t,h\ge 0$.{{cite:kingman1993}}{{cite:ross2019}}{{cite:doob1953}}
+for all $t,h\ge 0$.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
 
 :::
 

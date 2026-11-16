@@ -91,7 +91,7 @@ L(\beta)&=\prod_{i=1}^n p_i^{y_i}(1-p_i)^{1-y_i},\\
 \ell(\beta)&=\sum_{i=1}^n\bigl\{y_i\log p_i+(1-y_i)\log(1-p_i)\bigr\},
 \end{align*}
 
-with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}${{cite:cox1958_logistic}}{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}.
+with $p_i=\sigma(\beta^\top x_i)$ and $y_i\in\{0,1\}${{cite:rodriguez_glm_binomial}} (§B.4.1, equations B.14–B.15).
 
 :::
 

@@ -395,5 +395,73 @@
     "ex-sl-09-7",
     "ex-sl-11-7",
     "ex-sl-16-7"
+  ],
+  "binary-logistic-regression": [
+    "ex-sl-10-7",
+    "ex-sl-18-6"
+  ],
+  "bootstrap": [
+    "ex-ur-bootstrap-unit",
+    "ex-sl-09-3",
+    "ex-sl-12-6"
+  ],
+  "critical-region": [
+    "ex-inf-np-critical",
+    "ex-inf-serve-power",
+    "ex-inf-ump-two-sided"
+  ],
+  "flat-prior": [
+    "ex-improper-normal",
+    "ex-applied-geometric",
+    "q-11"
+  ],
+  "homogeneous-poisson-process": [
+    "ex-sp-poisson-half-hour",
+    "ex-sp-increments-and-levels"
+  ],
+  "mean-squared-error": [
+    "ex-inf-poisson-mle",
+    "ex-applied-mmse"
+  ],
+  "metropolis-hastings-update": [
+    "c-14",
+    "q-19",
+    "ex-gibbs-mh"
+  ],
+  "ordinary-least-squares": [
+    "ex-inf-normal-equations",
+    "ex-inf-line-through-origin",
+    "ex-inf-advertising-r2"
+  ],
+  "prior-odds": [
+    "ex-sl-06-1",
+    "q-21",
+    "q-44"
+  ],
+  "quasi-poisson": [
+    "q-47",
+    "ex-fish-poisson"
+  ],
+  "quasi-score-and-quasi-likelihood": [
+    "q-54",
+    "c-28"
+  ],
+  "ridge-regression": [
+    "ex-sl-18-2",
+    "ex-sl-18-5"
+  ],
+  "state-space": [
+    "c-12",
+    "ex-sp-same-marginals",
+    "ex-sp-increments-and-levels"
+  ],
+  "stationarity-and-detailed-balance": [
+    "ex-sp-birth-death-pi",
+    "ex-prob-markov-periodic"
+  ],
+  "stationary-distribution": [
+    "ex-sp-deterministic-cycle",
+    "ex-sp-path-graph",
+    "ex-sp-closed-classes"
   ]
 }

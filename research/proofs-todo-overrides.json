@@ -63,5 +63,20 @@
     "slug": "sample-space#property-four-counting-rules",
     "title": "Four order-and-replacement counting rules",
     "reason": "The inherited Properties table gives four formulas without proof on this page; the single collapsed proof covers the equal-likelihood rule. A dedicated linked result page treats counting draws."
+  },
+  {
+    "slug": "metropolis-hastings-update#property-convergence-and-monte-carlo-error",
+    "title": "Convergence and Monte Carlo error of the retained chain",
+    "reason": "The collapsed proof establishes detailed balance and invariance, while convergence from a chosen start and uncertainty for dependent averages need additional recurrence and Markov-chain limit arguments."
+  },
+  {
+    "slug": "stationary-distribution#property-existence-uniqueness-return-times",
+    "title": "Existence, uniqueness and return times in finite irreducible chains",
+    "reason": "The page states Corollary 1.17 and Proposition 1.19 of Levin and Peres; the collapsed proof derives the balance shortcuts but does not prove these recurrence results."
+  },
+  {
+    "slug": "stationary-distribution#property-aperiodic-convergence-closed-classes",
+    "title": "Aperiodic convergence and closed-class decomposition",
+    "reason": "The page states Theorem 4.9 and finite closed-class mixture results; their full proofs require coupling and communication-class theory beyond the displayed proof."
   }
 ]

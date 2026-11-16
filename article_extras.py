@@ -4342,7 +4342,7 @@ CONCEPT_LEADS = {
 ARTICLE_HISTORIES.update({
     "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:dodge2008}} (pp. 330–331)",
     "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:rosenblatt1956,parzen1962}}",
-    "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:efron1979}}",
+    "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:dodge2008}} (pp. 51–53, “Bootstrap”)",
     "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
     "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (§V, p. 719, AIC formula)",
     "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}}",

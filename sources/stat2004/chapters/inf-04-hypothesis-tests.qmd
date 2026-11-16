@@ -44,7 +44,7 @@ A test statistic $T$ is a statistic that is sensitive to the difference between 
 ::: {#def-critical-region .definition}
 ## Critical region
 
-A critical region $C$ is a set of values of the test statistic.{{cite:neyman_pearson1933}} The test rejects $H_0$ when $T\in C$.{{cite:lehmann_romano2005}} A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is $(-\infty,c_1]\cup[c_2,\infty)$.{{cite:casella_berger2002}}
+A critical region $C$ is a set of values of the test statistic.{{cite:dodge2008}} (pp. 452–454, “Rejection Region”) The test rejects $H_0$ when $T\in C$.{{cite:nist_process_mean2002}} (§7.2.2, test decision rule) A right-sided region is $[c,\infty)$, a left-sided region is $(-\infty,c]$, and a two-sided region is $(-\infty,c_1]\cup[c_2,\infty)$.{{cite:nist_process_mean2002}} (§7.2.2, one- and two-sided regions)
 
 :::
 

@@ -2,6 +2,14 @@
 
 These articles do not yet have three inline citations. A further marker would name a work that does not state the claim on the page.
 
+- detailed-balance-implies-stationarity | The copied balance argument now cites the opened Levin–Peres §1.6 proof. Its algebra is reproduced on the page; another independent source has not been checked.
+- doubly-stochastic-matrix | The finite-chain matrix property is supported by the opened Levin–Peres discussion. The remainder is a direct row-and-column calculation.
+- multicollinearity | The updated regression passage cites a full, located account of correlated predictors; another source for its particular example has not been checked.
+- overdispersion | The source chapter now uses a located count-model account for the variance comparison. A third independent citation on the inherited example remains to be checked.
+- sampling-distribution-of-the-ols-estimator | The copied linear-model derivation has one fully checked source and its own algebra; an additional independent reference has not been read for the exact statement.
+- stochastic-process | The copied finite-dimensional definition now cites the opened stochastic-process text. Other historical markers were not supported by inspected passages.
+- studentised-coefficient-pivot | The normal-regression pivot is derived in the copied passage and supported by the opened reference-prior source; further independent support remains to be checked.
+
 - bayes-optimal-rule | The copied risk-minimisation rule is supported by the opened ISLR §2.2.3 derivation. The remaining page is the same conditional-risk calculation, so another independent source has not been checked.
 - classification-with-unequal-costs | The class choice follows from comparing two posterior expected losses. The opened classifier source and the page's direct calculation support it; a third independent reference remains to be checked.
 - conjugacy-is-optional | The inherited example contrasts conjugate and nonconjugate priors. The replacement Gelman passage supports the point, while another distinct source on that exact example has not been checked.

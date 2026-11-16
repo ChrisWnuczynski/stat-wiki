@@ -226,7 +226,7 @@ $$
 
 which has the inverse-based closed form above when the augmented design has full column rank.
 
-Ridge regression, also called weight decay or Tikhonov regularisation{{cite:hoerl_kennard1970}}, is a long-standing shrinkage method. Standardise the predictors first: subtract each sample mean and divide by the sample standard deviation. Then add the sum of squared regression weights, an $L^2$ penalty. Do not run one $\lambda$ on variables that live on different scales. Divide a variable by $1000$ and its coefficient has to grow by $1000$ to give the same fit. The same $\lambda$ is then a different penalty, because a large coefficient dominates the sum.
+Ridge regression, also called weight decay or Tikhonov regularisation{{cite:shalizi2025_truth_regression}} (Ch. 15, §15.4, pp. 265–268), is a long-standing shrinkage method. Standardise the predictors first: subtract each sample mean and divide by the sample standard deviation. Then add the sum of squared regression weights, an $L^2$ penalty. Do not run one $\lambda$ on variables that live on different scales. Divide a variable by $1000$ and its coefficient has to grow by $1000$ to give the same fit. The same $\lambda$ is then a different penalty, because a large coefficient dominates the sum.
 
 $$
 (\hat\beta_0,\hat\beta)
@@ -237,7 +237,7 @@ $$
 \Biggr\}.
 $$
 
-Here $\lambda$ controls the amount of shrinkage. It can be chosen manually or by optimising a measure of predictive accuracy such as cross-validation. Two layers of cross-validation are needed to both select such a parameter and estimate the accuracy of the resulting model. Ridge regression was introduced to improve regression for non-orthogonal predictors, those with substantial multicollinearity, where the slope estimates are unstable, with large confidence intervals and high sensitivity to individual observations{{cite:hoerl_kennard1970}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}. This is also seen as near-singularity of $X^\top X$. With centred $y$ and standardised $X$, so that the intercept is $\bar y$,
+Here $\lambda$ controls the amount of shrinkage. It can be chosen manually or by optimising a measure of predictive accuracy such as cross-validation. Two layers of cross-validation are needed to both select such a parameter and estimate the accuracy of the resulting model. Ridge regression was introduced to improve regression for non-orthogonal predictors, those with substantial multicollinearity, where the slope estimates are unstable, with large confidence intervals and high sensitivity to individual observations{{cite:dodge2008}} (pp. 458–459, “Ridge Regression”, history and collinearity). In matrix terms, this is also seen as near-singularity of $X^\top X$. With centred $y$ and standardised $X$, so that the intercept is $\bar y$,
 
 $$
 \hat\beta_R=(X^\top X+\lambda I)^{-1}X^\top y.
@@ -245,7 +245,7 @@ $$
 
 Adding $\lambda I$ reduces the condition number of the matrix to be inverted. If $p>n$ then $X^\top X$ is rank-deficient, so not invertible. It is positive semi-definite, so at least one eigenvalue is zero and the others are nonnegative. Adding $\lambda I$ raises every eigenvalue by $\lambda>0$, making the matrix positive definite and invertible, and hence allowing a unique solution even when $p>n$.
 
-{{cite:tibshirani1996}}, building in part on {{cite:donoho_johnstone1994}} and {{cite:breiman1995_garrote}}, replaces the $L^2$ penalty by an $L^1$ penalty. The resulting estimator is the lasso, the least absolute shrinkage and selection operator{{cite:tibshirani1996}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}:
+Tibshirani’s lasso, building in part on Donoho and Johnstone’s wavelet shrinkage and Breiman’s nonnegative garrote, replaces the $L^2$ penalty by an $L^1$ penalty. The resulting estimator is the lasso, the least absolute shrinkage and selection operator{{cite:shalizi2025_truth_regression}} (Ch. 15, §15.4, pp. 268–269):
 
 $$
 (\hat\beta_0,\hat\beta)

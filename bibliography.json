@@ -8141,6 +8141,98 @@
         "source": "archival_url",
         "id": "https://www.randomservices.org/random/foundations/Structures.html"
       }
+    },
+    "rodriguez_glm_binomial": {
+      "authors": [
+        "Rodríguez, G."
+      ],
+      "year": 2026,
+      "title": "Generalized Linear Models: Binomial Errors and Link Logit",
+      "kind": "book",
+      "publisher": "Princeton University",
+      "url": "https://grodri.github.io/glms/notes/a2s4",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://grodri.github.io/glms/notes/a2s4"
+      }
+    },
+    "simon_aliferis2024_evaluation": {
+      "authors": [
+        "Simon, G.",
+        "Aliferis, C."
+      ],
+      "year": 2024,
+      "title": "Evaluation",
+      "kind": "incollection",
+      "venue": "Artificial Intelligence and Machine Learning in Health Care and Medical Sciences",
+      "publisher": "Springer",
+      "pages": "415–476",
+      "doi": "10.1007/978-3-031-39355-6_9",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-031-39355-6_9"
+      }
+    },
+    "nist_process_mean2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "e-Handbook of Statistical Methods: Are the data consistent with the assumed process mean?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc22.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc22.htm"
+      }
+    },
+    "bertsekas_tsitsiklis2008_summary": {
+      "authors": [
+        "Bertsekas, D. P.",
+        "Tsitsiklis, J. N."
+      ],
+      "year": 2008,
+      "title": "Introduction to Probability",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "Athena Scientific / Massachusetts Institute of Technology",
+      "url": "https://live.ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/d973b10c2587781f86ca4f2aff49098f_MITRES_6_012S18_Textbook.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://live.ocw.mit.edu/courses/res-6-012-introduction-to-probability-spring-2018/d973b10c2587781f86ca4f2aff49098f_MITRES_6_012S18_Textbook.pdf"
+      }
+    },
+    "shalizi2025_truth_regression": {
+      "authors": [
+        "Shalizi, C. R."
+      ],
+      "year": 2025,
+      "title": "The Truth about Linear Regression",
+      "kind": "book",
+      "publisher": "Carnegie Mellon University",
+      "url": "https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.stat.cmu.edu/~cshalizi/TALR/TALR.pdf"
+      }
+    },
+    "wuthrich_merz2022_glm": {
+      "authors": [
+        "Wüthrich, M. V.",
+        "Merz, M."
+      ],
+      "year": 2022,
+      "title": "Generalized Linear Models",
+      "kind": "incollection",
+      "venue": "Statistical Foundations of Actuarial Learning and its Applications",
+      "publisher": "Springer",
+      "pages": "111–205",
+      "doi": "10.1007/978-3-031-12409-9_5",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-031-12409-9_5"
+      }
     }
   }
 }
