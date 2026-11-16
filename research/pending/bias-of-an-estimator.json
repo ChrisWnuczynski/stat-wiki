@@ -1,0 +1,33 @@
+{
+  "slug": "bias-of-an-estimator",
+  "rank": 337,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 564,
+  "words_after": 1314,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "Dodge, The Concise Encyclopedia of Statistics, printed p. 41"
+  ],
+  "proofs": [
+    "mean squared error equals variance plus squared bias",
+    "the divisor-n variance estimator has bias minus sigma squared over n"
+  ],
+  "tests": [
+    "checks/bias-of-an-estimator.py"
+  ],
+  "skipped": "Lehmann and Romano was not opened.",
+  "bibliography": {},
+  "proofs_todo": [],
+  "todo": []
+}
