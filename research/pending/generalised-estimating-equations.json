@@ -1,0 +1,6 @@
+{
+  "article_lead": {
+    "description": "a way to estimate population-average effects from repeated observations while accounting for correlation within each group"
+  },
+  "self_checks": ["c-38", "c-39", "c-40"]
+}
