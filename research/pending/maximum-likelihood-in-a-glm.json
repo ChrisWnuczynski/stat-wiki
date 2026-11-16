@@ -1,0 +1,18 @@
+{
+  "slug": "maximum-likelihood-in-a-glm",
+  "rank": 304,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": ["Lead context", "Motivating example", "Intuition — Reweight the residual and repeat", "Definition — Poisson log link, one count", "Worked example", "Connections — When the step is exact", "Check yourself"],
+  "words_before": 1338,
+  "words_after": 2205,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": ["R glm documentation, glm.fit"],
+  "proofs": ["Poisson log-link score and the equality of observed and expected information for that model"],
+  "tests": ["checks/maximum-likelihood-in-a-glm.py passed", "verify_citations.py --offline passed", "git diff --check passed"],
+  "skipped": ["Nelder and Wedderburn (1972) was not opened"],
+  "bibliography": [],
+  "proofs_todo": [],
+  "todo": []
+}
