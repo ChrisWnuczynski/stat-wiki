@@ -1,0 +1,55 @@
+{
+  "slug": "sums-of-smooth-functions",
+  "rank": 231,
+  "tier": "full",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Motivating example — Two covariates, four corners",
+    "Intuition",
+    "Definition",
+    "Interpretation",
+    "Properties",
+    "Statistical use — Read one smooth with the others held fixed",
+    "Worked example",
+    "Common misconceptions",
+    "Assumptions and limits — When the sum cannot follow the corner",
+    "Connections",
+    "Check yourself",
+    "History"
+  ],
+  "words_before": 863,
+  "words_after": 2512,
+  "figures_before": 1,
+  "figures_after": 1,
+  "sources_read": [
+    "R mgcv::gam manual, Details"
+  ],
+  "proofs": [
+    "Additive interaction contrast is identically zero; centring removes the intercept trade"
+  ],
+  "tests": [
+    "checks/sums-of-smooth-functions.py passed"
+  ],
+  "skipped": [
+    "Hastie and Tibshirani 1986 was not opened"
+  ],
+  "bibliography": {
+    "r_mgcv_gam2026": {
+      "authors": [
+        "Wood, S. N."
+      ],
+      "year": 2026,
+      "title": "Generalized additive models with integrated smoothness estimation (mgcv::gam, R-devel documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/mgcv/html/gam.html"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}
