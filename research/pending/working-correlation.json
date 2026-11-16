@@ -1,0 +1,9 @@
+{
+  "self_checks": ["ex-ur-exchangeable-bound", "c-40"],
+  "shared_changes": [
+    {
+      "file": "sources/book/chapters/09-marginal-models.qmd",
+      "description": "In the opening paragraph, replace ‘The rate depends on how wrong it was. The guarantee is asymptotic in the number of clusters and, in the theory, in the size of each cluster.’ The convergence rate is not generically determined by how wrong the working correlation is; efficiency can change. Liang and Zeger (1986), §§2–3, state asymptotics as the number K of independent subjects tends to infinity, not as every cluster size tends to infinity. Suggested wording: ‘Efficiency depends on how well the working correlation approximates the true association. The large-sample guarantee relies on many independent clusters and regularity conditions on their sizes and leverage.’ Preserve the following caution about few clusters and one dominating cluster."
+    }
+  ]
+}
