@@ -1,0 +1,91 @@
+{
+  "bibliography": {
+    "siegrist2022_exponential": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "The Exponential Distribution",
+      "kind": "book",
+      "publisher": "Probability, Mathematical Statistics, and Stochastic Processes / Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.02:_The_Exponential_Distribution",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/14:_The_Poisson_Process/14.02:_The_Exponential_Distribution"
+      }
+    },
+    "nist_exponential_reliability": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "The Exponential Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr161.htm"
+      }
+    },
+    "nist_exponential_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2026,
+      "title": "Exponential Distribution",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3667.htm"
+      }
+    },
+    "shortle2018_queueing": {
+      "authors": [
+        "Shortle, J. F.",
+        "Thompson, J. M.",
+        "Gross, D.",
+        "Harris, C. M."
+      ],
+      "year": 2018,
+      "title": "Fundamentals of Queueing Theory, Fifth Edition",
+      "kind": "book",
+      "publisher": "John Wiley & Sons",
+      "url": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://catalogimages.wiley.com/images/db/pdf/9781118943526.excerpt.pdf"
+      }
+    }
+  },
+  "self_checks": [
+    "ex-prob-generate-exp",
+    "ex-inf-exponential-mle",
+    "q-29"
+  ],
+  "shared_changes": [
+    {
+      "file": "distributions.json",
+      "description": "For exponential-distribution, move the exact substantive lead_context sentence ('Its constant event rate makes it the basic waiting-time model for Poisson processes and reliability calculations.') into statistical_use with its {{cite:ross2019}} citation. Retain only '{{cite:ross2019}}' in lead_context, keeping it nonempty for DistributionDepthBatchTests and leaving the one-sentence stock article lead."
+    }
+  ],
+  "proofs_todo": [
+    {
+      "slug": "exponential-distribution#property-gamma-conjugate-update",
+      "title": "Gamma prior update for exponential rate",
+      "reason": "The page retains the existing Bayesian example but its collapsed proof does not derive the Gamma posterior."
+    },
+    {
+      "slug": "exponential-distribution#property-bayes-factor-exponential-versus-gamma",
+      "title": "Exponential versus Gamma marginal likelihoods",
+      "reason": "The retained model-comparison example states the two integrated marginal likelihood formulas but the page proof does not derive them."
+    },
+    {
+      "slug": "exponential-distribution#property-moments-higher-order",
+      "title": "Higher moments and entropy",
+      "reason": "The collapsed proof derives mean, variance, MGF, quantile and minimum law, but does not derive skewness, excess kurtosis or differential entropy."
+    }
+  ]
+}
