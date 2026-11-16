@@ -52,7 +52,7 @@ Suppose a 90% interval for $\mu$ comes out as $(9.5,10.5)$. It is tempting to wr
 ::: {#def-pivot .definition}
 ## Pivot
 
-A pivot is a function $h(\vect X;\theta)$ of the data and the parameter whose distribution does not depend on any unknown parameter.{{cite:neyman1937}}{{cite:casella_berger2002}}{{cite:wasserman2004}}
+A pivot is a function $h(\vect X;\theta)$ of the data and the parameter whose distribution does not depend on any unknown parameter.{{cite:siegrist2022_set_estimation}} (§8.1, Pivot Variables){{cite:geyer2023_pivots}} (§4.4.2, exact pivotal quantities)
 
 :::
 
@@ -62,7 +62,7 @@ $$
 \Pr\bigl(h_{\alpha/2}<h(\vect X;\theta)<h_{1-\alpha/2}\bigr)=1-\alpha.
 $$
 
-Rearrange the inequality to isolate $\theta$. The rearrangement does not change the event, so the coverage is still $1-\alpha$. The pivot must not depend on unknown parameters, or its quantiles cannot be computed. That is why the $t$ statistic, which replaces $\sigma$ by $s$, is a pivot, and $\sqrt n(\overline X-\mu)/\sigma$ with unknown $\sigma$ is not.
+Rearrange the inequality to isolate $\theta$. The rearrangement does not change the event, so the coverage is still $1-\alpha$. The *distribution* of an exact pivot must not depend on unknown parameters, or its quantiles cannot be computed. The function itself usually contains the parameter being bounded. That is why the $t$ quantity, which replaces $\sigma$ by $s$, is a pivot for $\mu$, while $\sqrt n(\overline X-\mu)/\sigma$ is not a usable pivot for $\mu$ alone when $\sigma$ is unknown.{{cite:siegrist2022_set_estimation}} (§8.1, Pivot Variables)
 
 ## One normal sample
 

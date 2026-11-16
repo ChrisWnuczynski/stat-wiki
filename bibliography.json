@@ -5382,6 +5382,15 @@
         "id": "10.1017/cbo9780511755453"
       }
     },
+    "geyer2023_pivots": {
+      "authors": ["Geyer, C. J."],
+      "year": 2023,
+      "title": "Supplement to Agresti Chapter 9: Pivotal Quantities",
+      "kind": "book",
+      "publisher": "University of Minnesota",
+      "url": "https://www.stat.umn.edu/geyer/f22/5421/notes/ch9.html",
+      "verification": {"source": "archival_url", "id": "https://www.stat.umn.edu/geyer/f22/5421/notes/ch9.html"}
+    },
     "geyer2022_exp_family": {
       "authors": ["Geyer, C. J."],
       "year": 2022,
@@ -6268,6 +6277,15 @@
         "source": "archival_url",
         "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/03:_Distributions/3.06:_Distribution_and_Quantile_Functions"
       }
+    },
+    "siegrist2022_set_estimation": {
+      "authors": ["Siegrist, K."],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes, §8.1: Introduction to Set Estimation",
+      "kind": "book",
+      "publisher": "Statistics LibreTexts",
+      "url": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation",
+      "verification": {"source": "archival_url", "id": "https://stats.libretexts.org/Bookshelves/Probability_Theory/Probability_Mathematical_Statistics_and_Stochastic_Processes_(Siegrist)/08:_Set_Estimation/8.01:_Introduction_to_Set_Estimation"}
     },
     "siegrist2022_normals": {
       "authors": [

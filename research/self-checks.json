@@ -234,5 +234,9 @@
   "finite-mixture-model": [
     "ex-sl-05-1",
     "ex-sl-05-4"
+  ],
+  "pivot": [
+    "ex-inf-two-standard-errors",
+    "ex-inf-t-squared-is-f"
   ]
 }
