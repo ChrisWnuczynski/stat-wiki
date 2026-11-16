@@ -1,0 +1,47 @@
+{
+  "slug": "regression-slope",
+  "rank": 333,
+  "tier": "lighter",
+  "type": "concept",
+  "sections": [
+    "Lead context",
+    "Intuition",
+    "Definition",
+    "Properties",
+    "Worked example",
+    "Connections",
+    "Check yourself"
+  ],
+  "words_before": 562,
+  "words_after": 1302,
+  "figures_before": 0,
+  "figures_after": 0,
+  "sources_read": [
+    "NIST/SEMATECH e-Handbook \u00a74.1.4.1, linear least squares"
+  ],
+  "proofs": [
+    "the least-squares slope is the centred cross-product divided by the centred sum of squares"
+  ],
+  "tests": [
+    "checks/regression-slope.py"
+  ],
+  "skipped": "",
+  "bibliography": {
+    "nist_least_squares": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a74.1.4.1: Linear Least Squares Regression",
+      "kind": "book",
+      "publisher": "e-Handbook of Statistical Methods",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
+      }
+    }
+  },
+  "proofs_todo": [],
+  "todo": []
+}
