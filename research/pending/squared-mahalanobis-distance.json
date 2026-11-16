@@ -1,0 +1,9 @@
+{
+  "bibliography": {},
+  "article_lead": {"description": "a covariance-adjusted measure of departure from a reference centre, useful for judging multivariate outliers and normal contours"},
+  "proofs_todo": [],
+  "self_checks": ["ex-sl-01-4", "ex-applied-bvn-rwmh"],
+  "shared_changes": [
+    {"file": "bibliography.json", "description": "The existing `mahalanobis1936` record links DOI 10.1007/s13171-019-00164-5, which Springer identifies as a 2019 Sankhya A reprint, while the cited original is the 1936 Proceedings 2(1):49–55 paper. Clarify the record's reprint relationship without discarding the historically correct original citation. Dodge pp. 324–326 independently confirms 1930 and 1936 papers. Check any page that uses this key."}
+  ]
+}
