@@ -58,6 +58,7 @@ DISTRIBUTION_CONCEPTS: list[str] = [
     "discrete-distribution",
     "continuous-distribution",
     "conditional-distribution",
+    "sampling-distribution",
 ]
 
 # Related pages listed with the families, without taking the distribution breadcrumb.
@@ -106,6 +107,8 @@ STANDALONE: list[dict[str, str]] = [
     {"slug": "census", "term": "Census", "field": "statistics", "article": "a", "verb": "is", "description": "a study that observes every unit in a population"},
     {"slug": "sample", "term": "Sample", "field": "statistics", "article": "a", "verb": "is", "description": "a subset of a population, studied in order to say something about the population"},
     {"slug": "parameter", "term": "Parameter", "field": "statistics", "article": "a", "verb": "is", "description": "a numerical feature of a population, as distinct from a statistic computed from a sample"},
+    {"slug": "sampling-distribution", "term": "Sampling distribution", "field": "statistical inference", "article": "a", "verb": "is", "description": "the distribution of a statistic across repeated samples from the same population", "topic": "Probability distributions"},
+    {"slug": "line-chart", "term": "Line chart", "field": "data analysis", "article": "a", "verb": "is", "description": "a frequency graph that draws a line of height equal to the frequency at each value of a discrete variable", "topic": "Data analysis"},
 ]
 
 

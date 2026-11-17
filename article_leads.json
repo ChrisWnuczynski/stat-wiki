@@ -724,5 +724,7 @@
   "parameter": {"field": "statistics", "article": "a", "term": "parameter", "verb": "is", "description": "a numerical feature of a population, as distinct from a statistic computed from a sample"},
   "population": {"field": "statistics", "article": "a", "term": "population", "verb": "is", "description": "the complete collection of units about which a study wants to learn"},
   "sample": {"field": "statistics", "article": "a", "term": "sample", "verb": "is", "description": "a subset of a population, studied in order to say something about the population"},
-  "variable": {"field": "statistics", "article": "a", "term": "variable", "verb": "is", "description": "a characteristic that is measured or counted on each unit"}
+  "variable": {"field": "statistics", "article": "a", "term": "variable", "verb": "is", "description": "a characteristic that is measured or counted on each unit"},
+  "line-chart": {"field": "data analysis", "article": "a", "term": "line chart", "verb": "is", "description": "a frequency graph that draws a line of height equal to the frequency at each value of a discrete variable"},
+  "sampling-distribution": {"field": "statistical inference", "article": "a", "term": "sampling distribution", "verb": "is", "description": "the distribution of a statistic across repeated samples from the same population"}
 }

@@ -1,6 +1,6 @@
 # Research items to verify
 
-- Fundamentals term pages are limited to data, dataset, variable, levels of measurement, population, sample, parameter (set against the existing statistic page), and census. Further missing basic terms are waiting on a researched gap list and were not chosen here.
+- The eight basic pages (data, dataset, variable, levels of measurement, population, sample, parameter, census) are in place. Later gap-list pages are sampling distribution and line chart. Every other target term is an alias or a row in the gap list below.
 - Levels of measurement: nominal, ordinal, and quantitative (discrete or continuous) scales are taken from Dodge (printed pp. 439–440) and the ABS glossary. The interval-versus-ratio distinction associated with Stevens (1946) was not opened, so it is not stated.
 - Sample and observation: Dodge’s one-line Sample and Observation entries sit on unnumbered letter openers, so those sentences are not given printed pages. The numbered census, sampling, and data-analysis pages are cited instead.
 - Census history on printed p. 65: the seventeenth-century contrast among a German descriptive school, a French census school, and an English school is used. Later census chronology on that page was not needed.
@@ -30,3 +30,165 @@ Add uncertain claims here before writing them into an article.
 - `bradley-terry-model`: the 2024 NRL strength table comes from the teaching analysis; raw match data and the coefficient fit were not independently recovered. All displayed transformations and rounded comparisons are recomputed by checks/bradley-terry-model.py.
 - `alon-colon-cancer-data`: exact alon.rda preprocessing and cross-validation seed underlying the copied PCA p-values, 173-gene discovery list and 14-gene lasso fit are unavailable; algebraic counts and list overlaps can be recomputed, but those model fits cannot yet be independently reproduced.
 - `clotting-time-data`: historical Hurn provenance was not rechecked in accessible full text; dataset values verified against R glm Examples, and source opening replacement supplied.
+
+- Gap list (201 terms whose source includes a Wikipedia body link or Grokipedia): each row is in `research/term-disposition.tsv` as a page, an alias, or a deferral. A term is deferred when a second independent source with a precise locator was not opened. Deferred terms:
+
+  - Abundance estimation
+  - Actuarial science
+  - Apriori algorithm
+  - Artificial intelligence
+  - Astrostatistics
+  - Asymptotic analysis
+  - Average treatment effect
+  - Base rate
+  - Baseball statistics
+  - Bayesian inference
+  - Bayesian model
+  - Bayesian probability
+  - Bayesian statistics
+  - Big data
+  - Biostatistics
+  - Business analytics
+  - Case-control study
+  - Causality
+  - Censoring (statistics)
+  - Chemometrics
+  - Classification
+  - Cluster analysis
+  - Cohort study
+  - Computational biology
+  - Computational sociology
+  - Computational statistics
+  - Conjoint Analysis
+  - Control group
+  - Correlation does not imply causation
+  - Cricket statistics
+  - Cross-sectional data
+  - Data analysis
+  - Data collection
+  - Data mining
+  - Data quality
+  - Data science
+  - Data sharing
+  - Decision problem
+  - Demography
+  - Dependent and independent variables — split across explanatory-variable and response-variable; no third page
+  - Difference in differences
+  - Differential privacy
+  - Dimensionality reduction
+  - Diversity index
+  - Econometrics
+  - Effect size
+  - Engineering statistics
+  - Environmental statistics
+  - Epidemiology
+  - Estimating equations
+  - Estimation theory
+  - Expected loss
+  - Experimental error
+  - Extrapolation
+  - Fat tails
+  - Feature selection
+  - Federated learning
+  - First International Statistical Congress
+  - Foundations of statistics
+  - Frequentist inference
+  - Game of chance
+  - Geostatistics
+  - HARKing
+  - Harmonic mean
+  - Hasty generalization
+  - Hawthorne effect
+  - Hawthorne study
+  - Inference
+  - Instrumental variable
+  - Inverse probability
+  - Jurimetrics
+  - K-anonymity
+  - Kruskal-Wallis test
+  - Kurtosis
+  - Lady tasting tea
+  - Least absolute deviations
+  - Lies, damned lies, and statistics
+  - Likelihood ratios in diagnostic testing
+  - Machine learning
+  - Management Science
+  - Mathematical statistics
+  - Mean absolute percentage error
+  - Mean square weighted deviation
+  - Measurable function
+  - Measure-theoretic probability theory
+  - Measurement
+  - Medical statistics
+  - Minimax
+  - Misuse of statistics
+  - Moran's I
+  - Multilevel model
+  - Multivariate analysis of variance
+  - Multivariate statistics
+  - Natural experiment
+  - Non-linear least squares
+  - Nonlinear regression
+  - Normalizing constant
+  - Official statistics
+  - Open science
+  - Panel data
+  - Parametric statistics
+  - Pattern recognition
+  - Pearson distribution
+  - Philosophy of statistics
+  - Polynomial least squares
+  - Posterior probability
+  - Probability interpretations
+  - Probability theory
+  - Prosecutor's fallacy
+  - Psychological statistics
+  - Public health
+  - Quality control
+  - Random error
+  - Ranking
+  - Raw data
+  - Regression analysis
+  - Replication crisis
+  - Reproducibility
+  - Resampling (statistics)
+  - Risk
+  - Risk assessment
+  - Robust statistics
+  - Rounding
+  - Sabermetrics
+  - Sampling (statistics)
+  - Scientific control
+  - Secondary data
+  - Six Sigma
+  - Social statistics
+  - Spatial analysis
+  - Spearman's rank correlation coefficient
+  - Statistical classification
+  - Statistical consultant
+  - Statistical dispersion
+  - Statistical graphics
+  - Statistical learning theory
+  - Statistical literacy
+  - Statistical mechanics
+  - Statistical model
+  - Statistical process control
+  - Statistical survey
+  - Statistical theory
+  - Statistician
+  - Statistics education
+  - Stochastic analysis
+  - Structural equation modelling
+  - Structured data analysis (statistics)
+  - Supervised learning
+  - Survey methodology
+  - Survey sampling
+  - Survival analysis
+  - System of National Accounts
+  - Systematic error
+  - Systematic sampling
+  - Tail
+  - True value
+  - Uncertainty
+  - Unsupervised learning
+  - Variable (mathematics)

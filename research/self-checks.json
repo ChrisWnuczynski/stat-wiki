@@ -1224,5 +1224,29 @@
       "prompt": "The sample stays 2, 4, 6 after that sixth population value is added. What is the sample mean?",
       "answer": "The sample mean stays (2+4+6)/3 = 4."
     }
+  ],
+  "sampling-distribution": [
+    {
+      "title": "Expectation of the sample mean",
+      "prompt": "From the population 1, 2, 3, the equally likely sample means of size 2 are 1.5, 2, and 2.5. What is their expectation?",
+      "answer": "The expectation is (1.5+2+2.5)/3 = 2."
+    },
+    {
+      "title": "Samples of size one",
+      "prompt": "Samples of size 1 from 1, 2, 3 are equally likely. What is the expectation of that sampling distribution?",
+      "answer": "The expectation is (1+2+3)/3 = 2."
+    }
+  ],
+  "line-chart": [
+    {
+      "title": "A new household",
+      "prompt": "Sizes 2, 2, 3, 4, 2 gain one more household of size 3. What is the absolute frequency of 3?",
+      "answer": "The value 3 appears twice."
+    },
+    {
+      "title": "Relative frequency of 2",
+      "prompt": "After that addition there are six households and the value 2 still appears three times. What is the relative frequency of 2?",
+      "answer": "The relative frequency is 3/6 = 1/2."
+    }
   ]
 }

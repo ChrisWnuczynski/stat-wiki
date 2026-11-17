@@ -2902,5 +2902,13 @@
   "parameter": {
     "words": 939,
     "figures": 0
+  },
+  "line-chart": {
+    "words": 899,
+    "figures": 0
+  },
+  "sampling-distribution": {
+    "words": 879,
+    "figures": 0
   }
 }

@@ -1855,7 +1855,8 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
    'foygel_drton2010',
    'hastie_esl2009')),
  (('extended-information-criterion',), ('foygel_drton2010',)),
- (('data', 'variable', 'levels-of-measurement'), ('dodge2008', 'abs_glossary2023')),
+ (('data', 'variable', 'levels-of-measurement', 'line-chart'), ('dodge2008', 'abs_glossary2023')),
+ (('sampling-distribution',), ('dodge2008', 'nist_glossary2002', 'abs_glossary2023')),
  (('dataset', 'population', 'sample', 'census', 'parameter'),
   ('dodge2008', 'abs_glossary2023', 'nist_glossary2002'))]
 

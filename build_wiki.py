@@ -1856,13 +1856,18 @@ def register_standalone_articles() -> None:
         if row["slug"] in ARTICLES:
             raise SystemExit(f"Standalone article {row['slug']} already exists")
         article = new_article(row["slug"], row["term"])
-        article["standalone"] = "fundamentals"
+        article["standalone"] = row.get("topic", "Fundamentals")
         article["term"] = row["term"]
 
 
 def article_home(article: dict) -> Path:
-    if article.get("standalone") == "fundamentals":
+    topic_name = article.get("standalone")
+    if topic_name == "Fundamentals":
         return WIKI / "notes" / "fundamentals.qmd"
+    if topic_name == "Probability distributions":
+        return WIKI / "notes" / "probability-distributions.qmd"
+    if topic_name:
+        return WIKI / "notes" / "index.qmd"
     return article["box"]["chapter"] if article["box"] else DIST_SHEET
 
 
@@ -3499,7 +3504,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for article in sorted(ARTICLES.values(), key=lambda a: a["term"].lower()):
         PAGE_TITLES[article["path"]] = article["term"]
         blocks = article_blocks(article) + article_sections(article, qmap)
-        part_name = article["box"]["part"] if article["box"] else ("Fundamentals" if article.get("standalone") else None)
+        part_name = article["box"]["part"] if article["box"] else article.get("standalone")
         add_page(article["path"], article["term"], part_name, "article", blocks, {})
 
     history_path = WIKI / "history.qmd"
@@ -4630,17 +4635,25 @@ def render_topic_navbox(article: dict) -> str:
     home = article_home(article)
     on_distribution_topic = topic_hubs.is_distribution_page(article["slug"], DISTRIBUTIONS)
     if article.get("standalone"):
-        hub_title = "Fundamentals"
-        part_name = "Fundamentals"
+        topic_name = article["standalone"]
+        if topic_name == "Probability distributions":
+            topic_target = _distribution_topic_page()
+        elif topic_name == "Fundamentals":
+            topic_target = _fundamentals_topic_page()
+        else:
+            topic_target = WIKI / "notes" / "index.qmd"
+        hub_title = topic_name
+        part_name = topic_name
         siblings = sorted(
-            [a for a in ARTICLES.values() if a.get("standalone") == "fundamentals"],
+            [a for a in ARTICLES.values() if a.get("standalone") == topic_name],
             key=lambda a: a["term"].lower(),
         )
-        aria = "Fundamentals"
-        head_title = f'<a href="{html_escape(_html_href(path, _fundamentals_topic_page()))}">Fundamentals</a>'
+        aria = topic_name
+        frag = "" if topic_name in {"Fundamentals", "Probability distributions"} else slug(topic_name)
+        head_title = f'<a href="{html_escape(_html_href(path, topic_target, frag))}">{html_escape(topic_name)}</a>'
         part_html = (
-            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, _fundamentals_topic_page()))}">'
-            "Fundamentals</a></span>"
+            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, topic_target, frag))}">'
+            f"{html_escape(topic_name)}</a></span>"
         )
     elif box:
         hub_title = PAGE_TITLES.get(home, box.get("chapter_title") or home.stem)
@@ -4717,7 +4730,13 @@ def render_topic_navbox(article: dict) -> str:
         cat_links.append(f'<a href="{html_escape(_html_href(path, target_qmd, frag))}">{html_escape(label_txt)}</a>')
 
     if article.get("standalone"):
-        add_cat("Fundamentals", _fundamentals_topic_page())
+        topic_name = article["standalone"]
+        if topic_name == "Probability distributions":
+            add_cat(topic_name, _distribution_topic_page())
+        elif topic_name == "Fundamentals":
+            add_cat(topic_name, _fundamentals_topic_page())
+        else:
+            add_cat(topic_name, WIKI / "notes" / "index.qmd", slug(topic_name))
     elif on_distribution_topic:
         add_cat("Probability distributions", _distribution_topic_page())
         if box:
@@ -5442,7 +5461,7 @@ def write_glossary(questions: list[dict]) -> None:
         kinds = ([box["kind"]] if box else []) + (["distribution"] if card else [])
         if article.get("standalone"):
             kinds = ["definition"]
-        where = "Fundamentals" if article.get("standalone") else (box["chapter_title"] if box else "Common distributions")
+        where = article["standalone"] if article.get("standalone") else (box["chapter_title"] if box else "Common distributions")
         entries.append(
             {
                 "term": article["term"],
@@ -6270,6 +6289,16 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             level = chapter_guides.GUIDES[note["path"].name]["level"].capitalize()
             shown = str(n) if n else "–"
             lines.append(f"| [{cell(note['title'])}]({href(topics_path, note['path'])}) | {level} | {shown} |")
+        extras = sorted(
+            (a for a in ARTICLES.values() if a.get("standalone") == part),
+            key=lambda a: a["term"].lower(),
+        )
+        if extras:
+            lines.append("")
+            lines.append("Articles filed here rather than inside a chapter:")
+            lines.append("")
+            for article in extras:
+                lines.append(f"- [{article['term']}]({href(topics_path, article['path'])})")
         lines.append("")
     lines += ["## Final preparation {#final-preparation}", ""]
     for note in final_notes:
