@@ -3576,7 +3576,6 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 page["blocks"] = theorem_article_template(article, page["blocks"])
             else:
                 page["blocks"] = concept_article_template(article, page["blocks"])
-            page["blocks"] = apply_article_source_corrections(article["slug"], page["blocks"])
             if article["slug"] in SELF_CHECKS:
                 check = self_check_section(article, qmap)
                 # Place the bank questions before History when that section exists,
@@ -3588,7 +3587,6 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
 
     import citations
 
-    apply_article_reference_keys(citations)
     citations.attach_page_references(pages, article_by_path)
     attach_navboxes_and_cite_footers(pages, article_by_path)
 
@@ -4214,22 +4212,6 @@ def article_tail(article, links, forward, questions, by_topic) -> list[tuple[boo
         see.append(" · ".join(f"[{ARTICLES[s]['term']}]({href(path, ARTICLES[s]['path'])})" for s in unique) + "\n\n")
     see.append(f"[Glossary and index]({href(path, WIKI / 'reference' / 'glossary.qmd')})\n")
     return [(False, "used-in", "".join(lines)), (False, "see-also", "".join(see))]
-
-
-def apply_article_reference_keys(citation_module) -> None:
-    """Replace only explicitly configured articles' default bibliography lists."""
-    for slug_, keys in ARTICLE_REFERENCE_KEYS.items():
-        citation_module.ARTICLE_REFS[slug_] = tuple(keys)
-
-
-def apply_article_source_corrections(slug_: str, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
-    """Apply explicit article-specific prose/locator corrections; reject stale targets."""
-    for old, replacement in ARTICLE_SOURCE_CORRECTIONS.get(slug_, []):
-        if not old or not any(old in text for _, _, text in blocks):
-            raise ValueError(f"{slug_}: source correction target is absent: {old!r}")
-        blocks = [(is_content, label, text.replace(old, replacement))
-                  for is_content, label, text in blocks]
-    return blocks
 
 
 def read_research_content(path: Path, allowed: set[str]) -> tuple[dict[str, str], dict[str, str]]:
@@ -5005,7 +4987,7 @@ def upsert_static_cite_footers(wiki_root: Path = WIKI, now: datetime | None = No
 # ---------------------------------------------------------------------------
 
 from article_extras import (  # noqa: E402
-    ARTICLE_HISTORIES, ARTICLE_REFERENCE_KEYS, ARTICLE_SOURCE_CORRECTIONS, BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES,
+    ARTICLE_HISTORIES, BOOK_EXAMPLES, CHAPTER_FIGURES, EXAMPLES, FIGURES,
     NOTES, PROPERTIES, THEOREM_INFO, THEOREM_PROOFS,
 )
 

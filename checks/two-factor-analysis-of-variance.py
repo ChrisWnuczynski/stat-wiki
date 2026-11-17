@@ -55,4 +55,7 @@ close(fc,574,.5);tt=stats.ttest_ind(crop[0].ravel(),crop[1].ravel(),equal_var=Tr
 close(tt.statistic,-7.30,.005);close(tt.pvalue,1.8e-6,.05e-6)
 close(np.array([6.77,9.01,8.16])-np.array([3.20,2.87,5.70]),[3.57,6.14,2.46])
 shown('138','0.00749','0.00388','0.11612','da-interaction.png','574','1.87')
+
+# Zero-sum interaction effect is the B-difference contrast divided by 4.
+close((8-4)/4,1); close(2*4*1**2,8)
 finish()

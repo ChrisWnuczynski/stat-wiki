@@ -18,6 +18,12 @@ r=[1,2.5,2.5,4];v=np.array([sum(c) for c in combinations(r,2)])
 assert np.array_equal(np.sort(v),[3.5,3.5,5,5,6.5,6.5])
 assert np.isclose(v.var(),1.5) and v.var()<2*2*5/12
 
+# Deepened research calculations.
+assert 4*11/2 == 22
+assert 5*11/2 == 27.5
+assert 3*3*7/12 == 5.25
+assert 1.5 < 5/3
+
 text = (ROOT / "articles" / "wilcoxon-rank-sum-test.qmd").read_text(encoding="utf-8")
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text

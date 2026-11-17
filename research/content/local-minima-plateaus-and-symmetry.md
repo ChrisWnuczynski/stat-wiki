@@ -34,3 +34,5 @@ The next point is $(0.8,0.12)$. The loss falls from $1-0.01=0.99$ to $0.64-0.014
 A flat direction caused by a symmetry need not degrade the fitted predictions. Conversely, a tiny loss change need not mean that the optimization has found a good function: a saturated unit may transmit a tiny derivative while the fit remains poor. The sigmoid derivative $s(z)(1-s(z))$ tends to zero as $|z|$ grows, giving a concrete mechanism for such saturation.{{cite:zhang_d2l2023}} (§“Numerical Stability and Initialization”, “Vanishing Gradients”)
 
 Nonconvexity permits poor local minima but does not establish that they dominate the difficulty of every trained network. A useful diagnostic examines gradient size, curvature, activation ranges and sensitivity to initialization. Each observation answers a different question about the current optimization trajectory.{{cite:goodfellow_bengio_courville2016}} (§§8.2.1–8.2.3)
+
+A plateau is a region where the gradient is nearly zero without the point being an isolated minimum, so a small step can leave the loss almost unchanged while a later step reaches a different basin.

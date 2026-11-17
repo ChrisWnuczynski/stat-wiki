@@ -6,17 +6,17 @@ Closure can hold conditionally inside a more complicated model while failing aft
 ## Statement
 For independent observations $X_i\mid\mu\sim N(\mu,\sigma^2)$ with known positive $\sigma^2$ and prior $N(m_0,v_0)$, define $P_0=1/v_0$ and $h_0=m_0/v_0$. The update is
 $$P_n=P_0+n/\sigma^2,\qquad h_n=h_0+\sum_ix_i/\sigma^2,$$
-so the posterior is $N(h_n/P_n,1/P_n)$. The data contribution is the precision of the sample mean, $n/\sigma^2$, rather than the precision of one observation. This form also makes a sequential implementation explicit.{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
+so the posterior is $N(h_n/P_n,1/P_n)$. The data contribution is the precision of the sample mean, $n/\sigma^2$, rather than the precision of one observation. This form also makes a sequential implementation explicit.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41){{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65){{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
 
 When observations have different known variances $s_i^2$, the same argument replaces $n/\sigma^2$ by $\sum_i1/s_i^2$ and $\sum_ix_i/\sigma^2$ by $\sum_ix_i/s_i^2$. The observations still need conditional independence in this simple calculation. Correlated noise requires its covariance matrix in the quadratic likelihood.
 
 ## Proof
 Multiply the normal likelihood and prior kernels. Their log product, up to terms independent of $\mu$, is
 $$-\frac12\left[\left(\frac1{v_0}+\frac n{\sigma^2}\right)\mu^2-2\left(\frac{m_0}{v_0}+\frac{\sum_ix_i}{\sigma^2}\right)\mu\right].$$
-Since $P_n>0$, completing the square writes it as $-P_n(\mu-h_n/P_n)^2/2$ plus a constant. Its integral is finite and equals a positive multiple of $\sqrt{2\pi/P_n}$, so normalization produces the claimed normal density. The same calculation with individual variances proves the heterogeneous-precision extension.{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
+Since $P_n>0$, completing the square writes it as $-P_n(\mu-h_n/P_n)^2/2$ plus a constant. Its integral is finite and equals a positive multiple of $\sqrt{2\pi/P_n}$, so normalization produces the claimed normal density. The same calculation with individual variances proves the heterogeneous-precision extension.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41){{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65){{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
 
 ## Key results — Equivalent information and order invariance
-Write $n_0=\sigma^2/v_0$. Then the posterior mean is $(n_0m_0+n\overline x)/(n_0+n)$ and its variance is $\sigma^2/(n_0+n)$. The quantity $n_0$ is prior precision expressed in units of one observation's precision. It can be noninteger and is not a count of measurements secretly present in the dataset. Changing the observation variance changes this equivalent count even if the same prior is used.{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
+Write $n_0=\sigma^2/v_0$. Then the posterior mean is $(n_0m_0+n\overline x)/(n_0+n)$ and its variance is $\sigma^2/(n_0+n)$. The quantity $n_0$ is prior precision expressed in units of one observation's precision. It can be noninteger and is not a count of measurements secretly present in the dataset. Changing the observation variance changes this equivalent count even if the same prior is used.{{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65){{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41){{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
 
 Updating in batches gives the same answer because both $P$ and $h$ receive additive increments. A posterior from one batch becomes the next batch's prior. This equivalence presumes that the batches use the same latent mean and the specified independent sampling model. Reusing the same observations as though they were a new batch would double-count their likelihood contribution.
 

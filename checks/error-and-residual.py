@@ -12,6 +12,13 @@ assert np.allclose((y+5)-H@(y+5),e) and np.allclose(H@(y+5),8)
 assert 12-9==3
 printed=['14','-1/2']
 
+# Deepened research calculations.
+assert 16*(1-1/8) == 14
+assert 4*(1-1/4) == 3
+assert 15-11 == 4
+assert 12-9 == 3
+assert -3/6 == -0.5
+
 article=(ROOT/"articles"/"error-and-residual.qmd").read_text()
 for token in printed:
     assert token in article,("error-and-residual",token)

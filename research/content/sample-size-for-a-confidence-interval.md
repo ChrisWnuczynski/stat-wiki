@@ -37,3 +37,5 @@ $$n\ge\frac{z^2\sigma_N^2N}{E^2(N-1)+z^2\sigma_N^2}.$$
 The correction tends to the independent-sampling answer when $N$ is large relative to $n$. Sampling all $N$ elements removes sampling variation for that finite-population mean, while measurement errors and missing responses can still matter. The independent approximation is reasonable only after checking the design and sampling fraction.{{cite:openintro2019}} (§6.1, independence and the ten-percent condition)
 
 For a direct derivation of the finite-population factor, centre the $N$ population values so their sum is zero. Two distinct ordered draws then have covariance $-\sigma_N^2/(N-1)$, because the sum of cross-products over distinct pairs is minus the sum of squared centred values. Averaging $n$ draws gives variance $n^{-2}\{n\sigma_N^2-n(n-1)\sigma_N^2/(N-1)\}$, which simplifies to the stated expression. This negative covariance is the mathematical contribution of sampling without replacement.
+
+The usual infinite-population formula therefore understates the precision of a sample drawn without replacement from a short list, and the finite-population factor records that gain.

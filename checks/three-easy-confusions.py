@@ -32,4 +32,7 @@ for v in [1.,2.]:
  integral=integrate.quad(lambda z:np.exp(-z*z/(2*v)),-np.inf,np.inf)[0]**3
  close(integral,(2*np.pi*v)**(3/2))
 shown('4.5','18/7','2.5714','8/3')
+
+close([(18/7)/4, (1/2)*(9/7), math.sqrt(9/14)],[9/14,9/14,math.sqrt(9/14)])
+shown('0.642857','0.801784','2.571429','2.4')
 finish()

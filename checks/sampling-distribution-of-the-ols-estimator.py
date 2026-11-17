@@ -26,4 +26,8 @@ y=np.array([0.,1.,1.,3.,5.]);b=A@y;e=y-X@b;ss=e@e;s2=ss/3;se=math.sqrt(s2*C[1,1]
 for v in b:printed(v)
 printed(ss);printed(s2,6);printed(se,6);printed(t,6)
 near(np.trace(np.eye(5)-H),3);near(12-4,8)
+
+# Sum and difference of the centred coefficients share a variance when the covariance is zero.
+near(math.sqrt(1.2),1.0954451150103321,tol=1e-12)
+printed(math.sqrt(1.2),6)
 print("sampling-distribution-of-the-ols-estimator:", checks, "numerical and rendered-value checks passed")

@@ -27,4 +27,10 @@ close([agreement,baseline,(agreement-baseline)/(1-baseline)],[.875,.75,.5])
 close([18/20,11/20],[.9,.55]);close((.8-.5)/(1-.5),.6)
 assert np.mean(primary==np.zeros(8))==baseline
 shown('0.875','0.75','0.5','0.6','usesurrogate','maxsurrogate')
+
+# Reversing a perfect mismatch produces agreement 1.
+opposite=1-primary
+close([np.mean(primary==opposite),np.mean(primary==(1-opposite))],[0,1])
+close((.9-.55)/(1-.55),7/9)
+shown('0.777778','8/8')
 finish()

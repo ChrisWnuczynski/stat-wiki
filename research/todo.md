@@ -100,3 +100,46 @@ Add uncertain claims here before writing them into an article.
 - Unit root: the Granger–Newbold1974 original article and Phillips1985 discussion paper were not accessible through the publisher/author routes tried. Spurious-regression discussion cites the read Forecasting: Principles and Practice §10.1 instead.
 
 - warp-breaks-data: obtain experimental randomisation, independent-cluster and row-order provenance before assigning factory or longitudinal interpretations to the wool-grouped GEE demonstration; public R data documentation specifies wool types and looms only.
+
+- lidar figure (`sources/book/figures/lidar.pdf`): `pdftotext` of the committed file reads “Range (feet)” and “Log ratio of received to emitted light”. This pass does not replace the PDF. A later edit should check Holst (1996) and the SemiPar documentation before relabelling the axes, for example to metres and a two-wavelength log ratio. The generator sketch is `research/content/lidar-data-figure.py`; do not treat that script as authorisation to overwrite the committed figure inside a content pass.
+
+- Jeffreys (1961), *Theory of Probability*: the contents list §3.5, “The method of least squares,” as beginning on p. 147, and §3.42, “Prediction from normal observations,” on p. 142. Those body pages were not opened. The marginal-Student regression page therefore cites §3.5 without a page number. The regression predictive target does not cite §3.42. McCullagh and Nelder (1989) likewise has no opened page in this pass; exponential-family moment sentences use Diaconis and Ylvisaker (1979, §2, p. 271), whose equations were already located in the repository.
+- Add a located Ross, Grimmett-Stirzaker, Feller, or Karlin-Taylor citation beside the Siegrist convergence sentences; the only located companion of that kind in the repository is a Poisson-process citation, which is a different claim.
+- Page locators for Fisher-Tippett (1928), Gnedenko (1943) and Coles (2001) are not in the repository, so those sources were not attached to the extreme-value type statements.
+- Locate printed pages for OpenIntro Statistics section 9.1 on adjusted R-squared and section 9.2 on model selection; repository locators for those sections give the section without page numbers.
+- Located Fisher Statistical Methods for Research Workers strings concern likelihood or ANOVA, not this one-sample variance pivot, so no Fisher page was added. Student (pp. 1–5) is used only for the standardised mean with estimated scale.
+- No located Ross, Feller, Grimmett–Stirzaker, or Karlin–Taylor citation covers conservative confidence sets beside Siegrist §8.1, so no companion page was added.
+- Course notes cite ross2019, feller1968, and grimmett_stirzaker2020 for drift, square-root scale, and first passage without a section or page. No located page string was copied.
+- The only located Grimmett–Stirzaker string, §§6.8 and 8.3–8.4 with contents, is about Poisson processes beside renewal and queueing. It was not copied onto the arrival-count identity next to Siegrist §14.1. No located Ross, Feller, or Karlin–Taylor page covers that identity.
+- No located Ross, Feller, Grimmett–Stirzaker, or Karlin–Taylor page covers this chain. Detailed balance uses the existing Levin–Peres §1.6, pp. 13–14 locator.
+- No page-located Ross, Feller, Grimmett–Stirzaker or Karlin–Taylor citation for the gambler's-ruin absorption probability was found in sources/ or research/content. The stochastic-process chapter cites those books without a page or section, so no locator was invented. The fair absorption and duration formulas are cited with the existing locators Grinstead–Snell §12.2, pp. 487–489 and Durrett, Essentials of Stochastic Processes, §1.9, Exercises 1.49–1.50, pp. 52–53.
+- Locate printed pages for OpenIntro Statistics section 9.2 on model selection; repository locators for that section give the section and title without page numbers.
+- Locate printed pages for OpenIntro Statistics sections 9.1 and 9.3; repository locators for those sections give the section and title without page numbers.
+- OpenIntro section locators for single and two-proportion intervals had no section-plus-pages form in the repo and were removed. The guideline of at least ten expected successes and failures was not restated under a located page.
+- No located Ross, Feller, Karlin–Taylor, or Grimmett–Stirzaker locator in the repo matches the Siegrist claim on this page, so no companion citation was added.
+- OpenIntro locators for sections 5.1, 5.2, and 7.1 had no section-plus-pages form in the repo and were removed. The household-spending illustration with n=51, mean 1136, and s=178 has no page-bearing OpenIntro locator here; the interval method is cited to Durrett and Dodge.
+- The exact preprocessing, cross-validation folds, and selected penalty for the fourteen-gene fit are unavailable, so that fit was not given a new locator.
+- The OpenIntro section 6.1 locator for a single proportion had no printed pages in the repo and was removed.
+- A sandwich covariance beyond the working variance was not given a Wedderburn 1974 subsection. The sampling limit of the sandwich variance stays with Durrett.
+- Wedderburn 1974 is cited as the whole article, pages 439–447. No subsection was invented.
+- No page-level Ross or Grimmett locator for the M/M/c or finite-capacity balance equations was found. The repeated Durrett locator is (§4.3, Lem. 4.3, p. 128; §4.5, Ex. 4.24, pp. 138–140). Grimmett’s only located locator is a contents pointer for Poisson processes beside renewal and queueing.
+- OpenIntro section 7.1 locators for the one-sample mean and the t distribution had no section-plus-pages form in the repo and were removed. The t pivot remains cited to Siegrist and Dodge.
+- No page-located Ross, Feller, Grimmett–Stirzaker or Karlin–Taylor citation for the independence of a normal sample mean and sample variance, or for the Student ratio, was found in sources/ or research/content. Gosset (1908) is cited with the locator already used for that small-sample mean, pp. 1–2, beside the Siegrist construction.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation matches the Siegrist claim on this page, so none was copied beside it. The only located Grimmett–Stirzaker locator in the repository is §§6.8, 8.3–8.4, and it belongs to a gamma waiting-time sentence.
+- OpenIntro Statistics §7.4.2 was aligned with the existing locator Ch. 7, §7.4.2, pp. 279–280. The citations of §7.4 and of §§7.4.1–7.4.3 still have no printed page range in the repository, so pages were not attached to them.
+- The extended quasi-likelihood and quasi-AIC remark was not located as a subsection of Wedderburn 1974, so that sentence was dropped.
+- No page-level McCullagh–Nelder locator appears in the research files, so that source was not added.
+- OpenIntro locators name §5.1, §5.2, and §6.1, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro Statistics §8.4 is cited by section, without printed pages, because no existing repository locator gives pages for that section.
+- Locate printed pages for OpenIntro Statistics section 4.3 on the binomial distribution; repository locators for that section give the section without page numbers.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation in the repository matches the Siegrist claims, so none was added beside them.
+- OpenIntro locators name §2.1 and §2.2, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro locators name §5.3 and §6.1, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro locators name §5.2, §5.3, and §7.1, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro locators name §2.1 and §9.3, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro Statistics §6.2 is cited by section, without printed pages, because no existing repository locator gives pages for that section.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation for the two-sample normal model or Student pivot was found in the repository, so none was placed beside the Siegrist web-text citations.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation for the two-sample normal model or Student statistic was found in the repository, so none was placed beside the Siegrist web-text citation.
+- No located Ross, Feller, Grimmett–Stirzaker, or Karlin–Taylor citation covers the Student t thresholds beside Siegrist §6.8, so no companion page was added.
+- OpenIntro locators name §7.1, but no repository locator gives pages for that section, so no page numbers were added.
+- No located citation in the repository supplies a width or convergence rate for the uniform approximation theorem, so none was added.

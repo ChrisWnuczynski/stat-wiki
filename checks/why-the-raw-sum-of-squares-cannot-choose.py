@@ -17,6 +17,11 @@ assert f'{float(reduction):.6f}'=='60.166667'
 assert sum((v-v)**2 for v in x)==0
 assert (7-7)**2+(7-7)**2==0
 
+# Deepened research calculations.
+from fractions import Fraction as F
+assert F(182, 3) - F(1, 2) == F(361, 6)
+assert f"{float(F(361, 6)):.6f}" == "60.166667"
+
 text = (ROOT / "articles" / "why-the-raw-sum-of-squares-cannot-choose.qmd").read_text(encoding="utf-8")
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text

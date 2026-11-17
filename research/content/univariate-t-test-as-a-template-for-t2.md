@@ -35,3 +35,5 @@ The template also identifies where analogy ends. A singular sample covariance ca
 
 ## Assumptions and limits
 Student's exact law needs a nondegenerate normal model and a nonzero observed sample standard deviation. A constant observed sample does not permit division by zero; it is a boundary case requiring a separate model assessment. Squaring is appropriate for a two-sided discrepancy but discards direction, so it cannot reproduce a one-sided Student test without keeping the sign as additional information.
+
+Squaring a two-sided t statistic produces the matching one-numerator F statistic, and the tail probabilities agree once the two-sided t event is written as an upper tail for that square.

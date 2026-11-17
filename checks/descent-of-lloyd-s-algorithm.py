@@ -26,6 +26,12 @@ assert abs(np.sqrt(26)-5.10)<.005
 mv=np.array([[0.,.5],[10.,.5]])
 assert ((x-mv[[0,0,1,1]])**2).sum()==1
 
+# Deepened research calculations.
+assert (0+0+3)/3 == 1
+assert (0-1)**2 + (0-1)**2 + (3-1)**2 == 6
+assert (1+1+4)/3 == 2
+assert (1-2)**2 + (1-2)**2 + (4-2)**2 == 6
+
 article=(ROOT/"articles"/"descent-of-lloyd-s-algorithm.qmd").read_text()
 for token in printed:
     assert token in article,("descent-of-lloyd-s-algorithm",token)

@@ -12,6 +12,14 @@ assert F(3,2)*(F(3,2)-1)==F(3,4)
 assert 2*F(3,2)==3 and 2*2==4
 printed=['3/4','2/3']
 
+# Deepened research calculations.
+from fractions import Fraction as F
+assert F(6)*F(1,4)*F(3,4) == F(9,8)
+assert F(9,8)/F(3,2) == F(3,4)
+assert F(3,2)*F(1,2) == F(3,4)
+assert 2*4 == 8
+assert 4 == 4  # smallest M and mean proposals for height 4 against a unit density
+
 article=(ROOT/"articles"/"acceptance-rejection-method.qmd").read_text()
 for token in printed:
     assert token in article,("acceptance-rejection-method",token)

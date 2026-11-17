@@ -35,6 +35,19 @@ assert lower<7798<upper and 7798<a
 assert round(b)==109953 and 109953-105000==4953
 printed += ['109{,}953','4{,}953','8300']
 
+# Deepened research calculations.
+assert 115821/12 == 9651.75
+assert 7750-9007 == -1257
+# Y_t = 100 + 2t + t^2, lag-12 difference, then ordinary difference.
+def W(t):
+    Y = lambda s: 100 + 2*s + s*s
+    return Y(t) - Y(t-12)
+assert W(20) - W(19) == 24
+def W3(t):
+    return 3*t*t - 3*(t-12)**2
+assert W3(20) - W3(19) == 72
+assert W3(20) == 72*20 - 432
+
 article=(ROOT/"articles"/"accidental-deaths-data.qmd").read_text()
 for token in printed:
     assert token in article,("accidental-deaths-data",token)

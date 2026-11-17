@@ -33,3 +33,5 @@ The creatinine Q–Q plots compare raw measurements with reciprocals. Because th
 
 ## Assumptions and limits
 Adding a constant before taking logarithms changes ratios and the meaning of the model. The constant should have a defensible measurement interpretation. For zeros arising from censoring, a censoring model may be preferable to an arbitrary offset. The square root of a count and a Poisson GLM are also different approaches: one changes the response, while the other models a count distribution directly. A transformation can improve a model without making every assumption true.
+
+A transformation chosen after inspecting the same residuals that will be used to assess the model uses those observations twice, so the apparent improvement is not a fresh check of that model.

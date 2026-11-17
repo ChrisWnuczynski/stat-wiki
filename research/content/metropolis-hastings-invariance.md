@@ -38,3 +38,5 @@ In the two-state example, accepting a self-proposal counts as acceptance. Hence 
 An invariant distribution remains invariant if the chain starts from it. Convergence from a specified starting state needs further conditions, such as irreducibility and an appropriate aperiodicity condition. Even when convergence holds, strong dependence can make a finite average imprecise. The proposal affects efficiency while the acceptance correction establishes the target.{{cite:hastings1970}} (§2.1, pp. 98–99)
 
 For example, an identity transition leaves every distribution invariant and never moves. It shows why a balance calculation alone cannot certify exploration. Conversely, rejections are compatible with correct sampling and must not be removed merely to make a sequence look more mobile.
+
+The acceptance probability belongs to the transition kernel that leaves the target invariant. Changing it changes how fast the chain moves, while the target stays the same when the kernel is still the Metropolis–Hastings kernel.

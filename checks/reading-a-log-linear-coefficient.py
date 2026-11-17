@@ -27,4 +27,8 @@ near(math.exp(.1),1.1051709180756477)
 printed(math.exp(.02),3);printed(math.exp(.2),2);printed(math.exp(-.5),2);printed(math.exp(.1),2)
 near(100*(math.exp(.2)-1),22.140275816016985)
 
+
+# Interaction contrast at z=4, and the one-unit factor at z=0.
+printed(math.exp(-.2),6); printed(math.exp(.2),6)
+near(math.exp(.2-.1*4), math.exp(-.2))
 print("reading-a-log-linear-coefficient:", checks, "numerical and rendered-value checks passed")

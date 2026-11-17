@@ -31,4 +31,8 @@ printed(stats.binom.sf(11,15,.6),3);printed(stats.binom.sf(12,15,.6),3)
 cutoff=1.635*1.1/6;printed(cutoff,3)
 printed(6*cutoff/.3,3);printed(stats.chi2.cdf(6*cutoff/.3,6),2)
 
+
+# Larger sample and a smaller departure for the same normal test.
+printed(stats.norm.sf(c-5),6); printed(1-stats.norm.cdf(c-1.25),6); printed(stats.binom.sf(8,10,.9),6)
+near(math.sqrt(100)/2,5); near(stats.norm.sf(c-5),0.9996033849954737)
 print("power-function:", checks, "numerical and rendered-value checks passed")

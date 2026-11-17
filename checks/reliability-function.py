@@ -41,4 +41,8 @@ near(quad(lambda t:2*math.exp(-t)-math.exp(-2*t),0,np.inf)[0],3/2)
 near(quad(lambda t:3*math.exp(-2*t)-2*math.exp(-3*t),0,np.inf)[0],5/6)
 printed(.9*(.9+.9-.9**2),3)
 
+
+# Series and parallel reliabilities of the same three components.
+printed(.9*.8*.7,3); printed(1-.1*.2*.3,3)
+near(.9*.8*.7,.504); near(1-.006,.994)
 print("reliability-function:", checks, "numerical and rendered-value checks passed")

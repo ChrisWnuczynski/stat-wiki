@@ -113,7 +113,7 @@ The empty set is disjoint from $\Omega$, so the sum rule gives $\Pr(\Omega)=\Pr(
 
 :::
 
-On a discrete space $\Omega=\{a_1,a_2,\ldots\}$ it is enough to give a weight $p_i=\Pr(\{a_i\})$ to each outcome, with $p_i\ge 0$ and $\sum_i p_i=1$. An event then has probability equal to the total weight of the outcomes it contains. On a continuous space this fails: each single point must have probability zero, or an uncountable sum of equal positive weights could not be one. Probabilities are assigned to intervals, or to other sets with a length or a volume.
+On a discrete space $\Omega=\{a_1,a_2,\ldots\}$ it is enough to give a weight $p_i=\Pr(\{a_i\})$ to each outcome, with $p_i\ge 0$ and $\sum_i p_i=1$. An event then has probability equal to the total weight of the outcomes it contains. On the interval $[0,1]$, with probability equal to length, a single point has length zero and therefore probability zero, even though that point is a possible outcome. Probabilities of intervals are their lengths.
 
 ::: {#thm-equilikely .theorem}
 ## Equally likely outcomes

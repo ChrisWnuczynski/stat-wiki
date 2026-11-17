@@ -516,7 +516,7 @@ $$
 \end{equation} so an equal-tailed $100(1-\alpha)\%$ credible interval is \begin{equation}
  \widehat\beta_j\ \pm\ t_{1-\alpha/2,n-p}s\sqrt{c_{jj}}.
  \label{eq:lm-coefficient-ci}
-\end{equation} Its endpoints coincide with the usual classical interval under this reference prior.{{cite:box_tiao1973}}{{cite:jeffreys1961}} The interpretations do not coincide: the Bayesian statement concerns posterior uncertainty about $\beta_j$ for the observed data, whereas the frequentist statement concerns repeated-sample coverage by a random interval.{{cite:gelman_bda2013}}
+\end{equation} Its endpoints coincide with the usual classical interval under this reference prior.{{cite:box_tiao1973}} (§2.7.2, p. 117){{cite:jeffreys1961}} (§3.5) The interpretations do not coincide: the Bayesian statement concerns posterior uncertainty about $\beta_j$ for the observed data, whereas the frequentist statement concerns repeated-sample coverage by a random interval.{{cite:gelman_bda2013}} (Ch. 14, §14.2, pp. 354–356)
 
 :::
 
@@ -705,7 +705,7 @@ In machine learning, priors are often introduced mainly as regularisers. That is
 ::: {#def-posterior-predictive-target .definition}
 ## Posterior predictive target
 
-Prediction requires a new random quantity; estimating a fitted mean and predicting a new observation are not the same problem.{{cite:gelman_bda2013}}{{cite:box_tiao1973}}{{cite:jeffreys1961}} For a new predictor vector $\widetilde\xvec$, suppose \begin{equation}
+Prediction requires a new random quantity; estimating a fitted mean and predicting a new observation are not the same problem.{{cite:gelman_bda2013}} (Ch. 14, §14.2, pp. 357–358) For a new predictor vector $\widetilde\xvec$, suppose \begin{equation}
  \widetilde Y\given\betavec,\sigma^2,\widetilde\xvec
  \sim\Normal(\widetilde\xvec^\top\betavec,\sigma^2).
  \label{eq:lm-new-observation}
@@ -764,7 +764,7 @@ $$
  \label{eq:lm-mean-response-posterior}
 \end{equation}
 
-A new response has a Student posterior predictive distribution, and the mean response omits the new observational error.{{cite:gelman_bda2013}} (Ch. 3, §3.2, normal posterior prediction)
+A new response has a Student posterior predictive distribution, and the mean response omits the new observational error.{{cite:gelman_bda2013}} (Ch. 14, §14.2, pp. 357–358)
 
 :::
 

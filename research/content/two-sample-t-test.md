@@ -19,11 +19,27 @@ Take independent normal samples with common variance, $n_1=6,n_2=10$, means $12,
 
 The caffeine example uses the actual two observed groups to illustrate pooled and Welch calculations. Its unequal sample variances produce different reference degrees of freedom even though the group sizes match. Equal group sizes make the two estimated standard errors coincide, but they do not make the reference distributions identical.
 
-**Your turn.** With the same estimated standard error, what is the statistic at a null difference of three?
+**Your turn.** Using the same pooled standard error, what is the statistic when the null difference is $0.5$, and what is its two-sided tail probability on fourteen degrees of freedom?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The observed difference is three, so the centred numerator is zero and the statistic is zero.
+The numerator is $3-0.5=2.5$. Dividing by $\sqrt{202/105}$ gives $1.802432$. The two-sided tail probability on fourteen degrees of freedom is $0.093041$.
 :::
+
+## Common misconceptions — Equal sample sizes do not equate the two reference laws
+When both groups have size $n$, the Welch variance estimate is $(S_1^2+S_2^2)/n$ and the pooled variance is $(S_1^2+S_2^2)/2$, so the two standard errors agree. The reference degrees of freedom still differ. Take $n_1=n_2=10$, sample variances $4$ and $16$, and an observed mean difference of $2$. Both standard errors equal $\sqrt{2}\approx1.414214$, and both statistics equal $1.414214$. The pooled upper-tail probability on $18$ degrees of freedom is $0.087182$. Welch's formula gives approximately $13.235294$ degrees of freedom and upper-tail probability $0.090195$. Matching estimates of the contrast can still be calibrated differently.{{cite:nist_two_sample_t2002}} (§1.3.5.3)
+
+For the samples with variances $4$ and $9$, the groups have different sizes, so the standard errors separate as well. Welch's standard error is $\sqrt{4/6+9/10}=1.251666$. The statistic at a zero null difference is $2.396806$ on approximately $13.720497$ degrees of freedom, and the two-sided tail probability is $0.031380$. The pooled calculation uses $1.387015$ and fourteen degrees of freedom. The larger sample carries the larger variance, so pooling spreads that variance into the smaller group's contribution and widens the estimated standard error.{{cite:nist_two_sample_t2002}} (§1.3.5.3, Welch–Satterthwaite formulation)
+
+### Worked example — One-sided comparison of two recorded groups
+One recorded group is $17,22,21,16,6,-2,27,15,16,20$ and the other is $4,10,7,-9,5,4,5,7,6,12$. The means are $15.8$ and $5.1$, a difference of $10.7$. The sample variances are $69.288889$ and $31.211111$. Equal group sizes make the pooled and Welch statistics agree at $3.3752$. Welch's approximate degrees of freedom are $15.74$, and the one-sided probability in the greater direction is $0.001966$. The pooled statistic uses $18$ degrees of freedom and one-sided probability $0.001686$. An approximate $95\%$ interval that uses the Welch reference and the common standard error runs from $4.0$ to $17.4$ after each endpoint is rounded to one decimal place. The interval remains wide because each group has ten observations and substantial within-group scatter.{{cite:nist_two_sample_t2002}} (§1.3.5.3, critical regions)
+
+## Statistical use — Report the contrast, the standard error and the reference
+A comparison states the estimated difference, the standard error, the degrees of freedom and whether the variance was pooled. Those pieces support both a test at a chosen null value and the interval obtained by inverting that test. For the first numerical sample the pooled standard error is $1.387015$. The two-sided $95\%$ Student critical value on fourteen degrees of freedom is $2.144787$, the half-width is $2.974850$, and the interval is $(0.025150, 5.974850)$. Every contrast inside the interval is retained by the two-sided $5\%$ pooled procedure. The point estimate $3$ is the centre of that interval, not a substitute for it.{{cite:nist_two_sample_t2002}} (§1.3.5.3)
+
+The Student ratio compares a normal contrast with an independent estimate of its scale. The pooled two-sample statistic is that ratio for a difference of means, with the scale estimated from both within-group residual sums. Inverting the ratio produces an interval for the contrast. Squaring the ratio produces an equivalent one-degree-of-freedom comparison when the same residual variance is used.{{cite:dodge2008}} (p. 526, Student ratio construction)
+
+## Connections
+The [two-sample $t$ pivot](two-sample-t-pivot.qmd) isolates the exact Student law under a shared variance. A paired design replaces the two-sample standard error by the standard error of within-pair differences, because the two measurements on one person share a covariance. A rank procedure answers a different null. It is selected for that null, and the ordinary mean comparison remains the procedure whose statistic was derived above.{{cite:fay_proschan2010}} (§§5.1–5.3, pp. 10–25){{cite:nist_two_sample_t2002}} (§1.3.5.3, paired and unpaired samples)
 
 ## Assumptions and limits — Design and distribution both matter
 Independent observations within each sample and independent groups are separate requirements. Clustered, serial or matched data need the corresponding covariance accounted for. Normality gives finite-sample t calibration; for nonnormal populations large-sample approximations depend on moment and sample-size conditions. Severe skewness, influential outliers or a very small group can make those approximations unreliable. The ordinary WMW rank-sum null addresses a different comparison and cannot be chosen merely by replacing the word *mean* with *median*.{{cite:fay_proschan2010}} (§§5.1–5.3, pp. 10–25)

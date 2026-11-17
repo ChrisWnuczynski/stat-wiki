@@ -33,3 +33,5 @@ Their combined probability is $0.5$. The variance is $0.5(1-0.5)/100=0.0025$. Th
 A full inverse of $\Sigma$ does not exist for an interior probability vector. One approach drops one redundant coordinate; another works directly with contrasts that remove the sum constraint. The omitted category is still represented through the requirement that all shares sum to one. Treating singularity as a numerical rounding accident would obscure the exact geometry.{{cite:durrett2019}} (§3.10, ex. 3.10.9, p. 201)
 
 Rare categories can make a normal approximation poor even when total sample size looks large. The fixed-probability theorem does not provide a universal finite-sample cutoff, and it does not directly cover an increasing number of categories or probabilities tending to zero with n. Exact multinomial calculations, a category-appropriate approximation or a carefully specified simulation can assess the relevant finite-sample quantities.
+
+A category whose expected count is near one can dominate the error of the normal approximation even when the other categories are plentiful, because the skewness of a rare cell does not vanish from the total sample size alone.

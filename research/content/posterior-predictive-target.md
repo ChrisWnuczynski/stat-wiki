@@ -31,4 +31,29 @@ The predictive distribution is Bernoulli with success probability $E(\theta\mid 
 ## Statistical use — Simulate both levels of uncertainty
 One posterior predictive draw can be obtained by drawing $\theta^{(s)}$ from the posterior and then drawing $\widetilde Y^{(s)}$ from its conditional sampling distribution. Repeating only the first step estimates parameter uncertainty; repeating only the second step at a single estimate gives a plug-in prediction. For dependent posterior draws, predictive Monte Carlo summaries also require an assessment of dependence and numerical precision.{{cite:downey2020_thinkbayes2}} (Ch. 8, predictive distributions)
 
-A predictive interval describes uncertainty under the full assumed model. It can be narrow and still misleading if tomorrow's batch differs systematically from the observed data, if the exposure is misrecorded or if important dependence has been omitted. A conditional prediction explicitly states the predictors and exposure at which it is calculated, including whether it extrapolates outside the observations used to estimate the model.
+A predictive interval describes uncertainty under the full assumed model. A narrow interval can still miss tomorrow's batch when the batch differs systematically from the observed data, when the exposure is misrecorded, or when dependence has been left out of the sampling factor. A conditional prediction states the predictors and the exposure at which it is calculated, including any extrapolation beyond the observations used to estimate the model.
+
+## Interpretation — The beta-binomial probabilities are an average of binomial probabilities
+With $\theta\mid D\sim\operatorname{Beta}(3,9)$ and $K\mid\theta\sim\operatorname{Binomial}(4,\theta)$, the predictive masses are
+$$
+\begin{align*}
+P(K=0\mid D)&=0.362637,\\
+P(K=1\mid D)&=0.362637,\\
+P(K=2\mid D)&=0.197802,\\
+P(K=3\mid D)&=0.065934,\\
+P(K=4\mid D)&=0.010989.
+\end{align*}
+$$
+They sum to one. The mean $\sum k\,P(K=k\mid D)=1.000$ equals $4E(\theta\mid D)=4\times0.250$, because the conditional binomial mean is linear in $\theta$ and the average passes inside. A plug-in binomial at $\theta=0.25$ has masses $0.316406$, $0.421875$, $0.210938$, $0.046875$, $0.003906$ for $k=0,\ldots,4$. The mixture puts more probability on $k=0$ and on $k=4$ than the plug-in does, which is the visible trace of uncertainty in $\theta$.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
+
+The variance decomposition accounts for the same spread. The conditional variance is $4\theta(1-\theta)$, and its posterior expectation is $0.692308$. The conditional mean is $4\theta$, and the posterior variance of that mean is $16\operatorname{Var}(\theta)=16\times0.014423=0.230769$. Adding these pieces gives $0.923077$, the predictive variance. The plug-in binomial variance $4\times0.25\times0.75=0.750$ sits near the first piece and leaves out the second. For a single future binary item the conditional variance is $\theta(1-\theta)$ and the conditional mean is $\theta$; after averaging, the predictive law is Bernoulli with success probability $0.250$ and variance $0.187500$. Two future items that share one draw of $\theta$ are dependent under the predictive law, because the covariance $\operatorname{Var}(\theta)$ is positive, while they are independent given $\theta$.{{cite:goodfellow_bengio_courville2016}} (§3.8, expectation and variance)
+
+## Intuition — Name the observable, then average its sampling distribution
+A posterior draw of $\theta$ is a draw of a defect probability. A posterior predictive draw of the batch count is a draw of $\theta$ followed by a draw of $K$ from $\operatorname{Binomial}(4,\theta)$. Stopping after the first step answers a question about the machine. Taking both steps answers a question about tomorrow's four items. The same posterior can feed either question, and the numerical summaries differ: the posterior variance of $\theta$ is $0.014423$, while the predictive variance of $K$ is $0.923077$.
+
+The integral $p(\widetilde y\mid D)=\int p(\widetilde y\mid\theta)\,p(\theta\mid D)\,d\theta$ is the definition once $\widetilde Y$ is conditionally independent of the data given $\theta$. A shared random effect or a time-series state stays inside $p(\widetilde y\mid\theta,D)$. For a new subject the random effect is drawn from its population distribution; for another measurement on a subject already observed, the random effect is drawn from its conditional distribution given that subject's data. Those two predictive targets use different sampling factors and the same posterior for the shared parameters.
+
+## Common misconceptions
+The posterior mean $0.250$ is a summary of $\theta$. Substituting it into $(1-\theta)^4$ produces $0.316406$, whereas $P(K=0\mid D)=0.362637$. The gap is the difference between a nonlinear function of the mean and the mean of the nonlinear function. Jensen's inequality for the convex map $\theta\mapsto(1-\theta)^4$ on $(0,1)$ places the plug-in probability below the predictive probability in this particular case. A different event can bend the other way. The reliable operation is to average the conditional probability, which is what the beta function ratio does.
+
+Simulation that redraws only $\theta$, or only $K$ at a frozen $\theta$, estimates one layer of the hierarchy. The full predictive sample redraws both. Monte Carlo error in a finite simulation is an additional uncertainty about the numerical estimate, on top of the predictive uncertainty the sample is trying to represent.{{cite:downey2020_thinkbayes2}} (Ch. 8, predictive distributions)

@@ -16,6 +16,15 @@ assert 10+3*.5==11.5 and 3*4==12
 z=sp.symbols('z');assert sp.factor(1-z)==1-z
 assert sp.diff((1-z)**2,z).subs(z,1)==0
 
+# Deepened research calculations.
+import math
+assert f"{0.8**10:.3f}" == "0.107"
+assert 5*4 == 20 and math.isclose(math.sqrt(5/20), 0.5)
+assert 1*4 == 4
+from fractions import Fraction as F
+assert F(4, 1) / (1 - F(64, 100)) == F(100, 9)
+assert f"{100/9:.6f}" == "11.111111"
+
 text = (ROOT / "articles" / "unit-root.qmd").read_text(encoding="utf-8")
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text

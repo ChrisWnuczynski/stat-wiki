@@ -35,3 +35,5 @@ With an interaction, a reference-coded fertiliser coefficient measures the ferti
 
 ## Assumptions and limits
 Constraints address identifiability. Normality, independent errors, constant variance and suitable experimental design address inferential calibration and interpretation. Changing coefficient coding cannot repair an unobserved cell or a confounded design. Also, deciding to drop an interaction after a preliminary test changes the analysis procedure; simply adding its sum of squares to error is an algebraic identity, while treating the resulting tests as if the additive model were fixed in advance needs additional justification.
+
+Two codings of the same design can look different entry by entry and still produce the same fitted means, the same residuals, and the same estimable contrasts.

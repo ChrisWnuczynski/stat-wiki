@@ -42,18 +42,18 @@ The integration was rebased onto `5546c8f`, preserving the separate term-page wo
 | d — sources | 142 cited work keys reviewed; 0 banned sources, including uncited reference lists. Software references support software behaviour or shipped-data descriptions. Biau–Devroye’s Lectures on the Nearest Neighbor Method is a Springer monograph. |
 | e — depth | 2,172 located citations; 5–20 per page; at least 2 independent proper works each. Low-citation warnings: 39 → 0. |
 | f — bibliography | 0 duplicate keys, normalized URLs, title/year entries or DOI identities. Editions and chapter aliases are grouped for independence. |
-| g — structure | 201 distinct section combinations; largest combination 1/201. Worked-example titles on result pages appear as subheadings under Examples. |
+| g — structure | 76 distinct section combinations on the fresh build; largest combination 16/201. Worked-example titles on result pages appear as subheadings under Examples. |
 | h — numbers | All 201 scripts pass; 30/30 random pages and 138/138 independent claims checked. Inputs and empirical provenance limitations are itemized below. |
 | i — Dodge | All 257 citations map to 97 header-verified printed pages; no PDF index or unnumbered opener is used as a locator. |
 | j — checks | Approved citation-contract and word-boundary repairs, plus eight new tests. Numerical, content, figure, question-link and snapshot assertions remain intact. Only target word floors increase. |
-| k — protected inputs | Approved scoped renderer hook and one lidar PDF replacement. All chapter files, theorem_depth.py, citations.py and ranking.json are unchanged from the integration base; 0 line-ending conversions. |
+| k — protected inputs | The post-generation find-and-replace hook and the per-page reference override were removed. `sources/book/figures/lidar.pdf` matches main; the metres label is recorded in `todo.md` for a separate source edit. Locator edits remain in the chapters and in `theorem_depth.py` where a restored citation needed a page that was read. `ranking.json` is unchanged. |
 
 ## Approved exceptions
 
-- The renderer applies explicit per-article prose/locator corrections and reviewed default-reference lists. It rejects stale or empty correction targets; six tests cover the hook.
+- The find-and-replace layer and the per-page reference override are gone. Legitimate wording lives in the generator inputs.
 - The visible-label filter adds a word boundary so genuine STAT course codes fail while the published title SciKit-GStat 1.0 passes; a regression test covers both.
-- Eight Bayesian source contracts require the actually inspected proper sources in place of banned or unread frozen references. Additional checks enforce located citations and source quality.
-- `sources/book/figures/lidar.pdf` corrects metres and the received-signal-ratio labels. Its 221 observations and three inclusive moving-window curves remain. [The reproducible generator](content/lidar-data-figure.py) and the numerical check guard the physical labels.
+- `sources/book/figures/lidar.pdf` is the copy from main. The metres label is correct and is logged for a separate figure edit.
+- The eight Bayesian pages again require the textbook and original-paper keys from the preservation test. A new test still requires a locator after each citation. `tokdar2018_dirichlet` stays in that preservation test, so it is not in the new test's prohibited set.
 
 ## Open items
 

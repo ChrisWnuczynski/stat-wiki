@@ -34,4 +34,8 @@ close(H@H,H);close(X.T@(np.eye(8)-H),np.zeros((3,8)))
 close(np.linalg.eigvalsh(np.eye(8)-H),[0,0,0,1,1,1,1,1])
 shown('0.3632','0.1939','2.5706','## Statement')
 assert 'title="Proof"' in body
+
+den=2*np.sqrt(.5); tstat=1.2/den
+close([den,tstat,2*stats.t.sf(tstat,5)],[np.sqrt(2),0.8485281374238569,0.4348746270959881])
+shown('0.848528','0.434875','1.414214')
 finish()

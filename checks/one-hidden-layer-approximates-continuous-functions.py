@@ -23,7 +23,11 @@ eq(np.max(sig(np.linspace(-10,10,101))*(1-sig(np.linspace(-10,10,101)))),.25)
 eq(10*(.5-.25),2.5)
 eq(10*(.5-.75),-2.5)
 eq(10*.25+10*.25,5)
-for token in ['0.848284', '0.075305', '0.986614']:
+eq(sig(0),.5)
+eq(abs(sig(0)-1),.5)
+eq(round(float(sig(-10)),8),.00004540)
+eq(round(float(1-sig(10)),8),.00004540)
+for token in ['0.848284', '0.075305', '0.986614', '0.00004540']:
  assert token in article,token
  count+=1
 assert "## Check yourself {#check-yourself}" in article

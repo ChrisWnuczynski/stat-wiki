@@ -30,3 +30,5 @@ The expectation is $2(0.3)+5(0.2)=1.6$. The complement has probability $0.5$; ad
 
 ## Connections — The distribution is enough for scalar expectation
 If $F_X$ is the probability distribution induced by $X$, then integrating a measurable function of $X$ on the outcome space equals integrating that function against $F_X$. For indicators this is the definition $P(X\in B)=F_X(B)$; finite linear combinations give the simple-function case; increasing limits give nonnegative functions; and positive-negative decomposition gives integrable signed functions. Thus the familiar mass-function sum and density integral are special cases of the same construction.{{cite:siegrist2022_expectation_integral}} (sections “Definitions” and “Change of Variables”)
+
+Once the induced distribution of a single variable is known, a further description of the underlying outcome space is unnecessary for the expectation of a function of that variable.

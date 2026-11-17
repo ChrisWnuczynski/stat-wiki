@@ -14,6 +14,13 @@ assert np.allclose(T@S@T.T,np.diag([3.,9.]))
 assert F(1,2)*2==1 and 1-F(1,2)**2==F(3,4)
 printed=['N(2,3)','sqrt3']
 
+# Deepened research calculations.
+assert 1 + (3/9)*(11-2) == 4
+assert 1 + (3/9)*(8-2) == 3
+assert 4 - 3**2/9 == 3
+assert 3/(4*9)**0.5 == 0.5
+assert 16*(1-0.25) == 12
+
 article=(ROOT/"articles"/"conditional-distribution-of-a-multivariate-normal.qmd").read_text()
 for token in printed:
     assert token in article,("conditional-distribution-of-a-multivariate-normal",token)

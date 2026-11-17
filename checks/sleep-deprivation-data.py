@@ -65,4 +65,11 @@ fixed_cov=(G+s2*C)/m
 for v in np.sqrt(np.diag(fixed_cov)):printed(v,2)
 printed(G[0,1]/math.sqrt(G[0,0]*G[1,1]),2)
 for v in [math.sqrt(G[0,0]),math.sqrt(G[1,1]),math.sqrt(s2)]:printed(v,2)
+
+# Marginal correlation of days 0 and 5 from the displayed covariance pieces.
+cov05=round(G[0,0],6)+5*round(G[0,1],6)
+v0=round(G[0,0],6)+round(s2,6)
+v5=round(G[0,0],6)+10*round(G[0,1],6)+25*round(G[1,1],6)+round(s2,6)
+corr=cov05/math.sqrt(v0*v5)
+printed(cov05,6); printed(corr,6)
 print("sleep-deprivation-data:", checks, "numerical and rendered-value checks passed")

@@ -63,7 +63,7 @@ summary(model1)
 The overall $F$ test, $p=1.8\times10^{-5}$, says at least one of the variables is associated with birth weight. Taking them one at a time, each with the others held fixed:
 
 - each extra pound of the mother's weight goes with 4.0 g more birth weight on average ($p=0.022$);
-- the mother's age adds nothing once the other variables are known ($p=0.84$);
+- the mother's age has an estimated change of about $-1.9$ g per year, small beside its standard error ($p=0.84$);
 - babies of black mothers weigh 511 g less on average than those of white mothers, the reference level, and those of mothers of other races 399 g less ($p=0.001$ for both);
 - babies of mothers who smoked weigh 402 g less than those of non-smokers of the same weight, age and race ($p=0.0003$).
 

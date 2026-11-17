@@ -33,3 +33,5 @@ Bonferroni intervals are another construction: for a prespecified finite list of
 
 ## Assumptions and limits
 Exact pooled Hotelling coverage needs independent multivariate normal groups, common positive-definite covariance and $N-p-1>0$. A coordinate's units enter its interval through $C$, so changing units also changes the numerical representation of a contrast. Replacing $S$ by another covariance estimate may be sensible, but it changes the calibration problem. Simultaneity protects the specified linear comparisons; it does not correct selection of the outcomes, model or sampling design through an unrelated process.
+
+A collection of intervals has a coverage probability for the whole collection, and that probability is smaller than the coverage of one prechosen coordinate when the coordinates can miss separately.

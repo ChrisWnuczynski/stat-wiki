@@ -25,3 +25,19 @@ The total expected risk of a decision rule is the expectation over $X$ of its co
 
 ## Assumptions and limits
 Estimated probabilities require calibration in the deployment population. Changing a threshold cannot compensate for a badly estimated posterior or a loss matrix that omits relevant consequences. Costs may depend on $x$, such as the value of a transaction; the same conditional minimization then uses $c_{gh}(x)$. A capacity constraint on the number of alarms couples decisions across cases and requires an additional optimization problem.{{cite:elkan2001_costs}} (§1.2, costs versus benefits and example-dependent costs)
+
+## Lead context
+A classifier that minimizes the probability of a mistake treats every mistake as equally expensive. Medical screening, fraud detection, and spam filtering often do not. Missing a rare event can cost more than a false alarm, or the reverse. The comparison that follows is for one case with a known class probability and two actions, predict zero or predict one. It is not a statement about training a model or about averaging loss over a sample.{{cite:elkan2001_costs}} (§1, eq. 1)
+
+## Intuition
+If the probability of class one is $p$, predicting zero costs $p\,C_{\mathrm{fn}}$ and predicting one costs $(1-p)\,C_{\mathrm{fp}}$. Predicting one is the cheaper action when
+$$
+p>\frac{C_{\mathrm{fp}}}{C_{\mathrm{fp}}+C_{\mathrm{fn}}}.
+$$
+With false-positive cost $1$ and false-negative cost $9$, the threshold is $1/10$. A case with $p=0.2$ is above that threshold even though class one is less probable than class zero. Its expected costs are $1.8$ for predicting zero and $0.8$ for predicting one, so the threshold comparison and the direct comparison agree: predict one. At $p=0.05$ an alarm costs $0.95$ and no alarm costs $0.45$, so the cheaper action reverses.{{cite:elkan2001_costs}} (§1, expected cost and cost units)
+
+## Interpretation
+The threshold depends only on the ratio of the two costs. Multiplying both costs by ten leaves the decision unchanged and multiplies every expected cost by ten. A threshold of one half appears when the two costs are equal. If the false-positive cost is $4$ and the false-negative cost is $1$, the threshold is $0.8$. At $p=0.7$ the expected costs are $0.7$ for predicting zero and $1.2$ for predicting one, so the rule predicts zero. A probability model that is badly calibrated can sit on the wrong side of a correct threshold. The cost formula assumes that $p$ is the probability appropriate to the case being classified.{{cite:elkan2001_costs}} (§1, decisions based on a cost matrix)
+
+## Common misconceptions
+Accuracy is the special case in which both costs equal one. Maximizing accuracy then agrees with the threshold $1/2$, and it can still be a poor objective when the costs differ or when one class is rare. A second confusion is to treat the threshold as a property of the data rather than of the loss. Changing $C_{\mathrm{fn}}$ from $9$ to $1$ moves the threshold from $0.1$ to $0.5$ without any change in the features. A third confusion is to apply the single-case rule to a prediction that must satisfy a constraint across many cases, such as a fixed number of alarms. That constraint is a different optimization problem. The two-action formula also has nothing to say about a third action, such as sending the case for further measurement.{{cite:elkan2001_costs}} (§1.2, costs versus benefits and example-dependent costs)

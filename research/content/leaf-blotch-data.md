@@ -30,3 +30,5 @@ The functions are $1/4$ and $1/16$. Since the squared derivative is $1/16$, thei
 Residual plots should be read against the specified conditional mean and variance. Discrete responses produce lattice patterns even under a correct mean; continuously measured proportions have a different geometry. Changing the variance function to address a residual pattern also changes weighting and coefficient precision, so fitted contrasts should be recalculated.{{cite:guan_gutierrez2002_glm}} (§§1–2, pp. 378–380)
 
 A quasi-likelihood specifies enough mean–variance structure for an estimating equation without necessarily specifying a full response distribution. It does not by itself provide a mechanism for generating new observations or a normalized likelihood for arbitrary model comparisons. The adequacy of the scientific sampling assumptions and the finite-sample calibration of tests remain separate questions.{{cite:guan_gutierrez2002_glm}} (§2, p. 380)
+
+The displayed fits describe the mean proportion and a dispersion estimate for these plots. They do not supply a joint distribution from which new leaf measurements could be drawn.

@@ -21,4 +21,8 @@ x=np.array([1.,2.,8.,9.]);y=np.array([4.,5.,5.,6.]);near(x.mean(),5);near(y.mean
 xp=((x-x.mean())**2/x.mean()).sum();yp=((y-y.mean())**2/y.mean()).sum()
 printed(xp);printed(yp);printed(xp/3,6);printed(yp/3,6);printed(math.sqrt(xp/3),6);printed(2.4/math.sqrt(xp/3),6);printed(xp/2)
 near(4**.5,2)
+
+# Same squared deviations, gamma variance function mu**2.
+dev=np.array([16.,9.,9.,16.]); near(dev.sum()/25,2); near(dev.sum()/25/3,2/3); near(10/4,2.5)
+printed(2,3); printed(2/3,6); printed(2.5,3)
 print("pearson-dispersion-ratio:", checks, "numerical and rendered-value checks passed")

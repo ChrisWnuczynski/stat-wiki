@@ -223,9 +223,6 @@ jobs:
       - name: Test citations
         run: python -m unittest test_citations.py
 
-      - name: Test reviewed article source overrides
-        run: python -m unittest test_research_source_corrections.py
-
       - name: Test the graph
         run: python -m unittest test_wiki_graph.py
 

@@ -19,6 +19,13 @@ assert 4*3**2==36
 x=np.array([0,2,1,4,1,0,3]);assert x.sum()==11 and np.isclose(x.mean(),11/7)
 assert np.isfinite(math.exp(-x.mean())*math.sqrt(x.mean()/len(x)))
 
+# Deepened research calculations.
+import math
+assert 9*2**2 == 36
+assert 4*3**2 == 36
+assert f"{math.exp(-2):.6f}" == "0.135335"
+assert f"{math.exp(-2)*math.sqrt(2/100):.6f}" == "0.019139"
+
 text = (ROOT / "articles" / "delta-method.qmd").read_text(encoding="utf-8")
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text

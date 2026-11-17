@@ -27,3 +27,24 @@ The no-arrival probability $p_0(t)=e^{-\lambda t}$ is also the survival probabil
 
 ## Assumptions and limits
 A constant mean rate by itself does not establish a Poisson process. Bursty arrivals can violate the short-interval multiple-arrival condition or independent increments. A deterministic time-varying rate replaces $\lambda$ by $\lambda(t)$ in the forward equations and its cumulative integral in the Poisson mean; a rate depending on the current state describes a different birth process. The displayed system concerns the homogeneous unit-jump model.{{cite:durrett2012_essentials}} (§2.2, definition of the Poisson process)
+
+## Lead context
+A Poisson process is a counting model with a constant rate and independent increments. The forward equations describe how the probability of each count changes as the observation window grows.
+
+Probability of count $n$ increases when an arrival occurs in count $n-1$, and it decreases when an arrival occurs in count $n$. Solving the system recovers the familiar Poisson probabilities, and those probabilities can be read either as statements about counts or as statements about waiting times.{{cite:durrett2012_essentials}} (§2.2, pp. 80–83)
+
+## Intuition
+Fix a short extra interval of length $h$. The chance of no arrival in that interval is about $1-\lambda h$, the chance of one arrival is about $\lambda h$, and the chance of two or more is much smaller than $h$. Count $n$ at the later time is therefore reached in two ordinary ways: the process was already at $n$ and nothing arrived, or it was at $n-1$ and one arrival occurred. Subtracting the probability at the earlier time, dividing by $h$, and letting $h$ shrink leaves the derivative $\lambda p_{n-1}-\lambda p_n$. The index $n-1$ appears because the process only jumps upward. A term in $p_{n+1}$ would describe a downward jump, which this model does not have.{{cite:durrett2012_essentials}} (§4.2, eq. 4.9–4.11, pp. 124–125)
+
+## Definition
+Let $p_n(t)=P\{N(t)=n\}$ for $n=0,1,2,\ldots$, with $p_{-1}=0$. The homogeneous Poisson process of rate $\lambda>0$ satisfies
+$$
+p_0'(t)=-\lambda p_0(t),\qquad p_n'(t)=\lambda p_{n-1}(t)-\lambda p_n(t)\quad(n\ge 1),
+$$
+together with $p_0(0)=1$ and $p_n(0)=0$ for $n\ge 1$. The unique solution is $p_n(t)=e^{-\lambda t}(\lambda t)^n/n!$. At rate one and time one, $p_0=p_1=e^{-1}\approx 0.36788$. Their derivatives are $p_0'=-e^{-1}$ and $p_1'=0$. The probability of exactly one arrival is instantaneously flat, while the probability of zero arrivals is still falling. Flatness of one coordinate is a balance of flows, not a frozen sample path.{{cite:durrett2012_essentials}} (§2.2, thm. 2.3, p. 81)
+
+## Interpretation
+The equation $p_n'=\lambda(p_{n-1}-p_n)$ separates an inflow from the count below and an outflow to the count above. If $p_n$ is larger than $p_{n-1}$, the derivative is negative and probability is leaving $n$. If $p_n$ is smaller, probability is arriving. At rate two and time one, $p_2'=0$ because $p_1=p_2$, so the two flows match at that instant. Individual paths still jump from $2$ to $3$ at rate two; other paths jump from $1$ to $2$ at the same total rate of probability. The generating function $G(z,t)=e^{\lambda t(z-1)}$ packages every coordinate. Differentiating it at $z=1$ gives mean $\lambda t$ and second factorial moment $(\lambda t)^2$, hence variance $\lambda t$. Equal mean and variance are consequences of this solution. They do not, by themselves, prove independent increments.{{cite:durrett2012_essentials}} (§4.2, ex. 4.7, p. 125)
+
+## Statistical use
+The forward equations are a way to derive the sampling distribution used for a Poisson count. If a desk has rate four arrivals per hour, a fifteen-minute window has mean one, and the probability of an empty window is $e^{-1}$. That numerical probability is $p_0(1/4)$ for rate four, or equivalently $p_0(1)$ for rate one on a rescaled clock. The same solution converts a waiting-time question into a count question: the first arrival is later than $t$ exactly when $N(t)=0$, so its survival probability is $e^{-\lambda t}$. A rate estimated from several windows should be paired with the exposure that the equations use. Changing the window changes $\lambda t$ even when the underlying rate is constant.{{cite:siegrist2020_poisson_process}} (§14.1, random processes and arrival-count relationship){{cite:durrett2012_essentials}} (§2.2, lem. 2.2, pp. 80–81)

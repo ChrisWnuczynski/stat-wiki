@@ -32,3 +32,5 @@ Their intersection is the single outcome $HT$, so its probability is $1/4$. Both
 For mutually independent component failures with probability $q$, a pair fails together with probability $q^2$, and two independent such pairs both avoid total failure with probability $(1-q^2)^2$. The algebra is useful only after identifying which component events and groups are independent. Dependence caused by a shared environment is a change to the probability model, even when the marginal rate $q$ is unchanged.{{cite:durrett2019}} (§2.1, thm. 2.1.10, pp. 47–48)
 
 Independence also simplifies repeated-trial likelihoods into products. Drawing with replacement from a stable population can motivate such a model; drawing without replacement from a finite collection generally changes later conditional probabilities. The dependence can be checked by comparing a conditional probability with its marginal rather than appealing to the physical act of making two draws.{{cite:dodge2008}} (pp. 255–256)
+
+Pairwise products can all hold while the probability of the triple intersection is twice the product of the three separate probabilities, as in the two-coin agreement example.

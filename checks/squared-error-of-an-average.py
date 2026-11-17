@@ -31,4 +31,9 @@ for values,target in [([3,7],4),([6,6],4),([6,6,6],5)]:
 f=np.array([3.,7.]);y=4.;near(f.mean(),5);near((f.mean()-y)**2,1);near(np.mean((f-y)**2),5);near(np.mean((f-f.mean())**2),4)
 f=np.array([6.,6.]);near(np.var(f),0);near((f.mean()-y)**2,4)
 
+
+# Four predictions whose average hits the outcome.
+g=np.array([2.,2.,2.,6.]); yy=3.
+near((g.mean()-yy)**2,0); near(np.mean((g-yy)**2),3); near(np.mean((g-g.mean())**2),3)
+printed(3,3)
 print("squared-error-of-an-average:", checks, "numerical and rendered-value checks passed")

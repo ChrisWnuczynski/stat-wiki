@@ -35,3 +35,5 @@ For unequal covariance matrices, estimate the mean-difference covariance by $S_1
 
 ## Statistical use — Numerical stability and dimension
 Solve $Sv=d$ and compute $k\,d^Tv$ instead of explicitly forming an inverse in numerical code. Check that the pooled matrix has sufficient rank: its rank is at most $N-2$, and exact calibration needs $N-p-1>0$. A regularised or pseudoinverse statistic may be useful in higher dimensions, but its reference law must be established for that procedure.{{cite:ackermann_strimmer2009_genesets}} (Appendix, dimension reduction and covariance regularisation)
+
+When the pooled covariance is singular, the quadratic form in the mean difference is not defined through the usual inverse, and the F calibration used for a full-rank difference no longer applies.

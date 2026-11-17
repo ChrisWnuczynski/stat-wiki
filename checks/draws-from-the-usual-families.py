@@ -15,6 +15,14 @@ u,v=.25,.125;r=math.sqrt(-2*math.log(u));z1=r*math.cos(2*math.pi*v);z2=r*math.si
 assert abs(z1*z1+z2*z2+2*math.log(u))<1e-12
 printed=['0.693147','0.346574','7/10']
 
+# Deepened research calculations.
+import math
+ratio = math.log(0.5)/math.log(0.75)
+assert f"{ratio:.6f}" == "2.409421"
+assert math.floor(ratio)+1 == 3
+thresholds = [0.1, 0.3, 1.0]
+assert 0.1 < 0.25 < 0.3
+
 article=(ROOT/"articles"/"draws-from-the-usual-families.qmd").read_text()
 for token in printed:
     assert token in article,("draws-from-the-usual-families",token)

@@ -10,6 +10,13 @@ assert [sum(u[i]*C[i][j] for i in range(3)) for j in range(3)]==u
 assert u[0]*C[0][1]!=u[1]*C[1][0]
 printed=['1/6','2/3','3/4']
 
+# Deepened research calculations.
+from fractions import Fraction as F
+assert F(1,4)*F(1,3) == F(1, 12)
+assert F(1,12)/F(3,4) == F(1, 9)
+assert 1 - F(1,3) == F(2, 3)
+assert 1 - F(1,9) == F(8, 9)
+
 article=(ROOT/"articles"/"detailed-balance-implies-stationarity.qmd").read_text()
 for token in printed:
     assert token in article,("detailed-balance-implies-stationarity",token)

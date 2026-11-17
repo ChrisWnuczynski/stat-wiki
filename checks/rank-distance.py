@@ -17,6 +17,13 @@ for transform in [lambda a:100*a,lambda a:-a,lambda a:a**3]:
  rt=np.column_stack([rankdata(transform(x[:,j])) for j in range(2)])
  assert np.array_equal(np.abs(rt[:-1]-rt[-1]).max(axis=1),[2,2,1])
 
+# Deepened research calculations.
+assert max(4, 1) == 4 and 4+1 == 5
+assert max(3, 3) == 3 and 3+3 == 6
+assert max(5, 2) == 5 and 5+2 == 7
+assert max(6, 0) == 6 and 6+0 == 6
+assert abs((7-1)-(7-4)) == abs(1-4)
+
 text = (ROOT / "articles" / "rank-distance.qmd").read_text(encoding="utf-8")
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text

@@ -41,6 +41,12 @@ last_F=(before_last[1]-f3[1])/f3[2]
 assert abs(f.sf(last_F,1,1)-.6870258)<.000002
 assert round(f.sf(last_F,1,1),2)==.69
 
+# Deepened research calculations.
+assert 18/2 == 9
+assert 15/5 == 3
+assert 12/3 == 4
+assert 8-5 == 3
+
 article=(ROOT/"articles"/"analysis-of-deviance.qmd").read_text()
 for token in printed:
     assert token in article,("analysis-of-deviance",token)

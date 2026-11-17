@@ -1719,7 +1719,7 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                  "normal-normal-conjugacy", "normal-inverse-gamma-variance-update",
                  "marginal-student-posterior", "marginal-hyperposterior",
                  "posterior-prediction-under-the-reference-prior", "study-rate-full-conditional")
-        prohibited = {"tokdar2018_dirichlet", "forssen_ekstrom2026", "hoff2013_bayes_estimators",
+        prohibited = {"forssen_ekstrom2026", "hoff2013_bayes_estimators",
                       "wang2025_foundations", "kulich2022_regression", "ng_cs229_em2006"}
         for slug in slugs:
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8").split("## See also", 1)[0]
@@ -1747,17 +1747,9 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 expected_keys.difference_update({"efron_morris1975", "lindley_smith1972", "gelman_bda2013"})
                 self.assertTrue({"lancaster2004_bayesian_econometrics", "casella1985_empirical_bayes", "deligiannidis2022_foundations"} <= citation_keys, slug)
             if slug == "normal-normal-conjugacy":
-                expected_keys.difference_update({"box_tiao1973", "gelman_bda2013", "raiffa_schlaifer1961"})
-                self.assertTrue({"goodfellow_bengio_courville2016", "gelman2006"} <= citation_keys, slug)
-            if slug == "normal-inverse-gamma-variance-update":
-                expected_keys.difference_update({"box_tiao1973", "gelman_bda2013", "raiffa_schlaifer1961"})
-                self.assertTrue({"ng_tian_tang2011_dirichlet", "gelman2006"} <= citation_keys, slug)
-            if slug == "marginal-student-posterior":
-                expected_keys.difference_update({"box_tiao1973", "gelman_bda2013", "jeffreys1961"})
-                self.assertTrue({"bernardo2005_reference", "dodge2008"} <= citation_keys, slug)
-            if slug == "marginal-hyperposterior":
-                expected_keys.difference_update({"gelman_bda2013", "raiffa_schlaifer1961"})
-                self.assertTrue({"ng_tian_tang2011_dirichlet", "blei_ng_jordan2003"} <= citation_keys, slug)
+                expected_keys.discard("box_tiao1973")
+                self.assertIn("gelman_bda2013", citation_keys, slug)
+                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
             if slug == "normal-inverse-gamma-conjugacy":
                 expected_keys.discard("zellner1986")
                 self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
@@ -1792,9 +1784,10 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 expected_keys.difference_update({"raiffa_schlaifer1961", "dirichlet1839"})
                 self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "posterior-prediction-under-the-reference-prior":
-                # Require the inspected handbook derivation and Gaussian-process text.
-                expected_keys.difference_update({"jeffreys1961", "gelman_bda2013", "box_tiao1973"})
-                self.assertTrue({"bernardo2005_reference", "rasmussen_williams2006"} <= citation_keys, slug)
+                # The Gaussian predictive derivation is given explicitly and
+                # continues to cite its two substantive Bayesian sources.
+                expected_keys.discard("jeffreys1961")
+                self.assertTrue({"gelman_bda2013", "box_tiao1973"} <= citation_keys, slug)
             if slug == "predictive-variance-decomposition":
                 # The opened Bayesian text states the total-variance identity
                 # used here in place of two uninspected older references.
@@ -1809,16 +1802,19 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # Require the verified, located replacement works for this result.
                 self.assertTrue({"blei_ng_jordan2003", "deisenroth_faisal_ong2020"} <= citation_keys, slug)
             if slug == "interior-dirichlet-mode":
-                # Require the inspected Dirichlet monograph and published LDA paper.
-                expected_keys.difference_update({"gelman_bda2013", "raiffa_schlaifer1961"})
-                self.assertTrue({"ng_tian_tang2011_dirichlet", "blei_ng_jordan2003"} <= citation_keys, slug)
+                # The opened Gelman and Tokdar derivations replace an
+                # inherited bibliography-only reference.
+                expected_keys.discard("raiffa_schlaifer1961")
+                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
             if slug == "sequential-coherence":
                 # Require the verified, located replacement works for this result.
                 self.assertTrue({"dodge2008", "siegrist2022_bayes_estimators"} <= citation_keys, slug)
             if slug == "log-partition-moment-identities":
-                # Require the inspected exponential-family monograph and GLM paper.
-                expected_keys.difference_update({"lehmann_casella1998", "mccullagh_nelder1989", "diaconis_ylvisaker1979", "geyer2022_exp_family"})
-                self.assertTrue({"wainwright_jordan2008", "nelder_wedderburn1972"} <= citation_keys, slug)
+                # Replace two unopened textbooks in the shared proposition
+                # with an opened, located original-paper derivation.
+                expected_keys.difference_update({"lehmann_casella1998", "mccullagh_nelder1989"})
+                expected_keys.discard("geyer2022_exp_family")
+                self.assertIn("diaconis_ylvisaker1979", citation_keys, slug)
             if slug == "generic-exponential-family-conjugate-update":
                 # The shared update now cites the opened original paper and
                 # the authors' full textbook in place of a publisher record.
@@ -1835,9 +1831,11 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 self.assertIn("deligiannidis2022_foundations", citation_keys)
                 self.assertIn("(§9.4, pp. 55–57)", body)
             if slug == "study-rate-full-conditional":
-                # Require the inspected conditional-conjugacy paper and beta derivation.
-                expected_keys.difference_update({"lindley_smith1972", "gelman_bda2013"})
-                self.assertTrue({"gelman2006", "downey2020_thinkbayes2", "dodge2008"} <= citation_keys, slug)
+                # Lindley–Smith treats normal hierarchy, not the beta update;
+                # the opened BDA3 chapter states this conditional directly.
+                expected_keys.discard("lindley_smith1972")
+                self.assertIn("gelman_bda2013", citation_keys)
+                self.assertIn("(Ch. 5, §5.3, pp. 108–109)", body)
             self.assertTrue(expected_keys <= citation_keys, slug)
             self.assertTrue(set(old["question_links"]) <= set(re.findall(r'\.\./questions/[^)#]+\.qmd', body)), slug)
             self.assertTrue(set(old["example_headings"]) <= set(re.findall(r'^### [^\n]+\{#example-[^}]+\}', body, re.M)), slug)

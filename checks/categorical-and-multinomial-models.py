@@ -16,6 +16,12 @@ assert [F(t,7) for t in [3,2,2]]==[F(3,7),F(2,7),F(2,7)]
 assert F(3,8)==F(2+1,7+1) and F(1,7)==F(0+1,4+3)
 printed=['1/6','-2/3','3/7','3/8']
 
+# Deepened research calculations.
+assert 6 - (1+2+0) == 3
+assert 5 - (2+0+1) == 2
+assert 1/(4+1+1) == 1/6
+assert 1/(5+1+1) == 1/7
+
 article=(ROOT/"articles"/"categorical-and-multinomial-models.qmd").read_text()
 for token in printed:
     assert token in article,("categorical-and-multinomial-models",token)

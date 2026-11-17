@@ -14,6 +14,15 @@ for C in [.25,.5,1,2,10]:
  assert abs(z-(2*C-C*C if C<=1 else 1))<1e-12
 printed=['9/16','7/16','1/100']
 
+# Deepened research calculations.
+from fractions import Fraction as F
+assert 2*F(1,2)-F(1,2)**2 == F(3,4)
+assert 1-F(3,4) == F(1,4)
+assert 2*F(1,4)-F(1,4)**2 == F(7,16)
+assert 1-F(6,8) == F(1,4)
+assert 1-F(4,5) == F(1,5)
+assert F(6,40) == F(3,20)
+
 article=(ROOT/"articles"/"a-proper-approximation-to-the-flat-prior.qmd").read_text()
 for token in printed:
     assert token in article,("a-proper-approximation-to-the-flat-prior",token)

@@ -37,3 +37,5 @@ Choosing a needlessly large $\gamma$ increases the expected number of clock even
 
 ## Assumptions and limits
 Finite-state chains always have bounded exit rates. An infinite chain with unbounded exit rates has no single finite dominating clock of this form. Questions of explosion and infinite-dimensional operator convergence then need additional arguments. Even in finite dimensions, for very large $\gamma t$ direct factorial arithmetic can overflow or underflow; evaluating Poisson weights recursively or around their mode is a numerical issue separate from the exact mixture identity.
+
+The dominating Poisson clock is a device for writing the chain as a discrete skeleton observed at event times. It is not an extra physical process that has to be measured in the field.

@@ -33,4 +33,9 @@ close([4**-2,2**-2],[1/16,1/4])
 # Gamma shape-two concentration follows from two iid exponentials by a Jacobian t.
 close(integrate.quad(lambda t:t*np.exp(-t),0,np.inf)[0],1)
 shown('0.41421','1/16','1/8','1/4')
+
+# Logarithmic change of variables on (2,6).
+close(integrate.quad(lambda u: math.exp(u)/4, math.log(2), math.log(6))[0],1)
+close(math.log(3)/4,0.274653072167,1e-9)
+shown('0.274653')
 finish()

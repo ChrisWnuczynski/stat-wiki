@@ -32,3 +32,5 @@ Always report the number of nonmissing observations used. A standard deviation c
 
 ## Connections — Why the variance divisor is one smaller
 For iid observations with mean $\mu$ and finite variance $\sigma^2$, the identity $\sum_i(X_i-\bar X)^2=\sum_i(X_i-\mu)^2-n(\bar X-\mu)^2$ separates deviations around the estimated and population means. Its expectation is $n\sigma^2-n(\sigma^2/n)=(n-1)\sigma^2$. Dividing by $n-1$ therefore gives an unbiased sample variance. The square root does not preserve unbiasedness, so the sample standard deviation need not be an unbiased estimator of $\sigma$. This argument depends on the iid sampling variance of the mean; correlated observations require a different calculation.
+
+For independent observations with a finite variance, the divisor n minus 1 estimates that variance, while the divisor n estimates the mean squared deviation from the sample mean and is smaller by the factor (n-1)/n. Quoting one divisor without the other hides which of those two targets was estimated.

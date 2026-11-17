@@ -34,4 +34,8 @@ near(x.mean(),107);near(np.sum((x-x.mean())**2),2518)
 printed(b[0],3);printed(b[1],5);printed(S,4);printed(se[1],5);printed(se[0],3)
 for endpoint in b[1]+stats.t.ppf([.025,.975],17)*se[1]:printed(endpoint,4)
 printed(b[1]/se[1],1)
+
+# Three-unit change reuses the slope standard error.
+se=0.7/math.sqrt(17.5)
+printed(3*se,6); near(3*se,0.5019960159204452)
 print("slope-t-pivot:", checks, "numerical and rendered-value checks passed")

@@ -32,3 +32,5 @@ The matching two-sided tests reject $2$ and $5$ and do not reject $3$. The confi
 A Wald interval and a score test for a proportion need not agree because they use different standard errors. Inverting the score inequality gives a score interval, while inverting equal-tail exact binomial tests gives a corresponding exact interval. The word “matching” carries mathematical content: choosing two familiar procedures with nominal levels $0.05$ and $0.95$ is insufficient.
 
 Failure to reject a null value does not establish that the value is true. A wide interval can contain both negligible and practically important effects. Conversely, a narrow interval can exclude zero while containing only small effects. State the effect scale and a scientifically meaningful tolerance so that precision and practical importance can be assessed separately.{{cite:openintro2019}} (§5.3, practical versus statistical significance)
+
+An interval that just includes the null value and an interval that lies far from it can share one decision at a fixed level while describing very different sets of compatible parameters.

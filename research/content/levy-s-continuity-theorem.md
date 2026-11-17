@@ -34,3 +34,5 @@ Its characteristic function is $\cos(t/n)$, which tends to one at every fixed $t
 If $X_n\sim N(0,n)$, then $\varphi_n(t)=e^{-nt^2/2}$. It tends to zero for every nonzero $t$ and remains one at zero. The limiting function is discontinuous there. The variances spread the laws over increasing distances; their distribution functions tend to $1/2$ at each finite point, which is not a distribution function on the real line. Pointwise transform convergence alone therefore does not provide weak convergence.{{cite:durrett2019}} (§3.3.2, remark following thm. 3.3.17)
 
 Even a valid weak limit does not imply convergence of expected values of unbounded functions. Such moment conclusions need additional tail control, for example uniform integrability. The continuity theorem addresses convergence of laws and should be used at that level unless stronger conditions are supplied.
+
+Pointwise convergence of characteristic functions, together with continuity of the limit at the origin, is the hypothesis the theorem uses. Convergence of densities is a stronger conclusion and is not part of that hypothesis.

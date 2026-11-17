@@ -34,4 +34,13 @@ assert sp.diff(l,l,2)==0
 v=sp.symbols('v',positive=True)
 assert sp.diff(sp.log(2*sp.pi*v)/2,v,2)==-1/(2*v**2)
 shown('0.22404','0.13534','\\log4','\\log3')
+
+# Chain rule in the Poisson mean coordinate, and the Bernoulli variance.
+eta,lam=sp.symbols('eta lam',positive=True)
+A=sp.exp(eta)
+assert sp.simplify(sp.diff(A.subs(eta,sp.log(lam)),lam,2))==0
+B=sp.log(1+sp.exp(eta))
+assert sp.simplify(sp.diff(B,eta,2)-sp.exp(eta)/(1+sp.exp(eta))**2)==0
+assert sp.diff(sp.log(2*sp.pi*v)/2,v,2).subs(v,4)==-sp.Rational(1,32)
+shown('0.03125','0.1875')
 finish()

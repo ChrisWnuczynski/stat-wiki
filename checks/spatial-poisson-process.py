@@ -23,4 +23,8 @@ u=lam*math.pi*.5**2
 for v in [u,math.exp(-u),1-math.exp(-u),math.sqrt(math.log(2)/(lam*math.pi)),1/math.sqrt(2),math.sqrt(math.log(2)/(4*math.pi))]:printed(v,6)
 near(math.exp(-lam*math.pi*(math.sqrt(math.log(2)/(lam*math.pi)))**2),.5)
 for q in [.2,.7]:near(math.exp(mean*((1-q+q*.8)-1)),math.exp(mean*q*(.8-1)))
+
+# Overlapping windows share the intensity of their intersection.
+printed(1/math.sqrt(24),6)
+near(2*0.5,1); near(1/math.sqrt(4*6),1/math.sqrt(24))
 print("spatial-poisson-process:", checks, "numerical and rendered-value checks passed")

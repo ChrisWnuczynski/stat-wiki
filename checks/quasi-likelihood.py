@@ -33,9 +33,12 @@ r_home=os.environ.get('STATWIKI_R_HOME')
 R=os.path.join(r_home,'bin','exec','R') if r_home else None
 if not R or not os.path.isfile(R):R=shutil.which('R')
 assert R,'R required for the leaf-blotch fit'
+# Proportions from the faraway::leafblotch table, ordered by site then variety.
+# Embedded so the quasi-binomial refit does not need the faraway package.
+blotch=[0.0005, 0.0, 0.0, 0.001, 0.0025, 0.0005, 0.005, 0.013, 0.015, 0.015, 0.0, 0.0005, 0.0005, 0.003, 0.0075, 0.003, 0.03, 0.075, 0.01, 0.127, 0.0125, 0.0125, 0.025, 0.166, 0.025, 0.025, 0.0, 0.2, 0.375, 0.2625, 0.025, 0.005, 0.0001, 0.03, 0.025, 0.0001, 0.25, 0.55, 0.05, 0.4, 0.055, 0.01, 0.06, 0.011, 0.025, 0.08, 0.1658, 0.295, 0.2, 0.435, 0.01, 0.05, 0.05, 0.05, 0.05, 0.05, 0.1, 0.05, 0.5, 0.75, 0.05, 0.001, 0.05, 0.05, 0.5, 0.1, 0.5, 0.25, 0.5, 0.75, 0.05, 0.1, 0.05, 0.05, 0.25, 0.75, 0.5, 0.75, 0.75, 0.75, 0.175, 0.25, 0.425, 0.5, 0.375, 0.95, 0.625, 0.95, 0.95, 0.95]
 code=r"""
-p='/workspace/statwiki-sources/leafblotch.csv'
-if(file.exists(p)) d=read.csv(p) else {data(leafblotch,package='faraway');d=leafblotch}
+blotch<-c(BLOTCH)
+d<-data.frame(blotch=blotch,site=rep(1:9,each=10),variety=rep(1:10,9))
 stopifnot(nrow(d)==90,length(unique(d$site))==9,length(unique(d$variety))==10)
 a=glm(blotch~factor(site)+factor(variety),d,family=quasibinomial)
 sa=coef(summary(a));stopifnot(abs(summary(a)$dispersion-.08878094)<1e-7,abs(coef(a)[1]+8.0546)<1e-4,abs(sa['factor(variety)2',3]-.207)<.001)
@@ -44,7 +47,7 @@ v=quasi(link='logit',variance=list(varfun=function(mu)mu^2*(1-mu)^2,validmu=func
 b=glm(blotch~factor(site)+factor(variety),d,family=v);sb=coef(summary(b))[paste0('factor(variety)',2:10),]
 stopifnot(max(abs(sb[,1]-c(-.47,.08,.95,1.35,1.33,2.34,3.26,3.14,3.89)))<.005)
 stopifnot(max(abs(sb[,2]-.4686803))<1e-6,df.residual(b)==72)
-"""
+""".replace("BLOTCH",",".join(repr(float(v)) for v in blotch))
 subprocess.run([R,'--vanilla','--slave'],input=code,text=True,check=True)
 close((3**2-1.5*2-2**2)/(2*1.5*2**2),1/6)
 # Compare computed values with the worked example and hidden answer.

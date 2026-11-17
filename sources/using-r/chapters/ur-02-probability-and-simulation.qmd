@@ -41,13 +41,12 @@ The same four letters apply to every family R ships: `dpois`, `pbeta`, `qgamma`,
 `InsectSprays` records insect counts on agricultural units, each sprayed with one of six treatments. Restrict to sprays A and B. The observed contrast is the difference of mean counts. Under a null that says the spray labels are exchangeable, any reassignment of those labels to the same counts is as plausible as the observed assignment. The permutation test compares the observed difference with the differences obtained by shuffling the labels.{{cite:fisher1935_doe}}
 
 ```r
-sprays_ab <- datasets::InsectSprays |>
-  dplyr::filter(spray %in% c("A", "B")) |>
-  dplyr::mutate(spray = droplevels(spray))
+sprays_ab <- datasets::InsectSprays[datasets::InsectSprays$spray %in% c("A", "B"), ]
+sprays_ab$spray <- droplevels(sprays_ab$spray)
 observed <- with(sprays_ab, mean(count[spray == "A"]) - mean(count[spray == "B"]))
 
 set.seed(1)
-permuted <- purrr::map_dbl(seq_len(1999), function(i) {
+permuted <- replicate(1999, {
   label <- sample(sprays_ab$spray)
   mean(sprays_ab$count[label == "A"]) - mean(sprays_ab$count[label == "B"])
 })
@@ -55,7 +54,7 @@ p_mc <- (1 + sum(abs(permuted) >= abs(observed))) / (length(permuted) + 1)
 c(observed_mean_difference = observed, monte_carlo_p = p_mc)
 ```
 
-`droplevels` drops the unused spray labels so that a later formula does not keep empty levels. `sample` without a probability argument is a random permutation. Each of the 1999 shuffles is one draw from the null that the labels are exchangeable. `purrr::map_dbl` insists that every shuffle return one number. A shuffle that accidentally returned a vector would fail here, which is the right failure.
+`droplevels` drops the unused spray labels so that a later formula does not keep empty levels. `sample` without a probability argument is a random permutation. Each of the 1999 shuffles is one draw from the null that the labels are exchangeable. `replicate` collects one number from each shuffle.
 
 The `+ 1` in the numerator and the denominator counts the observed arrangement among the reference arrangements.{{cite:phipson_smyth2010}} Without it, a contrast more extreme than every shuffle would be reported as probability zero, which this Monte Carlo sample cannot justify. With it, the smallest attainable value is $1/2000$.
 

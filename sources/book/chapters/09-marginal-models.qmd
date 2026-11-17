@@ -57,7 +57,7 @@ summary(gaussian_ar)
 tensionM     -0.321     0.128       0.223
 tensionH     -0.518     0.136       0.064
 ```
-The scale estimate is $4.60$, far from $1$: these counts are more variable than a Poisson. The working correlation is about $0.021$. Low tension, the baseline, has fitted mean $\exp(3.594)\approx 36$ breaks. Medium tension multiplies that mean by $\exp(-0.321)=0.73$. High tension multiplies it by $\exp(-0.518)=0.60$. On the naive standard errors, medium tension is detected ($z=-2.51$). On the robust standard errors it is not ($z=-1.44$). High tension is detected either way, and the robust standard error is about half the naive one. The two columns disagree, which is evidence that the Poisson variance and the exchangeable correlation are not the truth. The robust column is the one that remains consistent if the mean is right.
+The scale estimate is $4.60$, far from $1$: these counts are more variable than a Poisson. The working correlation is about $0.021$. Low tension, the baseline, has fitted mean $\exp(3.594)\approx 36$ breaks. Medium tension multiplies that mean by $\exp(-0.321)=0.73$. High tension multiplies it by $\exp(-0.518)=0.60$. Dividing the medium coefficient by the naive or sandwich standard error gives $z=-2.51$ or $z=-1.44$. The high-tension sandwich standard error is about half its naive counterpart. With only two grouping labels, these ratios describe this fit. Disagreement between the two standard errors does not identify the true covariance.
 
 The looms were recorded in the order they came off the machine. Then exchangeable correlation is the wrong working model. An AR(1) working correlation sets
 $$
@@ -104,7 +104,7 @@ The working model here was independence: two separate `glm` fits, stacked. The s
 
 A joint confidence region for the two slopes is an ellipse, as in @fig-ellipse, not the rectangle obtained by crossing the two marginal intervals. A pair that is acceptable one slope at a time can sit outside the ellipse. The ellipse puts more of its mass on "age matters for both" and less on "age matters strongly for severity and not at all for death".
 
-A genuine bivariate Poisson, when a distribution is wanted rather than a working covariance, is usually built by sharing a third Poisson: $X_1=Y_1+Y_2$, $X_2=Y_2+Y_3$, with $Y_1,Y_2,Y_3$ independent Poissons. The margins are Poisson and the correlation is positive. A minus sign can produce a negative correlation and can also produce a negative count, which is not a Poisson margin. The estimating-equation model simply declares two Poisson margins and a correlation in $(-1,1)$, and does not claim that a joint distribution with those moments exists. That is the same descriptive licence as a quasi-likelihood.
+A genuine bivariate Poisson, when a distribution is wanted rather than a working covariance, is usually built by sharing a third Poisson: $X_1=Y_1+Y_2$, $X_2=Y_2+Y_3$, with $Y_1,Y_2,Y_3$ independent Poissons. The margins are Poisson and the correlation is positive. A minus sign can produce a negative correlation and can also produce a negative count, which is not a Poisson margin. The estimating-equation model simply declares two Poisson margins and a correlation in $(-1,1)$. A joint distribution with those moments need not exist. That is the same descriptive licence as a quasi-likelihood.
 
 The three plant species at a set of altitudes, where the association is an odds ratio rather than a correlation of two different kinds of measurement, are the next chapter.
 

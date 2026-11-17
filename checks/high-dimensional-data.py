@@ -23,6 +23,12 @@ assert 100-1==99 and 100-2==98
 assert 40+22==62 and 2000>62 and 2000*62==124000
 assert 5-(3-1)==3
 
+# Deepened research calculations.
+assert [v+0.5 for v in (4, 2, 0)] == [4.5, 2.5, 0.5]
+assert [v+0.2 for v in (3, 1, 0)] == [3.2, 1.2, 0.2]
+assert min(5, 15) == 5 and 15-5 == 10
+assert min(4, 12) == 4 and 12-4 == 8
+
 text = (ROOT / "articles" / "high-dimensional-data.qmd").read_text(encoding="utf-8")
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text

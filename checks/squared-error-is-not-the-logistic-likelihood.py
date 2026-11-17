@@ -36,4 +36,7 @@ for v in [-.99,-.99*.01*.99,-2*.99*.01*.99,-math.log(.01),.5*.99**2,-.1,-.018,.1
 near(2*.99*.01,.0198);near(.99*.01,.0099)
 p=sp.symbols('p',positive=True);q=sp.symbols('q',real=True)
 assert sp.expand(p*(1-q)**2+(1-p)*q**2-p*(1-p)-(q-p)**2)==0;checks+=1
+
+val=float(sp.diff((o-1)**2/2,z,2).subs(z,math.log(.01/.99)))
+near(val,-0.00950697,tol=1e-8); printed(val,6)
 print("squared-error-is-not-the-logistic-likelihood:", checks, "numerical and rendered-value checks passed")

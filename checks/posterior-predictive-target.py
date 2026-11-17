@@ -37,4 +37,12 @@ for value in [0.,4.]:
    printed(critical*scale,4)
    for endpoint in z@betahat+np.array([-1.,1.])*critical*scale:printed(endpoint,3)
 
+
+# Full beta-binomial masses, plug-in binomial masses, and the variance split.
+n_batch=4
+for pk in prob: printed(float(pk),6)
+for kk in range(n_batch+1): printed(float(stats.binom.pmf(kk,n_batch,mean)),6)
+e_var=n_batch*(mean-(var+mean**2)); v_mean=(n_batch**2)*var
+near(e_var+v_mean,float(prob@(k-n_batch*mean)**2))
+printed(e_var,6); printed(v_mean,6)
 print("posterior-predictive-target:", checks, "numerical and rendered-value checks passed")

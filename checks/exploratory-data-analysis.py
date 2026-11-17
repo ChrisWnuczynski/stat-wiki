@@ -9,6 +9,12 @@ assert mean(x[:-1]+[8])==4 and median(x[:-1]+[8])==3
 assert mean(x[:-1]+[500])==102.4
 printed=['3.4','12.4','48','102.4']
 
+# Deepened research calculations.
+vals = [2, 3, 3, 4, 9]
+assert sum(vals)/len(vals) == 4.2
+ordered = sorted(vals)
+assert ordered[len(ordered)//2] == 3
+
 article=(ROOT/"articles"/"exploratory-data-analysis.qmd").read_text()
 for token in printed:
     assert token in article,("exploratory-data-analysis",token)

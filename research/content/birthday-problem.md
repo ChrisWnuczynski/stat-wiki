@@ -38,3 +38,21 @@ The no-collision probability is $10\cdot9\cdot8\cdot7/10^4=0.504$, so the collis
 
 ## Assumptions and limits
 Uniformity and independence concern the generating mechanism. For independent but nonuniform birthdays with probabilities $p_d$, a given pair matches with probability $\sum_dp_d^2$, which is at least $1/m$ because $\sum_d(p_d-1/m)^2\ge0$. This proves that uniformity minimizes the pair-match probability; it does not by itself establish a formula for the probability of any collision. Dependence, such as twins entering together, changes the model more fundamentally. The usual birthday calculation explicitly assumes equally likely independent dates.{{cite:grinstead_snell1997}} (§3.1, ex. 3.3, p. 78)
+
+## Lead context
+The birthday calculation is a collision probability for independent uniform labels.
+
+With $365$ equally likely days, the chance that at least two people in a group share a birthday crosses one half at $23$ people. That event is not the event that someone matches a single specified person. Matching one host uses $22$ comparisons. A shared birthday anywhere in the group uses $\binom{23}{2}=253$ pairs. The two probabilities answer different questions, and the pair count has an expectation of its own.{{cite:dodge2008}} (p. 98, “Combination”)
+
+## Definition
+If $n$ independent draws are made from $m$ equally likely labels, and $n\le m$, the probability of at least one repeated label is
+$$
+1-\frac{m(m-1)\cdots(m-n+1)}{m^n}.
+$$
+For $n>m$ the probability is one, by the pigeonhole principle. The numerator of the complementary probability counts injections from people to labels. The probability that at least one of $22$ people matches a specified host, under the same uniform model, is $1-(364/365)^{22}\approx 0.0586$. Every comparison is with the host, so this is much smaller than the $0.507$ chance of some shared birthday among $23$ people.{{cite:grinstead_snell1997}} (§3.1, ex. 3.3, pp. 77–79)
+
+## Statistical use
+Linearity gives the expected number of matching pairs without finding the collision probability. There are $\binom{n}{2}$ pairs and each matches with probability $1/m$, so the expectation is $\binom{n}{2}/m$. At $n=23$ and $m=365$ this is $253/365\approx 0.693$. At $n=50$ it is $1225/365\approx 3.356$, which is larger than one. An expectation above one is possible because one outcome can contain several matching pairs. The collision probability cannot exceed one. The indicators are pairwise uncorrelated for uniform independent labels, but they are not mutually independent: if persons $1$ and $2$ match and persons $1$ and $3$ match, then persons $2$ and $3$ match as well. A binomial distribution for the pair count would match the mean and variance and still get the joint distribution wrong.{{cite:dodge2008}} (p. 98, combinations without repetition){{cite:grinstead_snell1997}} (§3.1, ex. 19, pp. 90–91)
+
+## Common misconceptions
+The square-root approximation $\exp\{-n(n-1)/(2m)\}$ is a guide to where the probability becomes appreciable. It is not a substitute for the product when a decision sits near one half. The product for $23$ people should be computed directly and compared with the approximation before the threshold is quoted. Nonuniform day probabilities make a given pair more likely to match, because $\sum_d p_d^2\ge 1/m$. That inequality does not by itself produce a closed form for the probability that some pair matches. Twins, seasonal birth patterns, and a $366$-day calendar all change the model. The classical one-half threshold is a statement about $365$ independent uniform days, not a fact about every human gathering.{{cite:grinstead_snell1997}} (§3.1, ex. 3.3, p. 78)

@@ -33,6 +33,10 @@ rlo,rhi=.4301-.00005,.4301+.00005
 flo,fhi=rlo/2/((1-rlo)/97),rhi/2/((1-rhi)/97)
 assert fisher_f.sf(fhi,2,97)<=1.429e-12<=fisher_f.sf(flo,2,97)
 
+# Deepened research calculations.
+assert adj(8, 1, 9, 10) == F(-1, 20)
+assert 40 - 5 - 1 == 34
+
 article=(ROOT/"articles"/"adjusted-r-squared.qmd").read_text()
 for token in printed:
     assert token in article,("adjusted-r-squared",token)

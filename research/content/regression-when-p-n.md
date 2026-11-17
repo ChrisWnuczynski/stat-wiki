@@ -35,3 +35,5 @@ The contribution is $u(\beta_1+\beta_2)$, so only the sum is identified from the
 
 ## Assumptions and limits
 A unique penalised estimate does not make unpenalised standard errors or classical coefficient tests valid. With exact interpolation the residual sum of squares can vanish while prediction error remains substantial. Validation must include the entire feature-selection and tuning process. High dimensionality also makes scientific interpretation depend heavily on structural assumptions such as sparsity, smoothness or small coefficient norm. Those assumptions should be stated with the model rather than hidden behind a successful numerical solve.
+
+A penalty can restore a unique coefficient vector when the unpenalised normal equations have many solutions, and the vector that is returned depends on the penalty that was chosen.

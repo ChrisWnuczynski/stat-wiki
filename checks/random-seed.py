@@ -27,4 +27,14 @@ assert states(0,4)==[0,1,6,7];checks+=1
 for v in [1/8,6/8,7/8,0/8]:printed(v)
 assert len(set(states(1,8)))==8;checks+=1
 for seed in range(8):assert len(set(states(seed,8)))==8;checks+=1
+
+# Modulus 7 splits into an orbit of length 6 and a fixed point.
+orbit=[1]
+s=1
+for _ in range(6):
+    s=(5*s+1)%7
+    orbit.append(s)
+assert orbit==[1,6,3,2,4,0,1]
+assert (5*5+1)%7==5
+checks += 2
 print("random-seed:", checks, "numerical and rendered-value checks passed")

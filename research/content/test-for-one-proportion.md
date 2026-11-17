@@ -33,3 +33,5 @@ The tail contains only $X=5$, with probability $(1/2)^5=1/32=0.03125$. The obser
 
 ## Assumptions and limits
 Independent people need not supply independent outcomes if they taste products together and influence one another. Repeated preferences from the same person also require a dependence model. Different success probabilities across trials produce a Poisson-binomial distribution rather than a binomial distribution. Optional stopping changes the sampling rule, so a fixed-$n$ tail calculation cannot automatically be reused after repeatedly inspecting accumulating responses. Define the trial, success event, alternative direction and stopping rule before interpreting a reported significance level.
+
+A p-value of 0.055 is an upper-tail probability under the stated null proportion. It is not the probability that this null proportion is the true one.

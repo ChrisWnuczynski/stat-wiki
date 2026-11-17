@@ -21,4 +21,7 @@ f=stats.beta(3,9)
 for v in [f.pdf(.25),f.cdf(.5),f.ppf(.5),*f.ppf([.025,.975]),f.sf(.5)]:printed(v,6)
 printed(f.mean());near(f.cdf(f.ppf(.5)),.5);near(f.cdf(.5)+f.sf(.5),1)
 for p in [.025,.5,.975]:near(f.cdf(f.ppf(p)),p)
+
+# Upper tail complements the displayed CDF.
+printed(1-stats.beta.cdf(.5,3,9),6)
 print("r-s-distribution-interface:", checks, "numerical and rendered-value checks passed")

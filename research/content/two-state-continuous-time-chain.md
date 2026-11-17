@@ -35,3 +35,5 @@ which approaches one half smoothly. For unequal rates the jump count is no longe
 
 ## Assumptions and limits
 The exponential spell distributions encode memorylessness: a working device's instantaneous failure rate does not depend on its age. Wear, repair quality and time-varying conditions can violate that assumption. If one rate vanishes, the destination state is absorbing and the limiting formula can be read directly with $c>0$. If both vanish, the process never moves, $Q=0$, and every initial distribution is stationary; the positive-rate stationary formula then has no meaning.
+
+Memorylessness is a property of the exponential holding time. A different holding-time law would make the chance of leaving depend on the time already spent in the state.

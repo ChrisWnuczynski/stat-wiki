@@ -24,4 +24,8 @@ printed(math.sqrt(C[1,1]),6);printed(2*math.sqrt(C[1,1]),6)
 u=x-x.mean();assert np.allclose(4*np.linalg.inv(np.column_stack([np.ones(5),u]).T@np.column_stack([np.ones(5),u])),np.diag([.8,.4]));checks+=1
 near(np.sum((np.array([1,1,3,5,5])-3)**2),16)
 near(np.array([1,3])@C@np.array([1,3]),.8)
+
+# Fitted-mean variance two units from the centre.
+near(4*(1/5+4/10),2.4)
+printed(2.4,3)
 print("sampling-distribution-of-the-regression-estimators:", checks, "numerical and rendered-value checks passed")

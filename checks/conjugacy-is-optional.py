@@ -22,6 +22,14 @@ mode=expit(minimize_scalar(lambda z:-(norm.logpdf(z,loc=1)-__import__('math').lo
 assert abs(mean-.6967)<.0001 and abs(mode-.84)<.01
 printed=['45/56','0.803571','7/15']
 
+# Deepened research calculations.
+from fractions import Fraction as F
+assert F(1,2)*F(1,3) + F(1,2)*F(3,5) == F(7, 15)
+assert F(9, 2)*F(2, 9) == 1
+assert F(2, 7) == F(2, 2+5)
+assert F(3, 11) == F(3, 3+8)
+assert F(3, 5) == F(3, 3+2)
+
 article=(ROOT/"articles"/"conjugacy-is-optional.qmd").read_text()
 for token in printed:
     assert token in article,("conjugacy-is-optional",token)
