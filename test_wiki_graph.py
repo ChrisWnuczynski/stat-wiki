@@ -1268,7 +1268,7 @@ class ConceptTemplateTests(unittest.TestCase):
         }
         singular_endings = ("analysis", "process", "class", "loss", "bias", "statistics", "series",
                             "squares", "synthesis", "basis", "hypothesis", "status", "radius",
-                            "calculus", "cross", "ness", "gas", "is")
+                            "calculus", "cross", "ness", "gas", "is", "analytics", "econometrics", "chemometrics", "congress")
         for slug, page in pages.items():
             info = build_wiki.ARTICLE_LEADS[slug]
             body = page.read_text(encoding="utf-8")
@@ -1288,6 +1288,29 @@ class ConceptTemplateTests(unittest.TestCase):
             if last.endswith("s") and not last.endswith(singular_endings) and slug not in singular_suffix_exceptions:
                 self.assertIn(info["verb"], {"are", "describe"}, slug)
             self.assertNotRegex(lead, r"\*\*[^*]+\*\* is (?:is|are)\b", slug)
+
+    def test_new_pages_do_not_share_one_heading_skeleton(self) -> None:
+        """No single heading list covers more than a quarter of the pages added after the first fundamentals set."""
+        original = {
+            "data", "dataset", "variable", "levels-of-measurement", "population", "census",
+            "sample", "parameter", "sampling-distribution", "line-chart",
+        }
+        counts = {}
+        total = 0
+        for path in (build_wiki.WIKI / "research" / "content").glob("*.md"):
+            if path.stem in original or path.stem == "what-is-statistics":
+                continue
+            if path.stem not in build_wiki.ARTICLE_LEADS:
+                continue
+            text = path.read_text(encoding="utf-8")
+            headings = tuple(re.findall(r"^## ([^\n—]+)", text, flags=re.M))
+            headings = tuple(item.strip() for item in headings)
+            counts[headings] = counts.get(headings, 0) + 1
+            total += 1
+        self.assertGreater(total, 100)
+        limit = total * 0.25
+        for headings, count in counts.items():
+            self.assertLessEqual(count, limit, headings)
 
     def test_lead_descriptions_are_specific(self) -> None:
         placeholder = re.compile(

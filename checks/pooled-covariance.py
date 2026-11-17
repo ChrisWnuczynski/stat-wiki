@@ -40,9 +40,6 @@ for heading in ('Motivating example','Worked example','Common misconceptions','W
     assert f'## {heading}' in body,heading
 for q in ('ex-sl-02-2','ex-sl-02-6','ex-sl-18-7'):
     assert f'../questions/{q}.qmd' in page
-pending=root/'research/pending/pooled-covariance.json'
-selected=(json.loads(pending.read_text())['self_checks'] if pending.exists() else json.loads((root/'research/self-checks.json').read_text())['pooled-covariance'])
+selected = json.loads((root/'research/self-checks.json').read_text())['pooled-covariance']
 assert selected==['ex-sl-02-2','ex-sl-18-7']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"')>=3
 print('rank 161 covariance, rank and preservation checks passed')

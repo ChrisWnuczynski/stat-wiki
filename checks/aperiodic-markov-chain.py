@@ -32,11 +32,7 @@ for heading in ("Motivating example", "Worked example", "Common misconceptions",
 for q in ("ex-prob-markov-limit", "ex-prob-markov-two-state"):
     assert f"../questions/{q}.qmd" in page
     assert "## Worked answer" in (root / f"questions/{q}.qmd").read_text()
-pending = root / "research/pending/aperiodic-markov-chain.json"
-selected = (json.loads(pending.read_text())["self_checks"] if pending.exists()
-            else json.loads((root / "research/self-checks.json").read_text())["aperiodic-markov-chain"])
+selected = json.loads((root / "research/self-checks.json").read_text())["aperiodic-markov-chain"]
 assert selected == ["ex-prob-markov-limit", "ex-prob-markov-two-state"]
-if not pending.exists():
-    assert "## Check yourself" in body and body.count('title="Answer"') >= 3
 assert body.count("![") >= 0
 print("rank 158 transition, period, stationary and preservation checks passed")

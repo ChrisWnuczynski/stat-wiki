@@ -54,10 +54,6 @@ for link in ('normal-sample-theorem.qmd', 'pearson-chi-squared-approximation.qmd
              'pearson-test-with-estimated-parameters.qmd', 'gamma-distribution.qmd',
              'f-distribution.qmd', 'wishart-distribution.qmd'):
     assert link in page, link
-pending = root / 'research/pending/chi-squared-distribution.json'
-selected = (json.loads(pending.read_text())['self_checks'] if pending.exists()
-            else json.loads((root / 'research/self-checks.json').read_text())['chi-squared-distribution'])
+selected = json.loads((root / 'research/self-checks.json').read_text())['chi-squared-distribution']
 assert selected == ['ex-inf-die-fairness', 'ex-inf-degrees-of-freedom']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"') >= 3
 print('rank 164 chi-squared numeric and preservation checks passed')

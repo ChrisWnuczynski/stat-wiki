@@ -10986,6 +10986,1199 @@
         "source": "crossref",
         "id": "10.1093/ije/dyh299"
       }
+    },
+    "krebs2021": {
+      "authors": [
+        "Krebs, C. J."
+      ],
+      "year": 2021,
+      "title": "Estimating Abundance and Density: Mark-Recapture Techniques",
+      "kind": "book",
+      "publisher": "Author's online chapter",
+      "url": "https://www.zoology.ubc.ca/~krebs/downloads/krebs_chapter_02_2021.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.zoology.ubc.ca/~krebs/downloads/krebs_chapter_02_2021.pdf"
+      }
+    },
+    "brittain2009": {
+      "authors": [
+        "Brittain, S.",
+        "Böhning, D."
+      ],
+      "year": 2009,
+      "title": "Estimators in capture–recapture studies with two sources",
+      "kind": "article",
+      "venue": "AStA Advances in Statistical Analysis",
+      "volume": "93",
+      "pages": "23–47",
+      "doi": "10.1007/s10182-008-0085-y",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s10182-008-0085-y"
+      }
+    },
+    "soa_glossary2022": {
+      "authors": [
+        "Society of Actuaries"
+      ],
+      "year": 2022,
+      "title": "Actuarial Glossary",
+      "kind": "book",
+      "publisher": "Society of Actuaries",
+      "url": "https://www.soa.org/globalassets/assets/files/edu/actuarial-glossary.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.soa.org/globalassets/assets/files/edu/actuarial-glossary.pdf"
+      }
+    },
+    "moultrie2013": {
+      "authors": [
+        "Moultrie, T. A.",
+        "Dorrington, R. E.",
+        "Hill, A. G.",
+        "Hill, K.",
+        "Timæus, I. M.",
+        "Zaba, B."
+      ],
+      "year": 2013,
+      "title": "Tools for Demographic Estimation",
+      "kind": "book",
+      "publisher": "International Union for the Scientific Study of Population",
+      "url": "https://demographicestimation.iussp.org/sites/default/files/2023-05/TDE_2013_2ndImpression_opt_0.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://demographicestimation.iussp.org/sites/default/files/2023-05/TDE_2013_2ndImpression_opt_0.pdf"
+      }
+    },
+    "agrawal_srikant1994": {
+      "authors": [
+        "Agrawal, R.",
+        "Srikant, R."
+      ],
+      "year": 1994,
+      "title": "Fast Algorithms for Mining Association Rules",
+      "kind": "incollection",
+      "venue": "Proceedings of the 20th International Conference on Very Large Data Bases",
+      "publisher": "Morgan Kaufmann",
+      "url": "https://rsrikant.com/papers/vldb94.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://rsrikant.com/papers/vldb94.pdf"
+      }
+    },
+    "feigelson2016": {
+      "authors": [
+        "Feigelson, E. D."
+      ],
+      "year": 2016,
+      "title": "The changing landscape of astrostatistics and astroinformatics",
+      "kind": "article",
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/1612.06238",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1612.06238"
+      }
+    },
+    "feigelson_babu2012": {
+      "authors": [
+        "Feigelson, E. D.",
+        "Babu, G. J."
+      ],
+      "year": 2012,
+      "title": "Statistical Methods for Astronomy",
+      "kind": "article",
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/1205.2064",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1205.2064"
+      }
+    },
+    "bonita2006": {
+      "authors": [
+        "Bonita, R.",
+        "Beaglehole, R.",
+        "Kjellström, T."
+      ],
+      "year": 2006,
+      "title": "Basic Epidemiology",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "World Health Organization",
+      "url": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y"
+      }
+    },
+    "vidgen2017": {
+      "authors": [
+        "Vidgen, R.",
+        "Shaw, S.",
+        "Grant, D. B."
+      ],
+      "year": 2017,
+      "title": "Management challenges in creating value from business analytics",
+      "kind": "article",
+      "venue": "European Journal of Operational Research",
+      "volume": "261",
+      "issue": "2",
+      "pages": "626–639",
+      "url": "https://eprints.bbk.ac.uk/id/eprint/19847/1/EJOR%20analytics%20value%20creation%20resub2%20Feb%202017%20FINAL.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://eprints.bbk.ac.uk/id/eprint/19847/1/EJOR%20analytics%20value%20creation%20resub2%20Feb%202017%20FINAL.pdf"
+      }
+    },
+    "nist_censoring2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.1.3.1 Censoring",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm"
+      }
+    },
+    "nist_kaplan2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.2.1.5 Kaplan–Meier",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section2/apr215.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section2/apr215.htm"
+      }
+    },
+    "nist_censoring_mle2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.4.1.2 Maximum likelihood estimation",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm"
+      }
+    },
+    "otto2024": {
+      "authors": [
+        "Otto, M."
+      ],
+      "year": 2024,
+      "title": "Chemometrics: Statistics and Computer Application in Analytical Chemistry",
+      "kind": "book",
+      "publisher": "Wiley-VCH",
+      "url": "https://application.wiley-vch.de/books/sample/352735266X_c01.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://application.wiley-vch.de/books/sample/352735266X_c01.pdf"
+      }
+    },
+    "sharma2023": {
+      "authors": [
+        "Sharma, V.",
+        "Sauzier, G.",
+        "Lewis, S. W."
+      ],
+      "year": 2023,
+      "title": "Introduction",
+      "kind": "incollection",
+      "venue": "Chemometric Methods in Forensic Science",
+      "publisher": "Royal Society of Chemistry",
+      "url": "https://books.rsc.org/books/edited-volume/2155/chapter/7823308/Introduction",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://books.rsc.org/books/edited-volume/2155/chapter/7823308/Introduction"
+      }
+    },
+    "nih_bistic2000": {
+      "authors": [
+        "National Institutes of Health"
+      ],
+      "year": 2000,
+      "title": "NIH Working Definition of Bioinformatics and Computational Biology",
+      "kind": "article",
+      "venue": "NIH Biomedical Information Science and Technology Initiative",
+      "url": "https://www.kennedykrieger.org/sites/default/files/library/documents/research/center-labs-cores/bioinformatics/bioinformatics-def.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.kennedykrieger.org/sites/default/files/library/documents/research/center-labs-cores/bioinformatics/bioinformatics-def.pdf"
+      }
+    },
+    "makalowski2018": {
+      "authors": [
+        "Makałowski, W.",
+        "Shabardina, V.",
+        "Makałowska, I."
+      ],
+      "year": 2018,
+      "title": "Bioinformatics",
+      "kind": "incollection",
+      "venue": "Encyclopedia of Life Sciences",
+      "publisher": "John Wiley & Sons",
+      "doi": "10.1002/9780470015902.a0005247.pub3",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/9780470015902.a0005247.pub3"
+      }
+    },
+    "haaijer1999": {
+      "authors": [
+        "Haaijer, M."
+      ],
+      "year": 1999,
+      "title": "Modeling conjoint choice experiments with the probit model",
+      "kind": "book",
+      "publisher": "University of Groningen",
+      "url": "https://pure.rug.nl/ws/files/9892550/c2.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pure.rug.nl/ws/files/9892550/c2.pdf"
+      }
+    },
+    "green1992_classic": {
+      "authors": [
+        "Green, P. E."
+      ],
+      "year": 1992,
+      "title": "Citation classic: Conjoint analysis in consumer research: issues and outlook",
+      "kind": "article",
+      "venue": "Current Contents",
+      "url": "https://garfield.library.upenn.edu/classics1992/A1992HK65700001.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://garfield.library.upenn.edu/classics1992/A1992HK65700001.pdf"
+      }
+    },
+    "nist_eda2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.1.1: What is EDA?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm"
+      }
+    },
+    "fayyad_piatetsky_smyth1996": {
+      "authors": [
+        "Fayyad, U.",
+        "Piatetsky-Shapiro, G.",
+        "Smyth, P."
+      ],
+      "year": 1996,
+      "title": "From Data Mining to Knowledge Discovery in Databases",
+      "kind": "article",
+      "venue": "AI Magazine",
+      "volume": "17",
+      "issue": "3",
+      "url": "https://ojs.aaai.org/aimagazine/index.php/aimagazine/article/view/1230",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://ojs.aaai.org/aimagazine/index.php/aimagazine/article/view/1230"
+      }
+    },
+    "cleveland2001": {
+      "authors": [
+        "Cleveland, W. S."
+      ],
+      "year": 2001,
+      "title": "Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics",
+      "kind": "article",
+      "venue": "International Statistical Review",
+      "volume": "69",
+      "issue": "1",
+      "pages": "21–26",
+      "doi": "10.1111/j.1751-5823.2001.tb00477.x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.1751-5823.2001.tb00477.x"
+      }
+    },
+    "donoho2015": {
+      "authors": [
+        "Donoho, D."
+      ],
+      "year": 2017,
+      "title": "50 Years of Data Science",
+      "kind": "article",
+      "venue": "Journal of Computational and Graphical Statistics",
+      "volume": "26",
+      "issue": "4",
+      "pages": "745–766",
+      "doi": "10.1080/10618600.2017.1384734",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/10618600.2017.1384734"
+      }
+    },
+    "wilkinson2016": {
+      "authors": [
+        "Wilkinson, M. D."
+      ],
+      "year": 2016,
+      "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+      "kind": "article",
+      "venue": "Scientific Data",
+      "volume": "3",
+      "pages": "160018",
+      "doi": "10.1038/sdata.2016.18",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1038/sdata.2016.18"
+      }
+    },
+    "nih_dms2020": {
+      "authors": [
+        "National Institutes of Health"
+      ],
+      "year": 2020,
+      "title": "Final NIH Policy for Data Management and Sharing",
+      "kind": "article",
+      "venue": "Federal Register",
+      "url": "https://www.federalregister.gov/documents/2020/10/30/2020-23674/final-nih-policy-for-data-management-and-sharing-and-supplemental-information",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.federalregister.gov/documents/2020/10/30/2020-23674/final-nih-policy-for-data-management-and-sharing-and-supplemental-information"
+      }
+    },
+    "dwork_roth2014": {
+      "authors": [
+        "Dwork, C.",
+        "Roth, A."
+      ],
+      "year": 2014,
+      "title": "The Algorithmic Foundations of Differential Privacy",
+      "kind": "book",
+      "publisher": "Now Publishers",
+      "doi": "10.1561/0400000042",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1561/0400000042"
+      }
+    },
+    "dwork2006": {
+      "authors": [
+        "Dwork, C."
+      ],
+      "year": 2006,
+      "title": "Differential Privacy",
+      "kind": "incollection",
+      "venue": "Automata, Languages and Programming, ICALP 2006",
+      "publisher": "Springer",
+      "pages": "1–12",
+      "doi": "10.1007/11787006_1",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/11787006_1"
+      }
+    },
+    "simpson1949": {
+      "authors": [
+        "Simpson, E. H."
+      ],
+      "year": 1949,
+      "title": "Measurement of Diversity",
+      "kind": "article",
+      "venue": "Nature",
+      "volume": "163",
+      "url": "https://people.wku.edu/charles.smith/biogeog/SIMP1949.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://people.wku.edu/charles.smith/biogeog/SIMP1949.pdf"
+      }
+    },
+    "peet1974": {
+      "authors": [
+        "Peet, R. K."
+      ],
+      "year": 1974,
+      "title": "The Measurement of Species Diversity",
+      "kind": "article",
+      "venue": "Annual Review of Ecology and Systematics",
+      "volume": "5",
+      "pages": "285–307",
+      "url": "https://www.sci.muni.cz/botany/nekola/foe/peet1974.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.sci.muni.cz/botany/nekola/foe/peet1974.pdf"
+      }
+    },
+    "nist_engineer_design2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §5.3 Choosing an experimental design",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri3.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri3.htm"
+      }
+    },
+    "nist_process_intro2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.1 Introduction",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc1.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc1.htm"
+      }
+    },
+    "un_fdes1984": {
+      "authors": [
+        "United Nations"
+      ],
+      "year": 1984,
+      "title": "A Framework for the Development of Environment Statistics",
+      "kind": "book",
+      "publisher": "United Nations",
+      "url": "https://unstats.un.org/unsd/publication/SeriesM/SeriesM_78e.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://unstats.un.org/unsd/publication/SeriesM/SeriesM_78e.pdf"
+      }
+    },
+    "diaz_ramos1996": {
+      "authors": [
+        "Diaz-Ramos, S.",
+        "Stevens, D. L.",
+        "Olsen, A. R."
+      ],
+      "year": 1996,
+      "title": "EMAP Statistical Methods Manual",
+      "kind": "book",
+      "publisher": "U.S. Environmental Protection Agency",
+      "url": "https://archive.epa.gov/nheerl/arm/web/pdf/intro.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://archive.epa.gov/nheerl/arm/web/pdf/intro.pdf"
+      }
+    },
+    "nist_confidence2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.1.4: What are confidence intervals?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm"
+      }
+    },
+    "nist_anova2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.3.1: One-way ANOVA overview",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc431.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc431.htm"
+      }
+    },
+    "mcmahan2017": {
+      "authors": [
+        "McMahan, H. B.",
+        "Moore, E.",
+        "Ramage, D.",
+        "Hampson, S.",
+        "Agüera y Arcas, B."
+      ],
+      "year": 2017,
+      "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+      "kind": "article",
+      "venue": "Proceedings of the 20th International Conference on Artificial Intelligence and Statistics",
+      "url": "https://arxiv.org/pdf/1602.05629",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1602.05629"
+      }
+    },
+    "li_sahu_talwalkar_smith2019": {
+      "authors": [
+        "Li, T.",
+        "Sahu, A. K.",
+        "Talwalkar, A.",
+        "Smith, V."
+      ],
+      "year": 2019,
+      "title": "Federated Learning: Challenges, Methods, and Future Directions",
+      "kind": "article",
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/1908.07873",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1908.07873"
+      }
+    },
+    "levi1854": {
+      "authors": [
+        "Levi, Leone"
+      ],
+      "year": 1854,
+      "title": "Resume of the Statistical Congress, held at Brussels, September 11th, 1853, for the Purpose of Introducing Unity in the Statistical Documents of all Countries",
+      "kind": "article",
+      "venue": "Journal of the Statistical Society of London",
+      "volume": "17",
+      "issue": "1",
+      "pages": "1–14",
+      "doi": "10.2307/2338350",
+      "verification": {
+        "source": "crossref",
+        "id": "10.2307/2338350"
+      }
+    },
+    "randeraad2011": {
+      "authors": [
+        "Randeraad, Nico"
+      ],
+      "year": 2011,
+      "title": "The International Statistical Congress (1853—1876): Knowledge Transfers and their Limits",
+      "kind": "article",
+      "venue": "European History Quarterly",
+      "volume": "41",
+      "issue": "1",
+      "pages": "50–65",
+      "doi": "10.1177/0265691410385759",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1177/0265691410385759"
+      }
+    },
+    "kerr1998": {
+      "authors": [
+        "Kerr, N. L."
+      ],
+      "year": 1998,
+      "title": "HARKing: Hypothesizing After the Results Are Known",
+      "kind": "article",
+      "venue": "Personality and Social Psychology Review",
+      "volume": "2",
+      "issue": "3",
+      "pages": "196–217",
+      "doi": "10.1207/s15327957pspr0203_4",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1207/s15327957pspr0203_4"
+      }
+    },
+    "ioannidis2005": {
+      "authors": [
+        "Ioannidis, J. P. A."
+      ],
+      "year": 2005,
+      "title": "Why Most Published Research Findings Are False",
+      "kind": "article",
+      "venue": "PLoS Medicine",
+      "volume": "2",
+      "issue": "8",
+      "pages": "e124",
+      "doi": "10.1371/journal.pmed.0020124",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1371/journal.pmed.0020124"
+      }
+    },
+    "abs_lfs2008": {
+      "authors": [
+        "Australian Bureau of Statistics"
+      ],
+      "year": 2008,
+      "title": "Improvements to Family Estimates from the Labour Force Survey, glossary",
+      "kind": "book",
+      "publisher": "Australian Bureau of Statistics",
+      "url": "https://www.abs.gov.au/AUSSTATS/abs@.nsf/Lookup/6224.0.55.002Glossary82008?OpenDocument=",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.abs.gov.au/AUSSTATS/abs@.nsf/Lookup/6224.0.55.002Glossary82008?OpenDocument="
+      }
+    },
+    "levitt_list2011": {
+      "authors": [
+        "Levitt, Steven D.",
+        "List, John A."
+      ],
+      "year": 2011,
+      "title": "Was There Really a Hawthorne Effect at the Hawthorne Plant? An Analysis of the Original Illumination Experiments",
+      "kind": "article",
+      "venue": "American Economic Journal: Applied Economics",
+      "volume": "3",
+      "issue": "1",
+      "pages": "224–238",
+      "doi": "10.1257/app.3.1.224",
+      "url": "https://www.nber.org/system/files/working_papers/w15016/w15016.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1257/app.3.1.224"
+      }
+    },
+    "mccambridge2014": {
+      "authors": [
+        "McCambridge, Jim",
+        "Witton, John",
+        "Elbourne, Diana R."
+      ],
+      "year": 2014,
+      "title": "Systematic review of the Hawthorne effect: new concepts are needed to study research participation effects",
+      "kind": "article",
+      "venue": "Journal of Clinical Epidemiology",
+      "volume": "67",
+      "issue": "3",
+      "pages": "267–277",
+      "doi": "10.1016/j.jclinepi.2013.08.015",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.jclinepi.2013.08.015"
+      }
+    },
+    "sweeney2002": {
+      "authors": [
+        "Sweeney, L."
+      ],
+      "year": 2002,
+      "title": "k-Anonymity: A Model for Protecting Privacy",
+      "kind": "article",
+      "venue": "International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems",
+      "volume": "10",
+      "issue": "5",
+      "pages": "557–570",
+      "doi": "10.1142/S0218488502001648",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1142/S0218488502001648"
+      }
+    },
+    "nist_kruskal2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.4.1: The Kruskal-Wallis test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc41.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc41.htm"
+      }
+    },
+    "senn1993": {
+      "authors": [
+        "Senn, Stephen"
+      ],
+      "year": 1993,
+      "title": "Suspended judgment: n-of-1 trials",
+      "kind": "article",
+      "venue": "Controlled Clinical Trials",
+      "volume": "14",
+      "issue": "1",
+      "pages": "1–5",
+      "doi": "10.1016/0197-2456(93)90045-F",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/0197-2456(93)90045-F"
+      }
+    },
+    "hyndman_koehler2006": {
+      "authors": [
+        "Hyndman, R. J.",
+        "Koehler, A. B."
+      ],
+      "year": 2006,
+      "title": "Another look at measures of forecast accuracy",
+      "kind": "article",
+      "venue": "International Journal of Forecasting",
+      "doi": "10.1016/j.ijforecast.2006.03.001",
+      "url": "https://robjhyndman.com/papers/mase.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.ijforecast.2006.03.001"
+      }
+    },
+    "axler2020": {
+      "authors": [
+        "Axler, S."
+      ],
+      "year": 2020,
+      "title": "Measure, Integration & Real Analysis",
+      "kind": "book",
+      "publisher": "Springer",
+      "url": "https://measure.axler.net/MIRA.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://measure.axler.net/MIRA.pdf"
+      }
+    },
+    "rey_gds2020": {
+      "authors": [
+        "Rey, Sergio J.",
+        "Arribas-Bel, Dani",
+        "Wolf, Levi J."
+      ],
+      "year": 2020,
+      "title": "Geographic Data Science with Python",
+      "kind": "book",
+      "publisher": "Routledge",
+      "url": "https://geographicdata.science/book/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://geographicdata.science/book/"
+      }
+    },
+    "nist_nonlinear_ls2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.2: Nonlinear Least Squares Regression",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd142.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd142.htm"
+      }
+    },
+    "un_res68261": {
+      "authors": [
+        "United Nations General Assembly"
+      ],
+      "year": 2014,
+      "title": "Resolution 68/261: Fundamental Principles of Official Statistics",
+      "kind": "article",
+      "venue": "United Nations General Assembly",
+      "url": "https://documents.un.org/doc/undoc/gen/n13/455/11/pdf/n1345511.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://documents.un.org/doc/undoc/gen/n13/455/11/pdf/n1345511.pdf"
+      }
+    },
+    "nosek2015": {
+      "authors": [
+        "Nosek, B. A.",
+        "Alter, G.",
+        "Banks, G. C.",
+        "Borsboom, D.",
+        "Bowman, S. D."
+      ],
+      "year": 2015,
+      "title": "Promoting an open research culture",
+      "kind": "article",
+      "venue": "Science",
+      "doi": "10.1126/science.aab2374",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1126/science.aab2374"
+      },
+      "volume": "348",
+      "issue": "6242"
+    },
+    "nist_pmc11_2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.1.1: How did Statistical Quality Control Begin?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc11.htm"
+      }
+    },
+    "nist_pmc2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, Chapter 6: Process or Product Monitoring and Control",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/pmc.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/pmc.htm"
+      }
+    },
+    "nist_type_a2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §2.5.3: Type A evaluations",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/mpc/section5/mpc53.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/mpc/section5/mpc53.htm"
+      }
+    },
+    "abs_seifa2006": {
+      "authors": [
+        "Australian Bureau of Statistics"
+      ],
+      "year": 2008,
+      "title": "Information Paper: An Introduction to Socio-Economic Indexes for Areas (SEIFA), 2006, glossary",
+      "kind": "book",
+      "publisher": "Australian Bureau of Statistics",
+      "url": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2039.0Glossary72006?issue=2006&num=&opendocument=&prodno=2039.0&tabname=Notes&view=",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2039.0Glossary72006?issue=2006&num=&opendocument=&prodno=2039.0&tabname=Notes&view="
+      }
+    },
+    "osc2015": {
+      "authors": [
+        "Open Science Collaboration"
+      ],
+      "year": 2015,
+      "title": "Estimating the reproducibility of psychological science",
+      "kind": "article",
+      "venue": "Science",
+      "doi": "10.1126/science.aac4716",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1126/science.aac4716"
+      },
+      "volume": "349",
+      "issue": "6251"
+    },
+    "peng2011": {
+      "authors": [
+        "Peng, Roger D."
+      ],
+      "year": 2011,
+      "title": "Reproducible Research in Computational Science",
+      "kind": "article",
+      "venue": "Science",
+      "doi": "10.1126/science.1213847",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1126/science.1213847"
+      },
+      "volume": "334",
+      "issue": "6060"
+    },
+    "moraga2023": {
+      "authors": [
+        "Moraga, Paula"
+      ],
+      "year": 2023,
+      "title": "Spatial Statistics for Data Science: Theory and Practice with R",
+      "kind": "book",
+      "publisher": "Chapman & Hall/CRC",
+      "url": "https://www.paulamoraga.com/book-spatial/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.paulamoraga.com/book-spatial/"
+      }
+    },
+    "asa_ethical2022": {
+      "authors": [
+        "American Statistical Association"
+      ],
+      "year": 2022,
+      "title": "Ethical Guidelines for Statistical Practice",
+      "kind": "book",
+      "publisher": "American Statistical Association",
+      "doi": "10.5281/zenodo.7092386",
+      "url": "https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice"
+      }
+    },
+    "nist_pmc13_2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.1.3: What is Process Control?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc13.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc13.htm"
+      }
+    },
+    "nist_pmc31_2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.3.1: What are Control Charts?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm"
+      }
+    },
+    "okrasa_witek2013": {
+      "authors": [
+        "Okrasa, Wlodzimierz",
+        "Witek, Beata"
+      ],
+      "year": 2013,
+      "title": "Statistics as a profession – statistician as an occupation: observations and comments from a panel of experts",
+      "kind": "article",
+      "venue": "Statistics in Transition new series",
+      "volume": "14",
+      "issue": "2",
+      "pages": "319–328",
+      "doi": "10.59170/stattrans-2013-019",
+      "verification": {
+        "source": "crossref",
+        "id": "10.59170/stattrans-2013-019"
+      }
+    },
+    "gaise2016": {
+      "authors": [
+        "GAISE College Report ASA Revision Committee"
+      ],
+      "year": 2016,
+      "title": "Guidelines for Assessment and Instruction in Statistics Education College Report 2016",
+      "kind": "book",
+      "publisher": "American Statistical Association",
+      "url": "https://www.amstat.org/docs/default-source/amstat-documents/gaisecollege_full.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.amstat.org/docs/default-source/amstat-documents/gaisecollege_full.pdf"
+      }
+    },
+    "rosseel2012": {
+      "authors": [
+        "Rosseel, Yves"
+      ],
+      "year": 2012,
+      "title": "lavaan: An R Package for Structural Equation Modeling",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "48",
+      "issue": "2",
+      "url": "https://www.jstatsoft.org/article/view/v048i02",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.jstatsoft.org/article/view/v048i02"
+      }
+    },
+    "sna2008": {
+      "authors": [
+        "United Nations",
+        "European Commission",
+        "Organisation for Economic Co-operation and Development",
+        "International Monetary Fund",
+        "World Bank"
+      ],
+      "year": 2009,
+      "title": "System of National Accounts 2008",
+      "kind": "book",
+      "publisher": "United Nations",
+      "url": "https://unstats.un.org/unsd/nationalaccount/docs/SNA2008.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://unstats.un.org/unsd/nationalaccount/docs/SNA2008.pdf"
+      }
+    },
+    "wasserman_zhou2010": {
+      "authors": [
+        "Wasserman, L.",
+        "Zhou, S."
+      ],
+      "year": 2010,
+      "title": "A Statistical Framework for Differential Privacy",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "105",
+      "issue": "489",
+      "pages": "375–389",
+      "doi": "10.1198/jasa.2009.tm08651",
+      "url": "https://arxiv.org/pdf/0811.2501",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1198/jasa.2009.tm08651"
+      }
+    },
+    "makridakis_spiliotis_assimakopoulos2018": {
+      "authors": [
+        "Makridakis, S.",
+        "Spiliotis, E.",
+        "Assimakopoulos, V."
+      ],
+      "year": 2018,
+      "title": "Statistical and Machine Learning forecasting methods: Concerns and ways forward",
+      "kind": "article",
+      "venue": "PLoS ONE",
+      "volume": "13",
+      "issue": "3",
+      "pages": "e0194889",
+      "doi": "10.1371/journal.pone.0194889",
+      "url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0194889&type=printable",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1371/journal.pone.0194889"
+      }
+    },
+"loredo2012": {
+    "authors": [
+      "Loredo, T. J."
+    ],
+    "year": 2012,
+    "title": "Bayesian astrostatistics: a backward look to the future",
+    "kind": "incollection",
+    "venue": "Astrostatistical Challenges for the New Astronomy",
+    "publisher": "Springer",
+    "doi": "10.1007/978-1-4614-3508-2_2",
+    "verification": {
+      "source": "crossref",
+      "id": "10.1007/978-1-4614-3508-2_2"
     }
+  },
+"kumar2021": {
+    "authors": [
+      "Kumar, K."
+    ],
+    "year": 2021,
+    "title": "Partial least square (PLS) analysis: most favorite tool in chemometrics to build a calibration model",
+    "kind": "article",
+    "venue": "Resonance",
+    "volume": "26",
+    "issue": "3",
+    "pages": "429–442",
+    "doi": "10.1007/s12045-021-1140-1",
+    "url": "https://www.ias.ac.in/article/fulltext/reso/026/03/0429-0442",
+    "verification": {
+      "source": "crossref",
+      "id": "10.1007/s12045-021-1140-1"
+    }
+  },
+"davenport2006": {
+    "authors": [
+      "Davenport, T. H."
+    ],
+    "year": 2006,
+    "title": "Competing on Analytics",
+    "kind": "article",
+    "venue": "Harvard Business Review",
+    "url": "https://hbr.org/2006/01/competing-on-analytics",
+    "verification": {
+      "source": "archival_url",
+      "id": "https://hbr.org/2006/01/competing-on-analytics"
+    }
+  }
   }
 }

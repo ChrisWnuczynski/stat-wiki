@@ -571,6 +571,18 @@ class CitationTests(unittest.TestCase):
             run = subprocess.run([sys.executable, str(path)], cwd=ROOT, capture_output=True, text=True)
             self.assertEqual(run.returncode, 0, f"{slug}: {run.stdout}{run.stderr}")
 
+    def test_every_check_script_runs_without_pending_files(self) -> None:
+        scripts = sorted((ROOT / "checks").glob("*.py"))
+        self.assertGreater(len(scripts), 100)
+        pending_mention = re.compile(r"research/pending|research[\"']\s*/\s*[\"']pending")
+        for path in scripts:
+            source = path.read_text(encoding="utf-8")
+            self.assertIsNone(pending_mention.search(source), path.name)
+            if path.stem == "kyphosis-data":
+                continue
+            run = subprocess.run([sys.executable, str(path)], cwd=ROOT, capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, f"{path.name}: {run.stdout}{run.stderr}")
+
 
 def _prose_paths() -> list[Path]:
     paths = sorted((ROOT / "sources").rglob("*.qmd"))

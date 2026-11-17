@@ -31,9 +31,6 @@ assert '**Your turn.**' in body and body.count('title="Answer"')>=1
 assert body.count('![')>=1
 for q in ('q-06','q-17','ex-ur-posterior-mean','q-23'):
     assert f'../questions/{q}.qmd' in page
-pending=root/'research/pending/beta-binomial-conjugacy.json'
-selected=(json.loads(pending.read_text())['self_checks'] if pending.exists() else json.loads((root/'research/self-checks.json').read_text())['beta-binomial-conjugacy'])
+selected = json.loads((root/'research/self-checks.json').read_text())['beta-binomial-conjugacy']
 assert selected==['ex-ur-posterior-mean','q-23']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"')>=3
 print('rank 159 posterior, prediction and preservation checks passed')

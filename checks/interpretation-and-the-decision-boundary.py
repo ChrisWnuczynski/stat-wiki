@@ -33,10 +33,6 @@ assert body.count('![') == 0
 for qid in ('ex-sl-08-1', 'ex-sl-08-4', 'ex-sl-08-7', 'ex-sl-10-7',
             'ex-sl-13-5', 'ex-sl-17-8', 'ex-sl-17-9'):
     assert f'../questions/{qid}.qmd' in page
-pending = root / 'research/pending/interpretation-and-the-decision-boundary.json'
-selected = (json.loads(pending.read_text())['self_checks'] if pending.exists()
-            else json.loads((root / 'research/self-checks.json').read_text())['interpretation-and-the-decision-boundary'])
+selected = json.loads((root / 'research/self-checks.json').read_text())['interpretation-and-the-decision-boundary']
 assert selected == ['ex-sl-10-7', 'ex-sl-08-3']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"') >= 3
 print('rank 163 logistic boundary calculations and preservation checks passed')

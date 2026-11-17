@@ -31,164 +31,26 @@ Add uncertain claims here before writing them into an article.
 - `alon-colon-cancer-data`: exact alon.rda preprocessing and cross-validation seed underlying the copied PCA p-values, 173-gene discovery list and 14-gene lasso fit are unavailable; algebraic counts and list overlaps can be recomputed, but those model fits cannot yet be independently reproduced.
 - `clotting-time-data`: historical Hurn provenance was not rechecked in accessible full text; dataset values verified against R glm Examples, and source opening replacement supplied.
 
-- Gap list (201 terms whose source includes a Wikipedia body link or Grokipedia): each row is in `research/term-disposition.tsv` as a page, an alias, or a deferral. A term is deferred when a second independent source with a precise locator was not opened. Deferred terms:
+- Dependent and independent variables are already the response-variable and explanatory-variable pages, so there is no third page.
+- Artificial intelligence aliases to machine learning. The page cites Hastie, Tibshirani, and Friedman on the overlap between statistics and artificial intelligence, including neural networks.
+- Stochastic analysis was not aliased to stochastic process. Stochastic analysis is the calculus of stochastic processes, and that page does not develop the calculus.
+- Conjoint analysis still cites the Groningen chapter and Green's 1992 commentary, the two files that were opened. Green and Srinivasan, *Journal of Consumer Research* 5(2), 1978, DOI 10.1086/208721, and *Journal of Marketing*, 1990, DOI 10.1177/002224299005400402, and Louviere, Hensher, and Swait, *Stated Choice Methods* (Cambridge, 2000), were not opened. Unpaywall reported no open copy, and the journal pages serve the PDF only to subscribers. No page numbers were invented.
+- Econometrics was not given unread pages from Hansen, *Econometrics* (Princeton University Press, 2022). The author's Wisconsin page sells the book, and the circulating PDF is the 2010 manuscript. Wooldridge, *Introductory Econometrics*, was not opened either: the files found were course notes about chapter 15, not the book. The bibliography entry that named the 2022 book without a citation has been removed. The page cites Dodge and Cameron and Miller. Sources tried: https://users.ssc.wisc.edu/~behansen/econometrics/; unpaywall for DOI 10.1515/9780691235899.
+- Gap list after the second pass. A term stays here only when the opened sources did not support a page:
 
-  - Abundance estimation
-  - Actuarial science
-  - Apriori algorithm
-  - Artificial intelligence
-  - Astrostatistics
-  - Asymptotic analysis
-  - Average treatment effect
-  - Base rate
-  - Baseball statistics
-  - Bayesian inference
-  - Bayesian model
-  - Bayesian probability
-  - Bayesian statistics
-  - Big data
-  - Biostatistics
-  - Business analytics
-  - Case-control study
-  - Causality
-  - Censoring (statistics)
-  - Chemometrics
-  - Classification
-  - Cluster analysis
-  - Cohort study
-  - Computational biology
-  - Computational sociology
-  - Computational statistics
-  - Conjoint Analysis
-  - Control group
-  - Correlation does not imply causation
-  - Cricket statistics
-  - Cross-sectional data
-  - Data analysis
-  - Data collection
-  - Data mining
-  - Data quality
-  - Data science
-  - Data sharing
-  - Decision problem
-  - Demography
-  - Dependent and independent variables — split across explanatory-variable and response-variable; no third page
-  - Difference in differences
-  - Differential privacy
-  - Dimensionality reduction
-  - Diversity index
-  - Econometrics
-  - Effect size
-  - Engineering statistics
-  - Environmental statistics
-  - Epidemiology
-  - Estimating equations
-  - Estimation theory
-  - Expected loss
-  - Experimental error
-  - Extrapolation
-  - Fat tails
-  - Feature selection
-  - Federated learning
-  - First International Statistical Congress
-  - Foundations of statistics
-  - Frequentist inference
-  - Game of chance
-  - Geostatistics
-  - HARKing
-  - Harmonic mean
-  - Hasty generalization
-  - Hawthorne effect
-  - Hawthorne study
-  - Inference
-  - Instrumental variable
-  - Inverse probability
-  - Jurimetrics
-  - K-anonymity
-  - Kruskal-Wallis test
-  - Kurtosis
-  - Lady tasting tea
-  - Least absolute deviations
-  - Lies, damned lies, and statistics
-  - Likelihood ratios in diagnostic testing
-  - Machine learning
-  - Management Science
-  - Mathematical statistics
-  - Mean absolute percentage error
-  - Mean square weighted deviation
-  - Measurable function
-  - Measure-theoretic probability theory
-  - Measurement
-  - Medical statistics
-  - Minimax
-  - Misuse of statistics
-  - Moran's I
-  - Multilevel model
-  - Multivariate analysis of variance
-  - Multivariate statistics
-  - Natural experiment
-  - Non-linear least squares
-  - Nonlinear regression
-  - Normalizing constant
-  - Official statistics
-  - Open science
-  - Panel data
-  - Parametric statistics
-  - Pattern recognition
-  - Pearson distribution
-  - Philosophy of statistics
-  - Polynomial least squares
-  - Posterior probability
-  - Probability interpretations
-  - Probability theory
-  - Prosecutor's fallacy
-  - Psychological statistics
-  - Public health
-  - Quality control
-  - Random error
-  - Ranking
-  - Raw data
-  - Regression analysis
-  - Replication crisis
-  - Reproducibility
-  - Resampling (statistics)
-  - Risk
-  - Risk assessment
-  - Robust statistics
-  - Rounding
-  - Sabermetrics
-  - Sampling (statistics)
-  - Scientific control
-  - Secondary data
-  - Six Sigma
-  - Social statistics
-  - Spatial analysis
-  - Spearman's rank correlation coefficient
-  - Statistical classification
-  - Statistical consultant
-  - Statistical dispersion
-  - Statistical graphics
-  - Statistical learning theory
-  - Statistical literacy
-  - Statistical mechanics
-  - Statistical model
-  - Statistical process control
-  - Statistical survey
-  - Statistical theory
-  - Statistician
-  - Statistics education
-  - Stochastic analysis
-  - Structural equation modelling
-  - Structured data analysis (statistics)
-  - Supervised learning
-  - Survey methodology
-  - Survey sampling
-  - Survival analysis
-  - System of National Accounts
-  - Systematic error
-  - Systematic sampling
-  - Tail
-  - True value
-  - Uncertainty
-  - Unsupervised learning
-  - Variable (mathematics)
+  - Baseball statistics: Searched Dodge and read OpenIntro Statistics chapters 1 on association and generalisation. Neither gives a statistical definition of baseball statistics. No sourced treatment beyond encyclopedic trivia was opened. Sources tried: dodge2008 full-text search; openintro2019 pp. 10–11 and 18.
+  - Big data: Opened OpenIntro Statistics chapters 1 and 8, Hernán and Robins (introduction, chapters 1–2 and 16, and the index), Dodge entries on statistics, data collection, and models, and the NIST/SEMATECH glossary. None defines big data. The Hernán and Robins bibliography lists a 2016 paper title that uses the phrase and does not define it. Sources tried: openintro2019 ch. 1 and §8.1; hernan_robins2020 introduction, ch. 1–2, ch. 16, index; dodge2008 Statistics pp. 518–519, Data collection pp. 151–152, Model pp. 353–354; nist_glossary2002.
+  - Computational sociology: Searched the full Dodge text and found no entry for computational sociology. Sources tried: dodge2008 full-text search.
+  - Computational statistics: Opened ISL (2nd ed.) chapters 1, 2, 6 and 12, ESL chapters 1, 2, 10 and 14 and the preface to the first edition, Efron and Hastie CASI preface (pp. xv–xvii) and chapter 1 (pp. 3–4), and Dodge p. 2. None of them defines a field named computational statistics. CASI discusses algorithms versus inference in the computer age. Dodge lists the journal Computational Statistics among reviews of algorithms. Sources tried: james_islr2021 ch. 1, 2, 6, 12; hastie_esl2009 preface p. xi; ch. 1, 2, 10, 14; efron_hastie2016 CASI preface pp. xv–xvii; ch. 1 pp. 3–4; dodge2008 p. 2.
+  - Cricket statistics: Searched Dodge and read OpenIntro Statistics on association. Neither gives a statistical definition of cricket statistics. No sourced treatment of a cricket statistical method was opened. Sources tried: dodge2008 full-text search; openintro2019 p. 18.
+  - Hasty generalization: Opened OpenIntro Statistics pp. 10–11 (do not generalise a stent trial beyond its patients) and p. 18 (association is not causation), and Dodge pp. 62–63 on cause and effect. None of those passages names or defines hasty generalization. Sources tried: openintro2019 pp. 10–11 and 18; dodge2008 pp. 62–63.
+  - Jurimetrics: Searched the full Dodge text and found no entry defining jurimetrics. Sources tried: dodge2008 full-text search.
+  - Lies, damned lies, and statistics: Dodge has no entry. A Project Gutenberg fetch of Twain's autobiography did not return the text, and no copy of Huff was opened, so the quotation and its statistical discussion could not be cited. Sources tried: dodge2008 search; gutenberg epub 19987 (failed fetch).
+  - Management Science: Dodge p. 519 lists management and administration as an application of statistics but does not define the discipline. No operations-research monograph was opened. Sources tried: dodge2008 p. 519; dodge2008 search for management science.
+  - Mean square weighted deviation: No citable definition. Dodge has no entry (full-text search for weighted deviation and MSWD). ESL and both ISL editions have no occurrence. NIST §4.1.4.3 is weighted least squares, a different method, and the NIST glossary has no such term. OpenIntro Statistics, 4th ed., chapters 2 and 8 do not define it. Sources tried: dodge2008 full-text search; hastie_esl2009 full-text search; james_islr2013 full-text search; james_islr2021 full-text search; NIST glossary and §4.1.4.3 weighted least squares; openintro2019 ch. 2 and ch. 8.
+  - Minimax: No citable treatment of a minimax estimator or minimax risk. Dodge printed p. 282 only mentions Kiefer's paper 'Sequential minimax search for a maximum' inside a biography. ESL, ISL 2013 and ISL 2021 contain no occurrence of minimax. The NIST glossary has no entry. OpenIntro Statistics, 4th ed., chapters 2 and 8 do not define it. Sources tried: dodge2008 p. 282; hastie_esl2009 full-text search, including §2.4 pp. 18–20; james_islr2013 full-text search; james_islr2021 full-text search; NIST glossary; openintro2019 ch. 2 and ch. 8.
+  - Multivariate analysis of variance: Dodge printed p. 514 lists 'Manova standard models' as a feature of statistical software and does not define the method. ESL, ISL 2013 and ISL 2021 do not treat multivariate analysis of variance. The NIST glossary has no MANOVA entry. OpenIntro Statistics, 4th ed., chapters 8 and 9 cover linear and logistic regression, not MANOVA. Sources tried: dodge2008 p. 514; hastie_esl2009 full-text search; james_islr2013 full-text search; james_islr2021 full-text search; NIST glossary; openintro2019 ch. 8–9.
+  - Risk: The word is used for different objects, and the sourced statistical meanings are already pages or rest on a single entry. The existing loss-and-risk page is expected loss of a decision. Dodge printed pp. 461–462 instead defines epidemiological risk, the probability a disease appears in a population during a time interval, so Risk is not an alias of loss-and-risk. ESL §2.4 pp. 18–20 defines expected prediction error under a loss and does not use the word risk for the epidemiological probability. ISL discusses test error. The NIST glossary has no risk entry. OpenIntro chapter 1 uses risk in ordinary clinical language, not as a defined incidence probability. Sources tried: loss-and-risk in sources/stat2004 inf-02-estimation; dodge2008 pp. 461–462; hastie_esl2009 §2.4 pp. 18–20; james_islr2013 ch. 2 and ch. 5; NIST glossary; openintro2019 ch. 1.
+  - Sabermetrics: Dodge has no entry, and no textbook or paper defining the term was opened. Sources tried: dodge2008 search.
+  - Six Sigma: The NIST/SEMATECH glossary has no Six Sigma entry. Handbook sections 6.1 and 6.3, which were opened, discuss 3-sigma control limits and statistical quality control, not the Six Sigma programme. Dodge has no entry. Sources tried: nist glossary; NIST handbook sections 6.1 and 6.3; dodge2008 search.
+  - Structured data analysis (statistics): Opened Dodge’s data-analysis entry (pp. 150–151), which discusses tables and exploratory, multivariate and confirmatory analysis but never this phrase; OpenIntro Statistics chapters 1 and 2, on data structure, summaries and graphics; and the NIST/SEMATECH handbook §1.1.1 on exploratory data analysis. None defines a statistical method under this name. Sources tried: dodge2008 pp. 150–151; openintro2019 ch. 1–2; nist handbook §1.1.1.
