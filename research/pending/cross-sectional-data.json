@@ -1,0 +1,32 @@
+{
+  "action": "page",
+  "slug": "cross-sectional-data",
+  "term": "Cross-sectional data",
+  "topic": "Correlated data",
+  "kind": "concept",
+  "aliases": ["Cross sectional data"],
+  "lead": {
+    "field": "correlated data",
+    "article": "",
+    "term": "cross-sectional data",
+    "verb": "are",
+    "description": "observations on many units taken at one time, so each unit contributes a single record",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Five incomes",
+      "prompt": "A snapshot of incomes is 2, 4, 4, 6, and 9. What is the mean, and what is the sample variance with divisor n-1?",
+      "answer": "The mean is 5. The sum of squared deviations is 28, so the sample variance is 28/4 = 7."
+    },
+    {
+      "title": "Three units",
+      "prompt": "Values 3, 5, and 7 are measured once each. What are the mean and the range?",
+      "answer": "The mean is 5 and the range is 4. No within-unit change is defined."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": ["hyndman_athanasopoulos2021", "cameron_miller2015"],
+  "overview_sentence": "[Cross-sectional data](articles/cross-sectional-data.qmd) are observations on many units taken at one time.",
+  "covered_terms": ["Cross-sectional data", "Cross sectional data"]
+}
