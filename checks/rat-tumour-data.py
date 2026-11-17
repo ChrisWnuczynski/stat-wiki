@@ -17,12 +17,14 @@ y,n=np.array([[int(t) for t in f.split('/')] for f in fractions.split()]).T
 assert len(y)==70 and y.sum()==263 and n.sum()==1725
 assert round((y/n).mean(),6)==.136007 and round((y/n).std(ddof=1),6)==.103492
 assert round(y.sum()/n.sum(),6)==.152464
-f=lambda q:-np.sum(special.betaln(y+np.exp(q[0]),n-y+np.exp(q[1]))-special.betaln(*np.exp(q)))
 def grad(q):
  a,b=np.exp(q);common=special.digamma(a+b+n)-special.digamma(a+b)
  return -np.array([a*np.sum(special.digamma(a+y)-special.digamma(a)-common),b*np.sum(special.digamma(b+n-y)-special.digamma(b)-common)])
-fit=optimize.minimize(f,np.log([2,12]),jac=grad,method='BFGS',options={'gtol':1e-8})
-a,b=np.exp(fit.x);assert np.linalg.norm(grad(fit.x))<1e-6
+# Solve the marginal score directly. BFGS can stop above 1e-6 on another BLAS
+# while the parameters are already correct to four decimals.
+sol=optimize.root(grad,np.log([2.,12.]),method='hybr',tol=1e-12)
+assert sol.success
+a,b=np.exp(sol.x);assert np.linalg.norm(grad(sol.x))<1e-6
 assert np.allclose([a,b],[2.3048,14.0798],atol=.0001)
 assert round((a+4)/(a+b+14),5)==.20750
 assert (2+4)/(2+8+14)==.25 and (2+1)/(2+8+10)==.15
