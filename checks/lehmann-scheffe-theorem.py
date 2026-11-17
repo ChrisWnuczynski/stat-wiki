@@ -24,4 +24,15 @@ for p in [F(1,5),F(1,2),F(4,5)]:
 assert F(2*(2-1),6)==F(1,3)
 assert 'title="Proof"' in body and '5/48' in body
 
+
+# Conditional expectation is an orthogonal projection for a finite joint law.
+p_joint=[F(1,10),F(2,10),F(3,10),F(4,10)]
+f_values=[F(-1),F(2),F(4),F(0)]
+u_values=[0,0,1,1]
+g_values={u:sum(p*f for p,f,v in zip(p_joint,f_values,u_values) if v==u)/sum(p for p,v in zip(p_joint,u_values) if v==u) for u in [0,1]}
+norm_f=sum(p*f*f for p,f in zip(p_joint,f_values))
+norm_g=sum(p*g_values[u]**2 for p,u in zip(p_joint,u_values))
+error=sum(p*(f-g_values[u])**2 for p,f,u in zip(p_joint,f_values,u_values))
+assert norm_f-norm_g==error and error>=0
+
 print("lehmann-scheffe-theorem checks passed")

@@ -1,5 +1,10 @@
 # lehmann-scheffe-theorem
 
-Opened the private Dodge entry and the located textbook or paper passages cited in research/content/lehmann-scheffe-theorem.md. Numerical checks are in checks/lehmann-scheffe-theorem.py. Source material stays outside the repository.
+## Sources opened
 
-Self-check questions: exr-completeness-binomial, ex-inf-rao-blackwell-variance.
+- `siegrist2022_sufficient_complete`: https://www.randomservices.org/random/point/Sufficient.html
+- `dasgupta2011_exponential_family`: https://www.stat.purdue.edu/~dasgupta/expfamily.pdf
+
+The locators are recorded immediately after each citation in the article source. The numerical script recomputes the worked example and reads the generated article. No external source files are committed.
+
+Minimal sufficiency: added a complete conditional-expectation proof with common conditional versions and standard Borel statistic space, rather than attributing an unstated general implication to Siegrist. The finite joint-law projection identity is recomputed with rational arithmetic in the per-page check.

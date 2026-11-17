@@ -24,4 +24,44 @@ assert abs(17/p-64/(1-p))<1e-12
 for number in ['17','64','0.209877','-1.325670','206','0.265625']:
     assert number in body
 
+
+# Refit the chapter's smooth with R, mgcv and rpart. STATWIKI_R_HOME can point
+# to a portable R tree; the shared source cache supplies one in this workspace.
+import os
+import shutil
+import subprocess
+r_home = os.environ.get('STATWIKI_R_HOME')
+portable = root.parent / 'statwiki-sources/r-runtime/extracted/usr/lib/R'
+r_bin = shutil.which('R')
+r_env = os.environ.copy()
+if r_home or (not r_bin and portable.is_dir()):
+    r_home = Path(r_home) if r_home else portable
+    r_bin = str(r_home / 'bin/exec/R')
+    r_env['R_HOME'] = str(r_home)
+    r_env['R_LIBS_SITE'] = str(r_home / 'library')
+    r_env['LD_LIBRARY_PATH'] = str(r_home / 'lib') + ':' + r_env.get('LD_LIBRARY_PATH', '')
+if not r_bin:
+    raise RuntimeError('The smooth-fit check requires R with mgcv and rpart; set STATWIKI_R_HOME for a portable installation.')
+r_code = r'''
+suppressPackageStartupMessages(library(mgcv))
+suppressPackageStartupMessages(library(rpart))
+data(kyphosis, package="rpart")
+kyphosis$Kyphosis <- as.numeric(kyphosis$Kyphosis == "present")
+fit <- gam(Kyphosis ~ s(Age), family=binomial, data=kyphosis)
+s <- summary(fit)
+cat(sprintf("%.12f", c(s$s.table[1,],s$p.table[1,1:3])), sep=",")
+'''
+r_result = subprocess.run([r_bin, '--vanilla', '--slave'], input=r_code,
+                          text=True, capture_output=True, check=True, env=r_env)
+actual = [float(x) for x in r_result.stdout.strip().split(',')]
+expected = [2.22344180416414, 2.80557721914319, 6.35590636926641,
+            .0762373466512047, -1.50919301706596, .315970050052515,
+            -4.77637996644027]
+assert len(actual) == len(expected)
+for observed, target in zip(actual, expected):
+    assert abs(observed-target) < 5e-6, (observed,target)
+for number in ['2.223', '6.356', '0.0762', '-1.509193', '2.805577']:
+    assert number in body, number
+
 print("kyphosis-data checks passed")
+print('kyphosis mgcv smooth-fit checks passed')

@@ -20,6 +20,8 @@ For $h>0$, subtract $P(t)$ from $P(t+h)=P(t)P(h)$ and divide by $h$. The limit i
 
 On infinite state spaces, rates can be unbounded and explosion can occur. Forward differentiation requires conditions controlling the infinite sums. A finite-state argument should therefore not be extended merely by replacing finite matrix multiplication with an unrestricted series.{{cite:siegrist2022_ctmc_transition}} (§15.16, discussion of bounded generators)
 
+The matrix equations also yield $P_t=e^{tQ}$ by the convergent matrix power series; each power commutes with $Q$.{{cite:durrett2012_essentials}} (§4.2, eqs. 4.7–4.10, pp. 123–125)
+
 ## Worked example
 Use rates $\alpha=2$ from working state $0$ to repair state $1$, and $\beta=3$ in the reverse direction. Then
 $$
@@ -40,20 +42,30 @@ It is $(1-e^{-2})/2=0.432332$, with limiting probability $1/2$.
 
 [Practice question](../questions/ex-sp-two-state-ctmc.qmd)
 
-For rates $2$ and $3$, give the stationary probabilities and $p_{01}(t)$.
+For the two-state chain with $\alpha=2$ and $\beta=3$, find the stationary distribution and $\mathbb{P}\bigl(X(t)=1\mid X(0)=0\bigr)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The stationary row is $(3/5,2/5)$ and $p_{01}(t)=(2/5)(1-e^{-5t})$.
+The stationary distribution on states $(0,1)$ is
+
+$$
+\pi=\Bigl(\frac{\beta}{\alpha+\beta},\frac{\alpha}{\alpha+\beta}\Bigr)=\Bigl(\frac{3}{5},\frac{2}{5}\Bigr).
+$$
+
+Starting from $0$,
+
+$$
+\mathbb{P}\bigl(X(t)=1\mid X(0)=0\bigr)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr)=\frac{2}{5}\bigl(1-e^{-5t}\bigr).
+$$
 :::
 
 ### A generator row {#self-check-ex-sp-generator-rows}
 
 [Practice question](../questions/ex-sp-generator-rows.qmd)
 
-Why is the sum of each generator row zero?
+Explain why the diagonal of a generator is non-positive and why each row sums to zero.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The transition probabilities in every row sum to one. Differentiating that sum at zero gives zero; the off-diagonal rates therefore sum to the negative diagonal rate.
+Off-diagonal rates $q_{ij}$ for $j\neq i$ are non-negative: they are rates of jumps. The diagonal entry is defined to be minus their sum, $q_{ii}=-\nu_i\le 0$, which is the rate of leaving $i$. Each row then sums to $\sum_{j\neq i}q_{ij}+q_{ii}=0$. A row of probabilities would sum to $1$. A row of rates sums to $0$ because the outflow is recorded on the diagonal with a minus sign.
 :::
 
 ## History

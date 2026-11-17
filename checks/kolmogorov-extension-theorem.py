@@ -22,4 +22,12 @@ for n in range(1,7):
 for number in ['0.063','0.147','0.21','0.09']:
     assert number in body
 
+
+# Actual linked Bernoulli-pair exercise.
+from fractions import Fraction as F
+assert sum(F(1,4) for x,y in [(0,0),(0,1),(1,0),(1,1)] if x==y)==F(1,2)
+assert sum(F(1,2) for x,y in [(0,0),(1,1)] if x==y)==1
+events={frozenset(),frozenset('ab'),frozenset('cd'),frozenset('abcd')}
+assert frozenset('ab') in events and frozenset('ac') not in events
+
 print("kolmogorov-extension-theorem checks passed")

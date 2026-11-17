@@ -17,6 +17,18 @@ Equality forces $U=V(T)$ almost surely. This proves both optimality and uniquene
 :::
 :::
 
+A complete sufficient statistic also gives a minimal sufficient reduction in the usual standard Borel setting with common parameter-free conditional distributions. Here minimality is understood up to null sets. The conditional-expectation argument uses bounded functions, so it does not require moments of $T$ itself.{{cite:siegrist2022_sufficient_complete}} (§7.6, sufficient, complete and minimal sufficient statistics)
+
+::: {.callout-note collapse="true" title="Proof"}
+::: {.proof}
+Let $U$ be any sufficient statistic and $f(T)$ any bounded measurable function. Put $g(U)=E_\theta[f(T)\mid U]$ and $h(T)=E_\theta[g(U)\mid T]$. Sufficiency supplies versions of both functions independent of $\theta$. Iterated expectation gives $E_\theta[h(T)-f(T)]=0$ for every parameter value. Completeness forces $h(T)=f(T)$ almost surely. Conditional Jensen's inequality now gives
+$$
+E_\theta[f(T)^2]=E_\theta[h(T)^2]\le E_\theta[g(U)^2]\le E_\theta[f(T)^2].
+$$
+Equality in the last conditional-variance inequality forces $f(T)=g(U)$ almost surely. Apply this to indicators from a countable generating class of the statistic's standard Borel value space. Every such indicator is a function of $U$, so $T$ is measurable with respect to $U$, up to null sets. This is minimal sufficiency. The same total-variance identity underlies the Rao–Blackwell proof.{{cite:siegrist2022_sufficient_complete}} (§7.6, Rao–Blackwell theorem and its conditional-variance proof)
+:::
+:::
+
 For binomial counts, allowing the success probability to range over an interval supplies completeness. Restricting the parameter to a few isolated values can remove that property. Completeness is therefore more than a fact about the numerical values a statistic can take.{{cite:dasgupta2011_exponential_family}} (§18.4, Ex. 18.16 and Thm. 18.8, pp. 511–512)
 
 ## Worked example
@@ -40,18 +52,18 @@ There are six ordered pairs of distinct trials. Each pair succeeds with probabil
 
 [Practice question](../questions/exr-completeness-binomial.qmd)
 
-Evaluate the unbiased estimator of $p^2$ when three trials give $T=2$.
+In three independent Bernoulli trials let T be the success count. Show that h(T)=T(T-1)/6 is unbiased for p², and evaluate it at T=2. Why is this function unique among unbiased functions of T when p ranges over (0,1)?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The value is $T(T-1)/6=2/6=1/3$. Completeness makes it the only unbiased function of the full binomial count.
+There are six ordered pairs of distinct trials. Each pair succeeds with probability p², so E[T(T-1)/6]=p². At T=2 the estimate is 2/6=1/3. If another function of T were unbiased for p², its difference from h would have expectation zero for every p. The binomial count is complete on (0,1), so the difference is zero almost surely.
 :::
 
 ### Conditioning an estimator {#self-check-ex-inf-rao-blackwell-variance}
 
 [Practice question](../questions/ex-inf-rao-blackwell-variance.qmd)
 
-Why does conditioning on a sufficient statistic give a statistic, preserve unbiasedness, and reduce variance?
+Let $U$ be unbiased for $\theta$ and let $T$ be sufficient. In one sentence each, say why $W(T)=\mathbb{E}(U\mid T)$ is a statistic, why it is unbiased, and why $\operatorname{Var} W\le\operatorname{Var} U$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Sufficiency removes the unknown parameter from the conditional distribution. Iterated expectation preserves the target mean. Total variance subtracts the nonnegative expected conditional variance.
+$W(T)$ is a statistic because sufficiency makes the conditional distribution of the sample given $T$ free of $\theta$, so the conditional expectation does not depend on $\theta$. It is unbiased because $\mathbb{E}\{W(T)\}=\mathbb{E}(U)=\theta$ by the tower property. Its variance is smaller because $\operatorname{Var}(U)=\operatorname{Var}\{W(T)\}+\mathbb{E}\{\operatorname{Var}(U\mid T)\}$ and the second term is nonnegative.
 :::
