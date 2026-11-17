@@ -15,14 +15,17 @@
   <div id="beta"></div>
   <div id="markov"></div>
   <div id="coverage"></div>
+  <div id="distribution"></div>
 </main>
 <script type="module">
   const beta = await import("../beta-binomial.js");
   const markov = await import("../markov-chain.js");
   const coverage = await import("../ci-coverage.js");
+  const distribution = await import("../distribution-explorer.js");
   beta.mount(document.getElementById("beta"));
   markov.mount(document.getElementById("markov"));
   coverage.mount(document.getElementById("coverage"));
+  distribution.mount(document.getElementById("distribution"));
 </script>
 </body>
 </html>

@@ -38,7 +38,7 @@ export function createPlot(host, { height = 320, label = "Chart" } = {}) {
   let draw = () => {};
   let frame = 0;
   const render = () => {
-    const width = Math.max(280, Math.round(host.clientWidth || 640));
+    const width = measuredChartWidth(host.clientWidth);
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     svg.replaceChildren();
     if (currentLabel) {
@@ -87,6 +87,25 @@ export function scaleLinear(domain, range) {
   const [r0, r1] = range;
   const span = d1 - d0 || 1;
   return (value) => r0 + ((value - d0) / span) * (r1 - r0);
+}
+
+// clientWidth is 0 before layout, and inside a closed or hidden box. A zero
+// viewBox collapses every scale, so use a stand-in until the observer fires.
+export function measuredChartWidth(clientWidth, { min = 280, fallback = 640 } = {}) {
+  const width = Number(clientWidth);
+  if (!(width > 0) || !Number.isFinite(width)) return fallback;
+  return Math.max(min, Math.round(width));
+}
+
+// Margins on a plot box are not the edges of the frame. x runs left to right
+// across the inner width; y runs bottom to top so larger values sit higher.
+export function axisScales(box, xDomain, yDomain) {
+  const [x0, x1] = xDomain;
+  const [y0, y1] = yDomain;
+  return {
+    x: scaleLinear([x0, x1], [box.left, box.left + box.innerWidth]),
+    y: scaleLinear([y0, y1], [box.top + box.innerHeight, box.top]),
+  };
 }
 
 export function niceTicks(min, max, count = 5) {
