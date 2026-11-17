@@ -1,0 +1,47 @@
+## Motivating example
+A nearest-neighbour search based on height and income can be dominated by whichever coordinate uses larger numerical units. Ranking each coordinate replaces spacing with order. The procedure then regards movement across a given number of sample ranks as comparable across coordinates. This solves a particular invariance problem, but it deliberately discards information about how far apart adjacent values are. Coordinate-wise rank metrics are a documented alternative to Euclidean distances.{{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2)
+
+## Definition — Rank the query and training points together
+Fix a query $x$ and training points $x_1,\ldots,x_n$ in $p$ dimensions. In each coordinate, rank the query together with all training values. With no coordinate ties, let $r_j$ be the query's rank and $r_{ij}$ the rank of training point $i$. The maximum-coordinate rank distance is
+$$\rho(x,x_i)=\max_{1\le j\le p}|r_{ij}-r_j|.$$
+Other choices use an $\ell_q$ norm of the vector of rank differences. The construction depends on the comparison sample; its numerical distances need not stay unchanged after new training observations enter. Ties require an explicitly stated convention such as midranks.{{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2)
+
+## Properties — Monotone transformations preserve the comparison
+A strictly increasing transformation of one coordinate preserves its rank ordering. A strictly decreasing transformation reverses the ordering, taking each untied rank $r$ to $n+2-r$. Absolute pairwise rank differences are unchanged in either case. Taking their maximum therefore preserves $\rho$. This is an elementary consequence of order and absolute differences. Ranks likewise underlie rank-based comparisons that do not use the numerical spacing of observations.{{cite:dodge2008}} (p. 502, Spearman rank correlation); {{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2)
+
+For a single fixed pooled collection, maximum coordinate distance is symmetric, nonnegative and obeys a triangle inequality. For example, for each coordinate $|r_{ij}-r_{kj}|\le |r_{ij}-r_{lj}|+|r_{lj}-r_{kj}|$; the maximum is bounded by the sum of the two maxima. If observations have the same rank vector, their distance is zero. With midranks, different recorded units that have identical coordinate values cannot be distinguished. A query-specific ranking rule should not be assumed to define one fixed metric across every future comparison without specifying which pooled collection is used.{{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2, coordinate-rank construction)
+
+## Worked example — Three possible neighbours
+Use training points $(1,10)$, $(2,0)$ and $(4,5)$, and query $(3,7)$. The query has rank three on both coordinates. The training rank vectors are $(1,4)$, $(2,1)$ and $(4,2)$. Their absolute differences from the query are $(2,1)$, $(1,2)$ and $(1,1)$, giving maximum distances $2,2,1$. The third point is therefore the unique nearest neighbour under this distance.
+
+Changing income from dollars to thousands of dollars leaves those ranks unchanged. So does replacing each positive income by its logarithm. This invariance does not mean that multiplying a coordinate by a constant cannot affect an ordinary Euclidean neighbour. It means that the rank calculation has chosen not to use that spacing.
+
+**Your turn.** Use the sum, rather than the maximum, of the coordinate rank gaps. What are the distances for the same three points?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The distances are $3,3,2$. The third point is still the unique nearest neighbour in this example.
+:::
+
+## Statistical use — Fit transformations within the training data
+A prediction analysis must specify how a future value is ranked relative to training values, including values outside the observed range and ties. Validation observations should not be used to learn an empirical transformation that the deployed procedure would not have available. A rank transformation can reduce sensitivity to units and extreme spacing, but can also erase a scientifically meaningful magnitude difference. The relevant invariance should be chosen from the intended comparison.{{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2)
+
+## Assumptions and limits — A distance does not prove consistency
+Nearest-neighbour consistency also requires assumptions on how neighbourhood size changes with sample size. A finite rank calculation alone cannot establish that a fitted classifier approaches its optimal risk. General results require their stated sampling and weighting conditions. Consistency theory for the rank construction imposes regularity on the marginal distributions, including nonatomic marginals to avoid coordinate ties.{{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2; Thm. 11.1)
+
+## Intuition
+Euclidean distance treats a coordinate in centimetres as a hundred times more important than the same coordinate in metres, because the numerical gaps grow by a hundred. Rank distance replaces each coordinate by its position in the pooled list of the query and the training points. A strictly increasing change of units preserves every comparison, so it preserves every rank and every absolute rank gap. In the worked example the income coordinate can be written in dollars or in thousands of dollars. The query's rank on that coordinate stays $3$, and the maximum rank distances stay $2,2,1$. The nearest neighbour does not move.
+
+The price of that invariance is the spacing the ranks discard. Two incomes that differ by one dollar and two incomes that differ by a million dollars can be adjacent in the rank list. The rank gap is $1$ in both cases. If the million-dollar gap is the scientifically relevant one, a rank metric has chosen not to see it. The metric is appropriate when order, rather than magnitude, is the intended comparison.
+
+### Properties — The maximum and the sum are different distances
+For rank-gap vectors $(2,1)$, $(1,2)$ and $(1,1)$, the coordinate-wise maxima are $2,2,1$ and the sums are $3,3,2$. In this particular example both rules pick the third training point as the unique nearest neighbour. The rules are not the same function. Gaps $(4,1)$ have maximum $4$ and sum $5$. Gaps $(3,3)$ have maximum $3$ and sum $6$. The maximum declares $(3,3)$ closer. The sum declares $(4,1)$ closer. A nearest-neighbour rule has to say which aggregation it uses. Leaving the choice until after the neighbours have been inspected turns the metric into a second look at the labels.
+
+On one fixed pooled collection the maximum of absolute rank gaps is a metric: it is symmetric, it is zero precisely when the rank vectors agree, and it satisfies the triangle inequality because each coordinate's absolute difference does. With six pooled untied positions, a decreasing transformation sends rank $r$ to $7-r$. Absolute gaps are unchanged, since $|(7-r_1)-(7-r_2)|=|r_1-r_2|$. The maximum and the sum are therefore unchanged. A transformation that is not monotone can reorder the coordinate and change both distances. Monotonicity is the assumption, not an automatic property of every rescaling someone might type into a spreadsheet.{{cite:dodge2008}} (p. 502, Spearman rank correlation)
+
+## Common misconceptions
+Rank distance is sometimes described as if it removed the need to think about units. It removes sensitivity to strictly monotone unit changes. It does not remove the choice of which variables enter the ranking, and it does not remove ties. Two identical recorded incomes share a midrank if that convention is declared. Their contribution to a gap involving a third point then depends on the midrank rule. A silent switch from midranks to random tie breaks changes the distance.
+
+The distance also depends on who is in the pool. Adding a training point inserts a new value into each coordinate's list and can change every rank, including the query's. A distance computed for one training set is not a function of the query and one training point alone. Validation has to recompute the ranks inside each training fold. Ranking the whole sample, including the fold that is about to be predicted, lets those held-out values influence the metric.{{cite:biau_devroye2015}} (pp. 98–99, Rem. 8.2)
+
+## Connections
+Spearman's rank correlation is built from the same coordinate-wise ranks, applied to pairs of variables rather than to a query and a training point. Both procedures are invariant to strictly increasing transformations and both discard spacing. Nearest-neighbour classification then has a second layer: after the distances are computed, a neighbour count $k$ and a vote determine the label. Consistency of that classifier needs $k$ to grow and $k/n$ to shrink, together with conditions that keep the metric well behaved. A correctly computed rank table for a single sample does not establish those limit conditions. It establishes the distances that the finite-sample vote will use.

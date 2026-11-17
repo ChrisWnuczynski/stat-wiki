@@ -1,0 +1,40 @@
+## Motivating example
+Choosing several labels requires deciding whether their order is recorded and whether a label may be repeated. A password usually records order and permits repetition. A committee records membership and does not repeat a person. The same population size and number of selections can therefore produce very different outcome counts. Counting starts by describing the recorded outcome, rather than choosing a formula from its appearance.{{cite:dodge2008}} (p. 98, Combination; p. 421, Permutation)
+
+## Statement
+Take $n\ge1$ distinct labels and $k\ge0$ selections. Ordered draws with repetition have $n^k$ outcomes. Ordered draws without repetition have $n(n-1)\cdots(n-k+1)$ outcomes when $k\le n$, and none when $k>n$. Unordered draws without repetition have $\binom nk$ outcomes. Unordered draws with repetition are **multisets**, described by nonnegative counts summing to $k$, and have $\binom{n+k-1}{k}$ outcomes. Sets cannot represent repeated membership; multisets can. The count for an empty selection is one in all admissible cases.{{cite:grinstead_snell1997}} (§§3.1–3.2)
+
+## Proof
+With order and repetition, each of the $k$ positions has $n$ choices, so multiplication gives $n^k$. Without repetition, successive positions have $n,n-1,\ldots,n-k+1$ choices. If order is then forgotten while all labels are distinct, each set corresponds to exactly $k!$ ordered outcomes, yielding $n!/[k!(n-k)!]$. This division by a common multiplicity is valid because every such set has the same number of orderings.{{cite:grinstead_snell1997}} (§3.1, permutations; §3.2, combinations)
+
+For multisets, write the count vector $(c_1,\ldots,c_n)$ with $\sum c_i=k$. Place $k$ stars and $n-1$ separators in a row. The stars before the first separator count label one, the next group counts label two, and so on. Choosing separator positions among $n+k-1$ positions gives $\binom{n+k-1}{n-1}=\binom{n+k-1}{k}$. Empty groups are allowed and represent zero counts.{{cite:grinstead_snell1997}} (§3.2, counting selections with repetition)
+
+## Key results — Counting does not imply equal probabilities
+Uniform independent draws generate equally likely ordered sequences, but their unordered multisets need not be equally likely. A count vector $c$ corresponds to $k!/\prod_i c_i!$ sequences. Repetitions change that multiplicity, so the induced multiset probabilities differ. A probability calculation by favourable counts divided by total counts is justified only after checking that the counted outcomes are equiprobable.{{cite:grinstead_snell1997}} (§3.2, multinomial coefficients)
+
+## Worked example
+### Two draws from three labels
+For labels $A,B,C$ and $k=2$, the four counts are $9$, $6$, $3$ and $6$ in the order listed above. The six multisets are $AA,AB,AC,BB,BC,CC$. Under independent uniform ordered sampling, $AA$ has probability $1/9$, whereas $AB$ has probability $2/9$ because it can arise from $AB$ or $BA$. Uniformly choosing one of the six multisets is a different sampling experiment.{{cite:dodge2008}} (p. 98, combinations; p. 421, permutations)
+
+**Your turn.** How many unordered selections of three labels with repetition are possible from four labels?
+
+::: {.callout-tip collapse="true" title="Answer"}
+There are $\binom{4+3-1}{3}=\binom63=20$ multisets.
+:::
+
+## Common misconceptions — Do not divide by a varying multiplicity
+The shortcut of dividing an ordered count by $k!$ works for unordered selections without repetition because every selected label is distinct. With repetition, the ordered sequences corresponding to a multiset have different multiplicities: $AA$ has only one ordering while $AB$ has two. The stars-and-separators argument counts multisets directly and avoids that mistaken division. When sampling mechanisms are unequal, the correct next step is to add their probability weights.{{cite:grinstead_snell1997}} (§3.2)
+
+
+## Statistical use — Match the probability denominator to the experiment
+Before using a counting formula in a probability calculation, state which elementary outcomes are equally likely. Independent uniform draws make ordered sequences equally likely, but collapsing them into unordered multisets produces different multiplicities. Sampling a uniform subset without replacement instead makes subsets the natural elementary outcomes. The combinatorial count is therefore part of the probability model: choosing the right number of possible descriptions alone does not establish equal probability for those descriptions.{{cite:grinstead_snell1997}} (§§3.1–3.2, counting and sampling)
+
+## Related concepts — Name the recorded outcome before choosing a formula
+
+A password of length $k$ over an alphabet of $n$ symbols records order and allows repeats, so it is one of $n^k$ sequences. A committee of $k$ distinct people chosen from $n$ records membership and forbids repeats, so it is one of $\binom nk$ sets. A ranking of $k$ distinct candidates records order and forbids repeats, so it is one of the falling products $n(n-1)\cdots(n-k+1)$. A bag of $k$ items of $n$ types, in which repeats are allowed and order is ignored, is a multiset, and there are $\binom{n+k-1}{k}$ of them. Writing the experiment in those words attaches the denominator to the outcome that was actually recorded.
+
+For five labels and three draws the four counts are $5^3=125$, $5\times4\times3=60$, $\binom53=10$ and $\binom73=35$. Under independent uniform ordered sampling the $125$ sequences are equally likely. The multiset with counts $(2,1,0,0,0)$ arises from $3!/2!=3$ of those sequences, so its probability is $3/125$. Choosing one of the $35$ multisets uniformly assigns that same multiset probability $1/35$. The two experiments use the same labels and the same $k$, and they do not use the same probabilities. Dividing the ordered count by $3!$ would be right for the ten sets, because every set of distinct labels has $3!$ orders, and wrong for the multisets, because a repeated label has fewer distinct orders.{{cite:grinstead_snell1997}} (§3.1, permutations; §3.2, combinations){{cite:dodge2008}} (p. 98, Combination; p. 421, Permutation)
+
+### Statistical use — Coincidence probabilities are falling products
+
+Suppose birthdays are independent and uniformly distributed over $365$ days, with the leap day left out. The probability that $n$ people all have different birthdays is the number of injections from the people to the days, divided by $365^n$. That is the ordered-without-repetition count over the ordered-with-repetition count. The probability of at least one shared birthday is one minus that ratio. Evaluating the product gives $0.507297$ for $23$ people, $0.891232$ for $40$, and $0.970374$ for $50$. The rapid growth comes from multiplying ever smaller unused-day fractions. It does not come from changing the counting principle, and it is not the probability under a model that puts extra mass on particular days.{{cite:grinstead_snell1997}} (§§3.1–3.2, counting and sampling)

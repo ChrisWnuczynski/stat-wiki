@@ -1,0 +1,44 @@
+## Motivating example
+A Poisson model for houses per plot specifies a family of probability vectors rather than one fixed vector. Estimating its mean uses some of the same discrepancies that the goodness-of-fit statistic will measure. Calibration must account for this fitting step. The relevant estimate is obtained from the category counts used in the test.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, binned-count likelihood)
+
+## Definition
+The adjustment $k-1-r$ requires an interior identifiable parameter, smooth positive cell probabilities, a full-rank $r$-dimensional derivative, and a suitable efficient fit from those multinomial counts. A redundant parameter does not remove another degree of freedom, while a parameter on a boundary can lead to a different limit. A saturated model has no residual goodness-of-fit directions.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, “Critical Region”)
+
+## Properties — What fitting removes
+The standardized multinomial error has limiting covariance $I-uu^\top$, where $u_i=\sqrt{p_i(\theta_0)}$. Let the columns of $A$ be the standardized derivatives $\partial p_i/\partial\theta_j\,/\sqrt{p_i}$. Differentiating $\sum_i p_i=1$ gives $u^\top A=0$. The likelihood score equations remove the projection of the random error onto the column space of $A$. The residual is therefore a normal projection perpendicular to both $u$ and those $r$ tangent directions, leaving rank $k-1-r$. Its squared length has the stated chi-squared limit. This is an asymptotic projection argument, rather than a claim that fitting always makes the statistic smaller in every finite sample. The fixed-probability Pearson comparison supplies the starting $k-1$ directions.{{cite:openintro2019}} (§6.3.2–6.3.4, chi-square statistic and reference distribution)
+
+## Worked example — Fitting a binomial family
+Consider one hundred objects, each with two binary opportunities. The counts for zero, one and two successes are $(30,40,30)$. Under a $\operatorname{Bin}(2,p)$ family the grouped likelihood gives $\widehat p=(40+2\cdot30)/200=0.5$. Expectations are $(25,50,25)$ and
+$$T=25/25+100/50+25/25=4.$$
+There are three categories and one fitted parameter, leaving one degree of freedom. The approximate $p$-value is $0.0455$. Using two degrees of freedom would give $0.1353$ and a different decision. The distinction comes from fitting, not from changing the observed counts.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, estimated parameters and degrees of freedom)
+
+**Your turn.** Change those counts to $(25,50,25)$. Find the fitted probability, statistic and residual degrees of freedom.
+
+::: {.callout-tip collapse="true" title="Answer"}
+There are one hundred successes in two hundred opportunities, so $\widehat p=0.5$. Observations equal fitted expectations and $T=0$. The reference still has one degree of freedom.
+:::
+
+## Interpretation — Grouping changes the fitted likelihood
+For the village table, $911/1200$ is the mean of the complete count values. Once all counts of four or more are merged, the multinomial likelihood is instead
+$$\ell(\lambda)=\sum_{j=0}^3O_j\log\{e^{-\lambda}\lambda^j/j!\}+15\log P_\lambda(X\ge4).$$
+Maximizing this expression gives $\widehat\lambda=0.7512$, fitted counts approximately $(566.13,425.31,159.75,40.00,8.80)$, and $T=7.7362$ on three degrees of freedom, with $p=0.05179$. The displayed figure uses the complete-data mean; the grouped fit is numerically close but its likelihood matches the theorem's premise. The count table is illustrative, with spatial independence and a common rate requiring a separate modelling justification.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, maximum likelihood from observed bin counts)
+
+## Assumptions and limits
+A single Poisson goodness-of-fit test cannot establish a spatial mechanism. A mixture of different plot rates, dependence between nearby plots, and non-Poisson counts can each alter the frequencies. The test only assesses the specified distribution of plot counts under independent sampling. Category selection also affects the discrepancy being tested.{{cite:openintro2019}} (§6.3.5, evaluating goodness of fit)
+
+## Lead context
+A goodness-of-fit comparison asks whether the observed category counts are farther from a model than multinomial sampling would usually produce. If the model contains unknown parameters and those parameters are estimated from the same counts, some of the discrepancy is spent on the fit. The usual chi-squared limit then has fewer degrees of freedom than the fully specified comparison. The estimate has to come from the multinomial likelihood of the categories actually used in the statistic.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, estimated parameters and degrees of freedom)
+
+## Intuition
+With $k$ categories and no estimated parameter, the counts are tied together by one constraint: they sum to $n$. That leaves $k-1$ free directions. Each regular parameter estimated from those counts removes one more direction, provided the cell probabilities are positive, the derivative of the probability vector has rank $r$, and the estimate solves the multinomial score equations. The residual degrees of freedom are $k-1-r$. Four categories and three free probability coordinates use up the entire simplex. The fitted probabilities can match every observed proportion, the statistic can be driven to zero, and no residual comparison remains.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, “Critical Region”)
+
+## Statistical use
+The binomial counts $(30,40,30)$ give $\widehat p=0.5$, expectations $(25,50,25)$, and $T=4$ on one degree of freedom. The approximate tail probability is $0.0455$. Treating the same statistic as $\chi^2_2$ would give $0.1353$ and would not reject at $5\%$. The data did not change between those two references; the degrees of freedom did. Replacing the counts by the fitted expectations $(25,50,25)$ makes $T=0$, but the reference law still has one degree of freedom. A perfect fit is a possible outcome of a one-parameter model. It is not a saturated model. For the grouped Poisson table, maximizing the likelihood of the five merged categories gives $\widehat\lambda=0.7512$ and $T=7.7362$ on three degrees of freedom. Using the mean of the ungrouped counts is a different estimate and need not produce the same tail probability.{{cite:openintro2019}} (§6.3.2–6.3.4, chi-square statistic and reference distribution)
+
+## Common misconceptions
+Fitting always “uses up” a degree of freedom only under the regularity conditions named above. A parameter that is a function of another parameter does not remove a second direction. A parameter stuck on the boundary of the parameter space can produce a limit that is not chi-squared on $k-1-r$. Estimating the Poisson mean from the original unbinned measurements, and then binning, is not the same algebraic step as estimating it from the bin counts. The projection argument also does not say that the statistic is smaller in every finite sample than it would have been with the true parameter. It describes the distribution of the statistic after the fit, as the sample size grows with the bins held fixed.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, maximum likelihood from observed bin counts){{cite:openintro2019}} (§6.3.5, evaluating goodness of fit)
+
+## Connections
+Degrees of freedom record how many free directions remain after the fit. The binomial counts $(30,40,30)$ have one fitted success probability, $\widehat p=0.5$, expectations $(25,50,25)$, and statistic $4$. One degree of freedom gives an approximate tail probability $0.0455$. Two degrees of freedom give $0.1353$. The counts did not change. The reference did. Replacing the counts by the fitted expectations makes the statistic zero, and the reference still has one degree of freedom because the model is not saturated.
+
+The grouped Poisson table makes the same point with a different family. Maximising the likelihood of the five merged categories gives $\widehat\lambda=0.7512$ and statistic $7.7362$ on three degrees of freedom, with tail probability $0.05179$. An estimate computed from the ungrouped measurements is a different function of the data. The usual chi-squared limit is stated for the multinomial likelihood of the categories that enter the statistic. Four categories and three free probability coordinates fill the simplex. The fitted probabilities can match every observed proportion, the statistic can be driven to zero, and no residual comparison remains.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, estimated parameters and degrees of freedom)

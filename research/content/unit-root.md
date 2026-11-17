@@ -1,0 +1,47 @@
+## Motivating example
+A temporary disturbance to a stationary autoregression has an effect that decays over time. In a random walk, that disturbance becomes part of every later level. This persistence changes both long-run variation and forecasting uncertainty. Differencing a random walk isolates its increments, which can be stationary even though the level is not.{{cite:hyndman_athanasopoulos2021}} (§9.1, “Stationarity and differencing”, random walk model)
+
+## Definition — The ordinary root at one
+For an autoregression written $\phi(B)X_t=\varepsilon_t$, a root of $\phi(z)$ on the unit circle is a unit root. The common nonseasonal case is a root at $z=1$, so $\phi(B)$ contains a factor $(1-B)$. If that factor occurs once and the remaining factors describe a stable stationary process, one ordinary difference removes that root. Seasonal or repeated unit roots require the corresponding factors to be addressed as well. For the AR(1) polynomial $1-\varphi z$, a root at one means $\varphi=1$.{{cite:hyndman_athanasopoulos2021}} (§§9.1–9.3, differencing, backshift notation and autoregressive models)
+
+Autocorrelation compares values of a time series separated by a lag. It therefore summarises a different object from the level variance at a particular time. The covariance calculations below show explicitly why a random-walk level cannot be summarised by a stationary lag-only covariance.{{cite:dodge2008}} (p. 24, Autocorrelation)
+
+## Properties — Accumulated innovations determine variance
+Let $X_t=X_{t-1}+\varepsilon_t$, with fixed $X_0$, zero-mean uncorrelated innovations and positive common innovation variance $\sigma^2$. Iteration gives $X_t=X_0+\sum_{j=1}^t\varepsilon_j$. Variances therefore add to $t\sigma^2$. For $s\le t$, the covariance is $s\sigma^2$, which depends on both times rather than just their lag. This directly rules out weak stationarity of the levels. The first difference equals $\varepsilon_t$, so it has the stable innovation variance. The random-walk representation makes the distinction between levels and changes explicit.{{cite:hyndman_athanasopoulos2021}} (§9.1, random walk model)
+
+For the linear $h$-step forecast using the most recent observation, the error is a sum of $h$ future innovations, with unconditional variance $h\sigma^2$ under the stated assumptions. If innovations are independent of the observed past, the same expression is the conditional forecast-error variance. A drift term adds $h$ times the drift to the point forecast but does not remove the accumulation of innovation variance. Forecast uncertainty widens with horizon even when the increment model is simple.{{cite:hyndman_athanasopoulos2021}} (§9.8, “Forecasting”)
+
+## Worked example — A series with stable changes and unstable levels
+Take innovation variance four and $X_0=0$. The level variances at times one, five and twenty are $4,20,80$. The variance of each one-step increment is four. A five-step forecast error has standard deviation $\sqrt{20}\approx4.472136$, while a twenty-step error has standard deviation $\sqrt{80}\approx8.944272$. Four times the forecast horizon doubles the standard deviation.
+
+A stationary AR(1) with coefficient $0.8$ and the same innovation variance has stationary variance $4/(1-0.8^2)=100/9\approx11.111111$. Its finite variance illustrates the discontinuity at coefficient one: substituting one into that stationary formula does not yield a finite stationary variance.
+
+**Your turn.** If the random walk has drift $0.5$ and its latest value is ten, what is the three-step point forecast and forecast-error variance?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The forecast is $10+3(0.5)=11.5$. With innovation variance four, the forecast-error variance is twelve.
+:::
+
+## Statistical use — Test the assumption that matters
+A slow-decaying sample autocorrelation can motivate a stationarity investigation, but it is not a proof of a unit root. Unit-root and stationarity tests have different null hypotheses and nonstandard or model-specific calibrations. For example, the KPSS test uses stationarity as its null. Always state the deterministic terms, differencing convention and null being tested before interpreting its p-value.{{cite:hyndman_athanasopoulos2021}} (§9.1, “Unit root tests”)
+
+## Assumptions and limits — Level regressions can be misleading
+Independent persistent series can yield apparently strong fitted relationships and ordinary t statistics whose usual stationary regression interpretation is invalid. A fitted line through their levels does not establish a shared generating mechanism. Inspecting residual dependence and considering a suitable model for differences are part of the analysis; genuine long-run relations require their own conditions. The spurious-regression issue is documented in the econometric literature.{{cite:hyndman_athanasopoulos2021}} (§10.1, “Estimation”, spurious regression)
+
+## Intuition
+A stationary series forgets a shock. An autoregression with coefficient $0.8$ multiplies that shock by $0.8$ at the next time, by $0.8^2$ at the time after, and so on. The weights are summable, and the marginal variance settles at $\sigma^2/(1-0.8^2)$. With innovation variance $4$ that stationary variance is $100/9\approx 11.111111$. A unit root is the boundary where the weight on a past shock is $1$ at every future time. The shock is added into the level and never multiplied by a factor smaller than one. The variance of the level is then the sum of the innovation variances still in memory, which is every innovation since the process started. With a fixed start at zero, that sum is $t\sigma^2$ and grows without a finite ceiling.
+
+Differencing is the arithmetic that isolates the innovation. If $X_t=X_{t-1}+\varepsilon_t$, then $X_t-X_{t-1}=\varepsilon_t$. The differences can be stationary, uncorrelated, and of constant variance while the levels are none of those things. Forecasting the level puts the future innovations back in. An $h$-step forecast error under this random walk is a sum of $h$ innovations and has variance $h\sigma^2$. The forecast fans out as the horizon grows. A drift $0.5$ shifts the point forecast by $0.5h$ and leaves that error variance unchanged.
+
+### Properties — Covariance depends on the earlier time
+For $s\le t$ the random walk shares the first $s$ innovations, so $\operatorname{Cov}(X_s,X_t)=s\sigma^2$ when $X_0$ is fixed and the innovations are uncorrelated with variance $\sigma^2$. The correlation is $\sqrt{s/t}$. At times $5$ and $20$ with $\sigma^2=4$, the covariance is $5\cdot 4=20$ and the correlation is $\sqrt{5/20}=1/2$. A stationary series would have a covariance that depends on the lag $t-s$ alone. Here the lag is $15$ in this pair, and a pair with the same lag earlier in the series, such as times $1$ and $16$, has covariance $1\cdot 4=4$, not $20$. The lag does not determine the covariance. Weak stationarity fails for that reason, before any test is computed.
+
+A unit root of the autoregressive polynomial is the same boundary written as an equation. The AR(1) polynomial is $1-\varphi z$. A root at $z=1$ means $\varphi=1$. Seasonal unit roots are roots at other points on the unit circle, and they are removed by the matching seasonal difference, not by an ordinary first difference alone. Applying a first difference to a series that still has a seasonal unit root leaves that seasonal factor in the polynomial.
+
+## Common misconceptions
+A slowly decaying sample autocorrelation is a prompt to consider a unit root. It is also what a stationary autoregression with coefficient $0.8$ produces at moderate lags: the population autocorrelation at lag $k$ is $0.8^k$. At lag $10$ that value is about $0.107$. Distinguishing a slow geometric decay from a unit root is a question about the model and the sample length. The sample correlogram does not settle it by eye.
+
+Tests differ in which statement they treat as the null. A Dickey–Fuller-type statistic is built so that the null is a unit root, with a nonstandard reference distribution once a constant or a trend is estimated. The KPSS statistic is built so that the null is stationarity. Rejecting KPSS is a decision against that stationarity null. It is not numerically the same event as rejecting a unit-root null, and a failure to reject a unit-root null is not an estimate of the autoregressive coefficient. The deterministic terms included in the regression, the differencing already applied, and the null that was actually tested all belong in the report.{{cite:hyndman_athanasopoulos2021}} (§9.1, “Unit root tests”)
+
+## Connections
+The partial-sum process of a random walk, scaled by $\sqrt t$ in time and by $\sigma$ in level, is the setting for a functional limit that looks like Brownian motion. Ordinary $t$ critical values are the wrong reference for a regression coefficient fitted to such levels, which is the spurious-regression phenomenon. Differences, or a model that explicitly allows a shared stochastic trend, change the object being estimated. Forecasting then has to say whether the target is a future level, a future difference, or an interval whose width is allowed to grow with the horizon. The random-walk calculation gives that width as $\sigma\sqrt h$ when the innovations are the only source of error and their variance is constant. Parameter uncertainty and a change in the process add further width the innovation formula does not include.{{cite:hyndman_athanasopoulos2021}} (§9.8, “Forecasting”)

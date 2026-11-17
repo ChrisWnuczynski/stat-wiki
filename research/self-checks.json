@@ -2638,5 +2638,2422 @@
       "prompt": "Several comparisons are examined and the most extreme statistic is then treated as the pre-specified test. What has changed about the null probability of rejection?",
       "answer": "The rejection probability is now the probability for the search, not the probability tabulated for one pre-specified statistic."
     }
+  ],
+  "interior-dirichlet-mode": [
+    {
+      "title": "Joint and marginal modes",
+      "prompt": "For concentrations (2,3,5), what is the joint-mode first coordinate and what is the mode of P₁ alone?",
+      "answer": "The joint-mode coordinate is 1/7. The marginal is Beta(2,8), whose mode is 1/8."
+    },
+    {
+      "title": "A uniform simplex density",
+      "prompt": "Can the formula (αₖ−1)/(α₀−K) select a unique mode when every concentration equals one?",
+      "answer": "No. It becomes 0/0. The density is constant, so the interior points all have the same density."
+    }
+  ],
+  "log-partition-moment-identities": [
+    {
+      "title": "A change of parameter",
+      "prompt": "Does differentiating A(log λ)=λ with respect to λ directly give the Poisson variance through the natural-parameter identity?",
+      "answer": "No. The identity uses derivatives with respect to η=log λ. Chain-rule factors are required when differentiating with respect to λ."
+    },
+    {
+      "title": "A redundant statistic",
+      "prompt": "If T₂=2T₁ identically, can the covariance matrix of (T₁,T₂) be positive definite?",
+      "answer": "No. The nonzero direction (2,−1) has zero variance, so the covariance matrix is singular."
+    }
+  ],
+  "marginal-hyperposterior": [
+    {
+      "title": "A finite posterior weight",
+      "prompt": "Two candidate hyperparameter values have equal prior mass and likelihood kernels 1/18 and 3/50. What is the posterior probability of the second?",
+      "answer": "It is (3/50)/(1/18+3/50)=27/52."
+    },
+    {
+      "title": "Transforming a density",
+      "prompt": "Under α=mk and β=(1−m)k, what absolute Jacobian factor is required for a density in (m,k)?",
+      "answer": "The determinant has absolute value k, so multiply the (α,β) density evaluated at the inverse map by k."
+    }
+  ],
+  "marginal-student-posterior": [
+    {
+      "title": "Scale versus standard deviation",
+      "prompt": "A Student posterior has three degrees of freedom and scale squared 5/6. What is its variance?",
+      "answer": "It is (3/(3−2))×(5/6)=5/2, not 5/6."
+    },
+    {
+      "title": "Residual degrees of freedom",
+      "prompt": "In a full-rank Gaussian regression with n=12 responses and p=4 coefficients under the stated reference prior, what are the Student degrees of freedom?",
+      "answer": "They are n−p=8, including the intercept among the four coefficients if the model has one."
+    }
+  ],
+  "normal-inverse-gamma-variance-update": [
+    {
+      "title": "Known mean and displaced observations",
+      "prompt": "If observations are all close to 12 but the known mean is 10, can their near-zero sample variance replace Qμ in the update?",
+      "answer": "No. Qμ includes the squared displacement of the sample mean from the known value. Centering at the sample mean would change the likelihood."
+    },
+    {
+      "title": "A proper law without a mean",
+      "prompt": "Does an inverse-gamma posterior with shape 0.8 and positive scale have a finite posterior mean?",
+      "answer": "No. It is a proper density, but its mean exists only when shape exceeds one."
+    }
+  ],
+  "normal-normal-conjugacy": [
+    {
+      "title": "A fractional equivalent sample",
+      "prompt": "Observations have known variance 4 and the prior variance of the mean is 8. What equivalent prior sample size does that prior represent, and must the number be an integer?",
+      "answer": "The equivalent count is the observation variance divided by the prior variance, 4/8=1/2. It need not be an integer: it counts prior precision in units of one observation, not rows secretly added to the data."
+    },
+    {
+      "title": "Observation order",
+      "prompt": "Would processing 12 before 8 change the final posterior?",
+      "answer": "No. Precision increments and precision-weighted-value increments add in either order."
+    }
+  ],
+  "posterior-prediction-under-the-reference-prior": [
+    {
+      "title": "No new observation noise",
+      "prompt": "Why does an interval for the mean use h rather than 1+h?",
+      "answer": "The mean is a linear function of the coefficients. It has coefficient uncertainty but no new independent measurement error."
+    },
+    {
+      "title": "A proper law without a variance",
+      "prompt": "For a Student predictive law with two degrees of freedom, can its scale be finite while its variance is infinite?",
+      "answer": "Yes. The distribution is proper, but a finite Student variance requires more than two degrees of freedom."
+    }
+  ],
+  "study-rate-full-conditional": [
+    {
+      "title": "Updating a second study",
+      "prompt": "Under Beta(2,3) hyperparameters, what is the full conditional after 2 successes in 8 trials?",
+      "answer": "It is Beta(4,9), with mean 4/13."
+    },
+    {
+      "title": "A larger prior sample size",
+      "prompt": "Keep the prior centre at 0.4 but set the concentration to 20. For 4 successes in 5 trials, what is the conditional mean?",
+      "answer": "The shapes are (8,12), so the mean is (4+8)/(5+20)=12/25=0.48."
+    }
+  ],
+  "a-finite-endpoint-and-a-weibull-extreme-value-law": [
+    {
+      "title": "Which tail?",
+      "prompt": "For Y_n=n(1−M_n), does Y_n>2 mean the maximum is closer to or farther below the endpoint than 1−2/n?",
+      "answer": "Farther below: M_n<1−2/n."
+    },
+    {
+      "title": "Changing the endpoint tail",
+      "prompt": "If 1−F(xF−t) is asymptotic to 3t², what is the natural gap scale a_n?",
+      "answer": "It is (3n)^(−1/2), giving a limiting scaled-gap survival e^(−y²)."
+    }
+  ],
+  "a-permutation-test": [
+    {
+      "title": "Monte Carlo spacing is not a standard error",
+      "prompt": "A corrected Monte Carlo probability near 0.20 is computed from m=1999 random permutations. Using the binomial formula with proportion 0.20 and denominator 1999, what is the approximate standard error?",
+      "answer": "About 0.00895, the square root of 0.2 times 0.8 over 1999. The grid spacing 1/2000 is a different quantity."
+    },
+    {
+      "title": "A mean null versus a symmetry null",
+      "prompt": "Does equality of two population means by itself justify unrestricted label permutation?",
+      "answer": "No. Exact permutation validity requires the specified distributional or randomisation invariance, which equality of means alone does not imply."
+    }
+  ],
+  "a-proper-approximation-to-the-flat-prior": [
+    {
+      "title": "Prior mass in a fixed interval",
+      "prompt": "For a uniform prior on [-20,20], what probability is assigned to [-3,3]?",
+      "answer": "The interval lengths are 6 and 40, so the probability is 3/20."
+    },
+    {
+      "title": "Omitted likelihood mass",
+      "prompt": "A likelihood integrates to 5, of which 4 lies inside the prior window. What is the total-variation distance from the windowed posterior to the posterior that uses the whole likelihood?",
+      "answer": "The distance equals the omitted fraction 1 - 4/5 = 1/5."
+    }
+  ],
+  "acceptance-rejection-method": [
+    {
+      "title": "A tight envelope on a short interval",
+      "prompt": "The target density equals 4 on [0,1/4] and equals 0 elsewhere. The proposal is uniform on [0,1]. What is the smallest valid M, and what is the mean number of proposals per accepted draw?",
+      "answer": "The smallest M is 4, because the target height is 4 and the proposal density is 1. The mean number of proposals equals M, so it is 4."
+    },
+    {
+      "title": "The cost of a loose envelope",
+      "prompt": "If the bound increases from 3/2 to 3 while the target and proposal stay the same, what happens to mean proposals per output?",
+      "answer": "It increases from 3/2 to 3, so the expected number doubles."
+    }
+  ],
+  "accidental-deaths-data": [
+    {
+      "title": "A supplied frequency",
+      "prompt": "What does frequency 12 mean for the monthly USAccDeaths time series?",
+      "answer": "It records twelve observations per year. It is time-series metadata, rather than a claim that an unindexed algorithm discovered the period."
+    },
+    {
+      "title": "A quadratic seasonal difference",
+      "prompt": "For the series Y_t = 3 t^2, what is the ordinary difference of the lag-12 seasonal differences?",
+      "answer": "The lag-12 difference is 72t - 432, and its ordinary difference is the constant 72."
+    }
+  ],
+  "adjusted-r-squared": [
+    {
+      "title": "Residual degrees of freedom",
+      "prompt": "An intercept and five slopes are fitted to 40 observations. What are the residual degrees of freedom?",
+      "answer": "Six coefficients are fitted, so the residual degrees of freedom are 40 - 6 = 34."
+    },
+    {
+      "title": "A negative adjusted score",
+      "prompt": "With n=10, one slope, SST=9 and SSE=8.8, what is adjusted R-squared?",
+      "answer": "It is 1-(8.8/8)/(9/9)=-0.1. A negative adjusted score is possible."
+    }
+  ],
+  "analysis-of-deviance": [
+    {
+      "title": "Another likelihood-ratio scale",
+      "prompt": "If deviance decreases by 12 and the known dispersion is 3, what is the scaled likelihood-ratio statistic?",
+      "answer": "It is 12/3 = 4."
+    },
+    {
+      "title": "Rank difference",
+      "prompt": "Two nested models have design ranks 5 and 8. What is the rank difference used for their regular likelihood-ratio comparison?",
+      "answer": "It is 8-5=3, provided the models satisfy the regularity assumptions."
+    }
+  ],
+  "anova-sum-of-squares-decomposition": [
+    {
+      "title": "Three groups",
+      "prompt": "Group means are 1, 4 and 10, with sizes 5, 1 and 4. What is the grand mean?",
+      "answer": "It is (5 times 1 + 1 times 4 + 4 times 10)/10 = 49/10 = 4.9."
+    },
+    {
+      "title": "The zero cross-term",
+      "prompt": "Why does the cross-term in the ANOVA decomposition vanish?",
+      "answer": "Within each group, the deviations from that group mean sum to zero."
+    }
+  ],
+  "asymptotic-normality-of-maximum-likelihood": [
+    {
+      "title": "A derivative count",
+      "prompt": "If $S_n=\\ell_n\\prime$, which log-likelihood derivative occurs in the quadratic Taylor remainder of the score?",
+      "answer": "It is $S_n\\prime\\prime=\\ell_n\\prime\\prime\\prime$, the third log-likelihood derivative."
+    },
+    {
+      "title": "Why consistency is separate",
+      "prompt": "Does solving the score equation prove that the resulting root converges to the true parameter?",
+      "answer": "No. There may be several roots or local maxima. Consistency must identify the sequence to which the local expansion applies."
+    }
+  ],
+  "axioms-of-probability": [
+    {
+      "title": "The overlap correction",
+      "prompt": "Why must $P(A\\cap B)$ be subtracted from $P(A)+P(B)$?",
+      "answer": "The intersection is counted once in each probability, but must be counted only once in the union."
+    },
+    {
+      "title": "Uncountably many points",
+      "prompt": "Why can a uniform interval have total probability one although every singleton has probability zero?",
+      "answer": "Countable additivity governs countable disjoint unions. An interval is an uncountable union of singleton points, so that sum rule does not apply to the union over all its points."
+    }
+  ],
+  "batch-and-online-learning": [
+    {
+      "title": "A factor of sample size",
+      "prompt": "For a sum loss, is the single uniformly drawn case gradient itself unbiased for the full gradient?",
+      "answer": "No. Its expectation is the average gradient. Multiplying it by $n$ gives an unbiased estimate of the sum gradient."
+    },
+    {
+      "title": "A rising loss",
+      "prompt": "Does one stochastic step that increases the full loss contradict gradient unbiasedness?",
+      "answer": "No. Unbiasedness is an expectation over the sampled case at the fixed current weight; a particular sampled direction may increase the full loss."
+    }
+  ],
+  "bayes-consistency-of-nearest-neighbours": [
+    {
+      "title": "A local but noisy choice",
+      "prompt": "Does k_n=1 satisfy k_n→infinity and k_n/n→0?",
+      "answer": "Only the second condition holds. One neighbour does not average away label noise."
+    },
+    {
+      "title": "An excess-error bound",
+      "prompt": "At a point where the true regression is 0.8 and the estimated regression is 0.4, the two classification rules disagree. What is the conditional excess error, and what upper bound does twice the absolute regression error give?",
+      "answer": "The conditional excess error is |1.6 - 1| = 0.6. Twice the absolute regression error is 2 times 0.4 = 0.8, which sits above 0.6."
+    }
+  ],
+  "bayes-factors-and-posterior-odds": [
+    {
+      "title": "An improper scale",
+      "prompt": "Two models use improper priors that differ by a constant factor, and both parameter posteriors are proper. Does that factor cancel from the Bayes factor?",
+      "answer": "No. An arbitrary prior scale multiplies the marginal likelihood. It cancels inside one model's parameter posterior when that posterior is proper, but it remains in a comparison between models."
+    },
+    {
+      "title": "Two kinds of priors",
+      "prompt": "Which prior choice is absent from a Bayes factor but required to convert it into posterior model odds?",
+      "answer": "Prior probabilities of the model labels. Within-model parameter priors remain part of the marginal likelihood and hence the Bayes factor."
+    }
+  ],
+  "benjamini-hochberg-controls-the-false-discovery-rate": [
+    {
+      "title": "A realised proportion",
+      "prompt": "If R=20 hypotheses are rejected and V=3 are false rejections, what is the false-discovery proportion?",
+      "answer": "It is 3/20=0.15. This realised value is not the expectation defining FDR."
+    },
+    {
+      "title": "No rejections",
+      "prompt": "Why is the false-discovery proportion set to zero when R=0?",
+      "answer": "There are no discoveries and no false discoveries. The definition uses V/(R∨1), which equals zero in that case."
+    }
+  ],
+  "birth-weight-data": [
+    {
+      "title": "A conditional comparison",
+      "prompt": "What is held fixed when interpreting the smoking coefficient in this fitted model?",
+      "answer": "Maternal weight, maternal age and the recorded race category. It compares fitted conditional means at equal values of those included predictors."
+    },
+    {
+      "title": "Age and a large probability",
+      "prompt": "Does an age coefficient probability near $0.84$ prove that age has no relation to birth weight?",
+      "answer": "No. It indicates weak evidence against a zero conditional linear coefficient in this specified model; it does not prove absence of an association in every model or population."
+    }
+  ],
+  "birthday-problem": [
+    {
+      "title": "One person or any pair?",
+      "prompt": "What is the probability that at least one of twenty-two people matches a specified host under the uniform 365-day model?",
+      "answer": "It is $1-(364/365)^{22}$; comparisons are all with the host, so this is a different event from any shared birthday."
+    },
+    {
+      "title": "Probability versus pair count",
+      "prompt": "Can the expected number of matching pairs exceed one?",
+      "answer": "Yes. A single outcome can contain several matching pairs, so the pair count is not an indicator. Its expectation is $\\binom n2/m$."
+    }
+  ],
+  "categorical-and-multinomial-models": [
+    {
+      "title": "A missing count",
+      "prompt": "Five observations are classified into four categories. Three of the counts are 2, 0 and 1. What is the remaining count?",
+      "answer": "The counts sum to the sample size, so the remaining count is 5 - 3 = 2."
+    },
+    {
+      "title": "Predictive smoothing",
+      "prompt": "With a Dirichlet(1,1,1) prior and observed counts (4,0,0), what is the next-category probability for category two?",
+      "answer": "The posterior is Dirichlet(5,1,1), so that probability is 1/7."
+    }
+  ],
+  "chi-squared-test-for-a-variance": [
+    {
+      "title": "Power when the variance is halved",
+      "prompt": "A lower-tail 5% test of null variance 1.1 uses the chi-squared critical value on six degrees of freedom. If the true variance is half the null value, is the rejection probability above or below 5%?",
+      "answer": "Above 5%. At true variance 0.55 the power is about 0.226."
+    },
+    {
+      "title": "Use the right units",
+      "prompt": "A specification states standard deviation 3. What variance belongs in the pivot denominator?",
+      "answer": "The variance is $3^2=9$. Dividing a squared sample standard deviation by 3 mixes units."
+    }
+  ],
+  "chi-squared-test-with-estimated-parameters": [
+    {
+      "title": "Which sample fits the parameter?",
+      "prompt": "A test merges observations into five categories. From which likelihood should its parameter estimate be computed for the usual adjustment?",
+      "answer": "The multinomial likelihood of those five category counts. An estimate from finer measurements need not give exactly the same reference law."
+    },
+    {
+      "title": "Saturated fit",
+      "prompt": "With four categories and three independently fitted probability coordinates, how many residual degrees of freedom remain?",
+      "answer": "There are $4-1-3=0$. The fitted vector can match all observed proportions, leaving no residual goodness-of-fit comparison."
+    }
+  ],
+  "chi-squared-test-with-known-cell-probabilities": [
+    {
+      "title": "Count the constraints",
+      "prompt": "Why do four fixed positive cell probabilities give three chi-squared degrees of freedom?",
+      "answer": "The four count deviations sum to zero, leaving three free directions; no parameters are fitted from the counts."
+    },
+    {
+      "title": "Zero expectation",
+      "prompt": "Can a category with null probability zero be inserted into the Pearson formula?",
+      "answer": "No. Its denominator is zero. A positive count there contradicts the null, and an impossible category with zero observed count can be removed before calculating the statistic."
+    }
+  ],
+  "choosing-the-number-of-principal-components": [
+    {
+      "title": "A tie between leading eigenvalues",
+      "prompt": "Eigenvalues are 4, 4, 1 and 1. What fraction of variance do the first two components explain, and does a rule requiring at least 90% stop at two?",
+      "answer": "They explain 8/10=0.8. The rule needs the third component, which brings the total to 0.9."
+    },
+    {
+      "title": "Small variance and prediction",
+      "prompt": "Can a discarded component with tiny predictor variance perfectly predict a response?",
+      "answer": "Yes. The response can depend entirely on that direction. PCA orders predictor reconstruction variance without using the response."
+    }
+  ],
+  "classification-with-unequal-costs": [
+    {
+      "title": "Cost direction",
+      "prompt": "What happens to the positive-class probability threshold when false negatives become more costly?",
+      "answer": "It falls, because $C_{FP}/(C_{FP}+C_{FN})$ decreases as $C_{FN}$ increases."
+    },
+    {
+      "title": "Matrix orientation",
+      "prompt": "Why must a loss matrix state which axis indexes truth?",
+      "answer": "Reversing true and predicted indices exchanges the two error costs and can reverse the decision threshold."
+    }
+  ],
+  "conditional-distribution-of-a-multivariate-normal": [
+    {
+      "title": "The conditioning value",
+      "prompt": "With mean blocks 1 and 2, cross-covariance 3 and conditioning variance 9, what is the conditional mean when X_B=8?",
+      "answer": "It is 1+(3/9)(8-2)=3."
+    },
+    {
+      "title": "A correlation calculation",
+      "prompt": "The variable being predicted has marginal variance 16, and its correlation with the conditioning variable is 1/2. What is its conditional variance?",
+      "answer": "It is 16 times (1 - (1/2)^2) = 12."
+    }
+  ],
+  "conjugacy-is-optional": [
+    {
+      "title": "Normalising a posterior",
+      "prompt": "If the unnormalised posterior kernel integrates to 7/15, what factor turns it into a density?",
+      "answer": "Multiply it by 15/7."
+    },
+    {
+      "title": "A beta update",
+      "prompt": "A Beta(1,1) prior is updated by two successes and one failure. What is the posterior, and what is its mean?",
+      "answer": "The posterior is Beta(3,2), and its mean is 3/5."
+    }
+  ],
+  "contingency-tables": [
+    {
+      "title": "Margins under independence",
+      "prompt": "Why must the fitted expected row totals equal the observed row totals?",
+      "answer": "Because $\\sum_jR_iC_j/n=R_i\\sum_jC_j/n=R_i$. The model fits each marginal distribution."
+    },
+    {
+      "title": "Sampling unit",
+      "prompt": "Why is a table of repeated visits by the same patients unsuitable for an ordinary multinomial test without further assumptions?",
+      "answer": "Visits from the same patient can be dependent. The ordinary test treats the classified units as independent draws."
+    }
+  ],
+  "coverage": [
+    {
+      "title": "One interval",
+      "prompt": "Does an observed 95% interval contain the parameter with a frequentist probability of 0.95?",
+      "answer": "The parameter and observed endpoints are fixed. The 0.95 describes the random procedure over repeated samples under its assumptions."
+    },
+    {
+      "title": "Monte Carlo uncertainty",
+      "prompt": "If a correctly calibrated rule misses in 7 of 100 independent runs, does that alone refute nominal 95% coverage?",
+      "answer": "No. The number covering is random. It has a binomial distribution under independent repetitions; assess the deviation relative to that sampling variation."
+    }
+  ],
+  "d-p-q-and-r-functions": [
+    {
+      "title": "Shape, rate and scale",
+      "prompt": "A gamma law has shape 3 and rate 2. What is its mean, and what scale describes the same law?",
+      "answer": "The mean is 3/2. The equivalent scale is 1/2."
+    },
+    {
+      "title": "Density units",
+      "prompt": "Why is dnorm(0) not the probability of drawing exactly zero?",
+      "answer": "It is a density height. A normal distribution gives a single point probability zero; an interval probability is an integral or a difference of CDF values."
+    }
+  ],
+  "delta-method": [
+    {
+      "title": "The derivative enters squared",
+      "prompt": "A root-n estimate has limiting variance 4. For h(t)=3t−2, what is the transformed limiting variance?",
+      "answer": "It is 4×3²=36."
+    },
+    {
+      "title": "A zero derivative",
+      "prompt": "For h(mu)=mu² at mu=0 in a normal sample with variance sigma², what is the law of n times the squared sample mean divided by sigma²?",
+      "answer": "It is exactly chi-squared with one degree of freedom."
+    }
+  ],
+  "descent-of-lloyd-s-algorithm": [
+    {
+      "title": "Three assigned points",
+      "prompt": "What centre minimises the sum of squared distances for the values 1, 1 and 4, and what is that minimised sum?",
+      "answer": "The centre is their mean, 2. The minimised sum is 6."
+    },
+    {
+      "title": "Objective convergence",
+      "prompt": "Does a decreasing objective bounded below by zero establish that Lloyd's algorithm finds the global optimum?",
+      "answer": "No. It establishes convergence of objective values; different starts can reach different stationary configurations."
+    }
+  ],
+  "detailed-balance-implies-stationarity": [
+    {
+      "title": "From balance to stationarity",
+      "prompt": "Detailed balance says π_i P_ij = π_j P_ji for every pair of states. Why does summing over i show that π is stationary?",
+      "answer": "The left-hand side becomes the j-th entry of πP. The right-hand side is π_j times a row sum of one, so πP = π."
+    },
+    {
+      "title": "The converse",
+      "prompt": "Does every stationary Markov chain satisfy detailed balance?",
+      "answer": "No. A uniform stationary distribution for a directed three-state cycle has unequal opposite-edge flows."
+    }
+  ],
+  "draws-from-the-usual-families": [
+    {
+      "title": "Rate and scale",
+      "prompt": "For a fixed U, what happens to -log(U)/lambda when lambda doubles?",
+      "answer": "The generated waiting time halves, consistent with lambda being a rate."
+    },
+    {
+      "title": "Another discrete inversion",
+      "prompt": "Masses (0.1, 0.2, 0.7) sit at outcomes (0, 1, 2). What does U=0.25 produce?",
+      "answer": "The cumulative thresholds are 0.1, 0.3 and 1. Since 0.25 lies between 0.1 and 0.3, the outcome is 1."
+    }
+  ],
+  "drift-and-scale-of-a-random-walk": [
+    {
+      "title": "Scale versus precision",
+      "prompt": "Does the spread of the position decrease as the number of steps grows?",
+      "answer": "No. Its standard deviation grows as $\\sqrt n$. The average increment becomes more precise because dividing the position change by $n$ reduces its standard deviation to $\\sigma/\\sqrt n$."
+    },
+    {
+      "title": "Four hundred steps",
+      "prompt": "Step mean 0.2 and step variance 0.96. After 400 steps, what are the mean position change and the standard deviation of the position?",
+      "answer": "The mean change is 80. The standard deviation is the square root of 384, about 19.596."
+    }
+  ],
+  "error-and-residual": [
+    {
+      "title": "An observed gap",
+      "prompt": "If a response is 12 and its fitted conditional mean is 9, what is the residual? Can the true error be read off from those two values?",
+      "answer": "The residual is 3. The true error also needs the unknown true conditional mean, so it cannot generally be recovered."
+    },
+    {
+      "title": "A different leverage",
+      "prompt": "An error variance is 4 and one diagonal leverage is 1/4. What is the variance of that residual?",
+      "answer": "It is 4 times (1 - 1/4) = 3."
+    }
+  ],
+  "expectation-of-a-function": [
+    {
+      "title": "Why the mean is not enough",
+      "prompt": "If g is not a linear function, why can the average of g(X) not be recovered from the average of X alone?",
+      "answer": "Different distributions can share a mean and still give different averages of g. The average of g uses the distribution of X."
+    },
+    {
+      "title": "A two-point square",
+      "prompt": "X equals 0 or 6 with probabilities 1/3 and 2/3. What are E(X), E(X^2) and Var(X)?",
+      "answer": "The mean is 4, the second moment is 24, and the variance is 8."
+    }
+  ],
+  "exploratory-data-analysis": [
+    {
+      "title": "Sensitivity to an extreme value",
+      "prompt": "For 2,3,3,4,50, which of the mean and median changes when 50 becomes 500?",
+      "answer": "The mean increases from 12.4 to 102.4. The median remains 3."
+    },
+    {
+      "title": "A clue and a conclusion",
+      "prompt": "A scatterplot suggests a curved association. Does that observation alone establish a causal effect?",
+      "answer": "No. It suggests a relationship to investigate; causality also needs assumptions and evidence about treatment assignment, confounding and the data-generating process."
+    }
+  ],
+  "extended-information-criterion": [
+    {
+      "title": "Which likelihood",
+      "prompt": "Why should the graphical-lasso penalised objective not be substituted for the maximised likelihood in EBIC?",
+      "answer": "It includes shrinkage and a fitting penalty. The stated EBIC compares unpenalised constrained maximum-likelihood fits on the candidate edge sets."
+    },
+    {
+      "title": "What the extra charge counts",
+      "prompt": "If $p$ increases while $n$ and the fitted edge count stay fixed, what happens to EBIC when $\\gamma>0$?",
+      "answer": "The extra term $4\\gamma|E|\\log p$ increases, reflecting the larger space of possible graph edges."
+    }
+  ],
+  "fallacy-of-the-transposed-conditional": [
+    {
+      "title": "Equal conditionals",
+      "prompt": "If P(A and B)=0.1, P(A)=0.2 and P(B)=0.5, calculate P(A|B) and P(B|A).",
+      "answer": "They are 0.1/0.5=0.2 and 0.1/0.2=0.5, respectively."
+    },
+    {
+      "title": "A rare condition",
+      "prompt": "With sensitivity 0.9 and false-positive probability 0.05 fixed, does lowering prevalence increase or decrease positive predictive value?",
+      "answer": "It decreases positive predictive value, because false positives account for a larger fraction of positive results."
+    }
+  ],
+  "fixed-rule-error": [
+    {
+      "title": "Reweight without refitting",
+      "prompt": "A fixed rule has class-conditional error rates 0.05 and 0.50. What is its overall error if the future prevalences are 0.9 and 0.1, and what is it if the two classes are equally common?",
+      "answer": "The prevalence-weighted error is 0.9×0.05+0.1×0.50=0.095. Equal weights give (0.05+0.50)/2=0.275. The conditional rates did not change."
+    },
+    {
+      "title": "Conditional and algorithmic error",
+      "prompt": "If the training data are sampled again and the rule is refitted, is that the same target as the error of one fixed fitted rule?",
+      "answer": "No. It averages over a distribution of fitted rules rather than conditioning on one realised rule."
+    }
+  ],
+  "forward-equations-of-the-poisson-process": [
+    {
+      "title": "Where is the inflow?",
+      "prompt": "Why does the equation for count n contain p_(n-1), rather than p_(n+1)?",
+      "answer": "Only upward unit jumps are possible. Probability enters n from n-1 and leaves n for n+1."
+    },
+    {
+      "title": "Empty interval",
+      "prompt": "For a homogeneous Poisson process of rate λ, which count probability equals the probability that the first arrival is after time t?",
+      "answer": "The probability of zero arrivals, e to the power −λt. The first arrival is later than t exactly when the count at t is zero."
+    }
+  ],
+  "four-state-random-walk": [
+    {
+      "title": "Matrix convention",
+      "prompt": "For the displayed column-stochastic matrix, how is a probability column advanced?",
+      "answer": "Multiply on the left by $Q$: $v_{t+1}=Qv_t$. Stationarity is $Q\\pi=\\pi$."
+    },
+    {
+      "title": "Uniform equilibrium?",
+      "prompt": "Why does the uniform distribution fail for this walk?",
+      "answer": "Endpoints have one neighbor and interior states have two. Pairwise flow balance requires each interior state to carry twice an endpoint's probability."
+    }
+  ],
+  "four-ways-of-counting-draws": [
+    {
+      "title": "A repeated label",
+      "prompt": "Does a set {A,A,B} distinguish two copies of A from one?",
+      "answer": "No. Sets remove repeated membership; the outcome must be represented by a multiset or a count vector."
+    },
+    {
+      "title": "Order without replacement",
+      "prompt": "How many ordered triples of distinct labels can be drawn from five labels?",
+      "answer": "There are 5×4×3=60."
+    }
+  ],
+  "fubini-s-theorem": [
+    {
+      "title": "A tail that never integrates",
+      "prompt": "A nonnegative lifetime has survival function $1/(1+t)$ for $t\\ge0$. Is its expected lifetime finite?",
+      "answer": "No. The integral from zero to $b$ is $\\log(1+b)$, which diverges as $b$ increases. Tonelli still gives the identity with value infinity."
+    },
+    {
+      "title": "The other triangle",
+      "prompt": "A joint density equals 2 on 0<y<x<1 and equals 0 elsewhere. If x is integrated first, what are the limits, and what is the integral?",
+      "answer": "For each y between 0 and 1, x runs from y to 1. The integral of 2 over that region is 1."
+    }
+  ],
+  "gambler-s-ruin": [
+    {
+      "title": "A fair game from four",
+      "prompt": "In a fair unit-step game stopped at zero or ten, starting at four, find the probability of reaching ten and the expected number of plays.",
+      "answer": "The success probability is $4/10=0.4$ and the expected duration is $4(10-4)=24$ plays."
+    },
+    {
+      "title": "The boundary case",
+      "prompt": "A gambler starts at the upper target $d$. What are the stopping time and success probability?",
+      "answer": "The stopping time is zero and the success probability is one. No further play is needed."
+    }
+  ],
+  "general-linear-hypothesis": [
+    {
+      "title": "Redundant constraints",
+      "prompt": "Does repeating the same linear constraint double the numerator degrees of freedom?",
+      "answer": "No. The rank of the restriction matrix counts independent restrictions; duplicate rows add no dimension."
+    },
+    {
+      "title": "F and the matching t",
+      "prompt": "A single linear restriction produces F=9 on (1, 20) degrees of freedom, using the same residual variance as the t statistic. What is the absolute t statistic?",
+      "answer": "3, because that F statistic is the square of the t statistic."
+    }
+  ],
+  "generated-and-borel-sigma-algebras": [
+    {
+      "title": "Five atoms",
+      "prompt": "A finite partition has five nonempty atoms. How many events are in the sigma-algebra it generates?",
+      "answer": "Each atom can be included or excluded, so there are 2^5=32 events."
+    },
+    {
+      "title": "Recover a point from half-lines",
+      "prompt": "How can $\\{a\\}$ be obtained from half-lines of the form $(-\\infty,b]$ using countable operations?",
+      "answer": "Write $(-\\infty,a)=\\bigcup_{n\\ge1}(-\\infty,a-1/n]$ and subtract that set from $(-\\infty,a]$. The difference is $\\{a\\}$."
+    }
+  ],
+  "hard-margin-primal": [
+    {
+      "title": "An irrelevant distant point",
+      "prompt": "For negative x=-2 and positive x=4, add another positive point at x=7. Does w=1/3, b=-1/3 remain feasible and optimal?",
+      "answer": "Yes. Its signed score is 2 at x=7, so the new constraint is slack. The two closer points still force w≥1/3."
+    },
+    {
+      "title": "Contradictory labels",
+      "prompt": "What happens if an observation at x=4 is also assigned the negative label?",
+      "answer": "The score at 4 would have to satisfy f(4)≥1 and f(4)≤−1 simultaneously. The hard-margin constraints are infeasible."
+    }
+  ],
+  "hartigan-wong-algorithm": [
+    {
+      "title": "A singleton cannot donate",
+      "prompt": "Why must a transfer avoid removing the only point in its source cluster?",
+      "answer": "Removing it would create an empty cluster and violate the fixed number of nonempty clusters. The removal formula also has denominator zero at source size one."
+    },
+    {
+      "title": "Apply both size factors",
+      "prompt": "A point has squared distance nine from a source centre of size three, and squared distance sixteen from a destination centre of size two. Is the transfer an improvement?",
+      "answer": "The saving is $(3/2)9=13.5$, while the cost is $(2/3)16=32/3$. The total change is $32/3-27/2=-17/6<0$, so it improves the objective."
+    }
+  ],
+  "heart-failure-data": [
+    {
+      "title": "Follow-up time",
+      "prompt": "Why can a completed follow-up duration be unsuitable for a prediction made at admission?",
+      "answer": "It may contain information that becomes available only after admission and can depend on when the outcome occurs. The prediction time and target horizon must be defined first."
+    },
+    {
+      "title": "One year from a low baseline",
+      "prompt": "The fitted annual age odds multiplier is 1.0473. Starting from probability 0.10, what is the probability after that multiplier, to four decimals?",
+      "answer": "0.1042. The absolute increase is about 0.0042."
+    }
+  ],
+  "high-dimensional-data": [
+    {
+      "title": "Rank after centring",
+      "prompt": "For n=5 observations and p=12 features, what covariance rank is possible?",
+      "answer": "The rank is at most min(4,12)=4, so at least eight eigenvalues are zero."
+    },
+    {
+      "title": "What ridge changes",
+      "prompt": "If covariance eigenvalues are (3,1,0), what are they after adding 0.2 times the identity?",
+      "answer": "They become (3.2,1.2,0.2), so the regularised matrix is positive definite."
+    }
+  ],
+  "homogeneity-and-independence": [
+    {
+      "title": "Three clinics",
+      "prompt": "Forty subjects are recruited from each of three clinics and classified into two outcomes. Which null matches the design, and how many degrees of freedom does the usual Pearson comparison have?",
+      "answer": "The null is homogeneity of the three outcome distributions, because each clinic sample size was fixed. The degrees of freedom are (3-1)(2-1)=2."
+    },
+    {
+      "title": "Why the fitted counts agree",
+      "prompt": "Under independence in one multinomial sample, why do the fitted counts still equal row total times column total divided by the grand total?",
+      "answer": "The maximum-likelihood cell probabilities factor into a row proportion times a column proportion. Multiplying by the sample size produces that product of margins."
+    }
+  ],
+  "independent-events": [
+    {
+      "title": "Probability-zero event",
+      "prompt": "An event A has probability zero and B has probability 0.7. What is P(A∩B), and are they independent?",
+      "answer": "Monotonicity gives P(A∩B)=0=P(A)P(B). They are independent, without requiring an elementary conditional probability given A."
+    },
+    {
+      "title": "Exclusive positive events",
+      "prompt": "Two disjoint events have probabilities 0.2 and 0.3. Can they be independent?",
+      "answer": "No. Their intersection probability is zero, while the product is 0.06."
+    }
+  ],
+  "ingredients-of-a-hypothesis-test": [
+    {
+      "title": "Model versus null",
+      "prompt": "Why should a model for a normal mean leave the mean unknown rather than set it equal to the tested value immediately?",
+      "answer": "The model must represent possible null and alternative parameter values. The null restriction is imposed when deriving the reference distribution."
+    },
+    {
+      "title": "Power is a different probability",
+      "prompt": "Rejection is still X at least 13 in 15 serves. If the true success probability is 0.8, what is the approximate probability of rejection?",
+      "answer": "About 0.398. That is power at 0.8, not the null tail probability."
+    }
+  ],
+  "interval-for-a-difference-of-means": [
+    {
+      "title": "Why pool?",
+      "prompt": "What assumption allows the two residual sums of squares to estimate the same parameter?",
+      "answer": "Both populations have the same variance. Without it, the pooled variance is not estimating a common population variance."
+    },
+    {
+      "title": "Pairing",
+      "prompt": "Two samples have the same number of observations. Must their analysis use paired differences?",
+      "answer": "No. Pairing requires a meaningful match of observational units supplied by the design. Matching sample sizes alone is insufficient."
+    }
+  ],
+  "interval-for-a-normal-variance": [
+    {
+      "title": "Endpoint order",
+      "prompt": "Which chi-squared quantile belongs in the lower endpoint for the variance?",
+      "answer": "The upper quantile, because the variance appears in the denominator of the pivot."
+    },
+    {
+      "title": "Change of scale",
+      "prompt": "Does taking square roots of the variance endpoints preserve coverage for standard deviation?",
+      "answer": "Yes. Square root is increasing on positive values, so both intervals describe the same inclusion event."
+    }
+  ],
+  "interval-for-a-proportion": [
+    {
+      "title": "Score interval at eight successes",
+      "prompt": "For 8 successes in 10 trials and $z=1.96$, where does the Wald interval go, and where does the Wilson interval sit?",
+      "answer": "The plug-in standard error is $0.126491$. The Wald interval is about $(0.5521,1.0479)$ before clipping, so the upper end leaves the unit interval. The Wilson interval is about $(0.4902,0.9433)$, inside $(0,1)$."
+    },
+    {
+      "title": "Two groups",
+      "prompt": "Why are the estimated variances added in a two-proportion interval?",
+      "answer": "The difference of independent estimates has variance equal to the sum of their variances. Dependence would introduce a covariance term."
+    }
+  ],
+  "interval-for-a-ratio-of-variances": [
+    {
+      "title": "Swap populations",
+      "prompt": "What changes when populations 1 and 2 are interchanged?",
+      "answer": "The estimated and target ratios are reciprocated, the endpoint order reverses, and the numerator and denominator degrees of freedom swap."
+    },
+    {
+      "title": "Equality in a wide interval",
+      "prompt": "An interval includes 1 and 10. Does it establish equal variances?",
+      "answer": "No. Equality is compatible with the data, but so are large departures from equality. The interval indicates weak precision."
+    }
+  ],
+  "jackknife-bias-and-standard-error": [
+    {
+      "title": "Pseudovalues of a mean",
+      "prompt": "For the sample mean of observations 1,2,6, what are the three jackknife pseudovalues?",
+      "answer": "They are 1,2,6 themselves, because n x̄−(n−1)x̄₍₋ᵢ₎=xᵢ."
+    },
+    {
+      "title": "Direction of correction",
+      "prompt": "If a full-sample statistic is 9 and its estimated jackknife bias is 7/3, what is the bias-corrected value?",
+      "answer": "Subtract the estimated bias: 9−7/3=20/3."
+    }
+  ],
+  "joint-distribution-and-density": [
+    {
+      "title": "Probability from four corners",
+      "prompt": "Express $\\Pr(a<X\\le b,c<Y\\le d)$ using the joint CDF.",
+      "answer": "It is $F(b,d)-F(a,d)-F(b,c)+F(a,c)$. The final term restores the overlap subtracted twice."
+    },
+    {
+      "title": "Smooth margins on a diagonal",
+      "prompt": "If $X$ is uniform on $(0,1)$ and $Y=X$, does $(X,Y)$ have a two-dimensional Lebesgue density?",
+      "answer": "No. The pair assigns probability one to a diagonal of area zero, although both marginal laws have densities."
+    }
+  ],
+  "k-means-as-a-limiting-case": [
+    {
+      "title": "Unequal tie weights",
+      "prompt": "With fixed weights $0.9$ and $0.1$, what limiting memberships does an observation exactly equidistant from the two centres receive as the common variance shrinks?",
+      "answer": "The memberships stay in proportion to the weights, $0.9$ and $0.1$. A unique nearer centre still tends to membership one. The equal-weight limit of one half is the special case of equal weights."
+    },
+    {
+      "title": "Which update minimizes?",
+      "prompt": "Why does the arithmetic mean appear in the hard M step?",
+      "answer": "For a fixed cluster, squared-error loss equals its value at the sample mean plus the cluster size times the squared distance from that mean. The added term is minimized at zero."
+    }
+  ],
+  "k-means-criterion": [
+    {
+      "title": "One centre per observation",
+      "prompt": "What is the within-cluster cost if every observation forms its own cluster?",
+      "answer": "It is zero. Every point equals its own cluster mean, so all squared distances vanish."
+    },
+    {
+      "title": "Equal training cost",
+      "prompt": "Two partitions have the same within-cluster sum of squares. What further comparison is needed before treating them as equally useful descriptions?",
+      "answer": "Compare how many clusters each uses, or apply a penalty for extra clusters. Equal training scatter does not by itself prefer the simpler partition."
+    }
+  ],
+  "kernel-density-discriminant-analysis": [
+    {
+      "title": "Unequal sampling fractions",
+      "prompt": "Why does $n_g/n$ cancel $1/n_g$ with empirical priors and common bandwidth?",
+      "answer": "The class score is $(n_g/n)(1/n_g)\\sum K_H=n^{-1}\\sum K_H$. A deployment prior different from the training fraction does not give that cancellation."
+    },
+    {
+      "title": "Posterior threshold",
+      "prompt": "If the density ratio $\\widehat f_2/\\widehat f_1$ is $4$ and the priors are $0.8,0.2$, what is the decision?",
+      "answer": "The scores are equal: $0.8\\widehat f_1=0.2(4\\widehat f_1)$. Both posterior probabilities are $1/2$, so zero–one loss leaves a tie."
+    }
+  ],
+  "kernel-support-vector-machine": [
+    {
+      "title": "Valid kernel check",
+      "prompt": "Why must every finite Gram matrix of an inner-product kernel be positive semidefinite?",
+      "answer": "For any coefficients $a_i$, $\\sum_{ij}a_ia_jK(x_i,x_j)=\\|\\sum_i a_i\\phi(x_i)\\|^2\\ge0$."
+    },
+    {
+      "title": "Free support vector",
+      "prompt": "Which training point permits $b=y_k-\\sum_i\\alpha_i y_iK(x_i,x_k)$ in a soft-margin fit?",
+      "answer": "Any point with $0<\\alpha_k<C$. Its slack is zero and its margin constraint is an equality. A point at the upper bound need not satisfy the same equality."
+    }
+  ],
+  "large-sample-intervals": [
+    {
+      "title": "Coverage event",
+      "prompt": "Why can the interval include or miss the same fixed $\\mu$ in repeated samples?",
+      "answer": "The sample mean and sample standard deviation vary across samples, so the endpoints vary. The population mean stays fixed."
+    },
+    {
+      "title": "Sampling dependence",
+      "prompt": "If observations arrive in highly correlated household clusters, does increasing $n$ justify using $s/\\sqrt n$?",
+      "answer": "No. The variance of the mean includes within-cluster covariance. A design-appropriate standard error or an explicit dependence model is required."
+    }
+  ],
+  "leaf-blotch-data": [
+    {
+      "title": "Degrees of freedom",
+      "prompt": "How many residual degrees of freedom does the additive 10-variety, 9-site model have with one observation in each cell?",
+      "answer": "There are 90 observations and 1+9+8=18 main-effect coefficients, so 72 residual degrees of freedom."
+    },
+    {
+      "title": "Constant scoring weight",
+      "prompt": "Why does V(μ)=μ²(1−μ)² give a constant scoring weight with the logit link?",
+      "answer": "The logit inverse has derivative μ(1−μ). Squaring that derivative gives V(μ), so their ratio equals one."
+    }
+  ],
+  "least-squares-decomposition": [
+    {
+      "title": "Change along a null direction",
+      "prompt": "If $Xd=0$, how much does SSE change on replacing a fitted coefficient by $\\widehat\\beta+d$?",
+      "answer": "It does not change, because the added term is $\\|Xd\\|^2=0$. Coefficient uniqueness therefore requires full column rank."
+    },
+    {
+      "title": "A known extra length",
+      "prompt": "The least-squares residual has squared length 4. A competing coefficient differs by a vector d with squared fitted length 9, and the residual is orthogonal to the columns of the design. What is the competing residual sum of squares?",
+      "answer": "It is 4+9=13. Orthogonality removes the cross term."
+    }
+  ],
+  "least-squares-estimators-are-unbiased": [
+    {
+      "title": "Changing only the error variances",
+      "prompt": "Three independent errors have mean zero and variances 1, 4 and 9. Are the ordinary least-squares coefficient estimators unbiased?",
+      "answer": "Yes. Unbiasedness uses their zero means and full rank. Their covariance becomes A diag(1,4,9) Aᵀ rather than AAᵀ."
+    },
+    {
+      "title": "Does one fit reveal bias?",
+      "prompt": "One observed slope is 2.8 when the model slope is 2. Does this observation alone show that the estimator is biased?",
+      "answer": "No. Bias compares the expectation across repeated samples with the model coefficient. Individual unbiased estimates can differ substantially from the coefficient."
+    }
+  ],
+  "lebesgue-decomposition": [
+    {
+      "title": "A density with missing mass",
+      "prompt": "A law has an atom of mass $0.3$ at zero and a density integrating to $0.7$. What mass remains for a singular continuous component?",
+      "answer": "Zero, because the total probability is one and $0.3+0.7=1$."
+    },
+    {
+      "title": "A continuous CDF without a density",
+      "prompt": "Does a continuous CDF with derivative zero almost everywhere necessarily describe a point mass?",
+      "answer": "No. The Cantor law has a continuous CDF and no atoms, yet is supported on a Lebesgue-null set and has derivative zero almost everywhere."
+    }
+  ],
+  "levy-s-continuity-theorem": [
+    {
+      "title": "A point-mass transform",
+      "prompt": "The characteristic functions of Yₙ converge to e^{3it} for every real t. What is the limiting law?",
+      "answer": "The limit is continuous at zero and is the characteristic function of the constant 3. Thus Yₙ converges in distribution to a point mass at 3."
+    },
+    {
+      "title": "The missing continuity",
+      "prompt": "For Xₙ∼N(0,n), what happens to the characteristic function at t=0 and at a fixed t≠0?",
+      "answer": "It stays one at zero and tends to zero elsewhere. The discontinuity at zero prevents applying the converse continuity theorem."
+    }
+  ],
+  "lidar-data": [
+    {
+      "title": "Different bandwidths for different targets",
+      "prompt": "Why can estimating pollutant concentration require a different smoothing bandwidth from estimating the mean log ratio?",
+      "answer": "Concentration is related to a derivative of the mean curve. A derivative estimator has different weights and noise amplification, so its bias–variance balance can favour a different bandwidth."
+    },
+    {
+      "title": "Inclusive endpoints",
+      "prompt": "An inclusive window of half-width 10 metres is centred at a recorded range of 200 metres. Which ranges does the window contain?",
+      "answer": "It contains ranges from 190 metres through 210 metres, including both endpoints. How many observations that selects depends on the recorded ranges."
+    }
+  ],
+  "limits-of-sequences-of-events": [
+    {
+      "title": "Complement duality",
+      "prompt": "What is the complement of the event that $A_n$ occurs infinitely often?",
+      "answer": "It is $\\liminf A_n^c$, the event that from some index onward none of the $A_n$ occurs."
+    },
+    {
+      "title": "Equal probabilities without a set limit",
+      "prompt": "On a fair two-outcome space, alternate $\\{H\\}$ and $\\{T\\}$. What are the probability and set limits?",
+      "answer": "Every event has probability $1/2$, but the liminf is empty and the limsup is the whole space. There is no set limit."
+    }
+  ],
+  "linear-images-of-a-normal-vector": [
+    {
+      "title": "A zero contrast variance",
+      "prompt": "If a jointly normal vector has $a^\\top\\Sigma a=0$, what is the distribution of $a^\\top X$?",
+      "answer": "It equals $a^\\top\\mu$ almost surely. This is a degenerate normal distribution with zero variance."
+    },
+    {
+      "title": "Coefficient uncertainty in prediction",
+      "prompt": "If $Y=\\beta+\\varepsilon$, with independent $\\beta\\sim N(2,3)$ and $\\varepsilon\\sim N(0,4)$, what is the distribution of $Y$?",
+      "answer": "The sum is normal with mean two and variance $3+4=7$, so $Y\\sim N(2,7)$."
+    }
+  ],
+  "linear-separability": [
+    {
+      "title": "Rescaling a separator",
+      "prompt": "For $w=(3,4)$ and minimum functional margin $2$, what is the geometric margin?",
+      "answer": "The norm is $5$, so the margin is $2/5=0.4$. Positive rescaling of both weights and bias leaves it unchanged."
+    },
+    {
+      "title": "Coincident observations",
+      "prompt": "Can identical input vectors with opposite labels be strictly separated?",
+      "answer": "No. The same affine score would need to be both positive and negative."
+    }
+  ],
+  "local-minima-plateaus-and-symmetry": [
+    {
+      "title": "Zero curvature",
+      "prompt": "For L(t)=t^4, what are the gradient and second derivative at zero, and is zero a minimum?",
+      "answer": "Both derivatives are zero, yet t^4≥0 with equality only at zero. Zero is a strict global minimum; the Hessian test is inconclusive."
+    },
+    {
+      "title": "When two units stay equal",
+      "prompt": "Two hidden units have identical incoming and outgoing parameters. Do common minibatches alone make a deterministic gradient optimizer distinguish them?",
+      "answer": "No. Each minibatch produces the same paired derivatives, so identical updates preserve the equality. A source of asymmetry is required."
+    }
+  ],
+  "logistic-lasso": [
+    {
+      "title": "Zero-coordinate condition",
+      "prompt": "A zero coefficient has smooth-loss gradient $0.03$ with $\\lambda=0.05$. Does its coordinate violate the lasso optimality condition?",
+      "answer": "No. The gradient magnitude is at most $\\lambda$, so an absolute-value subgradient can cancel it. All coordinates and the intercept must satisfy their conditions for a full optimum."
+    },
+    {
+      "title": "Effect on odds",
+      "prompt": "What odds multiplier does a one-unit increase give for a coefficient $-0.588$?",
+      "answer": "The multiplier is $e^{-0.588}\\approx0.555437$. This is conditional on the other fitted predictors and their measurement scale."
+    }
+  ],
+  "loss-and-risk": [
+    {
+      "title": "Loss versus risk",
+      "prompt": "An estimator makes error $2$ in one sample. Under squared loss, what is its loss, and is that its risk?",
+      "answer": "The realized loss is $4$. Risk is the expectation of such squared errors over the sampling distribution, so one error does not determine it."
+    },
+    {
+      "title": "Bias is not the whole criterion",
+      "prompt": "A rule has variance $0.2$ and bias $0.4$. What is its squared-error risk?",
+      "answer": "It is $0.2+0.4^2=0.36$. It beats an unbiased rule of variance $0.5$ at that parameter."
+    }
+  ],
+  "machine-repair-model": [
+    {
+      "title": "Failure rate in state one",
+      "prompt": "With two machines and one down, why is the failure rate $\\lambda$ rather than $2\\lambda$?",
+      "answer": "Only the one operating machine can fail. The failed machine contributes no failure clock until it is repaired."
+    },
+    {
+      "title": "Time scaling",
+      "prompt": "What happens to the stationary probabilities if both $\\lambda$ and $\\mu$ are multiplied by $3$?",
+      "answer": "They do not change because every neighbor-rate ratio is unchanged. Mean holding times are divided by three and throughput is multiplied by three."
+    }
+  ],
+  "markov-graphs": [
+    {
+      "title": "Rescaling a potential",
+      "prompt": "What happens to the distribution if one clique potential is multiplied by $4$?",
+      "answer": "The normalizer $Z$ is multiplied by $4$ and the distribution is unchanged. The potential is not itself the marginal distribution of the clique."
+    },
+    {
+      "title": "Edge interpretation",
+      "prompt": "Does an edge in a Markov graph prove that its endpoints are marginally dependent?",
+      "answer": "No. The graph permits conditional dependence. A particular distribution can have further independences, and marginal dependence is a different statement."
+    }
+  ],
+  "maximum-likelihood-for-a-binomial-proportion": [
+    {
+      "title": "Pooling unequal groups",
+      "prompt": "Two independent groups sharing $p$ have counts $1/2$ and $8/10$. What is the pooled MLE?",
+      "answer": "The pooled count is $9$ out of $12$, giving $0.75$. The unweighted average $0.65$ does not maximize the pooled likelihood."
+    },
+    {
+      "title": "Open parameter space",
+      "prompt": "For zero successes in five trials with parameter space $(0,1)$, does an MLE exist?",
+      "answer": "No. The likelihood approaches its supremum as $p\\downarrow0$, but zero is excluded. With parameter space $[0,1]$, the MLE is zero."
+    }
+  ],
+  "maximum-likelihood-for-a-covariance-matrix": [
+    {
+      "title": "Rank obstruction",
+      "prompt": "Can the unrestricted covariance MLE be positive definite with $n=3$ and $p=4$ when the mean is unknown?",
+      "answer": "No. Centering bounds the scatter rank by $n-1=2$, below four."
+    },
+    {
+      "title": "Known mean",
+      "prompt": "If the mean is known rather than estimated, what scatter enters the covariance MLE?",
+      "answer": "Use $n^{-1}\\sum_i(x_i-\\mu)(x_i-\\mu)^\\top$. It is centered at the known population mean, and its expectation is $\\Sigma$."
+    }
+  ],
+  "maximum-likelihood-for-a-known-graph": [
+    {
+      "title": "Locate the graph zero",
+      "prompt": "In a Gaussian chain with edges one–two and two–three, which matrix must have a zero in position one–three?",
+      "answer": "The precision matrix must have that zero. The covariance between the endpoints can be nonzero."
+    },
+    {
+      "title": "Certify an interior fit",
+      "prompt": "Which conditions certify a proposed positive-definite fit for a fixed Gaussian graph?",
+      "answer": "Its precision has every prescribed non-edge zero, and its covariance matches the sample covariance on all diagonals and graph edges. Strict concavity then makes the feasible stationary point the unique maximiser."
+    }
+  ],
+  "maximum-likelihood-for-a-normal-mean-vector": [
+    {
+      "title": "Covariance of an average",
+      "prompt": "For $n=8$ independent normal vectors with covariance $\\operatorname{diag}(4,16)$, what is the covariance of the mean?",
+      "answer": "It is $\\operatorname{diag}(1/2,2)$. Each covariance entry is divided by eight."
+    },
+    {
+      "title": "Unequal precision",
+      "prompt": "Two scalar observations $0$ and $10$ have known variances $1$ and $4$. What common-mean MLE results?",
+      "answer": "Precision weights are $1$ and $1/4$, so the MLE is $(0+10/4)/(1+1/4)=2$."
+    }
+  ],
+  "maximum-likelihood-for-a-normal-sample": [
+    {
+      "title": "Five centred squares",
+      "prompt": "Five observations have centred sum of squares 20. What variance maximises the normal likelihood, and what is the unbiased estimate?",
+      "answer": "The maximum-likelihood estimate divides by 5 and equals 4. The unbiased estimate divides by 4 and equals 5."
+    },
+    {
+      "title": "No observed variation",
+      "prompt": "All three observations equal seven. Does the positive-variance normal family attain a maximum likelihood fit?",
+      "answer": "No. The likelihood grows without bound as the mean is set to seven and the positive variance tends to zero. Zero variance is outside that parameter space."
+    }
+  ],
+  "maximum-likelihood-under-the-wrong-model": [
+    {
+      "title": "Pseudo-true target",
+      "prompt": "Which part of the KL expression changes when the fitted parameter changes?",
+      "answer": "Only $-E_0\\log f(X;\\theta)$ changes. The expectation of $\\log f_0$ is constant, so maximizing expected fitted log density minimizes KL when both are well-defined."
+    },
+    {
+      "title": "Sandwich direction",
+      "prompt": "Must a misspecified Poisson model underestimate a sample mean’s variance?",
+      "answer": "No. The true variance is $v/n$, while the model uses $m/n$. It underestimates when $v>m$ and overestimates when $v<m$."
+    }
+  ],
+  "mean-and-variance-of-an-exponential-family": [
+    {
+      "title": "Keep the sign convention",
+      "prompt": "An exponential family is written with numerator $y\\eta+c(\\eta)$ and unit dispersion. What are its mean and variance?",
+      "answer": "They are $-c\\prime(\\eta)$ and $-c\\prime\\prime(\\eta)$. Writing $A=-c$ gives the equivalent positive-derivative convention."
+    },
+    {
+      "title": "Find a zero-curvature direction",
+      "prompt": "What does a zero quadratic form in the covariance Hessian of a sufficient statistic mean?",
+      "answer": "The corresponding linear combination of sufficient statistics has variance zero and is almost surely constant. A minimal regular representation rules out such nonzero directions."
+    }
+  ],
+  "median-unbiased-estimators": [
+    {
+      "title": "Symmetry about the target",
+      "prompt": "An estimator has a continuous sampling distribution symmetric about the parameter. Is the estimator median-unbiased?",
+      "answer": "Yes. Continuous symmetry puts probability 1/2 on each side of the parameter, so both weak tail probabilities equal 1/2."
+    },
+    {
+      "title": "Transform the target too",
+      "prompt": "If a positive estimator is median-unbiased for a positive parameter, is its logarithm median-unbiased for the logarithm of that parameter?",
+      "answer": "Yes. The logarithm is strictly increasing, so both comparisons with the transformed target correspond exactly to comparisons before transformation."
+    }
+  ],
+  "method-of-moments": [
+    {
+      "title": "Raw versus central moments",
+      "prompt": "The first two sample raw moments are three and twelve. What empirical central second moment do they imply?",
+      "answer": "It is $12-3^2=3$, using denominator $n$ in the empirical moments."
+    },
+    {
+      "title": "An impossible binomial fit",
+      "prompt": "Moment matching for a binomial family with unknown count and probability produces sample mean two and central second moment three. What happens to the probability estimate?",
+      "answer": "The equation gives $1-3/2=-1/2$, outside the parameter space. There is no feasible exact moment solution from these two moments."
+    }
+  ],
+  "metropolis-hastings-invariance": [
+    {
+      "title": "Unknown target normalizer",
+      "prompt": "If π(x)=f(x)/Z, which factor cancels from the acceptance ratio, and must the proposal densities cancel too?",
+      "answer": "Z cancels. The proposal factors cancel only when q(y|x)=q(x|y)."
+    },
+    {
+      "title": "A balanced but useless transition",
+      "prompt": "Does the identity transition P(x,{x})=1 have π as an invariant distribution, and does that imply useful exploration?",
+      "answer": "Every π is invariant under the identity transition. It never moves, so invariance alone does not imply exploration or convergence from a point start."
+    }
+  ],
+  "milk-carton-example": [
+    {
+      "title": "A future carton",
+      "prompt": "Under the same normal model, why is a prediction interval for one new carton wider than the confidence interval for the process mean?",
+      "answer": "The prediction interval includes both uncertainty about the mean and fresh carton-to-carton scatter. The mean interval includes only the uncertainty about the mean."
+    },
+    {
+      "title": "An interval for which object?",
+      "prompt": "Does the mean confidence interval (1.028529,1.073871) assert that 95% of cartons have volumes in that range?",
+      "answer": "No. It concerns the population mean under a repeated-sampling confidence procedure. Individual-volume prediction needs a wider interval."
+    }
+  ],
+  "mine-injury-data": [
+    {
+      "title": "Units of the extraction coefficient",
+      "prompt": "Does $e^{0.0627}$ describe a one-percent relative increase in extraction or one percentage point?",
+      "answer": "One percentage point in the recorded extraction covariate. It multiplies the mean by about $1.064707$ while other recorded covariates stay fixed."
+    },
+    {
+      "title": "Absolute change at one profile",
+      "prompt": "The rounded profile $(100,70,5)$ has linear predictor $0.3598$. What is the linear predictor after one more extraction percentage point, and by about how much does the fitted mean rise?",
+      "answer": "The linear predictor becomes $0.4225$. The fitted mean rises from about $1.433$ to about $1.526$, an increase of about $0.0927$. That difference depends on the baseline mean."
+    }
+  ],
+  "mixture-discriminant-analysis": [
+    {
+      "title": "Sum before assigning the class",
+      "prompt": "Why does choosing the single most probable subclass need not give the Bayes class assignment?",
+      "answer": "A class posterior sums the contributions of all subclasses belonging to that class. Several moderate contributions can outweigh one large contribution from another class."
+    },
+    {
+      "title": "Recover the one-subclass model",
+      "prompt": "In canonical common-covariance mixture discriminant analysis, what model results when every class has one subclass?",
+      "answer": "Linear discriminant analysis results. Quadratic discriminant analysis additionally requires allowing the covariance to differ between classes."
+    }
+  ],
+  "monotonicity-of-em": [
+    {
+      "title": "A partial M step",
+      "prompt": "Must an M step find the global maximum of Q to preserve the EM ascent inequality?",
+      "answer": "No. A generalised EM step is sufficient when it does not decrease Q relative to the current parameter, with the E-step law fixed and the required integrability and support conditions satisfied."
+    },
+    {
+      "title": "Values versus parameters",
+      "prompt": "If the observed log-likelihood is nondecreasing and bounded above, what convergence follows directly?",
+      "answer": "The likelihood values converge to a finite limit. Convergence of parameter values, stationarity and global optimality require additional arguments."
+    }
+  ],
+  "monty-hall-problem": [
+    {
+      "title": "Strategy versus branch",
+      "prompt": "If a standard host always chooses $B$ when able and opens $B$, must the switch probability be $2/3$?",
+      "answer": "No. Here $q=1$, so conditional on opening $B$ it is $1/2$. The unconditional always-switch strategy still wins $2/3$ of games."
+    },
+    {
+      "title": "Ten doors",
+      "prompt": "A knowledgeable host opens eight empty unchosen doors among ten and always offers the remaining alternative. What is the switching success probability?",
+      "answer": "It is $9/10$, because the initial choice was wrong with that probability."
+    }
+  ],
+  "multi-server-and-finite-capacity-queues": [
+    {
+      "title": "Capacity convention",
+      "prompt": "In M/M/2/5, how many customers can wait when the system is full?",
+      "answer": "Three wait and two are in service, because the capacity five counts everyone in the system."
+    },
+    {
+      "title": "Finite overload",
+      "prompt": "Does $\\lambda>c\\mu$ prevent a stationary law for M/M/$c$/$K$?",
+      "answer": "No. A positive-rate finite irreducible chain has a stationary law. High offered load instead produces blocking."
+    }
+  ],
+  "multinomial-central-limit-theorem": [
+    {
+      "title": "The missing degree of freedom",
+      "prompt": "For four categories with all probabilities positive, what is the rank of diag(p)−ppᵀ?",
+      "answer": "Its rank is three. The sum-to-one constraint removes the all-ones direction."
+    },
+    {
+      "title": "Combining cells",
+      "prompt": "With p=(0.2,0.3,0.5), what is Cov(p̂₁,p̂₂) for n=100?",
+      "answer": "It is −p₁p₂/n=−0.0006. The category counts share a fixed total."
+    }
+  ],
+  "multinomial-logistic-regression": [
+    {
+      "title": "A common score shift",
+      "prompt": "What happens to softmax probabilities if the same constant is added to every class score?",
+      "answer": "They are unchanged: the common exponential factor cancels between each numerator and the denominator."
+    },
+    {
+      "title": "Odds and a probability factor",
+      "prompt": "Two class scores are 0 and 0. Only the second score is raised by log 3. By what factors do the odds of the second class against the first, and the second class probability, change?",
+      "answer": "The odds change from 1 to 3, a factor of 3. The probability changes from 1/2 to 3/4, a factor of 3/2."
+    }
+  ],
+  "multiple-comparisons": [
+    {
+      "title": "Counting pairs",
+      "prompt": "How many pairwise differences arise from six group means?",
+      "answer": "There are $\\binom62=15$ unordered pairs."
+    },
+    {
+      "title": "Independence requirement",
+      "prompt": "Does Bonferroni require independent tests?",
+      "answer": "No. It follows from the union bound, which holds under arbitrary dependence when the individual error bounds are valid."
+    }
+  ],
+  "multiple-linear-regression": [
+    {
+      "title": "An extra dependent column",
+      "prompt": "A design has two binary columns, and a third column equals their sum. Is the least-squares coefficient vector still unique?",
+      "answer": "No. The new column is an exact linear combination of two others. The fitted response projection can be unique while the coefficient representation is not."
+    },
+    {
+      "title": "Why the residuals sum to zero",
+      "prompt": "Why does a design that contains a column of ones force the least-squares residuals to sum to zero?",
+      "answer": "The normal equations make that column orthogonal to the residual. The column of ones sums the residuals, so the sum is zero."
+    }
+  ],
+  "non-negative-matrix-factorisation": [
+    {
+      "title": "Scale nonuniqueness",
+      "prompt": "If WH reconstructs a matrix, what happens after multiplying the first column of W by three and dividing the matching first row of H by three?",
+      "answer": "The product is unchanged because each affected outer-product term has one factor multiplied and the other divided by three."
+    },
+    {
+      "title": "Rank-one impossibility",
+      "prompt": "Why can the worked-example matrix [[1,2],[3,4]] not be reproduced exactly with r=1?",
+      "answer": "Its determinant is 1·4−2·3=−2, so it has rank two. A product of an m×1 and a 1×n matrix has rank at most one."
+    }
+  ],
+  "normal-inverse-gamma-prior": [
+    {
+      "title": "Which variance conditions on the centre?",
+      "prompt": "The joint posterior has parameters $\\alpha_n,\\beta_n,\\kappa_n,\\mu_n$. What is the inverse-Gamma shape after conditioning additionally on a fixed $\\mu$?",
+      "answer": "It is $\\alpha_n+1/2$. The scale is $\\beta_n+\\kappa_n(\\mu-\\mu_n)^2/2$; this differs from marginalising over $\\mu$."
+    },
+    {
+      "title": "Scale and variance",
+      "prompt": "A Student marginal for a normal centre has more than two degrees of freedom and squared scale s². Is its variance equal to s²?",
+      "answer": "No. The variance is the squared scale times ν/(ν−2), which is larger than s²."
+    }
+  ],
+  "normal-normal-model": [
+    {
+      "title": "Same sum, same known-variance update",
+      "prompt": "Under a fixed known variance, do samples (4,6,8) and (5,6,7) produce the same posterior for μ with the same prior?",
+      "answer": "Yes. They have the same size and sample mean. Their likelihoods differ only by a factor constant in μ."
+    },
+    {
+      "title": "Two positive precisions",
+      "prompt": "With a positive prior variance and a positive sampling variance for the mean, why is the posterior variance of μ smaller than both of those variances?",
+      "answer": "The posterior precision is the sum of two positive precisions. The reciprocal of a sum of positive terms is smaller than either reciprocal, so the posterior variance is smaller than both the prior variance and the sampling variance of the mean."
+    }
+  ],
+  "nuisance-parameters": [
+    {
+      "title": "Changing the target",
+      "prompt": "Is the variance always a nuisance parameter in a normal model?",
+      "answer": "No. It is a nuisance for a mean-only question, but becomes the target when variability is the scientific quantity of interest."
+    },
+    {
+      "title": "Information calculation",
+      "prompt": "For $I=\\left(\\begin{smallmatrix}4&2\\\\2&4\\end{smallmatrix}\\right)$, compare the target variance bounds with and without estimating the second parameter.",
+      "answer": "The inverse first diagonal entry is $1/(4-4/4)=1/3$. With the second parameter known, the bound is $1/4$."
+    }
+  ],
+  "null-distribution-of-hotelling-s": [
+    {
+      "title": "The univariate check",
+      "prompt": "When p=1, what does the scaled Hotelling statistic become?",
+      "answer": "The scale factor is one and T²=t², with law F₁,ₙ₋₁ under the normal mean null."
+    },
+    {
+      "title": "A singular sample covariance",
+      "prompt": "Can the stated inverse-covariance statistic be used when p≥n?",
+      "answer": "No. The centered scatter rank is at most n−1<p, so the sample covariance has no ordinary inverse."
+    }
+  ],
+  "observational-study": [
+    {
+      "title": "What the label fixes",
+      "prompt": "Investigators record which treatment each patient received but do not assign it. Does describing the study as observational determine which regression should be fitted?",
+      "answer": "No. Observational describes the origin of the exposure. A regression, if one is used, is a separate choice of summary."
+    },
+    {
+      "title": "Two different randomisations",
+      "prompt": "Why can a study draw a random sample and still be observational?",
+      "answer": "Random sampling chooses who is observed. Random assignment chooses a treatment. A random sample can receive treatments chosen by clinicians."
+    }
+  ],
+  "one-hidden-layer-approximates-continuous-functions": [
+    {
+      "title": "Unrestricted output",
+      "prompt": "Why can a network with sigmoid hidden units represent the constant function 3?",
+      "answer": "A hidden unit with zero input weights and zero bias has value 1/2. Giving it output weight 6 produces the constant 3."
+    },
+    {
+      "title": "A discontinuous target",
+      "prompt": "Can continuous sigmoid networks converge uniformly to a step with a jump on [0,1]?",
+      "answer": "No. A uniform limit of continuous functions is continuous, whereas the target has a jump."
+    }
+  ],
+  "one-sample-t-pivot": [
+    {
+      "title": "Residual directions",
+      "prompt": "A normal sample of size 25 is studentised at the true mean. How many degrees of freedom does the pivot have?",
+      "answer": "It has 24. Estimating the mean removes one of the 25 orthogonal directions, and the sample variance uses the rest."
+    },
+    {
+      "title": "Centre the numerator",
+      "prompt": "If a normal population mean is μ=2 but a statistic is centred at μ0=0, is its law the central t law?",
+      "answer": "No. Its noncentrality is √n(2−0)/σ; the central t law applies when the numerator is centred at the true mean."
+    }
+  ],
+  "one-sample-t-test": [
+    {
+      "title": "Two tails under symmetry",
+      "prompt": "A positive t statistic is compared with a symmetric Student null distribution. Why is the two-sided p-value twice the upper-tail probability?",
+      "answer": "The null distribution is symmetric about zero, so the lower tail beyond the negative statistic has the same probability as the upper tail."
+    },
+    {
+      "title": "Moving the null",
+      "prompt": "The null mean moves halfway from its old value toward the sample mean, and the estimated standard error stays fixed. What happens to the absolute t statistic?",
+      "answer": "It is halved. The statistic is the departure of the sample mean from the null, divided by that standard error."
+    }
+  ],
+  "paired-samples": [
+    {
+      "title": "Differences, not raw rows",
+      "prompt": "Eight independent pairs are analysed by a paired t statistic. How many degrees of freedom does the reference law have?",
+      "answer": "Seven. The eight differences are the observations, and their mean is estimated."
+    },
+    {
+      "title": "Equal sizes are not pairs",
+      "prompt": "Two separate samples each contain eight observations. Why is that not enough to justify a paired analysis?",
+      "answer": "Pairing needs a match supplied by the design, such as two measurements on one specimen. Equal sample sizes do not create those matches."
+    }
+  ],
+  "pearson-chi-squared-approximation": [
+    {
+      "title": "The missing direction",
+      "prompt": "Why do four specified cell probabilities give three degrees of freedom?",
+      "answer": "The four counts must sum to the fixed total. Only three count deviations can vary freely."
+    },
+    {
+      "title": "A zero observation",
+      "prompt": "A cell has expected count 8 and observed count zero. What does it contribute?",
+      "answer": "Its contribution is (0−8)²/8=8; an observed zero does not make the denominator zero."
+    }
+  ],
+  "pearson-dispersion-ratio": [
+    {
+      "title": "A different variance function",
+      "prompt": "The counts 1, 2, 8 and 9 have squared deviations 16, 9, 9 and 16 about the mean 5. What Pearson sum and dispersion ratio does the variance function μ² produce on three residual degrees of freedom?",
+      "answer": "The sum is 50/25 = 2. On three residual degrees of freedom the ratio is 2/3 = 0.666667."
+    },
+    {
+      "title": "What gets scaled?",
+      "prompt": "If a common dispersion estimate is 4 and fitted means are held fixed, by what factors do coefficient variances and standard errors change?",
+      "answer": "Variances multiply by 4 and standard errors by √4 = 2. A dispersion correction changes uncertainty rather than directly multiplying fitted means."
+    }
+  ],
+  "pearson-test-with-estimated-parameters": [
+    {
+      "title": "Identifiable directions",
+      "prompt": "Six fixed cells are fitted with a regular identifiable two-parameter grouped model. What is the reference degrees of freedom?",
+      "answer": "It is 6−1−2=3."
+    },
+    {
+      "title": "What the fit cannot adjust",
+      "prompt": "In the paired four-cell model, can changing theta make the first two fitted probabilities unequal?",
+      "answer": "No. They are both theta. Their within-pair difference remains a lack-of-fit direction."
+    }
+  ],
+  "pitman-koopman-darmois-informal-form": [
+    {
+      "title": "A fixed total",
+      "prompt": "Two iid Poisson samples have equal size and equal sum but different order. Can their likelihood ratio depend on the common rate?",
+      "answer": "No. The rate-dependent factor exp(−nλ)λ^{sum x} is identical, leaving a data-only ratio."
+    },
+    {
+      "title": "The support condition",
+      "prompt": "Why does a sufficient maximum for U(0,θ) fail to establish the regular exponential-family converse?",
+      "answer": "The set of possible observations depends on θ through 0<x<θ, violating the common-support condition."
+    }
+  ],
+  "posterior-class-probability": [
+    {
+      "title": "Two layers of uncertainty",
+      "prompt": "A logistic regression reports a class probability of 0.7 at a covariate value. Does that number already average over posterior uncertainty in the coefficients?",
+      "answer": "No. A logistic probability evaluated at one coefficient vector is a conditional class probability. The posterior class probability averages that logistic probability over the posterior distribution of the coefficients."
+    },
+    {
+      "title": "A cost threshold",
+      "prompt": "If a false positive costs twice a false negative, what posterior class-1 probability is needed to choose class 1?",
+      "answer": "Choose class 1 when 2(1−p)<p, so p>2/3, with a tie at 2/3."
+    }
+  ],
+  "posterior-predictive-target": [
+    {
+      "title": "Parameter or outcome?",
+      "prompt": "Is drawing θ from Beta(3,9) alone a posterior predictive draw of the four-item count K?",
+      "answer": "No. After drawing θ, draw K from Binomial(4,θ). The second step adds the future batch variation."
+    },
+    {
+      "title": "Shared uncertainty",
+      "prompt": "Two future binary items are drawn from one θ after θ is drawn from Beta(3,9). Are the items independent in the posterior predictive distribution?",
+      "answer": "They are conditionally independent given θ. In the predictive distribution they are dependent, and their covariance equals Var(θ) = 3/208, which is positive."
+    }
+  ],
+  "power-function": [
+    {
+      "title": "Null and alternative",
+      "prompt": "For the binomial threshold X≥9, is 0.010742 a p-value from observed data or a design property?",
+      "answer": "It is the rejection probability at p=0.5, hence the size for that point null. It is specified by the design and sampling model."
+    },
+    {
+      "title": "A larger sample",
+      "prompt": "The normal test uses σ = 2 and a one-unit departure. What is the noncentrality at n = 100?",
+      "answer": "It is √100 × 1/2 = 5, twice the noncentrality 2.5 at n = 25. With the same critical value 1.644854 the power is 0.999603."
+    }
+  ],
+  "predictive-variance-decomposition": [
+    {
+      "title": "The between-means term",
+      "prompt": "A mixture assigns equal probabilities to conditional means −1 and 1, each with variance 2. What is its variance?",
+      "answer": "The mean is zero. The mean conditional variance is 2 and the variance of the conditional means is 1, so the total is 3."
+    },
+    {
+      "title": "A varying plug-in variance",
+      "prompt": "Does dropping parameter uncertainty prove that any chosen plug-in variance underestimates predictive variance?",
+      "answer": "No. A chosen conditional variance can exceed or fall below its posterior average. The nonnegative omitted term alone compares the full variance with the averaged conditional variance."
+    }
+  ],
+  "principal-component-directions": [
+    {
+      "title": "A tied covariance",
+      "prompt": "If S=2I in two dimensions, which unit vector maximises variance?",
+      "answer": "Every unit vector does: aᵀSa=2aᵀa=2. The leading eigenspace is the whole plane and no unique first axis is identified."
+    },
+    {
+      "title": "A zero eigenvalue",
+      "prompt": "What does a zero eigenvalue imply for its sample score column after centring?",
+      "answer": "Its sample variance is zero and its mean is zero, so every score in that column is zero."
+    }
+  ],
+  "prior-sensitivity": [
+    {
+      "title": "Prior concentration",
+      "prompt": "For a beta prior with concentration 20 and n=80 binomial trials, what is the prior weight in the posterior mean?",
+      "answer": "The weight is 20/(20+80)=0.2."
+    },
+    {
+      "title": "A support restriction",
+      "prompt": "A prior puts probability zero on theta>0.8. Can ordinary Bayesian updating with finite likelihood values put positive posterior mass there?",
+      "answer": "No. Multiplying a zero prior density by a finite likelihood leaves it zero, so the restriction survives updating."
+    }
+  ],
+  "properties-of-a-probability": [
+    {
+      "title": "Disjoint or independent",
+      "prompt": "Can two disjoint events each with probability 0.2 be independent?",
+      "answer": "No. Their intersection has probability zero, but independence would require probability 0.2×0.2=0.04."
+    },
+    {
+      "title": "A union bound",
+      "prompt": "Three events have probabilities 0.1, 0.2 and 0.3. What upper bound holds for their union without an independence assumption?",
+      "answer": "The union probability is at most 0.6, the sum of the three probabilities."
+    }
+  ],
+  "quasi-likelihood": [
+    {
+      "title": "Dispersion cancellation",
+      "prompt": "If a common dispersion is doubled, how do the quasi-score roots and model-based standard errors change?",
+      "answer": "The roots stay the same. Covariance doubles and standard errors multiply by $\\sqrt2$, with the mean and working variance function held fixed."
+    },
+    {
+      "title": "Binary support restriction",
+      "prompt": "Can a single Bernoulli variable with mean $0.4$ have variance $2\\mu(1-\\mu)$?",
+      "answer": "No. Its variance is forced to be $0.4(0.6)=0.24$ by $Y^2=Y$. The proposed value $0.48$ violates that identity."
+    }
+  ],
+  "r-s-distribution-interface": [
+    {
+      "title": "Density or probability?",
+      "prompt": "The beta density at 0.25 is 3.097243. Is this the probability that θ equals 0.25?",
+      "answer": "No. A continuous variable assigns probability zero to one point; a density is integrated over an interval to obtain probability."
+    },
+    {
+      "title": "A cumulative probability at another point",
+      "prompt": "For a Beta(3,9) variable, pbeta(0.1, 3, 9) returns 0.089562. What probability is that?",
+      "answer": "It is $P(\\theta \\le 0.1)$. The prefix p returns a cumulative probability. It is not the density at 0.1, and it is not the probability of the point 0.5 used in the worked CDF."
+    }
+  ],
+  "radial-basis-function-kernel": [
+    {
+      "title": "Two parameter conventions",
+      "prompt": "What gamma corresponds to length scale ell=2?",
+      "answer": "Gamma is 1/(2×2²)=1/8."
+    },
+    {
+      "title": "The zero-width limit",
+      "prompt": "For three distinct fixed inputs, what does the Gram matrix approach as gamma grows without bound?",
+      "answer": "Each diagonal stays one and every off-diagonal entry tends to zero, so the limit is the 3×3 identity matrix."
+    }
+  ],
+  "random-seed": [
+    {
+      "title": "A short modulus",
+      "prompt": "The map S ↦ (5S+1) mod 7 is started at 5. What is the next state, and does full period on modulus 8 settle the period here?",
+      "answer": "The next state is 5, because (5×5+1) mod 7 = 5, so 5 is a fixed point. Full period on modulus 8 does not determine the period on modulus 7."
+    },
+    {
+      "title": "Repeated seeds",
+      "prompt": "If every replicate resets the same seed and executes the same calls, do the replicates estimate independent simulation variability?",
+      "answer": "No. They replay the same deterministic stream. Independent-replicate variation requires a suitable advancing stream or explicitly constructed substreams."
+    }
+  ],
+  "random-walk-with-drift": [
+    {
+      "title": "Time-dependent variance",
+      "prompt": "Why is an iid-increment random walk with positive increment variance not covariance-stationary?",
+      "answer": "Its variance is $n\\sigma^2$, which depends on time. Stationary increments do not make its levels stationary."
+    },
+    {
+      "title": "Shared increments",
+      "prompt": "If increment variance is $3$, what is $\\operatorname{Cov}(S_4,S_{10})$ for a deterministic start?",
+      "answer": "The sums share four increments, so the covariance is $4\\times3=12$."
+    }
+  ],
+  "range": [
+    {
+      "title": "A value inside the endpoints",
+      "prompt": "The sample minimum is $-2$ and maximum is $5$. An observation equal to $1$ is appended. What is the range?",
+      "answer": "$5-(-2)=7$. The appended value changes neither endpoint."
+    },
+    {
+      "title": "Changing units",
+      "prompt": "A temperature sample has range $8$ degrees Celsius. What is its Fahrenheit range under $F=32+1.8C$?",
+      "answer": "$1.8\\times8=14.4$ degrees Fahrenheit. The additive constant cancels."
+    }
+  ],
+  "rank-bound": [
+    {
+      "title": "Enough rows is not sufficient",
+      "prompt": "With n=30 and p=5, must the sample covariance be invertible?",
+      "answer": "No. The sample-size bound allows rank 5, but linearly dependent centred columns can still make it singular."
+    },
+    {
+      "title": "Group centring",
+      "prompt": "A pooled scatter matrix uses 40 observations in four nonempty groups. What is its observation-space rank bound?",
+      "answer": "It is at most 40−4=36, and also cannot exceed the number of variables."
+    }
+  ],
+  "rank-distance": [
+    {
+      "title": "Maximum and sum disagree",
+      "prompt": "Rank-gap vectors (5,2) and (6,0) are compared. Which is closer under the maximum of absolute gaps, and which is closer under the sum?",
+      "answer": "The maximum distances are 5 and 6, so (5,2) is closer under the maximum. The sums are 7 and 6, so (6,0) is closer under the sum."
+    },
+    {
+      "title": "Reversing a scale",
+      "prompt": "With four pooled untied values, ranks change from r to 5−r under a decreasing transformation. Do absolute rank gaps change?",
+      "answer": "No. |(5−r1)−(5−r2)|=|r1−r2|."
+    }
+  ],
+  "rat-tumour-data": [
+    {
+      "title": "Zero affected animals",
+      "prompt": "With fixed positive $\\alpha,\\beta$, does a group with zero affected animals have posterior mean zero?",
+      "answer": "No. Its posterior mean is $\\alpha/(\\alpha+\\beta+n)>0$. The model still assigns positive rates through the proper beta prior."
+    },
+    {
+      "title": "Two kinds of uncertainty",
+      "prompt": "Why is the sample standard deviation of study fractions not simply the standard deviation of the underlying study rates?",
+      "answer": "Observed fractions also vary because each group contains finitely many binomial outcomes. Between-study heterogeneity and within-study sampling error both contribute."
+    }
+  ],
+  "reading-a-log-linear-coefficient": [
+    {
+      "title": "An interaction contrast",
+      "prompt": "The log-mean contrast in x is 0.2 − 0.1z. What factor does a one-unit increase in x produce at z = 4?",
+      "answer": "The contrast is 0.2 − 0.4 = −0.2, so the factor is exp(−0.2) = 0.818731. The coefficient 0.2 is the log-mean change at z = 0."
+    },
+    {
+      "title": "Count or rate?",
+      "prompt": "Under a Poisson log-exposure offset, does doubling exposure change the predicted rate when all covariates are fixed?",
+      "answer": "No. The rate stays fixed and the expected count doubles because mean count equals exposure times rate."
+    }
+  ],
+  "regression-tree": [
+    {
+      "title": "A constant leaf",
+      "prompt": "For a leaf containing responses 2,4,9, what is the squared-error prediction?",
+      "answer": "It is their mean, (2+4+9)/3=5."
+    },
+    {
+      "title": "Training loss",
+      "prompt": "Can splitting a nonempty leaf into two nonempty leaves increase the minimum training sum of squares when each child uses its mean?",
+      "answer": "No. Using the parent mean in both children is an available candidate, and optimising their means can only maintain or decrease that error."
+    }
+  ],
+  "regression-when-p-n": [
+    {
+      "title": "Singularity from dimensions",
+      "prompt": "An $8\\times12$ design matrix includes all coefficients. Can $X^TX$ be invertible?",
+      "answer": "No. Its rank is at most $8$, below its dimension $12$; the coefficient null space has dimension at least $4$."
+    },
+    {
+      "title": "Zero training error",
+      "prompt": "Does a full-row-rank design with more columns than rows guarantee that every response vector can be fitted exactly?",
+      "answer": "Yes: its column space is all of $\\mathbb R^n$. This guarantees interpolation of the training responses, without guaranteeing accurate future predictions."
+    }
+  ],
+  "reliability-function": [
+    {
+      "title": "Dependence of backups",
+      "prompt": "Two backup components each work with probability 0.9 and their states always agree. What is their parallel reliability?",
+      "answer": "It is 0.9, since both succeed and fail together. The independent-components value 0.99 does not apply."
+    },
+    {
+      "title": "A series of three",
+      "prompt": "Independent components work with probabilities 0.9, 0.8 and 0.7. What is the reliability of the series system that needs every component?",
+      "answer": "It is the product 0.9 × 0.8 × 0.7 = 0.504."
+    }
+  ],
+  "residuals-in-a-glm": [
+    {
+      "title": "Dispersion scaling",
+      "prompt": "If an unscaled Pearson residual is $4$ and estimated dispersion is $4$, what is the dispersion-scaled residual?",
+      "answer": "$4/\\sqrt4=2$."
+    },
+    {
+      "title": "Deviance total",
+      "prompt": "Four unscaled deviance residuals are $-1,0,2,-3$. What is their total deviance contribution?",
+      "answer": "The sum of their squares is $1+0+4+9=14$. The signs describe direction but do not enter the deviance total."
+    }
+  ],
+  "sample-size-for-a-confidence-interval": [
+    {
+      "title": "Rounding a bound",
+      "prompt": "A width calculation gives $n\\ge100.2$. Is a sample of $100$ sufficient?",
+      "answer": "No. The smallest integer satisfying the inequality is $101$."
+    },
+    {
+      "title": "Tripling precision",
+      "prompt": "How does the continuous sample-size requirement change when the target half-width is divided by $3$?",
+      "answer": "It is multiplied by $3^2=9$, holding confidence and spread fixed."
+    }
+  ],
+  "sampling-distribution-of-the-ols-estimator": [
+    {
+      "title": "Residual dimension",
+      "prompt": "With 12 responses and a rank-four Gaussian regression design, what is the residual chi-square degrees of freedom?",
+      "answer": "It is 12−4=8. All four fitted mean parameters use residual dimensions."
+    },
+    {
+      "title": "Conditioning",
+      "prompt": "In the OLS sampling distribution, what is random when X and β are fixed?",
+      "answer": "The error vector, hence the response vector and its coefficient estimate, is random. The displayed law is not a posterior distribution of β."
+    }
+  ],
+  "sampling-distribution-of-the-regression-estimators": [
+    {
+      "title": "Away from the centre",
+      "prompt": "For x = 1, 2, 3, 4, 5 and σ = 2, what is the variance of the fitted mean at x = 5?",
+      "answer": "It is 4{1/5 + (5−3)²/10} = 2.400, three times the variance 0.800 at the centre x = 3."
+    },
+    {
+      "title": "A more spread design",
+      "prompt": "Every centred predictor deviation is doubled, while n and σ stay fixed. What happens to Sxx and to the slope variance?",
+      "answer": "Sxx is multiplied by four, and the slope variance is divided by four."
+    }
+  ],
+  "sampling-law-of-the-normal-mean-and-scatter": [
+    {
+      "title": "Degrees of freedom and rank",
+      "prompt": "For five bivariate normal observations, how many Wishart degrees of freedom does the centred scatter have?",
+      "answer": "It has five minus one, or four. The centring operation removes one observation-space direction."
+    },
+    {
+      "title": "Different scales",
+      "prompt": "With the displayed Σ and n=10, why are 11.000 and 1.100 both relevant variances?",
+      "answer": "11.000 is the variance of an individual contrast X1−X2. The variance of the mean contrast divides it by ten, giving 1.100."
+    }
+  ],
+  "scaling": [
+    {
+      "title": "Variance units",
+      "prompt": "Multiplying a feature by 10 multiplies its variance and its covariance with an unchanged feature by what factors?",
+      "answer": "The variance is multiplied by 100 and that covariance is multiplied by 10."
+    },
+    {
+      "title": "Constant columns",
+      "prompt": "Why cannot a constant training column be standardised to sample variance one?",
+      "answer": "Its sample standard deviation is zero. Dividing by that scale is undefined, and centring alone leaves a zero column."
+    }
+  ],
+  "scree-plot": [
+    {
+      "title": "An explicit percentage rule",
+      "prompt": "For eigenvalues 5,2,1,0.5,0.5, how many components are required to explain at least 90%?",
+      "answer": "Four components: the first three explain 8/9, below 90%, and the first four explain 8.5/9, above 90%."
+    },
+    {
+      "title": "A correlation reference",
+      "prompt": "Why is one the average eigenvalue in a p-variable correlation PCA?",
+      "answer": "The correlation matrix has trace p, equal to the sum of its p eigenvalues, so their average is one."
+    }
+  ],
+  "sensitivity-and-specificity": [
+    {
+      "title": "Zero denominators",
+      "prompt": "A study has no reference-positive cases. Can it estimate sensitivity?",
+      "answer": "No. The sensitivity denominator is the number of reference-positive cases, which is zero."
+    },
+    {
+      "title": "Threshold direction",
+      "prompt": "On a fixed sample, can raising a positive-call threshold decrease specificity?",
+      "answer": "No. Raising the threshold can only maintain or reduce false-positive calls, so specificity cannot decrease."
+    }
+  ],
+  "sign-test": [
+    {
+      "title": "A small exact tail",
+      "prompt": "Six untied pairs are judged by a positive-direction sign test. Under a fair-sign null, what is P(N+ at least 5)?",
+      "answer": "It is (C(6,5)+C(6,6))/64 = 7/64 = 0.109375."
+    },
+    {
+      "title": "One huge increase",
+      "prompt": "If the largest positive difference becomes a thousand times larger without changing any sign, does the sign-test statistic change?",
+      "answer": "No. The positive-sign count is unchanged."
+    }
+  ],
+  "simple-random-sample": [
+    {
+      "title": "A complete enumeration",
+      "prompt": "How many SRS samples of size three can be selected from five labelled units?",
+      "answer": "There are choose(5,3)=10 equally likely subsets."
+    },
+    {
+      "title": "A census variance",
+      "prompt": "What is the sampling variance of the mean when n=N under this design?",
+      "answer": "It is zero, because the finite-population correction 1−n/N is zero."
+    }
+  ],
+  "simple-variables-and-expectation": [
+    {
+      "title": "Disjoint refinement",
+      "prompt": "An event of probability $0.4$ has attached value $3$. It is split into events with probabilities $0.1$ and $0.3$, both still carrying value $3$. Does its contribution change?",
+      "answer": "No. Both representations give $3(0.4)=3(0.1)+3(0.3)=1.2$."
+    },
+    {
+      "title": "A countable range",
+      "prompt": "Is a geometric random variable with possible values $1,2,3,\\ldots$ simple?",
+      "answer": "No. Its range is infinite. Its bounded truncations are simple and can approximate it increasingly."
+    }
+  ],
+  "simultaneous-confidence-statements": [
+    {
+      "title": "Protecting three comparisons",
+      "prompt": "At family error level $0.05$, what per-interval error bound does Bonferroni use for three prespecified contrasts?",
+      "answer": "$0.05/3$ per interval. The sum of their failure-probability bounds is $0.05$."
+    },
+    {
+      "title": "A zero direction",
+      "prompt": "What interval does the ellipsoid projection give when $a=0$?",
+      "answer": "The contrast is identically zero and its half-width is zero, so the interval is the singleton $\\{0\\}$."
+    }
+  ],
+  "singular-value-decomposition": [
+    {
+      "title": "The covariance divisor",
+      "prompt": "A centred matrix with n=6 has singular value 10. What sample covariance eigenvalue does it produce?",
+      "answer": "The eigenvalue is 10²/(6−1)=20."
+    },
+    {
+      "title": "Compact dimensions",
+      "prompt": "A 20×5 matrix has rank 3. What are the dimensions of its compact U, Sigma and V?",
+      "answer": "They are 20×3, 3×3 and 5×3, respectively."
+    }
+  ],
+  "sleep-deprivation-data": [
+    {
+      "title": "Counting independent subjects",
+      "prompt": "Why are the 180 records not equivalent to 180 independently sampled subjects in the mixed model?",
+      "answer": "Ten records share each subject’s intercept and slope effects. The model has eighteen subject-level clusters, with dependence among records in each cluster."
+    },
+    {
+      "title": "Conditional or marginal variance?",
+      "prompt": "Does increasing marginal variance over days imply that the model’s residual variance σ² increases?",
+      "answer": "No. A random slope contributes d²G11 and 2dG01 to marginal variance even with constant conditional residual variance σ²."
+    }
+  ],
+  "slope-t-pivot": [
+    {
+      "title": "Two fitted parameters",
+      "prompt": "Why does simple regression use n−2 degrees of freedom rather than n−1 in its slope t pivot?",
+      "answer": "Both intercept and slope are fitted, leaving n−2 independent residual directions in the Gaussian model."
+    },
+    {
+      "title": "A shifted origin",
+      "prompt": "Would subtracting 100 from every predictor value change the slope statistic for a zero slope?",
+      "answer": "No. Centred predictor differences, Sxx, fitted slope and residual standard deviation are all unchanged."
+    }
+  ],
+  "softmax-is-multinomial-logistic-regression": [
+    {
+      "title": "Reference odds",
+      "prompt": "For probabilities (1/6,1/3,1/2), what are the odds of class3 relative to class1?",
+      "answer": "They are (1/2)/(1/6)=3, with log odds log(3)."
+    },
+    {
+      "title": "Gradient sum",
+      "prompt": "Why do the score derivatives of one-observation cross-entropy sum to zero?",
+      "answer": "They sum to the total predicted probability, one, minus the total of the one-hot indicators, also one. This agrees with invariance to a common score shift."
+    }
+  ],
+  "spatial-poisson-process": [
+    {
+      "title": "Overlapping windows",
+      "prompt": "Are counts in overlapping inspection windows necessarily independent in a Poisson process?",
+      "answer": "No. They share the count in their intersection. Their covariance equals the intensity measure of that intersection."
+    },
+    {
+      "title": "Space and time",
+      "prompt": "Why does the planar nearest-point survival contain r² rather than r?",
+      "answer": "The event is an empty disk, whose area is πr². A one-dimensional interval instead has length proportional to r."
+    }
+  ],
+  "spline": [
+    {
+      "title": "Count the basis",
+      "prompt": "A cubic spline has three strictly interior knots and two separate fixed boundaries. What are the unconstrained and natural dimensions?",
+      "answer": "The unconstrained dimension is 3+4=7. The natural boundary conditions reduce it to 3+2=5."
+    },
+    {
+      "title": "An unpenalised line",
+      "prompt": "What is the integrated squared second derivative of g(x)=4−3x on any bounded interval?",
+      "answer": "It is zero, because the second derivative of an affine function is identically zero."
+    }
+  ],
+  "squared-error-is-not-the-logistic-likelihood": [
+    {
+      "title": "Gradient sign",
+      "prompt": "With y=0 and output 0.99, why should a descent step reduce the logit?",
+      "answer": "The negative-log-likelihood gradient is +0.99x. At x=1, subtracting a positive step reduces the logit and hence the predicted probability of one."
+    },
+    {
+      "title": "Same target, different loss",
+      "prompt": "Can squared error and Bernoulli log loss have the same optimal unconstrained population probability?",
+      "answer": "Yes. Both are minimised at the true conditional success probability, although their gradients and constrained sample fits can differ."
+    }
+  ],
+  "squared-error-of-an-average": [
+    {
+      "title": "A negative weight",
+      "prompt": "Weights that sum to 1 include a negative weight. Does the algebraic identity still hold, and can the ensemble error then exceed the weighted average of the member errors?",
+      "answer": "The identity still holds, because the cross term vanishes whenever the weights sum to 1. The disagreement term can be negative, so the ensemble error can exceed that weighted average."
+    },
+    {
+      "title": "Best versus average",
+      "prompt": "Does the identity guarantee that an ensemble beats its most accurate member on each case?",
+      "answer": "No. It bounds the ensemble error by the average member error, not the smallest member error."
+    }
+  ],
+  "statistic-and-estimator": [
+    {
+      "title": "A statistic with an unknown distribution",
+      "prompt": "Does dependence of $K$'s binomial distribution on $p$ disqualify $K$ as a statistic?",
+      "answer": "No. Its formula $K=\\sum_iX_i$ uses only observations; the sampling law may depend on $p$."
+    },
+    {
+      "title": "One point on the risk curve",
+      "prompt": "At p = 1/4 and n = 4, compare the squared-error risks of (K+1)/6 and K/4. Does that comparison rank the two rules at every p?",
+      "answer": "At p = 1/4, (K+1)/6 has variance 1/48 and bias 1/12, so its risk is 1/36 = 0.027778. The rule K/4 has risk 3/64 = 0.046875. At p = 0 the unbiased rule has risk 0, so one value of p does not rank the rules at every p."
+    }
+  ],
+  "stratified-and-cluster-sampling": [
+    {
+      "title": "Population weights",
+      "prompt": "A region is 80% of the population but only half the sample. What weight does its sample mean get in the ordinary stratified population-mean estimator?",
+      "answer": "It gets weight 0.8. The estimator uses population shares, not the fraction of sampled cases."
+    },
+    {
+      "title": "A two-stage design",
+      "prompt": "A survey randomly selects villages and then randomly selects households inside each chosen village. Is this one-stage cluster sampling?",
+      "answer": "It is a two-stage cluster design. One-stage cluster sampling would observe every household in each selected village."
+    }
+  ],
+  "studentised-coefficient-pivot": [
+    {
+      "title": "A contrast with a known scale factor",
+      "prompt": "The residual standard deviation is s = 2, a contrast satisfies cᵀCc = 1/2, and the estimated contrast exceeds its null value by 1.2. What is the Student statistic on 5 residual degrees of freedom?",
+      "answer": "The denominator is 2√(1/2) = 1.414214, so the statistic is 1.2/1.414214 = 0.848528 on 5 degrees of freedom."
+    },
+    {
+      "title": "Independent pieces",
+      "prompt": "Why does zero covariance of the fitted coefficient error and residual suffice in the proof?",
+      "answer": "They are jointly Gaussian linear transformations of the errors. For jointly Gaussian vectors, zero cross-covariance implies independence."
+    }
+  ],
+  "sum-to-zero-and-contrast-constraints": [
+    {
+      "title": "An invariant comparison",
+      "prompt": "The model is recoded without changing its column space. Does its residual sum of squares change?",
+      "answer": "No. Least squares projects onto the same column space, so its fitted values and residual sum of squares are unchanged."
+    },
+    {
+      "title": "Is it a contrast?",
+      "prompt": "Are coefficients $(1,-2,1)$ a contrast of three group means? What about $(1,1,1)$?",
+      "answer": "The first sum is $0$, so it is a contrast. The second sum is $3$, so it is an overall linear combination rather than a contrast."
+    }
+  ],
+  "summary-statistics": [
+    {
+      "title": "A shifted sample",
+      "prompt": "A sample has mean $12$ and standard deviation $3$. Subtract $5$ from every observation. What are the new summaries?",
+      "answer": "The mean is $7$ and the standard deviation stays $3$. A common translation cancels from all deviations."
+    },
+    {
+      "title": "Which spread?",
+      "prompt": "A report gives minimum $10$, first quartile $14$, median $16$, third quartile $19$, maximum $40$. Compute range and interquartile range.",
+      "answer": "The range is $40-10=30$; the interquartile range is $19-14=5$. The two numbers describe endpoints and the central half, respectively."
+    }
+  ],
+  "surrogate-split": [
+    {
+      "title": "Routing versus impurity",
+      "prompt": "Must the best surrogate also have the largest decrease in outcome impurity?",
+      "answer": "No. A surrogate is chosen to reproduce the primary left/right allocation; primary split selection evaluates the actual response."
+    },
+    {
+      "title": "A reversed copy",
+      "prompt": "A candidate sends all eight cases to the opposite side of the primary split. After the allowed reversal, what are the agreement and the relative improvement?",
+      "answer": "Agreement is 8/8 = 1 and the relative improvement is 1. The original orientation would have scored agreement 0."
+    }
+  ],
+  "test-for-one-proportion": [
+    {
+      "title": "Choosing the variance",
+      "prompt": "For $n=100$, $x=60$, and $H_0:p=0.5$, which standard error enters the score statistic?",
+      "answer": "$\\sqrt{0.5(1-0.5)/100}=0.05$. The score statistic is $(0.6-0.5)/0.05=2$."
+    },
+    {
+      "title": "A one-sided tail",
+      "prompt": "If an upper test observes $x=7$, should its exact $p$-value include $X=8$?",
+      "answer": "Yes. Every outcome at least as large as $7$ belongs in the upper tail, including $8$."
+    }
+  ],
+  "tests-and-confidence-intervals": [
+    {
+      "title": "A matching level",
+      "prompt": "Which confidence level pairs with a two-sided test of size $0.01$ when the same acceptance rule is inverted?",
+      "answer": "$1-0.01=0.99$, or $99\\%$ confidence."
+    },
+    {
+      "title": "A one-sided alternative",
+      "prompt": "Which confidence set matches a test that rejects very large positive values of $(\\bar x-\\mu_0)/\\mathrm{SE}$?",
+      "answer": "A lower confidence bound: values below the lower bound are rejected, while all sufficiently large candidate means remain in the set."
+    }
+  ],
+  "tg5-cattle-studies": [
+    {
+      "title": "Data or prior precision",
+      "prompt": "If y=0.3 has variance 0.04 and the prior is N(0.1,0.01), which gets more weight in the conditional mean?",
+      "answer": "The prior precision is 100 and the data precision is 25, so their weights are 0.8 and 0.2."
+    },
+    {
+      "title": "Counting independent studies",
+      "prompt": "One study contributes four marbling estimates. Does that automatically give four independent studies?",
+      "answer": "No. They are four estimates within one study and may share animals and sampling error."
+    }
+  ],
+  "the-beta-distribution-is-the-two-category-dirichlet": [
+    {
+      "title": "Complement variance",
+      "prompt": "If P1 has Beta(3,2), what are E(P2) and Var(P2)?",
+      "answer": "P2=1−P1 has mean 2/5 and variance 1/25."
+    },
+    {
+      "title": "Binary count update",
+      "prompt": "A Dirichlet(1,1) prior sees counts (2,5). What is the posterior mean of P1?",
+      "answer": "The posterior concentrations are (3,6), so its mean is 1/3."
+    }
+  ],
+  "the-limit-of-hotelling-s-statistic": [
+    {
+      "title": "Two calibrations",
+      "prompt": "Does the chi-squared limit imply that $T^2$ has a chi-squared law for every normal sample size?",
+      "answer": "No. Normal sampling gives an exact scaled $F$ law; the chi-squared law is its fixed-dimension large-sample limit."
+    },
+    {
+      "title": "Estimated covariance",
+      "prompt": "Why is independence of $S_n$ and the mean unnecessary for the limiting argument?",
+      "answer": "Convergence in probability of $S_n$ to a fixed matrix is sufficient for the joint Slutsky argument; no finite-sample independence is required."
+    }
+  ],
+  "the-reweighted-error-is-one-half": [
+    {
+      "title": "Weights after an exact round",
+      "prompt": "The current learner has weighted error 0.3. After its exact finite AdaBoost update, what is its weighted error?",
+      "answer": "It is 1/2: the total correct and incorrect unnormalised masses are equal."
+    },
+    {
+      "title": "A neutral learner",
+      "prompt": "What are alpha and the new weight vector when the current error is 1/2?",
+      "answer": "Alpha=0, so every multiplier is 1 and the weight vector is unchanged."
+    }
+  ],
+  "three-easy-confusions": [
+    {
+      "title": "Marginal versus conditional",
+      "prompt": "Why does integrating coefficients reduce the inverse-gamma shape by $p/2$?",
+      "answer": "The Gaussian integral over the $p$ coefficients contributes $v^{p/2}$, changing the variance kernel from $v^{-n/2-1}$ to $v^{-(n-p)/2-1}$."
+    },
+    {
+      "title": "Two samplers",
+      "prompt": "Which variance distribution gives independent posterior pairs when followed by a conditional coefficient draw?",
+      "answer": "The marginal $p(v\\mid y)$. Using $p(v\\mid\\beta,y)$ with the current coefficient gives Gibbs transitions and generally dependent pairs."
+    }
+  ],
+  "training-data-and-classifier": [
+    {
+      "title": "A classifier or a procedure",
+      "prompt": "What is the distinction between $D\\mapsto g_D$ and $x\\mapsto g_D(x)$?",
+      "answer": "The first map is a learning procedure; the second is the classifier after the training sample is fixed."
+    },
+    {
+      "title": "A perfect training fit",
+      "prompt": "Why can two thresholds have identical zero training error but different population risks?",
+      "answer": "They can disagree on predictor values absent from the training set that carry positive probability in the target population."
+    }
+  ],
+  "transformations-of-data": [
+    {
+      "title": "Back-transformation",
+      "prompt": "If $\\log Y$ is conditionally normal with mean $2$ and variance $1$, what are the conditional median and mean of $Y$?",
+      "answer": "The median is $e^2$ and the mean is $e^{2+1/2}=e^{2.5}$. The mean requires the variance correction."
+    },
+    {
+      "title": "Reversing order",
+      "prompt": "For positive measurements, does $g(x)=1/x$ preserve their order?",
+      "answer": "It reverses order: if $0<a<b$, then $1/a>1/b$. It is still one-to-one on the positive half-line."
+    }
+  ],
+  "translation-to-another-common-notation": [
+    {
+      "title": "Two normalisers",
+      "prompt": "How are $a(\\theta)$ and $A(\\eta)$ related when $\\eta=c(\\theta)$?",
+      "answer": "$A(c(\\theta))=\\log a(\\theta)$; dividing by $a$ is subtracting its logarithm in the exponent."
+    },
+    {
+      "title": "A variance derivative",
+      "prompt": "In which coordinate does $A\\prime\\prime$ equal the variance of the natural statistic?",
+      "answer": "In the natural parameter coordinate $\\eta$, subject to differentiation under the normalising integral. An arbitrary reparameterisation introduces chain-rule terms."
+    }
+  ],
+  "tree-size-and-pruning": [
+    {
+      "title": "Pricing an added split",
+      "prompt": "A binary split reduces total training loss by $2.5$ and adds one leaf. Which side wins when the leaf penalty is $3$?",
+      "answer": "The unsplit leaf wins: the risk improvement $2.5$ is smaller than the extra penalty $3$."
+    },
+    {
+      "title": "Depth versus leaves",
+      "prompt": "Does a penalty proportional to leaf count directly require every root-to-leaf path to be short?",
+      "answer": "No. It prices the number of leaves. Trees with the same leaf count can have different depths."
+    }
+  ],
+  "two-factor-analysis-of-variance": [
+    {
+      "title": "Replication and error",
+      "prompt": "Why does a $2\\times2$ full-interaction design with one observation per cell have no error degrees of freedom?",
+      "answer": "There are four observations and four cell-mean parameters, so the model fits every cell and leaves zero residual dimensions."
+    },
+    {
+      "title": "Unequal cell counts",
+      "prompt": "A 2×2 layout has cell counts 2, 2, 2 and 5. Can the balanced orthogonal split of the treatment sum of squares be used unchanged?",
+      "answer": "Unequal cell counts remove that balanced orthogonality. Sequential sums of squares can then depend on which factor is entered first."
+    }
+  ],
+  "two-proportion-z-test": [
+    {
+      "title": "Why pooling",
+      "prompt": "Why is $(X_1+X_2)/(n_1+n_2)$ used for the equality test?",
+      "answer": "Under equality both samples estimate one common success probability, and this weighted pooled proportion is its null maximum-likelihood estimate."
+    },
+    {
+      "title": "Pooled or averaged",
+      "prompt": "For 10 successes in 20 trials and 40 successes in 180 trials, what is the pooled null proportion, and what is the unweighted average of the two sample proportions?",
+      "answer": "The pooled proportion is (10+40)/(20+180) = 0.25. The unweighted average of the sample proportions is (0.5 + 40/180)/2 = 0.361111. The larger sample receives more weight in the pooled estimate."
+    }
+  ],
+  "two-pseudo-count-conventions": [
+    {
+      "title": "Uniform prior conventions",
+      "prompt": "For Beta(1,1), what are the mean-scale and mode-scale prior sample sizes?",
+      "answer": "They are 2 and 0, respectively. The uniform density has no unique interior prior mode."
+    },
+    {
+      "title": "Posterior mean after one success",
+      "prompt": "With Beta(5,5) and one success in one trial, what is the posterior mean?",
+      "answer": "The posterior is Beta(6,5) and its mean is 6/11."
+    }
+  ],
+  "two-responses-one-person": [
+    {
+      "title": "Independent units",
+      "prompt": "One hundred patients each provide two outcomes. How many independent patient-level contributions enter a clustered sandwich under independent-patient sampling?",
+      "answer": "One hundred; both responses from the same patient belong to one contribution."
+    },
+    {
+      "title": "Feasible Bernoulli association",
+      "prompt": "Bernoulli means are 0.2 and 0.8. What is the largest covariance and correlation allowed by the joint success bound?",
+      "answer": "The maximum covariance is 0.2−0.16=0.04; the common marginal variance is 0.16, so maximum correlation is 0.25."
+    }
+  ],
+  "two-sample-hotelling-t2-test": [
+    {
+      "title": "The dimension correction",
+      "prompt": "For $n_1=12$, $n_2=15$, and $p=3$, what are the two F degrees of freedom?",
+      "answer": "They are $p=3$ and $12+15-3-1=23$."
+    },
+    {
+      "title": "A new set of units",
+      "prompt": "Every first coordinate is multiplied by $100$ in both samples. Does the classical statistic change if the covariance is transformed consistently?",
+      "answer": "No. This is an invertible linear coordinate change, and the covariance-weighted quadratic form is invariant."
+    }
+  ],
+  "two-sample-t-pivot": [
+    {
+      "title": "Degrees of freedom",
+      "prompt": "Independent normal samples of sizes 8 and 12 share an unknown variance. What is the pooled pivot degrees of freedom?",
+      "answer": "It is 8+12−2=18."
+    },
+    {
+      "title": "Known variance",
+      "prompt": "If the common variance is known, what replaces the Student reference distribution?",
+      "answer": "Using the known standard deviation gives an exact standard normal reference distribution."
+    }
+  ],
+  "two-sample-t-test": [
+    {
+      "title": "Equal group sizes",
+      "prompt": "When two group sizes match, must pooled and Welch p-values match?",
+      "answer": "No. Their standard errors coincide, but their degrees of freedom generally differ."
+    },
+    {
+      "title": "A nonzero null",
+      "prompt": "An estimated difference is 5 with standard error 2. What statistic tests a difference of 1?",
+      "answer": "The statistic is (5−1)/2=2."
+    }
+  ],
+  "two-state-continuous-time-chain": [
+    {
+      "title": "A rate is not a probability",
+      "prompt": "Can a transition rate equal $3$ per hour even though probabilities cannot exceed $1$?",
+      "answer": "Yes. The rate has inverse-time units and describes the coefficient of a short-time probability. A finite-time transition probability remains between zero and one."
+    },
+    {
+      "title": "Changing the clock",
+      "prompt": "Both positive rates are doubled. What happens to stationary probabilities and to the exponential relaxation rate?",
+      "answer": "The stationary fractions stay the same because the common factor cancels. The relaxation rate $\\alpha+\\beta$ doubles."
+    }
+  ],
+  "underfitting": [
+    {
+      "title": "The parabola example",
+      "prompt": "Why can adding more noise-free observations of y=x² fail to make a straight line an adequate predictor?",
+      "answer": "The line family cannot represent curvature; more data do not add a quadratic term."
+    },
+    {
+      "title": "Two large errors",
+      "prompt": "A model has similarly large training and validation losses. Does the small gap prove good prediction?",
+      "answer": "No. Both losses can be large because the fitted function misses useful structure or because the prediction problem has substantial noise."
+    }
+  ],
+  "uniformisation": [
+    {
+      "title": "A zero generator",
+      "prompt": "For $Q=0$ and any $\\gamma>0$, what are $R$ and $P(t)$?",
+      "answer": "$R=I$, so every clock event is virtual and $P(t)=I$."
+    },
+    {
+      "title": "Tail control",
+      "prompt": "If the omitted Poisson mass is at most $10^{-6}$, what does that guarantee for each computed transition probability?",
+      "answer": "The nonnegative truncation error in each entry is at most $10^{-6}$. The missing mass of each row equals that omitted Poisson mass."
+    }
+  ],
+  "uniformity-depends-on-a-domain": [
+    {
+      "title": "A boundary is not infinite mass",
+      "prompt": "Is the uniform law on $(0,1)$ improper because the interval approaches a boundary?",
+      "answer": "No. Its constant density integrates to one; removing or including the endpoints changes no mass for this continuous law."
+    },
+    {
+      "title": "The missing indicator",
+      "prompt": "Why must the transformed density include the transformed domain?",
+      "answer": "The Jacobian describes a local change of volume. Without the support indicator it assigns weight outside the image of the specified probability law and can change its total mass."
+    }
+  ],
+  "uniformly-most-powerful-unbiased-test": [
+    {
+      "title": "An excluded competitor",
+      "prompt": "Why does the most powerful right-tail normal test not contradict UMPU optimality of the two-sided test?",
+      "answer": "The right-tail test is outside the unbiased class for a two-sided problem: its power falls below its size at negative shifts."
+    },
+    {
+      "title": "The moment constraint",
+      "prompt": "Why does a differentiable unbiased power function have zero derivative at the null?",
+      "answer": "It has a minimum there. In the normal shift family that derivative is $E_0[Z\\phi(Z)]$, so this expectation must be zero."
+    }
+  ],
+  "unit-root": [
+    {
+      "title": "Effect of a shock",
+      "prompt": "For X_t=X_{t−1}+epsilon_t, what is the effect at time t+5 of adding one unit to epsilon_t while holding all other innovations fixed?",
+      "answer": "It is still one unit: the shock enters every subsequent level."
+    },
+    {
+      "title": "Stationarity null",
+      "prompt": "A KPSS test rejects its stationarity null. Is that numerically the same null as an ordinary Dickey–Fuller unit-root null?",
+      "answer": "No. The null hypotheses differ; rejecting stationarity is not the same decision rule as rejecting a unit root."
+    }
+  ],
+  "univariate-t-test-as-a-template-for-t2": [
+    {
+      "title": "A lost sign",
+      "prompt": "If $t=-2$, what does $t^2$ preserve and what does it discard?",
+      "answer": "It preserves the magnitude of the standardised departure through the value $4$, while discarding that the sample mean lies below the null mean."
+    },
+    {
+      "title": "Checking the degrees of freedom",
+      "prompt": "At $p=1$ and $n=12$, what $F$ distribution corresponds to the squared Student statistic?",
+      "answer": "$F_{1,11}$, matching the square of a $t_{11}$ variable."
+    }
+  ],
+  "universal-approximation": [
+    {
+      "title": "What depends on accuracy?",
+      "prompt": "Does uniform approximation guarantee one finite width that works for all continuous targets at every tolerance?",
+      "answer": "No. The existence quantifiers allow both width and weights to depend on the target and the requested tolerance."
+    },
+    {
+      "title": "Bounded output",
+      "prompt": "Can a network whose final output is a logistic sigmoid approximate the constant $2$ uniformly to error below $0.5$?",
+      "answer": "No. Its output lies between $0$ and $1$, so its error relative to $2$ exceeds $1$ at every input."
+    },
+    {
+      "title": "A jump and the uniform norm",
+      "prompt": "Every continuous function on $[0,1]$ is at least how far, in uniform error, from the step that equals $0$ on $[0,1/2)$ and $1$ on $[1/2,1]$?",
+      "answer": "At least $1/2$. A continuous value cannot stay strictly within $1/2$ of both $0$ and $1$ at the jump."
+    }
+  ],
+  "vapnik-s-radius-margin-bound": [
+    {
+      "title": "Radius versus diameter",
+      "prompt": "If R=3 is the ball radius and gamma=1 is the one-sided margin, what full-diameter/full-width ratio enters?",
+      "answer": "D=6 and rho=2, so D²/rho²=9, equal to R²/gamma²."
+    },
+    {
+      "title": "The dimension cap",
+      "prompt": "If ceil(D²/rho²)=30 and p=7, what is the bound?",
+      "answer": "It is min(30,7)+1=8."
+    }
+  ],
+  "variable-importance": [
+    {
+      "title": "Loss convention",
+      "prompt": "A shuffle changes mean squared error from $4$ to $5$. What is the unscaled permutation importance?",
+      "answer": "$5-4=1$ squared response unit. A relative score would instead be $1/4=25\\%$."
+    },
+    {
+      "title": "A helpful shuffle",
+      "prompt": "Held-out mean squared error is $0.20$. After one shuffle of a column it falls to $0.15$. What is the unscaled permutation importance?",
+      "answer": "It is $0.15-0.20=-0.05$. A shuffle that lowers the observed loss produces a negative score. The sign describes that comparison for the fixed model."
+    }
+  ],
+  "variogram": [
+    {
+      "title": "Two conventions",
+      "prompt": "If the variance of an increment is eight, what is the semivariogram?",
+      "answer": "It is half the increment variance, so it equals four."
+    },
+    {
+      "title": "Stationary covariance identity",
+      "prompt": "A weakly stationary process has variance five and lag-two covariance two. What is its lag-two variogram?",
+      "answer": "It is 2(5−2)=6."
+    }
+  ],
+  "vector-response-regression": [
+    {
+      "title": "A corner of the Fréchet bound",
+      "prompt": "Margins are 0.2 and 0.5 and the joint success probability is at its upper Fréchet bound. What are the other three cell probabilities?",
+      "answer": "The joint success probability is min(0.2, 0.5)=0.2. The cells are 0.2, 0, 0.3 and 0.5. One cell is zero, so the odds ratio is undefined."
+    },
+    {
+      "title": "What robustness covers",
+      "prompt": "Does a sandwich variance make a misspecified marginal mean correct?",
+      "answer": "No. It addresses variance estimation under specified regularity when the mean estimating equation is correct; a wrong mean can make its expected residual nonzero."
+    }
+  ],
+  "ward-s-method": [
+    {
+      "title": "The size adjustment",
+      "prompt": "Two singleton points have squared Euclidean distance ten. What is their Ward increase?",
+      "answer": "It is (1×1)/(1+1)×10=5."
+    },
+    {
+      "title": "Coincident centres",
+      "prompt": "Can two nonidentical clusters have merge increase zero?",
+      "answer": "Yes. Their centres may coincide, making the squared centre difference zero."
+    }
+  ],
+  "warp-breaks-data": [
+    {
+      "title": "What is the cluster?",
+      "prompt": "Does changing a data-frame column name from wool to factory establish a factory-level sampling design?",
+      "answer": "No. A name change supplies no design evidence. The grouping variable must correspond to independent scientific sampling units."
+    },
+    {
+      "title": "Reading the link",
+      "prompt": "A high-tension coefficient is $-0.5$ in a log-mean model. What comparison does $e^{-0.5}$ express?",
+      "answer": "It is the high-to-reference fitted mean ratio, conditional on the other model terms. It is not an additive difference in break counts."
+    }
+  ],
+  "which-functions-are-kernels": [
+    {
+      "title": "A negative diagonal",
+      "prompt": "A symmetric proposal has $K(a,a)=-0.2$. Is another input needed to show invalidity?",
+      "answer": "No. A one-input Gram matrix already has quadratic form $-0.2$ at coefficient $1$."
+    },
+    {
+      "title": "Changing the sign",
+      "prompt": "If $K$ is valid, is $-K$ always valid?",
+      "answer": "No. For $K(x,z)=1$, the one-input Gram entry of $-K$ is $-1$, which violates nonnegativity."
+    }
+  ],
+  "why-the-raw-sum-of-squares-cannot-choose": [
+    {
+      "title": "The endpoint",
+      "prompt": "For n distinct data points, what is the optimised within-cluster sum of squares at K=n?",
+      "answer": "It is zero because each singleton centre equals its observation."
+    },
+    {
+      "title": "An apparent increase",
+      "prompt": "A local K-means run at K=4 has larger cost than a run at K=3. Does this refute W4*≤W3*?",
+      "answer": "No. The inequality concerns the global optima, whereas a local run may return a suboptimal partition."
+    }
+  ],
+  "wilcoxon-rank-sum-test": [
+    {
+      "title": "A null expectation",
+      "prompt": "With no ties, and sample sizes n=4 and m=6, what is the expected rank sum E(W)?",
+      "answer": "It is n(N+1)/2 = 4 times 11/2 = 22."
+    },
+    {
+      "title": "Tied observations",
+      "prompt": "Why do identical midrank sums occur more than once in an exact permutation enumeration?",
+      "answer": "Different observation-index subsets can have the same sum; each subset still carries its own permutation probability."
+    }
+  ],
+  "wilks-theorem": [
+    {
+      "title": "Count restrictions",
+      "prompt": "Why does testing one coefficient in a model with many nuisance coefficients usually give one chi-squared degree of freedom?",
+      "answer": "Only one independent smooth restriction is imposed; nuisance parameters are estimated under both models and do not count as restrictions."
+    },
+    {
+      "title": "Boundary mass at zero",
+      "prompt": "For the nonnegative-mean boundary example, the limiting law of D is half a point mass at zero and half a chi-squared law with one degree of freedom. What is P(D=0)?",
+      "answer": "One half. The other half of the probability lies on the positive chi-squared component."
+    }
   ]
 }

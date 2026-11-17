@@ -21,7 +21,7 @@ import wiki_graph
 ROOT = Path(__file__).resolve().parent
 
 BANNED_VISIBLE = re.compile(
-    r"STAT\s*\d"
+    r"\bSTAT\s*\d"
     r"|\bgithub\b(?!\.io)"
     r"|\bapplied\s+practice\s+sets?\b"
     r"|\bpractice\s+sets?\b"
@@ -93,6 +93,14 @@ class CitationTests(unittest.TestCase):
             }}))
             with self.assertRaisesRegex(ValueError, "conflicting bibliography entry new_key"):
                 research_pending.merge_pending_works(root, self.works)
+
+    def test_course_label_filter_respects_word_boundaries(self) -> None:
+        for label in ("STAT3500", "stat 2003", "sources/STAT3006/notes"):
+            with self.subTest(label=label):
+                self.assertRegex(label, BANNED_VISIBLE)
+        for title in ("SciKit-GStat 1.0", "GeoStat 2.1"):
+            with self.subTest(title=title):
+                self.assertNotRegex(title, BANNED_VISIBLE)
 
     def test_zero_banned_terms_in_bibliography_and_mappings(self) -> None:
         for rel in ("bibliography.json", "citations.py", "overview.qmd"):
@@ -444,7 +452,7 @@ class CitationTests(unittest.TestCase):
                     r"\b(?:inherited(?!\s+traits\b)|retained\s+(?:example|figure|formula|property|section|content|chapter)|"
                     r"existing\s+(?:example|figure|formula|property|section|content|chapter|diagram)|"
                     r"original definition|opened\s+(?:source|paper|pdf|book|text)|verified\s+source|"
-                    r"source chapter|the example above was kept|not claiming|not (?:a )?claim|"
+                    r"source chapter|the example above was kept|not claiming|not (?:a )?claim(?! that a joint distribution)|"
                     r"not claimed|not proved here|copied account|question-bank(?! page)|answered bank|"
                     r"your turn point|linked chapter|collapsed proof|source examples on this page|"
                     r"the manual|the catalogue)\b|"

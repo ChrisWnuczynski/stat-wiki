@@ -1,58 +1,8 @@
 [
   {
-    "slug": "anova-sum-of-squares-decomposition",
-    "title": "ANOVA sum of squares decomposition",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "bayes-consistency-of-nearest-neighbours",
-    "title": "Bayes consistency of k-nearest neighbours",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "benjamini-hochberg-controls-the-false-discovery-rate",
-    "title": "Benjamini–Hochberg controls the false discovery rate",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "conditional-distribution-of-a-multivariate-normal",
-    "title": "Conditional distribution of a multivariate normal",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "descent-of-lloyd-s-algorithm",
-    "title": "Descent of Lloyd's algorithm",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "four-ways-of-counting-draws",
-    "title": "Four ways of counting draws",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "hammersley-clifford",
     "title": "Hammersley–Clifford",
     "reason": "The equivalence of the pairwise Markov property and clique factorisation for a positive distribution is longer than a short proof box."
-  },
-  {
-    "slug": "local-minima-plateaus-and-symmetry",
-    "title": "Local minima, plateaus, and symmetry",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "metropolis-hastings-invariance",
-    "title": "Metropolis–Hastings invariance",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "monotonicity-of-em",
-    "title": "Monotonicity of EM",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "multinomial-central-limit-theorem",
-    "title": "Multinomial central limit theorem",
-    "reason": "A reviewed proof sketch is still needed."
   },
   {
     "slug": "multivariate-central-limit-theorem",
@@ -65,28 +15,8 @@
     "reason": "The chi-squared law and the independence of the sample mean and variance use an orthogonal transformation of the standard normal vector. That argument is longer than a short proof box."
   },
   {
-    "slug": "null-distribution-of-hotelling-s",
-    "title": "Null distribution of Hotelling's T²",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "one-hidden-layer-approximates-continuous-functions",
     "title": "One hidden layer approximates continuous functions",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "one-sample-t-pivot",
-    "title": "One-sample t pivot",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "pearson-chi-squared-approximation",
-    "title": "Pearson chi-squared approximation",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "pearson-test-with-estimated-parameters",
-    "title": "Pearson test with estimated parameters",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -95,68 +25,8 @@
     "reason": "A reviewed proof sketch is still needed."
   },
   {
-    "slug": "principal-component-directions",
-    "title": "Principal component directions",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "properties-of-a-probability",
-    "title": "Properties of a probability",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "rank-bound",
-    "title": "Rank bound",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "sampling-distribution-of-the-ols-estimator",
-    "title": "Sampling distribution of the OLS estimator",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "sampling-distribution-of-the-regression-estimators",
-    "title": "Sampling distribution of the regression estimators",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "sampling-law-of-the-normal-mean-and-scatter",
-    "title": "Sampling law of the normal mean and scatter",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
     "slug": "signed-distance",
     "title": "Signed distance",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "slope-t-pivot",
-    "title": "Slope t pivot",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "softmax-is-multinomial-logistic-regression",
-    "title": "Softmax is multinomial logistic regression",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "squared-error-is-not-the-logistic-likelihood",
-    "title": "Squared error is not the logistic likelihood",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "studentised-coefficient-pivot",
-    "title": "Studentised coefficient pivot",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "the-reweighted-error-is-one-half",
-    "title": "The reweighted error is one half",
-    "reason": "A reviewed proof sketch is still needed."
-  },
-  {
-    "slug": "two-sample-t-pivot",
-    "title": "Two-sample t pivot",
     "reason": "A reviewed proof sketch is still needed."
   },
   {
@@ -753,5 +623,185 @@
     "slug": "cost-complexity-pruning#property-nested-pruning-path",
     "title": "Weakest-link pruning gives the nested optimal-subtree path",
     "reason": "The page proves penalty monotonicity of leaf counts and the single-branch breakpoint identity. The full optimal-subtree guarantee for successive weakest-link pruning is cited to Loh2014 but has no local structural proof."
+  },
+  {
+    "slug": "analysis-of-deviance#properties",
+    "title": "Reference distributions for nested-model deviance tests",
+    "reason": "The likelihood cancellation and numerical statistics are derived. The regular likelihood-ratio chi-squared limit and exact Gaussian F calibration additionally need asymptotic likelihood theory and independent Gaussian quadratic-form proofs."
+  },
+  {
+    "slug": "anova-sum-of-squares-decomposition#key-results",
+    "title": "Independent chi-squared components of a normal one-way ANOVA",
+    "reason": "The exact algebraic decomposition is proved. Distributional calibration requires a separate proof of the independent normal quadratic-form laws."
+  },
+  {
+    "slug": "asymptotic-normality-of-maximum-likelihood#assumptions-and-limits",
+    "title": "One-step likelihood equivalence and regular efficiency bound",
+    "reason": "The score-root normal limit is derived; one-step equivalence requires a uniform local score expansion, and the efficiency lower bound requires a specified regular local estimator class and its own proof."
+  },
+  {
+    "slug": "bayes-consistency-of-nearest-neighbours#statement",
+    "title": "Universal weak consistency of Euclidean k-nearest-neighbour classification",
+    "reason": "The plug-in risk bound and finite-feature case are proved; the general Euclidean theorem additionally needs Stone’s geometric locality argument."
+  },
+  {
+    "slug": "benjamini-hochberg-controls-the-false-discovery-rate#generalizations",
+    "title": "False-discovery control under dependent p-values",
+    "reason": "The independent-p-value step-up guarantee has a complete leave-one-out proof. Positive-regression-dependence and arbitrary-dependence harmonic-correction extensions require their separate dependence arguments."
+  },
+  {
+    "slug": "categorical-and-multinomial-models#property-multinomial-central-limit-theorem",
+    "title": "Multinomial central limit theorem",
+    "reason": "The finite-count moment identities are derived from category indicators; the general vector central limit theorem requires a separate proof."
+  },
+  {
+    "slug": "chi-squared-test-with-estimated-parameters#properties",
+    "title": "Grouped multinomial efficient-fit linearization",
+    "reason": "Projection geometry is derived conditional on the score linearization; a full regularity-based derivation of the fitted residual expansion remains."
+  },
+  {
+    "slug": "conditional-distribution-of-a-multivariate-normal#generalizations",
+    "title": "Conditional Gaussian laws with singular conditioning covariance",
+    "reason": "The independent-residual decomposition proves the nonsingular conditioning formula, including a degenerate residual. The singular conditioning extension requires a support and generalised-inverse construction."
+  },
+  {
+    "slug": "drift-and-scale-of-a-random-walk#properties",
+    "title": "Strong law and central limit theorem for iid increments",
+    "reason": "Moment identities are derived; general limit theorems are used as dependencies with finite absolute mean or finite positive variance and need full standalone proofs."
+  },
+  {
+    "slug": "extended-information-criterion#assumptions-and-limits",
+    "title": "High-dimensional graphical EBIC consistency",
+    "reason": "The score and a finite-model comparison are derived, but the uniform likelihood bounds and decomposable-graph consistency proof in Foygel–Drton require a separate treatment."
+  },
+  {
+    "slug": "homogeneity-and-independence#properties",
+    "title": "Asymptotic chi-squared calibration under independence and homogeneity",
+    "reason": "Likelihood fitting and parameter counts are derived. A full multivariate limit argument for Pearson calibration under each sampling design remains to be supplied."
+  },
+  {
+    "slug": "lebesgue-decomposition#properties",
+    "title": "General existence in the Lebesgue decomposition theorem",
+    "reason": "Uniqueness, countability of atoms and the Cantor construction are proved. The general existence construction for arbitrary sigma-finite measures uses the cited measure decomposition theorem and requires a separate Radon–Nikodym argument."
+  },
+  {
+    "slug": "markov-graphs#definition",
+    "title": "Markov-property equivalence and Hammersley–Clifford converse",
+    "reason": "The finite discrete factorization-to-global implication is derived; the positive-density converse and the full conditional-independence axioms require a measure-theoretic proof."
+  },
+  {
+    "slug": "maximum-likelihood-for-a-known-graph#assumptions-and-limits",
+    "title": "General existence of a constrained Gaussian maximum-likelihood fit",
+    "reason": "The score equations, strict concavity and finite chain example are derived. The general positive-definite completion existence theorem and graph-dependent existence conditions for singular sample covariances require a separate proof."
+  },
+  {
+    "slug": "maximum-likelihood-under-the-wrong-model#properties",
+    "title": "Regularity sufficient for the score expansion",
+    "reason": "The asymptotic covariance is derived conditional on a valid local expansion; a full uniform differentiability and stochastic equicontinuity proof is needed for general models."
+  },
+  {
+    "slug": "non-negative-matrix-factorisation#multiplicative-descent",
+    "title": "Multiplicative-update descent for nonnegative matrix factorization",
+    "reason": "The numerical example checks one alternating update and the algebra establishes scale/permutation invariance. The cited auxiliary-function descent theorem for general positive matrices requires a complete auxiliary-function proof."
+  },
+  {
+    "slug": "null-distribution-of-hotelling-s#exact-f-calibration",
+    "title": "Exact multivariate Hotelling F calibration",
+    "reason": "The local proof verifies affine invariance and the p=1 reduction. A complete derivation of the independent normal/Wishart quadratic-form ratio giving F_{p,n-p} for general p remains to be supplied."
+  },
+  {
+    "slug": "one-hidden-layer-approximates-continuous-functions#statement",
+    "title": "Uniform density of continuous sigmoidal ridge sums",
+    "reason": "The window calculations verify a finite construction. A complete density proof needs the separating-measure and Fourier-uniqueness steps of Cybenko Theorem 1 and Lemma 1."
+  },
+  {
+    "slug": "pitman-koopman-darmois-informal-form#statement",
+    "title": "Regular fixed-dimensional sufficiency characterisation",
+    "reason": "The exponential-family factorisation direction and the moving-support counterexample are derived. A complete proof of a general fixed-dimensional converse, with an explicit matching set of regularity hypotheses, remains to be supplied."
+  },
+  {
+    "slug": "rank-distance#assumptions-and-limits",
+    "title": "General consistency under coordinate-rank neighbour metrics",
+    "reason": "The rank invariance and finite examples are derived directly. The general nearest-neighbour consistency result cited to Biau and Devroye, Remark8.2 and Theorem11.1, requires a separate asymptotic proof and its sampling and weighting assumptions."
+  },
+  {
+    "slug": "simple-variables-and-expectation#properties",
+    "title": "Monotone convergence for nonnegative expectation",
+    "reason": "The general interchange of an increasing limit and the integral establishes independence of the simple approximation; the finite partition argument and uniform-grid example establish their narrower claims."
+  },
+  {
+    "slug": "simultaneous-confidence-statements#definition",
+    "title": "Finite-sample Hotelling ellipsoid coverage",
+    "reason": "The all-direction projection and its sharpness are derived; exact normal-model F calibration of the starting ellipsoid requires the inverse-Wishart quadratic-form law."
+  },
+  {
+    "slug": "sleep-deprivation-data#statistical-use",
+    "title": "Null calibration for adding a correlated subject slope",
+    "reason": "The Gaussian mixed likelihood is refitted and its likelihood-ratio statistic recomputed. Exact finite-sample calibration when the slope variance and its covariance vanish on the null boundary remains a separate inference problem."
+  },
+  {
+    "slug": "spline#properties",
+    "title": "Natural cubic variational characterisation of the smoothing-spline minimiser",
+    "reason": "The finite basis smoothness and penalty example are verified algebraically. A full calculus-of-variations proof of existence and the natural cubic minimiser for the stated function-space optimisation is deferred."
+  },
+  {
+    "slug": "sum-to-zero-and-contrast-constraints#definition",
+    "title": "Gaussian factorial ANOVA F calibration",
+    "reason": "Cell means, coding identities, sums of squares and numerical F-tail calculations are derived and recomputed; exact F calibration requires orthogonal Gaussian projection and common-variance assumptions."
+  },
+  {
+    "slug": "the-limit-of-hotelling-s-statistic#interpretation",
+    "title": "Exact normal-sample Hotelling–F law",
+    "reason": "The fixed-dimension chi-squared limit is derived, but the exact Wishart and normal-independence derivation of the finite-sample F transformation is a separate result."
+  },
+  {
+    "slug": "two-responses-one-person#properties",
+    "title": "Sandwich covariance consistency for marginal estimating equations",
+    "reason": "The covariance identities and finite examples are recomputed. The general asymptotic consistency and normality statements of Liang and Zeger (1986), Theorems1–2, require their regularity and independent-unit conditions and a separate limiting argument."
+  },
+  {
+    "slug": "two-sample-hotelling-t2-test#properties",
+    "title": "Normal–Wishart quadratic-form F law",
+    "reason": "Gaussian projection supplies the pooled Wishart distribution and independence, but its inverse quadratic-form F calibration needs a full distributional derivation."
+  },
+  {
+    "slug": "two-sample-hotelling-t2-test#assumptions-and-limits",
+    "title": "Modified Wishart moment approximation",
+    "reason": "The trace-based effective degrees of freedom and its scalar reduction are stated and checked; accuracy of the general multivariate approximation needs its separate moment calculation and assessment."
+  },
+  {
+    "slug": "uniformisation#definition",
+    "title": "Finite irreducible continuous-time chain convergence",
+    "reason": "The finite Poisson-mixture construction and its two-state computation are derived; convergence of every finite irreducible chain to its unique stationary distribution requires a separate general argument."
+  },
+  {
+    "slug": "univariate-t-test-as-a-template-for-t2#properties",
+    "title": "Exact multivariate Hotelling calibration",
+    "reason": "The scalar normal/chi-squared ratio is derived, while the general inverse-Wishart quadratic-form F law requires a separate distributional proof."
+  },
+  {
+    "slug": "universal-approximation#definition",
+    "title": "Continuous-sigmoid density theorem",
+    "reason": "The general density result requires a separation and signed-measure argument; the explicit ReLU interpolation proof covers only its stated target and domain."
+  },
+  {
+    "slug": "vapnik-s-radius-margin-bound#statement",
+    "title": "General radius–margin shattering bound",
+    "reason": "The restricted shattering statement and convention conversion are verified against Burges §7.1 Theorem6. A complete proof of the geometric simplex extremum lemma and its application to all dimensions remains to be supplied."
+  },
+  {
+    "slug": "vector-response-regression#properties",
+    "title": "GEE consistency and sandwich covariance",
+    "reason": "The mean-zero estimating-equation argument is given, but the independent-cluster law of large numbers, derivative convergence and central limit theorem needed for full GEE asymptotics remain to be developed."
+  },
+  {
+    "slug": "warp-breaks-data#assumptions-and-limits",
+    "title": "GEE cluster-asymptotic consistency and sandwich calibration",
+    "reason": "The general theorem requires a law of large numbers and central limit theorem over independent clusters; the two-label numerical demonstration does not establish its asymptotic conclusions."
+  },
+  {
+    "slug": "wilks-theorem#properties",
+    "title": "Regular local quadratic likelihood expansion",
+    "reason": "The Gaussian projection argument is supplied conditional on a uniform local quadratic expansion and localisation of both maximisers; a full proof of those regular asymptotic ingredients remains."
   }
 ]

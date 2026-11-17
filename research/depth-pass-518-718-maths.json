@@ -1,0 +1,990 @@
+{
+  "seed": 20261117,
+  "selection": {
+    "AE": [
+      {
+        "rank": 518,
+        "slug": "hard-margin-primal"
+      },
+      {
+        "rank": 522,
+        "slug": "leaf-blotch-data"
+      },
+      {
+        "rank": 525,
+        "slug": "local-minima-plateaus-and-symmetry"
+      }
+    ],
+    "AF": [
+      {
+        "rank": 544,
+        "slug": "principal-component-directions"
+      },
+      {
+        "rank": 548,
+        "slug": "rank-bound"
+      },
+      {
+        "rank": 557,
+        "slug": "stratified-and-cluster-sampling"
+      }
+    ],
+    "AG": [
+      {
+        "rank": 564,
+        "slug": "two-sample-t-pivot"
+      },
+      {
+        "rank": 567,
+        "slug": "vapnik-s-radius-margin-bound"
+      },
+      {
+        "rank": 569,
+        "slug": "ward-s-method"
+      }
+    ],
+    "AH": [
+      {
+        "rank": 578,
+        "slug": "a-proper-approximation-to-the-flat-prior"
+      },
+      {
+        "rank": 579,
+        "slug": "acceptance-rejection-method"
+      },
+      {
+        "rank": 592,
+        "slug": "error-and-residual"
+      }
+    ],
+    "AI": [
+      {
+        "rank": 607,
+        "slug": "lidar-data"
+      },
+      {
+        "rank": 609,
+        "slug": "maximum-likelihood-for-a-known-graph"
+      },
+      {
+        "rank": 616,
+        "slug": "multinomial-logistic-regression"
+      }
+    ],
+    "AJ": [
+      {
+        "rank": 621,
+        "slug": "paired-samples"
+      },
+      {
+        "rank": 633,
+        "slug": "sleep-deprivation-data"
+      },
+      {
+        "rank": 634,
+        "slug": "slope-t-pivot"
+      }
+    ],
+    "AK": [
+      {
+        "rank": 643,
+        "slug": "training-data-and-classifier"
+      },
+      {
+        "rank": 650,
+        "slug": "wilks-theorem"
+      },
+      {
+        "rank": 653,
+        "slug": "asymptotic-normality-of-maximum-likelihood"
+      }
+    ],
+    "AL": [
+      {
+        "rank": 662,
+        "slug": "choosing-the-number-of-principal-components"
+      },
+      {
+        "rank": 667,
+        "slug": "drift-and-scale-of-a-random-walk"
+      },
+      {
+        "rank": 675,
+        "slug": "interval-for-a-proportion"
+      }
+    ],
+    "AM": [
+      {
+        "rank": 682,
+        "slug": "linear-separability"
+      },
+      {
+        "rank": 695,
+        "slug": "nuisance-parameters"
+      },
+      {
+        "rank": 696,
+        "slug": "quasi-likelihood"
+      }
+    ],
+    "AN": [
+      {
+        "rank": 705,
+        "slug": "sum-to-zero-and-contrast-constraints"
+      },
+      {
+        "rank": 715,
+        "slug": "universal-approximation"
+      },
+      {
+        "rank": 717,
+        "slug": "warp-breaks-data"
+      }
+    ]
+  },
+  "pages": 30,
+  "passing_claim_checks": 138,
+  "claims": [
+    {
+      "slug": "hard-margin-primal",
+      "claim": "w",
+      "value": "1/3",
+      "expected": "1/3"
+    },
+    {
+      "slug": "hard-margin-primal",
+      "claim": "b",
+      "value": "-1/3",
+      "expected": "-1/3"
+    },
+    {
+      "slug": "hard-margin-primal",
+      "claim": "objective",
+      "value": "1/18",
+      "expected": "1/18"
+    },
+    {
+      "slug": "hard-margin-primal",
+      "claim": "boundary",
+      "value": "1",
+      "expected": "1"
+    },
+    {
+      "slug": "hard-margin-primal",
+      "claim": "gap",
+      "value": "6",
+      "expected": "6"
+    },
+    {
+      "slug": "local-minima-plateaus-and-symmetry",
+      "claim": "new u",
+      "value": "4/5",
+      "expected": "4/5"
+    },
+    {
+      "slug": "local-minima-plateaus-and-symmetry",
+      "claim": "new v",
+      "value": "3/25",
+      "expected": "3/25"
+    },
+    {
+      "slug": "local-minima-plateaus-and-symmetry",
+      "claim": "loss after",
+      "value": "391/625",
+      "expected": "391/625"
+    },
+    {
+      "slug": "principal-component-directions",
+      "claim": "leading eigenvalue",
+      "value": "3",
+      "expected": "3"
+    },
+    {
+      "slug": "principal-component-directions",
+      "claim": "variance fraction",
+      "value": "3/4",
+      "expected": "3/4"
+    },
+    {
+      "slug": "principal-component-directions",
+      "claim": "reconstruction error",
+      "value": "2",
+      "expected": "2"
+    },
+    {
+      "slug": "rank-bound",
+      "claim": "rank",
+      "value": "2",
+      "expected": "2"
+    },
+    {
+      "slug": "rank-bound",
+      "claim": "trace",
+      "value": "11/3",
+      "expected": "11/3"
+    },
+    {
+      "slug": "rank-bound",
+      "claim": "nullity",
+      "value": "3",
+      "expected": "3"
+    },
+    {
+      "slug": "rank-bound",
+      "claim": "regularised determinant positive",
+      "value": "1",
+      "expected": "1"
+    },
+    {
+      "slug": "two-sample-t-pivot",
+      "claim": "pooled variance",
+      "value": "101/14",
+      "expected": "101/14"
+    },
+    {
+      "slug": "two-sample-t-pivot",
+      "claim": "SE rounded",
+      "value": "1.3870146083619754",
+      "expected": "1.387015"
+    },
+    {
+      "slug": "two-sample-t-pivot",
+      "claim": "t rounded",
+      "value": "2.162918819970407",
+      "expected": "2.162919"
+    },
+    {
+      "slug": "two-sample-t-pivot",
+      "claim": "shifted t rounded",
+      "value": "1.4419458799802714",
+      "expected": "1.441946"
+    },
+    {
+      "slug": "ward-s-method",
+      "claim": "direct merge increase",
+      "value": "8/3",
+      "expected": "8/3"
+    },
+    {
+      "slug": "ward-s-method",
+      "claim": "merged SSE",
+      "value": "14/3",
+      "expected": "14/3"
+    },
+    {
+      "slug": "ward-s-method",
+      "claim": "exercise increase",
+      "value": "18",
+      "expected": "18"
+    },
+    {
+      "slug": "a-proper-approximation-to-the-flat-prior",
+      "claim": "TV at C=1/2",
+      "value": "1/4",
+      "expected": "1/4"
+    },
+    {
+      "slug": "a-proper-approximation-to-the-flat-prior",
+      "claim": "TV at C=1/4",
+      "value": "9/16",
+      "expected": "9/16"
+    },
+    {
+      "slug": "acceptance-rejection-method",
+      "claim": "optimal envelope",
+      "value": "3/2",
+      "expected": "3/2"
+    },
+    {
+      "slug": "acceptance-rejection-method",
+      "claim": "acceptance",
+      "value": "2/3",
+      "expected": "2/3"
+    },
+    {
+      "slug": "acceptance-rejection-method",
+      "claim": "proposal variance",
+      "value": "3/4",
+      "expected": "3/4"
+    },
+    {
+      "slug": "acceptance-rejection-method",
+      "claim": "uniform count",
+      "value": "3",
+      "expected": "3"
+    },
+    {
+      "slug": "error-and-residual",
+      "claim": "fitted mean",
+      "value": "3",
+      "expected": "3"
+    },
+    {
+      "slug": "error-and-residual",
+      "claim": "SSE",
+      "value": "14",
+      "expected": "14"
+    },
+    {
+      "slug": "error-and-residual",
+      "claim": "residual variance",
+      "value": "6",
+      "expected": "6"
+    },
+    {
+      "slug": "error-and-residual",
+      "claim": "residual covariance",
+      "value": "-3",
+      "expected": "-3"
+    },
+    {
+      "slug": "error-and-residual",
+      "claim": "variance estimator",
+      "value": "7",
+      "expected": "7"
+    },
+    {
+      "slug": "stratified-and-cluster-sampling",
+      "claim": "regional estimate",
+      "value": 15.6,
+      "expected": 15.6
+    },
+    {
+      "slug": "stratified-and-cluster-sampling",
+      "claim": "cluster variance",
+      "value": 8.333333333333334,
+      "expected": 8.333333333333334
+    },
+    {
+      "slug": "stratified-and-cluster-sampling",
+      "claim": "unit variance",
+      "value": 1.6666666666666667,
+      "expected": 1.6666666666666667
+    },
+    {
+      "slug": "stratified-and-cluster-sampling",
+      "claim": "design variance ratio",
+      "value": 5.0,
+      "expected": 5.0
+    },
+    {
+      "slug": "vapnik-s-radius-margin-bound",
+      "claim": "bound (6, 2, 20)",
+      "value": 10.0,
+      "expected": 10.0
+    },
+    {
+      "slug": "vapnik-s-radius-margin-bound",
+      "claim": "bound (6, 4, 20)",
+      "value": 4.0,
+      "expected": 4.0
+    },
+    {
+      "slug": "vapnik-s-radius-margin-bound",
+      "claim": "bound (6, 2, 4)",
+      "value": 5.0,
+      "expected": 5.0
+    },
+    {
+      "slug": "vapnik-s-radius-margin-bound",
+      "claim": "bound (30, 10, 20)",
+      "value": 10.0,
+      "expected": 10.0
+    },
+    {
+      "slug": "vapnik-s-radius-margin-bound",
+      "claim": "bound (4, 3, 10)",
+      "value": 3.0,
+      "expected": 3.0
+    },
+    {
+      "slug": "lidar-data",
+      "claim": "n h=5",
+      "value": 7.0,
+      "expected": 7.0
+    },
+    {
+      "slug": "lidar-data",
+      "claim": "mean h=5",
+      "value": -0.09596432485714286,
+      "expected": -0.095964325
+    },
+    {
+      "slug": "lidar-data",
+      "claim": "n h=25",
+      "value": 34.0,
+      "expected": 34.0
+    },
+    {
+      "slug": "lidar-data",
+      "claim": "mean h=25",
+      "value": -0.098055052,
+      "expected": -0.098055052
+    },
+    {
+      "slug": "lidar-data",
+      "claim": "n h=100",
+      "value": 134.0,
+      "expected": 134.0
+    },
+    {
+      "slug": "lidar-data",
+      "claim": "mean h=100",
+      "value": -0.22666937219402986,
+      "expected": -0.226669372
+    },
+    {
+      "slug": "maximum-likelihood-for-a-known-graph",
+      "claim": "chain completion from precision zero",
+      "value": 0.2,
+      "expected": 0.2
+    },
+    {
+      "slug": "maximum-likelihood-for-a-known-graph",
+      "claim": "principal minor 1",
+      "value": 1.0,
+      "expected": 1.0
+    },
+    {
+      "slug": "maximum-likelihood-for-a-known-graph",
+      "claim": "principal minor 2",
+      "value": 0.84,
+      "expected": 0.84
+    },
+    {
+      "slug": "maximum-likelihood-for-a-known-graph",
+      "claim": "principal minor 3",
+      "value": 0.63,
+      "expected": 0.63
+    },
+    {
+      "slug": "maximum-likelihood-for-a-known-graph",
+      "claim": "full inverse matches",
+      "value": 1.0,
+      "expected": 1.0
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "class probability 0",
+      "value": 0.16666666666666666,
+      "expected": 0.16666666666666666
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "class probability 1",
+      "value": 0.3333333333333333,
+      "expected": 0.3333333333333333
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "class probability 2",
+      "value": 0.5,
+      "expected": 0.5
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "negative log likelihood",
+      "value": 0.6931471805599453,
+      "expected": 0.693147
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "score-gradient sum",
+      "value": 0.0,
+      "expected": 0.0
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "new category2 probability",
+      "value": 0.5,
+      "expected": 0.5
+    },
+    {
+      "slug": "multinomial-logistic-regression",
+      "claim": "probability ratio",
+      "value": 1.5,
+      "expected": 1.5
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "mean",
+      "value": 3.0,
+      "expected": 3.0
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "variance",
+      "value": 2.5,
+      "expected": 2.5
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "SE",
+      "value": 0.7071067811865476,
+      "expected": 0.707107
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "statistic",
+      "value": 4.242640687119285,
+      "expected": 4.242641
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "p",
+      "value": 0.01323559956368269,
+      "expected": 0.013236
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "CI lower",
+      "value": 1.0367568385224428,
+      "expected": 1.036757
+    },
+    {
+      "slug": "paired-samples",
+      "claim": "CI upper",
+      "value": 4.963243161477557,
+      "expected": 4.963243
+    },
+    {
+      "slug": "slope-t-pivot",
+      "claim": "SE",
+      "value": 0.1673320053068151,
+      "expected": 0.167332
+    },
+    {
+      "slug": "slope-t-pivot",
+      "claim": "statistic",
+      "value": 7.171371656006362,
+      "expected": 7.171372
+    },
+    {
+      "slug": "slope-t-pivot",
+      "claim": "p",
+      "value": 0.002001898613491923,
+      "expected": 0.002002
+    },
+    {
+      "slug": "slope-t-pivot",
+      "claim": "CI lower",
+      "value": 0.735411872922962,
+      "expected": 0.735412
+    },
+    {
+      "slug": "slope-t-pivot",
+      "claim": "CI upper",
+      "value": 1.664588127077038,
+      "expected": 1.664588
+    },
+    {
+      "slug": "slope-t-pivot",
+      "claim": "shifted-null statistic",
+      "value": 1.1952286093343938,
+      "expected": 1.195229
+    },
+    {
+      "slug": "training-data-and-classifier",
+      "claim": "threshold",
+      "value": 0.2,
+      "expected": 0.2
+    },
+    {
+      "slug": "training-data-and-classifier",
+      "claim": "constant",
+      "value": 0.6,
+      "expected": 0.6
+    },
+    {
+      "slug": "training-data-and-classifier",
+      "claim": "threshold .5",
+      "value": 0.0,
+      "expected": 0.0
+    },
+    {
+      "slug": "wilks-theorem",
+      "claim": "deviance",
+      "value": 4.027102710137775,
+      "expected": 4.0271
+    },
+    {
+      "slug": "wilks-theorem",
+      "claim": "Wilks p",
+      "value": 0.04477477232924418,
+      "expected": 0.04477
+    },
+    {
+      "slug": "wilks-theorem",
+      "claim": "Pearson p",
+      "value": 0.04550026389635857,
+      "expected": 0.0455
+    },
+    {
+      "slug": "wilks-theorem",
+      "claim": "boundary 5% cutoff",
+      "value": 2.70554345409542,
+      "expected": 2.70554
+    },
+    {
+      "slug": "asymptotic-normality-of-maximum-likelihood",
+      "claim": "SE",
+      "value": 0.033726843908080104,
+      "expected": 0.03373
+    },
+    {
+      "slug": "asymptotic-normality-of-maximum-likelihood",
+      "claim": "CI lower",
+      "value": 0.28389660062795885,
+      "expected": 0.2839
+    },
+    {
+      "slug": "asymptotic-normality-of-maximum-likelihood",
+      "claim": "CI upper",
+      "value": 0.4161033993720411,
+      "expected": 0.4161
+    },
+    {
+      "slug": "asymptotic-normality-of-maximum-likelihood",
+      "claim": "curvature",
+      "value": 879.1208791208791,
+      "expected": 879.12088
+    },
+    {
+      "slug": "asymptotic-normality-of-maximum-likelihood",
+      "claim": "Newton5",
+      "value": 1.5714285714285576,
+      "expected": 1.5714285714285714
+    },
+    {
+      "slug": "choosing-the-number-of-principal-components",
+      "claim": "cumulative 1",
+      "value": 0.625,
+      "expected": 0.625
+    },
+    {
+      "slug": "choosing-the-number-of-principal-components",
+      "claim": "cumulative 2",
+      "value": 0.875,
+      "expected": 0.875
+    },
+    {
+      "slug": "choosing-the-number-of-principal-components",
+      "claim": "cumulative 3",
+      "value": 1.0,
+      "expected": 1.0
+    },
+    {
+      "slug": "choosing-the-number-of-principal-components",
+      "claim": "cumulative 4",
+      "value": 1.0,
+      "expected": 1.0
+    },
+    {
+      "slug": "choosing-the-number-of-principal-components",
+      "claim": "90pct choice",
+      "value": 3.0,
+      "expected": 3.0
+    },
+    {
+      "slug": "choosing-the-number-of-principal-components",
+      "claim": "85pct choice",
+      "value": 2.0,
+      "expected": 2.0
+    },
+    {
+      "slug": "drift-and-scale-of-a-random-walk",
+      "claim": "variance from two outcomes",
+      "value": 0.96,
+      "expected": 0.96
+    },
+    {
+      "slug": "drift-and-scale-of-a-random-walk",
+      "claim": "SD100",
+      "value": 9.797958971132712,
+      "expected": 9.798
+    },
+    {
+      "slug": "drift-and-scale-of-a-random-walk",
+      "claim": "negative endpoint binomial tail",
+      "value": 0.01676168650316141,
+      "expected": 0.01676
+    },
+    {
+      "slug": "drift-and-scale-of-a-random-walk",
+      "claim": "mean two SD horizon",
+      "value": 96.00000000000004,
+      "expected": 96.0
+    },
+    {
+      "slug": "interval-for-a-proportion",
+      "claim": "Wilson20 upper",
+      "value": 0.16113012549493322,
+      "expected": 0.1611
+    },
+    {
+      "slug": "interval-for-a-proportion",
+      "claim": "exact20 upper",
+      "value": 0.16843347098308536,
+      "expected": 0.1684
+    },
+    {
+      "slug": "interval-for-a-proportion",
+      "claim": "Wilson10 upper",
+      "value": 0.2775401687666166,
+      "expected": 0.2775
+    },
+    {
+      "slug": "linear-separability",
+      "claim": "functional margin",
+      "value": 0.5,
+      "expected": 0.5
+    },
+    {
+      "slug": "linear-separability",
+      "claim": "geometric margin",
+      "value": 0.35355339059327373,
+      "expected": 0.353553
+    },
+    {
+      "slug": "linear-separability",
+      "claim": "canonical functional margin",
+      "value": 1.0,
+      "expected": 1.0
+    },
+    {
+      "slug": "nuisance-parameters",
+      "claim": "profile LR",
+      "value": 0.6202202657617758,
+      "expected": 0.62022
+    },
+    {
+      "slug": "nuisance-parameters",
+      "claim": "CI lower",
+      "value": -0.9682754235006605,
+      "expected": -0.968275
+    },
+    {
+      "slug": "nuisance-parameters",
+      "claim": "CI upper",
+      "value": 8.96827542350066,
+      "expected": 8.968275
+    },
+    {
+      "slug": "quasi-likelihood",
+      "claim": "dispersion",
+      "value": 1.5555555555555554,
+      "expected": 1.5555555555555556
+    },
+    {
+      "slug": "quasi-likelihood",
+      "claim": "mean variance",
+      "value": 1.1666666666666665,
+      "expected": 1.1666666666666667
+    },
+    {
+      "slug": "quasi-likelihood",
+      "claim": "SE",
+      "value": 1.0801234497346432,
+      "expected": 1.080123
+    },
+    {
+      "slug": "quasi-likelihood",
+      "claim": "quasi-score",
+      "value": 0.3333333333333333,
+      "expected": 0.3333333333333333
+    },
+    {
+      "slug": "sum-to-zero-and-contrast-constraints",
+      "claim": "effect-coded coefficient0",
+      "value": 8.75,
+      "expected": 8.75
+    },
+    {
+      "slug": "sum-to-zero-and-contrast-constraints",
+      "claim": "effect-coded coefficient1",
+      "value": 2.25,
+      "expected": 2.25
+    },
+    {
+      "slug": "sum-to-zero-and-contrast-constraints",
+      "claim": "effect-coded coefficient2",
+      "value": 2.75,
+      "expected": 2.75
+    },
+    {
+      "slug": "sum-to-zero-and-contrast-constraints",
+      "claim": "effect-coded coefficient3",
+      "value": 1.25,
+      "expected": 1.25
+    },
+    {
+      "slug": "sum-to-zero-and-contrast-constraints",
+      "claim": "reference interaction",
+      "value": 5.0,
+      "expected": 5.0
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "slope0",
+      "value": 0.25,
+      "expected": 0.25
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "max error interval0",
+      "value": 0.015625,
+      "expected": 0.015625
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "slope1",
+      "value": 0.75,
+      "expected": 0.75
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "max error interval1",
+      "value": 0.015625,
+      "expected": 0.015625
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "slope2",
+      "value": 1.25,
+      "expected": 1.25
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "max error interval2",
+      "value": 0.015625,
+      "expected": 0.015625
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "slope3",
+      "value": 1.75,
+      "expected": 1.75
+    },
+    {
+      "slug": "universal-approximation",
+      "claim": "max error interval3",
+      "value": 0.015625,
+      "expected": 0.015625
+    },
+    {
+      "slug": "warp-breaks-data",
+      "claim": "low-tension log mean",
+      "value": 3.5942634777390876,
+      "expected": 3.594263
+    },
+    {
+      "slug": "warp-breaks-data",
+      "claim": "mean ratio M",
+      "value": 0.7251908396946566,
+      "expected": 0.725191
+    },
+    {
+      "slug": "warp-breaks-data",
+      "claim": "mean ratio H",
+      "value": 0.595419847328245,
+      "expected": 0.59542
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "intercept.(Intercept)",
+      "value": -8.05459572942762,
+      "expected": -8.054596,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "dispersion",
+      "value": 0.08878094461701,
+      "expected": 0.088781,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "df",
+      "value": 72.0,
+      "expected": 72,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "contrast.Estimate",
+      "value": 0.150083392946304,
+      "expected": 0.150083,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "se.Std. Error",
+      "value": 0.723685380040945,
+      "expected": 0.723685,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "t.t value",
+      "value": 0.207387626012028,
+      "expected": 0.207388,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "leaf-blotch-data",
+      "claim": "odds.Estimate",
+      "value": 1.16193113554893,
+      "expected": 1.161931,
+      "independent_data_refit": "official faraway R object"
+    },
+    {
+      "slug": "sleep-deprivation-data",
+      "claim": "intercept",
+      "value": 251.405104848485,
+      "expected": 251.405105,
+      "independent_data_refit": "balanced-design REML, independently derived normal equations"
+    },
+    {
+      "slug": "sleep-deprivation-data",
+      "claim": "slope",
+      "value": 10.467285959596,
+      "expected": 10.467286,
+      "independent_data_refit": "balanced-design REML, independently derived normal equations"
+    },
+    {
+      "slug": "sleep-deprivation-data",
+      "claim": "G00",
+      "value": 612.089938662526,
+      "expected": 612.089939,
+      "independent_data_refit": "balanced-design REML, independently derived normal equations"
+    },
+    {
+      "slug": "sleep-deprivation-data",
+      "claim": "G11",
+      "value": 35.0716604983174,
+      "expected": 35.07166,
+      "independent_data_refit": "balanced-design REML, independently derived normal equations"
+    },
+    {
+      "slug": "sleep-deprivation-data",
+      "claim": "G01",
+      "value": 9.60433331674398,
+      "expected": 9.604333,
+      "independent_data_refit": "balanced-design REML, independently derived normal equations"
+    },
+    {
+      "slug": "sleep-deprivation-data",
+      "claim": "sigma2",
+      "value": 654.941027072299,
+      "expected": 654.941027,
+      "independent_data_refit": "balanced-design REML, independently derived normal equations"
+    },
+    {
+      "slug": "warp-breaks-data",
+      "claim": "independent-Poisson high coefficient",
+      "value": -0.5184884965115598,
+      "expected": -0.518488
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+## Motivating example
+A beta posterior supports distinct questions: how high its density is at a probability, how much mass lies below that probability, which probability is its median, and how to generate numerical draws. R's distribution-function naming convention separates these operations. Choosing the correct prefix is part of expressing the intended calculation.{{cite:r_stats_distributions2026}} (§Details, distribution-function naming convention)
+
+## Definition — Prefixes identify operations rather than distributions
+For a named family such as the beta, the `d` function evaluates a density or probability mass, `p` evaluates a cumulative probability, `q` evaluates a quantile and `r` generates pseudorandom observations. In R the functions are `dbeta`, `pbeta`, `qbeta` and `rbeta`. Their argument positions differ: `rbeta` takes a requested number of draws first, whereas `qbeta` takes a probability.{{cite:r_stats_beta2026}} (§Usage and §Value)
+
+The underlying beta distribution on $(0,1)$ has density proportional to $\theta^{a-1}(1-\theta)^{b-1}$ for positive shapes $a,b$. Its mean is $a/(a+b)$. A density value at a single point is not a point probability: for a continuous law the probability of any one point is zero, while interval probabilities are integrals of the density. These are mathematical distinctions independent of R's naming convention.
+
+## Interpretation — Keep arguments and tails explicit
+For $\theta\mid D\sim\operatorname{Beta}(3,9)$, `pbeta(0.5,3,9)` asks for $P(\theta\le0.5\mid D)$, while `qbeta(0.5,3,9)` asks for a median. Exchanging these operations changes both the input's role and the answer's meaning. In a continuous strictly increasing part of the distribution, applying the CDF to a $q$-quantile returns $q$; for a discrete distribution the quantile is a leftmost value attaining the requested cumulative probability, so exact inverse equalities need qualification.{{cite:r_stats_beta2026}} (§Arguments and §Value)
+
+R's `lower.tail=FALSE` option requests a strict upper tail rather than the default lower tail. For discrete variables, $P(X>k)$ differs from $P(X\ge k)$ by the probability mass at $k$. Logarithmic tail options can also reduce avoidable underflow in extreme calculations; they change the output scale, not the event being requested.{{cite:r_stats_beta2026}} (§Arguments, `lower.tail` and `log.p`)
+
+## Worked example — Deterministic beta summaries
+At $\theta=0.25$ the $\operatorname{Beta}(3,9)$ density is $3.097243$, which exceeds one without violating any probability axiom. Its cumulative probability below $0.5$ is $0.967285$, and its median is $0.235786$. Its equal-tailed 95% interval has endpoints $0.060218$ and $0.517756$. The posterior mean $0.250$ need not equal its median because this posterior is asymmetric. The beta density and its integrals determine these quantities before any simulation is run.
+
+The corresponding R expressions are `dbeta(0.25,3,9)`, `pbeta(0.5,3,9)`, `qbeta(0.5,3,9)` and `qbeta(c(0.025,0.975),3,9)`. R recycles numerical arguments according to the documented vectorisation rules, so a vector of probabilities can produce several quantiles in one call. Explicitly naming shape parameters is useful when several numerical arguments occur together.{{cite:r_stats_beta2026}} (§Usage and §Value, lengths and recycling)
+
+**Your turn.** What is the posterior probability above $0.5$, and which R expression directly requests it?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The upper probability is $1-0.96728515625=0.032715$ to six decimal places. The direct request is `pbeta(0.5,3,9,lower.tail=FALSE)`.
+:::
+
+## Statistical use — Simulation estimates an already specified quantity
+Independent beta draws allow averages and indicator proportions to approximate the same posterior summaries. For example, the proportion exceeding $0.5$ estimates the upper probability above; it is a random numerical estimate, rather than a replacement definition of that probability. A beta–binomial update determines which beta shapes should be supplied in the first place. Using highly accurate numerical functions with incorrect shapes gives an accurate answer to the wrong model.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
+
+Pseudorandom draws also depend on the generator state. A reproducible configuration records the generator and the seed, and a Monte Carlo standard error accompanies any average computed from the draws. When the named distribution supplies a density, a CDF and a quantile function, those deterministic evaluations answer the corresponding questions directly. Simulation is the tool for a functional that the four prefixes do not evaluate in closed form, and for a posterior that is available only as draws.{{cite:r_base_random2026}} (§Description and §Examples)
+
+## Intuition — Four questions, four prefixes
+The beta posterior $\operatorname{Beta}(3,9)$ can be asked four kinds of question. How high is the density at $0.25$? The prefix `d` returns $3.097243$. How much probability lies at or below $0.5$? The prefix `p` returns $0.967285$. Which point splits the posterior in half? The prefix `q` returns the median $0.235786$. What does a random draw look like? The prefix `r` returns draws whose long-run average estimates the mean $0.250$ and whose long-run fraction above $0.5$ estimates the upper tail $0.032715$. Swapping `p` and `q` swaps the roles of the input: `pbeta(0.5,3,9)` consumes a point on the probability scale of $\theta$ and returns a probability, while `qbeta(0.5,3,9)` consumes a probability and returns a point on the scale of $\theta$.{{cite:r_stats_beta2026}} (§Arguments and §Value)
+
+The density value $3.097243$ is larger than one and is still a valid density. Probability comes from integrating it. The integral from $0$ to $0.5$ is $0.967285$, and the integral from $0.5$ to $1$ is $0.032715$. Their sum is one. The equal-tailed $95\%$ interval $(0.060218,0.517756)$ is the pair of quantiles at $0.025$ and $0.975$. The posterior mean $0.250$ lies to the right of the median $0.235786$ because the density has a longer right tail: the shapes $3$ and $9$ put more mass toward small $\theta$, and the mean is pulled toward the long tail.
+
+## Common misconceptions
+A discrete quantile is a leftmost point at which the CDF reaches the requested probability. Applying the CDF to that point can return a number strictly larger than the requested probability, because the CDF jumps. The continuous beta CDF is strictly increasing on $(0,1)$, so `pbeta(qbeta(q,3,9),3,9)` returns $q$ for $q$ in $(0,1)$. The same round trip for a binomial random variable needs the jump to be taken into account. The beta calculations on this posterior are the continuous case.
+
+The argument `lower.tail=FALSE` asks for the strict upper tail $P(\theta>0.5)=0.032715$. For a continuous law the distinction between $>$ and $\ge$ is immaterial. For a discrete law, $P(X>k)$ and $P(X\ge k)$ differ by the mass at $k$, and the lower-tail flag has to be read together with that mass. Logarithmic options return the log of the requested probability or density. They change the numerical scale of the answer and leave the event unchanged.{{cite:r_stats_beta2026}} (§Arguments, `lower.tail` and `log.p`)
+
+## Connections
+The shapes $3$ and $9$ are the beta posterior that follows a $\operatorname{Beta}(1,1)$ or another conjugate update ending at those shapes; a binomial likelihood with the matching counts determines them. Supplying `dbeta`, `pbeta` or `qbeta` with a different pair of shapes answers the same functional question for a different posterior. The numerical values $3.097243$, $0.967285$ and $0.235786$ belong to $\operatorname{Beta}(3,9)$ specifically. A beta–binomial predictive probability for a future count averages the binomial likelihood against this beta density, which is a further integral and not one of the four beta prefixes applied to $\theta$ itself.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”){{cite:r_stats_distributions2026}} (§Details, distribution-function naming convention)

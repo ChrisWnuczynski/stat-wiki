@@ -1,0 +1,49 @@
+## Motivating example
+A gambler starts with a finite fortune, wins one unit with probability $p$, and loses one unit with probability $q=1-p$ independently at each play. Play stops upon reaching zero or a target fortune $d$. Even when $p>1/2$, an early sequence of losses can cause ruin before the long-run upward drift has much opportunity to act. The relevant probability is a boundary-hitting probability for the whole path, rather than the chance of winning the next play.{{cite:grinstead_snell1997}} (§12.2, Gambler's Ruin)
+
+## Definition — Two absorbing boundaries
+Write $S_0=x\in\{0,\ldots,d\}$ and $\tau=\inf\{n\ge0:S_n\in\{0,d\}\}$. For $0<p<1$, let $h_x=\Pr_x(S_\tau=d)$. Conditioning on the first step yields $h_x=p h_{x+1}+q h_{x-1}$, with $h_0=0$ and $h_d=1$. The boundaries must be specified along with the step probabilities: reaching a finite target before ruin is a different event from avoiding ruin indefinitely on an unbounded state space. If $x$ is already a boundary, the stopping time is zero.{{cite:grinstead_snell1997}} (§12.2, thm. 12.2)
+
+## Properties — Solve for first differences
+Set $\Delta_x=h_x-h_{x-1}$. The recurrence rearranges to $p\Delta_{x+1}=q\Delta_x$. When $p=q$, the increments are equal and their sum from zero to $d$ is one, giving $h_x=x/d$. When $p\ne q$, summing a geometric progression gives
+$$h_x=\frac{1-(q/p)^x}{1-(q/p)^d}.$$
+This derivation uses the boundary values to determine the normalisation, rather than guessing which of success and ruin the formula represents. The ruin probability is $1-h_x$. In particular, a walk biased upward increases success above $x/d$, but cannot make success certain at an interior starting point.{{cite:durrett2019}} (§4.8.1, applications to random walks)
+
+To see uniqueness, subtract any two solutions of the recurrence with the same boundary values. A positive maximum of their difference at an interior point must also occur at both neighbours, because the value is a strict positive weighted average of them. Repeating this reaches a boundary, where the difference is zero, a contradiction. The same argument excludes a negative minimum. Thus the computed harmonic function is the only solution of the boundary problem.
+
+## Statistical use — Duration is a different risk measure
+Let $m_x=\mathbb E_x\tau$. First-step conditioning gives $m_x=1+p m_{x+1}+q m_{x-1}$ and $m_0=m_d=0$. For a fair walk, direct substitution gives $m_x=x(d-x)$. For a biased walk,
+$$m_x=\frac{d h_x-x}{p-q}.$$
+Substitution into the recurrence verifies the expression, using the harmonic equation for $h$. This is also consistent with the drift identity $\mathbb E_xS_\tau=x+(p-q)\mathbb E_x\tau=d h_x$. A negative numerator for downward drift is divided by a negative drift, producing a positive duration.{{cite:grinstead_snell1997}} (§12.2, pp. 487–489){{cite:durrett2012_essentials}} (§1.9, Exs. 1.49–1.50, pp. 52–53)
+
+Finite expectation can be justified without applying an optional-stopping theorem before checking its hypotheses. From any interior state, a run of $d$ upward steps reaches the upper boundary within the next $d$ plays. That run has probability $p^d>0$. Consequently $\Pr(\tau>kd)\le(1-p^d)^k$ by successive conditioning on surviving each block. This geometric bound gives almost-sure absorption and finite expected duration. With bounded stopped increments, the usual martingale stopping argument is then valid as well.{{cite:durrett2019}} (§4.8, optional stopping and §4.8.1)
+
+## Worked example — Five units as a target
+Take $d=5$, $x=2$ and $p=3/5$. Then $q/p=2/3$ and
+$$h_2=\frac{1-(2/3)^2}{1-(2/3)^5}=\frac{135}{211}\approx0.639810.$$
+The ruin probability is $76/211\approx0.360190$. The expected duration is $(5h_2-2)/(1/5)=1265/211\approx5.995261$ plays. For comparison, the fair game has success probability $2/5$ and expected duration $2(5-2)=6$. The duration happens to be close here, despite a large change in the direction of absorption. Comparing just the mean duration would conceal the improvement in the probability of reaching the target.
+
+**Your turn.** With the same boundaries and upward probability, what is the success probability from $x=1$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is $[1-2/3]/[1-(2/3)^5]=81/211\approx0.383886$. Starting one unit above ruin leaves substantial short-run risk even in a favourable game.
+:::
+
+## Assumptions and limits — Removing the upper boundary
+For $p>q$, sending $d$ to infinity gives an ultimate ruin probability $(q/p)^x$. For $p\le q$, ultimate ruin has probability one. This limit concerns the unbounded walk and should not be confused with the finite-target probability $h_x$. In the fair unbounded game, ruin is certain but the mean time to ruin is infinite. A probability-one termination statement therefore does not imply a finite expected duration; the finite upper boundary was essential to the geometric-block bound.{{cite:grinstead_snell1997}} (§12.2, gambler's ruin with an unlimited opponent)
+
+The calculation assumes independent unit-sized steps with a fixed win probability. Variable stakes, dependence between plays, transaction costs and changing odds alter the recurrence or the state space. They cannot be accounted for by substituting an average win probability unless a separate model establishes that reduction. The endpoints $p=0$ and $p=1$ are deterministic walks and are handled directly, rather than by dividing by a zero probability.
+
+## Connections
+
+The success probability $h_x$ is the probability of hitting $d$ before $0$. [Hitting probabilities](hitting-probabilities.qmd) solve the same averaging equation on a general finite chain. [Expected duration of a random walk](expected-duration-of-a-random-walk.qmd) isolates the mean of the absorption time. The two functions share a coefficient matrix and differ by the term added at each step: the probability equation adds nothing, and the duration equation adds one, because a step has just been used. A fair walk makes the distinction numerical. From fortune $3$, with barriers at $0$ and $8$, the chance of hitting $8$ is $3/8$, while the expected number of plays is $3\times5=15$. A short expected wait is not evidence that success is likely, and a success probability near one half is not evidence that absorption will be quick.{{cite:grinstead_snell1997}} (§12.2, pp. 487–489){{cite:durrett2012_essentials}} (§1.9, Exs. 1.49–1.50, pp. 52–53)
+
+## History
+
+The closed form is the solution of a linear recurrence obtained by conditioning on one step. Equal step probabilities make the first differences constant, so the fair solution is linear in the fortune and the boundary values force the slope $1/d$. Unequal step probabilities multiply each difference by $q/p$, and the partial sum of that geometric sequence is fixed by the two boundaries. Sending the upper barrier to infinity is a further limit. It changes the question from a race between two barriers into the probability of ever hitting zero on the half-line. For an upward drift that probability is $(q/p)^x$. For a fair or downward drift it is one, and in the fair case the mean time to get there is infinite.{{cite:durrett2019}} (§4.8.1, applications to random walks){{cite:grinstead_snell1997}} (§12.2, gambler's ruin with an unlimited opponent)
+
+A fair game makes the arithmetic easy to check by hand. From fortune $x$ with barriers at $0$ and $d$, the chance of hitting $d$ is $x/d$, and the expected number of plays is $x(d-x)$. Fortune $3$ against a target of $8$ therefore has success probability $3/8$ and expected duration $15$. The two numbers answer different questions. A success probability of $3/8$ can sit next to a short expected wait, and a success probability near one half can sit next to a long one. At the midpoint of a fair game of length $d=2m$ the success probability is $1/2$ and the expected duration is $m^2$. Doubling the distance to each barrier multiplies the expected wait by four while leaving the success probability at one half.{{cite:grinstead_snell1997}} (§12.2, pp. 487–489){{cite:durrett2012_essentials}} (§1.9, Exs. 1.49–1.50, pp. 52–53)
+
+The biased formula has the same boundary check. Write $\rho=q/p$. Then $h_x=(1-\rho^x)/(1-\rho^d)$ equals $0$ at $x=0$ and $1$ at $x=d$. For $p=2/3$, so $\rho=1/2$, and a target $d=4$, the values are $0$, $8/15$, $4/5$, $14/15$, $1$ at fortunes $0,1,2,3,4$. Each interior value is the average $h_x=(2/3)h_{x+1}+(1/3)h_{x-1}$: the fortune-$2$ entry is $(2/3)(14/15)+(1/3)(8/15)=4/5$. That is the one-step conditioning written out. The fair formula $x/d$ is the limit of this expression as $\rho\to 1$, because numerator and denominator both vanish and their ratio of derivatives is $x/d$. Using the fair line when the coin is biased, or the geometric formula when the coin is fair, answers a different game from the one being played.{{cite:grinstead_snell1997}} (§12.2, thm. 12.2){{cite:durrett2019}} (§4.8.1, applications to random walks)
+
+Removing the upper barrier changes the event. For $p>q$ the probability of eventual ruin from fortune $x$ is $\rho^x$. For $p\le q$ that probability is one. In the fair unbounded game, ruin is certain and the mean time to ruin is infinite. A probability-one statement about termination therefore leaves the expected duration as a separate calculation, and the finite upper barrier is what made the expected duration $x(d-x)$ finite. Variable stakes, dependent plays, or a win probability that changes with the fortune each replace the constant-coefficient recurrence. An average of those win probabilities is a summary of the odds. It is a substitute for the recurrence only when a further argument shows that the averaged game has the same hitting probability.{{cite:grinstead_snell1997}} (§12.2, gambler's ruin with an unlimited opponent){{cite:durrett2019}} (§4.8.1, applications to random walks)

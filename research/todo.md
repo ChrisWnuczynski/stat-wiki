@@ -54,3 +54,119 @@ Add uncertain claims here before writing them into an article.
   - Sabermetrics: Dodge has no entry, and no textbook or paper defining the term was opened. Sources tried: dodge2008 search.
   - Six Sigma: The NIST/SEMATECH glossary has no Six Sigma entry. Handbook sections 6.1 and 6.3, which were opened, discuss 3-sigma control limits and statistical quality control, not the Six Sigma programme. Dodge has no entry. Sources tried: nist glossary; NIST handbook sections 6.1 and 6.3; dodge2008 search.
   - Structured data analysis (statistics): Opened Dodge’s data-analysis entry (pp. 150–151), which discusses tables and exploratory, multivariate and confirmatory analysis but never this phrase; OpenIntro Statistics chapters 1 and 2, on data structure, summaries and graphics; and the NIST/SEMATECH handbook §1.1.1 on exploratory data analysis. None defines a statistical method under this name. Sources tried: dodge2008 pp. 150–151; openintro2019 ch. 1–2; nist handbook §1.1.1.
+
+- `accidental-deaths-data`: an annual US accidental-death total near 105000 for 1979 was not verified; official R dataset documentation supplies only the first six months of 1979. The numerical comparison uses 105000 as a hypothetical total.
+
+- `adjusted-r-squared`: studentsurvey.csv is absent, so the 100-student regression coefficients cannot be refitted from raw observations; coefficient/standard-error ratios, p-values, confidence intervals, F statistic and adjusted R-squared are independently checked from the displayed summary.
+
+- `analysis-of-deviance`: the Myers–Montgomery wafer provenance was not checked in the textbook itself; the official CRAN faraway data reproduce every displayed Gamma-model coefficient and comparison.
+
+- chi-squared-test-for-a-variance: locate empirical provenance of the tuning-fork sample summary; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- chi-squared-test-with-estimated-parameters: locate empirical provenance of the village house-count table; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- chi-squared-test-with-known-cell-probabilities: locate empirical provenance of the frizzled-chicken count table; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- choosing-the-number-of-principal-components: locate empirical provenance of the twelve-subject paired measurements; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- contingency-tables: locate empirical provenance of the ESP survey table; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- The chain simulation specifies no random seed and reports no numerical fitted scores or selected edges. Its population graph and penalty-grid specifications are checked; the new likelihood comparison is explicitly illustrative.
+
+- ingredients-of-a-hypothesis-test: locate empirical provenance of the blood-pressure and tennis illustrative sample summaries; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-difference-of-means: locate empirical provenance of the safety-period sample summaries; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-normal-variance: locate empirical provenance of the tablet-weight sample summary; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-proportion: locate empirical provenance of the nightmare survey counts; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-ratio-of-variances: locate empirical provenance of the safety-period variance summaries; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- leaf-blotch-data: the full Wedderburn (1974) paper and the detailed field-sampling protocol were not accessible through publisher/search attempts; source claims about averaging leaves and historical rationale are omitted or corrected. The public CRAN dataset and both displayed model fits were independently refit.
+
+- logistic-lasso: Exact preprocessing, cross-validation folds and selected penalty for the fourteen-gene fit are unavailable; coefficient arithmetic and list overlaps are checked, but the selection cannot be reproduced.
+
+- logistic-lasso: The supplied173-gene discovery total and2000-predictor dimension require the complete input dataset and discovery list for reconstruction; the explicit14 coefficients and listed overlaps are checked.
+
+- multiple-linear-regression: raw student-survey data underlying the 100-observation height/shoe/weight fit were not found in sources/. The check refits birthwt and recomputes all survey inference recoverable from rounded coefficients, standard errors and model summaries; exact survey refitting and the reported prediction-interval endpoints remain unverified.
+
+- TG5 cattle studies: the numerical example is a schematic conditional-normal calculation. The full published hierarchical posterior was not independently refitted from farm-level data.
+
+- Two responses, one person: the patient-level burn data, empirical fit and provenance of the supplied burn-ellipse figure were not recovered through Song (2007), publisher extracts or exact-coefficient searches. The coefficient pair and standard errors are explicitly illustrative model inputs; their arithmetic and the stated zero-covariance region geometry are recomputed. The figure is preserved without claiming a new simulation or independent empirical verification.
+
+- General UMPU theory: third-edition Lehmann–Romano publisher chapter PDF was inaccessible and the first-edition third-party copy could not be verified as authorised, so neither is cited. A complete direct normal-shift proof is given; the general scalar moment constraint is checked against the publisher-hosted open-access Draxler–Kurz paper (§3.2, eq. 11).
+
+- Unit root: the Granger–Newbold1974 original article and Phillips1985 discussion paper were not accessible through the publisher/author routes tried. Spurious-regression discussion cites the read Forecasting: Principles and Practice §10.1 instead.
+
+- warp-breaks-data: obtain experimental randomisation, independent-cluster and row-order provenance before assigning factory or longitudinal interpretations to the wool-grouped GEE demonstration; public R data documentation specifies wool types and looms only.
+
+- lidar figure (`sources/book/figures/lidar.pdf`): `pdftotext` of the committed file reads “Range (feet)” and “Log ratio of received to emitted light”. This pass does not replace the PDF. A later edit should check Holst (1996) and the SemiPar documentation before relabelling the axes, for example to metres and a two-wavelength log ratio. The generator sketch is `research/content/lidar-data-figure.py`; do not treat that script as authorisation to overwrite the committed figure inside a content pass.
+
+- Jeffreys (1961), *Theory of Probability*: the contents list §3.5, “The method of least squares,” as beginning on p. 147, and §3.42, “Prediction from normal observations,” on p. 142. Those body pages were not opened. The marginal-Student regression page therefore cites §3.5 without a page number. The regression predictive target does not cite §3.42. McCullagh and Nelder (1989) likewise has no opened page in this pass; exponential-family moment sentences use Diaconis and Ylvisaker (1979, §2, p. 271), whose equations were already located in the repository.
+- Add a located Ross, Grimmett-Stirzaker, Feller, or Karlin-Taylor citation beside the Siegrist convergence sentences; the only located companion of that kind in the repository is a Poisson-process citation, which is a different claim.
+- Page locators for Fisher-Tippett (1928), Gnedenko (1943) and Coles (2001) are not in the repository, so those sources were not attached to the extreme-value type statements.
+- Locate printed pages for OpenIntro Statistics section 9.1 on adjusted R-squared and section 9.2 on model selection; repository locators for those sections give the section without page numbers.
+- Located Fisher Statistical Methods for Research Workers strings concern likelihood or ANOVA, not this one-sample variance pivot, so no Fisher page was added. Student (pp. 1–5) is used only for the standardised mean with estimated scale.
+- No located Ross, Feller, Grimmett–Stirzaker, or Karlin–Taylor citation covers conservative confidence sets beside Siegrist §8.1, so no companion page was added.
+- Course notes cite ross2019, feller1968, and grimmett_stirzaker2020 for drift, square-root scale, and first passage without a section or page. No located page string was copied.
+- The only located Grimmett–Stirzaker string, §§6.8 and 8.3–8.4 with contents, is about Poisson processes beside renewal and queueing. It was not copied onto the arrival-count identity next to Siegrist §14.1. No located Ross, Feller, or Karlin–Taylor page covers that identity.
+- No located Ross, Feller, Grimmett–Stirzaker, or Karlin–Taylor page covers this chain. Detailed balance uses the existing Levin–Peres §1.6, pp. 13–14 locator.
+- No page-located Ross, Feller, Grimmett–Stirzaker or Karlin–Taylor citation for the gambler's-ruin absorption probability was found in sources/ or research/content. The stochastic-process chapter cites those books without a page or section, so no locator was invented. The fair absorption and duration formulas are cited with the existing locators Grinstead–Snell §12.2, pp. 487–489 and Durrett, Essentials of Stochastic Processes, §1.9, Exercises 1.49–1.50, pp. 52–53.
+- Locate printed pages for OpenIntro Statistics section 9.2 on model selection; repository locators for that section give the section and title without page numbers.
+- Locate printed pages for OpenIntro Statistics sections 9.1 and 9.3; repository locators for those sections give the section and title without page numbers.
+- OpenIntro section locators for single and two-proportion intervals had no section-plus-pages form in the repo and were removed. The guideline of at least ten expected successes and failures was not restated under a located page.
+- No located Ross, Feller, Karlin–Taylor, or Grimmett–Stirzaker locator in the repo matches the Siegrist claim on this page, so no companion citation was added.
+- OpenIntro locators for sections 5.1, 5.2, and 7.1 had no section-plus-pages form in the repo and were removed. The household-spending illustration with n=51, mean 1136, and s=178 has no page-bearing OpenIntro locator here; the interval method is cited to Durrett and Dodge.
+- The exact preprocessing, cross-validation folds, and selected penalty for the fourteen-gene fit are unavailable, so that fit was not given a new locator.
+- The OpenIntro section 6.1 locator for a single proportion had no printed pages in the repo and was removed.
+- A sandwich covariance beyond the working variance was not given a Wedderburn 1974 subsection. The sampling limit of the sandwich variance stays with Durrett.
+- Wedderburn 1974 is cited as the whole article, pages 439–447. No subsection was invented.
+- No page-level Ross or Grimmett locator for the M/M/c or finite-capacity balance equations was found. The repeated Durrett locator is (§4.3, Lem. 4.3, p. 128; §4.5, Ex. 4.24, pp. 138–140). Grimmett’s only located locator is a contents pointer for Poisson processes beside renewal and queueing.
+- OpenIntro section 7.1 locators for the one-sample mean and the t distribution had no section-plus-pages form in the repo and were removed. The t pivot remains cited to Siegrist and Dodge.
+- No page-located Ross, Feller, Grimmett–Stirzaker or Karlin–Taylor citation for the independence of a normal sample mean and sample variance, or for the Student ratio, was found in sources/ or research/content. Gosset (1908) is cited with the locator already used for that small-sample mean, pp. 1–2, beside the Siegrist construction.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation matches the Siegrist claim on this page, so none was copied beside it. The only located Grimmett–Stirzaker locator in the repository is §§6.8, 8.3–8.4, and it belongs to a gamma waiting-time sentence.
+- OpenIntro Statistics §7.4.2 was aligned with the existing locator Ch. 7, §7.4.2, pp. 279–280. The citations of §7.4 and of §§7.4.1–7.4.3 still have no printed page range in the repository, so pages were not attached to them.
+- The extended quasi-likelihood and quasi-AIC remark was not located as a subsection of Wedderburn 1974, so that sentence was dropped.
+- No page-level McCullagh–Nelder locator appears in the research files, so that source was not added.
+- OpenIntro locators name §5.1, §5.2, and §6.1, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro Statistics §8.4 is cited by section, without printed pages, because no existing repository locator gives pages for that section.
+- Locate printed pages for OpenIntro Statistics section 4.3 on the binomial distribution; repository locators for that section give the section without page numbers.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation in the repository matches the Siegrist claims, so none was added beside them.
+- OpenIntro locators name §2.1 and §2.2, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro locators name §5.3 and §6.1, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro locators name §5.2, §5.3, and §7.1, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro locators name §2.1 and §9.3, but no repository locator gives pages for those sections, so no page numbers were added.
+- OpenIntro Statistics §6.2 is cited by section, without printed pages, because no existing repository locator gives pages for that section.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation for the two-sample normal model or Student pivot was found in the repository, so none was placed beside the Siegrist web-text citations.
+- No located Ross, Grimmett–Stirzaker, Feller, or Karlin–Taylor citation for the two-sample normal model or Student statistic was found in the repository, so none was placed beside the Siegrist web-text citation.
+- No located Ross, Feller, Grimmett–Stirzaker, or Karlin–Taylor citation covers the Student t thresholds beside Siegrist §6.8, so no companion page was added.
+- OpenIntro locators name §7.1, but no repository locator gives pages for that section, so no page numbers were added.
+- No located citation in the repository supplies a width or convergence rate for the uniform approximation theorem, so none was added.
+
+## Source files left unchanged
+
+`sources/` and `theorem_depth.py` match `origin/main` byte for byte, including the CRLF line endings of `sources/book/chapters/09-marginal-models.qmd`. The following are proposed source edits for a separate approval. They were not applied.
+
+- `sources/stat2004/chapters/inf-10-large-sample-estimation.qmd` lines 75 and 81: both displays write `S'''(\theta_n^*)`. The Taylor expansion of the score, stopped at the second-order term, should use the second derivative `S''(\theta_n^*)` in the expansion and in the rearranged `\sqrt n` ratio.
+- `sources/stat3006/chapters/sl-14-neural-units.qmd` line 228: "They do not assert uniform approximation of every discontinuous function by continuous networks." The subject is missing. Proposed: "Hornik's measurable-target theorems do not assert uniform approximation of every discontinuous function by continuous networks."
+- `sources/stat3004/chapters/sp-08-queues.qmd` line 71: `{{cite:siegrist_queuing2022}} (§ “Infinitesimal Generator”)`. The quotes contain a term the linker rewrites. Proposed locator: `(§ “Basic Theory”)`, once that section heading is confirmed in Siegrist. The queue article is excluded from the generator term link so the frozen sentence no longer renders as a link.
+- `sources/book/chapters/bayes-03-normal-models.qmd` lines 143 and 164: `{{cite:hoff2013_bayes_estimators}} (§1, pp. 1–2)` is attached to the normal-mean posterior. Those pages are not the derivation. Proposed: drop that key from both sentences and keep the Gelman and Raiffa locators.
+- `sources/book/chapters/bayes-09-linear-regression.qmd` lines 519 and 708: `{{cite:box_tiao1973}}` and `{{cite:jeffreys1961}}` have no locator. The same keys are also bare at lines 75, 153, 935, and 937. Proposed: add a printed page after the body page is opened, or remove the keys from those sentences until then. The contents list puts Jeffreys §3.5 on p. 147 and §3.42 on p. 142. Those body pages were not opened, so p. 147 was not used.
+- `sources/stat2003/chapters/prob-01-experiments.qmd` line 116: "each single point must have probability zero, or an uncountable sum of equal positive weights could not be one." The second clause is the reason a continuous distribution cannot give the same positive probability to every point. Proposed, if the sentence should name its subject: "On a continuous space a single point has probability zero: an uncountable sum of equal positive weights could not be one."
+- `sources/book/chapters/09-marginal-models.qmd` line 107: "and does not claim that a joint distribution with those moments exists." The sentence is a statement about estimating equations. The editor scan matches the words "not claim". Proposed: "and does not assert that a joint distribution with those moments exists."
+- `sources/stat1301/chapters/da-08-linear-model-examples.qmd` line 66: "the mother's age adds nothing once the other variables are known ($p=0.84$)". Proposed: the estimated change is about $-1.9$ g per year of age, and that change is small beside its standard error ($p=0.84$).
+- `sources/book/chapters/11-forecasting.qmd` lines 23, 42 and 44: `auto.arima(USAccDeaths)` is described as finding the period $12$ without being told the data are monthly. `USAccDeaths` is a `ts` object with frequency $12$, and that frequency is an input. The same paragraph rounds the January forecast $8336$ to "about $8400$" and the twelve-month forecast sum to "about $109{,}000$". A base-R `arima` fit of order $(0,1,1)\times(0,1,1)_{12}$ has January forecast about $8336$ and a twelve-month sum that rounds to $109{,}953$, which is $4{,}953$ above an annual total of $105{,}000$. Proposed: say the series frequency supplies the period, and quote the recomputed sum if it matches the `auto.arima` fit the chapter plots.
+- `sources/book/chapters/08-slopes-and-glmms.qmd` line 56: subject $308$ is "about $2$" and "about $9$", subject $309$ "about $40$" and "about $8$". The REML conditional modes to three decimals are $2.259$ and $9.199$, $-40.399$ and $-8.620$, and subject $370$ is $-25.613$ and $4.822$. Proposed: print those three-decimal modes if the chapter should carry the same fit.
+- `sources/stat3006/chapters/sl-17-support-vectors.qmd` lines 416–448: the printed CV grid, including the tie at $0.02857$ and the test error $0.06667$, calls `stratified_folds` and `scale_train`, which are not defined in the block. An inlined split did not reproduce $0.02857$. Proposed: rerun the grid with those helpers before changing any printed rate. The printed tokens were left as they stand.
+- `theorem_depth.py` on main still has bare `{{cite:gelman_bda2013}}` and `{{cite:box_tiao1973}}` inside `RESULT_DEPTH` and `PROOFS` (for example lines 25–28, 37–47, 64–67, 76–79, 100–103, 106–110, 119–122, 132–135, 138–142, 171–172, 176 and 180). Those strings are copied onto built pages. Proposed: attach a page only after the BDA3 or Box–Tiao body page for that sentence has been opened. This pass did not edit the file.
+
+## Restores left without a locator
+
+These citations were on proofs that the research notes replace. They were not put back as bare citations. `{{cite:rao1945}} (Introduction, p. 235)` is on the research proof of least-squares-estimators-are-unbiased, because that locator was already attached to this result in `article_extras.py`.
+
+- `norris1997` on detailed-balance-implies-stationarity. The research proof cites Hastings (§2.2, pp. 99–100) and Grinstead–Snell (§11.5, p. 463). Norris §1.1 and §1.7 in the repository are the Markov definition and invariant distributions, not an opened page of the detailed-balance theorem. No page was added.
+- `grimmett_stirzaker2020` on expectation-of-a-function. The research proof cites Grinstead–Snell (§§6.1, 6.3, pp. 229–230). The only located Grimmett–Stirzaker string in the repository is a contents pointer for Poisson processes (§§6.8, 8.3–8.4). It was not copied onto the law of the unconscious statistician.
+- `gauss1809` on least-squares-decomposition. The research proof cites Prado and Ferreira–West (§1.5.2, pp. 19–20) and Dodge (pp. 304–305). No printed page of *Theoria motus* was opened, so Gauss was not reinserted.
+- `box_tiao1973` and `jeffreys1961` on posterior-predictive-target. The concept note cites Downey (Ch. 8) and Goodfellow (§§3.4, 3.7, 3.11 and §3.8). The bare copies remain in `sources/book/chapters/bayes-09-linear-regression.qmd` lines 519 and 708. No Box–Tiao or Jeffreys body page was opened.
+- `bro_smilde2014_pca` on scree-plot. The only locator was the quoted title “Scree test”, and that body page was not opened. The cite was removed. The sentence now says only that a logarithmic axis cannot display a zero eigenvalue unless the zero is replaced by an explicit positive convention.

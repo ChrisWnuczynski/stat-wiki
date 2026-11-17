@@ -1714,6 +1714,46 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 related = body.split("## Related concepts {#related-concepts}", 1)[1].split("\n## ", 1)[0]
                 self.assertIn(f"({other}.qmd)", related, slug)
 
+    def test_researched_bayesian_replacements_have_located_proper_citations(self) -> None:
+        slugs = ("interior-dirichlet-mode", "log-partition-moment-identities",
+                 "normal-normal-conjugacy", "normal-inverse-gamma-variance-update",
+                 "marginal-student-posterior", "marginal-hyperposterior",
+                 "posterior-prediction-under-the-reference-prior", "study-rate-full-conditional")
+        prohibited = {"forssen_ekstrom2026", "hoff2013_bayes_estimators",
+                      "wang2025_foundations", "kulich2022_regression", "ng_cs229_em2006"}
+        cite = re.compile(r"\{\{cite:([a-z0-9_]+)\}\}")
+        locator = re.compile(r"\s*\(([^)\n]{0,240})\)")
+        marker = re.compile(r"§|pp?\.\s*\d|[Tt]hm|[Pp]rop|[Dd]ef\.|[Ee]xample|[Cc]h\.|[Cc]hapter|[Tt]able|[Ss]ection|[Ee]q\.")
+        for slug in slugs:
+            # Frozen chapter excerpts and theorem_depth.py stay on main, so this
+            # lock applies to the research note rather than to inherited sentences.
+            text = (build_wiki.WIKI / "research" / "content" / f"{slug}.md").read_text(encoding="utf-8")
+            keys = []
+            pos = 0
+            while True:
+                match = cite.search(text, pos)
+                if not match:
+                    break
+                end = match.end()
+                group = [match.group(1)]
+                while True:
+                    cursor = end
+                    while cursor < len(text) and text[cursor] in " \t":
+                        cursor += 1
+                    nxt = cite.match(text, cursor)
+                    if not nxt:
+                        break
+                    group.append(nxt.group(1))
+                    end = nxt.end()
+                found = locator.match(text[end:])
+                self.assertIsNotNone(found, slug)
+                self.assertRegex(found.group(1), marker, slug)
+                keys.extend(group)
+                pos = end
+            self.assertGreaterEqual(len(keys), 5, slug)
+            self.assertGreaterEqual(len(set(keys)), 2, slug)
+            self.assertFalse(set(keys) & prohibited, slug)
+
     def test_previous_bayesian_result_content_is_preserved(self) -> None:
         baseline = json.loads((build_wiki.WIKI / "depth_bayesian_results_baseline.json").read_text(encoding="utf-8"))
         self.assertEqual(baseline["commit"], "d1b91cb")

@@ -1460,7 +1460,7 @@ LINKS += [
     link(["continuous-time Markov chain", "continuous-time chain", "CTMC"], "SP7"),
     link(["discrete-time Markov chain"], "discrete-time-markov-chain"),
     link(["Little's law"], "little-s-law"),
-    link(["re:generator matri(?:x|ces)", "infinitesimal generator", "generator"], "generator", scope=[SP]),
+    link(["re:generator matri(?:x|ces)", "infinitesimal generator", "generator"], "generator", scope=[SP], exclude=("multi-server-and-finite-capacity-queues",)),
     link(["extinction probability", "re:extinction probabilities"], "extinction-probability"),
     link(["extinction criterion"], "extinction-criterion"),
     link(["offspring distribution", "offspring law", "offspring probability generating function"], "offspring-probability-generating-function"),

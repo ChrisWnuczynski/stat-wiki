@@ -1,0 +1,49 @@
+## Motivating example
+A Poisson rate estimate may be useful mainly because it determines a probability of zero events. Transforming the rate estimate gives the desired probability estimate, but its standard error does not stay on the rate scale. The delta method locally replaces a differentiable transformation by a line. Linear variance propagation then explains why its derivative multiplies a standard error. Covariance terms also enter when several estimated inputs are transformed together.{{cite:nist_error_propagation2002}} (§3.1.3.3, linear variance propagation)
+
+## Definition — A limiting law for a smooth transformation
+Assume $\sqrt n(T_n-\theta)\Rightarrow N(0,\xi^2)$ and that $h$ is differentiable at $\theta$. The first-order transformed limit is normal with variance $\xi^2h'(\theta)^2$. If the derivative is zero, that first-order limit is degenerate at zero. A nondegenerate approximation then requires a suitable higher-order term and a possibly different scaling. Convergence in distribution specifies the law at continuity points of the limiting distribution function, rather than convergence of every possible moment.
+
+## Properties — The remainder is small on the right scale
+Differentiability gives $h(\theta+u)-h(\theta)=h'(\theta)u+u r(u)$ with $r(u)\to0$ as $u\to0$. The assumed root-$n$ limit makes $\sqrt n(T_n-\theta)$ bounded in probability, and also gives $T_n\to\theta$ in probability. Hence $r(T_n-\theta)\to0$ in probability. Their product tends to zero in probability: choose a large fixed bound for the first factor and then use convergence of the second. The leading term therefore supplies the transformed limit. This argument identifies the differentiability and convergence conditions that justify the linear approximation.
+
+Under a multivariate root-$n$ normal limit with covariance matrix $\Sigma$, the first-order scalar limiting variance becomes $\nabla h(\theta)^\top\Sigma\nabla h(\theta)$. Each cross covariance matters. This is the variance of the local linear form; ignoring off-diagonal terms assumes away covariance rather than removing it by transformation.{{cite:nist_error_propagation2002}} (§3.1.3.3)
+
+## Worked example — A Poisson zero-event probability
+Suppose the rate estimate is $\widehat\lambda=2$ based on $n=100$ independent Poisson observations. For $h(\lambda)=e^{-\lambda}$, the derivative is $-e^{-\lambda}$ and the sample mean has variance $\lambda/n$. Plugging the estimate into the delta standard error gives
+$$e^{-2}\sqrt{2/100}\approx0.019139.$$
+The probability estimate is $e^{-2}\approx0.135335$. The derivative's sign determines the direction of the change, while its square determines the variance. A large rate corresponds to a smaller zero-event probability.
+
+**Your turn.** At the same rate estimate, increase the sample size to four hundred. What happens to that standard error?
+
+::: {.callout-tip collapse="true" title="Answer"}
+It is halved, becoming approximately $0.009570$, because the sample size appears under a square root in the denominator.
+:::
+
+## Interpretation — A zero derivative requires another calculation
+Consider iid $N(0,\sigma^2)$ observations and $h(\mu)=\mu^2$. At zero, $h'(0)=0$, so the first-order normal limit contains no variation. In fact $\sqrt n\bar X/\sigma$ is exactly standard normal, and $n\bar X^2/\sigma^2$ is exactly chi-squared with one degree of freedom. That establishes the $n$ scale for this example. A constant transformation, by contrast, has no nonzero higher-order term at all, so a zero first derivative alone does not guarantee a particular alternative rate.
+
+## Assumptions and limits — Local normality does not settle every tail
+A smooth local approximation can perform poorly near a support boundary, under a strongly curved transformation, or in small samples. A consistent plug-in standard error requires continuity of its estimated ingredients. Convergence in law of the scaled error alone does not prove convergence of its variance; that additionally needs moment control. Keep the claimed limiting normal variance separate from an exact finite-sample variance formula.; {{cite:nist_error_propagation2002}} (§3.1.3.3)
+
+A confidence interval gives another way to separate a transformation from its linear approximation. If an interval $[L,U]$ covers a parameter and $h$ is strictly increasing on that interval and the parameter space, its transformed interval is $[h(L),h(U)]$. If $h$ is decreasing, the endpoints reverse. This transformation preserves the coverage event exactly; it need not produce a symmetric interval around $h(T_n)$. The delta interval instead approximates the transformed sampling law by a normal law and usually reports a symmetric error bar on that scale. Strong curvature can therefore produce visibly different endpoints even when both calculations start from the same estimate and uncertainty. The variance-propagation formula describes the local calculation, rather than choosing between interval constructions.{{cite:nist_error_propagation2002}} (§3.1.3.3)
+
+## Intuition
+A differentiable function looks like its tangent line in a small neighbourhood of $\theta$. The estimation error $T_n-\theta$ is of order $1/\sqrt n$ under the root-$n$ assumption, so for large $n$ that error falls inside the neighbourhood where the tangent is a good description. Scaling the error by $\sqrt n$ keeps a nondegenerate normal limit on the original scale. The chain rule multiplies that limit by $h'(\theta)$. Variances pick up the square of the multiplier because $\operatorname{Var}(cZ)=c^2\operatorname{Var}(Z)$.
+
+In the Poisson example, $h(\lambda)=e^{-\lambda}$ and $h'(\lambda)=-e^{-\lambda}$. At $\widehat\lambda=2$ the derivative equals $-e^{-2}\approx -0.135335$. The mean of $n=100$ Poisson observations has estimated standard deviation $\sqrt{2/100}$. Multiplying the two factors and dropping the sign gives the delta standard error $0.019139$. The sign says that a higher rate lowers the zero-event probability. The standard error uses the square, so the direction does not appear in the reported spread.
+
+## Statistical use — Several coordinates bring in covariances
+If $\sqrt n(T_n-\theta)$ has a limiting normal law with covariance matrix $\Sigma$, and $h$ is a scalar function with gradient $\nabla h(\theta)$, the limiting variance of the transformed estimator is the quadratic form $\nabla h(\theta)^\top\Sigma\nabla h(\theta)$. With two coordinates and gradient $(g_1,g_2)$, this is
+$$g_1^2\Sigma_{11}+g_2^2\Sigma_{22}+2g_1 g_2\Sigma_{12}.$$
+The cross term vanishes only when the gradient has a zero in one coordinate or the estimators are uncorrelated in the limit. Dropping a nonzero cross term is an extra assumption. It is not a consequence of transforming the estimators one at a time and adding the results.
+
+A one-dimensional illustration with a nonzero derivative is immediate. If the limiting variance of $\sqrt n(T_n-\theta)$ is $9$ and $h(t)=2t+1$, then $h'(t)=2$ and the transformed limiting variance is $9\cdot 2^2=36$. The intercept $+1$ shifts the estimate and does not appear in the variance. A zero derivative is the boundary of this first-order picture. For $h(\mu)=\mu^2$ at $\mu=0$ in a normal sample, $h'(0)=0$, and $n\bar X^2/\sigma^2$ is exactly chi-squared with one degree of freedom rather than approximately normal after scaling by $\sqrt n$. The first-order delta method reports a limiting variance of zero in that case. The zero is a true statement about the $\sqrt n$ scale and a poor summary of the $n$ scale, where the fluctuation lives.
+
+## Common misconceptions
+The delta standard error is a limit statement about the distribution of $\sqrt n\{h(T_n)-h(\theta)\}$. It does not say that $h(T_n)$ is unbiased for $h(\theta)$, and it does not say that the finite-sample variance of $h(T_n)$ equals the plug-in formula. Convergence in distribution controls probabilities of intervals. Convergence of second moments needs a separate argument. A consistent plug-in of $\theta$ and $\Sigma$ requires the map from the parameter to the asymptotic variance to be continuous at the true value.
+
+Boundary parameters break the local linear picture in a different way. A variance component estimated at zero, or a probability estimated at zero or one, can have a sampling distribution that piles up at the boundary. The derivative of a transformation may be undefined there, or the root-$n$ normal approximation on the original scale may already be the wrong shape. The Poisson zero-event example with $\widehat\lambda=2$ and $n=100$ sits comfortably away from that boundary: the rate estimate is positive and the transformed estimate $0.135335$ is inside $(0,1)$. A rate estimate of zero would make $e^{-\widehat\lambda}=1$ and would need a fresh expansion.
+
+## Connections
+Error propagation in a laboratory formula is the same linearisation, often written with partial derivatives and with standard deviations in place of asymptotic variances. The statistical version adds the sampling model that justifies the normal limit and the $\sqrt n$ rate. Transforming the endpoints of a confidence interval is available when $h$ is monotone, and that transformation preserves coverage exactly inside the model that justified the original interval. The delta interval recentres a symmetric bar at $h(T_n)$. For $h(\lambda)=e^{-\lambda}$ the two constructions differ because the exponential curve is not a straight line. Both can be computed from one estimate. They answer the coverage question under different approximations.{{cite:nist_error_propagation2002}} (§3.1.3.3, linear variance propagation)
