@@ -1801,5 +1801,98 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
         self.assertIn("density may maximise on the boundary", statement)
 
 
+class HistoryAndHomeTests(unittest.TestCase):
+    """The history page and the search-first homepage are generator outputs."""
+
+    def test_history_source_is_long_cited_and_linked(self) -> None:
+        text = build_wiki.history_markdown()
+        self.assertGreaterEqual(build_wiki.history_word_count(text), 2500)
+        cites = re.findall(r"\{\{cite:([^}]+)\}\}", text)
+        self.assertGreaterEqual(len(cites), 5)
+        self.assertGreaterEqual(len(set(cites)), 2)
+        self.assertIn("dodge2008", cites)
+        self.assertIn("galton1886", cites)
+        for heading in (
+            "## Early probability",
+            "## Bayes and Laplace",
+            "## Least squares and the normal law",
+            "## Quetelet, Galton, and Pearson",
+            "## Gosset, Fisher, Neyman, and Pearson",
+            "## Kolmogorov",
+            "## The mid-twentieth century",
+            "## Computation and machine learning",
+            "## Timeline",
+        ):
+            self.assertIn(heading, text)
+        self.assertNotRegex(text, r"\bDodge\b|this page|linked chapter|according to the catalogue")
+        links = re.findall(r"\]\((articles/[^)#\s]+)", text)
+        self.assertGreaterEqual(len(links), 20)
+        build_wiki.validate_history_links(text)
+
+    def test_homepage_search_script_is_keyboard_accessible(self) -> None:
+        script = (build_wiki.WIKI / "home-search.js").read_text(encoding="utf-8")
+        self.assertIn("rankDocuments", script)
+        self.assertIn("search.json", script)
+        self.assertIn("search-aliases.json", script)
+        self.assertIn("ArrowDown", script)
+        self.assertIn("ArrowUp", script)
+        self.assertIn('event.key === "Enter"', script)
+        self.assertIn("min-width: 992px", script)
+        self.assertIn("input.focus()", script)
+
+    def test_generated_history_and_homepage(self) -> None:
+        root = build_wiki.WIKI
+        history = root / "history.qmd"
+        home = root / "index.qmd"
+        config = root / "_quarto.yml"
+        if not history.is_file() or not home.is_file() or not config.is_file():
+            self.skipTest("Wiki has not been generated")
+        body = history.read_text(encoding="utf-8")
+        self.assertIn("title: \"History of statistics\"", body)
+        self.assertIn('class="cite-ref"', body)
+        self.assertIn("## References {#references}", body)
+        self.assertGreaterEqual(body.count('data-cite-key="dodge2008"'), 1)
+        self.assertGreaterEqual(body.count('data-cite-key="galton1886"'), 1)
+        self.assertIn("## Timeline {#timeline}", body)
+        # Generated links, including any the term linker adds, must resolve.
+        missing = []
+        for chunk in re.split(r"```.*?```", body, flags=re.S):
+            for match in build_wiki.MD_LINK_TARGET.finditer(chunk):
+                destination, _, fragment = unquote(match.group(2)).partition("#")
+                if not destination or re.match(r"^[a-z]+:|^/", destination):
+                    continue
+                target = (history.parent / destination).resolve()
+                if target.suffix == ".html" and not target.exists():
+                    target = target.with_suffix(".qmd")
+                if not target.exists():
+                    missing.append(destination)
+                elif fragment and target.suffix == ".qmd" and fragment not in target.read_text(encoding="utf-8"):
+                    missing.append(f"{destination}#{fragment}")
+        self.assertEqual(missing, [])
+
+        home_text = home.read_text(encoding="utf-8")
+        self.assertIn('id="home-search-q"', home_text)
+        self.assertIn('role="listbox"', home_text)
+        self.assertIn('src="home-search.js"', home_text)
+        self.assertIn("class=\"home-tagline\"", home_text)
+        self.assertIn(":::: {.library}", home_text)
+        self.assertIn("### History", home_text)
+        self.assertIn("history.qmd", home_text)
+        self.assertIn("## New to statistics? Start here", home_text)
+        self.assertIn("**97 topic chapters**", home_text)
+        self.assertIn("**3 final-preparation pages**", home_text)
+        self.assertIn("**718 concept articles**", home_text)
+        for _part, files in build_wiki.PARTS:
+            name = _part
+            self.assertIn(f"### {name}", home_text)
+            self.assertIn(f"#{build_wiki.slug(name)}", home_text)
+        self.assertRegex(home_text, r"\[\d+ questions? →\]")
+        self.assertNotIn("https://ask.statwiki.io", home_text)
+        yml = config.read_text(encoding="utf-8")
+        self.assertIn("text: History", yml)
+        self.assertIn("href: history.qmd", yml)
+        self.assertIn("home-search.js", yml)
+
+
 if __name__ == "__main__":
     unittest.main()

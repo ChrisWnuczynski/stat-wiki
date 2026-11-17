@@ -10,8 +10,10 @@
 /figures/
 /files/
 /index.qmd
+/history.qmd
 /search.qmd
 /_quarto.yml
+/uploads/
 /_random.html
 /_build/
 __pycache__/

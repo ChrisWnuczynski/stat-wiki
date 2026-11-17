@@ -1008,6 +1008,150 @@ main,
   }
 }
 
+/* Search-first homepage */
+
+.home-tagline {
+  margin: 0.2rem 0 0.85rem;
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.35;
+  color: var(--wiki-text);
+}
+
+.home-search {
+  margin: 0 0 0.35rem;
+}
+
+.home-search-label {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--wiki-muted);
+}
+
+.home-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--wiki-border);
+  border-radius: 2px;
+  background: var(--wiki-bg);
+  color: var(--wiki-text);
+}
+
+.home-search-input:focus {
+  outline: 2px solid var(--wiki-link);
+  outline-offset: 1px;
+}
+
+.home-search-note {
+  min-height: 1.4rem;
+  margin: 0.35rem 0 0.6rem;
+  color: var(--wiki-muted);
+  font-size: 0.9rem;
+}
+
+.home-search-results {
+  list-style: none;
+  margin: 0 0 1.2rem;
+  padding: 0.25rem 0;
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-bg);
+}
+
+.home-search-result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+  margin: 0;
+  padding: 0.45rem 0.85rem;
+}
+
+.home-search-result.is-selected,
+.home-search-result:hover {
+  background: var(--wiki-panel-head);
+}
+
+.home-search-result a {
+  font-weight: 600;
+}
+
+.library {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
+  gap: 0.9rem;
+  margin: 0 0 1.2rem;
+}
+
+.library-card {
+  break-inside: avoid;
+  margin: 0;
+  border: 1px solid var(--wiki-border);
+  background: var(--wiki-bg);
+  padding: 0.15rem 0.9rem 0.8rem;
+}
+
+.library-card h3 {
+  font-family: "Linux Libertine", Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin: 0.55rem 0 0.35rem;
+}
+
+.library-card p {
+  margin: 0 0 0.45rem;
+  color: var(--wiki-muted);
+  font-size: 0.92rem;
+}
+
+.library-count {
+  display: block;
+  margin: 0 0 0.45rem;
+  color: var(--wiki-muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.library-card ul {
+  margin: 0 0 0.55rem;
+  padding-left: 1.2rem;
+}
+
+.library-card li {
+  margin: 0.12rem 0;
+}
+
+.library-more {
+  font-weight: 600;
+}
+
+.history-timeline {
+  overflow-x: auto;
+  margin: 0.4rem 0 1rem;
+}
+
+@media (max-width: 700px) {
+  .home-tagline {
+    font-size: 1.15rem;
+  }
+
+  .home-search-input {
+    font-size: 1rem;
+    padding: 0.7rem 0.75rem;
+  }
+
+  .library {
+    grid-template-columns: 1fr;
+  }
+}
+
 .random-question,
 .site-search {
   display: flex;
