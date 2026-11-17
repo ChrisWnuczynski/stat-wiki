@@ -9,12 +9,12 @@ Conditional probability for events is in [Random experiments and probability](pr
 ::: {#def-joint-pmf .definition}
 ## Joint probability mass function
 
-Discrete random variables $X$ and $Y$ have joint probability mass function $f_{X,Y}(x,y)=\Pr(X=x,Y=y)$.{{cite:bernoulli1713}}{{cite:kolmogorov1933_slln}}{{cite:feller1968}} The marginal mass functions are the row and column sums,
+Discrete random variables $X$ and $Y$ have joint probability mass function $f_{X,Y}(x,y)=\Pr(X=x,Y=y)$.{{cite:grinstead_snell1997}} (§4.1, p. 143, joint distribution table) The marginal mass functions are the row and column sums,
 
 $$
 f_X(x)=\sum_y f_{X,Y}(x,y), \qquad f_Y(y)=\sum_x f_{X,Y}(x,y).
 $$
-{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:kolmogorov1933_slln}}
+{{cite:grinstead_snell1997}} (§4.1, p. 143, marginal row and column sums)
 
 :::
 

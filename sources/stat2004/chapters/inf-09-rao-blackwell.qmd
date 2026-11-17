@@ -14,9 +14,9 @@ $$
 
 The Rao–Blackwell theorem says three things.
 
-1. $W(T)$ does not depend on $\theta$.{{cite:rao1945}} Sufficiency means the conditional distribution of the sample given $T$ is free of $\theta$, and $U$ is a function of the sample, so the conditional expectation is a function of $T$ alone. It can be computed from the data.
-2. $W$ is unbiased for $\theta$.{{cite:blackwell1947}} The tower property gives $\E\{W(T)\}=\E(U)=\theta$.
-3. $\Var\{W(T)\}\le\Var(U)$, with equality if and only if $U$ is already a function of $T$.{{cite:lehmann_casella1998}} The conditional-variance formula is
+1. $W(T)$ does not depend on $\theta$.{{cite:siegrist2022_sufficient_complete}} (§ “Properties of Sufficient Statistics”, Rao–Blackwell theorem) Sufficiency means the conditional distribution of the sample given $T$ is free of $\theta$, and $U$ is a function of the sample, so the conditional expectation is a function of $T$ alone. It can be computed from the data.
+2. $W$ is unbiased for $\theta$.{{cite:durrett2019}} (§4.1, pp. 212–213) The tower property gives $\E\{W(T)\}=\E(U)=\theta$.
+3. $\Var\{W(T)\}\le\Var(U)$, with equality if and only if $U$ is already a function of $T$.{{cite:durrett2019}} (§4.1, Thm. 4.1.15, p. 213) The conditional-variance formula is
 
 $$
 \Var(U)=\Var\{\E(U\mid T)\}+\E\{\Var(U\mid T)\}=\Var\{W(T)\}+\E\{\Var(U\mid T)\}.
@@ -26,7 +26,7 @@ The second term is nonnegative, and it is zero precisely when $U$ does not vary 
 
 So any unbiased estimator that ignores a sufficient statistic can be improved by averaging it over that statistic. There is no point searching for a UMVU estimator outside the functions of $T$.
 
-The same identity is why a sufficient statistic is enough for estimation of $\theta$ and not enough for checking the model. $\Var(U\mid T)$ is the variation $T$ throws away. That variation does not help estimate $\theta$. It is exactly what a residual, or an ancillary statistic, is made of. [Basu's theorem](bayes-07-exponential-families.qmd#thm-basu-s-theorem) says that under completeness this leftover is independent of $T$.
+The conditional variance $\Var(U\mid T)$ measures the variation of $U$ around its conditional expectation. Averaging removes this variation when estimating the target under squared-error loss. An arbitrary residual need not be ancillary. [Basu's theorem](bayes-07-exponential-families.qmd#thm-basu-s-theorem) instead states that an ancillary statistic is independent of a complete sufficient statistic.{{cite:siegrist2022_sufficient_complete}} (§ “Ancillary Statistics”, Basu theorem)
 
 ## Uniformly minimum-variance unbiased estimator {#s-uniformly-minimum-variance-unbiased-estimator}
 

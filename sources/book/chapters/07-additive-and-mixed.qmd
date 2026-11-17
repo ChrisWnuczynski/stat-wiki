@@ -32,7 +32,7 @@ In @fig-kyph-add, number is almost a straight line on the log-odds scale: more v
 
 Each curve is the effect of moving that one covariate while the others are held fixed. Holding the starting vertebra at $16$ and imagining ten vertebrae below it is not a spine that exists. The sentence is conditional on a hypothetical, and some of those hypotheticals are empty.
 
-A free function of all three covariates together would fit a surface we could not explain to a surgeon. Two-way interactions are already hard. Three-way interactions are where we stop. The compromise is a partially linear model: a coefficient for the term you want a unit-change sentence about, and a smooth for the terms you are only adjusting for.{{cite:engle1986_plm}}{{cite:ruppert_wand_carroll2003}}{{cite:wood2017}} Ambient temperature in a lab, or the weight of a patient in a trial of two treatments, is the second kind. Dose and treatment are the first kind.
+A free function of all three covariates together would fit a surface we could not explain to a surgeon. Two-way interactions are already hard. Three-way interactions are where we stop. The compromise is a partially linear model: a coefficient for the term you want a unit-change sentence about, and a smooth for the terms you are only adjusting for.{{cite:hastie_tibshirani1986}} (§1, pp. 297–298) Ambient temperature in a lab, or the weight of a patient in a trial of two treatments, is the second kind. Dose and treatment are the first kind.
 
 Number of vertebrae looked linear, so force it to be a slope and leave start and age smooth:
 ```r

@@ -6,7 +6,7 @@ The chi-squared test of independence, and the degrees-of-freedom count, are on [
 
 ## Fisher's exact test {#s-fisher-s-exact-test}
 
-Consider a two-way table of counts. Fisher's exact test conditions on the row totals and the column totals. Under the null hypothesis that the row classification is independent of the column classification, every table with those margins is equally likely in the following sense: the entries are a random allocation of the column labels to a fixed set of row labels, or the other way around.
+Consider a two-way table of counts. Fisher's exact test conditions on the row totals and the column totals. Under independence, each allocation of the column labels to individuals with fixed row labels is equally likely. Distinct tables can have different probabilities because different numbers of allocations produce them.
 
 The argument is easiest for two rows and two columns. Suppose $n$ individuals have fixed row labels, $n_1$ in row 1 and $n_2=n-n_1$ in row 2, and a fixed number $c$ of them carry a "success" in the column. If the column is independent of the row, those $c$ successes are equally likely to be any subset of size $c$. The number $K$ landing in row 1 is hypergeometric,
 
@@ -14,9 +14,9 @@ $$
 \Pr(K=k)=\frac{\binom{n_1}{k}\binom{n_2}{c-k}}{\binom{n}{c}},
 $$
 
-for every $k$ the margins allow, namely $\max(0,c-n_2)\le k\le\min(n_1,c)$. The $p$-value is the probability, under this law, of a table at least as extreme as the one observed. A one-sided $p$-value sums the probabilities on the observed side of $k$. A two-sided $p$-value sums every table whose probability is no larger than the probability of the observed table.{{cite:fisher1935_doe}}{{cite:yates1934}}{{cite:agresti2002}}
+for every $k$ the margins allow, namely $\max(0,c-n_2)\le k\le\min(n_1,c)$. The $p$-value is the probability, under this law, of a table at least as extreme as the one observed. A one-sided $p$-value sums the probabilities on the observed side of $k$. A two-sided $p$-value sums every table whose probability is no larger than the probability of the observed table.{{cite:agresti1992_exact_survey}} (§§1.3–2.1, pp. 133–135){{cite:dodge2008}} (p. 247, Hypergeometric Distribution)
 
-The same reasoning applies to a larger table. Conditional on all margins, the null distribution is multiple hypergeometric: the count in the free cells is the number of ways to fill the table divided by the number of ways to arrange the margins. For a $2\times 2$ table the sum can be done by hand. For a larger table the enumeration is the same sum carried out by a computer.
+The same counting argument applies to a larger table. Conditional on all margins, its null law is multiple hypergeometric: each table is weighted by the number of label allocations that produce it. The tables themselves are not assigned equal probabilities. A two-by-two table permits a short one-dimensional sum; larger tables require enumeration or another exact calculation over the permissible tables.
 
 Here is a $2\times 2$ table of operating-system preference by faculty, small enough to add up.
 

@@ -90,7 +90,7 @@ The two errors compete. Enlarging the critical region raises the power and also 
 ::: {#def-neyman-pearson-approach .definition}
 ## Neyman–Pearson approach
 
-Fix a significance level $\alpha$. Among critical regions whose type I error is at most $\alpha$, choose one whose type II error is as small as possible.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}} For two simple hypotheses the region that does this is the likelihood-ratio region of the [Neyman–Pearson lemma](inf-11-most-powerful-tests.qmd#s-neyman-pearson-lemma).{{cite:casella_berger2002}}
+Fix a significance level $\alpha$. Among critical regions whose type I error is at most $\alpha$, choose one whose type II error is as small as possible.{{cite:siegrist2022_testing}} (§9.1, Basic Theory) For two simple hypotheses the region that does this is the likelihood-ratio region of the [Neyman–Pearson lemma](inf-11-most-powerful-tests.qmd#s-neyman-pearson-lemma).{{cite:siegrist2022_lrt}} (§9.5, “The Neyman–Pearson Lemma”)
 
 :::
 
@@ -216,7 +216,7 @@ on 23 degrees of freedom. Since $t_{23;0.90}=1.319$ and $t_{23;0.95}=1.714$, the
 ::: {#def-f-test-for-equal-variances .definition}
 ## F test for equal variances
 
-For two independent normal samples, $F=s_1^2/s_2^2$ has the $F_{n_1-1,n_2-1}$ distribution when $\sigma_1^2=\sigma_2^2$.{{cite:fisher1925_smrw}}{{cite:snedecor1934}} Against $\sigma_1^2\neq\sigma_2^2$ at level $\alpha$, reject when $F\ge F_{n_1-1,n_2-1;1-\alpha/2}$ or $F\le1/F_{n_2-1,n_1-1;1-\alpha/2}$.{{cite:casella_berger2002}}
+For two independent normal samples, $F=s_1^2/s_2^2$ has the $F_{n_1-1,n_2-1}$ distribution when $\sigma_1^2=\sigma_2^2$.{{cite:siegrist2022_normals}} (§6.8, “Ratios of Sample Variances”) Against $\sigma_1^2\neq\sigma_2^2$ at level $\alpha$, reject when $F\ge F_{n_1-1,n_2-1;1-\alpha/2}$ or $F\le1/F_{n_2-1,n_1-1;1-\alpha/2}$.{{cite:siegrist2022_normals}} (§6.8, “Ratios of Sample Variances”)
 
 :::
 
@@ -245,7 +245,7 @@ Ten people taste two yoghurts, one with an old sweetener and one with a new. Eig
 ::: {#def-binomial-test .definition}
 ## Binomial test
 
-For $X\sim\Bin(n,p)$ and $H_0:p=p_0$, the test statistic is $X$, with null distribution $\Bin(n,p_0)$.{{cite:casella_berger2002}} At level $\alpha$, against $p>p_0$ reject when $X\ge c$, with $c$ the smallest integer such that $\Pr_{H_0}(X\ge c)\le\alpha$.{{cite:lehmann_romano2005}} Against $p<p_0$ reject when $X\le c$, with $c$ the largest integer such that $\Pr_{H_0}(X\le c)\le\alpha$. Against $p\neq p_0$, use both tails at $\alpha/2$ each.{{cite:agresti2002}}
+For $X\sim\Bin(n,p)$ and $H_0:p=p_0$, the test statistic is $X$, with null distribution $\Bin(n,p_0)$.{{cite:dodge2008}} (p. 47, binomial null distribution) At level $\alpha$, against $p>p_0$ reject when $X\ge c$, with $c$ the smallest integer such that $\Pr_{H_0}(X\ge c)\le\alpha$.{{cite:dodge2008}} (pp. 47–48, one-sided critical region) Against $p<p_0$ reject when $X\le c$, with $c$ the largest integer such that $\Pr_{H_0}(X\le c)\le\alpha$. Against $p\neq p_0$, use both tails at $\alpha/2$ each.{{cite:dodge2008}} (p. 47, two-sided alternative)
 
 :::
 
@@ -257,7 +257,7 @@ $$
 Z=\frac{X-np_0}{\sqrt{np_0(1-p_0)}}
 $$
 
-is approximately standard normal under $H_0$, and the normal critical values apply.{{cite:wald1943}}{{cite:agresti2002}} The null standard error uses $p_0$, not $\widehat p$: the test asks how variable $X$ would be if $H_0$ were true.{{cite:casella_berger2002}}
+is approximately standard normal under $H_0$, and the normal critical values apply.{{cite:openintro2019}} (§6.1, normal model for a sample proportion) The null standard error uses $p_0$, not $\widehat p$: the test asks how variable $X$ would be if $H_0$ were true.{{cite:openintro2019}} (§6.1, null-based standard error)
 
 ### Two proportions
 
@@ -274,7 +274,7 @@ $$
 Z=\frac{\widehat p_1-\widehat p_2}{\sqrt{\widehat p(1-\widehat p)\,(1/n_1+1/n_2)}},
 $$
 
-approximately standard normal under $H_0$ for large samples.{{cite:wald1943}}{{cite:agresti2002}}{{cite:casella_berger2002}}
+approximately standard normal under $H_0$ for large samples.{{cite:openintro2019}} (§6.2, pooled proportion and two-proportion standard error)
 
 :::
 

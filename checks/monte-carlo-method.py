@@ -29,7 +29,7 @@ for heading in ('Motivating example', 'Worked example', 'Common misconceptions',
                 'Infinite variance and poor mixing', 'History', 'Check yourself'):
     assert f'## {heading}' in body
 assert '**Your turn.**' in body and body.count('title="Answer"') >= 3
-for key in ('dasgupta2011_graduate_probability', 'hastings1970', 'metropolis_ulam1949'):
+for key in ('durrett2019', 'grinstead_snell1997', 'hastings1970', 'metropolis_ulam1949'):
     assert f'data-cite-key="{key}"' in body
 for qid in ('c-11','c-15'):
     assert f'../questions/{qid}.qmd' in page

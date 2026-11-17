@@ -23,3 +23,8 @@ Shared additions and corrections are staged in ignored `research/pending/neyman-
 ## Validation
 
 Build passed; all 68 unit tests and all 15 batch calculation scripts passed. The generated article has 9 located inline citations, two hidden-answer self-check questions, and no raw markers or citations in hidden answers. Offline verification passed for all 648 bibliography entries.
+
+
+## Source-scope correction
+
+Dodge250 is confined to specifying a hypothesis test and its significance level. The fixed-significance greatest-power criterion uses actually read Siegrist §9.1 Basic Theory > Power; the existing Neyman–Pearson proof source remains §9.5. All mathematical and numerical content is unchanged.

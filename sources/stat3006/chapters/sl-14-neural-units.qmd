@@ -41,7 +41,7 @@ $$
 \mathrm{net}=\sum_{j=0}^{p} w_j x_j=w_0+w^\top x,\qquad x_0\equiv 1.
 $$
 
-The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}} (pp. 115–117, threshold units){{cite:rosenblatt1958}} (pp. 386–390, perceptron model){{cite:goodfellow_deep_learning2016_ch6}} (Ch. 6, §§6.1–6.3, affine units and activations). The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
+The output is $o=f(\mathrm{net})$ for an activation function $f${{cite:mcculloch_pitts1943}} (pp. 115–117, threshold units){{cite:rosenblatt1958}} (pp. 386–390, perceptron model){{cite:goodfellow_bengio_courville2016}} (Ch. 6, §§6.1–6.3, affine units and activations). The bias is the weight on an extra input that is permanently $1$, so every later derivative has the same form.
 
 :::
 
@@ -88,7 +88,7 @@ A family of hyperplanes can separate the same labelled sample, and a threshold u
 ::: {#def-sl-14-perceptron .definition}
 ## Perceptron learning rule
 
-Let the training pairs be $(x_i,y_i)$ with $y_i\in\{0,1\}$ and with each $x_i$ augmented by $x_{i0}=1$. Start from any weights $w$, including the bias. Repeat until no pattern is misclassified{{cite:rosenblatt1958}}{{cite:minsky_papert1969}}{{cite:bishop2006}}. For each pattern $i$ compute $o_i=f(w^\top x_i)$ and set
+Let the training pairs be $(x_i,y_i)$ with $y_i\in\{0,1\}$ and with each $x_i$ augmented by $x_{i0}=1$. Start from a finite weight vector $w$, including the bias, and repeatedly inspect every training pattern, applying the following correction on each mistake.{{cite:shalev_bendavid2014}} (§9.1.2, pp. 92–93) For each pattern $i$ compute $o_i=f(w^\top x_i)$ and set
 
 $$
 w\leftarrow w+(y_i-o_i)\,x_i.
@@ -98,7 +98,7 @@ $$
 
 If the unit is right, $y_i-o_i=0$ and nothing changes. If it outputs $0$ for a pattern whose label is $1$, the pattern is added to the weights, which increases $w^\top x_i$ by $\lVert x_i\rVert^2$. If it outputs $1$ for a label $0$, the pattern is subtracted, and the score decreases by $\lVert x_i\rVert^2$. The added term is $(y_i-o_i)x_i$, so the score changes by $(y_i-o_i)\lVert x_i\rVert^2$.
 
-Rosenblatt's perceptron convergence theorem says that if the classes are linearly separable the rule reaches a separating set of weights in a finite number of corrections{{cite:rosenblatt1958}}. If they are not, it never stops. Linear separability is the assumption that does the work. The rule returns a separator, when one exists, and it has no further criterion: any separating line ends the algorithm. The support vector machine adds a margin, which is the preference this rule lacks.
+For a finite strictly linearly separable augmented sample, the perceptron rule makes only finitely many corrections. For zero initial weights, if input norms are at most $R$ and a unit separating vector has signed margin at least $\gamma>0$, the correction count is at most $(R/\gamma)^2$.{{cite:shalev_bendavid2014}} (§9.1.2, Thm. 9.1, pp. 92–93) A finite nonzero initial vector also gives a finite bound after retaining its initial projection and norm in the argument. If no classifier can label every training point, a complete-pass stopping rule cannot terminate with all labels correct. The rule chooses a separator without optimising its margin; a support vector machine adds a margin criterion.
 
 ::: {#exm-sl-14-perceptron .example}
 ## Watching a perceptron learn
@@ -132,7 +132,7 @@ The function is $g:\{0,1\}\times\{0,1\}\to\{0,1\}$ with desired triples $(x_1,x_
 ::: {#thm-sl-14-xor .theorem}
 ## A single threshold unit cannot compute XOR
 
-No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2${{cite:goodfellow_deep_learning2016_ch6}} (§6.1, XOR example).
+No choice of $w_0,w_1,w_2$ makes $f(w_0+w_1 x_1+w_2 x_2)$ equal XOR on $\{0,1\}^2${{cite:goodfellow_bengio_courville2016}} (§6.1, XOR example).
 
 :::
 

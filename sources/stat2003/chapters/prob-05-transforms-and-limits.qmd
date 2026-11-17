@@ -6,12 +6,12 @@ The one-dimensional families used here are on the [common distributions](../refe
 
 ## One variable, and a sum
 
-Let $X$ be continuous with density $f_X$, and let $Y=g(X)$ with $g$ strictly monotone and differentiable. Then
+Let $X$ have density $f_X$ on an interval, and let $Y=g(X)$, where $g$ is continuously differentiable, strictly monotone and has nonzero derivative on the interior of that interval. Then
 
 $$
 f_Y(y)=f_X\bigl(g^{-1}(y)\bigr)\,\bigl|\tfrac{d}{dy}g^{-1}(y)\bigr|.
 $$
-{{cite:wang2025_foundations}} (Ch. 5, §6.2.4, Thms. 4–5)
+{{cite:deisenroth_faisal_ong2020}} (§§6.7.1–6.7.2, pp.215–218)
 
 An affine map $Y=aX+b$ with $a\ne 0$ is the case everyone uses: $f_Y(y)=f_X((y-b)/a)/|a|$. If $X$ is standard normal and $Y=1+2X$, then $Y\sim\Normal(1,4)$. If $X\sim\Exp(\lambda)$ and $Y=1+2X$, the same formula shifts and stretches the exponential density.
 
@@ -65,7 +65,7 @@ $T$ is exponential with rate $5/1000$, and its mean is 200 hours. Five component
 
 :::
 
-The sum of two independent continuous variables has density equal to the convolution{{cite:laplace1812}}{{cite:cramer1946}}{{cite:casella_berger2002}}{{cite:grimmett_stirzaker2020}}
+The sum of two independent continuous variables has density equal to the convolution{{cite:grinstead_snell1997}} (§7.2, p.291, Thm.7.1)
 
 $$
 f_{X+Y}(z)=\int_{-\infty}^{\infty} f_X(x)\,f_Y(z-x)\,\dd x.
@@ -144,9 +144,9 @@ If $X_i\sim\Normal(\mu_i,\sigma_i^2)$ are independent and $a,b_1,\ldots,b_n$ are
 $$
 a+\sum_{i=1}^n b_i X_i \sim \Normal\Bigl(a+\sum_{i=1}^n b_i\mu_i,\;\sum_{i=1}^n b_i^2\sigma_i^2\Bigr).
 $$
-{{cite:strimmer2025_mva}} (Ch. 3, §3.1, Ex. 3.9){{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31, Ex. 32)
+{{cite:pishro_nik2014}} (§6.1.5, normal random vectors){{cite:durrett2019}} (§3.10, pp. 201–203)
 
-The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.{{cite:strimmer2025_mva}} (Ch. 3, §3.1){{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31, Ex. 32)
+The same conclusion holds for a jointly normal vector and any affine image, with the output variance $\mathbf{b}^\top\Sigma\mathbf{b}$.{{cite:pishro_nik2014}} (§6.1.5, normal random vectors){{cite:durrett2019}} (§3.10, pp. 201–203)
 
 :::
 

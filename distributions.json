@@ -724,14 +724,14 @@
     "sampling": "",
     "conjugate_prior_for": "",
     "definition_from_source": true,
-    "lead_context": "It gives exact sampling probabilities when draws are made without replacement from a finite population.{{cite:feller1968}}",
-    "statistical_use": "The hypergeometric law is appropriate for a fixed-size random sample from a finite set with a known number of marked items. It supplies the conditional calculation behind Fisher’s exact test and shows the finite-population correction absent from a binomial model.{{cite:agresti2002}}",
-    "worked_example": "### No marked items in a sample\n\nA population has $N=20$ items, of which $r=5$ are marked. For a sample of $n=4$ without replacement, $P(X=0)=\\binom{15}{4}/\\binom{20}{4}=1365/4845\\approx0.2817$.{{cite:feller1968}}",
+    "lead_context": "It gives exact sampling probabilities when draws are made without replacement from a finite population.{{cite:siegrist_hypergeometric2022}} (§ “Basic Theory”)",
+    "statistical_use": "The hypergeometric law is appropriate for a fixed-size random sample from a finite set with a known number of marked items. It supplies the conditional calculation behind Fisher’s exact test and shows the finite-population correction absent from a binomial model.{{cite:agresti1992_exact_survey}} (§§1.3–2.1, pp. 133–135){{cite:siegrist_hypergeometric2022}} (§ “Moments”)",
+    "worked_example": "### No marked items in a sample\n\nA population has $N=20$ items, of which $r=5$ are marked. For a sample of $n=4$ without replacement, $P(X=0)=\\binom{15}{4}/\\binom{20}{4}=1365/4845\\approx0.2817$.{{cite:dodge2008}} (pp. 247–248)",
     "key_result": {
       "title": "Finite-population mean and variance",
-      "statement": "For $X\\sim\\operatorname{Hypergeom}(N,r,n)$ with $N>1$ and $p=r/N$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)(N-n)/(N-1)$.{{cite:feller1968}}",
+      "statement": "For $X\\sim\\operatorname{Hypergeom}(N,r,n)$ with $N>1$ and $p=r/N$, $\\mathrm E(X)=np$ and $\\operatorname{Var}(X)=np(1-p)(N-n)/(N-1)$.{{cite:siegrist_hypergeometric2022}} (§ “Moments”)",
       "meaning": "Sampling without replacement keeps the binomial mean but reduces variance by the finite-population factor.",
-      "proof": "Let $I_i$ indicate a marked item on draw $i$. Every draw has $\\mathrm E(I_i)=p$ and variance $p(1-p)$. For distinct draws, $P(I_i=I_j=1)=r(r-1)/[N(N-1)]$, giving $\\operatorname{Cov}(I_i,I_j)=-p(1-p)/(N-1)$. Summing the $n$ indicator means and their $n(n-1)$ ordered cross-covariances gives the stated formulas.{{cite:feller1968}}"
+      "proof": "Let $I_i$ indicate a marked item on draw $i$. Every draw has $\\mathrm E(I_i)=p$ and variance $p(1-p)$. For distinct draws, $P(I_i=I_j=1)=r(r-1)/[N(N-1)]$, giving $\\operatorname{Cov}(I_i,I_j)=-p(1-p)/(N-1)$. Summing the $n$ indicator means and their $n(n-1)$ ordered cross-covariances gives the stated formulas.{{cite:siegrist_hypergeometric2022}} (§ “Moments”)"
     }
   },
   "inverse-gamma-distribution": {

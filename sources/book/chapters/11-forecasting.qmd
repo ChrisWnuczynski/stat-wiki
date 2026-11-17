@@ -8,7 +8,7 @@ The theory stopped at the Wold decomposition. This chapter is about using it. Th
 
 ![Monthly accidental deaths in the United States, 1973 to 1978. The series is not white noise: deaths are higher in the northern summer, and the level sags and then recovers.](../figures/deaths-series.pdf){#fig-deaths}
 
-Plotting a series that R already knows is a time series puts time on the horizontal axis. @fig-deaths is not white noise. Deaths are higher in the middle of the year, the northern summer, and lower in winter. A twelve-month cycle is the obvious feature.{{cite:hyndman_athanasopoulos2021}}{{cite:box_jenkins1970}} The overall level is not a straight trend.{{cite:brockwell_davis1991}} It sags and then recovers, the sort of slow movement produced when a temporary legal or behavioural change pulls a series down and then lets it drift back.
+Plotting a series that R already knows is a time series puts time on the horizontal axis. @fig-deaths is not white noise. Deaths are higher in the middle of the year, the northern summer, and lower in winter. A twelve-month cycle is the obvious feature.{{cite:hyndman_athanasopoulos2021}} (§2.3, Time series patterns) The overall level is not a straight trend.{{cite:dodge2008}} (p. 536, Time Series) It sags and then recovers, a slow movement in the observed level whose cause needs separate evidence.
 
 The autocorrelation and the partial autocorrelation both keep oscillating. An MA process would cut the autocorrelation off after a finite lag.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.4) An AR process would cut the partial autocorrelation off.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.3) Neither plot dies. That is the seasonality, still in the correlations.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.1)
 
@@ -68,7 +68,7 @@ The forecast of the next minutes, in @fig-www-fc, is a shallow line, and the int
 
 ## What this chapter does not cover
 
-Autoregressive conditional heteroscedasticity, and its generalisations, put a time-series model on the variance rather than only on the mean.{{cite:engle1982}}{{cite:bollerslev1986}}{{cite:brockwell_davis1991}} They are not developed here. Count-valued series are named and not developed, for a reason that has run through the earlier chapters: a Poisson observation is not a mean plus an innovation that can be separated off. Forecasting is the end of the material.
+Autoregressive conditional heteroscedasticity, and its generalisations, put a time-series model on the variance rather than only on the mean.{{cite:engle2001_garch101}} (§ “ARCH/GARCH Models”){{cite:bollerslev1986}} (§2, pp. 308–310) The conditional variance responds to past squared shocks and, in GARCH, past conditional variances. Count-valued series require a sampling model on nonnegative integers, rather than an unrestricted Gaussian observation model.
 
 ## Exercises
 

@@ -5,7 +5,7 @@
 ::: {#def-normal-normal-model .definition}
 ## Normal--Normal model
 
-Assume 
+Assume
 
 $$
   X_1,\ldots,X_n\given\mu
@@ -13,7 +13,7 @@ $$
 $$
 
 
- where $\sigma^2$ is known, and use the prior 
+ where $\sigma^2$ is known, and use the prior
 
 $$
   \mu\sim\Normal(\mu_0,\sigma_0^2).
@@ -30,7 +30,7 @@ When the aim is to be weakly informative, it is safer to give the model room to 
 ::: {#rem-a-proper-approximation-to-the-flat-prior .remark}
 ## A proper approximation to the flat prior
 
-The honest bounded version of the improper kernel $p(\mu)\propto1$ is 
+The honest bounded version of the improper kernel $p(\mu)\propto1$ is
 
 $$
  p_C(\mu)=\frac1{2C}\mathbf{1}\{-C\leq\mu\leq C\}.
@@ -38,7 +38,7 @@ $$
 
 constant on $[-C,C]$, and proper.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 51–54)
 
- Taking, for example, $C=10^4$ makes this density nearly constant over an ordinary data range while keeping it proper. It also exposes what "very diffuse" means. For any fixed $0<M<C$, 
+ Taking, for example, $C=10^4$ makes this density nearly constant over an ordinary data range while keeping it proper. It also exposes what "very diffuse" means. For any fixed $0<M<C$,
 
 $$
  \Pr_C(|\mu|\leq M)=\int_{-M}^{M}\frac1{2C}\dd\mu=\frac MC
@@ -47,7 +47,7 @@ $$
 $$
 
 
- Thus the limiting sequence puts essentially all of its probability beyond every fixed finite range; it does not converge to a uniform probability distribution on $\R$.{{cite:box_tiao1973}}{{cite:jeffreys1961}}{{cite:gelman_bda2013}} Human height makes the point concrete: no observed person is three metres tall, yet a sufficiently broad uniform prior assigns almost no mass to the entire range of heights that have actually been encountered.
+ Thus the limiting sequence puts essentially all of its probability beyond every fixed finite range; it does not converge to a uniform probability distribution on $\R$.{{cite:taraldsen2022_improper}} (§3.3, uniform law on the real line) A height model can have scientifically plausible values confined to a fixed finite interval. As $C$ grows, the prior mass of that entire interval tends to zero. Expanding the bounds therefore changes the prior distribution as well as extending its support.{{cite:taraldsen2022_improper}} (§3.3, uniform law on the real line)
 
 :::
 
@@ -59,7 +59,7 @@ The likelihood is \begin{align*}
   &=(2\pi\sigma^2)^{-n/2}
     \exp\!\left[-\frac{1}{2\sigma^2}
       \sum_{i=1}^n(x_i-\mu)^2\right].
-\end{align*} The prior density is 
+\end{align*} The prior density is
 
 $$
   p(\mu)=(2\pi\sigma_0^2)^{-1/2}
@@ -88,7 +88,7 @@ To identify the density, expand every square: \begin{align*}
  &=\frac{\mu^2}{\sigma_0^2}
    -2\mu\frac{\mu_0}{\sigma_0^2}
    +\frac{\mu_0^2}{\sigma_0^2}.
-\end{align*} Collect the coefficients that involve $\mu$: 
+\end{align*} Collect the coefficients that involve $\mu$:
 
 $$
  A\mu^2-2B\mu+C,
@@ -106,7 +106,7 @@ $$
            -\left(\frac BA\right)^2\right]+C\\
  &=A\left(\mu-\frac BA\right)^2
    +C-\frac{B^2}{A}.
-\end{align*} The last two terms are constant in $\mu$. Hence 
+\end{align*} The last two terms are constant in $\mu$. Hence
 
 $$
   p(\mu\given\xvec)
@@ -147,14 +147,14 @@ The posterior of a normal mean with known variance is normal, and its precision 
 ::: {#rem-precision-weighting .remark}
 ## Precision weighting
 
-Writing 
+Writing
 
 $$
  w=\frac{\sigma^2}{n\sigma_0^2+\sigma^2}
 $$
 
 
- turns \eqref{eq:normal-post-mean} into 
+ turns \eqref{eq:normal-post-mean} into
 
 $$
  \mu_1=(1-w)\overline x+w\mu_0.
@@ -193,7 +193,7 @@ The limiting cases check the algebra: \begin{align*}
 
 ## Unknown variance, known mean
 
-Now assume $\mu$ is known and $\sigma^2$ is unknown. Define 
+Now assume $\mu$ is known and $\sigma^2$ is unknown. Define
 
 $$
   S_\mu=\sum_{i=1}^n(x_i-\mu)^2.
@@ -211,7 +211,7 @@ $$
 
 ### Finding the conjugate family by inspection
 
-It is more useful to see how one might discover the prior than simply to be given its name. The unknown $\sigma^2$ is positive and continuous, and the likelihood kernel contains two distinctive pieces: 
+It is more useful to see how one might discover the prior than simply to be given its name. The unknown $\sigma^2$ is positive and continuous, and the likelihood kernel contains two distinctive pieces:
 
 $$
  (\sigma^2)^{-n/2}
@@ -234,7 +234,7 @@ $$
 $$
 
 
- means that $\sigma^2>0$ has density 
+ means that $\sigma^2>0$ has density
 
 $$
  p(\sigma^2)
@@ -247,7 +247,7 @@ This is the inverse-Gamma density with shape $\alpha_0$ and scale $\beta_0$.{{ci
 
 :::
 
-This follows directly from the transformation $\tau=1/\sigma^2\sim\GammaDist(\alpha_0,\beta_0)$. Indeed, 
+This follows directly from the transformation $\tau=1/\sigma^2\sim\GammaDist(\alpha_0,\beta_0)$. Indeed,
 
 $$
  \frac{\dd\tau}{\dd\sigma^2}=-\frac1{(\sigma^2)^2},
@@ -299,7 +299,7 @@ An inverse-gamma prior for a normal variance, with the mean known, yields an inv
 
 :::
 
-For $T\sim\InvGamma(a,b)$, 
+For $T\sim\InvGamma(a,b)$,
 
 $$
   \E(T)=\frac b{a-1}\quad(a>1),
@@ -322,7 +322,7 @@ Always check the parameterisation before trusting a Gamma or inverse-Gamma formu
 
 ## Both normal parameters unknown
 
-Consider the independent prior 
+Consider the independent prior
 
 $$
   \mu\sim\Normal(\mu_0,\sigma_0^2),
@@ -332,7 +332,7 @@ $$
 $$
 
 
- This prior has two coordinates, so a request to software for its mean should return two numbers, not four. When $\alpha_0>1$, 
+ This prior has two coordinates, so a request to software for its mean should return two numbers, not four. When $\alpha_0>1$,
 
 $$
  \E\!\begin{pmatrix}\mu\\ \sigma^2\end{pmatrix}
@@ -384,7 +384,7 @@ Holding $\sigma^2$ fixed, the calculation from \eqref{eq:normal-mean-posterior} 
  \label{eq:full-cond-sigma}
 \end{equation}
 
-The full conditional of the mean is normal and the full conditional of the variance is inverse-gamma under the independent normal and inverse-gamma priors specified above.{{cite:geyer2005_markov_chain}} (§10.6, pp. 29–30)
+The full conditional of the mean is normal and the full conditional of the variance is inverse-gamma under the independent normal and inverse-gamma priors specified above.{{cite:gelfand_smith1990}} (§3.5, p.405)
 
 :::
 
@@ -432,7 +432,7 @@ Starting from \eqref{eq:joint-normal-post}, retain every term involving $\mu$ an
 ::: {#ex-applied-normal-invchisq .exercise}
 ## Normal--inverse-$\chi^2$ conjugacy
 
-A pair $(r,s)$ has a normal--inverse-$\chi^2$ distribution, written $(r,s)\sim N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta)$, if 
+A pair $(r,s)$ has a normal--inverse-$\chi^2$ distribution, written $(r,s)\sim N\text{-}\chi^{-2}(\alpha,\beta,\gamma,\delta)$, if
 
 $$
  p(r,s)\propto
@@ -443,7 +443,7 @@ $$
 
 
  where $\beta,\gamma,\delta>0$. Let $X_i\mid\mu,\sigma^2\stackrel{\mathrm{iid}}{\sim}
-\Normal(\mu,\sigma^2)$ for $i=1,\ldots,n$ and put the prior 
+\Normal(\mu,\sigma^2)$ for $i=1,\ldots,n$ and put the prior
 
 $$
  (\mu,\sigma^2)\sim
@@ -451,7 +451,7 @@ $$
 $$
 
 
- Show that the joint posterior has the same family and identify all four updated parameters. Your derivation should explicitly complete the two weighted squares in $\mu$. 
+ Show that the joint posterior has the same family and identify all four updated parameters. Your derivation should explicitly complete the two weighted squares in $\mu$.
 
 [Solution](#sol-applied-normal-invchisq)
 

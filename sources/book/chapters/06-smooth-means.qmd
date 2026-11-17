@@ -31,7 +31,7 @@ A full cubic smoothing spline has a knot at each distinct observed $x_i$; for la
 
 ## Kyphosis and age
 
-Eighty-one children were followed after spinal surgery to see whether kyphosis, a forward bend in the spine, was still present.{{cite:breiman_cart1984}}{{cite:hastie_tibshirani1990}} Age is recorded in months, from infancy out to about $200$ months. The ones and zeros rise through the middle ages and fall again. A logistic regression with age as a linear predictor can only ever increase, or only ever decrease. It cannot come back down. So keep the logistic mean, and let the inside be a smooth function centred at zero.{{cite:wood2017}}
+Eighty-one children were followed after spinal surgery to see whether kyphosis, a forward bend in the spine, was still present.{{cite:r_kyphosis2026}} (“Description” and “Format”) Age is recorded in months, from infancy out to about $200$ months. The ones and zeros rise through the middle ages and fall again. A logistic regression with age as a linear predictor can only ever increase, or only ever decrease. It cannot come back down. So keep the logistic mean, and let the inside be a smooth function centred at zero.{{cite:hastie_tibshirani1986}} (§1, pp. 297–298)
 $$
 \mathrm{P}(\text{kyphosis}\mid \text{age})
 =\frac{\exp\{\beta_0+g(\text{age})\}}{1+\exp\{\beta_0+g(\text{age})\}},
@@ -51,17 +51,17 @@ kyphosis$Kyphosis <- as.numeric(kyphosis$Kyphosis == "present")
 fit <- gam(Kyphosis ~ s(Age), family = binomial, data = kyphosis)
 summary(fit)
 ```
-`s(Age)` asks for the smooth. Knots and $\lambda$ are chosen by cross-validation. The plotted smooth is labelled with equivalent degrees of freedom $2.22$: an influence-matrix measure of the fit's flexibility rather than a polynomial degree. The curve is piecewise cubic, but its fitted flexibility is $2.22$ effective degrees of freedom. The intercept is $-1.51$ ($z=-4.78$), so at the centre of $g$ the odds are $e^{-1.51}$. The smooth term has
+`s(Age)` selects the default thin plate regression spline basis. With the binomial family and its fixed scale, the default `gam` fit selects the smoothing parameter by UBRE.{{cite:r_mgcv_gam2026}} (§“Arguments”, `method`, and §“Details”) The plotted smooth is labelled with effective degrees of freedom $2.22$: a measure of the fitted flexibility rather than a polynomial degree. The intercept is $-1.51$ ($z=-4.78$), giving odds $e^{-1.51}$ at the centre of $g$. In R 4.5.0 with `mgcv` 1.9-3 and `rpart` 4.1.24, the smooth term has
 $$
-\mathrm{edf}=2.22,\qquad \chi^2=6.69,\qquad p=0.071.
+\mathrm{edf}=2.223,\qquad \chi^2=6.356,\qquad p=0.0762.
 $$
-The equivalent degrees of freedom and the intercept $-1.51$ are what the code prints. The chi-squared statistic moves with the version of `mgcv`: one printout was $6.69$ with $p=0.071$, and `mgcv` 1.8 reports about $6.36$ with $p=0.076$. Either reading is the same decision.
+The fitted intercept is $-1.509193$ with standard error $0.315970$ and $z=-4.776380$. The smooth has reference degrees of freedom $2.805577$. Its approximate test gives weak evidence against a flat age effect; the numerical result describes this specified fit and is sensitive to how the smooth and its penalty are estimated.
 
 ![Top: the centred age smooth on the log-odds scale, with the confidence band drawn by mgcv. The dashed line at zero is "age does nothing", and it just about stays inside the band. Bottom: the fitted probability. The dashed line is a logistic regression that is linear in age, and it cannot come back down.](../figures/kyphosis.pdf){#fig-kyphosis}
 
 In @fig-kyphosis a horizontal line at zero just about stays inside the band, and it just about fails to. We do not have a hard rule at $0.05$. We keep age. The fitted probability, the expit of $\beta_0+g$, rises and then falls. That graph is the answer to "how does kyphosis depend on age?". There is no unit-change sentence, and that is the price of not having specified the shape in advance.
 
-The substantive reading we would offer, cautiously, is a mixture of biology and of who is sent to surgery. Very young children are operated on because the problem is serious, and they also recover more readily. Older adolescents are often milder cases, chosen for correction once the skeleton is more settled. The ages in the middle are the ones whose surgery was delayed and whose bones were no longer infant bones. You cannot randomise the age at which an elective operation happens. The curve is a description of this sample, not a pure age effect.
+The age-only curve describes an association among the observed patients. It does not identify the consequence of assigning a child to surgery at a different age. A causal explanation would require evidence about treatment selection, patient characteristics, and the timing and severity of the condition; the plotted observations alone do not establish those mechanisms. The dataset also records the number of vertebrae involved and the topmost vertebra operated on, so a multivariable model can ask how the fitted age association changes at specified values of these surgical variables. Such adjustment changes the statistical comparison, while its causal interpretation still depends on the study design and on assumptions that are additional to an additive predictor.{{cite:hastie_tibshirani1986}} (§1, pp. 297–298, additive predictor specification)
 
 Number of vertebrae operated on, and where on the spine the operation started, are in the same data set. They are the next chapter. A smooth of age alone is the model this chapter stops on.
 

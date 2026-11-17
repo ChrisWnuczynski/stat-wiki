@@ -50,7 +50,7 @@ The same reduction is why a known-variance $z$ test was already the procedure on
 
 ## Neyman–Pearson lemma {#s-neyman-pearson-lemma}
 
-Among all tests of $H_0:\theta=\theta_0$ against $H_1:\theta=\theta_1$ with type I error at most $\alpha$, the likelihood-ratio test has the greatest power.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}}{{cite:casella_berger2002}}
+Among all tests of $H_0:\theta=\theta_0$ against $H_1:\theta=\theta_1$ with type I error at most $\alpha$, the likelihood-ratio test has the greatest power.{{cite:siegrist2022_lrt}} (§9.5, The Neyman–Pearson Lemma){{cite:boyd_vandenberghe2004}} (§7.3.5, pp. 370–372)
 
 Let $R$ be the likelihood-ratio region $\{x:L(\theta_1;x)>k\,L(\theta_0;x)\}$, with $k$ chosen so that $\int_R L(\theta_0;x)\,dx=\alpha$. Let $R^\star$ be any other region with the same size, $\int_{R^\star} L(\theta_0)=\alpha$. Write $\pi(R)=\int_R L(\theta_1)$ for the power. Split each region into the part it shares and the part it does not:
 
@@ -64,13 +64,13 @@ $$
 k\int_{R\cap(R^\star)^c}L(\theta_0)-k\int_{(R)^c\cap R^\star}L(\theta_0)=k\int_R L(\theta_0)-k\int_{R^\star}L(\theta_0)=k\alpha-k\alpha=0.
 $$
 
-Hence $\pi(R)\ge\pi(R^\star)$. A discrete distribution may not hit $\alpha$ exactly. The same argument applies to a randomised test that rejects with a fractional probability on the boundary point where the likelihood ratio equals $k$; without randomisation the most powerful test is the largest likelihood-ratio region whose size does not exceed $\alpha$. The binomial serve test on the hypothesis-testing page is that discrete case: at level $0.05$ the region $\{13,14,15\}$ has size $0.027$, and the next larger region already has size $0.091$.
+Hence $\pi(R)\ge\pi(R^\star)$. A discrete distribution may not hit $\alpha$ exactly. The same argument applies to a randomised test that rejects with a fractional probability on the boundary point where the likelihood ratio equals $k$; without randomisation a likelihood-ratio cutoff can be conservative; the lemma guarantees optimality when the cutoff attains the required size, and it does not in general solve the optimisation over nonrandomised regions of smaller size. The binomial serve test on the hypothesis-testing page is that discrete case: at level $0.05$ the region $\{13,14,15\}$ has size $0.027$, and the next larger region already has size $0.091$.
 
 The lemma compares two completely specified distributions. It does not by itself choose a test that is good for every alternative at once. That is the next definition.
 
 ## Uniformly most powerful test {#s-uniformly-most-powerful-test}
 
-Let the alternative be composite, $H_1:\theta\in\Omega_1$. A test is uniformly most powerful at level $\alpha$ if its size is at most $\alpha$ and, for every $\theta_1\in\Omega_1$, it is most powerful against the simple alternative $\theta=\theta_1$.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}}{{cite:casella_berger2002}}
+Let the alternative be composite, $H_1:\theta\in\Omega_1$. A test is uniformly most powerful at level $\alpha$ if its size is at most $\alpha$ and, for every $\theta_1\in\Omega_1$, it is most powerful against the simple alternative $\theta=\theta_1$.{{cite:siegrist2022_lrt}} (§9.5, The Neyman–Pearson Lemma){{cite:boyd_vandenberghe2004}} (§7.3.5, pp. 370–372)
 
 For a normal mean with known variance and $H_1:\mu>\mu_0$, pick any $\mu_1>\mu_0$. The Neyman–Pearson test of $\mu_0$ against that $\mu_1$ rejects for $\overline X>k$ with the same $k=\mu_0+z_{1-\alpha}\,\sigma/\sqrt n$, whatever $\mu_1$ was. The critical region does not depend on which alternative was used to build the ratio. It is therefore most powerful against every $\mu_1>\mu_0$, and the one-sided $z$ test is uniformly most powerful.
 
@@ -82,11 +82,11 @@ $$
 
 It increases with $(\mu_1-\mu_0)\sqrt n/\sigma$. A test can be uniformly most powerful and still have poor power if $n$ is small or $\sigma$ is large. Uniformity is a comparison with other tests of the same size, not a promise that the power is high.
 
-The one-sided Poisson test has the same structure. For $X_j$ independent Poisson$(\lambda)$ and $H_0:\lambda=\lambda_0$ against $H_1:\lambda>\lambda_0$, the likelihood ratio is large when $\sum X_j$ is large, for every $\lambda_1>\lambda_0$. The uniformly most powerful test rejects when $\sum X_j\ge d$, with $d$ the smallest integer whose null probability $\Pr\{\Poisson(n\lambda_0)\ge d\}$ does not exceed $\alpha$.
+The one-sided Poisson test has the same structure. For $X_j$ independent Poisson$(\lambda)$ and $H_0:\lambda=\lambda_0$ against $H_1:\lambda>\lambda_0$, the likelihood ratio is large when $\sum X_j$ is large, for every $\lambda_1>\lambda_0$. A level-$\alpha$ upper-tail rule rejects when $\sum X_j\ge d$, with $d$ the smallest integer whose null upper-tail probability does not exceed $\alpha$. To obtain the uniformly most powerful randomised test at exact size $\alpha$, reject additionally at $d-1$ with the probability that makes the total null rejection probability equal $\alpha$.
 
 A $t$ test of the same mean, which replaces the Poisson variance by the sample variance, is a different procedure. When the data are Poisson the likelihood-ratio test has the higher power. When they are not, the Poisson test can have a type I error far from $\alpha$, while the $t$ statistic still has an approximate $t$ null distribution under a finite variance. The lemma's optimality is inside the model used to write the likelihood. It does not survive an arbitrary change of that model. The large-sample comparison of the two procedures is on [Large-sample estimation](inf-10-large-sample-estimation.qmd#s-maximum-likelihood-under-the-wrong-model).
 
-A rule that is not a function of a statistic chosen before seeing the data is not in this competition at all. Rejecting when one particular patient's improvement exceeds a threshold picked after looking at who improved can have any type I error one wants to claim, because the region was fitted to the sample. The power calculation for the one-sided normal test starts from a region $R$ that does not depend on which sample was drawn.
+The comparison includes every measurable decision rule specified for the sampling experiment. A data-dependent choice of threshold or patient can also define a test, but its type I error must be calculated for that whole selection procedure. A cutoff calibrated for a single prespecified comparison does not automatically calibrate a procedure that selects the comparison after observing the data.
 
 ## Uniformly most powerful unbiased test {#s-uniformly-most-powerful-unbiased-test}
 

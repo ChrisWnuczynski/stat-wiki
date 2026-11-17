@@ -608,7 +608,7 @@ Region probabilities and model probabilities answer different questions. Suppose
 
 ## When the claim has smaller dimension
 
-Independence in a $2\times 3$ table is not a cut of one parameter space. A saturated multinomial has five free cell probabilities. Independence forces every cell probability to be a row margin times a column margin, a lower-dimensional surface in the simplex. A continuous prior on the full simplex, such as a [Dirichlet distribution](dirichlet-distribution.qmd), assigns probability zero to that surface, so integrating the saturated posterior cannot return a positive probability of independence. Each model needs its own parameter prior. The [marginal likelihood](marginal-likelihood-and-bayes-factor.qmd) is the sampling density averaged against that prior, and the [Bayes factor](marginal-likelihood-and-bayes-factor.qmd) is the ratio of the two marginal likelihoods. [Posterior odds](posterior-odds-factorisation.qmd) equal the Bayes factor times the prior odds of the models. Those prior odds are an extra modelling choice. They are not recovered by splitting a single posterior.
+Independence in a $2\times 3$ table is a lower-dimensional subset of the saturated parameter space. A saturated multinomial has five free cell probabilities. Independence forces every cell probability to be a row margin times a column margin, a lower-dimensional surface in the simplex. A continuous prior on the full simplex, such as a [Dirichlet distribution](dirichlet-distribution.qmd), assigns probability zero to that surface, so integrating the saturated posterior cannot return a positive probability of independence. Each model needs its own parameter prior. The [marginal likelihood](marginal-likelihood-and-bayes-factor.qmd) is the sampling density averaged against that prior, and the [Bayes factor](marginal-likelihood-and-bayes-factor.qmd) is the ratio of the two marginal likelihoods. [Posterior odds](posterior-odds-factorisation.qmd) equal the Bayes factor times the prior odds of the models. Those prior odds are an extra modelling choice. They are not recovered by splitting a single posterior.
 """,
     "a-single-threshold-unit-cannot-compute-xor": r"""
 ## Four corners and one straight cut
@@ -715,13 +715,13 @@ For the one-nearest-neighbour rule with a metric and no distance ties, the neare
     "arch-and-garch-models": r"""
 ## Volatility that clusters
 
-Large financial returns tend to arrive in bursts. A calm stretch is followed by more calm, and a violent day is followed by another, even when the average return is close to zero. Autoregressive conditional heteroscedasticity, introduced by Engle (1982), puts a model on that changing scale rather than on the mean. Write the return as $r_t=\sigma_t\varepsilon_t$, where the innovation $\varepsilon_t$ has mean $0$ and variance $1$, is uncorrelated over time, and given the past has conditional mean $0$ and conditional variance $1$, and where $\sigma_t^2=\operatorname{Var}(r_t\mid r_{t-1},r_{t-2},\ldots)$ is the variance conditional on the past. An ARCH(1) model uses only yesterday's squared return,
+Large financial returns tend to arrive in bursts. A calm stretch is followed by more calm, and a violent day is followed by another, even when the average return is close to zero. Autoregressive conditional heteroscedasticity, introduced by Engle in 1982, puts a model on that changing scale rather than on the mean.{{cite:engle2001_garch101}} (§ “ARCH/GARCH Models”) Write the return as $r_t=\sigma_t\varepsilon_t$, where the innovation $\varepsilon_t$ has mean $0$ and variance $1$, is uncorrelated over time, and given the past has conditional mean $0$ and conditional variance $1$, and where $\sigma_t^2=\operatorname{Var}(r_t\mid r_{t-1},r_{t-2},\ldots)$ is the variance conditional on the past. An ARCH(1) model uses only yesterday's squared return,
 
 $$
 \sigma_t^2=\alpha_0+\alpha_1 r_{t-1}^2,
 $$
 
-with $\alpha_0>0$ and $\alpha_1\ge 0$. The generalised form of Bollerslev (1986) lets yesterday's conditional variance persist as well, $\sigma_t^2=\alpha_0+\alpha_1 r_{t-1}^2+\beta_1\sigma_{t-1}^2$, with $\beta_1\ge 0$. If $\alpha_1+\beta_1<1$, the unconditional variance is the finite value $\alpha_0/(1-\alpha_1-\beta_1)$. If that sum is $1$ or larger, the unconditional variance is not finite.
+with $\alpha_0>0$ and $\alpha_1\ge 0$. The GARCH recursion lets yesterday's conditional variance persist as well, $\sigma_t^2=\alpha_0+\alpha_1 r_{t-1}^2+\beta_1\sigma_{t-1}^2$, with $\beta_1\ge 0$. For a weakly stationary solution with a finite second moment, $\alpha_1+\beta_1<1$ and the unconditional variance is $\alpha_0/(1-\alpha_1-\beta_1)$. When the sum is at least one there is no positive finite stationary variance satisfying this recursion.{{cite:bollerslev1986}} (§2, Thm. 1, p. 310)
 
 ## One shock, then a slow decay
 
@@ -789,16 +789,16 @@ Take a single pattern with target $y=1$, output $o=0.6$ and a hidden signal $h=1
     "basic-gradient-descent-learning": r"""
 ## Walking downhill on the training error
 
-Training here means choosing weights to make the training sum of squares $E$ small. Squared error is differentiable, so a step can follow $-\partial E/\partial w$. Draw each initial weight independently from the uniform distribution on $[-1/2,1/2]$, a scale small enough that logistic units start near the steep part of their curve rather than already saturated. Then pass every training pattern through the current network, recompute $E$, and replace each weight by $w-\varepsilon\,\partial E/\partial w$, where the learning rate $\varepsilon>0$ is the step length. The product $\varepsilon\,\partial E/\partial w$ is the whole proposed change: a large partial derivative and a large $\varepsilon$ are interchangeable ways to take a long step. Stop when $E$ is acceptable for the task, or when successive weights barely move.
+Training here means choosing weights to make the training sum of squares $E$ small. Squared error is differentiable, so a step can follow $-\partial E/\partial w$. Draw each initial weight independently from the uniform distribution on $[-1/2,1/2]$, a symmetry-breaking initialisation whose weighted-input scale also depends on the predictors and the number of inputs. Then pass every training pattern through the current network, recompute $E$, and replace each weight by $w-\varepsilon\,\partial E/\partial w$, where the learning rate $\varepsilon>0$ is the step length. The product $\varepsilon\,\partial E/\partial w$ is the whole proposed change: a large partial derivative and a large $\varepsilon$ are interchangeable ways to take a long step. Stop when $E$ is acceptable for the task, or when successive weights barely move.
 
 ## A local slope is not a global map
 
-Suppose one coordinate currently has $\partial E/\partial w=-4$. With $\varepsilon=0.1$ the update adds $0.4$ to that weight, a short step in the downhill direction. With $\varepsilon=2$ the same derivative proposes a jump of $8$, which can leave the region in which the derivative was about $-4$. On a multilayer network $E$ is nonconvex. Hidden units can be permuted, and a sign flip in one layer can be absorbed by the next, so many different weight vectors represent the same function. Gradient descent follows the basin of its initial draw. Repeating the random start and keeping the smallest training $E$ only compares those basins.
+Suppose one coordinate currently has $\partial E/\partial w=-4$. With $\varepsilon=0.1$ the update adds $0.4$ to that weight, a short step in the downhill direction. With $\varepsilon=2$ the same derivative proposes a jump of $8$, which can leave the region in which the derivative was about $-4$. On a multilayer network $E$ is nonconvex. Hidden units can be permuted together with their outgoing connections. For a sigmoid unit, negating its incoming weights replaces $h$ by $1-h$; negating its outgoing weight $w$ and adding $w$ to the next-layer bias preserves $wh+b$, since $-w(1-h)+(b+w)=wh+b$. Thus different weight vectors can represent the same function. Gradient descent follows the basin of its initial draw. Repeating the random start and keeping the smallest training $E$ only compares those basins.
 """,
     "basu-s-theorem": r"""
 ## Conditional expectation that completeness flattens
 
-Independence of a sufficient statistic and an ancillary statistic is often wanted and rarely convenient to check from the joint density, because both are functions of one sample. Let $T$ be a [complete](complete-statistic.qmd) [sufficient statistic](sufficient-statistic.qmd) for $\theta$, and let $A$ be [ancillary](ancillary-statistic.qmd). For a bounded function $g$, ancillarity makes $c = \mathbb{E}[g(A)]$ a constant. Sufficiency makes the conditional law of the sample given $T$, and therefore $h(t) = \mathbb{E}[g(A) \mid T = t]$, free of $\theta$. Then $\mathbb{E}_{\theta}[h(T) - c] = 0$ for every $\theta$. Completeness forces $h(T) = c$ almost surely, so $\mathbb{E}[g(A) \mid T] = \mathbb{E}[g(A)]$. A random element whose conditional expectation given $T$ ignores $T$, for every bounded $g$, is independent of $T$. This is Basu's theorem (Basu, 1955).
+Independence of a sufficient statistic and an ancillary statistic is often wanted and rarely convenient to check from the joint density, because both are functions of one sample. Let $T$ be a [complete](complete-statistic.qmd) [sufficient statistic](sufficient-statistic.qmd) for $\theta$, and let $A$ be [ancillary](ancillary-statistic.qmd). For a bounded function $g$, ancillarity makes $c = \mathbb{E}[g(A)]$ a constant. Sufficiency makes the conditional law of the sample given $T$, and therefore $h(t) = \mathbb{E}[g(A) \mid T = t]$, free of $\theta$. Then $\mathbb{E}_{\theta}[h(T) - c] = 0$ for every $\theta$. Completeness forces $h(T) = c$ almost surely, so $\mathbb{E}[g(A) \mid T] = \mathbb{E}[g(A)]$. A random element whose conditional expectation given $T$ ignores $T$, for every bounded $g$, is independent of $T$. This is Basu's theorem.{{cite:dasgupta2007_basu}} (§1, pp. 945–946)
 
 ## A location family where the hypothesis fails
 
@@ -939,7 +939,7 @@ Take $K=2$. At $\rho=1/2$ the unnormalised weights are $1$, $1/2$, $1/4$, which 
     "bootstrap-error-and-the-correction": r"""
 ## Leaving each case out of some of the refits
 
-The apparent error scores a classifier on the cases that trained it and tends to be optimistic. A bootstrap replicate draws $n$ training cases with replacement. About $1-(1-1/n)^n$ of the original cases appear at least once, and that probability tends to $1-e^{-1}\approx 0.632$ (Efron, 1983). The complementary chance of being omitted tends to $0.368$. Let $C_{-i}$ be the replicates that omit case $i$, and let $\eta_b$ be the classifier trained on replicate $b$. The bootstrap error $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ averages the zero–one mismatch $Q$ of $y_i$ against $\eta_b(x_i)$ only over $b\in C_{-i}$, then averages those casewise rates over $i$. Each test case is scored by rules that did not train on it. Because those rules saw only about $0.632n$ distinct cases, they are weaker than the rule trained on all $n$ distinct cases, and the bootstrap error tends to sit above the error of the fully trained rule.
+The apparent error scores a classifier on the cases that trained it and tends to be optimistic. A bootstrap replicate draws $n$ training cases with replacement. About $1-(1-1/n)^n$ of the original cases appear at least once, and that probability tends to $1-e^{-1}\approx 0.632$ {{cite:efron1983}} (§6, pp. 321–322). The complementary chance of being omitted tends to $0.368$. Let $C_{-i}$ be the replicates that omit case $i$, and let $\eta_b$ be the classifier trained on replicate $b$. The bootstrap error $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ averages the zero–one mismatch $Q$ of $y_i$ against $\eta_b(x_i)$ only over $b\in C_{-i}$, then averages those casewise rates over $i$. Each test case is scored by rules that did not train on it. Those resamples contain fewer distinct cases, and their prediction error often reflects that smaller effective training size. An upward tendency is not a deterministic ordering for every learning rule or every sample.{{cite:efron_tibshirani1997_632plus}} (§2, p. 551)
 
 ## Pulling the two biases together
 
@@ -973,7 +973,7 @@ Suppose the $A_n$ are independent with $\mathbb{P}(A_n)=1/n^2$. The series conve
     "box-muller-method": r"""
 ## Radius and angle
 
-The standard normal distribution function has no elementary inverse, so the usual [inverse-transform method](inverse-transform-method.qmd) is unavailable. A pair of independent standard normals does have a simple description in polar coordinates. If $Z_1$ and $Z_2$ are independent and $\operatorname{N}(0,1)$, the squared radius $R^2=Z_1^2+Z_2^2$ has the chi-squared distribution on $2$ degrees of freedom, which is exponential with mean $2$, and the angle is independent of $R$ and uniform on $(0,2\pi)$. Inverting those two laws produces the Box–Muller map (Box and Muller, 1958).
+The standard normal distribution function has no elementary inverse, so the usual [inverse-transform method](inverse-transform-method.qmd) is unavailable. A pair of independent standard normals does have a simple description in polar coordinates. If $Z_1$ and $Z_2$ are independent and $\operatorname{N}(0,1)$, the squared radius $R^2=Z_1^2+Z_2^2$ has the chi-squared distribution on $2$ degrees of freedom, which is exponential with mean $2$, and the angle is independent of $R$ and uniform on $(0,2\pi)$. Inverting those two laws produces the Box–Muller map.{{cite:grinstead_snell1997}} (§5.2, p. 213, polar normal transformation)
 
 Draw $U$ and $V$ independent and uniform on $(0,1)$. Set $R=\sqrt{-2\log U}$ and $\Theta=2\pi V$, and return
 
@@ -985,7 +985,7 @@ Then $Z_1$ and $Z_2$ are independent and $\operatorname{N}(0,1)$. A general norm
 
 ## One numerical pair, and a trap at zero
 
-Take $U=1/2$ and $V=1/4$. Then $R=\sqrt{2\log 2}\approx 1.177$ and $\Theta=\pi/2$, so $Z_1=0$ and $Z_2\approx 1.177$. The map needs $U\in(0,1]$. A [linear congruential generator](linear-congruential-generator.qmd) can return the state $0$, and $\log 0$ is undefined. That output has to be rejected or shifted before it is used. The exact normal law also assumes genuinely continuous independent uniforms. A coarse generator leaves $(Z_1,Z_2)$ on a lattice inherited from the uniforms.
+Take $U=1/2$ and $V=1/4$. Then $R=\sqrt{2\log 2}\approx 1.177$ and $\Theta=\pi/2$, so $Z_1=0$ and $Z_2\approx 1.177$. The map needs $U\in(0,1]$. A [linear congruential generator](linear-congruential-generator.qmd) can return the state $0$, and $\log 0$ is undefined. That output has to be rejected or shifted before it is used. The exact normal law also assumes genuinely continuous independent uniforms. A discretised uniform generator produces normal pairs only at the transformed grid points of its possible uniform outputs.
 """,
     "brier-score": r"""
 ## A score for the probabilities, not only the labels
@@ -996,7 +996,7 @@ $$
 \frac1n\sum_{i=1}^n(\hat p_i-y_i)^2.
 $$
 
-It is a proper scoring rule (Brier, 1950). If $Y$ is truly Bernoulli($p$) and the forecast is a constant $\hat p$, then $\mathbb{E}(\hat p-Y)^2=p(1-p)+(p-\hat p)^2$. The first term does not depend on the forecast. The second term is zero only at $\hat p=p$, so the expected score is minimised by reporting the true probability. A rule that is right just over half the time, but systematically overconfident, can lose to a calibrated rule with a similar error rate.
+It is a proper scoring rule {{cite:gneiting_raftery2007_scoring}} (§3, Ex. 1, p. 363). If $Y$ is truly Bernoulli($p$) and the forecast is a constant $\hat p$, then $\mathbb{E}(\hat p-Y)^2=p(1-p)+(p-\hat p)^2$. The first term does not depend on the forecast. The second term is zero only at $\hat p=p$, so the expected score is minimised by reporting the true probability. A rule that is right just over half the time, but systematically overconfident, can lose to a calibrated rule with a similar error rate.
 
 ## Three forecasts and a constant baseline
 
@@ -1164,7 +1164,7 @@ Let $\Omega=\{1,2,\ldots\}$ and put mass $\mathbb{P}(\{n\})=2^{-n}$. The masses 
     "cover-hart-bound": r"""
 ## One neighbour samples the conditional label
 
-For two classes, let $\tau(x)=\mathbb{P}(Y=1\mid X=x)$ and let $r(x)=\min\bigl(\tau(x),1-\tau(x)\bigr)$ be the conditional [Bayes risk](bayes-classifier.qmd) at $x$. The unconditional Bayes risk is $R^*=\mathbb{E}[r(X)]$. As the training sample grows, the nearest neighbour of a continuity point $x$ approaches $x$, so its label is almost a fresh draw from the same conditional distribution that produces a new label at $x$. The two labels disagree with probability $2\tau(1-\tau)$. The identity $\tau(1-\tau)=r(1-r)$ rewrites that probability as $2r(x)\bigl(1-r(x)\bigr)$. Averaging over $X$ gives the asymptotic one-nearest-neighbour error. Because $1-r(x)\le 1$, this error is at most $2R^*$. [Jensen's inequality](jensen-s-inequality.qmd), using the concavity of $u\mapsto u(1-u)$ on $[0,1]$, sharpens the constant: $\mathbb{E}[r(1-r)]\le R^*(1-R^*)$, and therefore the asymptotic error is at most $2R^*(1-R^*)$ {{cite:cover_hart1967}} (pp. 22–23).
+For two classes, let $\tau(x)=\mathbb{P}(Y=1\mid X=x)$ and let $r(x)=\min\bigl(\tau(x),1-\tau(x)\bigr)$ be the conditional [Bayes risk](bayes-classifier.qmd) at $x$. The unconditional Bayes risk is $R^*=\mathbb{E}[r(X)]$. As the training sample grows, the nearest neighbour of a continuity point $x$ approaches $x$, so its label is almost a fresh draw from the same conditional distribution that produces a new label at $x$. The two labels disagree with probability $2\tau(1-\tau)$. The identity $\tau(1-\tau)=r(1-r)$ rewrites that probability as $2r(x)\bigl(1-r(x)\bigr)$. Averaging over $X$ gives the asymptotic one-nearest-neighbour error. Because $1-r(x)\le 1$, this error is at most $2R^*$. [Jensen's inequality](jensen-s-inequality.qmd), using the concavity of $u\mapsto u(1-u)$ on $[0,1]$, sharpens the constant: $\mathbb{E}[r(1-r)]\le R^*(1-R^*)$, and therefore the asymptotic error is at most $2R^*(1-R^*)$ {{cite:cover_hart1967}} (§VI, pp. 24–25).
 
 ## Equality when the conditional risk is constant
 
@@ -1351,7 +1351,7 @@ Take responsibilities $0.9$, $0.2$ and $0.5$ for component $1$ on the points $0$
     "em-for-a-normal-mixture": r"""
 ## Alternating soft counts with weighted normal fits
 
-A normal mixture has weights $\pi_h$, means $\mu_h$ and covariances $\Sigma_h$, collected in $\Psi$. The observed log-likelihood $\ell(\Psi;X_{\mathrm{all}})$ contains a logarithm of a sum over components, so a direct score equation couples every parameter. EM replaces that problem by two closed updates {{cite:ng_cs229_em2006}} (§2, E and M steps). The [E step](e-step.qmd) computes memberships $\tau_{ih}=\tau_h(x_i;\Psi^{(k)})$. The [M step](m-step.qmd) then maximises the expected complete log-likelihood with those memberships frozen. Writing $N_h=\sum_i\tau_{ih}$, the updates are $\pi_h=N_h/n$, the weighted mean $\mu_h=\sum_i\tau_{ih}x_i/N_h$, and the weighted covariance that divides $\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$ by $N_h$ rather than by $N_h-1$. An exact step cannot decrease $\ell$. The iteration stops when the rise in $\ell$ falls below a tolerance. A stationary point of a mixture likelihood need not be the global maximum.
+A normal mixture has weights $\pi_h$, means $\mu_h$ and covariances $\Sigma_h$, collected in $\Psi$. The observed log-likelihood $\ell(\Psi;X_{\mathrm{all}})$ contains a logarithm of a sum over components, so a direct score equation couples every parameter. EM replaces that problem by two closed updates {{cite:dempster_laird_rubin1977}} (§2, p.6, Eq.2.17; §3, pp.6–8). The [E step](e-step.qmd) computes memberships $\tau_{ih}=\tau_h(x_i;\Psi^{(k)})$. The [M step](m-step.qmd) then maximises the expected complete log-likelihood with those memberships frozen. Writing $N_h=\sum_i\tau_{ih}$, the updates are $\pi_h=N_h/n$, the weighted mean $\mu_h=\sum_i\tau_{ih}x_i/N_h$, and the weighted covariance that divides $\sum_i\tau_{ih}(x_i-\mu_h)(x_i-\mu_h)^\top$ by $N_h$ rather than by $N_h-1$. An exact step cannot decrease $\ell$. The iteration stops when the rise in $\ell$ falls below a tolerance. A stationary point of a mixture likelihood need not be the global maximum.
 
 ## One update from a poor start
 
@@ -1369,11 +1369,11 @@ A linear model separates the random mechanism from the numbers a fit produces. W
     "exchangeable-correlation": r"""
 ## One correlation for every pair in the cluster
 
-Repeated visits on one child, or successive counts from one factory, are not independent. The simplest working correlation gives every pair inside the cluster the same value $\rho$. For a cluster of size $K$ the matrix is $R(\rho)=(1-\rho)I_K+\rho\mathbf{1}\mathbf{1}^\top$, where $I_K$ is the identity and $\mathbf{1}$ is a column of ones. The diagonal is $1$ and every off-diagonal entry is $\rho$. This is the exchangeable [working correlation](working-correlation.qmd) in generalised estimating equations (Liang and Zeger, 1986). It is a working matrix. The estimating equations for the mean can remain consistent when $R$ is wrong, provided the mean is right and the clusters are independent, with a sandwich variance carrying the misspecification.
+Repeated visits on one child, or successive counts from one factory, are not independent. The simplest working correlation gives every pair inside the cluster the same value $\rho$. For a cluster of size $K\ge2$ the matrix is $R(\rho)=(1-\rho)I_K+\rho\mathbf{1}\mathbf{1}^\top$, where $I_K$ is the identity and $\mathbf{1}$ is a column of ones. The diagonal is $1$ and every off-diagonal entry is $\rho$. This is the exchangeable [working correlation](working-correlation.qmd) in generalised estimating equations {{cite:liang_zeger1986}} (§3.1, pp.15–16; §4, p.18, Ex.3). It is a working matrix. The estimating equations for the mean can remain consistent when $R$ is wrong, under a correct mean model, many independent clusters, regularity, suitable nuisance estimation and missingness assumptions; a cluster sandwich covariance estimates the resulting coefficient uncertainty.
 
 ## A value four visits cannot have
 
-The eigenvalues are $1-\rho$, repeated $K-1$ times, and $1+(K-1)\rho$ once. Both are non-negative only for $-1/(K-1)\le\rho\le 1$. For four visits the lower bound is $-1/3$. A proposed value $\rho=-1/2$ has eigenvalues $1-(-1/2)=1.5$ and $1+3(-1/2)=-0.5$. The negative eigenvalue means that no random vector has this correlation matrix: four measurements cannot all correlate at $-1/2$. At $\rho=-1/3$ the matrix is singular, and at $\rho=1$ it is singular again because the four visits are identical. Ages $8$, $10$, $12$ and $14$ show a scientific limit as well. Adjacent ages are usually more alike than ages six years apart, so one common $\rho$ is a convenient working value, not a claim that every pair decays in the same way.
+The eigenvalues are $1-\rho$, repeated $K-1$ times, and $1+(K-1)\rho$ once. Both are non-negative only for $-1/(K-1)\le\rho\le 1$. For four visits the lower bound is $-1/3$. A proposed value $\rho=-1/2$ has eigenvalues $1-(-1/2)=1.5$ and $1+3(-1/2)=-0.5$. The negative eigenvalue means that no random vector has this correlation matrix: four measurements cannot all correlate at $-1/2$. At $\rho=-1/3$ the matrix is singular, and at $\rho=1$ it is singular again because the four standardised measurements are identical almost surely. Ages $8$, $10$, $12$ and $14$ show a scientific limit as well. Adjacent ages are usually more alike than ages six years apart, so one common $\rho$ is a convenient working value, a model that assigns the same correlation regardless of lag.
 """,
     "exploratory-data-analysis": r"""
 ## What the table is, before a model is chosen
@@ -1387,7 +1387,7 @@ Suppose a file has one row per clinic visit, four visits for some patients and o
     "exponential-tails-and-the-gumbel-law": r"""
 ## Centring a light tail on the logarithm
 
-When independent copies have an unbounded but light upper tail, the sample maximum drifts to infinity slowly, like a logarithm of the sample size. The Gumbel law is the limit that appears once that logarithmic drift is subtracted and the residual is left on the natural scale of the tail.
+For independent exponential observations, the sample maximum has a location that grows logarithmically with sample size. Subtracting that location and using the exponential scale gives a Gumbel limit. Other distributions can have a Gumbel limit with different centring and scaling.{{cite:durrett2019}} (§3.2, Exs. 3.2.2–3.2.3, pp. 123–124)
 
 Let $X_1,\ldots,X_n$ be independent exponential random variables of rate $\lambda>0$, so $\mathbb{P}(X_i>x)=e^{-\lambda x}$ for $x>0$, and let $M_n=\max_i X_i$. Set $b_n=(\log n)/\lambda$ and $a_n=1/\lambda$. Whenever $x>-\log n$, the level $b_n+a_n x$ is positive and
 
@@ -1452,7 +1452,7 @@ Under $H_0:\sigma_1^2=\sigma_2^2$ the ratio $F=s_1^2/s_2^2$ has the $F$ distribu
 
 Suppose the samples have sizes $15$ and $10$ and sample standard deviations $15$ and $12$. Then $F=225/144=1.5625$ on $(14,9)$ degrees of freedom. The level-$0.05$ critical region is $[0,0.312]\cup[3.80,\infty)$, using $F_{14,9;\,0.975}=3.80$ and $F_{9,14;\,0.975}=3.21$, whose reciprocal is $0.312$. The observed ratio lies outside that region, so the data do not contradict a common variance at the $5\%$ level.
 
-The null distribution is sensitive to non-normality (Box, 1953). Heavy tails make $s_j^2$ more variable than chi-squared theory allows, and a nominal $5\%$ test then rejects equal variances too often. A [two-sample $t$ test](two-sample-t-test.qmd) for the means is much less sensitive to the same tails. Using the $F$ test as a gate that decides whether a pooled $t$ test is permitted distorts the later error rate, because the gate is the fragile half of the procedure. Unequal variances are handled directly as a [Behrens–Fisher problem](behrens-fisher-problem.qmd), rather than by a preliminary screen.
+The exact reference distribution requires normal populations. Outside that model, the sample variances need not have independent scaled chi-square distributions, and the nominal F calibration need not apply. {{cite:siegrist2022_normals}} (§6.8, “Ratios of Sample Variances”) A confidence interval containing one expresses compatibility with equal variances; it does not establish equality. Unequal variances can instead be modelled directly in the [Behrens–Fisher problem](behrens-fisher-problem.qmd).
 """,
     "factor-analysis": r"""
 ## Shared factors plus a diagonal of unique noise
@@ -1507,7 +1507,7 @@ The mixture $0.3\,\varphi(x;0,1)+0.7\,\varphi(x;4,1)$, with $\varphi(\,\cdot\,;\
     "fisher-s-direction": r"""
 ## Separation of the means relative to pooled scatter
 
-For two labelled samples, let $\widehat\mu_1$ and $\widehat\mu_2$ be the class means, set $d=\widehat\mu_1-\widehat\mu_2$, and let $S$ be a pooled within-class covariance, assumed positive definite. A direction $a\neq 0$ projects the two means to the scalars $a^\top\widehat\mu_1$ and $a^\top\widehat\mu_2$. The two projected class means sit equally far from their midpoint, so the sum of their squared deviations is half the squared gap. Dividing that by the pooled variance $a^\top S a$ is how Fisher measures separation (Fisher, 1936). Rescaling $a$ multiplies the numerator and the denominator by the same positive factor, so only the direction matters. The ratio in the form $\bigl(a^\top d\bigr)^2\big/\bigl(2\,a^\top S a\bigr)$ is maximised at $a\propto S^{-1}d$, and the maximal value is $d^\top S^{-1}d\big/2$. The proof is Cauchy–Schwarz applied to $(S^{1/2}a)^\top(S^{-1/2}d)$: equality holds when $S^{1/2}a$ is parallel to $S^{-1/2}d$. If $d=0$ the numerator is identically zero and every direction is equally uninformative.
+For two labelled samples, let $\widehat\mu_1$ and $\widehat\mu_2$ be the class means, set $d=\widehat\mu_1-\widehat\mu_2$, and let $S$ be a pooled within-class covariance, assumed positive definite. A direction $a\neq 0$ projects the two means to the scalars $a^\top\widehat\mu_1$ and $a^\top\widehat\mu_2$. The two projected class means sit equally far from their midpoint, so the sum of their squared deviations is half the squared gap. Dividing that by the pooled variance $a^\top S a$ is how Fisher measures separation {{cite:witten_tibshirani2011_fisher}} (§2.1). Rescaling $a$ multiplies the numerator and the denominator by the same positive factor, so only the direction matters. The ratio in the form $\bigl(a^\top d\bigr)^2\big/\bigl(2\,a^\top S a\bigr)$ is maximised at $a\propto S^{-1}d$, and the maximal value is $d^\top S^{-1}d\big/2$. The proof is Cauchy–Schwarz applied to $(S^{1/2}a)^\top(S^{-1/2}d)$: equality holds when $S^{1/2}a$ is parallel to $S^{-1/2}d$. If $d=0$ the numerator is identically zero and every direction is equally uninformative.
 
 ## A diagonal calculation
 
@@ -1554,7 +1554,7 @@ $K$-fold cross-validation splits the $n$ labelled cases into $K$ folds. For each
 
 ## Why the divisor is $n$ rather than a mean of fold rates
 
-Suppose two folds have sizes $10$ and $30$, with $2$ and $3$ mistakes. The pooled estimator is $(2+3)/40=0.125$. The unweighted mean of the fold rates is $(0.20+0.10)/2=0.15$, which gives the small fold the same vote as the large one. The $1/n$ formula avoids that distortion. The estimator targets the error of a rule trained on about $n(1-1/K)$ cases. That target is close to the error of the full-sample rule when $K$ is large, and it is a more pessimistic target when $K$ is small. Choosing a tuning constant on these same scores reuses the test folds. Nesting a fresh split inside each training block estimates the whole selection procedure.
+Suppose two folds have sizes $10$ and $30$, with $2$ and $3$ mistakes. The pooled estimator is $(2+3)/40=0.125$. The unweighted mean of the fold rates is $(0.20+0.10)/2=0.15$, which gives the small fold the same vote as the large one. The $1/n$ formula avoids that distortion. The estimator targets the error of a rule trained on about $n(1-1/K)$ cases. Changing $K$ changes the training-size target; proximity to the full-sample rule and the direction of any bias depend on the learning procedure and data-generating distribution. {{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093) Choosing a tuning constant on these same scores reuses the test folds. Nesting a fresh split inside each training block estimates the whole selection procedure.
 """,
     "fubini-s-theorem": r"""
 ## Expectation as an integral of tails
@@ -1645,7 +1645,7 @@ In a mixture, the observed log-likelihood and the expected complete log-likeliho
     "graphical-lasso": r"""
 ## A Gaussian likelihood with an $L^1$ charge on the precision
 
-The graphical lasso estimates a positive definite precision matrix $K$ when the edge set is unknown (Friedman, Hastie and Tibshirani, 2008). Let $S$ be the sample covariance of $p$ variables. The objective maximises $\log|K|-\operatorname{tr}(SK)-\lambda\lVert K\rVert_1$, where $\lVert K\rVert_1$ sums the absolute values of all entries and $\lambda\ge 0$ is the penalty. The corners of the $L^1$ penalty allow exact zeros, and a zero off-diagonal entry is a missing edge. In the block algorithm, $W$ is a working estimate of the covariance, started at $W=S+\lambda I$ so that the start is positive definite even when $S$ is singular. For column $j$, the block $A$ is the remaining indices, $\beta$ is a vector of regression coefficients of variable $j$ on the others, and $z$ is a subgradient of the absolute value: $z_k=\operatorname{sign}(\beta_k)$ when $\beta_k\neq 0$, and $z_k\in[-1,1]$ when $\beta_k=0$. The update $w_{AB}=W_{AA}\widehat\beta$ refreshes that column of $W$. At convergence the precision column satisfies $\widehat\theta_{AB}=-\widehat\beta\,\widehat\theta_{BB}$, the usual block-inverse relation between regression coefficients and concentration, with $1/\widehat\theta_{BB}$ equal to the residual variance $w_{BB}-w_{AB}^\top\widehat\beta$.
+The graphical lasso estimates a positive definite precision matrix $K$ when the edge set is unknown {{cite:friedman_glasso2008}} (§2, covariance updates and block inversion). Let $S$ be the sample covariance of $p$ variables. The objective maximises $\log|K|-\operatorname{tr}(SK)-\lambda\lVert K\rVert_1$, where $\lVert K\rVert_1$ sums the absolute values of all entries and $\lambda\ge 0$ is the penalty. The corners of the $L^1$ penalty allow exact zeros, and a zero off-diagonal entry is a missing edge. In the block algorithm, $W$ is a working estimate of the covariance, started at $W=S+\lambda I$. For $\lambda>0$ this start is positive definite even when $S$ is singular; at $\lambda=0$ it requires positive definite $S$. For column $j$, the block $A$ is the remaining indices, $\beta$ is a vector of regression coefficients of variable $j$ on the others, and $z$ is a subgradient of the absolute value: $z_k=\operatorname{sign}(\beta_k)$ when $\beta_k\neq 0$, and $z_k\in[-1,1]$ when $\beta_k=0$. The update $w_{AB}=W_{AA}\widehat\beta$ refreshes that column of $W$. At convergence the precision column satisfies $\widehat\theta_{AB}=-\widehat\beta\,\widehat\theta_{BB}$, the usual block-inverse relation between regression coefficients and concentration, with $1/\widehat\theta_{BB}$ equal to the residual variance $w_{BB}-w_{AB}^\top\widehat\beta$.
 
 ## A diagonal sample covariance is already a fixed point
 
@@ -1813,7 +1813,7 @@ $$
 \mathbb{P}(T_3>1)=\mathbb{P}(N(1)\le 2)=e^{-4}\bigl(1+4+8\bigr)=13e^{-4}\approx 0.238.
 $$
 
-For a non-homogeneous process the gaps are neither independent nor exponential. The first gap alone has survival $\mathbb{P}(T_1>t)=e^{-\Lambda(t)}$, which reduces to $e^{-\lambda t}$ only when the [intensity](intensity-function.qmd) is constant.
+For a non-homogeneous Poisson process the successive gaps generally are not independent identically distributed exponential variables. The first gap alone has survival $\mathbb{P}(T_1>t)=e^{-\Lambda(t)}$, which reduces to $e^{-\lambda t}$ only when the [intensity](intensity-function.qmd) is constant.
 """,
     "interval-for-a-ratio-of-variances": r"""
 ## From an $F$ pivot to an interval
@@ -1869,11 +1869,11 @@ Nothing in the observations keeps $\mathbf{x}^\top\boldsymbol{\beta}$ positive. 
     "ising-model": r"""
 ## Neighbouring spins that prefer to agree
 
-A binary lattice makes the normalising constant the whole difficulty. Put a spin $x_i \in \{-1,+1\}$ at each of $m$ sites, and write $i \sim j$ when $i$ and $j$ are neighbours. With coupling $\beta \in \mathbb{R}$, the Ising model (Ising, 1925) gives a configuration $\boldsymbol{x} = (x_1,\ldots,x_m)$ the unnormalised weight $\exp(\beta \sum_{i \sim j} x_i x_j)$. Each product $x_i x_j$ equals $+1$ when the neighbours agree and $-1$ when they differ. If $\beta > 0$ the weight favours local alignment; if $\beta < 0$ it favours alternation. The probability is the weight divided by the partition function $Z$, the sum of the weights over all $2^m$ configurations. For a $20 \times 20$ lattice, $m = 400$ and that sum cannot be evaluated term by term. Marginal probabilities and $Z$ itself have no useful closed form.
+A binary lattice makes the normalising constant the whole difficulty. Put a spin $x_i \in \{-1,+1\}$ at each of $m$ sites, and write $i \sim j$ when $i$ and $j$ are neighbours. With coupling $\beta \in \mathbb{R}$, the Ising model {{cite:goodfellow_bengio_courville2016}} (§16.2.4, pp. 566–567) gives a configuration $\boldsymbol{x} = (x_1,\ldots,x_m)$ the unnormalised weight $\exp(\beta \sum_{i \sim j} x_i x_j)$. Each product $x_i x_j$ equals $+1$ when the neighbours agree and $-1$ when they differ. If $\beta > 0$ the weight favours local alignment; if $\beta < 0$ it favours alternation. The probability is the weight divided by the partition function $Z$, the sum of the weights over all $2^m$ configurations. For a $20 \times 20$ lattice, $m = 400$ and that sum cannot be evaluated term by term. Exact expressions are available for some special graphs; general large graphs often require numerical methods for marginal probabilities and $Z$.
 
 ## Ratios that never build $Z$
 
-A Metropolis update needs only ratios of probabilities. In a ratio of two configurations, $Z$ cancels, and flipping one spin changes the sum only on the edges that touch that site. The acceptance ratio is therefore a short function of the neighbouring spins. The original [Metropolis algorithm](metropolis-algorithm.qmd) was built for targets of this kind, using a symmetric proposal so that the proposal densities cancel as well (Metropolis et al., 1953). Hastings' later correction multiplies by the proposal ratio when the proposal is not symmetric. The lattice model is the statistical point in physical language: an intractable normaliser does not prevent simulation when the [Metropolis–Hastings](metropolis-hastings-algorithm.qmd) ratio is allowed to use the unnormalised weight.
+A Metropolis update needs only ratios of probabilities. In a ratio of two configurations, $Z$ cancels, and flipping one spin changes the sum only on the edges that touch that site. The acceptance ratio is therefore a short function of the neighbouring spins. The [Metropolis algorithm](metropolis-algorithm.qmd) was built for targets of this kind, using a symmetric proposal so that the proposal densities cancel as well {{cite:metropolis1953}} (p. 1088). Hastings' later correction multiplies by the proposal ratio when the proposal is not symmetric. The lattice model is the statistical point in physical language: an intractable normaliser does not prevent simulation when the [Metropolis–Hastings](metropolis-hastings-algorithm.qmd) ratio is allowed to use the unnormalised weight.
 """,
     "jackknife-bias-and-standard-error": r"""
 ## A comparison manufactured inside the sample
@@ -2015,7 +2015,7 @@ With $M=1$ knot at $\xi_1=0$, $g(x)=x+(x)_+^3$ equals $x$ for $x\le 0$ and $x+x^
     "kolmogorov-extension-theorem": r"""
 ## A process specified only through finite collections of times
 
-One often describes a process by saying what $(X_{t_1},\ldots,X_{t_k})$ should look like for every finite list of times, without ever naming the probability of a path property. Kolmogorov's extension theorem says that a consistent family of finite-dimensional distributions on $\mathbb{R}$ (or any Polish state space) is already enough to guarantee some process with exactly those margins (Kolmogorov, 1933).
+One often describes a process by saying what $(X_{t_1},\ldots,X_{t_k})$ should look like for every finite list of times, without ever naming the probability of a path property. Kolmogorov's extension theorem says that a consistent family of finite-dimensional distributions on $\mathbb{R}$ (or any Polish state space) is already enough to guarantee some process with exactly those margins {{cite:durrett2019}} (§A.3, Thm. A.3.1, pp. 464–465).
 
 Consistency has two parts. Permuting the times must permute the joint law in the same way. Dropping one time must leave the marginal law of the remaining times. Under those hypotheses there exists a probability space and a family $\{X_t:t\in T\}$ whose finite-dimensional distributions are the ones prescribed. The theorem is an existence result. It does not produce continuous paths, or a bound on the number of jumps.
 
@@ -2046,7 +2046,7 @@ $$
 u(t)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr).
 $$
 
-With $\alpha=\beta=1$, $u(1)=(1-e^{-2})/2\approx 0.432$, and $u(t)$ rises to the stationary value $1/2$. The derivative at $0$ equals $\alpha$, the instantaneous rate of leaving the start. See the [generator](generator.qmd) for the short-time rules that justify the differentiation (Kolmogorov, 1931).
+With $\alpha=\beta=1$, $u(1)=(1-e^{-2})/2\approx 0.432$, and $u(t)$ rises to the stationary value $1/2$. The derivative at $0$ equals $\alpha$, the instantaneous rate of leaving the start. See the [generator](generator.qmd) for the short-time rules that justify the differentiation {{cite:siegrist2022_ctmc_transition}} (§15.16, “The Two-State Chain”).
 """,
     "kullback-leibler-divergence": r"""
 ## Extra log-score from using the wrong density
@@ -2132,7 +2132,7 @@ With probability $1/2$, draw a fair coin on $\{0,1\}$. With probability $1/2$, d
     "lehmann-scheffe-theorem": r"""
 ## Only one unbiased function of a complete statistic
 
-Several unbiased estimators of one target usually exist, and most of them use features of the sample that a sufficient statistic has discarded. Let $T$ be a [complete](complete-statistic.qmd) [sufficient statistic](sufficient-statistic.qmd), and suppose $\delta(T)$ is unbiased for a real target $g(\theta)$, so $\mathbb{E}_{\theta}[\delta(T)] = g(\theta)$ for every $\theta$. If $\delta^{\ast}(T)$ is any other unbiased estimator that is also a function of $T$, then $q(T) = \delta(T) - \delta^{\ast}(T)$ has mean zero at every $\theta$. Completeness forces $q(T) = 0$ almost surely. There is therefore at most one unbiased estimator based on $T$. That uniqueness is the first half of the Lehmann–Scheffé theorem (Lehmann and Scheffé, 1950).
+Several unbiased estimators of one target usually exist, and most of them use features of the sample that a sufficient statistic has discarded. Let $T$ be a [complete](complete-statistic.qmd) [sufficient statistic](sufficient-statistic.qmd), and suppose $\delta(T)$ is unbiased for a real target $g(\theta)$, so $\mathbb{E}_{\theta}[\delta(T)] = g(\theta)$ for every $\theta$. If $\delta^{\ast}(T)$ is any other unbiased estimator that is also a function of $T$, then $q(T) = \delta(T) - \delta^{\ast}(T)$ has mean zero at every $\theta$. Completeness forces $q(T) = 0$ almost surely. There is therefore at most one unbiased estimator based on $T$. That uniqueness is the first half of the Lehmann–Scheffé theorem {{cite:siegrist2022_sufficient_complete}} (§7.6, “The Lehmann–Scheffé Theorem”).
 
 ## Rao–Blackwell supplies the minimum variance
 
@@ -2175,15 +2175,15 @@ The observed count is a little more than twice as probable at $p=0.7$ as at $p=0
     "linear-congruential-generator": r"""
 ## A deterministic loop of length at most $m$
 
-A computer produces an apparently uniform stream from a short recursion. Choose a modulus $m$, a multiplier $a$ and an increment $c$, all positive integers, and a seed $X_0\in\{0,1,\ldots,m-1\}$. The states update by
+A computer produces an apparently uniform stream from a short recursion. Choose positive integers $m$ and $a$, a nonnegative integer $c$, and a seed $X_0\in\{0,1,\ldots,m-1\}$. The states update by
 
 $$
 X_{i+1}=(aX_i+c)\bmod m,
 $$
 
-and the outputs are $U_i=X_i/m\in[0,1)$. The sequence is deterministic and periodic, and the period is at most $m$, because there are only $m$ possible states. With $c=0$ the generator is multiplicative, and the state $0$ is a fixed point, so a multiplicative generator must start from a nonzero seed.
+and the outputs are $U_i=X_i/m\in[0,1)$. The sequence is deterministic and eventually periodic. Once a state repeats, the resulting cycle has length at most $m$, because there are only $m$ possible states. With $c=0$ the generator is multiplicative, and the state $0$ is a fixed point, so a multiplicative generator must start from a nonzero seed.
 
-A full period $m$, for every seed, holds if and only if three arithmetic conditions are met (Hull and Dobell, 1962): $c$ and $m$ are coprime, $a-1$ is divisible by every prime that divides $m$, and $a-1$ is divisible by $4$ whenever $m$ is divisible by $4$.
+A full period $m$, for every seed, holds if and only if three arithmetic conditions are met {{cite:hull_dobell1962}} (Thm. 1, p. 233): $c$ and $m$ are coprime, $a-1$ is divisible by every prime that divides $m$, and $a-1$ is divisible by $4$ whenever $m$ is divisible by $4$.
 
 ## Modulus eight, written out in full
 
@@ -2503,11 +2503,11 @@ $$
 a(x,y) = \min\left\{1, \frac{\pi(y)\, q(x \mid y)}{\pi(x)\, q(y \mid x)}\right\}.
 $$
 
-If $q(y \mid x) = q(x \mid y)$, the proposal ratio equals one and the acceptance probability is $\min\{1, \pi(y)/\pi(x)\}$. That symmetric case is the Metropolis algorithm (Metropolis et al., 1953). A random-walk proposal $y = x + z$, with the increment $z$ symmetric about zero, is the usual example. A normal increment depends on $y-x$ only through $(y-x)^2$, so swapping the two arguments does not change the density. Every move that increases $\pi$ is accepted. A move to a point with two-thirds of the current density is accepted with probability $2/3$. On rejection the chain records $x$ again.
+If $q(y \mid x) = q(x \mid y)$, the proposal ratio equals one and the acceptance probability is $\min\{1, \pi(y)/\pi(x)\}$. That symmetric case is the Metropolis algorithm {{cite:metropolis1953}} (p. 1088). A random-walk proposal $y = x + z$, with the increment $z$ symmetric about zero, is the usual example. A normal increment depends on $y-x$ only through $(y-x)^2$, so swapping the two arguments does not change the density. Every move that increases $\pi$ is accepted. A move to a point with two-thirds of the current density is accepted with probability $2/3$. On rejection the chain records $x$ again.
 
 ## The normaliser cancels; an asymmetric proposal does not
 
-Symmetry is not the same as a proposal that ignores the current state. An independent proposal $q(y \mid x) = g(y)$ still needs the Hastings factor $g(x)/g(y)$ unless $g$ itself is constant (Hastings, 1970). What does cancel for every proposal is a normalising constant in the target. If $\pi = f/Z$ with $Z$ unknown, then $\pi(y)/\pi(x) = f(y)/f(x)$. The ratio can therefore target an [Ising model](ising-model.qmd), whose partition function sums $2^m$ spin configurations, or a posterior whose marginal likelihood is intractable. In the symmetric case the acceptance probability uses that unnormalised target and no proposal correction.
+Symmetry is not the same as a proposal that ignores the current state. An independent proposal $q(y \mid x) = g(y)$ still needs the Hastings factor $g(x)/g(y)$ unless $g$ itself is constant {{cite:hastings1970}} (§2.1, pp. 98–99). What does cancel for every proposal is a normalising constant in the target. If $\pi = f/Z$ with $Z$ unknown, then $\pi(y)/\pi(x) = f(y)/f(x)$. The ratio can therefore target an [Ising model](ising-model.qmd), whose partition function sums $2^m$ spin configurations, or a posterior whose marginal likelihood is intractable. In the symmetric case the acceptance probability uses that unnormalised target and no proposal correction.
 """,
     "metropolis-hastings-invariance": r"""
 ## Acceptance restores pairwise balance
@@ -2612,7 +2612,7 @@ $$
 \mathbb{E}(\liminf_{n\to\infty} X_n)\le\liminf_{n\to\infty}\mathbb{E} X_n
 $$
 
-(Fatou, 1906). Expectations may drop in the limit. They cannot drop below the expectation of the liminf. If $X_n\to X$ almost surely and $|X_n|\le Y$ for every $n$, with $\mathbb{E} Y<\infty$, the dominated convergence theorem gives $\mathbb{E} X_n\to\mathbb{E} X$, and in fact $\mathbb{E}|X_n-X|\to 0$.
+{{cite:durrett2019}} (§1.5, Thms. 1.5.5–1.5.8, pp. 26–27). Expectations may drop in the limit. They cannot drop below the expectation of the liminf. If $X_n\to X$ almost surely and $|X_n|\le Y$ for every $n$, with $\mathbb{E} Y<\infty$, the dominated convergence theorem gives $\mathbb{E} X_n\to\mathbb{E} X$, and in fact $\mathbb{E}|X_n-X|\to 0$.
 
 ## The spike makes Fatou's inequality strict
 
@@ -2684,12 +2684,12 @@ A query $x$ arrives with no label. Fix a distance, sort the [training set](train
 
 Small $k$ follows local labels, including their noise. Large $k$ averages over a wider region and is pulled towards the majority class. At $k=n$ every query has the same neighbourhood, the whole sample, and the rule always returns the majority label. The apparent error on the training points favours $k=1$, because each training point is its own nearest neighbour and is classified correctly. [Cross-validation](cross-validation.qmd) on held-out points is what can prefer a larger neighbourhood.
 
-Under the conditions of the [Cover–Hart bound](cover-hart-bound.qmd), the asymptotic risk of one neighbour is at most twice the Bayes risk {{cite:cover_hart1967}} (pp. 22–23). The distance itself is a modelling choice: multiplying one coordinate by $10$ can change which point is nearest, and a standardisation fitted on the training sample has to be reused, unchanged, on each query.
+Under the conditions of the [Cover–Hart bound](cover-hart-bound.qmd), the asymptotic risk of one neighbour is at most twice the Bayes risk {{cite:cover_hart1967}} (§VI, pp. 24–25). The distance itself is a modelling choice: multiplying one coordinate by $10$ can change which point is nearest, and a standardisation fitted on the training sample has to be reused, unchanged, on each query.
 """,
     "nettalk": r"""
 ## From a window of letters to a pronunciation code
 
-The learning problem is a map from written context to a pronunciation code. A window of seven characters is centred on the letter being pronounced, and the target is a code for that central letter (Sejnowski and Rosenberg, 1986). Each character is a [one-hot](one-hot-encoding.qmd) pattern. With $29$ symbols the window supplies $7\times 29=203$ binary inputs. The published network then uses $80$ [hidden units](hidden-layer.qmd) and $26$ outputs. Counting one bias on every hidden and output unit gives
+The learning problem is a map from written context to a pronunciation code. A window of seven characters is centred on the letter being pronounced, and the target is a code for that central letter.{{cite:sejnowski_rosenberg1987}} (§2, pp. 147–151) Each character is a [one-hot](one-hot-encoding.qmd) pattern. With $29$ symbols the window supplies $7\times 29=203$ binary inputs. The published network then uses $80$ [hidden units](hidden-layer.qmd) and $26$ outputs. Counting one bias on every hidden and output unit gives
 
 $$
 (203+1)\cdot 80+(80+1)\cdot 26=18426
@@ -2699,12 +2699,12 @@ free weights. The count is the point of the example: connections accumulate as t
 
 ## A smaller count, and a penalty that does not travel
 
-The same arithmetic on a toy net, with $15$ inputs, $2$ hidden units and $3$ outputs, gives $(15+1)\cdot 2+(2+1)\cdot 3=41$ weights. Training error can be driven down by using those weights to fit idiosyncrasies of the sampled words. [Weight decay](regularisation-and-weight-decay.qmd) adds a penalty $\lambda$ times a squared-weight term and pulls the weights towards zero (Krogh and Hertz, 1992). A value of $\lambda$ that worked on one pronunciation sample is a property of that sample, that architecture and that split. Reusing it on a new corpus, or on the $18426$-weight net, is a new modelling choice and needs its own held-out check.
+The same arithmetic on a toy net, with $15$ inputs, $2$ hidden units and $3$ outputs, gives $(15+1)\cdot 2+(2+1)\cdot 3=41$ weights. Training error can be driven down by using those weights to fit idiosyncrasies of the sampled words. [Weight decay](regularisation-and-weight-decay.qmd) adds a penalty $\lambda$ times a squared-weight term and pulls the weights towards zero.{{cite:krogh_hertz1992}} (§1, p. 951, eqs. 1–2) A value of $\lambda$ that worked on one pronunciation sample is a property of that sample, that architecture and that split. Reusing it on a new corpus, or on the $18426$-weight net, is a new modelling choice and needs its own held-out check.
 """,
     "neyman-pearson-approach": r"""
 ## Size first, then power
 
-The Neyman–Pearson approach controls one error and then optimises the other (Neyman and Pearson, 1933). The [type I error](type-i-and-type-ii-errors.qmd) is rejecting $H_0$ when $H_0$ is true. The type II error is failing to reject $H_0$ when the alternative is true. Fix a [significance level](significance-level.qmd) $\alpha$. Among [critical regions](critical-region.qmd) with type I error at most $\alpha$, choose one that minimises the type II error at the alternative of interest. That choice maximises power.
+The Neyman–Pearson approach controls one error and then optimises the other.{{cite:siegrist2022_testing}} (§9.1, Basic Theory) The [type I error](type-i-and-type-ii-errors.qmd) is rejecting $H_0$ when $H_0$ is true. The type II error is failing to reject $H_0$ when the alternative is true. Fix a [significance level](significance-level.qmd) $\alpha$. Among [critical regions](critical-region.qmd) with type I error at most $\alpha$, choose one that minimises the type II error at the alternative of interest. That choice maximises power.
 
 For a simple null $\theta=\theta_0$ against a simple alternative $\theta=\theta_1$, the region rejects when the [likelihood](likelihood-function.qmd) ratio $L(\theta_0)/L(\theta_1)$ is small enough that the type I error equals $\alpha$. The sample is then at least as probable under $\theta_1$, relative to $\theta_0$, as the likelihood-ratio threshold requires (though for a nearby alternative that ratio need only be slightly below $1$). This is the [Neyman–Pearson lemma](neyman-pearson-lemma.qmd). On a discrete distribution the size $\alpha$ may be unattainable unless the test randomises on the boundary where the ratio equals its threshold.
 
@@ -2888,7 +2888,7 @@ $$
 \mathbb{P}(i\text{ beats }j)=\frac{\exp(\lambda_i)}{\exp(\lambda_i)+\exp(\lambda_j)}.
 $$
 
-This is the [Bradley–Terry model](bradley-terry-model.qmd) (Bradley and Terry, 1952). Swapping the two labels inverts the odds, so the match of $i$ against $j$ and the match of $j$ against $i$ are one comparison, not two unrelated probabilities. Each observed pair contributes a Bernoulli likelihood. Items that never meet can still be placed on one scale when the schedule connects them through other opponents.
+This is the [Bradley–Terry model](bradley-terry-model.qmd) {{cite:turner_firth2012_bradley_terry}} (§1, pp. 1–2). Swapping the two labels inverts the odds, so the match of $i$ against $j$ and the match of $j$ against $i$ are one comparison, not two unrelated probabilities. Each observed pair contributes a Bernoulli likelihood. Items that never meet can still be placed on one scale when the schedule connects them through other opponents.
 
 ## A shift of every strength leaves the odds alone
 
@@ -2970,7 +2970,7 @@ The counts $1,2,8,9$ have mean $5$. An intercept-only Poisson fit sets every $\h
     "perceptron-learning-rule": r"""
 ## A correction only on a mistake
 
-A threshold unit classifies a point $x$, augmented by a coordinate $x_0=1$, according to the sign of the score $w^\top x$. The weight vector includes the bias. There is no linear system whose solution is the weight, because the threshold is constant on each open half-space. The perceptron rule (Rosenblatt, 1958) builds a weight by correction. On a correctly classified pattern $y_i-o_i=0$ and the weight is left alone. On a mistake the pattern is added when the label was $1$ and the output was $0$, and subtracted when the label was $0$ and the output was $1$. The score on that pattern changes by $(y_i-o_i)\,\|x_i\|^2$.
+A threshold unit classifies a point $x$, augmented by a coordinate $x_0=1$, according to the sign of the score $w^\top x$. The weight vector includes the bias. Training labels specify linear inequality constraints on a separating weight vector, rather than a unique system of linear equations. For a finite strictly separable sample, rescaling gives margin-one constraints whose feasibility can be checked by linear programming.{{cite:shalev_bendavid2014}} (§9.1.1, pp. 91–92) The perceptron rule builds a weight by correction.{{cite:shalev_bendavid2014}} (§9.1.2, p. 92) On a correctly classified pattern $y_i-o_i=0$ and the weight is left alone. On a mistake the pattern is added when the label was $1$ and the output was $0$, and subtracted when the label was $0$ and the output was $1$. The score on that pattern changes by $(y_i-o_i)\,\|x_i\|^2$.
 
 ## One step, and the stopping rule
 
@@ -3005,7 +3005,7 @@ $$
 \mathbb{P}(X_n=k)\to e^{-\lambda}\frac{\lambda^k}{k!}.
 $$
 
-The limit is the [Poisson distribution](poisson-distribution.qmd) with mean $\lambda$ (Poisson, 1837). For the leading case $p=\lambda/n$, write the binomial probability as
+The limit is the [Poisson distribution](poisson-distribution.qmd) with mean $\lambda$ {{cite:grinstead_snell1997}} (§5.1, pp. 187–189, Poisson limit). For the leading case $p=\lambda/n$, write the binomial probability as
 
 $$
 \binom{n}{k}p^k(1-p)^{n-k}=\frac{\lambda^k}{k!}\cdot\frac{n(n-1)\cdots(n-k+1)}{n^k}\cdot\left(1-\frac{\lambda}{n}\right)^{n-k}.
@@ -3129,7 +3129,7 @@ The limit is the Fréchet distribution function $\Phi_{\alpha}$. Its own upper t
 
 ## Against a typical observation, and against a logarithm
 
-Take $\alpha=2$ and $n=10000$, so $a_n=100$. The median of $\Phi_{2}$ solves $x^{-2}=\log 2$, hence $x=(\log 2)^{-1/2}\approx 1.20$. The median of $M_n$ is near $120$. A single observation from this Pareto law has median $\sqrt{2}\approx 1.41$. The maximum is about two orders of magnitude larger than a typical draw. By contrast, the maximum of $10000$ unit exponential variables has median near $\log 10000-\log(\log 2)\approx 9.58$, a shift of logarithmic order rather than a multiplication by $100$. That contrast is why heavy tails and [exponential tails](exponential-tails-and-the-gumbel-law.qmd) belong to different families in the [extreme-value classification](extreme-value-classification.qmd) (Fréchet, 1927).
+Take $\alpha=2$ and $n=10000$, so $a_n=100$. The median of $\Phi_{2}$ solves $x^{-2}=\log 2$, hence $x=(\log 2)^{-1/2}\approx 1.20$. The median of $M_n$ is near $120$. A single observation from this Pareto law has median $\sqrt{2}\approx 1.41$. The maximum is about two orders of magnitude larger than a typical draw. By contrast, the maximum of $10000$ unit exponential variables has median near $\log 10000-\log(\log 2)\approx 9.58$, a shift of logarithmic order rather than a multiplication by $100$. That contrast is why heavy tails and [exponential tails](exponential-tails-and-the-gumbel-law.qmd) belong to different families in the [extreme-value classification](extreme-value-classification.qmd) {{cite:durrett2019}} (§3.2, Ex. 3.2.2(i), (iii), p. 123).
 """,
     "precision-matrix": r"""
 ## The inverse covariance as a conditional parameter
@@ -3273,7 +3273,7 @@ $$
 \log\{-\log(1-\gamma_k)\}=\theta_k+\mathbf{x}^\top\boldsymbol{\beta}.
 $$
 
-The intercept $\theta_k$ may change with the threshold. The coefficient vector $\boldsymbol{\beta}$ may not. Exponentiating a component of $\boldsymbol{\beta}$ produces a hazard ratio, the same factor at every cut. This is the grouped form of the continuous-time proportional-hazards model (Cox, 1972), read on cumulative probabilities. It is not a log [odds ratio](odds-ratio.qmd). A logit in place of the [complementary log-log](complementary-log-log-link.qmd) would make $\boldsymbol{\beta}$ a log odds ratio, which is a different parallel-lines model.
+The intercept $\theta_k$ may change with the threshold. The coefficient vector $\boldsymbol{\beta}$ may not. Exponentiating a component of $\boldsymbol{\beta}$ produces a hazard ratio, the same factor at every cut. This is the grouped form of the continuous-time proportional-hazards model {{cite:cox1972}} (§3, pp. 189–190), read on cumulative probabilities. It is not a log [odds ratio](odds-ratio.qmd). A logit in place of the [complementary log-log](complementary-log-log-link.qmd) would make $\boldsymbol{\beta}$ a log odds ratio, which is a different parallel-lines model.
 
 ## Intercepts that have to respect the order
 
@@ -3421,13 +3421,13 @@ For the points $(0,0)$, $(1,0)$ and $(2,1)$, one finds $\overline x=1$, $\overli
 
 A regression describes one variable given the others. The response is that variable: $Y$ before it is observed, and $y$ once a value is in hand. The [explanatory variables](explanatory-variable.qmd) are treated as given. Simple linear regression specifies the conditional mean $\mathbb{E}(Y_i\mid x_i)=\beta_0+\beta_1 x_i$. The slope of $Y$ on $x$, and the slope of $x$ on $Y$, are different functions of the scatter.
 
-Galton took the son's height as the response and the parents' height as the explanatory variable (Galton, 1886). The fitted slope is smaller than the slope that would preserve deviations from the mean: unusually tall parents have children who are, on average, less unusually tall. He called the pattern regression towards mediocrity. Putting the parents' height on the response side asks for a different conditional mean. The [regression effect](regression-effect.qmd) follows whichever variable is the response.
+Galton related the adjusted heights of adult children to their mid-parental height {{cite:galton1886}} (pp. 247 and 252). The fitted slope is smaller than the slope that would preserve deviations from the mean: unusually tall parents have children who are, on average, less unusually tall. He called the pattern regression towards mediocrity. Putting the parents' height on the response side asks for a different conditional mean. The [regression effect](regression-effect.qmd) follows whichever variable is the response.
 
 ## Axes swapped, and a change of scale
 
 For the points $(0,0)$, $(1,0)$ and $(2,1)$, write $S_{xx}=\sum_i(x_i-\overline x)^2=2$, $S_{YY}=\sum_i(y_i-\overline y)^2=2/3$ and $S_{xY}=1$. The slope of $y$ on $x$ is $S_{xY}/S_{xx}=1/2$. The slope of $x$ on $y$ is $S_{xY}/S_{YY}=3/2$. The reciprocal of $1/2$ is $2$, so the two fitted lines are not inverses of each other.
 
-Scale is part of the same choice. A fit of $\log y$ models the conditional mean of the logarithm, and the slope and the errors belong to that scale. A straight line on the raw response can miss that mean. The [logit](logit-link.qmd) of a probability is a response of the same kind: the linearity lives on the transformed scale.
+Scale is part of the same choice. A fit of $\log y$ models the conditional mean of the logarithm, and the slope and the errors belong to that scale. A straight line on the raw response can miss that mean. In a binomial regression, the logit transforms the modelled success probability; the observed response remains a binary outcome or a count. A transformed continuous response and a link on a conditional mean describe different models.{{cite:cetinkaya_hardin2024}} (§9.2, logistic regression)
 """,
     "sample-size-for-a-confidence-interval": r"""
 ## A half-width chosen before the data arrive
@@ -3547,7 +3547,7 @@ Coherence requires that this posterior be used as the prior for the next batch. 
 
 ## Order does not matter; replacing the prior does
 
-Given $\theta$, independent batches multiply, and addition of the success and failure counts does not depend on which batch is processed first. The further content of sequential coherence is that the analyst must not invent a fresh prior after seeing the first batch. Replacing $\operatorname{Beta}(\alpha+x_1, \beta+n_1-x_1)$ by some other distribution, because that batch was surprising, yields a final posterior that does not come from updating the prior declared before the data (even if it coincides with the pooled update of a different prior chosen after seeing batch $1$). The identity also fails when the batches are not conditionally independent given $\theta$, because the second factor is then not the ordinary binomial likelihood $p(x_2 \mid \theta)$.
+Given $\theta$, independent batches multiply, and addition of the success and failure counts does not depend on which batch is processed first. The further content of sequential coherence is that the analyst must not invent a fresh prior after seeing the first batch. Replacing $\operatorname{Beta}(\alpha+x_1, \beta+n_1-x_1)$ by some other distribution, because that batch was surprising, yields a final posterior that does not come from updating the prior declared before the data (even if it coincides with the pooled update of a different prior chosen after seeing batch $1$). For dependent batches, coherence uses the conditional factor $p(x_2 \mid x_1,\theta)$ instead of the marginal likelihood $p(x_2 \mid \theta)$. Sequential and joint conditioning still agree when the correct factor is used.
 """,
     "sigmoid-function": r"""
 ## A smooth step from the real line onto $(0,1)$
@@ -3802,11 +3802,11 @@ and, conditionally on the hyperparameters, the study rates are independent. Thei
 
 Two operations leave the Poisson process inside its own family. Independent streams can be laid on top of each other, and a single stream can be randomly labelled and separated. Both results are Poisson, with rates one can write down, and the split pieces are independent of each other.
 
-Let $N_1$ and $N_2$ be independent homogeneous Poisson processes of rates $\lambda_1$ and $\lambda_2$. Their superposition $N_1+N_2$ is Poisson of rate $\lambda_1+\lambda_2$. On a common interval the merged count is Poisson with mean $(\lambda_1+\lambda_2)h$, and increments on disjoint intervals remain independent. For thinning, start with a Poisson process of rate $\lambda$ and keep each event independently with probability $r\in(0,1)$, discarding it otherwise. The kept process is Poisson of rate $r\lambda$, the discarded process is Poisson of rate $(1-r)\lambda$, and the two are independent. If the retention probability is a function $r(t)$, thinning the homogeneous process gives a non-homogeneous Poisson process with intensity $r(t)\lambda$ (or $r(t)\lambda(t)$ when the original process already has intensity $\lambda(t)$).
+Let $N_1$ and $N_2$ be independent homogeneous Poisson processes of rates $\lambda_1$ and $\lambda_2$. Their superposition $N_1+N_2$ is Poisson of rate $\lambda_1+\lambda_2$. On a common interval the merged count is Poisson with mean $(\lambda_1+\lambda_2)h$, and increments on disjoint intervals remain independent. For thinning, start with a Poisson process of rate $\lambda$ and keep each event independently with probability $r\in(0,1)$, discarding it otherwise. The kept process is Poisson of rate $r\lambda$, the discarded process is Poisson of rate $(1-r)\lambda$, and the two are independent. If the retention probability is a function $r(t)$, thinning the homogeneous process gives a non-homogeneous Poisson process with intensity $r(t)\lambda$ (or $r(t)\lambda(t)$ when the input process already has intensity $\lambda(t)$).
 
 ## A merged rate of eight, split again into three and five
 
-Take independent call streams of rates $3$ and $5$ per hour. The merged process has rate $8$. Each merged call is of the first type with probability $3/8$, independently of the other calls, which is the thinning that recovers the original streams. In one hour the type counts are independent Poisson random variables of means $3$ and $5$, and $\mathbb{P}(N_1=0,N_2=0)=e^{-8}$. A shock that drops several events at one instant is a shared mark, not an independent toss on each event, and ordinary thinning does not describe that stream.
+Take independent call streams of rates $3$ and $5$ per hour. The merged process has rate $8$. Each merged call is of the first type with probability $3/8$, independently of the other calls, which is the thinning that recovers the two component streams. In one hour the type counts are independent Poisson random variables of means $3$ and $5$, and $\mathbb{P}(N_1=0,N_2=0)=e^{-8}$. A shock that drops several events at one instant is a shared mark, not an independent toss on each event, and ordinary thinning does not describe that stream.
 """,
     "surrogate-split": r"""
 ## A mimic of the primary left–right allocation
@@ -4220,7 +4220,7 @@ For an independent sample of size $n$ from $\operatorname{N}_p(\boldsymbol{\mu},
     "wold-decomposition": r"""
 ## Stationary dependence as noise, plus a predictable piece
 
-Linear forecasting of a weakly stationary series is limited by a representation (Wold, 1938). If $\{X_t\}$ has mean $0$, a constant variance and a covariance that depends only on lag, then
+Linear forecasting of a weakly stationary series is limited by a representation.{{cite:horak_muller_vrbova1987}} (§1, pp. 337–339) If $\{X_t\}$ has mean $0$, a constant variance and a covariance that depends only on lag, then
 
 $$
 X_t=\sum_{j=0}^{\infty} a_j\varepsilon_{t-j}+\nu_t.
@@ -4268,9 +4268,9 @@ THEOREM_PROOFS = {
     "memoryless-property": r"""Let $S(t)=\mathbb P(X>t)$. For a positive, proper waiting time the memoryless identity is $S(s+t)=S(s)S(t)$, with $S(0)=1$. An exponential law has $S(t)=e^{-\lambda t}$ and therefore satisfies the identity. Conversely, a survival function is nonincreasing and right-continuous. These properties and the multiplicative identity force $S(t)=e^{-\lambda t}$ for some $\lambda\ge0$; properness excludes $\lambda=0$. Thus the exponential laws are the only continuous memoryless waiting-time laws. On positive integer times, set $q=S(1)$. The same identity gives $S(n)=q^n$, so $\mathbb P(X=n)=S(n-1)-S(n)=(1-q)q^{n-1}$ for $n\ge1$. Properness gives $0\le q<1$, which is the geometric law with success probability $1-q$; its survival function also verifies the identity.{{cite:ross2019}}{{cite:feller1968}}""",
     "detailed-balance-implies-stationarity": r"""If $\pi_iP_{ij}=\pi_jP_{ji}$ for every pair of states, then $\sum_i\pi_iP_{ij}=\pi_j\sum_iP_{ji}=\pi_j$, since each row of $P$ sums to one. Therefore $\pi P=\pi$.{{cite:norris1997}}""",
     "poisson-limit-of-the-binomial": r"""For a binomial count with $n$ trials and success probability $\lambda/n$, fix any nonnegative integer $k$. Its mass is $\binom nk(\lambda/n)^k(1-\lambda/n)^{n-k}$. As $n$ grows, the first two factors tend to $\lambda^k/k!$ and the final factor tends to $e^{-\lambda}$. These are the masses of a Poisson law, and convergence of all masses on the nonnegative integers gives convergence in distribution.{{cite:feller1968}}""",
-    "family-wise-control-implies-false-discovery-control": r"""Write $V$ for the number of false rejections and $R$ for all rejections, with $V/R$ defined as zero when $R=0$. Pointwise, $0\le V/\max(R,1)\le\mathbf 1\{V\ge1\}$. Taking expectations yields $\operatorname{FDR}\le\mathbb P(V\ge1)$, the family-wise error rate.{{cite:benjamini_hochberg1995}}""",
+    "family-wise-control-implies-false-discovery-control": r"""Write $V$ for the number of false rejections and $R$ for all rejections, with $V/R$ defined as zero when $R=0$. Pointwise, $0\le V/\max(R,1)\le\mathbf 1\{V\ge1\}$. Taking expectations yields $\operatorname{FDR}\le\mathbb P(V\ge1)$, the family-wise error rate.{{cite:benjamini_hochberg1995}} (§2.1, p.291)""",
 
-    "bayes-optimal-rule": r"""At a fixed feature value $x$, predicting class $g$ under zero–one loss has conditional risk $1-\mathbb P(Y=g\mid X=x)$. Choosing a class with the largest posterior probability minimises that risk at each $x$. Integrating the pointwise inequality over the distribution of $X$ proves that no measurable classifier has smaller overall risk.{{cite:hastie_esl2009}}""",
+    "bayes-optimal-rule": r"""At a fixed feature value $x$, predicting class $g$ under zero–one loss has conditional risk $1-\mathbb P(Y=g\mid X=x)$. Choosing a class with the largest posterior probability minimises that risk at each $x$. Integrating the pointwise inequality over the distribution of $X$ proves that no measurable classifier has smaller overall risk.{{cite:pishro_nik2014}} (§9.1.8, minimum cost hypothesis test)""",
     "beta-binomial-conjugacy": r"""Multiply the binomial likelihood kernel $p^x(1-p)^{n-x}$ by the beta prior kernel $p^{\alpha-1}(1-p)^{\beta-1}$. The product is $p^{\alpha+x-1}(1-p)^{\beta+n-x-1}$, the kernel of a beta distribution with updated parameters $\alpha+x$ and $\beta+n-x$.{{cite:gelman_bda2013}}""",
     "dirichlet-multinomial-conjugacy": r"""For category counts $x_k$, the multinomial likelihood kernel is $\prod_k p_k^{x_k}$. Multiply by the Dirichlet prior kernel $\prod_k p_k^{\alpha_k-1}$ on the probability simplex. The result is $\prod_k p_k^{\alpha_k+x_k-1}$, the Dirichlet kernel with parameter vector $\boldsymbol\alpha+\boldsymbol x$.{{cite:gelman_bda2013}}""",
 }
@@ -4304,10 +4304,10 @@ THEOREM_INFO = {
 }
 
 ARTICLE_HISTORIES = {
-    "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:poisson1837}}",
+    "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:dodge2008}} (p. 425)",
     "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}}",
-    "wold-decomposition": "Wold set out the decomposition in his 1938 study of stationary time series.{{cite:wold1938}}",
-    "basu-s-theorem": "Basu published the independence result in 1955.{{cite:basu1955}}",
+    "wold-decomposition": "The decomposition separates a stationary process into regular and singular components determined by its linear past.{{cite:horak_muller_vrbova1987}} (§1, pp. 337–339)",
+    "basu-s-theorem": "Basu published the independence result in 1955.{{cite:dasgupta2007_basu}} (§1, p. 945)",
 }
 
 # Preferred plain-language first-sentence descriptions for major concepts.
@@ -4632,7 +4632,7 @@ CONCEPT_LEADS.update({
     "output-coding-softmax-and-cross-entropy": "a multiclass network output representation and the log-loss used to train it",
     "overdispersion": "variation in counts greater than the amount a reference model predicts",
     "overfitting": "the fitting of sample noise in a way that harms prediction on new data",
-    "paired-comparison": "an analysis that compares measurements matched within the same unit or pair",
+    "paired-comparison": "an analysis of outcomes in which items are compared two at a time",
     "paired-samples": "two sets of observations linked unit by unit rather than sampled independently",
     "pearson-dispersion-ratio": "a residual-based ratio used to assess dispersion in a generalised linear model",
     "pearson-residual": "an observed-minus-fitted response scaled by its model standard deviation",

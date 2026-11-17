@@ -6,7 +6,7 @@ For an iid sample of size $n\ge2$ with mean $\mu$ and finite variance $\sigma^2$
 $$
 E(\overline X)=\mu,\qquad \operatorname{Var}(\overline X)=\frac{\sigma^2}{n},\qquad E(S^2)=\sigma^2.
 $$
-Finite variance is sufficient for these statements. Normality is required for stronger distributional claims such as independence of the sample mean and sample variance in a normal sample.{{cite:dasgupta2011_graduate_probability}} (§1.4.2, Cor. 1.1, p. 35){{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
+Finite variance is sufficient for these statements. Normality is required for stronger distributional claims such as independence of the sample mean and sample variance in a normal sample.{{cite:grinstead_snell1997}} (§6.2, Thm. 6.9, p. 260; §6.3, Thms. 6.14–6.16, p. 272){{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
 
 ## Proof
 ::: {.callout-note collapse="true" title="Proof"}

@@ -176,13 +176,13 @@ $L^1$ regularisation uses $E+\lambda\sum|w|$. The derivative at zero is replaced
 
 ### NETtalk
 
-NETtalk is an early example of learning a mapping from written context to a pronunciation code{{cite:sejnowski_rosenberg1986}}. A window of letters supplies the input and the central letter supplies the prediction target. The architecture with $203$ inputs, $80$ hidden units and $26$ outputs has
+NETtalk is an early example of learning a mapping from written context to a pronunciation code.{{cite:sejnowski_rosenberg1987}} (§2, pp. 147–150) A window of letters supplies the input and the central letter supplies the prediction target. The architecture with $203$ inputs, $80$ hidden units and $26$ outputs has
 
 $$
 (203+1)\,80+(80+1)\,26=18426
 $$
 
-weights including biases. This count illustrates how quickly connections accumulate. Weight-decay experiments such as {{cite:krogh_hertz1992}} motivate regularisation. A successful setting in one experiment is not a transferable value of $\lambda$.
+weights including biases. This count illustrates how quickly connections accumulate. Weight-decay experiments such as {{cite:krogh_hertz1992}} (§6, pp. 955–956) motivate regularisation. A successful setting in one experiment is not a transferable value of $\lambda$.
 
 ## Evaluating the network
 

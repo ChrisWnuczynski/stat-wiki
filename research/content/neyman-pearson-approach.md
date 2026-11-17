@@ -1,6 +1,6 @@
 ## Motivating example
 
-A manufacturer can tolerate at most a specified false-alarm probability when deciding whether a production change increased a defect rate. Among tests respecting that constraint, it wants the greatest chance of detecting the increase. Fixing the error budget before comparing power is the organising idea of the Neyman–Pearson approach.{{cite:dodge2008}} (p. 250)
+A manufacturer can tolerate at most a specified false-alarm probability when deciding whether a production change increased a defect rate.{{cite:dodge2008}} (p. 250, Hypothesis Testing) Among tests respecting that constraint, it wants the greatest chance of detecting the increase. Fixing the error budget before comparing power is the organising idea of the Neyman–Pearson approach.{{cite:siegrist2022_testing}} (§9.1, “Power”)
 
 ## Definition — A constrained decision rule
 

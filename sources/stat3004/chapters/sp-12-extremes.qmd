@@ -27,17 +27,17 @@ $$
 \to e^{-e^{-x}}.
 $$
 
-The limit holds for every fixed real $x$ and is the Gumbel distribution function.{{cite:fisher_tippett1928}}{{cite:gumbel1958}}{{cite:coles2001}} The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. Light tails of exponential type fall into this family under suitable conditions on $F$.
+The limit holds for every fixed real $x$ and is the Gumbel distribution function.{{cite:durrett2019}} (§3.2, Ex. 3.2.2(iii), p. 123) The algebra uses $\lambda b_n=\log n$ and $\lambda a_n=1$, so the exponential tail contributes exactly $e^{-x}/n$ at the moving level $b_n+a_n x$. The exponential calculation establishes this limit for the specified independent exponential observations.
 
 ### Power-law tails, and the Fréchet law
 
-Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail.{{cite:pareto1909}}{{cite:coles2001}}{{cite:forbes2011}} Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$ and $n$ large enough that $n^{1/\alpha}x\ge 1$,
+Suppose $\mathrm{P}(X>x)=x^{-\alpha}$ for $x\ge 1$ and some $\alpha>0$, a Pareto tail.{{cite:siegrist2022_pareto}} (“Distribution Functions”) Set $a_n=n^{1/\alpha}$ and $b_n=0$. For $x>0$ and $n$ large enough that $n^{1/\alpha}x\ge 1$,
 
 $$
 \mathrm{P}(M_n/a_n\le x)=\bigl(1-(n^{1/\alpha}x)^{-\alpha}\bigr)^n=\Bigl(1-\frac{x^{-\alpha}}{n}\Bigr)^n\to e^{-x^{-\alpha}}.
 $$
 
-The limit is the Fréchet distribution function.{{cite:frechet1927}}{{cite:gnedenko1943}}{{cite:coles2001}} The heavy tail changes the scale from $\log n$ to a power of $n$. Multiplying the sample size by a constant multiplies this scale by that constant to the power $1/\alpha$.
+The limit is the Fréchet distribution function.{{cite:durrett2019}} (§3.2, Ex. 3.2.2(i), p. 123) The heavy tail changes the scale from $\log n$ to a power of $n$. Multiplying the sample size by a constant multiplies this scale by that constant to the power $1/\alpha$.
 
 ### A finite endpoint, and a Weibull extreme-value law
 

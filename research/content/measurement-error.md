@@ -4,7 +4,7 @@ Suppose a study relates long-term blood pressure to an outcome, but each partici
 ## Definition — The quantity and the recording mechanism
 Classical additive error writes the observed value as $W=X+U$, with mean-zero $U$ independent of the true value $X$. Nondifferential error additionally requires that, given $X$ and any adjustment variables, the measurement error supplies no extra information about the outcome. These are assumptions about the measurement process; mean-zero error alone does not imply all of them.{{cite:keogh2020_measurement_error}} (§2.1, eq. 1)
 
-Systematic calibration error, rounding, misclassification, and sampling variability describe different mechanisms. A constant calibration shift changes the mean. Random mean-zero additive error changes variance. For repeated readings of a fixed quantity, independence allows averaging to reduce the random component; a shared calibration shift survives averaging.{{cite:keogh2020_measurement_error}} (§§2.1, 4.2){{cite:dasgupta2011_graduate_probability}} (§1.4.2, variance of independent sums)
+Systematic calibration error, rounding, misclassification, and sampling variability describe different mechanisms. A constant calibration shift changes the mean. Random mean-zero additive error changes variance. For repeated readings of a fixed quantity, independence allows averaging to reduce the random component; a shared calibration shift survives averaging.{{cite:keogh2020_measurement_error}} (§§2.1, 4.2){{cite:grinstead_snell1997}} (§6.2, Thms. 6.7–6.9, pp. 259–260; §6.3, Thms. 6.14–6.16, p. 272)
 
 ## Properties — Deriving attenuation in one predictor
 In the simple model $Y=\alpha+\beta X+\varepsilon$, assume $X,U,\varepsilon$ are mutually independent, $E(U)=E(\varepsilon)=0$, and finite variances. The population regression slope using $W$ is
@@ -16,7 +16,7 @@ The multiplier is the reliability ratio. It lies between zero and one when $\sig
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Expanding $\operatorname{Cov}(X+U,\alpha+\beta X+\varepsilon)$ leaves $\beta\operatorname{Var}(X)$ because all cross covariances vanish. Independence similarly gives $\operatorname{Var}(W)=\sigma_X^2+\sigma_U^2$. Substituting in the population least-squares slope yields the ratio.{{cite:dasgupta2011_graduate_probability}} (§1.15.4, covariance and correlation)
+Expanding $\operatorname{Cov}(X+U,\alpha+\beta X+\varepsilon)$ leaves $\beta\operatorname{Var}(X)$ because all cross covariances vanish. Independence similarly gives $\operatorname{Var}(W)=\sigma_X^2+\sigma_U^2$. Substituting in the population least-squares slope yields the ratio.{{cite:grinstead_snell1997}} (§6.3, Exercise 17, p. 281)
 :::
 :::
 

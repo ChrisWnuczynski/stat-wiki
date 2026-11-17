@@ -24,6 +24,6 @@ for printed in ('(0,1,1,0)', '(1,0,0,1)', '0.32', '(0.8,0.8)', '-1/2,1/2,1/2,3/2
     assert printed in body, f'Missing printed value: {printed}'
 assert body.count('title="Proof"') == 1
 assert '**Your turn.**' in body and 'title="Answer"' in body
-for key in ('goodfellow_deep_learning2016_ch6', 'rumelhart_hinton_williams1986'):
+for key in ('goodfellow_bengio_courville2016', 'rumelhart_hinton_williams1986'):
     assert f'data-cite-key="{key}"' in body
 print('XOR arithmetic, logic, and representation checks passed')

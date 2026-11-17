@@ -19,7 +19,7 @@ Suppose a parameter space $\Omega$ is partitioned into regions $\Omega_0$ and $\
 ::: {#prp-bayes-action-for-two-hypotheses .proposition}
 ## Bayes action for two hypotheses
 
-These probabilities do not by themselves define an action. If choosing action $a_0$ when $H_1$ is true costs $L_{01}$ and choosing $a_1$ when $H_0$ is true costs $L_{10}$, the posterior expected losses are 
+These probabilities do not by themselves define an action. If choosing action $a_0$ when $H_1$ is true costs $L_{01}$ and choosing $a_1$ when $H_0$ is true costs $L_{10}$, the posterior expected losses are
 
 $$
  \rho(a_0\given x)=L_{01}\Pr(H_1\given x),
@@ -34,7 +34,7 @@ $$
  \Longleftrightarrow\quad
  \frac{\Pr(H_0\given x)}{\Pr(H_1\given x)}
  &>\frac{L_{01}}{L_{10}}.
-\end{align*} Equal losses reduce the threshold to one.{{cite:wald1950}}{{cite:raiffa_schlaifer1961}} This separates the probability calculation from the decision rule.{{cite:raiffa_schlaifer1961}}
+\end{align*} Equal losses reduce the threshold to one.{{cite:pishro_nik2014}} (§9.1.8, minimum cost hypothesis test){{cite:rasmussen_williams2006}} (§3.1.1, pp. 35–36) This separates the probability calculation from the decision rule.{{cite:rasmussen_williams2006}} (§3.1.1, pp. 35–36)
 
 :::
 
@@ -47,7 +47,7 @@ In frequentist design, type-I and type-II error rates $\alpha$ and $\beta$ are p
 ::: {#exm-imperfect-fruit-decision .example}
 ## Imperfect-fruit decision
 
-Let $X_i$ be the number of imperfect pieces in box $i$, with about 100 pieces per box. "Imperfect" must be defined before the data are collected so that producer and analyst classify fruit in the same way. The model is 
+Let $X_i$ be the number of imperfect pieces in box $i$, with about 100 pieces per box. "Imperfect" must be defined before the data are collected so that producer and analyst classify fruit in the same way. The model is
 
 $$
  X_i\given\theta\stackrel{\mathrm{iid}}{\sim}\Poisson(\theta),
@@ -61,7 +61,7 @@ $$
 
 **Question.** Find the posterior distribution, the posterior probabilities and odds for $H_0$ and $H_1$, and an equal-tailed $95\%$ credible interval. Explain why the interval may cross $10$ even when most posterior mass lies below it.
 
-**Solution.** Because the posterior for $\theta$ is continuous, 
+**Solution.** Because the posterior for $\theta$ is continuous,
 
 $$
  \Pr(\theta=10\given\xvec)=0.
@@ -79,7 +79,7 @@ For $n$ boxes and $S=\sum_i x_i$, the likelihood is \begin{align*}
  \label{eq:poisson-like-book}
 \end{align*} The working total is $S=177$ for $n=20$.
 
-The stated prior is $\theta\sim\GammaDist(12,1)$ in the standard shape--rate convention, so 
+The stated prior is $\theta\sim\GammaDist(12,1)$ in the standard shape--rate convention, so
 
 $$
  p(\theta)=\frac1{\Gamma(12)}\theta^{12-1}e^{-\theta}
@@ -96,7 +96,7 @@ $$
 \end{align*} Therefore the internally consistent shape--rate update is \begin{equation}
  \boxed{\theta\given\xvec\sim\GammaDist(189,21)}.
  \label{eq:fruit-posterior-standard}
-\end{equation} Its posterior mean is 
+\end{equation} Its posterior mean is
 
 $$
  \E(\theta\given\xvec)=\frac{189}{21}=9.
@@ -105,7 +105,7 @@ $$
 
  The MLE is $S/n=177/20=8.85$. Although the prior mean 12 lies above the boundary 10, the data move the posterior centre below it.
 
-Let $\gamma(a,z)=\int_0^zt^{a-1}e^{-t}\dd t$ be the lower incomplete Gamma function. If $T\sim\GammaDist(a,b)$, then 
+Let $\gamma(a,z)=\int_0^zt^{a-1}e^{-t}\dd t$ be the lower incomplete Gamma function. If $T\sim\GammaDist(a,b)$, then
 
 $$
  \Pr(T\leq t)=\frac{\gamma(a,bt)}{\Gamma(a)}.
@@ -118,7 +118,7 @@ $$
  &=\frac{\gamma(189,21\cdot10)}{\Gamma(189)}\\
  &=0.93298381,\\
  \Pr(H_1\given\xvec)&=1-0.93298381=0.06701619.
-\end{align*} The posterior odds are 
+\end{align*} The posterior odds are
 
 $$
  \frac{\Pr(H_0\given\xvec)}{\Pr(H_1\given\xvec)}
@@ -133,7 +133,7 @@ $$
 
 ::: {.callout-warning}
 ## Parameterisation check
-A convention check uses the other Gamma convention. Writing a prior kernel $p(\theta)\propto\theta^\alpha e^{-\beta\theta}$ with $\alpha=12$ describes $\GammaDist(13,1)$, not the stated $\GammaDist(12,1)$. That alternative gives $\theta\given x\sim\GammaDist(190,21)$, posterior mean $190/21\approx9.05$, $\Pr(\theta\leq10\given x)=0.92320087$, odds $12.02$, and interval $(7.81,10.38)$. The main calculation above follows the stated shape--rate prior; the alternative is retained here so that neither that result nor the convention error is hidden.
+A convention check uses the other Gamma convention. Writing a prior kernel $p(\theta)\propto\theta^\alpha e^{-\beta\theta}$ with $\alpha=12$ describes $\GammaDist(13,1)$, not the stated $\GammaDist(12,1)$. That alternative gives $\theta\given x\sim\GammaDist(190,21)$, posterior mean $190/21\approx9.05$, $\Pr(\theta\leq10\given x)=0.92320087$, odds $12.02$, and interval $(7.81,10.38)$. The main calculation above follows the stated shape--rate prior; the alternative shows how changing the exponent changes every posterior summary.
 
 :::
 
@@ -144,7 +144,7 @@ A convention check uses the other Gamma convention. Writing a prior kernel $p(\t
 ::: {#thm-posterior-odds-factorisation .theorem}
 ## Posterior-odds factorisation
 
-For two models $M_1$ and $M_2$, Bayes' rule gives 
+For two models $M_1$ and $M_2$, Bayes' rule gives
 
 $$
  \Pr(M_j\given x)
@@ -152,7 +152,7 @@ $$
 $$
 
 
- Taking the ratio cancels the common evidence $p(x)$.{{cite:kass_raftery1995}} (§3.1, pp. 777–778) \begin{align*}
+ Taking the ratio cancels the common evidence $p(x)$.{{cite:kass_raftery1995}} (§3.1, pp. 776–777) \begin{align*}
  \frac{\Pr(M_1\given x)}{\Pr(M_2\given x)}
  &=\frac{p(x\given M_1)\Pr(M_1)/p(x)}
          {p(x\given M_2)\Pr(M_2)/p(x)}\\
@@ -173,20 +173,20 @@ The marginal likelihood in model $M_j$ is \begin{equation}
  =\int p(x\given\theta_j,M_j)
        p(\theta_j\given M_j)\dd\theta_j.
  \label{eq:marginal-model-book}
-\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum.{{cite:kass_raftery1995}} (§3.1, pp. 777–778) The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
+\end{equation} It averages the likelihood over the parameter prior; it does not evaluate the likelihood at a fitted maximum.{{cite:kass_raftery1995}} (§3.1, pp. 776–777) The Bayes factor comparing $M_1$ with $M_2$ is $\BF_{12}=p(x\given M_1)/p(x\given M_2)$.{{cite:kass_raftery1995}} (§3.1, pp. 776–777)
 
 :::
 
-A Bayes factor compares whole models, not merely their best-fitting parameter values. The marginal likelihood averages over each model's prior parameter space, so diffuse priors can spread support across many poor explanations and change the comparison. Equal prior model probabilities are a transparent modelling choice, not a mathematical requirement. Model probabilities, parameter priors, and the set of models under consideration must all be stated before a numerical ratio can be interpreted responsibly.{{cite:kass_raftery1995}} (§§3.1, 5.1, pp. 777–778, 783–784)
+A Bayes factor compares whole models, not merely their best-fitting parameter values. The marginal likelihood averages over each model's prior parameter space, so diffuse priors can spread support across many poor explanations and change the comparison. Equal prior model probabilities are a transparent modelling choice, not a mathematical requirement. Model probabilities, parameter priors, and the set of models under consideration must all be stated before a numerical ratio can be interpreted responsibly.{{cite:kass_raftery1995}} (§§3.1, 5.1, pp. 776–777, 781–782)
 
 ::: {#rem-a-hypothesis-region-is-not-a-separate-model .remark}
 ## A hypothesis region is not a separate model
 
 Two constructions must not be confused:
 
-1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
+1.  If $H_0$ and $H_1$ are regions of one parameter space, compute one posterior and integrate it over the regions.{{cite:kass_raftery1995}} (§3.1, pp. 776–777)
 
-2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood.{{cite:kass_raftery1995}} (§§3.1, 5.1, pp. 777–778, 783–784) A continuous prior on the larger space assigns probability zero to a lower-dimensional surface.{{cite:kass_raftery1995}} (§5.1, pp. 783–784)
+2.  If $M_1$ and $M_2$ have different dimensions or parameterisations, each model needs its own parameter prior and marginal likelihood.{{cite:kass_raftery1995}} (§§3.1, 5.1, pp. 776–777, 781–782) A prior with a density relative to full-dimensional volume on the larger space assigns probability zero to a smooth lower-dimensional surface.{{cite:kass_raftery1995}} (§5.1, pp. 781–782)
 
 The fruit example is the first construction. Independence in the advertising table is the second.
 
@@ -198,14 +198,14 @@ Let $M_1$ be the unrestricted six-cell multinomial and $M_2$ impose independence
 
 ### Unrestricted model $M_1$
 
-Under 
+Under
 
 $$
  \pvec\given M_1\sim\Dir(1,1,1,1,1,1),
 $$
 
 
- the prior density is 
+ the prior density is
 
 $$
  \frac{\Gamma(6)}{\Gamma(1)^6}=120.
@@ -230,7 +230,7 @@ Let $C=501!/\prod_{k=1}^6x_k!$ be the multinomial coefficient. Then \begin{align
 
 ### Independence model $M_2$
 
-Write 
+Write
 
 $$
  p_{ij}=r_i c_j,
@@ -239,7 +239,7 @@ $$
 $$
 
 
- Use independent uniform priors 
+ Use independent uniform priors
 
 $$
  (r_1,r_2)\sim\Dir(1,1),
@@ -248,7 +248,7 @@ $$
 $$
 
 
- Their joint density is 
+ Their joint density is
 
 $$
  \frac{\Gamma(2)}{\Gamma(1)^2}
@@ -278,7 +278,7 @@ The Bayes factor is therefore \begin{align*}
  &=\frac{3.690091\times10^{-12}}
          {9.212201\times10^{-15}}\\
  &=400.57.
-\end{align*} With equal prior odds, the posterior odds are $400.57:1$, giving 
+\end{align*} With equal prior odds, the posterior odds are $400.57:1$, giving
 
 $$
  \Pr(M_1\given\xvec)
@@ -292,7 +292,7 @@ $$
 
 A frequentist likelihood-ratio or Pearson $\chi^2$ analysis of the same table would probably reach the same qualitative conclusion by different workings. A frequentist comparison is not carried out here, so this is calibration, not a claim that the two inferential statements or their assumptions are identical.
 
-The departure is visible in the raw rates: 
+The departure is visible in the raw rates:
 
 $$
  \frac{147}{257}\approx0.572,
@@ -301,7 +301,7 @@ $$
 $$
 
 
- Under independence, the expected male-negative count based on observed margins is 
+ Under independence, the expected male-negative count based on observed margins is
 
 $$
  \frac{257\cdot146}{501}\approx74.9,

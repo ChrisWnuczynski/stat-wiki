@@ -63,8 +63,8 @@ FIGURE_ALTS: dict[str, str] = {
     ),
     "contraception.png": (
         "Fitted probability of contraceptive use against centred age for women with living children in a typical "
-        "district: two concave downward parabolic curves on the probability scale, with the urban curve parallel above "
-        "the rural curve and peaking near mean age."
+        "district: smooth curves obtained by applying the expit to the same concave quadratic log-odds predictor, "
+        "with urban probabilities above rural probabilities and both peaks near mean age."
     ),
     "da-01-studies-and-data-assignment.png": (
         "Two-panel causal diagram comparing study designs. Left (observational study): confounding variables diet and "

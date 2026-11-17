@@ -15,7 +15,9 @@ Each conditional probability describes the frequency within one cell. Multiplyin
 ## Proof
 Distributivity gives $A=A\cap\bigcup_iB_i=\bigcup_i(A\cap B_i)$. The sets in the final union are disjoint, so countable additivity gives the first equality. For a positive-probability cell, the definition of conditional probability gives $\mathbb P(A\cap B_i)=\mathbb P(A\mid B_i)\mathbb P(B_i)$. A zero-probability cell has an intersection of probability zero. Substituting proves the second equality.{{cite:pishro_nik2014}} (§1.4.2, proof)
 
-## Worked example — Production shares and defective chips
+## Worked example
+
+### Production shares and defective chips
 Suppose three factories produce shares $(0.15,0.35,0.50)$ with defect rates $(0.01,0.05,0.02)$. Their contributions to the overall defect probability are $(0.0015,0.0175,0.0100)$, summing to $0.029$. An unweighted average of the three rates would answer a different sampling question.{{cite:pishro_nik2014}} (§1.4.2, weighted conditional probabilities)
 
 For a defective chip, Bayes' rule divides each contribution by $0.029$. The factory probabilities are approximately $(0.05172,0.60345,0.34483)$. They sum to one. Total probability determines the denominator, while Bayes' rule reverses the direction of conditioning.{{cite:grinstead_snell1997}} (§4.1, Bayes' formula)

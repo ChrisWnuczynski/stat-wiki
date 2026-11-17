@@ -3,7 +3,7 @@
 ## Sources opened
 
 - `siegrist2022_sample_variance`: https://www.randomservices.org/random/sample/Variance.html
-- `dasgupta2011_graduate_probability`: https://www.stat.purdue.edu/~dasgupta/gradprob.pdf
+- `grinstead_snell1997`: https://math.dartmouth.edu/~prob/prob/prob.pdf
 
 The locators are recorded immediately after each citation in the article source. The numerical script recomputes the worked example and reads the generated article. No external source files are committed.
 

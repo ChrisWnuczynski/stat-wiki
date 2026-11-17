@@ -31,11 +31,11 @@ summary(model1)
 
 The fitted line is height $=145.78+1.005\times$ shoe size: each extra centimetre of shoe goes with about one more centimetre of height, on average. Reading the rest:
 
-- **Residuals.** The five-number summary of $e_i=y_i-\widehat y_i$. A median near 0 and quartiles roughly symmetric about it are what a normal error model predicts.{{cite:nist_model_fit2002}} (§4.4.4)
-- **Coefficients.** Each estimate comes with its standard error, the $t$ statistic estimate divided by standard error, and the two-sided $p$-value for the hypothesis that the coefficient is zero. For the slope, $t=1.0048/0.2178=4.61$ on 98 degrees of freedom, so shoe size is associated with height in this fitted sample. The intercept test concerns mean height at shoe size zero, outside the observed range.{{cite:nist_process_model2002}} (§4.1.2) {{cite:siegrist2022_normals}} (§6.08)
-- **Residual standard error.** The estimate $S=9.3$ cm of the error standard deviation $\sigma$: a typical student is about 9 cm from the line.{{cite:nist_model_fit2002}} (§4.4.4)
-- **$R^2$.** Shoe size accounts for 17.8% of the variation in height in this sample; most of the variation remains outside the fitted line.{{cite:nist_model_fit2002}} (§4.4.4)
-- **$F$ statistic.** The test that every slope is zero. With one explanatory variable it is the square of the slope's $t$, $4.613^2=21.28$, with the same two-sided $p$-value.{{cite:siegrist2022_normals}} (§6.08)
+- **Residuals.** The five-number summary of $e_i=y_i-\widehat y_i$. A median near 0 and quartiles roughly symmetric about it are what a normal error model predicts.{{cite:openintro2019}} (§§8.2 and 8.4, least squares and inference)
+- **Coefficients.** Each estimate comes with its standard error, the $t$ statistic estimate divided by standard error, and the two-sided $p$-value for the hypothesis that the coefficient is zero. For the slope, $t=1.0048/0.2178=4.61$ on 98 degrees of freedom, so shoe size is associated with height in this fitted sample. The intercept test concerns mean height at shoe size zero, outside the observed range.{{cite:openintro2019}} (§8.4, inference for linear regression)
+- **Residual standard error.** The estimate $S=9.3$ cm of the error standard deviation $\sigma$: a typical student is about 9 cm from the line.{{cite:openintro2019}} (§§8.2 and 8.4, least squares and inference)
+- **$R^2$.** Shoe size accounts for 17.8% of the variation in height in this sample; most of the variation remains outside the fitted line.{{cite:openintro2019}} (§§8.2 and 8.4, least squares and inference)
+- **$F$ statistic.** The test that every slope is zero. With one explanatory variable it is the square of the slope's $t$, $4.613^2=21.28$, with the same two-sided $p$-value.{{cite:openintro2019}} (§8.4, inference for linear regression)
 
 :::
 

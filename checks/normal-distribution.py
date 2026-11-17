@@ -44,9 +44,10 @@ if __name__ == "__main__":
         "siegrist2022_normal_distribution", "siegrist2022_lognormal_distribution",
         "siegrist2022_binomial_distribution", "siegrist2022_normals",
         "gelman_bda2013", "raiffa_schlaifer1961", "hoff2013_bayes_estimators",
-        "box_muller1958", "geyer2005_markov_chain",
+        "box_muller1958", "gelfand_smith1990",
         "daw1966_normal_history", "oliveira2022_probability_history",
     }
+    assert "gelfand_smith1990" in keys
     assert keys <= opened, f"Normal article cites sources not checked for this pass: {keys-opened}"
     for line in page.splitlines():
         if '<li id="cite_note-' in line:

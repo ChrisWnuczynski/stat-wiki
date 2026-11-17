@@ -140,7 +140,7 @@ where $W=\mathrm{diag}\bigl(p_i(1-p_i)\bigr)$. The identity $p_i(1-p_i)=\sigma'(
 ::: {#thm-sl-10-concave .theorem}
 ## A finite stationary point is a global maximiser
 
-At every finite coefficient vector the weights $p_i(1-p_i)$ are positive.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, binomial variance weights) The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave.{{cite:albert_anderson1984}} (§2, pp. 2–3, likelihood geometry) If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser by the displayed Hessian calculation.{{cite:albert_anderson1984}} (§2, pp. 2–3, finite maximum conditions)
+At every finite coefficient vector the weights $p_i(1-p_i)$ are positive.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374, binomial variance weights) The Hessian $-X^\top W X$ is negative semi-definite, so $\ell$ is concave.{{cite:boyd_vandenberghe2004}} (§3.1.4, p. 71, second-order conditions) If $X$ has full column rank, $W$ is positive definite on the column space of $X$ and the Hessian is negative definite, so $\ell$ is strictly concave. Any finite stationary point is then the unique global maximiser by the displayed Hessian calculation.{{cite:boyd_vandenberghe2004}} (§3.1.3, pp. 69–70, first-order conditions)
 
 :::
 
@@ -171,9 +171,9 @@ X^\top W z
 &=\beta+(X^\top W X)^{-1}X^\top(y-p),
 \end{align*}
 
-which is exactly the Newton step{{cite:nelder_wedderburn1972}}. Each step is a weighted least-squares fit of $z$ on $X$, with weights $p_i(1-p_i)$. The weights are functions of the current $\beta$, through $p_i$, and they are recomputed every iteration. This is iteratively reweighted least squares{{cite:mccullagh_nelder1989}}{{cite:hastie_esl2009}}. It typically converges in a handful of iterations.
+which is exactly the Newton step{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374). Each step is a weighted least-squares fit of $z$ on $X$, with weights $p_i(1-p_i)$. The weights are functions of the current $\beta$, through $p_i$, and they are recomputed every iteration. This is iteratively reweighted least squares{{cite:rasmussen_williams2006}} (§3.2, pp. 37–38). Convergence depends on the design, separation and numerical conditioning.
 
-For logistic regression, Fisher scoring and Newton–Raphson coincide, because the Hessian $-X^\top W X$ does not depend on $y$ except through the current probabilities, and those probabilities are functions of $\beta$ and $X${{cite:nelder_wedderburn1972}}. The expected Hessian and the observed Hessian are the same matrix once the variance of a Bernoulli trial is taken to be $p_i(1-p_i)$. The working response is a device that makes one Newton step look like weighted least squares. It is recomputed from the current fit, and it is not itself the binary observation.
+For logistic regression, Fisher scoring and Newton–Raphson coincide, because the Hessian $-X^\top W X$ does not depend on $y$ except through the current probabilities, and those probabilities are functions of $\beta$ and $X${{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374). The expected Hessian and the observed Hessian are the same matrix once the variance of a Bernoulli trial is taken to be $p_i(1-p_i)$. The working response is a device that makes one Newton step look like weighted least squares. It is recomputed from the current fit, and it is not itself the binary observation.
 
 ::: {#exm-sl-10-newton .example}
 ## Newton's method on four points
@@ -385,7 +385,7 @@ These calculations check the interpretation of the supplied numbers. They are no
 
 ## Laboratory: odds and probabilities for two iris species
 
-Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:sklearn_brier2026}} (§ Notes, brier_score_loss).
+Setosa is easy to separate on these measurements, so a three-class fit would hide the binary difficulty. Restrict training to versicolor and virginica and use sepal length alone. Set $Y=1$ for virginica, so a positive coefficient means larger modelled odds of virginica. The probability threshold $1/2$ is the equal-cost rule. The Brier score below scores the probabilities themselves{{cite:gneiting_raftery2007_scoring}} (§3, Ex. 1, p. 363).
 
 ```r
 btrain <- droplevels(subset(train, Species != "setosa"))

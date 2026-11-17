@@ -92,7 +92,7 @@ Variance measures spread about the expectation. It scales by the square of a con
 ::: {#def-probability-generating-function .definition}
 ## Probability generating function
 
-If $N$ takes values in $\{0,1,2,\ldots\}$, its probability generating function is $G(z)=\E z^N=\sum_{n=0}^{\infty}\Pr(N=n)\,z^n$, for $|z|\le 1$.{{cite:demoivre1756}}{{cite:laplace1812}}{{cite:feller1968}}
+If $N$ takes values in $\{0,1,2,\ldots\}$, its probability generating function is $G(z)=\E z^N=\sum_{n=0}^{\infty}\Pr(N=n)\,z^n$, for $|z|\le 1$.{{cite:grinstead_snell1997}} (§10.1, pp. 369–372)
 
 :::
 
@@ -252,12 +252,12 @@ $$
 \Pr(X=x)=\frac{\binom{r}{x}\binom{N-r}{n-x}}{\binom{N}{n}},
 $$
 
-for every integer $x$ with $\max(0,n-(N-r))\le x\le\min(n,r)$.{{cite:bernoulli1713}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}} Write $p=r/N$. Then $\E X=np$ and
+for every integer $x$ with $\max(0,n-(N-r))\le x\le\min(n,r)$.{{cite:siegrist_hypergeometric2022}} (§ “Basic Theory”) Write $p=r/N$. Then $\E X=np$ and
 
 $$
 \Var(X)=np(1-p)\frac{N-n}{N-1}.
 $$
-{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:forbes2011}}
+{{cite:siegrist_hypergeometric2022}} (§ “Moments”)
 
 :::
 

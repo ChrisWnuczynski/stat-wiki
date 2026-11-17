@@ -1,0 +1,1655 @@
+{
+  "base_commit": "01749064dbcbb405b834d3c3c0ae5ef913140987",
+  "articles": {
+    "proportional-hazards-model": {
+      "rank": 368,
+      "before": {
+        "words": 552,
+        "figures": 0
+      },
+      "after": {
+        "words": 1226,
+        "figures": 0
+      }
+    },
+    "recurrence-and-period": {
+      "rank": 369,
+      "before": {
+        "words": 515,
+        "figures": 0
+      },
+      "after": {
+        "words": 1177,
+        "figures": 0
+      }
+    },
+    "response-variable": {
+      "rank": 370,
+      "before": {
+        "words": 490,
+        "figures": 0
+      },
+      "after": {
+        "words": 1154,
+        "figures": 0
+      }
+    },
+    "seasonality": {
+      "rank": 371,
+      "before": {
+        "words": 451,
+        "figures": 0
+      },
+      "after": {
+        "words": 1112,
+        "figures": 0
+      }
+    },
+    "thinning-a-markov-chain": {
+      "rank": 372,
+      "before": {
+        "words": 217,
+        "figures": 0
+      },
+      "after": {
+        "words": 833,
+        "figures": 0
+      }
+    },
+    "trend": {
+      "rank": 373,
+      "before": {
+        "words": 493,
+        "figures": 0
+      },
+      "after": {
+        "words": 1046,
+        "figures": 0
+      }
+    },
+    "welch-interval": {
+      "rank": 374,
+      "before": {
+        "words": 623,
+        "figures": 0
+      },
+      "after": {
+        "words": 1228,
+        "figures": 0
+      }
+    },
+    "wold-decomposition": {
+      "rank": 375,
+      "before": {
+        "words": 570,
+        "figures": 1
+      },
+      "after": {
+        "words": 1280,
+        "figures": 1
+      }
+    },
+    "birth-death-balance": {
+      "rank": 376,
+      "before": {
+        "words": 558,
+        "figures": 0
+      },
+      "after": {
+        "words": 1221,
+        "figures": 0
+      }
+    },
+    "consistent-estimator": {
+      "rank": 377,
+      "before": {
+        "words": 319,
+        "figures": 0
+      },
+      "after": {
+        "words": 932,
+        "figures": 0
+      }
+    },
+    "cover-hart-bound": {
+      "rank": 378,
+      "before": {
+        "words": 558,
+        "figures": 0
+      },
+      "after": {
+        "words": 1290,
+        "figures": 0
+      }
+    },
+    "grid-monte-carlo-approximation": {
+      "rank": 379,
+      "before": {
+        "words": 375,
+        "figures": 1
+      },
+      "after": {
+        "words": 1141,
+        "figures": 1
+      }
+    },
+    "law-of-total-probability": {
+      "rank": 380,
+      "before": {
+        "words": 765,
+        "figures": 1
+      },
+      "after": {
+        "words": 1515,
+        "figures": 1
+      }
+    },
+    "nettalk": {
+      "rank": 381,
+      "before": {
+        "words": 409,
+        "figures": 0
+      },
+      "after": {
+        "words": 1075,
+        "figures": 0
+      }
+    },
+    "offspring-probability-generating-function": {
+      "rank": 382,
+      "before": {
+        "words": 457,
+        "figures": 0
+      },
+      "after": {
+        "words": 1160,
+        "figures": 0
+      }
+    },
+    "proper-prior-and-proper-posterior": {
+      "rank": 383,
+      "before": {
+        "words": 2048,
+        "figures": 0
+      },
+      "after": {
+        "words": 3008,
+        "figures": 0
+      }
+    },
+    "strict-stationarity": {
+      "rank": 384,
+      "before": {
+        "words": 264,
+        "figures": 0
+      },
+      "after": {
+        "words": 1110,
+        "figures": 0
+      }
+    },
+    "confusion-matrix": {
+      "rank": 385,
+      "before": {
+        "words": 607,
+        "figures": 0
+      },
+      "after": {
+        "words": 1519,
+        "figures": 0
+      }
+    },
+    "doubly-stochastic-matrix": {
+      "rank": 386,
+      "before": {
+        "words": 215,
+        "figures": 0
+      },
+      "after": {
+        "words": 1002,
+        "figures": 0
+      }
+    },
+    "graphical-lasso": {
+      "rank": 387,
+      "before": {
+        "words": 1070,
+        "figures": 0
+      },
+      "after": {
+        "words": 1877,
+        "figures": 0
+      }
+    },
+    "hitting-probabilities": {
+      "rank": 388,
+      "before": {
+        "words": 224,
+        "figures": 0
+      },
+      "after": {
+        "words": 1035,
+        "figures": 0
+      }
+    },
+    "joint-probability-mass-function": {
+      "rank": 389,
+      "before": {
+        "words": 860,
+        "figures": 0
+      },
+      "after": {
+        "words": 1684,
+        "figures": 0
+      }
+    },
+    "margin-of-error": {
+      "rank": 390,
+      "before": {
+        "words": 427,
+        "figures": 0
+      },
+      "after": {
+        "words": 1201,
+        "figures": 0
+      }
+    },
+    "poisson-limit-of-the-binomial": {
+      "rank": 391,
+      "before": {
+        "words": 620,
+        "figures": 0
+      },
+      "after": {
+        "words": 1414,
+        "figures": 0
+      }
+    },
+    "behrens-fisher-problem": {
+      "rank": 392,
+      "before": {
+        "words": 606,
+        "figures": 0
+      },
+      "after": {
+        "words": 1485,
+        "figures": 0
+      }
+    },
+    "binomial-test": {
+      "rank": 393,
+      "before": {
+        "words": 1162,
+        "figures": 0
+      },
+      "after": {
+        "words": 1938,
+        "figures": 0
+      }
+    },
+    "box-muller-method": {
+      "rank": 394,
+      "before": {
+        "words": 477,
+        "figures": 0
+      },
+      "after": {
+        "words": 1255,
+        "figures": 0
+      }
+    },
+    "confidence-region-for-a-normal-mean-vector": {
+      "rank": 395,
+      "before": {
+        "words": 792,
+        "figures": 0
+      },
+      "after": {
+        "words": 1676,
+        "figures": 0
+      }
+    },
+    "deviance-residual": {
+      "rank": 396,
+      "before": {
+        "words": 457,
+        "figures": 0
+      },
+      "after": {
+        "words": 1215,
+        "figures": 0
+      }
+    },
+    "dual-problem": {
+      "rank": 397,
+      "before": {
+        "words": 295,
+        "figures": 0
+      },
+      "after": {
+        "words": 1153,
+        "figures": 0
+      }
+    },
+    "gaussian-graphical-models": {
+      "rank": 398,
+      "before": {
+        "words": 1371,
+        "figures": 0
+      },
+      "after": {
+        "words": 2036,
+        "figures": 0
+      }
+    },
+    "generalised-likelihood-ratio-test": {
+      "rank": 399,
+      "before": {
+        "words": 328,
+        "figures": 0
+      },
+      "after": {
+        "words": 965,
+        "figures": 0
+      }
+    },
+    "hazard-rate": {
+      "rank": 400,
+      "before": {
+        "words": 607,
+        "figures": 1
+      },
+      "after": {
+        "words": 1204,
+        "figures": 1
+      }
+    },
+    "hypergeometric-distribution": {
+      "rank": 401,
+      "before": {
+        "words": 1001,
+        "figures": 2
+      },
+      "after": {
+        "words": 1942,
+        "figures": 2
+      }
+    },
+    "invariance-of-maximum-likelihood": {
+      "rank": 402,
+      "before": {
+        "words": 419,
+        "figures": 0
+      },
+      "after": {
+        "words": 1485,
+        "figures": 0
+      }
+    },
+    "label-switching": {
+      "rank": 403,
+      "before": {
+        "words": 207,
+        "figures": 0
+      },
+      "after": {
+        "words": 852,
+        "figures": 0
+      }
+    },
+    "neyman-pearson-approach": {
+      "rank": 404,
+      "before": {
+        "words": 554,
+        "figures": 1
+      },
+      "after": {
+        "words": 1200,
+        "figures": 1
+      }
+    },
+    "nonhomogeneous-poisson-process": {
+      "rank": 405,
+      "before": {
+        "words": 427,
+        "figures": 0
+      },
+      "after": {
+        "words": 1128,
+        "figures": 0
+      }
+    },
+    "one-hot-encoding": {
+      "rank": 406,
+      "before": {
+        "words": 443,
+        "figures": 0
+      },
+      "after": {
+        "words": 1083,
+        "figures": 0
+      }
+    },
+    "perceptron": {
+      "rank": 407,
+      "before": {
+        "words": 687,
+        "figures": 0
+      },
+      "after": {
+        "words": 1594,
+        "figures": 0
+      }
+    },
+    "regression-effect": {
+      "rank": 408,
+      "before": {
+        "words": 410,
+        "figures": 1
+      },
+      "after": {
+        "words": 1071,
+        "figures": 1
+      }
+    },
+    "throughput": {
+      "rank": 409,
+      "before": {
+        "words": 533,
+        "figures": 0
+      },
+      "after": {
+        "words": 1247,
+        "figures": 0
+      }
+    },
+    "uniform-integrability": {
+      "rank": 410,
+      "before": {
+        "words": 641,
+        "figures": 0
+      },
+      "after": {
+        "words": 1328,
+        "figures": 0
+      }
+    },
+    "bagging": {
+      "rank": 411,
+      "before": {
+        "words": 1459,
+        "figures": 0
+      },
+      "after": {
+        "words": 2141,
+        "figures": 0
+      }
+    },
+    "bradley-terry-model": {
+      "rank": 412,
+      "before": {
+        "words": 590,
+        "figures": 0
+      },
+      "after": {
+        "words": 1275,
+        "figures": 0
+      }
+    },
+    "distance-to-a-hyperplane": {
+      "rank": 413,
+      "before": {
+        "words": 554,
+        "figures": 0
+      },
+      "after": {
+        "words": 1254,
+        "figures": 0
+      }
+    },
+    "extinction-criterion": {
+      "rank": 414,
+      "before": {
+        "words": 442,
+        "figures": 0
+      },
+      "after": {
+        "words": 1337,
+        "figures": 0
+      }
+    },
+    "inverse-transform-method": {
+      "rank": 415,
+      "before": {
+        "words": 700,
+        "figures": 2
+      },
+      "after": {
+        "words": 1470,
+        "figures": 2
+      }
+    },
+    "neyman-pearson-lemma": {
+      "rank": 416,
+      "before": {
+        "words": 413,
+        "figures": 0
+      },
+      "after": {
+        "words": 1207,
+        "figures": 0
+      }
+    },
+    "uniformly-most-powerful-test": {
+      "rank": 417,
+      "before": {
+        "words": 559,
+        "figures": 0
+      },
+      "after": {
+        "words": 1326,
+        "figures": 0
+      }
+    },
+    "limiting-distribution": {
+      "rank": 418,
+      "before": {
+        "words": 2216,
+        "figures": 4
+      },
+      "after": {
+        "words": 3195,
+        "figures": 4
+      }
+    },
+    "sampling-bias": {
+      "rank": 419,
+      "before": {
+        "words": 201,
+        "figures": 0
+      },
+      "after": {
+        "words": 1090,
+        "figures": 0
+      }
+    },
+    "sylvester-s-criterion": {
+      "rank": 420,
+      "before": {
+        "words": 212,
+        "figures": 0
+      },
+      "after": {
+        "words": 1170,
+        "figures": 0
+      }
+    },
+    "addiction-data": {
+      "rank": 421,
+      "before": {
+        "words": 924,
+        "figures": 0
+      },
+      "after": {
+        "words": 1877,
+        "figures": 0
+      }
+    },
+    "agglomerative-and-divisive-clustering": {
+      "rank": 422,
+      "before": {
+        "words": 502,
+        "figures": 0
+      },
+      "after": {
+        "words": 1307,
+        "figures": 0
+      }
+    },
+    "alon-colon-cancer-data": {
+      "rank": 423,
+      "before": {
+        "words": 1141,
+        "figures": 0
+      },
+      "after": {
+        "words": 1995,
+        "figures": 0
+      }
+    },
+    "atom-of-a-distribution": {
+      "rank": 424,
+      "before": {
+        "words": 474,
+        "figures": 0
+      },
+      "after": {
+        "words": 1242,
+        "figures": 0
+      }
+    },
+    "basu-s-theorem": {
+      "rank": 425,
+      "before": {
+        "words": 402,
+        "figures": 0
+      },
+      "after": {
+        "words": 1389,
+        "figures": 0
+      }
+    },
+    "blocking-probability": {
+      "rank": 426,
+      "before": {
+        "words": 471,
+        "figures": 0
+      },
+      "after": {
+        "words": 1408,
+        "figures": 0
+      }
+    },
+    "characteristic-functions": {
+      "rank": 427,
+      "before": {
+        "words": 508,
+        "figures": 0
+      },
+      "after": {
+        "words": 1299,
+        "figures": 0
+      }
+    },
+    "clotting-time-data": {
+      "rank": 428,
+      "before": {
+        "words": 1546,
+        "figures": 1
+      },
+      "after": {
+        "words": 2061,
+        "figures": 1
+      }
+    },
+    "cross-validation-of-the-likelihood": {
+      "rank": 429,
+      "before": {
+        "words": 521,
+        "figures": 0
+      },
+      "after": {
+        "words": 1198,
+        "figures": 0
+      }
+    },
+    "cycle": {
+      "rank": 430,
+      "before": {
+        "words": 476,
+        "figures": 0
+      },
+      "after": {
+        "words": 1052,
+        "figures": 0
+      }
+    },
+    "exponential-loss": {
+      "rank": 431,
+      "before": {
+        "words": 462,
+        "figures": 0
+      },
+      "after": {
+        "words": 1014,
+        "figures": 0
+      }
+    },
+    "exponential-tails-and-the-gumbel-law": {
+      "rank": 432,
+      "before": {
+        "words": 537,
+        "figures": 0
+      },
+      "after": {
+        "words": 1106,
+        "figures": 0
+      }
+    },
+    "finite-irreducible-chains": {
+      "rank": 433,
+      "before": {
+        "words": 418,
+        "figures": 0
+      },
+      "after": {
+        "words": 1281,
+        "figures": 0
+      }
+    },
+    "fisher-s-exact-test": {
+      "rank": 434,
+      "before": {
+        "words": 801,
+        "figures": 0
+      },
+      "after": {
+        "words": 1379,
+        "figures": 0
+      }
+    },
+    "gaussian-process": {
+      "rank": 435,
+      "before": {
+        "words": 288,
+        "figures": 0
+      },
+      "after": {
+        "words": 996,
+        "figures": 0
+      }
+    },
+    "gibbs-inequality": {
+      "rank": 436,
+      "before": {
+        "words": 513,
+        "figures": 0
+      },
+      "after": {
+        "words": 1125,
+        "figures": 0
+      }
+    },
+    "intensity-function": {
+      "rank": 437,
+      "before": {
+        "words": 486,
+        "figures": 0
+      },
+      "after": {
+        "words": 1103,
+        "figures": 0
+      }
+    },
+    "interarrival-time": {
+      "rank": 438,
+      "before": {
+        "words": 522,
+        "figures": 0
+      },
+      "after": {
+        "words": 1156,
+        "figures": 0
+      }
+    },
+    "intraclass-correlation": {
+      "rank": 439,
+      "before": {
+        "words": 523,
+        "figures": 0
+      },
+      "after": {
+        "words": 1154,
+        "figures": 0
+      }
+    },
+    "ising-model": {
+      "rank": 440,
+      "before": {
+        "words": 483,
+        "figures": 0
+      },
+      "after": {
+        "words": 1106,
+        "figures": 0
+      }
+    },
+    "iteratively-reweighted-least-squares": {
+      "rank": 441,
+      "before": {
+        "words": 616,
+        "figures": 0
+      },
+      "after": {
+        "words": 1257,
+        "figures": 0
+      }
+    },
+    "kernel-trick": {
+      "rank": 442,
+      "before": {
+        "words": 1526,
+        "figures": 0
+      },
+      "after": {
+        "words": 2273,
+        "figures": 0
+      }
+    },
+    "kolmogorov-extension-theorem": {
+      "rank": 443,
+      "before": {
+        "words": 495,
+        "figures": 0
+      },
+      "after": {
+        "words": 1258,
+        "figures": 0
+      }
+    },
+    "kolmogorov-forward-and-backward-equations": {
+      "rank": 444,
+      "before": {
+        "words": 576,
+        "figures": 0
+      },
+      "after": {
+        "words": 1340,
+        "figures": 0
+      }
+    },
+    "kyphosis-data": {
+      "rank": 445,
+      "before": {
+        "words": 798,
+        "figures": 1
+      },
+      "after": {
+        "words": 1584,
+        "figures": 1
+      }
+    },
+    "lehmann-scheffe-theorem": {
+      "rank": 446,
+      "before": {
+        "words": 541,
+        "figures": 0
+      },
+      "after": {
+        "words": 1584,
+        "figures": 0
+      }
+    },
+    "linear-congruential-generator": {
+      "rank": 447,
+      "before": {
+        "words": 400,
+        "figures": 0
+      },
+      "after": {
+        "words": 1092,
+        "figures": 0
+      }
+    },
+    "marginal-variance-posterior": {
+      "rank": 448,
+      "before": {
+        "words": 1881,
+        "figures": 0
+      },
+      "after": {
+        "words": 3152,
+        "figures": 0
+      }
+    },
+    "measurement-error": {
+      "rank": 449,
+      "before": {
+        "words": 431,
+        "figures": 0
+      },
+      "after": {
+        "words": 1386,
+        "figures": 0
+      }
+    },
+    "metropolis-algorithm": {
+      "rank": 450,
+      "before": {
+        "words": 503,
+        "figures": 0
+      },
+      "after": {
+        "words": 1225,
+        "figures": 0
+      }
+    },
+    "moments-of-the-sample-mean-and-variance": {
+      "rank": 451,
+      "before": {
+        "words": 449,
+        "figures": 0
+      },
+      "after": {
+        "words": 1172,
+        "figures": 0
+      }
+    },
+    "monotone-convergence-fatou-and-dominated-convergence": {
+      "rank": 452,
+      "before": {
+        "words": 458,
+        "figures": 0
+      },
+      "after": {
+        "words": 1307,
+        "figures": 0
+      }
+    },
+    "natural-exponential-family": {
+      "rank": 453,
+      "before": {
+        "words": 1797,
+        "figures": 0
+      },
+      "after": {
+        "words": 2541,
+        "figures": 0
+      }
+    },
+    "paired-comparison": {
+      "rank": 454,
+      "before": {
+        "words": 486,
+        "figures": 0
+      },
+      "after": {
+        "words": 1174,
+        "figures": 0
+      }
+    },
+    "partially-linear-model": {
+      "rank": 455,
+      "before": {
+        "words": 502,
+        "figures": 0
+      },
+      "after": {
+        "words": 1201,
+        "figures": 0
+      }
+    },
+    "power-law-tails-and-the-frechet-law": {
+      "rank": 456,
+      "before": {
+        "words": 522,
+        "figures": 0
+      },
+      "after": {
+        "words": 1145,
+        "figures": 0
+      }
+    },
+    "probability-generating-function": {
+      "rank": 457,
+      "before": {
+        "words": 419,
+        "figures": 0
+      },
+      "after": {
+        "words": 1221,
+        "figures": 0
+      }
+    },
+    "rao-blackwell-theorem": {
+      "rank": 458,
+      "before": {
+        "words": 403,
+        "figures": 0
+      },
+      "after": {
+        "words": 1038,
+        "figures": 0
+      }
+    },
+    "separating-set": {
+      "rank": 459,
+      "before": {
+        "words": 611,
+        "figures": 0
+      },
+      "after": {
+        "words": 1295,
+        "figures": 0
+      }
+    },
+    "sequential-coherence": {
+      "rank": 460,
+      "before": {
+        "words": 699,
+        "figures": 0
+      },
+      "after": {
+        "words": 2145,
+        "figures": 0
+      }
+    },
+    "signed-distance": {
+      "rank": 461,
+      "before": {
+        "words": 403,
+        "figures": 0
+      },
+      "after": {
+        "words": 1272,
+        "figures": 0
+      }
+    },
+    "soft-margin-slack-variables": {
+      "rank": 462,
+      "before": {
+        "words": 817,
+        "figures": 0
+      },
+      "after": {
+        "words": 1495,
+        "figures": 0
+      }
+    },
+    "soft-thresholding-for-orthonormal-predictors": {
+      "rank": 463,
+      "before": {
+        "words": 361,
+        "figures": 0
+      },
+      "after": {
+        "words": 1021,
+        "figures": 0
+      }
+    },
+    "subset-selection-and-shrinkage": {
+      "rank": 464,
+      "before": {
+        "words": 361,
+        "figures": 0
+      },
+      "after": {
+        "words": 1052,
+        "figures": 0
+      }
+    },
+    "superposition-and-thinning": {
+      "rank": 465,
+      "before": {
+        "words": 499,
+        "figures": 0
+      },
+      "after": {
+        "words": 1195,
+        "figures": 0
+      }
+    },
+    "two-sample-hotelling-test": {
+      "rank": 466,
+      "before": {
+        "words": 160,
+        "figures": 0
+      },
+      "after": {
+        "words": 1303,
+        "figures": 0
+      }
+    },
+    "variance-ratio-f-pivot": {
+      "rank": 467,
+      "before": {
+        "words": 452,
+        "figures": 0
+      },
+      "after": {
+        "words": 1293,
+        "figures": 0
+      }
+    },
+    "arch-and-garch-models": {
+      "rank": 468,
+      "before": {
+        "words": 566,
+        "figures": 0
+      },
+      "after": {
+        "words": 1259,
+        "figures": 0
+      }
+    },
+    "asymptotic-relative-efficiency": {
+      "rank": 469,
+      "before": {
+        "words": 534,
+        "figures": 0
+      },
+      "after": {
+        "words": 1293,
+        "figures": 0
+      }
+    },
+    "cholesky-decomposition": {
+      "rank": 470,
+      "before": {
+        "words": 312,
+        "figures": 0
+      },
+      "after": {
+        "words": 1057,
+        "figures": 0
+      }
+    },
+    "choosing-k-the-gap-statistic": {
+      "rank": 471,
+      "before": {
+        "words": 705,
+        "figures": 0
+      },
+      "after": {
+        "words": 1518,
+        "figures": 0
+      }
+    },
+    "cost-complexity-pruning": {
+      "rank": 472,
+      "before": {
+        "words": 394,
+        "figures": 0
+      },
+      "after": {
+        "words": 1259,
+        "figures": 0
+      }
+    },
+    "decision-stump": {
+      "rank": 473,
+      "before": {
+        "words": 488,
+        "figures": 0
+      },
+      "after": {
+        "words": 1317,
+        "figures": 0
+      }
+    },
+    "fisher-s-linear-discriminant-analysis": {
+      "rank": 474,
+      "before": {
+        "words": 985,
+        "figures": 0
+      },
+      "after": {
+        "words": 1782,
+        "figures": 0
+      }
+    },
+    "gamma-regression": {
+      "rank": 475,
+      "before": {
+        "words": 241,
+        "figures": 0
+      },
+      "after": {
+        "words": 1079,
+        "figures": 0
+      }
+    },
+    "jackknife": {
+      "rank": 476,
+      "before": {
+        "words": 801,
+        "figures": 0
+      },
+      "after": {
+        "words": 1649,
+        "figures": 0
+      }
+    },
+    "laplace-approximation": {
+      "rank": 477,
+      "before": {
+        "words": 713,
+        "figures": 0
+      },
+      "after": {
+        "words": 1546,
+        "figures": 0
+      }
+    },
+    "m-m-queue": {
+      "rank": 478,
+      "before": {
+        "words": 488,
+        "figures": 0
+      },
+      "after": {
+        "words": 1289,
+        "figures": 0
+      }
+    },
+    "negative-predictive-value": {
+      "rank": 479,
+      "before": {
+        "words": 334,
+        "figures": 0
+      },
+      "after": {
+        "words": 1118,
+        "figures": 0
+      }
+    },
+    "perceptron-learning-rule": {
+      "rank": 480,
+      "before": {
+        "words": 408,
+        "figures": 0
+      },
+      "after": {
+        "words": 1395,
+        "figures": 0
+      }
+    },
+    "randomised-controlled-trial": {
+      "rank": 481,
+      "before": {
+        "words": 963,
+        "figures": 2
+      },
+      "after": {
+        "words": 1806,
+        "figures": 2
+      }
+    },
+    "scaled-deviance": {
+      "rank": 482,
+      "before": {
+        "words": 250,
+        "figures": 0
+      },
+      "after": {
+        "words": 1203,
+        "figures": 0
+      }
+    },
+    "expected-duration-of-a-random-walk": {
+      "rank": 483,
+      "before": {
+        "words": 396,
+        "figures": 0
+      },
+      "after": {
+        "words": 1201,
+        "figures": 0
+      }
+    },
+    "generalised-linear-mixed-model": {
+      "rank": 484,
+      "before": {
+        "words": 1177,
+        "figures": 1
+      },
+      "after": {
+        "words": 2208,
+        "figures": 1
+      }
+    },
+    "a-finite-stationary-point-is-a-global-maximiser": {
+      "rank": 485,
+      "before": {
+        "words": 475,
+        "figures": 0
+      },
+      "after": {
+        "words": 1545,
+        "figures": 0
+      }
+    },
+    "a-hypothesis-region-is-not-a-separate-model": {
+      "rank": 486,
+      "before": {
+        "words": 490,
+        "figures": 0
+      },
+      "after": {
+        "words": 1388,
+        "figures": 0
+      }
+    },
+    "a-single-threshold-unit-cannot-compute-xor": {
+      "rank": 487,
+      "before": {
+        "words": 381,
+        "figures": 0
+      },
+      "after": {
+        "words": 1302,
+        "figures": 0
+      }
+    },
+    "a-zero-precision-entry-is-conditional-independence": {
+      "rank": 488,
+      "before": {
+        "words": 465,
+        "figures": 0
+      },
+      "after": {
+        "words": 1412,
+        "figures": 0
+      }
+    },
+    "affine-images-of-normal-vectors": {
+      "rank": 489,
+      "before": {
+        "words": 643,
+        "figures": 0
+      },
+      "after": {
+        "words": 1561,
+        "figures": 0
+      }
+    },
+    "anova-f-distribution": {
+      "rank": 490,
+      "before": {
+        "words": 334,
+        "figures": 0
+      },
+      "after": {
+        "words": 1399,
+        "figures": 0
+      }
+    },
+    "backpropagation-batch-form": {
+      "rank": 491,
+      "before": {
+        "words": 524,
+        "figures": 0
+      },
+      "after": {
+        "words": 1175,
+        "figures": 0
+      }
+    },
+    "basic-gradient-descent-learning": {
+      "rank": 492,
+      "before": {
+        "words": 441,
+        "figures": 0
+      },
+      "after": {
+        "words": 1263,
+        "figures": 0
+      }
+    },
+    "bayes-action-for-two-hypotheses": {
+      "rank": 493,
+      "before": {
+        "words": 1233,
+        "figures": 2
+      },
+      "after": {
+        "words": 2210,
+        "figures": 2
+      }
+    },
+    "bayes-optimal-rule": {
+      "rank": 494,
+      "before": {
+        "words": 515,
+        "figures": 0
+      },
+      "after": {
+        "words": 1427,
+        "figures": 0
+      }
+    },
+    "beta-binomial-posterior-prediction": {
+      "rank": 495,
+      "before": {
+        "words": 1003,
+        "figures": 0
+      },
+      "after": {
+        "words": 2556,
+        "figures": 0
+      }
+    },
+    "blocks-in-analysis-of-variance": {
+      "rank": 496,
+      "before": {
+        "words": 1189,
+        "figures": 1
+      },
+      "after": {
+        "words": 1940,
+        "figures": 1
+      }
+    },
+    "bootstrap-error-and-the-correction": {
+      "rank": 497,
+      "before": {
+        "words": 592,
+        "figures": 0
+      },
+      "after": {
+        "words": 1257,
+        "figures": 0
+      }
+    },
+    "brier-score": {
+      "rank": 498,
+      "before": {
+        "words": 446,
+        "figures": 0
+      },
+      "after": {
+        "words": 1221,
+        "figures": 0
+      }
+    },
+    "coefficient-of-determination": {
+      "rank": 499,
+      "before": {
+        "words": 856,
+        "figures": 0
+      },
+      "after": {
+        "words": 1608,
+        "figures": 0
+      }
+    },
+    "conditional-coefficient-posterior": {
+      "rank": 500,
+      "before": {
+        "words": 1784,
+        "figures": 0
+      },
+      "after": {
+        "words": 4995,
+        "figures": 0
+      }
+    },
+    "delta-rule": {
+      "rank": 501,
+      "before": {
+        "words": 842,
+        "figures": 0
+      },
+      "after": {
+        "words": 1563,
+        "figures": 0
+      }
+    },
+    "direct-posterior-simulation": {
+      "rank": 502,
+      "before": {
+        "words": 2059,
+        "figures": 0
+      },
+      "after": {
+        "words": 4889,
+        "figures": 0
+      }
+    },
+    "dirichlet-moments": {
+      "rank": 503,
+      "before": {
+        "words": 1236,
+        "figures": 0
+      },
+      "after": {
+        "words": 2761,
+        "figures": 0
+      }
+    },
+    "distribution-of-a-function-or-a-sum": {
+      "rank": 504,
+      "before": {
+        "words": 801,
+        "figures": 0
+      },
+      "after": {
+        "words": 1492,
+        "figures": 0
+      }
+    },
+    "em-for-a-normal-mixture": {
+      "rank": 505,
+      "before": {
+        "words": 530,
+        "figures": 0
+      },
+      "after": {
+        "words": 1230,
+        "figures": 0
+      }
+    },
+    "empirical-bayes": {
+      "rank": 506,
+      "before": {
+        "words": 539,
+        "figures": 0
+      },
+      "after": {
+        "words": 1323,
+        "figures": 0
+      }
+    },
+    "epanechnikov-kernel": {
+      "rank": 507,
+      "before": {
+        "words": 286,
+        "figures": 0
+      },
+      "after": {
+        "words": 937,
+        "figures": 0
+      }
+    },
+    "equally-likely-outcomes": {
+      "rank": 508,
+      "before": {
+        "words": 507,
+        "figures": 0
+      },
+      "after": {
+        "words": 1284,
+        "figures": 0
+      }
+    },
+    "exchangeable-correlation": {
+      "rank": 509,
+      "before": {
+        "words": 446,
+        "figures": 0
+      },
+      "after": {
+        "words": 1117,
+        "figures": 0
+      }
+    },
+    "f-test-for-equal-variances": {
+      "rank": 510,
+      "before": {
+        "words": 534,
+        "figures": 0
+      },
+      "after": {
+        "words": 1123,
+        "figures": 0
+      }
+    },
+    "factor-analysis": {
+      "rank": 511,
+      "before": {
+        "words": 536,
+        "figures": 0
+      },
+      "after": {
+        "words": 1263,
+        "figures": 0
+      }
+    },
+    "family-wise-control-implies-false-discovery-control": {
+      "rank": 512,
+      "before": {
+        "words": 442,
+        "figures": 0
+      },
+      "after": {
+        "words": 1395,
+        "figures": 0
+      }
+    },
+    "fisher-s-direction": {
+      "rank": 513,
+      "before": {
+        "words": 506,
+        "figures": 0
+      },
+      "after": {
+        "words": 1376,
+        "figures": 0
+      }
+    },
+    "fold-cross-validation": {
+      "rank": 514,
+      "before": {
+        "words": 787,
+        "figures": 0
+      },
+      "after": {
+        "words": 1451,
+        "figures": 0
+      }
+    },
+    "full-conditionals-under-independent-priors": {
+      "rank": 515,
+      "before": {
+        "words": 2223,
+        "figures": 0
+      },
+      "after": {
+        "words": 4221,
+        "figures": 0
+      }
+    },
+    "gradient-boosting": {
+      "rank": 516,
+      "before": {
+        "words": 1183,
+        "figures": 0
+      },
+      "after": {
+        "words": 1945,
+        "figures": 0
+      }
+    },
+    "hard-margin-dual": {
+      "rank": 517,
+      "before": {
+        "words": 1093,
+        "figures": 0
+      },
+      "after": {
+        "words": 1780,
+        "figures": 0
+      }
+    }
+  }
+}

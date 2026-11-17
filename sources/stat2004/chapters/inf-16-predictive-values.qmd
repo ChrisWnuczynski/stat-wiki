@@ -72,7 +72,7 @@ ppv(0.001 / 1.001, 0.99, 0.99)  # prior odds 0.001, about 0.090
 
 ## Negative predictive value {#s-negative-predictive-value}
 
-The negative predictive value is the probability the condition is absent given a negative test,{{cite:vecchio1966}}{{cite:bayes1763}}
+The negative predictive value is the probability the condition is absent given a negative test,{{cite:lindholm2022_ml}} (§4.5, p. 87, Tbl. 4.1){{cite:openintro2019}} (§3.2.7, Bayes' theorem)
 
 $$
 \mathrm{NPV}=\Pr(D^c\mid T-)=\frac{p_0(1-\alpha)}{p_0(1-\alpha)+p_1\beta}=\frac{1-\alpha}{(1-\alpha)+R\beta}.
@@ -84,9 +84,9 @@ $$
 \mathrm{NPV}=\frac{0.995\times 0.95}{0.995\times 0.95+0.005\times 0.05}=\frac{0.94525}{0.9455}=0.9997.
 $$
 
-A negative result is very trustworthy precisely because the condition is rare and the test does not miss many cases.{{cite:yerushalmy1947}} The asymmetry with the PPV is the point of keeping the two names. A test can be trusted when it says "absent" and not trusted when it says "present", or the reverse if the condition is common and the sensitivity is poor. Reporting only the sensitivity describes neither of those decisions.
+A negative result is very trustworthy precisely because the condition is rare and the test does not miss many cases.{{cite:openintro2019}} (§3.2.7, Bayes' theorem) The asymmetry with the PPV is the point of keeping the two names. A test can be trusted when it says "absent" and not trusted when it says "present", or the reverse if the condition is common and the sensitivity is poor. Reporting only the sensitivity describes neither of those decisions.
 
-The same split is why a small $p$-value and a large $p$-value are not mirror images in a rare-effect setting. A rejection can still be a false rejection if most hypotheses tested are null. A non-rejection, when the power is decent and the effect would have mattered, is stronger evidence for the null than the PPV analogy suggests only if the prior odds are not already tiny. The formula, not the surprise, decides which way the asymmetry goes.
+The same conditional distinction applies when a negative result is non-rejection of a null hypothesis. If $R=p_1/p_0$ is the prior odds of the alternative, rejection changes the odds to $R(1-\beta)/\alpha$, while non-rejection changes them to $R\beta/(1-\alpha)$. The latter likelihood ratio describes the evidence supplied by non-rejection independently of $R$. A high posterior null probability can also reflect very small prior alternative odds; a large $p$-value alone does not determine either posterior probability. Power must be specified for the alternative under consideration.{{cite:openintro2019}} (§3.2.7, Bayes\' theorem)
 
 ## Fallacy of the transposed conditional {#s-fallacy-of-the-transposed-conditional}
 

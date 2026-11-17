@@ -61,7 +61,7 @@ Repeat the study and none of these eighteen numbers returns. The fixed effects $
 
 ## A Bernoulli response
 
-The outer distribution does not have to be normal.{{cite:breslow_clayton1993}}{{cite:bates_lme4_2015}} Keep the linear predictor, random intercept and random slopes included, and let
+The conditional response distribution can be Bernoulli rather than normal.{{cite:bolker2009_glmm}} (pp. 127–130, Box 2) Keep the linear predictor, random intercept and random slopes included, and let
 $$
 Y_{ji}\mid \vect{X}_{ji},\boldsymbol{\alpha}_j
 \ind
@@ -69,9 +69,9 @@ Y_{ji}\mid \vect{X}_{ji},\boldsymbol{\alpha}_j
 \mu\bigl(\vect{X}_{ji}^\top\boldsymbol{\beta}+\vect{Z}_{ji}^\top\boldsymbol{\alpha}_j\bigr)
 \right),
 $$
-with $\boldsymbol{\alpha}_j$ still multivariate normal on the link scale. For a logit, $\mu$ is the expit. The normal distribution on $\boldsymbol{\alpha}_j$ is a modelling choice about a latent intercept, not a claim that we observed a normal measurement. It is a distribution we can interpret, and there is no stronger reason, before seeing the data, to pick a different one. The likelihood integrates the random effects out. There is no closed form, and no single algorithm that is guaranteed to find the maximum in every data set. When the numerical answer is in doubt, we fit the model more than one way, and we trust an agreement.
+with $\boldsymbol{\alpha}_j$ multivariate normal on the link scale. For a logit, $\mu$ is the expit. Normality describes latent group coefficients; the observed response remains Bernoulli. The latent distribution is a modelling assumption to assess against the scientific setting and fitted behaviour. The likelihood integrates each shared group effect once over its distribution. Logistic-normal integrals generally need numerical approximation, while some other mixtures have closed forms. Agreement among optimisers, starting values and integration settings is useful evidence of numerical stability but does not establish a global optimum or eliminate integration error.{{cite:bolker2009_glmm}} (pp. 128–130, Estimation and Box 2){{cite:wuthrich_merz2022_glm}} (§5.3.5, pp. 155–156)
 
-The 1989 Bangladesh fertility survey has $1934$ women and a binary response, currently using contraception or not.{{cite:steele_diamond1999}} Age is centred and enters as a quadratic, because use should rise and then fall rather than climb forever. `ch` records whether she already has a living child. `urban` records urban against rural. `district` is the cluster. Women in the same district share facilities and customs, so a district intercept is the natural random effect. If every district in the country were in the sample, "a draw from a population of districts" would be a fiction about the boundaries of districts rather than about a sampling frame. We still use it. The districts that exist are one way of cutting the map.
+The Bangladesh fertility-survey data in `mlmRev::Contraception` contain $1934$ women and a binary response, currently using contraception or not; its [dataset description](https://raw.githubusercontent.com/cran/mlmRev/master/man/Contraception.Rd) defines the variables and identifies the survey source. Age is centred and enters as a quadratic, because use should rise and then fall rather than climb forever. `ch` records whether she already has a living child. `urban` records urban against rural. `district` is the cluster. Women in the same district share facilities and customs, so a district intercept is the natural random effect. If every district in the country were in the sample, "a draw from a population of districts" would be a fiction about the boundaries of districts rather than about a sampling frame. We still use it. The districts that exist are one way of cutting the map.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -97,9 +97,9 @@ age2         -0.00464  se 0.00072  z -6.43
 urbanY        0.693    se 0.121    z  5.74
 ch            0.860    se 0.148    z  5.80
 ```
-Age has a positive linear term that is not itself significant and a negative square that is. Together they are the upside-down parabola.
+Age has a positive linear term that is not itself significant and a negative square that is. Together they give a concave quadratic on the log-odds scale. Applying the expit yields the plotted probability curves, which are not parabolas.
 
-![Fitted probability of contraceptive use against centred age, in a typical district, for a woman who already has a living child. Urban sits above rural. The two curves are one parabola, not two separate age effects.](../figures/contraception.pdf){#fig-contra}
+![Fitted probability of contraceptive use against centred age, in a typical district, for a woman who already has a living child. Urban sits above rural. Both curves use the same quadratic age predictor on the log-odds scale; the urban effect shifts log odds by a constant.](../figures/contraception.pdf){#fig-contra}
 
 The linear coefficient is not interpreted on its own. Urban women have odds of use $\exp(0.693)=2.00$ times those of rural women in the same district, at the same age and the same child status. A woman who already has a living child has odds $\exp(0.860)=2.36$ times those of a woman who does not. The district standard deviation is a typical shift, not a comparison of two named districts.
 
@@ -119,7 +119,7 @@ Contraception$age2 <- Contraception$age^2
 summary(glmer(use ~ age + age2 + urban + ch + (urban | district),
               data = Contraception, family = binomial))
 ```
-The average urban coefficient is now $0.770$ ($z=4.69$): across districts, urban versus rural is a factor of $\exp(0.77)\approx 2.16$ on the odds. The district-level standard deviation of that contrast is $0.74$, almost as large as the average contrast itself. Some districts have essentially no urban gap. Some have a much larger one. The correlation between the district intercept and the district urban slope is $-0.79$. A district that already has high use has a smaller urban-rural gap. Where use is common, rural and urban are not far apart, and where use is uncommon the town centre and the countryside are. The likelihood-ratio comparison with the random-intercept-only model is small enough, even as a conservative boundary $p$-value, that the extra random slope stays. It is an interaction. The effect of living in town depends on the district.
+The average urban coefficient is now $0.770$ ($z=4.69$): across districts, urban versus rural is a factor of $\exp(0.77)\approx 2.16$ on the odds. The district-level standard deviation of that contrast is $0.74$, almost as large as the average contrast itself. Some districts have essentially no urban gap. Some have a much larger one. The correlation between the district intercept and the district urban slope is $-0.79$. The negative fitted correlation associates larger district intercept deviations with smaller urban log-odds contrasts; it is a population tendency rather than a deterministic rule for every district. The comparison is conditional on the other covariates, and a log-odds contrast does not equal a constant probability gap. The Laplace log-likelihoods are approximately $-1186.59285$ for the random-intercept model and $-1180.48800$ with the urban random slope, giving a likelihood-ratio statistic about $12.20969$. A zero random-slope variance is a boundary null, so a calibrated test needs an appropriate boundary reference or a justified simulation procedure. The larger model can also be assessed by its fit and sensitivity to integration and covariance assumptions.{{cite:bolker2009_glmm}} (pp. 131–132, Inference) It is an interaction. The effect of living in town depends on the district.
 
 Marginal models, which describe the population average without a mechanism for the correlation, are the next chapter.
 

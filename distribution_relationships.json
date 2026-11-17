@@ -116,8 +116,8 @@
   {
     "a": "inverse-gaussian-distribution",
     "b": "gamma-distribution",
-    "a_text": "{target} is another positive family used in regression, but its variance at a fixed shape grows as the cube of its mean rather than the square.{{cite:zhou2020_glm}} (§“Link function”, variance-function table)",
-    "b_text": "An {target} law has variance growing cubically in its mean at fixed shape; this gamma law has variance growing quadratically at fixed shape.{{cite:zhou2020_glm}} (§“Link function”, variance-function table)"
+    "a_text": "{target} has variance proportional to the square of its mean at fixed shape; this inverse-Gaussian law has variance proportional to the cube.{{cite:wuthrich_merz2022_glm}} (§§5.3.7–5.3.8, pp. 167–176)",
+    "b_text": "An {target} law has variance proportional to the cube of its mean at fixed shape; this gamma law has variance proportional to the square.{{cite:wuthrich_merz2022_glm}} (§§5.3.7–5.3.8, pp. 167–176)"
   },
   {
     "a": "lognormal-distribution",

@@ -1592,9 +1592,9 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 self.assertTrue({"siegrist2022_lognormal_distribution", "dodge2008"} <= citation_keys, slug)
             if slug == "inverse-gaussian-distribution":
                 # Historical bibliography-only entries are absent after the rebuild;
-                # the GLM account retains checked Nelder–Wedderburn and SAS citations.
+                # the GLM account requires the checked Nelder–Wedderburn and Wüthrich–Merz sources.
                 expected_keys.difference_update({"tweedie1957", "mcalister1879", "huang_rathouz2017"})
-                self.assertTrue({"nelder_wedderburn1972", "sas2012_glm"} <= citation_keys, slug)
+                self.assertTrue({"nelder_wedderburn1972", "wuthrich_merz2022_glm"} <= citation_keys, slug)
             if slug == "chi-squared-distribution":
                 # The opened Siegrist, NIST and Dodge accounts replace unread inherited markers.
                 expected_keys.difference_update({"student1908", "fisher1924_chisq", "fisher1925_smrw", "casella_berger2002", "agresti2002", "pearson1900", "forbes2011"})
@@ -1707,12 +1707,10 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
             if slug == "marginal-variance-posterior":
                 expected_keys.difference_update({"gelman_bda2013", "jeffreys1961"})
-                self.assertIn("raiffa_schlaifer1961", citation_keys, slug)
+                self.assertTrue({"prado_ferreira_west2021", "gelman2006"} <= citation_keys, slug)
             if slug == "full-conditionals-under-independent-priors":
-                # Geyer §10.6 was opened for the independent-prior example;
-                # the previous textbook citations were not checked in source.
-                expected_keys.difference_update({"gelfand_smith1990", "gelman_bda2013", "raiffa_schlaifer1961"})
-                self.assertIn("geyer2005_markov_chain", citation_keys, slug)
+                # Require the verified, located replacement works for this result.
+                self.assertTrue({"deisenroth_faisal_ong2020", "gelfand_smith1990"} <= citation_keys, slug)
             if slug == "bayes-rule":
                 # Replace the bibliography-only Laplace and Jeffreys entries and
                 # the unlocated Gelman passage with passages read for this article.
@@ -1730,10 +1728,8 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 expected_keys.discard("raiffa_schlaifer1961")
                 self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "beta-binomial-posterior-prediction":
-                # The opened Gelman derivation replaces inherited Laplace
-                # and Raiffa–Schlaifer references without checked passages.
-                expected_keys.difference_update({"laplace1812", "raiffa_schlaifer1961"})
-                self.assertIn("gelman_bda2013", citation_keys, slug)
+                # Require the verified, located replacement works for this result.
+                self.assertTrue({"downey2020_thinkbayes2", "siegrist2022_beta_bernoulli"} <= citation_keys, slug)
             if slug == "the-beta-distribution-is-the-two-category-dirichlet":
                 # The two-category density reduction is supported by the
                 # opened Gelman §3.4 in place of unread historical markers.
@@ -1755,20 +1751,16 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 expected_keys.difference_update({"jeffreys1961", "raiffa_schlaifer1961"})
                 self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "dirichlet-moments":
-                # Tokdar's full handout derives the beta marginal and
-                # moment formulas in place of uninspected old citations.
-                expected_keys.difference_update({"dirichlet1839", "raiffa_schlaifer1961"})
-                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
+                # Require the verified, located replacement works for this result.
+                self.assertTrue({"blei_ng_jordan2003", "deisenroth_faisal_ong2020"} <= citation_keys, slug)
             if slug == "interior-dirichlet-mode":
                 # The opened Gelman and Tokdar derivations replace an
                 # inherited bibliography-only reference.
                 expected_keys.discard("raiffa_schlaifer1961")
                 self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
             if slug == "sequential-coherence":
-                # The beta updates are derived from the opened Gelman passage;
-                # inherited Laplace and Raiffa references were not inspected.
-                expected_keys.difference_update({"raiffa_schlaifer1961", "laplace1812"})
-                self.assertIn("gelman_bda2013", citation_keys, slug)
+                # Require the verified, located replacement works for this result.
+                self.assertTrue({"dodge2008", "siegrist2022_bayes_estimators"} <= citation_keys, slug)
             if slug == "log-partition-moment-identities":
                 # Replace two unopened textbooks in the shared proposition
                 # with an opened, located original-paper derivation.

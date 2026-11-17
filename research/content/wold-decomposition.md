@@ -23,7 +23,9 @@ $$
 $$
 Uncorrelatedness gives error variance $\sigma^2\sum_{j=0}^{h-1}a_j^2$. This calculation explains why long-horizon uncertainty approaches the variance of the nondeterministic component when the coefficients are square summable. The predictable component contributes no error under the stated information set.{{cite:scargle2020_wold}} (§4, moving-average representation)
 
-## Worked example — One lag of memory
+## Worked example
+
+### One lag of memory
 Let $X_t=\varepsilon_t+0.4\varepsilon_{t-1}$, with innovation variance $4$. Then $\operatorname{Var}(X_t)=4(1+0.4^2)=4.64$, lag-one covariance is $4(0.4)=1.6$, and lag-one correlation is $1.6/4.64=0.34483$. All larger-lag covariances vanish. These quantities follow by expanding the products and dropping cross-products of uncorrelated innovations.{{cite:scargle2020_wold}} (§4)
 
 If the latest innovation is $\varepsilon_T=5$, the one-step forecast is $2$, with error variance $4$. The two-step forecast is zero, with error variance $4.64$. A separate random-phase harmonic of period $12$ obeys $\nu_t=2\cos(2\pi/12)\nu_{t-1}-\nu_{t-2}$ and illustrates the predictable component when its sine and cosine amplitudes have equal variance and zero covariance.{{cite:horak_muller_vrbova1987}} (§1, stationary processes and orthogonal decomposition)

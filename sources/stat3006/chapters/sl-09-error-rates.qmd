@@ -54,7 +54,7 @@ Any estimator $\widehat{\mathrm{Err}}$ is biased for $\mathrm{Err}$ by $\E(\wide
 ::: {#def-sl-09-confusion .definition}
 ## Confusion matrix
 
-A confusion matrix has, in position $(i,j)$, the number of observations of true class $i$ that the classifier predicted as class $j${{cite:hastie_esl2009}}. Dividing the matrix by the number of observations in the test set, the sum of the off-diagonal elements is $\widehat{\mathrm{Err}}${{cite:hastie_esl2009}}. Dividing row $g$ by its own total, the sum of that row excluding the diagonal element is $\widehat{\mathrm{Err}}_g$. The row proportions are sensitivity and specificity{{cite:yerushalmy1947}}. The probability of the true class given the predicted class also needs the prevalence; that reversal is the [positive predictive value](inf-16-predictive-values.qmd#s-positive-predictive-value).
+A confusion matrix has, in position $(i,j)$, the number of observations of true class $i$ that the classifier predicted as class $j${{cite:fawcett2006_roc}} (§2, p. 862, confusion matrix and error counts). Dividing the matrix by the number of observations in the test set, the sum of the off-diagonal elements is $\widehat{\mathrm{Err}}${{cite:fawcett2006_roc}} (§2, p. 862, confusion matrix and error counts). Dividing row $g$ by its own total, the sum of that row excluding the diagonal element is $\widehat{\mathrm{Err}}_g$. The row proportions are sensitivity and specificity{{cite:yerushalmy1947}} (pp. 1433–1435). The probability of the true class given the predicted class also needs the prevalence; that reversal is the [positive predictive value](inf-16-predictive-values.qmd#s-positive-predictive-value).
 
 :::
 
@@ -177,7 +177,7 @@ so about $545$ test observations. Halving the half-width multiplies the required
 
 ## Cross-validation
 
-A single holdout assigns some cases to testing and the rest to training. With a small labelled sample, that division can leave too few cases for either purpose. Cross-validation repeatedly fits a rule without one held-out part and scores it on that part; across nonoverlapping folds, every case is assessed once.{{cite:stone1974}} (pp. 111–115) {{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
+A single holdout assigns some cases to testing and the rest to training. With a small labelled sample, that division can leave too few cases for either purpose. Cross-validation repeatedly fits a rule without one held-out part and scores it on that part; across nonoverlapping folds, every case is assessed once.{{cite:stone1974}} (pp. 111–115) {{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093)
 
 ### Leave-one-out
 
@@ -210,7 +210,7 @@ A useful check is to ask what changes between repetitions. In leave-one-out, the
 
 ### $K$-fold cross-validation
 
-Leave-one-out refits the model $n$ times, and its training sets are almost copies of one another. $K$-fold cross-validation holds out about $n/K$ observations per fold and refits only $K$ times. The folds do not overlap, and after $K$ iterations every observation has been tested once.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
+Leave-one-out refits the model $n$ times, and its training sets are almost copies of one another. $K$-fold cross-validation holds out about $n/K$ observations per fold and refits only $K$ times. The folds do not overlap, and after $K$ iterations every observation has been tested once.{{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093)
 
 ::: {#def-sl-09-kfold .definition}
 ## $K$-fold cross-validation
@@ -221,7 +221,7 @@ $$
 Q\bigl(y_i^{(k)},\eta_{(X^{(-k)},y^{(-k)})}(x_i^{(k)})\bigr).
 $$
 
-Here $n_k$ is the size of fold $k$, and $(-k)$ denotes the fit that excludes that fold. Pooling individual errors gives each observation equal weight even if the fold sizes differ.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
+Here $n_k$ is the size of fold $k$, and $(-k)$ denotes the fit that excludes that fold. Pooling individual errors gives each observation equal weight even if the fold sizes differ.{{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093)
 
 :::
 
@@ -235,13 +235,13 @@ In five-fold cross-validation the five blocks rotate through validation:
 | 4 | fit | fit | fit | validate | fit |
 | 5 | fit | fit | fit | fit | validate |
 
-Every observation is used once for validation and four times for fitting. Preprocessing belongs inside each fit, so a held-out block does not help to set a mean, a standard deviation, or a tuning constant.{{cite:hastie_esl2009}} (Ch. 7, §7.10.2, pp. 245–246)
+Every observation is used once for validation and four times for fitting. Preprocessing belongs inside each fit, so a held-out block does not help to set a mean, a standard deviation, or a tuning constant.{{cite:deisenroth_faisal_ong2020}} (§8.6.1, pp.284–285)
 
-Increasing $K$ enlarges each training set and increases computation. Its effect on variance is problem-dependent. Overlap of the training sets does not, by itself, prove a universal ordering of cross-validation variances. Five or ten folds are usual choices. Repeating a random partition can show sensitivity to the split, but it does not create new observations. Once the data are fixed, leave-one-out has no partition randomness to average away.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
+Increasing $K$ enlarges each training set and increases computation. Its effect on variance is problem-dependent. Overlap of the training sets does not, by itself, prove a universal ordering of cross-validation variances. Five or ten folds are usual choices. Repeating a random partition can show sensitivity to the split, but it does not create new observations. Once the data are fixed, leave-one-out has no partition randomness to average away.{{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093)
 
-Stratification keeps class proportions approximately balanced across folds when the counts permit it. This can prevent a rare class from disappearing from a training set. One observation in a class cannot appear in every training set while also being held out. Check the actual fold counts, especially for rare classes.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
+Stratification keeps class proportions approximately balanced across folds when the counts permit it. This can prevent a rare class from disappearing from a training set. One observation in a class cannot appear in every training set while also being held out. Check the actual fold counts, especially for rare classes.{{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093)
 
-Repeated $K$-fold validation and repeated random holdout reuse observations in different ways. Their relative performance depends on the estimator and on the data-generating setting. Choose the design for the assessment target and the available computation.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
+Repeated $K$-fold validation and repeated random holdout reuse observations in different ways. Their relative performance depends on the estimator and on the data-generating setting. Choose the design for the assessment target and the available computation.{{cite:bengio_grandvalet2004}} (§2.3, pp.1092–1093)
 
 ### Nested cross-validation
 
@@ -302,7 +302,7 @@ $$
 Q\bigl(y_i,\eta_b(x_i)\bigr).
 $$
 
-Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, the trained rules are weaker than a rule trained on all $n$ distinct cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:simon_aliferis2024_evaluation}} (§9.4, “The 0.632 and the 0.632+ bootstrap”).
+Each case is tested only by rules that did not see it, the same discipline as cross-validation. Because each bootstrap training set contains only about $0.632n$ distinct observations, their prediction error often reflects the smaller number of distinct training cases, and $\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}$ is generally biased upward{{cite:efron_tibshirani1997_632plus}} (§§2–3, pp. 550–552).
 
 The $.632$ estimator pulls that upward bias back toward the apparent error, with weights taken from the limiting inclusion probability and its complement:
 
@@ -311,14 +311,14 @@ $$
 =0.368\,\mathrm{err}+0.632\,\widehat{\mathrm{Err}}^{(\mathrm{BOOT})}.
 $$
 
-{{cite:simon_aliferis2024_evaluation}} (§9.4, “The 0.632 and the 0.632+ bootstrap”)
+{{cite:efron_tibshirani1997_632plus}} (§§2–3, pp. 550–552)
 :::
 
 The weight $0.632$ is the limiting probability that a case is inside the bootstrap sample, and $0.368=1-0.632$ is the limiting probability that it is left out. The formula combines the optimistic apparent error with the pessimistic out-of-bag bootstrap error. It is a correction with assumptions, not an identity that recovers the unknown generalisation error. Severe overfitting can still make it optimistic. Compare it with a resampling design suited to the full fitting procedure, rather than treating the numerical weights as a guarantee.
 
 ## The jackknife
 
-Leave-one-out cross-validation scores a classifier. The jackknife is the older leave-one-out idea, built to estimate the bias {{cite:quenouille1949}}{{cite:quenouille1956}} and the standard error {{cite:tukey1958_jackknife}} of a parameter estimator rather than an error rate. The difficulty it addresses is that the bias of $\hat\theta$ is $\E(\hat\theta)-\theta$, and $\theta$ is unknown, so the bias cannot be computed by subtracting the truth. The jackknife manufactures a comparison inside the sample.
+Leave-one-out cross-validation scores a classifier. The jackknife is the older leave-one-out idea, built to estimate the bias {{cite:dodge2008}} (pp. 271–272) and the standard error {{cite:efron1979}} (§5, pp. 13–14) of a parameter estimator rather than an error rate. The difficulty it addresses is that the bias of $\hat\theta$ is $\E(\hat\theta)-\theta$, and $\theta$ is unknown, so the bias cannot be computed by subtracting the truth. The jackknife manufactures a comparison inside the sample.
 
 The $i$th jackknife sample leaves out observation $i$. Estimate $\theta$ on each of these samples, giving $\hat\theta_{(i)}$ for $i=1,\ldots,n$, and estimate it on the full sample, giving $\hat\theta$. The average of the leave-one-out estimates is
 
@@ -337,25 +337,30 @@ $$
 =\Biggl(\frac{n-1}{n}\sum_{i=1}^n\bigl(\hat\theta_{(i)}-\hat\theta_{(\cdot)}\bigr)^2\Biggr)^{1/2}.
 $$
 
-{{cite:quenouille1949}}{{cite:tukey1958_jackknife}} The bias-corrected estimate is $\hat\theta-\widehat{\mathrm{bias}}_{\mathrm{jack}}$, which rearranges to $n\hat\theta-(n-1)\hat\theta_{(\cdot)}${{cite:quenouille1956}}.
+{{cite:efron1979}} (§5, pp. 13–14) The bias-corrected estimate is $\hat\theta-\widehat{\mathrm{bias}}_{\mathrm{jack}}$, which rearranges to $n\hat\theta-(n-1)\hat\theta_{(\cdot)}${{cite:dodge2008}} (pp. 271–272).
 
 :::
 
-The factor $n-1$ comes from a leading bias term $a/n$. Suppose
+The factor $n-1$ comes from a regular leading bias term $a/n$. Suppose an iid-sample statistic has
 
 $$
-\E\hat\theta=\theta+\frac{a}{n}+o(n^{-1}).
+\E\hat\theta_n=\theta+\frac{a}{n}+\frac{b}{n^2}+O(n^{-3}).
 $$
 
-Each leave-one-out estimator is the same functional on $n-1$ observations, so $\E\hat\theta_{(i)}=\theta+a/(n-1)+o(n^{-1})$ and the same expansion holds for the average $\hat\theta_{(\cdot)}$. The gap between the two expectations is
+Each leave-one-out statistic has the distribution of the same functional at sample size $n-1$, so the deletion average has expectation $\E\hat\theta_{n-1}$. The gap is
 
 $$
-\E\bigl(\hat\theta_{(\cdot)}-\hat\theta\bigr)
-=\frac{a}{n-1}-\frac{a}{n}+o(n^{-1})
-=\frac{a}{n(n-1)}+o(n^{-1}).
+\E\bigl(\hat\theta_{(\cdot)}-\hat\theta_n\bigr)
+=\frac{a}{n(n-1)}+b\left\{\frac1{(n-1)^2}-\frac1{n^2}\right\}+O(n^{-3}).
 $$
 
-Multiplying by $n-1$ recovers $a/n$, the leading term of the bias of the full-sample estimator. This explains the first-order correction. It does not mean that every realised jackknife bias estimate equals the true bias. Smooth estimators are the natural setting. Nonsmooth statistics can behave differently.
+Multiplication by $n-1$ gives $a/n+O(n^{-2})$. Equivalently, the corrected estimator has expectation
+
+$$
+\E\{n\hat\theta_n-(n-1)\hat\theta_{(\cdot)}\}=\theta+O(n^{-2}).
+$$
+
+The $a$ term cancels exactly. Remainder control is essential: an arbitrary $o(n^{-1})$ remainder alone does not justify this conclusion after multiplication by $n$. Estimated bias still varies between realised samples. Smooth estimators are the natural setting; nonsmooth statistics need separate analysis.{{cite:dodge2008}} (pp. 271–272){{cite:efron1979}} (§5, pp. 12–14)
 
 ::: {#exm-sl-09-jackknife-variance .example}
 ## Jackknife bias of the maximum likelihood variance

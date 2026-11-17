@@ -34,12 +34,12 @@ In a designed experiment some columns are controlled.{{cite:hernan_robins2020}} 
 
 The variables one hopes to explain are the response, also called the outcome. The variables used to explain it are explanatory variables, also called covariates or factors. A randomised design assigns treatments by a known chance mechanism, often with equal probabilities. Random assignment balances pretreatment variables, measured or not, in expectation across possible assignments; the realised groups can still differ by chance. A response difference is therefore evidence about the treatments, but its uncertainty must account for random assignment and chance imbalances.
 
-Measurements vary for more than one reason. Most of the variation in heights is natural diversity between people, from genetics, diet and environment. Some is measurement error.{{cite:gauss1809}}{{cite:laplace1812}}{{cite:fuller1987}} Later models try to explain part of the variation by other variables, such as sex or shoe size. What no variable in the model explains is the residual variability, and a good model leaves little of it while still predicting new data well. One or more measurements are taken on each experimental unit: a person, a plant, a plot of land, a household, a star or a manufactured object.
+Measurements vary for more than one reason. Most of the variation in heights is natural diversity between people, from genetics, diet and environment. Some is measurement error.{{cite:keogh2020_measurement_error}} (§2.1, classical measurement error) Later models try to explain part of the variation by other variables, such as sex or shoe size. What no variable in the model explains is the residual variability, and a good model leaves little of it while still predicting new data well. One or more measurements are taken on each experimental unit: a person, a plant, a plot of land, a household, a star or a manufactured object.
 
 ::: {#def-randomised-controlled-trial .definition}
 ## Randomised controlled trial
 
-In a randomised controlled trial each experimental unit receives one of several treatments by a specified chance mechanism.{{cite:fisher1935_doe}}{{cite:hill1948_rct}} One of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.{{cite:hill1948_rct}}
+In a randomised controlled trial each experimental unit receives one of several treatments by a specified chance mechanism.{{cite:openintro2019}} (§1.4.1, principles of experimental design) One of the treatments is a control, such as the standard treatment or a placebo. The response is then compared between the treatment groups.{{cite:openintro2019}} (§1.4.2, reducing bias in human experiments){{cite:schulz_altman_moher2010}} (pp. 1–2, Table 1)
 
 :::
 
@@ -142,7 +142,7 @@ For a cluster sample, make each eastern village a cluster of 50, and split each 
 
 :::
 
-Many data are collected in ways far from random. A convenience sample takes whoever is available, and generalises only if the available units resemble the population. A self-selected sample takes whoever chooses to take part, as in a television phone-in poll; it rarely represents even the show's viewers, and a keen caller may vote twice. In both, units are not sampled independently with equal probability, which biases estimates, and a larger sample of the same kind does not remove the bias.{{cite:cochran1977}}{{cite:neyman1934}}{{cite:wasserman2004}}
+Many data are collected in ways far from random. A convenience sample takes whoever is available, and generalises only if the available units resemble the population. A self-selected sample takes whoever chooses to take part, as in a television phone-in poll; it rarely represents even the show's viewers, and a keen caller may vote twice. In both, inclusion may depend on the outcome, which can bias an unweighted estimate. Unequal inclusion probabilities alone do not force bias for every variable, and probability-sampling designs need not select units independently. Increasing the number of observations does not by itself correct a selection mechanism that associates inclusion with the outcome.{{cite:meng2018_big_data}} (§2.2–2.3, pp. 690–694)
 
 ![Left: in an observational study, diet and income can affect both whether a mother smokes and her son's height, so an association between the two need not be causal. Right: in a designed experiment the drug is assigned at random, so the assignment cannot depend on age, diet or fitness, and those cannot explain a difference in blood pressure.](../figures/da-01-studies-and-data-assignment.pdf){#fig-da-assignment}
 

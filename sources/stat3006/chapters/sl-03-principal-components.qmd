@@ -111,7 +111,7 @@ $$
 \sum_{j=k+1}^p\lambda_j.
 $$
 
-That value is the smallest residual attainable by any rank-$k$ linear approximation{{cite:eckart_young1936}}{{cite:hotelling1933_pca}}. The leading components are at once the highest-variance coordinates and the best linear summary of the cloud in squared error. A later autoencoder network generalises the second description: a hidden layer smaller than the input tries to reproduce the input after passing through a lower-dimensional representation. Factor analysis and non-negative matrix factorisation are further representations, with different constraints{{cite:spearman1904}}{{cite:lee_seung1999}}{{cite:hastie_esl2009}}.
+That value is the smallest residual attainable by any rank-$k$ linear approximation{{cite:deisenroth_faisal_ong2020}} (§10.3, pp.331–332, Eqs.10.43–10.44). The leading components are at once the highest-variance coordinates and the best linear summary of the cloud in squared error. A later autoencoder network generalises the second description: a hidden layer smaller than the input tries to reproduce the input after passing through a lower-dimensional representation. Factor analysis and non-negative matrix factorisation are further representations, with different constraints{{cite:deisenroth_faisal_ong2020}} (§10.7, p.346).
 
 ## Choosing components
 

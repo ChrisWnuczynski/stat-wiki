@@ -187,11 +187,11 @@ The endpoint convention matters to the *pointwise likelihood* when support depen
 ::: {#prp-invariance-of-maximum-likelihood .proposition}
 ## Invariance of maximum likelihood
 
-If $\widehat\theta$ is the maximum likelihood estimator of $\theta$ and $g$ is a function, then the maximum likelihood estimator of $g(\theta)$ is $g(\widehat\theta)$.{{cite:wang2025_foundations}} (Ch. 12, Thm. 19)
+If $\widehat\theta$ is the maximum likelihood estimator of $\theta$ and $g$ is a function, then the maximum likelihood estimator of $g(\theta)$ is $g(\widehat\theta)$.{{cite:siegrist_mle2022}} (§ “Extending the Method and the Invariance Property”)
 
 :::
 
-For a one-to-one $g$, write $\nu=g(\theta)$ and reparameterise the likelihood as $\widetilde L(\nu)=L(g^{-1}(\nu))$. Because $L$ is largest at $\theta=\widehat\theta$, $\widetilde L$ is largest where $g^{-1}(\nu)=\widehat\theta$, that is at $\nu=g(\widehat\theta)$. For a $g$ that is not one-to-one, maximise the largest likelihood over all $\theta$ with $g(\theta)=\nu$; this also puts the maximum at $g(\widehat\theta)$. Estimating $\sigma$ by $\sqrt{\widehat\sigma^2}$, or a probability $e^{-\lambda}$ by $e^{-\widehat\lambda}$, illustrates the rule.{{cite:wang2025_foundations}} (Ch. 12, Thm. 19)
+For a one-to-one $g$, write $\nu=g(\theta)$ and reparameterise the likelihood as $\widetilde L(\nu)=L(g^{-1}(\nu))$. Because $L$ is largest at $\theta=\widehat\theta$, $\widetilde L$ is largest where $g^{-1}(\nu)=\widehat\theta$, that is at $\nu=g(\widehat\theta)$. For a $g$ that is not one-to-one, maximise the largest likelihood over all $\theta$ with $g(\theta)=\nu$; this also puts the maximum at $g(\widehat\theta)$. Estimating $\sigma$ by $\sqrt{\widehat\sigma^2}$, or a probability $e^{-\lambda}$ by $e^{-\widehat\lambda}$, illustrates the rule.{{cite:siegrist_mle2022}} (§ “Extending the Method and the Invariance Property”)
 
 ## Comparing estimators
 
@@ -284,7 +284,7 @@ The maximum is biased low, because it can never exceed $\theta$, but its mean sq
 ::: {#def-consistent-estimator .definition}
 ## Consistent estimator
 
-A sequence of estimators $T_n$, one for each sample size $n$, is consistent for $\theta$ when $\Pr_\theta(|T_n-\theta|>\varepsilon)\to0$ as $n\to\infty$, for every $\varepsilon>0$ and every $\theta$.{{cite:fisher1922}}{{cite:casella_berger2002}}{{cite:vandervaart1998}}
+A sequence of estimators $T_n$, one for each sample size $n$, is consistent for $\theta$ when $\Pr_\theta(|T_n-\theta|>\varepsilon)\to0$ as $n\to\infty$, for every $\varepsilon>0$ and every $\theta$.{{cite:durrett2019}} (§2.2)
 
 :::
 
@@ -330,7 +330,7 @@ Match moments, or maximise the likelihood. Then judge the estimator by its sampl
 ::: {#ex-inf-normal-mle .exercise}
 ## Normal maximum likelihood estimates
 
-Let $X_1,\ldots,X_n$ be independent and $\Normal(\mu,\sigma^2)$, with both parameters unknown. Derive the maximum likelihood estimates of $\mu$ and of $\sigma^2$.
+Let $X_1,\ldots,X_n$ be independent and $\Normal(\mu,\sigma^2)$, with both parameters unknown. Derive the maximum likelihood estimates of $\mu$ and of $\sigma^2$.{{cite:siegrist_mle2022}} (§ “The Normal Distribution”)
 
 [Solution](#sol-inf-normal-mle)
 
@@ -348,7 +348,7 @@ Let $X_1,\ldots,X_n$ be a random sample with variance $\sigma^2$, and write $s^2
 ::: {#ex-inf-exponential-mle .exercise}
 ## An exponential rate
 
-Let $X_1,\ldots,X_n$ be a random sample from the exponential distribution with rate $\lambda$, density $\lambda e^{-\lambda x}$ for $x>0$.
+Let $X_1,\ldots,X_n$ be a random sample from the exponential distribution with rate $\lambda$, density $\lambda e^{-\lambda x}$ for $x>0$.{{cite:siegrist_mle2022}} (§ “The Gamma Distribution; Extending the Method and the Invariance Property”)
 
 (a) Find the maximum likelihood estimator of $\lambda$, and check that it is a maximum.
 
@@ -363,7 +363,7 @@ Let $X_1,\ldots,X_n$ be a random sample from the exponential distribution with r
 ::: {#ex-inf-poisson-mle .exercise}
 ## A Poisson mean
 
-Let $X_1,\ldots,X_n$ be a random sample from $\Poisson(\theta)$. Find the maximum likelihood estimator of $\theta$, show that it is unbiased, and find its mean squared error. Is it consistent?
+Let $X_1,\ldots,X_n$ be a random sample from $\Poisson(\theta)$. Find the maximum likelihood estimator of $\theta$, show that it is unbiased, and find its mean squared error. Is it consistent?{{cite:siegrist_mle2022}} (§ “The Poisson Distribution”)
 
 [Solution](#sol-inf-poisson-mle)
 

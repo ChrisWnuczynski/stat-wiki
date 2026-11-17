@@ -199,7 +199,7 @@ $$
 \delta_{ik}^{(o)}=-2[y_{ik}-o_{ik}]\,e^{-z_{ik}} o_{ik}^2,
 $$
 
-and $\delta_{iq}^{(h)}$ equals the bracketed sum in the factored input–hidden update, times $-2$, times $e^{-u}h^2$. The output error is propagated backwards through the weights $w_{qk}$, and each hidden unit receives its share. That backward pass is where the name comes from{{cite:rumelhart_hinton_williams1986}}{{cite:werbos1994}}{{cite:bishop2006}}.
+and $\delta_{iq}^{(h)}$ equals the bracketed sum in the factored input–hidden update, times $-2$, times $e^{-u}h^2$. The output error is propagated backwards through the weights $w_{qk}$, and each hidden unit receives its share. That backward pass is where the name comes from{{cite:goodfellow_bengio_courville2016}} (§6.5.4, pp. 208–209){{cite:zhang_d2l2023}} (§5.3, backward propagation){{cite:goodfellow_bengio_courville2016}} (§6.5.4, pp. 208–209).
 
 ::: {#def-sl-15-backprop .definition}
 ## Backpropagation, batch form
@@ -210,7 +210,7 @@ For one pass through the data with current weights:
 2. Output deltas: $\delta_{ik}^{(o)}$ from the definition above.
 3. Backward: hidden deltas $\delta_{iq}^{(h)}$ from the definition above.
 4. Gradients: $G_{qk}=\sum_i \delta_{ik}^{(o)} h_{iq}$ and $G_{jq}=\sum_i \delta_{iq}^{(h)} x_{ij}$, with $h_{i0}=x_{i0}=1$.
-5. Update: $w\leftarrow w-\varepsilon G$ for every weight{{cite:rumelhart_hinton_williams1986}}{{cite:werbos1994}}{{cite:bishop2006}}.
+5. Update: $w\leftarrow w-\varepsilon G$ for every weight{{cite:goodfellow_bengio_courville2016}} (§6.5.4, pp. 208–209){{cite:zhang_d2l2023}} (§5.3, backward propagation){{cite:goodfellow_bengio_courville2016}} (§6.5.4, pp. 208–209).
 
 :::
 
