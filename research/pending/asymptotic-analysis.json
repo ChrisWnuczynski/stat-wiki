@@ -1,0 +1,42 @@
+{
+  "action": "page",
+  "slug": "asymptotic-analysis",
+  "term": "asymptotic analysis",
+  "topic": "Statistical inference",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "",
+    "term": "asymptotic analysis",
+    "verb": "is",
+    "description": "the use of large-sample limits as working approximations to sampling distributions and posteriors"
+  },
+  "bibliography": {
+    "hansen2010": {
+      "authors": [
+        "Hansen, B. E."
+      ],
+      "year": 2010,
+      "title": "Econometrics",
+      "kind": "book",
+      "publisher": "University of Wisconsin",
+      "url": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "gelman_bda2013",
+    "hansen2010",
+    "hastie_esl2009",
+    "openintro2019"
+  ],
+  "overview_sentence": "Asymptotic analysis replaces an exact sampling law by a limit as the sample size grows.",
+  "covered_terms": [
+    "asymptotic analysis"
+  ]
+}

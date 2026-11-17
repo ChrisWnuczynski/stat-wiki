@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "effect-size",
+  "term": "effect size",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "an",
+    "term": "effect size",
+    "verb": "is",
+    "description": "the magnitude of a departure from a null value, kept separate from the probability of detecting it"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "openintro2019"
+  ],
+  "overview_sentence": "An effect size is the magnitude of a difference, kept apart from the probability of detecting it.",
+  "covered_terms": [
+    "effect size"
+  ],
+  "self_checks": [
+    {
+      "title": "Critical difference",
+      "prompt": "A standard error is 1.7 mmHg. What is 1.96 times that standard error?",
+      "answer": "The critical difference is 3.332 mmHg."
+    },
+    {
+      "title": "Shifted z-score",
+      "prompt": "The lower critical point is -3.332 and the true difference is -3, with standard error 1.7. What is the z-score?",
+      "answer": "The z-score is about -0.195, which rounds to -0.20."
+    },
+    {
+      "title": "A larger effect",
+      "prompt": "The standard error is 2 mmHg and the true difference is -5. Using the critical value 1.96 times 2, what is the z-score of the lower critical point?",
+      "answer": "The z-score is 0.54."
+    }
+  ]
+}

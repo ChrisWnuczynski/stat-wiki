@@ -1,0 +1,25 @@
+{
+  "action": "page",
+  "slug": "frequentist-inference",
+  "term": "frequentist inference",
+  "topic": "Statistical inference",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "",
+    "term": "frequentist inference",
+    "verb": "is",
+    "description": "the judging of statistical procedures by how often they succeed across repeated samples"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "gelman_bda2013",
+    "openintro2019"
+  ],
+  "overview_sentence": "Frequentist inference scores a procedure by its success rate in repeated samples.",
+  "covered_terms": [
+    "frequentist inference"
+  ]
+}

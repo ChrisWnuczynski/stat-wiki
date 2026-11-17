@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "expected-loss",
+  "term": "expected loss",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "the",
+    "term": "expected loss",
+    "verb": "is",
+    "description": "the probability-weighted average of a loss, used to rank actions"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "gelman_bda2013"
+  ],
+  "overview_sentence": "Expected loss is the probability-weighted average of a loss, and the preferred action minimises it.",
+  "covered_terms": [
+    "expected loss"
+  ],
+  "self_checks": [
+    {
+      "title": "Low base rate",
+      "prompt": "Treat has losses 1 and 8, watch has losses 10 and 0, and the base rate is 0.2. What are the two expected losses?",
+      "answer": "Treat has expected loss 6.6 and watch has expected loss 2."
+    },
+    {
+      "title": "High base rate",
+      "prompt": "The same losses with base rate 0.7. What are the two expected losses?",
+      "answer": "Treat has expected loss 3.1 and watch has expected loss 7."
+    },
+    {
+      "title": "Which action",
+      "prompt": "At base rate 0.2, which action has the smaller expected loss?",
+      "answer": "Watch, with expected loss 2 against 6.6."
+    }
+  ]
+}

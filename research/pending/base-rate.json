@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "base-rate",
+  "term": "base rate",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "the",
+    "term": "base rate",
+    "verb": "is",
+    "description": "the probability of a condition in the population before a test result is taken into account"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "openintro2019"
+  ],
+  "overview_sentence": "The base rate is the probability of a condition before a test result is seen.",
+  "covered_terms": [
+    "base rate"
+  ],
+  "self_checks": [
+    {
+      "title": "Mammogram predictive value",
+      "prompt": "Base rate 0.0035, sensitivity 0.89, false-positive rate 0.07. What is the positive predictive value, to three decimals?",
+      "answer": "The positive predictive value is about 0.043."
+    },
+    {
+      "title": "A less rare condition",
+      "prompt": "Base rate 0.20, sensitivity 0.89, false-positive rate 0.07. What is the positive predictive value, to three decimals?",
+      "answer": "The positive predictive value is about 0.761."
+    },
+    {
+      "title": "One percent prevalence",
+      "prompt": "Base rate 0.01, sensitivity 0.90, false-positive rate 0.05. What is the positive predictive value?",
+      "answer": "The positive predictive value is 0.009/0.0585, about 0.154."
+    }
+  ]
+}

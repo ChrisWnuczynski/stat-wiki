@@ -1,0 +1,43 @@
+{
+  "action": "page",
+  "slug": "extrapolation",
+  "term": "extrapolation",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "an",
+    "term": "extrapolation",
+    "verb": "is",
+    "description": "an estimate of a response at an explanatory value outside the observed set"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "hastie_esl2009",
+    "nist_linear_least_squares_pmd2002",
+    "openintro2019"
+  ],
+  "overview_sentence": "Extrapolation evaluates a fitted relation at an explanatory value outside the observed range.",
+  "covered_terms": [
+    "extrapolation"
+  ],
+  "self_checks": [
+    {
+      "title": "Negative aid",
+      "prompt": "Using aid = 24319 - 0.0431 times income, what aid does an income of 1000000 produce?",
+      "answer": "The extrapolated aid is -18781."
+    },
+    {
+      "title": "Inside a larger income",
+      "prompt": "Using the same line, what aid does an income of 200000 produce?",
+      "answer": "The fitted aid is 15699."
+    },
+    {
+      "title": "Four hundred thousand",
+      "prompt": "Using the same line, what aid does an income of 400000 produce?",
+      "answer": "The fitted aid is 7079."
+    }
+  ]
+}
