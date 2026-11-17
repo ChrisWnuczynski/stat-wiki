@@ -1,0 +1,10 @@
+{
+  "action": "alias",
+  "term": "Stochastic analysis",
+  "slug": "stochastic-analysis",
+  "alias_of": "stochastic-process",
+  "covered_terms": [
+    "Stochastic analysis"
+  ],
+  "reason": "Dodge defines a stochastic process as a family of random variables and mentions Brownian motion only in that history (pp. 521\u2013522). Durrett proves It\u00f4's formula as a section of the Brownian-motion chapter (Ch. 7, \u00a77.6, pp. 379\u2013383), inside a probability text, and does not separate a subject named stochastic analysis. No second source found that treats stochastic analysis as distinct from the indexed family already covered by stochastic-process, so the name aliases there."
+}

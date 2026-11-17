@@ -1,0 +1,36 @@
+{
+  "action": "page",
+  "slug": "inverse-probability",
+  "term": "Inverse probability",
+  "topic": "Probability",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "probability",
+    "article": "",
+    "term": "inverse probability",
+    "verb": "is",
+    "description": "the historical practice of assigning a probability to an unknown given the observations"
+  },
+  "self_checks": [
+    {
+      "title": "One success",
+      "prompt": "One trial is a success and the unknown chance is uniform on the unit interval. What is the posterior probability that the chance exceeds 1/2?",
+      "answer": "The probability is 3/4."
+    },
+    {
+      "title": "One failure",
+      "prompt": "One trial is a failure and the unknown chance is uniform on the unit interval. What is the posterior probability that the chance exceeds 1/2?",
+      "answer": "The probability is 1/4."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Inverse probability](articles/inverse-probability.qmd) assigns a probability to an unknown given the observations.",
+  "covered_terms": [
+    "Inverse probability"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "action": "page",
+  "slug": "probability-interpretations",
+  "term": "Probability interpretations",
+  "topic": "Probability",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "probability",
+    "article": "",
+    "term": "probability interpretations",
+    "verb": "are",
+    "description": "accounts of what a probability number means, among ratios of cases, long-run frequencies, and degrees of uncertainty"
+  },
+  "self_checks": [
+    {
+      "title": "A short record",
+      "prompt": "A record of 10 tosses contains 3 heads. What is the relative frequency of heads?",
+      "answer": "The relative frequency is 3/10."
+    },
+    {
+      "title": "A longer record",
+      "prompt": "A record of 100 tosses contains 60 heads. What is the relative frequency of heads, in lowest terms?",
+      "answer": "The relative frequency is 3/5."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Probability interpretations](articles/probability-interpretations.qmd) are accounts of what a probability number means.",
+  "covered_terms": [
+    "Probability interpretations"
+  ]
+}

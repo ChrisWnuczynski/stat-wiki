@@ -1,0 +1,28 @@
+{
+  "action": "page",
+  "slug": "probability-theory",
+  "term": "Probability theory",
+  "topic": "Probability",
+  "kind": "field",
+  "aliases": [
+    "Measure-theoretic probability theory"
+  ],
+  "lead": {
+    "field": "mathematics",
+    "article": "",
+    "term": "probability theory",
+    "verb": "is",
+    "description": "the mathematical study of outcomes, events, and the limit behaviour of random quantities"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "durrett2019",
+    "dodge2008",
+    "gelman_bda2013"
+  ],
+  "overview_sentence": "[Probability theory](articles/probability-theory.qmd) is the mathematical study of outcomes, events, and the limit behaviour of random quantities.",
+  "covered_terms": [
+    "Probability theory",
+    "Measure-theoretic probability theory"
+  ]
+}
