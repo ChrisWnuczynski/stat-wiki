@@ -51,17 +51,3 @@ At this fitted dispersion the shape is $4$, scale is $1$, and fitted standard de
 The mean is $8$. Keeping $\phi=1/4$ gives standard deviation $\sqrt\phi\mu=4$. The linear predictor increases by $\log2\approx0.693147$.
 :::
 
-## Check yourself
-### Differentiating a link {#self-check-ex-sl-10-1}
-[The logistic derivative](../questions/ex-sl-10-1.qmd): practise the link differentiation used in GLM scores.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $\sigma(\eta)=(1+e^{-\eta})^{-1}$, differentiation gives $\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Also $\sigma(-\eta)=1-\sigma(\eta)$. Thus a Bernoulli logit model has Hessian $-X^\top\operatorname{diag}(p_i(1-p_i))X$; the gamma log-link Hessian uses different weights.
-:::
-
-### Interpreting a variance divisor {#self-check-ex-inf-variance-bias}
-[The biased variance estimator](../questions/ex-inf-variance-bias.qmd): distinguish an estimator's scale from its bias.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Since $E(s^2)=\sigma^2$, $E(((n-1)/n)s^2)=(n-1)\sigma^2/n$. Its bias is $-\sigma^2/n$. Changing a residual divisor affects estimation of dispersion, even when the fitted mean coefficients stay the same.
-:::

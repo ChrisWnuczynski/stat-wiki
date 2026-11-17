@@ -46,6 +46,6 @@ if __name__ == "__main__":
     assert not re.search(r"!\[[^]]*\]\(", page)
     keys = set(re.findall(r'data-cite-key="([^"]+)"', body))
     assert keys <= {
-        "geman_geman1984", "gelfand_smith1990", "geyer2005_markov_chain", "chen_ip2015",
+        "geman_geman1984", "gelfand_smith1990", "chen_ip2015",
     }, keys
     print("full-conditional printed values, citations, links, and proof passed")

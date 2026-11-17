@@ -53,15 +53,3 @@ The invariant probability of state $1$ is $0.1/(0.4+0.1)=0.2$. The two-step stay
 ## Connections
 The one-step rule is the discrete-time case of the [Markov property](markov-property.qmd). The matrix $P$ is a [transition matrix](transition-matrix.qmd). An invariant row $\pi$ is the chain's [stationary distribution](stationary-distribution.qmd) when it is used as the starting law. The same matrix arithmetic, with a target distribution in place of $\pi$, is what a Monte Carlo chain is built to preserve.{{cite:norris1997}} (§1.7, invariant distributions)
 
-## Check yourself
-**1.** Both rows of a two-state matrix equal $(1/2,1/2)$. What is the two-step probability of moving from state $1$ to state $2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Every one-step probability into state $2$ is $1/2$, so the two-step probability is $(1/2)(1/2)+(1/2)(1/2)=1/2$. The square of this matrix equals the matrix itself.
-:::
-
-**2.** Successive states of a Markov chain are not automatically independent. For the worked matrix above, why is state $2$ more likely after state $2$ than after state $1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The second row puts probability $0.5$ on staying in state $2$, while the first row puts only $0.2$ there. Different rows mean the next state still carries information about the current state.
-:::

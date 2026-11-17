@@ -41,7 +41,7 @@ the expectation over a new draw from the distribution $F$ of $(X,Y)$. The class-
 =\frac{\E_F\bigl[Q\bigl(Y,\eta(X)\bigr)\,I(Y,g)\bigr]}{\pi_g}.
 \end{align*}
 
-They recombine by $\mathrm{Err}=\sum_g\pi_g\,\mathrm{Err}_g${{cite:hastie_esl2009}}{{cite:efron1983}}{{cite:stone1974}}.
+They recombine by $\mathrm{Err}=\sum_g\pi_g\,\mathrm{Err}_g${{cite:hastie_esl2009}}{{cite:efron1983}} (pp. 316–331){{cite:stone1974}} (pp. 111–133).
 
 :::
 

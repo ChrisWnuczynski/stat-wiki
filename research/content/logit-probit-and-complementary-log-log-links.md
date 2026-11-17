@@ -40,17 +40,3 @@ The values are \(0.3775\), \(0.3085\) and \(0.4548\). The logit equals \(1-0.622
 ## Connections — One linear predictor, three mean functions
 All three links sit on the same [linear predictor](linear-predictor.qmd). The [logit link](logit-link.qmd) is the canonical link for a Bernoulli or binomial [generalised linear model](generalised-linear-model.qmd). The probit is the normal quantile of the same probability. A [log link](log-link.qmd) is the analogous map for a positive mean, not for a probability. Two of these binary links are not nested, so a likelihood-ratio comparison does not choose between them; a criterion such as AIC can, when the random component is held fixed.
 
-## Check yourself
-### A zero predictor
-Give the logit and probit probabilities at \(\eta=0\), and the complementary log-log probability to four decimals.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The logit and the probit both equal \(1/2\). Complementary log-log equals \(1-\exp(-1)=0.6321\) to four decimals. Symmetry about \(1/2\) fails at the origin for that link.
-:::
-
-### A large positive predictor
-As \(\eta\to\infty\), what happens to each of the three probabilities?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each tends to \(1\). The logit ratio \(e^{\eta}/(1+e^{\eta})\) does, \(\Phi(\eta)\) does, and \(\exp(-e^{\eta})\) tends to \(0\), so complementary log-log tends to \(1\). The limits agree; the speed at a finite \(\eta\) does not.
-:::

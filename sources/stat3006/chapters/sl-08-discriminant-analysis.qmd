@@ -352,7 +352,7 @@ The nearer mean in Mahalanobis distance is $\widehat{\boldsymbol\mu}_1$. The cov
 
 ## Quadratic discriminant analysis
 
-To allow different class shapes, estimate a separate covariance for each class. QDA makes that change and retains Gaussian class densities{{cite:smith1947_qda}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. The pairwise score difference becomes a polynomial of degree at most two. It can describe curved boundaries, though special parameter choices give degenerate or empty boundaries. The next display shows exactly which cancellation LDA loses.
+To allow different class shapes, estimate a separate covariance for each class. QDA makes that change and retains Gaussian class densities{{cite:smith1947_qda}} (pp. 272–282){{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. The pairwise score difference becomes a polynomial of degree at most two. It can describe curved boundaries, though special parameter choices give degenerate or empty boundaries. The next display shows exactly which cancellation LDA loses.
 
 The tie $\widehat\pi_j\widehat f_j(\mathbf{x})=\widehat\pi_l\widehat f_l(\mathbf{x})$ is now
 
@@ -374,7 +374,7 @@ $$
 \Bigr].
 $$
 
-The quadratic terms are $\mathbf{x}^\top\widehat\Sigma_j^{-1}\mathbf{x}$ and $\mathbf{x}^\top\widehat\Sigma_l^{-1}\mathbf{x}$. They cancel only if the two inverses agree. Once the covariances differ, the difference $\mathbf{x}^\top(\widehat\Sigma_j^{-1}-\widehat\Sigma_l^{-1})\mathbf{x}$ survives, and the boundary is quadratic in $\mathbf{x}${{cite:smith1947_qda}}{{cite:hastie_esl2009}}. The class regions therefore have piecewise quadratic edges. The same comparison can be written as a score for each class,
+The quadratic terms are $\mathbf{x}^\top\widehat\Sigma_j^{-1}\mathbf{x}$ and $\mathbf{x}^\top\widehat\Sigma_l^{-1}\mathbf{x}$. They cancel only if the two inverses agree. Once the covariances differ, the difference $\mathbf{x}^\top(\widehat\Sigma_j^{-1}-\widehat\Sigma_l^{-1})\mathbf{x}$ survives, and the boundary is quadratic in $\mathbf{x}${{cite:smith1947_qda}} (pp. 272–282){{cite:hastie_esl2009}}. The class regions therefore have piecewise quadratic edges. The same comparison can be written as a score for each class,
 
 $$
 \delta_g(\mathbf{x})
@@ -446,7 +446,7 @@ Fisher's direction $\mathbf{a}\propto S^{-1}(\widehat{\boldsymbol\mu}_1-\widehat
 
 ## Mixture discriminant analysis
 
-A single Gaussian density cannot represent a ring-shaped concentration of observations. A quadratic boundary can still be circular, so QDA can separate a ring from a central group. Density fit and classification boundary are different questions. Mixture discriminant analysis gives each class a more flexible density by combining Gaussian components{{cite:hastie_tibshirani1996_mda}}{{cite:fraley_raftery2002}}. Its benefit should be assessed on the actual prediction task, since estimating more components also costs data.
+A single Gaussian density cannot represent a ring-shaped concentration of observations. A quadratic boundary can still be circular, so QDA can separate a ring from a central group. Density fit and classification boundary are different questions. Mixture discriminant analysis gives each class a more flexible density by combining Gaussian components{{cite:hastie_tibshirani1996_mda}} (pp. 155–176){{cite:fraley_raftery2002}} (pp. 611–631). Its benefit should be assessed on the actual prediction task, since estimating more components also costs data.
 
 The number of components is not fixed by the geometry. More data can support more of them, and BIC or AIC, from [Model selection](sl-06-model-selection.qmd), is the criterion already used for that choice, typically applied separately in each class. If one class is too thin for those components, a kernel density follows the same curve, and it is the estimator that fails first as the dimension grows. When the geometry does not decide between the methods, the comparison is an error rate on observations the fit did not see.
 
@@ -458,11 +458,11 @@ g^*=\arg\max_g \pi_g\widehat f_g(\mathbf{x}),
 \widehat f_g(\mathbf{x})=\sum_{h=1}^{H_g}\lambda_{gh}\widehat f_{gh}(\mathbf{x}),
 $$
 
-where $\pi_g$ is the prior probability of class $g$, $\lambda_{gh}$ is the probability of component $h$ within the mixture for class $g$, $\widehat f_{gh}$ is the fitted density of that component, and $H_g$ is the number of components fitted to class $g$, chosen separately or jointly. Ordinary LDA and QDA are the special cases $H_g=1$, with a common covariance or a covariance of their own{{cite:hastie_esl2009}}{{cite:hastie_tibshirani1996_mda}}.
+where $\pi_g$ is the prior probability of class $g$, $\lambda_{gh}$ is the probability of component $h$ within the mixture for class $g$, $\widehat f_{gh}$ is the fitted density of that component, and $H_g$ is the number of components fitted to class $g$, chosen separately or jointly. Ordinary LDA and QDA are the special cases $H_g=1$, with a common covariance or a covariance of their own{{cite:hastie_esl2009}}{{cite:hastie_tibshirani1996_mda}} (pp. 155–176).
 
 ## Kernel density discriminant analysis
 
-Kernel discriminant analysis replaces each class density by a kernel estimate{{cite:silverman1986}}{{cite:parzen1962}}{{cite:fix_hodges1989}} from [Hierarchical clustering and kernel density estimation](sl-07-linkage-and-density.qmd). This avoids choosing a finite component count, and it introduces bandwidths and still needs enough observations locally. Its difficulty grows with dimension. Six is a software limit in some implementations. The same weighted-density rule can be written in more dimensions when the sample supports the bandwidths. Choose bandwidths inside each training split, then apply the same weighted-density rule:
+Kernel discriminant analysis replaces each class density by a kernel estimate{{cite:silverman1986}}{{cite:parzen1962}} (pp. 1065–1076){{cite:fix_hodges1989}} from [Hierarchical clustering and kernel density estimation](sl-07-linkage-and-density.qmd). This avoids choosing a finite component count, and it introduces bandwidths and still needs enough observations locally. Its difficulty grows with dimension. Six is a software limit in some implementations. The same weighted-density rule can be written in more dimensions when the sample supports the bandwidths. Choose bandwidths inside each training split, then apply the same weighted-density rule:
 
 $$
 g^*=\arg\max_g \pi_g\widehat f_g(\mathbf{x}),

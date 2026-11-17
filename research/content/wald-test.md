@@ -31,17 +31,3 @@ The normal limit itself, \(\hat\beta\) approximately \(\mathrm{N}(\beta,(X^\top 
 ## Connections — Intervals, likelihood ratios and scores
 The [Wald interval](wald-interval.qmd) inverts the same ratio: the values \(\beta_0\) that are not rejected are \(\hat\beta\pm z\,\mathrm{se}(\hat\beta)\). [Maximum likelihood](maximum-likelihood.qmd) supplies \(\hat\beta\) in a regular model, and the [standard error](standard-error.qmd) is the square root of an estimated variance. A likelihood-ratio test compares two maximised log-likelihoods and refits the smaller model. A Wald test does not. ESL notes that the Wald test of a coefficient, and the Rao score test of an omitted term, can both be read off the weighted least-squares fit at the current maximum.{{cite:hastie_esl2009}} (p. 125)
 
-## Check yourself
-### One standard error from zero
-The estimate equals its standard error, and the null value is zero. What is \(Z\), and does the two-sided level \(0.05\) test reject?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(Z=1\). The two-sided \(p\)-value is \(2\{1-\Phi(1)\}=0.3173\) to four decimals. The test does not reject, because \(1<1.960\).
-:::
-
-### The boundary
-What is \(2\{1-\Phi(1.960)\}\), to four decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It equals \(0.0500\). The critical value \(1.960\) is chosen so that the two-sided standard-normal test has level about \(5\%\). A finite-sample Wald statistic need not have that exact null probability.
-:::

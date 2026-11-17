@@ -32,7 +32,7 @@ if __name__ == "__main__":
     assert p*(1-p)/4 == Fraction(3, 64)
     assert p*(1-p) == Fraction(3, 16)
     assert page.count('collapse="true" title="Proof"') == 1
-    assert len(set(re.findall(r"\.\./questions/([^.)]+)", page))) == 13
+    assert len(set(re.findall(r"\.\./questions/([^.)]+)", page))) == 14
     assert not re.search(r"!\[[^\]]*\]\(", page)
     keys = set(re.findall(r'data-cite-key="([^"]+)"', page.split("## References")[0]))
     assert keys <= {

@@ -37,17 +37,3 @@ With $X_{ij}=\mu_{ij}+U_i+\epsilon_{ij}$, independent mean-zero subject effects 
 
 GEE uses this matrix as a working association model. With correctly specified marginal means, many independent clusters, regularity, suitable nuisance estimation and the stated missingness assumptions, the regression estimator remains consistent when the working correlation is wrong. A cluster sandwich covariance addresses coefficient uncertainty; it does not correct a wrong mean model.{{cite:liang_zeger1986}} (§3.1, pp.15–16)
 
-
-## Check yourself
-
-### [A correlation four visits cannot have](../questions/ex-ur-exchangeable-bound.qmd) {#self-check-ex-ur-exchangeable-bound}
-
-::: {.callout-tip collapse="true" title="Answer"}
-Four visits require $\rho\ge-1/3$. At $-0.5$ the mean-direction eigenvalue is negative, so the proposed matrix is impossible.
-:::
-
-### [Working correlation and mean validity](../questions/depth-marginal-working-covariance.qmd) {#self-check-depth-marginal-working-covariance}
-
-::: {.callout-tip collapse="true" title="Answer"}
-With many independent clusters, regularity and suitable missingness, the analyst with the correct marginal mean has the usual GEE consistency argument even with a wrong working correlation. A sandwich estimates uncertainty about that estimating equation. It cannot repair an omitted mean covariate.
-:::

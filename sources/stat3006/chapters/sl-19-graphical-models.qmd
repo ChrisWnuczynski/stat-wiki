@@ -72,7 +72,7 @@ The third line follows from the second, because $f(x,z\given y)=f(x\given y,z)\,
 
 ### Markov properties and factorisation
 
-Undirected graphical models are also known as Markov random fields{{cite:besag1974}}{{cite:lauritzen1996}}{{cite:clifford1990_hc}}. A probability measure on $X$ may have any of the following properties with respect to a graph $G$.
+Undirected graphical models are also known as Markov random fields{{cite:besag1974}} (pp. 192–225){{cite:lauritzen1996}}{{cite:clifford1990_hc}}. A probability measure on $X$ may have any of the following properties with respect to a graph $G$.
 
 - **Pairwise.** For any pair of non-adjacent vertices $j,k\in V$, $X_j\perp X_k\given X_{V\setminus\{j,k\}}$.
 - **Local.** For any vertex $j\in V$, $X_j\perp X_{V\setminus\mathrm{cl}(j)}\given X_{\mathrm{bd}(j)}$.
@@ -95,7 +95,7 @@ where $\mathcal{C}$ is the set of cliques, the $\psi_c$ are the clique potential
 ::: {#thm-sl-19-hammersley-clifford .theorem}
 ## Hammersley–Clifford
 
-A probability distribution with positive and continuous density $f$ with respect to a product measure satisfies the pairwise Markov property with respect to an undirected graph $G$ if and only if it factorises according to $G${{cite:clifford1990_hc}}{{cite:besag1974}}{{cite:lauritzen1996}}.
+A probability distribution with positive and continuous density $f$ with respect to a product measure satisfies the pairwise Markov property with respect to an undirected graph $G$ if and only if it factorises according to $G${{cite:clifford1990_hc}}{{cite:besag1974}} (pp. 192–225){{cite:lauritzen1996}}.
 
 :::
 
@@ -251,7 +251,7 @@ There are $2^{p(p-1)/2}$ undirected simple graphs, since each unordered pair can
 
 ## Regression-linked estimation for a known graph
 
-Several methods fit a Gaussian graphical model with a known partial covariance structure, for example the iterative proportional fitting procedure of {{cite:speed_kiiveri1986}}. The approach below can be extended to model selection using a form of the lasso.
+Several methods fit a Gaussian graphical model with a known partial covariance structure, for example the iterative proportional fitting procedure of {{cite:speed_kiiveri1986}} (pp. 138–150). The approach below can be extended to model selection using a form of the lasso.
 
 ### The constrained likelihood
 
@@ -364,7 +364,7 @@ where the starred blocks keep only the rows and columns of the neighbours of $p$
    1. Partition $W$ into part $A$, all but the $j$th row and column, and part $B$, the $j$th row and column.
    2. Solve $W_{AA}^{*}\beta^{*}-s_{AB}^{*}=0$ for the unconstrained edge parameters $\beta^{*}$. Obtain $\hat\beta$ by padding $\hat\beta^{*}$ with zeros in the positions of the missing edges.
    3. Update $w_{AB}=W_{AA}\hat\beta$ and the corresponding row $w_{BA}=w_{AB}^\top$.
-3. In the final cycle for each $j$, solve for the estimated precision: $\hat\theta_{AB}=-\hat\beta\,\hat\theta_{BB}$ with $1/\hat\theta_{BB}=s_{BB}-w_{AB}^\top\hat\beta${{cite:speed_kiiveri1986}}{{cite:dempster1972_cov}}{{cite:lauritzen1996}}.
+3. In the final cycle for each $j$, solve for the estimated precision: $\hat\theta_{AB}=-\hat\beta\,\hat\theta_{BB}$ with $1/\hat\theta_{BB}=s_{BB}-w_{AB}^\top\hat\beta${{cite:speed_kiiveri1986}} (pp. 138–150){{cite:dempster1972_cov}}{{cite:lauritzen1996}}.
 
 :::
 

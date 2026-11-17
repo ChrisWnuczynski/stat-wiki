@@ -40,7 +40,7 @@ A minimum-variance-bound estimator is UMVU, because nothing unbiased can have sm
 
 Let $T$ be a complete sufficient statistic, and let $U(T)$ be unbiased for $\theta$ with finite variance. Then $U(T)$ is the UMVU estimator of $\theta$, and it is unique up to a set of probability zero.
 
-Rao–Blackwell reduces the search to functions of $T$: any unbiased estimator that is not a function of $T$ has a conditional expectation given $T$ with the same mean and a smaller variance. Suppose $q(T)$ is another unbiased function of $T$. Then $\E_\theta\{U(T)-q(T)\}=0$ for every $\theta$. Completeness forces $U(T)-q(T)=0$ almost surely. That is the Lehmann–Scheffé theorem in the form used here: one unbiased function of a complete sufficient statistic is the only one.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
+Rao–Blackwell reduces the search to functions of $T$: any unbiased estimator that is not a function of $T$ has a conditional expectation given $T$ with the same mean and a smaller variance. Suppose $q(T)$ is another unbiased function of $T$. Then $\E_\theta\{U(T)-q(T)\}=0$ for every $\theta$. Completeness forces $U(T)-q(T)=0$ almost surely. That is the Lehmann–Scheffé theorem in the form used here: one unbiased function of a complete sufficient statistic is the only one.{{cite:lehmann_scheffe1950}} (pp. 305–340){{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 Completeness is essential for uniqueness. Without it, two different functions of a sufficient statistic can share a mean. A curved subfamily of an exponential family is the standard warning, recorded with the definition of completeness.
 

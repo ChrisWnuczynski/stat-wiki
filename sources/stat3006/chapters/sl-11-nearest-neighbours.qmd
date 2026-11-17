@@ -35,7 +35,7 @@ Describing the same observations in different units need not leave the classifie
 
 Ranks offer a different trade-off. They preserve order while discarding spacing, so a very large value is simply the largest rank rather than an arbitrarily distant point. A strictly increasing coordinate transformation leaves the ranks unchanged. This is useful when order is meaningful and spacing is unreliable, and it loses information when actual distances matter.
 
-The rank distance of {{cite:olshen1977}} and {{cite:devroye1978}} does this one coordinate at a time. For each predictor, the training values and the new observation's value are ranked from $1$ to $n+1$, from smallest to largest. Let $r_i^{(j)}$ be the rank of the $j$th component of the $i$th training observation, and let $r^{(j)}$ be the rank of the $j$th component of the new observation.
+The rank distance of {{cite:olshen1977}} (pp. 620–640) and {{cite:devroye1978}} (pp. 142–151) does this one coordinate at a time. For each predictor, the training values and the new observation's value are ranked from $1$ to $n+1$, from smallest to largest. Let $r_i^{(j)}$ be the rank of the $j$th component of the $i$th training observation, and let $r^{(j)}$ be the rank of the $j$th component of the new observation.
 
 ::: {#def-sl-11-rank-distance .definition}
 ## Rank distance
@@ -72,7 +72,7 @@ Small neighbourhoods follow local noise. Large ones can smooth away a real minor
 ::: {#thm-sl-11-consistency .theorem}
 ## Bayes consistency of $k$-nearest neighbours
 
-In fixed-dimensional Euclidean space, the standard independent identically distributed $k$-nearest-neighbour rule is weakly universally consistent when $k=k_n\to\infty$ and $k_n/n\to 0$, with appropriate tie handling: its expected risk approaches the Bayes risk{{cite:stone1977_knn}}{{cite:fix_hodges1989}}{{cite:hastie_esl2009}}. More neighbours reduce voting noise. A vanishing sample fraction keeps the neighbourhood local.
+In fixed-dimensional Euclidean space, the standard independent identically distributed $k$-nearest-neighbour rule is weakly universally consistent when $k=k_n\to\infty$ and $k_n/n\to 0$, with appropriate tie handling: its expected risk approaches the Bayes risk{{cite:stone1977_knn}} (pp. 595–620){{cite:fix_hodges1989}}{{cite:hastie_esl2009}}. More neighbours reduce voting noise. A vanishing sample fraction keeps the neighbourhood local.
 
 :::
 

@@ -34,24 +34,3 @@ The gap falls from $0.85$ to $0.55$. The reference standard deviation and allowa
 ## Assumptions and limits — Optimisation and the candidate range
 For globally minimised within-cluster sum of squares, splitting a cluster cannot increase the optimum: the finer partition can use the same centre in both pieces. Separate local optimisation runs need not achieve this monotonicity. At $k=n$, singleton clusters have zero dispersion, so its logarithm is undefined. The candidate range and numerical handling must keep every logged dispersion positive. These restrictions follow from the objective and logarithm, rather than from a guarantee that a selected count equals a true number of groups.{{cite:dai_shen_liu2026_cluster_significance}} (§1, clustering optimisation; §4.2)
 
-## Check yourself
-
-### Apply the first qualifying comparison {#self-check-ex-sl-04-5}
-
-[Practice question](../questions/ex-sl-04-5.qmd)
-
-For the displayed gaps and allowances, why is the selected count three rather than four?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Counts one and two fail their comparisons. Count three satisfies $1.10\ge1.15-0.06=1.09$, so it is selected before reaching the maximum at four.
-:::
-
-### Why decreasing dispersion is insufficient {#self-check-ex-sl-04-6}
-
-[Practice question](../questions/ex-sl-04-6.qmd)
-
-Why cannot within-cluster sum of squares alone select the number of groups?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Its globally optimised value cannot increase when more clusters are allowed, and singleton clusters can reduce it to zero. A comparison such as a reference gap, an external predictive criterion or a model penalty is needed to balance fit against increasing resolution.
-:::

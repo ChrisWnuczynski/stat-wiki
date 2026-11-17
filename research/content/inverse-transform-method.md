@@ -40,19 +40,3 @@ The quantile is $Q(u)=u^{1/3}$. Thus $Q(1/8)=1/2$, and the CDF at that point is 
 ## Connections — Shared uniforms and monotone outputs
 The quantile function is nondecreasing. Two simulations driven by the same uniform numbers can therefore be compared point by point when their quantile functions are ordered. This construction couples the variables; it does not make them independent. Independent output draws require independent uniform inputs. When a quantile has no closed form, solving $F(x)=u$ numerically still implements the same idea.{{cite:durrett2019}} (§1.2, inverse distribution construction)
 
-## Check yourself
-Check the interval probabilities as well as the numerical transformation.
-
-### A uniform interval {#self-check-ex-prob-generate-uniform}
-[Draws from a uniform interval](../questions/ex-prob-generate-uniform.qmd): transform $U$ into a uniform draw on $[10,15]$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Return $10+5U$. For $10\le x\le15$, its CDF is $\Pr\{U\le(x-10)/5\}=(x-10)/5$.
-:::
-
-### A cubic law {#self-check-ex-prob-cubic-cdf}
-[A cubic distribution function](../questions/ex-prob-cubic-cdf.qmd): for $F(x)=x^3$ on $[0,1]$, find the density, $\Pr(1/2<X<3/4)$ and the mean.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The density is $3x^2$ on $(0,1)$. The interval probability is $27/64-1/8=19/64$, and integrating $x(3x^2)$ from zero to one gives mean $3/4$.
-:::

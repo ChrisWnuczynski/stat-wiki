@@ -36,18 +36,3 @@ Class 1 has score $-\frac12(3)^2+\log\frac12=-5.193$. Class 2 has score $-\frac1
 ## Connections — Flat boundaries and extra parameters
 [Linear discriminant analysis](linear-discriminant-analysis.qmd) is the shared-covariance case of the same normal model, and the [Bayes classifier](bayes-classifier.qmd) is the rule these scores estimate. A separate covariance for every class buys curved regions and spends more parameters: each new class brings its own $p(p+1)/2$ covariance entries. With a small class or a large $p$, that extra flexibility can follow noise in the training sample.{{cite:hastie_esl2009}} (§4.3, pp. 110–112)
 
-## Check yourself
-
-### Equal variances
-Class 1 is $N(0,1)$, class 2 is $N(2,1)$, and the priors are equal. Is the decision boundary quadratic?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The covariances agree, so the quadratic terms cancel. The boundary is the midpoint $x=1$, where the two normal log-densities with equal variance and equal prior are equal.
-:::
-
-### A one-dimensional parameter count
-For $G=2$ classes and $p=1$ predictor, linear discriminant analysis estimates $4$ free parameters and quadratic discriminant analysis estimates $5$. Which extra parameter appears?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Linear discriminant analysis uses two means, one shared variance and one free prior. Quadratic discriminant analysis replaces the shared variance by two class variances, which adds one parameter. The prior still contributes one free value because the two priors sum to $1$.
-:::

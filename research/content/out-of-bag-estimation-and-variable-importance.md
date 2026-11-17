@@ -29,17 +29,3 @@ $(1/2)^2=0.25$, so a given case is omitted from a quarter of the two-draw bootst
 ## Connections — Error and rank from the same leftovers
 The trees are a [random forest](random-forest.qmd). The samples are the [bootstrap](bootstrap.qmd) draws inside [bagging](bagging.qmd). The split criterion whose total decrease is the other importance summary is often the [Gini index](gini-index.qmd). An out-of-bag error that has been used to choose among forests is no longer an untouched assessment; that choice needs a separate [held-out test set](a-held-out-test-set.qmd).{{cite:hastie_esl2009}} (Ch. 15, §§15.3.1–15.3.2, pp. 592–594)
 
-## Check yourself
-### A case in every sample
-If a case appears in every bootstrap sample, how many trees vote in its out-of-bag prediction?
-
-::: {.callout-tip collapse="true" title="Answer"}
-None. The out-of-bag prediction uses only trees that missed the case. If there are no such trees, that case contributes no out-of-bag prediction.
-:::
-
-### A zero drop
-The accuracy after permuting predictor $j$ equals the accuracy before it, in every tree. What is the permutation importance of $j$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The average drop is $0$. Inside this fit, shuffling $j$ in the out-of-bag cases did not change the accuracy. A later refit that deleted $j$ could still change, if another predictor took its place.
-:::

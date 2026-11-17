@@ -99,7 +99,7 @@ For the serves, $C=\{c,\ldots,15\}$, and the type I error is $\Pr_{H_0}(X\ge c)$
 ::: {#def-power-function .definition}
 ## Power function
 
-For a test with critical region $C$, the power at $\theta$ is $\operatorname{Power}(\theta)=\Pr_\theta(T\in C)$.{{cite:neyman_pearson1933}} On $\Theta_1$ it equals one minus the type II error at $\theta$, and on $\Theta_0$ it is the type I error.{{cite:lehmann_romano2005}} Its graph is the power curve.{{cite:casella_berger2002}}
+For a test with critical region $C$, the power at $\theta$ is $\operatorname{Power}(\theta)=\Pr_\theta(T\in C)$.{{cite:neyman_pearson1933}} (pp. 289–337) On $\Theta_1$ it equals one minus the type II error at $\theta$, and on $\Theta_0$ it is the type I error.{{cite:lehmann_romano2005}} Its graph is the power curve.{{cite:casella_berger2002}}
 
 :::
 
@@ -175,7 +175,7 @@ Statistical significance is not practical significance. The one-sided 99% lower 
 
 ### The chi-squared test for a variance
 
-For the variance, $(n-1)s^2/\sigma_0^2$ is $\chi^2_{n-1}$ when $\sigma^2=\sigma_0^2$.{{cite:pearson1900}}{{cite:fisher1925_smrw}} Reject for large values against $\sigma^2>\sigma_0^2$, using $\chi^2_{n-1;1-\alpha}$; for small values against $\sigma^2<\sigma_0^2$, using $\chi^2_{n-1;\alpha}$; and in either tail, at $\alpha/2$ each, against $\sigma^2\neq\sigma_0^2$.{{cite:casella_berger2002}}
+For the variance, $(n-1)s^2/\sigma_0^2$ is $\chi^2_{n-1}$ when $\sigma^2=\sigma_0^2$.{{cite:pearson1900}} (pp. 157–175){{cite:fisher1925_smrw}} Reject for large values against $\sigma^2>\sigma_0^2$, using $\chi^2_{n-1;1-\alpha}$; for small values against $\sigma^2<\sigma_0^2$, using $\chi^2_{n-1;\alpha}$; and in either tail, at $\alpha/2$ each, against $\sigma^2\neq\sigma_0^2$.{{cite:casella_berger2002}}
 
 ::: {#exm-tuning-fork-variability .example}
 ## Tuning-fork variability
@@ -293,7 +293,7 @@ All tests above assume a family of distributions up to a few parameters. A nonpa
 ::: {#def-sign-test .definition}
 ## Sign test
 
-For independent pairs $(X_i,Y_i)$, $i=1,\ldots,n$, let $N$ be the number of pairs with $Y_i>X_i$, ties discarded. If $H_0:\Pr(Y_i>X_i)=1/2$ holds, $N\sim\Bin(n,1/2)$, and $H_0$ is tested with the binomial test.{{cite:arbuthnot1710}}{{cite:dixon_mood1946}}{{cite:lehmann_romano2005}}
+For independent pairs $(X_i,Y_i)$, $i=1,\ldots,n$, let $N$ be the number of pairs with $Y_i>X_i$, ties discarded. If $H_0:\Pr(Y_i>X_i)=1/2$ holds, $N\sim\Bin(n,1/2)$, and $H_0$ is tested with the binomial test.{{cite:arbuthnot1710}} (pp. 186–190){{cite:dixon_mood1946}} (pp. 557–566){{cite:lehmann_romano2005}}
 
 :::
 
@@ -308,7 +308,7 @@ Examiner 2 gives the higher mark on $N=8$ of the 12 exams, with no ties. Against
 
 ## Tests and intervals
 
-A two-sided test at level $\alpha$ and a confidence interval with confidence $1-\alpha$ built from the same pivot carry the same information.{{cite:neyman1937}} $H_0:\theta=\theta_0$ is rejected exactly when $\theta_0$ lies outside the interval.{{cite:lehmann_romano2005}}{{cite:casella_berger2002}} For the one-sample $t$ test,
+A two-sided test at level $\alpha$ and a confidence interval with confidence $1-\alpha$ built from the same pivot carry the same information.{{cite:neyman1937}} (pp. 333–380) $H_0:\theta=\theta_0$ is rejected exactly when $\theta_0$ lies outside the interval.{{cite:lehmann_romano2005}}{{cite:casella_berger2002}} For the one-sample $t$ test,
 
 $$
 \Bigl|\frac{\overline x-\mu_0}{s/\sqrt n}\Bigr|<t_{n-1;1-\alpha/2}

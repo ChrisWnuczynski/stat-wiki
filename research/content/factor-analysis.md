@@ -38,17 +38,3 @@ when $\Psi$ is positive definite. In the one-factor example with $\mu=0$ and $x=
 
 EM can treat the factors as missing data and use their conditional first and second moments in its E-step. Estimation must account for rotation ambiguities and possible boundary solutions with zero residual variances. Interpreting fitted axes requires identifying constraints or an explicit choice of rotation.{{cite:dempster_laird_rubin1977}} (§4.7, pp.20–21; discussion, p.30)
 
-
-## Check yourself
-
-### [Two factors of one covariance](../questions/ex-sl-02-3.qmd) {#self-check-ex-sl-02-3}
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $\Sigma=\left(\begin{smallmatrix}4&2\\2&3\end{smallmatrix}\right)$, the Cholesky factor is $L=\left(\begin{smallmatrix}2&0\\1&\sqrt2\end{smallmatrix}\right)$. A spectral factor also satisfies $BB^T=\Sigma$. Both transform a standard normal vector to covariance $\Sigma$, although they need not give the same transformed vector for a fixed draw.
-:::
-
-### [The effect of correlation](../questions/ex-sl-03-3.qmd) {#self-check-ex-sl-03-3}
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $\left(\begin{smallmatrix}1&r\\r&1\end{smallmatrix}\right)$ with $r>0$, the eigenvalues are $1+r$ and $1-r$, along the sum and difference directions. The first principal component explains fraction $(1+r)/2$, tending to $1/2$ as $r\to0$ and to one as $r\to1$.
-:::

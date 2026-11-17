@@ -144,7 +144,7 @@ $$
 \left(\frac{(n-1)s^2}{\chi^2_{n-1;\,1-\alpha/2}},\;\frac{(n-1)s^2}{\chi^2_{n-1;\,\alpha/2}}\right).
 $$
 
-The upper quantile sits in the lower endpoint, because the pivot has $\sigma^2$ in the denominator.{{cite:fisher1925_smrw}} The chi-squared law is skewed, so the interval is not symmetric about $s^2$.{{cite:casella_berger2002}} An interval for $\sigma$ is found by taking square roots of both endpoints; a monotone function carries the coverage with it.{{cite:neyman1937}}
+The upper quantile sits in the lower endpoint, because the pivot has $\sigma^2$ in the denominator.{{cite:fisher1925_smrw}} The chi-squared law is skewed, so the interval is not symmetric about $s^2$.{{cite:casella_berger2002}} An interval for $\sigma$ is found by taking square roots of both endpoints; a monotone function carries the coverage with it.{{cite:neyman1937}} (pp. 333–380)
 
 ::: {#exm-aspirin-tablet-weights .example}
 ## Aspirin tablet weights
@@ -263,7 +263,7 @@ $$
 \widehat p\pm z_{1-\alpha/2}\sqrt{\frac{\widehat p(1-\widehat p)}{n}}.
 $$
 
-{{cite:wald1943}}{{cite:brown_cai_dasgupta2001}}{{cite:casella_berger2002}}
+{{cite:wald1943}} (pp. 426–482){{cite:brown_cai_dasgupta2001}} (pp. 101–133){{cite:casella_berger2002}}
 
 :::
 
@@ -300,7 +300,7 @@ $$
 n\ge\Bigl(\frac{z_{1-\alpha/2}\,\sigma}{E}\Bigr)^2.
 $$
 
-Halving the half-width needs four times the sample.{{cite:neyman1937}}{{cite:casella_berger2002}} For a proportion the same calculation with $\sigma^2=p(1-p)\le1/4$ gives the conservative $n\ge z_{1-\alpha/2}^2/(4E^2)$.{{cite:wasserman2004}} A poll accurate to $\pm3$ percentage points with 95% confidence needs about $1.96^2/(4\times0.03^2)\approx1068$ people, whatever the size of the population.
+Halving the half-width needs four times the sample.{{cite:neyman1937}} (pp. 333–380){{cite:casella_berger2002}} For a proportion the same calculation with $\sigma^2=p(1-p)\le1/4$ gives the conservative $n\ge z_{1-\alpha/2}^2/(4E^2)$.{{cite:wasserman2004}} A poll accurate to $\pm3$ percentage points with 95% confidence needs about $1.96^2/(4\times0.03^2)\approx1068$ people, whatever the size of the population.
 
 ::: {.callout-note}
 ## Key idea

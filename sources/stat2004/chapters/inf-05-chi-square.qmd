@@ -141,7 +141,7 @@ $$
 T=\sum_{i=1}^r\sum_{j=1}^c\frac{(O_{ij}-E_{ij})^2}{E_{ij}}
 $$
 
-is approximately $\chi^2_{(r-1)(c-1)}$ when the row and column factors are independent.{{cite:fisher1922_chisq}}{{cite:agresti2002}} Large values are evidence against independence.{{cite:pearson1900}}
+is approximately $\chi^2_{(r-1)(c-1)}$ when the row and column factors are independent.{{cite:fisher1922_chisq}}{{cite:agresti2002}} Large values are evidence against independence.{{cite:pearson1900}} (pp. 157–175)
 
 :::
 

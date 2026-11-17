@@ -9,7 +9,7 @@ $$
 \mathrm{logit}\,\mathrm{P}(\text{kyphosis})
 =\beta_0+g_1(\text{number})+g_2(\text{start})+g_3(\text{age}).
 $$
-Each $g_j$ has its own penalty. Nothing forces them to be equally smooth. This is a generalised additive model: additive in the smooths, not linear in the covariates.{{cite:hastie_tibshirani1986}}{{cite:hastie_tibshirani1990}}{{cite:wood2017}} `Number` takes only the values $1$ through $8$, and `Start` only sixteen vertebral positions, so a smooth cannot have more knots than there are distinct values.
+Each $g_j$ has its own penalty. Nothing forces them to be equally smooth. This is a generalised additive model: additive in the smooths, not linear in the covariates.{{cite:hastie_tibshirani1986}} (pp. 297–310){{cite:hastie_tibshirani1990}}{{cite:wood2017}} `Number` takes only the values $1$ through $8$, and `Start` only sixteen vertebral positions, so a smooth cannot have more knots than there are distinct values.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -24,7 +24,7 @@ kyphosis$Kyphosis <- as.numeric(kyphosis$Kyphosis == "present")
 summary(gam(Kyphosis ~ s(Number, k = 8) + s(Start, k = 16) + s(Age),
             family = binomial, data = kyphosis))
 ```
-The equivalent degrees of freedom, the trace of the smoother matrix, are about $1.19$ for the number of vertebrae, $2.04$ for the starting position, and $2.21$ for age.{{cite:hastie_tibshirani1990}}{{cite:wood2011}}{{cite:wood2017}}
+The equivalent degrees of freedom, the trace of the smoother matrix, are about $1.19$ for the number of vertebrae, $2.04$ for the starting position, and $2.21$ for age.{{cite:hastie_tibshirani1990}}{{cite:wood2011}} (pp. 3–36){{cite:wood2017}}
 
 ![The three smooths in the additive kyphosis model, on the log-odds scale and centred at zero. Number of vertebrae is close to a straight line. Starting position is flat through the upper vertebrae and then falls. Age still rises and then eases.](../figures/kyphosis-additive.pdf){#fig-kyph-add}
 

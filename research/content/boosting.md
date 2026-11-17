@@ -39,15 +39,3 @@ The normaliser is \(2\sqrt{(1/4)(3/4)}=\sqrt3/2\). Each correct case then has ne
 ## Connections — What boosting is not averaging
 [Bagging](bagging.qmd) and a [random forest](random-forest.qmd) draw diversity from different samples. Boosting manufactures diversity by reweighting. The base rule is often a [decision stump](decision-stump.qmd), and the particular half-log update above is [AdaBoost](adaboost.qmd). A round with error above \(1/2\) gets a negative vote, which is a vote for the opposite label.{{cite:freund_schapire1997}} (p. 12){{cite:schapire1990}} (pp. 197–198)
 
-## Check yourself
-A round with \(\varepsilon=0.4\) still has a positive vote. What is \(\alpha\), to four decimal places, and by what factor does an incorrect weight grow relative to a correct weight?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\alpha=\frac12\log(0.6/0.4)=\frac12\log 1.5\approx 0.2027\). The relative factor is \(0.6/0.4=1.5\).
-:::
-
-Two stumps vote \(+1\) and \(-1\) with coefficients \(0.6\) and \(0.2\). What sign does the ensemble return?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The weighted vote is \(0.6-0.2=0.4>0\), so the ensemble returns \(+1\).
-:::

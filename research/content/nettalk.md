@@ -26,18 +26,3 @@ With objective $E_0(w)+(\lambda/2)\sum_jw_j^2$, the penalty contributes $\lambda
 
 A large count of scalar output targets does not establish a correspondingly large number of independent observations: targets for the same window share inputs, and neighbouring windows overlap. Training loss and performance on held-out words consequently answer different questions. A penalty setting needs evaluation in the intended prediction setting rather than being inferred from a parameter-to-target ratio.{{cite:sejnowski_rosenberg1987}} (§§2–3, pp. 150–155){{cite:krogh_hertz1992}} (§6, pp. 955–956)
 
-## Check yourself
-
-### Counting the larger network {#self-check-ex-sl-16-6}
-[Counting for NETtalk](../questions/ex-sl-16-6.qmd): compare parameter counts and the number of output targets.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Counting hidden and output biases gives $18426$ parameters with 80 hidden units and $11526$ with 50. For 5000 patterns and 26 outputs, there are $130000$ scalar targets, about $7.055$ per parameter in the larger network. Dependence among those targets prevents interpreting that ratio as an independent-sample guarantee against overfitting.
-:::
-
-### A smaller classifier {#self-check-ex-sl-15-3}
-[Counting a three-class network](../questions/ex-sl-15-3.qmd): compare the neural network with multinomial logistic regression.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The 10-input, 5-hidden-unit, 3-output network has $(10+1)5+(5+1)3=73$ parameters. A three-class multinomial logit with one reference class and 10 predictors has $(3-1)(10+1)=22$ identifiable coefficients. The models use different parameterisations and function classes.
-:::

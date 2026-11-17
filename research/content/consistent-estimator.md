@@ -35,18 +35,3 @@ For the unbiased estimator $T_n=X_1$, the corresponding probability stays $2\{1-
 Variance changes from $1/n$ to $1/(4n)$, so it is divided by four. Standard error changes from $1/\sqrt n$ to $1/(2\sqrt n)$, so it is halved.
 :::
 
-## Check yourself
-
-### Consistency of a Poisson mean {#self-check-ex-inf-poisson-mle}
-[A Poisson mean](../questions/ex-inf-poisson-mle.qmd): find its estimator and show consistency.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The likelihood is maximised at $\overline X$, including the boundary value zero if all observations vanish. Its expectation is $\theta$ and variance is $\theta/n$, so its mean squared error tends to zero and the probability bound above proves consistency.
-:::
-
-### Concentration and coverage {#self-check-ex-inf-two-standard-errors}
-[Two standard errors](../questions/ex-inf-two-standard-errors.qmd): find the exact normal coverage and a 99% multiplier.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Coverage is $2\Phi(2)-1=0.9545$. The 99% multiplier is $\Phi^{-1}(0.995)=2.57583$. The interval shrinks with $n$ while preserving that fixed coverage under the stated normal model.
-:::

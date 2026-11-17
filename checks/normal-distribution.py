@@ -43,7 +43,7 @@ if __name__ == "__main__":
     opened = {
         "siegrist2022_normal_distribution", "siegrist2022_lognormal_distribution",
         "siegrist2022_binomial_distribution", "siegrist2022_normals",
-        "gelman_bda2013", "raiffa_schlaifer1961", "hoff2013_bayes_estimators",
+        "gelman_bda2013", "raiffa_schlaifer1961",
         "box_muller1958", "gelfand_smith1990",
         "daw1966_normal_history", "oliveira2022_probability_history",
     }

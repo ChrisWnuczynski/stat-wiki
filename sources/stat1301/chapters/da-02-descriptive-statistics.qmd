@@ -143,7 +143,7 @@ Strongly skewed data are often easier to summarise, and to model, after a transf
 ::: {#def-normal-quantile-plot .definition}
 ## Normal quantile plot
 
-A normal quantile plot, or Q–Q plot, plots the sorted data against the quantiles of the standard normal distribution at the same fractions.{{cite:wilk_gnanadesikan1968}}{{cite:chambers1983_gmda}} If the data come from a normal distribution, the points lie close to a straight line, whose intercept and slope estimate the mean and standard deviation.{{cite:wasserman2004}}
+A normal quantile plot, or Q–Q plot, plots the sorted data against the quantiles of the standard normal distribution at the same fractions.{{cite:wilk_gnanadesikan1968}} (pp. 1–17){{cite:chambers1983_gmda}} If the data come from a normal distribution, the points lie close to a straight line, whose intercept and slope estimate the mean and standard deviation.{{cite:wasserman2004}}
 
 :::
 

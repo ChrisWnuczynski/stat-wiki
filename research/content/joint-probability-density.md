@@ -68,7 +68,7 @@ The multivariable change-of-variables theorem, with \(\mathbf x=g^{-1}(\mathbf z
 \int_C f_{\mathbf X}(g^{-1}(\mathbf z))\,
 |\det Dg^{-1}(\mathbf z)|\,\mathrm d\mathbf z.
 \]
-Because this holds for every such \(C\), the integrand is the density of \(\mathbf Z\). The inverse-function theorem gives \(|\det Dg^{-1}(\mathbf z)|=1/|\det Dg(g^{-1}(\mathbf z))|\), proving the equivalent version. For \(g(\mathbf x)=A\mathbf x\) with invertible \(A\), the inverse derivative is \(A^{-1}\), so its absolute determinant is \(1/|\det A|\), as stated.{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26){{cite:strimmer2025_mva}} (Ch. 3, §3.1)
+Because this holds for every such \(C\), the integrand is the density of \(\mathbf Z\). The inverse-function theorem gives \(|\det Dg^{-1}(\mathbf z)|=1/|\det Dg(g^{-1}(\mathbf z))|\), proving the equivalent version. For \(g(\mathbf x)=A\mathbf x\) with invertible \(A\), the inverse derivative is \(A^{-1}\), so its absolute determinant is \(1/|\det A|\), as stated.{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26)
 
 :::
 :::

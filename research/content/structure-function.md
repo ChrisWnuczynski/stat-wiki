@@ -49,18 +49,3 @@ Lowering each component reliability from $0.9$ to $0.8$ drops the system reliabi
 ## Connections — Paths, cuts, and lifetimes
 The [reliability function](reliability-function.qmd) is $r(\mathbf{p})=\Pr(\varphi(\mathbf{X})=1)$ once the component states are random. For independent components it is the multilinear structure polynomial with each $x_i$ replaced by $p_i$. {{cite:pishro_nik2014}} (§5.1, independent random variables) A minimal path is a set of components that is sufficient for $\varphi=1$ and has no smaller subset that is sufficient. A series arrangement is the special case of $n$-out-of-$n$, and a parallel arrangement is $1$-out-of-$n$. Replacing a static state by a lifetime turns the same structure into a system lifetime: a series lifetime is the first component failure.
 
-## Check yourself
-
-### A series of two
-Write $\varphi$ for two components in series, and the reliability when they work independently with probabilities $0.9$ and $0.8$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\varphi(x_1,x_2)=x_1x_2$. Independence gives $r=0.9\times 0.8=0.72$.
-:::
-
-### One failed component in parallel
-Three components stand in parallel and the state is $(0,1,0)$. Does the system work?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. A parallel structure works when at least one component works, and here $\varphi=1-(1-0)(1-1)(1-0)=1$. The two failures do not matter.
-:::

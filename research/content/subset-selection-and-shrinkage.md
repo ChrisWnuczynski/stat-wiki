@@ -20,24 +20,3 @@ Prediction error and recovery of a scientifically meaningful support are differe
 
 Validation must repeat every data-dependent selection step. Ranking genes with all response labels before splitting into cross-validation folds allows validation labels to influence the predictors presented to the training algorithm. Feature selection and penalty tuning belong inside the training portion of each assessment split; a final test set assesses the resulting selection procedure. Searching many noisy validation scores can itself overfit the criterion.{{cite:cawley_talbot2010}} (§2, pp. 2081–2084)
 
-## Check yourself
-
-### Prediction and support recovery {#self-check-ex-sl-18-9}
-
-[Practice question](../questions/ex-sl-18-9.qmd)
-
-Answer part (a): why can low prediction error fail to identify the five nonzero coefficients among one thousand predictors?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Correlated predictors may carry nearly the same predictive signal, and noise can change which one a fitting procedure selects. Predictive risk measures errors in future responses; support recovery asks whether each selected coordinate matches the assumed data-generating coefficients.
-:::
-
-### Where gene selection belongs {#self-check-ex-sl-18-6}
-
-[Practice question](../questions/ex-sl-18-6.qmd)
-
-Why is cross-validation after selecting twenty genes using all labels optimistic?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each validation label already affected the selected gene set. Repeat gene ranking, subset selection and tuning using only the training fold, with inner splits for tuning when required. Score the fully specified procedure on observations excluded from those choices.
-:::

@@ -34,18 +34,3 @@ For constant upward rate $\lambda$ and constant downward rate $\mu$ on the infin
 Every adjacent-rate ratio is unchanged, so the stationary probabilities remain $(4/7,2/7,1/7)$. Holding times are divided by $10$; the stationary state proportions do not change.
 :::
 
-## Check yourself
-
-### Discrete-time adjacent balance {#self-check-ex-sp-birth-death-pi}
-[Birth–death balance on three states](../questions/ex-sp-birth-death-pi.qmd): normalise its adjacent-balance weights.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The equations give weights $(1,3,2)$. Dividing by their sum $6$ yields $(1/6,1/2,1/3)$.
-:::
-
-### Solving a stationary equation {#self-check-ex-sp-weather-two-step}
-[Two steps and the stationary law](../questions/ex-sp-weather-two-step.qmd): find its two-step probability and stationary distribution.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The indicated entry is $0.9(0.1)+0.1(0.6)=0.15$. The stationary vector is $(0.8,0.2)$, obtained from $0.1\pi_1=0.4\pi_2$ and normalisation.
-:::

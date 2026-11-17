@@ -26,5 +26,5 @@ body=(root/"articles/behrens-fisher-problem.qmd").read_text().split("## See also
 for text in ["25.7031","2.02260","0.05363","9/11","Your turn","## Check yourself {#check-yourself}"]:
     assert text in body,text
 assert len(re.findall('class="cite-ref"',body))>=5
-for q in ["ex-sl-02-6","ex-sl-02-7"]:assert f"../questions/{q}.qmd" in body
+for q in ["depth-behrens-pooled-t","depth-behrens-welch-se"]:assert f"../questions/{q}.qmd" in body
 print("behrens-fisher-problem: moment matching, t calibration and article checks passed")

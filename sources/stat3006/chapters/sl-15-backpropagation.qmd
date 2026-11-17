@@ -286,7 +286,7 @@ A large parameter count raises estimation and optimisation questions. It does no
 ::: {#thm-sl-15-symmetry .theorem}
 ## Local minima, plateaus, and symmetry
 
-The loss is generally nonconvex{{cite:bishop2006}}{{cite:ripley1996}}. A run can approach a local minimum, a saddle or a nearly flat region, or fail to settle. Permuting hidden units and their incident weights preserves the function{{cite:rumelhart_hinton_williams1986}}{{cite:bishop2006}}. There are up to $l!$ distinct permutations, fewer if some units coincide. Fully symmetric hidden-unit initialisation preserves that symmetry under deterministic gradient updates. Random initialisation breaks it. For sigmoids, replacing $g(u)$ by $g(-u)=1-g(u)$ also requires compensating outgoing weights and biases to preserve the function.
+The loss is generally nonconvex{{cite:bishop2006}}{{cite:ripley1996}}. A run can approach a local minimum, a saddle or a nearly flat region, or fail to settle. Permuting hidden units and their incident weights preserves the function{{cite:rumelhart_hinton_williams1986}} (pp. 533–536){{cite:bishop2006}}. There are up to $l!$ distinct permutations, fewer if some units coincide. Fully symmetric hidden-unit initialisation preserves that symmetry under deterministic gradient updates. Random initialisation breaks it. For sigmoids, replacing $g(u)$ by $g(-u)=1-g(u)$ also requires compensating outgoing weights and biases to preserve the function.
 
 :::
 

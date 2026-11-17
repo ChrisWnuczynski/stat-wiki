@@ -46,18 +46,3 @@ The block mean square is $3/2=1.5$ and the error mean square is $0.5$, so $F=3$ 
 ## Connections — Nuisance factors and the error term
 [Blocks in analysis of variance](blocks-in-analysis-of-variance.qmd) are the same device in the linear model: a factor one does not want to interpret as a treatment. A [randomised controlled trial](randomised-controlled-trial.qmd) randomises without this grouping. Blocking is worthwhile when the nuisance factor is large enough to shrink the error mean square by more than the degrees of freedom it spends. If the blocks are themselves a sample from a wider population, the block term is a random effect rather than a fixed shift.{{cite:nist_randomized_block}} (§5.3.3.2, nuisance factors)
 
-## Check yourself
-
-### A zero residual
-Two treatments in two blocks read $3,5$ in the first block and $4,6$ in the second. Find $\mathrm{SS}_{\mathrm{error}}$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Every block shows the same treatment gap of $2$, and the block shift is $1$. The additive fit reproduces every cell, so $\mathrm{SS}_{\mathrm{error}}=0$. The error still has $(2-1)(2-1)=1$ degree of freedom; the sum of squares on that degree of freedom happens to be zero because the treatment gap is the same in both blocks.
-:::
-
-### Where randomisation happens
-In a complete block design, which assignments are randomised, and which grouping is fixed before the experiment?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The blocks are formed from units that are already alike. Inside each block the treatments are assigned at random. The comparison of treatments is then within blocks, and the randomisation is what justifies treating the remaining within-block differences as error.
-:::

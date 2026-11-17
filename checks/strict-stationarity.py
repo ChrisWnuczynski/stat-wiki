@@ -25,6 +25,6 @@ body = (root/"articles/strict-stationarity.qmd").read_text().split("## See also"
 for text in ["1/2", "fourth moment", "Your turn", "## Check yourself {#check-yourself}"]:
     assert text in body, text
 assert len(re.findall('class="cite-ref"',body)) >= 5
-for qid in ["c-43", "depth-stationarity-changing-laws"]:
+for qid in ["depth-strict-finite-shift", "depth-stationarity-changing-laws"]:
     assert f"../questions/{qid}.qmd" in body
 print("strict-stationarity: moments, shifted laws, and article checks passed")

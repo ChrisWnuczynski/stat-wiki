@@ -25,24 +25,3 @@ The marginal correlation of coordinates one and three is $1/5$. Conditional on c
 No. The route $1,2,4$ remains. Deleting both $2$ and $3$ does separate $1$ from $4$.
 :::
 
-## Check yourself
-
-### Find the boundary and separator {#self-check-ex-sl-19-1}
-
-[Practice question](../questions/ex-sl-19-1.qmd)
-
-Find the boundary of $\{1,2\}$ and the closure of $\{5\}$ in the six-vertex graph.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The boundary of $\{1,2\}$ is $\{3,4\}$. The closure of $\{5\}$ is $\{4,5,6\}$. Vertex $4$ separates the left and right groups, and $\{2,3\}$ separates $1$ from $4$.
-:::
-
-### Read the Gaussian graph {#self-check-ex-sl-19-2}
-
-[Practice question](../questions/ex-sl-19-2.qmd)
-
-For the displayed precision matrix, identify the missing edge and the adjacent partial correlations.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The missing edge is $1$–$3$. Conditional on the remaining coordinate, the partial correlations on edges $1$–$2$ and $2$–$3$ are $-K_{ij}/\sqrt{K_{ii}K_{jj}}=1/\sqrt6=0.408248$. The conditional correlation between $1$ and $3$ is zero.
-:::

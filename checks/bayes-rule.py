@@ -42,7 +42,7 @@ if __name__ == "__main__":
     assert Fraction(80, 100) == Fraction(4, 5)
     assert page.count('collapse="true" title="Proof"') == 1
     keys = set(re.findall(r'data-cite-key="([^"]+)"', page.split("## References")[0]))
-    opened = {"bayes1763", "wang2025_foundations", "hoff2013_bayes_estimators", "kass_raftery1995"}
+    opened = {"bayes1763", "wang2025_foundations", "gelman_bda2013", "kass_raftery1995"}
     assert keys <= opened, f"Article cites unreviewed sources: {keys - opened}"
     for line in page.splitlines():
         if '<li id="cite_note-' in line:

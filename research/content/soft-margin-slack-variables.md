@@ -26,24 +26,3 @@ For two opposite labels at the same predictor vector zero, $w$ cannot help. The 
 The minimum slack is $0.75$, and the contribution is $4(0.75)=3$. The point is correctly classified but lies inside the margin.
 :::
 
-## Check yourself
-
-### Read the multiplier cases {#self-check-ex-sl-17-6}
-
-[Practice question](../questions/ex-sl-17-6.qmd)
-
-At $C=2$, interpret multipliers $0$, $1.3$ and $2$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For $\alpha=0$, the margin is at least one and slack is zero. For $\alpha=1.3$, the margin is exactly one and slack is zero, so this point can determine the intercept. For $\alpha=2$, the margin is at most one and slack equals $1-yf$; it can be zero at the boundary.
-:::
-
-### A point beyond the margin {#self-check-ex-sl-17-3}
-
-[Practice question](../questions/ex-sl-17-3.qmd)
-
-A new positive point has score four under a fitted separator. Can it be assigned zero multiplier without changing the optimum?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. Its slack is zero and its margin constraint is strict, so its multiplier is zero. The previous primal and dual solutions remain feasible and satisfy the same optimality conditions.
-:::

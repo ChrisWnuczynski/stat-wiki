@@ -1,5 +1,5 @@
 ## Lead context
-Concavity makes a finite score root sufficient for global optimality; it does not guarantee that a finite root exists.
+Concavity makes a finite score root sufficient for global optimality; it does not guarantee that a finite root exists. A zero score is then enough, and a second distant peak cannot outrank it.
 
 ## Motivating example
 A logistic-regression optimiser reports a nearly zero score. Does this identify a local peak that might lose to a distant one? The Hessian answers that question for ordinary unpenalised Bernoulli logistic regression: the objective is concave throughout its finite coefficient space. Existence and identifiability must still be checked separately.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374){{cite:boyd_vandenberghe2004}} (§3.1.3, pp. 69–70)

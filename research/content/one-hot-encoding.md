@@ -33,20 +33,3 @@ The vector is $(0,0,1,0)$ and the loss is $-\log0.25=\log4\approx1.386294$.
 
 One-hot coding describes one mutually exclusive category. A response with several simultaneously true attributes can have several indicator coordinates equal to one; a single categorical softmax model does not describe that outcome space. Independent Bernoulli outputs are one possible model for such multiple labels, with a different likelihood.{{cite:goodfellow_bengio_courville2016}} (§§6.2.2.2–6.2.2.3, pp. 176–183)
 
-## Check yourself
-
-### [Multinomial probabilities](../questions/ex-sl-10-4.qmd) {#self-check-ex-sl-10-4}
-
-For reference score zero and other scores $0.5,-0.2$, which category has the largest probability?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Category two, whose score is largest. Its probability is approximately $0.475485$.
-:::
-
-### [Multinomial logistic regression](../questions/q-46.qmd) {#self-check-q-46}
-
-What happens to fitted probabilities when the reference category changes?
-
-::: {.callout-tip collapse="true" title="Answer"}
-They stay the same. Subtract the new reference score from every score; this common shift cancels from the softmax numerator and denominator. The coefficients change their interpretation as contrasts, but the category probabilities do not.
-:::

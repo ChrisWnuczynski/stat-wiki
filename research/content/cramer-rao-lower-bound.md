@@ -44,17 +44,3 @@ Both equal \((1/2)(1/2)/10=0.025\). The sample proportion still meets the bound.
 ## Connections — Information, attainment and unbiased estimation
 The denominator is the [Fisher information](fisher-information.qmd), the variance of the [score](score-function.qmd). An estimator that attains the bound at every \(\theta\) is a [uniformly minimum-variance unbiased estimator](uniformly-minimum-variance-unbiased-estimator.qmd). Attainment for every \(\theta\) forces the likelihood into a one-parameter exponential family with sufficient statistic \(T\), because the score has to be linear in \(T-g(\theta)\). A biased estimator can have smaller mean squared error; the bound does not apply to it.
 
-## Check yourself
-### A Poisson mean
-For \(n\) independent Poisson(\(\lambda\)) observations, \(\mathcal{I}(\lambda)=n/\lambda\). What is the bound for an unbiased estimator of \(\lambda\), and does \(\overline X\) meet it?
-
-::: {.callout-tip collapse="true" title="Answer"}
-A single Poisson log probability \(-\lambda+X\log\lambda\) has score \(X/\lambda-1\), with variance \(\operatorname{Var}(X)/\lambda^2=1/\lambda\). For \(n\) independent copies, \(\mathcal{I}(\lambda)=n/\lambda\), and the bound is \(\lambda/n\). The sample mean is unbiased with that variance, so it meets the bound.
-:::
-
-### A target with derivative zero
-If \(g'(\theta_0)=0\), what does the bound say at \(\theta_0\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The numerator is zero, so the bound is \(0\). That does not by itself produce an estimator with variance zero. It says the inequality gives no positive floor at a stationary point of \(g\).
-:::

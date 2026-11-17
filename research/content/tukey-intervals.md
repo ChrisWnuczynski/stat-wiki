@@ -51,17 +51,3 @@ The interval is \(6\pm 5.051=(0.949,\ 11.051)\). It excludes zero, so the test s
 ## Connections — Familywise error, not a discovery rate
 These intervals are a [one-way analysis of variance](one-way-analysis-of-variance.qmd) follow-up. They control the [family-wise error rate](family-wise-error-rate.qmd) for the pairwise family. A [Bonferroni correction](bonferroni-correction.qmd) also controls that rate, by widening each interval with a smaller tail probability, and it does not use the range law. [Benjamini–Hochberg](benjamini-hochberg.qmd) controls a different error, the expected share of false discoveries, and is not a substitute for these simultaneous mean intervals.
 
-## Check yourself
-### A zero difference
-The estimated difference is \(0\) and the half-width is \(5.051\). Does the interval exclude zero?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The interval is \((-5.051,\ 5.051)\). It contains zero, so the test does not separate the groups.
-:::
-
-### Doubling the error mean square
-Keep \(Q=4.041\), \(r=4\) and replace \(S^2=6.25\) by \(25\). What is the half-width to three decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\sqrt{25}=5\) and \(\sqrt{4}=2\), so the half-width is \(4.041\times 5/2=10.103\). The quantile did not change; only the error scale did.
-:::

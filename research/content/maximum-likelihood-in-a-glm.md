@@ -40,20 +40,3 @@ $U(\log 2)=2-e^{\log 2}=0$, so the update stays at $\log 2$.
 ## Connections — When the step is exact
 An [identity link](identity-link.qmd) with constant variance makes the score linear, so one step finishes the fit. A [logit link](logit-link.qmd) keeps the same weighted iteration and, for Bernoulli data, has observed Hessian equal to expected information. [Complete separation](complete-separation.qmd) is the case with no finite root for that iteration to find. [Newton’s method](newton-raphson-method.qmd) is the tangent step written above.
 
-## Check yourself
-
-### The three GLM components {#self-check-c-16}
-
-Name the three components of a generalised linear model and the usual conditional-independence assumption.
-
-::: {.callout-tip collapse="true" title="Answer"}
-An exponential-family response distribution, a linear predictor, and a link from the mean to that predictor. Responses are independent given the covariates. The likelihood fit estimates the coefficients in the linear predictor.
-:::
-
-### Link and canonical link {#self-check-c-17}
-
-What is a link, and what is a canonical link?
-
-::: {.callout-tip collapse="true" title="Answer"}
-A link $g$ satisfies $g(\mu_i)=\eta_i$. A canonical link matches $\eta_i$ to the natural parameter. The log link is canonical for the Poisson mean, which is why the score in the worked example is $y-\mu$.
-:::

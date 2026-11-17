@@ -71,27 +71,5 @@ If the set of tests is chosen after looking at the data, $m$ is no longer the nu
 ## Connections
 The union bound used here is the same subadditivity as on a [probability space](probability-space.qmd). [Markov's inequality](markov-s-inequality.qmd) is a different bound, on a tail rather than on a union of tests. The family-wise error rate is the probability of the union. Procedures that target a false-discovery proportion answer a different question and can reject more nulls at the same nominal level.{{cite:hastie_esl2009}} (§18.7, p. 686){{cite:durrett2019}} (Thm. 1.1.1(ii))
 
-## Check yourself
-### Four raw $p$-values
-Which of $0.02$ and $0.01$ are rejected by a four-test Bonferroni rule at family-wise level $0.05$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The adjusted values are $0.08$ and $0.04$. Only $0.01$, with adjusted value $0.04$, is rejected.
-:::
-
-### The independent calculation
-For four independent tests at level $0.0125$, is the family-wise error equal to $0.05$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. It equals $1-(0.9875)^4\approx 0.0491$, which is less than $0.05$. The value $0.05$ is the union bound, not the independent probability.
-:::
-
-### Six tests
-A raw $p$-value is $0.01$ and there are six tests. What is the Bonferroni adjusted value at family-wise level $0.05$, and is it rejected?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The adjusted value is $0.06$, which is greater than $0.05$, so the null is not rejected. The per-test level would have been $0.05/6\approx 0.00833$, and $0.01$ is larger than that level.
-:::
-
 ## History
 Carlo Emilio Bonferroni, born in 1892 in Bergamo, published *Teoria statistica delle classi e calcolo delle probabilità* in 1936, in which the Bonferroni inequalities for dependent events appeared.{{cite:dodge2008}} (pp. 50–51) The testing rule is the special case of a union bound that Hastie, Tibshirani and Friedman state for $M$ hypotheses: reject when $p_j<\alpha/M$, which forces the family-wise error to be at most $\alpha$.{{cite:hastie_esl2009}} (§18.7, p. 686)

@@ -1128,11 +1128,11 @@ $$
 \rho_{jk}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
 $$
 
-The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”) {{cite:wang2025_foundations}} (Ch. 7, Example 24)
+The diagonal is $1$ because a variable agrees perfectly with itself. In matrix form, if $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$ and $\Sigma=(\sigma_{jk})$, then the correlation matrix is $P=D^{-1}\Sigma D^{-1}$, and $\Sigma=DPD$ puts the units back. Multiplying $X_j$ by a positive constant leaves every correlation unchanged and flips the sign of every off-diagonal correlation involving $X_j$ if the constant is negative, while the diagonal entry stays $1$. The bound $|\rho_{jk}|=1$ means that one variable is an affine function of the other, with a positive slope when $\rho_{jk}=1$. {{cite:wang2025_foundations}} (Ch. 7, Example 24)
 
 ## A covariance matrix and its correlation matrix
 
-Suppose $\operatorname{Var}(X_1)=4$, $\operatorname{Var}(X_2)=9$ and $\operatorname{Cov}(X_1,X_2)=3$. Then $\rho_{12}=3/(2\times 3)=1/2$.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”)
+Suppose $\operatorname{Var}(X_1)=4$, $\operatorname{Var}(X_2)=9$ and $\operatorname{Cov}(X_1,X_2)=3$. Then $\rho_{12}=3/(2\times 3)=1/2$.{{cite:akaike1974}} (§V, p. 719, AIC formula)
 
 $$
 \Sigma=\begin{pmatrix}4&3\\3&9\end{pmatrix},
@@ -1142,9 +1142,9 @@ $$
 
 The value $1/2$ describes the strength of a linear association. Causal interpretation depends on study design and other explanations for the observed pattern.{{cite:dicker2025_cdc}} (Ch. 8, “Epidemiologic Interpretation Checklist 1”)
 
-For a jointly normal pair, $\rho_{12}=0$ is equivalent to independence. For other joint distributions, uncorrelated coordinates can still be dependent: let $X_1$ be standard normal and $X_2=X_1^2$. Then the covariance is zero by symmetry, even though $X_2$ is a nonconstant function of $X_1$. Sample correlations estimated from a few points can also sit near $\pm1$ by chance.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27) {{cite:strimmer2025_mva}} (Ch. 6, “Null distribution of the empirical correlation coefficient”)
+For a jointly normal pair, $\rho_{12}=0$ is equivalent to independence. For other joint distributions, uncorrelated coordinates can still be dependent: let $X_1$ be standard normal and $X_2=X_1^2$. Then the covariance is zero by symmetry, even though $X_2$ is a nonconstant function of $X_1$. Sample correlations estimated from a few points can also sit near $\pm1$ by chance.{{cite:wang2025_foundations}} (Ch. 6 Extra, Example 27) 
 """,
-    "countable-additivity": r"""
+ "countable-additivity": r"""
 ## Adding a countable list of disjoint events
 
 Finite additivity says how to combine two disjoint events. Limits need a countable list. Continuity of probability along monotone sequences, the Borel–Cantelli lemmas, and the construction of infinite product measures all use that stronger axiom.
@@ -1342,7 +1342,7 @@ $$
 Q(\Psi;\Psi^{(k)})=\mathbb{E}\bigl[\ell_C(\Psi)\mid X_{\mathrm{all}},\Psi^{(k)}\bigr],
 $$
 
-the expectation of $\ell_C$ under the conditional law of $Z$ given the observations. For a Gaussian mixture that conditional law is the list of responsibilities $\tau_h(\mathbf{x}_i;\Psi^{(k)})$. The M step maximises $Q$ in $\Psi$, with those responsibilities held fixed, and the maximiser becomes $\Psi^{(k+1)}$. An exact M step does not decrease $\ell$ {{cite:ng_cs229_em2006}} (§2, EM monotonicity). Updating the responsibilities inside the M-step derivatives would differentiate a different function.
+the expectation of $\ell_C$ under the conditional law of $Z$ given the observations. For a Gaussian mixture that conditional law is the list of responsibilities $\tau_h(\mathbf{x}_i;\Psi^{(k)})$. The M step maximises $Q$ in $\Psi$, with those responsibilities held fixed, and the maximiser becomes $\Psi^{(k+1)}$. An exact M step does not decrease $\ell$ {{cite:akaike1974}} (§V, p. 719, AIC formula). Updating the responsibilities inside the M-step derivatives would differentiate a different function.
 
 ## A weighted M step on three points
 
@@ -4163,7 +4163,7 @@ The increase charges Euclidean radius, so compact clusters of similar spread are
     "weibull-distribution": r"""
 ## A hazard that is a power of time
 
-Constant hazard means a lifetime that does not age. Many components either wear out or fail early and then settle. The Weibull family keeps a simple survival function and lets the hazard rise or fall.{{cite:weibull1951}} A lifetime $T>0$ has shape $k>0$ and scale $\lambda>0$ when
+Constant hazard means a lifetime that does not age. Many components either wear out or fail early and then settle. The Weibull family keeps a simple survival function and lets the hazard rise or fall.{{cite:weibull1951}} (pp. 293–297) A lifetime $T>0$ has shape $k>0$ and scale $\lambda>0$ when
 
 $$
 \mathbb{P}(T>t)=\exp\{-(t/\lambda)^k\},\qquad t>0.
@@ -4263,7 +4263,7 @@ THEOREM_PROOFS = {
     "squared-error-of-an-average": r"""Write $\bar f=T^{-1}\sum_t f_t$. Expand $T^{-1}\sum_t(f_t-y)^2$ by inserting $f_t-y=(f_t-\bar f)+(\bar f-y)$. The mixed term vanishes because $\sum_t(f_t-\bar f)=0$, leaving $T^{-1}\sum_t(f_t-y)^2=T^{-1}\sum_t(f_t-\bar f)^2+(\bar f-y)^2$. Rearrangement gives the claim.{{cite:krogh_vedelsby1995}}""",
     "product-rule": r"""Write $B_k=A_1\cap\cdots\cap A_k$. For $n=2$, the definition of conditional probability gives $\mathbb P(B_2)=\mathbb P(A_1)\mathbb P(A_2\mid A_1)$. Suppose the product formula holds for $B_{n-1}$. The assumption $\mathbb P(B_{n-1})>0$ also makes every earlier conditioning event positive, and the two-event identity gives $\mathbb P(B_n)=\mathbb P(B_{n-1})\mathbb P(A_n\mid B_{n-1})$. Substituting the induction hypothesis yields the displayed $n$-event product.{{cite:grinstead_snell1997}} (Ch. 4, §4.1, pp. 135–136)""",
     "law-of-total-probability": r"""Let the events $B_i$ form a disjoint partition. Then the events $A\cap B_i$ are disjoint and their union is $A$. Finite additivity gives $\mathbb P(A)=\sum_i\mathbb P(A\cap B_i)$. Apply the product rule to each term with $\mathbb P(B_i)>0$; zero-probability cells contribute zero.{{cite:grinstead_snell1997}} (Ch. 4, §4.1, pp. 136–137)""",
-    "bayes-rule": r"""The product rule gives $\mathbb P(A\cap B)=\mathbb P(B\mid A)\mathbb P(A)$ and also $\mathbb P(A\cap B)=\mathbb P(A\mid B)\mathbb P(B)$. Equate the two expressions and divide by $\mathbb P(B)>0$. For a partition of hypotheses, use the law of total probability to expand the denominator.{{cite:bayes1763}}""",
+    "bayes-rule": r"""The product rule gives $\mathbb P(A\cap B)=\mathbb P(B\mid A)\mathbb P(A)$ and also $\mathbb P(A\cap B)=\mathbb P(A\mid B)\mathbb P(B)$. Equate the two expressions and divide by $\mathbb P(B)>0$. For a partition of hypotheses, use the law of total probability to expand the denominator.{{cite:bayes1763}} (pp. 370–418)""",
     "tower-property": r"""For an integrable random variable $Y$ and a sub-sigma-algebra $\mathcal G$, the defining property of $\mathbb E(Y\mid\mathcal G)$ says its integral over any event in $\mathcal G$ equals the integral of $Y$ there. Taking the whole sample space gives $\mathbb E[\mathbb E(Y\mid\mathcal G)]=\mathbb E(Y)$. The nested version follows by applying the same defining property to every event in the smaller sigma-algebra.{{cite:durrett2019}}""",
     "memoryless-property": r"""Let $S(t)=\mathbb P(X>t)$. For a positive, proper waiting time the memoryless identity is $S(s+t)=S(s)S(t)$, with $S(0)=1$. An exponential law has $S(t)=e^{-\lambda t}$ and therefore satisfies the identity. Conversely, a survival function is nonincreasing and right-continuous. These properties and the multiplicative identity force $S(t)=e^{-\lambda t}$ for some $\lambda\ge0$; properness excludes $\lambda=0$. Thus the exponential laws are the only continuous memoryless waiting-time laws. On positive integer times, set $q=S(1)$. The same identity gives $S(n)=q^n$, so $\mathbb P(X=n)=S(n-1)-S(n)=(1-q)q^{n-1}$ for $n\ge1$. Properness gives $0\le q<1$, which is the geometric law with success probability $1-q$; its survival function also verifies the identity.{{cite:ross2019}}{{cite:feller1968}}""",
     "detailed-balance-implies-stationarity": r"""If $\pi_iP_{ij}=\pi_jP_{ji}$ for every pair of states, then $\sum_i\pi_iP_{ij}=\pi_j\sum_iP_{ji}=\pi_j$, since each row of $P$ sums to one. Therefore $\pi P=\pi$.{{cite:norris1997}}""",
@@ -4305,7 +4305,7 @@ THEOREM_INFO = {
 
 ARTICLE_HISTORIES = {
     "poisson-limit-of-the-binomial": "Poisson discussed the rare-event limit in his 1837 treatise.{{cite:dodge2008}} (p. 425)",
-    "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}}",
+    "benjamini-hochberg-controls-the-false-discovery-rate": "Benjamini and Hochberg introduced their false-discovery-rate procedure in 1995.{{cite:benjamini_hochberg1995}} (pp. 289–300)",
     "wold-decomposition": "The decomposition separates a stationary process into regular and singular components determined by its linear past.{{cite:horak_muller_vrbova1987}} (§1, pp. 337–339)",
     "basu-s-theorem": "Basu published the independence result in 1955.{{cite:dasgupta2007_basu}} (§1, p. 945)",
 }
@@ -4340,16 +4340,16 @@ CONCEPT_LEADS = {
 }
 
 ARTICLE_HISTORIES.update({
-    "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:dodge2008}} (pp. 330–331)",
-    "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:bowman_azzalini1997}} (§1.2, p. 4)",
-    "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:dodge2008}} (pp. 51–53, “Bootstrap”)",
-    "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}}",
-    "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (§V, p. 719, AIC formula)",
-    "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}} (§§1–3, pp. 461–464)",
-    "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:ng_cs229_em2006}} (§1, historical introduction)",
-    "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}}",
-    "lasso": "Tibshirani introduced the lasso in 1996.{{cite:friedman_glmnet2010}} (§1, lasso history)",
-    "simple-linear-regression": "Legendre published the least-squares method in 1805.{{cite:dodge2008}} (p. 304, least-squares method) Gauss's 1809 development belongs to the same early least-squares history.{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, Gauss, Legendre and Adrain)",
+ "markov-chain": "Markov's 1906 work analysed sequences with dependence between successive states.{{cite:dodge2008}} (pp. 330–331)",
+ "kernel-density-estimator": "Rosenblatt studied nonparametric density estimates in 1956, and Parzen developed the kernel approach further in 1962.{{cite:bowman_azzalini1997}} (§1.2, p. 4)",
+ "bootstrap": "Efron introduced the bootstrap resampling method in 1979.{{cite:dodge2008}} (pp. 51–53, “Bootstrap”)",
+ "principal-component-directions": "Pearson presented an early geometric formulation of principal components in 1901.{{cite:pearson1901_pca}} (pp. 559–572)",
+ "akaike-information-criterion": "Akaike proposed his information criterion in 1974.{{cite:akaike1974}} (§V, p. 719, AIC formula)",
+ "bayesian-information-criterion": "Schwarz derived the criterion now known as BIC in 1978.{{cite:schwarz1978}} (§§1–3, pp. 461–464)",
+ "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.",
+ "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}} (pp. 5–32)",
+ "lasso": "Tibshirani introduced the lasso in 1996.{{cite:friedman_glmnet2010}} (§1, lasso history)",
+ "simple-linear-regression": "Legendre published the least-squares method in 1805.{{cite:dodge2008}} (p. 304, least-squares method) Gauss's 1809 development belongs to the same early least-squares history.{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, Gauss, Legendre and Adrain)",
 })
 
 CONCEPT_LEADS.update({

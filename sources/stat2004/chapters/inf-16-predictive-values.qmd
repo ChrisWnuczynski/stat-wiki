@@ -26,9 +26,9 @@ $$
 \mathrm{PPV}=\frac{1-\beta}{(1-\beta)+R^{-1}\alpha}.
 $$
 
-The formula is Bayes' theorem.{{cite:bayes1763}}{{cite:vecchio1966}} Nothing in it requires the test to be a medical assay. $D$ can be "the parameter lies in the alternative" and $T+$ can be "the level-$\alpha$ test rejects", in which case $1-\beta$ is the power and the PPV is the probability the alternative is true given a rejection. That reading needs a prior probability for the alternative. A $p$-value does not supply one.
+The formula is Bayes' theorem.{{cite:bayes1763}} (pp. 370–418){{cite:vecchio1966}} (pp. 1171–1173) Nothing in it requires the test to be a medical assay. $D$ can be "the parameter lies in the alternative" and $T+$ can be "the level-$\alpha$ test rejects", in which case $1-\beta$ is the power and the PPV is the probability the alternative is true given a rejection. That reading needs a prior probability for the alternative. A $p$-value does not supply one.
 
-A screening test can be very sensitive and still have a small PPV.{{cite:yerushalmy1947}} Suppose the test has sensitivity $0.95$ and specificity $0.95$, so $\alpha=\beta=0.05$, and the prevalence is $p_1=0.005$. Then
+A screening test can be very sensitive and still have a small PPV.{{cite:yerushalmy1947}} (pp. 1432–1449) Suppose the test has sensitivity $0.95$ and specificity $0.95$, so $\alpha=\beta=0.05$, and the prevalence is $p_1=0.005$. Then
 
 $$
 \mathrm{PPV}=\frac{0.005\times 0.95}{0.005\times 0.95+0.995\times 0.05}=\frac{0.00475}{0.0545}=0.087.
@@ -90,7 +90,7 @@ The same conditional distinction applies when a negative result is non-rejection
 
 ## Fallacy of the transposed conditional {#s-fallacy-of-the-transposed-conditional}
 
-The fallacy of the transposed conditional is the step from "the test is very likely to be positive if the condition is present" to "the condition is very likely to be present if the test is positive".{{cite:vecchio1966}} The first probability is $1-\beta$.{{cite:yerushalmy1947}} The second is the PPV.{{cite:bayes1763}} They are equal only in the special case $p_1(1-\beta)+p_0\alpha=p_1$, which is not the screening calculation in which a sensitivity of $0.95$ produced a PPV of $0.087$.
+The fallacy of the transposed conditional is the step from "the test is very likely to be positive if the condition is present" to "the condition is very likely to be present if the test is positive".{{cite:vecchio1966}} (pp. 1171–1173) The first probability is $1-\beta$.{{cite:yerushalmy1947}} (pp. 1432–1449) The second is the PPV.{{cite:bayes1763}} (pp. 370–418) They are equal only in the special case $p_1(1-\beta)+p_0\alpha=p_1$, which is not the screening calculation in which a sensitivity of $0.95$ produced a PPV of $0.087$.
 
 The same slip appears in a courtroom reading of a match probability. A laboratory reports that the probability of the evidence, if the accused were innocent, is very small. That is $\Pr(\text{evidence}\mid\text{innocent})$. The probability the court has to relate to guilt is $\Pr(\text{innocent}\mid\text{evidence})$, and it depends on how many other people could have been the source of the evidence. A tiny conditional probability in one direction does not by itself make the reversed conditional probability tiny. The PPV formula is the correction: put in $\alpha$, the power or sensitivity, and the prior odds.
 

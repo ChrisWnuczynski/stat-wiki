@@ -51,4 +51,4 @@ A [probability space](probability-space.qmd) packages the outcome set, event sig
 
 ## History
 
-Kolmogorov's 1933 monograph organized probability using measure-theoretic axioms; Dodge's biographical entry records the publication, and Durrett's modern text states the normalized countably additive definition. The framework lets finite counting examples and continuous distributions use the same event rules without assuming equal likelihood of elementary outcomes.{{cite:dodge2008}} (p. 282, Kolmogorov entry){{cite:durrett2019}} (Ch. 1, §1.1, pp. 1–3)
+Kolmogorov's 1933 monograph organized probability using measure-theoretic axioms.{{cite:dodge2008}} (p. 282) The normalized countably additive definition is the one used below. The framework lets finite counting examples and continuous distributions use the same event rules without assuming equal likelihood of elementary outcomes.{{cite:durrett2019}} (Ch. 1, §1.1, pp. 1–3)

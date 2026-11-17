@@ -63,22 +63,3 @@ The scores are linear in the covariates. A curved effect of age, forced into one
 ## Connections
 A binary [logit link](logit-link.qmd) is this model with two categories. The [softmax](softmax-is-multinomial-logistic-regression.qmd) map is the passage from scores to probabilities written above. [Poisson regression](poisson-regression.qmd) is a different likelihood: counts on an unbounded integer, not a single category out of $K$. The software convention that the first class has coefficient zero is one baseline; the probabilities do not prefer that class.
 
-## Check yourself
-
-1. If every score increases by $\log 2$, do the probabilities change?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Every exponential is multiplied by $2$, and the factor cancels in the ratio. The reference score is no longer zero, which is why a fit sets one score back to zero without changing the probabilities.
-:::
-
-2. In the worked example, what is $p_2/p_1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The exact probabilities satisfy $p_2/p_1=e^{0.5}\approx 1.6487$. It is the odds of category $2$ against category $1$, not against the reference. The four-decimal probabilities $0.5065$ and $0.3072$ are each rounded, so their ratio is not a second calculation of $e^{0.5}$.
-:::
-
-3. How many free linear predictors does a four-category model have?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Three. One category is the reference and its score is fixed at zero. Four free score vectors would describe the same probabilities more than once.
-:::

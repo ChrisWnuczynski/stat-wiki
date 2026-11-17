@@ -42,19 +42,3 @@ The sample mean is $1/2$, matching the population. Since $\mathbb E_N(RY)=0.1$, 
 ## Connections — Coverage, response and measurement
 A sampling frame may omit part of the target population; selected people may decline to respond; recorded answers may measure a different quantity from the intended outcome. These are distinct mechanisms. Random selection from a restricted frame supports inference about that frame, and further assumptions are needed to extrapolate beyond it. A reported standard error under simple random sampling quantifies the stated random mechanism; it does not by itself quantify nonresponse or coverage effects.{{cite:meng2018_big_data}} (§2.1–2.2, pp. 688–691){{cite:dodge2008}} (pp. 468–470, Sampling)
 
-## Check yourself
-Keep the target population and the selection procedure explicit.
-
-### Tuning before evaluation {#self-check-ex-sl-09-7}
-[Separate tuning from evaluation](../questions/ex-sl-09-7.qmd): why should the final test data be separated from model tuning?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Tuning selects a model partly because it performed well on the tuning data. Reusing those data as its final evaluation selects favourable errors. An independent test set estimates performance on new observations from its own sampling population.
-:::
-
-### Reading an accuracy table {#self-check-ex-sl-11-8}
-[What an accuracy table does and does not say](../questions/ex-sl-11-8.qmd): does a favourable table establish accuracy for a different target population?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The table has total error $(2+8)/60=1/6$, with class-specific errors $2/20=0.1$ and $8/40=0.2$. Predicting class two for everyone gives accuracy $40/60=2/3$, illustrating the role of class frequency. Generalising requires representative evaluation cases. Tuning on the same test outcomes turns that set into part of model selection.
-:::

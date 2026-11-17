@@ -40,15 +40,3 @@ $\alpha=\frac12\log(1)=0$. Every multiplier $e^{0}$ equals $1$, so the weights s
 ## Connections
 The exponential loss is a smooth stand-in for the zero–one training error, and it is related to the loss used for logistic regression. Minimising that loss is not, by itself, a guarantee of a small error on new cases: other procedures can drive the same loss down and still classify poorly. The sign of the weighted sum is the class label; the sum itself is not a calibrated probability.{{cite:schapire2013_explaining_adaboost}} (pp. 7–8, exponential loss and generalisation)
 
-## Check yourself
-**1.** With $\varepsilon=0.1$, what is $\alpha$, to three decimals?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\alpha=\frac12\log(0.9/0.1)=\frac12\log 9\approx 1.099$. The vote is larger than the vote $0.549$ at $\varepsilon=1/4$, because the weak rule is more accurate.
-:::
-
-**2.** Why does a perfect round, $\varepsilon=0$, make the displayed formula for $\alpha$ unusable?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The ratio $(1-\varepsilon)/\varepsilon$ divides by zero, so $\alpha$ is infinite. A weak rule that already classifies every weighted case correctly needs a stopping rule rather than this coefficient.
-:::

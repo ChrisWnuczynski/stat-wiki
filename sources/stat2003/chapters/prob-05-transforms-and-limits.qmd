@@ -102,7 +102,7 @@ f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}\bigl(g^{-1}(\mathbf{z})\bigr)\,\bigl|\
 $$
 {{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26)
 
-Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage. For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26){{cite:strimmer2025_mva}} (Ch. 3, §3.1)
+Equivalently, if the Jacobian is computed for $g$ rather than for the inverse, divide by $|\det Dg|$ evaluated at the preimage. For a linear map $\mathbf{Z}=A\mathbf{X}$ with $A$ invertible, $f_{\mathbf{Z}}(\mathbf{z})=f_{\mathbf{X}}(A^{-1}\mathbf{z})/|\det A|$.{{cite:wang2025_foundations}} (Ch. 5, §6.4.1, Thm. 26)
 
 :::
 
@@ -128,9 +128,9 @@ A random vector $\mathbf{Z}$ in $\R^n$ is multivariate normal with mean $\boldsy
 $$
 f(\mathbf{z})=(2\pi)^{-n/2}\,|\Sigma|^{-1/2}\,\exp\Bigl(-\tfrac12(\mathbf{z}-\boldsymbol\mu)^\top\Sigma^{-1}(\mathbf{z}-\boldsymbol\mu)\Bigr).
 $$
-{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Multivariate normal model”)
+{{cite:deisenroth_faisal_ong2020}} (§§6.7.1–6.7.2, pp.215–218)
 
-If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution.{{cite:strimmer2025_mva}} (Ch. 3, §3.1, Ex. 3.9) {{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31) The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
+If $\mathbf{X}$ has independent standard normal coordinates and $\Sigma=BB^\top$, then $\boldsymbol\mu+B\mathbf{X}$ has this distribution. {{cite:wang2025_foundations}} (Ch. 6 Extra, Thm. 31) The representation is the definition used when $\Sigma$ is only positive semidefinite and no density exists.
 
 :::
 
@@ -228,7 +228,7 @@ $$
 
 where $\Phi$ is the standard normal distribution function.{{cite:siegrist2022_clt}} (§5.4, “The Central Limit Theorem”)
 
-Lindeberg's 1922 work extended the normal limit beyond the identically distributed setting. The iid statement here needs no extra condition beyond its finite, positive variance.{{cite:lindeberg1922}} (pp. 211–225) {{cite:cameron2004_asymptotic}} (§4.2, pp. 7–8)
+Lindeberg's 1922 work extended the normal limit beyond the identically distributed setting. The iid statement here needs no extra condition beyond its finite, positive variance.{{cite:lindeberg1922}} (pp. 211–225) 
 
 :::
 

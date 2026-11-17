@@ -51,7 +51,7 @@ $$
 \mathrm{logit}\,\mathrm{P}(Y\ge k\mid \vect{x})=\beta_{0k}+\vect{x}^\top\boldsymbol{\beta},
 \qquad k=2,\ldots,K,
 $$
-with $\beta_{02}\ge\beta_{03}\ge\cdots\ge\beta_{0K}$.{{cite:mccullagh1980}}{{cite:agresti2002}} A unit increase in a covariate multiplies the odds of being in category $k$ or higher by $e^{\beta_j}$, and that factor does not depend on $k$.{{cite:yee2015}}
+with $\beta_{02}\ge\beta_{03}\ge\cdots\ge\beta_{0K}$.{{cite:mccullagh1980}} (pp. 109–127){{cite:agresti2002}} A unit increase in a covariate multiplies the odds of being in category $k$ or higher by $e^{\beta_j}$, and that factor does not depend on $k$.{{cite:yee2015}}
 :::
 
 The intercepts have to decrease as $k$ increases, because $\mathrm{P}(Y\ge 2)\ge\mathrm{P}(Y\ge 3)\ge\cdots$. For a university grade, one extra hour of study multiplies the odds of a $4$ or better, a $5$ or better, and a $7$, by the same factor. If those factors differed, you would have a non-proportional odds model, which is the interaction above, and we would not lead with it.

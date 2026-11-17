@@ -36,19 +36,3 @@ Subtract the mass at zero: $F(1)-F(0)=0.7(1-e^{-2})=0.605265$. Including zero wo
 ## Interpretation — Recording and rounding
 An atom can be a feature of the model or of a recording rule. For example, rounding a continuous measurement to a finite precision creates positive probabilities at the recorded values. Whether zero means no event, censoring or a rounded small measurement changes the appropriate model. The mathematical description concerns the law of the recorded random variable, so that variable must be specified.{{cite:durrett2019}} (§1.3, random variables as measurable functions)
 
-## Check yourself
-Keep strict and weak inequalities separate at an atom.
-
-### Right-continuity at zero {#self-check-ex-sp-right-continuous}
-[Right-continuity](../questions/ex-sp-right-continuous.qmd): repair the proposed CDF that is zero for $x\le0$ and one for $x>0$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Set the zero branch to $x<0$ and the one branch to $x\ge0$. The repaired CDF is right-continuous and represents a point mass of one at zero.
-:::
-
-### A three-point law {#self-check-ex-sp-three-point}
-[A three-point law](../questions/ex-sp-three-point.qmd): for masses $1/4,1/2,1/4$ at $-2,0,3$, find the CDF jumps and the mean.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The cumulative levels are zero, $1/4$, $3/4$ and one on the successive intervals cut by $-2,0,3$. The positive-part mean is $3/4$, the negative-part mean is $1/2$, and their difference is $1/4$.
-:::

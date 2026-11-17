@@ -47,15 +47,3 @@ The sample of five observations outweighs a prior that counts as one observation
 ## Connections — Squared error, pseudo-counts, and unequal studies
 The posterior mean is that precision-weighted average of the prior mean and the sample mean. {{cite:gelman_bda2013}} (§2.5, pp. 39–40, normal model and eq. 2.10) The prior precision \(\kappa_0\) plays the role of a prior sample size when \(\sigma^2\) is the observation variance. The same weights combine two independent normal estimates of one mean: each estimate is weighted by the reciprocal of its variance. A [posterior mean](posterior-mean.qmd) that is not a normal–normal update need not be a precision-weighted average of this form.
 
-## Check yourself
-With \(n=4\), \(\sigma^2=4\) and \(\sigma_0^2=1\), what are the weights on \(\bar x\) and on \(\mu_0\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\kappa_0=4/1=4\). The data weight is \(4/(4+4)=1/2\), and the prior weight is also \(1/2\).
-:::
-
-In the worked example with \(a=0.8\) and \(n=4\), why is the posterior variance \(0.2\) rather than \(1/4\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The sampling variance of \(\bar x\) is \(1/4\). The posterior variance is \(a/n=0.8/4=0.2\), which is smaller, because the prior precision \(1\) has been added to the data precision \(4\). The reciprocal of \(5\) is \(0.2\).
-:::

@@ -48,19 +48,3 @@ The two boundary values fix the coefficients of the constant and geometric solut
 The two boundary roles interchange, so the success probability becomes $1-h_2=1/2$. The absorption time remains four steps in expectation because the stopping set has not changed.
 :::
 
-## Check yourself
-Write the boundary values before solving the recurrence.
-
-### A longer fair interval {#self-check-ex-sp-fair-ruin}
-[A fair walk between 0 and 8](../questions/ex-sp-fair-ruin.qmd): calculate success probability and expected duration from five.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The fair-walk solutions are $h_i=i/8$ and $e_i=i(8-i)$. At five they give success probability $5/8$ and mean duration $5\cdot3=15$ steps. Substitution into the first-step equations verifies both expressions.
-:::
-
-### An upward bias {#self-check-ex-sp-biased-goal}
-[A biased walk on four steps](../questions/ex-sp-biased-goal.qmd): use $p=2/3$ and start from one.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Here $q/p=1/2$. The probability is $(1-1/2)/(1-1/16)=8/15$, compared with $1/4$ for the fair walk. The favourable upward transitions increase the chance of reaching four first.
-:::

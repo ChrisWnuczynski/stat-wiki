@@ -134,7 +134,7 @@ $$
 $$
 
 
- Terms involving only $x_{-i}$ may be dropped, but any term that still contains $x_i$ must remain. Gibbs accepts every coordinate draw because it samples from the exact conditional rather than proposing and rejecting a candidate.{{cite:geyer2005_markov_chain}} (§§10.1, 10.4, pp. 27–28)
+ Terms involving only $x_{-i}$ may be dropped, but any term that still contains $x_i$ must remain. Gibbs accepts every coordinate draw because it samples from the exact conditional rather than proposing and rejecting a candidate.{{cite:levin_peres2017}} (§1.1, pp. 2–4)
 
 :::
 

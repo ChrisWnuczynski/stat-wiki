@@ -46,15 +46,3 @@ The logits are \(1.2\) and \(0.2\). Both tails are the expit of those numbers, a
 ## Connections — Nominal labels, binary logit, and collapsing
 [Nominal responses](nominal-responses.qmd) have no order, so they use a separate slope for each label against a baseline. The ordinal model is a stack of [logit links](logit-link.qmd), one per cumulative cut, tied together by the common slope. Collapsing adjacent categories changes the intercepts, because the cuts move, and it keeps the form of the equation. A model that gave each cut its own slope would be a different equation at each cut.
 
-## Check yourself
-Can the intercepts \(\beta_{02}=0.2\) and \(\beta_{03}=1.2\) be used with a shared slope?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Then \(\mathrm{P}(Y\ge 3)\) would have the larger intercept, so at \(x=0\) the upper tail would exceed the lower tail. The intercepts must decrease as \(k\) increases.
-:::
-
-If \(\beta=0.5\), by what factor does a unit increase in \(x\) multiply the odds of the top category, and the odds of the middle-or-top category?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Both are multiplied by \(e^{0.5}\approx 1.6487\). The cut does not appear in the factor.
-:::

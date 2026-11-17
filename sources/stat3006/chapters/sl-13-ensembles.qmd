@@ -1,6 +1,6 @@
 # Ensembles, random forests, and boosting
 
-If one tree changes substantially when the training sample is perturbed, fit many perturbed versions and combine their predictions. Bagging creates those versions by bootstrap resampling{{cite:breiman1996_bagging}} (§ “Introduction”). A random forest also restricts which predictors compete at each split{{cite:breiman2001_rf}} (§4, p. 11). Boosting takes a different route: each new learner responds to the current ensemble's errors{{cite:freund_schapire1997}} (§4.1, pp. 125–127). This page derives what averaging guarantees, then the extra choices these algorithms make.
+If one tree changes substantially when the training sample is perturbed, fit many perturbed versions and combine their predictions. Bagging creates those versions by bootstrap resampling{{cite:breiman1996_bagging}} (§ “Introduction”). A random forest also restricts which predictors compete at each split{{cite:breiman2001_rf}} (§4, p. 11). Boosting takes a different route: each new learner responds to the current ensemble's errors{{cite:freund_schapire1997}} (§4.1, pp. 125–127). The derivation below records what averaging guarantees, then the extra choices these algorithms make.
 
 The classifiers on the previous pages differ in the boundaries they can draw, in how hard they are to compute, and in how much they move when the sample moves. Some regions of predictor space are easy for a given rule and some are not. A method with a random start can return a different fit from the same data. Every method returns a different fit from different data, by an amount that depends on the method. Ensemble methods treat that variation as something to average or to correct. The device is a collection of models, combined to predict a new $x$. Averaging reduces variance when the members are not copies of one another.
 
@@ -120,9 +120,9 @@ The defaults tend to produce large trees, each fitted on its random variable set
 
 ### Out-of-bag estimation and variable importance
 
-An observation is absent from a size-$n$ bootstrap sample with probability $(1-1/n)^n\approx 0.368$. Its out-of-bag prediction therefore uses about $36.8\%$ of the trees, not most of them. Aggregate only those trees, then compare the prediction with its label. This estimates performance of the specified fitting recipe, with finite-forest and resampling effects{{cite:breiman1996_bagging}}{{cite:breiman2001_rf}}. If out-of-bag scores select among recipes, the selected minimum also contains selection optimism. Use a separate assessment of that selection procedure.
+An observation is absent from a size-$n$ bootstrap sample with probability $(1-1/n)^n\approx 0.368$. Its out-of-bag prediction therefore uses about $36.8\%$ of the trees, not most of them. Aggregate only those trees, then compare the prediction with its label. This estimates performance of the specified fitting recipe, with finite-forest and resampling effects{{cite:breiman1996_bagging}} (pp. 123–140){{cite:breiman2001_rf}} (pp. 5–32). If out-of-bag scores select among recipes, the selected minimum also contains selection optimism. Use a separate assessment of that selection procedure.
 
-The average that lowers the variance also removes the single readable tree. Individual trees can still be inspected, and they were built to disagree, so reading one of them does not describe the forest. A partial substitute ranks the predictors. Count how often each variable is chosen for a split, or how much total impurity reduction it contributes, or how much the error rises when its values are permuted and the forest is applied again{{cite:breiman2001_rf}}. The rank is a summary of predictive contribution inside this fit. It is not a ranking of causal effects, and correlated predictors can share or mask one another's rank. The same two devices, random subsets of predictors and random subsets of cases, can be wrapped around base learners other than trees. Trees remain the usual choice because they are fast, unstable in the way the diversity term requires, and individually limited enough that no one tree dominates the average.
+The average that lowers the variance also removes the single readable tree. Individual trees can still be inspected, and they were built to disagree, so reading one of them does not describe the forest. A partial substitute ranks the predictors. Count how often each variable is chosen for a split, or how much total impurity reduction it contributes, or how much the error rises when its values are permuted and the forest is applied again{{cite:breiman2001_rf}} (pp. 5–32). The rank is a summary of predictive contribution inside this fit. It is not a ranking of causal effects, and correlated predictors can share or mask one another's rank. The same two devices, random subsets of predictors and random subsets of cases, can be wrapped around base learners other than trees. Trees remain the usual choice because they are fast, unstable in the way the diversity term requires, and individually limited enough that no one tree dominates the average.
 
 On a fixed iris training set, the out-of-bag error of a forest falls as trees are added and then levels off, separately for setosa, versicolor, virginica, and the overall rate. A permutation-importance bar on the same fit is largest for the two petal measurements. Those curves are one seeded fit, not a sampling distribution.
 
@@ -130,7 +130,7 @@ On a fixed iris training set, the out-of-bag error of a forest falls as trees ar
 
 A random forest draws its diversity from different samples and different candidate predictors. The members are fit separately, and none of them is told where the others failed. The diversity identity suggests a sharper use of the same idea: the members should be reasonably accurate and should be accurate in different regions, so that each compensates for the others. Boosting builds that compensation on purpose. Fit one learner. Find the training cases it gets wrong, or the residuals it leaves. Fit the next learner to those mistakes, without abandoning the cases the first one already got right. Continue, and combine the sequence. The learners are not exchangeable draws. Later ones exist because earlier ones failed somewhere.
 
-{{cite:schapire1990}} showed that a weak learner can be improved by an ensemble built this way. The concrete algorithm is Adaptive Boosting, AdaBoost{{cite:freund_schapire1995}}{{cite:freund_schapire1997}}{{cite:hastie_esl2009}}. Bagging reduces variance by averaging unstable fits of the same problem. Boosting changes the problem at each round.
+{{cite:schapire1990}} (pp. 197–227) showed that a weak learner can be improved by an ensemble built this way. The concrete algorithm is Adaptive Boosting, AdaBoost{{cite:freund_schapire1995}}{{cite:freund_schapire1997}} (pp. 119–139){{cite:hastie_esl2009}}. Bagging reduces variance by averaging unstable fits of the same problem. Boosting changes the problem at each round.
 
 ### The AdaBoost weight update
 
@@ -141,7 +141,7 @@ At iteration $t$ the learner $f_t$ is fit to the training cases with weights $w_
 ::: {#def-sl-13-adaboost .definition}
 ## AdaBoost
 
-Training data $\{x_i,y_i\}_{i=1}^{n_{\mathrm{train}}}$, with $x_i\in\mathbb{R}^p$ and $y_i\in\{-1,+1\}${{cite:freund_schapire1997}}{{cite:freund_schapire1995}}{{cite:hastie_esl2009}}.
+Training data $\{x_i,y_i\}_{i=1}^{n_{\mathrm{train}}}$, with $x_i\in\mathbb{R}^p$ and $y_i\in\{-1,+1\}${{cite:freund_schapire1997}} (pp. 119–139){{cite:freund_schapire1995}}{{cite:hastie_esl2009}}.
 
 1. Set $w_{1,i}=1/n_{\mathrm{train}}$ for all $i$.
 2. For $t=1,\ldots,T$:
@@ -176,7 +176,7 @@ Because $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, one has $e^{-\a
 ::: {#thm-sl-13-half-error .theorem}
 ## The reweighted error is one half
 
-If $0<\varepsilon_t<1$ and the current weights sum to $1$, the updated weights give $f_t$ weighted error exactly $1/2${{cite:freund_schapire1997}}{{cite:friedman_hastie_tibshirani2000}}{{cite:hastie_esl2009}}. For the usual positive-vote round, require $0<\varepsilon_t<1/2$. At zero error the logarithm has no finite value: stop, or handle the perfect learner explicitly.
+If $0<\varepsilon_t<1$ and the current weights sum to $1$, the updated weights give $f_t$ weighted error exactly $1/2${{cite:freund_schapire1997}} (pp. 119–139){{cite:friedman_hastie_tibshirani2000}} (pp. 337–407){{cite:hastie_esl2009}}. For the usual positive-vote round, require $0<\varepsilon_t<1/2$. At zero error the logarithm has no finite value: stop, or handle the perfect learner explicitly.
 
 :::
 

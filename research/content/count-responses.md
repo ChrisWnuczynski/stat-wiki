@@ -44,17 +44,3 @@ At \(x=0\), \(\mu=\exp(0.5)=1.6487\). At \(x=1\), \(\mu=\exp(0.3)=1.3499\). The 
 ## Connections — Poisson, overdispersion and the link
 The [Poisson distribution](poisson-distribution.qmd) is the random component with variance equal to the mean. The [log link](log-link.qmd) is the map used above, and it is one of the classical [link functions](link-function.qmd). A [dispersion parameter](dispersion-parameter.qmd) \(\phi\) scales the variance when the Poisson variance is too small or too large; it does not change the log-mean equation. A [generalised linear model](generalised-linear-model.qmd) is the combination of that random component, the linear predictor and the link.
 
-## Check yourself
-### A doubling covariate step
-In the worked log-linear mean, by what factor does \(\mu\) change when \(x\) increases by \(2\)? Give the factor to four decimals.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The factor is \(e^{-0.4}=0.6703\). Two steps of \(e^{-0.2}\) multiply, and \((e^{-0.2})^2=e^{-0.4}\).
-:::
-
-### Where the identity fails
-An identity specification \(\mu=2-0.5x\) is used for a count. At what \(x\) does the formula stop being a mean?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\mu=0\) at \(x=4\), and \(\mu<0\) for every \(x>4\). A mean count cannot be negative, so the identity formula is not a count mean on the whole line. The log link does not have that break.
-:::

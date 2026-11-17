@@ -49,18 +49,3 @@ The inner product is $0$, so $K=(1+0)^2=1$, while $(0)^2=0$. The two kernels dis
 ## Connections — Other kernels and the linear case
 The [kernel trick](kernel-trick.qmd) is the replacement of $h(\mathbf{x})^\top h(\mathbf{x}')$ by $K$. A [radial basis function kernel](radial-basis-function-kernel.qmd) is another positive semi-definite choice, and it is not a polynomial. [Which functions are kernels](which-functions-are-kernels.qmd) is the positive semi-definite requirement on every Gram matrix. Degree $d=1$ gives $K=1+\mathbf{x}^\top\mathbf{x}'$, a linear rule plus an intercept feature. The [kernel support vector machine](kernel-support-vector-machine.qmd) is where these inner products are optimised.
 
-## Check yourself
-
-### A repeated input
-Compute $(1+\mathbf{x}^\top\mathbf{x})^2$ for $\mathbf{x}=(1,1)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The inner product is $2$, so the kernel is $(1+2)^2=9$. This is $K(\mathbf{x},\mathbf{x})=\|h(\mathbf{x})\|^2$, not a comparison of two different points.
-:::
-
-### Dimension
-How many coordinates does $h$ have for $p=3$ inputs and degree $d=2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The count is $\binom{3+2}{2}=\binom{5}{2}=10$. They are the constant, three linear terms, three squares and three cross products.
-:::

@@ -76,7 +76,7 @@ $$
 \widehat{\boldsymbol{\mu}}=\bar{\mathbf{x}},
 $$
 
-{{cite:anderson2003_mva}}{{cite:fisher1922}} for every positive definite $\Sigma$. The covariance does not have to be known before the mean is estimated{{cite:anderson2003_mva}}. The next step substitutes this maximiser and maximises in $\Sigma$ alone.
+{{cite:anderson2003_mva}}{{cite:fisher1922}} (pp. 309–368) for every positive definite $\Sigma$. The covariance does not have to be known before the mean is estimated{{cite:anderson2003_mva}}. The next step substitutes this maximiser and maximises in $\Sigma$ alone.
 
 ### The covariance and the invariance lemma
 
@@ -187,7 +187,7 @@ $$
 
 for positive definite $W$, and $0$ otherwise.
 
-{{cite:wishart1928}}{{cite:anderson2003_mva}}
+{{cite:wishart1928}} (pp. 32–52){{cite:anderson2003_mva}}
 :::
 
 For the corrected cross-product matrix of a normal sample the degrees of freedom are $\nu=n-1$, and the density is
@@ -215,7 +215,7 @@ A\sim W_p(\Sigma,\,n-1),
 \overline{\mathbf{X}}\ \text{independent of}\ A.
 $$
 
-{{cite:anderson2003_mva}}{{cite:wishart1928}}
+{{cite:anderson2003_mva}}{{cite:wishart1928}} (pp. 32–52)
 :::
 
 The normal law for $\overline{\mathbf{X}}$, and the covariance $\Sigma/n$, follow from the [linear-image proposition](sl-01-multivariate-normal.qmd#prp-sl-01-linear-image). Stack the $n$ observations as one vector $\mathbf{Z}$ of length $np$. Independence puts $\Sigma$ on the diagonal blocks of $\Var(\mathbf{Z})$ and zeros off those blocks. The average is
@@ -277,10 +277,10 @@ $$
 
 converges in distribution to $\Normal_p(\mathbf{0},\Sigma)$ as $n\to\infty$.
 
-{{cite:cameron2004_asymptotic}} (§7, pp. 10–11) The scalar projections satisfy the one-dimensional theorem, and the Cramér–Wold device joins them into the vector limit.{{cite:siegrist2022_clt}} (§5.4, “The Central Limit Theorem”) {{cite:cameron2004_asymptotic}} (§7, pp. 10–11)
+ The scalar projections satisfy the one-dimensional theorem, and the Cramér–Wold device joins them into the vector limit.{{cite:siegrist2022_clt}} (§5.4, “The Central Limit Theorem”) 
 :::
 
-Convergence in distribution means that the distribution function of $\sqrt{n}(\overline{\mathbf{X}}_n-\boldsymbol{\mu})$ converges at every continuity point to the $\Normal_p(\mathbf{0},\Sigma)$ distribution function. The exact null distribution of $T^2$ in the next section needs the normal model. What survives without normality is the limit in the following remark.{{cite:wang2025_foundations}} (Ch. 9, §14, Def. 7) {{cite:cameron2004_asymptotic}} (§7, pp. 10–11)
+Convergence in distribution means that the distribution function of $\sqrt{n}(\overline{\mathbf{X}}_n-\boldsymbol{\mu})$ converges at every continuity point to the $\Normal_p(\mathbf{0},\Sigma)$ distribution function. The exact null distribution of $T^2$ in the next section needs the normal model. What survives without normality is the limit in the following remark.{{cite:wang2025_foundations}} (Ch. 9, §14, Def. 7) 
 
 ::: {#rem-sl-02-t2-limit .remark}
 ## The limit of Hotelling's statistic
@@ -291,13 +291,13 @@ $$
 n(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)^\top S^{-1}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)
 $$
 
-is asymptotically $\chi^2_p$. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)$, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form.{{cite:cameron2004_asymptotic}} (§7, pp. 10–11) {{cite:wang2025_foundations}} (Ch. 9, §21.2, Thm. 34) The usual $S$ here divides the centred sum of squares and cross-products by $n-1$.{{cite:strimmer2025_mva}} (Ch. 2, §2.4)
+is asymptotically $\chi^2_p$. The multivariate central limit theorem makes $\sqrt{n}\,\Sigma^{-1/2}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ asymptotically $\Normal_p(\mathbf{0},I)$, and $S\to\Sigma$ in probability replaces $\Sigma$ by $S$ in the quadratic form. {{cite:wang2025_foundations}} (Ch. 9, §21.2, Thm. 34) The usual $S$ here divides the centred sum of squares and cross-products by $n-1$.
 
 :::
 
 ## Hotelling's $T^2$ test
 
-A sample mean, however accurately computed, is not a test. A test needs a null value, an alternative, a statistic, and the distribution of that statistic when the null is true. The statistic derived here is the likelihood ratio for a normal mean vector{{cite:hotelling1931}}{{cite:anderson2003_mva}}. Its null distribution is read from the normal-and-Wishart pair.
+A sample mean, however accurately computed, is not a test. A test needs a null value, an alternative, a statistic, and the distribution of that statistic when the null is true. The statistic derived here is the likelihood ratio for a normal mean vector{{cite:hotelling1931}} (pp. 360–378){{cite:anderson2003_mva}}. Its null distribution is read from the normal-and-Wishart pair.
 
 ### The univariate $t$ test as a template
 
@@ -307,7 +307,7 @@ $$
 t=\frac{\bar x-\mu_0}{s/\sqrt{n}}\sim t_{n-1}
 $$
 
-under $H_0$, where $t_{n-1}$ is the [Student $t$ distribution](inf-01-statistical-inference.qmd#def-student-t-distribution). Under $H_0$ the distribution of $t$ does not depend on the unknown $(\mu,\sigma^2)$. A quantity with that property is a pivot, so the critical value can be taken from the $t_{n-1}$ table alone. At level $\alpha$ the two-sided rule rejects $H_0$ when $|t|>t_{\alpha/2;\,n-1}${{cite:wasserman2004}}. Throughout this page the first subscript of a critical value is the upper-tail probability, and the remaining subscripts are degrees of freedom. The same point is the quantile of order $1-\alpha$ in the notation of [Statistical inference](inf-01-statistical-inference.qmd#def-f-distribution). The algebra below is arranged so that the multivariate statistic reduces to the square of this $t$ when $p=1${{cite:hotelling1931}}{{cite:anderson2003_mva}}.
+under $H_0$, where $t_{n-1}$ is the [Student $t$ distribution](inf-01-statistical-inference.qmd#def-student-t-distribution). Under $H_0$ the distribution of $t$ does not depend on the unknown $(\mu,\sigma^2)$. A quantity with that property is a pivot, so the critical value can be taken from the $t_{n-1}$ table alone. At level $\alpha$ the two-sided rule rejects $H_0$ when $|t|>t_{\alpha/2;\,n-1}${{cite:wasserman2004}}. Throughout this page the first subscript of a critical value is the upper-tail probability, and the remaining subscripts are degrees of freedom. The same point is the quantile of order $1-\alpha$ in the notation of [Statistical inference](inf-01-statistical-inference.qmd#def-f-distribution). The algebra below is arranged so that the multivariate statistic reduces to the square of this $t$ when $p=1${{cite:hotelling1931}} (pp. 360–378){{cite:anderson2003_mva}}.
 
 ### Hypotheses and the likelihood ratio
 
@@ -447,7 +447,7 @@ $$
 F=\frac{n-p}{p(n-1)}\,T^2\sim F_{p,\,n-p}
 $$
 
-when $\boldsymbol{\mu}=\boldsymbol{\mu}_0$. Reject $H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0$ at level $\alpha$ when $F>F_{\alpha;\,p,\,n-p}${{cite:hotelling1931}}{{cite:anderson2003_mva}}.
+when $\boldsymbol{\mu}=\boldsymbol{\mu}_0$. Reject $H_0:\boldsymbol{\mu}=\boldsymbol{\mu}_0$ at level $\alpha$ when $F>F_{\alpha;\,p,\,n-p}${{cite:hotelling1931}} (pp. 360–378){{cite:anderson2003_mva}}.
 
 :::
 
@@ -594,7 +594,7 @@ $$
 (n_1+n_2-2)S\sim W_p(\Sigma,\,n_1+n_2-2),
 $$
 
-{{cite:strimmer2025_mva}} (Ch. 2, §2.4, Gaussian sample-covariance Wishart law){{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test”, pooled Wishart law) independent of both sample means and therefore of their difference. To see the independence, in each group project the Gaussian observation rows onto an orthonormal basis of the residual subspace perpendicular to its all-ones vector. The resulting $n_g-1$ centred coordinates are independent $N_p(0,\Sigma)$ vectors, while the orthogonal mean coordinate is independent of them. The two independent groups contribute $n_1+n_2-2$ such residual coordinates, whose sum of outer products has the displayed Wishart law.{{cite:strimmer2025_mva}} (Ch. 2, §2.4, Gaussian covariance sampling law) The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
+{{cite:fisher1922}} (pp. 309–368){{cite:fisher1922}} (pp. 309–368) independent of both sample means and therefore of their difference. To see the independence, in each group project the Gaussian observation rows onto an orthonormal basis of the residual subspace perpendicular to its all-ones vector. The resulting $n_g-1$ centred coordinates are independent $N_p(0,\Sigma)$ vectors, while the orthogonal mean coordinate is independent of them. The two independent groups contribute $n_1+n_2-2$ such residual coordinates, whose sum of outer products has the displayed Wishart law.{{cite:fisher1922}} (pp. 309–368) The one-sample passage from a normal vector and an independent Wishart matrix to an $F$ statistic used $\sqrt{n}(\overline{\mathbf{X}}-\boldsymbol{\mu}_0)$ and $n-1$ degrees of freedom. Replace those ingredients by the mean-difference law and by $n_1+n_2-2$ degrees of freedom. The resulting statistic is
 
 $$
 T^2=\frac{n_1 n_2}{n_1+n_2}
@@ -642,7 +642,7 @@ T^2_{\alpha;\,p,\,n_1+n_2-p-1}
 =\frac{(n_1+n_2-2)\,p}{n_1+n_2-p-1}\,F_{\alpha;\,p,\,n_1+n_2-p-1}.
 $$
 
-The same critical value yields simultaneous intervals for every linear functional $\mathbf{a}^\top\boldsymbol{\delta}$, $\mathbf{a}\in\R^p$, and not only for the $p$ coordinates{{cite:anderson2003_mva}}{{cite:hotelling1931}}:
+The same critical value yields simultaneous intervals for every linear functional $\mathbf{a}^\top\boldsymbol{\delta}$, $\mathbf{a}\in\R^p$, and not only for the $p$ coordinates{{cite:anderson2003_mva}}{{cite:hotelling1931}} (pp. 360–378):
 
 $$
 \mathbf{a}^\top\bigl(\bar{\mathbf{x}}^{(1)}-\bar{\mathbf{x}}^{(2)}\bigr)
@@ -685,7 +685,7 @@ $$
 \nu=\frac{(v_1+v_2)^2}{v_1^2/(n_1-1)+v_2^2/(n_2-1)},
 $$
 
-which is Welch's degrees of freedom{{cite:welch1947}}. The reference law remains approximate. Comparisons of several mean vectors, with a common covariance, continue as a multivariate analysis of variance: the pooled within-group matrix is the error stratum, and the between-group matrix of weighted outer products of group-mean deviations is compared with it by a further Wishart ratio.
+which is Welch's degrees of freedom{{cite:welch1947}} (pp. 28–35). The reference law remains approximate. Comparisons of several mean vectors, with a common covariance, continue as a multivariate analysis of variance: the pooled within-group matrix is the error stratum, and the between-group matrix of weighted outer products of group-mean deviations is compared with it by a further Wishart ratio.
 
 ## A joint mean test for setosa
 

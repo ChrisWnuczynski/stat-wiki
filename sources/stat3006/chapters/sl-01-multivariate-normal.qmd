@@ -189,7 +189,7 @@ $$
 \rho_{jk}=\operatorname{corr}(X_j,X_k)=\frac{\Cov(X_j,X_k)}{\sqrt{\Var(X_j)\Var(X_k)}}=\frac{\sigma_{jk}}{\sigma_j\sigma_k}\in[-1,1].
 $$
 
-The correlation matrix is $P=(\rho_{jk})$, with ones on the diagonal.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”) If $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$, then
+The correlation matrix is $P=(\rho_{jk})$, with ones on the diagonal.{{cite:nist_covariance2002}} (§6.5.4.1) If $D=\operatorname{diag}(\sigma_1,\ldots,\sigma_p)$, then
 
 $$
 P=D^{-1}\Sigma D^{-1},
@@ -197,7 +197,7 @@ P=D^{-1}\Sigma D^{-1},
 \Sigma=DPD.
 $$
 
-This matrix standardization separates the correlations from the marginal standard deviations.{{cite:strimmer2025_mva}} (Ch. 1, §1.1, “Correlation matrix”)
+This matrix standardization separates the correlations from the marginal standard deviations.{{cite:nist_covariance2002}} (§6.5.4.1)
 :::
 
 Independence of $X_j$ and $X_k$ implies $\rho_{jk}=0$. The converse is false, and the example below is the counterexample. If $X_k=c X_j+d$ then $\rho_{jk}=1$ for $c>0$ and $\rho_{jk}=-1$ for $c<0$. If a variance is zero, the correlation is undefined.
@@ -292,7 +292,7 @@ f(\mathbf{x})=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}
 \qquad\mathbf{x}\in\R^p.
 $$
 
-The mean vector is $\boldsymbol{\mu}$ and the covariance matrix is $\Sigma$. The subscript $p$ is dropped when the dimension is clear.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Multivariate normal model”)
+The mean vector is $\boldsymbol{\mu}$ and the covariance matrix is $\Sigma$. The subscript $p$ is dropped when the dimension is clear.{{cite:nist_covariance2002}} (§6.5.4.1)
 
 :::
 
@@ -349,7 +349,7 @@ $$
 (\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})=\mathbf{u}^\top\Lambda^{-1}\mathbf{u}=\sum_{j=1}^p\frac{u_j^2}{\lambda_j}=C.
 $$
 
-This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}$.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, covariance ellipsoids) Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
+This is an ellipsoid whose $j$th semi-axis points along $\boldsymbol{\gamma}_j$ and has length $\sqrt{C\lambda_j}$.{{cite:nist_covariance2002}} (§6.5.4.1) Those directions are the principal component directions derived on [Principal component analysis](sl-03-principal-components.qmd).
 
 ::: {#def-sl-01-mahalanobis .definition}
 ## Squared Mahalanobis distance
@@ -360,7 +360,7 @@ $$
 (\mathbf{X}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{X}-\boldsymbol{\mu}).
 $$
 
-{{cite:strimmer2025_mva}} (Ch. 3, §3.1, Ex. 3.7)
+{{cite:nist_covariance2002}} (§6.5.4.1)
 :::
 
 If $\mathbf{X}\sim\Normal_p(\boldsymbol{\mu},\Sigma)$, set $\mathbf{Z}=\Sigma^{-1/2}(\mathbf{X}-\boldsymbol{\mu})$, where $\Sigma^{-1/2}=\Gamma\Lambda^{-1/2}\Gamma^\top$ is the symmetric inverse square root. The linear-image formula for covariances gives
@@ -375,7 +375,7 @@ $$
 \mathbf{Z}^\top\mathbf{Z}=\sum_{j=1}^p Z_j^2\sim\chi^2_p,
 $$
 
-the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom.{{cite:strimmer2025_mva}} (Ch. 1, §1.3, “Concentration of probability mass for small and large dimension”) A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
+the [chi-squared distribution](inf-01-statistical-inference.qmd#def-chi-squared-distribution) with $p$ degrees of freedom.{{cite:nist_covariance2002}} (§6.5.4.1) A density contour with $C=\chi^2_{p;\alpha}$, the upper $\alpha$ point of that law, encloses probability $1-\alpha$. The same upper-tail convention, with the upper probability in the first subscript, is used for the $t$ and $F$ critical values on [Estimation and inference for the multivariate normal](sl-02-normal-inference.qmd).
 
 ## Linear images and marginals
 
@@ -666,7 +666,7 @@ $$
 =\frac{\sigma_{jk\given q+1,\ldots,p}}{\sqrt{\sigma_{jj\given q+1,\ldots,p}\,\sigma_{kk\given q+1,\ldots,p}}}.
 $$
 
-{{cite:yule1907_pcorr}} If $D_{A\given B}=\operatorname{diag}(\Sigma_{A\given B})$, the matrix of partial correlations is
+{{cite:yule1907_pcorr}} (pp. 182–193) If $D_{A\given B}=\operatorname{diag}(\Sigma_{A\given B})$, the matrix of partial correlations is
 
 $$
 P_{A\given B}=D_{A\given B}^{-1/2}\,\Sigma_{A\given B}\,D_{A\given B}^{-1/2},

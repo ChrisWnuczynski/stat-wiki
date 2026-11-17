@@ -25,22 +25,3 @@ The score $\sum_i(y_i-1/2)$ is zero. The weighted mean of the working response i
 ## Assumptions and limits — Newton and scoring can differ
 IRLS is a weighted-regression representation of Fisher scoring for a GLM. The observed Hessian and expected information coincide in Bernoulli logistic regression, which makes its Newton and scoring steps identical. With another link, the observed Hessian can include additional response-dependent terms; the same equivalence between all algorithms then needs separate checking.{{cite:nelder_wedderburn1972}} (§2.1, eqs. 7–9, p. 373)
 
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Scoring as a weighted regression {#self-check-c-19}
-
-[Scoring as a weighted regression](../questions/c-19.qmd). State the update and its representation.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Fisher scoring uses $\beta_{new}=\beta+I(\beta)^{-1}S(\beta)$. In a GLM this is the solution of a weighted least-squares problem with the current working responses and weights.
-:::
-
-### Score covariance and curvature {#self-check-q-33}
-
-[Score covariance and curvature](../questions/q-33.qmd). Apply the Poisson log-link calculation requested there.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The score is $X^\top(y-\mu)$, the Hessian is $-X^\top\operatorname{diag}(\mu)X$, and independent Poisson variances give that same matrix with positive sign as the score covariance.
-:::

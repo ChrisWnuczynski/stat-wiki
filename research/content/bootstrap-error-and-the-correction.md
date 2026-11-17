@@ -27,17 +27,4 @@ Now suppose binary labels are independent fair coin flips and features carry no 
 It equals $(0.368+0.632)0.2=0.2$. Agreement of two estimates is not knowledge of the unknown future error; sampling and model-selection uncertainty remain.
 :::
 
-## Check yourself
-### Evaluate the conventional weights {#self-check-ex-sl-09-3}
-[The $0.632$ rule](../questions/ex-sl-09-3.qmd) separates finite-$n$ inclusion from its limit.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The inclusion probabilities are $1-0.8^5=0.67232$ and $1-0.95^{20}=0.641514$. Their limit is $1-e^{-1}$. Blending apparent error $0.05$ with omitted-case error $0.20$ gives $0.1448$.
-:::
-
-### Evaluate the whole tuning procedure {#self-check-ex-sl-09-6}
-[A tempting wrong turn](../questions/ex-sl-09-6.qmd) asks why the winning tuning score is optimistic.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Selecting the smallest score also selects favourable evaluation noise. An outer held-out fold must be excluded from fitting and tuning. Repeat the inner selection within each outer training set, then evaluate the resulting procedure on the outer fold.
-:::
+Cross-validation and the bootstrap estimate prediction error without scoring a fitted rule on the same cases that trained it.{{cite:james_islr2013}} (Ch. 5 §§5.1–5.2, validation, cross-validation and bootstrap)

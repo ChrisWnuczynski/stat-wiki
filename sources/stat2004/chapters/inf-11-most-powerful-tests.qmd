@@ -90,7 +90,7 @@ The comparison includes every measurable decision rule specified for the samplin
 
 ## Uniformly most powerful unbiased test {#s-uniformly-most-powerful-unbiased-test}
 
-Now let $H_1:\mu\ne\mu_0$, still with known normal variance. Against an alternative $\mu_1>\mu_0$ the most powerful test rejects for large $\overline X$. Against $\mu_1<\mu_0$ it rejects for small $\overline X$. Those are different regions. No single region is most powerful against both. A uniformly most powerful test of the two-sided hypothesis does not exist.{{cite:neyman_pearson1933}}{{cite:lehmann_romano2005}}
+Now let $H_1:\mu\ne\mu_0$, still with known normal variance. Against an alternative $\mu_1>\mu_0$ the most powerful test rejects for large $\overline X$. Against $\mu_1<\mu_0$ it rejects for small $\overline X$. Those are different regions. No single region is most powerful against both. A uniformly most powerful test of the two-sided hypothesis does not exist.{{cite:neyman_pearson1933}} (pp. 289–337){{cite:lehmann_romano2005}}
 
 The usual two-sided $z$ test rejects when $|\overline X-\mu_0|>z_{1-\alpha/2}\,\sigma/\sqrt n$. It is not most powerful against a one-sided alternative: the one-sided test of the same size puts all of its critical probability on the side where that alternative lives, and therefore has higher power there. The two-sided test spends half its type I error on a side the one-sided alternative says cannot occur.
 

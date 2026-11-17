@@ -32,20 +32,3 @@ The mean is $3$ and $Q=12$. The ordinary estimate is $12/4=3$. The restricted es
 ## Connections — Fixed effects and variance components
 The [sample variance](variance.qmd) $S^2$ is this one-sample restricted estimator. A [linear mixed model](linear-mixed-model.qmd) has several variance components, and the same idea removes the fixed effects before estimating those components. Comparing two models that differ in their fixed effects should use the ordinary likelihood of both fits: the restricted likelihoods are likelihoods of different sets of contrasts. A test of a variance component against zero also sits on the boundary of the parameter space, so a naive chi-squared reference from a likelihood-ratio statistic is not automatic.
 
-## Check yourself
-
-### Expectation of the sample variance {#self-check-ex-inf-expected-sample-variance}
-
-For a random sample with mean $\mu$ and variance $\sigma^2$, why is $\E S^2=\sigma^2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$, so the expectation of the residual sum of squares is $(n-1)\sigma^2$. Dividing by $n-1$ is unbiased. Dividing by $n$ is the ordinary maximum-likelihood estimator and is biased downward.
-:::
-
-### Which expressions use the unknown mean? {#self-check-ex-inf-which-are-statistics}
-
-Is $S^2$ a statistic, and is $(n-1)S^2/\sigma^2$ a statistic?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$S^2$ is a statistic: it is computed from the data. $(n-1)S^2/\sigma^2$ is not, because it contains $\sigma$. Under normality its law is chi-squared on $n-1$ degrees of freedom, which is the restricted likelihood used above.
-:::

@@ -68,7 +68,7 @@ If $A_n\downarrow A$, continuity from above says $\mathrm{P}(A_n)\downarrow\math
 ::: {#thm-sp-borel-cantelli .theorem}
 ## Borel–Cantelli lemmas
 
-If $\sum_n\mathrm{P}(A_n)<\infty$, then $\mathrm{P}(A_n\text{ infinitely often})=0$.{{cite:cantelli1917}}{{cite:billingsley1995}} If the events $A_n$ are independent and $\sum_n\mathrm{P}(A_n)=\infty$, then $\mathrm{P}(A_n\text{ infinitely often})=1$.{{cite:borel1909}}
+If $\sum_n\mathrm{P}(A_n)<\infty$, then $\mathrm{P}(A_n\text{ infinitely often})=0$.{{cite:cantelli1917}} (pp. 39–45){{cite:billingsley1995}} If the events $A_n$ are independent and $\sum_n\mathrm{P}(A_n)=\infty$, then $\mathrm{P}(A_n\text{ infinitely often})=1$.{{cite:borel1909}} (pp. 247–271)
 
 :::
 

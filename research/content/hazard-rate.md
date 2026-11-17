@@ -37,20 +37,3 @@ The local linear approximation is $h(1)\times0.1=0.2$. It is only an approximati
 It is $S(2)/S(1)=e^{-4}/e^{-1}=e^{-3}\approx0.04979$. It is a conditional survival probability, whereas $e^{-4}$ is survival from installation to age two.
 :::
 
-## Check yourself
-
-### [Survival from the hazard](../questions/ex-prob-hazard-survival.qmd) {#self-check-ex-prob-hazard-survival}
-
-Why is the integration constant zero in $\log S(t)=-H(t)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-An absolutely continuous nonnegative lifetime has $P(T=0)=0$, so $S(0)=1$ and $\log S(0)=0$. An atom at zero would require its own initial survival factor.
-:::
-
-### [Five years of a component](../questions/ex-prob-component-five-years.qmd) {#self-check-ex-prob-component-five-years}
-
-Find survival through five years for the constant hazard $0.1$ per year.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$H(5)=0.5$ and $S(5)=e^{-0.5}\approx0.60653$.
-:::

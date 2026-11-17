@@ -47,19 +47,3 @@ The angle becomes $5\pi/3$, where cosine is $1/2$ and sine is $-\sqrt3/2$. The o
 ## Assumptions and limits — Finite random-number grids
 The continuous construction assumes exact independent uniform inputs. In an implementation, a generator that can return zero requires a rule that excludes zero before taking the logarithm. Floating-point uniforms also have a smallest positive representable value in the generator's actual support, which bounds the largest radius the transformation can return. These are properties of the implemented random source; they do not alter the continuous density calculation.{{cite:grinstead_snell1997}} (§§1.1, 5.2, uniform simulation and normal transformation)
 
-## Check yourself
-Apply the scale parameter to a standard deviation.
-
-### Rescaling a normal {#self-check-ex-prob-generate-normal}
-[Rescaling a standard normal draw](../questions/ex-prob-generate-normal.qmd): produce a draw with mean three and variance nine.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Return $3+3Z$. Its expectation is three and its variance is $3^2\operatorname{Var}(Z)=9$.
-:::
-
-### Rescaling the input {#self-check-ex-prob-generate-uniform}
-[Draws from a uniform interval](../questions/ex-prob-generate-uniform.qmd): transform a unit uniform into a uniform on $[10,15]$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Use $10+5U$. The interval length is five, and the linear transformation maps the unit interval to the required interval with constant density $1/5$.
-:::

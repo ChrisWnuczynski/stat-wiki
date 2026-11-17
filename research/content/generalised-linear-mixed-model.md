@@ -51,17 +51,3 @@ Conditional independence makes the within-group covariance equal to that conditi
 Then $b=0$ almost surely. Both marginal means and variances become $2$, and the covariance and correlation between the two counts become zero. The model reduces to independent Poisson responses with a fixed mean.
 :::
 
-## Check yourself
-### Patient-specific trends {#self-check-q-41}
-[Random slopes and changed conclusions](../questions/q-41.qmd): describe the extra random coefficient and compare the two interaction uncertainties.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Add $b_{1i}t$ to the patient intercept $b_{0i}$ and give $(b_{0i},b_{1i})$ a joint centred normal law with a positive semidefinite covariance matrix. The interaction statistics change from $-0.080/0.030\approx-2.667$ to $-0.070/0.055\approx-1.273$. The second standard error is larger, so its estimated difference is less precisely determined. Its approximate interval is $-0.070\pm1.96(0.055)=(-0.1778,0.0378)$, which includes nonzero differences as well as zero.
-:::
-
-### Dependence from a patient intercept {#self-check-ex-toenail-glmm}
-[Toenail infection GLMM](../questions/ex-toenail-glmm.qmd): explain why random allocation does not remove repeated-measure dependence.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Repeated visits share the same patient's latent intercept. The conditional logit includes treatment, week, their interaction and that intercept. Given the intercept the visits are modelled as independent; marginally their probabilities covary through it. Random treatment assignment addresses the treatment comparison but does not make repeated measurements from a person independent.
-:::

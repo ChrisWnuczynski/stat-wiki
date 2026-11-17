@@ -55,7 +55,7 @@ assert body.count('title="Proof"') == 1
 assert body.count('title="Answer"') >= 3
 assert "## Check yourself" in body
 assert "part1-fig-04-gibbs-staircase.png" in page
-for key in ("geyer2005_markov_chain", "gelfand_smith1990"):
+for key in ("gelfand_smith1990",):
     assert f'data-cite-key="{key}"' in body, key
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", page))
 assert {"q-04", "q-09", "q-59", "q-26"} <= questions

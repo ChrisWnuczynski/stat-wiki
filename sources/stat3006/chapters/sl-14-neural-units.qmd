@@ -71,7 +71,7 @@ A sigmoid unit with output $o=1/(1+e^{-w^\top x-w_0})$ is the same log-odds map 
 
 ## What one threshold unit can separate
 
-With two inputs and one threshold output, the output changes where the net input changes sign. The decision boundary is the zero set of $w_0+w^\top x$. For one threshold unit the partition is always a half-space, and the geometric question is where the bounding hyperplane sits{{cite:rosenblatt1958}}{{cite:minsky_papert1969}}{{cite:bishop2006}}.
+With two inputs and one threshold output, the output changes where the net input changes sign. The decision boundary is the zero set of $w_0+w^\top x$. For one threshold unit the partition is always a half-space, and the geometric question is where the bounding hyperplane sits{{cite:rosenblatt1958}} (pp. 386–408){{cite:minsky_papert1969}}{{cite:bishop2006}}.
 
 ### Without a bias
 
@@ -225,7 +225,7 @@ $$
 F(x)=\sum_{q=1}^{l} a_q\,\sigma(w_q^\top x+b_q)
 $$
 
-with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon${{cite:cybenko1989}}. The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values{{cite:cybenko1989}}{{cite:bishop2006}}. Results for measurable targets use weaker notions of approximation{{cite:hornik1989}}. They do not assert uniform approximation of every discontinuous function by continuous networks.
+with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon${{cite:cybenko1989}} (pp. 303–314). The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values{{cite:cybenko1989}} (pp. 303–314){{cite:bishop2006}}. Results for measurable targets use weaker notions of approximation{{cite:hornik1989}} (pp. 359–366). They do not assert uniform approximation of every discontinuous function by continuous networks.
 
 :::
 

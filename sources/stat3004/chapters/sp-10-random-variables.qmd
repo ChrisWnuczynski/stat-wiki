@@ -46,7 +46,7 @@ $$
 X=\sum_{i=1}^m a_i\, 1_{A_i}
 $$
 
-with the $A_i$ disjoint and measurable and $a_i\ge 0$. Define $\E X=\sum_i a_i\mathrm{P}(A_i)$.{{cite:billingsley1995}} For a general non-negative measurable $X$, choose simple $X_n$ with $0\le X_n\uparrow X$ and define $\E X=\lim_n\E X_n$, allowing the value $+\infty$.{{cite:durrett2019}} The limit does not depend on the approximating sequence. This is the integral of $X$ with respect to $\mathrm{P}$.{{cite:lebesgue1902}}
+with the $A_i$ disjoint and measurable and $a_i\ge 0$. Define $\E X=\sum_i a_i\mathrm{P}(A_i)$.{{cite:billingsley1995}} For a general non-negative measurable $X$, choose simple $X_n$ with $0\le X_n\uparrow X$ and define $\E X=\lim_n\E X_n$, allowing the value $+\infty$.{{cite:durrett2019}} The limit does not depend on the approximating sequence. This is the integral of $X$ with respect to $\mathrm{P}$.{{cite:lebesgue1902}} (pp. 231–359)
 
 For a real-valued $X$, split $X=X^+-X^-$ with $X^+=\max(X,0)$ and $X^-=\max(-X,0)$, so $|X|=X^++X^-$. If $\E|X|<\infty$, both parts have finite expectation and
 
@@ -95,7 +95,7 @@ while $\mathrm{P}(-1\le X\le 2)=1$. The first interval excludes the atom at $-1$
 
 :::
 
-If $X$ has a density $f$, then $F_X(x)=\int_{-\infty}^x f(u)\,du$, and $F_X'(x)=f(x)$ at points where the derivative exists. A density is allowed to exceed $1$. Its integral over the line equals $1$. A law can also mix atoms with a density. The distribution function then has jumps and continuously increasing pieces. The Lebesgue decomposition splits a general law into a discrete part, an absolutely continuous part, and a singular continuous part.{{cite:lebesgue1902}}{{cite:billingsley1995}}{{cite:durrett2019}}
+If $X$ has a density $f$, then $F_X(x)=\int_{-\infty}^x f(u)\,du$, and $F_X'(x)=f(x)$ at points where the derivative exists. A density is allowed to exceed $1$. Its integral over the line equals $1$. A law can also mix atoms with a density. The distribution function then has jumps and continuously increasing pieces. The Lebesgue decomposition splits a general law into a discrete part, an absolutely continuous part, and a singular continuous part.{{cite:lebesgue1902}} (pp. 231–359){{cite:billingsley1995}}{{cite:durrett2019}}
 
 ## Transformations and joints
 

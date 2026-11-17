@@ -80,27 +80,5 @@ The exponential hold is memoryless. A holding time that is always exactly $15$ m
 ## Connections
 The [holding time](holding-time.qmd) is the exponential wait. The [jump chain](jump-chain.qmd) carries the probabilities $q_{ij}/\nu_i$. A [Poisson process](homogeneous-poisson-process.qmd) is the continuous-time chain that only steps upward, at a constant rate. The two-state calculation is the smallest case in which a rate diagram, a stationary distribution, and a forward equation can be written in full.
 
-## Check yourself
-### Row sums
-What do the two rows of the rate-$2$ and rate-$4$ generator sum to?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each row sums to $0$: $-2+2=0$ and $4-4=0$.
-:::
-
-### Time versus visits
-With those rates, what fraction of visits does the jump chain spend idle, and what fraction of time does the continuous-time chain spend idle?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The jump chain alternates, so half of the visits are idle. The time average is $2/3$, because idle spells last twice as long as busy spells.
-:::
-
-### One hour
-Starting idle, about how large is the probability of being busy after one hour, and what is the stationary value it is approaching?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The probability is $(1-e^{-6})/3\approx 0.3325$. The stationary probability of busy is $1/3\approx 0.3333$.
-:::
-
 ## History
 The generator records rates rather than one-step probabilities. For the two-state machine the stationary distribution is the normalised vector of mean holding times, and the chance of being busy, starting from idle, solves a linear differential equation whose limit is that same stationary value.

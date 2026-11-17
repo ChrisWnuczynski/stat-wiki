@@ -427,17 +427,11 @@ class CitationTests(unittest.TestCase):
             without_headings = re.sub(r"(?m)^#{1,6}[^\n]*$", "", without_links)
             self.assertRegex(without_headings, r"\b\w{3,}\b", f"Link-only self-check in {path.name}")
             question_ids = re.findall(r"(?m)^### .*\{#self-check-([^}]+)\}", check)
-            # Ranks 1–217 use question-bank items. Later pages keep their own
-            # hidden answers under the same heading.
-            if int(rank) <= 217:
-                self.assertIn(len(question_ids), {2, 3}, f"Expected 2–3 bank questions in {path.name}")
-                self.assertEqual(check.count('collapse="true" title="Answer"'), len(question_ids),
-                                 f"Unhidden or missing answer in {path.name}")
-                for qid in question_ids:
-                    self.assertIn(f"../questions/{qid}.qmd", check, f"Missing bank link in {path.name}")
-            else:
-                self.assertGreaterEqual(check.count('collapse="true" title="Answer"'), 2,
-                                         f"Expected hidden answers in {path.name}")
+            self.assertIn(len(question_ids), {2, 3}, f"Expected 2–3 bank questions in {path.name}")
+            self.assertEqual(check.count('collapse="true" title="Answer"'), len(question_ids),
+                             f"Unhidden or missing answer in {path.name}")
+            for qid in question_ids:
+                self.assertIn(f"../questions/{qid}.qmd", check, f"Missing bank link in {path.name}")
             self.assertIsNone(
                 # "Inherited traits", "retained draws" and an opened door are subject matter.
                 re.search(
@@ -453,11 +447,8 @@ class CitationTests(unittest.TestCase):
                 ),
                 f"Editor-facing prose in {path.name}",
             )
-            # Ranks 1–217 had every copied citation located. Ranks 218–367 still
-            # include chapter excerpts whose markers were not given locators.
-            if int(rank) <= 217:
-                for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
-                    self.assertRegex(
+            for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
+                self.assertRegex(
                     body[match.end():match.end() + 60],
                     r"^\s*\((?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|biography,|Abstract|Introduction|Description|Basic Theory|Convergence(?: in Distribution)?|Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|six principles|principles|principle\s+\d+|entries\b|Price’s letter|[“\"])",
                     f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
@@ -498,8 +489,9 @@ class CitationTests(unittest.TestCase):
 
     def test_rank_band_does_not_cite_lecture_notes_or_slides(self) -> None:
         lecture_marks = (
-            "lecture", "slides", "ocw.mit.edu", "cs229", "crash-course", "crash course",
-            "ucla-biostat", "statlect",
+            "lecture", "slides", "handout", "statlect", "mooc",
+            "ocw.mit.edu", "cs229", "crash-course", "crash course",
+            "ucla-biostat",
         )
         lecture_keys = {
             key for key, work in self.works.items()
@@ -511,6 +503,8 @@ class CitationTests(unittest.TestCase):
                 "pishro_nik2014", "grinstead_snell1997", "hernan_robins2020",
                 "shalev_bendavid2014", "hyndman_athanasopoulos2021",
                 "goodfellow_bengio_courville2016", "levin_peres2017",
+                # Full Bertsekas–Tsitsiklis textbook, hosted as a PDF, not a slide deck.
+                "bertsekas_tsitsiklis2008_summary",
             }
         }
         named = {
@@ -523,16 +517,62 @@ class CitationTests(unittest.TestCase):
             "cambridge_stats1b2016", "mit_ocw_conjugate2022",
         }
         lecture_keys |= named
-        ranking = json.loads((ROOT / "research" / "ranking.json").read_text(encoding="utf-8"))
         hits = []
-        for rank, row in enumerate(ranking, start=1):
-            if not 68 <= rank <= 367:
+        paths = list((ROOT / "research" / "content").glob("*.md"))
+        paths += list((ROOT / "sources").rglob("*.qmd"))
+        for name in ("topics.py", "article_extras.py", "theorem_depth.py", "distributions.json"):
+            paths.append(ROOT / name)
+        for path in paths:
+            if not path.is_file():
                 continue
-            text = (ROOT / "research" / "content" / f"{row['slug']}.md").read_text(encoding="utf-8")
+            text = path.read_text(encoding="utf-8")
             used = set(re.findall(r"\{\{cite:([^}]+)\}\}", text)) & lecture_keys
             if used:
-                hits.append(f"{row['slug']}: {sorted(used)}")
+                hits.append(f"{path.relative_to(ROOT)}: {sorted(used)}")
         self.assertEqual(hits, [])
+
+    def test_rank_band_has_two_independent_sources(self) -> None:
+        """Ranks 68–517 need at least five citations from two proper sources."""
+        lecture_marks = (
+            "lecture", "slides", "handout", "statlect", "mooc",
+            "ocw.mit.edu", "cs229", "crash-course", "ucla-biostat",
+        )
+        software_marks = (
+            "cran.r-project.org", "docs.scipy.org", "scikit-learn.org",
+            "numpy.org/doc", "stat.ethz.ch/r-manual", "rdocumentation.org",
+        )
+        blocked = set()
+        for key, work in self.works.items():
+            blob = " ".join((
+                key, work.get("title") or "", work.get("url") or "",
+                (work.get("verification") or {}).get("id") or "",
+            )).lower()
+            if any(mark in blob for mark in lecture_marks + software_marks):
+                if key not in {
+                    "pishro_nik2014", "grinstead_snell1997", "hernan_robins2020",
+                    "shalev_bendavid2014", "hyndman_athanasopoulos2021",
+                    "goodfellow_bengio_courville2016", "levin_peres2017",
+                    "bertsekas_tsitsiklis2008_summary",
+                }:
+                    blocked.add(key)
+        ranking = json.loads((ROOT / "research" / "ranking.json").read_text(encoding="utf-8"))
+        thin = []
+        for rank, row in enumerate(ranking, start=1):
+            if not 68 <= rank <= 517:
+                continue
+            text = (ROOT / "research" / "content" / f"{row['slug']}.md").read_text(encoding="utf-8")
+            cites = re.findall(r"\{\{cite:([^}]+)\}\}", text)
+            proper = [key for key in cites if key not in blocked]
+            authors = []
+            for key in set(proper):
+                people = self.works.get(key, {}).get("authors") or []
+                surname = ""
+                if people:
+                    surname = people[0].split(",")[0].strip().lower()
+                authors.append(surname or key)
+            if len(proper) < 5 or len(set(authors)) < 2:
+                thin.append(f"{rank} {row['slug']}: {len(proper)} cites, authors {sorted(set(authors))}")
+        self.assertEqual(thin, [])
 
     def test_bibliography_has_no_duplicate_verification_urls(self) -> None:
         seen: dict[str, str] = {}

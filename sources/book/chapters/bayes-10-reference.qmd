@@ -33,7 +33,7 @@ For a variable of interest $z$, a kernel is the part of a density or mass functi
 ::: {#def-conjugate-prior-family .definition}
 ## Conjugate prior family
 
-A prior family is conjugate for a likelihood family when the posterior belongs to the same family as the prior for every admissible dataset.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}}{{cite:gelman_bda2013}}
+A prior family is conjugate for a likelihood family when the posterior belongs to the same family as the prior for every admissible dataset.{{cite:raiffa_schlaifer1961}}{{cite:diaconis_ylvisaker1979}} (pp. 269–281){{cite:gelman_bda2013}}
 
 :::
 

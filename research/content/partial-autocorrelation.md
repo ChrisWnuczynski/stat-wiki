@@ -49,15 +49,3 @@ The autocorrelation has cut off, and the partial autocorrelation has not.
 ## Connections — Order, the autocorrelation, and a cutoff in the other direction
 The [autocorrelation function](autocorrelation-function.qmd) of an autoregression decays and does not cut off. The partial autocorrelation is the plot that cuts off, which is why it suggests the order of an [autoregression](autoregression-and-moving-averages.qmd). A moving average cuts the autocorrelation off and leaves a tail in the partial autocorrelation, as the coefficient \(0.6\) did. Both descriptions need [weak stationarity](weak-stationarity.qmd), so that the correlations depend on the lag alone.{{cite:hyndman_athanasopoulos2021}} (§9.5, ACF and PACF plots){{cite:dodge2008}} (p. 412)
 
-## Check yourself
-For an autoregression with coefficient \(0.8\), what are \(\rho_2\) and \(\phi_{22}\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\rho_2=0.64\) and \(\phi_{22}=(0.64-0.64)/(1-0.64)=0\).
-:::
-
-If \(\rho_1=0.5\) and \(\rho_2=0.1\), what is \(\phi_{22}\) to four decimal places? Is the series an autoregression of order \(1\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\phi_{22}=(0.1-0.25)/(1-0.25)=-0.15/0.75=-0.2\). It is not an autoregression of order \(1\), because that model would have forced the numerator, and so \(\phi_{22}\), to be \(0\).
-:::

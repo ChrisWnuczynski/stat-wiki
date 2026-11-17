@@ -93,7 +93,7 @@ $$
 $$
 
 
- is the probability simplex. The normalising constant is the multivariate beta integral.{{cite:tokdar2018_dirichlet}} (p. 1, simplex density and multivariate beta normalizer)
+ is the probability simplex. The normalising constant is the multivariate beta integral.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70, multinomial sampling)
 
 :::
 
@@ -110,7 +110,7 @@ $$
 $$
 
 
- which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70){{cite:tokdar2018_dirichlet}} (p. 1, two-category beta special case) The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.
+ which is exactly $\BetaDist(\alpha_1,\alpha_2)$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70) The Dirichlet is therefore a genuine extension of the Beta family rather than merely a similar-looking density.
 
 :::
 
@@ -153,7 +153,7 @@ $$
 $$
 
 
- The covariance matrix is singular because the components of $\widehat\pvec-\pvec$ sum to zero.{{cite:pearson1900}}{{cite:cramer1946}} On the $(K-1)$-dimensional simplex, the count cloud therefore tightens at the usual $n^{-1/2}$ rate and becomes locally normal.{{cite:cramer1946}}
+ The covariance matrix is singular because the components of $\widehat\pvec-\pvec$ sum to zero.{{cite:pearson1900}} (pp. 157–175){{cite:cramer1946}} On the $(K-1)$-dimensional simplex, the count cloud therefore tightens at the usual $n^{-1/2}$ rate and becomes locally normal.{{cite:cramer1946}}
 
 :::
 
@@ -237,7 +237,7 @@ Consequently, \begin{equation}
  \operatorname{mode}(P_k)
  =\frac{\alpha_k-1}{\alpha_0-K}.
  \label{eq:dir-mode-book}
-\end{equation} This derivation requires every $\alpha_k>1$.{{cite:tokdar2018_dirichlet}} (p. 1, density exponents and interior-mode condition) Otherwise the mode may lie on a face or corner of the simplex.{{cite:tokdar2018_dirichlet}} (p. 1, boundary behavior from density exponents)
+\end{equation} This derivation requires every $\alpha_k>1$.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70, multinomial sampling) Otherwise the mode may lie on a face or corner of the simplex.{{cite:gelman_bda2013}} (Ch. 3, §3.4, pp. 69–70, multinomial sampling)
 
 :::
 

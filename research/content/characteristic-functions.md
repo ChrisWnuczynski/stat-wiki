@@ -52,19 +52,3 @@ The continuity theorem says that pointwise convergence of characteristic functio
 
 For independent symmetric signs, the normalised sum has transform $[\cos(t/\sqrt n)]^n$. At $t=1$, it is $0.593133$ for $n=4$ and $0.606024$ for $n=100$, approaching $e^{-1/2}=0.606531$. The transform limit is the standard normal characteristic function. The continuity theorem concerns distributions; convergence of means or variances requires further control of the tails.{{cite:durrett2019}} (§3.4.1, independent identically distributed central limit theorem)
 
-## Check yourself
-Identify which factorisation or derivative is justified by the model.
-
-### Moments of an exponential law {#self-check-ex-prob-exp-moments}
-[Exponential moments](../questions/ex-prob-exp-moments.qmd): use $M(s)=1/(1-s)$ to find $\mathbb EX^n$ for a rate-one exponential variable.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Differentiating gives $M^{(n)}(s)=n!/(1-s)^{n+1}$. At zero this equals $n!$. Its characteristic function is the corresponding $1/(1-it)$, which exists for every real $t$.
-:::
-
-### Same marginals, different dependence {#self-check-ex-sp-same-marginals}
-[Same marginals](../questions/ex-sp-same-marginals.qmd): compare one Bernoulli variable repeated at every time with independent Bernoulli variables of the same success probability.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Both constructions have Bernoulli marginals. In the repeated construction the first two observations agree with probability one; for independent draws they agree with probability $p^2+(1-p)^2$. Only in the independent construction may the transform of the sum be obtained by multiplying the two marginal transforms.
-:::

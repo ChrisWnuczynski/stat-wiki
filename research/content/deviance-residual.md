@@ -46,19 +46,3 @@ d(y,\mu)=\delta^2/\mu+O(\delta^3/\mu^2).
 $$
 Thus $r_D$ is approximately $\delta/\sqrt\mu$ near a close fit, agreeing to first order with the Poisson Pearson residual. The expansion is local; zero counts at small means and large deviations can show substantial differences.{{cite:dunn_smyth1996}} (§2, comparison of Pearson and deviance residuals)
 
-## Check yourself
-Keep unscaled deviance distinct from its dispersion-scaled likelihood ratio.
-
-### The saturated comparison {#self-check-c-29}
-[Saturated model and deviance](../questions/c-29.qmd): which squared residual sum corresponds to $D$, and which to $D/\phi$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The unit-deviance residuals satisfy $\sum_i r_{D,i}^2=D$. Their dispersion-scaled versions $r_{D,i}/\sqrt\phi$ satisfy a squared sum of $D/\phi$, the scaled likelihood-ratio discrepancy at the common dispersion.
-:::
-
-### Comparing fitted models {#self-check-ex-sl-10-6}
-[Reading the deviance](../questions/ex-sl-10-6.qmd): use the stated Wald approximation to predict the reduced-model deviance.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The approximate increase is $1.016^2=1.032256$, giving $354.97+1.032256\approx356.0023$ on $297$ residual degrees of freedom. The actual observed likelihood-ratio difference requires refitting the reduced model. The approximation is below the supplied one-degree-of-freedom critical value $3.84$.
-:::

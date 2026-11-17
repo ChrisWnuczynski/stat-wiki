@@ -41,24 +41,3 @@ The factor is $\begin{pmatrix}3&0\\1&1\end{pmatrix}$. The determinant is $(3\cdo
 ## Assumptions and limits — Singular and nearly singular matrices
 A positive-semidefinite matrix can describe a valid degenerate covariance, but it need not have a Cholesky factor with strictly positive diagonal. At a zero pivot the ordinary recursion needs modification, such as a rank-revealing factorisation. Adding a positive diagonal term changes the covariance model; in Gaussian simulation it corresponds to extra independent noise. Its size should reflect the modelling or numerical purpose.{{cite:rasmussen_williams2006}} (§A.2, p. 201; §A.4, p. 202)
 
-## Check yourself
-
-### Two factors of one covariance {#self-check-ex-sl-02-3}
-
-[Practice question](../questions/ex-sl-02-3.qmd)
-
-Compare Cholesky and spectral factors for the displayed matrix.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The lower factor is $\begin{pmatrix}2&0\\1&\sqrt2\end{pmatrix}$. The eigenvalues are $(7\pm\sqrt{17})/2$, approximately $5.561553$ and $1.438447$. A spectral factor uses the corresponding orthonormal eigenvectors times their square-root eigenvalues; both factors multiplied by their transposes give $A$.
-:::
-
-### What whitening establishes {#self-check-ex-sl-02-7}
-
-[Practice question](../questions/ex-sl-02-7.qmd)
-
-What does empirical whitening establish, and when can its ordinary inverse fail?
-
-::: {.callout-tip collapse="true" title="Answer"}
-For nonsingular empirical covariance, whitening gives sample mean zero and sample covariance identity. It does not make arbitrary observations jointly normal or independent. With eighty centred observations and one hundred variables, covariance rank is at most seventy-nine, so an ordinary inverse square root does not exist.
-:::

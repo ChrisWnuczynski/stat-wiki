@@ -36,37 +36,5 @@ At time $1$, $p_{01}(1)=0.397305$ to six decimal places. Its derivative at zero 
 It is $(1-e^{-2})/2=0.432332$, with limiting probability $1/2$.
 :::
 
-## Check yourself
-
-### Failure and repair {#self-check-ex-sp-two-state-ctmc}
-
-[Practice question](../questions/ex-sp-two-state-ctmc.qmd)
-
-For the two-state chain with $\alpha=2$ and $\beta=3$, find the stationary distribution and $\mathbb{P}\bigl(X(t)=1\mid X(0)=0\bigr)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The stationary distribution on states $(0,1)$ is
-
-$$
-\pi=\Bigl(\frac{\beta}{\alpha+\beta},\frac{\alpha}{\alpha+\beta}\Bigr)=\Bigl(\frac{3}{5},\frac{2}{5}\Bigr).
-$$
-
-Starting from $0$,
-
-$$
-\mathbb{P}\bigl(X(t)=1\mid X(0)=0\bigr)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr)=\frac{2}{5}\bigl(1-e^{-5t}\bigr).
-$$
-:::
-
-### A generator row {#self-check-ex-sp-generator-rows}
-
-[Practice question](../questions/ex-sp-generator-rows.qmd)
-
-Explain why the diagonal of a generator is non-positive and why each row sums to zero.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Off-diagonal rates $q_{ij}$ for $j\neq i$ are non-negative: they are rates of jumps. The diagonal entry is defined to be minus their sum, $q_{ii}=-\nu_i\le 0$, which is the rate of leaving $i$. Each row then sums to $\sum_{j\neq i}q_{ij}+q_{ii}=0$. A row of probabilities would sum to $1$. A row of rates sums to $0$ because the outflow is recorded on the diagonal with a minus sign.
-:::
-
 ## History
-Kolmogorov's work on probability and stochastic processes developed alongside his measure-theoretic foundations. He became a professor in 1931 and published his probability monograph in 1933.{{cite:dodge2008}} (p. 282)
+Kolmogorov was named professor at Moscow State University in 1931 and published his probability monograph in 1933.{{cite:dodge2008}} (p. 282) The forward and backward equations for a continuous-time chain are the differential form of its transition semigroup.{{cite:siegrist2022_ctmc_transition}} (§15.16, “The Transition Semigroup” and “Uniform Transition Semigroups”)
