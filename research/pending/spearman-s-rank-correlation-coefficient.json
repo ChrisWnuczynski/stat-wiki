@@ -1,0 +1,40 @@
+{
+  "action": "page",
+  "slug": "spearman-s-rank-correlation-coefficient",
+  "term": "Spearman's rank correlation coefficient",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [
+    "Spearman's rho",
+    "Spearman rank correlation"
+  ],
+  "lead": {
+    "field": "statistics",
+    "article": "the",
+    "term": "Spearman's rank correlation coefficient",
+    "verb": "is",
+    "proper": true,
+    "description": "a measure of agreement between two rankings, on a scale from -1 to +1"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "openintro2019"
+  ],
+  "overview_sentence": "[Spearman's rank correlation coefficient](articles/spearman-s-rank-correlation-coefficient.qmd) measures agreement between two rankings.",
+  "covered_terms": [
+    "Spearman's rank correlation coefficient"
+  ],
+  "self_checks": [
+    {
+      "title": "Mild disagreement",
+      "prompt": "Rank differences are 0, 0, -1, and 1, so the squared differences sum to 2, and n = 4. What is the coefficient?",
+      "answer": "The coefficient is 0.8."
+    },
+    {
+      "title": "Complete reversal",
+      "prompt": "The squared rank differences for a complete reversal of four ranks sum to 20. What is the coefficient?",
+      "answer": "The coefficient is -1."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "action": "page",
+  "slug": "measurement",
+  "term": "measurement",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistics",
+    "article": "",
+    "term": "measurement",
+    "verb": "is",
+    "description": "assignment of a numerical value by a procedure that has a scatter and may sit off the quantity it aims at"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "nist_glossary2002",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Measurement](articles/measurement.qmd) assigns a number by a procedure that can scatter and can sit off the quantity it aims at.",
+  "covered_terms": [
+    "Measurement"
+  ],
+  "self_checks": [
+    {
+      "title": "Two operators",
+      "prompt": "Operator A's times 10, 12, 11, and 11 have mean 11. The true duration is 12. What is A's bias?",
+      "answer": "A's bias is -1."
+    },
+    {
+      "title": "One more time",
+      "prompt": "A's times gain a fifth value of 16, and the true duration stays 12. What are the new mean and the new bias?",
+      "answer": "The mean is 12 and the bias is 0."
+    }
+  ]
+}

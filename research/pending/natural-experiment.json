@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "natural-experiment",
+  "term": "natural experiment",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study design",
+    "article": "a",
+    "term": "natural experiment",
+    "verb": "is",
+    "description": "a comparison that uses a treatment contrast generated outside the study"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "openintro2019",
+    "nist_glossary2002"
+  ],
+  "overview_sentence": "A [natural experiment](articles/natural-experiment.qmd) uses a treatment contrast that the study did not assign.",
+  "covered_terms": [
+    "Natural experiment"
+  ],
+  "self_checks": [
+    {
+      "title": "Route means",
+      "prompt": "Long-route times are 30, 40, 50, and 40. Short-route times are 20, 25, 30, and 25. What is the contrast of means?",
+      "answer": "The means are 40 and 25, so the contrast is 15."
+    },
+    {
+      "title": "Extra short trip",
+      "prompt": "One more short-route time of 20 is added, and the long-route mean stays 40. What is the new contrast?",
+      "answer": "The short-route mean is 24, so the contrast is 16."
+    }
+  ]
+}

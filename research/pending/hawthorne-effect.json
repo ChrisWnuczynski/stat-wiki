@@ -1,0 +1,16 @@
+{
+  "action": "defer",
+  "term": "Hawthorne effect",
+  "slug": "hawthorne-effect",
+  "covered_terms": [
+    "Hawthorne effect",
+    "Hawthorne study"
+  ],
+  "reason": "Opened OpenIntro Statistics chapter 1 (experiments, control, placebo), Hern\u00e1n and Robins chapters 1\u20132 and 16 and the confounding chapter, Dodge entries on experimental design, sampling, and error, and the NIST/SEMATECH glossary entries for control group, randomization, and survey. None defines the Hawthorne effect or the Hawthorne study. An open-access review could not be retrieved.",
+  "sources_tried": [
+    "openintro2019 pp. 9\u201333",
+    "hernan_robins2020 ch. 1\u20132, ch. 7, ch. 16",
+    "dodge2008 Design of Experiments pp. 162\u2013163, Sampling pp. 468\u2013469, Error pp. 182\u2013183",
+    "nist_glossary2002 control group, randomization, survey"
+  ]
+}

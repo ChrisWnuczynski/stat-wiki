@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "raw-data",
+  "term": "raw data",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistics",
+    "article": "",
+    "term": "raw data",
+    "verb": "is",
+    "description": "observations as recorded, before they are replaced by fewer summary numbers"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "openintro2019",
+    "nist_glossary2002",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Raw data](articles/raw-data.qmd) are the observations as recorded, before they are reduced to summaries.",
+  "covered_terms": [
+    "Raw data"
+  ],
+  "self_checks": [
+    {
+      "title": "Five times",
+      "prompt": "Reaction times 8, 11, 9, 10, and 12 are reduced to their mean. What is that mean?",
+      "answer": "The mean is 10."
+    },
+    {
+      "title": "Sixth time",
+      "prompt": "A sixth time of 16 is appended to 8, 11, 9, 10, and 12. What is the new mean?",
+      "answer": "The new mean is 11."
+    }
+  ]
+}

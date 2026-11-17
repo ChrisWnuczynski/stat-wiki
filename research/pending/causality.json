@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "causality",
+  "term": "causality",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study design",
+    "article": "",
+    "term": "causality",
+    "verb": "is",
+    "description": "a contrast between the outcomes of the same units under two actions"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "openintro2019",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Causality](articles/causality.qmd) is a contrast of outcomes under two actions.",
+  "covered_terms": [
+    "Causality"
+  ],
+  "self_checks": [
+    {
+      "title": "How many people differ",
+      "prompt": "Five people have treatment outcomes 1, 0, 1, 1, 0 and untreated outcomes 0, 0, 1, 0, 0. How many individual effects are nonzero?",
+      "answer": "Two individual effects are nonzero."
+    },
+    {
+      "title": "Corrected mean",
+      "prompt": "The third untreated outcome is changed from 1 to 0, and the treated mean stays 0.6. What is the average causal effect?",
+      "answer": "The untreated mean is 0, so the average causal effect is 0.6."
+    }
+  ]
+}

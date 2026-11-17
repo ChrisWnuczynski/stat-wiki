@@ -1,0 +1,36 @@
+{
+  "action": "page",
+  "slug": "systematic-sampling",
+  "term": "systematic sampling",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study design",
+    "article": "",
+    "term": "systematic sampling",
+    "verb": "is",
+    "description": "selection at a fixed interval through an ordered list, after a random start"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "nist_glossary2002"
+  ],
+  "overview_sentence": "[Systematic sampling](articles/systematic-sampling.qmd) takes every rth unit after a random start.",
+  "covered_terms": [
+    "Systematic sampling"
+  ],
+  "self_checks": [
+    {
+      "title": "Interval and last label",
+      "prompt": "N = 40 houses and n = 8, with random start 3. What is the interval, and what is the last selected label?",
+      "answer": "The interval is 5 and the last label is 38."
+    },
+    {
+      "title": "New start",
+      "prompt": "The start is 1, with the same N = 40, n = 8, and interval 5. What is the last label?",
+      "answer": "The last label is 36."
+    }
+  ]
+}
