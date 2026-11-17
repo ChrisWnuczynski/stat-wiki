@@ -1,14 +1,37 @@
 {
-  "action": "defer",
-  "term": "Pearson distribution",
+  "action": "page",
   "slug": "pearson-distribution",
-  "covered_terms": [
-    "Pearson distribution"
+  "term": "Pearson distribution",
+  "topic": "Probability distributions",
+  "kind": "concept",
+  "aliases": ["Pearson system", "Pearson curves"],
+  "lead": {
+    "field": "probability",
+    "article": "a",
+    "term": "Pearson distribution",
+    "verb": "is",
+    "description": "a frequency curve whose logarithmic slope, at the mode, is minus the abscissa divided by a quadratic",
+    "proper": true
+  },
+  "self_checks": [
+    {
+      "title": "A bag of one hundred",
+      "prompt": "For n = 100, between which values of p, to four decimals, is every draw size a trigonometric integral?",
+      "answer": "The values are 0.3995 and 0.6005."
+    },
+    {
+      "title": "A one-sided curve",
+      "prompt": "A Type III curve has p = 3 and gamma = 2. What are mu2, the memoir skewness 1/sqrt(p+1), and mu4/mu2^2?",
+      "answer": "mu2 is 1, the memoir skewness is 1/2, and mu4/mu2^2 is 9/2."
+    },
+    {
+      "title": "Another one-sided curve",
+      "prompt": "A Type III curve has p = 8 and gamma = 1. What are the memoir skewness and mu4/mu2^2?",
+      "answer": "The memoir skewness is 1/3 and mu4/mu2^2 is 11/3."
+    }
   ],
-  "reason": "Dodge’s measure-of-shape entry (p. 344) says Pearson published a system of frequency curves in 1894 and 1895 and that departures from the normal curve are characterised by moments of orders 3 and 4, but it does not give the differential equation or the types. The MathWorld Pearson-system page was opened and its defining equations did not render as text. A 2015 note names a family of twelve members without stating the Pearson equation.",
-  "sources_tried": [
-    "dodge2008 pp. 343–344",
-    "MathWorld Pearson System",
-    "Bevrani-style CMDE 2015 note, first pages"
-  ]
+  "bibliography": {},
+  "cite_keys": ["pearson1895", "dodge2008"],
+  "overview_sentence": "A [Pearson distribution](articles/pearson-distribution.qmd) is a frequency curve whose slope at the mode has a quadratic denominator.",
+  "covered_terms": ["Pearson distribution", "Pearson system", "Pearson curves"]
 }
