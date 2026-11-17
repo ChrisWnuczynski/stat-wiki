@@ -1280,6 +1280,7 @@ ALIASES.update({
     "Efficiency": "asymptotic-relative-efficiency",
     "Stochastic": "stochastic-process",
     "Z-score": "standard-score",
+    "Artificial intelligence": "machine-learning",
     "Residual sum of squares": "ordinary-least-squares",
     "Tukey's range test": "tukey-intervals",
     "False positive": "type-i-and-type-ii-errors",

@@ -32,7 +32,7 @@ Add uncertain claims here before writing them into an article.
 - `clotting-time-data`: historical Hurn provenance was not rechecked in accessible full text; dataset values verified against R glm Examples, and source opening replacement supplied.
 
 - Dependent and independent variables are already the response-variable and explanatory-variable pages, so there is no third page.
-- Artificial intelligence was not given an alias to machine learning, because that page does not treat artificial intelligence. A sourced page was not written.
+- Artificial intelligence aliases to machine learning. The page cites Hastie, Tibshirani, and Friedman on the overlap between statistics and artificial intelligence, including neural networks.
 - Stochastic analysis was not aliased to stochastic process. Stochastic analysis is the calculus of stochastic processes, and that page does not develop the calculus.
 - Gap list after the second pass. A term stays here only when the opened sources did not support a page:
 
