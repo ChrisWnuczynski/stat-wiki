@@ -1,12 +1,56 @@
 {
-  "action": "defer",
-  "term": "Environmental statistics",
+  "action": "page",
   "slug": "environmental-statistics",
+  "term": "Environmental statistics",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "official statistics",
+    "article": "",
+    "term": "environmental statistics",
+    "verb": "is",
+    "description": "statistics that describe the state of the environment, the pressures on it, and the responses to those pressures",
+    "proper": false
+  },
+  "bibliography": {
+    "un_fdes1984": {
+      "authors": [
+        "United Nations"
+      ],
+      "year": 1984,
+      "title": "A Framework for the Development of Environment Statistics",
+      "kind": "book",
+      "publisher": "United Nations",
+      "url": "https://unstats.un.org/unsd/publication/SeriesM/SeriesM_78e.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://unstats.un.org/unsd/publication/SeriesM/SeriesM_78e.pdf"
+      }
+    },
+    "diaz_ramos1996": {
+      "authors": [
+        "Diaz-Ramos, S.",
+        "Stevens, D. L.",
+        "Olsen, A. R."
+      ],
+      "year": 1996,
+      "title": "EMAP Statistical Methods Manual",
+      "kind": "book",
+      "publisher": "U.S. Environmental Protection Agency",
+      "url": "https://archive.epa.gov/nheerl/arm/web/pdf/intro.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://archive.epa.gov/nheerl/arm/web/pdf/intro.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "un_fdes1984",
+    "diaz_ramos1996"
+  ],
+  "overview_sentence": "Environmental statistics describe the state of the environment and the human and natural pressures on it.",
   "covered_terms": [
     "Environmental statistics"
-  ],
-  "reason": "Opened Dodge, Geostatistics, pp. 229\u2013230, which treats spatial prediction and mentions soil contamination only as a cited application. It does not define environmental statistics.",
-  "sources_tried": [
-    "dodge2008 pp. 229\u2013230"
   ]
 }
