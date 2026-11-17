@@ -1,14 +1,14 @@
+
+
 ## Lead context
 
 A result is published, cited, and used to justify the next study. A later study of the same question, run with a new sample, does not find it. By the early 2000s that pattern was no longer a handful of embarrassments. Methodologists argued that the way statistical significance was being used made false claims common, and a large replication project in psychology then counted how often the original result reappeared. That episode is the replication crisis: a loss of confidence in published findings because so many of them fail when the study is done again.
 
-## Definition — Scope
+## Definition
 
 The replication crisis is the recognition that a large share of published research claims do not reappear in new data collected under conditions meant to match the original study. A research finding, in the sense used by the argument, is a relationship that has reached formal statistical significance, typically a [p-value](p-value.qmd) below 0.05. The claim is not that most measurements are fabricated. It is that the probability a claimed relationship is true can be low once power, the prior odds of a true relationship, bias in design and reporting, and the number of teams hunting for a significant result are taken into account.{{cite:ioannidis2005}} (p. 0696)
 
 The crisis is about new studies, not about whether a spreadsheet can be rerun. A finding can be computationally reproducible and still fail to replicate. The episode has been sharpest in fields that run many small studies of small effects, but the underlying arithmetic is not confined to one discipline. Negative results are part of the evidence; the argument is aimed at claims that a relationship exists, not at every non-significant test.{{cite:ioannidis2005}} (p. 0696){{cite:osc2015}} (Abstract)
-
-## Statistical use
 
 The positive predictive value of a claimed finding is $(1-\beta)R/(R-\beta R+\alpha)$ when bias is ignored, where $1-\beta$ is power, $\alpha$ is the [type I error](type-i-and-type-ii-errors.qmd) rate, and $R$ is the ratio of true relationships to false ones among those tested. With $\alpha=0.05$, a claim is more likely true than false only if $(1-\beta)R>0.05$. Small studies and small effects both shrink power and so shrink that probability. Flexibility in definitions, outcomes, and analyses, and selective reporting, act as a bias term that produces findings which the data-generating process would not have produced. [Multiple testing](multiple-testing.qmd) across teams has a similar effect: the chance that at least one team crosses 0.05 grows with the number of independent attempts.{{cite:ioannidis2005}} (pp. 0696–0697)
 
@@ -19,6 +19,14 @@ A direct count asks a different question. The Open Science Collaboration repeate
 Concern that published claims are often later refuted is older than the name of the crisis. Clinical trials, epidemiology, and molecular studies had all supplied examples. The 2005 analysis put the concern into a single positive-predictive-value calculation and listed corollaries: large studies and large effects are more trustworthy than small ones; confirmatory designs beat unconstrained searching; financial interest and flexible analysis make a field's claims less likely to be true. It also noted that selective reporting of outcomes persists even in randomised trials, so stopping the publication of negative papers would not by itself repair the problem.{{cite:ioannidis2005}} (pp. 0696–0698)
 
 The 2015 replication project turned that forecast into a rate for one literature. One hundred replications were completed by 270 authors, with protocols registered and materials archived. Replication success tracked the strength of the original evidence more closely than it tracked which team did the replication. The result did not say that psychology is uniquely unreliable. It said that, in a literature where almost every published test was significant, a high-powered repeat found a significant result about a third of the time.{{cite:osc2015}} (Abstract, Method)
+
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 12. Their total is 78, so their mean is 6.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 4.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Replication crisis has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 6.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [p-value](p-value.qmd), [type I error](type-i-and-type-ii-errors.qmd), [Multiple testing](multiple-testing.qmd), [reproducibility](reproducibility.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 6.5 is zero, so the mean is the least-squares centre of these 12 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 6.5.
 
 ## Connections
 

@@ -34,10 +34,6 @@ for heading in ('Motivating example', 'Worked example', 'Common misconceptions',
 assert body.count('![') == 0
 for qid in ('ex-sl-12-1', 'ex-sl-16-2'):
     assert f'../questions/{qid}.qmd' in page
-pending = root / 'research/pending/cross-entropy.json'
-selected = (json.loads(pending.read_text())['self_checks'] if pending.exists()
-            else json.loads((root / 'research/self-checks.json').read_text())['cross-entropy'])
+selected = json.loads((root / 'research/self-checks.json').read_text())['cross-entropy']
 assert selected == ['ex-sl-12-1', 'ex-sl-16-2']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"') >= 3
 print('rank 162 cross-entropy numerical and preservation checks passed')

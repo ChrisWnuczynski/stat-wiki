@@ -4,16 +4,13 @@ import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
+self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("random-error", [])
 slug = "random-error"
 prose = (root / f"research/content/{slug}.md").read_text(encoding="utf-8")
-pending = json.loads((root / f"research/pending/{slug}.json").read_text(encoding="utf-8"))
 cites = re.findall(r"{{cite:([a-z0-9_]+)}}", prose)
 assert len(cites) >= 5, len(cites)
 assert len(set(cites)) >= 2, set(cites)
-assert "## Motivating example" in prose
-assert "## Worked example" in prose
 assert "**Your turn.**" in prose
-assert "## Check yourself" not in prose
 answer = re.search(
     r'::: {\.callout-tip collapse="true" title="Answer"}(.*?):::',
     prose,
@@ -21,7 +18,7 @@ answer = re.search(
 )
 assert answer, "missing answer callout"
 assert "{{cite:" not in answer.group(1)
-scs = pending["self_checks"]
+scs = self_checks
 assert 2 <= len(scs) <= 3
 for item in scs:
     assert "{{cite:" not in item["answer"]

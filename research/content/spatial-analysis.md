@@ -1,22 +1,33 @@
+
+
 ## Lead context
 
 A pollutant, a house price, or a disease count is not only a number. It is a number at a place, and places near each other tend to look alike. Spatial analysis is the statistical treatment of that fact. The observations carry coordinates, or they are areas that share borders, and the methods ask whether the pattern on the map is more than a random assignment of the same values. Geology, epidemiology, ecology, and official small-area statistics all hand the subject this kind of data.
 
-## Definition — Scope
+## Definition
 
 Spatial analysis, or spatial statistics, is the analysis of observations distributed in space, with explicit attention to their locations and to dependence between neighbours. Two observations close together are expected to resemble each other more than two that are far apart. The data may come from geology, earth science, image analysis, epidemiology, agriculture, ecology, astronomy, or forestry. Sometimes the locations themselves are random, as in a point pattern; sometimes they are fixed areas or fixed sample sites. The subject includes exploring that dependence and testing it, not only drawing the map.{{cite:dodge2008}} (p. 501)
 
 Geostatistics is the branch aimed at geology and hydrology, and more generally at variables measured at known coordinates. The modelling slogan recorded for it is local models, assembled into a global analysis, used to describe and forecast how a variable is distributed in space and, when needed, in time. The word was used by Hart in 1954 in a geographical context. Areal data, the other large class, are values on regions. Spatial autocorrelation is the dependence among those values. Positive autocorrelation means similar values cluster. Negative autocorrelation means dissimilar values sit next to each other.{{cite:dodge2008}} (p. 229){{cite:moraga2023}} (Ch. 8)
 
-## Statistical use
-
 Ordinary summaries still apply. Histograms, means, and correlations describe the values while ignoring the map, and that is often the wrong last step. For several variables at once, scatterplots and correlation remain available, but they do not use the coordinates. Tools that do use them include the [variogram](variogram.qmd), which describes how variation grows with separation, a [spatial Poisson process](spatial-poisson-process.qmd) for event locations, and indices of areal association. [Moran's I](morans-i.qmd) and Geary's $C$ summarise whether neighbouring areas are more alike than a random reassignment of the same numbers would suggest. Weights $w_{ij}$ encode who is a neighbour. The index is then a weighted product of deviations from the mean, scaled by the total variation. A map of local indices shows where the clustering sits, which a single global number cannot.{{cite:moraga2023}} (Ch. 8){{cite:rey_gds2020}} (Ch. 8, §8.3.3){{cite:dodge2008}} (p. 501)
 
 Tobler's statement that near things are more related than distant things is the qualitative form of the same idea. It is not a theorem. It is the reason a model that treats areas as independent is often incredible for these data.{{cite:moraga2023}} (Ch. 8)
 
+
+
+The integer list used above is a device for keeping the target fixed. With 20 integers the mean is determined by their total, and any smaller subset has a different mean. A field that reports the smaller mean as if it were the mean of the full list has changed the target. The same distinction applies when the units are people, firms, or plots rather than integers: the eligible list is part of the definition of the quantity. A model fitted inside the list can be a good description of those units and a poor description of a larger population. Saying which population is intended is a modelling step, not a decoration added after the fit. Neighbour procedures remain useful only for the target they were built for. A confidence interval inherits the sampling model. A regression slope inherits the conditional-mean model. A survival probability inherits the rule for censored times. None of those procedures chooses the eligible list.
 ## History
 
 Edmond Halley, in 1686, overlaid wind directions and the monsoon on a map and tried to explain them. The statistical models came later. Fisher's work at Rothamsted in the 1920s and 1930s set out randomisation, blocking, and replication for field experiments, which are spatial designs even though their aim is agricultural comparison rather than a map of dependence. Geostatistics as a named application grew up around spatial interpolation for natural resources. Areal indices of autocorrelation, among them Moran's $I$, gave a test for the pattern on a choropleth map.{{cite:dodge2008}} (pp. 229, 501){{cite:moraga2023}} (Ch. 8)
+
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 20. Their total is 210, so their mean is 10.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 8.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Spatial analysis has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 10.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [variogram](variogram.qmd), [spatial Poisson process](spatial-poisson-process.qmd), [Moran's I](morans-i.qmd), [time series](time-series.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 10.5 is zero, so the mean is the least-squares centre of these 20 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 10.5.
 
 ## Connections
 

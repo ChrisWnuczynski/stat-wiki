@@ -1,18 +1,36 @@
+
+
 ## Lead context
+
 A life insurer that charges the same premium to every age will, if the price is an average, collect too little from the ages that die sooner. Actuarial science is the mathematical and statistical practice of putting a number on uncertain future payments, especially the payments that depend on how long people live and on whether insured events occur.{{cite:soa_glossary2022}} (Glossary, "Actuary")
 
-## Definition — Scope
+## Definition
+
 An actuary applies mathematical approaches to anticipate, measure, and manage risk. The work identifies risks, documents them, and monitors them, then turns a recommendation into a premium, a reserve, or a benefit rule. It rests on theory, data, and experience, and on professional judgment, because the same calculation affects people whose interests are not the same: the policyholder, the insurer, and the pension members.{{cite:soa_glossary2022}} (Glossary, "Actuary")
 
 The risks are actuarial when occurrence, timing, or severity is uncertain. Mortality is the incidence of death in a population, often as the probability that a person of a given age dies within a stated period. An annuity is a contract for a series of payments over a term of years or over a lifetime. A net premium is the premium, on the valuation assumptions, that will provide the contractual benefits; a net-premium valuation sets reserves from mortality and interest, without loading for the company's expenses. Liabilities are the actuarial present value of the future payments the insurer or the pension plan has promised.{{cite:soa_glossary2022}} (Glossary, "Mortality"; Glossary, "Annuity"; Glossary, "Net Premium"; Glossary, "Liabilities")
 
 ## Statistical use
+
 The life table is the central summary. It converts a schedule of age-specific death probabilities into survivors, deaths, and expected remaining lifetime. Cohort survival between two censuses, set beside the survival a life table would predict, is one check on whether the mortality schedule and the population count tell the same story. Where a register is incomplete, model life tables and indirect estimates of child and adult mortality fill the schedule before any present value is computed.{{cite:moultrie2013}} (Ch. 1, cohort survival; Introduction, pp. vii–viii)
 
 Pricing and reserving turn that schedule into money. A present-value model discounts expected future benefits and expenses, and subtracts the present value of future premiums. The interest assumption and the mortality assumption both move the reserve. A best-estimate reserve uses assumptions that are not deliberately padded; a statutory reserve may carry a margin. [Survival models](survival-function.qmd) and [censoring](censoring-statistics.qmd) appear when the data are durations observed only up to a study's end. [Regression](least-squares.qmd) and [generalised linear models](generalised-linear-model.qmd) are used when the rate depends on rating factors such as age and smoking. The [law of large numbers](law-of-large-numbers.qmd) is why a pool of similar policies can be priced from an average that no single policy will match.
 
+
+
+The integer list used above is a device for keeping the target fixed. With 17 integers the mean is determined by their total, and any smaller subset has a different mean. A field that reports the smaller mean as if it were the mean of the full list has changed the target. The same distinction applies when the units are people, firms, or plots rather than integers: the eligible list is part of the definition of the quantity. A model fitted inside the list can be a good description of those units and a poor description of a larger population. Saying which population is intended is a modelling step, not a decoration added after the fit. Neighbour procedures remain useful only for the target they were built for. A confidence interval inherits the sampling model. A regression slope inherits the conditional-mean model. A survival probability inherits the rule for censored times. None of those procedures chooses the eligible list.
 ## History
+
 Graunt's seventeenth-century life table, built from the London bills of mortality, is the ancestor of the mortality schedule actuaries still use. Halley and later Farr turned that idea into tables that could support annuities and insurance. The profession itself grew up with life insurance and with pension promises, as a specialist task of combining a mortality table, an interest rate, and a contract. National censuses and vital registration, from the nineteenth century on, gave the tables a population base. Indirect estimation remains part of the data work wherever registration is incomplete.{{cite:dodge2008}} (p. 156){{cite:moultrie2013}} (Introduction, pp. vii–viii)
 
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 17. Their total is 153, so their mean is 9.0. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 7.0. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Actuarial science has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 9.0 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [Survival models](survival-function.qmd), [censoring](censoring-statistics.qmd), [Regression](least-squares.qmd), [generalised linear models](generalised-linear-model.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 9.0 is zero, so the mean is the least-squares centre of these 17 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 9.0.
+
 ## Connections
+
 [Demography](demography.qmd) measures the same births, deaths, and migrations, and stops at the population account. Actuarial work takes that account and prices a contract written on it. [Epidemiology](epidemiology.qmd) and [biostatistics](biostatistics.qmd) share the survival model and the incomplete follow-up, and ask about disease rather than about a premium. [Econometrics](econometrics.qmd) shares the discounting of uncertain future streams when the stream is a market price rather than a life-contingent payment. The common statistical object is an expectation of a future payment under an explicit probability of the event that triggers it.{{cite:soa_glossary2022}} (Glossary, "Liabilities"){{cite:dodge2008}} (p. 156)

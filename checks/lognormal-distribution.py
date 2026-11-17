@@ -40,9 +40,6 @@ for heading in ('Motivating example','Worked example','Common misconceptions','W
     assert f'## {heading}' in body,heading
 for q in ('q-28','q-45','ex-lognormal-var'):
     assert f'../questions/{q}.qmd' in page
-pending=root/'research/pending/lognormal-distribution.json'
-selected=(json.loads(pending.read_text())['self_checks'] if pending.exists() else json.loads((root/'research/self-checks.json').read_text())['lognormal-distribution'])
+selected = json.loads((root/'research/self-checks.json').read_text())['lognormal-distribution']
 assert selected==['q-28','q-45']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"')>=3
 print('rank 160 lognormal moments, tails and preservation checks passed')

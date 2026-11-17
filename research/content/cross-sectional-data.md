@@ -1,3 +1,5 @@
+
+
 ## Lead context
 
 Some data sets are a single snapshot. Each person, firm, or plot appears once, and the differences of interest are differences between those units. Cross-sectional data are that snapshot. They support comparisons across units, and they do not by themselves show how any one unit changed.
@@ -6,19 +8,15 @@ Some data sets are a single snapshot. Each person, firm, or plot appears once, a
 
 Five households are interviewed in the same week and report weekly incomes 2, 4, 4, 6, and 9, in the same currency units. The mean income in this cross-section is 5. Nothing in the table says whether the household that reported 9 earned 9 last year as well. A question about change needs a second observation on the same household. A question about the distribution this week can be answered from the five numbers alone.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
 
-## Intuition
-
-Lay the data out as one row per unit. Columns are variables measured on that unit: income, age, region. Time does not vary inside the table, or it varies so little that the study treats the rows as contemporaneous. The sample size that matches this layout is the number of units, not the number of occasions. A [time series](time-series.qmd) turns the layout the other way: one unit, or one aggregate, observed in time order.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
-
-Units measured once can still share a group. Households in the same village are a cross-section and they are not five isolated draws from unrelated places. The snapshot decides that there is no within-household time sequence. It does not decide that the households are independent of their neighbours.{{cite:cameron_miller2015}} (§I, p. 2)
-
 ## Definition
 
 Cross-sectional data are observations collected at a single point in time, on many units. Quantitative problems that are not about forecasting a series through time are, in the main, either of this kind or are time series collected at regular intervals. The cross-section is the case in which the analysis compares units rather than dates.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
 
 A regression on such data can still have errors that are correlated inside a cluster. The leading example is an individual-level cross-section in which the cluster is a village, a state, or another region. Errors for individuals in the same region may be correlated. Errors for individuals in different regions are the ones the model treats as uncorrelated. The data remain cross-sectional: each individual contributes one record. The dependence is across records that share a place, not across times.{{cite:cameron_miller2015}} (§I, p. 2)
 
-## Properties
+Lay the data out as one row per unit. Columns are variables measured on that unit: income, age, region. Time does not vary inside the table, or it varies so little that the study treats the rows as contemporaneous. The sample size that matches this layout is the number of units, not the number of occasions. A [time series](time-series.qmd) turns the layout the other way: one unit, or one aggregate, observed in time order.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
+
+Units measured once can still share a group. Households in the same village are a cross-section and they are not five isolated draws from unrelated places. The snapshot decides that there is no within-household time sequence. It does not decide that the households are independent of their neighbours.{{cite:cameron_miller2015}} (§I, p. 2)
 
 Let unit \(i=1,\ldots,n\) contribute a single response \(Y_i\). The sample mean \(\bar Y=n^{-1}\sum_i Y_i\) estimates the mean across units at that time. There is no within-unit difference \(Y_{i2}-Y_{i1}\) to compute, because the second index does not exist. For the five incomes,
 \[
@@ -30,13 +28,23 @@ If the \(n\) units fall into \(G\) regions and the errors are correlated inside 
 
 A cross-section can be repeated on a fresh sample at a later date. The two samples support a comparison of two population snapshots. They do not follow the same units, so a change in the snapshot mean is not an average of individual changes. That distinction is the reason a later study may keep the same units and become [panel data](panel-data.qmd) instead.
 
-## Statistical use
-
 The usual summaries are means, rates, and regressions in which the unit of analysis is the row. An [observational study](observational-study.qmd) that records exposure and outcome once per person is the typical scientific setting. Forecasting from the past of a single series is not: that problem asks for a time series, and a cross-section taken today has no past inside it.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
 
 When the regressor of interest is constant inside a region, as a policy that applies to every resident, the effective sample for that regressor is the number of regions. A cross-section of thousands of people in twenty regions does not provide thousands of independent policy contrasts. Cluster-robust standard errors, or a model with a region effect, are the calculations that match the design.{{cite:cameron_miller2015}} (§I, p. 2)
 
 If the same units will be seen again, the analysis should be planned as a panel or as [repeated measures](repeated-measures.qmd), not as two unrelated cross-sections. Mixing the two layouts, by pasting waves underneath one another and treating every row as a new person, invents a sample size the study did not collect.
+
+A cross-section is not a small time series. Three annual totals for one country are a time series of length three. Three countries in one year are a cross-section of size three. The file can look the same in a spreadsheet and still answer different questions.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
+
+Independence is not part of the definition. Individual-level cross-sections are often clustered by geography or by industry. Analysing them as if every row were an independent draw understates the uncertainty of coefficients that vary only between clusters.{{cite:cameron_miller2015}} (§I, p. 2)
+
+A cross-section also does not become a panel because the questionnaire asks people to remember last year. Memory can be wrong, and the study still has one interview. A panel observes the units again.
+
+The phrase "a single point in time" is an idealisation. A survey taken over a month is called a cross-section when the analysis does not use the interview date as a time index. If the phenomenon moves during fieldwork, that idealisation is a source of error, not a theorem.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
+
+Cross-sectional comparisons mix stable differences between units with temporary ones. A household that looks rich this week may be between jobs, or may always have been rich. The table cannot separate those stories. Holding age or region fixed in a regression removes only the differences that were measured. Unmeasured differences remain inside the residual, and they may be correlated across neighbours.{{cite:cameron_miller2015}} (§I, pp. 2–3)
+
+The cluster-robust correction assumes many clusters. A cross-section with a handful of regions can have a large sample of people and still have little information about a region-level regressor. Reporting the people-count as if it were the information-count is the limit this design keeps running into.{{cite:cameron_miller2015}} (§I, p. 2)
 
 ## Worked example
 
@@ -47,22 +55,6 @@ The incomes \(2,4,4,6,9\) are one cross-section. Their mean is \(5\). The deviat
 ::: {.callout-tip collapse="true" title="Answer"}
 The mean is \((3+5+7)/3=5\). The range is \(7-3=4\). Each unit was measured once, so there is no second measurement to subtract from the first.
 :::
-
-## Common misconceptions
-
-A cross-section is not a small time series. Three annual totals for one country are a time series of length three. Three countries in one year are a cross-section of size three. The file can look the same in a spreadsheet and still answer different questions.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
-
-Independence is not part of the definition. Individual-level cross-sections are often clustered by geography or by industry. Analysing them as if every row were an independent draw understates the uncertainty of coefficients that vary only between clusters.{{cite:cameron_miller2015}} (§I, p. 2)
-
-A cross-section also does not become a panel because the questionnaire asks people to remember last year. Memory can be wrong, and the study still has one interview. A panel observes the units again.
-
-## Assumptions and limits
-
-The phrase "a single point in time" is an idealisation. A survey taken over a month is called a cross-section when the analysis does not use the interview date as a time index. If the phenomenon moves during fieldwork, that idealisation is a source of error, not a theorem.{{cite:hyndman_athanasopoulos2021}} (Ch. 1, §1.4)
-
-Cross-sectional comparisons mix stable differences between units with temporary ones. A household that looks rich this week may be between jobs, or may always have been rich. The table cannot separate those stories. Holding age or region fixed in a regression removes only the differences that were measured. Unmeasured differences remain inside the residual, and they may be correlated across neighbours.{{cite:cameron_miller2015}} (§I, pp. 2–3)
-
-The cluster-robust correction assumes many clusters. A cross-section with a handful of regions can have a large sample of people and still have little information about a region-level regressor. Reporting the people-count as if it were the information-count is the limit this design keeps running into.{{cite:cameron_miller2015}} (§I, p. 2)
 
 ## Connections
 

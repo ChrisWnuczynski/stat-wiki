@@ -1,3 +1,5 @@
+
+
 ## Lead context
 
 A person claims to be able to taste whether milk or tea was poured into the cup first. The Lady tasting tea is the experiment R. A. Fisher used to show how such a claim should be tested: a fixed design, a random order, and a probability that is computed entirely from the design under the assumption that the claim is false.
@@ -5,10 +7,6 @@ A person claims to be able to taste whether milk or tea was poured into the cup 
 ## Motivating example
 
 Eight cups are prepared, four with milk added first and four with tea added first. The taster is told that design in advance and is asked to divide the eight cups into two groups of four. If the division matches the way the cups were actually made, the claim looks strong. If the taster has no ability to tell the cups apart, there are many wrong divisions and only one perfect one. The experiment is a way of counting those divisions before anyone tastes.{{cite:fisher1935_doe}} (pp. 11–12)
-
-## Intuition
-
-Guessing would be too easy to interpret if the taster were not told the design, or if the order were chosen to suit a hoped-for result. Fixing four cups of each kind, and choosing their labels by a physical random device, makes every admissible division equally likely when taste confers no information. A perfect score is then one particular division out of a list that can be counted. The rarity of that one division is the evidence, not the drama of the claim.{{cite:fisher1935_doe}} (pp. 12, 20){{cite:senn1993}} (p. 2)
 
 ## Definition
 
@@ -19,6 +17,14 @@ The null hypothesis is that the taster has no sensory discrimination of the kind
 \frac{1680}{24}=70.
 \]
 A taster with no discrimination names the correct set in one trial out of seventy, a probability of \(1/70\).{{cite:fisher1935_doe}} (p. 12){{cite:senn1993}} (p. 2)
+
+Guessing would be too easy to interpret if the taster were not told the design, or if the order were chosen to suit a hoped-for result. Fixing four cups of each kind, and choosing their labels by a physical random device, makes every admissible division equally likely when taste confers no information. A perfect score is then one particular division out of a list that can be counted. The rarity of that one division is the evidence, not the drama of the claim.{{cite:fisher1935_doe}} (pp. 12, 20){{cite:senn1993}} (p. 2)
+
+The \(1/70\) null probability assumes that every set of four is equally likely to be chosen by a taster with no discrimination, and that the assignment really was one of those seventy sets, drawn at random. If the cups have already been grouped by some other factor that the taster can detect, and the treatments are then applied to whole groups, the null probability of a perfect classification can become \(35/70\) rather than \(1/70\). The arithmetic of combinations does not repair a design that never made the seventy sets equally available.{{cite:fisher1935_doe}} (pp. 18–19)
+
+The calculation is conditional on the margins: four cups of each kind, and a response that names four and four. It does not estimate how large a difference in taste would have to be before the taster notices it. A taster who is only sometimes right can fail this particular test at a high rate. Increasing the number of cups, or repeating the test, is the design change that addresses that insensitivity.{{cite:fisher1935_doe}} (pp. 13, 22)
+
+Telling the taster the truth about the randomisation is part of the validity argument. If the announced design is richer than the randomisation that was used, the taster's chance of a complete success is bounded by the poorer design, and a reported \(p\)-value taken from the announced design is too small.{{cite:senn1993}} (p. 2)
 
 ## Properties
 
@@ -54,18 +60,10 @@ The experiment is not a paired tasting in which each cup is independently milk-f
 
 Nor does a significant match identify which physical detail the taster used. If some cups were a different tea, or some milk were boiled, a real discrimination might be a discrimination of those accidents. The test of significance can stay valid while the experiment becomes insensitive to the contrast that was intended, or sensitive to a contrast that was not.{{cite:fisher1935_doe}} (pp. 24–25)
 
-## Assumptions and limits
+## History
 
-The \(1/70\) null probability assumes that every set of four is equally likely to be chosen by a taster with no discrimination, and that the assignment really was one of those seventy sets, drawn at random. If the cups have already been grouped by some other factor that the taster can detect, and the treatments are then applied to whole groups, the null probability of a perfect classification can become \(35/70\) rather than \(1/70\). The arithmetic of combinations does not repair a design that never made the seventy sets equally available.{{cite:fisher1935_doe}} (pp. 18–19)
-
-The calculation is conditional on the margins: four cups of each kind, and a response that names four and four. It does not estimate how large a difference in taste would have to be before the taster notices it. A taster who is only sometimes right can fail this particular test at a high rate. Increasing the number of cups, or repeating the test, is the design change that addresses that insensitivity.{{cite:fisher1935_doe}} (pp. 13, 22)
-
-Telling the taster the truth about the randomisation is part of the validity argument. If the announced design is richer than the randomisation that was used, the taster's chance of a complete success is bounded by the poorer design, and a reported \(p\)-value taken from the announced design is too small.{{cite:senn1993}} (p. 2)
+Fisher published the experiment in 1935 as the worked illustration that opens the principles of experimentation in *The Design of Experiments*. The chapter states the claim, fixes eight cups and four of each kind, counts the seventy divisions, and then uses that count to introduce a test of significance, the null hypothesis, and randomisation as the physical basis of the test. The numerical skeleton, seventy divisions and a null probability of \(1/70\) for a complete success, is the one later writers quote when they treat the tasting as the first fully worked example of a statistically designed experiment.{{cite:fisher1935_doe}} (pp. 11–17, 20){{cite:senn1993}} (p. 2)
 
 ## Connections
 
 The random order is produced by a [game of chance](game-of-chance.qmd) or by a table that stands in for one. The whole plan is a [designed experiment](designed-experiment.qmd), and the reference distribution is that of a [permutation test](a-permutation-test.qmd). The threshold against which \(1/70\) is judged is a [significance level](significance-level.qmd). The same margin-conditioned counting, moved to a \(2\times 2\) table of two binary classifications, is the idea behind [Fisher's exact test](fisher-s-exact-test.qmd). A [randomised controlled trial](randomised-controlled-trial.qmd) uses the same separation between the assignment, which the experimenter controls, and the response, which the subject produces.
-
-## History
-
-Fisher published the experiment in 1935 as the worked illustration that opens the principles of experimentation in *The Design of Experiments*. The chapter states the claim, fixes eight cups and four of each kind, counts the seventy divisions, and then uses that count to introduce a test of significance, the null hypothesis, and randomisation as the physical basis of the test. The numerical skeleton, seventy divisions and a null probability of \(1/70\) for a complete success, is the one later writers quote when they treat the tasting as the first fully worked example of a statistically designed experiment.{{cite:fisher1935_doe}} (pp. 11–17, 20){{cite:senn1993}} (p. 2)

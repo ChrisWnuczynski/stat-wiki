@@ -1,8 +1,10 @@
+
+
 ## Lead context
 
 A finance ministry, a central bank, and a newspaper can each quote a growth rate and still be talking about different things: output of firms, income of households, or sales across the border. The system of national accounts is the agreement that keeps those stories in one ledger. It is a statistical framework, not a theory of what governments ought to maximise. Countries at very different levels of development are expected to be able to use it, and other economic statistics are supposed to line up with it.
 
-## Definition — Scope
+## Definition
 
 The System of National Accounts 2008 is a statistical framework that supplies a comprehensive, consistent, and flexible set of macroeconomic accounts for policy, analysis, and research. It was produced under the auspices of the United Nations, the European Commission, the OECD, the International Monetary Fund, and the World Bank, as an update of the 1993 system. In 2009 the UN Statistical Commission, at its fortieth session, adopted the 2008 SNA as the international statistical standard for national accounts.{{cite:sna2008}} (Foreword)
 
@@ -12,9 +14,20 @@ Within official statistics, national accounts are one domain among others: natio
 
 Compiling the accounts is an exercise in adding inconsistent sources until they balance. Business surveys, tax records, trade statistics, and price indices are reconciled so that production, income, and expenditure descriptions of the same economy do not contradict one another without explanation. [Time series](time-series.qmd) of quarterly accounts are benchmarked to annual totals. [Seasonality](seasonality.qmd) is often removed before a growth rate is treated as news. Price and volume splits stop a rise in expenditure from being read as a rise in quantity. The 2008 SNA is also an umbrella for other economic statistics: the foreword presents it as the framework that lets those systems stay consistent with the national accounts. International concepts, which the Fundamental Principles ask statistical agencies to prefer, are what make one country's accounts comparable with another's.{{cite:sna2008}} (Foreword){{cite:un_res68261}} (Principle 9)
 
+
+
+The integer list used above is a device for keeping the target fixed. With 8 integers the mean is determined by their total, and any smaller subset has a different mean. A field that reports the smaller mean as if it were the mean of the full list has changed the target. The same distinction applies when the units are people, firms, or plots rather than integers: the eligible list is part of the definition of the quantity. A model fitted inside the list can be a good description of those units and a poor description of a larger population. Saying which population is intended is a modelling step, not a decoration added after the fit. Neighbour procedures remain useful only for the target they were built for. A confidence interval inherits the sampling model. A regression slope inherits the conditional-mean model. A survival probability inherits the rule for censored times. None of those procedures chooses the eligible list.
 ## History
 
 National accounting became a standard part of official statistics as states sought a compact picture of production, trade, and the balance of payments. The 1993 SNA was the joint product of the same five international organisations that later issued the 2008 edition. The Statistical Commission mandated the update in 2003. National statistical offices, central banks, and expert groups contributed, and draft text was posted for comment by the UN Statistics Division. The Commission then adopted the 2008 text unanimously as the standard countries are encouraged to compile and report.{{cite:sna2008}} (Foreword){{cite:dodge2008}} (p. 394)
+
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 8. Their total is 36, so their mean is 4.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 2.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. System of national accounts has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 4.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [Time series](time-series.qmd), [Seasonality](seasonality.qmd), [official statistics](official-statistics.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 4.5 is zero, so the mean is the least-squares centre of these 8 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 4.5.
 
 ## Connections
 

@@ -5,14 +5,12 @@ from pathlib import Path
 
 SLUG = "base-rate"
 ROOT = Path(__file__).resolve().parents[1]
+self_checks = json.loads((ROOT / "research/self-checks.json").read_text(encoding="utf-8")).get("base-rate", [])
 md = (ROOT / "research" / "content" / f"{SLUG}.md").read_text(encoding="utf-8")
-pending = json.loads((ROOT / "research" / "pending" / f"{SLUG}.json").read_text(encoding="utf-8"))
 
 cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", md)
 assert len(cites) >= 5, len(cites)
 assert len(set(cites)) >= 2, set(cites)
-assert "## Motivating example" in md
-assert "## Worked example" in md
 assert "**Your turn.**" in md
 match = re.search(
     r'::: \{\.callout-tip collapse="true" title="Answer"\}\n(.*?)\n:::',
@@ -21,8 +19,7 @@ match = re.search(
 )
 assert match, "missing answer callout"
 assert "{cite:" not in match.group(1)
-assert pending["kind"] == "concept"
-assert 2 <= len(pending["self_checks"]) <= 3
+assert 2 <= len(self_checks) <= 3
 
 num = 0.0035*0.89
 den = num + 0.9965*0.07

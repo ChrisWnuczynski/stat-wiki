@@ -1,13 +1,19 @@
+
+
 ## Lead context
+
 A shop's receipts are a list of baskets, and the question is which sets of items appear together often enough to matter. The Apriori algorithm lists those sets without enumerating every subset of the catalogue. It uses one fact: a set that is rare cannot contain a subset that is frequent, read the other way round, so any set with an infrequent subset can be skipped.{{cite:hastie_esl2009}} (pp. 489–490, §14.2.2) {{cite:agrawal_srikant1994}} (§1–§2)
 
 ## Motivating example
+
 Four baskets are $\{a,b\}$, $\{a,b\}$, $\{a\}$ and $\{b,c\}$. Item $a$ appears in three baskets, $b$ in three, and $c$ in one. The pair $\{a,b\}$ appears in two. If a set must appear in more than two-fifths of the baskets to be worth keeping, then $c$ is discarded at the first pass and every pair that contains $c$ is discarded with it. The pair $\{a,b\}$ survives. The listing never builds the triple $\{a,b,c\}$, because that triple contains $c$.{{cite:hastie_esl2009}} (pp. 489–490) {{cite:agrawal_srikant1994}} (§2)
 
 ## Intuition
+
 Support is a count of baskets. Adding an item to a set can only lose baskets, never gain them. The frequent sets are therefore closed under taking subsets: every subset of a frequent set is frequent. The algorithm counts the single items, throws away the rare ones, and on the next pass counts only those pairs whose two members both survived. Each later pass builds candidates from the survivors of the pass before. The data are read once per size of set, which is the point when the receipt file does not fit in memory.{{cite:agrawal_srikant1994}} (§1–§2) {{cite:hastie_esl2009}} (p. 490)
 
 ## Definition
+
 Let each transaction be a subset of a catalogue of items. An item set $K$ has support $T(K)$ equal to the fraction of transactions that contain every member of $K$. Given a threshold $t$, the frequent item sets are those with $T(K)>t$.{{cite:hastie_esl2009}} (pp. 488–489, (14.5)–(14.6))
 
 The same quantities are stated with percentages in the original shopping formulation. A rule $X\Rightarrow Y$, with $X$ and $Y$ disjoint, has support $s$ when $s$ percent of transactions contain $X\cup Y$, and confidence $c$ when $c$ percent of the transactions that contain $X$ also contain $Y$. The mining task is to list every rule whose support and confidence clear two user thresholds, a minimum support and a minimum confidence. The work factors into finding the frequent item sets, and then splitting each frequent item set into a rule.{{cite:agrawal_srikant1994}} (§1)
@@ -16,14 +22,20 @@ Apriori finds the frequent item sets level by level. Any subset of a frequent it
 
 From a frequent item set $K=A\cup B$, the rule $A\Rightarrow B$ has support $T(K)$ and confidence $T(K)/T(A)$. The lift is that confidence divided by $T(B)$, an estimate of how the joint occurrence compares with independence.{{cite:hastie_esl2009}} (pp. 490–491, (14.7)–(14.8))
 
-## Properties
 In the four baskets, $T(\{a\})=3/4$, $T(\{b\})=3/4$, $T(\{c\})=1/4$ and $T(\{a,b\})=1/2$. The confidence of $a\Rightarrow b$ is $(1/2)/(3/4)=2/3$. The confidence of $b\Rightarrow a$ is also $2/3$. The lift of $a\Rightarrow b$ is $(2/3)/(3/4)=8/9$, which is less than $1$: $a$ and $b$ occur together a little less often than independence would suggest, because $b$ is already common. The support of $\{b,c\}$ is $1/4$.
 
 With threshold $t=2/5$, the singles $a$ and $b$ pass and $c$ fails. The only pair whose subsets all pass is $\{a,b\}$, and its support $1/2$ is above $2/5$. No set of size three is a candidate. The monotonicity used here is $L\subseteq K\Rightarrow T(L)\ge T(K)$.{{cite:hastie_esl2009}} (p. 490) {{cite:agrawal_srikant1994}} (§2)
 
 There are $2^{|K|-1}-1$ nontrivial rules inside an item set of size $|K|$, one for each nonempty proper antecedent. A second threshold on confidence selects among them after the frequent item sets are known.{{cite:hastie_esl2009}} (p. 491) {{cite:agrawal_srikant1994}} (§1)
 
+The derivation treats transactions as the units and support as a fraction of those units. It does not by itself provide a sampling error for $T(K)$. With a huge receipt file the fraction is precise and still may not be the quantity a shop should act on. With a small file, $2/3$ and $8/9$ move when one basket is added.{{cite:agrawal_srikant1994}} (§1) {{cite:hastie_esl2009}} (pp. 488–492)
+
+The method requires the threshold to leave only a small fraction of the $2^{K}$ conceivable item sets as frequent. If too many singles pass, the pair pass is already a large counting problem. Sparse baskets and a high threshold are the regime in which the passes finish.{{cite:hastie_esl2009}} (pp. 489–490) {{cite:agrawal_srikant1994}} (§2)
+
+The shopping version of the association rule, with support and confidence as percentages of transactions, was set out for retail basket data, and Apriori and the related AprioriTid procedure were introduced as counting methods that build candidate item sets from frequent subsets rather than from each transaction on the fly.{{cite:agrawal_srikant1994}} (§1–§2) The same monotonicity, the pass-by-size schedule, and the definitions of confidence and lift place the algorithm among the practical successes of mining large commercial tables.{{cite:hastie_esl2009}} (pp. 489–492)
+
 ## Statistical use
+
 The lists are a tool for large binary, or dummy-coded, tables: which goods are bought together, which demographic codes co-occur. A reported rule is a pair of counts, support and confidence, not a causal claim. Focusing on one consequent, such as every frequent antecedent of a particular item, turns the list into a supervised question about that item, with the other items as features.{{cite:hastie_esl2009}} (pp. 487–492)
 
 The threshold $t$ is the computational switch. Lower it, and the number of frequent sets, their size, and the number of passes can grow exponentially. A rule with high confidence and tiny support, the usual example being a rare luxury good bought almost only together with one other item, is invisible to a high threshold.{{cite:hastie_esl2009}} (p. 492)
@@ -31,6 +43,7 @@ The threshold $t$ is the computational switch. Lower it, and the number of frequ
 Market-basket files of the size contemplated in the original algorithms, with catalogues in the tens of thousands of items and receipts in the hundreds of millions, are why a method that reads the file once per item-set size was the contribution. The same monotonicity is what makes that schedule possible.{{cite:agrawal_srikant1994}} (§1–§2) {{cite:hastie_esl2009}} (pp. 487–490)
 
 ## Worked example
+
 Baskets $\{a,b\}$, $\{a,b\}$, $\{a\}$, $\{b,c\}$. Then $T(\{a,b\})=2/4=1/2$ and $T(\{a\})=3/4$, so the confidence of $a\Rightarrow b$ is $2/3$. Since $T(\{b\})=3/4$, the lift is $8/9$. The pair $\{b,c\}$ has support $1/4$. At the strict threshold $2/5$, Apriori keeps $\{a\}$, $\{b\}$ and $\{a,b\}$, and it does not count any set that contains $c$.
 
 **Your turn.** What is the support of $\{b,c\}$, and does that pair survive a strict threshold of $2/5$?
@@ -40,19 +53,13 @@ The support is $1/4$. Because $1/4$ is not greater than $2/5$, the pair does not
 :::
 
 ## Common misconceptions
+
 A high confidence is not a high support. The rule $a\Rightarrow b$ can be confident because $a$ is rare and almost always brings $b$, while the pair itself is almost absent. The threshold on support will drop that rule before confidence is considered. The vodka-and-caviar sketch is this situation: confidence can be high and the consequent too rare for the support cut.{{cite:hastie_esl2009}} (p. 492)
 
 Lift equal to $8/9$ is not evidence that $a$ inhibits $b$ in a causal sense. It is the ratio of the conditional frequency to the marginal frequency in these four baskets. A fifth basket would change it.{{cite:hastie_esl2009}} (pp. 490–491)
 
 The algorithm does not search arbitrary regions of a continuous feature space. The tractable case codes each item as present or absent, or replaces a categorical variable by dummies, and then looks only at conjunctions of those bits. A contrast such as "type of home is anything except an apartment" is invisible unless that contrast was coded in advance.{{cite:hastie_esl2009}} (pp. 488–489, 501)
 
-## Assumptions and limits
-The derivation treats transactions as the units and support as a fraction of those units. It does not by itself provide a sampling error for $T(K)$. With a huge receipt file the fraction is precise and still may not be the quantity a shop should act on. With a small file, $2/3$ and $8/9$ move when one basket is added.{{cite:agrawal_srikant1994}} (§1) {{cite:hastie_esl2009}} (pp. 488–492)
-
-The method requires the threshold to leave only a small fraction of the $2^{K}$ conceivable item sets as frequent. If too many singles pass, the pair pass is already a large counting problem. Sparse baskets and a high threshold are the regime in which the passes finish.{{cite:hastie_esl2009}} (pp. 489–490) {{cite:agrawal_srikant1994}} (§2)
-
 ## Connections
-Apriori is an [unsupervised learning](unsupervised-learning.qmd) method for binary tables, alongside [cluster analysis](cluster-analysis.qmd) and [dimensionality reduction](dimensionality-reduction.qmd), which summarise rows and directions rather than item sets. Asking for the antecedents of one fixed item is close to [classification](classification.qmd) of that item. The procedure is one of the tools associated with [data mining](data-mining.qmd) on commercial databases.{{cite:hastie_esl2009}} (pp. 486–487, 492)
 
-## History
-The shopping version of the association rule, with support and confidence as percentages of transactions, was set out for retail basket data, and Apriori and the related AprioriTid procedure were introduced as counting methods that build candidate item sets from frequent subsets rather than from each transaction on the fly.{{cite:agrawal_srikant1994}} (§1–§2) The same monotonicity, the pass-by-size schedule, and the definitions of confidence and lift place the algorithm among the practical successes of mining large commercial tables.{{cite:hastie_esl2009}} (pp. 489–492)
+Apriori is an [unsupervised learning](unsupervised-learning.qmd) method for binary tables, alongside [cluster analysis](cluster-analysis.qmd) and [dimensionality reduction](dimensionality-reduction.qmd), which summarise rows and directions rather than item sets. Asking for the antecedents of one fixed item is close to [classification](classification.qmd) of that item. The procedure is one of the tools associated with [data mining](data-mining.qmd) on commercial databases.{{cite:hastie_esl2009}} (pp. 486–487, 492)

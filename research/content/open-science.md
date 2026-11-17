@@ -1,8 +1,10 @@
+
+
 ## Lead context
 
 Most scientists will say that data, code, and a clear plan ought to be available. The published record often does not match that sentence. Open science is the attempt to make the match: journal rules, archives, and citation practices that treat transparency as part of the work rather than as an optional extra after acceptance. The point is not a slogan. It is to let other people check a computation, repeat a procedure, and find the studies that were never published.
 
-## Definition — Scope
+## Definition
 
 Open science, in the form set out for journals, is a set of standards that move publication toward openness about data, code, materials, and the plans that were made before the results were known. The Transparency and Openness Promotion guidelines group eight standards. Two of them reward effort already spent: citing data, code, and materials as contributions, and recognising replication. Four describe openness along the study itself: disclosure of the design and analysis, sharing of research materials, sharing of data in a trusted repository, and sharing of the analytic code. Two concern registration in advance: preregistration of studies, and preregistration of analysis plans. Each standard has levels, from encouragement up to a condition of publication, so that a journal can adopt a stricter rule without having to adopt every rule at once.{{cite:nosek2015}} (pp. 1422–1425)
 
@@ -19,6 +21,14 @@ Citation is part of the same apparatus. If a data set is cited the way an articl
 The gap the guidelines address was already visible in the reward system. Innovation was prized; the time spent documenting a data set or repeating someone else's study was not. The TOP committee met at the Center for Open Science to write standards that journals could adopt in modules. By 2015 the guidelines were published as a short policy paper, with the full text kept in a public commons, and with an explicit statement that the version then offered was not the last word.{{cite:nosek2015}} (pp. 1422–1425)
 
 Large replication projects made the operational meaning obvious. A protocol that is registered and a data file that is public are the difference between a claim that a study was repeated and a claim that a reader can see the repeat. The psychology project that archived its materials at the Open Science Framework was both a scientific study and a demonstration of the practice.{{cite:osc2015}} (Method)
+
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 8. Their total is 36, so their mean is 4.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 2.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Open science has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 4.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [outcome](response-variable.qmd), [multiple testing](multiple-testing.qmd), [p-value](p-value.qmd), [reproducible](reproducibility.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 4.5 is zero, so the mean is the least-squares centre of these 8 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 4.5.
 
 ## Connections
 

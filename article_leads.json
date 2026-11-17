@@ -859,5 +859,8 @@
   "tail": {"field": "probability", "article": "a", "term": "tail", "verb": "is", "description": "the probability beyond a cutoff, or the direction in which a histogram decays slowly"},
   "true-value": {"field": "statistics", "article": "the", "term": "true value", "verb": "is", "description": "the quantity that a measurement or an estimate is trying to recover"},
   "uncertainty": {"field": "statistics", "article": "", "term": "uncertainty", "verb": "is", "description": "a quantitative account of what remains unknown after the observations and the model are taken into account"},
-  "unsupervised-learning": {"field": "statistical learning", "article": "", "term": "unsupervised learning", "verb": "is", "description": "the description of how features are arranged when no outcome was recorded to score a prediction"}
+  "unsupervised-learning": {"field": "statistical learning", "article": "", "term": "unsupervised learning", "verb": "is", "description": "the description of how features are arranged when no outcome was recorded to score a prediction"},
+  "standard-score": {"field": "data analysis", "article": "a", "term": "standard score", "verb": "is", "description": "an observation recentred by a mean and scaled by a standard deviation"},
+  "test-statistic": {"field": "statistical inference", "article": "a", "term": "test statistic", "verb": "is", "description": "a function of the sample used to decide whether a stated hypothesis is rejected"}
+
 }

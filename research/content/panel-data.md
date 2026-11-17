@@ -1,3 +1,5 @@
+
+
 ## Lead context
 
 A household that is interviewed once can be compared with other households. A household that is interviewed every quarter can also be compared with itself. Panel data are the second arrangement: the same units, observed at more than one time, so that each record carries a unit label and a time label.
@@ -5,12 +7,6 @@ A household that is interviewed once can be compared with other households. A ho
 ## Motivating example
 
 Three people are weighed at the start of a year and again at the end. The pairs are \((2,4)\), \((5,5)\), and \((3,6)\). Each person has a change, \(+2\), \(0\), and \(+3\). The average change is \(5/3\). The cross-sectional means are \(10/3\) at the start and \(5\) at the end, and the difference of those means is the same \(5/3\). The equality is a property of a complete panel. Drop one of the later weights and it disappears.{{cite:cameron_miller2015}} (§I, p. 2){{cite:dodge2008}} (p. 410)
-
-## Intuition
-
-A [cross-sectional data](cross-sectional-data.qmd) set has one row per unit. A [time series](time-series.qmd) has one row per time for a single series. A panel stacks several series that share a calendar, with a column that says which series is which. The statistical point of the stack is that two observations on the same person can be dependent even when two people are not. Analysing the stack as if every row were a new person treats that dependence as if it were not there.{{cite:cameron_miller2015}} (§I, p. 2)
-
-Following the same people is also why a panel is more than a repeated census of a changing population. A census can be taken every decade on whoever is present. A panel tries to keep a sample and return to it.{{cite:dodge2008}} (p. 410)
 
 ## Definition
 
@@ -20,7 +16,9 @@ In the regression tradition the same layout is the second leading example of clu
 
 Longitudinal data, in the sense of several observations on the same subject, include this layout. Repeated measures in biology and medicine, and panel studies in the social sciences, are the usual examples.{{cite:dodge2008}} (p. 322)
 
-## Properties
+A [cross-sectional data](cross-sectional-data.qmd) set has one row per unit. A [time series](time-series.qmd) has one row per time for a single series. A panel stacks several series that share a calendar, with a column that says which series is which. The statistical point of the stack is that two observations on the same person can be dependent even when two people are not. Analysing the stack as if every row were a new person treats that dependence as if it were not there.{{cite:cameron_miller2015}} (§I, p. 2)
+
+Following the same people is also why a panel is more than a repeated census of a changing population. A census can be taken every decade on whoever is present. A panel tries to keep a sample and return to it.{{cite:dodge2008}} (p. 410)
 
 Write \(Y_{it}\) for unit \(i=1,\ldots,N\) at time \(t=1,\ldots,T\), and write \(\Delta_i=Y_{iT}-Y_{i1}\) when only the first and last times are compared. If every unit is observed at both times,
 \[
@@ -40,13 +38,23 @@ A comparison of whoever is present at each date is not the average of the observ
 
 Observations on one unit are dependent, so the sample size for a within-unit question is \(N\), the number of units, rather than \(NT\), the number of rows. A panel of \(20\) people observed at \(10\) dates has \(200\) rows and \(20\) independent personal histories. Standard errors that count \(200\) independent residuals are too small when the personal errors persist.{{cite:cameron_miller2015}} (§I, pp. 2–3)
 
-## Statistical use
-
 The design answers questions a single cross-section cannot. A change in a person's own spending, after a change in that person's own circumstances, uses the within-person contrast \(\Delta_i\). A comparison of different people at one date uses only one time slice and is again a cross-section. Studies that want both, a within contrast and a between contrast, keep the full \(Y_{it}\) and model the dependence.{{cite:dodge2008}} (p. 410){{cite:cameron_miller2015}} (§I, p. 2)
 
 A [linear mixed model](linear-mixed-model.qmd) can give each unit an intercept, so that the shared level induces the within-unit correlation. A [marginal model](marginal-model.qmd) states the average at each time and uses a [working correlation](working-correlation.qmd) only to estimate that average. Cluster-robust standard errors after a regression leave the dependence unspecified and require many units rather than many time points. Those are different uses of the same rectangular file.{{cite:cameron_miller2015}} (§I, pp. 2–3)
 
 Survey panels are also used to estimate a population total at several dates. Renewal of part of the sample is then deliberate: a sample that never changes slowly ceases to represent a population that does. The price of renewal is that some within-unit changes are no longer observed.{{cite:dodge2008}} (pp. 410–411)
+
+A panel is not just any table with a date column. A fresh cross-section every year, on a new sample, has dates and does not have repeated units. Pasting those cross-sections into one file does not create within-unit changes.{{cite:dodge2008}} (p. 410)
+
+The number of rows is not the number of independent observations for a question about people. Twenty people measured ten times are twenty clusters of correlated rows. A [time series](time-series.qmd) on one country is the opposite extreme: one unit, many times, and no cross-person contrast at all.{{cite:cameron_miller2015}} (§I, p. 2)
+
+Returning to the same respondents does not leave their behaviour untouched. People who are asked repeatedly about a purchase or a symptom can change what they do because they were asked. That panel conditioning is a property of the measurement, not a property of the world the survey hoped to watch.{{cite:dodge2008}} (p. 411)
+
+The uncorrelated-units assumption is the one the standard errors rely on. If neighbouring regions share a shock, clustering only on person is not enough; the cluster has to be wide enough to contain the dependence. A short panel, with large \(N\) and small \(T\), supports that person-level clustering. A long panel on a few units is closer to a set of time series, and person-level asymptotics in \(N\) do not apply.{{cite:cameron_miller2015}} (§I, pp. 2–3)
+
+Survey panels have their own failures. Some kinds of respondent are hard to recruit. Respondents tire, and non-response grows. The population changes, so a sample that was representative drifts. Dating of events is pulled toward the interview, the telescope effect, especially among new panellists. A changing panel is often used precisely because a strict permanent sample deforms.{{cite:dodge2008}} (p. 411)
+
+Missing times are not a cosmetic gap. The three-person calculation shows a difference of means, \(7/6\), that is not the mean of the observed changes, \(1\). An analysis that ignores the missingness pattern is describing a different contrast from the one the complete-panel identity names.{{cite:dodge2008}} (p. 322)
 
 ## Worked example
 
@@ -57,22 +65,6 @@ The complete panel \((2,4)\), \((5,5)\), \((3,6)\) has first-wave mean \(10/3\),
 ::: {.callout-tip collapse="true" title="Answer"}
 The changes are \(3\) and \(0\), so the mean change is \(1.5\). The wave means are \((1+6)/2=3.5\) and \((4+6)/2=5\), and their difference is \(5-3.5=1.5\).
 :::
-
-## Common misconceptions
-
-A panel is not just any table with a date column. A fresh cross-section every year, on a new sample, has dates and does not have repeated units. Pasting those cross-sections into one file does not create within-unit changes.{{cite:dodge2008}} (p. 410)
-
-The number of rows is not the number of independent observations for a question about people. Twenty people measured ten times are twenty clusters of correlated rows. A [time series](time-series.qmd) on one country is the opposite extreme: one unit, many times, and no cross-person contrast at all.{{cite:cameron_miller2015}} (§I, p. 2)
-
-Returning to the same respondents does not leave their behaviour untouched. People who are asked repeatedly about a purchase or a symptom can change what they do because they were asked. That panel conditioning is a property of the measurement, not a property of the world the survey hoped to watch.{{cite:dodge2008}} (p. 411)
-
-## Assumptions and limits
-
-The uncorrelated-units assumption is the one the standard errors rely on. If neighbouring regions share a shock, clustering only on person is not enough; the cluster has to be wide enough to contain the dependence. A short panel, with large \(N\) and small \(T\), supports that person-level clustering. A long panel on a few units is closer to a set of time series, and person-level asymptotics in \(N\) do not apply.{{cite:cameron_miller2015}} (§I, pp. 2–3)
-
-Survey panels have their own failures. Some kinds of respondent are hard to recruit. Respondents tire, and non-response grows. The population changes, so a sample that was representative drifts. Dating of events is pulled toward the interview, the telescope effect, especially among new panellists. A changing panel is often used precisely because a strict permanent sample deforms.{{cite:dodge2008}} (p. 411)
-
-Missing times are not a cosmetic gap. The three-person calculation shows a difference of means, \(7/6\), that is not the mean of the observed changes, \(1\). An analysis that ignores the missingness pattern is describing a different contrast from the one the complete-panel identity names.{{cite:dodge2008}} (p. 322)
 
 ## Connections
 

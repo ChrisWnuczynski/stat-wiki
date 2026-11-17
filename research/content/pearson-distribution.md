@@ -1,13 +1,19 @@
+
+
 ## Lead context
+
 A normal curve is fixed once its mean and its standard deviation are fixed. Many measured batches are skew, or they stop at a hard boundary, and a single extra shape is not enough for them. The Pearson distributions are the frequency curves obtained by letting the slope of the normal curve acquire a linear and then a quadratic term in the denominator.{{cite:pearson1895}} (p. 381)
 
 ## Motivating example
+
 Draw \(r\) balls from a bag that holds \(pn\) black balls and \(qn\) white balls, and record how many black balls appear. If \(r>pn\), that count cannot exceed \(pn\), so the frequency polygon is skew and stops at both ends. The same counting series is a hypergeometric series. Passing to a continuous curve with the same slope relation produces a family that contains the normal curve, the skew binomial limit, and the two-sided limited curves as cases of one formula.{{cite:pearson1895}} (p. 360)
 
 ## Intuition
+
 At the mode the curve is flat, so the origin can be put there and the slope can be written as a multiple of the abscissa. For the normal curve the multiple is constant. A skew binomial makes the multiple depend on a linear function of the abscissa, which lets the curve stop on one side and run out on the other. Dependence among the draws, as in sampling without replacement, puts a quadratic in the denominator. The roots of that quadratic decide whether the curve stops, or runs to infinity, on each side.{{cite:pearson1895}} (pp. 356–357, 381)
 
 ## Definition
+
 With the origin at the mode, the logarithmic slope of a Pearson curve is
 \[
 \frac{1}{y}\frac{dy}{dx}=-\frac{x}{c_1+c_2x+c_3x^2}.
@@ -30,7 +36,14 @@ In this memoir the solutions are sorted by range and symmetry:
 - Type IV is skew, with the range unlimited in both directions.
 - Type V is symmetric, with the range unlimited in both directions, and it is the normal curve.{{cite:pearson1895}} (p. 360)
 
+Fit a type by the range the measurements can actually occupy and by the third and fourth moments. A batch that cannot pass a lower and an upper bound, and that is not symmetric, is a candidate for Type I. A symmetric batch that is flatter than the normal curve, in the sense \(\mu_4<3\mu_2^2\), is a candidate for the limited Type II rather than for the normal curve. A batch with one hard boundary, such as a mortality counted from birth, is a candidate for Type III, and the two moments \(\mu_2\) and \(\mu_3\) determine \(\gamma=2\mu_2/\mu_3\) and \(p=4\mu_2^3/\mu_3^2-1\).{{cite:pearson1895}} (pp. 360, 372–373) The third and fourth moments are the quantities that carry a departure from the normal curve.{{cite:dodge2008}} (p. 344)
+
+The memoir’s Type V is the normal curve. It is not a separate skew type. The labels (i) through (vii) on the real-root solutions are subtypes and limits: (iv) is the one-sided Type III, (v) is the symmetric Type II, and (vii) is again the normal curve \(y=y_0e^{-px^2}\).{{cite:pearson1895}} (pp. 360, 365) The skewness printed in the Type III section is \((1/2)\mu_3/\mu_2^{3/2}\), the gap from mode to mean in standard units. The full third-moment ratio \(\mu_3/\mu_2^{3/2}\) is twice that number.{{cite:pearson1895}} (p. 373)
+
+The normal curve was already in use as the limit of a symmetric binomial. The 1895 memoir keeps a finite number of contributory causes, allows them to be unequal, and replaces the binomial and the hypergeometric polygon by the curves with the same slope. Type III had already been written down, without discussion, in the Proceedings of the Royal Society, volume 54, page 331. The five types, and the slope with a quadratic denominator, are set out in this memoir. The third and fourth moments are what mark a fitted curve off from the normal curve, which is the role recorded for the system published in 1894 and 1895.{{cite:pearson1895}} (pp. 357, 360, 381){{cite:dodge2008}} (p. 344)
+
 ## Properties
+
 The sign of \(\beta_2^2-4\beta_1\beta_3\) in the hypergeometric slope splits the integral into a trigonometric case and a logarithmic case. For a draw of \(r\) items from \(n\), the integral is trigonometric when \(r/n\) lies between
 \[
 \frac12\pm\sqrt{\Bigl(p+\frac1n\Bigr)\Bigl(q+\frac1n\Bigr)},
@@ -82,10 +95,8 @@ At \(p=3\) and \(\gamma=2\) this is \(3\cdot6/4=9/2\).{{cite:pearson1895}} (p. 3
 :::
 :::
 
-## Statistical use
-Fit a type by the range the measurements can actually occupy and by the third and fourth moments. A batch that cannot pass a lower and an upper bound, and that is not symmetric, is a candidate for Type I. A symmetric batch that is flatter than the normal curve, in the sense \(\mu_4<3\mu_2^2\), is a candidate for the limited Type II rather than for the normal curve. A batch with one hard boundary, such as a mortality counted from birth, is a candidate for Type III, and the two moments \(\mu_2\) and \(\mu_3\) determine \(\gamma=2\mu_2/\mu_3\) and \(p=4\mu_2^3/\mu_3^2-1\).{{cite:pearson1895}} (pp. 360, 372–373) The third and fourth moments are the quantities that carry a departure from the normal curve.{{cite:dodge2008}} (p. 344)
-
 ## Worked example
+
 For \(n=100\),
 \[
 \frac1n\Bigl(1+\frac1n\Bigr)=\frac{101}{10000}=0.0101,\qquad
@@ -107,14 +118,10 @@ The third-moment ratio \(\mu_3/\mu_2^{3/2}\) equals 1. The memoir’s skewness i
 The second moment is \(\mu_2=9\). The memoir’s skewness is \(1/\sqrt{9}=1/3\). The fourth-moment ratio is \(3(8+3)/(8+1)=11/3\).
 :::
 
-## Common misconceptions
-The memoir’s Type V is the normal curve. It is not a separate skew type. The labels (i) through (vii) on the real-root solutions are subtypes and limits: (iv) is the one-sided Type III, (v) is the symmetric Type II, and (vii) is again the normal curve \(y=y_0e^{-px^2}\).{{cite:pearson1895}} (pp. 360, 365) The skewness printed in the Type III section is \((1/2)\mu_3/\mu_2^{3/2}\), the gap from mode to mean in standard units. The full third-moment ratio \(\mu_3/\mu_2^{3/2}\) is twice that number.{{cite:pearson1895}} (p. 373)
-
 ## Assumptions and limits
+
 The slope equation is written with the origin at the mode, so a zero of the numerator sits at \(x=0\). A curve fitted on a different origin needs the linear shift put back into the numerator. The constants \(c_1,c_2,c_3\) have to give a non-negative ordinate on the interval where the expression is real, and \(y_0\) is chosen so that the area equals the total frequency. The Type III normalising constant is written with \(\Gamma(p+1)\), the integral of \(z^p e^{-z}\). The quadratic slope is offered for homogeneous material, the case in which one curve, rather than a mixture, is the description.{{cite:pearson1895}} (pp. 373, 381)
 
 ## Connections
-[Kurtosis](kurtosis.qmd) is the fourth-moment comparison with the normal value 3, which is the comparison that separates Type II from the normal curve. [Skewness](skewness.qmd) is the third-moment companion. The [gamma distribution](gamma-distribution.qmd) is the one-sided Type III curve written with a gamma function. The exponential law, the Type III case with the mode on the boundary, is the tail used for [fat tails](fat-tails.qmd). A [histogram](histogram.qmd) is the picture to which one of these curves is fitted.
 
-## History
-The normal curve was already in use as the limit of a symmetric binomial. The 1895 memoir keeps a finite number of contributory causes, allows them to be unequal, and replaces the binomial and the hypergeometric polygon by the curves with the same slope. Type III had already been written down, without discussion, in the Proceedings of the Royal Society, volume 54, page 331. The five types, and the slope with a quadratic denominator, are set out in this memoir. The third and fourth moments are what mark a fitted curve off from the normal curve, which is the role recorded for the system published in 1894 and 1895.{{cite:pearson1895}} (pp. 357, 360, 381){{cite:dodge2008}} (p. 344)
+[Kurtosis](kurtosis.qmd) is the fourth-moment comparison with the normal value 3, which is the comparison that separates Type II from the normal curve. [Skewness](skewness.qmd) is the third-moment companion. The [gamma distribution](gamma-distribution.qmd) is the one-sided Type III curve written with a gamma function. The exponential law, the Type III case with the mode on the boundary, is the tail used for [fat tails](fat-tails.qmd). A [histogram](histogram.qmd) is the picture to which one of these curves is fitted.

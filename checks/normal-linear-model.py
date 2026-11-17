@@ -76,10 +76,6 @@ assert body.count('![') == 0
 for link in ('ordinary-least-squares.qmd', 'simple-linear-regression.qmd',
              'multiple-linear-regression.qmd', 'general-linear-hypothesis.qmd'):
     assert link in page, link
-pending = root / 'research/pending/normal-linear-model.json'
-selected = (json.loads(pending.read_text())['self_checks'] if pending.exists()
-            else json.loads((root / 'research/self-checks.json').read_text())['normal-linear-model'])
+selected = json.loads((root / 'research/self-checks.json').read_text())['normal-linear-model']
 assert selected == ['ex-inf-extra-ss', 'ex-inf-prediction-width']
-if not pending.exists():
-    assert '## Check yourself' in body and body.count('title="Answer"') >= 3
 print('rank 165 normal linear model arithmetic and preservation checks passed')

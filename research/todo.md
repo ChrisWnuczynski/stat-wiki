@@ -32,6 +32,8 @@ Add uncertain claims here before writing them into an article.
 - `clotting-time-data`: historical Hurn provenance was not rechecked in accessible full text; dataset values verified against R glm Examples, and source opening replacement supplied.
 
 - Dependent and independent variables are already the response-variable and explanatory-variable pages, so there is no third page.
+- Artificial intelligence was not given an alias to machine learning, because that page does not treat artificial intelligence. A sourced page was not written.
+- Stochastic analysis was not aliased to stochastic process. Stochastic analysis is the calculus of stochastic processes, and that page does not develop the calculus.
 - Gap list after the second pass. A term stays here only when the opened sources did not support a page:
 
   - Baseball statistics: Searched Dodge and read OpenIntro Statistics chapters 1 on association and generalisation. Neither gives a statistical definition of baseball statistics. No sourced treatment beyond encyclopedic trivia was opened. Sources tried: dodge2008 full-text search; openintro2019 pp. 10–11 and 18.

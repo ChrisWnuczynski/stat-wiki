@@ -1847,8 +1847,8 @@
     },
     {
       "title": "A larger ranking",
-      "prompt": "Three groups of size 4 have rank sums 12, 24, and 48. What is H?",
-      "answer": "H is 249/13, about 19.154."
+      "prompt": "Three groups of size 4 have rank sums 10, 26, and 42. What is H?",
+      "answer": "H is 128/13, about 9.846."
     },
     {
       "title": "Oil data threshold",
@@ -2439,6 +2439,114 @@
       "title": "Leftover",
       "prompt": "If only the horizontal coordinate is kept, what is the sum of squared reconstruction errors?",
       "answer": "The leftover sum of squares is 2."
+    }
+  ],
+  "regression-analysis": [
+    {
+      "title": "What the slope estimates",
+      "prompt": "A least-squares slope is computed from six weeks of spend and sales. What does the slope estimate, and what does the arithmetic alone not establish?",
+      "answer": "It estimates the linear association in these weeks. It does not by itself establish what sales would do if spend were set by an intervention."
+    },
+    {
+      "title": "Intercept",
+      "prompt": "If the spend mean is 3.5, the sales mean is 5.5, and the slope is 1, what is the intercept?",
+      "answer": "The intercept is 5.5 - 3.5 = 2."
+    }
+  ],
+  "survival-analysis": [
+    {
+      "title": "Censoring",
+      "prompt": "A follow-up stops at 6 months while the patient is alive. Why is that time not treated as a death at 6 months?",
+      "answer": "The death time is known only to be later than 6 months. Treating 6 as a death shortens the lifetime."
+    },
+    {
+      "title": "Risk set",
+      "prompt": "What does it mean to keep a censored patient in the risk set until follow-up stops?",
+      "answer": "The patient counts as alive and under observation up to the censoring time, and then leaves the set without being recorded as a death."
+    }
+  ],
+  "bayesian-statistics": [
+    {
+      "title": "Two summaries",
+      "prompt": "A Beta(8,4) posterior has mean 2/3. The maximum-likelihood estimate from 7 heads in 10 tosses is 0.7. Why are these different numbers?",
+      "answer": "The posterior mean averages the probability assigned to the heads probability after the data and the prior. The maximum-likelihood value maximises the probability of these tosses and does not use the prior."
+    },
+    {
+      "title": "Predictive step",
+      "prompt": "Does the posterior mean of the heads probability equal the fraction of heads in a future sequence?",
+      "answer": "No. A future fraction needs a predictive calculation that averages over the posterior."
+    }
+  ],
+  "estimation-theory": [
+    {
+      "title": "Target",
+      "prompt": "A sample mean of 4 and a sample variance of 8/3 are computed from the same four numbers. What distinguishes them?",
+      "answer": "They are different functions of the sample, aimed at different population quantities."
+    },
+    {
+      "title": "Estimator and parameter",
+      "prompt": "Why is the number 4 not itself the population mean?",
+      "answer": "It is a function of one sample. The population mean is the quantity the sample mean is aimed at."
+    }
+  ],
+  "probability-theory": [
+    {
+      "title": "Additivity",
+      "prompt": "A fair die has probability 1/6 on each face. What is the probability of an even face, and which rule produces it?",
+      "answer": "The probability is 1/2, the sum of the probabilities of the three even faces, which are exclusive."
+    },
+    {
+      "title": "Continuous measurements",
+      "prompt": "What replaces a sum of six face probabilities when the outcome is a continuous measurement?",
+      "answer": "The probability of an interval is an integral of a density, or the increase in a distribution function."
+    }
+  ],
+  "multivariate-statistics": [
+    {
+      "title": "Why the cross-product",
+      "prompt": "Two columns move exactly together. What does a pair of separate variances miss?",
+      "answer": "It misses the covariance. The columns are not two unrelated measurements."
+    },
+    {
+      "title": "Covariance value",
+      "prompt": "Centred pairs (-1,-1), (0,0), and (1,1) have cross-product sum 2 and the divisor is 2. What is the sample covariance?",
+      "answer": "The sample covariance is 1."
+    }
+  ],
+  "structural-equation-modelling": [
+    {
+      "title": "Crude difference",
+      "prompt": "When does a difference in means equal an effect of treatment?",
+      "answer": "When the diagram says the comparison is unconfounded. Otherwise the difference mixes the treatment with common causes."
+    },
+    {
+      "title": "Diagram",
+      "prompt": "Is the subtraction itself a structural equation?",
+      "answer": "No. The structural equation is the model of the intervention. The subtraction is a summary of the observed groups."
+    }
+  ],
+  "standard-score": [
+    {
+      "title": "A weight at the mean",
+      "prompt": "The centre is 4 and the scale is the positive square root of 2. What is the standard score of a weight equal to 4?",
+      "answer": "The score is 0."
+    },
+    {
+      "title": "Why the scale matters",
+      "prompt": "Why do the four scores built with the list's own root-mean-square have root-mean-square 1?",
+      "answer": "Dividing by that scale is what forces the root-mean-square of the scores to be 1."
+    }
+  ],
+  "test-statistic": [
+    {
+      "title": "Fair coin tail",
+      "prompt": "Eight independent fair tosses. A test rejects if the number of heads is 7 or 8. What is the level of that rule?",
+      "answer": "The level is 9/256."
+    },
+    {
+      "title": "Not a statistic",
+      "prompt": "Why is (x bar - mu) divided by an unknown sigma not a test statistic of the sample alone?",
+      "answer": "The expression still contains the unknown sigma, so it is not a function of the sample and known constants only."
     }
   ]
 }

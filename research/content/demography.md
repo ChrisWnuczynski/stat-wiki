@@ -1,12 +1,15 @@
+
+
 ## Lead context
+
 A government that plans schools, pensions, or a response to an epidemic needs to know how many people there are, how old they are, and whether the next cohort will be larger. Demography is the study of human populations through events such as birth, death, and migration, measured with statistical tools that still work when the registers are incomplete.{{cite:dodge2008}} (p. 156){{cite:moultrie2013}} (Introduction, pp. vii–viii)
 
-## Definition — Scope
+## Definition
+
 The object is the human population, seen both as a biological collection of births and deaths and as a social collection of marriages, divorces, moves, and jobs. The quantities in routine use are fertility, mortality, migration, and the age pyramid that those three produce. Mathematics and statistics are the measuring instruments; the interpretation also uses the social sciences, because a change in the birth rate can be a change in behaviour as well as a change in biology.{{cite:dodge2008}} (p. 156)
 
 Much of the technical work is estimation from limited or defective data. Censuses undercount, ages are misreported, and vital registration misses births and deaths. Indirect methods reconstruct a rate from the answers a census can actually collect, such as children ever born and children still alive, or from the way cohort size changes between two censuses. The aim is a coherent account of fertility, mortality, and migration, not a single corrected total.{{cite:moultrie2013}} (Introduction, pp. vii–viii)
 
-## Statistical use
 A [census](census.qmd) is the frame. Age and sex tabulations are checked before any rate is trusted: an age ratio that spikes at 60, or a sex ratio that swings with age, is evidence about the count itself. Cohort survival between two censuses a decade apart compares the people aged \(x\) at the first census with the people aged \(x+10\) at the second. Deaths reduce the cohort, and migration can add or remove people. Where migration is small, the ratio is a mortality summary, and it can be set beside the survival a [life table](survival-function.qmd) would have predicted.{{cite:moultrie2013}} (Ch. 1, cohort survival)
 
 Fertility is estimated from parity, from recent births, and, when those questions were not asked, by reverse survival: the children now aged \(x\) are the survivors of the births \(x\) years earlier, so a life-table survivorship turns the child count back into a birth count. Adult mortality is estimated from deaths in the household, from orphanhood, and from sibling histories. Model life tables fill gaps when only a child mortality level and an adult mortality level are known. Migration schedules describe moves by age. A post-enumeration survey uses a second capture of the same areas to estimate the people the census missed, under an independence assumption that is often doubtful for the groups most likely to be missed twice.{{cite:moultrie2013}} (Ch. 1, "Post-enumeration surveys"; Ch. 9, reverse survival)
@@ -14,7 +17,17 @@ Fertility is estimated from parity, from recent births, and, when those question
 [Sampling](stratified-and-cluster-sampling.qmd) is the alternative when a full census is impossible. The same mean, proportion, and [life table](survival-function.qmd) then carry [standard errors](standard-error.qmd). A population projection pushes the rates forward; it is only as good as the rates and the assumption that they continue.
 
 ## History
+
 John Graunt's 1662 study of the London bills of mortality is the usual starting point. He estimated family size, the importance of migration, and the structure of the population from a list of deaths by cause, working with William Petty. Through the eighteenth century those calculations were refined. In the nineteenth century European states and the United States took national censuses and kept continuous registers of births, marriages, and deaths. Differences in survival between regions became visible in those registers and were used as arguments for better work and sanitation. By the end of that century the first specialist journals had appeared, among them *Demography*, *Population*, and *Population Studies*. Around the middle of the twentieth century the growth of populations in poorer countries pulled the subject toward global totals and toward methods that do not require a complete register.{{cite:dodge2008}} (p. 156){{cite:moultrie2013}} (Introduction, pp. vii–viii)
 
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 14. Their total is 105, so their mean is 7.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 5.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Demography has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 7.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [census](census.qmd), [life table](survival-function.qmd), [Sampling](stratified-and-cluster-sampling.qmd), [life table](survival-function.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 7.5 is zero, so the mean is the least-squares centre of these 14 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 7.5.
+
 ## Connections
+
 [Epidemiology](epidemiology.qmd) inherited the bills of mortality and still shares the life table, but it asks about a particular illness and its causes. [Actuarial science](actuarial-science.qmd) uses the same mortality schedule to price a pension or a life annuity. [Biostatistics](biostatistics.qmd) shares the trial and the survival model when the population is a group of patients rather than a nation. Official statistics is the producer of the census and the vital register on which all three depend.{{cite:dodge2008}} (pp. 49, 156)

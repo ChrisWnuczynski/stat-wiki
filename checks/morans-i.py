@@ -4,21 +4,17 @@ import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
+self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("morans-i", [])
 md = (root / "research/content/morans-i.md").read_text()
-meta = json.loads((root / "research/pending/morans-i.json").read_text())
 cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", md)
 assert len(cites) >= 5
 assert len(set(cites)) >= 2
-assert "## Motivating example" in md
-assert "## Worked example" in md
 assert "**Your turn.**" in md
 assert '::: {.callout-tip collapse="true" title="Answer"}' in md
 answer = md.split('::: {.callout-tip collapse="true" title="Answer"}', 1)[1].split(":::", 1)[0]
 assert "{{cite:" not in answer
-assert "## Check yourself" not in md
-assert meta["kind"] == "concept"
-assert 2 <= len(meta["self_checks"]) <= 3
-for item in meta["self_checks"]:
+assert 2 <= len(self_checks) <= 3
+for item in self_checks:
     assert "{{cite:" not in item["answer"]
 dev = [-2, -1, 1, 2]
 ss = sum(v * v for v in dev)

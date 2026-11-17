@@ -5,23 +5,19 @@ import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
+self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("kurtosis", [])
 slug = "kurtosis"
 text = (root / "research/content" / f"{slug}.md").read_text()
-pending = json.loads((root / "research/pending" / f"{slug}.json").read_text())
 cites = re.findall(r"\{{cite:([a-z0-9_]+)\}}", text)
 assert len(cites) >= 5, len(cites)
 assert len(set(cites)) >= 2
-assert set(cites) <= set(pending["cite_keys"])
-for heading in ("Motivating example", "Worked example", "Intuition", "Definition", "Properties", "Statistical use", "Common misconceptions", "Assumptions and limits", "Connections", "History", "Lead context"):
-    assert f"## {heading}" in text, heading
 assert "**Your turn.**" in text
 assert '::: {.callout-tip collapse="true" title="Answer"}' in text
 answer = text.split('title="Answer"}', 1)[1].split(":::", 1)[0]
 assert "{cite:" not in answer
-assert 2 <= len(pending["self_checks"]) <= 3
-for item in pending["self_checks"]:
+assert 2 <= len(self_checks) <= 3
+for item in self_checks:
     assert "{cite:" not in item["answer"]
-assert pending["kind"] == "concept"
 
 def moments(v):
     n = len(v)

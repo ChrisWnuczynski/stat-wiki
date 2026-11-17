@@ -1,20 +1,36 @@
+
+
 ## Lead context
+
 A study of 451 patients at risk of stroke records a group, a 30-day outcome and a 365-day outcome on every row. Reading those rows one at a time does not answer whether stents reduced strokes. The summary that puts 33 strokes within 30 days in the treatment group, beside the control group in the same table, is already a data analysis.{{cite:openintro2019}} (Ch. 1, §1.1)
 
-## Definition — Scope
+## Definition
+
 Data analysis is the work of getting information out of observations once they have been collected and arranged, usually in a table. In a wide sense it is the part of statistics to which the rest of the subject is attached.{{cite:dodge2008}} (p. 150) A first course describes the same activity as collecting data, analysing them and drawing conclusions, with the opening chapter on the structure of the data and the next on summaries and graphs.{{cite:openintro2019}} (Ch. 1, opening; Ch. 2, opening)
 
 The activity splits into recognisable kinds of work. Exploratory analysis graphs the data, transforms them when the scale is awkward, looks for outliers and for hypotheses that were not stated in advance, and considers robust summaries. Initial analysis chooses which methods to apply. Multivariate analysis reduces dimension and searches for structure, as in discriminant analysis. Correspondence analysis and classification are tools aimed at particular kinds of table. Confirmatory analysis estimates parameters, tests hypotheses and states what the results support.{{cite:dodge2008}} (pp. 150–151)
 
 Exploratory analysis is a stance as much as a list of techniques. It delays the assumption that a named model is already the right one, and it uses graphs to let structure, outliers and failed assumptions show themselves. It uses statistical graphics constantly, and it is a larger activity than the graphics alone.{{cite:nist_eda2002}} (§1.1.1, “Approach”, “Philosophy”)
 
-## Statistical use
 Start with the structure of the table: which variables were measured, which are numerical, and which pairs might move together. A [scatterplot](scatterplot.qmd) shows one point for each case.{{cite:nist_scatterplot2002}} (§1.3.3.26, “Purpose”){{cite:openintro2019}} (Ch. 2, §2.1.1) A [histogram](histogram.qmd) shows where a single numerical variable sits, how it spreads, and whether it has one peak or a long tail.{{cite:nist_histogram}} (§1.3.3.14, “Purpose”){{cite:openintro2019}} (Ch. 2, §2.1.3) A [line chart](line-chart.qmd) is the corresponding picture for counts on a discrete variable.{{cite:dodge2008}} (p. 237) [Summary statistics](summary-statistics.qmd) compress centre, spread and shape into a few numbers after those pictures have been read.
 
 The stent table is the confirmatory end of the same pipeline: the rows have already been counted, and the comparison of treatment with control is the quantity the study was built to produce. Exploratory goals sit earlier: to see structure, to find the variables that matter, to notice anomalies, and to decide whether a simple model is even plausible.{{cite:openintro2019}} (Ch. 1, §1.1){{cite:nist_eda2002}} (§1.1.1, the seven aims)
 
+
+
+The integer list used above is a device for keeping the target fixed. With 18 integers the mean is determined by their total, and any smaller subset has a different mean. A field that reports the smaller mean as if it were the mean of the full list has changed the target. The same distinction applies when the units are people, firms, or plots rather than integers: the eligible list is part of the definition of the quantity. A model fitted inside the list can be a good description of those units and a poor description of a larger population. Saying which population is intended is a modelling step, not a decoration added after the fit. Neighbour procedures remain useful only for the target they were built for. A confidence interval inherits the sampling model. A regression slope inherits the conditional-mean model. A survival probability inherits the rule for censored times. None of those procedures chooses the eligible list.
 ## History
+
 The exploratory stance was set out by Tukey, first in a limited preliminary edition in 1970–1971 and then in *Exploratory Data Analysis* in 1977. That book is the usual starting point for the modern catalogue of displays and resistant summaries. Correspondence analysis has an earlier theoretical line, in Hartley (1935) and Fisher (1940), and a later development by Benzécri in the 1970s. Numerical classification grew out of biological typology, with modern clustering methods in the twentieth century. Confirmatory estimation and testing are the older inferential layer on which those exploratory tools were laid.{{cite:dodge2008}} (pp. 150–151){{cite:nist_eda2002}} (§1.1.1, “History”)
 
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 18. Their total is 171, so their mean is 9.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 7.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Data analysis has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 9.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [scatterplot](scatterplot.qmd), [histogram](histogram.qmd), [line chart](line-chart.qmd), [Summary statistics](summary-statistics.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 9.5 is zero, so the mean is the least-squares centre of these 18 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 9.5.
+
 ## Connections
+
 [Statistical graphics](statistical-graphics.qmd) are the displays exploratory analysis relies on, and they are not the whole of the analysis. A [histogram](histogram.qmd), a [scatterplot](scatterplot.qmd) and a [line chart](line-chart.qmd) answer different questions about the same table. [Summary statistics](summary-statistics.qmd) are the numerical reduction that follows. Spread, shape and tails continue in [statistical dispersion](statistical-dispersion.qmd), [skewness](skewness.qmd) and [kurtosis](kurtosis.qmd). A forecast comparison such as the [mean absolute percentage error](mean-absolute-percentage-error.qmd) is a later, confirmatory summary of errors rather than a first look at the series.

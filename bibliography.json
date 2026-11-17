@@ -11100,14 +11100,14 @@
       "authors": [
         "Hansen, B. E."
       ],
-      "year": 2010,
+      "year": 2022,
       "title": "Econometrics",
       "kind": "book",
-      "publisher": "University of Wisconsin",
-      "url": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf",
+      "publisher": "Princeton University Press",
+      "doi": "10.1515/9780691235899",
       "verification": {
-        "source": "archival_url",
-        "id": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf"
+        "source": "crossref",
+        "id": "10.1515/9780691235899"
       }
     },
     "bonita2006": {
@@ -11369,14 +11369,17 @@
       "authors": [
         "Donoho, D."
       ],
-      "year": 2015,
+      "year": 2017,
       "title": "50 Years of Data Science",
       "kind": "article",
-      "venue": "Manuscript, Tukey Centennial Workshop",
-      "url": "https://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf",
+      "venue": "Journal of Computational and Graphical Statistics",
+      "volume": "26",
+      "issue": "4",
+      "pages": "745–766",
+      "doi": "10.1080/10618600.2017.1384734",
       "verification": {
-        "source": "archival_url",
-        "id": "https://courses.csail.mit.edu/18.337/2015/docs/50YearsDataScience.pdf"
+        "source": "crossref",
+        "id": "10.1080/10618600.2017.1384734"
       }
     },
     "wilkinson2016": {

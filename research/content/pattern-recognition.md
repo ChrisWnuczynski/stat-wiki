@@ -1,8 +1,10 @@
+
+
 ## Lead context
 
 A digit on a cheque, a cell on a slide, and a customer who will or will not default are presented to the statistician as vectors of features. The task is to assign the vector to a class, or to describe the kinds of vectors that occur. Pattern recognition is that task. The name is shared with engineering and with machine learning. In statistics it means a probability model for the features and a rule that turns the model into a decision.
 
-## Definition — Scope
+## Definition
 
 Pattern recognition is the construction of rules that assign observations to classes, or that describe the structure of observations when no class is given. In the statistical-learning vocabulary the inputs are called features, the word the pattern-recognition literature prefers for what regression calls predictors. A classifier is a function $G(x)$ taking values in a finite set of classes. It partitions the feature space into regions, one label to each region. The boundaries may be linear or irregular. When no label is observed, the problem is unsupervised: the features are still there, and the response that would have defined a class is not.{{cite:hastie_esl2009}} (Ch. 2, §2.2, p. 9; Ch. 4, §4.1, p. 101){{cite:james_islr2021}} (Ch. 2, p. 26)
 
@@ -14,10 +16,21 @@ The reference rule is the [Bayes classifier](bayes-classifier.qmd), which assign
 
 Features are a choice. Two measurements that are rearrangements of each other can make a linear rule succeed or fail. The statistical problem starts after that choice and includes the uncertainty of the resulting error rate.{{cite:hastie_esl2009}} (Ch. 2, §2.2, p. 9)
 
-## History
 
-Discriminant methods and early neural rules grew up as ways to automate classification that a specialist could do by eye: species, letters, military targets. The statistical-learning synthesis of the last two decades treats those rules as one catalogue, with a common language of features, losses, and test error. Textbooks written for that synthesis cite the pattern-recognition literature as a parallel vocabulary rather than as a rival subject. The practical change was computational. A support-vector machine or a forest can be fit to feature vectors that no linear discriminant of the 1930s was asked to handle, and the evaluation standard is still a predictive error, not a significant coefficient.{{cite:hastie_esl2009}} (Ch. 2, §2.2, p. 9; Ch. 4, §4.1, p. 101){{cite:james_islr2021}} (Ch. 2, p. 26)
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 15. Their total is 120, so their mean is 8.0. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 6.0. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Pattern recognition has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 8.0 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [Bayes classifier](bayes-classifier.qmd), [Linear discriminant analysis](linear-discriminant-analysis.qmd), [quadratic discriminant analysis](quadratic-discriminant-analysis.qmd), [Nearest neighbours](nearest-neighbours.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 8.0 is zero, so the mean is the least-squares centre of these 15 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 8.0.
 
 ## Connections
 
 Pattern recognition is the classification face of [multivariate statistics](multivariate-statistics.qmd). It shares latent-variable models with [factor analysis](factor-analysis.qmd) when the features are treated as noisy views of a smaller set of causes. A rule with a tiny training error and a large test error has fit the sample, not the pattern. [Cross-validation](cross-validation.qmd) is the usual check. The Bayes rule is optimal for a known distribution and is not what is computed from a finite sample. Reporting the training accuracy as if it were that optimum is the mistake the held-out evaluation exists to prevent.{{cite:james_islr2021}} (Ch. 2, p. 26){{cite:hastie_esl2009}} (Ch. 4, §4.1, p. 101)
+
+
+
+The integer list used above is a device for keeping the target fixed. With 15 integers the mean is determined by their total, and any smaller subset has a different mean. A field that reports the smaller mean as if it were the mean of the full list has changed the target. The same distinction applies when the units are people, firms, or plots rather than integers: the eligible list is part of the definition of the quantity. A model fitted inside the list can be a good description of those units and a poor description of a larger population. Saying which population is intended is a modelling step, not a decoration added after the fit. Neighbour procedures remain useful only for the target they were built for. A confidence interval inherits the sampling model. A regression slope inherits the conditional-mean model. A survival probability inherits the rule for censored times. None of those procedures chooses the eligible list.
+## History
+
+Discriminant methods and early neural rules grew up as ways to automate classification that a specialist could do by eye: species, letters, military targets. The statistical-learning synthesis of the last two decades treats those rules as one catalogue, with a common language of features, losses, and test error. Textbooks written for that synthesis cite the pattern-recognition literature as a parallel vocabulary rather than as a rival subject. The practical change was computational. A support-vector machine or a forest can be fit to feature vectors that no linear discriminant of the 1930s was asked to handle, and the evaluation standard is still a predictive error, not a significant coefficient.{{cite:hastie_esl2009}} (Ch. 2, §2.2, p. 9; Ch. 4, §4.1, p. 101){{cite:james_islr2021}} (Ch. 2, p. 26)

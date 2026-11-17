@@ -1,8 +1,10 @@
+
+
 ## Lead context
 
 A psychology article typically reports an experiment or a correlation, a test, and a conclusion about behaviour. The statistical work is not a separate science from the statistics used in other empirical fields. It is the design of those studies and the summaries used to argue from a sample of people to a claim about a process. What has made the field conspicuous is not a private list of formulas. It is the discovery, from a systematic repeat of published studies, that the published significance rate was a poor guide to what a new sample would show.
 
-## Definition — Scope
+## Definition
 
 Psychological statistics is the application of statistical design and inference to questions about behaviour, perception, and mental measurement. The studies are experimental or correlational. An experiment assigns conditions. A correlational study records variables as they stand. Both produce an effect size and, in the literature that was replicated in 2015, almost always a significance test. The scope includes the measurement of individual differences, the comparison of groups, and the models that relate several behavioural scores. It does not include every number a psychologist quotes. A historical count of journal articles is not itself a psychological measurement.{{cite:osc2015}} (Abstract){{cite:dodge2008}} (p. 519)
 
@@ -19,6 +21,14 @@ The 2015 project showed how those tools behave in bulk. One hundred studies were
 Statistical work on psychological and behavioural measurements was already part of the biometric tradition. Galton and Pearson studied resemblance between parents and children in physical and behavioural data, and Pearson, Galton, and Weldon founded *Biometrika*. Scale construction and the measurement of individual differences became a standard applied branch in their own right.{{cite:dodge2008}} (pp. 49, 519)
 
 The late twentieth century's reliance on a single significant test, and the early twenty-first century's attempt to count how often findings repeat, are the recent chapter. A theoretical analysis had argued that publishing practices made false results common. The Open Science Collaboration then estimated a replication rate instead of arguing from the formula alone. The rate was low enough, relative to the near-universal significance of the original papers, to change what a single significant psychology result should be taken to mean.{{cite:osc2015}} (Introduction, Abstract)
+
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 10. Their total is 55, so their mean is 5.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 3.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Psychological statistics has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 5.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [confounding variable](confounding-variable.qmd), [one-sample t test](one-sample-t-test.qmd), [confidence interval](confidence-interval.qmd), [p-value](p-value.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 5.5 is zero, so the mean is the least-squares centre of these 10 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 5.5.
 
 ## Connections
 

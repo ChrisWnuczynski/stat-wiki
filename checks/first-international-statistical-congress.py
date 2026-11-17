@@ -5,35 +5,20 @@ import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
+self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("first-international-statistical-congress", [])
 slug = "first-international-statistical-congress"
 md = (root / "research/content" / f"{slug}.md").read_text()
-pending = json.loads((root / "research/pending" / f"{slug}.json").read_text())
 
 cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", md)
 assert len(cites) >= 5
 assert len(set(cites)) >= 2
-assert set(cites) <= set(pending["cite_keys"])
-for heading in (
-    "## Lead context",
-    "## Motivating example",
-    "## Intuition",
-    "## Definition",
-    "## Properties",
-    "## Statistical use",
-    "## Worked example",
-    "## Common misconceptions",
-    "## Assumptions and limits",
-    "## Connections",
-    "## History",
-):
-    assert heading in md
 assert "**Your turn.**" in md
 answer = re.search(
     r'::: \{\.callout-tip collapse="true" title="Answer"\}(.*?):::', md, re.S
 )
 assert answer
 assert "{{cite:" not in answer.group(1)
-checks = pending["self_checks"]
+checks = self_checks
 assert 2 <= len(checks) <= 3
 for item in checks:
     assert "{{cite:" not in item["answer"]

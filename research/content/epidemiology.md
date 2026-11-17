@@ -1,12 +1,15 @@
+
+
 ## Lead context
+
 A city can record many deaths from one illness while a neighbouring city records few, and the difference can be the water, the age mix, or the way the deaths were counted. Epidemiology studies how often health events occur, in which people and places, and which factors raise or lower that frequency, so that the events can be prevented or brought under control.{{cite:dodge2008}} (p. 181){{cite:bonita2006}} (Ch. 1, "Definition" and Box 1.2)
 
-## Definition — Scope
+## Definition
+
 The name comes from Greek words for what is upon the people and for study. In current use it is the study of the distribution and determinants of health-related states or events in specified populations, and the application of that study to prevention and control. Distribution covers time, place, and the kinds of people affected. Determinants cover biological, chemical, physical, social, and behavioural factors. The events include disease, injury, causes of death, and the use of health services, not only epidemics of infection.{{cite:bonita2006}} (Ch. 1, Box 1.2){{cite:dodge2008}} (p. 181)
 
 The population is part of the definition. It may be the residents of a country in a given year, or a narrower group such as workers in one plant or patients in one hospital. Age structure, sex, and ethnicity differ across those populations, so a comparison that ignores them mixes unlike groups. A crude mortality of 5% in one region and 10% in another can disappear once the rates are split at age 60, if the second region simply has more older people.{{cite:dodge2008}} (pp. 181–182)
 
-## Statistical use
 Counting begins with a defined [population](population.qmd) and a defined event. A [census](census.qmd) or a register supplies the denominator; a survey or a surveillance system supplies the cases. Incidence and prevalence answer different questions: new events over a period of time, versus how many people are affected at a moment. Person-time keeps someone in the denominator only while they are still under observation and still free of the event.{{cite:bonita2006}} (Ch. 2, "Incidence")
 
 Comparisons of risk are then absolute or relative. The absolute effect is the difference between the risk in the exposed and the risk in the unexposed. The relative effect is their ratio, reported as a relative risk or an [odds ratio](odds-ratio.qmd). A ratio of 2 can mean one extra case in a thousand or a hundred extra cases in a thousand, so the public-health weight of a factor depends on how common the exposure is, not only on the ratio.{{cite:dodge2008}} (pp. 62–63)
@@ -16,7 +19,17 @@ Study design decides what the comparison can support. An [observational study](o
 Time-to-event work uses the [survival function](survival-function.qmd) and, when several factors act together, a [proportional hazards model](proportional-hazards-model.qmd). [Logistic regression](binary-logistic-regression.qmd) is the usual model when the outcome is a yes-or-no event by a fixed time.
 
 ## History
+
 The seventeenth-century London bills of mortality gave John Graunt a list of deaths by cause and gave William Petty the material for political arithmetic. Later official statisticians, notably William Farr, treated cause of death as something that varied with age, sex, season, residence, and occupation, and that variation is what marked epidemiology off from statistics at large. James Lind's citrus trial against scurvy and John Snow's comparison of cholera across London water companies tied the same questions to prevention: Snow's map of deaths, and the higher death rate among households supplied by one company, pointed to contaminated water before the organism was known.{{cite:dodge2008}} (p. 181){{cite:bonita2006}} (Ch. 1, Box 1.1)
 
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 8. Their total is 36, so their mean is 4.5. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 2.5. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Epidemiology has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 4.5 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [population](population.qmd), [census](census.qmd), [odds ratio](odds-ratio.qmd), [observational study](observational-study.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 4.5 is zero, so the mean is the least-squares centre of these 8 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 4.5.
+
 ## Connections
+
 [Biostatistics](biostatistics.qmd) is the methodological neighbour: resampling, regression, and incomplete data are used here because the questions are biomedical. [Demography](demography.qmd) shares the life table, the census, and the study of births and deaths, and asks them of whole populations rather than of a particular illness. Clinical epidemiology carries the same designs into the care of individual patients. Genetic and molecular epidemiology narrow the exposure to a marker or a gene. In each case the statistical object is a rate in a defined group, and the scientific object is what would change that rate.{{cite:dodge2008}} (p. 49){{cite:bonita2006}} (Ch. 1, Box 1.3)

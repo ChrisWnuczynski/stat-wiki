@@ -1,4 +1,7 @@
+
+
 ## Lead context
+Expected loss is the risk of a decision: the mean of a loss, taken in the distribution that the decision is scored under. [Loss and risk](loss-and-risk.qmd) names that pair. A [decision problem](decision-problem.qmd) names the actions, the loss, and the distribution in which that mean is taken.
 
 Two treatments can be scored by how many months of life they leave, or two estimators by how far they fall from a parameter. Expected loss is the average of that score, taken under the probability distribution that still applies when the action is chosen. The action with the smallest expected loss is the one the score recommends. A different score can recommend a different action from the same probabilities.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; §9.4, p. 249)
 
@@ -28,6 +31,14 @@ For an estimator $T$ of a parameter $\theta$, with loss $\ell(\theta,T)$, the sa
 
 In that Bayesian point-estimation problem the loss is attached to reporting an estimate in place of the parameter. If the loss is quadratic, the estimate that the score selects is the mean of the distribution calculated for the parameter.{{cite:dodge2008}} (p. 34)
 
+For a treatment or a policy, list the loss in each state, weight by the current probabilities, and compare the averages. State whether the loss includes sure costs, such as a month of discomfort or the price of a measurement. For an estimator, say whether the expectation is a sampling risk at a fixed parameter or a posterior expected loss. The two numbers answer different questions. A point estimate chosen to minimise posterior expected squared error is a posterior mean. A point estimate discussed only through its sampling mean squared error is being judged as a procedure.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; Ch. 4, §4.4, p. 92)
+
+[Loss and risk](loss-and-risk.qmd) develop the sampling version. A [decision problem](decision-problem.qmd) is the list of actions inside which expected loss is computed. [Mean squared error](mean-squared-error.qmd) is expected squared error loss.
+
+Expected loss is not the loss of the expected outcome, unless the loss is linear. It is not the loss in the worst state, and it is not the loss in the most probable state. Minimising expected loss under one base rate does not minimise it under another. A sampling risk $R(\theta,T)$ is not a posterior expected loss: the first still depends on $\theta$, and the second has averaged $\theta$ out. Two losses that charge the same states differently can rank the same actions in opposite orders.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; Ch. 4, §4.4, p. 92)
+
+Decision analysis scores an action by an expectation: expected utility if the score is a gain, expected loss if it is a cost. The applied Bayesian layout computes that expectation from $p(x\mid d)$ after the actions and the utility have been written down, and it repeats the computation at each node of a tree. Medical calculations made the arithmetic public, by turning life expectancies and a discomfort penalty into one expected score per treatment. Sampling theory had already used the same word for an estimator: the risk function is the expected loss under repeated samples at a fixed parameter, and posterior expected loss is what selects a Bayes action once a posterior distribution is in hand. The two traditions share the average and differ in what is being averaged over.{{cite:gelman_bda2013}} (Ch. 9, §9.1, pp. 237–238; Ch. 9, §9.3, p. 245; Ch. 4, §4.4, p. 92)
+
 ## Properties
 
 Expected loss ranks actions at a given information state. It is linear in the loss: the expected loss of a mixture of outcomes is the mixture of the expected losses. In the tumour example the radiotherapy score $0.9\times 16.7+0.1\times 34.8-1$ is exactly that mixture, with the final $-1$ a sure loss from discomfort. Changing the probability $0.9$ changes the expected loss without changing the loss attached to either state.{{cite:gelman_bda2013}} (Ch. 9, §9.3, p. 245)
@@ -35,12 +46,6 @@ Expected loss ranks actions at a given information state. It is linear in the lo
 The law of total expectation is what makes a tree computable. The expected loss of “test, then act optimally” equals the average, over the test result, of the expected loss of the optimal action given that result, plus any loss charged by the test itself. If the optimal action does not depend on the result, this cannot beat the expected loss of taking that action immediately, once the test itself has a positive loss. The bronchoscopy calculation is an instance: every result still leads to radiotherapy, and the test adds a chance of death, so its expected quality-adjusted lifetime is worse.{{cite:gelman_bda2013}} (Ch. 9, §9.3, pp. 245–246)
 
 Sampling risk does not pick a uniformly best estimator. An estimator that has the smallest expected squared error at one $\theta$ generally fails at another. Restricting the class, for example to unbiased estimators, is what makes a further optimality claim possible. Expected posterior loss can still pick a single action, because the posterior has already averaged over $\theta$.{{cite:gelman_bda2013}} (Ch. 4, §4.4, p. 92)
-
-## Statistical use
-
-For a treatment or a policy, list the loss in each state, weight by the current probabilities, and compare the averages. State whether the loss includes sure costs, such as a month of discomfort or the price of a measurement. For an estimator, say whether the expectation is a sampling risk at a fixed parameter or a posterior expected loss. The two numbers answer different questions. A point estimate chosen to minimise posterior expected squared error is a posterior mean. A point estimate discussed only through its sampling mean squared error is being judged as a procedure.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; Ch. 4, §4.4, p. 92)
-
-[Loss and risk](loss-and-risk.qmd) develop the sampling version. A [decision problem](decision-problem.qmd) is the list of actions inside which expected loss is computed. [Mean squared error](mean-squared-error.qmd) is expected squared error loss.
 
 ## Worked example
 
@@ -61,10 +66,6 @@ Watching has the smaller expected loss. The most probable state is “absent,”
 Treating has expected loss $0.7\times 1+0.3\times 8=3.1$. Watching has expected loss $0.7\times 10=7$. Treating is smaller. The ranking flipped because the base rate changed, not because the losses changed.
 :::
 
-## Common misconceptions
-
-Expected loss is not the loss of the expected outcome, unless the loss is linear. It is not the loss in the worst state, and it is not the loss in the most probable state. Minimising expected loss under one base rate does not minimise it under another. A sampling risk $R(\theta,T)$ is not a posterior expected loss: the first still depends on $\theta$, and the second has averaged $\theta$ out. Two losses that charge the same states differently can rank the same actions in opposite orders.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; Ch. 4, §4.4, p. 92)
-
 ## Assumptions and limits
 
 The expectation exists only when the loss has a finite mean under $p(x\mid d)$. A utility or loss that the decision maker does not accept will rank actions they would not rank. The radon and tumour calculations make the tradeoff explicit and therefore easy to dispute. The tree calculation for a later action assumes that the stated policy will be followed. An expected loss computed for “measure, then remediate if high” does not apply to a household that will remediate regardless of the measurement.{{cite:gelman_bda2013}} (Ch. 9, §9.4, p. 249; §9.3, p. 245)
@@ -72,7 +73,3 @@ The expectation exists only when the loss has a finite mean under $p(x\mid d)$. 
 ## Connections
 
 A [decision problem](decision-problem.qmd) names the actions whose expected losses are compared. The [base rate](base-rate.qmd) is a probability weight inside the average. [Loss and risk](loss-and-risk.qmd) are the sampling-theory names for a loss and its expectation at a fixed parameter. [Mean squared error](mean-squared-error.qmd) is expected squared error. [Least absolute deviations](least-absolute-deviations.qmd) minimises an expected absolute loss for a median, in the population version of that criterion.
-
-## History
-
-Decision analysis scores an action by an expectation: expected utility if the score is a gain, expected loss if it is a cost. The applied Bayesian layout computes that expectation from $p(x\mid d)$ after the actions and the utility have been written down, and it repeats the computation at each node of a tree. Medical calculations made the arithmetic public, by turning life expectancies and a discomfort penalty into one expected score per treatment. Sampling theory had already used the same word for an estimator: the risk function is the expected loss under repeated samples at a fixed parameter, and posterior expected loss is what selects a Bayes action once a posterior distribution is in hand. The two traditions share the average and differ in what is being averaged over.{{cite:gelman_bda2013}} (Ch. 9, §9.1, pp. 237–238; Ch. 9, §9.3, p. 245; Ch. 4, §4.4, p. 92)

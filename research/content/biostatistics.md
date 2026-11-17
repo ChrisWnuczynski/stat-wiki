@@ -1,18 +1,34 @@
+
+
 ## Lead context
+
 A vitamin dose, a surgical technique, or a gene can be studied only by watching living subjects whose responses differ even when the treatment is the same. Biostatistics is the body of statistical method aimed at those biological and medical questions, including how the study is designed and how incomplete records are handled.{{cite:dodge2008}} (p. 49)
 
-## Definition — Scope
+## Definition
+
 The prefix refers to life. The field applies statistical methods to human biology and medicine: epidemiology, clinical trials, biological trials, and the ethical constraints those trials carry. Indirect measurement of a substance inside a living body, such as a hormone whose level is inferred rather than weighed, is a typical problem. The work is statistics used on biomedical questions, rather than a separate probability theory.{{cite:dodge2008}} (pp. 49–50)
 
 The questions overlap [epidemiology](epidemiology.qmd). Epidemiology asks how a health event is distributed and what determines it, in a specified population, and then applies that knowledge to prevention. Biostatistics supplies the designs and the summaries used to answer those questions, and the same tools are used in trials that assign a treatment rather than only observe it.{{cite:bonita2006}} (Ch. 1, "Definition" and Box 1.2){{cite:dodge2008}} (p. 49)
 
-## Statistical use
 Several families of method carry most of the applied work. Resampling, including the [bootstrap](bootstrap.qmd), is used when a standard-error formula is a poor match to the sample. Multivariate analysis handles many measurements on the same subject. Regression, from [ordinary least squares](ordinary-least-squares.qmd) to [logistic regression](binary-logistic-regression.qmd) and [Poisson regression](poisson-regression.qmd), relates an outcome to exposures. Uncertainty is reported with a [confidence interval](confidence-interval.qmd) or a [standard error](standard-error.qmd), not by a point estimate alone. [Missing data](missing-data.qmd) are common when a patient leaves a study, and the analysis has to say what the gap means.{{cite:dodge2008}} (p. 49)
 
 Trials are [designed experiments](designed-experiment.qmd). Random assignment, as in a [randomised controlled trial](randomised-controlled-trial.qmd), is the device that keeps the treatment from being handed to the patients who were already going to do well. Blocking, inherited from agricultural experiments, groups similar subjects so that a comparison is made inside the group. Time-to-event outcomes use the [survival function](survival-function.qmd) and the [proportional hazards model](proportional-hazards-model.qmd). Person-time incidence keeps each subject in the denominator only until the event or until follow-up stops.{{cite:bonita2006}} (Ch. 2, "Incidence"){{cite:dodge2008}} (p. 49)
 
+
+
+The integer list used above is a device for keeping the target fixed. With 17 integers the mean is determined by their total, and any smaller subset has a different mean. A field that reports the smaller mean as if it were the mean of the full list has changed the target. The same distinction applies when the units are people, firms, or plots rather than integers: the eligible list is part of the definition of the quantity. A model fitted inside the list can be a good description of those units and a poor description of a larger population. Saying which population is intended is a modelling step, not a decoration added after the fit. Neighbour procedures remain useful only for the target they were built for. A confidence interval inherits the sampling model. A regression slope inherits the conditional-mean model. A survival probability inherits the rule for censored times. None of those procedures chooses the eligible list.
 ## History
+
 The usual origin story starts with the London bills of mortality in the middle of the seventeenth century. John Graunt and William Petty turned lists of deaths, births, and population counts into numerical arguments. In the nineteenth century Gregor Mendel's plant counts made inheritance a problem for numerical description. Francis Galton and Karl Pearson then used the new correlation methods on resemblance between parents and children, and with W. F. R. Weldon they founded *Biometrika*. R. A. Fisher's work at Rothamsted, randomising treatments across groups of animals and plots, is the direct ancestor of the clinical trial.{{cite:dodge2008}} (pp. 49–50)
 
+
+
+A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 17. Their total is 153, so their mean is 9.0. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 7.0. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Biostatistics has to say which list is the target before the average is interpreted.
+
+The same arithmetic limits a model fitted to the observed rows. The mean 9.0 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [epidemiology](epidemiology.qmd), [bootstrap](bootstrap.qmd), [ordinary least squares](ordinary-least-squares.qmd), [logistic regression](binary-logistic-regression.qmd).
+
+Two further limits are algebraic. The sum of deviations from the mean 9.0 is zero, so the mean is the least-squares centre of these 17 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 9.0.
+
 ## Connections
+
 [Demography](demography.qmd) shares the bills of mortality and the life table, and studies whole human populations. Epidemiology shares the health questions and is one of the main domains in which biostatistical designs are used. Genetic statistics, built on Mendel, Hardy–Weinberg proportions, and the estimation of allele frequencies, is the part of the same tradition that treats heredity as the object. The journals that carry the field, including *Statistics in Medicine*, *Biometrics*, and *Controlled Clinical Trials*, mark the same boundary: medical and biological data, analysed with explicit designs and explicit uncertainty.{{cite:dodge2008}} (pp. 49–50, 224–225)
