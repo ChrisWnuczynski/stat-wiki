@@ -3209,6 +3209,66 @@ def with_kde_lab(note: dict, prose: str) -> str:
     return prose.replace(marker, marker + "\n\n" + figure, 1)
 
 
+HISTORY_SOURCE = WIKI / "research" / "content" / "history-of-statistics.md"
+_HISTORY_LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)")
+
+
+def history_word_count(text: str) -> int:
+    """Words of the history source, with citation markers removed and link text kept."""
+    plain = re.sub(r"\{\{cite:[^}]+\}\}", " ", text)
+    plain = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", plain)
+    plain = re.sub(r"`[^`]*`", " ", plain)
+    return len(re.findall(r"[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*", plain))
+
+
+def validate_history_links(text: str) -> None:
+    """Every local link in the history source must name a real article, chapter, or site page."""
+    note_names = {filename for _, files in PARTS for filename, _kind in files}
+    note_names.update(("final-preparation.qmd", "final-bayesian.qmd", "final-applied.qmd"))
+    problems = []
+    for match in _HISTORY_LINK.finditer(text):
+        dest = match.group(1)
+        if dest.startswith(("http://", "https://", "mailto:", "#")):
+            continue
+        path, _, _fragment = dest.partition("#")
+        if path.startswith("articles/"):
+            if Path(path).stem not in ARTICLE_LEADS:
+                problems.append(dest)
+        elif path.startswith("notes/"):
+            if Path(path).name not in note_names:
+                problems.append(dest)
+        elif path not in {"overview.qmd", "history.qmd", "index.qmd"}:
+            problems.append(dest)
+    if problems:
+        raise SystemExit("History links do not resolve: " + ", ".join(problems[:12]))
+
+
+def history_markdown() -> str:
+    """The history page is generated from this source. It is not written by hand into articles/."""
+    if not HISTORY_SOURCE.is_file():
+        raise SystemExit(f"Missing {HISTORY_SOURCE.relative_to(WIKI)}")
+    text = HISTORY_SOURCE.read_text(encoding="utf-8").strip()
+    validate_history_links(text)
+    keys = set(re.findall(r"\{\{cite:([^}]+)\}\}", text))
+    if len(re.findall(r"\{\{cite:", text)) < 5 or len(keys) < 2:
+        raise SystemExit("History source needs at least 5 citations from 2 sources")
+    if history_word_count(text) < 2500:
+        raise SystemExit(f"History source is {history_word_count(text)} words; need at least 2500")
+    for heading in (
+        "Early probability",
+        "Bayes and Laplace",
+        "Least squares and the normal law",
+        "Quetelet, Galton, and Pearson",
+        "Gosset, Fisher, Neyman, and Pearson",
+        "Kolmogorov",
+        "mid-twentieth century",
+        "Computation and machine learning",
+    ):
+        if heading not in text:
+            raise SystemExit(f"History source is missing the section {heading}")
+    return text
+
+
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
     PROVED_RESULT_SLUGS.clear()
@@ -3426,6 +3486,16 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
         PAGE_TITLES[article["path"]] = article["term"]
         blocks = article_blocks(article) + article_sections(article, qmap)
         add_page(article["path"], article["term"], article["box"]["part"] if article["box"] else None, "article", blocks, {})
+
+    history_path = WIKI / "history.qmd"
+    add_page(
+        history_path,
+        "History of statistics",
+        None,
+        "history",
+        [(True, "prose", prepare(history_markdown(), "figures", page=history_path) + "\n\n")],
+        {"description": yaml_quote("A chronological history of probability and statistics.")},
+    )
 
     # Equation numbers first, then links that need them, then term links.
     compile_terms(notes)
@@ -4784,6 +4854,8 @@ def attach_navboxes_and_cite_footers(pages: list[dict], article_by_path: dict[Pa
                 page["blocks"].append((False, "categories", cats))
             page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
         elif kind == "reference":
+            page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
+        elif kind == "history":
             page["blocks"].append((False, "cite-page", render_cite_this_page(page["path"], page["title"], now=now)))
 
 
@@ -6163,37 +6235,114 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             notation_rows.append(f"| {entry['symbol']} | {entry['meaning']} | [{facts['name']} distribution]({target}) |")
     write_qmd(notation_page, "Notation", "General statistical notation and symbols used by the distribution families.\n\n" + "\n".join(notation_rows))
 
-    # Main page, in the manner of a portal.
+    # Main page: search first, then a library built from the same parts as the indexes.
     home = WIKI / "index.qmd"
-    boxes = []
+
+    def library_card(title: str, blurb: str, count: int, links: list[tuple[str, Path]], more: str) -> str:
+        noun = "page" if count == 1 else "pages"
+        items = "\n".join(f"- [{cell(label)}]({href(home, path)})" for label, path in links)
+        return (
+            "::: {.library-card}\n"
+            f"### {title}\n\n"
+            f"{blurb}\n\n"
+            f"::: {{.library-count}}\n{count} {noun}\n:::\n\n"
+            f"{items}\n\n"
+            f"{more}\n"
+            ":::\n"
+        )
+
+    def chapter_blurb(members: list[dict]) -> str:
+        titles = [member["title"] for member in members[:3]]
+        n = len(members)
+        if n == 1:
+            return f"1 chapter: {titles[0]}."
+        if n == 2:
+            return f"2 chapters: {titles[0]} and {titles[1]}."
+        return f"{n} chapters, including {', '.join(titles[:-1])}, and {titles[-1]}."
+
+    cards = [
+        library_card(
+            "History",
+            "A chronological narrative of probability and statistics, with a timeline of the dated steps.",
+            1,
+            [("History of statistics", WIKI / "history.qmd")],
+            f"[See all]({href(home, WIKI / 'history.qmd')}){{.library-more}}",
+        )
+    ]
     for part, members in parts.items():
         total = part_totals[part]
-        items = "\n".join(f"- [{n['title']}]({href(home, n['path'])})" for n in members)
-        more = ""
+        more = f"[See all]({href(home, WIKI / 'notes' / 'index.qmd')}#{slug(part)}){{.library-more}}"
         if total:
             noun = "question" if total == 1 else "questions"
-            more = f"\n\n[{total} {noun} →]({href(home, by_topic_path)}#{slug(part)}){{.portal-more}}"
-        boxes.append(f"::: {{.portal-box}}\n### {part}\n\n{items}{more}\n:::\n")
-    final_lines = []
+            more += f" · [{total} {noun} →]({href(home, by_topic_path)}#{slug(part)}){{.library-more}}"
+        cards.append(
+            library_card(
+                part,
+                chapter_blurb(members),
+                len(members),
+                [(member["title"], member["path"]) for member in members[:4]],
+                more,
+            )
+        )
+    final_links = []
     for note in final_notes:
         own_n = sum(1 for q in by_source["final"] if q["notes_path"] == note["path"])
-        suffix = f" ({own_n} question{'s' if own_n != 1 else ''})" if own_n else ""
-        final_lines.append(f"- [{note['title']}]({href(home, note['path'])}){suffix}")
-    boxes.append("::: {.portal-box}\n### Final preparation\n\n" + "\n".join(final_lines) + "\n:::\n")
-    boxes.append(
-        "::: {.portal-box}\n### Question bank\n\n"
-        "Every question in one list.\n\n"
-        f"- [Question bank]({href(home, q_index)})\n"
-        f"- [By topic]({href(home, by_topic_path)}), the same questions under each chapter\n"
-        f"- [Random question]({href(home, random_path)})\n:::\n"
+        label = note["title"] + (f" ({own_n})" if own_n else "")
+        final_links.append((label, note["path"]))
+    cards.append(
+        library_card(
+            "Final preparation",
+            "The closing guide and the two examination halves.",
+            len(final_notes),
+            final_links,
+            f"[See all]({href(home, WIKI / 'notes' / 'index.qmd')}#final-preparation){{.library-more}}",
+        )
     )
-    boxes.append(
-        "::: {.portal-box}\n### Reference\n\n"
-        "Lookup pages: a glossary, distributions, notation, and formulas.\n\n"
-        f"- [Reference]({href(home, WIKI / 'reference' / 'index.qmd')})\n"
-        f"- [Common distributions]({href(home, WIKI / 'reference' / 'distributions.qmd')})\n"
-        f"- [Formula lookup]({href(home, WIKI / 'reference' / 'formulas.qmd')})\n:::\n"
+    cards.append(
+        library_card(
+            "Question bank",
+            f"All {len(questions)} questions in one list, {n_answers} of them with a worked answer.",
+            len(questions),
+            [
+                ("Question bank", q_index),
+                ("By topic", by_topic_path),
+                ("Random question", random_path),
+            ],
+            f"[See all]({href(home, q_index)}){{.library-more}}",
+        )
     )
+    reference_links = [
+        ("Reference", WIKI / "reference" / "index.qmd"),
+        ("Glossary and index", WIKI / "reference" / "glossary.qmd"),
+        ("Common distributions", WIKI / "reference" / "distributions.qmd"),
+        ("Notation", WIKI / "reference" / "notation.qmd"),
+        ("Formula lookup", WIKI / "reference" / "formulas.qmd"),
+    ]
+    cards.append(
+        library_card(
+            "Reference",
+            "Lookup pages: a glossary, distributions, notation, and formulas.",
+            len(reference_links) - 1,
+            reference_links[1:],
+            f"[See all]({href(home, reference_links[0][1])}){{.library-more}}",
+        )
+    )
+    lab_links = [
+        ("Kernel density estimation", WIKI / "labs" / "kernel-density.qmd"),
+        ("Beta–Binomial updating", WIKI / "labs" / "beta-binomial.qmd"),
+        ("A Markov chain", WIKI / "labs" / "markov-chain.qmd"),
+        ("Interval coverage", WIKI / "labs" / "ci-coverage.qmd"),
+    ]
+    cards.append(
+        library_card(
+            "Laboratories",
+            "Interactive pages where the population is known, so the error is visible.",
+            len(lab_links),
+            lab_links,
+            f"[See all]({href(home, WIKI / 'labs' / 'index.qmd')}){{.library-more}}",
+        )
+    )
+    library = ":::: {.library}\n" + "\n".join(cards) + "::::\n"
     starter = "\n".join(
         f"{i}. [{notes[name]['title']}]({href(home, notes[name]['path'])})"
         for i, name in enumerate(chapter_guides.STARTER, 1)
@@ -6210,6 +6359,18 @@ title: {yaml_quote(SITE_NAME)}
 toc: false
 ---
 
+```{{=html}}
+<p class="home-tagline">A study wiki for probability, inference, and the calculations that connect a sample to a conclusion.</p>
+<form id="home-search" class="home-search" role="search">
+  <label class="home-search-label" for="home-search-q">Search</label>
+  <input id="home-search-q" class="home-search-input" type="search" name="q" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Concepts, chapters, questions" role="combobox" aria-autocomplete="list" aria-controls="home-search-results" aria-expanded="false">
+</form>
+<p id="home-search-note" class="home-search-note"></p>
+<ul id="home-search-results" class="home-search-results" role="listbox" hidden></ul>
+<script type="module" src="home-search.js"></script>
+```
+
+{library}
 ::: {{.portal-intro}}
 A study wiki for data analysis, probability, stochastic processes, statistical learning, statistical inference, and the R used to compute them: **{n_chapters} topic chapters** (plus **{n_final} final-preparation pages**), **{n_articles} concept articles**, and **{len(questions)} questions**, {n_answers} of them with worked answers. Every chapter lists the questions on its topic, and every question links back to its chapter. Press Enter in the search box for a results page, or open a [random question]({href(home, random_path)}).
 :::
@@ -6233,10 +6394,6 @@ Then five chapters, in this order. Each later chapter says what to read first.
 3. Attempt it, then open **Worked answer** at the bottom of the question page.
 4. The line **6 of 17** is your place among the questions on that topic. **‹ 5 of 17** and **7 of 17 ›** move to the previous and next one.
 :::
-::::
-
-:::: {{.portal}}
-{chr(10).join(boxes)}
 ::::
 """
     if home_text.find(overview_href) < 0 or home_text.find(overview_href) > home_text.find(starter.splitlines()[0]):
@@ -6441,6 +6598,7 @@ def write_config(chapters, final_notes, questions) -> None:
 {chr(10).join(f"    - webr/{name}" for name in WEBR_FILES)}
     - robots.txt
     - search-rank.js
+    - home-search.js
     - search-aliases.json
     # Redirects from heading pages that are no longer made to their chapters.
     - articles/*.html
@@ -6480,6 +6638,8 @@ website:
         href: index.qmd
       - text: Overview
         href: overview.qmd
+      - text: History
+        href: history.qmd
       - text: Topics
         href: notes/index.qmd
       - text: Question bank
@@ -6524,6 +6684,8 @@ website:
         href: index.qmd
       - text: Overview
         href: overview.qmd
+      - text: History
+        href: history.qmd
       - text: Random question
         href: questions/random.qmd
       - section: Laboratories
