@@ -48,7 +48,9 @@ $h_4=4/6=2/3$ and $e_4=4(6-4)=8$.
 :::
 
 ## Connections — Barriers and fixed times
-The position at a large fixed time is governed by a [law of large numbers](law-of-large-numbers.qmd) and a [central limit theorem](central-limit-theorem.qmd). A passage time uses the path up to a random index, so those two limit theorems do not by themselves give $h_x$. The same cut between neighbouring states reappears as local balance for the [M/M/1 queue](m-m-1-queue.qmd), where the state is a count rather than a fortune. On a finite irreducible chain every state is visited again; the passage time here can be infinite only when a barrier is absorbing or the state space is unbounded.{{cite:durrett2019}} (Thm. 4.8.9, pp. 260–261)
+The position at a large fixed time is governed by a [law of large numbers](law-of-large-numbers.qmd) and a [central limit theorem](central-limit-theorem.qmd). A passage time uses the path up to a random index, so those two limit theorems do not by themselves give $h_x$. The same cut between neighbouring states reappears as local balance for the [M/M/1 queue](m-m-1-queue.qmd), where the state is a count rather than a fortune.{{cite:durrett2019}} (Thm. 4.8.9, pp. 260–261)
+
+On a finite irreducible Markov chain, every state is hit almost surely from every starting state. In a general chain, the target may lie outside the states reachable from the start, even when the state space is finite and no state is absorbing. For example, a chain can alternate between states $1$ and $2$ and, separately, between $3$ and $4$. Starting at $1$, it never hits $3$, so $T_3=\infty$.{{cite:pishro_nik2014}} (§11.2.4, communicating classes and recurrence)
 
 ## Check yourself
 

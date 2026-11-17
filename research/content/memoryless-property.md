@@ -12,7 +12,7 @@ Write $S(u)=\Pr(X>u)$. The identity is $S(s+t)=S(s)S(t)$. An exponential rate $\
 ## Intuition
 The exponential density falls at a constant proportional rate. The hazard, density divided by survival, equals $\lambda$ at every age, so the chance of failing in a short interval does not rise as the device gets older. Conditioning on survival to age $s$ cuts the left tail away and renormalises what remains; for this density the renormalised tail is a copy of the original law, shifted to start at $s$.{{cite:grinstead_snell1997}} (pp. 206–207)
 
-A geometric clock on the positive integers has the same reading one step at a time. If each time unit brings an independent success with probability $p\in(0,1)$, and $X$ is the trial number of the first success, then $\Pr(X>k)=(1-p)^k$. Surviving $r$ failures leaves a fresh sequence of trials. The probability of needing at least $s$ further trials is $(1-p)^s$, with no dependence on $r$.{{cite:grinstead_snell1997}} (p. 186, geometric survival)
+A geometric clock on the positive integers has the same reading one step at a time. If each time unit brings an independent success with probability $p\in(0,1)$, and $X$ is the trial number of the first success, then $\Pr(X>k)=(1-p)^k$. Surviving $r$ failures leaves a fresh sequence of trials. The probability of needing more than $s$ further trials is $(1-p)^s$, with no dependence on $r$.{{cite:grinstead_snell1997}} (p. 186, geometric survival)
 
 ## Key results
 The conditional survival calculation is an equality of two exponential functions, not an approximation. For $X\sim\operatorname{Exp}(\lambda)$,
@@ -25,7 +25,7 @@ On the positive integers the same cancellation uses a geometric ratio. With succ
 \[
 \Pr(X>r+s\mid X>r)=\frac{q^{r+s}}{q^r}=q^s=\Pr(X>s)
 \]
-for integers $r,s\ge 0$. The mean number of trials until the first success is $1/p$. Counting failures before the first success instead, the masses are $p q^k$ for $k=0,1,2,\ldots$ and the mean is $q/p$, one less than $1/p$. Both indexings are memoryless on their own lattice; they are not the same random variable.{{cite:grinstead_snell1997}} (p. 186){{cite:dodge2008}} (p. 226, geometric masses and mean $q/p$)
+for integers $r,s\ge 0$. The mean number of trials until the first success is $1/p$. Counting failures before the first success instead, the masses are $p q^k$ for $k=0,1,2,\ldots$ and the mean is $q/p$, one less than $1/p$. For that failure count $K=X-1$, memorylessness uses non-strict tails: $\Pr(K\ge r+s\mid K\ge r)=\Pr(K\ge s)$. The two indexings are not the same random variable.{{cite:grinstead_snell1997}} (p. 186){{cite:dodge2008}} (p. 226, geometric masses and mean $q/p$)
 
 A Weibull lifetime with shape different from $1$ fails the identity. Shape $2$ and scale $1$ has survival $\exp(-t^2)$. Then $\Pr(T>1)=e^{-1}\approx 0.3679$, while
 \[
