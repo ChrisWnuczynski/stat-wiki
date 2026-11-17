@@ -1,0 +1,44 @@
+{
+  "action": "page",
+  "slug": "likelihood-ratios-in-diagnostic-testing",
+  "term": "likelihood ratios in diagnostic testing",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [
+    "diagnostic likelihood ratio"
+  ],
+  "lead": {
+    "field": "statistical inference",
+    "article": "",
+    "term": "likelihood ratios in diagnostic testing",
+    "verb": "are",
+    "description": "factors that convert the prior odds of a condition into posterior odds after a test result"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "openintro2019"
+  ],
+  "overview_sentence": "A diagnostic likelihood ratio multiplies the prior odds of a condition after a test result.",
+  "covered_terms": [
+    "likelihood ratios in diagnostic testing",
+    "diagnostic likelihood ratio"
+  ],
+  "self_checks": [
+    {
+      "title": "Mammogram ratio",
+      "prompt": "Sensitivity 0.89 and false-positive rate 0.07. What is the positive likelihood ratio?",
+      "answer": "The ratio is 0.89/0.07, about 12.714."
+    },
+    {
+      "title": "Posterior probability",
+      "prompt": "Prior odds about 0.003512 times a likelihood ratio of about 12.714. What is the posterior probability?",
+      "answer": "The posterior probability is about 0.0427."
+    },
+    {
+      "title": "A simpler test",
+      "prompt": "Sensitivity 0.80, false-positive rate 0.10, base rate 0.20. What are the posterior odds and the posterior probability?",
+      "answer": "The posterior odds are 2 and the posterior probability is 2/3."
+    }
+  ]
+}

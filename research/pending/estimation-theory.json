@@ -1,0 +1,47 @@
+{
+  "action": "page",
+  "slug": "estimation-theory",
+  "term": "estimation theory",
+  "topic": "Statistical inference",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "",
+    "term": "estimation theory",
+    "verb": "is",
+    "description": "the study of how a sample is converted into a point or an interval for an unknown population parameter"
+  },
+  "bibliography": {
+    "nist_confidence2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a77.1.4: What are confidence intervals?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc14.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_confidence2002",
+    "nist_linear_least_squares_pmd2002",
+    "openintro2019"
+  ],
+  "overview_sentence": "Estimation theory turns a sample into a point or an interval for a parameter.",
+  "covered_terms": [
+    "estimation theory"
+  ]
+}

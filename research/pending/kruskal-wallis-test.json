@@ -1,0 +1,66 @@
+{
+  "action": "page",
+  "slug": "kruskal-wallis-test",
+  "term": "Kruskal-Wallis test",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [
+    "Kruskal\u2013Wallis test"
+  ],
+  "lead": {
+    "field": "statistical inference",
+    "article": "the",
+    "term": "Kruskal-Wallis test",
+    "verb": "is",
+    "description": "a rank test of whether several samples could come from the same continuous distribution",
+    "proper": true
+  },
+  "bibliography": {
+    "nist_kruskal2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a77.4.1: The Kruskal-Wallis test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc41.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section4/prc41.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_kruskal2002"
+  ],
+  "overview_sentence": "The Kruskal-Wallis test compares several groups using ranks of the combined sample.",
+  "covered_terms": [
+    "Kruskal-Wallis test",
+    "Kruskal\u2013Wallis test"
+  ],
+  "self_checks": [
+    {
+      "title": "Rank statistic",
+      "prompt": "Three groups of size 3 have rank sums 10, 15, and 20. What is H?",
+      "answer": "H is 20/9, about 2.222."
+    },
+    {
+      "title": "A larger ranking",
+      "prompt": "Three groups of size 4 have rank sums 12, 24, and 48. What is H?",
+      "answer": "H is 249/13, about 19.154."
+    },
+    {
+      "title": "Oil data threshold",
+      "prompt": "H is 13.64 and the chi-squared 5% reference with 3 degrees of freedom is 7.81. Does the test reject?",
+      "answer": "Yes. 13.64 is greater than 7.81, so the test rejects."
+    }
+  ]
+}

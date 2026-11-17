@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "mathematical-statistics",
+  "term": "mathematical statistics",
+  "topic": "Statistical inference",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical inference",
+    "article": "",
+    "term": "mathematical statistics",
+    "verb": "is",
+    "description": "the mathematical theory of estimating population quantities and of testing claims about them"
+  },
+  "bibliography": {
+    "hansen2010": {
+      "authors": [
+        "Hansen, B. E."
+      ],
+      "year": 2010,
+      "title": "Econometrics",
+      "kind": "book",
+      "publisher": "University of Wisconsin",
+      "url": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "gelman_bda2013",
+    "hansen2010",
+    "openintro2019"
+  ],
+  "overview_sentence": "Mathematical statistics is the theory of estimators, intervals, and tests.",
+  "covered_terms": [
+    "mathematical statistics"
+  ]
+}
