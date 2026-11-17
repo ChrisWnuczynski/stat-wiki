@@ -20,7 +20,8 @@ The identity $Q_\mu=\sum_i(x_i-\overline x)^2+n(\overline x-\mu)^2$ separates wi
 
 The update is additive over independent batches: each observation adds one-half to shape and half its squared departure to scale. This sufficiency also makes analytical calculations useful for checking a numerical sampler. The implementation should be checked under the same variance or precision parameterization used in its density.
 
-## Worked example — Three deviations from ten
+## Worked example
+### Three deviations from ten
 Let $\mu=10$, observe $(8,10,12)$ and take prior $\operatorname{InvGamma}(2,3)$. The squared-deviation sum is eight, so $a_n=7/2$ and $b_n=7$. The posterior mean variance is $7/(5/2)=2.8$, its mode is $7/(9/2)=14/9=1.555556$, and its variance is $392/75=5.226667$. An equal-tailed 90% credible interval for $v$ is approximately $(0.995227,6.459501)$, calculated from the inverse-gamma quantiles. The mean and mode differ because they summarize a skewed positive distribution.{{cite:gelman2006}} (§3.1, pp. 518–519)
 
 **Your turn.** Add one further measurement equal to the known mean ten. What changes in the posterior shape, scale and mean?

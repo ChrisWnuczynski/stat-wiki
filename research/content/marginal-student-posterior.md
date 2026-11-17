@@ -18,7 +18,8 @@ For $\nu>2$, the marginal variance of the contrast is $\nu s^2c/(\nu-2)$. For $\
 
 The coefficient interval with central posterior probability $1-\alpha$ is $a^\top\widehat\beta\pm t_{1-\alpha/2,\nu}s\sqrt c$. It coincides numerically with the classical t interval under this Gaussian model and reference prior, though the probability interpretations condition on different objects.{{cite:bernardo2005_reference}} (Example 21, coverage in simple normal problems)
 
-## Worked example — An intercept with three residual degrees of freedom
+## Worked example
+### An intercept with three residual degrees of freedom
 For observations $(1,2,4,5)$ and an intercept-only design, $n=4$, $p=1$, $\widehat\beta=3$ and $Q=10$. Thus $\nu=3$, $s^2=10/3$ and $C=1/4$. The marginal posterior is Student with location three, scale $\sqrt{5/6}=0.912871$ and three degrees of freedom. Its variance is $3(5/6)/(3-2)=2.5$. A central 95% interval is $(0.094837,5.905163)$, using the $t_3$ quantile rather than a normal quantile.{{cite:bernardo2005_reference}} (Examples 16, 21)
 
 If the residual variance were fixed at $10/3$, the conditional normal posterior would instead have variance $5/6$. The marginal posterior integrates uncertainty in that variance and has a larger variance as well as heavier tails. With few residual degrees of freedom the difference is substantial.

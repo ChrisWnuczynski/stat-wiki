@@ -20,7 +20,8 @@ Write $n_0=\sigma^2/v_0$. Then the posterior mean is $(n_0m_0+n\overline x)/(n_0
 
 Updating in batches gives the same answer because both $P$ and $h$ receive additive increments. A posterior from one batch becomes the next batch's prior. This equivalence presumes that the batches use the same latent mean and the specified independent sampling model. Reusing the same observations as though they were a new batch would double-count their likelihood contribution.
 
-## Worked example — Update together and sequentially
+## Worked example
+### Update together and sequentially
 Let $\mu\sim N(0,4)$, let the known observation variance be four, and observe $8$ and $12$. The prior precision is $1/4$. The two observations add $1/2$ to precision and five to the precision-weighted mean. Thus $P_2=3/4$, $h_2=5$, the posterior mean is $20/3=6.666667$ and variance is $4/3=1.333333$. A central 95% credible interval is $(4.403495,8.929838)$. The interval uses posterior normal quantiles.{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)
 
 Sequentially, observing eight first gives precision $1/2$, weighted mean two and hence posterior $N(4,2)$. Observing twelve adds $1/4$ to precision and three to weighted mean. The result is again $N(20/3,4/3)$. Here the prior equivalent sample size is one: its mean zero receives the same precision weight as each individual observation.

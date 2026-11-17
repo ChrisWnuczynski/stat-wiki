@@ -18,7 +18,8 @@ Writing $m=\alpha/(\alpha+\beta)$ and $k=\alpha+\beta$ gives a population mean r
 
 This distinction also separates full Bayesian learning from an empirical-Bayes plug-in analysis. Conditioning on one fitted hyperparameter pair omits its posterior uncertainty. Hierarchical mixture models integrate that uncertainty when computing marginal probabilities and predictions.{{cite:blei_ng_jordan2003}} (§§3, 5, latent integration and parameter estimation)
 
-## Worked example — Two possible population distributions
+## Worked example
+### Two possible population distributions
 Take two studies with $(y_1,n_1)=(1,2)$ and $(y_2,n_2)=(2,2)$. Suppose a discrete hyperprior assigns equal probability to $(\alpha,\beta)=(1,1)$ and $(2,2)$. At the first pair the product of beta-function ratios is $1/18$; at the second it is $3/50$. Their ratio is $27/25$. Normalizing the two weighted possibilities gives posterior probabilities $25/52$ and $27/52$. The finite hyperprior converts the kernel comparison into a probability calculation. A continuous density evaluated at two points could not be normalized in this manner.{{cite:ng_tian_tang2011_dirichlet}} (§1.3, beta-integral normalization)
 
 For the study with two successes, its conditional posterior rate is Beta(3,1) under the first hyperparameter pair and Beta(4,2) under the second. Its marginal posterior mean is therefore $(25/52)(3/4)+(27/52)(2/3)=147/208=0.706731$. Simply plugging in either candidate pair would miss this averaging step. The underlying operation is marginalization of a hierarchical mixture.{{cite:blei_ng_jordan2003}} (§3, eqs. 2–3)

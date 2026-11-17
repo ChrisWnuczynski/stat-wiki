@@ -23,7 +23,8 @@ $$\int_0^\infty v^{-a-3/2}\exp\left[-\frac{b+(z-m_*)^2/(2c)}v\right]dv
 \ \propto\ \left[1+\frac{(z-m_*)^2}{\nu s^2c}\right]^{-(\nu+1)/2}.$$
 This is the Student kernel with degrees of freedom $\nu$ and scale $s\sqrt c$. Positivity of SSE makes $b>0$, ensuring integrability at zero, and $\nu>0$ ensures integrability at infinity.
 
-## Worked example — An intercept with five measurements
+## Worked example
+### An intercept with five measurements
 Take measurements $(2,3,4,5,6)$. Their mean is $4$, SSE is $10$, and $s^2=10/4=2.5$. For a new measurement, $h_*=1/5=0.2$. The mean posterior is $t_4(4,\sqrt{0.5})$, whereas the predictive distribution is $t_4(4,\sqrt3)$. Using the $0.975$ Student quantile $2.776445$, the equal-tailed 95% intervals are $(2.036757,5.963243)$ for the mean and $(-0.808944,8.808944)$ for a new measurement. The centres agree, but the predictive scale is $\sqrt6$ times the mean scale.
 
 **Your turn.** What is the variance of the new-measurement predictive distribution in this example?

@@ -54,3 +54,49 @@ Add uncertain claims here before writing them into an article.
   - Sabermetrics: Dodge has no entry, and no textbook or paper defining the term was opened. Sources tried: dodge2008 search.
   - Six Sigma: The NIST/SEMATECH glossary has no Six Sigma entry. Handbook sections 6.1 and 6.3, which were opened, discuss 3-sigma control limits and statistical quality control, not the Six Sigma programme. Dodge has no entry. Sources tried: nist glossary; NIST handbook sections 6.1 and 6.3; dodge2008 search.
   - Structured data analysis (statistics): Opened Dodge’s data-analysis entry (pp. 150–151), which discusses tables and exploratory, multivariate and confirmatory analysis but never this phrase; OpenIntro Statistics chapters 1 and 2, on data structure, summaries and graphics; and the NIST/SEMATECH handbook §1.1.1 on exploratory data analysis. None defines a statistical method under this name. Sources tried: dodge2008 pp. 150–151; openintro2019 ch. 1–2; nist handbook §1.1.1.
+
+- `accidental-deaths-data`: an annual US accidental-death total near 105000 for 1979 was not verified; official R dataset documentation supplies only the first six months of 1979. The numerical comparison uses 105000 as a hypothetical total.
+
+- `adjusted-r-squared`: studentsurvey.csv is absent, so the 100-student regression coefficients cannot be refitted from raw observations; coefficient/standard-error ratios, p-values, confidence intervals, F statistic and adjusted R-squared are independently checked from the displayed summary.
+
+- `analysis-of-deviance`: the Myers–Montgomery wafer provenance was not checked in the textbook itself; the official CRAN faraway data reproduce every displayed Gamma-model coefficient and comparison.
+
+- chi-squared-test-for-a-variance: locate empirical provenance of the tuning-fork sample summary; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- chi-squared-test-with-estimated-parameters: locate empirical provenance of the village house-count table; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- chi-squared-test-with-known-cell-probabilities: locate empirical provenance of the frizzled-chicken count table; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- choosing-the-number-of-principal-components: locate empirical provenance of the twelve-subject paired measurements; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- contingency-tables: locate empirical provenance of the ESP survey table; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- The chain simulation specifies no random seed and reports no numerical fitted scores or selected edges. Its population graph and penalty-grid specifications are checked; the new likelihood comparison is explicitly illustrative.
+
+- ingredients-of-a-hypothesis-test: locate empirical provenance of the blood-pressure and tennis illustrative sample summaries; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-difference-of-means: locate empirical provenance of the safety-period sample summaries; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-normal-variance: locate empirical provenance of the tablet-weight sample summary; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-proportion: locate empirical provenance of the nightmare survey counts; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- interval-for-a-ratio-of-variances: locate empirical provenance of the safety-period variance summaries; repository chapter data and arithmetic checked, opened proper works support the methods but do not identify the underlying study.
+
+- leaf-blotch-data: the full Wedderburn (1974) paper and the detailed field-sampling protocol were not accessible through publisher/search attempts; source claims about averaging leaves and historical rationale are omitted or corrected. The public CRAN dataset and both displayed model fits were independently refit.
+
+- logistic-lasso: Exact preprocessing, cross-validation folds and selected penalty for the fourteen-gene fit are unavailable; coefficient arithmetic and list overlaps are checked, but the selection cannot be reproduced.
+
+- logistic-lasso: The supplied173-gene discovery total and2000-predictor dimension require the complete input dataset and discovery list for reconstruction; the explicit14 coefficients and listed overlaps are checked.
+
+- multiple-linear-regression: raw student-survey data underlying the 100-observation height/shoe/weight fit were not found in sources/. The check refits birthwt and recomputes all survey inference recoverable from rounded coefficients, standard errors and model summaries; exact survey refitting and the reported prediction-interval endpoints remain unverified.
+
+- TG5 cattle studies: the numerical example is a schematic conditional-normal calculation. The full published hierarchical posterior was not independently refitted from farm-level data.
+
+- Two responses, one person: the patient-level burn data, empirical fit and provenance of the supplied burn-ellipse figure were not recovered through Song (2007), publisher extracts or exact-coefficient searches. The coefficient pair and standard errors are explicitly illustrative model inputs; their arithmetic and the stated zero-covariance region geometry are recomputed. The figure is preserved without claiming a new simulation or independent empirical verification.
+
+- General UMPU theory: third-edition Lehmann–Romano publisher chapter PDF was inaccessible and the first-edition third-party copy could not be verified as authorised, so neither is cited. A complete direct normal-shift proof is given; the general scalar moment constraint is checked against the publisher-hosted open-access Draxler–Kurz paper (§3.2, eq. 11).
+
+- Unit root: the Granger–Newbold1974 original article and Phillips1985 discussion paper were not accessible through the publisher/author routes tried. Spurious-regression discussion cites the read Forecasting: Principles and Practice §10.1 instead.
+
+- warp-breaks-data: obtain experimental randomisation, independent-cluster and row-order provenance before assigning factory or longitudinal interpretations to the wool-grouped GEE demonstration; public R data documentation specifies wool types and looms only.

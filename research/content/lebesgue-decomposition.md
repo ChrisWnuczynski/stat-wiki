@@ -1,0 +1,29 @@
+## Motivating example
+A measuring device can report exact zero with positive probability and otherwise return a continuously varying signal. A density alone cannot represent the exact-zero probability, while a table of point masses cannot represent the continuously spread part. There is also a third possibility: a continuous distribution concentrated on a set of length zero. A useful classification must allow all three mechanisms in the same law.{{cite:durrett2019}} (§1.2, distributions; Appendix A.4, Theorem A.4.7)
+
+## Definition — Decompose measures relative to a reference
+For sigma-finite measures $\mu$ and $\nu$, the Lebesgue decomposition writes $\nu=\nu_{\mathrm{ac}}+\nu_{\mathrm{sing}}$, where $\nu_{\mathrm{ac}}\ll\mu$ and $\nu_{\mathrm{sing}}\perp\mu$. Absolute continuity means $\mu(A)=0$ implies $\nu_{\mathrm{ac}}(A)=0$. Singularity means there is a measurable $N$ with $\mu(N)=0$ and $\nu_{\mathrm{sing}}(N^c)=0$. By the Radon–Nikodym theorem the absolutely continuous component has a density relative to $\mu$. The measures in this split need not individually have total mass one. Their masses add to that of $\nu$.{{cite:durrett2019}} (Appendix A.4, Theorems A.4.7–A.4.8)
+
+For a probability law on $\mathbb R$, use Lebesgue measure as reference and split the singular component further into its atoms and its nonatomic remainder. This gives the familiar discrete, absolutely continuous and singular continuous parts. An atom is a point with positive probability. The singular continuous part has no jumps in its distribution function, yet can carry positive probability on a zero-length set. The word continuous in this classification means absence of atoms; it does not guarantee a density.{{cite:tao2011_measure}} (§1.6.3, prop. 1.6.31 and rem. 1.6.32; §1.6.4, ex. 1.6.47)
+
+## Properties — Why the pieces are identifiable
+A probability measure has at most countably many atoms. For each positive integer $m$, there are at most $m$ atoms of mass at least $1/m$, since their masses cannot sum to more than one. Every atom belongs to one of those finite sets. Thus $\nu_{\mathrm d}=\sum_x\nu(\{x\})\delta_x$ is a well-defined countable measure, and subtracting it leaves a nonatomic measure. The atom masses are fixed by the law, so this part cannot be reassigned to the continuous components.{{cite:tao2011_measure}} (§1.6.3, proof of prop. 1.6.31)
+
+Uniqueness of the absolutely continuous/singular split has a short argument. Suppose two decompositions use null support sets $N_1,N_2$ for their singular components. Put $N=N_1\cup N_2$. Both absolutely continuous components assign zero mass to $N$. On $N^c$, both singular components vanish, so each absolutely continuous component must agree with $\nu$ there. On an arbitrary measurable $A$, this determines its absolutely continuous mass as $\nu(A\setminus N)$, and subtraction determines its singular mass. The two decompositions therefore agree. General existence is supplied by the measure decomposition theorem; the uniqueness argument explains why the classification is intrinsic rather than a modelling convention.{{cite:durrett2019}} (Appendix A.4, Theorem A.4.7 and Exercise A.4.4)
+
+## Interpretation — A derivative can miss probability mass
+If $F(x)=\nu(( -\infty,x])$, then $F$ has jumps exactly at the atoms. An absolutely continuous contribution takes the form $\int_{-\infty}^x f(t)\,dt$. A singular continuous contribution can increase without contributing to $F'$ on a set of positive Lebesgue measure. For example, the Cantor distribution is supported on the middle-thirds Cantor set, has no point masses, and has a continuous distribution function whose derivative is zero almost everywhere. Integrating that derivative does not recover its total increase.{{cite:tao2011_measure}} (§1.6.4, ex. 1.6.47)
+
+The Cantor law can be constructed as $C=\sum_{j\ge1}2B_j/3^j$ for independent fair binary digits $B_j$. After fixing the first $m$ digits, an interval of length $3^{-m}$ contains probability $2^{-m}$. Individual digit sequences have probability at most $2^{-m}$ for every $m$ and hence zero, so there are no atoms. The support is covered by $2^m$ intervals of length $3^{-m}$; their total length $(2/3)^m$ tends to zero. These two calculations establish singularity and continuity without treating the law as a density on its support.
+
+## Worked example — Read off masses and interval probabilities
+Let $\nu=\tfrac14\delta_0+\tfrac12\operatorname{Unif}(0,2)+\tfrac14\nu_C$, where $\nu_C$ is the Cantor law on $[0,1]$. The discrete mass is $1/4$, the absolutely continuous mass is $1/2$, and the singular continuous mass is $1/4$. The Lebesgue density of the absolutely continuous part is $1/4$ on $(0,2)$, integrating to $1/2$. At zero the distribution function jumps by $1/4$. At $x=1/2$, the uniform contribution is $1/8$ and the Cantor CDF is $1/2$, so $F(1/2)=1/4+1/8+1/8=1/2$.
+
+**Your turn.** What is $\nu((1,2])$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+Only the uniform component places mass in $(1,2]$. Its conditional probability is $1/2$ and its mixture weight is $1/2$, giving $1/4$.
+:::
+
+## Assumptions and limits — A mixture representation carries different weights
+A nonzero component can be normalised to a probability distribution by dividing by its mass. The associated mass then becomes a mixture weight. A zero component has no meaningful conditional distribution to normalise. Distinguish the component measure, whose density integrates to its weight, from a normalised component distribution, whose density integrates to one. Also distinguish a set of zero Lebesgue measure from an impossible event: a singular law can assign probability one to a set that has Lebesgue measure zero. Changing the reference measure changes what counts as absolutely continuous; for example, every probability law is absolutely continuous with respect to itself.{{cite:durrett2019}} (Appendix A.4, absolute continuity and Theorem A.4.8)

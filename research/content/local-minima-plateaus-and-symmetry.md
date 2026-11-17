@@ -18,7 +18,8 @@ For the permutation identity, substitute a permutation $\pi$ of $\{1,\ldots,m\}$
 
 For equal units, the gradients also agree when the objective and optimizer treat their coordinates identically. If incoming weights, hidden biases and outgoing weights begin in equal pairs, a deterministic gradient update preserves their equality by induction. Common minibatches do not break that equality: both units receive the same inputs and paired derivatives at every step. Independent random initializations supply distinct starting coordinates. Randomness that is itself identical for the paired units would not help.{{cite:zhang_d2l2023}} (§“Numerical Stability and Initialization”, “Breaking the Symmetry”)
 
-## Worked example — A saddle with zero gradient
+## Worked example
+### A saddle with zero gradient
 Consider $L(u,v)=u^2-v^2$. Its gradient is $(2u,-2v)$, so the origin is stationary. Its Hessian is $\operatorname{diag}(2,-2)$, with one eigenvalue of each sign. Along $(u,0)$ the loss is positive for nonzero $u$; along $(0,v)$ it is negative. The origin is therefore a saddle, even though its gradient is exactly zero. With gradient descent step size $0.1$, the update is $(u,v)\mapsto(0.8u,1.2v)$. A small nonzero $v$ grows rather than returning toward the saddle. This illustrates the local curvature diagnostic.{{cite:goodfellow_bengio_courville2016}} (§8.2.3, pp. 282–284)
 
 For a separate symmetry calculation, take $f(x)=2\operatorname{ReLU}(x)+3\operatorname{ReLU}(-x)$. Swapping the two hidden triples leaves $f(2)=4$ and $f(-2)=6$. Rescaling the first hidden weight from $1$ to $4$ and its output weight from $2$ to $1/2$ also preserves those outputs. A function can be identifiable in prediction at these inputs while its parameter representation is not unique.

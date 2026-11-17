@@ -19,7 +19,8 @@ The statistic is unchanged by an invertible affine coordinate transformation. Wr
 
 For $p=1$, write $s^2=S$ for the scalar sample variance. Then $T^2=n(\overline X-\mu_0)^2/s^2=t^2$, and the scaling factor becomes one. A standard normal numerator squared divided by an independent chi-squared variance estimate over $n-1$ degrees of freedom gives $F_{1,n-1}$. This checks the univariate case against the t construction.{{cite:dodge2008}} (pp. 526, 528–529)
 
-## Worked example — Twenty observations in two dimensions
+## Worked example
+### Twenty observations in two dimensions
 With $n=20$, $p=2$ and observed $T^2=10$, the scaled statistic is $90/19=4.736842$. The 95th percentile of $F_{2,18}$ is $3.554557$, so the 5% test rejects. Its upper-tail probability is $0.0222434$. The corresponding critical value on the T-squared scale is $\{2(19)/18\}\times3.554557=7.504065$. These are the same decision written in two coordinate systems for the test statistic.{{cite:nist_hotelling2002}} (§6.5.4.3, testing a specified mean vector)
 
 The phrase “two dimensions” describes a single joint test of the mean vector. It is not a separate 5% test for each coordinate. Covariance changes the quadratic distance, and the joint critical value is calibrated for that complete statistic.

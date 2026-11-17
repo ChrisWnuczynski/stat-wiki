@@ -15,7 +15,8 @@ More explicitly, for every fixed contrast vector $a$, the scalar variable $a^\to
 
 To identify the null space, observe $a^\top\Sigma a=\sum_kp_ka_k^2-(\sum_kp_ka_k)^2$. This is the variance of the value $a_k$ under probabilities $p_k$. With all probabilities positive, it vanishes precisely when all $a_k$ are equal. The all-ones direction also has exactly zero realized error because $\sum_k(\widehat p_k-p_k)=0$.
 
-## Worked example — A difference of two category shares
+## Worked example
+### A difference of two category shares
 Take $p=(0.2,0.3,0.5)$ and $n=100$. The single-trial covariance is
 $$\Sigma=\begin{pmatrix}0.16&-0.06&-0.10\\-0.06&0.21&-0.15\\-0.10&-0.15&0.25\end{pmatrix}.$$
 The covariance of $\widehat p$ is exactly $\Sigma/100$, whether or not a normal approximation is accurate. The Gaussian shape is the asymptotic part. Every row of $\Sigma$ sums to zero, and its determinant is zero. These properties follow from the multinomial count structure.{{cite:dodge2008}} (pp. 363–364){{cite:durrett2019}} (§3.10, ex. 3.10.9)

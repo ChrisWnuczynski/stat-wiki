@@ -1,4 +1,4 @@
-## Motivating example — A small study beside larger studies
+## Motivating example
 A study that observes four successes in five trials has an observed rate of $4/5$, but that fraction is unstable. Other comparable studies can inform the prior distribution of its rate. A hierarchical beta–binomial model separates two operations: learning the common distribution of rates, and updating one study's rate while that distribution is held fixed. The second operation is a conjugate beta update.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
 
 ## Statement
@@ -24,7 +24,8 @@ It describes uncertainty in a single beta distribution. A marginal posterior ave
 ## Proof
 The factors depending on $\theta_j$ are $\theta_j^{y_j}(1-\theta_j)^{n_j-y_j}$ from the likelihood and $\theta_j^{\alpha-1}(1-\theta_j)^{\beta-1}$ from the prior. Adding the exponents produces the beta kernel with shapes $a_j=y_j+\alpha$ and $b_j=n_j-y_j+\beta$. These are positive. Its integral is $B(a_j,b_j)$, so division by that integral gives a probability density. Products over different $j$ have separate integration coordinates; the joint normaliser is the product of their beta functions. That proves conditional independence as well as the marginal conditional law.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”); {{cite:dodge2008}} (p. 40)
 
-## Worked example — Two studies at the same hyperparameter draw
+## Worked example
+### Two studies at the same hyperparameter draw
 Take $(\alpha,\beta)=(2,3)$. Study A observes four successes in five trials and study B observes one success in five. Their conditional posteriors are $\operatorname{Beta}(6,4)$ and $\operatorname{Beta}(3,7)$. Their means are $0.6$ and $0.3$, and their variances are $6/275\approx0.021818$ and $21/1100\approx0.019091$. The raw rates $0.8$ and $0.2$ move towards the common prior mean $0.4$. The weight on each raw rate is $1/2$.
 
 The probability of a success in one additional trial from A, at these hyperparameters, is $0.6$: integrate its Bernoulli success probability over the beta posterior. The conditional probability of successes in one new trial from each study is $0.6(0.3)=0.18$. With hyperparameter uncertainty, compute the average product of the two conditional means, which need not equal the product of their marginal averages.

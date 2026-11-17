@@ -1,6 +1,6 @@
 {
   "a-finite-endpoint-and-a-weibull-extreme-value-law": {
-    "words": 432,
+    "words": 1362,
     "figures": 0
   },
   "a-finite-stationary-point-is-a-global-maximiser": {
@@ -16,11 +16,11 @@
     "figures": 0
   },
   "a-permutation-test": {
-    "words": 440,
+    "words": 1138,
     "figures": 0
   },
   "a-proper-approximation-to-the-flat-prior": {
-    "words": 187,
+    "words": 1064,
     "figures": 0
   },
   "a-single-threshold-unit-cannot-compute-xor": {
@@ -32,11 +32,11 @@
     "figures": 0
   },
   "acceptance-rejection-method": {
-    "words": 790,
+    "words": 1560,
     "figures": 2
   },
   "accidental-deaths-data": {
-    "words": 979,
+    "words": 1849,
     "figures": 3
   },
   "activation-function": {
@@ -52,7 +52,7 @@
     "figures": 0
   },
   "adjusted-r-squared": {
-    "words": 387,
+    "words": 1126,
     "figures": 0
   },
   "adjusted-rand-index": {
@@ -76,7 +76,7 @@
     "figures": 0
   },
   "analysis-of-deviance": {
-    "words": 662,
+    "words": 1387,
     "figures": 0
   },
   "ancillary-statistic": {
@@ -88,7 +88,7 @@
     "figures": 0
   },
   "anova-sum-of-squares-decomposition": {
-    "words": 556,
+    "words": 1288,
     "figures": 1
   },
   "aperiodic-markov-chain": {
@@ -112,7 +112,7 @@
     "figures": 0
   },
   "asymptotic-normality-of-maximum-likelihood": {
-    "words": 861,
+    "words": 1555,
     "figures": 0
   },
   "asymptotic-relative-efficiency": {
@@ -136,7 +136,7 @@
     "figures": 0
   },
   "axioms-of-probability": {
-    "words": 545,
+    "words": 1205,
     "figures": 0
   },
   "backpropagation-batch-form": {
@@ -160,7 +160,7 @@
     "figures": 0
   },
   "batch-and-online-learning": {
-    "words": 372,
+    "words": 1005,
     "figures": 0
   },
   "bayes-action-for-two-hypotheses": {
@@ -172,11 +172,11 @@
     "figures": 0
   },
   "bayes-consistency-of-nearest-neighbours": {
-    "words": 409,
+    "words": 1321,
     "figures": 0
   },
   "bayes-factors-and-posterior-odds": {
-    "words": 989,
+    "words": 1646,
     "figures": 0
   },
   "bayes-optimal-rule": {
@@ -200,7 +200,7 @@
     "figures": 0
   },
   "benjamini-hochberg-controls-the-false-discovery-rate": {
-    "words": 451,
+    "words": 1299,
     "figures": 0
   },
   "benjamini-hochberg": {
@@ -252,11 +252,11 @@
     "figures": 0
   },
   "birth-weight-data": {
-    "words": 416,
+    "words": 1122,
     "figures": 0
   },
   "birthday-problem": {
-    "words": 294,
+    "words": 1165,
     "figures": 0
   },
   "blinding-and-placebo": {
@@ -312,7 +312,7 @@
     "figures": 1
   },
   "categorical-and-multinomial-models": {
-    "words": 1317,
+    "words": 2005,
     "figures": 1
   },
   "cauchy-distribution": {
@@ -344,7 +344,7 @@
     "figures": 2
   },
   "chi-squared-test-for-a-variance": {
-    "words": 258,
+    "words": 1094,
     "figures": 0
   },
   "chi-squared-test-of-independence": {
@@ -352,11 +352,11 @@
     "figures": 1
   },
   "chi-squared-test-with-estimated-parameters": {
-    "words": 640,
+    "words": 1379,
     "figures": 1
   },
   "chi-squared-test-with-known-cell-probabilities": {
-    "words": 541,
+    "words": 1354,
     "figures": 0
   },
   "cholesky-decomposition": {
@@ -376,7 +376,7 @@
     "figures": 0
   },
   "choosing-the-number-of-principal-components": {
-    "words": 795,
+    "words": 1739,
     "figures": 0
   },
   "classification-accuracy": {
@@ -384,7 +384,7 @@
     "figures": 0
   },
   "classification-with-unequal-costs": {
-    "words": 335,
+    "words": 1070,
     "figures": 0
   },
   "clique": {
@@ -432,7 +432,7 @@
     "figures": 0
   },
   "conditional-distribution-of-a-multivariate-normal": {
-    "words": 479,
+    "words": 1299,
     "figures": 0
   },
   "conditional-distribution": {
@@ -468,7 +468,7 @@
     "figures": 0
   },
   "conjugacy-is-optional": {
-    "words": 1075,
+    "words": 2579,
     "figures": 0
   },
   "consistent-estimator": {
@@ -476,7 +476,7 @@
     "figures": 0
   },
   "contingency-tables": {
-    "words": 633,
+    "words": 1316,
     "figures": 0
   },
   "continuous-distribution": {
@@ -524,7 +524,7 @@
     "figures": 0
   },
   "coverage": {
-    "words": 463,
+    "words": 1403,
     "figures": 1
   },
   "cramer-rao-lower-bound": {
@@ -564,7 +564,7 @@
     "figures": 0
   },
   "d-p-q-and-r-functions": {
-    "words": 453,
+    "words": 1116,
     "figures": 0
   },
   "decision-stump": {
@@ -580,7 +580,7 @@
     "figures": 0
   },
   "delta-method": {
-    "words": 418,
+    "words": 1302,
     "figures": 0
   },
   "delta-rule": {
@@ -592,7 +592,7 @@
     "figures": 0
   },
   "descent-of-lloyd-s-algorithm": {
-    "words": 400,
+    "words": 1193,
     "figures": 0
   },
   "designed-experiment": {
@@ -600,7 +600,7 @@
     "figures": 1
   },
   "detailed-balance-implies-stationarity": {
-    "words": 438,
+    "words": 1181,
     "figures": 0
   },
   "detailed-balance": {
@@ -656,11 +656,11 @@
     "figures": 0
   },
   "draws-from-the-usual-families": {
-    "words": 498,
+    "words": 1209,
     "figures": 0
   },
   "drift-and-scale-of-a-random-walk": {
-    "words": 570,
+    "words": 1287,
     "figures": 0
   },
   "dual-problem": {
@@ -720,7 +720,7 @@
     "figures": 0
   },
   "error-and-residual": {
-    "words": 517,
+    "words": 1267,
     "figures": 0
   },
   "estimator": {
@@ -740,7 +740,7 @@
     "figures": 0
   },
   "expectation-of-a-function": {
-    "words": 544,
+    "words": 1202,
     "figures": 0
   },
   "expectation": {
@@ -756,7 +756,7 @@
     "figures": 0
   },
   "exploratory-data-analysis": {
-    "words": 400,
+    "words": 1206,
     "figures": 0
   },
   "exponential-distribution": {
@@ -776,7 +776,7 @@
     "figures": 0
   },
   "extended-information-criterion": {
-    "words": 352,
+    "words": 990,
     "figures": 0
   },
   "extinction-criterion": {
@@ -804,7 +804,7 @@
     "figures": 0
   },
   "fallacy-of-the-transposed-conditional": {
-    "words": 424,
+    "words": 1124,
     "figures": 0
   },
   "false-discovery-rate": {
@@ -868,7 +868,7 @@
     "figures": 0
   },
   "fixed-rule-error": {
-    "words": 865,
+    "words": 1579,
     "figures": 0
   },
   "flat-prior": {
@@ -880,19 +880,19 @@
     "figures": 0
   },
   "forward-equations-of-the-poisson-process": {
-    "words": 312,
+    "words": 1122,
     "figures": 0
   },
   "four-state-random-walk": {
-    "words": 315,
+    "words": 1031,
     "figures": 0
   },
   "four-ways-of-counting-draws": {
-    "words": 739,
+    "words": 1502,
     "figures": 1
   },
   "fubini-s-theorem": {
-    "words": 497,
+    "words": 1498,
     "figures": 0
   },
   "full-conditional-distribution": {
@@ -908,7 +908,7 @@
     "figures": 0
   },
   "gambler-s-ruin": {
-    "words": 367,
+    "words": 1362,
     "figures": 0
   },
   "gamma-distribution": {
@@ -936,7 +936,7 @@
     "figures": 0
   },
   "general-linear-hypothesis": {
-    "words": 796,
+    "words": 1485,
     "figures": 0
   },
   "generalised-estimating-equations": {
@@ -956,7 +956,7 @@
     "figures": 3
   },
   "generated-and-borel-sigma-algebras": {
-    "words": 508,
+    "words": 1503,
     "figures": 0
   },
   "generator": {
@@ -1016,7 +1016,7 @@
     "figures": 0
   },
   "hard-margin-primal": {
-    "words": 421,
+    "words": 1364,
     "figures": 0
   },
   "hard-margin-support-vector-machine": {
@@ -1024,7 +1024,7 @@
     "figures": 0
   },
   "hartigan-wong-algorithm": {
-    "words": 480,
+    "words": 1421,
     "figures": 0
   },
   "hastings-correction": {
@@ -1036,7 +1036,7 @@
     "figures": 1
   },
   "heart-failure-data": {
-    "words": 609,
+    "words": 1328,
     "figures": 0
   },
   "hidden-layer": {
@@ -1052,7 +1052,7 @@
     "figures": 0
   },
   "high-dimensional-data": {
-    "words": 953,
+    "words": 1768,
     "figures": 0
   },
   "hinge-loss": {
@@ -1072,7 +1072,7 @@
     "figures": 0
   },
   "homogeneity-and-independence": {
-    "words": 554,
+    "words": 1471,
     "figures": 0
   },
   "homogeneous-poisson-process": {
@@ -1104,7 +1104,7 @@
     "figures": 0
   },
   "independent-events": {
-    "words": 790,
+    "words": 1758,
     "figures": 0
   },
   "independent-random-variables": {
@@ -1112,7 +1112,7 @@
     "figures": 0
   },
   "ingredients-of-a-hypothesis-test": {
-    "words": 655,
+    "words": 1494,
     "figures": 1
   },
   "intensity-function": {
@@ -1128,7 +1128,7 @@
     "figures": 0
   },
   "interior-dirichlet-mode": {
-    "words": 1294,
+    "words": 2174,
     "figures": 0
   },
   "interpretation-and-the-decision-boundary": {
@@ -1144,19 +1144,19 @@
     "figures": 1
   },
   "interval-for-a-difference-of-means": {
-    "words": 429,
+    "words": 1278,
     "figures": 0
   },
   "interval-for-a-normal-variance": {
-    "words": 288,
+    "words": 1093,
     "figures": 0
   },
   "interval-for-a-proportion": {
-    "words": 387,
+    "words": 1139,
     "figures": 0
   },
   "interval-for-a-ratio-of-variances": {
-    "words": 663,
+    "words": 1417,
     "figures": 0
   },
   "intraclass-correlation": {
@@ -1200,7 +1200,7 @@
     "figures": 0
   },
   "jackknife-bias-and-standard-error": {
-    "words": 492,
+    "words": 1375,
     "figures": 0
   },
   "jackknife": {
@@ -1216,7 +1216,7 @@
     "figures": 0
   },
   "joint-distribution-and-density": {
-    "words": 521,
+    "words": 1575,
     "figures": 0
   },
   "joint-probability-density": {
@@ -1232,15 +1232,15 @@
     "figures": 0
   },
   "k-means-as-a-limiting-case": {
-    "words": 309,
+    "words": 1375,
     "figures": 0
   },
   "k-means-criterion": {
-    "words": 284,
+    "words": 1168,
     "figures": 0
   },
   "kernel-density-discriminant-analysis": {
-    "words": 547,
+    "words": 1486,
     "figures": 0
   },
   "kernel-density-estimator": {
@@ -1252,7 +1252,7 @@
     "figures": 0
   },
   "kernel-support-vector-machine": {
-    "words": 641,
+    "words": 1486,
     "figures": 0
   },
   "kernel-trick": {
@@ -1292,7 +1292,7 @@
     "figures": 0
   },
   "large-sample-intervals": {
-    "words": 291,
+    "words": 1290,
     "figures": 0
   },
   "lasso": {
@@ -1308,7 +1308,7 @@
     "figures": 1
   },
   "leaf-blotch-data": {
-    "words": 766,
+    "words": 2199,
     "figures": 2
   },
   "learning-rate": {
@@ -1316,11 +1316,11 @@
     "figures": 0
   },
   "least-squares-decomposition": {
-    "words": 645,
+    "words": 1494,
     "figures": 0
   },
   "least-squares-estimators-are-unbiased": {
-    "words": 522,
+    "words": 1556,
     "figures": 0
   },
   "least-squares-line": {
@@ -1336,7 +1336,7 @@
     "figures": 0
   },
   "lebesgue-decomposition": {
-    "words": 508,
+    "words": 1579,
     "figures": 0
   },
   "lehmann-scheffe-theorem": {
@@ -1344,11 +1344,11 @@
     "figures": 0
   },
   "levy-s-continuity-theorem": {
-    "words": 500,
+    "words": 1473,
     "figures": 0
   },
   "lidar-data": {
-    "words": 402,
+    "words": 1348,
     "figures": 1
   },
   "likelihood-and-reference-prior": {
@@ -1372,7 +1372,7 @@
     "figures": 4
   },
   "limits-of-sequences-of-events": {
-    "words": 265,
+    "words": 1274,
     "figures": 0
   },
   "linear-congruential-generator": {
@@ -1384,7 +1384,7 @@
     "figures": 0
   },
   "linear-images-of-a-normal-vector": {
-    "words": 493,
+    "words": 1427,
     "figures": 0
   },
   "linear-mixed-model": {
@@ -1396,7 +1396,7 @@
     "figures": 0
   },
   "linear-separability": {
-    "words": 305,
+    "words": 1094,
     "figures": 0
   },
   "linear-separators-and-the-margin": {
@@ -1424,7 +1424,7 @@
     "figures": 0
   },
   "local-minima-plateaus-and-symmetry": {
-    "words": 448,
+    "words": 1557,
     "figures": 0
   },
   "log-link": {
@@ -1432,11 +1432,11 @@
     "figures": 0
   },
   "log-partition-moment-identities": {
-    "words": 774,
+    "words": 1778,
     "figures": 0
   },
   "logistic-lasso": {
-    "words": 380,
+    "words": 1179,
     "figures": 0
   },
   "logit-link": {
@@ -1452,7 +1452,7 @@
     "figures": 2
   },
   "loss-and-risk": {
-    "words": 346,
+    "words": 1203,
     "figures": 0
   },
   "m-m-1-queue": {
@@ -1468,7 +1468,7 @@
     "figures": 0
   },
   "machine-repair-model": {
-    "words": 252,
+    "words": 1233,
     "figures": 0
   },
   "main-effect": {
@@ -1484,7 +1484,7 @@
     "figures": 1
   },
   "marginal-hyperposterior": {
-    "words": 859,
+    "words": 1737,
     "figures": 1
   },
   "marginal-likelihood-and-bayes-factor": {
@@ -1496,7 +1496,7 @@
     "figures": 2
   },
   "marginal-student-posterior": {
-    "words": 2810,
+    "words": 3674,
     "figures": 0
   },
   "marginal-variance-posterior": {
@@ -1508,7 +1508,7 @@
     "figures": 0
   },
   "markov-graphs": {
-    "words": 1318,
+    "words": 2376,
     "figures": 0
   },
   "markov-properties-and-factorisation": {
@@ -1532,23 +1532,23 @@
     "figures": 0
   },
   "maximum-likelihood-for-a-binomial-proportion": {
-    "words": 462,
+    "words": 1386,
     "figures": 0
   },
   "maximum-likelihood-for-a-covariance-matrix": {
-    "words": 695,
+    "words": 1479,
     "figures": 0
   },
   "maximum-likelihood-for-a-known-graph": {
-    "words": 542,
+    "words": 1551,
     "figures": 0
   },
   "maximum-likelihood-for-a-normal-mean-vector": {
-    "words": 323,
+    "words": 1261,
     "figures": 0
   },
   "maximum-likelihood-for-a-normal-sample": {
-    "words": 601,
+    "words": 1499,
     "figures": 0
   },
   "maximum-likelihood-in-a-glm": {
@@ -1556,7 +1556,7 @@
     "figures": 0
   },
   "maximum-likelihood-under-the-wrong-model": {
-    "words": 548,
+    "words": 1414,
     "figures": 0
   },
   "maximum-likelihood": {
@@ -1564,7 +1564,7 @@
     "figures": 0
   },
   "mean-and-variance-of-an-exponential-family": {
-    "words": 1492,
+    "words": 2219,
     "figures": 1
   },
   "mean-squared-error": {
@@ -1584,7 +1584,7 @@
     "figures": 0
   },
   "median-unbiased-estimators": {
-    "words": 277,
+    "words": 1281,
     "figures": 0
   },
   "median": {
@@ -1596,7 +1596,7 @@
     "figures": 0
   },
   "method-of-moments": {
-    "words": 673,
+    "words": 1653,
     "figures": 0
   },
   "metropolis-algorithm": {
@@ -1608,7 +1608,7 @@
     "figures": 0
   },
   "metropolis-hastings-invariance": {
-    "words": 535,
+    "words": 1548,
     "figures": 0
   },
   "metropolis-hastings-update": {
@@ -1616,11 +1616,11 @@
     "figures": 1
   },
   "milk-carton-example": {
-    "words": 278,
+    "words": 1194,
     "figures": 0
   },
   "mine-injury-data": {
-    "words": 672,
+    "words": 1617,
     "figures": 0
   },
   "mini-batch": {
@@ -1636,7 +1636,7 @@
     "figures": 0
   },
   "mixture-discriminant-analysis": {
-    "words": 424,
+    "words": 1354,
     "figures": 0
   },
   "modes-of-convergence": {
@@ -1656,7 +1656,7 @@
     "figures": 0
   },
   "monotonicity-of-em": {
-    "words": 480,
+    "words": 1372,
     "figures": 0
   },
   "monte-carlo-method": {
@@ -1664,11 +1664,11 @@
     "figures": 0
   },
   "monty-hall-problem": {
-    "words": 371,
+    "words": 1166,
     "figures": 0
   },
   "multi-server-and-finite-capacity-queues": {
-    "words": 402,
+    "words": 1274,
     "figures": 0
   },
   "multicollinearity": {
@@ -1676,7 +1676,7 @@
     "figures": 0
   },
   "multinomial-central-limit-theorem": {
-    "words": 475,
+    "words": 1370,
     "figures": 0
   },
   "multinomial-distribution": {
@@ -1684,15 +1684,15 @@
     "figures": 2
   },
   "multinomial-logistic-regression": {
-    "words": 422,
+    "words": 1390,
     "figures": 0
   },
   "multiple-comparisons": {
-    "words": 355,
+    "words": 1258,
     "figures": 0
   },
   "multiple-linear-regression": {
-    "words": 599,
+    "words": 1898,
     "figures": 2
   },
   "multiple-testing": {
@@ -1756,7 +1756,7 @@
     "figures": 0
   },
   "non-negative-matrix-factorisation": {
-    "words": 462,
+    "words": 1414,
     "figures": 0
   },
   "nonhomogeneous-poisson-process": {
@@ -1776,11 +1776,11 @@
     "figures": 0
   },
   "normal-inverse-gamma-prior": {
-    "words": 2793,
+    "words": 3872,
     "figures": 0
   },
   "normal-inverse-gamma-variance-update": {
-    "words": 2021,
+    "words": 2998,
     "figures": 0
   },
   "normal-linear-model": {
@@ -1788,11 +1788,11 @@
     "figures": 0
   },
   "normal-normal-conjugacy": {
-    "words": 1246,
+    "words": 2154,
     "figures": 0
   },
   "normal-normal-model": {
-    "words": 1456,
+    "words": 2839,
     "figures": 0
   },
   "normal-quantile-plot": {
@@ -1804,7 +1804,7 @@
     "figures": 0
   },
   "nuisance-parameters": {
-    "words": 326,
+    "words": 1103,
     "figures": 0
   },
   "null-and-alternative-hypotheses": {
@@ -1816,11 +1816,11 @@
     "figures": 1
   },
   "null-distribution-of-hotelling-s": {
-    "words": 704,
+    "words": 1597,
     "figures": 0
   },
   "observational-study": {
-    "words": 744,
+    "words": 1667,
     "figures": 1
   },
   "observed-and-expected-counts": {
@@ -1840,7 +1840,7 @@
     "figures": 0
   },
   "one-hidden-layer-approximates-continuous-functions": {
-    "words": 440,
+    "words": 1436,
     "figures": 0
   },
   "one-hot-encoding": {
@@ -1848,11 +1848,11 @@
     "figures": 0
   },
   "one-sample-t-pivot": {
-    "words": 704,
+    "words": 1594,
     "figures": 1
   },
   "one-sample-t-test": {
-    "words": 1029,
+    "words": 2434,
     "figures": 1
   },
   "one-way-analysis-of-variance": {
@@ -1896,7 +1896,7 @@
     "figures": 0
   },
   "paired-samples": {
-    "words": 581,
+    "words": 1398,
     "figures": 0
   },
   "pareto-distribution": {
@@ -1916,11 +1916,11 @@
     "figures": 0
   },
   "pearson-chi-squared-approximation": {
-    "words": 492,
+    "words": 1429,
     "figures": 1
   },
   "pearson-dispersion-ratio": {
-    "words": 467,
+    "words": 1380,
     "figures": 0
   },
   "pearson-residual": {
@@ -1932,7 +1932,7 @@
     "figures": 0
   },
   "pearson-test-with-estimated-parameters": {
-    "words": 502,
+    "words": 1537,
     "figures": 1
   },
   "perceptron-learning-rule": {
@@ -1944,7 +1944,7 @@
     "figures": 0
   },
   "pitman-koopman-darmois-informal-form": {
-    "words": 451,
+    "words": 1349,
     "figures": 0
   },
   "pivot": {
@@ -1992,7 +1992,7 @@
     "figures": 1
   },
   "posterior-class-probability": {
-    "words": 413,
+    "words": 1284,
     "figures": 0
   },
   "posterior-hypothesis-probability": {
@@ -2020,11 +2020,11 @@
     "figures": 0
   },
   "posterior-prediction-under-the-reference-prior": {
-    "words": 1925,
+    "words": 2814,
     "figures": 1
   },
   "posterior-predictive-target": {
-    "words": 1626,
+    "words": 2527,
     "figures": 1
   },
   "posterior-summaries-from-draws": {
@@ -2032,7 +2032,7 @@
     "figures": 0
   },
   "power-function": {
-    "words": 852,
+    "words": 1873,
     "figures": 3
   },
   "power-law-tails-and-the-frechet-law": {
@@ -2056,7 +2056,7 @@
     "figures": 1
   },
   "predictive-variance-decomposition": {
-    "words": 1002,
+    "words": 1925,
     "figures": 0
   },
   "principal-component-directions-and-scores": {
@@ -2064,7 +2064,7 @@
     "figures": 0
   },
   "principal-component-directions": {
-    "words": 488,
+    "words": 1358,
     "figures": 0
   },
   "prior-and-posterior-predictive-distributions": {
@@ -2076,7 +2076,7 @@
     "figures": 0
   },
   "prior-sensitivity": {
-    "words": 477,
+    "words": 1351,
     "figures": 1
   },
   "probability-generating-function": {
@@ -2104,7 +2104,7 @@
     "figures": 0
   },
   "properties-of-a-probability": {
-    "words": 295,
+    "words": 1366,
     "figures": 0
   },
   "proportional-hazards-model": {
@@ -2124,7 +2124,7 @@
     "figures": 0
   },
   "quasi-likelihood": {
-    "words": 1355,
+    "words": 2952,
     "figures": 2
   },
   "quasi-poisson": {
@@ -2136,11 +2136,11 @@
     "figures": 2
   },
   "r-s-distribution-interface": {
-    "words": 450,
+    "words": 1256,
     "figures": 0
   },
   "radial-basis-function-kernel": {
-    "words": 728,
+    "words": 1891,
     "figures": 0
   },
   "random-component": {
@@ -2160,7 +2160,7 @@
     "figures": 0
   },
   "random-seed": {
-    "words": 392,
+    "words": 1262,
     "figures": 0
   },
   "random-slopes": {
@@ -2176,7 +2176,7 @@
     "figures": 1
   },
   "random-walk-with-drift": {
-    "words": 339,
+    "words": 1180,
     "figures": 0
   },
   "randomised-block-design": {
@@ -2188,15 +2188,15 @@
     "figures": 2
   },
   "range": {
-    "words": 447,
+    "words": 1381,
     "figures": 0
   },
   "rank-bound": {
-    "words": 388,
+    "words": 1228,
     "figures": 0
   },
   "rank-distance": {
-    "words": 642,
+    "words": 1431,
     "figures": 0
   },
   "rao-blackwell-theorem": {
@@ -2204,11 +2204,11 @@
     "figures": 0
   },
   "rat-tumour-data": {
-    "words": 281,
+    "words": 1198,
     "figures": 0
   },
   "reading-a-log-linear-coefficient": {
-    "words": 494,
+    "words": 1394,
     "figures": 0
   },
   "recurrence-and-period": {
@@ -2224,11 +2224,11 @@
     "figures": 0
   },
   "regression-tree": {
-    "words": 265,
+    "words": 1204,
     "figures": 0
   },
   "regression-when-p-n": {
-    "words": 266,
+    "words": 1190,
     "figures": 0
   },
   "regularisation-and-weight-decay": {
@@ -2240,7 +2240,7 @@
     "figures": 0
   },
   "reliability-function": {
-    "words": 1277,
+    "words": 2127,
     "figures": 2
   },
   "repeated-measures": {
@@ -2252,7 +2252,7 @@
     "figures": 0
   },
   "residuals-in-a-glm": {
-    "words": 746,
+    "words": 1569,
     "figures": 0
   },
   "response-variable": {
@@ -2280,7 +2280,7 @@
     "figures": 1
   },
   "sample-size-for-a-confidence-interval": {
-    "words": 585,
+    "words": 1595,
     "figures": 0
   },
   "sample-space": {
@@ -2296,15 +2296,15 @@
     "figures": 0
   },
   "sampling-distribution-of-the-ols-estimator": {
-    "words": 515,
+    "words": 1513,
     "figures": 0
   },
   "sampling-distribution-of-the-regression-estimators": {
-    "words": 505,
+    "words": 1430,
     "figures": 0
   },
   "sampling-law-of-the-normal-mean-and-scatter": {
-    "words": 465,
+    "words": 1574,
     "figures": 0
   },
   "sandwich-estimator": {
@@ -2320,7 +2320,7 @@
     "figures": 0
   },
   "scaling": {
-    "words": 423,
+    "words": 1310,
     "figures": 0
   },
   "scatterplot": {
@@ -2332,7 +2332,7 @@
     "figures": 0
   },
   "scree-plot": {
-    "words": 224,
+    "words": 1176,
     "figures": 0
   },
   "seasonality": {
@@ -2340,7 +2340,7 @@
     "figures": 0
   },
   "sensitivity-and-specificity": {
-    "words": 549,
+    "words": 1495,
     "figures": 0
   },
   "separating-set": {
@@ -2360,7 +2360,7 @@
     "figures": 0
   },
   "sign-test": {
-    "words": 742,
+    "words": 1505,
     "figures": 0
   },
   "signed-distance": {
@@ -2376,15 +2376,15 @@
     "figures": 2
   },
   "simple-random-sample": {
-    "words": 427,
+    "words": 1388,
     "figures": 0
   },
   "simple-variables-and-expectation": {
-    "words": 311,
+    "words": 1185,
     "figures": 0
   },
   "simultaneous-confidence-statements": {
-    "words": 309,
+    "words": 1169,
     "figures": 0
   },
   "single-complete-and-average-linkage": {
@@ -2396,7 +2396,7 @@
     "figures": 0
   },
   "singular-value-decomposition": {
-    "words": 590,
+    "words": 1617,
     "figures": 0
   },
   "skewness": {
@@ -2404,11 +2404,11 @@
     "figures": 0
   },
   "sleep-deprivation-data": {
-    "words": 431,
+    "words": 1985,
     "figures": 1
   },
   "slope-t-pivot": {
-    "words": 303,
+    "words": 1213,
     "figures": 0
   },
   "soft-margin-primal": {
@@ -2424,7 +2424,7 @@
     "figures": 0
   },
   "softmax-is-multinomial-logistic-regression": {
-    "words": 487,
+    "words": 1369,
     "figures": 0
   },
   "sparsity": {
@@ -2432,19 +2432,19 @@
     "figures": 0
   },
   "spatial-poisson-process": {
-    "words": 275,
+    "words": 1159,
     "figures": 0
   },
   "spline": {
-    "words": 370,
+    "words": 1382,
     "figures": 0
   },
   "squared-error-is-not-the-logistic-likelihood": {
-    "words": 468,
+    "words": 1303,
     "figures": 0
   },
   "squared-error-of-an-average": {
-    "words": 499,
+    "words": 1319,
     "figures": 0
   },
   "squared-mahalanobis-distance": {
@@ -2476,7 +2476,7 @@
     "figures": 0
   },
   "statistic-and-estimator": {
-    "words": 490,
+    "words": 1091,
     "figures": 0
   },
   "statistic": {
@@ -2492,7 +2492,7 @@
     "figures": 0
   },
   "stratified-and-cluster-sampling": {
-    "words": 364,
+    "words": 1354,
     "figures": 0
   },
   "strict-stationarity": {
@@ -2512,11 +2512,11 @@
     "figures": 3
   },
   "studentised-coefficient-pivot": {
-    "words": 434,
+    "words": 1074,
     "figures": 0
   },
   "study-rate-full-conditional": {
-    "words": 673,
+    "words": 1420,
     "figures": 0
   },
   "subset-selection-and-shrinkage": {
@@ -2528,11 +2528,11 @@
     "figures": 0
   },
   "sum-to-zero-and-contrast-constraints": {
-    "words": 719,
+    "words": 1847,
     "figures": 1
   },
   "summary-statistics": {
-    "words": 498,
+    "words": 1685,
     "figures": 0
   },
   "sums-of-smooth-functions": {
@@ -2548,7 +2548,7 @@
     "figures": 0
   },
   "surrogate-split": {
-    "words": 418,
+    "words": 1044,
     "figures": 0
   },
   "survival-function": {
@@ -2564,27 +2564,27 @@
     "figures": 1
   },
   "test-for-one-proportion": {
-    "words": 319,
+    "words": 1309,
     "figures": 0
   },
   "tests-and-confidence-intervals": {
-    "words": 242,
+    "words": 1123,
     "figures": 0
   },
   "tg5-cattle-studies": {
-    "words": 515,
+    "words": 1420,
     "figures": 0
   },
   "the-beta-distribution-is-the-two-category-dirichlet": {
-    "words": 427,
+    "words": 1457,
     "figures": 0
   },
   "the-limit-of-hotelling-s-statistic": {
-    "words": 464,
+    "words": 1091,
     "figures": 0
   },
   "the-reweighted-error-is-one-half": {
-    "words": 90,
+    "words": 1222,
     "figures": 0
   },
   "thinning-a-markov-chain": {
@@ -2596,7 +2596,7 @@
     "figures": 0
   },
   "three-easy-confusions": {
-    "words": 547,
+    "words": 1252,
     "figures": 0
   },
   "throughput": {
@@ -2616,7 +2616,7 @@
     "figures": 0
   },
   "training-data-and-classifier": {
-    "words": 485,
+    "words": 1164,
     "figures": 0
   },
   "training-set": {
@@ -2628,7 +2628,7 @@
     "figures": 0
   },
   "transformations-of-data": {
-    "words": 569,
+    "words": 1593,
     "figures": 1
   },
   "transient-and-recurrent-states": {
@@ -2640,7 +2640,7 @@
     "figures": 0
   },
   "translation-to-another-common-notation": {
-    "words": 484,
+    "words": 1053,
     "figures": 0
   },
   "treatment": {
@@ -2648,7 +2648,7 @@
     "figures": 0
   },
   "tree-size-and-pruning": {
-    "words": 601,
+    "words": 1655,
     "figures": 0
   },
   "trend": {
@@ -2660,23 +2660,23 @@
     "figures": 1
   },
   "two-factor-analysis-of-variance": {
-    "words": 1799,
+    "words": 2598,
     "figures": 1
   },
   "two-proportion-z-test": {
-    "words": 334,
+    "words": 929,
     "figures": 0
   },
   "two-pseudo-count-conventions": {
-    "words": 432,
+    "words": 1275,
     "figures": 0
   },
   "two-responses-one-person": {
-    "words": 844,
+    "words": 1703,
     "figures": 1
   },
   "two-sample-hotelling-t2-test": {
-    "words": 1287,
+    "words": 2307,
     "figures": 0
   },
   "two-sample-hotelling-test": {
@@ -2684,15 +2684,15 @@
     "figures": 0
   },
   "two-sample-t-pivot": {
-    "words": 452,
+    "words": 1320,
     "figures": 0
   },
   "two-sample-t-test": {
-    "words": 512,
+    "words": 1264,
     "figures": 0
   },
   "two-state-continuous-time-chain": {
-    "words": 293,
+    "words": 1161,
     "figures": 0
   },
   "type-i-and-type-ii-errors": {
@@ -2708,7 +2708,7 @@
     "figures": 0
   },
   "underfitting": {
-    "words": 427,
+    "words": 1251,
     "figures": 0
   },
   "undirected-graph": {
@@ -2724,11 +2724,11 @@
     "figures": 0
   },
   "uniformisation": {
-    "words": 296,
+    "words": 1208,
     "figures": 0
   },
   "uniformity-depends-on-a-domain": {
-    "words": 410,
+    "words": 1037,
     "figures": 0
   },
   "uniformly-minimum-variance-unbiased-estimator": {
@@ -2740,19 +2740,19 @@
     "figures": 0
   },
   "uniformly-most-powerful-unbiased-test": {
-    "words": 573,
+    "words": 1251,
     "figures": 0
   },
   "unit-root": {
-    "words": 429,
+    "words": 1247,
     "figures": 0
   },
   "univariate-t-test-as-a-template-for-t2": {
-    "words": 283,
+    "words": 1184,
     "figures": 0
   },
   "universal-approximation": {
-    "words": 336,
+    "words": 1330,
     "figures": 0
   },
   "validation-set": {
@@ -2760,11 +2760,11 @@
     "figures": 0
   },
   "vapnik-s-radius-margin-bound": {
-    "words": 423,
+    "words": 1170,
     "figures": 0
   },
   "variable-importance": {
-    "words": 462,
+    "words": 1428,
     "figures": 0
   },
   "variance-function": {
@@ -2780,11 +2780,11 @@
     "figures": 0
   },
   "variogram": {
-    "words": 508,
+    "words": 1265,
     "figures": 0
   },
   "vector-response-regression": {
-    "words": 483,
+    "words": 1064,
     "figures": 0
   },
   "voronoi-tessellation": {
@@ -2800,7 +2800,7 @@
     "figures": 0
   },
   "ward-s-method": {
-    "words": 642,
+    "words": 1390,
     "figures": 0
   },
   "warm-up-is-not-a-convergence-proof": {
@@ -2808,7 +2808,7 @@
     "figures": 1
   },
   "warp-breaks-data": {
-    "words": 755,
+    "words": 1698,
     "figures": 0
   },
   "weak-stationarity": {
@@ -2828,7 +2828,7 @@
     "figures": 0
   },
   "which-functions-are-kernels": {
-    "words": 261,
+    "words": 1108,
     "figures": 0
   },
   "white-noise": {
@@ -2836,15 +2836,15 @@
     "figures": 0
   },
   "why-the-raw-sum-of-squares-cannot-choose": {
-    "words": 449,
+    "words": 1317,
     "figures": 0
   },
   "wilcoxon-rank-sum-test": {
-    "words": 456,
+    "words": 1289,
     "figures": 0
   },
   "wilks-theorem": {
-    "words": 456,
+    "words": 1106,
     "figures": 0
   },
   "wishart-distribution": {
@@ -2911,139 +2911,544 @@
     "words": 879,
     "figures": 0
   },
-  "abundance-estimation": {"words": 1226, "figures": 0},
-  "actuarial-science": {"words": 704, "figures": 0},
-  "apriori-algorithm": {"words": 1543, "figures": 0},
-  "astrostatistics": {"words": 690, "figures": 0},
-  "asymptotic-analysis": {"words": 959, "figures": 0},
-  "average-treatment-effect": {"words": 1125, "figures": 0},
-  "base-rate": {"words": 1379, "figures": 0},
-  "bayesian-inference": {"words": 1337, "figures": 0},
-  "bayesian-model": {"words": 1226, "figures": 0},
-  "bayesian-probability": {"words": 1253, "figures": 0},
-  "bayesian-statistics": {"words": 752, "figures": 0},
-  "biostatistics": {"words": 636, "figures": 0},
-  "business-analytics": {"words": 593, "figures": 0},
-  "case-control-study": {"words": 1075, "figures": 0},
-  "causality": {"words": 1169, "figures": 0},
-  "censoring-statistics": {"words": 1448, "figures": 0},
-  "chemometrics": {"words": 621, "figures": 0},
-  "classification": {"words": 1662, "figures": 0},
-  "cluster-analysis": {"words": 1777, "figures": 0},
-  "cohort-study": {"words": 1102, "figures": 0},
-  "computational-biology": {"words": 590, "figures": 0},
-  "conjoint-analysis": {"words": 1420, "figures": 0},
-  "control-group": {"words": 1096, "figures": 0},
-  "correlation-does-not-imply-causation": {"words": 1512, "figures": 0},
-  "cross-sectional-data": {"words": 1532, "figures": 0},
-  "data-analysis": {"words": 732, "figures": 0},
-  "data-collection": {"words": 1055, "figures": 0},
-  "data-mining": {"words": 821, "figures": 0},
-  "data-quality": {"words": 1161, "figures": 0},
-  "data-science": {"words": 751, "figures": 0},
-  "data-sharing": {"words": 723, "figures": 0},
-  "decision-problem": {"words": 1794, "figures": 0},
-  "demography": {"words": 784, "figures": 0},
-  "difference-in-differences": {"words": 1127, "figures": 0},
-  "differential-privacy": {"words": 1391, "figures": 0},
-  "dimensionality-reduction": {"words": 1691, "figures": 0},
-  "diversity-index": {"words": 1403, "figures": 0},
-  "econometrics": {"words": 759, "figures": 0},
-  "effect-size": {"words": 1877, "figures": 0},
-  "engineering-statistics": {"words": 692, "figures": 0},
-  "environmental-statistics": {"words": 650, "figures": 0},
-  "epidemiology": {"words": 848, "figures": 0},
-  "estimating-equations": {"words": 1702, "figures": 0},
-  "estimation-theory": {"words": 909, "figures": 0},
-  "expected-loss": {"words": 1775, "figures": 0},
-  "experimental-error": {"words": 1620, "figures": 0},
-  "extrapolation": {"words": 1696, "figures": 0},
-  "fat-tails": {"words": 1593, "figures": 0},
-  "feature-selection": {"words": 2249, "figures": 0},
-  "federated-learning": {"words": 1535, "figures": 0},
-  "first-international-statistical-congress": {"words": 1687, "figures": 0},
-  "foundations-of-statistics": {"words": 808, "figures": 0},
-  "frequentist-inference": {"words": 906, "figures": 0},
-  "game-of-chance": {"words": 1391, "figures": 0},
-  "geostatistics": {"words": 747, "figures": 0},
-  "harking": {"words": 1285, "figures": 0},
-  "harmonic-mean": {"words": 1115, "figures": 0},
-  "hawthorne-effect": {"words": 1864, "figures": 0},
-  "inference": {"words": 935, "figures": 0},
-  "instrumental-variable": {"words": 1242, "figures": 0},
-  "inverse-probability": {"words": 1227, "figures": 0},
-  "k-anonymity": {"words": 1167, "figures": 0},
-  "kruskal-wallis-test": {"words": 1357, "figures": 0},
-  "kurtosis": {"words": 1402, "figures": 0},
-  "lady-tasting-tea": {"words": 1848, "figures": 0},
-  "least-absolute-deviations": {"words": 1313, "figures": 0},
-  "likelihood-ratios-in-diagnostic-testing": {"words": 1514, "figures": 0},
-  "machine-learning": {"words": 1663, "figures": 0},
-  "mathematical-statistics": {"words": 908, "figures": 0},
-  "mean-absolute-percentage-error": {"words": 1413, "figures": 0},
-  "measurable-function": {"words": 1451, "figures": 0},
-  "measurement": {"words": 1033, "figures": 0},
-  "medical-statistics": {"words": 762, "figures": 0},
-  "misuse-of-statistics": {"words": 885, "figures": 0},
-  "morans-i": {"words": 1503, "figures": 0},
-  "multilevel-model": {"words": 1588, "figures": 0},
-  "multivariate-statistics": {"words": 687, "figures": 0},
-  "natural-experiment": {"words": 1167, "figures": 0},
-  "nonlinear-regression": {"words": 1670, "figures": 0},
-  "normalizing-constant": {"words": 1294, "figures": 0},
-  "official-statistics": {"words": 748, "figures": 0},
-  "open-science": {"words": 823, "figures": 0},
-  "panel-data": {"words": 1552, "figures": 0},
-  "parametric-statistics": {"words": 850, "figures": 0},
-  "pattern-recognition": {"words": 735, "figures": 0},
-  "pearson-distribution": {"words": 1590, "figures": 0},
-  "philosophy-of-statistics": {"words": 772, "figures": 0},
-  "polynomial-least-squares": {"words": 1478, "figures": 0},
-  "posterior-probability": {"words": 1293, "figures": 0},
-  "probability-interpretations": {"words": 1347, "figures": 0},
-  "probability-theory": {"words": 790, "figures": 0},
-  "psychological-statistics": {"words": 796, "figures": 0},
-  "public-health": {"words": 755, "figures": 0},
-  "quality-control": {"words": 729, "figures": 0},
-  "random-error": {"words": 1394, "figures": 0},
-  "ranking": {"words": 1150, "figures": 0},
-  "raw-data": {"words": 1047, "figures": 0},
-  "regression-analysis": {"words": 913, "figures": 0},
-  "replication-crisis": {"words": 858, "figures": 0},
-  "reproducibility": {"words": 775, "figures": 0},
-  "resampling-statistics": {"words": 1349, "figures": 0},
-  "risk-assessment": {"words": 739, "figures": 0},
-  "robust-statistics": {"words": 1710, "figures": 0},
-  "rounding": {"words": 1444, "figures": 0},
-  "sampling": {"words": 1162, "figures": 0},
-  "scientific-control": {"words": 1138, "figures": 0},
-  "secondary-data": {"words": 1049, "figures": 0},
-  "social-statistics": {"words": 705, "figures": 0},
-  "spatial-analysis": {"words": 725, "figures": 0},
-  "spearman-s-rank-correlation-coefficient": {"words": 1067, "figures": 0},
-  "statistical-consultant": {"words": 727, "figures": 0},
-  "statistical-dispersion": {"words": 1484, "figures": 0},
-  "statistical-graphics": {"words": 796, "figures": 0},
-  "statistical-learning-theory": {"words": 1067, "figures": 0},
-  "statistical-literacy": {"words": 683, "figures": 0},
-  "statistical-mechanics": {"words": 670, "figures": 0},
-  "statistical-model": {"words": 1162, "figures": 0},
-  "statistical-process-control": {"words": 799, "figures": 0},
-  "statistical-survey": {"words": 1110, "figures": 0},
-  "statistical-theory": {"words": 894, "figures": 0},
-  "statistician": {"words": 1637, "figures": 0},
-  "statistics-education": {"words": 780, "figures": 0},
-  "structural-equation-modelling": {"words": 748, "figures": 0},
-  "supervised-learning": {"words": 1579, "figures": 0},
-  "survey-methodology": {"words": 1065, "figures": 0},
-  "survival-analysis": {"words": 795, "figures": 0},
-  "system-of-national-accounts": {"words": 639, "figures": 0},
-  "systematic-error": {"words": 1577, "figures": 0},
-  "systematic-sampling": {"words": 1065, "figures": 0},
-  "tail": {"words": 1351, "figures": 0},
-  "true-value": {"words": 1073, "figures": 0},
-  "uncertainty": {"words": 1132, "figures": 0},
-  "unsupervised-learning": {"words": 1481, "figures": 0},
-  "test-statistic": {"words": 831, "figures": 0},
-  "standard-score": {"words": 691, "figures": 0}
+  "abundance-estimation": {
+    "words": 1226,
+    "figures": 0
+  },
+  "actuarial-science": {
+    "words": 704,
+    "figures": 0
+  },
+  "apriori-algorithm": {
+    "words": 1543,
+    "figures": 0
+  },
+  "astrostatistics": {
+    "words": 690,
+    "figures": 0
+  },
+  "asymptotic-analysis": {
+    "words": 959,
+    "figures": 0
+  },
+  "average-treatment-effect": {
+    "words": 1125,
+    "figures": 0
+  },
+  "base-rate": {
+    "words": 1379,
+    "figures": 0
+  },
+  "bayesian-inference": {
+    "words": 1337,
+    "figures": 0
+  },
+  "bayesian-model": {
+    "words": 1226,
+    "figures": 0
+  },
+  "bayesian-probability": {
+    "words": 1253,
+    "figures": 0
+  },
+  "bayesian-statistics": {
+    "words": 752,
+    "figures": 0
+  },
+  "biostatistics": {
+    "words": 636,
+    "figures": 0
+  },
+  "business-analytics": {
+    "words": 593,
+    "figures": 0
+  },
+  "case-control-study": {
+    "words": 1075,
+    "figures": 0
+  },
+  "causality": {
+    "words": 1169,
+    "figures": 0
+  },
+  "censoring-statistics": {
+    "words": 1448,
+    "figures": 0
+  },
+  "chemometrics": {
+    "words": 621,
+    "figures": 0
+  },
+  "classification": {
+    "words": 1662,
+    "figures": 0
+  },
+  "cluster-analysis": {
+    "words": 1777,
+    "figures": 0
+  },
+  "cohort-study": {
+    "words": 1102,
+    "figures": 0
+  },
+  "computational-biology": {
+    "words": 590,
+    "figures": 0
+  },
+  "conjoint-analysis": {
+    "words": 1420,
+    "figures": 0
+  },
+  "control-group": {
+    "words": 1096,
+    "figures": 0
+  },
+  "correlation-does-not-imply-causation": {
+    "words": 1512,
+    "figures": 0
+  },
+  "cross-sectional-data": {
+    "words": 1532,
+    "figures": 0
+  },
+  "data-analysis": {
+    "words": 732,
+    "figures": 0
+  },
+  "data-collection": {
+    "words": 1055,
+    "figures": 0
+  },
+  "data-mining": {
+    "words": 821,
+    "figures": 0
+  },
+  "data-quality": {
+    "words": 1161,
+    "figures": 0
+  },
+  "data-science": {
+    "words": 751,
+    "figures": 0
+  },
+  "data-sharing": {
+    "words": 723,
+    "figures": 0
+  },
+  "decision-problem": {
+    "words": 1794,
+    "figures": 0
+  },
+  "demography": {
+    "words": 784,
+    "figures": 0
+  },
+  "difference-in-differences": {
+    "words": 1127,
+    "figures": 0
+  },
+  "differential-privacy": {
+    "words": 1391,
+    "figures": 0
+  },
+  "dimensionality-reduction": {
+    "words": 1691,
+    "figures": 0
+  },
+  "diversity-index": {
+    "words": 1403,
+    "figures": 0
+  },
+  "econometrics": {
+    "words": 759,
+    "figures": 0
+  },
+  "effect-size": {
+    "words": 1877,
+    "figures": 0
+  },
+  "engineering-statistics": {
+    "words": 692,
+    "figures": 0
+  },
+  "environmental-statistics": {
+    "words": 650,
+    "figures": 0
+  },
+  "epidemiology": {
+    "words": 848,
+    "figures": 0
+  },
+  "estimating-equations": {
+    "words": 1702,
+    "figures": 0
+  },
+  "estimation-theory": {
+    "words": 909,
+    "figures": 0
+  },
+  "expected-loss": {
+    "words": 1775,
+    "figures": 0
+  },
+  "experimental-error": {
+    "words": 1620,
+    "figures": 0
+  },
+  "extrapolation": {
+    "words": 1696,
+    "figures": 0
+  },
+  "fat-tails": {
+    "words": 1593,
+    "figures": 0
+  },
+  "feature-selection": {
+    "words": 2249,
+    "figures": 0
+  },
+  "federated-learning": {
+    "words": 1535,
+    "figures": 0
+  },
+  "first-international-statistical-congress": {
+    "words": 1687,
+    "figures": 0
+  },
+  "foundations-of-statistics": {
+    "words": 808,
+    "figures": 0
+  },
+  "frequentist-inference": {
+    "words": 906,
+    "figures": 0
+  },
+  "game-of-chance": {
+    "words": 1391,
+    "figures": 0
+  },
+  "geostatistics": {
+    "words": 747,
+    "figures": 0
+  },
+  "harking": {
+    "words": 1285,
+    "figures": 0
+  },
+  "harmonic-mean": {
+    "words": 1115,
+    "figures": 0
+  },
+  "hawthorne-effect": {
+    "words": 1864,
+    "figures": 0
+  },
+  "inference": {
+    "words": 935,
+    "figures": 0
+  },
+  "instrumental-variable": {
+    "words": 1242,
+    "figures": 0
+  },
+  "inverse-probability": {
+    "words": 1227,
+    "figures": 0
+  },
+  "k-anonymity": {
+    "words": 1167,
+    "figures": 0
+  },
+  "kruskal-wallis-test": {
+    "words": 1357,
+    "figures": 0
+  },
+  "kurtosis": {
+    "words": 1402,
+    "figures": 0
+  },
+  "lady-tasting-tea": {
+    "words": 1848,
+    "figures": 0
+  },
+  "least-absolute-deviations": {
+    "words": 1313,
+    "figures": 0
+  },
+  "likelihood-ratios-in-diagnostic-testing": {
+    "words": 1514,
+    "figures": 0
+  },
+  "machine-learning": {
+    "words": 1663,
+    "figures": 0
+  },
+  "mathematical-statistics": {
+    "words": 908,
+    "figures": 0
+  },
+  "mean-absolute-percentage-error": {
+    "words": 1413,
+    "figures": 0
+  },
+  "measurable-function": {
+    "words": 1451,
+    "figures": 0
+  },
+  "measurement": {
+    "words": 1033,
+    "figures": 0
+  },
+  "medical-statistics": {
+    "words": 762,
+    "figures": 0
+  },
+  "misuse-of-statistics": {
+    "words": 885,
+    "figures": 0
+  },
+  "morans-i": {
+    "words": 1503,
+    "figures": 0
+  },
+  "multilevel-model": {
+    "words": 1588,
+    "figures": 0
+  },
+  "multivariate-statistics": {
+    "words": 687,
+    "figures": 0
+  },
+  "natural-experiment": {
+    "words": 1167,
+    "figures": 0
+  },
+  "nonlinear-regression": {
+    "words": 1670,
+    "figures": 0
+  },
+  "normalizing-constant": {
+    "words": 1294,
+    "figures": 0
+  },
+  "official-statistics": {
+    "words": 748,
+    "figures": 0
+  },
+  "open-science": {
+    "words": 823,
+    "figures": 0
+  },
+  "panel-data": {
+    "words": 1552,
+    "figures": 0
+  },
+  "parametric-statistics": {
+    "words": 850,
+    "figures": 0
+  },
+  "pattern-recognition": {
+    "words": 735,
+    "figures": 0
+  },
+  "pearson-distribution": {
+    "words": 1590,
+    "figures": 0
+  },
+  "philosophy-of-statistics": {
+    "words": 772,
+    "figures": 0
+  },
+  "polynomial-least-squares": {
+    "words": 1478,
+    "figures": 0
+  },
+  "posterior-probability": {
+    "words": 1293,
+    "figures": 0
+  },
+  "probability-interpretations": {
+    "words": 1347,
+    "figures": 0
+  },
+  "probability-theory": {
+    "words": 790,
+    "figures": 0
+  },
+  "psychological-statistics": {
+    "words": 796,
+    "figures": 0
+  },
+  "public-health": {
+    "words": 755,
+    "figures": 0
+  },
+  "quality-control": {
+    "words": 729,
+    "figures": 0
+  },
+  "random-error": {
+    "words": 1394,
+    "figures": 0
+  },
+  "ranking": {
+    "words": 1150,
+    "figures": 0
+  },
+  "raw-data": {
+    "words": 1047,
+    "figures": 0
+  },
+  "regression-analysis": {
+    "words": 913,
+    "figures": 0
+  },
+  "replication-crisis": {
+    "words": 858,
+    "figures": 0
+  },
+  "reproducibility": {
+    "words": 775,
+    "figures": 0
+  },
+  "resampling-statistics": {
+    "words": 1349,
+    "figures": 0
+  },
+  "risk-assessment": {
+    "words": 739,
+    "figures": 0
+  },
+  "robust-statistics": {
+    "words": 1710,
+    "figures": 0
+  },
+  "rounding": {
+    "words": 1444,
+    "figures": 0
+  },
+  "sampling": {
+    "words": 1162,
+    "figures": 0
+  },
+  "scientific-control": {
+    "words": 1138,
+    "figures": 0
+  },
+  "secondary-data": {
+    "words": 1049,
+    "figures": 0
+  },
+  "social-statistics": {
+    "words": 705,
+    "figures": 0
+  },
+  "spatial-analysis": {
+    "words": 725,
+    "figures": 0
+  },
+  "spearman-s-rank-correlation-coefficient": {
+    "words": 1067,
+    "figures": 0
+  },
+  "statistical-consultant": {
+    "words": 727,
+    "figures": 0
+  },
+  "statistical-dispersion": {
+    "words": 1484,
+    "figures": 0
+  },
+  "statistical-graphics": {
+    "words": 796,
+    "figures": 0
+  },
+  "statistical-learning-theory": {
+    "words": 1067,
+    "figures": 0
+  },
+  "statistical-literacy": {
+    "words": 683,
+    "figures": 0
+  },
+  "statistical-mechanics": {
+    "words": 670,
+    "figures": 0
+  },
+  "statistical-model": {
+    "words": 1162,
+    "figures": 0
+  },
+  "statistical-process-control": {
+    "words": 799,
+    "figures": 0
+  },
+  "statistical-survey": {
+    "words": 1110,
+    "figures": 0
+  },
+  "statistical-theory": {
+    "words": 894,
+    "figures": 0
+  },
+  "statistician": {
+    "words": 1637,
+    "figures": 0
+  },
+  "statistics-education": {
+    "words": 780,
+    "figures": 0
+  },
+  "structural-equation-modelling": {
+    "words": 748,
+    "figures": 0
+  },
+  "supervised-learning": {
+    "words": 1579,
+    "figures": 0
+  },
+  "survey-methodology": {
+    "words": 1065,
+    "figures": 0
+  },
+  "survival-analysis": {
+    "words": 795,
+    "figures": 0
+  },
+  "system-of-national-accounts": {
+    "words": 639,
+    "figures": 0
+  },
+  "systematic-error": {
+    "words": 1577,
+    "figures": 0
+  },
+  "systematic-sampling": {
+    "words": 1065,
+    "figures": 0
+  },
+  "tail": {
+    "words": 1351,
+    "figures": 0
+  },
+  "true-value": {
+    "words": 1073,
+    "figures": 0
+  },
+  "uncertainty": {
+    "words": 1132,
+    "figures": 0
+  },
+  "unsupervised-learning": {
+    "words": 1481,
+    "figures": 0
+  },
+  "test-statistic": {
+    "words": 831,
+    "figures": 0
+  },
+  "standard-score": {
+    "words": 691,
+    "figures": 0
+  }
 }

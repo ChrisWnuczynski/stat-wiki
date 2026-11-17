@@ -1072,7 +1072,8 @@
       "verification": {
         "source": "archival_url",
         "id": "https://faculty.wharton.upenn.edu/wp-content/uploads/2012/04/Sufficiency-statistics-in-the-case-of-idpt-rvs.pdf"
-      }
+      },
+      "doi": "10.1214/aoms/1177700373"
     },
     "brown_cai_dasgupta2001": {
       "authors": [
@@ -12212,6 +12213,641 @@
       "verification": {
         "source": "crossref",
         "id": "10.1016/S0169-7161(05)25002-2"
+      }
+    },
+    "hemerik_goeman2018": {
+      "authors": [
+        "Hemerik, J.",
+        "Goeman, J."
+      ],
+      "year": 2018,
+      "title": "Exact testing with random permutations",
+      "kind": "article",
+      "venue": "TEST",
+      "volume": "27",
+      "pages": "811–825",
+      "doi": "10.1007/s11749-017-0571-1",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6405018/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s11749-017-0571-1"
+      }
+    },
+    "downey2014_thinkstats2": {
+      "authors": [
+        "Downey, Allen B."
+      ],
+      "year": 2014,
+      "title": "Think Stats: Exploratory Data Analysis in Python",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "O’Reilly Media",
+      "url": "https://greenteapress.com/wp/think-stats-2e/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://greenteapress.com/wp/think-stats-2e/"
+      }
+    },
+    "r_forecast_auto_arima_ah": {
+      "authors": [
+        "Hyndman, Rob J."
+      ],
+      "year": 2026,
+      "title": "forecast reference: auto.arima",
+      "kind": "book",
+      "publisher": "forecast package",
+      "url": "https://pkg.robjhyndman.com/forecast/reference/auto.arima.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://pkg.robjhyndman.com/forecast/reference/auto.arima.html"
+      }
+    },
+    "r_usaccdeaths_ah": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R datasets: USAccDeaths, Accidental Deaths in the US 1973–1978",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/USAccDeaths.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/USAccDeaths.html"
+      }
+    },
+    "cerou_guyader2006": {
+      "authors": [
+        "Cérou, Frédéric",
+        "Guyader, Arnaud"
+      ],
+      "year": 2006,
+      "title": "Nearest neighbor classification in infinite dimension",
+      "kind": "article",
+      "venue": "ESAIM: Probability and Statistics",
+      "volume": "10",
+      "pages": "340–355",
+      "doi": "10.1051/ps:2006014",
+      "url": "https://www.numdam.org/item/10.1051/ps:2006014.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1051/ps:2006014"
+      }
+    },
+    "blanchard_roquain2009": {
+      "authors": [
+        "Blanchard, Gilles",
+        "Roquain, Etienne"
+      ],
+      "year": 2009,
+      "title": "Adaptive False Discovery Rate Control under Independence and Dependence",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "10",
+      "pages": "2837–2871",
+      "url": "https://www.jmlr.org/papers/volume10/blanchard09a/blanchard09a.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.jmlr.org/papers/volume10/blanchard09a/blanchard09a.pdf"
+      }
+    },
+    "r_birthwt_data2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "MASS: Risk Factors Associated with Low Infant Birth Weight (birthwt documentation)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/birthwt.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/birthwt.html"
+      }
+    },
+    "jolliffe_cadima2016": {
+      "authors": [
+        "Jolliffe, I. T.",
+        "Cadima, J."
+      ],
+      "year": 2016,
+      "title": "Principal component analysis: a review and recent developments",
+      "kind": "article",
+      "venue": "Philosophical Transactions of the Royal Society A",
+      "volume": "374",
+      "issue": "2065",
+      "pages": "20150202",
+      "doi": "10.1098/rsta.2015.0202",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4792409/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1098/rsta.2015.0202"
+      }
+    },
+    "holmes_huber2019_msmb": {
+      "authors": [
+        "Holmes, S.",
+        "Huber, W."
+      ],
+      "year": 2019,
+      "title": "Modern Statistics for Modern Biology",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://www.huber.embl.de/msmb/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.huber.embl.de/msmb/"
+      }
+    },
+    "elkan2001_costs": {
+      "authors": [
+        "Elkan, C."
+      ],
+      "year": 2001,
+      "title": "The Foundations of Cost-Sensitive Learning",
+      "kind": "article",
+      "venue": "Proceedings of the Seventeenth International Joint Conference on Artificial Intelligence",
+      "url": "https://cseweb.ucsd.edu/~elkan/rescale.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://cseweb.ucsd.edu/~elkan/rescale.pdf"
+      }
+    },
+    "majumdar_majumdar2019": {
+      "authors": [
+        "Majumdar, Rajeshwari",
+        "Majumdar, Suman"
+      ],
+      "year": 2019,
+      "title": "On the conditional distribution of a multivariate Normal given a transformation – the linear case",
+      "kind": "article",
+      "venue": "Heliyon",
+      "volume": "5",
+      "issue": "2",
+      "pages": "e01136",
+      "doi": "10.1016/j.heliyon.2019.e01136",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6363920/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.heliyon.2019.e01136"
+      }
+    },
+    "r_stats_distributions2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R Documentation: Statistical Distributions",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Distributions.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Distributions.html"
+      }
+    },
+    "r_stats_gamma2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R Documentation: The Gamma Distribution",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/GammaDist.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/GammaDist.html"
+      }
+    },
+    "chen_chen2008_ebic": {
+      "authors": [
+        "Chen, J.",
+        "Chen, Z."
+      ],
+      "year": 2008,
+      "title": "Extended Bayesian information criteria for model selection with large model spaces",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "95",
+      "issue": "3",
+      "pages": "759–771",
+      "doi": "10.1093/biomet/asn034",
+      "url": "https://www.stat.ubc.ca/~jhchen/paper/Bio08.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/asn034"
+      }
+    },
+    "guan_gutierrez2002_glm": {
+      "authors": [
+        "Guan, W.",
+        "Gutierrez, R. G."
+      ],
+      "year": 2002,
+      "title": "Programmable GLM: Two user-defined links",
+      "kind": "article",
+      "venue": "The Stata Journal",
+      "volume": "2",
+      "issue": "4",
+      "pages": "378–390",
+      "doi": "10.1177/1536867X0200200404",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1177/1536867X0200200404"
+      }
+    },
+    "r_faraway_leafblotch2026": {
+      "authors": [
+        "Faraway, J."
+      ],
+      "year": 2026,
+      "title": "faraway package: Leaf blotch on barley (leafblotch)",
+      "kind": "book",
+      "publisher": "The R Project for Statistical Computing",
+      "url": "https://search.r-project.org/CRAN/refmans/faraway/html/leafblotch.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/CRAN/refmans/faraway/html/leafblotch.html"
+      }
+    },
+    "nist_loess_handbook": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "e-Handbook of Statistical Methods: LOESS (aka LOWESS)",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd144.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd144.htm"
+      }
+    },
+    "siegrist_multinormal2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: The Multivariate Normal Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/special/MultiNormal.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/special/MultiNormal.html"
+      }
+    },
+    "nist_normal_distribution": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.6.1, Normal Distribution",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm"
+      }
+    },
+    "firth1993_quasi": {
+      "authors": [
+        "Firth, D."
+      ],
+      "year": 1993,
+      "title": "Recent developments in quasi-likelihood methods",
+      "kind": "article",
+      "venue": "Bulletin of the International Statistical Institute",
+      "volume": "55",
+      "pages": "341–358",
+      "url": "https://warwick.ac.uk/fac/sci/statistics/staff/academic-research/firth/papers/Florence1993.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://warwick.ac.uk/fac/sci/statistics/staff/academic-research/firth/papers/Florence1993.pdf"
+      }
+    },
+    "rojo2007_unbiased": {
+      "authors": [
+        "Rojo, J."
+      ],
+      "year": 2007,
+      "title": "Unbiased Estimator",
+      "kind": "incollection",
+      "editor": "Salkind, N. J.",
+      "publisher": "SAGE Publications",
+      "doi": "10.4135/9781412952644.n468",
+      "verification": {
+        "source": "crossref",
+        "id": "10.4135/9781412952644.n468"
+      },
+      "venue": "Encyclopedia of Measurement and Statistics"
+    },
+    "nist_method_of_moments": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.5.1, Method of Moments",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3651.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3651.htm"
+      }
+    },
+    "nist_gamma_distribution": {
+      "authors": [
+        "National Institute of Standards and Technology"
+      ],
+      "year": 2002,
+      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.6.6.11, Gamma Distribution",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda366b.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda366b.htm"
+      }
+    },
+    "lee_seung2001_algorithms": {
+      "authors": [
+        "Lee, D. D.",
+        "Seung, H. S."
+      ],
+      "year": 2001,
+      "title": "Algorithms for Non-negative Matrix Factorization",
+      "kind": "article",
+      "venue": "Advances in Neural Information Processing Systems",
+      "volume": "13",
+      "url": "https://papers.nips.cc/paper/2000/file/f9d1152547c0bde01830b7e8bd60024c-Paper.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://papers.nips.cc/paper/2000/file/f9d1152547c0bde01830b7e8bd60024c-Paper.pdf"
+      }
+    },
+    "nist_hotelling2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.5.4.3: Hotelling's T squared",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc543.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc543.htm"
+      }
+    },
+    "nist_two_sample_t2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.3: Two-Sample t-Test for Equal Means",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda353.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda353.htm"
+      }
+    },
+    "r_stats_beta2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R Documentation: The Beta Distribution",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Beta.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Beta.html"
+      }
+    },
+    "r_base_random2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R Documentation: Random Number Generation",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/base/html/Random.html"
+      }
+    },
+    "biau_devroye2015": {
+      "authors": [
+        "Biau, G.",
+        "Devroye, L."
+      ],
+      "year": 2015,
+      "title": "Lectures on the Nearest Neighbor Method",
+      "kind": "book",
+      "publisher": "Springer, Cham",
+      "doi": "10.1007/978-3-319-25388-6",
+      "url": "https://luc.devroye.org/Biau+Devroye-LecturesontheNearestNeighborMethod-2015.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-3-319-25388-6"
+      }
+    },
+    "loh2011_trees": {
+      "authors": [
+        "Loh, W.-Y."
+      ],
+      "year": 2011,
+      "title": "Classification and regression trees",
+      "kind": "article",
+      "venue": "WIREs Data Mining and Knowledge Discovery",
+      "volume": "1",
+      "issue": "1",
+      "pages": "14–23",
+      "doi": "10.1002/widm.8",
+      "url": "https://pages.stat.wisc.edu/~loh/treeprogs/guide/wires11.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/widm.8"
+      }
+    },
+    "nist_series_model2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.1.8.2: Series Model",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr182.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr182.htm"
+      }
+    },
+    "nist_multivariate_normal2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.5.4.2: The Multivariate Normal Distribution",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc542.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section5/pmc542.htm"
+      }
+    },
+    "bro_smilde2014_pca": {
+      "authors": [
+        "Bro, R.",
+        "Smilde, A. K."
+      ],
+      "year": 2014,
+      "title": "Principal component analysis",
+      "kind": "article",
+      "venue": "Analytical Methods",
+      "volume": "6",
+      "issue": "9",
+      "pages": "2812–2831",
+      "doi": "10.1039/C3AY41907J",
+      "url": "https://pubs.rsc.org/en/content/articlehtml/2014/ay/c3ay41907j",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1039/C3AY41907J"
+      }
+    },
+    "fda2007_diagnostic": {
+      "authors": [
+        "U.S. Food and Drug Administration"
+      ],
+      "year": 2007,
+      "title": "Statistical Guidance on Reporting Results from Studies Evaluating Diagnostic Tests",
+      "kind": "book",
+      "publisher": "U.S. Food and Drug Administration",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/statistical-guidance-reporting-results-studies-evaluating-diagnostic-tests-guidance-industry-and-fda",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/statistical-guidance-reporting-results-studies-evaluating-diagnostic-tests-guidance-industry-and-fda"
+      }
+    },
+    "r_stats_prcomp2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R stats documentation: prcomp — Principal Components Analysis",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
+      }
+    },
+    "siegrist_poisson_general2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Poisson Processes on General Spaces",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/poisson/General.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/poisson/General.html"
+      }
+    },
+    "rpart_control2026": {
+      "authors": [
+        "Therneau, T. M.",
+        "Atkinson, E. J.",
+        "Ripley, B. D."
+      ],
+      "year": 2026,
+      "title": "rpart.control: Control for Rpart Fits",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/html/rpart.control.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/html/rpart.control.html"
+      }
+    },
+    "krishnamoorthy_yu2012": {
+      "authors": [
+        "Krishnamoorthy, K.",
+        "Yu, J."
+      ],
+      "year": 2012,
+      "title": "Multivariate Behrens–Fisher problem with missing data",
+      "kind": "article",
+      "venue": "Journal of Multivariate Analysis",
+      "volume": "105",
+      "issue": "1",
+      "pages": "141–150",
+      "doi": "10.1016/j.jmva.2011.08.019",
+      "url": "https://userweb.ucs.louisiana.edu/~kxk4695/YJMVA3257.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.jmva.2011.08.019"
+      }
+    },
+    "draxler_kurz2026_exact": {
+      "authors": [
+        "Draxler, C.",
+        "Kurz, A."
+      ],
+      "year": 2026,
+      "title": "Exact conditional inference in models for longitudinal designs",
+      "kind": "article",
+      "venue": "Behaviormetrika",
+      "doi": "10.1007/s41237-026-00309-5",
+      "url": "https://link.springer.com/article/10.1007/s41237-026-00309-5",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s41237-026-00309-5"
+      }
+    },
+    "maelicke2022_variogram": {
+      "authors": [
+        "Mälicke, M."
+      ],
+      "year": 2022,
+      "title": "SciKit-GStat 1.0: a SciPy-flavored geostatistical variogram estimation toolbox written in Python",
+      "kind": "article",
+      "venue": "Geoscientific Model Development",
+      "volume": "15",
+      "pages": "2505–2532",
+      "doi": "10.5194/gmd-15-2505-2022",
+      "url": "https://gmd.copernicus.org/articles/15/2505/2022/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.5194/gmd-15-2505-2022"
+      }
+    },
+    "r_warpbreaks": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "R datasets: The Number of Breaks in Yarn during Weaving",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/warpbreaks.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/warpbreaks.html"
       }
     }
   }

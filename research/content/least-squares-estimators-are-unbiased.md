@@ -22,7 +22,8 @@ For $\Omega=\sigma^2I_n$, this reduces to $\sigma^2(X^\top X)^{-1}$. Heterosceda
 
 For a fixed new design row $x_*^\top$, the fitted mean $x_*^\top\widehat\beta$ is unbiased for $x_*^\top\beta$ by linearity. A new response also contains a new error term. Unbiased estimation of its mean does not make its prediction error vanish, nor does it establish a reliable confidence level without a variance calculation.{{cite:goodfellow_bengio_courville2016}} (§§5.4.2–5.4.3)
 
-## Worked example — Enumerate every possible error vector
+## Worked example
+### Enumerate every possible error vector
 Use the three-row design $X=((1,0),(1,1),(1,2))^\top$ and coefficient vector $(1,2)^\top$. Let each error independently equal $-1$ or $1$ with probability $1/2$. There are eight equally likely error vectors. The matrix mapping errors into coefficient errors is
 $$A=\begin{pmatrix}5/6&1/3&-1/6\\-1/2&0&1/2\end{pmatrix}.$$
 Averaging the eight least-squares fits gives intercept one and slope two exactly. The error distribution is discrete, illustrating that normality is unnecessary. The conditional covariance of the fitted coefficients is

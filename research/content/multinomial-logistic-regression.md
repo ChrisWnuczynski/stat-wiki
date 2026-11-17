@@ -1,0 +1,32 @@
+## Motivating example
+A diagnostic system reports one of three unordered categories. Separate unconstrained linear regressions can produce negative fitted probabilities or probabilities that fail to sum to one. Multinomial logistic regression instead assigns each category a linear score and transforms the scores into one probability vector. The model describes conditional class probabilities given the predictors; it does not require a probability model for the predictors themselves.{{cite:zhang_d2l2023}} (Chapter “Softmax Regression”, Classification and The Softmax)
+
+## Definition — Choose a reference category for log odds
+For $K$ classes and a predictor vector $x$ including an intercept, let $\eta_k=x^\top\beta_k$ and $p_k(x)=e^{\eta_k}/\sum_{j=1}^K e^{\eta_j}$. Adding the same quantity to every score leaves every probability unchanged. The unconstrained coefficients are therefore not identifiable. One convenient convention fixes $\beta_1=0$, giving $\log[p_k(x)/p_1(x)]=x^\top\beta_k$ for $k\ne1$. The reference category changes the coefficient representation but not the probability model.{{cite:zhang_d2l2023}} (Chapter “Softmax Regression”, Linear Model and The Softmax)
+
+For any pair of categories $k,l$, subtract their reference logits to obtain $\log[p_k(x)/p_l(x)]=x^\top(\beta_k-\beta_l)$. Thus changing one predictor by one unit, while holding the others fixed, multiplies those pairwise odds by $\exp(\beta_{kj}-\beta_{lj})$. It generally does not multiply either individual probability by that factor, because the normalising denominator changes too. The binary logit is the two-category special case.{{cite:dodge2008}} (p. 319, Logistic Regression)
+
+## Properties — Likelihood yields cross-entropy and a simple score
+For independent responses with one-hot indicators $y_{ik}$, the conditional log-likelihood is $\ell=\sum_{i,k}y_{ik}\log p_k(x_i)$. Its negative is cross-entropy loss. Substituting the softmax gives $-\ell=\sum_i[\log\sum_ke^{\eta_{ik}}-\eta_{i,y_i}]$. Conditional independence across observations justifies adding these contributions; a single observation contributes one observed category rather than $K$ independent Bernoulli outcomes.{{cite:zhang_d2l2023}} (Chapter “Softmax Regression”, Log-Likelihood)
+
+Differentiating gives $\partial(-\ell)/\partial\beta_k=\sum_i[p_k(x_i)-y_{ik}]x_i$. The Hessian blocks are $\sum_i p_k(x_i)[\mathbf1\{k=l\}-p_l(x_i)]x_ix_i^\top$. For any coefficient direction, its quadratic form is a sum of conditional variances of the corresponding class scores, hence nonnegative. The loss is convex in the coefficients. Removing the common-score ambiguity is necessary for identification, while rank deficiencies in the predictors can create further ambiguities. This is the same covariance structure that appears in the Hessian of an exponential-family log partition function.{{cite:wainwright_jordan2008}} (§3.5.1, prop. 3.1, pp. 61–63)
+
+The score formula also explains optimisation: a category assigned too much probability relative to its observed indicator contributes a positive error term. Numerical implementations should compute log probabilities through a stable log-sum-exp calculation. Subtracting the largest score before exponentiating leaves the probabilities unchanged and avoids unnecessary overflow.{{cite:zhang_d2l2023}} (Chapter “Softmax Regression”, Vectorization and Softmax and Cross-Entropy Loss)
+
+## Worked example — Rebase the same three probabilities
+Take scores $(0,\log2,\log3)$. Their exponential weights are $(1,2,3)$, so the probabilities are $(1/6,1/3,1/2)$. If category three is observed, the negative log-likelihood contribution is $-\log(1/2)=\log2\approx0.693147$. The derivatives with respect to the three scores are $(1/6,1/3,-1/2)$; they sum to zero, reflecting invariance to a common score shift.
+
+Using category three as reference subtracts $\log3$ from every score, giving $(-\log3,\log(2/3),0)$. Exponentiating and normalising gives exactly the same probabilities. The corresponding general coefficient change is $\widetilde\beta_k=\beta_k-\beta_3$, including $\widetilde\beta_3=0$. A new reference changes every reported comparison together rather than changing just one intercept.
+
+Now raise only the second score by $\log2$. Its weight doubles from two to four, and the probability vector becomes $(1/8,1/2,3/8)$. The odds of category two against category one double from two to four. Category two's own probability rises from one third to one half, a factor of $3/2$, illustrating why an odds multiplier is not a probability multiplier.
+
+**Your turn.** Add 1000 to each of the three initial scores. What are the probabilities, and how can they be computed without exponentiating 1000?
+
+::: {.callout-tip collapse="true" title="Answer"}
+They remain $(1/6,1/3,1/2)$. Subtract the maximum score $1000+\log3$ first, exponentiate $(-\log3,\log(2/3),0)$, and normalise the weights $(1/3,2/3,1)$.
+:::
+
+## Assumptions and limits — Convexity does not ensure a finite fit
+For perfectly separated classes, coefficients can grow without bound while the fitted probabilities approach correct classification and the loss approaches its infimum. A finite maximum-likelihood estimate can therefore fail to exist even though the loss is convex. Finite softmax scores assign every class strictly positive probability.{{cite:zhang_d2l2023}} (Chapter “Softmax Regression”, Log-Likelihood)
+
+Regularisation can make optimisation and prediction more stable, but its tuning strength is part of the fitted procedure. Predictive probability calibration and classification accuracy measure different aspects of performance. For an ordered response, an ordinal model can encode order through shared structure; assigning integer category labels to an unordered response does not supply that structure. In the multinomial logit, the pairwise odds depend only on the two corresponding scores, an assumption to assess when categories are close substitutes.

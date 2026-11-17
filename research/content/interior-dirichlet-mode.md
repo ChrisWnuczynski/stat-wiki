@@ -18,7 +18,8 @@ Introduce a multiplier $\lambda$ for $\sum_kp_k=1$. The derivative condition is 
 
 For a marginal coordinate, integrating the remaining shares gives $P_k\sim\operatorname{Beta}(\alpha_k,\alpha_0-\alpha_k)$. When both beta shapes exceed one, its mode is $(\alpha_k-1)/(\alpha_0-2)$. The denominator differs from the joint-mode denominator because integration and joint maximization are different operations. The beta density makes the marginal calculation directly checkable.{{cite:ng_tian_tang2011_dirichlet}} (§1.3, def. 1.1, eq. 1.5)
 
-## Worked example — Three summaries for three categories
+## Worked example
+### Three summaries for three categories
 For concentrations $(2,3,5)$, the total is ten. The joint mode is $(1/7,2/7,4/7)$, while the mean is $(1/5,3/10,1/2)$. The three marginal modes are $(1/8,2/8,4/8)$, whose sum is $7/8$. Reporting them together as a probability vector would violate the sum constraint. Each is a valid answer to a different one-dimensional marginal maximization. These calculations use the density and beta-marginal formulas above.{{cite:blei_ng_jordan2003}} (§3, p. 996, eq. 1){{cite:ng_tian_tang2011_dirichlet}} (§1.3, eq. 1.5)
 
 If multinomial counts $(3,0,2)$ are observed, conjugacy changes the concentrations to $(5,3,7)$. The new joint mode is $(1/3,1/6,1/2)$. The zero observed count in the second category does not force its posterior mode to zero: its positive prior exponent remains part of the joint density. Whether such prior influence is scientifically suitable is a modeling question.

@@ -15,7 +15,8 @@ This expression is symmetric in $x$ and $y$, proving off-diagonal detailed balan
 
 Writing $\pi=f/Z$ cancels $Z$ in the acceptance ratio. Proposal factors cancel only for a symmetric proposal. These are separate cancellations: an unknown target normalizer can disappear even when the proposal ratio remains necessary.{{cite:hastings1970}} (§2.2, p. 100)
 
-## Worked example — An asymmetric two-state proposal
+## Worked example
+### An asymmetric two-state proposal
 Let target probabilities be $(0.8,0.2)$ on states $A,B$, and use proposal matrix $Q=\begin{pmatrix}0.1&0.9\\0.2&0.8\end{pmatrix}$. The acceptance probability from $A$ to $B$ is $1/18$, while the reverse acceptance probability is one. Thus the transition matrix is
 $$P=\begin{pmatrix}0.95&0.05\\0.2&0.8\end{pmatrix}.$$
 Its probability flows between the states agree: $0.8(0.05)=0.2(0.2)=0.04$. Multiplication gives $(0.8,0.2)P=(0.8,0.2)$, verifying invariance directly. This finite example instantiates the acceptance rule and its balance proof.{{cite:hastings1970}} (§2.2, eqs. 4–6)

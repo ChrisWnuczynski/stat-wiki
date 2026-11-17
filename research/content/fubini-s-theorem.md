@@ -1,0 +1,29 @@
+## Motivating example
+A reliability analyst may know survival probabilities more easily than a lifetime density. For a nonnegative lifetime $T$, each realisation is the length of the interval lying below it: $T=\int_0^\infty\mathbf1_{\{T>t\}}\,dt$. Averaging those lengths should give the area under the survival curve. The exchange is valid because the integrand is nonnegative, including when that area is infinite. A finite mean is therefore a conclusion to check after the exchange, rather than a prerequisite for writing the identity.{{cite:durrett2019}} (§1.7, thm. 1.7.2 and ex. 1.7.2)
+
+## Definition — Two sufficient conditions for exchanging integrals
+Let $(X,\mathcal A,\mu)$ and $(Y,\mathcal B,\nu)$ be sigma-finite measure spaces, and let $f$ be measurable for their product sigma-algebra. For $f\ge0$, Tonelli's theorem identifies the product integral with either iterated integral in $[0,\infty]$. For real-valued $f$ satisfying $\int|f|\,d(\mu\otimes\nu)<\infty$, Fubini's theorem gives the same equality with a finite signed value:
+$$\int f\,d(\mu\otimes\nu)=\int_X\!\left(\int_Y f(x,y)\,d\nu(y)\right)d\mu(x)=\int_Y\!\left(\int_X f(x,y)\,d\mu(x)\right)d\nu(y).$$
+In the integrable case, sections are integrable for almost every outer coordinate. Exceptional sections of measure zero do not change the outer integral. A probability measure is finite and hence sigma-finite; a product of a probability measure and Lebesgue measure on $[0,\infty)$ is also within these hypotheses.{{cite:tao2011_measure}} (§1.7, thms. 1.7.20–1.7.21 and cor. 1.7.23)
+
+## Properties — From rectangles to signed functions
+The mechanism is a sequence of extensions. For a rectangle $A\times B$, both iterated integrals of its indicator are $\mu(A)\nu(B)$. First consider finite measures. The measurable sets for which the section-integral identity holds form a lambda-system: the whole product belongs, complements preserve the identity by subtracting from the finite total, and disjoint countable unions preserve it by monotone convergence. Rectangles form a generating pi-system, so the pi–lambda theorem extends the identity to every product-measurable set. For sigma-finite measures, restrict to increasing rectangles of finite measure and take limits.{{cite:durrett2019}} (§1.7, lems. 1.7.3–1.7.4)
+
+Linearity then proves the claim for nonnegative simple functions. Approximate a nonnegative measurable $f$ by increasing simple functions and apply monotone convergence to the inner and outer integrals. Finally write a real integrable function as $f^+-f^-$. Absolute integrability makes both nonnegative integrals finite, so their difference is defined in either order. This last subtraction explains why allowing two infinite signed contributions would break the argument.{{cite:durrett2019}} (§1.7, proof of thm. 1.7.2)
+
+## Statistical use — Tail probabilities and random sums
+Applying Tonelli to the lifetime indicator yields $\mathbb ET=\int_0^\infty\Pr(T>t)\,dt$. For an integer-valued $N\ge0$, use counting measure to obtain $\mathbb EN=\sum_{k\ge1}\Pr(N\ge k)$. More generally, for $r>0$, the pathwise identity $T^r=\int_0^T r t^{r-1}\,dt$ gives $\mathbb ET^r=\int_0^\infty r t^{r-1}\Pr(T>t)\,dt$, with infinity permitted. These statements require neither a continuous distribution nor a density. An atom at zero contributes no lifetime, while other atoms contribute through their tail intervals.{{cite:tao2011_measure}} (§1.7, ex. 1.7.25)
+
+The same principle justifies exchanging an expectation and an infinite nonnegative sum. For signed random contributions $Z_k$, a sufficient condition is $\sum_k\mathbb E|Z_k|<\infty$. It makes the absolute sum integrable and permits $\mathbb E\sum_k Z_k=\sum_k\mathbb EZ_k$. A finite number of terms needs only integrability of those terms; an infinite sequence requires a further argument.{{cite:durrett2019}} (§1.7, corollary following thm. 1.7.2)
+
+## Worked example — Integrating a triangular region
+On $0<x<y<1$, let $f(x,y)=6x$, and set it to zero elsewhere. Integrating first over $x$ gives $\int_0^1\int_0^y6x\,dx\,dy=\int_0^1 3y^2\,dy=1$. Reversing the order gives $\int_0^1\int_x^1 6x\,dy\,dx=\int_0^1 6x(1-x)\,dx=1$. Thus $f$ is a joint density. Its marginal density for $Y$ is $3y^2$ and its mean is $\mathbb EY=\int_0^1 3y^3\,dy=3/4$. The geometry determines the limits: fixing $y$ leaves $0<x<y$, while fixing $x$ leaves $x<y<1$.
+
+**Your turn.** Find $\mathbb EX$ under the same density.
+
+::: {.callout-tip collapse="true" title="Answer"}
+The marginal density of $X$ is $6x(1-x)$. Hence $\mathbb EX=\int_0^1 6x^2(1-x)\,dx=1/2$.
+:::
+
+## Assumptions and limits — Having two answers is a warning
+A signed double series can have convergent row and column sums yet disagree between orders. Put $a_{mn}=1$ when $m=n$, $a_{mn}=-1$ when $m=n+1$, and zero otherwise, with indices starting at one. Each column sums to zero. The first row sums to one and every later row sums to zero, so summing the row totals gives one. The absolute double sum is infinite. Neither absolute summability nor nonnegativity holds, so the theorem supplies no order-invariance. A convenient iterated calculation alone does not establish the hypotheses that make it legitimate.{{cite:tao2011_measure}} (§1.7, ex. 1.7.23; rem. 0.0.3)
