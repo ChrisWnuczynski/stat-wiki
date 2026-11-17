@@ -1251,306 +1251,316 @@
   ],
   "abundance-estimation": [
     {
-      "title": "Petersen estimate",
-      "prompt": "Twenty animals are marked, fifteen are caught later, and five of those are marked. What is the Petersen estimate?",
-      "answer": "The estimate is (15 × 20) / 5 = 60."
+      "title": "A second sample with no marks",
+      "prompt": "Why does the Petersen estimator give no finite population size when the second sample contains no marked animals?",
+      "answer": "The estimator divides by the recapture count, so a recapture count of zero leaves the ratio undefined."
     },
     {
-      "title": "Chapman estimate",
-      "prompt": "For the same counts, what is the Chapman estimate (M+1)(C+1)/(R+1) − 1?",
-      "answer": "The estimate is (21 × 16) / 6 − 1 = 55."
+      "title": "Closure",
+      "prompt": "What must be negligible between the two samples if the Petersen estimator is to refer to the population size at marking?",
+      "answer": "Births, deaths, and movement must be negligible, so the population is closed over that interval."
     },
     {
-      "title": "More recaptures",
-      "prompt": "If 10 of the 15 animals in the second sample are marked, and 20 were marked at first, what is the Petersen estimate?",
-      "answer": "The estimate is (15 × 20) / 10 = 30."
+      "title": "When the small-sample form is the one to use",
+      "prompt": "Krebs describes the Chapman form as nearly unbiased once how many recaptures have been seen?",
+      "answer": "At least seven recaptures."
     }
   ],
   "apriori-algorithm": [
     {
-      "title": "Confidence",
-      "prompt": "In the four baskets {a,b}, {a,b}, {a} and {b,c}, what is the confidence of the rule a implies b?",
-      "answer": "The confidence is 2/3."
+      "title": "Skipping a candidate",
+      "prompt": "Why may a candidate item set be left uncounted when one of its subsets failed the support threshold?",
+      "answer": "Support cannot rise when an item is added, so a set that contains an infrequent subset is infrequent."
     },
     {
-      "title": "Lift",
-      "prompt": "What is the lift of that same rule?",
-      "answer": "The lift is 8/9."
+      "title": "Lift below one",
+      "prompt": "What does a lift below 1 say about the two items in the baskets that were counted?",
+      "answer": "They occur together less often than the product of their separate supports."
     },
     {
-      "title": "A rare pair",
-      "prompt": "What is the support of {b,c}, and does it pass a strict threshold of 2/5?",
-      "answer": "The support is 1/4, which does not pass a strict threshold of 2/5."
+      "title": "Confidence and support",
+      "prompt": "Why can a rule have high confidence while its item set still fails a support threshold?",
+      "answer": "Confidence is the fraction of antecedent baskets that also contain the consequent, while support is the fraction of all baskets that contain the pair."
     }
   ],
   "average-treatment-effect": [
     {
-      "title": "Null average",
-      "prompt": "Eight patients have 4 deaths under treatment and 4 deaths under no treatment. What is the average treatment effect on the risk difference?",
-      "answer": "The risks are 4/8 and 4/8, so the average treatment effect is 0."
+      "title": "A null average",
+      "prompt": "What does an average treatment effect of zero say about the two potential-outcome means?",
+      "answer": "The population means under the two actions are equal."
     },
     {
-      "title": "One changed outcome",
-      "prompt": "After the last treated outcome changes from 1 to 0, 3 of 8 die under treatment and 4 of 8 die under no treatment. What is the average treatment effect?",
-      "answer": "The average treatment effect is 3/8 - 4/8 = -1/8."
+      "title": "The missing column",
+      "prompt": "Why can the average treatment effect not be computed by subtracting the two outcomes inside each person's observed row?",
+      "answer": "Only one of the two potential outcomes is observed for each person."
+    },
+    {
+      "title": "Difference and ratio",
+      "prompt": "A risk of 0.2 under treatment and 0.3 under the comparison is a risk difference of what?",
+      "answer": "The risk difference is 0.2 - 0.3 = -0.1."
     }
   ],
   "base-rate": [
     {
-      "title": "Mammogram predictive value",
-      "prompt": "Base rate 0.0035, sensitivity 0.89, false-positive rate 0.07. What is the positive predictive value, to three decimals?",
-      "answer": "The positive predictive value is about 0.043."
+      "title": "Which factor it is",
+      "prompt": "In the positive predictive value, which probability is the base rate?",
+      "answer": "It is the probability of the condition before the test result is known."
     },
     {
-      "title": "A less rare condition",
-      "prompt": "Base rate 0.20, sensitivity 0.89, false-positive rate 0.07. What is the positive predictive value, to three decimals?",
-      "answer": "The positive predictive value is about 0.761."
+      "title": "Raising the base rate",
+      "prompt": "If the sensitivity exceeds the false-positive rate, how does the positive predictive value move when the base rate rises?",
+      "answer": "It increases."
     },
     {
-      "title": "One percent prevalence",
-      "prompt": "Base rate 0.01, sensitivity 0.90, false-positive rate 0.05. What is the positive predictive value?",
-      "answer": "The positive predictive value is 0.009/0.0585, about 0.154."
+      "title": "A sensitive test and a rare condition",
+      "prompt": "Why can a sensitive test still have a small positive predictive value?",
+      "answer": "When the condition is rare, false positives from the large unaffected group can outnumber true positives."
     }
   ],
   "bayesian-inference": [
     {
-      "title": "Two unaffected sons",
-      "prompt": "Prior probability 1/2 of being a carrier, likelihood 1/4 if a carrier and 1 if not, for two unaffected sons. What is the posterior probability of being a carrier?",
-      "answer": "The posterior probability is 1/5."
+      "title": "The factor that cancels",
+      "prompt": "In the posterior odds between two parameter values, which factor from Bayes' theorem does not need to be computed?",
+      "answer": "The marginal probability of the data, because it is the same for both values and cancels."
     },
     {
-      "title": "A third unaffected son",
-      "prompt": "Starting from posterior probability 1/5, a third son is unaffected, with conditional probability 1/2 if a carrier and 1 if not. What is the new posterior probability?",
-      "answer": "The posterior probability is 1/9."
+      "title": "A further observation",
+      "prompt": "When a new observation arrives, what may be used as its prior so that the result matches conditioning on the combined sample?",
+      "answer": "The posterior from the observations already in hand."
     }
   ],
   "bayesian-model": [
     {
-      "title": "Joint probability of a success",
-      "prompt": "Prior probability 1/2 on success probability 0.2, and one Bernoulli trial. What is the joint probability of that value and a success?",
-      "answer": "The joint probability is 0.1."
+      "title": "The two factors",
+      "prompt": "Name the two factors in the joint distribution of a Bayesian model.",
+      "answer": "The prior distribution of the unknowns and the sampling distribution of the data given the unknowns."
     },
     {
-      "title": "Posterior after a failure",
-      "prompt": "Under the same two-point model, with prior 1/2 on 0.2 and on 0.8, the trial is a failure. What is the posterior probability of 0.2?",
-      "answer": "The posterior probability is 0.8."
+      "title": "An improper function",
+      "prompt": "Why does a function of the unknown whose integral diverges fail to complete a joint probability model?",
+      "answer": "It is not a probability distribution for the unknown, so the joint distribution is not defined as a probability."
     }
   ],
   "bayesian-probability": [
     {
-      "title": "Ten-to-one odds",
-      "prompt": "A bet of 1 unit in order to win 10 more units is taken on the favourable side. What probability does that commit you to, at minimum?",
-      "answer": "The probability is at least 1/11."
+      "title": "Coherence",
+      "prompt": "What does coherence require of a set of betting prices?",
+      "answer": "No combination of bets should win for sure from the person who posted the prices, and the prices then satisfy the probability axioms."
     },
     {
-      "title": "Three-to-one odds",
-      "prompt": "A bet of 1 unit in order to win 3 more units is taken on the favourable side. What probability does that commit you to, at minimum?",
-      "answer": "The probability is at least 1/4."
+      "title": "A parameter and a draw",
+      "prompt": "Does assigning a Bayesian probability to a parameter, by itself, mean the parameter was drawn from a population of parameters?",
+      "answer": "No. That reading is a hierarchical model. The probability is a degree of uncertainty about the parameter."
     }
   ],
   "case-control-study": [
     {
-      "title": "Odds ratio",
-      "prompt": "Cases are 24 exposed and 16 unexposed. Controls are 10 exposed and 30 unexposed. What is the exposure odds ratio?",
-      "answer": "The odds ratio is (24*30)/(16*10) = 4.5."
+      "title": "The sample fraction of cases",
+      "prompt": "Why does the proportion of the sample who are cases not estimate the population risk?",
+      "answer": "The design fixes how many cases and how many controls are included."
     },
     {
-      "title": "Extra controls",
-      "prompt": "Controls become 10 exposed and 34 unexposed, and the cases stay 24 and 16. What is the odds ratio?",
-      "answer": "The odds ratio is (24*34)/(16*10) = 5.1."
+      "title": "The contrast the design supports",
+      "prompt": "When the controls represent the source population's exposure distribution, which contrast does the design estimate?",
+      "answer": "The exposure odds ratio."
     }
   ],
   "causality": [
     {
-      "title": "How many people differ",
-      "prompt": "Five people have treatment outcomes 1, 0, 1, 1, 0 and untreated outcomes 0, 0, 1, 0, 0. How many individual effects are nonzero?",
-      "answer": "Two individual effects are nonzero."
+      "title": "The outcome that was seen",
+      "prompt": "If a person received treatment A = a, which potential outcome equals the observed outcome?",
+      "answer": "The potential outcome under action a."
     },
     {
-      "title": "Corrected mean",
-      "prompt": "The third untreated outcome is changed from 1 to 0, and the treated mean stays 0.6. What is the average causal effect?",
-      "answer": "The untreated mean is 0, so the average causal effect is 0.6."
+      "title": "When the two contrasts agree",
+      "prompt": "Under what design condition do the associational contrast and the causal contrast agree?",
+      "answer": "When the groups receiving the two treatments are exchangeable, which is what random assignment is designed to produce."
     }
   ],
   "censoring-statistics": [
     {
-      "title": "Product-limit value",
-      "prompt": "Five units: one failure at time 2, a censoring at time 3, and two failures at time 5. What is the product-limit estimate at time 5?",
-      "answer": "The estimate is 4/5 × 1/3 = 4/15."
+      "title": "Which quantity is fixed",
+      "prompt": "In Type I censoring, which of the stopping time and the number of failures is fixed before the test is run?",
+      "answer": "The stopping time is fixed. The number of failures is random."
     },
     {
-      "title": "Censoring becomes a failure",
-      "prompt": "If the time-3 observation is a failure instead, what is the product-limit estimate at time 5?",
-      "answer": "The estimate is 4/5 × 3/4 × 1/3 = 1/5."
+      "title": "A removed unit",
+      "prompt": "Does a unit removed without failure create its own multiplicative drop in the product-limit estimator?",
+      "answer": "No. It stays in the risk set only until the last failure before removal, and it is omitted afterwards without a failure factor of its own."
     }
   ],
   "classification": [
     {
-      "title": "Bayes error with three classes",
-      "prompt": "Class probabilities are 7/10, 1/5 and 1/10. What is the conditional error of the Bayes classifier?",
-      "answer": "The conditional error is 3/10."
+      "title": "Equal costs",
+      "prompt": "The Bayes classifier picks the class with the largest conditional probability when every mistake has the same cost. If missing one class is much more costly than missing another, does that same ordering still pick the action?",
+      "answer": "No. The probability ordering is the right ordering only under equal misclassification costs. A higher cost on one mistake can make a less probable class the better announcement."
     },
     {
-      "title": "A worse label",
-      "prompt": "At those same probabilities, what is the conditional error of announcing the class whose probability is 1/5?",
-      "answer": "The conditional error is 4/5."
+      "title": "Training match",
+      "prompt": "A rule labels every training case correctly. What does that match say about the conditional error at a new feature value where the classes still overlap?",
+      "answer": "Nothing that removes the overlap. The conditional error at the new value is the probability left over after the best label, and a perfect training match is an answer to a different question."
     },
     {
-      "title": "Two-class overlap",
-      "prompt": "Two class probabilities are 11/20 and 9/20. What is the Bayes error?",
-      "answer": "The Bayes error is 9/20."
+      "title": "Logistic regression",
+      "prompt": "Why is logistic regression a classification method even though its name says regression?",
+      "answer": "The response is qualitative. The fitted object is a class probability, and the label is read off that probability."
     }
   ],
   "cluster-analysis": [
     {
-      "title": "First single-link join",
-      "prompt": "For the points A(0,0), B(1,0), C(5,0) and D(6,1), at what distance does single linkage make its first join?",
-      "answer": "The first join is at distance 1, between A and B."
+      "title": "Two starts",
+      "prompt": "Why can two runs of K-means on the same points return different within-cluster sums of squares?",
+      "answer": "The alternating assignment of points to centres stops at a local minimum. A different start can reach a different partition."
     },
     {
-      "title": "Within-cluster sum of squares",
-      "prompt": "For the partition {A,B} and {C,D}, what is the within-cluster sum of squares?",
-      "answer": "The within-cluster sum of squares is 3/2."
+      "title": "Choosing K",
+      "prompt": "Why is cross-validation of a prediction error not a way to choose the number of clusters?",
+      "answer": "There is no response to predict, so there is no prediction error to cross-validate. A smaller within-cluster sum of squares at a larger number of centres can just mean the extra centre split one cloud."
     },
     {
-      "title": "Distance between the pairs",
-      "prompt": "Under single linkage, what is the distance between {A,B} and {C,D}?",
-      "answer": "The distance is 4."
+      "title": "Single linkage",
+      "prompt": "Single linkage and complete linkage use the same pairwise distances. What is the only change between them?",
+      "answer": "Single linkage takes the minimum pairwise distance between groups. Complete linkage takes the maximum."
     }
   ],
   "cohort-study": [
     {
-      "title": "Risk ratio",
-      "prompt": "Of 80 exposed people, 20 develop the outcome. Of 120 unexposed people, 12 do. What is the risk ratio?",
-      "answer": "The risks are 0.25 and 0.10, so the risk ratio is 2.5."
+      "title": "A risk needs a denominator",
+      "prompt": "Why can a cohort yield a risk when a case-control sample of the same disease cannot?",
+      "answer": "Cohort membership is fixed before the outcome is used to select people, so the proportion who develop the outcome is a risk in that cohort. A case-control sample chooses cases and non-cases in proportions the investigator sets, so that proportion is not the risk."
     },
     {
-      "title": "Extra exposed",
-      "prompt": "The exposed group becomes 21 outcomes among 84 people, and the unexposed risk stays 0.10. What is the risk ratio?",
-      "answer": "The exposed risk is 0.25, so the risk ratio is still 2.5."
+      "title": "Follow-up is not assignment",
+      "prompt": "People are followed forward and the exposed have a higher risk than the unexposed. What further condition is needed before that difference is read as an effect of the exposure?",
+      "answer": "The exposed and unexposed have to be comparable apart from the exposure, or an adjustment has to be believed to make them so. Follow-up alone does not assign the exposure."
     }
   ],
   "conjoint-analysis": [
     {
-      "title": "Best profile",
-      "prompt": "Brand A has part-worth 0, brand B has 2, the low price has 3, and the high price has 0. Which profile has utility 5?",
-      "answer": "Brand B at the low price, because 2 + 3 = 5."
+      "title": "Importance and the design",
+      "prompt": "Why is a part-worth range an importance only relative to the levels that were shown?",
+      "answer": "The range is the difference between the part-worths of the levels included in the design. A different set of levels changes the range, so the share is not a property of the attribute in the abstract."
     },
     {
-      "title": "Brand share of range",
-      "prompt": "The brand range is 2 and the price range is 3. What share of the total range belongs to brand?",
-      "answer": "The share is 2/5."
+      "title": "Ranks and least squares",
+      "prompt": "Why can ordinary least squares be a poor match to rank data even when the recovered numbers look similar?",
+      "answer": "Ranks supply an order. Ordinary least squares treats the scores as interval-scaled, which the rank task did not provide. Ordinal methods are a separate class of estimator from interval-scaled regression."
     },
     {
-      "title": "Profile count",
-      "prompt": "Three attributes have 4 levels and two attributes have 3 levels. How many full-factorial profiles are there?",
-      "answer": "There are 4^3 × 3^2 = 576 profiles."
+      "title": "Holdouts",
+      "prompt": "A respondent scores holdout cards that were withheld from the fit, and the sums predict those cards. What does that success not show?",
+      "answer": "It does not show that the same person would buy the product in a shop. A holdout that repeats the task speaks to forecasting accuracy under the same conditions."
     }
   ],
   "control-group": [
     {
-      "title": "Small trial",
-      "prompt": "A drug group has 2 deaths among 10 patients and the control group has 5 deaths among 10. What is the risk difference, drug minus control?",
-      "answer": "The risk difference is 0.2 - 0.5 = -0.3."
+      "title": "A treated control",
+      "prompt": "The control arm quietly receives a version of the experimental treatment. Which contrast does the trial then answer?",
+      "answer": "The contrast is between two versions of treatment, not between the experimental treatment and its absence."
     },
     {
-      "title": "One more control",
-      "prompt": "The control group becomes 6 deaths among 11, and the drug risk stays 0.2. What is the control risk?",
-      "answer": "The control risk is 6/11."
+      "title": "Who asks for treatment",
+      "prompt": "The untreated set is whoever did not ask for the treatment. Why is that set not yet a control group for an effect?",
+      "answer": "Membership follows the request, which can share causes with the outcome. Random assignment is what makes membership unpredictable from those traits."
     }
   ],
   "correlation-does-not-imply-causation": [
     {
-      "title": "Which risk is larger?",
-      "prompt": "In the population of 20, treated mortality is 7/13 and untreated mortality is 3/7. Which is larger?",
-      "answer": "The treated risk is larger, because 7/13 − 3/7 = 10/91 > 0."
+      "title": "Precision is not causation",
+      "prompt": "A larger sample makes an observational association more precise. What does that precision not do?",
+      "answer": "It does not turn the association into a causal effect. The conditional risk and the counterfactual risk remain different contrasts."
     },
     {
-      "title": "Causal difference",
-      "prompt": "If everyone treated gives 10 deaths out of 20 and everyone untreated gives 10 deaths out of 20, what is the causal risk difference?",
-      "answer": "The causal risk difference is 0."
+      "title": "Same ratio, different cases",
+      "prompt": "Why can a relative risk of 2 correspond to very different numbers of cases removed if the exposure is taken away?",
+      "answer": "A small risk against half that risk, and a large risk against half that risk, have the same ratio. The absolute number of cases depends on the level of the risk, not only on the ratio."
     },
     {
-      "title": "Changed counterfactuals",
-      "prompt": "If 8 of 20 would die if everyone were treated and 12 of 20 would die if everyone were untreated, what is the causal risk difference?",
-      "answer": "The difference is 8/20 − 12/20 = −1/5."
+      "title": "Time order",
+      "prompt": "A factor is measured after the outcome. Why can it not be the cause of that outcome?",
+      "answer": "A cause has to precede the effect. A measurement taken after the outcome fails that time order."
     }
   ],
   "cross-sectional-data": [
     {
-      "title": "Five incomes",
-      "prompt": "A snapshot of incomes is 2, 4, 4, 6, and 9. What is the mean, and what is the sample variance with divisor n-1?",
-      "answer": "The mean is 5. The sum of squared deviations is 28, so the sample variance is 28/4 = 7."
+      "title": "Same spreadsheet, different index",
+      "prompt": "Three annual totals for one country and three countries in one year can look alike in a spreadsheet. Which layout has a within-unit change?",
+      "answer": "The three annual totals are a time series, so a change from one year to the next is defined. The three countries in one year are a cross-section, and no within-country change is in the table."
     },
     {
-      "title": "Three units",
-      "prompt": "Values 3, 5, and 7 are measured once each. What are the mean and the range?",
-      "answer": "The mean is 5 and the range is 4. No within-unit change is defined."
+      "title": "A regional policy",
+      "prompt": "A policy is constant inside each of twenty regions and is estimated from thousands of people. Why is the people-count a poor description of the information about that policy?",
+      "answer": "The policy does not vary inside a region, so the independent contrasts are closer to the number of regions than to the number of people. Default standard errors that ignore the cluster overstate precision."
     }
   ],
   "data-collection": [
     {
-      "title": "Sampling fraction",
-      "prompt": "A sample of 40 shops is drawn from 500. What is the sampling fraction?",
-      "answer": "The sampling fraction is 0.08."
+      "title": "A calculated sampling error",
+      "prompt": "A large convenience collection and a small probability sample both produce rows. Which one supports a calculated sampling error, and why?",
+      "answer": "The probability sample, because the selection probabilities are known. A convenience collection does not supply those probabilities."
     },
     {
-      "title": "Larger sample",
-      "prompt": "The sample grows from 40 shops to 50, still out of 500. What is the sampling fraction?",
-      "answer": "The sampling fraction is 0.1."
+      "title": "The right rows",
+      "prompt": "Why does storing a variable carefully not make it the right variable for a stated question?",
+      "answer": "The collection has to record the quantities the question names. Relevance is fixed by the question, not by the care of the storage."
     }
   ],
   "data-quality": [
     {
-      "title": "Bias of the mean",
-      "prompt": "Readings 22, 23, 21, and 22 are taken on a true length of 20. What is the bias of their mean?",
-      "answer": "The mean is 22, so the bias is 2."
+      "title": "Agreement is not accuracy",
+      "prompt": "Repeated readings agree with each other and all sit on the same side of the reference value. Which of precision and accuracy fails?",
+      "answer": "Precision can be fine, because the readings agree. Accuracy fails because of the systematic offset from the reference value. Bias does not affect precision, and accuracy gets worse as bias grows."
     },
     {
-      "title": "Fifth reading",
-      "prompt": "A fifth reading of 24 is added, and the true length stays 20. What is the bias of the new mean?",
-      "answer": "The mean is 22.4, so the bias is 2.4."
+      "title": "A short frame",
+      "prompt": "Why does a larger sample from a frame that omits a class of units not repair coverage?",
+      "answer": "Coverage error is a property of the frame. Drawing more units from the same frame repeats the omission."
     }
   ],
   "decision-problem": [
     {
-      "title": "Radiotherapy score",
-      "prompt": "With cancer probability 0.9, life expectancies 16.7 and 34.8 months, and a one-month penalty, what is the radiotherapy score?",
-      "answer": "The score is 17.51 quality-adjusted months."
+      "title": "A test that changes nothing",
+      "prompt": "A diagnostic test leaves the preferred treatment unchanged whichever result appears. What is the decision value of the test under expected utility, apart from harm the test itself causes?",
+      "answer": "It has none. Information changes the expected score only when it changes a later action."
     },
     {
-      "title": "No treatment",
-      "prompt": "With the same probability, cancer expectancy 5.6 months and non-cancer expectancy 34.8 months, and no penalty, what is the no-treatment score?",
-      "answer": "The score is 8.52 months."
+      "title": "Quadratic loss",
+      "prompt": "Under quadratic loss for a point estimate of a parameter, which summary of the distribution of the parameter minimises the expected loss?",
+      "answer": "The mean of that distribution."
     },
     {
-      "title": "Surgery at probability one half",
-      "prompt": "Cancer probability 0.5, surgery survival probability 0.65, cancer expectancy 20.3, non-cancer expectancy 34.8, and a one-month penalty inside the survivor branch. What is the surgery score?",
-      "answer": "The score is 17.2575 months, below radiotherapy at 24.75."
+      "title": "The most probable state",
+      "prompt": "Why is the action with the highest probability of the best state not automatically the solution of a decision problem?",
+      "answer": "The solution maximises expected utility, or minimises expected loss. An action that sometimes fails can still win if the score, averaged over the outcomes, is better."
     }
   ],
   "difference-in-differences": [
     {
-      "title": "Two gaps",
-      "prompt": "Treated means are 150 before and 140 after. Comparison means are 148 before and 146 after. What is the difference in differences of the post-treatment gap minus the pre-treatment gap?",
-      "answer": "The post-treatment gap is -6 and the pre-treatment gap is 2, so the difference in differences is -8."
+      "title": "The early gap",
+      "prompt": "The pre-treatment gap between the groups is large. Why is that gap not evidence that the treatment was already working?",
+      "answer": "The treatment was not yet available, so it cannot have caused the earlier measurement. The gap measures confounding."
     },
     {
-      "title": "Changed comparison",
-      "prompt": "The comparison group's later mean is 144 instead of 146. Treated means stay 140 and 150, and the earlier comparison mean stays 148. What is the difference in differences?",
-      "answer": "The difference in differences is -6."
+      "title": "Diverging groups",
+      "prompt": "The groups are diverging for reasons that change between the two waves. Which identifying assumption does that break?",
+      "answer": "Additive equi-confounding. The comparison group's change is then not the change the treated group would have had without treatment."
     }
   ],
   "differential-privacy": [
     {
-      "title": "Probability bound",
-      "prompt": "With δ = 0 and e^ε = 2, if the probability of S on database y is 0.1, what is the upper bound on the probability of S on a neighbouring database?",
-      "answer": "The bound is 2 × 0.1 = 0.2."
+      "title": "An exact count",
+      "prompt": "Why does publishing the exact count of a binary attribute fail pure differential privacy?",
+      "answer": "Neighbouring files produce counts that differ by one, so an output with probability 1 on one file has probability 0 on the other. No finite factor e to the epsilon bounds that ratio."
     },
     {
-      "title": "A larger neighbour probability",
-      "prompt": "With δ = 0 and e^ε = 2, if the probability of S on database y is 0.3, what is the upper bound for a neighbour?",
-      "answer": "The bound is 2 × 0.3 = 0.6."
+      "title": "A test of membership",
+      "prompt": "A release is alpha-differentially private. A level-gamma test based only on the release asks whether a named subject is in the file. How does alpha limit the power?",
+      "answer": "The power is at most gamma times e to the alpha. The test cannot separate the two neighbouring files by more than that factor."
+    },
+    {
+      "title": "A later summary",
+      "prompt": "An analyst maps a differentially private release to a new summary without looking at the private file. What happens to the privacy parameters?",
+      "answer": "The mapped release remains differentially private with the same epsilon and delta. The mapping does not spend an additional privacy budget."
     }
   ],
   "dimensionality-reduction": [
@@ -1623,19 +1633,19 @@
   ],
   "expected-loss": [
     {
-      "title": "Low base rate",
-      "prompt": "Treat has losses 1 and 8, watch has losses 10 and 0, and the base rate is 0.2. What are the two expected losses?",
-      "answer": "Treat has expected loss 6.6 and watch has expected loss 2."
+      "title": "Two averages",
+      "prompt": "Expected loss and the risk of a procedure are both averages of a loss. What is being averaged in each case?",
+      "answer": "Expected loss averages the loss of one action over the outcomes still uncertain when the action is chosen. The risk averages the loss of a procedure over repeated samples at a fixed parameter."
     },
     {
-      "title": "High base rate",
-      "prompt": "The same losses with base rate 0.7. What are the two expected losses?",
-      "answer": "Treat has expected loss 3.1 and watch has expected loss 7."
+      "title": "A measurement branch",
+      "prompt": "Why is the expected loss of measure-then-remediate-if-high the wrong score for a household that will remediate whatever the reading is?",
+      "answer": "That expectation uses the action taken after the measurement. A household that ignores the reading is taking a different action, so it has a different expected loss."
     },
     {
-      "title": "Which action",
-      "prompt": "At base rate 0.2, which action has the smaller expected loss?",
-      "answer": "Watch, with expected loss 2 against 6.6."
+      "title": "A quadratic report",
+      "prompt": "A point report about a parameter is scored by squared error under the distribution calculated for the parameter. Which summary minimises the expected loss?",
+      "answer": "The mean of that distribution, when the mean exists."
     }
   ],
   "experimental-error": [
@@ -1725,19 +1735,19 @@
   ],
   "first-international-statistical-congress": [
     {
-      "title": "Opening date",
-      "prompt": "On what date did the congress open, and which commission called it?",
-      "answer": "It opened on 19 September 1853. The Central Statistical Commission of Belgium called it, with Quetelet presiding."
+      "title": "Unlike tables",
+      "prompt": "Two offices publish rates whose events or populations were defined differently. Why can the difference of the rates fail to estimate a change in one population?",
+      "answer": "The subtraction mixes unlike events or unlike populations, so it describes the two tables rather than one population observed under a shared definition."
     },
     {
-      "title": "Length of the series",
-      "prompt": "Nine congresses run from 1853 to 1876. How many years separate those two dates, and how long would each gap be if the eight intervals were equal?",
-      "answer": "The dates are 23 years apart. Equal gaps would be 23/8 = 2.875 years."
+      "title": "A centre in each state",
+      "prompt": "What institution did the Brussels programme ask each state to maintain, and what was it supposed to exchange?",
+      "answer": "A central statistical commission, which would exchange publications and the schedules used to collect information."
     },
     {
-      "title": "Pooled rate",
-      "prompt": "Two compatible tables have 80 events among 200 people and 90 events among 300 people. What is the pooled rate?",
-      "answer": "The pooled rate is 170/500 = 0.34."
+      "title": "A programme, not a completed reform",
+      "prompt": "Why does the end of the congress series in 1876 block a reading of a Brussels resolution as a completed reform of later national tables?",
+      "answer": "No further congress of the series met, so a resolution stayed a programme. Later national tables were not thereby shown to have adopted it."
     }
   ],
   "game-of-chance": [
@@ -1759,14 +1769,19 @@
   ],
   "harking": [
     {
-      "title": "Expected false alarms",
-      "prompt": "Twenty independent tests of true nulls are each run at level 0.05. What is the expected number of results with p < 0.05?",
-      "answer": "The expected number is 20 × 0.05 = 1."
+      "title": "Induction and reporting",
+      "prompt": "A discussion says the data suggested an age split that was not planned. An introduction says the study was designed to test that age split. Which report is HARKing?",
+      "answer": "The introduction that presents the post hoc split as the hypothesis the study was designed to test. Saying the data suggested the split labels the split as post hoc."
     },
     {
-      "title": "A stricter level",
-      "prompt": "The same twenty true nulls are tested at level 0.01. What is the expected number with p < 0.01?",
-      "answer": "The expected number is 20 × 0.01 = 0.2."
+      "title": "A search and a tail",
+      "prompt": "Twenty true nulls are tested and the smallest p-value is published as if it had been the only pre-specified test. Which error rate is misstated?",
+      "answer": "The type I error of the published comparison is the error rate of the search, not the error rate of one pre-specified test."
+    },
+    {
+      "title": "A plan",
+      "prompt": "A comparison was not listed in the pre-analysis plan, and the authors still want to show it. How should it be reported?",
+      "answer": "As an exploratory result, so a reader can tell it was not the hypothesis fixed before the outcomes were inspected."
     }
   ],
   "harmonic-mean": [
@@ -1788,31 +1803,36 @@
   ],
   "hawthorne-effect": [
     {
-      "title": "First-year peak",
-      "prompt": "A baseline of 100 units rises by 10 percent. What is the new level?",
-      "answer": "The level is 110 units."
+      "title": "A room that left",
+      "prompt": "Output also rose in rooms that were no longer under experimental variation. What does that do to a reading that attributes the studied room's rise only to being studied?",
+      "answer": "The rise is shared with rooms outside the experiment, so it cannot be read as a response that only the studied room produced."
     },
     {
-      "title": "Plant-wide gap",
-      "prompt": "On a baseline of 100, a 10 percent peak is 110 and a 1.4 percent rise is 101.4. What is the gap?",
-      "answer": "The gap is 8.6 units."
+      "title": "Unchanged Mondays",
+      "prompt": "Mondays on which the light was not changed show the same within-week output pattern as Mondays on which it was changed. Why does that block a lighting-effect reading of the Monday jump?",
+      "answer": "The jump appears whether or not the light changed, so the Monday pattern is not identified as an effect of the lighting change."
     },
     {
-      "title": "Later peak",
-      "prompt": "A later peak is 20 percent above a baseline of 100, and the earlier peak was 110. How many units above 110 is the later peak?",
-      "answer": "The later peak is 120, which is 10 units above 110."
+      "title": "Finer time terms",
+      "prompt": "A 3 to 4 percent elevation during active experimentation disappeared once room-by-month terms were added. What does that say about an abrupt on/off effect of being studied?",
+      "answer": "The contrast is not robust to those time controls, so the records do not show an abrupt jump when experimentation is switched on or off."
     }
   ],
   "instrumental-variable": [
     {
-      "title": "Wald ratio",
-      "prompt": "The outcome means are 11 and 7, and the treated proportions are 0.75 and 0.25. What is the instrumental-variable estimand?",
-      "answer": "The estimand is 4/0.5 = 8."
+      "title": "Which condition is checked",
+      "prompt": "Of the three instrumental conditions, which one can be verified from the association in the data?",
+      "answer": "The association between the instrument and the treatment. The exclusion restriction and the absence of shared causes stay assumptions."
     },
     {
-      "title": "Weaker first stage",
-      "prompt": "The treated proportion at Z = 1 falls from 0.75 to 0.65. The other values stay 11, 7, and 0.25. What is the estimand?",
-      "answer": "The estimand is 4/0.4 = 10."
+      "title": "A small denominator",
+      "prompt": "Why does a first-stage difference near zero make the Wald ratio unstable?",
+      "answer": "The ratio divides by that difference, so a small denominator inflates the assignment effect and makes the estimate sensitive to small changes in how strongly the instrument moves treatment."
+    },
+    {
+      "title": "A fourth condition",
+      "prompt": "The three instrumental conditions hold. Does the Wald ratio equal the average treatment effect?",
+      "answer": "Not from those three conditions alone. A fourth homogeneity condition is required for that reading. Without it the instrument identifies bounds."
     }
   ],
   "inverse-probability": [
@@ -1841,19 +1861,19 @@
   ],
   "kruskal-wallis-test": [
     {
-      "title": "Rank statistic",
-      "prompt": "Three groups of size 3 have rank sums 10, 15, and 20. What is H?",
-      "answer": "H is 20/9, about 2.222."
-    },
-    {
-      "title": "A larger ranking",
-      "prompt": "Three groups of size 4 have rank sums 10, 26, and 42. What is H?",
+      "title": "Valid rank sums",
+      "prompt": "Three groups of four have rank sums 10, 26, and 42. What is H?",
       "answer": "H is 128/13, about 9.846."
     },
     {
-      "title": "Oil data threshold",
-      "prompt": "H is 13.64 and the chi-squared 5% reference with 3 degrees of freedom is 7.81. Does the test reject?",
-      "answer": "Yes. 13.64 is greater than 7.81, so the test rejects."
+      "title": "An impossible sum",
+      "prompt": "Why can the rank sums 12, 24, and 48 not occur for three groups of four on ranks 1 through 12?",
+      "answer": "Those ranks sum to 78, not 84, and a group of four sums to at most 42, so 48 is impossible."
+    },
+    {
+      "title": "One-sided rejection",
+      "prompt": "The oil statistic is 13.64 and the chi-squared 5 percent reference with 3 degrees of freedom is 7.81. Does the test reject, and why is a small H not a rejection?",
+      "answer": "Yes, because 13.64 is greater than 7.81. The rejection region contains only large H, because H measures unevenness of the rank sums."
     }
   ],
   "kurtosis": [
@@ -1943,251 +1963,256 @@
   ],
   "mean-absolute-percentage-error": [
     {
-      "title": "Three forecasts",
-      "prompt": "Observations 100, 200 and 50 are forecast as 110, 160 and 80. What is the mean absolute percentage error?",
-      "answer": "The mean absolute percentage error is 30."
+      "title": "Celsius percentages",
+      "prompt": "Why is a percentage forecast error a poor accuracy measure for temperature in degrees Celsius, even when every temperature is far from zero?",
+      "answer": "The zero of the Celsius scale is an arbitrary origin, not the absence of heat. Dividing an error by the temperature does not measure the miss as a share of a real level."
     },
     {
-      "title": "Two forecasts",
-      "prompt": "Observations 80 and 120 are forecast as 100 and 90. What is the mean absolute percentage error?",
-      "answer": "Each absolute percentage error is 25, so the mean is 25."
+      "title": "A genuine zero",
+      "prompt": "A scored series contains a genuine zero. What happens to the mean absolute percentage error, and which part of the definition causes it?",
+      "answer": "The mean absolute percentage error is undefined or infinite, because each percentage error divides by the observation."
     },
     {
-      "title": "A zero observation",
-      "prompt": "One observation in the scoring period is 0. What happens to the mean absolute percentage error?",
-      "answer": "It is undefined, because the percentage error divides by the observation."
+      "title": "Shared ranking",
+      "prompt": "Two methods can have the same ordering by mean absolute percentage error and by mean absolute error on one series. Why is that ordering not guaranteed on every series?",
+      "answer": "The percentage score weights each absolute error by the level of its observation. A method that misses the small observations can therefore rank differently from a method scored in the original units."
     }
   ],
   "measurable-function": [
     {
-      "title": "Payoff expectation",
-      "prompt": "Outcome 1 has probability 1/3 and payoff 2; the group {2, 3} has probability 2/3 and payoff 7. What is the expectation?",
-      "answer": "The expectation is 16/3."
+      "title": "Indicators",
+      "prompt": "Why is the indicator of a set measurable exactly when that set is an event?",
+      "answer": "The inverse image of a Borel set under an indicator is the set itself, its complement, the whole space, or the empty set, according to whether 1 and 0 lie in the Borel set. Those four sets are events for every Borel set precisely when the indicated set is an event."
     },
     {
-      "title": "A higher payoff on outcome 1",
-      "prompt": "Outcome 1 now pays 5, and the group {2, 3} still pays 7 with probability 2/3. What is the expectation?",
-      "answer": "The expectation is 19/3."
+      "title": "A coarse sigma-algebra",
+      "prompt": "A sigma-algebra on a three-point set contains one singleton and the doubleton of the other two points. Why can a real function that takes three different values fail to be measurable?",
+      "answer": "A threshold can isolate the point that the sigma-algebra does not separate from its partner. The inverse image is then a singleton that is not an event."
     }
   ],
   "measurement": [
     {
-      "title": "Two operators",
-      "prompt": "Operator A's times 10, 12, 11, and 11 have mean 11. The true duration is 12. What is A's bias?",
-      "answer": "A's bias is -1."
+      "title": "What averaging removes",
+      "prompt": "Why does averaging repeated readings shrink random error and leave a shared calibration offset in place?",
+      "answer": "Random errors change sign and average toward zero. A systematic error keeps one direction, so it remains in the average of the readings."
     },
     {
-      "title": "One more time",
-      "prompt": "A's times gain a fifth value of 16, and the true duration stays 12. What are the new mean and the new bias?",
-      "answer": "The mean is 12 and the bias is 0."
+      "title": "Two precisions",
+      "prompt": "How does repeatability differ from reproducibility?",
+      "answer": "Repeatability is short-term scatter with the instrument, the operator, and the setup held fixed. Reproducibility includes long-term scatter and differences across instruments or laboratories."
     }
   ],
   "morans-i": [
     {
-      "title": "Line of four areas",
-      "prompt": "Areas in a line have values 1, 2, 4, and 5, and binary neighbour weights with six nonzero entries. What is Moran's I?",
-      "answer": "The index is 0.4."
+      "title": "Standardising",
+      "prompt": "Why does replacing the deviations by standardised deviations leave Moran's I unchanged?",
+      "answer": "The same scale factor appears in every product in the numerator and in the sum of squares in the denominator, so it cancels."
     },
     {
-      "title": "Sum of the weights",
-      "prompt": "For four areas in a line and binary weights on each ordered neighbour pair, what is the sum of all weights?",
-      "answer": "The sum of the weights is 6."
+      "title": "The null centre",
+      "prompt": "Why is the reference value of Moran's I under no spatial pattern -1/(n-1) rather than zero?",
+      "answer": "Centring a finite list of values and tying them to a fixed neighbour graph forces a small negative expectation when the values are randomly reassigned. The comparison is with that expectation."
     },
     {
-      "title": "Alternating values",
-      "prompt": "The same four areas and weights now have values 1, 2, 2, and 1. What is Moran's I?",
-      "answer": "The index is -1/3."
+      "title": "Low clusters",
+      "prompt": "Why can a positive value of Moran's I describe a cluster of low values?",
+      "answer": "The products use deviations from the mean. Low next to low gives a positive product, just as high next to high does."
     }
   ],
   "multilevel-model": [
     {
-      "title": "Clinic variance",
-      "prompt": "A random intercept has variance 9 and the residual variance is 3. What are the marginal variance and the within-clinic correlation?",
-      "answer": "The marginal variance is 12 and the correlation is 9/12 = 0.75."
+      "title": "Sign of the correlation",
+      "prompt": "Why can the within-group correlation of a random-intercept model with one variance component not be negative?",
+      "answer": "The covariance of two observations in the same group is the group variance, and the marginal variance is the sum of the group variance and the residual variance. A ratio of nonnegative variances is nonnegative."
     },
     {
-      "title": "Within-clinic difference",
-      "prompt": "With residual variance 3, what is the variance of the difference of two observations that share a random intercept?",
-      "answer": "The shared intercept cancels, so the variance is 3 + 3 = 6."
-    },
-    {
-      "title": "Another intercept",
-      "prompt": "A random intercept has variance 4 and the residual variance is 12. What are the marginal variance, the within-group correlation, and the variance of a within-group difference?",
-      "answer": "The marginal variance is 16, the correlation is 0.25, and the difference has variance 24."
+      "title": "Conditional odds",
+      "prompt": "Why is an odds ratio from a logistic multilevel model not automatically the population-average odds ratio?",
+      "answer": "The coefficient is conditional on the group effect. Averaging the probability over groups is not the same operation as transforming the average of the linear predictor."
     }
   ],
   "natural-experiment": [
     {
-      "title": "Route means",
-      "prompt": "Long-route times are 30, 40, 50, and 40. Short-route times are 20, 25, 30, and 25. What is the contrast of means?",
-      "answer": "The means are 40 and 25, so the contrast is 15."
+      "title": "Which condition is visible",
+      "prompt": "Of the three instrumental conditions proposed for an outside factor, which one can be examined in the data?",
+      "answer": "Only the association between the candidate instrument and the treatment. The exclusion restriction and the absence of shared causes are assumptions."
     },
     {
-      "title": "Extra short trip",
-      "prompt": "One more short-route time of 20 is added, and the long-route mean stays 40. What is the new contrast?",
-      "answer": "The short-route mean is 24, so the contrast is 16."
+      "title": "The denominator",
+      "prompt": "Why is a large association between a candidate instrument and the treatment not the effect of the treatment?",
+      "answer": "That association is the denominator of an instrumental-variable ratio. The treatment effect is a different contrast, and it is recovered only when the instrumental conditions hold."
     }
   ],
   "nonlinear-regression": [
     {
-      "title": "Exponential versus line",
-      "prompt": "For the points (0, 4), (1, 2) and (2, 1.2), which residual sum of squares is about 0.0188, the exponential fit or the straight line?",
-      "answer": "The exponential fit has residual sum of squares about 0.0188. The straight line has residual sum of squares 0.24."
+      "title": "A curved linear model",
+      "prompt": "Why is a quadratic polynomial in the predictor still fit by linear least squares?",
+      "answer": "Each power of the predictor is a known column, and the unknown coefficients stand in front of those columns. Linearity is judged in the coefficients, not in the shape of the graph."
     },
     {
-      "title": "Exact exponential",
-      "prompt": "The curve y = β0 exp(−β1 x) passes through (0, 5) and (1, 1). What are β0 and the residual sum of squares?",
-      "answer": "β0 is 5 and the residual sum of squares is 0."
-    },
-    {
-      "title": "A quadratic mean",
-      "prompt": "Is the mean β0 + β1 x + β2 x^2 fitted by nonlinear least squares?",
-      "answer": "No. That mean is linear in the coefficients, so the fit is polynomial least squares."
+      "title": "Two starts",
+      "prompt": "Why can two different starting values finish at different fitted curves?",
+      "answer": "The sum of squared errors need not have a single minimum when the mean is nonlinear in the coefficients, so the iteration can stop in different dips."
     }
   ],
   "normalizing-constant": [
     {
-      "title": "Two successes",
-      "prompt": "The kernel on the unit interval is theta squared. What is its integral, and what normalizing constant turns it into a density?",
-      "answer": "The integral is 1/3 and the normalizing constant is 3."
+      "title": "A ratio of heights",
+      "prompt": "Why can the ratio of the posterior density at two parameter values be computed without the normalizing constant?",
+      "answer": "The constant does not depend on the parameter, so it is the same at both values and cancels in the ratio."
     },
     {
-      "title": "One success in two trials",
-      "prompt": "The kernel on the unit interval is theta times (1 minus theta). What is its integral, and what normalizing constant turns it into a density?",
-      "answer": "The integral is 1/6 and the normalizing constant is 6."
+      "title": "An improper prior",
+      "prompt": "What additional check does an improper prior require before the formal posterior is used?",
+      "answer": "The integral of the unnormalised posterior must be finite. An infinite integral for the prior does not by itself make the posterior a probability density."
     }
   ],
   "panel-data": [
     {
-      "title": "Balanced changes",
-      "prompt": "Three units change by +2, 0, and +3. What is the mean change, and how does it compare with a rise in the cross-sectional mean from 10/3 to 5?",
-      "answer": "The mean change is 5/3, and the wave means differ by 5 - 10/3 = 5/3."
+      "title": "The same people",
+      "prompt": "Why does the average of within-unit changes equal the difference of the wave means only when the panel is complete?",
+      "answer": "The algebra uses the same units at both times. Dropping a unit from one wave changes who is in that wave mean without changing the set of observed changes in the same way."
     },
     {
-      "title": "A missing second wave",
-      "prompt": "Changes of +2 and 0 are observed, while the wave means that can be computed are 10/3 and 9/2. What are the mean of the observed changes and the difference of the wave means?",
-      "answer": "The mean of the observed changes is 1. The difference of the wave means is 7/6."
-    },
-    {
-      "title": "Two complete units",
-      "prompt": "One unit moves from 1 to 4 and another stays at 6. What is the mean change?",
-      "answer": "The mean change is 1.5, and the wave means differ by the same 1.5."
+      "title": "Rows and histories",
+      "prompt": "Why is a panel of 20 people observed at 10 times not a sample of 200 independent residuals for a question about people?",
+      "answer": "Observations on the same person can be correlated. The independent histories are the 20 people, not the 200 rows."
     }
   ],
   "pearson-distribution": [
     {
-      "title": "A bag of one hundred",
-      "prompt": "For n = 100, between which values of p, to four decimals, is every draw size a trigonometric integral?",
-      "answer": "The values are 0.3995 and 0.6005."
+      "title": "Half the third-moment ratio",
+      "prompt": "The memoir prints skewness as half of μ3/μ2^(3/2). If that printed skewness is 1/4, what is the third-moment ratio?",
+      "answer": "The third-moment ratio is 1/2. The printed skewness is the gap from the mode to the mean in units of the standard deviation, and the full third-moment ratio is twice that gap."
     },
     {
-      "title": "A one-sided curve",
-      "prompt": "A Type III curve has p = 3 and gamma = 2. What are mu2, the memoir skewness 1/sqrt(p+1), and mu4/mu2^2?",
-      "answer": "mu2 is 1, the memoir skewness is 1/2, and mu4/mu2^2 is 9/2."
+      "title": "Where the slope is zero",
+      "prompt": "The logarithmic slope is written with the origin at the mode, so the numerator is zero at x = 0. What point of the curve does that zero mark?",
+      "answer": "The mode. Moving the origin away from the mode puts a linear term back into the numerator."
     },
     {
-      "title": "Another one-sided curve",
-      "prompt": "A Type III curve has p = 8 and gamma = 1. What are the memoir skewness and mu4/mu2^2?",
-      "answer": "The memoir skewness is 1/3 and mu4/mu2^2 is 11/3."
+      "title": "The normal limit",
+      "prompt": "A curve in the system has a vanishing third moment and μ4/μ2^2 = 3. Which named limit is that?",
+      "answer": "The normal curve. In the memoir that limit is Type V, not a separate skew family."
     }
   ],
   "polynomial-least-squares": [
     {
-      "title": "Four-point quadratic",
-      "prompt": "For (0, 1), (1, 2), (2, 2) and (3, 5), what are the quadratic coefficients and the residual sum of squares?",
-      "answer": "The coefficients are 1.2, −0.3 and 0.5. The residual sum of squares is 0.8."
+      "title": "Curved in x, linear in the coefficients",
+      "prompt": "The mean β0 + β1 x + β2 x^2 bends in x. Why is the least-squares fit still the linear one?",
+      "answer": "Each coefficient multiplies a column that is known once x is known. The normal equations stay linear in the coefficients. A coefficient sitting inside the function, as in an exponential rate, is the nonlinear case."
     },
     {
-      "title": "Straight line on the same points",
-      "prompt": "What is the residual sum of squares of the straight line fitted to those four points?",
-      "answer": "The residual sum of squares is 1.8."
+      "title": "An extra free coefficient",
+      "prompt": "A quadratic is fitted to the same points as a straight line and the residual sum of squares falls. Why is that drop expected even before anyone looks at the plot?",
+      "answer": "The straight line is the quadratic with the square coefficient set to zero. The minimiser over a larger set of coefficients cannot have a larger residual sum of squares. The drop becomes evidence of curvature only together with the plot."
     },
     {
-      "title": "Three-point parabola",
-      "prompt": "What is the residual sum of squares when y = β0 + β1 x + β2 x^2 is fitted to (0, 1), (1, 0) and (2, 1)?",
-      "answer": "The residual sum of squares is 0."
+      "title": "The edge of the range",
+      "prompt": "Why is a high-degree polynomial least trustworthy near the ends of the observed range of x?",
+      "answer": "The extra powers can swing sharply there even when the curve is calm in the middle, and a polynomial has no horizontal asymptote to level off."
     }
   ],
   "posterior-probability": [
     {
-      "title": "Equal unnormalised weights",
-      "prompt": "Prior probabilities are 1/4 and 3/4, and the sampling probabilities of the sample are 1/2 and 1/6. What is the posterior probability of the first explanation?",
-      "answer": "The posterior probability is 1/2."
+      "title": "A sampling probability is not yet posterior",
+      "prompt": "The data have sampling probability 1/2 under one explanation and 1/6 under another. Why is 1/2 not already the posterior probability of the first explanation?",
+      "answer": "Sampling probabilities need not add to one across explanations. The posterior multiplies each by its prior and divides by the sum of those products."
     },
     {
-      "title": "Equal prior probabilities",
-      "prompt": "The sampling probabilities stay 1/2 and 1/6, and the prior probabilities are both 1/2. What is the posterior probability of the first explanation?",
-      "answer": "The posterior probability is 3/4."
+      "title": "A prior of zero",
+      "prompt": "An explanation is given prior probability 0, and the data are very likely under it. What is its posterior probability, when the posterior is defined?",
+      "answer": "Zero. The likelihood does not create mass outside the support of the prior."
+    },
+    {
+      "title": "A single point of a continuous parameter",
+      "prompt": "A continuous posterior density is positive at θ = 1/2. What is the posterior probability of the single point θ = 1/2?",
+      "answer": "Zero. A posterior probability is the mass of a set, and a continuous distribution gives every single point mass zero. The mass of an interval around 1/2 can still be large."
     }
   ],
   "probability-interpretations": [
     {
-      "title": "A short record",
-      "prompt": "A record of 10 tosses contains 3 heads. What is the relative frequency of heads?",
-      "answer": "The relative frequency is 3/10."
+      "title": "Arithmetic the readings share",
+      "prompt": "A symmetry assignment and a long-run frequency can disagree about the number written for heads. Which rules do they still share?",
+      "answer": "The probability of the sample space is 1, the empty event has probability 0, the complement subtracts from 1, and incompatible events add. The union of any two events subtracts the intersection once."
     },
     {
-      "title": "A longer record",
-      "prompt": "A record of 100 tosses contains 60 heads. What is the relative frequency of heads, in lowest terms?",
-      "answer": "The relative frequency is 3/5."
+      "title": "One launch, no reference set",
+      "prompt": "A strict frequency account requires a long sequence of comparable repetitions. What does that account withhold for a single rocket launch that is not treated as one of a class?",
+      "answer": "A probability for that launch. The uncertainty reading can still assign one. The axioms do not choose between those readings."
+    },
+    {
+      "title": "A bent coin",
+      "prompt": "The two faces of a coin are declared equally likely, and the coin is then found to be bent. Which part of the assignment has failed?",
+      "answer": "The symmetry judgement. The axioms do not detect that the faces were not exchangeable. They detect an assignment that contradicts itself, such as nonnegative weights that do not add to one."
     }
   ],
   "random-error": [
     {
-      "title": "Rod readings",
-      "prompt": "Readings 9.7, 10.2, 9.9 and 10.4 are taken against a 10 cm reference. What are the mean and the sum of squared deviations from the mean?",
-      "answer": "The mean is 10.05 and the sum of squared deviations is 0.29."
+      "title": "What a correction can remove",
+      "prompt": "Every reading of a rod is 0.2 cm high because the zero is wrong, and the readings also scatter from trial to trial. Which part can a correction remove?",
+      "answer": "The systematic shift of 0.2 cm. The scatter that changes direction from trial to trial is the random error, and a single correction does not remove it."
     },
     {
-      "title": "Error of the mean",
-      "prompt": "For those four readings, what is the error of the mean against the reference value 10?",
-      "answer": "The error of the mean is 0.05 cm."
+      "title": "The same differences, two statements",
+      "prompt": "Differences among several instruments are a random effect when the uncertainty statement covers an instrument drawn at random from the batch. What are those differences when the statement covers one named instrument?",
+      "answer": "The bias of that instrument relative to the batch. The analysis is then a bias analysis, and a bias can be corrected in a way a random error cannot."
     },
     {
-      "title": "Centred series",
-      "prompt": "Readings 8, 10 and 12 are taken against a reference of 10. What is the sum of squared deviations from the mean, and the error of the mean?",
-      "answer": "The sum of squared deviations is 8 and the error of the mean is 0."
+      "title": "A residual is a different gap",
+      "prompt": "A fitted mean is subtracted from an observation. Why is that gap not the random error of a repeated measurement against a fixed reference?",
+      "answer": "The residual is the gap between an estimate and the observation, and the estimate was computed from the observations. The random error is the chance part of the gap between a measurement and the reference value."
     }
   ],
   "ranking": [
     {
-      "title": "A tie at the top",
-      "prompt": "Rank 8, 3, 8 and 1, giving rank 1 to the smallest and average ranks to ties. What are the ranks in that order, and what is their sum?",
-      "answer": "The ranks are 3.5, 2, 3.5 and 1, and they sum to 10."
+      "title": "Why the ranks sum to the triangular number",
+      "prompt": "Four distinct values are ranked 1 through 4, with no ties. What is the sum of the ranks, and why does a tie that is given average ranks keep the same sum?",
+      "answer": "The sum is 10, because the ranks are the first four positive integers. Average ranks share the places that those integers would have occupied, so the total is unchanged."
     },
     {
-      "title": "A tie in the middle",
-      "prompt": "Rank 4, 1, 4 and 9 with average ranks for the tie. What are the ranks in that order?",
-      "answer": "The ranks are 2.5, 1, 2.5 and 4."
+      "title": "A tie for first",
+      "prompt": "Two observations tie for the two best places when rank 1 is the smallest. Why is each given 1.5 rather than both given 1?",
+      "answer": "The places 1 and 2 are shared. Their average is 1.5. Giving both the rank 1 would drop the sum of all ranks below the sum for an untied ranking."
+    },
+    {
+      "title": "What the raw scale loses",
+      "prompt": "Spearman's coefficient is computed from ranks rather than from the raw measurements. What feature of the raw scale does that discard?",
+      "answer": "The spacing between the values. Only the order, and the average places of ties, remain. A strictly increasing transformation of the measurements leaves the ranks unchanged."
     }
   ],
   "raw-data": [
     {
-      "title": "Five times",
-      "prompt": "Reaction times 8, 11, 9, 10, and 12 are reduced to their mean. What is that mean?",
-      "answer": "The mean is 10."
+      "title": "What the mean can no longer answer",
+      "prompt": "Five reaction times are replaced by their mean. Which comparison among the five times can that mean still support?",
+      "answer": "None. The mean is one number. Which time was longest, and whether two times were equal, is no longer in the summary."
     },
     {
-      "title": "Sixth time",
-      "prompt": "A sixth time of 16 is appended to 8, 11, 9, 10, and 12. What is the new mean?",
-      "answer": "The new mean is 11."
+      "title": "A row is a case",
+      "prompt": "A spreadsheet of loans has one row per loan and a column for the interest rate. What is lost if only the column of rates is kept?",
+      "answer": "The link between each rate and the other variables of that same loan, such as income and state. The rate is still a number. It is no longer the rate of a case."
+    },
+    {
+      "title": "A correction is not a reduction",
+      "prompt": "A recorded time of 16 seconds is later judged to be a mis-keyed 10. Is that change a summary, or a change to the record?",
+      "answer": "A change to the record. Data reduction replaces several numbers by fewer numbers. Correcting a keying error changes what was written down."
     }
   ],
   "resampling-statistics": [
     {
-      "title": "Bootstrap variance",
-      "prompt": "For the sample 1, 2, 3, what is the variance of the bootstrap distribution of the sample mean?",
-      "answer": "The variance is 2/9, about 0.2222."
+      "title": "A hole the resamples keep",
+      "prompt": "The original sample misses an entire region of the population. What do bootstrap samples drawn from it say about that region?",
+      "answer": "Nothing new. Every resample is built from the original observations, so the missing region stays missing. The bootstrap spread describes the sample that was drawn."
     },
     {
-      "title": "Jackknife bias",
-      "prompt": "For the divide-by-n variance of 1, 2, 3, what is the jackknife bias estimate?",
-      "answer": "The bias estimate is −1/3, and the corrected value is 1."
+      "title": "Zero bias is not a small variance",
+      "prompt": "The sample mean has jackknife bias zero. Does that make the mean a precise estimator?",
+      "answer": "No. Jackknife bias zero means the leave-one-out correction does not shift the estimate. The mean can still have a large variance. The bias correction is aimed at a term of order 1/n, not at the spread."
     },
     {
-      "title": "Two-point bootstrap",
-      "prompt": "For the sample 4 and 9, what is the average of the four bootstrap means of size 2?",
-      "answer": "The average is 6.5."
+      "title": "Two different refits",
+      "prompt": "Cross-validation and the bootstrap both recompute something from the sample. What does each one score?",
+      "answer": "Cross-validation scores observations held out of the fit, and estimates prediction error. The bootstrap refits the statistic on resamples of the whole sample, and estimates the sampling variability of that statistic."
     }
   ],
   "robust-statistics": [
@@ -2286,14 +2311,19 @@
   ],
   "statistical-model": [
     {
-      "title": "Fitted value",
-      "prompt": "The line is y = 2 + 3x. What is the fitted value at x = 4?",
-      "answer": "The fitted value is 14."
+      "title": "Error and parameters",
+      "prompt": "In the equation Y = β0 + β1 X + ε, which symbol is the unobservable random error, and which symbols are the unknown parameters?",
+      "answer": "The error is ε. The parameters are β0 and β1."
     },
     {
-      "title": "Residual",
-      "prompt": "The point at x = 4 is observed as y = 16, and the line y = 2 + 3x fits 14 there. What is the residual?",
-      "answer": "The residual is 2."
+      "title": "A squared predictor",
+      "prompt": "Does squaring the explanatory variable make Y = β0 + β1 X + β2 X^2 + ε nonlinear in the coefficients?",
+      "answer": "No. The equation is still linear in β0, β1 and β2. The square is on X."
+    },
+    {
+      "title": "A different residual",
+      "prompt": "The fitted line is ŷ = 1 + 2x. At x = 3 the observation is y = 10. What is the residual?",
+      "answer": "The fitted value is 7, so the residual is 3."
     }
   ],
   "statistical-survey": [
@@ -2310,171 +2340,206 @@
   ],
   "statistician": [
     {
-      "title": "Four districts",
-      "prompt": "District birth counts are 120, 80, 200, and 100. What are the total, the mean, and the largest share?",
-      "answer": "The total is 500, the mean is 125, and the largest share is 0.4."
+      "title": "A statistic and a decision",
+      "prompt": "The mean of a set of district birth counts is a statistic. The choice of which districts belong in the total is not. What is the difference?",
+      "answer": "A statistic is a number computed from the sample by a rule that does not contain an unknown parameter. Choosing the districts decides what the collection is for, before that rule is applied."
     },
     {
-      "title": "Three districts",
-      "prompt": "Three districts report 30, 45, and 75 births. What are the total, the mean, and the largest share?",
-      "answer": "The total is 150, the mean is 50, and the largest share is 0.5."
+      "title": "What one mean hides",
+      "prompt": "A report of district births gives only the mean. Which feature of the district counts can that single number not show?",
+      "answer": "It cannot show how unequal the districts are. The spread across districts is a separate part of the description."
     },
     {
-      "title": "Smallest share",
-      "prompt": "For the counts 120, 80, 200, and 100, what is the smallest district's share of the 500 births?",
-      "answer": "The smallest share is 80/500 = 0.16."
+      "title": "The broader definition",
+      "prompt": "Under the broader official-statistics reading, a survey manager counts as a statistician. What do the theoretical statistician, the survey methodologist, the subject-matter specialist, the information technologist, and the survey manager have in common?",
+      "answer": "Each contributes to getting statistics and data to users. The common point is the delivered product, not a single degree."
     }
   ],
   "supervised-learning": [
     {
-      "title": "Neighbour of 3",
-      "prompt": "Training pairs are (0, 0), (1, 0) and (4, 1). What label does one-nearest neighbour return at feature 3?",
-      "answer": "The label is 1."
+      "title": "Training error of zero",
+      "prompt": "One-nearest neighbour reproduces every training label, so the training error is zero. Why is that not an estimate of the error at a new feature?",
+      "answer": "Each training point is its own nearest neighbour, so the score uses the labels twice. A new feature is a different query, and the training error does not measure overlap between the classes."
     },
     {
-      "title": "Neighbour of 2",
-      "prompt": "With the same training pairs, what label does one-nearest neighbour return at feature 2?",
-      "answer": "The label is 0."
+      "title": "Logistic regression",
+      "prompt": "Why is logistic regression supervised learning even though the method has regression in its name?",
+      "answer": "The training cases carry a qualitative response. The fitted probability is a means to a class, so the response supervises the fit."
     },
     {
-      "title": "Training error",
-      "prompt": "What is the training error of this one-nearest-neighbour rule on the three training points, when each point may be its own neighbour?",
-      "answer": "The training error is 0."
+      "title": "Labels removed",
+      "prompt": "If the labels on a supervised training sample are thrown away, what remains and what is lost?",
+      "answer": "The distances among the features remain. The predicted label does not, because there is no response left to return."
     }
   ],
   "survey-methodology": [
     {
-      "title": "Response rate",
-      "prompt": "Of 200 drawn graduates, 140 reply. What is the response rate?",
-      "answer": "The response rate is 0.7."
+      "title": "A complete response from a short frame",
+      "prompt": "Every person who was drawn replies, but the frame omitted a whole class of the target population. Which survey error remains?",
+      "answer": "Coverage error remains. Non-response has been removed, and the omitted class was never eligible to be drawn."
     },
     {
-      "title": "Reminders",
-      "prompt": "Twenty of the 60 non-respondents later reply, so 160 of 200 have replied. What is the response rate?",
-      "answer": "The response rate is 0.8."
+      "title": "A clearer question",
+      "prompt": "Why does rewriting a question so that respondents understand it fail to shrink sampling error?",
+      "answer": "Questionnaire error and sampling error are different sources. Wording changes the measurement, not the way the sample was selected."
+    },
+    {
+      "title": "When non-response is an error",
+      "prompt": "A survey has refusals. When do those refusals create non-response error, rather than merely a smaller sample?",
+      "answer": "When the people who decline differ, in a way that matters to the study, from the people who answer."
     }
   ],
   "systematic-error": [
     {
-      "title": "Balance offset",
-      "prompt": "Readings 21.4, 21.7, 21.2 and 21.5 are taken on a 20 mg standard. What is the estimated systematic error?",
-      "answer": "The mean is 21.45, so the estimated systematic error is 1.45 mg."
+      "title": "More repetitions",
+      "prompt": "A balance has a constant offset. Why does taking more readings fail to remove that offset from the average?",
+      "answer": "The variance of the average falls as the sample grows, but the expected value of the average stays a fixed distance from the standard. The average settles on the wrong value more firmly."
     },
     {
-      "title": "Scatter around the shift",
-      "prompt": "For those four readings, what is the sum of squared deviations from the mean?",
-      "answer": "The sum of squared deviations is 0.13."
+      "title": "No reference standard",
+      "prompt": "Why can the scatter of a series of readings, with no reference standard, not estimate the systematic offset?",
+      "answer": "The deviations from the mean sum to zero. They estimate the random scale, and they say nothing about a shift that is common to every reading."
     },
     {
-      "title": "Gauge",
-      "prompt": "A 10 cm gauge is read as 12, 11 and 13. What is the estimated systematic error, and the mean after subtracting it?",
-      "answer": "The estimated systematic error is 2 cm, and subtracting it leaves 10 cm."
+      "title": "Two systematic errors",
+      "prompt": "The bias of an estimator and a miscalibrated instrument are both systematic errors. What is being repeated in each case?",
+      "answer": "Estimator bias is a gap in expectation under a sampling model. A calibration offset is a property of one measurement procedure. The remedies differ because the repeated thing differs."
     }
   ],
   "systematic-sampling": [
     {
-      "title": "Interval and last label",
-      "prompt": "N = 40 houses and n = 8, with random start 3. What is the interval, and what is the last selected label?",
-      "answer": "The interval is 5 and the last label is 38."
+      "title": "Not every subset",
+      "prompt": "Why is a systematic sample with interval r not a simple random sample of the same size?",
+      "answer": "Simple random sampling gives every subset of that size the same probability. Systematic sampling can produce only the r arithmetic progressions with difference r."
     },
     {
-      "title": "New start",
-      "prompt": "The start is 1, with the same N = 40, n = 8, and interval 5. What is the last label?",
-      "answer": "The last label is 36."
+      "title": "A repeating trait",
+      "prompt": "The list order cycles with a period that divides the sampling interval. What can go wrong?",
+      "answer": "Every selected unit can land on the same phase of the cycle, so the sample repeats one part of the pattern instead of moving through it."
+    },
+    {
+      "title": "The start",
+      "prompt": "The interval is fixed and the first unit is whichever line looks convenient. Why has the draw left the random methods?",
+      "answer": "The interval alone is not the randomisation. The random methods require a random start. A convenient start is an arbitrary selection."
     }
   ],
   "tail": [
     {
-      "title": "An SAT cutoff",
-      "prompt": "SAT scores follow a normal model with mean 1100 and standard deviation 200. What is the upper-tail probability at 1190?",
-      "answer": "The standardised value is 0.45 and the upper tail is 0.3264."
+      "title": "Two regions",
+      "prompt": "For a continuous distribution, why do the lower-tail and upper-tail probabilities at the same cutoff add to 1?",
+      "answer": "The outcome is either at or below the cutoff or above it, and those two events exhaust the probability."
     },
     {
-      "title": "A standard point",
-      "prompt": "The standard normal lower tail at z = 1 is 0.8413447. What is the upper tail?",
-      "answer": "The upper tail is 0.1586553."
+      "title": "The sign of skewness",
+      "prompt": "A skewness coefficient is positive. Which tail is long relative to the other?",
+      "answer": "The right tail is long relative to the left tail. The distribution is skewed right."
     },
     {
-      "title": "An exponential cutoff",
-      "prompt": "For a unit exponential, what is the upper-tail probability at 2, to six decimals?",
-      "answer": "The upper tail is 0.135335."
+      "title": "Shape and probability",
+      "prompt": "A histogram trails off to the right. Why is that not yet a numerical value of P(X > c)?",
+      "answer": "A long right tail names a shape. A tail probability needs a cutoff and either a distribution or an empirical proportion beyond that cutoff."
     }
   ],
   "true-value": [
     {
-      "title": "Error of the mean",
-      "prompt": "Estimates 48, 53, and 51 are made of a true mass of 50. What is the error of their mean?",
-      "answer": "The mean is 152/3 and the error is 2/3."
+      "title": "Tight scatter",
+      "prompt": "Repeated measurements cluster tightly around their own average, and that average is not the reference. Has the procedure hit the true value?",
+      "answer": "No. Tight scatter is precision around the procedure's average. Accuracy also includes the offset from the true value, and that offset can be large while the scatter is small."
     },
     {
-      "title": "Fourth estimate",
-      "prompt": "A fourth estimate of 48 is added, and the true mass stays 50. What is the error of the new mean?",
-      "answer": "The mean is 50 and the error is 0."
+      "title": "When the average matches",
+      "prompt": "When is the average of the measurements equal to the true value?",
+      "answer": "When the remaining errors happen to cancel, or when one is speaking of the expected value of an unbiased procedure. The average is otherwise an estimate of the true value."
+    },
+    {
+      "title": "A category code",
+      "prompt": "Why does a code for a category not have a true value in the metrological sense?",
+      "answer": "The metrological true value is a quantity that repeated measurement is trying to recover. A category code is not that kind of quantity."
     }
   ],
   "uncertainty": [
     {
-      "title": "Mean absolute deviation",
-      "prompt": "Timings 5, 7, 6, and 6 have mean 6. What is their mean absolute deviation?",
-      "answer": "The mean absolute deviation is 0.5."
+      "title": "A small standard error",
+      "prompt": "An estimator has a very small standard error. Why can the target still be the wrong one?",
+      "answer": "The standard error describes scatter under the sampling scheme and the model that were used. A biased procedure can be precise about the wrong number, because bias and precision answer different questions."
     },
     {
-      "title": "Fifth timing",
-      "prompt": "A fifth timing of 8 is added to 5, 7, 6, and 6. What is the new mean absolute deviation?",
-      "answer": "The mean is 6.4 and the mean absolute deviation is 0.88."
+      "title": "A curved residual plot",
+      "prompt": "A residual plot from a fitted line shows a curve. What does that add to an uncertainty statement that quoted only the scatter of the observations?",
+      "answer": "The curve is a sign that the line was the wrong shape. That leftover pattern is model uncertainty, which a scatter computed under the line does not include."
+    },
+    {
+      "title": "A weak denominator",
+      "prompt": "An instrumental-variable estimate is a ratio whose denominator is a weak association. Why is the point estimate not the uncertainty?",
+      "answer": "The uncertainty is the width of the set of plausible values. A weak denominator inflates that width, so the interval and the point estimate are different objects."
     }
   ],
   "unsupervised-learning": [
     {
-      "title": "Horizontal fraction",
-      "prompt": "For the points (2,0), (-2,0), (0,1) and (0,-1), what fraction of the sum of squares is horizontal?",
-      "answer": "The horizontal fraction is 4/5."
+      "title": "No training error",
+      "prompt": "Why is there no training error, of the supervised kind, that goes to zero by memorising the data in an unsupervised analysis?",
+      "answer": "No response was recorded, so there is no label to memorise and no loss on a response to drive to zero. The procedure returns a description, such as a partition or a direction."
     },
     {
-      "title": "Vertical fraction",
-      "prompt": "What fraction of the sum of squares is vertical?",
-      "answer": "The vertical fraction is 1/5."
+      "title": "A later response",
+      "prompt": "Why might the direction that carries most of the variance fail to predict a response collected later?",
+      "answer": "Principal components ignore any response. A low-variance coordinate can be the one that predicts."
     },
     {
-      "title": "Leftover",
-      "prompt": "If only the horizontal coordinate is kept, what is the sum of squared reconstruction errors?",
-      "answer": "The leftover sum of squares is 2."
+      "title": "A change of units",
+      "prompt": "The features are measured in arbitrary units, and one coordinate is multiplied by ten before the variances are computed. What question do the new fractions answer?",
+      "answer": "They answer a question about the units. A variance or a distance from a badly scaled feature describes the scale, not the subject."
     }
   ],
   "regression-analysis": [
     {
-      "title": "What the slope estimates",
-      "prompt": "A least-squares slope is computed from six weeks of spend and sales. What does the slope estimate, and what does the arithmetic alone not establish?",
-      "answer": "It estimates the linear association in these weeks. It does not by itself establish what sales would do if spend were set by an intervention."
+      "title": "Several predictors, still linear",
+      "prompt": "A mean uses three predictors and is linear in the coefficients. Why is that still linear regression, even if the picture against one raw predictor is not a straight line?",
+      "answer": "Linearity is judged in the coefficients. Each predictor multiplies its own coefficient. A power of one predictor is still a linear term of that kind. A coefficient sitting inside the mean function is the nonlinear case."
     },
     {
-      "title": "Intercept",
-      "prompt": "If the spend mean is 3.5, the sales mean is 5.5, and the slope is 1, what is the intercept?",
-      "answer": "The intercept is 5.5 - 3.5 = 2."
+      "title": "How squaring charges a large residual",
+      "prompt": "One residual is 4 and another is 2. By what factor does squared error charge the larger residual, relative to the smaller, and how does that compare with absolute error?",
+      "answer": "Squared error charges 16 against 4, a factor of four. Absolute error charges 4 against 2, a factor of two. The two criteria fit different lines."
+    },
+    {
+      "title": "A slope is not yet an intervention",
+      "prompt": "A fitted slope is positive inside the observed range of a predictor. What further condition is required before that slope is read as the change from setting the predictor to a new value?",
+      "answer": "The design has to support that intervention. The fit is a summary of the sample. An observational association can run through a confounder, and the algebra does not name it."
     }
   ],
   "survival-analysis": [
     {
-      "title": "Censoring",
-      "prompt": "A follow-up stops at 6 months while the patient is alive. Why is that time not treated as a death at 6 months?",
-      "answer": "The death time is known only to be later than 6 months. Treating 6 as a death shortens the lifetime."
+      "title": "A hazard above one",
+      "prompt": "A hazard equals 2 per year. Why is that not a probability of death?",
+      "answer": "The hazard is a conditional rate per unit time. The probability of an event in a short interval is about the hazard times the length of the interval, and the rate itself need not be smaller than one."
     },
     {
-      "title": "Risk set",
-      "prompt": "What does it mean to keep a censored patient in the risk set until follow-up stops?",
-      "answer": "The patient counts as alive and under observation up to the censoring time, and then leaves the set without being recorded as a death."
+      "title": "Sick patients leave",
+      "prompt": "The sickest patients drop out of a study early, and the analysis ignores why they left. What happens to the estimated survival?",
+      "answer": "The estimate tends to overstate survival. Independent censoring fails when the event time and the censoring time are dependent given the features."
+    },
+    {
+      "title": "Shared shocks",
+      "prompt": "Two components must both work, and they share a cause of failure. Why is the system reliability not the square of one component reliability?",
+      "answer": "The product rule is for independent components. A shared cause makes the event times dependent, so the joint reliability is not the product."
     }
   ],
   "bayesian-statistics": [
     {
-      "title": "Two summaries",
-      "prompt": "A Beta(8,4) posterior has mean 2/3. The maximum-likelihood estimate from 7 heads in 10 tosses is 0.7. Why are these different numbers?",
-      "answer": "The posterior mean averages the probability assigned to the heads probability after the data and the prior. The maximum-likelihood value maximises the probability of these tosses and does not use the prior."
+      "title": "The three steps",
+      "prompt": "What are the three steps in the outline of a Bayesian analysis?",
+      "answer": "Write a joint probability model, condition on the observed data, and check whether the model and its conclusions hold up."
     },
     {
-      "title": "Predictive step",
-      "prompt": "Does the posterior mean of the heads probability equal the fraction of heads in a future sequence?",
-      "answer": "No. A future fraction needs a predictive calculation that averages over the posterior."
+      "title": "Reading an interval",
+      "prompt": "Inside the model, how is an interval that holds posterior probability 0.95 read?",
+      "answer": "As an interval that has probability 0.95 of containing the unknown."
+    },
+    {
+      "title": "Where the normal approximation stops",
+      "prompt": "Why can the large-sample normal approximation to a posterior fail when the true value sits on the boundary of the parameter space?",
+      "answer": "The Taylor expansion is cut off in some directions, so the limiting shape need not be normal."
     }
   ],
   "estimation-theory": [
@@ -2491,62 +2556,87 @@
   ],
   "probability-theory": [
     {
-      "title": "Additivity",
-      "prompt": "A fair die has probability 1/6 on each face. What is the probability of an even face, and which rule produces it?",
-      "answer": "The probability is 1/2, the sum of the probabilities of the three even faces, which are exclusive."
+      "title": "Intersections from unions",
+      "prompt": "A σ-field is closed under complements and under countable unions. Why is it also closed under countable intersections?",
+      "answer": "The intersection of the sets Ai is the complement of the union of their complements. Both of those operations stay inside the collection."
     },
     {
-      "title": "Continuous measurements",
-      "prompt": "What replaces a sum of six face probabilities when the outcome is a continuous measurement?",
-      "answer": "The probability of an interval is an integral of a density, or the increase in a distribution function."
+      "title": "The empty event",
+      "prompt": "A probability measure satisfies P(Ω) = 1 and is countably additive. What is P(∅), and why?",
+      "answer": "Zero. The sample space and the empty set are disjoint and their union is the sample space, so P(Ω) = P(Ω) + P(∅)."
+    },
+    {
+      "title": "A countable space",
+      "prompt": "The outcomes of a countable space are given nonnegative weights that sum to 1. What is the probability of an event?",
+      "answer": "The sum of the weights of the outcomes inside the event. An uncountable space cannot give every point the same positive weight, because that sum would not be a probability."
     }
   ],
   "multivariate-statistics": [
     {
-      "title": "Why the cross-product",
-      "prompt": "Two columns move exactly together. What does a pair of separate variances miss?",
-      "answer": "It misses the covariance. The columns are not two unrelated measurements."
+      "title": "Variances and a correlation",
+      "prompt": "Why can two marginal variances be equal and positive while the correlation of the same two coordinates is negative?",
+      "answer": "The variances are sums of squares of deviations. The correlation also uses the products of paired deviations, and those products can be negative."
     },
     {
-      "title": "Covariance value",
-      "prompt": "Centred pairs (-1,-1), (0,0), and (1,1) have cross-product sum 2 and the divisor is 2. What is the sample covariance?",
-      "answer": "The sample covariance is 1."
+      "title": "Total variation",
+      "prompt": "Why does a principal-component decomposition not increase the total variation of the coordinates?",
+      "answer": "The component variances sum to the trace of the covariance matrix, which is the sum of the original variances."
+    },
+    {
+      "title": "Checking a summary",
+      "prompt": "Why is an unsupervised summary harder to check than a classifier?",
+      "answer": "A classifier has a response that can be scored on cases the rule did not use. An unsupervised summary has no response to get wrong."
     }
   ],
   "structural-equation-modelling": [
     {
-      "title": "Crude difference",
-      "prompt": "When does a difference in means equal an effect of treatment?",
-      "answer": "When the diagram says the comparison is unconfounded. Otherwise the difference mixes the treatment with common causes."
+      "title": "A covariance p-value",
+      "prompt": "A structural equation model has a large p-value on its covariance chi-square. What has been checked, and what has not?",
+      "answer": "The implied covariances are not far from the sample covariances under the fitted linear structure. The test does not establish that the arrows are interventions."
     },
     {
-      "title": "Diagram",
-      "prompt": "Is the subtraction itself a structural equation?",
-      "answer": "No. The structural equation is the model of the intervention. The subtraction is a summary of the observed groups."
+      "title": "Two structural equations",
+      "prompt": "How does a nonparametric structural equation differ from a factor loading estimated from a covariance matrix?",
+      "answer": "The nonparametric equation writes each variable as a function of its graph parents and an error, and an intervention substitutes a value into that function. A loading is a parameter of a measurement model fit to second moments."
+    },
+    {
+      "title": "Non-normal standard errors",
+      "prompt": "Continuous indicators are skewed, and the model is fit by ordinary maximum likelihood. What can go wrong with the usual standard errors even if the point estimates stay consistent?",
+      "answer": "The usual standard errors can be too small, so a coefficient is declared different from zero too often. The chi-square can also be too large."
     }
   ],
   "standard-score": [
     {
-      "title": "A weight at the mean",
-      "prompt": "The centre is 4 and the scale is the positive square root of 2. What is the standard score of a weight equal to 4?",
-      "answer": "The score is 0."
+      "title": "Below the mean",
+      "prompt": "A distribution has mean 55 and standard deviation 5. What is the standard score of an observation equal to 40?",
+      "answer": "The standard score is (40 - 55) / 5 = -3."
     },
     {
-      "title": "Why the scale matters",
-      "prompt": "Why do the four scores built with the list's own root-mean-square have root-mean-square 1?",
-      "answer": "Dividing by that scale is what forces the root-mean-square of the scores to be 1."
+      "title": "At the mean",
+      "prompt": "What is the standard score of an observation that equals the mean of its distribution?",
+      "answer": "The standard score is 0."
+    },
+    {
+      "title": "Which is more unusual",
+      "prompt": "One observation has standard score 0.4 and another has standard score -1.2, on distributions of similar shape. Which is more unusual, and why?",
+      "answer": "The observation with standard score -1.2 is more unusual, because the absolute value 1.2 is larger than 0.4."
     }
   ],
   "test-statistic": [
     {
-      "title": "Fair coin tail",
-      "prompt": "Eight independent fair tosses. A test rejects if the number of heads is 7 or 8. What is the level of that rule?",
-      "answer": "The level is 9/256."
+      "title": "Null standard error",
+      "prompt": "In a test of a single proportion, why is the standard error computed from the null value rather than from the sample proportion?",
+      "answer": "The reference distribution is the distribution of the statistic when the null is true, so the standardisation uses that null value."
     },
     {
-      "title": "Not a statistic",
-      "prompt": "Why is (x bar - mu) divided by an unknown sigma not a test statistic of the sample alone?",
-      "answer": "The expression still contains the unknown sigma, so it is not a function of the sample and known constants only."
+      "title": "Three different numbers",
+      "prompt": "A proportion test reports a sample proportion, a Z statistic, and a p-value. What does each one measure?",
+      "answer": "The sample proportion is the estimate. The Z statistic is the estimate minus the null value, divided by the null standard error. The p-value is a tail probability of that statistic under the null."
+    },
+    {
+      "title": "After the fact",
+      "prompt": "Several comparisons are examined and the most extreme statistic is then treated as the pre-specified test. What has changed about the null probability of rejection?",
+      "answer": "The rejection probability is now the probability for the search, not the probability tabulated for one pre-specified statistic."
     }
   ]
 }

@@ -1,12 +1,10 @@
-
-
 ## Lead context
 
-A measurable function is a function that pulls measurable sets back to measurable sets. On a probability space, that condition is what makes probabilities and expectations of the function's values defined.{{cite:durrett2019}} (Ch. 1, §1.3, p. 15){{cite:axler2020}} (p. 31, Def. 2.35)
+A measurable function is a function that pulls measurable sets back to measurable sets. On a probability space, that condition is what makes probabilities and expectations of the function's values defined. Without it, a question of the form "the value landed in this set" can name a collection of outcomes that was never given a probability.{{cite:durrett2019}} (Ch. 1, §1.3, p. 15){{cite:axler2020}} (p. 31, Def. 2.35)
 
 ## Motivating example
 
-Three outcomes \(\{1,2,3\}\) are grouped so that the events are \(\varnothing\), \(\{1\}\), \(\{2,3\}\), and the whole set. A payoff that equals \(2\) on outcome \(1\) and equals \(7\) on outcomes \(2\) and \(3\) can be discussed, because the outcomes where the payoff exceeds any given level are always one of those four events. A payoff that treats outcome \(2\) differently from outcome \(3\) asks about a set that is not an event. The integral that would be its expectation is then not defined on this event collection.{{cite:axler2020}} (p. 31){{cite:durrett2019}} (Ch. 1, §1.4, p. 18)
+Three outcomes \(\{1,2,3\}\) are grouped so that the events are \(\varnothing\), \(\{1\}\), \(\{2,3\}\), and the whole set. A payoff that equals \(2\) on outcome \(1\) and equals \(7\) on outcomes \(2\) and \(3\) can be discussed, because the outcomes where the payoff exceeds any given level are always one of those four events. A payoff that treats outcome \(2\) differently from outcome \(3\) asks about a set that is not an event. The integral that would be its expectation is then not defined on this event collection. On a finite set whose sigma-algebra contains every subset, the distinction disappears and every real function is measurable. The coarse sigma-algebra is what makes the condition visible.{{cite:axler2020}} (p. 31, the coarse sigma-algebra){{cite:durrett2019}} (Ch. 1, §1.2, p. 10)
 
 ## Definition
 
@@ -14,25 +12,25 @@ Let \((X,\mathcal S)\) be a measurable space. A function \(f:X\to\mathbb R\) is 
 \[
 f^{-1}(B)=\{x\in X:f(x)\in B\}\in\mathcal S
 \]
-for every Borel set \(B\subseteq\mathbb R\). It is enough to check the unbounded intervals: if \(f^{-1}((a,\infty))\in\mathcal S\) for every real \(a\), then \(f\) is measurable. The same idea extends to functions with values in \([-\infty,\infty]\), using the Borel sets of the extended line.{{cite:axler2020}} (pp. 31–32, Def. 2.35 and 2.39; p. 37, Def. 2.51)
+for every Borel set \(B\subseteq\mathbb R\). It is enough to check a generating family. If \(\{x:f(x)\in A\}\) is measurable for every set \(A\) in a collection that generates the Borel sigma-algebra, then \(f\) is measurable. On the line, the rays \((-\infty,x]\) are one such collection.{{cite:axler2020}} (p. 31, Def. 2.35){{cite:durrett2019}} (Ch. 1, §1.3, p. 15, the generating-family criterion)
 
-Between two general measurable spaces \((\Omega,\mathcal F)\) and \((S,\mathcal S)\), a map \(X:\Omega\to S\) is measurable when \(X^{-1}(B)\in\mathcal F\) for every \(B\in\mathcal S\). When the codomain is the real line with its Borel sigma-algebra, the map is a random variable. When the domain is a probability space, that random variable is the [measurable random variable](measurable-random-variable.qmd).{{cite:durrett2019}} (Ch. 1, §1.3, p. 15)
-
-A probability, or any measure, assigns numbers to sets in a sigma-algebra, not to arbitrary collections of points. A function of the outcome is usable when every question of the form "the value landed in this set" names a set in the sigma-algebra. Inverse images are the bookkeeping: the set of outcomes that the function sends into \(B\) has to be measurable whenever \(B\) is.{{cite:axler2020}} (pp. 29–31){{cite:durrett2019}} (Ch. 1, §1.3, p. 15)
-
-The definition is relative to the sigma-algebra on the domain and the Borel sigma-algebra on the codomain. Enlarge the domain sigma-algebra and more functions become measurable; shrink it and functions that were measurable can cease to be. The criterion that uses only \((a,\infty)\) depends on those rays generating the Borel sigma-algebra of the line. A function into a different codomain needs the measurable sets of that codomain, not the Borel sets of \(\mathbb R\).{{cite:axler2020}} (pp. 31–32){{cite:durrett2019}} (Ch. 1, §1.3, p. 15)
+Between two general measurable spaces \((\Omega,\mathcal F)\) and \((S,\mathcal S)\), a map \(X:\Omega\to S\) is measurable when \(X^{-1}(B)\in\mathcal F\) for every \(B\in\mathcal S\). When the codomain is the real line with its Borel sigma-algebra, the map is a random variable. When the domain is a probability space, that random variable is the [measurable random variable](measurable-random-variable.qmd). The sigma-algebra generated by the map,
+\[
+\sigma(X)=\{\{X\in B\}:B\in\mathcal S\},
+\]
+is the smallest one that makes the map measurable. It records the events the map can distinguish.{{cite:durrett2019}} (Ch. 1, §1.3, p. 15)
 
 ## Properties
 
-The indicator of a set \(E\subseteq X\) is measurable if and only if \(E\) itself belongs to \(\mathcal S\). Its inverse image of a Borel set is \(E\), the complement of \(E\), \(X\), or \(\varnothing\), according to whether that Borel set contains \(1\), contains \(0\), or both, or neither.{{cite:axler2020}} (p. 31, the indicator calculation)
+The indicator of a set \(E\subseteq X\) is measurable if and only if \(E\) itself belongs to \(\mathcal S\). Its inverse image of a Borel set is \(E\), the complement of \(E\), \(X\), or \(\varnothing\), according to whether that Borel set contains \(1\), contains \(0\), or both, or neither.{{cite:axler2020}} (p. 31, the indicator){{cite:durrett2019}} (Ch. 1, §1.2, p. 10)
 
-If \(f\) is measurable and \(g\) is a real Borel-measurable function defined on a set that contains the range of \(f\), then \(g\circ f\) is measurable. In particular a continuous function of a measurable real function is measurable, so \(-f\), \(|f|\), and \(f^2\) are measurable whenever \(f\) is. Sums, differences, and products of real measurable functions on the same space are measurable, and so is a quotient where the denominator never vanishes. A pointwise limit of measurable real functions, at each point where the limit exists as a real number, is measurable. The pointwise infimum and supremum of a sequence of extended measurable functions are measurable.{{cite:axler2020}} (pp. 34–36, 2.44–2.48 and 2.53)
+If \(X\) is a measurable map into \(S\) and \(f\) is a measurable map from \(S\) into a third space, then \(f(X)\) is measurable. A continuous real function of a random variable is therefore a random variable, and so are \(-X\), \(|X|\), and \(X^2\). Sums of random variables are random variables, because the map that adds coordinates is measurable on the product. A pointwise limit of measurable real functions, where the limit exists, stays measurable. These closure properties are why a statistic built from measurable observations by arithmetic, continuous transformations, and limits is again measurable.{{cite:durrett2019}} (Ch. 1, §1.3, p. 15, the closure results){{cite:axler2020}} (p. 31, Def. 2.35)
 
-These closure properties are why a statistic built from measurable observations by arithmetic, continuous transformations, and limits is again measurable. The integral of a nonnegative simple measurable function \(\varphi=\sum_i a_i 1_{A_i}\), with the \(A_i\) disjoint and of finite measure, is \(\sum_i a_i\mu(A_i)\). Expectation is that integral when \(\mu\) is a probability.{{cite:durrett2019}} (Ch. 1, §1.4, p. 18){{cite:axler2020}} (p. 35)
+The integral of a nonnegative simple measurable function \(\varphi=\sum_i a_i 1_{A_i}\), with the \(A_i\) disjoint, is \(\sum_i a_i\mu(A_i)\). Expectation is that integral when \(\mu\) is a probability. The integral is defined only after the sets \(A_i\) are measurable, which is the indicator fact again.{{cite:durrett2019}} (Ch. 1, §1.4, p. 18)
 
 ## Statistical use
 
-A sample measurement, a sample mean, and a test statistic are used as random variables only after this condition is in place. On a finite set whose sigma-algebra contains every subset, every real function is measurable, so the condition is silent. It becomes visible when the sigma-algebra is coarse: probabilities are assigned to groups of outcomes, and a function that splits a group cannot be a random variable on that space. The sigma-algebra generated by a measurable map is the smallest one that makes the map measurable, and it records the events the map can distinguish.{{cite:durrett2019}} (Ch. 1, §1.3, p. 15){{cite:axler2020}} (p. 31)
+A sample measurement, a sample mean, and a test statistic are used as random variables only after this condition is in place. On a finite set whose sigma-algebra contains every subset, every real function is measurable, so the condition is silent and ordinary probability arithmetic proceeds. It becomes visible when the sigma-algebra is coarse: probabilities are assigned to groups of outcomes, and a function that splits a group cannot be a random variable on that space. Conditioning and sufficiency are statements about the sigma-algebra a statistic generates. A statistic that is not measurable does not generate a sigma-algebra of events, and there is nothing to condition on.{{cite:durrett2019}} (Ch. 1, §1.3, p. 15){{cite:axler2020}} (p. 31, the coarse sigma-algebra)
 
 ## Worked example
 
@@ -49,7 +47,7 @@ Each of these sets is in \(\mathcal S\), so \(f\) is measurable. As a simple fun
 \[
 E[f]=2\cdot\frac13+7\cdot\frac23=\frac{16}{3}.
 \]
-The indicator of \(\{2\}\) is not measurable: \(\{2\}\) is not in \(\mathcal S\). A function with \(f(2)=7\) and \(f(3)=0\) fails for the same reason, since the inverse image of \((5,\infty)\) is \(\{2\}\).{{cite:axler2020}} (pp. 31–32){{cite:durrett2019}} (Ch. 1, §1.4, p. 18)
+The indicator of \(\{2\}\) is not measurable: \(\{2\}\) is not in \(\mathcal S\). A function with \(g(2)=7\) and \(g(3)=0\) fails for the same reason, since the inverse image of \((5,\infty)\) is \(\{2\}\).{{cite:axler2020}} (p. 31, Def. 2.35 and the indicator){{cite:durrett2019}} (Ch. 1, §1.4, p. 18)
 
 **Your turn.** On the same probability space set \(f(1)=5\) and \(f(2)=f(3)=7\). Confirm that \(f\) is measurable and find \(E[f]\).
 
@@ -59,12 +57,14 @@ The function is constant on \(\{1\}\) and constant on \(\{2,3\}\), so every thre
 
 ## Common misconceptions
 
-Measurable does not mean continuous. An indicator jumps, and it is measurable exactly when the set it indicates is an event. Measurable also does not mean that every subset of the domain is an event; only the inverse images that the function needs have to lie in the sigma-algebra. Two functions can induce the same distribution on the line and still be different maps. The distribution describes the probabilities of value sets; measurability describes the map relative to the sigma-algebra on its domain.{{cite:axler2020}} (p. 31){{cite:durrett2019}} (Ch. 1, §1.3, p. 15)
+Measurable does not mean continuous. An indicator jumps, and it is measurable exactly when the set it indicates is an event. Measurable also does not mean that every subset of the domain is an event. Only the inverse images that the function needs have to lie in the sigma-algebra. Two functions can induce the same distribution on the line and still be different maps. The distribution describes the probabilities of value sets. Measurability describes the map relative to the sigma-algebra on its domain.{{cite:axler2020}} (p. 31, the indicator){{cite:durrett2019}} (Ch. 1, §1.2, p. 10)
+
+A constant function is measurable for every sigma-algebra, because the inverse image of a Borel set is either the whole space or the empty set. That fact is the reason a coarse sigma-algebra still supports some random variables. It does not support a function that separates points the sigma-algebra has glued together.{{cite:axler2020}} (p. 31, the coarse sigma-algebra)
 
 ## History
 
-The inverse-image condition is the one measure theory uses so that integration is closed under the operations probability actually performs: indicators of events, arithmetic, continuous transformations, and pointwise limits. Probability adopted that condition when random variables were defined as measurable maps on a probability space, which is the setting in which expectation and the distribution of a statistic are constructed.{{cite:axler2020}} (pp. 31, 34–36){{cite:durrett2019}} (Ch. 1, §§1.3–1.4, pp. 15, 18)
+The inverse-image condition is the one measure theory uses so that integration is closed under the operations probability actually performs: indicators of events, arithmetic, continuous transformations, and pointwise limits. Probability adopted that condition when random variables were defined as measurable maps on a probability space, which is the setting in which expectation and the distribution of a statistic are constructed. The distribution of a random variable is the probability measure it induces on the line by pulling Borel sets back to events. That construction is available only after the map is measurable.{{cite:durrett2019}} (Ch. 1, §§1.2–1.4, pp. 10, 15, 18){{cite:axler2020}} (p. 31, Def. 2.35)
 
 ## Connections
 
-The domain and its sigma-algebra, before a measure is chosen, are the measurable space inside a [probability space](probability-space.qmd). The sigma-algebra itself is a [sigma-algebra](sigma-algebra.qmd); the Borel sets of the line are the case treated with [generated and Borel sigma-algebras](generated-and-borel-sigma-algebras.qmd). A real measurable map on a probability space is a [random variable](random-variable.qmd), and the integral of that map is an [expectation](expectation.qmd).{{cite:durrett2019}} (Ch. 1, §§1.1 and 1.3–1.4, pp. 1, 15, 18)
+The domain and its sigma-algebra, before a measure is chosen, are the measurable space inside a [probability space](probability-space.qmd). The sigma-algebra itself is a [sigma-algebra](sigma-algebra.qmd). A real measurable map on a probability space is a [random variable](random-variable.qmd), and the integral of that map is an [expectation](expectation.qmd). A statistic that is a measurable function of the sample generates the events a later conditional expectation can use. A function that is not measurable does not have an expectation on that space, so it cannot be a statistic there.{{cite:durrett2019}} (Ch. 1, §§1.2–1.4, pp. 10, 15, 18){{cite:axler2020}} (p. 31)

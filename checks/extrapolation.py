@@ -1,28 +1,55 @@
-"""Check extrapolation against its markdown and pending metadata."""
+"""Checks for extrapolation."""
 import json
 import re
 from pathlib import Path
 
-SLUG = "extrapolation"
 ROOT = Path(__file__).resolve().parents[1]
-self_checks = json.loads((ROOT / "research/self-checks.json").read_text(encoding="utf-8")).get("extrapolation", [])
+SLUG = "extrapolation"
 md = (ROOT / "research" / "content" / f"{SLUG}.md").read_text(encoding="utf-8")
-
+for line in md.splitlines():
+    assert line == line.rstrip(" \t")
+heads = re.findall(r"(?m)^## (.+)$", md)
+expected = [
+    'Lead context',
+    'Motivating example',
+    'Definition',
+    'Properties',
+    'Worked example',
+    'Assumptions and limits',
+    'History',
+]
+assert heads == expected, heads
 cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", md)
-assert len(cites) >= 5, len(cites)
+assert len(cites) >= 5, (len(cites), set(cites))
 assert len(set(cites)) >= 2, set(cites)
+assert "hansen2010" not in cites
+for banned in (
+    'not a claim',
+    'not claimed',
+    'this page',
+    'Dodge states',
+    'the manual',
+    'question bank',
+    'letter opener',
+    'Wikipedia',
+    'Grokipedia',
+):
+    assert banned not in md, banned
+assert "## Check yourself" not in md
 assert "**Your turn.**" in md
 match = re.search(
-    r'::: \{\.callout-tip collapse="true" title="Answer"\}\n(.*?)\n:::',
+    r'::: \{\.callout-tip collapse="true" title="Answer"\}(.*?):::',
     md,
     re.S,
 )
 assert match, "missing answer callout"
 assert "{cite:" not in match.group(1)
-assert 2 <= len(self_checks) <= 3
-
-assert 24319 - 0.0431*1_000_000 == -18781
-assert 24319 - 0.0431*200_000 == 15699
-assert 24319 - 0.0431*400_000 == 7079
-
-print(SLUG, "ok")
+data = json.loads((ROOT / "research" / "self-checks.json").read_text(encoding="utf-8"))
+items = data[SLUG]
+assert 2 <= len(items) <= 3
+for item in items:
+    assert "{cite:" not in item["answer"]
+assert 24319 - 0.0431 * 1_000_000 == -18781
+assert 24319 - 0.0431 * 200_000 == 15699
+assert 24319 - 0.0431 * 400_000 == 7079
+print(SLUG, "ok", len(cites), "cites", len(set(cites)), "keys", len(md.split()), "words")

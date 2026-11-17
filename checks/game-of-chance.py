@@ -1,29 +1,43 @@
-"""Checks for the game of chance page."""
-
-import json
+"""Check the game-of-chance article. The script reads the markdown only."""
 import re
-from fractions import Fraction
 from pathlib import Path
 
-root = Path(__file__).resolve().parents[1]
-self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("game-of-chance", [])
-slug = "game-of-chance"
-md = (root / "research/content" / f"{slug}.md").read_text()
-
+ROOT = Path(__file__).resolve().parents[1]
+SLUG = "game-of-chance"
+md = (ROOT / "research" / "content" / f"{SLUG}.md").read_text(encoding="utf-8")
 cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", md)
-assert len(cites) >= 5
-assert len(set(cites)) >= 2
+assert len(cites) >= 5, len(cites)
+assert len(set(cites)) >= 2, set(cites)
+heads = [h.split(" — ")[0] for h in re.findall(r"(?m)^## (.+)$", md)]
+assert heads == ['Lead context', 'Motivating example', 'Definition', 'Properties', 'Worked example', 'Assumptions and limits', 'History'], heads
+for line in md.splitlines():
+    assert line == line.rstrip(" \t"), repr(line)
+assert md.endswith("\n") and not md.endswith("\n\n")
+low = md.lower()
+for phrase in (
+    "not a claim",
+    "not claimed",
+    "this page",
+    "dodge states",
+    "the manual",
+    "question bank",
+    "letter opener",
+    "wikipedia",
+    "grokipedia",
+    "hansen2010",
+):
+    assert phrase not in low, phrase
 assert "**Your turn.**" in md
-answer = re.search(
-    r'::: \{\.callout-tip collapse="true" title="Answer"\}(.*?):::', md, re.S
+assert "## Check yourself" not in md
+match = re.search(
+    r'::: \{\.callout-tip collapse="true" title="Answer"\}\n(.*?)\n:::',
+    md,
+    re.S,
 )
-assert answer
-assert "{{cite:" not in answer.group(1)
-checks = self_checks
-assert 2 <= len(checks) <= 3
-for item in checks:
-    assert "{{cite:" not in item["answer"]
+assert match, "missing answer callout"
+assert "{cite:" not in match.group(1)
 
+from fractions import Fraction
 euro = Fraction(-3, 6) + Fraction(1, 1) * Fraction(3, 6) + Fraction(2, 1) * Fraction(2, 6)
 assert euro == Fraction(2, 3)
 assert sum(range(1, 7)) == 21
@@ -34,4 +48,5 @@ assert coin == 1
 assert coin + euro == Fraction(5, 3)
 wheel = Fraction(4, 4) + Fraction(-2, 4)
 assert wheel == Fraction(1, 2)
-print(slug, "ok")
+
+print(SLUG, "ok")

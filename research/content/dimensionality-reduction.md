@@ -1,5 +1,3 @@
-
-
 ## Lead context
 
 Ten measurements on each case are more than a scatterplot can show, and most of those measurements repeat a few underlying contrasts. Dimensionality reduction replaces the long list with a short list of coordinates that still carries most of the variation, or most of the shape, of the original list.{{cite:james_islr2021}} (Ch. 6, §6.3, pp. 252–255; Ch. 12, §12.2, pp. 497–498) {{cite:hastie_esl2009}} (p. 535, §14.5)
@@ -26,18 +24,6 @@ The same construction is the least-squares fit of an affine subspace of rank $q$
 
 A separate family of methods looks for a nonlinear manifold. Local multidimensional scaling and its relatives try to flatten a curved low-dimensional set that sits inside a high-dimensional feature space, using neighbourhoods rather than a single linear subspace. They are still dimensionality reduction: the output is a short list of coordinates for each point.{{cite:hastie_esl2009}} (pp. 572–573, §14.9)
 
-Use a reduction to look at a high-dimensional sample. With $p=10$ features there are $45$ pairwise scatterplots, and none of them contains more than two of the measurements. Two principal-component scores are one plot that has tried to keep the variation. The same scores are a preprocessor for a later [supervised learning](supervised-learning.qmd) fit, and a device for filling missing entries once a low-rank reconstruction is accepted.{{cite:james_islr2021}} (Ch. 12, §12.2, pp. 497–498)
-
-The directions themselves are the subject of the page on [principal component directions](principal-component-directions.qmd). Choosing how many to keep is a separate decision: $M=p$ undoes the reduction, and a very small $M$ can throw away a direction that carried the response even though it carried little feature variance. Partial least squares is the alternative, inside the same two-step scheme, that does look at the response when it builds the coordinates.{{cite:james_islr2021}} (Ch. 6, §6.3, pp. 252–255)
-
-A reduction is not a [cluster analysis](cluster-analysis.qmd). Components summarise directions of variation. Clusters summarise groups of rows. Both can be drawn on the same picture, and they optimise different criteria.{{cite:james_islr2021}} (Ch. 12, pp. 514–515)
-
-The first component is not the direction most aligned with a response, unless the response was used to choose it. Principal components regression can miss a low-variance feature that is the useful predictor. The variance ranking and the predictive ranking are different rankings.{{cite:james_islr2021}} (Ch. 6, §6.3.1, pp. 253–255)
-
-Scaling changes the directions. A feature recorded in small units dominates the sum of squares if the columns are not put on a comparable scale. The three-point example hid that choice because the two coordinates were already on the same scale and were copies of each other.{{cite:james_islr2021}} (Ch. 12, §12.2, pp. 497–498)
-
-Principal components, as a numerical fit of a low-rank affine model by least squares and the singular value decomposition, are the classical linear reduction.{{cite:hastie_esl2009}} (p. 535, §14.5) The regression use of the same scores, holding the response out of the construction of the loadings, is the dimension-reduction step developed for linear model selection.{{cite:james_islr2021}} (Ch. 6, §6.3, pp. 252–255) Nonlinear flattening of a manifold, by local multidimensional scaling and related neighbourhood methods, is a later addition aimed at structure that a flat subspace cannot keep.{{cite:hastie_esl2009}} (pp. 572–573, §14.9)
-
 ## Properties
 
 For the three collinear points, the centred vectors are $(-1,-1)$, $(0,0)$ and $(1,1)$. The total sum of squares is $1+1+0+0+1+1=4$. The unit diagonal direction $(1/\sqrt{2},1/\sqrt{2})$ gives scores $-\sqrt{2}$, $0$ and $\sqrt{2}$, and the sum of squared scores equals $4$. The fraction retained is $4/4=1$. The horizontal direction $(1,0)$ gives scores $-1$, $0$ and $1$, sum of squares $2$, and fraction $1/2$. The discarded sum of squares is $4-2=2$.
@@ -45,6 +31,10 @@ For the three collinear points, the centred vectors are $(-1,-1)$, $(0,0)$ and $
 That comparison is the population version of the principal-component criterion: among unit directions, the diagonal maximises the sum of squared scores, and the reconstruction error of the rank-$1$ fit along that direction is $0$. The horizontal direction is a legal unit vector and a worse summary.{{cite:hastie_esl2009}} (p. 535, (14.53)) {{cite:james_islr2021}} (Ch. 6, §6.3.1, pp. 253–254)
 
 In a regression, the reduced coordinates $Z_1,\ldots,Z_M$ are computed from the features and the response is then regressed on them. This is principal components regression when the coordinates are the leading components. The loadings in that construction are chosen from the features alone. They do not look at the response.{{cite:james_islr2021}} (Ch. 6, §6.3.1, pp. 253–255)
+
+Use a reduction to look at a high-dimensional sample. With $p=10$ features there are $45$ pairwise scatterplots, and none of them contains more than two of the measurements. Two principal-component scores are one plot that has tried to keep the variation. The same scores are a preprocessor for a later [supervised learning](supervised-learning.qmd) fit, and a device for filling missing entries once a low-rank reconstruction is accepted.{{cite:james_islr2021}} (Ch. 12, §12.2, pp. 497–498)
+
+The directions themselves are the subject of the page on [principal component directions](principal-component-directions.qmd). Choosing how many to keep is a separate decision: $M=p$ undoes the reduction, and a very small $M$ can throw away a direction that carried the response even though it carried little feature variance. Partial least squares is the alternative, inside the same two-step scheme, that does look at the response when it builds the coordinates.{{cite:james_islr2021}} (Ch. 6, §6.3, pp. 252–255)
 
 ## Worked example
 
@@ -62,6 +52,14 @@ The linear construction assumes that a flat subspace is a fair summary. Points t
 
 The fraction $1$ in the worked example is a statement about these three points. It is not a promise about a fourth point placed off the diagonal. A new point at $(1,0)$, centred against the same mean, is not reconstructed by the diagonal with error zero.{{cite:hastie_esl2009}} (p. 535, (14.50))
 
+A reduction is not a [cluster analysis](cluster-analysis.qmd). Components summarise directions of variation. Clusters summarise groups of rows. Both can be drawn on the same picture, and they optimise different criteria.{{cite:james_islr2021}} (Ch. 12, pp. 514–515)
+
+The first component is not the direction most aligned with a response, unless the response was used to choose it. Principal components regression can miss a low-variance feature that is the useful predictor. The variance ranking and the predictive ranking are different rankings.{{cite:james_islr2021}} (Ch. 6, §6.3.1, pp. 253–255)
+
+Scaling changes the directions. A feature recorded in small units dominates the sum of squares if the columns are not put on a comparable scale. The three-point example hid that choice because the two coordinates were already on the same scale and were copies of each other.{{cite:james_islr2021}} (Ch. 12, §12.2, pp. 497–498)
+
 ## Connections
 
 The coordinates and the directions are set out on [principal component directions](principal-component-directions.qmd). Using those coordinates before a regression is a step inside [supervised learning](supervised-learning.qmd). Using them to look at the features alone is part of [unsupervised learning](unsupervised-learning.qmd). [Cluster analysis](cluster-analysis.qmd) is the other standard unsupervised summary, and it groups points rather than directions.{{cite:james_islr2021}} (Ch. 12, pp. 495–498, 514–515)
+
+Principal components, as a numerical fit of a low-rank affine model by least squares and the singular value decomposition, are the classical linear reduction.{{cite:hastie_esl2009}} (p. 535, §14.5) The regression use of the same scores, holding the response out of the construction of the loadings, is the dimension-reduction step developed for linear model selection.{{cite:james_islr2021}} (Ch. 6, §6.3, pp. 252–255) Nonlinear flattening of a manifold, by local multidimensional scaling and related neighbourhood methods, is a later addition aimed at structure that a flat subspace cannot keep.{{cite:hastie_esl2009}} (pp. 572–573, §14.9)

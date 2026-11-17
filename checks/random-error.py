@@ -1,40 +1,60 @@
-"""Checks for the random-error page."""
+"""Checks for random-error."""
 import json
 import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("random-error", [])
-slug = "random-error"
-prose = (root / f"research/content/{slug}.md").read_text(encoding="utf-8")
-cites = re.findall(r"{{cite:([a-z0-9_]+)}}", prose)
+slug = 'random-error'
+prose = (root / "research/content" / f"{slug}.md").read_text(encoding="utf-8")
+bib = json.loads((root / "bibliography.json").read_text(encoding="utf-8"))
+cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", prose)
 assert len(cites) >= 5, len(cites)
 assert len(set(cites)) >= 2, set(cites)
+assert set(cites) <= set(bib["works"])
+headings = ['Lead context', 'Motivating example', 'Intuition', 'Definition', 'Properties', 'Worked example', 'Assumptions and limits', 'Connections']
+positions = []
+for heading in headings:
+    idx = prose.find("## " + heading)
+    assert idx != -1, heading
+    positions.append(idx)
+assert positions == sorted(positions)
+found = re.findall(r"^## .+$", prose, flags=re.M)
+assert found == ["## " + h for h in headings], found
+for phrase in (
+    'not a claim',
+    'not claimed',
+    'this page',
+    'Dodge states',
+    'the manual',
+    'question book',
+    'question bank',
+    'letter opener',
+    'Wikipedia',
+    'Grokipedia',
+):
+    assert phrase not in prose, phrase
+for match in re.finditer(r"\{\{cite:openintro2019\}\}\s*\(([^)]*)\)", prose):
+    locator = match.group(1)
+    assert "p." not in locator, locator
+    assert "Ch." in locator or "§" in locator, locator
+words = len(prose.split())
 assert "**Your turn.**" in prose
-answer = re.search(
-    r'::: {\.callout-tip collapse="true" title="Answer"}(.*?):::',
-    prose,
-    re.S,
-)
-assert answer, "missing answer callout"
-assert "{{cite:" not in answer.group(1)
-scs = self_checks
-assert 2 <= len(scs) <= 3
-for item in scs:
-    assert "{{cite:" not in item["answer"]
-
-import math
-reads = [9.7, 10.2, 9.9, 10.4]
-mean = sum(reads) / 4
+assert "## Check yourself" not in prose
+assert 'collapse="true" title="Answer"' in prose
+hidden = re.findall(r'title="Answer"\}(.*?)\n:+', prose, flags=re.S)
+assert hidden, "missing answer callout"
+for block in hidden:
+    assert "{cite:" not in block
+readings = [9.7, 10.2, 9.9, 10.4]
+mean = sum(readings) / len(readings)
 assert abs(mean - 10.05) < 1e-12
-ss = sum((v - mean) ** 2 for v in reads)
-assert abs(ss - 0.29) < 1e-12
-assert abs(math.sqrt(ss / 3) - 0.3109) < 5e-5
-assert abs(math.sqrt(ss / 12) - 0.1555) < 5e-5
-assert abs(mean - 10) - 0.05 < 1e-12
-turn = [8, 10, 12]
-assert sum(turn) / 3 == 10
-assert sum((v - 10) ** 2 for v in turn) == 8
-assert "0.29" in prose and "10.05" in prose
-
-print(slug, "ok")
+ssd = sum((r - mean) ** 2 for r in readings)
+assert abs(ssd - 0.29) < 1e-12
+assert abs(mean - 10 - 0.05) < 1e-12
+three = [8, 10, 12]
+assert sum(three) / 3 == 10
+assert sum((r - 10) ** 2 for r in three) == 8
+assert sum(three) / 3 - 10 == 0
+for printed in ("10.05", "0.29", "0.05"):
+    assert printed in prose, printed
+print(slug, "ok", words)

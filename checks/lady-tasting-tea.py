@@ -1,29 +1,43 @@
-"""Checks for the Lady tasting tea page."""
-
-import json
+"""Check the lady-tasting-tea article. The script reads the markdown only."""
 import re
-from math import comb
 from pathlib import Path
 
-root = Path(__file__).resolve().parents[1]
-self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("lady-tasting-tea", [])
-slug = "lady-tasting-tea"
-md = (root / "research/content" / f"{slug}.md").read_text()
-
+ROOT = Path(__file__).resolve().parents[1]
+SLUG = "lady-tasting-tea"
+md = (ROOT / "research" / "content" / f"{SLUG}.md").read_text(encoding="utf-8")
 cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", md)
-assert len(cites) >= 5
-assert len(set(cites)) >= 2
+assert len(cites) >= 5, len(cites)
+assert len(set(cites)) >= 2, set(cites)
+heads = [h.split(" — ")[0] for h in re.findall(r"(?m)^## (.+)$", md)]
+assert heads == ['Lead context', 'Motivating example', 'Definition', 'Properties', 'Statistical use', 'Worked example', 'Common misconceptions', 'History', 'Connections'], heads
+for line in md.splitlines():
+    assert line == line.rstrip(" \t"), repr(line)
+assert md.endswith("\n") and not md.endswith("\n\n")
+low = md.lower()
+for phrase in (
+    "not a claim",
+    "not claimed",
+    "this page",
+    "dodge states",
+    "the manual",
+    "question bank",
+    "letter opener",
+    "wikipedia",
+    "grokipedia",
+    "hansen2010",
+):
+    assert phrase not in low, phrase
 assert "**Your turn.**" in md
-answer = re.search(
-    r'::: \{\.callout-tip collapse="true" title="Answer"\}(.*?):::', md, re.S
+assert "## Check yourself" not in md
+match = re.search(
+    r'::: \{\.callout-tip collapse="true" title="Answer"\}\n(.*?)\n:::',
+    md,
+    re.S,
 )
-assert answer
-assert "{{cite:" not in answer.group(1)
-checks = self_checks
-assert 2 <= len(checks) <= 3
-for item in checks:
-    assert "{{cite:" not in item["answer"]
+assert match, "missing answer callout"
+assert "{cite:" not in match.group(1)
 
+from math import comb
 assert 8 * 7 * 6 * 5 == 1680
 assert 4 * 3 * 2 * 1 == 24
 assert 1680 // 24 == 70
@@ -33,4 +47,5 @@ assert 16 + 1 == 17
 assert comb(6, 3) == 20
 assert comb(3, 2) * comb(3, 1) == 9
 assert 2 ** 8 == 256
-print(slug, "ok")
+
+print(SLUG, "ok")

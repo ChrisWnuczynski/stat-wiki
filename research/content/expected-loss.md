@@ -1,55 +1,44 @@
-
-
 ## Lead context
-Expected loss is the risk of a decision: the mean of a loss, taken in the distribution that the decision is scored under. [Loss and risk](loss-and-risk.qmd) names that pair. A [decision problem](decision-problem.qmd) names the actions, the loss, and the distribution in which that mean is taken.
 
-Two treatments can be scored by how many months of life they leave, or two estimators by how far they fall from a parameter. Expected loss is the average of that score, taken under the probability distribution that still applies when the action is chosen. The action with the smallest expected loss is the one the score recommends. A different score can recommend a different action from the same probabilities.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; §9.4, p. 249)
+Expected loss is the risk of a decision: the probability-weighted average of the loss of one action, given the information available when the action is chosen. The action with the smallest expected loss is the one the score recommends.{{cite:gelman_bda2013}} (§9.1, pp. 237–238) [Loss and risk](loss-and-risk.qmd) is the pair of objects used to judge a statistical procedure: a loss that scores an estimate when the parameter is known, and the risk function obtained by taking the expected loss of the procedure at a fixed parameter. Expected loss ranks actions. Loss and risk name that pair.
 
 ## Motivating example
 
-Radiotherapy, surgery, and no treatment for a suspected lung tumour are scored by quality-adjusted months of life, which is an expected lifetime minus a month if treatment is undergone. With a $90\%$ chance the tumour is malignant, those expectations are about $17.5$, $13.5$, and $8.5$ months. Writing the score as a loss equal to months forfeited would reverse the sign and leave the ranking unchanged: the preferred action is the one whose expected loss is smallest, and here that is radiotherapy. The expectation is doing the work. No single state, “cancer” or “not,” is treated as certain.{{cite:gelman_bda2013}} (Ch. 9, §9.3, p. 245)
+A 95-year-old man with a lung tumour chooses radiotherapy, surgery, or no treatment. There is a 90 percent chance the tumour is malignant. If it is not, life expectancy is 34.8 months. If it is, radiotherapy gives 16.7 months, no treatment gives 5.6 months, and surgery kills immediately with probability 0.35 and otherwise follows a life expectancy of 20.3 months if the tumour is malignant. Treatment also costs a month of discomfort. Quality-adjusted life expectancy subtracts that month and averages over the malignancy:
+
+$$
+0.9\times 16.7+0.1\times 34.8-1=17.5
+$$
+
+months for radiotherapy, $13.5$ months for surgery, and $8.5$ months for no treatment. Radiotherapy is preferred. Writing the score as months forfeited, a loss, reverses the sign and leaves the ranking unchanged: the preferred action is the one whose expected loss is smallest. No single state, malignant or not, is treated as certain. The average is the decision.{{cite:gelman_bda2013}} (§9.3, p. 245)
 
 ## Intuition
 
-A loss $L(x,d)$ charges action $d$ when the outcome is $x$. If $x$ is still random given $d$, the charge that guides the action is the mean of $L$, not the loss in the most dramatic state and not the loss in the most probable state. A small probability of a large loss can outweigh a likely small loss, or the other way around, depending on the numbers. Computing the mean forces that tradeoff into the open. In a tree, the mean at a later node is computed with the information available there, and the earlier node averages those later means, weighted by the probability of reaching them.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; §9.3, pp. 245–246)
-
-When the unknown is a parameter $\theta$ and the action is an estimator $T$, the same average taken over the sampling distribution of $T$ at a fixed $\theta$ is the risk of $T$ at $\theta$. Expected loss is the general average. Risk is expected loss in that repeated-sample sense.{{cite:gelman_bda2013}} (Ch. 4, §4.4, p. 92)
+A loss $L(x,d)$ charges action $d$ when the outcome is $x$. If $x$ is still random given $d$, the charge that guides the action is the mean of $L$, not the loss in the most dramatic state and not the loss in the most probable state. A small probability of a large loss can outweigh a likely small loss. Computing the mean forces that tradeoff into the open. In a tree, the mean at a later node is computed with the information available there, and the earlier node averages those later means, weighted by the probability of reaching them. The same construction with a utility $U$ maximises $E[U(x)\mid d]$ instead of minimising a loss. The two agree when the loss is the negative of the utility, up to a constant that does not change the ranking.{{cite:gelman_bda2013}} (§9.1, p. 238; §9.3, p. 245)
 
 ## Definition
 
-Given a decision $d$ and a random outcome $x$ with distribution $p(x\mid d)$, and a loss $L(x,d)$, the expected loss of $d$ is
+Decision analysis under uncertainty has four steps. List the decisions $d$ and the outcomes $x$. For each $d$, specify the distribution $p(x\mid d)$. The decision itself is not given a probability. Map outcomes to a utility $U(x)$, and choose the $d$ that maximises the expected utility $E[U(x)\mid d]$. In a tree the expectation at each decision node is conditional on the information available at that node. The expected loss of $d$ is this expectation with the sign flipped,
 
 $$
 E\bigl(L(x,d)\mid d\bigr)=\int L(x,d)\,p(x\mid d)\,dx,
 $$
 
-with a sum in place of the integral when $x$ is discrete. If the problem is scored by a utility $U$ instead, the expected utility is the same construction with $U$ in place of $L$, and one maximises it rather than minimising it. The two agree when $L=-U$, up to a constant that does not change the ranking.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238)
+with a sum in place of the integral when $x$ is discrete, and with $L=-U$. The recommended action is the one with the lowest expected loss. The expectation for a branch that says "measure, then act" is the expected loss of the policy that will actually be followed after the measurement. It is not the expected loss of measuring and then ignoring the result.{{cite:gelman_bda2013}} (§9.1, pp. 237–238; §9.4, p. 253)
 
-In the radon decision the comparison is stated directly in losses. The expected loss of immediate remediation, the expected loss of doing nothing, and the expected loss of measuring and then choosing, are three numbers. The recommended action is the one with the lowest expected loss. The expectation for the measurement branch is valid for the policy that will actually be followed after the measurement. It is not the expected loss of measuring and then ignoring the result.{{cite:gelman_bda2013}} (Ch. 9, §9.4, p. 249)
-
-For an estimator $T$ of a parameter $\theta$, with loss $\ell(\theta,T)$, the sampling expected loss is $R(\theta,T)=E_\theta\bigl(\ell(\theta,T)\bigr)$. Squared error makes this the mean squared error. That risk is a frequentist expected loss, indexed by the unknown $\theta$. A Bayesian expected loss instead averages the loss over the posterior distribution of $\theta$ as well, and the action can be the choice of an estimator or of a treatment.{{cite:gelman_bda2013}} (Ch. 4, §4.4, p. 92; Ch. 9, §9.1, p. 238)
-
-In that Bayesian point-estimation problem the loss is attached to reporting an estimate in place of the parameter. If the loss is quadratic, the estimate that the score selects is the mean of the distribution calculated for the parameter.{{cite:dodge2008}} (p. 34)
-
-For a treatment or a policy, list the loss in each state, weight by the current probabilities, and compare the averages. State whether the loss includes sure costs, such as a month of discomfort or the price of a measurement. For an estimator, say whether the expectation is a sampling risk at a fixed parameter or a posterior expected loss. The two numbers answer different questions. A point estimate chosen to minimise posterior expected squared error is a posterior mean. A point estimate discussed only through its sampling mean squared error is being judged as a procedure.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; Ch. 4, §4.4, p. 92)
-
-[Loss and risk](loss-and-risk.qmd) develop the sampling version. A [decision problem](decision-problem.qmd) is the list of actions inside which expected loss is computed. [Mean squared error](mean-squared-error.qmd) is expected squared error loss.
-
-Expected loss is not the loss of the expected outcome, unless the loss is linear. It is not the loss in the worst state, and it is not the loss in the most probable state. Minimising expected loss under one base rate does not minimise it under another. A sampling risk $R(\theta,T)$ is not a posterior expected loss: the first still depends on $\theta$, and the second has averaged $\theta$ out. Two losses that charge the same states differently can rank the same actions in opposite orders.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238; Ch. 4, §4.4, p. 92)
-
-Decision analysis scores an action by an expectation: expected utility if the score is a gain, expected loss if it is a cost. The applied Bayesian layout computes that expectation from $p(x\mid d)$ after the actions and the utility have been written down, and it repeats the computation at each node of a tree. Medical calculations made the arithmetic public, by turning life expectancies and a discomfort penalty into one expected score per treatment. Sampling theory had already used the same word for an estimator: the risk function is the expected loss under repeated samples at a fixed parameter, and posterior expected loss is what selects a Bayes action once a posterior distribution is in hand. The two traditions share the average and differ in what is being averaged over.{{cite:gelman_bda2013}} (Ch. 9, §9.1, pp. 237–238; Ch. 9, §9.3, p. 245; Ch. 4, §4.4, p. 92)
+When the action is a point report about a parameter, the loss is attached to the report. If the loss is quadratic, $l(\hat\theta,\theta)=(\hat\theta-\theta)^2$, the report that minimises the expected loss under the distribution calculated for $\theta$ is the mean of that distribution. A Bayes estimate for squared-error loss is the posterior mean, when the mean exists. Absolute loss selects a median. Those facts are about the average of the loss under the distribution in hand. The sampling risk $R(\theta,T)$ still depends on $\theta$ and is defined with the loss on the loss-and-risk page.{{cite:dodge2008}} (p. 34){{cite:gelman_bda2013}} (Ch. 4, Exercise 6, p. 99)
 
 ## Properties
 
-Expected loss ranks actions at a given information state. It is linear in the loss: the expected loss of a mixture of outcomes is the mixture of the expected losses. In the tumour example the radiotherapy score $0.9\times 16.7+0.1\times 34.8-1$ is exactly that mixture, with the final $-1$ a sure loss from discomfort. Changing the probability $0.9$ changes the expected loss without changing the loss attached to either state.{{cite:gelman_bda2013}} (Ch. 9, §9.3, p. 245)
+Expected loss is linear in the mixture of outcomes. In the tumour example the radiotherapy score $0.9\times 16.7+0.1\times 34.8-1$ is exactly that mixture, with the final $-1$ a sure loss from discomfort. Changing the probability $0.9$ changes the expected loss without changing the loss attached to either state. The surgery figure $13.5$ and the no-treatment figure $8.5$ are the same kind of mixture, with surgery's immediate death contributing a term $0.35\times 0$.{{cite:gelman_bda2013}} (§9.3, p. 245)
 
-The law of total expectation is what makes a tree computable. The expected loss of “test, then act optimally” equals the average, over the test result, of the expected loss of the optimal action given that result, plus any loss charged by the test itself. If the optimal action does not depend on the result, this cannot beat the expected loss of taking that action immediately, once the test itself has a positive loss. The bronchoscopy calculation is an instance: every result still leads to radiotherapy, and the test adds a chance of death, so its expected quality-adjusted lifetime is worse.{{cite:gelman_bda2013}} (Ch. 9, §9.3, pp. 245–246)
+The law of total expectation is what makes a tree computable. The expected value of "test, then act optimally" equals the average, over the test result, of the expected value of the optimal action given that result, plus any loss charged by the test itself. If every result leads to the same treatment, the test cannot improve on taking that treatment immediately once the test itself has a cost. Bronchoscopy in the same example has a positive chance of death and, on the probabilities used there, still leads to radiotherapy whether the test is positive or negative. The quality-adjusted value of testing and then choosing is $0.632\times 15.0+0.368\times 19.5=16.656$ months, reported as $16.6$, against $17.5$ for radiotherapy with no test. The test adds risk and does not change the action.{{cite:gelman_bda2013}} (§9.3, p. 245)
 
-Sampling risk does not pick a uniformly best estimator. An estimator that has the smallest expected squared error at one $\theta$ generally fails at another. Restricting the class, for example to unbiased estimators, is what makes a further optimality claim possible. Expected posterior loss can still pick a single action, because the posterior has already averaged over $\theta$.{{cite:gelman_bda2013}} (Ch. 4, §4.4, p. 92)
+A quadratic loss on a parameter report selects one action, the mean, because the expectation has already been taken under the distribution calculated for the parameter. That is a property of the posterior, or of whatever distribution the loss is averaged over. It does not say that the sample mean minimises squared-error risk at every parameter value. That comparison is the sampling risk on the loss-and-risk page.{{cite:dodge2008}} (p. 34)
 
 ## Worked example
 
-Suppose an action “treat” has loss $1$ if the condition is present and loss $8$ if it is absent, and an action “watch” has loss $10$ if present and loss $0$ if absent. At a base rate $p=0.2$,
+Suppose an action "treat" has loss $1$ if the condition is present and loss $8$ if it is absent, and an action "watch" has loss $10$ if present and loss $0$ if absent. At a base rate $p=0.2$,
 
 $$
 E(L\mid\text{treat})=0.2\times 1+0.8\times 8=6.6,
@@ -58,7 +47,7 @@ $$
 E(L\mid\text{watch})=0.2\times 10+0.8\times 0=2.
 $$
 
-Watching has the smaller expected loss. The most probable state is “absent,” and watching is also best in that state, but that coincidence is not the reason. The reason is the average.{{cite:gelman_bda2013}} (Ch. 9, §9.1, p. 238)
+Watching has the smaller expected loss. The most probable state is "absent," and watching is also best in that state, but that coincidence is not the reason. The reason is the average. The losses are a utility with the sign flipped, so the same arithmetic maximises expected utility if every loss is multiplied by $-1$.{{cite:gelman_bda2013}} (§9.1, p. 238)
 
 **Your turn.** Keep the same losses and set the base rate to $0.7$. Which action has the smaller expected loss, and what are the two values?
 
@@ -68,8 +57,10 @@ Treating has expected loss $0.7\times 1+0.3\times 8=3.1$. Watching has expected 
 
 ## Assumptions and limits
 
-The expectation exists only when the loss has a finite mean under $p(x\mid d)$. A utility or loss that the decision maker does not accept will rank actions they would not rank. The radon and tumour calculations make the tradeoff explicit and therefore easy to dispute. The tree calculation for a later action assumes that the stated policy will be followed. An expected loss computed for “measure, then remediate if high” does not apply to a household that will remediate regardless of the measurement.{{cite:gelman_bda2013}} (Ch. 9, §9.4, p. 249; §9.3, p. 245)
+The expectation exists only when the loss has a finite mean under $p(x\mid d)$. A utility or loss that the decision maker does not accept will rank actions they would not rank. The tumour calculation uses life expectancies and a one-month discomfort penalty taken as inputs. Changing either input changes the expected score. The tree calculation for a later action assumes that the stated policy will be followed. An expected loss computed for "measure, then remediate if high" does not apply to a household that will remediate regardless of the measurement. In the radon analysis the expected loss of the measurement branch is defined as the average of the better of the two later actions, and that average is the right number only for someone who will take the better action.{{cite:gelman_bda2013}} (§9.4, p. 253; §9.3, p. 245)
+
+Quadratic loss selects the mean only when the mean exists. A distribution of the parameter with no mean has no Bayes estimate under that loss. Absolute loss selects a median, which can exist when the mean does not. The choice of loss is part of the decision, not a property of the parameter.{{cite:gelman_bda2013}} (Ch. 4, Exercise 6, p. 99){{cite:dodge2008}} (p. 34)
 
 ## Connections
 
-A [decision problem](decision-problem.qmd) names the actions whose expected losses are compared. The [base rate](base-rate.qmd) is a probability weight inside the average. [Loss and risk](loss-and-risk.qmd) are the sampling-theory names for a loss and its expectation at a fixed parameter. [Mean squared error](mean-squared-error.qmd) is expected squared error. [Least absolute deviations](least-absolute-deviations.qmd) minimises an expected absolute loss for a median, in the population version of that criterion.
+A [decision problem](decision-problem.qmd) names the actions whose expected losses are compared. The [base rate](base-rate.qmd) is a probability weight inside the average, as $0.2$ and $0.7$ are in the worked example. [Loss and risk](loss-and-risk.qmd) name the loss function and the sampling risk $R(\theta,T)$ of a procedure. [Mean squared error](mean-squared-error.qmd) is that risk when the loss is squared error. The quadratic calculation above is the calculated-distribution version of squared error: it selects a mean. The sampling identity of squared-error risk with mean squared error belongs to [loss and risk](loss-and-risk.qmd). Choosing a point estimate by minimising an expected loss is the decision-theoretic step in the Bayesian calculation.{{cite:dodge2008}} (pp. 33–34){{cite:gelman_bda2013}} (§9.1, pp. 237–238)

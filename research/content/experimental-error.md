@@ -1,5 +1,3 @@
-
-
 ## Lead context
 
 A resistor is baked at a set temperature and measured again. Two resistors at the same temperature do not change by the same amount. The gap, after the temperature effect is accounted for, is experimental error: the piece of the response traced to influences the experimenter did not control. It is the noise against which a treatment difference has to stand, and it is not the same thing as a mistake in arithmetic or a hypothesis-testing error.{{cite:dodge2008}} (p. 183){{cite:nist_anova2002}} (§7.4.3.1)
@@ -25,8 +23,6 @@ treatment sum of squares plus error sum of squares. The second term is the resid
 Repeated centre points of a factorial design, where every factor is held at its midpoint, estimate the magnitude of that scatter directly, because the controlled factors are not changing.{{cite:nist_glossary2002}} (Glossary, "centerpoint")
 
 Control a factor and the response still moves. The movement comes from variables that were not set: small differences in the resistors, placement in the oven, timing, the measuring instrument, the person using it. Some of those influences behave like chance from run to run. Some are systematic and repeat whenever the same slip in procedure is repeated. Experimental error, in the narrow metrological list, is the part due to the uncontrolled variables. In a comparative experiment it is estimated by the scatter among units that saw the same treatment.{{cite:dodge2008}} (p. 183){{cite:nist_anova2002}} (§7.4.3.1)
-
-The sum-of-squares split is algebraic. Interpreting the error mean square as the variance of uncontrolled noise assumes independent observations, a common variance, and a mean model that has not left systematic structure in the residual. Centre-point replicates estimate that variance at the centre of the design, not automatically at every corner. Uncontrolled variables that are constant across the whole experiment are invisible to the residual and can still shift every treatment together.{{cite:nist_anova2002}} (§7.4.3.1){{cite:nist_glossary2002}} (Glossary, "centerpoint"){{cite:dodge2008}} (p. 183)
 
 ## Properties
 
@@ -67,6 +63,8 @@ The treatment sum of squares is $2(2-4)^2+2(6-4)^2=16$. The error sum of squares
 ## Common misconceptions
 
 Experimental error is not a blunder and not a rounding error, though both can hide inside a residual. It is not the [bias of an estimator](bias-of-an-estimator.qmd), which is a property of a rule under repeated sampling. It is not a type I or type II error. A residual of a fitted model estimates experimental error only when the mean structure is right. A significant $F$ statistic does not mean the experimental error was small in any absolute sense. It means the treatment sum of squares was large relative to the error sum of squares.{{cite:dodge2008}} (p. 183){{cite:nist_anova2002}} (§7.4.3.1)
+
+The sum-of-squares split is algebraic. Interpreting the error mean square as the variance of uncontrolled noise assumes independent observations, a common variance, and a mean model that has not left systematic structure in the residual. Centre-point replicates estimate that variance at the centre of the design, not automatically at every corner. Uncontrolled variables that are constant across the whole experiment are invisible to the residual and can still shift every treatment together.{{cite:nist_anova2002}} (§7.4.3.1){{cite:nist_glossary2002}} (Glossary, "centerpoint"){{cite:dodge2008}} (p. 183)
 
 ## History
 

@@ -1,51 +1,42 @@
-
-
 ## Lead context
 
-Inverse probability is the historical name for the step that turns a sampling model around and states a probability for the unknown given the observations. In current vocabulary that step is Bayesian inference, and the probability it produces is a posterior probability.{{cite:gelman_bda2013}} (pp. 31, 56)
+A direct probability runs from a known chance to the observations: if the chance of success is one half, the probability of a success is one half. Inverse probability runs the other way. It states a probability for the unknown chance given the observations. In current vocabulary that step is Bayesian inference, and the probability it produces is a posterior probability. {{cite:dodge2008}} (pp. 32–33) {{cite:gelman_bda2013}} (Ch. 1, §1.1, p. 3)
 
 ## Motivating example
 
-A sampling calculation starts from a known chance \(\theta\) and gives the probability of each possible count \(y\). The early binomial theorems are of that kind: if \(y\) is binomial with known \(\theta\), the sample proportion settles near \(\theta\) as the number of trials grows. The inverse question fixes the observed count and asks for a probability that \(\theta\) itself lies in some interval. That is the question Bayes set, and the question Laplace answered for the proportion of girls among births.{{cite:gelman_bda2013}} (pp. 30–31)
+One trial is a success, and before the trial the unknown chance \(\theta\) was taken as uniform on the unit interval. The direct probability of a success at \(\theta=1/2\) is \(1/2\). The inverse question is different: after the success, what is the probability that \(\theta\) itself exceeds \(1/2\)? The uniform assignment and Bayes’ theorem answer \(3/4\). The data have moved the probability attached to the upper half of the chance. {{cite:dodge2008}} (p. 33)
 
 ## Definition
 
-For binomial data, \(y\) successes in \(n\) independent trials, each with unknown probability \(\theta\), a uniform distribution on \(\theta\) in \([0,1]\) was the classical initial assignment. The inverse probability of an interval \((\theta_1,\theta_2)\) is
+Inverse probability is the historical practice of assigning a probability to an unknown given the observations. Dodge’s account of the modern calculation is Bayes’ theorem in continuous form. If \(f(\theta)\) is the distribution assigned to the unknown before the data and \(f(D\mid\theta)\) is the sampling model, the distribution after the data is
 \[
-P\bigl(\theta\in(\theta_1,\theta_2)\mid y\bigr)
-=\frac{\int_{\theta_1}^{\theta_2}\theta^{y}(1-\theta)^{n-y}\,d\theta}{\int_0^1\theta^{y}(1-\theta)^{n-y}\,d\theta}.
+f(\theta\mid D)=\frac{f(D\mid\theta)\,f(\theta)}{\int f(D\mid\theta)\,f(\theta)\,d\theta}.
 \]
-Bayes evaluated the denominator: with the uniform assignment, each count \(y=0,\ldots,n\) has marginal probability \(1/(n+1)\). The numerator is an incomplete beta integral. The same uniform-binomial pair is what Laplace used.{{cite:gelman_bda2013}} (pp. 30–31)
+The first two steps — name the observations, and name a parametric family for them — are shared with every parametric analysis. The third step, a distribution for \(\theta\) before the data, is the one that makes a probability for \(\theta\) available afterwards. The distribution \(f(\theta\mid D)\) is the final distribution in that vocabulary, and the posterior in the current one. {{cite:dodge2008}} (pp. 32–33)
 
-The unknown is treated as carrying a probability distribution because it is unknown. The distribution after the data is proportional to the initial distribution times the likelihood. That product, normalised, is the posterior distribution whose probabilities are the inverse probabilities of the older language.{{cite:dodge2008}} (pp. 32–33)
-
-Direct probability runs from cause to effect: the unknown chance is given, and the data are random. Inverse probability runs from effect to cause: the data are now the fixed record, and the chance is what carries the probability. The arithmetic is [Bayes' rule](bayes-rule.qmd). What made the step a distinct historical topic is the willingness to put a probability distribution on the chance before any observations, and then to condition.{{cite:gelman_bda2013}} (pp. 30–31){{cite:dodge2008}} (p. 32)
-
-The interval probability above is a [posterior probability](posterior-probability.qmd). Computing it, and summarising the resulting distribution, is [Bayesian inference](bayesian-inference.qmd). The uniform distribution together with the binomial sampling model is a [Bayesian model](bayesian-model.qmd). The beta family that falls out of the uniform-binomial pair is the [beta distribution](beta-distribution.qmd). Current practice keeps the inversion and is free to replace the uniform distribution by another prior when there is information about \(\theta\); the uniform choice is one model, not a requirement of the inversion.{{cite:gelman_bda2013}} (pp. 29–32){{cite:dodge2008}} (pp. 32–33)
-
-The probability of the data given a fixed chance is the direct probability. Inverse probability is a probability for the chance given the data, and it depends on the distribution that was assigned to the chance before the data. With a uniform assignment, a posterior probability for an interval of \(\theta\) is not the relative frequency of that interval in repeated samples. Replacing the uniform distribution changes the inverse probability even when the observed count stays the same.{{cite:gelman_bda2013}} (pp. 30–32){{cite:dodge2008}} (pp. 32–33)
-
-The general identity, of which the binomial formula is one case, is [Bayes' rule](bayes-rule.qmd). The discipline that now contains the method is [Bayesian statistics](bayesian-statistics.qmd). Putting a probability on the unknown chance in the first place is [Bayesian probability](bayesian-probability.qmd). The integral in the denominator is a [normalizing constant](normalizing-constant.qmd).{{cite:gelman_bda2013}} (pp. 7, 31, 42)
+Gelman’s statement of the same inversion in odds form is short. The posterior odds of one value against another equal the prior odds multiplied by the likelihood ratio of the observed data. The marginal probability of the data cancels, which is why the odds form is the convenient one. A probability for the unknown given the data is what the older name “inverse probability” was pointing at. {{cite:gelman_bda2013}} (Ch. 1, §1.3, p. 8)
 
 ## Properties
 
-Under the uniform assignment, the posterior distribution of \(\theta\) given \(y\) successes in \(n\) trials is the beta distribution with parameters \(y+1\) and \(n-y+1\). Its density on \((0,1)\) is
+Take \(\theta\) uniform on \([0,1]\), so \(f(\theta)=1\), and let \(y\) successes occur in \(n\) independent Bernoulli trials. The likelihood is \(\theta^y(1-\theta)^{n-y}\). The posterior density is proportional to that likelihood. For one success in one trial the kernel is \(\theta\), and \(\int_0^1\theta\,d\theta=1/2\), so the posterior density is \(2\theta\). Then
 \[
-p(\theta\mid y)=(n+1)\binom{n}{y}\theta^{y}(1-\theta)^{n-y}.
+P(\theta>1/2\mid y=1)=\int_{1/2}^1 2\theta\,d\theta=1-\left(\frac{1}{2}\right)^2=\frac{3}{4}.
 \]
-The marginal probability \(1/(n+1)\) is what makes the binomial coefficient and this beta density consistent: the joint probability of \((y,\theta)\) integrates in \(\theta\) to \(1/(n+1)\).{{cite:gelman_bda2013}} (pp. 30–31)
+The marginal probability of the success, the denominator in Bayes’ theorem, is \(1/(1+1)=1/2\). {{cite:dodge2008}} (p. 33)
 
-The posterior mean is \((y+1)/(n+2)\). For a single new trial, exchangeable with the first \(n\), the probability of success is that same mean. At the extreme samples \(y=0\) and \(y=n\) the predictive probabilities are \(1/(n+2)\) and \((n+1)/(n+2)\). This is Laplace's rule of succession for the uniform prior.{{cite:gelman_bda2013}} (pp. 31–32)
+For a single failure the kernel is \(1-\theta\), the posterior density is \(2(1-\theta)\), and
+\[
+P(\theta>1/2\mid y=0)=\int_{1/2}^1 2(1-\theta)\,d\theta=\frac{1}{4}.
+\]
+A success pushes probability toward larger chances. A failure pushes it toward smaller ones. The uniform assignment is one choice of \(f(\theta)\). A different initial distribution produces a different inverse probability from the same count. {{cite:dodge2008}} (pp. 32–33)
+
+The hemophilia example in Gelman is the same inversion with a discrete unknown. A woman has prior probability \(1/2\) of being a carrier. Two unaffected sons have likelihood \(0.25\) if she is a carrier and \(1\) if she is not. The prior odds are \(1\). The likelihood ratio is \(0.25\). The posterior odds are \(0.25\), and the posterior probability is \(0.25/(1+0.25)=0.2\). Adding a third unaffected son updates that probability to \(0.111\) without rebuilding the whole table: the previous posterior becomes the next prior. {{cite:gelman_bda2013}} (Ch. 1, §1.4, pp. 8–9)
 
 ## Worked example
 
-Take one trial, \(n=1\), and suppose it is a success, \(y=1\), with \(\theta\) uniform on \([0,1]\). The kernel is \(\theta\), and \(\int_0^1\theta\,d\theta=1/2\), so the posterior density is \(2\theta\). Then
-\[
-P(\theta>1/2\mid y=1)=\int_{1/2}^1 2\theta\,d\theta=\bigl[\theta^2\bigr]_{1/2}^1=1-\tfrac14=\tfrac34.
-\]
-The direct probability of a success when \(\theta=1/2\) is \(1/2\). The inverse probability that \(\theta\) exceeds \(1/2\), after a success, is \(3/4\). The marginal probability of the success is \(1/(1+1)=1/2\).{{cite:gelman_bda2013}} (pp. 30–31)
+One trial, one success, \(\theta\) uniform on \([0,1]\). The posterior density is \(2\theta\). The probability that the chance exceeds one half is \(3/4\). The direct probability of a success when the chance equals one half remains \(1/2\). Those are different probabilities. The first is about \(\theta\) after the data. The second is about the data at a fixed \(\theta\). {{cite:dodge2008}} (p. 33) {{cite:gelman_bda2013}} (Ch. 1, §1.3, p. 8)
 
-**Your turn.** The single trial is a failure, so \(y=0\). The posterior density is \(2(1-\theta)\). Find \(P(\theta>1/2\mid y=0)\).
+**Your turn.** The single trial is a failure, so the posterior density is \(2(1-\theta)\). Find \(P(\theta>1/2\mid y=0)\).
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The integral is \(\int_{1/2}^1 2(1-\theta)\,d\theta=\bigl[2\theta-\theta^2\bigr]_{1/2}^1=(2-1)-(1-1/4)=1/4\).
@@ -53,8 +44,10 @@ The integral is \(\int_{1/2}^1 2(1-\theta)\,d\theta=\bigl[2\theta-\theta^2\bigr]
 
 ## Assumptions and limits
 
-The closed beta form uses a uniform distribution on a chance that lies in \([0,1]\), and independent Bernoulli trials. Another prior replaces \(y+1\) and \(n-y+1\) by different beta parameters, or leaves no beta distribution at all. Bayes's evaluation of the marginal probability as \(1/(n+1)\) is special to the uniform assignment: it says that, before the trials, every count from \(0\) to \(n\) is equally likely. The normal approximation Laplace used for the incomplete beta integral is an approximation for large counts, not an identity.{{cite:gelman_bda2013}} (pp. 30–32)
+The inversion needs a distribution for the unknown before the data. Dodge is explicit that this step is the problematic one: without supplementary information one looks for a reference distribution, and the uniform distribution on a chance is one such choice, not a requirement of Bayes’ theorem. A posterior probability computed under that choice is not the relative frequency of the interval in repeated samples. [Frequentist inference](frequentist-inference.qmd) scores procedures by those frequencies. Inverse probability scores the unknown. {{cite:dodge2008}} (pp. 32–33) {{cite:gelman_bda2013}} (Ch. 1, §1.1, p. 3)
+
+The likelihood has to be the sampling model for the observations that were actually used. In the Bernoulli case the trials are independent given \(\theta\). If they are not, the product \(\theta^y(1-\theta)^{n-y}\) is the wrong likelihood and the posterior is the posterior for a different experiment. The hemophilia calculation ignores the mutation rate, which Gelman notes is small enough to set aside for that example. Putting the mutation rate back would change both likelihoods and the posterior probability of being a carrier. {{cite:gelman_bda2013}} (Ch. 1, §1.4, p. 9) {{cite:dodge2008}} (p. 33)
 
 ## History
 
-Seventeenth- and early eighteenth-century probability, including Jacob Bernoulli's law of large numbers for a binomial proportion, answered the direct question. Bayes, whose essay appeared in the *Philosophical Transactions* in 1763, and Laplace, working independently, are credited with the inversion: a probability for the unknown chance given the count. Bayes's argument pictured the unknown chance as the position of a ball thrown uniformly onto a table, and the successes as further balls landing to one side of it. The phrase inverse probability is the later name for that inversion. A uniform prior remained the worked example, including Laplace's analysis of \(241{,}945\) girls and \(251{,}527\) boys born in Paris, for which the probability of a female proportion of at least one half was tiny.{{cite:gelman_bda2013}} (pp. 30–31, 56){{cite:dodge2008}} (p. 32)
+Bayes’s theorem is named for Thomas Bayes and was presented by Richard Price to the Royal Society on 23 December 1763, two years after Bayes’s death. The continuous form used above is the form in which a density for a parameter is updated by a likelihood. Laplace’s analytic theory of probabilities carried the same inversion into astronomical and demographic calculations. The twentieth-century name for the practice is Bayesian statistics: identify the data, name a sampling model, name an initial distribution, and calculate the final distribution. Inverse probability is the older name for that final distribution’s probabilities. {{cite:dodge2008}} (pp. 31–33) {{cite:gelman_bda2013}} (Ch. 1, §1.3, p. 8)

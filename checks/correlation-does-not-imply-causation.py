@@ -1,25 +1,38 @@
-"""Checks for the correlation-does-not-imply-causation concept page."""
-import json, re
+"""Checks for the correlation-does-not-imply-causation research page."""
+import re
+from fractions import Fraction
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("correlation-does-not-imply-causation", [])
-prose = (root / "research/content/correlation-does-not-imply-causation.md").read_text()
-cites = re.findall(r"\{cite:([^}]+)\}", prose)
-assert len(cites) >= 5, len(cites)
-assert len(set(cites)) >= 2
+prose = (root / "research/content/correlation-does-not-imply-causation.md").read_text(encoding="utf-8")
+cites = re.findall(r"\{\{cite:([^}]+)\}\}", prose)
+assert len(cites) >= 5, cites
+assert len(set(cites)) >= 2, set(cites)
+found = []
+for line in prose.splitlines():
+    if line.startswith("## "):
+        found.append(line[3:].split(" — ")[0].strip())
+assert found == [
+    'Lead context',
+    'Motivating example',
+    'Intuition',
+    'Definition',
+    'Statistical use',
+    'Worked example',
+    'Common misconceptions',
+    'Connections',
+], found
+assert "## Check yourself" not in prose
 assert "**Your turn.**" in prose
 assert '::: {.callout-tip collapse="true" title="Answer"}' in prose
-answer = prose.split('title="Answer"}', 1)[1].split(":::", 1)[0]
-assert "{cite:" not in answer
-assert 2 <= len(self_checks) <= 3
-for item in self_checks:
-    assert "{cite:" not in item["answer"]
-
-from fractions import Fraction
+answer = re.search(
+    r'::: \{\.callout-tip collapse="true" title="Answer"\}(.*?):::',
+    prose,
+    re.S,
+)
+assert answer and "{cite:" not in answer.group(1)
 assert 7 * 7 - 3 * 13 == 10
 assert Fraction(7, 13) - Fraction(3, 7) == Fraction(10, 91)
 assert Fraction(10, 20) - Fraction(10, 20) == 0
 assert Fraction(8, 20) - Fraction(12, 20) == Fraction(-1, 5)
-
-print("correlation-does-not-imply-causation:", len(cites), "cites,", len(set(cites)), "keys")
+print("correlation-does-not-imply-causation checks passed")

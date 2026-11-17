@@ -1,5 +1,3 @@
-
-
 ## Lead context
 
 A phone, a hospital, or a sensor can collect the records a model needs and still be a bad place to empty those records into one warehouse. Federated learning trains the shared model by moving updates, not the records.{{cite:mcmahan2017}} (p. 1) {{cite:li_sahu_talwalkar_smith2019}} (p. 1)
@@ -20,18 +18,6 @@ The setting was introduced for mobile devices coordinated by a server, under the
 
 The optimisation problem inside that protocol is not ordinary distributed optimisation on a cluster. The local samples are typically not identically distributed, the clients are unbalanced, and communication dominates the cost. The Federated Averaging procedure runs local stochastic gradient steps on each selected client and averages the resulting models at the server.{{cite:mcmahan2017}} (pp. 1–2)
 
-The protocol is a way to fit a shared predictor, such as a next-word model on phones, when centralising the text is both a privacy risk and a heavy transfer. Each round, some devices train locally on their own, non-identical data and return an update; the server returns a new global model. [Supervised learning](supervised-learning.qmd) is still the learning problem on each device when the device can form its own labels. The federation changes where the fit is computed and how the fits are merged.{{cite:li_sahu_talwalkar_smith2019}} (p. 1) {{cite:mcmahan2017}} (pp. 1–2)
-
-Weighting an average of local means by $n_k$ is the merge that recovers the pooled mean. The same caution applies to a model average: a client with a handful of cases should not automatically pull the shared model as hard as a client with thousands, unless the goal really is an average across clients rather than across cases.{{cite:mcmahan2017}} (pp. 1–2)
-
-Keeping the records on the devices is not a proof that the updates reveal nothing about those records. The server still receives quantities computed from the local samples, and the formulation is explicit that some trust in the coordinator remains and that attacks on the updates are still possible. Privacy methods can be wrapped around the updates. They are an extra layer, not a consequence of the word federation.{{cite:mcmahan2017}} (pp. 1–2)
-
-The average of client models is not automatically the fit one would have obtained by pooling the cases. The clinic calculation is the mean, the simplest fit, and already $6\neq 14/3$ when the clinics have different sizes.{{cite:mcmahan2017}} (pp. 1–2)
-
-A simulation that randomly splits one laboratory file across imaginary clients misses the feature the method was built for. The local distributions are allowed to differ, and in the intended applications they do.{{cite:mcmahan2017}} (pp. 1–2) {{cite:li_sahu_talwalkar_smith2019}} (p. 1)
-
-The name and the mobile-device formulation, with local stochastic gradient steps and a server that averages models, were set out for deep networks trained on decentralised data, with an emphasis on communication cost and on unbalanced, non-identical local samples.{{cite:mcmahan2017}} (pp. 1–2) A later survey places the same idea in a wider set of remote devices and silos, including phones and hospitals, and treats the departure from ordinary distributed optimisation and from privacy-preserving analysis as the research problem the protocol creates.{{cite:li_sahu_talwalkar_smith2019}} (p. 1)
-
 ## Properties
 
 If client $k$ has $n_k$ observations with mean $\bar y_k$, the pooled mean is $\sum_k n_k\bar y_k\big/\sum_k n_k$. An unweighted mean of the $\bar y_k$ equals the pooled mean when the $n_k$ are equal, and not in general otherwise. In the clinic numbers, $n_1=2$, $\bar y_1=2$, $n_2=1$, $\bar y_2=10$. The pooled mean is $14/3$. The unweighted mean is $6$. The difference is $4/3$.
@@ -39,6 +25,10 @@ If client $k$ has $n_k$ observations with mean $\bar y_k$, the pooled mean is $\
 If the second clinic also has two cases equal to $10$, then $n_1=n_2=2$ and both averages equal $6$. Equal client sizes, not equal client means, are what make the unweighted average of means agree with the pooled mean.{{cite:mcmahan2017}} (pp. 1–2)
 
 A reported empirical comparison, on deep networks and several data sets, found that this style of local updating and averaging cut the number of communication rounds by a factor of $10$ to $100$ relative to a synchronised stochastic gradient step after every small batch. That factor is a statement about those experiments. It is not an identity like $14/3$.{{cite:mcmahan2017}} (p. 1)
+
+The protocol is a way to fit a shared predictor, such as a next-word model on phones, when centralising the text is both a privacy risk and a heavy transfer. Each round, some devices train locally on their own, non-identical data and return an update; the server returns a new global model. [Supervised learning](supervised-learning.qmd) is still the learning problem on each device when the device can form its own labels. The federation changes where the fit is computed and how the fits are merged.{{cite:li_sahu_talwalkar_smith2019}} (p. 1) {{cite:mcmahan2017}} (pp. 1–2)
+
+Weighting an average of local means by $n_k$ is the merge that recovers the pooled mean. The same caution applies to a model average: a client with a handful of cases should not automatically pull the shared model as hard as a client with thousands, unless the goal really is an average across clients rather than across cases.{{cite:mcmahan2017}} (pp. 1–2)
 
 ## Worked example
 
@@ -60,6 +50,14 @@ The useful case assumes that a shared objective can be written as a sum of local
 
 The $10$ to $100$ fold drop in communication rounds is an experimental report about particular networks and data sets. A new model can communicate more, not less, if the local steps are unstable. The identity $14/3$ does not depend on that report.{{cite:mcmahan2017}} (p. 1)
 
+Keeping the records on the devices is not a proof that the updates reveal nothing about those records. The server still receives quantities computed from the local samples, and the formulation is explicit that some trust in the coordinator remains and that attacks on the updates are still possible. Privacy methods can be wrapped around the updates. They are an extra layer, not a consequence of the word federation.{{cite:mcmahan2017}} (pp. 1–2)
+
+The average of client models is not automatically the fit one would have obtained by pooling the cases. The clinic calculation is the mean, the simplest fit, and already $6\neq 14/3$ when the clinics have different sizes.{{cite:mcmahan2017}} (pp. 1–2)
+
+A simulation that randomly splits one laboratory file across imaginary clients misses the feature the method was built for. The local distributions are allowed to differ, and in the intended applications they do.{{cite:mcmahan2017}} (pp. 1–2) {{cite:li_sahu_talwalkar_smith2019}} (p. 1)
+
 ## Connections
 
 On each client the fit is a [machine learning](machine-learning.qmd) problem, often a [supervised learning](supervised-learning.qmd) problem when the label is observed locally. [Classification](classification.qmd) of on-device examples is one such problem. The federation is orthogonal to the choice of loss: it constrains where the data sit and what may be transmitted. It is not [cluster analysis](cluster-analysis.qmd), and it is not a [dimensionality reduction](dimensionality-reduction.qmd) of a single pooled matrix, because the matrix is never pooled.{{cite:li_sahu_talwalkar_smith2019}} (p. 1) {{cite:mcmahan2017}} (pp. 1–2)
+
+The name and the mobile-device formulation, with local stochastic gradient steps and a server that averages models, were set out for deep networks trained on decentralised data, with an emphasis on communication cost and on unbalanced, non-identical local samples.{{cite:mcmahan2017}} (pp. 1–2) A later survey places the same idea in a wider set of remote devices and silos, including phones and hospitals, and treats the departure from ordinary distributed optimisation and from privacy-preserving analysis as the research problem the protocol creates.{{cite:li_sahu_talwalkar_smith2019}} (p. 1)

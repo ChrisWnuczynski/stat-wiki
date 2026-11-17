@@ -1,59 +1,43 @@
-
-
 ## Lead context
-
-Repeat a measurement of the same quantity under the same conditions and the readings still differ. The part of each reading that scatters, rather than landing in the same direction every time, is random error.{{cite:dodge2008}} (p. 183, random error){{cite:nist_type_a2002}} (§2.5.3, random error is not removed by a correction)
+A random error is a chance deviation that scatters from one repeated measurement of the same quantity to the next. The error of a single reading is the difference between the estimated value and the reference value. The random part of that error is the part whose statistical properties are studied with probabilities, as distinct from a systematic shift that always runs in the same direction.{{cite:dodge2008}} (pp. 182–183)
 
 ## Motivating example
-
-Four technicians measure a rod whose reference length is $10.00$ cm and record $9.7$, $10.2$, $9.9$ and $10.4$. The average is $10.05$. The gaps from that average are $-0.35$, $0.15$, $-0.15$ and $0.35$, and they sum to zero. No single reading is the length, and no single gap has a cause one would correct and then forget. Averaging is the relevant operation: the error of the average, $0.05$ cm against the reference, is smaller than the typical single gap.{{cite:dodge2008}} (p. 183, chance error studied with probabilities)
+A rod whose reference length is \(10\) cm is read four times: \(9.7\), \(10.2\), \(9.9\), and \(10.4\). The four numbers are not the same, and none of them has to equal \(10\). The scatter among them is the random error of this series. Their average can sit close to \(10\) while each reading sits away from it. A correction that shifts every reading by the same amount would move the average. It would not make the four readings equal.{{cite:dodge2008}} (p. 183){{cite:nist_type_a2002}} (§2.5.3)
 
 ## Intuition
-
-Random error is what is left when the persistent causes have been named and removed, or when they were never there. It is tied to the instrument and to the person using it, and its size is described by a distribution rather than by a single signed correction. The classical models for that distribution, from discrete laws in the eighteenth century through the normal law, were built so that an average of several readings would sit closer to the reference value than a single reading does. Squared or absolute deviations from the average estimate the scale of the scatter. They do not estimate a shift that is common to every reading.{{cite:dodge2008}} (pp. 182–183, error distributions and the average as an approximation to the reference)
+Imagine the same measurement repeated under the same conditions. If the only disturbances are small and change direction from trial to trial, the readings form a cloud around the reference. The width of the cloud is the scale of the random error. A disturbance that pushes every reading high, such as a mis-calibrated zero, moves the whole cloud. That shift is systematic. The cloud's width is still the random error. Probability is the language for the cloud, because the next reading is not fixed by the previous one.{{cite:dodge2008}} (pp. 182–183){{cite:nist_type_a2002}} (§2.5.3)
 
 ## Definition
+Dodge distinguishes the absolute error, the absolute difference between the observed value and the reference value, from the relative error, that absolute difference divided by the value of the quantity. The random error is the chance error resulting from a combination of errors due to the instrument and the user. Its statistical properties and its estimation are studied using probabilities. The systematic error comes from consistent causes, for example an improper calibration, and always happens in the same direction. Bias in statistics is a particular example of that systematic error. The residual error is a third object: the difference between an estimated value and the observed value, as when a fitted mean is subtracted from a point.{{cite:dodge2008}} (p. 183)
 
-In metrology, the random error of a measurement is the chance error that comes from the instrument, the user, or both acting together. Its statistical properties are handled with probability, not with a fixed correction. It is distinct from the systematic error, which arises from a consistent cause and falls in the same direction on repetition, and from the residual in a regression, which is the gap between an observation and a fitted value rather than the gap between an observation and a reference value.{{cite:dodge2008}} (p. 183)
-
-A component of uncertainty is treated as random error when the reported result is meant to stand for a randomly chosen member of a class, such as any instrument from a batch of similar instruments. The differences among those instruments then scatter. If instead the report is about one named instrument, that instrument's offset from the batch is a bias, and the analysis changes. Random errors are not removed by applying a correction. Biases, in principle, are.{{cite:nist_type_a2002}} (§2.5.3)
-
-The scale is estimated from replicates, from a check standard, or from a designed comparison that covers the conditions under which the measurement will be repeated. The standard deviation of those replicates is the usual summary of the random component.{{cite:nist_type_a2002}} (§2.5.3, type A evaluation of random errors)
-
-Quote the average as the measured value and the standard deviation of the mean, or a limit built from it, as the contribution of random error. Do not subtract an estimated random gap from a single reading and then treat the result as exact. If a reference value is available, the average minus the reference still contains the systematic error. On the rod that difference is $0.05$ cm, and it is an estimate of the shift only after the random part has been reduced by averaging. A single reading of $10.4$ cannot be split into those two parts.{{cite:nist_type_a2002}} (§2.5.3){{cite:dodge2008}} (p. 183)
-
-Random error is not the residual from a regression. A residual is $y_i-\hat y_i$, the gap to a fitted mean that may itself be estimated from many different $x$ values. Random error, in the metrological sense, is scatter in repeated measurements of one quantity. The two can be modelled by similar probability laws, and they are still different gaps.{{cite:dodge2008}} (p. 183, residual error contrasted with random error)
-
-Averaging does not cancel a systematic error. If every reading is long by a millimetre, the average is long by a millimetre. The $1/\sqrt{n}$ reduction applies to the random component.{{cite:nist_type_a2002}} (§2.5.3, random errors cannot be corrected; biases can)
-
-A small random error is not the same thing as an accurate measurement. Accuracy also requires a small systematic offset. A precise instrument can be precisely wrong.{{cite:nist_glossary2002}} (Glossary, "accuracy", precision and the systematic offset)
-
-Descriptions of the error in a repeated measurement, as a probability distribution, go back to the eighteenth century. Simpson, in a letter of 1756 to the Royal Society, treated the probability of an error of a given size as a discrete distribution, so that the advantage of taking a mean could be calculated. Laplace and others continued the discrete and continuous cases. Gauss, in 1809, put forward the normal distribution as the leading law for measurement error. The later split into random and systematic parts is a metrological classification of those errors, not a single formula from that early work.{{cite:dodge2008}} (pp. 182–183)
+A Type A evaluation of uncertainty is a statistical analysis of data. It can be applied to random error or to bias. The distinction that the evaluation has to keep is that random errors cannot be corrected, while biases can, at least in principle, be corrected or eliminated from the result. The ISO guidelines used in that handbook section assume that biases have been corrected, so that the uncertainty left from a bias is the uncertainty of the correction.{{cite:nist_type_a2002}} (§2.5.3)
 
 ## Properties
+For the four rod readings the mean is
+\[
+\frac{9.7+10.2+9.9+10.4}{4}=\frac{40.2}{4}=10.05.
+\]
+The deviations from the mean are \(-0.35\), \(0.15\), \(-0.15\), and \(0.35\). The sum of their squares is
+\[
+0.35^2+0.15^2+0.15^2+0.35^2=0.1225+0.0225+0.0225+0.1225=0.29.
+\]
+The error of the mean against the reference \(10\) is \(10.05-10=0.05\) cm. The sum of squared deviations, \(0.29\), describes the scatter of the readings about their own mean. The \(0.05\) describes where that mean sits relative to the reference. Those are different summaries. A large scatter can coexist with a small error of the mean, and a small scatter can coexist with a mean that is far from the reference if the shift is shared by every reading.{{cite:dodge2008}} (p. 183){{cite:nist_type_a2002}} (§2.5.3)
 
-On the rod, the four deviations from the sample mean sum in squares to $0.29$. Dividing by $3$, one less than the number of readings, gives $0.29/3\approx 0.0967$, and the square root is about $0.311$ cm. The square root of that quantity divided by $4$ is about $0.155$ cm, a scale for the mean rather than for a single reading. The error of the mean against the reference is $0.05$ cm, smaller than the largest single deviation, $0.35$ cm. That is the content of averaging for this series: the scatter of the mean is estimated from the scatter of the readings, and it is smaller. A further series reduces that scatter only when the new readings are fresh repeats rather than copies of the same mistake.{{cite:dodge2008}} (p. 183, estimation of random errors by probabilities)
-
-The decomposition "error equals random error plus systematic error" is a modelling statement. In a report of uncertainty the two are easy to mix up, because a component that scatters across a batch of instruments becomes a fixed offset once the report is about one instrument. The label follows the question, not the hardware.{{cite:nist_type_a2002}} (§2.5.3, the same differences can be a random effect or a bias)
+The same differences among instruments can be a random effect or a bias, according to the uncertainty statement. If several instruments are treated as a draw from a batch, and the statement is meant to cover an instrument selected at random from that batch, the differences are a random effect. If the statement is meant to cover one named instrument, the difference of that instrument from the batch is the bias of interest.{{cite:nist_type_a2002}} (§2.5.3)
 
 ## Worked example
+The rod series has mean \(10.05\), sum of squared deviations \(0.29\), and error of the mean \(0.05\) cm against the reference \(10\). The largest absolute deviation from the mean is \(0.35\) cm, on both the low reading \(9.7\) and the high reading \(10.4\). The random error of this short series is visible in that \(0.35\) cm and in the sum \(0.29\). It is not visible in the \(0.05\) cm, which is the shift of the average.{{cite:dodge2008}} (p. 183)
 
-Reference length $10.00$ cm. Readings $9.7$, $10.2$, $9.9$, $10.4$.
-
-The mean is $(9.7+10.2+9.9+10.4)/4=10.05$. Deviations from the mean are $-0.35$, $0.15$, $-0.15$, $0.35$. Their squares are $0.1225$, $0.0225$, $0.0225$, $0.1225$, and the sum of squares is $0.29$. With three degrees of freedom the sample variance is $0.29/3=0.096\overline{6}$, and the sample standard deviation is $\sqrt{0.29/3}\approx 0.3109$ cm. The estimated standard deviation of the mean is $\sqrt{0.29/12}\approx 0.1555$ cm.
-
-The errors against the reference are $-0.3$, $0.2$, $-0.1$, $0.4$. They do not sum to zero. Their average, $0.05$, is the error of the mean. The deviations from the mean are the part that averaging has already centred. They are the visible random scatter in this series.{{cite:dodge2008}} (p. 183)
-
-**Your turn.** Three readings of a $10$ cm rod are $8$, $10$ and $12$. Find the mean, the sum of squared deviations from the mean, and the error of the mean against the reference.
+**Your turn.** Three readings of a \(10\) cm rod are \(8\), \(10\), and \(12\). Find the mean, the sum of squared deviations from the mean, and the error of the mean against the reference.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $10$. Squared deviations from the mean are $4$, $0$ and $4$, so the sum of squares is $8$. The error of the mean against $10$ is $0$.
+The mean is \(10\). The deviations are \(-2\), \(0\), and \(2\), and the sum of squared deviations is \(8\). The error of the mean against \(10\) is \(0\).
 :::
 
 ## Assumptions and limits
+Further readings shrink the error of the mean when the disturbances really do change direction from trial to trial and share a common centre. They do not shrink a systematic shift. If every reading is \(0.2\) cm high because the zero is wrong, the mean of more readings is still about \(0.2\) cm high. The sum of squared deviations can be small in that case. Small scatter is not evidence that the mean equals the reference.{{cite:nist_type_a2002}} (§2.5.3){{cite:dodge2008}} (p. 183)
 
-The variance formula $\sigma^2/n$ uses uncorrelated readings and a common variance. Readings taken in a hurry by the same person, or taken while the instrument drifts, are correlated, and the variance of the mean is then larger than $\sigma^2/n$. A designed comparison is needed when the random component includes day-to-day changes rather than only the scatter of repeats within a minute. And no number of repeats estimates a bias that is shared by all of them. That bias is a systematic error, estimated by comparison with a reference, not by the standard deviation of the series.{{cite:nist_type_a2002}} (§2.5.3){{cite:dodge2008}} (p. 183)
+A residual from a fitted curve is not the random error of a repeated measurement of a fixed reference. The residual uses an estimate in place of the reference, and the estimate was computed from the same observations. Quoting the residual sum of squares as if it were the scatter of repeated measurements of one standard mixes those two differences.{{cite:dodge2008}} (p. 183)
 
 ## Connections
-
-[Systematic error](systematic-error.qmd) is the persistent companion of random error. [Measurement error](measurement-error.qmd) is the broader gap between a recorded value and the quantity, and it contains both. [Errors and residuals](error-and-residual.qmd) separate a deviation from a true mean from a deviation from a fitted value. The [standard error](standard-error.qmd) of a mean is the scale of the random component after averaging.{{cite:dodge2008}} (p. 183){{cite:nist_glossary2002}} (Glossary, "measurement error")
+[Systematic error](systematic-error.qmd) is the shift that a correction is aimed at. [Measurement error](measurement-error.qmd) is the broader difference between a recorded value and the quantity being measured, of which the random error is the chance part. The [standard error](standard-error.qmd) of a mean is the scale of the mean's sampling variability, which is the random-error scale divided by a function of the number of readings when the readings are uncorrelated. Accuracy, in the metrology glossary, includes both the precision of the scatter and the systematic offset of the average from the reference. Precision alone leaves the offset out.{{cite:nist_glossary2002}} (Glossary, "accuracy"){{cite:dodge2008}} (p. 183)

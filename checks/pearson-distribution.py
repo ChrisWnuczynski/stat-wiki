@@ -1,50 +1,69 @@
 """Checks for pearson-distribution."""
 import json
-import math
 import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-self_checks = json.loads((root / "research/self-checks.json").read_text(encoding="utf-8")).get("pearson-distribution", [])
-slug = "pearson-distribution"
-text = (root / "research/content" / f"{slug}.md").read_text()
-cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", text)
+slug = 'pearson-distribution'
+prose = (root / "research/content" / f"{slug}.md").read_text(encoding="utf-8")
+bib = json.loads((root / "bibliography.json").read_text(encoding="utf-8"))
+cites = re.findall(r"\{\{cite:([a-z0-9_]+)\}\}", prose)
 assert len(cites) >= 5, len(cites)
-assert len(set(cites)) >= 2
-assert "**Your turn.**" in text
-assert '::: {.callout-tip collapse="true" title="Answer"}' in text
-answer = text.split('title="Answer"}', 1)[1].split(":::", 1)[0]
-assert "{{cite:" not in answer
-assert 2 <= len(self_checks) <= 3
-for item in self_checks:
-    assert "{{cite:" not in item["answer"]
-
-# n = 100 boundary for a trigonometric integral.
+assert len(set(cites)) >= 2, set(cites)
+assert set(cites) <= set(bib["works"])
+headings = ['Lead context', 'Motivating example', 'Intuition', 'Definition', 'Properties', 'Worked example', 'Assumptions and limits', 'Connections']
+positions = []
+for heading in headings:
+    idx = prose.find("## " + heading)
+    assert idx != -1, heading
+    positions.append(idx)
+assert positions == sorted(positions)
+found = re.findall(r"^## .+$", prose, flags=re.M)
+assert found == ["## " + h for h in headings], found
+for phrase in (
+    'not a claim',
+    'not claimed',
+    'this page',
+    'Dodge states',
+    'the manual',
+    'question book',
+    'question bank',
+    'letter opener',
+    'Wikipedia',
+    'Grokipedia',
+):
+    assert phrase not in prose, phrase
+for match in re.finditer(r"\{\{cite:openintro2019\}\}\s*\(([^)]*)\)", prose):
+    locator = match.group(1)
+    assert "p." not in locator, locator
+    assert "Ch." in locator or "§" in locator, locator
+words = len(prose.split())
+assert "**Your turn.**" in prose
+assert "## Check yourself" not in prose
+assert 'collapse="true" title="Answer"' in prose
+hidden = re.findall(r'title="Answer"\}(.*?)\n:+', prose, flags=re.S)
+assert hidden, "missing answer callout"
+for block in hidden:
+    assert "{cite:" not in block
+import math
 half = math.sqrt(0.0101)
 assert abs(0.5 + half - 0.600498756) < 1e-8
 assert abs(0.5 - half - 0.399501244) < 1e-8
 assert round(0.5 + half, 4) == 0.6005
 assert round(0.5 - half, 4) == 0.3995
-
-# Type III, p = 3, gamma = 2.
 p, gamma = 3, 2
-mu2 = (p + 1) / gamma**2
-mu3 = 2 * (p + 1) / gamma**3
-mu4 = 3 * (p + 1) * (p + 3) / gamma**4
+mu2 = (p + 1) / gamma ** 2
+mu3 = 2 * (p + 1) / gamma ** 3
+mu4 = 3 * (p + 1) * (p + 3) / gamma ** 4
 assert mu2 == 1 and mu3 == 1 and mu4 == 4.5
-assert mu3 / mu2**1.5 == 1
-assert 0.5 * mu3 / mu2**1.5 == 0.5
 assert 1 / math.sqrt(p + 1) == 0.5
-assert mu4 / mu2**2 == 4.5
-
-# Your turn: p = 8, gamma = 1.
+assert mu4 / mu2 ** 2 == 4.5
 p, gamma = 8, 1
-mu2 = (p + 1) / gamma**2
-mu4 = 3 * (p + 1) * (p + 3) / gamma**4
+mu2 = (p + 1) / gamma ** 2
+mu4 = 3 * (p + 1) * (p + 3) / gamma ** 4
 assert mu2 == 9
-assert 1 / math.sqrt(p + 1) == 1 / 3
-assert mu4 / mu2**2 == 11 / 3
-
+assert abs(1 / math.sqrt(p + 1) - 1 / 3) < 1e-12
+assert mu4 / mu2 ** 2 == 11 / 3
 for printed in ("0.3995", "0.6005", "9/2", "11/3"):
-    assert printed in text, printed
-print(slug, "ok")
+    assert printed in prose, printed
+print(slug, "ok", words)

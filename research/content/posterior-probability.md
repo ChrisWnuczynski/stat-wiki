@@ -1,16 +1,12 @@
-
-
 ## Lead context
-A posterior probability is the probability a model assigns to a set of parameter values after the data are included. A [posterior hypothesis probability](posterior-hypothesis-probability.qmd) is that probability when the set is a named hypothesis. One question is about a region of a parameter. The other is about a hypothesis written as such a region.
+A posterior probability is the probability of a set of parameter values after the data have been taken into account.
 
-A posterior probability is the probability of an event about an unknown after the data have been taken into account. It is computed from a prior distribution and a sampling model, not from the sample alone.{{cite:gelman_bda2013}} (pp. 6–7)
+It is computed from a prior distribution and a sampling model, not from the sample alone. A [posterior hypothesis probability](posterior-hypothesis-probability.qmd) is that probability when the set is the region a named hypothesis picks out, such as "the heads probability is at most one half." The integral is the same kind of object. The report is not: one number is the mass of whatever set is asked for, and the other is the mass attached to a hypothesis that has been named in advance. The distribution that supplies both, and the arithmetic that turns a prior and a likelihood into a probability, are the subject here. The comparison of a named hypothesis with a \(p\)-value, and the decision that uses a loss, belong with the hypothesis probability.{{cite:gelman_bda2013}} (pp. 7–8)
 
 ## Motivating example
-
-Two explanations of a binary outcome are open: explanation \(A\) with prior probability \(1/4\), and explanation \(B\) with prior probability \(3/4\). The observed sample has probability \(1/2\) under \(A\) and probability \(1/6\) under \(B\). The question the posterior answers is how probable \(A\) is once that sample has been seen. The prior probabilities and the two sampling probabilities are the ingredients; neither ingredient is already the answer.{{cite:gelman_bda2013}} (pp. 6–9)
+Two explanations of a binary outcome are open: explanation \(A\) with prior probability \(1/4\), and explanation \(B\) with prior probability \(3/4\). The observed sample has probability \(1/2\) under \(A\) and probability \(1/6\) under \(B\). The question the posterior answers is how probable the set \(\{A\}\) is once that sample has been seen. The prior probabilities and the two sampling probabilities are the ingredients. Neither ingredient is already the answer, and neither is a hypothesis probability until someone names \(A\) or \(B\) as the hypothesis under test.{{cite:gelman_bda2013}} (pp. 7–8)
 
 ## Definition
-
 For a discrete unknown \(\theta\) and observed data \(y\),
 \[
 P(\theta=\theta_j\mid y)
@@ -22,20 +18,15 @@ p(\theta\mid y)=\frac{p(\theta)\,p(y\mid\theta)}{p(y)},
 \qquad
 p(y)=\int p(\theta)\,p(y\mid\theta)\,d\theta.
 \]
-The posterior probability of a set \(A\) of parameter values is the integral of that density over \(A\), or the sum of the point masses in \(A\). The whole function \(p(\theta\mid y)\) is the posterior distribution; a posterior probability is the mass it assigns to a specified set.{{cite:gelman_bda2013}} (pp. 6–7)
+The posterior probability of a set \(A\) of parameter values is the integral of that density over \(A\), or the sum of the point masses in \(A\). The whole function \(p(\theta\mid y)\) is the posterior distribution. A posterior probability is the mass it assigns to a specified set. When that set is the region named by a hypothesis, the mass is a [posterior hypothesis probability](posterior-hypothesis-probability.qmd). The set can also be an interval chosen to hold a stated mass, or a single point of a discrete parameter.{{cite:gelman_bda2013}} (p. 7){{cite:dodge2008}} (p. 33)
 
-In the carrier example, the set has one point, "she is a carrier", the prior probability is \(1/2\), and the likelihood of two unaffected sons is \(1/4\) against \(1\). The posterior probability of that point is \(1/5\).{{cite:gelman_bda2013}} (p. 9)
-
-Each explanation is first given its prior weight, then multiplied by the probability of the data under that explanation. Explanations that make the sample surprising are scaled down; explanations that make the sample expected are scaled up. Dividing by the sum of the weighted values turns the list into probabilities. The number on one explanation is then the share of the total weight that explanation still holds.{{cite:gelman_bda2013}} (pp. 7–8)
-
-Posterior probabilities are the numbers reported for parameter regions, for model indicators, and for events defined from future observations. A [Bayesian credible interval](bayesian-credible-interval.qmd) is an interval whose posterior probability equals a chosen level. The [posterior mean](posterior-mean.qmd) is the mean of the same distribution, not a substitute for the probability of a region. When the unknown is a model index, the posterior probability of a model is prior odds times a Bayes factor, converted back from odds, as in the [marginal likelihood and Bayes factor](marginal-likelihood-and-bayes-factor.qmd).{{cite:gelman_bda2013}} (pp. 7–8, 32–33)
-
-A likelihood value \(p(y\mid\theta)\) is not a posterior probability: the likelihoods at different parameter values need not add to one. A prior probability is the assignment before \(y\) is used. A long-run coverage probability of a confidence procedure is a property of the procedure across repeated samples, not the posterior probability that the parameter lies in one computed interval.{{cite:gelman_bda2013}} (pp. 3–4, 7–8)
-
-The operation that produces the posterior distribution is [Bayesian inference](bayesian-inference.qmd), and the identity is [Bayes' rule](bayes-rule.qmd). The joint specification required before any posterior probability can be computed is a [Bayesian model](bayesian-model.qmd). The probability calculus being used is [Bayesian probability](bayesian-probability.qmd). The factor \(p(y)\) in the denominator is the [normalizing constant](normalizing-constant.qmd).{{cite:gelman_bda2013}} (pp. 6–7, 42)
+In the carrier calculation, the set has one point, "she is a carrier." The prior probability is \(1/2\). Two unaffected sons have likelihood \(1/4\) if she is a carrier and likelihood \(1\) if she is not. The posterior probability of that point is
+\[
+\frac{(1/4)\cdot(1/2)}{(1/4)\cdot(1/2)+1\cdot(1/2)}=\frac{1}{5}=0.2.
+\]
+That number is the posterior probability of one point in a two-point parameter. It is not, by itself, a test of a scientific hypothesis about haemophilia beyond the model that was written down.{{cite:gelman_bda2013}} (p. 9)
 
 ## Properties
-
 The ratio of two posterior probabilities equals the prior odds times the likelihood ratio. The marginal probability of the data cancels, so
 \[
 \frac{P(\theta=\theta_1\mid y)}{P(\theta=\theta_2\mid y)}
@@ -43,15 +34,14 @@ The ratio of two posterior probabilities equals the prior odds times the likelih
 \]
 If the prior probability of a region is zero, the posterior probability of that region remains zero whenever the posterior is defined. Multiplying by a likelihood cannot create mass outside the prior's support.{{cite:gelman_bda2013}} (pp. 7–8)
 
-A continuous posterior assigns probability zero to any single point. The posterior probability of a hypothesis that names a region is the mass of that region, which is a [posterior hypothesis probability](posterior-hypothesis-probability.qmd). An equal-tailed posterior interval and the probability of a fixed region such as \(\{\theta\le 1/2\}\) answer different questions: the interval chooses its endpoints to put a stated mass in the tails, while the hypothesis fixes the region and reads off the mass.{{cite:gelman_bda2013}} (pp. 32–33){{cite:dodge2008}} (pp. 33–34)
+A continuous posterior assigns probability zero to any single point, even at a point where the density is positive. The probability of a set with positive length can still be large. An equal-tailed posterior interval chooses its endpoints so that the tails hold a stated mass. A fixed region such as \(\{\theta\le 1/2\}\) does the opposite: the region is chosen first and the mass is read off. Those two summaries answer different questions, and only the second is a hypothesis probability.{{cite:gelman_bda2013}} (pp. 7–8){{cite:dodge2008}} (p. 33)
 
 ## Worked example
-
 Prior probabilities are \(P(A)=1/4\) and \(P(B)=3/4\). The sampling probabilities of the observed sample are \(1/2\) under \(A\) and \(1/6\) under \(B\). The unnormalised weights are
 \[
 \tfrac14\cdot\tfrac12=\tfrac18, \qquad \tfrac34\cdot\tfrac16=\tfrac18.
 \]
-The marginal probability of the sample is \(1/8+1/8=1/4\). The posterior probability of \(A\) is \((1/8)/(1/4)=1/2\). The likelihood ratio in favour of \(A\) is \((1/2)/(1/6)=3\), and the prior odds of \(A\) against \(B\) are \((1/4)/(3/4)=1/3\), so the posterior odds are \(1\), which is the same probability \(1/2\).{{cite:gelman_bda2013}} (pp. 7–8)
+The marginal probability of the sample is \(1/8+1/8=1/4\). The posterior probability of \(A\) is \((1/8)/(1/4)=1/2\). The likelihood ratio in favour of \(A\) is \((1/2)/(1/6)=3\), and the prior odds of \(A\) against \(B\) are \((1/4)/(3/4)=1/3\), so the posterior odds are \(1\), which is the same probability \(1/2\). The data have moved the probability of \(\{A\}\) from \(1/4\) to \(1/2\). Naming \(A\) as a hypothesis would then call \(1/2\) a posterior hypothesis probability. Without that naming, \(1/2\) is only the posterior probability of the set.{{cite:gelman_bda2013}} (pp. 7–8)
 
 **Your turn.** Keep the sampling probabilities \(1/2\) and \(1/6\), and replace the prior by \(P(A)=P(B)=1/2\). What is the posterior probability of \(A\)?
 
@@ -60,9 +50,9 @@ The unnormalised weights are \((1/2)\cdot(1/2)=1/4\) and \((1/2)\cdot(1/6)=1/12\
 :::
 
 ## Assumptions and limits
+The denominator must be positive and finite. If the prior is an improper function, there is no prior probability to start from, and a posterior probability is available only after the product of that function and the likelihood has been checked to have a finite integral. The numerical value depends on the whole prior, not only on the maximum of the likelihood. A posterior probability computed under one model is conditional on that model. A dispute about the number is a dispute about the prior, the sampling model, or both.{{cite:gelman_bda2013}} (pp. 7–8){{cite:dodge2008}} (p. 31)
 
-The denominator must be positive and finite. If the prior is an improper function, there is no prior probability to start from, and a posterior probability is available only after the product of that function and the likelihood has been checked to have a finite integral. The numerical value depends on the whole prior, not only on the maximum of the likelihood. A posterior probability computed under one model is conditional on that model.{{cite:gelman_bda2013}} (pp. 7, 51–52)
+The carrier probability \(1/5\) used the likelihoods \(1/4\) and \(1\), and it ignored mutation. A different sampling story for the sons produces a different posterior probability of the same point. The arithmetic does not supply the story.{{cite:gelman_bda2013}} (p. 9)
 
 ## History
-
-Bayes's 1763 essay asked for the probability that an unknown chance lies between two bounds, given the number of successes in a fixed number of trials. That is a posterior probability for an interval of the unknown. Laplace computed the same kind of probability for the proportion of female births, under a uniform prior, and treated a tiny probability for the proportion being at least one half as decisive. The name used for this reversal, before "posterior" became standard, was inverse probability.{{cite:gelman_bda2013}} (pp. 31, 56){{cite:dodge2008}} (pp. 32–33)
+Bayes's 1763 essay asked for the probability that an unknown chance lies between two bounds, given the number of successes in a fixed number of trials. That is a posterior probability for an interval of the unknown. The continuous form used now writes the posterior density as the prior density times the likelihood, divided by the marginal probability of the data. Once that density is in hand, a mean, a median, an interval, or the probability of a named region can be computed from it. The probability of a named region is the hypothesis probability. The interval probability Bayes asked for is the set probability, whether or not anyone has called the interval a hypothesis.{{cite:dodge2008}} (pp. 31, 33){{cite:gelman_bda2013}} (p. 7)

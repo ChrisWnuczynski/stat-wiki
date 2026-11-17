@@ -1,5 +1,3 @@
-
-
 ## Lead context
 
 A woodland sample contains many oaks and one rare shrub. Counting the species says the wood is richer than a plantation of oaks alone, and it treats the shrub as equal to the oaks. A diversity index is a single number that uses both the number of classes and the way individuals are divided among those classes.
@@ -23,8 +21,6 @@ In a finite sample of size \(N\) with counts \(n_i\),
 is an unbiased estimator of \(\lambda\). The numerator counts pairs that fall inside one class, and the denominator counts all pairs. Ecologists often report a diversity form that runs the other way, \(1-\lambda\), or the reciprocal \(1/\lambda\). The reciprocal can be read as the number of equally common species that would give the same concentration.{{cite:simpson1949}} (30 April 1949){{cite:peet1974}} (section "Simpson's Index")
 
 Draw two individuals independently from a very large population. The chance they belong to the same class is high when one class dominates, and it is as small as the number of classes allows when the classes are equal. That chance is a concentration. Diversity, in the sense of evenness mixed with richness, runs in the other direction: many equal classes make the chance of a match small. The indices used in ecology are functions of this chance, or of the entropy of the same proportions.{{cite:simpson1949}} (30 April 1949){{cite:peet1974}} (section "Heterogeneity indices")
-
-The population formula assumes an infinite population and independent draws. The sample formula assumes a random sample from that population and drops samples of size 0 or 1 when the size itself is random. Every individual is assigned to one class. If the classification is arbitrary, the index inherits the arbitrariness. Spatial clustering means a convenience sample can look less diverse than the region. No index repairs a species concept that splits or lumps taxa differently in the two samples being compared.{{cite:simpson1949}} (30 April 1949){{cite:peet1974}} (section "Assumptions and data")
 
 ## Properties
 
@@ -59,6 +55,8 @@ The proportions are \(1/2\) and \(1/2\), so \(\lambda=(1/2)^2+(1/2)^2=1/2\).
 ## Common misconceptions
 
 Species richness is not a diversity index of the heterogeneity kind. Two communities with the same number of species can have very different \(\lambda\). A larger \(\lambda\) means more concentration, which is less diversity in the evenness sense; \(1-\lambda\) is the form that rises as the community becomes more mixed. The Gini coefficient of income is not this index. And \(\ell\) is not defined for a sample of size 0 or 1, because there are no pairs.{{cite:peet1974}} (section "Simpson's Index"){{cite:simpson1949}} (30 April 1949){{cite:dodge2008}} (p. 231)
+
+The population formula assumes an infinite population and independent draws. The sample formula assumes a random sample from that population and drops samples of size 0 or 1 when the size itself is random. Every individual is assigned to one class. If the classification is arbitrary, the index inherits the arbitrariness. Spatial clustering means a convenience sample can look less diverse than the region. No index repairs a species concept that splits or lumps taxa differently in the two samples being compared.{{cite:simpson1949}} (30 April 1949){{cite:peet1974}} (section "Assumptions and data")
 
 ## History
 

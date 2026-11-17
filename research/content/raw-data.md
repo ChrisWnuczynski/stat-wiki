@@ -1,59 +1,32 @@
-
-
 ## Lead context
-
-The numbers that come off the instrument or the questionnaire, before anyone has replaced them by a mean or a table of counts, are the raw data. Summaries are made from them. They are not the same object as the summary. {{cite:openintro2019}} {{cite:nist_glossary2002}} (Glossary, "data reduction")
+Raw data are the observations as recorded, before they are replaced by fewer summary numbers. In a study of stents, the record for each patient is a row: the group, and whether a stroke occurred by 30 days and by 365 days. A table of counts, such as 33 strokes in the treatment group by 30 days, is a summary of those rows. The rows are the raw data. The counts are not.{{cite:openintro2019}} (Ch. 1, §1.1)
 
 ## Motivating example
-
-A stent trial recorded, for each patient, the assignment and whether a stroke occurred. A table that collapses those records into 45 strokes among 224 treated patients and 28 strokes among 227 control patients is a summary. The patient-level records that the table compresses are the raw data. The summary is easier to read, and it has thrown away which patient was which. {{cite:openintro2019}} {{cite:openintro2019}}
+Five reaction times, in seconds, are written down as \(8\), \(11\), \(9\), \(10\), and \(12\). The scientific question may eventually be answered by their mean. The mean is one number. The five times are five numbers, and any comparison that needs to know which time was longest, or whether two times were equal, has to be made before the five are replaced. Keeping the five is what makes that comparison possible later.{{cite:openintro2019}} (Ch. 1, §1.2.1){{cite:nist_glossary2002}} (Glossary, "data reduction")
 
 ## Definition
+A record is raw when it still contains the observational units and the variables that were written down for them. In a data matrix, each row is a case and each column is a variable. The loan table that puts amount, interest rate, term, grade, state, income, and home ownership on one row per loan is that kind of record. A summary replaces several of those numbers by fewer numbers. The NIST glossary calls that replacement data reduction: calculating, from several numbers, one or fewer numbers, as when nine readings are replaced by an average and a standard deviation. The nine readings are the raw data of that reduction. The average and the standard deviation are the reduced data.{{cite:openintro2019}} (Ch. 1, §1.2.1){{cite:nist_glossary2002}} (Glossary, "data reduction")
 
-Raw data are the observations as recorded on the units, before they are reduced to a smaller set of summaries. A data matrix is the usual arrangement: each row is a case and each column is a variable. {{cite:openintro2019}} {{cite:openintro2019}}
-
-Data reduction is the calculation that turns several numbers into one or fewer. The average and the standard deviation of nine readings are a reduction from nine numbers to two. The usual benefits are simplicity, a sharper focus on the question, and a smaller file. {{cite:nist_glossary2002}} (Glossary, "data reduction")
-
-Data reduction replaces several numbers by fewer numbers. Nine readings across a wafer become a mean and a standard deviation, two numbers instead of nine. The gain is simplicity. The loss is every contrast among the nine that the two summaries do not preserve. Raw data are the observations on the upstream side of that replacement. {{cite:nist_glossary2002}} (Glossary, "data reduction")
-
-Description often begins by reducing the raw file to counts or means so that the pattern is visible. The stent table is that step: the individual outcomes are still the data, and the table is a more helpful view of them. {{cite:openintro2019}} Modelling then treats the reduced or the row-level numbers as the observations in an equation such as \(Y = \beta_0 + \beta_1 X + \varepsilon\). The residual is a comparison of the fitted value with the observation that entered the fit, so the observation has to have been retained at the level the model claims to describe. {{cite:openintro2019}} {{cite:dodge2008}} (p. 354)
-
-A published table is not the raw data. It is a reduction. Two different patient lists can share the counts 45 and 28, and the lists are not recoverable from the counts. {{cite:openintro2019}} {{cite:nist_glossary2002}} (Glossary, "data reduction")
-
-Raw does not mean correct. A wrong answer written on a form is a raw wrong answer. Cleaning and reduction are later steps, and neither is implied by calling the file raw. {{cite:nist_glossary2002}} (Glossary, "respondent error") {{cite:dodge2008}} (p. 182)
-
-[Data collection](data-collection.qmd) is how the rows arrived. [Secondary data](secondary-data.qmd) are rows that were recorded for some other purpose. [Data quality](data-quality.qmd) is whether those rows are fit to summarise. A [statistical model](statistical-model.qmd) is a later description of the rows or of summaries computed from them. The [variable](variable.qmd) is the column.
+The same distinction applies to a study that was already a table of counts in the publication. Those counts are raw relative to a further summary, such as a single proportion, and they are reduced relative to the patient-level rows that were counted. "Raw" is a relation to a later summary, not a chemical purity of the file.{{cite:openintro2019}} (Ch. 1, §1.1)
 
 ## Properties
+Reduction loses comparisons. The five times \(8\), \(11\), \(9\), \(10\), and \(12\) sum to \(50\) and have mean \(10\). The mean does not say that \(12\) was the longest or that no two times were equal. A reader who is given only \(10\) cannot recover either fact. Reduction can also be repeated: the stent rows become the four counts \(33\), \(191\), \(13\), and \(214\), and those counts can be reduced again to two proportions. Each step is a function of the previous record. None of the steps is invertible from the number it prints.{{cite:openintro2019}} (Ch. 1, §1.1){{cite:nist_glossary2002}} (Glossary, "data reduction")
 
-The raw file has one row per observational unit and one column per characteristic. New cases are new rows. New variables are new columns. {{cite:openintro2019}} A summary such as a mean has one number per group, or one number for the whole file, and the link from that number back to a named unit is gone.
-
-Reduction is not neutral. The mean of the nine wafer readings describes their centre and does not describe which position on the wafer was high. Keeping the raw layout is what makes that positional question still answerable. {{cite:nist_glossary2002}} (Glossary, "data reduction")
-
-A register of births or of sales is already a recording. It is raw relative to a later summary, and it may itself be secondary for a study that did not design the register. {{cite:dodge2008}} (p. 152)
+A correction of a mis-keyed value is not a reduction. Changing a recorded \(16\) to a recorded \(10\), because the keying was wrong, changes the record. Replacing five correct times by their mean leaves the record alone and publishes a summary. The two operations answer different questions, and only the second is data reduction.{{cite:nist_glossary2002}} (Glossary, "data reduction")
 
 ## Worked example
+The times \(8\), \(11\), \(9\), \(10\), and \(12\) sum to \(50\). Their mean is \(50/5=10\). The reduced report "mean \(10\)" is one number in place of five. The order, the largest time, and the gaps between times are no longer in the report.
 
-Five reaction times, in seconds, are 8, 11, 9, 10, and 12. Their sum is 50 and their mean is \(50/5 = 10\). The deviations from 10 are \(-2, 1, -1, 0, 2\), which sum to 0. Replacing the five numbers by the single mean 10 is a reduction from five numbers to one. The largest time, 12, is no longer visible in the mean. {{cite:nist_glossary2002}} (Glossary, "data reduction") {{cite:openintro2019}}
-
-**Your turn.** A sixth time, 16 seconds, is appended. What are the new sum and the new mean?
+**Your turn.** A sixth time, \(16\) seconds, is appended. What are the new sum and the new mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The sum is \(50 + 16 = 66\). The mean is \(66/6 = 11\).
+The new sum is \(50+16=66\). The new mean is \(66/6=11\).
 :::
 
 ## Assumptions and limits
+The record is only as good as what was written down. A respondent who answers a survey item incorrectly has already put the error into the raw data. Averaging will not mark which row was wrong. A data matrix that drops the link between a rate and the loan it belongs to has already lost the case, even if every rate is still present as a number.{{cite:nist_glossary2002}} (Glossary, "respondent error"){{cite:openintro2019}} (Ch. 1, §1.2.1)
 
-What counts as raw depends on the question. A laboratory mean of three instrument replicates is raw for a clinical data set and already reduced for the instrument log. {{cite:nist_glossary2002}} (Glossary, "data reduction") The data matrix assumes that each row is one case. A design in which one person contributes many times needs a decision about what the row is, or the later analysis will treat repeated times as if they were different people. {{cite:openintro2019}} {{cite:dodge2008}} (p. 322)
-
-
-
-A numerical boundary keeps the definition attached to a calculation. List the integers from 1 through 13. Their total is 91, so their mean is 7.0. The first three integers have mean 2. The difference between the full-list mean and that three-integer mean is 5.0. The difference is a property of which units entered the average. It is not a property of the name of the field. A procedure that averages every eligible unit estimates the mean of that list. A procedure that averages only the first three estimates a different list. Raw data has to say which list is the target before the average is interpreted.
-
-The same arithmetic limits a model fitted to the observed rows. The mean 7.0 describes the integers that were listed. Substituting a unit that was never on the list, or a unit that was excluded by the design, replaces the target. A [confidence interval](confidence-interval.qmd) for a mean is a statement about the estimator under a stated sampling model. A [standard error](standard-error.qmd) is the standard deviation of that estimator. Neither object repairs a list that was the wrong list. The procedures already named here include [Data collection](data-collection.qmd), [Secondary data](secondary-data.qmd), [Data quality](data-quality.qmd), [statistical model](statistical-model.qmd).
-
-Two further limits are algebraic. The sum of deviations from the mean 7.0 is zero, so the mean is the least-squares centre of these 13 numbers. A robust centre, or a median, answers a different minimisation. Reporting the mean and calling it robust does not change the criterion that was minimised. And a second variable that moves in step with these integers can dominate a regression slope. The slope then describes the joint list, which is a larger object than the one-column mean 7.0.
+Reduction is often the right publication. The stent table of counts is easier to read than 451 rows, and the mean of the five times is the right answer to a question about the average. The limit is the question that needed a comparison the summary destroyed. That question has to be asked of the raw record, or of a reduction that was built to keep it.{{cite:openintro2019}} (Ch. 1, §1.1){{cite:dodge2008}} (p. 150)
 
 ## History
-
-Organising observations as a rectangular array, one case per row, is the arrangement a spreadsheet still uses, and it is the arrangement recommended for recording unless there is a reason to do otherwise. {{cite:openintro2019}} The habit of replacing repeated observations by their mean, as an approximation to a reference value, is much older: it is the use Simpson and his successors made of an arithmetic mean in the eighteenth century. {{cite:dodge2008}} (p. 182)
+The practice of organising observations into a rectangular record, one row for each unit, is the data matrix of survey and experimental work. Exploratory analysis, as Tukey set it out, starts from that record: graph it, transform it, and look for values that do not belong, before a model replaces it by a few coefficients. The coefficients are a further reduction. They are not a substitute for the record when the question is what was observed.{{cite:dodge2008}} (pp. 150–151){{cite:openintro2019}} (Ch. 1, §1.2)

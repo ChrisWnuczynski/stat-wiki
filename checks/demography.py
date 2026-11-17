@@ -1,10 +1,25 @@
-"""Checks for the demography field page."""
-import json, re
+"""Checks for the demography research page."""
+import re
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-prose = (root / "research/content/demography.md").read_text()
-cites = re.findall(r"\{cite:([^}]+)\}", prose)
-assert len(cites) >= 5, len(cites)
+prose = (root / "research/content/demography.md").read_text(encoding="utf-8")
+cites = re.findall(r"\{\{cite:([^}]+)\}\}", prose)
+assert len(cites) >= 5, cites
 assert len(set(cites)) >= 2, set(cites)
-print("demography:", len(cites), "cites,", len(set(cites)), "keys")
+found = []
+for line in prose.splitlines():
+    if line.startswith("## "):
+        found.append(line[3:].split(" — ")[0].strip())
+assert found == [
+    'Lead context',
+    'Definition',
+    'Properties',
+    'History',
+    'Connections',
+], found
+assert "## Check yourself" not in prose
+assert "**Your turn.**" not in prose
+words = re.findall(r"[A-Za-z0-9$\\]+(?:'[A-Za-z]+)?", prose)
+assert len(words) >= 1000, len(words)
+print("demography checks passed")

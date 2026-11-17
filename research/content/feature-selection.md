@@ -1,5 +1,3 @@
-
-
 ## Lead context
 
 A regression that is handed every recorded measurement will give each of them a coefficient. Some of those measurements have nothing to do with the response. Feature selection, also called variable selection, is the decision to leave those measurements out, so that the fitted model uses only a subset of the predictors.{{cite:james_islr2021}} (Ch. 6, pp. 225–226) {{cite:hastie_esl2009}} (p. 57, §3.3)
@@ -19,6 +17,8 @@ feature selection means choosing a subset of $\{X_1,\ldots,X_p\}$ and fitting th
 Subset selection does the choice first and then applies least squares to the survivors. Best-subset selection, for each size $k$, finds the subset of $k$ predictors with the smallest residual sum of squares. Forward stepwise selection starts from the intercept and adds, one predictor at a time, the variable that most improves the fit. Backward stepwise selection starts from the full model and deletes the predictor with the least effect on the fit. Shrinkage can do the same job inside one fit: an $\ell_1$ penalty, as in the [lasso](lasso.qmd), drives some coefficients to exact zeros when the penalty is large enough, and those zeros are the excluded variables.{{cite:james_islr2021}} (Ch. 6, pp. 226–231, 241–242) {{cite:hastie_esl2009}} (pp. 57–59, §3.3; p. 661, §18.4)
 
 The same idea is not limited to least squares. For logistic regression the residual sum of squares is replaced by the deviance, and an $\ell_1$ penalty on the logistic coefficients again sets some of them to zero. A quadratic penalty does not. Linear discriminant analysis, ordinary logistic regression, and the support-vector classifier, regularised by a square penalty, give every feature a nonzero weight.{{cite:james_islr2021}} (Ch. 6, p. 228) {{cite:hastie_esl2009}} (p. 658, §18.3.4; p. 661, §18.4)
+
+## Interpretation
 
 Least squares with many predictors has two familiar failures. When the number of predictors is not small relative to the sample, the fitted coefficients move a lot from sample to sample, and predictions on new cases suffer. And a coefficient that is only a little different from zero is still a number one has to explain. Setting the useless coefficients to zero, or never estimating them, buys a simpler equation. The price is bias: a predictor that was wrongly dropped cannot help. The useful procedures are the ones that make that exchange on purpose, and that do not decide it by training error alone.{{cite:james_islr2021}} (Ch. 6, pp. 225–226) {{cite:hastie_esl2009}} (p. 57, §3.3)
 
