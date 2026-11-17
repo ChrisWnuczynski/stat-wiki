@@ -1,0 +1,17 @@
+{
+  "action": "defer",
+  "term": "Minimax",
+  "slug": "minimax",
+  "covered_terms": [
+    "Minimax"
+  ],
+  "reason": "No citable treatment of a minimax estimator or minimax risk. Dodge printed p. 282 only mentions Kiefer's paper 'Sequential minimax search for a maximum' inside a biography. ESL, ISL 2013 and ISL 2021 contain no occurrence of minimax. The NIST glossary has no entry. OpenIntro Statistics, 4th ed., chapters 2 and 8 do not define it.",
+  "sources_tried": [
+    "dodge2008 p. 282",
+    "hastie_esl2009 full-text search, including §2.4 pp. 18–20",
+    "james_islr2013 full-text search",
+    "james_islr2021 full-text search",
+    "NIST glossary",
+    "openintro2019 ch. 2 and ch. 8"
+  ]
+}

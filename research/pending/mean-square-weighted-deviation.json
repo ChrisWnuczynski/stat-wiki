@@ -1,0 +1,17 @@
+{
+  "action": "defer",
+  "term": "Mean square weighted deviation",
+  "slug": "mean-square-weighted-deviation",
+  "covered_terms": [
+    "Mean square weighted deviation"
+  ],
+  "reason": "No citable definition. Dodge has no entry (full-text search for weighted deviation and MSWD). ESL and both ISL editions have no occurrence. NIST §4.1.4.3 is weighted least squares, a different method, and the NIST glossary has no such term. OpenIntro Statistics, 4th ed., chapters 2 and 8 do not define it.",
+  "sources_tried": [
+    "dodge2008 full-text search",
+    "hastie_esl2009 full-text search",
+    "james_islr2013 full-text search",
+    "james_islr2021 full-text search",
+    "NIST glossary and §4.1.4.3 weighted least squares",
+    "openintro2019 ch. 2 and ch. 8"
+  ]
+}

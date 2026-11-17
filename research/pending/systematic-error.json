@@ -1,0 +1,58 @@
+{
+  "action": "page",
+  "slug": "systematic-error",
+  "term": "Systematic error",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "measurement",
+    "article": "a",
+    "term": "systematic error",
+    "verb": "is",
+    "description": "a shift, from a consistent cause, that falls in the same direction on every repeat",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Balance offset",
+      "prompt": "Readings 21.4, 21.7, 21.2 and 21.5 are taken on a 20 mg standard. What is the estimated systematic error?",
+      "answer": "The mean is 21.45, so the estimated systematic error is 1.45 mg."
+    },
+    {
+      "title": "Scatter around the shift",
+      "prompt": "For those four readings, what is the sum of squared deviations from the mean?",
+      "answer": "The sum of squared deviations is 0.13."
+    },
+    {
+      "title": "Gauge",
+      "prompt": "A 10 cm gauge is read as 12, 11 and 13. What is the estimated systematic error, and the mean after subtracting it?",
+      "answer": "The estimated systematic error is 2 cm, and subtracting it leaves 10 cm."
+    }
+  ],
+  "bibliography": {
+    "nist_type_a2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §2.5.3: Type A evaluations",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/mpc/section5/mpc53.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/mpc/section5/mpc53.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_type_a2002",
+    "nist_glossary2002"
+  ],
+  "overview_sentence": "A [systematic error](articles/systematic-error.qmd) is a persistent shift that averaging repeated readings does not remove.",
+  "covered_terms": [
+    "Systematic error"
+  ]
+}
