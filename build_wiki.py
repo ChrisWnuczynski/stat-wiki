@@ -1850,7 +1850,19 @@ def register_card_articles() -> None:
         article["card"] = {"name": name, "anchor": dist_anchor(name), "body": body}
 
 
+def register_standalone_articles() -> None:
+    """Fundamentals pages whose text is research/content, not a chapter excerpt."""
+    for row in topic_hubs.STANDALONE:
+        if row["slug"] in ARTICLES:
+            raise SystemExit(f"Standalone article {row['slug']} already exists")
+        article = new_article(row["slug"], row["term"])
+        article["standalone"] = "fundamentals"
+        article["term"] = row["term"]
+
+
 def article_home(article: dict) -> Path:
+    if article.get("standalone") == "fundamentals":
+        return WIKI / "notes" / "fundamentals.qmd"
     return article["box"]["chapter"] if article["box"] else DIST_SHEET
 
 
@@ -1908,6 +1920,7 @@ def demote_headings(text: str) -> str:
 # ---------------------------------------------------------------------------
 
 import topics  # noqa: E402
+import topic_hubs  # noqa: E402
 from search_meta import DESCRIPTION as SITE_DESCRIPTION, SITE_NAME  # noqa: E402
 
 TOPIC_KINDS = {"section", "topic"}
@@ -3462,6 +3475,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
 
     # Articles: one per named box, merged with any distribution card of the same name.
     register_card_articles()
+    register_standalone_articles()
     if set(ARTICLE_LEADS) != set(ARTICLES):
         missing = sorted(set(ARTICLES) - set(ARTICLE_LEADS))
         stale = sorted(set(ARTICLE_LEADS) - set(ARTICLES))
@@ -3485,7 +3499,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     for article in sorted(ARTICLES.values(), key=lambda a: a["term"].lower()):
         PAGE_TITLES[article["path"]] = article["term"]
         blocks = article_blocks(article) + article_sections(article, qmap)
-        add_page(article["path"], article["term"], article["box"]["part"] if article["box"] else None, "article", blocks, {})
+        part_name = article["box"]["part"] if article["box"] else ("Fundamentals" if article.get("standalone") else None)
+        add_page(article["path"], article["term"], part_name, "article", blocks, {})
 
     history_path = WIKI / "history.qmd"
     add_page(
@@ -3612,6 +3627,7 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     (WIKI / "proofs-todo.json").write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_glossary(questions)
     write_config(chapters, final_notes, questions)
+    write_overview()
     citations.write_sheet_and_static_references(WIKI)
     upsert_static_cite_footers(WIKI)
 
@@ -4108,6 +4124,8 @@ def article_blocks(article: dict) -> list[tuple[bool, str, str]]:
                 blocks.append((True, "statement", rest + "\n\n"))
         else:
             blocks.append((True, "lead", copy_for_article("\n".join(lines), box["chapter"], path) + "\n\n"))
+    elif article.get("standalone"):
+        blocks.append((False, "lead", f"The **{article['term']}**.\n\n"))
     else:
         blocks.append(
             (
@@ -4585,6 +4603,8 @@ def _html_href(from_qmd: Path, to_qmd: Path, fragment: str = "") -> str:
 
 def _article_group_label(article: dict) -> str:
     box = article.get("box")
+    if article.get("standalone"):
+        return "Definitions"
     if not box:
         return "Distributions"
     kind = box.get("kind") or ""
@@ -4595,12 +4615,34 @@ def _article_group_label(article: dict) -> str:
     return "Topics and sections"
 
 
+def _distribution_topic_page() -> Path:
+    return WIKI / "notes" / "probability-distributions.qmd"
+
+
+def _fundamentals_topic_page() -> Path:
+    return WIKI / "notes" / "fundamentals.qmd"
+
+
 def render_topic_navbox(article: dict) -> str:
     """Bottom-of-page topic navigation box and Category/Part links for a concept article."""
     path = article["path"]
     box = article.get("box")
     home = article_home(article)
-    if box:
+    on_distribution_topic = topic_hubs.is_distribution_page(article["slug"], DISTRIBUTIONS)
+    if article.get("standalone"):
+        hub_title = "Fundamentals"
+        part_name = "Fundamentals"
+        siblings = sorted(
+            [a for a in ARTICLES.values() if a.get("standalone") == "fundamentals"],
+            key=lambda a: a["term"].lower(),
+        )
+        aria = "Fundamentals"
+        head_title = f'<a href="{html_escape(_html_href(path, _fundamentals_topic_page()))}">Fundamentals</a>'
+        part_html = (
+            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, _fundamentals_topic_page()))}">'
+            "Fundamentals</a></span>"
+        )
+    elif box:
         hub_title = PAGE_TITLES.get(home, box.get("chapter_title") or home.stem)
         part_name = box.get("part") or PAGE_PART.get(home, "")
         siblings = sorted(
@@ -4616,17 +4658,17 @@ def render_topic_navbox(article: dict) -> str:
             else ""
         )
     else:
-        hub_title = "Common distributions"
-        part_name = "Probability"
+        hub_title = "Probability distributions"
+        part_name = "Probability distributions"
         siblings = sorted(
             [a for a in ARTICLES.values() if a.get("card") is not None],
             key=lambda a: a["term"].lower(),
         )
-        aria = "Common distributions"
-        head_title = f'<a href="{html_escape(_html_href(path, DIST_SHEET))}">Common distributions</a>'
+        aria = "Probability distributions"
+        head_title = f'<a href="{html_escape(_html_href(path, _distribution_topic_page()))}">Probability distributions</a>'
         part_html = (
-            f'<span class="navbox-part">Reference · <a href="{html_escape(_html_href(path, WIKI / "reference" / "index.qmd"))}">'
-            "Lookup sheets</a></span>"
+            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, _distribution_topic_page()))}">'
+            "Probability distributions</a></span>"
         )
 
     grouped: dict[str, list[dict]] = {
@@ -4658,8 +4700,13 @@ def render_topic_navbox(article: dict) -> str:
 
     open_attr = " open" if len(siblings) <= 12 else ""
     count_badge = f'<span class="navbox-count">({len(siblings)})</span>'
+    if on_distribution_topic and not article.get("standalone"):
+        part_html = (
+            f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, _distribution_topic_page()))}">'
+            "Probability distributions</a></span>"
+        )
 
-    # Collect clean Category / Part hub links
+    # Collect clean Category / Part hub links. The first link is the primary topic.
     cat_links: list[str] = []
     seen_cats: set[str] = set()
 
@@ -4669,7 +4716,27 @@ def render_topic_navbox(article: dict) -> str:
         seen_cats.add(label_txt)
         cat_links.append(f'<a href="{html_escape(_html_href(path, target_qmd, frag))}">{html_escape(label_txt)}</a>')
 
-    if box:
+    if article.get("standalone"):
+        add_cat("Fundamentals", _fundamentals_topic_page())
+    elif on_distribution_topic:
+        add_cat("Probability distributions", _distribution_topic_page())
+        if box:
+            if part_name:
+                add_cat(part_name, WIKI / "notes" / "index.qmd", slug(part_name))
+            add_cat(hub_title, home)
+            for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+                ch_path = extra.get("chapter")
+                if ch_path and ch_path != home:
+                    ch_part = PAGE_PART.get(ch_path)
+                    if ch_part:
+                        add_cat(ch_part, WIKI / "notes" / "index.qmd", slug(ch_part))
+                    add_cat(PAGE_TITLES.get(ch_path, extra.get("chapter_title") or ch_path.stem), ch_path)
+            if article.get("card"):
+                add_cat("Common distributions", DIST_SHEET)
+        else:
+            add_cat("Common distributions", DIST_SHEET)
+            add_cat("Reference", WIKI / "reference" / "index.qmd")
+    elif box:
         if part_name:
             add_cat(part_name, WIKI / "notes" / "index.qmd", slug(part_name))
         add_cat(hub_title, home)
@@ -4685,6 +4752,8 @@ def render_topic_navbox(article: dict) -> str:
     else:
         add_cat("Reference", WIKI / "reference" / "index.qmd")
         add_cat("Common distributions", DIST_SHEET)
+    if article["slug"] in topic_hubs.FUNDAMENTALS_ORDER and not article.get("standalone"):
+        add_cat("Fundamentals", _fundamentals_topic_page())
 
     cats_block = (
         '  <div class="wiki-categories" role="navigation" aria-label="Categories">\n'
@@ -5102,7 +5171,16 @@ def check_extras(qmap: dict) -> None:
     for slug_, ids in SELF_CHECKS.items():
         if slug_ not in ARTICLES:
             problems.append(f"SELF_CHECKS: no article {slug_}")
-        if len(ids) not in {2, 3} or len(set(ids)) != len(ids):
+        if len(ids) not in {2, 3}:
+            problems.append(f"SELF_CHECKS[{slug_}]: expected 2–3 questions")
+        if any(isinstance(item, dict) for item in ids):
+            for item in ids:
+                if not isinstance(item, dict) or not str(item.get("prompt", "")).strip() or not str(item.get("answer", "")).strip():
+                    problems.append(f"SELF_CHECKS[{slug_}]: each inline question needs a prompt and an answer")
+                elif "{{cite:" in item.get("answer", ""):
+                    problems.append(f"SELF_CHECKS[{slug_}]: hidden answer contains a citation")
+            continue
+        if len(set(ids)) != len(ids):
             problems.append(f"SELF_CHECKS[{slug_}]: expected 2–3 distinct question IDs")
         for qid in ids:
             if qid not in qmap:
@@ -5128,7 +5206,16 @@ def self_check_section(article: dict, qmap: dict) -> str:
     """Show selected bank questions on the article with their answers folded away."""
     path = article["path"]
     parts = ["\n\n## Check yourself {#check-yourself}\n\nTry these questions before opening an answer.\n"]
-    for qid in SELF_CHECKS[article["slug"]]:
+    for n, qid in enumerate(SELF_CHECKS[article["slug"]], 1):
+        if isinstance(qid, dict):
+            title = qid.get("title") or f"Question {n}"
+            parts.append(
+                f"\n### {title} {{#self-check-{article['slug']}-{n}}}\n\n"
+                f"{qid['prompt'].strip()}\n\n"
+                f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
+                f"{qid['answer'].strip()}\n\n::::::::\n"
+            )
+            continue
         q = qmap[qid]
         body = demote_headings(copy_for_article(q["prepared_body"], q["path"], path))
         answer = demote_headings(copy_for_article(q["prepared_answer"], q["path"], path))
@@ -5238,6 +5325,8 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         facts = DISTRIBUTIONS[slug_]
         rows.extend((label, facts[field]) for field, label in DISTRIBUTION_ROW_LABELS)
         note = f"From the [distribution comparison]({href(path, DIST_SHEET)}#{card['anchor']})."
+    elif article.get("standalone"):
+        rows.append(("Topic", "[Fundamentals](" + href(path, WIKI / "notes" / "fundamentals.qmd") + ")"))
     else:
         rows.append(("Type", box["kind"].capitalize()))
     if box and box["kind"] in TOPIC_KINDS:
@@ -5265,6 +5354,9 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         rows.append(("Taught in", " · ".join(taught)))
         parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in extra_chaps if c in PAGE_PART]))
         rows.append(("Part", " · ".join(part_link(p, path) for p in parts)))
+    elif article.get("standalone"):
+        hub = WIKI / "notes" / "fundamentals.qmd"
+        rows.append(("Listed on", f"[Fundamentals]({href(path, hub)})"))
     else:
         rows.append(("Listed on", f"[Distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"))
     related_peers = list(
@@ -5348,13 +5440,16 @@ def write_glossary(questions: list[dict]) -> None:
     for article in ARTICLES.values():
         box, card = article["box"], article["card"]
         kinds = ([box["kind"]] if box else []) + (["distribution"] if card else [])
+        if article.get("standalone"):
+            kinds = ["definition"]
+        where = "Fundamentals" if article.get("standalone") else (box["chapter_title"] if box else "Common distributions")
         entries.append(
             {
                 "term": article["term"],
                 "kind": " · ".join(kinds),
                 "page": article["path"],
                 "anchor": "",
-                "where": box["chapter_title"] if box else "Common distributions",
+                "where": where,
                 "snippet": box["snippet"] if box else "",
                 "home": article_home(article),
             }
@@ -6082,6 +6177,58 @@ run(input.value, params.get("go") === "1");
     )
 
 
+def _hub_article_link(from_path: Path, slug_: str) -> str:
+    article = ARTICLES[slug_]
+    return f"- [{cell(article['term'])}]({href(from_path, article['path'])})"
+
+
+def write_topic_hubs(fundamentals_page: Path, distributions_page: Path) -> None:
+    """Write the Fundamentals and Probability distributions topic pages."""
+    fund_lines = [topic_hubs.FUNDAMENTALS_INTRO, ""]
+    for title, members in topic_hubs.FUNDAMENTALS_GROUPS:
+        fund_lines += [f"## {title}", ""]
+        for hub_slug in members:
+            if hub_slug not in ARTICLES:
+                raise SystemExit(f"Fundamentals lists {hub_slug}, which has no article")
+            fund_lines.append(_hub_article_link(fundamentals_page, hub_slug))
+        fund_lines.append("")
+    fund_lines += [
+        "The [distribution topic](probability-distributions.qmd) is the next stop when a named family is needed, "
+        "and the [history](../history.qmd) is the chronological account.",
+        "",
+    ]
+    write_qmd(
+        fundamentals_page,
+        "Fundamentals",
+        "\n".join(fund_lines),
+        description="The on-ramp for statistics: data, collection, description, inference, and the probability underneath.",
+    )
+
+    groups = topic_hubs.distribution_groups(list(DISTRIBUTIONS.items()))
+    dist_lines = [topic_hubs.DISTRIBUTIONS_INTRO, ""]
+    dist_lines += [
+        "The [distribution laboratory](../labs/distributions.qmd) draws a probability mass or density and a distribution function, with a slider for each parameter. "
+        "The [Beta–Binomial laboratory](../labs/beta-binomial.qmd) is the updating picture for the beta and binomial families. "
+        "The [interval coverage laboratory](../labs/ci-coverage.qmd) draws repeated samples from a normal or exponential population, and from a Bernoulli population when the target is a proportion.",
+        "",
+        "The parameterisation of each card is the one on the [distribution sheet](../reference/distributions.qmd).",
+        "",
+    ]
+    for title, members in groups:
+        dist_lines += [f"## {title}", ""]
+        for hub_slug in members:
+            if hub_slug not in ARTICLES:
+                raise SystemExit(f"Probability distributions lists {hub_slug}, which has no article")
+            dist_lines.append(_hub_article_link(distributions_page, hub_slug))
+        dist_lines.append("")
+    write_qmd(
+        distributions_page,
+        "Probability distributions",
+        "\n".join(dist_lines),
+        description="Every probability distribution on StatWiki, grouped by the kind of value it describes.",
+    )
+
+
 def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) -> None:
     parts: dict[str, list[dict]] = {}
     for part, note in chapters:
@@ -6101,6 +6248,19 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         "Using R is where those calculations are written down: objects, exploration, simulation, resampling, and the fits used in the later parts.",
         "",
         chapter_guides.LEVEL_RULE,
+        "",
+        "Two further topics collect articles rather than chapters. "
+        "[Fundamentals](fundamentals.qmd) is the path for a reader who is starting. "
+        "[Probability distributions](probability-distributions.qmd) holds every distribution article.",
+        "",
+        "## Fundamentals {#fundamentals}",
+        "",
+        f"[Open Fundamentals](fundamentals.qmd). {len(topic_hubs.FUNDAMENTALS_ORDER)} pages, in learning order.",
+        "",
+        "## Probability distributions {#probability-distributions}",
+        "",
+        f"[Open Probability distributions](probability-distributions.qmd). "
+        f"{len(topic_hubs.distribution_page_slugs(list(DISTRIBUTIONS)))} distribution pages, plus the family relationships.",
         "",
     ]
     for part, members in parts.items():
@@ -6260,14 +6420,38 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             return f"2 chapters: {titles[0]} and {titles[1]}."
         return f"{n} chapters, including {', '.join(titles[:-1])}, and {titles[-1]}."
 
+    fundamentals_page = WIKI / "notes" / "fundamentals.qmd"
+    distributions_page = WIKI / "notes" / "probability-distributions.qmd"
+    write_topic_hubs(fundamentals_page, distributions_page)
+    fundamental_links = []
+    for hub_slug in topic_hubs.FUNDAMENTALS_ORDER:
+        article = ARTICLES.get(hub_slug)
+        if article:
+            fundamental_links.append((article["term"], article["path"]))
+    distribution_slugs = topic_hubs.distribution_page_slugs(list(DISTRIBUTIONS))
+    distribution_links = [(ARTICLES[s]["term"], ARTICLES[s]["path"]) for s in distribution_slugs if s in ARTICLES]
     cards = [
+        library_card(
+            "Fundamentals",
+            "The on-ramp: what a measurement is, how it is collected, and the first claims made from it.",
+            len(fundamental_links),
+            fundamental_links[:4],
+            f"[See all]({href(home, fundamentals_page)}){{.library-more}}",
+        ),
         library_card(
             "History",
             "A chronological narrative of probability and statistics, with a timeline of the dated steps.",
             1,
             [("History of statistics", WIKI / "history.qmd")],
             f"[See all]({href(home, WIKI / 'history.qmd')}){{.library-more}}",
-        )
+        ),
+        library_card(
+            "Probability distributions",
+            "Every named distribution, grouped into discrete, continuous, multivariate, and family relationships.",
+            len(distribution_links),
+            distribution_links[:4],
+            f"[See all]({href(home, distributions_page)}){{.library-more}}",
+        ),
     ]
     for part, members in parts.items():
         total = part_totals[part]
@@ -6332,6 +6516,7 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         ("Beta–Binomial updating", WIKI / "labs" / "beta-binomial.qmd"),
         ("A Markov chain", WIKI / "labs" / "markov-chain.qmd"),
         ("Interval coverage", WIKI / "labs" / "ci-coverage.qmd"),
+        ("Distribution explorer", WIKI / "labs" / "distributions.qmd"),
     ]
     cards.append(
         library_card(
@@ -6440,6 +6625,8 @@ LAB_JS = [
     "markov-chain.js",
     "coverage-math.js",
     "ci-coverage.js",
+    "distribution-explorer-math.js",
+    "distribution-explorer.js",
 ]
 WEBR_JS = """
 <script>
@@ -6642,6 +6829,10 @@ website:
         href: history.qmd
       - text: Topics
         href: notes/index.qmd
+      - text: Fundamentals
+        href: notes/fundamentals.qmd
+      - text: Distributions
+        href: notes/probability-distributions.qmd
       - text: Question bank
         menu:
           - text: "Question bank: every question in one list"
@@ -6674,6 +6865,8 @@ website:
             href: labs/markov-chain.qmd
           - text: Interval coverage
             href: labs/ci-coverage.qmd
+          - text: Distribution explorer
+            href: labs/distributions.qmd
       - text: Random question
         href: questions/random.qmd
   sidebar:
@@ -6701,9 +6894,19 @@ website:
             href: labs/markov-chain.qmd
           - text: Interval coverage
             href: labs/ci-coverage.qmd
+          - text: Distribution explorer
+            href: labs/distributions.qmd
       - section: Topics
         href: notes/index.qmd
         contents:
+          - section: Fundamentals
+            href: notes/fundamentals.qmd
+            contents:
+              - notes/fundamentals.qmd
+          - section: Probability distributions
+            href: notes/probability-distributions.qmd
+            contents:
+              - notes/probability-distributions.qmd
 {chr(10).join(part_blocks)}
       - section: Question bank
         href: questions/index.qmd
@@ -6758,6 +6961,51 @@ format:
     robots = (WIKI / "robots.txt").read_text(encoding="utf-8")
     if "User-agent: *" not in robots or "Allow: /" not in robots:
         raise SystemExit("robots.txt must allow every crawler")
+
+
+OVERVIEW_SOURCE = WIKI / "research" / "content" / "what-is-statistics.md"
+OVERVIEW_ANCHORS = (
+    "what-the-design-will-support",
+    "probability",
+    "from-the-sample-back-to-the-parameter",
+    "when-a-normal-line-is-the-wrong-shape",
+    "many-measurements-and-a-label",
+    "a-probability-for-the-parameter",
+    "a-path",
+    "writing-the-calculation-down",
+)
+
+
+def write_overview() -> None:
+    """Rebuild overview.qmd from the encyclopedia source. The public URL stays overview.qmd."""
+    if not OVERVIEW_SOURCE.is_file():
+        raise SystemExit(f"Missing {OVERVIEW_SOURCE.relative_to(WIKI)}")
+    text = OVERVIEW_SOURCE.read_text(encoding="utf-8").strip()
+    if history_word_count(text) < 4000:
+        raise SystemExit(f"Statistics article is {history_word_count(text)} words; need at least 4000")
+    keys = re.findall(r"\{\{cite:([^}]+)\}\}|data-cite-key=\"([^\"]+)\"", text)
+    flat = [a or b for a, b in keys]
+    if len(flat) < 5 or len(set(flat)) < 2:
+        raise SystemExit("Statistics article needs at least 5 citations from 2 sources")
+    if not flat or flat[0] != "fisher1935_doe":
+        raise SystemExit(f"Statistics article must cite fisher1935_doe first, not {flat[:1]}")
+    if "hastings1970" not in flat:
+        raise SystemExit("Statistics article dropped hastings1970")
+    for anchor in OVERVIEW_ANCHORS:
+        if f"{{#{anchor}}}" not in text:
+            raise SystemExit(f"Statistics article is missing # {anchor}")
+    if 'class="overview-roadmap"' not in text:
+        raise SystemExit("Statistics article dropped the roadmap")
+    page = WIKI / "overview.qmd"
+    page.write_text(
+        '---\n'
+        'title: "What statistics is"\n'
+        'description: "What statistics is, how data become a claim, and how the chapters grow out of that claim."\n'
+        '---\n\n'
+        + text
+        + "\n",
+        encoding="utf-8",
+    )
 
 
 def distributions_body() -> str:

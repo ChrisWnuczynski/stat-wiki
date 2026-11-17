@@ -911,7 +911,8 @@ class WikiGraphTests(unittest.TestCase):
             self.skipTest("Generated wiki directories are not built yet")
 
         article_files = sorted(articles_dir.glob("*.qmd"))
-        self.assertEqual(len(article_files), 718)
+        import topic_hubs
+        self.assertEqual(len(article_files), 718 + len(topic_hubs.STANDALONE))
         for path in article_files:
             text = path.read_text(encoding="utf-8")
             m_title = re.search(r'^title:\s*"(.*)"$', text, re.M)
@@ -1015,7 +1016,11 @@ class WikiGraphTests(unittest.TestCase):
             self.assertIn("pages", payload)
             self.assertIn("aliases", payload)
             self.assertIn("disambiguations", payload)
-            self.assertEqual(len([p for p in payload["pages"].values() if p.get("kind") == "article"]), 718)
+            import topic_hubs
+            self.assertEqual(
+                len([p for p in payload["pages"].values() if p.get("kind") == "article"]),
+                718 + len(topic_hubs.STANDALONE),
+            )
             for key in ("sd", "se", "ci", "pi", "cv", "df", "rv", "iid", "bf", "kl", "em", "ar", "ma", "var", "cov", "corr", "rss", "ess", "tss", "t", "z", "f", "p", "r"):
                 self.assertIn(key, payload["aliases"], f"missing shorthand {key!r}")
             for dis_key in ("mean", "variance", "standard-deviation", "t-test", "kernel", "score", "residual", "bootstrap", "independence", "normal", "prior", "power", "information", "scale"):
@@ -1257,7 +1262,8 @@ class ConceptTemplateTests(unittest.TestCase):
             "choosing-the-number-of-principal-components", "classification-with-unequal-costs",
             "empirical-bayes", "f-test-for-equal-variances", "interval-for-a-difference-of-means",
             "interval-for-a-ratio-of-variances", "law-of-large-numbers", "method-of-moments",
-            "pearson-test-with-estimated-parameters", "sampling-distribution-of-the-regression-estimators",
+            "pearson-test-with-estimated-parameters", "census",
+            "sampling-distribution-of-the-regression-estimators",
             "soft-thresholding-for-orthonormal-predictors", "softmax-is-multinomial-logistic-regression",
         }
         singular_endings = ("analysis", "process", "class", "loss", "bias", "statistics", "series",
@@ -1414,7 +1420,8 @@ class ContentRetentionTests(unittest.TestCase):
         fixture = json.loads((build_wiki.WIKI / "pre57_article_baseline.json").read_text(encoding="utf-8"))
         self.assertEqual(fixture["commit"], "5359ad2")
         articles = build_wiki.WIKI / "articles"
-        self.assertEqual(len(fixture["articles"]), len(list(articles.glob("*.qmd"))))
+        live = {path.stem for path in articles.glob("*.qmd")}
+        self.assertLessEqual(set(fixture["articles"]), live)
         for slug, before in fixture["articles"].items():
             body = (articles / f"{slug}.qmd").read_text(encoding="utf-8")
             self.assertFalse(collections.Counter(before["figures"]) - self.figure_targets(body), slug)
@@ -1881,7 +1888,12 @@ class HistoryAndHomeTests(unittest.TestCase):
         self.assertIn("## New to statistics? Start here", home_text)
         self.assertIn("**97 topic chapters**", home_text)
         self.assertIn("**3 final-preparation pages**", home_text)
-        self.assertIn("**718 concept articles**", home_text)
+        import topic_hubs
+        self.assertIn(f"**{718 + len(topic_hubs.STANDALONE)} concept articles**", home_text)
+        self.assertIn("### Fundamentals", home_text)
+        self.assertIn("### Probability distributions", home_text)
+        self.assertIn("notes/fundamentals.qmd", home_text)
+        self.assertIn("notes/probability-distributions.qmd", home_text)
         for _part, files in build_wiki.PARTS:
             name = _part
             self.assertIn(f"### {name}", home_text)

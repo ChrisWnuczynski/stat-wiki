@@ -1264,6 +1264,8 @@ TOPICS += [
 # ---------------------------------------------------------------------------
 
 LINKS += [
+    link(["levels of measurement", "level of measurement"], "levels-of-measurement"),
+    link(["population census"], "census"),
     link(["re:Pearson(?:['’]s)? (?:chi-squared )?statistics?", "Pearson's chi-squared"], "pearson-statistic"),
     # Cursor's list: phrases that name another chapter's idea.
     link("pure Poisson process", "poisson-distribution", scope=[G]),
@@ -2161,4 +2163,17 @@ LAB_FOR_TOPIC = {
     "standard-error": ("ci-coverage.qmd", "Interval coverage", "see how sample size changes interval width"),
     "sample-size-for-a-confidence-interval": ("ci-coverage.qmd", "Interval coverage", "see how sample size changes interval width"),
     "one-sample-t-pivot": ("ci-coverage.qmd", "Interval coverage", "compare interval methods across repeated samples"),
+    "normal-distribution": ("distributions.qmd", "Distribution explorer", "move the mean and the standard deviation and watch the density and the distribution function"),
+    "poisson-distribution": ("distributions.qmd", "Distribution explorer", "move the mean and watch the probability masses"),
+    "exponential-distribution": ("distributions.qmd", "Distribution explorer", "move the rate and watch the density and the distribution function"),
+    "uniform-distribution": ("distributions.qmd", "Distribution explorer", "move the endpoints and watch the density"),
+    "gamma-distribution": ("distributions.qmd", "Distribution explorer", "move the shape and the rate"),
+    "geometric-distribution": ("distributions.qmd", "Distribution explorer", "move the success probability and watch the masses"),
+    "chi-squared-distribution": ("distributions.qmd", "Distribution explorer", "move the degrees of freedom"),
+    "student-t-distribution": ("distributions.qmd", "Distribution explorer", "move the degrees of freedom and compare the tails with the normal"),
+    "cauchy-distribution": ("distributions.qmd", "Distribution explorer", "move the scale and watch the heavy tails"),
+    "lognormal-distribution": ("distributions.qmd", "Distribution explorer", "move the log-mean and the log-scale"),
+    "pareto-distribution": ("distributions.qmd", "Distribution explorer", "move the shape and watch the tail"),
+    "weibull-distribution": ("distributions.qmd", "Distribution explorer", "move the shape and the rate"),
+    "f-distribution": ("distributions.qmd", "Distribution explorer", "move the two degrees of freedom"),
 }

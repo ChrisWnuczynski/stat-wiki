@@ -1,5 +1,10 @@
 # Research items to verify
 
+- Fundamentals term pages are limited to data, dataset, variable, levels of measurement, population, sample, parameter (set against the existing statistic page), and census. Further missing basic terms are waiting on a researched gap list and were not chosen here.
+- Levels of measurement: nominal, ordinal, and quantitative (discrete or continuous) scales are taken from Dodge (printed pp. 439–440) and the ABS glossary. The interval-versus-ratio distinction associated with Stevens (1946) was not opened, so it is not stated.
+- Sample and observation: Dodge’s one-line Sample and Observation entries sit on unnumbered letter openers, so those sentences are not given printed pages. The numbered census, sampling, and data-analysis pages are cited instead.
+- Census history on printed p. 65: the seventeenth-century contrast among a German descriptive school, a French census school, and an English school is used. Later census chronology on that page was not needed.
+
 Add uncertain claims here before writing them into an article.
 
 - History of statistics: Jakob Bernoulli’s birth year is left out. The opened Dodge biography gives 1654–1705 in the family entry (printed p. 37) and 1655–1705 in the following entry (printed p. 38), and it calls 1713 both the publication year and “seven years” after a death in 1705.

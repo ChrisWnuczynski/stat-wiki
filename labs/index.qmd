@@ -5,7 +5,7 @@ description: "Slider-driven figures for a kernel density estimate, a Beta–Bino
 
 A laboratory on this site is a figure with the population known, so the error is visible. The controls change one piece of a model. Where a formula exists, the figure uses it. A simulation or a normal approximation is labelled as one.
 
-The kernel density page came first. The other three are the same idea for a prior, a transition matrix, and a confidence interval.
+The kernel density page came first. The same idea is used for a prior, a transition matrix, a confidence interval, and the mass or density of a named distribution.
 
 ## Kernel density
 
@@ -31,6 +31,12 @@ The confidence is the probability, before the sample is drawn, that the random i
 
 [Open the confidence interval laboratory](ci-coverage.qmd).
 
+## A named distribution
+
+Choose a univariate family and move its parameters. One panel is the probability mass or the density. The other is the distribution function. The curves use the parameterisation on each distribution article.
+
+[Open the distribution laboratory](distributions.qmd).
+
 ## References {#references}
 
 ```{=html}
@@ -54,7 +60,7 @@ The confidence is the probability, before the sample is drawn, that the random i
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Laboratories.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/index.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Laboratories.&quot; StatWiki. Last updated 17 November 2026. https://www.statwiki.io/labs/index.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -63,8 +69,8 @@ The confidence is the probability, before the sample is drawn, that the random i
   title = {{Laboratories}},
   year = {2026},
   url = {https://www.statwiki.io/labs/index.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-17},
+  note = {StatWiki, last updated 17 November 2026}
 }</code></pre>
     </div>
   </div>

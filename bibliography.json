@@ -1,5 +1,19 @@
 {
   "works": {
+    "abs_glossary2023": {
+      "authors": [
+        "Australian Bureau of Statistics"
+      ],
+      "year": 2023,
+      "title": "Statistical terms and concepts glossary",
+      "kind": "book",
+      "publisher": "Australian Bureau of Statistics",
+      "url": "https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary"
+      }
+    },
     "agresti2002": {
       "authors": [
         "Agresti, A."
