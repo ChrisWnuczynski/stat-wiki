@@ -1,0 +1,14 @@
+{
+  "action": "defer",
+  "term": "Pearson distribution",
+  "slug": "pearson-distribution",
+  "covered_terms": [
+    "Pearson distribution"
+  ],
+  "reason": "Dodge’s measure-of-shape entry (p. 344) says Pearson published a system of frequency curves in 1894 and 1895 and that departures from the normal curve are characterised by moments of orders 3 and 4, but it does not give the differential equation or the types. The MathWorld Pearson-system page was opened and its defining equations did not render as text. A 2015 note names a family of twelve members without stating the Pearson equation.",
+  "sources_tried": [
+    "dodge2008 pp. 343–344",
+    "MathWorld Pearson System",
+    "Bevrani-style CMDE 2015 note, first pages"
+  ]
+}

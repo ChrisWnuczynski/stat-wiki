@@ -1,0 +1,14 @@
+{
+  "action": "defer",
+  "term": "Structured data analysis (statistics)",
+  "slug": "structured-data-analysis",
+  "covered_terms": [
+    "Structured data analysis (statistics)"
+  ],
+  "reason": "Opened Dodge’s data-analysis entry (pp. 150–151), which discusses tables and exploratory, multivariate and confirmatory analysis but never this phrase; OpenIntro Statistics chapters 1 and 2, on data structure, summaries and graphics; and the NIST/SEMATECH handbook §1.1.1 on exploratory data analysis. None defines a statistical method under this name.",
+  "sources_tried": [
+    "dodge2008 pp. 150–151",
+    "openintro2019 ch. 1–2",
+    "nist handbook §1.1.1"
+  ]
+}

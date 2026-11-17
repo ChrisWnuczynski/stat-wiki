@@ -1,0 +1,51 @@
+{
+  "action": "page",
+  "slug": "ranking",
+  "term": "Ranking",
+  "topic": "Data analysis",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "data analysis",
+    "article": "",
+    "term": "ranking",
+    "verb": "is",
+    "description": "the replacement of each observation by its place in the ordered sample, with average places for ties"
+  },
+  "self_checks": [
+    {
+      "title": "A tie at the top",
+      "prompt": "Rank 8, 3, 8 and 1, giving rank 1 to the smallest and average ranks to ties. What are the ranks in that order, and what is their sum?",
+      "answer": "The ranks are 3.5, 2, 3.5 and 1, and they sum to 10."
+    },
+    {
+      "title": "A tie in the middle",
+      "prompt": "Rank 4, 1, 4 and 9 with average ranks for the tie. What are the ranks in that order?",
+      "answer": "The ranks are 2.5, 1, 2.5 and 4."
+    }
+  ],
+  "bibliography": {
+    "abs_seifa2006": {
+      "authors": [
+        "Australian Bureau of Statistics"
+      ],
+      "year": 2008,
+      "title": "Information Paper: An Introduction to Socio-Economic Indexes for Areas (SEIFA), 2006, glossary",
+      "kind": "book",
+      "publisher": "Australian Bureau of Statistics",
+      "url": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2039.0Glossary72006?issue=2006&num=&opendocument=&prodno=2039.0&tabname=Notes&view=",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2039.0Glossary72006?issue=2006&num=&opendocument=&prodno=2039.0&tabname=Notes&view="
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "abs_seifa2006"
+  ],
+  "overview_sentence": "[Ranking](articles/ranking.qmd) replaces observations by their places in the ordered sample.",
+  "covered_terms": [
+    "Ranking"
+  ]
+}

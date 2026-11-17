@@ -1,0 +1,48 @@
+{
+  "action": "page",
+  "slug": "statistical-graphics",
+  "term": "Statistical graphics",
+  "topic": "Data analysis",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "data analysis",
+    "article": "",
+    "term": "statistical graphics",
+    "verb": "are",
+    "description": "plots that show the shape, the spread and the unusual points of a data set"
+  },
+  "bibliography": {
+    "nist_eda2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.1.1: What is EDA?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "openintro2019",
+    "dodge2008",
+    "nist_histogram",
+    "nist_scatterplot2002",
+    "nist_eda2002"
+  ],
+  "overview_sentence": "[Statistical graphics](articles/statistical-graphics.qmd) are the plots used to see shape, spread and unusual points before a model is chosen.",
+  "covered_terms": [
+    "Statistical graphics"
+  ]
+}

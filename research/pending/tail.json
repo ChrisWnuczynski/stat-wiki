@@ -1,0 +1,42 @@
+{
+  "action": "page",
+  "slug": "tail",
+  "term": "Tail",
+  "topic": "Probability distributions",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "probability",
+    "article": "a",
+    "term": "tail",
+    "verb": "is",
+    "description": "the probability beyond a cutoff, or the direction in which a histogram decays slowly"
+  },
+  "self_checks": [
+    {
+      "title": "An SAT cutoff",
+      "prompt": "SAT scores follow a normal model with mean 1100 and standard deviation 200. What is the upper-tail probability at 1190?",
+      "answer": "The standardised value is 0.45 and the upper tail is 0.3264."
+    },
+    {
+      "title": "A standard point",
+      "prompt": "The standard normal lower tail at z = 1 is 0.8413447. What is the upper tail?",
+      "answer": "The upper tail is 0.1586553."
+    },
+    {
+      "title": "An exponential cutoff",
+      "prompt": "For a unit exponential, what is the upper-tail probability at 2, to six decimals?",
+      "answer": "The upper tail is 0.135335."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": [
+    "openintro2019",
+    "dodge2008",
+    "nist_skewness2002"
+  ],
+  "overview_sentence": "A [tail](articles/tail.qmd) is the probability beyond a cutoff, or the slow decay of a histogram in one direction.",
+  "covered_terms": [
+    "Tail"
+  ]
+}
