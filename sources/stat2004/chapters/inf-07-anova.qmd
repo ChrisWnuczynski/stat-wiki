@@ -84,7 +84,7 @@ $$
 F=\frac{\mathrm{SS}_{\mathrm{treatment}}/(k-1)}{\mathrm{SS}_{\mathrm{error}}/(n-k)}=\frac{\mathrm{MS}_{\mathrm{treatment}}}{\mathrm{MS}_{\mathrm{error}}}
 $$
 
-has the $F_{k-1,\,n-k}$ distribution.{{cite:nist_oneway_anova}} (§3.2.3.1, F test and assumptions)
+has the $F_{k-1,\,n-k}$ distribution.{{cite:taback2022_design}} (§5.3.6, ANOVA F statistic)
 
 :::
 
@@ -216,7 +216,7 @@ Y_{ij}=\mu+\beta_i+\tau_j+\varepsilon_{ij},
 \sum_{i=1}^b\beta_i=0,\quad\sum_{j=1}^t\tau_j=0,
 $$
 
-with $\varepsilon_{ij}$ independent and $\Normal(0,\sigma^2)$.{{cite:fisher1925_smrw}}{{cite:fisher1935_doe}} Here $\mu$ is the overall mean, $\beta_i$ the effect of block $i$ and $\tau_j$ the effect of treatment $j$.{{cite:scheffe1959}}
+with $\varepsilon_{ij}$ independent and $\Normal(0,\sigma^2)$.{{cite:taback2022_design}} (§§5.8–5.9, randomized block designs) Here $\mu$ is the overall mean, $\beta_i$ the effect of block $i$ and $\tau_j$ the effect of treatment $j$.{{cite:taback2022_design}} (§§5.8–5.9, randomized block designs)
 
 :::
 
@@ -240,7 +240,7 @@ $$
 F=\frac{\mathrm{MS}_{\mathrm{treatment}}}{\mathrm{MS}_{\mathrm{error}}}\sim F_{t-1,\,(b-1)(t-1)},
 $$
 
-and the block hypothesis with $\mathrm{MS}_{\mathrm{blocks}}/\mathrm{MS}_{\mathrm{error}}\sim F_{b-1,\,(b-1)(t-1)}$, each rejecting for large values.{{cite:fisher1935_doe}}{{cite:scheffe1959}}
+and the block hypothesis with $\mathrm{MS}_{\mathrm{blocks}}/\mathrm{MS}_{\mathrm{error}}\sim F_{b-1,\,(b-1)(t-1)}$, each rejecting for large values.{{cite:taback2022_design}} (§§5.8–5.9, randomized block designs)
 
 For the hardness data, with coupons as blocks and tips as treatments:
 

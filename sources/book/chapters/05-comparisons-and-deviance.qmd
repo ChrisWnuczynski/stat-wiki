@@ -26,7 +26,7 @@ You do not refit. The multinomial dispersion stays $1$ as long as each person ma
 
 ## Bradley–Terry
 
-A head-to-head result is a paired comparison, and it is still a binary outcome. The Bradley–Terry model gives team $j$ a skill $\lambda_j$ and says the odds below.{{cite:bradley_terry1952}}{{cite:mccullagh_nelder1989}}{{cite:agresti2002}}
+A head-to-head result is a paired comparison, and it is still a binary outcome. The Bradley–Terry model gives team $j$ a skill $\lambda_j$ and says the odds below.{{cite:turner_firth2012_bradley_terry}} (§1, eq. 1, pp. 1–2)
 $$
 \mathrm{odds}(j\text{ beats }k)=\exp(\lambda_j-\lambda_k).
 $$
@@ -34,7 +34,7 @@ Swap the labels and the odds invert:
 $$
 \mathrm{odds}(k\text{ beats }j)=\exp(\lambda_k-\lambda_j)=\frac{1}{\exp(\lambda_j-\lambda_k)}.
 $$
-The model is forced by that consistency. Only differences of skills are identified, so one team can be set to zero and everyone else is measured from them. Software often sets the alphabetically first team to zero. We fit that, then shift the origin so the weakest team is zero. The ranking is unchanged.
+Reciprocal odds alone do not imply a Bradley–Terry model. The model requires all pairwise log odds to be differences of one common set of skills. Only differences of skills are identified, so one team can be set to zero and everyone else is measured from that team. Subtracting a common constant from all fitted skills changes no predicted probability.{{cite:turner_firth2012_bradley_terry}} (§1, eq. 1, pp. 1–2)
 
 Home advantage, or White moving first in chess, is one extra parameter $\alpha$ on the log-odds of the home side:
 $$
@@ -56,7 +56,7 @@ The 2024 NRL table, regular season through 11 September, with the Tigers shifted
 | Raiders | 1.253 | Eels | 0.310 |
 | | | Tigers | 0 |
 
-Home advantage is $\hat\alpha=0.3957$. The odds of winning at home, for any team against a given opponent, are $\exp(0.3957)=1.49$ times the odds of winning the same match away. That gap is large enough to overturn some neighbouring pairs. The Dolphins sit above the Broncos by $0.985-0.881=0.10$, which is less than $0.40$, so the Broncos at home are the favourites against the Dolphins. The same arithmetic applies to the Warriors at home against the Broncos.
+Home advantage is $\hat\alpha=0.3957$. Home odds are $\exp(0.3957)\approx1.49$ times neutral-venue odds. Comparing the same team at home and away changes its log odds by $2\hat\alpha$, so the home-to-away odds ratio is $\exp(0.7914)\approx2.21$. The Dolphins exceed the Broncos by $0.985-0.881=0.104$, less than $0.3957$, making the Broncos favourites at home in this model. The Warriors at home are also favoured over the Broncos.{{cite:caron_doucet2012_bt}} (§3, home advantage)
 
 The odds that the Panthers beat the Roosters at home are
 $$
@@ -64,7 +64,7 @@ $$
 $$
 Odds of $1.87$ are a probability of $1.87/(1+1.87)\approx 0.65$. The official ladder had the Sharks above the Cowboys on for-and-against. This fit has the Cowboys above the Sharks, because it credits who was beaten, not only how many. That is the point of a skill parameter.
 
-A draw can be coded as half a win and half a loss, which says the two teams were equal that day, without adding a third multinomial outcome. If the competition itself scores a draw as one point and a win as three, as in the English Premier League, the honest code is one third of a win rather than one half. We will not build the three-outcome model unless draws are common and meaningful.
+A draw is a third possible outcome. Modelling its probability requires an extension that allows ties. Coding a draw as half a win and half a loss is a scoring convention for a two-outcome estimating procedure; it does not define a draw probability. Competition points do not determine the win probability in the paired-comparison likelihood.{{cite:caron_doucet2012_bt}} (§3, models with ties)
 
 ## Deviance
 
@@ -121,7 +121,7 @@ In @fig-chol-links the solid and dashed curves sit on each other. Complementary 
 
 ## Analysis of deviance
 
-For nested models the difference in scaled deviance, deviance divided by $\phi$, is referred to a chi-squared law if $\phi$ is known, and to an $F$ law if $\phi$ is estimated from the same data.{{cite:mccullagh_nelder1989}}{{cite:nelder_wedderburn1972}}{{cite:myers_glm2010}} That is the GLM version of ANOVA, and `anova` on a `glm` object is doing it even though the name still says ANOVA. If the columns of $\mat{X}$ are not orthogonal, the order of entry matters. A sequential $p$-value is the test of dropping that term while keeping everything listed above it, and nothing listed below it.
+For nested mean models fitted at a common known dispersion $\phi$, the difference in scaled deviance is $(D_0-D_1)/\phi$. A chi-squared reference with degrees of freedom equal to the design-rank difference requires regular identifiable models, an interior null parameter and an appropriate large-information regime.{{cite:nelder_wedderburn1972}} (§§2.3–2.4, pp. 375–376) If dispersion is estimated, an F comparison uses a normalised ratio, $\{(D_0-D_1)/(p_1-p_0)\}/\widehat\phi$, rather than the deviance difference itself. For independent Gaussian equal-variance errors, $\widehat\phi=D_1/(n-p_1)$ gives the exact nested-linear-model $F_{p_1-p_0,n-p_1}$ test; other GLM uses need their approximation justified. A residual-deviance chi-square approximation can fail for small individual Poisson means even as the number of observations increases.{{cite:wuthrich_merz2022_glm}} (§5.3.1, pp. 143–144) This extends the ANOVA comparison principle. For nonorthogonal design columns, a sequential comparison tests adding a term to the preceding model, so order matters.
 
 Myers and Montgomery's wafer experiment is a $2^4$ factorial with no replication: sixteen runs, resistivity, which is positive and right-skewed. The family is gamma and the link is log, not the canonical inverse, because no corner of the design should send resistivity to infinity. A four-factor interaction would use sixteen parameters and fit the sample perfectly. The largest model we can actually look at stops at the three-factor interactions:
 ```r
@@ -183,7 +183,7 @@ $$
 $$
 Landing tails is the larger Pearson residual. At $\hat p=0.5$ the two residuals are $+1$ and $-1$. For Poisson counts, with $\phi=1$, expecting $2$ and seeing $7$ gives $(7-2)/\sqrt{2}=3.54$. Expecting $50$ and seeing $45$ gives $(45-50)/\sqrt{50}=-0.71$. The unit is fairer. The sign is still symmetric: $55$ instead of $45$ would flip the sign and keep the magnitude, and a Poisson distribution is not symmetric.
 
-The deviance residual takes one observation's contribution $d_i$ to $D$ and attaches the sign of $y_i-\hat\mu_i$.{{cite:mccullagh_nelder1989}}{{cite:davison2003}}{{cite:dunn_smyth1996}}
+The deviance residual takes one observation's contribution $d_i$ to $D$ and attaches the sign of $y_i-\hat\mu_i$.{{cite:dunn_smyth1996}} (§2, deviance residual definition)
 $$
 r_D=\mathrm{sign}(y_i-\hat\mu_i)\sqrt{d_i}.
 $$

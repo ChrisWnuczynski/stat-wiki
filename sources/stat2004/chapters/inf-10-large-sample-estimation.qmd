@@ -19,7 +19,7 @@ $$
 \operatorname{ARE}(T_2;T_1)=\frac{\tau_1^2}{\tau_2^2}.
 $$
 
-If the ratio is $1/2$, then $T_2$ needs about twice as many observations as $T_1$ to reach the same limiting variance. The comparison does not require either estimator to be unbiased at finite $n$. It requires the bias, if any, to be small enough that $\sqrt n$ times the bias tends to zero. Otherwise the limit is not centred at $g(\theta)$.
+If the ratio is $1/2$, then $T_2$ needs about twice as many observations as $T_1$ to reach the same limiting variance. The comparison does not require either estimator to be unbiased at finite $n$. A centred weak limit does not alone control finite-sample bias or mean squared error; convergence of the corresponding moments needs integrability conditions.
 
 The sample mean and the sample median of a normal sample are the standard pair. For $X_i$ independent $\Normal(\mu,\sigma^2)$,
 
@@ -39,7 +39,7 @@ $$
 \operatorname{ARE}(\widetilde X;\overline X)=\frac{\sigma^2}{\pi\sigma^2/2}=\frac{2}{\pi}\approx 0.637.
 $$
 
-The median needs about $\pi/2\approx 1.57$ times as many normal observations to match the variance of the mean.{{cite:fisher1925_est}}{{cite:vandervaart1998}}{{cite:lehmann_casella1998}} That is the price of a procedure that barely changes if one observation is replaced by an arbitrary outlier. The mean is more efficient in this model and more fragile in a model with heavy tails. The efficiency number is not a reason to discard the median. It is the exchange rate between the two procedures when the normal model is right.
+The median needs about $\pi/2\approx 1.57$ times as many normal observations to match the variance of the mean. That is the price of a procedure that barely changes if one observation is replaced by an arbitrary outlier. The mean is more efficient in this model and more fragile in a model with heavy tails. The efficiency number is not a reason to discard the median. It is the exchange rate between the two procedures when the normal model is right.{{cite:siegrist2022_order_statistics}} (§ “Distribution of the kth Order Statistic”){{cite:durrett2019}} (§3.4.2, Thm. 3.4.10, p. 148)
 
 ```r
 set.seed(10)

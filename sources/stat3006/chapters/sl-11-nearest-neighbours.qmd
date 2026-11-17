@@ -98,7 +98,7 @@ $$
 \E\bigl[2r(X)\bigl(1-r(X)\bigr)\bigr]\le 2\E\bigl[r(X)\bigr]=2R^*,
 $$
 
-where $R^*=\E[r(X)]$ is the Bayes risk, because $1-r\le 1$.{{cite:cover_hart1967}} (pp. 22–23, risk bound). Jensen's inequality, using the concavity of $u\mapsto u(1-u)$ on $[0,1]$ together with $\E[r(X)]=R^*$, gives the sharper Cover–Hart bound.{{cite:cover_hart1967}} (pp. 22–23, risk bound)
+where $R^*=\E[r(X)]$ is the Bayes risk, because $1-r\le 1$.{{cite:cover_hart1967}} (§VI, pp. 24–25). Jensen's inequality, using the concavity of $u\mapsto u(1-u)$ on $[0,1]$ together with $\E[r(X)]=R^*$, gives the sharper Cover–Hart bound.{{cite:cover_hart1967}} (§VI, pp. 24–25)
 
 $$
 \E\bigl[2r(1-r)\bigr]\le 2R^*(1-R^*).

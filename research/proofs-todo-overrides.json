@@ -408,5 +408,110 @@
     "slug": "randomised-block-design#chi-squared-sums",
     "title": "Null chi-squared laws of the block and treatment sums of squares",
     "reason": "The page uses the F reference distribution for one table. The normal-theory chi-squared derivation is not given."
+  },
+  {
+    "slug": "wold-decomposition#property-representation",
+    "title": "Wold representation by the closed linear past",
+    "reason": "The page explains innovation orthogonality and verifies an MA(1) and a stationary harmonic. A complete Hilbert-space construction of the infinite moving-average representation and deterministic component remains to be supplied."
+  },
+  {
+    "slug": "cover-hart-bound#property-nn-limit",
+    "title": "Convergence to the one-neighbour limiting risk",
+    "reason": "The article derives the risk inequalities from the limiting conditional-label formula and explains its continuity argument. The general Euclidean nearest-neighbour convergence argument, including measurable distance ties, remains to be supplied."
+  },
+  {
+    "slug": "doubly-stochastic-matrix#property-regular-chain-convergence",
+    "title": "Regular finite-chain convergence to the uniform stationary law",
+    "reason": "The article proves uniform invariance and checks a regular-chain example, but does not give the general regular finite-chain convergence proof."
+  },
+  {
+    "slug": "poisson-limit-of-the-binomial#property-unequal-independent-array",
+    "title": "Poisson convergence for unequal independent Bernoulli probabilities",
+    "reason": "The article proves the identical-probability binomial case. Its stated triangular-array extension is cited to Durrett Thm.3.6.1 without a full independent-array proof."
+  },
+  {
+    "slug": "confidence-region-for-a-normal-mean-vector#property-hotelling-null-calibration",
+    "title": "Exact normal-sample Hotelling F calibration",
+    "reason": "The page derives and checks ellipsoid geometry and numerically applies the stated normal-sample F calibration; a full Wishart/independent-mean derivation of that calibration is not given."
+  },
+  {
+    "slug": "dual-problem#property-slater-strong-duality",
+    "title": "Slater constraint qualification and strong duality",
+    "reason": "The article proves weak duality and derives the SVM dual; it cites the general Slater strong-duality theorem without its separation argument."
+  },
+  {
+    "slug": "limiting-distribution#property-countable-convergence",
+    "title": "Convergence for a countable irreducible aperiodic positive recurrent chain",
+    "reason": "The local contraction proof establishes finite-state convergence only. The countable-state extension is stated from Durrett §5.6 Thm5.6.6 and needs the recurrence/coupling argument."
+  },
+  {
+    "slug": "limiting-distribution#property-ergodic-proportions",
+    "title": "Long-run visit proportions for an irreducible positive recurrent chain",
+    "reason": "State-frequency convergence is stated from Durrett §5.6 Thm5.6.1, separately from distributional convergence; its return-cycle strong-law proof is not included."
+  },
+  {
+    "slug": "blocking-probability#property-pasta",
+    "title": "Poisson arrivals see stationary occupancy probabilities",
+    "reason": "The finite occupancy distribution is derived by detailed balance. The general nonanticipating Poisson-arrival sampling theorem is stated from Wolff (1982), §§1–2, without reproducing its martingale proof."
+  },
+  {
+    "slug": "characteristic-functions#property-cf-uniqueness",
+    "title": "A characteristic function uniquely determines its probability law",
+    "reason": "The article derives basic transform identities and a finite-law worked example. General uniqueness via Fourier inversion is stated from Durrett §3.3.1 and is not proved."
+  },
+  {
+    "slug": "characteristic-functions#property-cf-continuity",
+    "title": "Pointwise transform convergence and continuity at zero imply weak convergence",
+    "reason": "The continuity theorem is stated with its continuity-at-zero hypothesis from Durrett Thm. 3.3.17; the tightness and inversion proof is not reproduced."
+  },
+  {
+    "slug": "exponential-tails-and-the-gumbel-law#property-normal-gumbel-limit",
+    "title": "Gumbel limit for independent normal maxima",
+    "reason": "The page proves the exact exponential maximum limit. The normal-tail comparison cites Durrett Exercise 3.2.3 but does not establish its tail-ratio asymptotics."
+  },
+  {
+    "slug": "finite-irreducible-chains#property-aperiodic-convergence",
+    "title": "Convergence of finite irreducible aperiodic transition powers",
+    "reason": "The page proves existence, positivity and uniqueness of the stationary law and derives the two-state limit. The general aperiodic convergence and return-time theorems are cited to Durrett §§5.5–5.6 rather than proved."
+  },
+  {
+    "slug": "finite-irreducible-chains#property-return-time-identity",
+    "title": "Stationary masses equal reciprocal mean return times",
+    "reason": "The page applies the return-time identity from Durrett Theorem 5.5.11; its local proof establishes stationary existence and uniqueness without deriving this renewal identity."
+  },
+  {
+    "slug": "kolmogorov-extension-theorem#property-general-extension",
+    "title": "Extension of consistent finite-dimensional laws",
+    "reason": "The page verifies finite Bernoulli consistency and Markov marginalisation; the measure-extension existence argument for arbitrary consistent laws is stated with Durrett Appendix A.3 as its source."
+  },
+  {
+    "slug": "linear-congruential-generator#property-full-period",
+    "title": "Hull–Dobell full-period theorem",
+    "reason": "The full-period conditions are stated with Hull and Dobell (1962), Theorem 1, p. 233. The page checks two finite cycles rather than proving the modular-arithmetic characterization."
+  },
+  {
+    "slug": "moments-of-the-sample-mean-and-variance#property-variance-of-sample-variance",
+    "title": "Variance of the unbiased sample variance",
+    "reason": "The page proves unbiasedness and the sample-mean moments. The fourth-central-moment formula for Var(S²) is cited to Siegrist and checked by finite enumeration for a discrete population; its general combinatorial proof is not included."
+  },
+  {
+    "slug": "laplace-approximation#property-laplace-asymptotics",
+    "title": "Full asymptotic Laplace approximation with tail control",
+    "reason": "The article evaluates the Gaussian surrogate exactly and checks an exact gamma-integral example; a general analytic proof controlling Taylor remainders and contributions outside the dominant peak is still required."
+  },
+  {
+    "slug": "scaled-deviance#property-regular-deviance-calibration",
+    "title": "Regular likelihood-ratio chi-square calibration for nested GLMs",
+    "reason": "The article proves the exact Gaussian orthogonal-coordinate case; the general regular-model likelihood asymptotic expansion and convergence proof remain to be supplied."
+  },
+  {
+    "slug": "two-sample-hotelling-test#property-hotelling-f-calibration",
+    "title": "General two-sample Hotelling F calibration",
+    "reason": "The page proves affine invariance and the scalar t-squared case; the multivariate normal/Wishart derivation for arbitrary dimension is cited to the proper full-text papers rather than derived."
+  },
+  {
+    "slug": "cost-complexity-pruning#property-nested-pruning-path",
+    "title": "Weakest-link pruning gives the nested optimal-subtree path",
+    "reason": "The page proves penalty monotonicity of leaf counts and the single-branch breakpoint identity. The full optimal-subtree guarantee for successive weakest-link pruning is cited to Loh2014 but has no local structural proof."
   }
 ]

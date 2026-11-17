@@ -23,7 +23,7 @@ $$
 f(s)=\E(s^{\xi})=\sum_{k\ge 0}p_k s^k, \qquad 0\le s\le 1.
 $$
 
-It satisfies $f(1)=1$.{{cite:feller1968}} If the mean is finite, $f'(1-)=m$.{{cite:grimmett_stirzaker2020}} If $\E[\xi(\xi-1)]$ is finite, $f''(1-)=\E[\xi(\xi-1)]$.{{cite:ross2019}}
+It satisfies $f(1)=1$.{{cite:grinstead_snell1997}} (§§10.1–10.2) If the mean is finite, $f'(1-)=m$.{{cite:durrett2019}} (§4.3.4) If $\E[\xi(\xi-1)]$ is finite, $f''(1-)=\E[\xi(\xi-1)]$.{{cite:grinstead_snell1997}} (§10.1)
 
 :::
 
@@ -72,7 +72,7 @@ Let $q_n=\Pr(Z_n=0)=f_n(0)$. Because $0$ is absorbing, $\{Z_n=0\}\subset\{Z_{n+1
 ::: {#thm-sp-extinction .theorem}
 ## Extinction criterion
 
-For a non-degenerate Galton–Watson process with $p_0>0$, the extinction probability is $q=1$ when $m\le 1$, and $q<1$ when $m>1$.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}{{cite:ross2019}} If $p_0=0$, extinction is impossible and $q=0$. The deterministic law $\xi\equiv 1$ has mean $m=1$ and extinction probability $q=0$.
+For a non-degenerate Galton–Watson process with $p_0>0$, the extinction probability is $q=1$ when $m\le 1$, and $q<1$ when $m>1$.{{cite:durrett2019}} (§4.3.4, Thm. 4.3.10–4.3.12, pp. 231–233){{cite:grinstead_snell1997}} (§10.2, branching processes) If $p_0=0$, extinction is impossible and $q=0$. The deterministic law $\xi\equiv 1$ has mean $m=1$ and extinction probability $q=0$.
 
 :::
 

@@ -14,7 +14,7 @@ Regression allows the mean response to change with measured predictors. Let ther
  \label{eq:lm-scalar-model}
 \end{equation} Here $x_{ij}$ is the recorded value of predictor $j$ for observation $i$. Before the response is observed, $Y_i$ is random; the $x_{ij}$ are known numbers in the model; and the coefficients $\beta_0,\ldots,\beta_k$ are unknown. The term $\varepsilon_i$ represents the part of the response not explained by its mean.
 
-Stacking the scalar equations introduces no new statistical assumption. It is bookkeeping that lets one equation describe all $n$ observations. Using the convention that the intercept comes last, define 
+Stacking the scalar equations introduces no new statistical assumption. It is bookkeeping that lets one equation describe all $n$ observations. Using the convention that the intercept comes last, define
 
 $$
  \mat X=
@@ -34,7 +34,7 @@ $$
 
  Thus $\mat X\in\R^{n\times p}$ is known, while $\betavec\in\R^p$ is unknown. The column of ones supplies the intercept in every row. Placing that column first, and $\beta_0$ first in $\betavec$, changes only the ordering of the coefficients.
 
-Now stack the random responses and errors: 
+Now stack the random responses and errors:
 
 $$
  \vect Y=
@@ -78,7 +78,7 @@ The design matrix is conditioned on and treated as fixed.{{cite:box_tiao1973}} I
 
 ### From random responses to fitted values
 
-Once the responses have been observed, their realised values are written without capital letters and without hats: 
+Once the responses have been observed, their realised values are written without capital letters and without hats:
 
 $$
  \yvec=
@@ -86,7 +86,7 @@ $$
 $$
 
 
- These are the actual measured responses. We use $\mat X$ and $\yvec$ to estimate the unknown coefficient vector, obtaining 
+ These are the actual measured responses. We use $\mat X$ and $\yvec$ to estimate the unknown coefficient vector, obtaining
 
 $$
  \widehat\betavec=
@@ -116,7 +116,7 @@ Subtracting fitted responses from measured responses gives the residual vector \
   y_n-\widehat y_n
  \end{pmatrix}.
  \label{eq:lm-residual-vector-intro}
-\end{equation} The two equations worth keeping side by side are 
+\end{equation} The two equations worth keeping side by side are
 
 $$
  \boxed{
@@ -136,14 +136,14 @@ $$
 ::: {#def-error-and-residual .definition}
 ## Error and residual
 
-The true error is 
+The true error is
 
 $$
  \varepsilon_i=Y_i-\xvec_i^\top\betavec,
 $$
 
 
- which contains the unknown true coefficient vector. After fitting the model, the residual is 
+ which contains the unknown true coefficient vector. After fitting the model, the residual is
 
 $$
  e_i=y_i-\xvec_i^\top\widehat\betavec.
@@ -180,7 +180,7 @@ For a proposed coefficient vector $\vect b$, define \begin{align}
  &=\yvec^\top\yvec
    -2\vect b^\top\mat X^\top\yvec
    +\vect b^\top\mat X^\top\mat X\vect b,
-\end{align*} because the two middle terms are equal scalars. Differentiating with respect to $\vect b$, 
+\end{align*} because the two middle terms are equal scalars. Differentiating with respect to $\vect b$,
 
 $$
  \frac{\partial}{\partial\vect b}
@@ -189,7 +189,7 @@ $$
 $$
 
 
- At the minimiser this gradient is zero, so the normal equations are 
+ At the minimiser this gradient is zero, so the normal equations are
 
 $$
  \mat X^\top\mat X\widehat\betavec
@@ -297,7 +297,7 @@ Bayes' rule gives the joint posterior kernel \begin{equation}
  \exp\!\left\{-\frac{\operatorname{SSE}(\betavec)}
                          {2\sigma^2}\right\}.
  \label{eq:lm-joint-posterior-before-split}
-\end{equation} This kernel defines a proper posterior when 
+\end{equation} This kernel defines a proper posterior when
 
 $$
  \operatorname{rank}(\mat X)=p,
@@ -346,7 +346,7 @@ Begin with the candidate residual vector: \begin{align*}
       (\widehat\betavec-\betavec)
    +(\widehat\betavec-\betavec)^\top\mat X^\top\mat X
       (\widehat\betavec-\betavec).
-\end{align*} The normal equations imply 
+\end{align*} The normal equations imply
 
 $$
  \mat X^\top\widehat{\vect e}
@@ -388,7 +388,7 @@ Substituting \eqref{eq:lm-sse-decomposition} into \eqref{eq:lm-joint-posterior-b
   (\betavec-\widehat\betavec)^\top\mat X^\top\mat X
   (\betavec-\widehat\betavec)}{2\sigma^2}\right\}.
  \label{eq:lm-joint-posterior-split}
-\end{align} In norm notation, the quadratic exponent in the second factor is 
+\end{align} In norm notation, the quadratic exponent in the second factor is
 
 $$
  -\frac{
@@ -413,7 +413,7 @@ Holding $\sigma^2$ fixed, the terms involving $\betavec$ have a multivariate nor
  \widehat\betavec,
  \sigma^2(\mat X^\top\mat X)^{-1}\right).}
  \label{eq:lm-beta-given-sigma}
-\end{equation} To check the normalising factor, set $\mat C=(\mat X^\top\mat X)^{-1}$. Then 
+\end{equation} To check the normalising factor, set $\mat C=(\mat X^\top\mat X)^{-1}$. Then
 
 $$
  |\sigma^2\mat C|^{-1/2}
@@ -422,7 +422,7 @@ $$
 
 
  and $(\sigma^2\mat C)^{-1}
-=\sigma^{-2}\mat X^\top\mat X$, exactly matching \eqref{eq:lm-joint-posterior-split}.{{cite:box_tiao1973}}{{cite:gelman_bda2013}}{{cite:jeffreys1961}}
+=\sigma^{-2}\mat X^\top\mat X$, exactly matching \eqref{eq:lm-joint-posterior-split}.{{cite:prado_ferreira_west2021}} (§1.5.3.1, p. 21)
 
 :::
 
@@ -453,11 +453,11 @@ Integrating the coefficient kernel over $\R^p$ contributes \begin{align*}
  \sim\InvGamma\!\left(
  \frac{n-p}{2},\frac{\operatorname{SSE}}2\right).}
  \label{eq:lm-sigma-marginal}
-\end{equation} The $p/2$ from the normalising constant is subtracted from $n/2$; it is not added.{{cite:raiffa_schlaifer1961}} (Ch. 13, §13.5, pp. 342–344) Equivalently, \begin{equation}
+\end{equation} The $p/2$ from the normalising constant is subtracted from $n/2$; it is not added.{{cite:prado_ferreira_west2021}} (§1.5.3.1, p. 21) Equivalently, \begin{equation}
  \frac{\operatorname{SSE}}{\sigma^2}\given\yvec,\mat X
  \sim\chi^2_{n-p}.
  \label{eq:lm-posterior-chi-square}
-\end{equation} If $n>p+2$, the posterior mean exists and is 
+\end{equation} If $n>p+2$, the posterior mean exists and is
 
 $$
  \E(\sigma^2\given\yvec,\mat X)
@@ -466,7 +466,7 @@ $$
 $$
 
 
- The posterior mode is $\operatorname{SSE}/(n-p+2)$.{{cite:stan_functions2026}} (§“Inverse gamma Distribution”) Thus the unbiased estimator $s^2$ is generally neither the posterior mean nor the posterior mode; calling any one quantity "the estimate" implicitly chooses a loss function.
+ The posterior mode is $\operatorname{SSE}/(n-p+2)$.{{cite:prado_ferreira_west2021}} (§1.5.3.1, p. 21; inverse-gamma summary obtained by differentiating its density) Thus the unbiased estimator $s^2$ is generally neither the posterior mean nor the posterior mode; calling any one quantity "the estimate" implicitly chooses a loss function.
 
 :::
 
@@ -484,7 +484,7 @@ Let $\nu=n-p$, $\mat C=(\mat X^\top\mat X)^{-1}$, and \begin{align*}
  (\sigma^2)^{-\{(p+\nu)/2+1\}}
  \exp\!\left\{-\frac{\operatorname{SSE}+Q(\betavec)}
                          {2\sigma^2}\right\}\dd\sigma^2.
-\end{align*} For $a,c>0$, 
+\end{align*} For $a,c>0$,
 
 $$
  \int_0^\infty u^{-(a+1)}e^{-c/u}\dd u=\Gamma(a)c^{-a}.
@@ -522,7 +522,7 @@ $$
 
 ## Direct simulation and genuine Gibbs sampling
 
-The posterior factorisation 
+The posterior factorisation
 
 $$
  p(\betavec,\sigma^2\given\yvec)
@@ -536,7 +536,7 @@ $$
 ::: {#prp-direct-posterior-simulation .proposition}
 ## Direct posterior simulation
 
-1.  draw 
+1.  draw
 
 $$
   \sigma^{2(m)}\sim\InvGamma\!\left(
@@ -544,7 +544,7 @@ $$
 $$
 
 
-2.  conditional on that draw, draw 
+2.  conditional on that draw, draw
 
 $$
   \betavec^{(m)}\sim\Normal_p\!\left(
@@ -553,7 +553,7 @@ $$
 $$
 
 
-The resulting pairs are iid joint-posterior draws.{{cite:gelman_bda2013}}{{cite:box_tiao1973}} There is no burn-in, serial dependence, or convergence diagnostic.{{cite:robert_casella2004}}
+The resulting pairs are iid joint-posterior draws.{{cite:prado_ferreira_west2021}} (§1.5.3.1, p. 21) There is no burn-in, serial dependence, or convergence diagnostic.{{cite:prado_ferreira_west2021}} (§1.5.3.1, p. 21)
 
 :::
 
@@ -596,7 +596,7 @@ If one deliberately constructs a Gibbs sampler, the variance must instead be con
 
 ## Informative priors and regularisation
 
-The independent priors are 
+The independent priors are
 
 $$
  \betavec\sim\Normal_p(\vect m_0,\mat V_0),
@@ -656,7 +656,7 @@ Define \begin{align}
  (\betavec-\vect m_n)
  +\yvec^\top\yvec+\vect m_0^\top\mat V_0^{-1}\vect m_0
  -\vect m_n^\top\mat V_n^{-1}\vect m_n.
-\end{align*} The first line has the geometric reading 
+\end{align*} The first line has the geometric reading
 
 $$
  \lVert\yvec-\mat X\betavec\rVert_2^2
@@ -722,7 +722,7 @@ Prediction requires a new random quantity; estimating a fitted mean and predicti
 
 If the goal is a new response, posterior prediction is not optional decoration. A fitted mean describes uncertainty about the regression surface; a future observation also contains a new error term. Averaging over $(\betavec,\sigma^2)$ carries both sources of uncertainty forward, which is why a predictive interval is wider than an interval for the mean response at the same predictor value.
 
-Let 
+Let
 
 $$
  h(\widetilde\xvec)
@@ -776,7 +776,7 @@ The distinction is summarised by the scale terms.
 | Mean at $\widetilde\xvec$ | $\widetilde\xvec^\top\widehat\betavec$ | $s^2 h(\widetilde\xvec)$ |
 | New response at $\widetilde\xvec$ | $\widetilde\xvec^\top\widehat\betavec$ | $s^2\{1+h(\widetilde\xvec)\}$ |
 
-The extra $1$ is irreducible future observational noise. The leverage term $h(\widetilde\xvec)$ measures uncertainty about the fitted line and typically grows during extrapolation. Posterior predictive simulation provides the same answer without closed-form algebra: for every posterior draw, generate 
+The extra $1$ is irreducible future observational noise. The leverage term $h(\widetilde\xvec)$ measures uncertainty about the fitted line and typically grows during extrapolation. Posterior predictive simulation provides the same answer without closed-form algebra: for every posterior draw, generate
 
 $$
  \widetilde Y^{(m)}\sim\Normal\!\left(
@@ -791,7 +791,7 @@ $$
 ::: {#exm-eight-point-regression .example}
 ## Eight-point regression
 
-Consider $n=8$ observations with one predictor and an intercept: 
+Consider $n=8$ observations with one predictor and an intercept:
 
 $$
  \xvec=(1,2,3,4,5,6,7,8)^{\mathsf T},
@@ -802,7 +802,7 @@ $$
 
  **Question.** Under the reference-prior analysis developed above, compute $\widehat\betavec$, the fitted sum of squared errors, the posterior distributions of $\sigma^2$ and $\betavec$, and marginal $95\%$ credible intervals for the two regression coefficients. Then derive posterior predictive distributions at $\widetilde x=4.5$ and $\widetilde x=10$ and explain the effect of extrapolation.
 
-**Solution.** For this example put the intercept first, so the $i$th row of $\mat X$ is $(1,x_i)$. Direct summation gives 
+**Solution.** For this example put the intercept first, so the $i$th row of $\mat X$ is $(1,x_i)$. Direct summation gives
 
 $$
  \sum_i y_i=50.75,
@@ -813,7 +813,7 @@ $$
 $$
 
 
- Therefore 
+ Therefore
 
 $$
  \mat X^\top\mat X=
@@ -824,7 +824,7 @@ $$
 $$
 
 
- The determinant is $8(204)-36^2=336$, so 
+ The determinant is $8(204)-36^2=336$, so
 
 $$
  (\mat X^\top\mat X)^{-1}
@@ -855,7 +855,7 @@ $$
  &\approx0.534554.
 \end{align*} The exact coefficients are kept here rather than the six-figure decimals printed above. The subtraction cancels almost everything: two quantities near $387.9$ leave a remainder near $0.53$, so rounding $\widehat\betavec$ first costs about four significant figures in $\operatorname{SSE}$. Summing the squared residuals directly avoids the cancellation entirely.
 
-Thus $n-p=6$ and 
+Thus $n-p=6$ and
 
 $$
  s^2=\frac{0.534554}{6}\approx0.089092.
@@ -873,7 +873,7 @@ $$
  0.607143&-0.107143\\
  -0.107143&0.023810
  \end{pmatrix}\right).
-\end{align*} The variance summaries illustrate why the loss function matters: 
+\end{align*} The variance summaries illustrate why the loss function matters:
 
 $$
  \E(\sigma^2\given\yvec)=\frac{0.267277}{3-1}=0.133638,
@@ -883,7 +883,7 @@ $$
 $$
 
 
- while $s^2=0.089092$. Using $t_{0.975,6}\approx2.447$, the marginal $95\%$ credible intervals are approximately 
+ while $s^2=0.089092$. Using $t_{0.975,6}\approx2.447$, the marginal $95\%$ credible intervals are approximately
 
 $$
  \beta_0\given\yvec:\ (0.158,1.296),
@@ -892,7 +892,7 @@ $$
 $$
 
 
-At $\widetilde x=4.5$, take $\widetilde\xvec=(1,4.5)^\top$. Matrix multiplication gives 
+At $\widetilde x=4.5$, take $\widetilde\xvec=(1,4.5)^\top$. Matrix multiplication gives
 
 $$
  h(\widetilde\xvec)
@@ -901,7 +901,7 @@ $$
 $$
 
 
- and the predicted centre is 
+ and the predicted centre is
 
 $$
  \widetilde\xvec^\top\widehat\betavec
@@ -909,7 +909,7 @@ $$
 $$
 
 
- Consequently, 
+ Consequently,
 
 $$
  \widetilde Y\given\yvec,\widetilde x=4.5

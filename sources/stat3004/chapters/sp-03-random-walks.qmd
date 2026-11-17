@@ -66,7 +66,7 @@ $$
 e_x=x(d-x).
 $$
 
-The expected duration is largest near the middle of the interval, where both barriers are far, and it is zero at either barrier.{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+For a fair walk, the expected duration is largest near the middle of the interval, where both barriers are far, and it is zero at either barrier.{{cite:durrett2012_essentials}} (§1.9, Ex. 1.49, pp. 52–53){{cite:grinstead_snell1997}} (§11.2, expected absorption time)
 
 If $p\neq q$, a particular solution is the linear function $x/(q-p)$, and the homogeneous solutions are again $1$ and $(q/p)^x$. Fitting $e_0=e_d=0$ gives
 
@@ -74,7 +74,7 @@ $$
 e_x=\frac{x}{q-p}-\frac{d}{q-p}\cdot\frac{1-(q/p)^x}{1-(q/p)^d}.
 $$
 
-The expression has a removable singularity at $p=q$. At equal probabilities, use $x(d-x)$.{{cite:demoivre1756}}{{cite:ross2019}}
+The expression has a removable singularity at $p=q$. At equal probabilities, use $x(d-x)$.{{cite:durrett2012_essentials}} (§1.9, Exs. 1.49–1.50, pp. 52–53){{cite:grinstead_snell1997}} (§12.2, pp. 487–489)
 
 ::: {#exm-sp-fair-ten .example}
 ## Three steps from ruin, ten from the start

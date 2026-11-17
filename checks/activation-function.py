@@ -20,6 +20,6 @@ for heading in ("## Motivating example", "## Intuition", "## Definition", "## Sh
     assert heading in body, heading
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and 'title="Answer"' in body
-for key in ("mcculloch_pitts1943", "rumelhart_hinton_williams1986", "bishop2006", "goodfellow_deep_learning2016_ch6", "glorot_bordes_bengio2011"):
+for key in ("mcculloch_pitts1943", "rumelhart_hinton_williams1986", "bishop2006", "goodfellow_bengio_courville2016", "glorot_bordes_bengio2011"):
     assert f'data-cite-key="{key}"' in body
 print("Activation examples, derivatives and inherited content passed")

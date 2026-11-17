@@ -146,7 +146,7 @@ For a non-negative random variable the expectation is the integral of the surviv
 ::: {#def-hazard-rate .definition}
 ## Hazard rate
 
-If $T$ has density $f$ and survival function $R$, the hazard rate is $h(t)=f(t)/R(t)$ for $t$ with $R(t)>0$.{{cite:barlow_proschan1975}}{{cite:cox1972}}{{cite:ross2019}}
+If $T$ has density $f$ and survival function $R$, the hazard rate is $h(t)=f(t)/R(t)$ for $t$ with $R(t)>0$.{{cite:siegrist_weibull2022}} (§ “The Basic Weibull Distribution”, failure rate)
 
 :::
 

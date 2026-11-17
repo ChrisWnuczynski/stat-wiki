@@ -63,9 +63,8 @@
       "words": 768,
       "figures": {},
       "citation_keys": [
-        "gelman_bda2013",
-        "laplace1812",
-        "raiffa_schlaifer1961"
+        "downey2020_thinkbayes2",
+        "siegrist2022_beta_bernoulli"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -106,9 +105,8 @@
       "words": 1060,
       "figures": {},
       "citation_keys": [
-        "dirichlet1839",
-        "gelman_bda2013",
-        "raiffa_schlaifer1961"
+        "blei_ng_jordan2003",
+        "deisenroth_faisal_ong2020"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -285,9 +283,8 @@
       "words": 1894,
       "figures": {},
       "citation_keys": [
-        "gelfand_smith1990",
-        "gelman_bda2013",
-        "raiffa_schlaifer1961"
+        "deisenroth_faisal_ong2020",
+        "gelfand_smith1990"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -309,9 +306,8 @@
       "words": 1573,
       "figures": {},
       "citation_keys": [
-        "box_tiao1973",
-        "gelman_bda2013",
-        "jeffreys1961"
+        "prado_ferreira_west2021",
+        "rasmussen_williams2006"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -330,9 +326,8 @@
       "words": 1591,
       "figures": {},
       "citation_keys": [
-        "box_tiao1973",
-        "gelman_bda2013",
-        "jeffreys1961"
+        "prado_ferreira_west2021",
+        "gelman2006"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -512,9 +507,8 @@
       "words": 479,
       "figures": {},
       "citation_keys": [
-        "gelman_bda2013",
-        "laplace1812",
-        "raiffa_schlaifer1961"
+        "dodge2008",
+        "siegrist2022_bayes_estimators"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -531,8 +525,8 @@
         "../figures/part1-fig-06-fruit-posterior.png": 2
       },
       "citation_keys": [
-        "raiffa_schlaifer1961",
-        "wald1950"
+        "pishro_nik2014",
+        "rasmussen_williams2006"
       ],
       "infobox_rows": {
         "Fact": "Value",
@@ -549,9 +543,9 @@
       "words": 1830,
       "figures": {},
       "citation_keys": [
-        "box_tiao1973",
-        "gelman_bda2013",
-        "robert_casella2004"
+        "pishro_nik2014",
+        "prado_ferreira_west2021",
+        "rasmussen_williams2006"
       ],
       "infobox_rows": {
         "Fact": "Value",

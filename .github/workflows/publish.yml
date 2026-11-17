@@ -193,7 +193,15 @@ jobs:
           python-version: "3.12"
 
       - name: Install distribution plotting packages
-        run: python -m pip install matplotlib==3.10.8 scipy==1.17.0 sympy==1.14.0 scikit-learn==1.6.1 sympy==1.14.0 scikit-learn==1.6.1
+        run: python -m pip install matplotlib==3.10.8 scipy==1.17.0 sympy==1.14.0 scikit-learn==1.6.1
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.5.0"
+
+      - name: Install the R packages used by the page checks
+        run: |
+          Rscript -e 'install.packages(c("https://cran.r-project.org/src/contrib/Archive/mgcv/mgcv_1.9-3.tar.gz", "https://cran.r-project.org/src/contrib/Archive/rpart/rpart_4.1.24.tar.gz"), repos = NULL, type = "source"); stopifnot(packageVersion("mgcv") == "1.9.3", packageVersion("rpart") == "4.1.24")'
 
       - name: Install poppler
         run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-liberation

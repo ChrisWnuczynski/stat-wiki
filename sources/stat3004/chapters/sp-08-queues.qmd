@@ -6,7 +6,7 @@ The generator, holding times, and the equation $\pi Q=0$ are on [Continuous-time
 
 ## Birth–death balance
 
-For states $n=0,1,2,\ldots$, let $\lambda_n$ be the birth rate in state $n$ and let $\mu_n$ be the death rate in state $n\ge 1$, with $\mu_0=0$. The generator has $q_{n,n+1}=\lambda_n$, $q_{n,n-1}=\mu_n$, and $q_{nn}=-(\lambda_n+\mu_n)$. Local balance equates the flow across the cut between $n$ and $n+1$.{{cite:kelly1979}}{{cite:ross2019}}{{cite:norris1997}}
+For states $n=0,1,2,\ldots$, let $\lambda_n$ be the birth rate in state $n$ and let $\mu_n$ be the death rate in state $n\ge 1$, with $\mu_0=0$. The generator has $q_{n,n+1}=\lambda_n$, $q_{n,n-1}=\mu_n$, and $q_{nn}=-(\lambda_n+\mu_n)$. Local balance equates the flow across the cut between $n$ and $n+1$.{{cite:pishro_nik2014}} (§11.3.2){{cite:durrett2019}} (§5.5, Ex. 5.5.4, discrete birth–death balance)
 
 $$
 \pi_n\lambda_n=\pi_{n+1}\mu_{n+1},
@@ -20,7 +20,7 @@ $$
 \pi_0=\Biggl(1+\sum_{n=1}^{\infty}\prod_{k=0}^{n-1}\frac{\lambda_k}{\mu_{k+1}}\Biggr)^{-1},
 $$
 
-provided the sum is finite. A finite sum is a stability condition. It is the statement that the chain returns often enough to have a stationary probability, not a bookkeeping step after the fact.
+provided the sum is finite. For an irreducible nonexplosive birth–death chain with positive neighbouring rates, this normalisation gives its stationary probability. Nonexplosion ensures that the process remains in its state space at every finite time.{{cite:siegrist_birthdeath2022}} (§15.21, Basic Theory, “Limiting Behavior and Stationary Distributions”)
 
 ## One server: M/M/1
 
@@ -56,7 +56,7 @@ $$
 \pi_n=\pi_0\prod_{k=0}^{n-1}\frac{\lambda}{(k+1)\mu}=\pi_0\frac{(\lambda/\mu)^n}{n!}.
 $$
 
-The series is the exponential series, so $\pi_0=e^{-\lambda/\mu}$ and the stationary number in system is $\mathrm{Poisson}(\lambda/\mu)$.{{cite:ross2019}}{{cite:norris1997}} There is no finite-server overload threshold, because the total service rate grows without bound as $n$ grows. The mean is $\lambda/\mu$ for every $\lambda>0$ and $\mu>0$.{{cite:kelly1979}}
+The series is the exponential series, so $\pi_0=e^{-\lambda/\mu}$ and the stationary number in system is $\mathrm{Poisson}(\lambda/\mu)$.{{cite:durrett2012_essentials}} (§4.3, Ex. 4.16, p. 132) There is no finite-server overload threshold, because the total service rate grows without bound as $n$ grows. The mean is $\lambda/\mu$ for every $\lambda>0$ and $\mu>0$.{{cite:shortle2018_queueing}} (Ch. 1, Thm. 1.1, pp. 11–13)
 
 ## Several servers, and a finite waiting room
 
@@ -68,7 +68,7 @@ $$
 
 The first sum covers the states in which at least one server is idle. The second term sums the geometric tail from $c$ onward.
 
-An M/M/$c$/$K$ system stops at state $K$. An arrival that finds $K$ customers present is blocked and does not enter. The state space is finite and irreducible for $\lambda>0$ and $\mu>0$, so a stationary distribution exists for every positive load, including $\lambda\ge c\mu$. The chain cannot drift to infinity because the state cannot pass $K$. The cost is lost arrivals. Throughput, the long-run rate of accepted arrivals, is $\lambda(1-\pi_K)$, not the offered rate $\lambda$.{{cite:ross2019}}{{cite:kelly1979}}{{cite:little1961}}
+An M/M/$c$/$K$ system stops at state $K$. An arrival that finds $K$ customers present is blocked and does not enter. The state space is finite and irreducible for $\lambda>0$ and $\mu>0$, so a stationary distribution exists for every positive load, including $\lambda\ge c\mu$. The chain cannot drift to infinity because the state cannot pass $K$. The cost is lost arrivals. Throughput, the long-run rate of accepted arrivals, is $\lambda(1-\pi_K)$, not the offered rate $\lambda$.{{cite:durrett2012_essentials}} (§4.3, Lem. 4.3, p. 128; §4.5, Ex. 4.24, pp. 138–140){{cite:siegrist_queuing2022}} (§ “Infinitesimal Generator”)
 
 For the single-server finite system M/M/$1$/$K$ with $\rho\neq 1$,
 
@@ -76,7 +76,7 @@ $$
 \pi_n=\frac{(1-\rho)\rho^n}{1-\rho^{K+1}}, \qquad 0\le n\le K.
 $$
 
-At $\rho=1$ the weights are constant and $\pi_n=1/(K+1)$.{{cite:ross2019}} Blocking probability $\pi_K$ increases with $\rho$.{{cite:erlang1917}}{{cite:kelly1979}} The stationary law exists on both sides of $\rho=1$ because the room is finite.
+At $\rho=1$ the weights are constant and $\pi_n=1/(K+1)$.{{cite:durrett2019}} (§5.5, normalising stationary weights) Blocking probability $\pi_K$ increases with $\rho$: differentiating the finite normaliser gives $d\pi_K/d\rho=\pi_K(K-\mathbb E_\pi N)/\rho>0$ for $K\ge1$. The stationary law exists on both sides of $\rho=1$ because the room is finite.{{cite:durrett2019}} (§5.5, finite-state stationary distributions)
 
 ## A repair model
 

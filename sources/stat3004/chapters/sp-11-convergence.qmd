@@ -11,7 +11,7 @@ Expectation is linear on integrable variables, and it is monotone: $X\le Y$ impl
 ::: {#thm-sp-convergence-theorems .theorem}
 ## Monotone convergence, Fatou, and dominated convergence
 
-If $0\le X_n\uparrow X$ with probability $1$, the monotone convergence theorem gives $\E X_n\uparrow\E X$, and the limit may be infinite.{{cite:billingsley1995}}{{cite:durrett2019}} If $X_n\ge 0$, Fatou's lemma gives $\E(\liminf_n X_n)\le\liminf_n\E X_n$.{{cite:fatou1906}} If $X_n\to X$ with probability $1$ and $|X_n|\le Y$ for every $n$, with $\E Y<\infty$, the dominated convergence theorem gives $\E X_n\to\E X$.{{cite:lebesgue1902}}
+If $0\le X_n\uparrow X$ with probability $1$, the monotone convergence theorem gives $\E X_n\uparrow\E X$, and the limit may be infinite.{{cite:durrett2019}} (§1.5, Thm. 1.5.7, pp. 26–27) If $X_n\ge 0$, Fatou's lemma gives $\E(\liminf_n X_n)\le\liminf_n\E X_n$.{{cite:durrett2019}} (§1.5, Thm. 1.5.5, p. 26) If $X_n\to X$ with probability $1$ and $|X_n|\le Y$ for every $n$, with $\E Y<\infty$, the dominated convergence theorem gives $\E X_n\to\E X$.{{cite:durrett2019}} (§1.5, Thm. 1.5.8, p. 27)
 
 :::
 
@@ -100,9 +100,9 @@ The [central limit theorem](prob-05-transforms-and-limits.qmd#thm-central-limit-
 
 ## Characteristic functions
 
-The characteristic function $\varphi_X(t)=\E e^{itX}$ exists for every real $t$, because $|e^{itX}|=1$.{{cite:levy1925}}{{cite:durrett2019}} It determines the distribution.{{cite:billingsley1995}} For independent random variables the characteristic function of a sum is the product of the characteristic functions, the same formal convenience that [moment generating functions](prob-02-random-variables.qmd#def-moment-generating-function) give on the set where they exist. The characteristic function exists without that restriction.
+The characteristic function $\varphi_X(t)=\E e^{itX}$ exists for every real $t$, because $|e^{itX}|=1$.{{cite:durrett2019}} (§3.3.1, elementary properties) It determines the distribution.{{cite:durrett2019}} (§3.3.1, Thm. 3.3.11) For independent random variables the characteristic function of a sum is the product of the characteristic functions, the same formal convenience that [moment generating functions](prob-02-random-variables.qmd#def-moment-generating-function) give on the set where they exist. The characteristic function exists without that restriction.
 
-Lévy's continuity theorem says that if $\varphi_{X_n}(t)\to\varphi(t)$ for every $t$, and $\varphi$ is continuous at $0$ and is itself a characteristic function, then $X_n$ converges in distribution to the law with characteristic function $\varphi$.{{cite:levy1937}}{{cite:durrett2019}}{{cite:billingsley1995}} This is one route to the central limit theorem: the characteristic function of the standardised sum converges to $e^{-t^2/2}$. Convergence of characteristic functions does not, by itself, give convergence of moments.
+Lévy's continuity theorem says that if $\varphi_{X_n}(t)\to\varphi(t)$ for every $t$, and $\varphi$ is continuous at $0$, then $\varphi$ is the characteristic function of a probability law and $X_n$ converges in distribution to that law.{{cite:durrett2019}} (§3.3.2, Thm. 3.3.17, pp. 132–133) This is one route to the central limit theorem: the characteristic function of the standardised sum converges to $e^{-t^2/2}$. Convergence of characteristic functions does not, by itself, give convergence of moments.
 
 ## A fourth-moment route to the strong law
 
@@ -155,7 +155,7 @@ $$
 \lim_{K\to\infty}\sup_n \E\bigl(|X_n|\,1_{\{|X_n|>K\}}\bigr)=0.
 $$
 
-The tail contribution is small uniformly in $n$.{{cite:billingsley1995}}{{cite:durrett2019}}{{cite:doob1953}}
+The tail contribution is small uniformly in $n$.{{cite:durrett2019}} (§4.6, pp. 244–245)
 
 :::
 

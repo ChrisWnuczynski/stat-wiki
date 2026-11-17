@@ -13,7 +13,7 @@ Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{ci
 
 ### From one tutorial class to many
 
-For one tutorial class, let $Y_i$ be the mark of student $i$ and let $\theta$ be the class's unknown true mean. With a known within-class variance $\sigma^2$, an ordinary Bayesian model is 
+For one tutorial class, let $Y_i$ be the mark of student $i$ and let $\theta$ be the class's unknown true mean. With a known within-class variance $\sigma^2$, an ordinary Bayesian model is
 
 $$
  Y_i\given\theta\sim\Normal(\theta,\sigma^2),
@@ -34,7 +34,7 @@ Now suppose there are $J$ tutorial classes. Give class $j$ its own mean $\theta_
  \stackrel{\mathrm{iid}}{\sim}\Normal(\mu,\tau^2),
  \qquad j=1,\ldots,J.
  \label{eq:tutorial-group-level}
-\end{equation} Here $\mu$ is the overall course mean and $\tau^2$ measures genuine between-class variation. The hierarchy is 
+\end{equation} Here $\mu$ is the overall course mean and $\tau^2$ measures genuine between-class variation. The hierarchy is
 
 $$
  (\mu,\tau^2)\longrightarrow\theta_j\longrightarrow Y_{ij}.
@@ -46,7 +46,7 @@ $$
 ::: {#def-hyperparameter .definition}
 ## Hyperparameter
 
-For a fully Bayesian analysis, the population-level quantities are also unknown and receive priors, for example 
+For a fully Bayesian analysis, the population-level quantities are also unknown and receive priors, for example
 
 $$
  \mu\sim\Normal(m_0,s_0^2),
@@ -73,7 +73,7 @@ Hierarchical Bayes produces partial pooling.{{cite:deligiannidis2022_foundations
 
 ### Where the shrinkage weight comes from
 
-Condition for the moment on known $\mu$, $\tau^2$, and $\sigma^2$. The sample mean in class $j$ satisfies 
+Condition for the moment on known $\mu$, $\tau^2$, and $\sigma^2$. The sample mean in class $j$ satisfies
 
 $$
  \overline Y_j\given\theta_j
@@ -98,7 +98,7 @@ $$
    -2\left(\frac{n_j\overline y_j}{\sigma^2}
             +\frac\mu{\tau^2}\right)\theta_j
    \right]\right\}.
-\end{align*} Set 
+\end{align*} Set
 
 $$
  A_j=\frac{n_j}{\sigma^2}+\frac1{\tau^2},
@@ -142,14 +142,14 @@ The final term is constant in $\theta_j$. The remaining kernel is normal, so \be
  \qquad
  1-w_j=\frac{\sigma^2}{\sigma^2+n_j\tau^2}.
  \label{eq:normal-hierarchy-shrinkage-weight}
-\end{equation} Thus 
+\end{equation} Thus
 
 $$
  \E(\theta_j\given\overline y_j,\mu,\tau^2,\sigma^2)
  =w_j\overline y_j+(1-w_j)\mu.
 $$
 
-The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–56)
+The conditional posterior mean shrinks the group sample mean toward the population mean.{{cite:efron_morris1975}} (§1, p.312, Eqs.1.8–1.9)
 
 :::
 
@@ -202,7 +202,7 @@ A cattle-genetics meta-analysis illustrates hierarchical Bayes. The search was n
  &\sim\Normal(\mu_0,\tau_{\mathrm{breed}}^{-1}),\\
  \mu_0&\sim\Normal(0,\xi^2),
  \qquad \xi^2\text{ large}.
-\end{align*} Here $w_{ij}$ records the within-study information, $\delta_i$ is a study effect, and $\mu_b$ is a breed-group effect. Precision parameters were given diffuse scaled inverse-$\chi^2$-type priors in the applied analysis. The diagrammatic flow is 
+\end{align*} Here $w_{ij}$ records the within-study information, $\delta_i$ is a study effect, and $\mu_b$ is a breed-group effect. Precision parameters were given diffuse scaled inverse-$\chi^2$-type priors in the applied analysis. The diagrammatic flow is
 
 $$
  \text{overall effect}\longrightarrow
@@ -230,7 +230,7 @@ $$
 $$
 
 
- giving 
+ giving
 
 $$
  \theta\given Y=4
@@ -258,7 +258,7 @@ Good applied statistics begins before the algebra. Downloading a data set withou
 ::: {#def-exchangeability .definition}
 ## Exchangeability
 
-The parameters $\theta_1,\ldots,\theta_J$ are exchangeable if their joint density is invariant to every permutation $\pi$: 
+The parameters $\theta_1,\ldots,\theta_J$ are exchangeable if their joint density is invariant to every permutation $\pi$:
 
 $$
  p(\theta_1,\ldots,\theta_J)
@@ -285,11 +285,11 @@ Exchangeability is a judgement made before seeing the outcomes, not permission t
 ::: {#def-empirical-bayes .definition}
 ## Empirical Bayes
 
-An *empirical Bayes* analysis estimates prior or population-level hyperparameters from data and then treats those estimates as fixed in a lower-level Bayesian update.{{cite:robbins1956}}{{cite:efron_morris1975}} A full Bayesian analysis instead assigns the hyperparameters a prior and propagates their posterior uncertainty.{{cite:gelman_bda2013}}
+An *empirical Bayes* analysis estimates prior or population-level hyperparameters from data and then treats those estimates as fixed in a lower-level Bayesian update. A full Bayesian analysis instead assigns the hyperparameters a prior and propagates their posterior uncertainty.{{cite:gelfand_smith1990}} (§3.5, p.405)
 
 :::
 
-The observed historical proportions $\widehat\theta_j=y_j/n_j$ had empirical mean $m=0.136$ and standard deviation $s=0.103$. A $\BetaDist(\alpha,\beta)$ variable has 
+The observed historical proportions $\widehat\theta_j=y_j/n_j$ had empirical mean $m=0.136$ and standard deviation $s=0.103$. A $\BetaDist(\alpha,\beta)$ variable has
 
 $$
  m=\frac\alpha{\alpha+\beta},
@@ -310,7 +310,7 @@ $$
  \alpha&=mt,
  \qquad
  \beta=(1-m)t.
-\end{align*} Substituting $m=0.136$ and $s=0.103$ gives approximately 
+\end{align*} Substituting $m=0.136$ and $s=0.103$ gives approximately
 
 $$
  (\alpha,\beta)\approx(1.37,8.7).
@@ -319,7 +319,7 @@ $$
 
  The values $(1.370,8.693)$ differ slightly from that approximation; the difference is attributable to rounding in the reported historical standard deviation.
 
-Using these values as if known gives the current-study posterior 
+Using these values as if known gives the current-study posterior
 
 $$
  \theta_{\mathrm{current}}\given y=4,n=14
@@ -327,7 +327,7 @@ $$
 $$
 
 
- with mean 
+ with mean
 
 $$
  \frac{5.370}{5.370+18.693}
@@ -441,7 +441,7 @@ The binomial coefficient does not depend on $(\alpha,\beta)$, so the hyperposter
 
 ## Hyperprior and transformations
 
-One proper choice is independent exponential hyperpriors, 
+One proper choice is independent exponential hyperpriors,
 
 $$
  \alpha\sim\Exp(\lambda),
@@ -452,7 +452,7 @@ $$
 $$
 
 
- The choice $\lambda=1$ is a plain starting point. Its implications are clearer after writing 
+ The choice $\lambda=1$ is a plain starting point. Its implications are clearer after writing
 
 $$
  u=\frac{\alpha}{\alpha+\beta},
@@ -463,7 +463,7 @@ $$
 $$
 
 
- Because 
+ Because
 
 $$
  \left|\frac{\partial(\alpha,\beta)}{\partial(u,t)}\right|=t,
@@ -481,7 +481,7 @@ Gelman's alternative improper prior is \begin{equation}
  p(\alpha,\beta)\propto(\alpha+\beta)^{-5/2},
  \qquad \alpha,\beta>0.
  \label{eq:gelman-hyperprior}
-\end{equation} It can be motivated by a uniform prior on 
+\end{equation} It can be motivated by a uniform prior on
 
 $$
  u=\frac{\alpha}{\alpha+\beta},
@@ -490,7 +490,7 @@ $$
 $$
 
 
- Let $t=\alpha+\beta$. The forward derivatives are 
+ Let $t=\alpha+\beta$. The forward derivatives are
 
 $$
  \frac{\partial u}{\partial\alpha}=\frac\beta{t^2},
@@ -523,7 +523,7 @@ The Jacobian calculation is local; calling the prior "uniform in $(u,v)$" also r
 
 :::
 
-The grid calculation uses 
+The grid calculation uses
 
 $$
  z_1=\log(\alpha/\beta),
@@ -537,7 +537,7 @@ $$
  \qquad
  \beta=t\frac1{1+r}.
  \label{eq:log-transform-inverse}
-\end{equation} Equivalently, let $m=r/(1+r)$. The Jacobians are 
+\end{equation} Equivalently, let $m=r/(1+r)$. The Jacobians are
 
 $$
  \left|\frac{\partial(\alpha,\beta)}{\partial(m,t)}\right|=t,
@@ -561,7 +561,7 @@ $$
 
 ## Grid approximation and posterior simulation
 
-The calculation begins with a rectangular grid over $(z_1,z_2)$, evaluates the unnormalised transformed hyperposterior at each cell, and expands the grid if substantial mass lies against an edge. The first trial used approximately 
+The calculation begins with a rectangular grid over $(z_1,z_2)$, evaluates the unnormalised transformed hyperposterior at each cell, and expands the grid if substantial mass lies against an edge. The first trial used approximately
 
 $$
  z_1\in[-2.5,-1],
@@ -570,7 +570,7 @@ $$
 $$
 
 
- and clipped part of the high-density region. An illustrative adjusted range was approximately 
+ and clipped part of the high-density region. An illustrative adjusted range was approximately
 
 $$
  z_1\in[-2.35,0.3],
@@ -584,20 +584,20 @@ The grid method is deliberately visible. Modern MCMC software can hide much of t
 ::: {#def-grid-monte-carlo-approximation .definition}
 ## Grid Monte Carlo approximation
 
-Let $w_{ab}$ be the unnormalised hyperposterior value at grid cell $(a,b)$, including the Jacobian $\alpha\beta$. The discrete approximation is 
+Let $w_{ab}$ be the unnormalised hyperposterior value at grid cell $(a,b)$, including the Jacobian $\alpha\beta$. The discrete approximation is
 
 $$
  \widehat p_{ab}=\frac{w_{ab}}{\sum_{r,s}w_{rs}}.
 $$
 
 
- Sampling from the approximate full posterior proceeds as follows.{{cite:dasgupta2011_graduate_probability}} (§1.29.10, pp. 180–182, simulation averages)
+ Sampling from the approximate full posterior proceeds as follows.{{cite:downey2020_thinkbayes2}} (§§13.2–13.4)
 
 1.  Flatten the grid weights into a one-dimensional list, form cumulative probabilities, draw $U\sim\operatorname{Uniform}(0,1)$, and select the first cell whose cumulative probability exceeds $U$. Equivalently, draw a grid cell $(Z_1,Z_2)$ with probabilities $\widehat p_{ab}$. Optionally add independent uniform jitter within the selected cell.
 
 2.  Transform $(Z_1,Z_2)$ to $(\alpha,\beta)$ using \eqref{eq:log-transform-inverse}.
 
-3.  For each study, draw independently 
+3.  For each study, draw independently
 
 $$
   \theta_j\sim\BetaDist(y_j+\alpha,n_j-y_j+\beta)
@@ -608,7 +608,7 @@ $$
 
 4.  Repeat to obtain $(\alpha^{(l)},\beta^{(l)},\thetavec^{(l)})$, $l=1,\ldots,L$.
 
-These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo.{{cite:dasgupta2011_graduate_probability}} (§1.29.10, pp. 180–182, iid Monte Carlo){{cite:hastings1970}} (§1, p. 97, Markov-chain Monte Carlo) A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
+These grid-cell draws are independent; this is Monte Carlo from a piecewise-constant approximation, not Markov-chain Monte Carlo.{{cite:grinstead_snell1997}} (§1.1, independent simulation of a discrete distribution){{cite:downey2020_thinkbayes2}} (Ch. 19, MCMC) A $100\times100$ grid has $10^4$ cells and remains practical because only two hyperparameters are integrated numerically. A comparable grid over all $J+2$ unknowns would be impossible.
 
 :::
 
@@ -649,7 +649,7 @@ Each row of `theta` is one draw of all 71 study rates. Summarising a column marg
 
 ![Contours of the rat-tumour hyperposterior in the transformed $(z_1,z_2)$ coordinates, including the Jacobian $\alpha\beta$. The dashed outline marks a grid whose boundary cuts through the density. Its upper edge cuts through appreciable density, so enlarging the numerical domain is part of the calculation rather than a plotting preference. The gold point is the largest evaluated grid value on the expanded domain.](../figures/part1-fig-08-hyperposterior-grid.pdf){#fig-08-hyperposterior-grid}
 
-For a posterior expectation, 
+For a posterior expectation,
 
 $$
  \E(\alpha\given\vect y)

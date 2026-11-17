@@ -6,13 +6,13 @@ The errors below are independent and normal. That joint distribution, and the fa
 
 ## The regression effect
 
-Regression analysis explains a response variable by one or more explanatory variables.{{cite:nist_process_model2002}} (§4.1.2) Francis Galton's 1886 study of hereditary stature found that children of unusually tall parents tended to be less unusually tall.{{cite:galton1886}} (pp. 246–247) A father 5% taller than average tends to have a son less than 5% taller than average. Galton called this pattern regression towards mediocrity.{{cite:galton1886}} (pp. 246–247)
+Regression analysis explains a response variable by one or more explanatory variables.{{cite:cetinkaya_hardin2024}} (§7.1) Francis Galton's 1886 study of hereditary stature found that children of unusually tall parents tended to be less unusually tall.{{cite:galton1886}} (pp. 247 and 252) A father 5% taller than average tends to have a son less than 5% taller than average. Galton called this pattern regression towards mediocrity.{{cite:galton1886}} (pp. 247 and 252)
 
 Picture the heights of about a thousand fathers and their adult sons, with the fathers averaging 67 inches and the sons 68 inches. Since sons are one inch taller on average, it is tempting to predict a son's height as his father's plus one inch, the line $y=x+1$. Look at the fathers near 63 inches: most of their sons lie above that line. Near 71 inches, most lie below it. The line through the middle of each vertical strip has slope less than one. That is the regression effect, and finding that line is the job of least squares.
 
 ![A simulated sample of 1078 father–son pairs, with means 67 and 68 inches, both standard deviations 2.7 inches and correlation 0.5. In the shaded strip at 63 inches most sons are above the dashed line $y=x+1$; at 71 inches most are below it. The least-squares line has slope near the correlation, well below 1.](../figures/inf-regression-effect.pdf){#fig-inf-regression-effect}
 
-The effect is not a force pulling families towards the mean. When two variables have the same spread and correlation $\rho<1$, the best linear prediction of one from the other moves only a fraction $\rho$ of the way.{{cite:pearson1896}} Predicting fathers from sons shows the same regression in reverse.
+The effect is not a force pulling families towards the mean. When two variables have the same spread and correlation $\rho<1$, the best linear prediction of one from the other moves only a fraction $\rho$ of the way.{{cite:grinstead_snell1997}} (§6.3, Exercises 18–21, pp. 281–282) Predicting fathers from sons shows the same regression in reverse.
 
 ## Least squares
 
@@ -246,9 +246,9 @@ $$
 R^2=\frac{\widehat\beta_1^2S_{xx}}{S_{YY}}=\frac{S_{xY}^2}{S_{xx}S_{YY}},
 $$
 
-the proportion of the variation of the $y_i$ about their mean that the line accounts for. Here $S_{xx}$ is the sum of squared deviations of the input values from their mean, $S_{YY}$ is the corresponding sum for the responses, $S_{xY}$ is their cross-product sum, and $\widehat\beta_1=S_{xY}/S_{xx}$ is the fitted slope. The ratio requires variation in both the input and the response. With an intercept in the fitted line, its numerator is the total response sum of squares minus the residual sum of squares. Thus $R^2=0$ when the fitted line explains none of the variation about $\overline y$, while $R^2=1$ when every point lies on that line. Between those extremes it measures *in-sample* fit. A high value still calls for a residual check when assessing the model.{{cite:nist_model_fit2002}} (§4.4.4)
+the proportion of the variation of the $y_i$ about their mean that the line accounts for. Here $S_{xx}$ is the sum of squared deviations of the input values from their mean, $S_{YY}$ is the corresponding sum for the responses, $S_{xY}$ is their cross-product sum, and $\widehat\beta_1=S_{xY}/S_{xx}$ is the fitted slope. The ratio requires variation in both the input and the response. With an intercept in the fitted line, its numerator is the total response sum of squares minus the residual sum of squares. Thus $R^2=0$ when the fitted line explains none of the variation about $\overline y$, while $R^2=1$ when every point lies on that line. Between those extremes it measures *in-sample* fit. A high value still calls for a residual check when assessing the model.{{cite:cetinkaya_hardin2024}} (§7.2, describing the strength of a fit)
 
-Since the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient) is $r=S_{xY}/\sqrt{S_{xx}S_{YY}}$, squaring its formula gives $R^2=r^2$ for this one-predictor line with an intercept. The equality concerns this particular least-squares model; in a multiple regression, $R^2$ still compares explained and total response sums of squares, while a single pairwise correlation does not describe the whole fit.{{cite:nist_model_fit2002}} (§4.4.4)
+Since the [sample correlation coefficient](inf-02-estimation.qmd#def-sample-correlation-coefficient) is $r=S_{xY}/\sqrt{S_{xx}S_{YY}}$, squaring its formula gives $R^2=r^2$ for this one-predictor line with an intercept. The equality concerns this particular least-squares model; in a multiple regression, $R^2$ still compares explained and total response sums of squares, while a single pairwise correlation does not describe the whole fit.{{cite:cetinkaya_hardin2024}} (§7.2, describing the strength of a fit)
 
 :::
 

@@ -14,7 +14,7 @@ The original vectors are not required. Edit distance between words, or between l
 
 ### Agglomerative and divisive clustering
 
-Agglomerative clustering starts with each observation alone and merges neighbouring clusters until one cluster remains. Divisive clustering starts with one cluster and splits until every observation is alone. Either way the hierarchy has $n$ levels, counting the single cluster at the top, and $n$ leaves. The picture of the hierarchy is a dendrogram{{cite:sneath1957}}{{cite:sokal_michener1958}}. Agglomerative clustering is the usual choice because the first merges are between points, where the dissimilarity is already defined{{cite:hastie_esl2009}}. A divisive step has to invent a split of a set.
+Agglomerative clustering starts with each observation alone and merges neighbouring clusters until one cluster remains. Divisive clustering starts with one cluster and splits until every observation is alone. Either way the hierarchy has $n$ levels, counting the single cluster at the top, and $n$ leaves. The picture of the hierarchy is a dendrogram.{{cite:murtagh_contreras2012}} (§§4, 6, agglomerative and divisive hierarchies) Agglomerative clustering is the usual choice because the first merges are between points, where the dissimilarity is already defined.{{cite:murtagh_contreras2012}} (§§4, 6, agglomerative and divisive algorithms) A divisive step has to invent a split of a set.
 
 The pointwise dissimilarity may be Euclidean distance, or any other dissimilarity $d(x,y)$. The arguments may be observation vectors or summaries such as cluster means, when the linkage uses means.
 
@@ -31,7 +31,7 @@ $$
 d_S(D_1,D_2)=\min\{d(x,y):x\in D_1,\, y\in D_2\}.
 $$
 
-The clusters are close as soon as they touch{{cite:sneath1957}}{{cite:hastie_esl2009}}.
+The clusters are close as soon as they touch.{{cite:murtagh_contreras2012}} (§4, Table 1, single linkage)
 
 Complete linkage, or furthest neighbour, takes the distance between the farthest pair,
 
@@ -39,15 +39,15 @@ $$
 d_C(D_1,D_2)=\max\{d(x,y):x\in D_1,\, y\in D_2\}.
 $$
 
-A merge is cheap only when every cross pair is close{{cite:hastie_esl2009}}.
+A merge is cheap only when every cross pair is close.{{cite:murtagh_contreras2012}} (§4, Table 1, complete linkage)
 
-Average linkage, in the group-average sense, takes the mean of all cross pairs{{cite:sokal_michener1958}}{{cite:hastie_esl2009}},
+Average linkage, in the group-average sense, takes the mean of all cross pairs,{{cite:murtagh_contreras2012}} (§4, Table 1, average linkage)
 
 $$
 d_A(D_1,D_2)=\frac{1}{|D_1|\,|D_2|}\sum_{x\in D_1}\sum_{y\in D_2}d(x,y),
 $$
 
-where $|\cdot|$ is the cardinality of the multiset{{cite:sokal_michener1958}}{{cite:hastie_esl2009}}. Clusters are allowed to be multisets so that duplicate points are legal.
+where $|\cdot|$ is the cardinality of the multiset.{{cite:murtagh_contreras2012}} (§4, Table 1, cluster-size weights) Clusters are allowed to be multisets so that duplicate points are legal.
 
 :::
 
@@ -127,7 +127,7 @@ $$
 
 so $K_H$ is the $\Normal_p(\mathbf{0},H)$ density. Each sample point is the centre of one such normal. The mixture reading is then exact: $n$ components, weights $1/n$, means $\mathbf{x}_i$, and one common covariance $H$. The components, the weights, and the means are fixed by the sample. The choice that remains is $H$.
 
-The Epanechnikov kernel has bounded support, so a sample point contributes nothing beyond a finite radius. Its common one-dimensional form is $K_E(u)=\tfrac34(1-u^2)\mathbf 1_{\{|u|\le1\}}$. The indicator is one only within one bandwidth of the observation; outside that interval its contribution vanishes exactly, unlike the normal kernel tail. The normal kernel is the usual multivariate default, and its support is the whole space.{{cite:hansen_larsson2026_density}} (§2.1, Gaussian density kernel) A full matrix $H$ can follow an elliptical cloud. A diagonal $H$, or a product of separate univariate smoothers, has axis-aligned contours. On a tilted cloud those contours place part of each kernel's mass off the data. One $H$ everywhere is a further restriction: a cloud whose shape changes from one region to another is smoothed with the same orientation in every region.
+The Epanechnikov kernel has bounded support, so a sample point contributes nothing beyond a finite radius. Its common one-dimensional form is $K_E(u)=\tfrac34(1-u^2)\mathbf 1_{\{|u|\le1\}}$. The indicator is one only within one bandwidth of the observation; outside that interval its contribution vanishes exactly, unlike the normal kernel tail. The normal kernel is the usual multivariate default, and its support is the whole space.{{cite:silverman1986}} (§2.4) A full positive definite matrix $H$ can encode rotated elliptical contours. {{cite:deisenroth_faisal_ong2020}} (§6.5, pp.197–199) A diagonal $H$, or a product of separate univariate smoothers, has axis-aligned contours. On a tilted cloud those contours place part of each kernel's mass off the data. One $H$ everywhere is a further restriction: a cloud whose shape changes from one region to another is smoothed with the same orientation in every region.
 
 ### Choosing the bandwidth
 

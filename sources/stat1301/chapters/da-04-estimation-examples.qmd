@@ -57,7 +57,7 @@ When the data are not known to be normal, the central limit theorem still makes 
 ::: {#def-margin-of-error .definition}
 ## Margin of error
 
-For a random sample with mean $\mu$ and finite variance, the approximate confidence interval for $\mu$ with confidence $1-\alpha$ is $\overline X\pm z_{1-\alpha/2}\,s/\sqrt n$.{{cite:neyman1937}}{{cite:casella_berger2002}} Its half-width, $z_{1-\alpha/2}\,s/\sqrt n$, is the margin of error.{{cite:vandervaart1998}}
+For a random sample with mean $\mu$ and finite variance, the approximate confidence interval for $\mu$ with confidence $1-\alpha$ is $\overline X\pm z_{1-\alpha/2}\,s/\sqrt n$.{{cite:openintro2019}} (§5.2, normal-model confidence intervals) Its half-width, $z_{1-\alpha/2}\,s/\sqrt n$, is the margin of error.{{cite:openintro2019}} (§5.2, margin-of-error box)
 
 :::
 
@@ -108,11 +108,13 @@ $$
 \mathrm{df}=\frac{\bigl(s_X^2/n_1+s_Y^2/n_2\bigr)^2}{\dfrac{(s_X^2/n_1)^2}{n_1-1}+\dfrac{(s_Y^2/n_2)^2}{n_2-1}}.
 $$
 
-The degrees of freedom are the Welch–Satterthwaite approximation.{{cite:welch1947}}{{cite:satterthwaite1946}}{{cite:casella_berger2002}}
+The degrees of freedom are the Welch–Satterthwaite approximation.{{cite:delacre2017_welch}} (p. 96, eqs. 3–4)
 
 :::
 
-The effective degrees of freedom lie between the smaller of $n_1-1$ and $n_2-1$ and the pooled $n_1+n_2-2$. For non-normal data the interval is still approximately right when both samples are reasonably large, say 30 or more; for small, skewed samples a rank-based method such as the Wilcoxon rank-sum test is safer.{{cite:wilcoxon1945}}{{cite:mann_whitney1947}}
+The effective degrees of freedom lie between the smaller of $n_1-1$ and $n_2-1$ and the pooled $n_1+n_2-2$. This follows from the Welch formula for positive estimated variance contributions.{{cite:hong_coelho_park2022}} (§1, effective degrees of freedom) For non-normal data the accuracy of a mean-based interval depends on sample size, skewness and outliers; a fixed sample-size threshold alone does not establish its accuracy.{{cite:openintro2019}} (§§7.1, 7.3, sampling conditions)
+
+A rank-based procedure such as the Wilcoxon rank-sum test compares pooled ranks. Its usual permutation null assumes identical group distributions; a location-shift interpretation requires a corresponding shift model.{{cite:fay_proschan2010}} (§5.1.1, pp. 10–12)
 
 ::: {#exm-first-and-third-year-weights .example}
 ## First- and third-year weights

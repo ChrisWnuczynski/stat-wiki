@@ -1,0 +1,1869 @@
+{
+  "base_commit": "01749064dbcbb405b834d3c3c0ae5ef913140987",
+  "ranks": [
+    368,
+    517
+  ],
+  "pages": 150,
+  "next_rank": 518,
+  "python_tests": 72,
+  "completed_page_scripts": 517,
+  "bibliography_works": 665,
+  "articles": 718,
+  "question_pages": 626,
+  "questions_with_answers": 579,
+  "baseline_under_three_citations": 52,
+  "final_under_three_citations": 39,
+  "inline_citations": 1592,
+  "citation_range": [
+    6,
+    19
+  ],
+  "minimum_independent_proper_works": 2,
+  "prohibited_editorial_uses": 0,
+  "subject_matter_word_matches_reviewed": [
+    {
+      "slug": "randomised-controlled-trial",
+      "word": "existing",
+      "meaning": "Describes an available comparison drug."
+    },
+    {
+      "slug": "full-conditionals-under-independent-priors",
+      "word": "retained",
+      "occurrences": 3,
+      "meaning": "Describes MCMC draws or pairs after warm-up."
+    }
+  ],
+  "answer_citations": 0,
+  "strict_locator_failures": 0,
+  "duplicate_urls": 0,
+  "duplicate_title_years": 0,
+  "largest_rendered_heading_combination": 1,
+  "spot_check_pages": 20,
+  "independent_claim_checks": 113,
+  "dodge": {
+    "inline_dodge_occurrences": 65,
+    "unique_occurrences_by_article_and_position": 65,
+    "target_pages_with_dodge": 27,
+    "target_pages_without_dodge": 123,
+    "unique_cited_printed_pages": 33,
+    "unique_entry_titles": 26,
+    "printed_locators_verified": 65,
+    "unverifiable_printed_locators": 0,
+    "claim_occurrences_pass_with_scoped_support": 65,
+    "claim_occurrences_needing_correction": 0,
+    "issue_groups": 0,
+    "new_final_private_printed_pages_read": [
+      199
+    ],
+    "additional_private_context_pages_read": [
+      251,
+      445
+    ]
+  },
+  "source_reference_audit": {
+    "reference_items": 855,
+    "distinct_reference_works": 327,
+    "reference_items_cited_inline": 381,
+    "uncited_reference_items": 474,
+    "distinct_inline_works": 149,
+    "inline_citation_occurrences": 1592,
+    "banned_note_slide_reference_items": 0,
+    "banned_note_slide_inline_occurrences": 0,
+    "allowed_documentation_works": 4,
+    "allowed_documentation_inline_occurrences": 6,
+    "unmatched_reference_items": 0,
+    "ambiguous_reference_items": 0,
+    "inline_keys_without_reference": 0
+  },
+  "protected_test_review": {
+    "existing_test_files": 2,
+    "unchanged_existing_test_files": 1,
+    "modified_existing_test_files": 1,
+    "pr63_added_tests_retained": 4,
+    "pr63_anchor_assertions_retained": 1,
+    "baseline_json_files": 2,
+    "changed_citation_key_fields": 11,
+    "existing_page_checks": 367,
+    "unchanged_existing_page_checks": 359,
+    "modified_existing_page_checks": 8,
+    "source_identity_check_updates": 5,
+    "math_check_extensions": 3,
+    "added_page_check_scripts": 150,
+    "ad_added_page_check_scripts": 15,
+    "general_retention_baseline_entries_verified": 718,
+    "general_retention_baseline_target_entries_strengthened": 150,
+    "baseline_json_files_including_strengthening_addendum": 3
+  },
+  "preservation_floors": {
+    "all_718_retained_or_raised": true,
+    "target_word_floors_raised": 150,
+    "other_entries_unchanged": 568,
+    "figure_floors_unchanged": 718
+  },
+  "proof_gaps": [
+    {
+      "slug": "wold-decomposition#property-representation",
+      "title": "Wold representation by the closed linear past",
+      "reason": "The page explains innovation orthogonality and verifies an MA(1) and a stationary harmonic. A complete Hilbert-space construction of the infinite moving-average representation and deterministic component remains to be supplied."
+    },
+    {
+      "slug": "cover-hart-bound#property-nn-limit",
+      "title": "Convergence to the one-neighbour limiting risk",
+      "reason": "The article derives the risk inequalities from the limiting conditional-label formula and explains its continuity argument. The general Euclidean nearest-neighbour convergence argument, including measurable distance ties, remains to be supplied."
+    },
+    {
+      "slug": "doubly-stochastic-matrix#property-regular-chain-convergence",
+      "title": "Regular finite-chain convergence to the uniform stationary law",
+      "reason": "The article proves uniform invariance and checks a regular-chain example, but does not give the general regular finite-chain convergence proof."
+    },
+    {
+      "slug": "poisson-limit-of-the-binomial#property-unequal-independent-array",
+      "title": "Poisson convergence for unequal independent Bernoulli probabilities",
+      "reason": "The article proves the identical-probability binomial case. Its stated triangular-array extension is cited to Durrett Thm.3.6.1 without a full independent-array proof."
+    },
+    {
+      "slug": "confidence-region-for-a-normal-mean-vector#property-hotelling-null-calibration",
+      "title": "Exact normal-sample Hotelling F calibration",
+      "reason": "The page derives and checks ellipsoid geometry and numerically applies the stated normal-sample F calibration; a full Wishart/independent-mean derivation of that calibration is not given."
+    },
+    {
+      "slug": "dual-problem#property-slater-strong-duality",
+      "title": "Slater constraint qualification and strong duality",
+      "reason": "The article proves weak duality and derives the SVM dual; it cites the general Slater strong-duality theorem without its separation argument."
+    },
+    {
+      "slug": "limiting-distribution#property-countable-convergence",
+      "title": "Convergence for a countable irreducible aperiodic positive recurrent chain",
+      "reason": "The local contraction proof establishes finite-state convergence only. The countable-state extension is stated from Durrett §5.6 Thm5.6.6 and needs the recurrence/coupling argument."
+    },
+    {
+      "slug": "limiting-distribution#property-ergodic-proportions",
+      "title": "Long-run visit proportions for an irreducible positive recurrent chain",
+      "reason": "State-frequency convergence is stated from Durrett §5.6 Thm5.6.1, separately from distributional convergence; its return-cycle strong-law proof is not included."
+    },
+    {
+      "slug": "blocking-probability#property-pasta",
+      "title": "Poisson arrivals see stationary occupancy probabilities",
+      "reason": "The finite occupancy distribution is derived by detailed balance. The general nonanticipating Poisson-arrival sampling theorem is stated from Wolff (1982), §§1–2, without reproducing its martingale proof."
+    },
+    {
+      "slug": "characteristic-functions#property-cf-uniqueness",
+      "title": "A characteristic function uniquely determines its probability law",
+      "reason": "The article derives basic transform identities and a finite-law worked example. General uniqueness via Fourier inversion is stated from Durrett §3.3.1 and is not proved."
+    },
+    {
+      "slug": "characteristic-functions#property-cf-continuity",
+      "title": "Pointwise transform convergence and continuity at zero imply weak convergence",
+      "reason": "The continuity theorem is stated with its continuity-at-zero hypothesis from Durrett Thm. 3.3.17; the tightness and inversion proof is not reproduced."
+    },
+    {
+      "slug": "exponential-tails-and-the-gumbel-law#property-normal-gumbel-limit",
+      "title": "Gumbel limit for independent normal maxima",
+      "reason": "The page proves the exact exponential maximum limit. The normal-tail comparison cites Durrett Exercise 3.2.3 but does not establish its tail-ratio asymptotics."
+    },
+    {
+      "slug": "finite-irreducible-chains#property-aperiodic-convergence",
+      "title": "Convergence of finite irreducible aperiodic transition powers",
+      "reason": "The page proves existence, positivity and uniqueness of the stationary law and derives the two-state limit. The general aperiodic convergence and return-time theorems are cited to Durrett §§5.5–5.6 rather than proved."
+    },
+    {
+      "slug": "finite-irreducible-chains#property-return-time-identity",
+      "title": "Stationary masses equal reciprocal mean return times",
+      "reason": "The page applies the return-time identity from Durrett Theorem 5.5.11; its local proof establishes stationary existence and uniqueness without deriving this renewal identity."
+    },
+    {
+      "slug": "kolmogorov-extension-theorem#property-general-extension",
+      "title": "Extension of consistent finite-dimensional laws",
+      "reason": "The page verifies finite Bernoulli consistency and Markov marginalisation; the measure-extension existence argument for arbitrary consistent laws is stated with Durrett Appendix A.3 as its source."
+    },
+    {
+      "slug": "linear-congruential-generator#property-full-period",
+      "title": "Hull–Dobell full-period theorem",
+      "reason": "The full-period conditions are stated with Hull and Dobell (1962), Theorem 1, p. 233. The page checks two finite cycles rather than proving the modular-arithmetic characterization."
+    },
+    {
+      "slug": "moments-of-the-sample-mean-and-variance#property-variance-of-sample-variance",
+      "title": "Variance of the unbiased sample variance",
+      "reason": "The page proves unbiasedness and the sample-mean moments. The fourth-central-moment formula for Var(S²) is cited to Siegrist and checked by finite enumeration for a discrete population; its general combinatorial proof is not included."
+    },
+    {
+      "slug": "laplace-approximation#property-laplace-asymptotics",
+      "title": "Full asymptotic Laplace approximation with tail control",
+      "reason": "The article evaluates the Gaussian surrogate exactly and checks an exact gamma-integral example; a general analytic proof controlling Taylor remainders and contributions outside the dominant peak is still required."
+    },
+    {
+      "slug": "scaled-deviance#property-regular-deviance-calibration",
+      "title": "Regular likelihood-ratio chi-square calibration for nested GLMs",
+      "reason": "The article proves the exact Gaussian orthogonal-coordinate case; the general regular-model likelihood asymptotic expansion and convergence proof remain to be supplied."
+    },
+    {
+      "slug": "two-sample-hotelling-test#property-hotelling-f-calibration",
+      "title": "General two-sample Hotelling F calibration",
+      "reason": "The page proves affine invariance and the scalar t-squared case; the multivariate normal/Wishart derivation for arbitrary dimension is cited to the proper full-text papers rather than derived."
+    },
+    {
+      "slug": "cost-complexity-pruning#property-nested-pruning-path",
+      "title": "Weakest-link pruning gives the nested optimal-subtree path",
+      "reason": "The page proves penalty monotonicity of leaf counts and the single-branch breakpoint identity. The full optimal-subtree guarantee for successive weakest-link pruning is cited to Loh2014 but has no local structural proof."
+    }
+  ],
+  "generated_idempotence": {
+    "generated_files": 719,
+    "article_pages": 718,
+    "proof_ledger_unchanged": true,
+    "changed_files": []
+  },
+  "pages_detail": [
+    {
+      "rank": 368,
+      "slug": "proportional-hazards-model",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "depth-cloglog-interpretation",
+        "depth-cloglog-reversal"
+      ]
+    },
+    {
+      "rank": 369,
+      "slug": "recurrence-and-period",
+      "inline_citations": 7,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "depth-return-vs-selfloop",
+        "ex-sp-weather-two-step"
+      ]
+    },
+    {
+      "rank": 370,
+      "slug": "response-variable",
+      "inline_citations": 11,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-da-birth-weight",
+        "q-30"
+      ]
+    },
+    {
+      "rank": 371,
+      "slug": "seasonality",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "c-43",
+        "c-49"
+      ]
+    },
+    {
+      "rank": 372,
+      "slug": "thinning-a-markov-chain",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "q-25",
+        "c-43"
+      ]
+    },
+    {
+      "rank": 373,
+      "slug": "trend",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "c-43",
+        "depth-point-forecast-ar-two-step"
+      ]
+    },
+    {
+      "rank": 374,
+      "slug": "welch-interval",
+      "inline_citations": 7,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-two-standard-errors",
+        "ex-inf-paired-or-not"
+      ]
+    },
+    {
+      "rank": 375,
+      "slug": "wold-decomposition",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-43",
+        "c-44"
+      ]
+    },
+    {
+      "rank": 376,
+      "slug": "birth-death-balance",
+      "inline_citations": 9,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sp-birth-death-pi",
+        "ex-sp-weather-two-step"
+      ]
+    },
+    {
+      "rank": 377,
+      "slug": "consistent-estimator",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-inf-poisson-mle",
+        "ex-inf-two-standard-errors"
+      ]
+    },
+    {
+      "rank": 378,
+      "slug": "cover-hart-bound",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-11-4",
+        "ex-sl-11-7"
+      ]
+    },
+    {
+      "rank": 379,
+      "slug": "grid-monte-carlo-approximation",
+      "inline_citations": 12,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "exr-sample-from-a-grid",
+        "exr-credible-discrete-hpd"
+      ]
+    },
+    {
+      "rank": 380,
+      "slug": "law-of-total-probability",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-binary-channel",
+        "ex-prob-series-parallel"
+      ]
+    },
+    {
+      "rank": 381,
+      "slug": "nettalk",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-16-6",
+        "ex-sl-15-3"
+      ]
+    },
+    {
+      "rank": 382,
+      "slug": "offspring-probability-generating-function",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-critical-extinction",
+        "ex-sp-many-ancestors"
+      ]
+    },
+    {
+      "rank": 383,
+      "slug": "proper-prior-and-proper-posterior",
+      "inline_citations": 17,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-improper-normal",
+        "q-43"
+      ]
+    },
+    {
+      "rank": 384,
+      "slug": "strict-stationarity",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-43",
+        "depth-stationarity-changing-laws"
+      ]
+    },
+    {
+      "rank": 385,
+      "slug": "confusion-matrix",
+      "inline_citations": 13,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-09-1",
+        "ex-sl-11-8"
+      ]
+    },
+    {
+      "rank": 386,
+      "slug": "doubly-stochastic-matrix",
+      "inline_citations": 9,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sp-doubly-stochastic",
+        "ex-sp-deterministic-cycle"
+      ]
+    },
+    {
+      "rank": 387,
+      "slug": "graphical-lasso",
+      "inline_citations": 15,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-19-6",
+        "ex-sl-19-8"
+      ]
+    },
+    {
+      "rank": 388,
+      "slug": "hitting-probabilities",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-fair-ruin",
+        "ex-sp-biased-goal"
+      ]
+    },
+    {
+      "rank": 389,
+      "slug": "joint-probability-mass-function",
+      "inline_citations": 12,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-joint-table",
+        "ex-prob-sign-covariance"
+      ]
+    },
+    {
+      "rank": 390,
+      "slug": "margin-of-error",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-da-pilot-width",
+        "ex-da-sleep-sample-size"
+      ]
+    },
+    {
+      "rank": 391,
+      "slug": "poisson-limit-of-the-binomial",
+      "inline_citations": 11,
+      "independent_proper_works": 4,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-prob-radioactive",
+        "ex-prob-brisbane-groups"
+      ]
+    },
+    {
+      "rank": 392,
+      "slug": "behrens-fisher-problem",
+      "inline_citations": 17,
+      "independent_proper_works": 5,
+      "non_dodge_proper_works": 5,
+      "question_ids": [
+        "ex-sl-02-6",
+        "ex-sl-02-7"
+      ]
+    },
+    {
+      "rank": 393,
+      "slug": "binomial-test",
+      "inline_citations": 15,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-serve-power",
+        "q-44"
+      ]
+    },
+    {
+      "rank": 394,
+      "slug": "box-muller-method",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-generate-normal",
+        "ex-prob-generate-uniform"
+      ]
+    },
+    {
+      "rank": 395,
+      "slug": "confidence-region-for-a-normal-mean-vector",
+      "inline_citations": 13,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-02-5",
+        "ex-sl-01-4"
+      ]
+    },
+    {
+      "rank": 396,
+      "slug": "deviance-residual",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-29",
+        "ex-sl-10-6"
+      ]
+    },
+    {
+      "rank": 397,
+      "slug": "dual-problem",
+      "inline_citations": 9,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-01-1",
+        "ex-sl-18-2"
+      ]
+    },
+    {
+      "rank": 398,
+      "slug": "gaussian-graphical-models",
+      "inline_citations": 6,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-19-2",
+        "ex-sl-19-3"
+      ]
+    },
+    {
+      "rank": 399,
+      "slug": "generalised-likelihood-ratio-test",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-glrt-two-means",
+        "ex-inf-which-restriction"
+      ]
+    },
+    {
+      "rank": 400,
+      "slug": "hazard-rate",
+      "inline_citations": 7,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-hazard-survival",
+        "ex-prob-component-five-years"
+      ]
+    },
+    {
+      "rank": 401,
+      "slug": "hypergeometric-distribution",
+      "inline_citations": 19,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-red-balls-expectation",
+        "ex-prob-three-cards"
+      ]
+    },
+    {
+      "rank": 402,
+      "slug": "invariance-of-maximum-likelihood",
+      "inline_citations": 13,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-inf-normal-mle",
+        "ex-inf-poisson-mle"
+      ]
+    },
+    {
+      "rank": 403,
+      "slug": "label-switching",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-05-6",
+        "ex-sl-05-1"
+      ]
+    },
+    {
+      "rank": 404,
+      "slug": "neyman-pearson-approach",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-inf-serve-power",
+        "ex-inf-blood-pressure-region"
+      ]
+    },
+    {
+      "rank": 405,
+      "slug": "nonhomogeneous-poisson-process",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-poisson-half-hour",
+        "ex-sp-conditional-times"
+      ]
+    },
+    {
+      "rank": 406,
+      "slug": "one-hot-encoding",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-10-4",
+        "q-46"
+      ]
+    },
+    {
+      "rank": 407,
+      "slug": "perceptron",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-14-4",
+        "ex-sl-14-3"
+      ]
+    },
+    {
+      "rank": 408,
+      "slug": "regression-effect",
+      "inline_citations": 11,
+      "independent_proper_works": 5,
+      "non_dodge_proper_works": 4,
+      "question_ids": [
+        "ex-inf-normal-equations",
+        "ex-da-correlation-reading"
+      ]
+    },
+    {
+      "rank": 409,
+      "slug": "throughput",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-mm1-numbers",
+        "ex-sp-mminf-numbers"
+      ]
+    },
+    {
+      "rank": 410,
+      "slug": "uniform-integrability",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-min-and-mean",
+        "ex-prob-square-uniform"
+      ]
+    },
+    {
+      "rank": 411,
+      "slug": "bagging",
+      "inline_citations": 15,
+      "independent_proper_works": 4,
+      "non_dodge_proper_works": 4,
+      "question_ids": [
+        "ex-sl-13-2",
+        "depth-ensemble-mechanism"
+      ]
+    },
+    {
+      "rank": 412,
+      "slug": "bradley-terry-model",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-26",
+        "q-46"
+      ]
+    },
+    {
+      "rank": 413,
+      "slug": "distance-to-a-hyperplane",
+      "inline_citations": 10,
+      "independent_proper_works": 6,
+      "non_dodge_proper_works": 6,
+      "question_ids": [
+        "ex-sl-17-1",
+        "ex-sl-17-2"
+      ]
+    },
+    {
+      "rank": 414,
+      "slug": "extinction-criterion",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-critical-extinction",
+        "ex-sp-many-ancestors"
+      ]
+    },
+    {
+      "rank": 415,
+      "slug": "inverse-transform-method",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-prob-generate-uniform",
+        "ex-prob-cubic-cdf"
+      ]
+    },
+    {
+      "rank": 416,
+      "slug": "neyman-pearson-lemma",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-np-critical",
+        "ex-inf-serve-power"
+      ]
+    },
+    {
+      "rank": 417,
+      "slug": "uniformly-most-powerful-test",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-np-critical",
+        "ex-inf-ump-two-sided"
+      ]
+    },
+    {
+      "rank": 418,
+      "slug": "limiting-distribution",
+      "inline_citations": 12,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sp-weather-two-step",
+        "ex-sp-deterministic-cycle"
+      ]
+    },
+    {
+      "rank": 419,
+      "slug": "sampling-bias",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-sl-09-7",
+        "ex-sl-11-8"
+      ]
+    },
+    {
+      "rank": 420,
+      "slug": "sylvester-s-criterion",
+      "inline_citations": 12,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-01-1",
+        "ex-sl-17-5"
+      ]
+    },
+    {
+      "rank": 421,
+      "slug": "addiction-data",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-10-2",
+        "ex-sl-10-7"
+      ]
+    },
+    {
+      "rank": 422,
+      "slug": "agglomerative-and-divisive-clustering",
+      "inline_citations": 14,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-sl-07-1",
+        "ex-sl-07-2"
+      ]
+    },
+    {
+      "rank": 423,
+      "slug": "alon-colon-cancer-data",
+      "inline_citations": 13,
+      "independent_proper_works": 4,
+      "non_dodge_proper_works": 4,
+      "question_ids": [
+        "ex-sl-18-1",
+        "ex-sl-18-9"
+      ]
+    },
+    {
+      "rank": 424,
+      "slug": "atom-of-a-distribution",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-sp-right-continuous",
+        "ex-sp-three-point"
+      ]
+    },
+    {
+      "rank": 425,
+      "slug": "basu-s-theorem",
+      "inline_citations": 11,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "exr-completeness-binomial",
+        "exr-completeness-restricted"
+      ]
+    },
+    {
+      "rank": 426,
+      "slug": "blocking-probability",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-birth-death-pi",
+        "ex-sp-mm1-numbers"
+      ]
+    },
+    {
+      "rank": 427,
+      "slug": "characteristic-functions",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-exp-moments",
+        "ex-sp-same-marginals"
+      ]
+    },
+    {
+      "rank": 428,
+      "slug": "clotting-time-data",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "q-45",
+        "q-55"
+      ]
+    },
+    {
+      "rank": 429,
+      "slug": "cross-validation-of-the-likelihood",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-06-4",
+        "ex-sl-06-5"
+      ]
+    },
+    {
+      "rank": 430,
+      "slug": "cycle",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "depth-weak-stationarity-ar",
+        "depth-point-forecast-loss"
+      ]
+    },
+    {
+      "rank": 431,
+      "slug": "exponential-loss",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-13-5",
+        "ex-sl-13-4"
+      ]
+    },
+    {
+      "rank": 432,
+      "slug": "exponential-tails-and-the-gumbel-law",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-sp-gumbel-scale",
+        "ex-prob-cdf-of-maximum"
+      ]
+    },
+    {
+      "rank": 433,
+      "slug": "finite-irreducible-chains",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-weather-two-step",
+        "ex-sp-deterministic-cycle"
+      ]
+    },
+    {
+      "rank": 434,
+      "slug": "fisher-s-exact-test",
+      "inline_citations": 7,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-inf-fisher-smaller",
+        "ex-inf-homogeneity-or-independence"
+      ]
+    },
+    {
+      "rank": 435,
+      "slug": "gaussian-process",
+      "inline_citations": 7,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-01-1",
+        "ex-sl-01-3"
+      ]
+    },
+    {
+      "rank": 436,
+      "slug": "gibbs-inequality",
+      "inline_citations": 7,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-06-4",
+        "ex-sl-06-5"
+      ]
+    },
+    {
+      "rank": 437,
+      "slug": "intensity-function",
+      "inline_citations": 8,
+      "independent_proper_works": 4,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sp-poisson-half-hour",
+        "ex-sp-increments-and-levels"
+      ]
+    },
+    {
+      "rank": 438,
+      "slug": "interarrival-time",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-sp-poisson-half-hour",
+        "ex-sp-conditional-times"
+      ]
+    },
+    {
+      "rank": 439,
+      "slug": "intraclass-correlation",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-35",
+        "ex-ur-exchangeable-bound"
+      ]
+    },
+    {
+      "rank": 440,
+      "slug": "ising-model",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "q-05",
+        "ex-sp-weather-two-step"
+      ]
+    },
+    {
+      "rank": 441,
+      "slug": "iteratively-reweighted-least-squares",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-19",
+        "q-33"
+      ]
+    },
+    {
+      "rank": 442,
+      "slug": "kernel-trick",
+      "inline_citations": 17,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-17-4",
+        "ex-sl-17-5"
+      ]
+    },
+    {
+      "rank": 443,
+      "slug": "kolmogorov-extension-theorem",
+      "inline_citations": 11,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-bernoulli-pairs",
+        "exr-measurable-coarse-space"
+      ]
+    },
+    {
+      "rank": 444,
+      "slug": "kolmogorov-forward-and-backward-equations",
+      "inline_citations": 12,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-two-state-ctmc",
+        "ex-sp-generator-rows"
+      ]
+    },
+    {
+      "rank": 445,
+      "slug": "kyphosis-data",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-30",
+        "c-29"
+      ]
+    },
+    {
+      "rank": 446,
+      "slug": "lehmann-scheffe-theorem",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "exr-completeness-binomial",
+        "ex-inf-rao-blackwell-variance"
+      ]
+    },
+    {
+      "rank": 447,
+      "slug": "linear-congruential-generator",
+      "inline_citations": 12,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-generate-uniform",
+        "ex-prob-generate-exp"
+      ]
+    },
+    {
+      "rank": 448,
+      "slug": "marginal-variance-posterior",
+      "inline_citations": 14,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-10",
+        "ex-improper-normal"
+      ]
+    },
+    {
+      "rank": 449,
+      "slug": "measurement-error",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-da-correlation-reading",
+        "ex-inf-expected-sample-variance"
+      ]
+    },
+    {
+      "rank": 450,
+      "slug": "metropolis-algorithm",
+      "inline_citations": 11,
+      "independent_proper_works": 4,
+      "non_dodge_proper_works": 4,
+      "question_ids": [
+        "c-14",
+        "c-12"
+      ]
+    },
+    {
+      "rank": 451,
+      "slug": "moments-of-the-sample-mean-and-variance",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-expected-sample-variance",
+        "ex-prob-second-moment"
+      ]
+    },
+    {
+      "rank": 452,
+      "slug": "monotone-convergence-fatou-and-dominated-convergence",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-spike",
+        "ex-sp-l2-markov"
+      ]
+    },
+    {
+      "rank": 453,
+      "slug": "natural-exponential-family",
+      "inline_citations": 12,
+      "independent_proper_works": 5,
+      "non_dodge_proper_works": 5,
+      "question_ids": [
+        "c-03",
+        "ex-inf-poisson-information"
+      ]
+    },
+    {
+      "rank": 454,
+      "slug": "paired-comparison",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-26",
+        "c-29"
+      ]
+    },
+    {
+      "rank": 455,
+      "slug": "partially-linear-model",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-30",
+        "c-26"
+      ]
+    },
+    {
+      "rank": 456,
+      "slug": "power-law-tails-and-the-frechet-law",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-pareto-factor",
+        "ex-sp-gumbel-scale"
+      ]
+    },
+    {
+      "rank": 457,
+      "slug": "probability-generating-function",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "depth-mgf-bernoulli-sum",
+        "ex-sp-critical-extinction"
+      ]
+    },
+    {
+      "rank": 458,
+      "slug": "rao-blackwell-theorem",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-poisson-umvu",
+        "exr-completeness-binomial"
+      ]
+    },
+    {
+      "rank": 459,
+      "slug": "separating-set",
+      "inline_citations": 9,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-19-1",
+        "ex-sl-19-2"
+      ]
+    },
+    {
+      "rank": 460,
+      "slug": "sequential-coherence",
+      "inline_citations": 15,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "q-06",
+        "q-17"
+      ]
+    },
+    {
+      "rank": 461,
+      "slug": "signed-distance",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-17-1",
+        "ex-sl-17-9"
+      ]
+    },
+    {
+      "rank": 462,
+      "slug": "soft-margin-slack-variables",
+      "inline_citations": 11,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-17-6",
+        "ex-sl-17-3"
+      ]
+    },
+    {
+      "rank": 463,
+      "slug": "soft-thresholding-for-orthonormal-predictors",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-18-5",
+        "ex-sl-18-2"
+      ]
+    },
+    {
+      "rank": 464,
+      "slug": "subset-selection-and-shrinkage",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-18-9",
+        "ex-sl-18-6"
+      ]
+    },
+    {
+      "rank": 465,
+      "slug": "superposition-and-thinning",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-poisson-half-hour",
+        "ex-sp-conditional-times"
+      ]
+    },
+    {
+      "rank": 466,
+      "slug": "two-sample-hotelling-test",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-02-6",
+        "ex-sl-02-2"
+      ]
+    },
+    {
+      "rank": 467,
+      "slug": "variance-ratio-f-pivot",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-variance-ratio-interval",
+        "ex-inf-variance-bias"
+      ]
+    },
+    {
+      "rank": 468,
+      "slug": "arch-and-garch-models",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "c-50",
+        "depth-weak-stationarity-ar"
+      ]
+    },
+    {
+      "rank": 469,
+      "slug": "asymptotic-relative-efficiency",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-are-median",
+        "ex-sp-spike"
+      ]
+    },
+    {
+      "rank": 470,
+      "slug": "cholesky-decomposition",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-02-3",
+        "ex-sl-02-7"
+      ]
+    },
+    {
+      "rank": 471,
+      "slug": "choosing-k-the-gap-statistic",
+      "inline_citations": 14,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-04-5",
+        "ex-sl-04-6"
+      ]
+    },
+    {
+      "rank": 472,
+      "slug": "cost-complexity-pruning",
+      "inline_citations": 11,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-12-5",
+        "ex-sl-12-7"
+      ]
+    },
+    {
+      "rank": 473,
+      "slug": "decision-stump",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-13-4",
+        "ex-sl-13-6"
+      ]
+    },
+    {
+      "rank": 474,
+      "slug": "fisher-s-linear-discriminant-analysis",
+      "inline_citations": 13,
+      "independent_proper_works": 5,
+      "non_dodge_proper_works": 5,
+      "question_ids": [
+        "ex-sl-08-6",
+        "ex-sl-08-5"
+      ]
+    },
+    {
+      "rank": 475,
+      "slug": "gamma-regression",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-10-1",
+        "ex-inf-variance-bias"
+      ]
+    },
+    {
+      "rank": 476,
+      "slug": "jackknife",
+      "inline_citations": 16,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-sl-09-4",
+        "ex-inf-variance-bias"
+      ]
+    },
+    {
+      "rank": 477,
+      "slug": "laplace-approximation",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-06-3",
+        "ex-sl-06-1"
+      ]
+    },
+    {
+      "rank": 478,
+      "slug": "m-m-queue",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-mminf-numbers",
+        "ex-sp-birth-death-pi"
+      ]
+    },
+    {
+      "rank": 479,
+      "slug": "negative-predictive-value",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-npv-same",
+        "ex-inf-ppv-screen"
+      ]
+    },
+    {
+      "rank": 480,
+      "slug": "perceptron-learning-rule",
+      "inline_citations": 11,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-14-4",
+        "ex-sl-14-3"
+      ]
+    },
+    {
+      "rank": 481,
+      "slug": "randomised-controlled-trial",
+      "inline_citations": 13,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-da-devil-tumours",
+        "ex-da-motn-insomnia"
+      ]
+    },
+    {
+      "rank": 482,
+      "slug": "scaled-deviance",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-extra-ss",
+        "ex-inf-glrt-two-means"
+      ]
+    },
+    {
+      "rank": 483,
+      "slug": "expected-duration-of-a-random-walk",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sp-fair-ruin",
+        "ex-sp-duration-identity"
+      ]
+    },
+    {
+      "rank": 484,
+      "slug": "generalised-linear-mixed-model",
+      "inline_citations": 14,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "q-41",
+        "ex-toenail-glmm"
+      ]
+    },
+    {
+      "rank": 485,
+      "slug": "a-finite-stationary-point-is-a-global-maximiser",
+      "inline_citations": 13,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-10-1",
+        "ex-sl-10-5"
+      ]
+    },
+    {
+      "rank": 486,
+      "slug": "a-hypothesis-region-is-not-a-separate-model",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "exr-fruit-posterior",
+        "exr-who-owns-the-boundary"
+      ]
+    },
+    {
+      "rank": 487,
+      "slug": "a-single-threshold-unit-cannot-compute-xor",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-14-5",
+        "ex-sl-14-6"
+      ]
+    },
+    {
+      "rank": 488,
+      "slug": "a-zero-precision-entry-is-conditional-independence",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-19-2",
+        "ex-sl-19-6"
+      ]
+    },
+    {
+      "rank": 489,
+      "slug": "affine-images-of-normal-vectors",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-normal-shift",
+        "ex-prob-normal-sketch"
+      ]
+    },
+    {
+      "rank": 490,
+      "slug": "anova-f-distribution",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-inf-anova-two-groups",
+        "ex-inf-paired-f"
+      ]
+    },
+    {
+      "rank": 491,
+      "slug": "backpropagation-batch-form",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-15-2",
+        "ex-sl-15-4"
+      ]
+    },
+    {
+      "rank": 492,
+      "slug": "basic-gradient-descent-learning",
+      "inline_citations": 8,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-15-4",
+        "ex-sl-15-6"
+      ]
+    },
+    {
+      "rank": 493,
+      "slug": "bayes-action-for-two-hypotheses",
+      "inline_citations": 16,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-08-1",
+        "ex-sl-08-2"
+      ]
+    },
+    {
+      "rank": 494,
+      "slug": "bayes-optimal-rule",
+      "inline_citations": 7,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-08-1",
+        "ex-sl-08-2"
+      ]
+    },
+    {
+      "rank": 495,
+      "slug": "beta-binomial-posterior-prediction",
+      "inline_citations": 14,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "q-06",
+        "q-17"
+      ]
+    },
+    {
+      "rank": 496,
+      "slug": "blocks-in-analysis-of-variance",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-inf-hardness",
+        "ex-inf-paired-f"
+      ]
+    },
+    {
+      "rank": 497,
+      "slug": "bootstrap-error-and-the-correction",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-09-3",
+        "ex-sl-09-6"
+      ]
+    },
+    {
+      "rank": 498,
+      "slug": "brier-score",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-10-2",
+        "ex-sl-08-2"
+      ]
+    },
+    {
+      "rank": 499,
+      "slug": "coefficient-of-determination",
+      "inline_citations": 14,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-inf-normal-equations",
+        "ex-inf-line-through-origin"
+      ]
+    },
+    {
+      "rank": 500,
+      "slug": "conditional-coefficient-posterior",
+      "inline_citations": 16,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "q-43",
+        "q-58"
+      ]
+    },
+    {
+      "rank": 501,
+      "slug": "delta-rule",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-15-5",
+        "ex-sl-15-2"
+      ]
+    },
+    {
+      "rank": 502,
+      "slug": "direct-posterior-simulation",
+      "inline_citations": 16,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "q-24",
+        "q-43"
+      ]
+    },
+    {
+      "rank": 503,
+      "slug": "dirichlet-moments",
+      "inline_citations": 14,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "depth-dirichlet-marginal",
+        "ex-applied-restaurant"
+      ]
+    },
+    {
+      "rank": 504,
+      "slug": "distribution-of-a-function-or-a-sum",
+      "inline_citations": 8,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-affine-exponential",
+        "ex-prob-independent-exponentials"
+      ]
+    },
+    {
+      "rank": 505,
+      "slug": "em-for-a-normal-mixture",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "depth-e-numeric",
+        "depth-m-numeric"
+      ]
+    },
+    {
+      "rank": 506,
+      "slug": "empirical-bayes",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "exr-normal-hierarchy-hyperuncertainty",
+        "q-23"
+      ]
+    },
+    {
+      "rank": 507,
+      "slug": "epanechnikov-kernel",
+      "inline_citations": 10,
+      "independent_proper_works": 3,
+      "non_dodge_proper_works": 3,
+      "question_ids": [
+        "ex-sl-07-3",
+        "ex-sl-07-4"
+      ]
+    },
+    {
+      "rank": 508,
+      "slug": "equally-likely-outcomes",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-prob-three-tosses",
+        "ex-prob-dice-sum-pmf"
+      ]
+    },
+    {
+      "rank": 509,
+      "slug": "exchangeable-correlation",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-ur-exchangeable-bound",
+        "depth-marginal-working-covariance"
+      ]
+    },
+    {
+      "rank": 510,
+      "slug": "f-test-for-equal-variances",
+      "inline_citations": 10,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 1,
+      "question_ids": [
+        "ex-inf-variance-ratio-interval",
+        "ex-inf-expected-sample-variance"
+      ]
+    },
+    {
+      "rank": 511,
+      "slug": "factor-analysis",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-02-3",
+        "ex-sl-03-3"
+      ]
+    },
+    {
+      "rank": 512,
+      "slug": "family-wise-control-implies-false-discovery-control",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-18-3",
+        "ex-sl-18-4"
+      ]
+    },
+    {
+      "rank": 513,
+      "slug": "fisher-s-direction",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-08-6",
+        "ex-sl-10-3"
+      ]
+    },
+    {
+      "rank": 514,
+      "slug": "fold-cross-validation",
+      "inline_citations": 14,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-09-5",
+        "ex-sl-09-7"
+      ]
+    },
+    {
+      "rank": 515,
+      "slug": "full-conditionals-under-independent-priors",
+      "inline_citations": 12,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "q-43",
+        "q-04"
+      ]
+    },
+    {
+      "rank": 516,
+      "slug": "gradient-boosting",
+      "inline_citations": 9,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-13-4",
+        "depth-ensemble-mechanism"
+      ]
+    },
+    {
+      "rank": 517,
+      "slug": "hard-margin-dual",
+      "inline_citations": 11,
+      "independent_proper_works": 2,
+      "non_dodge_proper_works": 2,
+      "question_ids": [
+        "ex-sl-17-6",
+        "ex-sl-17-4"
+      ]
+    }
+  ]
+}

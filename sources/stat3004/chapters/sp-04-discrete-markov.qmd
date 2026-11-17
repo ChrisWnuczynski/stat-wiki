@@ -84,7 +84,7 @@ e_i=1+\sum_j p_{ij} e_j \quad(i\notin A),
 e_i=0\ (i\in A).
 $$
 
-The $1$ is the step just taken. The sum is the expected remaining time from the next state. On a finite state space these are linear equations, one unknown per state outside the target.{{cite:norris1997}}{{cite:feller1968}}{{cite:grimmett_stirzaker2020}}
+The $1$ is the step just taken. The sum is the expected remaining time from the next state. On a finite state space these are linear equations, one unknown per state outside the target.{{cite:pishro_nik2014}} (§11.2.5, first-step recursion);{{cite:grinstead_snell1997}} (§11.2, mean time to absorption)
 
 ## Stationary distributions
 

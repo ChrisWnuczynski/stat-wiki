@@ -5,7 +5,7 @@
 ::: {#def-categorical-and-multinomial-models .definition}
 ## Categorical and multinomial models
 
-For two categories, a Bernoulli trial has probabilities $(p,1-p)$ and an aggregated count has a binomial distribution. For $K$ categories, let 
+For two categories, a Bernoulli trial has probabilities $(p,1-p)$ and an aggregated count has a binomial distribution. For $K$ categories, let
 
 $$
  \pvec=(p_1,\ldots,p_K)^{\mathsf T},
@@ -14,21 +14,21 @@ $$
 $$
 
 
- A single observation $Y_i\in\{1,\ldots,K\}$ has 
+ A single observation $Y_i\in\{1,\ldots,K\}$ has
 
 $$
  \Pr(Y_i=k\given\pvec)=p_k.
 $$
 
 
- For $n$ conditionally independent observations define 
+ For $n$ conditionally independent observations define
 
 $$
  X_k=\sum_{i=1}^n\mathbf{1}\{Y_i=k\}.
 $$
 
 
- Then $\sum_kX_k=n$ and 
+ Then $\sum_kX_k=n$ and
 
 $$
  \xvec\given\pvec\sim\Mult(n,\pvec).
@@ -50,7 +50,7 @@ To derive its mass function, first choose which $x_1$ positions receive category
  =\frac{n!}{\prod_{k=1}^Kx_k!}
   \prod_{k=1}^Kp_k^{x_k}.
  \label{eq:multinomial-pmf-book}
-\end{equation} As a likelihood in $\pvec$, 
+\end{equation} As a likelihood in $\pvec$,
 
 $$
  L(\pvec;\xvec)\propto\prod_{k=1}^Kp_k^{x_k}.
@@ -70,7 +70,7 @@ $$
 $$
 
 
- The multivariate Beta function is 
+ The multivariate Beta function is
 
 $$
  B(\vect\alpha)
@@ -85,7 +85,7 @@ $$
    \prod_{k=1}^Kp_k^{\alpha_k-1},
  \qquad \pvec\in\mathcal S_{K-1},
  \label{eq:dirichlet-density-book}
-\end{equation} where 
+\end{equation} where
 
 $$
  \mathcal S_{K-1}
@@ -100,7 +100,7 @@ $$
 ::: {#prp-the-beta-distribution-is-the-two-category-dirichlet .proposition}
 ## The Beta distribution is the two-category Dirichlet
 
-When $K=2$, write $p_1=p$ and $p_2=1-p$. Restricting the Dirichlet density to the one-dimensional simplex gives 
+When $K=2$, write $p_1=p$ and $p_2=1-p$. Restricting the Dirichlet density to the one-dimensional simplex gives
 
 $$
  p(p\given\alpha_1,\alpha_2)
@@ -133,7 +133,7 @@ One should be prepared to abandon a visualisation that is not helping.
 ::: {#prp-multinomial-central-limit-theorem .proposition}
 ## Multinomial central limit theorem
 
-Let $\xvec\sim\Mult(n,\pvec)$ and $\widehat\pvec=\xvec/n$. For fixed interior $\pvec$, define the covariance matrix 
+Let $\xvec\sim\Mult(n,\pvec)$ and $\widehat\pvec=\xvec/n$. For fixed interior $\pvec$, define the covariance matrix
 
 $$
  \mat{\Sigma}(\pvec)
@@ -141,7 +141,7 @@ $$
 $$
 
 
- Then 
+ Then
 
 $$
  \sqrt n\,(\widehat\pvec-\pvec)
@@ -170,7 +170,7 @@ Standard Dirichlet integrals give \begin{align*}
                   {\alpha_0(\alpha_0+1)},\qquad j\neq k.
 \end{align*}
 
-The coordinate mean is $\alpha_k/\alpha_0$.{{cite:tokdar2018_dirichlet}} (p. 1, beta marginal and mean)
+The coordinate mean is $\alpha_k/\alpha_0$.{{cite:blei_ng_jordan2003}} (§3, p.996, Eq.1)
 
 :::
 
@@ -193,14 +193,14 @@ Therefore \begin{align*}
           {\alpha_0^2(\alpha_0+1)}.
 \end{align*} The negative covariance is forced by the sum-to-one constraint.
 
-To derive the interior mode, maximise 
+To derive the interior mode, maximise
 
 $$
  \ell(\pvec)=\sum_{k=1}^K(\alpha_k-1)\log p_k
 $$
 
 
- subject to $\sum_kp_k=1$. The Lagrangian is 
+ subject to $\sum_kp_k=1$. The Lagrangian is
 
 $$
  \mathcal L(\pvec,\lambda)
@@ -209,7 +209,7 @@ $$
 $$
 
 
- Differentiating, 
+ Differentiating,
 
 $$
  \frac{\partial\mathcal L}{\partial p_k}
@@ -219,7 +219,7 @@ $$
 $$
 
 
- Summing over $k$ and imposing the constraint gives 
+ Summing over $k$ and imposing the constraint gives
 
 $$
  1=\sum_kp_k
@@ -283,7 +283,7 @@ The posterior mean is \begin{align*}
  &=\frac{\alpha_0}{\alpha_0+n}
     \frac{\alpha_k}{\alpha_0}
   +\frac n{\alpha_0+n}\frac{x_k}{n}.
-\end{align*} The posterior mode, when every $\alpha_k+x_k>1$, is 
+\end{align*} The posterior mode, when every $\alpha_k+x_k>1$, is
 
 $$
  \widehat p_{k,\mathrm{MAP}}
@@ -315,7 +315,7 @@ The following table classifies $501$ people by gender and response to an adverti
 | Female | 93 | 38 | 113 | 244 |
 | Total | 146 | 95 | 260 | 501 |
 
-**Question.** Use an unrestricted six-cell multinomial with the uniform prior 
+**Question.** Use an unrestricted six-cell multinomial with the uniform prior
 
 $$
  \pvec\sim\Dir(1,1,1,1,1,1).
@@ -324,7 +324,7 @@ $$
 
  Find the posterior distribution and the posterior mean and MAP estimate of the male-negative cell probability.
 
-**Solution.** The conjugate update gives 
+**Solution.** The conjugate update gives
 
 $$
  \pvec\given\xvec
@@ -332,7 +332,7 @@ $$
 $$
 
 
- For the male-negative cell, 
+ For the male-negative cell,
 
 $$
  \E(P_{11}\given\xvec)=\frac{54}{501+6}=\frac{54}{507}
@@ -340,7 +340,7 @@ $$
 $$
 
 
- while 
+ while
 
 $$
  \widehat p_{11,\mathrm{MAP}}

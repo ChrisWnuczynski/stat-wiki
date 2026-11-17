@@ -96,7 +96,7 @@ $$
 
 Up to the normalising constant, the integrand is the density of the $d_k$-dimensional normal distribution with mean $\widetilde\Psi_k$ and covariance $H(\widetilde\Psi_k)^{-1}$. The domain $\Theta_k$ is not all of $\R^{d_k}$. Weights lie in $(0,1)$, variances are positive, and covariance matrices are constrained, so the integral of that normal kernel over the legal region is not exactly $1$.
 
-The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral.{{cite:schwarz1978}} (§3, pp. 463–464){{cite:drton_plummer2017}} (§1, preprint pp. 1–4) Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
+The normalising factor of the kernel is $(2\pi)^{d_k/2}|H|^{-1/2}$. Extending the local integral to all of $\R^{d_k}$ is justified asymptotically when the mass concentrates near an interior, identifiable parameter and the information per observation approaches a positive definite matrix. For a smooth positive prior, the posterior mode and the maximum likelihood estimator are then asymptotically close. They are not exactly equal. These assumptions keep the boundary away from the shrinking region that contributes most of the integral.{{cite:schwarz1978}} (§3, pp. 463–464){{cite:tierney_kadane1986}} (§2, p. 83; Appendix, p. 86) Use $|A^{-1}|=|A|^{-1}$ to write the approximate integral as
 
 $$
 \int_{\Theta_k}
@@ -176,7 +176,7 @@ Mixtures need a separate qualification. Coincident components and zero weights m
 
 ## Cross-validation of the likelihood
 
-BIC approximates a marginal probability of the sample already observed. Cross-validation estimates a different functional: the expected log-likelihood of a new draw, with the parameter fixed at a fit from the current sample{{cite:stone1974}}. {{cite:smyth2000}} fits on training observations and scores the log-likelihood on test observations, and selects the model with the highest test score. The target is
+BIC approximates a marginal probability of the sample already observed. Cross-validation estimates a different functional: the expected log-likelihood of a new draw, with the parameter fixed at a fit from the current sample.{{cite:rasmussen_williams2006}} (§5.4.2, pp. 116–117) The procedure fits on training observations and scores the log-likelihood on test observations, and selects the model with the highest test score. The target is
 
 $$
 k^*=\arg\max_k \E\bigl[\log\Pr(X\given\Psi=\widehat\Psi_k,M_k)\bigr].
@@ -192,7 +192,7 @@ k^*
 \log\Pr(x_{\mathrm{test},i}\given\widehat\Psi_k,M_k).
 \end{align*}
 
-In $v$-fold cross-validation, refit every candidate on each training fold and sum its held-out log densities. Any preprocessing belongs inside those fits. The winning specification may then be refitted on all development data. An honest estimate of the selected procedure's predictive performance uses an untouched test sample or an outer cross-validation loop. The folds used to choose the model are validation folds, even when older notation calls them test folds{{cite:cawley_talbot2010}}.
+In $v$-fold cross-validation, refit every candidate on each training fold and sum its held-out log densities. Any preprocessing belongs inside those fits. The winning specification may then be refitted on all development data. An honest estimate of the selected procedure's predictive performance uses an untouched test sample or an outer cross-validation loop. The folds used to choose the model are validation folds, even when older notation calls them test folds{{cite:cawley_talbot2010}} (§1, pp. 2079–2081).
 
 ### The Kullback–Leibler connection
 
@@ -204,7 +204,7 @@ D(f\Vert\widehat f)
 =\int f\ln f-\E\bigl[\ln\widehat f(X)\bigr].
 $$
 
-The integral $\int f\ln f$ does not depend on which candidate produced $\widehat f$. Maximising $\E[\ln\widehat f(X)]$ is therefore the same comparison as minimising $D(f\Vert\widehat f)${{cite:kullback_leibler1951}}. The divergence is not symmetric{{cite:kullback_leibler1951}}{{cite:akaike1974}}. The convention puts the density of the expectation, here the true $f$, in the first argument.
+The integral $\int f\ln f$ does not depend on which candidate produced $\widehat f$. Maximising $\E[\ln\widehat f(X)]$ is therefore the same comparison as minimising $D(f\Vert\widehat f)${{cite:goodfellow_bengio_courville2016}} (§3.13, eqs. 3.50–3.51, pp. 72–73). The divergence is not symmetric{{cite:goodfellow_bengio_courville2016}} (§3.13, eqs. 3.50–3.51, pp. 72–73). The convention puts the density of the expectation, here the true $f$, in the first argument.
 
 ## The Akaike information criterion
 

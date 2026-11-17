@@ -32,7 +32,7 @@ The same drawing is a race of clocks. From state $i$, start an independent expon
 
 ## Evolution equations
 
-Let $P(t)=\bigl(p_{ij}(t)\bigr)$ with $p_{ij}(t)=\Pr\bigl(X(t)=j\given X(0)=i\bigr)$. The Chapman–Kolmogorov identity is the continuous-time product $P(s+t)=P(s)P(t)$: to be at $j$ at time $s+t$, the chain is somewhere at time $s$ and then moves for time $t$.{{cite:chapman1928}} Differentiating at $t=0$ from the right, and using the short-time rules, gives Kolmogorov's equations
+Let $P(t)=\bigl(p_{ij}(t)\bigr)$ with $p_{ij}(t)=\Pr\bigl(X(t)=j\given X(0)=i\bigr)$. The Chapman–Kolmogorov identity is the continuous-time product $P(s+t)=P(s)P(t)$: to be at $j$ at time $s+t$, the chain is somewhere at time $s$ and then moves for time $t$.{{cite:siegrist2022_ctmc_transition}} (§15.16, transition semigroup and two-state chain) Differentiating at $t=0$ from the right, and using the short-time rules, gives Kolmogorov's equations
 
 $$
 P'(t)=P(t)Q \quad\text{(forward)},
@@ -42,13 +42,13 @@ P'(t)=QP(t) \quad\text{(backward)},
 P(0)=I.
 $$
 
-The forward equation conditions on the state just before time $t$.{{cite:kolmogorov1931}} The backward equation conditions on the first jump after time $0$.{{cite:norris1997}} For a finite-state homogeneous chain the unique solution is the matrix exponential
+The forward equation conditions on the state just before time $t$.{{cite:siegrist2022_ctmc_transition}} (§15.16, transition semigroup and two-state chain) The backward equation conditions on the first jump after time $0$.{{cite:siegrist2022_ctmc_transition}} (§15.16, transition semigroup and two-state chain) For a finite-state homogeneous chain the unique solution is the matrix exponential
 
 $$
 P(t)=e^{tQ}=\sum_{n=0}^{\infty}\frac{(tQ)^n}{n!}.
 $$
 
-The forward and backward products agree because this series is a power series in the single matrix $Q$.{{cite:ross2019}}
+The forward and backward products agree because this series is a power series in the single matrix $Q$.{{cite:durrett2012_essentials}} (§4.2, eqs. 4.7–4.10, pp. 124–125)
 
 ## The two-state chain
 
@@ -72,7 +72,7 @@ $$
 u(t)=\frac{\alpha}{\alpha+\beta}\bigl(1-e^{-(\alpha+\beta)t}\bigr).
 $$
 
-Differentiating the formula recovers the ODE, and the value at $0$ is $0$. The stationary probability of state $1$ is the limit as $t\to\infty$.{{cite:norris1997}}{{cite:grimmett_stirzaker2020}}
+Differentiating the formula recovers the ODE, and the value at $0$ is $0$. The stationary probability of state $1$ is the limit as $t\to\infty$.{{cite:siegrist2022_ctmc_transition}} (§15.16, transition semigroup and two-state chain)
 
 This finite irreducible chain converges even though its jump chain alternates between the two states. The jump chain is the periodic discrete chain with $a=b=1$ on [Discrete-time Markov chains](sp-04-discrete-markov.qmd). Random holding times destroy the parity: the chain does not switch at every integer, so the continuous-time law cannot oscillate forever between the two states.
 

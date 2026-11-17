@@ -85,7 +85,7 @@ The inverse covariance is a convenient optimisation variable. Set $\Theta=\Sigma
 ::: {#prp-sl-02-invariance .proposition}
 ## Invariance of the maximum likelihood estimator
 
-Let the distribution of the data depend on $\theta=(\theta_1,\ldots,\theta_k)$, with maximum likelihood estimator $\widehat\theta$. Let $\tau(\theta)=(\tau_1(\theta),\ldots,\tau_r(\theta))$, $1\le r\le k$, be a transformation of the parameter. Then the maximum likelihood estimator of $\tau_l(\theta)$ is $\widehat\tau_l=\tau_l(\widehat\theta)${{cite:fisher1922}}.
+Let the distribution of the data depend on $\theta=(\theta_1,\ldots,\theta_k)$, with maximum likelihood estimator $\widehat\theta$. Let $\tau(\theta)=(\tau_1(\theta),\ldots,\tau_r(\theta))$, $1\le r\le k$, be a transformation of the parameter. Then the maximum likelihood estimator of $\tau_l(\theta)$ is $\widehat\tau_l=\tau_l(\widehat\theta)${{cite:siegrist_mle2022}} (§ “Extending the Method and the Invariance Property”).
 
 :::
 
@@ -234,7 +234,7 @@ $$
 \Pr(X\le x)=\Pr\bigl(\Phi^{-1}(U)\le x\bigr)=\Pr\bigl(U\le\Phi(x)\bigr)=\Phi(x),
 $$
 
-so $X$ is standard normal. This is the [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform). Draw $p$ independent copies and stack them as $\mathbf{Z}\sim\Normal_p(\mathbf{0},I_p)$. Any matrix $B$ with $BB^\top=\Sigma$ then has the covariance required by the linear-image formula{{cite:anderson2003_mva}}. The spectral factor $B=\Gamma\Lambda^{1/2}$, whose columns are eigenvectors scaled by square-root eigenvalues, is one such factor{{cite:golub_vanloan2013}}, and the Cholesky factor is another{{cite:golub_vanloan2013}}. Set
+so $X$ is standard normal. This is the [inverse-transform method](prob-03-simulation.qmd#def-inverse-transform). Draw $p$ independent copies and stack them as $\mathbf{Z}\sim\Normal_p(\mathbf{0},I_p)$. Any matrix $B$ with $BB^\top=\Sigma$ then has the covariance required by the linear-image formula{{cite:rasmussen_williams2006}} (§A.2, pp. 200–201). The spectral factor $B=\Gamma\Lambda^{1/2}$, whose columns are eigenvectors scaled by square-root eigenvalues, is one such factor{{cite:rasmussen_williams2006}} (§A.2, p. 201), and the Cholesky factor is another{{cite:boyd_vandenberghe2004}} (§C.3.2, pp. 669–670). Set
 
 $$
 \mathbf{X}=\boldsymbol{\mu}+B\mathbf{Z}.
@@ -455,14 +455,14 @@ $T^2$ is the squared Mahalanobis distance of the sample mean from the hypothesis
 
 ### A confidence region for the mean
 
-A confidence region can now be built without inventing another statistic. Run the level-$\alpha$ test for every proposed mean and retain the values it does not reject. Under the Gaussian model, the resulting random region contains the fixed true mean in a proportion $1-\alpha$ of repeated samples{{cite:hotelling1931}}{{cite:anderson2003_mva}}. Once the data are observed, this statement is not a probability that the parameter lies in this particular region.
+A confidence region can now be built without inventing another statistic. Run the level-$\alpha$ test for every proposed mean and retain the values it does not reject. Under the Gaussian model, the resulting random region contains the fixed true mean in a proportion $1-\alpha$ of repeated samples.{{cite:pan_zhou2011_hotelling}} (§1, Remark 1, exact normal calibration);{{cite:friendly_monette_fox2013}} (§4.6, joint confidence regions) Once the data are observed, this statement is not a probability that the parameter lies in this particular region.
 
 $$
 n(\bar{\mathbf{x}}-\boldsymbol{\mu})^\top S^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu})
 \le\frac{(n-1)p}{n-p}\,F_{\alpha;\,p,\,n-p}.
 $$
 
-A level set of $(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})$ is an ellipsoid whose axes are the eigenvectors of $\Sigma$. The same algebra, with $S$ in place of $\Sigma$ and with centre $\bar{\mathbf{x}}$, shows that the inequality is an ellipsoid centred at the sample mean, with axes along the eigenvectors of $S${{cite:anderson2003_mva}}. The quadratic form carries a factor $n$, so the ellipsoid describes uncertainty about the mean and shrinks as $n$ grows. The scatter of the individual observations is what $S$ itself measures. The numbers in the next example are a case in which this ellipsoid excludes the origin while each separate $t$ interval still contains it. The two measurements move together, and the sample mean leaves the origin along a direction in which the sample hardly varies.
+A level set of $(\mathbf{x}-\boldsymbol{\mu})^\top\Sigma^{-1}(\mathbf{x}-\boldsymbol{\mu})$ is an ellipsoid whose axes are the eigenvectors of $\Sigma$. The same algebra, with $S$ in place of $\Sigma$ and with centre $\bar{\mathbf{x}}$, shows that the inequality is an ellipsoid centred at the sample mean, with axes along the eigenvectors of $S$.{{cite:friendly_monette_fox2013}} (§§2.1–2.2, ellipsoid representations) The quadratic form carries a factor $n$, so the ellipsoid describes uncertainty about the mean and shrinks as $n$ grows. The scatter of the individual observations is what $S$ itself measures. The numbers in the next example are a case in which this ellipsoid excludes the origin while each separate $t$ interval still contains it. The two measurements move together, and the sample mean leaves the origin along a direction in which the sample hardly varies.
 
 ::: {#exm-sl-02-twelve-subjects .example}
 ## Two paired measurements on twelve subjects
@@ -620,7 +620,7 @@ $$
 >F_{\alpha;\,p,\,n_1+n_2-p-1}.
 $$
 
-{{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test” and “Distribution of test statistic”) The second degree of freedom is $n_1+n_2-p-1${{cite:stanford_stats305c_hotelling2025}} (“Hotelling’s T² test”, F rescaling). It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
+{{cite:ackermann_strimmer2009_genesets}} (§ “Hotelling's T²-test and related methods”, Appendix)  The second degree of freedom is $n_1+n_2-p-1${{cite:ackermann_strimmer2009_genesets}} (§ “Hotelling's T²-test and related methods”, Appendix) . It is the Wishart degrees of freedom $n_1+n_2-2$, reduced by the dimension in the same way that $n-1$ became $n-p$ in the one-sample $F$.
 
 :::
 
@@ -654,7 +654,7 @@ A coordinate interval is the case in which $\mathbf{a}$ is a unit vector along o
 
 ### Unequal covariance matrices
 
-Pooling is justified by the common-covariance model{{cite:anderson2003_mva}}. Equal group sizes do not make that assumption true, and they do not restore the exact finite-sample $F$ distribution under arbitrary heteroscedasticity{{cite:anderson2003_mva}}. Large-sample robustness of the pooled procedure is a more limited conclusion. With unequal covariances the problem is the multivariate Behrens–Fisher problem, even when the group sizes happen to match{{cite:anderson2003_mva}}.
+Pooling is justified by the common-covariance model{{cite:krishnamoorthy_xia2006}} (pp. 534–537, 541). Equal group sizes do not make that assumption true, and they do not restore the exact finite-sample $F$ distribution under arbitrary heteroscedasticity{{cite:krishnamoorthy_xia2006}} (pp. 534–537, 541). Large-sample robustness of the pooled procedure is a more limited conclusion. With unequal covariances the problem is the multivariate Behrens–Fisher problem, even when the group sizes happen to match{{cite:krishnamoorthy_xia2006}} (pp. 534–537, 541).
 
 One approximation, due to Krishnamoorthy and Yu, estimates the covariance of the mean difference directly. Define $\widetilde S_l=S_l/n_l$ and $\widetilde S=\widetilde S_1+\widetilde S_2$. The statistic is
 

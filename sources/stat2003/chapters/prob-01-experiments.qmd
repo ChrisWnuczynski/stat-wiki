@@ -123,7 +123,7 @@ If $\Omega$ is finite and every outcome has the same probability, then for every
 $$
 \Pr(A)=\frac{|A|}{|\Omega|}.
 $$
-{{cite:siegrist2022_events}} (§2.2, Sample Spaces and Events)
+{{cite:siegrist2022_events}} (§2.2, “Sample Spaces”)
 
 :::
 
@@ -179,7 +179,7 @@ $$
 \frac{365\times 364\times\cdots\times(365-n+1)}{365^n},
 $$
 
-provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. The probability of a shared birthday is one minus this.{{cite:vonmises1939}}{{cite:feller1968}} It passes one half at $n=23$, where it is $0.507$, and reaches $0.891$ at $n=40$ and $0.970$ at $n=50$.
+provided $n\le 365$, and zero otherwise. The numerator is the number of injective assignments of days, and the denominator is the number of assignments with replacement. The probability of a shared birthday is one minus this.{{cite:grinstead_snell1997}} (§3.1, pp.77–79, Ex.3.3) It passes one half at $n=23$, where it is $0.507$, and reaches $0.891$ at $n=40$ and $0.970$ at $n=50$.
 
 The surprise comes from counting the wrong thing. 23 people seem few against 365 days, but they form $\binom{23}{2}=253$ pairs, and any one of those pairs can match.
 
@@ -255,9 +255,9 @@ If $B_1,\ldots,B_n$ are disjoint and their union is $\Omega$, then for every eve
 $$
 \Pr(A)=\sum_{i=1}^n \Pr(A\given B_i)\,\Pr(B_i).
 $$
-{{cite:grinstead_snell1997}} (Ch. 4, §4.1, pp. 136–137)
+{{cite:grinstead_snell1997}} (§4.1, Bayes' formula)
 
-The events $A\cap B_i$ are disjoint and exhaust $A$, so the sum rule applies, and each term is the product rule.{{cite:grinstead_snell1997}} (Ch. 4, §4.1, pp. 136–137)
+The events $A\cap B_i$ are disjoint and exhaust $A$, so the sum rule applies, and each term is the product rule.{{cite:grinstead_snell1997}} (§4.1, Bayes' formula)
 
 :::
 

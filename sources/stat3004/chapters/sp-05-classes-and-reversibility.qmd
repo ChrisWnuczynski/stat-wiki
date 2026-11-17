@@ -23,7 +23,7 @@ $$
 d(i)=\gcd\{n\ge 1: p_{ii}^{(n)}>0\}.
 $$
 
-Period $1$ means aperiodic.{{cite:berkeley_eecs1262019}} (§2.4, p. 12)
+Period $1$ means aperiodic.{{cite:durrett2019}} (§5.6, pp. 312–313)
 
 For example, deterministic alternation between two states returns at even times only: both states are recurrent but periodic. In contrast, a state that self-loops with probability $q$ in $(0,1)$ and otherwise enters a distinct absorbing state is transient. Its probability of a first return is $q$, although the self-loop gives it period $1$. Aperiodicity therefore says nothing by itself about whether return is certain.
 
@@ -34,7 +34,7 @@ Communicating states share a period. In a finite chain, every state in a closed 
 ::: {#thm-sp-finite-irreducible .theorem}
 ## Finite irreducible chains
 
-A finite irreducible chain has a unique stationary distribution, and every entry of that distribution is strictly positive.{{cite:norris1997}}{{cite:feller1968}} If the chain is also aperiodic, then $p_{ij}^{(n)}\to\pi_j$ for every $i$ and $j$.{{cite:grimmett_stirzaker2020}}
+A finite irreducible chain has a unique stationary distribution, and every entry of that distribution is strictly positive.{{cite:grinstead_snell1997}} (§11.3, Thm. 11.10, p. 438) If the chain is also aperiodic, then $p_{ij}^{(n)}\to\pi_j$ for every $i$ and $j$.{{cite:durrett2019}} (§5.6, Thm. 5.6.6, pp. 313–314)
 
 :::
 

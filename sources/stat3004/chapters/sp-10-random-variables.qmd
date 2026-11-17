@@ -15,7 +15,7 @@ A map $X:\Omega\to\mathbb{R}$ is a random variable when $\{\omega: X(\omega)\le 
 
 It is enough to check the inverse images of the generating intervals $(-\infty,x]$. The sigma-algebra property then puts the inverse image of every Borel set into $\mathcal{F}$. The induced law is $\mathrm{P}_X(B)=\mathrm{P}(X\in B)$ for $B\in\mathcal{B}(\mathbb{R})$.
 
-The distribution function is non-decreasing and right-continuous, with limit $0$ at $-\infty$ and limit $1$ at $+\infty$. Right-continuity is the convention $F_X(x)=\mathrm{P}(X\le x)$: the value at $x$ includes the atom at $x$.{{cite:billingsley1995}} The jump at $x$ equals that atom.{{cite:durrett2019}}{{cite:doob1953}}
+The distribution function is non-decreasing and right-continuous, with limit $0$ at $-\infty$ and limit $1$ at $+\infty$. Right-continuity is the convention $F_X(x)=\mathrm{P}(X\le x)$: the value at $x$ includes the atom at $x$.{{cite:durrett2019}} (§1.2, Thm. 1.2.1, p. 10) The jump at $x$ equals that atom.{{cite:durrett2019}} (§1.2, distribution functions, pp. 10–14)
 
 $$
 \mathrm{P}(X=x)=F_X(x)-F_X(x-).
@@ -66,7 +66,7 @@ A mass function turns the second integral into a sum. A density $f$ turns it int
 
 A non-decreasing function is a distribution function when it is right-continuous and has limits $0$ and $1$ at $\pm\infty$. Each such function defines a probability on the Borel sets. Assign to each half-open interval $(a,b]$ the mass $F(b)-F(a)$. These assignments are consistent under unions and differences of intervals. The Carathéodory extension theorem extends that premeasure from the algebra of finite unions of such intervals to a measure on $\sigma$ of that algebra, which is the Borel sigma-algebra.
 
-A consistent family of finite-dimensional distributions defines a stochastic process on a product space, under the hypotheses of the Kolmogorov extension theorem.{{cite:kolmogorov1933_slln}}{{cite:billingsley1995}}{{cite:durrett2019}} The theorem is an existence result. It does not by itself produce continuous sample paths, or any other regularity the model may need. A Poisson process and a queue are built from the explicit clocks on [Poisson processes](sp-06-poisson-processes.qmd) and [Birth–death chains and queues](sp-08-queues.qmd), which is a stronger description than consistency of the finite-dimensional laws alone.
+A consistent family of finite-dimensional distributions defines a stochastic process on a product space, under the hypotheses of the Kolmogorov extension theorem.{{cite:durrett2019}} (§A.3, Thm. A.3.1, pp. 464–465) The theorem is an existence result. It does not by itself produce continuous sample paths, or any other regularity the model may need. A Poisson process and a queue are built from the explicit clocks on [Poisson processes](sp-06-poisson-processes.qmd) and [Birth–death chains and queues](sp-08-queues.qmd), which is a stronger description than consistency of the finite-dimensional laws alone.
 
 ## From a distribution function to an interval probability
 

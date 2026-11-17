@@ -7,7 +7,7 @@ The conjugate calculations in the Beta--Binomial, Normal--Normal, and Gamma--Poi
 ::: {#def-statistic-and-estimator .definition}
 ## Statistic and estimator
 
-Write the complete sample as $\Xvec=(X_1,\ldots,X_n)$ and its realised value as $\xvec=(x_1,\ldots,x_n)$. A *statistic* is any function 
+Write the complete sample as $\Xvec=(X_1,\ldots,X_n)$ and its realised value as $\xvec=(x_1,\ldots,x_n)$. A *statistic* is any function
 
 $$
  T=T(\Xvec)
@@ -77,7 +77,7 @@ The Bayesian consequence is immediate. If the prior density is $\pi(\theta)$, th
 ::: {#exm-sufficiency-for-a-normal-mean .example}
 ## Sufficiency for a normal mean
 
-Suppose 
+Suppose
 
 $$
  X_1,\ldots,X_n\given\mu
@@ -111,7 +111,7 @@ $$
     \frac{\mu}{\sigma^2}\sum_{i=1}^nx_i
     -\frac{n\mu^2}{2\sigma^2}\right\}}
    _{g_\mu\{T(\xvec)\}}.
-\end{align*} All dependence on $\mu$ passes through 
+\end{align*} All dependence on $\mu$ passes through
 
 $$
  T(\xvec)=\sum_{i=1}^nx_i.
@@ -127,7 +127,7 @@ $$
 $$
 
 
- or equivalently 
+ or equivalently
 
 $$
  \left(\overline X,\sum_{i=1}^n(X_i-\overline X)^2\right).
@@ -165,7 +165,7 @@ For the known-variance normal model, \begin{align*}
 \end{align*} The first term is independent of $\mu$. The second is independent of $\mu$ if and only if $\sum_i x_i=\sum_i y_i$. Therefore $\sum_iX_i$, or equivalently $\overline X$, is minimal sufficient for $\mu$.
 
 ::: {#def-definition-2 .definition}
-A statistic $T$ is *complete* for a family if 
+A statistic $T$ is *complete* for a family if
 
 $$
 \E_\theta\{q(T)\}=0,\qquad \theta\in\Omega,
@@ -176,7 +176,7 @@ $$
 
 :::
 
-Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. A complete sufficient statistic is minimal sufficient.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}} The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target.{{cite:lehmann_scheffe1950}} The variance inequality that reduces the search to functions of a sufficient statistic is the [Rao–Blackwell theorem](inf-09-rao-blackwell.qmd#s-rao-blackwell-theorem).
+Sufficiency concerns lossless data reduction; completeness concerns whether a nonzero function of the reduced data can have mean zero for every parameter value. With common parameter-free conditional distributions on standard Borel spaces, a complete sufficient statistic is minimal sufficient up to null sets.{{cite:siegrist2022_sufficient_complete}} (§7.6, “Complete Statistics”) The Lehmann--Scheffé theorem further says that an unbiased estimator which is a function of a complete sufficient statistic is the unique uniformly minimum-variance unbiased estimator of its target.{{cite:siegrist2022_sufficient_complete}} (§7.6, “The Lehmann–Scheffé Theorem”) The variance inequality that reduces the search to functions of a sufficient statistic is the [Rao–Blackwell theorem](inf-09-rao-blackwell.qmd#s-rao-blackwell-theorem).
 
 Completeness must not be claimed merely because a model has been written in exponential-family notation. For a full-rank exponential family whose natural parameter space contains an open set of the appropriate dimension, the natural sufficient statistic is complete under standard integrability conditions. Curved or restricted subfamilies need not inherit this property.
 
@@ -206,14 +206,14 @@ In the $a$--$b$--$c$--$T$ notation used here, the natural or canonical form of a
  =\frac{b(x)\exp\{c(\theta)^{\mathsf T}T(x)\}}
         {a(\theta)},
  \label{eq:abcT-exponential-family}
-\end{equation} where $c(\theta)$ is the natural or canonical parameter, $T(x)$ is the natural statistic, $b(x)$ does not depend on $\theta$, and $a(\theta)$ is the normalising function.{{cite:lehmann_casella1998}}{{cite:mccullagh_nelder1989}}{{cite:diaconis_ylvisaker1979}}
+\end{equation} where $c(\theta)$ is the natural or canonical parameter, $T(x)$ is the natural statistic, $b(x)$ does not depend on $\theta$, and $a(\theta)$ is the normalising function.{{cite:dasgupta2011_exponential_family}} (§18.2, canonical representation)
 
 :::
 
 ::: {#rem-translation-to-another-common-notation .remark}
 ## Translation to another common notation
 
-Some books write the same density as 
+Some books write the same density as
 
 $$
  p(x\given\vect\eta)
@@ -221,7 +221,7 @@ $$
 $$
 
 
- This is only a change of names: $\vect\eta=c(\theta)$, $h(x)=b(x)$, and $A(\vect\eta)=\log a(\theta)$.{{cite:mccullagh_nelder1989}}{{cite:lehmann_casella1998}}{{cite:diaconis_ylvisaker1979}} We retain the $a(\theta)$--$b(x)$--$c(\theta)$--$T(x)$ notation from this point onward.
+ This is only a change of names: $\vect\eta=c(\theta)$, $h(x)=b(x)$, and $A(\vect\eta)=\log a(\theta)$.{{cite:dasgupta2011_exponential_family}} (§18.2, canonical representation) We retain the $a(\theta)$--$b(x)$--$c(\theta)$--$T(x)$ notation from this point onward.
 
 :::
 
@@ -257,7 +257,7 @@ The covariance matrix is positive semidefinite, so $A$ is convex. The one-observ
 
 :::
 
-The density must integrate to one, so the normalising function is 
+The density must integrate to one, so the normalising function is
 
 $$
  a(\theta)
@@ -290,7 +290,7 @@ $$
    \{\nabla_c^2\ell(\theta;\Xvec)\}\\
  &=n\nabla_c^2\log a(\theta)\\
  &=n\Cov_\theta\{T(X)\}.
-\end{align*} The likelihood equations therefore match the observed sufficient statistic to its model expectation: 
+\end{align*} The likelihood equations therefore match the observed sufficient statistic to its model expectation:
 
 $$
  S(\xvec)=n\E_{\widehat\theta}\{T(X)\}.
@@ -348,7 +348,7 @@ Put $\eta=c(\theta)$ and $A(\eta)=\log a(\theta)$. On the natural-parameter scal
 $$
 \boxed{\alpha\leftarrow\alpha+S(\boldsymbol x),\qquad\nu\leftarrow\nu+n.}
 $$
-The data add their sufficient-statistic total and sample size to the two hyperparameters. The displayed algebra requires the prior and posterior normalising integrals to be finite; propriety conditions depend on the family.{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3 and Theorem 1, pp. 271–272)
+The data add their sufficient-statistic total and sample size to the two hyperparameters. The displayed algebra requires the prior and posterior normalising integrals to be finite; propriety conditions depend on the family.{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3 and Thm. 1, pp. 271–272)
 
 The underlying parameter measure matters. A prior density stated in $\theta$ rather than $\eta$ acquires a Jacobian when changed to the natural scale. The Poisson example below deliberately uses a density with respect to $d\theta$, so its Gamma shape is read from the exponent of $\theta$ on that scale.{{cite:gelman_bda2013}} (§2.4, pp. 36–37, parameter measure in conjugate updating)
 
@@ -366,7 +366,7 @@ The underlying parameter measure matters. A prior density stated in $\theta$ rat
  &=\frac{e^{-\theta}\theta^x}{x!}\\
  &=\frac1{x!}\exp\{x\log\theta\}e^{-\theta}\\
  &=\frac{b(x)\exp\{c(\theta)T(x)\}}{a(\theta)},
-\end{align*} with 
+\end{align*} with
 
 $$
  b(x)=\frac1{x!},
@@ -441,7 +441,7 @@ For iid $\Normal(\mu,\sigma^2)$ observations with both parameters unknown, facto
 ::: {#exr-reading-conjugacy-from-a-kernel .exercise}
 ## Reading conjugacy from a kernel
 
-Given a one-parameter exponential-family likelihood 
+Given a one-parameter exponential-family likelihood
 
 $$
  L(\theta)
@@ -451,7 +451,7 @@ $$
 $$
 
 
- and prior kernel 
+ and prior kernel
 
 $$
  p(\theta\given\alpha,\beta)
@@ -484,7 +484,7 @@ Explain why support compatibility is necessary but not sufficient for a prior to
 ::: {#ex-applied-sufficiency-posterior .exercise}
 ## Sufficiency and the posterior
 
-Let $\Xvec=(X_1,\ldots,X_n)^{\mathsf T}$ have likelihood $p(\xvec\given\theta)$ and prior $p(\theta)$. If $U(\Xvec)$ is sufficient for $\theta$, use the Fisher--Neyman factorisation theorem and Bayes' rule to show that the posterior depends on the observed sample only through $U(\xvec)$. Retain the normalising integral in the derivation. 
+Let $\Xvec=(X_1,\ldots,X_n)^{\mathsf T}$ have likelihood $p(\xvec\given\theta)$ and prior $p(\theta)$. If $U(\Xvec)$ is sufficient for $\theta$, use the Fisher--Neyman factorisation theorem and Bayes' rule to show that the posterior depends on the observed sample only through $U(\xvec)$. Retain the normalising integral in the derivation.
 
 [Solution](#sol-applied-sufficiency-posterior)
 
@@ -493,7 +493,7 @@ Let $\Xvec=(X_1,\ldots,X_n)^{\mathsf T}$ have likelihood $p(\xvec\given\theta)$ 
 ::: {#ex-applied-exp-rate .exercise}
 ## Exponential observations parameterised by rate
 
-For $X\given\theta\sim\Exp(\theta)$, take $\theta$ to be the rate, so that 
+For $X\given\theta\sim\Exp(\theta)$, take $\theta$ to be the rate, so that
 
 $$
  p(x\given\theta)=\theta e^{-\theta x}\mathbf{1}_{\{x\geq0\}}.
@@ -512,7 +512,7 @@ $$
  p(\theta\given\alpha,\beta)\propto\frac{\exp\{c(\theta)\alpha\}}{a(\theta)^\beta}
 $$
 
- to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$. 
+ to find a conjugate prior. Then give the posterior for an iid sample $x_1,\ldots,x_n$.
 
 [Solution](#sol-applied-exp-rate)
 
@@ -521,7 +521,7 @@ $$
 ::: {#ex-applied-exp-scale .exercise}
 ## Exponential observations parameterised by mean
 
-Let $X_1,\ldots,X_n$ be iid $\Exp(1/\theta)$ observations, so that $\theta>0$ is the mean and 
+Let $X_1,\ldots,X_n$ be iid $\Exp(1/\theta)$ observations, so that $\theta>0$ is the mean and
 
 $$
  p(x_i\given\theta)=\theta^{-1}e^{-x_i/\theta}\mathbf{1}_{\{x_i\geq0\}}.
@@ -540,7 +540,7 @@ $$
  p(\theta\given\alpha,\beta)\propto\frac{\exp\{c(\theta)\alpha\}}{a(\theta)^\beta}
 $$
 
- to find a conjugate prior and derive its posterior parameters. 
+ to find a conjugate prior and derive its posterior parameters.
 
 [Solution](#sol-applied-exp-scale)
 

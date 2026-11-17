@@ -1,5 +1,7 @@
 # Concept-page research order
 
+Ranks 1–517 are complete; next rank: **518**. The ranking order and scores remain frozen.
+
 Score = distinct incoming substantive wiki pages + distinct practice questions using the article.
 Question pages, automatic navigation, infoboxes, references, and copied question excerpts do not add incoming-link counts.
 

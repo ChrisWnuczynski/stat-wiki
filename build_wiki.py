@@ -3481,7 +3481,9 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 check = self_check_section(article, qmap)
                 # Place the bank questions before History when that section exists,
                 # and before Examples otherwise, so the section order stays stable.
-                at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label in {"history", "see-also"}), len(page["blocks"]))
+                is_result = article["box"] and article["box"]["kind"] in {"theorem", "proposition", "corollary"}
+                before = {"history", "examples", "see-also"} if is_result else {"history", "see-also"}
+                at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label in before), len(page["blocks"]))
                 page["blocks"].insert(at, (True, "check-yourself", check))
 
     import citations

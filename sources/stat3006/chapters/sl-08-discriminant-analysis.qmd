@@ -146,7 +146,7 @@ $$
 \eta(\mathbf{x})=B(\mathbf{x})=\arg\max_{g\in\{1,\ldots,G\}}\tau_g(\mathbf{x}).
 $$
 
-{{cite:james_islr2013}} (§2.2.3, pp. 37–39, Bayes decision rule)
+{{cite:rasmussen_williams2006}} (§3.1.1, pp. 35–36)
 :::
 
 At a fixed $\mathbf{x}$, predicting $h$ incurs conditional error $1-\tau_h(\mathbf{x})$. Choose a largest posterior to make this as small as possible. Integrating that pointwise inequality over $X$ proves optimality for overall error as well. Ties can be resolved by any fixed convention; the risk is the same.
@@ -401,7 +401,7 @@ Each class covariance is estimated from that class alone, so its sampling variab
 
 ## Fisher's linear discriminant analysis
 
-LDA obtained a linear boundary by assuming normal classes with a shared covariance. Many labelled samples are not normal, and writing down a density may be more than the problem requires. Fisher asked a different question for two classes{{cite:fisher1936}}. Among all one-dimensional projections, which direction separates the two class means the most, relative to the scatter within the classes? Fisher's linear discriminant analysis maximises that ratio{{cite:fisher1936}}{{cite:hastie_esl2009}}{{cite:anderson2003_mva}}. A hyperplane perpendicular to the maximising direction is then the boundary. The criterion uses the class means and a pooled covariance. It does not assume normality, and it does not require the population covariances to be equal. The pooled matrix $S$ is still a constraint: the denominator treats the two classes as having a common scatter. That constraint is why the direction will match the vector $\boldsymbol\beta$ of normal LDA, even though the two derivations start from different places.
+LDA obtained a linear boundary by assuming normal classes with a shared covariance. Many labelled samples are not normal, and writing down a density may be more than the problem requires. Fisher asked a different question for two classes{{cite:fisher1936}} (§§I–II, p. 179). Among all one-dimensional projections, which direction separates the two class means the most, relative to the scatter within the classes? Fisher's linear discriminant analysis maximises that ratio{{cite:fisher1936}} (§II, p. 179){{cite:boyd_vandenberghe2004}} (§A.5.2, pp. 646–647). A hyperplane perpendicular to the maximising direction is then the boundary. The criterion uses the class means and a pooled covariance. It does not assume normality, and it does not require the population covariances to be equal. The pooled matrix $S$ is still a constraint: the denominator treats the two classes as having a common scatter. That constraint is why the direction will match the vector $\boldsymbol\beta$ of normal LDA, even though the two derivations start from different places.
 
 Let the sample means be $\widehat{\boldsymbol\mu}_1$ and $\widehat{\boldsymbol\mu}_2$, and let $S$ be their pooled sample covariance. A projection direction is a vector $\mathbf{a}\in\R^p$. Its length will not matter, because the ratio below is unchanged if $\mathbf{a}$ is rescaled. In the projected space the class means are the scalars $\mathbf{a}^\top\widehat{\boldsymbol\mu}_1$ and $\mathbf{a}^\top\widehat{\boldsymbol\mu}_2$. Each class mean, measured from the midpoint of the two projected means, is
 
@@ -428,7 +428,7 @@ The ratio depends on the direction of $\mathbf{a}$ and not on its length. One ro
 ::: {#thm-sl-08-fisher .theorem}
 ## Fisher's direction
 
-Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}${{cite:fisher1936}} (§§I–II, p. 179, discriminant criterion){{cite:james_islr2013}} (§4.4.3, pp. 142–144, Fisher direction). If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
+Let $\mathbf{d}=\widehat{\boldsymbol\mu}_1-\widehat{\boldsymbol\mu}_2\ne\mathbf{0}$ and let $S$ be positive definite. Among nonzero directions, the Fisher ratio is maximised by $\mathbf{a}\propto S^{-1}\mathbf{d}${{cite:witten_tibshirani2011_fisher}} (§2.1){{cite:deisenroth_faisal_ong2020}} (§3.3, p. 75, Eq. 3.17). If $\mathbf{d}=\mathbf{0}$, the ratio is zero for every nonzero direction, so it selects no preferred direction.
 
 :::
 

@@ -1004,5 +1004,129 @@
   "product-rule": [
     "depth-mgf-bernoulli-sum",
     "ex-prob-five-evens-replace"
+  ],
+  "hypergeometric-distribution": [
+    "ex-prob-red-balls-expectation",
+    "ex-prob-three-cards"
+  ],
+  "invariance-of-maximum-likelihood": [
+    "ex-inf-normal-mle",
+    "ex-inf-poisson-mle"
+  ],
+  "extinction-criterion": [
+    "ex-sp-critical-extinction",
+    "ex-sp-many-ancestors"
+  ],
+  "marginal-variance-posterior": [
+    "c-10",
+    "ex-improper-normal"
+  ],
+  "moments-of-the-sample-mean-and-variance": [
+    "ex-inf-expected-sample-variance",
+    "ex-prob-second-moment"
+  ],
+  "monotone-convergence-fatou-and-dominated-convergence": [
+    "ex-sp-spike",
+    "ex-sp-l2-markov"
+  ],
+  "finite-irreducible-chains": [
+    "ex-sp-weather-two-step",
+    "ex-sp-deterministic-cycle"
+  ],
+  "poisson-limit-of-the-binomial": [
+    "ex-prob-radioactive",
+    "ex-prob-brisbane-groups"
+  ],
+  "limiting-distribution": [
+    "ex-sp-weather-two-step",
+    "ex-sp-deterministic-cycle"
+  ],
+  "basu-s-theorem": [
+    "exr-completeness-binomial",
+    "exr-completeness-restricted"
+  ],
+  "wold-decomposition": [
+    "c-43",
+    "c-44"
+  ],
+  "law-of-total-probability": [
+    "ex-prob-binary-channel",
+    "ex-prob-series-parallel"
+  ],
+  "a-zero-precision-entry-is-conditional-independence": [
+    "ex-sl-19-2",
+    "ex-sl-19-6"
+  ],
+  "affine-images-of-normal-vectors": [
+    "ex-prob-normal-shift",
+    "ex-prob-normal-sketch"
+  ],
+  "anova-f-distribution": [
+    "ex-inf-anova-two-groups",
+    "ex-inf-paired-f"
+  ],
+  "bayes-action-for-two-hypotheses": [
+    "ex-sl-08-1",
+    "ex-sl-08-2"
+  ],
+  "bayes-optimal-rule": [
+    "ex-sl-08-1",
+    "ex-sl-08-2"
+  ],
+  "beta-binomial-posterior-prediction": [
+    "q-06",
+    "q-17"
+  ],
+  "conditional-coefficient-posterior": [
+    "q-43",
+    "q-58"
+  ],
+  "direct-posterior-simulation": [
+    "q-24",
+    "q-43"
+  ],
+  "a-finite-stationary-point-is-a-global-maximiser": [
+    "ex-sl-10-1",
+    "ex-sl-10-5"
+  ],
+  "a-single-threshold-unit-cannot-compute-xor": [
+    "ex-sl-14-5",
+    "ex-sl-14-6"
+  ],
+  "sequential-coherence": [
+    "q-06",
+    "q-17"
+  ],
+  "signed-distance": [
+    "ex-sl-17-1",
+    "ex-sl-17-9"
+  ],
+  "two-sample-hotelling-test": [
+    "ex-sl-02-6",
+    "ex-sl-02-2"
+  ],
+  "variance-ratio-f-pivot": [
+    "ex-inf-variance-ratio-interval",
+    "ex-inf-variance-bias"
+  ],
+  "dirichlet-moments": [
+    "depth-dirichlet-marginal",
+    "ex-applied-restaurant"
+  ],
+  "equally-likely-outcomes": [
+    "ex-prob-three-tosses",
+    "ex-prob-dice-sum-pmf"
+  ],
+  "family-wise-control-implies-false-discovery-control": [
+    "ex-sl-18-3",
+    "ex-sl-18-4"
+  ],
+  "fisher-s-direction": [
+    "ex-sl-08-6",
+    "ex-sl-10-3"
+  ],
+  "full-conditionals-under-independent-priors": [
+    "q-43",
+    "q-04"
   ]
 }

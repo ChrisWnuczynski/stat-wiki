@@ -58,19 +58,19 @@ The two-sided $t$ test rejects when $|T|\ge t_{m;1-\alpha/2}$, that is when $T^2
 
 []{#sol-inf-normal-mle} **[Normal maximum likelihood estimates](#ex-inf-normal-mle).**
 
-For the normal sample, the log likelihood takes this form up to a constant.{{cite:wang2025_foundations}} (Ch. 12, §17.2)
+For the normal sample, the log likelihood takes this form up to a constant.
 
 $$
 \log L(\mu,\sigma^2)=-\frac1{2\sigma^2}\sum_{i=1}^n(x_i-\mu)^2-\frac n2\log\sigma^2.
 $$
 
-Differentiating in $\mu$ gives $\sum_i(x_i-\mu)=0$, so $\widehat\mu=\overline x$. Differentiating in $\sigma^2$ and substituting $\overline x$ gives the variance estimate below.{{cite:wang2025_foundations}} (Ch. 12, §17.2)
+Differentiating in $\mu$ gives $\sum_i(x_i-\mu)=0$, so $\widehat\mu=\overline x$. Differentiating in $\sigma^2$ and substituting $\overline x$ gives the variance estimate below.
 
 $$
 \widehat\sigma^2=\frac1n\sum_{i=1}^n(x_i-\overline x)^2.
 $$
 
-To check that this is a maximum when $A>0$, note that for fixed $\sigma^2$ the log-likelihood is a downward parabola in $\mu$, largest at $\overline x$ whatever $\sigma^2$ is. With $\mu=\overline x$ and $v=\sigma^2$, the profile $-A/(2v)-\tfrac n2\log v$ with $A=\sum(x_i-\overline x)^2$ has derivative $A/(2v^2)-n/(2v)$, positive for $v<A/n$ and negative after. So $(\overline x,\widehat\sigma^2)$ is the global maximum when the observations are not all identical. If $A=0$ and $\sigma^2>0$, the likelihood increases without bound as $v\downarrow0$, and no finite MLE exists in that parameter space.{{cite:wang2025_foundations}} (Ch. 12, §17.2)
+To check that this is a maximum when $A>0$, note that for fixed $\sigma^2$ the log-likelihood is a downward parabola in $\mu$, largest at $\overline x$ whatever $\sigma^2$ is. With $\mu=\overline x$ and $v=\sigma^2$, the profile $-A/(2v)-\tfrac n2\log v$ with $A=\sum(x_i-\overline x)^2$ has derivative $A/(2v^2)-n/(2v)$, positive for $v<A/n$ and negative after. So $(\overline x,\widehat\sigma^2)$ is the global maximum when the observations are not all identical. If $A=0$ and $\sigma^2>0$, the likelihood increases without bound as $v\downarrow0$, and no finite MLE exists in that parameter space.
 
 []{#sol-inf-variance-bias} **[Bias of the two variance estimators](#ex-inf-variance-bias).**
 
@@ -82,23 +82,23 @@ The bias is $\E\widehat\sigma^2-\sigma^2=-\sigma^2/n$.
 
 []{#sol-inf-exponential-mle} **[An exponential rate](#ex-inf-exponential-mle).**
 
-(a) For this exponential model, the log likelihood has the following form.{{cite:wang2025_foundations}} (Ch. 12, §22, Problem 31)
+(a) For this exponential model, the log likelihood has the following form.
 
 $$
 \log L(\lambda)=n\log\lambda-\lambda\sum_{i=1}^nx_i.
 $$
 
-Its derivative $n/\lambda-\sum x_i$ is zero at $\lambda=n/\sum x_i=1/\overline x$. The second derivative, $-n/\lambda^2$, is negative, so this is a maximum. The estimator is $\widehat\lambda=1/\overline X$.{{cite:wang2025_foundations}} (Ch. 12, §22, Problem 31)
+Its derivative $n/\lambda-\sum x_i$ is zero at $\lambda=n/\sum x_i=1/\overline x$. The second derivative, $-n/\lambda^2$, is negative, so this is a maximum. The estimator is $\widehat\lambda=1/\overline X$.
 
-(b) $\E X=1/\lambda$. Setting $1/\lambda=\overline x$ gives the same estimator, $1/\overline X$.{{cite:wang2025_foundations}} (Ch. 12, §22, Problems 30–31)
+(b) $\E X=1/\lambda$. Setting $1/\lambda=\overline x$ gives the same estimator, $1/\overline X$.
 
-(c) The median lifetime $m$ solves $1-e^{-\lambda m}=1/2$, so $m=(\log2)/\lambda$. By invariance its maximum likelihood estimator is $(\log2)/\widehat\lambda=\overline X\log2$.{{cite:wang2025_foundations}} (Ch. 12, Thm. 19)
+(c) The median lifetime $m$ solves $1-e^{-\lambda m}=1/2$, so $m=(\log2)/\lambda$. By invariance its maximum likelihood estimator is $(\log2)/\widehat\lambda=\overline X\log2$.
 
 []{#sol-inf-poisson-mle} **[A Poisson mean](#ex-inf-poisson-mle).**
 
-The log-likelihood is $\sum x_i\log\theta-n\theta-\sum\log x_i!$, with derivative $\sum x_i/\theta-n$. Setting it to zero gives $\widehat\theta=\overline X$; the second derivative $-\sum x_i/\theta^2$ is negative, so it is a maximum. (If every $x_i=0$ the likelihood $e^{-n\theta}$ is largest at $\theta=0$, which is again $\overline x$.){{cite:wang2025_foundations}} (Ch. 13, §18.2)
+The log-likelihood is $\sum x_i\log\theta-n\theta-\sum\log x_i!$, with derivative $\sum x_i/\theta-n$. Setting it to zero gives $\widehat\theta=\overline X$; the second derivative $-\sum x_i/\theta^2$ is negative, so it is a maximum. (If every $x_i=0$ the likelihood $e^{-n\theta}$ is largest at $\theta=0$, which is again $\overline x$.)
 
-$\E\overline X=\theta$, so the estimator is unbiased, and its mean squared error is its variance, $\Var\overline X=\theta/n$, because a Poisson variance equals its mean. That tends to zero, so $\overline X$ is consistent, by Chebyshev's inequality or by the law of large numbers.{{cite:wang2025_foundations}} (Ch. 13, §18.2)
+$\E\overline X=\theta$, so the estimator is unbiased, and its mean squared error is its variance, $\Var\overline X=\theta/n$, because a Poisson variance equals its mean. That tends to zero, so $\overline X$ is consistent, by Chebyshev's inequality or by the law of large numbers.
 
 []{#sol-inf-shrunk-mean} **[A shrunken sample mean](#ex-inf-shrunk-mean).**
 

@@ -71,11 +71,11 @@ summary(gee_fit)$coefficients
 ::: {#def-exchangeable-correlation .definition}
 ## Exchangeable correlation
 
-An exchangeable correlation matrix for a cluster of $K$ observations, with common pairwise correlation $\rho$, is the matrix below.{{cite:liang_zeger1986}}{{cite:potthoff_roy1964}}
+An exchangeable correlation matrix for a cluster of $K\ge2$ observations, with common pairwise correlation $\rho$, is the matrix below.{{cite:liang_zeger1986}} (§3.1, pp.15–16; §4, p.18, Ex.3)
 $$
 R(\rho)=(1-\rho)I_K+\rho\,\mathbf{1}\mathbf{1}^{\top}.
 $$
-Its eigenvalues are $1-\rho$, with multiplicity $K-1$, and $1+(K-1)\rho$, with multiplicity one. $R(\rho)$ is positive semidefinite if and only if $-1/(K-1)\le\rho\le 1$.{{cite:liang_zeger1986}} At either endpoint it is singular.
+Its eigenvalues are $1-\rho$, with multiplicity $K-1$, and $1+(K-1)\rho$, with multiplicity one. $R(\rho)$ is positive semidefinite if and only if $-1/(K-1)\le\rho\le 1$.{{cite:liang_zeger1986}} (§3.1, pp.15–16; §4, p.18, Ex.3) At either endpoint it is singular.
 :::
 
 The eigenvalues are worth deriving once, because the bound is easy to miss in the output. $R(\rho)\mathbf{1}=(1-\rho)\mathbf{1}+\rho K\mathbf{1}=(1+(K-1)\rho)\mathbf{1}$, so $1+(K-1)\rho$ is an eigenvalue with eigenvector $\mathbf{1}$. Any vector orthogonal to $\mathbf{1}$ is sent to $(1-\rho)$ times itself, which gives the other eigenvalue and the multiplicity $K-1$. Both eigenvalues are nonnegative exactly on $-1/(K-1)\le\rho\le 1$.

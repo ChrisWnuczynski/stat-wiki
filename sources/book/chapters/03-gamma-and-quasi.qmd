@@ -54,7 +54,7 @@ The two families are written by their mean and variance, so the shape-rate and s
 Y_i\mid \vect{X}_i&\ind\mathrm{Gamma}\!\left(\mu_i=\mu(\vect{X}_i^\top\boldsymbol{\beta}),\ \mathrm{Var}=\phi\mu_i^2\right),\\
 Y_i\mid \vect{X}_i&\ind\mathrm{InverseGaussian}\!\left(\mu_i=\mu(\vect{X}_i^\top\boldsymbol{\beta}),\ \mathrm{Var}=\phi\mu_i^3\right).
 \end{align*}
-The mean function $\mu(\cdot)$ is whichever inverse link you chose. It is not tied to the family. The score for a gamma regression has the same shape as the Bernoulli and Poisson scores, $(y-\mu)\mu'/\mathrm{Var}$.{{cite:nelder_wedderburn1972}}{{cite:mccullagh_nelder1989}}{{cite:davison2003}} Showing that is an exercise rather than a new idea. Intervals are again $z$ intervals from the inverse Fisher information.
+The mean function $\mu(\cdot)$ is whichever inverse link you chose. It is not tied to the family. The score for a gamma regression has the same shape as the Bernoulli and Poisson scores, $(y-\mu)\mu\prime/\mathrm{Var}$.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374){{cite:wuthrich_merz2022_glm}} (§5.3.7, pp. 167–169) Differentiating the gamma log-likelihood gives this score. Intervals from inverse Fisher information use a large-sample Wald approximation, with dispersion estimated when it is unknown.
 
 ### Clotting times, three ways
 
@@ -88,7 +88,7 @@ The second lot adds both coefficients. The intercept becomes $-0.01655-0.00735=-
 $$
 \mu_2=(-0.0239+0.0236\,\mathrm{logdose})^{-1}.
 $$
-On the inverse scale the second lot starts lower and climbs faster. Because the mean is the reciprocal, that is a higher curve which then falls faster as dose increases. The interaction line has $t=11.2$ and a $p$-value of $2\times 10^{-8}$. The slopes are not parallel. The dispersion is tiny: these points sit close to the curve, as a controlled clotting experiment should.
+On the inverse scale the second lot has a larger slope. Across the observed concentration range its inverse-mean predictor is larger, so its fitted mean curve lies below the first lot’s curve. The interaction line has $t=11.2$ and a $p$-value of $2\times 10^{-8}$. The slopes are not parallel. The dispersion is tiny: these points sit close to the curve, as a controlled clotting experiment should.
 
 The default inverse-Gaussian fit uses the inverse-quadratic link. The coefficients are on a different scale, of order $10^{-3}$ rather than $10^{-2}$, because they sit inside a square root. The AIC is $110.5$, much worse than $63$.
 
@@ -116,10 +116,10 @@ The coefficients come back to $-0.0178$, $-0.0074$, $0.0158$, $0.0083$, close to
 
 ::: {.callout-note}
 ## Key idea
-The link chooses the mean curve. The response distribution mainly chooses the standard errors. Those two pieces are essentially orthogonal: you may pair a scientifically sensible link with a distribution that matches the scatter, and neither choice is doing the other's job.
+The link specifies the family of mean curves. The response distribution specifies conditional variability and contributes weights to the likelihood equations, so changing the family can change both the fitted coefficients and their standard errors.{{cite:nelder_wedderburn1972}} (§2.1, pp. 372–374)
 :::
 
-That separation of the mean curve from the response distribution is the point of a GLM's link and random components.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373){{cite:sas2012_glm}} (Ch. 3, “Generalized Linear Models”, systematic, link and random components) Families and links can therefore be paired according to the response and the scientific mean relationship. The worse AIC for the inverse-quadratic fit is a statement about the chosen link, not a mystery of the inverse Gaussian, whose variance here is proportional to the cube of its mean, as the fitted family and standard-error comparison above show.
+Distinguishing the mean specification from the response distribution is a feature of a GLM's link and random components.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373) Families and links can therefore be paired according to the response and the scientific mean relationship. Comparing inverse-Gaussian fits under two links assesses a change in the fitted mean specification, whose variance here is proportional to the cube of its mean, as the fitted family and standard-error comparison above show.
 
 Other positive families outside the default R `glm` list include inverse gamma, lognormal, and Weibull with the second parameter fixed.
 

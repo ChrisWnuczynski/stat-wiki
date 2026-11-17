@@ -87,7 +87,7 @@ Every row of $P^n$ converges to $\boldsymbol\pi$.{{cite:levin_peres2017}} (§4.3
 
 :::
 
-The vector $\boldsymbol\pi$ is the distribution that is unchanged by one more step. Irreducibility keeps the chain from getting stuck in a subset of states. Aperiodicity keeps the distribution from oscillating between two or more patterns; a deterministic two-cycle is irreducible and has no limiting distribution, even though it has a stationary one.
+The vector $\boldsymbol\pi$ is the distribution that is unchanged by one more step. Irreducibility keeps the chain from getting stuck in a subset of states. Aperiodicity keeps the distribution from oscillating between two or more patterns; a deterministic two-cycle is irreducible and its distribution from either fixed starting state has no limit, even though its stationary initial law remains stationary.
 
 On a small state space the linear system $(P^\top-I)\boldsymbol\pi^\top=\mathbf{0}$ is solved directly, and the solution is scaled so that its entries sum to $1$. A null-space routine does the same arithmetic. For the stepping stones this is the vector found above.
 
@@ -120,7 +120,7 @@ The limiting distribution also describes a single long path. For an irreducible 
 
 ![A simulated symmetric random walk on the integers, $p=q=1/2$, for 500 steps. It wanders far from zero and returns, with no tendency to settle. On the integers the symmetric walk has no limiting distribution.](../figures/prob-random-walk.pdf){#fig-prob-random-walk}
 
-A random walk on the non-negative integers, with reflection at $0$, shows when a limit exists on an infinite space. From $0$ the walk steps to $1$ with probability $p$ and stays with probability $q=1-p$. From $j\ge 1$ it steps to $j+1$ with probability $p$ and to $j-1$ with probability $q$. The balance equations $\boldsymbol\pi=\boldsymbol\pi P$ give $\pi_j=(p/q)^j \pi_0$ for $j\ge 0$. These numbers can be scaled to sum to $1$ if and only if $p<q$, in which case $\pi_0=1-p/q$ and $\pi_j=(1-p/q)(p/q)^j$. If $p\ge q$ the walk drifts to infinity and no probability vector satisfies the balance equations. The chain still has the Markov property. It simply has no limiting distribution.
+A random walk on the non-negative integers, with reflection at $0$, shows when a limit exists on an infinite space. From $0$ the walk steps to $1$ with probability $p$ and stays with probability $q=1-p$. From $j\ge 1$ it steps to $j+1$ with probability $p$ and to $j-1$ with probability $q$. The balance equations $\boldsymbol\pi=\boldsymbol\pi P$ give $\pi_j=(p/q)^j \pi_0$ for $j\ge 0$. These numbers can be scaled to sum to $1$ if and only if $p<q$, in which case $\pi_0=1-p/q$ and $\pi_j=(1-p/q)(p/q)^j$. If $p>q$ the walk drifts to infinity; if $p=q$, it is null recurrent and returns to zero with probability one. Neither case admits a stationary probability vector.{{cite:durrett2019}} (§5.5, stationary measures and positive recurrence) The chain still has the Markov property. It simply has no limiting distribution.
 
 ![The walk with a floor at 0. Top: its transition graph. Bottom: the limiting weights when $p/q=1/2$, which are $\pi_j=(1/2)^{j+1}$, a geometric distribution that sums to 1.](../figures/prob-06-markov-chains-reflected-walk.pdf){#fig-prob-reflected-walk}
 

@@ -144,10 +144,8 @@
       "figures": {},
       "citation_keys": [
         "casella_berger2002",
-        "grimmett_stirzaker2020",
-        "robert_casella2004",
-        "ross2019",
-        "vonneumann1951"
+        "dodge2008",
+        "durrett2019"
       ],
       "infobox_rows": {
         "Notation": "$X\\sim\\operatorname{Cauchy}(x_0,\\gamma)$",
@@ -447,10 +445,9 @@
       "words": 783,
       "figures": {},
       "citation_keys": [
-        "bernoulli1713",
-        "feller1968",
-        "forbes2011",
-        "grimmett_stirzaker2020"
+        "siegrist_hypergeometric2022",
+        "dodge2008",
+        "agresti1992_exact_survey"
       ],
       "infobox_rows": {
         "Notation": "$X\\sim\\operatorname{Hypergeom}(N,r,n)$",
@@ -742,7 +739,7 @@
       "words": 644,
       "figures": {},
       "citation_keys": [
-        "coles2001",
+        "siegrist2022_pareto",
         "forbes2011",
         "pareto1909"
       ],

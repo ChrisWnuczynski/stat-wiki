@@ -3,38 +3,29 @@
 These articles do not yet have three inline citations. A further marker would name a work that does not state the claim on the page.
 
 - detailed-balance-implies-stationarity | The copied balance argument now cites the opened Levin–Peres §1.6 proof. Its algebra is reproduced on the page; another independent source has not been checked.
-- doubly-stochastic-matrix | The finite-chain matrix property is supported by the opened Levin–Peres discussion. The remainder is a direct row-and-column calculation.
 - multicollinearity | The updated regression passage cites a full, located account of correlated predictors; another source for its particular example has not been checked.
 - overdispersion | The source chapter now uses a located count-model account for the variance comparison. A third independent citation on the inherited example remains to be checked.
 - sampling-distribution-of-the-ols-estimator | The copied linear-model derivation has one fully checked source and its own algebra; an additional independent reference has not been read for the exact statement.
 - stochastic-process | The copied finite-dimensional definition now cites the opened stochastic-process text. Other historical markers were not supported by inspected passages.
 - studentised-coefficient-pivot | The normal-regression pivot is derived in the copied passage and supported by the opened reference-prior source; further independent support remains to be checked.
 
-- bayes-optimal-rule | The copied risk-minimisation rule is supported by the opened ISLR §2.2.3 derivation. The remaining page is the same conditional-risk calculation, so another independent source has not been checked.
 - classification-with-unequal-costs | The class choice follows from comparing two posterior expected losses. The opened classifier source and the page's direct calculation support it; a third independent reference remains to be checked.
 - conjugacy-is-optional | The inherited example contrasts conjugate and nonconjugate priors. The replacement Gelman passage supports the point, while another distinct source on that exact example has not been checked.
-- generalised-likelihood-ratio-test | The copied nested-model construction now cites the opened likelihood-ratio chapter. The remaining material is its derivation and example; a third source remains to be checked.
 - posterior-class-probability | The class-posterior formula is Bayes' rule applied to class densities and priors, covered by the opened ISLR passage. More citations would duplicate the same formula without a new checked claim.
 - prior-sensitivity | The opened Bayesian source supports the prior-sensitivity comparison; an independent source for the inherited numerical example has not been checked.
 - two-pseudo-count-conventions | The two beta-prior interpretations follow from the displayed posterior mean and mode. The opened Bayesian passage covers the update; another independent source on both conventions has not been checked.
 
-- addiction-data | The inherited study description has fewer than three independently checked sources; the original dataset citation should be verified during its own depth pass.
 - discrete-time-markov-chain | The copied transition-law prose now cites the opened Levin–Peres sections. An additional independent source has not been checked for this paragraph.
 - four-state-random-walk | The inherited numerical walk example is checked within the course chapter; fewer than three independent works address this exact example.
-- gaussian-process | The finite-dimensional Gaussian definition is supported by the opened Rasmussen–Williams chapter. Additional works have not been checked for the inherited paragraph.
 - hastings-correction | The copied acceptance-ratio derivation cites the opened Hastings paper. A third independent source is pending review.
-- signed-distance | The geometric calculation cites the opened Burges and Boser passages. The remaining text is a direct derivation of that calculation.
-- strict-stationarity | The time-series chapter now cites the opened Meinshausen definition. Another independent source should be checked in the page's depth pass.
 - vapnik-s-radius-margin-bound | Burges's opened §3.4 supports the stated bound; a second independent derivation remains to be checked.
 - weak-stationarity | The time-series chapter now cites the opened Meinshausen definition. Another independent source should be checked in the page's depth pass.
 
 - adjusted-r-squared | The copied box is the adjusted R-squared formula. Wherry (1931) and Davison (2003) state it. The other sources on that chapter do not.
 - interquartile-range | Tukey (1977) and Wasserman (2004) support the quartile-difference definition. The remaining article material is a worked example, so an additional citation would repeat those sources without a new claim.
-- randomised-controlled-trial | Fisher (1935) supports random assignment and the Medical Research Council (1948) supplies the historical controlled-trial example. The rest of the page is an illustrative experiment rather than a separately sourced claim.
 - birth-weight-data | The prose outside the solution names the birth-weight series stated by Venables and Ripley (2002) and Hosmer and Lemeshow (2000). The rest is a solution writeup.
 - birthday-problem | Only von Mises (1939) and Feller (1968) state the shared-birthday probability among the works that belong on this article.
 - blinding-and-placebo | The box defines blinding and a placebo. Fisher (1935) and Hill (1948) state randomisation and a controlled comparison, not this definition.
-- brier-score | The paragraph copied onto the article only names the score. The definition is a later paragraph that is not copied, so only Brier (1950) is attached, plus one other mention already on the page.
 - confounding-variable | The box is one sentence. Simpson (1951) states the reversal and Wasserman (2004) states confounding. Neyman (1934) and Cochran (1977) do not define a confounding variable.
 - effective-sample-size | The only chapter paragraph copied onto the article is the solution of a normal-mean Gibbs example.
 - hartigan-wong-algorithm | The copied sentence says R's default k-means targets the same within-cluster sum of squares with different updates. Hartigan and Wong (1979) state that. No other allowed work names their algorithm.
@@ -46,49 +37,36 @@ These articles do not yet have three inline citations. A further marker would na
 - r-s-distribution-interface | The remark states R's d/p/q/r prefixes. Chambers and Hastie (1992) and Ihaka and Gentleman (1996) are the allowed sources, and it is not clear that either paper states that prefix convention.
 - squared-error-of-an-average | The box is the Krogh–Vedelsby ambiguity decomposition. The other works allowed for this article do not state that identity.
 - squared-mahalanobis-distance | The definition now cites the opened Strimmer transformation example. The rest of this short page interprets that same distance and works a two-point calculation; further independent citations should be checked during its own depth pass.
-- thinning-a-markov-chain | The copied thinning explanation now cites Geyer (1992, §3.6, p. 480) for the spacing argument. A second independent source on this exact efficiency claim should be checked during its own depth pass.
 - unit-root | No chapter paragraph is copied onto the article. The page is a short lead.
 - variable-importance | The page copies no chapter prose. Breiman (2001) and Strobl, Boulesteix, Zeileis, and Hothorn (2007) are the two claims in the note. No third of those works states a further claim on the page.
 - variogram | The copied paragraph states the variogram. Only Matheron (1963) and Brockwell and Davis (1991) state that definition.
 - natural-parameter | The copied GLM definition now cites the opened Nelder–Wedderburn §1.1 and Geyer §§3.1–3.4. The separate completeness claim needs its own checked source before another marker is attached.
 - ward-s-method | The copied paragraph reports adjusted Rand indices for four linkages. It does not state Ward's within-cluster sum-of-squares merge rule.
-- moments-of-the-sample-mean-and-variance | The normal-sample and iid moment results are supported by the opened Siegrist §6.08 source. Earlier extra citations to unopened books were removed; another source should be checked before adding an independent citation.
 - posterior-summaries-from-draws | The copied proposition is supported by Geyer (1992, pp. 473–475) and Wang (2025, Ch. 20, §§24.1, 28.1). A third source has not been checked for this exact claim.
 - chi-squared-test-with-estimated-parameters | The copied Pearson approximation cites the opened degrees-of-freedom source; its parameter-estimation qualification needs another independent checked reference.
 - chi-squared-test-with-known-cell-probabilities | The copied chi-squared calibration is a short proposition supported by the opened source; further independent support has not been checked.
 - complete-pooling-no-pooling-and-partial-pooling | The shared hierarchy chapter now cites the opened BDA discussion; additional sources on this exact comparison remain to be checked.
-- epanechnikov-kernel | The copied kernel example uses the opened density-estimation account; another distinct source for its normalization has not been checked.
 - fisher-scoring | The copied GLM update is supported by the opened source and direct matrix algebra; a further independent citation has not been verified.
 - least-squares-line | The copied normal-equation derivation and source support its slope formula; additional citation would duplicate that derivation.
 - pearson-chi-squared-approximation | The short copied asymptotic result uses the opened Pearson source; another source on its conditions should be checked.
 - pearson-test-with-estimated-parameters | The fitted-parameter qualification has one checked account; its specific degrees-of-freedom condition needs independent review.
 - polynomial-kernel | The kernel identity is checked algebraically and against the opened source; another independent reference has not been checked.
 - regression-slope | The inherited slope definition and least-squares algebra are supported by the opened source; an additional distinct citation remains to be checked.
-- anova-f-distribution | The copied F reference distribution is derived from normal errors and a variance decomposition; another independent source on these conditions has not been checked.
 - anova-sum-of-squares-decomposition | The algebraic decomposition is shown in the copied ANOVA passage; a third independent citation would repeat the same identity.
 - bonferroni-correction | The familywise union-bound result has a checked source and direct proof; another work on its exact statement remains to be checked.
 - contrast | The source chapter gives the coefficient-sum condition and example; an independent reference for the same definition has not been checked.
 - identity-link | The GLM source chapter uses the identity link as a direct example; a further independent citation has not been checked.
-- intraclass-correlation | The random-intercept source derives its correlation directly; further independent support for the exact variance ratio remains to be checked.
 - multiple-comparisons | The ANOVA source describes its pairwise testing setting; a distinct source on the same numerical example has not been checked.
 - pearson-dispersion-ratio | The copied count-model paragraph gives the ratio and interpretation; another independent source has not been checked.
 - restricted-maximum-likelihood | The source chapter now cites the opened lme4 likelihood discussion; further independent support for the copied sentence has not been checked.
 - tukey-intervals | The copied simultaneous-interval construction has a checked ANOVA source; an independent source for its exact coverage conditions remains to be checked.
-- a-single-threshold-unit-cannot-compute-xor | The geometric contradiction is proved on the page and supported by the opened neural-network account; another independent citation for this four-point example has not been checked.
-- a-zero-precision-entry-is-conditional-independence | The Gaussian graphical-model identity is supported by the opened Evans chapter and direct conditional-normal algebra; a further independent reference remains to be checked.
-- gaussian-graphical-models | The copied graph example cites the opened Gaussian graphical-model chapter; a third source for its specific conditional-independence statement has not been checked.
 - knot | The spline continuity calculation is given explicitly; a distinct checked source for the inherited historical knot discussion remains to be found.
-- soft-thresholding-for-orthonormal-predictors | The orthonormal lasso solution is derived directly and supported by the opened glmnet discussion; another independent source has not been checked.
 - sparsity | The inherited short definition and example have fewer than three checked citations; an additional source should be checked in its own depth pass.
-- subset-selection-and-shrinkage | The copied variable-selection comparison cites the opened ISLR chapter; a third independent source for this exact account has not been checked.
 
-- basic-gradient-descent-learning | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - generalised-estimating-equations | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - gini-index | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - hard-margin-primal | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - learning-rate | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
-- one-hot-encoding | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
-- two-sample-hotelling-test | The inherited derivation and available checked source support the page; a further independent passage has not been checked for this specific statement.
 - time-series | The shared overview now uses the opened forecasting passage and its own concrete examples; a further independent source for the overview has not been checked.
 - bids-for-a-bankrupt-firm | The bids example and numerical fit remain in the source chapter. A removed unlocated Conway–Maxwell–Poisson marker needs a checked full-text replacement before another citation is added.
 - chebyshev-s-inequality | The bound and its worked probabilities are proved directly. Unlocated historical and textbook markers were removed; an independent full source should be checked before adding another citation.
@@ -101,7 +79,13 @@ These articles do not yet have three inline citations. A further marker would na
 - overdispersion | The Poisson variance comparison is worked in the source chapter. Independent full-text support for the copied short definition remains to be checked.
 - probit-link | The opened R Core Team manual §11.6.2 supports the inverse-normal link and half-probability interpretation. The central-slope calculation is proved on the page; inherited unlocated historical and GLM-book markers remain excluded pending full-text verification.
 - quasi-poisson | The conditional variance rule is stated in the source chapter. Another full source on this exact specification remains to be checked.
-- strict-stationarity | The source chapter states the finite-block definition and contrasts it with weak stationarity. Inherited unlocated time-series markers were removed pending full-text verification.
 - transient-and-recurrent-states | The return-probability conditions are derived in the source chapter. Inherited unlocated probability-book markers were removed pending full-text verification.
 - within-cluster-scatter | The pairwise identity and unequal-size counterexample are proved and checked. Inherited unlocated clustering-book markers were removed pending full-text verification.
-- recurrence-and-period | The source chapter gives direct return-time and period examples; an additional independent full-text citation for its inherited definition has not been checked.
+- levy-s-continuity-theorem | Add a further located textbook source for the continuity result.
+- translation-to-another-common-notation | Add a further located source for the exponential-family notation comparison.
+- two-proportion-z-test | Add a further located source for the two-sample normal approximation.
+- analysis-of-deviance | Add a further independently checked, located textbook or published-paper source for the short overview.
+- four-ways-of-counting-draws | Add a further independently checked, located textbook or published-paper source for the short overview.
+- logistic-lasso | Add a further independently checked, located textbook or published-paper source for the short overview.
+- tree-size-and-pruning | Add a further independently checked, located textbook or published-paper source for the short overview.
+- two-state-continuous-time-chain | Add a further independently checked, located textbook or published-paper source for the short overview.

@@ -2,7 +2,7 @@
 
 ## Coin tossing and the likelihood
 
-Let $Y_i=1$ denote a head on toss $i$ and $Y_i=0$ a tail. Conditional on the unknown probability $\theta$, 
+Let $Y_i=1$ denote a head on toss $i$ and $Y_i=0$ a tail. Conditional on the unknown probability $\theta$,
 
 $$
   Y_i\given\theta\stackrel{\mathrm{iid}}{\sim}\Bern(\theta),
@@ -31,7 +31,7 @@ For $\alpha,\beta>0$, the Beta density is \begin{equation}
    \theta^{\alpha-1}(1-\theta)^{\beta-1},
   \qquad 0<\theta<1,
   \label{eq:beta-density}
-\end{equation} where 
+\end{equation} where
 
 $$
   B(\alpha,\beta)
@@ -58,7 +58,7 @@ There is no context-free "correct prior for a coin." The population of coins mat
 
 Persi Diaconis made the same contextual point with a mechanical coin-flipping machine: what looks random at one level may be largely determined once the initial conditions are controlled.[^b02-beta-binomial-3]
 
-Rare data remain possible. Under a fair coin, ten heads in ten tosses has probability $2^{-10}=1/1024$; it is surprising, not logically impossible. For $\alpha,\beta>1$, 
+Rare data remain possible. Under a fair coin, ten heads in ten tosses has probability $2^{-10}=1/1024$; it is surprising, not logically impossible. For $\alpha,\beta>1$,
 
 $$
   \E(\theta)=\frac{\alpha}{\alpha+\beta},
@@ -68,7 +68,7 @@ $$
 $$
 
 
- and for all $\alpha,\beta>0$, 
+ and for all $\alpha,\beta>0$,
 
 $$
   \Var(\theta)
@@ -139,7 +139,7 @@ $$
 $$
 
 
- The posterior probability of downward bias is 
+ The posterior probability of downward bias is
 
 $$
   \Pr(\theta<0.5\given x)
@@ -201,7 +201,7 @@ Sequential updating is exact. If data arrive in batches $(x_1,n_1)$ and $(x_2,n_
   \theta\given x_1,x_2
   &\sim\BetaDist(\alpha+x_1+x_2,
                  \beta+n_1+n_2-x_1-x_2),
-\end{align*} which is the same posterior obtained by combining both batches first.{{cite:gelman_bda2013}} (§2.1, pp. 29–31, binomial conjugacy)
+\end{align*} which is the same posterior obtained by combining both batches first.{{cite:siegrist2022_bayes_estimators}} (§ “The Bernoulli Distribution”)
 
 :::
 
@@ -219,7 +219,7 @@ $$
 $$
 
 
- The posterior kernel is then 
+ The posterior kernel is then
 
 $$
  p(\theta\given x)
@@ -245,7 +245,7 @@ Conjugacy is a computational convenience, not a modelling command. It was especi
 
 ## Beta--Binomial prediction
 
-The prior predictive probability of $X=x$ is already given by \eqref{eq:beta-binomial-evidence}. Expanding the Beta functions gives the Beta--Binomial mass function: 
+The prior predictive probability of $X=x$ is already given by \eqref{eq:beta-binomial-evidence}. Expanding the Beta functions gives the Beta--Binomial mass function:
 
 $$
   p(x)
@@ -281,7 +281,7 @@ For one future toss $\widetilde Y$, conditional independence gives \begin{align*
 ::: {#prp-beta-binomial-posterior-prediction .proposition}
 ## Beta--Binomial posterior prediction
 
-If $\theta\given x\sim\BetaDist(a,b)$ and, conditionally on $\theta$, $\widetilde X\sim\Bin(m,\theta)$, then 
+If $\theta\given x\sim\BetaDist(a,b)$ and, conditionally on $\theta$, $\widetilde X\sim\Bin(m,\theta)$, then
 
 $$
  \Pr(\widetilde X=k\given x)
@@ -290,7 +290,7 @@ $$
 $$
 
 
- For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.{{cite:gelman_bda2013}} (§2.1, pp. 29–31, posterior predictive probability)
+ For one future Bernoulli observation, $\Pr(\widetilde Y=1\given x)=a/(a+b)$.{{cite:siegrist2022_beta_bernoulli}} (§10.7, the number of successes)
 
 :::
 
@@ -303,7 +303,7 @@ Suppose the prior is $\theta\sim\BetaDist(2,2)$ and the observed data contain $x
 
 **Question.** Find the posterior predictive probability of a head on the next toss and the probability of at least four heads in five future tosses. Derive the predictive variance for the five-toss count and compare it with the variance obtained by plugging the posterior mean of $\theta$ into a Binomial model.
 
-**Solution.** The posterior calculation gives 
+**Solution.** The posterior calculation gives
 
 $$
  \theta\given x
@@ -325,7 +325,7 @@ Now let $\widetilde X$ be the number of heads in $m=5$ future tosses. With $a=10
  =\binom5k\frac{B(k+a,5-k+b)}{B(a,b)},
  \qquad k=0,\ldots,5.
  \label{eq:five-toss-beta-binomial}
-\end{equation} For the rising factorial 
+\end{equation} For the rising factorial
 
 $$
  (c)^{\overline r}
@@ -335,7 +335,7 @@ $$
 $$
 
 
- the Beta-function ratio satisfies 
+ the Beta-function ratio satisfies
 
 $$
  \frac{B(k+a,5-k+b)}{B(a,b)}
@@ -360,7 +360,7 @@ $$
  &\approx0.567.
 \end{align*}
 
-This example also shows exactly why posterior prediction is more dispersed than a plug-in Binomial distribution. Conditional on $\theta$, 
+This example also shows exactly why posterior prediction is more dispersed than a plug-in Binomial distribution. Conditional on $\theta$,
 
 $$
  \E(\widetilde X\given\theta)=5\theta,
@@ -369,7 +369,7 @@ $$
 $$
 
 
- For $\theta\given x\sim\BetaDist(a,b)$ with $T=a+b$, 
+ For $\theta\given x\sim\BetaDist(a,b)$ with $T=a+b$,
 
 $$
  \E(\theta\given x)=\frac aT,
@@ -395,7 +395,7 @@ $$
  &=\frac{5(10)(4)(19)}{14^2(15)}\\
  &=\frac{190}{147}\\
  &\approx1.293.
-\end{align*} If one instead plugs in the posterior mean $\widehat\theta=10/14$, the variance would be only 
+\end{align*} If one instead plugs in the posterior mean $\widehat\theta=10/14$, the variance would be only
 
 $$
  5\widehat\theta(1-\widehat\theta)
@@ -405,7 +405,7 @@ $$
 $$
 
 
- The difference is the second term in \eqref{eq:posterior-predictive-total-variance}: uncertainty about $\theta$.
+ The extra variation comes from uncertainty about $\theta$, but comparison with a plug-in variance changes both terms in \eqref{eq:posterior-predictive-total-variance}. In general, the difference is $m(m-1)\operatorname{Var}(\theta\mid x)$; here it is $20(2/147)=40/147\approx0.2721$. The second term alone is $m^2\operatorname{Var}(\theta\mid x)=50/147$, while the conditional-binomial term is smaller than the plug-in variance by $m\operatorname{Var}(\theta\mid x)=10/147$.{{cite:siegrist2022_beta_bernoulli}} (§10.7, covariance and the number of successes)
 
 :::
 
@@ -451,7 +451,7 @@ For the posterior $\BetaDist(10,4)$ and $m=5$ future tosses, derive the full Bet
 ::: {#ex-applied-geometric .exercise}
 ## A geometric observation and a uniform prior
 
-Let $X$ be the number of coin tosses up to and including the first head. Thus 
+Let $X$ be the number of coin tosses up to and including the first head. Thus
 
 $$
  \Pr(X=x\given\theta)=\theta(1-\theta)^{x-1},
@@ -480,7 +480,7 @@ $$
 ::: {#ex-applied-logitnormal-prior .exercise}
 ## A logit-normal prior for a coin
 
-Suppose $X\given\theta\sim\Bin(n,\theta)$ and prior knowledge favours heads. Consider the logit-normal prior 
+Suppose $X\given\theta\sim\Bin(n,\theta)$ and prior knowledge favours heads. Consider the logit-normal prior
 
 $$
  p(\theta)=
@@ -498,7 +498,7 @@ $$
 
 3.  Explain how the draws approximate the prior mean.
 
-4.  After observing $x$ heads in $n$ tosses, show that 
+4.  After observing $x$ heads in $n$ tosses, show that
 
 $$
  p(\theta\given x)\propto

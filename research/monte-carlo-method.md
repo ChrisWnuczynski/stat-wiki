@@ -25,3 +25,8 @@ The generator's page also carries a source-chapter discussion of the 1990 move t
 ## Result
 
 The rebuilt article grew from 311 to 2,030 body words and retained zero figures. It has one collapsed proof, a worked integral with numbers, hidden Your turn answer, and two answered bank questions (`c-11`, `c-15`). The affected MCMC and grid pages were rebuilt; all 67 tests, the rank-specific arithmetic check, offline verification of 450 bibliography entries, and `git diff --check` passed. Quarto HTML rendering was unavailable; the existing Pandoc shim supplied the generator's `quarto pandoc` command.
+
+
+## Proper textbook source correction
+
+The unidentified DasGupta graduate chapter has been replaced with actually opened/read Durrett (2019), Probability: Theory and Examples, §2.2 Exercise2.2.3 p.66 (uniform Monte Carlo integration and Chebyshev rate), §2.4 Theorem2.4.1 p.76 (integrable iid strong law), and §3.4 Theorem3.4.1 p.144 (finite-positive-variance iid CLT), https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf; and Grinstead–Snell (1997), Introduction to Probability, §6.2 Theorem6.9 p.260 (mean/variance/standard deviation of an independent average), https://math.dartmouth.edu/~prob/prob/prob.pdf. The existing worked arithmetic, self-checks, historical papers, figures and every numerical assertion are unchanged. The two replacement source keys are now strictly required by the numerical check.

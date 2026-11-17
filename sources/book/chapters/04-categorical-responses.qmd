@@ -145,7 +145,7 @@ There are $K-1$ linear predictors, each with its own intercept and its own slope
 
 ### Addiction categories
 
-A German survey interviewed 712 people about addiction and classified the answers in three categories that we will not put in an order.{{cite:fahrmeir_tutz2001}}{{cite:tutz2011}} The categories are: $0$ weak-willed, $1$ addiction by disease, $2$ both.^[The substance itself is named in German in the source paper. What that drug is, and why it would show up among academics, is not part of the model.] The covariates are sex (female $=1$), age in years, and an indicator for being a university academic. The first rows look like this: illness $1$, female, age $61$, not academic; then illness $0$, female, $43$, not academic; then illness $2$, male, $44$, not academic.
+A survey interviewed 712 people about addiction and classified the answers in three categories that we will not put in an order.{{cite:r_catdata_addiction2026}} (Description and Format) The categories are: $0$ weak-willed, $1$ addiction by disease, $2$ both.^[The substance itself is named in German in the source paper. What that drug is, and why it would show up among academics, is not part of the model.] The covariates are sex (female $=1$), age in years, and an indicator for being a university academic. The first rows look like this: illness $1$, female, age $61$, not academic; then illness $0$, female, $43$, not academic; then illness $2$, male, $44$, not academic.
 
 `multinomial(refLevel = 1)` takes the lowest level of `ill`, which is $0$, as the reference, even though that level is stored as the number $0$. The numbering in the coefficient names is the predictor number, not the illness code.
 ```r
@@ -181,7 +181,7 @@ Predictor $1$ is $\log(\hat p_1/\hat p_0)$, disease versus weak-willed. Predicto
 \log\frac{\hat p_2}{\hat p_0}
 &=-2.016+0.288\,\mathrm{female}+0.0421\,\mathrm{age}+1.067\,\mathrm{university}.
 \end{align*}
-Reading those coefficients as odds ratios, and the comparison of category $2$ against category $1$, is the next chapter. The fit itself is the multinomial likelihood with these two linear predictors, dispersion fixed at $1$. It records one independent choice of a single category per person. If a questionnaire let you tick several categories, that $1$ would be the wrong dispersion, and this would be the wrong model.
+Reading those coefficients as odds ratios, and the comparison of category $2$ against category $1$, is the next chapter. The fit itself is the multinomial likelihood with these two linear predictors, dispersion fixed at $1$. It records one independent choice of a single category per person. If a questionnaire let you tick several categories, the response would be a vector with potentially several positive entries, and this single-exclusive-category multinomial model would not describe it. Individual Bernoulli choice models can also have dispersion one; the observation law, rather than a dispersion number alone, distinguishes these cases.{{cite:zhang_d2l2023}} (§4.1.1, exclusive classification and multilabel responses)
 
 ## Exercises
 

@@ -194,7 +194,7 @@ table(fit$cluster)
 
 ## Choosing $K$: the gap statistic
 
-The criterion $\widetilde W$ falls as $K$ increases, and it equals zero at $K=n$, with one cluster for each point. Minimising it over $K$ therefore selects the largest $K$ on the list. The objective that justifies the algorithm cannot choose $K$. Choosing $K$ is a model-selection problem: which member of a family is appropriate, once each member can be fitted. A Bayesian treatment would put a prior on $K$ and report a posterior. This section seeks one $K$. For K-means, one standard comparison is the gap statistic{{cite:tibshirani_gap2001}}{{cite:hastie_esl2009}}. It asks how much smaller $\log W$ is for the data than for reference samples that have the same coordinate-wise range and no clusters.
+The globally minimised criterion $\widetilde W$ cannot increase as $K$ increases, and it equals zero at $K=n$, with one cluster for each point. Minimising it over $K$ therefore selects the largest $K$ on the list. The objective that justifies the algorithm cannot choose $K$. Choosing $K$ is a model-selection problem: which member of a family is appropriate, once each member can be fitted. A Bayesian treatment would put a prior on $K$ and report a posterior. This section seeks one $K$. For K-means, one standard comparison is the gap statistic{{cite:vans_patil_sharma2021_feats}} (§ “Gap Statistic”){{cite:dai_shen_liu2026_cluster_significance}} (§4.2). It asks how much smaller $\log W$ is for the data than for reference samples that have the same coordinate-wise range and no clusters.
 
 Record the coordinate-wise sample minima and maxima. Run K-means for each $k=1,\ldots,K_{\max}$ on the data and store the within-cluster scatter $W_{\mathrm{data}}^{(k)}$. Draw $B$ reference samples of size $n$ from the uniform distribution on the box with those minima and maxima as corners, in the same spirit as a draw from a featureless distribution on that box. For each reference sample and each $k$, run K-means and store $W_b^{(k)}$. The gap and its simulation scale are
 
@@ -212,7 +212,7 @@ $$
 k^*=\min\bigl\{k:\operatorname{Gap}(k)\ge\operatorname{Gap}(k+1)-s'(k+1)\bigr\}.
 $$
 
-{{cite:tibshirani_gap2001}}
+{{cite:vans_patil_sharma2021_feats}} (§ “Gap Statistic”)
 
 Equivalently, $k^*$ is the smallest $k$ with $\operatorname{Gap}(k+1)-\operatorname{Gap}(k)\le s'(k+1)$: the next increase in the gap is no larger than the variability of the reference scores at $k+1$ clusters. Take the smallest $k$ at which adding a cluster no longer improves the gap beyond that variability.
 
@@ -223,7 +223,7 @@ An outlier can stretch the reference box and change the benchmark substantially.
 ::: {#rem-sl-04-gap .remark}
 ## Why the raw sum of squares cannot choose $K$
 
-$W$, in either the pairwise or the unweighted version, is non-increasing in the number of clusters and reaches $0$ at $k=n$, so minimising it over $k$ always selects the largest $k${{cite:tibshirani_gap2001}}. The gap statistic corrects for this by comparing $\log W_{\mathrm{data}}^{(k)}$ with what is expected for data without cluster structure, which also falls as $k$ grows{{cite:tibshirani_gap2001}}{{cite:hastie_esl2009}}.
+$W$, in either the pairwise or the unweighted version, when globally minimised over partitions, is non-increasing in the number of clusters and reaches $0$ at $k=n$, so minimising it over $k$ always selects the largest $k${{cite:vans_patil_sharma2021_feats}} (§ “Gap Statistic”). The gap statistic corrects for this by comparing $\log W_{\mathrm{data}}^{(k)}$ with what is expected for data without cluster structure, which also falls as $k$ grows{{cite:vans_patil_sharma2021_feats}} (§ “Gap Statistic”){{cite:dai_shen_liu2026_cluster_significance}} (§4.2).
 
 :::
 

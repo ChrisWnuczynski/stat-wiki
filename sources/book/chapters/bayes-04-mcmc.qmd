@@ -61,7 +61,7 @@ Detailed balance supplies the stationary distribution of a finite chain once the
 
 **Question.** Consider states $1,2,3,4$ arranged in a line. At every state the chain stays put with probability $1/2$. From an endpoint it moves to the only neighbour with probability $1/2$; from an interior state it moves left or right with probability $1/4$ each. With columns indexing the current state and rows the next state, construct the transition matrix and find the stationary distribution.
 
-**Solution.** The transition matrix is 
+**Solution.** The transition matrix is
 
 $$
  \mat Q=
@@ -74,7 +74,7 @@ $$
 $$
 
 
- Detailed balance between states 1 and 2 requires 
+ Detailed balance between states 1 and 2 requires
 
 $$
  \pi_1\frac12=\pi_2\frac14
@@ -83,7 +83,7 @@ $$
 $$
 
 
- Similarly, 
+ Similarly,
 
 $$
  \pi_2\frac14=\pi_3\frac14
@@ -94,7 +94,7 @@ $$
 $$
 
 
- Hence 
+ Hence
 
 $$
  \vect{\pi}=(\pi_1,\pi_2,\pi_3,\pi_4)^{\mathsf T}
@@ -102,7 +102,7 @@ $$
 $$
 
 
- Normalising by $1+2+2+1=6$ gives 
+ Normalising by $1+2+2+1=6$ gives
 
 $$
  \boxed{\vect{\pi}=(1/6,2/6,2/6,1/6)^{\mathsf T}}.
@@ -143,7 +143,7 @@ $$
 ::: {#exm-bivariate-exponential-target .example}
 ## Bivariate exponential target
 
-The target is 
+The target is
 
 $$
  \pi(x_1,x_2)\propto
@@ -160,21 +160,21 @@ $$
  &\propto e^{-x_1x_2-x_1-x_2}\\
  &\propto e^{-x_1(x_2+1)},
  \qquad x_1\geq0.
-\end{align*} The omitted factor $e^{-x_2}$ is constant in $x_1$. Normalising gives 
+\end{align*} The omitted factor $e^{-x_2}$ is constant in $x_1$. Normalising gives
 
 $$
  \pi(x_1\given x_2)=(x_2+1)e^{-(x_2+1)x_1},
 $$
 
 
- so 
+ so
 
 $$
  X_1\given X_2=x_2\sim\Exp(x_2+1).
 $$
 
 
- By symmetry, 
+ By symmetry,
 
 $$
  X_2\given X_1=x_1\sim\Exp(x_1+1).
@@ -224,7 +224,7 @@ The trace plot and autocorrelation function are not substitutes for the stationa
  \sigma^{2(t+1)}&\sim
  p(\sigma^2\given\mu^{(t+1)},\xvec)
  \quad\text{using \eqref{eq:full-cond-sigma}}.
-\end{align*} After discarding a warm-up segment, Monte Carlo estimates use the retained draws. For example, 
+\end{align*} After discarding a warm-up segment, Monte Carlo estimates use the retained draws. For example,
 
 $$
  \widehat{\E}(\mu\given\xvec)
@@ -245,7 +245,7 @@ The chain should be initialised in a plausible region when one is available. A s
 
 Discarding early draws is called warm-up or burn-in.{{cite:geyer1992}} (§3.7, p. 480) It limits dependence on the chosen initial state, but it is not a proof of convergence.{{cite:gelman_rubin1992}} (§§1–2, pp. 457–460) {{cite:geyer1992}} (§§3.7–4, pp. 480–482) Strong posterior correlation produces staircase-like Gibbs paths and high autocorrelation. Separated modes are harder still because a coordinate-wise move may have to cross a low-density barrier.
 
-Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information.{{cite:geyer1992}} (§3.6, p. 480) Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size.{{cite:geyer1992}} (§§3.3–3.6, pp. 477–480) Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
+Thinning by retaining every $k$th draw reduces storage and visible serial dependence, but usually throws away usable information.{{cite:owen2017_thinning}} (§§1–2) Unless storage or an expensive downstream calculation is the constraint, retain all post-warm-up draws and quantify their effective sample size.{{cite:owen2017_thinning}} (§2) Posterior means, probabilities, and equal-tailed intervals are computed from those draws; a continuous MAP is found by optimisation, not by asking which simulated value occurred most often.
 
 :::
 
@@ -261,7 +261,7 @@ Raising a target density to a power, $\pi(x)^c$, sharpens it for $c>1$ and flatt
 
 ### Why another sampler is needed
 
-Gibbs sampling is wonderfully direct when every full conditional is a distribution from which we can simulate. Often it is not. The logit-normal coin model in [the logit-normal Metropolis--Hastings exercise](#ex-applied-logitnormal-mh), for example, has posterior kernel 
+Gibbs sampling is wonderfully direct when every full conditional is a distribution from which we can simulate. Often it is not. The logit-normal coin model in [the logit-normal Metropolis--Hastings exercise](#ex-applied-logitnormal-mh), for example, has posterior kernel
 
 $$
  f(\theta)
@@ -271,7 +271,7 @@ $$
 $$
 
 
- This is not a Beta kernel, nor another standard density from which we can draw directly. We can nevertheless evaluate $f(\theta)$ at any admissible value. Writing 
+ This is not a Beta kernel, nor another standard density from which we can draw directly. We can nevertheless evaluate $f(\theta)$ at any admissible value. Writing
 
 $$
  \pi(\theta)=\frac{f(\theta)}{C},
@@ -286,21 +286,21 @@ The Metropolis--Hastings strategy is to construct a Markov chain whose stationar
 
 ### Deriving the acceptance probability
 
-Begin with any proposal density $q(y\given x)$ that is easy to simulate. It will not generally satisfy detailed balance for $\pi$: 
+Begin with any proposal density $q(y\given x)$ that is easy to simulate. It will not generally satisfy detailed balance for $\pi$:
 
 $$
  \pi(x)q(y\given x)\neq \pi(y)q(x\given y).
 $$
 
 
- We correct the imbalance by accepting a proposed move $x\to y$ with probability $a(x,y)$. For $y\neq x$, the resulting transition density is 
+ We correct the imbalance by accepting a proposed move $x\to y$ with probability $a(x,y)$. For $y\neq x$, the resulting transition density is
 
 $$
  q_{\mathrm{MH}}(y\given x)=q(y\given x)a(x,y).
 $$
 
 
- Detailed balance will hold if 
+ Detailed balance will hold if
 
 $$
  \pi(x)q(y\given x)a(x,y)
@@ -330,7 +330,7 @@ Let $\pi(x)$ be a target density known only up to proportionality. Given $X_t=x$
 
 2.  calculate $r(x,y)$ from \eqref{eq:mh-ratio-condition} and put $a(x,y)=\min\{1,r(x,y)\}$;
 
-3.  draw $U\sim\operatorname{Unif}(0,1)$ and set 
+3.  draw $U\sim\operatorname{Unif}(0,1)$ and set
 
 $$
   X_{t+1}=
@@ -341,7 +341,7 @@ $$
 $$
 
 
-If $\pi(x)=f(x)/C$ for unknown $C$, then 
+If $\pi(x)=f(x)/C$ for unknown $C$, then
 
 $$
  \frac{\pi(y)}{\pi(x)}
@@ -354,7 +354,7 @@ $$
 
 :::
 
-For a posterior, the evidence $p(\text{data})$ is precisely such a constant, so the ratio needs only likelihood times prior. In computation we normally evaluate the log ratio and accept when 
+For a posterior, the evidence $p(\text{data})$ is precisely such a constant, so the ratio needs only likelihood times prior. In computation we normally evaluate the log ratio and accept when
 
 $$
  \log U\leq \min\{0,\log r(x,y)\}.
@@ -363,18 +363,18 @@ $$
 
  This avoids numerical underflow when an unnormalised target is a product of many small terms.
 
-This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations.{{cite:ising1925}} (pp. 253–254, binary-state model) Its partition function is impractical to sum, but ratios of unnormalised target weights are immediate.{{cite:metropolis1953}} (p. 1087, molecular configuration sampling) The original Metropolis algorithm used symmetric proposals. Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.{{cite:hastings1970}} (§§1–2.2, pp. 97–101, acceptance ratio)[^b04-mcmc-3]
+This cancellation is why Metropolis methods became central in statistical physics. An Ising model on $m$ binary sites has $2^m$ configurations.{{cite:goodfellow_bengio_courville2016}} (§16.2.4, pp. 566–567) Its partition function sums all these weights and can be costly on a large graph, whereas a local spin change permits a direct ratio of unnormalised weights.{{cite:metropolis1953}} (§II, pp. 1088–1089) The Metropolis algorithm used symmetric proposals. Hastings' generalisation supplied the proposal-density correction in \eqref{eq:mh-accept}.{{cite:hastings1970}} (§§1–2.2, pp. 97–101, acceptance ratio)[^b04-mcmc-3]
 
 The wartime history surrounding Los Alamos also includes Leó Szilárd.[^b04-mcmc-4]
 
-For $y\neq x$, the Metropolis--Hastings transition density is 
+For $y\neq x$, the Metropolis--Hastings transition density is
 
 $$
  q_{\mathrm{MH}}(y\given x)=q(y\given x)a(x,y).
 $$
 
 
- For $y=x$, the transition probability includes the total rejection probability: 
+ For $y=x$, the transition probability includes the total rejection probability:
 
 $$
  q_{\mathrm{MH}}(x\given x)
@@ -382,7 +382,7 @@ $$
 $$
 
 
- Thus a rejected proposal is not thrown away in search of another proposal: the current value is recorded again. If instead we redraw until a proposal is accepted, the transition density becomes 
+ Thus a rejected proposal is not thrown away in search of another proposal: the current value is recorded again. If instead we redraw until a proposal is accepted, the transition density becomes
 
 $$
  \widetilde q(y\given x)
@@ -404,7 +404,7 @@ The Metropolis--Hastings transition defined by \eqref{eq:mh-accept} satisfies de
 :::
 
 ::: {.proof}
-*Proof.* Let 
+*Proof.* Let
 
 $$
  r(x,y)=\frac{\pi(y)q(x\given y)}
@@ -423,7 +423,7 @@ If $r(x,y)\leq1$, then \begin{align*}
  &=\pi(x)q(y\given x)
    \frac{\pi(y)q(x\given y)}{\pi(x)q(y\given x)}\\
  &=\pi(y)q(x\given y).
-\end{align*} Since $r(y,x)=1/r(x,y)\geq1$, the reverse move is accepted with probability one, so 
+\end{align*} Since $r(y,x)=1/r(x,y)\geq1$, the reverse move is accepted with probability one, so
 
 $$
  \pi(y)q_{\mathrm{MH}}(x\given y)
@@ -431,7 +431,7 @@ $$
 $$
 
 
-If $r(x,y)>1$, then the forward move is accepted with probability one: 
+If $r(x,y)>1$, then the forward move is accepted with probability one:
 
 $$
  \pi(x)q_{\mathrm{MH}}(y\given x)=\pi(x)q(y\given x).
@@ -452,14 +452,14 @@ The theorem establishes invariance, not convergence from an arbitrary starting v
 
 ## Random-walk and independent proposals
 
-For a random-walk proposal $Y=x+Z$ with a distribution symmetric about zero, 
+For a random-walk proposal $Y=x+Z$ with a distribution symmetric about zero,
 
 $$
  q(y\given x)=q(x\given y),
 $$
 
 
- so \eqref{eq:mh-accept} reduces to 
+ so \eqref{eq:mh-accept} reduces to
 
 $$
  a(x,y)=\min\!\left\{1,\frac{\pi(y)}{\pi(x)}\right\}.
@@ -468,7 +468,7 @@ $$
 
  Every proposed move to higher target density is accepted; a move to a point with two-thirds as much density is accepted with probability $2/3$.{{cite:metropolis1953}} (§II, p. 1088)
 
-For an independent proposal $q(y\given x)=g(y)$, 
+For an independent proposal $q(y\given x)=g(y)$,
 
 $$
  a(x,y)=\min\!\left\{
@@ -477,7 +477,7 @@ $$
 $$
 
 
- Equivalently, with $w(z)=\pi(z)/g(z)$, 
+ Equivalently, with $w(z)=\pi(z)/g(z)$,
 
 $$
  a(x,y)=\min\!\left\{1,\frac{w(y)}{w(x)}\right\}.
@@ -488,7 +488,7 @@ $$
 
 ### Gibbs sampling as an always-accepted MH update
 
-The connection with Gibbs sampling can be made exact. Suppose the current state is $\xvec=(x_1,x_2)^{\mathsf T}$ and we update only the first coordinate by proposing 
+The connection with Gibbs sampling can be made exact. Suppose the current state is $\xvec=(x_1,x_2)^{\mathsf T}$ and we update only the first coordinate by proposing
 
 $$
  \yvec=(y_1,x_2)^{\mathsf T},
@@ -497,7 +497,7 @@ $$
 $$
 
 
- Then 
+ Then
 
 $$
  q(\yvec\given\xvec)=\pi(y_1\given x_2),
@@ -575,7 +575,7 @@ Write pseudocode for a pilot-adapted MH analysis. Discard the pilot and fix the 
 ::: {#ex-applied-bvn-gibbs .exercise}
 ## A bivariate-normal Gibbs sampler
 
-Let $\Xvec=(X_1,X_2)^{\mathsf T}$ have a bivariate normal distribution with mean zero, unit marginal variances, and correlation $\rho$, so that 
+Let $\Xvec=(X_1,X_2)^{\mathsf T}$ have a bivariate normal distribution with mean zero, unit marginal variances, and correlation $\rho$, so that
 
 $$
  \Xvec\sim\Normal_2\!\left(
@@ -627,7 +627,7 @@ $$
 $$
 
 
- Give the proposal, the acceptance probability in explicit quadratic form and its equivalent norm/distance reading, and the accept--reject update. Discuss what $a$ and $b$ control. 
+ Give the proposal, the acceptance probability in explicit quadratic form and its equivalent norm/distance reading, and the accept--reject update. Discuss what $a$ and $b$ control.
 
 [Solution](#sol-applied-bvn-rwmh)
 
@@ -636,7 +636,7 @@ $$
 ::: {#ex-applied-gamma-mh .exercise}
 ## An independent Gamma proposal
 
-Suppose the target is $\operatorname{Gamma}_{\mathrm{sc}}(\alpha,\beta)$ with shape $\alpha$ and *scale* $\beta$. Describe an independent Metropolis--Hastings sampler using the proposal $\operatorname{Gamma}_{\mathrm{sc}}(\gamma,\gamma/\alpha)$. Derive the Hastings ratio rather than merely quoting the generic formula. 
+Suppose the target is $\operatorname{Gamma}_{\mathrm{sc}}(\alpha,\beta)$ with shape $\alpha$ and *scale* $\beta$. Describe an independent Metropolis--Hastings sampler using the proposal $\operatorname{Gamma}_{\mathrm{sc}}(\gamma,\gamma/\alpha)$. Derive the Hastings ratio rather than merely quoting the generic formula.
 
 [Solution](#sol-applied-gamma-mh)
 

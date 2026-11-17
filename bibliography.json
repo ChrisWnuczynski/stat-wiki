@@ -1633,20 +1633,6 @@
         "id": "https://www.stat.purdue.edu/~dasgupta/expfamily.pdf"
       }
     },
-    "dasgupta2011_graduate_probability": {
-      "authors": [
-        "DasGupta, A."
-      ],
-      "year": 2011,
-      "title": "Probability for Statistics and Machine Learning: Fundamentals and Advanced Topics",
-      "kind": "book",
-      "publisher": "Springer",
-      "url": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.stat.purdue.edu/~dasgupta/gradprob.pdf"
-      }
-    },
     "davison2003": {
       "authors": [
         "Davison, A. C."
@@ -3250,22 +3236,6 @@
       "verification": {
         "source": "archival_url",
         "id": "https://www.deeplearningbook.org/"
-      }
-    },
-    "goodfellow_deep_learning2016_ch6": {
-      "authors": [
-        "Goodfellow, I.",
-        "Bengio, Y.",
-        "Courville, A."
-      ],
-      "year": 2016,
-      "title": "Deep Learning",
-      "kind": "book",
-      "publisher": "MIT Press",
-      "url": "https://www.deeplearningbook.org/contents/mlp.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.deeplearningbook.org/contents/mlp.html"
       }
     },
     "google_ml_overfitting2026": {
@@ -8994,11 +8964,13 @@
       ],
       "year": 1951,
       "title": "Various Techniques Used in Connection With Random Digits",
-      "kind": "article",
-      "venue": "Journal of Research of the National Bureau of Standards, Applied Mathematics Series",
-      "volume": "3",
+      "kind": "incollection",
+      "venue": "Monte Carlo Method (National Bureau of Standards Applied Mathematics Series)",
+      "volume": "12",
       "pages": "36–38",
+      "publisher": "U.S. Government Printing Office",
       "url": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf",
+      "note": "Chapter13; summary written by George E. Forsythe. The linked full text is the Collected Works reprint, printed pp.768–770. Original proceedings issued June11,1951.",
       "verification": {
         "source": "archival_url",
         "id": "https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf"
@@ -9018,22 +8990,6 @@
       "verification": {
         "source": "archival_url",
         "id": "https://openlibrary.org/authors/OL118345A"
-      }
-    },
-    "vonneumann1951": {
-      "authors": [
-        "von Neumann, J."
-      ],
-      "year": 1951,
-      "title": "Various techniques used in connection with random digits",
-      "kind": "article",
-      "venue": "National Bureau of Standards Applied Mathematics Series",
-      "volume": "12",
-      "pages": "36–38",
-      "url": "https://openlibrary.org/authors/OL19996A",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://openlibrary.org/authors/OL19996A"
       }
     },
     "voronoi1908": {
@@ -9824,6 +9780,1197 @@
       "verification": {
         "source": "crossref",
         "id": "10.1198/016214506000000735"
+      }
+    },
+    "bien_tibshirani2011_covariance": {
+      "authors": [
+        "Bien, J.",
+        "Tibshirani, R. J."
+      ],
+      "year": 2011,
+      "title": "Sparse estimation of a covariance matrix",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "98",
+      "issue": "4",
+      "pages": "807–820",
+      "doi": "10.1093/biomet/asr054",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/asr054"
+      }
+    },
+    "siegrist_mle2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Maximum Likelihood",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/point/Likelihood.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/point/Likelihood.html"
+      }
+    },
+    "owen2017_thinning": {
+      "authors": [
+        "Owen, A. B."
+      ],
+      "year": 2017,
+      "title": "Statistically Efficient Thinning of a Markov Chain Sampler",
+      "kind": "article",
+      "venue": "Journal of Computational and Graphical Statistics",
+      "volume": "26",
+      "issue": "3",
+      "pages": "738–744",
+      "doi": "10.1080/10618600.2017.1336446",
+      "url": "https://arxiv.org/pdf/1510.07727",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/10618600.2017.1336446"
+      }
+    },
+    "boyd_vandenberghe2004": {
+      "authors": [
+        "Boyd, S.",
+        "Vandenberghe, L."
+      ],
+      "year": 2004,
+      "title": "Convex Optimization",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "doi": "10.1017/CBO9780511804441",
+      "url": "https://www.seas.ucla.edu/~vandenbe/cvxbook/bv_cvxbook.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.seas.ucla.edu/~vandenbe/cvxbook/bv_cvxbook.pdf"
+      }
+    },
+    "siegrist2022_expectation_integral": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Expected Value as an Integral",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/expect/Integral.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/expect/Integral.html"
+      }
+    },
+    "deo2021_cox": {
+      "authors": [
+        "Deo, S. V.",
+        "Deo, V.",
+        "Sundaram, V."
+      ],
+      "year": 2021,
+      "title": "Survival analysis—part 2: Cox proportional hazards model",
+      "kind": "article",
+      "venue": "Indian Journal of Thoracic and Cardiovascular Surgery",
+      "volume": "37",
+      "issue": "2",
+      "pages": "229–233",
+      "doi": "10.1007/s12055-020-01108-7",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7876211/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s12055-020-01108-7"
+      }
+    },
+    "r_kyphosis2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "rpart: Data on Children who have had Corrective Spinal Surgery",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/html/kyphosis.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/rpart/html/kyphosis.html"
+      }
+    },
+    "prado_ferreira_west2021": {
+      "authors": [
+        "Prado, R.",
+        "Ferreira, M. A. R.",
+        "West, M."
+      ],
+      "year": 2021,
+      "title": "Time Series: Modeling, Computation, and Inference",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "Chapman and Hall/CRC",
+      "url": "https://api.pageplace.de/preview/DT0400.9781498747042_A41590561/preview-9781498747042_A41590561.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://api.pageplace.de/preview/DT0400.9781498747042_A41590561/preview-9781498747042_A41590561.pdf"
+      }
+    },
+    "horak_muller_vrbova1987": {
+      "authors": [
+        "Horák, K.",
+        "Müller, V.",
+        "Vrbová, P."
+      ],
+      "year": 1987,
+      "title": "A remark concerning uniqueness of the Wold decomposition of finite-dimensional stationary processes",
+      "kind": "article",
+      "venue": "Aplikace matematiky",
+      "volume": "32",
+      "issue": "5",
+      "pages": "337–345",
+      "doi": "10.21136/AM.1987.104265",
+      "url": "https://dml.cz/handle/10338.dmlcz/104265",
+      "verification": {
+        "source": "crossref",
+        "id": "10.21136/AM.1987.104265"
+      }
+    },
+    "scargle2020_wold": {
+      "authors": [
+        "Scargle, J. D."
+      ],
+      "year": 2020,
+      "title": "Studies in Astronomical Time-series Analysis. VII. An Enquiry Concerning Nonlinearity, the rms–Mean Flux Relation, and Lognormal Flux Distributions",
+      "kind": "article",
+      "venue": "The Astrophysical Journal",
+      "volume": "895",
+      "issue": "2",
+      "pages": "90",
+      "doi": "10.3847/1538-4357/ab8d38",
+      "url": "https://arxiv.org/pdf/2001.08314",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3847/1538-4357/ab8d38"
+      }
+    },
+    "delacre2017_welch": {
+      "authors": [
+        "Delacre, M.",
+        "Lakens, D.",
+        "Leys, C."
+      ],
+      "year": 2017,
+      "title": "Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test",
+      "kind": "article",
+      "venue": "International Review of Social Psychology",
+      "volume": "30",
+      "issue": "1",
+      "pages": "92–101",
+      "doi": "10.5334/irsp.82",
+      "url": "https://reference-global.com/article/10.5334/irsp.82",
+      "verification": {
+        "source": "crossref",
+        "id": "10.5334/irsp.82"
+      }
+    },
+    "cetinkaya_hardin2024": {
+      "authors": [
+        "Çetinkaya-Rundel, M.",
+        "Hardin, J."
+      ],
+      "year": 2024,
+      "title": "Introduction to Modern Statistics",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "OpenIntro",
+      "url": "https://openintrostat.github.io/ims/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://openintrostat.github.io/ims/"
+      }
+    },
+    "siegrist2022_ctmc_transition": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Transition Matrices and Generators of Continuous-Time Chains",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/Transition.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/Transition.html"
+      }
+    },
+    "siegrist_weibull2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: The Weibull Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/special/Weibull.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/special/Weibull.html"
+      }
+    },
+    "siegrist_nhpp2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Nonhomogeneous Poisson Processes",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/poisson/Nonhomogeneous.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/poisson/Nonhomogeneous.html"
+      }
+    },
+    "keogh2020_measurement_error": {
+      "authors": [
+        "Keogh, R. H.",
+        "Shaw, P. A.",
+        "Gustafson, P.",
+        "Carroll, R. J.",
+        "Deffner, V.",
+        "Dodd, K. W.",
+        "Küchenhoff, H.",
+        "Tooze, J. A.",
+        "Wallace, M. P.",
+        "Kipnis, V.",
+        "Freedman, L. S."
+      ],
+      "year": 2020,
+      "title": "STRATOS guidance document on measurement error and misclassification of variables in observational epidemiology: Part 1—Basic theory and simple methods of adjustment",
+      "kind": "article",
+      "venue": "Statistics in Medicine",
+      "volume": "39",
+      "issue": "16",
+      "pages": "2197–2231",
+      "doi": "10.1002/sim.8532",
+      "url": "https://shawstat.org/wp-content/uploads/2021/03/STRATOS-ME-GuideancePart1-SIM2020.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/sim.8532"
+      }
+    },
+    "zhang_d2l2023": {
+      "authors": [
+        "Zhang, A.",
+        "Lipton, Z. C.",
+        "Li, M.",
+        "Smola, A. J."
+      ],
+      "year": 2023,
+      "title": "Dive into Deep Learning",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://d2l.ai/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://d2l.ai/"
+      }
+    },
+    "treil2026_linear_algebra": {
+      "authors": [
+        "Treil, S."
+      ],
+      "year": 2026,
+      "title": "Linear Algebra Done Wrong",
+      "kind": "book",
+      "publisher": "Sergei Treil, Brown University",
+      "url": "https://www.math.brown.edu/streil/papers/LADW/HTML_2026_08-31/LADW_2026_08-31.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.math.brown.edu/streil/papers/LADW/HTML_2026_08-31/LADW_2026_08-31.html"
+      }
+    },
+    "siegrist_hypergeometric2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: The Hypergeometric Distribution",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/urn/Hypergeometric.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/urn/Hypergeometric.html"
+      }
+    },
+    "banerjee_elghaoui_daspremont2008": {
+      "authors": [
+        "Banerjee, O.",
+        "El Ghaoui, L.",
+        "d’Aspremont, A."
+      ],
+      "year": 2008,
+      "title": "Model Selection Through Sparse Maximum Likelihood Estimation for Multivariate Gaussian or Binary Data",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "9",
+      "pages": "485–516",
+      "url": "https://www.jmlr.org/papers/volume9/banerjee08a/banerjee08a.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.jmlr.org/papers/volume9/banerjee08a/banerjee08a.pdf"
+      }
+    },
+    "turner_firth2012_bradley_terry": {
+      "authors": [
+        "Turner, H.",
+        "Firth, D."
+      ],
+      "year": 2012,
+      "title": "Bradley-Terry Models in R: The BradleyTerry2 Package",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "48",
+      "issue": "9",
+      "pages": "1–21",
+      "doi": "10.18637/jss.v048.i09",
+      "url": "https://wrap.warwick.ac.uk/id/eprint/47955/1/WRAP_Turner_v48i09.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.18637/jss.v048.i09"
+      }
+    },
+    "ambroise_mclachlan2002": {
+      "authors": [
+        "Ambroise, C.",
+        "McLachlan, G. J."
+      ],
+      "year": 2002,
+      "title": "Selection bias in gene extraction on the basis of microarray gene-expression data",
+      "kind": "article",
+      "venue": "Proceedings of the National Academy of Sciences",
+      "volume": "99",
+      "issue": "10",
+      "pages": "6562–6566",
+      "doi": "10.1073/pnas.102102699",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC124442/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1073/pnas.102102699"
+      }
+    },
+    "openintro2019": {
+      "authors": [
+        "Diez, D. M.",
+        "Çetinkaya-Rundel, M.",
+        "Barr, C. D."
+      ],
+      "year": 2019,
+      "title": "OpenIntro Statistics",
+      "edition": "4th ed.",
+      "kind": "book",
+      "publisher": "OpenIntro",
+      "url": "https://www.openintro.org/book/os/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.openintro.org/book/os/"
+      }
+    },
+    "dietterich2000_ensembles": {
+      "authors": [
+        "Dietterich, T. G."
+      ],
+      "year": 2000,
+      "title": "Ensemble Methods in Machine Learning",
+      "kind": "incollection",
+      "venue": "Multiple Classifier Systems",
+      "publisher": "Springer",
+      "pages": "1–15",
+      "doi": "10.1007/3-540-45014-9_1",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/3-540-45014-9_1"
+      }
+    },
+    "caron_doucet2012_bt": {
+      "authors": [
+        "Caron, F.",
+        "Doucet, A."
+      ],
+      "year": 2012,
+      "title": "Efficient Bayesian Inference for Generalized Bradley–Terry Models",
+      "kind": "article",
+      "venue": "Journal of Computational and Graphical Statistics",
+      "volume": "21",
+      "issue": "1",
+      "pages": "174–196",
+      "doi": "10.1080/10618600.2012.638220",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/10618600.2012.638220"
+      }
+    },
+    "siegrist_birthdeath2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Continuous-Time Birth-Death Chains",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/BirthDeath2.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/BirthDeath2.html"
+      }
+    },
+    "meng2018_big_data": {
+      "authors": [
+        "Meng, X.-L."
+      ],
+      "year": 2018,
+      "title": "Statistical paradises and paradoxes in big data (I): Law of large populations, big data paradox, and the 2016 US presidential election",
+      "kind": "article",
+      "venue": "The Annals of Applied Statistics",
+      "volume": "12",
+      "issue": "2",
+      "pages": "685–726",
+      "doi": "10.1214/18-AOAS1161SF",
+      "url": "https://statistics.fas.harvard.edu/sites/g/files/omnuum10116/files/statistics-2/files/statistical_paradises_and_paradoxes.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/18-AOAS1161SF"
+      }
+    },
+    "r_catdata_addiction2026": {
+      "authors": [
+        "Schauberger, G.",
+        "Tutz, G."
+      ],
+      "year": 2025,
+      "title": "addiction: Are addicted weak-willed, deseased or both? (catdata reference)",
+      "kind": "book",
+      "publisher": "CRAN",
+      "url": "https://search.r-project.org/CRAN/refmans/catdata/html/addiction.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/CRAN/refmans/catdata/html/addiction.html"
+      }
+    },
+    "murtagh_contreras2012": {
+      "authors": [
+        "Murtagh, F.",
+        "Contreras, P."
+      ],
+      "year": 2012,
+      "title": "Algorithms for hierarchical clustering: an overview",
+      "kind": "article",
+      "venue": "Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery",
+      "volume": "2",
+      "issue": "1",
+      "pages": "86–97",
+      "doi": "10.1002/widm.53",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/widm.53"
+      }
+    },
+    "agresti1992_exact_survey": {
+      "authors": [
+        "Agresti, A."
+      ],
+      "year": 1992,
+      "title": "A Survey of Exact Inference for Contingency Tables",
+      "kind": "article",
+      "venue": "Statistical Science",
+      "volume": "7",
+      "issue": "1",
+      "url": "https://alanagresti.com/articles/agresti_1992.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://alanagresti.com/articles/agresti_1992.pdf"
+      }
+    },
+    "devroye1981_nn_error": {
+      "authors": [
+        "Devroye, L."
+      ],
+      "year": 1981,
+      "title": "On the Asymptotic Probability of Error in Nonparametric Discrimination",
+      "kind": "article",
+      "venue": "The Annals of Statistics",
+      "volume": "9",
+      "issue": "6",
+      "pages": "1320–1327",
+      "doi": "10.1214/aos/1176345648",
+      "url": "https://luc.devroye.org/devroye_1981_on_the_asymptotic_probability_of_error_in_nonparametric_discrimination.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/aos/1176345648"
+      }
+    },
+    "marsaglia1968_planes": {
+      "authors": [
+        "Marsaglia, G."
+      ],
+      "year": 1968,
+      "title": "Random Numbers Fall Mainly in the Planes",
+      "kind": "article",
+      "venue": "Proceedings of the National Academy of Sciences",
+      "volume": "61",
+      "issue": "1",
+      "pages": "25–28",
+      "doi": "10.1073/pnas.61.1.25",
+      "url": "https://www.pnas.org/doi/pdf/10.1073/pnas.61.1.25",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1073/pnas.61.1.25"
+      }
+    },
+    "tao2011_measure": {
+      "authors": [
+        "Tao, T."
+      ],
+      "year": 2011,
+      "title": "An Introduction to Measure Theory",
+      "kind": "book",
+      "publisher": "American Mathematical Society",
+      "series": "Graduate Studies in Mathematics",
+      "volume": "126",
+      "url": "https://terrytao.wordpress.com/wp-content/uploads/2012/12/gsm-126-tao5-measure-book.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://terrytao.wordpress.com/wp-content/uploads/2012/12/gsm-126-tao5-measure-book.pdf"
+      }
+    },
+    "hong_coelho_park2022": {
+      "authors": [
+        "Hong, S.",
+        "Coelho, C. A.",
+        "Park, J."
+      ],
+      "year": 2022,
+      "title": "An Exact and Near-Exact Distribution Approach to the Behrens–Fisher Problem",
+      "kind": "article",
+      "venue": "Mathematics",
+      "volume": "10",
+      "issue": "16",
+      "pages": "2953",
+      "doi": "10.3390/math10162953",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3390/math10162953"
+      }
+    },
+    "krishnamoorthy_xia2006": {
+      "authors": [
+        "Krishnamoorthy, K.",
+        "Xia, Y."
+      ],
+      "year": 2006,
+      "title": "On Selecting Tests for Equality of Two Normal Mean Vectors",
+      "kind": "article",
+      "venue": "Multivariate Behavioral Research",
+      "volume": "41",
+      "issue": "4",
+      "pages": "533–548",
+      "doi": "10.1207/s15327906mbr4104_5",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1207/s15327906mbr4104_5"
+      }
+    },
+    "siegrist_queuing2022": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Continuous-Time Queuing Chains",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/markov/Queuing2.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/markov/Queuing2.html"
+      }
+    },
+    "durrett2012_essentials": {
+      "authors": [
+        "Durrett, R."
+      ],
+      "year": 2012,
+      "title": "Essentials of Stochastic Processes",
+      "kind": "book",
+      "edition": "2nd ed.",
+      "publisher": "Springer",
+      "url": "https://services.math.duke.edu/~rtd/EOSP/EOSP2E.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://services.math.duke.edu/~rtd/EOSP/EOSP2E.pdf"
+      }
+    },
+    "fawcett2006_roc": {
+      "authors": [
+        "Fawcett, T."
+      ],
+      "year": 2006,
+      "title": "An introduction to ROC analysis",
+      "kind": "article",
+      "venue": "Pattern Recognition Letters",
+      "volume": "27",
+      "issue": "8",
+      "pages": "861–874",
+      "doi": "10.1016/j.patrec.2005.10.010",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.patrec.2005.10.010"
+      }
+    },
+    "pan_zhou2011_hotelling": {
+      "authors": [
+        "Pan, G. M.",
+        "Zhou, W."
+      ],
+      "year": 2011,
+      "title": "Central limit theorem for Hotelling’s T2 statistic under large dimension",
+      "kind": "article",
+      "venue": "The Annals of Applied Probability",
+      "volume": "21",
+      "issue": "5",
+      "pages": "1860–1910",
+      "doi": "10.1214/10-AAP742",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/10-AAP742"
+      }
+    },
+    "friendly_monette_fox2013": {
+      "authors": [
+        "Friendly, M.",
+        "Monette, G.",
+        "Fox, J."
+      ],
+      "year": 2013,
+      "title": "Elliptical Insights: Understanding Statistical Methods through Elliptical Geometry",
+      "kind": "article",
+      "venue": "Statistical Science",
+      "volume": "28",
+      "issue": "1",
+      "pages": "1–39",
+      "doi": "10.1214/12-STS402",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/12-STS402"
+      }
+    },
+    "fay_proschan2010": {
+      "authors": [
+        "Fay, M. P.",
+        "Proschan, M. A."
+      ],
+      "year": 2010,
+      "title": "Wilcoxon-Mann-Whitney or t-test? On assumptions for hypothesis tests and multiple interpretations of decision rules",
+      "kind": "article",
+      "venue": "Statistics Surveys",
+      "volume": "4",
+      "pages": "1–39",
+      "doi": "10.1214/09-SS051",
+      "url": "https://www.asc.ohio-state.edu/economics/healy/fayproschan.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.asc.ohio-state.edu/economics/healy/fayproschan.pdf"
+      }
+    },
+    "shutta_etal2022_ggm": {
+      "authors": [
+        "Shutta, K. H.",
+        "De Vito, R.",
+        "Scholtens, D. M.",
+        "Balasubramanian, R."
+      ],
+      "year": 2022,
+      "title": "Gaussian graphical models with applications to omics analyses",
+      "kind": "article",
+      "venue": "Statistics in Medicine",
+      "volume": "41",
+      "issue": "25",
+      "pages": "5150–5187",
+      "doi": "10.1002/sim.9546",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9672860/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/sim.9546"
+      }
+    },
+    "taback2022_design": {
+      "authors": [
+        "Taback, N."
+      ],
+      "year": 2022,
+      "title": "Design and Analysis of Experiments and Observational Studies using R",
+      "kind": "book",
+      "publisher": "Chapman and Hall/CRC",
+      "doi": "10.1201/9781003033691",
+      "url": "https://designexptr.org/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1201/9781003033691"
+      }
+    },
+    "siegrist2022_beta_bernoulli": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: The Beta-Bernoulli Process",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/bernoulli/BetaBernoulli.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/bernoulli/BetaBernoulli.html"
+      }
+    },
+    "efron_tibshirani1997_632plus": {
+      "authors": [
+        "Efron, B.",
+        "Tibshirani, R."
+      ],
+      "year": 1997,
+      "title": "Improvements on Cross-Validation: The .632+ Bootstrap Method",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "92",
+      "issue": "438",
+      "pages": "548–560",
+      "doi": "10.1080/01621459.1997.10474007",
+      "url": "https://doi.org/10.1080/01621459.1997.10474007",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1997.10474007"
+      }
+    },
+    "gneiting_raftery2007_scoring": {
+      "authors": [
+        "Gneiting, T.",
+        "Raftery, A. E."
+      ],
+      "year": 2007,
+      "title": "Strictly Proper Scoring Rules, Prediction, and Estimation",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "102",
+      "issue": "477",
+      "pages": "359–378",
+      "doi": "10.1198/016214506000001437",
+      "url": "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1198/016214506000001437"
+      }
+    },
+    "lindholm2022_ml": {
+      "authors": [
+        "Lindholm, A.",
+        "Wahlström, N.",
+        "Lindsten, F.",
+        "Schön, T. B."
+      ],
+      "year": 2022,
+      "title": "Machine Learning: A First Course for Engineers and Scientists",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://smlbook.org/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://smlbook.org/"
+      },
+      "source_read": "Author first-edition manuscript, updated 4 March 2026, https://smlbook.org/book/sml-book-draft-latest.pdf; landing-page recommended published-work citation is 2022."
+    },
+    "tierney_kadane1986": {
+      "authors": [
+        "Tierney, L.",
+        "Kadane, J. B."
+      ],
+      "year": 1986,
+      "title": "Accurate Approximations for Posterior Moments and Marginal Densities",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "81",
+      "issue": "393",
+      "pages": "82–86",
+      "doi": "10.1080/01621459.1986.10478240",
+      "url": "https://www.math.mcgill.ca/dstephens/680/Handouts/OldPDFs/TierneyKadane-1986-JASA.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1986.10478240"
+      }
+    },
+    "schulz_altman_moher2010": {
+      "authors": [
+        "Schulz, K. F.",
+        "Altman, D. G.",
+        "Moher, D."
+      ],
+      "year": 2010,
+      "title": "CONSORT 2010 Statement: Updated Guidelines for Reporting Parallel Group Randomised Trials",
+      "kind": "article",
+      "venue": "PLoS Medicine",
+      "volume": "7",
+      "issue": "3",
+      "pages": "e1000251",
+      "doi": "10.1371/journal.pmed.1000251",
+      "url": "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1000251",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1371/journal.pmed.1000251"
+      }
+    },
+    "bolker2009_glmm": {
+      "authors": [
+        "Bolker, B. M.",
+        "Brooks, M. E.",
+        "Clark, C. J.",
+        "Geange, S. W.",
+        "Poulsen, J. R.",
+        "Stevens, M. H. H.",
+        "White, J.-S. S."
+      ],
+      "year": 2009,
+      "title": "Generalized linear mixed models: a practical guide for ecology and evolution",
+      "kind": "article",
+      "venue": "Trends in Ecology & Evolution",
+      "volume": "24",
+      "issue": "3",
+      "pages": "127–135",
+      "doi": "10.1016/j.tree.2008.10.008",
+      "url": "https://sciences.ucf.edu/biology/d4lab/wp-content/uploads/sites/23/2020/02/Bolker-et-al-2009-TREE.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.tree.2008.10.008"
+      }
+    },
+    "deisenroth_faisal_ong2020": {
+      "authors": [
+        "Deisenroth, M. P.",
+        "Faisal, A. A.",
+        "Ong, C. S."
+      ],
+      "year": 2020,
+      "title": "Mathematics for Machine Learning",
+      "kind": "book",
+      "publisher": "Cambridge University Press",
+      "url": "https://mml-book.github.io/book/mml-book.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://mml-book.github.io/book/mml-book.pdf"
+      }
+    },
+    "blei_ng_jordan2003": {
+      "authors": [
+        "Blei, D. M.",
+        "Ng, A. Y.",
+        "Jordan, M. I."
+      ],
+      "year": 2003,
+      "title": "Latent Dirichlet Allocation",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "3",
+      "pages": "993–1022",
+      "url": "https://jmlr.org/papers/volume3/blei03a/blei03a.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jmlr.org/papers/volume3/blei03a/blei03a.pdf"
+      }
+    },
+    "wainwright_jordan2008": {
+      "authors": [
+        "Wainwright, M. J.",
+        "Jordan, M. I."
+      ],
+      "year": 2008,
+      "title": "Graphical Models, Exponential Families, and Variational Inference",
+      "kind": "article",
+      "venue": "Foundations and Trends in Machine Learning",
+      "url": "https://people.eecs.berkeley.edu/~jordan/papers/wainwright-jordan-fnt.pdf",
+      "volume": "1",
+      "issue": "1–2",
+      "pages": "1–305",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1561/2200000001"
+      },
+      "doi": "10.1561/2200000001"
+    },
+    "siegrist2022_bayes_estimators": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Bayes' Estimators",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/point/Bayes.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/point/Bayes.html"
+      }
+    },
+    "parikh_boyd2014_proximal": {
+      "authors": [
+        "Parikh, N.",
+        "Boyd, S."
+      ],
+      "year": 2014,
+      "title": "Proximal Algorithms",
+      "kind": "article",
+      "venue": "Foundations and Trends in Optimization",
+      "url": "https://web.stanford.edu/~boyd/papers/pdf/prox_algs.pdf",
+      "volume": "1",
+      "issue": "3",
+      "pages": "123–231",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://web.stanford.edu/~boyd/papers/pdf/prox_algs.pdf"
+      }
+    },
+    "siegrist2022_poisson_splitting": {
+      "authors": [
+        "Siegrist, K."
+      ],
+      "year": 2022,
+      "title": "Probability, Mathematical Statistics, and Stochastic Processes: Thinning and Superposition",
+      "kind": "book",
+      "publisher": "Random Services",
+      "url": "https://www.randomservices.org/random/poisson/Splitting.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.randomservices.org/random/poisson/Splitting.html"
+      }
+    },
+    "garthwaite_koch2016_quadratic": {
+      "authors": [
+        "Garthwaite, P. H.",
+        "Koch, I."
+      ],
+      "year": 2016,
+      "title": "Evaluating the Contributions of Individual Variables to a Quadratic Form",
+      "kind": "article",
+      "venue": "Australian & New Zealand Journal of Statistics",
+      "url": "https://university.open.ac.uk/stem/mathematics-and-statistics/sites/www.open.ac.uk.stem.mathematics-and-statistics/files/files/QuadraticForms.pdf",
+      "volume": "58",
+      "issue": "1",
+      "pages": "99–119",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/anzs.12144"
+      },
+      "doi": "10.1111/anzs.12144"
+    },
+    "ackermann_strimmer2009_genesets": {
+      "authors": [
+        "Ackermann, M.",
+        "Strimmer, K."
+      ],
+      "year": 2009,
+      "title": "A general modular framework for gene set enrichment analysis",
+      "kind": "article",
+      "venue": "BMC Bioinformatics",
+      "url": "https://link.springer.com/article/10.1186/1471-2105-10-47",
+      "volume": "10",
+      "pages": "47",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1186/1471-2105-10-47"
+      },
+      "doi": "10.1186/1471-2105-10-47"
+    },
+    "engle2001_garch101": {
+      "authors": [
+        "Engle, R. F."
+      ],
+      "year": 2001,
+      "title": "GARCH 101: The Use of ARCH/GARCH Models in Applied Econometrics",
+      "kind": "article",
+      "venue": "Journal of Economic Perspectives",
+      "url": "https://web-static.stern.nyu.edu/rengle/GARCH101.PDF",
+      "volume": "15",
+      "issue": "4",
+      "pages": "157–168",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1257/jep.15.4.157"
+      },
+      "doi": "10.1257/jep.15.4.157"
+    },
+    "vans_patil_sharma2021_feats": {
+      "authors": [
+        "Vans, E.",
+        "Patil, A.",
+        "Sharma, A."
+      ],
+      "year": 2021,
+      "title": "FEATS: feature selection-based clustering of single-cell RNA-seq data",
+      "kind": "article",
+      "venue": "Briefings in Bioinformatics",
+      "url": "https://doi.org/10.1093/bib/bbaa306",
+      "volume": "22",
+      "issue": "4",
+      "pages": "bbaa306",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/bib/bbaa306"
+      },
+      "doi": "10.1093/bib/bbaa306"
+    },
+    "dai_shen_liu2026_cluster_significance": {
+      "authors": [
+        "Dai, Y.",
+        "Shen, H.",
+        "Liu, Y."
+      ],
+      "year": 2026,
+      "title": "A Selective Review of Statistical Significance in Cluster Analysis",
+      "kind": "article",
+      "venue": "Methodology and Computing in Applied Probability",
+      "url": "https://link.springer.com/article/10.1007/s11009-026-10343-1",
+      "volume": "28",
+      "pages": "113",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s11009-026-10343-1"
+      },
+      "doi": "10.1007/s11009-026-10343-1"
+    },
+    "merigo_anfossi_chicco2026_gap": {
+      "authors": [
+        "Merigo, E. M.",
+        "Anfossi, A.",
+        "Chicco, D."
+      ],
+      "year": 2026,
+      "title": "The Gap Statistic can be misleading when used to evaluate near box shaped clusters in the Euclidean space",
+      "kind": "article",
+      "venue": "Discover Artificial Intelligence",
+      "url": "https://link.springer.com/article/10.1007/s44163-026-01195-2",
+      "volume": "6",
+      "pages": "334",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s44163-026-01195-2"
+      },
+      "doi": "10.1007/s44163-026-01195-2"
+    },
+    "loh2014_trees": {
+      "authors": [
+        "Loh, W.-Y."
+      ],
+      "year": 2014,
+      "title": "Fifty Years of Classification and Regression Trees",
+      "kind": "article",
+      "venue": "International Statistical Review",
+      "url": "https://pages.stat.wisc.edu/~loh/treeprogs/guide/LohISI14.pdf",
+      "volume": "82",
+      "issue": "3",
+      "pages": "329–348",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/insr.12016"
+      },
+      "doi": "10.1111/insr.12016"
+    },
+    "quan_etal2023_hybrid_trees": {
+      "authors": [
+        "Quan, Z.",
+        "Wang, Z.",
+        "Gan, G.",
+        "Valdez, E. A."
+      ],
+      "year": 2023,
+      "title": "On hybrid tree-based methods for short-term insurance claims",
+      "kind": "article",
+      "venue": "Probability in the Engineering and Informational Sciences",
+      "url": "https://www.cambridge.org/core/journals/probability-in-the-engineering-and-informational-sciences/article/on-hybrid-treebased-methods-for-shortterm-insurance-claims/6578C721FEB7D7470C0C159234650C23",
+      "volume": "37",
+      "issue": "2",
+      "pages": "597–620",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1017/S0269964823000074"
+      },
+      "doi": "10.1017/S0269964823000074"
+    },
+    "witten_tibshirani2011_fisher": {
+      "authors": [
+        "Witten, D. M.",
+        "Tibshirani, R."
+      ],
+      "year": 2011,
+      "title": "Penalized classification using Fisher’s linear discriminant",
+      "kind": "article",
+      "venue": "Journal of the Royal Statistical Society: Series B",
+      "volume": "73",
+      "issue": "5",
+      "pages": "753–772",
+      "doi": "10.1111/j.1467-9868.2011.00783.x",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3272679/",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.1467-9868.2011.00783.x"
+      }
+    },
+    "bengio_grandvalet2004": {
+      "authors": [
+        "Bengio, Y.",
+        "Grandvalet, Y."
+      ],
+      "year": 2004,
+      "title": "No Unbiased Estimator of the Variance of K-Fold Cross-Validation",
+      "kind": "article",
+      "venue": "Journal of Machine Learning Research",
+      "volume": "5",
+      "pages": "1089–1105",
+      "url": "https://jmlr.org/papers/volume5/grandvalet04a/grandvalet04a.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://jmlr.org/papers/volume5/grandvalet04a/grandvalet04a.pdf"
+      }
+    },
+    "natekin_knoll2013": {
+      "authors": [
+        "Natekin, A.",
+        "Knoll, A."
+      ],
+      "year": 2013,
+      "title": "Gradient boosting machines, a tutorial",
+      "kind": "article",
+      "venue": "Frontiers in Neurorobotics",
+      "volume": "7",
+      "pages": "21",
+      "doi": "10.3389/fnbot.2013.00021",
+      "url": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2013.00021/full",
+      "verification": {
+        "source": "crossref",
+        "id": "10.3389/fnbot.2013.00021"
+      }
+    },
+    "barnett_vanderpols_dobson2005": {
+      "authors": [
+        "Barnett, A. G.",
+        "van der Pols, J. C.",
+        "Dobson, A. J."
+      ],
+      "year": 2005,
+      "title": "Regression to the mean: what it is and how to deal with it",
+      "kind": "article",
+      "venue": "International Journal of Epidemiology",
+      "volume": "34",
+      "issue": "1",
+      "pages": "215–220",
+      "doi": "10.1093/ije/dyh299",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/ije/dyh299"
       }
     }
   }

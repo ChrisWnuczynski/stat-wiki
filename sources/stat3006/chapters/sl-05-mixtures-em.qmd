@@ -230,7 +230,7 @@ The formulas now have a familiar shape: proportions, means, and covariance matri
 Choose initial values $\Psi^{(0)}$. For $k=0,1,2,\ldots$:
 
 1. E step: compute $\tau_{ih}=\tau_h(\mathbf{x}_i;\Psi^{(k)})$ for all $i,h${{cite:dempster_laird_rubin1977}} (§2, p. 6, eq. 2.17).
-2. M step: compute $\pi_h^{(k+1)}$, $\boldsymbol\mu_h^{(k+1)}$, and $\Sigma_h^{(k+1)}$ from the three updates above{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting).
+2. M step: compute $\pi_h^{(k+1)}$, $\boldsymbol\mu_h^{(k+1)}$, and $\Sigma_h^{(k+1)}$ from the three updates above{{cite:deisenroth_faisal_ong2020}} (§11.3, p.361, Eqs.11.53–11.56).
 3. Stop when the change in $\ell(\Psi^{(k)};X_{\mathrm{all}})$ is smaller than a chosen numerical threshold; this rule does not establish parameter convergence.{{cite:dempster_laird_rubin1977}} (§3, pp. 6–8, convergence discussion)
 
 :::
@@ -262,7 +262,7 @@ G(\Psi;\Psi^{(k)})
 =\E_{\Psi^{(k)}}\bigl[\ln\Pr(Z\given X_{\mathrm{all}};\Psi)\bigm|X_{\mathrm{all}}\bigr].
 $$
 
-Gibbs' inequality is nonnegativity of Kullback–Leibler divergence, so $G(\Psi;\Psi^{(k)})\le G(\Psi^{(k)};\Psi^{(k)})$ for every $\Psi${{cite:kullback_leibler1951}}{{cite:shannon1948}}. Split the change in the observed log-likelihood{{cite:dempster_laird_rubin1977}}:
+Gibbs' inequality is nonnegativity of Kullback–Leibler divergence, so $G(\Psi;\Psi^{(k)})\le G(\Psi^{(k)};\Psi^{(k)})$ for every $\Psi${{cite:goodfellow_bengio_courville2016}} (§3.13, pp. 72–73). Split the change in the observed log-likelihood:
 
 \begin{align*}
 \ell(\Psi^{(k+1)})-\ell(\Psi^{(k)})
@@ -380,7 +380,7 @@ The same divergence occurs when a component is supported on too few points to de
 
 In one dimension, stop and restart if a component variance falls below a threshold. In two dimensions the analogous failure is a component collapsing toward a line. A singular covariance is the algebraic form of that failure: the determinant is $0$, and the precision in the normal density does not exist. The eigenvalues of a component covariance are the variances along its elliptical axes. Positive definiteness requires every one of them to be positive. If an eigenvalue becomes small, stop. A variance on its way to $0$ is a failure of the unconstrained fit.
 
-**Label switching.** Renaming components changes the parameter vector and leaves the density unchanged. Finite Gaussian mixtures with distinct components and positive weights are identifiable up to this permutation. Coincident components or zero weights introduce further non-identifiability{{cite:fraley_raftery2002}} (§§2–4, pp. 613–616, mixture fitting){{cite:green2019_finite_mixtures}} (Ch. 1, §1.3.1, pp. 13–14, finite-mixture identification){{cite:stephens2000}} (§§1–3, pp. 795–801, label switching). Before comparing component parameters across fits, decide how to match labels. Ordering means can help in one dimension. The order becomes unstable when means are close.
+**Label switching.** Renaming components changes the parameter vector and leaves the density unchanged. Finite Gaussian mixtures with distinct components and positive weights are identifiable up to this permutation. Coincident components or zero weights introduce further non-identifiability{{cite:green2019_finite_mixtures}} (Ch. 1, §1.3.1, pp. 13–14, finite-mixture identification){{cite:stephens2000}} (§§1–3, pp. 795–801, label switching). Before comparing component parameters across fits, decide how to match labels. Ordering means can help in one dimension. The order becomes unstable when means are close.
 
 Nothing in the model says that the component on the left is component $1$. A start with $\mu_1$ to the right of $\mu_2$ returns the swapped labelling, and the weights and covariances move with the labels. Averaging parameters across restarts, as if the subscript $1$ named the same component every time, mixes distinct components.
 

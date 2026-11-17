@@ -26,7 +26,7 @@ $$
 n\ge 100\times 11.6^2=13456.
 $$
 
-Recovering the pilot standard deviation with a $t_{99}$ quantile near $1.98$ and then planning the new interval with $z_{0.975}=1.96$ lowers the requirement to $13188$. Either figure is a sample of more than thirteen thousand.
+If the pilot interval instead used the exact $t_{99,0.975}\approx1.984217$ quantile, recovering that standard deviation and planning the new interval with $z_{0.975}\approx1.959964$ gives $n\geq13129.0665$, hence $13130$ observations. This changes the assumed critical value between the pilot and the planned study; holding the critical value fixed gives $13456$.
 
 []{#sol-da-paper-thickness} **[Printer paper](#ex-da-paper-thickness).**
 
@@ -40,7 +40,7 @@ which is $(98.2,\,103.8)$, matching $(98.1,\,103.9)$ at the rounding of $s$. The
 
 []{#sol-da-sleep-sample-size} **[Hours of sleep](#ex-da-sleep-sample-size).**
 
-The pilot margin is $7.39=t_{3,\,0.975}\,s/\sqrt{4}$ with $t_{3,\,0.975}\approx 3.182$, so $s\approx 4.65$. A future sample of size $n$ has margin $t_{n-1,\,0.975}\,s/\sqrt n$. The smallest $n$ for which this is at most 2 is $n=24$: $t_{23,\,0.975}\approx 2.07$ and $2.07\times 4.65/\sqrt{24}\approx 1.96<2$, while $n=23$ is just over 2.
+The question holds the estimated standard deviation and normal critical value fixed. The margin therefore scales as $1/\sqrt n$, giving $n\geq4(7.39/2)^2=54.6121$. The smallest integer size is $55$; at $54$ the margin exceeds two, whereas at $55$ it is below two.
 
 []{#sol-da-shady-poll} **[A difference of proportions](#ex-da-shady-poll).**
 
@@ -188,7 +188,7 @@ possible test groups. Randomisation picks one of them with equal probability, fo
 
 []{#sol-da-blood-pressure-covariates} **[What a randomised trial does not need to record](#ex-da-blood-pressure-covariates).**
 
-Because the drug is assigned at random, the two treatment groups have, apart from chance, the same distribution of age, sex, fitness, occupation and diet, and of every other variable, measured or not. None of them can then explain a difference in blood pressure between the groups: any systematic difference must be due to the drug. With 1000 or more subjects, chance imbalances are small. The other variables would still be useful for finding out whether the drug works better for some people than others, or for making the comparison more precise, but they are not needed for a valid comparison.
+Random assignment makes the treatment allocation independent of pre-treatment characteristics under the design. It balances such characteristics in expectation over assignments, including those not measured, while a realised allocation can still be imbalanced. The assigned drug and complete before-and-after outcome records can support a valid assignment-based comparison under consistently defined treatments and no interference. Recording age, sex, fitness, occupation and diet can improve precision and describe applicability or effect variation. A sample of 1000 does not guarantee negligible chance imbalance. Missing outcomes, unequal assessment and exclusions after assignment can still bias a naive observed comparison.
 
 []{#sol-da-devil-tumours} **[Facial tumours in Tasmanian devils](#ex-da-devil-tumours).**
 
