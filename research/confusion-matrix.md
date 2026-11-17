@@ -16,3 +16,5 @@ Source locators actually read during this pass:
 Research prose: 803 whitespace-separated words; 10 citation markers. Numerical and algebraic checks: `checks/confusion-matrix.py`.
 
 Checks and integration results are recorded in `/workspace/statwiki-run/report-v.json`. External reference PDFs/text remain outside the repository.
+
+Full-body citation audit: additionally read `fawcett2006_roc` (§2, p. 862, confusion matrix and error counts); exact old-marker replacement staged for shared-source integration.

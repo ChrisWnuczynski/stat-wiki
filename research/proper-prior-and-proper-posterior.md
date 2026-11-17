@@ -16,3 +16,5 @@ Source locators actually read during this pass:
 Research prose: 832 whitespace-separated words; 10 citation markers. Numerical and algebraic checks: `checks/proper-prior-and-proper-posterior.py`.
 
 Checks and integration results are recorded in `/workspace/statwiki-run/report-v.json`. External reference PDFs/text remain outside the repository.
+
+Full-body citation audit: additionally read `taraldsen2022_improper` (§3.3, uniform law on the real line); exact old-marker replacement staged for shared-source integration.
