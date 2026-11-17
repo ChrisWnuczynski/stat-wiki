@@ -1,0 +1,77 @@
+{
+  "action": "page",
+  "slug": "federated-learning",
+  "term": "federated learning",
+  "topic": "Statistical learning",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical learning",
+    "article": "",
+    "term": "federated learning",
+    "verb": "is",
+    "description": "training a shared model from records that stay on the devices or at the sites that collected them"
+  },
+  "bibliography": {
+    "mcmahan2017": {
+      "authors": [
+        "McMahan, H. B.",
+        "Moore, E.",
+        "Ramage, D.",
+        "Hampson, S.",
+        "Agüera y Arcas, B."
+      ],
+      "year": 2017,
+      "title": "Communication-Efficient Learning of Deep Networks from Decentralized Data",
+      "kind": "article",
+      "venue": "Proceedings of the 20th International Conference on Artificial Intelligence and Statistics",
+      "url": "https://arxiv.org/pdf/1602.05629",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1602.05629"
+      }
+    },
+    "li_sahu_talwalkar_smith2019": {
+      "authors": [
+        "Li, T.",
+        "Sahu, A. K.",
+        "Talwalkar, A.",
+        "Smith, V."
+      ],
+      "year": 2019,
+      "title": "Federated Learning: Challenges, Methods, and Future Directions",
+      "kind": "article",
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/1908.07873",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://arxiv.org/pdf/1908.07873"
+      }
+    }
+  },
+  "cite_keys": [
+    "mcmahan2017",
+    "li_sahu_talwalkar_smith2019"
+  ],
+  "overview_sentence": "[Federated learning](articles/federated-learning.qmd) trains a shared model while the records stay where they were collected.",
+  "covered_terms": [
+    "Federated learning"
+  ],
+  "self_checks": [
+    {
+      "title": "Pooled mean",
+      "prompt": "One site has values 1 and 3. Another has the single value 10. What is the pooled mean?",
+      "answer": "The pooled mean is 14/3."
+    },
+    {
+      "title": "Unweighted gap",
+      "prompt": "How much larger is the unweighted mean of the two site means than that pooled mean?",
+      "answer": "The gap is 4/3."
+    },
+    {
+      "title": "Equal sizes",
+      "prompt": "If the second site instead has two values, both 10, what is the pooled mean?",
+      "answer": "The pooled mean is 6."
+    }
+  ]
+}

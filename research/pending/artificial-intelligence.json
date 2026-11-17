@@ -1,0 +1,10 @@
+{
+  "action": "alias",
+  "term": "Artificial intelligence",
+  "slug": "artificial-intelligence",
+  "alias_of": "machine-learning",
+  "covered_terms": [
+    "Artificial intelligence"
+  ],
+  "reason": "ISL and ESL use the language of machine learning for learning from data, and they treat artificial intelligence as a neighbouring field rather than a distinct statistical definition."
+}

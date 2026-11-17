@@ -1,0 +1,45 @@
+{
+  "action": "page",
+  "slug": "classification",
+  "term": "classification",
+  "topic": "Statistical learning",
+  "kind": "concept",
+  "aliases": [
+    "Statistical classification"
+  ],
+  "lead": {
+    "field": "statistical learning",
+    "article": "",
+    "term": "classification",
+    "verb": "is",
+    "description": "the prediction of a qualitative response from features, by assigning each case to a class"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "james_islr2021",
+    "hastie_esl2009",
+    "dodge2008"
+  ],
+  "overview_sentence": "In [classification](articles/classification.qmd), features are used to predict a class label.",
+  "covered_terms": [
+    "Classification",
+    "Statistical classification"
+  ],
+  "self_checks": [
+    {
+      "title": "Bayes error with three classes",
+      "prompt": "Class probabilities are 7/10, 1/5 and 1/10. What is the conditional error of the Bayes classifier?",
+      "answer": "The conditional error is 3/10."
+    },
+    {
+      "title": "A worse label",
+      "prompt": "At those same probabilities, what is the conditional error of announcing the class whose probability is 1/5?",
+      "answer": "The conditional error is 4/5."
+    },
+    {
+      "title": "Two-class overlap",
+      "prompt": "Two class probabilities are 11/20 and 9/20. What is the Bayes error?",
+      "answer": "The Bayes error is 9/20."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "dimensionality-reduction",
+  "term": "dimensionality reduction",
+  "topic": "Statistical learning",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical learning",
+    "article": "",
+    "term": "dimensionality reduction",
+    "verb": "is",
+    "description": "the replacement of a long list of measurements by a short list of coordinates that keeps most of their variation or their shape"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "james_islr2021",
+    "hastie_esl2009"
+  ],
+  "overview_sentence": "[Dimensionality reduction](articles/dimensionality-reduction.qmd) replaces many measurements by a few coordinates that keep most of the variation.",
+  "covered_terms": [
+    "Dimensionality reduction"
+  ],
+  "self_checks": [
+    {
+      "title": "Sum of squares",
+      "prompt": "The centred points are (-1,-1), (0,0) and (1,1). What is the total sum of squares?",
+      "answer": "The total sum of squares is 4."
+    },
+    {
+      "title": "Horizontal fraction",
+      "prompt": "If only the horizontal coordinate of those centred points is kept, what fraction of the sum of squares is retained?",
+      "answer": "The retained fraction is 1/2."
+    },
+    {
+      "title": "Discarded sum of squares",
+      "prompt": "What sum of squares is discarded by keeping only the horizontal coordinate?",
+      "answer": "The discarded sum of squares is 2."
+    }
+  ]
+}
