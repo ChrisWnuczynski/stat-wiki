@@ -49,4 +49,19 @@ for d in (5, 6, 8):
 h1 = (1 - F(1, 2)) / (1 - F(1, 2) ** 4)
 assert h1 == F(8, 15)
 assert F(8, 15) > F(1, 4)
+
+# Two closed two-cycles are finite and have no absorbing state. Reachability
+# computes the full reachable set, so this is not just a finite simulation.
+successor = {1: 2, 2: 1, 3: 4, 4: 3}
+assert all(state != target for state, target in successor.items())
+reachable = {1}
+while True:
+    expanded = reachable | {successor[state] for state in reachable}
+    if expanded == reachable:
+        break
+    reachable = expanded
+assert reachable == {1, 2} and 3 not in reachable
+assert all(successor[state] in reachable for state in reachable)
+require(r"$T_3=\infty$")
+require("finite and no state is absorbing")
 print("first-passage-time checks passed")
