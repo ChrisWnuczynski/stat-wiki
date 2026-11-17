@@ -1,0 +1,25 @@
+## Lead context
+
+A hospital trial asks whether a treatment helps the patients who receive it. A public-health question asks what is happening in a population: who becomes ill, where, and after what exposure. Medical statistics is the body of methods aimed at the first kind of question and at the biological measurements that feed it. The data are counts of deaths, laboratory values, images, and follow-up times. The conclusions are about diagnosis, treatment, and the safety of a trial, and they are only as sturdy as the design that produced them.
+
+## Definition — Scope
+
+Medical statistics, or biostatistics in the narrower biomedical sense, is the application of statistical methods to questions in human biology and medicine. The main domains are epidemiology, clinical trials, and biological trials, together with the ethical constraints those trials carry. Indirect measurement of how long a substance persists in a living body is one of the older biological uses. The field is not a separate probability theory. It is the use of estimation, testing, regression, and design on medical data, including the messy parts: [missing data](missing-data.qmd), skewed laboratory measurements, and outcomes that are censored because follow-up ends.{{cite:dodge2008}} (p. 49)
+
+A [randomised controlled trial](randomised-controlled-trial.qmd), when it is designed, conducted, and reported properly, is the reference design for comparing treatments. Reporting guidelines exist because a trial that was sound in the protocol can still be unreadable, or misleading, in the paper. Observational clinical series answer different questions and do not inherit the trial's protection against confounding.{{cite:consort2010}} (Introduction){{cite:openintro2019}} (Ch. 1, §1.1)
+
+## Statistical use
+
+Clinical trials allocate treatments by chance, the idea Fisher developed for agricultural experiments and that biostatistics later treated as the start of trial methodology. [Blinding and placebos](blinding-and-placebo.qmd) keep the comparison from becoming a comparison of expectations. Binary outcomes are summarised by risks and by the [odds ratio](odds-ratio.qmd). Event times use the [survival function](survival-function.qmd), the [hazard rate](hazard-rate.qmd), and the [proportional-hazards model](proportional-hazards-model.qmd). Diagnostic tests are described by [sensitivity and specificity](sensitivity-and-specificity.qmd), which are not the same as the probability of disease given a positive result. Several measurements on the same patient call for multivariate methods, and resampling methods such as the [bootstrap](bootstrap.qmd) are routine in biostatistics, along with regression and the handling of missing values.{{cite:dodge2008}} (p. 49)
+
+A first course meets the same problems in miniature. Comparing a stent with medical management in patients at risk of stroke is already a question about efficacy, not about a formula. The design has to say who was eligible, what was randomised, and which outcome was primary. A significant test of a secondary outcome, chosen after looking, is not the trial that was planned.{{cite:openintro2019}} (Ch. 1, §1.1){{cite:consort2010}} (Introduction)
+
+## History
+
+The line usually traced for biostatistics begins in the middle of the seventeenth century, when William Petty and John Graunt analysed the London Bills of Mortality and, with that, death rates, birth rates, and counts of people. Gregor Mendel's nineteenth-century experiments on plants added systematic counts of inheritance. Galton and Pearson applied the new correlation methods to physical and behavioural resemblance, and with Weldon they founded *Biometrika*. Fisher's random allocation of treatments at Rothamsted is the design step later read as the opening of the clinical trial. Journals such as *Statistics in Medicine*, *Biometrics*, and *Controlled Clinical Trials* mark the field as a profession with its own literature.{{cite:dodge2008}} (p. 49)
+
+Late twentieth-century trial reports were uneven enough that consolidated standards were written. The 2010 CONSORT statement updates the guidance for reporting parallel-group randomised trials, on the view that a well-run trial is the reference method for evaluating health care and that readers cannot judge a trial they cannot see.{{cite:consort2010}} (Introduction)
+
+## Connections
+
+Medical statistics shares epidemiology with [public health](public-health.qmd) and shares survival methods with reliability engineering, where the same [survival function](survival-function.qmd) is a probability of still functioning. It is one of the fields in which [missing data](missing-data.qmd) and early stopping can change a result as much as the treatment does. A laboratory interval, a trial estimate, and a screening test answer three different conditional questions. Mixing them is a misuse of a medical number, not a small change of vocabulary.{{cite:dodge2008}} (p. 49){{cite:openintro2019}} (Ch. 1, §1.1)

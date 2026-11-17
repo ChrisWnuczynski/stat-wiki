@@ -1,0 +1,40 @@
+{
+  "action": "page",
+  "slug": "statistics-education",
+  "term": "statistics education",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "teaching",
+    "article": "",
+    "term": "statistics education",
+    "verb": "is",
+    "description": "the design and teaching of statistical thinking, from school courses through the first university course in statistics",
+    "proper": false
+  },
+  "bibliography": {
+    "gaise2016": {
+      "authors": [
+        "GAISE College Report ASA Revision Committee"
+      ],
+      "year": 2016,
+      "title": "Guidelines for Assessment and Instruction in Statistics Education College Report 2016",
+      "kind": "book",
+      "publisher": "American Statistical Association",
+      "url": "https://www.amstat.org/docs/default-source/amstat-documents/gaisecollege_full.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.amstat.org/docs/default-source/amstat-documents/gaisecollege_full.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "gaise2016",
+    "openintro2019"
+  ],
+  "overview_sentence": "[Statistics education](articles/statistics-education.qmd) is the design and teaching of statistical thinking in school and university courses.",
+  "covered_terms": [
+    "Statistics education"
+  ]
+}

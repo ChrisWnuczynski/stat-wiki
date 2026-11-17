@@ -1,0 +1,46 @@
+{
+  "action": "page",
+  "slug": "open-science",
+  "term": "open science",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "scientific method",
+    "article": "",
+    "term": "open science",
+    "verb": "is",
+    "description": "the practice of making data, code, materials, and study plans available so that results can be checked and repeated",
+    "proper": false
+  },
+  "bibliography": {
+    "nosek2015": {
+      "authors": [
+        "Nosek, B. A.",
+        "Alter, G.",
+        "Banks, G. C.",
+        "Borsboom, D.",
+        "Bowman, S. D."
+      ],
+      "year": 2015,
+      "title": "Promoting an open research culture",
+      "kind": "article",
+      "venue": "Science",
+      "doi": "10.1126/science.aab2374",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1126/science.aab2374"
+      },
+      "volume": "348",
+      "issue": "6242"
+    }
+  },
+  "cite_keys": [
+    "nosek2015",
+    "osc2015"
+  ],
+  "overview_sentence": "[Open science](articles/open-science.qmd) is the practice of sharing data, code, materials, and plans so results can be checked.",
+  "covered_terms": [
+    "Open science"
+  ]
+}

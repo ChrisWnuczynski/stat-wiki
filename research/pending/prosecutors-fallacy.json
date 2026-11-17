@@ -1,0 +1,10 @@
+{
+  "action": "alias",
+  "term": "Prosecutor's fallacy",
+  "slug": "prosecutors-fallacy",
+  "alias_of": "fallacy-of-the-transposed-conditional",
+  "covered_terms": [
+    "Prosecutor's fallacy"
+  ],
+  "reason": "The existing page defines the error of treating the chance of evidence given a hypothesis as the chance of the hypothesis given the evidence, and its courtroom match-probability example is this fallacy."
+}

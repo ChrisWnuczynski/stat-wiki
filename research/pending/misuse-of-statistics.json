@@ -1,0 +1,27 @@
+{
+  "action": "page",
+  "slug": "misuse-of-statistics",
+  "term": "misuse of statistics",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical interpretation",
+    "article": "",
+    "term": "misuse of statistics",
+    "verb": "is",
+    "description": "a conclusion that the design or the analysis does not support, including selective reporting and over-strong causal readings",
+    "proper": false
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "ioannidis2005",
+    "openintro2019",
+    "un_res68261"
+  ],
+  "overview_sentence": "[Misuse of statistics](articles/misuse-of-statistics.qmd) is a conclusion the sample, the experiment, or the analysis does not warrant.",
+  "covered_terms": [
+    "Misuse of statistics"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "action": "page",
+  "slug": "psychological-statistics",
+  "term": "psychological statistics",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "psychology",
+    "article": "",
+    "term": "psychological statistics",
+    "verb": "is",
+    "description": "the design and analysis of studies of behaviour, perception, and mental measurement",
+    "proper": false
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "openintro2019",
+    "osc2015"
+  ],
+  "overview_sentence": "[Psychological statistics](articles/psychological-statistics.qmd) is the design and analysis of studies of behaviour and mental measurement.",
+  "covered_terms": [
+    "Psychological statistics"
+  ]
+}

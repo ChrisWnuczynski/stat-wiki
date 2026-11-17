@@ -1,0 +1,45 @@
+{
+  "action": "page",
+  "slug": "structural-equation-modelling",
+  "term": "structural equation modelling",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [
+    "structural equation modeling",
+    "SEM"
+  ],
+  "lead": {
+    "field": "multivariate models",
+    "article": "",
+    "term": "structural equation modelling",
+    "verb": "is",
+    "description": "a family of models that combine directed relations among variables with latent variables measured by observed indicators",
+    "proper": false
+  },
+  "bibliography": {
+    "rosseel2012": {
+      "authors": [
+        "Rosseel, Yves"
+      ],
+      "year": 2012,
+      "title": "lavaan: An R Package for Structural Equation Modeling",
+      "kind": "article",
+      "venue": "Journal of Statistical Software",
+      "volume": "48",
+      "issue": "2",
+      "url": "https://www.jstatsoft.org/article/view/v048i02",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.jstatsoft.org/article/view/v048i02"
+      }
+    }
+  },
+  "cite_keys": [
+    "hernan_robins2020",
+    "rosseel2012"
+  ],
+  "overview_sentence": "[Structural equation modelling](articles/structural-equation-modelling.qmd) combines directed relations with latent variables measured by indicators.",
+  "covered_terms": [
+    "Structural equation modelling"
+  ]
+}

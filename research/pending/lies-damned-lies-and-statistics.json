@@ -1,0 +1,13 @@
+{
+  "action": "defer",
+  "term": "Lies, damned lies, and statistics",
+  "slug": "lies-damned-lies-and-statistics",
+  "covered_terms": [
+    "Lies, damned lies, and statistics"
+  ],
+  "reason": "Dodge has no entry. A Project Gutenberg fetch of Twain's autobiography did not return the text, and no copy of Huff was opened, so the quotation and its statistical discussion could not be cited.",
+  "sources_tried": [
+    "dodge2008 search",
+    "gutenberg epub 19987 (failed fetch)"
+  ]
+}

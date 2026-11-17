@@ -1,0 +1,72 @@
+{
+  "action": "page",
+  "slug": "statistical-process-control",
+  "term": "statistical process control",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [
+    "SPC"
+  ],
+  "lead": {
+    "field": "industrial statistics",
+    "article": "",
+    "term": "statistical process control",
+    "verb": "is",
+    "description": "the monitoring of a process with control charts so that a real change is distinguished from ordinary variation",
+    "proper": false
+  },
+  "bibliography": {
+    "nist_pmc13_2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.1.3: What is Process Control?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc13.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc13.htm"
+      }
+    },
+    "nist_pmc31_2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.3.1: What are Control Charts?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc31.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_glossary2002",
+    "nist_pmc11_2002",
+    "nist_pmc13_2002",
+    "nist_pmc2002",
+    "nist_pmc31_2002"
+  ],
+  "overview_sentence": "[Statistical process control](articles/statistical-process-control.qmd) monitors a process with control charts so ordinary variation is not mistaken for a change.",
+  "covered_terms": [
+    "Statistical process control"
+  ]
+}

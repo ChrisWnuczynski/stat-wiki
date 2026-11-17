@@ -1,0 +1,13 @@
+{
+  "action": "defer",
+  "term": "Management Science",
+  "slug": "management-science",
+  "covered_terms": [
+    "Management Science"
+  ],
+  "reason": "Dodge p. 519 lists management and administration as an application of statistics but does not define the discipline. No operations-research monograph was opened.",
+  "sources_tried": [
+    "dodge2008 p. 519",
+    "dodge2008 search for management science"
+  ]
+}
