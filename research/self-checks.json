@@ -2544,14 +2544,14 @@
   ],
   "estimation-theory": [
     {
-      "title": "Target",
-      "prompt": "A sample mean of 4 and a sample variance of 8/3 are computed from the same four numbers. What distinguishes them?",
-      "answer": "They are different functions of the sample, aimed at different population quantities."
+      "title": "Two unbiased estimators",
+      "prompt": "For a sample of size 4 with variance 4, the sample mean and the first observation are both unbiased. What are their mean squared errors?",
+      "answer": "The sample mean has mean squared error 1. The first observation has mean squared error 4."
     },
     {
-      "title": "Estimator and parameter",
-      "prompt": "Why is the number 4 not itself the population mean?",
-      "answer": "It is a function of one sample. The population mean is the quantity the sample mean is aimed at."
+      "title": "Estimate and error",
+      "prompt": "A sample mean comes out equal to 4. Why is that number not the mean squared error?",
+      "answer": "It is one evaluation of the estimator. The mean squared error is the expected squared error of the function, which is 1 when the variance is 4 and the sample size is 4."
     }
   ],
   "probability-theory": [

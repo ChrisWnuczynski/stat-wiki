@@ -9,7 +9,7 @@ Four finishing times, in minutes, are \(8\), \(3\), \(8\), and \(1\). The clock 
 ## Definition
 Order the sample from smallest to largest. If all \(n\) values are distinct, the ranks are \(1, 2, \ldots, n\) in that order, written back against the original positions. If several observations have exactly the same value, each of them receives the average of the ranks those positions would have taken. For two values tied at the top of a list of four, the places \(3\) and \(4\) average to \(3.5\), and both tied values are ranked \(3.5\).
 
-Spearman's coefficient uses two such rankings. If there are many average ranks, Dodge records a correction. With \(g\) tied groups in the first sample, of sizes \(t_i\),
+Spearman's coefficient uses two such rankings. If there are many average ranks, the coefficient uses a correction. With \(g\) tied groups in the first sample, of sizes \(t_i\),
 \[
 S_x=\frac{n(n^2-1)-\sum_{i=1}^{g}(t_i^3-t_i)}{12},
 \]

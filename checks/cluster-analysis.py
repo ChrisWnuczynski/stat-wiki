@@ -38,4 +38,5 @@ assert min(5, sqrt(37), 4, sqrt(26)) == 4
 wcss = Fraction(1, 2) + 1
 assert wcss == Fraction(3, 2)
 assert "3/2" in prose and "distance $4$" in prose
+assert min(5, sqrt(29)) == 5
 print("cluster-analysis checks passed")

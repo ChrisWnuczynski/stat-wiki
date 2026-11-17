@@ -35,10 +35,10 @@ The six Euclidean distances among \(A(0,0)\), \(B(1,0)\), \(C(5,0)\) and \(D(6,1
 
 For the squared Euclidean criterion, the centre of \(\{A,B\}\) is \((1/2, 0)\). The two squared distances to it are \((1/2)^2+(0)^2=1/4\) each, and they sum to \(1/2\). The centre of \(\{C,D\}\) is \((11/2, 1/2)\). Each point contributes \((1/2)^2+(1/2)^2=1/2\), and the pair sums to \(1\). The partition therefore has within-cluster sum of squares \(1/2+1=3/2\).
 
-**Your turn.** Under single linkage, what is the distance between the groups \(\{A,B\}\) and \(\{C,D\}\)?
+**Your turn.** Three other points are \((0,0)\), \((0,2)\) and \((5,0)\). Single linkage joins the first two at distance \(2\). What is the single-linkage distance from that pair to \((5,0)\)?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The distance is \(4\), the gap from \(B\) to \(C\). Every other cross distance is larger.
+The cross distances are \(5\) and \(\sqrt{29}\). Single linkage uses the smaller one, so the distance is \(5\).
 :::
 
 ## Connections

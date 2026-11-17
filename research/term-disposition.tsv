@@ -44,7 +44,7 @@ Data set	Fundamentals	wikipedia-body / grokipedia / glossary	alias dataset
 Data sharing	Applications	grokipedia	page data-sharing
 Data type	Fundamentals	wikipedia-body / grokipedia	alias levels-of-measurement
 Decision problem	Inference	grokipedia	page decision-problem
-Decision theory	Inference	grokipedia / outline / glossary	alias loss-and-risk
+Decision theory	Inference	grokipedia / outline / glossary	alias decision-problem
 Demography	Applications	wikipedia-body / grokipedia	page demography
 Dependent and independent variables	Fundamentals	wikipedia-body	alias response-variable and explanatory-variable
 Difference in differences	Study design	wikipedia-body	page difference-in-differences
@@ -96,7 +96,7 @@ Levels of measurement	Fundamentals	wikipedia-body	page levels-of-measurement
 Lies, damned lies, and statistics	Applications	wikipedia-body	todo
 Likelihood ratios in diagnostic testing	Inference	wikipedia-body	page likelihood-ratios-in-diagnostic-testing
 Line chart	Data analysis	wikipedia-body / wikipedia-navbox	page line-chart
-Loss function	Inference	grokipedia / wikipedia-navbox / outline / glossary	alias loss-and-risk
+Loss function	Inference	grokipedia / wikipedia-navbox / outline / glossary	alias decision-problem
 Machine learning	Statistical learning	wikipedia-body / grokipedia	page machine-learning
 Management Science	Applications	wikipedia-body	todo
 Mathematical statistics	Inference	wikipedia-body / grokipedia / wikipedia-navbox / outline / glossary	page mathematical-statistics
@@ -164,7 +164,7 @@ Spearman's rank correlation coefficient	Fundamentals	wikipedia-body / wikipedia-
 Statistical classification	Statistical learning	wikipedia-body / wikipedia-navbox / outline	alias classification
 Statistical consultant	Applications	wikipedia-body	page statistical-consultant
 Statistical data type	Fundamentals	wikipedia-body	alias levels-of-measurement
-Statistical decision theory	Inference	wikipedia-body	alias loss-and-risk
+Statistical decision theory	Inference	wikipedia-body	alias decision-problem
 Statistical dispersion	Data analysis	wikipedia-body / wikipedia-navbox / outline / glossary	page statistical-dispersion
 Statistical graphics	Data analysis	grokipedia / wikipedia-navbox / outline / glossary	page statistical-graphics
 Statistical learning theory	Inference	grokipedia / outline	page statistical-learning-theory
@@ -180,7 +180,7 @@ Statistical theory	Inference	wikipedia-body / wikipedia-navbox	page statistical-
 Statistician	History	wikipedia-body	page statistician
 Statistics education	Applications	wikipedia-body	page statistics-education
 Stochastic	Probability	grokipedia	alias stochastic-process
-Stochastic analysis	Stochastic processes	wikipedia-body	alias stochastic-process
+Stochastic analysis	Stochastic processes	wikipedia-body	todo; not aliased to stochastic-process
 Structural equation modelling	Applications	wikipedia-body	page structural-equation-modelling
 Structured data analysis (statistics)	Data analysis	wikipedia-body	todo
 Supervised learning	Statistical learning	grokipedia	page supervised-learning
@@ -199,4 +199,4 @@ Tukey's range test	Applications	wikipedia-body	alias tukey-intervals
 Uncertainty	Fundamentals	grokipedia	page uncertainty
 Unsupervised learning	Statistical learning	grokipedia	page unsupervised-learning
 Variable (mathematics)	Fundamentals	wikipedia-body	alias variable
-Z-score	Fundamentals	wikipedia-body	alias normal-distribution
+Z-score	Fundamentals	wikipedia-body	alias standard-score

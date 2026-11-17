@@ -11096,20 +11096,6 @@
         "id": "https://arxiv.org/pdf/1205.2064"
       }
     },
-    "hansen2010": {
-      "authors": [
-        "Hansen, B. E."
-      ],
-      "year": 2022,
-      "title": "Econometrics",
-      "kind": "book",
-      "publisher": "Princeton University Press",
-      "doi": "10.1515/9780691235899",
-      "verification": {
-        "source": "crossref",
-        "id": "10.1515/9780691235899"
-      }
-    },
     "bonita2006": {
       "authors": [
         "Bonita, R.",
@@ -11125,20 +11111,6 @@
       "verification": {
         "source": "archival_url",
         "id": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y"
-      }
-    },
-    "informs_analytics": {
-      "authors": [
-        "Institute for Operations Research and the Management Sciences"
-      ],
-      "year": 2026,
-      "title": "Operations Research and Analytics",
-      "kind": "article",
-      "venue": "INFORMS",
-      "url": "https://www.informs.org/Explore/Operations-Research-Analytics",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.informs.org/Explore/Operations-Research-Analytics"
       }
     },
     "vidgen2017": {

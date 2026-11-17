@@ -46,5 +46,10 @@ N, n = 12, 4
 H = Fraction(12, N * (N + 1)) * sum(Fraction(r * r, n) for r in ranks) - 3 * (N + 1)
 assert H == Fraction(128, 13)
 assert 13.64 > 7.81
+ranks_turn = (18, 26, 34)
+assert sum(ranks_turn) == 78
+assert min(ranks_turn) >= 10 and max(ranks_turn) <= 42
+H_turn = Fraction(12, N * (N + 1)) * sum(Fraction(r * r, n) for r in ranks_turn) - 3 * (N + 1)
+assert H_turn == Fraction(32, 13)
 
 print(SLUG, "ok")

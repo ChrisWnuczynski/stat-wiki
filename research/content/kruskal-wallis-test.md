@@ -35,10 +35,10 @@ H=\frac{12}{12\cdot 13}\cdot 635-3\cdot 13=\frac{635}{13}-39=\frac{635-507}{13}=
 \]
 The chi-squared 5 percent point with \(k-1=2\) degrees of freedom is about 5.991, and \(128/13>5.991\). For three samples of size 4 the exact reference is the Kruskal–Wallis table, because each sample size is at most 5. The value \(128/13\) is the statistic. The table, not the chi-squared point, is the critical value Dodge specifies for this size. {{cite:dodge2008}} (pp. 288–289) {{cite:nist_kruskal2002}} (§7.4.1)
 
-**Your turn.** The same three groups of four have rank sums 10, 26, and 42. Compute \(H\).
+**Your turn.** Three other groups of four have rank sums 18, 26, and 34. Compute \(H\).
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The weighted sum of squared rank sums is \((100+676+1764)/4=635\). Then \(H=12/(12\cdot 13)\cdot 635-3\cdot 13=635/13-39=(635-507)/13=128/13\approx 9.846\).
+The rank sums add to 78. The weighted sum of squares is \((324+676+1156)/4=2156/4=539\). Then \(H=539/13-39=(539-507)/13=32/13\approx 2.462\).
 :::
 
 ## Connections
