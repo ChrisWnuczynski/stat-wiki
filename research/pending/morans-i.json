@@ -1,0 +1,62 @@
+{
+  "action": "page",
+  "slug": "morans-i",
+  "term": "Moran's I",
+  "topic": "Applications",
+  "kind": "concept",
+  "aliases": [
+    "Moran coefficient"
+  ],
+  "lead": {
+    "field": "spatial statistics",
+    "article": "",
+    "term": "Moran's I",
+    "verb": "is",
+    "description": "an index of whether neighbouring areas have more similar values than a random reassignment of those values",
+    "proper": true
+  },
+  "bibliography": {
+    "rey_gds2020": {
+      "authors": [
+        "Rey, Sergio J.",
+        "Arribas-Bel, Dani",
+        "Wolf, Levi J."
+      ],
+      "year": 2020,
+      "title": "Geographic Data Science with Python",
+      "kind": "book",
+      "publisher": "Routledge",
+      "url": "https://geographicdata.science/book/",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://geographicdata.science/book/"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "moraga2023",
+    "rey_gds2020"
+  ],
+  "overview_sentence": "[Moran's I](articles/morans-i.qmd) measures whether neighbouring areas are more alike than a random map.",
+  "covered_terms": [
+    "Moran's I"
+  ],
+  "self_checks": [
+    {
+      "title": "Line of four areas",
+      "prompt": "Areas in a line have values 1, 2, 4, and 5, and binary neighbour weights with six nonzero entries. What is Moran's I?",
+      "answer": "The index is 0.4."
+    },
+    {
+      "title": "Sum of the weights",
+      "prompt": "For four areas in a line and binary weights on each ordered neighbour pair, what is the sum of all weights?",
+      "answer": "The sum of the weights is 6."
+    },
+    {
+      "title": "Alternating values",
+      "prompt": "The same four areas and weights now have values 1, 2, 2, and 1. What is Moran's I?",
+      "answer": "The index is -1/3."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "action": "page",
+  "slug": "statistical-literacy",
+  "term": "statistical literacy",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistics education",
+    "article": "",
+    "term": "statistical literacy",
+    "verb": "is",
+    "description": "the ability to judge whether a published statistical claim follows from the study and the analysis that produced it",
+    "proper": false
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "gaise2016",
+    "openintro2019"
+  ],
+  "overview_sentence": "[Statistical literacy](articles/statistical-literacy.qmd) is the ability to judge whether a published claim follows from its study.",
+  "covered_terms": [
+    "Statistical literacy"
+  ]
+}

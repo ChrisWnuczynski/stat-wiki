@@ -1,0 +1,23 @@
+## Lead context
+
+A government that taxes, builds, and holds elections needs a shared description of its population and economy. Counting soldiers and stores is ancient. The modern practice is a public system: agencies collect data under law, publish the figures, and are expected to do so without favouring the government of the day. Those figures are official statistics. They are used to allocate seats, track unemployment, and compare countries, so the rules that govern them are part of the measurement, not a decoration around it.
+
+## Definition — Scope
+
+Official statistics are statistics compiled and released by a public statistical agency, or by a body working for the state, about the economic, demographic, social, and environmental situation. The word *official* marks a relation to the state, not a claim that every government number is accurate. The scope is wide: population and migration, employment, prices, health, education, agriculture, transport, public finance, and national accounts. What sits inside the boundary is itself a political choice. Definitions of unemployment, poverty, or a professional category can be widened or narrowed, and the published level moves with the definition.{{cite:dodge2008}} (pp. 393–394){{cite:un_res68261}} (Principle 1)
+
+The same idea excludes a private poll or a firm's internal dashboard, unless a statistical law has given that source a role in the official system. Principle 5 allows agencies to draw on surveys or on administrative records, choosing the source for quality, timeliness, cost, and the burden on respondents. Principle 6 then closes the other door: individual data collected for statistical compilation are confidential and are to be used only for statistical purposes.{{cite:un_res68261}} (Principles 5–6)
+
+## Statistical use
+
+The basic operation is still a [census](census.qmd), a count of every unit, and the United States has taken one every ten years since 1790. Between censuses, agencies estimate totals from samples. [Stratified and cluster sampling](stratified-and-cluster-sampling.qmd) and post-collection weighting are the usual tools when a full enumeration is too slow or too costly. Repeated monthly and quarterly series are [time series](time-series.qmd); [seasonality](seasonality.qmd) is removed when the published headline is meant to show the underlying movement rather than the calendar. Price indices and national accounts turn many micro-records into a few macroeconomic totals. Principle 9 asks agencies to use international concepts and classifications so that those totals can be compared across countries. Principle 3 asks them to publish the sources and methods, because a figure without a method cannot be read.{{cite:dodge2008}} (pp. 393–394){{cite:un_res68261}} (Principles 3, 9)
+
+## History
+
+Kings in Babylon, Egypt, China, and Rome counted people and goods when they needed armies or taxes. Statisticians in the later sense appear in the late seventeenth century, with the modern state and colonial administration. Diderot and d'Alembert's encyclopedia described "arithmetical politics" as arithmetic applied to political subjects. Regular decennial censuses in the United States began in 1790 so that the new republic could weigh its parts. After the Second World War the United Nations Statistical Commission promoted national statistical systems; the first world population census programme under UN auspices was organised in 1950, with another in 1960.{{cite:dodge2008}} (pp. 393–394)
+
+In 1994 the Statistical Commission adopted ten Fundamental Principles. The General Assembly endorsed them on 29 January 2014, in resolution 68/261. The preamble ties public trust to professional independence and to a legal framework that politicians and other producers in the national system are expected to respect. Principle 2 assigns the choice of methods to professional and scientific considerations. Principle 10 treats cooperation between countries as part of improving the systems themselves.{{cite:un_res68261}} (Principles 2, 10)
+
+## Connections
+
+Official statistics sit next to demography, social statistics, and the [system of national accounts](system-of-national-accounts.qmd). An indicator programme such as the one pursued by the OECD since the 1960s is an attempt to turn this output into a compact briefing for policy. The same machinery can mislead when a definition is changed without a clear note, which is why Principle 4 gives agencies a right to comment on erroneous interpretation and misuse. A sample survey and a census answer different questions; publishing one as if it were the other is a failure of method, not a small printing error.{{cite:un_res68261}} (Principle 4){{cite:dodge2008}} (p. 394)

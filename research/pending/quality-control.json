@@ -1,0 +1,72 @@
+{
+  "action": "page",
+  "slug": "quality-control",
+  "term": "quality control",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [
+    "statistical quality control"
+  ],
+  "lead": {
+    "field": "industrial statistics",
+    "article": "",
+    "term": "quality control",
+    "verb": "is",
+    "description": "the use of sampling, control charts, and experiments to keep a product or process within its specification",
+    "proper": false
+  },
+  "bibliography": {
+    "nist_pmc11_2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §6.1.1: How did Statistical Quality Control Begin?",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc11.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc11.htm"
+      }
+    },
+    "nist_pmc2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, Chapter 6: Process or Product Monitoring and Control",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmc/pmc.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmc/pmc.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_pmc11_2002",
+    "nist_pmc13_2002",
+    "nist_pmc2002",
+    "nist_pmc31_2002",
+    "nist_reliability2002"
+  ],
+  "overview_sentence": "[Quality control](articles/quality-control.qmd) uses sampling, charts, and experiments to keep a process within specification.",
+  "covered_terms": [
+    "Quality control"
+  ]
+}

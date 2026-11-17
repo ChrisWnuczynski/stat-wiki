@@ -1,0 +1,58 @@
+{
+  "action": "page",
+  "slug": "replication-crisis",
+  "term": "replication crisis",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "scientific method",
+    "article": "the",
+    "term": "replication crisis",
+    "verb": "is",
+    "description": "the recognition that many published findings do not reappear when a study is repeated with new data",
+    "proper": false
+  },
+  "bibliography": {
+    "ioannidis2005": {
+      "authors": [
+        "Ioannidis, John P. A."
+      ],
+      "year": 2005,
+      "title": "Why Most Published Research Findings Are False",
+      "kind": "article",
+      "venue": "PLoS Medicine",
+      "doi": "10.1371/journal.pmed.0020124",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1371/journal.pmed.0020124"
+      },
+      "volume": "2",
+      "issue": "8"
+    },
+    "osc2015": {
+      "authors": [
+        "Open Science Collaboration"
+      ],
+      "year": 2015,
+      "title": "Estimating the reproducibility of psychological science",
+      "kind": "article",
+      "venue": "Science",
+      "doi": "10.1126/science.aac4716",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1126/science.aac4716"
+      },
+      "volume": "349",
+      "issue": "6251"
+    }
+  },
+  "cite_keys": [
+    "ioannidis2005",
+    "osc2015"
+  ],
+  "overview_sentence": "The [replication crisis](articles/replication-crisis.qmd) is the finding that many published results do not reappear in a new sample.",
+  "covered_terms": [
+    "Replication crisis"
+  ]
+}

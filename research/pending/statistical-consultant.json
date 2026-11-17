@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "statistical-consultant",
+  "term": "statistical consultant",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical practice",
+    "article": "a",
+    "term": "statistical consultant",
+    "verb": "is",
+    "description": "a practitioner who advises a client on the design, analysis, or interpretation of data",
+    "proper": false
+  },
+  "bibliography": {
+    "asa_ethical2022": {
+      "authors": [
+        "American Statistical Association"
+      ],
+      "year": 2022,
+      "title": "Ethical Guidelines for Statistical Practice",
+      "kind": "book",
+      "publisher": "American Statistical Association",
+      "doi": "10.5281/zenodo.7092386",
+      "url": "https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.amstat.org/your-career/ethical-guidelines-for-statistical-practice"
+      }
+    }
+  },
+  "cite_keys": [
+    "asa_ethical2022",
+    "dodge2008"
+  ],
+  "overview_sentence": "A [statistical consultant](articles/statistical-consultant.qmd) advises a client on the design, analysis, or interpretation of data.",
+  "covered_terms": [
+    "Statistical consultant"
+  ]
+}
