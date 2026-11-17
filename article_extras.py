@@ -4793,3 +4793,8 @@ THEOREM_LEADS.update({
     "properties-of-a-probability": "a set of consequences of the probability axioms for events and their combinations",
     "bayes-consistency-of-nearest-neighbours": "a consistency result for nearest-neighbour classification as the sample grows",
 })
+
+
+# Exact corrections to copied article prose, keyed by article slug.
+# Entries are (old fragment, replacement) pairs; the build rejects absent targets.
+ARTICLE_SOURCE_CORRECTIONS: dict[str, list[tuple[str, str]]] = {}
