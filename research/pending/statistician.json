@@ -1,0 +1,50 @@
+{
+  "action": "page",
+  "slug": "statistician",
+  "term": "Statistician",
+  "topic": "History",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "history of statistics",
+    "article": "a",
+    "term": "statistician",
+    "verb": "is",
+    "description": "a person who collects numerical data and turns them into summaries and inferences other people can use",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Four districts",
+      "prompt": "District birth counts are 120, 80, 200, and 100. What are the total, the mean, and the largest share?",
+      "answer": "The total is 500, the mean is 125, and the largest share is 0.4."
+    },
+    {
+      "title": "Three districts",
+      "prompt": "Three districts report 30, 45, and 75 births. What are the total, the mean, and the largest share?",
+      "answer": "The total is 150, the mean is 50, and the largest share is 0.5."
+    },
+    {
+      "title": "Smallest share",
+      "prompt": "For the counts 120, 80, 200, and 100, what is the smallest district's share of the 500 births?",
+      "answer": "The smallest share is 80/500 = 0.16."
+    }
+  ],
+  "bibliography": {
+    "okrasa_witek2013": {
+      "authors": ["Okrasa, Wlodzimierz", "Witek, Beata"],
+      "year": 2013,
+      "title": "Statistics as a profession – statistician as an occupation: observations and comments from a panel of experts",
+      "kind": "article",
+      "venue": "Statistics in Transition new series",
+      "volume": "14",
+      "issue": "2",
+      "pages": "319–328",
+      "doi": "10.59170/stattrans-2013-019",
+      "verification": {"source": "crossref", "id": "10.59170/stattrans-2013-019"}
+    }
+  },
+  "cite_keys": ["dodge2008", "okrasa_witek2013"],
+  "overview_sentence": "A [statistician](articles/statistician.qmd) collects numerical data and turns them into summaries and inferences.",
+  "covered_terms": ["Statistician"]
+}

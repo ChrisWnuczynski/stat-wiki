@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "panel-data",
+  "term": "Panel data",
+  "topic": "Correlated data",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "correlated data",
+    "article": "",
+    "term": "panel data",
+    "verb": "are",
+    "description": "repeated observations of the same units, so each record has both a unit and a time",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Balanced changes",
+      "prompt": "Three units change by +2, 0, and +3. What is the mean change, and how does it compare with a rise in the cross-sectional mean from 10/3 to 5?",
+      "answer": "The mean change is 5/3, and the wave means differ by 5 - 10/3 = 5/3."
+    },
+    {
+      "title": "A missing second wave",
+      "prompt": "Changes of +2 and 0 are observed, while the wave means that can be computed are 10/3 and 9/2. What are the mean of the observed changes and the difference of the wave means?",
+      "answer": "The mean of the observed changes is 1. The difference of the wave means is 7/6."
+    },
+    {
+      "title": "Two complete units",
+      "prompt": "One unit moves from 1 to 4 and another stays at 6. What is the mean change?",
+      "answer": "The mean change is 1.5, and the wave means differ by the same 1.5."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": ["dodge2008", "cameron_miller2015"],
+  "overview_sentence": "[Panel data](articles/panel-data.qmd) are repeated observations of the same units over time.",
+  "covered_terms": ["Panel data"]
+}

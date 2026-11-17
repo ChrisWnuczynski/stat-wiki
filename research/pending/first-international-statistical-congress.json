@@ -1,0 +1,62 @@
+{
+  "action": "page",
+  "slug": "first-international-statistical-congress",
+  "term": "First International Statistical Congress",
+  "topic": "History",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "history of statistics",
+    "article": "the",
+    "term": "First International Statistical Congress",
+    "verb": "is",
+    "description": "the 1853 Brussels meeting that opened a series of attempts to make national statistics comparable",
+    "proper": true
+  },
+  "self_checks": [
+    {
+      "title": "Opening date",
+      "prompt": "On what date did the congress open, and which commission called it?",
+      "answer": "It opened on 19 September 1853. The Central Statistical Commission of Belgium called it, with Quetelet presiding."
+    },
+    {
+      "title": "Length of the series",
+      "prompt": "Nine congresses run from 1853 to 1876. How many years separate those two dates, and how long would each gap be if the eight intervals were equal?",
+      "answer": "The dates are 23 years apart. Equal gaps would be 23/8 = 2.875 years."
+    },
+    {
+      "title": "Pooled rate",
+      "prompt": "Two compatible tables have 80 events among 200 people and 90 events among 300 people. What is the pooled rate?",
+      "answer": "The pooled rate is 170/500 = 0.34."
+    }
+  ],
+  "bibliography": {
+    "levi1854": {
+      "authors": ["Levi, Leone"],
+      "year": 1854,
+      "title": "Resume of the Statistical Congress, held at Brussels, September 11th, 1853, for the Purpose of Introducing Unity in the Statistical Documents of all Countries",
+      "kind": "article",
+      "venue": "Journal of the Statistical Society of London",
+      "volume": "17",
+      "issue": "1",
+      "pages": "1–14",
+      "doi": "10.2307/2338350",
+      "verification": {"source": "crossref", "id": "10.2307/2338350"}
+    },
+    "randeraad2011": {
+      "authors": ["Randeraad, Nico"],
+      "year": 2011,
+      "title": "The International Statistical Congress (1853—1876): Knowledge Transfers and their Limits",
+      "kind": "article",
+      "venue": "European History Quarterly",
+      "volume": "41",
+      "issue": "1",
+      "pages": "50–65",
+      "doi": "10.1177/0265691410385759",
+      "verification": {"source": "crossref", "id": "10.1177/0265691410385759"}
+    }
+  },
+  "cite_keys": ["levi1854", "randeraad2011"],
+  "overview_sentence": "The [First International Statistical Congress](articles/first-international-statistical-congress.qmd) was the 1853 Brussels meeting that tried to make national statistics comparable.",
+  "covered_terms": ["First International Statistical Congress"]
+}
