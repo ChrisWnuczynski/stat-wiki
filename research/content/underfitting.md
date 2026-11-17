@@ -1,0 +1,27 @@
+## Motivating example — An error pattern that survives fitting
+Suppose a response rises at both ends of a predictor's range and falls in the middle. A fitted straight line may miss the same pattern in both training and validation data. More observations can estimate that inadequate line more precisely without giving it the missing curvature. Underfitting concerns the relation between the fitted procedure and the structure needed for prediction. Comparing training and validation errors helps distinguish it from a fit that follows the training sample too closely.{{cite:zhang_d2l2023}} (Ch. 3, “Generalization”, “Underfitting or Overfitting?”)
+
+## Definition — Insufficient fit has several causes
+A model can underfit because its function class is too restrictive, because a penalty suppresses needed variation, or because optimisation fails to reach a useful fit. The observations alone do not identify which mechanism produced a large error. Check whether the training objective is still falling, whether reducing the penalty helps, and whether a better specified function class removes a systematic residual pattern. Those checks change different parts of the fitting procedure.{{cite:zhang_d2l2023}} (Ch. 3, “Generalization”, “Model Complexity” and “Underfitting or Overfitting?”)
+
+## Interpretation — A small generalisation gap is not enough
+Let $R$ be expected prediction loss and $\widehat R$ training loss. A small gap between them can occur when both are large. A predictor that always returns a single mean may be stable across data sets while missing a strong relation with the covariates. Conversely, a large gap identifies a different concern: training performance is too optimistic about prediction. Validation estimates a prediction target only when its observations represent that target and remain outside model fitting.{{cite:zhang_d2l2023}} (Ch. 3, “Generalization”, “Training Error and Generalization Error”)
+
+Residual plots add information that a single loss value hides. A curve in residuals against fitted values or an explanatory variable indicates a systematic mean pattern that the fitted model did not capture. A residual pattern is a reason to inspect the model and measurements, rather than an automatic instruction to add a high-degree polynomial. The available covariates, scientific constraints and prediction range should determine what extra flexibility is meaningful.{{cite:openintro2019}} (§9.3, “Checking model conditions using graphs”)
+
+## Properties — Approximation error can remain with unlimited data
+For squared error, write the conditional mean as $m(x)=E(Y\mid X=x)$. For any fixed prediction function $f$ with finite second moments,
+$$E[(Y-f(X))^2]=E[\operatorname{Var}(Y\mid X)]+E[(m(X)-f(X))^2].$$
+Expand $Y-f=(Y-m)+(m-f)$ and condition on $X$; the cross term is zero because $E(Y-m\mid X)=0$. The second term measures the mismatch of that function with the target conditional mean. If an entire candidate class cannot approximate $m$, increasing sample size does not remove its best possible mismatch. Model complexity and data volume interact, rather than being interchangeable remedies.{{cite:zhang_d2l2023}} (Ch. 3, “Generalization”, “Model Complexity” and “Dataset Size”)
+
+## Worked example — A symmetric curve and a constant best line
+At inputs $-2,-1,0,1,2$, let responses be their squares, $4,1,0,1,4$. The least-squares straight line has slope zero and intercept two. Its residual sum of squares is $14$, giving mean squared training error $14/5=2.8$. The quadratic $f(x)=x^2$ has zero error on these noise-free observations. With evaluation inputs $-1.5,-0.5,0.5,1.5$, the straight line has mean squared error $1.5625$ while the quadratic has zero error. The validation error need not exceed the training error: the evaluation inputs are a different collection.
+
+**Your turn.** For a constant predictor on the five training values, what constant minimises squared error, and what sum of squares does constant zero produce?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The sample mean, two, minimises the constant fit. Constant zero gives $4^2+1^2+0^2+1^2+4^2=34$, which exceeds fourteen.
+:::
+
+## Assumptions and limits — Noise places a floor under squared error
+Large training and validation losses can reflect unavoidable response variability, poorly measured inputs, a shifted validation population or a misspecified loss. Thus the familiar error pattern is diagnostic evidence whose interpretation requires a plausible prediction target and a reference for achievable accuracy. Increasing flexibility can reduce approximation error while increasing the uncertainty of a fitted function. Assess the resulting prediction loss on data not used to choose that flexibility.{{cite:zhang_d2l2023}} (Ch. 3, “Generalization”, “Model Selection”); {{cite:openintro2019}} (§9.2, “Model selection”)
