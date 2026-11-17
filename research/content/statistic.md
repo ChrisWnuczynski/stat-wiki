@@ -34,7 +34,7 @@ For readings $1,3,5,7$, the observed sample mean is $\overline x=(1+3+5+7)/4=4$,
 **Your turn.** A new sample is $2,4,6$. Find its mean, sample variance, and range. If a null hypothesis specifies $\mu_0=4$, is $(\overline X-\mu_0)/(s/\sqrt3)$ a statistic, and what is its observed value?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $4$, the sample variance is $[(-2)^2+0^2+2^2]/(3-1)=4$, and the range is $6-2=4$. Because $\mu_0$ is specified, the expression is a statistic; its observed numerator is zero, so its value is $0$.{{cite:siegrist2022_normals}} (§6.08)
+The mean is $4$, the sample variance is $[(-2)^2+0^2+2^2]/(3-1)=4$, and the range is $6-2=4$. Because $\mu_0$ is specified, the expression is a statistic; its observed numerator is zero, so its value is $0$.
 :::
 
 The [expected sample variance exercise](../questions/ex-inf-expected-sample-variance.qmd) separates a statistic from its sampling expectation.{{cite:siegrist2022_normals}} (§6.08)

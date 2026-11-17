@@ -1,3 +1,6 @@
+## Motivating example
+Two mixture cases have component probabilities $0.4$ and $0.6$. With the labels known, the first case contributes $0.4\times 0.5=0.2$ and the second contributes $0.6\times 0.8=0.48$. The complete likelihood of the labelled pair is $0.096$.
+
 ## Intuition — The likelihood if the labels were seen
 A mixture observation is produced by one component, but the component label is not in the data. The observed likelihood sums over those labels, and the logarithm of that sum is awkward to maximise. The complete-data likelihood is the joint probability of the measurement and the label. With the label written as a one-hot indicator, the joint contribution is a product, not a sum inside a logarithm. Replacing the unseen indicator by its conditional probability is the step that turns this likelihood into the function EM actually maximises.{{cite:bishop2006}} (eqs. 9.35–9.36, p. 443)
 
@@ -27,6 +30,9 @@ The observed likelihood does not use the labels. The first case contributes $0.4
 The first case now contributes $0.6\times 0.1=0.06$. With the second contribution still $0.48$, the complete likelihood is $0.06\times 0.48=0.0288$.
 :::
 
+## Connections — What the E step is averaging
+The [EM algorithm](em-algorithm.qmd) replaces each $z_{ih}$ in $\ell_C$ by its conditional expectation given the case, then maximises. Those conditional probabilities are the responsibilities in a [finite mixture model](finite-mixture-model.qmd). The [likelihood function](likelihood-function.qmd) of the observed sample is the product of the sums, which is what $\ell_C$ avoids. The algebra is the same for a normal component and for any other component density that the indicator simply switches on.{{cite:bishop2006}} (eqs. 9.30 and 9.36, pp. 440–443)
+
 ## Check yourself
 ### An all-zero exponent
 Why does $(\pi_2 f_2)^{0}$ equal $1$ in the first case of the worked example, rather than $0$?
@@ -39,8 +45,5 @@ The exponent is the indicator that the case came from component $2$. It is $0$, 
 For the first case, which is larger, the complete contribution $0.2$ under label $1$ or the observed contribution $0.26$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The observed contribution $0.26$ is larger. It equals $0.2+0.06$, the sum of the two possible complete contributions.{{cite:bishop2006}} (eq. 9.35, p. 443)
+The observed contribution $0.26$ is larger. It equals $0.2+0.06$, the sum of the two possible complete contributions.
 :::
-
-## Connections — What the E step is averaging
-The [EM algorithm](em-algorithm.qmd) replaces each $z_{ih}$ in $\ell_C$ by its conditional expectation given the case, then maximises. Those conditional probabilities are the responsibilities in a [finite mixture model](finite-mixture-model.qmd). The [likelihood function](likelihood-function.qmd) of the observed sample is the product of the sums, which is what $\ell_C$ avoids. The algebra is the same for a normal component and for any other component density that the indicator simply switches on.{{cite:bishop2006}} (eqs. 9.30 and 9.36, pp. 440–443)

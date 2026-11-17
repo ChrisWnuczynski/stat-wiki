@@ -47,7 +47,7 @@ At $n=1$ it returns $3/4$, the offspring variance. Generation 1 is extinct with 
 **Your turn.** For $\Pr(\xi=0)=2/5$, $\Pr(\xi=1)=1/5$ and $\Pr(\xi=2)=2/5$, find the mean and the extinction probability.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $0\cdot2/5+1\cdot1/5+2\cdot2/5=1$. The law is not concentrated at 1, since $p_0=2/5>0$. The critical case therefore has extinction probability 1. The generating function $f(s)=2/5+s/5+(2/5)s^2$ meets $y=s$ only at $s=1$, because $f(s)-s=(2/5)(s-1)^2$.{{cite:durrett2019}} (p. 231, critical extinction)
+The mean is $0\cdot2/5+1\cdot1/5+2\cdot2/5=1$. The law is not concentrated at 1, since $p_0=2/5>0$. The critical case therefore has extinction probability 1. The generating function $f(s)=2/5+s/5+(2/5)s^2$ meets $y=s$ only at $s=1$, because $f(s)-s=(2/5)(s-1)^2$.
 :::
 
 ## Common misconceptions
@@ -65,20 +65,20 @@ The [probability generating function](probability-generating-function.qmd) is $f
 
 Offspring probabilities are $2/5$, $1/5$ and $2/5$ on $0$, $1$ and $2$. What are the mean and the extinction probability?
 
-[Question-bank page](../questions/ex-sp-critical-extinction.qmd)
+[Exercise](../questions/ex-sp-critical-extinction.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $1/5+4/5=1$. The law is non-degenerate and $p_0>0$, so the extinction probability is 1. The equation $f(s)=s$ has a double root at 1 and no root in $[0,1)$.{{cite:durrett2019}} (p. 231, critical extinction)
+The mean is $1/5+4/5=1$. The law is non-degenerate and $p_0>0$, so the extinction probability is 1. The equation $f(s)=s$ has a double root at 1 and no root in $[0,1)$.
 :::
 
 ### The variance recurrence {#self-check-ex-sp-variance-recurrence}
 
 For the two-or-none law, $m=3/2$ and $\sigma^2=3/4$. Check $\Var(Z_1)$ and $\Var(Z_2)$ from the displayed formula.
 
-[Question-bank page](../questions/ex-sp-variance-recurrence.qmd)
+[Exercise](../questions/ex-sp-variance-recurrence.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-At $n=1$ the formula returns $\sigma^2=3/4=0.75$. At $n=2$ it returns $(3/4)\cdot(3/2)\cdot((9/4)-1)/(1/2)=45/16=2.8125$. The recurrence $\Var(Z_2)=m^2\Var(Z_1)+\sigma^2 m$ gives $(9/4)(3/4)+(3/4)(3/2)=27/16+9/8=45/16$, the same value.{{cite:durrett2019}} (p. 231, $\E Z_n=m^n$; the variance step is the law of total variance)
+At $n=1$ the formula returns $\sigma^2=3/4=0.75$. At $n=2$ it returns $(3/4)\cdot(3/2)\cdot((9/4)-1)/(1/2)=45/16=2.8125$. The recurrence $\Var(Z_2)=m^2\Var(Z_1)+\sigma^2 m$ gives $(9/4)(3/4)+(3/4)(3/2)=27/16+9/8=45/16$, the same value.
 :::
 
 ## History

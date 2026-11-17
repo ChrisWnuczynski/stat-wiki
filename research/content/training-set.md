@@ -93,7 +93,7 @@ A fresh response at each of the four fixed inputs has conditional expected squar
 **Your turn.** Training pairs \((0,0)\), \((2,1)\) and \((4,0)\) are classified by one-nearest neighbour. A new input is uniform on \([0,4]\), and its true label is \(1\) only when the input is at least \(1.5\). Find the apparent error and the conditional error of this fixed rule.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The inputs are distinct, so the apparent error is \(0\). The midpoints are \(1\) and \(3\), so the rule predicts \(0\) on \([0,1)\), \(1\) on \((1,3)\) and \(0\) on \((3,4]\). It disagrees with the truth on \([1,1.5)\) and on \((3,4]\), of lengths \(0.5\) and \(1\). The conditional error is \(1.5/4=3/8\). At input \(3.5\) the nearest training point is \(4\), the predicted label is \(0\), and the true label is \(1\).{{cite:hastie_esl2009}} (p. 15)
+The inputs are distinct, so the apparent error is \(0\). The midpoints are \(1\) and \(3\), so the rule predicts \(0\) on \([0,1)\), \(1\) on \((1,3)\) and \(0\) on \((3,4]\). It disagrees with the truth on \([1,1.5)\) and on \((3,4]\), of lengths \(0.5\) and \(1\). The conditional error is \(1.5/4=3/8\). At input \(3.5\) the nearest training point is \(4\), the predicted label is \(0\), and the true label is \(1\).
 :::
 
 ## Common misconceptions

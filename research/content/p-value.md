@@ -22,13 +22,13 @@ Under $H_0:p=0.5$, toss a coin independently $20$ times and observe $15$ heads. 
 **Your turn.** With a fair-coin null, $9$ heads appear in $12$ independent tosses. Calculate the exact p-value for a prechosen excess-heads alternative and, separately, for a two-sided alternative. Would either reject at level $0.05$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\Pr(K\ge9)=299/4096\approx0.072998$ for $K\sim\operatorname{Binomial}(12,0.5)$. The symmetric two-sided tail is $2(299/4096)\approx0.145996$. Neither is at most $0.05$, so neither test rejects. This is a failure to reject the fair-coin model, not proof that the coin is fair.{{cite:siegrist2022_testing}} (§9.1, P-value)
+$\Pr(K\ge9)=299/4096\approx0.072998$ for $K\sim\operatorname{Binomial}(12,0.5)$. The symmetric two-sided tail is $2(299/4096)\approx0.145996$. Neither is at most $0.05$, so neither test rejects. This is a failure to reject the fair-coin model, not proof that the coin is fair.
 :::
 
 ## Common misconceptions
 The p-value is not $\Pr(H_0\mid\text{data})$: it conditions on $H_0$, while a posterior probability would need a prior and an alternative model. Its complement $1-p$ is not the probability that the alternative is true. A small p-value does not quantify effect magnitude or practical importance. A large p-value does not establish equivalence or the truth of the null; the caffeine example below shows how a directional test and a two-sided interval can answer different questions at the same nominal level. Finally, a p-value is not the probability that “chance alone” produced the data: all outcomes in a stochastic model involve chance, and the tail calculation also depends on the model and test design.{{cite:asa2016_pvalues}} (principles 1–6, pp. 1–2)
 
-## Assumptions and limits
+## Assumptions and limits — When the reference experiment changes
 The coin calculation fails as a calibrated binomial test if tosses influence one another or the probability of heads changes during the sequence. Optional stopping or choosing the more favorable of several outcomes after inspection changes the reference experiment. For example, with $20$ independent null tests each run at level $0.05$, the chance of at least one false rejection is $1-0.95^{20}\approx0.6415$, far above $0.05$ if only the smallest p-value is reported. An approximate normal tail can also miscalibrate a very small or skewed sample; an exact null calculation or justified simulation may be needed. All these problems concern how the tail was generated, not a cosmetic choice of cutoff.{{cite:asa2016_pvalues}} (principle 4, full reporting){{cite:siegrist2022_testing}} (§9.1, P-value)
 
 ## Connections

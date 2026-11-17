@@ -1,3 +1,6 @@
+## Motivating example
+For a training set of five cases, each bootstrap draw misses a fixed case with probability $4/5$. The chance that one case is absent from a sample of five draws is $(4/5)^5=0.3277$ to four decimal places.
+
 ## Intuition — The trees that never saw this case
 Each tree in a forest is grown on a bootstrap sample, so some training cases are left out of that tree. Those left-out cases are a ready-made check on the tree that did not use them. Averaging, over only the trees that missed a given case, gives that case a prediction. Comparing the prediction with the label estimates the error of the forest without a separate cross-validation loop. Permuting one predictor in those left-out cases, and watching the accuracy fall, ranks how much that predictor was doing inside the fitted forest.{{cite:hastie_esl2009}} (Ch. 15, §15.3.1–15.3.2, pp. 592–593)
 
@@ -23,20 +26,20 @@ Suppose three trees record out-of-bag accuracies $0.80$, $0.70$ and $0.90$ befor
 $(1/2)^2=0.25$, so a given case is omitted from a quarter of the two-draw bootstrap samples. The new drops are $0.20$, $0.10$ and $0.15$, and the average is $0.45/3=0.15$.
 :::
 
+## Connections — Error and rank from the same leftovers
+The trees are a [random forest](random-forest.qmd). The samples are the [bootstrap](bootstrap.qmd) draws inside [bagging](bagging.qmd). The split criterion whose total decrease is the other importance summary is often the [Gini index](gini-index.qmd). An out-of-bag error that has been used to choose among forests is no longer an untouched assessment; that choice needs a separate [held-out test set](a-held-out-test-set.qmd).{{cite:hastie_esl2009}} (Ch. 15, §§15.3.1–15.3.2, pp. 592–594)
+
 ## Check yourself
 ### A case in every sample
 If a case appears in every bootstrap sample, how many trees vote in its out-of-bag prediction?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-None. The out-of-bag prediction uses only trees that missed the case. If there are no such trees, that case contributes no out-of-bag prediction.{{cite:hastie_esl2009}} (Ch. 15, §15.3.1, p. 593)
+None. The out-of-bag prediction uses only trees that missed the case. If there are no such trees, that case contributes no out-of-bag prediction.
 :::
 
 ### A zero drop
 The accuracy after permuting predictor $j$ equals the accuracy before it, in every tree. What is the permutation importance of $j$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The average drop is $0$. Inside this fit, shuffling $j$ in the out-of-bag cases did not change the accuracy. A later refit that deleted $j$ could still change, if another predictor took its place.{{cite:hastie_esl2009}} (Ch. 15, §15.3.2, pp. 593–594)
+The average drop is $0$. Inside this fit, shuffling $j$ in the out-of-bag cases did not change the accuracy. A later refit that deleted $j$ could still change, if another predictor took its place.
 :::
-
-## Connections — Error and rank from the same leftovers
-The trees are a [random forest](random-forest.qmd). The samples are the [bootstrap](bootstrap.qmd) draws inside [bagging](bagging.qmd). The split criterion whose total decrease is the other importance summary is often the [Gini index](gini-index.qmd). An out-of-bag error that has been used to choose among forests is no longer an untouched assessment; that choice needs a separate [held-out test set](a-held-out-test-set.qmd).{{cite:hastie_esl2009}} (Ch. 15, §§15.3.1–15.3.2, pp. 592–594)

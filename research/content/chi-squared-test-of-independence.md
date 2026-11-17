@@ -1,3 +1,6 @@
+## Motivating example
+Thirty treated patients and thirty controls are split by recovery into counts $18$, $12$, $10$ and $20$. The product of the margins puts $14$ in the treated-recovery cell. The test asks how far the table sits from that product.
+
 ## Intuition — Compare the table with the product of its margins
 Two categorical factors are independent, in the null hypothesis, when the probability of a cell is the product of its row probability and its column probability. The fitted count in that cell is then the row total times the column total, divided by the sample size. Pearson's statistic adds up, over cells, the squared gap between the observed count and that fitted count, each gap divided by the fitted count. Large values are the ones that count against independence.{{cite:dodge2008}} (pp. 79–80)
 
@@ -6,7 +9,7 @@ For an $r\times c$ table with row totals $R_i$, column totals $C_j$ and sample s
 $$
 T=\sum_{i=1}^r\sum_{j=1}^c\frac{(O_{ij}-E_{ij})^2}{E_{ij}}.
 $$
-Dodge compares $T$ with the chi-squared table value on $(r-1)(c-1)$ degrees of freedom: a larger calculated value rejects independence at the chosen level. The same entry requires a random sample, one cell per individual, and warns that the approximation is unreliable when an estimated frequency is small, the stated threshold being less than $5$.{{cite:dodge2008}} (pp. 79–80)
+$T$ is compared with the chi-squared table value on $(r-1)(c-1)$ degrees of freedom: a larger calculated value rejects independence at the chosen level. The approximation uses a random sample with one cell per individual, and it is unreliable when an estimated frequency is small, the stated threshold being less than $5$.{{cite:dodge2008}} (pp. 79–80)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -31,20 +34,20 @@ which sum to $30/7=4.286$ to three decimal places. There is $(2-1)(2-1)=1$ degre
 Every observed count equals its fitted count, so each contribution is $0$ and $T=0$. The table matches independence exactly. The degrees of freedom are still $1$.
 :::
 
+## Connections — The same statistic, several readings
+The reference distribution is the [chi-squared distribution](chi-squared-distribution.qmd) on $(r-1)(c-1)$ degrees of freedom. Estimating the margins, rather than knowing the cell probabilities in advance, is what changes the degrees of freedom; that estimated-parameter case is [Pearson's test with estimated parameters](pearson-test-with-estimated-parameters.qmd). A $2\times 2$ table with a very small fitted count is the setting for [Fisher's exact test](fisher-s-exact-test.qmd), which uses the hypergeometric probabilities instead of the chi-squared tail.{{cite:dodge2008}} (pp. 79–80)
+
 ## Check yourself
 ### Degrees of freedom
 How many degrees of freedom does a $3\times 4$ table have under this test?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$(3-1)(4-1)=6$. The arithmetic is $12-1-(2+3)=6$.{{cite:dodge2008}} (p. 80)
+$(3-1)(4-1)=6$. The arithmetic is $12-1-(2+3)=6$.
 :::
 
 ### A cell below the warning line
-One fitted count is $3.2$ and the others exceed $5$. What does Dodge's condition say about the chi-squared approximation?
+One fitted count is $3.2$ and the others exceed $5$. What does the small-cell condition say about the chi-squared approximation?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The approximation is unreliable when an estimated frequency is small, and the stated threshold is less than $5$. A fitted count of $3.2$ falls under that warning. Combining categories is the remedy only when the combined categories still make sense.{{cite:dodge2008}} (p. 80)
+The approximation is unreliable when an estimated frequency is small, and the stated threshold is less than $5$. A fitted count of $3.2$ falls under that warning. Combining categories is the remedy only when the combined categories still make sense.
 :::
-
-## Connections — The same statistic, several readings
-The reference distribution is the [chi-squared distribution](chi-squared-distribution.qmd) on $(r-1)(c-1)$ degrees of freedom. Estimating the margins, rather than knowing the cell probabilities in advance, is what changes the degrees of freedom; that estimated-parameter case is [Pearson's test with estimated parameters](pearson-test-with-estimated-parameters.qmd). A $2\times 2$ table with a very small fitted count is the setting for [Fisher's exact test](fisher-s-exact-test.qmd), which uses the hypergeometric probabilities instead of the chi-squared tail.{{cite:dodge2008}} (pp. 79–80)

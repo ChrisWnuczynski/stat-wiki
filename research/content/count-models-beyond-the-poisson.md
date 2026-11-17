@@ -12,7 +12,7 @@ Let $Y\mid\lambda\sim\mathrm{Poisson}(\lambda)$ and let $\lambda$ be a positive 
 $$
 \mathrm{E}(Y)=\mu,\qquad \operatorname{Var}(Y)=\mu+\tau.
 $$
-The negative-binomial specification on this page takes $\tau=\mu^{2}/\nu$ for a concentration $\nu>0$, so the variance is $\mu+\mu^{2}/\nu$. A quasi-Poisson description instead multiplies the mean by a constant $\phi$ and does not, by itself, name a distribution one can simulate. The Conway–Maxwell–Poisson probability function is proportional to $\lambda^{y}/(y!)^{\nu}$. At $\nu=1$ it is Poisson. For $\nu>1$ the factorials in the denominator fall faster and the counts concentrate; for $0\le\nu<1$ they spread out. In that original scaling $\lambda$ is not the mean.{{cite:dodge2008}} (pp. 425–426)
+The negative-binomial specification on this page takes $\tau=\mu^{2}/\nu$ for a concentration $\nu>0$, so the variance is $\mu+\mu^{2}/\nu$. A quasi-Poisson description instead multiplies the mean by a constant $\phi$ and does not, by itself, name a distribution one can simulate. The Conway–Maxwell–Poisson probability function is proportional to $\lambda^{y}/(y!)^{\nu}$. At $\nu=1$ it is Poisson. For $\nu>1$ the factorials in the denominator fall faster and the counts concentrate; for $0\le\nu<1$ they spread out. In that scaling $\lambda$ is not the mean.{{cite:dodge2008}} (pp. 425–426)
 
 ## Properties — A two-point mixture is already overdispersed
 The variance addition does not need a gamma mixing distribution. Any non-degenerate distribution on the Poisson rate raises the variance above the mean.
@@ -30,7 +30,7 @@ If $\tau>0$, then $\operatorname{Var}(Y)>\mu$. If $\lambda$ is almost surely con
 The same identity shows why a negative-binomial variance cannot describe underdispersion. The term $\mu^{2}/\nu$ is positive for finite $\nu$, so $\mu+\mu^{2}/\nu>\mu$. Sending $\nu\to\infty$ removes the extra term and recovers the Poisson boundary. It does not cross that boundary.
 
 ## Statistical use — Match the parameter to the mean before comparing fits
-A regression coefficient is easiest to compare across count models when it multiplies the log of the mean. A Poisson log-linear model and a negative-binomial model with the same linear predictor both speak about $\mu$. A Conway–Maxwell–Poisson model written in the original rate $\lambda$ does not: $\lambda$ is not $\mu$, and neither the mean nor the variance has a closed form in $\lambda$ and $\nu$. A mean parameterisation solves for the rate that delivers a prescribed mean, and then a coefficient can be compared with the Poisson coefficient. Until that translation is made, a smaller AIC on the $\lambda$ scale is not evidence about the mean.{{cite:dodge2008}} (p. 426)
+A regression coefficient is easiest to compare across count models when it multiplies the log of the mean. A Poisson log-linear model and a negative-binomial model with the same linear predictor both speak about $\mu$. A Conway–Maxwell–Poisson model written in the rate $\lambda$ does not: $\lambda$ is not $\mu$, and neither the mean nor the variance has a closed form in $\lambda$ and $\nu$. A mean parameterisation solves for the rate that delivers a prescribed mean, and then a coefficient can be compared with the Poisson coefficient. Until that translation is made, a smaller AIC on the $\lambda$ scale is not evidence about the mean.{{cite:dodge2008}} (p. 426)
 
 Quasi-Poisson estimation keeps the Poisson score equations and then rescales standard errors by $\sqrt{\phi}$. The point estimates of the mean coefficients do not move when $\phi$ moves. The standard errors do. That is a correction for spread, not a generative model.
 
@@ -45,10 +45,10 @@ $$
 $$
 about $3.76$ times the single-Poisson value, because the low rate contributes many zeros. The negative-binomial formula with $\mu=4$ and $\nu=2$ gives the same variance $4+16/2=12$ only for a different mixing distribution; the two-point mixture is the smaller illustration, and its variance $8$ is already twice the Poisson benchmark.{{cite:dodge2008}} (p. 426)
 
-**Your turn.** Keep the same two rates but put probability $3/4$ on rate $2$ and probability $1/4$ on rate $6$. Find the mean and the variance of the resulting count.
+**Your turn.** Use the same two rates but put probability $3/4$ on rate $2$ and probability $1/4$ on rate $6$. Find the mean and the variance of the resulting count.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean rate is $(3/4)\cdot 2+(1/4)\cdot 6=3$. The variance of the rate is $(3/4)(2-3)^{2}+(1/4)(6-3)^{2}=3/4+9/4=3$. The count therefore has mean $3$ and variance $3+3=6$. The Poisson benchmark with the same mean would have variance $3$, so the mixture is still twice as wide.{{cite:dodge2008}} (p. 426)
+The mean rate is $(3/4)\cdot 2+(1/4)\cdot 6=3$. The variance of the rate is $(3/4)(2-3)^{2}+(1/4)(6-3)^{2}=3/4+9/4=3$. The count therefore has mean $3$ and variance $3+3=6$. The Poisson benchmark with the same mean would have variance $3$, so the mixture is still twice as wide.
 :::
 
 ## Common misconceptions
@@ -68,7 +68,7 @@ The [Poisson distribution](poisson-distribution.qmd) is the equal-mean-and-varia
 A rate equals $1$ or $5$ with equal probability. What are the mean and the variance of a Poisson count drawn at that rate?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean rate is $3$. The rate variance is $\bigl((1-3)^{2}+(5-3)^{2}\bigr)/2=4$. The count has mean $3$ and variance $3+4=7$.{{cite:dodge2008}} (p. 426)
+The mean rate is $3$. The rate variance is $\bigl((1-3)^{2}+(5-3)^{2}\bigr)/2=4$. The count has mean $3$ and variance $3+4=7$.
 :::
 
 ### Which family can be tight? {#self-check-count-tight}
@@ -76,8 +76,8 @@ The mean rate is $3$. The rate variance is $\bigl((1-3)^{2}+(5-3)^{2}\bigr)/2=4$
 A sample of counts has mean $4$ and variance $2$. Which of a Poisson model, a negative-binomial model, and a Conway–Maxwell–Poisson model with $\nu>1$ can represent that pair of moments, and why do the other two fail?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The Poisson model forces the variance to equal $4$. The negative binomial forces the variance to exceed $4$. Only the Conway–Maxwell–Poisson law with $\nu>1$ is built to be tighter than the Poisson with a comparable mean. Whether a particular $(\lambda,\nu)$ hits variance $2$ at mean $4$ is a numerical question about the normalising series, but the other two families are algebraically incapable of the inequality $\operatorname{Var}(Y)<\mathrm{E}(Y)$.{{cite:dodge2008}} (p. 426)
+The Poisson model forces the variance to equal $4$. The negative binomial forces the variance to exceed $4$. Only the Conway–Maxwell–Poisson law with $\nu>1$ is built to be tighter than the Poisson with a comparable mean. Whether a particular $(\lambda,\nu)$ hits variance $2$ at mean $4$ is a numerical question about the normalising series, but the other two families are algebraically incapable of the inequality $\operatorname{Var}(Y)<\mathrm{E}(Y)$.
 :::
 
 ## History
-Poisson’s 1837 derivation obtained the count law as a limit of binomial probabilities, and the modern entry records the probability function $e^{-\theta}\theta^{x}/x!$ together with the evaluation $\mathrm{E}(X)=\operatorname{Var}(X)=\theta$.{{cite:dodge2008}} (pp. 425–426) Later count regressions kept that law as the baseline and added either a multiplicative dispersion, a mixture, or a second parameter in the factorial term when the baseline variance was too rigid. The mixture calculation above is the reason a random Poisson rate cannot repair a sample that is tighter than its mean.
+Poisson’s 1837 derivation obtained the count law as a limit of binomial probabilities, and the modern entry records the probability function $e^{-\theta}\theta^{x}/x!$ together with the evaluation $\mathrm{E}(X)=\operatorname{Var}(X)=\theta$.{{cite:dodge2008}} (pp. 425–426) Later count regressions used that law as the baseline and added either a multiplicative dispersion, a mixture, or a second parameter in the factorial term when the baseline variance was too rigid. The mixture calculation above is the reason a random Poisson rate cannot repair a sample that is tighter than its mean.

@@ -44,7 +44,7 @@ Before the four outcomes are seen, $\mathbb E\bar X=p=1/4$ and $\operatorname{Va
 **Your turn.** Under the four independent Bernoulli$(1/4)$ draws in the example, what is the probability that all four outcomes are zero? What is $\mathbb E\bar X$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Each draw is zero with probability $3/4$. Independence gives $(3/4)^4=81/256$ for four zeros. The sample mean still has expectation $1/4$ over repeated samples.{{cite:siegrist2022_random_samples}} (§6.1, “Random Samples”)
+Each draw is zero with probability $3/4$. Independence gives $(3/4)^4=81/256$ for four zeros. The sample mean still has expectation $1/4$ over repeated samples.
 :::
 
 ## Common misconceptions

@@ -4349,7 +4349,7 @@ ARTICLE_HISTORIES.update({
     "em-algorithm": "Dempster, Laird and Rubin gave the EM algorithm its general formulation in 1977.{{cite:ng_cs229_em2006}} (§1, historical introduction)",
     "random-forest": "Breiman presented random forests in 2001.{{cite:breiman2001_rf}}",
     "lasso": "Tibshirani introduced the lasso in 1996.{{cite:friedman_glmnet2010}} (§1, lasso history)",
-    "simple-linear-regression": "Legendre published the least-squares method in 1805; Gauss developed its use in 1809.{{cite:legendre1805,gauss1809}}",
+    "simple-linear-regression": "Legendre published the least-squares method in 1805.{{cite:dodge2008}} (p. 304, least-squares method) Gauss's 1809 development belongs to the same early least-squares history.{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, Gauss, Legendre and Adrain)",
 })
 
 CONCEPT_LEADS.update({

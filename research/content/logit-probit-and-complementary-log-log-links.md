@@ -1,5 +1,14 @@
 ## Lead context
-The logit, probit and complementary log-log links are three ways to turn an unrestricted linear predictor into a probability.
+The logit, probit and complementary log-log links are three ways to turn an unrestricted linear predictor into a probability.{{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
+
+## Motivating example
+At \(\eta=1/2\),
+\[
+\frac{e^{1/2}}{1+e^{1/2}}=0.6225,\qquad
+\Phi(1/2)=0.6915,\qquad
+1-\exp\{-e^{1/2}\}=0.8077,
+\]
+each to four decimals. The logit and the probit both sit above \(1/2\) by a modest amount. Complementary log-log is already \(0.8077\), because the double exponential rises quickly for positive \(\eta\). The logit probability \(0.6225\) has odds \(e^{1/2}=1.6487\) to four decimals: one unit of \(\eta\) multiplies the odds by \(e\), which is a sentence the probit and complementary log-log probabilities do not support.
 
 ## Intuition — Three curves through the unit interval
 A binary mean has to lie in \((0,1)\), while a linear predictor \(\eta\) can be any real number. Each link is a strictly increasing map from that interval onto the line, and the success probability is the inverse map. The logit and the probit are symmetric about \(1/2\): replacing \(\eta\) by \(-\eta\) replaces \(p\) by \(1-p\). Complementary log-log is not symmetric in the two tails. It stays nearer \(1/2\) on the negative side and climbs faster once \(\eta\) is positive.
@@ -21,13 +30,6 @@ The logit satisfies \(e^{-\eta}/(1+e^{-\eta})=1/(1+e^{\eta})=1-e^{\eta}/(1+e^{\e
 :::
 
 ## Worked example — One predictor, three probabilities
-At \(\eta=1/2\),
-\[
-\frac{e^{1/2}}{1+e^{1/2}}=0.6225,\qquad
-\Phi(1/2)=0.6915,\qquad
-1-\exp\{-e^{1/2}\}=0.8077,
-\]
-each to four decimals. The logit and the probit both sit above \(1/2\) by a modest amount. Complementary log-log is already \(0.8077\), because the double exponential rises quickly for positive \(\eta\). The logit probability \(0.6225\) has odds \(e^{1/2}=1.6487\) to four decimals: one unit of \(\eta\) multiplies the odds by \(e\), which is a sentence the probit and complementary log-log probabilities do not support.
 
 **Your turn.** Repeat the three inverses at \(\eta=-1/2\), to four decimals, and check the logit against \(1-0.6225\).
 
@@ -38,7 +40,7 @@ The values are \(0.3775\), \(0.3085\) and \(0.4548\). The logit equals \(1-0.622
 ## Connections — One linear predictor, three mean functions
 All three links sit on the same [linear predictor](linear-predictor.qmd). The [logit link](logit-link.qmd) is the canonical link for a Bernoulli or binomial [generalised linear model](generalised-linear-model.qmd). The probit is the normal quantile of the same probability. A [log link](log-link.qmd) is the analogous map for a positive mean, not for a probability. Two of these binary links are not nested, so a likelihood-ratio comparison does not choose between them; a criterion such as AIC can, when the random component is held fixed.
 
-## Check yourself — Reading a probability
+## Check yourself
 ### A zero predictor
 Give the logit and probit probabilities at \(\eta=0\), and the complementary log-log probability to four decimals.
 

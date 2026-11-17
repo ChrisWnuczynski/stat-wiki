@@ -45,7 +45,7 @@ A smooth one-input network can create a central “on” region without a thresh
 **Your turn.** For the same network, calculate $h_1$, $h_2$ and $o$ at $x=1$. Explain why the result resembles the value at $x=0$.{{cite:bishop2006}} (Ch. 5, §5.1)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-At $x=1$, $h_1=g(7.5)=0.999447$ and $h_2=g(2.5)=0.924142$. Their difference is $0.075305$, giving score $10(0.075305-0.5)=-4.246946$ and output $o=0.014106$. The network responds weakly at either edge and strongly near the middle because the two shifted sigmoid features are separated most strongly there. The equal edge outputs follow from the symmetric placement of the two hidden transitions around $x=0.5$.{{cite:bishop2006}} (Ch. 5, §5.1)
+At $x=1$, $h_1=g(7.5)=0.999447$ and $h_2=g(2.5)=0.924142$. Their difference is $0.075305$, giving score $10(0.075305-0.5)=-4.246946$ and output $o=0.014106$. The network responds weakly at either edge and strongly near the middle because the two shifted sigmoid features are separated most strongly there. The equal edge outputs follow from the symmetric placement of the two hidden transitions around $x=0.5$.
 :::
 
 ### Another feature map

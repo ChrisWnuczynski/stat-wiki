@@ -42,7 +42,7 @@ Consider $A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$. Its leading principal minors 
 **Your turn.** Can $B=\begin{pmatrix}1&2\\2&1\end{pmatrix}$ be a covariance matrix? Check a determinant and one direction.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. Its determinant is $1-4=-3<0$, and for $\mathbf a=(1,-1)^\top$ the quadratic form is $\mathbf a^\top B\mathbf a=-2$. A variance cannot be negative. The diagonal entries being positive and the matrix being symmetric were insufficient.{{cite:strimmer2025_mva}} (Ch. 1, §1.1)
+No. Its determinant is $1-4=-3<0$, and for $\mathbf a=(1,-1)^\top$ the quadratic form is $\mathbf a^\top B\mathbf a=-2$. A variance cannot be negative. The diagonal entries being positive and the matrix being symmetric were insufficient.
 :::
 
 ## Common misconceptions

@@ -1,3 +1,6 @@
+## Motivating example
+A joint table puts mass $0.2$ and $0.3$ on $Y=1$ and $Y=2$ when $X=0$, and mass $0.4$ and $0.1$ when $X=1$. Each row sums to $0.5$. The mean of $Y$ can be computed inside each row and then averaged across the rows.
+
 ## Intuition — Average in stages
 The conditional expectation $\mathbb E(Y\mid X)$ is a random variable: it is the mean of $Y$ once $X$ is known, and it still varies with $X$. Averaging that random mean, over the distribution of $X$, returns the ordinary mean of $Y$. The same idea nests. If one conditions first on a larger collection of variables and then on a smaller one, the smaller conditioning is what remains.{{cite:durrett2019}} (eq. 4.1.5 and Thm. 4.1.13, p. 211)
 
@@ -17,7 +20,7 @@ when $Y$ is integrable. The whole sample space belongs to $\mathcal G$, so the i
 
 Now let $\mathcal F_1\subset\mathcal F_2$. The random variable $\mathbb E(Y\mid\mathcal F_1)$ is already $\mathcal F_2$-measurable, because $\mathcal F_1\subset\mathcal F_2$. If a random variable is measurable with respect to $\mathcal F$, its conditional expectation given $\mathcal F$ is the variable itself. That is $\mathbb E\bigl(\mathbb E(Y\mid\mathcal F_1)\mid\mathcal F_2\bigr)=\mathbb E(Y\mid\mathcal F_1)$.{{cite:durrett2019}} (Ex. 4.1.3, p. 207) For the other order, both $\mathbb E\bigl(\mathbb E(Y\mid\mathcal F_2)\mid\mathcal F_1\bigr)$ and $\mathbb E(Y\mid\mathcal F_1)$ are $\mathcal F_1$-measurable. On any $A\in\mathcal F_1\subset\mathcal F_2$ the integral of $\mathbb E(Y\mid\mathcal F_2)$ equals the integral of $Y$, which equals the integral of $\mathbb E(Y\mid\mathcal F_1)$. The two sides have the same integrals over $\mathcal F_1$, so they are equal.{{cite:durrett2019}} (Thm. 4.1.13, p. 211)
 
-## Worked example — A four-cell table
+## Worked example
 Let the joint probabilities be
 
 | | $Y=1$ | $Y=2$ |
@@ -55,3 +58,6 @@ Independence makes the conditional mean the unconditional mean: $\mathbb E(Y)=1\
 
 ## Related concepts — Means computed in layers
 The identity is the first half of the calculation that splits a random sum into a mean number of terms times a mean term. [Conditional expectation](conditional-expectation.qmd) is the inner object; [expectation](expectation.qmd) is what the outer average returns. [Conditional probability](conditional-probability.qmd) is the same layering for events rather than for an integrable random variable.{{cite:durrett2019}} (eq. 4.1.5, p. 211)
+
+## History
+Averaging a conditional expectation returns the original expectation, which is the form used for random sums.{{cite:durrett2019}} (eq. 4.1.5 and Thm. 4.1.13, p. 211)

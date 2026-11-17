@@ -47,7 +47,7 @@ Roll two fair dice independently and let $X$ be their sum. The outcome is an ord
 **Your turn.** What is $\mathbb P(X\ge11)$ in this experiment, and which ordered dice outcomes make the event true?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The event consists of $(5,6)$, $(6,5)$, and $(6,6)$. It has three of the 36 equally likely ordered outcomes, so $\mathbb P(X\ge11)=3/36=1/12$.{{cite:durrett2019}} (Ch. 1, §1.1)
+The event consists of $(5,6)$, $(6,5)$, and $(6,6)$. It has three of the 36 equally likely ordered outcomes, so $\mathbb P(X\ge11)=3/36=1/12$.
 :::
 
 ## Common misconceptions

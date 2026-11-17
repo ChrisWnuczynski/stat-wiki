@@ -38,7 +38,7 @@ Five independent Bernoulli observations are $(1,0,1,1,0)$, with one denoting a s
 **Your turn.** Four independent Bernoulli observations are $(1,0,0,1)$. Compute the success count, the conditional probability of this particular ordered sequence given that count, and the posterior and posterior mean under a $\operatorname{Beta}(2,2)$ prior.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The count is $S=2$, and there are $\binom42=6$ ordered sequences with two successes. Given $S=2$, each has conditional probability $1/6=0.1667$, regardless of $p$ (for $0<p<1$). The prior receives two successes and two failures, giving $\operatorname{Beta}(4,4)$ with mean $4/8=0.5$. The sample order did not enter the update; it would matter when investigating dependence between tosses.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
+The count is $S=2$, and there are $\binom42=6$ ordered sequences with two successes. Given $S=2$, each has conditional probability $1/6=0.1667$, regardless of $p$ (for $0<p<1$). The prior receives two successes and two failures, giving $\operatorname{Beta}(4,4)$ with mean $4/8=0.5$. The sample order did not enter the update; it would matter when investigating dependence between tosses.
 :::
 
 ## Common misconceptions

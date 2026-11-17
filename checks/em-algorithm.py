@@ -32,6 +32,6 @@ for printed in ('8/11', '0.7273', '2/9', '0.2222', '166/99', '1.6768',
     assert printed in body, f'Missing printed result {printed}'
 assert body.count('title="Proof"') == 1
 assert '**Your turn.**' in body and 'title="Answer"' in body
-for key in ('ng_cs229_em2006', 'sklearn2026_mixture'):
+for key in ('dempster_laird_rubin1977', 'fraley_raftery2002'):
     assert f'data-cite-key="{key}"' in body
 print('EM responsibilities and parameter-update arithmetic passed')

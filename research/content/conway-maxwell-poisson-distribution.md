@@ -1,22 +1,24 @@
 ## Lead context
-The Conway–Maxwell–Poisson law keeps a count on the nonnegative integers and uses a second parameter to make the distribution tighter or wider than a Poisson law.
+The Conway–Maxwell–Poisson law is a distribution for a count on the nonnegative integers, with a second parameter that makes the distribution tighter or wider than a Poisson law.
+
+## Motivating example
+Take $\lambda=1$ and $\nu=2$, so the summand is $1/(x!)^{2}$. Truncating after $x=12$ changes nothing in the first six decimals: $Z(1,2)\approx 2.2796$. Then
+$$
+P(X=0)=\frac{1}{Z(1,2)}\approx 0.4387.
+$$
+The mean is $\approx 0.6978$ and the variance is $\approx 0.5131$. The variance is smaller than the mean, which a Poisson random variable cannot do, and smaller than $\lambda=1$, which is not the mean of this law. A Poisson random variable with mean $0.6978$ would have variance $0.6978$, about $1.36$ times the Conway–Maxwell–Poisson variance computed here.{{cite:dodge2008}} (pp. 425–426)
 
 ## Intuition — The factorial power changes the tails
-A Poisson probability is proportional to $\lambda^{y}/y!$. Replacing the factorial by $(y!)^{\nu}$ leaves $\nu=1$ unchanged and changes every other case. When $\nu>1$, $(y!)^{\nu}$ grows faster than $y!$, so large counts are down-weighted and the distribution is tighter than the Poisson law with the same $\lambda$. When $0\le\nu<1$, large counts are down-weighted less, and the distribution is wider. The normalising constant is the series $Z(\lambda,\nu)=\sum_{j=0}^{\infty}\lambda^{j}/(j!)^{\nu}$, which equals $e^{\lambda}$ only at $\nu=1$. In this parameterisation $\lambda$ is not the mean, except in that Poisson case.
+A Poisson probability is proportional to $\lambda^{y}/y!$. Replacing the factorial by $(y!)^{\nu}$ leaves $\nu=1$ unchanged and changes every other case. When $\nu>1$, $(y!)^{\nu}$ grows faster than $y!$, so large counts are down-weighted and the distribution is tighter than the Poisson law with the same $\lambda$. When $0\le\nu<1$, large counts are down-weighted less, and the distribution is wider. The normalising constant is the series $Z(\lambda,\nu)=\sum_{j=0}^{\infty}\lambda^{j}/(j!)^{\nu}$, which equals $e^{\lambda}$ only at $\nu=1$. In this parameterisation $\lambda$ is not the mean, except in that Poisson case.{{cite:dodge2008}} (pp. 425–426)
 
 ## Definition
 The probability of a count $x\in\{0,1,2,\ldots\}$ is
 $$
 P(X=x)=\frac{\lambda^{x}}{(x!)^{\nu} Z(\lambda,\nu)},
 $$
-with $\lambda>0$ and $\nu\ge 0$, and with $\lambda<1$ when $\nu=0$ so that the series converges. The mean and the variance are the sums $\sum x\,P(X=x)$ and $\sum x^{2}P(X=x)-\bigl(\mathrm{E} X\bigr)^{2}$. At $\nu=1$ both equal $\lambda$. At the parameter pair in the worked example neither equals $\lambda$. At $\nu=0$ and $\lambda=1/2$ the series is geometric, the boundary case recorded with the distribution.
+with $\lambda>0$ and $\nu\ge 0$, and with $\lambda<1$ when $\nu=0$ so that the series converges. The mean and the variance are the sums $\sum x\,P(X=x)$ and $\sum x^{2}P(X=x)-\bigl(\mathrm{E} X\bigr)^{2}$. At $\nu=1$ both equal $\lambda$. At the parameter pair in the worked example neither equals $\lambda$. At $\nu=0$ and $\lambda=1/2$ the series is geometric, the boundary case recorded with the distribution.{{cite:dodge2008}} (pp. 425–426)
 
 ## Worked example
-Take $\lambda=1$ and $\nu=2$, so the summand is $1/(x!)^{2}$. Truncating after $x=12$ changes nothing in the first six decimals: $Z(1,2)\approx 2.2796$. Then
-$$
-P(X=0)=\frac{1}{Z(1,2)}\approx 0.4387.
-$$
-The mean is $\approx 0.6978$ and the variance is $\approx 0.5131$. The variance is smaller than the mean, which a Poisson random variable cannot do, and smaller than $\lambda=1$, which is not the mean of this law. A Poisson random variable with mean $0.6978$ would have variance $0.6978$, about $1.36$ times the Conway–Maxwell–Poisson variance computed here.
 
 **Your turn.** Set $\nu=1$ and $\lambda=1$. Identify the law and give $P(X=0)$ exactly.
 

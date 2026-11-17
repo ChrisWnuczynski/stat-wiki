@@ -40,7 +40,7 @@ Suppose three independent lifetimes are exponential with a common rate $\lambda>
 **Your turn.** Three failures occur at times $1$, $2$, and $4$, and a fourth lifetime is right-censored at $5$ under the same model. What is the maximum-likelihood rate?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-There are three failure factors and total observed time $1+2+4+5=12$, so $L(\lambda)=\lambda^3e^{-12\lambda}$. The score is $3/\lambda-12$, giving $\widehat\lambda=3/12=0.25$ per unit time. The log likelihood is strictly concave for positive $\lambda$, so this stationary point is the maximum.{{cite:nist_handbook_mle2002}} (§1.3.6.5.2)
+There are three failure factors and total observed time $1+2+4+5=12$, so $L(\lambda)=\lambda^3e^{-12\lambda}$. The score is $3/\lambda-12$, giving $\widehat\lambda=3/12=0.25$ per unit time. The log likelihood is strictly concave for positive $\lambda$, so this stationary point is the maximum.
 :::
 
 ## Common misconceptions

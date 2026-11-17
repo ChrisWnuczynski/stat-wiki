@@ -40,7 +40,7 @@ Suppose a joint posterior for binary parameters $X$ and $Z$, after observing fix
 **Your turn.** For the same four-cell posterior, find $\Pr(Z=1\mid X=1,y)$. Starting at $(1,0)$ and updating $X$ then $Z$, what is the chance of reaching $(1,1)$ in one sweep?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The first probability is $(3/10)/(1/5+3/10)=3/5$. The $X$ update retains $X=1$ with probability $(1/5)/(3/5)=1/3$ while $Z=0$; the subsequent $Z$ update selects $1$ with probability $3/5$. The transition probability is $(1/3)(3/5)=1/5$.{{cite:gelfand_smith1990}} (§2.3, pp. 400–401)
+The first probability is $(3/10)/(1/5+3/10)=3/5$. The $X$ update retains $X=1$ with probability $(1/5)/(3/5)=1/3$ while $Z=0$; the subsequent $Z$ update selects $1$ with probability $3/5$. The transition probability is $(1/3)(3/5)=1/5$.
 :::
 
 ## Assumptions and limits

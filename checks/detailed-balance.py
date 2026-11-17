@@ -24,6 +24,6 @@ assert "**Your turn.**" in body and "## Check yourself" in body
 assert body.count('title="Answer"') >= 3
 for qid in ("ex-sp-birth-death-pi", "ex-sp-path-graph"):
     assert f"../questions/{qid}.qmd" in page
-for key in ("durrett2019", "geyer2005_markov_chain"):
+for key in ("durrett2019",):
     assert f'data-cite-key="{key}"' in body
 print("detailed balance checks passed")

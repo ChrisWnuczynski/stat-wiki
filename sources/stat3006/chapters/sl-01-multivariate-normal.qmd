@@ -743,7 +743,7 @@ The slope $s_{YX}/s_{XX}$ and the intercept $\widehat\mu_Y-(s_{YX}/s_{XX})\wideh
 
 ## One species or three
 
-The four iris measurements share centimetre units{{cite:r_iris_doc2026}} (Format and Source){{cite:fisher1936}} (§§I–II, p. 179). Pooling the species changes the question. The calculation below compares the covariance of all $150$ flowers with the covariance within setosa, and then checks that the sample conditional-mean slope matches the least-squares slope. A single Gaussian approximation to the pooled data ignores the species structure{{cite:fisher1936}} (§§I–II, p. 179). In the code, `iris_x` holds the four measurements and `iris_y` holds the species labels.
+The four iris measurements share centimetre units{{cite:r_iris_doc2026}} (§ Format and Source){{cite:fisher1936}} (§§I–II, p. 179). Pooling the species changes the question. The calculation below compares the covariance of all $150$ flowers with the covariance within setosa, and then checks that the sample conditional-mean slope matches the least-squares slope. A single Gaussian approximation to the pooled data ignores the species structure{{cite:fisher1936}} (§§I–II, p. 179). In the code, `iris_x` holds the four measurements and `iris_y` holds the species labels.
 
 ```r
 iris_x <- iris[, 1:4]

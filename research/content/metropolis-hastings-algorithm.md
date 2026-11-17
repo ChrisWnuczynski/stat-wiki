@@ -26,7 +26,7 @@ In reverse, $r(B,A)=1/1.5=2/3\approx0.6667$. The actual off-diagonal transition 
 **Your turn.** Let $h(A)=2$, $h(B)=1$, $q(B\mid A)=0.6$ and $q(A\mid B)=0.2$. Find both acceptance probabilities, the off-diagonal transition probabilities, and the equilibrium flows.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The forward ratio is $r(A,B)=1(0.2)/\{2(0.6)\}=1/6$, so $\alpha(A,B)=1/6$; the reverse ratio is $6$, so $\alpha(B,A)=1$. Thus $P(A,B)=0.6/6=0.1$ and $P(B,A)=0.2$. The target probabilities are $(2/3,1/3)$, and both flows equal $(2/3)(0.1)=(1/3)(0.2)=1/15\approx0.0667$. The chain can still reject at $A$, so a rejected draw records $A$ again.{{cite:hastings1970}} (§2.2, pp. 99–101, acceptance and reversibility)
+The forward ratio is $r(A,B)=1(0.2)/\{2(0.6)\}=1/6$, so $\alpha(A,B)=1/6$; the reverse ratio is $6$, so $\alpha(B,A)=1$. Thus $P(A,B)=0.6/6=0.1$ and $P(B,A)=0.2$. The target probabilities are $(2/3,1/3)$, and both flows equal $(2/3)(0.1)=(1/3)(0.2)=1/15\approx0.0667$. The chain can still reject at $A$, so a rejected draw records $A$ again.
 :::
 
 ## Common misconceptions

@@ -46,7 +46,7 @@ At $x=2$, the same predictor is $\log18$. The Poisson expected count is $18$; th
 **Your turn.** For the same predictor $\eta=\log2+x\log3$, find the Poisson mean and Bernoulli success probability when $x=-1$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Now $e^\eta=2/3$. The Poisson mean is $2/3$, while the Bernoulli odds are $2/3$ and its success probability is $(2/3)/(1+2/3)=2/5$.{{cite:nelder_wedderburn1972}} (§§3.2–3.3, pp. 377–380)
+Now $e^\eta=2/3$. The Poisson mean is $2/3$, while the Bernoulli odds are $2/3$ and its success probability is $(2/3)/(1+2/3)=2/5$.
 :::
 
 ## Common misconceptions

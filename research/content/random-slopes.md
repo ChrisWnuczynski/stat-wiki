@@ -55,10 +55,10 @@ $$
 $$
 The negative covariance $\sigma_{ab}$ lowers the variance at $t=2$ relative to a model with the same marginal variances and no intercept–slope correlation: without it the variance would be $4+4+1=9$ rather than $7$. The correlation of the random intercept and slope is $(-1/2)/\sqrt{4\cdot 1}=-1/4$. Groups with a high intercept tend to have a slightly flatter slope, and by $t=2$ that negative association has pulled the marginal variance down by $2$.
 
-**Your turn.** Keep the same variances and set $\sigma_{ab}=0$. Find $\operatorname{Var}(Y_{j2})$ and $\operatorname{Cov}(Y_{j0},Y_{j2})$.
+**Your turn.** Use the same variances and set $\sigma_{ab}=0$. Find $\operatorname{Var}(Y_{j2})$ and $\operatorname{Cov}(Y_{j0},Y_{j2})$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The variance is $4+0+4+1=9$. The covariance is $4+(0+2)\cdot 0+0\cdot 2=4$. Removing the intercept–slope correlation raises the marginal variance at $t=2$ from $7$ to $9$ and raises the covariance with the baseline from $3$ to $4$.{{cite:bates_lme4_2015}} (§1.1, eq. 2–3, p. 3)
+The variance is $4+0+4+1=9$. The covariance is $4+(0+2)\cdot 0+0\cdot 2=4$. Removing the intercept–slope correlation raises the marginal variance at $t=2$ from $7$ to $9$ and raises the covariance with the baseline from $3$ to $4$.
 :::
 
 ## Common misconceptions
@@ -82,7 +82,7 @@ A model with only a random intercept is the special case $\sigma_b^{2}=\sigma_{a
 Using $\sigma_a^{2}=4$, $\sigma_b^{2}=1$, $\sigma_{ab}=-1/2$ and $\sigma^{2}=1$, what is $\operatorname{Var}(Y_{j1})$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-It is $4+2\cdot 1\cdot(-1/2)+1^{2}\cdot 1+1=4-1+1+1=5$. The cross term $-1$ is smaller in magnitude at $t=1$ than the $-2$ at $t=2$, and the slope variance contributes $1$ rather than $4$.{{cite:bates_lme4_2015}} (§1.1, eq. 2–3, p. 3)
+It is $4+2\cdot 1\cdot(-1/2)+1^{2}\cdot 1+1=4-1+1+1=5$. The cross term $-1$ is smaller in magnitude at $t=1$ than the $-2$ at $t=2$, and the slope variance contributes $1$ rather than $4$.
 :::
 
 ### Parallel lines {#self-check-slope-parallel}
@@ -90,7 +90,7 @@ It is $4+2\cdot 1\cdot(-1/2)+1^{2}\cdot 1+1=4-1+1+1=5$. The cross term $-1$ is s
 Set $\sigma_b^{2}=\sigma_{ab}=0$, keep $\sigma_a^{2}=4$ and $\sigma^{2}=1$. What is the covariance between two distinct occasions, and why does it not depend on their times?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The covariance is $4$. Every term that multiplies a time contains $\sigma_b^{2}$ or $\sigma_{ab}$, both zero, so only the shared intercept variance remains. The lines are parallel random shifts.{{cite:bates_lme4_2015}} (§1.1, eq. 2–3, p. 3)
+The covariance is $4$. Every term that multiplies a time contains $\sigma_b^{2}$ or $\sigma_{ab}$, both zero, so only the shared intercept variance remains. The lines are parallel random shifts.
 :::
 
 ### A correlation that is too large {#self-check-slope-bound}
@@ -98,7 +98,7 @@ The covariance is $4$. Every term that multiplies a time contains $\sigma_b^{2}$
 Someone proposes $\sigma_a^{2}=1$, $\sigma_b^{2}=1$ and $\sigma_{ab}=1.5$. Why is there no random vector $(a_j,b_j)$ with that covariance?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The determinant would be $1\cdot 1-(1.5)^{2}=-1.25<0$, so the matrix is not positive semidefinite. A correlation of $1.5$ is impossible. The bound is $\sigma_{ab}^{2}\le\sigma_a^{2}\sigma_b^{2}$.{{cite:bates_lme4_2015}} (§1.1, eq. 4, p. 3)
+The determinant would be $1\cdot 1-(1.5)^{2}=-1.25<0$, so the matrix is not positive semidefinite. A correlation of $1.5$ is impossible. The bound is $\sigma_{ab}^{2}\le\sigma_a^{2}\sigma_b^{2}$.
 :::
 
 ## History

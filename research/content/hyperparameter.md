@@ -37,7 +37,7 @@ Take two hypothetical clinics with success counts $1$ of $4$ and $16$ of $40$. F
 **Your turn.** For a Beta population with fixed $\alpha=1,\beta=4$, one group has $2$ successes in $5$ trials. Find the prior mean, its conditional posterior mean, and the two weights in the weighted-average formula.{{cite:gelman_bda2013}} (Ch. 2, §2.4, pp. 34–35)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The prior mean is $1/5=0.2$. The conditional posterior is $\operatorname{Beta}(3,7)$, with mean $3/10=0.3$. The population and data weights are both $5/10=1/2$, so $(1/2)(0.2)+(1/2)(2/5)=0.3$. Fixing $\alpha,\beta$ here is an explicit condition of the calculation; uncertainty in them would require another averaging step.{{cite:gelman_bda2013}} (Ch. 2, §2.4, pp. 34–35; Ch. 5, §5.3, pp. 108–110)
+The prior mean is $1/5=0.2$. The conditional posterior is $\operatorname{Beta}(3,7)$, with mean $3/10=0.3$. The population and data weights are both $5/10=1/2$, so $(1/2)(0.2)+(1/2)(2/5)=0.3$. Fixing $\alpha,\beta$ here is an explicit condition of the calculation; uncertainty in them would require another averaging step.
 :::
 
 ## Common misconceptions

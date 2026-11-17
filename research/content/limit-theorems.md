@@ -17,7 +17,7 @@ If $0<\sigma^2<\infty$, then $(S_n-n\mu)/(\sigma\sqrt{n})$ converges in distribu
 ## Interpretation — What each theorem spends
 Chebyshev's inequality spends only the variance, and it proves the weak law under that hypothesis. It does not prove the strong law, because $\sum 1/n$ diverges. The strong law spends an absolute mean and a truncation or a moment argument, and it returns a pathwise limit with no rate. The central limit theorem spends a finite positive variance and returns the shape of the error. A variance of zero makes the centred sum identically zero, and the normal limit is then a point mass, which the statement excludes by asking for $\sigma^2>0$.{{cite:durrett2019}} (Thm. 3.4.1, p. 144)
 
-Dodge traces the normal limit from de Moivre's binomial case through Laplace, Poisson, Chebyshev, Liapunov's characteristic functions, and Markov's extension beyond identical distributions. The qualifier "central" is the one Pólya attached in 1920.{{cite:dodge2008}} (p. 66)
+The normal limit runs from de Moivre's binomial case through Laplace, Poisson, Chebyshev, Liapunov's characteristic functions, and Markov's extension beyond identical distributions. Pólya attached the qualifier "central" in 1920.{{cite:dodge2008}} (p. 66)
 
 ## Properties
 The weak-law bound is Chebyshev's inequality. The normal limit is the characteristic-function argument Durrett records for identical summands.
@@ -58,7 +58,7 @@ The corrected error is $0.0003$. The uncorrected error is $0.0056$. For a coarse
 **Your turn.** For the $100$ fair tosses, compute the Chebyshev bound on $\mathrm{P}(|S/n-1/2|\ge 0.1)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The variance of the sample proportion is $(1/4)/100=0.0025$, and $0.1^2=0.01$, so the bound is $0.0025/0.01=0.25$. The event $|S-50|\ge 10$ includes $S\ge 60$ and $S\le 40$. The normal approximation to one of those tails is already about $0.023$, so two tails are about $0.046$, far below the Chebyshev number $0.25$.{{cite:durrett2019}} (Thm. 1.6.4)
+The variance of the sample proportion is $(1/4)/100=0.0025$, and $0.1^2=0.01$, so the bound is $0.0025/0.01=0.25$. The event $|S-50|\ge 10$ includes $S\ge 60$ and $S\le 40$. The normal approximation to one of those tails is already about $0.023$, so two tails are about $0.046$, far below the Chebyshev number $0.25$.
 :::
 
 ## Common misconceptions
@@ -83,22 +83,22 @@ The [strong law](strong-law.qmd) is the pathwise average. [Markov's inequality](
 For $100$ fair tosses, what are the exact probability $\mathrm{P}(S\ge 60)$, the plain normal approximation, and the continuity-corrected approximation, to four decimals?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The exact value is $0.0284$. The plain approximation is $0.0228$. The continuity correction is $0.0287$.{{cite:durrett2019}} (Thm. 3.4.1)
+The exact value is $0.0284$. The plain approximation is $0.0228$. The continuity correction is $0.0287$.
 :::
 
 ### Chebyshev against the normal tail
 The Chebyshev bound on $\mathrm{P}(|S/100-1/2|\ge 0.1)$ is $0.25$. Why is that not a contradiction of the normal tail near $0.023$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Chebyshev's inequality is an upper bound that uses only the variance. The normal approximation estimates the probability. An upper bound of $0.25$ is compatible with a probability near $0.046$ for the two tails.{{cite:durrett2019}} (Thm. 1.6.4)
+Chebyshev's inequality is an upper bound that uses only the variance. The normal approximation estimates the probability. An upper bound of $0.25$ is compatible with a probability near $0.046$ for the two tails.
 :::
 
 ### Twenty tosses
 For $S\sim\mathrm{Bin}(20,1/2)$, the exact $\mathrm{P}(S\le 8)$ is $0.2517$ and the plain normal value is $0.186$. What does the continuity correction do?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-It reads the normal distribution at $8.5$ rather than at $8$, and the value is about $0.251$, close to $0.2517$. The plain reading at $8$ is the one that sits low.{{cite:durrett2019}} (Thm. 3.4.1)
+It reads the normal distribution at $8.5$ rather than at $8$, and the value is about $0.251$, close to $0.2517$. The plain reading at $8$ is the one that sits low.
 :::
 
 ## History
-Dodge dates the central limit theorem from de Moivre's binomial argument, through Laplace and Poisson, to Chebyshev's demonstration and Liapunov's characteristic-function form, and he credits Pólya with the word "central" in 1920.{{cite:dodge2008}} (p. 66) He separates the strong law, the probability-one limit of the average, from the weak law on the following pages.{{cite:dodge2008}} (pp. 298–299) The identical-summand normal limit used here is Durrett's statement for a finite positive variance, proved by convergence of characteristic functions to $e^{-t^2/2}$.{{cite:durrett2019}} (Thm. 3.4.1, p. 144)
+The central limit theorem runs from de Moivre's binomial argument, through Laplace and Poisson, to Chebyshev's demonstration and Liapunov's characteristic-function form, and Pólya supplied the word "central" in 1920.{{cite:dodge2008}} (p. 66) The strong law, the probability-one limit of the average, is a different statement from the weak law.{{cite:dodge2008}} (pp. 298–299) The identical-summand normal limit used here is Durrett's statement for a finite positive variance, proved by convergence of characteristic functions to $e^{-t^2/2}$.{{cite:durrett2019}} (Thm. 3.4.1, p. 144)

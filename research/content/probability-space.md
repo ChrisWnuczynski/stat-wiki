@@ -65,7 +65,7 @@ Counting the union directly agrees: the six outcomes in $A$ together with $(6,1)
 **Your turn.** On the same two dice, let $C$ be the event that both faces are even. Find $\mathrm{P}(C)$, and find $\mathrm{P}(A\cap C)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Each die has three even faces, so $|C|=3\times 3=9$ and $\mathrm{P}(C)=9/36=1/4$. The outcomes in $A\cap C$ are the even pairs whose sum is at least $10$: $(4,6)$, $(6,4)$, and $(6,6)$. So $|A\cap C|=3$ and $\mathrm{P}(A\cap C)=3/36=1/12$. The pair $(5,5)$ is in $A$ but not in $C$, which is why the intersection is smaller than $A$.{{cite:durrett2019}} (Ex. 1.1.2)
+Each die has three even faces, so $|C|=3\times 3=9$ and $\mathrm{P}(C)=9/36=1/4$. The outcomes in $A\cap C$ are the even pairs whose sum is at least $10$: $(4,6)$, $(6,4)$, and $(6,6)$. So $|A\cap C|=3$ and $\mathrm{P}(A\cap C)=3/36=1/12$. The pair $(5,5)$ is in $A$ but not in $C$, which is why the intersection is smaller than $A$.
 :::
 
 ## Common misconceptions
@@ -90,21 +90,21 @@ Three short calculations. Open an answer only after you have a number or a yes-o
 Suppose $\mathrm{P}(A)=0.2$, $\mathrm{P}(B)=0.5$, and $\mathrm{P}(A\cap B)=0.1$. Find $\mathrm{P}(A\cup B)$ and $\mathrm{P}(A^c)$, and decide whether $A\subset B$ is possible.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Inclusion–exclusion gives $\mathrm{P}(A\cup B)=0.2+0.5-0.1=0.6$. The complement has probability $1-0.2=0.8$. If $A$ were contained in $B$, the intersection would equal $A$ and would have probability $0.2$, not $0.1$. So $A$ is not a subset of $B$.{{cite:durrett2019}} (Thm. 1.1.1)
+Inclusion–exclusion gives $\mathrm{P}(A\cup B)=0.2+0.5-0.1=0.6$. The complement has probability $1-0.2=0.8$. If $A$ were contained in $B$, the intersection would equal $A$ and would have probability $0.2$, not $0.1$. So $A$ is not a subset of $B$.
 :::
 
 ### A countable sum
 Independent trials succeed with probability $0.2$ and otherwise fail. The chance that the first success occurs on trial $k$ is $(0.8)^{k-1}(0.2)$. Find the chance that the first success occurs on trial $3$, and the chance that it occurs on trial $1$, $2$, or $3$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Trial $3$ has probability $(0.8)^2(0.2)=0.128$. The three-trial total is $0.2+0.16+0.128=0.488$. The remaining probability $0.512$ is the chance that the first three trials all fail, which is $(0.8)^3$.{{cite:durrett2019}} (Thm. 1.1.1, finite additivity)
+Trial $3$ has probability $(0.8)^2(0.2)=0.128$. The three-trial total is $0.2+0.16+0.128=0.488$. The remaining probability $0.512$ is the chance that the first three trials all fail, which is $(0.8)^3$.
 :::
 
 ### Finite versus countable
 On the positive integers, let $\mathcal{A}$ contain every set that is finite or has finite complement. Explain why $\mathcal{A}$ is an algebra and why the set of even integers shows that it is not a sigma-algebra.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The complement of a finite set has finite complement only in the trivial sense that the original set is finite, and the complement of a cofinite set is finite, so $\mathcal{A}$ is closed under complements. The union of two finite sets is finite, and a union that involves a cofinite set is cofinite. Each even singleton is finite, hence in $\mathcal{A}$. The even integers are a countable union of those singletons, and both that set and its complement are infinite, so the union is not in $\mathcal{A}$.{{cite:durrett2019}} (Ex. 1.1.6, p. 4)
+The complement of a finite set has finite complement only in the trivial sense that the original set is finite, and the complement of a cofinite set is finite, so $\mathcal{A}$ is closed under complements. The union of two finite sets is finite, and a union that involves a cofinite set is cofinite. Each even singleton is finite, hence in $\mathcal{A}$. The even integers are a countable union of those singletons, and both that set and its complement are infinite, so the union is not in $\mathcal{A}$.
 :::
 
 ## History

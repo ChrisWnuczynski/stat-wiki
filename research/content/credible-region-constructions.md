@@ -27,7 +27,7 @@ Suppose a nonnegative parameter has posterior density $f(\theta\mid x)=2e^{-2\th
 **Your turn.** For a rate-one exponential posterior on $\theta\ge0$, find the 80% equal-tailed and HPD intervals. State why their lower endpoints differ.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Here $F(t)=1-e^{-t}$. The equal-tailed interval cuts 10% from each tail, so it is $[-\log(0.90),-\log(0.10)]\approx[0.10536,2.30259]$. The density is largest at zero and decreases, so the 80% HPD interval is $[0,-\log(0.20)]\approx[0,1.60944]$. The equal-tail rule removes low-parameter probability even though those values have the highest density.{{cite:liu_gelman_zheng2015}} (§1, pp. 809–810)
+Here $F(t)=1-e^{-t}$. The equal-tailed interval cuts 10% from each tail, so it is $[-\log(0.90),-\log(0.10)]\approx[0.10536,2.30259]$. The density is largest at zero and decreases, so the 80% HPD interval is $[0,-\log(0.20)]\approx[0,1.60944]$. The equal-tail rule removes low-parameter probability even though those values have the highest density.
 :::
 
 ## Common misconceptions

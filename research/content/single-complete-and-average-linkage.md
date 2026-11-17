@@ -18,7 +18,7 @@ $$
 $$
 d_{\mathrm{GA}}(G,H)=\frac{1}{N_G N_H}\sum_{i\in G}\sum_{i'\in H}d_{ii'}.
 $$
-Here $N_G$ and $N_H$ are the sizes of the groups. Dodge describes the same two extremes for Euclidean distance: single linkage takes the closest elements, and complete linkage takes the furthest.{{cite:dodge2008}} (p. 84){{cite:hastie_esl2009}} (§14.3, eqs. 14.41–14.43, p. 523)
+Here $N_G$ and $N_H$ are the sizes of the groups. For Euclidean distance the same two extremes are available: single linkage takes the closest elements, and complete linkage takes the furthest.{{cite:dodge2008}} (p. 84){{cite:hastie_esl2009}} (§14.3, eqs. 14.41–14.43, p. 523)
 
 ## Interpretation — Order, scale, and chaining
 Single and complete linkage depend only on the order of the dissimilarities. A strictly increasing transformation of every $d_{ii'}$ does not change which pair is nearest or furthest, so it does not change the merge sequence. Average linkage uses the numerical values. The same transformation can change which groups it merges.{{cite:hastie_esl2009}} (§14.3, p. 525)
@@ -76,7 +76,7 @@ Average linkage's population reading, as an estimate of $\iint d(x,x')\,p_G(x)p_
 The cross distances between $\{0,1\}$ and $\{10,12\}$ are $10$, $12$, $9$, and $11$. What are the single, complete, and average linkages?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The minimum is $9$, the maximum is $12$, and the average is $10.5$.{{cite:hastie_esl2009}} (§14.3, eqs. 14.41–14.43)
+The minimum is $9$, the maximum is $12$, and the average is $10.5$.
 :::
 
 ### A chain of three
@@ -90,8 +90,8 @@ Single linkage returns $1$, complete linkage returns $2$, and average linkage re
 Replace every distance $d$ by $d^2$. Do single linkage and average linkage still merge $\{0,1\}$ with $\{10,12\}$ at heights that are the squares of $9$ and $10.5$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Single linkage uses the smallest squared gap, $9^2=81$, which is the square of the old height. Average linkage averages $100$, $144$, $81$, and $121$, which equals $111.5$, not $10.5^2=110.25$. The average does not commute with squaring.{{cite:hastie_esl2009}} (§14.3, p. 525)
+Single linkage uses the smallest squared gap, $9^2=81$, which is the square of the old height. Average linkage averages $100$, $144$, $81$, and $121$, which equals $111.5$, not $10.5^2=110.25$. The average does not commute with squaring.
 :::
 
 ## History
-Dodge's account of cluster analysis defines single linkage as the Euclidean distance between the closest members of two classes and complete linkage as the distance between the furthest members, inside an agglomerative algorithm that rebuilds the distance table after each merge.{{cite:dodge2008}} (p. 84) Hastie, Tibshirani and Friedman add group-average linkage, the size-weighted mean of all cross dissimilarities, and they record that single and complete linkage depend only on the order of those dissimilarities.{{cite:hastie_esl2009}} (§14.3, pp. 523–525)
+Single linkage is the Euclidean distance between the closest members of two classes, and complete linkage is the distance between the furthest members, inside an agglomerative algorithm that rebuilds the distance table after each merge.{{cite:dodge2008}} (p. 84) Hastie, Tibshirani and Friedman add group-average linkage, the size-weighted mean of all cross dissimilarities, and they record that single and complete linkage depend only on the order of those dissimilarities.{{cite:hastie_esl2009}} (§14.3, pp. 523–525)

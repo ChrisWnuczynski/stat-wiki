@@ -36,7 +36,7 @@ Suppose four independent trials yield $T=3$ successes. To estimate the probabili
 **Your turn.** Five independent Bernoulli trials produce $T=2$. Estimate $p^2$ by the unbiased ordered-pair method, compare it with the squared sample proportion, and say which is UMVU.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The ordered-pair estimate is $T(T-1)/\{5\cdot4\}=2/20=0.10$; the squared sample proportion is $(2/5)^2=0.16$. The former is unbiased for $p^2$ and, because the binomial count is complete sufficient for $p\in(0,1)$, is UMVU. The difference between these realised values alone does not establish bias; their expectations do.{{cite:siegrist2022_sufficient_complete}} (§7.6, The Bernoulli Distribution)
+The ordered-pair estimate is $T(T-1)/\{5\cdot4\}=2/20=0.10$; the squared sample proportion is $(2/5)^2=0.16$. The former is unbiased for $p^2$ and, because the binomial count is complete sufficient for $p\in(0,1)$, is UMVU. The difference between these realised values alone does not establish bias; their expectations do.
 :::
 
 ## Common misconceptions

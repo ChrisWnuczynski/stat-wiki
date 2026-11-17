@@ -49,7 +49,7 @@ At lag one the numerator is $-25/4=-6.25$, so $r_1=(-25/4)/(35/2)=-5/14\approx-0
 **Your turn.** Using the same six readings and the same denominator, calculate the lag-three sample autocorrelation. Would a value at this one lag establish a population three-step cycle?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The lag-three numerator is $(8-6.5)(4-6.5)+(6-6.5)(7-6.5)+(9-6.5)(5-6.5)=-31/4$. Therefore $r_3=(-31/4)/(35/2)=-31/70\approx-0.4429$. This is one descriptive coefficient from only three lagged pairs; it does not establish a population cycle.{{cite:hyndman_athanasopoulos2021}} (§2.8, sample ACF formula)
+The lag-three numerator is $(8-6.5)(4-6.5)+(6-6.5)(7-6.5)+(9-6.5)(5-6.5)=-31/4$. Therefore $r_3=(-31/4)/(35/2)=-31/70\approx-0.4429$. This is one descriptive coefficient from only three lagged pairs; it does not establish a population cycle.
 :::
 
 ## Common misconceptions
@@ -62,4 +62,4 @@ For a random walk, the variance changes with time, so one population $\rho(k)$ d
 [Weak stationarity](weak-stationarity.qmd) is what makes the population ACF a function of lag alone. [White noise](white-noise.qmd) has zero nonzero-lag autocorrelation, while [autoregression and moving averages](autoregression-and-moving-averages.qmd) create characteristic population patterns. [Partial autocorrelation](partial-autocorrelation.qmd) asks what remains after the intervening linear lags are accounted for. [Effective sample size](effective-sample-size.qmd) uses serial correlation to explain why many closely related observations can carry less information than the same number of independent ones.{{cite:hyndman_athanasopoulos2021}} (§2.8; ch. 9)
 
 ## History
-The study of correlation across a series grew with early twentieth-century attempts to understand apparent cycles in observed processes. Dodge identifies George Udny Yule's work in the 1920s and 1930s as foundational for autocorrelation, partial autocorrelation, and the correlogram, alongside his development of autoregressive processes. The modern ACF retains that diagnostic purpose, now serving both model identification and residual checking in forecasting.{{cite:dodge2008}} (p. 24, “Autocorrelation”){{cite:hyndman_athanasopoulos2021}} (§2.8; ch. 9)
+The study of correlation across a series grew with early twentieth-century attempts to understand apparent cycles in observed processes. George Udny Yule's work in the 1920s and 1930s developed autocorrelation, partial autocorrelation, the correlogram and autoregressive processes. The autocorrelation function still serves that diagnostic purpose, now serving both model identification and residual checking in forecasting.{{cite:dodge2008}} (p. 24, “Autocorrelation”){{cite:hyndman_athanasopoulos2021}} (§2.8; ch. 9)

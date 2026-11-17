@@ -1,8 +1,11 @@
 ## Lead context
-Little's law says that the average number of customers present is the arrival rate multiplied by the average time each customer stays.
+Little's law says that the average number of customers present is the arrival rate multiplied by the average time each customer stays.{{cite:little1961}} (pp. 383–387)
+
+## Motivating example
+Twenty customers an hour, each staying a quarter of an hour, contribute $20\times 1/4=5$ customer-hours. The average headcount is $5$.{{cite:little1961}} (pp. 383–387) The same three numbers describe one population.
 
 ## Intuition — Headcount is a rate times a duration
-Picture a steady cafe. If \(20\) customers arrive each hour and each stays a quarter of an hour, then over that hour the arrivals contribute \(20\times 1/4=5\) customer-hours, which is an average headcount of \(5\). The same product runs in either direction: a known headcount and a known stay give the throughput. The three numbers have to describe one population. Mixing the queue-only wait with the time spent in service, or counting customers who never enter, breaks the identity even though each separate average may be correct.
+Picture a steady cafe. If \(20\) customers arrive each hour and each stays a quarter of an hour, then over that hour the arrivals contribute \(20\times 1/4=5\) customer-hours, which is an average headcount of \(5\). The same product runs in either direction:{{cite:little1961}} (pp. 383–387) a known headcount and a known stay give the throughput. The three numbers have to describe one population. Mixing the queue-only wait with the time spent in service, or counting customers who never enter, breaks the identity even though each separate average may be correct.
 
 ## Definition — One population, three averages
 For a stable system, \(L=\lambda_{\mathrm{eff}} W\). Here \(L\) is the time-average number present, \(W\) is the mean sojourn of the customers who are counted in \(L\), and \(\lambda_{\mathrm{eff}}\) is their mean arrival rate. The queue-only companion is \(L_q=\lambda_{\mathrm{eff}} W_q\), with the wait before service in place of the full sojourn. In a system that turns arrivals away, \(\lambda_{\mathrm{eff}}\) is the rate of accepted arrivals.
@@ -23,7 +26,7 @@ Five customers present, each staying a quarter of an hour, are the same statemen
 ## Connections — Queues, blocking, and the population you named
 An [M/M/1 queue](m-m-1-queue.qmd) with arrival rate below the service rate is stable, so the identity applies to the whole system and, separately, to the waiting line. A [blocking probability](blocking-probability.qmd) means some arrivals never join \(L\); the rate in the formula is then the throughput. The identity is an accounting relation for those averages. It does not require exponential service or a single server.
 
-## Check yourself — Matching the three numbers
+## Check yourself
 A server completes \(12\) jobs an hour, and the mean number of jobs in the system is \(3\). What is the mean sojourn, in minutes?
 
 ::: {.callout-tip collapse="true" title="Answer"}

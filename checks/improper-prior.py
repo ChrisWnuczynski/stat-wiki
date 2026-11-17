@@ -21,6 +21,6 @@ for printed in ('0.75', '3/(3+1)', 'N(3,3)', '9/3', '3\\theta^2', 'Beta}(4,0)', 
     assert printed in body, f'Missing printed value {printed}'
 assert body.count('title="Proof"') == 1
 assert '**Your turn.**' in body and 'title="Answer"' in body
-for key in ('sas_statug2009_prior_distributions', 'stan_users_guide_problematic_posteriors', 'taraldsen2022_improper'):
+for key in ('gelman_bda2013', 'taraldsen2022_improper'):
     assert f'data-cite-key="{key}"' in body
 print('Improper prior numerical and propriety checks passed')

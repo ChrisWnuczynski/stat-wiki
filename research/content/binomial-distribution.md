@@ -33,7 +33,7 @@ Suppose $100$ independent units each have flaw probability $0.02$. For the flaw 
 **Your turn.** For $200$ independent units with flaw probability $0.01$, calculate the exact chance of no flaws and its Poisson approximation. Give the exact mean and variance, and identify the condition that would be broken if flaws came in shared production clusters.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-For $X\sim\operatorname{Bin}(200,0.01)$, $\Pr(X=0)=0.99^{200}\approx0.13398$. The Poisson mean is $200(0.01)=2$, so the approximation is $e^{-2}\approx0.13534$. The exact mean is $2$ and variance is $200(0.01)(0.99)=1.98$. Shared production clusters would make unit outcomes dependent, violating the independent-trial assumption even if each unit's marginal flaw probability stayed $0.01$.{{cite:siegrist2022_binomial_distribution}} (§11.2, Bernoulli trials and the Poisson approximation)
+For $X\sim\operatorname{Bin}(200,0.01)$, $\Pr(X=0)=0.99^{200}\approx0.13398$. The Poisson mean is $200(0.01)=2$, so the approximation is $e^{-2}\approx0.13534$. The exact mean is $2$ and variance is $200(0.01)(0.99)=1.98$. Shared production clusters would make unit outcomes dependent, violating the independent-trial assumption even if each unit's marginal flaw probability stayed $0.01$.
 :::
 
 ## Common misconceptions

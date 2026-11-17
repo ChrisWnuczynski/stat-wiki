@@ -44,7 +44,7 @@ Take $S=\begin{pmatrix}2&1\\1&2\end{pmatrix}$. Its characteristic equation is $\
 **Your turn.** For $B=\begin{pmatrix}5&2\\2&5\end{pmatrix}$, find both eigenvalues and unit eigenvectors. What fraction of total variance does the leading direction retain if $B$ is a covariance matrix?{{cite:strimmer2025_mva}} (Ch. 1, §1.1; Ch. 3, §3.5)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The characteristic polynomial is $(5-\lambda)^2-4=(\lambda-7)(\lambda-3)$, so the eigenvalues are $7$ and $3$. The unit eigenvectors are $(1,1)^\top/\sqrt2$ and $(1,-1)^\top/\sqrt2$, respectively. The first direction retains $7/(7+3)=7/10=70\%$ of total variance. Both eigenvalues are positive, so $B$ is a possible positive-definite covariance matrix.{{cite:strimmer2025_mva}} (Ch. 1, §1.1; Ch. 3, §3.5)
+The characteristic polynomial is $(5-\lambda)^2-4=(\lambda-7)(\lambda-3)$, so the eigenvalues are $7$ and $3$. The unit eigenvectors are $(1,1)^\top/\sqrt2$ and $(1,-1)^\top/\sqrt2$, respectively. The first direction retains $7/(7+3)=7/10=70\%$ of total variance. Both eigenvalues are positive, so $B$ is a possible positive-definite covariance matrix.
 :::
 
 ## Common misconceptions

@@ -67,7 +67,7 @@ The same arithmetic on $z=(2,1,0.1)$, with the true class first, gives $s\approx
 **Your turn.** Two scores are $z_1=1.5$ and $z_2=0.5$, and the true class is the first. Find the softmax probability of class $1$, and the cross-entropy.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The difference is $1$, so the probability is $1/(1+e^{-1})\approx 0.7311$. The cross-entropy is $-\log 0.7311\approx 0.3133$. The error on the first score is $0.7311-1=-0.2689$, and the error on the second is $0.2689$.{{cite:hastie_esl2009}} (§11.3, eq. 11.6)
+The difference is $1$, so the probability is $1/(1+e^{-1})\approx 0.7311$. The cross-entropy is $-\log 0.7311\approx 0.3133$. The error on the first score is $0.7311-1=-0.2689$, and the error on the second is $0.2689$.
 :::
 
 ## Common misconceptions
@@ -92,7 +92,7 @@ The [sigmoid function](sigmoid-function.qmd) is the two-class case of softmax. [
 For $z=(0,1,-1)$ and true class $2$, what are the softmax probabilities to four decimals, and the cross-entropy to four decimals?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The probabilities are $0.2447$, $0.6652$, and $0.0900$. The cross-entropy is $0.4076$.{{cite:hastie_esl2009}} (§11.3, eq. 11.6)
+The probabilities are $0.2447$, $0.6652$, and $0.0900$. The cross-entropy is $0.4076$.
 :::
 
 ### A shift
@@ -106,7 +106,7 @@ No. Each exponential is multiplied by $e^{5}$, and so is their sum. The probabil
 Scores $1.5$ and $0.5$. What is the probability of the first class, to four decimals?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-It equals $1/(1+e^{-1})\approx 0.7311$.{{cite:hastie_esl2009}} (§11.3, eq. 11.6)
+It equals $1/(1+e^{-1})\approx 0.7311$.
 :::
 
 ## History

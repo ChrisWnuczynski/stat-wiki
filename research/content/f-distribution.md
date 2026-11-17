@@ -1,6 +1,9 @@
 ## Lead context
 The F distribution is the law of a ratio of two independent scaled chi-squared variables.
 
+## Motivating example
+For an $F_{8,20}$ variable the mean exists and equals $20/(20-2)=10/9$. The mode equals $15/22$. The reciprocal law is $F_{20,8}$, whose mean is $4/3$.
+
 ## Intuition — A comparison of two scatter estimates
 A variance estimate from normal data is a chi-squared variable divided by its degrees of freedom. Comparing two such estimates, from independent samples, cancels the unknown population variance and leaves a ratio. Large values mean the numerator scatter is large relative to the denominator scatter. The ratio is not centred at one: its mean, when the mean exists, sits above one because the reciprocal of a chi-squared denominator is pulled upward by its right tail.{{cite:nist_f_distribution}} (§1.3.6.6.5, mean)
 
@@ -34,20 +37,24 @@ For $X\sim F_{8,20}$ the denominator degrees of freedom exceed two, so the mean 
 **Your turn.** For $F_{4,6}$, find the mean and the variance. The variance formula is $2d_2^2(d_1+d_2-2)/(d_1(d_2-2)^2(d_2-4))$ when $d_2>4$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $6/(6-2)=1.5$. The variance is $2(6)^2(4+6-2)/(4(6-2)^2(6-4))=4.5$. Both exist because $d_2=6$ is greater than $4$.{{cite:nist_f_distribution}} (§1.3.6.6.5, mean and standard deviation)
+The mean is $6/(6-2)=1.5$. The variance is $2(6)^2(4+6-2)/(4(6-2)^2(6-4))=4.5$. Both exist because $d_2=6$ is greater than $4$.
 :::
 
-**Check yourself.** For $F_{3,4}$, does a finite mean exist, and does a finite variance exist?
+For $F_{3,4}$, does a finite mean exist, and does a finite variance exist?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $4/(4-2)=2$, because $d_2>2$. The variance formula requires $d_2>4$, and $d_2=4$ is not greater than $4$, so the variance is not finite.{{cite:nist_f_distribution}} (§1.3.6.6.5, mean and standard deviation)
+The mean is $4/(4-2)=2$, because $d_2>2$. The variance formula requires $d_2>4$, and $d_2=4$ is not greater than $4$, so the variance is not finite.
 :::
 
-**Check yourself.** The square of a $t_5$ variable is an $F_{1,5}$ variable. What is the mean of that F law?
+The square of a $t_5$ variable is an $F_{1,5}$ variable. What is the mean of that F law?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $5/(5-2)=5/3\approx 1.667$. The numerator has one degree of freedom, so this law has no mode of the interior form that needs $d_1>2$.{{cite:nist_f_distribution}} (§1.3.6.6.5, mean and mode)
+The mean is $5/(5-2)=5/3\approx 1.667$. The numerator has one degree of freedom, so this law has no mode of the interior form that needs $d_1>2$.
 :::
 
 ## Connections
 An analysis-of-variance comparison of normal means uses an F ratio of a between-group mean square to a within-group mean square. A comparison of two independent normal variances uses the same reference law with the sample sizes minus one as the two degrees of freedom. The square of a [Student's t](student-t-distribution.qmd) variable on $m$ degrees of freedom is $F_{1,m}$, because the squared normal numerator is chi-squared on one degree of freedom.{{cite:nist_f_distribution}} (§1.3.6.6.5, comments on tests)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The mean is $5/(5-2)=5/3\approx 1.667$. The numerator has one degree of freedom, so this law has no mode of the interior form that needs $d_1>2$.
+:::

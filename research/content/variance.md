@@ -30,7 +30,7 @@ Suppose a delivery is early by two minutes with probability $1/4$, on time with 
 **Your turn.** A fair three-sided spinner pays $1$, $3$, or $5$ dollars. Find the mean and variance of the payout.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $(1+3+5)/3=3$ dollars. The squared deviations are $4$, $0$, and $4$, so the variance is $(4+0+4)/3=8/3$ square dollars.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)
+The mean is $(1+3+5)/3=3$ dollars. The squared deviations are $4$, $0$, and $4$, so the variance is $(4+0+4)/3=8/3$ square dollars.
 :::
 
 The [normal-variance derivation](../questions/ex-prob-normal-variance.qmd) applies the second-moment identity to a continuous density.{{cite:grinstead_snell1997}} (Ch. 6, §§6.2–6.3)

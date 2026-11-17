@@ -30,7 +30,7 @@ Take $p=0.02$, $s=0.90$ and $c=0.95$. True positives contribute $0.02\times 0.90
 **Your turn.** Keep the same sensitivity and specificity, and raise the prevalence to $0.10$. Find the positive predictive value and the proportion of positive reports that are false alarms.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-True positives now contribute $0.10\times 0.90=0.090$ and false positives contribute $0.90\times 0.05=0.045$. The positive predictive value is $0.090/0.135=0.667$, and the false-alarm share among positive reports is $0.045/0.135=0.333$. The test has not changed. The condition is less rare, so a positive result is more trustworthy.{{cite:pishro_nik2014}} (§5.1, conditional probability)
+True positives now contribute $0.10\times 0.90=0.090$ and false positives contribute $0.90\times 0.05=0.045$. The positive predictive value is $0.090/0.135=0.667$, and the false-alarm share among positive reports is $0.045/0.135=0.333$. The test has not changed. The condition is less rare, so a positive result is more trustworthy.
 :::
 
 ## Connections — Reversing a conditional probability

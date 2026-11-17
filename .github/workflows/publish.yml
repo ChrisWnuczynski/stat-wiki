@@ -193,7 +193,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install distribution plotting packages
-        run: python -m pip install matplotlib==3.10.8 scipy==1.17.0
+        run: python -m pip install matplotlib==3.10.8 scipy==1.17.0 sympy==1.14.0 scikit-learn==1.6.1 sympy==1.14.0 scikit-learn==1.6.1
 
       - name: Install poppler
         run: sudo apt-get update && sudo apt-get install -y poppler-utils fonts-liberation

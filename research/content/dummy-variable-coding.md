@@ -14,13 +14,13 @@ Let groups $A$, $B$, and $C$ have indicators $I_B$ and $I_C$, with $A$ as the re
 $$
 \mu=\beta_0+\beta_B I_B+\beta_C I_C
 $$
-gives $\mu_A=\beta_0$, $\mu_B=\beta_0+\beta_B$, and $\mu_C=\beta_0+\beta_C$. With one common variance and independent observations, least squares estimates these means by the group sample means.
+gives $\mu_A=\beta_0$, $\mu_B=\beta_0+\beta_B$, and $\mu_C=\beta_0+\beta_C$. With one common variance and independent observations, least squares estimates these means by the group sample means. {{cite:nist_oneway_anova}} (§3.2.3.1, Model, ANOVA table and Assumptions)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
 If $I_A,I_B,I_C$ are all three indicators, then $I_A+I_B+I_C$ equals the intercept column, so the four columns are dependent. Deleting $I_A$ removes that relation.
 
-Within a group the model is a constant. The residual sum of squares for a constant fit is minimised at the group sample mean, so $\hat\beta_0=\bar y_A$, $\hat\beta_B=\bar y_B-\bar y_A$, and $\hat\beta_C=\bar y_C-\bar y_A$.
+Within a group the model is a constant. The residual sum of squares for a constant fit is minimised at the group sample mean, so $\hat\beta_0=\bar y_A$, $\hat\beta_B=\bar y_B-\bar y_A$, and $\hat\beta_C=\bar y_C-\bar y_A$. {{cite:nist_oneway_anova}} (§3.2.3.1, Model, ANOVA table and Assumptions)
 
 If the mean also contains a quantitative covariate $z$, those coefficients are differences at a fixed value of $z$. They are not, in general, the differences of the raw group means. The formulae above are the case with no other covariate.
 :::
@@ -40,15 +40,13 @@ The fitted mean in $B$ is $11+4=15$. With reference $B$ the coefficient of $B$ i
 :::
 
 ## Connections — Factors in a linear mean
-An [interaction](interaction.qmd) adds a further indicator product, so the difference between two levels of one factor can depend on the level of another. The [identity link](identity-link.qmd) reads those coefficients as differences of means. A [linear predictor](linear-predictor.qmd) that includes a full set of indicators and the intercept is not identifiable, which is why software drops a level. The same reference-level arithmetic is what a two-factor model uses when level 1 of each factor is the baseline.
+An [interaction](interaction.qmd) adds a further indicator product, so the difference between two levels of one factor can depend on the level of another. The [identity link](identity-link.qmd) reads those coefficients as differences of means. A [linear predictor](linear-predictor.qmd) that includes a full set of indicators and the intercept is not identifiable, because those indicators sum to the intercept column. {{cite:nist_oneway_anova}} (§3.2.3.1, Model, ANOVA table and Assumptions) The same reference-level arithmetic is what a two-factor model uses when level 1 of each factor is the baseline.
 
 ## Check yourself
 
 ### Read the reference cell {#self-check-ex-inf-contrast-cell}
 
 Level 1 of each factor is the reference, and the estimates are $\hat\mu=10$, $\hat\alpha_2=4$, $\hat\beta_2=-2$, and $\hat\gamma_{22}=3$. Write the four cell means. What is the change in moving factor A from level 1 to level 2 when factor B is at level 2?
-
-[Question-bank page](../questions/ex-inf-contrast-cell.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The means are $10$ at $(1,1)$, $10-2=8$ at $(1,2)$, $10+4=14$ at $(2,1)$, and $10+4-2+3=15$ at $(2,2)$. The move in A at level 2 of B changes the mean by $4+3=7$, from $8$ to $15$. The main effect $4$ is that change only at the reference level of B.
@@ -57,8 +55,6 @@ The means are $10$ at $(1,1)$, $10-2=8$ at $(1,2)$, $10+4=14$ at $(2,1)$, and $1
 ### An interaction sum of squares {#self-check-ex-inf-interaction-ss}
 
 Cell means in a $2\times 2$ table, one observation each, are $3,5$ in the first row and $4,10$ in the second. Compute the interaction sum of squares.
-
-[Question-bank page](../questions/ex-inf-interaction-ss.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The row means are $4$ and $7$, the column means are $3.5$ and $7.5$, and the grand mean is $5.5$. The interaction residuals are $1,-1,-1,1$, and the sum of squares is $4$. With one observation per cell there is no residual degree of freedom left for an error mean square.

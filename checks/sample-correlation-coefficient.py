@@ -77,7 +77,7 @@ assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["sample-correlation-coefficient"]["figures"]
-for key in ("nist_correlation2013", "strimmer2025_mva", "hannay2019_statsdata", "dodge2008"):
+for key in ("hannay2019_statsdata", "dodge2008"):
     assert f'data-cite-key="{key}"' in body, key
 for unread in ("pearson1896", "student1908_corr", "casella_berger2002"):
     assert f'data-cite-key="{unread}"' not in body

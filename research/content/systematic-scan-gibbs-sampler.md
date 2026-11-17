@@ -40,7 +40,7 @@ Let a joint target for binary $X,Z$ have masses $\pi(0,0)=1/2$, $\pi(0,1)=1/6$, 
 **Your turn.** From $(0,0)$ under the same four-cell target, calculate the chance of reaching $(1,1)$ in one sweep for $X$-then-$Z$ and for $Z$-then-$X$. Keep the intermediate conditioning value explicit.{{cite:geyer2005_markov_chain}} (§10.6, pp. 29–30)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-In the $X$-then-$Z$ order, $P(X'=1\mid Z=0)=(1/12)/(1/2+1/12)=1/7$, followed by $P(Z'=1\mid X'=1)=(1/4)/(1/12+1/4)=3/4$. The transition chance is $(1/7)(3/4)=3/28$. In the reverse order, $P(Z'=1\mid X=0)=(1/6)/(1/2+1/6)=1/4$, followed by $P(X'=1\mid Z'=1)=(1/4)/(1/6+1/4)=3/5$. The chance is $(1/4)(3/5)=3/20$. Neither number is the stationary mass $\pi(1,1)=1/4$: a one-sweep transition is a conditional probability given the starting state.{{cite:geyer2005_markov_chain}} (§§10.4–10.6, pp. 28–30)
+In the $X$-then-$Z$ order, $P(X'=1\mid Z=0)=(1/12)/(1/2+1/12)=1/7$, followed by $P(Z'=1\mid X'=1)=(1/4)/(1/12+1/4)=3/4$. The transition chance is $(1/7)(3/4)=3/28$. In the reverse order, $P(Z'=1\mid X=0)=(1/6)/(1/2+1/6)=1/4$, followed by $P(X'=1\mid Z'=1)=(1/4)/(1/6+1/4)=3/5$. The chance is $(1/4)(3/5)=3/20$. Neither number is the stationary mass $\pi(1,1)=1/4$: a one-sweep transition is a conditional probability given the starting state.
 :::
 
 ## Common misconceptions

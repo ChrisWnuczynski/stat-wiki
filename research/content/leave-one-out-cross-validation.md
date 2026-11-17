@@ -42,7 +42,7 @@ The leave-one-out predictions are therefore $-2$, $3.5$ and $3$, and the mean sq
 **Your turn.** Suppose a fourth linear fit, not these data, has ordinary residual $0.4$ and leverage $0.2$ at one case. What is the leave-one-out residual at that case, and what goes wrong if the leverage equals $1$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The leave-one-out residual is $0.4/(1-0.2)=0.5$. If the leverage is $1$, the case lies in the column space in a way that forces a zero residual in every fit that includes it, and the division by $1-S_{ii}$ is undefined. The identity does not supply a leave-one-out score for that case.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, eq. 7.51, p. 244)
+The leave-one-out residual is $0.4/(1-0.2)=0.5$. If the leverage is $1$, the case lies in the column space in a way that forces a zero residual in every fit that includes it, and the division by $1-S_{ii}$ is undefined. The identity does not supply a leave-one-out score for that case.
 :::
 
 ## Common misconceptions
@@ -64,7 +64,7 @@ A second limit is leverage. A point with $S_{ii}$ near $1$ dominates the fit. It
 A least-squares fit has ordinary residual $-0.3$ and leverage $1/4$ at a case. Find the leave-one-out residual.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Divide by $1-1/4=3/4$. The leave-one-out residual is $-0.3/(3/4)=-0.4$.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, eq. 7.51, p. 244)
+Divide by $1-1/4=3/4$. The leave-one-out residual is $-0.3/(3/4)=-0.4$.
 :::
 
 ### Training residual against leave-one-out {#self-check-loo-compare}
@@ -72,7 +72,7 @@ Divide by $1-1/4=3/4$. The leave-one-out residual is $-0.3/(3/4)=-0.4$.{{cite:ha
 In the three-point line, the mean squared ordinary residual is $0.5$ and the mean squared leave-one-out error is $6.75$. Why is the second number the one that estimates prediction error?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Each ordinary residual scores a point on a line that used that point. Each leave-one-out residual scores the point on the line fitted to the other two. The average of those three squared residuals estimates the expected squared error of the fitting rule on a new case. The ordinary residual average estimates how well the line interpolates its own sample.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 241–244)
+Each ordinary residual scores a point on a line that used that point. Each leave-one-out residual scores the point on the line fitted to the other two. The average of those three squared residuals estimates the expected squared error of the fitting rule on a new case. The ordinary residual average estimates how well the line interpolates its own sample.
 :::
 
 ### A shared training set {#self-check-loo-dependence}
@@ -80,7 +80,7 @@ Each ordinary residual scores a point on a line that used that point. Each leave
 Two leave-one-out training sets from a sample of size $20$ each omit a different row. How many training rows do they share, and why does that block a binomial standard error for the average of the $20$ errors?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-They share $18$ rows. The $20$ held-out errors are functions of heavily overlapping fits, so they are dependent. A binomial variance $p(1-p)/20$ would treat them as independent indicators and would overstate the precision of the average.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–244)
+They share $18$ rows. The $20$ held-out errors are functions of heavily overlapping fits, so they are dependent. A binomial variance $p(1-p)/20$ would treat them as independent indicators and would overstate the precision of the average.
 :::
 
 ## History

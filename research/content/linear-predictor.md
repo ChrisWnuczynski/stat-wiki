@@ -48,7 +48,7 @@ Suppose a fitted Bernoulli logit model for a binary response uses $\eta=-2+0.5x$
 **Your turn.** In the same fitted model, find the predictor and response probability at $x=0$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The predictor is $\eta=-2$. The fitted probability is $e^{-2}/(1+e^{-2})=1/(1+e^2)\approx0.119$. The intercept is a log-odds value, not a negative probability.{{cite:berkson1944}} (p. 358)
+The predictor is $\eta=-2$. The fitted probability is $e^{-2}/(1+e^{-2})=1/(1+e^2)\approx0.119$. The intercept is a log-odds value, not a negative probability.
 :::
 
 ## Common misconceptions

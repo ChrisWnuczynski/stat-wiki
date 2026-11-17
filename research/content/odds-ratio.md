@@ -1,8 +1,8 @@
 ## Motivating example
-If a treatment is associated with a lower chance of an adverse event, a report may compare the two groups using an odds ratio. The number is compact and fits naturally into logistic regression, but it is easy to mistake it for a ratio of event probabilities. Interpreting it starts with the event, the reference group, and the two underlying risks.{{cite:dodge2008}} (p. 390, “Odds and Odds Ratio”){{cite:agresti_tarantola_varriale2023}} (§5.1, pp. 155–156)
+If a treatment is associated with a lower chance of an adverse event, a report may compare the two groups using an odds ratio. The number is compact and fits naturally into logistic regression, but it is easy to mistake it for a ratio of event probabilities. Interpreting it starts with the event, the reference group, and the two underlying risks.{{cite:dodge2008}} (pp. 391–393, “Odds and Odds Ratio”){{cite:agresti_tarantola_varriale2023}} (§5.1, pp. 155–156)
 
 ## Intuition
-For an event with probability $p$, the odds $p/(1-p)$ compare its probability with the probability of *not* seeing it. An odds ratio divides one group's odds by another's. A value above one says the chosen event has higher odds in the first group; a value below one says it has lower odds. The neutral value is one, rather than zero. Which group is in the numerator and which outcome counts as the event are part of the statement, not cosmetic labels.{{cite:dodge2008}} (p. 390, definition and treatment example)
+For an event with probability $p$, the odds $p/(1-p)$ compare its probability with the probability of *not* seeing it. An odds ratio divides one group's odds by another's. A value above one says the chosen event has higher odds in the first group; a value below one says it has lower odds. The neutral value is one, rather than zero. Which group is in the numerator and which outcome counts as the event are part of the statement, not cosmetic labels.{{cite:dodge2008}} (p. 391, definition and treatment table)
 
 ## Definition
 Let $p_E=\Pr(Y=1\mid E)$ be the event probability in an exposed group and $p_U=\Pr(Y=1\mid U)$ in an unexposed group. If both lie strictly between zero and one, their population odds ratio is
@@ -10,10 +10,10 @@ $$
 \operatorname{OR}_{E:U}
 =\frac{p_E/(1-p_E)}{p_U/(1-p_U)}.
 $$
-For a two-by-two sample table with event and non-event counts $(a,b)$ in the exposed row and $(c,d)$ in the unexposed row, the plug-in estimate is $\widehat{\operatorname{OR}}=ad/(bc)$ when all relevant denominators are positive. The cross-product form makes clear that the odds ratio compares *within-group* event odds. It is an association measure; the table alone does not show that exposure caused the event.{{cite:dodge2008}} (p. 390, mathematical aspects)
+For a two-by-two sample table with event and non-event counts $(a,b)$ in the exposed row and $(c,d)$ in the unexposed row, the plug-in estimate is $\widehat{\operatorname{OR}}=ad/(bc)$ when all relevant denominators are positive. The cross-product form makes clear that the odds ratio compares *within-group* event odds. It is an association measure; the table alone does not show that exposure caused the event.{{cite:dodge2008}} (p. 391, mathematical aspects)
 
 ## Interpretation — Odds, risks, and coding
-The risk ratio is $\operatorname{RR}=p_E/p_U$, and the risk difference is $p_E-p_U$. Algebra gives $\operatorname{OR}=\operatorname{RR}(1-p_U)/(1-p_E)$. Thus the odds ratio is close to the risk ratio when both event probabilities are small, but the two can differ substantially for a common event. For example, if $p_U=1/2$ and $p_E=3/4$, then $\operatorname{RR}=3/2=1.5$ while $\operatorname{OR}=3$. Saying “three times as likely” for this odds ratio would overstate the probability ratio.{{cite:dodge2008}} (p. 390, domains and limitations){{cite:agresti_tarantola_varriale2023}} (§5.1, p. 156)
+The risk ratio is $\operatorname{RR}=p_E/p_U$, and the risk difference is $p_E-p_U$. Algebra gives $\operatorname{OR}=\operatorname{RR}(1-p_U)/(1-p_E)$. Thus the odds ratio is close to the risk ratio when both event probabilities are small, but the two can differ substantially for a common event. For example, if $p_U=1/2$ and $p_E=3/4$, then $\operatorname{RR}=3/2=1.5$ while $\operatorname{OR}=3$. Saying “three times as likely” for this odds ratio would overstate the probability ratio.{{cite:dodge2008}} (pp. 391–392, domains and limitations){{cite:agresti_tarantola_varriale2023}} (§5.1, p. 156)
 
 Reversing the exposure contrast replaces OR by its reciprocal. Redefining the event as its complement also takes the reciprocal; reversing both leaves it unchanged. These symmetries are useful checks on table arithmetic. They also explain why a report needs to identify the reference group and the outcome coding before a direction such as “protective” is assigned.
 
@@ -43,12 +43,12 @@ Imagine 100 exposed people, of whom 30 have the event and 70 do not, and 100 une
 $$
 \widehat{\operatorname{OR}}=\frac{30\times90}{70\times10}=\frac{27}{7}\approx3.8571.
 $$
-The risks are $0.30$ and $0.10$, so their ratio is $3$ and their difference is $0.20$. In this hypothetical table, exposure is associated with nearly four times the *odds* but three times the *risk*. The absolute difference is 20 percentage points; reporting all three scales makes the magnitude easier to understand.{{cite:dodge2008}} (p. 390, analogous treatment/reference calculation)
+The risks are $0.30$ and $0.10$, so their ratio is $3$ and their difference is $0.20$. In this hypothetical table, exposure is associated with nearly four times the *odds* but three times the *risk*. The absolute difference is 20 percentage points; reporting all three scales makes the magnitude easier to understand.{{cite:dodge2008}} (p. 391, treatment and reference table)
 
 **Your turn.** In another hypothetical study, 8 of 100 exposed people and 4 of 100 unexposed people have the event. Compute the odds ratio, risk ratio, and risk difference. Why are the first two closer than in the worked example?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The exposed and unexposed non-event counts are 92 and 96. Hence $\widehat{\operatorname{OR}}=(8\times96)/(92\times4)=48/23\approx2.0870$. The risk ratio is $0.08/0.04=2$, and the risk difference is $0.08-0.04=0.04$, or four percentage points. Both risks are small, so the non-event probabilities in the odds denominator are close to one; this makes OR close to the risk ratio.{{cite:dodge2008}} (p. 390, rare-outcome comparison)
+The exposed and unexposed non-event counts are 92 and 96. Hence $\widehat{\operatorname{OR}}=(8\times96)/(92\times4)=48/23\approx2.0870$. The risk ratio is $0.08/0.04=2$, and the risk difference is $0.08-0.04=0.04$, or four percentage points. Both risks are small, so the non-event probabilities in the odds denominator are close to one; this makes OR close to the risk ratio.
 :::
 
 ## Common misconceptions
@@ -61,4 +61,4 @@ If an event is common, replacing OR by a risk ratio can badly exaggerate the cha
 [Odds](odds.qmd) are the building block. [The logit link](logit-link.qmd) turns odds into the additive scale of [binary logistic regression](binary-logistic-regression.qmd); the exponentiated slope is interpreted in [interpreting a logistic regression](interpreting-a-logistic-regression.qmd). For an applied report, predicted probabilities and their differences often make the substantive size of an effect clearer beside the odds ratio.{{cite:agresti_tarantola_varriale2023}} (§5.1, pp. 155–156)
 
 ## History
-Dodge's encyclopedia places the odds ratio beside relative risk in its account of comparing event rates across groups, using treated and reference groups to demonstrate why the measures differ. Cox's 1958 binary-response analysis identified $e^\beta$ as the odds ratio for a two-level covariate, linking regression coefficients to two-by-two tables. The present use of $e^\beta$ extends that comparison while holding other covariates fixed.{{cite:dodge2008}} (p. 390, “Odds and Odds Ratio”){{cite:cox1958_logistic}} (§4.2, p. 221){{cite:agresti_tarantola_varriale2023}} (§5.1, pp. 155–156)
+The odds ratio sits beside relative risk as a comparison of event rates across treated and reference groups, and the two measures differ. Cox's 1958 binary-response analysis identified $e^\beta$ as the odds ratio for a two-level covariate, linking regression coefficients to two-by-two tables. The present use of $e^\beta$ extends that comparison while holding other covariates fixed.{{cite:dodge2008}} (pp. 391–393, “Odds and Odds Ratio”){{cite:cox1958_logistic}} (§4.2, p. 221){{cite:agresti_tarantola_varriale2023}} (§5.1, pp. 155–156)

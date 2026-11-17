@@ -40,7 +40,7 @@ Consider a hypothetical record of 200 journeys. It rained on 40, 30 journeys wer
 **Your turn.** In another hypothetical table of 120 journeys, 45 are rainy, 30 are late, and 15 are both. Find the late proportion given rain, the rainy proportion given lateness, and the late proportion given a dry journey. First fill in the fourth cell so that your denominators can be checked.{{cite:grinstead_snell1997}} (Ch. 4, §4.1, pp. 134–135)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The rainy-and-on-time count is $45-15=30$; the dry-and-late count is $30-15=15$; the dry-and-on-time count is $120-15-30-15=60$. Hence $\mathbb P(\text{late}\mid\text{rain})=15/45=1/3$, $\mathbb P(\text{rain}\mid\text{late})=15/30=1/2$, and $\mathbb P(\text{late}\mid\text{dry})=15/75=1/5$ in this empirical table. The denominators are the sizes of the rain, late, and dry subgroups respectively.{{cite:grinstead_snell1997}} (Ch. 4, §4.1, pp. 134–135)
+The rainy-and-on-time count is $45-15=30$; the dry-and-late count is $30-15=15$; the dry-and-on-time count is $120-15-30-15=60$. Hence $\mathbb P(\text{late}\mid\text{rain})=15/45=1/3$, $\mathbb P(\text{rain}\mid\text{late})=15/30=1/2$, and $\mathbb P(\text{late}\mid\text{dry})=15/75=1/5$ in this empirical table. The denominators are the sizes of the rain, late, and dry subgroups respectively.
 :::
 
 ## Common misconceptions

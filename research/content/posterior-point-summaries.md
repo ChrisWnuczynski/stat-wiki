@@ -41,7 +41,7 @@ With a uniform $\operatorname{Beta}(1,1)$ prior and two successes in ten conditi
 **Your turn.** Keep the uniform prior but observe three successes in ten trials. Identify the Beta posterior and give its mean, median and mode to four decimal places. Which value minimizes squared-error loss, and which minimizes absolute-error loss?{{cite:hoff2013_bayes_estimators}} (pp. 9–11)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The posterior is $\operatorname{Beta}(4,8)$. Its mean is $4/12=0.3333$, its median is approximately $0.3238$, and its mode is $(4-1)/(4+8-2)=3/10=0.3000$. The mean is the squared-error decision; the median is the absolute-error decision. The mode answers a density-peak question on the probability scale. The three differ because the posterior is skewed.{{cite:hoff2013_bayes_estimators}} (pp. 9–11){{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 32–34)
+The posterior is $\operatorname{Beta}(4,8)$. Its mean is $4/12=0.3333$, its median is approximately $0.3238$, and its mode is $(4-1)/(4+8-2)=3/10=0.3000$. The mean is the squared-error decision; the median is the absolute-error decision. The mode answers a density-peak question on the probability scale. The three differ because the posterior is skewed.
 :::
 
 ## Common misconceptions

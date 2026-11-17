@@ -1,3 +1,6 @@
+## Motivating example
+Point masses $(1/2)^k$ on the positive integers sum to $1$. The events $A_n=\{1,\ldots,n\}$ increase to the whole space, and $P(A_3)=7/8$ while $P(A_4)=15/16$.
+
 ## Intuition — The axiom that lets probabilities pass inside a limit
 Finite additivity says the probability of two disjoint events is the sum of their probabilities. Many of the events one actually cares about are limits: the event that a wait is finite, or that infinitely many of a sequence of events occur. Those are countable unions. Countable additivity is the axiom that the probability of a countable disjoint union equals the sum of the probabilities. From it, the empty event has probability zero, and the probability of an increasing sequence of events passes to the limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
 
@@ -6,7 +9,7 @@ A probability $P$ on a sigma-algebra satisfies $P(\Omega)=1$ and, for pairwise d
 $$
 P\Bigl(\bigcup_{n=1}^{\infty} A_n\Bigr)=\sum_{n=1}^{\infty} P(A_n).
 $$
-Durrett's definition of a measure also sets the empty set to measure zero at the outset and then proves the continuity properties. The one-line argument below derives $P(\emptyset)=0$ from the axiom just stated, so it does not have to be taken as a further assumption. Continuity from below is the third claim of that theorem: if $A_n\uparrow A$, then $P(A_n)\uparrow P(A)$.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
+Countable additivity forces $P(\emptyset)=0$, so that value does not have to be taken as a further assumption. If $A_n\uparrow A$, then $P(A_n)\uparrow P(A)$.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -21,7 +24,7 @@ $$
 :::
 
 ## Worked example — A geometric series of atoms
-Put mass $(1/2)^k$ on the positive integer $k$. The masses sum to $1$, so this is a probability on the countable sample space, built by summing point masses as in Durrett's discrete example. Let $A_n=\{1,\ldots,n\}$. Then $A_n\uparrow\{1,2,\ldots\}$ and
+Put mass $(1/2)^k$ on the positive integer $k$. The masses sum to $1$, so this is a probability on the countable sample space, built by summing the point masses. Let $A_n=\{1,\ldots,n\}$. Then $A_n\uparrow\{1,2,\ldots\}$ and
 $$
 P(A_n)=\sum_{k=1}^{n}\Bigl(\frac12\Bigr)^k=1-2^{-n}.
 $$
@@ -32,6 +35,9 @@ In particular $P(A_3)=7/8=0.875$ and $P(A_4)=15/16=0.9375$. The limit is $1$, wh
 ::: {.callout-tip collapse="true" title="Answer"}
 $P(A_5)=1-2^{-5}=31/32=0.96875$. The difference $A_5\setminus A_3=\{4,5\}$ has probability $(1/2)^4+(1/2)^5=3/32=0.09375$, which is also $P(A_5)-P(A_3)=0.96875-0.875$.
 :::
+
+## Connections — Where the countable union is doing the work
+An [event](event.qmd) has to lie in the [sigma-algebra](sigma-algebra.qmd) before this axiom applies to it. A [stochastic process](stochastic-process.qmd) needs those countable operations for events about a whole path, such as "the walk ever reaches $a$". The [central limit theorem](central-limit-theorem.qmd) is a later limit of probabilities; continuity from below is the special case in which the events themselves increase to a limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
 
 ## Check yourself
 ### The empty event
@@ -47,6 +53,3 @@ Let $A$ and $B$ be disjoint with $P(A)=P(B)=1/4$, and set every later set empty.
 ::: {.callout-tip collapse="true" title="Answer"}
 Countable additivity gives $1/4+1/4+0+0+\cdots=1/2$. Finite additivity is this axiom with the tail sets empty.
 :::
-
-## Connections — Where the countable union is doing the work
-An [event](event.qmd) has to lie in the [sigma-algebra](sigma-algebra.qmd) before this axiom applies to it. A [stochastic process](stochastic-process.qmd) needs those countable operations for events about a whole path, such as "the walk ever reaches $a$". The [central limit theorem](central-limit-theorem.qmd) is a later limit of probabilities; continuity from below is the special case in which the events themselves increase to a limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)

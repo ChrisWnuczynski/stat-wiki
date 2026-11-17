@@ -38,7 +38,7 @@ Consider three independent Poisson counts $y=(0,3,5)$ and proposed fitted means 
 **Your turn.** For two independent Poisson counts $y=(2,0)$ with fitted means $\hat\mu=(1,1)$, compute each deviance contribution and their total. Use the continuous convention for $0\log0$.{{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The first contribution is $2\{2\log2-(2-1)\}=0.772589$. The second is $2\{0-(0-1)\}=2.000000$. Hence $D=2.772589$. The equal raw residual magnitudes of one have unequal deviance contributions because an upward count of two and a zero count have different likelihood ratios relative to the same Poisson mean of one.{{cite:nelder_wedderburn1972}} (§2.3, p. 375, family deviances)
+The first contribution is $2\{2\log2-(2-1)\}=0.772589$. The second is $2\{0-(0-1)\}=2.000000$. Hence $D=2.772589$. The equal raw residual magnitudes of one have unequal deviance contributions because an upward count of two and a zero count have different likelihood ratios relative to the same Poisson mean of one.
 :::
 
 ## Common misconceptions

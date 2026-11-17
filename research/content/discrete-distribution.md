@@ -38,7 +38,7 @@ Suppose three independent inspections each find a defect with probability $1/4$,
 **Your turn.** Two independent trials each succeed with probability $1/3$. Write the masses of the success count $Y$ at 0, 1 and 2. Find $\mathbb P(Y\geq1)$ and $\mathbb EY$.{{cite:grinstead_snell1997}} (Ch. 5, §5.1; Ch. 6, §6.1)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The masses are $p_Y(0)=(2/3)^2=4/9$, $p_Y(1)=2(1/3)(2/3)=4/9$ and $p_Y(2)=(1/3)^2=1/9$. They add to one. Hence $\mathbb P(Y\geq1)=4/9+1/9=5/9$ and $\mathbb EY=(4+2)/9=2/3$. The middle mass counts two orders of one success and one failure.{{cite:grinstead_snell1997}} (Ch. 5, §5.1; Ch. 6, §6.1)
+The masses are $p_Y(0)=(2/3)^2=4/9$, $p_Y(1)=2(1/3)(2/3)=4/9$ and $p_Y(2)=(1/3)^2=1/9$. They add to one. Hence $\mathbb P(Y\geq1)=4/9+1/9=5/9$ and $\mathbb EY=(4+2)/9=2/3$. The middle mass counts two orders of one success and one failure.
 :::
 
 ## Common misconceptions

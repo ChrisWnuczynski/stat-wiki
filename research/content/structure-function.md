@@ -20,6 +20,7 @@ If the component states $X_i$ are independent with $\Pr(X_i=1)=p$, the reliabili
 $$
 r(p)=\Pr(\varphi(\mathbf{X})=1)=3p^2(1-p)+p^3.
 $$
+{{cite:pishro_nik2014}} (§5.1, independent random variables)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -46,7 +47,7 @@ Lowering each component reliability from $0.9$ to $0.8$ drops the system reliabi
 :::
 
 ## Connections — Paths, cuts, and lifetimes
-The [reliability function](reliability-function.qmd) is $r(\mathbf{p})=\Pr(\varphi(\mathbf{X})=1)$ once the component states are random. For independent components it is the multilinear structure polynomial with each $x_i$ replaced by $p_i$. A minimal path is a set of components that is sufficient for $\varphi=1$ and has no smaller subset that is sufficient. A series arrangement is the special case of $n$-out-of-$n$, and a parallel arrangement is $1$-out-of-$n$. Replacing a static state by a lifetime turns the same structure into a system lifetime: a series lifetime is the first component failure.
+The [reliability function](reliability-function.qmd) is $r(\mathbf{p})=\Pr(\varphi(\mathbf{X})=1)$ once the component states are random. For independent components it is the multilinear structure polynomial with each $x_i$ replaced by $p_i$. {{cite:pishro_nik2014}} (§5.1, independent random variables) A minimal path is a set of components that is sufficient for $\varphi=1$ and has no smaller subset that is sufficient. A series arrangement is the special case of $n$-out-of-$n$, and a parallel arrangement is $1$-out-of-$n$. Replacing a static state by a lifetime turns the same structure into a system lifetime: a series lifetime is the first component failure.
 
 ## Check yourself
 

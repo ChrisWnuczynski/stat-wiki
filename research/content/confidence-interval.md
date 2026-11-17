@@ -40,7 +40,7 @@ Suppose twenty independent repetitions each produce a 95% confidence interval by
 **Your turn.** If the same independent 95% procedure is repeated ten times, what is the expected number of intervals that cover, and what is the probability that all ten cover?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The expected count is $10(0.95)=9.5$. Under independence, the probability that all ten cover is $0.95^{10}\approx0.5987$. An expected count need not be an integer.{{cite:neyman1937}} (pp. 347–350, 378–379)
+The expected count is $10(0.95)=9.5$. Under independence, the probability that all ten cover is $0.95^{10}\approx0.5987$. An expected count need not be an integer.
 :::
 
 ## Common misconceptions

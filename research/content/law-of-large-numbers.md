@@ -37,5 +37,5 @@ For a fair coin, $\mu=0.5$ and $\sigma^2=0.25$. After $100$ independent tosses, 
 **Your turn.** For $400$ independent fair-coin tosses, use Chebyshev's inequality to bound the probability that the head fraction differs from one half by more than $0.1$. What does the bound say, and what does it leave open?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The bound is $0.25/(400\cdot0.1^2)=0.0625$. Thus the chance of a deviation greater than $0.1$ is no more than $6.25\%$ under the fair, independent-trial model. It does not say the chance equals $6.25\%$ or that any one run must lie within the band. The exact probability for a deviation of *at least* $0.1$ is about $0.0000743$, illustrating how loose this variance-only bound can be.{{cite:siegrist2022_lln}} (§6.3, Weak and Strong Laws; Empirical Probability)
+The bound is $0.25/(400\cdot0.1^2)=0.0625$. Thus the chance of a deviation greater than $0.1$ is no more than $6.25\%$ under the fair, independent-trial model. It does not say the chance equals $6.25\%$ or that any one run must lie within the band. The exact probability for a deviation of *at least* $0.1$ is about $0.0000743$, illustrating how loose this variance-only bound can be.
 :::

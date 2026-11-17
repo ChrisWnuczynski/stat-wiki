@@ -42,7 +42,7 @@ Let $M_0$ fix a success probability at $1/2$ and let $M_1$ assign it a $\operato
 **Your turn.** Keep these two models and their prior model probabilities, but suppose the single trial is a failure, $X=0$. Find both marginal probabilities, the Bayes factor favouring $M_1$, and the posterior probability of $M_1$. Explain which model the failure favours.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Under $M_0$, $m_0(0)=1/2$. Under the $\operatorname{Beta}(2,1)$ prior, the predictive failure probability is $m_1(0)=1-\mathbb E(p)=1/3$. Thus $\operatorname{BF}_{10}=(1/3)/(1/2)=2/3$, favouring $M_0$. Posterior odds for $M_1$ are $(2/3)(3/7)=2/7$, so $\mathbb P(M_1\mid X=0)=2/9\approx0.2222$. The posterior probability follows from the prior odds and the factor together.{{cite:kass_raftery1995}} (§3.1, pp. 777–778)
+Under $M_0$, $m_0(0)=1/2$. Under the $\operatorname{Beta}(2,1)$ prior, the predictive failure probability is $m_1(0)=1-\mathbb E(p)=1/3$. Thus $\operatorname{BF}_{10}=(1/3)/(1/2)=2/3$, favouring $M_0$. Posterior odds for $M_1$ are $(2/3)(3/7)=2/7$, so $\mathbb P(M_1\mid X=0)=2/9\approx0.2222$. The posterior probability follows from the prior odds and the factor together.
 :::
 
 ## Common misconceptions

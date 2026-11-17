@@ -18,7 +18,7 @@ The $\operatorname{Beta}(3,9)$ figure compares a central $95\%$ interval and a h
 ## Properties
 For a continuous posterior, the central interval has probability $1-\alpha$ because the CDF rises from $\alpha/2$ at its lower endpoint to $1-\alpha/2$ at its upper endpoint. A strictly increasing reparameterisation maps this interval to the central interval for the transformed parameter, preserving its tail probabilities. A highest-density interval need not transform that way: a nonlinear change of scale changes density by a Jacobian and can change which values are most dense. Thus it matters whether a density-based interval was chosen for a probability, its log odds, or another transform.{{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 33–34)
 
-For a smooth strictly unimodal posterior, a minimum-width interval whose endpoints lie inside the support has equal density at its endpoints. This explains the figure's highest-density construction. The condition need not hold when the shortest interval touches a support boundary, as in the increasing-density question-bank example below. Nor does any of these posterior properties imply exact frequentist coverage for every fixed $\theta$. Large-sample correspondence under regularity conditions is a separate result.{{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 33–34; Ch. 4, §4.4, pp. 90–92)
+For a smooth strictly unimodal posterior, a minimum-width interval whose endpoints lie inside the support has equal density at its endpoints. This explains the figure's highest-density construction. The condition need not hold when the shortest interval touches a support boundary, as when the shortest interval touches a support boundary. Nor does any of these posterior properties imply exact frequentist coverage for every fixed $\theta$. Large-sample correspondence under regularity conditions is a separate result.{{cite:gelman_bda2013}} (Ch. 2, §2.3, pp. 33–34; Ch. 4, §4.4, pp. 90–92)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -39,7 +39,7 @@ Use a uniform $\operatorname{Beta}(1,1)$ prior for a success probability $\theta
 **Your turn.** Keep the uniform prior but observe three successes in ten trials. Identify the posterior, report its central $95\%$ interval to four decimal places, and find the posterior probability that $\theta>0.5$. State what the interval probability conditions on.{{cite:gelman_bda2013}} (Ch. 2, §§2.1, 2.3, pp. 29–34)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The likelihood contributes $\theta^3(1-\theta)^7$, so the posterior is $\operatorname{Beta}(4,8)$. Its $0.025$ and $0.975$ quantiles give $[0.1093,0.6097]$. The posterior tail probability is $1-F(0.5)=0.1133$. The $95\%$ refers to the posterior probability for $\theta$ conditional on these ten results, the binomial model, and the uniform prior; repeated-sampling coverage concerns a procedure evaluated over possible data sets under a specified sampling law.{{cite:gelman_bda2013}} (Ch. 2, §§2.1, 2.3, pp. 29–34)
+The likelihood contributes $\theta^3(1-\theta)^7$, so the posterior is $\operatorname{Beta}(4,8)$. Its $0.025$ and $0.975$ quantiles give $[0.1093,0.6097]$. The posterior tail probability is $1-F(0.5)=0.1133$. The $95\%$ refers to the posterior probability for $\theta$ conditional on these ten results, the binomial model, and the uniform prior; repeated-sampling coverage concerns a procedure evaluated over possible data sets under a specified sampling law.
 :::
 
 ## Common misconceptions

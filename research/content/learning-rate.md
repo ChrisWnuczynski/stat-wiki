@@ -57,7 +57,7 @@ Four steps cut the error from $2$ to $0.8192$. With $\varepsilon=0.4$ the multip
 **Your turn.** From $w=5$ and $\varepsilon=1.1$, compute the next weight and the absolute error. By what factor did the absolute error grow?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The multiplier is $1-2\cdot 1.1=-1.2$. The error $2$ becomes $-2.4$, so the next weight is $3-2.4=0.6$. The absolute error grew from $2$ to $2.4$, a factor of $1.2$.{{cite:hastie_esl2009}} (§11.4, p. 396)
+The multiplier is $1-2\cdot 1.1=-1.2$. The error $2$ becomes $-2.4$, so the next weight is $3-2.4=0.6$. The absolute error grew from $2$ to $2.4$, a factor of $1.2$.
 :::
 
 ## Common misconceptions
@@ -82,21 +82,21 @@ Back-propagation is the chain-rule computation of the partial derivatives that t
 For $E(w)=(w-3)^2$, which constant learning rates make the error shrink at every step?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Those with $0<\varepsilon<1$. The absolute value of $1-2\varepsilon$ is then below $1$. At $\varepsilon=1$ the error keeps its size and changes sign.{{cite:hastie_esl2009}} (§11.4, p. 396)
+Those with $0<\varepsilon<1$. The absolute value of $1-2\varepsilon$ is then below $1$. At $\varepsilon=1$ the error keeps its size and changes sign.
 :::
 
 ### Two steps from 5
 From $w=5$ with $\varepsilon=0.4$, what are the next two weights?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The multiplier is $0.2$. The error $2$ becomes $0.4$, so the first weight is $3.4$. The error $0.4$ becomes $0.08$, so the second weight is $3.08$.{{cite:hastie_esl2009}} (§11.4, eq. 11.13)
+The multiplier is $0.2$. The error $2$ becomes $0.4$, so the first weight is $3.4$. The error $0.4$ becomes $0.08$, so the second weight is $3.08$.
 :::
 
 ### A finite sum of steps
 Why can $\gamma_r=1/r^2$ fail a descent that $\gamma_r=1/r$ is built to finish?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The sum $\sum 1/r^2$ converges, so the total distance the updates are allowed to travel is finite. The schedule can stop short of the minimiser. The harmonic schedule $\sum 1/r$ diverges, so the total step length is unlimited, while $\sum 1/r^2$ still converges.{{cite:hastie_esl2009}} (§11.5, p. 397)
+The sum $\sum 1/r^2$ converges, so the total distance the updates are allowed to travel is finite. The schedule can stop short of the minimiser. The harmonic schedule $\sum 1/r$ diverges, so the total step length is unlimited, while $\sum 1/r^2$ still converges.
 :::
 
 ## History

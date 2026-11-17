@@ -20,8 +20,10 @@ The final sum is the Poisson log-link score, so a positive common multiplier can
 :::
 :::
 
-## Statistical use
+## Statistical use — Extra-Poisson variation
 Begin with the count, its exposure and the covariates that determine its mean. Fit the log-mean equation, examine residual variation against fitted means, and estimate $\phi$ only after checking for missing covariates, clustering or a wrong mean shape. Report coefficient estimates alongside dispersion-adjusted uncertainty. If the research question requires probabilities of zero counts, simulated new counts or a genuine likelihood comparison, choose and check a full count distribution, such as an appropriate negative-binomial model.{{cite:wuthrich_merz2022_glm}} (§5.4)
+
+If one equipment cluster fails together, counts on its machines are dependent; multiplying independent-case variances by one common $\phi$ does not model the covariance. If the mean has a sharp age threshold but the regression forces a straight log-mean line, correcting dispersion leaves systematic bias. If variance grows roughly as $\mu^2$ rather than $\mu$, a constant multiplier of $\mu$ fits the wrong variance shape. And a question about the chance of zero failures needs a full distribution, which this moment model does not supply.{{cite:wuthrich_merz2022_glm}} (§5.4)
 
 ## Worked example
 Suppose equal-exposure groups have observed counts $(0,0,6)$ and $(0,0,12)$. Their fitted group means in a two-level log-mean model are $2$ and $4$, so the coefficient for the second group is $\log(4/2)=\log2\approx0.69315$ and its expected-count ratio is $2$. The Pearson residual sum is $12$ for the first group and $24$ for the second: for example, the first contributes $2+2+8=12$. With six observations and two fitted coefficients, $\widehat\phi=(12+24)/(6-2)=9$. If the Poisson standard error for the group coefficient is $0.20$, the quasi-Poisson version is $\sqrt9(0.20)=0.60$. The point ratio stays $2$; its uncertainty grows. Four zero counts also invite a check of the mean and count mechanism, and six observations make the dispersion estimate fragile.{{cite:wuthrich_merz2022_glm}} (§5.3.1, Pearson dispersion; §5.4)
@@ -29,17 +31,14 @@ Suppose equal-exposure groups have observed counts $(0,0,6)$ and $(0,0,12)$. The
 **Your turn.** In another fit, $\widehat\phi=4$ and a coefficient's Poisson standard error is $0.15$. Find the quasi-Poisson standard error and say whether the common dispersion changes the fitted coefficient.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The standard error is $\sqrt4(0.15)=0.30$. With the same mean model and one common $\phi$, the quasi-score is only a constant multiple of the Poisson score, so the coefficient estimate remains the same. A different variance shape or observation-specific dispersion would not give this cancellation.{{cite:wuthrich_merz2022_glm}} (§5.4)
+The standard error is $\sqrt4(0.15)=0.30$. With the same mean model and one common $\phi$, the quasi-score is only a constant multiple of the Poisson score, so the coefficient estimate remains the same. A different variance shape or observation-specific dispersion would not give this cancellation.
 :::
 
 ## Common misconceptions
 Quasi-Poisson is not a probability distribution from which one can simulate merely by choosing $\mu$ and $\phi$. Dispersion greater than one does not change the fitted mean if the quasi-score is just the rescaled Poisson score. Standard errors scale by $\sqrt\phi$, not $\phi$. And extra variation does not prove a particular cause: omitted predictors, dependence and latent heterogeneity can all produce it.{{cite:wuthrich_merz2022_glm}} (§5.4)
 
-## Assumptions and limits — When quasi-Poisson is inadequate
-If one equipment cluster fails together, counts on its machines are dependent; multiplying independent-case variances by one common $\phi$ does not model the covariance. If the mean has a sharp age threshold but the regression forces a straight log-mean line, correcting dispersion leaves systematic bias. If variance grows roughly as $\mu^2$ rather than $\mu$, a constant multiplier of $\mu$ fits the wrong variance shape. And a question about the chance of zero failures needs a full distribution, which this moment model does not supply.{{cite:wuthrich_merz2022_glm}} (§5.4)
-
 ## Connections
-The [quasi-score](quasi-score-and-quasi-likelihood.qmd) explains why the coefficients can agree with Poisson regression. The answered [overdispersion question](../questions/q-47.qmd) asks how a variance factor changes inference without a full likelihood; the [fish-count question](../questions/ex-fish-poisson.qmd) shows why a badly dispersed Poisson fit should prompt further modelling. They connect the moment specification to two different diagnostic tasks.{{cite:wuthrich_merz2022_glm}} (§5.4)
+The [quasi-score](quasi-score-and-quasi-likelihood.qmd) explains why the coefficients can agree with Poisson regression. The [overdispersion question](../questions/q-47.qmd) asks how a variance factor changes inference without a full likelihood; the [fish-count question](../questions/ex-fish-poisson.qmd) shows why a badly dispersed Poisson fit should prompt further modelling. They connect the moment specification to two different diagnostic tasks.{{cite:wuthrich_merz2022_glm}} (§5.4)
 
 ## History
 Wedderburn introduced quasi-likelihood in 1974 to make regression estimation possible from a mean–variance relation instead of a complete observation law. Quasi-Poisson applies that idea to counts whose variance is proportional to their mean, giving a practical response to overdispersion in a Poisson-style regression.{{cite:wuthrich_merz2022_glm}} (§5.4, opening discussion)

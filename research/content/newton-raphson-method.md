@@ -2,7 +2,7 @@
 Newton’s method replaces a score equation by its tangent line, then jumps to where that line crosses zero.
 
 ## Motivating example
-Four independent Bernoulli trials produce one success. The logit of the success probability is a single coefficient $\beta$, and the maximum-likelihood equation $1-4p(\beta)=0$ has the closed root $p=1/4$. Starting from $\beta=0$ and using the slope of the score still walks toward that root in a few steps, which is the same idea a GLM uses when the root is not closed.{{cite:rstats_glm2026}} (`glm.fit`, iteratively reweighted least squares)
+Four independent Bernoulli trials produce one success. The logit of the success probability is a single coefficient $\beta$, and the maximum-likelihood equation $1-4p(\beta)=0$ has the closed root $p=1/4$. Starting from $\beta=0$ and using the slope of the score still walks toward that root in a few steps, which is the same idea a GLM uses when the root is not closed. {{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
 
 ## Intuition — Follow the tangent of the score
 Let $U(\beta)$ be a differentiable score, and let $H(\beta)$ be its derivative. The tangent at a current value $\beta^{(k)}$ is $U(\beta^{(k)})+H(\beta^{(k)})(\beta-\beta^{(k)})$. Setting the tangent to zero and solving gives
@@ -11,14 +11,14 @@ $$
 $$
 provided $H(\beta^{(k)})$ is invertible. Each step uses only the value and the slope at the current point. For a log-likelihood, $U$ is the score and $H$ is the Hessian. Replacing $H$ by its expectation is Fisher scoring. For a binomial logit the observed Hessian equals that expectation, because it depends on the data only through the fitted probabilities.
 
-R’s default GLM fitter, `glm.fit`, implements the weighted form of this iteration, called iteratively reweighted least squares.{{cite:rstats_glm2026}} (`glm.fit`, iteratively reweighted least squares)
+R’s default GLM fitter, `glm.fit`, implements the weighted form of this iteration, called iteratively reweighted least squares.{{cite:rstats_glm2026}} (§ `glm.fit`, iteratively reweighted least squares)
 
 ## Definition — One step on a logistic intercept
 For $y$ successes in $n$ independent Bernoulli trials and $\operatorname{logit}p=\beta$,
 $$
 U(\beta)=y-np(\beta),\qquad H(\beta)=-np(\beta)\bigl(1-p(\beta)\bigr),
 $$
-with $p(\beta)=e^{\beta}/(1+e^{\beta})$. The update is $\beta-U(\beta)/H(\beta)$.
+with $p(\beta)=e^{\beta}/(1+e^{\beta})$. The update is $\beta-U(\beta)/H(\beta)$. {{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -58,8 +58,6 @@ When the score is linear, as it is for a normal [identity link](identity-link.qm
 
 For $\sigma(\eta)=1/(1+e^{-\eta})$, show $\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))$ and $\sigma(-\eta)=1-\sigma(\eta)$.
 
-[Question-bank page](../questions/ex-sl-10-1.qmd)
-
 ::: {.callout-tip collapse="true" title="Answer"}
 $\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Also $\sigma(-\eta)=1/(1+e^{\eta})=e^{-\eta}/(1+e^{-\eta})=1-\sigma(\eta)$. The first identity is the weight in the logistic Hessian.
 :::
@@ -67,8 +65,6 @@ $\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Also $\s
 ### Complete separation {#self-check-ex-sl-10-5}
 
 For $x=(1,2,3,4)$ and $y=(0,0,1,1)$, the path $\beta_1=s$, $\beta_0=-2.5s$ sends the logistic log-likelihood up to $0$ as $s\to\infty$. What does that say about a finite maximum?
-
-[Question-bank page](../questions/ex-sl-10-5.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 No finite coefficient vector maximises the log-likelihood: along this path it increases toward $0$ and never attains $0$. Strict concavity does not by itself guarantee a finite root of the score. Newton’s method then has no finite stationary point to find.

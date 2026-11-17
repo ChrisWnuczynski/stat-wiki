@@ -22,7 +22,7 @@ For the CDF, $x\leq y$ gives $\{X\leq x\}\subseteq\{X\leq y\}$, so $F_X$ is nond
 :::
 :::
 
-## Statistical use
+## Statistical use — Measurements that carry probabilities
 In data analysis, a measurement, a sample mean and a test statistic all need to be measurable before probabilities of their values have a formal meaning. Usually this is automatic because they are built from coordinate observations by continuous or simple piecewise operations. The distinction becomes visible when the event collection is coarse: a device that records only whether an outcome lies in a broad group cannot support a probability for a finer, unrecorded outcome distinction. The sigma-algebra $\sigma(X)$ also formalizes what observing $X$ reveals: two outcome events that $X$ cannot distinguish are not separately in its generated information.{{cite:durrett2019}} (Ch. 1, §§1.2–1.3, pp. 10, 15–17)
 
 ## Worked example
@@ -31,17 +31,17 @@ Let $\Omega=(0,1)$, let $\mathcal F$ be its Borel sets, and let $P$ be uniform l
 **Your turn.** On that space set $Y(\omega)=1$ if $\omega>1/2$ and $Y(\omega)=0$ otherwise. Show that $Y$ is measurable, find $F_Y(0)$ and $F_Y(1)$, and compute $P(Y=1)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The event $A=(1/2,1)$ is Borel, and $Y=1_A$ is measurable. Exactly half the uniform interval lies in $A$, so $P(Y=1)=1/2$. The event $\{Y\leq0\}$ is $(0,1/2]$, giving $F_Y(0)=1/2$; $\{Y\leq1\}=\Omega$, giving $F_Y(1)=1$. Its CDF is right-continuous at both jumps.{{cite:durrett2019}} (Ch. 1, §§1.2–1.3, pp. 10–11, 15)
+The event $A=(1/2,1)$ is Borel, and $Y=1_A$ is measurable. Exactly half the uniform interval lies in $A$, so $P(Y=1)=1/2$. The event $\{Y\leq0\}$ is $(0,1/2]$, giving $F_Y(0)=1/2$; $\{Y\leq1\}=\Omega$, giving $F_Y(1)=1$. Its CDF is right-continuous at both jumps.
 :::
 
 ## Common misconceptions
 Measurable does not mean continuous: the indicator in the exercise jumps at $1/2$ but is measurable. It does not mean every subset of $\Omega$ is an event; only the relevant inverse images must belong to $\mathcal F$. Nor is a distribution function an arbitrary nondecreasing graph: because it uses $P(X\leq x)$, it must also be right-continuous and have the correct end limits. Finally, two random variables can have the same distribution yet be defined on different outcome spaces; measurability describes the map relative to its own space, while the law describes its probabilities on the real line.{{cite:durrett2019}} (Ch. 1, §§1.2–1.3, pp. 10–11, 15–17)
 
-## Assumptions and limits
+## Assumptions and limits — When the sigma-algebra is too coarse
 On $\Omega=\{a,b,c,d\}$ with $\mathcal F=\{\varnothing,\{a,b\},\{c,d\},\Omega\}$, let $Z(a)=0$ and $Z(b)=Z(c)=Z(d)=1$. Then $\{Z\leq0\}=\{a\}\notin\mathcal F$, so $Z$ is not a random variable on this coarse space. On $(0,1)$ with Lebesgue probability, an indicator of a Vitali selector is a more subtle counterexample: the selected set is not Lebesgue measurable, so its probability cannot be assigned by the usual translation-invariant, countably additive measure. These examples expose a missing event, not a failure of ordinary algebra. The latter construction depends on the axiom of choice and is not encountered in routine measured data.{{cite:durrett2019}} (Ch. 1, §1.2, pp. 10–11; Appendix A.2, pp. 462–463)
 
 ## Connections
-The [probability space](probability-space.qmd) supplies the events to which probabilities apply, and the [Borel sigma-algebra](generated-and-borel-sigma-algebras.qmd) supplies the value sets whose inverse images are checked. The [random-variable](random-variable.qmd) and [CDF](cumulative-distribution-function.qmd) articles develop the induced law. The answered [CDF right-continuity question](../questions/ex-sp-right-continuous.qmd) checks why the $\leq$ convention matters. Expectation is then an integral of a measurable function, built first from [simple variables](simple-variables-and-expectation.qmd).{{cite:durrett2019}} (Ch. 1, §§1.2–1.4, pp. 10–18)
+The [probability space](probability-space.qmd) supplies the events to which probabilities apply, and the [Borel sigma-algebra](generated-and-borel-sigma-algebras.qmd) supplies the value sets whose inverse images are checked. The [random-variable](random-variable.qmd) and [CDF](cumulative-distribution-function.qmd) articles develop the induced law. The [CDF right-continuity question](../questions/ex-sp-right-continuous.qmd) checks why the $\leq$ convention matters. Expectation is then an integral of a measurable function, built first from [simple variables](simple-variables-and-expectation.qmd).{{cite:durrett2019}} (Ch. 1, §§1.2–1.4, pp. 10–18)
 
 ## History
 Kolmogorov's 1933 *Grundbegriffe der Wahrscheinlichkeitsrechnung* placed random quantities within an axiomatic probability framework; its third chapter treats random variables, followed by a chapter on expectation.{{cite:shafer_vovk2018_grundbegriffe}} (§5.1, p. 40) Modern presentations, such as Durrett's, emphasize the inverse-image condition and the probability law induced by a measurable map. The language explains why countable operations on events are built into probability theory: they support distributions and limits of random variables.{{cite:durrett2019}} (Ch. 1, §§1.2–1.3, pp. 10–17)

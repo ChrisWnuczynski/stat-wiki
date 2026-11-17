@@ -27,5 +27,5 @@ for printed in ("1.6487", "2.7183", "5.3670", "0.1863", "0.3072", "0.5065", "0.2
 assert prose.count('title="Proof"') == 1
 assert "**Your turn.**" in prose and "## Check yourself" in prose
 assert prose.count('title="Answer"') == 4
-assert "{{cite:r_nnet_multinom2026}}" in prose
+assert "{{cite:hastie_esl2009}}" in prose
 print("baseline-category-logit-model arithmetic passed")

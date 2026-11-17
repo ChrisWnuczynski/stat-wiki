@@ -31,7 +31,7 @@ The mean wait is $1.5$ hours. The tail calculation shows that about $24\%$ of wa
 **Your turn.** At rate one event per hour, let $T_2$ be the time to the second event. Find its Gamma shape and rate, mean, variance, and probability of exceeding three hours.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The waiting time is $T_2\sim\operatorname{Gamma}(2,1)$, so its mean and variance are both $2$. The event $T_2>3$ means at most one arrival by hour three, hence $\Pr(T_2>3)=e^{-3}(1+3)=4e^{-3}\approx0.1991$. The second event has an expected wait of two hours, but the right tail leaves about one fifth of runs waiting past three hours.{{cite:siegrist2022_gamma_waiting}} (§14.3, arrival-time probabilities)
+The waiting time is $T_2\sim\operatorname{Gamma}(2,1)$, so its mean and variance are both $2$. The event $T_2>3$ means at most one arrival by hour three, hence $\Pr(T_2>3)=e^{-3}(1+3)=4e^{-3}\approx0.1991$. The second event has an expected wait of two hours, but the right tail leaves about one fifth of runs waiting past three hours.
 :::
 
 ## Common misconceptions

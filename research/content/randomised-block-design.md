@@ -59,5 +59,5 @@ Every block shows the same treatment gap of $2$, and the block shift is $1$. The
 In a complete block design, which assignments are randomised, and which grouping is fixed before the experiment?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The blocks are formed from units that are already alike. Inside each block the treatments are assigned at random. The comparison of treatments is then within blocks, and the randomisation is what justifies treating the remaining within-block differences as error.{{cite:dodge2008}} (p. 447)
+The blocks are formed from units that are already alike. Inside each block the treatments are assigned at random. The comparison of treatments is then within blocks, and the randomisation is what justifies treating the remaining within-block differences as error.
 :::

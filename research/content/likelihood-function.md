@@ -30,7 +30,7 @@ Three independent shifts produce $1$, $3$, and $2$ defects. Suppose each shift c
 **Your turn.** In three new independent Poisson shifts, the counts are $0$, $2$, and $1$. Find the maximum likelihood estimate of $\lambda$, then compare the likelihood at $\lambda=1$ with that at $\lambda=2$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The counts total $3$, so $L(\lambda)\propto e^{-3\lambda}\lambda^3$ and the derivative of its log is $3/\lambda-3$. Hence $\widehat\lambda=1$. The ratio is $L(1)/L(2)=e^3/8\approx2.511$.{{cite:fisher1922}} (pp. 323–327)
+The counts total $3$, so $L(\lambda)\propto e^{-3\lambda}\lambda^3$ and the derivative of its log is $3/\lambda-3$. Hence $\widehat\lambda=1$. The ratio is $L(1)/L(2)=e^3/8\approx2.511$.
 :::
 
 Try [the Poisson mean question](../questions/ex-inf-poisson-mle.qmd), then [the exponential rate question](../questions/ex-inf-exponential-mle.qmd). The first also asks about uncertainty of the estimator; the second uses invariance to estimate a median.

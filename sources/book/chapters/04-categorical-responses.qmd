@@ -133,7 +133,7 @@ $$
 so the third comparison is the difference of the two comparisons against the baseline, and it has the same linear form. Once every category is compared with category $0$, every other pair is determined. That is the same bookkeeping as knowing everyone's mark relative to the lowest mark in the class.
 
 ::: {#def-multinom .definition}
-For nominal categories $0,1,\ldots,K-1$, the baseline-category logit model is the following.{{cite:agresti2002}}{{cite:mccullagh_nelder1989}}{{cite:tutz2011}}
+For nominal categories $0,1,\ldots,K-1$, the baseline-category logit model is the following.{{cite:hastie_esl2009}} (§11.3–11.4, eqs. 11.6 and 11.10, pp. 393–395)
 $$
 \log\frac{p_k}{p_0}=\beta_{0k}+\vect{x}^\top\boldsymbol{\beta}_k,
 \qquad k=1,\ldots,K-1.

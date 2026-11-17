@@ -1,7 +1,7 @@
 ## Lead context
 Posterior membership is the conditional probability that a point came from one component of a mixture, computed after the point has been seen.{{cite:grinstead_snell1997}} (p. 164, conditional probability)
 
-## Motivating example — A point between two clusters
+## Motivating example
 Two clusters have prior weights $0.6$ and $0.4$. At a particular $x$ the component densities are $0.2$ and $0.8$. The second cluster is less common and more concentrated at this $x$. The unnormalised products are $0.6\times 0.2=0.12$ and $0.4\times 0.8=0.32$. The point is more probably from the second cluster, even though that cluster has the smaller weight. The memberships are $0.12/0.44=3/11\approx 0.2727$ and $0.32/0.44=8/11\approx 0.7273$.{{cite:grinstead_snell1997}} (p. 164, weighting by a conditional probability)
 
 ## Intuition
@@ -37,6 +37,8 @@ In the example that ratio is $0.12/0.32=0.375$.{{cite:grinstead_snell1997}} (p. 
 ## Statistical use — Hold the memberships fixed, then refresh them
 A weighted mean uses the current memberships as weights and does not differentiate through them. The one-point update above treats $3/11$ and $8/11$ as fixed numbers. After the means move, the densities at the data change, and the memberships are recomputed. Mixing those two stages, by letting the weight depend on the mean inside the same derivative, is a different algorithm. If a component density becomes arbitrarily peaked at a single point, that point's membership on the component tends to one and the other points' memberships on it tend to zero. That is a numerical failure of an unconstrained Gaussian component, visible in the same ratio.{{cite:grinstead_snell1997}} (p. 164)
 
+The calculation treats $\pi_h$ and $f_h$ as the current numerical inputs. If those densities are not the densities that generated the point, $\tau_h$ is the conditional probability in the wrong mixture. Equal covariance Gaussian components that differ only by a mean will assign memberships that a heavy-tailed component would not. And a prior weight estimated from a sample that fixed the number of points per component is not the population weight; the formula will still multiply whatever weight it is given.{{cite:grinstead_snell1997}} (p. 164)
+
 ## Worked example
 Weights $0.6$ and $0.4$, densities $0.2$ and $0.8$. Products $0.12$ and $0.32$. Memberships $3/11\approx 0.2727$ and $8/11\approx 0.7273$. Posterior odds $0.375$.
 
@@ -45,7 +47,7 @@ Now two points, $x=4$ with those memberships and $x=0$ with membership $1$ on co
 **Your turn.** Keep the weights $0.6$ and $0.4$. Suppose the densities at a new point are equal, both $0.5$. What are the memberships?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The products are $0.3$ and $0.2$. The memberships are $0.3/0.5=0.6$ and $0.2/0.5=0.4$, the prior weights. Equal densities do not move the weights.{{cite:grinstead_snell1997}} (p. 164)
+The products are $0.3$ and $0.2$. The memberships are $0.3/0.5=0.6$ and $0.2/0.5=0.4$, the prior weights. Equal densities do not move the weights.
 :::
 
 ## Common misconceptions
@@ -55,9 +57,6 @@ The membership is not a hard label. A point with $\tau_1=3/11$ contributes $3/11
 
 A zero denominator is not a membership of $1/2$. If both densities vanish, the ratio does not define a conditional probability. The formula requires a positive marginal density.{{cite:grinstead_snell1997}} (p. 164, positive conditioning probability)
 
-## Assumptions and limits — When the component densities are the wrong ones
-The calculation treats $\pi_h$ and $f_h$ as the current numerical inputs. If those densities are not the densities that generated the point, $\tau_h$ is the conditional probability in the wrong mixture. Equal covariance Gaussian components that differ only by a mean will assign memberships that a heavy-tailed component would not. And a prior weight estimated from a sample that fixed the number of points per component is not the population weight; the formula will still multiply whatever weight it is given.{{cite:grinstead_snell1997}} (p. 164)
-
 ## Connections
 [Bayes' rule](bayes-rule.qmd) is the same ratio for a finite label. A [finite mixture](finite-mixture-model.qmd) is the joint distribution of the label and the observation. The weighted mean that holds $\tau_h$ fixed is one step of an alternating fit; refreshing $\tau_h$ is the conditional probability at the new parameters.{{cite:grinstead_snell1997}} (p. 164)
 
@@ -66,19 +65,19 @@ The calculation treats $\pi_h$ and $f_h$ as the current numerical inputs. If tho
 1. In the example, what is $\tau_1+\tau_2$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$1$. The memberships are $3/11$ and $8/11$.{{cite:grinstead_snell1997}} (p. 164)
+$1$. The memberships are $3/11$ and $8/11$.
 :::
 
 2. If the densities are equal, do the memberships equal the prior weights?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Yes. The density ratio is $1$, so the posterior odds equal the prior odds, and the memberships are $0.6$ and $0.4$ in the practice problem.{{cite:grinstead_snell1997}} (p. 164)
+Yes. The density ratio is $1$, so the posterior odds equal the prior odds, and the memberships are $0.6$ and $0.4$ in the practice problem.
 :::
 
 3. With points at $4$ and $0$ as in the worked update, what is the component-$2$ mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$4$. Only the first point has positive membership on component $2$, and that point sits at $4$.{{cite:grinstead_snell1997}} (p. 164)
+$4$. Only the first point has positive membership on component $2$, and that point sits at $4$.
 :::
 
 ## History

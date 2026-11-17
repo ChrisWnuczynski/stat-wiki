@@ -104,7 +104,7 @@ $$
 K_H(\mathbf{x})=|H|^{-1/2}K(H^{-1/2}\mathbf{x}),
 $$
 
-with $H^{-1/2}$ obtained from the spectral decomposition. These assumptions give a nonnegative estimate that integrates to one{{cite:wasserman705_lecture26}} (§1, pp. 1–2, kernel normalization and density estimator). More general kernel constructions exist. The formulas below use this density-kernel setting.
+with $H^{-1/2}$ obtained from the spectral decomposition. These assumptions give a nonnegative estimate that integrates to one{{cite:wasserman_lecture26}} (§1, pp. 1–2, kernel normalization and density estimator). More general kernel constructions exist. The formulas below use this density-kernel setting.
 
 :::
 

@@ -1,8 +1,11 @@
 ## Lead context
 Average linkage measures the gap between two clusters by the mean of every cross-pair, not by the nearest pair or the farthest pair.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, eq. 14.43, p. 523)
 
+## Motivating example
+On the line with absolute difference, the points $0$, $2$, $3$ and $8$ first fuse $\{2,3\}$ at distance $1$. The average distance from $\{2,3\}$ to $0$ is $(2+3)/2=2.5$, and from $\{2,3\}$ to $8$ is $(6+5)/2=5.5$. The next fusion attaches $0$ at height $2.5$. The last fusion has three cross-distances $8$, $6$ and $5$, with mean $19/3\approx 6.333$. Single linkage finishes at $5$ and complete linkage at $8$. The average sits between them on this last step, and it is not the average of $5$ and $8$.
+
 ## Intuition — Every cross-pair casts a vote
-If $D_1$ and $D_2$ are clusters, the group-average dissimilarity is the arithmetic mean of $d(x,y)$ over $x\in D_1$ and $y\in D_2$. A single close pair does not decide the comparison, and a single far pair does not either. The denominator is the product of the two cardinalities, so a repeated point, kept as a multiset, is counted as many times as it occurs. The rule does not need the points to have coordinates. It needs the dissimilarities. Replacing those dissimilarities by their squares can change which pair of clusters is closer, because an average does not preserve order under a strictly increasing transformation. The minimum and the maximum do.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525){{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)
+If $D_1$ and $D_2$ are clusters, the group-average dissimilarity is the arithmetic mean of $d(x,y)$ over $x\in D_1$ and $y\in D_2$. A single close pair does not decide the comparison, and a single far pair does not either. The denominator is the product of the two cardinalities, so a repeated point is counted as many times as it occurs. The rule does not need the points to have coordinates. It needs the dissimilarities. Replacing those dissimilarities by their squares can change which pair of clusters is closer, because an average does not preserve order under a strictly increasing transformation. The minimum and the maximum do.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525){{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)
 
 ## Definition
 In agglomerative clustering the group-average linkage is
@@ -21,15 +24,17 @@ Suppose $D_a$ and $D_b$ fuse at height $h$, the minimum group-average distance a
 :::
 
 ## Worked example
-On the line with absolute difference, the points $0$, $2$, $3$ and $8$ first fuse $\{2,3\}$ at distance $1$. The average distance from $\{2,3\}$ to $0$ is $(2+3)/2=2.5$, and from $\{2,3\}$ to $8$ is $(6+5)/2=5.5$. The next fusion attaches $0$ at height $2.5$. The last fusion has three cross-distances $8$, $6$ and $5$, with mean $19/3\approx 6.333$. Single linkage finishes at $5$ and complete linkage at $8$. The average sits between them on this last step, and it is not the average of $5$ and $8$.
 
 Squaring the dissimilarities can reorder a comparison. Cross-distances $1$ and $5$ have mean $3$. Cross-distances $16/5$ and $16/5$ have mean $3.2$. The first pair of clusters is closer on the raw scale. After squaring, the means are $(1+25)/2=13$ and $(256/25)=10.24$. The second pair is now closer. Complete linkage would have compared $\max(1,5)=5$ with $\max(16/5,16/5)=3.2$ before squaring and $\max(1,25)=25$ with $\max(256/25,256/25)=10.24$ after, and the second pair would have stayed closer.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 524–525)
 
 **Your turn.** Clusters $\{0,2\}$ and $\{6,8\}$ on the line have cross-distances $6$, $8$, $4$ and $6$. Find the average-linkage distance, and the single-linkage and complete-linkage distances of the same pair.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The average is $(6+8+4+6)/4=6$. The minimum is $4$ and the maximum is $8$. The average is the middle value on this particular set of four numbers, not a general identity.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, eq. 14.43, p. 523)
+The average is $(6+8+4+6)/4=6$. The minimum is $4$ and the maximum is $8$. The average is the middle value on this particular set of four numbers, not a general identity.
 :::
+
+## Connections
+[Single linkage](single-linkage.qmd) uses the nearest cross-pair and can chain. [Complete linkage](complete-linkage.qmd) uses the farthest cross-pair and tracks diameter. Average linkage is the compromise that depends on the numerical scale of $d$. All three are options in [hierarchical clustering](hierarchical-clustering.qmd), and the picture of the fusions is a [dendrogram](dendrogram.qmd). As the clusters grow like samples from two fixed densities, the group average estimates the expected dissimilarity between independent draws from those densities. The single-linkage height collapses toward zero and the complete-linkage height runs off to the extremes of the supports, so those two heights are not estimating that same population contrast.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525){{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)
 
 ## Check yourself
 ### A weighted update {#self-check-average-weight}
@@ -45,8 +50,5 @@ The three cross-distances consist of two that average $4$ and one that equals $7
 Cross-distances $1$ and $5$ versus two copies of $16/5$. Which pair is closer before squaring, and which is closer after?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Before squaring the means are $3$ and $3.2$, so the pair with distances $1$ and $5$ is closer. After squaring the means are $13$ and $10.24$, so the pair of copies of $16/5$ is closer.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 524–525)
+Before squaring the means are $3$ and $3.2$, so the pair with distances $1$ and $5$ is closer. After squaring the means are $13$ and $10.24$, so the pair of copies of $16/5$ is closer.
 :::
-
-## Connections
-[Single linkage](single-linkage.qmd) uses the nearest cross-pair and can chain. [Complete linkage](complete-linkage.qmd) uses the farthest cross-pair and tracks diameter. Average linkage is the compromise that depends on the numerical scale of $d$. All three are options in [hierarchical clustering](hierarchical-clustering.qmd), and the picture of the fusions is a [dendrogram](dendrogram.qmd). As the clusters grow like samples from two fixed densities, the group average estimates the expected dissimilarity between independent draws from those densities. The single-linkage height collapses toward zero and the complete-linkage height runs off to the extremes of the supports, so those two heights are not estimating that same population contrast.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525){{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)

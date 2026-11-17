@@ -42,8 +42,6 @@ A [random variable](random-variable.qmd) is a function whose inverse images of B
 
 Let $\Omega=\{1,2,3,4\}$, $A=\{1,2\}$, and $B=\{2,3\}$. List $\sigma(A,B)$.
 
-[Question-bank page](../questions/ex-sp-generated-algebra.qmd)
-
 ::: {.callout-tip collapse="true" title="Answer"}
 The atoms are $\{2\}$, $\{1\}$, $\{3\}$, and $\{4\}$. Every singleton is an atom, so $\sigma(A,B)$ is the power set, with $2^4=16$ sets.
 :::
@@ -52,8 +50,6 @@ The atoms are $\{2\}$, $\{1\}$, $\{3\}$, and $\{4\}$. Every singleton is an atom
 
 If $A_n\downarrow A$, why does $\mathrm P(A_n)\downarrow\mathrm P(A)$?
 
-[Question-bank page](../questions/ex-sp-continuity-above.qmd)
-
 ::: {.callout-tip collapse="true" title="Answer"}
-The complements satisfy $A_n^c\uparrow A^c$. Continuity from below gives $\mathrm P(A_n^c)\uparrow\mathrm P(A^c)$. Subtract from $1$ to obtain $\mathrm P(A_n)\downarrow\mathrm P(A)$. The complements are events because $\mathcal F$ is a sigma-algebra.{{cite:durrett2019}} (Thm. 1.1.1 (iv), pp. 1–2)
+The complements satisfy $A_n^c\uparrow A^c$. Continuity from below gives $\mathrm P(A_n^c)\uparrow\mathrm P(A^c)$. Subtract from $1$ to obtain $\mathrm P(A_n)\downarrow\mathrm P(A)$. The complements are events because $\mathcal F$ is a sigma-algebra., pp. 1–2)
 :::

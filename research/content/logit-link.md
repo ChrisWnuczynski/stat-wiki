@@ -38,7 +38,7 @@ Take the fitted linear predictor $\eta=\log(1/3)+x\log 3$, where $x=0$ denotes t
 **Your turn.** Keep the odds ratio at $3$ but start from a reference probability of $0.10$. What is the comparison probability, risk ratio, and probability difference?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The starting odds are $1/9$; multiplying by $3$ gives odds $1/3$ and probability $1/4=0.25$. The risk ratio is $0.25/0.10=2.5$ and the probability difference is $0.25-0.10=0.15$. The odds ratio stayed $3$, but the other two summaries changed.{{cite:nelder_wedderburn1972}} (§3.3, p. 379)
+The starting odds are $1/9$; multiplying by $3$ gives odds $1/3$ and probability $1/4=0.25$. The risk ratio is $0.25/0.10=2.5$ and the probability difference is $0.25-0.10=0.15$. The odds ratio stayed $3$, but the other two summaries changed.
 :::
 
 ## Common misconceptions

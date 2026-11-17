@@ -44,7 +44,7 @@ The node heights are $1$, $3$ and $8$. The final height $8$ is the diameter of $
 **Your turn.** On the same line, cluster $0$, $1$ and $4$ by complete linkage. Report both fusion heights, and say which height equals the diameter of all three points.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The closest pair is $\{0,1\}$ at height $1$. The complete-linkage distance from that pair to $4$ is $\max(4-0,4-1)=\max(4,3)=4$. The heights are $1$ and $4$. The diameter of $\{0,1,4\}$ is $4$, which matches the last fusion.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, eq. 14.42 and 14.44, pp. 523–525)
+The closest pair is $\{0,1\}$ at height $1$. The complete-linkage distance from that pair to $4$ is $\max(4-0,4-1)=\max(4,3)=4$. The heights are $1$ and $4$. The diameter of $\{0,1,4\}$ is $4$, which matches the last fusion.
 :::
 
 ## Common misconceptions
@@ -68,7 +68,7 @@ Ties need a rule. If two pairs share the same minimum distance, the pair fused f
 Observations sit at $0$, $2$, $3$ and $8$ with absolute difference as the dissimilarity. Complete linkage has already fused $\{2,3\}$ at height $1$ and then fused $0$ with that pair at height $3$. What is the height of the last fusion, and why does it equal the diameter of the four points?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The last height is $\max(8,6,5)=8$. Under complete linkage the fusion height is the largest cross-pair, and the within-cluster diameters already formed are $1$ and then $3$, both smaller than $8$. The diameter of the union is therefore $8$.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, eq. 14.42 and 14.44, pp. 523–525)
+The last height is $\max(8,6,5)=8$. Under complete linkage the fusion height is the largest cross-pair, and the within-cluster diameters already formed are $1$ and then $3$, both smaller than $8$. The diameter of the union is therefore $8$.
 :::
 
 ### A squared distance cannot reorder the maximum {#self-check-complete-monotone}
@@ -76,7 +76,7 @@ The last height is $\max(8,6,5)=8$. Under complete linkage the fusion height is 
 The cross-pairs between two clusters have dissimilarities $1$ and $9$. Another candidate pair of clusters has cross-pairs $4$ and $6$. Which pair does complete linkage regard as closer, and does replacing every dissimilarity by its square change that comparison?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Complete linkage compares $\max(1,9)=9$ with $\max(4,6)=6$, so the second pair is closer. After squaring, the maxima are $81$ and $36$, and $36$ is still smaller. A strictly increasing transformation preserves the larger of two numbers, so it preserves every complete-linkage comparison.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 524–525)
+Complete linkage compares $\max(1,9)=9$ with $\max(4,6)=6$, so the second pair is closer. After squaring, the maxima are $81$ and $36$, and $36$ is still smaller. A strictly increasing transformation preserves the larger of two numbers, so it preserves every complete-linkage comparison.
 :::
 
 ### An outlier and a bridge {#self-check-complete-outlier}
@@ -84,8 +84,8 @@ Complete linkage compares $\max(1,9)=9$ with $\max(4,6)=6$, so the second pair i
 Points at $0$, $1$, $2$ and $10$ are clustered by complete linkage. The first fusion is $\{0,1\}$ or a tie involving the gap of $1$ between neighbours in $\{0,1,2\}$. Explain why the point at $10$ does not slip into an early fusion, whereas single linkage can attach it only at the end but through a chain whose diameter is already large before that last step.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Any cluster that contains a point of $\{0,1,2\}$ and also $10$ has a cross-pair of length at least $8$. Complete linkage will not pay that cost while fusions of height $1$ are still available inside $\{0,1,2\}$. The three close points fuse first, at heights $1$ and then $2$, and $10$ joins at $10$. Single linkage also postpones $10$ until height $8$, but the cluster $\{0,1,2\}$ was built at height $1$ even though its diameter is $2$. The defect complete linkage avoids is that early, large diameter; the cost it accepts is that one remote point fixes the last height.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)
+Any cluster that contains a point of $\{0,1,2\}$ and also $10$ has a cross-pair of length at least $8$. Complete linkage will not pay that cost while fusions of height $1$ are still available inside $\{0,1,2\}$. The three close points fuse first, at heights $1$ and then $2$, and $10$ joins at $10$. Single linkage also postpones $10$ until height $8$, but the cluster $\{0,1,2\}$ was built at height $1$ even though its diameter is $2$. The defect complete linkage avoids is that early, large diameter; the cost it accepts is that one remote point fixes the last height.
 :::
 
 ## History
-Dodge's dictionary records complete linkage as the hierarchical rule that takes the distance between the farthest members of two classes, and it records the companion single-link rule that takes the nearest members. The agglomerative algorithm that both rules plug into rebuilds a distance table after each fusion and can be drawn as a dendrogram.{{cite:dodge2008}} (pp. 84–85, 102, 157) Hastie, Tibshirani and Friedman treat the maximum, the minimum and the group average as the three usual extensions of a pairwise dissimilarity, and they separate the compactness that the maximum encourages from the population quantity that a group average estimates.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)
+Complete linkage is the hierarchical rule that takes the distance between the farthest members of two classes, and single linkage takes the nearest members. The agglomerative algorithm that both rules plug into rebuilds a distance table after each fusion and can be drawn as a dendrogram.{{cite:dodge2008}} (pp. 84–85, 102, 157) Hastie, Tibshirani and Friedman treat the maximum, the minimum and the group average as the three usual extensions of a pairwise dissimilarity, and they separate the compactness that the maximum encourages from the population quantity that a group average estimates.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)

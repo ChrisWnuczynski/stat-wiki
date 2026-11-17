@@ -8,7 +8,7 @@ A Bernoulli distribution assigns all its mass to two points. It has one free par
 If $A$ is an event and $X=\mathbf1_A$, then $X\sim\operatorname{Bernoulli}(p)$ with $p=P(A)$. Equivalently, $P(X=x)=p^x(1-p)^{1-x}$ for $x\in\{0,1\}$, with the endpoint cases understood directly from the two masses. Changing which event is coded as $1$ replaces $X$ by $1-X$ and replaces $p$ by $1-p$. The two variables describe the same physical outcome with opposite labels.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory, Definition)
 
 ## Properties
-Because $X^2=X$, its mean and variance are $E(X)=p$ and $\operatorname{Var}(X)=p(1-p)$, as the collapsed proof on this page shows. The probability generating function $E(z^X)=1-p+pz$ records the same two masses. It can be raised to a power for a sum of independent, identically distributed trials; without independence, generating functions do not simply multiply.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory, Moments){{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)
+Because $X^2=X$, its mean and variance are $E(X)=p$ and $\operatorname{Var}(X)=p(1-p)$, The probability generating function $E(z^X)=1-p+pz$ records the same two masses. It can be raised to a power for a sum of independent, identically distributed trials; without independence, generating functions do not simply multiply.{{cite:siegrist2022_bernoulli_intro}} (§11.1, Basic Theory, Moments){{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)
 
 ## Related distributions
 If $X_1,\ldots,X_n$ are independent Bernoulli$(p)$ variables, $S=\sum_iX_i$ counts successes and follows $\operatorname{Binomial}(n,p)$. A specified sequence containing $k$ successes has probability $p^k(1-p)^{n-k}$; there are $\binom nk$ such sequences, giving the binomial mass $P(S=k)=\binom nkp^k(1-p)^{n-k}$. Setting $n=1$ recovers the Bernoulli law. If the trials have different success probabilities, the sum is generally *Poisson binomial*, not ordinary binomial; if the draws are without replacement from a finite population, the count is hypergeometric.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions and finite-population sampling)
@@ -25,7 +25,7 @@ Suppose an inspection flags a part with probability $p=0.30$. One indicator has 
 **Your turn.** Four independent events each occur with probability $0.60$. Find the probability of exactly three occurrences and of at least one occurrence. State the assumption needed for both calculations.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Exactly three occurrences have probability $\binom43(0.60)^3(0.40)=0.3456$. At least one has probability $1-(0.40)^4=0.9744$. Both use independence and the same success probability on every trial; otherwise the simple binomial calculation need not apply.{{cite:siegrist2022_binomial_distribution}} (§11.2, Distribution Functions)
+Exactly three occurrences have probability $\binom43(0.60)^3(0.40)=0.3456$. At least one has probability $1-(0.40)^4=0.9744$. Both use independence and the same success probability on every trial; otherwise the simple binomial calculation need not apply.
 :::
 
 ## Common misconceptions

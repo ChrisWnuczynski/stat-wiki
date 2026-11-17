@@ -24,13 +24,13 @@ Suppose $60$ independent labelled cases are divided into $36$ training, $12$ val
 **Your turn.** A third classifier C, fitted on the same $36$ training cases, makes $2$ mistakes on the $12$ validation cases. Under the stated lowest-error rule, which candidate is selected, and can you report its validation error as an independent test error?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-C's validation error is $2/12\approx0.1667$, between B's $0.0833$ and A's $0.25$, so B remains selected. Its $0.0833$ validation error was used to make that choice and is not an independent test estimate. The untouched test block is the place to estimate the selected procedure's performance.{{cite:cawley_talbot2010}} (§5.3, pp. 2100–2103)
+C's validation error is $2/12\approx0.1667$, between B's $0.0833$ and A's $0.25$, so B remains selected. Its $0.0833$ validation error was used to make that choice and is not an independent test estimate. The untouched test block is the place to estimate the selected procedure's performance.
 :::
 
 ## Common misconceptions
 Holding validation cases out of the numerical optimization is insufficient if their outcomes guided which predictors, transformations or stopping epoch were chosen; they participated in fitting the overall procedure. Conversely, a validation set is not “bad data” after selection: it can often be used for the final refit once choices are frozen, provided the independent test set remains untouched. A selected validation score is not guaranteed to be lower than a particular future test score; optimism describes a repeated-selection effect, not an ordering for every sample.{{cite:cawley_talbot2010}} (§§1, 5.3, pp. 2079–2081, 2100–2103)
 
-## Assumptions and limits
+## Assumptions and limits — Unstable splits and small samples
 A single split wastes fitting observations and can be unstable when the sample is small; in the *Auto* example, different random splits gave different error estimates. Stratification can preserve rare class counts in classification, but even a stratified validation set may be too small to measure rare-class sensitivity accurately. A random split of observations from a hospital does not establish performance at a new hospital with different patients or equipment. Cross-validation can use training-side data more efficiently, but tuning on its minimum still requires a separate outer assessment. A time-series forecast needs chronological evaluation instead of random case exchangeability.{{cite:james_islr2013}} (§5.1.1–5.1.3, pp. 176–183){{cite:cawley_talbot2010}} (§5.3, pp. 2100–2103){{cite:hyndman_athanasopoulos2021}} (§5.10, rolling forecasting origin)
 
 ## Connections

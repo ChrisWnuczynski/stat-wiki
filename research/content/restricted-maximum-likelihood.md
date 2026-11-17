@@ -12,7 +12,7 @@ Let $Q=\sum_{i=1}^n(X_i-\overline X)^2$ for an iid normal sample, so $Q/\sigma^2
 $$
 \ell(\sigma^2)=-\frac{\nu}{2}\log\sigma^2-\frac{Q}{2\sigma^2}.
 $$
-The maximiser is $\hat\sigma^2=Q/\nu=S^2$. The ordinary maximum-likelihood estimator is $Q/n$.
+The maximiser is $\hat\sigma^2=Q/\nu=S^2$. {{cite:siegrist2022_normals}} (§6.08, chi-square law of $V$) The ordinary maximum-likelihood estimator is $Q/n$.
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -38,8 +38,6 @@ The [sample variance](variance.qmd) $S^2$ is this one-sample restricted estimato
 
 For a random sample with mean $\mu$ and variance $\sigma^2$, why is $\E S^2=\sigma^2$?
 
-[Question-bank page](../questions/ex-inf-expected-sample-variance.qmd)
-
 ::: {.callout-tip collapse="true" title="Answer"}
 $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$, so the expectation of the residual sum of squares is $(n-1)\sigma^2$. Dividing by $n-1$ is unbiased. Dividing by $n$ is the ordinary maximum-likelihood estimator and is biased downward.
 :::
@@ -47,8 +45,6 @@ $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$, so the expec
 ### Which expressions use the unknown mean? {#self-check-ex-inf-which-are-statistics}
 
 Is $S^2$ a statistic, and is $(n-1)S^2/\sigma^2$ a statistic?
-
-[Question-bank page](../questions/ex-inf-which-are-statistics.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $S^2$ is a statistic: it is computed from the data. $(n-1)S^2/\sigma^2$ is not, because it contains $\sigma$. Under normality its law is chi-squared on $n-1$ degrees of freedom, which is the restricted likelihood used above.

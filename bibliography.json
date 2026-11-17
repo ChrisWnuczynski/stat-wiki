@@ -2327,10 +2327,10 @@
       "venue": "Nyt Tidsskrift for Matematik B",
       "volume": "20",
       "pages": "33–39",
-      "url": "https://openlibrary.org/authors/OL2246224A",
+      "url": "https://www.kb.dk/e-mat/dod/130024233155-color.pdf",
       "verification": {
         "source": "archival_url",
-        "id": "https://openlibrary.org/authors/OL2246224A"
+        "id": "https://www.kb.dk/e-mat/dod/130024233155-color.pdf"
       }
     },
     "erlang1917": {
@@ -2343,10 +2343,10 @@
       "venue": "Elektroteknikeren",
       "volume": "13",
       "pages": "5–13",
-      "url": "https://openlibrary.org/authors/OL2246224A",
+      "url": "https://archive.org/details/solution-of-some-problems-in-the-theory-of-probabilities-of-significance-in-auto",
       "verification": {
         "source": "archival_url",
-        "id": "https://openlibrary.org/authors/OL2246224A"
+        "id": "https://archive.org/details/solution-of-some-problems-in-the-theory-of-probabilities-of-significance-in-auto"
       }
     },
     "evans2025_graphical": {
@@ -3234,22 +3234,6 @@
       "verification": {
         "source": "openlibrary",
         "id": "/works/OL3261782W"
-      }
-    },
-    "goodfellow2016_deep_learning": {
-      "authors": [
-        "Goodfellow, I.",
-        "Bengio, Y.",
-        "Courville, A."
-      ],
-      "year": 2016,
-      "title": "Deep Learning",
-      "kind": "book",
-      "publisher": "MIT Press",
-      "url": "https://www.deeplearningbook.org/contents/mlp.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.deeplearningbook.org/contents/mlp.html"
       }
     },
     "goodfellow_bengio_courville2016": {
@@ -5862,60 +5846,12 @@
         "id": "https://www.itl.nist.gov/div898/handbook/ppc/section4/ppc423.htm"
       }
     },
-    "nist_least_squares": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
-      }
-    },
-    "nist_least_squares_pmd2002": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2002,
-      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.4.3.1: Least Squares",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm"
-      }
-    },
     "nist_linear_least_squares_pmd2002": {
       "authors": [
         "NIST/SEMATECH"
       ],
       "year": 2002,
       "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1: Linear Least Squares Regression",
-      "kind": "book",
-      "publisher": "National Institute of Standards and Technology",
-      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm"
-      }
-    },
-    "nist_linear_model2002": {
-      "authors": [
-        "Heckert, N. A.",
-        "Filliben, J. J.",
-        "Croarkin, C. M.",
-        "Hembree, B.",
-        "Guthrie, W. F.",
-        "Tobias, P.",
-        "Prinz, J."
-      ],
-      "year": 2002,
-      "title": "Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.1",
       "kind": "book",
       "publisher": "National Institute of Standards and Technology",
       "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm",
@@ -8204,20 +8140,6 @@
         "id": "10.1111/j.2517-6161.1951.tb00088.x"
       }
     },
-    "sklearn2026_mixture": {
-      "authors": [
-        "scikit-learn developers"
-      ],
-      "year": 2026,
-      "title": "Gaussian mixture models",
-      "kind": "book",
-      "publisher": "scikit-learn User Guide",
-      "url": "https://scikit-learn.org/stable/modules/mixture.html",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://scikit-learn.org/stable/modules/mixture.html"
-      }
-    },
     "sklearn_ari2026": {
       "authors": [
         "scikit-learn developers"
@@ -9253,20 +9175,6 @@
       "verification": {
         "source": "crossref",
         "id": "10.1007/978-0-387-21736-9"
-      }
-    },
-    "wasserman705_lecture26": {
-      "authors": [
-        "Wasserman, L."
-      ],
-      "year": 2020,
-      "title": "Non-parametric Density Estimation and Non-parametric Regression (36-705, lecture 26)",
-      "kind": "book",
-      "publisher": "Carnegie Mellon University, 36-705",
-      "url": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://stat.cmu.edu/~larry/=%73tat705/Lecture26.pdf"
       }
     },
     "wasserman_lecture26": {

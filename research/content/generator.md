@@ -8,7 +8,7 @@ Q=\begin{pmatrix}-2&2\\ 4&-4\end{pmatrix}.
 $$
 
 ## Intuition
-In continuous time there is no fixed tick. A rate may exceed $1$, because it is an intensity, not a probability. From state $i$ the chain waits an exponential time with rate $\nu_i=-q_{ii}$ and then jumps to $j$ with probability $q_{ij}/\nu_i$. Those jump probabilities sum to $1$. The rates themselves sum to $0$ along a row, because the diagonal is minus the total exit rate.
+In continuous time there is no fixed tick. A rate may exceed $1$, because it is an intensity, not a probability. From state $i$ the chain waits an exponential time with rate $\nu_i=-q_{ii}$ and then jumps to $j$ with probability $q_{ij}/\nu_i$. Those jump probabilities sum to $1$.{{cite:levin_peres2017}} (§1.1) The rates themselves sum to $0$ along a row, because the diagonal is minus the total exit rate.{{cite:nist_weibull_handbook}} (§8.1.6.2, reliability and mean of the exponential case)
 
 Over a short interval of length $h$, the chance of a jump from $i$ to $j\neq i$ is $q_{ij}h+o(h)$, and the chance of still being in $i$ is $1-\nu_i h+o(h)$.
 
@@ -31,7 +31,7 @@ $$
 At $t=1$, $u(1)=(1-e^{-6})/3\approx 0.3325$, already close to the stationary value $1/3\approx 0.3333$.
 
 ## Properties
-Balance, the holding-time mean, and the explicit transition are checked by differentiation.
+Balance, the holding-time mean, and the explicit transition are checked by differentiation.{{cite:nist_weibull_handbook}} (§8.1.6.2, reliability and mean of the exponential case)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}

@@ -32,7 +32,7 @@ Thus $\hat\sigma^{2}>W$ exactly when $B>W$. A single sequence supplies no second
 The published potential scale reduction multiplies a square-root variance ratio by a degrees-of-freedom factor that tends to $1$ as $n$ grows. The factor does not tend to $1$ when separate sequences remain near separate modes: further draws inside the wrong mode do not by themselves close the gap between the means.{{cite:gelman_rubin1992}} (§2.2 and §2.4, pp. 461)
 
 ## Statistical use — Read the traces, then the variance ratio
-Draw every sequence on the same axes after the same warm-up rule. Look for a band that one sequence never enters, for a flat stretch of rejections, and for a slow drift that has not settled by the last iteration. Then compute $W$ and $B$ for each scalar of interest. A ratio $\hat\sigma^{2}/W$ near $1$ is evidence that the retained draws from these sequences occupy a common scale. It is not evidence that the transition kernel leaves the intended posterior invariant, and it is not evidence about a mode that none of the starting points reached. Posterior means and interval endpoints are averages of the retained draws. They inherit whatever region the traces actually visited.{{cite:gelman_rubin1992}} (§1.2 and §2.2, pp. 457–461)
+Draw every sequence on the same axes after the same warm-up rule. Look for a band that one sequence never enters, for a flat stretch of rejections, and for a slow drift that has not settled by the last iteration. Then compute $W$ and $B$ for each scalar of interest. A ratio $\hat\sigma^{2}/W$ near $1$ is evidence that the retained draws from these sequences occupy a common scale. It is not evidence that the transition kernel leaves the intended posterior invariant, and it is not evidence about a mode that none of the starting points reached. Posterior means and interval endpoints are averages of the retained draws. They summarise whatever region the traces actually visited.{{cite:gelman_rubin1992}} (§1.2 and §2.2, pp. 457–461)
 
 ## Worked example
 Take $m=2$ sequences of length $n=4$, after warm-up. Sequence $1$ is $0,1,0,1$, with mean $0.5$. The squared deviations from $0.5$ sum to $1$, so the within-sequence variance is $1/3$. Sequence $2$ is $5,6,5,6$, with mean $5.5$ and the same within-sequence variance $1/3$. Hence $W=1/3$. The two means differ from their average $3$ by $2.5$ each, so
@@ -48,7 +48,7 @@ The ratio $\hat\sigma^{2}/W=12.75/(1/3)=38.25$, and $\sqrt{38.25}\approx 6.185$.
 **Your turn.** One sequence of length $4$ is $2,2,2,2$ and the other is $2,4,2,4$. Find the two means, $W$, and $B/n$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The means are $2$ and $3$. The first within-sequence variance is $0$. The second has squared deviations $1,1,1,1$ from its mean $3$, summing to $4$, so its variance is $4/3$. Thus $W=(0+4/3)/2=2/3$. The variance of the two means is $(2-2.5)^{2}+(3-2.5)^{2}=0.5$, and that quantity is $B/n$. The traces share the value $2$ but one of them also reaches $4$, so a single glance at the constant sequence would miss half of the visited range.{{cite:gelman_rubin1992}} (§2.2, pp. 460–461)
+The means are $2$ and $3$. The first within-sequence variance is $0$. The second has squared deviations $1,1,1,1$ from its mean $3$, summing to $4$, so its variance is $4/3$. Thus $W=(0+4/3)/2=2/3$. The variance of the two means is $(2-2.5)^{2}+(3-2.5)^{2}=0.5$, and that quantity is $B/n$. The traces share the value $2$ but one of them also reaches $4$, so a single glance at the constant sequence would miss half of the visited range.
 :::
 
 ## Common misconceptions
@@ -68,7 +68,7 @@ The [autocorrelation function](autocorrelation-function.qmd) summarises dependen
 Sequences $0,1,0,1$ and $5,6,5,6$ give $W=1/3$ and $\hat\sigma^{2}=12.75$. Why does a histogram of the eight numbers fail to show what the trace shows?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The histogram records that the values $0$, $1$, $5$ and $6$ occurred. It does not record that one sequence produced only $0$ and $1$ while the other produced only $5$ and $6$. The trace, and the gap between the means that enters $B$, keep the sequence labels.{{cite:gelman_rubin1992}} (§2.2, pp. 460–461)
+The histogram records that the values $0$, $1$, $5$ and $6$ occurred. It does not record that one sequence produced only $0$ and $1$ while the other produced only $5$ and $6$. The trace, and the gap between the means that enters $B$, keep the sequence labels.
 :::
 
 ### When $B$ is zero {#self-check-trace-agree}
@@ -76,7 +76,7 @@ The histogram records that the values $0$, $1$, $5$ and $6$ occurred. It does no
 Both sequences are $1,2,1,2$, so $B=0$ and $W=1/3$. What is $\hat\sigma^{2}$, and why is a second trace still worth drawing?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Equation (3) gives $\hat\sigma^{2}=(3/4)(1/3)=0.25$. The second trace is what makes $B$ a number rather than an undefined symbol. Agreement of the two paths is the observation that $B=0$; one path alone cannot show agreement with a path that was never run.{{cite:gelman_rubin1992}} (§2.2, eq. 3, pp. 460–461)
+Equation (3) gives $\hat\sigma^{2}=(3/4)(1/3)=0.25$. The second trace is what makes $B$ a number rather than an undefined symbol. Agreement of the two paths is the observation that $B=0$; one path alone cannot show agreement with a path that was never run.
 :::
 
 ### One chain, two modes {#self-check-trace-one}
@@ -84,7 +84,7 @@ Equation (3) gives $\hat\sigma^{2}=(3/4)(1/3)=0.25$. The second trace is what ma
 A target has two well-separated modes. A single sequence of length $10{,}000$ stays in the mode where it started, and its trace looks stable. What does equation (3) refuse to provide?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-It refuses $B$. With one sequence there is no variance among sequence means, so the comparison of between-sequence and within-sequence variation cannot be formed. Stability inside the visited mode does not estimate the unvisited mode.{{cite:gelman_rubin1992}} (§2.2, p. 461)
+It refuses $B$. With one sequence there is no variance among sequence means, so the comparison of between-sequence and within-sequence variation cannot be formed. Stability inside the visited mode does not estimate the unvisited mode.
 :::
 
 ## History

@@ -31,13 +31,10 @@ on $3$ degrees of freedom. The number $1.225$ can be compared with a $t_3$ table
 $\overline x=3$ and $\sum(x_i-\overline x)^2=14$, so $s^2=14/3$. The ratio is $3/\sqrt{(14/3)/4}=3\sqrt{6/7}\approx 2.777$ on $3$ degrees of freedom.
 :::
 
-**Check yourself.**
-
 ### Which expressions are statistics? {#self-check-ex-inf-which-are-statistics}
 
 For a normal sample with both parameters unknown, which of $\overline X$, $\overline X-\mu$, and $(\overline X-\mu)/(S/\sqrt n)$ are statistics? For the last one, what is its distribution?
 
-[Question-bank page](../questions/ex-inf-which-are-statistics.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $\overline X$ is a statistic. $\overline X-\mu$ is not, because it contains $\mu$; its law is $\operatorname{N}(0,\sigma^2/n)$ and still depends on $\sigma$. The ratio $(\overline X-\mu)/(S/\sqrt n)$ is not a statistic either, but under the normal sample theorem its law is $t_{n-1}$ for every $\mu$ and $\sigma$.
@@ -47,7 +44,6 @@ $\overline X$ is a statistic. $\overline X-\mu$ is not, because it contains $\mu
 
 For a random sample with mean $\mu$ and variance $\sigma^2$, show $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$, and deduce $\E S^2=\sigma^2$.
 
-[Question-bank page](../questions/ex-inf-expected-sample-variance.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Expanding $X_i-\overline X=(X_i-\mu)-(\overline X-\mu)$ and summing gives the identity, because $\sum_i(X_i-\mu)=n(\overline X-\mu)$. Taking expectations, $\E\sum_i(X_i-\mu)^2=n\sigma^2$ and $\E[n(\overline X-\mu)^2]=\sigma^2$, so $\E[(n-1)S^2]=(n-1)\sigma^2$. This expectation does not need normality. The chi-squared law does.
@@ -55,3 +51,6 @@ Expanding $X_i-\overline X=(X_i-\mu)-(\overline X-\mu)$ and summing gives the id
 
 ## Related concepts — The $t$ pivot and the chi-squared scale
 The [pivot](pivot.qmd) $(\overline X-\mu)/(S/\sqrt n)$ is the $t$ ratio above. The [chi-squared distribution](chi-squared-distribution.qmd) on $n-1$ degrees of freedom is the law of $(n-1)S^2/\sigma^2$. The same three facts, applied inside groups, give the numerator and denominator of an [ANOVA $F$ statistic](anova-f-distribution.qmd). A [confidence interval](confidence-interval.qmd) for $\mu$ inverts $T$ and does not require a known $\sigma$.{{cite:siegrist2022_normals}} (§6.08, The T Variable)
+
+## History
+For a normal sample the mean and the variance are independent, and the scaled variance is chi-squared.{{cite:siegrist2022_normals}} (§6.08, The Sample Mean; The Sample Variance)

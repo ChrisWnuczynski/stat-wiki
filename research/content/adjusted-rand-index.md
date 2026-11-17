@@ -1,8 +1,11 @@
+## Motivating example
+Six items are split as $\{1,2,3\}$ against $\{4,5,6\}$, and again as $\{1,2,4\}$ against $\{3,5,6\}$. The labels do not have to match. Agreement is counted on the pairs.{{cite:hubert_arabie1985}} (pp. 193–218)
+
 ## Intuition — Pairs, not labels
-Two partitions of the same items can use different label names for the same groups. Agreement is therefore counted on pairs. A pair that sits together in both partitions, or apart in both, is a pair the partitions treat the same way. The adjusted index subtracts the number of together-pairs expected from the two sets of group sizes alone. Identical partitions then score one, as the proof below checks.
+Two partitions of the same items can use different label names for the same groups. Agreement is therefore counted on pairs. A pair that sits together in both partitions, or apart in both, is a pair the partitions treat the same way. The adjusted index subtracts the number of together-pairs expected from the two sets of group sizes alone.{{cite:hubert_arabie1985}} (pp. 193–218) Identical partitions then score one, as the proof below checks.
 
 ## Definition — Chance-corrected pair counts
-Let $n_{ij}$ be the number of items in group $i$ of the first partition and group $j$ of the second, with row sums $a_i$ and column sums $b_j$. Write $C(m,2)=m(m-1)/2$ and $C(n,2)$ for the number of pairs. The number of pairs placed together in both partitions is $I=\sum_{ij}C(n_{ij},2)$. Under a random table with these margins, the hypergeometric falling factorial gives
+Let $n_{ij}$ be the number of items in group $i$ of the first partition and group $j$ of the second, with row sums $a_i$ and column sums $b_j$. Write $C(m,2)=m(m-1)/2$ and $C(n,2)$ for the number of pairs. The number of pairs placed together in both partitions is $I=\sum_{ij}C(n_{ij},2)$.{{cite:hubert_arabie1985}} (pp. 193–218) Under a random table with these margins, the hypergeometric falling factorial gives
 $$
 \mathbb E(I)=\frac{\bigl(\sum_i C(a_i,2)\bigr)\bigl(\sum_j C(b_j,2)\bigr)}{C(n,2)}.
 $$
@@ -35,6 +38,9 @@ The negative value means the partitions agree on fewer together-pairs than the m
 $I=C(3,2)+C(3,2)=6$. The expectation is still $2.4$ and the ceiling is still $6$, so the index is $(6-2.4)/(6-2.4)=1$.
 :::
 
+## Connections — Agreement without matching names
+The index is a comparison of two partitions, such as a clustering from [Lloyd's $k$-means algorithm](lloyd-s-k-means-algorithm.qmd) and a set of known labels. It does not require cluster $1$ to be class $1$. A [decision tree](decision-tree.qmd) also partitions the sample, but it does so with labelled leaves rather than with an agreement score between two groupings. The unadjusted count of agreeing pairs is the Rand index; the adjustment is what recentres the score.
+
 ## Check yourself
 ### One pair
 How many pairs do $3$ items make, and how many do $6$ items make?
@@ -49,6 +55,3 @@ If every group in both partitions has size $1$, what is $I$, and why does the ad
 ::: {.callout-tip collapse="true" title="Answer"}
 No pair is together in either partition, so $I=0$ and both pair totals are $0$. The expectation and the ceiling are $0$, and the correction divides by zero. There are no together-pairs whose chance agreement one could subtract.
 :::
-
-## Connections — Agreement without matching names
-The index is a comparison of two partitions, such as a clustering from [Lloyd's $k$-means algorithm](lloyd-s-k-means-algorithm.qmd) and a set of known labels. It does not require cluster $1$ to be class $1$. A [decision tree](decision-tree.qmd) also partitions the sample, but it does so with labelled leaves rather than with an agreement score between two groupings. The unadjusted count of agreeing pairs is the Rand index; the adjustment is what recentres the score.

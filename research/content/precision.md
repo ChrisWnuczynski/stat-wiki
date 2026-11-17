@@ -35,7 +35,7 @@ Thus $\mu\mid x\sim N(11.28,1.44)$. The prior contributes $9/25=36\%$ of the mea
 **Your turn.** A normal prior for a mean is $N(20,16)$. Three independent observations have mean $24$ and known individual variance $12$. Find the posterior precision, variance and mean.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The prior precision is $1/16$ and the data precision is $3/12=1/4$, giving posterior precision $5/16$ and variance $16/5=3.2$. The posterior mean is $[(1/16)20+(1/4)24]/(5/16)=116/5=23.2$. The sample mean gets four times the prior's weight.{{cite:gelman_bda2013}} (§2.5, p. 40, eq. 2.10)
+The prior precision is $1/16$ and the data precision is $3/12=1/4$, giving posterior precision $5/16$ and variance $16/5=3.2$. The posterior mean is $[(1/16)20+(1/4)24]/(5/16)=116/5=23.2$. The sample mean gets four times the prior's weight.
 :::
 
 ## Common misconceptions — What precision does and does not tell us

@@ -48,7 +48,7 @@ Suppose two binary variables have joint probabilities $\mathbb P(X=0,Y=0)=1/10$,
 **Your turn.** For the same table, find $\mathbb P(X=1\mid Y=0)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The probability of $Y=0$ is $1/10+3/10=4/10$. Therefore $\mathbb P(X=1\mid Y=0)=(3/10)/(4/10)=3/4$. Reversing the conditioning direction changes the denominator.{{cite:billingsley1995}} (§33, Ex. 33.5)
+The probability of $Y=0$ is $1/10+3/10=4/10$. Therefore $\mathbb P(X=1\mid Y=0)=(3/10)/(4/10)=3/4$. Reversing the conditioning direction changes the denominator.
 :::
 
 ## Common misconceptions

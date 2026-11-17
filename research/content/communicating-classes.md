@@ -1,7 +1,7 @@
 ## Lead context
 Two states belong to the same communicating class when the chain can travel from each to the other, so the class is the set of states that share a future.{{cite:siegrist2022_markov_recurrence}} (§4, to-and-from relation)
 
-## Motivating example — A state you can leave and not return to
+## Motivating example
 A machine is either working or broken. From working it always breaks at the next inspection, and once broken it stays broken. The two states do not share a future: the broken state can be reached from the working state, and the working state cannot be reached from the broken state. Putting them in one class would say that the chain can come back, which this transition rule never does.{{cite:siegrist2022_markov_recurrence}} (§4, closed sets and equivalence classes)
 
 ## Intuition
@@ -59,7 +59,7 @@ There is a path between every pair, so the chain is one class and that class is 
 **Your turn.** Label the rows of the alternation matrix as states $1$ and $2$. Compute $P^2$ and the period of state $1$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$P^2=I$, so the chain returns to $1$ in two steps and not in one step. The period is $2$. State $2$ has the same period because the two states communicate.{{cite:siegrist2022_markov_period}} (§5, period of a state)
+$P^2=I$, so the chain returns to $1$ in two steps and not in one step. The period is $2$. State $2$ has the same period because the two states communicate.
 :::
 
 ## Common misconceptions
@@ -80,19 +80,19 @@ An [irreducible Markov chain](irreducible-markov-chain.qmd) is a chain with one 
 1. In the matrix with rows $(0,1)$ and $(0,1)$, is $\{0,1\}$ a communicating class?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. State $1$ does not lead to state $0$, so the states do not communicate. There are two classes, $\{0\}$ and $\{1\}$.{{cite:siegrist2022_markov_recurrence}} (§4, the two-state example)
+No. State $1$ does not lead to state $0$, so the states do not communicate. There are two classes, $\{0\}$ and $\{1\}$.
 :::
 
 2. For the alternation, does $\pi=(1/2,1/2)$ satisfy $\pi P=\pi$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Yes. Each coordinate of $\pi P$ is $1/2$, because each column of $P$ contains a single $1$. The chain still has period $2$, so the stationary equation has a solution and $P^n$ does not converge.{{cite:siegrist2022_markov_period}} (§5, period $2$)
+Yes. Each coordinate of $\pi P$ is $1/2$, because each column of $P$ contains a single $1$. The chain still has period $2$, so the stationary equation has a solution and $P^n$ does not converge.
 :::
 
 3. If a state has a self-loop, what is its period?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The period is $1$. A return in one step is on the list whose greatest common divisor is the period, and that divisor is then $1$. The rest of the class is aperiodic as well.{{cite:siegrist2022_markov_period}} (§5, a positive diagonal entry)
+The period is $1$. A return in one step is on the list whose greatest common divisor is the period, and that divisor is then $1$. The rest of the class is aperiodic as well.
 :::
 
 ## History

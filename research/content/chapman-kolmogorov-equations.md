@@ -1,5 +1,16 @@
 ## Lead context
-The Chapman–Kolmogorov equations add the probabilities of every route a Markov chain can take between two times.
+The Chapman–Kolmogorov equations add the probabilities of every route a Markov chain can take between two times.{{cite:levin_peres2017}} (§1.1, pp. 2–4, matrix orientation and Chapman–Kolmogorov)
+
+## Motivating example
+Let
+\[
+P=\begin{pmatrix}0.8&0.2\\0.4&0.6\end{pmatrix}.
+\]
+Then
+\[
+P^2=\begin{pmatrix}0.72&0.28\\0.56&0.44\end{pmatrix}.
+\]
+The entry \(0.28\) is the probability of going from state \(1\) to state \(2\) in two steps. The route through state \(1\) contributes \(0.8\times 0.2=0.16\), and the route through state \(2\) contributes \(0.2\times 0.6=0.12\). The sum is \(0.28\), which is the Chapman–Kolmogorov total.{{cite:levin_peres2017}} (§1.1, pp. 2–4, matrix orientation and Chapman–Kolmogorov)
 
 ## Intuition — Stop in the middle, then continue
 To be in state \(j\) after \(m+n\) steps, the chain is in some state \(k\) after \(m\) steps and then travels from \(k\) to \(j\) in the remaining \(n\) steps. The Markov property makes that second trip depend on the past only through \(k\). Adding the products over \(k\) is matrix multiplication of the two transition blocks. The same addition is what a two-step probability is when \(m=n=1\).
@@ -9,7 +20,7 @@ Let \(X_0,X_1,\ldots\) be a time-homogeneous Markov chain on a finite set, with 
 \[
 \mathbb{P}(X_{m+n}=j\mid X_0=i)=\sum_k\mathbb{P}(X_m=k\mid X_0=i)\,\mathbb{P}(X_n=j\mid X_0=k),
 \]
-or, in matrices, \(P^{m+n}=P^m P^n\).
+or, in matrices, \(P^{m+n}=P^m P^n\).{{cite:levin_peres2017}} (§1.1, pp. 2–4, matrix orientation and Chapman–Kolmogorov)
 
 ## Properties — Condition on the intermediate state
 ::: {.callout-note collapse="true" title="Proof"}
@@ -26,15 +37,6 @@ Time-homogeneous Markov transitions give \(\mathbb{P}(X_{m+n}=j\mid X_m=k,X_0=i)
 The identity is about the transition mechanism. It does not by itself say that \(P^n\) converges.
 
 ## Worked example — Two steps of a two-state chain
-Let
-\[
-P=\begin{pmatrix}0.8&0.2\\0.4&0.6\end{pmatrix}.
-\]
-Then
-\[
-P^2=\begin{pmatrix}0.72&0.28\\0.56&0.44\end{pmatrix}.
-\]
-The entry \(0.28\) is the probability of going from state \(1\) to state \(2\) in two steps. The route through state \(1\) contributes \(0.8\times 0.2=0.16\), and the route through state \(2\) contributes \(0.2\times 0.6=0.12\). The sum is \(0.28\), which is the Chapman–Kolmogorov total.
 
 **Your turn.** Starting from state \(2\), what is the probability of being in state \(1\) after two steps? Name the two routes.
 
@@ -45,7 +47,7 @@ The probability is \(0.56\). The route through state \(1\) contributes \(0.4\tim
 ## Connections — The distribution after \(n\) steps
 If the row vector \(\pi^{(0)}\) is the distribution of \(X_0\), the distribution of \(X_n\) is \(\pi^{(0)}P^n\), and Chapman–Kolmogorov is the reason \(P^{m+n}\) can be built from \(P^m\) and \(P^n\). A [finite-state Markov chain](finite-state-markov-chain.qmd) is the process whose one-step conditional probabilities are the entries of \(P\). The [limiting distribution](limiting-distribution.qmd) is a different statement: it asks when the rows of \(P^n\) settle, which needs irreducibility and aperiodicity and is not part of the product identity.
 
-## Check yourself — One step, and a three-step check
+## Check yourself
 ### After one step
 Starting from state \(1\), what is \(\mathbb{P}(X_1=1)\)? What is \(\mathbb{P}(X_2=1)\)?
 

@@ -1,16 +1,21 @@
 ## Motivating example
+
 Two health measurements may be correlated because both respond to age. A scatterplot of the two shows their marginal association but cannot say whether their relationship remains after age is held fixed. In a multivariate normal model, the precision matrix provides a compact way to ask that conditional question across many measurements: a zero off-diagonal entry corresponds to a missing conditional link.{{cite:friedman_glasso2008}} (§1, Gaussian graph and inverse covariance){{cite:dodge2008}} (pp. 412–413, “Partial Correlation,” controlling a third variable)
 
 ## Intuition — Reading conditional dependence from an inverse covariance
+
 The covariance matrix describes how pairs move together before conditioning. Its inverse reorganises that information around prediction from the other coordinates. A positive diagonal precision entry says how tightly one coordinate is concentrated after the others are known: its reciprocal is the conditional variance. An off-diagonal entry measures the remaining pairwise link after every other coordinate is held fixed, with a minus sign and rescaling needed to obtain the partial correlation. Thus a zero in the inverse can coexist with a nonzero marginal covariance carried through a third variable.{{cite:friedman_glasso2008}} (§1, graph interpretation of inverse covariance){{cite:dodge2008}} (pp. 412–413, “Partial Correlation,” definition)
 
 ## Definition
+
 For a random vector with positive-definite covariance matrix $\Sigma$, the precision matrix is $K=\Sigma^{-1}$. In a nonsingular multivariate normal model, $K_{ij}=0$ for distinct coordinates $i,j$ if and only if $X_i$ and $X_j$ are conditionally independent given every remaining coordinate. The partial correlation is $-K_{ij}/\sqrt{K_{ii}K_{jj}}$. The Gaussian assumption is essential for interpreting zeros as independence; the inverse exists more broadly wherever $\Sigma$ is nonsingular, but then its zeros need not carry the same independence claim.{{cite:friedman_glasso2008}} (§1, Gaussian sparsity interpretation){{cite:evans_graphical_models2025}} (Ch. 5, §5.1, Gaussian Markov condition)
 
 ## Interpretation
+
 The diagonal $K_{ii}$ is not the reciprocal of the *marginal* variance $\Sigma_{ii}$ except in special cases. It is the reciprocal of the variance left after regressing coordinate $i$ on all the others under the Gaussian model. Its off-diagonal sign must also be read carefully: a negative $K_{ij}$ gives a positive partial correlation. This is a conditional statement, so its sign can differ from the marginal correlation's sign. The three-variable chain in the definition has a zero $K_{13}$ even though the corresponding covariance is nonzero.{{cite:friedman_glasso2008}} (§1, conditional Gaussian graph){{cite:dodge2008}} (pp. 412–413, “Partial Correlation,” interpretation)
 
 ## Properties
+
 Positive definiteness ensures that $K$ exists, is symmetric and has positive diagonal entries. In the Gaussian density, the quadratic form $(x-\mu)^\top K(x-\mu)$ contains a cross-product $2K_{ij}(x_i-\mu_i)(x_j-\mu_j)$. Once the remaining coordinates are fixed, a zero $K_{ij}$ removes this pairwise interaction from the conditional density; the resulting factorisation is the mathematical reason for the graph rule. A missing edge describes conditional independence in the fitted distribution. The same pair may still be marginally associated or joined by a causal pathway.{{cite:friedman_glasso2008}} (§1–2, Gaussian precision and sparse graph)
 
 ::: {.callout-note collapse="true" title="Proof"}
@@ -20,27 +25,33 @@ Let $u=x-\mu$. Holding $u_{-i}$ fixed, the Gaussian log density as a function of
 :::
 
 ## Statistical use
+
 Estimate a covariance matrix from comparable observations and invert it only when the estimate is sufficiently well conditioned. If the number of variables is at least the number of independent centred observations, the sample covariance is singular; an ordinary inverse is unavailable. Even before that point, near-collinear measurements can make inverse entries unstable. A sparse precision estimator, such as the graphical lasso, instead fits the Gaussian likelihood with an absolute-value penalty on precision entries. Its zeros define an estimated graph, whose stability and predictive fit still need assessment.{{cite:friedman_glasso2008}} (§1–2, penalised inverse-covariance estimation)
 
-The answered “precision to graph” problem asks for an inverse, marginal correlation and partial correlations in a three-node chain. The answered conditional-association problem adds the inferential question: why a penalised graph's edges should not be read as causal effects. Both extend the small calculation below beyond merely recognising a zero in a matrix.
+A three-node chain has an inverse, a marginal correlation and partial correlations that need not agree. A penalised graph's edges should not be read as causal effects. Both points extend the small calculation below beyond merely recognising a zero in a matrix.
 
+Let $Z\sim N(0,1)$, $X_1=Z$ and $X_2=Z^2$. Their covariance is zero because $E(Z^3)=0$, and their covariance matrix $\operatorname{diag}(1,2)$ has precision $\operatorname{diag}(1,1/2)$. Yet $X_2$ is completely determined by $X_1$, so they are dependent. This counterexample shows why a precision zero alone does not imply independence outside the joint Gaussian family. In a different failure, if two recorded variables are exact duplicates, the covariance matrix is singular and no ordinary precision matrix exists. In either case, interpreting an inverse entry as a Gaussian conditional link would misstate the data-generating structure.{{cite:friedman_glasso2008}} (§1, Gaussian model requirement)
 ## Worked example
+
 Let two centred measurements have covariance matrix $\Sigma=\begin{pmatrix}4&2\\2&3\end{pmatrix}$. Its determinant is $4(3)-2^2=8$, so $K=\Sigma^{-1}=\tfrac18\begin{pmatrix}3&-2\\-2&4\end{pmatrix}$. The first conditional variance given the second measurement is $1/K_{11}=8/3\approx2.6667$, smaller than its marginal variance $4$. Its regression coefficient on the second is $-K_{12}/K_{11}=2/3\approx0.6667$. With only two variables, the partial correlation equals their ordinary correlation: $-K_{12}/\sqrt{K_{11}K_{22}}=2/\sqrt{12}\approx0.5774$. The conditional-variance calculation states how much uncertainty remains after the second measurement is known.{{cite:friedman_glasso2008}} (§1, Gaussian conditional structure)
 
 **Your turn.** For $\Sigma=\begin{pmatrix}2&1\\1&2\end{pmatrix}$, find $K$, the conditional variance of the first coordinate given the second, and their partial correlation.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The determinant is $3$, so $K=\tfrac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix}$. The conditional variance is $1/K_{11}=3/2=1.5$, and the partial correlation is $-K_{12}/\sqrt{K_{11}K_{22}}=1/2=0.5$. With no other coordinate to condition on, this also equals the marginal correlation.{{cite:friedman_glasso2008}} (§1, Gaussian inverse-covariance interpretation)
+The determinant is $3$, so $K=\tfrac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix}$. The conditional variance is $1/K_{11}=3/2=1.5$, and the partial correlation is $-K_{12}/\sqrt{K_{11}K_{22}}=1/2=0.5$. With no other coordinate to condition on, this also equals the marginal correlation.
 :::
 
 ## Common misconceptions
+
 A zero covariance and a zero precision entry answer different questions: the former is marginal, the latter conditional in a Gaussian model. An off-diagonal precision entry is not itself a partial correlation; it needs a sign change and diagonal scaling. A positive-definite covariance matrix is necessary for an ordinary inverse but does not make a non-Gaussian distribution obey Gaussian graph rules. Finally, a missing estimated graph edge is a model-based conditional-independence statement, not proof that intervening on one variable cannot affect the other.{{cite:friedman_glasso2008}} (§1–2, Gaussian graph and estimation)
 
 ## Assumptions and limits
-Let $Z\sim N(0,1)$, $X_1=Z$ and $X_2=Z^2$. Their covariance is zero because $E(Z^3)=0$, and their covariance matrix $\operatorname{diag}(1,2)$ has precision $\operatorname{diag}(1,1/2)$. Yet $X_2$ is completely determined by $X_1$, so they are dependent. This counterexample shows why a precision zero alone does not imply independence outside the joint Gaussian family. In a different failure, if two recorded variables are exact duplicates, the covariance matrix is singular and no ordinary precision matrix exists. In either case, interpreting an inverse entry as a Gaussian conditional link would misstate the data-generating structure.{{cite:friedman_glasso2008}} (§1, Gaussian model requirement)
+A zero off-diagonal entry of the precision matrix is a conditional-independence statement for a multivariate normal model. Outside that model the same zero need not mean the two measurements are conditionally independent.{{cite:friedman_glasso2008}} (§1, Gaussian graph and inverse covariance)
 
 ## Connections
+
 [Partial correlation](partial-correlation.qmd) rescales an off-diagonal precision entry. [Conditional independence](conditional-independence.qmd) gives the missing-edge meaning in a [Gaussian graphical model](gaussian-graphical-models.qmd). [Positive definiteness](positive-definite-matrix.qmd) guarantees a nonsingular covariance. [Graphical lasso](graphical-lasso.qmd) estimates a sparse precision matrix when direct inversion is unstable, while [the multivariate normal distribution](multivariate-normal-distribution.qmd) supplies the density in which precision zeros have their strongest interpretation.{{cite:friedman_glasso2008}} (§1–2, sparse inverse covariance)
 
 ## History
+
 Dempster's 1972 “covariance selection” framed the simplification of a normal covariance structure by setting selected inverse-covariance entries to zero. Subsequent Gaussian graphical treatments made the corresponding missing edges explicit as conditional independences. The graphical lasso of Friedman, Hastie and Tibshirani brought an absolute-value penalty to sparse inverse-covariance estimation, making graph selection possible even when a sample covariance is hard to invert. These developments connect a conditional-independence interpretation to methods for estimating it.{{cite:evans_graphical_models2025}} (Ch. 5, §5.1 and Bibliographic Notes, Dempster attribution){{cite:friedman_glasso2008}} (§1, sparse estimation method)

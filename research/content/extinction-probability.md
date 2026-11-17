@@ -1,6 +1,9 @@
 ## Lead context
 The extinction probability of a branching process is the probability that some generation is empty, after which every later generation stays empty.
 
+## Motivating example
+Offspring probabilities $1/4$, $0$ and $3/4$ have mean $3/2$. The generating function $1/4+(3/4)s^2$ has fixed points $1/3$ and $1$. The extinction probability is the smaller root.
+
 ## Intuition — The offspring mean decides whether extinction is certain
 Each individual has the same offspring law, independently of the others. If the mean number of offspring is below \(1\), the expected generation size shrinks geometrically and the probability of still being alive tends to \(0\). If the mean is above \(1\) and there is a real chance of having no children, extinction is still possible, but it is no longer certain: its probability is a root of the offspring generating function, strictly below \(1\). The deterministic law that always produces exactly one child has mean \(1\) and never dies.{{cite:durrett2019}} (Thm. 4.3.10, p. 231){{cite:durrett2019}} (Thm. 4.3.12, p. 232)
 
@@ -34,7 +37,7 @@ The mean is \(1/4+2/4=3/4<1\), so the extinction probability is \(1\) without so
 ## Connections — The mean, the generating function, and the one-child exception
 The [Galton–Watson process](galton-watson-process.qmd) is the sequence \(Z_n\). The mean \(m\) is the derivative \(f'(1)\). When \(m=1\) and the offspring law is not concentrated at \(1\), extinction is still certain; the one-child law is the exception, with extinction probability \(0\).{{cite:durrett2019}} (Thm. 4.3.11, p. 231) The fixed-point picture is the whole criterion: certain extinction when the smallest root is \(1\), and a smaller root when the mean exceeds \(1\).
 
-## Check yourself — Two offspring laws
+## Check yourself
 Offspring probabilities \(p_0=1/8\), \(p_1=1/8\), \(p_2=3/4\). Is the mean above \(1\)?
 
 ::: {.callout-tip collapse="true" title="Answer"}
