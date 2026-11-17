@@ -1,0 +1,38 @@
+{
+  "action": "page",
+  "slug": "difference-in-differences",
+  "term": "difference in differences",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [
+    "Difference-in-differences"
+  ],
+  "lead": {
+    "field": "study design",
+    "article": "",
+    "term": "difference in differences",
+    "verb": "are",
+    "description": "a treated group's before-and-after change minus the same change in a comparison group"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "openintro2019"
+  ],
+  "overview_sentence": "[Difference in differences](articles/difference-in-differences.qmd) subtracts a comparison group's change from a treated group's change.",
+  "covered_terms": [
+    "Difference in differences"
+  ],
+  "self_checks": [
+    {
+      "title": "Two gaps",
+      "prompt": "Treated means are 150 before and 140 after. Comparison means are 148 before and 146 after. What is the difference in differences of the post-treatment gap minus the pre-treatment gap?",
+      "answer": "The post-treatment gap is -6 and the pre-treatment gap is 2, so the difference in differences is -8."
+    },
+    {
+      "title": "Changed comparison",
+      "prompt": "The comparison group's later mean is 144 instead of 146. Treated means stay 140 and 150, and the earlier comparison mean stays 148. What is the difference in differences?",
+      "answer": "The difference in differences is -6."
+    }
+  ]
+}

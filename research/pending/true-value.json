@@ -1,0 +1,39 @@
+{
+  "action": "page",
+  "slug": "true-value",
+  "term": "true value",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [
+    "Reference value"
+  ],
+  "lead": {
+    "field": "statistics",
+    "article": "the",
+    "term": "true value",
+    "verb": "is",
+    "description": "the quantity that a measurement or an estimate is trying to recover"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "nist_glossary2002",
+    "hernan_robins2020"
+  ],
+  "overview_sentence": "The [true value](articles/true-value.qmd) is the quantity a measurement or an estimate is trying to recover.",
+  "covered_terms": [
+    "True value"
+  ],
+  "self_checks": [
+    {
+      "title": "Error of the mean",
+      "prompt": "Estimates 48, 53, and 51 are made of a true mass of 50. What is the error of their mean?",
+      "answer": "The mean is 152/3 and the error is 2/3."
+    },
+    {
+      "title": "Fourth estimate",
+      "prompt": "A fourth estimate of 48 is added, and the true mass stays 50. What is the error of the new mean?",
+      "answer": "The mean is 50 and the error is 0."
+    }
+  ]
+}

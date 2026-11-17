@@ -1,0 +1,15 @@
+{
+  "action": "defer",
+  "term": "Hawthorne study",
+  "slug": "hawthorne-study",
+  "covered_terms": [
+    "Hawthorne study"
+  ],
+  "reason": "To be merged with the Hawthorne effect. The same opened sources, OpenIntro chapter 1, Hern\u00e1n and Robins, Dodge, and the NIST glossary, do not define the Hawthorne study.",
+  "sources_tried": [
+    "openintro2019 pp. 9\u201333",
+    "hernan_robins2020 ch. 1\u20132, ch. 7, ch. 16",
+    "dodge2008 pp. 162\u2013163, 468\u2013469, 182\u2013183",
+    "nist_glossary2002"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "action": "page",
+  "slug": "sampling",
+  "term": "sampling",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [
+    "Sampling (statistics)",
+    "Survey sampling"
+  ],
+  "lead": {
+    "field": "study design",
+    "article": "",
+    "term": "sampling",
+    "verb": "is",
+    "description": "selection of part of a population, study of that part, and inference back to the population"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "openintro2019",
+    "nist_glossary2002"
+  ],
+  "overview_sentence": "[Sampling](articles/sampling.qmd) selects part of a population in order to infer something about the rest.",
+  "covered_terms": [
+    "Sampling (statistics)",
+    "Survey sampling"
+  ],
+  "self_checks": [
+    {
+      "title": "Equally likely subsets",
+      "prompt": "A simple random sample of 2 units is drawn from 6. How many equally likely samples are there?",
+      "answer": "There are 15 equally likely samples."
+    },
+    {
+      "title": "Larger population",
+      "prompt": "The population has 10 units and the sample size is still 2. How many equally likely samples are there?",
+      "answer": "There are 45 equally likely samples."
+    }
+  ]
+}

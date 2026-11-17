@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "average-treatment-effect",
+  "term": "average treatment effect",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study design",
+    "article": "an",
+    "term": "average treatment effect",
+    "verb": "is",
+    "description": "a contrast of mean outcomes under two treatments in a stated population"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "dodge2008",
+    "openintro2019"
+  ],
+  "overview_sentence": "An [average treatment effect](articles/average-treatment-effect.qmd) is a contrast of mean outcomes under two treatments.",
+  "covered_terms": [
+    "Average treatment effect"
+  ],
+  "self_checks": [
+    {
+      "title": "Null average",
+      "prompt": "Eight patients have 4 deaths under treatment and 4 deaths under no treatment. What is the average treatment effect on the risk difference?",
+      "answer": "The risks are 4/8 and 4/8, so the average treatment effect is 0."
+    },
+    {
+      "title": "One changed outcome",
+      "prompt": "After the last treated outcome changes from 1 to 0, 3 of 8 die under treatment and 4 of 8 die under no treatment. What is the average treatment effect?",
+      "answer": "The average treatment effect is 3/8 - 4/8 = -1/8."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "action": "alias",
+  "term": "Dependent and independent variables",
+  "slug": "dependent-and-independent-variables",
+  "alias_of": {
+    "Dependent variable": "response-variable",
+    "Independent variable": "explanatory-variable"
+  },
+  "covered_terms": [
+    "Dependent and independent variables"
+  ],
+  "reason": "Dependent variable is already the response-variable page and independent variable is already the explanatory-variable page. No third page."
+}

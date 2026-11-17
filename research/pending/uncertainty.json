@@ -1,0 +1,38 @@
+{
+  "action": "page",
+  "slug": "uncertainty",
+  "term": "uncertainty",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistics",
+    "article": "",
+    "term": "uncertainty",
+    "verb": "is",
+    "description": "a quantitative account of what remains unknown after the observations and the model are taken into account"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "nist_glossary2002",
+    "dodge2008",
+    "hernan_robins2020",
+    "openintro2019"
+  ],
+  "overview_sentence": "[Uncertainty](articles/uncertainty.qmd) is the quantitative account of what the observations and the model still leave unknown.",
+  "covered_terms": [
+    "Uncertainty"
+  ],
+  "self_checks": [
+    {
+      "title": "Mean absolute deviation",
+      "prompt": "Timings 5, 7, 6, and 6 have mean 6. What is their mean absolute deviation?",
+      "answer": "The mean absolute deviation is 0.5."
+    },
+    {
+      "title": "Fifth timing",
+      "prompt": "A fifth timing of 8 is added to 5, 7, 6, and 6. What is the new mean absolute deviation?",
+      "answer": "The mean is 6.4 and the mean absolute deviation is 0.88."
+    }
+  ]
+}

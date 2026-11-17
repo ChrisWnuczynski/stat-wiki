@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "case-control-study",
+  "term": "case-control study",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study design",
+    "article": "a",
+    "term": "case-control study",
+    "verb": "is",
+    "description": "a sample in which people who already have the outcome are included more readily than people who do not"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "openintro2019",
+    "dodge2008"
+  ],
+  "overview_sentence": "A [case-control study](articles/case-control-study.qmd) samples people according to the outcome and then compares exposure.",
+  "covered_terms": [
+    "Case-control study"
+  ],
+  "self_checks": [
+    {
+      "title": "Odds ratio",
+      "prompt": "Cases are 24 exposed and 16 unexposed. Controls are 10 exposed and 30 unexposed. What is the exposure odds ratio?",
+      "answer": "The odds ratio is (24*30)/(16*10) = 4.5."
+    },
+    {
+      "title": "Extra controls",
+      "prompt": "Controls become 10 exposed and 34 unexposed, and the cases stay 24 and 16. What is the odds ratio?",
+      "answer": "The odds ratio is (24*34)/(16*10) = 5.1."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "control-group",
+  "term": "control group",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study design",
+    "article": "a",
+    "term": "control group",
+    "verb": "is",
+    "description": "the set of observations that do not receive the experimental treatment"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "nist_glossary2002",
+    "openintro2019",
+    "dodge2008"
+  ],
+  "overview_sentence": "A [control group](articles/control-group.qmd) is the set of observations that do not receive the experimental treatment.",
+  "covered_terms": [
+    "Control group"
+  ],
+  "self_checks": [
+    {
+      "title": "Small trial",
+      "prompt": "A drug group has 2 deaths among 10 patients and the control group has 5 deaths among 10. What is the risk difference, drug minus control?",
+      "answer": "The risk difference is 0.2 - 0.5 = -0.3."
+    },
+    {
+      "title": "One more control",
+      "prompt": "The control group becomes 6 deaths among 11, and the drug risk stays 0.2. What is the control risk?",
+      "answer": "The control risk is 6/11."
+    }
+  ]
+}
