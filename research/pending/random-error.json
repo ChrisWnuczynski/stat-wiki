@@ -1,0 +1,58 @@
+{
+  "action": "page",
+  "slug": "random-error",
+  "term": "Random error",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "measurement",
+    "article": "a",
+    "term": "random error",
+    "verb": "is",
+    "description": "a chance deviation that scatters from one repeated measurement to the next",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Rod readings",
+      "prompt": "Readings 9.7, 10.2, 9.9 and 10.4 are taken against a 10 cm reference. What are the mean and the sum of squared deviations from the mean?",
+      "answer": "The mean is 10.05 and the sum of squared deviations is 0.29."
+    },
+    {
+      "title": "Error of the mean",
+      "prompt": "For those four readings, what is the error of the mean against the reference value 10?",
+      "answer": "The error of the mean is 0.05 cm."
+    },
+    {
+      "title": "Centred series",
+      "prompt": "Readings 8, 10 and 12 are taken against a reference of 10. What is the sum of squared deviations from the mean, and the error of the mean?",
+      "answer": "The sum of squared deviations is 8 and the error of the mean is 0."
+    }
+  ],
+  "bibliography": {
+    "nist_type_a2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §2.5.3: Type A evaluations",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/mpc/section5/mpc53.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/mpc/section5/mpc53.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_type_a2002",
+    "nist_glossary2002"
+  ],
+  "overview_sentence": "A [random error](articles/random-error.qmd) is the scatter in repeated measurements of the same quantity.",
+  "covered_terms": [
+    "Random error"
+  ]
+}

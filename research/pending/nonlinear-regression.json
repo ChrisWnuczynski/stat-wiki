@@ -1,0 +1,61 @@
+{
+  "action": "page",
+  "slug": "nonlinear-regression",
+  "term": "Nonlinear regression",
+  "topic": "Statistical inference",
+  "kind": "concept",
+  "aliases": [
+    "Non-linear least squares"
+  ],
+  "lead": {
+    "field": "regression",
+    "article": "a",
+    "term": "nonlinear regression",
+    "verb": "is",
+    "description": "a least-squares fit of a mean that is not linear in its unknown coefficients",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Exponential versus line",
+      "prompt": "For the points (0, 4), (1, 2) and (2, 1.2), which residual sum of squares is about 0.0188, the exponential fit or the straight line?",
+      "answer": "The exponential fit has residual sum of squares about 0.0188. The straight line has residual sum of squares 0.24."
+    },
+    {
+      "title": "Exact exponential",
+      "prompt": "The curve y = β0 exp(−β1 x) passes through (0, 5) and (1, 1). What are β0 and the residual sum of squares?",
+      "answer": "β0 is 5 and the residual sum of squares is 0."
+    },
+    {
+      "title": "A quadratic mean",
+      "prompt": "Is the mean β0 + β1 x + β2 x^2 fitted by nonlinear least squares?",
+      "answer": "No. That mean is linear in the coefficients, so the fit is polynomial least squares."
+    }
+  ],
+  "bibliography": {
+    "nist_nonlinear_ls2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §4.1.4.2: Nonlinear Least Squares Regression",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd142.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pmd/section1/pmd142.htm"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "nist_nonlinear_ls2002",
+    "nist_linear_least_squares_pmd2002"
+  ],
+  "overview_sentence": "A [nonlinear regression](articles/nonlinear-regression.qmd) fits a mean that is not linear in its coefficients by least squares.",
+  "covered_terms": [
+    "Nonlinear regression",
+    "Non-linear least squares"
+  ]
+}

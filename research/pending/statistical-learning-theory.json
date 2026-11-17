@@ -1,0 +1,25 @@
+{
+  "action": "page",
+  "slug": "statistical-learning-theory",
+  "term": "Statistical learning theory",
+  "topic": "Statistical inference",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistical learning",
+    "article": "",
+    "term": "statistical learning theory",
+    "verb": "is",
+    "description": "the study of how well a rule fitted on one sample predicts a new case, including the role of the richness of the class of rules",
+    "proper": false
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "hastie_esl2009",
+    "james_islr2013"
+  ],
+  "overview_sentence": "[Statistical learning theory](articles/statistical-learning-theory.qmd) relates future prediction error to the capacity of the class of rules that was searched.",
+  "covered_terms": [
+    "Statistical learning theory"
+  ]
+}

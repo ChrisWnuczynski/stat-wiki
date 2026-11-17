@@ -1,0 +1,26 @@
+{
+  "action": "page",
+  "slug": "regression-analysis",
+  "term": "Regression analysis",
+  "topic": "Statistical inference",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "regression",
+    "article": "",
+    "term": "regression analysis",
+    "verb": "is",
+    "description": "the estimation of how a response moves with one or more predictors, together with the reliability of that estimate",
+    "proper": false
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "dodge2008",
+    "james_islr2013",
+    "openintro2019"
+  ],
+  "overview_sentence": "[Regression analysis](articles/regression-analysis.qmd) estimates a response from predictors and judges the reliability of the fit.",
+  "covered_terms": [
+    "Regression analysis"
+  ]
+}
