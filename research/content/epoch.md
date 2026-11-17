@@ -1,3 +1,6 @@
+## Motivating example
+Twenty training cases in batches of four make five updates in one epoch. Twelve updates are $12/5=2.4$ epochs: two full passes, then two batches of a third pass.
+
 ## Intuition — One pass, however the weights are updated
 An epoch is one complete look at the training cases. In batch learning that look produces a single weight update, because the gradient sum uses every case before anything moves. In online learning the weights move after each case, so one epoch contains as many updates as there are training cases. Counting epochs, rather than counting updates, is what makes those two schedules comparable.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)
 
@@ -20,7 +23,7 @@ One epoch is $20/5=4$ updates. Eight updates are $8/4=2$ epochs.
 A training set has $5000$ cases. How many online updates equal one epoch, and how many batch updates equal one epoch?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Online learning updates after every case, so one epoch is $5000$ updates. Batch learning updates once from the full sum, so one epoch is $1$ update.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)
+Online learning updates after every case, so one epoch is $5000$ updates. Batch learning updates once from the full sum, so one epoch is $1$ update.
 :::
 
 ### A remainder

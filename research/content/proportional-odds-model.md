@@ -9,14 +9,14 @@ Write $\gamma_k(x)=\Pr(Y\ge k\mid x)$ for an ordered response $Y\in\{1,\ldots,K\
 $$
 \operatorname{logit}\gamma_k(x)=\alpha_k+x^{\mathsf T}\beta,\qquad k=2,\ldots,K,
 $$
-uses the same $\beta$ at every cut. A unit increase in one covariate therefore multiplies the odds $\gamma_k/(1-\gamma_k)$ by the same factor $e^{\beta_j}$ for every $k$. The intercepts must decrease as $k$ increases, because $\gamma_2(x)\ge\gamma_3(x)\ge\cdots$.
+uses the same $\beta$ at every cut. A unit increase in one covariate therefore multiplies the odds $\gamma_k/(1-\gamma_k)$ by the same factor $e^{\beta_j}$ for every $k$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379) The intercepts must decrease as $k$ increases, because $\gamma_2(x)\ge\gamma_3(x)\ge\cdots$.
 
 ## Definition — One covariate, three categories
 For $K=3$ and a single covariate,
 $$
 \operatorname{logit}\Pr(Y\ge 2\mid x)=\alpha_2+\beta x,\qquad \operatorname{logit}\Pr(Y\ge 3\mid x)=\alpha_3+\beta x,
 $$
-with $\alpha_2\ge\alpha_3$. Then $\Pr(Y=2\mid x)=\Pr(Y\ge 2\mid x)-\Pr(Y\ge 3\mid x)$.
+with $\alpha_2\ge\alpha_3$. Then $\Pr(Y=2\mid x)=\Pr(Y\ge 2\mid x)-\Pr(Y\ge 3\mid x)$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -29,7 +29,7 @@ Take $\alpha_2=-1$, $\alpha_3=-2$, and $\beta=0.5$. At $x=2$,
 $$
 \operatorname{logit}\Pr(Y\ge 2)=0,\qquad \operatorname{logit}\Pr(Y\ge 3)=-1,
 $$
-so $\Pr(Y\ge 2)=1/2$ and $\Pr(Y\ge 3)=1/(1+e)\approx 0.268941$. The category probabilities are $\Pr(Y=1)=1/2$, $\Pr(Y=2)\approx 0.231059$, and $\Pr(Y=3)\approx 0.268941$. A unit increase in $x$ multiplies both cumulative odds by $e^{0.5}\approx 1.649$.
+so $\Pr(Y\ge 2)=1/2$ and $\Pr(Y\ge 3)=1/(1+e)\approx 0.268941$. The category probabilities are $\Pr(Y=1)=1/2$, $\Pr(Y=2)\approx 0.231059$, and $\Pr(Y=3)\approx 0.268941$. A unit increase in $x$ multiplies both cumulative odds by $e^{0.5}\approx 1.649$. {{cite:nelder_wedderburn1972}} (§3.3, p. 379)
 
 **Your turn.** At $x=0$ with the same coefficients, compute $\Pr(Y\ge 2)$ and $\Pr(Y\ge 3)$, and check that the first is larger.
 
@@ -46,7 +46,6 @@ The [logit link](logit-link.qmd) is the function applied to each cumulative prob
 
 What does the proportional-odds assumption say about the slopes at different cutpoints?
 
-[Question-bank page](../questions/c-25.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The slope vector is the same at every cut, so a unit change in a covariate multiplies every cumulative odds by the same factor $e^{\beta_j}$.
@@ -56,7 +55,6 @@ The slope vector is the same at every cut, so a unit change in a covariate multi
 
 What is the difference between a nominal response and an ordinal response, and what does a baseline-category logit compare?
 
-[Question-bank page](../questions/c-24.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Nominal categories have no intrinsic order. Ordinal categories are ordered, without requiring equal gaps. A baseline-category logit compares each category probability with a fixed reference, $\log(p_k/p_0)$, and those slopes need not be equal. Proportional odds instead uses nested events $\{Y\ge k\}$ and one shared slope.

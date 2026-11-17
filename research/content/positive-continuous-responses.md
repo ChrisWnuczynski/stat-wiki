@@ -1,6 +1,9 @@
 ## Lead context
 A positive continuous response is a measurement that can take any value above zero, so its mean has to stay positive even when a linear predictor would not.
 
+## Motivating example
+A log mean $0.5+0.2x$ equals $e^{0.5}\approx 1.649$ at $x=0$ and $e^{0.9}\approx 2.460$ at $x=2$. Each extra unit of $x$ multiplies the mean by $e^{0.2}$. The inverse predictor $0.4-0.2x$ is negative at $x=3$, and the reciprocal is not a positive mean.
+
 ## Intuition — The link is chosen separately from the scatter
 A clotting time or a claim amount cannot be negative. In a generalised linear model the distribution and the link are separate pieces. The gamma family sits in the exponential dispersion family with the normal, exponential, Poisson and binomial, and the variance has the form $\phi V(\mu)$. The link $\eta=g(\mu)$ is what turns that mean into an unrestricted linear predictor $\eta=x^\top\beta$.{{cite:mccullagh1992_glm_intro}} (p. 544, the family and the link)
 
@@ -26,21 +29,21 @@ Take $\log\mu=0.5+0.2x$. At $x=0$ the mean is $e^{0.5}\approx 1.649$. At $x=2$ i
 **Your turn.** Let $\log\mu=\log 10+0.1x$. Find the mean at $x=0$ and at $x=3$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-At $x=0$ the mean is $10$. At $x=3$ it is $10e^{0.3}\approx 13.499$. The factor for three units is $e^{0.3}\approx 1.350$, not three times the one-unit factor $e^{0.1}$.{{cite:mccullagh1992_glm_intro}} (p. 544)
+At $x=0$ the mean is $10$. At $x=3$ it is $10e^{0.3}\approx 13.499$. The factor for three units is $e^{0.3}\approx 1.350$, not three times the one-unit factor $e^{0.1}$.
 :::
 
 ## Connections
 The log link is the same construction used for a [Poisson](poisson-distribution.qmd) mean. Gamma and Poisson are different members of the family, so they do not share the variance function $V(\mu)$ that multiplies the dispersion $\phi$. The [gamma distribution](gamma-distribution.qmd) is the continuous positive member named on that list. An identity link can leave the positive half-line as soon as the predictor does.{{cite:mccullagh1992_glm_intro}} (p. 544, gamma in the family and $\phi V(\mu)$)
 
-## Check yourself — Two links at one predictor
+## Check yourself
 **1.** A log-link predictor equals $\log 4$. What is the fitted mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $4$. The log link returns the exponential of the predictor.{{cite:mccullagh1992_glm_intro}} (p. 544, the link)
+The mean is $4$. The log link returns the exponential of the predictor.
 :::
 
 **2.** An inverse-link predictor equals $-0.5$. Why is there no positive fitted mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The inverse would be $1/(-0.5)=-2$, which is negative. The inverse link is available only while the linear predictor is positive.{{cite:mccullagh1992_glm_intro}} (p. 544, link function)
+The inverse would be $1/(-0.5)=-2$, which is negative. The inverse link is available only while the linear predictor is positive.
 :::

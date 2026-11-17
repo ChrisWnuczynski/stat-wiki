@@ -1,8 +1,11 @@
 ## Lead context
 The product rule prices a chain of events by multiplying the probability of the first by each later conditional probability.
 
+## Motivating example
+An urn holds $5$ black balls and $5$ white balls. Three black balls drawn in order without replacement have probabilities $5/10$, $4/9$ and $3/8$, and the product is $1/12$.
+
 ## Intuition — Each factor is the chance of the next step given the steps so far
-The two-event identity \(\mathrm{P}(A\cap B)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)\) is the definition of conditional probability, rearranged. A third event multiplies by one more conditional probability, given both of the earlier events. The intermediate intersections cancel, so the joint probability is a product and not a sum. Independence is the special case in which every conditional probability equals the matching marginal. Using a marginal in place of a conditional that is smaller is how the product overstates a joint event.
+The two-event identity \(\mathrm{P}(A\cap B)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)\) is the definition of conditional probability, rearranged. A third event multiplies by one more conditional probability, given both of the earlier events. The intermediate intersections cancel, so the joint probability is a product and not a sum. Independence is the special case in which every conditional probability equals the matching marginal. Using a marginal in place of a conditional that is smaller is how the product overstates a joint event. {{cite:grinstead_snell1997}} (p. 152, Exercise 16)
 
 ## Statement
 **The chain for n events.** If \(\mathrm{P}(A_1\cap\cdots\cap A_{n-1})>0\), then
@@ -10,7 +13,7 @@ The two-event identity \(\mathrm{P}(A\cap B)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)\
 \mathrm{P}(A_1\cap\cdots\cap A_n)
 =\mathrm{P}(A_1)\,\mathrm{P}(A_2\mid A_1)\cdots\mathrm{P}(A_n\mid A_1\cap\cdots\cap A_{n-1}).
 \]
-Grinstead and Snell ask for the three-event case as an exercise: whenever \(A\), \(B\) and \(A\cap B\) have positive probability,
+Whenever \(A\), \(B\) and \(A\cap B\) have positive probability,
 \[
 \mathrm{P}(A\cap B\cap C)=\mathrm{P}(A)\,\mathrm{P}(B\mid A)\,\mathrm{P}(C\mid A\cap B).
 \]
@@ -29,7 +32,9 @@ The first factor is a marginal. The second and third are conditional on the blac
 \(\frac{4}{6}\times\frac{3}{5}=\frac{2}{5}\). The second factor is \(3/5\), not \(4/6\), because one black ball has been removed.
 :::
 
-**Check yourself.** In the ten-ball urn, what is the probability that the first ball is black and the second is white?
+## Check yourself
+
+In the ten-ball urn, what is the probability that the first ball is black and the second is white?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 \(\frac{5}{10}\times\frac{5}{9}=\frac{5}{18}\). After a black draw, five of the nine remaining balls are white.

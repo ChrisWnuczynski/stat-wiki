@@ -43,7 +43,7 @@ The four-point calculation gives $\hat\beta_0=0.1$, $\hat\beta_1=0.6$, $s^2=0.1$
 **Your turn.** Replace the responses by $y=(0,1,3,2)$ at the same $x$. The least-squares slope is $0.8$ and the residual sum of squares is $1.8$. Find $s^2$ and the estimated slope standard error, using the same $(X^\top X)^{-1}$ entry $0.2$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The residual degrees of freedom are still 2, so $s^2=1.8/2=0.9$. The slope standard error is $\sqrt{0.9\times0.2}=\sqrt{0.18}=0.4243$. The residual variance is $0.9/0.1=9$ times the original, and the slope standard error is $\sqrt{9}=3$ times $\sqrt{1/50}$, which equals $0.4243$. The design matrix did not change, so the variance factor $0.2$ did not change.{{cite:hastie_esl2009}} (§3.2, p. 46, the variance factor depends on $X$ and $\sigma^2$, not on $y$)
+The residual degrees of freedom are still 2, so $s^2=1.8/2=0.9$. The slope standard error is $\sqrt{0.9\times0.2}=\sqrt{0.18}=0.4243$. The residual variance is $0.9/0.1=9$ times the original, and the slope standard error is $\sqrt{9}=3$ times $\sqrt{1/50}$, which equals $0.4243$. The design matrix did not change, so the variance factor $0.2$ did not change.
 :::
 
 ## Common misconceptions
@@ -61,20 +61,20 @@ If the errors are uncorrelated with variance $\sigma^2$ but not normal, $\hat\be
 
 In the four-point example, why does a slope of 0.6 with standard error 0.1414 fail to reject at the 5% level?
 
-[Question-bank page](../questions/ex-inf-normal-equations.qmd)
+[Exercise](../questions/ex-inf-normal-equations.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The ratio is $0.6/0.1414=4.243$. The $0.975$ quantile of $t_2$ is 4.3027. Because $4.243<4.3027$, the level-0.05 two-sided test does not reject a zero slope. The comparison uses two residual degrees of freedom. A normal critical value near 1.96 would have rejected, and that is not the Gaussian model's reference law here.{{cite:hastie_esl2009}} (§3.2, p. 47, $t$ reference)
+The ratio is $0.6/0.1414=4.243$. The $0.975$ quantile of $t_2$ is 4.3027. Because $4.243<4.3027$, the level-0.05 two-sided test does not reject a zero slope. The comparison uses two residual degrees of freedom. A normal critical value near 1.96 would have rejected, and that is not the Gaussian model's reference law here.
 :::
 
 ### Normal–inverse-$\chi^2$ regression {#self-check-ex-reg-nichisq}
 
 The sampling model says $\hat\beta$ is normal. What extra ingredient makes a posterior for $\beta$ normal–inverse-chi-squared rather than a sampling distribution?
 
-[Question-bank page](../questions/ex-reg-nichisq.qmd)
+[Exercise](../questions/ex-reg-nichisq.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-A prior distribution on $(\beta,\sigma^2)$. The Gaussian linear model by itself is the distribution of $Y$ given those parameters. Putting a normal–inverse-chi-squared prior on them, and conditioning on $Y$, produces a posterior in the same family. The least-squares fit is the posterior mode or mean only for particular priors. It is not automatically a posterior summary.{{cite:hastie_esl2009}} (§3.2, p. 47, the sampling distribution is the distribution of the estimator, not a posterior)
+A prior distribution on $(\beta,\sigma^2)$. The Gaussian linear model by itself is the distribution of $Y$ given those parameters. Putting a normal–inverse-chi-squared prior on them, and conditioning on $Y$, produces a posterior in the same family. The least-squares fit is the posterior mode or mean only for particular priors. It is not automatically a posterior summary.
 :::
 
 ## History

@@ -2,21 +2,21 @@
 An M/M/1 queue is a single server with Poisson arrivals and exponential service, and it settles to a geometric queue length only when the server is faster than the arrivals.
 
 ## Motivating example
-Customers arrive at rate $3$ per hour and each service averages $1/5$ of an hour. The server is free more often than busy, but the queue is not a fixed length: the chance of two or more people present is still large enough to matter for the mean wait.
+Customers arrive at rate $3$ per hour and each service averages $1/5$ of an hour. The server is busy more often than free, since the traffic intensity is $3/5$: the idle probability is $2/5$, and the chance of two or more people present is $(3/5)^2=9/25$.
 
 ## Intuition — Balance across each cut
 Let $N$ be the number present, including the customer in service. In the long run the flow from $n$ to $n+1$ has to match the flow back. Arrivals happen at rate $\lambda$ in every state. Service happens at rate $\mu$ whenever $n\ge 1$. Writing $\pi_n$ for the stationary probability,
 $$
 \pi_n\lambda=\pi_{n+1}\mu.
 $$
-The ratios are constant, so the probabilities form a geometric sequence. They can be scaled to sum to $1$ only when $\lambda<\mu$. If arrivals are at least as fast as service, the same formal weights sum to infinity and there is no stationary distribution.
+The ratios are constant, so the probabilities form a geometric sequence. They can be scaled to sum to $1$ only when $\lambda<\mu$. If arrivals are at least as fast as service, the same formal weights sum to infinity and there is no stationary distribution. {{cite:durrett2019}} (p. 301, the product may fail to be summable)
 
 ## Definition — Geometric queue length
 Set $\rho=\lambda/\mu$. If $0\le\rho<1$, then
 $$
 \pi_n=(1-\rho)\rho^n,\qquad n\ge 0,
 $$
-the mean number present is $L=\rho/(1-\rho)$, and $\Pr(N\ge k)=\rho^k$. The mean time in system is $W=L/\lambda=1/(\mu-\lambda)$.
+the mean number present is $L=\rho/(1-\rho)$, and $\Pr(N\ge k)=\rho^k$. {{cite:durrett2019}} (p. 301, birth–death chains and the product formula) The mean time in system is $W=L/\lambda=1/(\mu-\lambda)$.
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -42,7 +42,7 @@ $\rho=1/4$, so $\pi_0=3/4$, $L=(1/4)/(3/4)=1/3$, and $W=1/(4-1)=1/3$.
 :::
 
 ## Connections — Birth–death queues
-The same cut balance is [local balance](local-balance.qmd) on a birth–death chain. [Little’s law](little-s-law.qmd) converts $L$ into $W$ once the arrival rate is the rate that actually enters. An [M/M queue](m-m-queue.qmd) with infinitely many servers has no stability threshold, because every arrival starts service at once and the stationary count is Poisson. A finite waiting room restores a stationary distribution at every load by turning arrivals away.
+The same cut balance is [local balance](local-balance.qmd) on a birth–death chain. {{cite:durrett2019}} (p. 301, birth–death chains) [Little’s law](little-s-law.qmd) converts $L$ into $W$ once the arrival rate is the rate that actually enters. An [M/M queue](m-m-queue.qmd) with infinitely many servers has no stability threshold, because every arrival starts service at once and the stationary count is Poisson. A finite waiting room restores a stationary distribution at every load by turning arrivals away.
 
 ## Check yourself
 
@@ -50,7 +50,6 @@ The same cut balance is [local balance](local-balance.qmd) on a birth–death ch
 
 Arrivals are $2$ per hour and service is $3$ per hour. Find $\pi_0$, $\Pr(N\ge 3)$, $L$, and $W$.
 
-[Question-bank page](../questions/ex-sp-mm1-numbers.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $\rho=2/3$, so $\pi_0=1/3$ and $\Pr(N\ge 3)=(2/3)^3=8/27$. Then $L=2$ and $W=1$ hour.
@@ -60,7 +59,6 @@ $\rho=2/3$, so $\pi_0=1/3$ and $\Pr(N\ge 3)=(2/3)^3=8/27$. Then $L=2$ and $W=1$ 
 
 Arrivals are $6$ per hour and each service rate is $2$ per hour, with infinitely many servers. Find the stationary mean and the probability that the system is empty.
 
-[Question-bank page](../questions/ex-sp-mminf-numbers.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The mean is $\lambda/\mu=3$. The empty-system probability is the Poisson probability $e^{-3}$. There is no requirement that $\lambda<\mu$.

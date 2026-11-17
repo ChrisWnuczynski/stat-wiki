@@ -8,7 +8,7 @@ Two brands of computer are watched until the first fault. Eight machines of the 
 Each sample variance is already an average of squared deviations, using its own mean. If the populations have the same variance, those averages are noisy measurements of one quantity. A larger sample has a less noisy measurement, so it should pull the combined estimate more strongly. The right weight is the degrees of freedom, $n_i-1$, not the raw sample size, because one degree of freedom was spent estimating each sample mean. Adding the numerators and adding the denominators is exactly that weighted average. The result is still in squared units of the measurements, just as each sample variance was.{{cite:dodge2008}} (pp. 427–428, formula){{cite:siegrist2022_normals}} (§6.08, pooled estimate of $\sigma^2$)
 
 ## Definition
-For $k$ independent samples, with sample $i$ of size $n_i$ and sample variance $s_i^2$, Dodge writes
+For $k$ independent samples, with sample $i$ of size $n_i$ and sample variance $s_i^2$, the pooled variance is
 $$
 s_p^2=\frac{\sum_{i=1}^k(n_i-1)s_i^2}{\bigl(\sum_{i=1}^k n_i\bigr)-k},
 $$
@@ -44,7 +44,7 @@ $$
 The same $s_p$ sits in the denominator of the two-sample $t$ statistic. Before pooling, the ratio of the two sample variances can be compared with an $F$ reference law: if the populations are independent and normal with equal variances, $s_1^2/s_2^2\sim F_{n_1-1,n_2-1}$. A confidence interval for $\sigma_1^2/\sigma_2^2$ that stays well away from 1 is a warning that the pooled standard error is the wrong scale. Equal sample sizes do not repair unequal population variances; they only make the weights equal.{{cite:siegrist2022_normals}} (§6.08, $T$ variable and variance ratio){{cite:nist_mean_limits2002}} (§1.3.5.2, “Definition: Confidence Interval”)
 
 ## Worked example
-Take the computer lifetimes as Dodge records them. The first sample has $n_1=8$, mean 2800 and sum of squared deviations 95000, so
+Take these computer lifetimes. The first sample has $n_1=8$, mean 2800 and sum of squared deviations 95000, so
 $$
 s_1^2=\frac{95000}{7}=13571.429.
 $$
@@ -61,7 +61,7 @@ A 95% interval would still need a $t_{12,0.975}$ multiplier; the pooled variance
 **Your turn.** Two independent samples have $n_1=10$, $s_1^2=16$ and $n_2=6$, $s_2^2=25$. Compute the pooled variance, and say what changes if the second population variance is not equal to the first.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The degrees of freedom are 9 and 5, and $9\times16+5\times25=144+125=269$. Dividing by $10+6-2=14$ gives $s_p^2=269/14=19.214$. The arithmetic is valid as a weighted average either way. The chi-squared law, the unbiasedness claim for one common $\sigma^2$, and the $t_{14}$ reference for a difference of means all require the two populations to share a variance.{{cite:siegrist2022_normals}} (§6.08, pooled estimate and the equal-scale condition)
+The degrees of freedom are 9 and 5, and $9\times16+5\times25=144+125=269$. Dividing by $10+6-2=14$ gives $s_p^2=269/14=19.214$. The arithmetic is valid as a weighted average either way. The chi-squared law, the unbiasedness claim for one common $\sigma^2$, and the $t_{14}$ reference for a difference of means all require the two populations to share a variance.
 :::
 
 ## Common misconceptions
@@ -85,21 +85,21 @@ The [two-sample t pivot](two-sample-t-pivot.qmd) is the studentised difference t
 
 Two independent normal samples of size 50 have standard deviations 14.1 and 14.3. Compute the pooled variance and the pooled standard deviation.
 
-[Question-bank page](../questions/ex-inf-safety-interval.qmd)
+[Exercise](../questions/ex-inf-safety-interval.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The residual sums of squares are $49\times14.1^2=9741.69$ and $49\times14.3^2=10020.01$. Their total is 19761.70, and dividing by 98 gives $s_p^2=201.65$. The pooled standard deviation is $\sqrt{201.65}=14.200$.{{cite:siegrist2022_normals}} (§6.08, pooled estimate)
+The residual sums of squares are $49\times14.1^2=9741.69$ and $49\times14.3^2=10020.01$. Their total is 19761.70, and dividing by 98 gives $s_p^2=201.65$. The pooled standard deviation is $\sqrt{201.65}=14.200$.
 :::
 
 ### Checking equal variances {#self-check-ex-inf-variance-ratio-interval}
 
 With the same two standard deviations and $F_{49,49;0.975}=1.762$, form the 95% interval for $\sigma_1^2/\sigma_2^2$ based on $s_1^2/s_2^2$ and say whether it contains 1.
 
-[Question-bank page](../questions/ex-inf-variance-ratio-interval.qmd)
+[Exercise](../questions/ex-inf-variance-ratio-interval.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The point estimate is $14.1^2/14.3^2=198.81/204.49=0.97222$. Dividing and multiplying by 1.762 gives $(0.55177,\ 1.71306)$, which rounds to $(0.5518,\ 1.7131)$. The interval contains 1, so these samples do not by themselves rule out a common variance. The interval is wide: ratios from about 0.55 to 1.71 are still compatible with the $F$ calculation.{{cite:siegrist2022_normals}} (§6.08, ratio of sample variances)
+The point estimate is $14.1^2/14.3^2=198.81/204.49=0.97222$. Dividing and multiplying by 1.762 gives $(0.55177,\ 1.71306)$, which rounds to $(0.5518,\ 1.7131)$. The interval contains 1, so these samples do not by themselves rule out a common variance. The interval is wide: ratios from about 0.55 to 1.71 are still compatible with the $F$ calculation.
 :::
 
 ## History
-Dodge's encyclopedia defines the pooled variance as the estimate used when several populations have unknown variances that can be treated as equal, and gives both the sums-of-squares form and the degrees-of-freedom weighted form. The computer-brand calculation on the following page is the numerical pattern above: two samples, sums of squares 95000 and 70000, and pooled value 13750. The exact $t$ and chi-squared laws that justify using that number in a mean comparison are normal-sample theorems, set out for the two-sample model by Siegrist.{{cite:dodge2008}} (pp. 427–428, Pooled Variance){{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)
+The pooled variance is the estimate used when several populations have unknown variances that can be treated as equal, in both the sums-of-squares form and the degrees-of-freedom weighted form. The computer-brand calculation is the numerical pattern above: two samples, sums of squares 95000 and 70000, and pooled value 13750. The exact $t$ and chi-squared laws that justify using that number in a mean comparison are normal-sample theorems, set out for the two-sample model by Siegrist.{{cite:dodge2008}} (pp. 427–428, Pooled Variance){{cite:siegrist2022_normals}} (§6.08, “The Two Sample Model”)

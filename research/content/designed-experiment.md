@@ -8,7 +8,7 @@ Six field plots are available and a fertiliser is to be compared with none. If t
 An experiment names the units, the treatments, and the response before the measurements are taken. The treatment column is fixed by the plan. Repeating the measurements would change the responses, not the assignments. An observational comparison has no such column: the groups are found, not made. Random assignment is the part of the plan that balances, in expectation, every trait of the units, including traits nobody wrote down. Blinding is a different protection. It stops knowledge of the assignment from leaking into how the response is produced or recorded.{{cite:dodge2008}} (p. 162, levels of factors)
 
 ## Definition
-Dodge's encyclopedia treats a design as a choice of factor levels: each factor has levels, and the design states which levels, or which combinations of levels, each unit receives. The plan is fixed before the responses are recorded. A randomised design gives each unit one of a small number of treatments with equal probability. The response is what is measured afterwards. The units are the people, plants, plots, or objects that receive a treatment.{{cite:dodge2008}} (p. 162, factors and levels)
+A design is a choice of factor levels: each factor has levels, and the design states which levels, or which combinations of levels, each unit receives. The plan is fixed before the responses are recorded. A randomised design gives each unit one of a small number of treatments with equal probability. The response is what is measured afterwards. The units are the people, plants, plots, or objects that receive a treatment.{{cite:dodge2008}} (p. 162, factors and levels)
 
 ## Interpretation — Assignment, response, and what stays fixed
 In Alice's caffeine comparison the units are 20 friends, the response is the change in heart rate, and the factor is caffeine with two levels. The caffeinated changes are 17, 22, 21, 16, 6, −2, 27, 15, 16 and 20, with mean $158/10=15.8$. The decaf changes are 4, 10, 7, −9, 5, 4, 5, 7, 6 and 12, with mean $51/10=5.1$. The difference is $10.7$ beats per minute. That number is a summary of this assignment. It becomes evidence about caffeine only because the drinks were allocated by the experimenter and the two drinks were otherwise matched. If the ten friends who already drank more coffee had been handed the caffeinated cola, the same $10.7$ would mix caffeine with whatever else differs between those friends.
@@ -37,7 +37,7 @@ A usable plan states the units, the factors and their levels, the response, the 
 $$
 Y=\beta_0+\beta_1 X_1+\beta_2 X_2+\beta_{12} X_1 X_2+\text{experimental error},
 $$
-so that a change in $X_1$ can depend on the level of $X_2$. The interaction term is part of the plan when both factors are set by the experimenter. An analysis that ignores a factor the design actually varied is describing a different experiment from the one that was run. Dodge notes that the aim is a conclusion that the experimental effort can support, which is a warning against adding factors until each cell has one observation and no estimate of error.{{cite:dodge2008}} (p. 162, efficient conclusions)
+so that a change in $X_1$ can depend on the level of $X_2$. The interaction term is part of the plan when both factors are set by the experimenter. An analysis that ignores a factor the design actually varied is describing a different experiment from the one that was run. The aim is a conclusion that the experimental effort can support, which warns against adding factors until each cell has one observation and no estimate of error.{{cite:dodge2008}} (p. 162, efficient conclusions)
 
 ## Worked example
 Twenty volunteers include 8 women. A treatment is assigned to a simple random subset of 10. The expected number of women treated is $10\times8/20=4$. The variance is
@@ -67,7 +67,7 @@ An [observational study](observational-study.qmd) leaves the conditions unassign
 
 Thirty devils are split into two groups of 15. One group is given a medicine. What must the description still say before the split can be judged as a randomised experiment, and what is the response?
 
-[Question-bank page](../questions/ex-da-devil-tumours.qmd)
+[Exercise](../questions/ex-da-devil-tumours.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The split is an experiment once the investigators assign the medicine. Judging the comparison needs the allocation rule, whether measurement was blind, whether the untreated devils had the same handling, and whether the groups were comparable at the start. The response is the change in tumour size over 12 weeks, or the later size adjusted for the starting size. It is quantitative. The medicine-or-not factor is categorical with two levels.
@@ -77,11 +77,11 @@ The split is an experiment once the investigators assign the medicine. Judging t
 
 Twenty-four patients are randomly allocated to placebo, a low dose, or a high dose. What kind of study is this, and what type of variable is the dose?
 
-[Question-bank page](../questions/ex-da-motn-insomnia.qmd)
+[Exercise](../questions/ex-da-motn-insomnia.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-It is a randomised designed experiment with a placebo control. Dose takes three named levels, so it is categorical. The levels have an order, so the factor is ordinal. Total sleep time, the response, is a duration and is quantitative. The random allocation is what makes a later difference in sleep a comparison of the assigned doses.{{cite:dodge2008}} (p. 162, levels)
+It is a randomised designed experiment with a placebo control. Dose takes three named levels, so it is categorical. The levels have an order, so the factor is ordinal. Total sleep time, the response, is a duration and is quantitative. The random allocation is what makes a later difference in sleep a comparison of the assigned doses.
 :::
 
 ## History
-Dodge records that experimental designs were first used in the 1920s, mostly in agriculture, and that R. A. Fisher was the first to bring mathematical statistics into the design of experiments, writing a non-mathematical outline of the principles in 1926. The encyclopedia treats a design as a specification of factor levels, including the combinations used when several factors are studied together, and it judges a design by whether the experimental effort can support the conclusion.{{cite:dodge2008}} (p. 162, History and domains)
+Experimental designs were first used in the 1920s, mostly in agriculture, and R. A. Fisher was the first to bring mathematical statistics into the design of experiments, writing a non-mathematical outline of the principles in 1926. A design is a specification of factor levels, including the combinations used when several factors are studied together, and it is judged by whether the experimental effort can support the conclusion.{{cite:dodge2008}} (p. 162, History and domains)

@@ -55,7 +55,7 @@ A Poisson count with mean $2$ shows the other extreme. Markov's inequality still
 **Your turn.** A nonnegative loss has mean $6$. Bound $\mathrm{P}(X\ge 15)$ and $\mathrm{P}(X\ge 4)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\mathrm{P}(X\ge 15)\le 6/15=0.4$. The threshold $4$ is below the mean, and $6/4=1.5$ exceeds $1$, so Markov's inequality gives no information. The probability is at most $1$ for a trivial reason that does not use the mean.{{cite:durrett2019}} (Thm. 1.6.4)
+$\mathrm{P}(X\ge 15)\le 6/15=0.4$. The threshold $4$ is below the mean, and $6/4=1.5$ exceeds $1$, so Markov's inequality gives no information. The probability is at most $1$ for a trivial reason that does not use the mean.
 :::
 
 ## Common misconceptions
@@ -82,22 +82,22 @@ Chebyshev's refinement is unavailable when the variance is infinite. A nonnegati
 A nonnegative duration has mean $10$ minutes. What does Markov's inequality say about a duration of at least $60$ minutes?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The probability is at most $10/60=1/6$. If the variance is $25$, Chebyshev's inequality further bounds the same event by $25/50^2=0.01$.{{cite:durrett2019}} (Thm. 1.6.4)
+The probability is at most $10/60=1/6$. If the variance is $25$, Chebyshev's inequality further bounds the same event by $25/50^2=0.01$.
 :::
 
 ### Equality
 Construct a nonnegative law with mean $4$ for which $\mathrm{P}(X\ge 20)=0.2$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Put probability $0.2$ on $20$ and probability $0.8$ on $0$. The mean is $4$ and the tail probability equals $0.2$, so Markov's bound is attained.{{cite:durrett2019}} (Thm. 1.6.4)
+Put probability $0.2$ on $20$ and probability $0.8$ on $0$. The mean is $4$ and the tail probability equals $0.2$, so Markov's bound is attained.
 :::
 
 ### An exponential tail
 For an exponential law with mean $10$, compute $e^{-6}$ to six decimals and compare it with $1/6$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$e^{-6}\approx 0.002479$, while $1/6\approx 0.1667$. Markov's bound is valid and about $67$ times the exponential probability. The exponential number uses the survival formula. The Markov number uses only the mean.{{cite:durrett2019}} (Thm. 1.6.4)
+$e^{-6}\approx 0.002479$, while $1/6\approx 0.1667$. Markov's bound is valid and about $67$ times the exponential probability. The exponential number uses the survival formula. The Markov number uses only the mean.
 :::
 
 ## History
-The comparison of a nonnegative variable with a threshold times an indicator is the form proved as the general moment inequality in Durrett, who attaches Chebyshev's name to that general statement and notes that other authors call it Markov's inequality. The second-moment special case is the one Dodge records, under the name Bienaymé–Chebyshev, as $\mathrm{P}(|X-\mu|\ge\varepsilon)\le\sigma^2/\varepsilon^2$.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30){{cite:dodge2008}} (p. 298)
+The comparison of a nonnegative variable with a threshold times an indicator is the form proved as the general moment inequality in Durrett, who attaches Chebyshev's name to that general statement and notes that other authors call it Markov's inequality. The second-moment special case, under the name Bienaymé–Chebyshev, is $\mathrm{P}(|X-\mu|\ge\varepsilon)\le\sigma^2/\varepsilon^2$.{{cite:durrett2019}} (Thm. 1.6.4, pp. 29–30){{cite:dodge2008}} (p. 298)

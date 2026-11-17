@@ -80,7 +80,7 @@ A third candidate $r=(0.8,0.2)$ is $p$ itself. Any other $r$ on the two-point se
 $$
 0.8\log(0.8/0.9)+0.2\log(0.2/0.1)=0.8\log(8/9)+0.2\log 2\approx 0.0444.
 $$
-This is smaller than $0.1927$. The candidate $r$ is closer to $p$ than the fair coin is, in the forward divergence.{{cite:shannon1948}} (Thm. 2)
+This is smaller than $0.1927$. The candidate $r$ is closer to $p$ than the fair coin is, in the forward divergence.
 :::
 
 ## Common misconceptions
@@ -107,21 +107,21 @@ Changing the base of the logarithm changes the numerical value and not the ranki
 Compute $D(p\,\Vert\,p)$ for $p=(0.8,0.2)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Each ratio is $1$, and $\log 1=0$, so the divergence is $0$.{{cite:shannon1948}} (Thm. 2)
+Each ratio is $1$, and $\log 1=0$, so the divergence is $0$.
 :::
 
 ### Which direction is larger?
 For $p=(0.8,0.2)$ and $q=(0.5,0.5)$, which of $0.1927$ and $0.2231$ is $D(q\,\Vert\,p)$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$D(q\,\Vert\,p)\approx 0.2231$ nats. The smaller number $0.1927$ is $D(p\,\Vert\,q)$, the penalty for using a fair coin when the truth is $p$.{{cite:shannon1948}} (Thm. 2)
+$D(q\,\Vert\,p)\approx 0.2231$ nats. The smaller number $0.1927$ is $D(p\,\Vert\,q)$, the penalty for using a fair coin when the truth is $p$.
 :::
 
 ### Bits
 The forward divergence is about $0.1927$ nats. Divide the unrounded value by $\log 2$ and round to four decimals. What is the result in bits?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The unrounded divergence divided by $\log 2$ equals $0.2781$ bits.{{cite:shannon1948}} (Thm. 2)
+The unrounded divergence divided by $\log 2$ equals $0.2781$ bits.
 :::
 
 ## History

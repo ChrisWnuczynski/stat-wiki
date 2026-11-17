@@ -55,7 +55,7 @@ The horizontal line $f(x)=1/3$ has penalty $0$ and residual sum of squares $2/3$
 **Your turn.** For $f(x)=x^3$ on $[0,1]$, compute $\int_0^1\{f''(x)\}^2\,\mathrm{d}x$. Then say what the integral becomes if a straight line is added to $f$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Here $f''(x)=6x$, so the integral is $\int_0^1 36x^2\,\mathrm{d}x=12$. Adding $a+bx$ does not change the second derivative, so the integral remains $12$.{{cite:hastie_esl2009}} (§5.4, p. 151)
+Here $f''(x)=6x$, so the integral is $\int_0^1 36x^2\,\mathrm{d}x=12$. Adding $a+bx$ does not change the second derivative, so the integral remains $12$.
 :::
 
 ## Common misconceptions
@@ -68,7 +68,7 @@ Finally, $\lambda$ in the squared-error display and $\lambda$ in the penalised l
 ## Assumptions and limits — When the penalty misfires
 The criterion assumes the roughness that matters is curvature of a univariate function of $x$. A mean with a jump, such as a threshold in a lidar return, is expensive under $\int(g'')^2$ because a steep drop forces a large second derivative somewhere. The fit then rounds the jump off. A cyclic seasonal mean is a poor match to a penalty whose null space is the straight lines: the penalty keeps charging every oscillation, however regular.
 
-If two observations share an $x$ value, no function can interpolate both unless the $y$ values agree. The $\lambda\to 0$ limit is then a function that passes through the compatible points and compromises the tied ones, not a perfect interpolant. The copied account of that limit assumes distinct $x_i$.
+If two observations share an $x$ value, no function can interpolate both unless the $y$ values agree. The $\lambda\to 0$ limit is then a function that passes through the compatible points and compromises the tied ones, not a perfect interpolant. The interpolating limit assumes distinct $x_i$.
 
 On $[0,1]$, $f(x)=x^2$ has penalty $4$, while the same formula on $[0,2]$ has penalty $\int_0^2 4\,\mathrm{d}x=8$. Stretching the interval changes the integral even though the curve's shape, in ordinary language, has not become rougher. Comparing penalties across differently scaled covariates requires the scaling to be fixed first.
 
@@ -80,21 +80,21 @@ A [cubic smoothing spline](cubic-smoothing-spline.qmd) is the minimiser of this 
 For $(0,0)$, $(1,1)$, and $(2,0)$, what is the least-squares line, and what is its residual sum of squares?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The slope is $0$ and the line is $y=1/3$. The residual sum of squares is $2/3$.{{cite:hastie_esl2009}} (§5.4, eq. 5.9)
+The slope is $0$ and the line is $y=1/3$. The residual sum of squares is $2/3$.
 :::
 
 ### A penalty that does not move
 Compute $\int_0^1\{f''(x)\}^2\,\mathrm{d}x$ for $f(x)=4+5x$, and for $f(x)=4+5x+x^2$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The first function has second derivative $0$, so the integral is $0$. The second has second derivative $2$, so the integral on $[0,1]$ is $4$. The linear part does not contribute.{{cite:hastie_esl2009}} (§5.4, p. 151)
+The first function has second derivative $0$, so the integral is $0$. The second has second derivative $2$, so the integral on $[0,1]$ is $4$. The linear part does not contribute.
 :::
 
 ### Where the quadratic wins
 Using the scores in the worked example, for which $\lambda$ is the interpolating quadratic's penalised score smaller than the straight line's score of $2/3$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The quadratic scores $8\lambda$. This is smaller than $2/3$ when $\lambda<1/12$. At $\lambda=0.1$ the quadratic scores $0.8$, which is larger, so the straight line wins that comparison.{{cite:hastie_esl2009}} (§5.4, eq. 5.9)
+The quadratic scores $8\lambda$. This is smaller than $2/3$ when $\lambda<1/12$. At $\lambda=0.1$ the quadratic scores $0.8$, which is larger, so the straight line wins that comparison.
 :::
 
 ## History

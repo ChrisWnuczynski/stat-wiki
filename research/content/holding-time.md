@@ -1,6 +1,9 @@
 ## Lead context
 A holding time is the random wait a continuous-time chain spends in its current state before it jumps.
 
+## Motivating example
+A state with exit rates $4$ and $6$ per hour has total exit rate $10$, so the mean hold is $0.1$ hour. After $0.3$ hour the chance of still being there is $e^{-3}\approx 0.0498$. The faster exit is chosen with probability $0.6$.
+
 ## Intuition — The wait must forget its age
 If the time already spent in the state told you anything about the time still to come, the present state would not be a sufficient summary of the past. The wait therefore has to be memoryless, which for a positive continuous time is the exponential law. Several exits from the same state are a race of independent exponential clocks. The first clock to ring decides both how long the hold lasted and which state comes next.{{cite:nist_weibull_handbook}} (§8.1.6.2, the exponential case of the Weibull)
 
@@ -22,21 +25,21 @@ Suppose state $i$ has two exits, at rates $4$ and $6$ per hour. The exit rate is
 **Your turn.** Three exits have rates $1$, $1$ and $2$ per hour. Find the mean hold, the probability that the hold exceeds half an hour, and the probability that the rate-$2$ exit wins the race.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The exit rate is $4$ per hour, so the mean hold is $1/4=0.25$ hour. The survival probability at half an hour is $e^{-2}\approx 0.1353$. The rate-$2$ exit wins with probability $2/4=0.5$.{{cite:nist_weibull_handbook}} (§8.1.6.2, exponential reliability)
+The exit rate is $4$ per hour, so the mean hold is $1/4=0.25$ hour. The survival probability at half an hour is $e^{-2}\approx 0.1353$. The rate-$2$ exit wins with probability $2/4=0.5$.
 :::
 
 ## Connections
 The holding time uses the [memoryless property](memoryless-property.qmd) of the [exponential distribution](exponential-distribution.qmd). The probabilities $q_{ij}/\nu_i$ are the transitions of the embedded jump chain, a discrete-time [Markov chain](discrete-time-markov-chain.qmd) that records the sequence of states and forgets the clock. The shape-$1$ [Weibull distribution](weibull-distribution.qmd) is this exponential lifetime.{{cite:nist_weibull_handbook}} (§8.1.6.2, shape equal to one)
 
-## Check yourself — Rate and destination
+## Check yourself
 **1.** An exit rate of $2$ per hour has already lasted $1$ hour. What is the probability that it lasts at least one further hour?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Memorylessness makes the remaining wait a fresh exponential of rate $2$, so the probability is $e^{-2}\approx 0.1353$. The hour already spent does not appear in the answer.{{cite:nist_weibull_handbook}} (§8.1.6.2, the exponential case)
+Memorylessness makes the remaining wait a fresh exponential of rate $2$, so the probability is $e^{-2}\approx 0.1353$. The hour already spent does not appear in the answer.
 :::
 
 **2.** Exit rates $3$ and $1$ leave a state. What is the probability that the rate-$3$ clock rings first, and what is the mean hold?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The total rate is $4$, so the rate-$3$ clock wins with probability $3/4=0.75$. The mean hold is $1/4=0.25$ time unit.{{cite:nist_weibull_handbook}} (§8.1.6.2, exponential mean)
+The total rate is $4$, so the rate-$3$ clock wins with probability $3/4=0.75$. The mean hold is $1/4=0.25$ time unit.
 :::

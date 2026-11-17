@@ -1,3 +1,6 @@
+## Motivating example
+With $p=3$ non-bias inputs and weight standard deviation $1/2$, the marginal variance of the net input is $4\cdot(1/2)^2=1$. The same scale keeps a unit from starting in the flat tails of a sigmoid.
+
 ## Intuition — Start near zero, and not all at zero
 A sigmoid is steepest at zero and almost flat far out in either tail. If the first net inputs are huge, the hidden units start saturated and the chain rule has little slope to pass backward. If every weight is exactly zero, symmetric units stay interchangeable: a deterministic update that treats them alike has nothing to break the tie. The usual start is therefore small random weights, centred at zero, with a scale chosen so that the net input is neither tiny nor enormous.{{cite:hastie_esl2009}} (Ch. 11, §11.5.1, p. 397)
 
@@ -36,7 +39,7 @@ There are $9$ incoming weights including the bias, so $\sigma=1/3$. The marginal
 All incoming and outgoing weights of two hidden units are zero. A batch gradient step treats the two units symmetrically. Do the units separate?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. Equal weights stay equal under a symmetric deterministic update, so the units remain copies of each other. Independent random starts break that tie.{{cite:hastie_esl2009}} (Ch. 11, §11.5.1, p. 397)
+No. Equal weights stay equal under a symmetric deterministic update, so the units remain copies of each other. Independent random starts break that tie.
 :::
 
 ### Which rule is which

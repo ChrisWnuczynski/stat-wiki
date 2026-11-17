@@ -1,3 +1,6 @@
+## Motivating example
+A joint table puts mass $0.2$ and $0.3$ on $Y=1$ and $Y=2$ when $X=0$, and mass $0.4$ and $0.1$ when $X=1$. Each row sums to $0.5$. The mean of $Y$ can be computed inside each row and then averaged across the rows.
+
 ## Intuition — Average in stages
 The conditional expectation $\mathbb E(Y\mid X)$ is a random variable: it is the mean of $Y$ once $X$ is known, and it still varies with $X$. Averaging that random mean, over the distribution of $X$, returns the ordinary mean of $Y$. The same idea nests. If one conditions first on a larger collection of variables and then on a smaller one, the smaller conditioning is what remains.{{cite:durrett2019}} (eq. 4.1.5 and Thm. 4.1.13, p. 211)
 

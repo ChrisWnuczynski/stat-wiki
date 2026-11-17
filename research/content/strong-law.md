@@ -57,7 +57,7 @@ Almost-sure convergence is not a statement about the expectation of the average.
 A finite variance is not part of the hypothesis. It is a convenient extra assumption for the elementary proof above. The Cauchy average shows the other edge: without a finite absolute mean, identical distribution and independence do not force the average to a constant.{{cite:durrett2019}} (Thm. 2.4.5, p. 78)
 
 ## History
-Dodge records Bernoulli's 1713 argument for a relative frequency in repeated trials, then the Bienaymé–Chebyshev inequality, and he writes the strong law as the probability-one limit of the sample average. He attributes a general form of the law of large numbers to Khintchin, and he separates that discussion from the weak law precisely because a vanishing probability of a large error is not the same as a pathwise limit.{{cite:dodge2008}} (pp. 298–299) The finite-mean proof cited here is Etemadi's truncation argument, as given by Durrett for pairwise independent variables.{{cite:durrett2019}} (Thm. 2.4.1, p. 76)
+Bernoulli's 1713 argument treated a relative frequency in repeated trials. The Bienaymé–Chebyshev inequality came next, and the strong law is the probability-one limit of the sample average. A general form of the law of large numbers is associated with Khintchin. A vanishing probability of a large error is not the same as a pathwise limit.{{cite:dodge2008}} (pp. 298–299) The finite-mean proof cited here is Etemadi's truncation argument, as given by Durrett for pairwise independent variables.{{cite:durrett2019}} (Thm. 2.4.1, p. 76)
 
 ## Worked example
 Let $Y_i$ be $1$ or $0$ with equal probability $1/2$, and let $\overline Y_n$ be the proportion of ones. Then $\mu=1/2$, $\sigma^2=1/4$, and the centred fourth moment is $\mu_4=(1/2)^4=1/16$. At $n=100$ and $\varepsilon=0.1$,
@@ -73,7 +73,7 @@ so $\mathrm{E}|\overline Y_{100}-1/2|^4=1862.5/100^4=0.000018625$. Markov's ineq
 **Your turn.** With the same coin and $\varepsilon=0.2$, compute the Chebyshev bound at $n=50$, and the fourth-moment bound $\mathrm{E}|\overline Y_{50}-1/2|^4/(0.2)^4$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The variance of the average is $(1/4)/50=0.005$, and $0.2^2=0.04$, so the Chebyshev bound is $0.005/0.04=0.125$. The fourth-moment sum is $(50+3\cdot 50\cdot 49)/16=462.5$, and $462.5/50^4=0.000074$. Dividing by $0.2^4=0.0016$ gives $0.04625$.{{cite:durrett2019}} (Thm. 1.6.4)
+The variance of the average is $(1/4)/50=0.005$, and $0.2^2=0.04$, so the Chebyshev bound is $0.005/0.04=0.125$. The fourth-moment sum is $(50+3\cdot 50\cdot 49)/16=462.5$, and $462.5/50^4=0.000074$. Dividing by $0.2^4=0.0016$ gives $0.04625$.
 :::
 
 **Check yourself.** Three further checks use the same coin.
@@ -81,17 +81,17 @@ The variance of the average is $(1/4)/50=0.005$, and $0.2^2=0.04$, so the Chebys
 A bound of $0.25$ at $n=100$ does not mean the proportion is outside $[0.4,0.6]$ a quarter of the time. What does it mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-It means the probability is at most $0.25$. The true probability can be much smaller. The bound uses only the variance.{{cite:durrett2019}} (Thm. 1.6.4, p. 30)
+It means the probability is at most $0.25$. The true probability can be much smaller. The bound uses only the variance.
 :::
 
 Why does the series of Chebyshev bounds $\sum_n 0.25\cdot(100/n)$, more cleanly $\sum_n \sigma^2/(n\varepsilon^2)$, fail to prove the strong law?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The general term is a constant over $n$, and $\sum 1/n$ diverges. Borel–Cantelli needs a summable series before it can conclude that only finitely many exceedances occur.{{cite:durrett2019}} (§2.4, pp. 76–78)
+The general term is a constant over $n$, and $\sum 1/n$ diverges. Borel–Cantelli needs a summable series before it can conclude that only finitely many exceedances occur.
 :::
 
 If $\mathrm{E}|Y_1|=\infty$, which conclusion of the worked example can fail?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The almost-sure settlement on a finite mean can fail. A standard Cauchy sample has no mean, and the average remains standard Cauchy at every $n$, so it does not converge in probability to a constant.{{cite:durrett2019}} (Thm. 2.4.5, p. 78)
+The almost-sure settlement on a finite mean can fail. A standard Cauchy sample has no mean, and the average remains standard Cauchy at every $n$, so it does not converge in probability to a constant.
 :::

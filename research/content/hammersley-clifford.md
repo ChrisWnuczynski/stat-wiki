@@ -1,6 +1,9 @@
 ## Lead context
 The Hammersley–Clifford theorem ties the missing edges of an undirected graph to a factorisation of a positive joint distribution.
 
+## Motivating example
+Three binary coordinates sit on the path $1-2-3$. The unnormalised weight $\exp(0.5\,x_1 x_2+0.3\,x_2 x_3)$ factors across the two edges. Given $x_2=1$, the conditional odds of $x_1=1$ against $x_1=0$ equal $e^{0.5}$.
+
 ## Statement
 **Positive laws factorise on the cliques.** Let $G$ be an undirected graph on the coordinates of a random vector. The pairwise Markov property says that if two coordinates are not joined by an edge, they are conditionally independent given the rest. For a distribution that is positive on a product space, that property is equivalent to a factorisation of the joint density into clique potentials,
 $$
@@ -25,19 +28,21 @@ The same conditional probability is obtained if $X_3$ is $1$ instead of $0$. The
 **Your turn.** In this factorisation, find $\Pr(X_3=1\mid X_2=1,X_1=0)$ and check that it does not change if $X_1$ is set to $1$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Given $x_2=1$, the conditional odds of $x_3=1$ against $x_3=0$ equal $e^{0.3}\approx 1.350$, with or without $x_1$. The conditional probability is $e^{0.3}/(1+e^{0.3})\approx 0.574$. The factor $e^{0.5 x_1}$ is common to both values of $x_3$ and cancels.{{cite:hastie_esl2009}} (§17.2, p. 629)
+Given $x_2=1$, the conditional odds of $x_3=1$ against $x_3=0$ equal $e^{0.3}\approx 1.350$, with or without $x_1$. The conditional probability is $e^{0.3}/(1+e^{0.3})\approx 0.574$. The factor $e^{0.5 x_1}$ is common to both values of $x_3$ and cancels.
 :::
 
-**Check yourself.** A complete graph on three vertices can be written with a single three-way potential or with three pairwise potentials. Do those two writings have to be the same distribution?
+## Check yourself
+
+A complete graph on three vertices can be written with a single three-way potential or with three pairwise potentials. Do those two writings have to be the same distribution?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. A product of three pairwise potentials is a special case of a three-way potential. The complete graph does not say which of those dependence orders is present.{{cite:hastie_esl2009}} (§17.2, p. 629, the complete three-node graph)
+No. A product of three pairwise potentials is a special case of a three-way potential. The complete graph does not say which of those dependence orders is present.
 :::
 
-**Check yourself.** If one of the eight binary atoms is given probability zero, does the pairwise calculation above still guarantee a clique factorisation for every other pattern of conditional independence?
+If one of the eight binary atoms is given probability zero, does the pairwise calculation above still guarantee a clique factorisation for every other pattern of conditional independence?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. The equivalence uses a positive distribution. A zero atom can break the step from pairwise conditional independence to a product of clique potentials.{{cite:hastie_esl2009}} (§17.2, pp. 628–629, positive distributions)
+No. The equivalence uses a positive distribution. A zero atom can break the step from pairwise conditional independence to a product of clique potentials.
 :::
 
 ## Related concepts

@@ -1,14 +1,14 @@
 ## Lead context
-A minimal sufficient statistic is the coarsest summary of the sample that still preserves every likelihood comparison the parameter can make.
+A minimal sufficient statistic is the coarsest summary of the sample that still preserves every likelihood comparison the parameter can make.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
 ## Motivating example
 Three Poisson counts, $2$, $0$, and $5$, have the same sum as $1$, $3$, and $3$. For every rate $\lambda$ the likelihood ratio of these two samples is the constant $36/240=0.15$. A third sample, $4$, $0$, $0$, has sum $4$ rather than $7$, and its likelihood ratio against the first sample is $0.1\lambda^3$, which changes with $\lambda$. The sum separates the samples that the likelihood can separate, and it lumps together the samples that the likelihood cannot. That is minimal sufficiency for this model.
 
 ## Intuition
-The whole sample is sufficient, because conditioning on every observation leaves nothing random. Sufficiency alone is not compression. A statistic $T$ is minimal sufficient when every other sufficient statistic can be coarsened down to $T$ without losing sufficiency. For a family whose support does not depend on the parameter, the likelihood-ratio test of that idea is practical: $p(\mathbf{x}\mid\theta)/p(\mathbf{y}\mid\theta)$ is free of $\theta$ for all $\theta$ exactly when $T(\mathbf{x})=T(\mathbf{y})$.
+The whole sample is sufficient, because conditioning on every observation leaves nothing random. Sufficiency alone is not compression. A statistic $T$ is minimal sufficient when every other sufficient statistic can be coarsened down to $T$ without losing sufficiency. For a family whose support does not depend on the parameter, the likelihood-ratio test of that idea is practical: $p(\mathbf{x}\mid\theta)/p(\mathbf{y}\mid\theta)$ is free of $\theta$ for all $\theta$ exactly when $T(\mathbf{x})=T(\mathbf{y})$.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
 ## Definition
-The ratio criterion is the one already displayed for a dominated family with $\theta$-free support. Two samples are assigned the same value of a minimal sufficient statistic when their likelihood ratio does not depend on $\theta$. Any sufficient statistic is a function of the data that keeps those distinctions, and the minimal one keeps no further distinctions.
+The ratio criterion is the one already displayed for a dominated family with $\theta$-free support. Two samples are assigned the same value of a minimal sufficient statistic when their likelihood ratio does not depend on $\theta$. Any sufficient statistic is a function of the data that preserves those distinctions, and the minimal one preserves no further distinctions.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
 For iid $\mathrm{N}(\mu,1)$ observations the ratio of densities is
 $$

@@ -1,3 +1,6 @@
+## Motivating example
+The observations are $2$, $4$ and $6$, and the current weight is $w=3$. The three case gradients are $1$, $-1$ and $-3$. A step that uses only the third observation is not the step that uses their average.
+
 ## Intuition — A cheap, noisy step
 Full-batch gradient descent waits until every training loss has been differentiated, then takes one step along their sum. Stochastic gradient descent draws one training case, or a small mini-batch, and steps on that piece alone. The step is cheap, so the weights move many times in the time a batch method makes one update. The direction is noisy: a single case can point uphill on the full loss even when the average of the cases points downhill.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)
 
@@ -26,7 +29,7 @@ A step of size $\eta=0.5$ on the third observation uses gradient $-3$ and moves 
 **Your turn.** Keep the same three observations and the case gradient $w-x_i$. Start at $w=2$ and take one step of size $0.2$ using only the observation $4$. Report the three gradients at $w=2$, their sum, and the updated weight.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The gradients are $2-2=0$, $2-4=-2$ and $2-6=-4$, with sum $-6$. The observation $4$ contributes $-2$, so the update is $2-0.2(-2)=2.4$. The full-sum step of the same size would be $2-0.2(-6)=3.2$.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)
+The gradients are $2-2=0$, $2-4=-2$ and $2-6=-4$, with sum $-6$. The observation $4$ contributes $-2$, so the update is $2-0.2(-2)=2.4$. The full-sum step of the same size would be $2-0.2(-6)=3.2$.
 :::
 
 ## Check yourself
@@ -43,7 +46,7 @@ Each gradient is $5-5=0$, so the update subtracts zero and $w$ stays at $5$. Unb
 Hastie, Tibshirani and Friedman ask for $\gamma_r\to 0$, $\sum_r\gamma_r=\infty$ and $\sum_r\gamma_r^2<\infty$. Which of $\gamma_r=1/r$ and $\gamma_r=0.1$ meets $\gamma_r\to 0$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The sequence $1/r$ tends to zero. The constant $0.1$ does not, so it fails the first condition. The harmonic choice is the example they give of a rate that meets all three.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)
+The sequence $1/r$ tends to zero. The constant $0.1$ does not, so it fails the first condition. The harmonic choice is the example they give of a rate that meets all three.
 :::
 
 ## Connections — Where the noise is spent

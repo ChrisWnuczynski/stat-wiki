@@ -52,7 +52,6 @@ has $k_{13}=0$, so $X_1\perp X_3\mid X_2$, while the marginal correlation is $1/
 
 For the precision matrix above, what is $\Sigma=K^{-1}$, and what are the partial correlations?
 
-[Question-bank page](../questions/ex-sl-19-2.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $\det K=8$ and
@@ -66,7 +65,6 @@ The partial correlations are $1/\sqrt{6}\approx 0.408$ for the two edges and $0$
 
 On the graph with edges $12,13,23,24,34,45,46,56$, what is the boundary of $\{1,2\}$, and is $\{2\}$ a separator of $1$ and $4$?
 
-[Question-bank page](../questions/ex-sl-19-1.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The boundary of $\{1,2\}$ is $\{3,4\}$. The set $\{2\}$ does not separate $1$ from $4$, because the path $1-3-4$ avoids $2$. One global statement is $X_{\{1,2,3\}}\perp X_{\{5,6\}}\mid X_4$.

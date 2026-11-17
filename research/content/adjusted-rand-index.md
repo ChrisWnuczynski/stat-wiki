@@ -1,3 +1,6 @@
+## Motivating example
+Six items are split as $\{1,2,3\}$ against $\{4,5,6\}$, and again as $\{1,2,4\}$ against $\{3,5,6\}$. The labels do not have to match. Agreement is counted on the pairs.
+
 ## Intuition — Pairs, not labels
 Two partitions of the same items can use different label names for the same groups. Agreement is therefore counted on pairs. A pair that sits together in both partitions, or apart in both, is a pair the partitions treat the same way. The adjusted index subtracts the number of together-pairs expected from the two sets of group sizes alone. Identical partitions then score one, as the proof below checks.
 

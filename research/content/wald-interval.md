@@ -1,3 +1,6 @@
+## Motivating example
+Forty successes in a hundred trials give $\widehat p=0.40$. The interval built from that proportion and a normal cutoff is a statement about the procedure, computed from this one sample.
+
 ## Intuition — A normal cutoff, with the standard error filled in
 A large-sample interval for a proportion starts from a normal approximation to the count. For a fair coin the approximation is the De Moivre–Laplace theorem: the centred and scaled number of heads settles to a standard normal. The Wald interval keeps a normal cutoff and replaces the unknown standard error by the value computed from the observed proportion. The resulting endpoints are functions of the data alone. Their coverage is approximate, and it is a property of the procedure before the sample is drawn.{{cite:durrett2019}} (Thm. 3.1.3, p. 115){{cite:siegrist2022_normal_distribution}} (§5.6, standard normal density)
 
@@ -26,7 +29,7 @@ At $X=0$, $\widehat p=0$ and the standard error is $0$, so the interval is the p
 For a fair coin, the Wald standard error at the true $p=1/2$ equals $1/(2\sqrt n)$. For $n=100$, what is that number, and which theorem supplies the normal shape?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$1/(2\sqrt{100})=0.05$. The normal shape is the De Moivre–Laplace theorem for the symmetric random walk, which is this statistic. The plug-in step is idle here only because $\widehat p$ happened to equal $1/2$.{{cite:durrett2019}} (Thm. 3.1.3, p. 115)
+$1/(2\sqrt{100})=0.05$. The normal shape is the De Moivre–Laplace theorem for the symmetric random walk, which is this statistic. The plug-in step is idle here only because $\widehat p$ happened to equal $1/2$.
 :::
 
 ### A wider plug-in

@@ -1,3 +1,6 @@
+## Motivating example
+Over five epochs the training errors are $0.50$, $0.32$, $0.21$, $0.14$ and $0.09$, while the validation errors are $0.48$, $0.30$, $0.27$, $0.29$ and $0.36$. Training is still falling at epoch $5$. Validation is smallest at epoch $3$.
+
 ## Intuition — Stop when new cases stop improving
 Training error for many network optimisers keeps falling as the iteration continues. Error on cases that were held out of the fit often falls and then rises. Early stopping takes the weights at the low point of that held-out curve, before the training criterion has reached its minimum. The weights usually start near a simple fit, so an early point on the path is a less specialised network than the eventual training minimum.{{cite:hastie_esl2009}} (Ch. 11, §11.5.2, p. 398){{cite:bishop2006}} (§5.5.2, pp. 259–260)
 
@@ -12,7 +15,7 @@ Suppose the training mean squared error over five epochs is $0.50$, $0.32$, $0.2
 **Your turn.** A second run has validation errors $0.42$, $0.35$, $0.28$, $0.33$, $0.34$. Which epoch is selected, and what would go wrong if the same minimum were read off the test set instead?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The smallest validation error is $0.28$, at epoch $3$. Using the test set to choose the epoch spends that set as a tuning device, so the chosen test score is no longer an untouched estimate of future error.{{cite:hastie_esl2009}} (Ch. 11, §11.5.2, p. 398)
+The smallest validation error is $0.28$, at epoch $3$. Using the test set to choose the epoch spends that set as a tuning device, so the chosen test score is no longer an untouched estimate of future error.
 :::
 
 ## Check yourself
@@ -27,7 +30,7 @@ The minimum on this list is the last value, $0.26$, so the rule keeps the fifth 
 At epoch $4$ the training error is $0.14$ and the validation error is $0.29$. At epoch $3$ the training error is $0.21$ and the validation error is $0.27$. Which epoch does early stopping keep?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Epoch $3$, because $0.27<0.29$. The lower training error at epoch $4$ is the quantity the rule is refusing to chase.{{cite:bishop2006}} (§5.5.2, pp. 259–260)
+Epoch $3$, because $0.27<0.29$. The lower training error at epoch $4$ is the quantity the rule is refusing to chase.
 :::
 
 ## Connections — A path, not a penalty

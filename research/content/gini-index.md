@@ -1,7 +1,10 @@
+## Motivating example
+A node holds $6$, $2$ and $2$ cases of three classes, so the proportions are $0.6$, $0.2$ and $0.2$. Two draws from those proportions land in different classes with probability $0.56$.
+
 ## Intuition — Two draws from the same node
 At a tree node, the class proportions $\hat p_g$ say how mixed the training cases are. The Gini index is the probability that two independent draws from those proportions fall in different classes. A pure node scores zero. An even split scores the most. Misclassification rate only notices whether the majority has changed, so a split can improve the mix and leave the misclassification rate still. The Gini index moves as soon as the proportions move.{{cite:hastie_esl2009}} (Ch. 9, §9.2.3, pp. 309–310)
 
-The name is also used for an income coefficient. Dodge defines that coefficient from the area between the Lorenz curve and the diagonal, with $0$ for equal incomes and $1$ for complete inequality, and then multiplies by $100$ to obtain a percentage. That coefficient is not the node impurity below.{{cite:dodge2008}} (p. 231)
+The name is also used for an income coefficient. That income coefficient is the area between the Lorenz curve and the diagonal, with $0$ for equal incomes and $1$ for complete inequality, multiplied by $100$ to obtain a percentage. That coefficient is not the node impurity below.{{cite:dodge2008}} (p. 231)
 
 ## Definition — Three expressions, one number
 For class proportions $\hat p_1,\ldots,\hat p_G$ at a node,

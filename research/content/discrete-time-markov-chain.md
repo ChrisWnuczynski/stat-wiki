@@ -1,6 +1,9 @@
 ## Lead context
 A discrete-time Markov chain chooses its next state from a distribution that depends on the state it occupies now.
 
+## Motivating example
+A two-state chain has rows $(0.8,0.2)$ and $(0.5,0.5)$. Starting in state $1$, the chance of state $2$ two steps later is $0.8\times 0.2+0.2\times 0.5=0.26$.
+
 ## Intuition — The present state is the whole memory
 The chain may still be dependent from one time to the next. What the definition removes is any extra dependence on the route that led to the present state. Two paths that arrive in the same state then leave with the same probabilities. The transition matrix records those probabilities: row $i$ is the distribution of the next state when the chain is in $i$, so the entries are non-negative and the row sums to one.{{cite:norris1997}} (§1.1, pp. 2–3)
 
@@ -44,21 +47,21 @@ The first coordinate of $\pi P$ is $(5/7)(0.8)+(2/7)(0.5)=5/7$, which checks the
 **Your turn.** Change the off-diagonal probabilities to $\alpha=0.4$ and $\beta=0.1$. Find the invariant probability of state $1$, and the two-step probability of staying in state $1$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The invariant probability of state $1$ is $0.1/(0.4+0.1)=0.2$. The two-step stay probability is $0.6\times 0.6+0.4\times 0.1=0.40$.{{cite:norris1997}} (§1.1, p. 2)
+The invariant probability of state $1$ is $0.1/(0.4+0.1)=0.2$. The two-step stay probability is $0.6\times 0.6+0.4\times 0.1=0.40$.
 :::
 
 ## Connections
 The one-step rule is the discrete-time case of the [Markov property](markov-property.qmd). The matrix $P$ is a [transition matrix](transition-matrix.qmd). An invariant row $\pi$ is the chain's [stationary distribution](stationary-distribution.qmd) when it is used as the starting law. The same matrix arithmetic, with a target distribution in place of $\pi$, is what a Monte Carlo chain is built to preserve.{{cite:norris1997}} (§1.7, invariant distributions)
 
-## Check yourself — Two quick matrix checks
+## Check yourself
 **1.** Both rows of a two-state matrix equal $(1/2,1/2)$. What is the two-step probability of moving from state $1$ to state $2$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Every one-step probability into state $2$ is $1/2$, so the two-step probability is $(1/2)(1/2)+(1/2)(1/2)=1/2$. The square of this matrix equals the matrix itself.{{cite:norris1997}} (§1.1, pp. 2–3)
+Every one-step probability into state $2$ is $1/2$, so the two-step probability is $(1/2)(1/2)+(1/2)(1/2)=1/2$. The square of this matrix equals the matrix itself.
 :::
 
 **2.** Successive states of a Markov chain are not automatically independent. For the worked matrix above, why is state $2$ more likely after state $2$ than after state $1$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The second row puts probability $0.5$ on staying in state $2$, while the first row puts only $0.2$ there. Different rows mean the next state still carries information about the current state.{{cite:norris1997}} (§1.1, p. 2)
+The second row puts probability $0.5$ on staying in state $2$, while the first row puts only $0.2$ there. Different rows mean the next state still carries information about the current state.
 :::

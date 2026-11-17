@@ -44,7 +44,7 @@ The figure $12.75$ is what the un-nested search would publish. The figure $26.25
 **Your turn.** Using only the three full-sample scores $16.25$, $12.75$ and $14.25$, which value does the inequality say an expectation of the minimum cannot exceed, and which of the three sample scores is that bound’s sample analogue?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The expectation of the minimum is at most the smallest of the three expected scores. On this one sample the analogue of that comparison is the minimum itself, $12.75$, which is smaller than both $16.25$ and $14.25$. The nested average $26.25$ is a different functional: it scores the chosen constant on rows the choice did not see.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080)
+The expectation of the minimum is at most the smallest of the three expected scores. On this one sample the analogue of that comparison is the minimum itself, $12.75$, which is smaller than both $16.25$ and $14.25$. The nested average $26.25$ is a different functional: it scores the chosen constant on rows the choice did not see.
 :::
 
 ## Common misconceptions
@@ -66,7 +66,7 @@ A screen that ranks predictors on every label, and only then starts the outer lo
 On the responses $0$, $1$, $0$ and $8$, the best full-sample mean squared error among the constants $0$, $1$ and $4$ is $12.75$, and the average of the outer squared errors is $26.25$. Which number assesses the selection procedure?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The nested average $26.25$. The value $12.75$ is the minimum of three scores on the same four responses, so it both chose a constant and graded that choice.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080)
+The nested average $26.25$. The value $12.75$ is the minimum of three scores on the same four responses, so it both chose a constant and graded that choice.
 :::
 
 ### One outer fold {#self-check-nested-fold}
@@ -74,7 +74,7 @@ The nested average $26.25$. The value $12.75$ is the minimum of three scores on 
 The response $8$ is held out. On $0$, $1$ and $0$, the mean squared errors of the constants $0$, $1$ and $4$ are $1/3$, $2/3$ and $41/3$. Which constant is chosen, and what squared error does it incur on $8$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The smallest inner score is $1/3$, from the constant $0$. The squared error on $8$ is $(8-0)^{2}=64$.{{cite:cawley_talbot2010}} (§1, pp. 2079–2080)
+The smallest inner score is $1/3$, from the constant $0$. The squared error on $8$ is $(8-0)^{2}=64$.
 :::
 
 ## History

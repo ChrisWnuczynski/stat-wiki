@@ -1,6 +1,9 @@
 ## Lead context
 Hinge loss charges nothing once a labelled point sits on the correct side of the margin, and charges the shortfall when it does not.
 
+## Motivating example
+Margins $1.4$, $0.25$ and $-0.5$ have hinges $0$, $0.75$ and $1.5$. The total is $2.25$. A point past the margin contributes nothing; a point on the wrong side of the score contributes more than $1$.
+
 ## Intuition — A flat region on the correct side
 Write the margin of a labelled point as $y f(x)$, with $y\in\{-1,+1\}$ and $f(x)$ the real-valued score. The hinge is $[1-yf(x)]_+$, the positive part of $1-yf(x)$. Past margin $1$ the loss is exactly zero, so a point that is already correctly classified and far from the boundary does not pull the fit. Squared error has no such flat region: a correct point with a large score still contributes a residual.{{cite:hastie_esl2009}} (§12.3.2, pp. 426–427, hinge and squared error)
 
@@ -26,21 +29,21 @@ Three margins $1.4$, $0.25$ and $-0.5$ have hinges $0$, $0.75$ and $1.5$. The to
 **Your turn.** Find the hinges at margins $1$ and $-2$, and their sum.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The hinge at margin $1$ is $0$. The hinge at margin $-2$ is $1-(-2)=3$. The sum is $3$. The kink itself is not charged.{{cite:hastie_esl2009}} (§12.3.2, p. 426)
+The hinge at margin $1$ is $0$. The hinge at margin $-2$ is $1-(-2)=3$. The sum is $3$. The kink itself is not charged.
 :::
 
 ## Connections
 The hinge is the loss that the soft-margin support-vector classifier minimises together with a penalty on the weight. Binomial deviance, the loss behind logistic regression, keeps falling as the margin grows, so it never has this exact flat region. A population hinge chooses the more probable class, whereas squared error targets a linear function of the class probability.{{cite:hastie_esl2009}} (§12.3.2, p. 427, population minimisers)
 
-## Check yourself — The kink and a penalty
+## Check yourself
 **1.** What is the hinge at margin $0.2$, and what is the slope of the hinge, as a function of the margin, just to the left of $1$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The hinge is $1-0.2=0.8$. Just to the left of $1$ the slope in the margin is $-1$.{{cite:hastie_esl2009}} (§12.3.2, p. 426)
+The hinge is $1-0.2=0.8$. Just to the left of $1$ the slope in the margin is $-1$.
 :::
 
 **2.** In the criterion above, take $\lambda=2$ and $\lVert\beta\rVert=1$, and add the penalty to the worked total hinge of $2.25$. What is the criterion value?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The penalty is $(2/2)(1)=1$. The criterion value is $2.25+1=3.25$. A larger $\lambda$ charges the same weight more heavily and tolerates more hinge.{{cite:hastie_esl2009}} (§12.3.2, p. 426, the penalised criterion)
+The penalty is $(2/2)(1)=1$. The criterion value is $2.25+1=3.25$. A larger $\lambda$ charges the same weight more heavily and tolerates more hinge.
 :::

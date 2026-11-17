@@ -1,3 +1,6 @@
+## Motivating example
+Point masses $(1/2)^k$ on the positive integers sum to $1$. The events $A_n=\{1,\ldots,n\}$ increase to the whole space, and $P(A_3)=7/8$ while $P(A_4)=15/16$.
+
 ## Intuition — The axiom that lets probabilities pass inside a limit
 Finite additivity says the probability of two disjoint events is the sum of their probabilities. Many of the events one actually cares about are limits: the event that a wait is finite, or that infinitely many of a sequence of events occur. Those are countable unions. Countable additivity is the axiom that the probability of a countable disjoint union equals the sum of the probabilities. From it, the empty event has probability zero, and the probability of an increasing sequence of events passes to the limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
 
@@ -6,7 +9,7 @@ A probability $P$ on a sigma-algebra satisfies $P(\Omega)=1$ and, for pairwise d
 $$
 P\Bigl(\bigcup_{n=1}^{\infty} A_n\Bigr)=\sum_{n=1}^{\infty} P(A_n).
 $$
-Durrett's definition of a measure also sets the empty set to measure zero at the outset and then proves the continuity properties. The one-line argument below derives $P(\emptyset)=0$ from the axiom just stated, so it does not have to be taken as a further assumption. Continuity from below is the third claim of that theorem: if $A_n\uparrow A$, then $P(A_n)\uparrow P(A)$.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
+Countable additivity forces $P(\emptyset)=0$, so that value does not have to be taken as a further assumption. If $A_n\uparrow A$, then $P(A_n)\uparrow P(A)$.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
@@ -21,7 +24,7 @@ $$
 :::
 
 ## Worked example — A geometric series of atoms
-Put mass $(1/2)^k$ on the positive integer $k$. The masses sum to $1$, so this is a probability on the countable sample space, built by summing point masses as in Durrett's discrete example. Let $A_n=\{1,\ldots,n\}$. Then $A_n\uparrow\{1,2,\ldots\}$ and
+Put mass $(1/2)^k$ on the positive integer $k$. The masses sum to $1$, so this is a probability on the countable sample space, built by summing the point masses. Let $A_n=\{1,\ldots,n\}$. Then $A_n\uparrow\{1,2,\ldots\}$ and
 $$
 P(A_n)=\sum_{k=1}^{n}\Bigl(\frac12\Bigr)^k=1-2^{-n}.
 $$

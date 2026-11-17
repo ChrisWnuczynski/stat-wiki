@@ -34,7 +34,7 @@ The distance to $\mathbf{a}$ is $4$ and the distance to $\mathbf{b}$ is $\sqrt{(
 :::
 
 ## Connections — Clustering, prototypes, and convex cells
-[Lloyd's $k$-means algorithm](lloyd-s-k-means-algorithm.qmd) redraws this tessellation at every assignment step, and the [$k$-means criterion](k-means-criterion.qmd) is the sum of squared distances to the centre of the cell. A cell is an intersection of half-spaces, one for each other centre, so it is convex. A third centre does not bend the pairwise boundary. It only shortens the piece of that boundary that remains active.
+[Lloyd's $k$-means algorithm](lloyd-s-k-means-algorithm.qmd) redraws this tessellation at every assignment step, {{cite:hastie_esl2009}} (§14.3.6, p. 510) and the [$k$-means criterion](k-means-criterion.qmd) is the sum of squared distances to the centre of the cell. A cell is an intersection of half-spaces, one for each other centre, so it is convex. A third centre does not bend the pairwise boundary. It only shortens the piece of that boundary that remains active.
 
 ## Check yourself
 

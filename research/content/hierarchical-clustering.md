@@ -64,7 +64,7 @@ Missing pairs remove terms from the group distance. The hierarchy then depends o
 For four clinics and three merges, what is the largest number of distinct cophenetic values the dendrogram can contain, and how many pairs are there?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-There are $6$ pairs and at most $3$ distinct cophenetic values, one per merge. In the average-linkage tree the distinct values are $1$, $2$, and $10.5$.{{cite:hastie_esl2009}} (§14.3, p. 522)
+There are $6$ pairs and at most $3$ distinct cophenetic values, one per merge. In the average-linkage tree the distinct values are $1$, $2$, and $10.5$.
 :::
 
 ### Complete-linkage average
@@ -82,4 +82,4 @@ Height $6$ lies between $2$ and $10.5$, so the two pairs have been formed and ha
 :::
 
 ## History
-Dodge describes agglomerative clustering as the repeated replacement of the closest pair by a single element, with the distance table rebuilt after each merge, and he defines a dendrogram as the tree of those aggregations drawn against a distance scale.{{cite:dodge2008}} (pp. 84 and 157) Hastie, Tibshirani and Friedman emphasise that the algorithm produces $N-1$ nested partitions whether or not the data are nested, and that the cophenetic dissimilarities obey an ultrametric inequality the original distances need not obey.{{cite:hastie_esl2009}} (§14.3, pp. 520–522)
+Agglomerative clustering repeatedly replaces the closest pair by a single element and rebuilds the distance table after each merge. A dendrogram is the tree of those aggregations drawn against a distance scale.{{cite:dodge2008}} (pp. 84 and 157) Hastie, Tibshirani and Friedman emphasise that the algorithm produces $N-1$ nested partitions whether or not the data are nested, and that the cophenetic dissimilarities obey an ultrametric inequality the original distances need not obey.{{cite:hastie_esl2009}} (§14.3, pp. 520–522)

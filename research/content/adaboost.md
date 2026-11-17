@@ -1,6 +1,9 @@
 ## Lead context
 AdaBoost builds a classifier by giving more weight, at each round, to the training cases the previous round got wrong.
 
+## Motivating example
+Four equally weighted cases, one of them wrong, have weighted error $1/4$. The vote is $\tfrac12\log 3\approx 0.549$. After the update, half of the weight sits on the single mistake.
+
 ## Intuition — A weak rule is asked to fix the current mistakes
 Start with equal weights on the training pairs $(x_i,y_i)$, where $y_i\in\{-1,+1\}$. At round $t$ a weak classifier $h_t$, with values in $\{-1,+1\}$, is chosen to have a small weighted error $\varepsilon_t$. Its vote is $\alpha_t=\frac12\log((1-\varepsilon_t)/\varepsilon_t)$, with the natural logarithm, and the vote is positive only when $\varepsilon_t<1/2$. The weights are then multiplied by $e^{-\alpha_t y_i h_t(x_i)}$ and rescaled so that they sum to one. A mistake is multiplied by $e^{\alpha_t}$ and a correct call by $e^{-\alpha_t}$, so the next round sees a harder weighted sample.{{cite:schapire2013_explaining_adaboost}} (Fig. 1, p. 2)
 
@@ -31,21 +34,21 @@ The updated weight on the mistake is $(1/4)\sqrt 3\big/(\sqrt 3/2)=1/2$. Each co
 **Your turn.** Keep four equal initial weights and suppose the weak classifier is wrong on two of them, so $\varepsilon=1/2$. What is $\alpha$, and what happens to the weights?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\alpha=\frac12\log(1)=0$. Every multiplier $e^{0}$ equals $1$, so the weights stay at $1/4$. A rule that is no better than a coin toss on the current weights receives no vote.{{cite:schapire2013_explaining_adaboost}} (Fig. 1, p. 2)
+$\alpha=\frac12\log(1)=0$. Every multiplier $e^{0}$ equals $1$, so the weights stay at $1/4$. A rule that is no better than a coin toss on the current weights receives no vote.
 :::
 
 ## Connections
 The exponential loss is a smooth stand-in for the zero–one training error, and it is related to the loss used for logistic regression. Minimising that loss is not, by itself, a guarantee of a small error on new cases: other procedures can drive the same loss down and still classify poorly. The sign of the weighted sum is the class label; the sum itself is not a calibrated probability.{{cite:schapire2013_explaining_adaboost}} (pp. 7–8, exponential loss and generalisation)
 
-## Check yourself — A smaller error
+## Check yourself
 **1.** With $\varepsilon=0.1$, what is $\alpha$, to three decimals?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\alpha=\frac12\log(0.9/0.1)=\frac12\log 9\approx 1.099$. The vote is larger than the vote $0.549$ at $\varepsilon=1/4$, because the weak rule is more accurate.{{cite:schapire2013_explaining_adaboost}} (Fig. 1, p. 2)
+$\alpha=\frac12\log(0.9/0.1)=\frac12\log 9\approx 1.099$. The vote is larger than the vote $0.549$ at $\varepsilon=1/4$, because the weak rule is more accurate.
 :::
 
 **2.** Why does a perfect round, $\varepsilon=0$, make the displayed formula for $\alpha$ unusable?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The ratio $(1-\varepsilon)/\varepsilon$ divides by zero, so $\alpha$ is infinite. A weak rule that already classifies every weighted case correctly needs a stopping rule rather than this coefficient.{{cite:schapire2013_explaining_adaboost}} (Fig. 1, p. 2)
+The ratio $(1-\varepsilon)/\varepsilon$ divides by zero, so $\alpha$ is infinite. A weak rule that already classifies every weighted case correctly needs a stopping rule rather than this coefficient.
 :::

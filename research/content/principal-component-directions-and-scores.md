@@ -1,8 +1,19 @@
 ## Lead context
-Principal-component directions are the orthogonal axes of greatest sample variance, and the scores are the coordinates of the centred observations on those axes.
+Principal-component directions are the orthogonal axes of greatest sample variance, and the scores are the coordinates of the centred observations on those axes.{{cite:hastie_esl2009}} (Ch. 14, §14.5.1, p. 535, Eqs. 14.51–14.52)
+
+## Motivating example
+The covariance
+\[
+S=\begin{pmatrix}2&1\\1&2\end{pmatrix}
+\]
+has eigenvalues \(3\) and \(1\), because \((2-\lambda)^2-1=0\). Unit eigenvectors are \(a_1=(1,1)^\top/\sqrt{2}\) and \(a_2=(1,-1)^\top/\sqrt{2}\). A centred point \((2,0)\) has scores
+\[
+a_1^\top(2,0)=\sqrt{2},\qquad a_2^\top(2,0)=\sqrt{2}.
+\]
+The first component carries \(3/(3+1)=3/4\) of the total sample variance. Its rank-one reconstruction is \(\sqrt{2}\,a_1=(1,1)\), and the residual \((2,0)-(1,1)=(1,-1)\) has squared length \(2\).
 
 ## Intuition — A line that keeps the most spread
-After the sample mean is subtracted, the cloud has a sample covariance \(S\). A unit vector \(a\) produces the projected values \(a^\top(x_i-\bar x)\). The direction that makes those projected values as variable as possible is the first principal-component direction, and the projected values are the scores. The next direction is chosen orthogonal to the first, so it records spread that the first axis did not already capture. Flipping the sign of \(a\) flips every score and leaves the line unchanged.
+After the sample mean is subtracted, the cloud has a sample covariance \(S\). A unit vector \(a\) produces the projected values \(a^\top(x_i-\bar x)\). The direction that makes those projected values as variable as possible is the first principal-component direction, and the projected values are the scores. The next direction is chosen orthogonal to the first, so it records spread that the first axis did not already capture. Flipping the sign of \(a\) flips every score and leaves the line unchanged.{{cite:hastie_esl2009}} (Ch. 14, §14.5.1, p. 535, Eqs. 14.51–14.52)
 
 ## Definition — Eigenvectors and projected coordinates
 Let the centred data matrix have singular-value decomposition \(X=UDV^\top\), with the columns of \(V\) orthonormal. The first \(q\) principal-component directions are the first \(q\) columns of \(V\), and the scores of a centred point \(x_i-\bar x\) are
@@ -19,15 +30,6 @@ Fix a unit vector \(a\). For a centred point \(x\), the squared distance from \(
 :::
 
 ## Worked example — A \(2\times 2\) covariance
-The covariance
-\[
-S=\begin{pmatrix}2&1\\1&2\end{pmatrix}
-\]
-has eigenvalues \(3\) and \(1\), because \((2-\lambda)^2-1=0\). Unit eigenvectors are \(a_1=(1,1)^\top/\sqrt{2}\) and \(a_2=(1,-1)^\top/\sqrt{2}\). A centred point \((2,0)\) has scores
-\[
-a_1^\top(2,0)=\sqrt{2},\qquad a_2^\top(2,0)=\sqrt{2}.
-\]
-The first component carries \(3/(3+1)=3/4\) of the total sample variance. Its rank-one reconstruction is \(\sqrt{2}\,a_1=(1,1)\), and the residual \((2,0)-(1,1)=(1,-1)\) has squared length \(2\).
 
 **Your turn.** Using the same directions, give the two scores of the centred point \((0,2)\).
 
@@ -38,7 +40,7 @@ The first component carries \(3/(3+1)=3/4\) of the total sample variance. Its ra
 ## Connections — Singular vectors and a regression line
 The directions are [eigenvectors](eigenvalues-and-eigenvectors.qmd) of \(S\) and the right singular vectors in the [singular value decomposition](singular-value-decomposition.qmd) of the centred data. [Principal component directions](principal-component-directions.qmd) names the same axes; the scores are the coordinates along them. A least-squares line minimises squared error in one designated response. A principal-component line minimises squared distance to the line in all coordinates at once, which is why the two lines need not agree.
 
-## Check yourself — Variance and a sign flip
+## Check yourself
 ### The second component's share
 For the covariance above, what fraction of the trace sits on the second component?
 

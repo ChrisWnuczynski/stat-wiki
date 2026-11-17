@@ -1,8 +1,11 @@
 ## Lead context
 Local balance equates the stationary probability flow up an edge of a birth–death chain with the flow back down that same edge.
 
+## Motivating example
+States $0,1,2$ have births $1,1,0$ and deaths $2,2$. The un-normalised weights are $1$, $1/2$ and $1/4$. Scaled, they are $4/7$, $2/7$ and $1/7$, and each cut carries the same flow in both directions.
+
 ## Intuition — On a path, one cut carries the whole flow
-A birth–death chain moves only to a neighbour. Probability can pass the cut between \(n\) and \(n+1\) in just two ways: a birth in \(n\), or a death in \(n+1\). In stationarity those two flows match. Global balance at a state is the sum of every such cut that touches the state. On a path, writing the single-edge equation once per cut is enough, and unfolding it gives the stationary weights as a product.
+A birth–death chain moves only to a neighbour. Probability can pass the cut between \(n\) and \(n+1\) in just two ways: a birth in \(n\), or a death in \(n+1\). In stationarity those two flows match. Global balance at a state is the sum of every such cut that touches the state. On a path, writing the single-edge equation once per cut is enough, and unfolding it gives the stationary weights as a product. {{cite:durrett2019}} (p. 301, birth–death chains and the product formula)
 
 ## Definition — The cut equation and the product
 With birth rate \(\lambda_n\) and death rate \(\mu_{n+1}>0\),
@@ -13,7 +16,7 @@ so \(\pi_{n+1}=\pi_n\lambda_n/\mu_{n+1}\). Iterating from \(\pi_0\) gives
 \[
 \pi_n=\pi_0\prod_{k=0}^{n-1}\frac{\lambda_k}{\mu_{k+1}}.
 \]
-The weights are a stationary distribution when they sum to a finite number and are then scaled to sum to \(1\). An infinite sum is an invariant measure that cannot be used as a probability.
+The weights are a stationary distribution when they sum to a finite number and are then scaled to sum to \(1\). An infinite sum is an invariant measure that cannot be used as a probability. {{cite:durrett2019}} (p. 301, the product may fail to be summable)
 
 ## Properties — The product satisfies every cut
 ::: {.callout-note collapse="true" title="Proof"}
@@ -36,9 +39,9 @@ The weights are \(1\), \(2/2=1\), and \(1\cdot 2/2=1\), summing to \(3\). So \(\
 :::
 
 ## Connections — Detailed balance on a path
-[Detailed balance](detailed-balance.qmd) equates flow in both directions on every edge, not only on the edges of a path. Local balance is that equation for a [birth–death chain](birth-death-balance.qmd). Summing the cut equations that touch one state recovers [global balance](global-balance-and-detailed-balance.qmd) at that state. A finite state space with positive rates along the path has a finite sum, so a stationary distribution exists.
+[Detailed balance](detailed-balance.qmd) equates flow in both directions on every edge, not only on the edges of a path. Local balance is that equation for a [birth–death chain](birth-death-balance.qmd). {{cite:durrett2019}} (p. 301, birth–death chains) Summing the cut equations that touch one state recovers [global balance](global-balance-and-detailed-balance.qmd) at that state. A finite state space with positive rates along the path has a finite sum, so a stationary distribution exists.
 
-## Check yourself — Two cuts
+## Check yourself
 For the distribution \((4/7,2/7,1/7)\) above, what is \(\pi_2/\pi_1\), and which rate ratio must it equal?
 
 ::: {.callout-tip collapse="true" title="Answer"}

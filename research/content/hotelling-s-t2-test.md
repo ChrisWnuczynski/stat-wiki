@@ -1,8 +1,8 @@
 ## Lead context
 Hotelling's T-squared test asks whether a sample of vector measurements is centred at a proposed mean, using the sample covariance so that correlated coordinates are not treated as separate one-coordinate tests.{{cite:scipy_f2026}} (Notes, the F distribution used for the normal-sample critical value)
 
-## Motivating example — Two coordinates that move together
-Five paired measurements have sample mean $(2,0)$ and a sample covariance that is the identity. Each coordinate, looked at alone, has the same mean difference in the first coordinate and none in the second. A joint test has to say whether the pair $(2,0)$ is far from $(0,0)$ in the metric of that covariance. With the identity covariance the squared distance is $2^2+0^2=4$, and $T^2=n\times 4=20$. The same number is the square of the ordinary one-sample $t$ on the first coordinate, because the second coordinate contributes nothing and the coordinates are uncorrelated in this covariance.{{cite:scipy_f2026}} (Methods, `cdf` and `ppf` for comparing a transformed statistic)
+## Motivating example
+Five paired measurements have sample mean $(2,0)$ and a sample covariance that is the identity. Looked at alone, the first coordinate has mean difference $2$ and the second has mean difference $0$. A joint test has to say whether the pair $(2,0)$ is far from $(0,0)$ in the metric of that covariance. With the identity covariance the squared distance is $2^2+0^2=4$, and $T^2=n\times 4=20$. The same number is the square of the ordinary one-sample $t$ on the first coordinate, because the second coordinate contributes nothing and the coordinates are uncorrelated in this covariance.{{cite:scipy_f2026}} (Methods, `cdf` and `ppf` for comparing a transformed statistic)
 
 ## Intuition
 The one-sample $t$ statistic is a mean difference divided by an estimated standard error. Squaring it produces a one-dimensional $T^2$. In several dimensions the standard error becomes a covariance matrix. Multiplying by the inverse covariance is the squared Mahalanobis distance of the sample mean from the proposed mean, scaled by the sample size. Large values say the mean is far from the proposal in a direction where the sample does not vary much. A direction in which the sample varies a great deal can absorb a numerically larger raw difference.
@@ -49,7 +49,7 @@ One-dimensional check: $n=5$, $\bar x=2$, $s=1$, proposed mean $0$. Then $T^2=t^
 **Your turn.** Keep $n=6$, $p=2$ and $S=2I_2$, and move the sample mean to $(2,0)$. Find $T^2$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$S^{-1}$ still multiplies the squared length by $1/2$, and the squared length is $4$, so $(\bar{\mathbf{x}})^\top S^{-1}\bar{\mathbf{x}}=2$. Then $T^2=6\cdot 2=12$.{{cite:scipy_f2026}} (Methods, the scale of the quadratic form is not the reference law)
+$S^{-1}$ still multiplies the squared length by $1/2$, and the squared length is $4$, so $(\bar{\mathbf{x}})^\top S^{-1}\bar{\mathbf{x}}=2$. Then $T^2=6\cdot 2=12$.
 :::
 
 ## Common misconceptions
@@ -70,19 +70,19 @@ The [one-sample $t$ test](one-sample-t-test.qmd) is the case $p=1$, with $T^2=t^
 1. For $n=6$, $p=2$, mean $(1,1)$ and $S=2I_2$, what is the transformed statistic?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$2.4$. Here $T^2=6$ and the factor is $4/10=0.4$.{{cite:scipy_f2026}} (Methods, `cdf`)
+$2.4$. Here $T^2=6$ and the factor is $4/10=0.4$.
 :::
 
 2. Does $2.4$ exceed the $0.95$ quantile of $F_{2,4}$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. That quantile is $6.944$. The upper tail probability of $2.4$ is $0.2066$.{{cite:scipy_f2026}} (Methods, `ppf` and `cdf`)
+No. That quantile is $6.944$. The upper tail probability of $2.4$ is $0.2066$.
 :::
 
 3. When $p=1$, $n=5$, $\bar x=2$ and $s=1$, what is $T^2$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$20$, which equals $t^2$. The $F$ factor is $1$ in this one-dimensional case, so the transformed statistic is also $20$.{{cite:scipy_f2026}} (Notes, $F_{1,n-1}$)
+$20$, which equals $t^2$. The $F$ factor is $1$ in this one-dimensional case, so the transformed statistic is also $20$.
 :::
 
 ## History

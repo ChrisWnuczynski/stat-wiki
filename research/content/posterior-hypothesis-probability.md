@@ -67,21 +67,21 @@ A further limit is the loss. The tenfold-cost calculation picks $H_0$ even thoug
 
 In the 7-heads example, the posterior odds of $p\le1/2$ against $p>1/2$ are 0.1278. What changes if the prior odds of those two regions were not 1, but 2?
 
-[Question-bank page](../questions/c-08.qmd)
+[Exercise](../questions/c-08.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The displayed 0.1278 already includes the uniform prior, under which the two regions $\{p\le1/2\}$ and $\{p>1/2\}$ have prior probability $1/2$ each, so prior odds 1. This question is about a different prior that puts twice as much mass on $p\le1/2$. The Bayes factor of the two regions is the posterior odds divided by the prior odds. Under the uniform prior the Bayes factor equals 0.1278. Multiplying by the new prior odds of 2 gives posterior odds $0.2556$. The data reweighting is unchanged. The starting odds are not.{{cite:dodge2008}} (p. 33, the prior is part of the posterior)
+The displayed 0.1278 already includes the uniform prior, under which the two regions $\{p\le1/2\}$ and $\{p>1/2\}$ have prior probability $1/2$ each, so prior odds 1. This question is about a different prior that puts twice as much mass on $p\le1/2$. The Bayes factor of the two regions is the posterior odds divided by the prior odds. Under the uniform prior the Bayes factor equals 0.1278. Multiplying by the new prior odds of 2 gives posterior odds $0.2556$. The data reweighting is unchanged. The starting odds are not.
 :::
 
 ### Testing whether a coin is fair {#self-check-q-44}
 
 Why does a continuous prior give $\Pr(p=1/2\mid x)=0$ after any sample, and what probability can be reported instead?
 
-[Question-bank page](../questions/q-44.qmd)
+[Exercise](../questions/q-44.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-A continuous distribution assigns probability 0 to a single point, and conditioning on a discrete sample does not put an atom at $1/2$. The reportable probability is for a region, such as $\Pr(p\le1/2\mid x)=0.1133$ in the 7-heads $\mathrm{Beta}(8,4)$ posterior, or for a model that placed positive prior probability on the single point $p=1/2$.{{cite:dodge2008}} (p. 33, a posterior probability is computed for the parameter values under the prior that was used)
+A continuous distribution assigns probability 0 to a single point, and conditioning on a discrete sample does not put an atom at $1/2$. The reportable probability is for a region, such as $\Pr(p\le1/2\mid x)=0.1133$ in the 7-heads $\mathrm{Beta}(8,4)$ posterior, or for a model that placed positive prior probability on the single point $p=1/2$.
 :::
 
 ## History
-Dodge's account of Bayesian statistics separates a probability used as a degree of uncertainty from a probability used as a long-run frequency. Once a posterior distribution for the parameter has been obtained from Bayes' theorem, the encyclopedia lists hypothesis testing on that parameter among the summaries the posterior supports, together with a mean and an interval. Thomas Bayes's essay, published by Richard Price in 1763, is the paper Dodge names as the source of the doctrine of chances on which that calculation rests. The coin arithmetic above is the beta-binomial case of the same update.{{cite:dodge2008}} (pp. 32–33, Bayes's 1763 essay and Bayesian hypothesis summaries)
+Bayesian statistics separates a probability used as a degree of uncertainty from a probability used as a long-run frequency. Once a posterior distribution for the parameter has been obtained from Bayes' theorem, hypothesis testing on that parameter is one summary the posterior supports, together with a mean and an interval. Thomas Bayes's essay, published by Richard Price in 1763, is the source of the doctrine of chances on which that calculation rests. The coin arithmetic above is the beta-binomial case of the same update.{{cite:dodge2008}} (pp. 32–33, Bayes's 1763 essay and Bayesian hypothesis summaries)

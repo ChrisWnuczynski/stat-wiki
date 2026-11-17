@@ -1,11 +1,14 @@
 ## Lead context
 A dendrogram draws each merge of a hierarchical clustering at a height equal to the dissimilarity of the two groups that merged.
 
+## Motivating example
+Points at $0$, $1$, $4$ and $10$ are joined by single linkage. The merge heights are $1$, $3$ and $6$. A horizontal cut at height $2$ leaves $\{0,1\}$, $\{4\}$ and $\{10\}$.
+
 ## Intuition — Height is the dissimilarity of that merge, and a horizontal cut is a partition
 Agglomerative clustering starts with one point in each group and joins groups until one group remains. If the merge dissimilarities increase, the joins can be drawn as a tree whose leaves sit at height zero and whose internal nodes sit at the dissimilarity of the join. A horizontal line at one height crosses a set of vertical branches. The groups hanging from those branches are the partition obtained by stopping when the next merge would exceed that height. Flipping the left and right children of a node changes the picture and not the merges.{{cite:hastie_esl2009}} (p. 521)
 
 ## Definition — Leaves, knots, and a scale
-The leaves are the observations. Each internal knot is a cluster formed by a merge, and the height of the knot is the linkage dissimilarity of that merge. Dodge describes the same picture: knots for groups, branches for the associations made at each step, and a scale for the distances at which the aggregations took place. The heights belong to the linkage and to the sample. They are not posterior probabilities that those clusters generated the data.{{cite:dodge2008}} (p. 157){{cite:hastie_esl2009}} (p. 521)
+The leaves are the observations. Each internal knot is a cluster formed by a merge, and the height of the knot is the linkage dissimilarity of that merge. Knots stand for groups, branches for the associations made at each step, and a scale for the distances at which the aggregations took place. The heights belong to the linkage and to the sample. They are not posterior probabilities that those clusters generated the data.{{cite:dodge2008}} (p. 157){{cite:hastie_esl2009}} (p. 521)
 
 ## Worked example — Single linkage of four points on a line
 Place points at \(0\), \(1\), \(4\) and \(10\). Single linkage uses the minimum pairwise distance between clusters. The closest pair is \(\{0,1\}\), at distance \(1\). The distance from \(\{0,1\}\) to \(4\) is \(\min(4-0,4-1)=3\). The distance from \(\{0,1,4\}\) to \(10\) is \(\min(10-0,10-1,10-4)=6\). The dendrogram therefore has merge heights \(1\), \(3\) and \(6\).
@@ -21,7 +24,7 @@ The distance from \(11\) to \(10\) is \(1\), so \(\{10,11\}\) merges at height \
 ## Connections — Linkage chooses the height, and the tree is not a model
 [Single linkage](single-linkage.qmd) uses the minimum distance, which is what produced heights \(1\), \(3\) and \(6\). Complete linkage would use the maximum instead, so the height at which \(\{0,1\}\) joins \(4\) would be \(4-0=4\), not \(3\). [Average linkage](average-linkage.qmd) uses a mean of the pairwise distances. Different linkages on the same points can produce different trees.{{cite:hastie_esl2009}} (p. 521){{cite:dodge2008}} (p. 157)
 
-## Check yourself — Reading one cut
+## Check yourself
 On the four-point dendrogram, how many clusters does a cut at height \(0.5\) return, and how many does a cut at height \(7\) return?
 
 ::: {.callout-tip collapse="true" title="Answer"}

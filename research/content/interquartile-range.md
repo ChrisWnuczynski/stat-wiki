@@ -8,7 +8,7 @@ The values 1 through 9, together with a mistyped 100, have mean 14.5 and sample 
 Order the sample. The first quartile sits a quarter of the way along that order, and the third quartile sits three quarters of the way. Their difference is a length, in the units of the data, of the central half. It does not square deviations, so a point far in the tail cannot dominate it the way it dominates a variance. It also does not use only the minimum and the maximum, so it is not the range. NIST describes it as a scale measure aimed at the centre rather than at the tails, and groups it with the median absolute deviation when the tails are long.{{cite:nist_handbook2002}} (§1.3.5.6, “interquartile range”){{cite:dodge2008}} (p. 266, the interval containing the central half)
 
 ## Definition
-For a distribution or a sample with first quartile $Q_1$ and third quartile $Q_3$, the interquartile range is $Q_3-Q_1$. Dodge states that difference and reads it as the length of the interval holding the central 50% of the distribution. On a sample, the quartiles are sample quantiles at probabilities 1/4 and 3/4. The numerical value depends on the interpolation rule. The rule used here places the quantile of probability $p$ at position $1+(n-1)p$ in the ordered sample and interpolates linearly between the surrounding order statistics. That is the rule behind the numbers 3.25 and 7.75 above. A different rule can move those quartiles by a fraction of the gap between adjacent observations. It does not change the definition $Q_3-Q_1$.{{cite:dodge2008}} (p. 266, Interquartile range){{cite:nist_handbook2002}} (§1.3.5.6, 75th percentile minus 25th percentile)
+For a distribution or a sample with first quartile $Q_1$ and third quartile $Q_3$, the interquartile range is $Q_3-Q_1$. That difference is the length of the interval holding the central 50% of the distribution. On a sample, the quartiles are sample quantiles at probabilities 1/4 and 3/4. The numerical value depends on the interpolation rule. The rule used here places the quantile of probability $p$ at position $1+(n-1)p$ in the ordered sample and interpolates linearly between the surrounding order statistics. That is the rule behind the numbers 3.25 and 7.75 above. A different rule can move those quartiles by a fraction of the gap between adjacent observations. It does not change the definition $Q_3-Q_1$.{{cite:dodge2008}} (p. 266, Interquartile range){{cite:nist_handbook2002}} (§1.3.5.6, 75th percentile minus 25th percentile)
 
 ## Interpretation — What a change in the interquartile range is
 In the ten-point sample the ordered values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 100. Position $1+9\times0.25=3.25$ lies a quarter of the way from the 3rd order statistic to the 4th, so $Q_1=3+0.25(4-3)=3.25$. Position $1+9\times0.75=7.75$ gives $Q_3=7+0.75(8-7)=7.75$. The outlier 100 is in neither of those positions. It would enter $Q_3$ only if it moved the upper order statistics that the position 7.75 actually uses. With $n=10$ it does not. The range, $100-1=99$, uses it immediately. The two scales answer different questions: how wide is the middle, and how far apart are the extremes.{{cite:nist_handbook2002}} (§1.3.5.6, the range uses only the extremes)
@@ -31,7 +31,7 @@ Ordered sample: 1, 2, 3, 4, 5, 6, 7, 8, 9, 100. Then $Q_1=3.25$, $Q_3=7.75$ and 
 **Your turn.** Five ordered observations are 2, 2, 5, 8, 8. Using position $1+(n-1)p$, find the two quartiles and the interquartile range.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-For $n=5$, the position at $p=1/4$ is $1+4\times0.25=2$, so $Q_1$ is the second order statistic, 2. The position at $p=3/4$ is $1+4\times0.75=4$, so $Q_3$ is the fourth order statistic, 8. The interquartile range is $8-2=6$. No interpolation is required, because both positions are integers.{{cite:dodge2008}} (p. 266, difference of the quartiles)
+For $n=5$, the position at $p=1/4$ is $1+4\times0.25=2$, so $Q_1$ is the second order statistic, 2. The position at $p=3/4$ is $1+4\times0.75=4$, so $Q_3$ is the fourth order statistic, 8. The interquartile range is $8-2=6$. No interpolation is required, because both positions are integers.
 :::
 
 ## Common misconceptions
@@ -49,21 +49,21 @@ The [median](median.qmd) is the quartile at probability 1/2. A [five-number summ
 
 A sample has first quartile 51 and third quartile 70. What is the interquartile range, and what is the upper 1.5-fence?
 
-[Question-bank page](../questions/ex-da-nutrition-types.qmd)
+[Exercise](../questions/ex-da-nutrition-types.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The interquartile range is $70-51=19$. The upper fence is $70+1.5\times19=70+28.5=98.5$. An age beyond 98.5 would be drawn past the whisker. The fence is a drawing rule, not a statement that such an age is impossible.{{cite:dodge2008}} (p. 266, $Q_3-Q_1$)
+The interquartile range is $70-51=19$. The upper fence is $70+1.5\times19=70+28.5=98.5$. An age beyond 98.5 would be drawn past the whisker. The fence is a drawing rule, not a statement that such an age is impossible.
 :::
 
 ### A spread beside a mean {#self-check-ex-inf-milk-summaries}
 
 Creatinine quartiles are 0.9 and 1.4. Compute the interquartile range and the upper fence, and say why the mean can sit well above the median while this range stays small.
 
-[Question-bank page](../questions/ex-inf-milk-summaries.qmd)
+[Exercise](../questions/ex-inf-milk-summaries.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The interquartile range is $1.4-0.9=0.5$. The upper fence is $1.4+1.5\times0.5=2.15$. A long right tail pulls the mean and the standard deviation and need not move $Q_1$ or $Q_3$ if the central order statistics stay put. That is the same mechanism as the value 100 leaving the interquartile range at 4.5.{{cite:nist_handbook2002}} (§1.3.5.6, tails and a rank scale)
+The interquartile range is $1.4-0.9=0.5$. The upper fence is $1.4+1.5\times0.5=2.15$. A long right tail pulls the mean and the standard deviation and need not move $Q_1$ or $Q_3$ if the central order statistics stay put. That is the same mechanism as the value 100 leaving the interquartile range at 4.5.
 :::
 
 ## History
-Dodge defines the interquartile range as $Q_3-Q_1$ and reads it as the length of the central half of the distribution. NIST's handbook places the same difference among the scale measures, contrasts it with the variance and the range, and recommends it when long tails make the standard deviation unstable. The factor 1.5 in the boxplot fence is a plotting convention attached to that length, not part of the definition of the length itself.{{cite:dodge2008}} (p. 266, Interquartile range){{cite:nist_handbook2002}} (§1.3.5.6, definition and robustness)
+The interquartile range is $Q_3-Q_1$, the length of the central half of the distribution. NIST's handbook places the same difference among the scale measures, contrasts it with the variance and the range, and recommends it when long tails make the standard deviation unstable. The factor 1.5 in the boxplot fence is a plotting convention attached to that length, not part of the definition of the length itself.{{cite:dodge2008}} (p. 266, Interquartile range){{cite:nist_handbook2002}} (§1.3.5.6, definition and robustness)

@@ -1,6 +1,12 @@
 ## Lead context
 A cubic smoothing spline is the curve that stays close to the data without spending too much integrated squared curvature.{{cite:hastie_esl2009}} (Ch. 5, §5.4, eq. 5.9, p. 151)
 
+## Motivating example
+The three points $(0,0)$, $(1,1)$ and $(2,0)$ have least-squares line $y=1/3$. The slope is zero because the products $(x_i-1)(y_i-1/3)$ sum to zero, and the intercept is the mean response. The residual sum of squares is
+$$
+2\Bigl(\frac13\Bigr)^{2}+\Bigl(\frac23\Bigr)^{2}=\frac23.
+$$
+
 ## Intuition — Fit the points, and charge the bends
 A curve that passes through every observation can bend as sharply as it likes. A straight line cannot bend at all. Between those extremes, one curve minimises the residual sum of squares plus a penalty $\lambda$ times the integrated square of the second derivative. The residual term rewards a curve that tracks the observations. The penalty rewards a curve whose slope changes slowly. A small $\lambda$ tolerates sharp bends. A large $\lambda$ does not. The minimiser, among functions with two continuous derivatives, is a natural cubic spline with a knot at each distinct observation. The penalty has turned an infinite-dimensional search into a finite set of spline coefficients, shrunk toward the straight line.{{cite:hastie_esl2009}} (Ch. 5, §5.4, pp. 151–152)
 
@@ -20,19 +26,15 @@ If $f$ is linear, then $f''=0$ and the integral penalty is $0$. The criterion th
 :::
 :::
 
-The finite-$\lambda$ statement, that a unique minimiser exists and is a natural cubic spline with knots at the distinct $x_i$, is the result Hastie, Tibshirani and Friedman record and assign to an exercise. It is not reproved here.
+The finite-$\lambda$ statement, that a unique minimiser exists and is a natural cubic spline with knots at the distinct $x_i$, is the result Hastie, Tibshirani and Friedman record and assign to an exercise.
 
 ## Worked example
-The three points $(0,0)$, $(1,1)$ and $(2,0)$ have least-squares line $y=1/3$. The slope is zero because the products $(x_i-1)(y_i-1/3)$ sum to zero, and the intercept is the mean response. The residual sum of squares is
-$$
-2\Bigl(\frac13\Bigr)^{2}+\Bigl(\frac23\Bigr)^{2}=\frac23.
-$$
 The quadratic $g(x)=2x-x^{2}$ interpolates the three points, so its residual sum of squares is $0$. Its second derivative is $-2$, and $\int_0^2 4\,dt=8$. The penalised criterion of this quadratic is $8\lambda$. The criterion of the line is $2/3$. They are equal at $\lambda=(2/3)/8=1/12$. For every $\lambda>1/12$ the line beats this particular interpolant. The smoothing spline at that $\lambda$ is whichever smooth function minimises the criterion, and for moderate $\lambda$ it lies between the interpolant and the line. The comparison shows how the penalty can overturn a perfect residual fit.{{cite:hastie_esl2009}} (Ch. 5, §5.4, eq. 5.9, p. 151)
 
-**Your turn.** Keep the same three points and the same line. What is the penalised criterion of the line at $\lambda=1$, and why does the value of $\lambda$ not appear in it?
+**Your turn.** Use the same three points and the same line. What is the penalised criterion of the line at $\lambda=1$, and why does the value of $\lambda$ not appear in it?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The second derivative of $y=1/3$ is $0$, so the penalty term is $0$ for every $\lambda$. The criterion equals the residual sum of squares, $2/3$.{{cite:hastie_esl2009}} (Ch. 5, §5.4, p. 151)
+The second derivative of $y=1/3$ is $0$, so the penalty term is $0$ for every $\lambda$. The criterion equals the residual sum of squares, $2/3$.
 :::
 
 ## Check yourself
@@ -49,7 +51,7 @@ The quadratic’s criterion is $8\lambda$. This exceeds $2/3$ when $\lambda>1/12
 At $\lambda=0$, why can a function that passes through every observation achieve a criterion of zero, and why is that function not unique without a further restriction?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The penalty is switched off, and any interpolant has residual sum of squares zero, hence criterion zero. Many smooth functions pass through the same finite set of points. The natural-cubic-spline selection is a property of the penalised problem at $\lambda>0$, not of the unpenalised residual sum of squares.{{cite:hastie_esl2009}} (Ch. 5, §5.4, p. 151)
+The penalty is switched off, and any interpolant has residual sum of squares zero, hence criterion zero. Many smooth functions pass through the same finite set of points. The natural-cubic-spline selection is a property of the penalised problem at $\lambda>0$, not of the unpenalised residual sum of squares.
 :::
 
 ## Connections

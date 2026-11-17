@@ -41,7 +41,7 @@ For Brownian motion, $\Var(B(10)-B(9))=1$, the same as $\Var(B(1))$. The level $
 **Your turn.** An inhomogeneous Poisson process has intensity 1 on $[0,1]$ and intensity 4 on $(1,2]$, with independent increments. Find the mean and the variance of the increment on $[0,1]$, on $(1,2]$, and on $[0,2]$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The increment on $[0,1]$ is Poisson(1), mean 1 and variance 1. The increment on $(1,2]$ is Poisson(4), mean 4 and variance 4. Independence adds the means and the variances, so the increment on $[0,2]$ has mean 5 and variance 5. The two unit-length increments are not equally distributed, so the increments are not stationary.{{cite:durrett2019}} (pp. 353–354, a stationary increment law cannot depend on where the window sits)
+The increment on $[0,1]$ is Poisson(1), mean 1 and variance 1. The increment on $(1,2]$ is Poisson(4), mean 4 and variance 4. Independence adds the means and the variances, so the increment on $[0,2]$ has mean 5 and variance 5. The two unit-length increments are not equally distributed, so the increments are not stationary.
 :::
 
 ## Common misconceptions
@@ -59,20 +59,20 @@ Durrett's Brownian motion is the continuous process with both properties. A [Poi
 
 For standard Brownian motion, what is $\Var(B(6)-B(4))$, and what is $\Var(B(6))$? Why are they different?
 
-[Question-bank page](../questions/ex-sp-increments-and-levels.qmd)
+[Exercise](../questions/ex-sp-increments-and-levels.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The increment has length 2, so its variance is 2. The level $B(6)$ has variance 6. Stationary increments fix the variance of a change of a given length. They do not stop the level from accumulating variance as time passes.{{cite:durrett2019}} (pp. 353–354, variance of an increment equals its length)
+The increment has length 2, so its variance is 2. The level $B(6)$ has variance 6. Stationary increments fix the variance of a change of a given length. They do not stop the level from accumulating variance as time passes.
 :::
 
 ### A half-hour count {#self-check-ex-sp-poisson-half-hour}
 
 A Poisson process has rate 3 per hour. What is the probability of no events in a 20-minute window, and does the answer depend on when the window starts?
 
-[Question-bank page](../questions/ex-sp-poisson-half-hour.qmd)
+[Exercise](../questions/ex-sp-poisson-half-hour.qmd)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Twenty minutes is $1/3$ hour, so the mean count is $3\times1/3=1$. The probability of zero is $e^{-1}=0.3679$. Stationary increments make the answer the same for every window of that length.{{cite:durrett2019}} (pp. 353–354, the law depends on the length)
+Twenty minutes is $1/3$ hour, so the mean count is $3\times1/3=1$. The probability of zero is $e^{-1}=0.3679$. Stationary increments make the answer the same for every window of that length.
 :::
 
 ## History

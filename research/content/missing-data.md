@@ -1,11 +1,14 @@
 ## Lead context
 Missing data are values the study meant to record and does not have.
 
+## Motivating example
+Four measurements were planned: $10$, a missing value, $14$ and $18$. The three observed numbers average $14$. Filling the hole with $14$ leaves that mean; filling it with $6$ moves the four-number mean to $12$.
+
 ## Intuition — An empty cell is not the same thing as a zero
 A destroyed record, a plot that failed, or a coordinate that was never written down leaves a hole where a number was intended. Filling that hole by repeating the experiment is the ideal repair, and it is often impossible. A latent label in a mixture model is a different hole: the statistical story includes a component indicator that the sampler never kept. The arithmetic that replaces a dropped measurement is not the arithmetic that replaces that indicator.{{cite:dodge2008}} (p. 350, missing outcomes)
 
 ## Definition — Intended observations that are absent
-Missing data occur when certain intended outcomes are not present, for example because a record was lost or a unit left the study. In a designed experiment the historical repairs estimate the missing yield rather than collect it again. Dodge records early experimental-design treatments by Allan and Wishart in 1930 and by Yates in 1933, a covariance approach by Bartlett in 1937, and a later method by Rubin in 1972. Those dates locate the problem in designed experiments; they are not a catalogue of every modern assumption about why a value is absent.{{cite:dodge2008}} (p. 350, definition and history)
+Missing data occur when certain intended outcomes are not present, for example because a record was lost or a unit left the study. In a designed experiment the historical repairs estimate the missing yield rather than collect it again. Allan and Wishart treated a missing field plot in 1930, Yates in 1933, Bartlett by a covariance adjustment in 1937, and Rubin in 1972. Those dates locate early designed-experiment repairs; later missingness assumptions are a separate subject.{{cite:dodge2008}} (p. 350, definition and history)
 
 ## Worked example
 Four measurements were planned: $10$, a missing value, $14$ and $18$. The mean of the three observed numbers is $(10+14+18)/3=14$. If the missing value had been $14$, the mean of all four would still be $14$. If it had been $6$, the complete mean would be $(10+6+14+18)/4=12$. The two fill-ins move the reported mean by $2$. The observed mean alone does not say which fill-in is right.{{cite:dodge2008}} (p. 350, absent outcomes)
@@ -13,21 +16,21 @@ Four measurements were planned: $10$, a missing value, $14$ and $18$. The mean o
 **Your turn.** The same three numbers are observed, and the missing value is filled by $22$. What is the mean of the four numbers, and by how much does it exceed the observed mean $14$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The four-number mean is $(10+22+14+18)/4=16$. It exceeds the observed mean by $2$. A high fill-in pulls the mean up by the same amount that the fill-in $6$ pulled it down.{{cite:dodge2008}} (p. 350)
+The four-number mean is $(10+22+14+18)/4=16$. It exceeds the observed mean by $2$. A high fill-in pulls the mean up by the same amount that the fill-in $6$ pulled it down.
 :::
 
 ## Connections
 A mixture's missing component label is handled by the [E step](e-step.qmd) of the [EM algorithm](em-algorithm.qmd), which replaces the label by its conditional probability. That calculation needs a model for the label. A dropped measurement needs a model for why it is missing. Repeating the experiment, when it can be done, avoids both models.{{cite:dodge2008}} (p. 350, repeating the experiment)
 
-## Check yourself — Two different holes
+## Check yourself
 **1.** Three observed responses are $4$, $4$ and $10$, and one planned response is missing. What is the observed mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The observed mean is $(4+4+10)/3=6$.{{cite:dodge2008}} (p. 350)
+The observed mean is $(4+4+10)/3=6$.
 :::
 
 **2.** Why is inventing a mixture component label a different problem from estimating that missing response?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The component label was never one of the intended measurements; it is part of a complete-data story. The missing response was a measurement the design meant to record. The two holes are filled by different models.{{cite:dodge2008}} (p. 350, outcomes that are not present)
+The component label was never one of the intended measurements; it is part of a complete-data story. The missing response was a measurement the design meant to record. The two holes are filled by different models.
 :::

@@ -2,7 +2,7 @@
 A claim size that is usually a little above a minimum, and occasionally enormous, is a poor match for a distribution whose variance is tied to its mean by a fixed factor. The Pareto law puts a power-law tail on values above a minimum $x_m$. The tail parameter decides whether the mean exists, and whether the variance exists, before any sample average is interpreted.{{cite:scipy_pareto2026}} (Notes, density $b/x^{b+1}$ for $x\ge 1$)
 
 ## Intuition
-On the unit minimum, the density $b/x^{b+1}$ falls as a power, not as an exponential. A larger shape $b$ pulls probability toward the minimum. Scaling the minimum to $x_m$ stretches the axis and multiplies the density by $1/x_m$ in the usual way, which produces $\alpha x_m^\alpha/x^{\alpha+1}$ with $\alpha=b$. The survival probability is the remaining power $(x_m/x)^\alpha$. Moments are integrals of that tail, and the integral at infinity converges only when the power is steep enough.{{cite:scipy_pareto2026}} (Notes, standardised density and the scale parameter)
+On the unit minimum, the density $b/x^{b+1}$ falls as a power, not as an exponential. A larger shape $b$ pulls probability toward the minimum. Scaling the minimum to $x_m$ stretches the axis and multiplies the density by $1/x_m$ in the usual way, which produces $\alpha x_m^\alpha/x^{\alpha+1}$ with $\alpha=b$. The survival probability is the remaining power $(x_m/x)^\alpha$. Moments are integrals of that tail, and the integral at infinity converges only when the power is steep enough.{{cite:siegrist2022_exponential}} (§14.2, related laws and transformations)
 
 ## Definition
 SciPy's standardised Pareto density is $f(x)=b/x^{b+1}$ for $x\ge 1$ and $b>0$, which is the classical Pareto law with minimum $1$ and tail parameter $b$. The call `pareto.pdf(x, b, loc, scale)` is the density of $\mathrm{scale}\cdot Y+\mathrm{loc}$ where $Y$ has the standardised law. With $\mathrm{loc}=0$ and $\mathrm{scale}=x_m$, that is the law of $x_m Y$, density $\alpha x_m^\alpha/x^{\alpha+1}$ for $x\ge x_m$ and $\alpha=b$. Putting the minimum in `loc` instead of `scale` shifts a unit-minimum variable and is a different distribution.{{cite:scipy_pareto2026}} (Notes, `loc` and `scale`)
@@ -18,7 +18,7 @@ The median of the unit-minimum law solves $(1/m)^\alpha=1/2$, so $m=2^{1/\alpha}
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Integrate $\alpha x_m^\alpha u^{-\alpha-1}$ from $x$ to infinity, for $x\ge x_m$ and $\alpha>0$. The antiderivative is $-x_m^\alpha u^{-\alpha}$, and the boundary term at infinity vanishes, leaving $(x_m/x)^\alpha$.{{cite:scipy_pareto2026}} (Notes, the power in the standardised density)
+Integrate $\alpha x_m^\alpha u^{-\alpha-1}$ from $x$ to infinity, for $x\ge x_m$ and $\alpha>0$. The antiderivative is $-x_m^\alpha u^{-\alpha}$, and the boundary term at infinity vanishes, leaving $(x_m/x)^\alpha$.{{cite:siegrist2022_exponential}} (§14.2, related laws and transformations)
 
 For the mean, write $\mathbb E(X)=\int_{x_m}^\infty\Pr(X>t)\,dt$ plus the lower endpoint contribution already accounted for by starting the integral at $x_m$ when the support begins there: $\mathbb E(X)=x_m+\int_{x_m}^\infty(x_m/t)^\alpha\,dt$. The integral equals $x_m/(\alpha-1)$ when $\alpha>1$ and diverges when $\alpha\le 1$. Adding $x_m$ gives $\alpha x_m/(\alpha-1)$. The second-moment integral $\mathbb E(X^2)=2\int_{x_m}^\infty t\Pr(X>t)\,dt$ converges only for $\alpha>2$, and substituting the survival produces the variance formula. At $\alpha=2.5$ and $x_m=1$, $\alpha/(\alpha-1)=5/3$ and $\alpha/[(\alpha-1)^2(\alpha-2)]=2.5/(2.25\times 0.5)=20/9$.{{cite:scipy_pareto2026}} (Notes, shape parameter)
 :::
@@ -41,7 +41,7 @@ Now take $\alpha=1.5$ and the same minimum. The mean formula gives $3$. The vari
 **Your turn.** For $\alpha=4$ and $x_m=2$, find the mean and $\Pr(X>4)$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $4\times 2/(4-1)=8/3\approx 2.6667$. The survival is $(2/4)^4=1/16=0.0625$. Both moments exist, because $4>2$.{{cite:scipy_pareto2026}} (Notes, shape and scale)
+The mean is $4\times 2/(4-1)=8/3\approx 2.6667$. The survival is $(2/4)^4=1/16=0.0625$. Both moments exist, because $4>2$.
 :::
 
 **Check yourself.**
@@ -49,19 +49,19 @@ The mean is $4\times 2/(4-1)=8/3\approx 2.6667$. The survival is $(2/4)^4=1/16=0
 1. Does the unit-minimum Pareto with shape $1$ have a finite mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. The integral $\int_1^\infty t^{-1}\,dt$ diverges, which is the $\alpha=1$ case of the mean integral. The formal ratio $\alpha/(\alpha-1)$ is undefined at $\alpha=1$.{{cite:scipy_pareto2026}} (Notes, power $b+1$ in the denominator of the density)
+No. The integral $\int_1^\infty t^{-1}\,dt$ diverges, which is the $\alpha=1$ case of the mean integral. The formal ratio $\alpha/(\alpha-1)$ is undefined at $\alpha=1$.
 :::
 
 2. Which SciPy call draws a Pareto random variable with minimum $5$ and shape $3$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-`pareto.rvs(3, scale=5)`. The shape is the first argument and the minimum is `scale` when `loc` stays $0$. Using `loc=5` shifts the support to $[6,\infty)$.{{cite:scipy_pareto2026}} (Notes, `loc` and `scale`)
+`pareto.rvs(3, scale=5)`. The shape is the first argument and the minimum is `scale` when `loc` stays $0$. Using `loc=5` shifts the support to $[6,\infty)$.
 :::
 
 3. At $\alpha=2.5$ and $x_m=1$, which is larger, the median or the mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean, $5/3\approx 1.6667$, is larger than the median $2^{0.4}\approx 1.3195$. The right tail pulls the mean above the median.{{cite:scipy_pareto2026}} (Notes, shape $b$)
+The mean, $5/3\approx 1.6667$, is larger than the median $2^{0.4}\approx 1.3195$. The right tail pulls the mean above the median.
 :::
 
 ## Common misconceptions

@@ -1,7 +1,7 @@
 ## Lead context
 The remaining wait for an exponential lifetime has the same law as the wait from the start, so age does not enter the forecast.{{cite:grinstead_snell1997}} (p. 68, memoryless property)
 
-## Motivating example — A drive that does not age
+## Motivating example
 A workshop replaces hard drives whose lifetimes are modelled as exponential with mean $30$ months. A drive that has already run for $15$ months invites the guess that about $15$ months remain. Under the exponential model the remaining lifetime still has mean $30$ months, the same mean as a new drive. The time already spent does not shorten the forecast.{{cite:grinstead_snell1997}} (p. 68, hard-drive residual life)
 
 ## Statement
@@ -73,7 +73,7 @@ which equals $\Pr(X>4)$. Counting failures before the first success instead, the
 **Your turn.** An exponential wait has rate $1/8$ per hour. It has already lasted $5$ hours. Find the probability that it lasts at least $3$ hours more, and state the conditional mean of the remaining wait.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The probability is $e^{-3/8}\approx 0.6873$. The conditional remaining mean is $8$ hours, the same as the unconditional mean. The $5$ hours already elapsed cancel in the survival ratio and do not reduce the mean.{{cite:grinstead_snell1997}} (pp. 206–207)
+The probability is $e^{-3/8}\approx 0.6873$. The conditional remaining mean is $8$ hours, the same as the unconditional mean. The $5$ hours already elapsed cancel in the survival ratio and do not reduce the mean.
 :::
 
 **Check yourself.**
@@ -81,19 +81,19 @@ The probability is $e^{-3/8}\approx 0.6873$. The conditional remaining mean is $
 1. Buses arrive as a Poisson process with mean gap $30$ minutes. You arrive at a stop at a random moment. What is the mean wait under the exponential model, and what mean wait would a perfectly regular $30$-minute timetable have given?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The exponential model is memoryless, so the mean residual wait is $30$ minutes. A deterministic gap of $30$ minutes, with an arrival time uniform inside a gap, has mean wait $15$ minutes. The two stories use different interarrival laws, so the two means are not in conflict.{{cite:grinstead_snell1997}} (p. 164, bus paradox)
+The exponential model is memoryless, so the mean residual wait is $30$ minutes. A deterministic gap of $30$ minutes, with an arrival time uniform inside a gap, has mean wait $15$ minutes. The two stories use different interarrival laws, so the two means are not in conflict.
 :::
 
 2. For the geometric trial count with success probability $1/4$, you have already seen $2$ failures. Is $\Pr(X>6\mid X>2)$ equal to $\Pr(X>6)$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. Memorylessness equates the conditional probability with $\Pr(X>4)=(3/4)^4=81/256=0.31640625$. The unconditional $\Pr(X>6)=(3/4)^6=729/4096=0.177978515625$ is smaller, because it does not condition on having reached trial $2$.{{cite:grinstead_snell1997}} (p. 186)
+No. Memorylessness equates the conditional probability with $\Pr(X>4)=(3/4)^4=81/256=0.31640625$. The unconditional $\Pr(X>6)=(3/4)^6=729/4096=0.177978515625$ is smaller, because it does not condition on having reached trial $2$.
 :::
 
 3. A lifetime has survival $\exp(-t^2)$. Does $\Pr(T>2\mid T>1)$ equal $\Pr(T>1)$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. The left side is $e^{-3}\approx 0.0498$ and the right side is $e^{-1}\approx 0.3679$. Shape $2$ is not the exponential case, so the residual probability is smaller than the probability from a fresh start.{{cite:grinstead_snell1997}} (pp. 206–207)
+No. The left side is $e^{-3}\approx 0.0498$ and the right side is $e^{-1}\approx 0.3679$. Shape $2$ is not the exponential case, so the residual probability is smaller than the probability from a fresh start.
 :::
 
 ## Common misconceptions — Age is not subtracted from the mean

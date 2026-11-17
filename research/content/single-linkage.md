@@ -46,11 +46,11 @@ The heights are $1$, $2$ and $5$. Complete linkage on the same points uses maxim
 **Your turn.** Cluster $0$, $1$, $2$ and $10$ by single linkage with absolute difference. Give the three fusion heights and the diameter of $\{0,1,2\}$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The neighbour gaps inside $\{0,1,2\}$ are $1$ and $1$. Those two fusions both occur at height $1$, in either order of the tied pairs. The distance from the finished triple to $10$ is $\min(10,9,8)=8$, so the last height is $8$. The diameter of $\{0,1,2\}$ is $2$, which is larger than the height $1$ at which the triple was built.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)
+The neighbour gaps inside $\{0,1,2\}$ are $1$ and $1$. Those two fusions both occur at height $1$, in either order of the tied pairs. The distance from the finished triple to $10$ is $\min(10,9,8)=8$, so the last height is $8$. The diameter of $\{0,1,2\}$ is $2$, which is larger than the height $1$ at which the triple was built.
 :::
 
 ## Common misconceptions
-Single linkage is not the distance between centroids, and a Euclidean formula is not required. Dodge’s worked table happens to use Euclidean distance between examination marks; the update itself is the minimum of whatever dissimilarities were supplied.{{cite:dodge2008}} (pp. 84–85) Chaining is not a coding error. It is what the minimum does when intermediate points exist. A balanced dendrogram is not a property the rule promises: extended, trailing clusters, with observations fused one at a time, are the usual picture.{{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)
+Single linkage is not the distance between centroids, and a Euclidean formula is not required. A worked distance table may use Euclidean distance between examination marks; the update itself is the minimum of whatever dissimilarities were supplied.{{cite:dodge2008}} (pp. 84–85) Chaining is not a coding error. It is what the minimum does when intermediate points exist. A balanced dendrogram is not a property the rule promises: extended, trailing clusters, with observations fused one at a time, are the usual picture.{{cite:james_islr2021}} (Ch. 12, §12.4, p. 524)
 
 The monotone-height property does not say that the diameter equals the fusion height. That coincidence belongs to complete linkage. Confusing the two makes a short chain look as tight as its last step.
 
@@ -68,7 +68,7 @@ A second limit appears as the sample grows. The nearest cross-pair between two f
 On the points $0$, $2$, $3$ and $8$, single linkage finishes by attaching $8$ at height $5$. Is $5$ the diameter of $\{0,2,3,8\}$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. The diameter is $8-0=8$. The height $5$ is only the nearest distance from $8$ to the cluster $\{0,2,3\}$, namely $8-3$. Single linkage does not record the far pairs.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, eq. 14.41 and 14.44, pp. 523–525)
+No. The diameter is $8-0=8$. The height $5$ is only the nearest distance from $8$ to the cluster $\{0,2,3\}$, namely $8-3$. Single linkage does not record the far pairs.
 :::
 
 ### A chain of unit gaps {#self-check-single-chain}
@@ -76,8 +76,8 @@ No. The diameter is $8-0=8$. The height $5$ is only the nearest distance from $8
 Points sit at $0$, $1$, $2$, $3$ and $6$. List the single-linkage fusion heights in order, and compare the height at which $\{0,1,2,3\}$ is completed with the diameter of that set.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The neighbour gaps are $1$, $1$, $1$ and $3$. The three gaps of length $1$ fuse first, all at height $1$, and $\{0,1,2,3\}$ is complete at height $1$. Its diameter is $3$. The point at $6$ then joins at height $3$.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)
+The neighbour gaps are $1$, $1$, $1$ and $3$. The three gaps of length $1$ fuse first, all at height $1$, and $\{0,1,2,3\}$ is complete at height $1$. Its diameter is $3$. The point at $6$ then joins at height $3$.
 :::
 
 ## History
-The single-link method in Dodge’s dictionary builds a hierarchical classification from a distance table by aggregating the closest elements and replacing their distances to every other element by the minimum of the two old distances. The complete-linkage entry is the same algorithm with the minimum replaced by a maximum.{{cite:dodge2008}} (pp. 84–85, 102) Later surveys kept both rules, warned that the minimum chains, and noted that the minimum between large samples from fixed densities collapses toward zero.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)
+Single linkage builds a hierarchical classification from a distance table by aggregating the closest elements and replacing their distances to every other element by the minimum of the two old distances. Complete linkage is the same algorithm with the minimum replaced by a maximum.{{cite:dodge2008}} (pp. 84–85, 102) Later surveys include both rules, warned that the minimum chains, and noted that the minimum between large samples from fixed densities collapses toward zero.{{cite:hastie_esl2009}} (Ch. 14, §14.3.12, pp. 523–525)

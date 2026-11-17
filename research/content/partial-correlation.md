@@ -5,7 +5,7 @@ Partial correlation is the correlation that remains between two variables after 
 Ice-cream sales and heat-related illness counts can rise in the same weeks. The two series are correlated, and neither is the mechanism of the other: both track temperature. A correlation computed after each series has been linearly adjusted for temperature asks how much association is left. If the adjusted series are nearly uncorrelated, the original correlation was the shared temperature track. If a large partial correlation remains, something other than that linear temperature term still ties the two series together.{{cite:dodge2008}} (pp. 412–413)
 
 ## Intuition — Correlate the residuals, not the raw series
-Regress $X$ on $Z$ and $Y$ on $Z$, and correlate the residuals. A residual is the part of a variable that the linear function of $Z$ did not account for. The partial correlation is that residual correlation. When $Z$ is independent of both, in the sense that the linear coefficients are zero, the residuals are the centred variables and the partial correlation equals the ordinary correlation. When $X$ and $Y$ are each linearly tied to $Z$ and not otherwise, the residuals are weakly correlated and the partial correlation is near zero. Dodge’s dictionary records both extremes, and it insists that the quantity is still a linear association: it does not become a causal effect by the subtraction.{{cite:dodge2008}} (pp. 412–413)
+Regress $X$ on $Z$ and $Y$ on $Z$, and correlate the residuals. A residual is the part of a variable that the linear function of $Z$ did not account for. The partial correlation is that residual correlation. When $Z$ is independent of both, in the sense that the linear coefficients are zero, the residuals are the centred variables and the partial correlation equals the ordinary correlation. When $X$ and $Y$ are each linearly tied to $Z$ and not otherwise, the residuals are weakly correlated and the partial correlation is near zero. Both extremes occur, and the quantity is still a linear association: the subtraction does not turn it into a causal effect.{{cite:dodge2008}} (pp. 412–413)
 
 For more than one adjusting variable the same idea is applied in stages, or equivalently to the residuals from the multiple regression on all of them. In a multivariate normal model the residual correlation equals the conditional correlation given the adjusting variables. Outside that model the residual correlation remains defined whenever the second moments and the linear regressions exist, and it need not equal the conditional correlation at every value of the conditioning variables.
 
@@ -52,7 +52,7 @@ Its inverse has marginal correlation $1/3$ between the first and third coordinat
 **Your turn.** Correlations $r_{xy}=0.5$, $r_{xz}=0.5$ and $r_{yz}=0.5$. Compute $r_{xy\cdot z}$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The numerator is $0.5-0.25=0.25$. The denominator is $\sqrt{(1-0.25)^{2}}=\sqrt{0.75^{2}}=0.75$. The partial correlation is $0.25/0.75=1/3\approx 0.3333$.{{cite:dodge2008}} (p. 413)
+The numerator is $0.5-0.25=0.25$. The denominator is $\sqrt{(1-0.25)^{2}}=\sqrt{0.75^{2}}=0.75$. The partial correlation is $0.25/0.75=1/3\approx 0.3333$.
 :::
 
 ## Common misconceptions
@@ -74,7 +74,7 @@ The [correlation](correlation.qmd) is the case with nothing partialled out. The 
 If $r_{xy}=0.4$, $r_{xz}=0.8$ and $r_{yz}=0.5$, what is the numerator of $r_{xy\cdot z}$, and what does a zero numerator mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The numerator is $0.4-0.8\cdot 0.5=0$. The partial correlation is $0$. The ordinary correlation equals the product of the correlations with $Z$, which is the residual-covariance calculation when the linear adjustment accounts for the whole association.{{cite:dodge2008}} (p. 413)
+The numerator is $0.4-0.8\cdot 0.5=0$. The partial correlation is $0$. The ordinary correlation equals the product of the correlations with $Z$, which is the residual-covariance calculation when the linear adjustment accounts for the whole association.
 :::
 
 ### Precision sign {#self-check-partial-sign}
@@ -86,4 +86,4 @@ It is $-(-0.3)/\sqrt{1\cdot 1}=0.3$. The negative precision entry is a positive 
 :::
 
 ## History
-Dodge records that early users of correlation already knew a large bivariate correlation could be produced by a third variable, and he dates a clear numerical warning to Yule’s 1926 time-series example. The dictionary then defines the sample partial correlation as the correlation of the two least-squares residuals and states the equivalent fraction in the three ordinary correlations. The three-correlation fraction is the closed form of that residual correlation.{{cite:dodge2008}} (pp. 412–413)
+Early users of correlation already knew a large bivariate correlation could be produced by a third variable, and Yule’s 1926 time-series example gave a clear numerical warning. The sample partial correlation is the correlation of the two least-squares residuals, and it equals the fraction in the three ordinary correlations. The three-correlation fraction is the closed form of that residual correlation.{{cite:dodge2008}} (pp. 412–413)

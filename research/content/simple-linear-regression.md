@@ -1,7 +1,7 @@
 ## Lead context
 One measured input is used to describe the mean of a numerical response by a straight line, with the line chosen to make the squared vertical errors as small as possible.{{cite:nist_ls_straight2002}} (§4.4.3.1, straight-line least squares)
 
-## Motivating example — Light and five seedlings
+## Motivating example
 Five seedlings are grown under 2, 4, 6, 8 and 10 hours of light a day, and their growth is 3, 4, 8, 9 and 11 millimetres. A straight summary is wanted: how many extra millimetres go with one extra hour, in these five pots. The hours were set by the grower, so they are treated as fixed numbers. The growth is the response. A line fitted by least squares answers that slope question inside this sample; it does not by itself say that more light caused the extra growth.{{cite:nist_ls_straight2002}} (§4.4.3.1, straight-line model){{cite:nist_linear_model2002}} (§4.1.4.1, linear in the parameters)
 
 ## Intuition
@@ -64,7 +64,7 @@ Replace the last growth $11$ by $20$, as if one pot had been mis-recorded. Then 
 **Your turn.** For the points $(0,1)$, $(1,3)$ and $(2,2)$, find the least-squares slope and intercept, and the fitted height at the mean of $x$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Here $\bar x=1$, $\bar y=2$, $S_{xx}=2$ and $S_{xy}=1$, so the slope is $1/2=0.5$ and the intercept is $2-0.5\times 1=1.5$. The fitted height at $x=1$ is $2$, the mean of $y$. The residual sum of squares is $1.5$.{{cite:nist_ls_straight2002}} (§4.4.3.1, straight-line estimators)
+Here $\bar x=1$, $\bar y=2$, $S_{xx}=2$ and $S_{xy}=1$, so the slope is $1/2=0.5$ and the intercept is $2-0.5\times 1=1.5$. The fitted height at $x=1$ is $2$, the mean of $y$. The residual sum of squares is $1.5$.
 :::
 
 ## Common misconceptions
@@ -85,20 +85,20 @@ The [least-squares line](least-squares-line.qmd) is this fitted line. A [pivot](
 1. The five seedling inputs are all set equal to $6$ hours. What happens to the slope formula?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Every centred input is $0$, so $S_{xx}=0$ and the ratio that defines $\hat\beta_1$ is undefined. Many lines pass equally close in the vertical direction when the inputs do not vary.{{cite:nist_ls_straight2002}} (§4.4.3.1, denominator of the slope)
+Every centred input is $0$, so $S_{xx}=0$ and the ratio that defines $\hat\beta_1$ is undefined. Many lines pass equally close in the vertical direction when the inputs do not vary.
 :::
 
 2. For the original seedlings, is the fitted height at $6$ hours equal to $7$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Yes. The fitted line passes through $(\bar x,\bar y)=(6,7)$. The arithmetic is $0.70+1.05\times 6=7$.{{cite:dodge2008}} (p. 305, first normal equation)
+Yes. The fitted line passes through $(\bar x,\bar y)=(6,7)$. The arithmetic is $0.70+1.05\times 6=7$.
 :::
 
 3. After the last response changes from $11$ to $20$, which slope is the least-squares slope, $1.05$ or $1.95$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The slope is $1.95$, because $S_{xy}$ becomes $78$ and $78/40=1.95$. The value $1.05$ was the slope before that one response changed.{{cite:nist_linear_model2002}} (§4.1.4.1, sensitivity to outliers)
+The slope is $1.95$, because $S_{xy}$ becomes $78$ and $78/40=1.95$. The value $1.05$ was the slope before that one response changed.
 :::
 
 ## History
-The least-squares criterion minimises the sum of squared residuals between observed and fitted values. Dodge records the method as introduced by Legendre in 1805. The NIST handbook records independent development in the late eighteenth and early nineteenth centuries by Gauss, Legendre, and possibly Adrain. Those two accounts agree that the published early nineteenth-century method is least squares; they do not agree on a single inventor.{{cite:dodge2008}} (p. 304, least-squares method){{cite:nist_linear_model2002}} (§4.1.4.1, Gauss, Legendre and Adrain)
+The least-squares criterion minimises the sum of squared residuals between observed and fitted values. Legendre introduced the method in 1805. Independent development in the late eighteenth and early nineteenth centuries by Gauss, Legendre, and possibly Adrain. Those two accounts agree that the published early nineteenth-century method is least squares; they do not agree on a single inventor.{{cite:dodge2008}} (p. 304, least-squares method){{cite:nist_linear_model2002}} (§4.1.4.1, Gauss, Legendre and Adrain)

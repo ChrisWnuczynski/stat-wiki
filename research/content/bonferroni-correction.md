@@ -51,7 +51,7 @@ A raw $p$-value of $0.02$ has adjusted value $\min(1,4\times 0.02)=0.08$, which 
 **Your turn.** Six tests, family-wise level $0.05$. Find the per-test level, and the adjusted value of a raw $p$-value $0.01$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The per-test level is $0.05/6=0.008333\ldots$, or $1/120$. The adjusted $p$-value is $\min(1,6\times 0.01)=0.06$, which is above $0.05$, so the test does not reject.{{cite:hastie_esl2009}} (§18.7, p. 686)
+The per-test level is $0.05/6=0.008333\ldots$, or $1/120$. The adjusted $p$-value is $\min(1,6\times 0.01)=0.06$, which is above $0.05$, so the test does not reject.
 :::
 
 ## Common misconceptions
@@ -76,22 +76,22 @@ The union bound used here is the same subadditivity as on a [probability space](
 Which of $0.02$ and $0.01$ are rejected by a four-test Bonferroni rule at family-wise level $0.05$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The adjusted values are $0.08$ and $0.04$. Only $0.01$, with adjusted value $0.04$, is rejected.{{cite:hastie_esl2009}} (§18.7, p. 686)
+The adjusted values are $0.08$ and $0.04$. Only $0.01$, with adjusted value $0.04$, is rejected.
 :::
 
 ### The independent calculation
 For four independent tests at level $0.0125$, is the family-wise error equal to $0.05$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-No. It equals $1-(0.9875)^4\approx 0.0491$, which is less than $0.05$. The value $0.05$ is the union bound, not the independent probability.{{cite:hastie_esl2009}} (§18.7, p. 686)
+No. It equals $1-(0.9875)^4\approx 0.0491$, which is less than $0.05$. The value $0.05$ is the union bound, not the independent probability.
 :::
 
 ### Six tests
 A raw $p$-value is $0.01$ and there are six tests. What is the Bonferroni adjusted value at family-wise level $0.05$, and is it rejected?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The adjusted value is $0.06$, which is greater than $0.05$, so the null is not rejected. The per-test level would have been $0.05/6\approx 0.00833$, and $0.01$ is larger than that level.{{cite:hastie_esl2009}} (§18.7, p. 686)
+The adjusted value is $0.06$, which is greater than $0.05$, so the null is not rejected. The per-test level would have been $0.05/6\approx 0.00833$, and $0.01$ is larger than that level.
 :::
 
 ## History
-Dodge's biography records Carlo Emilio Bonferroni, born in 1892 in Bergamo, and the 1936 paper *Teoria statistica delle classi e calcolo delle probabilità*, in which the Bonferroni inequalities for dependent events appeared.{{cite:dodge2008}} (pp. 50–51) The testing rule on this page is the special case of a union bound that Hastie, Tibshirani and Friedman state for $M$ hypotheses: reject when $p_j<\alpha/M$, which forces the family-wise error to be at most $\alpha$.{{cite:hastie_esl2009}} (§18.7, p. 686)
+Carlo Emilio Bonferroni, born in 1892 in Bergamo, published *Teoria statistica delle classi e calcolo delle probabilità* in 1936, in which the Bonferroni inequalities for dependent events appeared.{{cite:dodge2008}} (pp. 50–51) The testing rule is the special case of a union bound that Hastie, Tibshirani and Friedman state for $M$ hypotheses: reject when $p_j<\alpha/M$, which forces the family-wise error to be at most $\alpha$.{{cite:hastie_esl2009}} (§18.7, p. 686)

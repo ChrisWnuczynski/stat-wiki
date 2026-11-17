@@ -1,11 +1,18 @@
 ## Lead context
 A link function is the map that ties a response mean, which lives on a restricted range, to a linear predictor that can be any real number.
 
+## Motivating example
+At \(\eta=1.5\) the identity mean is \(1.5\). The log-link mean is \(e^{1.5}=4.4817\) to four decimals. The logit mean is
+\[
+\frac{e^{1.5}}{1+e^{1.5}}=0.8176
+\]
+to four decimals. The same number \(\eta\) is a legal probability under the logit, a positive mean under the log, and an unrestricted mean under the identity. It is not a probability under the identity, because \(1.5>1\).
+
 ## Intuition — Choose the scale on which the covariates act
 The linear predictor \(\eta=x^\top\beta\) is unrestricted. A probability cannot be negative, and a mean count cannot be negative either. The link \(g\) is the function the model inverts: \(g(\mu)=\eta\), so \(\mu=g^{-1}(\eta)\). Changing the link changes the meaning of a coefficient and leaves the columns of \(x\) as they were. The identity, the logit and the log are the classical choices for an unrestricted mean, a probability and a positive mean.{{cite:hastie_esl2009}} (Ch. 9, §9.1, p. 296)
 
 ## Definition — Three classical links
-For a mean \(\mu\) and a predictor \(\eta\),
+For a mean \(\mu\) and a predictor \(\eta\),{{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
 
 - the identity link is \(g(\mu)=\mu\), so \(\mu=\eta\);
 - the logit link is \(g(\mu)=\log\{\mu/(1-\mu)\}\), so \(\mu=e^{\eta}/(1+e^{\eta})\);
@@ -21,11 +28,6 @@ The identity returns \(\eta\) itself, so a negative predictor is a negative mean
 :::
 
 ## Worked example — One predictor, three means
-At \(\eta=1.5\) the identity mean is \(1.5\). The log-link mean is \(e^{1.5}=4.4817\) to four decimals. The logit mean is
-\[
-\frac{e^{1.5}}{1+e^{1.5}}=0.8176
-\]
-to four decimals. The same number \(\eta\) is a legal probability under the logit, a positive mean under the log, and an unrestricted mean under the identity. It is not a probability under the identity, because \(1.5>1\).
 
 **Your turn.** Repeat the three inverses at \(\eta=-1\), to four decimals for the log and logit means.
 
@@ -36,7 +38,7 @@ The identity mean is \(-1\), which is illegal for a probability and for a count 
 ## Connections — The GLM pieces around the link
 The link is the middle piece of a [generalised linear model](generalised-linear-model.qmd): a random component supplies the variance function, the [linear predictor](linear-predictor.qmd) builds \(\eta\), and \(g\) joins them. The [logit link](logit-link.qmd) and the [log link](log-link.qmd) are the two inverses in the example. [Logit, probit and complementary log-log links](logit-probit-and-complementary-log-log-links.qmd) are three maps into a probability; only the first two appear on the ESL page cited here. A canonical link is the choice that makes \(\eta\) the natural parameter of a one-parameter exponential family. It is convenient, and it is not the only legal link.
 
-## Check yourself — Legal and illegal means
+## Check yourself
 ### A zero predictor
 Give the identity, log and logit means at \(\eta=0\).
 
