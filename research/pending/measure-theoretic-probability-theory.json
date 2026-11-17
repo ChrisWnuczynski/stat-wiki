@@ -1,0 +1,10 @@
+{
+  "action": "alias",
+  "term": "Measure-theoretic probability theory",
+  "slug": "measure-theoretic-probability-theory",
+  "alias_of": "probability-theory",
+  "covered_terms": [
+    "Measure-theoretic probability theory"
+  ],
+  "reason": "Durrett's opening chapter defines a probability as a measure of total mass one on a sigma-algebra (Ch. 1, \u00a71.1, pp. 1\u20132), and the probability-measure and axioms-of-probability articles already state that definition. Measure-theoretic probability theory is that form of probability theory on this site, so a separate page would restate it."
+}

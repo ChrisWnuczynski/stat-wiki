@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "bayesian-probability",
+  "term": "Bayesian probability",
+  "topic": "Bayesian statistics",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "Bayesian statistics",
+    "article": "",
+    "term": "Bayesian probability",
+    "verb": "is",
+    "description": "probability used as a numerical measure of uncertainty, including uncertainty about single cases and parameters",
+    "proper": true
+  },
+  "self_checks": [
+    {
+      "title": "Ten-to-one odds",
+      "prompt": "A bet of 1 unit in order to win 10 more units is taken on the favourable side. What probability does that commit you to, at minimum?",
+      "answer": "The probability is at least 1/11."
+    },
+    {
+      "title": "Three-to-one odds",
+      "prompt": "A bet of 1 unit in order to win 3 more units is taken on the favourable side. What probability does that commit you to, at minimum?",
+      "answer": "The probability is at least 1/4."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Bayesian probability](articles/bayesian-probability.qmd) is probability used as a numerical measure of uncertainty about events and unknowns.",
+  "covered_terms": [
+    "Bayesian probability"
+  ]
+}

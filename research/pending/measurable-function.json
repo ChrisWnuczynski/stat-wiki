@@ -1,0 +1,51 @@
+{
+  "action": "page",
+  "slug": "measurable-function",
+  "term": "Measurable function",
+  "topic": "Probability",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "probability",
+    "article": "a",
+    "term": "measurable function",
+    "verb": "is",
+    "description": "a function for which questions about its values correspond to events, so that expectation is defined"
+  },
+  "self_checks": [
+    {
+      "title": "Payoff expectation",
+      "prompt": "Outcome 1 has probability 1/3 and payoff 2; the group {2, 3} has probability 2/3 and payoff 7. What is the expectation?",
+      "answer": "The expectation is 16/3."
+    },
+    {
+      "title": "A higher payoff on outcome 1",
+      "prompt": "Outcome 1 now pays 5, and the group {2, 3} still pays 7 with probability 2/3. What is the expectation?",
+      "answer": "The expectation is 19/3."
+    }
+  ],
+  "bibliography": {
+    "axler2020": {
+      "authors": [
+        "Axler, S."
+      ],
+      "year": 2020,
+      "title": "Measure, Integration & Real Analysis",
+      "kind": "book",
+      "publisher": "Springer",
+      "url": "https://measure.axler.net/MIRA.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://measure.axler.net/MIRA.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "axler2020",
+    "durrett2019"
+  ],
+  "overview_sentence": "A [measurable function](articles/measurable-function.qmd) is a function for which questions about its values correspond to events.",
+  "covered_terms": [
+    "Measurable function"
+  ]
+}

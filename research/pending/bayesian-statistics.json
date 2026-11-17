@@ -1,0 +1,25 @@
+{
+  "action": "page",
+  "slug": "bayesian-statistics",
+  "term": "Bayesian statistics",
+  "topic": "Bayesian statistics",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "statistics",
+    "article": "",
+    "term": "Bayesian statistics",
+    "verb": "is",
+    "description": "the discipline that states uncertainty about unknowns as probability and revises it with data",
+    "proper": true
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Bayesian statistics](articles/bayesian-statistics.qmd) states uncertainty about unknowns as probability and revises it with data.",
+  "covered_terms": [
+    "Bayesian statistics"
+  ]
+}

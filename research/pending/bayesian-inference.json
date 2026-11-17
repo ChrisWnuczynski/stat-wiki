@@ -1,0 +1,37 @@
+{
+  "action": "page",
+  "slug": "bayesian-inference",
+  "term": "Bayesian inference",
+  "topic": "Bayesian statistics",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "Bayesian statistics",
+    "article": "",
+    "term": "Bayesian inference",
+    "verb": "is",
+    "description": "the derivation of a probability distribution for unknowns from a joint model and the observed data",
+    "proper": true
+  },
+  "self_checks": [
+    {
+      "title": "Two unaffected sons",
+      "prompt": "Prior probability 1/2 of being a carrier, likelihood 1/4 if a carrier and 1 if not, for two unaffected sons. What is the posterior probability of being a carrier?",
+      "answer": "The posterior probability is 1/5."
+    },
+    {
+      "title": "A third unaffected son",
+      "prompt": "Starting from posterior probability 1/5, a third son is unaffected, with conditional probability 1/2 if a carrier and 1 if not. What is the new posterior probability?",
+      "answer": "The posterior probability is 1/9."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": [
+    "gelman_bda2013",
+    "dodge2008"
+  ],
+  "overview_sentence": "[Bayesian inference](articles/bayesian-inference.qmd) derives a probability distribution for unknowns from a joint model and the observed data.",
+  "covered_terms": [
+    "Bayesian inference"
+  ]
+}
