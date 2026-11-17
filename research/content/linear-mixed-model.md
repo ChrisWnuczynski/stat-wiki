@@ -28,7 +28,7 @@ Since $E(b)=E(\varepsilon)=0$, $E(Y)=X\beta$. Independence gives $\operatorname{
 :::
 :::
 
-## Statistical use — Separating population and group variation
+## Statistical use
 
 The grouping level should follow how observations were collected. If each patient contributes several readings, the number of readings is not the number of independent patients. The fixed effects answer population questions under the specified random-effects distribution; the predicted random effects describe particular sampled patients. Maximum likelihood and restricted maximum likelihood are common ways to estimate the covariance components. Restricted likelihood accounts for the fixed-effect fit when estimating variance components; comparisons that change the fixed-effect mean structure should use a compatible likelihood criterion rather than blindly comparing restricted likelihood values.{{cite:bates_lme4_2015}} (§1.3, fitting overview; §3.4, ML and REML criteria)
 
@@ -48,7 +48,7 @@ The marginal variance is $4+6=10$, the covariance is $4$, and the intraclass cor
 
 A random effect is not merely an unobserved fixed parameter with a new name: its common distribution and covariance are substantive assumptions. A fixed effect can vary in its *predicted outcome* across covariate values without becoming a random effect. Repeated readings do not provide as many independent pieces of group-level information as an equal number of unrelated patients. And a zero random-intercept estimate does not mean every patient had exactly the same observed values; residual variation remains.{{cite:bates_lme4_2015}} (§1.1–2.2, model terms and grouping)
 
-## Assumptions and limits — When a shared random effect is the wrong dependence
+## Assumptions and limits
 
 The simple Gaussian model assumes independent groups, normally distributed random effects and the specified residual covariance. If measurements on one patient remain serially correlated after the random intercept is removed, $R=\sigma^2I$ misses that dependence. If each hospital treats only one kind of patient, a hospital effect and that patient characteristic may be confounded, so the model cannot identify their effects from that design alone. A random intercept also cannot represent patients whose responses change at different rates; random slopes or a different time covariance may be needed. With only two patients, a precise estimate of the between-patient variance is especially implausible, however many readings each contributes.{{cite:bates_lme4_2015}} (§1.1, covariance assumptions; §2.2, random slopes and grouping; §4, singular fits)
 

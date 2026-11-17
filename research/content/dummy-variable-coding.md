@@ -48,7 +48,6 @@ An [interaction](interaction.qmd) adds a further indicator product, so the diffe
 
 Level 1 of each factor is the reference, and the estimates are $\hat\mu=10$, $\hat\alpha_2=4$, $\hat\beta_2=-2$, and $\hat\gamma_{22}=3$. Write the four cell means. What is the change in moving factor A from level 1 to level 2 when factor B is at level 2?
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 The means are $10$ at $(1,1)$, $10-2=8$ at $(1,2)$, $10+4=14$ at $(2,1)$, and $10+4-2+3=15$ at $(2,2)$. The move in A at level 2 of B changes the mean by $4+3=7$, from $8$ to $15$. The main effect $4$ is that change only at the reference level of B.
 :::
@@ -56,7 +55,6 @@ The means are $10$ at $(1,1)$, $10-2=8$ at $(1,2)$, $10+4=14$ at $(2,1)$, and $1
 ### An interaction sum of squares {#self-check-ex-inf-interaction-ss}
 
 Cell means in a $2\times 2$ table, one observation each, are $3,5$ in the first row and $4,10$ in the second. Compute the interaction sum of squares.
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The row means are $4$ and $7$, the column means are $3.5$ and $7.5$, and the grand mean is $5.5$. The interaction residuals are $1,-1,-1,1$, and the sum of squares is $4$. With one observation per cell there is no residual degree of freedom left for an error mean square.

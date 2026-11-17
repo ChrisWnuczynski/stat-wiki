@@ -36,7 +36,7 @@ Consider hypothetical mean yields for two binary settings. Let $\mu_{00}=10$, $\
 **Your turn.** For another hypothetical $2\times2$ table, take $\mu_{00}=8$, $\mu_{10}=11$, $\mu_{01}=13$, and $\mu_{11}=20$. Find the $A$ effect at each level of $B$, the interaction contrast, and the treatment-coded mean model. What would the additive model predict at $(1,1)$?{{cite:nist_two_way_anova2002}} (§7.4.3.7)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The $A$ effect is $11-8=3$ when $B=0$ and $20-13=7$ when $B=1$, so the interaction contrast is $7-3=4$. The $B$ effect at $A=0$ is $13-8=5$. The model is $\mathbb E(Y\mid A,B)=8+3A+5B+4AB$, which gives 20 at $(1,1)$. Omitting the product term would predict $8+3+5=16$ there. The contrast is on the response-mean scale.{{cite:nist_two_way_anova2002}} (§7.4.3.7)
+The $A$ effect is $11-8=3$ when $B=0$ and $20-13=7$ when $B=1$, so the interaction contrast is $7-3=4$. The $B$ effect at $A=0$ is $13-8=5$. The model is $\mathbb E(Y\mid A,B)=8+3A+5B+4AB$, which gives 20 at $(1,1)$. Omitting the product term would predict $8+3+5=16$ there. The contrast is on the response-mean scale.
 :::
 
 ## Common misconceptions

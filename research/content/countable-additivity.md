@@ -36,6 +36,9 @@ In particular $P(A_3)=7/8=0.875$ and $P(A_4)=15/16=0.9375$. The limit is $1$, wh
 $P(A_5)=1-2^{-5}=31/32=0.96875$. The difference $A_5\setminus A_3=\{4,5\}$ has probability $(1/2)^4+(1/2)^5=3/32=0.09375$, which is also $P(A_5)-P(A_3)=0.96875-0.875$.
 :::
 
+## Connections — Where the countable union is doing the work
+An [event](event.qmd) has to lie in the [sigma-algebra](sigma-algebra.qmd) before this axiom applies to it. A [stochastic process](stochastic-process.qmd) needs those countable operations for events about a whole path, such as "the walk ever reaches $a$". The [central limit theorem](central-limit-theorem.qmd) is a later limit of probabilities; continuity from below is the special case in which the events themselves increase to a limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)
+
 ## Check yourself
 ### The empty event
 What is $P(\emptyset)$, and which sequence of sets is used?
@@ -50,6 +53,3 @@ Let $A$ and $B$ be disjoint with $P(A)=P(B)=1/4$, and set every later set empty.
 ::: {.callout-tip collapse="true" title="Answer"}
 Countable additivity gives $1/4+1/4+0+0+\cdots=1/2$. Finite additivity is this axiom with the tail sets empty.
 :::
-
-## Connections — Where the countable union is doing the work
-An [event](event.qmd) has to lie in the [sigma-algebra](sigma-algebra.qmd) before this axiom applies to it. A [stochastic process](stochastic-process.qmd) needs those countable operations for events about a whole path, such as "the walk ever reaches $a$". The [central limit theorem](central-limit-theorem.qmd) is a later limit of probabilities; continuity from below is the special case in which the events themselves increase to a limit.{{cite:durrett2019}} (Thm. 1.1.1, pp. 1–2)

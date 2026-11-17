@@ -24,6 +24,9 @@ For comparison, a fair coin with $n=100$ and $\widehat p=0.50$ has plugged-in st
 At $X=0$, $\widehat p=0$ and the standard error is $0$, so the interval is the point $0$. At $X=10$, $\widehat p=0.10$ and the variance estimate is $0.10\times 0.90/100=0.0009$, so the standard error is $0.03$. The half-width is $1.96\times 0.03=0.0588$, and the interval is $(0.0412,\ 0.1588)$.
 :::
 
+## Connections — Approximate intervals and their neighbours
+The construction is one [confidence interval](confidence-interval.qmd): a normal cutoff applied to an estimated standard error. The [central limit theorem](central-limit-theorem.qmd) is the general reason a centred sample mean, scaled by its true standard deviation, looks normal; De Moivre–Laplace is the fair-coin case used above. The [normal distribution](normal-distribution.qmd) supplies the cutoff. A binomial count near $0$ or $1$, or a small $n$, is where the plug-in width is a poor stand-in for the true sampling variability.{{cite:durrett2019}} (Thm. 3.1.3, p. 115){{cite:siegrist2022_normal_distribution}} (§5.6, standard normal density)
+
 ## Check yourself
 ### Where the normal limit applies directly
 For a fair coin, the Wald standard error at the true $p=1/2$ equals $1/(2\sqrt n)$. For $n=100$, what is that number, and which theorem supplies the normal shape?
@@ -38,6 +41,3 @@ Among proportions in $(0,1)$, where is $\widehat p(1-\widehat p)$ largest? What 
 ::: {.callout-tip collapse="true" title="Answer"}
 The product $p(1-p)$ has derivative $1-2p$ and is largest at $p=1/2$, where it equals $1/4$. For a fixed sample size the plugged-in Wald interval is widest when $\widehat p$ is nearest one half, and it shrinks to a point as $\widehat p$ approaches $0$ or $1$.
 :::
-
-## Connections — Approximate intervals and their neighbours
-The construction is one [confidence interval](confidence-interval.qmd): a normal cutoff applied to an estimated standard error. The [central limit theorem](central-limit-theorem.qmd) is the general reason a centred sample mean, scaled by its true standard deviation, looks normal; De Moivre–Laplace is the fair-coin case used above. The [normal distribution](normal-distribution.qmd) supplies the cutoff. A binomial count near $0$ or $1$, or a small $n$, is where the plug-in width is a poor stand-in for the true sampling variability.{{cite:durrett2019}} (Thm. 3.1.3, p. 115){{cite:siegrist2022_normal_distribution}} (§5.6, standard normal density)

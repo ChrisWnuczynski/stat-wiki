@@ -30,6 +30,9 @@ Consider a smaller graph on vertices $\{1,2,3,4\}$ with edges $12$, $23$, $31$ a
 Vertex $1$ is now joined to both $3$ and $4$, so $\{3,4\}$ extends and is no longer a clique. The set $\{1,3,4\}$ has all three edges, and vertex $2$ is not joined to $4$, so $\{1,3,4\}$ is a clique. The triangle $\{1,2,3\}$ is still complete and does not extend, because $4$ is not joined to $2$. The edge $\{1,2\}$ sits inside that triangle, so it is not a clique. The cliques are $\{1,2,3\}$ and $\{1,3,4\}$.
 :::
 
+## Connections
+Evans defines a density to factorise according to the graph when it is a product of potentials, one for each clique. That product is a statement about the joint distribution. The word clique itself remains a description of the graph.{{cite:evans2025_graphical}} (§4.3, eq. 4.1) The [precision matrix](precision-matrix.qmd) of a normal vector encodes the pairwise part of the same idea: a zero off-diagonal entry is a missing edge and a zero [partial correlation](partial-correlation.qmd). The six-vertex graph above has triangular cliques, so an edge potential can be absorbed into the potential of the triangle that contains it.
+
 ## Check yourself
 ### A pendant edge {#self-check-clique-pendant}
 
@@ -46,6 +49,3 @@ Vertices $\{1,2,3,4\}$ have all three edges of $\{1,2,3\}$ and all three edges o
 ::: {.callout-tip collapse="true" title="Answer"}
 Both triples are complete. Neither extends: $4$ is not joined to $3$, and $3$ is not joined to $4$. The shared edge $\{1,2\}$ is complete and not maximal. The cliques are $\{1,2,3\}$ and $\{1,2,4\}$.
 :::
-
-## Connections
-Evans defines a density to factorise according to the graph when it is a product of potentials, one for each clique. That product is a statement about the joint distribution. The word clique itself remains a description of the graph.{{cite:evans2025_graphical}} (§4.3, eq. 4.1) The [precision matrix](precision-matrix.qmd) of a normal vector encodes the pairwise part of the same idea: a zero off-diagonal entry is a missing edge and a zero [partial correlation](partial-correlation.qmd). The six-vertex graph above has triangular cliques, so an edge potential can be absorbed into the potential of the triangle that contains it.

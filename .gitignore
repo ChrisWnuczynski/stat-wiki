@@ -21,6 +21,9 @@ __pycache__/
 /.quarto/
 /site_libs/
 
+# Parallel research scratch files. Integrated entries belong in bibliography.json.
+/research/pending/
+
 # Local only
 /_publish/
 /_screenshots/

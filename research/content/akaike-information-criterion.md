@@ -33,7 +33,7 @@ Two admission-count models are fitted by maximum likelihood to the same 100 days
 **Your turn.** Model C and Model D fit the same observations. C has maximized log-likelihood $-50$ and three parameters; D has log-likelihood $-48$ and six parameters. Calculate both AIC values and name the preferred model.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$\mathrm{AIC}_C=100+6=106$ and $\mathrm{AIC}_D=96+12=108$, so C has the smaller AIC. D gains two log-likelihood units but adds three parameters; it would need a gain greater than three for its AIC to be lower.{{cite:akaike1974}} (§§IV–V, pp. 718–719)
+$\mathrm{AIC}_C=100+6=106$ and $\mathrm{AIC}_D=96+12=108$, so C has the smaller AIC. D gains two log-likelihood units but adds three parameters; it would need a gain greater than three for its AIC to be lower.
 :::
 
 ## Common misconceptions

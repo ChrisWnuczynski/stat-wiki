@@ -127,12 +127,12 @@
   {
     "slug": "multivariate-central-limit-theorem",
     "title": "Multivariate central limit theorem",
-    "reason": "The iid vector limit, including the Cramér–Wold argument under Lindeberg conditions, is longer than a short proof box."
+    "reason": "The iid vector limit, including the Cramér–Wold argument under finite covariance, is longer than a short proof box."
   },
   {
     "slug": "normal-sample-theorem",
     "title": "Normal sample theorem",
-    "reason": "The chi-squared law and the independence of the sample mean and variance use an orthogonal transformation of the standard normal vector. That argument is longer than a short proof box, so no proof box was added."
+    "reason": "The chi-squared law and the independence of the sample mean and variance use an orthogonal transformation of the standard normal vector. That argument is longer than a short proof box."
   },
   {
     "slug": "null-distribution-of-hotelling-s",
@@ -270,26 +270,6 @@
     "reason": "The distribution page states this result without a reviewed proof sketch."
   },
   {
-    "slug": "binomial-distribution#property-beta-binomial-conjugacy",
-    "title": "Beta–Binomial conjugacy",
-    "reason": "The new collapsed proof establishes the binomial mass function and moments but does not derive the inherited beta-posterior update."
-  },
-  {
-    "slug": "binomial-distribution#property-beta-binomial-posterior-prediction",
-    "title": "Beta–Binomial posterior prediction",
-    "reason": "The new collapsed proof does not integrate the inherited beta–binomial predictive formula."
-  },
-  {
-    "slug": "binomial-distribution#property-poisson-limit-of-the-binomial",
-    "title": "Poisson limit of the binomial",
-    "reason": "The new collapsed proof does not establish the inherited Poisson limit for fixed counts."
-  },
-  {
-    "slug": "binomial-distribution#property-central-limit-theorem",
-    "title": "Central limit theorem",
-    "reason": "The new collapsed proof does not establish the inherited normal limit."
-  },
-  {
     "slug": "dirichlet-distribution#property-dirichlet-moments",
     "title": "Dirichlet moments",
     "reason": "The distribution page states this result without a reviewed proof sketch."
@@ -362,7 +342,7 @@
   {
     "slug": "bayesian-credible-interval#property-asymptotic-coverage",
     "title": "Large-sample frequentist coverage of Bayesian central intervals",
-    "reason": "The source states asymptotic correspondence under regularity conditions; a complete Bernstein–von Mises argument is outside the article's collapsed finite-sample proof."
+    "reason": "The source states asymptotic correspondence under regularity conditions; a complete Bernstein–von Mises argument is outside the article's finite-sample proof."
   },
   {
     "slug": "sufficient-statistic#property-pitman-koopman-darmois-informal-form",
@@ -372,7 +352,7 @@
   {
     "slug": "sufficient-statistic#property-fisher-neyman-factorisation",
     "title": "Dominated-space converse of Fisher–Neyman factorization",
-    "reason": "The collapsed proof gives both directions for discrete samples and outlines the conditional-kernel argument, but not the full measure-theoretic dominated-space construction."
+    "reason": "The proof gives both directions for discrete samples and outlines the conditional-kernel argument, but not the full measure-theoretic dominated-space construction."
   },
   {
     "slug": "akaike-information-criterion#property-asymptotic-kl-correction",
@@ -387,12 +367,12 @@
   {
     "slug": "jacobian#property-general-change-of-variables",
     "title": "General multivariate density change of variables",
-    "reason": "The local proof checks linear volume scaling, the triangular marginal and a one-dimensional two-branch example. A full analytic proof of the differentiable bijection change-of-variables theorem stated in the inherited definition is deferred; Cambridge Statistics 1B, §1.13, states it."
+    "reason": "The local proof checks linear volume scaling, the triangular marginal and a one-dimensional two-branch example. A full analytic proof of the differentiable bijection change-of-variables theorem stated in the definition is deferred; Cambridge Statistics 1B, §1.13, states it."
   },
   {
     "slug": "markov-chain#property-finite-aperiodic-convergence",
     "title": "Finite irreducible aperiodic Markov-chain convergence",
-    "reason": "The inherited article mentions convergence of finite irreducible aperiodic chains. Its local proof derives path probabilities and Chapman–Kolmogorov, while the full convergence theorem is cited to Levin and Peres, §4.3, and deferred."
+    "reason": "The article mentions convergence of finite irreducible aperiodic chains. Its local proof derives path probabilities and Chapman–Kolmogorov, while the full convergence theorem is cited to Levin and Peres, §4.3, and deferred."
   },
   {
     "slug": "beta-distribution#property-gamma-ratio",
@@ -402,7 +382,7 @@
   {
     "slug": "kernel#property-mercer-eigen-expansion",
     "title": "Mercer eigen-expansion under analytic conditions",
-    "reason": "The inherited Interpretation mentions Mercer's theorem; this page's single collapsed proof covers the finite-Gram/feature-space equivalence. A separate proof with the theorem's domain, continuity and integrability assumptions remains needed."
+    "reason": "The interpretation mentions Mercer's theorem; this page's single proof covers the finite-Gram/feature-space equivalence. A separate proof with the theorem's domain, continuity and integrability assumptions remains needed."
   },
   {
     "slug": "kernel#property-gaussian-positive-definiteness",
@@ -412,22 +392,22 @@
   {
     "slug": "law-of-large-numbers#property-iid-strong-law",
     "title": "Iid strong law under finite first absolute moment",
-    "reason": "The Statement section retains the source strong-law claim, but the page's single collapsed proof covers the finite-variance weak law only. Siegrist §6.3 gives a strong-law proof under finite variance and points to the broader integrable theorem."
+    "reason": "The Statement section retains the source strong-law claim, but the page's single proof covers the finite-variance weak law only. Siegrist §6.3 gives a strong-law proof under finite variance and points to the broader integrable theorem."
   },
   {
     "slug": "sample-space#property-four-counting-rules",
     "title": "Four order-and-replacement counting rules",
-    "reason": "The inherited Properties table gives four formulas without proof on this page; the single collapsed proof covers the equal-likelihood rule. A dedicated linked result page treats counting draws."
+    "reason": "The properties section table gives four formulas without proof on this page; the single proof covers the equal-likelihood rule. A dedicated linked result page treats counting draws."
   },
   {
     "slug": "metropolis-hastings-update#property-convergence-and-monte-carlo-error",
     "title": "Convergence and Monte Carlo error of the retained chain",
-    "reason": "The collapsed proof establishes detailed balance and invariance, while convergence from a chosen start and uncertainty for dependent averages need additional recurrence and Markov-chain limit arguments."
+    "reason": "The proof establishes detailed balance and invariance, while convergence from a chosen start and uncertainty for dependent averages need additional recurrence and Markov-chain limit arguments."
   },
   {
     "slug": "stationary-distribution#property-existence-uniqueness-return-times",
     "title": "Existence, uniqueness and return times in finite irreducible chains",
-    "reason": "The page states Corollary 1.17 and Proposition 1.19 of Levin and Peres; the collapsed proof derives the balance shortcuts but does not prove these recurrence results."
+    "reason": "The page states Corollary 1.17 and Proposition 1.19 of Levin and Peres; the proof derives the balance shortcuts but does not prove these recurrence results."
   },
   {
     "slug": "stationary-distribution#property-aperiodic-convergence-closed-classes",
@@ -437,12 +417,32 @@
   {
     "slug": "bayesian-information-criterion#property-mixture-consistency",
     "title": "BIC consistency in particular singular mixture models",
-    "reason": "The page retains a qualified consistency statement about some mixtures; its collapsed proof establishes only the regular Laplace expansion, not a singular-mixture consistency theorem."
+    "reason": "The page retains a qualified consistency statement about some mixtures; its proof establishes only the regular Laplace expansion, not a singular-mixture consistency theorem."
+  },
+  {
+    "slug": "binomial-distribution#property-beta-binomial-conjugacy",
+    "title": "Beta–Binomial conjugacy",
+    "reason": "The proof establishes the binomial mass function and moments but does not derive the beta-posterior update."
+  },
+  {
+    "slug": "binomial-distribution#property-beta-binomial-posterior-prediction",
+    "title": "Beta–Binomial posterior prediction",
+    "reason": "The proof does not integrate the beta–binomial predictive formula."
+  },
+  {
+    "slug": "binomial-distribution#property-poisson-limit-of-the-binomial",
+    "title": "Poisson limit of the binomial",
+    "reason": "The proof does not establish the Poisson limit for fixed counts."
+  },
+  {
+    "slug": "binomial-distribution#property-central-limit-theorem",
+    "title": "Central limit theorem",
+    "reason": "The proof does not establish the normal limit."
   },
   {
     "slug": "exponential-distribution#property-gamma-conjugate-update",
     "title": "Gamma prior update for exponential rate",
-    "reason": "The page retains the existing Bayesian example but its collapsed proof does not derive the Gamma posterior."
+    "reason": "The page retains the existing Bayesian example but its proof does not derive the Gamma posterior."
   },
   {
     "slug": "exponential-distribution#property-bayes-factor-exponential-versus-gamma",
@@ -452,17 +452,17 @@
   {
     "slug": "exponential-distribution#property-moments-higher-order",
     "title": "Higher moments and entropy",
-    "reason": "The collapsed proof derives mean, variance, MGF, quantile and minimum law, but does not derive skewness, excess kurtosis or differential entropy."
+    "reason": "The proof derives mean, variance, MGF, quantile and minimum law, but does not derive skewness, excess kurtosis or differential entropy."
   },
   {
     "slug": "fisher-information#property-mle-asymptotic-covariance",
     "title": "Asymptotic inverse-information covariance of the maximum likelihood estimator",
-    "reason": "The page states the regular large-sample covariance approximation, but the collapsed proof covers the information identity, additivity, and Cramér–Rao inequality only."
+    "reason": "The page states the regular large-sample covariance approximation, but the proof covers the information identity, additivity, and Cramér–Rao inequality only."
   },
   {
     "slug": "nearest-neighbours#property-cover-hart-risk-bound",
     "title": "Cover–Hart risk bound",
-    "reason": "The page retains the asymptotic risk claim, but its collapsed proof establishes only finite-sample vote algebra and does not prove the original risk bound."
+    "reason": "The page retains the asymptotic risk claim, but its proof establishes only finite-sample vote algebra and does not prove the original risk bound."
   },
   {
     "slug": "nearest-neighbours#property-knn-bayes-consistency",
@@ -477,32 +477,32 @@
   {
     "slug": "normal-hierarchical-shrinkage#property-beta-binomial-rat-study",
     "title": "Rat-tumour beta hierarchy",
-    "reason": "The preserved linked worked example derives a beta-binomial hyperposterior; the single collapsed proof on this theorem page concerns normal group means, so the beta-hierarchy derivation remains outside its proof box."
+    "reason": "The preserved linked worked example derives a beta-binomial hyperposterior; the single proof on this theorem page concerns normal group means, so the beta-hierarchy derivation remains outside its proof box."
   },
   {
     "slug": "pearson-statistic#property-estimated-parameters",
     "title": "Pearson reference law after grouped-data parameter estimation",
-    "reason": "The page states the regular chi-squared k-1-r limit, but its collapsed proof derives the fixed-probability k-1 case and the likelihood-ratio expansion only."
+    "reason": "The page states the regular chi-squared k-1-r limit, but its proof derives the fixed-probability k-1 case and the likelihood-ratio expansion only."
   },
   {
     "slug": "prior-and-posterior-predictive-distributions#property-normal-regression-predictive-t",
     "title": "Student posterior prediction under the normal regression reference prior",
-    "reason": "The inherited properties state the multivariate regression Student distribution and scale, while the page's collapsed proof covers predictive mixtures, variance decomposition, and beta–binomial prediction; the regression calculation needs a complete derivation."
+    "reason": "The properties state the multivariate regression Student distribution and scale, while the page's proof covers predictive mixtures, variance decomposition, and beta–binomial prediction; the regression calculation needs a complete derivation."
   },
   {
     "slug": "continuous-distribution#property-almost-everywhere-derivative-of-an-indefinite-integral",
     "title": "Almost-everywhere derivative of an indefinite integral",
-    "reason": "The collapsed proof establishes interval probabilities, point masses and continuity, and cites the standard differentiation theorem for the inherited general assertion F'=f almost everywhere; a full proof of that theorem is beyond this page."
+    "reason": "The proof establishes interval probabilities, point masses and continuity, and cites the standard differentiation theorem for the general assertion F'=f almost everywhere; a full proof of that theorem is beyond this page."
   },
   {
     "slug": "exchangeability#property-converse-de-finetti-representation-for-infinitely-exchangeable-bernoulli-sequences",
     "title": "Converse de Finetti representation for infinitely exchangeable Bernoulli sequences",
-    "reason": "The collapsed proof establishes that iid Bernoulli mixtures are exchangeable and gives a finite counterexample; it does not derive the converse via limiting empirical-frequency measures and uniqueness."
+    "reason": "The proof establishes that iid Bernoulli mixtures are exchangeable and gives a finite counterexample; it does not derive the converse via limiting empirical-frequency measures and uniqueness."
   },
   {
     "slug": "identifiability#property-general-finite-normal-mixture-identifiability-up-to-permutation",
     "title": "General finite-normal-mixture identifiability up to permutation",
-    "reason": "The collapsed proof establishes label symmetry and elementary rank examples, but it does not prove Teicher's general finite-normal-mixture identification result under distinct components and positive weights."
+    "reason": "The proof establishes label symmetry and elementary rank examples, but it does not prove Teicher's general finite-normal-mixture identification result under distinct components and positive weights."
   },
   {
     "slug": "identifiability#property-rothenberg-local-information-criterion-under-regularity-conditions",
@@ -512,37 +512,37 @@
   {
     "slug": "natural-parameter#property-completeness-of-a-full-rank-exponential-family-natural-statistic",
     "title": "Completeness of a full-rank exponential-family natural statistic",
-    "reason": "The inherited definition states the full-rank completeness result but the page proof covers moment identities and parameter reparameterization, not Laplace-transform uniqueness needed for completeness. A separate exact proof with its integrability assumptions is required."
+    "reason": "The definition states the full-rank completeness result but the page proof covers moment identities and parameter reparameterization, not Laplace-transform uniqueness needed for completeness. A separate exact proof with its integrability assumptions is required."
   },
   {
     "slug": "one-way-analysis-of-variance#property-tukey-simultaneous-interval-coverage-for-all-pairwise-means",
     "title": "Tukey simultaneous-interval coverage for all pairwise means",
-    "reason": "The collapsed proof covers the ANOVA decomposition, F reference law and two-group t relation; the inherited Tukey studentized-range simultaneous coverage statement is not proved there."
+    "reason": "The proof covers the ANOVA decomposition, F reference law and two-group t relation; the Tukey studentized-range simultaneous coverage statement is not proved there."
   },
   {
     "slug": "one-way-analysis-of-variance#property-planned-contrast-f-distribution",
     "title": "Planned-contrast F distribution",
-    "reason": "The inherited prose gives a one-dimensional normal-square argument, but a complete collapsed derivation of contrast independence from pooled error and its exact F law remains to be added."
+    "reason": "The prose gives a one-dimensional normal-square argument, but a complete derivation of contrast independence from pooled error and its exact F law remains to be added."
   },
   {
     "slug": "lasso#property-adaptive-oracle-properties",
     "title": "Adaptive lasso oracle properties",
-    "reason": "The existing article reports Zou's conditional asymptotic oracle properties; its new collapsed proof concerns soft thresholding and does not establish the asymptotic design, pilot-estimator and penalty-rate conditions."
+    "reason": "The existing article reports Zou's conditional asymptotic oracle properties; its proof concerns soft thresholding and does not establish the asymptotic design, pilot-estimator and penalty-rate conditions."
   },
   {
     "slug": "poisson-distribution#property-mode",
     "title": "Poisson modal counts",
-    "reason": "The infobox mode formula and new ratio interpretation are algebraically checked, but no collapsed proof specifically derives the mode."
+    "reason": "The infobox mode formula and new ratio interpretation are algebraically checked, but no proof specifically derives the mode."
   },
   {
     "slug": "poisson-distribution#property-higher-moments",
     "title": "Poisson skewness and excess kurtosis",
-    "reason": "The infobox states skewness and excess kurtosis; the existing collapsed proof concerns independent sums, and the higher-moment formulas are not derived there."
+    "reason": "The infobox states skewness and excess kurtosis; the existing proof concerns independent sums, and the higher-moment formulas are not derived there."
   },
   {
     "slug": "poisson-distribution#property-fisher-information",
     "title": "Fisher information for a Poisson mean",
-    "reason": "The infobox states information 1/lambda per observation; an answered bank question derives it, but the article's collapsed proof does not."
+    "reason": "The infobox states information 1/lambda per observation; a worked calculation derives it, but the article's proof does not."
   },
   {
     "slug": "hard-margin-support-vector-machine#property-general-slater-strong-duality-theorem-for-convex-programmes",
@@ -552,12 +552,12 @@
   {
     "slug": "pooled-covariance#property-wishart-independence",
     "title": "Pooled normal scatter Wishart law and independence of group means",
-    "reason": "The copied source states (n1+n2−2)S has Wishart law and is independent of the two sample means. The added Proof proves pooling/unbiasedness/rank but does not derive the normal orthogonal-projection Wishart decomposition; give a full proof on this page or a linked theorem page."
+    "reason": "The page states (n1+n2−2)S has Wishart law and is independent of the two sample means. The added Proof proves pooling/unbiasedness/rank but does not derive the normal orthogonal-projection Wishart decomposition; give a full proof on this page or a linked theorem page."
   },
   {
     "slug": "pooled-covariance#property-hotelling-f",
     "title": "Two-sample Hotelling T-squared F calibration",
-    "reason": "The copied source states the exact F law and critical value. The added Proof does not derive the independent normal/Wishart quadratic-form law or the F scaling; prove this under p<n1+n2−1 and common positive-definite covariance."
+    "reason": "The page states the exact F law and critical value. The added Proof does not derive the independent normal/Wishart quadratic-form law or the F scaling; prove this under p<n1+n2−1 and common positive-definite covariance."
   },
   {
     "slug": "marginal-model#property-gee-robust-consistency",
@@ -573,5 +573,160 @@
     "slug": "transient-and-recurrent-states#property-class-recurrence-stationary-mass",
     "title": "Recurrence type across communicating states and stationary return identity",
     "reason": "The article proves finite closed-class positive recurrence and geometric visit counts, but inherits the class-wide positive/null classification and the identity π_i=1/E_i T_i^+ without a full proof."
+  },
+  {
+    "slug": "hotelling-s-t2-test#wishart-null",
+    "title": "Wishart null distribution of Hotelling's T squared",
+    "reason": "The page shows the one-dimensional reduction and the numerical F transform. It does not derive the normal-sample Wishart calibration."
+  },
+  {
+    "slug": "undirected-graph#hammersley-clifford",
+    "title": "Hammersley–Clifford equivalence",
+    "reason": "The page proves a Gaussian path factorisation for one precision matrix. The general equivalence between a positive density's clique factorisation and its pairwise Markov property is not derived."
+  },
+  {
+    "slug": "cauchy-distribution#sample-means",
+    "title": "Cauchy sample averages do not settle",
+    "reason": "The page shows the mean is undefined. The implication for the strong law is not proved separately."
+  },
+  {
+    "slug": "cubic-smoothing-spline#natural-cubic-minimiser",
+    "title": "Natural cubic spline minimises the penalised residual sum of squares",
+    "reason": "The page proves the infinite-penalty limit, the least-squares line. It does not prove that the minimiser is a natural cubic spline with knots at the distinct inputs."
+  },
+  {
+    "slug": "partial-correlation#gaussian-precision-block",
+    "title": "Conditional covariance is the inverse precision block",
+    "reason": "The page uses the Gaussian identity and simplifies the correlation. The identity is not derived from the normal density here."
+  },
+  {
+    "slug": "ancillary-statistic#basu",
+    "title": "Basu independence",
+    "reason": "The page proves ancillarity of the centred vector for a location parameter. It does not prove independence from a complete sufficient statistic."
+  },
+  {
+    "slug": "benjamini-hochberg#fdr-bound",
+    "title": "False-discovery-rate bound",
+    "reason": "The page does not prove that the false discovery rate is at most (M0/M) alpha under independence."
+  },
+  {
+    "slug": "chapman-kolmogorov-equations#convergence",
+    "title": "Convergence of transition powers",
+    "reason": "The page proves P^{m+n}=P^m P^n. It does not prove convergence of P^n."
+  },
+  {
+    "slug": "cramer-rao-lower-bound#multiparameter",
+    "title": "Multiparameter Cramér–Rao bound",
+    "reason": "The page proves the scalar inequality. A matrix bound for a vector parameter is not proved."
+  },
+  {
+    "slug": "fisher-neyman-factorisation#dominated-converse",
+    "title": "Dominated-family converse",
+    "reason": "The page proves the discrete direction. The converse on a general dominated space is not proved."
+  },
+  {
+    "slug": "principal-component-directions-and-scores#successive-directions",
+    "title": "Successive orthogonal directions",
+    "reason": "The page proves the one-direction score identity. It does not prove by induction that later directions are the remaining eigenvectors."
+  },
+  {
+    "slug": "soft-margin-primal#kkt-characterisation",
+    "title": "KKT characterisation of the soft-margin solution",
+    "reason": "The page proves the smallest feasible slack for a fixed plane. It does not prove the KKT characterisation of the minimiser."
+  },
+  {
+    "slug": "tukey-intervals#studentised-range-density",
+    "title": "Density of the studentised range",
+    "reason": "The page proves that coverage is the event that the range is at most Q. It does not derive the density of the studentised range."
+  },
+  {
+    "slug": "uniformly-minimum-variance-unbiased-estimator#lehmann-scheffe-uniqueness",
+    "title": "Uniqueness under completeness",
+    "reason": "The page proves unbiasedness of the Poisson conditional probability. It does not prove that completeness makes that function the unique unbiased function of the sum."
+  },
+  {
+    "slug": "wald-test#asymptotic-null",
+    "title": "Asymptotic standard-normal null distribution",
+    "reason": "The page computes normal tail probabilities. It does not prove the normal limit of the logistic estimator."
+  },
+  {
+    "slug": "complete-separation#albert-anderson",
+    "title": "Albert–Anderson existence theorem",
+    "reason": "The page proves an intercept-free one-predictor case. The general separating-hyperplane theorem is not given a proof."
+  },
+  {
+    "slug": "markov-properties-and-factorisation#hammersley-clifford",
+    "title": "Hammersley–Clifford converse",
+    "reason": "The page proves the forward path case. It does not prove that a positive pairwise Markov distribution factorises."
+  },
+  {
+    "slug": "restricted-maximum-likelihood#general-lmm",
+    "title": "REML for a general linear mixed model",
+    "reason": "The page maximises the chi-squared likelihood of a single normal sample. The general contrast likelihood for several variance components is not derived."
+  },
+  {
+    "slug": "f-distribution#variance-ratio",
+    "title": "Variance-ratio and ANOVA F laws",
+    "reason": "The page proves that the reciprocal of an F ratio is F with the degrees of freedom swapped. It does not prove the variance-ratio pivot or the ANOVA F distribution."
+  },
+  {
+    "slug": "chi-squared-test-of-independence#estimated-margins",
+    "title": "Chi-squared limit under estimated independence margins",
+    "reason": "The page proves the degree-of-freedom count (r-1)(c-1). It does not prove that the Pearson statistic converges to that chi-squared law."
+  },
+  {
+    "slug": "early-stopping#weight-decay",
+    "title": "Stopping time and weight decay",
+    "reason": "For a quadratic error and a gradient path from the origin, the product of iteration index and learning rate plays the role of the reciprocal penalty. The page records the similarity and does not prove that identification."
+  },
+  {
+    "slug": "stochastic-gradient-descent#decreasing-steps",
+    "title": "Convergence under decreasing step sizes",
+    "reason": "The page states step-size conditions for stochastic approximation without proving that those conditions make the iterates converge."
+  },
+  {
+    "slug": "wald-interval#plug-in-coverage",
+    "title": "Coverage of the plug-in binomial interval",
+    "reason": "The page uses the normal limit at p=1/2 with the true standard error. It does not prove that replacing the standard error by the estimate keeps the coverage near 95% for a general p."
+  },
+  {
+    "slug": "extinction-probability#critical-case",
+    "title": "Critical Galton–Watson extinction",
+    "reason": "Durrett Theorem 4.3.11 covers the critical case m=1 with P(ξ=1)<1. The martingale argument is not written on the page."
+  },
+  {
+    "slug": "little-s-law#sample-path",
+    "title": "Sample-path proof of L=λW",
+    "reason": "The page uses L=λW. A sample-path argument for the identity is not given."
+  },
+  {
+    "slug": "borel-cantelli-lemmas#pairwise-second",
+    "title": "Pairwise second Borel–Cantelli lemma",
+    "reason": "Durrett Theorem 2.3.9, the pairwise form of the second lemma, is not proved on the page."
+  },
+  {
+    "slug": "extreme-value-classification#affine-limit",
+    "title": "Extreme-value classification",
+    "reason": "The three explicit tail calculations are proved. The theorem that every non-degenerate affine limit of a maximum is Gumbel, Fréchet or Weibull is not proved."
+  },
+  {
+    "slug": "hastings-correction#stationarity",
+    "title": "Stationarity for the Hastings ratio",
+    "reason": "The page does not prove that the target distribution is stationary for the Hastings ratio."
+  },
+  {
+    "slug": "markov-random-field#hammersley-clifford",
+    "title": "Hammersley–Clifford equivalence for a positive density",
+    "reason": "The path example is proved from the conditional product. The general equivalence is not proved."
+  },
+  {
+    "slug": "multiple-testing#benjamini-hochberg",
+    "title": "Benjamini–Hochberg under independence",
+    "reason": "Bonferroni's union bound is proved on the page. The Benjamini–Hochberg false-discovery-rate bound under independence is not proved."
+  },
+  {
+    "slug": "randomised-block-design#chi-squared-sums",
+    "title": "Null chi-squared laws of the block and treatment sums of squares",
+    "reason": "The page uses the F reference distribution for one table. The normal-theory chi-squared derivation is not given."
   }
 ]

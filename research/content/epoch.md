@@ -18,6 +18,9 @@ The cost is not the same thing as the epoch count. Three epochs of batch learnin
 One epoch is $20/5=4$ updates. Eight updates are $8/4=2$ epochs.
 :::
 
+## Connections — The unit on the training curve
+[Early stopping](early-stopping.qmd) reads the validation error against this clock and keeps the epoch with the smallest validation error. [Stochastic gradient descent](stochastic-gradient-descent.qmd) is the online end of the schedule, and the [learning rate](learning-rate.qmd) is the length of each update inside the epoch. A [mini-batch](mini-batch.qmd) is the intermediate schedule whose updates per epoch are $n/m$.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)
+
 ## Check yourself
 ### Batch versus online
 A training set has $5000$ cases. How many online updates equal one epoch, and how many batch updates equal one epoch?
@@ -32,6 +35,3 @@ With $n=20$ and $m=4$, a run stops after $7$ updates. How many full epochs have 
 ::: {.callout-tip collapse="true" title="Answer"}
 Five updates finish the first epoch. The next two updates are two of the five batches of the second epoch. The run has completed $1$ epoch and $2/5$ of the next, which is $7/5=1.4$ epochs.
 :::
-
-## Connections — The unit on the training curve
-[Early stopping](early-stopping.qmd) reads the validation error against this clock and keeps the epoch with the smallest validation error. [Stochastic gradient descent](stochastic-gradient-descent.qmd) is the online end of the schedule, and the [learning rate](learning-rate.qmd) is the length of each update inside the epoch. A [mini-batch](mini-batch.qmd) is the intermediate schedule whose updates per epoch are $n/m$.{{cite:hastie_esl2009}} (Ch. 11, §11.4, p. 397)

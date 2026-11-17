@@ -48,7 +48,7 @@ Take a centred two-coordinate problem with $\boldsymbol X=I_2$ and observed $\bo
 **Your turn.** With $\boldsymbol X=I_2$, $\boldsymbol y=(2,0.5)^{\mathsf T}$, and $\lambda=1$ in the same objectives, find the ridge and lasso estimates.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Ridge divides both coordinates by $2$, giving $(1,0.25)^{\mathsf T}$. Lasso soft-thresholds each coordinate by $1$, giving $(1,0)^{\mathsf T}$.{{cite:tibshirani1996}} (§2.2, eqs. 3–4, pp. 269–270)
+Ridge divides both coordinates by $2$, giving $(1,0.25)^{\mathsf T}$. Lasso soft-thresholds each coordinate by $1$, giving $(1,0)^{\mathsf T}$.
 :::
 
 ## Assumptions and limits

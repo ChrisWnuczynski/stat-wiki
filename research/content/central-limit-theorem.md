@@ -55,5 +55,5 @@ Let $X_1,\ldots,X_{25}$ be independent exponential lifetimes with mean two hours
 **Your turn.** Suppose instead that 36 independent lifetimes have the same exponential law. Approximate the probability that their *average* exceeds 2.5 hours. State the average's mean and standard deviation before standardising.{{cite:siegrist2022_clt}} (§5.4, “Normal Approximations”)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The average has mean 2 hours and standard deviation $2/\sqrt{36}=1/3$ hour. Thus its standardised boundary is $(2.5-2)/(1/3)=1.5$, giving $\mathbb P(\overline X_{36}>2.5)\approx1-\Phi(1.5)\approx0.0668$. The average's scale is $2/\sqrt{36}$, while the total's scale would be $2\sqrt{36}$.{{cite:siegrist2022_clt}} (§5.4, “Normal Approximations”)
+The average has mean 2 hours and standard deviation $2/\sqrt{36}=1/3$ hour. Thus its standardised boundary is $(2.5-2)/(1/3)=1.5$, giving $\mathbb P(\overline X_{36}>2.5)\approx1-\Phi(1.5)\approx0.0668$. The average's scale is $2/\sqrt{36}$, while the total's scale would be $2\sqrt{36}$.
 :::

@@ -26,7 +26,7 @@ Let $X\sim U[2,8]$. The support length is $6$, so its density is $1/6$ inside th
 **Your turn.** For $Y\sim U[-2,4]$, calculate $\Pr(0<Y<3)$, the mean and variance, and the 75th percentile.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The support length is $6$. The interval $(0,3)$ has length $3$, so its probability is $3/6=0.5$. The mean is $(-2+4)/2=1$ and the variance is $6^2/12=3$. The quantile is $Q(0.75)=-2+6(0.75)=2.5$. The upper quartile is inside the support, as it must be.{{cite:siegrist2022_uniform_interval}} (§5.21, Distribution Functions; Moments)
+The support length is $6$. The interval $(0,3)$ has length $3$, so its probability is $3/6=0.5$. The mean is $(-2+4)/2=1$ and the variance is $6^2/12=3$. The quantile is $Q(0.75)=-2+6(0.75)=2.5$. The upper quartile is inside the support, as it must be.
 :::
 
 ## Common misconceptions

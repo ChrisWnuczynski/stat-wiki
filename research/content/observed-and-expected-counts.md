@@ -42,7 +42,7 @@ Now suppose the same 80 components were classified by shift and colour. Their fo
 **Your turn.** Another independent sample has counts 18, 22, 25 and 15 in the same four colours. Under equal colour probabilities, find the four expected counts, the signed residuals, each Pearson contribution, the total statistic and its reference degrees of freedom.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, test-statistic subsection; “Critical Region”)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The total is 80, so every expected count is 20. The residuals are $-2,2,5,-5$ and sum to zero. The contributions are $4/20,4/20,25/20,25/20$, hence $T=58/20=2.9$. With four fully specified cell probabilities and no fitted parameter, the reference distribution is approximately $\chi^2_3$ when its conditions hold.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, test-statistic subsection; “Critical Region”)
+The total is 80, so every expected count is 20. The residuals are $-2,2,5,-5$ and sum to zero. The contributions are $4/20,4/20,25/20,25/20$, hence $T=58/20=2.9$. With four fully specified cell probabilities and no fitted parameter, the reference distribution is approximately $\chi^2_3$ when its conditions hold.
 :::
 
 ## Common misconceptions

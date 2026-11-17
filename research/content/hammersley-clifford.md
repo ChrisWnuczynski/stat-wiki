@@ -31,8 +31,6 @@ The same conditional probability is obtained if $X_3$ is $1$ instead of $0$. The
 Given $x_2=1$, the conditional odds of $x_3=1$ against $x_3=0$ equal $e^{0.3}\approx 1.350$, with or without $x_1$. The conditional probability is $e^{0.3}/(1+e^{0.3})\approx 0.574$. The factor $e^{0.5 x_1}$ is common to both values of $x_3$ and cancels.
 :::
 
-## Check yourself
-
 A complete graph on three vertices can be written with a single three-way potential or with three pairwise potentials. Do those two writings have to be the same distribution?
 
 ::: {.callout-tip collapse="true" title="Answer"}
@@ -47,3 +45,6 @@ No. The equivalence uses a positive distribution. A zero atom can break the step
 
 ## Related concepts
 The pairwise statement is conditional independence of two coordinates given the others, the relation drawn as a missing edge. For a non-singular multivariate normal, that edge is also a zero in the precision matrix. The global Markov property, that a separating set makes the two sides conditionally independent, agrees with the pairwise property when the distribution is positive.{{cite:hastie_esl2009}} (§17.2, pp. 628–629)
+
+## History
+The pairwise Markov property and the clique factorisation are two descriptions of the same positive distribution on an undirected graph.{{cite:hastie_esl2009}} (§17.2, pp. 628–629)

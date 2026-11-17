@@ -58,6 +58,9 @@ The outcomes $(1,0)$ and $(0,1)$ each have probability $1/2$. Each marginal mean
 ## Common misconceptions
 Exchangeability does not require equal observations or equal unknown rates; it requires symmetry of their joint *distribution*. It does not make observations independent: a shared unknown probability usually creates positive marginal association. Nor does finite exchangeability alone entitle us to a de Finetti iid-mixture representation: the two-ball pair is an exact counterexample. Finally, an exchangeable working *correlation* is a matrix specification, not a complete claim about all permutations of a joint distribution.{{cite:gelman_bda2013}} (Ch. 5, §5.2, pp. 104–106)
 
+## Assumptions and limits — Symmetry is not independence
+Exchangeability does not require equal observations or equal unknown rates; it requires symmetry of their joint *distribution*. {{cite:gelman_bda2013}} (Ch. 5, §5.2, pp. 104–106)
+
 ## Connections
 An exchangeable prior on study rates is a key input to a [hierarchical Bayesian model](hierarchical-bayesian-model.qmd) and to [partial pooling](complete-pooling-no-pooling-and-partial-pooling.qmd). A [Beta distribution](beta-distribution.qmd) can model a common population of binomial rates, whereas an [exchangeable correlation](exchangeable-correlation.qmd) is only a covariance structure. Distinguishing these uses of symmetry helps interpret what information a pooled analysis is allowed to share.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.2)
 

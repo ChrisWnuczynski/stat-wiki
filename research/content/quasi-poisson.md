@@ -20,7 +20,7 @@ The final sum is the Poisson log-link score, so a positive common multiplier can
 :::
 :::
 
-## Statistical use
+## Statistical use — Extra-Poisson variation
 Begin with the count, its exposure and the covariates that determine its mean. Fit the log-mean equation, examine residual variation against fitted means, and estimate $\phi$ only after checking for missing covariates, clustering or a wrong mean shape. Report coefficient estimates alongside dispersion-adjusted uncertainty. If the research question requires probabilities of zero counts, simulated new counts or a genuine likelihood comparison, choose and check a full count distribution, such as an appropriate negative-binomial model.{{cite:wuthrich_merz2022_glm}} (§5.4)
 
 If one equipment cluster fails together, counts on its machines are dependent; multiplying independent-case variances by one common $\phi$ does not model the covariance. If the mean has a sharp age threshold but the regression forces a straight log-mean line, correcting dispersion leaves systematic bias. If variance grows roughly as $\mu^2$ rather than $\mu$, a constant multiplier of $\mu$ fits the wrong variance shape. And a question about the chance of zero failures needs a full distribution, which this moment model does not supply.{{cite:wuthrich_merz2022_glm}} (§5.4)

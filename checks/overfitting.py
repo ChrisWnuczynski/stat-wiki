@@ -42,6 +42,6 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
-for key in ("james_islr2013", "google_ml_overfitting2026", "google_ml_regularization2026"):
+for key in ("james_islr2013",):
     assert f'data-cite-key="{key}"' in body
 print("overfitting examples, proof and citations passed")

@@ -8,7 +8,7 @@ In ordinary least squares, one observation can influence several fitted values, 
 
 ## Definition
 
-For a fixed linear smoother $\hat{\boldsymbol y}=S_\lambda\boldsymbol y$, define $\operatorname{edf}(\lambda)=\operatorname{tr}(S_\lambda)=\sum_i(S_\lambda)_{ii}$. If the observations have independent errors with common variance $\sigma^2$ and the smoother matrix is fixed independently of their realised values, the same number is $\sum_i\operatorname{Cov}(\hat y_i,Y_i)/\sigma^2$. For a least-squares projection this equals the dimension of the fitted subspace. For a smoother it can be fractional. The residual degrees of freedom used by a GAM summary are $n-\operatorname{tr}(S_\lambda)$ under that summary's convention.{{cite:efron2004_prediction_error}} (§2, equations (2.11)–(2.12)){{cite:wood2025_mgcv_docs}} (“summary.gam,” Details)
+For a fixed linear smoother $\hat{\boldsymbol y}=S_\lambda\boldsymbol y$, define $\operatorname{edf}(\lambda)=\operatorname{tr}(S_\lambda)=\sum_i(S_\lambda)_{ii}$. If the observations have independent errors with common variance $\sigma^2$ and the smoother matrix is fixed independently of their realised values, the same number is $\sum_i\operatorname{Cov}(\hat y_i,Y_i)/\sigma^2$. For a least-squares projection this equals the dimension of the fitted subspace. For a smoother it can be fractional. The residual degrees of freedom used by a GAM summary are $n-\operatorname{tr}(S_\lambda)$ under that summary's convention.{{cite:efron2004_prediction_error}} (§2, equations (2.11)–(2.12))
 
 ## Properties
 
@@ -30,23 +30,23 @@ Consider four orthogonal basis directions, two unpenalised and two with penalty 
 The multipliers are $1$, $1$, $1/3$, and $1/7$. Their sum is $2+1/3+1/7=52/21\approx2.4762$. More smoothing has reduced the edf from $2.75$ toward the two unpenalised directions.
 :::
 
-## Statistical use — Comparing smoothers on one flexibility scale
+## Statistical use
 
-In a GAM summary, edf near one for an ordinary centred univariate smooth suggests a nearly linear effect on the link scale; a larger value indicates curvature retained after the penalty. It does not test *whether* the effect is present, nor does it directly supply a test for departure from linearity. A latitude smooth with edf $8.881$ is more flexible than a straight slope. A cholesterol smooth with edf $2.011$ is nearly linear, which is a different question from whether an effect is present. Both examples require reading the curve and its uncertainty alongside edf.{{cite:wood2025_mgcv_docs}} (“summary.gam,” Details, term edf and approximate p-values)
+In a GAM summary, edf near one for an ordinary centred univariate smooth suggests a nearly linear effect on the link scale; a larger value indicates curvature retained after the penalty. It does not test *whether* the effect is present, nor does it directly supply a test for departure from linearity. A latitude smooth with edf $8.881$ is more flexible than a straight slope. A cholesterol smooth with edf $2.011$ is nearly linear, which is a different question from whether an effect is present. Both examples require reading the curve and its uncertainty alongside edf.
 
-The term edf values in a GAM add to the model edf under the software's influence-matrix decomposition. For prediction-error calculations, the covariance definition shows why fitted flexibility costs optimism: a fit that follows its own noisy responses too closely will look better in-sample than on fresh data. Efron's covariance penalty makes this link explicit. {{cite:wood2025_mgcv_docs}} (“summary.gam,” Details){{cite:efron2004_prediction_error}} (§2, equations (2.8)–(2.12))
+The term edf values in a GAM add to the model edf under the software's influence-matrix decomposition. For prediction-error calculations, the covariance definition shows why fitted flexibility costs optimism: a fit that follows its own noisy responses too closely will look better in-sample than on fresh data. Efron's covariance penalty makes this link explicit. {{cite:efron2004_prediction_error}} (§2, equations (2.8)–(2.12))
 
 ## Common misconceptions
 
 The basis dimension $K$ is an upper bound on flexibility, not the edf actually used after penalisation. An edf of $2.75$ does not mean the fitted curve is a polynomial of degree $2.75$: a spline is piecewise polynomial and its edf measures sensitivity to data. An edf near one for a centred smooth means an approximately straight fitted contribution, not a one-parameter *whole model*; an intercept and other terms contribute separately. Finally, two fits with the same edf can have different shapes and predictive errors because edf compresses a whole influence matrix into one number.{{cite:efron2004_prediction_error}} (§2, covariance definition)
 
-## Assumptions and limits — When the trace misreads the fit
+## Assumptions and limits
 
 The trace formula describes a *fixed* linear smoother. If the data also select a knot set, a smoothing parameter, or a model, the complete fitting rule can be nonlinear; the covariance degrees of freedom then need not equal the trace of a matrix computed after selection. For two responses, consider a rule that fits both values separately when their difference exceeds $2$ and otherwise replaces both by their mean. It gives $(0,3)$ two separate fits but pools $(0,1)$ at $(0.5,0.5)$; the abrupt choice is part of the fitting rule, beyond the trace of either selected matrix. Likewise, if a three-column basis contains two identical columns and $\lambda=0$, then $B^\top B$ is singular and the displayed inverse formula is unavailable without a generalised inverse or a different parameterisation. With a full-rank penalty, every direction is penalised and edf can approach zero, so the two-edf limit belongs specifically to a penalty that leaves constants and straight lines free.{{cite:efron2004_prediction_error}} (§2, general covariance degrees of freedom)
 
 ## Connections
 
-[Roughness penalties](roughness-penalty.qmd) determine which directions are suppressed. [Sums of smooth functions](sums-of-smooth-functions.qmd) assemble term-wise edf in an additive model. [Cubic smoothing splines](cubic-smoothing-spline.qmd) leave the linear null space unpenalised, while [ridge regression](ridge-regression.qmd) uses the same shrinkage geometry with coefficient penalties. [Cross-validation](cross-validation.qmd) and marginal likelihood can choose smoothing strength; the reported edf then describes the selected fit's influence under the software convention.{{cite:wood2025_mgcv_docs}} (“gam,” Description; “summary.gam,” Details)
+[Roughness penalties](roughness-penalty.qmd) determine which directions are suppressed. [Sums of smooth functions](sums-of-smooth-functions.qmd) assemble term-wise edf in an additive model. [Cubic smoothing splines](cubic-smoothing-spline.qmd) leave the linear null space unpenalised, while [ridge regression](ridge-regression.qmd) uses the same shrinkage geometry with coefficient penalties. [Cross-validation](cross-validation.qmd) and marginal likelihood can choose smoothing strength; the reported edf then describes the selected fit's influence under the software convention.
 
 ## History
 

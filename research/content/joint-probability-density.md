@@ -100,7 +100,7 @@ For a second joint density, take \(2e^{-x-2y}=e^{-x}\cdot 2e^{-2y}\) on \(x>0\),
 **Your turn.** For the same triangular density, find \(\mathbb P(X>1/2)\) and \(f_Y(1/2)\).
 
 ::: {.callout-tip collapse="true" title="Answer"}
-\(\mathbb P(X>1/2)=\int_{1/2}^1 2x\,\mathrm dx=1-(1/2)^2=3/4\). The marginal formula gives \(f_Y(1/2)=2(1-1/2)=1\).{{cite:durrett2019}} (Ex. 4.1.6)
+\(\mathbb P(X>1/2)=\int_{1/2}^1 2x\,\mathrm dx=1-(1/2)^2=3/4\). The marginal formula gives \(f_Y(1/2)=2(1-1/2)=1\).
 :::
 
 ## Common misconceptions

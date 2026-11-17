@@ -9,8 +9,8 @@ for token in ("0.39894", "0.62666", "0.30854", "0.61791", "0.86433",
               'title="Answer"'):
     assert token in body, token
 assert body.count('title="Proof"') == 1
-assert 'data-cite-key="rstats_intro2026"' in body
-assert '(Sec. 11.6.2, “The binomial family”)' in body
+assert 'data-cite-key="nelder_wedderburn1972"' in body
+assert '(§3.3, pp. 379–380)' in body
 Phi = lambda z: (1 + erf(z/sqrt(2)))/2
 phi = lambda z: exp(-z*z/2)/sqrt(2*pi)
 for z, displayed in [(-.5,.30854),(.3,.61791),(1.1,.86433),(-1,.15866),(1,.84134)]:

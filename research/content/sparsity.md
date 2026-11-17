@@ -42,7 +42,6 @@ $|-0.5|<1$, so $\hat\beta=0$. And $y=1$ sits on the threshold $|y|=\lambda/2$, s
 
 Four observations lie in six dimensions. What is the maximum rank of the sample covariance, and how many eigenvalues must be zero?
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 The rank is at most $\min(4-1,6)=3$, so at least $6-3=3$ eigenvalues are zero. At most three principal components have positive variance.
 :::
@@ -50,7 +49,6 @@ The rank is at most $\min(4-1,6)=3$, so at least $6-3=3$ eigenvalues are zero. A
 ### Ridge on a singular design {#self-check-ex-sl-18-2}
 
 For $X$ with both rows equal to $(1,1)$, $y=(1,3)^{\mathsf T}$, and $\lambda=1$, what is the ridge estimate?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $X^{\mathsf T}X$ has eigenvalues $4$ and $0$. The ridge estimate is $(0.8,0.8)^{\mathsf T}$. Both coefficients stay nonzero.

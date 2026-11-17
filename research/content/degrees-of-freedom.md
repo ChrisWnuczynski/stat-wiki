@@ -34,7 +34,7 @@ Five observations are $8,9,10,11,12$. Their observed mean is $\overline x=10$ an
 **Your turn.** A full-rank linear regression has 12 observations and estimates an intercept and two slopes. If its residual sum of squares is 18, how many residual degrees of freedom are there, and what is the residual mean square?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The design rank is three, so there are $12-3=9$ residual degrees of freedom and the residual mean square is $18/9=2$.{{cite:nist_residual_std2002}} (§5.5.9.9.2)
+The design rank is three, so there are $12-3=9$ residual degrees of freedom and the residual mean square is $18/9=2$.
 :::
 
 Try [counting degrees of freedom](../questions/ex-inf-degrees-of-freedom.qmd) for four goodness-of-fit and independence settings, then [the basis-dimension question](../questions/ex-ur-basis-dimension.qmd), which asks why a smooth's basis size and effective degrees of freedom differ.

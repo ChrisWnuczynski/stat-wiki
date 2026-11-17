@@ -19,7 +19,7 @@ The mean model gives $E[U(\beta)\mid X]=\sum_i E(Y_i-\mu_i\mid X)\{\phi V(\mu_i)
 :::
 :::
 
-## Statistical use
+## Statistical use — Fitting a mean and a variance
 Specify the link, mean model, variance function, independence units and any exposure offset. Fit the quasi-score and inspect Pearson residuals against fitted means to see whether the chosen variance shape is plausible. Estimate dispersion from residual variation with an appropriate degrees-of-freedom allowance, then report how it changes standard errors. For model comparison, use procedures justified for quasi-models or predictive assessment; ordinary likelihood criteria require an actual likelihood. If repeated observations share a subject, the independence covariance needs replacement by a correlation-aware estimating method.{{cite:wuthrich_merz2022_glm}} (§5.4)
 
 If failures occur in shared shutdown episodes, the independence assumption fails even if each individual count has variance $\phi\mu_i$; a clustered covariance or GEE is needed. If the true mean grows quadratically with machine age but the fitted log mean is linear, fixing overdispersion does not cure biased predictions. If the variance changes as $\mu_i^2$ but $V(\mu)=\mu$ is used, weighting and standard errors can be wrong. And when a simulation of full response trajectories or an exact likelihood-ratio test is required, a mean–variance specification alone cannot provide it.{{cite:wuthrich_merz2022_glm}} (§5.4)

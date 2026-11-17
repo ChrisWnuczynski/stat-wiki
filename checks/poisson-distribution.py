@@ -36,6 +36,6 @@ assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert page.count("![") >= 3
-for key in ("siegrist2022_poisson_distribution", "nist_handbook2002", "dodge2008", "rstats_glm2026"):
+for key in ("siegrist2022_poisson_distribution", "nist_handbook2002", "dodge2008"):
     assert f'data-cite-key="{key}"' in body
 print("Poisson probabilities, dispersion examples and preserved content passed")

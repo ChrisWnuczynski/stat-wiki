@@ -32,7 +32,7 @@ Three students practise for $0$, $1$, and $2$ hours, with scores of $50$, $60$, 
 **Your turn.** For three observations with input values $0,1,2$ and responses $5,8,11$, find the fitted slope and the predicted response at input $1.5$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The observations lie on $\widehat y=5+3x$, so the slope is $3$ response units per input unit and the prediction at $x=1.5$ is $9.5$.{{cite:nist_process_model2002}} (§4.1.2)
+The observations lie on $\widehat y=5+3x$, so the slope is $3$ response units per input unit and the prediction at $x=1.5$ is $9.5$.
 :::
 
 Try [alcohol and school attendance](../questions/ex-da-alcohol-attendance.qmd), then [interpreting Poisson regression coefficients](../questions/q-31.qmd). The first asks you to identify explanatory and response roles in an observational study; the second asks how transformed inputs affect coefficient interpretation.{{cite:nist_process_model2002}} (§4.1.2)

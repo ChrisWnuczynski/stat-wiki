@@ -19,7 +19,7 @@ Whenever \(A\), \(B\) and \(A\cap B\) have positive probability,
 \]
 {{cite:grinstead_snell1997}} (p. 152, Exercise 16)
 
-## Worked example — Three black balls drawn without replacement
+## Worked example
 An urn holds \(5\) black balls and \(5\) white balls. Three black balls are drawn in order, without replacement. The conditional probabilities are \(5/10\), \(4/9\) and \(3/8\), so
 \[
 \frac{5}{10}\times\frac{4}{9}\times\frac{3}{8}=\frac{1}{12}.
@@ -31,8 +31,6 @@ The first factor is a marginal. The second and third are conditional on the blac
 ::: {.callout-tip collapse="true" title="Answer"}
 \(\frac{4}{6}\times\frac{3}{5}=\frac{2}{5}\). The second factor is \(3/5\), not \(4/6\), because one black ball has been removed.
 :::
-
-## Check yourself
 
 In the ten-ball urn, what is the probability that the first ball is black and the second is white?
 
@@ -48,3 +46,10 @@ Independence sets each conditional probability equal to \(1/2\), so the joint pr
 
 ## Related concepts — Total probability and sampling without replacement
 The [law of total probability](law-of-total-probability.qmd) sums the product rule over a partition. [Independent events](independent-events.qmd) are the case of constant conditional probabilities. Sampling without replacement, as in the urn, is the case where each conditional probability changes because the composition of the urn changes.
+
+## History
+The product rule extends the definition of conditional probability to a finite sequence of events.{{cite:grinstead_snell1997}} (p. 152, Exercise 16)
+
+::: {.callout-tip collapse="true" title="Answer"}
+\(\frac{5}{10}\times\frac{5}{9}=\frac{5}{18}\). After a black draw, five of the nine remaining balls are white.
+:::

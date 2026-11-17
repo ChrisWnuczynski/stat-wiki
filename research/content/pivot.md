@@ -39,7 +39,7 @@ Suppose $n=16$ independent normal measurements have $\overline x=12.4$ and sampl
 **Your turn.** Nine independent normal observations have $\overline x=5.2$ and $s=1.5$. Use $t_{8,0.975}=2.30600$ to construct a 95% interval for $\mu$, and identify what must be true of the sampling model for this interval's coverage to be exact.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The standard error is $1.5/\sqrt9=0.5$ and the margin is $2.30600(0.5)=1.15300$. The interval is $5.2\pm1.15300=(4.047,6.353)$. The exact $t_8$ reference law requires independent observations from one normal distribution with a common unknown mean and variance. The calculation alone cannot establish those assumptions.{{cite:siegrist2022_normals}} (§6.08, The T Variable)
+The standard error is $1.5/\sqrt9=0.5$ and the margin is $2.30600(0.5)=1.15300$. The interval is $5.2\pm1.15300=(4.047,6.353)$. The exact $t_8$ reference law requires independent observations from one normal distribution with a common unknown mean and variance. The calculation alone cannot establish those assumptions.
 :::
 
 ## Common misconceptions

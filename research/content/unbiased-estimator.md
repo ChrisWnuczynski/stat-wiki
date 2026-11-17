@@ -42,7 +42,7 @@ Let $X_1,X_2$ be independent Bernoulli observations with success probability $p=
 **Your turn.** For $n=4$ independent observations with population variance $\sigma^2=9$, give the expectation of $s^2$ and of the uncorrected variance $n^{-1}\sum_i(X_i-\overline X)^2$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The first expectation is $9$. The second is $((n-1)/n)\sigma^2=(3/4)9=27/4=6.75$. These are repeated-sample averages, not predictions that either observed estimate must take those values.{{cite:siegrist2022_sample_variance}} (§6.5, “The Standard Sample Variance”)
+The first expectation is $9$. The second is $((n-1)/n)\sigma^2=(3/4)9=27/4=6.75$. These are repeated-sample averages, not predictions that either observed estimate must take those values.
 :::
 
 The [shrunken mean exercise](../questions/ex-inf-shrunk-mean.qmd) compares bias and mean squared error for two estimators.{{cite:wang2025_foundations}} (Ch. 13, §16.3)

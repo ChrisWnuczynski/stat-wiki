@@ -53,7 +53,7 @@ of indicating the condition under this model. The test sensitivity is $0.90$; th
 **Your turn.** With the same prevalence and sensitivity, suppose the false-positive probability falls to $1\%$. What is the positive predictive probability?{{cite:wang2025_foundations}} (Ch. 1, §2.12.1, Example 46)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The expected true positives remain $90$, while expected false positives fall to $99$. The probability is $90/(90+99)=10/21\approx0.4762$.{{cite:wang2025_foundations}} (Ch. 1, §2.12.1, Example 46)
+The expected true positives remain $90$, while expected false positives fall to $99$. The probability is $90/(90+99)=10/21\approx0.4762$.
 :::
 
 ## Common misconceptions

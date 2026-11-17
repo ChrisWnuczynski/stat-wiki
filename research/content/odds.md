@@ -49,7 +49,7 @@ Suppose a screening programme has a predicted event probability of $0.30$ in a r
 **Your turn.** Two exhaustive models have prior probabilities $0.25$ and $0.75$. The data have Bayes factor $6$ in favour of the first. Find its posterior odds and posterior probability.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The prior odds for the first model are $0.25/0.75=1/3$. Multiplication by $6$ gives posterior odds $2$ to $1$, hence posterior probability $2/(1+2)=2/3$. The Bayes factor $6$ is the multiplier applied to the prior odds.{{cite:kass_raftery1995}} (§3.1, p. 777)
+The prior odds for the first model are $0.25/0.75=1/3$. Multiplication by $6$ gives posterior odds $2$ to $1$, hence posterior probability $2/(1+2)=2/3$. The Bayes factor $6$ is the multiplier applied to the prior odds.
 :::
 
 ## Common misconceptions

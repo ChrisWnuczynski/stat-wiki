@@ -32,6 +32,9 @@ A step of size $\eta=0.5$ on the third observation uses gradient $-3$ and moves 
 The gradients are $2-2=0$, $2-4=-2$ and $2-6=-4$, with sum $-6$. The observation $4$ contributes $-2$, so the update is $2-0.2(-2)=2.4$. The full-sum step of the same size would be $2-0.2(-6)=3.2$.
 :::
 
+## Connections — Where the noise is spent
+One pass through the training cases is an [epoch](epoch.qmd); online updates make many steps inside one epoch, while batch [gradient descent](gradient-descent.qmd) makes one. The step length is the [learning rate](learning-rate.qmd). A [mini-batch](mini-batch.qmd) averages a few case gradients and sits between the two extremes. [Early stopping](early-stopping.qmd) watches a validation curve along this path and may halt before the training loss has finished falling. The starting [weight initialisation](weight-initialisation.qmd) decides which noisy path is followed.{{cite:hastie_esl2009}} (Ch. 11, §§11.4–11.5, pp. 397–398)
+
 ## Check yourself
 Two short calculations. Open an answer only after you have a number.
 
@@ -48,6 +51,3 @@ Hastie, Tibshirani and Friedman ask for $\gamma_r\to 0$, $\sum_r\gamma_r=\infty$
 ::: {.callout-tip collapse="true" title="Answer"}
 The sequence $1/r$ tends to zero. The constant $0.1$ does not, so it fails the first condition. The harmonic choice is the example they give of a rate that meets all three.
 :::
-
-## Connections — Where the noise is spent
-One pass through the training cases is an [epoch](epoch.qmd); online updates make many steps inside one epoch, while batch [gradient descent](gradient-descent.qmd) makes one. The step length is the [learning rate](learning-rate.qmd). A [mini-batch](mini-batch.qmd) averages a few case gradients and sits between the two extremes. [Early stopping](early-stopping.qmd) watches a validation curve along this path and may halt before the training loss has finished falling. The starting [weight initialisation](weight-initialisation.qmd) decides which noisy path is followed.{{cite:hastie_esl2009}} (Ch. 11, §§11.4–11.5, pp. 397–398)

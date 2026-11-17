@@ -7,7 +7,7 @@ Independent events with $\mathrm{P}(A_n)=2^{-n}$ have probabilities that sum to 
 ## Intuition — A summable tail cannot return forever
 The event that \(A_n\) occurs for infinitely many \(n\) sits inside every tail union \(\bigcup_{n\ge m}A_n\). If the probabilities are summable, those tail sums shrink to \(0\), and the union bound drags the tail union with them. Independence is not required for that half. The opposite half needs independence: a divergent series of probabilities forces infinitely many occurrences only when a long run of failures factors into a product.{{cite:durrett2019}} (Thm. 2.3.1, p. 68){{cite:durrett2019}} (Thm. 2.3.7, p. 70)
 
-## Worked example — A geometric series, and a repeated event
+## Worked example
 Let the events be independent with \(\mathrm{P}(A_n)=2^{-n}\). The series sums to \(1\), so the first lemma applies and \(\mathrm{P}(A_n\text{ infinitely often})=0\). The tail from \(n=5\) onwards sums to \(1/16\), and the union bound says the probability of any occurrence from there on is at most \(1/16\). The partial sum through \(n=4\) is \(15/16\).
 
 **Your turn.** Keep the events independent and replace the probabilities by \(1/n^2\). Which lemma applies, and what is the probability of infinitely many occurrences?
@@ -15,8 +15,6 @@ Let the events be independent with \(\mathrm{P}(A_n)=2^{-n}\). The series sums t
 ::: {.callout-tip collapse="true" title="Answer"}
 \(\sum n^{-2}\) converges, so the first lemma applies whether or not the events are independent, and the probability is \(0\). The second lemma is the wrong tool: its hypothesis is a divergent series.
 :::
-
-## Check yourself
 
 Independent events have \(\mathrm{P}(A_n)=1/n\). What is the probability of infinitely many occurrences?
 
@@ -45,3 +43,6 @@ For the second lemma, independence and \(1-x\le e^{-x}\) give, for \(N>M\),
 A divergent series sends the exponent to \(-\infty\), so every tail union has probability \(1\). The tail unions decrease to the infinitely-often event, and the probability passes to the limit.{{cite:durrett2019}} (Thm. 2.3.7, p. 70)
 :::
 :::
+
+## History
+The two lemmas separate a summable series of probabilities, which forces only finitely many occurrences, from an independent series with infinite sum, which forces infinitely many.{{cite:durrett2019}} (Thm. 2.3.1, p. 68; Thm. 2.3.7, p. 70)

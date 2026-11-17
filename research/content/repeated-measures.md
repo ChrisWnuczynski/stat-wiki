@@ -20,7 +20,7 @@ For $m$ variables with common variance $v$ and pairwise correlation $\rho$, the 
 :::
 :::
 
-## Statistical use — Using repeated observations on one subject
+## Statistical use
 
 When only two occasions matter, differences within each subject remove a stable subject intercept, and a paired test analyzes independent subject differences. For more visits, one can summarize each trajectory by a mean or slope if that summary addresses the scientific question. Repeated-measures ANOVA compares related means under restrictive covariance assumptions. A marginal approach such as generalized estimating equations targets population-average mean effects with a working correlation; a mixed model adds subject-specific random effects and can describe individual trajectories. The choice depends on whether the question concerns average response or differences among subjects, and on how the outcome, timing and missing observations behave.{{cite:schober_vetter2018}} (pp. 570–573, summary statistics, ANOVA, GEE and mixed-effect models){{cite:bates_lme4_2015}} (§1.2, sleepstudy example)
 
@@ -39,7 +39,7 @@ Each reading has variance $5$, and the within-subject correlation is $4/5=0.8$. 
 
 Repeated measures are not automatically technical replicates: readings at different visits may measure meaningful change, while repeated assays of one specimen may measure instrument noise. A large row count does not create as many independent subjects. A random intercept does not model every dependence pattern, because it forces the same nonnegative correlation between any two visits. Conversely, allowing within-subject correlation does not by itself resolve informative dropout. Finally, a subject-specific coefficient from a nonlinear mixed model and a population-average coefficient from a marginal model generally answer different questions.{{cite:schober_vetter2018}} (pp. 569–573, study designs and model interpretations){{cite:bell_kenward2013}} ("Statistical analysis: what works and what does not work")
 
-## Connections
+## Connections — The label describes the data structure
 
 Intraclass correlation measures how strongly rows within a unit cluster in the simple random-intercept setting. Paired samples use within-unit differences; marginal models emphasize the average response; random slopes let subjects change at different rates; and restricted maximum likelihood estimates variance components in Gaussian mixed models. The repeated-measures label describes the data structure, not a unique test.{{cite:schober_vetter2018}} (pp. 570–573, analytic approaches){{cite:bates_lme4_2015}} (§§1.1–1.2, random effects and repeated sleepstudy measurements)
 

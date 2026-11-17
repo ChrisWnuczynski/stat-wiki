@@ -46,7 +46,6 @@ The [logit link](logit-link.qmd) is the function applied to each cumulative prob
 
 What does the proportional-odds assumption say about the slopes at different cutpoints?
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 The slope vector is the same at every cut, so a unit change in a covariate multiplies every cumulative odds by the same factor $e^{\beta_j}$.
 :::
@@ -54,7 +53,6 @@ The slope vector is the same at every cut, so a unit change in a covariate multi
 ### Nominal and ordinal responses {#self-check-c-24}
 
 What is the difference between a nominal response and an ordinal response, and what does a baseline-category logit compare?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Nominal categories have no intrinsic order. Ordinal categories are ordered, without requiring equal gaps. A baseline-category logit compares each category probability with a fixed reference, $\log(p_k/p_0)$, and those slopes need not be equal. Proportional odds instead uses nested events $\{Y\ge k\}$ and one shared slope.

@@ -45,6 +45,9 @@ The determinant is $3$, so $K=\tfrac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix}$. T
 
 A zero covariance and a zero precision entry answer different questions: the former is marginal, the latter conditional in a Gaussian model. An off-diagonal precision entry is not itself a partial correlation; it needs a sign change and diagonal scaling. A positive-definite covariance matrix is necessary for an ordinary inverse but does not make a non-Gaussian distribution obey Gaussian graph rules. Finally, a missing estimated graph edge is a model-based conditional-independence statement, not proof that intervening on one variable cannot affect the other.{{cite:friedman_glasso2008}} (§1–2, Gaussian graph and estimation)
 
+## Assumptions and limits
+A zero off-diagonal entry of the precision matrix is a conditional-independence statement for a multivariate normal model. Outside that model the same zero need not mean the two measurements are conditionally independent.{{cite:friedman_glasso2008}} (§1, Gaussian graph and inverse covariance)
+
 ## Connections
 
 [Partial correlation](partial-correlation.qmd) rescales an off-diagonal precision entry. [Conditional independence](conditional-independence.qmd) gives the missing-edge meaning in a [Gaussian graphical model](gaussian-graphical-models.qmd). [Positive definiteness](positive-definite-matrix.qmd) guarantees a nonsingular covariance. [Graphical lasso](graphical-lasso.qmd) estimates a sparse precision matrix when direct inversion is unstable, while [the multivariate normal distribution](multivariate-normal-distribution.qmd) supplies the density in which precision zeros have their strongest interpretation.{{cite:friedman_glasso2008}} (§1–2, sparse inverse covariance)

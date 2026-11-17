@@ -28,7 +28,7 @@ For Poisson, $f(x\mid\lambda)=\exp\{x\log\lambda-\lambda-\log(x!)\}$. Thus $T(x)
 ## Statistical use — Linking a mean to a predictor
 In Poisson regression with log link, $\log\mu_i=\mathbf x_i^\top\boldsymbol\beta$ makes the natural parameter a linear function of covariates. The count log-likelihood then contains $y_i\mathbf x_i^\top\boldsymbol\beta$ minus its normalizer. In logistic regression, the same role is played by log odds. This arrangement simplifies differentiation and interprets a coefficient as an additive change on the natural scale, often a multiplicative change after inversion. It does not establish that the chosen mean model or independence assumptions fit the data.{{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
 
-Distinguish the natural parameter from a sufficient statistic: one is a model parameter, the other is calculated from observations. Their product is what appears in the exponent. Completeness of the statistic requires additional full-rank and open-parameter conditions; merely writing an exponential-family expression does not establish it. Those conditions matter when using Rao–Blackwell or uniqueness arguments.{{cite:geyer2022_exp_family}} (§§3.1, 3.6, 8–9)
+Distinguish the natural parameter from a sufficient statistic: one is a model parameter, the other is calculated from observations. Their product is what appears in the exponent. Completeness of the statistic requires additional full-rank and open-parameter conditions; merely writing an exponential-family expression does not establish it. Those conditions matter when using Rao–Blackwell or uniqueness arguments.
 
 At $\lambda=0$, the Poisson distribution collapses to zero but $\log\lambda$ is not a finite natural parameter; it is a boundary limit of the usual family. With unknown normal variance, a one-dimensional parameter for the mean alone is insufficient: the exponent needs both $y$ and $y^2$ terms with two natural coefficients. In a family whose support moves with its parameter, such as $\operatorname{Uniform}(0,\theta)$, the fixed-support differentiation behind the moment identities cannot simply be applied. These examples distinguish a mathematical representation from an all-purpose modeling guarantee.{{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
 
@@ -43,6 +43,9 @@ The natural parameter is $\eta=\log4\approx1.386294$, and $A(\eta)=e^\eta=4$. He
 
 ## Common misconceptions
 The natural parameter is not generally the mean: Poisson uses a log mean and Bernoulli uses log odds. It is not automatically unique without fixing the statistic and base measure; the Poisson rescaling illustrates why. A canonical link describes the mean–predictor relation and does not transform every observed response. Finally, an exponential-family display alone does not guarantee completeness of its statistic or independence of repeated observations.{{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
+
+## Assumptions and limits — The natural parameter need not be the mean
+The natural parameter is not generally the mean: Poisson uses a log mean and Bernoulli uses log odds. {{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)
 
 ## Connections
 The [exponential family](exponential-family.qmd) provides the density form, a [sufficient statistic](sufficient-statistic.qmd) carries the data's coefficient, and the [canonical link](canonical-link.qmd) makes a GLM predictor match a chosen natural scale. The [mean and variance identities](mean-and-variance-of-an-exponential-family.qmd) arise by differentiating the log normalizer. These connections explain why Poisson log links and Bernoulli logit links are convenient while leaving room for other links.{{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374)

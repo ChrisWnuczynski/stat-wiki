@@ -42,7 +42,7 @@ An independent sample of 25 readings has mean 50.0 and sample standard deviation
 **Your turn.** Suppose another independent sample of 25 readings from a population with the same standard deviation has a mean of 54. What is the estimated standard error of the difference between the two means, and how many standard errors apart are 50 and 54? Use 10 as the standard deviation estimate for each group.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Each mean has estimated standard error $10/5=2$. Independence gives $\widehat{\operatorname{se}}(\overline X_1-\overline X_2)=\sqrt{2^2+2^2}=\sqrt8\approx2.83$. The difference of 4 units is about $4/\sqrt8\approx1.41$ standard errors. The corresponding test or interval also needs a reference distribution under its sampling model.{{cite:nist_mean_limits2002}} (§1.3.5.2)
+Each mean has estimated standard error $10/5=2$. Independence gives $\widehat{\operatorname{se}}(\overline X_1-\overline X_2)=\sqrt{2^2+2^2}=\sqrt8\approx2.83$. The difference of 4 units is about $4/\sqrt8\approx1.41$ standard errors. The corresponding test or interval also needs a reference distribution under its sampling model.
 :::
 
 ## Common misconceptions

@@ -34,7 +34,7 @@ Take five independent uniform draws, $0.2,0.7,0.9,0.4,0.6$, and estimate $I=\int
 **Your turn.** Use four independent uniform draws $0.1,0.3,0.7,0.9$ to estimate $\int_0^1x^2\,dx$. Compute the estimate and its realised error relative to $1/3$. Explain why the four-draw result does not establish that the method is biased.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The squared values are $0.01,0.09,0.49,0.81$, summing to $1.40$. Thus $\widehat I_4=1.40/4=0.35$ and its realised error is $0.35-1/3\approx0.0167$. Unbiasedness concerns the expectation across repeated independent sets of draws; one particular set can lie above or below the target.{{cite:dasgupta2011_graduate_probability}} (§1.29.10, pp. 180–182, Monte Carlo estimation)
+The squared values are $0.01,0.09,0.49,0.81$, summing to $1.40$. Thus $\widehat I_4=1.40/4=0.35$ and its realised error is $0.35-1/3\approx0.0167$. Unbiasedness concerns the expectation across repeated independent sets of draws; one particular set can lie above or below the target.
 :::
 
 ## Common misconceptions

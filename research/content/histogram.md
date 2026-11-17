@@ -42,7 +42,7 @@ Now combine adjacent bins into $[0,2),[2,4),[4,6)$. Their counts become $7,4,1$,
 The counts are $3,3,2$ and the widths are $1,1,2$. The density heights are $3/8=0.375$, $3/8=0.375$ and $2/(8\cdot2)=0.125$. The areas are $0.375$, $0.375$ and $2/8=0.25$, summing to one. The third bar has a lower height partly because it is twice as wide; its area records the two observations.
 :::
 
-## Statistical use — Comparing shapes on a common scale
+## Statistical use
 
 Use the same edges and vertical scale when comparing samples, especially when their sizes differ. A count histogram of 1,000 people will tend to have taller bars than one of 100 even when their underlying shapes match; a density histogram makes the shapes more directly comparable. For example, 20 people out of 100 and 200 out of 1,000 both give a $20\%$ share in a two-unit-wide interval. Their count heights differ tenfold, whereas both density heights are $0.20/2=0.10$ per unit. The comparison concerns proportions of the two populations; it does not erase uncertainty from their different sample sizes. Keep the measurement unit on the horizontal axis and state whether the vertical axis shows counts, proportions or density. A density height can exceed one, and shifting the bin origin can change the counts.{{cite:nist_histogram}} (“Definition,” count and density axes)
 
@@ -52,7 +52,7 @@ A histogram shows one variable at a time. It cannot reveal association between t
 
 Bar height is not automatically a probability: on a density scale it is probability *per unit of the horizontal axis*, and area gives the bin fraction. A histogram also differs from a bar chart of categories: its neighbouring bars represent ordered numerical intervals, while categories need not be adjacent on a numerical scale. Choosing a convenient binning does not prove that a data set has exactly that many modes, and a smooth-looking histogram does not demonstrate a normal distribution. Finally, an empty interval is an observation about the sample and its chosen edges, not evidence that the population density is zero there.{{cite:nist_histogram}} (“Definition” and “Questions”){{cite:scott1979_histograms}} (§§1–3, width dependence)
 
-## Assumptions and limits — When the bin origin changes the outline
+## Assumptions and limits
 
 Even four observations can change their outline when the origin moves. For $0.9,1.1,1.9,2.1$, unit bins $[0,1),[1,2),[2,3)$ have counts $1,2,1$; shifting them by half a unit to $[-0.5,0.5),[0.5,1.5),[1.5,2.5)$ gives $0,2,2$. Any strong shape claim from those four bars would depend on an arbitrary boundary. An outlier can also stretch automatic ranges and leave the main body compressed into a few bins. Heaped or rounded measurements can create spikes at recording increments; missing or censored values can erase a tail. Check the raw measurements and how they were collected before treating any bar pattern as a population feature.{{cite:nist_histogram}} (“Definition,” arbitrary classes; “Questions,” outliers and modes){{cite:scott1979_histograms}} (§§1 and 5, small samples and width sensitivity)
 

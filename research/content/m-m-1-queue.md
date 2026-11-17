@@ -50,7 +50,6 @@ The same cut balance is [local balance](local-balance.qmd) on a birth–death ch
 
 Arrivals are $2$ per hour and service is $3$ per hour. Find $\pi_0$, $\Pr(N\ge 3)$, $L$, and $W$.
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 $\rho=2/3$, so $\pi_0=1/3$ and $\Pr(N\ge 3)=(2/3)^3=8/27$. Then $L=2$ and $W=1$ hour.
 :::
@@ -58,7 +57,6 @@ $\rho=2/3$, so $\pi_0=1/3$ and $\Pr(N\ge 3)=(2/3)^3=8/27$. Then $L=2$ and $W=1$ 
 ### An M/M/∞ system {#self-check-ex-sp-mminf-numbers}
 
 Arrivals are $6$ per hour and each service rate is $2$ per hour, with infinitely many servers. Find the stationary mean and the probability that the system is empty.
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 The mean is $\lambda/\mu=3$. The empty-system probability is the Poisson probability $e^{-3}$. There is no requirement that $\lambda<\mu$.

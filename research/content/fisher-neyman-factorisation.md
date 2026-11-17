@@ -27,7 +27,7 @@ For a discrete sample with \(T(x)=t\) and \(p(u\mid\theta)>0\) on the relevant p
 \]
 The factor \(g_\theta(t)\) cancels because it is the same for every sample point with \(T=t\). The conditional probability does not depend on \(\theta\), which is sufficiency in the discrete case.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)
 
-## Worked example — Four Bernoulli trials
+## Worked example
 
 **Your turn.** Three independent Bernoulli trials produce two successes. What is the conditional probability of one particular sequence with those two successes, given the success count?
 
@@ -51,3 +51,6 @@ The factor \(h(x)=1/\prod_i x_i!\) does not depend on \(\theta\). All of the par
 
 ## Related concepts — Sufficiency, ancillarity and the exponential family
 Factorisation is the practical test for a [sufficient statistic](sufficient-statistic.qmd). An [ancillary statistic](ancillary-statistic.qmd) is the complementary idea: its distribution, rather than a factor of the likelihood, is free of \(\theta\). A one-parameter [exponential family](exponential-family.qmd) is already in factorised form, with the natural sufficient statistic in the exponent. The Bayesian use of the same cancellation is that the posterior depends on the sample only through \(T\), because \(h(x)\) does not depend on \(\theta\).
+
+## History
+Factorisation is the criterion that isolates a statistic sufficient for the parameter.{{cite:dasgupta2011_exponential_family}} (§18.4.1, pp. 512–514)

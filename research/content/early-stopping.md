@@ -18,6 +18,9 @@ Suppose the training mean squared error over five epochs is $0.50$, $0.32$, $0.2
 The smallest validation error is $0.28$, at epoch $3$. Using the test set to choose the epoch spends that set as a tuning device, so the chosen test score is no longer an untouched estimate of future error.
 :::
 
+## Connections — A path, not a penalty
+The clock of the rule is the [epoch](epoch.qmd). The steps being stopped are often [stochastic gradient descent](stochastic-gradient-descent.qmd), and the place they start is the [weight initialisation](weight-initialisation.qmd). [Regularisation](regularisation.qmd) changes the criterion by a penalty; early stopping leaves the criterion alone and shortens the path. The [validation set](validation-set.qmd) is what chooses the stopping time, so a later [held-out test set](a-held-out-test-set.qmd) has to stay out of that choice.{{cite:hastie_esl2009}} (Ch. 11, §11.5.2, p. 398){{cite:bishop2006}} (§5.5.2, pp. 259–260)
+
 ## Check yourself
 ### A monotone validation curve
 Validation errors are $0.40$, $0.33$, $0.29$, $0.27$, $0.26$. Where does the rule stop?
@@ -32,6 +35,3 @@ At epoch $4$ the training error is $0.14$ and the validation error is $0.29$. At
 ::: {.callout-tip collapse="true" title="Answer"}
 Epoch $3$, because $0.27<0.29$. The lower training error at epoch $4$ is the quantity the rule is refusing to chase.
 :::
-
-## Connections — A path, not a penalty
-The clock of the rule is the [epoch](epoch.qmd). The steps being stopped are often [stochastic gradient descent](stochastic-gradient-descent.qmd), and the place they start is the [weight initialisation](weight-initialisation.qmd). [Regularisation](regularisation.qmd) changes the criterion by a penalty; early stopping leaves the criterion alone and shortens the path. The [validation set](validation-set.qmd) is what chooses the stopping time, so a later [held-out test set](a-held-out-test-set.qmd) has to stay out of that choice.{{cite:hastie_esl2009}} (Ch. 11, §11.5.2, p. 398){{cite:bishop2006}} (§5.5.2, pp. 259–260)

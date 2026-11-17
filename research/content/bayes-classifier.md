@@ -29,7 +29,7 @@ At a particular measurement $x$, suppose class $A$ has prior probability $0.20$ 
 **Your turn.** At another $x$, the posterior probability of disease is $0.20$. A missed disease costs $8$ units and a false alarm costs $1$. Decide whether to flag disease and find the probability threshold at which the decision switches.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Flagging disease has expected cost $(1-0.20)\times1=0.80$; not flagging has cost $0.20\times8=1.60$, so flag. At posterior disease probability $q$, costs tie when $1-q=8q$, or $q=1/9\approx0.1111$. Above that threshold, flagging is cheaper. The $0.50$ threshold belongs to equal costs.{{cite:james_islr2013}} (§2.2.3, pp. 37–39, conditional-risk principle)
+Flagging disease has expected cost $(1-0.20)\times1=0.80$; not flagging has cost $0.20\times8=1.60$, so flag. At posterior disease probability $q$, costs tie when $1-q=8q$, or $q=1/9\approx0.1111$. Above that threshold, flagging is cheaper. The $0.50$ threshold belongs to equal costs.
 :::
 
 ## Common misconceptions

@@ -11,7 +11,7 @@ $$
 $$
 provided $H(\beta^{(k)})$ is invertible. Each step uses only the value and the slope at the current point. For a log-likelihood, $U$ is the score and $H$ is the Hessian. Replacing $H$ by its expectation is Fisher scoring. For a binomial logit the observed Hessian equals that expectation, because it depends on the data only through the fitted probabilities.
 
-R’s default GLM fitter, `glm.fit`, implements the weighted form of this iteration, called iteratively reweighted least squares.{{cite:rstats_glm2026}} (`glm.fit`, iteratively reweighted least squares)
+R’s default GLM fitter, `glm.fit`, implements the weighted form of this iteration, called iteratively reweighted least squares.{{cite:rstats_glm2026}} (§ `glm.fit`, iteratively reweighted least squares)
 
 ## Definition — One step on a logistic intercept
 For $y$ successes in $n$ independent Bernoulli trials and $\operatorname{logit}p=\beta$,
@@ -58,7 +58,6 @@ When the score is linear, as it is for a normal [identity link](identity-link.qm
 
 For $\sigma(\eta)=1/(1+e^{-\eta})$, show $\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))$ and $\sigma(-\eta)=1-\sigma(\eta)$.
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 $\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Also $\sigma(-\eta)=1/(1+e^{\eta})=e^{-\eta}/(1+e^{-\eta})=1-\sigma(\eta)$. The first identity is the weight in the logistic Hessian.
 :::
@@ -66,7 +65,6 @@ $\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Also $\s
 ### Complete separation {#self-check-ex-sl-10-5}
 
 For $x=(1,2,3,4)$ and $y=(0,0,1,1)$, the path $\beta_1=s$, $\beta_0=-2.5s$ sends the logistic log-likelihood up to $0$ as $s\to\infty$. What does that say about a finite maximum?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 No finite coefficient vector maximises the log-likelihood: along this path it increases toward $0$ and never attains $0$. Strict concavity does not by itself guarantee a finite root of the score. Newton’s method then has no finite stationary point to find.

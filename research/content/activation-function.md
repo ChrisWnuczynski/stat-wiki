@@ -49,6 +49,9 @@ ReLU gives $\max(0,-2)=0$ and has derivative zero at this negative input. The si
 
 Nonlinearity is necessary for a multilayer affine-score network to gain expressive power, but it does not guarantee successful training or generalisation. A sigmoid hidden activation is not automatically a calibrated probability. ReLU is not differentiable at zero, yet this isolated corner does not prohibit gradient-based training. Conversely, its active-side derivative of one does not mean gradients can never vanish: inactive ReLUs and other layers can still block a path. These errors concern expressiveness, interpretation and optimisation, respectively.{{cite:goodfellow_deep_learning2016_ch6}} (Ch. 6, §6.1, §6.3 and §6.5)
 
+## Assumptions and limits
+A unit's output is not automatically a probability. A hidden activation is a feature, and some activations, such as ReLU, are unbounded above.{{cite:goodfellow_deep_learning2016_ch6}} (Ch. 6, §6.3, pp. 187–191)
+
 ## Connections
 
 An [artificial neuron](artificial-neuron.qmd) combines a weighted sum with an activation. [Hidden layers](hidden-layer.qmd) use nonlinear outputs as features for later units. [The XOR problem](xor-problem.qmd) shows why affine composition alone is insufficient. [Backpropagation](backpropagation-batch-form.qmd) multiplies derivatives through these functions, while the [sigmoid function](sigmoid-function.qmd) is one smooth choice for an output or hidden unit. The [perceptron](perceptron.qmd) uses a hard threshold, which is useful as a decision rule but not as an ordinary smooth training path.{{cite:goodfellow_deep_learning2016_ch6}} (Ch. 6, §6.1–6.5)

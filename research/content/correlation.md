@@ -56,7 +56,7 @@ Take three observed pairs $(1,1)$, $(2,3)$, and $(3,2)$. Both sample means are $
 **Your turn.** Replace the second coordinate by $y'=5-2y$ for each of the three pairs. What is the new sample correlation? What happens if instead every $x$ value is multiplied by $12$?{{cite:wang2025_foundations}} (Ch. 3, §4.4.2)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The factor on $y$ is negative, so the correlation becomes $-1/2$; adding $5$ does not affect it. Multiplying all $x$ values by positive $12$ leaves it at $1/2$.{{cite:wang2025_foundations}} (Ch. 3, §4.4.2)
+The factor on $y$ is negative, so the correlation becomes $-1/2$; adding $5$ does not affect it. Multiplying all $x$ values by positive $12$ leaves it at $1/2$.
 :::
 
 The [uncorrelated but dependent exercise](../questions/ex-sl-01-3.qmd) gives a pair with zero correlation that remains dependent.{{cite:strimmer2025_mva}} (Ch. 1, §1.1)

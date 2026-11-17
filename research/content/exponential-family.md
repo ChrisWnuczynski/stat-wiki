@@ -38,7 +38,7 @@ Give $\lambda$ a Gamma prior with shape $2$ and rate $1$, whose density is propo
 **Your turn.** Four independent Poisson counts are $0,1,1,0$. Find the maximum-likelihood estimate of their common mean $\lambda$, then update a Gamma prior with shape $2$ and rate $1$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The total is $S=2$, so $\widehat\lambda=S/4=1/2$. The likelihood contributes $\lambda^2e^{-4\lambda}$; the posterior is Gamma with shape $2+2=4$ and rate $1+4=5$, giving posterior mean $4/5$.{{cite:geyer2025_conjugate}} (§§2.1–2.2, eqs. 2.3–2.5)
+The total is $S=2$, so $\widehat\lambda=S/4=1/2$. The likelihood contributes $\lambda^2e^{-4\lambda}$; the posterior is Gamma with shape $2+2=4$ and rate $1+4=5$, giving posterior mean $4/5$.
 :::
 
 ## Assumptions and limits

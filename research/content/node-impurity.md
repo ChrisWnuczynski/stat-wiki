@@ -26,9 +26,11 @@ The parent class-proportion vector is the size-weighted average of its children'
 ::: {.proof}
 Let $p_g=w p_{Lg}+(1-w)p_{Rg}$. For Gini, $I_G(p)=1-\sum_gp_g^2$; each negative square is concave. For entropy, $-p_g\log p_g$ has second derivative $-1/p_g<0$ on the interior and extends continuously to zero. Hence Jensen's inequality gives $I(p)\ge wI(p_L)+(1-w)I(p_R)$ for either criterion. Misclassification impurity is $1-\max_gp_g$, the negative of a convex maximum plus one, so the same inequality holds, although equality can persist across a nontrivial split.
 
-For two classes, $1-[p^2+(1-p)^2]=2p(1-p)$. Its derivative is $2-4p$ and entropy's is $\log\{(1-p)/p\}$, so each peaks at $p=1/2$; misclassification $\min(p,1-p)$ peaks there too. With $G$ classes, $\sum_gp_g^2\ge1/G$ by Cauchy–Schwarz and entropy is at most $\log G$ by concavity, both equalities at equal proportions. For a fixed majority class in both children, the weighted misclassification score is $1-[wp_L+(1-w)p_R]=1-p$, exactly the parent's score. 
+For two classes, $1-[p^2+(1-p)^2]=2p(1-p)$. Its derivative is $2-4p$ and entropy's is $\log\{(1-p)/p\}$, so each peaks at $p=1/2$; misclassification $\min(p,1-p)$ peaks there too. With $G$ classes, $\sum_gp_g^2\ge1/G$ by Cauchy–Schwarz and entropy is at most $\log G$ by concavity, both equalities at equal proportions. For a fixed majority class in both children, the weighted misclassification score is $1-[wp_L+(1-w)p_R]=1-p$, exactly the parent's score.
 :::
-:::{{cite:hastie_esl2009}} (§9.2, pp. 305–310)
+:::
+
+{{cite:hastie_esl2009}} (§9.2, pp. 305–310)
 
 ## Statistical use — Grow, then check the tree
 
@@ -57,4 +59,4 @@ Low impurity in a small training node does not establish that future cases in it
 
 ## History
 
-Breiman, Friedman, Olshen and Stone's 1984 *Classification and Regression Trees* gave a systematic framework for tree construction and pruning. Misclassification risk can be too flat to guide early splits; Gini and information impurity respond to proportion changes that do not yet change the majority label.{{cite:hastie_esl2009}} (§9.2, pp. 305–310) Modern tree software continues to implement weighted child-impurity searches and separate pruning rules.{{cite:rpart_longintro2023}} (§§1, 3.1, 4){{cite:sklearn_tree2026}} (§§1.10.6–1.10.9)
+Breiman, Friedman, Olshen and Stone's 1984 *Classification and Regression Trees* gave a systematic framework for tree construction and pruning. Misclassification risk can be too flat to guide early splits; Gini and information impurity respond to proportion changes that do not yet change the majority label.{{cite:hastie_esl2009}} (§9.2, pp. 305–310) Modern tree software continues to implement weighted child-impurity searches and separate pruning rules.

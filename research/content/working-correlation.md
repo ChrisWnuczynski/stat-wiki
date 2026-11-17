@@ -42,6 +42,9 @@ The eigenvalues are $1-(-0.5)=1.5$, repeated three times, and $1+3(-0.5)=-0.5$ o
 ## Common misconceptions
 An exchangeable working matrix specifies equal pairwise correlations; permutation invariance of the full response law requires more. It does not make correlated visits independent units; the child remains the unit for the sandwich contributions. A robust sandwich variance does not repair an incorrect marginal mean or informative missingness. Finally, a closer working pattern can improve precision, but it does not guarantee smaller standard errors in every finite dataset, and an impossible correlation such as $-0.5$ for four exchangeable visits is not a harmless approximation.{{cite:liang_zeger1986}} (§§2–5, pp. 14–20)
 
+## Assumptions and limits — A working correlation is not the true law
+An exchangeable working matrix specifies equal pairwise correlations; permutation invariance of the full response law requires more. {{cite:liang_zeger1986}} (§§2–5, pp. 14–20)
+
 ## Connections
 The working matrix is one ingredient of [generalised estimating equations](generalised-estimating-equations.qmd), alongside the marginal mean and variance. The [sandwich estimator](sandwich-estimator.qmd) uses cluster contributions to quantify regression uncertainty under correlation misspecification. [Exchangeable correlation](exchangeable-correlation.qmd) names one matrix pattern; [exchangeability](exchangeability.qmd) of a joint distribution is a stronger symmetry claim. Comparing them keeps the modeling and weighting roles clear.{{cite:liang_zeger1986}} (§§3–4, pp. 15–18)
 

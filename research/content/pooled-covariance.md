@@ -33,9 +33,11 @@ Pooling is also related to a precise within/between decomposition. Let $A_g$ be 
 ::: {.proof}
 For each group, write $\mathbf x_{gi}-\bar{\mathbf x}=(\mathbf x_{gi}-\bar{\mathbf x}_g)+(\bar{\mathbf x}_g-\bar{\mathbf x})$. Summing outer products, the cross terms vanish because $\sum_i(\mathbf x_{gi}-\bar{\mathbf x}_g)=\mathbf0$. This gives the within/between decomposition. The same centring relation shows that the matrix of all $n$ within-group residual rows has rank at most $n-G$, hence its cross-product matrix $S$ has rank at most $\min(p,n-G)$. For any $\mathbf v$, $\mathbf v^\top S\mathbf v=(n-G)^{-1}\sum_{g,i}\{\mathbf v^\top(\mathbf x_{gi}-\bar{\mathbf x}_g)\}^2\ge0$, proving positive semidefiniteness{{cite:fisher1936}} (§II, pp. 179–181).
 
-If observations within each group are iid with covariance $\Sigma$, then $\mathbb E\sum_i(\mathbf X_{gi}-\bar{\mathbf X}_g)(\mathbf X_{gi}-\bar{\mathbf X}_g)^\top=(n_g-1)\Sigma$: expand around the fixed population mean and subtract $n_g(\bar{\mathbf X}_g-\boldsymbol\mu_g)(\bar{\mathbf X}_g-\boldsymbol\mu_g)^\top$. Independence gives $\operatorname{Cov}(\bar{\mathbf X}_g)=\Sigma/n_g$. Summing over $g$ and dividing by $n-G$ proves $\mathbb E(S)=\Sigma$. This unbiasedness does not require normality, only the stated common covariance and finite second moments. 
+If observations within each group are iid with covariance $\Sigma$, then $\mathbb E\sum_i(\mathbf X_{gi}-\bar{\mathbf X}_g)(\mathbf X_{gi}-\bar{\mathbf X}_g)^\top=(n_g-1)\Sigma$: expand around the fixed population mean and subtract $n_g(\bar{\mathbf X}_g-\boldsymbol\mu_g)(\bar{\mathbf X}_g-\boldsymbol\mu_g)^\top$. Independence gives $\operatorname{Cov}(\bar{\mathbf X}_g)=\Sigma/n_g$. Summing over $g$ and dividing by $n-G$ proves $\mathbb E(S)=\Sigma$. This unbiasedness does not require normality, only the stated common covariance and finite second moments.
 :::
-:::{{cite:fisher1936}} (§II, pp. 179–181)
+:::
+
+{{cite:fisher1936}} (§II, pp. 179–181)
 
 ## Statistical use — Pooling within-group scatter
 
@@ -55,6 +57,9 @@ The group means are $2$ and $6$, and each group's residual sum of squares is $2$
 ## Common misconceptions
 
 Pooling is not the same as computing covariance after discarding group labels: the latter includes between-group scatter. Dividing the pooled residual total by $n-1$ would ignore the separately estimated group means and generally lose unbiasedness under the shared-covariance model. A pooled matrix is not guaranteed invertible just because each class has observations; its rank cannot exceed $n-G$. And numerical pooling alone does not establish equal population covariances or normality. Those are model assumptions checked separately from matrix arithmetic.{{cite:clemmensen2011_sda}} (§§1–2.1, pp. 1, 3–4)
+
+## Assumptions and limits — When pooling misleads
+The pooled matrix estimates one common covariance. If the groups have different scatter, that single matrix is a compromise and can misstate both groups.{{cite:fisher1936}} (§II, pp. 179–181)
 
 ## Connections
 

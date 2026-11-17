@@ -33,6 +33,6 @@ for printed in (
 assert body.count('title="Proof"') == 1
 assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
-for key in ("zhou2020_glm", "rstats_family2026"):
+for key in ("nelder_wedderburn1972", "rstats_family2026", "wuthrich_merz2022_glm"):
     assert f'data-cite-key="{key}"' in body
 print("variance function examples, proof and citations passed")

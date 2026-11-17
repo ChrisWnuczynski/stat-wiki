@@ -32,7 +32,7 @@ Take $z=-1+2x$. At $x=0$, $z=-1$, $o=g(-1)=0.268941$ and $g'(-1)=o(1-o)=0.196612
 **Your turn.** Suppose a unit has score $z=\log 3$ and target $y=1$. Find its output, its derivative with respect to the score, and the score gradients for Bernoulli loss and half squared error.{{cite:bishop2006}} (Ch. 4, §4.3.2, Eq. 4.88)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Because $e^z=3$, the odds are $3:1$, so $o=g(z)=3/4=0.75$ and $g'(z)=(3/4)(1/4)=3/16=0.1875$. Bernoulli loss gives $dL/dz=o-y=-1/4=-0.25$. Half squared error gives $(o-y)o(1-o)=(-1/4)(3/16)=-3/64=-0.046875$. Both call for increasing the score, but the squared-error gradient is smaller.{{cite:bishop2006}} (Ch. 4, §4.3.2, Eq. 4.88)
+Because $e^z=3$, the odds are $3:1$, so $o=g(z)=3/4=0.75$ and $g'(z)=(3/4)(1/4)=3/16=0.1875$. Bernoulli loss gives $dL/dz=o-y=-1/4=-0.25$. Half squared error gives $(o-y)o(1-o)=(-1/4)(3/16)=-3/64=-0.046875$. Both call for increasing the score, but the squared-error gradient is smaller.
 :::
 
 ## Common misconceptions

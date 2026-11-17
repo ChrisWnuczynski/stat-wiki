@@ -46,6 +46,9 @@ The group mean has conditional variance $8/2=4$, so $w=4/(4+4)=1/2$. Its predict
 ## Common misconceptions
 “Random” does not mean that the analyst chose factor levels by a physical random-number device; it denotes a distribution assigned to effects for the inferential purpose at hand. “Fixed” does not mean known without error; fixed coefficients are estimated and uncertain. A random intercept does not make all observations independent after the intercept is averaged out: it induces positive within-group covariance. And shrinkage is not evidence that observed group differences were mistakes; it balances each noisy group mean against information from the other groups under a common-population model.{{cite:gelman2005_anova}} (§6, definitions and shrinkage){{cite:bates_lme4_2015}} (§1.1)
 
+## Assumptions and limits — The label follows the inferential target
+“Random” does not mean that the analyst chose factor levels by a physical random-number device; it denotes a distribution assigned to effects for the inferential purpose at hand. {{cite:gelman2005_anova}} (§6, definitions and shrinkage)
+
 ## Connections
 The [random intercept model](random-intercept-model.qmd) turns the random-effects choice into a covariance structure, while [intraclass correlation](intraclass-correlation.qmd) summarizes the resulting within-group dependence. A [linear mixed model](linear-mixed-model.qmd) allows fixed predictors and multiple random terms. [Restricted maximum likelihood](restricted-maximum-likelihood.qmd) estimates Gaussian variance components after accounting for the fixed-effect space. [One-way analysis of variance](one-way-analysis-of-variance.qmd) can be viewed through either named group contrasts or components of group variation, depending on the estimand.{{cite:bates_lme4_2015}} (§1.1 and §3){{cite:gelman2005_anova}} (§§1 and 6)
 

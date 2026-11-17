@@ -2,10 +2,10 @@
 A Wishart matrix is the sum of outer products of independent normal vectors, the matrix analogue of a sum of squared normal observations.
 
 ## Motivating example
-Five independent measurements of two correlated traits produce a $2\times 2$ matrix of corrected cross-products. The mean of that matrix is $4$ times the population covariance, because one degree of freedom is spent on the sample mean. Knowing only that mean does not say whether a particular sample matrix is a typical scatter or an unusually large one. The Wishart law is the distribution of the scatter. Its one-dimensional case is a scaled chi-squared variable, which is why a normal sample variance has a chi-squared law.{{cite:durrett2019}} (Thm. 1.6.1, linearity of expectation)
+Five independent measurements of two correlated traits produce a $2\times 2$ matrix of corrected cross-products. The mean of that matrix is $4$ times the population covariance, because one degree of freedom is spent on the sample mean. Knowing only that mean does not say whether a particular sample matrix is a typical scatter or an unusually large one. The Wishart law is the distribution of the scatter. Its one-dimensional case is a scaled chi-squared variable, which is why a normal sample variance has a chi-squared law.{{cite:wishart1928}} (pp. 32–52) The mean of a sum of outer products is a separate fact, from linearity of expectation.{{cite:durrett2019}} (Thm. 1.6.1, p. 29)
 
 ## Intuition
-Each centred normal vector $\mathbf{U}$ contributes the rank-one matrix $\mathbf{U}\mathbf{U}^\top$. The $(i,j)$ entry of that matrix is the product $U_i U_j$. Adding $\nu$ independent copies gives a scatter whose mean is $\nu\Sigma$ whenever $\mathrm{E}(\mathbf{U}\mathbf{U}^\top)=\Sigma$, and that mean calculation uses linearity rather than the Wishart density. Normality is what makes the whole matrix Wishart, and what makes the sample mean independent of the scatter.{{cite:durrett2019}} (Thm. 1.6.1)
+Each centred normal vector $\mathbf{U}$ contributes the rank-one matrix $\mathbf{U}\mathbf{U}^\top$. The $(i,j)$ entry of that matrix is the product $U_i U_j$. Adding $\nu$ independent copies gives a scatter whose mean is $\nu\Sigma$ whenever $\mathrm{E}(\mathbf{U}\mathbf{U}^\top)=\Sigma$, and that mean calculation uses linearity rather than the Wishart density.{{cite:durrett2019}} (Thm. 1.6.1, p. 29) Normality is what makes the whole matrix Wishart, and what makes the sample mean independent of the scatter.{{cite:wishart1928}} (pp. 32–52)
 
 ## Definition
 For integer $\nu\ge p$ the construction is $W=\sum_{m=1}^{\nu}\mathbf{U}_m\mathbf{U}_m^\top$ with the $\mathbf{U}_m$ independent $\mathrm{N}_p(0,\Sigma)$. The density on positive-definite matrices is the one displayed above. At $p=1$ and $\Sigma=1$ the sum of squares is $\chi^2_\nu$. At $p=1$ and scale $\sigma^2$ the same sum is $\sigma^2\chi^2_\nu$, with mean $\nu\sigma^2$ and variance $2\nu\sigma^4$.
@@ -21,7 +21,7 @@ The mean and the Gaussian fourth-moment identity that feeds the variance are ele
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Write $W=\sum_{m=1}^{\nu}\mathbf{U}_m\mathbf{U}_m^\top$ with $\mathrm{E}(\mathbf{U}_m\mathbf{U}_m^\top)=\Sigma$. Linearity of expectation, applied entrywise, gives $\mathrm{E} W=\nu\Sigma$. No normality was used.{{cite:durrett2019}} (Thm. 1.6.1)
+Write $W=\sum_{m=1}^{\nu}\mathbf{U}_m\mathbf{U}_m^\top$ with $\mathrm{E}(\mathbf{U}_m\mathbf{U}_m^\top)=\Sigma$. Linearity of expectation, applied entrywise, gives $\mathrm{E} W=\nu\Sigma$. No normality was used.{{cite:durrett2019}} (Thm. 1.6.1, p. 29)
 
 For a standard normal density, $\varphi'(z)=-z\varphi(z)$. For $k\ge 1$, integration by parts with vanishing boundary terms gives
 $$
@@ -33,7 +33,7 @@ A sum of $\nu$ independent copies has variance $2\nu\sigma^4$. That is the scala
 $$
 \mathrm{Var}(W)=\nu(\sigma^2\cdot\sigma^2+\sigma^2\cdot\sigma^2)=2\nu\sigma^4.
 $$
-For $\sigma^2=2$ and $\nu=4$ the mean is $8$ and the variance is $32$.{{cite:durrett2019}} (Ex. 1.6.11, $\mathrm{E} Z^2=1$)
+For $\sigma^2=2$ and $\nu=4$ the mean is $8$ and the variance is $32$. The mean is $\nu\sigma^2$ by linearity.{{cite:durrett2019}} (Thm. 1.6.1, p. 29) The variance $2\nu\sigma^4$ is the one-dimensional Wishart moment.{{cite:wishart1928}} (pp. 32–52)
 :::
 :::
 
@@ -65,24 +65,24 @@ $$
 $$
 \mathrm{Var}(W_{12})=3(2\cdot 2+1\cdot 1)=15.
 $$
-The diagonal entries have mean $6$ and standard deviation $\sqrt{24}\approx 4.899$. A single realised matrix can easily sit several units away from $3\Sigma$. The positive covariance $6$ between $W_{11}$ and $W_{22}$ is the trace of the shared off-diagonal scale $1$: the two diagonal sums of squares move together because the coordinates inside each vector are correlated.{{cite:durrett2019}} (Thm. 1.6.1)
+The diagonal entries have mean $6$ and standard deviation $\sqrt{24}\approx 4.899$. A single realised matrix can easily sit several units away from $3\Sigma$. The covariance $6$ between $W_{11}$ and $W_{22}$ equals $2\nu\sigma_{12}^{2}$. The diagonal sums of squares move together because the coordinates inside each vector are correlated.{{cite:wishart1928}} (pp. 32–52)
 
 **Your turn.** Take $\nu=5$ and $\Sigma=\mathrm{diag}(1,4)$. Find $\mathrm{E} W$ and $\mathrm{Var}(W_{22})$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $\mathrm{diag}(5,20)$. The variance of the second diagonal entry is $5(4\cdot 4+4\cdot 4)=160$. The off-diagonal mean is $0$, and $\mathrm{Cov}(W_{11},W_{22})=5(0+0)=0$, so the two diagonal entries are uncorrelated when $\Sigma$ is diagonal.{{cite:durrett2019}} (Thm. 1.6.1)
+The mean is $\mathrm{diag}(5,20)$. The variance of the second diagonal entry is $5(4\cdot 4+4\cdot 4)=160$. The off-diagonal mean is $0$, and $\mathrm{Cov}(W_{11},W_{22})=5(0+0)=0$, so the two diagonal entries are uncorrelated when $\Sigma$ is diagonal.
 :::
 
 **Check yourself.** For $p=1$, $\Sigma=2$ and $\nu=4$, the mean and variance are $8$ and $32$. What changes if the four normal squares are replaced by four independent copies of a variable that has mean $0$ and variance $2$ but is not normal?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean of the sum of squares remains $4\cdot 2=8$, by linearity. The variance need not be $32$, because that number uses $\mathrm{E} Z^4=3$. The sum is not chi-squared, and it is not a one-dimensional Wishart matrix, because the Wishart density asks for normal vectors.{{cite:durrett2019}} (Thm. 1.6.1)
+The mean of the sum of squares remains $4\cdot 2=8$, by linearity. The variance need not be $32$, because that number uses $\mathrm{E} Z^4=3$. The sum is not chi-squared, and it is not a one-dimensional Wishart matrix, because the Wishart density asks for normal vectors.
 :::
 
 A corrected cross-product matrix from $n=6$ bivariate normal observations is assigned $\nu=5$. Why not $\nu=6$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The six outer products of the raw observations have mean $6\Sigma$ only after the population mean is removed. Centring at the sample mean spends one dimension and leaves $n-1=5$ degrees of freedom, with mean $5\Sigma$.{{cite:durrett2019}} (Thm. 1.6.1)
+The six outer products of the raw observations have mean $6\Sigma$ only after the population mean is removed. Centring at the sample mean spends one dimension and leaves $n-1=5$ degrees of freedom, with mean $5\Sigma$.
 :::
 
 ## Common misconceptions
@@ -103,4 +103,4 @@ Centring at a sample mean and then still using $\nu=n$ double-counts the observa
 The [multivariate normal distribution](multivariate-normal-distribution.qmd) supplies the vectors inside the outer products. A [chi-squared distribution](chi-squared-distribution.qmd) is the scalar Wishart law. The sample mean's normal law and its independence from the scatter are the two companions of $A\sim W_p(\Sigma,n-1)$ in a normal sample. Hotelling's $T^2$ is the test that spends those three facts together.
 
 ## History
-The scalar reduction to a sum of normal squares is the one-dimensional case of the same outer-product construction. Dodge's biography of Gosset records John Wishart as an editor of Student's collected papers, and the missing-data article records the 1930 Allan–Wishart note on a missing field plot.{{cite:dodge2008}} (pp. 235 and 350) The mean formula $\nu\Sigma$ used here follows from linearity of expectation applied to the outer products.{{cite:durrett2019}} (Thm. 1.6.1, p. 29)
+The scalar reduction to a sum of normal squares is the one-dimensional case of the same outer-product construction. John Wishart edited Student's collected papers with E. S. Pearson, and Allan and Wishart's 1930 note treated a missing field plot.{{cite:dodge2008}} (pp. 235 and 350) The mean formula $\nu\Sigma$ used here follows from linearity of expectation applied to the outer products.{{cite:durrett2019}} (Thm. 1.6.1, p. 29)

@@ -19,7 +19,7 @@ Complete the square: $\sum_i(y_i-\mu)^2=\sum_i(y_i-\bar y)^2+n(\mu-\bar y)^2$. M
 :::
 :::
 
-## Statistical use
+## Statistical use — A constant weight on the parameter
 State the parameter coordinate, support and base measure when describing a flat prior. Check posterior propriety by integrating the likelihood times the prior kernel. Then ask whether posterior summaries change materially under plausible proper alternatives, such as a broad normal prior for a location or a modest Beta prior for a probability. When likelihood information is weak, the prior's support and tails can dominate the answer even if its density appears visually low and nearly constant over a small range.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 52–54)
 
 With no observations, the constant kernel on $\mathbb R$ remains nonintegrable, so it has no posterior. Under a binomial model, a prior flat on log-odds is proportional to $1/[p(1-p)]$ in $p$; if every trial is a success or every trial is a failure, the posterior integral diverges at one endpoint. A proper uniform prior on $[-5,5]$ cannot represent a true normal mean of $8$, since its posterior is forced to remain inside $[-5,5]$. These are failures of normalisation or support, not algebraic defects in Bayes' rule.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 53–54)
@@ -35,6 +35,9 @@ The sample mean is $9$ and the posterior variance is $3^2/4=2.25$, so the standa
 
 ## Common misconceptions
 “Flat” is not an absolute synonym for ignorance: changing coordinates changes which values receive equal density. A flat kernel on an unbounded domain is not a broad probability distribution; it has no normalising constant. A posterior mode equal to the maximum-likelihood estimate does not make every posterior summary equal to its frequentist analogue. And an apparently weak proper uniform prior with a hard upper bound still assigns exactly zero posterior probability beyond that bound, regardless of the data.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 52–54)
+
+## Assumptions and limits — Flatness depends on the coordinate
+“Flat” is not an absolute synonym for ignorance: changing coordinates changes which values receive equal density. {{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 52–54)
 
 ## Connections
 An [improper prior](improper-prior.qmd) requires a posterior propriety check, while a [normal–normal update](normal-normal-conjugacy.qmd) shows how a proper broad normal prior approaches the location calculation. The [improper-normal question](../questions/ex-improper-normal.qmd) adds an unknown variance, where propriety needs more care; the [geometric-observation question](../questions/ex-applied-geometric.qmd) uses a proper uniform prior on a bounded probability; the [model-odds question](../questions/q-11.qmd) uses its normalising constant to compute a Bayes factor.{{cite:gelman_bda2013}} (Ch. 2, §2.8, pp. 52–54)

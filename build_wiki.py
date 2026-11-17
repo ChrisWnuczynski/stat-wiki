@@ -3479,6 +3479,8 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 page["blocks"] = concept_article_template(article, page["blocks"])
             if article["slug"] in SELF_CHECKS:
                 check = self_check_section(article, qmap)
+                # Place the bank questions before History when that section exists,
+                # and before Examples otherwise, so the section order stays stable.
                 at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label in {"history", "see-also"}), len(page["blocks"]))
                 page["blocks"].insert(at, (True, "check-yourself", check))
 
@@ -3522,7 +3524,19 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     # A page can prove its other results while leaving one stated converse open.
     overrides = WIKI / "research" / "proofs-todo-overrides.json"
     if overrides.is_file():
-        todo.extend(json.loads(overrides.read_text(encoding="utf-8")))
+        override_rows = json.loads(overrides.read_text(encoding="utf-8"))
+        by_slug = {row["slug"]: row for row in override_rows}
+        merged = []
+        used = set()
+        for row in todo:
+            replacement = by_slug.get(row["slug"])
+            if replacement is not None:
+                merged.append(replacement)
+                used.add(row["slug"])
+            else:
+                merged.append(row)
+        merged.extend(row for row in override_rows if row["slug"] not in used)
+        todo = merged
     (WIKI / "proofs-todo.json").write_text(json.dumps(todo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_glossary(questions)
     write_config(chapters, final_notes, questions)

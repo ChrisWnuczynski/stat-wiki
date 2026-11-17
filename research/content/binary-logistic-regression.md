@@ -19,7 +19,7 @@ Writing $p_i=e^{\eta_i}/(1+e^{\eta_i})$ in the Bernoulli likelihood yields $\ell
 :::
 :::
 
-## Statistical use
+## Statistical use — A yes-or-no probability
 Inspect the response coding, predictor ranges, missingness and class frequencies before fitting. Compare predicted probabilities with observed event rates on fresh or properly held-out cases, and choose a classification threshold according to the decision cost. If predictors are screened using outcome labels, that screening belongs inside each training fold of cross-validation. A very large coefficient or standard error may reflect separation rather than a strong, precisely measured effect.{{cite:dodge2008}} (pp. 319–320, interpretation and use)
 
 If every observed success has $x>0$ and every failure has $x<0$, increasing a positive slope can drive all fitted probabilities toward their observed labels without producing a finite unpenalised estimate. If repeated patients are treated as independent, standard errors based on independent Bernoulli trials can be too small. If an important curved age effect is forced into one linear log-odds slope, the fitted probabilities can be miscalibrated even though they remain between zero and one. And a model evaluated only after selecting predictors on the full dataset leaks outcome information into its validation folds.{{cite:dodge2008}} (p. 319, model conditions)

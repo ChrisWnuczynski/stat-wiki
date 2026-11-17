@@ -38,7 +38,6 @@ The [sample variance](variance.qmd) $S^2$ is this one-sample restricted estimato
 
 For a random sample with mean $\mu$ and variance $\sigma^2$, why is $\E S^2=\sigma^2$?
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$, so the expectation of the residual sum of squares is $(n-1)\sigma^2$. Dividing by $n-1$ is unbiased. Dividing by $n$ is the ordinary maximum-likelihood estimator and is biased downward.
 :::
@@ -46,7 +45,6 @@ $\sum_i(X_i-\overline X)^2=\sum_i(X_i-\mu)^2-n(\overline X-\mu)^2$, so the expec
 ### Which expressions use the unknown mean? {#self-check-ex-inf-which-are-statistics}
 
 Is $S^2$ a statistic, and is $(n-1)S^2/\sigma^2$ a statistic?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $S^2$ is a statistic: it is computed from the data. $(n-1)S^2/\sigma^2$ is not, because it contains $\sigma$. Under normality its law is chi-squared on $n-1$ degrees of freedom, which is the restricted likelihood used above.

@@ -4,9 +4,7 @@ Branch: `research/depth-pass-ranks-68-217`. Ranking is frozen in [RANKING.md](RA
 
 ## Status
 
-Pages ranked: **718**. Done: **217**. Left: **501**. Skipped: **0**. Ranks 1–67 were completed before this branch. This branch covers ranks 68–217.
-
-Ranks 218–367 were completed in a separate pass and are recorded in [PROGRESS-218-367.md](PROGRESS-218-367.md). Together the two passes cover ranks 1–367: **367 done**, **351 left**.
+Pages ranked: **718**. Done: **367**. Left: **351**. Skipped: **0**. Ranks 1–67 were completed earlier. Ranks 68–367 are done. The next rank is 368.
 
 | Rank | Article | Type | Source added | Words before → after | Figures before → after | Flags |
 |--:|:--|:--|:--|--:|--:|:--|
@@ -228,6 +226,156 @@ Ranks 218–367 were completed in a separate pass and are recorded in [PROGRESS-
 | 215 | [E step](e-step.md) | Section | [Prose](content/e-step.md), [check](../checks/e-step.py) | 606 → 2,431 | 0 → 0 | See [research record](e-step.md) |
 | 216 | [Ensemble method](ensemble-method.md) | Topic | [Prose](content/ensemble-method.md), [check](../checks/ensemble-method.py) | 280 → 2,151 | 0 → 0 | See [research record](ensemble-method.md) |
 | 217 | [M step](m-step.md) | Section | [Prose](content/m-step.md), [check](../checks/m-step.py) | 652 → 2,514 | 0 → 0 | See [research record](m-step.md) |
+| 218 | [Memoryless property](memoryless-property.md) | Topic | [Prose](content/memoryless-property.md), [check](../checks/memoryless-property.py) |  |  | Quality cleanup |
+| 219 | [Simple linear regression](simple-linear-regression.md) | Topic | [Prose](content/simple-linear-regression.md), [check](../checks/simple-linear-regression.py) |  |  | Quality cleanup |
+| 220 | [Time series](time-series.md) | Topic | [Prose](content/time-series.md), [check](../checks/time-series.py) |  |  | Quality cleanup |
+| 221 | [Baseline-category logit model](baseline-category-logit-model.md) | Topic | [Prose](content/baseline-category-logit-model.md), [check](../checks/baseline-category-logit-model.py) |  |  | Quality cleanup |
+| 222 | [Communicating classes](communicating-classes.md) | Topic | [Prose](content/communicating-classes.md), [check](../checks/communicating-classes.py) |  |  | Quality cleanup |
+| 223 | [Fisher scoring](fisher-scoring.md) | Topic | [Prose](content/fisher-scoring.md), [check](../checks/fisher-scoring.py) |  |  | Quality cleanup |
+| 224 | [Multicollinearity](multicollinearity.md) | Topic | [Prose](content/multicollinearity.md), [check](../checks/multicollinearity.py) |  |  | Quality cleanup |
+| 225 | [Pareto distribution](pareto-distribution.md) | Topic | [Prose](content/pareto-distribution.md), [check](../checks/pareto-distribution.py) |  |  | Quality cleanup |
+| 226 | [White noise](white-noise.md) | Topic | [Prose](content/white-noise.md), [check](../checks/white-noise.py) |  |  | Quality cleanup |
+| 227 | [Least-squares line](least-squares-line.md) | Topic | [Prose](content/least-squares-line.md), [check](../checks/least-squares-line.py) |  |  | Quality cleanup |
+| 228 | [Poisson regression](poisson-regression.md) | Topic | [Prose](content/poisson-regression.md), [check](../checks/poisson-regression.py) |  |  | Quality cleanup |
+| 229 | [Undirected graph](undirected-graph.md) | Topic | [Prose](content/undirected-graph.md), [check](../checks/undirected-graph.py) |  |  | Quality cleanup |
+| 230 | [Posterior membership](posterior-membership.md) | Topic | [Prose](content/posterior-membership.md), [check](../checks/posterior-membership.py) |  |  | Quality cleanup |
+| 231 | [Sums of smooth functions](sums-of-smooth-functions.md) | Topic | [Prose](content/sums-of-smooth-functions.md), [check](../checks/sums-of-smooth-functions.py) |  |  | Quality cleanup |
+| 232 | [Hotelling's T² test](hotelling-s-t2-test.md) | Topic | [Prose](content/hotelling-s-t2-test.md), [check](../checks/hotelling-s-t2-test.py) |  |  | Quality cleanup |
+| 233 | [Probability space](probability-space.md) | Topic | [Prose](content/probability-space.md), [check](../checks/probability-space.py) |  |  | Quality cleanup |
+| 234 | [Roughness penalty](roughness-penalty.md) | Topic | [Prose](content/roughness-penalty.md), [check](../checks/roughness-penalty.py) |  |  | Quality cleanup |
+| 235 | [Strong law](strong-law.md) | Topic | [Prose](content/strong-law.md), [check](../checks/strong-law.py) |  |  | Quality cleanup |
+| 236 | [Wishart distribution](wishart-distribution.md) | Topic | [Prose](content/wishart-distribution.md), [check](../checks/wishart-distribution.py) |  |  | Quality cleanup |
+| 237 | [Geometric distribution](geometric-distribution.md) | Topic | [Prose](content/geometric-distribution.md), [check](../checks/geometric-distribution.py) |  |  | Quality cleanup |
+| 238 | [Kullback–Leibler divergence](kullback-leibler-divergence.md) | Topic | [Prose](content/kullback-leibler-divergence.md), [check](../checks/kullback-leibler-divergence.py) |  |  | Quality cleanup |
+| 239 | [Learning rate](learning-rate.md) | Topic | [Prose](content/learning-rate.md), [check](../checks/learning-rate.py) |  |  | Quality cleanup |
+| 240 | [Markov's inequality](markov-s-inequality.md) | Topic | [Prose](content/markov-s-inequality.md), [check](../checks/markov-s-inequality.py) |  |  | Quality cleanup |
+| 241 | [Minimal sufficiency](minimal-sufficiency.md) | Topic | [Prose](content/minimal-sufficiency.md), [check](../checks/minimal-sufficiency.py) |  |  | Quality cleanup |
+| 242 | [Single, complete, and average linkage](single-complete-and-average-linkage.md) | Topic | [Prose](content/single-complete-and-average-linkage.md), [check](../checks/single-complete-and-average-linkage.py) |  |  | Quality cleanup |
+| 243 | [Bonferroni correction](bonferroni-correction.md) | Topic | [Prose](content/bonferroni-correction.md), [check](../checks/bonferroni-correction.py) |  |  | Quality cleanup |
+| 244 | [Generator](generator.md) | Topic | [Prose](content/generator.md), [check](../checks/generator.py) |  |  | Quality cleanup |
+| 245 | [Hierarchical clustering](hierarchical-clustering.md) | Topic | [Prose](content/hierarchical-clustering.md), [check](../checks/hierarchical-clustering.py) |  |  | Quality cleanup |
+| 246 | [Limit theorems](limit-theorems.md) | Topic | [Prose](content/limit-theorems.md), [check](../checks/limit-theorems.py) |  |  | Quality cleanup |
+| 247 | [Output coding, softmax, and cross-entropy](output-coding-softmax-and-cross-entropy.md) | Topic | [Prose](content/output-coding-softmax-and-cross-entropy.md), [check](../checks/output-coding-softmax-and-cross-entropy.py) |  |  | Quality cleanup |
+| 248 | [Pooled variance](pooled-variance.md) | Topic | [Prose](content/pooled-variance.md), [check](../checks/pooled-variance.py) |  |  | Quality cleanup |
+| 249 | [Designed experiment](designed-experiment.md) | Topic | [Prose](content/designed-experiment.md), [check](../checks/designed-experiment.py) |  |  | Quality cleanup |
+| 250 | [Marginal and conditional effects](marginal-and-conditional-effects.md) | Topic | [Prose](content/marginal-and-conditional-effects.md), [check](../checks/marginal-and-conditional-effects.py) |  |  | Quality cleanup |
+| 251 | [Significance level](significance-level.md) | Topic | [Prose](content/significance-level.md), [check](../checks/significance-level.py) |  |  | Quality cleanup |
+| 252 | [Posterior hypothesis probability](posterior-hypothesis-probability.md) | Topic | [Prose](content/posterior-hypothesis-probability.md), [check](../checks/posterior-hypothesis-probability.py) |  |  | Quality cleanup |
+| 253 | [Cauchy–Schwarz inequality](cauchy-schwarz-inequality.md) | Topic | [Prose](content/cauchy-schwarz-inequality.md), [check](../checks/cauchy-schwarz-inequality.py) |  |  | Quality cleanup |
+| 254 | [Galton–Watson process](galton-watson-process.md) | Topic | [Prose](content/galton-watson-process.md), [check](../checks/galton-watson-process.py) |  |  | Quality cleanup |
+| 255 | [Gaussian linear model](gaussian-linear-model.md) | Topic | [Prose](content/gaussian-linear-model.md), [check](../checks/gaussian-linear-model.py) |  |  | Quality cleanup |
+| 256 | [Interquartile range](interquartile-range.md) | Topic | [Prose](content/interquartile-range.md), [check](../checks/interquartile-range.py) |  |  | Quality cleanup |
+| 257 | [Inverse Gaussian distribution](inverse-gaussian-distribution.md) | Topic | [Prose](content/inverse-gaussian-distribution.md), [check](../checks/inverse-gaussian-distribution.py) |  |  | Quality cleanup |
+| 258 | [Detailed balance](detailed-balance.md) | Topic | [Prose](content/detailed-balance.md), [check](../checks/detailed-balance.py) |  |  | Quality cleanup |
+| 259 | [Effective sample size](effective-sample-size.md) | Topic | [Prose](content/effective-sample-size.md), [check](../checks/effective-sample-size.py) |  |  | Quality cleanup |
+| 260 | [Global balance and detailed balance](global-balance-and-detailed-balance.md) | Topic | [Prose](content/global-balance-and-detailed-balance.md), [check](../checks/global-balance-and-detailed-balance.py) |  |  | Quality cleanup |
+| 261 | [Pearson residual](pearson-residual.md) | Topic | [Prose](content/pearson-residual.md), [check](../checks/pearson-residual.py) |  |  | Quality cleanup |
+| 262 | [Stationary and independent increments](stationary-and-independent-increments.md) | Topic | [Prose](content/stationary-and-independent-increments.md), [check](../checks/stationary-and-independent-increments.py) |  |  | Quality cleanup |
+| 263 | [Complete linkage](complete-linkage.md) | Topic | [Prose](content/complete-linkage.md), [check](../checks/complete-linkage.py) |  |  | Quality cleanup |
+| 264 | [Count models beyond the Poisson](count-models-beyond-the-poisson.md) | Topic | [Prose](content/count-models-beyond-the-poisson.md), [check](../checks/count-models-beyond-the-poisson.py) |  |  | Quality cleanup |
+| 265 | [Single linkage](single-linkage.md) | Topic | [Prose](content/single-linkage.md), [check](../checks/single-linkage.py) |  |  | Quality cleanup |
+| 266 | [Leave-one-out cross-validation](leave-one-out-cross-validation.md) | Topic | [Prose](content/leave-one-out-cross-validation.md), [check](../checks/leave-one-out-cross-validation.py) |  |  | Quality cleanup |
+| 267 | [Nested cross-validation](nested-cross-validation.md) | Topic | [Prose](content/nested-cross-validation.md), [check](../checks/nested-cross-validation.py) |  |  | Quality cleanup |
+| 268 | [Trace plot](trace-plot.md) | Topic | [Prose](content/trace-plot.md), [check](../checks/trace-plot.py) |  |  | Quality cleanup |
+| 269 | [Partial correlation](partial-correlation.md) | Topic | [Prose](content/partial-correlation.md), [check](../checks/partial-correlation.py) |  |  | Quality cleanup |
+| 270 | [Random slopes](random-slopes.md) | Topic | [Prose](content/random-slopes.md), [check](../checks/random-slopes.py) |  |  | Quality cleanup |
+| 271 | [Cauchy distribution](cauchy-distribution.md) | Topic | [Prose](content/cauchy-distribution.md), [check](../checks/cauchy-distribution.py) |  |  | Quality cleanup |
+| 272 | [Clique](clique.md) | Topic | [Prose](content/clique.md), [check](../checks/clique.py) |  |  | Quality cleanup |
+| 273 | [Conway–Maxwell–Poisson distribution](conway-maxwell-poisson-distribution.md) | Topic | [Prose](content/conway-maxwell-poisson-distribution.md), [check](../checks/conway-maxwell-poisson-distribution.py) |  |  | Quality cleanup |
+| 274 | [Multinomial distribution](multinomial-distribution.md) | Topic | [Prose](content/multinomial-distribution.md), [check](../checks/multinomial-distribution.py) |  |  | Quality cleanup |
+| 275 | [Student t distribution](student-t-distribution.md) | Topic | [Prose](content/student-t-distribution.md), [check](../checks/student-t-distribution.py) |  |  | Quality cleanup |
+| 276 | [Average linkage](average-linkage.md) | Topic | [Prose](content/average-linkage.md), [check](../checks/average-linkage.py) |  |  | Quality cleanup |
+| 277 | [Cubic smoothing spline](cubic-smoothing-spline.md) | Topic | [Prose](content/cubic-smoothing-spline.md), [check](../checks/cubic-smoothing-spline.py) |  |  | Quality cleanup |
+| 278 | [Gram matrix](gram-matrix.md) | Topic | [Prose](content/gram-matrix.md), [check](../checks/gram-matrix.py) |  |  | Quality cleanup |
+| 279 | [Soft-margin primal](soft-margin-primal.md) | Topic | [Prose](content/soft-margin-primal.md), [check](../checks/soft-margin-primal.py) |  |  | Quality cleanup |
+| 280 | [Tukey intervals](tukey-intervals.md) | Topic | [Prose](content/tukey-intervals.md), [check](../checks/tukey-intervals.py) |  |  | Quality cleanup |
+| 281 | [Uniformly minimum-variance unbiased estimator](uniformly-minimum-variance-unbiased-estimator.md) | Topic | [Prose](content/uniformly-minimum-variance-unbiased-estimator.md), [check](../checks/uniformly-minimum-variance-unbiased-estimator.py) |  |  | Quality cleanup |
+| 282 | [Cramér–Rao lower bound](cramer-rao-lower-bound.md) | Topic | [Prose](content/cramer-rao-lower-bound.md), [check](../checks/cramer-rao-lower-bound.py) |  |  | Quality cleanup |
+| 283 | [Fisher–Neyman factorisation](fisher-neyman-factorisation.md) | Topic | [Prose](content/fisher-neyman-factorisation.md), [check](../checks/fisher-neyman-factorisation.py) |  |  | Quality cleanup |
+| 284 | [Logit, probit and complementary log-log links](logit-probit-and-complementary-log-log-links.md) | Topic | [Prose](content/logit-probit-and-complementary-log-log-links.md), [check](../checks/logit-probit-and-complementary-log-log-links.py) |  |  | Quality cleanup |
+| 285 | [Principal component directions and scores](principal-component-directions-and-scores.md) | Topic | [Prose](content/principal-component-directions-and-scores.md), [check](../checks/principal-component-directions-and-scores.py) |  |  | Quality cleanup |
+| 286 | [Benjamini–Hochberg](benjamini-hochberg.md) | Topic | [Prose](content/benjamini-hochberg.md), [check](../checks/benjamini-hochberg.py) |  |  | Quality cleanup |
+| 287 | [Sample variance and standard deviation](sample-variance-and-standard-deviation.md) | Topic | [Prose](content/sample-variance-and-standard-deviation.md), [check](../checks/sample-variance-and-standard-deviation.py) |  |  | Quality cleanup |
+| 288 | [Link function](link-function.md) | Topic | [Prose](content/link-function.md), [check](../checks/link-function.py) |  |  | Quality cleanup |
+| 289 | [Wald test](wald-test.md) | Topic | [Prose](content/wald-test.md), [check](../checks/wald-test.py) |  |  | Quality cleanup |
+| 290 | [Ancillary statistic](ancillary-statistic.md) | Topic | [Prose](content/ancillary-statistic.md), [check](../checks/ancillary-statistic.py) |  |  | Quality cleanup |
+| 291 | [Chapman–Kolmogorov equations](chapman-kolmogorov-equations.md) | Topic | [Prose](content/chapman-kolmogorov-equations.md), [check](../checks/chapman-kolmogorov-equations.py) |  |  | Quality cleanup |
+| 292 | [Count responses](count-responses.md) | Topic | [Prose](content/count-responses.md), [check](../checks/count-responses.py) |  |  | Quality cleanup |
+| 293 | [First-passage time](first-passage-time.md) | Topic | [Prose](content/first-passage-time.md), [check](../checks/first-passage-time.py) |  |  | Quality cleanup |
+| 294 | [Five-number summary and boxplot](five-number-summary-and-boxplot.md) | Topic | [Prose](content/five-number-summary-and-boxplot.md), [check](../checks/five-number-summary-and-boxplot.py) |  |  | Quality cleanup |
+| 295 | [Identity link](identity-link.md) | Topic | [Prose](content/identity-link.md), [check](../checks/identity-link.py) |  |  | Quality cleanup |
+| 296 | [Newton–Raphson method](newton-raphson-method.md) | Topic | [Prose](content/newton-raphson-method.md), [check](../checks/newton-raphson-method.py) |  |  | Quality cleanup |
+| 297 | [Normal sample theorem](normal-sample-theorem.md) | Topic | [Prose](content/normal-sample-theorem.md), [check](../checks/normal-sample-theorem.py) |  |  | Quality cleanup |
+| 298 | [Sigma-algebra](sigma-algebra.md) | Topic | [Prose](content/sigma-algebra.md), [check](../checks/sigma-algebra.py) |  |  | Quality cleanup |
+| 299 | [Complete separation](complete-separation.md) | Topic | [Prose](content/complete-separation.md), [check](../checks/complete-separation.py) |  |  | Quality cleanup |
+| 300 | [Dummy variable coding](dummy-variable-coding.md) | Topic | [Prose](content/dummy-variable-coding.md), [check](../checks/dummy-variable-coding.py) |  |  | Quality cleanup |
+| 301 | [Lloyd's K-means algorithm](lloyd-s-k-means-algorithm.md) | Topic | [Prose](content/lloyd-s-k-means-algorithm.md), [check](../checks/lloyd-s-k-means-algorithm.py) |  |  | Quality cleanup |
+| 302 | [M/M/1 queue](m-m-1-queue.md) | Topic | [Prose](content/m-m-1-queue.md), [check](../checks/m-m-1-queue.py) |  |  | Quality cleanup |
+| 303 | [Markov properties and factorisation](markov-properties-and-factorisation.md) | Topic | [Prose](content/markov-properties-and-factorisation.md), [check](../checks/markov-properties-and-factorisation.py) |  |  | Quality cleanup |
+| 304 | [Maximum likelihood in a GLM](maximum-likelihood-in-a-glm.md) | Topic | [Prose](content/maximum-likelihood-in-a-glm.md), [check](../checks/maximum-likelihood-in-a-glm.py) |  |  | Quality cleanup |
+| 305 | [Proportional-odds model](proportional-odds-model.md) | Topic | [Prose](content/proportional-odds-model.md), [check](../checks/proportional-odds-model.py) |  |  | Quality cleanup |
+| 306 | [Restricted maximum likelihood](restricted-maximum-likelihood.md) | Topic | [Prose](content/restricted-maximum-likelihood.md), [check](../checks/restricted-maximum-likelihood.py) |  |  | Quality cleanup |
+| 307 | [Sparsity](sparsity.md) | Topic | [Prose](content/sparsity.md), [check](../checks/sparsity.py) |  |  | Quality cleanup |
+| 308 | [Stochastic gradient descent](stochastic-gradient-descent.md) | Topic | [Prose](content/stochastic-gradient-descent.md), [check](../checks/stochastic-gradient-descent.py) |  |  | Quality cleanup |
+| 309 | [Stochastic process](stochastic-process.md) | Topic | [Prose](content/stochastic-process.md), [check](../checks/stochastic-process.py) |  |  | Quality cleanup |
+| 310 | [Tower property](tower-property.md) | Topic | [Prose](content/tower-property.md), [check](../checks/tower-property.py) |  |  | Quality cleanup |
+| 311 | [Wald interval](wald-interval.md) | Topic | [Prose](content/wald-interval.md), [check](../checks/wald-interval.py) |  |  | Quality cleanup |
+| 312 | [Weight initialisation](weight-initialisation.md) | Topic | [Prose](content/weight-initialisation.md), [check](../checks/weight-initialisation.py) |  |  | Quality cleanup |
+| 313 | [Early stopping](early-stopping.md) | Topic | [Prose](content/early-stopping.md), [check](../checks/early-stopping.py) |  |  | Quality cleanup |
+| 314 | [Epoch](epoch.md) | Topic | [Prose](content/epoch.md), [check](../checks/epoch.py) |  |  | Quality cleanup |
+| 315 | [Random forest](random-forest.md) | Topic | [Prose](content/random-forest.md), [check](../checks/random-forest.py) |  |  | Quality cleanup |
+| 316 | [Gini index](gini-index.md) | Topic | [Prose](content/gini-index.md), [check](../checks/gini-index.py) |  |  | Quality cleanup |
+| 317 | [Out-of-bag estimation and variable importance](out-of-bag-estimation-and-variable-importance.md) | Topic | [Prose](content/out-of-bag-estimation-and-variable-importance.md), [check](../checks/out-of-bag-estimation-and-variable-importance.py) |  |  | Quality cleanup |
+| 318 | [Adjusted Rand index](adjusted-rand-index.md) | Topic | [Prose](content/adjusted-rand-index.md), [check](../checks/adjusted-rand-index.py) |  |  | Quality cleanup |
+| 319 | [Bids for a bankrupt firm](bids-for-a-bankrupt-firm.md) | Topic | [Prose](content/bids-for-a-bankrupt-firm.md), [check](../checks/bids-for-a-bankrupt-firm.py) |  |  | Quality cleanup |
+| 320 | [Chi-squared test of independence](chi-squared-test-of-independence.md) | Topic | [Prose](content/chi-squared-test-of-independence.md), [check](../checks/chi-squared-test-of-independence.py) |  |  | Quality cleanup |
+| 321 | [Complete-data likelihood](complete-data-likelihood.md) | Topic | [Prose](content/complete-data-likelihood.md), [check](../checks/complete-data-likelihood.py) |  |  | Quality cleanup |
+| 322 | [Countable additivity](countable-additivity.md) | Topic | [Prose](content/countable-additivity.md), [check](../checks/countable-additivity.py) |  |  | Quality cleanup |
+| 323 | [Discrete-time Markov chain](discrete-time-markov-chain.md) | Topic | [Prose](content/discrete-time-markov-chain.md), [check](../checks/discrete-time-markov-chain.py) |  |  | Quality cleanup |
+| 324 | [F distribution](f-distribution.md) | Topic | [Prose](content/f-distribution.md), [check](../checks/f-distribution.py) |  |  | Quality cleanup |
+| 325 | [Hammersley–Clifford](hammersley-clifford.md) | Topic | [Prose](content/hammersley-clifford.md), [check](../checks/hammersley-clifford.py) |  |  | Quality cleanup |
+| 326 | [Hinge loss](hinge-loss.md) | Topic | [Prose](content/hinge-loss.md), [check](../checks/hinge-loss.py) |  |  | Quality cleanup |
+| 327 | [Holding time](holding-time.md) | Topic | [Prose](content/holding-time.md), [check](../checks/holding-time.py) |  |  | Quality cleanup |
+| 328 | [Loadings](loadings.md) | Topic | [Prose](content/loadings.md), [check](../checks/loadings.py) |  |  | Quality cleanup |
+| 329 | [Missing data](missing-data.md) | Topic | [Prose](content/missing-data.md), [check](../checks/missing-data.py) |  |  | Quality cleanup |
+| 330 | [Multivariate central limit theorem](multivariate-central-limit-theorem.md) | Topic | [Prose](content/multivariate-central-limit-theorem.md), [check](../checks/multivariate-central-limit-theorem.py) |  |  | Quality cleanup |
+| 331 | [Normal quantile plot](normal-quantile-plot.md) | Topic | [Prose](content/normal-quantile-plot.md), [check](../checks/normal-quantile-plot.py) |  |  | Quality cleanup |
+| 332 | [Positive continuous responses](positive-continuous-responses.md) | Topic | [Prose](content/positive-continuous-responses.md), [check](../checks/positive-continuous-responses.py) |  |  | Quality cleanup |
+| 333 | [Regression slope](regression-slope.md) | Topic | [Prose](content/regression-slope.md), [check](../checks/regression-slope.py) |  |  | Quality cleanup |
+| 334 | [Weibull distribution](weibull-distribution.md) | Topic | [Prose](content/weibull-distribution.md), [check](../checks/weibull-distribution.py) |  |  | Quality cleanup |
+| 335 | [AdaBoost](adaboost.md) | Topic | [Prose](content/adaboost.md), [check](../checks/adaboost.py) |  |  | Quality cleanup |
+| 336 | [ARIMA model](arima-model.md) | Topic | [Prose](content/arima-model.md), [check](../checks/arima-model.py) |  |  | Quality cleanup |
+| 337 | [Bias of an estimator](bias-of-an-estimator.md) | Topic | [Prose](content/bias-of-an-estimator.md), [check](../checks/bias-of-an-estimator.py) |  |  | Quality cleanup |
+| 338 | [Boosting](boosting.md) | Topic | [Prose](content/boosting.md), [check](../checks/boosting.py) |  |  | Quality cleanup |
+| 339 | [Borel–Cantelli lemmas](borel-cantelli-lemmas.md) | Topic | [Prose](content/borel-cantelli-lemmas.md), [check](../checks/borel-cantelli-lemmas.py) |  |  | Quality cleanup |
+| 340 | [Confounding variable](confounding-variable.md) | Topic | [Prose](content/confounding-variable.md), [check](../checks/confounding-variable.py) |  |  | Quality cleanup |
+| 341 | [Dirichlet–Multinomial conjugacy](dirichlet-multinomial-conjugacy.md) | Topic | [Prose](content/dirichlet-multinomial-conjugacy.md), [check](../checks/dirichlet-multinomial-conjugacy.py) |  |  | Quality cleanup |
+| 342 | [False discovery rate](false-discovery-rate.md) | Topic | [Prose](content/false-discovery-rate.md), [check](../checks/false-discovery-rate.py) |  |  | Quality cleanup |
+| 343 | [Little's law](little-s-law.md) | Topic | [Prose](content/little-s-law.md), [check](../checks/little-s-law.py) |  |  | Quality cleanup |
+| 344 | [Local balance](local-balance.md) | Topic | [Prose](content/local-balance.md), [check](../checks/local-balance.py) |  |  | Quality cleanup |
+| 345 | [Nominal responses](nominal-responses.md) | Topic | [Prose](content/nominal-responses.md), [check](../checks/nominal-responses.py) |  |  | Quality cleanup |
+| 346 | [Precision weighting](precision-weighting.md) | Topic | [Prose](content/precision-weighting.md), [check](../checks/precision-weighting.py) |  |  | Quality cleanup |
+| 347 | [Product rule](product-rule.md) | Topic | [Prose](content/product-rule.md), [check](../checks/product-rule.py) |  |  | Quality cleanup |
+| 348 | [Dendrogram](dendrogram.md) | Topic | [Prose](content/dendrogram.md), [check](../checks/dendrogram.py) |  |  | Quality cleanup |
+| 349 | [Extinction probability](extinction-probability.md) | Topic | [Prose](content/extinction-probability.md), [check](../checks/extinction-probability.py) |  |  | Quality cleanup |
+| 350 | [Null deviance](null-deviance.md) | Topic | [Prose](content/null-deviance.md), [check](../checks/null-deviance.py) |  |  | Quality cleanup |
+| 351 | [Ordinal responses](ordinal-responses.md) | Topic | [Prose](content/ordinal-responses.md), [check](../checks/ordinal-responses.py) |  |  | Quality cleanup |
+| 352 | [Partial autocorrelation](partial-autocorrelation.md) | Topic | [Prose](content/partial-autocorrelation.md), [check](../checks/partial-autocorrelation.py) |  |  | Quality cleanup |
+| 353 | [Positive predictive value](positive-predictive-value.md) | Topic | [Prose](content/positive-predictive-value.md), [check](../checks/positive-predictive-value.py) |  |  | Quality cleanup |
+| 354 | [Prediction interval](prediction-interval.md) | Topic | [Prose](content/prediction-interval.md), [check](../checks/prediction-interval.py) |  |  | Quality cleanup |
+| 355 | [Quadratic discriminant analysis](quadratic-discriminant-analysis.md) | Topic | [Prose](content/quadratic-discriminant-analysis.md), [check](../checks/quadratic-discriminant-analysis.py) |  |  | Quality cleanup |
+| 356 | [Randomised block design](randomised-block-design.md) | Topic | [Prose](content/randomised-block-design.md), [check](../checks/randomised-block-design.py) |  |  | Quality cleanup |
+| 357 | [Voronoi tessellation](voronoi-tessellation.md) | Topic | [Prose](content/voronoi-tessellation.md), [check](../checks/voronoi-tessellation.py) |  |  | Quality cleanup |
+| 358 | [Hastings correction](hastings-correction.md) | Topic | [Prose](content/hastings-correction.md), [check](../checks/hastings-correction.py) |  |  | Quality cleanup |
+| 359 | [Structure function](structure-function.md) | Topic | [Prose](content/structure-function.md), [check](../checks/structure-function.py) |  |  | Quality cleanup |
+| 360 | [Convolution](convolution.md) | Topic | [Prose](content/convolution.md), [check](../checks/convolution.py) |  |  | Quality cleanup |
+| 361 | [Extreme-value classification](extreme-value-classification.md) | Topic | [Prose](content/extreme-value-classification.md), [check](../checks/extreme-value-classification.py) |  |  | Quality cleanup |
+| 362 | [Independent random variables](independent-random-variables.md) | Topic | [Prose](content/independent-random-variables.md), [check](../checks/independent-random-variables.py) |  |  | Quality cleanup |
+| 363 | [Jump chain](jump-chain.md) | Topic | [Prose](content/jump-chain.md), [check](../checks/jump-chain.py) |  |  | Quality cleanup |
+| 364 | [Markov random field](markov-random-field.md) | Topic | [Prose](content/markov-random-field.md), [check](../checks/markov-random-field.py) |  |  | Quality cleanup |
+| 365 | [Mini-batch](mini-batch.md) | Topic | [Prose](content/mini-batch.md), [check](../checks/mini-batch.py) |  |  | Quality cleanup |
+| 366 | [Multiple testing](multiple-testing.md) | Topic | [Prose](content/multiple-testing.md), [check](../checks/multiple-testing.py) |  |  | Quality cleanup |
+| 367 | [Polynomial kernel](polynomial-kernel.md) | Topic | [Prose](content/polynomial-kernel.md), [check](../checks/polynomial-kernel.py) |  |  | Quality cleanup |
 
 Word counts use `\b[\w-]+\b` in the generated `.qmd` before its `## See also` section, with actual HTML tags removed; math inequalities remain counted. Figure counts use Markdown image links in the full page, including captions with nested links. The baseline for all 718 pages is frozen in `baseline.json`; the graph test rejects any loss of words or figures. Variance lost no existing definition, example, citation, infobox value, question, or figure. Nineteen duplicate link-only “Check yourself” headings were removed. Their question links remain in the generated reading list; six unique links were moved into article examples. Seven sections also contained worked answers, which were preserved under Worked example. No examples or question answers were removed. The rank 1–37 self-checks now contain two question-bank questions apiece with hidden answers.
 

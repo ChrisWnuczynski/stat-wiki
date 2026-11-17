@@ -43,7 +43,7 @@ Suppose a classifier is assessed on eleven observations in three folds of sizes 
 **Your turn.** Keep fold sizes $4,4,3$, but suppose the error counts are $1,1,0$. Compute the pooled error and the unweighted average of fold rates.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The pooled error is $2/11\approx0.1818$. The fold rates are $1/4,1/4,0$, whose unweighted average is $1/6\approx0.1667$. Unequal fold sizes make the two summaries differ.{{cite:hastie_esl2009}} (Ch. 7, §7.10.1, pp. 242–243)
+The pooled error is $2/11\approx0.1818$. The fold rates are $1/4,1/4,0$, whose unweighted average is $1/6\approx0.1667$. Unequal fold sizes make the two summaries differ.
 :::
 
 ## Common misconceptions

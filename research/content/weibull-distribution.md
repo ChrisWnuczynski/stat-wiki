@@ -28,8 +28,6 @@ Take shape $k=1.5$ and scale $\lambda=20$ hours. The median is $20(\log 2)^{2/3}
 The mean is $20$ hours. The median is $20\log 2\approx 13.86$ hours. The hazard is the constant $1/20=0.05$ per hour.
 :::
 
-## Check yourself
-
 For shape $2$ and scale $10$, what is the survival probability at $t=10$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
@@ -44,3 +42,7 @@ Shape $0.5$ is below one, so the hazard $(k/\lambda)(t/\lambda)^{k-1}$ has a neg
 
 ## Connections
 Shape one is the [exponential distribution](exponential-distribution.qmd) with rate $1/\lambda$, the lifetime with the [memoryless property](memoryless-property.qmd). The hazard formula is the general [hazard rate](hazard-rate.qmd) $f(t)/R(t)$ specialised to this survival function. A single shape cannot fall and later rise; a bathtub hazard needs more than one Weibull term. Shape two is the Rayleigh law for the length of a bivariate normal vector with independent coordinates of mean zero and equal variance.{{cite:nist_weibull_handbook}} (§8.1.6.2, exponential and Rayleigh cases)
+
+::: {.callout-tip collapse="true" title="Answer"}
+$(10/10)^2=1$, so the survival probability is $e^{-1}\approx 0.3679$. The median is $10\sqrt{\log 2}\approx 8.33$, which is below the scale.
+:::

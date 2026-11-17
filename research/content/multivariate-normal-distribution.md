@@ -47,7 +47,7 @@ Let $(X_1,X_2)^\top$ be jointly normal with $\boldsymbol\mu=(1,2)^\top$ and $\Si
 **Your turn.** In the same model, observe $X_2=-1$. Find the conditional mean and variance of $X_1$; then find the distribution of $X_1-X_2$.{{cite:wang2025_foundations}} (Ch. 6 Extra, Thms. 26, 31)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The conditional mean is $1+(1/9)(-1-2)=2/3$ and the variance remains $35/9$. Thus $X_1\mid X_2=-1\sim\operatorname N(2/3,35/9)$. For the difference, use $\boldsymbol a=(1,-1)^\top$: its mean is $1-2=-1$ and its variance is $4+9-2(1)=11$, so $X_1-X_2\sim\operatorname N(-1,11)$. The two calculations condition and transform in different ways.{{cite:wang2025_foundations}} (Ch. 6 Extra, Thms. 26, 31)
+The conditional mean is $1+(1/9)(-1-2)=2/3$ and the variance remains $35/9$. Thus $X_1\mid X_2=-1\sim\operatorname N(2/3,35/9)$. For the difference, use $\boldsymbol a=(1,-1)^\top$: its mean is $1-2=-1$ and its variance is $4+9-2(1)=11$, so $X_1-X_2\sim\operatorname N(-1,11)$. The two calculations condition and transform in different ways.
 :::
 
 ## Common misconceptions

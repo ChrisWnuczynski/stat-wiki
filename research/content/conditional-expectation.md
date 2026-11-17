@@ -95,7 +95,7 @@ The conditional standard deviation is \(\sqrt{27/4}=3\sqrt3/2\), the same at eve
 **Your turn.** The pairs \((0,0)\), \((0,2)\) and \((1,1)\) have probabilities \(1/5\), \(2/5\) and \(2/5\). Find \(\mathbb E(Y\mid X=0)\) and check that the tower property recovers \(\mathbb E Y\).
 
 ::: {.callout-tip collapse="true" title="Answer"}
-\(\mathbb P(X=0)=3/5\), so \(\mathbb E(Y\mid X=0)=(0\cdot1/5+2\cdot2/5)/(3/5)=4/3\). Also \(\mathbb E(Y\mid X=1)=1\) and \(\mathbb E Y=0\cdot1/5+2\cdot2/5+1\cdot2/5=6/5\). The tower average is \((3/5)(4/3)+(2/5)(1)=6/5\).{{cite:durrett2019}} (Thm. 4.1.13)
+\(\mathbb P(X=0)=3/5\), so \(\mathbb E(Y\mid X=0)=(0\cdot1/5+2\cdot2/5)/(3/5)=4/3\). Also \(\mathbb E(Y\mid X=1)=1\) and \(\mathbb E Y=0\cdot1/5+2\cdot2/5+1\cdot2/5=6/5\). The tower average is \((3/5)(4/3)+(2/5)(1)=6/5\).
 :::
 
 ## Common misconceptions

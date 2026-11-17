@@ -50,7 +50,7 @@ The negative covariance says that larger first coordinates tend to go with small
 **Your turn.** For the same three pairs, find the sample variance of their sums $x_{i1}+x_{i2}$ using $s$. Would the answer be the same if the within-pair covariance were discarded?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-With $\mathbf a=(1,1)^\top$, the variance is $\mathbf a^\top s\mathbf a=4+4+2(-2)=4$. Discarding covariance would give $4+4=8$, so preserving pairs matters.{{cite:nist_covariance2002}} (§6.5.4.1)
+With $\mathbf a=(1,1)^\top$, the variance is $\mathbf a^\top s\mathbf a=4+4+2(-2)=4$. Discarding covariance would give $4+4=8$, so preserving pairs matters.
 :::
 
 The [sample mean and covariance exercise](../questions/ex-sl-01-1.qmd) calculates each matrix entry from observed vectors.{{cite:nist_covariance2002}} (§6.5.4.1)

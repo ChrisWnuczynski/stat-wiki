@@ -56,7 +56,6 @@ The position at a large fixed time is governed by a [law of large numbers](law-o
 
 A fair walk is absorbed at $0$ and at $8$, and starts at $5$. Find the probability of reaching $8$ before $0$, and the expected absorption time.
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 $h_5=5/8$ and $e_5=5(8-5)=15$.
 :::
@@ -64,7 +63,6 @@ $h_5=5/8$ and $e_5=5(8-5)=15$.
 ### A biased walk on four steps {#self-check-ex-sp-biased-goal}
 
 Take $p=2/3$, barriers at $0$ and $4$, and a start at $1$. Compute the probability of hitting $4$ before $0$, and compare it with the fair-walk value.
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 $q/p=1/2$, so $h_1=(1-1/2)/(1-(1/2)^4)=(1/2)/(15/16)=8/15$. The fair value is $1/4$. Because $8/15>1/4$, the upward drift lifts the hitting probability above the fair line.

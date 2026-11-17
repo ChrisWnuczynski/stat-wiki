@@ -38,7 +38,7 @@ Three equally likely workday scenarios produce stage delays $(X,Y)$ of $(1,3)$, 
 **Your turn.** Keep the three equally likely values $X=1,2,3$, but let the paired stage-$Y$ delays be $8,4,3$ hours. Find the covariance and the variance of the total delay.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Now $\mathbb E Y=5$, and the centred products are $(-1)(3)=-3$, $0(-1)=0$, and $(1)(-2)=-2$. Hence $\operatorname{Cov}(X,Y)=-5/3$ square hours. The separate variances are still $2/3$ and $14/3$, so $\operatorname{Var}(X+Y)=2/3+14/3-10/3=2$ square hours.{{cite:grinstead_snell1997}} (Ch. 6, Exs. 6.2.23, 6.3.17–20)
+Now $\mathbb E Y=5$, and the centred products are $(-1)(3)=-3$, $0(-1)=0$, and $(1)(-2)=-2$. Hence $\operatorname{Cov}(X,Y)=-5/3$ square hours. The separate variances are still $2/3$ and $14/3$, so $\operatorname{Var}(X+Y)=2/3+14/3-10/3=2$ square hours.
 :::
 
 The [sample-covariance divisor exercise](../questions/ex-sl-02-1.qmd) applies the same variance expansion to explain the denominator $n-1$.{{cite:nist_covariance2002}} (§6.5.4.1)

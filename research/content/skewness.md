@@ -37,7 +37,7 @@ For the five observations $1,2,2,3,7$, the mean is $3$ and the deviations are $-
 **Your turn.** For $1,1,2,4$, calculate $\bar x$, $m_2$, $m_3$ and the unadjusted moment skewness $g_1$. State which tail is longer by this coefficient.{{cite:dodge2008}} (pp. 92–94, Coefficient of Skewness)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $2$, giving deviations $-1,-1,0,2$. Thus $m_2=(1+1+0+4)/4=3/2$ and $m_3=(-1-1+0+8)/4=3/2$. The coefficient is $g_1=(3/2)/(3/2)^{3/2}=\sqrt{2/3}\approx0.8165$, so the positive tail dominates this moment calculation. For these four values, the adjusted coefficient would be $\sqrt{12}\,g_1/2=\sqrt2\approx1.4142$; it is not the requested unadjusted answer.{{cite:dodge2008}} (pp. 92–94, Coefficient of Skewness)
+The mean is $2$, giving deviations $-1,-1,0,2$. Thus $m_2=(1+1+0+4)/4=3/2$ and $m_3=(-1-1+0+8)/4=3/2$. The coefficient is $g_1=(3/2)/(3/2)^{3/2}=\sqrt{2/3}\approx0.8165$, so the positive tail dominates this moment calculation. For these four values, the adjusted coefficient would be $\sqrt{12}\,g_1/2=\sqrt2\approx1.4142$; it is not the requested unadjusted answer.
 :::
 
 ## Common misconceptions

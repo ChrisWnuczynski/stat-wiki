@@ -43,7 +43,7 @@ Suppose 44 of 100 independently sampled devices pass inspection. The sample-prop
 **Your turn.** A separate independent Bernoulli sample has 18 successes in 30 trials. Give the sample-proportion estimate and its estimated standard error. Is that one observed estimate itself an unbiased estimator?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The estimate is $18/30=0.6$, and its plug-in estimated standard error is $\sqrt{0.6(0.4)/30}=\sqrt{0.008}\approx0.0894$. Unbiasedness belongs to the *random rule* $\widehat p$, whose expectation is $p$ under repeated Bernoulli sampling; it is not a property of the single observed number $0.6$.{{cite:wang2025_foundations}} (Ch. 12, §15; Ch. 13, §16.2)
+The estimate is $18/30=0.6$, and its plug-in estimated standard error is $\sqrt{0.6(0.4)/30}=\sqrt{0.008}\approx0.0894$. Unbiasedness belongs to the *random rule* $\widehat p$, whose expectation is $p$ under repeated Bernoulli sampling; it is not a property of the single observed number $0.6$.
 :::
 
 ## Common misconceptions

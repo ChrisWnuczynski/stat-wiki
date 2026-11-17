@@ -70,7 +70,7 @@ Also \(\mathbb P(X=1)=\mathbb P(Y=1)=1/2\), so the product is \(1/4\), not \(5/1
 **Your turn.** For the same distribution, find \(\mathbb P(X=1\mid Y=1)\).
 
 ::: {.callout-tip collapse="true" title="Answer"}
-\(\mathbb P(Y=1)=1/2\) and \(\mathbb P(X=1,Y=1)=5/16\), so \(\mathbb P(X=1\mid Y=1)=(5/16)/(1/2)=5/8\). This is not \(\mathbb P(X=1)=1/2\). Knowing \(Y\) still helps until \(Z\) is known.{{cite:dawid1979}} (§3)
+\(\mathbb P(Y=1)=1/2\) and \(\mathbb P(X=1,Y=1)=5/16\), so \(\mathbb P(X=1\mid Y=1)=(5/16)/(1/2)=5/8\). This is not \(\mathbb P(X=1)=1/2\). Knowing \(Y\) still helps until \(Z\) is known.
 :::
 
 ## Common misconceptions

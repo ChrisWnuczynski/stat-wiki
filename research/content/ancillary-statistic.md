@@ -19,7 +19,9 @@ X_i-\overline X=\varepsilon_i-\overline\varepsilon,
 \]
 because \(\mu\) is added to every observation and cancels in the difference. The centred vector is a function of \((\varepsilon_1,\ldots,\varepsilon_n)\) alone, so its distribution does not depend on \(\mu\). It is ancillary for \(\mu\) when \(\mu\) is the only unknown parameter. If a scale \(\sigma\) multiplies \(\varepsilon_i\), the centred vector is multiplied by \(\sigma\), so its distribution depends on \(\sigma\). It is then not ancillary for the pair \((\mu,\sigma)\).
 :::
-:::{{cite:dasgupta2007_basu}} (pp. 945–946, Basu's theorem)
+:::
+
+{{cite:dasgupta2007_basu}} (pp. 945–946, Basu's theorem)
 
 ## Worked example — A shift that disappears
 

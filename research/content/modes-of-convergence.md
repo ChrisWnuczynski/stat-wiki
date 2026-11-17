@@ -22,7 +22,7 @@ Let $Y_n=n^2$ with probability $1/n^3$, and $Y_n=0$ otherwise. For $n=10$, the s
 **Your turn.** Suppose $Z_n=n$ with probability $1/n^2$ and zero otherwise. At $n=10$, compute its nonzero probability, mean absolute error and mean squared error. Which of convergence in probability, $L^1$ and $L^2$ to zero hold?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The probability is $0.01$, $E|Z_{10}|=10/100=0.1$, and $E(Z_{10}^2)=100/100=1$. In general the corresponding values are $1/n^2$, $1/n$ and $1$. Thus $Z_n\to0$ in probability and $L^1$, but not in $L^2$. The $L^2$ error remains fixed even while spikes become rare.{{cite:siegrist_convergence_lp}} (Vector Spaces, Convergence in Mean)
+The probability is $0.01$, $E|Z_{10}|=10/100=0.1$, and $E(Z_{10}^2)=100/100=1$. In general the corresponding values are $1/n^2$, $1/n$ and $1$. Thus $Z_n\to0$ in probability and $L^1$, but not in $L^2$. The $L^2$ error remains fixed even while spikes become rare.
 :::
 
 ## Common misconceptions

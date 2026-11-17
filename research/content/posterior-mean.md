@@ -75,7 +75,7 @@ The combined precision is $1/4+1=5/4$. Dividing each contribution by $5/4$ gives
 **Your turn.** With a $\operatorname{Beta}(1,1)$ prior and three heads in ten trials, find the posterior mean and compare it with the observed fraction and the posterior mode.{{cite:hoff2013_bayes_estimators}} (p. 11)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The posterior is $\operatorname{Beta}(4,8)$. Its mean is $4/12=1/3$, the observed fraction is $3/10$, and its interior mode is $(4-1)/(4+8-2)=3/10$. The mean and mode differ because the posterior is skewed.{{cite:wang2025_foundations}} (Ch. 20, Example 11)
+The posterior is $\operatorname{Beta}(4,8)$. Its mean is $4/12=1/3$, the observed fraction is $3/10$, and its interior mode is $(4-1)/(4+8-2)=3/10$. The mean and mode differ because the posterior is skewed.
 :::
 
 ## Common misconceptions

@@ -9,7 +9,7 @@ For an exponential-family GLM the score for $\beta$ has one summand per observat
 $$
 \frac{y_i-\mu_i}{V_i}\frac{d\mu_i}{d\eta_i}x_i,
 $$
-where $V_i$ is the variance function at the current mean and $d\mu_i/d\eta_i$ is the slope of the inverse link. The weights depend on $\beta$, so the equation is not the ordinary normal equation. {{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374) Fisher scoring freezes those weights, replaces the mean by its tangent, and solves a weighted least-squares problem for the step. R’s `glm.fit` is that iteration.{{cite:rstats_glm2026}} (`glm.fit`, iteratively reweighted least squares)
+where $V_i$ is the variance function at the current mean and $d\mu_i/d\eta_i$ is the slope of the inverse link. The weights depend on $\beta$, so the equation is not the ordinary normal equation. {{cite:nelder_wedderburn1972}} (§§1.1, 2.1–2.2, pp. 371–374) Fisher scoring freezes those weights, replaces the mean by its tangent, and solves a weighted least-squares problem for the step. R’s `glm.fit` is that iteration.{{cite:rstats_glm2026}} (§ `glm.fit`, iteratively reweighted least squares)
 
 ## Definition — Poisson log link, one count
 For $Y\sim\mathrm{Poisson}(e^{\beta})$, the log-likelihood is $\ell(\beta)=y\beta-e^{\beta}$ up to a constant. The score and Hessian are
@@ -46,7 +46,6 @@ An [identity link](identity-link.qmd) with constant variance makes the score lin
 
 Name the three components of a generalised linear model and the usual conditional-independence assumption.
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 An exponential-family response distribution, a linear predictor, and a link from the mean to that predictor. Responses are independent given the covariates. The likelihood fit estimates the coefficients in the linear predictor.
 :::
@@ -54,7 +53,6 @@ An exponential-family response distribution, a linear predictor, and a link from
 ### Link and canonical link {#self-check-c-17}
 
 What is a link, and what is a canonical link?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 A link $g$ satisfies $g(\mu_i)=\eta_i$. A canonical link matches $\eta_i$ to the natural parameter. The log link is canonical for the Poisson mean, which is why the score in the worked example is $y-\mu$.

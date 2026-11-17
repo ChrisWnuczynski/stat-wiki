@@ -45,6 +45,9 @@ The threshold is $\lambda/2=0.5$. The coefficients are $(2-0.5,-0.7+0.5,0)=(1.5,
 
 An exact zero is a property of the fitted penalised objective, not proof that a predictor has no effect in the population. A nonzero coefficient is a conditional, penalised estimate, not an unshrunk least-squares effect. Cross-validation that tunes $\lambda$ does not also provide an unbiased assessment of the tuning procedure unless the assessment is kept outside selection. Finally, correlated predictors can yield similarly accurate fits with different chosen variables, so a selected list is not automatically stable.{{cite:friedman_glmnet2010}} (§2, correlated predictors and path fitting)
 
+## Assumptions and limits — When a coefficient list misleads
+Correlated predictors can yield similarly accurate fits with different chosen variables, so a selected list is not automatically a stable description of the population.{{cite:friedman_glmnet2010}} (§2, correlated predictors and path fitting)
+
 ## Connections
 
 [Ridge regression](ridge-regression.qmd) uses a smooth quadratic penalty and handles collinearity without the same sparsity mechanism. [Soft thresholding](soft-thresholding-for-orthonormal-predictors.qmd) gives the exact lasso update in the orthonormal case. [Subset selection](subset-selection-and-shrinkage.qmd) searches discrete model sets, while [cross-validation](cross-validation.qmd) assesses a tuning procedure when its folds contain every selection step. [Logistic lasso](logistic-lasso.qmd) changes the loss for binary outcomes, and [graphical lasso](graphical-lasso.qmd) applies an absolute-value penalty to a different statistical object, the precision matrix.{{cite:friedman_glmnet2010}} (§1–3, regression and GLM penalty paths)

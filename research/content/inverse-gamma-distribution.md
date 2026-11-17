@@ -45,7 +45,7 @@ Take three independent readings $x=(1,2,3)$ from $\operatorname N(0,V)$, with kn
 **Your turn.** With known mean zero, take two readings $1,-1$ and prior $V\sim\operatorname{InvGamma}(2,3)$. Find the posterior law, mean, and mode.{{cite:raiffa_schlaifer1961}} (Ch. 11, §§11.1.2–11.1.3, pp. 289–291)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Here $S_0=1^2+(-1)^2=2$, so $V\mid x\sim\operatorname{InvGamma}(2+1,3+1)=\operatorname{InvGamma}(3,4)$. The mean is $4/(3-1)=2$ and the mode is $4/(3+1)=1$. The sample is centred exactly on the known mean, but its two nonzero errors still contribute to the variance update.{{cite:raiffa_schlaifer1961}} (Ch. 11, §11.1.3, pp. 290–291)
+Here $S_0=1^2+(-1)^2=2$, so $V\mid x\sim\operatorname{InvGamma}(2+1,3+1)=\operatorname{InvGamma}(3,4)$. The mean is $4/(3-1)=2$ and the mode is $4/(3+1)=1$. The sample is centred exactly on the known mean, but its two nonzero errors still contribute to the variance update.
 :::
 
 ## Common misconceptions

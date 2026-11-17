@@ -50,6 +50,6 @@ for printed in (
 assert prose.count('title="Proof"') == 1
 assert "**Your turn.**" in prose and "## Check yourself" in prose
 assert prose.count('title="Answer"') == 4
-for key in ("nist_ls_straight2002", "nist_linear_model2002", "dodge2008"):
+for key in ("nist_ls_straight2002", "nist_linear_least_squares_pmd2002", "dodge2008"):
     assert f"{{{{cite:{key}}}}}" in prose
 print("simple-linear-regression arithmetic passed")

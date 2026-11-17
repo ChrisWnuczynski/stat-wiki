@@ -36,7 +36,7 @@ Suppose a binary target assigns $\pi(0,0)=3/10$, $\pi(0,1)=1/10$, $\pi(1,0)=1/5$
 **Your turn.** From the same target, begin at $(1,1)$ and use the same $X$-then-$Y$ update order. What is the one-sweep probability of ending at $(0,0)$? Show both conditional factors before multiplying.{{cite:geyer2005_markov_chain}} (§§10.1, 10.4, pp. 27–28)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Given the old $Y=1$, $\Pr(X'=0\mid Y=1)=(1/10)/(1/10+2/5)=1/5$. Given the *new* $X'=0$, $\Pr(Y'=0\mid X'=0)=(3/10)/(3/10+1/10)=3/4$. The transition probability is $(1/5)(3/4)=3/20$. Using the old $X=1$ for the second factor would calculate a different transition rule.{{cite:geyer2005_markov_chain}} (§§10.1, 10.4, pp. 27–28)
+Given the old $Y=1$, $\Pr(X'=0\mid Y=1)=(1/10)/(1/10+2/5)=1/5$. Given the *new* $X'=0$, $\Pr(Y'=0\mid X'=0)=(3/10)/(3/10+1/10)=3/4$. The transition probability is $(1/5)(3/4)=3/20$. Using the old $X=1$ for the second factor would calculate a different transition rule.
 :::
 
 ## Common misconceptions

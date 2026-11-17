@@ -42,7 +42,7 @@ For the even sample $2,4,8,100$, the reported median is $(4+8)/2=6$. Every $a$ f
 **Your turn.** Find the median of $1,3,7,9,20$ and compare the total absolute deviations at $a=7$ and $a=3$.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The middle ordered value is $7$. The absolute-deviation sum is $6+4+0+2+13=25$ at $a=7$ and $2+0+4+6+17=29$ at $a=3$, illustrating the median's minimising property.{{cite:schwertman_gilks_cameron1990}} (p. 38, Theorem and proof)
+The middle ordered value is $7$. The absolute-deviation sum is $6+4+0+2+13=25$ at $a=7$ and $2+0+4+6+17=29$ at $a=3$, illustrating the median's minimising property.
 :::
 
 ## Common misconceptions

@@ -49,7 +49,7 @@ For the other family above, suppose $\mu$ is known, $n=8$, $S_\mu=20$, and the p
 **Your turn.** With the same $\operatorname{Beta}(2,3)$ prior, suppose the next dataset has two successes and one failure. Find the posterior family and its mean. Would you omit the factor $\theta^2$ from the likelihood when $\theta$ is the variable of interest?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Multiplication gives $\theta^{2+2-1}(1-\theta)^{3+1-1}=\theta^3(1-\theta)^3$, so the posterior is $\operatorname{Beta}(4,4)$ and has mean $4/(4+4)=1/2$. The factor $\theta^2$ depends on $\theta$ and must stay.{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)
+Multiplication gives $\theta^{2+2-1}(1-\theta)^{3+1-1}=\theta^3(1-\theta)^3$, so the posterior is $\operatorname{Beta}(4,4)$ and has mean $4/(4+4)=1/2$. The factor $\theta^2$ depends on $\theta$ and must stay.
 :::
 
 ## Common misconceptions

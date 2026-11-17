@@ -31,8 +31,6 @@ on $3$ degrees of freedom. The number $1.225$ can be compared with a $t_3$ table
 $\overline x=3$ and $\sum(x_i-\overline x)^2=14$, so $s^2=14/3$. The ratio is $3/\sqrt{(14/3)/4}=3\sqrt{6/7}\approx 2.777$ on $3$ degrees of freedom.
 :::
 
-## Check yourself
-
 ### Which expressions are statistics? {#self-check-ex-inf-which-are-statistics}
 
 For a normal sample with both parameters unknown, which of $\overline X$, $\overline X-\mu$, and $(\overline X-\mu)/(S/\sqrt n)$ are statistics? For the last one, what is its distribution?
@@ -53,3 +51,6 @@ Expanding $X_i-\overline X=(X_i-\mu)-(\overline X-\mu)$ and summing gives the id
 
 ## Related concepts — The $t$ pivot and the chi-squared scale
 The [pivot](pivot.qmd) $(\overline X-\mu)/(S/\sqrt n)$ is the $t$ ratio above. The [chi-squared distribution](chi-squared-distribution.qmd) on $n-1$ degrees of freedom is the law of $(n-1)S^2/\sigma^2$. The same three facts, applied inside groups, give the numerator and denominator of an [ANOVA $F$ statistic](anova-f-distribution.qmd). A [confidence interval](confidence-interval.qmd) for $\mu$ inverts $T$ and does not require a known $\sigma$.{{cite:siegrist2022_normals}} (§6.08, The T Variable)
+
+## History
+For a normal sample the mean and the variance are independent, and the scaled variance is chi-squared.{{cite:siegrist2022_normals}} (§6.08, The Sample Mean; The Sample Variance)

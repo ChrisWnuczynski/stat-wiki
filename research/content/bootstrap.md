@@ -19,7 +19,7 @@ Conditional on the data, one bootstrap draw has mean $\bar x$ and variance $n^{-
 :::
 :::
 
-## Statistical use
+## Statistical use — Resampling a statistic
 Choose the resampling unit from the data-generating design. For independent people, resample people; for repeated visits to each person, resample whole people with their visits rather than treating visits as independent. In regression, resampling complete $(x,y)$ cases targets variation under random predictors, while residual resampling assumes a suitable fitted mean and a shared error distribution across predictor values. A parametric bootstrap simulates from a fitted probability model and inherits that model's assumptions. Refit every tuning step within each replicate if its variation is part of the target procedure.{{cite:shalizi2025_truth_regression}} (Ch. 24, §24.5–24.6, pp. 392–400)
 
 If ten visits come from each of five people, resampling 50 visits independently breaks within-person dependence and generally understates uncertainty for a population of people. Resampling individual time points from an autocorrelated series destroys its serial structure. An empirical sample with no rare events cannot generate one in ordinary nonparametric resamples, so a tail-risk estimate can be severely optimistic. Residual resampling under strongly changing error variance also erases the variance pattern; resampling whole cases or using a design-aware alternative targets a different, more appropriate law.{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.5–24.6, pp. 398–400)
@@ -35,6 +35,9 @@ The samples $(1,1),(1,3),(3,1),(3,3)$ give means $1,2,2,3$. Their conditional me
 
 ## Common misconceptions
 The bootstrap does not simulate fresh draws from the unknown population; it simulates from a fitted substitute. More replicates can reduce numerical noise but cannot compensate for a tiny or biased original sample. The $0.632$ membership probability is not a fixed training-set fraction in every draw, and an out-of-bag error estimate is not automatically unbiased. Finally, a bootstrap interval is a repeated-sampling construction, not a posterior probability statement about the parameter after observing the data.{{cite:shalizi2025_truth_regression}} (Ch. 24, §24.6, pp. 399–400)
+
+## Assumptions and limits — Resamples come from the fitted sample
+The bootstrap does not simulate fresh draws from the unknown population; it simulates from a fitted substitute. {{cite:shalizi2025_truth_regression}} (Ch. 24, §24.6, pp. 399–400)
 
 ## Connections
 The [jackknife](jackknife-bias-and-standard-error.qmd) changes the sample by omitting cases in a systematic way; a [parametric bootstrap](../notes/sl-05-mixtures-em.qmd#s-uncertainty-about-the-parameters) draws from a fitted model. The [resampling-unit question](../questions/ex-ur-bootstrap-unit.qmd) tests dependence preservation, the [$0.632$ question](../questions/ex-sl-09-3.qmd) distinguishes inclusion from error correction, and the [overfit-tree question](../questions/ex-sl-12-6.qmd) asks why apparent error does not replace validation or an appropriate out-of-bag calculation.{{cite:shalizi2025_truth_regression}} (Ch. 24, §§24.5–24.6, pp. 392–400)

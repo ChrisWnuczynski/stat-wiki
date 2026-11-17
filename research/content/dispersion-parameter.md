@@ -37,7 +37,7 @@ Suppose four independent counts are $1,3,5,7$. An intercept-only Poisson model f
 **Your turn.** For independent counts $2,2,8,8$, fit an intercept-only Poisson mean, calculate the Pearson dispersion estimate with its residual degrees of freedom, and state the factor by which a quasi-Poisson standard error changes.{{cite:nelder_wedderburn1972}} (§§1.1, 3, pp. 371–372, 377–380)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The mean is $\hat\mu=20/4=5$. The squared deviations sum to $4(3^2)=36$, so $X_P^2=36/5=7.2$. There are $4-1=3$ residual degrees of freedom, giving $\hat\phi_P=(36/5)/3=12/5=2.4$. The standard-error factor is $\sqrt{12/5}\approx1.549$. The estimated variance at mean $5$ is $\hat\phi_P\hat\mu=12$, although a quasi model specifies no complete count distribution.{{cite:nelder_wedderburn1972}} (§§1.1, 3, pp. 371–372, 377–380)
+The mean is $\hat\mu=20/4=5$. The squared deviations sum to $4(3^2)=36$, so $X_P^2=36/5=7.2$. There are $4-1=3$ residual degrees of freedom, giving $\hat\phi_P=(36/5)/3=12/5=2.4$. The standard-error factor is $\sqrt{12/5}\approx1.549$. The estimated variance at mean $5$ is $\hat\phi_P\hat\mu=12$, although a quasi model specifies no complete count distribution.
 :::
 
 ## Common misconceptions

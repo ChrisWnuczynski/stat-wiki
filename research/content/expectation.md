@@ -34,7 +34,7 @@ A fair die game costs 2 dollars to enter and pays 8 dollars only when a six is t
 **Your turn.** A new game costs 1.50 dollars and pays 6 dollars if a fair die shows five or six. What is the expected net gain per play?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The net gain is $4.50$ with probability $1/3$ and $-1.50$ with probability $2/3$. Thus $\mathbb{E}X=4.50(1/3)-1.50(2/3)=0.50$ dollar.{{cite:grinstead_snell1997}} (Ch. 6, §6.1)
+The net gain is $4.50$ with probability $1/3$ and $-1.50$ with probability $2/3$. Thus $\mathbb{E}X=4.50(1/3)-1.50(2/3)=0.50$ dollar.
 :::
 
 Try [the wait for double six](../questions/ex-prob-double-six-wait.qmd), then [a spike that keeps its mean](../questions/ex-sp-spike.qmd). The first uses a geometric waiting time; the second tests whether convergence in probability is enough to force expectations to converge.

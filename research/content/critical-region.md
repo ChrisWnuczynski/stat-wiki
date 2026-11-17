@@ -21,7 +21,7 @@ If $C_1\subseteq C_2$, then the indicator $\mathbf1\{T\in C_1\}\leq\mathbf1\{T\i
 :::
 :::
 
-## Statistical use
+## Statistical use — Choosing a rejection set
 Specify the null and alternative, choose a statistic with a known or justified null reference law, and decide the allowed size. Place the region where the alternative predicts more extreme values, then calculate its null probability. For a normal mean with known standard deviation, $Z=(\overline X-\mu_0)/(\sigma/\sqrt n)$ is standard normal under the point null; a level-$0.05$ upper-tail test uses $Z\geq1.645$, while an equal-tail two-sided test uses $|Z|\geq1.960$. If the standard deviation is estimated from a small normal sample, use the appropriate Student law instead.{{cite:nist_process_mean2002}} (§7.2.2, known- and unknown-standard-deviation cases)
 
 If the ten trials in the worked example share a latent success probability, their count need not be binomial even if each marginal success chance is $0.5$; the binomial tail no longer controls size. If a normal-mean test substitutes a normal cutoff for a small-sample Student statistic, its true rejection probability can exceed its advertised level. If many candidate cutoffs or directions are inspected and only the most favorable is reported, the original region no longer describes the procedure actually used. Each failure concerns the reference model or how the rule was chosen.{{cite:nist_process_mean2002}} (§7.2.2, reference-law assumptions and one- versus two-sided rules)
@@ -37,6 +37,9 @@ $P_{0.5}(X\geq10)=(66+12+1)/4096=79/4096\approx0.01929$, so the rule qualifies a
 
 ## Common misconceptions
 The region is not selected after seeing a surprising statistic; doing that would make its stated null error rate unreliable. Its probability under the null is not the probability that a rejected null is true. A two-sided region need not put equal tail probability on every skewed null distribution; equal tails are a choice that depends on the testing problem. Finally, failing to enter the region means only that this rule did not reject: it is not evidence that the null parameter is exactly correct.{{cite:nist_process_mean2002}} (§7.2.2, sidedness and decision rules)
+
+## Assumptions and limits — The region is fixed before the data
+The cutoffs are chosen so that the null probability is at most the chosen level. On a discrete null the probability can jump, so the nearest region need not have size exactly equal to that level. The calculation uses the null distribution of the statistic; a different null changes the region.{{cite:nist_process_mean2002}} (§7.2.2, sidedness and decision rules)
 
 ## Connections
 The [significance level](significance-level.qmd) bounds the region's null probability, while the [power function](power-function.qmd) evaluates its probability at alternatives. A [p-value](p-value.qmd) is the smallest level at which the corresponding family of regions would reject for the observed statistic. The [blood-pressure question](../questions/ex-inf-blood-pressure-region.qmd) translates a statistic region to sample-mean cutoffs; the [serve-power question](../questions/ex-inf-serve-power.qmd) computes the size and power of a discrete region; the [two-sided-power question](../questions/ex-inf-ump-two-sided.qmd) shows how tail placement changes power.{{cite:nist_process_mean2002}} (§7.2.2, critical-value rules; §7.2.2.1, confidence-interval connection)

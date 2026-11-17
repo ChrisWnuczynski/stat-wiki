@@ -19,7 +19,7 @@ Write $T-\theta=(T-E_\theta T)+(E_\theta T-\theta)$. Squaring and taking expecta
 :::
 :::
 
-## Statistical use
+## Statistical use — Comparing estimators
 Choose the target, loss and reference sampling model before comparing MSEs. Compute exact expectations where possible, or use simulation and disclose the parameter values used. For a fitted prediction rule, estimate out-of-sample squared error using independent test cases or a resampling procedure that refits the full rule. Report units as well: MSE has squared units of the target, whereas its square root returns the original units. A low average squared error may still conceal rare large failures or unequal costs, in which case a different loss is needed.{{cite:gelman_bda2013}} (Ch. 7, §7.1, pp. 166–167)
 
 For a Cauchy observation used directly to estimate its location, $E[(X-\theta)^2]$ diverges, so finite MSE rankings do not exist for that estimator. In a flood-risk application where underprediction is costlier than overprediction, symmetric squared loss may optimize the wrong decision even if its expectation is finite. If a predictive model is evaluated only on its training sample, a more flexible fit can appear better through overfitting while predicting new cases worse. Each issue requires checking the distribution, target or loss rather than merely recomputing an arithmetic average.{{cite:gelman_bda2013}} (Ch. 7, §7.1, pp. 166–167)
@@ -35,6 +35,9 @@ For $T_0$, $p(1-p)/4=(0.25)(0.75)/4=0.046875$. For $T_1$, the MSE is $1/36\appro
 
 ## Common misconceptions
 An unbiased estimator need not have the smallest MSE: its variance may be large. A single squared residual is a realised error, not an expected error across repeated samples. A posterior mean's minimum *posterior* squared loss conditions on observed data and averages over a parameter distribution; frequentist MSE fixes the parameter and averages over data. Finally, a smaller training MSE is not a guarantee of smaller error on new cases, especially after choosing a complex model from the same data.{{cite:dodge2008}} (p. 337, decomposition){{cite:gelman_bda2013}} (Ch. 4, §4.4, p. 92; Ch. 7, §7.1, pp. 166–167)
+
+## Assumptions and limits — Unbiasedness is not minimum error
+An unbiased estimator need not have the smallest MSE: its variance may be large. {{cite:dodge2008}} (p. 337, decomposition)
 
 ## Connections
 The [bias](bias-of-an-estimator.qmd) and [variance](variance.qmd) terms explain the risk decomposition; *root mean squared error* restores the target's units. The [Poisson-mean question](../questions/ex-inf-poisson-mle.qmd) uses unbiasedness to identify MSE with variance; [posterior mean under squared loss](../questions/ex-applied-mmse.qmd) minimizes a related but conditional Bayes risk. They test distinct meanings of “mean” in mean squared error.{{cite:dodge2008}} (p. 337, decomposition){{cite:gelman_bda2013}} (Ch. 4, §4.4, p. 92)

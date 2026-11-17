@@ -47,6 +47,9 @@ Across the two states, $0.4\pi_0=0.2\pi_1$, so $\pi_1=2\pi_0$ and $\pi=(1/3,2/3)
 ## Common misconceptions
 “Stationary” does not mean the chain stops moving; it means its probability distribution does not change after a step. A stationary distribution is not automatically the limit from a chosen starting state: a deterministic cycle has a uniform stationary distribution but keeps rotating. It need not be uniform either; on a graph with unequal degrees, high-degree vertices have larger weights. Nor does stationarity require detailed balance: a directed cycle can maintain equal mass at all states while probability flows around it in one direction.{{cite:levin_peres2017}} (§1.3, p. 8; §1.5.1, pp. 9–10; §1.6, p. 14)
 
+## Assumptions and limits — When the distribution does not settle
+A finite irreducible chain has one stationary distribution. If the chain is periodic, that distribution still solves the balance equation, but the one-step law can keep alternating and never converge to it. An infinite state space can fail to have any stationary distribution.
+
 ## Connections
 The [transition matrix](transition-matrix.qmd) advances a distribution, while the [limiting distribution](limiting-distribution.qmd) describes convergence from a start. [Detailed balance](detailed-balance.qmd) is a convenient sufficient test for a candidate stationary law. [Irreducibility](irreducible-markov-chain.qmd) supplies uniqueness in finite chains, and [aperiodicity](aperiodic-markov-chain.qmd) supports stepwise convergence. For [Metropolis–Hastings](metropolis-hastings-update.qmd), constructing the target as a stationary distribution is the basis of the sampling algorithm.{{cite:levin_peres2017}} (§§1.5–1.6; §3.2; §4.3)
 

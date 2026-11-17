@@ -39,7 +39,7 @@ It is accepted with that probability. The reverse proposal has ratio $28/3>1$, s
 **Your turn.** Let $\pi=(0.25,0.75)$, $q(1\mid0)=0.4$ and $q(0\mid1)=0.6$. Find the acceptance probabilities in both directions and the resulting off-diagonal transition probabilities.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-$r(0,1)=0.75(0.6)/[0.25(0.4)]=4.5$, so $a(0,1)=1$. In reverse $r(1,0)=1/4.5=2/9$, so $a(1,0)=2/9$. Therefore $P(0,1)=0.4$ and $P(1,0)=0.6(2/9)=2/15\approx0.133333$. The target flows agree: $0.25(0.4)=0.1=0.75(2/15)$. Dropping the proposal ratio would give a different and incorrect stationary law.{{cite:hastings1970}} (§2.2, pp. 99–100)
+$r(0,1)=0.75(0.6)/[0.25(0.4)]=4.5$, so $a(0,1)=1$. In reverse $r(1,0)=1/4.5=2/9$, so $a(1,0)=2/9$. Therefore $P(0,1)=0.4$ and $P(1,0)=0.6(2/9)=2/15\approx0.133333$. The target flows agree: $0.25(0.4)=0.1=0.75(2/15)$. Dropping the proposal ratio would give a different and incorrect stationary law.
 :::
 
 ## Common misconceptions

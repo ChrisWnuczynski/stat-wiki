@@ -35,7 +35,7 @@ Roll a fair six-sided die and let $A=\{2,4,6\}$ be “even” and $B=\{4,5,6\}$ 
 **Your turn.** In the same experiment, find the event “neither even nor at least four,” and its probability.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Its outcomes are $(A\cup B)^c=\{1,3\}$. There are two of the six equally likely outcomes, so its probability is $2/6=1/3$. De Morgan's law gives the same event as $A^c\cap B^c$.{{cite:durrett2019}} (Ch. 1, §1.1)
+Its outcomes are $(A\cup B)^c=\{1,3\}$. There are two of the six equally likely outcomes, so its probability is $2/6=1/3$. De Morgan's law gives the same event as $A^c\cap B^c$.
 :::
 
 ## Common misconceptions

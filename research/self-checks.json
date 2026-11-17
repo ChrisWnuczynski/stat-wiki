@@ -924,5 +924,85 @@
   "warm-up-is-not-a-convergence-proof": [
     "q-25",
     "ex-gibbs-mh"
+  ],
+  "memoryless-property": [
+    "ex-prob-generate-exp",
+    "q-29"
+  ],
+  "pareto-distribution": [
+    "depth-mgf-domain",
+    "ex-prob-generate-exp"
+  ],
+  "strong-law": [
+    "ex-prob-clt-binomial-band",
+    "ex-norm-mean"
+  ],
+  "wishart-distribution": [
+    "ex-prob-name-the-laws",
+    "ex-inf-degrees-of-freedom"
+  ],
+  "geometric-distribution": [
+    "ex-prob-generate-exp",
+    "q-29"
+  ],
+  "inverse-gaussian-distribution": [
+    "depth-mgf-domain",
+    "ex-prob-generate-exp"
+  ],
+  "cauchy-distribution": [
+    "ex-prob-name-the-laws",
+    "depth-weak-not-strict"
+  ],
+  "conway-maxwell-poisson-distribution": [
+    "depth-underdispersion-binomial",
+    "ex-prob-clt-binomial-tail"
+  ],
+  "multinomial-distribution": [
+    "depth-dirichlet-marginal",
+    "depth-dirichlet-prediction"
+  ],
+  "student-t-distribution": [
+    "ex-prob-name-the-laws",
+    "ex-inf-degrees-of-freedom"
+  ],
+  "fisher-neyman-factorisation": [
+    "exr-completeness-binomial",
+    "exr-completeness-restricted"
+  ],
+  "normal-sample-theorem": [
+    "ex-prob-generate-normal",
+    "ex-inf-degrees-of-freedom"
+  ],
+  "tower-property": [
+    "ex-sp-variance-recurrence",
+    "ex-inf-rao-blackwell-variance"
+  ],
+  "f-distribution": [
+    "ex-inf-degrees-of-freedom",
+    "ex-prob-name-the-laws"
+  ],
+  "hammersley-clifford": [
+    "depth-hierarchy-shared-rate",
+    "depth-marginal-bernoulli-bound"
+  ],
+  "multivariate-central-limit-theorem": [
+    "ex-prob-clt-binomial-band",
+    "ex-prob-voltage-mean"
+  ],
+  "weibull-distribution": [
+    "ex-prob-generate-exp",
+    "depth-mgf-domain"
+  ],
+  "borel-cantelli-lemmas": [
+    "depth-chebyshev-sample-size",
+    "ex-prob-clt-binomial-band"
+  ],
+  "dirichlet-multinomial-conjugacy": [
+    "depth-dirichlet-marginal",
+    "depth-dirichlet-prediction"
+  ],
+  "product-rule": [
+    "depth-mgf-bernoulli-sum",
+    "ex-prob-five-evens-replace"
   ]
 }

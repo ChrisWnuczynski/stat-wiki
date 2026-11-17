@@ -36,7 +36,7 @@ A fixed binary classifier is evaluated on 100 independent test cases: 20 truly p
 **Your turn.** Another fixed classifier is tested on 150 new cases: 30 positive and 120 negative. It misses 6 positives and falsely marks 12 negatives positive. Compute the total error, each class-specific error rate, the estimated binomial standard error, and an approximate 95% interval for total error.{{cite:dodge2008}} (pp. 44–46, Binomial distribution and normal approximation)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-There are $6+12=18$ errors, giving total error $18/150=0.12$. The false-negative rate is $6/30=0.20$ and the false-positive rate is $12/120=0.10$. The estimated standard error is $\sqrt{0.12(0.88)/150}=0.02653$, so the approximate 95% interval is $0.12\pm1.96(0.02653)=(0.068,0.172)$. The total rate and class rates answer different questions; with only 30 positive cases, the false-negative estimate is much less precise than the total error estimate.{{cite:dodge2008}} (pp. 44–46, Binomial distribution and normal approximation)
+There are $6+12=18$ errors, giving total error $18/150=0.12$. The false-negative rate is $6/30=0.20$ and the false-positive rate is $12/120=0.10$. The estimated standard error is $\sqrt{0.12(0.88)/150}=0.02653$, so the approximate 95% interval is $0.12\pm1.96(0.02653)=(0.068,0.172)$. The total rate and class rates answer different questions; with only 30 positive cases, the false-negative estimate is much less precise than the total error estimate.
 :::
 
 ## Common misconceptions

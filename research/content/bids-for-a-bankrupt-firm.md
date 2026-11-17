@@ -26,6 +26,9 @@ billions, to two decimal places. Relative to size $0$, the mean at that turning 
 $e^{0.4813}=1.618$ to three decimal places. A firm that invites a white knight, with the other covariates unchanged, has a fitted mean $1.618$ times the mean of a firm that does not.
 :::
 
+## Connections — Counts, logs, and a tighter variance
+The mean equation is a [log link](log-link.qmd) inside a [generalised linear model](generalised-linear-model.qmd). The Poisson boundary is the [Poisson distribution](poisson-distribution.qmd), whose variance equals its mean. The fitted dispersion sits above that boundary, which is why a Poisson or negative-binomial variance cannot represent these counts. The coefficient table is one fitted mean, not a second copy of the raw bids.
+
 ## Check yourself
 ### A zero coefficient
 If a coefficient in this log-linear mean is $0$, what is the mean ratio for that indicator?
@@ -40,6 +43,3 @@ The quadratic $-0.0076\,s^2+0.1793\,s$ at $s=0$ is $0$. At the turning point the
 ::: {.callout-tip collapse="true" title="Answer"}
 Yes. The factor $2.879$ is greater than $1$, and the square term is negative, so this is a maximum rather than a minimum. Past the turning point the quadratic pulls the log-mean back down.
 :::
-
-## Connections — Counts, logs, and a tighter variance
-The mean equation is a [log link](log-link.qmd) inside a [generalised linear model](generalised-linear-model.qmd). The Poisson boundary is the [Poisson distribution](poisson-distribution.qmd), whose variance equals its mean. The fitted dispersion sits above that boundary, which is why a Poisson or negative-binomial variance cannot represent these counts. The coefficient table is one fitted mean, not a second copy of the raw bids.

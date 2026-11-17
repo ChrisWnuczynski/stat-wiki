@@ -36,6 +36,9 @@ The group means are $5$ and $7$, and the grand mean is $6$. The treatment sum of
 ## Common misconceptions
 The F test does not show that all group means are different; it only tests the joint equality claim. “Analysis of variance” does not mean the target is a variance difference: the ratio of variance estimates tests mean equality. A small p-value does not quantify the size or importance of a mean contrast. Residual normality and equal spread do not follow from seeing a balanced table, and randomization cannot be inferred from a tidy plot. Finally, ten unadjusted 95% pairwise intervals do not form a 95% simultaneous statement about ten pairs.{{cite:nist_oneway_anova}} (§3.2.3.1, Testing and Assumptions)
 
+## Assumptions and limits — The F test is a joint mean comparison
+The F test does not show that all group means are different; it only tests the joint equality claim. {{cite:nist_oneway_anova}} (§3.2.3.1, Testing and Assumptions)
+
 ## Connections
 With two groups, [the pooled t test](two-sample-t-test.qmd) and the one-way F test encode the same null comparison. [Contrasts](contrast.qmd) ask planned questions inside a factor, while [multiple comparisons](multiple-comparisons.qmd) control claims made about many contrasts. The [normal linear model](normal-linear-model.qmd) treats group membership as a design matrix, making ANOVA a special linear hypothesis test. A [two-factor ANOVA](two-factor-analysis-of-variance.qmd) adds a second factor and possibly an interaction; it answers a larger question than the single-factor model.{{cite:nist_oneway_anova}} (§3.2.3.1, Model and ANOVA table)
 

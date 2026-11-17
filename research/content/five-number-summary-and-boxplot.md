@@ -34,7 +34,6 @@ The [median](median.qmd) is the middle of the five numbers, and the [interquarti
 
 For the ten milk-carton volumes $0.998$, $1.019$, $1.035$, $1.037$, $1.041$, $1.051$, $1.068$, $1.077$, $1.084$, and $1.102$, the lower quartile is defined as the median of the five values below the sample median, and the upper quartile as the median of the five above it. Report the median and the two quartiles.
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 The ordered sample has ten values, so the median is $(1.041+1.051)/2=1.046$. The lower quartile is $1.035$ and the upper quartile is $1.077$. This hinge rule is not the $(n+1)/4$ formula, and the two recipes need not agree.
 :::
@@ -42,7 +41,6 @@ The ordered sample has ten values, so the median is $(1.041+1.051)/2=1.046$. The
 ### Skewness beside the boxplot {#self-check-ex-da-correlation-reading}
 
 Serum creatinine in the same cohort has moment skewness about $4.4$ on the original scale and $1.6$ after logarithms. Does the smaller skewness prove that the log measurements are normal?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 No. The drop from about $4.4$ to $1.6$ still leaves positive moment skewness, and a skewness of zero would not imply normality either. A histogram or a normal quantile plot is needed to look at the shape.

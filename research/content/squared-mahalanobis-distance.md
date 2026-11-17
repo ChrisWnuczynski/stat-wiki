@@ -22,7 +22,7 @@ Let $v=x-\mu$ and let $BB^{\mathsf T}=\Sigma$ with invertible $B$. Then $\Sigma^
 
 For random $X$, put $Z=B^{-1}(X-\mu)$. It has mean zero and covariance $I_p$, so $\mathbb E(D^2)=\sum_{j=1}^p\mathbb E(Z_j^2)=p$ without assuming normality. If $X$ is multivariate normal, $Z$ is jointly normal with identity covariance; its coordinates are then independent standard normals. Their sum of squares has the $\chi^2_p$ law. Finally, substituting $\Sigma=SRS$ into the quadratic form gives $z^{\mathsf T}R^{-1}z$, with $z=S^{-1}v$. {{cite:dodge2008}} (p. 325, expected squared distance)::::::
 
-## Statistical use — Measuring departure with the covariance
+## Statistical use
 
 In a multivariate-normal model, equal-density contours around a mean have constant $D^2$; the $\chi^2_p$ distribution gives their probability content when the parameters are known. Gaussian discriminant analysis compares each class's squared distance to its class centre together with a covariance-determinant term and class prior, rather than choosing only the nearest centre when covariances differ. The distance also appears in outlier screening and covariance-aware clustering, where the choice of reference covariance determines what “far” means.{{cite:dodge2008}} (p. 325, classification uses)
 
@@ -41,7 +41,7 @@ For $c$, the quadratic numerator is $1-2+4=3$, so $D^2(c)=1$. For $d$, it is $1+
 
 The squared distance is not Euclidean distance with each variable merely divided by its standard deviation; correlations contribute cross-terms. A large value does not itself give an outlier $p$-value unless an appropriate reference distribution and parameters are justified. Zero correlation after whitening does not imply independence outside a joint-normal model. And a sample covariance may be singular or unstable even when the population covariance is positive definite, especially with more variables than independent observations{{cite:dodge2008}} (pp. 325–326, Mahalanobis Distance).
 
-## Connections
+## Connections — Whitening, then a chi-squared reference
 
 The same whitening geometry underlies the multivariate-normal density, Gaussian discriminant rules and the chi-squared reference for known mean and covariance. In a normal sample, estimating the centre and covariance introduces dependencies that lead to Hotelling-type or other finite-sample calibrations, rather than the simple population $\chi^2_p$ law. Writing the covariance as scales times correlation links Mahalanobis distance to standardized variables while preserving their association{{cite:dodge2008}} (pp. 325–326, Mahalanobis Distance).
 

@@ -31,7 +31,7 @@ Suppose a count model predicts six infections for a particular ward-month. Under
 **Your turn.** A binary outcome has fitted success probability $p=0.8$. Give its Bernoulli variance and probabilities of zero and one. Would a Poisson component with mean $0.8$ represent the same experiment?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The Bernoulli variance is $p(1-p)=0.8(0.2)=0.16$, with $\Pr(Y=0)=0.2$ and $\Pr(Y=1)=0.8$. A Poisson law with mean $0.8$ has variance $0.8$ and assigns probability $1-e^{-0.8}(1+0.8)\approx0.1912$ to outcomes of two or more, impossible for this binary outcome. It is a different random component, despite the shared mean.{{cite:zhou2020_glm}} (§Introduction, Examples, Bernoulli and Poisson)
+The Bernoulli variance is $p(1-p)=0.8(0.2)=0.16$, with $\Pr(Y=0)=0.2$ and $\Pr(Y=1)=0.8$. A Poisson law with mean $0.8$ has variance $0.8$ and assigns probability $1-e^{-0.8}(1+0.8)\approx0.1912$ to outcomes of two or more, impossible for this binary outcome. It is a different random component, despite the shared mean.
 :::
 
 ## Common misconceptions

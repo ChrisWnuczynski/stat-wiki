@@ -34,6 +34,9 @@ which sum to $30/7=4.286$ to three decimal places. There is $(2-1)(2-1)=1$ degre
 Every observed count equals its fitted count, so each contribution is $0$ and $T=0$. The table matches independence exactly. The degrees of freedom are still $1$.
 :::
 
+## Connections — The same statistic, several readings
+The reference distribution is the [chi-squared distribution](chi-squared-distribution.qmd) on $(r-1)(c-1)$ degrees of freedom. Estimating the margins, rather than knowing the cell probabilities in advance, is what changes the degrees of freedom; that estimated-parameter case is [Pearson's test with estimated parameters](pearson-test-with-estimated-parameters.qmd). A $2\times 2$ table with a very small fitted count is the setting for [Fisher's exact test](fisher-s-exact-test.qmd), which uses the hypergeometric probabilities instead of the chi-squared tail.{{cite:dodge2008}} (pp. 79–80)
+
 ## Check yourself
 ### Degrees of freedom
 How many degrees of freedom does a $3\times 4$ table have under this test?
@@ -48,6 +51,3 @@ One fitted count is $3.2$ and the others exceed $5$. What does the small-cell co
 ::: {.callout-tip collapse="true" title="Answer"}
 The approximation is unreliable when an estimated frequency is small, and the stated threshold is less than $5$. A fitted count of $3.2$ falls under that warning. Combining categories is the remedy only when the combined categories still make sense.
 :::
-
-## Connections — The same statistic, several readings
-The reference distribution is the [chi-squared distribution](chi-squared-distribution.qmd) on $(r-1)(c-1)$ degrees of freedom. Estimating the margins, rather than knowing the cell probabilities in advance, is what changes the degrees of freedom; that estimated-parameter case is [Pearson's test with estimated parameters](pearson-test-with-estimated-parameters.qmd). A $2\times 2$ table with a very small fitted count is the setting for [Fisher's exact test](fisher-s-exact-test.qmd), which uses the hypergeometric probabilities instead of the chi-squared tail.{{cite:dodge2008}} (pp. 79–80)

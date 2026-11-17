@@ -34,6 +34,9 @@ One tree has variance $4$. An average of $100$ independent trees, the case $\rho
 The variance is $0.5\cdot 1+(0.5/50)\cdot 1=0.5+0.01=0.51$. Independence would give $1/50=0.02$. Most of the $0.51$ is the correlation floor.
 :::
 
+## Connections — What the average is made of
+Each member is a [decision tree](decision-tree.qmd), and the split inside it is often scored by the [Gini index](gini-index.qmd). The row resampling is [bagging](bagging.qmd), which uses the [bootstrap](bootstrap.qmd). [Out-of-bag estimation and variable importance](out-of-bag-estimation-and-variable-importance.qmd) uses the cases a tree did not see. The correlation floor is why a restriction on the predictors is part of the definition, not a cosmetic extra.{{cite:hastie_esl2009}} (Ch. 15, §15.2, pp. 587–589)
+
 ## Check yourself
 ### Doubling the forest
 In the worked example, replace $B=100$ by $B=200$ and leave $\sigma^2=4$ and $\rho=0.2$. What is the new variance?
@@ -48,6 +51,3 @@ If $m=1$, each split sees only one randomly chosen predictor. What happens to th
 ::: {.callout-tip collapse="true" title="Answer"}
 Both terms move. A smaller $\rho$ lowers the floor $\rho\sigma^2$, but a larger $\sigma^2$ raises it and also raises the term that still depends on $B$. The formula does not say that the smallest $m$ is the best $m$.
 :::
-
-## Connections — What the average is made of
-Each member is a [decision tree](decision-tree.qmd), and the split inside it is often scored by the [Gini index](gini-index.qmd). The row resampling is [bagging](bagging.qmd), which uses the [bootstrap](bootstrap.qmd). [Out-of-bag estimation and variable importance](out-of-bag-estimation-and-variable-importance.qmd) uses the cases a tree did not see. The correlation floor is why a restriction on the predictors is part of the definition, not a cosmetic extra.{{cite:hastie_esl2009}} (Ch. 15, §15.2, pp. 587–589)

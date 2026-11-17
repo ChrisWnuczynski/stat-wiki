@@ -19,7 +19,7 @@ Fix $y$ and sum detailed balance over $x$: $\sum_x\pi(x)P(x,y)=\sum_x\pi(y)P(y,x
 :::
 :::
 
-## Statistical use
+## Statistical use — Checking a proposed distribution
 To validate a proposed stationary law for a finite chain, first check that it is nonnegative and sums to one. Then either verify $\pi P=\pi$ or check the simpler pairwise equations on the allowed transitions. In Metropolis–Hastings, acceptance probabilities are chosen so that accepted moves and their reversals match under the target law. This proves invariance of the kernel; irreducibility and aperiodicity are additional questions before treating distant draws as converged or independent.{{cite:levin_peres2017}} (§§1.5–1.6, pp. 10–14; §3.2)
 
 For a three-state one-way cycle, uniform mass is stationary but no positive pairwise reverse flow exists, so detailed balance is unusable even though global balance works. For the deterministic two-state flip, the uniform law satisfies detailed balance, yet a chain started at one state oscillates forever; balance alone does not prove convergence. On an infinite or continuous state space, a proposed invariant measure may fail to have total mass one, and formal pairwise equations do not make it a stationary *probability* law without normalisation.{{cite:levin_peres2017}} (§1.6, pp. 13–14; §1.3, periodicity)

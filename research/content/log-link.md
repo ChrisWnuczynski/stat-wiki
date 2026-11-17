@@ -34,7 +34,7 @@ Suppose a Poisson model for event counts has log expected count $\log\mu=\log t+
 **Your turn.** Let $\log\mu=\log t+\log4+(\log1.25)x$. Find the fitted rate and expected count for $x=2$, $t=3$. What happens to the rate if $x$ increases to $3$ at the same exposure?{{cite:mccullagh1992_glm_intro}} (p. 544, link and predictor)
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The fitted rate is $4(1.25)^2=6.25$ per exposure unit, so $\mu=3\times6.25=18.75$. At $x=3$ the rate is $4(1.25)^3=7.8125$ and the expected count is $3\times7.8125=23.4375$. The rate ratio is $7.8125/6.25=1.25$: each one-unit increase in $x$ raises the mean rate by $25\%$ when the other terms are fixed.{{cite:mccullagh1992_glm_intro}} (p. 544, link and predictor)
+The fitted rate is $4(1.25)^2=6.25$ per exposure unit, so $\mu=3\times6.25=18.75$. At $x=3$ the rate is $4(1.25)^3=7.8125$ and the expected count is $3\times7.8125=23.4375$. The rate ratio is $7.8125/6.25=1.25$: each one-unit increase in $x$ raises the mean rate by $25\%$ when the other terms are fixed.
 :::
 
 ## Common misconceptions

@@ -508,7 +508,7 @@ TOPICS += [
           r"The distribution of a sum of independent random variables. For densities, $f_{X+Y}(z)=\int f_X(x)f_Y(z-x)\,dx$; for mass functions the integral is a sum. Generating functions turn a convolution into a product.",
           links=["convolutions?"]),
     topic("Jacobian", "prob-05-transforms-and-limits.qmd#s-the-transformation-rule",
-          r"The determinant of the matrix of partial derivatives of a change of variables. In the transformation rule it rescales a density: if $\mathbf{Y}=g(\mathbf{X})$ with $g$ one-to-one and differentiable, $f_{\mathbf{Y}}(\mathbf{y})=f_{\mathbf{X}}(g^{-1}(\mathbf{y}))\,|\det J_{g^{-1}}(\mathbf{y})|$.{{cite:cambridge_stats1b2016}} (lecture 1, §1.13, pp. 21–22)",
+          r"The determinant of the matrix of partial derivatives of a change of variables. In the transformation rule it rescales a density: if $\mathbf{Y}=g(\mathbf{X})$ with $g$ one-to-one and differentiable, $f_{\mathbf{Y}}(\mathbf{y})=f_{\mathbf{X}}(g^{-1}(\mathbf{y}))\,|\det J_{g^{-1}}(\mathbf{y})|$.{{cite:dodge2008}} (p. 540, “Transformation”)",
           links=["Jacobians?", "Jacobian determinants?"]),
     topic("Random walk with drift", "12-time-series.qmd: A random walk is the case",
           r"A random walk whose increments have non-zero mean $\mu$: $S_n=S_0+\sum_{i\le n}Y_i$ with $\mathbb{E}Y_i=\mu$. Its mean moves like $n\mu$ while its spread grows like $\sqrt n$, so in the long run the drift dominates.",

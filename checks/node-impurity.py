@@ -43,9 +43,9 @@ assert "## Motivating example" in body and "## Worked example" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert page.count("![") >= json.loads((root / "research/baseline.json").read_text())["node-impurity"]["figures"]
 assert "ex-sl-12-2.qmd" in page and "ex-sl-12-5.qmd" in page
-for key in ("rpart_longintro2023", "sklearn_tree2026", "dodge2008"):
+for key in ("hastie_esl2009", "dodge2008"):
     assert f'data-cite-key="{key}"' in body, key
-assert any(f'data-cite-key="{key}"' in body for key in ("breiman_cart1984", "stanford_cs229_trees2018"))
+assert any(f'data-cite-key="{key}"' in body for key in ("hastie_esl2009", "dodge2008"))
 assert pending["self_checks"] == ["ex-sl-12-2", "ex-sl-12-5"]
 for slug in pending["self_checks"]:
     assert "## Worked answer" in (root / "questions" / f"{slug}.qmd").read_text()

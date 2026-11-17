@@ -17,7 +17,7 @@ An empty cluster has no mean, so this description assumes every cluster stays no
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-For a fixed label set with $N_k\ge 1$ points, 
+For a fixed label set with $N_k\ge 1$ points,
 $$
 \sum_{C(i)=k}\|x_i-m\|^2=\sum_{C(i)=k}\|x_i-\bar x_k\|^2+N_k\|\bar x_k-m\|^2.
 $$
@@ -47,7 +47,6 @@ The [within-cluster sum of squares](k-means-criterion.qmd) is the objective atta
 
 For a set of $N$ points with mean $\bar x$, why is $\sum_i\sum_l\|x_i-x_l\|^2=2N\sum_i\|x_i-\bar x\|^2$?
 
-
 ::: {.callout-tip collapse="true" title="Answer"}
 Expand $\|x_i-x_l\|^2=\|x_i-\bar x\|^2+\|x_l-\bar x\|^2-2(x_i-\bar x)^{\mathsf T}(x_l-\bar x)$. The cross term sums to zero because the deviations from the mean sum to zero. Each squared deviation is then counted $2N$ times.
 :::
@@ -55,7 +54,6 @@ Expand $\|x_i-x_l\|^2=\|x_i-\bar x\|^2+\|x_l-\bar x\|^2-2(x_i-\bar x)^{\mathsf T
 ### Counting partitions {#self-check-ex-sl-04-2}
 
 How many ways are there to split $\{1,2,3,4\}$ into two nonempty unlabelled clusters, and what is $S(10,3)$?
-
 
 ::: {.callout-tip collapse="true" title="Answer"}
 There are seven splits: four of type $1\mid 3$ and three of type $2\mid 2$. The Stirling number $S(10,3)$ equals $9330$.

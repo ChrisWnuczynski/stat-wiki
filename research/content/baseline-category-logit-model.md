@@ -16,7 +16,7 @@ The reference linear predictor is $\eta_0=0$. Solving for the probabilities give
 \[
 p_k=\frac{e^{\eta_k}}{\sum_{j=0}^{K-1}e^{\eta_j}},\qquad k=0,\ldots,K-1.
 \]
-The log-odds of category $k$ against category $m$ are $\eta_k-\eta_m$, with $\eta_0=0$. Software that fits this model by setting the coefficient vector of the first class to zero is using one choice of reference; any other class can be the reference if its score is the one set to zero.{{cite:r_nnet_multinom2026}} (Details, coefficients zero for the first class)
+The log-odds of category $k$ against category $m$ are $\eta_k-\eta_m$, with $\eta_0=0$. Software that fits this model by setting the coefficient vector of the first class to zero is using one choice of reference; any other class can be the reference if its score is the one set to zero.
 
 ## Interpretation
 The coefficient of a covariate in $\eta_k$ is a change in the log-odds of category $k$ against the reference, with the other covariates held fixed. It is not a change in $p_k$ by itself. If that coefficient is $0.5$, the odds against the reference are multiplied by $e^{0.5}\approx 1.6487$ when the covariate increases by one unit. The probability $p_k$ rises only to the extent that this category's share of the renormalised total rises, and a simultaneous change in another category's score can shrink that share again.{{cite:hastie_esl2009}} (§11.3–11.4, eqs. 11.6 and 11.10, pp. 393–395)
@@ -55,13 +55,13 @@ The coefficient is not a change in probability. In the worked example the score 
 
 The categories are not ordered. A baseline logit does not say that category $2$ is twice category $1$ in any scale except the odds against the named reference. Putting the categories on a number line and fitting one slope is a different model, used when the order is real.
 
-Changing which class is called zero changes the printed coefficients and does not change the fitted probabilities. Comparing two fits by their intercepts is meaningless until both fits use the same reference.{{cite:r_nnet_multinom2026}} (Details, which class has coefficient zero)
+Changing which class is called zero changes the printed coefficients and does not change the fitted probabilities. Comparing two fits by their intercepts is meaningless until both fits use the same reference.
 
 ## Assumptions and limits — When the reference comparison is the wrong summary
 The scores are linear in the covariates. A curved effect of age, forced into one coefficient per category, shifts every probability in a straight line on the log-odds scale and can miss a rise-and-fall. Empty categories in a covariate pattern make a sample odds ratio infinite; the probabilities in the formula stay in $(0,1)$ only while the linear predictors stay finite, and a fit that drives a score to $\pm\infty$ is pushing a probability to the boundary rather than reporting a stable odds ratio. The model also treats the categories as a single draw from one multinomial. If the labels were ordered, or if they were several binary responses, this baseline comparison is the wrong likelihood.{{cite:hastie_esl2009}} (§11.3–11.4, eqs. 11.6 and 11.10, pp. 393–395)
 
 ## Connections
-A binary [logit link](logit-link.qmd) is this model with two categories. The [softmax](softmax-is-multinomial-logistic-regression.qmd) map is the passage from scores to probabilities written above. [Poisson regression](poisson-regression.qmd) is a different likelihood: counts on an unbounded integer, not a single category out of $K$. The software convention that the first class has coefficient zero is one baseline; the probabilities do not prefer that class.{{cite:r_nnet_multinom2026}} (Details, first class)
+A binary [logit link](logit-link.qmd) is this model with two categories. The [softmax](softmax-is-multinomial-logistic-regression.qmd) map is the passage from scores to probabilities written above. [Poisson regression](poisson-regression.qmd) is a different likelihood: counts on an unbounded integer, not a single category out of $K$. The software convention that the first class has coefficient zero is one baseline; the probabilities do not prefer that class.
 
 ## Check yourself
 
@@ -82,4 +82,3 @@ The exact probabilities satisfy $p_2/p_1=e^{0.5}\approx 1.6487$. It is the odds 
 ::: {.callout-tip collapse="true" title="Answer"}
 Three. One category is the reference and its score is fixed at zero. Four free score vectors would describe the same probabilities more than once.
 :::
-

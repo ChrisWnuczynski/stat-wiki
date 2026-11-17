@@ -51,7 +51,7 @@ Suppose $X=0$ with probability $1/4$; otherwise draw uniformly from $(0,1)$. Its
 **Your turn.** For this same law, find $\mathbb P(X=0)$ and $Q(1/8)$ from the CDF alone.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The jump at zero gives $\mathbb P(X=0)=F_X(0)-F_X(0-)=1/4$. Since the CDF first reaches $1/8$ at zero, $Q(1/8)=0$; solving $F_X(x)=1/8$ as if the CDF were everywhere continuous would miss the atom.{{cite:billingsley1995}} (§§12, 14)
+The jump at zero gives $\mathbb P(X=0)=F_X(0)-F_X(0-)=1/4$. Since the CDF first reaches $1/8$ at zero, $Q(1/8)=0$; solving $F_X(x)=1/8$ as if the CDF were everywhere continuous would miss the atom.
 :::
 
 ## Common misconceptions

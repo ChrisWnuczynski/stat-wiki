@@ -40,8 +40,6 @@ For $X\sim F_{8,20}$ the denominator degrees of freedom exceed two, so the mean 
 The mean is $6/(6-2)=1.5$. The variance is $2(6)^2(4+6-2)/(4(6-2)^2(6-4))=4.5$. Both exist because $d_2=6$ is greater than $4$.
 :::
 
-## Check yourself
-
 For $F_{3,4}$, does a finite mean exist, and does a finite variance exist?
 
 ::: {.callout-tip collapse="true" title="Answer"}
@@ -56,3 +54,7 @@ The mean is $5/(5-2)=5/3\approx 1.667$. The numerator has one degree of freedom,
 
 ## Connections
 An analysis-of-variance comparison of normal means uses an F ratio of a between-group mean square to a within-group mean square. A comparison of two independent normal variances uses the same reference law with the sample sizes minus one as the two degrees of freedom. The square of a [Student's t](student-t-distribution.qmd) variable on $m$ degrees of freedom is $F_{1,m}$, because the squared normal numerator is chi-squared on one degree of freedom.{{cite:nist_f_distribution}} (§1.3.6.6.5, comments on tests)
+
+::: {.callout-tip collapse="true" title="Answer"}
+The mean is $5/(5-2)=5/3\approx 1.667$. The numerator has one degree of freedom, so this law has no mode of the interior form that needs $d_1>2$.
+:::

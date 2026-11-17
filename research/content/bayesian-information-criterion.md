@@ -33,7 +33,7 @@ Two models fitted to the same $n=150$ observations have maximised log-likelihood
 **Your turn.** On the same $n=400$ observations, model 1 has $\ell_1=-500$ and $d_1=3$; model 2 has $\ell_2=-493$ and $d_2=5$. Compute both BICs and choose a model.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Here $\log400\approx5.991465$. The scores are $1000+3\log400\approx1017.974$ and $986+5\log400\approx1015.957$. Model 2 has the smaller BIC by about $2.017$. Its seven-unit log-likelihood gain exceeds the two-parameter threshold $\log400\approx5.991465$. This comparison assumes both fits used the same observations and well-defined regular likelihood maxima.{{cite:kass_raftery1995}} (§4.1.3, pp. 778–779)
+Here $\log400\approx5.991465$. The scores are $1000+3\log400\approx1017.974$ and $986+5\log400\approx1015.957$. Model 2 has the smaller BIC by about $2.017$. Its seven-unit log-likelihood gain exceeds the two-parameter threshold $\log400\approx5.991465$. This comparison assumes both fits used the same observations and well-defined regular likelihood maxima.
 :::
 
 ## Common misconceptions

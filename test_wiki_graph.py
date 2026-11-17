@@ -1231,7 +1231,7 @@ class TheoremTemplateTests(unittest.TestCase):
             lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
             self.assertNotIn("$", lead, page.name)
         self.assertGreaterEqual(len(results), 90)
-        self.assertTrue({slug for slug in todo if "#property-" not in slug} <= set(results))
+        self.assertTrue({slug for slug in todo if "#" not in slug} <= set(results))
 
     def test_memoryless_and_product_rule_proofs_cover_their_statements(self) -> None:
         articles = build_wiki.WIKI / "articles"

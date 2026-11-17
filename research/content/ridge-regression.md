@@ -19,7 +19,7 @@ Differentiating $L(b)=\|y-Xb\|^2+\lambda\|b\|^2$ gives $\nabla L(b)=2(X^\top X+\
 :::
 :::
 
-## Statistical use
+## Statistical use — Shrinking correlated coefficients
 Choose predictor transformations and a scaling convention before tuning the penalty. Estimate predictive error for candidate $\lambda$ values with cross-validation, applying centring and scaling separately inside each training fold. If the final reported error is meant to estimate the performance of the whole tuning procedure, use a separate test set or an outer validation loop. The selected penalty is data dependent, so fixed-$\lambda$ sampling formulas should not be presented as though they automatically describe the tuned fit.{{cite:shalizi2025_truth_regression}} (Ch. 15, §15.4, pp. 267–268){{cite:dodge2008}} (p. 460, adaptive ridge caveat)
 
 If the response truly depends on one sparse predictor among thousands, ridge keeps small nonzero weights on many others; a sparse method may be easier to interpret. If the mean relationship is strongly nonlinear, coefficient shrinkage does not repair the wrong functional form. With a predictor measured in millimetres beside one in kilometres, an unstandardised common penalty acts very differently on equivalent physical effects. And if $\lambda$ is tuned and evaluated on the same held-out folds without an outer assessment, the reported performance can be optimistic.{{cite:shalizi2025_truth_regression}} (Ch. 15, §§15.4–15.5, pp. 267–270)
