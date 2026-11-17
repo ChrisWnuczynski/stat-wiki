@@ -1,16 +1,84 @@
 {
-  "action": "defer",
-  "term": "Hawthorne effect",
+  "action": "page",
   "slug": "hawthorne-effect",
+  "term": "Hawthorne effect",
+  "topic": "Fundamentals",
+  "kind": "concept",
+  "aliases": [
+    "Hawthorne study"
+  ],
+  "lead": {
+    "field": "study design",
+    "article": "the",
+    "term": "Hawthorne effect",
+    "verb": "is",
+    "proper": true,
+    "description": "a change in behaviour that comes from being studied rather than from the condition under test"
+  },
+  "self_checks": [
+    {
+      "title": "First-year peak",
+      "prompt": "A baseline of 100 units rises by 10 percent. What is the new level?",
+      "answer": "The level is 110 units."
+    },
+    {
+      "title": "Plant-wide gap",
+      "prompt": "On a baseline of 100, a 10 percent peak is 110 and a 1.4 percent rise is 101.4. What is the gap?",
+      "answer": "The gap is 8.6 units."
+    },
+    {
+      "title": "Later peak",
+      "prompt": "A later peak is 20 percent above a baseline of 100, and the earlier peak was 110. How many units above 110 is the later peak?",
+      "answer": "The later peak is 120, which is 10 units above 110."
+    }
+  ],
+  "bibliography": {
+    "levitt_list2011": {
+      "authors": [
+        "Levitt, Steven D.",
+        "List, John A."
+      ],
+      "year": 2011,
+      "title": "Was There Really a Hawthorne Effect at the Hawthorne Plant? An Analysis of the Original Illumination Experiments",
+      "kind": "article",
+      "venue": "American Economic Journal: Applied Economics",
+      "volume": "3",
+      "issue": "1",
+      "pages": "224–238",
+      "doi": "10.1257/app.3.1.224",
+      "url": "https://www.nber.org/system/files/working_papers/w15016/w15016.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1257/app.3.1.224"
+      }
+    },
+    "mccambridge2014": {
+      "authors": [
+        "McCambridge, Jim",
+        "Witton, John",
+        "Elbourne, Diana R."
+      ],
+      "year": 2014,
+      "title": "Systematic review of the Hawthorne effect: new concepts are needed to study research participation effects",
+      "kind": "article",
+      "venue": "Journal of Clinical Epidemiology",
+      "volume": "67",
+      "issue": "3",
+      "pages": "267–277",
+      "doi": "10.1016/j.jclinepi.2013.08.015",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.jclinepi.2013.08.015"
+      }
+    }
+  },
+  "cite_keys": [
+    "levitt_list2011",
+    "mccambridge2014"
+  ],
+  "overview_sentence": "A [Hawthorne effect](articles/hawthorne-effect.qmd) is a change in behaviour that comes from being studied.",
   "covered_terms": [
     "Hawthorne effect",
     "Hawthorne study"
-  ],
-  "reason": "Opened OpenIntro Statistics chapter 1 (experiments, control, placebo), Hern\u00e1n and Robins chapters 1\u20132 and 16 and the confounding chapter, Dodge entries on experimental design, sampling, and error, and the NIST/SEMATECH glossary entries for control group, randomization, and survey. None defines the Hawthorne effect or the Hawthorne study. An open-access review could not be retrieved.",
-  "sources_tried": [
-    "openintro2019 pp. 9\u201333",
-    "hernan_robins2020 ch. 1\u20132, ch. 7, ch. 16",
-    "dodge2008 Design of Experiments pp. 162\u2013163, Sampling pp. 468\u2013469, Error pp. 182\u2013183",
-    "nist_glossary2002 control group, randomization, survey"
   ]
 }
