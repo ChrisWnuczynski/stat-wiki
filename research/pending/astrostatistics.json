@@ -1,0 +1,12 @@
+{
+  "action": "defer",
+  "term": "Astrostatistics",
+  "slug": "astrostatistics",
+  "covered_terms": [
+    "Astrostatistics"
+  ],
+  "reason": "Searched the full Dodge text and found no astrostatistics entry. No open chapter defining the field was available to read.",
+  "sources_tried": [
+    "dodge2008 full-text search"
+  ]
+}

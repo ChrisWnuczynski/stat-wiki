@@ -1,0 +1,12 @@
+{
+  "action": "defer",
+  "term": "Business analytics",
+  "slug": "business-analytics",
+  "covered_terms": [
+    "Business analytics"
+  ],
+  "reason": "Searched the full Dodge text and found no entry defining business analytics.",
+  "sources_tried": [
+    "dodge2008 full-text search"
+  ]
+}

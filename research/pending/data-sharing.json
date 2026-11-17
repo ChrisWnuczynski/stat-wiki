@@ -1,0 +1,13 @@
+{
+  "action": "defer",
+  "term": "Data sharing",
+  "slug": "data-sharing",
+  "covered_terms": [
+    "Data sharing"
+  ],
+  "reason": "Searched Dodge and found no entry. A fetch of the Wilkinson et al. 2016 FAIR principles PDF returned an HTML error page, so that paper was not read.",
+  "sources_tried": [
+    "dodge2008 full-text search",
+    "wilkinson2016 fetch failed"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "action": "defer",
+  "term": "Abundance estimation",
+  "slug": "abundance-estimation",
+  "covered_terms": [
+    "Abundance estimation"
+  ],
+  "reason": "Opened Moultrie et al. 2013, chapter 1, the post-enumeration survey section, which describes capture\u2013recapture logic for a census undercount and its independence assumption, and searched Dodge. Neither source defines abundance estimation or states a Lincoln\u2013Petersen estimator.",
+  "sources_tried": [
+    "moultrie2013 ch. 1 post-enumeration surveys",
+    "dodge2008 full-text search"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "action": "defer",
+  "term": "Computational sociology",
+  "slug": "computational-sociology",
+  "covered_terms": [
+    "Computational sociology"
+  ],
+  "reason": "Searched the full Dodge text and found no entry for computational sociology.",
+  "sources_tried": [
+    "dodge2008 full-text search"
+  ]
+}

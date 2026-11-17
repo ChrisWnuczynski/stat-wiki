@@ -1,0 +1,45 @@
+{
+  "action": "page",
+  "slug": "demography",
+  "term": "demography",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "population studies",
+    "article": "",
+    "term": "demography",
+    "verb": "is",
+    "description": "the statistical study of human populations through births, deaths, and migration",
+    "proper": false
+  },
+  "bibliography": {
+    "moultrie2013": {
+      "authors": [
+        "Moultrie, T. A.",
+        "Dorrington, R. E.",
+        "Hill, A. G.",
+        "Hill, K.",
+        "Timæus, I. M.",
+        "Zaba, B."
+      ],
+      "year": 2013,
+      "title": "Tools for Demographic Estimation",
+      "kind": "book",
+      "publisher": "International Union for the Scientific Study of Population",
+      "url": "https://demographicestimation.iussp.org/sites/default/files/2023-05/TDE_2013_2ndImpression_opt_0.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://demographicestimation.iussp.org/sites/default/files/2023-05/TDE_2013_2ndImpression_opt_0.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "moultrie2013"
+  ],
+  "overview_sentence": "Demography is the statistical study of human populations through births, deaths, and migration.",
+  "covered_terms": [
+    "demography"
+  ]
+}

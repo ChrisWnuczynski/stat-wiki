@@ -1,0 +1,105 @@
+{
+  "action": "page",
+  "slug": "engineering-statistics",
+  "term": "engineering statistics",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "engineering",
+    "article": "",
+    "term": "engineering statistics",
+    "verb": "is",
+    "description": "the use of designed experiments, process comparisons, and lifetime data to decide how a product or process should be changed",
+    "proper": false
+  },
+  "bibliography": {
+    "nist_engineer_design2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a75.3 Choosing an experimental design",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri3.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/pri/section3/pri3.htm"
+      }
+    },
+    "nist_process_intro2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a77.1 Introduction",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc1.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section1/prc1.htm"
+      }
+    },
+    "nist_censoring2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, \u00a78.1.3.1 Censoring",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm"
+      }
+    },
+    "cleveland2001": {
+      "authors": [
+        "Cleveland, W. S."
+      ],
+      "year": 2001,
+      "title": "Data Science: An Action Plan for Expanding the Technical Areas of the Field of Statistics",
+      "kind": "article",
+      "venue": "International Statistical Review",
+      "volume": "69",
+      "issue": "1",
+      "pages": "21\u201326",
+      "doi": "10.1111/j.1751-5823.2001.tb00477.x",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1111/j.1751-5823.2001.tb00477.x"
+      }
+    }
+  },
+  "cite_keys": [
+    "nist_engineer_design2002",
+    "nist_process_intro2002",
+    "nist_censoring2002",
+    "cleveland2001"
+  ],
+  "overview_sentence": "Engineering statistics uses designed experiments, process comparisons, and lifetime data to change a product or process.",
+  "covered_terms": [
+    "Engineering statistics"
+  ]
+}

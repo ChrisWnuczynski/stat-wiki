@@ -1,0 +1,12 @@
+{
+  "action": "defer",
+  "term": "Environmental statistics",
+  "slug": "environmental-statistics",
+  "covered_terms": [
+    "Environmental statistics"
+  ],
+  "reason": "Opened Dodge, Geostatistics, pp. 229\u2013230, which treats spatial prediction and mentions soil contamination only as a cited application. It does not define environmental statistics.",
+  "sources_tried": [
+    "dodge2008 pp. 229\u2013230"
+  ]
+}
