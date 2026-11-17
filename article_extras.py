@@ -4798,3 +4798,7 @@ THEOREM_LEADS.update({
 # Exact corrections to copied article prose, keyed by article slug.
 # Entries are (old fragment, replacement) pairs; the build rejects absent targets.
 ARTICLE_SOURCE_CORRECTIONS: dict[str, list[tuple[str, str]]] = {}
+
+# Explicit default reference lists for reviewed article bodies; inline works are
+# always collected by the citation linker as well.
+ARTICLE_REFERENCE_KEYS: dict[str, list[str]] = {}

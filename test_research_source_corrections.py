@@ -30,5 +30,21 @@ class SourceCorrectionTests(unittest.TestCase):
                 build_wiki.apply_article_source_corrections('target', [(True, 'statement', 'Text.')])
 
 
+class ReferenceOverrideTests(unittest.TestCase):
+    def test_explicit_override_leaves_other_pages_defaults_unchanged(self):
+        from types import SimpleNamespace
+        module = SimpleNamespace(ARTICLE_REFS={'target': ('old',), 'other': ('keep',)})
+        with patch.dict(build_wiki.ARTICLE_REFERENCE_KEYS, {'target': ['proper']}, clear=True):
+            build_wiki.apply_article_reference_keys(module)
+        self.assertEqual(module.ARTICLE_REFS, {'target': ('proper',), 'other': ('keep',)})
+
+    def test_empty_override_uses_inline_sources_without_alias_fallback(self):
+        import citations
+        with patch.dict(citations.ARTICLE_REFS, {'old-course': ('lecture',)}, clear=True):
+            with patch.dict(build_wiki.ARTICLE_REFERENCE_KEYS, {'target': []}, clear=True):
+                build_wiki.apply_article_reference_keys(citations)
+            self.assertEqual(citations.citations_for_article({'slug': 'target', 'aliases': ['old-course']}), ())
+
+
 if __name__ == '__main__':
     unittest.main()
