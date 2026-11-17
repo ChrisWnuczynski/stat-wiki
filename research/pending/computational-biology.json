@@ -1,0 +1,13 @@
+{
+  "action": "defer",
+  "term": "Computational biology",
+  "slug": "computational-biology",
+  "covered_terms": [
+    "Computational biology"
+  ],
+  "reason": "Opened Dodge, Genetic statistics, pp. 224\u2013225, which defines genetic statistics and the Hardy\u2013Weinberg proportions, not computational biology. The ISCB definition page returned HTTP 404.",
+  "sources_tried": [
+    "dodge2008 pp. 224\u2013225",
+    "iscb.org/what-is-computational-biology 404"
+  ]
+}

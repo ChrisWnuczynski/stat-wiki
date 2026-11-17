@@ -1,0 +1,43 @@
+{
+  "action": "page",
+  "slug": "correlation-does-not-imply-causation",
+  "term": "correlation does not imply causation",
+  "topic": "Applications",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "causal inference",
+    "article": "",
+    "term": "correlation does not imply causation",
+    "verb": "is",
+    "description": "a warning that an observed association is not, by itself, a causal effect",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Which risk is larger?",
+      "prompt": "In the population of 20, treated mortality is 7/13 and untreated mortality is 3/7. Which is larger?",
+      "answer": "The treated risk is larger, because 7/13 \u2212 3/7 = 10/91 > 0."
+    },
+    {
+      "title": "Causal difference",
+      "prompt": "If everyone treated gives 10 deaths out of 20 and everyone untreated gives 10 deaths out of 20, what is the causal risk difference?",
+      "answer": "The causal risk difference is 0."
+    },
+    {
+      "title": "Changed counterfactuals",
+      "prompt": "If 8 of 20 would die if everyone were treated and 12 of 20 would die if everyone were untreated, what is the causal risk difference?",
+      "answer": "The difference is 8/20 \u2212 12/20 = \u22121/5."
+    }
+  ],
+  "bibliography": {},
+  "cite_keys": [
+    "hernan_robins2020",
+    "openintro2019",
+    "dodge2008"
+  ],
+  "overview_sentence": "The warning that correlation does not imply causation separates an observed association from a causal effect.",
+  "covered_terms": [
+    "Correlation does not imply causation"
+  ]
+}

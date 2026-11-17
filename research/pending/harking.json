@@ -1,0 +1,72 @@
+{
+  "action": "page",
+  "slug": "harking",
+  "term": "HARKing",
+  "topic": "Applications",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "study reporting",
+    "article": "",
+    "term": "HARKing",
+    "verb": "is",
+    "description": "the practice of presenting a hypothesis suggested by the results as if it had been stated in advance",
+    "proper": true
+  },
+  "self_checks": [
+    {
+      "title": "Expected false alarms",
+      "prompt": "Twenty independent tests of true nulls are each run at level 0.05. What is the expected number of results with p < 0.05?",
+      "answer": "The expected number is 20 × 0.05 = 1."
+    },
+    {
+      "title": "A stricter level",
+      "prompt": "The same twenty true nulls are tested at level 0.01. What is the expected number with p < 0.01?",
+      "answer": "The expected number is 20 × 0.01 = 0.2."
+    }
+  ],
+  "bibliography": {
+    "kerr1998": {
+      "authors": [
+        "Kerr, N. L."
+      ],
+      "year": 1998,
+      "title": "HARKing: Hypothesizing After the Results Are Known",
+      "kind": "article",
+      "venue": "Personality and Social Psychology Review",
+      "volume": "2",
+      "issue": "3",
+      "pages": "196–217",
+      "doi": "10.1207/s15327957pspr0203_4",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1207/s15327957pspr0203_4"
+      }
+    },
+    "ioannidis2005": {
+      "authors": [
+        "Ioannidis, J. P. A."
+      ],
+      "year": 2005,
+      "title": "Why Most Published Research Findings Are False",
+      "kind": "article",
+      "venue": "PLoS Medicine",
+      "volume": "2",
+      "issue": "8",
+      "pages": "e124",
+      "doi": "10.1371/journal.pmed.0020124",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1371/journal.pmed.0020124"
+      }
+    }
+  },
+  "cite_keys": [
+    "kerr1998",
+    "ioannidis2005"
+  ],
+  "overview_sentence": "HARKing presents a hypothesis suggested by the results as if it had been stated before the data were seen.",
+  "covered_terms": [
+    "HARKing"
+  ]
+}

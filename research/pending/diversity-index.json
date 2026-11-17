@@ -1,0 +1,75 @@
+{
+  "action": "page",
+  "slug": "diversity-index",
+  "term": "diversity index",
+  "topic": "Applications",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "ecology",
+    "article": "a",
+    "term": "diversity index",
+    "verb": "is",
+    "description": "a summary of how individuals are divided among classes, using both the number of classes and their relative sizes",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Concentration of 6, 3, and 1",
+      "prompt": "Proportions 0.6, 0.3, and 0.1. What is Simpson's \u03bb?",
+      "answer": "\u03bb = 0.36 + 0.09 + 0.01 = 0.46."
+    },
+    {
+      "title": "Unbiased pair estimator",
+      "prompt": "Counts 6, 3, and 1. What is the unbiased estimator \u2113?",
+      "answer": "\u2113 = 36/90 = 0.4."
+    },
+    {
+      "title": "Equal split",
+      "prompt": "Ten individuals split five and five. What is \u03bb?",
+      "answer": "\u03bb = 1/2."
+    }
+  ],
+  "bibliography": {
+    "simpson1949": {
+      "authors": [
+        "Simpson, E. H."
+      ],
+      "year": 1949,
+      "title": "Measurement of Diversity",
+      "kind": "article",
+      "venue": "Nature",
+      "volume": "163",
+      "url": "https://people.wku.edu/charles.smith/biogeog/SIMP1949.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://people.wku.edu/charles.smith/biogeog/SIMP1949.pdf"
+      }
+    },
+    "peet1974": {
+      "authors": [
+        "Peet, R. K."
+      ],
+      "year": 1974,
+      "title": "The Measurement of Species Diversity",
+      "kind": "article",
+      "venue": "Annual Review of Ecology and Systematics",
+      "volume": "5",
+      "pages": "285\u2013307",
+      "url": "https://www.sci.muni.cz/botany/nekola/foe/peet1974.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.sci.muni.cz/botany/nekola/foe/peet1974.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "simpson1949",
+    "peet1974",
+    "dodge2008"
+  ],
+  "overview_sentence": "A diversity index summarises how individuals are divided among classes, using both richness and evenness.",
+  "covered_terms": [
+    "Diversity index"
+  ]
+}

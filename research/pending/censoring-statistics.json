@@ -1,0 +1,118 @@
+{
+  "action": "page",
+  "slug": "censoring-statistics",
+  "term": "censoring",
+  "topic": "Applications",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "survival analysis",
+    "article": "",
+    "term": "censoring",
+    "verb": "is",
+    "description": "a record in which a lifetime is known only to exceed a time, or to fall inside an interval, rather than known exactly",
+    "proper": false
+  },
+  "self_checks": [
+    {
+      "title": "Product-limit value",
+      "prompt": "Five units: one failure at time 2, a censoring at time 3, and two failures at time 5. What is the product-limit estimate at time 5?",
+      "answer": "The estimate is 4/5 × 1/3 = 4/15."
+    },
+    {
+      "title": "Censoring becomes a failure",
+      "prompt": "If the time-3 observation is a failure instead, what is the product-limit estimate at time 5?",
+      "answer": "The estimate is 4/5 × 3/4 × 1/3 = 1/5."
+    }
+  ],
+  "bibliography": {
+    "nist_censoring2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.1.3.1 Censoring",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr131.htm"
+      }
+    },
+    "nist_kaplan2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.2.1.5 Kaplan–Meier",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section2/apr215.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section2/apr215.htm"
+      }
+    },
+    "nist_censoring_mle2002": {
+      "authors": [
+        "Heckert, N. A.",
+        "Filliben, J. J.",
+        "Croarkin, C. M.",
+        "Hembree, B.",
+        "Guthrie, W. F.",
+        "Tobias, P.",
+        "Prinz, J."
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §8.4.1.2 Maximum likelihood estimation",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm"
+      }
+    },
+    "bonita2006": {
+      "authors": [
+        "Bonita, R.",
+        "Beaglehole, R.",
+        "Kjellström, T."
+      ],
+      "year": 2006,
+      "title": "Basic Epidemiology",
+      "edition": "2nd ed.",
+      "kind": "book",
+      "publisher": "World Health Organization",
+      "url": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y"
+      }
+    }
+  },
+  "cite_keys": [
+    "nist_censoring2002",
+    "nist_kaplan2002",
+    "nist_censoring_mle2002",
+    "bonita2006"
+  ],
+  "overview_sentence": "Censoring records that a lifetime exceeds a time, or falls in an interval, without giving the exact failure time.",
+  "covered_terms": [
+    "Censoring (statistics)",
+    "censoring"
+  ]
+}

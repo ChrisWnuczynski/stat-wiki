@@ -1,0 +1,12 @@
+{
+  "action": "defer",
+  "term": "Conjoint Analysis",
+  "slug": "conjoint-analysis",
+  "covered_terms": [
+    "Conjoint Analysis"
+  ],
+  "reason": "Searched the full Dodge text and found no entry defining conjoint analysis.",
+  "sources_tried": [
+    "dodge2008 full-text search"
+  ]
+}

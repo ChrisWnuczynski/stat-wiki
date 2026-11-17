@@ -1,0 +1,40 @@
+{
+  "action": "page",
+  "slug": "econometrics",
+  "term": "econometrics",
+  "topic": "Applications",
+  "kind": "field",
+  "aliases": [],
+  "lead": {
+    "field": "economics",
+    "article": "",
+    "term": "econometrics",
+    "verb": "is",
+    "description": "the joint study of economic models, statistical methods, and economic data",
+    "proper": false
+  },
+  "bibliography": {
+    "hansen2010": {
+      "authors": [
+        "Hansen, B. E."
+      ],
+      "year": 2010,
+      "title": "Econometrics",
+      "kind": "book",
+      "publisher": "University of Wisconsin",
+      "url": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://users.ssc.wisc.edu/~xshi28/Econometrics_Hansen.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "hansen2010"
+  ],
+  "overview_sentence": "Econometrics is the joint study of economic models, statistical methods, and economic data.",
+  "covered_terms": [
+    "econometrics"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "action": "defer",
+  "term": "Chemometrics",
+  "slug": "chemometrics",
+  "covered_terms": [
+    "Chemometrics"
+  ],
+  "reason": "Searched Dodge. The word appears only in the title of a cited paper on regression tools, in the partial-least-squares references, and the surrounding entry does not define chemometrics.",
+  "sources_tried": [
+    "dodge2008 partial least squares references"
+  ]
+}
