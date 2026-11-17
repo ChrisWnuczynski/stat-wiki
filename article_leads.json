@@ -716,5 +716,15 @@
   "wold-decomposition": {"field": "time series", "article": "the", "term": "Wold decomposition", "verb": "is", "description": "a representation of a stationary time series as unpredictable innovations and a deterministic component", "proper": true},
   "working-correlation": {"field": "correlated data", "article": "the", "term": "working correlation", "verb": "is", "description": "the correlation structure assumed within a cluster when fitting generalised estimating equations, such as independence or exchangeable"},
   "xor-problem": {"field": "statistical learning", "article": "the", "term": "XOR problem", "verb": "is", "description": "the four-corner classification pattern that exposes why a linear decision boundary needs nonlinear features to separate alternating labels", "proper": true},
-  "zero-one-loss-and-risk": {"field": "statistical learning", "article": "", "term": "zero–one loss and risk", "verb": "are", "description": "the unit penalty for a wrong class label and its expected value, used to compare classification rules by their chance of error on new cases"}
+  "zero-one-loss-and-risk": {"field": "statistical learning", "article": "", "term": "zero–one loss and risk", "verb": "are", "description": "the unit penalty for a wrong class label and its expected value, used to compare classification rules by their chance of error on new cases"},
+  "census": {"field": "statistics", "article": "a", "term": "census", "verb": "is", "description": "a study that observes every unit in a population"},
+  "data": {"field": "statistics", "article": "", "term": "data", "verb": "are", "description": "measurements or observations collected as a source of information"},
+  "dataset": {"field": "statistics", "article": "a", "term": "dataset", "verb": "is", "description": "a collection of observations organised so that they can be analysed together"},
+  "levels-of-measurement": {"field": "statistics", "article": "", "term": "levels of measurement", "verb": "are", "description": "the distinctions among names, ranks, and numerical measurements that decide which summaries are meaningful"},
+  "parameter": {"field": "statistics", "article": "a", "term": "parameter", "verb": "is", "description": "a numerical feature of a population, as distinct from a statistic computed from a sample"},
+  "population": {"field": "statistics", "article": "a", "term": "population", "verb": "is", "description": "the complete collection of units about which a study wants to learn"},
+  "sample": {"field": "statistics", "article": "a", "term": "sample", "verb": "is", "description": "a subset of a population, studied in order to say something about the population"},
+  "variable": {"field": "statistics", "article": "a", "term": "variable", "verb": "is", "description": "a characteristic that is measured or counted on each unit"},
+  "line-chart": {"field": "data analysis", "article": "a", "term": "line chart", "verb": "is", "description": "a frequency graph that draws a line of height equal to the frequency at each value of a discrete variable"},
+  "sampling-distribution": {"field": "statistical inference", "article": "a", "term": "sampling distribution", "verb": "is", "description": "the distribution of a statistic across repeated samples from the same population"}
 }

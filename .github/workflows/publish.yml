@@ -48,7 +48,7 @@ jobs:
           node-version: 22
 
       - name: Check the laboratory modules
-        run: node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs
+        run: node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs labs/distribution-explorer-math.test.mjs
 
       - name: Check the R runner
         run: node --test webr/packages.test.mjs webr/runner.test.mjs
@@ -172,7 +172,7 @@ jobs:
 
       - name: Check the laboratory modules and the R runner
         run: |
-          node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs
+          node --test labs/kde-math.test.mjs labs/stat-math.test.mjs labs/beta-binomial-math.test.mjs labs/markov-math.test.mjs labs/coverage-math.test.mjs labs/distribution-explorer-math.test.mjs
           node --test webr/packages.test.mjs webr/runner.test.mjs
           node --test search-rank.test.mjs
 

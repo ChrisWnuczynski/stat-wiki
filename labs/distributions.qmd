@@ -1,0 +1,81 @@
+---
+title: "Distribution explorer"
+description: "Move the parameters of a named distribution and watch the probability mass or density and the distribution function."
+---
+
+A named distribution is a formula for chance. The probability mass function, for a discrete family, or the density, for a continuous family, says how the chance is spread. The distribution function adds that chance up to a point.<sup id="cite_ref-1" class="cite-ref" data-cite-key="nist_glossary2002"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> (Glossary, “binomial distribution”) <sup id="cite_ref-2" class="cite-ref" data-cite-key="dodge2008"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> (p. 44)
+
+## What this page investigates
+
+How the mass or density and the distribution function move when a parameter moves. The family and its parameters are the controls. The curves use the parameterisation on the distribution articles.
+
+## Predict first
+
+The page opens on a standard normal density, centred at 0 with standard deviation 1. Before moving a slider, predict what happens to the peak and to the distribution function if the standard deviation grows. Then switch to a Poisson family with mean 3 and predict whether the mass sits on the integers only.
+
+## The model these controls change
+
+A binomial count is the number of successes in a fixed number of independent trials with one success probability.<sup id="cite_ref-2-2" class="cite-ref" data-cite-key="dodge2008"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> (p. 44) A Poisson count is a model for events in a fixed exposure, with mean equal to its variance.<sup id="cite_ref-1-2" class="cite-ref" data-cite-key="nist_glossary2002"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> (Glossary, “Poisson distribution”) An exponential waiting time has density $\lambda e^{-\lambda x}$ on the positive line. A normal measurement is symmetric about its mean.
+
+A model, more generally, relates observable variables. A probability model predicts the relative frequency of outcomes. A statistical model predicts a measured quantity.<sup id="cite_ref-1-3" class="cite-ref" data-cite-key="nist_glossary2002"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> (Glossary, “model”) <sup id="cite_ref-2-3" class="cite-ref" data-cite-key="dodge2008"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> (p. 353) The curves in the figure are the probability models. They are not a histogram of a sample. A relative frequency is a count in a dataset.<sup id="cite_ref-3" class="cite-ref" data-cite-key="abs_glossary2023"><a href="#cite_note-3" title="Australian Bureau of Statistics (2023) — Statistical terms and concepts glossary">[3]</a></sup> (Glossary, “Relative frequency”)
+
+```{=html}
+<div data-lab-page hidden></div>
+<div id="distribution-lab"></div>
+<script type="module">
+const meta = document.querySelector('meta[name="quarto:offset"]');
+const offset = meta ? meta.getAttribute("content") : "./";
+const root = document.getElementById("distribution-lab");
+try {
+  const mod = await import(new URL(offset + "labs/distribution-explorer.js", document.baseURI).href);
+  mod.mount(root);
+} catch (error) {
+  root.textContent = "The laboratory did not load. " + (error && error.message ? error.message : String(error));
+}
+</script>
+```
+
+## What the picture is showing
+
+The upper panel is the mass or the density at the current parameters. Discrete families are drawn as spikes on the integers. Continuous families are drawn as a curve. The lower panel is the distribution function, rising from 0 toward 1.
+
+Changing a parameter redraws both panels from the formula. It does not resample. Multivariate families, including the Dirichlet, the multinomial, the multivariate normal, and the Wishart, are not drawn here. Their articles carry the joint formulas.
+
+## Where this fails
+
+A density can be unbounded, as a beta density is when a shape is below 1. The panel clips the vertical scale to the finite values it can draw. A Cauchy density has no mean. The picture is still the density. The [distribution topic](../notes/probability-distributions.qmd) lists every family, including the multivariate ones the figure does not draw.
+
+## References {#references}
+
+```{=html}
+<div class="wiki-refs">
+<ol>
+  <li id="cite_note-1"><span class="cite-backlink">^ <a href="#cite_ref-1" aria-label="Jump up to a"><sup>a</sup></a> <a href="#cite_ref-1-2" aria-label="Jump up to b"><sup>b</sup></a> <a href="#cite_ref-1-3" aria-label="Jump up to c"><sup>c</sup></a></span> Heckert, N. A., Filliben, J. J., Croarkin, C. M., Hembree, B., Guthrie, W. F., Tobias, P. &amp; Prinz, J. (2002). <em>Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary</em>. National Institute of Standards and Technology. <a href="https://www.itl.nist.gov/div898/handbook/glossary.htm" target="_blank" rel="noopener">https://www.itl.nist.gov/div898/handbook/glossary.htm</a></li>
+  <li id="cite_note-2"><span class="cite-backlink">^ <a href="#cite_ref-2" aria-label="Jump up to a"><sup>a</sup></a> <a href="#cite_ref-2-2" aria-label="Jump up to b"><sup>b</sup></a> <a href="#cite_ref-2-3" aria-label="Jump up to c"><sup>c</sup></a></span> Dodge, Yadolah (2008). <em>The Concise Encyclopedia of Statistics</em>. Springer. <a href="https://doi.org/10.1007/978-0-387-32833-1" target="_blank" rel="noopener">https://doi.org/10.1007/978-0-387-32833-1</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Australian Bureau of Statistics (2023). <em>Statistical terms and concepts glossary</em>. Australian Bureau of Statistics. <a href="https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary" target="_blank" rel="noopener">https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary</a></li>
+</ol>
+</div>
+```
+
+```{=html}
+<details class="cite-this-page">
+  <summary>Cite this page</summary>
+  <div class="cite-body">
+    <div class="cite-entry">
+      <span class="cite-format">Plain text</span>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Distribution explorer.&quot; StatWiki. Last updated 17 November 2026. https://www.statwiki.io/labs/distributions.html</code></pre>
+    </div>
+    <div class="cite-entry">
+      <span class="cite-format">BibTeX</span>
+      <pre class="cite-code"><code>@misc{statwiki_distributions,
+  author = {{StatWiki}},
+  title = {{Distribution explorer}},
+  year = {2026},
+  url = {https://www.statwiki.io/labs/distributions.html},
+  urldate = {2026-11-17},
+  note = {StatWiki, last updated 17 November 2026}
+}</code></pre>
+    </div>
+  </div>
+</details>
+```

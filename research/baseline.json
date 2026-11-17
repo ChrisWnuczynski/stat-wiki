@@ -2870,5 +2870,45 @@
   "zero-one-loss-and-risk": {
     "words": 507,
     "figures": 0
+  },
+  "data": {
+    "words": 920,
+    "figures": 0
+  },
+  "dataset": {
+    "words": 839,
+    "figures": 0
+  },
+  "variable": {
+    "words": 890,
+    "figures": 0
+  },
+  "levels-of-measurement": {
+    "words": 957,
+    "figures": 0
+  },
+  "population": {
+    "words": 896,
+    "figures": 0
+  },
+  "sample": {
+    "words": 816,
+    "figures": 0
+  },
+  "census": {
+    "words": 860,
+    "figures": 0
+  },
+  "parameter": {
+    "words": 939,
+    "figures": 0
+  },
+  "line-chart": {
+    "words": 899,
+    "figures": 0
+  },
+  "sampling-distribution": {
+    "words": 879,
+    "figures": 0
   }
 }

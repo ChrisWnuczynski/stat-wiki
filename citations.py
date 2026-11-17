@@ -74,6 +74,9 @@ LAB_REFS: dict[str, tuple[str, ...]] = {'beta-binomial.qmd': ('bernoulli1713',
                        'raiffa_schlaifer1961',
                        'diaconis_ylvisaker1979',
                        'gelman_bda2013'),
+ 'distributions.qmd': ('dodge2008',
+                        'nist_glossary2002',
+                        'abs_glossary2023'),
  'ci-coverage.qmd': ('student1908',
                      'wilson1927',
                      'clopper_pearson1934',
@@ -1851,7 +1854,11 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
    'friedman_glasso2008',
    'foygel_drton2010',
    'hastie_esl2009')),
- (('extended-information-criterion',), ('foygel_drton2010',))]
+ (('extended-information-criterion',), ('foygel_drton2010',)),
+ (('data', 'variable', 'levels-of-measurement', 'line-chart'), ('dodge2008', 'abs_glossary2023')),
+ (('sampling-distribution',), ('dodge2008', 'nist_glossary2002', 'abs_glossary2023')),
+ (('dataset', 'population', 'sample', 'census', 'parameter'),
+  ('dodge2008', 'abs_glossary2023', 'nist_glossary2002'))]
 
 ARTICLE_REFS: dict[str, tuple[str, ...]] = {
     slug: refs for slugs, refs in ARTICLE_GROUPS for slug in slugs
