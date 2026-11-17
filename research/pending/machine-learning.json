@@ -1,0 +1,44 @@
+{
+  "action": "page",
+  "slug": "machine-learning",
+  "term": "machine learning",
+  "topic": "Statistical learning",
+  "kind": "concept",
+  "aliases": [
+    "Artificial intelligence"
+  ],
+  "lead": {
+    "field": "statistical learning",
+    "article": "",
+    "term": "machine learning",
+    "verb": "is",
+    "description": "the estimation of a prediction or description rule from data, separating error a better rule could remove from error the measured features cannot remove"
+  },
+  "bibliography": {},
+  "cite_keys": [
+    "james_islr2021",
+    "hastie_esl2009"
+  ],
+  "overview_sentence": "[Machine learning](articles/machine-learning.qmd), in the statistical sense, estimates a prediction or description rule from data.",
+  "covered_terms": [
+    "Machine learning",
+    "Artificial intelligence"
+  ],
+  "self_checks": [
+    {
+      "title": "Reducible plus irreducible",
+      "prompt": "A fixed fit has f(X)=10, f-hat(X)=7 and error variance 9. What is the expected squared error?",
+      "answer": "The expected squared error is 18."
+    },
+    {
+      "title": "Perfect fit",
+      "prompt": "If that same fit recovers f(X)=10 exactly, and the error variance is still 9, what is the expected squared error?",
+      "answer": "The expected squared error is 9."
+    },
+    {
+      "title": "Another fixed fit",
+      "prompt": "Now f(X)=4, f-hat(X)=1 and the error variance is 4. What is the expected squared error?",
+      "answer": "The expected squared error is 13."
+    }
+  ]
+}

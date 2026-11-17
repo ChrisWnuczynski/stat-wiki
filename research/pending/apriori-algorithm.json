@@ -1,0 +1,59 @@
+{
+  "action": "page",
+  "slug": "apriori-algorithm",
+  "term": "Apriori algorithm",
+  "topic": "Statistical learning",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "statistical learning",
+    "article": "the",
+    "term": "Apriori algorithm",
+    "verb": "is",
+    "description": "a level-by-level listing of frequent item sets that skips any set with an infrequent subset",
+    "proper": true
+  },
+  "bibliography": {
+    "agrawal_srikant1994": {
+      "authors": [
+        "Agrawal, R.",
+        "Srikant, R."
+      ],
+      "year": 1994,
+      "title": "Fast Algorithms for Mining Association Rules",
+      "kind": "incollection",
+      "venue": "Proceedings of the 20th International Conference on Very Large Data Bases",
+      "publisher": "Morgan Kaufmann",
+      "url": "https://rsrikant.com/papers/vldb94.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://rsrikant.com/papers/vldb94.pdf"
+      }
+    }
+  },
+  "cite_keys": [
+    "hastie_esl2009",
+    "agrawal_srikant1994"
+  ],
+  "overview_sentence": "The [Apriori algorithm](articles/apriori-algorithm.qmd) lists frequent item sets by discarding any set whose subset is already infrequent.",
+  "covered_terms": [
+    "Apriori algorithm"
+  ],
+  "self_checks": [
+    {
+      "title": "Confidence",
+      "prompt": "In the four baskets {a,b}, {a,b}, {a} and {b,c}, what is the confidence of the rule a implies b?",
+      "answer": "The confidence is 2/3."
+    },
+    {
+      "title": "Lift",
+      "prompt": "What is the lift of that same rule?",
+      "answer": "The lift is 8/9."
+    },
+    {
+      "title": "A rare pair",
+      "prompt": "What is the support of {b,c}, and does it pass a strict threshold of 2/5?",
+      "answer": "The support is 1/4, which does not pass a strict threshold of 2/5."
+    }
+  ]
+}
