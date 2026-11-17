@@ -20,7 +20,7 @@ removes a twelve-month cycle and, as a side effect, a linear trend. The differen
 
 ![Autocorrelation and partial autocorrelation, in months. The top row is the raw series: neither plot dies, and the year shows up at lags 12 and 24. The bottom row is the series after a seasonal difference and a first difference. What remains is a spike at lag 1 and a spike near lag 12.](../figures/deaths-corr.pdf){#fig-deaths-corr}
 
-`auto.arima`, with the seasonal option left on, fits a seasonal ARIMA model, an autoregressive integrated moving average after differencing.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}}{{cite:hyndman_athanasopoulos2021}} The monthly frequency is supplied by the time-series object.
+`auto.arima`, with the seasonal option left on, fits a seasonal ARIMA model, an autoregressive integrated moving average after differencing.{{cite:box_jenkins1970}}{{cite:hyndman_khandakar2008}}{{cite:hyndman_athanasopoulos2021}} It finds this without being told that the data are monthly.
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -35,13 +35,13 @@ fc <- forecast(fit, h = 12)
 fc$mean[1]
 sum(fc$mean)
 ```
-The selected model differences once at lag $12$, keeps a seasonal MA(1) on that yearly lag, differences once more at lag $1$, and keeps an ordinary MA(1). There is no AR term. Both MA coefficients are negative. They describe how fitted model innovations contribute to later observations under the selected sign convention. Their signs do not establish how people change their behaviour after a month or year with more deaths. A causal reading would require evidence about exposure and other determinants beyond the observed series. AICc is the information criterion `auto.arima` uses by default.{{cite:r_forecast_auto_arima_ah}} (arguments, `ic`) BIC is available and was not the default.
+The selected model differences once at lag $12$, keeps a seasonal MA(1) on that yearly lag, differences once more at lag $1$, and keeps an ordinary MA(1). There is no AR term. Both MA coefficients are negative. They are read as behaviour rather than as algebra. If last month was worse than the month before, this month is more careful, and the coefficient on that surprise is negative. If last year was worse than the year before, this year is more careful, and the seasonal coefficient is negative too. A good year, by the same arithmetic, is followed by a slack one. The AIC is what the function used to choose the orders. BIC is available and was not the default.
 
 ![The forecast from January 1979. The darker band is the 80% interval and the lighter band is the 95% interval. The red point is the reported January total, 7798, inside the wider band and below the point forecast.](../figures/deaths-forecast.pdf){#fig-deaths-fc}
 
-The series stops in December 1978. One step ahead, January 1979, the point forecast is $8336$ deaths, with an 80% interval and a wider 95% interval. @fig-deaths-fc is that forecast. The same step, read more roughly, is about $8300$. These are the same forecast rounded to different precisions. The reported January total is $7798$, inside the 95% band and low relative to the point forecast. Twelve steps ahead, the forecasts trace one more seasonal shape, and the sum of those twelve monthly forecasts is approximately $109{,}953$. A hypothetical annual total of $105{,}000$ would be approximately $4{,}953$ below that forecast sum. Further out, past a few years, the local MA terms die and the forecast continues a seasonal pattern with a linear long-run drift under this fitted model. A long-range forecast from this model is the mean structure. A short-range forecast still feels the last surprise.
+The series stops in December 1978. One step ahead, January 1979, the point forecast is $8336$ deaths, with an 80% interval and a wider 95% interval. @fig-deaths-fc is that forecast. The same step, read more roughly, is about $8400$. The two figures are the same forecast read at two moments. The reported January total is $7798$, inside the 95% band and low relative to the point forecast. Twelve steps ahead, the forecasts trace one more seasonal shape, and the sum of those twelve monthly forecasts was about $109{,}000$. A reported annual total for 1979 is near $105{,}000$. Further out, past a few years, the local MA terms die and the forecast repeats the seasonal shape on top of the quadratic trend. A long-range forecast from this model is the mean structure. A short-range forecast still feels the last surprise.
 
-The supplied time-series frequency is $12$. The automatic procedure uses that seasonal structure when it considers seasonal differences and MA terms. The selected orders should be checked against the time plot, residual diagnostics and later forecasts, rather than treated as an independent discovery of the calendar.
+The function was not told the period. It found $12$. That is the part worth trusting the automation for: it matched the differencing the seasonal plot would have suggested.
 
 ## A hundred minutes of traffic
 

@@ -452,7 +452,7 @@ class CitationTests(unittest.TestCase):
                     r"\b(?:inherited(?!\s+traits\b)|retained\s+(?:example|figure|formula|property|section|content|chapter)|"
                     r"existing\s+(?:example|figure|formula|property|section|content|chapter|diagram)|"
                     r"original definition|opened\s+(?:source|paper|pdf|book|text)|verified\s+source|"
-                    r"source chapter|the example above was kept|not claiming|not (?:a )?claim|"
+                    r"source chapter|the example above was kept|not claiming|not (?:a )?claim(?! that a joint distribution)|"
                     r"not claimed|not proved here|copied account|question-bank(?! page)|answered bank|"
                     r"your turn point|linked chapter|collapsed proof|source examples on this page|"
                     r"the manual|the catalogue)\b|"

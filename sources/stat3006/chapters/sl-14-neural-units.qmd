@@ -225,7 +225,7 @@ $$
 F(x)=\sum_{q=1}^{l} a_q\,\sigma(w_q^\top x+b_q)
 $$
 
-with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon${{cite:cybenko1989}}. The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values{{cite:cybenko1989}}{{cite:bishop2006}}. Results for measurable targets use weaker notions of approximation{{cite:hornik1989}}. Those results do not assert uniform approximation of every discontinuous function by continuous networks.
+with a continuous sigmoidal activation such that $\sup_{x\in[0,1]^p}|F(x)-f(x)|<\varepsilon${{cite:cybenko1989}}. The output here is a linear combination, not a bounded sigmoid forced to represent arbitrary real values{{cite:cybenko1989}}{{cite:bishop2006}}. Results for measurable targets use weaker notions of approximation{{cite:hornik1989}}. They do not assert uniform approximation of every discontinuous function by continuous networks.
 
 :::
 

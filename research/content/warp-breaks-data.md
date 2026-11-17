@@ -1,8 +1,8 @@
 ## Motivating example
-The warp-breaks observations compare two wool types and three tension levels using yarn-break counts from nine looms in each combination. A useful first question is whether tension is associated with the mean count and whether that association differs by wool type. A second question concerns uncertainty when observations are dependent. Those questions require different information: a table of recorded factors cannot by itself identify independent factories or a time ordering.{{cite:r_warpbreaks}} (“Description” and “Format”)
+The warp-breaks observations compare two wool types and three tension levels using yarn-break counts from nine looms in each combination. A useful first question is whether tension is associated with the mean count and whether that association differs by wool type. A second question concerns uncertainty when observations are dependent. Those questions require different information: a table of recorded factors cannot by itself identify independent factories or a time ordering.
 
 ## Definition — The observational units and the model
-The data frame contains $54$ rows, a count `breaks`, a wool factor `wool` with levels A and B, and a tension factor with levels L, M and H. Each row summarises breaks on a fixed length of yarn, described as one loom. The variable `wool` identifies material type. Renaming it `factory` in code does not establish that it records factories.{{cite:r_warpbreaks}} (“Format”, six warp combinations)
+The data frame contains $54$ rows, a count `breaks`, a wool factor `wool` with levels A and B, and a tension factor with levels L, M and H. Each row summarises breaks on a fixed length of yarn, described as one loom. The variable `wool` identifies material type. Renaming it `factory` in code does not establish that it records factories.
 
 A log-mean model with low tension as reference is
 $$\log\mu_i=\beta_0+\beta_M1\{M_i\}+\beta_H1\{H_i\}.$$

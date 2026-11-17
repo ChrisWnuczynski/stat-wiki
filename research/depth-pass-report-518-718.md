@@ -46,14 +46,14 @@ The integration was rebased onto `5546c8f`, preserving the separate term-page wo
 | h — numbers | All 201 scripts pass; 30/30 random pages and 138/138 independent claims checked. Inputs and empirical provenance limitations are itemized below. |
 | i — Dodge | All 257 citations map to 97 header-verified printed pages; no PDF index or unnumbered opener is used as a locator. |
 | j — checks | Approved citation-contract and word-boundary repairs, plus eight new tests. Numerical, content, figure, question-link and snapshot assertions remain intact. Only target word floors increase. |
-| k — protected inputs | The post-generation find-and-replace hook and the per-page reference override were removed. `sources/book/figures/lidar.pdf` matches main; the metres label is recorded in `todo.md` for a separate source edit. Locator edits remain in the chapters and in `theorem_depth.py` where a restored citation needed a page that was read. `ranking.json` is unchanged. |
+| k — protected inputs | The post-generation find-and-replace hook and the per-page reference override were removed. `sources/` and `theorem_depth.py` match main byte for byte, including the CRLF endings of `sources/book/chapters/09-marginal-models.qmd`. Chapter corrections that can only be made there are listed in `research/todo.md` and were not applied. `sources/book/figures/lidar.pdf` matches main. `ranking.json` is unchanged. |
 
 ## Approved exceptions
 
 - The find-and-replace layer and the per-page reference override are gone. Legitimate wording lives in the generator inputs.
 - The visible-label filter adds a word boundary so genuine STAT course codes fail while the published title SciKit-GStat 1.0 passes; a regression test covers both.
 - `sources/book/figures/lidar.pdf` is the copy from main. The metres label is correct and is logged for a separate figure edit.
-- The eight Bayesian pages again require the textbook and original-paper keys from the preservation test. A new test still requires a locator after each citation. `tokdar2018_dirichlet` stays in that preservation test, so it is not in the new test's prohibited set.
+- The eight Bayesian research notes require a locator after every research citation, at least five citations and two sources, and they exclude the prohibited keys. `tokdar2018_dirichlet` stays in the preservation test, so it is not in that prohibited set. A bare citation that lives only in a frozen chapter or in main's `theorem_depth.py` stays on the built page and is logged in `research/todo.md`.
 
 ## Open items
 

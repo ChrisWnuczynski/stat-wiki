@@ -74,7 +74,8 @@ assert f'is about ${v[17]:.3f}$' in definition
 assert rf'\exp({v[7]:.3f})\approx {math.exp(v[7]):.0f}' in definition
 assert rf'\exp({v[8]:.3f})={math.exp(v[8]):.2f}' in definition
 assert rf'\exp({v[9]:.3f})={math.exp(v[9]):.2f}' in definition
-assert f'$z={v[8]/v[11]:.2f}$ or $z={v[8]/v[14]:.2f}$' in definition
+assert f'($z={v[8]/v[11]:.2f}$)' in definition
+assert f'($z={v[8]/v[14]:.2f}$)' in definition
 assert f'lag-1 value is ${v[21]:.3f}$' in definition
 assert f'intercept ${v[18]:.3f}$, medium ${v[19]:.3f}$, high ${v[20]:.3f}$' in definition
 assert f'coefficients are again ${v[22]:.3f}$, ${v[23]:.3f}$, ${v[24]:.3f}$' in definition

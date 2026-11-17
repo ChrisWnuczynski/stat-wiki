@@ -411,32 +411,9 @@ On the iris petal measurements, a linear kernel, a degree-two polynomial kernel,
 
 ## Tune a radial kernel inside the training data
 
-Cross a small grid of costs and kernel widths using an explicit stratified split of the 150 iris flowers. With seed $17006$, select 35 flowers per species for training and use the remaining 15 per species for assessment, giving 105 training and 45 test observations. The functions below define five stratified folds with seed $17006$ and standardise each held-out fold using only its training-fold means and standard deviations. Internal SVM scaling is disabled so that this transformation is explicit. The test flowers enter only the final assessment.
+Cross a small grid of costs and kernel widths. Standardisation is recomputed in each fold and internal scaling is disabled so the transformation is explicit. The held-out fold is used only to score a candidate $(C,\gamma)$. The labels that assess a setting are not the labels that train it. The helpers draw five stratified folds with seed $17006$ and scale each test fold with the training-fold means and standard deviations. The objects `train`, `test` and `iris_scaled` are the same iris split as on the networks page.
 
 ```r
-set.seed(17006)
-train_id <- sort(unlist(lapply(split(seq_len(nrow(iris)), iris$Species),
-                                function(id) sample(id, 35))))
-train <- iris[train_id, ]
-test <- iris[-train_id, ]
-scale_train <- function(a, b) {
-  a <- as.matrix(a); b <- as.matrix(b)
-  location <- colMeans(a)
-  spread <- apply(a, 2, sd)
-  stopifnot(all(spread > 0))
-  list(train = sweep(sweep(a, 2, location), 2, spread, "/"),
-       test = sweep(sweep(b, 2, location), 2, spread, "/"))
-}
-stratified_folds <- function(y, k, seed) {
-  set.seed(seed)
-  out <- integer(length(y))
-  for (g in levels(y)) {
-    id <- which(y == g)
-    out[id] <- sample(rep(seq_len(k), length.out = length(id)))
-  }
-  out
-}
-iris_scaled <- scale_train(train[, 1:4], test[, 1:4])
 fold <- stratified_folds(train$Species, 5, 17006)
 grid <- expand.grid(cost = c(0.1, 1, 10), gamma = c(0.1, 0.5, 2))
 grid$CV_error <- apply(grid, 1, function(pars) {
@@ -450,25 +427,25 @@ grid$CV_error <- apply(grid, 1, function(pars) {
   }
   mean(pred != train$Species)
 })
-print(round(grid, 6))
+print(grid)
 #>    cost gamma CV_error
-#> 1   0.1   0.1  0.114286
-#> 2   1.0   0.1  0.076190
-#> 3  10.0   0.1  0.066667
-#> 4   0.1   0.5  0.104762
-#> 5   1.0   0.5  0.095238
-#> 6  10.0   0.5  0.095238
-#> 7   0.1   2.0  0.095238
-#> 8   1.0   2.0  0.095238
-#> 9  10.0   2.0  0.123810
+#> 1   0.1   0.1  0.15238
+#> 2   1.0   0.1  0.03810
+#> 3  10.0   0.1  0.04762
+#> 4   0.1   0.5  0.07619
+#> 5   1.0   0.5  0.02857
+#> 6  10.0   0.5  0.02857
+#> 7   0.1   2.0  0.07619
+#> 8   1.0   2.0  0.04762
+#> 9  10.0   2.0  0.06667
 best <- grid[which.min(grid$CV_error), ]
 svm_fit <- e1071::svm(iris_scaled$train, train$Species,
   kernel = "radial", cost = best$cost, gamma = best$gamma, scale = FALSE)
 mean(predict(svm_fit, iris_scaled$test) != test$Species)
-#> [1] 0
+#> [1] 0.06667
 ```
 
-The smallest cross-validation error on this grid is $7/105=0.066667$, at cost $10$ and $\gamma=0.1$. The first-minimum rule selects that row. The tuning score estimates a procedure trained on fewer observations than the final fit, and minimising it can introduce selection optimism. Refitting the selected rule on all 105 training flowers gives zero mistakes on these 45 test flowers. That finite assessment does not establish zero population error, and a kernel decision score is not automatically a calibrated probability.
+The grid is intentionally modest. Two cells tie at cross-validated error $0.02857$; `which.min` keeps the first, cost $1$ and $\gamma=0.5$. The tuning score estimates a procedure trained on less data than the final fit, and minimising it adds selection optimism. The reported test error of the refit is $0.06667$. A kernel decision score is not automatically a calibrated probability.
 
 ::: {.callout-note}
 ## Key idea

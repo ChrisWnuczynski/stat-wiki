@@ -6,10 +6,10 @@ Let $M_n=\max(X_1,\ldots,X_n)$ for iid uniform observations on $(0,1)$. For $0\l
 $$P(M_n\le x)=P(X_1\le x,\ldots,X_n\le x)=x^n.$$
 Independence gives the product. Put $Y_n=n(1-M_n)$. For fixed $y\ge0$ and $n>y$,
 $$P(Y_n>y)=P(M_n<1-y/n)=(1-y/n)^n.$$
-Continuity makes the strict-versus-nonstrict endpoint irrelevant in this model. A statement about convergence of these distribution functions determines the limiting law at continuity points.{{cite:siegrist_convergence_dist}} (“Distributions on R”, definition)
+Continuity makes the strict-versus-nonstrict endpoint irrelevant in this model. A statement about convergence of these distribution functions determines the limiting law at continuity points.
 
 ## Properties — Derive the gap limit and its sign
-Take logarithms: $n\log(1-y/n)\to-y$. Exponentiation gives $P(Y_n>y)\to e^{-y}$. For negative $y$, $Y_n\ge0$ gives a zero lower tail. Thus $Y_n$ converges in distribution to a rate-one exponential variable $E$. Equivalently $n(M_n-1)\Rightarrow-E$, whose distribution function is $e^x$ for $x\le0$ and one for $x>0$. The positive gap and the centred maximum have opposite signs and opposite supports; confusing them reverses a tail probability.{{cite:siegrist_convergence_dist}} (“Distributions on R”, “Definition”; “Examples and Applications”)
+Take logarithms: $n\log(1-y/n)\to-y$. Exponentiation gives $P(Y_n>y)\to e^{-y}$. For negative $y$, $Y_n\ge0$ gives a zero lower tail. Thus $Y_n$ converges in distribution to a rate-one exponential variable $E$. Equivalently $n(M_n-1)\Rightarrow-E$, whose distribution function is $e^x$ for $x\le0$ and one for $x>0$. The positive gap and the centred maximum have opposite signs and opposite supports; confusing them reverses a tail probability.
 
 The reversed exponential is a finite-endpoint extreme-value law of Weibull type. The word *Weibull* here describes the extreme-value shape after normalisation; the positive gap in this uniform example has exponential shape one. Extreme-value terminology depends on whether maxima, minima or reflected variables are being described.{{cite:nist_extreme_value}} (§8.1.6.3, maxima/minima and bounded support)
 
@@ -25,7 +25,7 @@ The exact probability is $0.98^{100}\approx0.132620$, and the approximation is $
 :::
 
 ## Interpretation — A finite endpoint alone does not choose the scaling
-More generally, suppose $F$ has upper endpoint $x_F$ and satisfies $1-F(x_F-t)\sim c t^a$ as $t\downarrow0$, with $c,a>0$. Put $a_n=(cn)^{-1/a}$. Then $n\{1-F(x_F-a_n y)\}\to y^a$, giving $P((x_F-M_n)/a_n>y)\to e^{-y^a}$. This follows from the same product-and-log calculation. The uniform example has $c=a=1$. Different endpoint tails produce different scaling exponents; a finite endpoint by itself supplies neither $a$ nor this regularity condition.{{cite:siegrist_convergence_dist}} (“Distributions on R”, “Definition”); {{cite:nist_extreme_value}} (§8.1.6.3)
+More generally, suppose $F$ has upper endpoint $x_F$ and satisfies $1-F(x_F-t)\sim c t^a$ as $t\downarrow0$, with $c,a>0$. Put $a_n=(cn)^{-1/a}$. Then $n\{1-F(x_F-a_n y)\}\to y^a$, giving $P((x_F-M_n)/a_n>y)\to e^{-y^a}$. This follows from the same product-and-log calculation. The uniform example has $c=a=1$. Different endpoint tails produce different scaling exponents; a finite endpoint by itself supplies neither $a$ nor this regularity condition.; {{cite:nist_extreme_value}} (§8.1.6.3)
 
 ## Assumptions and limits — Dependence and endpoint atoms change the calculation
 The product $F(x)^n$ requires independent observations with a common distribution. An atom at the upper endpoint changes how quickly the maximum reaches that endpoint. Dependent observations can require additional extreme-value conditions and a different effective clustering of exceedances. The exact uniform derivation is useful because its assumptions and finite-sample error can both be checked directly.{{cite:nist_extreme_value}} (§8.1.6.3, identically distributed extreme observations)

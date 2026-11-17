@@ -1721,16 +1721,38 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                  "posterior-prediction-under-the-reference-prior", "study-rate-full-conditional")
         prohibited = {"forssen_ekstrom2026", "hoff2013_bayes_estimators",
                       "wang2025_foundations", "kulich2022_regression", "ng_cs229_em2006"}
+        cite = re.compile(r"\{\{cite:([a-z0-9_]+)\}\}")
+        locator = re.compile(r"\s*\(([^)\n]{0,240})\)")
+        marker = re.compile(r"§|pp?\.\s*\d|[Tt]hm|[Pp]rop|[Dd]ef\.|[Ee]xample|[Cc]h\.|[Cc]hapter|[Tt]able|[Ss]ection|[Ee]q\.")
         for slug in slugs:
-            body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8").split("## See also", 1)[0]
-            matches = list(re.finditer(r'<sup[^>]*data-cite-key="([^"]+)".*?</sup>', body, re.S))
-            keys = {m.group(1) for m in matches}
-            self.assertGreaterEqual(len(matches), 5, slug)
-            self.assertGreaterEqual(len(keys), 2, slug)
-            self.assertFalse(keys & prohibited, slug)
-            for match in matches:
-                tail = re.sub(r'^(?:<sup.*?</sup>\s*)+', '', body[match.end():], flags=re.S)
-                self.assertRegex(tail, r'^\s*\([^\n)]*(?:§|pp?\.|[Tt]hm\.|[Pp]rop\.|[Dd]ef\.|[Ee]xample|[Cc]h\.|[Cc]hapter|[Tt]able|[Ss]ection|[Ee]q\.)', slug)
+            # Frozen chapter excerpts and theorem_depth.py stay on main, so this
+            # lock applies to the research note rather than to inherited sentences.
+            text = (build_wiki.WIKI / "research" / "content" / f"{slug}.md").read_text(encoding="utf-8")
+            keys = []
+            pos = 0
+            while True:
+                match = cite.search(text, pos)
+                if not match:
+                    break
+                end = match.end()
+                group = [match.group(1)]
+                while True:
+                    cursor = end
+                    while cursor < len(text) and text[cursor] in " \t":
+                        cursor += 1
+                    nxt = cite.match(text, cursor)
+                    if not nxt:
+                        break
+                    group.append(nxt.group(1))
+                    end = nxt.end()
+                found = locator.match(text[end:])
+                self.assertIsNotNone(found, slug)
+                self.assertRegex(found.group(1), marker, slug)
+                keys.extend(group)
+                pos = end
+            self.assertGreaterEqual(len(keys), 5, slug)
+            self.assertGreaterEqual(len(set(keys)), 2, slug)
+            self.assertFalse(set(keys) & prohibited, slug)
 
     def test_previous_bayesian_result_content_is_preserved(self) -> None:
         baseline = json.loads((build_wiki.WIKI / "depth_bayesian_results_baseline.json").read_text(encoding="utf-8"))

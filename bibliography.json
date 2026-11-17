@@ -12513,22 +12513,6 @@
         "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm"
       }
     },
-    "firth1993_quasi": {
-      "authors": [
-        "Firth, D."
-      ],
-      "year": 1993,
-      "title": "Recent developments in quasi-likelihood methods",
-      "kind": "article",
-      "venue": "Bulletin of the International Statistical Institute",
-      "volume": "55",
-      "pages": "341–358",
-      "url": "https://warwick.ac.uk/fac/sci/statistics/staff/academic-research/firth/papers/Florence1993.pdf",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://warwick.ac.uk/fac/sci/statistics/staff/academic-research/firth/papers/Florence1993.pdf"
-      }
-    },
     "rojo2007_unbiased": {
       "authors": [
         "Rojo, J."

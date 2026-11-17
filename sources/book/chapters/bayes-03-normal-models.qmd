@@ -140,7 +140,7 @@ $$
  \label{eq:normal-post-mean}
 \end{align}
 
-The posterior of a normal mean with known variance is normal, and its precision is the prior precision plus $n/\sigma^2$.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65)
+The posterior of a normal mean with known variance is normal, and its precision is the prior precision plus $n/\sigma^2$.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65) {{cite:hoff2013_bayes_estimators}} (§1, pp. 1–2)
 
 :::
 
@@ -161,7 +161,7 @@ $$
 $$
 
 
- The posterior mean is therefore a precision-weighted average.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65) Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then
+ The posterior mean is therefore a precision-weighted average.{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41) {{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65) {{cite:hoff2013_bayes_estimators}} (§1, pp. 1–2) Equivalently, if $\kappa_0=\sigma^2/\sigma_0^2$, then
 
 $$
  \mu_1=\frac{n\overline x+\kappa_0\mu_0}{n+\kappa_0}.

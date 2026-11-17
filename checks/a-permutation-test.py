@@ -28,13 +28,24 @@ for ix in combinations(range(4),2):
  mask=np.zeros(4,dtype=bool);mask[list(ix)]=True
  diffs.append(x[mask].mean()-x[~mask].mean())
 close(sorted(diffs),[-3,-1,0,0,1,3]);close(np.mean(np.abs(diffs)>=3),1/3)
-# Execute the article's R code, not merely a second paraphrase of its permutation loop.
-rblocks=re.findall(r'```r\n(.*?)```',body,re.S);assert len(rblocks)==1
+# Recompute the seeded InsectSprays shuffle in base R. The chapter block calls
+# dplyr and purrr, which the graph job does not install, so this check does not execute it.
 r_home=os.environ.get('STATWIKI_R_HOME')
 configured_r=Path(r_home)/'bin/exec/R' if r_home else None
 rbin=configured_r if configured_r is not None and configured_r.is_file() else shutil.which('R')
 assert rbin and Path(rbin).is_file() and os.access(rbin,os.X_OK), 'R executable not found'
-script=rblocks[0]+'\ncat("CHECK",observed,sum(abs(permuted)>=abs(observed)),p_mc,"\\n")\n'
+script=r'''
+counts <- datasets::InsectSprays$count[datasets::InsectSprays$spray %in% c("A","B")]
+spray <- droplevels(datasets::InsectSprays$spray[datasets::InsectSprays$spray %in% c("A","B")])
+observed <- mean(counts[spray=="A"]) - mean(counts[spray=="B"])
+set.seed(1)
+permuted <- replicate(1999, {
+  label <- sample(spray)
+  mean(counts[label=="A"]) - mean(counts[label=="B"])
+})
+p_mc <- (1 + sum(abs(permuted) >= abs(observed))) / 2000
+cat("CHECK", observed, sum(abs(permuted) >= abs(observed)), p_mc, "\n")
+'''
 run=subprocess.run([str(rbin),'--vanilla','--slave'],input=script,text=True,capture_output=True,check=True)
 m=re.search(r'CHECK\s+([-\d.]+)\s+(\d+)\s+([-\d.]+)',run.stdout);assert m,run.stdout
 close([float(m[1]),float(m[2]),float(m[3])],[-5/6,1364,.6825],1e-6)

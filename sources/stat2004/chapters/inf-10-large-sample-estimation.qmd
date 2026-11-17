@@ -72,13 +72,13 @@ Equivalently, $\widehat\theta_n$ is approximately $\Normal(\theta_0,1/\mathcal{I
 The expansion is Taylor's formula for the score at $\widehat\theta_n$, about the true value. Because $S(\widehat\theta_n)=0$,
 
 $$
-0=S(\theta_0)+(\widehat\theta_n-\theta_0)S'(\theta_0)+\tfrac12(\widehat\theta_n-\theta_0)^2 S''(\theta_n^*),
+0=S(\theta_0)+(\widehat\theta_n-\theta_0)S'(\theta_0)+\tfrac12(\widehat\theta_n-\theta_0)^2 S'''(\theta_n^*),
 $$
 
 with $\theta_n^*$ between $\widehat\theta_n$ and $\theta_0$. Rearrange:
 
 $$
-\sqrt n\,(\widehat\theta_n-\theta_0)=\frac{n^{-1/2}S(\theta_0)}{-n^{-1}S'(\theta_0)-(2n)^{-1}(\widehat\theta_n-\theta_0)S''(\theta_n^*)}.
+\sqrt n\,(\widehat\theta_n-\theta_0)=\frac{n^{-1/2}S(\theta_0)}{-n^{-1}S'(\theta_0)-(2n)^{-1}(\widehat\theta_n-\theta_0)S'''(\theta_n^*)}.
 $$
 
 The numerator is $\sqrt n$ times the average of independent mean-zero scores. Each score has variance $i(\theta_0)$, so the central limit theorem makes the numerator $\Normal(0,i(\theta_0))$ in the limit. The first term in the denominator converges in probability to $i(\theta_0)$, because $-n^{-1}\partial^2\ell/\partial\theta^2$ is the average of the observed information contributions and that average converges to its expectation. The remainder has $(\widehat\theta_n-\theta_0)$ in it, which tends to zero in probability by consistency, times an average that stays bounded in probability by the integrable majorant $M$. The denominator tends to $i(\theta_0)$, and the ratio tends to $\Normal(0,1/i(\theta_0))$.

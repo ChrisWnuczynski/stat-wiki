@@ -17,8 +17,19 @@ assert np.isclose(v[err].sum(),.5)
 u2=w*np.where(err,math.exp(alpha/2),math.exp(-alpha/2));assert np.isclose(u2[err].sum()/u2.sum(),1/3)
 for e in [.1,.2,.3,.5,.7,.9]:
  a=.5*math.log((1-e)/e);assert np.isclose(e*math.exp(a)/((1-e)*math.exp(-a)+e*math.exp(a)),.5)
+# Half the exact coefficient uses the fourth-root masses, not the full-step square root.
+for e in [.1,.2,.25,.4]:
+ a=.5*math.log((1-e)/e)
+ incorrect,correct=e**(3/4)*(1-e)**(1/4), e**(1/4)*(1-e)**(3/4)
+ assert np.isclose(incorrect,e*math.exp(a/2)) and np.isclose(correct,(1-e)*math.exp(-a/2))
+ assert np.isclose(incorrect/(incorrect+correct), 1/(1+math.sqrt((1-e)/e)))
+inc,cor=.2**(3/4)*.8**(1/4), .2**(1/4)*.8**(3/4)
+assert np.isclose(inc/cor,1/2) and np.isclose(inc/(inc+cor),1/3)
 
 text = (ROOT / "articles" / "the-reweighted-error-is-one-half.qmd").read_text(encoding="utf-8")
+assert r"\varepsilon^{3/4}(1-\varepsilon)^{1/4}" in text
+assert r"\varepsilon^{1/4}(1-\varepsilon)^{3/4}" in text
+assert r"\sqrt{\varepsilon(1-\varepsilon)}\,(1-\varepsilon)/\varepsilon" not in text
 assert "## Check yourself {#check-yourself}" in text
 assert "Your turn" in text
 assert text.count('class="cite-ref"') >= 5

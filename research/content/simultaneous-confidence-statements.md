@@ -1,10 +1,10 @@
 ## Motivating example
-A study compares two treatments on several correlated measurements. Reporting a separate interval for each coordinate does not automatically cover all coordinates together, and it does not protect a contrast selected after looking at the measurements. A simultaneous statement starts from a confidence region for the whole mean difference, then derives bounds that hold for every linear direction whenever that one region covers.{{cite:ackermann_strimmer2009_genesets}} (Appendix, “Hotelling's T²-test and related methods”, mean-difference statistic)
+A study compares two treatments on several correlated measurements. Reporting a separate interval for each coordinate does not automatically cover all coordinates together, and it does not protect a contrast selected after looking at the measurements. A simultaneous statement starts from a confidence region for the whole mean difference, then derives bounds that hold for every linear direction whenever that one region covers.
 
 ## Definition — Begin with an ellipsoid
 Let $\hat\delta=\bar X_1-\bar X_2$ and $C=(1/n_1+1/n_2)S$, where $S$ is a positive-definite pooled covariance matrix under the independent common-covariance normal model. Inverting the Hotelling test gives a region
 $$\mathcal E=\{\delta:(\hat\delta-\delta)^TC^{-1}(\hat\delta-\delta)\le c\},$$
-where $c$ is the appropriate $T^2$ cutoff. Here use quantile notation explicitly: $c=\frac{(N-2)p}{N-p-1}F_{p,N-p-1;1-\alpha}$ for $N=n_1+n_2$. The upper-tail notation in the formulas above denotes the same cutoff.{{cite:ackermann_strimmer2009_genesets}} (Appendix, Hotelling F calibration)
+where $c$ is the appropriate $T^2$ cutoff. Here use quantile notation explicitly: $c=\frac{(N-2)p}{N-p-1}F_{p,N-p-1;1-\alpha}$ for $N=n_1+n_2$. The upper-tail notation in the formulas above denotes the same cutoff. (Appendix, Hotelling F calibration)
 
 Under the stated sampling assumptions, the random region has coverage $1-\alpha$ for the fixed vector $\delta$. Coverage concerns repeated samples, not a posterior probability distribution over points of the realised ellipsoid. The distinction is the same as for an ordinary mean interval.{{cite:nist_handbook2002}} (§1.3.5.2, confidence coefficient)
 
@@ -20,7 +20,7 @@ If the true vector belongs to the ellipsoid, these intervals cover every $a^T\de
 ## Worked example — Coordinates and a sum
 Suppose $n_1=n_2=10$, $p=2$, $\hat\delta=(2,1)^T$ and $S=\left(\begin{smallmatrix}4&1\\1&9\end{smallmatrix}\right)$. At $95\%$ confidence, $c\approx7.605594$. Since $C=0.2S$, the coordinate half-widths are approximately $2.466673$ and $3.700009$. The intervals are therefore $2\pm2.466673$ and $1\pm3.700009$.
 
-For the sum, choose $a=(1,1)^T$. The estimated sum is $3$ and its variance factor is $a^TCa=0.2(4+2+9)=3$. Its half-width is $\sqrt{3c}\approx4.776692$. Adding coordinate half-widths would give a wider bound, because it discards the ellipsoid's covariance geometry. The direct contrast interval is the tight projection of that ellipsoid.{{cite:ackermann_strimmer2009_genesets}} (Appendix, pooled covariance and mean difference)
+For the sum, choose $a=(1,1)^T$. The estimated sum is $3$ and its variance factor is $a^TCa=0.2(4+2+9)=3$. Its half-width is $\sqrt{3c}\approx4.776692$. Adding coordinate half-widths would give a wider bound, because it discards the ellipsoid's covariance geometry. The direct contrast interval is the tight projection of that ellipsoid. (Appendix, pooled covariance and mean difference)
 
 **Your turn.** An ellipsoid uses $C=\operatorname{diag}(1,4)$ and $c=9$, with centre $(0,0)$. Find the simultaneous half-width for the second coordinate and for the sum of both coordinates.
 

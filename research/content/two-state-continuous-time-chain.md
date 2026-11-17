@@ -1,15 +1,15 @@
 ## Motivating example
-A repairable device alternates between working, state $0$, and failed, state $1$. Its failure clock runs at rate $\alpha$ while it works, and its repair clock runs at rate $\beta$ while it is failed. Counting transitions gives an alternating sequence, but observing the device at a fixed elapsed time weights states by how long the device spends in them. The transition probabilities combine these random holding times with the alternating moves.{{cite:siegrist2022_ctmc_transition}} (§15.16, “The Two-State Chain”)
+A repairable device alternates between working, state $0$, and failed, state $1$. Its failure clock runs at rate $\alpha$ while it works, and its repair clock runs at rate $\beta$ while it is failed. Counting transitions gives an alternating sequence, but observing the device at a fixed elapsed time weights states by how long the device spends in them. The transition probabilities combine these random holding times with the alternating moves.
 
 ## Definition
-For positive rates, the mean working spell is $1/\alpha$ and the mean failed spell is $1/\beta$. A rate has inverse-time units. It gives $P(X(h)=1\mid X(0)=0)=\alpha h+o(h)$ as $h\downarrow0$, rather than a finite-time probability equal to $\alpha$. The generator has rows summing to zero because the short-time probabilities in each row must sum to one.{{cite:siegrist2022_ctmc_transition}} (§15.16, “The Generator Matrix”)
+For positive rates, the mean working spell is $1/\alpha$ and the mean failed spell is $1/\beta$.{{cite:durrett2019}} (§3.7, pp. 174–175, exponential waiting times and Poisson processes) A rate has inverse-time units. It gives $P(X(h)=1\mid X(0)=0)=\alpha h+o(h)$ as $h\downarrow0$, rather than a finite-time probability equal to $\alpha$. The generator has rows summing to zero because the short-time probabilities in each row must sum to one.
 
 ## Properties — Solve both rows of the transition matrix
 Put $c=\alpha+\beta$. The forward equation for the probability of state $1$ is $u'=\alpha-cu$. For any initial probability $u(0)=u_0$, multiplying by the integrating factor $e^{ct}$ gives
 $$u(t)=\frac\alpha c+\left(u_0-\frac\alpha c\right)e^{-ct}.$$
 Taking $u_0=0$ and $u_0=1$ and using complementary probabilities gives
 $$P(t)=\frac1c\begin{pmatrix}\beta+\alpha e^{-ct}&\alpha(1-e^{-ct})\\\beta(1-e^{-ct})&\alpha+\beta e^{-ct}\end{pmatrix}.$$
-Every row sums to one, $P(0)=I$, and differentiating at zero returns $Q$. The transient part decays at rate $c$, while the limit has each row equal to $\pi=(\beta/c,\alpha/c)$.{{cite:siegrist2022_ctmc_transition}} (§15.16, “The Two-State Chain”, transition-matrix formula)
+Every row sums to one, $P(0)=I$, and differentiating at zero returns $Q$. The transient part decays at rate $c$, while the limit has each row equal to $\pi=(\beta/c,\alpha/c)$.
 
 For another verification, write $\Pi$ for the matrix whose rows are $\pi$. Direct multiplication gives $\Pi^2=\Pi$ and $Q=-c(I-\Pi)$, so $P(t)=\Pi+e^{-ct}(I-\Pi)$. The identities $\Pi(I-\Pi)=(I-\Pi)\Pi=0$ give $P(s)P(t)=P(s+t)$. It also shows that multiplying both rates by a constant changes the speed of approach but leaves the stationary proportions alone.
 

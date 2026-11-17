@@ -29,9 +29,9 @@ The standard error is $2/3$, so $t=(3-1)/(2/3)=3$. Both squared statistics are $
 :::
 
 ## Connections — The two-sample template
-For two independent groups with a common variance, replace $s^2/n$ by $s_p^2(1/n_1+1/n_2)$. Squaring again produces a pooled two-sample quadratic form. In several dimensions replace the pooled variance by the pooled covariance matrix and use the inverse covariance of the mean difference. This is the two-sample Hotelling statistic, with its own dimension-adjusted $F$ multiplier.{{cite:ackermann_strimmer2009_genesets}} (Appendix, “Hotelling's T²-test and related methods”)
+For two independent groups with a common variance, replace $s^2/n$ by $s_p^2(1/n_1+1/n_2)$. Squaring again produces a pooled two-sample quadratic form. In several dimensions replace the pooled variance by the pooled covariance matrix and use the inverse covariance of the mean difference. This is the two-sample Hotelling statistic, with its own dimension-adjusted $F$ multiplier.
 
-The template also identifies where analogy ends. A singular sample covariance cannot be inverted in the classical statistic. Replacing it by a pseudoinverse or a regularised estimator defines another procedure; its null law requires separate calibration. The number of coordinates changes the reference distribution as well as the algebraic shape of the distance.{{cite:ackermann_strimmer2009_genesets}} (Appendix, dimension reduction and covariance regularisation)
+The template also identifies where analogy ends. A singular sample covariance cannot be inverted in the classical statistic. Replacing it by a pseudoinverse or a regularised estimator defines another procedure; its null law requires separate calibration. The number of coordinates changes the reference distribution as well as the algebraic shape of the distance. (Appendix, dimension reduction and covariance regularisation)
 
 ## Assumptions and limits
 Student's exact law needs a nondegenerate normal model and a nonzero observed sample standard deviation. A constant observed sample does not permit division by zero; it is a boundary case requiring a separate model assessment. Squaring is appropriate for a two-sided discrepancy but discards direction, so it cannot reproduce a one-sided Student test without keeping the sign as additional information.

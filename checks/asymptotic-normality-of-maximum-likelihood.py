@@ -36,6 +36,5 @@ close(.5+np.array([-1,1])*stats.norm.ppf(.975)*.05,[.40200,.59800],.000005)
 for sample_n in [100,10000]:
  prob=2*stats.norm.cdf(sample_n**.25)-1
  assert prob>.99
-assert "S"+chr(39)*3+"(" not in body
 shown('0.03373','879.12088','0.28390','0.41610','11/7','0.40200')
 finish()

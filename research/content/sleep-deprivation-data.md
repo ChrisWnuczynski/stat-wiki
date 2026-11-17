@@ -28,6 +28,8 @@ The balanced-design REML calculation for the packaged values gives fixed coeffic
 
 The population mean at day five is $251.405105+5(10.467286)=303.741535$ milliseconds. At day zero, the model's marginal response variance is $612.089939+654.941027=1267.030966$. At day five it is $612.089939+10(9.604333)+25(35.071660)+654.941027=2239.865796$. Increasing marginal variance over the day index follows from the fitted random slope; it is different from claiming that the conditional residual variance has increased.
 
+The same REML fit supplies conditional modes for individual subjects. Subject 1 has intercept and slope adjustments $2.259$ and $9.199$. Subject 2 has $-40.399$ and $-8.620$, so that subject's slope is $10.467286-8.620=1.848$ milliseconds per recorded day. Subject 16 has $-25.613$ and $4.822$. The standard errors of the two fixed coefficients are $6.82$ and $1.55$. The correlation of the two subject effects is $0.07$, and the intercept, slope and residual standard deviations are $24.74$, $5.92$ and $25.59$.
+
 **Your turn.** Using the fitted coefficients, what is the population mean change from day two to day seven?
 
 ::: {.callout-tip collapse="true" title="Answer"}

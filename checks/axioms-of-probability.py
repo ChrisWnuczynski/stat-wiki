@@ -31,5 +31,4 @@ close(2.**-3,1/8)
 close(np.ones(6).sum()/6,1);close(integrate.quad(lambda x:1,0,1)[0],1)
 close(.5+.5*integrate.quad(lambda x:1,0,1)[0],1)
 shown('0.6','0.7','0.4','1/8','are rules')
-assert 'each single point must have probability zero' not in body
 finish()

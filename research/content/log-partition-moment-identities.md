@@ -38,3 +38,5 @@ Both the first and second derivatives equal $e^\eta$. Hence the mean and varianc
 If $T(X)=(X,2X)^\top$ for a Bernoulli variable, then $\operatorname{Cov}(T)=p(1-p)\begin{pmatrix}1&2\\2&4\end{pmatrix}$. Its determinant is zero because $2T_1-T_2=0$ identically; the vector $(2,-1)^\top$ is a null direction. Only $\eta_1+2\eta_2$ affects the density, so separate identification of the two natural parameters is impossible. This example connects analytic curvature, statistical covariance and parameter redundancy in one calculation.{{cite:wainwright_jordan2008}} (§§3.2, 3.5.1, minimal representations)
 
 A singular covariance means some linear combination of the statistics is constant, so that direction carries no second-moment information even though the mean identities still hold on the range of the covariance.
+
+The Poisson check is the one-parameter case of the same derivatives. With $A(\eta)=e^\eta$ and $\eta=\log 2$, both $A'(\eta)$ and $A''(\eta)$ equal $2$, so the mean and the variance are both $2$. The Bernoulli point $\eta=\log 3$ separates them: the mean is $3/4$ and the variance is $3/16$.{{cite:wainwright_jordan2008}} (§§3.2, 3.5.1, tab. 3.1 and prop. 3.1)

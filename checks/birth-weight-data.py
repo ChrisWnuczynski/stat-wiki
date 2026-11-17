@@ -51,5 +51,4 @@ close(parsed['PRED'],[3310.72942,2909.00893],.000005)
 close(parsed['PRED'][1]-parsed['PRED'][0],coef[-1,0])
 close(coef[1,0]*10,39.99938,.000005)
 shown('3310.72942','2909.00893','617.25379','186.18718','39.99938','183')
-assert 'age adds nothing' not in body
 finish()

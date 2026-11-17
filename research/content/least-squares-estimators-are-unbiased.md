@@ -11,7 +11,7 @@ Conditional unbiasedness and the existence of an unconditional mean are distinct
 ## Proof
 Put $A=(X^\top X)^{-1}X^\top$. Conditional on $X$, this matrix is fixed and $AX=I_p$. Therefore
 $$\widehat\beta=A(X\beta+\varepsilon)=\beta+A\varepsilon,$$
-so $E(\widehat\beta\mid X)=\beta+AE(\varepsilon\mid X)=\beta$. The formula is the entire unbiasedness argument. It separates the algebraic identity $AX=I_p$ from the probabilistic premise about the errors. Neither assumption can replace the other.{{cite:dodge2008}} (p. 365)
+so $E(\widehat\beta\mid X)=\beta+AE(\varepsilon\mid X)=\beta$. The formula is the entire unbiasedness argument. It separates the algebraic identity $AX=I_p$ from the probabilistic premise about the errors. Neither assumption can replace the other.{{cite:dodge2008}} (p. 365){{cite:rao1945}} (Introduction, p. 235)
 
 If instead $E(\varepsilon\mid X)=m(X)$, the same calculation gives conditional bias $Am(X)$. A nonzero error mean need not bias every coefficient: a component orthogonal to the column space of $X$ is annihilated by $A$. The required condition for unbiasedness at that design is $X^\top m(X)=0$; the zero conditional mean is a useful sufficient assumption that does not depend on such a cancellation.
 
