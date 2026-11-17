@@ -1,0 +1,61 @@
+{
+  "action": "page",
+  "slug": "mean-absolute-percentage-error",
+  "term": "Mean absolute percentage error",
+  "topic": "Data analysis",
+  "kind": "concept",
+  "aliases": [
+    "MAPE"
+  ],
+  "lead": {
+    "field": "forecasting",
+    "article": "the",
+    "term": "mean absolute percentage error",
+    "verb": "is",
+    "description": "the average of absolute forecast errors after each error is expressed as a percentage of the observed value"
+  },
+  "self_checks": [
+    {
+      "title": "Three forecasts",
+      "prompt": "Observations 100, 200 and 50 are forecast as 110, 160 and 80. What is the mean absolute percentage error?",
+      "answer": "The mean absolute percentage error is 30."
+    },
+    {
+      "title": "Two forecasts",
+      "prompt": "Observations 80 and 120 are forecast as 100 and 90. What is the mean absolute percentage error?",
+      "answer": "Each absolute percentage error is 25, so the mean is 25."
+    },
+    {
+      "title": "A zero observation",
+      "prompt": "One observation in the scoring period is 0. What happens to the mean absolute percentage error?",
+      "answer": "It is undefined, because the percentage error divides by the observation."
+    }
+  ],
+  "bibliography": {
+    "hyndman_koehler2006": {
+      "authors": [
+        "Hyndman, R. J.",
+        "Koehler, A. B."
+      ],
+      "year": 2006,
+      "title": "Another look at measures of forecast accuracy",
+      "kind": "article",
+      "venue": "International Journal of Forecasting",
+      "doi": "10.1016/j.ijforecast.2006.03.001",
+      "url": "https://robjhyndman.com/papers/mase.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/j.ijforecast.2006.03.001"
+      }
+    }
+  },
+  "cite_keys": [
+    "hyndman_athanasopoulos2021",
+    "hyndman_koehler2006"
+  ],
+  "overview_sentence": "The [mean absolute percentage error](articles/mean-absolute-percentage-error.qmd) averages absolute forecast errors as percentages of the observations.",
+  "covered_terms": [
+    "Mean absolute percentage error",
+    "MAPE"
+  ]
+}

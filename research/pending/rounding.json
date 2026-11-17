@@ -1,0 +1,57 @@
+{
+  "action": "page",
+  "slug": "rounding",
+  "term": "Rounding",
+  "topic": "Data analysis",
+  "kind": "concept",
+  "aliases": [],
+  "lead": {
+    "field": "data analysis",
+    "article": "",
+    "term": "rounding",
+    "verb": "is",
+    "description": "the replacement of a calculated value by a nearby multiple of a reporting unit, such as the nearest integer"
+  },
+  "self_checks": [
+    {
+      "title": "Proportional shares",
+      "prompt": "The exact shares 14.25, 7.5, 4.5 and 3.75 are each rounded half-up to an integer. What is the sum of the rounded shares?",
+      "answer": "The rounded shares are 14, 8, 5 and 4, and they sum to 31."
+    },
+    {
+      "title": "A printed margin",
+      "prompt": "Two printed proportions are 0.851 and 0.150. By how much does their sum exceed 1?",
+      "answer": "Their sum is 1.001, which exceeds 1 by 0.001."
+    },
+    {
+      "title": "Three numbers",
+      "prompt": "Round 2.5, 2.5 and 3.2 half-up. What is the sum of the rounded values?",
+      "answer": "The rounded values are 3, 3 and 3, and they sum to 9."
+    }
+  ],
+  "bibliography": {
+    "abs_seifa2006": {
+      "authors": [
+        "Australian Bureau of Statistics"
+      ],
+      "year": 2008,
+      "title": "Information Paper: An Introduction to Socio-Economic Indexes for Areas (SEIFA), 2006, glossary",
+      "kind": "book",
+      "publisher": "Australian Bureau of Statistics",
+      "url": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2039.0Glossary72006?issue=2006&num=&opendocument=&prodno=2039.0&tabname=Notes&view=",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.abs.gov.au/ausstats/abs@.nsf/Latestproducts/2039.0Glossary72006?issue=2006&num=&opendocument=&prodno=2039.0&tabname=Notes&view="
+      }
+    }
+  },
+  "cite_keys": [
+    "dodge2008",
+    "openintro2019",
+    "abs_seifa2006"
+  ],
+  "overview_sentence": "[Rounding](articles/rounding.qmd) replaces calculated shares and proportions by nearby reported values, which need not add to the original total.",
+  "covered_terms": [
+    "Rounding"
+  ]
+}
