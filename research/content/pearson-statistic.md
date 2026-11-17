@@ -28,7 +28,7 @@ For the relation to likelihood ratio, write $O_i=E_i+\delta_i$ and expand $2O_i\
 :::
 :::
 
-## Statistical use
+## Statistical use — Expected counts before the tail
 First specify the categories and null model, then calculate each $E_i$ using that model. Review small expected counts before using a chi-squared tail, and decide whether categories can be combined for a substantive reason or whether an exact or simulated null distribution is preferable. Compare the observed $T$ with the *upper* tail of its reference distribution, because large deviations in either direction contribute positively. A non-rejection means the data do not show a discrepancy large enough for this test; it does not establish that the proposed distribution is exactly true. The result can change if continuous data are binned differently.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, Purpose, Test Statistic and sample-size limitation){{cite:dodge2008}} (pp. 73–75, Chi-square Goodness of Fit Test)
 
 ## Worked example
@@ -39,13 +39,13 @@ A second table shows how to calculate the same statistic with more categories. I
 **Your turn.** Four specified categories have expected counts $10,10,10,10$ and observed counts $7,13,8,12$. Calculate $T$, its reference degrees of freedom, and the direction of evidence.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The squared deviations are $9,9,4,4$, so $T=(9+9+4+4)/10=2.6$. With four fixed probabilities the reference law is approximately $\chi^2_3$. Because $2.6$ is a modest value rather than a large upper-tail departure, it offers little evidence against the specified probabilities; the conclusion still depends on the chosen significance threshold.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, Test Statistic and Critical Region)
+The squared deviations are $9,9,4,4$, so $T=(9+9+4+4)/10=2.6$. With four fixed probabilities the reference law is approximately $\chi^2_3$. Because $2.6$ is a modest value rather than a large upper-tail departure, it offers little evidence against the specified probabilities; the conclusion still depends on the chosen significance threshold.
 :::
 
 ## Common misconceptions
 An observed count is not divided by its observed size in a Pearson term: the denominator is the *null expected* count. The statistic is not exactly chi-squared in a finite multinomial sample; the reference law is an approximation. A small $T$ is not a posterior probability or proof that the null is true. And estimating parameters from the same counts does not leave the degrees of freedom unchanged. These errors affect different steps: calculation, calibration, interpretation and model fitting.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, Test Statistic, Critical Region and sample-size limitation)
 
-## Assumptions and limits
+## Assumptions and limits — Small or zero expected counts
 If expected counts are $0.2$ in several cells, a single observation in one of them creates a large Pearson contribution, while the chi-squared approximation can be poor. If a category has null probability zero but is observed once, the corresponding denominator is zero and the usual finite statistic is not defined; the null is already contradicted by that observation. If $100$ measurements are classified into bins chosen *after* examining their peaks, the nominal reference law does not account for the search over bin boundaries. Dependent observations, such as repeated measurements from one subject treated as independent counts, likewise violate the multinomial sampling argument. These cases call for a model or calibration matched to the design.{{cite:nist_chi_square_gof2002}} (§1.3.5.15, binned-data and sample-size limitations)
 
 ## Connections

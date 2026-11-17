@@ -26,7 +26,7 @@ For any coefficients $a_i$, the quadratic form of the Gram matrix is $\sum_{m\ge
 :::
 :::
 
-## Statistical use
+## Statistical use — Density shape or pairwise similarity
 Use the density kernel when the goal is to estimate a distribution's shape or a class-conditional density without specifying a parametric family. Use the positive-semidefinite pairwise kernel when a method needs similarities or covariances between input points. This distinction is operational: multiplying every RBF similarity by the density normaliser changes its scale but is irrelevant to the shape of a KDE bell, while omitting the $1/h$ in a KDE makes its total area equal to $h$ rather than one.{{cite:polonik2020_kde}} (“Nonparametric Inference – Kernel Density Estimation,” Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 79–80)
 
 ## Worked example
@@ -35,17 +35,17 @@ At $x=2$, observations $0,2,4$ with Gaussian bandwidth $h=2$ have standardised o
 **Your turn.** For two one-dimensional inputs $0$ and $2$, calculate their Gaussian RBF similarity at $\sigma=1$ and at $\sigma=2$. Which setting treats the inputs as more alike?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-At $\sigma=1$, $k(0,2)=e^{-2}\approx0.13534$. At $\sigma=2$, $k(0,2)=e^{-1/2}\approx0.60653$. The larger scale treats the same separation as more similar. These are similarity values, not probabilities or density heights.{{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, eq. 4.9, pp. 82–83)
+At $\sigma=1$, $k(0,2)=e^{-2}\approx0.13534$. At $\sigma=2$, $k(0,2)=e^{-1/2}\approx0.60653$. The larger scale treats the same separation as more similar. These are similarity values, not probabilities or density heights.
 :::
 
 ## Common misconceptions
 A Gaussian KDE does not assert a Gaussian population: a mixture of Gaussian bells can be multimodal or skewed. The KDE bell and RBF Gram kernel have related shapes but different normalization and roles; neither can be substituted into every formula without checking units. An infinitely supported Gaussian kernel does not mean distant points have important influence, only that their contribution is never exactly zero. And a smooth density curve does not guarantee an appropriate bandwidth; one broad hill may conceal genuine peaks while many narrow spikes may reflect noise.{{cite:polonik2020_kde}} (“Nonparametric Inference – Kernel Density Estimation,” Introduction and Oversmoothing and undersmoothing){{cite:rasmussen_williams2006}} (Ch. 4, §4.2.1, pp. 82–83)
 
-## Assumptions and limits
+## Assumptions and limits — Boundaries and anisotropic clouds
 For a waiting time that cannot be negative, a standard Gaussian KDE centred near zero assigns some estimated mass to impossible negative values; boundary correction or a suitable transformation is needed. If a two-dimensional cloud lies along a diagonal, separate axis-aligned bandwidths spread mass into off-cloud corners, whereas a full $H$ can follow its orientation. In classification, taking $\sigma$ almost zero makes the RBF Gram matrix nearly the identity for distinct training points, favouring highly local fits; taking it extremely large makes the matrix nearly all ones and erases separation. These are concrete consequences of kernel scale, not defects cured by the word “Gaussian.”{{cite:polonik2020_kde}} (“Nonparametric Inference – Kernel Density Estimation,” Introduction and Oversmoothing and undersmoothing){{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 80–83)
 
 ## Connections
-The [kernel density estimator](kernel-density-estimator.qmd) averages density kernels; the [bandwidth](choosing-the-bandwidth.qmd) controls its smoothness. The [kernel-density laboratory](../labs/kernel-density.qmd) lets the reader vary that bandwidth. The answered [density-by-hand exercise](../questions/ex-sl-07-3.qmd) calculates one Gaussian KDE value, while the [kernel-integral exercise](../questions/ex-sl-07-4.qmd) checks normalization. The [Gram-matrix exercise](../questions/ex-sl-17-5.qmd) instead applies the pairwise RBF kernel and checks positive definiteness. This split also explains why a [support vector machine](../notes/sl-17-support-vectors.qmd) uses a kernel matrix rather than a density estimate.{{cite:polonik2020_kde}} (“Nonparametric Inference – Kernel Density Estimation,” Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 79–80)
+The [kernel density estimator](kernel-density-estimator.qmd) averages density kernels; the [bandwidth](choosing-the-bandwidth.qmd) controls its smoothness. The [kernel-density laboratory](../labs/kernel-density.qmd) lets the reader vary that bandwidth. The [density-by-hand exercise](../questions/ex-sl-07-3.qmd) calculates one Gaussian KDE value, while the [kernel-integral exercise](../questions/ex-sl-07-4.qmd) checks normalization. The [Gram-matrix exercise](../questions/ex-sl-17-5.qmd) instead applies the pairwise RBF kernel and checks positive definiteness. This split also explains why a [support vector machine](../notes/sl-17-support-vectors.qmd) uses a kernel matrix rather than a density estimate.{{cite:polonik2020_kde}} (“Nonparametric Inference – Kernel Density Estimation,” Introduction and definition){{cite:rasmussen_williams2006}} (Ch. 4, §4.1, pp. 79–80)
 
 ## History
 Parzen's 1962 contribution gave kernel density estimation one of its enduring names: the Parzen–Rosenblatt window method.{{cite:hansen_larsson2026_density}} (§2.1, Parzen–Rosenblatt history) Later kernel methods also used Gaussian-shaped functions as positive-semidefinite similarities. Rasmussen and Williams' treatment of the squared-exponential covariance function makes that second meaning explicit and connects its shape to smoothness assumptions in Gaussian-process models.{{cite:rasmussen_williams2006}} (Ch. 4, §§4.1–4.2.1, pp. 79–83)

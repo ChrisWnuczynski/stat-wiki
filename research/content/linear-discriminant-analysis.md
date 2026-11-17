@@ -16,20 +16,19 @@ For class $g$, the multivariate normal log density plus $\log\pi_g$ is $-\tfrac1
 ## Statistical use
 Estimate each class mean from its labelled cases and usually pool their within-class scatter using divisor $n-G$; estimate priors from class proportions only when those proportions represent the population to be classified. This last condition matters under case-control sampling or deliberate class balancing. The score then predicts the class with largest posterior probability under equal error costs. Inspect class-specific errors on separate validation data, because an impressive overall accuracy can conceal poor prediction for a rare class. The fitting formulas and a complete two-dimensional calculation follow.{{cite:james_islr2013}} (§4.4.2–4.4.3, pp. 140–145)
 
+If groups have markedly different covariance matrices, the quadratic terms do not cancel; a quadratic discriminant model can represent a curved boundary that ordinary LDA cannot. With $n=90$, $G=2$, and $p=500$, pooled within-class scatter has rank at most $88$, so ordinary LDA cannot invert it without dimension reduction or regularization. Even with $p<88$, a nearly singular covariance can make the rule unstable. A balanced training set drawn from a population with rare class-2 cases also gives misleading posterior odds if its sample proportions are used as population priors. These are different failure mechanisms: shape, invertibility, and prevalence.{{cite:james_islr2013}} (§4.4.3–4.4.4, pp. 142–149)
+
 ## Worked example — The prior moves a boundary
 Consider one measurement with class means $\mu_1=0$ and $\mu_2=2$, common variance $1$, and priors $\pi_1=0.8$, $\pi_2=0.2$. The class-2 minus class-1 score is $2x-2+\log(0.2/0.8)=2x-2-\log4$. The boundary is therefore $x=1+\tfrac12\log4\approx1.693147$. At $x=1.4$, the log odds are about $-0.586294$, giving class-2 posterior $1/(1+e^{0.586294})\approx0.357486$: classify as class 1. Equal priors would give posterior $1/(1+e^{-0.8})\approx0.689974$ and class 2. The measurement has not changed; the relevant population frequency has.{{cite:james_islr2013}} (§4.4.1–4.4.2, pp. 138–141)
 
 **Your turn.** Keep these means, variance and priors, but classify $x=1.8$. Calculate the class-2 posterior as well as the class label.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The score difference is $2(1.8)-2-\log4\approx0.213706$, so the class-2 posterior is $1/(1+e^{-0.213706})\approx0.553224$. It is just above one half: predict class 2.{{cite:james_islr2013}} (§4.4.2, pp. 139–141)
+The score difference is $2(1.8)-2-\log4\approx0.213706$, so the class-2 posterior is $1/(1+e^{-0.213706})\approx0.553224$. It is just above one half: predict class 2.
 :::
 
 ## Common misconceptions
 A linear boundary does not say that the measurements are normally distributed without conditioning on class; normality is an assumption about each class distribution. LDA's pooled covariance is not automatically the maximum-likelihood covariance: divisor $n-G$ supplies an unbiased within-class estimate, while the likelihood divisor is $n$. Finally, the largest discriminant score is not itself a calibrated probability; probabilities require normalization of the exponentiated scores, and calibration can still fail when the Gaussian model or priors are wrong.{{cite:james_islr2013}} (§4.4.1–4.4.4, pp. 138–149)
-
-## Assumptions and limits
-If groups have markedly different covariance matrices, the quadratic terms do not cancel; a quadratic discriminant model can represent a curved boundary that ordinary LDA cannot. With $n=90$, $G=2$, and $p=500$, pooled within-class scatter has rank at most $88$, so ordinary LDA cannot invert it without dimension reduction or regularization. Even with $p<88$, a nearly singular covariance can make the rule unstable. A balanced training set drawn from a population with rare class-2 cases also gives misleading posterior odds if its sample proportions are used as population priors. These are different failure mechanisms: shape, invertibility, and prevalence.{{cite:james_islr2013}} (§4.4.3–4.4.4, pp. 142–149)
 
 ## Connections
 [Unequal priors](../questions/ex-sl-08-3.qmd) change the intercept in the two-class rule; [the fitted LDA model](../questions/ex-sl-08-7.qmd) asks how class means and pooled covariance are obtained; [high-dimensional LDA](../questions/ex-sl-18-7.qmd) probes the rank limit in a $500$-predictor example. [Quadratic discriminant analysis](quadratic-discriminant-analysis.qmd) allows separate covariances, while [Bayes classifier](bayes-classifier.qmd) names the ideal decision when the true class distributions are known.{{cite:james_islr2013}} (§4.4, pp. 138–149)

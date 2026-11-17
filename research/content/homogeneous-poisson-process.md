@@ -22,23 +22,22 @@ The increment law gives $\Pr\{N(t+h)-N(t)=0\}=e^{-\lambda h}$ and $E\{N(t+h)-N(t
 ## Statistical use
 Estimate a constant rate by total observed events divided by total exposure time, provided the observation intervals and missing periods are recorded. Compare counts in disjoint windows and examine interarrival times: a changing rate, excess clusters or serial dependence contradict the simple model. An apparent quiet period after a burst may indicate a system with recovery time, while daily cycles call for a time-varying intensity. The process is a starting model whose independent-increment assumption should be checked against the event mechanism.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
 
+If a call centre has a lunch rush, equal-length windows at noon and midnight do not have the same count law, so a homogeneous rate fails. If a machine breakdown generates several alarms at once, short intervals can contain clusters with probability of first order in their length, contradicting the small-interval condition. If arrivals trigger a refractory period, nearby counts are dependent. In each case one may need a varying-rate, clustered or self-regulating point-process model instead of forcing one constant $\lambda$.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, definition p. 47)
+
 ## Worked example
 Suppose calls arrive at rate $3$ per hour. In a $40$-minute window, $h=2/3$ hour and $\lambda h=2$, so the probability of exactly two calls is $e^{-2}2^2/2!=2e^{-2}\approx0.27067$. The expected count and its variance are both $2$. If the count for that window has just been observed, the next disjoint $40$-minute count still has the same distribution under the model. This last statement uses independence, not merely the Poisson formula.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary p. 47)
 
 **Your turn.** At the same rate, what is the probability of waiting more than ten minutes for the next call?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Ten minutes is $1/6$ hour. The chance of zero calls in that time, and hence of a wait exceeding it, is $e^{-3(1/6)}=e^{-1/2}\approx0.60653$. This uses the waiting-time version of the same process, not a new rate.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
+Ten minutes is $1/6$ hour. The chance of zero calls in that time, and hence of a wait exceeding it, is $e^{-3(1/6)}=e^{-1/2}\approx0.60653$. This uses the waiting-time version of the same process, not a new rate.
 :::
 
 ## Common misconceptions
 Stationary *increments* do not make $N(t)$ a stationary random level: $\operatorname{Poisson}(\lambda t)$ changes with $t$. A Poisson distribution for total daily counts alone does not establish independent hourly increments. The mean wait is $1/\lambda$, not $\lambda$, and a count of $\lambda h$ is an expectation, not a fixed number of events. A rate of three per hour also does not imply exactly one arrival every twenty minutes; exponential gaps vary.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
 
-## Assumptions and limits — When the process fails
-If a call centre has a lunch rush, equal-length windows at noon and midnight do not have the same count law, so a homogeneous rate fails. If a machine breakdown generates several alarms at once, short intervals can contain clusters with probability of first order in their length, contradicting the small-interval condition. If arrivals trigger a refractory period, nearby counts are dependent. In each case one may need a varying-rate, clustered or self-regulating point-process model instead of forcing one constant $\lambda$.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, definition p. 47)
-
 ## Connections
-The [Poisson distribution](poisson-distribution.qmd) describes each count, while the [exponential distribution](exponential-distribution.qmd) describes each wait. The answered [half-hour question](../questions/ex-sp-poisson-half-hour.qmd) combines a count and first wait; the [stationary-increment question](../questions/ex-sp-increments-and-levels.qmd) tests why the count level itself changes over time.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
+The [Poisson distribution](poisson-distribution.qmd) describes each count, while the [exponential distribution](exponential-distribution.qmd) describes each wait. The [half-hour question](../questions/ex-sp-poisson-half-hour.qmd) combines a count and first wait; the [stationary-increment question](../questions/ex-sp-increments-and-levels.qmd) tests why the count level itself changes over time.{{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
 
 ## History
-Poisson's 1837 work introduced the count distribution through a limiting binomial argument, as Dodge records. That historical count law is one component of the later continuous-time process model: specifying its joint independent increments and exponential waits adds information that a single count distribution cannot supply.{{cite:dodge2008}} (p. 425, “Poisson Distribution”, history){{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)
+Poisson's 1837 work introduced the count distribution through a limiting binomial argument, That historical count law is one component of the later continuous-time process model: specifying its joint independent increments and exponential waits adds information that a single count distribution cannot supply.{{cite:dodge2008}} (p. 425, “Poisson Distribution”, history){{cite:bertsekas_tsitsiklis2008_summary}} (Ch. 6, §6.2, summary pp. 47–48)

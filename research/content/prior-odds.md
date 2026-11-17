@@ -19,7 +19,7 @@ Bayes' rule gives $P(M_j\mid y)=p(y\mid M_j)P(M_j)/p(y)$. Dividing the expressio
 :::
 :::
 
-## Statistical use
+## Statistical use — Prior odds before the data
 Define the model pair and its prior probabilities before using the data. Compute each marginal likelihood under a proper within-model prior, then form the Bayes factor in the same numerator order as the prior odds. Report both the prior and posterior odds so that the contribution of the data is visible. Check whether a plausible change in prior model weights or within-model priors changes the conclusion; marginal likelihoods can be especially sensitive to the latter. When models are not a credible exhaustive list, interpret a pairwise comparison as conditional on the selected alternatives.{{cite:gelman_bda2013}} (Ch. 7, §7.4, pp. 182–184)
 
 ## Worked example
@@ -28,7 +28,7 @@ Suppose 10% of inspected units are defective before a sensor is read, so the pri
 **Your turn.** A second sensor is used where the prior probability of a defect is $0.25$. Its alarm rates are $0.6$ for defective units and $0.2$ for sound units. Find the likelihood ratio, posterior odds and posterior defect probability after an alarm.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The prior odds are $0.25/0.75=1:3$. The alarm likelihood ratio is $0.6/0.2=3$, so the posterior odds are $1:1$ and the posterior defect probability is $1/(1+1)=0.5$. This conclusion concerns the defined defect versus sound pair under the stated sensor model.{{cite:gelman_bda2013}} (Ch. 1, §1.3, p. 8)
+The prior odds are $0.25/0.75=1:3$. The alarm likelihood ratio is $0.6/0.2=3$, so the posterior odds are $1:1$ and the posterior defect probability is $1/(1+1)=0.5$. This conclusion concerns the defined defect versus sound pair under the stated sensor model.
 :::
 
 ## Common misconceptions
@@ -38,7 +38,7 @@ A Bayes factor is not a posterior probability; it multiplies prior odds. Prior o
 If the sensor was calibrated on different units and its sound-unit alarm rate is actually $0.4$ rather than $0.1$, the worked example's evidence ratio is $2$ rather than $8$ and its posterior defect probability is only $2/11\approx0.182$. If two alarms arise from the same hidden fault, multiplying their marginal ratios as if conditionally independent exaggerates evidence. For a model with an arbitrary improper parameter prior, the marginal likelihood lacks a defined normalising scale, so a Bayes factor and posterior model odds may be undefined. These failures come from a wrong likelihood or an invalid model comparison, not from the odds identity.{{cite:gelman_bda2013}} (Ch. 1, §1.3, pp. 7–8; Ch. 7, §7.4, pp. 183–184)
 
 ## Connections
-The [odds](odds.qmd) page handles probability-to-odds conversion, while [posterior odds](posterior-odds-factorisation.qmd) and [marginal likelihood](marginal-likelihood-and-bayes-factor.qmd) develop the evidence factor. The answered [posterior-odds question](../questions/ex-sl-06-1.qmd) converts a model prior and Bayes factor; [evidence versus probability](../questions/q-21.qmd) tests whether a favourable factor overcomes prior odds; [the fair-coin question](../questions/q-44.qmd) distinguishes a point-mass model from a continuous parameter prior.{{cite:gelman_bda2013}} (Ch. 7, §7.4, pp. 182–184)
+The [odds](odds.qmd) page handles probability-to-odds conversion, while [posterior odds](posterior-odds-factorisation.qmd) and [marginal likelihood](marginal-likelihood-and-bayes-factor.qmd) develop the evidence factor. The [posterior-odds question](../questions/ex-sl-06-1.qmd) converts a model prior and Bayes factor; [evidence versus probability](../questions/q-21.qmd) tests whether a favourable factor overcomes prior odds; [the fair-coin question](../questions/q-44.qmd) distinguishes a point-mass model from a continuous parameter prior.{{cite:gelman_bda2013}} (Ch. 7, §7.4, pp. 182–184)
 
 ## History
-Bayes' rule is a conditioning identity; its odds form has long been useful because the same evidence ratio can update very different prior beliefs transparently. Dodge's account of Bayes describes Price's 1763 publication of Bayes' essay, while modern model comparison makes the distinction between prior model probabilities and within-model priors explicit. The identity remains valid, but its inputs must be meaningful for the scientific alternatives under comparison.{{cite:dodge2008}} (pp. 30–32, “Bayes' Theorem” and “Bayes, Thomas”){{cite:gelman_bda2013}} (Ch. 7, §7.4, pp. 182–184)
+Bayes' rule is a conditioning identity; its odds form has long been useful because the same evidence ratio can update very different prior beliefs transparently. Price published Bayes' essay in 1763. Modern model comparison keeps prior model probabilities distinct from within-model priors. The identity remains valid, but its inputs must be meaningful for the scientific alternatives under comparison.{{cite:dodge2008}} (pp. 30–32, “Bayes' Theorem” and “Bayes, Thomas”){{cite:gelman_bda2013}} (Ch. 7, §7.4, pp. 182–184)

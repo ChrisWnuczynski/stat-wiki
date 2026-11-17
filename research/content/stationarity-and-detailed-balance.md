@@ -22,23 +22,22 @@ Fix $y$ and sum detailed balance over $x$: $\sum_x\pi(x)P(x,y)=\sum_x\pi(y)P(y,x
 ## Statistical use
 To validate a proposed stationary law for a finite chain, first check that it is nonnegative and sums to one. Then either verify $\pi P=\pi$ or check the simpler pairwise equations on the allowed transitions. In Metropolis–Hastings, acceptance probabilities are chosen so that accepted moves and their reversals match under the target law. This proves invariance of the kernel; irreducibility and aperiodicity are additional questions before treating distant draws as converged or independent.{{cite:levin_peres2017}} (§§1.5–1.6, pp. 10–14; §3.2)
 
+For a three-state one-way cycle, uniform mass is stationary but no positive pairwise reverse flow exists, so detailed balance is unusable even though global balance works. For the deterministic two-state flip, the uniform law satisfies detailed balance, yet a chain started at one state oscillates forever; balance alone does not prove convergence. On an infinite or continuous state space, a proposed invariant measure may fail to have total mass one, and formal pairwise equations do not make it a stationary *probability* law without normalisation.{{cite:levin_peres2017}} (§1.6, pp. 13–14; §1.3, periodicity)
+
 ## Worked example
 Consider three states on a directed cycle. From each state, the chain stays put with probability $0.2$ and moves clockwise with probability $0.8$. Each row and column of $P$ sums to one, so $\pi=(1/3,1/3,1/3)$ is stationary. But the flow from state 1 to state 2 is $(1/3)(0.8)=4/15\approx0.2667$, while the reverse flow is zero. Detailed balance fails. This concrete current around the cycle shows why stationarity cannot be inferred to imply reversibility.{{cite:levin_peres2017}} (§1.6, pp. 13–14, biased-cycle example)
 
 **Your turn.** A two-state chain has $P(1,2)=0.3$ and $P(2,1)=0.2$. Find a stationary distribution by detailed balance and check both directed flows.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Detailed balance gives $0.3\pi_1=0.2\pi_2$, hence $\pi_2=1.5\pi_1$. Normalising yields $\pi=(0.4,0.6)$. The flows are $0.4(0.3)=0.12$ and $0.6(0.2)=0.12$. Since a two-state chain has only this nontrivial edge pair, the equality proves stationarity.{{cite:levin_peres2017}} (§1.6, pp. 13–14)
+Detailed balance gives $0.3\pi_1=0.2\pi_2$, hence $\pi_2=1.5\pi_1$. Normalising yields $\pi=(0.4,0.6)$. The flows are $0.4(0.3)=0.12$ and $0.6(0.2)=0.12$. Since a two-state chain has only this nontrivial edge pair, the equality proves stationarity.
 :::
 
 ## Common misconceptions
 Stationarity does not mean the chain remains in one state; the distribution stays fixed while paths can move. Detailed balance is stronger than global balance, as the directed cycle shows. A stationary law does not guarantee stepwise convergence from every starting state. Finally, matching one pair of states is not enough for a large chain: all edges with possible flow must be checked, together with normalisation.{{cite:levin_peres2017}} (§§1.5–1.6, pp. 10–14; §1.3, periodicity)
 
-## Assumptions and limits — When the shortcut fails
-For a three-state one-way cycle, uniform mass is stationary but no positive pairwise reverse flow exists, so detailed balance is unusable even though global balance works. For the deterministic two-state flip, the uniform law satisfies detailed balance, yet a chain started at one state oscillates forever; balance alone does not prove convergence. On an infinite or continuous state space, a proposed invariant measure may fail to have total mass one, and formal pairwise equations do not make it a stationary *probability* law without normalisation.{{cite:levin_peres2017}} (§1.6, pp. 13–14; §1.3, periodicity)
-
 ## Connections
-The [stationary distribution](stationary-distribution.qmd) page develops invariance and convergence separately. The answered [birth–death question](../questions/ex-sp-birth-death-pi.qmd) uses local edge balance to find a law on three states; the [periodic-chain question](../questions/ex-prob-markov-periodic.qmd) tests why stationarity does not imply convergence. These exercise different limits of the balance shortcut.{{cite:levin_peres2017}} (§§1.5–1.6, pp. 10–14)
+The [stationary distribution](stationary-distribution.qmd) page develops invariance and convergence separately. The [birth–death question](../questions/ex-sp-birth-death-pi.qmd) uses local edge balance to find a law on three states; the [periodic-chain question](../questions/ex-prob-markov-periodic.qmd) tests why stationarity does not imply convergence. These exercise different limits of the balance shortcut.{{cite:levin_peres2017}} (§§1.5–1.6, pp. 10–14)
 
 ## History
-Markov's early work on dependent sequences created the setting in which invariant distributions became central; Dodge dates his work on chains to the beginning of the twentieth century. Modern Monte Carlo methods use detailed balance as a constructive way to make a chosen target law stationary, with Hastings's transition design a well-known example.{{cite:dodge2008}} (pp. 330–331, “Markov, Andrei Andreevich”){{cite:levin_peres2017}} (§1.6, pp. 13–14; §3.2)
+Markov's early work on dependent sequences created the setting in which invariant distributions became central; That work dates to the beginning of the twentieth century. Modern Monte Carlo methods use detailed balance as a constructive way to make a chosen target law stationary, with Hastings's transition design a well-known example.{{cite:dodge2008}} (pp. 330–331, “Markov, Andrei Andreevich”){{cite:levin_peres2017}} (§1.6, pp. 13–14; §3.2)
