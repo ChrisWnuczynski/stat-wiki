@@ -4802,3 +4802,67 @@ ARTICLE_SOURCE_CORRECTIONS: dict[str, list[tuple[str, str]]] = {}
 # Explicit default reference lists for reviewed article bodies; inline works are
 # always collected by the citation linker as well.
 ARTICLE_REFERENCE_KEYS: dict[str, list[str]] = {}
+
+# Research source corrections: interior-dirichlet-mode
+ARTICLE_SOURCE_CORRECTIONS['interior-dirichlet-mode'] = [('{{cite:tokdar2018_dirichlet}} (p. 1, density exponents and interior-mode condition)', '{{cite:blei_ng_jordan2003}} (§3, p. 996, eq. 1)'), ('{{cite:tokdar2018_dirichlet}} (p. 1, boundary behavior from density exponents)', '{{cite:blei_ng_jordan2003}} (§3, p. 996, eq. 1)'), ('{{cite:gelman_bda2013}}', '{{cite:blei_ng_jordan2003}} (§3, p. 996, eq. 1)')]
+# End research source corrections: interior-dirichlet-mode
+
+# Research source corrections: log-partition-moment-identities
+ARTICLE_SOURCE_CORRECTIONS['log-partition-moment-identities'] = [('{{cite:diaconis_ylvisaker1979}} (§2, eqs. 2.1–2.2, p. 271)', '{{cite:wainwright_jordan2008}} (§§3.5.1, 6.3, pp. 61–63, 160–161)'), ('{{cite:diaconis_ylvisaker1979}} (§2, eq. 2.3, p. 271)', '{{cite:wainwright_jordan2008}} (§§3.5.1, 6.3, pp. 61–63, 160–161)'), ('{{cite:mccullagh_nelder1989}}', '{{cite:wainwright_jordan2008}} (§3.5.1, prop. 3.1, pp. 61–63)')]
+# End research source corrections: log-partition-moment-identities
+
+# Research source corrections: marginal-hyperposterior
+ARTICLE_SOURCE_CORRECTIONS['marginal-hyperposterior'] = [('{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 108–110)', '{{cite:blei_ng_jordan2003}} (§3, eqs. 2–3)'), ('{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 109–110)', '{{cite:blei_ng_jordan2003}} (§3, eqs. 2–3)'), ('{{cite:gelman_bda2013}}', '{{cite:blei_ng_jordan2003}} (§3, eqs. 2–3)'), ('{{cite:raiffa_schlaifer1961}} (Ch. 7, “Beta-Binomial and Beta-Pascal Functions”, pp. 232–241)', '{{cite:ng_tian_tang2011_dirichlet}} (§1.3, eq. 1.5)')]
+# End research source corrections: marginal-hyperposterior
+
+# Research source corrections: marginal-student-posterior
+ARTICLE_SOURCE_CORRECTIONS['marginal-student-posterior'] = [('{{cite:gelman_bda2013}}', '{{cite:bernardo2005_reference}} (Examples 16, 21)'), ('{{cite:box_tiao1973}}', '{{cite:bernardo2005_reference}} (Examples 16, 21)'), ('{{cite:jeffreys1961}}', '{{cite:bernardo2005_reference}} (Examples 16, 21)')]
+# End research source corrections: marginal-student-posterior
+
+# Research source corrections: normal-inverse-gamma-variance-update
+ARTICLE_SOURCE_CORRECTIONS['normal-inverse-gamma-variance-update'] = [('{{cite:raiffa_schlaifer1961}} (Ch. 11, §11.1.3, pp. 290–291, using gamma [precision](precision.qmd){.term})', '{{cite:gelman2006}} (§3.1, pp. 518–519)'), ('{{cite:forssen_ekstrom2026}} (Ch. 25, §§25.1–25.2)', '{{cite:gelman2006}} (§2.1, pp. 516–517)'), ('{{cite:gelman_bda2013}}', '{{cite:gelman2006}} (§§2.1, 3.1, pp. 516–518)'), ('{{cite:box_tiao1973}}', '{{cite:gelman2006}} (§3.1, pp. 518–519)')]
+# End research source corrections: normal-inverse-gamma-variance-update
+
+# Research source corrections: normal-normal-conjugacy
+ARTICLE_SOURCE_CORRECTIONS['normal-normal-conjugacy'] = [('{{cite:gelman_bda2013}} (Ch. 2, §2.5, pp. 39–41)', '{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)'), ('{{cite:gelman_bda2013}}', '{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)'), ('{{cite:raiffa_schlaifer1961}} (Ch. 3, §3.3.4, pp. 64–65)', '{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)'), ('{{cite:hoff2013_bayes_estimators}} (§1, pp. 1–2)', '{{cite:goodfellow_bengio_courville2016}} (§5.6, eqs. 5.71–5.78, pp. 135–136)'), ('the two updated parameters', 'the two posterior parameters')]
+# End research source corrections: normal-normal-conjugacy
+
+# Research source corrections: posterior-prediction-under-the-reference-prior
+ARTICLE_SOURCE_CORRECTIONS['posterior-prediction-under-the-reference-prior'] = [('{{cite:gelman_bda2013}} (Ch. 3, §3.2, normal posterior prediction)', '{{cite:bernardo2005_reference}} (§3.12, Example 23, equation 38)'), ('{{cite:box_tiao1973}}', '{{cite:rasmussen_williams2006}} (§2.1, Bayesian linear regression and predictive uncertainty)'), ('{{cite:gelman_bda2013}}', '{{cite:bernardo2005_reference}} (§3.12, Example 23, equation 38)')]
+# End research source corrections: posterior-prediction-under-the-reference-prior
+
+# Research source corrections: study-rate-full-conditional
+ARTICLE_SOURCE_CORRECTIONS['study-rate-full-conditional'] = [('{{cite:gelman_bda2013}} (Ch. 5, §5.3, pp. 108–109)', '{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)'), ('{{cite:gelman_bda2013}}', '{{cite:downey2020_thinkbayes2}} (Ch. 18, “Binomial Likelihood”)'), ('is retained', 'is integrated'), ('when those hyperparameters are updated themselves', 'when those hyperparameters vary in the sampler')]
+# End research source corrections: study-rate-full-conditional
+
+# Research reference keys: interior-dirichlet-mode
+ARTICLE_REFERENCE_KEYS['interior-dirichlet-mode'] = []
+# End research reference keys: interior-dirichlet-mode
+
+# Research reference keys: log-partition-moment-identities
+ARTICLE_REFERENCE_KEYS['log-partition-moment-identities'] = []
+# End research reference keys: log-partition-moment-identities
+
+# Research reference keys: marginal-hyperposterior
+ARTICLE_REFERENCE_KEYS['marginal-hyperposterior'] = []
+# End research reference keys: marginal-hyperposterior
+
+# Research reference keys: marginal-student-posterior
+ARTICLE_REFERENCE_KEYS['marginal-student-posterior'] = []
+# End research reference keys: marginal-student-posterior
+
+# Research reference keys: normal-inverse-gamma-variance-update
+ARTICLE_REFERENCE_KEYS['normal-inverse-gamma-variance-update'] = []
+# End research reference keys: normal-inverse-gamma-variance-update
+
+# Research reference keys: normal-normal-conjugacy
+ARTICLE_REFERENCE_KEYS['normal-normal-conjugacy'] = []
+# End research reference keys: normal-normal-conjugacy
+
+# Research reference keys: posterior-prediction-under-the-reference-prior
+ARTICLE_REFERENCE_KEYS['posterior-prediction-under-the-reference-prior'] = []
+# End research reference keys: posterior-prediction-under-the-reference-prior
+
+# Research reference keys: study-rate-full-conditional
+ARTICLE_REFERENCE_KEYS['study-rate-full-conditional'] = []
+# End research reference keys: study-rate-full-conditional

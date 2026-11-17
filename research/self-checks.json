@@ -2638,5 +2638,101 @@
       "prompt": "Several comparisons are examined and the most extreme statistic is then treated as the pre-specified test. What has changed about the null probability of rejection?",
       "answer": "The rejection probability is now the probability for the search, not the probability tabulated for one pre-specified statistic."
     }
+  ],
+  "interior-dirichlet-mode": [
+    {
+      "title": "Joint and marginal modes",
+      "prompt": "For concentrations (2,3,5), what is the joint-mode first coordinate and what is the mode of P₁ alone?",
+      "answer": "The joint-mode coordinate is 1/7. The marginal is Beta(2,8), whose mode is 1/8."
+    },
+    {
+      "title": "A uniform simplex density",
+      "prompt": "Can the formula (αₖ−1)/(α₀−K) select a unique mode when every concentration equals one?",
+      "answer": "No. It becomes 0/0. The density is constant, so the interior points all have the same density."
+    }
+  ],
+  "log-partition-moment-identities": [
+    {
+      "title": "A change of parameter",
+      "prompt": "Does differentiating A(log λ)=λ with respect to λ directly give the Poisson variance through the natural-parameter identity?",
+      "answer": "No. The identity uses derivatives with respect to η=log λ. Chain-rule factors are required when differentiating with respect to λ."
+    },
+    {
+      "title": "A redundant statistic",
+      "prompt": "If T₂=2T₁ identically, can the covariance matrix of (T₁,T₂) be positive definite?",
+      "answer": "No. The nonzero direction (2,−1) has zero variance, so the covariance matrix is singular."
+    }
+  ],
+  "marginal-hyperposterior": [
+    {
+      "title": "A finite posterior weight",
+      "prompt": "Two candidate hyperparameter values have equal prior mass and likelihood kernels 1/18 and 3/50. What is the posterior probability of the second?",
+      "answer": "It is (3/50)/(1/18+3/50)=27/52."
+    },
+    {
+      "title": "Transforming a density",
+      "prompt": "Under α=mk and β=(1−m)k, what absolute Jacobian factor is required for a density in (m,k)?",
+      "answer": "The determinant has absolute value k, so multiply the (α,β) density evaluated at the inverse map by k."
+    }
+  ],
+  "marginal-student-posterior": [
+    {
+      "title": "Scale versus standard deviation",
+      "prompt": "A Student posterior has three degrees of freedom and scale squared 5/6. What is its variance?",
+      "answer": "It is (3/(3−2))×(5/6)=5/2, not 5/6."
+    },
+    {
+      "title": "Residual degrees of freedom",
+      "prompt": "In a full-rank Gaussian regression with n=12 responses and p=4 coefficients under the stated reference prior, what are the Student degrees of freedom?",
+      "answer": "They are n−p=8, including the intercept among the four coefficients if the model has one."
+    }
+  ],
+  "normal-inverse-gamma-variance-update": [
+    {
+      "title": "Known mean and displaced observations",
+      "prompt": "If observations are all close to 12 but the known mean is 10, can their near-zero sample variance replace Qμ in the update?",
+      "answer": "No. Qμ includes the squared displacement of the sample mean from the known value. Centering at the sample mean would change the likelihood."
+    },
+    {
+      "title": "A proper law without a mean",
+      "prompt": "Does an inverse-gamma posterior with shape 0.8 and positive scale have a finite posterior mean?",
+      "answer": "No. It is a proper density, but its mean exists only when shape exceeds one."
+    }
+  ],
+  "normal-normal-conjugacy": [
+    {
+      "title": "A precision increment",
+      "prompt": "In the worked example, how much precision does one more observation with variance four add?",
+      "answer": "It adds 1/4, regardless of its observed numerical value."
+    },
+    {
+      "title": "Observation order",
+      "prompt": "Would processing 12 before 8 change the final posterior?",
+      "answer": "No. Precision increments and precision-weighted-value increments add in either order."
+    }
+  ],
+  "posterior-prediction-under-the-reference-prior": [
+    {
+      "title": "No new observation noise",
+      "prompt": "Why does an interval for the mean use h rather than 1+h?",
+      "answer": "The mean is a linear function of the coefficients. It has coefficient uncertainty but no new independent measurement error."
+    },
+    {
+      "title": "A proper law without a variance",
+      "prompt": "For a Student predictive law with two degrees of freedom, can its scale be finite while its variance is infinite?",
+      "answer": "Yes. The distribution is proper, but a finite Student variance requires more than two degrees of freedom."
+    }
+  ],
+  "study-rate-full-conditional": [
+    {
+      "title": "Updating a second study",
+      "prompt": "Under Beta(2,3) hyperparameters, what is the full conditional after 2 successes in 8 trials?",
+      "answer": "It is Beta(4,9), with mean 4/13."
+    },
+    {
+      "title": "A larger prior sample size",
+      "prompt": "Keep the prior centre at 0.4 but set the concentration to 20. For 4 successes in 5 trials, what is the conditional mean?",
+      "answer": "The shapes are (8,12), so the mean is (4+8)/(5+20)=12/25=0.48."
+    }
   ]
 }

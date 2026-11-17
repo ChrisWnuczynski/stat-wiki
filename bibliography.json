@@ -12133,52 +12133,86 @@
         "id": "10.1371/journal.pone.0194889"
       }
     },
-"loredo2012": {
-    "authors": [
-      "Loredo, T. J."
-    ],
-    "year": 2012,
-    "title": "Bayesian astrostatistics: a backward look to the future",
-    "kind": "incollection",
-    "venue": "Astrostatistical Challenges for the New Astronomy",
-    "publisher": "Springer",
-    "doi": "10.1007/978-1-4614-3508-2_2",
-    "verification": {
-      "source": "crossref",
-      "id": "10.1007/978-1-4614-3508-2_2"
+    "loredo2012": {
+      "authors": [
+        "Loredo, T. J."
+      ],
+      "year": 2012,
+      "title": "Bayesian astrostatistics: a backward look to the future",
+      "kind": "incollection",
+      "venue": "Astrostatistical Challenges for the New Astronomy",
+      "publisher": "Springer",
+      "doi": "10.1007/978-1-4614-3508-2_2",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/978-1-4614-3508-2_2"
+      }
+    },
+    "kumar2021": {
+      "authors": [
+        "Kumar, K."
+      ],
+      "year": 2021,
+      "title": "Partial least square (PLS) analysis: most favorite tool in chemometrics to build a calibration model",
+      "kind": "article",
+      "venue": "Resonance",
+      "volume": "26",
+      "issue": "3",
+      "pages": "429–442",
+      "doi": "10.1007/s12045-021-1140-1",
+      "url": "https://www.ias.ac.in/article/fulltext/reso/026/03/0429-0442",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1007/s12045-021-1140-1"
+      }
+    },
+    "davenport2006": {
+      "authors": [
+        "Davenport, T. H."
+      ],
+      "year": 2006,
+      "title": "Competing on Analytics",
+      "kind": "article",
+      "venue": "Harvard Business Review",
+      "url": "https://hbr.org/2006/01/competing-on-analytics",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://hbr.org/2006/01/competing-on-analytics"
+      }
+    },
+    "ng_tian_tang2011_dirichlet": {
+      "authors": [
+        "Ng, K. W.",
+        "Tian, G.-L.",
+        "Tang, M.-L."
+      ],
+      "year": 2011,
+      "title": "Dirichlet and Related Distributions: Theory, Methods and Applications",
+      "kind": "book",
+      "publisher": "John Wiley & Sons",
+      "doi": "10.1002/9781119995784",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1002/9781119995784"
+      }
+    },
+    "bernardo2005_reference": {
+      "authors": [
+        "Bernardo, J. M."
+      ],
+      "year": 2005,
+      "title": "Reference Analysis",
+      "kind": "incollection",
+      "venue": "Handbook of Statistics",
+      "publisher": "Elsevier",
+      "volume": "25",
+      "pages": "17–90",
+      "doi": "10.1016/S0169-7161(05)25002-2",
+      "url": "https://www.uv.es/~bernardo/RefAna.pdf",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1016/S0169-7161(05)25002-2"
+      }
     }
-  },
-"kumar2021": {
-    "authors": [
-      "Kumar, K."
-    ],
-    "year": 2021,
-    "title": "Partial least square (PLS) analysis: most favorite tool in chemometrics to build a calibration model",
-    "kind": "article",
-    "venue": "Resonance",
-    "volume": "26",
-    "issue": "3",
-    "pages": "429–442",
-    "doi": "10.1007/s12045-021-1140-1",
-    "url": "https://www.ias.ac.in/article/fulltext/reso/026/03/0429-0442",
-    "verification": {
-      "source": "crossref",
-      "id": "10.1007/s12045-021-1140-1"
-    }
-  },
-"davenport2006": {
-    "authors": [
-      "Davenport, T. H."
-    ],
-    "year": 2006,
-    "title": "Competing on Analytics",
-    "kind": "article",
-    "venue": "Harvard Business Review",
-    "url": "https://hbr.org/2006/01/competing-on-analytics",
-    "verification": {
-      "source": "archival_url",
-      "id": "https://hbr.org/2006/01/competing-on-analytics"
-    }
-  }
   }
 }
