@@ -40,20 +40,3 @@ $\Pr(Y\ge 2)=1/(1+e)\approx 0.268941$ and $\Pr(Y\ge 3)=1/(1+e^2)\approx 0.119203
 ## Connections — Other cumulative links
 The [logit link](logit-link.qmd) is the function applied to each cumulative probability. Replacing it by the complementary log-log link gives a proportional-hazards form with the same parallel-slope idea and a different coefficient reading. A model that lets $\beta$ depend on $k$ is no longer proportional odds. The [odds](odds.qmd) $\gamma/(1-\gamma)$ are what the common factor multiplies.
 
-## Check yourself
-
-### The proportional-odds assumption {#self-check-c-25}
-
-What does the proportional-odds assumption say about the slopes at different cutpoints?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The slope vector is the same at every cut, so a unit change in a covariate multiplies every cumulative odds by the same factor $e^{\beta_j}$.
-:::
-
-### Nominal and ordinal responses {#self-check-c-24}
-
-What is the difference between a nominal response and an ordinal response, and what does a baseline-category logit compare?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Nominal categories have no intrinsic order. Ordinal categories are ordered, without requiring equal gaps. A baseline-category logit compares each category probability with a fixed reference, $\log(p_k/p_0)$, and those slopes need not be equal. Proportional odds instead uses nested events $\{Y\ge k\}$ and one shared slope.
-:::

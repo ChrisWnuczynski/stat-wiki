@@ -46,7 +46,7 @@ In a randomised controlled trial each experimental unit receives one of several 
 ::: {#def-confounding-variable .definition}
 ## Confounding variable
 
-A confounding variable affects both the explanatory variable and the response, so that an association between those two can appear, disappear or reverse when the confounder is taken into account.{{cite:simpson1951}}{{cite:wasserman2004}}
+A confounding variable affects both the explanatory variable and the response, so that an association between those two can appear, disappear or reverse when the confounder is taken into account.{{cite:simpson1951}} (pp. 238–241){{cite:wasserman2004}}
 
 :::
 

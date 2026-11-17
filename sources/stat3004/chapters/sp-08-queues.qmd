@@ -30,7 +30,7 @@ $$
 \pi_n=(1-\rho)\rho^n, \qquad n\ge 0.
 $$
 
-If $\rho\ge 1$ the weights cannot be normalised.{{cite:ross2019}}{{cite:kendall1953}} The queue length drifts to infinity and there is no stationary probability distribution.
+If $\rho\ge 1$ the weights cannot be normalised.{{cite:ross2019}}{{cite:kendall1953}} (pp. 338–354) The queue length drifts to infinity and there is no stationary probability distribution.
 
 The mean number in system, when $\rho<1$, is
 
@@ -40,7 +40,7 @@ $$
 
 using $\sum_{n\ge 1} n r^{n-1}=1/(1-r)^2$ at $r=\rho$. The tail is geometric as well: $\Pr(N\ge k)=\rho^k$.{{cite:kelly1979}}
 
-Poisson arrivals see the time-average distribution when the arrival process is independent of the past of the queue.{{cite:wolff1982_pasta}} Little's law gives the mean time in system $W=L/\lambda$. Substituting $L$ produces
+Poisson arrivals see the time-average distribution when the arrival process is independent of the past of the queue.{{cite:wolff1982_pasta}} (pp. 223–231) Little's law gives the mean time in system $W=L/\lambda$. Substituting $L$ produces
 
 $$
 W=\frac{\rho}{\lambda(1-\rho)}=\frac{1}{\mu-\lambda}.
@@ -109,7 +109,7 @@ For a finite room of size $K$, offered arrivals still occur at rate $\lambda$. A
 ::: {#def-sp-littles-law .definition}
 ## Little's law
 
-In a stable system, $L=\lambda_{\mathrm{eff}} W$, where $L$ is the mean number in the system, $\lambda_{\mathrm{eff}}$ is the mean arrival rate of the customers counted in $L$, and $W$ is their mean time in the system.{{cite:little1961}}{{cite:ross2019}}{{cite:kelly1979}}
+In a stable system, $L=\lambda_{\mathrm{eff}} W$, where $L$ is the mean number in the system, $\lambda_{\mathrm{eff}}$ is the mean arrival rate of the customers counted in $L$, and $W$ is their mean time in the system.{{cite:little1961}} (pp. 383–387){{cite:ross2019}}{{cite:kelly1979}}
 
 :::
 

@@ -31,15 +31,3 @@ The variance stays $1.8$, because the quadratic form is unchanged. Every score c
 ## Connections
 The loadings are the entries that a [principal component direction](principal-component-directions-and-scores.qmd) uses to name a line. A correlation loading $v_j\sqrt\lambda$ is a correlation, not a second copy of the unit-vector entry. Setting some loadings to zero is a sparse variant of the same direction, obtained by adding an absolute-value penalty.{{cite:hastie_esl2009}} (§14.5.5, p. 550)
 
-## Check yourself
-**1.** In the worked correlation matrix, what fraction of the standardised variance is left for the second component?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The eigenvalues sum to the trace $2$, so the second component accounts for $0.2/2=0.1$.
-:::
-
-**2.** A unit loading of $0.6$ belongs to a component of variance $0.25$. What is the correlation between that variable and the score?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The correlation is $0.6\sqrt{0.25}=0.6\times 0.5=0.3$.
-:::

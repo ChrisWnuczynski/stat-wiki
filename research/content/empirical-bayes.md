@@ -38,17 +38,3 @@ For an equal mixture of $N(5,1)$ and $N(9,1)$, the mean is seven and the varianc
 
 For a group sample mean, $s_i^2=\sigma^2/n_i$. With prior centre $70$, prior variance $25$, and observation variance $100$, a group of size $100$ and mean $75$ has weight $25/26$ and posterior mean $74.80769$. A group of size two and mean $95$ has weight $1/3$ and posterior mean $78.33333$. The posterior gap is $3.52564$, compared with the observed gap of twenty. Larger groups receive less shrinkage because their sample means contain more information.{{cite:efron_morris1975}} (§1, p.312, Eq.1.8)
 
-
-## Check yourself
-
-### [Hyperparameter uncertainty](../questions/exr-normal-hierarchy-hyperuncertainty.qmd) {#self-check-exr-normal-hierarchy-hyperuncertainty}
-
-::: {.callout-tip collapse="true" title="Answer"}
-An equal mixture of $N(5,1)$ and $N(9,1)$ has mean seven. Total variance is the within-component variance one plus the variance four of the two component means, giving five.
-:::
-
-### [A beta-binomial hierarchy](../questions/q-23.qmd) {#self-check-q-23}
-
-::: {.callout-tip collapse="true" title="Answer"}
-At fixed hyperparameters $(2,8)$, the studies with counts $(4,10)$ and $(40,100)$ have posteriors Beta$(6,14)$ and Beta$(42,68)$, with means $0.3$ and $21/55$. The prior receives weights $1/2$ and $1/11$. With unknown positive hyperparameters and independent Exp$(1)$ priors, their posterior kernel is $e^{-\alpha-\beta}B(\alpha,\beta)^{-J}\prod_jB(\alpha+y_j,\beta+n_j-y_j)$.
-:::

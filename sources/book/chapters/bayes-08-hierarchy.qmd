@@ -7,7 +7,7 @@ This chapter develops Bayesian models for related groups. The central idea is no
 ::: {#def-hierarchical-bayesian-model .definition}
 ## Hierarchical Bayesian model
 
-Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:deligiannidis2022_foundations}} (§§9.2–9.4, pp. 53–57) Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
+Hierarchical Bayes is ordinary Bayes for data that arrive in related groups.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.3, pp. 101–110) Each group is allowed to have its own parameter, but those group parameters are modelled as draws from a common population distribution.{{cite:gelman_bda2013}} (Ch. 5, §§5.1–5.3, pp. 101–110) This structure is useful whenever complete equality between groups is implausible, yet treating them as unrelated would discard real information.
 
 :::
 
@@ -69,7 +69,7 @@ The modelling choice can be organised into three cases.
 | No pooling | Estimate each $\theta_j$ from class $j$ alone; information from the other classes is discarded. |
 | Partial pooling | Retain distinct $\theta_j$'s but connect them through the shared distribution in \eqref{eq:tutorial-group-level}. |
 
-Hierarchical Bayes produces partial pooling.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre.{{cite:deligiannidis2022_foundations}} (§9.4, pp. 55–57) Complete pooling can hide a genuinely exceptional class, while no pooling leaves a class with few observations sensitive to one unusual value. The estimated between-class variation helps determine the shrinkage.{{cite:gelman_bda2013}} (Ch. 5, pp. 101–104) This movement is called *shrinkage* or *borrowing strength*.
+Hierarchical Bayes produces partial pooling. A large class can speak mostly for itself. A small class has a noisy sample mean, so its estimate is pulled more strongly toward the population centre. Complete pooling can hide a genuinely exceptional class, while no pooling leaves a class with few observations sensitive to one unusual value. The estimated between-class variation helps determine the shrinkage.{{cite:gelman_bda2013}} (Ch. 5, pp. 101–104) This movement is called *shrinkage* or *borrowing strength*.
 
 ### Where the shrinkage weight comes from
 
@@ -251,7 +251,7 @@ Let study $j$ contribute $y_j$ tumour-bearing rats from $n_j$ animals. The hiera
 
 :::
 
-Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows Gelman's presentation of the Dempster, Selwyn, and Weeks analysis.{{cite:gelman_bda2013}}{{cite:dempster_selwyn_weeks1983}}[^b08-hierarchy-4]
+Good applied statistics begins before the algebra. Downloading a data set without understanding why the experiment was conducted, how an outcome was defined, or which sources of variation changed between studies is not enough. The hierarchy should represent the scientific design we actually have, not a generic stack of random effects added after the fact. The version of the rat example used here follows Gelman's presentation of the Dempster, Selwyn, and Weeks analysis.{{cite:gelman_bda2013}}{{cite:dempster_selwyn_weeks1983}} (pp. 221–227)[^b08-hierarchy-4]
 
 ## Exchangeability
 

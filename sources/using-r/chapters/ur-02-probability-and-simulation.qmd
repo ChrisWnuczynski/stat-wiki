@@ -4,7 +4,7 @@ The probability pages define a density, a distribution function, a quantile, and
 
 ## The d, p, q, and r functions {#s-the-d-p-q-and-r-functions}
 
-For a family that R names, four functions share the stem.{{cite:chambers_hastie1992}}{{cite:ihaka_gentleman1996}}
+For a family that R names, four functions share the stem.{{cite:chambers_hastie1992}}{{cite:ihaka_gentleman1996}} (pp. 299–314)
 
 | Letter | What it returns | Continuous case |
 |:--|:--|:--|

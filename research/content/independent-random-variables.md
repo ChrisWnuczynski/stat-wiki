@@ -43,18 +43,3 @@ $\Pr(X=0)=0.6$ and $\Pr(Y=1)=0.5$, so the joint probability is $0.6\times 0.5=0.
 ## Connections — Events, conditional independence, and sums
 [Independent events](independent-events.qmd) are the same product rule for sets. [Conditional independence](conditional-independence.qmd) is the product rule inside a conditional distribution: variables can be dependent on the margin and independent given a third variable. Independence is what lets a [convolution](convolution.qmd) use the product of the marginals, and what lets the variance of a sum equal the sum of the variances.
 
-## Check yourself
-
-### A zero in the table
-$\Pr(X=1)=1/2$, $\Pr(Y=1)=1/3$ and $\Pr(X=1,Y=1)=0$. Are $X$ and $Y$ independent?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The product of the marginals is $1/6$, and the joint probability is $0$. One cell where the product formula fails is enough.
-:::
-
-### A fair pair of coins
-Two independent fair coins. Find $\Pr(\text{both heads})$ and $\E[XY]$ if a head is coded $1$ and a tail $0$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each head has probability $1/2$, so both heads have probability $1/4$. That event is $\{XY=1\}$, and $XY$ is $0$ otherwise, so $\E[XY]=1/4$. This equals $\E[X]\E[Y]=(1/2)\times(1/2)$.
-:::

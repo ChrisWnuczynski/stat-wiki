@@ -41,15 +41,3 @@ The weights are \(1\), \(2/2=1\), and \(1\cdot 2/2=1\), summing to \(3\). So \(\
 ## Connections — Detailed balance on a path
 [Detailed balance](detailed-balance.qmd) equates flow in both directions on every edge, not only on the edges of a path. Local balance is that equation for a [birth–death chain](birth-death-balance.qmd). {{cite:durrett2019}} (p. 301, birth–death chains) Summing the cut equations that touch one state recovers [global balance](global-balance-and-detailed-balance.qmd) at that state. A finite state space with positive rates along the path has a finite sum, so a stationary distribution exists.
 
-## Check yourself
-For the distribution \((4/7,2/7,1/7)\) above, what is \(\pi_2/\pi_1\), and which rate ratio must it equal?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\pi_2/\pi_1=(1/7)/(2/7)=1/2\), and the cut says this equals \(\lambda_1/\mu_2=1/2\).
-:::
-
-If \(\lambda_n=1\) and \(\mu_n=1\) for every \(n\ge 1\), can the product weights be scaled to a probability on \(\{0,1,2,\ldots\}\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Every weight equals \(\pi_0\), and \(\sum_n 1\) diverges. The equations still define an invariant measure.
-:::

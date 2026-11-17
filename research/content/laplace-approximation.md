@@ -49,17 +49,3 @@ For $n=100$ the ratio is about $0.999167$. The finite boundary at zero is increa
 The mode is $2$, peak height is one, and $H=4$. The value is $\sqrt{2\pi}/2=\sqrt{\pi/2}\approx1.253314$. It is exact because the log integrand is a quadratic on the full real line.
 :::
 
-## Check yourself
-### The scalar Gaussian factor {#self-check-ex-sl-06-3}
-[The Laplace integral](../questions/ex-sl-06-3.qmd): evaluate it and identify its sample-size factor.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Set $z=\sqrt h(\theta-\widetilde\theta)$. The integral becomes $h^{-1/2}\sqrt{2\pi}$. If $h=nI_1$, its logarithm is $-\tfrac12\log n+\tfrac12\log(2\pi/I_1)$, displaying the one-parameter contribution to the log marginal likelihood penalty.
-:::
-
-### Updating model odds {#self-check-ex-sl-06-1}
-[Bayes factor and posterior probability](../questions/ex-sl-06-1.qmd): convert the supplied Bayes factor to posterior odds.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Prior odds are $0.25/0.75=1/3$. Multiplication by the Bayes factor $6$ gives posterior odds $2$, hence posterior probability $2/(1+2)=2/3$. A marginal likelihood ratio changes prior model odds; it is not itself a posterior probability.
-:::

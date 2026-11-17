@@ -11,12 +11,12 @@ For the density formula, let $\Theta$ be a parameter with prior density $p(\thet
 \[
 p(x)=\int p(x\mid t)p(t)\,dt,
 \]
-where $t$ ranges over the parameter space. A discrete parameter uses a sum instead of this integral. The posterior formula applies where this marginal density is positive and finite.{{cite:hoff2013_bayes_estimators}} (§2.2, pp. 3–4) {{cite:wang2025_foundations}} (Ch. 20, §23, Defs. 3–4)
+where $t$ ranges over the parameter space. A discrete parameter uses a sum instead of this integral. The posterior formula applies where this marginal density is positive and finite. {{cite:wang2025_foundations}} (Ch. 20, §23, Defs. 3–4)
 
 ## Intuition
 Bayes' rule reverses the direction of a conditional probability. A test's sensitivity concerns a positive result among people who have a condition; the probability of the condition among people with a positive result also depends on how common the condition is and how often the test is positive without it. The denominator counts all routes to a positive result.{{cite:wang2025_foundations}} (Ch. 1, §§2.11.2–2.12.1)
 
-In the density version, the likelihood $p(x\mid\theta)$ reweights the prior at each parameter value. Dividing by $p(x)$ makes the reweighted density integrate to one. Likelihood as a function of $\theta$ is not itself a posterior probability density; the prior and its normalising integral are needed.{{cite:hoff2013_bayes_estimators}} (§2.2, pp. 3–4)
+In the density version, the likelihood $p(x\mid\theta)$ reweights the prior at each parameter value. Dividing by $p(x)$ makes the reweighted density integrate to one. Likelihood as a function of $\theta$ is not itself a posterior probability density; the prior and its normalising integral are needed.{{cite:wang2025_foundations}} (Ch. 1, §2.11.2, Thm. 45; §2.12.1)
 
 ## Key results
 If $A_1,\ldots,A_m$ are mutually exclusive and exhaustive events, each with positive probability, then for $\mathbb P(B)>0$,
@@ -34,7 +34,7 @@ If $p(\theta)=0$ throughout a region, then $p(\theta\mid x)=0$ there whenever th
 ::: {.proof}
 When $\mathbb P(A)>0$ and $\mathbb P(B)>0$, the two definitions of conditional probability give $\mathbb P(A\cap B)=\mathbb P(B\mid A)\mathbb P(A)$ and $\mathbb P(A\cap B)=\mathbb P(A\mid B)\mathbb P(B)$. Equating them and dividing by $\mathbb P(B)$ proves the event formula. For a partition, the disjoint events $A_i\cap B$ cover $B$, so $\mathbb P(B)=\sum_i\mathbb P(B\mid A_i)\mathbb P(A_i)$. Substitution proves the displayed partition formula.{{cite:wang2025_foundations}} (Ch. 1, §2.11.2, Thm. 45)
 
-For densities, the product rule gives $p(x,\theta)=p(x\mid\theta)p(\theta)=p(\theta\mid x)p(x)$ almost everywhere. Integrating the first factorisation over $\theta$ gives $p(x)=\int p(x\mid t)p(t)\,dt$. Dividing the joint-density equality by this positive, finite value proves the density formula. Its integral over $\theta$ is one because the numerator integrates to $p(x)$. If the prior density vanishes on a region, so does the product in the numerator, proving the support statement.{{cite:hoff2013_bayes_estimators}} (§2.2, pp. 3–4) {{cite:wang2025_foundations}} (Ch. 20, §23, Defs. 3–4)
+For densities, the product rule gives $p(x,\theta)=p(x\mid\theta)p(\theta)=p(\theta\mid x)p(x)$ almost everywhere. Integrating the first factorisation over $\theta$ gives $p(x)=\int p(x\mid t)p(t)\,dt$. Dividing the joint-density equality by this positive, finite value proves the density formula. Its integral over $\theta$ is one because the numerator integrates to $p(x)$. If the prior density vanishes on a region, so does the product in the numerator, proving the support statement. {{cite:wang2025_foundations}} (Ch. 20, §23, Defs. 3–4)
 :::
 :::
 

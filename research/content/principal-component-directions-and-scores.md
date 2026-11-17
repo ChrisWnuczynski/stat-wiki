@@ -40,17 +40,3 @@ Fix a unit vector \(a\). For a centred point \(x\), the squared distance from \(
 ## Connections — Singular vectors and a regression line
 The directions are [eigenvectors](eigenvalues-and-eigenvectors.qmd) of \(S\) and the right singular vectors in the [singular value decomposition](singular-value-decomposition.qmd) of the centred data. [Principal component directions](principal-component-directions.qmd) names the same axes; the scores are the coordinates along them. A least-squares line minimises squared error in one designated response. A principal-component line minimises squared distance to the line in all coordinates at once, which is why the two lines need not agree.
 
-## Check yourself
-### The second component's share
-For the covariance above, what fraction of the trace sits on the second component?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The trace is \(4\), the second eigenvalue is \(1\), and the fraction is \(1/4\). The two fractions \(3/4\) and \(1/4\) add to \(1\).
-:::
-
-### Replacing \(a_1\) by \(-a_1\)
-What happens to the score of \((2,0)\) on the first direction if the eigenvector is multiplied by \(-1\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The score changes from \(\sqrt{2}\) to \(-\sqrt{2}\). The reconstructed point \((-\sqrt{2})(-a_1)\) is still \((1,1)\), so the fitted point does not move.
-:::

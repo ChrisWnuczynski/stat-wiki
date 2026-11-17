@@ -36,18 +36,3 @@ The batch mean is $(1+3+7)/3=11/3$, so the gradient is $-11/3=-3.66667$. It is c
 ## Connections — Batch, online, and the learning rate
 [Batch and online learning](batch-and-online-learning.qmd) are the two extremes this average sits between. The [backpropagation batch form](backpropagation-batch-form.qmd) is the full sum that a mini-batch replaces by a partial sum. Online learning is stochastic approximation: the learning rate should decrease, with $\sum \gamma_r=\infty$ and $\sum \gamma_r^2<\infty$, if one wants the noise to die out. Enlarging the mini-batch is another way to reduce that noise without changing $\gamma$.{{cite:hastie_esl2009}} (§11.4, p. 397){{cite:lecun_efficient_backprop1998}} (§4.1, learning rate and batch size)
 
-## Check yourself
-
-### One case
-For the responses $1,3,5,7$ at $w=0$, what is the online gradient on the case $y=7$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The gradient is $0-7=-7$. It is an unbiased draw from the four case gradients $-1,-3,-5,-7$, whose mean is $-4$, but this particular draw is far from $-4$.
-:::
-
-### A deterministic partition
-Why is the average of the gradients on $\{1,5\}$ and $\{3,7\}$ exactly $-4$, even though neither batch was drawn at random?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The two batches partition the sample, so the average of their means is the mean of all four responses. Random sampling is not required for that identity. Unbiasedness of one batch requires the random draw.
-:::

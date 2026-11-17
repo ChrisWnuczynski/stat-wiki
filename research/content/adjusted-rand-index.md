@@ -41,17 +41,3 @@ $I=C(3,2)+C(3,2)=6$. The expectation is still $2.4$ and the ceiling is still $6$
 ## Connections — Agreement without matching names
 The index is a comparison of two partitions, such as a clustering from [Lloyd's $k$-means algorithm](lloyd-s-k-means-algorithm.qmd) and a set of known labels. It does not require cluster $1$ to be class $1$. A [decision tree](decision-tree.qmd) also partitions the sample, but it does so with labelled leaves rather than with an agreement score between two groupings. The unadjusted count of agreeing pairs is the Rand index; the adjustment is what recentres the score.
 
-## Check yourself
-### One pair
-How many pairs do $3$ items make, and how many do $6$ items make?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$C(3,2)=3$ and $C(6,2)=15$. The worked example uses both of those counts.
-:::
-
-### A zero in the denominator
-If every group in both partitions has size $1$, what is $I$, and why does the adjusted ratio become undefined?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No pair is together in either partition, so $I=0$ and both pair totals are $0$. The expectation and the ceiling are $0$, and the correction divides by zero. There are no together-pairs whose chance agreement one could subtract.
-:::

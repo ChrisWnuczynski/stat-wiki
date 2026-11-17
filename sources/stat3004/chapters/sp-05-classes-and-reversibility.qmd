@@ -73,7 +73,7 @@ $$
 
 Detailed balance says $P^*=P$.
 
-For a finite irreducible chain, Kolmogorov's cycle criterion is an equivalent test that does not require $\pi$ in advance.{{cite:kolmogorov1936}} Around every directed cycle, the product of the transition probabilities equals the product around the reversed cycle. A missing reverse edge counts as probability $0$, and then a positive forward cycle product fails the test.
+For a finite irreducible chain, Kolmogorov's cycle criterion is an equivalent test that does not require $\pi$ in advance.{{cite:kolmogorov1936}} (pp. 155–160) Around every directed cycle, the product of the transition probabilities equals the product around the reversed cycle. A missing reverse edge counts as probability $0$, and then a positive forward cycle product fails the test.
 
 ## Two families with an explicit stationary law
 

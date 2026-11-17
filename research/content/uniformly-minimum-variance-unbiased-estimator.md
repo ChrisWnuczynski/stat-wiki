@@ -48,17 +48,3 @@ Uniqueness needs completeness of \(T\): if two unbiased functions of a complete 
 ## Connections — Bounds, sufficiency and completeness
 An estimator that meets the [Cramér–Rao lower bound](cramer-rao-lower-bound.qmd) at every \(\theta\) is uniformly minimum-variance unbiased, because nothing unbiased can undercut that bound. The converse fails: the normal [sample variance](sample-variance-and-standard-deviation.qmd) with divisor \(n-1\) is the unbiased estimator built from the complete sufficient residual sum, and it does not attain the one-parameter information bound for \(\sigma^2\). The variance drop from conditioning is the [Rao–Blackwell theorem](rao-blackwell-theorem.qmd). Completeness is the extra property, beyond a [sufficient statistic](sufficient-statistic.qmd), that makes the unbiased function unique.{{cite:siegrist2022_sufficient_complete}} (§7.6, Properties of Sufficient Statistics and Complete Statistics)
 
-## Check yourself
-### A single success shared by two observations
-For \(n=2\), \(k=0\) and \(T=1\), compute \(U(1)\).
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(U(1)=(1/2)^1=1/2\). Given one success in total, it falls on the second observation with probability \(1/2\), so the conditional probability that the first observation is zero is \(1/2\).
-:::
-
-### Where the plug-in is not unbiased
-Why is \(e^{-\overline X}\) not uniformly minimum-variance unbiased for \(e^{-\theta}\) in an independent Poisson sample?
-
-::: {.callout-tip collapse="true" title="Answer"}
-It is not unbiased. Strict convexity of \(e^{-x}\) and Jensen's inequality give \(\mathbb{E} e^{-\overline X}>e^{-\theta}\) whenever \(\overline X\) is non-degenerate. The unbiased class does not contain this plug-in, so the minimum-variance competition among unbiased estimators does not include it.
-:::

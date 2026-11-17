@@ -171,7 +171,7 @@ We go backwards on purpose. Forward selection can drop $x_4$ at the first step b
 
 A coin with $p=0.7$ that lands heads did not commit an error of $0.3$. A fair coin commits an "error" of $0.5$ no matter which face appears, if error means $y-\mu$. And a count of $7$ when you expected $2$ is not the same failure as a count of $45$ when you expected $50$, even though both are five away. The likelihood of a Poisson $2$ producing a $7$ is not the likelihood of a Poisson $50$ producing a $45$.
 
-The Pearson residual divides the raw residual by the estimated standard deviation.{{cite:mccullagh_nelder1989}}{{cite:davison2003}}{{cite:dunn_smyth1996}}
+The Pearson residual divides the raw residual by the estimated standard deviation.{{cite:mccullagh_nelder1989}}{{cite:davison2003}}{{cite:dunn_smyth1996}} (pp. 236–244)
 $$
 r_P=\frac{y-\hat\mu}{\sqrt{\hat\phi\, V(\hat\mu)}}.
 $$

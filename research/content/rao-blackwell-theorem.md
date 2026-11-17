@@ -28,24 +28,3 @@ Conditional on $S=s$, there are $s(s-1)$ ordered successful pairs among $4\cdot3
 ## Connections — Sufficiency and uniqueness
 A sufficient statistic permits the improvement, but does not by itself establish a uniformly minimum-variance estimator. Completeness supplies the additional uniqueness argument: two unbiased functions of a complete sufficient statistic differ by a function with expectation zero at every parameter, hence agree almost surely. An arbitrary residual after conditioning need not be ancillary; zero conditional mean is the property used in the variance proof.{{cite:siegrist2022_sufficient_complete}} (§ “Complete Statistics”)
 
-## Check yourself
-
-### A conditional count probability {#self-check-ex-inf-poisson-umvu}
-
-[Practice question](../questions/ex-inf-poisson-umvu.qmd)
-
-For four Poisson observations with total five, estimate $P(X_1=1)$ without bias.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Conditionally $X_1\mid S=5$ is binomial with parameters $5,1/4$. Its probability at one is $5(1/4)(3/4)^4=405/1024=0.395508$. The plug-in estimate is $(5/4)e^{-5/4}=0.358131$.
-:::
-
-### An unbiased quadratic {#self-check-exr-completeness-binomial}
-
-[Practice question](../questions/exr-completeness-binomial.qmd)
-
-For three Bernoulli trials, find the unbiased function of their total estimating $p^2$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$E\{T(T-1)\}=3\cdot2p^2$, so the estimator is $T(T-1)/6$. At $T=2$ it equals $1/3$. Completeness makes this unbiased function unique.
-:::

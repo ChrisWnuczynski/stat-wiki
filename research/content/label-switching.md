@@ -36,20 +36,3 @@ Observations one and two are together in both draws; each is separate from obser
 
 Relabelling procedures choose permutations to make a stated loss or comparison meaningful. Sorting one-dimensional means is a simple choice; multidimensional components have no single natural order. A relabelling rule should therefore follow the target of the analysis. Prediction can often avoid labelling altogether, whereas statements about a named component need a scientific or mathematical matching rule.{{cite:stephens2000}} (§§3–4, pp. 798–803)
 
-## Check yourself
-
-### [Label switching](../questions/ex-sl-05-6.qmd) {#self-check-ex-sl-05-6}
-
-What must be exchanged along with the component means?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Exchange the weights, variances, and every other component-specific parameter at the same time. The sums defining the mixture density then contain exactly the same terms.
-:::
-
-### [Mean and variance of a mixture](../questions/ex-sl-05-1.qmd) {#self-check-ex-sl-05-1}
-
-For weights $(0.3,0.7)$, means $(0,4)$ and variances $(1,4)$, compute the mixture mean and variance.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is $2.8$. The within-component variance is $3.1$ and the between-component variance is $3.36$, giving total variance $6.46$. Permuting complete components leaves all three quantities unchanged.
-:::

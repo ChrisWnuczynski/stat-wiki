@@ -30,17 +30,3 @@ For an expected-loss comparison, suppose two equally common groups have true eve
 Forecast $0.2$ has expected loss $0.2(0.8)=0.16$. Forecast zero has loss $0.16+(0-0.2)^2=0.20$. The extra $0.04$ is its squared probability error.
 :::
 
-## Check yourself
-### Convert odds to a probability {#self-check-ex-sl-10-2}
-[Odds ratios](../questions/ex-sl-10-2.qmd) supplies the transformation needed before scoring probabilities.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Ten years multiplies the fitted odds by $e^{10(0.04618)}=1.58693$, with interval $(e^{0.2484},e^{0.6851})=(1.28197,1.98397)$. Without high blood pressure, the fitted probabilities at ages $60$ and $70$ are $0.281936$ and $0.383888$, an increase of $0.101952$. Their probability ratio differs from their odds ratio.
-:::
-
-### Separate scoring from action {#self-check-ex-sl-08-2}
-[Unequal costs](../questions/ex-sl-08-2.qmd) asks which action follows from disease probability $0.3$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-A false alarm costs $1$ and a miss costs $5$, giving risks $0.7$ for declaring disease and $1.5$ for declaring no disease. Declare disease above probability $1/6$. The probability supplied for Brier scoring remains $0.3$.
-:::

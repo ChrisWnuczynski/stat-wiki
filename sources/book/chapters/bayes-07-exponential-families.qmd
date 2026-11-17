@@ -14,7 +14,7 @@ $$
 $$
 
 
- of the random data alone. It cannot contain an unknown parameter.{{cite:fisher1922}}{{cite:casella_berger2002}} An *estimator* is a statistic used to estimate a parameter or a function of one, so every estimator is a statistic but not every statistic is introduced for estimation.{{cite:lehmann_casella1998}} For example, $\overline X$, $\max_iX_i$, and $\sum_i(X_i-\overline X)^2$ are all statistics.
+ of the random data alone. It cannot contain an unknown parameter.{{cite:fisher1922}} (pp. 309–368){{cite:casella_berger2002}} An *estimator* is a statistic used to estimate a parameter or a function of one, so every estimator is a statistic but not every statistic is introduced for estimation.{{cite:lehmann_casella1998}} For example, $\overline X$, $\max_iX_i$, and $\sum_i(X_i-\overline X)^2$ are all statistics.
 
 :::
 
@@ -143,7 +143,7 @@ $$
 ::: {#def-minimal-sufficiency .definition}
 ## Minimal sufficiency
 
-Sufficiency alone does not guarantee the greatest possible compression: the entire sample is trivially sufficient. A statistic $T$ is *minimal sufficient* if it is a function of every other sufficient statistic.{{cite:lehmann_scheffe1950}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
+Sufficiency alone does not guarantee the greatest possible compression: the entire sample is trivially sufficient. A statistic $T$ is *minimal sufficient* if it is a function of every other sufficient statistic.{{cite:lehmann_scheffe1950}} (pp. 305–340){{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 
@@ -183,7 +183,7 @@ Completeness must not be claimed merely because a model has been written in expo
 ::: {#def-ancillary-statistic .definition}
 ## Ancillary statistic
 
-A statistic $A(\Xvec)$ is *ancillary* if its sampling distribution does not depend on $\theta$.{{cite:basu1955}}{{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
+A statistic $A(\Xvec)$ is *ancillary* if its sampling distribution does not depend on $\theta$.{{cite:basu1955}} (pp. 377–380){{cite:lehmann_casella1998}}{{cite:casella_berger2002}}
 
 :::
 

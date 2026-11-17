@@ -84,7 +84,7 @@ $$
 Y_i=\beta_0+\beta_1x_{i1}+\cdots+\beta_px_{ip}+\varepsilon_i,\qquad\varepsilon_i\ \text{independent}\ \Normal(0,\sigma^2),
 $$
 
-with the $\beta_j$ estimated by least squares.{{cite:legendre1805}}{{cite:gauss1809}} The coefficient $\beta_j$ is the change in mean response for a unit increase in $x_j$ with the other explanatory variables held fixed.{{cite:davison2003}}{{cite:fisher1922}}
+with the $\beta_j$ estimated by least squares.{{cite:legendre1805}}{{cite:gauss1809}} The coefficient $\beta_j$ is the change in mean response for a unit increase in $x_j$ with the other explanatory variables held fixed.{{cite:davison2003}}{{cite:fisher1922}} (pp. 309–368)
 
 :::
 
@@ -93,7 +93,7 @@ with the $\beta_j$ estimated by least squares.{{cite:legendre1805}}{{cite:gauss1
 ::: {#def-adjusted-r-squared .definition}
 ## Adjusted R-squared
 
-For a regression with $p$ explanatory variables on $n$ observations, the adjusted $R^2$ is the following.{{cite:wherry1931}}{{cite:davison2003}}
+For a regression with $p$ explanatory variables on $n$ observations, the adjusted $R^2$ is the following.{{cite:wherry1931}} (pp. 440–457){{cite:davison2003}}
 
 $$
 R^2_{\mathrm{adj}}=1-(1-R^2)\frac{n-1}{n-p-1}.

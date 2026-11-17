@@ -39,15 +39,3 @@ The prediction is $-1+(12/7)\cdot 3=29/7\approx 4.143$. If every $x_i$ equals $3
 ## Connections
 The slope is one coefficient in the [linear predictor](linear-predictor.qmd) of a straight-line mean. Swapping the axes fits a different conditional mean, which is the [regression effect](regression-effect.qmd): each regression is pulled toward the mean of its own response. A model that is linear in $x$ but multiplies two unknown parameters in the slope, such as $\beta_0+\beta_0\beta_1 x$, is not a linear least-squares problem.{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, a product of parameters is nonlinear)
 
-## Check yourself
-**1.** The points $(0,1)$, $(1,3)$ and $(2,5)$ lie on $Y=1+2x$. What least-squares slope does the formula return?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The means are $\overline x=1$ and $\overline Y=3$. Then $S_{xx}=2$ and $S_{xY}=4$, so the slope is $4/2=2$ and the intercept is $3-2\cdot 1=1$. The residuals are zero.
-:::
-
-**2.** Why can one unusual $Y$ value move $\widehat\beta_1$ by a large amount?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The criterion squares vertical deviations, so a point far from the line in the $Y$ direction contributes a large squared term and pulls the slope. The fit has no separate protection against that point.
-:::

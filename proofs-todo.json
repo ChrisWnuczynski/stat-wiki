@@ -312,7 +312,7 @@
   {
     "slug": "law-of-large-numbers#property-iid-strong-law",
     "title": "Iid strong law under finite first absolute moment",
-    "reason": "The Statement section retains the source strong-law claim, but the page's single proof covers the finite-variance weak law only. Siegrist §6.3 gives a strong-law proof under finite variance and points to the broader integrable theorem."
+    "reason": "The statement includes the strong law, while the single proof covers the finite-variance weak law only. Siegrist §6.3 gives a strong-law proof under finite variance and points to the broader integrable theorem."
   },
   {
     "slug": "sample-space#property-four-counting-rules",
@@ -321,7 +321,7 @@
   },
   {
     "slug": "metropolis-hastings-update#property-convergence-and-monte-carlo-error",
-    "title": "Convergence and Monte Carlo error of the retained chain",
+    "title": "Convergence and Monte Carlo error of the dependent chain",
     "reason": "The proof establishes detailed balance and invariance, while convergence from a chosen start and uncertainty for dependent averages need additional recurrence and Markov-chain limit arguments."
   },
   {
@@ -337,7 +337,7 @@
   {
     "slug": "bayesian-information-criterion#property-mixture-consistency",
     "title": "BIC consistency in particular singular mixture models",
-    "reason": "The page retains a qualified consistency statement about some mixtures; its proof establishes only the regular Laplace expansion, not a singular-mixture consistency theorem."
+    "reason": "The page states a qualified consistency claim for some mixtures. Its proof establishes only the regular Laplace expansion, not a singular-mixture consistency theorem."
   },
   {
     "slug": "binomial-distribution#property-beta-binomial-conjugacy",
@@ -362,12 +362,12 @@
   {
     "slug": "exponential-distribution#property-gamma-conjugate-update",
     "title": "Gamma prior update for exponential rate",
-    "reason": "The page retains the existing Bayesian example but its proof does not derive the Gamma posterior."
+    "reason": "The Bayesian example states a Gamma posterior, but the proof does not derive it."
   },
   {
     "slug": "exponential-distribution#property-bayes-factor-exponential-versus-gamma",
     "title": "Exponential versus Gamma marginal likelihoods",
-    "reason": "The retained model-comparison example states the two integrated marginal likelihood formulas but the page proof does not derive them."
+    "reason": "The model-comparison example states the two integrated marginal likelihood formulas, but the proof does not derive them."
   },
   {
     "slug": "exponential-distribution#property-moments-higher-order",
@@ -382,7 +382,7 @@
   {
     "slug": "nearest-neighbours#property-cover-hart-risk-bound",
     "title": "Cover–Hart risk bound",
-    "reason": "The page retains the asymptotic risk claim, but its proof establishes only finite-sample vote algebra and does not prove the original risk bound."
+    "reason": "The page states an asymptotic risk claim. Its proof establishes only finite-sample vote algebra and does not prove Breiman's risk bound."
   },
   {
     "slug": "nearest-neighbours#property-knn-bayes-consistency",
@@ -447,7 +447,7 @@
   {
     "slug": "lasso#property-adaptive-oracle-properties",
     "title": "Adaptive lasso oracle properties",
-    "reason": "The existing article reports Zou's conditional asymptotic oracle properties; its proof concerns soft thresholding and does not establish the asymptotic design, pilot-estimator and penalty-rate conditions."
+    "reason": "The article reports Zou's conditional asymptotic oracle properties. Its proof concerns soft thresholding and does not establish the asymptotic design, pilot-estimator and penalty-rate conditions."
   },
   {
     "slug": "poisson-distribution#property-mode",
@@ -457,7 +457,7 @@
   {
     "slug": "poisson-distribution#property-higher-moments",
     "title": "Poisson skewness and excess kurtosis",
-    "reason": "The infobox states skewness and excess kurtosis; the existing proof concerns independent sums, and the higher-moment formulas are not derived there."
+    "reason": "The infobox states skewness and excess kurtosis. The proof concerns independent sums, and the higher-moment formulas are not derived there."
   },
   {
     "slug": "poisson-distribution#property-fisher-information",
@@ -492,7 +492,7 @@
   {
     "slug": "transient-and-recurrent-states#property-class-recurrence-stationary-mass",
     "title": "Recurrence type across communicating states and stationary return identity",
-    "reason": "The article proves finite closed-class positive recurrence and geometric visit counts, but inherits the class-wide positive/null classification and the identity π_i=1/E_i T_i^+ without a full proof."
+    "reason": "The article proves finite closed-class positive recurrence and geometric visit counts. The class-wide positive or null classification, and the identity π_i=1/E_i T_i^+, are not given a full proof."
   },
   {
     "slug": "hotelling-s-t2-test#wishart-null",

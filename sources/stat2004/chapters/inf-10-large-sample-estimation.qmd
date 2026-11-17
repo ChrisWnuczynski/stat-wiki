@@ -67,7 +67,7 @@ $$
 \sqrt n\,(\widehat\theta_n-\theta_0)\xrightarrow{d}\Normal\bigl(0,1/i(\theta_0)\bigr).
 $$
 
-Equivalently, $\widehat\theta_n$ is approximately $\Normal(\theta_0,1/\mathcal{I}(\theta_0))$ with $\mathcal{I}(\theta_0)=n\,i(\theta_0)$.{{cite:cramer1946}} Efficient means that the limiting variance equals the Cramér–Rao bound.{{cite:fisher1925_est}} No other consistent, asymptotically normal estimator has a smaller limiting variance under these conditions, except for terms that $\sqrt n$ washes out.{{cite:vandervaart1998}}
+Equivalently, $\widehat\theta_n$ is approximately $\Normal(\theta_0,1/\mathcal{I}(\theta_0))$ with $\mathcal{I}(\theta_0)=n\,i(\theta_0)$.{{cite:cramer1946}} Efficient means that the limiting variance equals the Cramér–Rao bound.{{cite:fisher1925_est}} (pp. 700–725) No other consistent, asymptotically normal estimator has a smaller limiting variance under these conditions, except for terms that $\sqrt n$ washes out.{{cite:vandervaart1998}}
 
 The expansion is Taylor's formula for the score at $\widehat\theta_n$, about the true value. Because $S(\widehat\theta_n)=0$,
 

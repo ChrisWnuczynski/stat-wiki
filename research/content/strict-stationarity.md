@@ -41,19 +41,3 @@ A stationary Markov chain need not have independent coordinates. For example, st
 
 An even stronger dependence example is $X_t=Z$ for every $t$, with one Bernoulli draw $Z$ shared across all times. Every shifted block is literally the same random vector, so stationarity holds. Yet the sample mean is $Z$ for every sample size. For $P(Z=1)=1/2$, it stays either zero or one instead of approaching the ensemble mean $1/2$. Strict stationarity therefore supplies no general independence or averaging guarantee. Such guarantees need additional conditions, such as ergodicity.{{cite:durrett2019}} (§6.1, stationary sequences and measure-preserving transformations)
 
-## Check yourself
-Identify whether the question compares distributions or only moments.
-
-### Two definitions {#self-check-c-43}
-[Two stationarity definitions](../questions/c-43.qmd): state the extra moment requirements in weak stationarity.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Weak stationarity requires finite second moments, one constant mean, and a covariance function depending only on the lag. Strict stationarity instead requires invariance of every finite-dimensional law and does not itself require those moments to exist.
-:::
-
-### Alternating laws {#self-check-depth-stationarity-changing-laws}
-[Equal moments with changing laws](../questions/depth-stationarity-changing-laws.qmd): which probability disproves strict stationarity?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The probability of the value zero alternates between zero and one half. Hence the one-time distributions differ under a shift by one, even though their means are zero, variances are one, and all nonzero-lag covariances vanish.
-:::

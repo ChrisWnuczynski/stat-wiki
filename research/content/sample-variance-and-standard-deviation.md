@@ -44,17 +44,3 @@ The total is \(22\) and the mean is \(4.4\). The sum of squared deviations is \(
 ## Connections — Population variance and standard errors
 The [variance](variance.qmd) of a random variable is the population quantity \(\mathbb{E}(X-\mathbb{E} X)^2\) that \(S^2\) estimates.{{cite:dodge2008}} (p. 506, Standard Deviation) An [unbiased estimator](unbiased-estimator.qmd) is what the divisor \(n-1\) purchases for \(S^2\), not for \(S\). The [standard error](standard-error.qmd) of a mean is an estimated standard deviation of that mean, often \(s/\sqrt{n}\), and it is not another name for \(s\).
 
-## Check yourself
-### The same sum of squares
-A sample of size \(6\) has \(\sum_i(x_i-\overline x)^2=10\). Give \(s^2\) and the divisor-\(n\) mean square.
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(s^2=10/5=2\). The divisor-\(n\) mean square is \(10/6=5/3\). The unbiased sample variance is the larger of the two.
-:::
-
-### Why the deviations are short one
-Why do the deviations \(x_i-\overline x\) have only \(n-1\) free values?
-
-::: {.callout-tip collapse="true" title="Answer"}
-They sum to zero. Any \(n-1\) of them determine the last one, so the sum of squares is an average over \(n-1\) degrees of freedom when the divisor in \(s^2\) is \(n-1\).
-:::

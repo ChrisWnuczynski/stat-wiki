@@ -66,25 +66,5 @@ The coincidence of Newton and Fisher scoring used $V=\mu$ and $\mu'=\mu$, which 
 ## Connections
 The [score function](score-function.qmd) is $\mathbf{U}$. [Poisson regression](poisson-regression.qmd) is the model in the worked example, with the log link as its usual link. [Fisher information](fisher-information.qmd) is the matrix inverted at each step and, at the converged value, the source of the coefficient variances. The software name for the loop is iteratively reweighted least squares.
 
-## Check yourself
-
-1. After the first step, is the second fitted mean equal to $3$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The first step sets the slope to $2$, so the fitted mean is $e^{2}\approx 7.3891$. The mean $3$ belongs to the slope $\log 3\approx 1.0986$, which later steps move toward.
-:::
-
-2. At the start $\boldsymbol{\beta}=\mathbf{0}$, what is $\mathbf{y}-\boldsymbol{\mu}$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The means are both $1$, and the counts are $1$ and $3$, so the residual vector is $(0,2)$.
-:::
-
-3. For this Poisson log link, do Newton–Raphson and Fisher scoring differ?
-
-::: {.callout-tip collapse="true" title="Answer"}
-They do not. The second derivative $-e^{\eta}$ does not depend on $y$, so the observed Hessian and the expected Hessian are the same matrix. A different variance function can separate them.
-:::
-
 ## History
 `glm.fit` implements the coefficient update as iteratively reweighted least squares. The design was inspired by the S function described by Hastie and Pregibon, and the references include McCullagh and Nelder's book on generalised linear models. The iteration count, the working weights and the convergence flag are part of the fitted object. In the two-count example the same update is visible by hand: slope $0$, then $2$, then about $1.4060$, walking toward $\log 3\approx 1.0986$ without equalling it after two steps. and References; Value, `iter`)

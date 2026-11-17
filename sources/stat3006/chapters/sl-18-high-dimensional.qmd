@@ -10,7 +10,7 @@ The penalty also has a Bayesian interpretation under a stated likelihood: a cent
 
 ## Why classical methods fail when $p>n$
 
-{{cite:dempster1958}} pointed out that neither Hotelling's $T^2$ test for two groups nor Fisher's linear discriminant analysis can be used when $p>n_1+n_2-2$. In both cases the difficulty is fitting a multivariate normal distribution in this number of dimensions. The procedures need a covariance inverse, and the sample covariance does not have one.
+{{cite:dempster1958}} (pp. 995–1010) pointed out that neither Hotelling's $T^2$ test for two groups nor Fisher's linear discriminant analysis can be used when $p>n_1+n_2-2$. In both cases the difficulty is fitting a multivariate normal distribution in this number of dimensions. The procedures need a covariance inverse, and the sample covariance does not have one.
 
 Prediction from a regularised fit can still have small error. Attribution of that error to individual coefficients is not identified, because many coefficient vectors produce the same fitted values once $p$ exceeds the rank of the design.
 
@@ -21,7 +21,7 @@ For a single data set with $p>n-1$ the sample covariance matrix is singular, hen
 ::: {#thm-sl-18-rank .theorem}
 ## Rank bound
 
-$\operatorname{rank}(S)\le\min(n-1,p)$. Hence $S$ is invertible only if $p\le n-1$ and the centred data have rank $p${{cite:dempster1958}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}.
+$\operatorname{rank}(S)\le\min(n-1,p)$. Hence $S$ is invertible only if $p\le n-1$ and the centred data have rank $p${{cite:dempster1958}} (pp. 995–1010){{cite:hastie_esl2009}}{{cite:james_islr2021}}.
 
 :::
 
@@ -48,13 +48,13 @@ $$
 
 where $y$ is the vector of continuous responses and $X$ is the $n\times(p+1)$ matrix of explanatory variables augmented by a column of ones. The product is $X^\top y$. Dropping the transpose leaves $Xy$, which is undefined: $X$ is $n\times(p+1)$ and $y$ is $n\times 1$. The same transpose belongs on the ridge formula below. The closed form is the one derived for [linear regression](inf-06-regression.qmd) when the columns are linearly independent.
 
-The inverse formula requires full column rank, not merely a favourable count of rows and columns. When rank fails, least squares still projects $y$ onto the column space of $X$, giving a unique fitted vector. The coefficient representation is non-unique: adding any $v$ with $Xv=0$ leaves the fitted values unchanged{{cite:hastie_esl2009}}{{cite:james_islr2021}}{{cite:tibshirani1996}}. Exact interpolation occurs when $y$ lies in that column space. Full row rank is sufficient. Having $p\ge n$ alone is not sufficient.
+The inverse formula requires full column rank, not merely a favourable count of rows and columns. When rank fails, least squares still projects $y$ onto the column space of $X$, giving a unique fitted vector. The coefficient representation is non-unique: adding any $v$ with $Xv=0$ leaves the fitted values unchanged{{cite:hastie_esl2009}}{{cite:james_islr2021}}{{cite:tibshirani1996}} (pp. 267–288). Exact interpolation occurs when $y$ lies in that column space. Full row rank is sufficient. Having $p\ge n$ alone is not sufficient.
 
 ### Where the columns come from
 
 A large sample relative to the number of fitted coefficients makes classical estimation easier, but collecting another subject can cost much more than measuring another feature on an existing sample. High-dimensional methods address this imbalance by adding structure. They cannot manufacture information about directions that the observed design never distinguishes.
 
-Microarray studies are one setting of this kind. One tissue sample produces measurements of many transcript-related features, while the number of sampled tissues can remain small. The Alon study below analyses $2000$ selected gene-expression features from $62$ samples{{cite:alon1999}}. These measurements are not direct measurements of protein production, and a biological gene is not interchangeable with one independent predictor. Correlation, measurement processing, and tissue composition all affect the statistical question.
+Microarray studies are one setting of this kind. One tissue sample produces measurements of many transcript-related features, while the number of sampled tissues can remain small. The Alon study below analyses $2000$ selected gene-expression features from $62$ samples{{cite:alon1999}} (pp. 6745–6750). These measurements are not direct measurements of protein production, and a biological gene is not interchangeable with one independent predictor. Correlation, measurement processing, and tissue composition all affect the statistical question.
 
 In that setting the scientific question is often which coordinates are associated with the response, not the size of the prediction error. Association is not causation.
 
@@ -89,7 +89,7 @@ A single one of those tests, with its null distribution and its $p$-value, is th
 
 ### Why a fixed threshold fails
 
-If $m_0$ null hypotheses are true and each has an exactly uniform null $p$-value, testing each at $0.05$ gives $\E(V)=0.05\,m_0${{cite:benjamini_hochberg1995}}. Independence is not needed for this expectation: use linearity on the rejection indicators. Valid conservative $p$-values instead satisfy $\Pr(P_i\le t)\le t$, giving an upper bound. Uniformity requires a correctly calibrated continuous null test. Continuity of a reported statistic alone is not enough. With $20{,}000$ true nulls, the expected false-rejection count is therefore $1000$.
+If $m_0$ null hypotheses are true and each has an exactly uniform null $p$-value, testing each at $0.05$ gives $\E(V)=0.05\,m_0${{cite:benjamini_hochberg1995}} (pp. 289–300). Independence is not needed for this expectation: use linearity on the rejection indicators. Valid conservative $p$-values instead satisfy $\Pr(P_i\le t)\le t$, giving an upper bound. Uniformity requires a correctly calibrated continuous null test. Continuity of a reported statistic alone is not enough. With $20{,}000$ true nulls, the expected false-rejection count is therefore $1000$.
 
 The family-wise error rate is controlled at a level such as $0.05$ by Bonferroni's method, which tests each of $m$ hypotheses at level $0.05/m$.{{cite:benjamini_hochberg1995}} (pp. 289–291, family-wise error and Bonferroni){{cite:nist_bonferroni2002}} (§7.4.7.3, Bonferroni control) With thousands of tests that threshold can reduce power, depending on signal strength and the family of comparisons.{{cite:benjamini_hochberg1995}} (Introduction, pp. 289–290, motivation for false-discovery control) No particular value of a null $p$-value, including a very small one, is specially expected: under a continuous null the $p$-value is uniform.
 
@@ -112,7 +112,7 @@ It is often difficult to know how the set of variables found will be used. Somet
 
 ### The false discovery rate
 
-False discovery rate control offers a different error criterion{{cite:benjamini_hochberg1995}}. It concerns the expected fraction of false rejections among all rejections{{cite:benjamini_hochberg1995}}{{cite:benjamini_yekutieli2001}}{{cite:hastie_esl2009}}. Write $m$ for the number of tests, keeping $p$ available for a $p$-value only when there is no ambiguity.
+False discovery rate control offers a different error criterion{{cite:benjamini_hochberg1995}} (pp. 289–300). It concerns the expected fraction of false rejections among all rejections{{cite:benjamini_hochberg1995}} (pp. 289–300){{cite:benjamini_yekutieli2001}} (pp. 1165–1188){{cite:hastie_esl2009}}. Write $m$ for the number of tests, keeping $p$ available for a $p$-value only when there is no ambiguity.
 
 | | Declared non-significant | Declared significant | Total |
 |---|---|---|---|
@@ -154,7 +154,7 @@ Test $m$ null hypotheses $H_1,\ldots,H_m$ whose $p$-values are $P_1,\ldots,P_m$.
 ::: {#def-sl-18-bh .definition}
 ## Benjamini–Hochberg
 
-Let $k$ be the largest $i$ for which $P_{(i)}\le (i/m)\,q^*$. Then reject all $H_{(i)}$ for $i=1,\ldots,k${{cite:benjamini_hochberg1995}}{{cite:benjamini_yekutieli2001}}{{cite:hastie_esl2009}}. Reject none if no such $i$ exists.
+Let $k$ be the largest $i$ for which $P_{(i)}\le (i/m)\,q^*$. Then reject all $H_{(i)}$ for $i=1,\ldots,k${{cite:benjamini_hochberg1995}} (pp. 289–300){{cite:benjamini_yekutieli2001}} (pp. 1165–1188){{cite:hastie_esl2009}}. Reject none if no such $i$ exists.
 
 :::
 
@@ -167,7 +167,7 @@ $$
 \mathrm{FDR}\le\frac{m_0}{m}q^*\le q^*.
 $$
 
-Equality holds in the first inequality for exactly uniform null $p$-values{{cite:benjamini_hochberg1995}}{{cite:benjamini_yekutieli2001}}.
+Equality holds in the first inequality for exactly uniform null $p$-values{{cite:benjamini_hochberg1995}} (pp. 289–300){{cite:benjamini_yekutieli2001}} (pp. 1165–1188).
 
 :::
 

@@ -54,25 +54,5 @@ The residual sum of squares of the origin line, $1.8$, is not a worse value of t
 ## Connections
 [Simple linear regression](simple-linear-regression.qmd) is this line together with a sampling model for the responses. [Multicollinearity](multicollinearity.qmd) appears when a second predictor nearly copies $x$ and the analogue of $S_{xx}$ shrinks. The origin-constrained slope is least squares with one parameter removed, not a different loss.{{cite:dodge2008}} (p. 304){{cite:nist_ls_straight2002}} (§4.4.3.1)
 
-## Check yourself
-
-1. For $(0,1)$, $(1,1)$, $(2,4)$, what is the fitted height at $x=1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$2$, the mean of $y$. The arithmetic is $0.5+1.5\cdot 1=2$.
-:::
-
-2. What is the origin-constrained slope for these three points?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$9/5=1.8$. The products $x_i y_i$ sum to $9$ and the squares $x_i^2$ sum to $5$.
-:::
-
-3. Why is the origin line's residual sum of squares $1.8$ rather than $1.5$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The origin line is not allowed an intercept. The free line reaches $1.5$ by using intercept $0.5$. Inside the origin-only family, $1.8$ is the minimum.
-:::
-
 ## History
 Least squares minimises the sum of squared residuals, and Legendre introduced the method in 1805. Gauss, Legendre and possibly Adrain developed it independently in the late eighteenth and early nineteenth centuries. The straight-line estimators come from setting the two partial derivatives to zero, and the normal equations are that same critical-point system.{{cite:dodge2008}} (pp. 304–305){{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1){{cite:nist_ls_straight2002}} (§4.4.3.1)

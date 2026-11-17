@@ -62,22 +62,5 @@ A second failure is interpretive. Extra-Poisson variance estimated from a regres
 ## Connections
 The [Poisson distribution](poisson-distribution.qmd) is the equal-mean-and-variance boundary. The [negative binomial distribution](negative-binomial-distribution.qmd) is the gamma mixture, and the [Conway–Maxwell–Poisson distribution](conway-maxwell-poisson-distribution.qmd) is the family that also allows underdispersion. A [dispersion parameter](dispersion-parameter.qmd) in a quasi-Poisson fit rescales standard errors without adding a simulable law. [Overdispersion](overdispersion.qmd) and [underdispersion](underdispersion.qmd) name the two directions in which a count sample can leave the Poisson variance.{{cite:dodge2008}} (pp. 425–426)
 
-## Check yourself
-### A mixture variance {#self-check-count-mixture}
-
-A rate equals $1$ or $5$ with equal probability. What are the mean and the variance of a Poisson count drawn at that rate?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean rate is $3$. The rate variance is $\bigl((1-3)^{2}+(5-3)^{2}\bigr)/2=4$. The count has mean $3$ and variance $3+4=7$.
-:::
-
-### Which family can be tight? {#self-check-count-tight}
-
-A sample of counts has mean $4$ and variance $2$. Which of a Poisson model, a negative-binomial model, and a Conway–Maxwell–Poisson model with $\nu>1$ can represent that pair of moments, and why do the other two fail?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The Poisson model forces the variance to equal $4$. The negative binomial forces the variance to exceed $4$. Only the Conway–Maxwell–Poisson law with $\nu>1$ is built to be tighter than the Poisson with a comparable mean. Whether a particular $(\lambda,\nu)$ hits variance $2$ at mean $4$ is a numerical question about the normalising series, but the other two families are algebraically incapable of the inequality $\operatorname{Var}(Y)<\mathrm{E}(Y)$.
-:::
-
 ## History
 Poisson’s 1837 derivation obtained the count law as a limit of binomial probabilities, and the modern entry records the probability function $e^{-\theta}\theta^{x}/x!$ together with the evaluation $\mathrm{E}(X)=\operatorname{Var}(X)=\theta$.{{cite:dodge2008}} (pp. 425–426) Later count regressions used that law as the baseline and added either a multiplicative dispersion, a mixture, or a second parameter in the factorial term when the baseline variance was too rigid. The mixture calculation above is the reason a random Poisson rate cannot repair a sample that is tighter than its mean.

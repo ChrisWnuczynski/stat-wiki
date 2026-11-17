@@ -9,7 +9,8 @@ Add uncertain claims here before writing them into an article.
 - `multivariate-central-limit-theorem`: the scalar contrasts are cited to the scalar central limit theorem. A page-located source for the Cramér–Wold step from those contrasts to the vector limit is still needed.
 - `inverse-gaussian-distribution`: the hitting-time representation needs Tweedie's 1957 development beyond the distribution's moment formulas.
 - `homogeneous-poisson-process`: independent increments, exponential gaps, thinning and superposition are not in the Dodge Poisson-distribution entry used for the count law. A page-located point-process textbook is still needed.
-- Ranks 218–367: chapter excerpts copied onto these articles still contain citations without page or section locators.
+- Ranks 218–367: book excerpts still lack page or section locators where the book was not opened. The largest remaining keys are Casella and Berger (2002), Ross (2019), Anderson (2003), McCullagh and Nelder (1989), Feller (1968), and Wasserman (2004). Journal articles in that band now use the page span recorded in the bibliography.
+- Ranks 68–517: many pages still cite only one proper work. A second independent textbook or paper is still needed before each of those pages has five citations from two sources.
 
 - Verify the publication identity and date of Anirban DasGupta’s author-hosted Graduate Probability chapter (https://www.stat.purdue.edu/~dasgupta/gradprob.pdf); its former 2011 Springer attribution was unsupported, and current Monte Carlo citations have been replaced with read proper textbooks.
 - `bradley-terry-model`: the 2024 NRL strength table comes from the teaching analysis; raw match data and the coefficient fit were not independently recovered. All displayed transformations and rounded comparisons are recomputed by checks/bradley-terry-model.py.

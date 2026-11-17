@@ -38,19 +38,3 @@ Under a two-sided doubled-tail convention, nine successes gives $22/1024=0.02148
 Symmetry under $p_0=1/2$ gives $P(X\leq1)=P(X\geq9)=11/1024$. The matched two-sided value is $22/1024$.
 :::
 
-## Check yourself
-Keep a null tail probability distinct from power and from a posterior model probability.
-
-### A serve threshold {#self-check-ex-inf-serve-power}
-[Power of a serve test](../questions/ex-inf-serve-power.qmd): evaluate the stated rejection rule at its null and alternative rates.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For the rule $X\geq13$ with $n=15$, sum the binomial masses at $13,14,15$. At $p=0.6$ this is approximately $0.0271140$; at $p=0.9$ it is approximately $0.815939$. The first is the size at the stated null, and the second is the power at that alternative.
-:::
-
-### A point-null model {#self-check-q-44}
-[Testing whether a coin is fair](../questions/q-44.qmd): why is a binomial tail not the probability of the fair-coin model?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The tail is a probability of possible data conditional on a fixed null success rate. Posterior model probability instead compares the point-null binomial mass with an alternative marginal mass and combines them with prior model probabilities. A continuous posterior within the alternative model assigning zero mass to one point does not eliminate a separate point-null model.
-:::

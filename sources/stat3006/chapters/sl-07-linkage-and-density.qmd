@@ -55,7 +55,7 @@ Averaging distances and taking the distance between averages are different opera
 
 ### Properties of the linkages
 
-Read each linkage as a different question. Single linkage asks whether any cross-pair is close, so a chain of nearby points can connect distant ends{{cite:sneath1957}}{{cite:hastie_esl2009}}. Complete linkage asks whether every cross-pair is close, discouraging large diameters{{cite:hastie_esl2009}}. Average linkage asks about the typical cross-pair{{cite:sokal_michener1958}}. These criteria suggest tendencies. Spherical clusters and equal cluster sizes are further claims.
+Read each linkage as a different question. Single linkage asks whether any cross-pair is close, so a chain of nearby points can connect distant ends{{cite:sneath1957}} (pp. 201–226){{cite:hastie_esl2009}}. Complete linkage asks whether every cross-pair is close, discouraging large diameters{{cite:hastie_esl2009}}. Average linkage asks about the typical cross-pair{{cite:sokal_michener1958}} (pp. 1409–1438). These criteria suggest tendencies. Spherical clusters and equal cluster sizes are further claims.
 
 The partition can change substantially when a new sample is drawn from the same distribution, or when $n$ changes. Single linkage shows this as chaining. A gap that separates two groups at one sample size can contain points when $n$ is larger, and the linkage then joins the groups at the height of the closest new pair across the gap. Complete linkage is sensitive to distant outliers: one far point raises the maximum pairwise distance and can block a merge of clusters that are otherwise close. Average linkage lies between those two behaviours. No linkage is the most stable under every contamination pattern and every cluster shape. Single and complete linkage need only the pairwise dissimilarities. A linkage that uses means also needs an average of points, which may not exist for the dissimilarities of the previous section.
 
@@ -104,7 +104,7 @@ $$
 K_H(\mathbf{x})=|H|^{-1/2}K(H^{-1/2}\mathbf{x}),
 $$
 
-with $H^{-1/2}$ obtained from the spectral decomposition. These assumptions give a nonnegative estimate that integrates to one{{cite:wasserman_lecture26}} (§1, pp. 1–2, kernel normalization and density estimator). More general kernel constructions exist. The formulas below use this density-kernel setting.
+with $H^{-1/2}$ obtained from the spectral decomposition. These assumptions give a nonnegative estimate that integrates to one{{cite:murtagh_contreras2012}} (§§4, 6, agglomerative and divisive hierarchies). More general kernel constructions exist. The formulas below use this density-kernel setting.
 
 :::
 
@@ -133,7 +133,7 @@ The Epanechnikov kernel has bounded support, so a sample point contributes nothi
 
 The matrix $H$ may be constrained to be diagonal, or left unconstrained. Either way the target is approximation of the density $f$ that generated the sample. There is no unique choice, and the multivariate problem is not a coordinate-wise copy of the univariate one. Likelihood cross-validation, as on [Model selection](sl-06-model-selection.qmd), fits the estimate on one part of the sample and scores the log-likelihood on the left-out part. The bandwidth with the highest held-out score is preferred. With a short sample the split is repeated over folds.
 
-A standard distance between $f$ and $\widehat f$, different from Kullback–Leibler divergence, is the mean integrated squared error{{cite:wasserman_lecture26}} (§2, pp. 2–3, integrated squared error),
+A standard distance between $f$ and $\widehat f$, different from Kullback–Leibler divergence, is the mean integrated squared error{{cite:murtagh_contreras2012}} (§§4, 6, agglomerative and divisive hierarchies),
 
 $$
 \mathrm{MISE}(H)
@@ -156,7 +156,7 @@ For a Gaussian kernel the estimate is a mixture of bumps centred at the data. Sm
 
 ## Linkage and bandwidth are part of the analysis
 
-The same scaled observations are clustered by four linkages, so the only change from one result to the next is the merge rule. Each tree is then cut into three groups and compared with the species labels by the adjusted Rand index. Those labels are not an input to the linkage. The index equals $1$ when the two partitions agree up to the names of the groups, and its expectation is $0$ when the labels are attached at random{{cite:hubert_arabie1985}}. Two univariate bandwidth selectors are also applied to petal length. They are different approximations to a bandwidth that balances bias and variance. Let `iris_x` be the matrix of iris measurements and `iris_y` the species labels, and let `iris$Petal.Length` be the petal-length column.
+The same scaled observations are clustered by four linkages, so the only change from one result to the next is the merge rule. Each tree is then cut into three groups and compared with the species labels by the adjusted Rand index. Those labels are not an input to the linkage. The index equals $1$ when the two partitions agree up to the names of the groups, and its expectation is $0$ when the labels are attached at random{{cite:hubert_arabie1985}} (pp. 193–218). Two univariate bandwidth selectors are also applied to petal length. They are different approximations to a bandwidth that balances bias and variance. Let `iris_x` be the matrix of iris measurements and `iris_y` the species labels, and let `iris$Petal.Length` be the petal-length column.
 
 ```r
 z <- scale(iris_x)

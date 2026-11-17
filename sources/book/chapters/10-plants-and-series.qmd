@@ -1,6 +1,6 @@
 # Three species on one hillside
 
-The burn example had two different kinds of measurement on one child. This chapter stays with a vector response, one mean model for each component of a vector recorded on the same unit, but now every component is binary.{{cite:yee2015}}{{cite:yee_mitchell1991}}{{cite:liang_zeger1986}}
+The burn example had two different kinds of measurement on one child. This chapter stays with a vector response, one mean model for each component of a vector recorded on the same unit, but now every component is binary.{{cite:yee2015}}{{cite:yee_mitchell1991}} (pp. 587–602){{cite:liang_zeger1986}} (pp. 13–22)
 
 Thomas Yee's `VGAM` package fits vector generalised linear models in which every component has the same type. It will not take one binary margin and one continuous margin, which is why the burn data were fitted by hand. It will take three binary margins. The Hunua ranges data record, at $392$ locations, whether each of three New Zealand plants was present: *Cyathea dealbata* (`cyadea`), *Beilschmiedia tawa* (`beitaw`), and *Knightia excelsa* (`kniexc`). Altitude is the covariate. The plants may prefer different heights, and they may help or crowd each other, so the three binary responses at one location are not independent. The association is not forced to be positive.
 

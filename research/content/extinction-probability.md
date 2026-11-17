@@ -37,15 +37,3 @@ The mean is \(1/4+2/4=3/4<1\), so the extinction probability is \(1\) without so
 ## Connections — The mean, the generating function, and the one-child exception
 The [Galton–Watson process](galton-watson-process.qmd) is the sequence \(Z_n\). The mean \(m\) is the derivative \(f'(1)\). When \(m=1\) and the offspring law is not concentrated at \(1\), extinction is still certain; the one-child law is the exception, with extinction probability \(0\).{{cite:durrett2019}} (Thm. 4.3.11, p. 231) The fixed-point picture is the whole criterion: certain extinction when the smallest root is \(1\), and a smaller root when the mean exceeds \(1\).
 
-## Check yourself
-Offspring probabilities \(p_0=1/8\), \(p_1=1/8\), \(p_2=3/4\). Is the mean above \(1\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is \(1/8+2\cdot 3/4=1/8+3/2=13/8>1\). Extinction is not certain. The probability itself is the smaller root of \(f(s)=s\), not the mean.
-:::
-
-If \(p_0=0\) and \(p_2=1\), what is the extinction probability, and what is the mean?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Every individual has two children, so the mean is \(2\) and generation \(n\) has size \(2^n\). The process never hits \(0\), and the extinction probability is \(0\). The root \(s=0\) of \(f(s)=s^2\) is that probability.
-:::

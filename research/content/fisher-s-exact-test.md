@@ -20,22 +20,3 @@ For rows $(8,2)$ and $(3,7)$, the margins give $n=20$, $r=10$ and $s=11$. The to
 The sample cross-product ratio is $(8\cdot7)/(2\cdot3)=28/3$. It measures observed association on an odds scale. The $p$-value is a tail probability under a specified null distribution.
 :::
 
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### A smaller conditional experiment {#self-check-ex-inf-fisher-smaller}
-
-[A smaller conditional experiment](../questions/ex-inf-fisher-smaller.qmd). List the top-left counts and compute the upper tail.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The possible counts are $0,1,2,3$. At three, the mass is $\binom43\binom30/\binom73=4/35$. No larger count is possible, so the one-sided tail is also $4/35$.
-:::
-
-### Identify the sampling design {#self-check-ex-inf-homogeneity-or-independence}
-
-[Identify the sampling design](../questions/ex-inf-homogeneity-or-independence.qmd). Distinguish the fixed and random margins.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The two-drug trial fixes treatment totals and tests homogeneity of improvement probabilities. The clinic survey fixes only its total and tests independence of classifications. The factories fix factory totals and test homogeneity of defective probabilities.
-:::

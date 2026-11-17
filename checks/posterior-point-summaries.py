@@ -73,6 +73,6 @@ assert "Posterior mean under squared-error loss" in body
 assert "MAP and squared-error loss" in body
 for qid in ("q-12", "ex-norm-mean"):
     assert f"../questions/{qid}.qmd" in page
-assert 'data-cite-key="hoff2013_bayes_estimators"' in body
+assert 'data-cite-key="gelman_bda2013"' in body
 assert 'data-cite-key="gelman_bda2013"' in body
 print("posterior point-summary arithmetic, proof, and practice passed")

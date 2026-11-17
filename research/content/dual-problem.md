@@ -51,19 +51,3 @@ The dual function is $2\lambda-\lambda^2/4$, maximised at $\lambda=4$ with value
 ## Connections — The optimised variable can change interpretation
 Duality can also exchange estimation targets. In sparse Gaussian precision estimation, the primal variable is a precision matrix, while its dual can be expressed in a covariance matrix constrained to remain within an entrywise band around the empirical covariance. A dual algorithm therefore need not be directly updating the parameter named in the primal objective.{{cite:banerjee_elghaoui_daspremont2008}} (§2.2)
 
-## Check yourself
-The matrix properties behind quadratic optimisation appear in these two calculations.
-
-### Why a quadratic form is nonnegative {#self-check-ex-sl-01-1}
-[Why a covariance is positive semi-definite](../questions/ex-sl-01-1.qmd): connect a covariance quadratic form with the Gram-matrix requirement in the classifier dual.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The covariance quadratic form is a variance and is nonnegative. A Gram quadratic form similarly equals a squared norm: $a^TGa=\|\sum_i a_ix_i\|^2\geq0$. Multiplying coordinates by labels preserves this property, giving the concavity of the negative quadratic term in the dual.
-:::
-
-### Making a quadratic strictly convex {#self-check-ex-sl-18-2}
-[Ridge makes the matrix invertible](../questions/ex-sl-18-2.qmd): find the two eigenvalues before adding the ridge penalty and the fitted coefficient vector afterwards.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The matrix $X^TX$ has eigenvalues four and zero. Adding $I$ gives eigenvalues five and one, making the quadratic strictly convex. With the supplied response, the ridge estimate is $(4/5,4/5)^T$.
-:::

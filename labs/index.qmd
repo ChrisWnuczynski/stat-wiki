@@ -54,7 +54,7 @@ The confidence is the probability, before the sample is drawn, that the random i
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Laboratories.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/index.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Laboratories.&quot; StatWiki. Last updated 17 November 2026. https://www.statwiki.io/labs/index.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -63,8 +63,8 @@ The confidence is the probability, before the sample is drawn, that the random i
   title = {{Laboratories}},
   year = {2026},
   url = {https://www.statwiki.io/labs/index.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-17},
+  note = {StatWiki, last updated 17 November 2026}
 }</code></pre>
     </div>
   </div>

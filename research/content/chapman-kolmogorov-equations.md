@@ -47,17 +47,3 @@ The probability is \(0.56\). The route through state \(1\) contributes \(0.4\tim
 ## Connections — The distribution after \(n\) steps
 If the row vector \(\pi^{(0)}\) is the distribution of \(X_0\), the distribution of \(X_n\) is \(\pi^{(0)}P^n\), and Chapman–Kolmogorov is the reason \(P^{m+n}\) can be built from \(P^m\) and \(P^n\). A [finite-state Markov chain](finite-state-markov-chain.qmd) is the process whose one-step conditional probabilities are the entries of \(P\). The [limiting distribution](limiting-distribution.qmd) is a different statement: it asks when the rows of \(P^n\) settle, which needs irreducibility and aperiodicity and is not part of the product identity.
 
-## Check yourself
-### After one step
-Starting from state \(1\), what is \(\mathbb{P}(X_1=1)\)? What is \(\mathbb{P}(X_2=1)\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(\mathbb{P}(X_1=1)=0.8\), the \((1,1)\) entry of \(P\). \(\mathbb{P}(X_2=1)=0.72\), the \((1,1)\) entry of \(P^2\). The one-step probability is not the two-step probability.
-:::
-
-### A route of length three
-Using \(P^2_{11}=0.72\) and \(P_{11}=0.8\), and \(P^2_{12}=0.28\) and \(P_{21}=0.4\), give \(\mathbb{P}(X_3=1\mid X_0=1)\).
-
-::: {.callout-tip collapse="true" title="Answer"}
-Condition on the state at time \(2\): \(0.72\times 0.8+0.28\times 0.4=0.576+0.112=0.688\). This is the \((1,1)\) entry of \(P^2 P\), which Chapman–Kolmogorov identifies with \(P^3\).
-:::

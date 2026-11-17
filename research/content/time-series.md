@@ -69,26 +69,6 @@ Forecasts that change the thing being forecast are a different failure. A widely
 ## Connections
 [White noise](white-noise.qmd) is the innovation sequence inside the autoregression, and the series itself when $\phi=0$. [Weak stationarity](weak-stationarity.qmd) is the moment restriction used for the covariance formula. A [simple linear regression](simple-linear-regression.qmd) of one series on time estimates a fixed line; it is the wrong mean for a random walk, whose level is not a function of the date.{{cite:hyndman_athanasopoulos2021}} (§9.1, random walk; §9.3, white-noise boundary)
 
-## Check yourself
-
-1. The path of a random walk is $1,0,0,2$. What is the point forecast of the next value?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The forecast is $2$ at every horizon. Future increments have mean zero, so they do not move the point forecast off the last observation.
-:::
-
-2. For $\phi=1/2$ and $T=4$, is the variance of the sample mean equal to $(4/3)/4=1/3$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. That is the variance for four uncorrelated draws with variance $4/3$. The exact autoregressive variance is $0.6875$, and $0.6875/(1/3)=2.0625$.)
-:::
-
-3. Does sorting $123,39,78,52,110$ into increasing order keep the lag-$1$ correlation?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The recorded order has lag-$1$ correlation about $-0.4671$. The sorted order has about $0.4665$. The mean $80.4$ is the same.
-:::
-
 ## History
 A time series is a sequence of observations measured at successive times, from hourly traffic counts to annual records, and the analysis is a route to prediction. The movement splits into trend, seasonal variation, cyclical fluctuation and irregular variation. W. M. Persons proposed that four-part decomposition in 1919.{{cite:dodge2008}} (p. 536, definition, components and Persons)
 

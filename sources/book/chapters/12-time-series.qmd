@@ -8,7 +8,7 @@ An autoregression of order $1$ writes the recursion below.{{cite:hyndman_athanas
 $$
 X_t=\beta X_{t-1}+\varepsilon_t,
 $$
-with the innovations $\varepsilon_t$ independent of each other. A random walk is the case $\beta=1$, and its variance grows over time.{{cite:meinshausen2022_timeseries}} (§1.3, pp. 6–7) Daily temperature can be persistent, so yesterday's value helps predict today, but a fixed $\beta>1$ makes this recursion explosive rather than encoding a drift toward summer. Seasonal change needs a changing mean or seasonal terms.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §§9.1, 9.3) A Markov chain uses the same one-step dependence idea: the next state depends on the current state and a draw.
+with the innovations $\varepsilon_t$ independent of each other. A random walk is the case $\beta=1$, and its variance grows over time. Daily temperature can be persistent, so yesterday's value helps predict today, but a fixed $\beta>1$ makes this recursion explosive rather than encoding a drift toward summer. Seasonal change needs a changing mean or seasonal terms.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §§9.1, 9.3) A Markov chain uses the same one-step dependence idea: the next state depends on the current state and a draw.
 
 A moving average of order $1$ depends on the previous innovation rather than the previous level.{{cite:hyndman_athanasopoulos2021}} (Ch. 9, §9.4)
 $$
@@ -26,7 +26,7 @@ Without some repetition, a series of length $T$ does not identify a different me
 $$
 \gamma_{t-s}=\mathrm{Cov}(X_s,X_t).
 $$
-The lag-zero value $\gamma_0=\mathrm{Var}(X_t)$ is then constant as well. The autocorrelation is $\gamma_h/\gamma_0$, which lies in $[-1,1]$.{{cite:meinshausen2022_timeseries}} (§1.4, p. 7, autocorrelation and covariance bound) For a Gaussian process, weak stationarity and strict stationarity are the same statement.{{cite:pishro_nik2014}} (§10.1.5) Otherwise weak is weaker.
+The lag-zero value $\gamma_0=\mathrm{Var}(X_t)$ is then constant as well. The autocorrelation is $\gamma_h/\gamma_0$, which lies in $[-1,1]$. For a Gaussian process, weak stationarity and strict stationarity are the same statement.{{cite:pishro_nik2014}} (§10.1.5) Otherwise weak is weaker.
 
 The variogram looks at the change rather than the level. It records the variability of that change over a specified time lag.
 $$
@@ -46,7 +46,7 @@ where the $\varepsilon_t$ are uncorrelated with mean zero and variance $\sigma^2
 
 Every weakly stationary series is a moving average of infinite order, plus a deterministic piece. In practice the mean is subtracted first and put back at the end. The modelling choices are then which of those pieces we keep: is the dependence Markov, or seasonal, or both; is the season only in the mean; are the lags added or multiplied? A multiplicative series is often logged, and then the forecast is on the log scale. Jensen's inequality says $\mathrm{E}(\log X)\neq\log\mathrm{E}(X)$. Exponentiating a forecast of the log is not a forecast of the mean on the original scale.
 
-White noise is the building block inside that sum: its values are uncorrelated with mean zero and constant variance.{{cite:meinshausen2022_timeseries}} (§1.3, p. 5, white-noise definition) Its nonzero-lag autocorrelations vanish, leaving no past linear signal for forecasting its next value.{{cite:meinshausen2022_timeseries}} (§1.3, p. 5, white-noise autocorrelation) The Wold representation uses those innovations as the unpredictable component.{{cite:horak_muller_vrbova1987}} (§1, pp. 337–339) The next chapter is a forecasting application rather than a further derivation of white noise, AR$(p)$, and MA$(q)$.
+White noise is the building block inside that sum: its values are uncorrelated with mean zero and constant variance. Its nonzero-lag autocorrelations vanish, leaving no past linear signal for forecasting its next value. The Wold representation uses those innovations as the unpredictable component.{{cite:horak_muller_vrbova1987}} (§1, pp. 337–339) The next chapter is a forecasting application rather than a further derivation of white noise, AR$(p)$, and MA$(q)$.
 
 ## Exercises
 

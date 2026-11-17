@@ -6,7 +6,7 @@ The [Bayes factor](bayes-06-testing.qmd#def-marginal-likelihood-and-bayes-factor
 
 ## Bayes factors and posterior odds
 
-Consider two candidate models, $M_1$ and $M_2$. Within each, specify a proper prior on its parameters, and specify prior probabilities for the models. Bayes' theorem then gives probabilities conditional on this candidate list and these priors. A candidate can be used in the comparison without being literally true. The resulting probabilities leave out every model omitted from the list{{cite:kass_raftery1995}}.
+Consider two candidate models, $M_1$ and $M_2$. Within each, specify a proper prior on its parameters, and specify prior probabilities for the models. Bayes' theorem then gives probabilities conditional on this candidate list and these priors. A candidate can be used in the comparison without being literally true. The resulting probabilities leave out every model omitted from the list{{cite:kass_raftery1995}} (pp. 773–795).
 
 $$
 \Pr(M_k\given X_{\mathrm{all}})

@@ -54,15 +54,3 @@ At a single covariate value \(x=1\), the same numbers are the linear predictors 
 ## Connections — Ordered labels use a different comparison
 [Ordinal responses](ordinal-responses.qmd) keep the order and model cumulative tails with a shared slope. Nominal labels have no such tail. The [logit link](logit-link.qmd) is the two-category case of the baseline formula, with a single log-odds. Changing which label is called \(0\) rewrites the coefficients and does not change the fitted probabilities.
 
-## Check yourself
-If \(p_1/p_0=2\) and \(p_2/p_0=6\), what is \(p_2/p_1\), and what is \(\log(p_2/p_1)\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-\(p_2/p_1=6/2=3\), so the log-odds equal \(\log 3\). The same number is \(\log 6-\log 2\).
-:::
-
-The linear predictors at \(x=0\) are \(\eta_1=\log 2\) and \(\eta_2=\log 6\), with \(\eta_0=0\). What is \(p_0\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The weights are \(1\), \(2\) and \(6\), summing to \(9\), so \(p_0=1/9\).
-:::

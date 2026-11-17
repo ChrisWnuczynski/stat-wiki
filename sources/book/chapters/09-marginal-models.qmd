@@ -28,7 +28,7 @@ The estimator solves the generalised estimating equations, the dependent version
 
 Yarn was spun at two factories, at low, medium, and high tension, and the number of breaks in a fixed length was recorded, nine replicates of each tension at each factory.{{cite:tippett1950_warp}} Breaks are a count. Yarn from the same factory shares machines, material, and a standard, so the factory is the cluster. Two clusters is a small number for a sandwich. The model is still fitted. The robust column is the one the theory prefers, and it is not a precise standard error from a large number of factories.
 
-An exchangeable working correlation says every pair of looms from the same factory has the same correlation.{{cite:liang_zeger1986}}{{cite:zeger_liang_albert1988}} With a Poisson mean and a log link,
+An exchangeable working correlation says every pair of looms from the same factory has the same correlation.{{cite:liang_zeger1986}} (pp. 13–22){{cite:zeger_liang_albert1988}} (pp. 1049–1060) With a Poisson mean and a log link,
 ```r
 need <- function(pkg) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -74,7 +74,7 @@ The gap here is large for every working model fitted above, so none of them is c
 
 ## Two responses, one person
 
-A longitudinal study repeats the same measurement. A vector regression measures different things on the same unit, and each margin can have its own link and its own variance.{{cite:liang_zeger1986}} Height and arm span, or burn area and death, are not repeated measures of one variable. Write component $k$ on unit $i$ as
+A longitudinal study repeats the same measurement. A vector regression measures different things on the same unit, and each margin can have its own link and its own variance.{{cite:liang_zeger1986}} (pp. 13–22) Height and arm span, or burn area and death, are not repeated measures of one variable. Write component $k$ on unit $i$ as
 $$
 \mathrm{E}(Y_{ik}\mid \vect{X}_{ik})=\mu_k(\vect{X}_{ik}^\top\boldsymbol{\beta}_k),
 \qquad
@@ -98,7 +98,7 @@ $$
 $$
 Age is associated with worse burns and with a higher chance of death. The direction is not the one a purely biological story about fragile infants would have suggested. Older children are the ones who get far enough into a kitchen, or a fire, to be burned this badly. The association is marginal and confounded with exposure.
 
-The working model here was independence: two separate `glm` fits, stacked. The sandwich uses the cross-products of the two residuals on the same child, so the reported standard errors are not the independence standard errors.{{cite:liang_zeger1986}}
+The working model here was independence: two separate `glm` fits, stacked. The sandwich uses the cross-products of the two residuals on the same child, so the reported standard errors are not the independence standard errors.{{cite:liang_zeger1986}} (pp. 13–22)
 
 ![The two burn slopes. The dashed rectangle is the pair of marginal 95% intervals from the standard errors reported above. The ellipse is the joint 95% region for those same standard errors if the slopes were uncorrelated. The sandwich covariance is not reported, so the ellipse drawn here is not rotated. A pair can sit inside the rectangle and outside the ellipse, and the corners of the rectangle sit outside the ellipse.](../figures/burn-ellipse.pdf){#fig-ellipse}
 

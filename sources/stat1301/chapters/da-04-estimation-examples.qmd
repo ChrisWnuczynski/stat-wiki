@@ -52,7 +52,7 @@ The estimates are $\widehat\mu=\overline x=75.975$ and $s=2.58$. The $t$ interva
 
 ## Large samples
 
-When the data are not known to be normal, the central limit theorem still makes $\overline X$ approximately normal for a large sample, and $s$ is close to $\sigma$.{{cite:casella_berger2002}}{{cite:neyman1937}}{{cite:vandervaart1998}}
+When the data are not known to be normal, the central limit theorem still makes $\overline X$ approximately normal for a large sample, and $s$ is close to $\sigma$.{{cite:casella_berger2002}}{{cite:neyman1937}} (pp. 333–380){{cite:vandervaart1998}}
 
 ::: {#def-margin-of-error .definition}
 ## Margin of error

@@ -43,19 +43,3 @@ A dissimilarity measure is an input to the hierarchy. Rescaling one feature chan
 
 A dendrogram does not by itself establish that its groups correspond to distinct generating populations. It summarises a specified dissimilarity and algorithm. The purpose of clustering may be description or prediction, and the interpretation requires the variables and scientific setting.{{cite:dodge2008}} (pp. 83–84, domains and limitations)
 
-## Check yourself
-State the linkage before calculating a cluster dissimilarity.
-
-### Linkage calculations {#self-check-ex-sl-07-1}
-[Linkage by hand](../questions/ex-sl-07-1.qmd): cluster the points $1,2,6,8,15$ by single, complete and average linkage.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The merge heights are $(1,2,4,7)$ for single linkage, $(1,2,7,14)$ for complete linkage and $(1,2,5.5,10.75)$ for average linkage. All three merge $\{1,2\}$, then $\{6,8\}$, then their union, and finally attach fifteen. The topologies agree in this example; the heights differ.
-:::
-
-### Counting the merges {#self-check-ex-sl-07-2}
-[Number of merges](../questions/ex-sl-07-2.qmd): how many pairwise merges take $n$ singleton clusters to one cluster?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Each merge reduces the cluster count by one. Reducing it from $n$ to one therefore takes $n-1$ merges.
-:::

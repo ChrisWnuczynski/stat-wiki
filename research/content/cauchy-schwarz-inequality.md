@@ -64,27 +64,5 @@ Cauchy–Schwarz is not a statement that every correlation is near 1, and it is 
 ## Connections
 The [correlation](correlation.qmd) is the centred form of the inequality, scaled to lie in $[-1,1]$. The [covariance](covariance.qmd) is the inner product of the centred variables. [Chebyshev's inequality](chebyshev-s-inequality.qmd) and [Markov's inequality](markov-s-inequality.qmd) bound tail probabilities rather than inner products. In a [linear regression](gaussian-linear-model.qmd) the residual variance stays non-negative because $\rho^2\le1$.{{cite:durrett2019}} (p. 26, Cauchy–Schwarz){{cite:dodge2008}} (p. 378, inner product and norms)
 
-## Check yourself
-
-### Signs and their sum {#self-check-ex-prob-sign-covariance}
-
-Let $X$ be a fair coin coded $0$ and $1$, and let $Y=1-X$. Find $\Cov(X,Y)$ and say whether Cauchy–Schwarz is an equality.
-
-[Exercise](../questions/ex-prob-sign-covariance.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\E X=\E Y=1/2$ and $XY=0$, so $\Cov(X,Y)=0-(1/2)(1/2)=-1/4$. Also $\Var(X)=\Var(Y)=1/4$, and $(-1/4)^2=(1/4)(1/4)$. Equality holds because $Y=1-X$, an affine function of $X$. The correlation is $-1$.
-:::
-
-### Information for a Poisson mean {#self-check-ex-inf-poisson-information}
-
-The Cramér–Rao bound for an unbiased estimator of a Poisson mean uses Cauchy–Schwarz on the estimator and the score. For one Poisson observation the score for $\lambda$ is $X/\lambda-1$ and the Fisher information is $1/\lambda$. What lower bound does that give for the variance of an unbiased estimator of $\lambda$?
-
-[Exercise](../questions/ex-inf-poisson-information.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-The bound is the reciprocal of the information, $1/(1/\lambda)=\lambda$. The sample mean of one observation is $X$ itself, and $\Var(X)=\lambda$, so the bound is attained. Attainment is the equality case of Cauchy–Schwarz: the unbiased estimator is an affine function of the score.
-:::
-
 ## History
 Durrett presents the inequality as the square case of Hölder's inequality and gives the one-line proof from a quadratic that must stay non-negative. The same relation holds for Euclidean vectors, under the name Cauchy–Schwarz, and the norm of the vector $(12,15,16)$ is 25. Hermann Schwarz's 1885 paper is the classical analysis source of the inequality. The probabilistic form used here is the one Durrett proves for square-integrable random variables.{{cite:durrett2019}} (p. 26, Remark){{cite:dodge2008}} (p. 378, Cauchy–Schwarz inequality and the length-25 example)

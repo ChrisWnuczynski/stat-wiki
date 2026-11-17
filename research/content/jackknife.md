@@ -49,17 +49,3 @@ For the sample mean itself, the deleted estimates average $\bar x$ and the jackk
 The sample variance is unchanged, so the estimated bias remains $s^2/n=5/6$. The squared mean becomes $13^2=169$, and its corrected value is $169-5/6=1009/6\approx168.166667$.
 :::
 
-## Check yourself
-### The mean's standard error {#self-check-ex-sl-09-4}
-[Jackknife for a mean](../questions/ex-sl-09-4.qmd): derive the bias and standard error.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\widehat\theta_{(i)}=\bar x+(\bar x-x_i)/(n-1)$. Averaging makes the second term zero, so estimated bias is zero. The sum of squared deletion deviations is $s^2/(n-1)$; multiplying by $(n-1)/n$ and taking a square root gives $s/\sqrt n$.
-:::
-
-### Correcting a variance bias {#self-check-ex-inf-variance-bias}
-[The biased variance estimator](../questions/ex-inf-variance-bias.qmd): identify its leading bias term.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The estimator is $(n-1)s^2/n$. Its expectation is $(1-1/n)\sigma^2$, so its bias is exactly $-\sigma^2/n$. For this statistic the delete-one bias correction recovers the unbiased sample variance, illustrating cancellation of a first-order term.
-:::

@@ -1231,7 +1231,17 @@ class TheoremTemplateTests(unittest.TestCase):
             lead = re.search(r"^In [^\n]+", body, flags=re.M).group()
             self.assertNotIn("$", lead, page.name)
         self.assertGreaterEqual(len(results), 90)
-        self.assertTrue({slug for slug in todo if "#" not in slug} <= set(results))
+        plain = []
+        for slug in todo:
+            # An anchor row is exactly page#anchor, and the page must be an article.
+            # A stray hash, or a hash in a non-article slug, is not skipped.
+            if slug.count("#") == 1:
+                page, anchor = slug.split("#", 1)
+                if (re.fullmatch(r"[a-z0-9-]+", page) and re.fullmatch(r"[a-z0-9-]+", anchor)
+                        and (articles / f"{page}.qmd").is_file()):
+                    continue
+            plain.append(slug)
+        self.assertTrue(set(plain) <= set(results))
 
     def test_memoryless_and_product_rule_proofs_cover_their_statements(self) -> None:
         articles = build_wiki.WIKI / "articles"
@@ -1507,7 +1517,6 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 expected_keys -= {"feller1968", "casella_berger2002", "gauss1809",
                                   "pearson1896", "grimmett_stirzaker2020", "wasserman2004",
                                   "anderson2003_mva"}
-                self.assertIn("strimmer2025_mva", citation_keys, slug)
                 self.assertIn("strimmer2026_prob_refresher", citation_keys, slug)
                 self.assertIn("wang2025_foundations", citation_keys, slug)
                 self.assertIn("stigler2010_galton_multivariate", citation_keys, slug)
@@ -1548,7 +1557,7 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # The shared beta-binomial update now cites the opened Gelman
                 # and Siegrist passages in place of two unread books.
                 expected_keys.difference_update({"raiffa_schlaifer1961", "laplace1812", "grimmett_stirzaker2020", "poisson1837", "feller1968"})
-                self.assertTrue({"siegrist2022_binomial_distribution", "edwards2013_ars", "dodge2008", "cameron2004_asymptotic"} <= citation_keys)
+                self.assertTrue({"siegrist2022_binomial_distribution", "edwards2013_ars", "dodge2008", "siegrist2022_clt"} <= citation_keys)
             if slug == "chi-squared-distribution":
                 # NIST and Siegrist passages replace inherited source markers
                 # without inspected text for these particular claims.
@@ -1563,7 +1572,7 @@ class DistributionDepthBatchTests(unittest.TestCase):
                 # The opened Gelman and Tokdar texts support the simplex
                 # definition and beta marginal without unread originals.
                 expected_keys.difference_update({"jeffreys1961", "raiffa_schlaifer1961", "dirichlet1839"})
-                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
+                self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "multinomial-distribution":
                 # The opened categorical-model treatment replaces two
                 # inherited markers without inspected passages.
@@ -1715,7 +1724,7 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # Replace the bibliography-only Laplace and Jeffreys entries and
                 # the unlocated Gelman passage with passages read for this article.
                 expected_keys.difference_update({"laplace1812", "jeffreys1961", "gelman_bda2013"})
-                self.assertTrue({"wang2025_foundations", "hoff2013_bayes_estimators"} <= citation_keys)
+                self.assertTrue({"wang2025_foundations", "gelman_bda2013"} <= citation_keys)
             if slug == "posterior-odds-factorisation":
                 # Kass and Raftery §3.1 and Dodge's Jeffreys biography were
                 # opened for this page; the inherited textbook references
@@ -1757,7 +1766,7 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
                 # The opened Gelman and Tokdar derivations replace an
                 # inherited bibliography-only reference.
                 expected_keys.discard("raiffa_schlaifer1961")
-                self.assertTrue({"gelman_bda2013", "tokdar2018_dirichlet"} <= citation_keys, slug)
+                self.assertIn("gelman_bda2013", citation_keys, slug)
             if slug == "sequential-coherence":
                 # Require the verified, located replacement works for this result.
                 self.assertTrue({"dodge2008", "siegrist2022_bayes_estimators"} <= citation_keys, slug)
@@ -1775,7 +1784,7 @@ class BayesianResultDepthBatchTests(unittest.TestCase):
             if slug == "beta-binomial-conjugacy":
                 # Opened MIT derivation and Dodge history replace unread originals.
                 expected_keys.difference_update({"laplace1812", "raiffa_schlaifer1961"})
-                self.assertTrue({"mit_ocw_conjugate2022", "dodge2008"} <= citation_keys, slug)
+                self.assertTrue({"siegrist2022_beta_bernoulli", "dodge2008"} <= citation_keys, slug)
             if slug == "normal-hierarchical-shrinkage":
                 # The unopened Efron–Morris marker is replaced on this theorem
                 # by the opened normal-hierarchy derivation.

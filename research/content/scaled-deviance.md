@@ -49,17 +49,3 @@ Under a Gaussian constant-variance model with zero slope, the exact reference is
 Both residual sums of squares and the variance estimate multiply by $100$, giving estimated dispersion $90$. The numerator and denominator of F have the same factor, so F stays $8$.
 :::
 
-## Check yourself
-### An unknown-variance comparison {#self-check-ex-inf-extra-ss}
-[Dropping a slope](../questions/ex-inf-extra-ss.qmd): form the normalised extra-sum-of-squares ratio.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The reduced residual sum of squares is $4$ and the full value is $0.4$, with one added coefficient and three residual degrees of freedom. Therefore $F=(4-0.4)/(0.4/3)=27$. It exceeds the supplied critical value $10.13$, so the Gaussian-model test rejects a zero slope at level $0.05$.
-:::
-
-### A known-variance comparison {#self-check-ex-inf-glrt-two-means}
-[Two normal means](../questions/ex-inf-glrt-two-means.qmd): calculate the likelihood-ratio statistic at known variance.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The extra sum of squares is $(8\cdot8/16)(15-12)^2=36$. Dividing by known variance $4$ gives $-2\log\Lambda=9$. With one restriction its null reference is $\chi^2_1$, and $9>3.84$ rejects equality at the supplied level. No residual-variance estimate is needed.
-:::

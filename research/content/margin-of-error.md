@@ -37,19 +37,3 @@ The margin scales as $1/\sqrt n$, so halving it requires four times as many obse
 ## Interpretation — Units and confidence levels
 A proportion interval has margin measured on the probability scale. A margin of $0.04$ corresponds to four percentage points; it is not four percent of the point estimate. Increasing the central confidence level increases the critical value and widens the interval at fixed standard error. A confidence percentage specifies a coverage target, while the margin specifies a distance in the parameter's units.{{cite:openintro2019}} (§5.2)
 
-## Check yourself
-Keep the full width, half-width, and assumed critical value distinct.
-
-### Pilot weights {#self-check-ex-da-pilot-width}
-[Narrowing a pilot interval](../questions/ex-da-pilot-width.qmd): use the pilot half-width to plan the new size.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The half-width is $(82.5-59.3)/2=11.6$ at size $100$. Holding the variance estimate and critical value fixed gives $n\geq100(11.6/1)^2=13456$.
-:::
-
-### Weekend sleep {#self-check-ex-da-sleep-sample-size}
-[Hours of sleep](../questions/ex-da-sleep-sample-size.qmd): use the question's fixed normal approximation.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The target size is at least $4(7.39/2)^2=54.6121$. Rounding upward gives $55$. The calculation uses the fixed estimated standard deviation and critical value specified in the question.
-:::

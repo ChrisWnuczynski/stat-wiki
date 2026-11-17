@@ -67,25 +67,5 @@ A finite inflation factor is not a unique substantive decomposition. The fit wit
 ## Connections
 [Simple linear regression](simple-linear-regression.qmd) is the one-predictor case, where there is no second column to be collinear with and the inflation factor is $1$. The [least-squares line](least-squares-line.qmd) is that fit. Exact collinearity is the singular end of the same normal equations. A penalty that shrinks slopes, such as a ridge penalty, changes the estimator; it is not the least-squares solution whose variance the factor describes.{{cite:dodge2008}} (p. 96, least squares under collinearity)
 
-## Check yourself
-
-1. For the worked predictors, what is $1-r^2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$1-0.968=0.032$. The inflation factor is $1/0.032=31.25$.
-:::
-
-2. What happens to the least-squares slopes if $x_2=(2,4,6,8,10)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$x_2=2x_1$ exactly, the determinant is $0$, and there is no unique slope pair. Any coefficient on $x_1$ can be traded against the coefficient on $x_2$ without changing fitted means.
-:::
-
-3. Is the simple slope $0.7$ the partial slope of $x_1$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The partial slope is $-1.5$. The value $0.7$ is $S_{1y}/S_{11}=7/10$ from the regression that ignores $x_2$.
-:::
-
 ## History
 Mathematical collinearity is an exact linear combination, statistical collinearity is an approximate one, and multicollinearity is the name for the strong-correlation case in a regression. The exact case leaves least-squares estimators undefined as a unique solution. The approximate case leaves them defined and able to show considerable variance. A separate entry repeats the approximate definition: a variable almost equal to a linear combination of the others, sometimes met when explanatory variables are strongly correlated.{{cite:dodge2008}} (pp. 96, 362)

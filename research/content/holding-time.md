@@ -31,15 +31,3 @@ The exit rate is $4$ per hour, so the mean hold is $1/4=0.25$ hour. The survival
 ## Connections
 The holding time uses the [memoryless property](memoryless-property.qmd) of the [exponential distribution](exponential-distribution.qmd). The probabilities $q_{ij}/\nu_i$ are the transitions of the embedded jump chain, a discrete-time [Markov chain](discrete-time-markov-chain.qmd) that records the sequence of states and forgets the clock. The shape-$1$ [Weibull distribution](weibull-distribution.qmd) is this exponential lifetime.{{cite:nist_weibull_handbook}} (§8.1.6.2, shape equal to one)
 
-## Check yourself
-**1.** An exit rate of $2$ per hour has already lasted $1$ hour. What is the probability that it lasts at least one further hour?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Memorylessness makes the remaining wait a fresh exponential of rate $2$, so the probability is $e^{-2}\approx 0.1353$. The hour already spent does not appear in the answer.
-:::
-
-**2.** Exit rates $3$ and $1$ leave a state. What is the probability that the rate-$3$ clock rings first, and what is the mean hold?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The total rate is $4$, so the rate-$3$ clock wins with probability $3/4=0.75$. The mean hold is $1/4=0.25$ time unit.
-:::

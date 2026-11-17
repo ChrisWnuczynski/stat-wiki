@@ -1,5 +1,5 @@
 ## Lead context
-A region has a probability under a specified posterior; treating it as a competing model additionally specifies a prior within that region and prior odds.
+A region has a probability under a specified posterior. Treating that region as a competing model additionally specifies a prior within the region and prior odds between models.
 
 ## Motivating example
 A continuous parameter posterior places most mass above a scientific threshold. That answers a question about the parameter within one model. A comparison with an exact point-null model asks a different question because the point must receive positive prior model probability to have positive posterior probability. These two calculations can give quite different numerical answers.{{cite:kass_raftery1995}} (§5.1, pp. 781–782)
@@ -47,17 +47,3 @@ With equal prior model probabilities, $P(M_0\mid x)=165/293\approx0.563140$. Thi
 The continuous posterior gives that point mass zero, so neither region probability changes. With an atom of posterior mass $a>0$ at one half, moving the boundary transfers exactly $a$ from one region probability to the other.
 :::
 
-## Check yourself
-### Deriving a posterior kernel {#self-check-exr-fruit-posterior}
-[Fruit posterior](../questions/exr-fruit-posterior.qmd): identify the gamma shape, rate and mean.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The prior kernel is $\theta^{11}e^{-\theta}$ and the likelihood contributes $\theta^{177}e^{-20\theta}$. Their product is $\theta^{188}e^{-21\theta}$, giving shape $189$, rate $21$ and mean $9$. This lies between prior mean $12$ and maximum likelihood estimate $177/20=8.85$.
-:::
-
-### A boundary with and without an atom {#self-check-exr-who-owns-the-boundary}
-[Who owns the boundary?](../questions/exr-who-owns-the-boundary.qmd): prove the continuous result and give a discrete contrast.
-
-::: {.callout-tip collapse="true" title="Answer"}
-A density integrates to zero over a singleton, so the continuous posterior gives $P(\theta=10\mid x)=0$. Adding or removing that point changes a region integral by zero. In contrast, if a discrete posterior assigns probability $0.3$ to $\theta=10$, changing which hypothesis contains ten changes each region probability by $0.3$ in opposite directions.
-:::

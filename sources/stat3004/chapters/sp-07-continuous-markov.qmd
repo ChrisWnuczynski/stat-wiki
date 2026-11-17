@@ -106,7 +106,7 @@ $$
 e^{tQ}=e^{-\gamma t}\sum_{n=0}^{\infty}\frac{(\gamma t)^n}{n!} R^n.
 $$
 
-A finite continuous-time transition law is a Poisson mixture of the discrete-time powers of $R$.{{cite:jensen1953}}{{cite:norris1997}} Some steps of $R$ are self-transitions inserted so that every state has the same potential exit rate $\gamma$. Those self-transitions are not the jumps of the embedded chain $K$. The matrix $K$ is used when a jump actually occurs. The matrix $R$ is used to write $e^{tQ}$ as an average of discrete chains, which is a practical way to compute $P(t)$ and a precise link between Poisson clocks and continuous-time chains.
+A finite continuous-time transition law is a Poisson mixture of the discrete-time powers of $R$.{{cite:jensen1953}} (pp. 87–91){{cite:norris1997}} Some steps of $R$ are self-transitions inserted so that every state has the same potential exit rate $\gamma$. Those self-transitions are not the jumps of the embedded chain $K$. The matrix $K$ is used when a jump actually occurs. The matrix $R$ is used to write $e^{tQ}$ as an average of discrete chains, which is a practical way to compute $P(t)$ and a precise link between Poisson clocks and continuous-time chains.
 
 ::: {.callout-note}
 ## Key idea

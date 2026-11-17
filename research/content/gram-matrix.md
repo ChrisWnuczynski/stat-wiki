@@ -50,20 +50,3 @@ The eigenvalues are \(0\) and \(2\). At \(c=(1,1)^\top\) the quadratic form is \
 ## Connections — Kernels and margin methods
 A [kernel](kernel.qmd) is the function whose values fill the Gram matrix. [Positive definite matrices](positive-definite-matrix.qmd) are the stricter case in which \(c^\top K_S c>0\) for every \(c\neq 0\); semidefiniteness allows a zero eigenvalue when the mapped points are linearly dependent. The [soft-margin primal](soft-margin-primal.qmd) and the [hard-margin dual](hard-margin-dual.qmd) replace each feature inner product by a kernel entry, which is why the dual is written entirely in terms of \(K_S\).{{cite:hastie_esl2009}} (Ch. 12, §12.3, pp. 424 and 437)
 
-## Check yourself
-### A diagonal feature map
-Two inputs map to \(\phi(x_1)=(2,0)\) and \(\phi(x_2)=(0,3)\). Write the Gram matrix and its eigenvalues.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The products are \(4\), \(0\) and \(9\), so \(K_S=\operatorname{diag}(4,9)\). The eigenvalues are \(4\) and \(9\). The off-diagonal zeros record orthogonal features.
-:::
-
-### A coefficient that cancels
-Using the three-point matrix in the worked example, take \(c=(1,1,-1)^\top\). Compute \(c^\top K_S c\), and say what that number means for the mapped points.
-
-::: {.callout-tip collapse="true" title="Answer"}
-\[
-c^\top K_S c=\bigl\|(1,0)+(0,1)-(1,1)\bigr\|^2=\|(0,0)\|^2=0.
-\]
-The three feature vectors with these coefficients sum to the zero vector, so the quadratic form contributes nothing even though \(c\) itself is not zero.
-:::

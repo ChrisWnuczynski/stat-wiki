@@ -33,18 +33,3 @@ The one-step probability $P_{00}=1/2$ is neither the eventual return probability
 The first return occurs at time $2$ with certainty. The possible return lengths are the positive even integers, so the period is $2$. The stationary mass at state $0$ is $1/2$.
 :::
 
-## Check yourself
-
-### A return without a self-loop {#self-check-depth-return-vs-selfloop}
-[A return without staying put](../questions/depth-return-vs-selfloop.qmd): must recurrence imply a positive probability of staying put?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. Deterministic alternation returns after two steps with probability one and has zero probability of staying put for one step.
-:::
-
-### Following a stationary law {#self-check-ex-sp-weather-two-step}
-[Two steps and the stationary law](../questions/ex-sp-weather-two-step.qmd): compute the indicated two-step transition probability and stationary distribution.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The two possible intermediate states give $(P^2)_{12}=0.9(0.1)+0.1(0.6)=0.15$. Stationarity requires $0.1\pi_1=0.4\pi_2$ and $\pi_1+\pi_2=1$, giving $(0.8,0.2)$.
-:::

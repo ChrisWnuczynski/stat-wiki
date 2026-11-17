@@ -10,7 +10,7 @@ $$
 \Lambda=\frac{\sup_{\theta\in\Omega_0}L(\theta)}{\sup_{\theta\in\Omega_1}L(\theta)}.
 $$
 
-The numerator is the largest likelihood allowed by the null. The denominator is the largest likelihood allowed by the alternative. When the null set sits inside the alternative set, the denominator is the unrestricted maximum and $\Lambda\le 1$. Small $\Lambda$ means the null cannot reach the fit of the larger model. The generalised likelihood-ratio test rejects $H_0$ when $\Lambda$ is smaller than a threshold chosen to control the type I error.{{cite:siegrist2022_lrt}} (§9.5, Basic Theory){{cite:taboga2021_lrt}} (§ “The likelihood ratio statistic”)
+The numerator is the largest likelihood allowed by the null. The denominator is the largest likelihood allowed by the alternative. When the null set sits inside the alternative set, the denominator is the unrestricted maximum and $\Lambda\le 1$. Small $\Lambda$ means the null cannot reach the fit of the larger model. The generalised likelihood-ratio test rejects $H_0$ when $\Lambda$ is smaller than a threshold chosen to control the type I error.{{cite:siegrist2022_lrt}} (§9.5, Basic Theory)
 
 For a normal mean with known variance the supremum under $H_0:\mu=\mu_0$ is the likelihood at $\mu_0$, and the supremum under $H_1:\mu\ne\mu_0$ is the likelihood at $\overline X$. The ratio is a monotone function of $|\overline X-\mu_0|/(\sigma/\sqrt n)$, so the test is the two-sided $z$ test. Nothing new happens until a parameter remains free under the null.
 
@@ -30,7 +30,7 @@ $$
 -2\log\Lambda\xrightarrow{d}\chi^2_r.
 $$
 
-The degrees of freedom are the number of restrictions, not the number of observations.{{cite:wilks1938}} A test of one coefficient has $r=1$ and is compared with $\chi^2_1$. A test that $J$ normal means are equal, with a common unknown variance, imposes $J-1$ restrictions and is compared with $F$, which is the exact finite-sample law; the chi-squared limit is what remains after the unknown variance is replaced by a consistent estimate and $n$ grows.
+The degrees of freedom are the number of restrictions, not the number of observations.{{cite:wilks1938}} (pp. 60–62) A test of one coefficient has $r=1$ and is compared with $\chi^2_1$. A test that $J$ normal means are equal, with a common unknown variance, imposes $J-1$ restrictions and is compared with $F$, which is the exact finite-sample law; the chi-squared limit is what remains after the unknown variance is replaced by a consistent estimate and $n$ grows.
 
 The theorem is a large-sample statement. An exact pivot, when one exists, is preferable: the one-sample $t$ statistic is a monotone function of the likelihood ratio and its null distribution is $t_{n-1}$ for every $n$, not merely approximately $\Normal(0,1)$. The chi-squared limit is what justifies referring $-2\log\Lambda$ to $\chi^2_r$ for a multinomial, a logistic regression, or any other regular model whose exact null distribution is intractable.{{cite:vandervaart1998}}{{cite:lehmann_romano2005}} It fails when the null puts a parameter on the boundary, the usual example being a variance component tested at zero. The printed tail probability is then conservative relative to the correct mixture of chi-squared laws.
 

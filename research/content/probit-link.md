@@ -59,3 +59,7 @@ A probit coefficient is not an odds ratio; exponentiating it does not give a con
 ## Connections
 
 The [logit link](logit-link.qmd) models log-odds and often gives similar central probabilities on a different coefficient scale. The [complementary log-log link](complementary-log-log-link.qmd) is asymmetric in its tails. The [normal distribution](normal-distribution.qmd) supplies $\Phi$ and $\varphi$, while the [generalised linear model](generalised-linear-model.qmd) framework separates response family, linear predictor and link.
+
+Probit, logit and complementary log-log links are three maps from a probability to a linear predictor for a binary or ordinal response.{{cite:mccullagh1980}} (pp. 109–127)
+
+The probit link is the standard normal quantile function.{{cite:nelder_wedderburn1972}} (§3.3, pp. 379–380)

@@ -29,18 +29,3 @@ For a smooth invertible parameter transformation, the density on the grid is $q_
 
 After drawing hyperparameters, independently drawing the remaining parameters from their conditional posterior completes one draw from the approximating joint model. For a beta–binomial hierarchy this gives $\theta_j\mid\alpha,\beta,y\sim\operatorname{Beta}(y_j+\alpha,n_j-y_j+\beta)$. Independence between repetitions comes from fresh independent random inputs at every stage. It differs from constructing a Markov chain whose successive states are dependent.{{cite:downey2020_thinkbayes2}} (§18.4, beta–binomial conjugacy; Ch. 19, MCMC)
 
-## Check yourself
-
-### Sampling a two-dimensional table {#self-check-exr-sample-from-a-grid}
-[Sampling from a two-dimensional grid](../questions/exr-sample-from-a-grid.qmd): obtain 100 independent cell draws.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Normalise the nonnegative cell weights, flatten the table and compute cumulative probabilities. For each of 100 fresh independent uniforms, select the first cumulative probability at least as large as the uniform and map its index back to the two grid coordinates. Optional within-cell jitter changes the representation inside cells, while preserving their probabilities.
-:::
-
-### A discrete credible set {#self-check-exr-credible-discrete-hpd}
-[A discrete highest-probability set](../questions/exr-credible-discrete-hpd.qmd): find a smallest set with at least 80% posterior probability.
-
-::: {.callout-tip collapse="true" title="Answer"}
-For probabilities $(0.5,0.3,0.2)$ on $(1,2,3)$, the set $\{1,2\}$ has probability $0.8$. No singleton reaches the target. Discrete probability jumps can make other target levels unattainable exactly, and tied probabilities require a selection convention.
-:::

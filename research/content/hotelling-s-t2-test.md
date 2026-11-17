@@ -65,25 +65,5 @@ The $F$ calibration is a normal-sample result. A long-tailed vector sample can h
 ## Connections
 The [one-sample $t$ test](one-sample-t-test.qmd) is the case $p=1$, with $T^2=t^2$. The [$F$ distribution](f-distribution.qmd) supplies the critical value after the factor $(n-p)/((n-1)p)$. A [sample covariance](mean-vector-and-covariance-matrix.qmd) that is not invertible is the case the statistic does not cover.
 
-## Check yourself
-
-1. For $n=6$, $p=2$, mean $(1,1)$ and $S=2I_2$, what is the transformed statistic?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$2.4$. Here $T^2=6$ and the factor is $4/10=0.4$.
-:::
-
-2. Does $2.4$ exceed the $0.95$ quantile of $F_{2,4}$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. That quantile is $6.944$. The upper tail probability of $2.4$ is $0.2066$.
-:::
-
-3. When $p=1$, $n=5$, $\bar x=2$ and $s=1$, what is $T^2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$20$, which equals $t^2$. The $F$ factor is $1$ in this one-dimensional case, so the transformed statistic is also $20$.
-:::
-
 ## History
 The one-dimensional reduction shows why the statistic carries Student's name into several dimensions: $T^2$ is $t^2$ when $p=1$. The $F$ quantiles used for the two-dimensional numerical comparison are the $0.95$ point $6.944$ of $F_{2,4}$ and the tail probability $0.2066$ at $2.4$. Those are properties of the $F$ family. The normal-sample argument that the transformed $T^2$ follows that family is the content of the multivariate derivation; the algebra checked here is the quadratic form and the one-dimensional identity.

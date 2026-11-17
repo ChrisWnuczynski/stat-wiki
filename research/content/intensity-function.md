@@ -23,22 +23,3 @@ Take $\lambda(t)=2t$ for $t\ge0$, so $\Lambda(t)=t^2$. The first two hours have 
 Solve $e^{-[(2+w)^2-4]}=1/2$. The nonnegative solution is $w=\sqrt{4+\log2}-2=0.166367$.
 :::
 
-## Check yourself
-
-Use the definitions and calculations above to work through these questions.
-
-### Counts under a constant rate {#self-check-ex-sp-poisson-half-hour}
-
-[Counts under a constant rate](../questions/ex-sp-poisson-half-hour.qmd). Compute the count and first-wait probabilities.
-
-::: {.callout-tip collapse="true" title="Answer"}
-With rate three per hour, a half-hour count has mean $1.5$, so the probability of two is $e^{-1.5}1.5^2/2$. A first wait above one third of an hour has probability $e^{-1}$.
-:::
-
-### Stationary increments and changing levels {#self-check-ex-sp-increments-and-levels}
-
-[Stationary increments and changing levels](../questions/ex-sp-increments-and-levels.qmd). Distinguish the two distributions.
-
-::: {.callout-tip collapse="true" title="Answer"}
-A constant-rate process has $N(t+h)-N(t)\sim\operatorname{Poisson}(\lambda h)$ for every start time. Its level $N(t)\sim\operatorname{Poisson}(\lambda t)$ still depends on $t$.
-:::

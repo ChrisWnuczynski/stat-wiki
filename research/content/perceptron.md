@@ -44,20 +44,3 @@ Its augmented vector is $(1,1,0)$ with squared length two. The score rises from 
 
 A nonlinear feature map can make a threshold linear in the features while nonlinear in the measured inputs. Multiple layers likewise compose simple units into a richer function. Changing the representation changes which labelled samples are separable; it does not follow merely from running more corrections with a fixed representation. The modern multilayer construction is treated separately from the historical perceptron's connectionist formulation.{{cite:goodfellow_bengio_courville2016}} (§6.1, pp. 166–170){{cite:rosenblatt1958}} (pp. 387–389)
 
-## Check yourself
-
-### [Perceptron by hand](../questions/ex-sl-14-4.qmd) {#self-check-ex-sl-14-4}
-
-Why do the final boundary scores of zero in the worked calculation count as class one?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The rule explicitly uses $o=1$ when the score is at least zero. Changing equality to class zero changes the updates and can change the final weights.
-:::
-
-### [A decision boundary](../questions/ex-sl-14-3.qmd) {#self-check-ex-sl-14-3}
-
-For $w=(2,-1)$ and $b=-1$, classify $(1,0)$, $(0,0)$ and $(1,2)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-The scores are $1,-1,-1$, giving classes $1,0,0$. The boundary is $x_2=2x_1-1$, with class one on or below it, at distance $1/\sqrt5$ from the origin.
-:::

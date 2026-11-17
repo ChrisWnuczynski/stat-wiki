@@ -52,20 +52,3 @@ $p\approx 0.250426$ and $U\approx -0.001706$. The score is still negative, and $
 ## Connections — Closed roots and weighted least squares
 When the score is linear, as it is for a normal [identity link](identity-link.qmd), one Newton step is the whole fit. A [Poisson](poisson-distribution.qmd) mean with the log link, or a binomial probability with the [logit link](logit-link.qmd), leaves a nonlinear score, and the same tangent update is repeated. [Maximum likelihood in a GLM](maximum-likelihood-in-a-glm.qmd) is that iteration applied to the GLM score. The algorithm can diverge when the likelihood has no finite maximizer, which is what [complete separation](complete-separation.qmd) does to a logistic fit.
 
-## Check yourself
-
-### Derivative of the logistic function {#self-check-ex-sl-10-1}
-
-For $\sigma(\eta)=1/(1+e^{-\eta})$, show $\sigma'(\eta)=\sigma(\eta)(1-\sigma(\eta))$ and $\sigma(-\eta)=1-\sigma(\eta)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-$\sigma'(\eta)=e^{-\eta}/(1+e^{-\eta})^2=\sigma(\eta)(1-\sigma(\eta))$. Also $\sigma(-\eta)=1/(1+e^{\eta})=e^{-\eta}/(1+e^{-\eta})=1-\sigma(\eta)$. The first identity is the weight in the logistic Hessian.
-:::
-
-### Complete separation {#self-check-ex-sl-10-5}
-
-For $x=(1,2,3,4)$ and $y=(0,0,1,1)$, the path $\beta_1=s$, $\beta_0=-2.5s$ sends the logistic log-likelihood up to $0$ as $s\to\infty$. What does that say about a finite maximum?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No finite coefficient vector maximises the log-likelihood: along this path it increases toward $0$ and never attains $0$. Strict concavity does not by itself guarantee a finite root of the score. Newton’s method then has no finite stationary point to find.
-:::

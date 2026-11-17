@@ -13,7 +13,7 @@ A direction needs both an orientation and a scale convention. Without the scale 
 ::: {#def-sl-03-principal-components .definition}
 ## Principal component directions and scores
 
-The first principal component direction is the unit vector $\mathbf{a}_1\in\R^p$ along which the sample variance of the data is largest. The first principal component scores are the projections of the observations onto $\mathbf{a}_1$, the dot products $\mathbf{a}_1^\top\mathbf{x}_i$. The second principal component direction $\mathbf{a}_2$ is the unit vector orthogonal to $\mathbf{a}_1$ along which the sample variance is largest subject to that constraint. The third is orthogonal to the first two, and so on until $p$ directions, and the $p$ corresponding sets of scores, are defined{{cite:hotelling1933_pca}}{{cite:pearson1901_pca}}{{cite:anderson2003_mva}}.
+The first principal component direction is the unit vector $\mathbf{a}_1\in\R^p$ along which the sample variance of the data is largest. The first principal component scores are the projections of the observations onto $\mathbf{a}_1$, the dot products $\mathbf{a}_1^\top\mathbf{x}_i$. The second principal component direction $\mathbf{a}_2$ is the unit vector orthogonal to $\mathbf{a}_1$ along which the sample variance is largest subject to that constraint. The third is orthogonal to the first two, and so on until $p$ directions, and the $p$ corresponding sets of scores, are defined{{cite:hotelling1933_pca}} (pp. 498–520){{cite:pearson1901_pca}} (pp. 559–572){{cite:anderson2003_mva}}.
 
 :::
 
@@ -53,7 +53,7 @@ $$
 S\mathbf{a}_1=\lambda\mathbf{a}_1.
 $$
 
-The stationary points are the eigenvectors of $S$, and the multipliers are the eigenvalues.{{cite:strimmer2025_mva}} (Ch. 3, §3.5, “PCA transformation”) Substitute a stationary point back into the objective:
+The stationary points are the eigenvectors of $S$, and the multipliers are the eigenvalues.{{cite:hotelling1933_pca}} (pp. 498–520) Substitute a stationary point back into the objective:
 
 $$
 \mathbf{a}_1^\top S\mathbf{a}_1=\lambda\,\mathbf{a}_1^\top\mathbf{a}_1=\lambda.
@@ -66,13 +66,13 @@ A second direction that is not constrained will select the same eigenvector agai
 ::: {#thm-sl-03-principal-axes .theorem}
 ## Principal component directions
 
-Let $S=\Gamma\Lambda\Gamma^\top$ with $\lambda_1\ge\cdots\ge\lambda_p\ge 0$ and $\Gamma=(\boldsymbol{\gamma}_1,\ldots,\boldsymbol{\gamma}_p)$ orthogonal. The $j$th principal component direction is $\mathbf{a}_j=\boldsymbol{\gamma}_j${{cite:hotelling1933_pca}}. The $j$th principal component $Y_j=\boldsymbol{\gamma}_j^\top\mathbf{X}$ has sample variance $\lambda_j$. Distinct components are uncorrelated, and the total variance is preserved:
+Let $S=\Gamma\Lambda\Gamma^\top$ with $\lambda_1\ge\cdots\ge\lambda_p\ge 0$ and $\Gamma=(\boldsymbol{\gamma}_1,\ldots,\boldsymbol{\gamma}_p)$ orthogonal. The $j$th principal component direction is $\mathbf{a}_j=\boldsymbol{\gamma}_j${{cite:hotelling1933_pca}} (pp. 498–520). The $j$th principal component $Y_j=\boldsymbol{\gamma}_j^\top\mathbf{X}$ has sample variance $\lambda_j$. Distinct components are uncorrelated, and the total variance is preserved:
 
 $$
 \sum_{j=1}^p\Var(Y_j)=\sum_{j=1}^p\lambda_j=\operatorname{tr}(S)=\sum_{j=1}^p s_{jj}.
 $$
 
-{{cite:hotelling1933_pca}}{{cite:anderson2003_mva}}
+{{cite:hotelling1933_pca}} (pp. 498–520){{cite:anderson2003_mva}}
 :::
 
 Any unit vector can be written $\mathbf{a}=\Gamma\mathbf{b}$ with $\mathbf{b}=\Gamma^\top\mathbf{a}$ and $\mathbf{b}^\top\mathbf{b}=1$. Then
@@ -115,14 +115,14 @@ That value is the smallest residual attainable by any rank-$k$ linear approximat
 
 ## Choosing components
 
-The proportion of variance explained by component $j$ is $\lambda_j/\sum_k\lambda_k$, and the proportion explained by the first $k$ components is the corresponding partial sum{{cite:hotelling1933_pca}}{{cite:anderson2003_mva}}. A common rule keeps the smallest $k$ that reaches a stated fraction of the total, for example $90\%$, $95\%$, or $99\%$. The fraction is a choice about residual squared error. The rule is computed from the explanatory covariance alone.
+The proportion of variance explained by component $j$ is $\lambda_j/\sum_k\lambda_k$, and the proportion explained by the first $k$ components is the corresponding partial sum{{cite:hotelling1933_pca}} (pp. 498–520){{cite:anderson2003_mva}}. A common rule keeps the smallest $k$ that reaches a stated fraction of the total, for example $90\%$, $95\%$, or $99\%$. The fraction is a choice about residual squared error. The rule is computed from the explanatory covariance alone.
 
 A component can explain little predictor variance and still be highly predictive of the response. The exercise on a low-variance predictor constructs exactly that situation. Variance explained is a reconstruction criterion, not a general measure of predictive usefulness. If prediction is the goal, choose the number of components using validation inside the modelling pipeline{{cite:hastie_esl2009}}. Estimate all preprocessing on the training folds, and leave the final test set for assessment.
 
 ::: {#rem-sl-03-scaling .remark}
 ## Scaling
 
-Changing metres to millimetres multiplies a coordinate by $1000$ and its variance by $10^6$. Covariance principal components can therefore change even though the physical observations have not changed{{cite:anderson2003_mva}}. Standardising each nonconstant coordinate to unit variance gives correlation principal components{{cite:hotelling1933_pca}}{{cite:anderson2003_mva}}. This chooses equal weight per standardised coordinate, which may or may not suit the scientific question. It is a modelling choice. Record the choice, and reuse the training means and scales for new observations.
+Changing metres to millimetres multiplies a coordinate by $1000$ and its variance by $10^6$. Covariance principal components can therefore change even though the physical observations have not changed{{cite:anderson2003_mva}}. Standardising each nonconstant coordinate to unit variance gives correlation principal components{{cite:hotelling1933_pca}} (pp. 498–520){{cite:anderson2003_mva}}. This chooses equal weight per standardised coordinate, which may or may not suit the scientific question. It is a modelling choice. Record the choice, and reuse the training means and scales for new observations.
 
 :::
 
@@ -214,7 +214,7 @@ Component  Eigenvalue  Cumulative percent
 
 A rule that keeps $90\%$ of the variance keeps six components, because the cumulative proportion first exceeds $90$ at component $6$ ($88.9$ then $93.2$). A rule that keeps $75\%$ keeps three. Keeping every eigenvalue above the average, here $1$, also keeps three, since the trace of a correlation matrix equals its dimension and the average eigenvalue is $1$. None of these cutoffs is best for every purpose, and none of them sees a response. Each of them answers the reconstruction problem, with a chosen fraction of $\operatorname{tr}(S)$.
 
-A scree plot offers a visual heuristic: look for a point after which additional eigenvalues contribute relatively little{{cite:cattell1966}}. The cumulative percentages on this correlation are about $39$, $62$, $75$, $83$, $89$, $93$, $97$ and $100$. A bend can be ambiguous or absent, and it does not validate a predictive model{{cite:cattell1966}}{{cite:hastie_esl2009}}. For prediction, select the number of components using a validation set or an inner cross-validation. Keep the final test set untouched. Using the same observations both to choose the number of components and to assess the fit leaves no untouched assessment sample.
+A scree plot offers a visual heuristic: look for a point after which additional eigenvalues contribute relatively little{{cite:cattell1966}} (pp. 245–276). The cumulative percentages on this correlation are about $39$, $62$, $75$, $83$, $89$, $93$, $97$ and $100$. A bend can be ambiguous or absent, and it does not validate a predictive model{{cite:cattell1966}} (pp. 245–276){{cite:hastie_esl2009}}. For prediction, select the number of components using a validation set or an inner cross-validation. Keep the final test set untouched. Using the same observations both to choose the number of components and to assess the fit leaves no untouched assessment sample.
 
 ## The singular value decomposition
 
@@ -238,7 +238,7 @@ $$
 S=\frac{1}{n-1}V E U^\top U E V^\top=\frac{1}{n-1}V E^2 V^\top.
 $$
 
-Thus the nonzero eigenvalues of $S$ are $e_j^2/(n-1)$, and their directions are the columns of $V${{cite:golub_vanloan2013}}{{cite:eckart_young1936}}. If $r<p$, complete these columns to an orthonormal basis of the zero-variance directions when a full $p$-dimensional basis is wanted. The nonzero score columns are
+Thus the nonzero eigenvalues of $S$ are $e_j^2/(n-1)$, and their directions are the columns of $V${{cite:golub_vanloan2013}}{{cite:eckart_young1936}} (pp. 211–218). If $r<p$, complete these columns to an orthonormal basis of the zero-variance directions when a full $p$-dimensional basis is wanted. The nonzero score columns are
 
 $$
 \mathbf{X}V=UEV^\top V=UE.
@@ -287,7 +287,7 @@ Covariance  0.925 0.053 0.017 0.005
 Correlation 0.730 0.229 0.037 0.005
 ```
 
-The first two standardised components explain $95.8\%$ of the total standardised variance: the partial sum of the eigenvalues, divided by the trace, before the row is rounded for display{{cite:hotelling1933_pca}}{{cite:anderson2003_mva}}{{cite:hastie_esl2009}}. The leading two correlation loadings, rounded to three decimals, are
+The first two standardised components explain $95.8\%$ of the total standardised variance: the partial sum of the eigenvalues, divided by the trace, before the row is rounded for display{{cite:hotelling1933_pca}} (pp. 498–520){{cite:anderson2003_mva}}{{cite:hastie_esl2009}}. The leading two correlation loadings, rounded to three decimals, are
 
 ```text
                 PC1     PC2

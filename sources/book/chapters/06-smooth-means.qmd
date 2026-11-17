@@ -6,7 +6,7 @@ Sometimes nothing in the science names it. Dosage and exposure want a logarithm 
 
 ## Lidar
 
-The lidar return takes $Y$ to be the log ratio of received light to emitted light, and $x$ the range in feet.{{cite:holst1996_lidar}}{{cite:ruppert_wand_carroll2003}} A perfect return would sit at $0$. Some points sit above $0$ because the room is not dark: the sensor records the laser plus whatever else is shining. Out to roughly $500$ or $550$ feet the mean is flat. Past that threshold it drops, sharply, and the scatter widens as the mean falls. A laser gets weaker with distance and it gets noisier. The variance is a GLM problem, and we already know how to write $\mathrm{Var}=\phi V(\mu)$. The mean is not a quadratic we would have written down before seeing the plot, and we would not want to have to name the threshold.
+The lidar return takes $Y$ to be the log ratio of received light to emitted light, and $x$ the range in feet.{{cite:holst1996_lidar}} (pp. 401–416){{cite:ruppert_wand_carroll2003}} A perfect return would sit at $0$. Some points sit above $0$ because the room is not dark: the sensor records the laser plus whatever else is shining. Out to roughly $500$ or $550$ feet the mean is flat. Past that threshold it drops, sharply, and the scatter widens as the mean falls. A laser gets weaker with distance and it gets noisier. The variance is a GLM problem, and we already know how to write $\mathrm{Var}=\phi V(\mu)$. The mean is not a quadratic we would have written down before seeing the plot, and we would not want to have to name the threshold.
 
 ![Lidar log-ratio against range. The narrow window follows the noise. The 25-foot window keeps the drop. The 100-foot window smears it, and the scatter widens once the mean has fallen.](../figures/lidar.pdf){#fig-lidar}
 
@@ -16,14 +16,14 @@ A moving window is the first smoother you are likely to have seen.{{cite:hastie_
 
 Green and Silverman's formulation is the clean one, even though we no longer compute it with a knot at every $x$. Keep the exponential family. Replace the linear predictor by an unknown smooth function $g(x)$, and keep the canonical link, so the mean is $-c'(g(x))$. For the normal that is $g(x)$ itself. For the Poisson it is $\exp(g(x))$, which stays positive whatever $g$ does. For the Bernoulli it is the expit of $g(x)$, which stays inside $(0,1)$. For the gamma the canonical choice is $1/g(x)$, and that still requires $g$ not to change sign. You may use a log link for the gamma instead. Nothing forces the canonical link once you have decided the mean is smooth rather than linear.
 
-Maximise the log-likelihood and charge for curvature.{{cite:reinsch1967}}{{cite:green_silverman1994}}
+Maximise the log-likelihood and charge for curvature.{{cite:reinsch1967}} (pp. 177–183){{cite:green_silverman1994}}
 $$
 \sum_{i=1}^n\bigl\{y_i g(x_i)-c(g(x_i))\bigr\}
 -\frac{\lambda}{2}\int \{g''(x)\}^2\,\mathrm{d}x.
 $$
 The first piece wants $g$ to pass through the data. The integral of the squared second derivative is large when the curve turns often. A straight line has second derivative zero and pays nothing. A sine wave pays on every oscillation. $\lambda$ is the exchange rate between fidelity and smoothness. The half is cosmetic: for the normal likelihood it cancels the usual factor of one half.
 
-When a finite maximiser exists for fixed $\lambda>0$, it is a cubic spline with a knot at each distinct $x_i$.{{cite:reinsch1967}}{{cite:green_silverman1994}}{{cite:wood2017}} Inside each interval the function is a cubic. At each knot the function, the first derivative, and the second derivative agree from the left and the right. Your eye can see those three. It cannot see a jump in the third derivative, which is why a cubic, rather than a higher piecewise polynomial, is the one this penalty produces. The joined cubic pieces allow local bending while the shared value and derivatives keep the fitted curve smooth across the full range of observations.
+When a finite maximiser exists for fixed $\lambda>0$, it is a cubic spline with a knot at each distinct $x_i$.{{cite:reinsch1967}} (pp. 177–183){{cite:green_silverman1994}}{{cite:wood2017}} Inside each interval the function is a cubic. At each knot the function, the first derivative, and the second derivative agree from the left and the right. Your eye can see those three. It cannot see a jump in the third derivative, which is why a cubic, rather than a higher piecewise polynomial, is the one this penalty produces. The joined cubic pieces allow local bending while the shared value and derivatives keep the fitted curve smooth across the full range of observations.
 
 ![The roughness penalty $\lambda\int\{g''(x)\}^2\,\mathrm{d}x$ in Gaussian squared-error fitting. With distinct observed $x$ values, a vanishing penalty approaches the interpolating cubic spline; a very large penalty leaves the least-squares straight line; an intermediate penalty follows the trend and ignores the noise.](../figures/06-smooth-means-roughness-penalty.pdf){#fig-roughness-penalty}
 

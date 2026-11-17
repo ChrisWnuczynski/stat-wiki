@@ -5462,20 +5462,6 @@
         "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35f.htm"
       }
     },
-    "nist_chisq_gof": {
-      "authors": [
-        "NIST/SEMATECH"
-      ],
-      "year": 2026,
-      "title": "Chi-Square Goodness-of-Fit Test",
-      "kind": "book",
-      "publisher": "e-Handbook of Statistical Methods",
-      "url": "https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm",
-      "verification": {
-        "source": "archival_url",
-        "id": "https://itl.nist.gov/div898/handbook/eda/section3/eda35f.htm"
-      }
-    },
     "nist_chisq_handbook": {
       "authors": [
         "NIST/SEMATECH"
@@ -10599,7 +10585,7 @@
       "issue": "393",
       "pages": "82–86",
       "doi": "10.1080/01621459.1986.10478240",
-      "url": "https://www.math.mcgill.ca/dstephens/680/Handouts/OldPDFs/TierneyKadane-1986-JASA.pdf",
+      "url": "https://doi.org/10.1080/01621459.1986.10478240",
       "verification": {
         "source": "crossref",
         "id": "10.1080/01621459.1986.10478240"

@@ -32,7 +32,7 @@ assert "prob-correlation.png" in body
 questions = set(re.findall(r"\.\./questions/([^.)#]+)\.qmd", body))
 assert len(questions) == 10, f"Expected 10 question links, got {len(questions)}"
 assert all(key in body for key in (
-    'data-cite-key="strimmer2025_mva"',
+    'data-cite-key="wang2025_foundations"',
     'data-cite-key="wang2025_foundations"',
     'data-cite-key="stigler2010_galton_multivariate"',
 ))

@@ -10,7 +10,7 @@ K-means asks for a chosen number $K$ of centres and minimises a within-cluster s
 
 ## The criterion
 
-Give each of $K$ centres a position, then assign each observation to its nearest centre. Now move each centre to the mean of its assigned observations. Those two operations are Lloyd's algorithm{{cite:lloyd1982}}. Squared Euclidean distance makes the mean the right update{{cite:hastie_esl2009}}{{cite:macqueen1967}}. The identity below explains why. The resulting cells are convex polyhedra, not necessarily spheres. The method tends to suit compact groups of comparable spread better than elongated groups or nested rings.
+Give each of $K$ centres a position, then assign each observation to its nearest centre. Now move each centre to the mean of its assigned observations. Those two operations are Lloyd's algorithm{{cite:lloyd1982}} (pp. 129–137). Squared Euclidean distance makes the mean the right update{{cite:hastie_esl2009}}{{cite:macqueen1967}}. The identity below explains why. The resulting cells are convex polyhedra, not necessarily spheres. The method tends to suit compact groups of comparable spread better than elongated groups or nested rings.
 
 Distance decides how much each coordinate matters. Multiplying one variable by ten multiplies its contribution to squared distance by one hundred. Subtracting a constant changes nothing. Standardising to variance one gives each variable the same marginal scale, and that is a modelling choice, not a mathematical requirement. Variables measured in the same units can still deserve different weights. For iris, compare the scientific meaning of absolute centimetre differences with differences measured in standard deviations before choosing the metric.
 
@@ -101,7 +101,7 @@ $$
 
 2. Update the centres: $\mathbf{m}_k\leftarrow\bar{\mathbf{x}}_k$, the mean of the observations assigned to $k$.
 
-Stop when the assignments of observations to clusters do not change{{cite:lloyd1982}}{{cite:hastie_esl2009}}{{cite:james_islr2021}}.
+Stop when the assignments of observations to clusters do not change{{cite:lloyd1982}} (pp. 129–137){{cite:hastie_esl2009}}{{cite:james_islr2021}}.
 
 :::
 
@@ -112,7 +112,7 @@ Write the objective as a function of two arguments, assignments and centres. Wit
 ::: {#prp-sl-04-descent .proposition}
 ## Descent of Lloyd's algorithm
 
-Each step of the algorithm does not increase $\widetilde W${{cite:lloyd1982}}{{cite:hastie_esl2009}}. With the tie convention above and nonempty clusters throughout, the algorithm stops after finitely many assignment changes at a Lloyd fixed point. This is an optimum with respect to each of the two alternating steps separately. It need not be a global optimum{{cite:james_islr2021}}.
+Each step of the algorithm does not increase $\widetilde W${{cite:lloyd1982}} (pp. 129–137){{cite:hastie_esl2009}}. With the tie convention above and nonempty clusters throughout, the algorithm stops after finitely many assignment changes at a Lloyd fixed point. This is an optimum with respect to each of the two alternating steps separately. It need not be a global optimum{{cite:james_islr2021}}.
 
 :::
 
@@ -231,7 +231,7 @@ A plot of the within-cluster sum of squares against $k$ is often called an elbow
 
 ## Voronoi geometry
 
-The assignment step gives every point to the nearest current centre, so the clusters are the cells of the Voronoi tessellation with those centres as seeds{{cite:voronoi1908}}{{cite:lloyd1982}}{{cite:hastie_esl2009}}. The boundary between the cells of $\mathbf{m}_a$ and $\mathbf{m}_b$ is the set of points at equal squared distance from both. Expand the squared norms. The quadratic terms $\|\mathbf{x}\|^2$ cancel, which is special to squared Euclidean distance, and the boundary is linear:
+The assignment step gives every point to the nearest current centre, so the clusters are the cells of the Voronoi tessellation with those centres as seeds{{cite:voronoi1908}} (pp. 198–287){{cite:lloyd1982}} (pp. 129–137){{cite:hastie_esl2009}}. The boundary between the cells of $\mathbf{m}_a$ and $\mathbf{m}_b$ is the set of points at equal squared distance from both. Expand the squared norms. The quadratic terms $\|\mathbf{x}\|^2$ cancel, which is special to squared Euclidean distance, and the boundary is linear:
 
 $$
 \|\mathbf{x}-\mathbf{m}_a\|^2=\|\mathbf{x}-\mathbf{m}_b\|^2
@@ -239,7 +239,7 @@ $$
 2(\mathbf{m}_b-\mathbf{m}_a)^\top\mathbf{x}=\|\mathbf{m}_b\|^2-\|\mathbf{m}_a\|^2.
 $$
 
-This is a hyperplane of dimension $p-1$, perpendicular to the segment joining the centres and passing through the midpoint of that segment{{cite:voronoi1908}}. The cluster boundaries are pieces of hyperplanes in every dimension.
+This is a hyperplane of dimension $p-1$, perpendicular to the segment joining the centres and passing through the midpoint of that segment{{cite:voronoi1908}} (pp. 198–287). The cluster boundaries are pieces of hyperplanes in every dimension.
 
 In the plane, three non-collinear centres have perpendicular bisectors meeting at their circumcentre. In $\R^p$ with $p>2$, the points equidistant from all three instead form a $(p-2)$-dimensional affine set. Its intersection with the plane of the three centres is the circumcentre. A two-dimensional picture of three centres meeting at one point does not become, by itself, a claim about a higher-dimensional intersection.
 

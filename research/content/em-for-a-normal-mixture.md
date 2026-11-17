@@ -40,17 +40,3 @@ A freely varying normal-mixture likelihood can become unbounded: centre one comp
 
 A small likelihood increment can be useful as a stopping rule, but it measures improvement in the objective rather than distance between parameters or distance to a global optimum. Components with similar distributions can exchange labels without changing the mixture density.{{cite:dempster_laird_rubin1977}} (§3, pp.7–10)
 
-
-## Check yourself
-
-### [A numerical E-step](../questions/depth-e-numeric.qmd) {#self-check-depth-e-numeric}
-
-::: {.callout-tip collapse="true" title="Answer"}
-At $x=1$, equal-weight unit-variance components centred at zero and two have equal densities. Each responsibility is therefore $1/2$.
-:::
-
-### [A numerical M-step](../questions/depth-m-numeric.qmd) {#self-check-depth-m-numeric}
-
-::: {.callout-tip collapse="true" title="Answer"}
-For observations zero and two with first-component responsibilities $0.75$ and $0.25$, each component has effective count one. The weights are $1/2$ and the weighted means are $0.5$ and $1.5$.
-:::

@@ -4380,7 +4380,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
 
     uses = content("used-in")
     see_also = content("see-also")
-    if uses and not depth and not researched:
+    if uses:
         see_also += "\n\n<span id=\"used-in\"></span>\n\n**Further reading and use**\n\n" + uses
     examples = "\n\n".join(filter(None, [try_it_callout(article), content("example-head", "example", "example-answer-open", "example-answer-close")]))
     if depth.get("example"):
@@ -4413,7 +4413,7 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         ("Proof", "proof", proof),
         ("Generalizations", "generalizations", "\n\n".join(filter(None, [content("property-head", "property"), researched.get("Generalizations", "")]))),
         ("Related concepts", "related-concepts", "\n\n".join(filter(None, [*related, researched.get("Related concepts", "")]))),
-        ("Statistical use", "statistical-use", "\n\n".join(filter(None, [depth.get("use", ""), researched.get("Statistical use", ""), uses if depth or researched else ""]))),
+        ("Statistical use", "statistical-use", "\n\n".join(filter(None, [depth.get("use", ""), researched.get("Statistical use", "")]))),
         ("Common misconceptions", "common-misconceptions", "\n\n".join(filter(None, [*misconception_parts, researched.get("Common misconceptions", "")]))),
         ("History", "history", history),
         ("Examples", "examples", examples),

@@ -43,19 +43,3 @@ Both contributions $a$ and $b$ halve. The standard error becomes $\sqrt{1.1}\app
 ## Connections — Unequal covariance matrices
 For vector-valued means, a pooled covariance matrix similarly relies on a common-covariance model. Equal group sizes do not establish that model. Transforming a sample to have identity sample covariance also does not establish normality or equality of population covariance matrices. Such algebraic transformations cannot supply a missing distributional assumption.{{cite:krishnamoorthy_xia2006}} (pp. 534–537, 541, covariance assumptions and equal sample sizes)
 
-## Check yourself
-Separate a matrix calculation from the sampling assumptions used to calibrate it.
-
-### Pooling two groups {#self-check-ex-sl-02-6}
-[A two-sample statistic](../questions/ex-sl-02-6.qmd): what assumption underlies the pooled reference distribution?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The usual exact pooled calculation assumes independent Gaussian groups with one common population covariance matrix. With the supplied pooled matrix the numerical statistic can still be calculated, but equal group sizes alone do not justify using its common-covariance reference law when the population covariances differ.
-:::
-
-### Whitening is an algebraic step {#self-check-ex-sl-02-7}
-[Whitening and its limits](../questions/ex-sl-02-7.qmd): does an identity sample covariance prove that the coordinates are independent normal variables?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. The centred transformed sample has covariance $S^{-1/2}SS^{-1/2}=I$ when $S$ is invertible. This removes sample linear correlation; it does not establish normality or independence. With $80$ observations in $100$ dimensions the centred covariance has rank at most $79$, so the ordinary inverse square root is unavailable.
-:::

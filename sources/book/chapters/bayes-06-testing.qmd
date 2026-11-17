@@ -12,7 +12,7 @@ Suppose a parameter space $\Omega$ is partitioned into regions $\Omega_0$ and $\
  \Pr(H_1\given x)
  &=\Pr(\theta\in\Omega_1\given x)
  =\int_{\Omega_1}p(\theta\given x)\dd\theta.
-\end{align*} Each of these probabilities is the integral of one posterior over that region.{{cite:gelman_bda2013}}{{cite:jeffreys1961}}{{cite:kass_raftery1995}} If the two regions exhaust the support, the probabilities sum to one.
+\end{align*} Each of these probabilities is the integral of one posterior over that region.{{cite:gelman_bda2013}}{{cite:jeffreys1961}}{{cite:kass_raftery1995}} (pp. 773–795) If the two regions exhaust the support, the probabilities sum to one.
 
 :::
 

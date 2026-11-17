@@ -60,25 +60,5 @@ The graph is not the distribution. Two different positive definite matrices can 
 ## Connections
 [Conditional independence](conditional-independence.qmd) is the relation a separator is meant to encode. A [precision matrix](partial-correlation.qmd) zero is the Gaussian form of a missing edge. The path on three vertices is the smallest graph in which a marginal association and a conditional independence coexist, as $K_{13}=0$ and $\Sigma_{13}=1/2$ show.{{cite:grinstead_snell1997}} (p. 164)
 
-## Check yourself
-
-1. On the path $1-2-3$, what is the degree of vertex $2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$2$. It has neighbours $1$ and $3$. The endpoints each have degree $1$.
-:::
-
-2. For the precision $K$ in the example, what is $K_{13}$, and what is $\Sigma_{13}$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$K_{13}=0$ and $\Sigma_{13}=1/2$. The missing edge is the precision zero. The marginal covariance is not zero.
-:::
-
-3. Does a self-loop appear in this definition of an undirected graph?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. An edge is a pair of distinct vertices. A loop at a vertex is excluded.
-:::
-
 ## History
 The path and the separator are combinatorial. The probability reading uses conditional independence: a product of conditional probabilities. Grinstead and Snell set conditional probability and independence side by side in the continuous chapter that also treats the memoryless property. The Gaussian calculation here is the same product, read off a quadratic form whose cross term $x_1 x_3$ is absent. The general equivalence between a positive density's factorisation and its missing edges is a further theorem.{{cite:grinstead_snell1997}} (p. 164, conditional probability)

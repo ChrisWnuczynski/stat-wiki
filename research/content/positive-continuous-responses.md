@@ -35,15 +35,3 @@ At $x=0$ the mean is $10$. At $x=3$ it is $10e^{0.3}\approx 13.499$. The factor 
 ## Connections
 The log link is the same construction used for a [Poisson](poisson-distribution.qmd) mean. Gamma and Poisson are different members of the family, so they do not share the variance function $V(\mu)$ that multiplies the dispersion $\phi$. The [gamma distribution](gamma-distribution.qmd) is the continuous positive member named on that list. An identity link can leave the positive half-line as soon as the predictor does.{{cite:mccullagh1992_glm_intro}} (p. 544, gamma in the family and $\phi V(\mu)$)
 
-## Check yourself
-**1.** A log-link predictor equals $\log 4$. What is the fitted mean?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The mean is $4$. The log link returns the exponential of the predictor.
-:::
-
-**2.** An inverse-link predictor equals $-0.5$. Why is there no positive fitted mean?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The inverse would be $1/(-0.5)=-2$, which is negative. The inverse link is available only while the linear predictor is positive.
-:::

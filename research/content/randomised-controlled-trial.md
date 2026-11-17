@@ -34,17 +34,3 @@ Their average is $2$, the finite-group average treatment effect, and their rando
 The treated pairs are $\{1,3\},\{1,4\},\{2,3\},\{2,4\}$, giving differences $1,2,2,3$. Their mean is still $2$, while their variance is $1/2$. Blocking reduces assignment variation in this particular example because the blocks group similar control outcomes.
 :::
 
-## Check yourself
-### What makes an experiment randomised? {#self-check-ex-da-devil-tumours}
-[Facial tumours in Tasmanian devils](../questions/ex-da-devil-tumours.qmd): identify the design and what further details matter.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Investigators assign medicine, so it is a designed experiment. The description does not establish random allocation, concealment, blinded tumour assessment or equal handling of controls. The response can be tumour-size change or final size adjusted for baseline; it is quantitative. Assigned medicine is a categorical explanatory variable with two levels.
-:::
-
-### A placebo-controlled allocation {#self-check-ex-da-motn-insomnia}
-[A dose comparison for insomnia](../questions/ex-da-motn-insomnia.qmd): classify the intervention and outcome variables.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Random allocation to placebo, low dose and high dose defines a randomised controlled experiment. Total sleep time is the quantitative response, conceptually a nonnegative continuous duration. The three named dose levels are ordered categories; actual milligram doses could also be analysed as quantitative levels under a specified model.
-:::

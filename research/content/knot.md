@@ -61,3 +61,9 @@ A knot does not imply a visible corner: ordinary cubic joins preserve slope and 
 ## Connections
 
 The [spline](spline.qmd) article describes the whole piecewise-polynomial family. A [cubic smoothing spline](cubic-smoothing-spline.qmd) pairs a rich knot set with a roughness penalty. [Effective degrees of freedom](effective-degrees-of-freedom.qmd) summarize the fitted flexibility after penalisation, while [regularisation](regularisation.qmd) explains why expanding a basis need not produce an equally complex estimate.
+
+Among curves with a square-integrable second derivative, the roughness-penalised residual sum of squares is minimised by a natural cubic spline with knots at the observations.{{cite:reinsch1967}} (§§2–3, pp. 177–179)
+
+A cubic spline can also be written with a truncated-power basis, one extra term for each interior knot.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
+
+Boundary conditions that force linearity outside the outer knots define a natural cubic spline.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)

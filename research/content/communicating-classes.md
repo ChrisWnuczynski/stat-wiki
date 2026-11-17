@@ -75,25 +75,5 @@ The arrows record positive probability, not the size of that probability. A tran
 ## Connections
 An [irreducible Markov chain](irreducible-markov-chain.qmd) is a chain with one communicating class. A [stationary distribution](stationary-distribution.qmd) solves $\pi P=\pi$; uniqueness on a finite set uses that single closed class. The [limiting distribution](limiting-distribution.qmd) needs aperiodicity of that class as well. A self-loop is one way to force period $1$, and it is not the only way.{{cite:siegrist2022_markov_recurrence}} (§4, irreducible chains){{cite:siegrist2022_markov_period}} (§5, aperiodicity)
 
-## Check yourself
-
-1. In the matrix with rows $(0,1)$ and $(0,1)$, is $\{0,1\}$ a communicating class?
-
-::: {.callout-tip collapse="true" title="Answer"}
-No. State $1$ does not lead to state $0$, so the states do not communicate. There are two classes, $\{0\}$ and $\{1\}$.
-:::
-
-2. For the alternation, does $\pi=(1/2,1/2)$ satisfy $\pi P=\pi$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. Each coordinate of $\pi P$ is $1/2$, because each column of $P$ contains a single $1$. The chain still has period $2$, so the stationary equation has a solution and $P^n$ does not converge.
-:::
-
-3. If a state has a self-loop, what is its period?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The period is $1$. A return in one step is on the list whose greatest common divisor is the period, and that divisor is then $1$. The rest of the class is aperiodic as well.
-:::
-
 ## History
 The classification used here is the equivalence relation of mutual accessibility for a discrete-time chain: $i$ leads to $j$ when some $n$-step probability is positive, including the zero-step case $i\to i$, and communication is the two-way relation. Closed sets are the sets that no path leaves. Siegrist's account shows by a two-state chain that a class need not be closed and a closed set need not be a single class, and it shows that recurrence is constant on a class. The period, defined as the greatest common divisor of the return times, is constant on a class for the same path-sandwiching reason.{{cite:siegrist2022_markov_recurrence}} (§4, equivalence classes){{cite:siegrist2022_markov_period}} (§5, period is a class property)

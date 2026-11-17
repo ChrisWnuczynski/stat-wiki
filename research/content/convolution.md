@@ -44,18 +44,3 @@ The pairs are $(1,4)$, $(2,3)$, $(3,2)$ and $(4,1)$. Each has probability $1/36$
 ## Connections — Named families and the central limit
 The convolution of two independent Poisson mass functions with means $\lambda$ and $\mu$ is Poisson with mean $\lambda+\mu$, which is why the sum stays in the family. Independent normal densities convolve to a normal density whose mean and variance add.{{cite:pishro_nik2014}} (§5.2, sum of independent normals) Repeated convolution of a fixed density is the distribution of a longer sum, and under a finite variance that shape approaches the normal curve of the [central limit theorem](central-limit-theorem.qmd). [Independent random variables](independent-random-variables.qmd) are the hypothesis that lets the joint probability factor inside the sum.
 
-## Check yourself
-
-### A total of twelve
-Two independent fair dice. Find $\Pr(X+Y=12)$.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Only $(6,6)$ works, so the probability is $1/36$. The convolution has a single term.
-:::
-
-### Dependent uniforms are a different integral
-If $X$ is uniform on $[0,1]$ and $Y=X$, what is wrong with writing the sum's density as the convolution of the two marginal uniforms?
-
-::: {.callout-tip collapse="true" title="Answer"}
-$X$ and $Y$ are not independent, and $X+Y=2X$ is supported on $[0,2]$ with a different law from the triangular convolution. The product $f_X(x)f_Y(z-x)$ is the joint density only under independence. The dependent calculation uses the joint distribution along $y=x$.
-:::

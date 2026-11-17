@@ -35,15 +35,3 @@ The thresholds are \(0.0125\), \(0.025\), \(0.0375\) and \(0.05\). Only \(0.001<
 ## Connections — Bonferroni, the step-up line, and power
 A [Bonferroni correction](bonferroni-correction.qmd) aims at the [family-wise error rate](family-wise-error-rate.qmd). The comparison \(Q\le 1_{\{V\ge 1\}}\) is why that control also controls the false discovery rate, while the converse fails as soon as some nulls are false. The [Benjamini–Hochberg](benjamini-hochberg.qmd) rule is the step-up comparison used in the worked example. The bound \(\mathrm{FDR}\le\alpha\) quoted from the independent case is a guarantee on the expectation, not a guarantee that every realised list has false-discovery proportion at most \(\alpha\).{{cite:hastie_esl2009}} (p. 687, eq. 18.45)
 
-## Check yourself
-Sorted \(p\)-values \(0.01\) and \(0.04\), with \(M=2\) and level \(0.05\). How many hypotheses are rejected?
-
-::: {.callout-tip collapse="true" title="Answer"}
-The thresholds are \(0.025\) and \(0.05\). Then \(0.01<0.025\) and \(0.04<0.05\), so both are rejected.
-:::
-
-In that two-test rejection, could the realised false-discovery proportion still be \(1\)?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Yes. If both nulls are true, then \(V=R=2\) and the proportion is \(1\). Control of the expected proportion does not cap the proportion on a single list.
-:::

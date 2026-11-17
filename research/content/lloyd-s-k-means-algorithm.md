@@ -41,20 +41,3 @@ The point $8$ is closer to $10$ than to $0$, so the clusters are $\{0\}$ and $\{
 ## Connections — Local minima and other moves
 The [within-cluster sum of squares](k-means-criterion.qmd) is the objective attached to these two steps. {{cite:hastie_esl2009}} (§14.3.6, p. 510; §14.5.3, p. 542) A [Hartigan–Wong step](hartigan-wong-algorithm.qmd) can move one point and recompute two means together, which Lloyd’s separate updates do not try. The number of partitions is why the iteration is used at all: $S(4,2)=7$, while $S(10,3)=9330$.
 
-## Check yourself
-
-### Pairs and means {#self-check-ex-sl-04-1}
-
-For a set of $N$ points with mean $\bar x$, why is $\sum_i\sum_l\|x_i-x_l\|^2=2N\sum_i\|x_i-\bar x\|^2$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-Expand $\|x_i-x_l\|^2=\|x_i-\bar x\|^2+\|x_l-\bar x\|^2-2(x_i-\bar x)^{\mathsf T}(x_l-\bar x)$. The cross term sums to zero because the deviations from the mean sum to zero. Each squared deviation is then counted $2N$ times.
-:::
-
-### Counting partitions {#self-check-ex-sl-04-2}
-
-How many ways are there to split $\{1,2,3,4\}$ into two nonempty unlabelled clusters, and what is $S(10,3)$?
-
-::: {.callout-tip collapse="true" title="Answer"}
-There are seven splits: four of type $1\mid 3$ and three of type $2\mid 2$. The Stirling number $S(10,3)$ equals $9330$.
-:::

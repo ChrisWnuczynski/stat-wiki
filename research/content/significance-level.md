@@ -47,27 +47,5 @@ The $t$ critical value has level $\alpha$ when the observations are independent 
 ## Connections
 The [critical region](critical-region.qmd) is the set whose null probability is the level. [Type I and type II errors](type-i-and-type-ii-errors.qmd) name a false rejection and a missed rejection. The [p-value](p-value.qmd) is the smallest level at which the observed sample rejects. A [confidence interval](confidence-interval.qmd) of level $1-\alpha$ inverts the tests of level $\alpha$. The [Neyman–Pearson approach](neyman-pearson-approach.qmd) fixes a ceiling on the type I error and then looks for a region with small type II error.{{cite:dodge2008}} (pp. 250–251, type I and type II errors in the 1933 paper)
 
-## Check yourself
-
-### A critical region for a known variance {#self-check-ex-inf-blood-pressure-region}
-
-For the blood-pressure statistic $T=(\overline X-127)/(7/\sqrt{101})$ and $z_{0.975}=1.960$, state the level-0.05 region for $T$ and for $\overline X$.
-
-[Exercise](../questions/ex-inf-blood-pressure-region.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-Reject when $|T|\ge1.960$. Since $7/\sqrt{101}=0.6965$ and $1.960\times0.6965=1.365$, reject when $\overline X\le125.635$ or $\overline X\ge128.365$. The probability of that region is 0.05 when $\mu=127$ and the normal model holds.
-:::
-
-### Power of a serve test {#self-check-ex-inf-serve-power}
-
-Serves follow $\mathrm{Bin}(15,p)$. The test of $p=0.6$ against $p>0.6$ rejects for $X\in\{13,14,15\}$. What is the size, and what is the power at $p=0.9$?
-
-[Exercise](../questions/ex-inf-serve-power.qmd)
-
-::: {.callout-tip collapse="true" title="Answer"}
-The size is $\Pr(X\ge13)$ at $p=0.6$, which equals $0.0271$. The power at $p=0.9$ is $\Pr(X\ge13)=0.8159$. The nominal label 0.05 is a ceiling this region does not use up.
-:::
-
 ## History
 Talk of the significance or insignificance of a batch of observations goes back to the eighteenth century, including Arbuthnot (1710), Daniel Bernoulli (1734) and Laplace (1773), and such calculations became more common in the nineteenth century. Neyman and Pearson's 1928 *Biometrika* paper set a null against an alternative, and their 1933 paper distinguished a type I error from a type II error. In that procedure the significance level is the allowed probability of the type I error, fixed when the rejection region is chosen.{{cite:dodge2008}} (pp. 250–251, History and mathematical steps)

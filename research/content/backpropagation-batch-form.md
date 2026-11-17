@@ -28,17 +28,3 @@ At learning rate $0.5$, the output weights become $(0.166675,0.502906,-0.414066)
 The average gradient is half the sum. Use learning rate $1$ instead of $0.5$ to obtain the same parameter change.
 :::
 
-## Check yourself
-### Differentiate a sigmoid loss {#self-check-ex-sl-15-2}
-[A gradient by hand](../questions/ex-sl-15-2.qmd) tests every factor in the chain rule.
-
-::: {.callout-tip collapse="true" title="Answer"}
-At $z=2$, $o=0.880797$ and $E=o^2=0.775803$. The weight gradient is $4o^2(1-o)=0.369912$. Omitting $e^{-z}$ from the equivalent expression multiplies the answer by $e^2$.
-:::
-
-### Symmetry of hidden units {#self-check-ex-sl-15-4}
-[Symmetric start](../questions/ex-sl-15-4.qmd) asks why identical units fail to specialise.
-
-::: {.callout-tip collapse="true" title="Answer"}
-Identical incoming and outgoing weights give identical activations, deltas and gradients. Equal deterministic batch updates preserve those equalities at every step. Starting all units at zero does not break this symmetry.
-:::
