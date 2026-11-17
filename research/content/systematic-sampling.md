@@ -1,5 +1,5 @@
 ## Lead context
-Listing a population in order and then taking every \(r\)th unit is a draw that a person can carry out with a single random start. That design is systematic sampling. It is one of the random sampling methods, and it is not the same draw as a simple random sample. {{cite:dodge2008}} (p. 533) {{cite:dodge2008}} (p. 152)
+Listing a population in order and then taking every rth unit is a draw that a person can carry out with a single random start. That design is systematic sampling. It is one of the random sampling methods, and it is not the same draw as a simple random sample. {{cite:dodge2008}} (p. 533) {{cite:dodge2008}} (p. 152)
 
 ## Motivating example
 Six hundred students are listed alphabetically and a sample of 30 is required. The interval is \(600/30 = 20\). A start is drawn at random between 1 and 20. If the start is 17, the sample is the students numbered 17, 37, 57, and so on up to 597. One random number selected the whole sample. {{cite:dodge2008}} (p. 533)

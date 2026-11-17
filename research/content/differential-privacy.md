@@ -12,7 +12,7 @@ A randomised algorithm \(\mathcal M\) is \((\varepsilon,\delta)\)-differentially
 \[
 \Pr[\mathcal M(x)\in S] \le e^{\varepsilon}\,\Pr[\mathcal M(y)\in S]+\delta.
 \]
-The probability is over the randomness in \(\mathcal M\). When \(\delta=0\), \(\mathcal M\) is \(\varepsilon\)-differentially private: every output that can arise from \(x\) can arise from \(y\), and the probabilities differ by at most the factor \(e^{\varepsilon}\). The same definition, with databases that differ in one element, is the 2006 form.{{cite:dwork_roth2014}} (p. 17, Definition 2.4){{cite:dwork2006}} (p. 9, Definition 2)
+The probability is over the randomness in \(\mathcal M\). When \(\delta=0\), \(\mathcal M\) is \(\varepsilon\)-differentially private: every output that can arise from \(x\) can arise from \(y\), and the probabilities differ by at most the factor \(e^{\varepsilon}\). The same definition, with databases that differ in one element, is the 2006 form.{{cite:dwork_roth2014}} (p. 17, the definition){{cite:dwork2006}} (p. 9, Definition 2)
 
 The curator may publish a synthetic file, a table of summaries, or answers to questions one at a time. In the interactive case the analyst can choose the next question after seeing earlier answers. The definition applies to the whole mechanism, including that adaptivity.{{cite:dwork_roth2014}} (p. 11)
 
@@ -29,7 +29,7 @@ Take \(\delta=0\) and \(e^{\varepsilon}=2\), so \(\varepsilon=\ln 2\). Suppose t
 \[
 \Pr[\mathcal M(x)\in S] \le 2\times 0.1 = 0.2
 \]
-for every neighbour \(x\) of \(y\). A mechanism that puts probability \(0.25\) on \(S\) when the database is \(x\) fails the definition for this pair, even if the two databases differ by a single row.{{cite:dwork_roth2014}} (p. 17, Definition 2.4)
+for every neighbour \(x\) of \(y\). A mechanism that puts probability \(0.25\) on \(S\) when the database is \(x\) fails the definition for this pair, even if the two databases differ by a single row.{{cite:dwork_roth2014}} (p. 17, the definition)
 
 **Your turn.** Keep \(\delta=0\) and \(e^{\varepsilon}=2\). If \(\Pr[\mathcal M(y)\in S]=0.3\), what is the upper bound on \(\Pr[\mathcal M(x)\in S]\) for a neighbour \(x\)?
 
@@ -41,7 +41,7 @@ The bound is \(2\times 0.3=0.6\).
 Differential privacy is not a promise that an attacker learns nothing about a person. Auxiliary information can already determine a fact; the guarantee is about the additional effect of being in the file. It is not achieved by deleting names. It is not a property of a data set alone: it is a property of the randomised algorithm that releases information. A mechanism can be private and useless, if the noise is so large that the published number does not track the file. The definition does not by itself choose \(\varepsilon\). That choice is a policy about how large a change in odds is acceptable.{{cite:dwork2006}} (pp. 1, 9){{cite:dwork_roth2014}} (p. 17)
 
 ## Assumptions and limits
-The definition assumes a clear notion of neighbouring databases, usually files that differ in one person's row. It assumes the randomness in the mechanism is the only randomness the inequality quantifies. The group bound grows with the number of people who are considered together, so a fact about a very small group is weakly protected. The curator model, in which one party holds the file, is the basic setting; the book notes that a protocol among the individuals can replace that party.{{cite:dwork_roth2014}} (pp. 11, 17–18){{cite:dwork2006}} (p. 9)
+The definition assumes a clear notion of neighbouring databases, usually files that differ in one person's row. It assumes the randomness in the mechanism is the only randomness the inequality quantifies. The group bound grows with the number of people who are considered together, so a fact about a very small group is weakly protected. The curator model, in which one party holds the file, is the basic setting; a protocol among the individuals can replace that party.{{cite:dwork_roth2014}} (pp. 11, 17–18){{cite:dwork2006}} (p. 9)
 
 ## Connections
 [K-anonymity](k-anonymity.qmd) limits how rare a combination of quasi-identifiers is in a released table. Differential privacy limits how much one person can move the distribution of any release. [Sampling](random-sample.qmd) and [confidence intervals](confidence-interval.qmd) describe uncertainty from a random sample; the noise here is added on purpose, on top of whatever sampling produced the file. Official releases of tabular data are the setting in which both ideas are used.

@@ -2,7 +2,7 @@
 Most of a distribution can sit in a small central range while a thin remainder stretches far to one side or both. That remainder is the tail, and its probability is the quantity used for a percentile, a long-tailed histogram, or the chance of an extreme value.{{cite:openintro2019}} (Ch. 2, §2.1.3; Ch. 4, §4.1.3)
 
 ## Motivating example
-Cumulative SAT scores are described by a normal model with mean 1,100 and standard deviation 200. The probability of a score of at least 1,190 is an upper-tail probability. The standardised cutoff is \((1190-1100)/200=0.45\), the area to the left of that point is 0.6736, and the upper tail is \(1-0.6736=0.3264\). The same picture, read from the left, is the proportion of takers below the cutoff.{{cite:openintro2019}} (Ch. 4, §4.1.3 and Example 4.7)
+Cumulative SAT scores are described by a normal model with mean 1,100 and standard deviation 200. The probability of a score of at least 1,190 is an upper-tail probability. The standardised cutoff is \((1190-1100)/200=0.45\), the area to the left of that point is 0.6736, and the upper tail is \(1-0.6736=0.3264\). The same picture, read from the left, is the proportion of takers below the cutoff.{{cite:openintro2019}} (Ch. 4, §4.1.3)
 
 ## Intuition
 A tail probability is the share of the distribution beyond a cutoff. The lower tail is the share below the cutoff, and the upper tail is the share above it. On a histogram, a long tail is the direction in which the bars trail off. Data that trail off to the right are right-skewed and are said to have a long right tail. Data that trail off to the left have a long left tail. A symmetric histogram trails off in both directions together.{{cite:openintro2019}} (Ch. 2, §2.1.3){{cite:nist_skewness2002}} (§1.3.5.11, “Definition of Skewness”)
@@ -23,7 +23,7 @@ For the SAT model, a cutoff of 1,190 has
 \[
 z=\frac{1190-1100}{200}=0.45.
 \]
-The lower-tail area at this \(z\) is 0.6736, so the upper tail is 0.3264. For a unit exponential the upper tail at 2 is \(e^{-2}\approx 0.135335\), and the lower tail is \(1-e^{-2}\approx 0.864665\). The two calculations use different laws and different cutoffs. Both are tail probabilities.{{cite:openintro2019}} (Ch. 4, Example 4.7){{cite:dodge2008}} (p. 194)
+The lower-tail area at this \(z\) is 0.6736, so the upper tail is 0.3264. For a unit exponential the upper tail at 2 is \(e^{-2}\approx 0.135335\), and the lower tail is \(1-e^{-2}\approx 0.864665\). The two calculations use different laws and different cutoffs. Both are tail probabilities.{{cite:openintro2019}} (Ch. 4, the normal calculation){{cite:dodge2008}} (p. 194)
 
 **Your turn.** A standard normal lower tail at \(z=1\) is 0.8413447. What is the upper tail at the same point? Separately, what is the unit-exponential upper tail at 0?
 

@@ -1860,14 +1860,23 @@ def register_standalone_articles() -> None:
         article["term"] = row["term"]
 
 
+def standalone_topic_target(topic_name: str) -> tuple[Path, str]:
+    """Hub page and optional fragment for a standalone article's topic."""
+    if topic_name == "Fundamentals":
+        return WIKI / "notes" / "fundamentals.qmd", ""
+    if topic_name == "Probability distributions":
+        return WIKI / "notes" / "probability-distributions.qmd", ""
+    if topic_name == "Applications":
+        return WIKI / "notes" / "applications.qmd", ""
+    if topic_name == "History":
+        return WIKI / "history.qmd", ""
+    return WIKI / "notes" / "index.qmd", slug(topic_name)
+
+
 def article_home(article: dict) -> Path:
     topic_name = article.get("standalone")
-    if topic_name == "Fundamentals":
-        return WIKI / "notes" / "fundamentals.qmd"
-    if topic_name == "Probability distributions":
-        return WIKI / "notes" / "probability-distributions.qmd"
     if topic_name:
-        return WIKI / "notes" / "index.qmd"
+        return standalone_topic_target(topic_name)[0]
     return article["box"]["chapter"] if article["box"] else DIST_SHEET
 
 
@@ -4636,12 +4645,7 @@ def render_topic_navbox(article: dict) -> str:
     on_distribution_topic = topic_hubs.is_distribution_page(article["slug"], DISTRIBUTIONS)
     if article.get("standalone"):
         topic_name = article["standalone"]
-        if topic_name == "Probability distributions":
-            topic_target = _distribution_topic_page()
-        elif topic_name == "Fundamentals":
-            topic_target = _fundamentals_topic_page()
-        else:
-            topic_target = WIKI / "notes" / "index.qmd"
+        topic_target, frag = standalone_topic_target(topic_name)
         hub_title = topic_name
         part_name = topic_name
         siblings = sorted(
@@ -4649,7 +4653,6 @@ def render_topic_navbox(article: dict) -> str:
             key=lambda a: a["term"].lower(),
         )
         aria = topic_name
-        frag = "" if topic_name in {"Fundamentals", "Probability distributions"} else slug(topic_name)
         head_title = f'<a href="{html_escape(_html_href(path, topic_target, frag))}">{html_escape(topic_name)}</a>'
         part_html = (
             f'<span class="navbox-part">Part: <a href="{html_escape(_html_href(path, topic_target, frag))}">'
@@ -4731,12 +4734,8 @@ def render_topic_navbox(article: dict) -> str:
 
     if article.get("standalone"):
         topic_name = article["standalone"]
-        if topic_name == "Probability distributions":
-            add_cat(topic_name, _distribution_topic_page())
-        elif topic_name == "Fundamentals":
-            add_cat(topic_name, _fundamentals_topic_page())
-        else:
-            add_cat(topic_name, WIKI / "notes" / "index.qmd", slug(topic_name))
+        target, frag = standalone_topic_target(topic_name)
+        add_cat(topic_name, target, frag)
     elif on_distribution_topic:
         add_cat("Probability distributions", _distribution_topic_page())
         if box:
@@ -5345,7 +5344,9 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         rows.extend((label, facts[field]) for field, label in DISTRIBUTION_ROW_LABELS)
         note = f"From the [distribution comparison]({href(path, DIST_SHEET)}#{card['anchor']})."
     elif article.get("standalone"):
-        rows.append(("Topic", "[Fundamentals](" + href(path, WIKI / "notes" / "fundamentals.qmd") + ")"))
+        topic_name = article["standalone"]
+        target, frag = standalone_topic_target(topic_name)
+        rows.append(("Topic", f"[{topic_name}]({href(path, target)}{'#' + frag if frag else ''})"))
     else:
         rows.append(("Type", box["kind"].capitalize()))
     if box and box["kind"] in TOPIC_KINDS:
@@ -5374,8 +5375,9 @@ def article_infobox(article: dict, links: list, by_topic: dict) -> str:
         parts = list(dict.fromkeys([box["part"]] + [PAGE_PART.get(c, box["part"]) for c in extra_chaps if c in PAGE_PART]))
         rows.append(("Part", " · ".join(part_link(p, path) for p in parts)))
     elif article.get("standalone"):
-        hub = WIKI / "notes" / "fundamentals.qmd"
-        rows.append(("Listed on", f"[Fundamentals]({href(path, hub)})"))
+        topic_name = article["standalone"]
+        target, frag = standalone_topic_target(topic_name)
+        rows.append(("Listed on", f"[{topic_name}]({href(path, target)}{'#' + frag if frag else ''})"))
     else:
         rows.append(("Listed on", f"[Distribution sheet]({href(path, DIST_SHEET)}#{card['anchor']})"))
     related_peers = list(
@@ -6247,6 +6249,23 @@ def write_topic_hubs(fundamentals_page: Path, distributions_page: Path) -> None:
         description="Every probability distribution on StatWiki, grouped by the kind of value it describes.",
     )
 
+    applications_page = WIKI / "notes" / "applications.qmd"
+    app_slugs = sorted(
+        (article["slug"] for article in ARTICLES.values() if article.get("standalone") == "Applications"),
+    )
+    app_lines = [
+        "A field page says what a discipline counts, which methods it borrows, and where those methods are developed on this site.",
+        "",
+    ]
+    for hub_slug in app_slugs:
+        app_lines.append(_hub_article_link(applications_page, hub_slug))
+    write_qmd(
+        applications_page,
+        "Applications",
+        "\n".join(app_lines),
+        description="Fields of statistics, from biostatistics and official statistics to the methods that belong to them.",
+    )
+
 
 def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) -> None:
     parts: dict[str, list[dict]] = {}
@@ -6268,9 +6287,10 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         "",
         chapter_guides.LEVEL_RULE,
         "",
-        "Two further topics collect articles rather than chapters. "
+        "Three further topics collect articles rather than chapters. "
         "[Fundamentals](fundamentals.qmd) is the path for a reader who is starting. "
-        "[Probability distributions](probability-distributions.qmd) holds every distribution article.",
+        "[Probability distributions](probability-distributions.qmd) holds every distribution article. "
+        "[Applications](applications.qmd) holds the field pages.",
         "",
         "## Fundamentals {#fundamentals}",
         "",
@@ -6281,7 +6301,22 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
         f"[Open Probability distributions](probability-distributions.qmd). "
         f"{len(topic_hubs.distribution_page_slugs(list(DISTRIBUTIONS)))} distribution pages, plus the family relationships.",
         "",
+        "## Applications {#applications}",
+        "",
+        f"[Open Applications](applications.qmd). "
+        f"{sum(1 for article in ARTICLES.values() if article.get('standalone') == 'Applications')} field and method pages.",
+        "",
+        "## History {#history}",
+        "",
+        "The [history](../history.qmd) is the chronological account. These articles sit beside it:",
+        "",
     ]
+    for article in sorted(
+        (a for a in ARTICLES.values() if a.get("standalone") == "History"),
+        key=lambda a: a["term"].lower(),
+    ):
+        lines.append(f"- [{cell(article['term'])}]({href(topics_path, article['path'])})")
+    lines.append("")
     for part, members in parts.items():
         lines += [f"## {part} {{#{slug(part)}}}", "", "| Chapter | Level | Questions |", "|:--|:-:|--:|"]
         for note in members:
@@ -6482,6 +6517,23 @@ def write_indexes(notes, chapters, final_notes, questions, by_source, by_topic) 
             f"[See all]({href(home, distributions_page)}){{.library-more}}",
         ),
     ]
+    applications_page = WIKI / "notes" / "applications.qmd"
+    application_links = [
+        (article["term"], article["path"])
+        for article in sorted(
+            (a for a in ARTICLES.values() if a.get("standalone") == "Applications"),
+            key=lambda a: a["term"].lower(),
+        )
+    ]
+    cards.append(
+        library_card(
+            "Applications",
+            "Fields of statistics, and the methods that are used in those fields.",
+            len(application_links),
+            application_links[:4],
+            f"[See all]({href(home, applications_page)}){{.library-more}}",
+        )
+    )
     for part, members in parts.items():
         total = part_totals[part]
         more = f"[See all]({href(home, WIKI / 'notes' / 'index.qmd')}#{slug(part)}){{.library-more}}"
@@ -6862,6 +6914,8 @@ website:
         href: notes/fundamentals.qmd
       - text: Distributions
         href: notes/probability-distributions.qmd
+      - text: Applications
+        href: notes/applications.qmd
       - text: Question bank
         menu:
           - text: "Question bank: every question in one list"

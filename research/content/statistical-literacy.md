@@ -6,7 +6,7 @@ A news article says that a risk doubled. A chart starts the axis at a flattering
 
 Statistical literacy is the competence of a critical consumer of statistical results, especially results reported in public. The college guidelines distinguish introductory courses that address literacy from courses that address methods, and they describe the distinction as courses for consumers versus courses for producers. The first goal they set for students is to recognise whether a reported result reasonably follows from the study and the analysis that were done. A further goal is to read a graph for what it shows and what it hides. Literacy, on that account, is about claims in the wild, not about fluency with every technique in a methods course.{{cite:gaise2016}} (pp. 7–8)
 
-The scope includes official percentages, medical headlines, and charts in a textbook. It does not include, by itself, the design of a complex sample or the fitting of a hierarchical model. Those are producer skills. A literate reader knows when a producer is needed.{{cite:gaise2016}} (p. 7){{cite:openintro2019}} (Preface, p. 5)
+The scope includes official percentages, medical headlines, and charts in a course. It does not include, by itself, the design of a complex sample or the fitting of a hierarchical model. Those are producer skills. A literate reader knows when a producer is needed.{{cite:gaise2016}} (p. 7){{cite:openintro2019}} (Preface, p. 5)
 
 ## Statistical use
 

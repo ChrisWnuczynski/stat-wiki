@@ -1268,7 +1268,7 @@ class ConceptTemplateTests(unittest.TestCase):
         }
         singular_endings = ("analysis", "process", "class", "loss", "bias", "statistics", "series",
                             "squares", "synthesis", "basis", "hypothesis", "status", "radius",
-                            "calculus", "cross", "ness", "gas", "is")
+                            "calculus", "cross", "ness", "gas", "is", "analytics", "metrics", "congress")
         for slug, page in pages.items():
             info = build_wiki.ARTICLE_LEADS[slug]
             body = page.read_text(encoding="utf-8")

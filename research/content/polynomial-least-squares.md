@@ -1,5 +1,5 @@
 ## Lead context
-A curved mean can still be linear in its unknown coefficients. Polynomial least squares replaces the single predictor by its powers and then minimises the usual sum of squared residuals, so the arithmetic is the linear normal equations with extra columns.{{cite:james_islr2013}} (pp. 266–267, §7.1){{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, a quadratic in $x$ is linear in the parameters)
+A curved mean can still be linear in its unknown coefficients. Polynomial least squares replaces the single predictor by its powers and then minimises the usual sum of squared residuals, so the arithmetic is the linear normal equations with extra columns.{{cite:james_islr2013}} (pp. 266–267, §7.1){{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, a quadratic in the predictor is linear in the parameters)
 
 ## Motivating example
 Wage tends to rise with age and then flatten. A straight line in age forces a constant increase per year. Replacing age by age, age squared, age cubed, and age to the fourth produces a curve that can bend, and the four coefficients, plus an intercept, are still estimated by least squares because each power is just another predictor. The plot people read is the whole curve, not any one coefficient.{{cite:james_islr2013}} (p. 267, §7.1, degree-4 polynomial for wage against age)

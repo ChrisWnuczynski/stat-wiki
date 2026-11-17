@@ -1287,6 +1287,42 @@ ALIASES.update({
     "Statistical significance": "significance-level",
 })
 
+ALIASES.update({
+    "Statistical classification": "classification",
+    "Heavy tails": "fat-tails",
+    "Variable selection": "feature-selection",
+    "Hawthorne study": "hawthorne-effect",
+    "Coefficient of kurtosis": "kurtosis",
+    "LAD regression": "least-absolute-deviations",
+    "L1 regression": "least-absolute-deviations",
+    "least absolute deviation regression": "least-absolute-deviations",
+    "diagnostic likelihood ratio": "likelihood-ratios-in-diagnostic-testing",
+    "Artificial intelligence": "machine-learning",
+    "MAPE": "mean-absolute-percentage-error",
+    "Moran coefficient": "morans-i",
+    "Non-linear least squares": "nonlinear-regression",
+    "Pearson system": "pearson-distribution",
+    "Pearson curves": "pearson-distribution",
+    "Measure-theoretic probability theory": "probability-theory",
+    "statistical quality control": "quality-control",
+    "Sampling (statistics)": "sampling",
+    "Survey sampling": "sampling",
+    "spatial statistics": "spatial-analysis",
+    "Spearman's rho": "spearman-s-rank-correlation-coefficient",
+    "Spearman rank correlation": "spearman-s-rank-correlation-coefficient",
+    "Measure of dispersion": "statistical-dispersion",
+    "Measure of scale": "statistical-dispersion",
+    "SPC": "statistical-process-control",
+    "structural equation modeling": "structural-equation-modelling",
+    "SEM": "structural-equation-modelling",
+    "SNA": "system-of-national-accounts",
+    "2008 SNA": "system-of-national-accounts",
+    "Reference value": "true-value",
+    "Prosecutor's fallacy": "fallacy-of-the-transposed-conditional",
+    "Stochastic analysis": "stochastic-process",
+    "Variable (mathematics)": "variable",
+})
+
 
 TOPICS += [
     topic("Kernel of a density", "bayes-01-foundations.qmd: recognition of a known density kernel",

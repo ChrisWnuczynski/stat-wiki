@@ -4,7 +4,7 @@ A screening test finds a disease in a woman drawn from a population where the di
 
 ## Motivating example
 
-In Canada, about $0.35\%$ of women over 40 develop breast cancer in a given year. A mammogram misses about $11\%$ of cancers and raises a false alarm for about $7\%$ of women without cancer. Among positive mammograms, the probability of cancer is about $0.043$. Most positive results in this population are false alarms, not because the test is careless, but because the base rate $0.0035$ is so low that the many healthy women produce more false positives than the few cases produce true positives. The same test, read in a clinic where the condition is common, would have a much higher positive predictive value. The test characteristics did not change. The base rate did.{{cite:openintro2019}} (Ch. 3, Example 3.42, pp. 105–106)
+In Canada, about $0.35\%$ of women over 40 develop breast cancer in a given year. A mammogram misses about $11\%$ of cancers and raises a false alarm for about $7\%$ of women without cancer. Among positive mammograms, the probability of cancer is about $0.043$. Most positive results in this population are false alarms, not because the test is careless, but because the base rate $0.0035$ is so low that the many healthy women produce more false positives than the few cases produce true positives. The same test, read in a clinic where the condition is common, would have a much higher positive predictive value. The test characteristics did not change. The base rate did.{{cite:openintro2019}} (Ch. 3, pp. 105–106)
 
 ## Intuition
 
@@ -18,7 +18,7 @@ The base rate of a condition is its probability in the population to which the t
 
 If $p$ is the base rate, the prior odds of the condition are $p/(1-p)$. After a result $y$, the posterior odds equal those prior odds times the likelihood ratio $p(y\mid\text{present})/p(y\mid\text{absent})$. The base rate is the whole of the prior factor. Sensitivity and specificity do not contain it.{{cite:gelman_bda2013}} (Ch. 1, p. 8){{cite:openintro2019}} (Ch. 3, §3.2.8, p. 106)
 
-The [fallacy of the transposed conditional](fallacy-of-the-transposed-conditional.qmd) is the habit of quoting a conditional probability in the wrong direction. Neglect of the base rate is how that habit becomes a number: the conditional probability of a positive test given the condition is treated as if it were the conditional probability of the condition given a positive test, which is true only for special base rates.{{cite:openintro2019}} (Ch. 3, Example 3.42, pp. 105–106)
+The [fallacy of the transposed conditional](fallacy-of-the-transposed-conditional.qmd) is the habit of quoting a conditional probability in the wrong direction. Neglect of the base rate is how that habit becomes a number: the conditional probability of a positive test given the condition is treated as if it were the conditional probability of the condition given a positive test, which is true only for special base rates.{{cite:openintro2019}} (Ch. 3, pp. 105–106)
 
 ## Properties
 
@@ -28,13 +28,13 @@ $$
 P(\text{present}\mid\text{positive})=\frac{p(1-\beta)}{p(1-\beta)+(1-p)\alpha}.
 $$
 
-It is increasing in the base rate $p$ when the test is better than a coin toss in the sense $1-\beta>\alpha$. At $p=0.0035$, $1-\beta=0.89$, and $\alpha=0.07$, the denominator is dominated by $(1-p)\alpha$, and the predictive value is about $0.043$. Raise $p$ and the same fraction climbs, because the numerator and the true-positive part of the denominator both gain weight.{{cite:openintro2019}} (Ch. 3, Example 3.42, pp. 105–106)
+It is increasing in the base rate $p$ when the test is better than a coin toss in the sense $1-\beta>\alpha$. At $p=0.0035$, $1-\beta=0.89$, and $\alpha=0.07$, the denominator is dominated by $(1-p)\alpha$, and the predictive value is about $0.043$. Raise $p$ and the same fraction climbs, because the numerator and the true-positive part of the denominator both gain weight.{{cite:openintro2019}} (Ch. 3, pp. 105–106)
 
 The base rate is not a property of the device. A bronchoscopy example with a prior probability $0.90$ that a tumour is malignant is a high base rate, and the posterior probability after a negative test remains $0.73$. The same likelihood ratio attached to a screening base rate of $0.0035$ would leave the posterior small. Quoting a test’s sensitivity without the base rate quotes the wrong factor.{{cite:gelman_bda2013}} (Ch. 9, §9.3, pp. 245–246){{cite:openintro2019}} (Ch. 3, §3.2.8, p. 106)
 
 ## Statistical use
 
-When a positive predictive value, a posterior probability, or a decision about a test is reported, state the base rate that was used, and say which population it refers to. A rate from a screening programme is not the rate in a ward of already suspected cases. If the base rate is uncertain, recompute the predictive value on a small grid of rates. The grid is the sensitivity analysis. A single impressive sensitivity is not a substitute for it.{{cite:openintro2019}} (Ch. 3, Example 3.42, pp. 105–106){{cite:gelman_bda2013}} (Ch. 9, §9.3, p. 245)
+When a positive predictive value, a posterior probability, or a decision about a test is reported, state the base rate that was used, and say which population it refers to. A rate from a screening programme is not the rate in a ward of already suspected cases. If the base rate is uncertain, recompute the predictive value on a small grid of rates. The grid is the sensitivity analysis. A single impressive sensitivity is not a substitute for it.{{cite:openintro2019}} (Ch. 3, pp. 105–106){{cite:gelman_bda2013}} (Ch. 9, §9.3, p. 245)
 
 The [positive predictive value](positive-predictive-value.qmd) is the probability of the condition given a positive result, and it is the function of the base rate displayed above. [Prior odds](prior-odds.qmd) are the base rate converted to an odds. [Sensitivity and specificity](sensitivity-and-specificity.qmd) are the conditional performance of the test and do not include the base rate.
 
@@ -46,7 +46,7 @@ $$
 \frac{0.20\times 0.89}{0.20\times 0.89+0.80\times 0.07}=\frac{0.178}{0.234}\approx 0.761.
 $$
 
-The test did not improve. The population did.{{cite:openintro2019}} (Ch. 3, Example 3.42, pp. 105–106)
+The test did not improve. The population did.{{cite:openintro2019}} (Ch. 3, pp. 105–106)
 
 **Your turn.** A condition has base rate $0.01$. The test has sensitivity $0.90$ and false-positive rate $0.05$. Compute the positive predictive value.
 

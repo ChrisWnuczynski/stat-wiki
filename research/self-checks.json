@@ -1248,5 +1248,1197 @@
       "prompt": "After that addition there are six households and the value 2 still appears three times. What is the relative frequency of 2?",
       "answer": "The relative frequency is 3/6 = 1/2."
     }
+  ],
+  "abundance-estimation": [
+    {
+      "title": "Petersen estimate",
+      "prompt": "Twenty animals are marked, fifteen are caught later, and five of those are marked. What is the Petersen estimate?",
+      "answer": "The estimate is (15 × 20) / 5 = 60."
+    },
+    {
+      "title": "Chapman estimate",
+      "prompt": "For the same counts, what is the Chapman estimate (M+1)(C+1)/(R+1) − 1?",
+      "answer": "The estimate is (21 × 16) / 6 − 1 = 55."
+    },
+    {
+      "title": "More recaptures",
+      "prompt": "If 10 of the 15 animals in the second sample are marked, and 20 were marked at first, what is the Petersen estimate?",
+      "answer": "The estimate is (15 × 20) / 10 = 30."
+    }
+  ],
+  "apriori-algorithm": [
+    {
+      "title": "Confidence",
+      "prompt": "In the four baskets {a,b}, {a,b}, {a} and {b,c}, what is the confidence of the rule a implies b?",
+      "answer": "The confidence is 2/3."
+    },
+    {
+      "title": "Lift",
+      "prompt": "What is the lift of that same rule?",
+      "answer": "The lift is 8/9."
+    },
+    {
+      "title": "A rare pair",
+      "prompt": "What is the support of {b,c}, and does it pass a strict threshold of 2/5?",
+      "answer": "The support is 1/4, which does not pass a strict threshold of 2/5."
+    }
+  ],
+  "average-treatment-effect": [
+    {
+      "title": "Null average",
+      "prompt": "Eight patients have 4 deaths under treatment and 4 deaths under no treatment. What is the average treatment effect on the risk difference?",
+      "answer": "The risks are 4/8 and 4/8, so the average treatment effect is 0."
+    },
+    {
+      "title": "One changed outcome",
+      "prompt": "After the last treated outcome changes from 1 to 0, 3 of 8 die under treatment and 4 of 8 die under no treatment. What is the average treatment effect?",
+      "answer": "The average treatment effect is 3/8 - 4/8 = -1/8."
+    }
+  ],
+  "base-rate": [
+    {
+      "title": "Mammogram predictive value",
+      "prompt": "Base rate 0.0035, sensitivity 0.89, false-positive rate 0.07. What is the positive predictive value, to three decimals?",
+      "answer": "The positive predictive value is about 0.043."
+    },
+    {
+      "title": "A less rare condition",
+      "prompt": "Base rate 0.20, sensitivity 0.89, false-positive rate 0.07. What is the positive predictive value, to three decimals?",
+      "answer": "The positive predictive value is about 0.761."
+    },
+    {
+      "title": "One percent prevalence",
+      "prompt": "Base rate 0.01, sensitivity 0.90, false-positive rate 0.05. What is the positive predictive value?",
+      "answer": "The positive predictive value is 0.009/0.0585, about 0.154."
+    }
+  ],
+  "bayesian-inference": [
+    {
+      "title": "Two unaffected sons",
+      "prompt": "Prior probability 1/2 of being a carrier, likelihood 1/4 if a carrier and 1 if not, for two unaffected sons. What is the posterior probability of being a carrier?",
+      "answer": "The posterior probability is 1/5."
+    },
+    {
+      "title": "A third unaffected son",
+      "prompt": "Starting from posterior probability 1/5, a third son is unaffected, with conditional probability 1/2 if a carrier and 1 if not. What is the new posterior probability?",
+      "answer": "The posterior probability is 1/9."
+    }
+  ],
+  "bayesian-model": [
+    {
+      "title": "Joint probability of a success",
+      "prompt": "Prior probability 1/2 on success probability 0.2, and one Bernoulli trial. What is the joint probability of that value and a success?",
+      "answer": "The joint probability is 0.1."
+    },
+    {
+      "title": "Posterior after a failure",
+      "prompt": "Under the same two-point model, with prior 1/2 on 0.2 and on 0.8, the trial is a failure. What is the posterior probability of 0.2?",
+      "answer": "The posterior probability is 0.8."
+    }
+  ],
+  "bayesian-probability": [
+    {
+      "title": "Ten-to-one odds",
+      "prompt": "A bet of 1 unit in order to win 10 more units is taken on the favourable side. What probability does that commit you to, at minimum?",
+      "answer": "The probability is at least 1/11."
+    },
+    {
+      "title": "Three-to-one odds",
+      "prompt": "A bet of 1 unit in order to win 3 more units is taken on the favourable side. What probability does that commit you to, at minimum?",
+      "answer": "The probability is at least 1/4."
+    }
+  ],
+  "case-control-study": [
+    {
+      "title": "Odds ratio",
+      "prompt": "Cases are 24 exposed and 16 unexposed. Controls are 10 exposed and 30 unexposed. What is the exposure odds ratio?",
+      "answer": "The odds ratio is (24*30)/(16*10) = 4.5."
+    },
+    {
+      "title": "Extra controls",
+      "prompt": "Controls become 10 exposed and 34 unexposed, and the cases stay 24 and 16. What is the odds ratio?",
+      "answer": "The odds ratio is (24*34)/(16*10) = 5.1."
+    }
+  ],
+  "causality": [
+    {
+      "title": "How many people differ",
+      "prompt": "Five people have treatment outcomes 1, 0, 1, 1, 0 and untreated outcomes 0, 0, 1, 0, 0. How many individual effects are nonzero?",
+      "answer": "Two individual effects are nonzero."
+    },
+    {
+      "title": "Corrected mean",
+      "prompt": "The third untreated outcome is changed from 1 to 0, and the treated mean stays 0.6. What is the average causal effect?",
+      "answer": "The untreated mean is 0, so the average causal effect is 0.6."
+    }
+  ],
+  "censoring-statistics": [
+    {
+      "title": "Product-limit value",
+      "prompt": "Five units: one failure at time 2, a censoring at time 3, and two failures at time 5. What is the product-limit estimate at time 5?",
+      "answer": "The estimate is 4/5 × 1/3 = 4/15."
+    },
+    {
+      "title": "Censoring becomes a failure",
+      "prompt": "If the time-3 observation is a failure instead, what is the product-limit estimate at time 5?",
+      "answer": "The estimate is 4/5 × 3/4 × 1/3 = 1/5."
+    }
+  ],
+  "classification": [
+    {
+      "title": "Bayes error with three classes",
+      "prompt": "Class probabilities are 7/10, 1/5 and 1/10. What is the conditional error of the Bayes classifier?",
+      "answer": "The conditional error is 3/10."
+    },
+    {
+      "title": "A worse label",
+      "prompt": "At those same probabilities, what is the conditional error of announcing the class whose probability is 1/5?",
+      "answer": "The conditional error is 4/5."
+    },
+    {
+      "title": "Two-class overlap",
+      "prompt": "Two class probabilities are 11/20 and 9/20. What is the Bayes error?",
+      "answer": "The Bayes error is 9/20."
+    }
+  ],
+  "cluster-analysis": [
+    {
+      "title": "First single-link join",
+      "prompt": "For the points A(0,0), B(1,0), C(5,0) and D(6,1), at what distance does single linkage make its first join?",
+      "answer": "The first join is at distance 1, between A and B."
+    },
+    {
+      "title": "Within-cluster sum of squares",
+      "prompt": "For the partition {A,B} and {C,D}, what is the within-cluster sum of squares?",
+      "answer": "The within-cluster sum of squares is 3/2."
+    },
+    {
+      "title": "Distance between the pairs",
+      "prompt": "Under single linkage, what is the distance between {A,B} and {C,D}?",
+      "answer": "The distance is 4."
+    }
+  ],
+  "cohort-study": [
+    {
+      "title": "Risk ratio",
+      "prompt": "Of 80 exposed people, 20 develop the outcome. Of 120 unexposed people, 12 do. What is the risk ratio?",
+      "answer": "The risks are 0.25 and 0.10, so the risk ratio is 2.5."
+    },
+    {
+      "title": "Extra exposed",
+      "prompt": "The exposed group becomes 21 outcomes among 84 people, and the unexposed risk stays 0.10. What is the risk ratio?",
+      "answer": "The exposed risk is 0.25, so the risk ratio is still 2.5."
+    }
+  ],
+  "conjoint-analysis": [
+    {
+      "title": "Best profile",
+      "prompt": "Brand A has part-worth 0, brand B has 2, the low price has 3, and the high price has 0. Which profile has utility 5?",
+      "answer": "Brand B at the low price, because 2 + 3 = 5."
+    },
+    {
+      "title": "Brand share of range",
+      "prompt": "The brand range is 2 and the price range is 3. What share of the total range belongs to brand?",
+      "answer": "The share is 2/5."
+    },
+    {
+      "title": "Profile count",
+      "prompt": "Three attributes have 4 levels and two attributes have 3 levels. How many full-factorial profiles are there?",
+      "answer": "There are 4^3 × 3^2 = 576 profiles."
+    }
+  ],
+  "control-group": [
+    {
+      "title": "Small trial",
+      "prompt": "A drug group has 2 deaths among 10 patients and the control group has 5 deaths among 10. What is the risk difference, drug minus control?",
+      "answer": "The risk difference is 0.2 - 0.5 = -0.3."
+    },
+    {
+      "title": "One more control",
+      "prompt": "The control group becomes 6 deaths among 11, and the drug risk stays 0.2. What is the control risk?",
+      "answer": "The control risk is 6/11."
+    }
+  ],
+  "correlation-does-not-imply-causation": [
+    {
+      "title": "Which risk is larger?",
+      "prompt": "In the population of 20, treated mortality is 7/13 and untreated mortality is 3/7. Which is larger?",
+      "answer": "The treated risk is larger, because 7/13 − 3/7 = 10/91 > 0."
+    },
+    {
+      "title": "Causal difference",
+      "prompt": "If everyone treated gives 10 deaths out of 20 and everyone untreated gives 10 deaths out of 20, what is the causal risk difference?",
+      "answer": "The causal risk difference is 0."
+    },
+    {
+      "title": "Changed counterfactuals",
+      "prompt": "If 8 of 20 would die if everyone were treated and 12 of 20 would die if everyone were untreated, what is the causal risk difference?",
+      "answer": "The difference is 8/20 − 12/20 = −1/5."
+    }
+  ],
+  "cross-sectional-data": [
+    {
+      "title": "Five incomes",
+      "prompt": "A snapshot of incomes is 2, 4, 4, 6, and 9. What is the mean, and what is the sample variance with divisor n-1?",
+      "answer": "The mean is 5. The sum of squared deviations is 28, so the sample variance is 28/4 = 7."
+    },
+    {
+      "title": "Three units",
+      "prompt": "Values 3, 5, and 7 are measured once each. What are the mean and the range?",
+      "answer": "The mean is 5 and the range is 4. No within-unit change is defined."
+    }
+  ],
+  "data-collection": [
+    {
+      "title": "Sampling fraction",
+      "prompt": "A sample of 40 shops is drawn from 500. What is the sampling fraction?",
+      "answer": "The sampling fraction is 0.08."
+    },
+    {
+      "title": "Larger sample",
+      "prompt": "The sample grows from 40 shops to 50, still out of 500. What is the sampling fraction?",
+      "answer": "The sampling fraction is 0.1."
+    }
+  ],
+  "data-quality": [
+    {
+      "title": "Bias of the mean",
+      "prompt": "Readings 22, 23, 21, and 22 are taken on a true length of 20. What is the bias of their mean?",
+      "answer": "The mean is 22, so the bias is 2."
+    },
+    {
+      "title": "Fifth reading",
+      "prompt": "A fifth reading of 24 is added, and the true length stays 20. What is the bias of the new mean?",
+      "answer": "The mean is 22.4, so the bias is 2.4."
+    }
+  ],
+  "decision-problem": [
+    {
+      "title": "Radiotherapy score",
+      "prompt": "With cancer probability 0.9, life expectancies 16.7 and 34.8 months, and a one-month penalty, what is the radiotherapy score?",
+      "answer": "The score is 17.51 quality-adjusted months."
+    },
+    {
+      "title": "No treatment",
+      "prompt": "With the same probability, cancer expectancy 5.6 months and non-cancer expectancy 34.8 months, and no penalty, what is the no-treatment score?",
+      "answer": "The score is 8.52 months."
+    },
+    {
+      "title": "Surgery at probability one half",
+      "prompt": "Cancer probability 0.5, surgery survival probability 0.65, cancer expectancy 20.3, non-cancer expectancy 34.8, and a one-month penalty inside the survivor branch. What is the surgery score?",
+      "answer": "The score is 17.2575 months, below radiotherapy at 24.75."
+    }
+  ],
+  "difference-in-differences": [
+    {
+      "title": "Two gaps",
+      "prompt": "Treated means are 150 before and 140 after. Comparison means are 148 before and 146 after. What is the difference in differences of the post-treatment gap minus the pre-treatment gap?",
+      "answer": "The post-treatment gap is -6 and the pre-treatment gap is 2, so the difference in differences is -8."
+    },
+    {
+      "title": "Changed comparison",
+      "prompt": "The comparison group's later mean is 144 instead of 146. Treated means stay 140 and 150, and the earlier comparison mean stays 148. What is the difference in differences?",
+      "answer": "The difference in differences is -6."
+    }
+  ],
+  "differential-privacy": [
+    {
+      "title": "Probability bound",
+      "prompt": "With δ = 0 and e^ε = 2, if the probability of S on database y is 0.1, what is the upper bound on the probability of S on a neighbouring database?",
+      "answer": "The bound is 2 × 0.1 = 0.2."
+    },
+    {
+      "title": "A larger neighbour probability",
+      "prompt": "With δ = 0 and e^ε = 2, if the probability of S on database y is 0.3, what is the upper bound for a neighbour?",
+      "answer": "The bound is 2 × 0.3 = 0.6."
+    }
+  ],
+  "dimensionality-reduction": [
+    {
+      "title": "Sum of squares",
+      "prompt": "The centred points are (-1,-1), (0,0) and (1,1). What is the total sum of squares?",
+      "answer": "The total sum of squares is 4."
+    },
+    {
+      "title": "Horizontal fraction",
+      "prompt": "If only the horizontal coordinate of those centred points is kept, what fraction of the sum of squares is retained?",
+      "answer": "The retained fraction is 1/2."
+    },
+    {
+      "title": "Discarded sum of squares",
+      "prompt": "What sum of squares is discarded by keeping only the horizontal coordinate?",
+      "answer": "The discarded sum of squares is 2."
+    }
+  ],
+  "diversity-index": [
+    {
+      "title": "Concentration of 6, 3, and 1",
+      "prompt": "Proportions 0.6, 0.3, and 0.1. What is Simpson's λ?",
+      "answer": "λ = 0.36 + 0.09 + 0.01 = 0.46."
+    },
+    {
+      "title": "Unbiased pair estimator",
+      "prompt": "Counts 6, 3, and 1. What is the unbiased estimator ℓ?",
+      "answer": "ℓ = 36/90 = 0.4."
+    },
+    {
+      "title": "Equal split",
+      "prompt": "Ten individuals split five and five. What is λ?",
+      "answer": "λ = 1/2."
+    }
+  ],
+  "effect-size": [
+    {
+      "title": "Critical difference",
+      "prompt": "A standard error is 1.7 mmHg. What is 1.96 times that standard error?",
+      "answer": "The critical difference is 3.332 mmHg."
+    },
+    {
+      "title": "Shifted z-score",
+      "prompt": "The lower critical point is -3.332 and the true difference is -3, with standard error 1.7. What is the z-score?",
+      "answer": "The z-score is about -0.195, which rounds to -0.20."
+    },
+    {
+      "title": "A larger effect",
+      "prompt": "The standard error is 2 mmHg and the true difference is -5. Using the critical value 1.96 times 2, what is the z-score of the lower critical point?",
+      "answer": "The z-score is 0.54."
+    }
+  ],
+  "estimating-equations": [
+    {
+      "title": "Sample mean",
+      "prompt": "Observations 2, 4, and 6. What solves the sum of (y minus mu) equals 0?",
+      "answer": "The solution is mu = 4."
+    },
+    {
+      "title": "A second sample",
+      "prompt": "Observations 1, 3, and 8. What solves the same estimating equation?",
+      "answer": "The solution is mu = 4."
+    },
+    {
+      "title": "A second moment",
+      "prompt": "At mu = 4 for observations 1, 3, and 8, is the average of y squared minus (mu squared + 1) equal to zero?",
+      "answer": "No. The average is 74/3 minus 17, about 7.667."
+    }
+  ],
+  "expected-loss": [
+    {
+      "title": "Low base rate",
+      "prompt": "Treat has losses 1 and 8, watch has losses 10 and 0, and the base rate is 0.2. What are the two expected losses?",
+      "answer": "Treat has expected loss 6.6 and watch has expected loss 2."
+    },
+    {
+      "title": "High base rate",
+      "prompt": "The same losses with base rate 0.7. What are the two expected losses?",
+      "answer": "Treat has expected loss 3.1 and watch has expected loss 7."
+    },
+    {
+      "title": "Which action",
+      "prompt": "At base rate 0.2, which action has the smaller expected loss?",
+      "answer": "Watch, with expected loss 2 against 6.6."
+    }
+  ],
+  "experimental-error": [
+    {
+      "title": "Two treatments",
+      "prompt": "Observations (3,5) and (8,10) have treatment means 4 and 9 and grand mean 6.5. What are the treatment and error sums of squares?",
+      "answer": "The treatment sum of squares is 25 and the error sum of squares is 4."
+    },
+    {
+      "title": "Error mean square",
+      "prompt": "The error sum of squares is 4 on 2 degrees of freedom. What is the error mean square?",
+      "answer": "The error mean square is 2."
+    },
+    {
+      "title": "A second split",
+      "prompt": "Observations (1,3) and (5,7) have means 2 and 6 and grand mean 4. What are the two sums of squares?",
+      "answer": "The treatment sum of squares is 16 and the error sum of squares is 4."
+    }
+  ],
+  "extrapolation": [
+    {
+      "title": "Negative aid",
+      "prompt": "Using aid = 24319 - 0.0431 times income, what aid does an income of 1000000 produce?",
+      "answer": "The extrapolated aid is -18781."
+    },
+    {
+      "title": "Inside a larger income",
+      "prompt": "Using the same line, what aid does an income of 200000 produce?",
+      "answer": "The fitted aid is 15699."
+    },
+    {
+      "title": "Four hundred thousand",
+      "prompt": "Using the same line, what aid does an income of 400000 produce?",
+      "answer": "The fitted aid is 7079."
+    }
+  ],
+  "fat-tails": [
+    {
+      "title": "Two samples of five",
+      "prompt": "Using divisor n, what are the moment kurtoses of 1, 2, 3, 4, 5 and of 1, 1, 1, 1, 6?",
+      "answer": "The first kurtosis is 1.7 and the second is 3.25."
+    },
+    {
+      "title": "An exponential tail",
+      "prompt": "For a unit exponential, what is the probability of exceeding 4, to six decimals, and what is the kurtosis of the law?",
+      "answer": "The probability is 0.018316 and the kurtosis is 9."
+    },
+    {
+      "title": "Excess over the normal",
+      "prompt": "A unit exponential has kurtosis 9. What is the excess over the normal value 3, and what is the survival past 1?",
+      "answer": "The excess is 6. The survival past 1 is about 0.367879."
+    }
+  ],
+  "feature-selection": [
+    {
+      "title": "Intercept-only residual sum of squares",
+      "prompt": "For the cases (x, z, y) = (0, 0, 1), (1, 0, 1) and (2, 1, 3), what is the residual sum of squares of the intercept-only fit?",
+      "answer": "The residual sum of squares is 8/3."
+    },
+    {
+      "title": "Predictor x alone",
+      "prompt": "On the same three cases, what is the residual sum of squares of the least-squares line that uses only x and an intercept?",
+      "answer": "The residual sum of squares is 2/3."
+    },
+    {
+      "title": "How many best-subset models",
+      "prompt": "Best-subset selection with 20 predictors fits how many models, and forward stepwise fits how many?",
+      "answer": "Best subset fits 1048576 models. Forward stepwise fits 211."
+    }
+  ],
+  "federated-learning": [
+    {
+      "title": "Pooled mean",
+      "prompt": "One site has values 1 and 3. Another has the single value 10. What is the pooled mean?",
+      "answer": "The pooled mean is 14/3."
+    },
+    {
+      "title": "Unweighted gap",
+      "prompt": "How much larger is the unweighted mean of the two site means than that pooled mean?",
+      "answer": "The gap is 4/3."
+    },
+    {
+      "title": "Equal sizes",
+      "prompt": "If the second site instead has two values, both 10, what is the pooled mean?",
+      "answer": "The pooled mean is 6."
+    }
+  ],
+  "first-international-statistical-congress": [
+    {
+      "title": "Opening date",
+      "prompt": "On what date did the congress open, and which commission called it?",
+      "answer": "It opened on 19 September 1853. The Central Statistical Commission of Belgium called it, with Quetelet presiding."
+    },
+    {
+      "title": "Length of the series",
+      "prompt": "Nine congresses run from 1853 to 1876. How many years separate those two dates, and how long would each gap be if the eight intervals were equal?",
+      "answer": "The dates are 23 years apart. Equal gaps would be 23/8 = 2.875 years."
+    },
+    {
+      "title": "Pooled rate",
+      "prompt": "Two compatible tables have 80 events among 200 people and 90 events among 300 people. What is the pooled rate?",
+      "answer": "The pooled rate is 170/500 = 0.34."
+    }
+  ],
+  "game-of-chance": [
+    {
+      "title": "Euro die",
+      "prompt": "A fair die pays 1 on an even face, 2 on a 1 or a 3, and -3 on a 5. What is the expected payoff?",
+      "answer": "The expectation is -3/6 + 3/6 + 4/6 = 2/3."
+    },
+    {
+      "title": "Face value",
+      "prompt": "A fair die is scored by the face that appears. What is the expected score, and what is the probability that the face is at most 4?",
+      "answer": "The expected score is 21/6 = 3.5. The probability is 4/6 = 2/3."
+    },
+    {
+      "title": "Wheel",
+      "prompt": "A wheel pays 4 with probability 1/4, 0 with probability 1/2, and -2 with probability 1/4. What is the expected payoff?",
+      "answer": "The expectation is 1/2, so the game is not fair."
+    }
+  ],
+  "harking": [
+    {
+      "title": "Expected false alarms",
+      "prompt": "Twenty independent tests of true nulls are each run at level 0.05. What is the expected number of results with p < 0.05?",
+      "answer": "The expected number is 20 × 0.05 = 1."
+    },
+    {
+      "title": "A stricter level",
+      "prompt": "The same twenty true nulls are tested at level 0.01. What is the expected number with p < 0.01?",
+      "answer": "The expected number is 20 × 0.01 = 0.2."
+    }
+  ],
+  "harmonic-mean": [
+    {
+      "title": "Three interest rates",
+      "prompt": "Rates of 5%, 10% and 15% produce the same income. What is the harmonic mean, as an exact fraction, and what is the arithmetic mean?",
+      "answer": "The harmonic mean is 90/11 percent, about 8.182. The arithmetic mean is 10 percent."
+    },
+    {
+      "title": "Three weights",
+      "prompt": "Person weights are 100, 200 and 300. What is the exact harmonic mean, and what integer does it round to?",
+      "answer": "The exact value is 1800/11, about 163.636, which rounds to 164."
+    },
+    {
+      "title": "A zero",
+      "prompt": "One of six positive observations is replaced by zero. What happens to the harmonic mean?",
+      "answer": "The harmonic mean is undefined, because a reciprocal of zero is not a number."
+    }
+  ],
+  "hawthorne-effect": [
+    {
+      "title": "First-year peak",
+      "prompt": "A baseline of 100 units rises by 10 percent. What is the new level?",
+      "answer": "The level is 110 units."
+    },
+    {
+      "title": "Plant-wide gap",
+      "prompt": "On a baseline of 100, a 10 percent peak is 110 and a 1.4 percent rise is 101.4. What is the gap?",
+      "answer": "The gap is 8.6 units."
+    },
+    {
+      "title": "Later peak",
+      "prompt": "A later peak is 20 percent above a baseline of 100, and the earlier peak was 110. How many units above 110 is the later peak?",
+      "answer": "The later peak is 120, which is 10 units above 110."
+    }
+  ],
+  "instrumental-variable": [
+    {
+      "title": "Wald ratio",
+      "prompt": "The outcome means are 11 and 7, and the treated proportions are 0.75 and 0.25. What is the instrumental-variable estimand?",
+      "answer": "The estimand is 4/0.5 = 8."
+    },
+    {
+      "title": "Weaker first stage",
+      "prompt": "The treated proportion at Z = 1 falls from 0.75 to 0.65. The other values stay 11, 7, and 0.25. What is the estimand?",
+      "answer": "The estimand is 4/0.4 = 10."
+    }
+  ],
+  "inverse-probability": [
+    {
+      "title": "One success",
+      "prompt": "One trial is a success and the unknown chance is uniform on the unit interval. What is the posterior probability that the chance exceeds 1/2?",
+      "answer": "The probability is 3/4."
+    },
+    {
+      "title": "One failure",
+      "prompt": "One trial is a failure and the unknown chance is uniform on the unit interval. What is the posterior probability that the chance exceeds 1/2?",
+      "answer": "The probability is 1/4."
+    }
+  ],
+  "k-anonymity": [
+    {
+      "title": "Minimum frequency",
+      "prompt": "Three rows share one quasi-identifier pair and one row has a different pair. What is the minimum frequency?",
+      "answer": "The minimum frequency is 1, so the table is not 2-anonymous."
+    },
+    {
+      "title": "After one added row",
+      "prompt": "A second row with the rare pair is added. What is the minimum frequency, and is the table 2-anonymous?",
+      "answer": "The minimum frequency is 2, so the table satisfies 2-anonymity."
+    }
+  ],
+  "kruskal-wallis-test": [
+    {
+      "title": "Rank statistic",
+      "prompt": "Three groups of size 3 have rank sums 10, 15, and 20. What is H?",
+      "answer": "H is 20/9, about 2.222."
+    },
+    {
+      "title": "A larger ranking",
+      "prompt": "Three groups of size 4 have rank sums 12, 24, and 48. What is H?",
+      "answer": "H is 249/13, about 19.154."
+    },
+    {
+      "title": "Oil data threshold",
+      "prompt": "H is 13.64 and the chi-squared 5% reference with 3 degrees of freedom is 7.81. Does the test reject?",
+      "answer": "Yes. 13.64 is greater than 7.81, so the test rejects."
+    }
+  ],
+  "kurtosis": [
+    {
+      "title": "A short flat sample",
+      "prompt": "For 1, 2, 3, 4, 5, using the divisor n inside the central moments, what is the moment kurtosis?",
+      "answer": "The moment kurtosis is 1.7."
+    },
+    {
+      "title": "One large observation",
+      "prompt": "For 1, 1, 1, 1, 6, what is the moment kurtosis with divisor n, and how does it compare with 3?",
+      "answer": "The moment kurtosis is 3.25, which is above the normal value 3."
+    },
+    {
+      "title": "Six numbers",
+      "prompt": "For 0, 0, 0, 0, 0, 6, what is the moment kurtosis with divisor n?",
+      "answer": "The moment kurtosis is 4.2."
+    }
+  ],
+  "lady-tasting-tea": [
+    {
+      "title": "Number of divisions",
+      "prompt": "Eight cups are divided into two labelled sets of four. How many divisions are there, and what is the null probability of the correct one?",
+      "answer": "There are 70 divisions. The null probability of the correct one is 1/70."
+    },
+    {
+      "title": "Three correct",
+      "prompt": "In the eight-cup design, how many sets get exactly three of one kind right, and what is the null probability of a score at least that good?",
+      "answer": "There are 16 such sets. Including the one perfect set gives 17/70."
+    },
+    {
+      "title": "Six cups",
+      "prompt": "Six cups, three of each kind, must be split by naming a set of three. What is the null probability of a perfect score?",
+      "answer": "There are 20 divisions, so the probability is 1/20 = 0.05."
+    }
+  ],
+  "least-absolute-deviations": [
+    {
+      "title": "Three-point line",
+      "prompt": "For the points (0,0), (1,0), and (2,3), what is the sum of absolute residuals of y=1.5x?",
+      "answer": "The sum is 1.5."
+    },
+    {
+      "title": "Horizontal comparison",
+      "prompt": "For those same three points, what is the sum of absolute residuals of the line y=0?",
+      "answer": "The sum is 3."
+    },
+    {
+      "title": "A second triple",
+      "prompt": "For (0,1), (1,1), and (2,5), which line has the smaller absolute-residual sum: y=1 or y=1+2x?",
+      "answer": "y=1+2x, with sum 2, against sum 4 for y=1."
+    }
+  ],
+  "likelihood-ratios-in-diagnostic-testing": [
+    {
+      "title": "Mammogram ratio",
+      "prompt": "Sensitivity 0.89 and false-positive rate 0.07. What is the positive likelihood ratio?",
+      "answer": "The ratio is 0.89/0.07, about 12.714."
+    },
+    {
+      "title": "Posterior probability",
+      "prompt": "Prior odds about 0.003512 times a likelihood ratio of about 12.714. What is the posterior probability?",
+      "answer": "The posterior probability is about 0.0427."
+    },
+    {
+      "title": "A simpler test",
+      "prompt": "Sensitivity 0.80, false-positive rate 0.10, base rate 0.20. What are the posterior odds and the posterior probability?",
+      "answer": "The posterior odds are 2 and the posterior probability is 2/3."
+    }
+  ],
+  "machine-learning": [
+    {
+      "title": "Reducible plus irreducible",
+      "prompt": "A fixed fit has f(X)=10, f-hat(X)=7 and error variance 9. What is the expected squared error?",
+      "answer": "The expected squared error is 18."
+    },
+    {
+      "title": "Perfect fit",
+      "prompt": "If that same fit recovers f(X)=10 exactly, and the error variance is still 9, what is the expected squared error?",
+      "answer": "The expected squared error is 9."
+    },
+    {
+      "title": "Another fixed fit",
+      "prompt": "Now f(X)=4, f-hat(X)=1 and the error variance is 4. What is the expected squared error?",
+      "answer": "The expected squared error is 13."
+    }
+  ],
+  "mean-absolute-percentage-error": [
+    {
+      "title": "Three forecasts",
+      "prompt": "Observations 100, 200 and 50 are forecast as 110, 160 and 80. What is the mean absolute percentage error?",
+      "answer": "The mean absolute percentage error is 30."
+    },
+    {
+      "title": "Two forecasts",
+      "prompt": "Observations 80 and 120 are forecast as 100 and 90. What is the mean absolute percentage error?",
+      "answer": "Each absolute percentage error is 25, so the mean is 25."
+    },
+    {
+      "title": "A zero observation",
+      "prompt": "One observation in the scoring period is 0. What happens to the mean absolute percentage error?",
+      "answer": "It is undefined, because the percentage error divides by the observation."
+    }
+  ],
+  "measurable-function": [
+    {
+      "title": "Payoff expectation",
+      "prompt": "Outcome 1 has probability 1/3 and payoff 2; the group {2, 3} has probability 2/3 and payoff 7. What is the expectation?",
+      "answer": "The expectation is 16/3."
+    },
+    {
+      "title": "A higher payoff on outcome 1",
+      "prompt": "Outcome 1 now pays 5, and the group {2, 3} still pays 7 with probability 2/3. What is the expectation?",
+      "answer": "The expectation is 19/3."
+    }
+  ],
+  "measurement": [
+    {
+      "title": "Two operators",
+      "prompt": "Operator A's times 10, 12, 11, and 11 have mean 11. The true duration is 12. What is A's bias?",
+      "answer": "A's bias is -1."
+    },
+    {
+      "title": "One more time",
+      "prompt": "A's times gain a fifth value of 16, and the true duration stays 12. What are the new mean and the new bias?",
+      "answer": "The mean is 12 and the bias is 0."
+    }
+  ],
+  "morans-i": [
+    {
+      "title": "Line of four areas",
+      "prompt": "Areas in a line have values 1, 2, 4, and 5, and binary neighbour weights with six nonzero entries. What is Moran's I?",
+      "answer": "The index is 0.4."
+    },
+    {
+      "title": "Sum of the weights",
+      "prompt": "For four areas in a line and binary weights on each ordered neighbour pair, what is the sum of all weights?",
+      "answer": "The sum of the weights is 6."
+    },
+    {
+      "title": "Alternating values",
+      "prompt": "The same four areas and weights now have values 1, 2, 2, and 1. What is Moran's I?",
+      "answer": "The index is -1/3."
+    }
+  ],
+  "multilevel-model": [
+    {
+      "title": "Clinic variance",
+      "prompt": "A random intercept has variance 9 and the residual variance is 3. What are the marginal variance and the within-clinic correlation?",
+      "answer": "The marginal variance is 12 and the correlation is 9/12 = 0.75."
+    },
+    {
+      "title": "Within-clinic difference",
+      "prompt": "With residual variance 3, what is the variance of the difference of two observations that share a random intercept?",
+      "answer": "The shared intercept cancels, so the variance is 3 + 3 = 6."
+    },
+    {
+      "title": "Another intercept",
+      "prompt": "A random intercept has variance 4 and the residual variance is 12. What are the marginal variance, the within-group correlation, and the variance of a within-group difference?",
+      "answer": "The marginal variance is 16, the correlation is 0.25, and the difference has variance 24."
+    }
+  ],
+  "natural-experiment": [
+    {
+      "title": "Route means",
+      "prompt": "Long-route times are 30, 40, 50, and 40. Short-route times are 20, 25, 30, and 25. What is the contrast of means?",
+      "answer": "The means are 40 and 25, so the contrast is 15."
+    },
+    {
+      "title": "Extra short trip",
+      "prompt": "One more short-route time of 20 is added, and the long-route mean stays 40. What is the new contrast?",
+      "answer": "The short-route mean is 24, so the contrast is 16."
+    }
+  ],
+  "nonlinear-regression": [
+    {
+      "title": "Exponential versus line",
+      "prompt": "For the points (0, 4), (1, 2) and (2, 1.2), which residual sum of squares is about 0.0188, the exponential fit or the straight line?",
+      "answer": "The exponential fit has residual sum of squares about 0.0188. The straight line has residual sum of squares 0.24."
+    },
+    {
+      "title": "Exact exponential",
+      "prompt": "The curve y = β0 exp(−β1 x) passes through (0, 5) and (1, 1). What are β0 and the residual sum of squares?",
+      "answer": "β0 is 5 and the residual sum of squares is 0."
+    },
+    {
+      "title": "A quadratic mean",
+      "prompt": "Is the mean β0 + β1 x + β2 x^2 fitted by nonlinear least squares?",
+      "answer": "No. That mean is linear in the coefficients, so the fit is polynomial least squares."
+    }
+  ],
+  "normalizing-constant": [
+    {
+      "title": "Two successes",
+      "prompt": "The kernel on the unit interval is theta squared. What is its integral, and what normalizing constant turns it into a density?",
+      "answer": "The integral is 1/3 and the normalizing constant is 3."
+    },
+    {
+      "title": "One success in two trials",
+      "prompt": "The kernel on the unit interval is theta times (1 minus theta). What is its integral, and what normalizing constant turns it into a density?",
+      "answer": "The integral is 1/6 and the normalizing constant is 6."
+    }
+  ],
+  "panel-data": [
+    {
+      "title": "Balanced changes",
+      "prompt": "Three units change by +2, 0, and +3. What is the mean change, and how does it compare with a rise in the cross-sectional mean from 10/3 to 5?",
+      "answer": "The mean change is 5/3, and the wave means differ by 5 - 10/3 = 5/3."
+    },
+    {
+      "title": "A missing second wave",
+      "prompt": "Changes of +2 and 0 are observed, while the wave means that can be computed are 10/3 and 9/2. What are the mean of the observed changes and the difference of the wave means?",
+      "answer": "The mean of the observed changes is 1. The difference of the wave means is 7/6."
+    },
+    {
+      "title": "Two complete units",
+      "prompt": "One unit moves from 1 to 4 and another stays at 6. What is the mean change?",
+      "answer": "The mean change is 1.5, and the wave means differ by the same 1.5."
+    }
+  ],
+  "pearson-distribution": [
+    {
+      "title": "A bag of one hundred",
+      "prompt": "For n = 100, between which values of p, to four decimals, is every draw size a trigonometric integral?",
+      "answer": "The values are 0.3995 and 0.6005."
+    },
+    {
+      "title": "A one-sided curve",
+      "prompt": "A Type III curve has p = 3 and gamma = 2. What are mu2, the memoir skewness 1/sqrt(p+1), and mu4/mu2^2?",
+      "answer": "mu2 is 1, the memoir skewness is 1/2, and mu4/mu2^2 is 9/2."
+    },
+    {
+      "title": "Another one-sided curve",
+      "prompt": "A Type III curve has p = 8 and gamma = 1. What are the memoir skewness and mu4/mu2^2?",
+      "answer": "The memoir skewness is 1/3 and mu4/mu2^2 is 11/3."
+    }
+  ],
+  "polynomial-least-squares": [
+    {
+      "title": "Four-point quadratic",
+      "prompt": "For (0, 1), (1, 2), (2, 2) and (3, 5), what are the quadratic coefficients and the residual sum of squares?",
+      "answer": "The coefficients are 1.2, −0.3 and 0.5. The residual sum of squares is 0.8."
+    },
+    {
+      "title": "Straight line on the same points",
+      "prompt": "What is the residual sum of squares of the straight line fitted to those four points?",
+      "answer": "The residual sum of squares is 1.8."
+    },
+    {
+      "title": "Three-point parabola",
+      "prompt": "What is the residual sum of squares when y = β0 + β1 x + β2 x^2 is fitted to (0, 1), (1, 0) and (2, 1)?",
+      "answer": "The residual sum of squares is 0."
+    }
+  ],
+  "posterior-probability": [
+    {
+      "title": "Equal unnormalised weights",
+      "prompt": "Prior probabilities are 1/4 and 3/4, and the sampling probabilities of the sample are 1/2 and 1/6. What is the posterior probability of the first explanation?",
+      "answer": "The posterior probability is 1/2."
+    },
+    {
+      "title": "Equal prior probabilities",
+      "prompt": "The sampling probabilities stay 1/2 and 1/6, and the prior probabilities are both 1/2. What is the posterior probability of the first explanation?",
+      "answer": "The posterior probability is 3/4."
+    }
+  ],
+  "probability-interpretations": [
+    {
+      "title": "A short record",
+      "prompt": "A record of 10 tosses contains 3 heads. What is the relative frequency of heads?",
+      "answer": "The relative frequency is 3/10."
+    },
+    {
+      "title": "A longer record",
+      "prompt": "A record of 100 tosses contains 60 heads. What is the relative frequency of heads, in lowest terms?",
+      "answer": "The relative frequency is 3/5."
+    }
+  ],
+  "random-error": [
+    {
+      "title": "Rod readings",
+      "prompt": "Readings 9.7, 10.2, 9.9 and 10.4 are taken against a 10 cm reference. What are the mean and the sum of squared deviations from the mean?",
+      "answer": "The mean is 10.05 and the sum of squared deviations is 0.29."
+    },
+    {
+      "title": "Error of the mean",
+      "prompt": "For those four readings, what is the error of the mean against the reference value 10?",
+      "answer": "The error of the mean is 0.05 cm."
+    },
+    {
+      "title": "Centred series",
+      "prompt": "Readings 8, 10 and 12 are taken against a reference of 10. What is the sum of squared deviations from the mean, and the error of the mean?",
+      "answer": "The sum of squared deviations is 8 and the error of the mean is 0."
+    }
+  ],
+  "ranking": [
+    {
+      "title": "A tie at the top",
+      "prompt": "Rank 8, 3, 8 and 1, giving rank 1 to the smallest and average ranks to ties. What are the ranks in that order, and what is their sum?",
+      "answer": "The ranks are 3.5, 2, 3.5 and 1, and they sum to 10."
+    },
+    {
+      "title": "A tie in the middle",
+      "prompt": "Rank 4, 1, 4 and 9 with average ranks for the tie. What are the ranks in that order?",
+      "answer": "The ranks are 2.5, 1, 2.5 and 4."
+    }
+  ],
+  "raw-data": [
+    {
+      "title": "Five times",
+      "prompt": "Reaction times 8, 11, 9, 10, and 12 are reduced to their mean. What is that mean?",
+      "answer": "The mean is 10."
+    },
+    {
+      "title": "Sixth time",
+      "prompt": "A sixth time of 16 is appended to 8, 11, 9, 10, and 12. What is the new mean?",
+      "answer": "The new mean is 11."
+    }
+  ],
+  "resampling-statistics": [
+    {
+      "title": "Bootstrap variance",
+      "prompt": "For the sample 1, 2, 3, what is the variance of the bootstrap distribution of the sample mean?",
+      "answer": "The variance is 2/9, about 0.2222."
+    },
+    {
+      "title": "Jackknife bias",
+      "prompt": "For the divide-by-n variance of 1, 2, 3, what is the jackknife bias estimate?",
+      "answer": "The bias estimate is −1/3, and the corrected value is 1."
+    },
+    {
+      "title": "Two-point bootstrap",
+      "prompt": "For the sample 4 and 9, what is the average of the four bootstrap means of size 2?",
+      "answer": "The average is 6.5."
+    }
+  ],
+  "robust-statistics": [
+    {
+      "title": "Absolute deviations",
+      "prompt": "For 1, 2, 3, 4 and 20, what are the sums of absolute deviations from the mean 6 and from the median 3?",
+      "answer": "The sums are 28 at the mean and 21 at the median."
+    },
+    {
+      "title": "Squared deviations",
+      "prompt": "For the same five numbers, what are the sums of squared deviations from 6 and from 3?",
+      "answer": "The sums are 250 at the mean and 295 at the median."
+    },
+    {
+      "title": "One wild point",
+      "prompt": "For 5, 5, 5, 5 and 100, what are the mean and the sum of absolute deviations from the median?",
+      "answer": "The mean is 24 and the sum of absolute deviations from the median 5 is 95."
+    }
+  ],
+  "rounding": [
+    {
+      "title": "Proportional shares",
+      "prompt": "The exact shares 14.25, 7.5, 4.5 and 3.75 are each rounded half-up to an integer. What is the sum of the rounded shares?",
+      "answer": "The rounded shares are 14, 8, 5 and 4, and they sum to 31."
+    },
+    {
+      "title": "A printed margin",
+      "prompt": "Two printed proportions are 0.851 and 0.150. By how much does their sum exceed 1?",
+      "answer": "Their sum is 1.001, which exceeds 1 by 0.001."
+    },
+    {
+      "title": "Three numbers",
+      "prompt": "Round 2.5, 2.5 and 3.2 half-up. What is the sum of the rounded values?",
+      "answer": "The rounded values are 3, 3 and 3, and they sum to 9."
+    }
+  ],
+  "sampling": [
+    {
+      "title": "Equally likely subsets",
+      "prompt": "A simple random sample of 2 units is drawn from 6. How many equally likely samples are there?",
+      "answer": "There are 15 equally likely samples."
+    },
+    {
+      "title": "Larger population",
+      "prompt": "The population has 10 units and the sample size is still 2. How many equally likely samples are there?",
+      "answer": "There are 45 equally likely samples."
+    }
+  ],
+  "scientific-control": [
+    {
+      "title": "Two means",
+      "prompt": "Drug changes sum to 54 over 6 patients and placebo changes sum to 18 over 6. What is the contrast of means?",
+      "answer": "The means are 9 and 3, so the contrast is 6."
+    },
+    {
+      "title": "Extra placebo",
+      "prompt": "The placebo changes sum to 22 over 7 patients and the drug mean stays 9. What is the placebo mean?",
+      "answer": "The placebo mean is 22/7."
+    }
+  ],
+  "secondary-data": [
+    {
+      "title": "Recorded risk",
+      "prompt": "A file of 240 admissions records 30 falls. What is the recorded risk?",
+      "answer": "The recorded risk is 30/240 = 0.125."
+    },
+    {
+      "title": "Found admissions",
+      "prompt": "Twelve further admissions are added, 3 of them with a fall. What is the new recorded risk as a count?",
+      "answer": "The file has 33 falls among 252 admissions."
+    }
+  ],
+  "spearman-s-rank-correlation-coefficient": [
+    {
+      "title": "Mild disagreement",
+      "prompt": "Rank differences are 0, 0, -1, and 1, so the squared differences sum to 2, and n = 4. What is the coefficient?",
+      "answer": "The coefficient is 0.8."
+    },
+    {
+      "title": "Complete reversal",
+      "prompt": "The squared rank differences for a complete reversal of four ranks sum to 20. What is the coefficient?",
+      "answer": "The coefficient is -1."
+    }
+  ],
+  "statistical-dispersion": [
+    {
+      "title": "Five numbers",
+      "prompt": "For 2, 4, 4, 7 and 8, what are the sample variance with divisor n−1, the average absolute deviation from the mean, and the range?",
+      "answer": "The sample variance is 6, the average absolute deviation is 2, and the range is 6."
+    },
+    {
+      "title": "Seven family sizes",
+      "prompt": "For 0, 0, 1, 1, 2, 3 and 6, what is the range, and what is the average absolute deviation from the mean as a fraction?",
+      "answer": "The range is 6. The average absolute deviation is 76/49."
+    }
+  ],
+  "statistical-model": [
+    {
+      "title": "Fitted value",
+      "prompt": "The line is y = 2 + 3x. What is the fitted value at x = 4?",
+      "answer": "The fitted value is 14."
+    },
+    {
+      "title": "Residual",
+      "prompt": "The point at x = 4 is observed as y = 16, and the line y = 2 + 3x fits 14 there. What is the residual?",
+      "answer": "The residual is 2."
+    }
+  ],
+  "statistical-survey": [
+    {
+      "title": "Sample proportion",
+      "prompt": "Of 50 drawn households, 35 have a working alarm, from a city of 1000. What is the sample proportion?",
+      "answer": "The sample proportion is 0.7."
+    },
+    {
+      "title": "Larger draw",
+      "prompt": "Of 80 households, 60 have a working alarm. What are the sample proportion and the sampling fraction out of 1000?",
+      "answer": "The sample proportion is 0.75 and the sampling fraction is 0.08."
+    }
+  ],
+  "statistician": [
+    {
+      "title": "Four districts",
+      "prompt": "District birth counts are 120, 80, 200, and 100. What are the total, the mean, and the largest share?",
+      "answer": "The total is 500, the mean is 125, and the largest share is 0.4."
+    },
+    {
+      "title": "Three districts",
+      "prompt": "Three districts report 30, 45, and 75 births. What are the total, the mean, and the largest share?",
+      "answer": "The total is 150, the mean is 50, and the largest share is 0.5."
+    },
+    {
+      "title": "Smallest share",
+      "prompt": "For the counts 120, 80, 200, and 100, what is the smallest district's share of the 500 births?",
+      "answer": "The smallest share is 80/500 = 0.16."
+    }
+  ],
+  "supervised-learning": [
+    {
+      "title": "Neighbour of 3",
+      "prompt": "Training pairs are (0, 0), (1, 0) and (4, 1). What label does one-nearest neighbour return at feature 3?",
+      "answer": "The label is 1."
+    },
+    {
+      "title": "Neighbour of 2",
+      "prompt": "With the same training pairs, what label does one-nearest neighbour return at feature 2?",
+      "answer": "The label is 0."
+    },
+    {
+      "title": "Training error",
+      "prompt": "What is the training error of this one-nearest-neighbour rule on the three training points, when each point may be its own neighbour?",
+      "answer": "The training error is 0."
+    }
+  ],
+  "survey-methodology": [
+    {
+      "title": "Response rate",
+      "prompt": "Of 200 drawn graduates, 140 reply. What is the response rate?",
+      "answer": "The response rate is 0.7."
+    },
+    {
+      "title": "Reminders",
+      "prompt": "Twenty of the 60 non-respondents later reply, so 160 of 200 have replied. What is the response rate?",
+      "answer": "The response rate is 0.8."
+    }
+  ],
+  "systematic-error": [
+    {
+      "title": "Balance offset",
+      "prompt": "Readings 21.4, 21.7, 21.2 and 21.5 are taken on a 20 mg standard. What is the estimated systematic error?",
+      "answer": "The mean is 21.45, so the estimated systematic error is 1.45 mg."
+    },
+    {
+      "title": "Scatter around the shift",
+      "prompt": "For those four readings, what is the sum of squared deviations from the mean?",
+      "answer": "The sum of squared deviations is 0.13."
+    },
+    {
+      "title": "Gauge",
+      "prompt": "A 10 cm gauge is read as 12, 11 and 13. What is the estimated systematic error, and the mean after subtracting it?",
+      "answer": "The estimated systematic error is 2 cm, and subtracting it leaves 10 cm."
+    }
+  ],
+  "systematic-sampling": [
+    {
+      "title": "Interval and last label",
+      "prompt": "N = 40 houses and n = 8, with random start 3. What is the interval, and what is the last selected label?",
+      "answer": "The interval is 5 and the last label is 38."
+    },
+    {
+      "title": "New start",
+      "prompt": "The start is 1, with the same N = 40, n = 8, and interval 5. What is the last label?",
+      "answer": "The last label is 36."
+    }
+  ],
+  "tail": [
+    {
+      "title": "An SAT cutoff",
+      "prompt": "SAT scores follow a normal model with mean 1100 and standard deviation 200. What is the upper-tail probability at 1190?",
+      "answer": "The standardised value is 0.45 and the upper tail is 0.3264."
+    },
+    {
+      "title": "A standard point",
+      "prompt": "The standard normal lower tail at z = 1 is 0.8413447. What is the upper tail?",
+      "answer": "The upper tail is 0.1586553."
+    },
+    {
+      "title": "An exponential cutoff",
+      "prompt": "For a unit exponential, what is the upper-tail probability at 2, to six decimals?",
+      "answer": "The upper tail is 0.135335."
+    }
+  ],
+  "true-value": [
+    {
+      "title": "Error of the mean",
+      "prompt": "Estimates 48, 53, and 51 are made of a true mass of 50. What is the error of their mean?",
+      "answer": "The mean is 152/3 and the error is 2/3."
+    },
+    {
+      "title": "Fourth estimate",
+      "prompt": "A fourth estimate of 48 is added, and the true mass stays 50. What is the error of the new mean?",
+      "answer": "The mean is 50 and the error is 0."
+    }
+  ],
+  "uncertainty": [
+    {
+      "title": "Mean absolute deviation",
+      "prompt": "Timings 5, 7, 6, and 6 have mean 6. What is their mean absolute deviation?",
+      "answer": "The mean absolute deviation is 0.5."
+    },
+    {
+      "title": "Fifth timing",
+      "prompt": "A fifth timing of 8 is added to 5, 7, 6, and 6. What is the new mean absolute deviation?",
+      "answer": "The mean is 6.4 and the mean absolute deviation is 0.88."
+    }
+  ],
+  "unsupervised-learning": [
+    {
+      "title": "Horizontal fraction",
+      "prompt": "For the points (2,0), (-2,0), (0,1) and (0,-1), what fraction of the sum of squares is horizontal?",
+      "answer": "The horizontal fraction is 4/5."
+    },
+    {
+      "title": "Vertical fraction",
+      "prompt": "What fraction of the sum of squares is vertical?",
+      "answer": "The vertical fraction is 1/5."
+    },
+    {
+      "title": "Leftover",
+      "prompt": "If only the horizontal coordinate is kept, what is the sum of squared reconstruction errors?",
+      "answer": "The leftover sum of squares is 2."
+    }
   ]
 }
