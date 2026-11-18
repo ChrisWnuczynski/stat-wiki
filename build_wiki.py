@@ -6815,6 +6815,98 @@ def footer_text(now: datetime | None = None) -> str:
     return f"© {today.year} {SITE_NAME} · Last updated {today.day} {today:%B %Y}"
 
 
+def topic_sidebar_lines(
+    articles: dict[str, dict],
+    distributions: dict[str, dict],
+    wiki: Path,
+) -> list[str]:
+    """Sidebar blocks for Fundamentals and Probability distributions.
+
+    The section href stays the hub page. The first child is an Overview link
+    to that hub, then every article in the order the hub page lists it.
+    Distribution articles sit in the same groups as ``distribution_groups``.
+    Each article is an explicit text/href entry, once, using its display title.
+    """
+    seen: set[str] = set()
+
+    def article_item(slug_: str, indent: int) -> list[str]:
+        article = articles.get(slug_)
+        if not article:
+            raise SystemExit(f"Sidebar lists {slug_}, which has no article")
+        path = article["path"]
+        if not isinstance(path, Path):
+            path = Path(path)
+        try:
+            href = path.relative_to(wiki).as_posix()
+        except ValueError:
+            href = path.as_posix()
+        if not href.startswith("articles/") or not href.endswith(".qmd"):
+            raise SystemExit(f"Sidebar topic entry {slug_} resolved to {href}, not an articles page")
+        if href in seen:
+            raise SystemExit(f"Sidebar lists {href} more than once")
+        term = str(article.get("term") or "").strip()
+        if not term:
+            raise SystemExit(f"Sidebar article {slug_} has no display title")
+        seen.add(href)
+        pad = " " * indent
+        return [f"{pad}- text: {yaml_quote(term)}", f"{pad}  href: {href}"]
+
+    def overview_item(href: str, indent: int) -> list[str]:
+        pad = " " * indent
+        return [f"{pad}- text: {yaml_quote('Overview')}", f"{pad}  href: {href}"]
+
+    def section(title: str, href: str, indent: int, body: list[str]) -> list[str]:
+        if not body:
+            raise SystemExit(f"Sidebar section {title} has no entries")
+        pad = " " * indent
+        return [
+            f"{pad}- section: {yaml_quote(title)}",
+            f"{pad}  href: {href}",
+            f"{pad}  contents:",
+            *body,
+        ]
+
+    fund_body = overview_item("notes/fundamentals.qmd", 14)
+    # Hub page order is the grouped list, which is not FUNDAMENTALS_ORDER.
+    for _title, members in topic_hubs.FUNDAMENTALS_GROUPS:
+        for hub_slug in members:
+            fund_body.extend(article_item(hub_slug, 14))
+    lines = section("Fundamentals", "notes/fundamentals.qmd", 10, fund_body)
+
+    dist_body = overview_item("notes/probability-distributions.qmd", 14)
+    for title, members in topic_hubs.distribution_groups(list(distributions.items())):
+        if not members:
+            continue
+        group_body: list[str] = []
+        for hub_slug in members:
+            group_body.extend(article_item(hub_slug, 18))
+        pad = " " * 14
+        dist_body.append(f"{pad}- section: {yaml_quote(title)}")
+        dist_body.append(f"{pad}  contents:")
+        dist_body.extend(group_body)
+    lines.extend(section(
+        "Probability distributions",
+        "notes/probability-distributions.qmd",
+        10,
+        dist_body,
+    ))
+    return lines
+
+
+def assert_sidebar_article_hrefs_once(yml: str) -> None:
+    """An article href in two sidebar places makes Quarto prev/next use only the first."""
+    try:
+        sidebar = yml.split("  sidebar:\n", 1)[1].split("\n  page-navigation:", 1)[0]
+    except IndexError as exc:
+        raise SystemExit("Generated _quarto.yml has no sidebar block") from exc
+    hrefs = re.findall(r"(?m)^[ \t]*(?:-[ \t]+)?href:[ \t]*(\S+?)[ \t]*$", sidebar)
+    bare = re.findall(r"(?m)^[ \t]*-[ \t]+([^\s:#]+\.qmd)[ \t]*$", sidebar)
+    article_hrefs = [href for href in hrefs + bare if href.startswith("articles/")]
+    dupes = sorted(href for href, count in Counter(article_hrefs).items() if count > 1)
+    if dupes:
+        raise SystemExit("Sidebar lists articles more than once: " + ", ".join(dupes[:8]))
+
+
 def write_config(chapters, final_notes, questions) -> None:
     share = WIKI / SHARE_IMAGE
     width, height = png_size(share)
@@ -6982,14 +7074,7 @@ website:
       - section: Topics
         href: notes/index.qmd
         contents:
-          - section: Fundamentals
-            href: notes/fundamentals.qmd
-            contents:
-              - notes/fundamentals.qmd
-          - section: Probability distributions
-            href: notes/probability-distributions.qmd
-            contents:
-              - notes/probability-distributions.qmd
+{chr(10).join(topic_sidebar_lines(ARTICLES, DISTRIBUTIONS, WIKI))}
 {chr(10).join(part_blocks)}
       - section: Question bank
         href: questions/index.qmd
@@ -7038,6 +7123,7 @@ format:
     # One canonical link per page, on the public host, so every page can be indexed.
     canonical-url: true
 """
+    assert_sidebar_article_hrefs_once(yml)
     (WIKI / "_quarto.yml").write_text(yml, encoding="utf-8")
     if "noindex" in yml or "nofollow" in yml:
         raise SystemExit("Pages must not send noindex or nofollow")
