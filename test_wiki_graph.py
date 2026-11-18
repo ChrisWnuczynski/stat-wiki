@@ -1969,5 +1969,192 @@ class HistoryAndHomeTests(unittest.TestCase):
         self.assertIn("home-search.js", yml)
 
 
+def _sidebar_items(text: str) -> list[tuple[str, str | None, str | None, int]]:
+    """(kind, text, href, indent) for section headers, text/href links, and bare paths."""
+    lines = text.splitlines()
+    items: list[tuple[str, str | None, str | None, int]] = []
+    i = 0
+    while i < len(lines):
+        section = re.match(r"^( *)- section: (.*)$", lines[i])
+        link = re.match(r"^( *)- text: (.*)$", lines[i])
+        bare = re.match(r"^( *)- (\S+\.qmd)$", lines[i])
+        if section:
+            indent = len(section.group(1))
+            href = None
+            if i + 1 < len(lines):
+                href_line = re.match(r"^( *)href: (\S+)$", lines[i + 1])
+                if href_line and len(href_line.group(1)) == indent + 2:
+                    href = href_line.group(2)
+                    i += 1
+            items.append(("section", section.group(2), href, indent))
+        elif link:
+            indent = len(link.group(1))
+            href_line = re.match(r"^( *)href: (\S+)$", lines[i + 1])
+            if not href_line or len(href_line.group(1)) != indent + 2:
+                raise AssertionError(f"Sidebar text has no href: {lines[i]}")
+            items.append(("link", link.group(2), href_line.group(2), indent))
+            i += 1
+        elif bare:
+            items.append(("bare", None, bare.group(2), len(bare.group(1))))
+        i += 1
+    return items
+
+
+def _quoted_title(page: Path) -> str:
+    match = re.search(r'^title: (".*")\s*$', page.read_text(encoding="utf-8"), re.M)
+    if not match:
+        raise AssertionError(f"{page} has no quoted title")
+    return match.group(1)
+
+
+class SidebarTopicTests(unittest.TestCase):
+    """The Topics sidebar lists hub articles, each in one place."""
+
+    def test_topic_sidebar_lists_hub_pages_then_articles(self) -> None:
+        import topic_hubs
+
+        wiki = Path("/wiki")
+        groups = topic_hubs.distribution_groups(list(build_wiki.DISTRIBUTIONS.items()))
+        fund_slugs = [slug for _title, members in topic_hubs.FUNDAMENTALS_GROUPS for slug in members]
+        dist_slugs = [slug for _title, members in groups for slug in members]
+        self.assertEqual(set(fund_slugs), set(topic_hubs.FUNDAMENTALS_ORDER))
+        self.assertFalse(set(fund_slugs) & set(dist_slugs))
+        articles = {
+            slug: {
+                "slug": slug,
+                "term": f'Title of {slug}',
+                "path": wiki / "articles" / f"{slug}.qmd",
+            }
+            for slug in fund_slugs + dist_slugs
+        }
+        articles["data"]["term"] = 'Say "hello": data'
+        lines = build_wiki.topic_sidebar_lines(articles, build_wiki.DISTRIBUTIONS, wiki)
+        items = _sidebar_items("\n".join(lines))
+
+        sections = [item for item in items if item[0] == "section" and item[3] == 10]
+        self.assertEqual(
+            [(text, href) for _kind, text, href, _indent in sections],
+            [
+                (build_wiki.yaml_quote("Fundamentals"), "notes/fundamentals.qmd"),
+                (build_wiki.yaml_quote("Probability distributions"), "notes/probability-distributions.qmd"),
+            ],
+        )
+        dist_at = next(i for i, item in enumerate(items) if item[0] == "section" and item[1] == build_wiki.yaml_quote("Probability distributions"))
+        fund_links = [item for item in items[:dist_at] if item[0] == "link"]
+        self.assertEqual(
+            [(text, href) for _kind, text, href, _indent in fund_links],
+            [(build_wiki.yaml_quote("Overview"), "notes/fundamentals.qmd")]
+            + [(build_wiki.yaml_quote(articles[slug]["term"]), f"articles/{slug}.qmd") for slug in fund_slugs],
+        )
+        self.assertEqual(fund_links[1][1], build_wiki.yaml_quote('Say "hello": data'))
+
+        dist_items = items[dist_at + 1:]
+        self.assertEqual(dist_items[0][:3], ("link", build_wiki.yaml_quote("Overview"), "notes/probability-distributions.qmd"))
+        group_headers = [item for item in dist_items if item[0] == "section"]
+        self.assertEqual(
+            [text for _kind, text, _href, indent in group_headers if indent == 14],
+            [build_wiki.yaml_quote(title) for title, members in groups if members],
+        )
+        cursor = 1
+        for title, members in groups:
+            if not members:
+                continue
+            header = dist_items[cursor]
+            self.assertEqual(header, ("section", build_wiki.yaml_quote(title), None, 14))
+            cursor += 1
+            for slug in members:
+                self.assertEqual(
+                    dist_items[cursor],
+                    ("link", build_wiki.yaml_quote(articles[slug]["term"]), f"articles/{slug}.qmd", 18),
+                )
+                cursor += 1
+        self.assertEqual(cursor, len(dist_items))
+
+        missing = dict(articles)
+        del missing["data"]
+        with self.assertRaises(SystemExit):
+            build_wiki.topic_sidebar_lines(missing, build_wiki.DISTRIBUTIONS, wiki)
+        duplicated = dict(articles)
+        duplicated["dataset"] = {**duplicated["dataset"], "path": articles["data"]["path"]}
+        with self.assertRaises(SystemExit):
+            build_wiki.topic_sidebar_lines(duplicated, build_wiki.DISTRIBUTIONS, wiki)
+
+        sample = (
+            "  sidebar:\n"
+            "    contents:\n"
+            "      - href: articles/data.qmd\n"
+            "      - text: Data\n"
+            "        href: articles/data.qmd\n"
+            "  page-navigation: true\n"
+        )
+        with self.assertRaises(SystemExit):
+            build_wiki.assert_sidebar_article_hrefs_once(sample)
+        build_wiki.assert_sidebar_article_hrefs_once(sample.replace("href: articles/data.qmd\n", "href: articles/dataset.qmd\n", 1))
+
+    def test_generated_sidebar_contains_topic_articles(self) -> None:
+        import topic_hubs
+
+        config = build_wiki.WIKI / "_quarto.yml"
+        if not config.is_file():
+            self.skipTest("Wiki has not been generated")
+        yml = config.read_text(encoding="utf-8")
+        self.assertIn("collapse-level: 2\n", yml)
+        self.assertIn(
+            "      - section: Laboratories\n"
+            "        href: labs/index.qmd\n"
+            "        contents:\n"
+            "          - text: \"All laboratories\"\n"
+            "            href: labs/index.qmd\n",
+            yml,
+        )
+        self.assertIn(
+            "      - section: Question bank\n"
+            "        href: questions/index.qmd\n",
+            yml,
+        )
+        self.assertIn("href: reference/glossary.qmd\n", yml)
+        sidebar = yml.split("  sidebar:\n", 1)[1].split("\n  page-navigation:", 1)[0]
+        items = _sidebar_items(sidebar)
+        article_hrefs = [href for kind, _text, href, _indent in items if href and href.startswith("articles/")]
+        self.assertEqual(len(article_hrefs), len(set(article_hrefs)))
+        self.assertFalse(any(kind == "bare" and href and href.startswith("articles/") for kind, _text, href, _indent in items))
+
+        fund_at = next(i for i, item in enumerate(items) if item[:3] == ("section", '"Fundamentals"', "notes/fundamentals.qmd"))
+        dist_at = next(i for i, item in enumerate(items) if item[:3] == ("section", '"Probability distributions"', "notes/probability-distributions.qmd"))
+        fund_slugs = [slug for _title, members in topic_hubs.FUNDAMENTALS_GROUPS for slug in members]
+        fund_links = [item for item in items[fund_at + 1:dist_at] if item[0] == "link"]
+        expected_fund = [(build_wiki.yaml_quote("Overview"), "notes/fundamentals.qmd")]
+        for slug in fund_slugs:
+            expected_fund.append((_quoted_title(build_wiki.WIKI / "articles" / f"{slug}.qmd"), f"articles/{slug}.qmd"))
+        self.assertEqual([(text, href) for _kind, text, href, _indent in fund_links], expected_fund)
+
+        groups = [(title, members) for title, members in topic_hubs.distribution_groups(list(build_wiki.DISTRIBUTIONS.items())) if members]
+        next_top = next(i for i, item in enumerate(items) if i > dist_at and item[0] == "section" and item[3] == 10)
+        dist_items = items[dist_at + 1:next_top]
+        self.assertEqual(dist_items[0][:3], ("link", build_wiki.yaml_quote("Overview"), "notes/probability-distributions.qmd"))
+        cursor = 1
+        for title, members in groups:
+            self.assertEqual(dist_items[cursor], ("section", build_wiki.yaml_quote(title), None, 14))
+            cursor += 1
+            for slug in members:
+                title_text = _quoted_title(build_wiki.WIKI / "articles" / f"{slug}.qmd")
+                self.assertEqual(dist_items[cursor], ("link", title_text, f"articles/{slug}.qmd", 18))
+                cursor += 1
+        self.assertEqual(cursor, len(dist_items))
+
+        chapter_files = [
+            f"notes/{filename}"
+            for _part, files in build_wiki.PARTS
+            for filename, kind in files
+            if kind == "notes"
+        ]
+        bare = [href for kind, _text, href, _indent in items if kind == "bare" and href]
+        first = bare.index(chapter_files[0])
+        self.assertEqual(bare[first:first + len(chapter_files)], chapter_files)
+        self.assertTrue(all(href.startswith("notes/") for href in bare[first:first + len(chapter_files)]))
+        first_chapter_at = next(i for i, item in enumerate(items) if item[2] == chapter_files[0])
+        self.assertLess(dist_at, first_chapter_at)
+
+
 if __name__ == "__main__":
     unittest.main()
