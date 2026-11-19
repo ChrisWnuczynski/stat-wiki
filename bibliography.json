@@ -12833,6 +12833,195 @@
         "source": "archival_url",
         "id": "https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/warpbreaks.html"
       }
+    },
+    "shapiro_wilk1965": {
+      "authors": [
+        "Shapiro, S. S.",
+        "Wilk, M. B."
+      ],
+      "year": 1965,
+      "title": "An Analysis of Variance Test for Normality (Complete Samples)",
+      "kind": "article",
+      "venue": "Biometrika",
+      "volume": "52",
+      "issue": "3/4",
+      "pages": "591-611",
+      "doi": "10.1093/biomet/52.3-4.591",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1093/biomet/52.3-4.591"
+      }
+    },
+    "friedman1937": {
+      "authors": [
+        "Friedman, Milton"
+      ],
+      "year": 1937,
+      "title": "The Use of Ranks to Avoid the Assumption of Normality Implicit in the Analysis of Variance",
+      "kind": "article",
+      "venue": "Journal of the American Statistical Association",
+      "volume": "32",
+      "issue": "200",
+      "pages": "675-701",
+      "doi": "10.1080/01621459.1937.10503522",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1080/01621459.1937.10503522"
+      }
+    },
+    "nist_shapiro2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.2.1.3: Shapiro-Wilk Normality Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm"
+      }
+    },
+    "nist_levene2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.10: Levene Test for Equality of Variances",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm"
+      }
+    },
+    "nist_bartlett2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.7: Bartlett's Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm"
+      }
+    },
+    "nist_ftest2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §1.3.5.9: F-Test for Equality of Two Variances",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda359.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda359.htm"
+      }
+    },
+    "nist_means2002": {
+      "authors": [
+        "NIST/SEMATECH"
+      ],
+      "year": 2002,
+      "title": "NIST/SEMATECH e-Handbook of Statistical Methods, §7.3.1: Comparison of Two Means",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/handbook/prc/section3/prc31.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/handbook/prc/section3/prc31.htm"
+      }
+    },
+    "nist_signrank2023": {
+      "authors": [
+        "NIST"
+      ],
+      "year": 2023,
+      "title": "NIST Dataplot: Signed Rank Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/signrank.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/signrank.htm"
+      }
+    },
+    "nist_friedman2023": {
+      "authors": [
+        "NIST"
+      ],
+      "year": 2023,
+      "title": "NIST Dataplot: Friedman Test",
+      "kind": "book",
+      "publisher": "National Institute of Standards and Technology",
+      "url": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/friedman.htm",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/friedman.htm"
+      }
+    },
+    "r_wilcox_test2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Wilcoxon Rank Sum and Signed Rank Tests (R-devel documentation for wilcox.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/wilcox.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/wilcox.test.html"
+      }
+    },
+    "r_shapiro_test2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Shapiro-Wilk Normality Test (R-devel documentation for shapiro.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/shapiro.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/shapiro.test.html"
+      }
+    },
+    "r_friedman_test2026": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2026,
+      "title": "Friedman Rank Sum Test (R-devel documentation for friedman.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/friedman.test.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/friedman.test.html"
+      }
+    },
+    "car_levene2026": {
+      "authors": [
+        "Fox, John"
+      ],
+      "year": 2026,
+      "title": "Levene's Test (car package documentation for leveneTest)",
+      "kind": "book",
+      "publisher": "Comprehensive R Archive Network",
+      "url": "https://search.r-project.org/CRAN/refmans/car/html/leveneTest.html",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://search.r-project.org/CRAN/refmans/car/html/leveneTest.html"
+      }
     }
   }
 }

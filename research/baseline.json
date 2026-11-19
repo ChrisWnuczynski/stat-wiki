@@ -3450,5 +3450,21 @@
   "standard-score": {
     "words": 691,
     "figures": 0
+  },
+  "wilcoxon-signed-rank-test": {
+    "words": 3124,
+    "figures": 0
+  },
+  "shapiro-wilk-test": {
+    "words": 2984,
+    "figures": 0
+  },
+  "friedman-test": {
+    "words": 2679,
+    "figures": 0
+  },
+  "levene-s-test": {
+    "words": 2911,
+    "figures": 0
   }
 }
