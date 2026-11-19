@@ -2023,7 +2023,6 @@ body.quarto-dark .skip-link:focus-visible {
 #quarto-document-content:focus-visible {
   outline: none !important;
 }
-
 #quarto-document-content {
   scroll-margin-top: 4.5rem;
 }
@@ -2041,11 +2040,11 @@ body.quarto-dark .infobox figcaption {
 }
 
 /* The collapsed navbar clips an outline that hangs outside a full-width
-   item. Pull the ring inside the item so both side edges stay visible. */
+   item. Pull the ring inside the item so both side edges stay visible.
+   :focus-visible keeps the ring on keyboard focus. */
 @media (max-width: 1199.98px) {
   #navbarCollapse .nav-link:focus-visible,
-  #navbarCollapse .dropdown-item:focus-visible,
-  #navbarCollapse .nav-link:focus {
+  #navbarCollapse .dropdown-item:focus-visible {
     outline-offset: -3px !important;
   }
 }

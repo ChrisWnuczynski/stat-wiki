@@ -50,7 +50,7 @@ The coordinate algorithm partitions the covariance estimate around one variable,
 Distinguish a marginal association from a conditional association.
 
 ### Thresholding correlations {#self-check-ex-sl-19-6}
-[A tempting wrong turn](../questions/ex-sl-19-6.qmd): why does thresholding a correlation matrix fail to estimate Gaussian conditional independences directly?
+[Thresholding correlations is not a concentration graph](../questions/ex-sl-19-6.qmd): why does thresholding a correlation matrix fail to estimate Gaussian conditional independences directly?
 
 ::: {.callout-tip collapse="true" title="Answer"}
 Marginal correlations belong to the covariance matrix, whereas Gaussian conditional independences correspond to zeros of the precision matrix. A sparse precision model estimates the latter pattern while respecting positive definiteness.

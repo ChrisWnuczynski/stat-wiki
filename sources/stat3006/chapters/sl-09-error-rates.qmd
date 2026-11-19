@@ -511,7 +511,7 @@ For $n=1000$, how many times must the classifier be trained for leave-one-out cr
 :::
 
 ::: {#ex-sl-09-6 .exercise}
-## A tempting wrong turn
+## The winning cross-validation score is optimistic
 
 A student tries $50$ values of a tuning parameter, picks the one with the lowest $10$-fold cross-validation error ($8.0\%$), and reports $8.0\%$ as the expected error on new data. Explain why this is biased and how nested cross-validation corrects it.
 

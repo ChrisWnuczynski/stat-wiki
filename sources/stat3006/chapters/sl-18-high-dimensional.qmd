@@ -513,7 +513,7 @@ Orthonormal predictors have least-squares estimates $2.4$, $-0.9$, $0.5$, and $-
 :::
 
 ::: {#ex-sl-18-6 .exercise}
-## A tempting wrong turn
+## Gene screening must sit inside the cross-validation
 
 A researcher screens $20{,}000$ genes, picks the $20$ with the smallest $p$-values, fits a logistic regression on these using all $62$ samples, and reports the cross-validated error from this model as $4\%$. Explain why this estimate is optimistic and how to correct the procedure.
 

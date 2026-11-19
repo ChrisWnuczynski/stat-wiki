@@ -476,7 +476,7 @@ If $\tau_1(x)=0.8$, find $f^*(x)$ and check that $1/(1+e^{-2f^*(x)})$ returns $0
 :::
 
 ::: {#ex-sl-13-6 .exercise}
-## A tempting wrong turn
+## Averaging identical classifiers does not reduce variance
 
 A practitioner averages $500$ copies of the same deterministic classifier trained on the same data, hoping for a variance reduction. What does the squared-error decomposition, or the variance formula for an average, predict? What are the ways a random forest and AdaBoost avoid this?
 

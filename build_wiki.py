@@ -785,6 +785,68 @@ def strip_first_heading(text: str) -> str:
     return re.sub(r"\A#\s+[^\n]*\n+", "", text.lstrip("\ufeff"), count=1)
 
 
+_DIV_LINE = re.compile(r"^(:{3,})(.*)$")
+
+
+def split_prose_blocks(text: str) -> list[str]:
+    """Paragraphs separated by a blank line. Divs, code fences, and display maths stay whole."""
+    blocks: list[list[str]] = []
+    current: list[str] = []
+    div_depth = 0
+    code = False
+    display = False
+    for line in text.split("\n"):
+        stripped = line.strip()
+        if not code and not display and div_depth == 0 and stripped == "":
+            if any(part.strip() for part in current):
+                blocks.append(current)
+            current = []
+            continue
+        if not display and div_depth == 0 and stripped.startswith("```"):
+            code = not code
+        elif not code and div_depth == 0 and (stripped == "$$" or (stripped.startswith("$$") and stripped.count("$$") == 1)):
+            display = not display
+        elif not code and not display:
+            mark = _DIV_LINE.match(stripped)
+            if mark:
+                if mark.group(2).strip() == "" and div_depth:
+                    div_depth -= 1
+                else:
+                    div_depth += 1
+        current.append(line)
+    if any(part.strip() for part in current):
+        blocks.append(current)
+    return ["\n".join(block) for block in blocks]
+
+
+def chapter_prose_around_infobox(prose: str) -> tuple[str, str]:
+    """Text before the infobox, then the text after it.
+
+    A chapter that opens with a paragraph keeps that paragraph first. A chapter
+    that opens with a heading keeps the infobox above the heading. Leading
+    divs and callouts stay ahead of both.
+    """
+    blocks = split_prose_blocks(prose)
+    preamble: list[str] = []
+    for index, block in enumerate(blocks):
+        stripped = block.lstrip()
+        if stripped.startswith(":::") or stripped.startswith("<div") or stripped.startswith("</div"):
+            preamble.append(block)
+            continue
+        if stripped.startswith("#"):
+            before = "\n\n".join(preamble)
+            after = "\n\n".join(blocks[index:])
+            if before:
+                before += "\n\n"
+            return before, after
+        before = "\n\n".join(preamble + [block])
+        after = "\n\n".join(blocks[index + 1 :])
+        if before:
+            before += "\n\n"
+        return before, after
+    return prose, ""
+
+
 def first_heading(text: str) -> str:
     match = re.search(r"^#\s+(.+?)\s*$", text, flags=re.M)
     if not match:
@@ -3006,8 +3068,12 @@ def layout_blocks(text: str) -> list[tuple[int, int]]:
     return spans
 
 
-def autolink(text: str, page: Path, part: str | None) -> str:
-    """Link the first mention of each term on the page to its definition."""
+def autolink(text: str, page: Path, part: str | None, linked: set | None = None) -> str:
+    """Link the first mention of each term on the page to its definition.
+
+    ``linked`` carries the terms already used on this page. Chapter prose is
+    passed as two blocks around the infobox, and both blocks share one set.
+    """
     spans = [(m.start(), m.end()) for m in PROTECT.finditer(text)] + layout_blocks(text)
     spans.sort()
     merged: list[list[int]] = []
@@ -3023,7 +3089,7 @@ def autolink(text: str, page: Path, part: str | None) -> str:
         segments.append([text[start:end], True])
         last = end
     segments.append([text[last:], False])
-    done: set[tuple[Path, str]] = set()
+    done: set[tuple[Path, str]] = linked if linked is not None else set()
     for loose, strict, target, anchor, scope, home, exclude in _COMPILED:
         # No link to the page itself, nor from the chapter that teaches the term.
         if target == page or home == page or (target, anchor) in done:
@@ -3429,20 +3495,21 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             noun = "question" if len(own) == 1 else "questions"
             hat.append(f"[{len(own)} {noun} on this topic](#questions-on-this-topic)")
         hat.append("[What links here](#what-links-here)")
-        # The opening paragraph comes before the infobox in the source, so a
-        # screen reader and the keyboard meet the sentence before the summary.
-        opening, separator, remainder = prose.partition("\n\n")
+        # A paragraph stays before the infobox. A chapter that opens with a
+        # heading keeps the infobox above that heading.
+        before, after = chapter_prose_around_infobox(prose)
         blocks = [
             (True, "guide", chapter_guide_md(note["path"].name, note["path"], notes)),
             (False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"),
-            (True, "prose", opening + ("\n\n" if separator else "")),
         ]
+        if before.strip():
+            blocks.append((True, "prose", before if before.endswith("\n") else before + "\n"))
         own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
         own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
         siblings = [n for p, n in chapters if p == part]
         blocks.append((False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
-        if remainder:
-            blocks.append((True, "prose", remainder))
+        if after.strip():
+            blocks.append((True, "prose", after if after.endswith("\n") else after + "\n"))
         if own:
             blocks.append(
                 (
@@ -3592,10 +3659,18 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     forward: dict[Path, list[Path]] = {}
     for page in pages:
         blocks = []
+        # The two chapter-prose blocks share one set. The guide and every
+        # other content block still link their own first mention.
+        prose_linked: set[tuple[Path, str]] | None = None
         for is_content, label, text in page["blocks"]:
             if is_content:
                 text = resolve_links(text, page["path"])
-                text = autolink(text, page["path"], page["part"])
+                if label == "prose":
+                    if prose_linked is None:
+                        prose_linked = set()
+                    text = autolink(text, page["path"], page["part"], prose_linked)
+                else:
+                    text = autolink(text, page["path"], page["part"])
                 if label in COPIED_LABELS:
                     blocks.append((is_content, label, text))
                     continue  # copies of other pages' text are not links from this page
