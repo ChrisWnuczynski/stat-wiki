@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 import build_wiki
+import tex_math
 import wiki_graph
 
 CHAPTER = build_wiki.CHAPTER_CODES["G1"]
@@ -30,9 +31,11 @@ def _canonical_article_headings(page: Path, body: str) -> list[str]:
     research_path = build_wiki.WIKI / "research" / "content" / f"{page.stem}.md"
     aliases = {}
     if research_path.is_file():
-        aliases = {display.strip(): key for key, display in re.findall(
+        for key, display in re.findall(
             r"^## ([^\n—]+) — ([^\n]+)$", research_path.read_text(encoding="utf-8"), re.M
-        )}
+        ):
+            aliases[display.strip()] = key
+            aliases[tex_math.convert_tex_delimiters(display.strip())] = key
     headings = []
     for raw in re.findall(r"(?m)^## ([^\n]+)", body):
         # The anchor is the trailing {#id}. A brace inside the title, as in
@@ -923,6 +926,7 @@ class WikiGraphTests(unittest.TestCase):
             m_title = re.search(r'^title:\s*"(.*)"$', text, re.M)
             self.assertIsNotNone(m_title, path.name)
             body = re.sub(r"\A---\n.*?\n---\n+", "", text, count=1, flags=re.S)
+            body = re.sub(r"\A::: \{\.chapter-guide\}\n.*?\n:::\n+", "", body, count=1, flags=re.S)
             body = re.sub(r"\A::: \{\.hatnote\}\n.*?\n:::\n+", "", body, count=1, flags=re.S)
             body = re.sub(r"\A:::: \{\.infobox\}\n.*?\n::::\n+", "", body, count=1, flags=re.S).lstrip()
             first_para = body.split("\n\n", 1)[0].strip()
@@ -1449,7 +1453,11 @@ class ConceptTemplateTests(unittest.TestCase):
         for slug, minimum in baseline.items():
             text = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
             leading = text.split("## See also", 1)[0]
-            words = _prose_word_count(leading)
+            # Locators moved out of the prose into the reference notes. Count them
+            # with the article so the retention floor still sees those words.
+            notes = text.split("## References", 1)[-1] if "## References" in text else ""
+            locators = " ".join(re.findall(r'class="cite-locator">(.*?)</span>', notes))
+            words = _prose_word_count(leading + " " + locators)
             figures = len(re.findall(r"!\[[^]]*\]\(", text))
             self.assertGreaterEqual(words, minimum["words"], slug)
             self.assertGreaterEqual(figures, minimum["figures"], slug)

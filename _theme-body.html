@@ -20,6 +20,27 @@
 })();
 </script>
 <script>
+/* Below the lg breakpoint Quarto replaces the search field with an icon
+   button that has no accessible name. Only that detached button is named
+   here; Clear and Copy link keep their own names. */
+(function () {
+  function nameSearchButtons() {
+    var buttons = document.querySelectorAll(".aa-DetachedSearchButton");
+    for (var i = 0; i < buttons.length; i++) {
+      var button = buttons[i];
+      var label = (button.getAttribute("aria-label") || "").trim();
+      var text = (button.textContent || "").replace(/\s+/g, " ").trim();
+      if (!label && !text) button.setAttribute("aria-label", "Search");
+    }
+  }
+  document.addEventListener("DOMContentLoaded", nameSearchButtons);
+  var root = document.getElementById("quarto-header") || document.getElementById("quarto-search");
+  if (root && window.MutationObserver) {
+    new MutationObserver(nameSearchButtons).observe(root, { childList: true, subtree: true });
+  }
+})();
+</script>
+<script>
 /* The first thing in the body: give it the dark-mode class straight away when
    _theme-head.html found dark mode saved, so the page is drawn dark. */
 if (document.documentElement.classList.contains("wiki-dark")) document.body.classList.add("quarto-dark");
