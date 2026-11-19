@@ -59,6 +59,7 @@ for token in ("25/864", "1350", "0.0302", "0.0126", "Your turn", "## Check yours
     assert token in md, token
 assert "The sixth does not" not in md
 assert "no residual" not in md
+assert "Details" not in md
 assert "(A_1 - C_1)/(k-1)" in md
 turn = 12 / (4 * 3 * 4) * ((5 - 8) ** 2 + (8 - 8) ** 2 + (11 - 8) ** 2)
 assert turn == 4.5

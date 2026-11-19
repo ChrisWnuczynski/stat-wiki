@@ -1239,7 +1239,7 @@ ARTICLE_GROUPS: list[tuple[tuple[str, ...], tuple[str, ...]]] = [(('axioms-of-pr
   ('wilson1927', 'neyman1937', 'casella_berger2002', 'vandervaart1998')),
  (('welch-interval',), ('satterthwaite1946', 'welch1947')),
  (('wilcoxon-rank-sum-test',), ('wilcoxon1945', 'mann_whitney1947')),
- (('wilcoxon-signed-rank-test',), ("wilcoxon1945", "dodge2008", "nist_signrank2023", "r_wilcox_test2026", "r_wilcox_test451",)),
+ (('wilcoxon-signed-rank-test',), ("wilcoxon1945", "dodge2008", "nist_signrank2023", "r_wilcox_test2026",)),
  (('bonferroni-correction',), ('bonferroni1936', 'dunn1961')),
  (('interaction', 'main-effect'), ('fisher1935_doe', 'scheffe1959')),
  (('multiple-linear-regression',),
