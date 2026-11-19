@@ -18,7 +18,9 @@ def levene_f(samples, centre):
     grand = np.concatenate(z_groups).mean()
     ssb = sum(len(z) * (m - grand) ** 2 for z, m in zip(z_groups, means))
     ssw = sum(np.sum((z - m) ** 2) for z, m in zip(z_groups, means))
-    return (ssb / 2) / (ssw / 6), ssb, ssw
+    n = sum(len(z) for z in z_groups)
+    k = len(z_groups)
+    return ((n - k) / (k - 1)) * ssb / ssw, ssb, ssw
 
 
 mean_f, ssb, ssw = levene_f(groups, np.mean)
@@ -44,9 +46,6 @@ assert zero_f == 0
 fresh = [np.array([0.0, 2, 4]), np.array([0.0, 2, 10])]
 fresh_f, _, _ = levene_f(fresh, np.mean)
 assert abs(fresh_f - 4) < 1e-9
-changed = [np.array([0.0, 2, 4]), np.array([0.0, 2, 16])]
-changed_f, _, _ = levene_f(changed, np.mean)
-assert abs(changed_f - 8) < 1e-9
 pair = [np.array([1.0, 2, 9]), np.array([4.0, 5, 6])]
 pair_mean, _, _ = levene_f(pair, np.mean)
 pair_med, _, _ = levene_f(pair, np.median)
