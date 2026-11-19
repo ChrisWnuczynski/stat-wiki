@@ -41,10 +41,10 @@ It is $G_N(0)^3=0.2^3=0.008$. A nonnegative sum is zero only when every summand 
 
 [Practice question](../questions/depth-mgf-bernoulli-sum.qmd)
 
-Let X and Y be independent Bernoulli variables with success probability 0.4. Find the MGF of S=X+Y, its mean and variance, and P(S=2). What part fails if X=Y instead?
+Let $X$ and $Y$ be independent Bernoulli variables with success probability $0.4$. Find the MGF of $S=X+Y$, its mean and variance, and $P(S=2)$. What part fails if $X=Y$ instead?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-One MGF is 0.6+0.4e^t, so independence gives M_S(t)=(0.6+0.4e^t)². The mean is 0.8, variance 2(0.4)(0.6)=0.48, and P(S=2)=0.4²=0.16. If X=Y, the sum's MGF is 0.6+0.4e^{2t}; the product rule and binomial law do not apply.
+One MGF is $0.6+0.4e^{t}$, so independence gives $M_S(t)=(0.6+0.4e^{t})^{2}$. The mean is $0.8$, variance $2(0.4)(0.6)=0.48$, and $P(S=2)=0.4^{2}=0.16$. If $X=Y$, the sum's MGF is $0.6+0.4e^{2t}$; the product rule and binomial law do not apply.
 :::
 
 ### An offspring generating function {#self-check-ex-sp-critical-extinction}

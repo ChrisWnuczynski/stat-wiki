@@ -21,9 +21,12 @@ Differencing is the operation $X_t-X_{t-1}$. It removes a one-step change in lev
 
 ## Properties
 For a stationary AR(1) with white-noise variance $\sigma^2$ and $|\phi|<1$, the marginal variance is $\gamma_0=\sigma^2/(1-\phi^2)$, and the lag-$h$ covariance is $\gamma_h=\phi^{|h|}\gamma_0$. The variance of the sample mean of $T$ consecutive values is
-\[
+
+$$
 \operatorname{Var}(\bar X)=\frac1T\sum_{h=-(T-1)}^{T-1}\Bigl(1-\frac{|h|}{T}\Bigr)\gamma_h.
-\]
+$$
+
+
 Independent data with the same marginal variance would have given $\gamma_0/T$. Positive $\phi$ makes the mean less precise than that benchmark, because successive values repeat the same shock.{{cite:hyndman_athanasopoulos2021}} (§9.3, stationary AR(1))
 
 At $\phi=1/2$ and $\sigma^2=1$, $\gamma_0=4/3$. The large-sample multiplier $(1+\phi)/(1-\phi)$ equals $3$. For $T=4$ the exact multiplier is $2.0625$, and $\operatorname{Var}(\bar X)=0.6875$, against the independent-data value $1/3\approx 0.3333$. The limit $3$ is the right long-series factor and the wrong factor for these four observations.{{cite:hyndman_athanasopoulos2021}} (§9.3, AR(1) stationarity condition)
@@ -33,9 +36,12 @@ At $\phi=1/2$ and $\sigma^2=1$, $\gamma_0=4/3$. The large-sample multiplier $(1+
 Let $X_t=\phi X_{t-1}+\varepsilon_t$ with $|\phi|<1$, $\mathbb E(\varepsilon_t)=0$, $\operatorname{Var}(\varepsilon_t)=\sigma^2$, and $\varepsilon_t$ uncorrelated with $X_{t-1}$. Stationarity gives $\operatorname{Var}(X_t)=\operatorname{Var}(X_{t-1})$, so $\gamma_0=\phi^2\gamma_0+\sigma^2$ and $\gamma_0=\sigma^2/(1-\phi^2)$. The lag-$1$ covariance is $\mathbb E(X_t X_{t-1})=\phi\gamma_0$. The same step at lag $h$ gives $\gamma_h=\phi\gamma_{h-1}$, hence $\gamma_h=\phi^{|h|}\gamma_0$.{{cite:hyndman_athanasopoulos2021}} (§9.3, AR(1) equation)
 
 For any weakly stationary series, expand $\operatorname{Var}(\sum_{t=1}^T X_t)=\sum_{t=1}^T\sum_{s=1}^T\gamma_{t-s}$. Each lag $h$ with $|h|<T$ occurs $T-|h|$ times. Dividing by $T^2$ produces the displayed formula for $\operatorname{Var}(\bar X)$. Insert $\gamma_h=\phi^{|h|}\gamma_0$. At $\phi=1/2$, $\sigma^2=1$ and $T=4$ the lags $1,2,3$ contribute
-\[
+
+$$
 \tfrac34\cdot\tfrac12+\tfrac12\cdot\tfrac14+\tfrac14\cdot\tfrac18=\tfrac{3}{8}+\tfrac18+\tfrac1{32}=\tfrac{17}{32}=0.53125.
-\]
+$$
+
+
 The two-sided sum is $1+2\times 0.53125=2.0625$. Then $\operatorname{Var}(\bar X)=(4/3)/4\times 2.0625=0.6875$.{{cite:hyndman_athanasopoulos2021}} (§9.1, covariance depending only on lag)
 :::
 :::

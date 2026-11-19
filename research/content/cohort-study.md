@@ -24,12 +24,12 @@ The design is observational when the exposure was not assigned. It can support a
 A cohort is a defined set of people in whom exposure and later outcome can both be observed. A stack of case records with no account of the people who did not become cases is not a cohort analysis.{{cite:openintro2019}} (Ch. 1, §1.3.4) {{cite:hernan_robins2020}} (Ch. 8, p. 111) Following people forward does not by itself assign the exposure. The Nurses' Health Study collects questionnaires from nurses. It does not allocate their behaviour.{{cite:openintro2019}} (Ch. 1, §1.3.4; §1.4)
 
 ## Worked example
-A cohort contains 200 people, 80 exposed and 120 unexposed, all followed for the same period. The outcome occurs in 20 of the exposed and in 12 of the unexposed. The risks are \(20/80 = 0.25\) and \(12/120 = 0.10\). The risk difference is \(0.25 - 0.10 = 0.15\). The risk ratio is \(0.25/0.10 = 2.5\).{{cite:dodge2008}} (p. 62) {{cite:openintro2019}} (Ch. 1, §1.3.4)
+A cohort contains 200 people, 80 exposed and 120 unexposed, all followed for the same period. The outcome occurs in 20 of the exposed and in 12 of the unexposed. The risks are $20/80 = 0.25$ and $12/120 = 0.10$. The risk difference is $0.25 - 0.10 = 0.15$. The risk ratio is $0.25/0.10 = 2.5$.{{cite:dodge2008}} (p. 62) {{cite:openintro2019}} (Ch. 1, §1.3.4)
 
-**Your turn.** Four more exposed people are enrolled, and one of them develops the outcome. What are the new exposed risk and the new risk ratio, using the same unexposed risk of \(0.10\)?
+**Your turn.** Four more exposed people are enrolled, and one of them develops the outcome. What are the new exposed risk and the new risk ratio, using the same unexposed risk of $0.10$?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The exposed count is 84 and the outcomes among them number 21, so the risk is \(21/84 = 0.25\). The risk ratio remains \(0.25/0.10 = 2.5\).
+The exposed count is 84 and the outcomes among them number 21, so the risk is $21/84 = 0.25$. The risk ratio remains $0.25/0.10 = 2.5$.
 :::
 
 ## Assumptions and limits

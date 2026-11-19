@@ -20,7 +20,7 @@ For a fixed classifier with weighted error $\varepsilon\in(0,1)$, the exponentia
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
-Differentiate $(1-\varepsilon)e^{-\alpha}+\varepsilon e^{\alpha}$ with respect to $\alpha$. The derivative is $-(1-\varepsilon)e^{-\alpha}+\varepsilon e^{\alpha}$, which is zero when $e^{2\alpha}=(1-\varepsilon)/\varepsilon$. Hence $\alpha=\frac12\log((1-\varepsilon)/\varepsilon)$, the AdaBoost coefficient. The second derivative $ (1-\varepsilon)e^{-\alpha}+\varepsilon e^{\alpha}$ is positive, so the critical point is a minimum. If $\varepsilon>1/2$ the coefficient is negative and the vote is reversed.{{cite:schapire2013_explaining_adaboost}} (Fig. 1, p. 2; exponential loss, p. 7)
+Differentiate $(1-\varepsilon)e^{-\alpha}+\varepsilon e^{\alpha}$ with respect to $\alpha$. The derivative is $-(1-\varepsilon)e^{-\alpha}+\varepsilon e^{\alpha}$, which is zero when $e^{2\alpha}=(1-\varepsilon)/\varepsilon$. Hence $\alpha=\frac12\log((1-\varepsilon)/\varepsilon)$, the AdaBoost coefficient. The second derivative $(1-\varepsilon)e^{-\alpha}+\varepsilon e^{\alpha}$ is positive, so the critical point is a minimum. If $\varepsilon>1/2$ the coefficient is negative and the vote is reversed.{{cite:schapire2013_explaining_adaboost}} (Fig. 1, p. 2; exponential loss, p. 7)
 :::
 :::
 

@@ -20,6 +20,17 @@ import {
 import { formatNumber } from "./stat-math.js";
 import { band, chartColors, createPlot, drawAxes, message, niceTicks, plotBox, rule, scaleLinear, stroke, svgEl } from "./svg-chart.js";
 
+function coverageTicks(level) {
+  const ticks = [0, 0.5, level, 1].filter((value, index, list) => list.indexOf(value) === index && value >= 0 && value <= 1);
+  ticks.sort((a, b) => a - b);
+  const kept = [];
+  for (const value of ticks) {
+    if (kept.length && value - kept[kept.length - 1] < 0.08) continue;
+    kept.push(value);
+  }
+  return kept;
+}
+
 function button(label) {
   const node = document.createElement("button");
   node.type = "button";
@@ -334,7 +345,7 @@ export function mount(root) {
         drawAxes(svg, box, {
           xScale, yScale,
           xTicks: [0, 0.25, 0.5, 0.75, 1],
-          yTicks: [0, 0.5, cfg.level, 1].filter((value, index, list) => list.indexOf(value) === index).sort((a, b) => a - b),
+          yTicks: coverageTicks(cfg.level),
           colors: ink,
           xFormat: (value) => formatNumber(value),
           yFormat: (value) => formatNumber(value),
@@ -367,7 +378,7 @@ export function mount(root) {
       drawAxes(svg, box, {
         xScale, yScale,
         xTicks: niceTicks(1, xMax, 5),
-        yTicks: [0, 0.5, reference, 1].filter((value) => value >= 0 && value <= 1),
+        yTicks: coverageTicks(reference),
         colors: ink,
         xFormat: (value) => String(Math.round(value)),
         yFormat: (value) => formatNumber(value),

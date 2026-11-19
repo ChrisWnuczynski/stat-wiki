@@ -143,9 +143,10 @@ body.quarto-dark #quarto-search input {
   color: var(--wiki-matrix) !important;
 }
 
-/* Figures are drawn on white. Give them a light frame in dark mode
-   rather than inverting them, which would change the plot colours, and dim
-   them a little so a white plot does not glare on the dark page. */
+/* Chapter figures are drawn on white. Invert them in dark mode and rotate
+   the hue back so the panel is dark and the plotted colours stay put.
+   Distribution curves in the infobox already sit on a transparent ground, so
+   they keep a light matte instead of an invert. */
 body.quarto-dark #quarto-document-content img {
   background: #ffffff;
   border-radius: 2px;
@@ -153,8 +154,22 @@ body.quarto-dark #quarto-document-content img {
   filter: brightness(0.85);
 }
 
+body.quarto-dark #quarto-document-content img[src*="figures/"] {
+  background: transparent;
+  padding: 2px;
+  filter: invert(1) hue-rotate(180deg);
+}
+
 #quarto-document-content {
   max-width: 52rem;
+  container-type: inline-size;
+  container-name: quarto-content;
+}
+
+/* The fixed Ask button sits over the foot of the page. This padding lets the
+   last paragraph, and a worked answer, scroll clear of it. */
+#quarto-content {
+  padding-bottom: 5.5rem;
 }
 
 /* Headings */
@@ -407,13 +422,16 @@ a.term:hover {
 .infobox {
   float: right;
   clear: right;
-  width: 21rem;
+  box-sizing: border-box;
+  width: min(21rem, 34%);
+  max-width: 21rem;
   margin: 0.2rem 0 1rem 1.5em;
   padding: 0.25rem 0.45rem 0.45rem;
   background: var(--wiki-panel);
   border: 1px solid var(--wiki-border);
   font-size: 0.85rem;
   line-height: 1.45;
+  overflow-x: auto;
 }
 
 .infobox-title {
@@ -446,9 +464,11 @@ a.term:hover {
 #quarto-document-content .infobox table {
   display: table;
   width: 100%;
+  max-width: 100%;
   margin: 0;
   border: 0;
   font-size: 0.85rem;
+  table-layout: fixed;
 }
 
 .infobox thead {
@@ -461,12 +481,17 @@ a.term:hover {
   padding: 0.28rem 0.3rem !important;
   vertical-align: top;
   background: transparent !important;
+  overflow-x: auto;
+  max-width: 0;
 }
 
 .infobox td:first-child {
   font-weight: 600;
   width: 34%;
+  max-width: none;
   white-space: normal;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 
 .infobox .katex {
@@ -483,12 +508,42 @@ a.term:hover {
   margin: 0 0 0.25rem;
 }
 
-/* Wide blocks beside the infobox give way to it rather than run under it.
-   Headings too: a heading's rule would otherwise run up to the infobox's edge. */
+/* Wide blocks beside the infobox scroll inside their own border. A clipped
+   equation used to disappear with no sign that more was there. */
 #quarto-document-content .callout,
 #quarto-document-content .theorem,
 #quarto-document-content .qtable {
-  overflow: hidden;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.katex-display.can-scroll-x,
+.callout.can-scroll-x,
+.theorem.can-scroll-x,
+.infobox.can-scroll-x,
+.infobox td.can-scroll-x,
+.qtable.can-scroll-x {
+  box-shadow: inset -18px 0 14px -6px rgba(0, 0, 0, 0.45);
+}
+
+body.quarto-dark .katex-display.can-scroll-x,
+body.quarto-dark .callout.can-scroll-x,
+body.quarto-dark .theorem.can-scroll-x,
+body.quarto-dark .infobox.can-scroll-x,
+body.quarto-dark .infobox td.can-scroll-x,
+body.quarto-dark .qtable.can-scroll-x {
+  box-shadow: inset -18px 0 14px -6px rgba(255, 255, 255, 0.55);
+}
+
+/* A 21rem float leaves a readable column only while the article is wide.
+   Below that, the summary sits above the prose at the full column width. */
+@container quarto-content (max-width: 760px) {
+  .infobox {
+    float: none;
+    width: 100%;
+    max-width: 36rem;
+    margin-left: 0;
+  }
 }
 
 #quarto-document-content h2,
@@ -499,8 +554,13 @@ a.term:hover {
 @media (max-width: 767px) {
   .infobox {
     float: none;
-    width: auto;
+    width: 100%;
+    max-width: none;
     margin: 0 0 1rem;
+  }
+
+  #quarto-sidebar .sidebar-menu-container {
+    padding-bottom: 5.5rem;
   }
 }
 
@@ -917,10 +977,17 @@ a.file-link img {
 }
 
 /* Long names in inline code, such as a figure's source file, may break
-   anywhere rather than widen the page on a phone. */
+   anywhere rather than widen the page on a phone. Table links stay whole;
+   a wide table scrolls instead of splitting a word. */
 main p code,
 main li code {
   overflow-wrap: anywhere;
+}
+
+#quarto-document-content table a {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: manual;
 }
 
 /* Laboratory chrome lives in labs/lab-chrome.js. */

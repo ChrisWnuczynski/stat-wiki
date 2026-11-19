@@ -4,19 +4,19 @@ A population parameter is not observed. A sample is. Estimation theory is the ac
 
 ## Motivating example
 
-Four independent measurements have mean \(\mu\) and variance \(\sigma^2\). Two functions of that sample are candidates for \(\mu\). The sample mean uses every measurement. The first measurement ignores the other three. Both are unbiased: each has expectation \(\mu\), so the bias of each is zero. The mean squared error of an unbiased estimator is its variance. The sample mean has variance \(\sigma^2/4\), and the first measurement has variance \(\sigma^2\). With \(\sigma^2=4\), those mean squared errors are \(1\) and \(4\). The sample mean is the better of the two by this score, and the comparison is a property of the two functions, settled before any particular four numbers are written down.{{cite:dodge2008}} (pp. 184–185){{cite:openintro2019}} (Ch. 5, §5.1.1)
+Four independent measurements have mean $\mu$ and variance $\sigma^2$. Two functions of that sample are candidates for $\mu$. The sample mean uses every measurement. The first measurement ignores the other three. Both are unbiased: each has expectation $\mu$, so the bias of each is zero. The mean squared error of an unbiased estimator is its variance. The sample mean has variance $\sigma^2/4$, and the first measurement has variance $\sigma^2$. With $\sigma^2=4$, those mean squared errors are $1$ and $4$. The sample mean is the better of the two by this score, and the comparison is a property of the two functions, settled before any particular four numbers are written down.{{cite:dodge2008}} (pp. 184–185){{cite:openintro2019}} (Ch. 5, §5.1.1)
 
 ## Definition
 
 Estimation is the procedure that determines the value of a parameter associated with a population. A sample is drawn, and an estimator — a function of the sample that does not require the unknown parameter — is evaluated. The number it returns in the sample actually drawn is the estimate. The theory of that procedure is estimation theory.{{cite:dodge2008}} (pp. 184–185)
 
-The theory is divided into two large parts. Point estimation returns one value. Interval estimation returns a range. A confidence interval is the usual interval procedure: at a stated confidence level, the proportion of repeated intervals that cover the parameter is the advertised level, when the sampling model is right. For a normal mean with known variance the interval is the sample mean plus and minus a normal critical value times \(\sigma/\sqrt{N}\). When the variance is estimated, the interval is wider, because the estimated scale is itself uncertain.{{cite:dodge2008}} (p. 184){{cite:nist_confidence2002}} (§7.1.4)
+The theory is divided into two large parts. Point estimation returns one value. Interval estimation returns a range. A confidence interval is the usual interval procedure: at a stated confidence level, the proportion of repeated intervals that cover the parameter is the advertised level, when the sampling model is right. For a normal mean with known variance the interval is the sample mean plus and minus a normal critical value times $\sigma/\sqrt{N}$. When the variance is estimated, the interval is wider, because the estimated scale is itself uncertain.{{cite:dodge2008}} (p. 184){{cite:nist_confidence2002}} (§7.1.4)
 
 An estimator is any statistical function of the sample used for this purpose. The estimate is the value the function takes on the observed sample. Keeping the two words apart is the theory’s first distinction: properties such as bias belong to the function, considered before the sample is drawn, not to the single number written in a report.{{cite:dodge2008}} (p. 185)
 
 ## Statistical use
 
-Sampling runs from the population to the sample. Estimation runs back. For a proportion, the sample proportion \(\hat p\) estimates the population proportion \(p\), and \(\hat p-p\) is the error of that estimate. The error has a sampling piece, which is studied by the distribution of \(\hat p\), and a bias piece, which comes from systematic features of the design or the measurement. Much of elementary estimation theory is the sampling piece: standard errors, intervals, and the conditions under which a normal approximation applies.{{cite:openintro2019}} (Ch. 5, §5.1.1; §5.1.3)
+Sampling runs from the population to the sample. Estimation runs back. For a proportion, the sample proportion $\hat p$ estimates the population proportion $p$, and $\hat p-p$ is the error of that estimate. The error has a sampling piece, which is studied by the distribution of $\hat p$, and a bias piece, which comes from systematic features of the design or the measurement. Much of elementary estimation theory is the sampling piece: standard errors, intervals, and the conditions under which a normal approximation applies.{{cite:openintro2019}} (Ch. 5, §5.1.1; §5.1.3)
 
 Two classical constructions organise a large part of the theory. Least squares estimates the parameters of a linear model by minimising the sum of squared deviations between the data and the fitted values. Pearson’s method of moments matches sample moments to population moments. Maximum likelihood, introduced by Fisher as a fitting criterion, chooses the parameter that makes the observed sample as probable as the model allows. Fisher’s later vocabulary then compares constructions: an estimator may be called biased, efficient, or sufficient, and those words are claims about its sampling behaviour.{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1){{cite:dodge2008}} (pp. 184–185)
 
@@ -24,12 +24,12 @@ Interval estimates are reported with the point because a point without a scale o
 
 ## Worked example
 
-The observed sample is \(2, 6, 3, 5\). The sum is \(16\), so the sample mean is \(16/4=4\). That number \(4\) is one evaluation of the sample-mean estimator. It is an estimate of \(\mu\). It is not \(\mu\), and it is not the mean squared error. The mean squared error was fixed by \(n=4\) and \(\sigma^2=4\) before these four numbers appeared: \(4/4=1\) for the sample mean, and \(4\) for the estimator that reports only the first measurement. In this sample that second estimator returns \(2\), which is a different estimate of the same \(\mu\), with the larger mean squared error.{{cite:dodge2008}} (p. 185){{cite:openintro2019}} (Ch. 5, §5.1.1)
+The observed sample is $2, 6, 3, 5$. The sum is $16$, so the sample mean is $16/4=4$. That number $4$ is one evaluation of the sample-mean estimator. It is an estimate of $\mu$. It is not $\mu$, and it is not the mean squared error. The mean squared error was fixed by $n=4$ and $\sigma^2=4$ before these four numbers appeared: $4/4=1$ for the sample mean, and $4$ for the estimator that reports only the first measurement. In this sample that second estimator returns $2$, which is a different estimate of the same $\mu$, with the larger mean squared error.{{cite:dodge2008}} (p. 185){{cite:openintro2019}} (Ch. 5, §5.1.1)
 
-**Your turn.** Keep the variance at \(9\), and take a sample of size \(9\). What are the mean squared errors of the sample mean and of the first observation?
+**Your turn.** Keep the variance at $9$, and take a sample of size $9$. What are the mean squared errors of the sample mean and of the first observation?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-Both estimators are unbiased, so each mean squared error equals a variance. The sample mean has variance \(9/9=1\). The first observation has variance \(9\).
+Both estimators are unbiased, so each mean squared error equals a variance. The sample mean has variance $9/9=1$. The first observation has variance $9$.
 :::
 
 ## History

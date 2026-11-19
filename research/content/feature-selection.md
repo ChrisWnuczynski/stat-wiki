@@ -9,9 +9,12 @@ Three cases have predictors $(x,z)$ and response $y$ equal to $(0,0,1)$, $(1,0,1
 ## Definition
 
 For the linear model
-\[
+
+$$
 Y=\beta_0+\beta_1 X_1+\cdots+\beta_p X_p+\varepsilon,
-\]
+$$
+
+
 feature selection means choosing a subset of $\{X_1,\ldots,X_p\}$ and fitting the model on that subset. The excluded predictors are absent. Their coefficients are not estimated, which is the same end state as a coefficient fixed at zero.{{cite:james_islr2021}} (Ch. 6, pp. 225–226) {{cite:hastie_esl2009}} (p. 57, §3.3)
 
 Subset selection does the choice first and then applies least squares to the survivors. Best-subset selection, for each size $k$, finds the subset of $k$ predictors with the smallest residual sum of squares. Forward stepwise selection starts from the intercept and adds, one predictor at a time, the variable that most improves the fit. Backward stepwise selection starts from the full model and deletes the predictor with the least effect on the fit. Shrinkage can do the same job inside one fit: an $\ell_1$ penalty, as in the [lasso](lasso.qmd), drives some coefficients to exact zeros when the penalty is large enough, and those zeros are the excluded variables.{{cite:james_islr2021}} (Ch. 6, pp. 226–231, 241–242) {{cite:hastie_esl2009}} (pp. 57–59, §3.3; p. 661, §18.4)
@@ -51,13 +54,19 @@ Quadratic regularisation does not become feature selection by discarding small w
 Take the three cases $(x,z,y)=(0,0,1)$, $(1,0,1)$, $(2,1,3)$.
 
 The sample mean of $y$ is $(1+1+3)/3=5/3$. The intercept-only residual sum of squares is
-\[
+
+$$
 2\left(1-\frac53\right)^2+\left(3-\frac53\right)^2=\frac{8}{3}.
-\]
+$$
+
+
 The least-squares line in $x$ is $2/3+x$. Its fitted values are $2/3$, $5/3$ and $8/3$, and the residual sum of squares is
-\[
+
+$$
 \left(\frac13\right)^2+\left(-\frac23\right)^2+\left(\frac13\right)^2=\frac{2}{3}.
-\]
+$$
+
+
 The line $1+2z$ fits all three points, so its residual sum of squares is $0$.
 
 Best subset selection of size $1$ therefore returns $\{z\}$. Forward stepwise starts from the intercept, compares the drop from $8/3$ to $2/3$ against the drop from $8/3$ to $0$, and adds $z$. The two-predictor fit also has residual sum of squares $0$, because it can set the coefficient of $x$ to zero and keep $1+2z$. Training residual sum of squares does not prefer the one-predictor model.

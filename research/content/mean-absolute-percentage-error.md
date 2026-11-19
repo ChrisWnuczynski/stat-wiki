@@ -14,20 +14,29 @@ Divide the error by the observation and multiply by 100. An error of 10 on an ob
 
 ## Definition
 
-Write the forecast error as \(e_t=y_t-\hat y_t\). The percentage error is \(p_t=100\,e_t/y_t\), and
-\[
+Write the forecast error as $e_t=y_t-\hat y_t$. The percentage error is $p_t=100\,e_t/y_t$, and
+
+$$
 \mathrm{MAPE}=\operatorname{mean}(|p_t|).
-\]
-The mean is taken over the period on which accuracy is being scored. Forecast errors in that period are computed from observations that were not used to form the forecasts. Residuals, by contrast, are one-step errors on the training data. The same definition is the mean of \(|p_t|\) with \(p_t=100 e_t/Y_t\), used to compare methods across series.{{cite:hyndman_athanasopoulos2021}} (§5.8, Forecast errors and Percentage errors){{cite:hyndman_koehler2006}} (p. 8, §2.2)
+$$
+
+
+The mean is taken over the period on which accuracy is being scored. Forecast errors in that period are computed from observations that were not used to form the forecasts. Residuals, by contrast, are one-step errors on the training data. The same definition is the mean of $|p_t|$ with $p_t=100 e_t/Y_t$, used to compare methods across series.{{cite:hyndman_athanasopoulos2021}} (§5.8, Forecast errors and Percentage errors){{cite:hyndman_koehler2006}} (p. 8, §2.2)
 
 A symmetric variant used in forecasting competitions replaces the denominator. One common form is
-\[
+
+$$
 \mathrm{sMAPE}=\operatorname{mean}\left(\frac{200|y_t-\hat y_t|}{y_t+\hat y_t}\right).
-\]
+$$
+
+
 That form can be negative, and it is still unstable when both the observation and the forecast are near zero. Makridakis, Spiliotis and Assimakopoulos write a related score with absolute values in the denominator,
-\[
+
+$$
 \mathrm{sMAPE}=\frac{2}{k}\sum_{t=1}^{k}\frac{|Y_t-\hat Y_t|}{|Y_t|+|\hat Y_t|}\times 100\%,
-\]
+$$
+
+
 and use it, together with the mean absolute scaled error, as the accuracy measure on a large subset of the monthly M3 series. The absolute values keep their version from changing sign. They do not remove the heavier penalty on large positive errors that percentage scores are known for, which is why those authors also report a scaled error.{{cite:hyndman_athanasopoulos2021}} (§5.8, symmetric MAPE){{cite:makridakis_spiliotis_assimakopoulos2018}} (§3.1, pp. 5–6, equation 1)
 
 ## Properties
@@ -40,16 +49,19 @@ The symmetric form with a signed denominator can be negative even though it is d
 
 ## Worked example
 
-Suppose the observations are 100, 200 and 50 and the forecasts are 110, 160 and 80. The errors are \(-10\), \(40\) and \(-30\). The absolute percentage errors are
-\[
+Suppose the observations are 100, 200 and 50 and the forecasts are 110, 160 and 80. The errors are $-10$, $40$ and $-30$. The absolute percentage errors are
+
+$$
 100\cdot\frac{10}{100}=10,\qquad 100\cdot\frac{40}{200}=20,\qquad 100\cdot\frac{30}{50}=60.
-\]
-The MAPE is \((10+20+60)/3=30\). The mean absolute error on the original scale is \((10+40+30)/3=80/3\approx 26.667\), a different number because it is not a percentage. If the third observation had been 0, the third percentage error would have required division by zero and the MAPE would not have been a real number.{{cite:hyndman_athanasopoulos2021}} (§5.8, Percentage errors)
+$$
+
+
+The MAPE is $(10+20+60)/3=30$. The mean absolute error on the original scale is $(10+40+30)/3=80/3\approx 26.667$, a different number because it is not a percentage. If the third observation had been 0, the third percentage error would have required division by zero and the MAPE would not have been a real number.{{cite:hyndman_athanasopoulos2021}} (§5.8, Percentage errors)
 
 **Your turn.** Observations 80 and 120 are forecast as 100 and 90. Compute the two absolute percentage errors and their mean.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The absolute percentage errors are \(100\cdot 20/80=25\) and \(100\cdot 30/120=25\). The MAPE is 25.
+The absolute percentage errors are $100\cdot 20/80=25$ and $100\cdot 30/120=25$. The MAPE is 25.
 :::
 
 ## Assumptions and limits

@@ -18,6 +18,7 @@ from zoneinfo import ZoneInfo
 
 import chapter_guides
 import figure_alts
+import tex_math
 import theorem_depth
 import re
 import struct
@@ -511,6 +512,46 @@ def preprocess_practice_latex(text: str) -> str:
     return text
 
 
+def assert_no_tex_delimiters_in_text(text: str, label: str) -> None:
+    """Fail the build when content still uses \\( or \\[ outside code and dollars."""
+    hits = tex_math.tex_delimiter_offenders(text)
+    if hits:
+        raise SystemExit(f"{label} still uses \\\\( or \\\\[ ({hits[0]})")
+
+
+def assert_research_math_delimiters() -> None:
+    """Content inputs must use $ and $$ so Pandoc renders the maths."""
+    offenders: list[str] = []
+    for path in sorted((WIKI / "research" / "content").glob("*.md")):
+        hits = tex_math.tex_delimiter_offenders(path.read_text(encoding="utf-8"))
+        if hits:
+            offenders.append(f"{path.relative_to(WIKI)}: {hits[0]}")
+    for path, fields in (
+        (WIKI / "research" / "self-checks.json", ("prompt", "answer", "title")),
+        (WIKI / "sources" / "depth-questions.json", ("body", "answer", "title")),
+    ):
+        if not path.is_file():
+            continue
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        rows = payload.values() if isinstance(payload, dict) else payload
+        blobs: list[str] = []
+        for row in rows:
+            items = row if isinstance(row, list) else [row]
+            for item in items:
+                if isinstance(item, dict):
+                    blobs.extend(str(item.get(field) or "") for field in fields)
+                elif isinstance(item, str):
+                    blobs.append(item)
+        hits = tex_math.tex_delimiter_offenders("\n".join(blobs))
+        if hits:
+            offenders.append(f"{path.relative_to(WIKI)}: {hits[0]}")
+    if offenders:
+        raise SystemExit(
+            "Content inputs still use \\\\( or \\\\[. Write $...$ or $$...$$ instead:\n  "
+            + "\n  ".join(offenders[:20])
+        )
+
+
 def yaml_quote(value: str) -> str:
     value = " ".join(value.replace("\n", " ").split())
     value = value.replace("\\", "\\\\").replace('"', '\\"')
@@ -521,9 +562,15 @@ def href(from_qmd: Path, to_qmd: Path) -> str:
     return Path(os.path.relpath(to_qmd, start=from_qmd.parent)).as_posix()
 
 
+def markdown_alt(text: str) -> str:
+    """Plain alt text that cannot open a markdown link or break a quoted attribute."""
+    text = text.replace("[", "(").replace("]", ")")
+    return text.replace("\\", "\\\\").replace('"', '\\"')
+
+
 def _with_fig_alt(attrs: str, png_name: str) -> str:
     alt = figure_alts.alt_for(png_name)
-    escaped = alt.replace("\\", "\\\\").replace('"', '\\"')
+    escaped = markdown_alt(alt)
     attrs = (attrs or "").strip()
     if attrs and re.search(r'\bfig-alt\s*=', attrs):
         return attrs
@@ -3299,6 +3346,11 @@ def history_markdown() -> str:
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
     PROVED_RESULT_SLUGS.clear()
+    CHECK_GAPS.clear()
+    for question in questions:
+        question["body"] = keep_display_math_in_list(question["body"])
+    for answer in answers:
+        answer["body"] = keep_display_math_in_list(answer["body"])
     ids = [q["id"] for q in questions]
     dupes = sorted({i for i in ids if ids.count(i) > 1})
     if dupes:
@@ -3584,6 +3636,9 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                 before = {"history", "examples", "see-also"} if is_result else {"history", "see-also"}
                 at = next((i for i, (_, label, _) in enumerate(page["blocks"]) if label in before), len(page["blocks"]))
                 page["blocks"].insert(at, (True, "check-yourself", check))
+            page["blocks"] = balance_check_yourself(article, page["blocks"], qmap)
+
+    write_check_gaps(CHECK_GAPS)
 
     import citations
 
@@ -4355,6 +4410,21 @@ def article_lead(article: dict) -> str:
     return f"In {info['field']}, {subject}**{info['term']}** {info['verb']} {info['description'].strip(' .')}."
 
 
+def glossary_plain_lead(article: dict) -> str:
+    """The article's opening sentence, without emphasis, for a glossary cell."""
+    info = ARTICLE_LEADS[article["slug"]]
+    subject = f"{info['article']} " if info["article"] else ""
+    return f"In {info['field']}, {subject}{info['term']} {info['verb']} {info['description'].strip(' .')}."
+
+
+def first_sentence(text: str) -> str:
+    text = " ".join(text.split())
+    for match in re.finditer(r"\.(?:\s|$)", text):
+        if text[: match.start()].count("$") % 2 == 0:
+            return text[: match.end()].strip()
+    return text[:280].strip()
+
+
 def source_lead_citations(blocks: list[tuple[bool, str, str]], include_math: bool = False) -> str:
     """Carry source citations onto the replacement lead when its prose is removed."""
     markers = []
@@ -5119,7 +5189,7 @@ def write_file_pages() -> None:
             home = ""
         width, height = png_size(figures_dir / png)
         fig_alt = figure_alts.alt_for(png)
-        alt_escaped = fig_alt.replace("\\", "\\\\").replace('"', '\\"')
+        alt_escaped = markdown_alt(fig_alt)
         desc_text = caption or fig_alt
         lines = [
             '::: {.file-page}',
@@ -5454,6 +5524,287 @@ def chapter_infobox(note: dict, part: str, siblings: list[dict], own: list[dict]
     return infobox_md(note["title"], rows, image)
 
 
+CHECK_GAPS: list[str] = []
+_CALLOUT_OPEN = re.compile(r"(?m)^(:{3,})[ \t]*\{[^\n]*\bcallout\b[^\n]*\}[ \t]*$")
+
+
+def _callout_key(body: str) -> str:
+    body = re.sub(r"\{\{cite:[^}]+\}\}", "", body)
+    return re.sub(r"\s+", " ", body).strip().lower()
+
+
+def _question_ids(text: str) -> set[str]:
+    ids = set(re.findall(r"questions/([\w-]+)\.qmd", text))
+    ids.update(re.findall(r"\{#(?:self-check|example)-([\w-]+)\}", text))
+    return ids
+
+
+def _iter_callouts(text: str):
+    pos = 0
+    while True:
+        match = _CALLOUT_OPEN.search(text, pos)
+        if not match:
+            if pos < len(text):
+                yield ("text", text[pos:])
+            break
+        if match.start() > pos:
+            yield ("text", text[pos : match.start()])
+        fence = match.group(1)
+        close = re.search(rf"(?m)^{re.escape(fence)}[ \t]*$", text[match.end() :])
+        if not close:
+            yield ("text", text[match.start() :])
+            break
+        end = match.end() + close.end()
+        yield ("callout", text[match.start() : end], text[match.end() : match.end() + close.start()])
+        pos = end
+
+
+def _strip_duplicate_callouts(text: str, seen: set[str], also_drop: set[str] | None = None) -> str:
+    drop = seen if also_drop is None else seen | also_drop
+    parts: list[str] = []
+    for item in _iter_callouts(text):
+        if item[0] == "text":
+            parts.append(item[1])
+            continue
+        key = _callout_key(item[2])
+        if len(key) >= 80 and key in drop:
+            continue
+        if len(key) >= 80 and key not in (also_drop or ()):
+            seen.add(key)
+        parts.append(item[1])
+    return "".join(parts)
+
+
+def _split_h3(text: str) -> tuple[str, list[str]]:
+    parts = re.split(r"(?m)^(### [^\n]*)$", text)
+    intro = parts[0]
+    sections: list[str] = []
+    i = 1
+    while i + 1 < len(parts):
+        sections.append(parts[i] + "\n" + parts[i + 1])
+        i += 2
+    return intro, sections
+
+
+_PROMPT_LINE = re.compile(r"^(?:\*\*\d+\.\*\*|\d+\. )")
+
+
+def _split_prompts(text: str) -> tuple[str, list[str]]:
+    """Split a Check yourself block into the questions it actually asks.
+
+    Some notes use a third-level heading, some a numbered line. A numbered
+    line inside an answer stays with that answer.
+    """
+    intro, sections = _split_h3(text)
+    if sections:
+        return intro, sections
+    lines = text.split("\n")
+    depth = 0
+    fence = ""
+    intro_lines: list[str] = []
+    buf: list[str] = []
+    chunks: list[str] = []
+    started = False
+    for line in lines:
+        if depth:
+            buf.append(line)
+            if re.fullmatch(rf"{re.escape(fence)}[ \t]*", line):
+                depth -= 1
+            continue
+        opener = re.match(r"^(:{3,})[ \t]*\{", line)
+        if opener:
+            fence = opener.group(1)
+            depth = 1
+            buf.append(line)
+            continue
+        if _PROMPT_LINE.match(line):
+            if started:
+                chunks.append("\n".join(buf))
+            else:
+                intro_lines = buf
+                started = True
+            buf = [line]
+            continue
+        buf.append(line)
+    if not started:
+        return text, []
+    chunks.append("\n".join(buf))
+    return "\n".join(intro_lines), chunks
+
+
+def _count_checks(text: str) -> int:
+    headings = len(re.findall(r"(?m)^### ", text))
+    if headings:
+        return headings
+    numbered = len(re.findall(r"(?m)^(?:\*\*\d+\.\*\*|\d+\. )", text))
+    if numbered:
+        return numbered
+    return len(re.findall(r'title="Answer"', text))
+
+
+def _render_bank_check(article: dict, question: dict) -> str:
+    path = article["path"]
+    body = demote_headings(copy_for_article(question["prepared_body"], question["path"], path))
+    answer = demote_headings(copy_for_article(question["prepared_answer"], question["path"], path))
+    return (
+        f"\n### {question['title']} {{#self-check-{question['id']}}}\n\n"
+        f"[Question-bank page]({href(path, question['path'])})\n\n"
+        f"{body}\n\n"
+        f":::::::: {{.callout-tip collapse=\"true\" title=\"Answer\"}}\n\n"
+        f"{answer}\n\n::::::::\n"
+    )
+
+
+def _chapter_questions(article: dict, qmap: dict, used: set[str]) -> list[dict]:
+    chapter = (article.get("box") or {}).get("chapter")
+    if not isinstance(chapter, Path):
+        return []
+    found = []
+    for qid, question in qmap.items():
+        if qid in used or not str(question.get("prepared_answer") or "").strip():
+            continue
+        home = question.get("notes_path") or (question.get("topic_note") or {}).get("path")
+        if home == chapter:
+            found.append(question)
+    found.sort(key=lambda question: question["id"])
+    return found
+
+
+def balance_check_yourself(article: dict, blocks: list[tuple[bool, str, str]], qmap: dict) -> list[tuple[bool, str, str]]:
+    """Show a bank question once, and keep two Check yourself questions when the bank has them."""
+    example_ids = set(EXAMPLES.get(article["slug"], []))
+    for _, label, text in blocks:
+        if label.startswith("example") or label in {"worked-example", "examples"}:
+            example_ids |= _question_ids(text)
+    def _preferred(label: str) -> bool:
+        return label == "check-yourself" or label.startswith("example") or label in {"worked-example", "examples"}
+
+    preferred_keys: set[str] = set()
+    for _, label, text in blocks:
+        if not _preferred(label):
+            continue
+        for item in _iter_callouts(text):
+            if item[0] != "callout":
+                continue
+            key = _callout_key(item[2])
+            if len(key) >= 80:
+                preferred_keys.add(key)
+    seen: set[str] = set()
+    rewritten: list[tuple[bool, str, str]] = []
+    parked: list[tuple[set[str], str]] = []
+    for is_content, label, text in blocks:
+        if label != "check-yourself":
+            # A repeated answer stays with the exercise. An earlier copy, in
+            # History for example, is the one that goes.
+            extra = None if _preferred(label) else preferred_keys
+            rewritten.append((is_content, label, _strip_duplicate_callouts(text, seen, extra)))
+            continue
+        intro, sections = _split_prompts(text)
+        if not sections:
+            cleaned = _strip_duplicate_callouts(text, seen).strip()
+            if cleaned and _count_checks(cleaned):
+                rewritten.append((is_content, label, cleaned + "\n"))
+            continue
+        kept: list[str] = []
+        for section in sections:
+            ids = _question_ids(section)
+            callouts = [item for item in _iter_callouts(section) if item[0] == "callout"]
+            keys = [_callout_key(item[2]) for item in callouts]
+            repeated = any(len(key) >= 80 and key in seen for key in keys)
+            if ids & example_ids or repeated:
+                if ids & example_ids and not repeated:
+                    for item in callouts:
+                        parked.append((ids, item[1]))
+                continue
+            for key in keys:
+                if len(key) >= 80:
+                    seen.add(key)
+            kept.append(section.strip() + "\n")
+        intro = _strip_duplicate_callouts(intro, seen)
+        if kept:
+            rewritten.append((is_content, label, intro.rstrip() + "\n\n" + "\n".join(kept) + "\n"))
+        elif _count_checks(intro):
+            rewritten.append((is_content, label, intro))
+    blocks = rewritten
+    for ids, callout in parked:
+        inner = callout.strip()
+        key = _callout_key(inner)
+        placed = False
+        for index, (flag, label, text) in enumerate(blocks):
+            if not (label.startswith("example") or label in {"worked-example", "examples"}):
+                continue
+            if not (_question_ids(text) & ids):
+                continue
+            if key and key in _callout_key(text):
+                placed = True
+                break
+            blocks[index] = (flag, label, text.rstrip() + "\n\n" + inner + "\n")
+            placed = True
+            break
+        if not placed and inner:
+            blocks.append((True, "check-yourself", "\n\n## Check yourself {#check-yourself}\n\n" + inner + "\n"))
+    count = 0
+    last = None
+    for index, (_, label, text) in enumerate(blocks):
+        if label != "check-yourself":
+            continue
+        count += _count_checks(text)
+        last = index
+    if count >= 2:
+        return blocks
+    used: set[str] = set()
+    for _, _, text in blocks:
+        used |= _question_ids(text)
+    need = 2 - count
+    choices = _chapter_questions(article, qmap, used)
+    if len(choices) < need:
+        CHECK_GAPS.append(article["slug"])
+        return blocks
+    extra = "".join(_render_bank_check(article, question) for question in choices[:need])
+    if last is None:
+        section = (
+            "\n\n## Check yourself {#check-yourself}\n\n"
+            "Try these questions before opening an answer.\n"
+            + extra
+        )
+        at = next((i for i, (_, label, _) in enumerate(blocks) if label in {"history", "see-also"}), len(blocks))
+        blocks.insert(at, (True, "check-yourself", section))
+    else:
+        is_content, label, text = blocks[last]
+        blocks[last] = (is_content, label, text.rstrip() + "\n" + extra + "\n")
+    return blocks
+
+
+def write_check_gaps(slugs: list[str]) -> None:
+    """Record articles that have no chapter question to use as a check."""
+    path = WIKI / "research" / "todo.md"
+    raw = path.read_bytes()
+    newline = "\r\n" if b"\r\n" in raw else "\n"
+    text = raw.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n")
+    start, end = "<!-- check-yourself-gaps:start -->", "<!-- check-yourself-gaps:end -->"
+    if start in text and end in text:
+        text = text[: text.index(start)] + text[text.index(end) + len(end) :]
+        text = re.sub(r"\n{3,}", "\n\n", text)
+    names = sorted(set(slugs))
+    if names:
+        body = "\n".join(
+            [
+                start,
+                "## Articles with no Check yourself section",
+                "",
+                "Fewer than two questions in the bank are filed under the same chapter, so these pages stay short of two Check yourself questions.",
+                "",
+                *[f"- `{slug}`" for slug in names],
+                end,
+                "",
+            ]
+        )
+        if not text.endswith("\n"):
+            text += "\n"
+        text = text.rstrip() + "\n\n" + body
+    path.write_bytes(text.replace("\n", newline).encode("utf-8"))
+
+
 def write_glossary(questions: list[dict]) -> None:
     page = WIKI / "reference" / "glossary.qmd"
     # Named objects are articles: one row each, pointing at the article.
@@ -5471,7 +5822,7 @@ def write_glossary(questions: list[dict]) -> None:
                 "page": article["path"],
                 "anchor": "",
                 "where": where,
-                "snippet": box["snippet"] if box else "",
+                "snippet": (box["snippet"] if box and box.get("snippet") else "") or glossary_plain_lead(article),
                 "home": article_home(article),
             }
         )
@@ -5494,7 +5845,7 @@ def write_glossary(questions: list[dict]) -> None:
                     "page": q["path"],
                     "anchor": "",
                     "where": q["topic_note"]["title"] if q.get("topic_note") else "Question bank",
-                    "snippet": "",
+                    "snippet": first_sentence(q.get("prepared_body") or q.get("body") or q.get("title") or ""),
                 }
             )
     # Aliases are redirects: the row's own link goes straight to the real entry.
@@ -5544,7 +5895,7 @@ def write_glossary(questions: list[dict]) -> None:
         rows_by_letter.setdefault(letter, []).append(f"| {term} {kind} | {meaning} | {cell(entry['where'])} |")
 
     letters = sorted(rows_by_letter, key=lambda l: (l == "#", l))
-    jump = " · ".join(f"[{l}](#letter-{l.lower() if l != '#' else 'other'})" for l in letters)
+    jump = " · ".join(f"[{'Other' if l == '#' else l}](#letter-{l.lower() if l != '#' else 'other'})" for l in letters)
     n_articles = len(ARTICLES)
     lines = [
         f"Every named idea, A to Z: {len(seen)} entries. "
@@ -5561,8 +5912,9 @@ def write_glossary(questions: list[dict]) -> None:
     ]
     for letter in letters:
         ident = letter.lower() if letter != "#" else "other"
+        heading = "Other" if letter == "#" else letter
         lines += [
-            f"## {letter} {{#letter-{ident}}}",
+            f"## {heading} {{#letter-{ident}}}",
             "",
             "::: {.qtable .glossary}",
             "| Term | Meaning | Where |",
@@ -6819,27 +7171,38 @@ def topic_sidebar_lines(
     articles: dict[str, dict],
     distributions: dict[str, dict],
     wiki: Path,
+    chapters: list | None = None,
 ) -> list[str]:
-    """Sidebar blocks for Fundamentals and Probability distributions.
+    """One sidebar entry for every article, under its topic.
 
-    The section href stays the hub page. The first child is an Overview link
-    to that hub, then every article in the order the hub page lists it.
-    Distribution articles sit in the same groups as ``distribution_groups``.
-    Each article is an explicit text/href entry, once, using its display title.
+    Fundamentals and the distribution groups come first. Each course part then
+    lists its chapters, and each chapter lists the articles taken from it.
+    A section title is not also a link when a child already points at that page,
+    so the hub heading and its Overview are not both marked current.
+
+    Question pages and file pages are not listed. There are several hundred of
+    each, and repeating them makes prev/next and the build slower. The page
+    script marks the chapter, or the files index, as the current item instead.
     """
     seen: set[str] = set()
+
+    def rel_href(path) -> str:
+        if not isinstance(path, Path):
+            path = Path(path)
+        try:
+            return path.relative_to(wiki).as_posix()
+        except ValueError:
+            return path.as_posix()
+
+    def link_item(text: str, href: str, indent: int) -> list[str]:
+        pad = " " * indent
+        return [f"{pad}- text: {yaml_quote(text)}", f"{pad}  href: {href}"]
 
     def article_item(slug_: str, indent: int) -> list[str]:
         article = articles.get(slug_)
         if not article:
             raise SystemExit(f"Sidebar lists {slug_}, which has no article")
-        path = article["path"]
-        if not isinstance(path, Path):
-            path = Path(path)
-        try:
-            href = path.relative_to(wiki).as_posix()
-        except ValueError:
-            href = path.as_posix()
+        href = rel_href(article["path"])
         if not href.startswith("articles/") or not href.endswith(".qmd"):
             raise SystemExit(f"Sidebar topic entry {slug_} resolved to {href}, not an articles page")
         if href in seen:
@@ -6848,32 +7211,22 @@ def topic_sidebar_lines(
         if not term:
             raise SystemExit(f"Sidebar article {slug_} has no display title")
         seen.add(href)
-        pad = " " * indent
-        return [f"{pad}- text: {yaml_quote(term)}", f"{pad}  href: {href}"]
+        return link_item(term, href, indent)
 
-    def overview_item(href: str, indent: int) -> list[str]:
-        pad = " " * indent
-        return [f"{pad}- text: {yaml_quote('Overview')}", f"{pad}  href: {href}"]
-
-    def section(title: str, href: str, indent: int, body: list[str]) -> list[str]:
+    def section(title: str, indent: int, body: list[str]) -> list[str]:
         if not body:
             raise SystemExit(f"Sidebar section {title} has no entries")
         pad = " " * indent
-        return [
-            f"{pad}- section: {yaml_quote(title)}",
-            f"{pad}  href: {href}",
-            f"{pad}  contents:",
-            *body,
-        ]
+        return [f"{pad}- section: {yaml_quote(title)}", f"{pad}  contents:", *body]
 
-    fund_body = overview_item("notes/fundamentals.qmd", 14)
+    fund_body = link_item("Overview", "notes/fundamentals.qmd", 14)
     # Hub page order is the grouped list, which is not FUNDAMENTALS_ORDER.
     for _title, members in topic_hubs.FUNDAMENTALS_GROUPS:
         for hub_slug in members:
             fund_body.extend(article_item(hub_slug, 14))
-    lines = section("Fundamentals", "notes/fundamentals.qmd", 10, fund_body)
+    lines = section("Fundamentals", 10, fund_body)
 
-    dist_body = overview_item("notes/probability-distributions.qmd", 14)
+    dist_body = link_item("Overview", "notes/probability-distributions.qmd", 14)
     for title, members in topic_hubs.distribution_groups(list(distributions.items())):
         if not members:
             continue
@@ -6884,12 +7237,101 @@ def topic_sidebar_lines(
         dist_body.append(f"{pad}- section: {yaml_quote(title)}")
         dist_body.append(f"{pad}  contents:")
         dist_body.extend(group_body)
-    lines.extend(section(
-        "Probability distributions",
-        "notes/probability-distributions.qmd",
-        10,
-        dist_body,
-    ))
+    lines.extend(section("Probability distributions", 10, dist_body))
+    if not chapters:
+        return lines
+
+    by_chapter: dict[str, list[str]] = {}
+    by_topic: dict[str, list[str]] = {}
+    for slug_, article in articles.items():
+        if rel_href(article["path"]) in seen:
+            continue
+        box = article.get("box") or {}
+        chapter = box.get("chapter")
+        if chapter:
+            by_chapter.setdefault(rel_href(chapter), []).append(slug_)
+        else:
+            topic = str(article.get("standalone") or box.get("part") or "Other")
+            by_topic.setdefault(topic, []).append(slug_)
+
+    def emit_articles(slugs: list[str], indent: int) -> list[str]:
+        body: list[str] = []
+        ordered = sorted(slugs, key=lambda item: str(articles[item].get("term") or item).lower())
+        for slug_ in ordered:
+            if rel_href(articles[slug_]["path"]) in seen:
+                continue
+            body.extend(article_item(slug_, indent))
+        return body
+
+    def grouped(slugs: list[str], indent: int) -> list[str]:
+        pending = [slug_ for slug_ in slugs if rel_href(articles[slug_]["path"]) not in seen]
+        if len(pending) <= 18:
+            return emit_articles(pending, indent)
+        buckets: dict[str, list[str]] = {}
+        for slug_ in pending:
+            term = str(articles[slug_].get("term") or slug_)
+            letter = next((char.upper() for char in term if char.isalpha()), "Other")
+            buckets.setdefault(letter, []).append(slug_)
+        ranges: list[tuple[list[str], list[str]]] = []
+        acc_letters: list[str] = []
+        acc: list[str] = []
+        for letter in sorted(buckets):
+            acc_letters.append(letter)
+            acc.extend(buckets[letter])
+            if len(acc) >= 10:
+                ranges.append((acc_letters[:], acc[:]))
+                acc_letters, acc = [], []
+        if acc:
+            if ranges and len(acc) < 6:
+                prev_letters, prev = ranges[-1]
+                ranges[-1] = (prev_letters + acc_letters, prev + acc)
+            else:
+                ranges.append((acc_letters, acc))
+        body: list[str] = []
+        for range_letters, members in ranges:
+            title = range_letters[0] if len(range_letters) == 1 else f"{range_letters[0]}–{range_letters[-1]}"
+            body.extend(section(title, indent, emit_articles(members, indent + 4)))
+        return body
+
+    parts_order: list[str] = []
+    chapters_by_part: dict[str, list] = {}
+    for part, note in chapters:
+        if part not in chapters_by_part:
+            parts_order.append(part)
+            chapters_by_part[part] = []
+        chapters_by_part[part].append(note)
+
+    for part in parts_order:
+        body: list[str] = []
+        for note in chapters_by_part[part]:
+            chapter_href = rel_href(note["path"])
+            inner = link_item("Chapter notes", chapter_href, 18)
+            inner.extend(emit_articles(by_chapter.get(chapter_href, []), 18))
+            body.extend(section(str(note["title"]), 14, inner))
+        extra = by_topic.pop(part, [])
+        if extra:
+            body.extend(section("Further reading", 14, grouped(extra, 18)))
+        if body:
+            lines.extend(section(part, 10, body))
+
+    for topic in sorted(by_topic):
+        pending = [slug_ for slug_ in by_topic[topic] if rel_href(articles[slug_]["path"]) not in seen]
+        if not pending:
+            continue
+        body = []
+        if topic == "Applications":
+            body.extend(link_item("Overview", "notes/applications.qmd", 14))
+        body.extend(grouped(pending, 14))
+        lines.extend(section(topic, 10, body))
+
+    orphans = [
+        slug_
+        for slugs in by_chapter.values()
+        for slug_ in slugs
+        if rel_href(articles[slug_]["path"]) not in seen
+    ]
+    if orphans:
+        lines.extend(section("Other", 10, emit_articles(orphans, 14)))
     return lines
 
 
@@ -6907,6 +7349,141 @@ def assert_sidebar_article_hrefs_once(yml: str) -> None:
         raise SystemExit("Sidebar lists articles more than once: " + ", ".join(dupes[:8]))
 
 
+SIDEBAR_JS = """
+<script>
+(function () {
+  function sidebarRoot() {
+    return document.getElementById("quarto-sidebar");
+  }
+  function expandTo(link) {
+    var root = sidebarRoot();
+    var el = link.parentElement;
+    while (el && el !== root) {
+      if (el.classList && el.classList.contains("collapse")) {
+        el.classList.add("show");
+        if (el.id) {
+          var toggle = document.querySelector('[data-bs-target="#' + el.id + '"]');
+          if (toggle) {
+            toggle.classList.remove("collapsed");
+            toggle.setAttribute("aria-expanded", "true");
+          }
+        }
+      }
+      el = el.parentElement;
+    }
+  }
+  function linkFor(absolute) {
+    var root = sidebarRoot();
+    if (!root || !absolute) return null;
+    var target = absolute.split("#")[0].replace(/\\.qmd$/, ".html");
+    var links = root.querySelectorAll("a.sidebar-link");
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].href.split("#")[0].replace(/\\.qmd$/, ".html");
+      if (href === target) return links[i];
+    }
+    return null;
+  }
+  function linkEnding(suffix) {
+    var root = sidebarRoot();
+    if (!root) return null;
+    var links = root.querySelectorAll("a.sidebar-link");
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].pathname.endsWith(suffix)) return links[i];
+    }
+    return null;
+  }
+  function markParents() {
+    var path = location.pathname;
+    var link = null;
+    if (path.indexOf("/questions/") !== -1 && !/\\/(index|by-topic|random)\\.html$/.test(path)) {
+      var hat = document.querySelector(".hatnote a[href*='notes/']");
+      link = hat ? linkFor(hat.href) : null;
+    } else if (path.indexOf("/files/") !== -1 && !/\\/index\\.html$/.test(path)) {
+      link = linkEnding("/files/index.html");
+    }
+    if (!link) return;
+    link.classList.add("active");
+    link.setAttribute("aria-current", "page");
+    expandTo(link);
+  }
+  function clearDoubleActive() {
+    var root = sidebarRoot();
+    if (!root) return;
+    var actives = root.querySelectorAll("a.sidebar-link.active");
+    actives.forEach(function (link) {
+      var section = link.closest("li.sidebar-item-section");
+      if (!section) return;
+      var header = section.querySelector(":scope > .sidebar-item-container > a.sidebar-link");
+      if (header && header !== link && header.href === link.href && header.classList.contains("active")) {
+        header.classList.remove("active");
+        header.removeAttribute("aria-current");
+      }
+    });
+  }
+  function scrollerFor(link) {
+    var el = link.parentElement;
+    var root = sidebarRoot();
+    while (el && el !== root) {
+      if (el.scrollHeight > el.clientHeight + 8) return el;
+      el = el.parentElement;
+    }
+    return root;
+  }
+  function revealActive() {
+    var root = sidebarRoot();
+    if (!root) return;
+    var link = root.querySelector("a.sidebar-link.active");
+    if (!link) return;
+    var scroller = scrollerFor(link);
+    if (!scroller) return;
+    var topOf = function (el) {
+      return el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
+    };
+    var linkTop = topOf(link);
+    var linkBottom = linkTop + link.offsetHeight;
+    var item = link.closest("li.sidebar-item");
+    var section = item && item.parentElement ? item.parentElement.closest("li.sidebar-item-section") : null;
+    var header = section ? section.querySelector(":scope > .sidebar-item-container") : null;
+    var headerTop = header ? topOf(header) : linkTop;
+    var view = scroller.clientHeight || window.innerHeight;
+    var ask = window.matchMedia("(max-width: 991px)").matches ? 96 : 12;
+    var target = headerTop - 8;
+    if (linkBottom - target > view - ask) {
+      target = linkBottom - (view - ask);
+      if (header && linkTop - headerTop < view - ask - 36) target = Math.min(target, headerTop - 8);
+    }
+    scroller.scrollTop = Math.max(0, target);
+  }
+  function markScrollers() {
+    document.querySelectorAll(".katex-display, .infobox, .infobox td, .callout, .theorem, .qtable").forEach(function (el) {
+      el.classList.toggle("can-scroll-x", el.scrollWidth > el.clientWidth + 2);
+    });
+  }
+  function schedule() {
+    clearDoubleActive();
+    revealActive();
+    markScrollers();
+    setTimeout(revealActive, 60);
+    setTimeout(revealActive, 350);
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    markParents();
+    schedule();
+  });
+  window.addEventListener("load", schedule);
+  window.addEventListener("resize", markScrollers);
+  document.addEventListener("click", function (event) {
+    var target = event.target;
+    if (target && target.closest && target.closest(".quarto-btn-toggle, #quarto-sidebar-toggle, a.sidebar-item-toggle")) {
+      setTimeout(schedule, 80);
+      setTimeout(schedule, 400);
+    }
+  });
+})();
+</script>
+"""
+
+
 def write_config(chapters, final_notes, questions) -> None:
     share = WIKI / SHARE_IMAGE
     width, height = png_size(share)
@@ -6917,20 +7494,14 @@ def write_config(chapters, final_notes, questions) -> None:
         RANDOM_AND_FILTER_JS
         + PREVIEW_JS
         + FILE_LINK_JS
+        + SIDEBAR_JS
         + ASK_JS
         + WEBR_JS.replace("__RUNNABLE__", json.dumps(runnable_pages())),
         encoding="utf-8",
     )
 
-    part_blocks = []
-    parts: dict[str, list[dict]] = {}
-    for part, note in chapters:
-        parts.setdefault(part, []).append(note)
-    for part, members in parts.items():
-        entries = "\n".join(f"              - {n['path'].relative_to(WIKI).as_posix()}" for n in members)
-        part_blocks.append(f"          - section: {yaml_quote(part)}\n            contents:\n{entries}")
     finals = "\n".join(f"              - {n['path'].relative_to(WIKI).as_posix()}" for n in final_notes)
-    part_blocks.append(f"          - section: \"Final preparation\"\n            contents:\n{finals}")
+    final_block = f"          - section: \"Final preparation\"\n            contents:\n{finals}"
 
     yml = f"""project:
   type: website
@@ -7057,7 +7628,6 @@ website:
       - text: Random question
         href: questions/random.qmd
       - section: Laboratories
-        href: labs/index.qmd
         contents:
           - text: "All laboratories"
             href: labs/index.qmd
@@ -7074,17 +7644,15 @@ website:
       - section: Topics
         href: notes/index.qmd
         contents:
-{chr(10).join(topic_sidebar_lines(ARTICLES, DISTRIBUTIONS, WIKI))}
-{chr(10).join(part_blocks)}
+{chr(10).join(topic_sidebar_lines(ARTICLES, DISTRIBUTIONS, WIKI, chapters))}
+{final_block}
       - section: Question bank
-        href: questions/index.qmd
         contents:
           - text: "Question bank: every question in one list"
             href: questions/index.qmd
           - text: "By topic: the same questions under each chapter"
             href: questions/by-topic.qmd
       - section: Reference
-        href: reference/index.qmd
         contents:
           - text: "Lookup pages: glossary, distributions, notation, and formulas"
             href: reference/index.qmd
@@ -7223,8 +7791,57 @@ def chapter_source(filename: str) -> Path:
     raise SystemExit(f"Missing chapter: {filename}")
 
 
+_LIST_MARKER = re.compile(r"^\([a-z]\)\s*$")
+_NEXT_LIST_ITEM = re.compile(r"^\([a-z]\)(?:\s*$|\s+\S)")
+
+
+def strip_trailing_heading(body: str) -> str:
+    """Drop a heading that a solution slice swallowed from the next group.
+
+    A heading with paragraphs after it is part of the answer and stays.
+    """
+    matches = list(re.finditer(r"(?m)^#{1,6} [^\n]*\n?", body))
+    if not matches:
+        return body
+    last = matches[-1]
+    if body[last.end() :].strip():
+        return body
+    return body[: last.start()].rstrip() + "\n"
+
+
+def keep_display_math_in_list(text: str) -> str:
+    """Keep a display equation inside an (a)/(b)/(c) item.
+
+    A marker alone on its line, then $$, makes Pandoc close the item before
+    the equation and leave an empty list entry.
+    """
+    lines = text.split("\n")
+    out: list[str] = []
+    i = 0
+    while i < len(lines):
+        if _LIST_MARKER.match(lines[i].rstrip("\r")):
+            j = i + 1
+            while j < len(lines) and lines[j].strip() == "":
+                j += 1
+            if j < len(lines) and lines[j].strip() == "$$" and not lines[j].startswith((" ", "\t")):
+                out.append(lines[i])
+                k = i + 1
+                while k < len(lines):
+                    row = lines[k]
+                    if _NEXT_LIST_ITEM.match(row.rstrip("\r")) or re.match(r"^#{1,6} ", row) or row.startswith("[]{#"):
+                        break
+                    out.append(row if row.strip() == "" else "    " + row)
+                    k += 1
+                i = k
+                continue
+        out.append(lines[i])
+        i += 1
+    return "\n".join(out)
+
+
 def main() -> None:
     self_test()
+    assert_research_math_delimiters()
     if not BOOK.exists():
         raise SystemExit(f"Missing book: {BOOK}")
     if not PRACTICE_TEX.exists():
@@ -7299,7 +7916,8 @@ def main() -> None:
             sol_id = match.group(1)
             end = matches[i + 1].start() if i + 1 < len(matches) else len(solutions)
             body = solutions[match.end() : end]
-            body = re.sub(r"(?m)^## Chapter [^\n]*\n", "", body)
+            body = strip_trailing_heading(body)
+            body = keep_display_math_in_list(body)
             linked = re.search(r"\(#(ex-[\w-]+)\)", body)
             ex_id = linked.group(1) if linked else None
             body = re.sub(r"\*\*\[[^\]]*\]\(#ex-[\w-]+\)\.\*\*", "", body, count=1)

@@ -8,9 +8,12 @@ A positive test result is more informative when the tested condition is common t
 The event formula above requires both conditional probabilities to exist: $\mathbb P(A)>0$ to define $\mathbb P(B\mid A)$, and $\mathbb P(B)>0$ to define the posterior $\mathbb P(A\mid B)$. Here $A$ is the hypothesis event, $B$ is the observed event, $\mathbb P(A)$ is the prior probability, and $\mathbb P(B\mid A)$ is the probability of the observation if $A$ occurs. The denominator is the overall probability of $B$.{{cite:wang2025_foundations}} (Ch. 1, §2.11.2, Thm. 45)
 
 For the density formula, let $\Theta$ be a parameter with prior density $p(\theta)$ and let $X$ be data with conditional density $p(x\mid\theta)$. The lower-case $x$ and $\theta$ are realised values. The joint density is $p(x,\theta)$; $p(\theta\mid x)$ is the posterior density. The marginal density of the data is
-\[
+
+$$
 p(x)=\int p(x\mid t)p(t)\,dt,
-\]
+$$
+
+
 where $t$ ranges over the parameter space. A discrete parameter uses a sum instead of this integral. The posterior formula applies where this marginal density is positive and finite.{{cite:hoff2013_bayes_estimators}} (§2.2, pp. 3–4) {{cite:wang2025_foundations}} (Ch. 20, §23, Defs. 3–4)
 
 ## Intuition
@@ -20,11 +23,14 @@ In the density version, the likelihood $p(x\mid\theta)$ reweights the prior at e
 
 ## Key results
 If $A_1,\ldots,A_m$ are mutually exclusive and exhaustive events, each with positive probability, then for $\mathbb P(B)>0$,
-\[
+
+$$
 \mathbb P(A_j\mid B)=
 \frac{\mathbb P(B\mid A_j)\mathbb P(A_j)}
 {\sum_{i=1}^{m}\mathbb P(B\mid A_i)\mathbb P(A_i)}.
-\]
+$$
+
+
 The sum accounts for every hypothesis in the partition that can produce $B$. Omitting a term with positive probability changes the denominator.{{cite:wang2025_foundations}} (Ch. 1, §2.11.2, Thm. 45)
 
 If $p(\theta)=0$ throughout a region, then $p(\theta\mid x)=0$ there whenever the posterior is defined. Data can change the relative weights of parameter values in the prior's support, but multiplication by a likelihood cannot give positive posterior density to a region assigned zero prior density. In the question below, this is why 80 successes out of 100 cannot put posterior mass above $1/2$ when the prior rules out that region.{{cite:wang2025_foundations}} (Ch. 20, §23, Def. 4)
@@ -45,9 +51,12 @@ When reporting a posterior, state the prior and the likelihood alongside it. In 
 
 ## Worked example
 Suppose a condition affects $1\%$ of a population, a test is positive for $90\%$ of those with the condition, and it is positive for $5\%$ of those without it. Among $10{,}000$ people with these proportions, the model expects $100$ to have the condition and $90$ of those to test positive. It expects $9{,}900$ not to have it and $495$ of those to test positive. Thus a positive result has probability
-\[
+
+$$
 \frac{90}{90+495}=\frac{2}{13}\approx0.1538
-\]
+$$
+
+
 of indicating the condition under this model. The test sensitivity is $0.90$; the positive predictive probability is about $0.154$ because the false positives come from a much larger group.{{cite:wang2025_foundations}} (Ch. 1, §2.12.1, Example 46)
 
 **Your turn.** With the same prevalence and sensitivity, suppose the false-positive probability falls to $1\%$. What is the positive predictive probability?{{cite:wang2025_foundations}} (Ch. 1, §2.12.1, Example 46)

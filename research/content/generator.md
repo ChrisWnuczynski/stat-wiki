@@ -22,7 +22,7 @@ The stationary row $\pi$ solves $\pi Q=0$ and $\pi_0+\pi_1=1$. For the rates $2$
 $$
 -2\pi_0+4\pi_1=0
 $$
-gives $\pi_0=2\pi_1$, hence $\pi=(2/3,1/3)$. The same weights come from the mean holds: a cycle is an idle spell of mean $1/2$ and a busy spell of mean $1/4$, and $ (1/2)/(3/4)=2/3$.
+gives $\pi_0=2\pi_1$, hence $\pi=(2/3,1/3)$. The same weights come from the mean holds: a cycle is an idle spell of mean $1/2$ and a busy spell of mean $1/4$, and $(1/2)/(3/4)=2/3$.
 
 Let $u(t)=\mathrm{P}(X(t)=1\mid X(0)=0)$. The forward equation is $u'(t)=2(1-u(t))-4u(t)=2-6u(t)$, with $u(0)=0$. The solution is
 $$

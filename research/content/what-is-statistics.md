@@ -53,15 +53,15 @@ Read straight through if the subject is new, then the five chapters named on the
       <rect x="496" y="12" width="212" height="68" rx="3" class="rm-box rm-spine" />
       <text x="508" y="37" class="rm-title">3. Classical inference</text>
       <text x="508" y="56" class="rm-sub">Estimators, intervals, tests &amp; lines</text>
-      <text x="508" y="71" class="rm-sub">From observed data back to parameters</text>
+      <text x="508" y="71" class="rm-sub">From data back to parameters</text>
     </a>
 
     <!-- Branching bus from the core model -->
-    <line x1="360" y1="80" x2="360" y2="108" class="rm-line" />
-    <line x1="182" y1="108" x2="538" y2="108" class="rm-line" />
-    <line x1="182" y1="108" x2="182" y2="122" class="rm-line" marker-end="url(#rm-head)" />
-    <line x1="538" y1="108" x2="538" y2="122" class="rm-line" marker-end="url(#rm-head)" />
-    <text x="360" y="102" text-anchor="middle" class="rm-note">When an assumption of one normal sample changes</text>
+    <line x1="360" y1="80" x2="360" y2="88" class="rm-line" />
+    <text x="360" y="100" text-anchor="middle" class="rm-note">When an assumption of one normal sample changes</text>
+    <line x1="182" y1="112" x2="538" y2="112" class="rm-line" />
+    <line x1="182" y1="112" x2="182" y2="122" class="rm-line" marker-end="url(#rm-head)" />
+    <line x1="538" y1="112" x2="538" y2="122" class="rm-line" marker-end="url(#rm-head)" />
 
     <!-- Four problem extensions -->
     <a href="#when-a-normal-line-is-the-wrong-shape" class="no-external" target="_self" aria-label="4. Beyond a normal line: jump to When a normal line is the wrong shape">

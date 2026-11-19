@@ -6,23 +6,29 @@ Statistical theory is the mathematical account of what an estimator, a test, and
 
 Estimation determines the value of a parameter associated with a population. A sample is drawn, and an estimator, a function of that sample, is evaluated. The number the function returns on one particular sample is the estimate. Point estimation returns one number. Interval estimation returns a set of plausible values. The foundations of this comparison, after the method of least squares and Pearson's method of moments, are Fisher's: maximum likelihood in 1912, and the 1922 account of what estimation is for, with the later vocabulary of biased, efficient, and sufficient estimators.{{cite:dodge2008}} (pp. 184–185)
 
-Bias is the gap between the expected value of a statistic and the parameter. If \(T\) estimates \(\theta\) and \(\mathbb E[T]=\theta+b(\theta)\), then \(b(\theta)\) is the bias. When \(b(\theta)=0\), \(T\) is unbiased, and the mean of a large number of such estimates lands on \(\theta\). Precision, in the same entry, is a different quantity: it measures sampling error, the scatter of \(T\), and is not the bias. The divide-by-\(n\) variance
-\[
-S^2=\frac1n\sum_{i=1}^n(x_i-\bar x)^2
-\]
-has expectation \(\sigma^2-\sigma^2/n\), so its bias is \(-\sigma^2/n\). That gap is a property of the procedure. It is visible in the expectation, not in one unlucky sample.{{cite:dodge2008}} (p. 41)
+Bias is the gap between the expected value of a statistic and the parameter. If $T$ estimates $\theta$ and $\mathbb E[T]=\theta+b(\theta)$, then $b(\theta)$ is the bias. When $b(\theta)=0$, $T$ is unbiased, and the mean of a large number of such estimates lands on $\theta$. Precision, in the same entry, is a different quantity: it measures sampling error, the scatter of $T$, and is not the bias. The divide-by-$n$ variance
 
-Prediction adds a loss. For a quantitative response the usual loss is squared error, \(L(Y,f(X))=(Y-f(X))^2\). The expected prediction error is the expectation of that loss under the joint distribution of the inputs and the response. Conditioning on the inputs shows that the function with the smallest expected squared error is the conditional mean, \(f(x)=\mathbb E(Y\mid X=x)\). Replacing squared error by absolute error changes the target to the conditional median. The [loss and risk](loss-and-risk.qmd) of a decision are this same comparison written for an action at a fixed parameter: a loss that is zero when the action matches the parameter, and a risk that is the expected loss.{{cite:hastie_esl2009}} (pp. 18–20, §2.4)
+$$
+S^2=\frac1n\sum_{i=1}^n(x_i-\bar x)^2
+$$
+
+
+has expectation $\sigma^2-\sigma^2/n$, so its bias is $-\sigma^2/n$. That gap is a property of the procedure. It is visible in the expectation, not in one unlucky sample.{{cite:dodge2008}} (p. 41)
+
+Prediction adds a loss. For a quantitative response the usual loss is squared error, $L(Y,f(X))=(Y-f(X))^2$. The expected prediction error is the expectation of that loss under the joint distribution of the inputs and the response. Conditioning on the inputs shows that the function with the smallest expected squared error is the conditional mean, $f(x)=\mathbb E(Y\mid X=x)$. Replacing squared error by absolute error changes the target to the conditional median. The [loss and risk](loss-and-risk.qmd) of a decision are this same comparison written for an action at a fixed parameter: a loss that is zero when the action matches the parameter, and a risk that is the expected loss.{{cite:hastie_esl2009}} (pp. 18–20, §2.4)
 
 The scope is the behaviour of procedures under an explicit probability model. [Regression analysis](regression-analysis.qmd) sits inside the subject once its coefficients are treated as estimates whose reliability can be examined, rather than only as a curve drawn through a cloud. The regression entry asks whether a fitted relation is statistically significant or only apparent, and it checks that question by residual analysis, with the standing condition that a prediction assumes the conditions of the fit still hold and that an error remains.{{cite:dodge2008}} (p. 452)
 
 ## Statistical use — The comparisons the theory licenses
 
-Bias, variance, and expected loss rank procedures before any one sample is declared the winner. Mean squared error adds them. If \(\mathbb E[T]=\theta+b\) and \(\mathrm{Var}(T)=v\), then
-\[
+Bias, variance, and expected loss rank procedures before any one sample is declared the winner. Mean squared error adds them. If $\mathbb E[T]=\theta+b$ and $\mathrm{Var}(T)=v$, then
+
+$$
 \mathbb E[(T-\theta)^2]=v+b^2.
-\]
-An estimator with bias \(2\) and variance \(1\) has mean squared error \(1+4=5\). An unbiased competitor with variance \(9\) has mean squared error \(9\). The biased procedure is closer, on average squared error, even though its expectation misses \(\theta\). Unbiasedness is one restriction that makes "best" mean something. Without a restriction, no estimator has the smallest risk at every parameter value at once, except in the trivial parameter space that contains only one point.{{cite:dodge2008}} (p. 41){{cite:hastie_esl2009}} (pp. 18–20, §2.4)
+$$
+
+
+An estimator with bias $2$ and variance $1$ has mean squared error $1+4=5$. An unbiased competitor with variance $9$ has mean squared error $9$. The biased procedure is closer, on average squared error, even though its expectation misses $\theta$. Unbiasedness is one restriction that makes "best" mean something. Without a restriction, no estimator has the smallest risk at every parameter value at once, except in the trivial parameter space that contains only one point.{{cite:dodge2008}} (p. 41){{cite:hastie_esl2009}} (pp. 18–20, §2.4)
 
 [Maximum likelihood](maximum-likelihood.qmd) is the construction that maximises the probability of the observed sample under a parametric model. A [sufficient statistic](sufficient-statistic.qmd) is the reduction that lets the rest of the sample be ignored for inference about the parameter. A [confidence interval](confidence-interval.qmd) and a test are the theory's interval and decision forms. Their coverage and their error rates are statements about repeated samples. A single interval either covers the parameter or it does not. The guarantee is attached to the method, and the [sampling distribution](sampling-distribution.qmd) is the object the guarantee is calculated from. On the prediction side, nearest neighbours try to estimate the conditional mean by an average in a neighbourhood of the query. Least squares instead assumes the regression function is approximately linear and pools the sample under that assumption. Both are approximations to the same expected-loss target. They differ in the assumption that makes the average stable.{{cite:hastie_esl2009}} (pp. 18–20, §2.4){{cite:james_islr2021}} (Ch. 2, §2.1.4, pp. 26–27)
 
@@ -30,7 +36,7 @@ An estimator with bias \(2\) and variance \(1\) has mean squared error \(1+4=5\)
 
 ## Common misconceptions
 
-A small variance is not a proof that the procedure is aimed at \(\theta\). The divide-by-\(n\) variance is more precise than a noisier unbiased competitor can be, and it is still biased by \(-\sigma^2/n\). Reporting only the scatter leaves the systematic gap unstated.{{cite:dodge2008}} (p. 41)
+A small variance is not a proof that the procedure is aimed at $\theta$. The divide-by-$n$ variance is more precise than a noisier unbiased competitor can be, and it is still biased by $-\sigma^2/n$. Reporting only the scatter leaves the systematic gap unstated.{{cite:dodge2008}} (p. 41)
 
 Squared error and absolute error do not pick the same summary. Squared error picks the conditional mean. Absolute error picks the conditional median. Calling both "the best prediction" without naming the loss treats two different targets as one.{{cite:hastie_esl2009}} (pp. 18–20, §2.4)
 

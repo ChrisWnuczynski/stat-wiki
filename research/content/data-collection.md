@@ -24,12 +24,12 @@ The collection plan decides which analyses are honest. Estimates and their error
 Collecting more rows is not the same as collecting the right rows. A convenience sample, individuals who are easily reached, can be large and still fail to represent the population named in the question.{{cite:openintro2019}} (Ch. 1, §1.3.3) An observational collection does not become an experiment because the investigator hoped for a causal sentence. The experiment is the collection in which treatments are assigned.{{cite:openintro2019}} (Ch. 1, §1.4; §1.2.5)
 
 ## Worked example
-A population has 500 shops. A register already holds last year's sales for all 500, so the collection fraction is \(500/500 = 1\) and there is no sampling error from a draw. A sample of 40 shops for a new question that the register does not contain has collection fraction \(40/500 = 0.08\). An experiment that assigns a new layout to 15 of the 40 and leaves 25 unchanged is a third collection: the layout was assigned, which neither the register nor the sample of the old layout did.{{cite:dodge2008}} (p. 152) {{cite:openintro2019}} (Ch. 1, §1.4)
+A population has 500 shops. A register already holds last year's sales for all 500, so the collection fraction is $500/500 = 1$ and there is no sampling error from a draw. A sample of 40 shops for a new question that the register does not contain has collection fraction $40/500 = 0.08$. An experiment that assigns a new layout to 15 of the 40 and leaves 25 unchanged is a third collection: the layout was assigned, which neither the register nor the sample of the old layout did.{{cite:dodge2008}} (p. 152) {{cite:openintro2019}} (Ch. 1, §1.4)
 
 **Your turn.** The sample for the new question is enlarged from 40 shops to 50, and 20 of the 50 are assigned the new layout. What is the new sampling fraction out of 500?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The sampling fraction is \(50/500 = 0.1\).
+The sampling fraction is $50/500 = 0.1$.
 :::
 
 ## Assumptions and limits

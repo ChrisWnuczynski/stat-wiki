@@ -12,9 +12,12 @@ An undirected graph $G=(V,E)$ has a finite vertex set $V$ and a set $E$ of unord
 
 ## Interpretation
 In a statistical model on this graph, the missing edge is read as $X_1\perp X_3\mid X_2$: the conditional distribution of $(X_1,X_3)$ given $X_2$ factors. For a nonsingular Gaussian vector the same restriction is a zero in the precision matrix. Take
-\[
+
+$$
 K=\begin{pmatrix}1&-1/2&0\\ -1/2&1&-1/2\\ 0&-1/2&1\end{pmatrix}.
-\]
+$$
+
+
 The $(1,3)$ entry is $0$. The quadratic form is $x_1^2+x_2^2+x_3^2-x_1 x_2-x_2 x_3$. Completing the square in $x_1$ and in $x_3$ leaves no product $x_1 x_3$, so the conditional density of $(X_1,X_3)$ given $X_2$ factors. The marginal correlation of $X_1$ and $X_3$ need not be zero: both can still depend on $X_2$.{{cite:grinstead_snell1997}} (p. 164, a conditional probability factors when the variables are independent given the condition)
 
 ## Properties
@@ -25,9 +28,12 @@ The matrix $K$ above has determinant $1\cdot(1-1/4)-(-1/2)(-1/2)=1/2>0$, and the
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
 Write the quadratic form as
-\[
+
+$$
 (x_1-\tfrac12 x_2)^2+(x_3-\tfrac12 x_2)^2+\tfrac12 x_2^2.
-\]
+$$
+
+
 Expanding recovers $x_1^2+x_2^2+x_3^2-x_1 x_2-x_2 x_3$, and the cross term $x_1 x_3$ does not appear. In the Gaussian density the conditional exponent of $(x_1,x_3)$ given $x_2$ is therefore a sum of a function of $(x_1,x_2)$ and a function of $(x_3,x_2)$. The conditional joint density factors, which is $X_1\perp X_3\mid X_2$.{{cite:grinstead_snell1997}} (p. 164, conditional probability and independence)
 
 The leading minors of $K$ are $1$, $\det\begin{pmatrix}1&-1/2\\-1/2&1\end{pmatrix}=3/4$, and $\det K=1/2$. All are positive, so $K$ is positive definite.

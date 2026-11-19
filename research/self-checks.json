@@ -1550,17 +1550,17 @@
     {
       "title": "An exact count",
       "prompt": "Why does publishing the exact count of a binary attribute fail pure differential privacy?",
-      "answer": "Neighbouring files produce counts that differ by one, so an output with probability 1 on one file has probability 0 on the other. No finite factor e to the epsilon bounds that ratio."
+      "answer": "Neighbouring files produce counts that differ by one, so an output with probability 1 on one file has probability 0 on the other. No finite factor $e^{\\varepsilon}$ bounds that ratio."
     },
     {
       "title": "A test of membership",
       "prompt": "A release is alpha-differentially private. A level-gamma test based only on the release asks whether a named subject is in the file. How does alpha limit the power?",
-      "answer": "The power is at most gamma times e to the alpha. The test cannot separate the two neighbouring files by more than that factor."
+      "answer": "The power is at most $\\gamma$ times $e^{\\alpha}$. The test cannot separate the two neighbouring files by more than that factor."
     },
     {
       "title": "A later summary",
       "prompt": "An analyst maps a differentially private release to a new summary without looking at the private file. What happens to the privacy parameters?",
-      "answer": "The mapped release remains differentially private with the same epsilon and delta. The mapping does not spend an additional privacy budget."
+      "answer": "The mapped release remains differentially private with the same $\\varepsilon$ and $\\delta$. The mapping does not spend an additional privacy budget."
     }
   ],
   "dimensionality-reduction": [
@@ -2744,7 +2744,7 @@
     {
       "title": "Changing the endpoint tail",
       "prompt": "If 1−F(xF−t) is asymptotic to 3t², what is the natural gap scale a_n?",
-      "answer": "It is (3n)^(−1/2), giving a limiting scaled-gap survival e^(−y²)."
+      "answer": "It is $(3n)^{-1/2}$, giving a limiting scaled-gap survival $e^{-y^2}$."
     }
   ],
   "a-permutation-test": [
@@ -2791,7 +2791,7 @@
     },
     {
       "title": "A quadratic seasonal difference",
-      "prompt": "For the series Y_t = 3 t^2, what is the ordinary difference of the lag-12 seasonal differences?",
+      "prompt": "For the series $Y_t=3t^2$, what is the ordinary difference of the lag-12 seasonal differences?",
       "answer": "The lag-12 difference is 72t - 432, and its ordinary difference is the constant 72."
     }
   ],
@@ -3008,7 +3008,7 @@
     {
       "title": "A correlation calculation",
       "prompt": "The variable being predicted has marginal variance 16, and its correlation with the conditioning variable is 1/2. What is its conditional variance?",
-      "answer": "It is 16 times (1 - (1/2)^2) = 12."
+      "answer": "It is $16(1-(1/2)^2)=12$."
     }
   ],
   "conjugacy-is-optional": [
@@ -3067,7 +3067,7 @@
     },
     {
       "title": "A zero derivative",
-      "prompt": "For h(mu)=mu² at mu=0 in a normal sample with variance sigma², what is the law of n times the squared sample mean divided by sigma²?",
+      "prompt": "For $h(\\mu)=\\mu^2$ at $\\mu=0$ in a normal sample with variance $\\sigma^2$, what is the law of $n$ times the squared sample mean divided by $\\sigma^2$?",
       "answer": "It is exactly chi-squared with one degree of freedom."
     }
   ],
@@ -3098,8 +3098,8 @@
   "draws-from-the-usual-families": [
     {
       "title": "Rate and scale",
-      "prompt": "For a fixed U, what happens to -log(U)/lambda when lambda doubles?",
-      "answer": "The generated waiting time halves, consistent with lambda being a rate."
+      "prompt": "For a fixed $U$, what happens to $-\\log(U)/\\lambda$ when $\\lambda$ doubles?",
+      "answer": "The generated waiting time halves, consistent with $\\lambda$ being a rate."
     },
     {
       "title": "Another discrete inversion",
@@ -3139,7 +3139,7 @@
     },
     {
       "title": "A two-point square",
-      "prompt": "X equals 0 or 6 with probabilities 1/3 and 2/3. What are E(X), E(X^2) and Var(X)?",
+      "prompt": "X equals 0 or 6 with probabilities 1/3 and 2/3. What are $E(X)$, $E(X^2)$ and $\\mathrm{Var}(X)$?",
       "answer": "The mean is 4, the second moment is 24, and the variance is 8."
     }
   ],
@@ -3170,7 +3170,7 @@
   "fallacy-of-the-transposed-conditional": [
     {
       "title": "Equal conditionals",
-      "prompt": "If P(A and B)=0.1, P(A)=0.2 and P(B)=0.5, calculate P(A|B) and P(B|A).",
+      "prompt": "If $P(A\\cap B)=0.1$, $P(A)=0.2$ and $P(B)=0.5$, calculate $P(A\\mid B)$ and $P(B\\mid A)$.",
       "answer": "They are 0.1/0.5=0.2 and 0.1/0.2=0.5, respectively."
     },
     {
@@ -3200,7 +3200,7 @@
     {
       "title": "Empty interval",
       "prompt": "For a homogeneous Poisson process of rate λ, which count probability equals the probability that the first arrival is after time t?",
-      "answer": "The probability of zero arrivals, e to the power −λt. The first arrival is later than t exactly when the count at t is zero."
+      "answer": "The probability of zero arrivals, $e^{-\\lambda t}$. The first arrival is later than t exactly when the count at t is zero."
     }
   ],
   "four-state-random-walk": [
@@ -3267,7 +3267,7 @@
     {
       "title": "Five atoms",
       "prompt": "A finite partition has five nonempty atoms. How many events are in the sigma-algebra it generates?",
-      "answer": "Each atom can be included or excluded, so there are 2^5=32 events."
+      "answer": "Each atom can be included or excluded, so there are $2^5=32$ events."
     },
     {
       "title": "Recover a point from half-lines",
@@ -3542,12 +3542,12 @@
   "levy-s-continuity-theorem": [
     {
       "title": "A point-mass transform",
-      "prompt": "The characteristic functions of Yₙ converge to e^{3it} for every real t. What is the limiting law?",
-      "answer": "The limit is continuous at zero and is the characteristic function of the constant 3. Thus Yₙ converges in distribution to a point mass at 3."
+      "prompt": "The characteristic functions of $Y_n$ converge to $e^{3it}$ for every real $t$. What is the limiting law?",
+      "answer": "The limit is continuous at zero and is the characteristic function of the constant 3. Thus $Y_n$ converges in distribution to a point mass at 3."
     },
     {
       "title": "The missing continuity",
-      "prompt": "For Xₙ∼N(0,n), what happens to the characteristic function at t=0 and at a fixed t≠0?",
+      "prompt": "For $X_n\\sim N(0,n)$, what happens to the characteristic function at $t=0$ and at a fixed $t\\ne 0$?",
       "answer": "It stays one at zero and tends to zero elsewhere. The discontinuity at zero prevents applying the converse continuity theorem."
     }
   ],
@@ -3602,8 +3602,8 @@
   "local-minima-plateaus-and-symmetry": [
     {
       "title": "Zero curvature",
-      "prompt": "For L(t)=t^4, what are the gradient and second derivative at zero, and is zero a minimum?",
-      "answer": "Both derivatives are zero, yet t^4≥0 with equality only at zero. Zero is a strict global minimum; the Hessian test is inconclusive."
+      "prompt": "For $L(t)=t^4$, what are the gradient and second derivative at zero, and is zero a minimum?",
+      "answer": "Both derivatives are zero, yet $t^4\\ge 0$ with equality only at zero. Zero is a strict global minimum; the Hessian test is inconclusive."
     },
     {
       "title": "When two units stay equal",
@@ -3775,7 +3775,7 @@
     },
     {
       "title": "A balanced but useless transition",
-      "prompt": "Does the identity transition P(x,{x})=1 have π as an invariant distribution, and does that imply useful exploration?",
+      "prompt": "Does the identity transition $P(x,\\{x\\})=1$ have π as an invariant distribution, and does that imply useful exploration?",
       "answer": "Every π is invariant under the identity transition. It never moves, so invariance alone does not imply exploration or convergence from a point start."
     }
   ],
@@ -4051,15 +4051,15 @@
     },
     {
       "title": "What the fit cannot adjust",
-      "prompt": "In the paired four-cell model, can changing theta make the first two fitted probabilities unequal?",
-      "answer": "No. They are both theta. Their within-pair difference remains a lack-of-fit direction."
+      "prompt": "In the paired four-cell model, can changing $\\theta$ make the first two fitted probabilities unequal?",
+      "answer": "No. They are both $\\theta$. Their within-pair difference remains a lack-of-fit direction."
     }
   ],
   "pitman-koopman-darmois-informal-form": [
     {
       "title": "A fixed total",
       "prompt": "Two iid Poisson samples have equal size and equal sum but different order. Can their likelihood ratio depend on the common rate?",
-      "answer": "No. The rate-dependent factor exp(−nλ)λ^{sum x} is identical, leaving a data-only ratio."
+      "answer": "No. The rate-dependent factor $\\exp(-n\\lambda)\\lambda^{\\sum x}$ is identical, leaving a data-only ratio."
     },
     {
       "title": "The support condition",
@@ -4135,7 +4135,7 @@
     },
     {
       "title": "A support restriction",
-      "prompt": "A prior puts probability zero on theta>0.8. Can ordinary Bayesian updating with finite likelihood values put positive posterior mass there?",
+      "prompt": "A prior puts probability zero on $\\theta>0.8$. Can ordinary Bayesian updating with finite likelihood values put positive posterior mass there?",
       "answer": "No. Multiplying a zero prior density by a finite likelihood leaves it zero, so the restriction survives updating."
     }
   ],
@@ -4658,7 +4658,7 @@
   "the-beta-distribution-is-the-two-category-dirichlet": [
     {
       "title": "Complement variance",
-      "prompt": "If P1 has Beta(3,2), what are E(P2) and Var(P2)?",
+      "prompt": "If $P_1$ has $\\mathrm{Beta}(3,2)$, what are $E(P_2)$ and $\\mathrm{Var}(P_2)$?",
       "answer": "P2=1−P1 has mean 2/5 and variance 1/25."
     },
     {
@@ -4687,8 +4687,8 @@
     },
     {
       "title": "A neutral learner",
-      "prompt": "What are alpha and the new weight vector when the current error is 1/2?",
-      "answer": "Alpha=0, so every multiplier is 1 and the weight vector is unchanged."
+      "prompt": "What are $\\alpha$ and the new weight vector when the current error is $1/2$?",
+      "answer": "$\\alpha=0$, so every multiplier is 1 and the weight vector is unchanged."
     }
   ],
   "three-easy-confusions": [
@@ -4898,7 +4898,7 @@
   "unit-root": [
     {
       "title": "Effect of a shock",
-      "prompt": "For X_t=X_{t−1}+epsilon_t, what is the effect at time t+5 of adding one unit to epsilon_t while holding all other innovations fixed?",
+      "prompt": "For $X_t=X_{t-1}+\\varepsilon_t$, what is the effect at time $t+5$ of adding one unit to $\\varepsilon_t$ while holding all other innovations fixed?",
       "answer": "It is still one unit: the shock enters every subsequent level."
     },
     {
@@ -5052,7 +5052,7 @@
     },
     {
       "title": "Boundary mass at zero",
-      "prompt": "For the nonnegative-mean boundary example, the limiting law of D is half a point mass at zero and half a chi-squared law with one degree of freedom. What is P(D=0)?",
+      "prompt": "For the nonnegative-mean boundary example, the limiting law of D is half a point mass at zero and half a chi-squared law with one degree of freedom. What is $P(D=0)$?",
       "answer": "One half. The other half of the probability lies on the positive chi-squared component."
     }
   ]

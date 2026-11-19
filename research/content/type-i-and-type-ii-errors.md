@@ -32,7 +32,7 @@ Under $N(2,1)$, $\beta=\Phi(1.645-2)\approx0.3612$ and power is $1-\beta\approx0
 
 ## Common misconceptions
 
-A 5% level does not mean a 5% probability that a rejected null was true: level conditions on the null being true, whereas that statement conditions on the observed rejection. A $p$-value of $0.021$ is an observed null tail area, not a new estimated type I probability for this decision. Failing to reject does not establish the null: the serve test misses a true 80% success rate with probability about $0.602$. Finally, beta is not fixed by alpha alone; it changes with the alternative, sample size and test statistic.{{cite:siegrist2022_testing}} (§9.1, Errors, Power and P-value)
+A 5% level does not mean a 5% probability that a rejected null was true: level conditions on the null being true, whereas that statement conditions on the observed rejection. A $p$-value of $0.021$ is an observed null tail area, not a new estimated type I probability for this decision. Failing to reject does not establish the null: the serve test misses a true 80% success rate with probability about $0.602$. Finally, $\beta$ is not fixed by $\alpha$ alone; it changes with the alternative, sample size and test statistic.{{cite:siegrist2022_testing}} (§9.1, Errors, Power and P-value)
 
 ## Assumptions and limits — When the nominal errors fail
 

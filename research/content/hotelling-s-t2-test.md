@@ -9,20 +9,29 @@ The one-sample $t$ statistic is a mean difference divided by an estimated standa
 
 ## Definition
 For an independent sample of size $n>p$ from a $p$-dimensional distribution with mean $\boldsymbol{\mu}$ and a nonsingular sample covariance $S$,
-\[
+
+$$
 T^2=n(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)^\top S^{-1}(\bar{\mathbf{x}}-\boldsymbol{\mu}_0)
-\]
+$$
+
+
 tests $\boldsymbol{\mu}=\boldsymbol{\mu}_0$.{{cite:hotelling1931}} (pp. 360–378) When $p=1$, $S=s^2$ and $T^2=t^2$, where $t=\sqrt n(\bar x-\mu_0)/s$ is the ordinary one-sample statistic. For normal data the null calibration used with this statistic is
-\[
+
+$$
 \frac{n-p}{(n-1)p}T^2\sim F_{p,\,n-p}.
-\]
+$$
+
+
 The 0.95 quantile of $F_{2,4}$ is $6.944$. A transformed value below that quantile is not a $5\%$ rejection under this calibration.
 
 ## Interpretation
 The statistic is zero only when $\bar{\mathbf{x}}=\boldsymbol{\mu}_0$. It grows when the mean moves away from $\boldsymbol{\mu}_0$ along a short axis of $S$. Replacing $S$ by the identity ignores the sample correlations and the coordinate scales. In the identity example that replacement happens to be correct, because $S=I$. If $S=\bigl(\begin{smallmatrix}2&0\\0&2\end{smallmatrix}\bigr)$ and the mean is $(1,1)$, then $S^{-1}$ halves each squared coordinate and
-\[
+
+$$
 T^2=6\cdot(1,1)S^{-1}(1,1)^\top=6\cdot 1=6
-\]
+$$
+
+
 for $n=6$. The transformed value is $(6-2)/((6-1)\cdot 2)\cdot 6=2.4$. The $0.95$ quantile of $F_{2,4}$ is $6.944$, and the upper tail probability of $2.4$ is $0.2066$. The mean is one unit from the origin on each axis, and the test does not reject at $5\%$.
 
 ## Properties

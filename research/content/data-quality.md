@@ -2,7 +2,7 @@
 A file can be large and still be unfit for the conclusion someone wants to draw from it. Data quality is the match between the recorded values and that use: how far they sit from the quantities they name, and how far the recorded units sit from the population they are supposed to represent.{{cite:nist_glossary2002}} (Glossary, "accuracy") {{cite:nist_glossary2002}} (Glossary, "coverage error")
 
 ## Motivating example
-Four readings of a 20-millimetre gauge block come back as 22, 23, 21, and 22 millimetres. Their mean is \(88/4 = 22\). The instrument is precise enough to agree with itself within a couple of millimetres, and it is high by 2 millimetres. A later analysis that treats 22 as if it were 20 has imported that offset. Separately, a survey frame that lists 800 of 1000 graduates cannot be repaired by weighing the 800 more carefully. The missing 200 are a coverage failure, not a measurement failure.{{cite:nist_glossary2002}} (Glossary, "bias") {{cite:nist_glossary2002}} (Glossary, "coverage error")
+Four readings of a 20-millimetre gauge block come back as 22, 23, 21, and 22 millimetres. Their mean is $88/4 = 22$. The instrument is precise enough to agree with itself within a couple of millimetres, and it is high by 2 millimetres. A later analysis that treats 22 as if it were 20 has imported that offset. Separately, a survey frame that lists 800 of 1000 graduates cannot be repaired by weighing the 800 more carefully. The missing 200 are a coverage failure, not a measurement failure.{{cite:nist_glossary2002}} (Glossary, "bias") {{cite:nist_glossary2002}} (Glossary, "coverage error")
 
 ## Definition
 Data quality is the extent to which the observations are accurate for the quantities they record and representative for the population they are used to describe.
@@ -26,12 +26,12 @@ Report the bias of a measurement as the mean minus the reference, and report the
 In a survey, name which of the four error classes is being discussed. A badly worded question is a measurement problem even when the sample was drawn well. A file that is good enough to describe respondents may be unfit for a sentence about non-respondents.{{cite:nist_glossary2002}} (Glossary, "questionnaire error") {{cite:nist_glossary2002}} (Glossary, "nonresponse error")
 
 ## Worked example
-The true length is 20 millimetres. The readings are 22, 23, 21, and 22. Their sum is 88 and their mean is 22. The bias of the mean, mean minus true value, is \(22 - 20 = 2\). The absolute errors are 2, 3, 1, and 2, and they sum to 8. The mean absolute error is \(8/4 = 2\), the same 2 millimetres, because every reading was on the same side of 20.{{cite:nist_glossary2002}} (Glossary, "bias") {{cite:dodge2008}} (p. 183)
+The true length is 20 millimetres. The readings are 22, 23, 21, and 22. Their sum is 88 and their mean is 22. The bias of the mean, mean minus true value, is $22 - 20 = 2$. The absolute errors are 2, 3, 1, and 2, and they sum to 8. The mean absolute error is $8/4 = 2$, the same 2 millimetres, because every reading was on the same side of 20.{{cite:nist_glossary2002}} (Glossary, "bias") {{cite:dodge2008}} (p. 183)
 
 **Your turn.** A fifth reading is 24 millimetres. What are the new mean and the new bias of the mean?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The readings sum to 112 over 5 observations, so the mean is \(112/5 = 22.4\). The bias is \(22.4 - 20 = 2.4\).
+The readings sum to 112 over 5 observations, so the mean is $112/5 = 22.4$. The bias is $22.4 - 20 = 2.4$.
 :::
 
 ## Common misconceptions

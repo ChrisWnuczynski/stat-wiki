@@ -9,13 +9,19 @@ Each free category gets a score. The reference score is set to zero, which remov
 
 ## Definition
 For categories $0,1,\ldots,K-1$ and a covariate row $\mathbf{x}$, the baseline-category logit model with reference $0$ is
-\[
+
+$$
 \log\frac{p_k}{p_0}=\eta_k=\beta_{0k}+\mathbf{x}^\top\boldsymbol{\beta}_k,\qquad k=1,\ldots,K-1.
-\]
+$$
+
+
 The reference linear predictor is $\eta_0=0$. Solving for the probabilities gives
-\[
+
+$$
 p_k=\frac{e^{\eta_k}}{\sum_{j=0}^{K-1}e^{\eta_j}},\qquad k=0,\ldots,K-1.
-\]
+$$
+
+
 The log-odds of category $k$ against category $m$ are $\eta_k-\eta_m$, with $\eta_0=0$. Software that fits this model by setting the coefficient vector of the first class to zero is using one choice of reference; any other class can be the reference if its score is the one set to zero.
 
 ## Interpretation
@@ -37,11 +43,14 @@ Name the reference category in the same sentence as the coefficient. A coefficie
 
 ## Worked example
 Suppose the reference score is $0$, the score for category $1$ is $0.5$ and the score for category $2$ is $1$. Then $e^{0.5}\approx 1.6487$, $e^{1}\approx 2.7183$, and the denominator is $1+1.6487+2.7183=5.3670$. The probabilities are
-\[
+
+$$
 p_0=\frac{1}{5.3670}\approx 0.1863,\qquad
 p_1=\frac{1.6487}{5.3670}\approx 0.3072,\qquad
 p_2=\frac{2.7183}{5.3670}\approx 0.5065.
-\]
+$$
+
+
 They sum to $1$. The odds of category $2$ against the reference are $e^{1}\approx 2.7183$. The odds of category $2$ against category $1$ are $e^{1-0.5}=e^{0.5}\approx 1.6487$, which is $0.5065/0.3072$. Adding $1$ to every score leaves these three probabilities unchanged, because every exponential would be multiplied by $e$.{{cite:hastie_esl2009}} (§11.3–11.4, eqs. 11.6 and 11.10, pp. 393–395)
 
 **Your turn.** Set the two free scores to $0$ and $\log 3$, with the reference score still $0$. Find the three probabilities.

@@ -24,12 +24,12 @@ Scientific control is what makes a treated-minus-control contrast interpretable 
 
 ## Worked example
 
-Twelve patients all drink a 12-ounce glass of water with their pill, so water volume does not differ. Six are randomised to the drug and six to a placebo pill. The outcome changes are 8, 10, 6, 12, 9, and 9 on the drug, summing to 54, with mean \(54/6 = 9\). The placebo changes are 2, 4, 3, 3, 5, and 1, summing to 18, with mean \(18/6 = 3\). The contrast is \(9 - 3 = 6\). The common water volume is the controlled condition. The placebo arm is the control group.{{cite:openintro2019}} (Ch. 1, §1.4.1){{cite:nist_glossary2002}} (Glossary, "control group")
+Twelve patients all drink a 12-ounce glass of water with their pill, so water volume does not differ. Six are randomised to the drug and six to a placebo pill. The outcome changes are 8, 10, 6, 12, 9, and 9 on the drug, summing to 54, with mean $54/6 = 9$. The placebo changes are 2, 4, 3, 3, 5, and 1, summing to 18, with mean $18/6 = 3$. The contrast is $9 - 3 = 6$. The common water volume is the controlled condition. The placebo arm is the control group.{{cite:openintro2019}} (Ch. 1, §1.4.1){{cite:nist_glossary2002}} (Glossary, "control group")
 
 **Your turn.** The placebo changes gain one more patient with change 4, and the drug mean stays 9. What are the new placebo mean and the new contrast?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The placebo changes sum to 22 over 7 patients, so the mean is \(22/7\). The contrast is \(9 - 22/7\).
+The placebo changes sum to 22 over 7 patients, so the mean is $22/7$. The contrast is $9 - 22/7$.
 :::
 
 ## Common misconceptions

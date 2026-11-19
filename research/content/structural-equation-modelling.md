@@ -4,31 +4,37 @@ Several test scores, a child's background, and a later outcome are not a single 
 
 ## Motivating example
 
-A development study measures industrialisation in 1960 by three indicators and political democracy in 1960 and again in 1965 by four indicators each. The scientific sentence is not "regress one score on another." It is that industrialisation is a latent level, that democracy at each date is a latent level measured with error, and that democracy in 1965 depends on industrialisation and on democracy in 1960. Seventy-five countries supply the covariances. A model with that measurement structure and those two regressions was fit by maximum likelihood. The model chi-square was 38.125 on 35 degrees of freedom, with a \(p\)-value of 0.329. The fit is a statement about the covariance matrix, not a statement that the arrows are the historical causes.{{cite:rosseel2012}} (p. 19)
+A development study measures industrialisation in 1960 by three indicators and political democracy in 1960 and again in 1965 by four indicators each. The scientific sentence is not "regress one score on another." It is that industrialisation is a latent level, that democracy at each date is a latent level measured with error, and that democracy in 1965 depends on industrialisation and on democracy in 1960. Seventy-five countries supply the covariances. A model with that measurement structure and those two regressions was fit by maximum likelihood. The model chi-square was 38.125 on 35 degrees of freedom, with a $p$-value of 0.329. The fit is a statement about the covariance matrix, not a statement that the arrows are the historical causes.{{cite:rosseel2012}} (p. 19)
 
 ## Definition
 
 In the social and behavioural sciences, structural equation modelling is a class of multivariate models. The continuous-variable form that the applied literature inherited combines three older traditions. Path analysis, from Sewall Wright's genetics in 1921 and later from sociology, writes directed relations among observed variables. Simultaneous equations, from econometrics, write several outcomes that determine one another. Factor analysis, from psychology, writes observed scores as noisy measures of latent factors. The merged model has a measurement part, linking indicators to latent variables, and a structural part, linking the latent variables to each other. The continuous-variable core associated with Karl Jöreskog's LISREL is the working form of that applied field.{{cite:rosseel2012}} (p. 2)
 
-A second use of the words is the nonparametric structural equation model attached to a causal diagram. For an ordered set of variables, each variable is a deterministic function of its parents on the graph and of an error, \(V_m=f_m(\mathrm{pa}_m,\epsilon_m)\), with the first variable a function of its error alone. An intervention sets a variable to a value. The counterfactual is obtained by substituting that value and leaving the other functions as they are. The absence of an arrow means that the missing parent is not a direct cause. That definition does not require a factor-analysis measurement model, a normal distribution, or a linear equation. It is a way to state which counterfactuals a diagram is supposed to represent.{{cite:hernan_robins2020}} (Ch. 6, §6.2, Technical Point 6.2, p. 77)
+A second use of the words is the nonparametric structural equation model attached to a causal diagram. For an ordered set of variables, each variable is a deterministic function of its parents on the graph and of an error, $V_m=f_m(\mathrm{pa}_m,\epsilon_m)$, with the first variable a function of its error alone. An intervention sets a variable to a value. The counterfactual is obtained by substituting that value and leaving the other functions as they are. The absence of an arrow means that the missing parent is not a direct cause. That definition does not require a factor-analysis measurement model, a normal distribution, or a linear equation. It is a way to state which counterfactuals a diagram is supposed to represent.{{cite:hernan_robins2020}} (Ch. 6, §6.2, Technical Point 6.2, p. 77)
 
-In the linear social-science form the free parameters are factor loadings, regressions among latents, and variances and covariances of residuals and of exogenous factors. One loading in each factor is often fixed at 1 so that the factor's scale is the scale of a reference indicator. The remaining loadings, and the regressions, are estimated. Estimation compares the sample covariance matrix with the covariance matrix implied by those parameters. Maximum likelihood is the default. A weighted least-squares discrepancy \((s-\hat\sigma)^\top W^{-1}(s-\hat\sigma)\) is the more general form, with \(s\) the non-duplicated sample covariances and \(\hat\sigma\) the implied ones.{{cite:rosseel2012}} (pp. 19 and 27)
+In the linear social-science form the free parameters are factor loadings, regressions among latents, and variances and covariances of residuals and of exogenous factors. One loading in each factor is often fixed at 1 so that the factor's scale is the scale of a reference indicator. The remaining loadings, and the regressions, are estimated. Estimation compares the sample covariance matrix with the covariance matrix implied by those parameters. Maximum likelihood is the default. A weighted least-squares discrepancy $(s-\hat\sigma)^\top W^{-1}(s-\hat\sigma)$ is the more general form, with $s$ the non-duplicated sample covariances and $\hat\sigma$ the implied ones.{{cite:rosseel2012}} (pp. 19 and 27)
 
 ## Properties
 
-The measurement block and the structural block answer different questions. In the industrialisation example the measurement block says that \(x_1,x_2,x_3\) are indicators of one factor, `ind60`, and that the democracy items at each date are indicators of `dem60` and `dem65`. The structural block is two regressions: democracy in 1960 on industrialisation, and democracy in 1965 on industrialisation and on democracy in 1960. Residual covariances among particular items, such as the same item measured five years apart, are extra parameters. They say that two indicators share something the factors do not absorb.{{cite:rosseel2012}} (p. 19)
+The measurement block and the structural block answer different questions. In the industrialisation example the measurement block says that $x_1,x_2,x_3$ are indicators of one factor, `ind60`, and that the democracy items at each date are indicators of `dem60` and `dem65`. The structural block is two regressions: democracy in 1960 on industrialisation, and democracy in 1965 on industrialisation and on democracy in 1960. Residual covariances among particular items, such as the same item measured five years apart, are extra parameters. They say that two indicators share something the factors do not absorb.{{cite:rosseel2012}} (p. 19)
 
 On the standardised scale the fitted regression of `dem60` on `ind60` is 0.447, the regression of `dem65` on `dem60` is 0.885, and the direct regression of `dem65` on `ind60` is 0.182. The chain `ind60` to `dem60` to `dem65` multiplies the two standardised coefficients:
-\[
-0.447\times 0.885=0.395595.
-\]
-Adding the direct standardised coefficient gives
-\[
-0.182+0.395595=0.577595.
-\]
-That sum is an arithmetic decomposition of the two routes drawn in the diagram, on the scale of the reported standardised solution. It is not a second estimation. The estimation has already happened, in the maximum-likelihood fit to the covariances of the 75 countries. The chi-square of 38.125 on 35 degrees of freedom, with \(p=0.329\), is the test of whether the implied covariances are close to the sample covariances. A large \(p\)-value means the covariance discrepancies are not large relative to that reference distribution. It does not identify the arrows as interventions.{{cite:rosseel2012}} (p. 19)
 
-The causal structural equation has a different property. The functions \(f_m\) are unknown and need not be linear. What is used in practice is often the implication of the diagram: which variables must be conditioned on so that a treatment–outcome association equals an effect. The equation defines the intervention by substitution into \(f_m\). A linear factor score is a different object.{{cite:hernan_robins2020}} (Ch. 6, §6.2, Technical Point 6.2, p. 77)
+$$
+0.447\times 0.885=0.395595.
+$$
+
+
+Adding the direct standardised coefficient gives
+
+$$
+0.182+0.395595=0.577595.
+$$
+
+
+That sum is an arithmetic decomposition of the two routes drawn in the diagram, on the scale of the reported standardised solution. It is not a second estimation. The estimation has already happened, in the maximum-likelihood fit to the covariances of the 75 countries. The chi-square of 38.125 on 35 degrees of freedom, with $p=0.329$, is the test of whether the implied covariances are close to the sample covariances. A large $p$-value means the covariance discrepancies are not large relative to that reference distribution. It does not identify the arrows as interventions.{{cite:rosseel2012}} (p. 19)
+
+The causal structural equation has a different property. The functions $f_m$ are unknown and need not be linear. What is used in practice is often the implication of the diagram: which variables must be conditioned on so that a treatment–outcome association equals an effect. The equation defines the intervention by substitution into $f_m$. A linear factor score is a different object.{{cite:hernan_robins2020}} (Ch. 6, §6.2, Technical Point 6.2, p. 77)
 
 Under non-normal continuous data the maximum-likelihood parameter estimates can remain consistent when the model is identified and correctly specified, while the usual standard errors are too small, by as much as 25 to 50 percent in the accounts Rosseel summarises, and the chi-square tends to be too large. Asymptotically distribution-free estimation avoids the normality assumption and, in empirical checks cited there, breaks down unless the sample is very large, on the order of several thousand. A robust standard error or a rescaled chi-square is the practical alternative when the sample is the size of a typical survey rather than the size that weighted least squares wants.{{cite:rosseel2012}} (p. 27)
 
@@ -44,17 +50,17 @@ Report the diagram, the fixed scale loadings, the estimator, the sample size, an
 
 Take the standardised solution of the industrialisation and democracy model as given by the maximum-likelihood fit: 0.447 from industrialisation to democracy in 1960, 0.885 from democracy in 1960 to democracy in 1965, and 0.182 directly from industrialisation to democracy in 1965.
 
-The chain product is \(0.447\times 0.885=0.395595\). The sum of the chain and the direct coefficient is \(0.182+0.395595=0.577595\). The chi-square comparison of implied and sample covariances is 38.125 on 35 degrees of freedom. The \(p\)-value is 0.329. The sample size is 75.{{cite:rosseel2012}} (p. 19)
+The chain product is $0.447\times 0.885=0.395595$. The sum of the chain and the direct coefficient is $0.182+0.395595=0.577595$. The chi-square comparison of implied and sample covariances is 38.125 on 35 degrees of freedom. The $p$-value is 0.329. The sample size is 75.{{cite:rosseel2012}} (p. 19)
 
 **Your turn.** A different diagram has a single chain of two standardised coefficients, 0.5 and 0.4, and no direct arrow. What is the chain product?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The product is \(0.5\times 0.4=0.2\).
+The product is $0.5\times 0.4=0.2$.
 :::
 
 ## Common misconceptions
 
-A model that fits the covariances is not automatically a correct causal diagram. The democracy chi-square, with \(p=0.329\), says the implied second moments are close to the sample second moments under the fitted linear structure. The nonparametric structural equation asks a different question: what happens if a variable is set rather than observed. Passing one test does not answer the other.{{cite:rosseel2012}} (p. 19){{cite:hernan_robins2020}} (Ch. 6, §6.2, p. 77)
+A model that fits the covariances is not automatically a correct causal diagram. The democracy chi-square, with $p=0.329$, says the implied second moments are close to the sample second moments under the fitted linear structure. The nonparametric structural equation asks a different question: what happens if a variable is set rather than observed. Passing one test does not answer the other.{{cite:rosseel2012}} (p. 19){{cite:hernan_robins2020}} (Ch. 6, §6.2, p. 77)
 
 A diagram that encodes conditional exchangeability is not automatically a factor model with a nice measurement scale. The causal equation can be nonlinear and can have no latent factor at all. Reporting a path coefficient without the diagram, or a diagram without the conditional-independence claims it makes, leaves the reader with a picture instead of a model.{{cite:hernan_robins2020}} (Ch. 6, §6.2, Technical Point 6.2, p. 77)
 

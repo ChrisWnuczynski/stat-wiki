@@ -22,7 +22,7 @@ def main() -> None:
     h11 = single_linkage_height([10], [11])
     h_cross = single_linkage_height([0, 1, 4], [10, 11])
     assert h11 == 1 and h_cross == 6
-    assert "0.5" in PROSE and "height \\(7\\)" in PROSE or "height \\(7\\)" in PROSE
+    assert "0.5" in PROSE and ("height $7$" in PROSE or "height \\(7\\)" in PROSE)
     for token in ("\\{0,1\\}", "3", "6"):
         assert token in PROSE or token.strip("\\") in PROSE
     assert "1" in PROSE and "11" in PROSE

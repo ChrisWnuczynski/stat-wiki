@@ -8,9 +8,12 @@ For a lake's species count, distance from the coast and log area can be columns 
 Write $\mathbf x_i=(1,x_{i1},\ldots,x_{id})^\top$ for the chosen covariate column of observation $i$, including an intercept, and $\boldsymbol\beta=(\beta_0,\ldots,\beta_d)^\top$ for its coefficients. Let $Y_i$ be the random response and $y_i$ a realised value. Its conditional mean is $\mu_i=\mathbb E(Y_i\mid\mathbf x_i)$, and the linear predictor is $\eta_i=\mathbf x_i^\top\boldsymbol\beta$. A monotone, invertible link $g$ satisfies $g(\mu_i)=\eta_i$. Conditional on the specified covariates, the responses have independent exponential-family distributions; their means can differ. The distribution, design columns and link together specify the model.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373) {{cite:sas2012_glm}} (Ch. 3, “Generalized Linear Models”)
 
 The exponential-family convention used in the linked mean–variance result is
-\[
+
+$$
 f(y_i;\theta_i,\phi)=\exp\left\{\frac{y_i\theta_i+c(\theta_i)}{e(\phi)}+d(y_i;\phi)\right\}.
-\]
+$$
+
+
 Here $f$ is a density or mass function, $\theta_i$ is its natural parameter, $\phi$ is a common dispersion parameter, $e(\phi)>0$ is its scale, $c$ contains the parameter-only part, and $d$ contains terms not involving $\theta_i$. In this sign convention, $\mu_i=-c'(\theta_i)$ and $\operatorname{Var}(Y_i\mid\mathbf x_i)=-c''(\theta_i)e(\phi)$ when differentiation under the integral or sum is valid. The more usual convention writes $y_i\theta_i-b(\theta_i)$; it is equivalent on setting $b=-c$. The link is *canonical* when $\eta_i$ equals the natural parameter after that parameter has been expressed as a function of the mean.{{cite:nelder_wedderburn1972}} (§§1.1–1.3, pp. 371–373)
 
 ## Interpretation

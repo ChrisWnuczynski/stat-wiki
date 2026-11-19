@@ -22,12 +22,12 @@ Error distributions were introduced to describe repeated measures of the same qu
 
 ## Worked example
 
-Operator A's times are 10, 12, 11, and 11. The sum is 44 and the mean is \(44/4 = 11\). Operator B's times are 14, 16, 15, and 15. The sum is 60 and the mean is \(60/4 = 15\). The true duration is 12 seconds. A's bias is \(11 - 12 = -1\). B's bias is \(15 - 12 = 3\). The absolute errors for A are 2, 0, 1, and 1, summing to 4, so the mean absolute error is \(4/4 = 1\). A's repeatability is visible in the scatter around 11. A's accuracy is worse than that scatter alone, because the average sits 1 second off the reference.{{cite:nist_glossary2002}} (Glossary, "bias" and "accuracy"){{cite:dodge2008}} (p. 183, absolute error)
+Operator A's times are 10, 12, 11, and 11. The sum is 44 and the mean is $44/4 = 11$. Operator B's times are 14, 16, 15, and 15. The sum is 60 and the mean is $60/4 = 15$. The true duration is 12 seconds. A's bias is $11 - 12 = -1$. B's bias is $15 - 12 = 3$. The absolute errors for A are 2, 0, 1, and 1, summing to 4, so the mean absolute error is $4/4 = 1$. A's repeatability is visible in the scatter around 11. A's accuracy is worse than that scatter alone, because the average sits 1 second off the reference.{{cite:nist_glossary2002}} (Glossary, "bias" and "accuracy"){{cite:dodge2008}} (p. 183, absolute error)
 
 **Your turn.** Operator A records one more time, of 16 seconds. What are A's new mean and new bias?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The times sum to 60 over 5 observations, so the mean is 12. The bias is \(12 - 12 = 0\).
+The times sum to 60 over 5 observations, so the mean is 12. The bias is $12 - 12 = 0$.
 :::
 
 ## Assumptions and limits

@@ -12,9 +12,12 @@ A free function of several covariates can follow every bump the sample happens t
 
 ## Interpretation
 In the four-corner table the dose contrast is $0.6$ at $z=0$ and $0.6$ at $z=1$. That equality is additivity. The interaction contrast is
-\[
+
+$$
 \bigl(\eta(1,1)-\eta(1,0)\bigr)-\bigl(\eta(0,1)-\eta(0,0)\bigr)=0
-\]
+$$
+
+
 for the additive table, because both dose contrasts equal $0.6$. For a corner of $2.4$ instead of $1.8$ the contrast is $2.4-0.8-1.2+0.2=0.6$. Additivity is exactly the statement that this contrast is zero.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
 
 Centring matters for the intercept. Adding $3$ to $g_1$ and subtracting $3$ from the intercept leaves every $\eta$ unchanged. The sum-to-zero constraint picks one of those representations. Without it the intercept and the smooths are not separately readable.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
@@ -27,10 +30,13 @@ The fitting iteration is penalised iteratively reweighted least squares. Smoothi
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
 Write $\eta(x,z)=\beta_0+g_1(x)+g_2(z)$. Then
-\[
+
+$$
 \eta(1,1)-\eta(1,0)-\eta(0,1)+\eta(0,0)
 =g_1(1)-g_1(1)-g_1(0)+g_1(0)+g_2(1)-g_2(0)-g_2(1)+g_2(0)=0.
-\]
+$$
+
+
 The intercept cancels. Any table with a nonzero value of that contrast is not of the additive form. For the numbers $-0.3,0.3$ and $-0.5,0.5$ with intercept $1$, the four values are $0.2,1.2,0.8,1.8$ and the contrast is zero. Replacing $1.8$ by $2.4$ makes the contrast $0.6$.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)
 
 Adding a constant $c$ to $g_1$ and subtracting $c$ from $\beta_0$ does not change $\eta$. The sum-to-zero constraint $g_1(0)+g_1(1)=0$ when each corner is observed once forces $c=0$ in that trade.{{cite:hastie_esl2009}} (§5.4, pp. 151–152)

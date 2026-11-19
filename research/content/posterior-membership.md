@@ -9,9 +9,12 @@ The component label is not observed. The density says how typical the point is o
 
 ## Definition
 For a mixture with weights $\pi_h>0$ summing to one and component densities $f_h$, the posterior membership of component $h$ at $x$ is
-\[
+
+$$
 \tau_h(x)=\frac{\pi_h f_h(x)}{\sum_{m}\pi_m f_m(x)},
-\]
+$$
+
+
 provided the denominator is positive. If the denominator is zero, every component density is zero at $x$ and the conditional probability of the label is not defined by this ratio.{{cite:grinstead_snell1997}} (p. 164, conditional probability when the conditioning event has positive probability)
 
 ## Interpretation
@@ -19,17 +22,23 @@ In the example the prior odds of component $1$ against component $2$ are $0.6/0.
 
 ## Properties
 The memberships sum to one by construction of the denominator. They are the weights in an update that holds them fixed while estimating a component mean. With one observation at $x=4$ and memberships $3/11$ and $8/11$, the weighted means of a one-point sample are both $4$, and the component counts are $3/11$ and $8/11$. With a second point at $0$ that has membership $1$ on component $1$, the updated component-$1$ mean is
-\[
+
+$$
 \frac{(3/11)\cdot 4+1\cdot 0}{3/11+1}=\frac{12/11}{14/11}=\frac{12}{14}=\frac{6}{7}\approx 0.8571.
-\]
+$$
+
+
 Component $2$ still has only the point at $4$, so its mean stays $4$. Recomputing the memberships from these means is a new conditional probability, not a part of this weighted average.{{cite:grinstead_snell1997}} (p. 164)
 
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
 Let $H$ be the component label and $X$ the observation. Then $\Pr(H=h)=\pi_h$ and the conditional density of $X$ given $H=h$ is $f_h$. The joint probability element for $(H=h, X\in dx)$ is $\pi_h f_h(x)\,dx$. Dividing by the marginal element $\sum_m\pi_m f_m(x)\,dx$, when that sum is positive, gives $\tau_h(x)$. The terms sum to one over $h$. Posterior odds equal prior odds times the density ratio because the marginal density cancels:
-\[
+
+$$
 \frac{\tau_1}{\tau_2}=\frac{\pi_1 f_1}{\pi_2 f_2}.
-\]
+$$
+
+
 In the example that ratio is $0.12/0.32=0.375$.{{cite:grinstead_snell1997}} (p. 164, conditional probability)
 :::
 :::

@@ -11,23 +11,29 @@ The same split appears in testing. A test that assumes each population has a nam
 ## Definition
 
 A parametric method has two steps. First the analyst assumes a form for the unknown function or distribution. A linear mean
-\[
+
+$$
 f(X)=\beta_0+\beta_1 X_1+\cdots+\beta_p X_p
-\]
-is the simplest common assumption: the whole function is then determined by \(p+1\) coefficients. Second, the data are used to estimate those coefficients. Ordinary least squares is one way to do that step. It is not the only way. The model-based approach is called parametric because it reduces the problem of estimating \(f\) to the problem of estimating a set of parameters.{{cite:james_islr2013}} (pp. 21–22, §2.1.2)
+$$
+
+
+is the simplest common assumption: the whole function is then determined by $p+1$ coefficients. Second, the data are used to estimate those coefficients. Ordinary least squares is one way to do that step. It is not the only way. The model-based approach is called parametric because it reduces the problem of estimating $f$ to the problem of estimating a set of parameters.{{cite:james_islr2013}} (pp. 21–22, §2.1.2)
 
 A parametric test is a hypothesis test that presupposes a particular form for the distributions of the underlying populations. The Student test for a difference of means, under normal populations, is the usual example, and the Fisher test of variances is another. The form is part of the hypothesis, even when the parameter being tested is the only number that appears in the conclusion.{{cite:dodge2008}} (p. 251, Parametric tests)
 
 The contrasting nonparametric methods do not write the form in advance. They look for a fit that stays close to the observations without becoming arbitrarily rough, and they are sometimes called parameter-free or distribution-free when the object is a test that avoids specifying the population distribution. They can follow shapes a parametric model would miss, and they generally need many more observations to do it. The term nonparametric was used by Wolfowitz in 1942. A histogram, and a kernel smooth built from a histogram, are simple nonparametric estimates of a density.{{cite:james_islr2013}} (pp. 23–24, §2.1.2){{cite:dodge2008}} (pp. 375–376, Nonparametric statistics)
 
-Parametric does not mean a straight line. A nonlinear regression mean \(\beta_0\exp(-\beta_1 x)\) has a finite parameter vector and is a parametric model. It fails to be linear in the parameters, which is a different distinction, drawn in the entry for nonlinear regression: the mean is nonlinear when it is not linear in \(\beta\). A rank test that does not name the distribution of the observations is the nonparametric object set against a parametric test.{{cite:dodge2008}} (p. 372, Nonlinear regression; p. 376, Nonparametric test)
+Parametric does not mean a straight line. A nonlinear regression mean $\beta_0\exp(-\beta_1 x)$ has a finite parameter vector and is a parametric model. It fails to be linear in the parameters, which is a different distinction, drawn in the entry for nonlinear regression: the mean is nonlinear when it is not linear in $\beta$. A rank test that does not name the distribution of the observations is the nonparametric object set against a parametric test.{{cite:dodge2008}} (p. 372, Nonlinear regression; p. 376, Nonparametric test)
 
 ## Statistical use
 
 [Simple linear regression](simple-linear-regression.qmd) and [ordinary least squares](ordinary-least-squares.qmd) are the parametric pattern in its most familiar form: assume a straight mean, then estimate two coefficients. On the income surface, the fit
-\[
+
+$$
 \text{income}\approx\beta_0+\beta_1\times\text{education}+\beta_2\times\text{seniority}
-\]
+$$
+
+
 reduces the whole problem to three numbers. The plane can miss curvature that is really there and still capture the direction of the association. That is the typical bargain. [Maximum likelihood](maximum-likelihood.qmd) is the general second step once the observations are given a distribution that depends on a finite parameter. A [generalised linear model](generalised-linear-model.qmd) keeps that structure and changes the distribution and the link. An [estimator](estimator.qmd) in this setting is a function of the sample aimed at one of those parameters, or at a function of them.{{cite:james_islr2013}} (pp. 22–23, §2.1.2){{cite:dodge2008}} (pp. 184–185, Estimation)
 
 Making the parametric form more flexible, by adding coefficients, reduces the chance that the form is simply wrong and raises the chance that the fit follows the noise in the sample. That second failure is [overfitting](overfitting.qmd). A thin-plate spline with a roughness penalty is the nonparametric illustration: a smooth penalty can recover a curved surface, and a penalty that is too weak fits the training points exactly and misses new ones. The practical choice is not a slogan for one side. It is a choice of how many constants to estimate, given how many observations are in hand.{{cite:james_islr2013}} (pp. 22–24, §2.1.2)
@@ -36,7 +42,7 @@ Nonparametric tests are used when the distribution really is unspecified, and wh
 
 ## Assumptions and limits
 
-The parametric estimate of \(f\) is only as good as the form. If the chosen model is far from the true function, the estimate is poor even when each coefficient has a small standard error. Standard errors describe uncertainty inside the assumed form. They do not describe the distance from that form to the function that generated the data. A linear plane on a curved income surface can have tight coefficients and a systematic miss.{{cite:james_islr2013}} (pp. 22–23, §2.1.2)
+The parametric estimate of $f$ is only as good as the form. If the chosen model is far from the true function, the estimate is poor even when each coefficient has a small standard error. Standard errors describe uncertainty inside the assumed form. They do not describe the distance from that form to the function that generated the data. A linear plane on a curved income surface can have tight coefficients and a systematic miss.{{cite:james_islr2013}} (pp. 22–23, §2.1.2)
 
 A parametric test adds a distributional assumption to the form of the parameter. The Student test compares means of normal populations. When the populations are not normal, the nominal type I error need not be the error the test actually has. Nonparametric tests relax that assumption and pay for the relaxation in power, and in the class of alternatives they can see. A short sample makes the parametric assumption both more tempting, because there is little information with which to check it, and more dangerous, because a wrong shape moves the critical value.{{cite:dodge2008}} (pp. 251, 375–376)
 

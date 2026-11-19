@@ -26,12 +26,12 @@ Scientific randomisation, in the experimental sense, assigns treatments by a ran
 
 ## Worked example
 
-A frame lists 800 graduates. The population of interest has 1000 graduates, so 200 were never eligible to be drawn. The coverage rate of the frame is \(800/1000 = 0.8\). From the frame, 200 are drawn and 140 reply. The response rate among the drawn is \(140/200 = 0.7\), and the non-response count is \(200 - 140 = 60\). The proportion of the target population that both could be drawn and did reply is \(140/1000 = 0.14\).{{cite:nist_glossary2002}} (Glossary, "coverage error"){{cite:nist_glossary2002}} (Glossary, "nonresponse error")
+A frame lists 800 graduates. The population of interest has 1000 graduates, so 200 were never eligible to be drawn. The coverage rate of the frame is $800/1000 = 0.8$. From the frame, 200 are drawn and 140 reply. The response rate among the drawn is $140/200 = 0.7$, and the non-response count is $200 - 140 = 60$. The proportion of the target population that both could be drawn and did reply is $140/1000 = 0.14$.{{cite:nist_glossary2002}} (Glossary, "coverage error"){{cite:nist_glossary2002}} (Glossary, "nonresponse error")
 
 **Your turn.** Reminders bring in 20 of the 60 non-respondents. What are the new response count and the new response rate among the 200 drawn?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The response count is \(140 + 20 = 160\). The response rate is \(160/200 = 0.8\).
+The response count is $140 + 20 = 160$. The response rate is $160/200 = 0.8$.
 :::
 
 ## Assumptions and limits
