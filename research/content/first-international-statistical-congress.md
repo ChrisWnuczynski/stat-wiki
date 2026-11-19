@@ -20,26 +20,29 @@ The next city was chosen in the last plenary of a congress, and the host country
 
 Uniformity was a demand on classifications. A national administration that declined the common nomenclature stayed outside the programme, because the congress had no authority to replace that administration's categories. Levi's account of the programme asked for a nomenclature held in common, simpler base tables, a central statistical commission in each state, and an exchange of publications and of the schedules used to collect information. A centre in each country would send and receive those documents.{{cite:levi1854}} (p. 4)
 
-Nine meetings from 1853 to 1876 are separated by eight gaps. The calendar span is \(1876-1853=23\) years, so equal spacing would put \(23/8=2.875\) years between consecutive meetings. The congresses were not in fact equally spaced; the arithmetic only shows how short the series was relative to the ambition of a permanent international routine.{{cite:randeraad2011}} (p. 50)
+Nine meetings from 1853 to 1876 are separated by eight gaps. The calendar span is $1876-1853=23$ years, so equal spacing would put $23/8=2.875$ years between consecutive meetings. The congresses were not in fact equally spaced; the arithmetic only shows how short the series was relative to the ambition of a permanent international routine.{{cite:randeraad2011}} (p. 50)
 
 ## Statistical use
 
 The practical proposal was institutional. A central commission, formed from heads of administration together with people practised in statistical work, would settle what was collected and how it was published, and would correspond with similar commissions elsewhere. Branch commissions would handle what was only provincial. Without that machinery, returns stayed scattered: any member of Parliament might demand a table, and the table might never appear again in the same form.{{cite:levi1854}} (pp. 3–4)
 
-The same difficulty appears whenever a rate is computed on a territory that the next table does not use. Suppose one office records 240 events among 800 people and another records 150 events among 600 people. The rates are \(240/800=0.30\) and \(150/600=0.25\), and their difference is \(0.05\). Adding the counts is legitimate only after the events and the populations have been defined in the same way. When they have, the pooled rate is
-\[
+The same difficulty appears whenever a rate is computed on a territory that the next table does not use. Suppose one office records 240 events among 800 people and another records 150 events among 600 people. The rates are $240/800=0.30$ and $150/600=0.25$, and their difference is $0.05$. Adding the counts is legitimate only after the events and the populations have been defined in the same way. When they have, the pooled rate is
+
+$$
 \frac{240+150}{800+600}=\frac{390}{1400}=\frac{39}{140}\approx 0.2786.
-\]
-If the categories differ, \(39/140\) is not a rate for a combined population. It is only the arithmetic of two incompatible tables.{{cite:levi1854}} (pp. 1, 4)
+$$
+
+
+If the categories differ, $39/140$ is not a rate for a combined population. It is only the arithmetic of two incompatible tables.{{cite:levi1854}} (pp. 1, 4)
 
 ## Worked example
 
-Take the two offices above as a miniature of the confusion Levi described for England and Wales, Great Britain, and the United Kingdom. The separate rates are \(0.30\) and \(0.25\). Their difference, \(0.05\), answers a question about these two tables. It does not answer a question about one population observed twice. The pooled figure \(39/140\) answers a question about one population only when both numerators count the same kind of event and both denominators count the same kind of person.{{cite:levi1854}} (pp. 3–4)
+Take the two offices above as a miniature of the confusion Levi described for England and Wales, Great Britain, and the United Kingdom. The separate rates are $0.30$ and $0.25$. Their difference, $0.05$, answers a question about these two tables. It does not answer a question about one population observed twice. The pooled figure $39/140$ answers a question about one population only when both numerators count the same kind of event and both denominators count the same kind of person.{{cite:levi1854}} (pp. 3–4)
 
 **Your turn.** A second pair of tables records 80 events among 200 people and 90 events among 300 people, under definitions that do match. Find each rate, the difference of the rates, and the pooled rate.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The rates are \(80/200=0.4\) and \(90/300=0.3\). The difference is \(0.1\). The pooled rate is \((80+90)/(200+300)=170/500=0.34\).
+The rates are $80/200=0.4$ and $90/300=0.3$. The difference is $0.1$. The pooled rate is $(80+90)/(200+300)=170/500=0.34$.
 :::
 
 ## Common misconceptions

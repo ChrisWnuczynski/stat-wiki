@@ -59,5 +59,5 @@ assert nearest(3) == 1
 assert nearest(2) == 0
 assert nearest(Fraction(2, 5)) == 0
 assert all(nearest(x) == y for x, y in points)
-assert r"\(1\)" in prose and r"\(0\)" in prose
+assert ("$1$" in prose or r"\(1\)" in prose) and ("$0$" in prose or r"\(0\)" in prose)
 print(slug, "ok")

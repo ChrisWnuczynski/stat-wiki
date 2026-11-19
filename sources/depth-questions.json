@@ -38,7 +38,7 @@
     "id": "exr-measurable-square",
     "topic_code": "SP10",
     "title": "A transformed uniform measurement",
-    "body": "On Ω=(0,1) with Borel events and uniform probability, let X(ω)=ω and W=X². Explain why W is measurable, then compute P(W≤1/4) and P(1/4<W≤9/16).",
+    "body": "On Ω=(0,1) with Borel events and uniform probability, let $X(\\omega)=\\omega$ and $W=X^2$. Explain why $W$ is measurable, then compute $P(W\\le 1/4)$ and $P(1/4<W\\le 9/16)$.",
     "answer": "The square function is continuous, hence Borel measurable; its composition with X is measurable. Since ω is positive, {W≤1/4}=(0,1/2], whose probability is 1/2. Also {1/4<W≤9/16}=(1/2,3/4], whose probability is 3/4−1/2=1/4. These are probabilities of inverse-image events, not areas under a guessed density."
   },
   {
@@ -46,7 +46,7 @@
     "topic_code": "B8",
     "title": "Uncertainty beyond a conditional shrinkage rule",
     "body": "A hierarchical analysis assigns equal posterior probability to two hyperparameter regimes. In regime A a group effect has conditional posterior N(5,1), and in regime B it has conditional posterior N(9,1). Find the marginal posterior mean and variance of the group effect. What variance term would a calculation based on only one regime omit?",
-    "answer": "The marginal mean is (5+9)/2=7. The law of total variance gives E[Var(theta|regime,y)]+Var(E[theta|regime,y])=1+[(5−7)^2+(9−7)^2]/2=1+4=5. Fixing a single regime would retain only conditional variance 1 and omit the between-regime variance 4. This is the distinction between a conditional shrinkage calculation and full averaging over uncertain hyperparameters."
+    "answer": "The marginal mean is $(5+9)/2=7$. The law of total variance gives $E[\\mathrm{Var}(\\theta\\mid\\mathrm{regime},y)]+\\mathrm{Var}(E[\\theta\\mid\\mathrm{regime},y])=1+[(5-7)^2+(9-7)^2]/2=1+4=5$. Fixing a single regime would retain only conditional variance 1 and omit the between-regime variance 4. This is the distinction between a conditional shrinkage calculation and full averaging over uncertain hyperparameters."
   },
   {
     "id": "exr-sample-quantile-type7",
@@ -156,7 +156,7 @@
   {
     "id": "depth-marginal-bernoulli-bound",
     "title": "Can binary margins correlate perfectly?",
-    "body": "Binary variables A and B have success probabilities 0.2 and 0.8. What is the largest possible value of P(A=1,B=1)? Use it to find their maximum possible covariance and correlation. Explain why a proposed correlation of 0.6 cannot describe a true joint Bernoulli law with these margins.",
+    "body": "Binary variables A and B have success probabilities 0.2 and 0.8. What is the largest possible value of $P(A=1,B=1)$? Use it to find their maximum possible covariance and correlation. Explain why a proposed correlation of 0.6 cannot describe a true joint Bernoulli law with these margins.",
     "answer": "The joint success probability cannot exceed min(0.2,0.8)=0.2. The maximum covariance is 0.2-(0.2)(0.8)=0.04. Both variances equal 0.16, so their standard-deviation product is 0.16 and the maximum correlation is 0.04/0.16=0.25. A correlation of 0.6 exceeds that bound and cannot arise from these margins.",
     "topic_code": "C3"
   },
@@ -240,15 +240,15 @@
   {
     "id": "depth-mgf-bernoulli-sum",
     "title": "A Bernoulli sum through its MGF",
-    "body": "Let X and Y be independent Bernoulli variables with success probability 0.4. Find the MGF of S=X+Y, its mean and variance, and P(S=2). What part fails if X=Y instead?",
-    "answer": "One MGF is 0.6+0.4e^t, so independence gives M_S(t)=(0.6+0.4e^t)². The mean is 0.8, variance 2(0.4)(0.6)=0.48, and P(S=2)=0.4²=0.16. If X=Y, the sum's MGF is 0.6+0.4e^{2t}; the product rule and binomial law do not apply.",
+    "body": "Let X and Y be independent Bernoulli variables with success probability 0.4. Find the MGF of $S=X+Y$, its mean and variance, and $P(S=2)$. What part fails if $X=Y$ instead?",
+    "answer": "One MGF is $0.6+0.4e^{t}$, so independence gives $M_S(t)=(0.6+0.4e^{t})^{2}$. The mean is $0.8$, variance $2(0.4)(0.6)=0.48$, and $P(S=2)=0.4^{2}=0.16$. If $X=Y$, the sum's MGF is $0.6+0.4e^{2t}$; the product rule and binomial law do not apply.",
     "topic_code": "P2"
   },
   {
     "id": "depth-mgf-domain",
     "title": "An exponential transform's domain",
-    "body": "For X exponential with rate 3, derive M_X(t), give its domain, then calculate E(X), Var(X) and M_X(2). Why is substituting t=4 into the rational expression invalid as an MGF calculation?",
-    "answer": "Integrating 3e^{-(3-t)x} over x≥0 gives M_X(t)=3/(3-t) for t<3. Thus E(X)=1/3, Var(X)=1/9, and M_X(2)=3. At t=4 the defining integral diverges; the algebraic value -3 is not an expectation.",
+    "body": "For $X$ exponential with rate 3, derive $M_X(t)$, give its domain, then calculate $E(X)$, $\\mathrm{Var}(X)$ and $M_X(2)$. Why is substituting t=4 into the rational expression invalid as an MGF calculation?",
+    "answer": "Integrating $3e^{-(3-t)x}$ over $x\\ge 0$ gives $M_X(t)=3/(3-t)$ for $t<3$. Thus $E(X)=1/3$, $\\mathrm{Var}(X)=1/9$, and $M_X(2)=3$. At t=4 the defining integral diverges; the algebraic value -3 is not an expectation.",
     "topic_code": "P2"
   },
   {
@@ -360,7 +360,7 @@
     "id": "depth-cloglog-probability",
     "title": "Complementary log-log probability update",
     "body": "A complementary log-log model has baseline event probability 0.20. A one-unit covariate change has coefficient log(2). Find the new event probability and state which quantity doubles.",
-    "answer": "Write H=-log(1-p). Initially H=-log(0.8). The coefficient doubles H, so 1-p_new=exp(-2H)=0.8^2=0.64 and p_new=0.36. The negative log of the no-event probability doubles; the event probability does not.",
+    "answer": "Write $H=-\\log(1-p)$. Initially $H=-\\log(0.8)$. The coefficient doubles $H$, so $1-p_{\\mathrm{new}}=\\exp(-2H)=0.8^2=0.64$ and $p_{\\mathrm{new}}=0.36$. The negative log of the no-event probability doubles; the event probability does not.",
     "topic_code": "G1"
   },
   {
@@ -422,8 +422,8 @@
   {
     "id": "depth-jensen-square-log",
     "title": "Two directions of Jensen's inequality",
-    "body": "Let X equal 1 or 4, each with probability one half. Compare E(X^2) with (EX)^2 and E(log X) with log(EX). Explain the opposite directions.",
-    "answer": "EX=2.5, E(X^2)=8.5, and (EX)^2=6.25, so the convex square gives 8.5>=6.25. E(log X)=log(4)/2≈0.69315, while log(EX)=log(2.5)≈0.91629, so concavity of log reverses the inequality. Both are strict because X is nonconstant and each function has strict curvature over the support.",
+    "body": "Let X equal 1 or 4, each with probability one half. Compare $E(X^2)$ with $(EX)^2$ and $E(\\log X)$ with $\\log(EX)$. Explain the opposite directions.",
+    "answer": "$EX=2.5$, $E(X^2)=8.5$, and $(EX)^2=6.25$, so the convex square gives $8.5\\ge 6.25$. $E(\\log X)=\\log(4)/2\\approx 0.69315$, while $\\log(EX)=\\log(2.5)\\approx 0.91629$, so concavity of log reverses the inequality. Both are strict because X is nonconstant and each function has strict curvature over the support.",
     "topic_code": "SP11"
   },
   {
@@ -436,8 +436,8 @@
   {
     "id": "depth-jensen-domain",
     "title": "A failed Jensen application",
-    "body": "Someone applies E(log X)<=log(EX) to a random variable that equals zero with positive probability. What is wrong with the calculation?",
-    "answer": "The real logarithm is undefined at zero, and a finite E(log X) is unavailable. Jensen's finite-expectation form requires the function to be defined on the support and the transformed expectation to exist.",
+    "body": "Someone applies $E(\\log X)\\le\\log(EX)$ to a random variable that equals zero with positive probability. What is wrong with the calculation?",
+    "answer": "The real logarithm is undefined at zero, and a finite $E(\\log X)$ is unavailable. Jensen's finite-expectation form requires the function to be defined on the support and the transformed expectation to exist.",
     "topic_code": "SP11"
   },
   {
@@ -479,7 +479,7 @@
     "id": "depth-weight-adam",
     "title": "Coupled penalty versus separate decay",
     "body": "Why can adding an L2 penalty to a loss produce a different update from a separate weight-decay step under Adam, although they can coincide for ordinary SGD?",
-    "answer": "An L2 penalty contributes lambda times the weight to the gradient, so Adam's adaptive coordinate scaling also acts on the penalty gradient. A separate decay step scales the weight directly outside the adaptive gradient calculation. Ordinary scalar-step SGD gives the same algebra after matching the coefficients.",
+    "answer": "An L2 penalty contributes $\\lambda$ times the weight to the gradient, so Adam's adaptive coordinate scaling also acts on the penalty gradient. A separate decay step scales the weight directly outside the adaptive gradient calculation. Ordinary scalar-step SGD gives the same algebra after matching the coefficients.",
     "topic_code": "L16"
   }
 ]

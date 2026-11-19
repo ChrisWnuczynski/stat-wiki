@@ -206,16 +206,15 @@ body.quarto-dark .graph-alert {
 
 .readout-line {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 0.15rem 0.85rem;
   margin: 0.4rem 0 0.1rem;
   padding: 0.1rem 0.05rem 0.4rem;
-  overflow-x: auto;
   border-bottom: 1px solid var(--wiki-rule);
   color: var(--wiki-muted);
   font-size: 0.86rem;
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .readout-label {

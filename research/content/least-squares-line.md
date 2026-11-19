@@ -9,9 +9,12 @@ Squaring stops a point above the line from cancelling a point below it, and it c
 
 ## Definition
 For points $(x_i,y_i)$ with the $x_i$ not all equal, the least-squares line $y=b_0+b_1 x$ minimises $\sum_i(y_i-b_0-b_1 x_i)^2$. The slope and intercept are
-\[
+
+$$
 b_1=\frac{\sum_i(x_i-\bar x)(y_i-\bar y)}{\sum_i(x_i-\bar x)^2},\qquad b_0=\bar y-b_1\bar x.
-\]
+$$
+
+
 The normal equations are $\sum_i(y_i-b_0-b_1 x_i)=0$ and $\sum_i x_i(y_i-b_0-b_1 x_i)=0$.{{cite:nist_ls_straight2002}} (§4.4.3.1){{cite:dodge2008}} (p. 305, normal equations)
 
 ## Interpretation

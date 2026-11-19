@@ -374,7 +374,7 @@ FIGURE_ALTS: dict[str, str] = {
         "sequences, swinging widely between 0 and 1 at small n before funnelling toward the horizontal line at 0.5."
     ),
     "prob-continuous-densities.png": (
-        "Two-panel density comparison: three decaying exponential densities with rates 0.5, 1, and 2 on [0, infinity) "
+        "Two-panel density comparison: three decaying exponential densities with rates 0.5, 1, and 2 on the half-line from 0 to infinity "
         "(left), and three symmetric zero-mean normal bell curves with standard deviations 0.5, 1, and 2 showing taller "
         "peaks for smaller spreads (right)."
     ),

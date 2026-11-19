@@ -33,9 +33,12 @@ Weighting an average of local means by $n_k$ is the merge that recovers the pool
 ## Worked example
 
 Clinic 1 contributes $1$ and $3$, hence $n_1=2$ and $\bar y_1=2$. Clinic 2 contributes $10$, hence $n_2=1$ and $\bar y_2=10$. The pooled mean is
-\[
+
+$$
 \frac{2\cdot 2+1\cdot 10}{3}=\frac{14}{3}.
-\]
+$$
+
+
 The unweighted mean of the clinic means is $6$. The excess is $4/3$.
 
 **Your turn.** If clinic 2 instead contributes two observations, both equal to $10$, what is the pooled mean, and what is the unweighted mean of the two clinic means?

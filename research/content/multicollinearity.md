@@ -11,12 +11,15 @@ The variance inflation factor makes that comparison numerical. For two centred p
 
 ## Definition
 In a regression with an intercept and two predictors, centre the predictors and write $S_{11}=\sum_i(x_{i1}-\bar x_1)^2$, and likewise $S_{22}$ and $S_{12}$. The correlation of the two predictors in the sample is $r=S_{12}/\sqrt{S_{11}S_{22}}$. The least-squares slopes solve
-\[
+
+$$
 \begin{pmatrix}S_{11}&S_{12}\\ S_{12}&S_{22}\end{pmatrix}
 \begin{pmatrix}b_1\\ b_2\end{pmatrix}
 =
 \begin{pmatrix}S_{1y}\\ S_{2y}\end{pmatrix}.
-\]
+$$
+
+
 The determinant is $S_{11}S_{22}(1-r^2)$. It is zero when $|r|=1$, and the slopes are then not unique. When $|r|<1$ the variance of $b_1$, under uncorrelated errors of variance $\sigma^2$, is $\sigma^2/(S_{11}(1-r^2))$. The ratio of that variance to the simple-regression variance $\sigma^2/S_{11}$ is the variance inflation factor $1/(1-r^2)$.{{cite:dodge2008}} (p. 96, considerable variance of the estimators)
 
 ## Interpretation
@@ -32,9 +35,12 @@ If $|r|=1$ the factor is infinite and the matrix is singular. That boundary is t
 ::: {.callout-note collapse="true" title="Proof"}
 ::: {.proof}
 Centre the predictors, so the intercept separates and the slope block is the $2\times 2$ matrix above. Its determinant is $S_{11}S_{22}-S_{12}^2=S_{11}S_{22}(1-r^2)$. The inverse has $S_{22}/\det$ in the $(1,1)$ position, hence
-\[
+
+$$
 \operatorname{Var}(b_1)=\sigma^2\frac{S_{22}}{S_{11}S_{22}(1-r^2)}=\frac{\sigma^2}{S_{11}(1-r^2)}
-\]
+$$
+
+
 when the errors are uncorrelated with variance $\sigma^2$. Dividing by the simple-regression variance $\sigma^2/S_{11}$ leaves $1/(1-r^2)$. The same algebra with the indices swapped gives the factor for $b_2$. When $r^2=1$ the determinant is zero and the normal equations do not have a unique solution.{{cite:dodge2008}} (p. 96, linear combination and approximate linear combination)
 :::
 :::
@@ -46,9 +52,12 @@ The factor $1/(1-r^2)$ is for two predictors and an intercept, with the variance
 
 ## Worked example
 For $x_1=(1,2,3,4,5)$ and $x_2=(2,4,5,8,11)$, the means are $3$ and $6$, $S_{11}=10$, $S_{22}=50$ and $S_{12}=22$. Then
-\[
+
+$$
 r^2=\frac{22^2}{10\times 50}=\frac{484}{500}=0.968,\qquad r=\frac{22}{\sqrt{500}}\approx 0.9839,
-\]
+$$
+
+
 and the inflation factor is $1/0.032=31.25$. With responses $y=(1,2,1,3,4)$, the simple slope of $y$ on $x_1$ is $7/10=0.7$. The multiple-regression slopes are $b_1=-1.5$ and $b_2=1$. The partial slope on $x_1$ has the opposite sign from the simple slope, because $x_2$ has absorbed the shared rise and the residual contrast points the other way. The determinant of the slope matrix is $500-484=16$, so a unique solution exists. Replace $x_2$ by the exact copy $(2,4,6,8,10)$. Then $S_{12}=20$, $S_{22}=40$ and the determinant is $10\times 40-20^2=0$. No unique least-squares pair $(b_1,b_2)$ exists.{{cite:dodge2008}} (pp. 96, 362)
 
 **Your turn.** If two centred predictors have correlation $0.6$, what is the variance inflation factor?

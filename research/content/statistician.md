@@ -4,7 +4,7 @@ Numbers do not become evidence by being written down. Someone has to decide what
 
 ## Motivating example
 
-Four districts report 120, 80, 200, and 100 births in a year. The four figures are not yet a description of the country. Their total is 500, the district mean is 125, and the largest district accounts for \(200/500=0.4\) of the births. Producing those three summaries, and saying which territory and which year they refer to, is already statistical work. So is refusing to add a fifth figure that counted births in a different way.{{cite:dodge2008}} (p. 518){{cite:okrasa_witek2013}} (p. 320)
+Four districts report 120, 80, 200, and 100 births in a year. The four figures are not yet a description of the country. Their total is 500, the district mean is 125, and the largest district accounts for $200/500=0.4$ of the births. Producing those three summaries, and saying which territory and which year they refer to, is already statistical work. So is refusing to add a fifth figure that counted births in a different way.{{cite:dodge2008}} (p. 518){{cite:okrasa_witek2013}} (p. 320)
 
 ## Definition
 
@@ -30,16 +30,19 @@ Quality control, a census, and a designed biological experiment share tools and 
 
 ## Worked example
 
-The district births illustrate the smallest complete report. The observations are \(120, 80, 200, 100\). Then
-\[
+The district births illustrate the smallest complete report. The observations are $120, 80, 200, 100$. Then
+
+$$
 120+80+200+100=500, \qquad \frac{500}{4}=125, \qquad \frac{200}{500}=0.4.
-\]
-The smallest share is \(80/500=0.16\). The range of district counts is \(200-80=120\), which is larger than the mean. A report that gives only \(0.4\) has dropped the total and the definition of a district. A report that gives only \(500\) has dropped the inequality across districts. A summary that mentioned only the mean would hide a spread of that size. The three numbers together are a description. An inference to next year's births would be a further claim, and it needs a model the four figures do not contain.{{cite:dodge2008}} (p. 518)
+$$
+
+
+The smallest share is $80/500=0.16$. The range of district counts is $200-80=120$, which is larger than the mean. A report that gives only $0.4$ has dropped the total and the definition of a district. A report that gives only $500$ has dropped the inequality across districts. A summary that mentioned only the mean would hide a spread of that size. The three numbers together are a description. An inference to next year's births would be a further claim, and it needs a model the four figures do not contain.{{cite:dodge2008}} (p. 518)
 
 **Your turn.** Three districts report 30, 45, and 75 births under the same definition. Find the total, the mean, and the share in the largest district.
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The total is \(30+45+75=150\). The mean is \(150/3=50\). The largest share is \(75/150=0.5\).
+The total is $30+45+75=150$. The mean is $150/3=50$. The largest share is $75/150=0.5$.
 :::
 
 ## Connections

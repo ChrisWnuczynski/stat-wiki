@@ -11,9 +11,12 @@ A class is not the same thing as a closed set. A set is closed when no arrow lea
 
 ## Definition
 Let $P$ be the transition matrix of a discrete-time chain on a countable set $S$. Write $P^n(i,j)$ for the $n$-step probability. Then $i\to j$ when $P^n(i,j)>0$ for some integer $n\ge 0$, with the $n=0$ case counting $i\to i$. States $i$ and $j$ communicate when each leads to the other. The communicating class of $i$ is
-\[
+
+$$
 [i]=\{j\in S: i\leftrightarrow j\}.
-\]
+$$
+
+
 The classes partition $S$. A nonempty set $A$ is closed when $i\in A$ and $i\to j$ imply $j\in A$. A closed set with no proper closed subset is irreducible. An irreducible set is a communicating class, and a chain whose whole state space is irreducible is called an irreducible chain.{{cite:siegrist2022_markov_recurrence}} (§4, equivalence classes and irreducible sets)
 
 ## Interpretation
@@ -25,9 +28,12 @@ The period is a class property as well. The period of $i$ is the greatest common
 Communication is an equivalence relation, so the classes are disjoint and cover $S$. If $A$ is closed, then $(P^n)$ restricted to $A$ equals the $n$th power of the restricted matrix: paths that would have left $A$ have probability zero. If $A$ is a recurrent class then $A$ is irreducible. In a finite chain the transient states are exactly those that lie in no closed class.{{cite:siegrist2022_markov_recurrence}} (§4, canonical decomposition)
 
 Aperiodicity is not required for a stationary distribution. The deterministic alternation
-\[
+
+$$
 P=\begin{pmatrix}0&1\\1&0\end{pmatrix}
-\]
+$$
+
+
 has one communicating class, period $2$, and stationary distribution $(1/2,1/2)$. Its powers do not converge: $P^{2m}=I$ and $P^{2m+1}=P$. The stationary distribution describes long-run frequencies along a path. It does not describe the one-step distribution, which keeps flipping.{{cite:siegrist2022_markov_period}} (§5, period and limiting behaviour)
 
 ::: {.callout-note collapse="true" title="Proof"}
@@ -45,15 +51,21 @@ Before solving $\pi P=\pi$, name the closed classes. Each finite closed class ca
 
 ## Worked example
 Take states $\{0,1\}$ and
-\[
+
+$$
 P=\begin{pmatrix}0&1\\0&1\end{pmatrix}.
-\]
+$$
+
+
 State $0$ leads to $0$ in zero steps and to $1$ in one step. State $1$ leads only to $1$. The communicating classes are $\{0\}$ and $\{1\}$. The set $\{1\}$ is closed. The set $\{0\}$ is a class and is not closed, because $0\to 1$ and $1\notin\{0\}$. The whole space is closed and is not one class.{{cite:siegrist2022_markov_recurrence}} (§4, the two-state example)
 
 Now take states $\{a,b,c\}$ and
-\[
+
+$$
 P=\begin{pmatrix}0&1/3&2/3\\0&0&1\\1&0&0\end{pmatrix}.
-\]
+$$
+
+
 There is a path between every pair, so the chain is one class and that class is closed. No diagonal entry is positive. Still $P^2(a,a)\ge (2/3)\cdot 1=2/3$ by the path $a\to c\to a$, and $P^3(a,a)\ge (1/3)\cdot 1\cdot 1=1/3$ by the path $a\to b\to c\to a$. The return times include $2$ and $3$, whose greatest common divisor is $1$, so the class is aperiodic.{{cite:siegrist2022_markov_period}} (§5, returns at times $2$ and $3$)
 
 **Your turn.** Label the rows of the alternation matrix as states $1$ and $2$. Compute $P^2$ and the period of state $1$.

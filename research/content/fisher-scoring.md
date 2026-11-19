@@ -9,14 +9,20 @@ The score equation sets a weighted sum of residuals to zero. The weights depend 
 
 ## Definition
 For a GLM the log-likelihood score for the coefficient vector $\boldsymbol{\beta}$ has the form
-\[
+
+$$
 \mathbf{U}(\boldsymbol{\beta})=\sum_{i=1}^n\frac{y_i-\mu_i}{V_i}\,\mu'_i\,\mathbf{x}_i,
-\]
+$$
+
+
 where $\mu_i$ is the mean, $V_i$ its variance under the family, $\mu'_i$ the derivative of the mean with respect to the linear predictor, and $\mathbf{x}_i$ the covariate row. Fisher scoring replaces the observed Hessian by its expectation. For the Poisson log link, $V_i=\mu_i$ and $\mu'_i=\mu_i$, so the weight simplifies to $\mu_i$ and
-\[
+
+$$
 \mathbf{U}(\boldsymbol{\beta})=\mathbf{X}^\top(\mathbf{y}-\boldsymbol{\mu}),\qquad
 \mathcal{I}(\boldsymbol{\beta})=\mathbf{X}^\top\mathrm{diag}(\boldsymbol{\mu})\,\mathbf{X}.
-\]
+$$
+
+
 The update is $\boldsymbol{\beta}^{(1)}=\boldsymbol{\beta}^{(0)}+\mathcal{I}(\boldsymbol{\beta}^{(0)})^{-1}\mathbf{U}(\boldsymbol{\beta}^{(0)})$. For this link the matrix $\mathcal{I}$ does not depend on $\mathbf{y}$ except through $\boldsymbol{\mu}$, and the observed Hessian equals $-\mathcal{I}$, so Newton–Raphson and Fisher scoring take the same step.{{cite:nelder_wedderburn1972}} (Summary; §§1.1–2.2, pp. 370–374)
 
 ## Interpretation

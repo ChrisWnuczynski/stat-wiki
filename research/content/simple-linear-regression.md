@@ -11,20 +11,29 @@ The fitted line is a description of the sample. The regression line in the model
 
 ## Definition
 With fixed inputs $x_1,\ldots,x_n$, not all equal, and responses $y_1,\ldots,y_n$, the least-squares intercept and slope minimise
-\[
+
+$$
 Q(b_0,b_1)=\sum_{i=1}^n\bigl(y_i-b_0-b_1 x_i\bigr)^2.
-\]
+$$
+
+
 The minimiser is
-\[
+
+$$
 \hat\beta_1=\frac{\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y)}{\sum_{i=1}^n(x_i-\bar x)^2},\qquad
 \hat\beta_0=\bar y-\hat\beta_1\bar x.
-\]
+$$
+
+
 The same critical-point equations are the normal equations $\sum_i(y_i-\hat\beta_0-\hat\beta_1 x_i)=0$ and $\sum_i x_i(y_i-\hat\beta_0-\hat\beta_1 x_i)=0$.{{cite:nist_ls_straight2002}} (§4.4.3.1, straight-line estimators){{cite:dodge2008}} (p. 305, normal equations)
 
 The sampling model writes the responses as random variables $Y_i=\beta_0+\beta_1 x_i+\varepsilon_i$. Least squares estimates $\beta_0$ and $\beta_1$ whether or not the errors are normal. Normality is an extra assumption used when the slope is compared with a $t$ reference law. The residual standard deviation uses the minimised $Q$ and the count of mean parameters. For a straight line that count is $p=2$, so
-\[
+
+$$
 \hat\sigma=\sqrt{\frac{Q}{n-2}}.
-\]
+$$
+
+
 {{cite:nist_ls_straight2002}} (§4.4.3.1, residual standard deviation){{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, statistically linear)
 
 ## Interpretation
@@ -42,9 +51,12 @@ Replacing $\sigma^2$ by $\hat\sigma^2=Q/(n-2)$ gives the estimated standard erro
 Differentiate $Q$. The derivatives are $-2\sum_i(y_i-b_0-b_1 x_i)$ and $-2\sum_i x_i(y_i-b_0-b_1 x_i)$. Setting both to zero is the pair of normal equations. The first equation says the residuals sum to zero, hence $\hat\beta_0=\bar y-\hat\beta_1\bar x$, and the fitted line passes through $(\bar x,\bar y)$. Substitute that intercept into the second equation. The cross term with $\bar y$ drops because $\sum_i(x_i-\bar x)=0$, and the slope formula follows.{{cite:dodge2008}} (p. 305, normal equations){{cite:nist_ls_straight2002}} (§4.4.3.1, partial derivatives)
 
 For the mean, write $\hat\beta_1=\sum_i(x_i-\bar x)Y_i/S_{xx}$. Then
-\[
+
+$$
 \mathbb E(\hat\beta_1)=\sum_i(x_i-\bar x)(\beta_0+\beta_1 x_i)/S_{xx}=\beta_1,
-\]
+$$
+
+
 again because the centred inputs sum to zero. The intercept identity then gives $\mathbb E(\hat\beta_0)=\beta_0$. If the $Y_i$ are uncorrelated with variance $\sigma^2$, the variance of the linear combination is $\sigma^2\sum_i(x_i-\bar x)^2/S_{xx}^2=\sigma^2/S_{xx}$.{{cite:nist_ls_straight2002}} (§4.4.3.1, slope estimator)
 :::
 :::
@@ -54,9 +66,12 @@ Quote $\hat\beta_1$ as a change in mean response per unit $x$ for $x$ values ins
 
 ## Worked example
 For the five seedlings, $\bar x=6$, $\bar y=7$, $S_{xx}=40$ and $S_{xy}=42$. The slope is $42/40=1.05$ millimetres per hour, and the intercept is $7-1.05\times 6=0.70$. The fitted heights are $2.8$, $4.9$, $7.0$, $9.1$ and $11.2$. The residuals are $0.2$, $-0.9$, $1.0$, $-0.1$ and $-0.2$, and
-\[
+
+$$
 Q=0.2^2+(-0.9)^2+1^2+(-0.1)^2+(-0.2)^2=1.90.
-\]
+$$
+
+
 With $n-2=3$, $\hat\sigma=\sqrt{1.90/3}=\sqrt{19/30}\approx 0.7958$. The estimated standard error of the slope is $\sqrt{(19/30)/40}=\sqrt{19/1200}\approx 0.1258$. At $7$ hours, between the observed inputs, the fitted mean is $0.70+1.05\times 7=8.05$ millimetres.{{cite:nist_ls_straight2002}} (§4.4.3.1, estimators and residual standard deviation)
 
 Replace the last growth $11$ by $20$, as if one pot had been mis-recorded. Then $S_{xy}=78$, the slope becomes $78/40=1.95$, and the intercept becomes $8.8-1.95\times 6=-2.90$. One point moved the slope from $1.05$ to $1.95$. Squared error did what the criterion asks: it chased the large gap.{{cite:nist_linear_least_squares_pmd2002}} (§4.1.4.1, sensitivity to outliers)

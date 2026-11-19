@@ -20,12 +20,12 @@ Secondary data support description of what was recorded, and they support a wide
 
 ## Worked example
 
-A hospital file holds 240 admissions and was kept for billing. A study of falls finds a fall recorded for 30 of them. The recorded risk is \(30/240 = 0.125\). The hospital's catchment had 300 admissions in the same period, and 60 were treated elsewhere and are absent from the file. The file covers \(240/300 = 0.8\) of the catchment's admissions. The 0.125 describes the billed admissions. It describes the catchment only with a further argument about the 60 admissions the file never held.{{cite:dodge2008}} (p. 152){{cite:nist_glossary2002}} (Glossary, "coverage error")
+A hospital file holds 240 admissions and was kept for billing. A study of falls finds a fall recorded for 30 of them. The recorded risk is $30/240 = 0.125$. The hospital's catchment had 300 admissions in the same period, and 60 were treated elsewhere and are absent from the file. The file covers $240/300 = 0.8$ of the catchment's admissions. The 0.125 describes the billed admissions. It describes the catchment only with a further argument about the 60 admissions the file never held.{{cite:dodge2008}} (p. 152){{cite:nist_glossary2002}} (Glossary, "coverage error")
 
 **Your turn.** Twelve of the 60 missing admissions are later found, and 3 of those 12 had a fall. What are the new number of admissions in the file and the new recorded fall risk?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The file has \(240 + 12 = 252\) admissions and \(30 + 3 = 33\) falls. The recorded risk is \(33/252 = 11/84\).
+The file has $240 + 12 = 252$ admissions and $30 + 3 = 33$ falls. The recorded risk is $33/252 = 11/84$.
 :::
 
 ## Connections

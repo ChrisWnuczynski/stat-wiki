@@ -15,9 +15,12 @@ Not every direction in a feature list is equally informative. Principal componen
 Dimension reduction, in the regression setting, builds $M$ new predictors from $p$ original ones, with $M$ smaller than $p$, and then fits the response using only the new predictors. The constraint can lower the variance of the fitted coefficients when $p$ is large relative to the sample size, at the price of a possible bias. If $M=p$ and the new predictors are linearly independent, nothing has been reduced, and the fit is ordinary least squares on the original features.{{cite:james_islr2021}} (Ch. 6, §6.3, pp. 252–253)
 
 The usual construction is principal components. The first principal component of features $X_1,\ldots,X_p$ is the normalised linear combination
-\[
+
+$$
 Z_1=\phi_{11}X_1+\cdots+\phi_{p1}X_p,\qquad \sum_{j=1}^p\phi_{j1}^2=1,
-\]
+$$
+
+
 whose variance is as large as that normalisation allows. The loadings $\phi_{j1}$ are the direction. Later components are further normalised combinations, uncorrelated with the earlier ones, each with as much variance as remains.{{cite:james_islr2021}} (Ch. 12, §12.2.1, pp. 497–498, (12.1))
 
 The same construction is the least-squares fit of an affine subspace of rank $q$. With centred points, the fitted subspace is the span of the first $q$ right singular vectors of the data matrix, and the reconstruction of each point is its orthogonal projection onto that subspace.{{cite:hastie_esl2009}} (p. 535, §14.5, (14.49)–(14.54))

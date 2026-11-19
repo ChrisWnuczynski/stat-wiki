@@ -24,12 +24,12 @@ Generalisation uses inferential statistics and therefore inherits their conditio
 
 ## Worked example
 
-A population has 1000 households. A survey draws 50 of them and finds that 35 have a working smoke alarm. The sample proportion is \(35/50 = 0.7\). The sampling fraction is \(50/1000 = 0.05\). A census would have used the fraction \(1000/1000 = 1\) and would not have had this sampling error. The survey's 0.7 is an estimate for the city, and the design, not the arithmetic of 35 and 50 alone, decides how far that estimate can be trusted.{{cite:dodge2008}} (pp. 532–533)
+A population has 1000 households. A survey draws 50 of them and finds that 35 have a working smoke alarm. The sample proportion is $35/50 = 0.7$. The sampling fraction is $50/1000 = 0.05$. A census would have used the fraction $1000/1000 = 1$ and would not have had this sampling error. The survey's 0.7 is an estimate for the city, and the design, not the arithmetic of 35 and 50 alone, decides how far that estimate can be trusted.{{cite:dodge2008}} (pp. 532–533)
 
 **Your turn.** The draw is enlarged to 80 households, of whom 60 have a working alarm. What are the sample proportion and the sampling fraction?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The sample proportion is \(60/80 = 0.75\). The sampling fraction is \(80/1000 = 0.08\).
+The sample proportion is $60/80 = 0.75$. The sampling fraction is $80/1000 = 0.08$.
 :::
 
 ## Common misconceptions

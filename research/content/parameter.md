@@ -30,7 +30,7 @@ The population total is 2+4+6+8+10+16 = 46, so $\mu = 46/6 = 23/3$. The sample m
 :::
 
 ## Common misconceptions
-The sample mean is not a parameter of the sample. The sample has a mean, and that mean is a statistic. The parameter is the corresponding mean in the population. Writing \(\bar x\) where the question asked for \(\mu\) answers a different question. {{cite:dodge2008}} (p. 412) {{cite:nist_glossary2002}} (Glossary, “statistic”)
+The sample mean is not a parameter of the sample. The sample has a mean, and that mean is a statistic. The parameter is the corresponding mean in the population. Writing $\bar x$ where the question asked for $\mu$ answers a different question. {{cite:dodge2008}} (p. 412) {{cite:nist_glossary2002}} (Glossary, “statistic”)
 
 A symbol does not settle the distinction. If a formula can be computed from the sample alone, it is a statistic even when a Greek letter was used by habit. {{cite:abs_glossary2023}} (Glossary, “Statistic”)
 

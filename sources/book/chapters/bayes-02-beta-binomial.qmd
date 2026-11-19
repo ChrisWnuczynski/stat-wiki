@@ -235,7 +235,7 @@ $$
  &=2\int_0^{1/2}\exp\!\left(-\frac{1/2-\theta}{b}\right)\dd\theta\\
  &=2\left[b\exp\!\left(-\frac{1/2-\theta}{b}\right)\right]_{\theta=0}^{1/2}\\
  &=2b\left(1-e^{-1/(2b)}\right).
-\end{align*} Thus the proper truncated-Laplace prior has multiplier \([2b\{1-e^{-1/(2b)}\}]^{-1}\). The resulting posterior is not a named standard density, so its normalising integral and summaries must be evaluated numerically. The later MCMC chapters provide a general route when direct integration becomes difficult.
+\end{align*} Thus the proper truncated-Laplace prior has multiplier $[2b\{1-e^{-1/(2b)}\}]^{-1}$. The resulting posterior is not a named standard density, so its normalising integral and summaries must be evaluated numerically. The later MCMC chapters provide a general route when direct integration becomes difficult.
 
 :::
 

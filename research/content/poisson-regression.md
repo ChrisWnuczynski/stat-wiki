@@ -15,9 +15,12 @@ With a single binary covariate and an offset, two groups have saturated rates $y
 
 ## Properties
 The Poisson score for the log link is $\mathbf{X}^\top(\mathbf{y}-\boldsymbol{\mu})$. At the saturated rates the residuals are zero, so the score is zero and those rates are the maximum-likelihood fit of the two-group model. At the pooled rate the residuals are $4-5.2=-1.2$ and $9-7.8=1.2$. The Pearson statistic is
-\[
+
+$$
 \frac{(-1.2)^2}{5.2}+\frac{1.2^2}{7.8}=\frac{6}{13}\approx 0.4615.
-\]
+$$
+
+
 With one parameter and two observations the residual degrees of freedom are $1$. The statistic is not large, but it is not zero: the pooled rate does not reproduce both counts. Omitting the offset and fitting a common mean to the raw counts gives mean $6.5$ and Pearson statistic $25/13\approx 1.9231$, and it answers a question about counts rather than rates.{{cite:nelder_wedderburn1972}} (§§1.3, 3.3–3.4, pp. 372, 378–380)
 
 ::: {.callout-note collapse="true" title="Proof"}

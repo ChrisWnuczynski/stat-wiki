@@ -12,7 +12,7 @@ Sampling means selecting a part of a population, called the sample, studying cha
 
 Survey sampling is this operation when the purpose is a survey: a fixed set of questions put to selected individuals, with the sample meant to stand for a wider population. The methods that construct the sample are the sampling methods.{{cite:nist_glossary2002}} (Glossary, "survey"){{cite:dodge2008}} (p. 532)
 
-Simple random sampling chooses \(n\) units out of \(N\) so that every subset of size \(n\) has the same probability. There are \(\binom{N}{n}\) such subsets. The individuals are numbered from 1 to \(N\), and \(n\) of those numbers are drawn, in principle without replacement.{{cite:dodge2008}} (p. 497){{cite:openintro2019}} (Ch. 1, §1.3.3)
+Simple random sampling chooses $n$ units out of $N$ so that every subset of size $n$ has the same probability. There are $\binom{N}{n}$ such subsets. The individuals are numbered from 1 to $N$, and $n$ of those numbers are drawn, in principle without replacement.{{cite:dodge2008}} (p. 497){{cite:openintro2019}} (Ch. 1, §1.3.3)
 
 ## Properties
 
@@ -26,17 +26,17 @@ Stratified and cluster designs change which subsets are equally likely. They are
 
 ## Worked example
 
-A population has \(N = 6\) units and a sample of size \(n = 2\) is drawn by simple random sampling. The number of possible samples is \(\binom{6}{2} = 15\). Each sample has probability \(1/15\). A census of the same population would observe all 6 units. A survey that draws 2 out of 6 has sampling fraction \(2/6 = 1/3\).{{cite:dodge2008}} (p. 497){{cite:nist_glossary2002}} (Glossary, "census")
+A population has $N = 6$ units and a sample of size $n = 2$ is drawn by simple random sampling. The number of possible samples is $\binom{6}{2} = 15$. Each sample has probability $1/15$. A census of the same population would observe all 6 units. A survey that draws 2 out of 6 has sampling fraction $2/6 = 1/3$.{{cite:dodge2008}} (p. 497){{cite:nist_glossary2002}} (Glossary, "census")
 
 **Your turn.** The population grows to 10 units and the sample size stays 2. How many equally likely samples are there?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The number of samples is \(\binom{10}{2} = 45\).
+The number of samples is $\binom{10}{2} = 45$.
 :::
 
 ## Assumptions and limits
 
-The probability calculation for sampling error needs a known chance of selection. Quota and convenience selections do not supply that chance. A larger sample is not a remedy for a frame that never listed the units of interest. Even a perfect draw does not repair measurement error in the answers, or non-response that systematically removes a kind of person. Drawing with replacement keeps the population the same at every draw, so the included units are independent and identically distributed. Drawing without replacement from a large population, with \(n\) small relative to \(N\), is treated as nearly the same. The dependence is then small enough that the usual independent-sample formulas are used.{{cite:dodge2008}} (pp. 152, 497){{cite:nist_glossary2002}} (Glossary, "convenience sample"){{cite:nist_glossary2002}} (Glossary, "nonresponse error"){{cite:openintro2019}} (Ch. 1, §1.3.5)
+The probability calculation for sampling error needs a known chance of selection. Quota and convenience selections do not supply that chance. A larger sample is not a remedy for a frame that never listed the units of interest. Even a perfect draw does not repair measurement error in the answers, or non-response that systematically removes a kind of person. Drawing with replacement keeps the population the same at every draw, so the included units are independent and identically distributed. Drawing without replacement from a large population, with $n$ small relative to $N$, is treated as nearly the same. The dependence is then small enough that the usual independent-sample formulas are used.{{cite:dodge2008}} (pp. 152, 497){{cite:nist_glossary2002}} (Glossary, "convenience sample"){{cite:nist_glossary2002}} (Glossary, "nonresponse error"){{cite:openintro2019}} (Ch. 1, §1.3.5)
 
 ## History
 

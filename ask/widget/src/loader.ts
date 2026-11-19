@@ -8,12 +8,12 @@ type Settings = { endpoint: string; sitekey: string }
 const DEFAULTS: Settings = { endpoint: "https://ask.statwiki.io", sitekey: "0x4AAAAAAF6-zg9WIc3YvWfS" }
 const STATE_KEY = "ask-statwiki-v1"
 
-const CSS = `.ask-launch{position:fixed;right:20px;bottom:20px;z-index:1060;display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--wiki-border,#a2a9b1);border-radius:999px;background:var(--wiki-link,#3366cc);color:#fff;font:600 15px/1.2 system-ui,sans-serif;box-shadow:var(--wiki-shadow,0 6px 18px rgba(0,0,0,.18));cursor:pointer}
+const CSS = `.ask-launch{position:fixed;right:16px;bottom:16px;z-index:1060;display:flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--wiki-border,#a2a9b1);border-radius:999px;background:var(--wiki-link,#3366cc);color:#fff;font:600 13px/1.2 system-ui,sans-serif;box-shadow:var(--wiki-shadow,0 6px 18px rgba(0,0,0,.18));cursor:pointer}
 .ask-launch:hover{background:var(--wiki-link-hover,#2a4b8d)}
 .ask-launch:focus-visible{outline:3px solid var(--wiki-text,#202122);outline-offset:2px}
-.ask-launch svg{width:18px;height:18px}
+.ask-launch svg{width:16px;height:16px}
 body.quarto-dark .ask-launch{color:#101418}
-@media (max-width:700px){.ask-launch{right:12px;bottom:12px;padding:10px 14px}.ask-launch[aria-expanded=true]{display:none}}
+@media (max-width:700px){.ask-launch{right:12px;bottom:12px;padding:10px}.ask-launch span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.ask-launch[aria-expanded=true]{display:none}}
 @media print{.ask-launch{display:none}}`
 
 function settings(): Settings | null {

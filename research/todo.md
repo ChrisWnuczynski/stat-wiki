@@ -170,3 +170,55 @@ These citations were on proofs that the research notes replace. They were not pu
 - `gauss1809` on least-squares-decomposition. The research proof cites Prado and Ferreira–West (§1.5.2, pp. 19–20) and Dodge (pp. 304–305). No printed page of *Theoria motus* was opened, so Gauss was not reinserted.
 - `box_tiao1973` and `jeffreys1961` on posterior-predictive-target. The concept note cites Downey (Ch. 8) and Goodfellow (§§3.4, 3.7, 3.11 and §3.8). The bare copies remain in `sources/book/chapters/bayes-09-linear-regression.qmd` lines 519 and 708. No Box–Tiao or Jeffreys body page was opened.
 - `bro_smilde2014_pca` on scree-plot. The only locator was the quoted title “Scree test”, and that body page was not opened. The cite was removed. The sentence now says only that a logarithmic axis cannot display a zero eigenvalue unless the zero is replaced by an explicit positive convention.
+
+<!-- check-yourself-gaps:start -->
+## Articles with no Check yourself section
+
+Fewer than two questions in the bank are filed under the same chapter, so these pages stay short of two Check yourself questions.
+
+- `actuarial-science`
+- `astrostatistics`
+- `asymptotic-analysis`
+- `biostatistics`
+- `business-analytics`
+- `chemometrics`
+- `computational-biology`
+- `data-analysis`
+- `data-mining`
+- `data-science`
+- `data-sharing`
+- `demography`
+- `econometrics`
+- `engineering-statistics`
+- `environmental-statistics`
+- `epidemiology`
+- `foundations-of-statistics`
+- `frequentist-inference`
+- `geostatistics`
+- `inference`
+- `mathematical-statistics`
+- `medical-statistics`
+- `misuse-of-statistics`
+- `official-statistics`
+- `open-science`
+- `parametric-statistics`
+- `pattern-recognition`
+- `philosophy-of-statistics`
+- `psychological-statistics`
+- `public-health`
+- `quality-control`
+- `replication-crisis`
+- `reproducibility`
+- `risk-assessment`
+- `social-statistics`
+- `spatial-analysis`
+- `statistical-consultant`
+- `statistical-graphics`
+- `statistical-learning-theory`
+- `statistical-literacy`
+- `statistical-mechanics`
+- `statistical-process-control`
+- `statistical-theory`
+- `statistics-education`
+- `system-of-national-accounts`
+<!-- check-yourself-gaps:end -->

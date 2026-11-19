@@ -9,9 +9,12 @@ SciPy's standardised Pareto density is $f(x)=b/x^{b+1}$ for $x\ge 1$ and $b>0$, 
 
 ## Properties
 For $x\ge x_m$, $\Pr(X>x)=(x_m/x)^\alpha$. The mean is $\alpha x_m/(\alpha-1)$ when $\alpha>1$, and is infinite when $\alpha\le 1$. The second moment is finite only for $\alpha>2$, and then
-\[
+
+$$
 \operatorname{Var}(X)=\frac{\alpha x_m^2}{(\alpha-1)^2(\alpha-2)}.
-\]
+$$
+
+
 At $\alpha=2.5$ and $x_m=1$ the mean is $5/3\approx 1.6667$ and the variance is $20/9\approx 2.2222$. At $\alpha=1.5$ and $x_m=1$ the mean is $1.5/0.5=3$ and the variance is infinite, because the factor $\alpha-2$ in the denominator has changed sign and the integral that would have produced it diverges.
 
 The median of the unit-minimum law solves $(1/m)^\alpha=1/2$, so $m=2^{1/\alpha}$. At $\alpha=2.5$ the median is $2^{0.4}\approx 1.3195$, below the mean $1.6667$. The mode is the minimum. The distribution is skewed right whenever the mean exists.

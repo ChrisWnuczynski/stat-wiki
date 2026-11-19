@@ -26,12 +26,12 @@ OpenIntro’s account of human experiments states the design problem in general 
 
 ## Worked example
 
-Take the illumination baseline as 100 units per worker. A peak 10 percent above that baseline is 110 units. A plant-wide rise of 1.4 percent on the same baseline is \(100\times 1.014=101.4\) units. The first-year experimental peak sits \(110-101.4=8.6\) units above that plant-wide figure. The 8.6 is a gap between two summaries of the same period. It is not, by itself, an estimate of a Hawthorne effect. Rooms that had left the experiment also rose later, and the 3 to 4 percent regression contrast did not remain after finer time controls. A later peak of about 20 percent on the same baseline is \(100\times 1.20=120\) units, which is \(120-110=10\) units above the first-year peak. {{cite:levitt_list2011}} (NBER WP 15016, pp. 10–11)
+Take the illumination baseline as 100 units per worker. A peak 10 percent above that baseline is 110 units. A plant-wide rise of 1.4 percent on the same baseline is $100\times 1.014=101.4$ units. The first-year experimental peak sits $110-101.4=8.6$ units above that plant-wide figure. The 8.6 is a gap between two summaries of the same period. It is not, by itself, an estimate of a Hawthorne effect. Rooms that had left the experiment also rose later, and the 3 to 4 percent regression contrast did not remain after finer time controls. A later peak of about 20 percent on the same baseline is $100\times 1.20=120$ units, which is $120-110=10$ units above the first-year peak. {{cite:levitt_list2011}} (NBER WP 15016, pp. 10–11)
 
 **Your turn.** On a baseline of 100, a 10 percent peak is 110 and a 1.4 percent plant-wide rise is 101.4. What is the gap between those two levels, and why is the gap not yet an estimate of the effect of being studied?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The gap is \(110-101.4=8.6\) units. Rooms that were no longer in the experiment also rose in later periods, and the regression contrast of 3 to 4 percent did not survive room-by-month terms, so the gap mixes the experiment with trend and season.
+The gap is $110-101.4=8.6$ units. Rooms that were no longer in the experiment also rose in later periods, and the regression contrast of 3 to 4 percent did not survive room-by-month terms, so the gap mixes the experiment with trend and season.
 :::
 
 ## Assumptions and limits

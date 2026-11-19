@@ -16,21 +16,30 @@ A geometric clock on the positive integers has the same reading one step at a ti
 
 ## Key results
 The conditional survival calculation is an equality of two exponential functions, not an approximation. For $X\sim\operatorname{Exp}(\lambda)$,
-\[
+
+$$
 \Pr(X>s+t\mid X>s)=\frac{e^{-\lambda(s+t)}}{e^{-\lambda s}}=e^{-\lambda t}=\Pr(X>t).
-\]
+$$
+
+
 The conditional law of $X-s$ given $X>s$ is again $\operatorname{Exp}(\lambda)$. Its mean is $1/\lambda$, the unconditional mean, rather than $1/\lambda-s$.{{cite:dodge2008}} (p. 194, mean $1/\theta$){{cite:grinstead_snell1997}} (pp. 206–207)
 
 On the positive integers the same cancellation uses a geometric ratio. With success probability $p$ and $q=1-p$,
-\[
+
+$$
 \Pr(X>r+s\mid X>r)=\frac{q^{r+s}}{q^r}=q^s=\Pr(X>s)
-\]
+$$
+
+
 for integers $r,s\ge 0$. The mean number of trials until the first success is $1/p$. Counting failures before the first success instead, the masses are $p q^k$ for $k=0,1,2,\ldots$ and the mean is $q/p$, one less than $1/p$. For that failure count $K=X-1$, memorylessness uses non-strict tails: $\Pr(K\ge r+s\mid K\ge r)=\Pr(K\ge s)$. The two indexings are not the same random variable.{{cite:grinstead_snell1997}} (p. 186){{cite:dodge2008}} (p. 226, geometric masses and mean $q/p$)
 
 A Weibull lifetime with shape different from $1$ fails the identity. Shape $2$ and scale $1$ has survival $\exp(-t^2)$. Then $\Pr(T>1)=e^{-1}\approx 0.3679$, while
-\[
+
+$$
 \Pr(T>2\mid T>1)=\frac{e^{-4}}{e^{-1}}=e^{-3}\approx 0.0498,
-\]
+$$
+
+
 which is not $e^{-1}$. Ageing has made the next unit of time much less likely to be survived.{{cite:grinstead_snell1997}} (pp. 206–207, the exponential case of the identity)
 
 ## Proof
@@ -59,15 +68,21 @@ Use the property when the scientific story really is a constant hazard: radioact
 
 ## Worked example
 Let $X$ be the lifetime in hours of a lamp with $X\sim\operatorname{Exp}(\lambda)$ and $\lambda=1/1000$, so the mean life is $1000$ hours. The lamp has already burned for $1000$ hours. The probability that it burns at least $500$ hours more is
-\[
+
+$$
 \Pr(X>1500\mid X>1000)=e^{-500/1000}=e^{-1/2}\approx 0.6065.
-\]
+$$
+
+
 A new lamp has the same probability of lasting $500$ hours, because $e^{-1/2}$ does not use the age $1000$. The conditional mean remaining life is $1000$ hours, not $0$.{{cite:grinstead_snell1997}} (pp. 206–207){{cite:dodge2008}} (p. 194, mean $1/\theta$)
 
 For a discrete clock, let $X$ be the trial of the first success with $p=1/4$, so $q=3/4$ and the mean number of trials is $4$. After two trials have failed,
-\[
+
+$$
 \Pr(X>6\mid X>2)=(3/4)^4=81/256=0.31640625,
-\]
+$$
+
+
 which equals $\Pr(X>4)$. Counting failures before the first success instead, the mean is $q/p=3$, and the probability of at least four further failures is the same $81/256$. The two means differ by $1$ because one count includes the successful trial and the other does not.{{cite:dodge2008}} (p. 226){{cite:grinstead_snell1997}} (p. 186)
 
 **Your turn.** An exponential wait has rate $1/8$ per hour. It has already lasted $5$ hours. Find the probability that it lasts at least $3$ hours more, and state the conditional mean of the remaining wait.

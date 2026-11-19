@@ -453,6 +453,7 @@ densityChart = {
   const chart = Plot.plot({
     width: Math.max(280, width),
     height: viewFns.chartHeight(width),
+    marginBottom: 48,
     style: viewFns.plotStyle(themeColors),
     x: { label: "x", domain: [xMin, xMax], grid: true },
     y: { label: "density", domain: [0, yTop], grid: true },
@@ -559,6 +560,7 @@ riskChart = {
   const chart = Plot.plot({
     width: Math.max(280, width),
     height: viewFns.chartHeight(width),
+    marginBottom: 48,
     style: viewFns.plotStyle(themeColors),
     x: { label: "bandwidth h", domain: [xLo, xHi], grid: true },
     y: { label: "risk", domain: [Math.min(0, yMin), yMax * 1.08], grid: true },

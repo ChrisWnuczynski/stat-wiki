@@ -24,7 +24,7 @@ The 75% figure describes an average variance criterion over the sample, rather t
 **Your turn.** For the same observation, reverse the sign of the first direction. Does its rank-one reconstruction change?
 
 ::: {.callout-tip collapse="true" title="Answer"}
-The first score changes from sqrt(2) to −sqrt(2), and the direction changes sign too. Their product stays (1,1), so the reconstruction and its error are unchanged.
+The first score changes from $\sqrt{2}$ to $-\sqrt{2}$, and the direction changes sign too. Their product stays (1,1), so the reconstruction and its error are unchanged.
 :::
 
 ## Statistical use — Variance preservation is a declared objective
