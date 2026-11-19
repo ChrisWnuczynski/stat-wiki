@@ -21,6 +21,9 @@ An entry has:
   removed, each footnote marker replaced by its note in brackets, and maths macros
   expanded. Omitted when ``copy_of`` is set.
   A chapter's text is only the opening before its first ``##`` heading.
+  A page that has search aliases ends with ``Also known as: name, name.`` so those
+  names are part of the text that gets embedded. The line is added before duplicate
+  text is collapsed, so a page keeps its own text when the names distinguish it.
 - ``url``: root-relative published path. A ``.qmd`` page is the ``.html`` page; the
   fragment is unchanged. A figure stays the image path.
 - ``fingerprint``: sha256 of ``text``, or of the canonical entry's text when this
@@ -268,7 +271,57 @@ def _text_keeper(item: dict) -> tuple:
     return (band, item["id"])
 
 
-def _prepare_entries(entries: list[dict]) -> None:
+def _published_url(href: str) -> str:
+    href = href.strip()
+    if href.startswith("/"):
+        return href
+    return "/" + href
+
+
+def _attach_known_names(entries: list[dict], known_names: dict[str, list[str]] | None) -> None:
+    """End each page's text with the alternative names site search already uses.
+
+    ``known_names`` maps a published href (with or without a leading slash) to
+    display labels. A label that only repeats the entry title is left off.
+    Called after chapter openings are cut and markup is stripped, and before
+    identical texts collapse to one copy.
+    """
+    if not known_names:
+        return
+    by_url: dict[str, list[str]] = {}
+    seen: dict[str, set[str]] = {}
+    for href, labels in known_names.items():
+        url = _published_url(str(href))
+        kept = by_url.setdefault(url, [])
+        folded = seen.setdefault(url, set())
+        for label in labels:
+            name = " ".join(str(label).split())
+            if not name:
+                continue
+            key = name.casefold()
+            if key in folded:
+                continue
+            folded.add(key)
+            kept.append(name)
+    for names in by_url.values():
+        names.sort(key=str.casefold)
+    for entry in entries:
+        names = by_url.get(entry.get("url") or "")
+        if not names:
+            continue
+        title = " ".join((entry.get("title") or "").split()).casefold()
+        kept = [name for name in names if name.casefold() != title]
+        if not kept:
+            continue
+        line = "Also known as: " + ", ".join(kept) + "."
+        body = (entry.get("text") or "").rstrip()
+        if body == line or body.endswith("\n\n" + line):
+            continue
+        entry["text"] = f"{body}\n\n{line}" if body else line
+        entry["fingerprint"] = fingerprint(entry["text"])
+
+
+def _prepare_entries(entries: list[dict], known_names: dict[str, list[str]] | None = None) -> None:
     """Expand macros, drop Quarto markup, and keep each distinct text once."""
     damaged: list[str] = []
     for entry in entries:
@@ -283,6 +336,7 @@ def _prepare_entries(entries: list[dict]) -> None:
         entry["fingerprint"] = fingerprint(cleaned)
     if damaged:
         raise SystemExit("wiki.json maths changed: " + ", ".join(damaged[:20]))
+    _attach_known_names(entries, known_names)
     groups: dict[str, list[dict]] = {}
     for entry in entries:
         if entry["text"]:
@@ -533,6 +587,7 @@ def build_document(
     terms=None,
     retired: dict[str, tuple[str, str]] | None = None,
     merged: dict[str, str] | None = None,
+    known_names: dict[str, list[str]] | None = None,
 ) -> dict:
     """One graph document. Every url is a published path for a file under ``root``.
 
@@ -715,7 +770,7 @@ def build_document(
             url="/" + Path("figures", filename).as_posix(),
         )
 
-    _prepare_entries(entries)
+    _prepare_entries(entries, known_names)
     entries.sort(key=lambda item: item["id"])
     ids = {item["id"] for item in entries}
     _check_urls(entries, root)
@@ -875,6 +930,7 @@ def write_graph(
     terms=None,
     retired: dict[str, tuple[str, str]] | None = None,
     merged: dict[str, str] | None = None,
+    known_names: dict[str, list[str]] | None = None,
 ) -> list[str]:
     root = root or WIKI
     document = build_document(
@@ -891,6 +947,7 @@ def write_graph(
         terms=terms,
         retired=retired,
         merged=merged,
+        known_names=known_names,
     )
     return save_graph(
         document,
