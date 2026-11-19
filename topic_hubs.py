@@ -247,6 +247,10 @@ STANDALONE: list[dict[str, str]] = [
     {"slug": "unsupervised-learning", "term": "Unsupervised learning", "field": "statistical learning", "article": "", "verb": "is", "description": "the description of how features are arranged when no outcome was recorded to score a prediction", "topic": "Statistical learning"},
     {"slug": "standard-score", "term": "Standard score", "field": "data analysis", "article": "a", "verb": "is", "description": "an observation recentred by a mean and scaled by a standard deviation", "topic": "Data analysis"},
     {"slug": "test-statistic", "term": "Test statistic", "field": "statistical inference", "article": "a", "verb": "is", "description": "a function of the sample used to decide whether a stated hypothesis is rejected", "topic": "Statistical inference"},
+    {"slug": "wilcoxon-signed-rank-test", "term": "Wilcoxon signed-rank test", "field": "statistical inference", "article": "the", "verb": "is", "description": "a test of a symmetric paired difference that ranks the absolute differences and sums the ranks of one sign", "topic": "Statistical inference"},
+    {"slug": "shapiro-wilk-test", "term": "Shapiro–Wilk test", "field": "data analysis", "article": "the", "verb": "is", "description": "a test of whether a complete sample could have come from some normal distribution, based on the match between the ordered values and normal order statistics", "topic": "Data analysis"},
+    {"slug": "friedman-test", "term": "Friedman test", "field": "statistical inference", "article": "the", "verb": "is", "description": "a rank test of whether treatments differ when each treatment is observed once inside each block", "topic": "Statistical inference"},
+    {"slug": "levene-s-test", "term": "Levene's test", "field": "statistical inference", "article": "", "verb": "is", "description": "a test of equal variances formed by an analysis of variance on absolute deviations from each group’s centre", "topic": "Statistical inference"},
 ]
 
 
