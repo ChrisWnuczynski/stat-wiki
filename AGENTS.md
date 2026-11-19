@@ -6,3 +6,15 @@ The private Dodge (2008) source is outside this repo at `~/statwiki-sources/dodg
 - Cite only material actually read there, always with the printed page number: `{{cite:dodge2008}} (p. n)`.
 - For named results and proofs, prefer the original paper or a standard textbook; check important claims against a second source.
 - Write in your own words; never copy entries.
+
+# Working on this repo (rules for bots and agents)
+
+Cursor, Claude, and the research bots maintain this repository. Every change follows these rules.
+
+- Never push to `main`. Open a pull request from a fresh branch cut off current `main`. Do not base that branch on another pull request's branch.
+- Name the branch `<bot>/<type>/<short-purpose>`, for example `cursor/docs/agent-ground-rules`. Use a branch for one pull request only.
+- One pull request, one purpose. The title and the description say what changed and why. Put a bulk content batch in a single pull request that names its range.
+- A pull request that combines or continues others says `Supersedes #N` and closes the originals.
+- Merge only when the checks are green and the pull request is mergeable. Squash-merge, then delete the branch.
+- Do not commit scratch files: handoff notes, run logs, reports, baselines, or to-do lists. Put them in the pull request description, or in a folder already listed in `.gitignore` (research drafts go in `research/pending/`).
+- A daily repo-manager bot labels, comments, and tidies branches that have been merged. Closing pull requests, and deleting work that has not been merged, is left to Chris.
