@@ -1,8 +1,9 @@
 """Add each page's public URL to its share tags, then check the tags.
 
 Quarto writes the Open Graph title and image, and the matching Twitter card.
-It does not write og:url. The canonical link is already the public URL, so
-copy that into og:url. The main page's canonical link is the site root.
+It does not write og:url or og:type. The canonical link is already the public
+URL, so copy that into og:url. The main page's canonical link is the site root.
+The home page is a website; an article page is an article.
 
 search_meta.py runs first and gives each page its own description, so the
 check here is that the meta, Open Graph and Twitter descriptions agree.
@@ -15,7 +16,7 @@ import re
 import sys
 from pathlib import Path
 
-from search_meta import BANNED, DESCRIPTION, SITE_NAME
+from search_meta import BANNED, DESCRIPTION, SITE_NAME, directory_url, is_index_html_url
 
 SITE = "https://www.statwiki.io/"
 IMAGE = "https://www.statwiki.io/share-icon.png"
@@ -79,9 +80,11 @@ def meta_map(text: str) -> dict[str, str]:
 def public_url(page: Path, canonical: str) -> str:
     if not canonical.startswith(SITE):
         raise SystemExit(f"Canonical link leaves the site: {page} -> {canonical}")
+    # Directory indexes are /path/, never /path/index.html. The home page is /.
+    url = directory_url(canonical)
     if page == SITE_DIR / "index.html":
         return SITE
-    return canonical
+    return url
 
 
 def require(page: Path, found: dict[str, str], key: str, expected: str | None = None) -> str:
@@ -91,6 +94,29 @@ def require(page: Path, found: dict[str, str], key: str, expected: str | None = 
     if expected is not None and value != expected:
         raise SystemExit(f"{page.relative_to(SITE_DIR)} {key} is {value!r}, expected {expected!r}")
     return value
+
+
+def og_type_for(rel: str) -> str | None:
+    """Open Graph type. Only the home page and article pages are set."""
+    if rel == "index.html":
+        return "website"
+    if rel.startswith("articles/") and rel.endswith(".html"):
+        return "article"
+    return None
+
+
+def add_og_type(text: str, kind: str) -> str:
+    tag = f'<meta property="og:type" content="{kind}">'
+    found = re.search(r'<meta property="og:type" content="[^"]*">', text)
+    if found:
+        return text[: found.start()] + tag + text[found.end() :]
+    anchor = re.search(r'<meta property="og:url" content="[^"]*">', text)
+    if anchor:
+        return text[: anchor.end()] + "\n" + tag + text[anchor.end() :]
+    match = CANONICAL.search(text)
+    if not match:
+        raise SystemExit("No canonical link to place og:type beside")
+    return text.replace(match.group(0), match.group(0) + "\n" + tag, 1)
 
 
 def add_url(text: str, url: str) -> str:
@@ -113,7 +139,19 @@ def check_page(page: Path, text: str) -> None:
     url = require(page, found, "og:url")
     if not url.startswith(SITE):
         raise SystemExit(f"{page.relative_to(SITE_DIR)} og:url leaves the site: {url}")
+    canon = CANONICAL.search(text)
+    if canon is None:
+        raise SystemExit(f"{page.relative_to(SITE_DIR)} is missing a canonical link")
+    if is_index_html_url(canon.group(1)) or is_index_html_url(url):
+        raise SystemExit(
+            f"{page.relative_to(SITE_DIR)} still canonicalises to index.html: "
+            f"{canon.group(1)} / {url}"
+        )
     title = require(page, found, "og:title")
+    rel = page.relative_to(SITE_DIR).as_posix()
+    expected_type = og_type_for(rel)
+    if expected_type:
+        require(page, found, "og:type", expected_type)
     if page == SITE_DIR / "index.html":
         require(page, found, "og:title", SITE_NAME)
         require(page, found, "og:url", SITE)
@@ -155,12 +193,19 @@ def main() -> None:
         if not match:
             raise SystemExit(f"No canonical link in {path.relative_to(SITE_DIR)}")
         updated = add_url(text, public_url(path, match.group(1)))
+        rel = path.relative_to(SITE_DIR).as_posix()
+        if "<title>Redirect</title>" in updated and "var redirects" in updated:
+            if updated != text:
+                path.write_text(updated, encoding="utf-8")
+                changed += 1
+            continue
+        kind = og_type_for(rel)
+        if kind:
+            updated = add_og_type(updated, kind)
         if updated != text:
             path.write_text(updated, encoding="utf-8")
             changed += 1
             text = updated
-        if "<title>Redirect</title>" in text and "var redirects" in text:
-            continue
         check_page(path, text)
     image = SITE_DIR / "share-icon.png"
     if not image.is_file():

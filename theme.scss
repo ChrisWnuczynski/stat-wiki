@@ -1,6 +1,7 @@
 /*-- scss:defaults --*/
 /* Cosmo loads Source Sans Pro, and Darkly loads Lato, from fonts.googleapis.com.
    Both requests block the first paint. The pages set their own system font
-   stack in styles.css, so the downloaded faces are never used. */
+   stack in styles.css, so the downloaded faces are never used.
+   search_meta.py strips any fonts.googleapis.com import the built CSS still has. */
 $web-font-path: false;
 $font-family-sans-serif: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+Disallow: /figures/*.tex
+Disallow: /figures/*.pdf
+
 Sitemap: https://www.statwiki.io/sitemap.xml
