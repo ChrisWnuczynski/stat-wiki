@@ -44,7 +44,7 @@ Edits to the original folders do not reach the wiki until they are copied into `
 
 Open a pull request from a fresh branch off current `main`. The title and description say what changed and why. The rules for bots and agents are in `AGENTS.md`.
 
-After the pull request is merged, the site updates by itself.
+After the pull request is merged, the site updates by itself. The publish workflow then purges the Cloudflare cache for www.statwiki.io, so a long edge TTL does not keep the previous pages. `CLOUDFLARE_PURGE_TOKEN` is a custom Cloudflare API token with only Zone > Cache Purge > Purge on statwiki.io. Until that Actions secret is set, the purge step prints a notice and does nothing.
 
 ## Checking pages locally
 

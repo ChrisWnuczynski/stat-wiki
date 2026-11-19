@@ -157,6 +157,85 @@ jobs:
             }
             core.setFailed(`GitHub Pages deployment ${id} was still ${status ? '"' + status + '"' : 'without a status'} after ${waitMinutes} minutes. It was left running so a sync in progress can finish.`);
 
+  # After Pages reports success, drop the Cloudflare cache for www.statwiki.io.
+  # The site is proxied with a long edge TTL, so the previous HTML would keep
+  # being served. This job runs only when deploy succeeds: a push or a manual
+  # run on main, never a pull request.
+  #
+  # CLOUDFLARE_PURGE_TOKEN does not exist yet. An empty token skips the call.
+  # A failed purge warns and exits 0. Index Ask StatWiki runs only after this
+  # workflow succeeds, so a cache error must not fail the run.
+  purge:
+    needs: deploy
+    if: needs.deploy.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Purge Cloudflare cache
+        continue-on-error: true
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_PURGE_TOKEN }}
+          ZONE: ${{ vars.CLOUDFLARE_ZONE_ID || 'e3a85f1ac0453d54d2f1394d7f720b49' }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TOKEN:-}" ]; then
+            echo "::notice::CLOUDFLARE_PURGE_TOKEN not set; skipping Cloudflare cache purge"
+            exit 0
+          fi
+          echo "Waiting 30 seconds for GitHub Pages to finish rolling out."
+          sleep 30
+          errfile="$(mktemp)"
+          trap 'rm -f "${errfile}"' EXIT
+          set +e
+          body="$(curl -sS --max-time 60 -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/purge_cache" \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H 'Content-Type: application/json' \
+            --data '{"purge_everything":true}' 2>"${errfile}")"
+          status=$?
+          set -e
+          if [ "${status}" -ne 0 ]; then
+            err="$(tr '\n' ' ' < "${errfile}")"
+            echo "::warning::Cloudflare cache purge request failed (curl exit ${status}): ${err}"
+            exit 0
+          fi
+          # Cloudflare prints "success": true with a space. Parse the boolean.
+          report="$(printf '%s' "${body}" | python3 -c '
+          import json, os, sys
+          raw = sys.stdin.read()
+          token = os.environ.get("TOKEN", "")
+          def redact(text):
+              text = " ".join(text.split())
+              if token:
+                  text = text.replace(token, "[redacted]")
+              return text[:500]
+          try:
+              data = json.loads(raw)
+          except json.JSONDecodeError:
+              print("fail " + redact(raw))
+              raise SystemExit(0)
+          if data.get("success") is True:
+              print("ok")
+              raise SystemExit(0)
+          parts = []
+          for err in data.get("errors") or []:
+              if isinstance(err, dict):
+                  message = str(err.get("message") or "")
+                  code = err.get("code")
+                  parts.append(f"{code}: {message}".strip() if code is not None else message)
+              else:
+                  parts.append(str(err))
+          detail = "; ".join(part for part in parts if part) or raw
+          print("fail " + redact(detail))
+          ')" || report="fail could not read the Cloudflare response"
+          if [ "${report}" = "ok" ]; then
+            echo "Cloudflare cache purge succeeded for zone ${ZONE}."
+            exit 0
+          fi
+          echo "::warning::Cloudflare cache purge failed: ${report#fail }"
+          exit 0
+
   # Pull requests only. The maths modules and the R runner do not need a browser
   # or an install: they import local files.
   labs:
