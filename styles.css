@@ -124,9 +124,27 @@ body.quarto-dark .navbar .nav-link.active {
   color: var(--wiki-link) !important;
 }
 
-/* The dark theme's accent is teal; keep the wiki's blue for links. */
+/* The dark theme paints the breadcrumb trail on a grey or blue-grey bar
+   that light mode does not use. The theme's own link grey is about 4:1
+   on that bar. These colours clear 4.5:1 on #222, #375a7f, and the page. */
+body.quarto-dark nav.quarto-secondary-nav,
+body.quarto-dark .quarto-title-breadcrumbs {
+  background-color: #1b1e22 !important;
+}
+
+body.quarto-dark .breadcrumb,
+body.quarto-dark .breadcrumb-item,
+body.quarto-dark .breadcrumb-item.active,
+body.quarto-dark nav.quarto-page-breadcrumbs,
+body.quarto-dark nav.quarto-page-breadcrumbs a,
+body.quarto-dark .quarto-title-breadcrumbs a,
 body.quarto-dark .breadcrumb a {
-  color: var(--wiki-link) !important;
+  color: #f4f7ff !important;
+}
+
+body.quarto-dark .breadcrumb-item::before,
+body.quarto-dark nav.quarto-page-breadcrumbs .breadcrumb-item::before {
+  color: #d5d8dc !important;
 }
 
 body.quarto-dark .aa-Form,
@@ -1410,8 +1428,8 @@ main,
 
 /* The top bar is the same height in both themes, so switching theme does
    not move the page. The dark theme pads it twice as much by default.
-   Keep the StatWiki brand unclipped and tune desktop spacing so the brand,
-   eight links, search box, and theme toggle fit cleanly at 992px and up. */
+   Keep the StatWiki brand unclipped. Five navbar items collapse below
+   the xl breakpoint, so search and the theme toggle stay on screen. */
 #quarto-header .navbar {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
@@ -1956,4 +1974,81 @@ sup.cite-ref a:focus-visible {
   border: 0 !important;
   padding: 0 !important;
   background: transparent !important;
+}
+
+/* Keyboard focus. The theme's ring is a faint shadow, about 1.2:1 on the
+   navbar. A 3px outline clears 3:1 against the light bar (#f8f9fa) and the
+   dark bar (#1f1f1f). :focus-visible keeps the ring for keyboard use. */
+:focus-visible {
+  outline: 3px solid #0842a0 !important;
+  outline-offset: 2px !important;
+}
+
+body.quarto-dark :focus-visible {
+  outline-color: #ffe14a !important;
+}
+
+/* First in the body, hidden until a keyboard user reaches it. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.5rem;
+  z-index: 2000;
+  padding: 0.45rem 0.75rem;
+  background: #0842a0;
+  color: #ffffff !important;
+  font-weight: 600;
+  text-decoration: none !important;
+  border-radius: 2px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+  outline: 3px solid #ffe14a !important;
+  outline-offset: 2px !important;
+}
+
+#quarto-document-content {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Figure captions. Darkly sets some captions to #666, which is about 3:1
+   on the dark page. #d5d8dc clears 4.5:1 on the page and on the infobox. */
+body.quarto-dark figcaption,
+body.quarto-dark caption,
+body.quarto-dark .figure-caption,
+body.quarto-dark .panel-caption,
+body.quarto-dark .subfigure-caption,
+body.quarto-dark .table-caption,
+body.quarto-dark .infobox figcaption {
+  color: #d5d8dc !important;
+}
+
+/* Phones. The infobox is the first block in the source so it can float
+   beside the opening on a wide screen. In a column, pull the first
+   paragraph above that box so the article starts with a sentence. */
+@media (max-width: 767px) {
+  #quarto-document-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #quarto-document-content > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #quarto-document-content > #title-block-header {
+    order: -3;
+  }
+
+  #quarto-document-content > .chapter-guide,
+  #quarto-document-content > .hatnote {
+    order: -2;
+  }
+
+  #quarto-document-content > .infobox + p {
+    order: -1;
+  }
 }

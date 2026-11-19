@@ -7168,6 +7168,66 @@ def png_size(path: Path) -> tuple[int, int]:
 BRISBANE_TZ = ZoneInfo("Australia/Brisbane")
 
 
+def navbar_yaml() -> str:
+    """Five top-level items. The rest sit in menus so search and the theme
+    toggle stay on screen. Below the xl breakpoint the items collapse."""
+    return """\
+  navbar:
+    collapse-below: xl
+    left:
+      - text: Main page
+        href: index.qmd
+      - text: Study
+        menu:
+          - text: Overview
+            href: overview.qmd
+          - text: History
+            href: history.qmd
+          - text: Topics
+            href: notes/index.qmd
+          - text: Fundamentals
+            href: notes/fundamentals.qmd
+          - text: Distributions
+            href: notes/probability-distributions.qmd
+          - text: Applications
+            href: notes/applications.qmd
+      - text: Questions
+        menu:
+          - text: "Question bank: every question in one list"
+            href: questions/index.qmd
+          - text: "By topic: the same questions under each chapter"
+            href: questions/by-topic.qmd
+          - text: Random question
+            href: questions/random.qmd
+      - text: Reference
+        menu:
+          - text: "Lookup pages: glossary, distributions, notation, and formulas"
+            href: reference/index.qmd
+          - text: Glossary and index
+            href: reference/glossary.qmd
+          - text: Common distributions
+            href: reference/distributions.qmd
+          - text: Notation
+            href: reference/notation.qmd
+          - text: Formula lookup
+            href: reference/formulas.qmd
+      - text: Laboratories
+        menu:
+          - text: "All laboratories"
+            href: labs/index.qmd
+          - text: Kernel density estimation
+            href: labs/kernel-density.qmd
+          - text: "Beta–Binomial updating"
+            href: labs/beta-binomial.qmd
+          - text: A Markov chain
+            href: labs/markov-chain.qmd
+          - text: Interval coverage
+            href: labs/ci-coverage.qmd
+          - text: Distribution explorer
+            href: labs/distributions.qmd
+"""
+
+
 def footer_text(now: datetime | None = None) -> str:
     """Copyright and the date of this build in Australia/Brisbane, for the foot of every page."""
     today = (now or datetime.now(BRISBANE_TZ)).astimezone(BRISBANE_TZ)
@@ -7570,59 +7630,7 @@ website:
   search:
     location: navbar
     type: textbox
-  navbar:
-    left:
-      - text: Main page
-        href: index.qmd
-      - text: Overview
-        href: overview.qmd
-      - text: History
-        href: history.qmd
-      - text: Topics
-        href: notes/index.qmd
-      - text: Fundamentals
-        href: notes/fundamentals.qmd
-      - text: Distributions
-        href: notes/probability-distributions.qmd
-      - text: Applications
-        href: notes/applications.qmd
-      - text: Question bank
-        menu:
-          - text: "Question bank: every question in one list"
-            href: questions/index.qmd
-          - text: "By topic: the same questions under each chapter"
-            href: questions/by-topic.qmd
-      - text: Glossary
-        href: reference/glossary.qmd
-      - text: Reference
-        menu:
-          - text: "Lookup pages: glossary, distributions, notation, and formulas"
-            href: reference/index.qmd
-          - text: Glossary and index
-            href: reference/glossary.qmd
-          - text: Common distributions
-            href: reference/distributions.qmd
-          - text: Notation
-            href: reference/notation.qmd
-          - text: Formula lookup
-            href: reference/formulas.qmd
-      - text: Laboratories
-        menu:
-          - text: "All laboratories"
-            href: labs/index.qmd
-          - text: Kernel density estimation
-            href: labs/kernel-density.qmd
-          - text: "Beta–Binomial updating"
-            href: labs/beta-binomial.qmd
-          - text: A Markov chain
-            href: labs/markov-chain.qmd
-          - text: Interval coverage
-            href: labs/ci-coverage.qmd
-          - text: Distribution explorer
-            href: labs/distributions.qmd
-      - text: Random question
-        href: questions/random.qmd
-  sidebar:
+{navbar_yaml()}  sidebar:
     style: docked
     collapse-level: 2
     contents:
@@ -7675,9 +7683,10 @@ website:
 format:
   html:
     # Two themes give a light/dark switch in the top bar; the choice is remembered.
+    # theme.scss turns off the themes' Google fonts. The pages use a system stack.
     theme:
-      light: cosmo
-      dark: darkly
+      light: [cosmo, theme.scss]
+      dark: [darkly, theme.scss]
     css: styles.css
     toc: true
     toc-depth: 2
