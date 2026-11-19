@@ -14,7 +14,7 @@ if __name__ == "__main__":
     for match in re.finditer(r"\{\{cite:([^}]+)\}\}", prose):
         assert re.match(r" \((?:§|Summary|Abstract)", prose[match.end():]), match.group()
     for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body, re.S):
-        assert re.match(r"\s*\((?:§|Summary|Abstract)", body[match.end():]), match.group()
+        assert re.search(r'data-locator="[^"]+"', match.group(0)), match.group(0)[:220]
 
     for printed in (
         r"$\lambda=0$", r"$\lambda>0$", r"$\boldsymbol X^{\mathsf T}\boldsymbol X=I_p$",
