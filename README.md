@@ -42,15 +42,9 @@ Edits to the original folders do not reach the wiki until they are copied into `
 
 ## Publishing a change
 
-Edit a file in the repository and commit it. The site updates by itself.
+Open a pull request from a fresh branch off current `main`. The title and description say what changed and why. The rules for bots and agents are in `AGENTS.md`.
 
-To publish edits made in the local folder instead, run:
-
-```
-powershell -ExecutionPolicy Bypass -File publish.ps1 "What changed"
-```
-
-It commits everything, brings in any remote changes, and pushes.
+After the pull request is merged, the site updates by itself.
 
 ## Checking pages locally
 
