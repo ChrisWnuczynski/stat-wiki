@@ -81,12 +81,12 @@ The distances are exact for the distribution and are one path for the occupation
 ```{=html}
 <div class="wiki-refs">
 <ol>
-  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Markov, A. A. (1906). Rasprostranenie zakona bol&#x27;shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. <em>Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)</em>, 15, 135–156. <a href="https://openlibrary.org/authors/OL121192A" target="_blank" rel="noopener">https://openlibrary.org/authors/OL121192A</a></li>
-  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Chapman, S. (1928). On the Brownian displacements and thermal diffusion of grains suspended in a non-uniform fluid. <em>Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character</em>, 119(781), 34–54. <a href="https://doi.org/10.1098/rspa.1928.0082" target="_blank" rel="noopener">https://doi.org/10.1098/rspa.1928.0082</a></li>
-  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Kolmogoroff, A. (1931). Über die analytischen Methoden in der Wahrscheinlichkeitsrechnung. <em>Mathematische Annalen</em>, 104(1), 415–458. <a href="https://doi.org/10.1007/bf01457949" target="_blank" rel="noopener">https://doi.org/10.1007/bf01457949</a></li>
-  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Feller, W. (1968). <em>An Introduction to Probability Theory and Its Applications, Vol. 1</em> (3rd ed.). John Wiley &amp; Sons, New York. <a href="https://openlibrary.org/works/OL146759W" target="_blank" rel="noopener">https://openlibrary.org/works/OL146759W</a></li>
-  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Norris, J. R. (1997). <em>Markov Chains</em>. Cambridge University Press. <a href="https://doi.org/10.1017/cbo9780511810633" target="_blank" rel="noopener">https://doi.org/10.1017/cbo9780511810633</a></li>
-  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span> Grimmett, G. R. &amp; Stirzaker, D. R. (2020). <em>Probability and Random Processes</em> (4th ed.). Oxford University Press. <a href="https://openlibrary.org/works/OL25253617W" target="_blank" rel="noopener">https://openlibrary.org/works/OL25253617W</a></li>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span>  Markov, A. A. (1906). Rasprostranenie zakona bol&#x27;shikh chisel na velichiny, zavisyashchie drug ot druga [Extension of the law of large numbers to quantities depending on each other]. <em>Izvestiya Fiziko-Matematicheskogo Obshchestva pri Kazanskom Universitete (Ser. 2)</em>, 15, 135–156. <a href="https://openlibrary.org/authors/OL121192A" target="_blank" rel="noopener">https://openlibrary.org/authors/OL121192A</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span>  Chapman, S. (1928). On the Brownian displacements and thermal diffusion of grains suspended in a non-uniform fluid. <em>Proceedings of the Royal Society of London. Series A, Containing Papers of a Mathematical and Physical Character</em>, 119(781), 34–54. <a href="https://doi.org/10.1098/rspa.1928.0082" target="_blank" rel="noopener">https://doi.org/10.1098/rspa.1928.0082</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span>  Kolmogoroff, A. (1931). Über die analytischen Methoden in der Wahrscheinlichkeitsrechnung. <em>Mathematische Annalen</em>, 104(1), 415–458. <a href="https://doi.org/10.1007/bf01457949" target="_blank" rel="noopener">https://doi.org/10.1007/bf01457949</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span>  Feller, W. (1968). <em>An Introduction to Probability Theory and Its Applications, Vol. 1</em> (3rd ed.). John Wiley &amp; Sons, New York. <a href="https://openlibrary.org/works/OL146759W" target="_blank" rel="noopener">https://openlibrary.org/works/OL146759W</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span>  Norris, J. R. (1997). <em>Markov Chains</em>. Cambridge University Press. <a href="https://doi.org/10.1017/cbo9780511810633" target="_blank" rel="noopener">https://doi.org/10.1017/cbo9780511810633</a></li>
+  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span>  Grimmett, G. R. &amp; Stirzaker, D. R. (2020). <em>Probability and Random Processes</em> (4th ed.). Oxford University Press. <a href="https://openlibrary.org/works/OL25253617W" target="_blank" rel="noopener">https://openlibrary.org/works/OL25253617W</a></li>
 </ol>
 </div>
 ```
@@ -97,7 +97,7 @@ The distances are exact for the distribution and are one path for the occupation
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Markov chain laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/markov-chain.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Markov chain laboratory.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/markov-chain.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -106,8 +106,8 @@ The distances are exact for the distribution and are one path for the occupation
   title = {{Markov chain laboratory}},
   year = {2026},
   url = {https://www.statwiki.io/labs/markov-chain.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>

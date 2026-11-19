@@ -643,6 +643,7 @@ def localize_refs(text: str, notes_href: str) -> str:
 
 
 def prepare(text: str, fig_prefix: str, notes_href: str | None = None, page: Path | None = None) -> str:
+    text = tex_math.convert_tex_delimiters(text)
     text = re.sub(r"```\{=latex\}.*?```\n?", "", text, flags=re.S)
     if notes_href:
         text = localize_refs(text, notes_href)
@@ -1099,6 +1100,44 @@ def load_practice() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
     return concept_qs, concept_as, exam_qs, exam_as
 
 
+def assert_no_bare_tex() -> None:
+    """A TeX command outside $...$, $$...$$, \\(...\\) and \\[...\\] is dropped on the page."""
+    hits: list[str] = []
+    for path in sorted((WIKI / "research" / "content").glob("*.md")):
+        for snippet in tex_math.bare_tex_offenders(path.read_text(encoding="utf-8")):
+            hits.append(f"{path.relative_to(WIKI)}: {snippet}")
+    if hits:
+        raise SystemExit("TeX command outside maths delimiters:\n  " + "\n  ".join(hits[:12]))
+
+
+def assert_no_unconverted_math_delimiters() -> None:
+    """Generated pages must not still contain \\( or \\[ for Pandoc to drop."""
+    hits: list[str] = []
+    for folder in ("notes", "questions", "articles", "reference", "labs"):
+        directory = WIKI / folder
+        if not directory.is_dir():
+            continue
+        for path in sorted(directory.rglob("*.qmd")):
+            offenders = tex_math.tex_delimiter_offenders(path.read_text(encoding="utf-8"))
+            hits.extend(f"{path.relative_to(WIKI)}: {snippet}" for snippet in offenders[:2])
+            if len(hits) > 12:
+                break
+    overview = WIKI / "overview.qmd"
+    if overview.is_file():
+        hits.extend(
+            f"overview.qmd: {snippet}"
+            for snippet in tex_math.tex_delimiter_offenders(overview.read_text(encoding="utf-8"))[:2]
+        )
+    history = WIKI / "history.qmd"
+    if history.is_file():
+        hits.extend(
+            f"history.qmd: {snippet}"
+            for snippet in tex_math.tex_delimiter_offenders(history.read_text(encoding="utf-8"))[:2]
+        )
+    if hits:
+        raise SystemExit("Unconverted maths delimiters:\n  " + "\n  ".join(hits[:12]))
+
+
 def self_test() -> None:
     assert expand_macros(r"$\xvec\given\theta$") == r"${\boldsymbol{x}}\mid\theta$"
     assert expand_macros(r"\vect{\hat{\beta}}") == r"{\boldsymbol{\hat{\beta}}}"
@@ -1134,6 +1173,7 @@ def self_test() -> None:
     assert plain_question_title("C37. Exchangeable correlation") == "Exchangeable correlation"
     assert plain_question_title("Question 6. Geometric--beta Gibbs sampler") == "Geometric--beta Gibbs sampler"
     chapter_guides.validate([name for _, files in PARTS for name, kind in files if kind == "notes"])
+    assert_no_bare_tex()
 
 
 def clean_output() -> None:
@@ -3340,13 +3380,14 @@ def history_markdown() -> str:
     ):
         if heading not in text:
             raise SystemExit(f"History source is missing the section {heading}")
-    return text
+    return tex_math.convert_tex_delimiters(text)
 
 
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
     PROVED_RESULT_SLUGS.clear()
     CHECK_GAPS.clear()
+    _CHAPTER_ORDER.clear()
     for question in questions:
         question["body"] = keep_display_math_in_list(question["body"])
     for answer in answers:
@@ -4279,16 +4320,150 @@ def read_research_content(path: Path, allowed: set[str]) -> tuple[dict[str, str]
     display_titles: dict[str, str] = {}
     raw = path.read_text(encoding="utf-8")
     for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
-        heading_spec, prose = match.group(1), match.group(2).strip()
+        heading_spec, prose = match.group(1), tex_math.convert_tex_delimiters(match.group(2).strip())
         key, separator, title = heading_spec.partition(" — ")
         if key not in allowed or key in researched or not prose or (separator and not title.strip()):
             raise ValueError(f"{path}: unknown, repeated or empty section {heading_spec!r}")
         researched[key] = prose
         if separator:
-            display_titles[key] = title.strip()
+            display_titles[key] = tex_math.convert_tex_delimiters(title.strip())
     if not researched:
         raise ValueError(f"{path}: no sections")
     return researched, display_titles
+
+
+_LEVEL_RANK = {"beginner": 0, "intermediate": 1, "advanced": 2}
+_CHAPTER_ORDER: dict[Path, list[str]] = {}
+
+
+def _primary_chapter(article: dict | None) -> Path | None:
+    if not article:
+        return None
+    chapter = (article.get("box") or {}).get("chapter")
+    if isinstance(chapter, Path):
+        return chapter
+    for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+        chapter = extra.get("chapter")
+        if isinstance(chapter, Path):
+            return chapter
+    return None
+
+
+def _teaching_chapters(article: dict) -> list[Path]:
+    found: list[Path] = []
+    primary = _primary_chapter(article)
+    if primary is not None:
+        found.append(primary)
+    for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+        chapter = extra.get("chapter")
+        if isinstance(chapter, Path) and chapter not in found:
+            found.append(chapter)
+    return found
+
+
+def article_level(article: dict) -> str:
+    """The level of the chapter that teaches the page, or the hub the page belongs to."""
+    levels = []
+    for chapter in _teaching_chapters(article):
+        guide = chapter_guides.GUIDES.get(chapter.name)
+        if guide:
+            levels.append(guide["level"])
+    if levels:
+        return max(levels, key=lambda level: _LEVEL_RANK[level])
+    if article["slug"] in topic_hubs.FUNDAMENTALS_ORDER or article.get("standalone") in {"Fundamentals", "History"}:
+        return "beginner"
+    return "intermediate"
+
+
+def _articles_in_chapter(chapter: Path) -> list[str]:
+    cached = _CHAPTER_ORDER.get(chapter)
+    if cached is not None:
+        return cached
+    members = [slug_ for slug_, article in ARTICLES.items() if _primary_chapter(article) == chapter]
+    text = ""
+    try:
+        source = chapter_source(chapter.name)
+    except SystemExit:
+        source = chapter if chapter.is_file() else None
+    if source is not None and Path(source).is_file():
+        text = Path(source).read_text(encoding="utf-8")
+
+    def position(slug_: str) -> int:
+        anchor = str((ARTICLES[slug_].get("box") or {}).get("anchor") or "")
+        if not anchor or not text:
+            return 10**9
+        found = text.find(anchor)
+        return found if found >= 0 else 10**9
+
+    members.sort(key=lambda slug_: (position(slug_), ARTICLES[slug_]["term"].lower()))
+    _CHAPTER_ORDER[chapter] = members
+    return members
+
+
+def study_sequence(slug_: str) -> list[str]:
+    """Reading order already recorded for this page: the fundamentals path,
+    otherwise the other articles in its chapter, otherwise its distribution group."""
+    if slug_ in topic_hubs.FUNDAMENTALS_ORDER:
+        return [slug for slug in topic_hubs.FUNDAMENTALS_ORDER if slug in ARTICLES]
+    article = ARTICLES.get(slug_)
+    chapter = _primary_chapter(article)
+    if chapter is not None:
+        members = _articles_in_chapter(chapter)
+        if len(members) > 1:
+            return members
+    for _title, members in topic_hubs.distribution_groups(list(DISTRIBUTIONS.items())):
+        if slug_ in members:
+            return [slug for slug in members if slug in ARTICLES]
+    return [slug_] if slug_ in ARTICLES else []
+
+
+def article_study_guide(article: dict) -> str:
+    """Level, prerequisites, and previous/next, from the chapter guides and the existing orders."""
+    path = article["path"]
+    slug_ = article["slug"]
+    lines = [f"[{article_level(article).capitalize()}]{{.level}}", "", "**What you need first.** "]
+    need_links: list[str] = []
+    if slug_ in topic_hubs.FUNDAMENTALS_ORDER:
+        order = [slug for slug in topic_hubs.FUNDAMENTALS_ORDER if slug in ARTICLES]
+        if slug_ in order and order.index(slug_):
+            prev = ARTICLES[order[order.index(slug_) - 1]]
+            need_links.append(f"[{prev['term']}]({href(path, prev['path'])})")
+    chapters = _teaching_chapters(article)
+    primary = chapters[0] if chapters else None
+    if primary is not None and primary.name in chapter_guides.GUIDES:
+        for name in chapter_guides.GUIDES[primary.name]["needs"]:
+            target = WIKI / "notes" / name
+            title = PAGE_TITLES.get(target) or name.removesuffix(".qmd").replace("-", " ")
+            need_links.append(f"[{title}]({href(path, target)})")
+    unique: list[str] = []
+    for link in need_links:
+        if link not in unique:
+            unique.append(link)
+    if unique:
+        sentence = "Read " + join_and(unique) + "."
+    else:
+        sentence = "Nothing else on this path comes first."
+    if primary is not None:
+        title = PAGE_TITLES.get(primary) or primary.stem.replace("-", " ")
+        sentence += f" This page sits in [{title}]({href(path, primary)})."
+    elif article.get("standalone"):
+        target, frag = standalone_topic_target(article["standalone"])
+        href_target = href(path, target) + (f"#{frag}" if frag else "")
+        sentence += f" This page is part of [{article['standalone']}]({href_target})."
+    lines.append(sentence)
+    seq = study_sequence(slug_)
+    if slug_ in seq and len(seq) > 1:
+        index = seq.index(slug_)
+        nav = []
+        if index:
+            other = ARTICLES[seq[index - 1]]
+            nav.append(f"[‹ {other['term']}]({href(path, other['path'])}){{.qnav}}")
+        if index + 1 < len(seq):
+            other = ARTICLES[seq[index + 1]]
+            nav.append(f"[{other['term']} ›]({href(path, other['path'])}){{.qnav}}")
+        if nav:
+            lines.extend(["", " ".join(nav)])
+    return "::: {.chapter-guide}\n" + "\n".join(lines) + "\n:::\n\n"
 
 
 def distribution_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
@@ -4317,7 +4492,8 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
                 pieces.append(body.strip())
         return "\n\n".join(pieces)
 
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
+    out = [(False, "guide", article_study_guide(article)),
+           (False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", [])))]
     research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
     researched: dict[str, str] = {}
@@ -4502,7 +4678,8 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                    "Common misconceptions", "History", "Worked example"}
         researched, display_titles = read_research_content(research_file, allowed)
     depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
+    out = [(False, "guide", article_study_guide(article)),
+           (False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
            (True, "lead", article_lead(article) + (" " + depth["context"] if depth else "")
             + (" " + researched["Lead context"] if researched.get("Lead context") else "") + "\n\n")]
@@ -4622,7 +4799,8 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                 pieces.append(body.strip())
         return "\n\n".join(pieces)
 
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
+    out = [(False, "guide", article_study_guide(article)),
+           (False, "hatnote", "".join(by_label.get("hatnote", []))),
            (False, "infobox", "".join(by_label.get("infobox", []))),
            (True, "lead", article_lead(article) + source_lead_citations(blocks) + "\n\n")]
     definition = "\n\n".join(filter(None, [source_math_definition(article, blocks), source_plain_definition(article, blocks),
@@ -4642,7 +4820,7 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                    "Statistical use", "Worked example", "Common misconceptions", "Assumptions and limits",
                    "Connections", "Check yourself", "History"}
         researched, display_titles = read_research_content(research_file, allowed)
-        out[2] = (True, "lead", article_lead(article) + source_lead_citations(blocks)
+        out[3] = (True, "lead", article_lead(article) + source_lead_citations(blocks)
                   + " " + researched.get("Lead context", "") + "\n\n")
         ordered = (
             ("Motivating example", "motivating-example", researched.get("Motivating example", "")),
@@ -7746,7 +7924,7 @@ def write_overview() -> None:
         'title: "What statistics is"\n'
         'description: "What statistics is, how data become a claim, and how the chapters grow out of that claim."\n'
         '---\n\n'
-        + text
+        + tex_math.convert_tex_delimiters(text)
         + "\n",
         encoding="utf-8",
     )
@@ -8196,6 +8374,7 @@ def main() -> None:
         print("LaTeX macros still present in:")
         for name in leftover[:20]:
             print(" ", name)
+    assert_no_unconverted_math_delimiters()
 
     # The wiki teaches each idea on its own pages. It does not send the reader
     # to a numbered section, a supplement or a set of notes somewhere else.

@@ -14,6 +14,7 @@ from pathlib import Path
 import article_extras
 import build_wiki
 import citations
+import tex_math
 import research_pending
 import verify_citations
 import wiki_graph
@@ -404,9 +405,10 @@ class CitationTests(unittest.TestCase):
                 custom_sections = re.findall(r"(?m)^## ([^\n—]+) — ([^\n]+)$", research)
                 self.assertTrue(custom_sections, f"No topic-specific section heading in {path.name}")
                 for canonical, display in custom_sections:
+                    shown = tex_math.convert_tex_delimiters(display.strip())
                     self.assertRegex(
                         body,
-                        rf"(?m)^## {re.escape(display.strip())} \{{#[^}}]+\}}$",
+                        rf"(?m)^## {re.escape(shown)} \{{#[^}}]+\}}$",
                         f"Missing topic-specific heading in {path.name}",
                     )
                     self.assertNotIn(f"## {canonical} {{#", body,
@@ -468,12 +470,21 @@ class CitationTests(unittest.TestCase):
             # Ranks 1–217 had every copied citation located. Ranks 218–367 still
             # include chapter excerpts whose markers were not given locators.
             if int(rank) <= 217:
+                refs = path.read_text(encoding="utf-8").split("## References", 1)[-1]
                 for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
                     self.assertRegex(
-                    body[match.end():match.end() + 60],
-                    r"^\s*\((?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|biography,|Abstract|Introduction|Description|Basic Theory|Convergence(?: in Distribution)?|Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|six principles|principles|principle\s+\d+|entries\b|Price’s letter|[“\"])",
-                    f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
-                )
+                        match.group(0),
+                        r'data-locator="(?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|biography,|Abstract|Introduction|Description|Basic Theory|Convergence(?: in Distribution)?|Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|six principles|principles|principle\s+\d+|entries\b|Price’s letter|&quot;|[“\"])',
+                        f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
+                    )
+                    self.assertNotRegex(
+                        body[match.end():match.end() + 40],
+                        r"^\s*\((?:p\.|pp\.|Glossary|Ch\.|§)",
+                        f"Locator still in the prose of {path.name}",
+                    )
+                    locator = re.search(r'data-locator="([^"]*)"', match.group(0))
+                    self.assertIsNotNone(locator, path.name)
+                    self.assertIn(f"({locator.group(1)})", refs, f"Locator missing from the notes in {path.name}")
 
     def test_no_citation_inside_hidden_answer(self) -> None:
         answer = re.compile(
@@ -642,6 +653,26 @@ class InlineCitationTests(unittest.TestCase):
         self.assertEqual(again.process_text(out), out)
         self.assertEqual(again.render_references_section(), section)
 
+    def test_locators_leave_the_sentence_and_stay_on_the_note(self) -> None:
+        text = (
+            'The mean is the centre.{{cite:fisher1922}} (pp. 309–316). '
+            'A glossary entry agrees.{{cite:nist_glossary2002}} (Glossary, "statistic").'
+        )
+        linker = citations.PageCitationLinker(("fisher1922", "nist_glossary2002"), self.works)
+        out = linker.process_text(text)
+        visible = re.sub(r"<sup\b[^>]*>.*?</sup>", "", out)
+        self.assertNotIn("(pp. 309–316)", visible)
+        self.assertNotIn("(Glossary,", visible)
+        self.assertIn('data-locator="pp. 309–316"', out)
+        self.assertIn('data-locator="Glossary, &quot;statistic&quot;"', out)
+        self.assertLess(out.index("."), out.index("<sup"))
+        section = linker.render_references_section()
+        self.assertIn("(pp. 309–316)", section)
+        self.assertIn("(Glossary, &quot;statistic&quot;)", section)
+        self.assertIn('class="cite-locator"', section)
+        again = citations.PageCitationLinker(("fisher1922", "nist_glossary2002"), self.works)
+        self.assertEqual(again.process_text(out), out)
+
     def test_explicit_marker_follows_punctuation_and_unknown_key_fails(self) -> None:
         linker = citations.PageCitationLinker(("student1908",), self.works)
         out = linker.process_text("The $t$ interval is exact{{cite:student1908}}.")
@@ -724,7 +755,7 @@ class InlineCitationTests(unittest.TestCase):
         # The absolute-loss result is located in the opened author-hosted BDA3.
         self.assertNotIn('data-cite-key="lehmann_casella1998"', rendered)
         self.assertIn('data-cite-key="gelman_bda2013"', rendered)
-        self.assertIn('(Ch. 4, Ex. 6(b), p. 98)', rendered)
+        self.assertIn('data-locator="Ch. 4, Ex. 6(b), p. 98"', rendered)
         self.assertIn("strobl2007", citations.ARTICLE_REFS["variable-importance"])
         importance = article_extras.NOTES["variable-importance"]
         self.assertIn("Strobl, Boulesteix, Zeileis, and Hothorn, 2007", importance)

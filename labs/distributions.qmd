@@ -3,7 +3,7 @@ title: "Distribution explorer"
 description: "Move the parameters of a named distribution and watch the probability mass or density and the distribution function."
 ---
 
-A named distribution is a formula for chance. The probability mass function, for a discrete family, or the density, for a continuous family, says how the chance is spread. The distribution function adds that chance up to a point.<sup id="cite_ref-1" class="cite-ref" data-cite-key="nist_glossary2002"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> (Glossary, “binomial distribution”) <sup id="cite_ref-2" class="cite-ref" data-cite-key="dodge2008"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> (p. 44)
+A named distribution is a formula for chance. The probability mass function, for a discrete family, or the density, for a continuous family, says how the chance is spread. The distribution function adds that chance up to a point.<sup id="cite_ref-1" class="cite-ref" data-cite-key="nist_glossary2002" data-locator="Glossary, “binomial distribution”"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> <sup id="cite_ref-2" class="cite-ref" data-cite-key="dodge2008" data-locator="p. 44"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup>
 
 ## What this page investigates
 
@@ -15,9 +15,9 @@ The page opens on a standard normal density, centred at 0 with standard deviatio
 
 ## The model these controls change
 
-A binomial count is the number of successes in a fixed number of independent trials with one success probability.<sup id="cite_ref-2-2" class="cite-ref" data-cite-key="dodge2008"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> (p. 44) A Poisson count is a model for events in a fixed exposure, with mean equal to its variance.<sup id="cite_ref-1-2" class="cite-ref" data-cite-key="nist_glossary2002"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> (Glossary, “Poisson distribution”) An exponential waiting time has density $\lambda e^{-\lambda x}$ on the positive line. A normal measurement is symmetric about its mean.
+A binomial count is the number of successes in a fixed number of independent trials with one success probability.<sup id="cite_ref-2-2" class="cite-ref" data-cite-key="dodge2008" data-locator="p. 44"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> A Poisson count is a model for events in a fixed exposure, with mean equal to its variance.<sup id="cite_ref-1-2" class="cite-ref" data-cite-key="nist_glossary2002" data-locator="Glossary, “Poisson distribution”"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> An exponential waiting time has density $\lambda e^{-\lambda x}$ on the positive line. A normal measurement is symmetric about its mean.
 
-A model, more generally, relates observable variables. A probability model predicts the relative frequency of outcomes. A statistical model predicts a measured quantity.<sup id="cite_ref-1-3" class="cite-ref" data-cite-key="nist_glossary2002"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> (Glossary, “model”) <sup id="cite_ref-2-3" class="cite-ref" data-cite-key="dodge2008"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> (p. 353) The curves in the figure are the probability models. They are not a histogram of a sample. A relative frequency is a count in a dataset.<sup id="cite_ref-3" class="cite-ref" data-cite-key="abs_glossary2023"><a href="#cite_note-3" title="Australian Bureau of Statistics (2023) — Statistical terms and concepts glossary">[3]</a></sup> (Glossary, “Relative frequency”)
+A model, more generally, relates observable variables. A probability model predicts the relative frequency of outcomes. A statistical model predicts a measured quantity.<sup id="cite_ref-1-3" class="cite-ref" data-cite-key="nist_glossary2002" data-locator="Glossary, “model”"><a href="#cite_note-1" title="Heckert et al. (2002) — Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary">[1]</a></sup> <sup id="cite_ref-2-3" class="cite-ref" data-cite-key="dodge2008" data-locator="p. 353"><a href="#cite_note-2" title="Dodge (2008) — The Concise Encyclopedia of Statistics">[2]</a></sup> The curves in the figure are the probability models. They are not a histogram of a sample. A relative frequency is a count in a dataset.<sup id="cite_ref-3" class="cite-ref" data-cite-key="abs_glossary2023" data-locator="Glossary, “Relative frequency”"><a href="#cite_note-3" title="Australian Bureau of Statistics (2023) — Statistical terms and concepts glossary">[3]</a></sup>
 
 ```{=html}
 <div data-lab-page hidden></div>
@@ -50,9 +50,9 @@ A density can be unbounded, as a beta density is when a shape is below 1. The pa
 ```{=html}
 <div class="wiki-refs">
 <ol>
-  <li id="cite_note-1"><span class="cite-backlink">^ <a href="#cite_ref-1" aria-label="Jump up to a"><sup>a</sup></a> <a href="#cite_ref-1-2" aria-label="Jump up to b"><sup>b</sup></a> <a href="#cite_ref-1-3" aria-label="Jump up to c"><sup>c</sup></a></span> Heckert, N. A., Filliben, J. J., Croarkin, C. M., Hembree, B., Guthrie, W. F., Tobias, P. &amp; Prinz, J. (2002). <em>Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary</em>. National Institute of Standards and Technology. <a href="https://www.itl.nist.gov/div898/handbook/glossary.htm" target="_blank" rel="noopener">https://www.itl.nist.gov/div898/handbook/glossary.htm</a></li>
-  <li id="cite_note-2"><span class="cite-backlink">^ <a href="#cite_ref-2" aria-label="Jump up to a"><sup>a</sup></a> <a href="#cite_ref-2-2" aria-label="Jump up to b"><sup>b</sup></a> <a href="#cite_ref-2-3" aria-label="Jump up to c"><sup>c</sup></a></span> Dodge, Yadolah (2008). <em>The Concise Encyclopedia of Statistics</em>. Springer. <a href="https://doi.org/10.1007/978-0-387-32833-1" target="_blank" rel="noopener">https://doi.org/10.1007/978-0-387-32833-1</a></li>
-  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Australian Bureau of Statistics (2023). <em>Statistical terms and concepts glossary</em>. Australian Bureau of Statistics. <a href="https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary" target="_blank" rel="noopener">https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary</a></li>
+  <li id="cite_note-1"><span class="cite-backlink">^ <a href="#cite_ref-1" aria-label="Jump up to a"><sup>a</sup></a> <a href="#cite_ref-1-2" aria-label="Jump up to b"><sup>b</sup></a> <a href="#cite_ref-1-3" aria-label="Jump up to c"><sup>c</sup></a></span>  <span class="cite-locator">a. (Glossary, “binomial distribution”)</span> <span class="cite-locator">b. (Glossary, “Poisson distribution”)</span> <span class="cite-locator">c. (Glossary, “model”)</span> Heckert, N. A., Filliben, J. J., Croarkin, C. M., Hembree, B., Guthrie, W. F., Tobias, P. &amp; Prinz, J. (2002). <em>Handbook 151: NIST/SEMATECH e-Handbook of Statistical Methods, Glossary</em>. National Institute of Standards and Technology. <a href="https://www.itl.nist.gov/div898/handbook/glossary.htm" target="_blank" rel="noopener">https://www.itl.nist.gov/div898/handbook/glossary.htm</a></li>
+  <li id="cite_note-2"><span class="cite-backlink">^ <a href="#cite_ref-2" aria-label="Jump up to a"><sup>a</sup></a> <a href="#cite_ref-2-2" aria-label="Jump up to b"><sup>b</sup></a> <a href="#cite_ref-2-3" aria-label="Jump up to c"><sup>c</sup></a></span>  <span class="cite-locator">a. (p. 44)</span> <span class="cite-locator">b. (p. 44)</span> <span class="cite-locator">c. (p. 353)</span> Dodge, Yadolah (2008). <em>The Concise Encyclopedia of Statistics</em>. Springer. <a href="https://doi.org/10.1007/978-0-387-32833-1" target="_blank" rel="noopener">https://doi.org/10.1007/978-0-387-32833-1</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span>  <span class="cite-locator">(Glossary, “Relative frequency”)</span> Australian Bureau of Statistics (2023). <em>Statistical terms and concepts glossary</em>. Australian Bureau of Statistics. <a href="https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary" target="_blank" rel="noopener">https://www.abs.gov.au/statistics/understanding-statistics/statistical-terms-and-concepts/statistical-terms-and-concepts-glossary</a></li>
 </ol>
 </div>
 ```
@@ -63,7 +63,7 @@ A density can be unbounded, as a beta density is when a shape is below 1. The pa
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Distribution explorer.&quot; StatWiki. Last updated 17 November 2026. https://www.statwiki.io/labs/distributions.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Distribution explorer.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/distributions.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -72,8 +72,8 @@ A density can be unbounded, as a beta density is when a shape is below 1. The pa
   title = {{Distribution explorer}},
   year = {2026},
   url = {https://www.statwiki.io/labs/distributions.html},
-  urldate = {2026-11-17},
-  note = {StatWiki, last updated 17 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>

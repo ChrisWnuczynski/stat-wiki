@@ -84,12 +84,12 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
 ```{=html}
 <div class="wiki-refs">
 <ol>
-  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Bernoulli, J. (1713). <em>Ars Conjectandi</em>. Thurneysen Brothers, Basel. <a href="https://www.e-rara.ch/zut/content/titleinfo/1250279" target="_blank" rel="noopener">https://www.e-rara.ch/zut/content/titleinfo/1250279</a></li>
-  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Laplace, P.-S. (1812). <em>Théorie analytique des probabilités</em>. Courcier, Paris. <a href="https://openlibrary.org/works/OL2395821W" target="_blank" rel="noopener">https://openlibrary.org/works/OL2395821W</a></li>
-  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. <em>Philosophical Transactions of the Royal Society of London</em>, 370–418. <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">https://doi.org/10.1098/rstl.1763.0053</a></li>
-  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Diaconis, P. &amp; Ylvisaker, D. (1979). Conjugate Priors for Exponential Families. <em>The Annals of Statistics</em>, 7(2), 269–281. <a href="https://doi.org/10.1214/aos/1176344611" target="_blank" rel="noopener">https://doi.org/10.1214/aos/1176344611</a></li>
-  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Raiffa, H. &amp; Schlaifer, R. (1961). <em>Applied Statistical Decision Theory</em>. Harvard Business School, Boston. <a href="https://openlibrary.org/works/OL2620278W" target="_blank" rel="noopener">https://openlibrary.org/works/OL2620278W</a></li>
-  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span> Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A. &amp; Rubin, D. B. (2013). <em>Bayesian Data Analysis</em>. Chapman and Hall/CRC. <a href="https://doi.org/10.1201/b16018" target="_blank" rel="noopener">https://doi.org/10.1201/b16018</a></li>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span>  Bernoulli, J. (1713). <em>Ars Conjectandi</em>. Thurneysen Brothers, Basel. <a href="https://www.e-rara.ch/zut/content/titleinfo/1250279" target="_blank" rel="noopener">https://www.e-rara.ch/zut/content/titleinfo/1250279</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span>  Laplace, P.-S. (1812). <em>Théorie analytique des probabilités</em>. Courcier, Paris. <a href="https://openlibrary.org/works/OL2395821W" target="_blank" rel="noopener">https://openlibrary.org/works/OL2395821W</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span>  Bayes, T. (1763). An essay towards solving a problem in the doctrine of chances. By the late Rev. Mr. Bayes, F. R. S. communicated by Mr. Price, in a letter to John Canton, A. M. F. R. S. <em>Philosophical Transactions of the Royal Society of London</em>, 370–418. <a href="https://doi.org/10.1098/rstl.1763.0053" target="_blank" rel="noopener">https://doi.org/10.1098/rstl.1763.0053</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span>  Diaconis, P. &amp; Ylvisaker, D. (1979). Conjugate Priors for Exponential Families. <em>The Annals of Statistics</em>, 7(2), 269–281. <a href="https://doi.org/10.1214/aos/1176344611" target="_blank" rel="noopener">https://doi.org/10.1214/aos/1176344611</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span>  Raiffa, H. &amp; Schlaifer, R. (1961). <em>Applied Statistical Decision Theory</em>. Harvard Business School, Boston. <a href="https://openlibrary.org/works/OL2620278W" target="_blank" rel="noopener">https://openlibrary.org/works/OL2620278W</a></li>
+  <li id="cite_note-6"><span class="cite-backlink"><a href="#cite_ref-6" aria-label="Jump up" title="Jump up">^</a></span>  Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B., Vehtari, A. &amp; Rubin, D. B. (2013). <em>Bayesian Data Analysis</em>. Chapman and Hall/CRC. <a href="https://doi.org/10.1201/b16018" target="_blank" rel="noopener">https://doi.org/10.1201/b16018</a></li>
 </ol>
 </div>
 ```
@@ -100,7 +100,7 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Beta–Binomial laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/beta-binomial.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Beta–Binomial laboratory.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/beta-binomial.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -109,8 +109,8 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
   title = {{Beta–Binomial laboratory}},
   year = {2026},
   url = {https://www.statwiki.io/labs/beta-binomial.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>

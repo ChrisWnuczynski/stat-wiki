@@ -11,6 +11,7 @@ sources, and renders clickable numbered superscript in-text citations ``[1]``,
 
 from __future__ import annotations
 
+import base64
 import html
 import json
 import re
@@ -2069,6 +2070,89 @@ _CITE_SUP_KEY_RE = re.compile(
 )
 _EXPLICIT_CITE_RE = re.compile(r"\{\{cite:([a-z0-9_,\s]+)\}\}")
 _AFTER_CITE_PUNCT_RE = re.compile(r"^[.,;:!?]+")
+# A locator sits in parentheses immediately after a citation. It is not part of
+# the sentence. The same prefixes are what the page checks require.
+_LOCATOR_BODY_RE = re.compile(
+    r"^(?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|"
+    r"biography,|Abstract|Introduction|Description|Basic Theory|Convergence(?: in Distribution)?|"
+    r"Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|"
+    r"six principles|principles|principle\s+\d+|entries\b|Price’s letter|Format|Source|References|"
+    r"Examples|Notes|[“\"])"
+)
+
+
+_EMBEDDED_LOCATOR_RE = re.compile("^\ue001([^\ue001]*)\ue001")
+
+
+def _embed_locators(text: str) -> str:
+    """Pull a source locator, even one with a link inside it, onto the cite marker.
+
+    Protected regions are split before citations are numbered, so a locator
+    that contains a markdown link would otherwise be cut in half and left in
+    the sentence. The locator is cleaned and parked in private markers.
+    """
+    cite_re = re.compile(r"\{\{cite:([a-z0-9_,\s]+)\}\}")
+
+    def _one(chunk: str) -> str:
+        out: list[str] = []
+        i = 0
+        while True:
+            match = cite_re.search(chunk, i)
+            if not match:
+                out.append(chunk[i:])
+                break
+            out.append(chunk[i : match.end()])
+            cursor = match.end()
+            locators: list[str] = []
+            while True:
+                locator, nxt = _following_locator(chunk, cursor)
+                if not locator:
+                    break
+                locators.append(locator)
+                cursor = nxt
+            if locators:
+                # Park the text so maths, code, and links inside it are not split off
+                # before the citation is numbered.
+                parked = base64.urlsafe_b64encode("; ".join(locators).encode()).decode()
+                out.append("\ue001" + parked + "\ue001")
+                i = cursor
+            else:
+                i = match.end()
+        return "".join(out)
+
+    out: list[str] = []
+    pos = 0
+    fence = re.compile(r"```.*?```", re.S)
+    for match in fence.finditer(text):
+        out.append(_one(text[pos : match.start()]))
+        out.append(match.group(0))
+        pos = match.end()
+    out.append(_one(text[pos:]))
+    return "".join(out)
+
+
+def _following_locator(seg: str, end: int) -> tuple[str, int]:
+    """A parenthetical source locator, including one markdown link inside it."""
+    i = end
+    while i < len(seg) and seg[i] in " \t":
+        i += 1
+    if i >= len(seg) or seg[i] != "(":
+        return "", end
+    depth = 0
+    j = i
+    while j < len(seg) and seg[j] != "\n":
+        if seg[j] == "(":
+            depth += 1
+        elif seg[j] == ")":
+            depth -= 1
+            if depth == 0:
+                body = re.sub(r"\[([^\]]+)\]\([^)\n]*\)(?:\{[^}\n]*\})?", r"\1", seg[i + 1 : j])
+                body = body.strip()
+                if _LOCATOR_BODY_RE.match(body):
+                    return body, j + 1
+                return "", end
+        j += 1
+    return "", end
 
 _PROTECT_PROSE_RE = re.compile(
     r"^\A---\n.*?\n---\n+"  # YAML frontmatter
@@ -2523,8 +2607,9 @@ class PageCitationLinker:
         self.number_for_key: dict[str, int] = {}
         self.ordered_cited_keys: list[str] = []
         self.ref_ids_by_key: dict[str, list[str]] = {}
+        self.locators_by_key: dict[str, list[str]] = {}
 
-    def cite_sup(self, key: str) -> str:
+    def cite_sup(self, key: str, locator: str = "") -> str:
         if key not in self.works:
             raise KeyError(f"Unknown citation key {key!r} in {{cite:...}} marker")
         if key not in self.number_for_key:
@@ -2536,20 +2621,22 @@ class PageCitationLinker:
         occ = len(self.ref_ids_by_key.get(key, ())) + 1
         ref_id = f"cite_ref-{num}" if occ == 1 else f"cite_ref-{num}-{occ}"
         self.ref_ids_by_key.setdefault(key, []).append(ref_id)
+        self.locators_by_key.setdefault(key, []).append(locator)
         if key not in self.page_keys:
             self.page_keys.append(key)
         tip = html.escape(work_tooltip(self.works[key]), quote=True)
+        loc_attr = f' data-locator="{html.escape(locator, quote=True)}"' if locator else ""
         return (
-            f'<sup id="{ref_id}" class="cite-ref" data-cite-key="{key}">'
+            f'<sup id="{ref_id}" class="cite-ref" data-cite-key="{key}"{loc_attr}>'
             f'<a href="#cite_note-{num}" title="{tip}">[{num}]</a></sup>'
         )
 
-    def cite_sups(self, keys: list[str]) -> str:
+    def cite_sups(self, keys: list[str], locator: str = "") -> str:
         seen: list[str] = []
         for k in keys:
             if k not in seen:
                 seen.append(k)
-        return "".join(self.cite_sup(k) for k in seen)
+        return "".join(self.cite_sup(k, locator if i == len(seen) - 1 else "") for i, k in enumerate(seen))
 
     def _transform_prose_segment(self, seg: str) -> str:
         """Attach superscripts to explicit {{cite:...}} markers and matched inline Author (Year) mentions."""
@@ -2627,10 +2714,16 @@ class PageCitationLinker:
             if mode == "drop":
                 pos = end
                 continue
-            sups = self.cite_sups(keys)
+            embedded = _EMBEDDED_LOCATOR_RE.match(seg[end:])
+            if embedded:
+                locator = base64.urlsafe_b64decode(embedded.group(1).encode()).decode()
+                end += embedded.end()
+            else:
+                locator, end = _following_locator(seg, end)
+            sups = self.cite_sups(keys, locator)
             # The author-year words are not printed beside the number. Punctuation stays
             # before the superscript: "the claim.{{cite:key}}" and "(Author, 1998)." both
-            # render as "the claim.[n]".
+            # render as "the claim.[n]". A following "(p. 12)" is kept on the note.
             punct = _AFTER_CITE_PUNCT_RE.match(seg[end:])
             if mode == "replace" and punct and out and out[-1].endswith(" "):
                 out[-1] = out[-1][:-1]
@@ -2655,8 +2748,16 @@ class PageCitationLinker:
         shielded = re.sub(r"```.*?```", _hold_fence, text, flags=re.S)
         # A previous pass stored the key on the superscript. Restore it, then drop any
         # leftover superscript that has no key, so numbering can be rebuilt.
-        clean = _CITE_SUP_KEY_RE.sub(lambda match: "{{cite:" + match.group(1) + "}}", shielded)
+        def _restore_cite(match: re.Match) -> str:
+            marker = "{{cite:" + match.group(1) + "}}"
+            located = re.search(r'data-locator="([^"]*)"', match.group(0))
+            if located:
+                marker += " (" + html.unescape(located.group(1)) + ")"
+            return marker
+
+        clean = _CITE_SUP_KEY_RE.sub(_restore_cite, shielded)
         clean = _EXISTING_CITE_SUP_RE.sub("", clean)
+        clean = _embed_locators(clean)
         spans = [(m.start(), m.end()) for m in _PROTECT_PROSE_RE.finditer(clean)]
         spans.sort()
         merged: list[list[int]] = []
@@ -2709,7 +2810,18 @@ class PageCitationLinker:
                     for i, rid in enumerate(ref_ids)
                 )
                 backlink_html = f'<span class="cite-backlink">^ {sublinks}</span> '
-            li_lines.append(f'  <li id="cite_note-{idx}">{backlink_html}{format_work_html(self.works[k])}</li>')
+            locators = self.locators_by_key.get(k, [])
+            bits = []
+            several = len(locators) > 1
+            for i, loc in enumerate(locators):
+                if not loc:
+                    continue
+                label = f"{_alpha_label(i)}. " if several else ""
+                bits.append(f'<span class="cite-locator">{label}({html.escape(loc)})</span>')
+            loc_html = (" " + " ".join(bits)) if bits else ""
+            li_lines.append(
+                f'  <li id="cite_note-{idx}">{backlink_html}{loc_html} {format_work_html(self.works[k])}</li>'
+            )
         items = "\n".join(li_lines)
         return (
             "\n\n## References {#references}\n\n"

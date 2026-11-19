@@ -255,7 +255,8 @@ code, pre, kbd, samp, .sourceCode {
   margin: 0;
 }
 
-.hatnote a.qnav {
+.hatnote a.qnav,
+.chapter-guide a.qnav {
   display: inline-block;
   border: 1px solid var(--wiki-border);
   background: var(--wiki-panel);
@@ -272,7 +273,8 @@ code, pre, kbd, samp, .sourceCode {
   vertical-align: bottom;
 }
 
-.hatnote a.qnav:hover {
+.hatnote a.qnav:hover,
+.chapter-guide a.qnav:hover {
   background: var(--wiki-panel-head);
   text-decoration: none;
 }
@@ -1721,6 +1723,11 @@ sup.cite-ref a:focus-visible {
   padding-left: 1.6rem;
   text-indent: -1.6rem;
   margin: 0.42rem 0;
+}
+
+.wiki-refs .cite-locator {
+  color: var(--wiki-muted);
+  font-style: italic;
 }
 
 .wiki-refs ol li {

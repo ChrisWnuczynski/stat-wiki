@@ -71,11 +71,11 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
 ```{=html}
 <div class="wiki-refs">
 <ol>
-  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span> Rosenblatt, M. (1956). Remarks on Some Nonparametric Estimates of a Density Function. <em>The Annals of Mathematical Statistics</em>, 27(3), 832–837. <a href="https://doi.org/10.1214/aoms/1177728190" target="_blank" rel="noopener">https://doi.org/10.1214/aoms/1177728190</a></li>
-  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span> Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. <em>The Annals of Mathematical Statistics</em>, 33(3), 1065–1076. <a href="https://doi.org/10.1214/aoms/1177704472" target="_blank" rel="noopener">https://doi.org/10.1214/aoms/1177704472</a></li>
-  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span> Silverman, B. W. (1986). <em>Density Estimation for Statistics and Data Analysis</em>. Chapman &amp; Hall. <a href="https://doi.org/10.1201/9781315140919" target="_blank" rel="noopener">https://doi.org/10.1201/9781315140919</a></li>
-  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span> Epanechnikov, V. A. (1969). Non-Parametric Estimation of a Multivariate Probability Density. <em>Theory of Probability &amp; Its Applications</em>, 14(1), 153–158. <a href="https://doi.org/10.1137/1114019" target="_blank" rel="noopener">https://doi.org/10.1137/1114019</a></li>
-  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span> Sheather, S. J. &amp; Jones, M. C. (1991). A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em>, 53(3), 683–690. <a href="https://doi.org/10.1111/j.2517-6161.1991.tb01857.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.2517-6161.1991.tb01857.x</a></li>
+  <li id="cite_note-1"><span class="cite-backlink"><a href="#cite_ref-1" aria-label="Jump up" title="Jump up">^</a></span>  Rosenblatt, M. (1956). Remarks on Some Nonparametric Estimates of a Density Function. <em>The Annals of Mathematical Statistics</em>, 27(3), 832–837. <a href="https://doi.org/10.1214/aoms/1177728190" target="_blank" rel="noopener">https://doi.org/10.1214/aoms/1177728190</a></li>
+  <li id="cite_note-2"><span class="cite-backlink"><a href="#cite_ref-2" aria-label="Jump up" title="Jump up">^</a></span>  Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. <em>The Annals of Mathematical Statistics</em>, 33(3), 1065–1076. <a href="https://doi.org/10.1214/aoms/1177704472" target="_blank" rel="noopener">https://doi.org/10.1214/aoms/1177704472</a></li>
+  <li id="cite_note-3"><span class="cite-backlink"><a href="#cite_ref-3" aria-label="Jump up" title="Jump up">^</a></span>  Silverman, B. W. (1986). <em>Density Estimation for Statistics and Data Analysis</em>. Chapman &amp; Hall. <a href="https://doi.org/10.1201/9781315140919" target="_blank" rel="noopener">https://doi.org/10.1201/9781315140919</a></li>
+  <li id="cite_note-4"><span class="cite-backlink"><a href="#cite_ref-4" aria-label="Jump up" title="Jump up">^</a></span>  Epanechnikov, V. A. (1969). Non-Parametric Estimation of a Multivariate Probability Density. <em>Theory of Probability &amp; Its Applications</em>, 14(1), 153–158. <a href="https://doi.org/10.1137/1114019" target="_blank" rel="noopener">https://doi.org/10.1137/1114019</a></li>
+  <li id="cite_note-5"><span class="cite-backlink"><a href="#cite_ref-5" aria-label="Jump up" title="Jump up">^</a></span>  Sheather, S. J. &amp; Jones, M. C. (1991). A Reliable Data-Based Bandwidth Selection Method for Kernel Density Estimation. <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em>, 53(3), 683–690. <a href="https://doi.org/10.1111/j.2517-6161.1991.tb01857.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.2517-6161.1991.tb01857.x</a></li>
 </ol>
 </div>
 ```
@@ -86,7 +86,7 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Kernel density laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/kernel-density.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Kernel density laboratory.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/kernel-density.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -95,8 +95,8 @@ If every draw is equal, `bw.nrd0` has no spread to scale and falls back to a wid
   title = {{Kernel density laboratory}},
   year = {2026},
   url = {https://www.statwiki.io/labs/kernel-density.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>
