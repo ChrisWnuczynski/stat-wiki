@@ -342,9 +342,9 @@ Show that $D(f\Vert\widehat f)\ge 0$, with equality only when $\widehat f=f$, us
 :::
 
 ::: {#ex-sl-06-5 .exercise}
-## A tempting wrong turn
+## Maximising the training likelihood favours the largest mixture
 
-A student selects the number of mixture components by maximising the log-likelihood on the training data, for $H=1,\ldots,10$. Why will this almost always select $H=10$, or the largest value tried, and which two changes to the procedure on this page fix it?
+A student selects the number of mixture components by maximising the log-likelihood on the training data, for $H=1,\ldots,10$. Why will this almost always select $H=10$, or the largest value tried, and which two changes described in the chapter *Model selection for stochastic models* fix it?
 
 [Solution](#sol-sl-06-5)
 
