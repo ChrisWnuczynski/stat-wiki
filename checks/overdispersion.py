@@ -42,8 +42,10 @@ for fragment in (
     "0,0,1,3,6", "26/2=13", "13/4=3.25", "26/4=6.5", "0.316", "0.570",
     "0,1,1,6", "22/2=11", "11/3\\approx3.667", "7/3",
     "G'(1)=\\lambda", "G''(1)=\\lambda^2", "title=\"Proof\"",
-    "## Motivating example", "## Worked example", "**Your turn.**",
-    "## Common misconceptions", "## When the diagnosis misleads {#assumptions-and-limits}",
+    "## Nights with the same mean can still be too variable {#motivating-example}",
+    "## Five nightly counts and a Pearson dispersion {#worked-example}", "**Your turn.**",
+    "## Extra variance is not a surplus of large counts {#common-misconceptions}",
+    "## When the diagnosis misleads {#assumptions-and-limits}",
 ):
     assert fragment in body, f"Missing content or calculation: {fragment}"
 assert body.count('title="Proof"') == 1

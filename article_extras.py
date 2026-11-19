@@ -4440,7 +4440,7 @@ CONCEPT_LEADS.update({
     "bayes-factors-and-posterior-odds": "a way to update odds between hypotheses using the relative evidence in data",
     "behrens-fisher-problem": "the problem of comparing two normal means when the population variances differ and are unknown",
     "benjamini-hochberg": "a multiple-testing procedure that controls the expected proportion of false discoveries",
-    "bids-for-a-bankrupt-firm": "a statistical example based on bids made for a bankrupt firm",
+    "bids-for-a-bankrupt-firm": "the counts of takeover bids received by 126 US firms between 1978 and 1985",
     "binary-responses-in-a-glm": "a way to model two-outcome responses using a generalised linear model",
     "birth-death-balance": "a balance relation between upward and downward flows in a birth–death chain",
     "birthday-problem": "a probability calculation for collisions among randomly sampled birthdays",
