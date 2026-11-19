@@ -53,7 +53,7 @@ assert at_most(3) == 5
 assert at_most(4) == 7
 
 md = (ROOT / "research" / "content" / "wilcoxon-signed-rank-test.md").read_text(encoding="utf-8")
-for token in ("25/256", "9/256", "2/256", "3/16", "246/256", "Your turn", "## Check yourself"):
+for token in ("25/256", "9/256", "2/256", "3/16", r"\frac{246}{256}", "Your turn", "## Check yourself"):
     assert token in md, token
 assert "Details" not in md
 answers = re.findall(r'collapse="true" title="Answer"\}(.*?)(?=\n:{3,})', md, re.S)
