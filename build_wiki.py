@@ -2962,7 +2962,7 @@ TERMS = [
     (r"negative[- ]binomial", "G2", "Two models with a real distribution", None),
     (r"Poisson regressions?|log-linear (?:models?|coefficients?)", "G2", "Reading a log-linear coefficient", None),
     (r"quasi-likelihood|quasi-score", "G3", "def-quasi", None),
-    (r"under-?dispers(?:ion|ed)", "G3", "Bids for a bankrupt firm", None),
+    (r"under-?dispers(?:ion|ed)", "G3", "Takeover bids", None),
     (r"Gamma (?:GLMs?|regressions?)", "G3", "Positive continuous responses", None),
     (r"proportional[- ]odds", "G4", "def-propodds", None),
     (r"baseline[- ]category(?: logits?)?|multinomial logit|multinomial logistic(?: regression)?", "G4", "def-multinom", None),
@@ -3783,11 +3783,14 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     ]
     for dist_slug in DISTRIBUTIONS:
         body = (ARTICLE_DIR / f"{dist_slug}.qmd").read_text(encoding="utf-8")
-        properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+        properties = re.split(r"(?m)^## [^\n]*\{#properties\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
         research_path = WIKI / "research" / "content" / f"{dist_slug}.md"
         researched_properties = ""
         if research_path.is_file():
-            match = re.search(r"(?ms)^## Properties\n(.*?)(?=^## |\Z)", research_path.read_text(encoding="utf-8"))
+            match = re.search(
+                r"(?ms)^## Properties(?: — [^\n]*)?\n(.*?)(?=^## |\Z)",
+                research_path.read_text(encoding="utf-8"),
+            )
             researched_properties = match.group(1) if match else ""
         # A single researched Proof box may establish several linked results.
         # Page reports review its coverage; unresolved exceptions belong in overrides.

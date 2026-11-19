@@ -210,7 +210,7 @@ A repair from 2017 puts the mean in the parameter and solves backwards for the r
 $$
 f(y;\mu,\nu)\propto \frac{\lambda(\mu,\nu)^y}{(y!)^\nu}.
 $$
-Now $\mu$ is exactly the mean, the same parameter as in the Poisson and the negative binomial, and the variance still has no closed form. That is acceptable if the mean is what you came to estimate. The variance is needed for standard errors, and those can be computed after the fit. The bankruptcy-bids example, which is strongly underdispersed once the covariates are in the model, is the next chapter. The point to keep from this chapter is why the mean parameterisation exists: without it, a better AIC on the $\lambda$ scale is not a comparison with a model for the mean.
+Now $\mu$ is exactly the mean, the same parameter as in the Poisson and the negative binomial, and the variance still has no closed form. That is acceptable if the mean is what you came to estimate. The variance is needed for standard errors, and those can be computed after the fit. The takeover-bids example, which is strongly underdispersed once the covariates are in the model, is the next chapter. The point to keep from this chapter is why the mean parameterisation exists: without it, a better AIC on the $\lambda$ scale is not a comparison with a model for the mean.
 
 ## Exercises
 
