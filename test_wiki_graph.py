@@ -33,7 +33,12 @@ def _canonical_article_headings(page: Path, body: str) -> list[str]:
         aliases = {display.strip(): key for key, display in re.findall(
             r"^## ([^\n—]+) — ([^\n]+)$", research_path.read_text(encoding="utf-8"), re.M
         )}
-    headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+    headings = []
+    for raw in re.findall(r"(?m)^## ([^\n]+)", body):
+        # The anchor is the trailing {#id}. A brace inside the title, as in
+        # log{p/(1 − p)}, is part of the heading.
+        heading = re.sub(r"\s*\{#[^{}]*\}\s*$", "", raw).strip()
+        headings.append(heading)
     return [aliases.get(heading, heading) for heading in headings]
 
 

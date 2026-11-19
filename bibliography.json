@@ -5048,27 +5048,12 @@
       "year": 1989,
       "title": "Generalized Linear Models",
       "kind": "book",
+      "edition": "2nd ed.",
       "publisher": "Springer",
       "doi": "10.1007/978-1-4899-3242-6",
       "verification": {
         "source": "crossref",
         "id": "10.1007/978-1-4899-3242-6"
-      }
-    },
-    "mccullagh_nelder1989_ch": {
-      "authors": [
-        "McCullagh, P.",
-        "Nelder, J. A."
-      ],
-      "year": 1989,
-      "title": "Generalized Linear Models",
-      "kind": "book",
-      "edition": "2nd ed.",
-      "publisher": "Chapman & Hall",
-      "doi": "10.1201/9780203753736",
-      "verification": {
-        "source": "crossref",
-        "id": "10.1201/9780203753736"
       }
     },
     "mcculloch_pitts1943": {
