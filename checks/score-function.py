@@ -31,7 +31,7 @@ assert round(math.log(1 / 3), 4) == -1.0986
 for printed in ("0.5", "-0.75", "0.6667", "0.6931", "0.0177", "-1.0986"):
     assert printed in body, printed
 assert body.count('title="Proof"') == 1
-assert "## Motivating example" in body and "## Worked example" in body
+assert "{#motivating-example}" in body and "{#worked-example}" in body
 assert "**Your turn.**" in body and 'title="Answer"' in body
 assert pending["self_checks"] == ["q-33", "q-56"]
 for q in pending["self_checks"]:

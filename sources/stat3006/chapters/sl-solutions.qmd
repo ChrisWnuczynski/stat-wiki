@@ -905,7 +905,7 @@ $$
 
 The first term does not depend on the fitted model, so maximising $\E[\ln\widehat f(X)]$ over models is the same as minimising $D$. The comparison selects the fitted density closest to $f$ in Kullback–Leibler divergence.
 
-[]{#sol-sl-06-5} **[A tempting wrong turn](#ex-sl-06-5).**
+[]{#sol-sl-06-5} **[Maximising the training likelihood favours the largest mixture](#ex-sl-06-5).**
 
 If the candidate parameter spaces are nested, the supremum of the training log-likelihood cannot decrease as $H$ increases. It need not strictly increase at every step. For unrestricted Gaussian mixtures with at least two components, the supremum is already infinite by the covariance-collapse construction: a component can be pinned on one observation while another component keeps the remaining likelihood factors positive. A numerical finite local fit does not remove that pathology. Meaningful comparisons require a stated fitting or constraint convention.
 
@@ -987,7 +987,7 @@ $$
 
 Put $\mathbf{u}=H^{-1/2}(\mathbf{x}-\mathbf{x}_i)$. Then $d\mathbf{x}=|H|^{1/2}\,d\mathbf{u}$, because the Jacobian determinant of $\mathbf{x}=H^{1/2}\mathbf{u}+\mathbf{x}_i$ is $|H|^{1/2}$. The integral becomes $\int K(\mathbf{u})\,d\mathbf{u}=1$. Each of the $n$ terms integrates to $1$, and the factor $1/n$ gives total mass $1$.
 
-[]{#sol-sl-07-5} **[A tempting wrong turn](#ex-sl-07-5).**
+[]{#sol-sl-07-5} **[The training likelihood drives the kernel bandwidth to zero](#ex-sl-07-5).**
 
 At a training observation, the density includes a kernel centred exactly on that observation. For a univariate kernel scaled as $K_h(u)=h^{-1}K(u/h)$, that self-contribution is $(1/n)K(0)/h$, which diverges as $h\to 0$. The training criterion increases without bound as $h\to 0$ and selects a spiky estimate that reproduces the sample, the same singularity as a mixture component collapsing on a data point.
 
@@ -1276,7 +1276,7 @@ The jackknife reproduces the usual standard error of the mean.
 
 Leave-one-out cross-validation trains $n=1000$ classifiers. Ten-fold cross-validation trains $10$. For nested cross-validation with $m=10$, each outer iteration runs $9\times 5=45$ inner fits to compare the candidates and one refit of the chosen model on the training and validation data, $46$ in all, so $10\times 46=460$. The final classifier needs its own selection, taken here as $10$-fold cross-validation over $5$ candidates, hence $50$ fits, plus one fit on all the data: $51$. The total is $460+51=511$. The full procedure requires about fifty times as many fits as one ten-fold calculation. That cost is specific to these loop sizes. The assessment benefit comes from keeping selection inside each outer training set.
 
-[]{#sol-sl-09-6} **[A tempting wrong turn](#ex-sl-09-6).**
+[]{#sol-sl-09-6} **[The winning cross-validation score is optimistic](#ex-sl-09-6).**
 
 Selection favours candidates with favourable estimation noise. The minimum inner cross-validation score is not an independent estimate of the chosen procedure's prediction error, so the reported $8.0\%$ can be optimistic. Its bias relative to a particular full-sample target also involves training-size effects, so there is no guaranteed numerical ordering on every split. Outer cross-validation repeats selection using only each outer training set, then evaluates the selected fit on the omitted fold. It estimates performance at that outer training size.
 
@@ -1458,7 +1458,7 @@ $$
 
 which is $1.8$ times the Bayes error and below the factor-two bound. The multiplier $1+\sqrt{2/k}$ is $2.41$ for $k=1$, $1.53$ for $k=7$, and $1.20$ for $k=50$. For $k=1$ the sharper Cover–Hart bound $2R^*(1-R^*)$ is tighter than $1+\sqrt{2}$. This is a large-sample comparison for the stated nearest-neighbour setting. Bayes consistency of a sequence $k_n$ requires conditions such as $k_n\to\infty$ and $k_n/n\to 0$. Increasing $k$ to the full sample size is not that regime.
 
-[]{#sol-sl-11-5} **[A tempting wrong turn](#ex-sl-11-5).**
+[]{#sol-sl-11-5} **[A training point cannot be its own neighbour when choosing $k$](#ex-sl-11-5).**
 
 If each training point may be its own neighbour, then for $k=1$ each point with a unique predictor vector is classified correctly, at distance $0$ from itself, so the training error is $0$. Then $k=1$ is always chosen. The apparent error is minimised by the most flexible classifier and says nothing about performance on new data. Use leave-one-out or $K$-fold cross-validation, with the $i$th point excluded from its own neighbour list, or a separate validation set, to choose $k$. For a final error estimate use a test set or nested cross-validation.
 
@@ -1558,7 +1558,7 @@ For a monotone increasing map $x_j\mapsto ax_j+b$ with $a>0$, the set of observa
 
 Tree $1$ has leaf-impurity sum $0.30+0.20=0.50$, plus $2\alpha$. Tree $2$ has leaf-impurity sum $0.05+0.05+0.10+0+0.10=0.30$, plus $5\alpha$. At $\alpha=0.15$, tree $1$ scores $0.80$ and tree $2$ scores $1.05$, so tree $1$ is preferred. At $\alpha=0.05$, tree $1$ scores $0.60$ and tree $2$ scores $0.55$, so tree $2$ is preferred. A larger penalty favours the smaller tree. The break-even solves $0.50+2\alpha=0.30+5\alpha$, so $\alpha=0.20/3=0.0667$.
 
-[]{#sol-sl-12-6} **[A tempting wrong turn](#ex-sl-12-6).**
+[]{#sol-sl-12-6} **[Zero apparent error does not make a tree a perfect classifier](#ex-sl-12-6).**
 
 An unrestricted tree can isolate distinct training inputs, so perfect training accuracy is possible. Conflicting labels at identical inputs prevent perfect purity. Practical limits on depth, on leaf size, and on splits can prevent it too. None of these training outcomes measures accuracy on new data. Select the tree's complexity within the training and validation data, then report held-out or outer cross-validation performance. A binomial interval is appropriate for independent test outcomes conditional on a fixed fitted rule. It is not automatically valid for pooled cross-validation errors. Out-of-bag assessment requires a bootstrap construction such as a forest.
 
@@ -1661,7 +1661,7 @@ $$
 
 Then $e^{-2f^*}=e^{-1.386}=0.25$ and $\tau=1/(1+0.25)=0.8$. For $\tau_1=0.5$ the log odds are $0$, so $f^*=0$, the decision boundary of the classifier, where the sign changes.
 
-[]{#sol-sl-13-6} **[A tempting wrong turn](#ex-sl-13-6).**
+[]{#sol-sl-13-6} **[Averaging identical classifiers does not reduce variance](#ex-sl-13-6).**
 
 Identical members have $f_t=f$ for every $t$, so the diversity term is exactly $0$ and the ensemble's squared error equals the average member loss. There is no gain. In the variance formula, $\rho=1$ gives $\Var(\bar f)=\sigma^2$. A random forest breaks the correlation by training each tree on a different bootstrap sample and by restricting each split to a random subset of variables. AdaBoost makes each learner different by reweighting the observations, so that every new learner is trained on a problem on which the previous learner has weighted error exactly $1/2$.
 
@@ -2052,7 +2052,7 @@ With $C=2$:
 - $\alpha=1.3$, strictly between $0$ and $C$: the point lies exactly on the margin, $yf=1$, with slack $\xi=0$. It is a free support vector and can be used to compute $b=y_k-\sum_i\alpha_i y_i x_i^\top x_k$.
 - $\alpha=2=C$: a bound support vector, inside the margin or misclassified, $yf\le 1$, with slack $\xi=1-yf\ge 0$, and $\xi>1$ if it is misclassified. Its slack is not known in advance, so it cannot be used for $b$ without computing $\xi$.
 
-[]{#sol-sl-17-7} **[A tempting wrong turn](#ex-sl-17-7).**
+[]{#sol-sl-17-7} **[A narrow Gaussian kernel can interpolate the training set](#ex-sl-17-7).**
 
 With distinct inputs and $\gamma=1/(2\sigma^2)$ very large, off-diagonal Gaussian-kernel entries approach zero. The mapped observations become nearly orthogonal, making interpolation possible at a sufficiently large cost parameter. Finite $C$ penalises slack. It does not forbid it. Away from the training inputs, the narrow kernel contributions fade and the prediction approaches the sign of the intercept. This explains why perfect training accuracy can coexist with poor generalisation. It does not prove that it must do so on every distribution. Tune $(C,\gamma)$ inside the training data and assess the selected procedure independently.
 
@@ -2136,7 +2136,7 @@ $$
 
 Only the first variable is selected. Its coefficient is shrunk from $2.4$ to $1.4$.
 
-[]{#sol-sl-18-6} **[A tempting wrong turn](#ex-sl-18-6).**
+[]{#sol-sl-18-6} **[Gene screening must sit inside the cross-validation](#ex-sl-18-6).**
 
 The $20$ genes were chosen by looking at the labels of all $62$ samples. The cross-validation is then done only on the modelling step, with the selection already informed by the held-out samples in each fold. The selected genes are, by construction, the ones that happen to separate these samples. With $20{,}000$ candidates, some genes will separate the classes well by chance alone. The held-out observations were therefore not independent of the model, and the $4\%$ error is optimistic. It may be near $0$ even for pure noise.
 
@@ -2253,7 +2253,7 @@ The conditional covariance is $0$, hence conditional independence for a normal v
 
 Each of the $\binom{p}{2}$ possible edges is present or absent: there are $2^{\binom{p}{2}}$ undirected graphs. For $p=5$, $2^{10}=1024$. For $p=20$, $2^{190}\approx 1.6\times 10^{57}$. Even allowing for relabelling of the vertices, exhaustive search is impractical. A criterion can still compare a manageable candidate set. With a singular sample covariance the unrestricted positive-definite Gaussian maximum-likelihood estimate fails to exist, although the likelihood at a candidate positive-definite matrix remains defined. An $L^1$ penalty turns the discrete search into a convex optimisation with a path of solutions indexed by one parameter $\lambda$.
 
-[]{#sol-sl-19-6} **[A tempting wrong turn](#ex-sl-19-6).**
+[]{#sol-sl-19-6} **[Thresholding correlations is not a concentration graph](#ex-sl-19-6).**
 
 In the Gaussian chain $1-2-3$, the endpoints can have nonzero marginal covariance while being independent conditional on the middle variable. Thresholding marginal correlations estimates a different object from a concentration graph. It is not an indirect way to estimate the same missing-edge restrictions. Under the nonsingular Gaussian model, use the negative normalised precision entries for partial correlations. In high dimension, the graphical lasso or neighbourhood selection supplies an estimated sparse structure, whose tuning and sampling uncertainty still need assessment. The undirected graph itself identifies no causal direction.
 

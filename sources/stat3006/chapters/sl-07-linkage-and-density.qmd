@@ -220,7 +220,7 @@ Show that $\widehat f(\mathbf{x};H)$ integrates to $1$ whenever $K$ does, using 
 :::
 
 ::: {#ex-sl-07-5 .exercise}
-## A tempting wrong turn
+## The training likelihood drives the kernel bandwidth to zero
 
 A student selects $h$ by maximising $\sum_i\log\widehat f(x_i;h)$ over $h$, where $\widehat f$ is computed from all the data, including $x_i$. What happens, and how would you modify the criterion?
 

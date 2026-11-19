@@ -25,6 +25,18 @@ function protectedRanges(text: string): Range[] {
       i = close + 3
       continue
     }
+    // Inline code can contain an R extractor such as `summary(gamma_fit)$dispersion`.
+    // That dollar is not maths. Pairing it with a later dollar would hide the
+    // paragraph break between them.
+    if (text[i] === "`") {
+      const lineEnd = text.indexOf("\n", i + 1)
+      const limit = lineEnd < 0 ? text.length : lineEnd
+      const close = text.indexOf("`", i + 1)
+      if (close > i && close < limit) {
+        i = close + 1
+        continue
+      }
+    }
     if (text.startsWith("$$", i) && !isEscaped(text, i)) {
       const close = text.indexOf("$$", i + 2)
       if (close < 0) {

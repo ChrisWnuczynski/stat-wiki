@@ -421,7 +421,11 @@ class CitationTests(unittest.TestCase):
                     r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>\s*\([^)]*(?:Abstract|publisher (?:contents|summary|record))',
                     f"Abstract or publisher listing passed through to {path.name}",
                 )
-            self.assertIn("## Motivating example\n", research, f"Missing Motivating example in {path.name}")
+            self.assertRegex(
+                research,
+                r"(?m)^## Motivating example(?: — [^\n]+)?\n",
+                f"Missing Motivating example in {path.name}",
+            )
             worked_heading = re.search(r"(?m)^(#{2,3}) Worked example(?: — [^\n]+)?\n", research)
             self.assertIsNotNone(worked_heading, f"Missing Worked example in {path.name}")
             worked_tail = research[worked_heading.end():]

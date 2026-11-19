@@ -33,7 +33,12 @@ def _canonical_article_headings(page: Path, body: str) -> list[str]:
         aliases = {display.strip(): key for key, display in re.findall(
             r"^## ([^\n—]+) — ([^\n]+)$", research_path.read_text(encoding="utf-8"), re.M
         )}
-    headings = [h.strip() for h in re.findall(r"^## ([^\n{]+)", body, flags=re.M)]
+    headings = []
+    for raw in re.findall(r"(?m)^## ([^\n]+)", body):
+        # The anchor is the trailing {#id}. A brace inside the title, as in
+        # log{p/(1 − p)}, is part of the heading.
+        heading = re.sub(r"\s*\{#[^{}]*\}\s*$", "", raw).strip()
+        headings.append(heading)
     return [aliases.get(heading, heading) for heading in headings]
 
 
@@ -1046,6 +1051,59 @@ class WikiGraphTests(unittest.TestCase):
                     if "#" in target_rel:
                         frag = target_rel.split("#", 1)[1]
                         self.assertIn(frag, target_path.read_text(encoding="utf-8"))
+
+    def test_search_aliases_are_part_of_the_page_text(self) -> None:
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)
+        root = Path(tmp.name)
+        kwargs = _world(root)
+        note = kwargs["notes"][CHAPTER]
+        note["prose"] = "Chapter opening.\n\n## Later {#later}\n\nThis section stays out of the chapter.\n"
+        article = kwargs["articles"]["glm"]
+        article["card"] = None
+        empty_path = root / "articles" / "empty.qmd"
+        empty_path.write_text("# Empty\n", encoding="utf-8")
+        kwargs["articles"]["empty"] = {
+            "slug": "empty",
+            "path": empty_path,
+            "term": "Empty page",
+            "box": None,
+        }
+        article_url = wiki_graph.root_url(article["path"], root)
+        empty_url = wiki_graph.root_url(empty_path, root)
+        chapter_url = wiki_graph.root_url(note["path"], root)
+        kwargs["known_names"] = {
+            article_url.lstrip("/"): ["linear model", "GLM", "generalised linear model", "linear model", "glm"],
+            empty_url: ["z-score", "z score", "z-score"],
+            chapter_url: ["opening name"],
+        }
+        document = wiki_graph.build_document(**kwargs)
+        by_id = {item["id"]: item for item in document["entries"]}
+
+        glm = by_id["article:glm"]
+        self.assertNotIn("copy_of", glm)
+        self.assertEqual(glm["text"], "A glm.\n\nAlso known as: generalised linear model, linear model.")
+        self.assertEqual(glm["fingerprint"], wiki_graph.fingerprint(glm["text"]))
+
+        definition = by_id["definition:def-glm"]
+        self.assertEqual(definition["text"], "A glm.")
+        self.assertNotIn("copy_of", definition)
+
+        empty = by_id["article:empty"]
+        self.assertEqual(empty["text"], "Also known as: z score, z-score.")
+        self.assertNotIn("copy_of", empty)
+
+        chapter = by_id[f"chapter:{Path(CHAPTER).stem}"]
+        self.assertEqual(chapter["text"], "Chapter opening.\n\nAlso known as: opening name.")
+
+        plain_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(plain_dir.cleanup)
+        plain_kwargs = _world(Path(plain_dir.name))
+        plain_kwargs["articles"]["glm"]["card"] = None
+        plain = wiki_graph.build_document(**plain_kwargs)
+        copied = next(item for item in plain["entries"] if item["id"] == "article:glm")
+        self.assertEqual(copied.get("copy_of"), "definition:def-glm")
+        self.assertNotIn("text", copied)
 
 
 class DistributionCatalogueTests(unittest.TestCase):

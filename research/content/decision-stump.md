@@ -55,7 +55,7 @@ Only the fifth observation is wrong. Its initial weight is $0.2$, giving $\alpha
 :::
 
 ### Identical classifiers {#self-check-ex-sl-13-6}
-[A tempting wrong turn](../questions/ex-sl-13-6.qmd): explain why replicating one deterministic rule does not improve its prediction.
+[Averaging identical classifiers does not reduce variance](../questions/ex-sl-13-6.qmd): explain why replicating one deterministic rule does not improve its prediction.
 
 ::: {.callout-tip collapse="true" title="Answer"}
 All member predictions coincide, so their average is the same prediction. Their diversity is zero and their pairwise correlation is one whenever the variance is positive. Random forests vary samples and candidate predictors; AdaBoost changes weights across rounds. Each approach changes the fitted members rather than merely repeating one rule.
