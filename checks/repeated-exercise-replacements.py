@@ -63,8 +63,7 @@ if __name__ == "__main__":
 
     assert (14 - 10) / sqrt(4) == 2
     need("normal-distribution", "(14-10)/2=2", "P(X\\le 14)=\\Phi(2)")
-    # The undelimited normal probability on the lead stays for the other pass.
-    assert "(P(X<496)=\\Phi(-1)\\approx0.1587)" in prose("normal-distribution")
+    assert "$P(X<496)=\\Phi(-1)\\approx0.1587$" in prose("normal-distribution")
 
     assert 3 / sqrt(9) == 1
     assert (5 - 4) / 1 == 1
