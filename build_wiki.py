@@ -3429,11 +3429,20 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             noun = "question" if len(own) == 1 else "questions"
             hat.append(f"[{len(own)} {noun} on this topic](#questions-on-this-topic)")
         hat.append("[What links here](#what-links-here)")
+        # The opening paragraph comes before the infobox in the source, so a
+        # screen reader and the keyboard meet the sentence before the summary.
+        opening, separator, remainder = prose.partition("\n\n")
         blocks = [
             (True, "guide", chapter_guide_md(note["path"].name, note["path"], notes)),
             (False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"),
-            (True, "prose", prose),
+            (True, "prose", opening + ("\n\n" if separator else "")),
         ]
+        own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
+        own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
+        siblings = [n for p, n in chapters if p == part]
+        blocks.append((False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
+        if remainder:
+            blocks.append((True, "prose", remainder))
         if own:
             blocks.append(
                 (
@@ -3445,10 +3454,6 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                     + question_table(own, note["path"]),
                 )
             )
-        own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
-        own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
-        siblings = [n for p, n in chapters if p == part]
-        blocks.insert(2, (False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
         article_line = (
             "- Articles from this chapter: "
             + " · ".join(f"[{a['term']}]({href(note['path'], a['path'])})" for a in own_articles)
@@ -4317,8 +4322,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
                 pieces.append(body.strip())
         return "\n\n".join(pieces)
 
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
-           (False, "infobox", "".join(by_label.get("infobox", [])))]
+    out = [(False, "hatnote", "".join(by_label.get("hatnote", [])))]
     research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
     researched: dict[str, str] = {}
     display_titles: dict[str, str] = {}
@@ -4334,6 +4338,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     if researched.get("Lead context"):
         lead += " " + researched["Lead context"]
     out.append((True, "lead", lead + "\n\n"))
+    out.append((False, "infobox", "".join(by_label.get("infobox", []))))
     probability = facts["pmf"] or facts["pdf"]
     if facts.get("definition_from_source"):
         definition = source_math_definition(article, blocks)
@@ -4503,9 +4508,9 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         researched, display_titles = read_research_content(research_file, allowed)
     depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
-           (False, "infobox", "".join(by_label.get("infobox", []))),
            (True, "lead", article_lead(article) + (" " + depth["context"] if depth else "")
-            + (" " + researched["Lead context"] if researched.get("Lead context") else "") + "\n\n")]
+            + (" " + researched["Lead context"] if researched.get("Lead context") else "") + "\n\n"),
+           (False, "infobox", "".join(by_label.get("infobox", [])))]
 
     statement = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
     intuition = content("explanation", "figures-head", "figure")
@@ -4623,8 +4628,8 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
         return "\n\n".join(pieces)
 
     out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
-           (False, "infobox", "".join(by_label.get("infobox", []))),
-           (True, "lead", article_lead(article) + source_lead_citations(blocks) + "\n\n")]
+           (True, "lead", article_lead(article) + source_lead_citations(blocks) + "\n\n"),
+           (False, "infobox", "".join(by_label.get("infobox", [])))]
     definition = "\n\n".join(filter(None, [source_math_definition(article, blocks), source_plain_definition(article, blocks),
                                            content("statement-head", "statement", "excerpt-head", "excerpt")]))
     interpretation = content("explanation", "figures-head", "figure")
@@ -4642,7 +4647,7 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                    "Statistical use", "Worked example", "Common misconceptions", "Assumptions and limits",
                    "Connections", "Check yourself", "History"}
         researched, display_titles = read_research_content(research_file, allowed)
-        out[2] = (True, "lead", article_lead(article) + source_lead_citations(blocks)
+        out[1] = (True, "lead", article_lead(article) + source_lead_citations(blocks)
                   + " " + researched.get("Lead context", "") + "\n\n")
         ordered = (
             ("Motivating example", "motivating-example", researched.get("Motivating example", "")),

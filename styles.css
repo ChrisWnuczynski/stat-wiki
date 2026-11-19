@@ -2003,10 +2003,25 @@ body.quarto-dark :focus-visible {
   transform: translateY(-200%);
 }
 
-.skip-link:focus {
+.skip-link:focus,
+.skip-link:focus-visible {
   transform: none;
-  outline: 3px solid #ffe14a !important;
+  /* The ring sits on the page around the button. Yellow on white is about
+     1.3:1. Near-black on white, and the same yellow on the dark bar, clear 3:1. */
+  outline: 3px solid #1a1a1a !important;
   outline-offset: 2px !important;
+}
+
+body.quarto-dark .skip-link:focus,
+body.quarto-dark .skip-link:focus-visible {
+  outline-color: #ffe14a !important;
+}
+
+/* The skip link moves focus onto the article. That focus is programmatic,
+   so it does not keep the keyboard outline. */
+#quarto-document-content:focus,
+#quarto-document-content:focus-visible {
+  outline: none !important;
 }
 
 #quarto-document-content {
@@ -2025,30 +2040,12 @@ body.quarto-dark .infobox figcaption {
   color: #d5d8dc !important;
 }
 
-/* Phones. The infobox is the first block in the source so it can float
-   beside the opening on a wide screen. In a column, pull the first
-   paragraph above that box so the article starts with a sentence. */
-@media (max-width: 767px) {
-  #quarto-document-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  #quarto-document-content > * {
-    min-width: 0;
-    max-width: 100%;
-  }
-
-  #quarto-document-content > #title-block-header {
-    order: -3;
-  }
-
-  #quarto-document-content > .chapter-guide,
-  #quarto-document-content > .hatnote {
-    order: -2;
-  }
-
-  #quarto-document-content > .infobox + p {
-    order: -1;
+/* The collapsed navbar clips an outline that hangs outside a full-width
+   item. Pull the ring inside the item so both side edges stay visible. */
+@media (max-width: 1199.98px) {
+  #navbarCollapse .nav-link:focus-visible,
+  #navbarCollapse .dropdown-item:focus-visible,
+  #navbarCollapse .nav-link:focus {
+    outline-offset: -3px !important;
   }
 }
