@@ -28,7 +28,7 @@ citations = list(re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', articl
 assert len(citations) >= 5
 assert len(set(re.findall(r'data-cite-key="([^"]+)"', article))) >= 2
 for mark in citations:
-    assert re.search(r'data-locator="(?:&quot;|ch\.|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|Introduction|Description|Format|Source|References|Examples|Notes|Basic Theory)', mark.group(0), re.I), mark.group(0)[:220]
+    assert re.search(r'data-locator="[^"]+"', mark.group(0)), mark.group(0)[:220]
 practice = article.split("## Check yourself", 1)[1].split("\n## ", 1)[0]
 ids = re.findall(r"(?m)^### .*\{#self-check-([^}]+)\}", practice)
 assert 2 <= len(ids) <= 3 and len(set(ids)) == len(ids)

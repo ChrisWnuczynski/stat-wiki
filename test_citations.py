@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import html
 import json
 import re
 import subprocess
@@ -20,6 +21,17 @@ import verify_citations
 import wiki_graph
 
 ROOT = Path(__file__).resolve().parent
+
+
+def _note_contains_locator(refs: str, locator: str) -> bool:
+    """The note shows the locator, with ``$...$`` replaced by its maths."""
+    plain = re.sub(
+        r"\$\$([^$]+)\$\$|\$([^$]+)\$",
+        lambda match: (match.group(1) or match.group(2)).strip(),
+        locator,
+    )
+    visible = html.unescape(re.sub(r"<[^>]+>", "", refs))
+    return plain in visible
 
 BANNED_VISIBLE = re.compile(
     r"\bSTAT\s*\d"
@@ -472,19 +484,25 @@ class CitationTests(unittest.TestCase):
             if int(rank) <= 217:
                 refs = path.read_text(encoding="utf-8").split("## References", 1)[-1]
                 for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body):
-                    self.assertRegex(
-                        match.group(0),
-                        r'data-locator="(?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|biography,|Abstract|Introduction|Description|Basic Theory|Convergence(?: in Distribution)?|Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|six principles|principles|principle\s+\d+|entries\b|Price’s letter|&quot;|[“\"])',
+                    locator = re.search(r'data-locator="([^"]*)"', match.group(0))
+                    self.assertIsNotNone(
+                        locator,
                         f"Unlocated citation in {path.name} near line {body.count(chr(10), 0, match.start()) + 1}",
                     )
-                    self.assertNotRegex(
-                        body[match.end():match.end() + 40],
-                        r"^\s*\((?:p\.|pp\.|Glossary|Ch\.|§)",
-                        f"Locator still in the prose of {path.name}",
+                    self.assertTrue(
+                        _note_contains_locator(refs, html.unescape(locator.group(1))),
+                        f"Locator missing from the notes in {path.name}",
                     )
-                    locator = re.search(r'data-locator="([^"]*)"', match.group(0))
-                    self.assertIsNotNone(locator, path.name)
-                    self.assertIn(f"({locator.group(1)})", refs, f"Locator missing from the notes in {path.name}")
+
+    def test_no_generated_article_leaves_a_locator_after_the_citation(self) -> None:
+        articles = ROOT / "articles"
+        if not articles.is_dir():
+            self.skipTest("Generated wiki directories are not built yet")
+        bad = []
+        for path in sorted(articles.glob("*.qmd")):
+            if re.search(r"</sup>[ \t]*\(", path.read_text(encoding="utf-8")):
+                bad.append(path.name)
+        self.assertEqual(bad, [])
 
     def test_no_citation_inside_hidden_answer(self) -> None:
         answer = re.compile(
@@ -672,6 +690,41 @@ class InlineCitationTests(unittest.TestCase):
         self.assertIn('class="cite-locator"', section)
         again = citations.PageCitationLinker(("fisher1922", "nist_glossary2002"), self.works)
         self.assertEqual(again.process_text(out), out)
+
+    def test_any_parenthetical_after_a_cite_is_a_locator(self) -> None:
+        samples = [
+            "(Fig. 1, p. 2)",
+            "(Fig. 1, p. 2; exponential loss, p. 7)",
+            "(eqs. 3–5)",
+            "(Definition 2)",
+            "(Example 4)",
+            '(section "The vote")',
+            "(12 March 2013)",
+            "(NOT-OD-15-102)",
+            "(single-page commentary)",
+        ]
+        text = " ".join(f"Claim.{{{{cite:schapire2013_explaining_adaboost}}}} {sample}" for sample in samples)
+        linker = citations.PageCitationLinker(("schapire2013_explaining_adaboost",), self.works)
+        out = linker.process_text(text)
+        self.assertIsNone(re.search(r"</sup>\s*\(", out))
+        for sample in samples:
+            self.assertIn(html.escape(sample[1:-1], quote=True), out)
+        source = (ROOT / "research" / "content" / "adaboost.md").read_text(encoding="utf-8")
+        rendered = citations.PageCitationLinker(("schapire2013_explaining_adaboost",), self.works).process_text(source)
+        self.assertIsNone(re.search(r"</sup>\s*\(", rendered))
+        self.assertIn("Fig. 1, p. 2", rendered)
+
+    def test_locator_maths_are_typeset_and_a_bare_note_has_one_space(self) -> None:
+        located = citations.PageCitationLinker(("lehmann_casella1998",), self.works)
+        located.process_text("The bias is of order {{cite:lehmann_casella1998}} ($n$).")
+        section = located.render_references_section()
+        self.assertIn('<span class="math inline">n</span>', section)
+        self.assertNotIn("$n$", section)
+        bare = citations.PageCitationLinker(("lehmann_casella1998",), self.works)
+        bare.process_text("The claim.{{cite:lehmann_casella1998}}")
+        note = bare.render_references_section()
+        self.assertNotIn("</span>  ", note)
+        self.assertRegex(note, r'</span> Lehmann')
 
     def test_explicit_marker_follows_punctuation_and_unknown_key_fails(self) -> None:
         linker = citations.PageCitationLinker(("student1908",), self.works)

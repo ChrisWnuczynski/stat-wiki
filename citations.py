@@ -2070,15 +2070,7 @@ _CITE_SUP_KEY_RE = re.compile(
 )
 _EXPLICIT_CITE_RE = re.compile(r"\{\{cite:([a-z0-9_,\s]+)\}\}")
 _AFTER_CITE_PUNCT_RE = re.compile(r"^[.,;:!?]+")
-# A locator sits in parentheses immediately after a citation. It is not part of
-# the sentence. The same prefixes are what the page checks require.
-_LOCATOR_BODY_RE = re.compile(
-    r"^(?:(?i:ch\.)|Chs\.|§|Thm\.|Lem\.|Lems\.|p\.|pp\.|Glossary|Ex\.|Summary|Def\.|Sec\.|Props\.|"
-    r"biography,|Abstract|Introduction|Description|Basic Theory|Convergence(?: in Distribution)?|"
-    r"Vector Spaces|The likelihood ratio statistic|Assumptions|Asymptotic distribution|Sampling|"
-    r"six principles|principles|principle\s+\d+|entries\b|Price’s letter|Format|Source|References|"
-    r"Examples|Notes|[“\"])"
-)
+_LOCATOR_MATH_RE = re.compile(r"\$\$([^$]+?)\$\$|\$([^$]+?)\$", re.S)
 
 
 _EMBEDDED_LOCATOR_RE = re.compile("^\ue001([^\ue001]*)\ue001")
@@ -2131,6 +2123,20 @@ def _embed_locators(text: str) -> str:
     return "".join(out)
 
 
+def _locator_html(locator: str) -> str:
+    """Escape a locator, and leave its ``$...$`` maths for KaTeX to typeset."""
+    parts: list[str] = []
+    pos = 0
+    for match in _LOCATOR_MATH_RE.finditer(locator):
+        parts.append(html.escape(locator[pos : match.start()]))
+        tex = (match.group(1) if match.group(1) is not None else match.group(2)).strip()
+        kind = "display" if match.group(1) is not None else "inline"
+        parts.append(f'<span class="math {kind}">{html.escape(tex)}</span>')
+        pos = match.end()
+    parts.append(html.escape(locator[pos:]))
+    return "".join(parts)
+
+
 def _following_locator(seg: str, end: int) -> tuple[str, int]:
     """A parenthetical source locator, including one markdown link inside it."""
     i = end
@@ -2148,7 +2154,9 @@ def _following_locator(seg: str, end: int) -> tuple[str, int]:
             if depth == 0:
                 body = re.sub(r"\[([^\]]+)\]\([^)\n]*\)(?:\{[^}\n]*\})?", r"\1", seg[i + 1 : j])
                 body = body.strip()
-                if _LOCATOR_BODY_RE.match(body):
+                # Any parenthetical parked directly against the citation is a
+                # locator: page numbers, figure numbers, notice ids, dates.
+                if body:
                     return body, j + 1
                 return "", end
         j += 1
@@ -2812,15 +2820,17 @@ class PageCitationLinker:
                 backlink_html = f'<span class="cite-backlink">^ {sublinks}</span> '
             locators = self.locators_by_key.get(k, [])
             bits = []
-            several = len(locators) > 1
+            several = sum(1 for loc in locators if loc) > 1
             for i, loc in enumerate(locators):
                 if not loc:
                     continue
                 label = f"{_alpha_label(i)}. " if several else ""
-                bits.append(f'<span class="cite-locator">{label}({html.escape(loc)})</span>')
-            loc_html = (" " + " ".join(bits)) if bits else ""
+                bits.append(f'<span class="cite-locator">{html.escape(label)}({_locator_html(loc)})</span>')
+            # The backlink already ends with a space. A locator keeps one
+            # space after itself and before the author.
+            loc_html = (" ".join(bits) + " ") if bits else ""
             li_lines.append(
-                f'  <li id="cite_note-{idx}">{backlink_html}{loc_html} {format_work_html(self.works[k])}</li>'
+                f'  <li id="cite_note-{idx}">{backlink_html}{loc_html}{format_work_html(self.works[k])}</li>'
             )
         items = "\n".join(li_lines)
         return (
