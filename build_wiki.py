@@ -643,6 +643,7 @@ def localize_refs(text: str, notes_href: str) -> str:
 
 
 def prepare(text: str, fig_prefix: str, notes_href: str | None = None, page: Path | None = None) -> str:
+    text = tex_math.convert_tex_delimiters(text)
     text = re.sub(r"```\{=latex\}.*?```\n?", "", text, flags=re.S)
     if notes_href:
         text = localize_refs(text, notes_href)
@@ -783,6 +784,68 @@ def resolve_links(text: str, page: Path) -> str:
 
 def strip_first_heading(text: str) -> str:
     return re.sub(r"\A#\s+[^\n]*\n+", "", text.lstrip("\ufeff"), count=1)
+
+
+_DIV_LINE = re.compile(r"^(:{3,})(.*)$")
+
+
+def split_prose_blocks(text: str) -> list[str]:
+    """Paragraphs separated by a blank line. Divs, code fences, and display maths stay whole."""
+    blocks: list[list[str]] = []
+    current: list[str] = []
+    div_depth = 0
+    code = False
+    display = False
+    for line in text.split("\n"):
+        stripped = line.strip()
+        if not code and not display and div_depth == 0 and stripped == "":
+            if any(part.strip() for part in current):
+                blocks.append(current)
+            current = []
+            continue
+        if not display and div_depth == 0 and stripped.startswith("```"):
+            code = not code
+        elif not code and div_depth == 0 and (stripped == "$$" or (stripped.startswith("$$") and stripped.count("$$") == 1)):
+            display = not display
+        elif not code and not display:
+            mark = _DIV_LINE.match(stripped)
+            if mark:
+                if mark.group(2).strip() == "" and div_depth:
+                    div_depth -= 1
+                else:
+                    div_depth += 1
+        current.append(line)
+    if any(part.strip() for part in current):
+        blocks.append(current)
+    return ["\n".join(block) for block in blocks]
+
+
+def chapter_prose_around_infobox(prose: str) -> tuple[str, str]:
+    """Text before the infobox, then the text after it.
+
+    A chapter that opens with a paragraph keeps that paragraph first. A chapter
+    that opens with a heading keeps the infobox above the heading. Leading
+    divs and callouts stay ahead of both.
+    """
+    blocks = split_prose_blocks(prose)
+    preamble: list[str] = []
+    for index, block in enumerate(blocks):
+        stripped = block.lstrip()
+        if stripped.startswith(":::") or stripped.startswith("<div") or stripped.startswith("</div"):
+            preamble.append(block)
+            continue
+        if stripped.startswith("#"):
+            before = "\n\n".join(preamble)
+            after = "\n\n".join(blocks[index:])
+            if before:
+                before += "\n\n"
+            return before, after
+        before = "\n\n".join(preamble + [block])
+        after = "\n\n".join(blocks[index + 1 :])
+        if before:
+            before += "\n\n"
+        return before, after
+    return prose, ""
 
 
 def first_heading(text: str) -> str:
@@ -1099,6 +1162,44 @@ def load_practice() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
     return concept_qs, concept_as, exam_qs, exam_as
 
 
+def assert_no_bare_tex() -> None:
+    """A TeX command outside $...$, $$...$$, \\(...\\) and \\[...\\] is dropped on the page."""
+    hits: list[str] = []
+    for path in sorted((WIKI / "research" / "content").glob("*.md")):
+        for snippet in tex_math.bare_tex_offenders(path.read_text(encoding="utf-8")):
+            hits.append(f"{path.relative_to(WIKI)}: {snippet}")
+    if hits:
+        raise SystemExit("TeX command outside maths delimiters:\n  " + "\n  ".join(hits[:12]))
+
+
+def assert_no_unconverted_math_delimiters() -> None:
+    """Generated pages must not still contain \\( or \\[ for Pandoc to drop."""
+    hits: list[str] = []
+    for folder in ("notes", "questions", "articles", "reference", "labs"):
+        directory = WIKI / folder
+        if not directory.is_dir():
+            continue
+        for path in sorted(directory.rglob("*.qmd")):
+            offenders = tex_math.tex_delimiter_offenders(path.read_text(encoding="utf-8"))
+            hits.extend(f"{path.relative_to(WIKI)}: {snippet}" for snippet in offenders[:2])
+            if len(hits) > 12:
+                break
+    overview = WIKI / "overview.qmd"
+    if overview.is_file():
+        hits.extend(
+            f"overview.qmd: {snippet}"
+            for snippet in tex_math.tex_delimiter_offenders(overview.read_text(encoding="utf-8"))[:2]
+        )
+    history = WIKI / "history.qmd"
+    if history.is_file():
+        hits.extend(
+            f"history.qmd: {snippet}"
+            for snippet in tex_math.tex_delimiter_offenders(history.read_text(encoding="utf-8"))[:2]
+        )
+    if hits:
+        raise SystemExit("Unconverted maths delimiters:\n  " + "\n  ".join(hits[:12]))
+
+
 def self_test() -> None:
     assert expand_macros(r"$\xvec\given\theta$") == r"${\boldsymbol{x}}\mid\theta$"
     assert expand_macros(r"\vect{\hat{\beta}}") == r"{\boldsymbol{\hat{\beta}}}"
@@ -1134,6 +1235,7 @@ def self_test() -> None:
     assert plain_question_title("C37. Exchangeable correlation") == "Exchangeable correlation"
     assert plain_question_title("Question 6. Geometric--beta Gibbs sampler") == "Geometric--beta Gibbs sampler"
     chapter_guides.validate([name for _, files in PARTS for name, kind in files if kind == "notes"])
+    assert_no_bare_tex()
 
 
 def clean_output() -> None:
@@ -3006,8 +3108,12 @@ def layout_blocks(text: str) -> list[tuple[int, int]]:
     return spans
 
 
-def autolink(text: str, page: Path, part: str | None) -> str:
-    """Link the first mention of each term on the page to its definition."""
+def autolink(text: str, page: Path, part: str | None, linked: set | None = None) -> str:
+    """Link the first mention of each term on the page to its definition.
+
+    ``linked`` carries the terms already used on this page. Chapter prose is
+    passed as two blocks around the infobox, and both blocks share one set.
+    """
     spans = [(m.start(), m.end()) for m in PROTECT.finditer(text)] + layout_blocks(text)
     spans.sort()
     merged: list[list[int]] = []
@@ -3023,7 +3129,7 @@ def autolink(text: str, page: Path, part: str | None) -> str:
         segments.append([text[start:end], True])
         last = end
     segments.append([text[last:], False])
-    done: set[tuple[Path, str]] = set()
+    done: set[tuple[Path, str]] = linked if linked is not None else set()
     for loose, strict, target, anchor, scope, home, exclude in _COMPILED:
         # No link to the page itself, nor from the chapter that teaches the term.
         if target == page or home == page or (target, anchor) in done:
@@ -3340,13 +3446,14 @@ def history_markdown() -> str:
     ):
         if heading not in text:
             raise SystemExit(f"History source is missing the section {heading}")
-    return text
+    return tex_math.convert_tex_delimiters(text)
 
 
 def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None:
     """Write every page: chapters as articles, questions with their answers folded in."""
     PROVED_RESULT_SLUGS.clear()
     CHECK_GAPS.clear()
+    _CHAPTER_ORDER.clear()
     for question in questions:
         question["body"] = keep_display_math_in_list(question["body"])
     for answer in answers:
@@ -3429,11 +3536,21 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
             noun = "question" if len(own) == 1 else "questions"
             hat.append(f"[{len(own)} {noun} on this topic](#questions-on-this-topic)")
         hat.append("[What links here](#what-links-here)")
+        # A paragraph stays before the infobox. A chapter that opens with a
+        # heading keeps the infobox above that heading.
+        before, after = chapter_prose_around_infobox(prose)
         blocks = [
             (True, "guide", chapter_guide_md(note["path"].name, note["path"], notes)),
             (False, "hatnote", "::: {.hatnote}\n" + " · ".join(hat) + "\n:::\n\n"),
-            (True, "prose", prose),
         ]
+        if before.strip():
+            blocks.append((True, "prose", before if before.endswith("\n") else before + "\n"))
+        own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
+        own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
+        siblings = [n for p, n in chapters if p == part]
+        blocks.append((False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
+        if after.strip():
+            blocks.append((True, "prose", after if after.endswith("\n") else after + "\n"))
         if own:
             blocks.append(
                 (
@@ -3445,10 +3562,6 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
                     + question_table(own, note["path"]),
                 )
             )
-        own_articles = [a for a in ARTICLES.values() if a["box"] and a["box"]["chapter"] == note["path"] and a["box"]["kind"] not in TOPIC_KINDS]
-        own_topics = [a for a in ARTICLES.values() if a["box"] and a["box"]["kind"] in TOPIC_KINDS and any(e["chapter"] == note["path"] for e in a["box"]["excerpts"])]
-        siblings = [n for p, n in chapters if p == part]
-        blocks.insert(2, (False, "infobox", chapter_infobox(note, part, siblings, own, own_articles)))
         article_line = (
             "- Articles from this chapter: "
             + " · ".join(f"[{a['term']}]({href(note['path'], a['path'])})" for a in own_articles)
@@ -3587,10 +3700,18 @@ def write_pages(notes: dict, questions: list[dict], answers: list[dict]) -> None
     forward: dict[Path, list[Path]] = {}
     for page in pages:
         blocks = []
+        # The two chapter-prose blocks share one set. The guide and every
+        # other content block still link their own first mention.
+        prose_linked: set[tuple[Path, str]] | None = None
         for is_content, label, text in page["blocks"]:
             if is_content:
                 text = resolve_links(text, page["path"])
-                text = autolink(text, page["path"], page["part"])
+                if label == "prose":
+                    if prose_linked is None:
+                        prose_linked = set()
+                    text = autolink(text, page["path"], page["part"], prose_linked)
+                else:
+                    text = autolink(text, page["path"], page["part"])
                 if label in COPIED_LABELS:
                     blocks.append((is_content, label, text))
                     continue  # copies of other pages' text are not links from this page
@@ -4279,16 +4400,150 @@ def read_research_content(path: Path, allowed: set[str]) -> tuple[dict[str, str]
     display_titles: dict[str, str] = {}
     raw = path.read_text(encoding="utf-8")
     for match in re.finditer(r"(?ms)^## ([^\n]+)\n(.*?)(?=^## |\Z)", raw):
-        heading_spec, prose = match.group(1), match.group(2).strip()
+        heading_spec, prose = match.group(1), tex_math.convert_tex_delimiters(match.group(2).strip())
         key, separator, title = heading_spec.partition(" — ")
         if key not in allowed or key in researched or not prose or (separator and not title.strip()):
             raise ValueError(f"{path}: unknown, repeated or empty section {heading_spec!r}")
         researched[key] = prose
         if separator:
-            display_titles[key] = title.strip()
+            display_titles[key] = tex_math.convert_tex_delimiters(title.strip())
     if not researched:
         raise ValueError(f"{path}: no sections")
     return researched, display_titles
+
+
+_LEVEL_RANK = {"beginner": 0, "intermediate": 1, "advanced": 2}
+_CHAPTER_ORDER: dict[Path, list[str]] = {}
+
+
+def _primary_chapter(article: dict | None) -> Path | None:
+    if not article:
+        return None
+    chapter = (article.get("box") or {}).get("chapter")
+    if isinstance(chapter, Path):
+        return chapter
+    for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+        chapter = extra.get("chapter")
+        if isinstance(chapter, Path):
+            return chapter
+    return None
+
+
+def _teaching_chapters(article: dict) -> list[Path]:
+    found: list[Path] = []
+    primary = _primary_chapter(article)
+    if primary is not None:
+        found.append(primary)
+    for extra in (article.get("extra_boxes") or []) + (article.get("extra_sections") or []):
+        chapter = extra.get("chapter")
+        if isinstance(chapter, Path) and chapter not in found:
+            found.append(chapter)
+    return found
+
+
+def article_level(article: dict) -> str:
+    """The level of the chapter that teaches the page, or the hub the page belongs to."""
+    levels = []
+    for chapter in _teaching_chapters(article):
+        guide = chapter_guides.GUIDES.get(chapter.name)
+        if guide:
+            levels.append(guide["level"])
+    if levels:
+        return max(levels, key=lambda level: _LEVEL_RANK[level])
+    if article["slug"] in topic_hubs.FUNDAMENTALS_ORDER or article.get("standalone") in {"Fundamentals", "History"}:
+        return "beginner"
+    return "intermediate"
+
+
+def _articles_in_chapter(chapter: Path) -> list[str]:
+    cached = _CHAPTER_ORDER.get(chapter)
+    if cached is not None:
+        return cached
+    members = [slug_ for slug_, article in ARTICLES.items() if _primary_chapter(article) == chapter]
+    text = ""
+    try:
+        source = chapter_source(chapter.name)
+    except SystemExit:
+        source = chapter if chapter.is_file() else None
+    if source is not None and Path(source).is_file():
+        text = Path(source).read_text(encoding="utf-8")
+
+    def position(slug_: str) -> int:
+        anchor = str((ARTICLES[slug_].get("box") or {}).get("anchor") or "")
+        if not anchor or not text:
+            return 10**9
+        found = text.find(anchor)
+        return found if found >= 0 else 10**9
+
+    members.sort(key=lambda slug_: (position(slug_), ARTICLES[slug_]["term"].lower()))
+    _CHAPTER_ORDER[chapter] = members
+    return members
+
+
+def study_sequence(slug_: str) -> list[str]:
+    """Reading order already recorded for this page: the fundamentals path,
+    otherwise the other articles in its chapter, otherwise its distribution group."""
+    if slug_ in topic_hubs.FUNDAMENTALS_ORDER:
+        return [slug for slug in topic_hubs.FUNDAMENTALS_ORDER if slug in ARTICLES]
+    article = ARTICLES.get(slug_)
+    chapter = _primary_chapter(article)
+    if chapter is not None:
+        members = _articles_in_chapter(chapter)
+        if len(members) > 1:
+            return members
+    for _title, members in topic_hubs.distribution_groups(list(DISTRIBUTIONS.items())):
+        if slug_ in members:
+            return [slug for slug in members if slug in ARTICLES]
+    return [slug_] if slug_ in ARTICLES else []
+
+
+def article_study_guide(article: dict) -> str:
+    """Level, prerequisites, and previous/next, from the chapter guides and the existing orders."""
+    path = article["path"]
+    slug_ = article["slug"]
+    lines = [f"[{article_level(article).capitalize()}]{{.level}}", "", "**What you need first.** "]
+    need_links: list[str] = []
+    if slug_ in topic_hubs.FUNDAMENTALS_ORDER:
+        order = [slug for slug in topic_hubs.FUNDAMENTALS_ORDER if slug in ARTICLES]
+        if slug_ in order and order.index(slug_):
+            prev = ARTICLES[order[order.index(slug_) - 1]]
+            need_links.append(f"[{prev['term']}]({href(path, prev['path'])})")
+    chapters = _teaching_chapters(article)
+    primary = chapters[0] if chapters else None
+    if primary is not None and primary.name in chapter_guides.GUIDES:
+        for name in chapter_guides.GUIDES[primary.name]["needs"]:
+            target = WIKI / "notes" / name
+            title = PAGE_TITLES.get(target) or name.removesuffix(".qmd").replace("-", " ")
+            need_links.append(f"[{title}]({href(path, target)})")
+    unique: list[str] = []
+    for link in need_links:
+        if link not in unique:
+            unique.append(link)
+    if unique:
+        sentence = "Read " + join_and(unique) + "."
+    else:
+        sentence = "Nothing else on this path comes first."
+    if primary is not None:
+        title = PAGE_TITLES.get(primary) or primary.stem.replace("-", " ")
+        sentence += f" This page sits in [{title}]({href(path, primary)})."
+    elif article.get("standalone"):
+        target, frag = standalone_topic_target(article["standalone"])
+        href_target = href(path, target) + (f"#{frag}" if frag else "")
+        sentence += f" This page is part of [{article['standalone']}]({href_target})."
+    lines.append(sentence)
+    seq = study_sequence(slug_)
+    if slug_ in seq and len(seq) > 1:
+        index = seq.index(slug_)
+        nav = []
+        if index:
+            other = ARTICLES[seq[index - 1]]
+            nav.append(f"[‹ {other['term']}]({href(path, other['path'])}){{.qnav}}")
+        if index + 1 < len(seq):
+            other = ARTICLES[seq[index + 1]]
+            nav.append(f"[{other['term']} ›]({href(path, other['path'])}){{.qnav}}")
+        if nav:
+            lines.extend(["", " ".join(nav)])
+    return "::: {.chapter-guide}\n" + "\n".join(lines) + "\n:::\n\n"
 
 
 def distribution_article_template(article: dict, blocks: list[tuple[bool, str, str]]) -> list[tuple[bool, str, str]]:
@@ -4317,8 +4572,8 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
                 pieces.append(body.strip())
         return "\n\n".join(pieces)
 
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
-           (False, "infobox", "".join(by_label.get("infobox", [])))]
+    out = [(False, "guide", article_study_guide(article)),
+           (False, "hatnote", "".join(by_label.get("hatnote", [])))]
     research_file = WIKI / "research" / "content" / f"{article['slug']}.md"
     researched: dict[str, str] = {}
     display_titles: dict[str, str] = {}
@@ -4334,6 +4589,7 @@ def distribution_article_template(article: dict, blocks: list[tuple[bool, str, s
     if researched.get("Lead context"):
         lead += " " + researched["Lead context"]
     out.append((True, "lead", lead + "\n\n"))
+    out.append((False, "infobox", "".join(by_label.get("infobox", []))))
     probability = facts["pmf"] or facts["pdf"]
     if facts.get("definition_from_source"):
         definition = source_math_definition(article, blocks)
@@ -4502,10 +4758,11 @@ def theorem_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                    "Common misconceptions", "History", "Worked example"}
         researched, display_titles = read_research_content(research_file, allowed)
     depth = theorem_depth.RESULT_DEPTH.get(article["slug"], {})
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
-           (False, "infobox", "".join(by_label.get("infobox", []))),
+    out = [(False, "guide", article_study_guide(article)),
+           (False, "hatnote", "".join(by_label.get("hatnote", []))),
            (True, "lead", article_lead(article) + (" " + depth["context"] if depth else "")
-            + (" " + researched["Lead context"] if researched.get("Lead context") else "") + "\n\n")]
+            + (" " + researched["Lead context"] if researched.get("Lead context") else "") + "\n\n"),
+           (False, "infobox", "".join(by_label.get("infobox", [])))]
 
     statement = content("lead", "lead-title", "statement-head", "statement", "excerpt-head", "excerpt")
     intuition = content("explanation", "figures-head", "figure")
@@ -4622,9 +4879,10 @@ def concept_article_template(article: dict, blocks: list[tuple[bool, str, str]])
                 pieces.append(body.strip())
         return "\n\n".join(pieces)
 
-    out = [(False, "hatnote", "".join(by_label.get("hatnote", []))),
-           (False, "infobox", "".join(by_label.get("infobox", []))),
-           (True, "lead", article_lead(article) + source_lead_citations(blocks) + "\n\n")]
+    out = [(False, "guide", article_study_guide(article)),
+           (False, "hatnote", "".join(by_label.get("hatnote", []))),
+           (True, "lead", article_lead(article) + source_lead_citations(blocks) + "\n\n"),
+           (False, "infobox", "".join(by_label.get("infobox", [])))]
     definition = "\n\n".join(filter(None, [source_math_definition(article, blocks), source_plain_definition(article, blocks),
                                            content("statement-head", "statement", "excerpt-head", "excerpt")]))
     interpretation = content("explanation", "figures-head", "figure")
@@ -7168,6 +7426,66 @@ def png_size(path: Path) -> tuple[int, int]:
 BRISBANE_TZ = ZoneInfo("Australia/Brisbane")
 
 
+def navbar_yaml() -> str:
+    """Five top-level items. The rest sit in menus so search and the theme
+    toggle stay on screen. Below the xl breakpoint the items collapse."""
+    return """\
+  navbar:
+    collapse-below: xl
+    left:
+      - text: Main page
+        href: index.qmd
+      - text: Study
+        menu:
+          - text: Overview
+            href: overview.qmd
+          - text: History
+            href: history.qmd
+          - text: Topics
+            href: notes/index.qmd
+          - text: Fundamentals
+            href: notes/fundamentals.qmd
+          - text: Distributions
+            href: notes/probability-distributions.qmd
+          - text: Applications
+            href: notes/applications.qmd
+      - text: Questions
+        menu:
+          - text: "Question bank: every question in one list"
+            href: questions/index.qmd
+          - text: "By topic: the same questions under each chapter"
+            href: questions/by-topic.qmd
+          - text: Random question
+            href: questions/random.qmd
+      - text: Reference
+        menu:
+          - text: "Lookup pages: glossary, distributions, notation, and formulas"
+            href: reference/index.qmd
+          - text: Glossary and index
+            href: reference/glossary.qmd
+          - text: Common distributions
+            href: reference/distributions.qmd
+          - text: Notation
+            href: reference/notation.qmd
+          - text: Formula lookup
+            href: reference/formulas.qmd
+      - text: Laboratories
+        menu:
+          - text: "All laboratories"
+            href: labs/index.qmd
+          - text: Kernel density estimation
+            href: labs/kernel-density.qmd
+          - text: "Beta–Binomial updating"
+            href: labs/beta-binomial.qmd
+          - text: A Markov chain
+            href: labs/markov-chain.qmd
+          - text: Interval coverage
+            href: labs/ci-coverage.qmd
+          - text: Distribution explorer
+            href: labs/distributions.qmd
+"""
+
+
 def footer_text(now: datetime | None = None) -> str:
     """Copyright and the date of this build in Australia/Brisbane, for the foot of every page."""
     today = (now or datetime.now(BRISBANE_TZ)).astimezone(BRISBANE_TZ)
@@ -7570,59 +7888,7 @@ website:
   search:
     location: navbar
     type: textbox
-  navbar:
-    left:
-      - text: Main page
-        href: index.qmd
-      - text: Overview
-        href: overview.qmd
-      - text: History
-        href: history.qmd
-      - text: Topics
-        href: notes/index.qmd
-      - text: Fundamentals
-        href: notes/fundamentals.qmd
-      - text: Distributions
-        href: notes/probability-distributions.qmd
-      - text: Applications
-        href: notes/applications.qmd
-      - text: Question bank
-        menu:
-          - text: "Question bank: every question in one list"
-            href: questions/index.qmd
-          - text: "By topic: the same questions under each chapter"
-            href: questions/by-topic.qmd
-      - text: Glossary
-        href: reference/glossary.qmd
-      - text: Reference
-        menu:
-          - text: "Lookup pages: glossary, distributions, notation, and formulas"
-            href: reference/index.qmd
-          - text: Glossary and index
-            href: reference/glossary.qmd
-          - text: Common distributions
-            href: reference/distributions.qmd
-          - text: Notation
-            href: reference/notation.qmd
-          - text: Formula lookup
-            href: reference/formulas.qmd
-      - text: Laboratories
-        menu:
-          - text: "All laboratories"
-            href: labs/index.qmd
-          - text: Kernel density estimation
-            href: labs/kernel-density.qmd
-          - text: "Beta–Binomial updating"
-            href: labs/beta-binomial.qmd
-          - text: A Markov chain
-            href: labs/markov-chain.qmd
-          - text: Interval coverage
-            href: labs/ci-coverage.qmd
-          - text: Distribution explorer
-            href: labs/distributions.qmd
-      - text: Random question
-        href: questions/random.qmd
-  sidebar:
+{navbar_yaml()}  sidebar:
     style: docked
     collapse-level: 2
     contents:
@@ -7675,9 +7941,10 @@ website:
 format:
   html:
     # Two themes give a light/dark switch in the top bar; the choice is remembered.
+    # theme.scss turns off the themes' Google fonts. The pages use a system stack.
     theme:
-      light: cosmo
-      dark: darkly
+      light: [cosmo, theme.scss]
+      dark: [darkly, theme.scss]
     css: styles.css
     toc: true
     toc-depth: 2
@@ -7746,7 +8013,7 @@ def write_overview() -> None:
         'title: "What statistics is"\n'
         'description: "What statistics is, how data become a claim, and how the chapters grow out of that claim."\n'
         '---\n\n'
-        + text
+        + tex_math.convert_tex_delimiters(text)
         + "\n",
         encoding="utf-8",
     )
@@ -8196,6 +8463,7 @@ def main() -> None:
         print("LaTeX macros still present in:")
         for name in leftover[:20]:
             print(" ", name)
+    assert_no_unconverted_math_delimiters()
 
     # The wiki teaches each idea on its own pages. It does not send the reader
     # to a numbered section, a supplement or a set of notes somewhere else.

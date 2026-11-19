@@ -14,7 +14,7 @@ if __name__ == "__main__":
     for match in re.finditer(r"\{\{cite:[^}]+\}\}", prose):
         assert re.match(r" \((?:§|Abstract)", prose[match.end():]), match.group()
     for match in re.finditer(r'<sup[^>]*class="cite-ref"[^>]*>.*?</sup>', body, re.S):
-        assert re.match(r"\s*\((?:§|Abstract)", body[match.end():]), match.group()
+        assert re.search(r'data-locator="[^"]+"', match.group(0)), match.group(0)[:220]
 
     for printed in (
         r"$\pi(0,0\mid y)=2/5$", r"$\pi(0,1\mid y)=1/10$",

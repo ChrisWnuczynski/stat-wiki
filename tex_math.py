@@ -259,3 +259,50 @@ def _odd_backslash_hits(segment: str) -> list[str]:
             hits.append(snippet.strip())
         i = j if j > i else i + 1
     return hits
+
+
+_COMMAND = re.compile(r"\\[A-Za-z]+")
+# Markdown escapes and line noise, not a formula that was left out of maths.
+_NOT_MATH = {"n", "t", "r"}
+
+
+def bare_tex_offenders(text: str) -> list[str]:
+    """Snippets where a TeX command sits outside code and outside any maths.
+
+    ``\\(`` and ``\\[`` count as delimiters here. A command in ordinary
+    brackets, such as ``(P(X<496)=\\Phi(-1))``, is what this reports.
+    """
+    hits: list[str] = []
+    for segment in _plain_segments(text):
+        shielded = _mask_tex_delimiters(segment)
+        for match in _COMMAND.finditer(shielded):
+            if match.group(0)[1:] in _NOT_MATH:
+                continue
+            snippet = segment[max(0, match.start() - 36) : match.end() + 36].replace("\n", " ")
+            hits.append(snippet.strip())
+    return hits
+
+
+def _mask_tex_delimiters(segment: str) -> str:
+    """Blank the inside of \\( \\) and \\[ \\] so a delimited command is not bare."""
+    chars = list(segment)
+    i = 0
+    n = len(segment)
+    while i < n:
+        if segment[i] != "\\":
+            i += 1
+            continue
+        j = i
+        while j < n and segment[j] == "\\":
+            j += 1
+        run = j - i
+        if j < n and segment[j] in "([ " and run % 2 == 1 and segment[j] in "([":
+            closer = ")" if segment[j] == "(" else "]"
+            close = segment.find("\\" + closer, j + 1)
+            if close >= 0:
+                for k in range(i, close + 2):
+                    chars[k] = " "
+                i = close + 2
+                continue
+        i = j if j > i else i + 1
+    return "".join(chars)

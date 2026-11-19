@@ -1,3 +1,45 @@
+<a class="skip-link" href="#quarto-document-content">Skip to main content</a>
+<script>
+/* Quarto places this include inside <main>, after the navbar, so the brand
+   link would otherwise be first in the tab order. Move the skip link to the
+   start of <body> as soon as it is parsed, and send focus to the article
+   when it is used. */
+(function () {
+  var link = document.currentScript && document.currentScript.previousElementSibling;
+  if (!link || !link.classList || !link.classList.contains("skip-link")) {
+    link = document.querySelector("a.skip-link");
+  }
+  if (link && document.body) document.body.insertBefore(link, document.body.firstChild);
+  if (!link) return;
+  link.addEventListener("click", function () {
+    var main = document.getElementById("quarto-document-content");
+    if (!main) return;
+    if (!main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
+    main.focus();
+  });
+})();
+</script>
+<script>
+/* Below the lg breakpoint Quarto replaces the search field with an icon
+   button that has no accessible name. Only that detached button is named
+   here; Clear and Copy link keep their own names. */
+(function () {
+  function nameSearchButtons() {
+    var buttons = document.querySelectorAll(".aa-DetachedSearchButton");
+    for (var i = 0; i < buttons.length; i++) {
+      var button = buttons[i];
+      var label = (button.getAttribute("aria-label") || "").trim();
+      var text = (button.textContent || "").replace(/\s+/g, " ").trim();
+      if (!label && !text) button.setAttribute("aria-label", "Search");
+    }
+  }
+  document.addEventListener("DOMContentLoaded", nameSearchButtons);
+  var root = document.getElementById("quarto-header") || document.getElementById("quarto-search");
+  if (root && window.MutationObserver) {
+    new MutationObserver(nameSearchButtons).observe(root, { childList: true, subtree: true });
+  }
+})();
+</script>
 <script>
 /* The first thing in the body: give it the dark-mode class straight away when
    _theme-head.html found dark mode saved, so the page is drawn dark. */

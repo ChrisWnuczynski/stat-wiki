@@ -43,6 +43,22 @@ class TexDelimiterTests(unittest.TestCase):
         self.assertEqual(converted, "$\\mathbb E[X^k]$")
         self.assertEqual(tex_math.tex_delimiter_offenders(converted), [])
 
+    def test_plain_brackets_are_bare_tex_and_delimiters_are_not(self) -> None:
+        bare = r"target: (P(X<496)=\Phi(-1)\approx0.1587)."
+        self.assertTrue(tex_math.bare_tex_offenders(bare))
+        wrapped = r"target: \(P(X<496)=\Phi(-1)\approx0.1587\)."
+        self.assertEqual(tex_math.bare_tex_offenders(wrapped), [])
+        converted = tex_math.convert_tex_delimiters(wrapped)
+        self.assertEqual(tex_math.tex_delimiter_offenders(converted), [])
+        self.assertEqual(tex_math.bare_tex_offenders(converted), [])
+
+    def test_research_sources_have_no_bare_tex(self) -> None:
+        hits = []
+        for path in sorted((build_wiki.WIKI / "research" / "content").glob("*.md")):
+            for snippet in tex_math.bare_tex_offenders(path.read_text(encoding="utf-8")):
+                hits.append(f"{path.name}: {snippet}")
+        self.assertEqual(hits, [])
+
     def test_guard_rejects_a_leftover_delimiter(self) -> None:
         self.assertTrue(tex_math.tex_delimiter_offenders("see \\(x\\)"))
         with self.assertRaises(SystemExit):

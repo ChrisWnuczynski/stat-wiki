@@ -124,9 +124,27 @@ body.quarto-dark .navbar .nav-link.active {
   color: var(--wiki-link) !important;
 }
 
-/* The dark theme's accent is teal; keep the wiki's blue for links. */
+/* The dark theme paints the breadcrumb trail on a grey or blue-grey bar
+   that light mode does not use. The theme's own link grey is about 4:1
+   on that bar. These colours clear 4.5:1 on #222, #375a7f, and the page. */
+body.quarto-dark nav.quarto-secondary-nav,
+body.quarto-dark .quarto-title-breadcrumbs {
+  background-color: #1b1e22 !important;
+}
+
+body.quarto-dark .breadcrumb,
+body.quarto-dark .breadcrumb-item,
+body.quarto-dark .breadcrumb-item.active,
+body.quarto-dark nav.quarto-page-breadcrumbs,
+body.quarto-dark nav.quarto-page-breadcrumbs a,
+body.quarto-dark .quarto-title-breadcrumbs a,
 body.quarto-dark .breadcrumb a {
-  color: var(--wiki-link) !important;
+  color: #f4f7ff !important;
+}
+
+body.quarto-dark .breadcrumb-item::before,
+body.quarto-dark nav.quarto-page-breadcrumbs .breadcrumb-item::before {
+  color: #d5d8dc !important;
 }
 
 body.quarto-dark .aa-Form,
@@ -255,7 +273,8 @@ code, pre, kbd, samp, .sourceCode {
   margin: 0;
 }
 
-.hatnote a.qnav {
+.hatnote a.qnav,
+.chapter-guide a.qnav {
   display: inline-block;
   border: 1px solid var(--wiki-border);
   background: var(--wiki-panel);
@@ -272,7 +291,8 @@ code, pre, kbd, samp, .sourceCode {
   vertical-align: bottom;
 }
 
-.hatnote a.qnav:hover {
+.hatnote a.qnav:hover,
+.chapter-guide a.qnav:hover {
   background: var(--wiki-panel-head);
   text-decoration: none;
 }
@@ -1410,8 +1430,8 @@ main,
 
 /* The top bar is the same height in both themes, so switching theme does
    not move the page. The dark theme pads it twice as much by default.
-   Keep the StatWiki brand unclipped and tune desktop spacing so the brand,
-   eight links, search box, and theme toggle fit cleanly at 992px and up. */
+   Keep the StatWiki brand unclipped. Five navbar items collapse below
+   the xl breakpoint, so search and the theme toggle stay on screen. */
 #quarto-header .navbar {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
@@ -1723,6 +1743,11 @@ sup.cite-ref a:focus-visible {
   margin: 0.42rem 0;
 }
 
+.wiki-refs .cite-locator {
+  color: var(--wiki-muted);
+  font-style: italic;
+}
+
 .wiki-refs ol li {
   margin: 0.42rem 0;
   padding: 0.1rem 0.28rem;
@@ -1956,4 +1981,77 @@ sup.cite-ref a:focus-visible {
   border: 0 !important;
   padding: 0 !important;
   background: transparent !important;
+}
+
+/* Keyboard focus. The theme's ring is a faint shadow, about 1.2:1 on the
+   navbar. A 3px outline clears 3:1 against the light bar (#f8f9fa) and the
+   dark bar (#1f1f1f). :focus-visible keeps the ring for keyboard use. */
+:focus-visible {
+  outline: 3px solid #0842a0 !important;
+  outline-offset: 2px !important;
+}
+
+body.quarto-dark :focus-visible {
+  outline-color: #ffe14a !important;
+}
+
+/* First in the body, hidden until a keyboard user reaches it. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.5rem;
+  z-index: 2000;
+  padding: 0.45rem 0.75rem;
+  background: #0842a0;
+  color: #ffffff !important;
+  font-weight: 600;
+  text-decoration: none !important;
+  border-radius: 2px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: none;
+  /* The ring sits on the page around the button. Yellow on white is about
+     1.3:1. Near-black on white, and the same yellow on the dark bar, clear 3:1. */
+  outline: 3px solid #1a1a1a !important;
+  outline-offset: 2px !important;
+}
+
+body.quarto-dark .skip-link:focus,
+body.quarto-dark .skip-link:focus-visible {
+  outline-color: #ffe14a !important;
+}
+
+/* The skip link moves focus onto the article. That focus is programmatic,
+   so it does not keep the keyboard outline. */
+#quarto-document-content:focus,
+#quarto-document-content:focus-visible {
+  outline: none !important;
+}
+#quarto-document-content {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Figure captions. Darkly sets some captions to #666, which is about 3:1
+   on the dark page. #d5d8dc clears 4.5:1 on the page and on the infobox. */
+body.quarto-dark figcaption,
+body.quarto-dark caption,
+body.quarto-dark .figure-caption,
+body.quarto-dark .panel-caption,
+body.quarto-dark .subfigure-caption,
+body.quarto-dark .table-caption,
+body.quarto-dark .infobox figcaption {
+  color: #d5d8dc !important;
+}
+
+/* The collapsed navbar clips an outline that hangs outside a full-width
+   item. Pull the ring inside the item so both side edges stay visible.
+   :focus-visible keeps the ring on keyboard focus. */
+@media (max-width: 1199.98px) {
+  #navbarCollapse .nav-link:focus-visible,
+  #navbarCollapse .dropdown-item:focus-visible {
+    outline-offset: -3px !important;
+  }
 }
