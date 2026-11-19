@@ -182,7 +182,7 @@ These four articles cite only pages that were opened. The following attributions
 - Conover (1999) and Hollander, Wolfe and Chicken were not opened. The tie-corrected Friedman statistic, the $T_2$ form and the post-hoc rule stay on the NIST Dataplot Friedman page. Friedman (1937) was read at pp. 675–676 and 678–679; his $n$ and $p$ are the page’s $b$ and $k$.
 - Shapiro and Wilk (1964a), the technical report with the fuller power study, was not opened. The power comparison that replaces it is Razali and Wah (2011), Table 1 p. 28, p. 29, Table 2 p. 30 and the conclusion on p. 32. The large-sample remark is Ghasemi and Zahediasl (2012), §3. The 98% entry for a chi-squared alternative on one degree of freedom at $n = 20$ remains the 1965 paper (p. 609), with the critical values in Table 6.
 - NIST/SEMATECH §1.3.5.9 gives the two-sample variance ratio and its critical regions. It does not say that this ratio is sensitive to non-normality, so that claim was not added. Bartlett’s sensitivity to non-normality is the comparison that §1.3.5.7 states.
-- Razali and Wah (2011) has no Crossref DOI that could be found. The bibliography URL is the PDF copy that was read.
+- Razali and Wah (2011) has no Crossref DOI that could be found. The same journal PDF was read from two copies. The bibliography uses `http://www.de.ufpb.br/~ulisses/disciplinas/normality_tests_comparison.pdf` because the other path contains a course code that the bibliography scan rejects.
 
 <!-- check-yourself-gaps:start -->
 ## Articles with no Check yourself section
