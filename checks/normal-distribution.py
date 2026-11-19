@@ -10,7 +10,6 @@ if __name__ == "__main__":
     page = (Path(__file__).resolve().parents[1] / "articles" / "normal-distribution.qmd").read_text()
     printed = (
         r"$0.683$", r"$0.954$", r"$0.997$",
-        r"2\Phi(0.625)-1=0.468",
         r"1-\Phi(1.875)=0.030",
         r"P(Z>1)\approx0.1587",
         r"\Phi(1.3)\approx 0.9032",
@@ -26,6 +25,15 @@ if __name__ == "__main__":
     )
     for value in printed:
         assert value in page, f"Value missing from generated article: {value}"
+    assert re.search(
+        r"\\begin\{aligned\}\s*"
+        r"&\\mathbb\{P\}\(90<X\\le110\)\\\\\s*"
+        r"&=\\Phi\(0\.625\)-\\Phi\(-0\.625\)\\\\\s*"
+        r"&=2\\Phi\(0\.625\)-1\\\\\s*"
+        r"&=0\.468\.\s*"
+        r"\\end\{aligned\}",
+        page,
+    ), "Stepped IQ probability missing from generated article"
     normal = NormalDist()
     assert round(normal.cdf(1)-normal.cdf(-1), 3) == 0.683
     assert round(normal.cdf(2)-normal.cdf(-2), 3) == 0.954
