@@ -100,7 +100,7 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
   <div class="cite-body">
     <div class="cite-entry">
       <span class="cite-format">Plain text</span>
-      <pre class="cite-code"><code>StatWiki (2026). &quot;Beta–Binomial laboratory.&quot; StatWiki. Last updated 13 November 2026. https://www.statwiki.io/labs/beta-binomial.html</code></pre>
+      <pre class="cite-code"><code>StatWiki (2026). &quot;Beta–Binomial laboratory.&quot; StatWiki. Last updated 19 November 2026. https://www.statwiki.io/labs/beta-binomial.html</code></pre>
     </div>
     <div class="cite-entry">
       <span class="cite-format">BibTeX</span>
@@ -109,8 +109,8 @@ If a shape, a count, or the seed is not a usable number, the figure says so and 
   title = {{Beta–Binomial laboratory}},
   year = {2026},
   url = {https://www.statwiki.io/labs/beta-binomial.html},
-  urldate = {2026-11-13},
-  note = {StatWiki, last updated 13 November 2026}
+  urldate = {2026-11-19},
+  note = {StatWiki, last updated 19 November 2026}
 }</code></pre>
     </div>
   </div>
