@@ -6140,6 +6140,8 @@ def term_target_href(notes: dict, code: str, key: str) -> str | None:
 
 
 SEARCH_ALIASES: dict[str, tuple[str, str]] = {}  # alias slug -> (canonical href, display label)
+# Page href -> display names already collected for site search. wiki.json appends these.
+SEARCH_PAGE_ALIASES: dict[str, list[str]] = {}
 
 
 def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
@@ -6318,6 +6320,11 @@ def collect_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_
 
 def write_search_aliases(notes: dict, chapters: list[tuple[str, dict]], final_notes: list[dict]) -> dict:
     payload = collect_search_aliases(notes, chapters, final_notes)
+    SEARCH_PAGE_ALIASES.clear()
+    for href, info in payload["pages"].items():
+        names = [str(name) for name in info.get("aliases") or [] if str(name).strip()]
+        if names:
+            SEARCH_PAGE_ALIASES[href] = names
     (WIKI / "search-aliases.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -8170,6 +8177,7 @@ def main() -> None:
         update_ids="--update-ids" in sys.argv,
         retired={s: (chapter.name, anchor) for s, (chapter, anchor) in RETIRED.items()},
         merged=dict(MERGED_ARTICLES),
+        known_names=SEARCH_PAGE_ALIASES,
     ):
         print(f"Registry warning: vanished {item}")
     write_retired_pages()

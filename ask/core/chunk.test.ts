@@ -79,6 +79,29 @@ test("a stray dollar does not swallow the next paragraph", () => {
   assert.ok(!parts[parts.length - 1].includes("Price is"))
 })
 
+test("a dollar inside inline code does not glue the next paragraph", () => {
+  const left = "`summary(gamma_fit)$dispersion` " + "alpha ".repeat(400)
+  const right = "The dispersion is $\\phi$ exactly. " + "beta ".repeat(400)
+  assert.ok(left.length + right.length > 3000)
+  const parts = splitBody(`${left}\n\n${right}`)
+  assert.ok(parts.length >= 2)
+  assert.ok(parts[0].includes("`summary(gamma_fit)$dispersion`"))
+  assert.ok(!parts[0].includes("beta beta"))
+  const holder = parts.find((part) => part.includes("$\\phi$"))
+  assert.ok(holder)
+  assert.ok(holder.includes("$\\phi$"))
+  assert.ok(!holder.includes("summary(gamma_fit)"))
+})
+
+test("inline maths after inline code stays intact across the split decision", () => {
+  const text = "Use `summary(fit)$coef` and then $x^2$ stays together.\n\n" + "tail ".repeat(700).trim()
+  const parts = splitBody(text)
+  const holder = parts.find((part) => part.includes("$x^2$"))
+  assert.ok(holder)
+  assert.ok(!parts.some((part) => part.includes("$x^2") && !part.includes("$x^2$")))
+  assert.ok(parts.some((part) => part.includes("tail tail") && !part.includes("summary(fit)")))
+})
+
 test("inline maths stays intact across the split decision", () => {
   const text = `Before.\n\nThe value is $x^2 + y^2$ exactly.\n\n${"tail ".repeat(700).trim()}`
   const parts = splitBody(text)

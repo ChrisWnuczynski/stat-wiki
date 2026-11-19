@@ -9,7 +9,8 @@ export const VECTORIZE_INDEX = "statwiki-ask"
 export const KV_TITLE = "statwiki-ask-chunks"
 
 export const CHUNK_CHARS = 3000
-export const CHUNKER_VERSION = 1
+// 2: a dollar inside inline code is not a maths delimiter when splitting chunks.
+export const CHUNKER_VERSION = 2
 
 export const CANDIDATE_K = 20
 export const FETCH_K = 50
