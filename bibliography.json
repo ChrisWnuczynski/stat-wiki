@@ -9335,7 +9335,7 @@
       "venue": "Biometrics Bulletin",
       "volume": "1",
       "issue": "6",
-      "pages": "80",
+      "pages": "80–83",
       "doi": "10.2307/3001968",
       "verification": {
         "source": "crossref",
@@ -13021,6 +13021,75 @@
       "verification": {
         "source": "archival_url",
         "id": "https://search.r-project.org/CRAN/refmans/car/html/leveneTest.html"
+      }
+    },
+    "razali_wah2011": {
+      "authors": [
+        "Razali, Nornadiah Mohd",
+        "Wah, Yap Bee"
+      ],
+      "year": 2011,
+      "title": "Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors and Anderson-Darling tests",
+      "kind": "article",
+      "venue": "Journal of Statistical Modeling and Analytics",
+      "volume": "2",
+      "issue": "1",
+      "pages": "21–33",
+      "url": "https://www.nbi.dk/~petersen/Teaching/Stat2020/Power_Comparisons_of_Shapiro-Wilk_Kolmogorov-Smirn.pdf",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://www.nbi.dk/~petersen/Teaching/Stat2020/Power_Comparisons_of_Shapiro-Wilk_Kolmogorov-Smirn.pdf"
+      }
+    },
+    "ghasemi_zahediasl2012": {
+      "authors": [
+        "Ghasemi, Asghar",
+        "Zahediasl, Saleh"
+      ],
+      "year": 2012,
+      "title": "Normality Tests for Statistical Analysis: A Guide for Non-Statisticians",
+      "kind": "article",
+      "venue": "International Journal of Endocrinology and Metabolism",
+      "volume": "10",
+      "issue": "2",
+      "pages": "486–489",
+      "doi": "10.5812/ijem.3505",
+      "verification": {
+        "source": "crossref",
+        "id": "10.5812/ijem.3505"
+      }
+    },
+    "gastwirth_gel_miao2009": {
+      "authors": [
+        "Gastwirth, Joseph L.",
+        "Gel, Yulia R.",
+        "Miao, Weiwen"
+      ],
+      "year": 2009,
+      "title": "The Impact of Levene's Test of Equality of Variances on Statistical Theory and Practice",
+      "kind": "article",
+      "venue": "Statistical Science",
+      "volume": "24",
+      "issue": "3",
+      "pages": "343–360",
+      "doi": "10.1214/09-STS301",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/09-STS301"
+      }
+    },
+    "r_wilcox_test451": {
+      "authors": [
+        "R Core Team"
+      ],
+      "year": 2025,
+      "title": "Wilcoxon Rank Sum and Signed Rank Tests (R 4.5.1 documentation for wilcox.test)",
+      "kind": "book",
+      "publisher": "R Foundation for Statistical Computing",
+      "url": "https://svn.r-project.org/R/tags/R-4-5-1/src/library/stats/man/wilcox.test.Rd",
+      "verification": {
+        "source": "archival_url",
+        "id": "https://svn.r-project.org/R/tags/R-4-5-1/src/library/stats/man/wilcox.test.Rd"
       }
     }
   }

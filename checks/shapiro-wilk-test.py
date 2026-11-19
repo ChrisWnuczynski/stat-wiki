@@ -35,10 +35,19 @@ assert abs(logged.pvalue - 0.1469) < 5e-4
 
 # Table 6, 5% points used for the "same W, different n" comparison.
 assert 0.85 > 0.818 and 0.85 < 0.905
+from scipy.stats import norm
+qsteps = np.diff(norm.ppf((np.arange(1, 9) - 0.5) / 8))
+assert abs(qsteps[-2] - 0.398) < 5e-4
+assert abs(qsteps[-1] - 0.647) < 5e-4
+assert abs((8.5 - 4.0) / (4.0 - 3.4) - 7.5) < 1e-9
+assert abs(qsteps[-1] / qsteps[-2] - 1.62) < 5e-3
+assert abs(x.mean() - 3.55) < 1e-12
 
 md = (ROOT / "research" / "content" / "shapiro-wilk-test.md").read_text(encoding="utf-8")
-for token in ("0.70778", "0.818", "0.86879", "0.905", "Your turn", "## Check yourself"):
+for token in ("0.70778", "0.818", "0.86879", "0.905", "3.55", "0.647", "Your turn", "## Check yourself", "razali_wah2011"):
     assert token in md, token
+assert "3.675" not in md
+assert "Details" not in md
 answers = re.findall(r'collapse="true" title="Answer"\}(.*?)(?=\n:{3,})', md, re.S)
 assert len(answers) >= 4
 assert all("{{cite:" not in answer for answer in answers)

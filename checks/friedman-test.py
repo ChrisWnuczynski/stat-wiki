@@ -55,8 +55,13 @@ b, s = 6, 6
 assert 4 * (s - b / 2) ** 2 / b == 6
 
 md = (ROOT / "research" / "content" / "friedman-test.md").read_text(encoding="utf-8")
-for token in ("25/864", "1350", "0.0302", "0.0126", "Your turn", "## Check yourself"):
+for token in ("25/864", "1350", "0.0302", "0.0126", "Your turn", "## Check yourself", "The fifth does not", "4.5"):
     assert token in md, token
+assert "The sixth does not" not in md
+assert "no residual" not in md
+assert "(A_1 - C_1)/(k-1)" in md
+turn = 12 / (4 * 3 * 4) * ((5 - 8) ** 2 + (8 - 8) ** 2 + (11 - 8) ** 2)
+assert turn == 4.5
 answers = re.findall(r'collapse="true" title="Answer"\}(.*?)(?=\n:{3,})', md, re.S)
 assert len(answers) >= 4
 assert all("{{cite:" not in answer for answer in answers)

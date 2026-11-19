@@ -41,9 +41,24 @@ replaced = [groups[0], groups[1], np.array([0.0, 2, 4])]
 zero_f, _, _ = levene_f(replaced, np.mean)
 assert zero_f == 0
 
+fresh = [np.array([0.0, 2, 4]), np.array([0.0, 2, 10])]
+fresh_f, _, _ = levene_f(fresh, np.mean)
+assert abs(fresh_f - 4) < 1e-9
+changed = [np.array([0.0, 2, 4]), np.array([0.0, 2, 16])]
+changed_f, _, _ = levene_f(changed, np.mean)
+assert abs(changed_f - 8) < 1e-9
+pair = [np.array([1.0, 2, 9]), np.array([4.0, 5, 6])]
+pair_mean, _, _ = levene_f(pair, np.mean)
+pair_med, _, _ = levene_f(pair, np.median)
+assert abs(pair_mean - 8) < 1e-9
+assert abs(pair_med - 9 / 11) < 1e-9
+assert abs(stats.f.ppf(0.95, 1, 4) - 7.7086) < 1e-3
+
 md = (ROOT / "research" / "content" / "levene-s-test.md").read_text(encoding="utf-8")
-for token in ("16/3", "27/37", "5.143", "Your turn", "## Check yourself"):
+for token in ("16/3", "27/37", "5.143", "9/11", "Your turn", "## Check yourself", "gastwirth_gel_miao2009"):
     assert token in md, token
+assert r"\bar Y - \bar Z" not in md
+assert "Details" not in md
 answers = re.findall(r'collapse="true" title="Answer"\}(.*?)(?=\n:{3,})', md, re.S)
 assert len(answers) >= 4
 assert all("{{cite:" not in answer for answer in answers)

@@ -225,12 +225,13 @@ Fewer than two questions in the bank are filed under the same chapter, so these 
 
 ## Gap batch 1: sources read through a secondary account
 
-These four articles cite only pages that were opened. The following attributions were left on the secondary page that states them, because the primary paper was not opened.
+These four articles cite only pages that were opened. The following attributions were left on a secondary page, because the primary paper was not opened.
 
-- Levene (1960), in Olkin (ed.), *Contributions to Probability and Statistics*, pp. 278–292, was not opened. The 1960 date and the statement that the original statistic uses the group mean are taken from NIST/SEMATECH §1.3.5.10.
-- Brown and Forsythe (1974), *Journal of the American Statistical Association* 69, 364–367, was not opened. The extension to the median and the trimmed mean, and the Monte Carlo ordering (trimmed mean for the Cauchy, median for chi-squared on 4 degrees of freedom, mean for symmetric moderate tails), are cited from NIST/SEMATECH §1.3.5.10.
+- Levene (1960), in Olkin (ed.), *Contributions to Probability and Statistics*, pp. 278–292, was not opened and is not cited by page. The mean-centred statistic and the 1960 date are taken from Gastwirth, Gel and Miao (2009), §1, equation (3), and from NIST/SEMATECH §1.3.5.10.
+- Brown and Forsythe (1974), *Journal of the American Statistical Association* 69, 364–367, was not opened and is not cited by page. The median substitution and the 1974 date are taken from Gastwirth, Gel and Miao (2009), §1. The trimmed-mean, median and mean recommendations are kept as the NIST/SEMATECH §1.3.5.10 summary.
 - Hodges and Lehmann (1963), *Annals of Mathematical Statistics*, was not opened. On the eight-pair example the median of the pairwise averages equals the estimate returned by `wilcox.test`; the population definition of the pseudomedian is the one on the `wilcox.test` help page.
-- Royston (1982a, 1982b, 1995) was not opened. Facts about the `shapiro.test` p-value algorithm are cited from that help page.
-- Conover (1999) and Hollander, Wolfe and Chicken were not opened. Assumptions and the Friedman follow-up formulae are cited from the NIST Dataplot pages and the R help pages that state them.
-- Shapiro and Wilk (1964a), the technical report with the fuller power study, was not opened. The only power figure used is the 98% entry for a chi-squared alternative on one degree of freedom at n = 20, which is in the 1965 paper (p. 609), together with the critical values in Table 6.
+- Royston (1982a, 1982b, 1995) was not opened. Facts about the `shapiro.test` p-value algorithm are cited from that help page (Value, Source and References).
+- Conover (1999) and Hollander, Wolfe and Chicken were not opened. The tie-corrected Friedman statistic, the $T_2$ form and the post-hoc rule stay on the NIST Dataplot Friedman page. Friedman (1937) was read at pp. 675–676 and 678–679; his $n$ and $p$ are the page’s $b$ and $k$.
+- Shapiro and Wilk (1964a), the technical report with the fuller power study, was not opened. The power comparison that replaces it is Razali and Wah (2011), Table 1 p. 28, p. 29, Table 2 p. 30 and the conclusion on p. 32. The large-sample remark is Ghasemi and Zahediasl (2012), §3. The 98% entry for a chi-squared alternative on one degree of freedom at $n = 20$ remains the 1965 paper (p. 609), with the critical values in Table 6.
 - NIST/SEMATECH §1.3.5.9 gives the two-sample variance ratio and its critical regions. It does not say that this ratio is sensitive to non-normality, so that claim was not added. Bartlett’s sensitivity to non-normality is the comparison that §1.3.5.7 states.
+- Razali and Wah (2011) has no Crossref DOI that could be found. The bibliography URL is the PDF copy that was read.
