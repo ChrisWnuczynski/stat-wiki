@@ -38,5 +38,10 @@ __pycache__/
 /ask/worker/.dev.vars
 /ask/worker/.wrangler/
 /ask/worker/wrangler.config.ts
+
+# Index logs and scored harness runs. The indexer and the harness recreate
+# this directory. Fixtures the tests read stay in ask/harness/fixtures/.
+/ask/harness/runs/
+
 /webr/node_modules/
 /labs/node_modules/
