@@ -20,6 +20,12 @@ assert np.isclose(np.sqrt(np.log(2)),.8325546111576977)
 assert np.isclose(float(sp.integrate(sp.exp(-t*t),(t,0,sp.oo))),np.sqrt(np.pi)/2)
 assert np.isclose(np.exp(-3),.049787068367863944)
 assert np.isclose(np.exp(-.5),.6065306597126334)
+assert np.isclose(np.exp(-2),.1353352832366127)
+assert np.isclose(np.log(2)/0.2,3.4657359027997265)
+assert np.isclose(1-np.exp(-1),.6321205588285577)
 assert '0.18942' in body
+for printed in ("e^{-2}\\approx 0.135335","3.465736","1-e^{-1}\\approx 0.632121","constant $1/a$"):
+    assert printed in source, printed
+    assert printed in body, printed
 
 print(SLUG+": numeric and generated-article checks passed")

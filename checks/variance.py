@@ -26,6 +26,11 @@ if __name__ == "__main__":
     assert isclose(sqrt(variance), 2.179449471770337)
     assert round(sqrt(variance), 3) == 2.179
     assert weighted_moments([1, 3, 5], [Fraction(1, 3)] * 3) == (3, Fraction(8, 3))
+    assert weighted_moments([0, 10], [Fraction(1, 2), Fraction(1, 2)]) == (5, 25)
+    assert 9 * 4 == 36
+    assert 5 + 5 == 10 and 10 / 4 == 2.5
+    for printed in ("50-25=25", "9\\times 4=36", "gives $2.5$"):
+        assert printed in prose, printed
     assert Fraction(1) + Fraction(2) ** 2 == 5
     assert Fraction(1, 3) - Fraction(1, 2) ** 2 == Fraction(1, 12)
     die_variance = sum((Fraction(k) - Fraction(7, 2)) ** 2 for k in range(1, 7)) / 6

@@ -1,5 +1,6 @@
 """Recompute the worked likelihood ratios and boundary case."""
 
+from fractions import Fraction
 from math import comb, exp, factorial, isclose
 from pathlib import Path
 
@@ -29,6 +30,11 @@ if __name__ == "__main__":
     challenge = [0, 2, 1]
     assert isclose(poisson_likelihood(1, challenge) / poisson_likelihood(2, challenge), exp(3) / 8)
     assert isclose(exp(3) / 8, 2.5106921153984585)
+    assert isclose(16 * exp(-2), 2.1653645317859024)
+    assert round(16 * exp(-2), 3) == 2.165
+    assert (1 / Fraction(1, 2) ** 2) == 4
+    for printed in ("e^{-2}\\times 16\\approx 2.165", "1/(1/2)^2=4", "maximiser is still 4"):
+        assert printed in prose, printed
     assert isclose(3 / 1 - 3, 0)
     assert isclose(0.7**7 * 0.3**3 / (0.5**10), 2.2769316864)
     assert round(0.7**7 * 0.3**3 / (0.5**10), 2) == 2.28

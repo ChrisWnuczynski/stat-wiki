@@ -51,6 +51,12 @@ Suppose two binary variables have joint probabilities $\mathbb P(X=0,Y=0)=1/10$,
 The probability of $Y=0$ is $1/10+3/10=4/10$. Therefore $\mathbb P(X=1\mid Y=0)=(3/10)/(4/10)=3/4$. Reversing the conditioning direction changes the denominator.
 :::
 
+**A further exercise.** A shop serves a random number of customers $N$ with mean 4 and variance 2. Given $N=n$, spending values are independent with mean 5 and variance 4, and they are independent of $N$. What are the mean and variance of total spending?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The mean is $5\times 4=20$. The variance is $4\times 4+2\times 5^2=16+50=66$.
+:::
+
 ## Common misconceptions
 A conditional law given a continuous value is not obtained by dividing by $\mathbb P(X=x)$, which is usually zero. A density at $y$ is not the probability of $Y=y$. Conditional probabilities at an isolated $x$ with zero marginal probability are not uniquely fixed by the joint law, even when a convenient density formula supplies a version. Marginals alone do not determine a conditional law; the joint distribution is required. Conditioning on $X$ need not remove all randomness in $Y$, and conditional independence is a different claim from marginal independence.{{cite:kolmogorov1933_slln}} (Ch. V, §3){{cite:billingsley1995}} (§33, Ex. 33.5)
 

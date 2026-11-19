@@ -33,10 +33,28 @@ Three independent shifts produce $1$, $3$, and $2$ defects. Suppose each shift c
 The counts total $3$, so $L(\lambda)\propto e^{-3\lambda}\lambda^3$ and the derivative of its log is $3/\lambda-3$. Hence $\widehat\lambda=1$. The ratio is $L(1)/L(2)=e^3/8\approx2.511$.
 :::
 
-Try [the Poisson mean question](../questions/ex-inf-poisson-mle.qmd), then [the exponential rate question](../questions/ex-inf-exponential-mle.qmd). The first also asks about uncertainty of the estimator; the second uses invariance to estimate a median.
+A Poisson mean and an exponential rate are estimated by the same likelihood comparison, including the median that invariance carries along.
 
 ::: {.callout-tip collapse="true" title="Answers"}
 For the Poisson sample, $\widehat\lambda=\overline X$; it is unbiased, has mean squared error $\lambda/n$, and is consistent. For independent exponential lifetimes with rate $\lambda$, $\widehat\lambda=1/\overline X$ and the fitted median is $\overline X\log 2$.{{cite:fisher1922}} (pp. 323–327)
+:::
+
+**Your turn.** One Poisson observation equals 4. What is the maximum-likelihood value of $\lambda$, and what is $L(4)/L(2)$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The likelihood is proportional to $e^{-\lambda}\lambda^4$, and the score $4/\lambda-1$ vanishes at $\widehat\lambda=4$. The ratio is $e^{-2}\times 16\approx 2.165$.
+:::
+
+**Your turn.** Two independent Bernoulli trials are both successes. Where is the likelihood maximised, and what is $L(1)/L(1/2)$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The likelihood is $p^2$ on $[0,1]$, which is largest at $1$. The ratio is $1/(1/2)^2=4$.
+:::
+
+**Your turn.** The likelihood in the Poisson question is multiplied by 7, a factor that does not depend on $\lambda$. What happens to the maximiser and to $L(4)/L(2)$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+A positive factor that does not depend on the parameter cancels in every ratio and leaves the maximiser unchanged. The maximiser is still 4, and the ratio is still $e^{-2}\times 16$.
 :::
 
 ## Common misconceptions

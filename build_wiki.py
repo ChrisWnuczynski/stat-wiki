@@ -4667,10 +4667,42 @@ def article_lead(article: dict) -> str:
 
 
 def glossary_plain_lead(article: dict) -> str:
-    """The article's opening sentence, without emphasis, for a glossary cell."""
+    """One definitional sentence for a glossary cell, without the field wrapper."""
     info = ARTICLE_LEADS[article["slug"]]
-    subject = f"{info['article']} " if info["article"] else ""
-    return f"In {info['field']}, {subject}{info['term']} {info['verb']} {info['description'].strip(' .')}."
+    custom = str(info.get("glossary") or "").strip()
+    if custom:
+        return custom
+    article_word = str(info.get("article") or "").strip()
+    term = str(info["term"]).strip()
+    verb = str(info["verb"]).strip()
+    description = str(info["description"]).strip().rstrip(".")
+    if article_word:
+        subject = article_word[:1].upper() + article_word[1:] + " " + term
+    else:
+        subject = term[:1].upper() + term[1:]
+    return f"{subject} {verb} {description}."
+
+
+def glossary_question_meanings() -> dict[str, str]:
+    """One-sentence definitions for question rows whose text would only repeat the question."""
+    path = WIKI / "research" / "glossary-meanings.json"
+    if not path.is_file():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    meanings = data.get("questions", data) if isinstance(data, dict) else {}
+    return {str(key): str(value).strip() for key, value in meanings.items() if str(value).strip()}
+
+
+def _meaning_repeats_question(title: str, snippet: str) -> bool:
+    def norm(text: str) -> str:
+        return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+
+    left, right = norm(title), norm(snippet)
+    if not right:
+        return True
+    if right == left or right.endswith("?") or snippet.rstrip().endswith("?"):
+        return True
+    return left in right and len(right) <= len(left) + 12
 
 
 def first_sentence(text: str) -> str:
@@ -6094,16 +6126,21 @@ def write_glossary(questions: list[dict]) -> None:
         if e["kind"] == "section" and (e["term"].lower(), e["page"]) not in named:
             entries.append(dict(e))
     # Concept checks are short questions on one idea each.
+    question_meanings = glossary_question_meanings()
     for q in questions:
         if q["group"] == "concepts":
+            title = re.sub(r"^C\d+\.\s*", "", q["title"])
+            snippet = question_meanings.get(q["id"]) or first_sentence(q.get("prepared_body") or q.get("body") or q.get("title") or "")
+            if _meaning_repeats_question(title, snippet) and q["id"] not in question_meanings:
+                snippet = question_meanings.get(title, snippet)
             entries.append(
                 {
-                    "term": re.sub(r"^C\d+\.\s*", "", q["title"]),
+                    "term": title,
                     "kind": "question",
                     "page": q["path"],
                     "anchor": "",
                     "where": q["topic_note"]["title"] if q.get("topic_note") else "Question bank",
-                    "snippet": first_sentence(q.get("prepared_body") or q.get("body") or q.get("title") or ""),
+                    "snippet": snippet,
                 }
             )
     # Aliases are redirects: the row's own link goes straight to the real entry.
@@ -7780,9 +7817,76 @@ SIDEBAR_JS = """
     scroller.scrollTop = Math.max(0, target);
   }
   function markScrollers() {
-    document.querySelectorAll(".katex-display, .infobox, .infobox td, .callout, .theorem, .qtable").forEach(function (el) {
+    document.querySelectorAll(".katex-display, .infobox, .infobox td, .callout, .theorem, .qtable, .qtable table, main table").forEach(function (el) {
       el.classList.toggle("can-scroll-x", el.scrollWidth > el.clientWidth + 2);
     });
+  }
+  function compactRange() {
+    return window.matchMedia("(min-width: 900px) and (max-width: 1200px)").matches;
+  }
+  function syncCompact() {
+    document.documentElement.classList.toggle("infobox-compact", compactRange());
+  }
+  function armInfoboxes() {
+    document.querySelectorAll(".infobox").forEach(function (box) {
+      var title = box.querySelector(".infobox-title");
+      if (!title || title.getAttribute("data-armed") === "true") return;
+      title.setAttribute("data-armed", "true");
+      title.setAttribute("role", "button");
+      function toggle() {
+        if (!document.documentElement.classList.contains("infobox-compact")) return;
+        var open = !box.classList.contains("is-open");
+        box.classList.toggle("is-open", open);
+        title.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+      title.addEventListener("click", toggle);
+      title.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        toggle();
+      });
+    });
+    document.querySelectorAll(".infobox-title").forEach(function (title) {
+      var box = title.closest(".infobox");
+      if (!box) return;
+      var open = box.classList.contains("is-open");
+      title.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  function applySidebar(payload) {
+    var root = sidebarRoot();
+    if (!root || !payload || !payload.html) return false;
+    var ul = root.querySelector(".sidebar-menu-container > ul");
+    if (!ul || ul.getAttribute("data-hydrated") === "true") return false;
+    var meta = document.querySelector('meta[name="quarto:offset"]');
+    var offset = meta ? meta.getAttribute("content") : "./";
+    var html = payload.html.replace(/href="([^"]*)"/g, function (_, href) {
+      if (!href || /^(?:[a-z][a-z0-9+.-]*:|\\/|#)/i.test(href)) return 'href="' + href + '"';
+      return 'href="' + offset + href.replace(/^\\.\\//, "") + '"';
+    });
+    ul.innerHTML = html;
+    ul.setAttribute("data-hydrated", "true");
+    return true;
+  }
+  function markCurrent() {
+    var root = sidebarRoot();
+    if (!root) return;
+    var path = location.pathname.replace(/\\\\/g, "/");
+    var links = root.querySelectorAll("a.sidebar-link");
+    var best = null;
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].pathname.replace(/\\\\/g, "/") === path) { best = links[i]; break; }
+    }
+    if (!best) return;
+    root.querySelectorAll("a.sidebar-link.active").forEach(function (link) {
+      if (link !== best) {
+        link.classList.remove("active");
+        link.removeAttribute("aria-current");
+      }
+    });
+    best.classList.add("active");
+    best.setAttribute("aria-current", "page");
+    expandTo(best);
   }
   function schedule() {
     clearDoubleActive();
@@ -7791,12 +7895,46 @@ SIDEBAR_JS = """
     setTimeout(revealActive, 60);
     setTimeout(revealActive, 350);
   }
-  document.addEventListener("DOMContentLoaded", function () {
-    markParents();
-    schedule();
+  var sidebarBooted = false;
+  function bootSidebar() {
+    if (sidebarBooted) {
+      schedule();
+      return;
+    }
+    sidebarBooted = true;
+    syncCompact();
+    armInfoboxes();
+    function finish() {
+      markCurrent();
+      markParents();
+      schedule();
+    }
+    if (window.__STATWIKI_SIDEBAR) {
+      applySidebar(window.__STATWIKI_SIDEBAR);
+      finish();
+      return;
+    }
+    var meta = document.querySelector('meta[name="quarto:offset"]');
+    var offset = meta ? meta.getAttribute("content") : "./";
+    var script = document.createElement("script");
+    script.src = new URL(offset + "sidebar-nav.js", location.href).href;
+    script.onload = function () {
+      applySidebar(window.__STATWIKI_SIDEBAR);
+      finish();
+    };
+    script.onerror = finish;
+    document.head.appendChild(script);
+  }
+  document.addEventListener("DOMContentLoaded", bootSidebar);
+  window.addEventListener("load", function () {
+    if (!document.querySelector("#quarto-sidebar .sidebar-menu-container > ul[data-hydrated]")) bootSidebar();
+    else schedule();
   });
-  window.addEventListener("load", schedule);
-  window.addEventListener("resize", markScrollers);
+  window.addEventListener("resize", function () {
+    syncCompact();
+    armInfoboxes();
+    markScrollers();
+  });
   document.addEventListener("click", function (event) {
     var target = event.target;
     if (target && target.closest && target.closest(".quarto-btn-toggle, #quarto-sidebar-toggle, a.sidebar-item-toggle")) {
@@ -7828,7 +7966,8 @@ def write_config(chapters, final_notes, questions) -> None:
     finals = "\n".join(f"              - {n['path'].relative_to(WIKI).as_posix()}" for n in final_notes)
     final_block = f"          - section: \"Final preparation\"\n            contents:\n{finals}"
 
-    yml = f"""project:
+    yml = f"""lang: en
+project:
   type: website
   output-dir: _site
   # Quarto's alias pages are redirects. Give each one a canonical link after render.
@@ -7838,6 +7977,7 @@ def write_config(chapters, final_notes, questions) -> None:
     - canonical_redirects.py
     - search_meta.py
     - share_preview.py
+    - sidebar_share.py
   # Render the generated pages only, not the course files copied into sources/.
   render:
     - "*.qmd"

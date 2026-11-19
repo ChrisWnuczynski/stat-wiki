@@ -34,6 +34,12 @@ At $\mu=2$, the squared residual sum is two, so $v\mid\mu=2,x\sim\operatorname{I
 The precision is $3/4+1/4=1$, hence variance one. The mean is $(3\cdot2/4)/1=1.5$, so the conditional is $N(1.5,1)$.
 :::
 
+**A further exercise.** For the same data and prior, what is the conditional law of $v$ when $\mu=0$?
+
+::: {.callout-tip collapse="true" title="Answer"}
+The residual sum of squares is $1+4+9=14$, so $v\mid\mu=0,x\sim\operatorname{InvGamma}(3.5,8)$. Its mean is $8/(3.5-1)=3.2$.
+:::
+
 ## Statistical use — Alternating simulation
 
 A systematic Gibbs sweep draws $\mu$ from its conditional using the previous variance and then draws $v$ using the new mean. Each update preserves the joint posterior when the input has that posterior law: integrating $p(\mu'\mid v,x)p(v\mid x)$ over $v$ reconstructs the joint distribution, and the same argument applies to the other update. This invariance is distinct from convergence from an arbitrary starting state. Monte Carlo error must account for dependence across sweeps.{{cite:gelfand_smith1990}} (§§2.3–2.4, pp.400–401; §3.5, p.405)
