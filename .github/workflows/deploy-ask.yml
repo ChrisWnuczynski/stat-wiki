@@ -1,0 +1,58 @@
+# Publish the Ask worker (statwiki-ask) at ask.statwiki.io.
+# A push to main deploys only when ask/core or ask/worker changes.
+# A hand-started run deploys main and skips any other branch.
+# The re-index workflow uses this same concurrency group, so a deploy and a
+# re-index wait for each other instead of overlapping.
+name: Deploy Ask
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ask/core/**"
+      - "ask/worker/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: statwiki-ask-cloudflare
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Test the Ask worker and core
+        working-directory: ask
+        run: |
+          npm ci
+          npm test
+
+      # cf is the devDependency pinned by ask/worker/package-lock.json.
+      # Run it from ask/worker so it reads ask/worker/cloudflare.config.ts.
+      # A plain deploy keeps the secret values already on the worker. Do not
+      # pass --secrets-file, and do not set ASK_KILL, SESSION_SECRET,
+      # TURNSTILE_SECRET, or XAI_API_KEY in this step.
+      - name: Deploy the Ask worker
+        working-directory: ask/worker
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "Set the CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN repository secrets before deploying."
+            exit 1
+          fi
+          npm ci
+          npx cf --version
+          npx cf deploy
