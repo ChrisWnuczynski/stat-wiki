@@ -1542,9 +1542,9 @@ class DistributionDepthBatchTests(unittest.TestCase):
             self.assertIn("### ", facts["worked_example"], slug)
             self.assertRegex(facts["worked_example"], r"\d", slug)
             self.assertIn("{{cite:", facts["worked_example"], slug)
-            inference = body.split("## Statistical inference {#used-in}", 1)[1].split("\n## ", 1)[0]
+            inference = re.split(r"(?m)^## [^\n]*\{#used-in\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
             self.assertIn("class=\"cite-ref\"", inference, slug)
-            related = body.split("## Related distributions {#related-distributions}", 1)[1].split("\n## ", 1)[0]
+            related = re.split(r"(?m)^## [^\n]*\{#related-distributions\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
             self.assertIn(".qmd", related, slug)
             self.assertGreaterEqual(len(related.split()), 20, slug)
             if slug not in history_todo:
@@ -1717,10 +1717,13 @@ class DistributionDepthBatchTests(unittest.TestCase):
             (build_wiki.WIKI / "proofs-todo.json").read_text(encoding="utf-8"))}
         for slug in build_wiki.DISTRIBUTIONS:
             body = (build_wiki.WIKI / "articles" / f"{slug}.qmd").read_text(encoding="utf-8")
-            properties = body.split("## Properties {#properties}", 1)[1].split("\n## ", 1)[0]
+            properties = re.split(r"(?m)^## [^\n]*\{#properties\}\n", body, maxsplit=1)[1].split("\n## ", 1)[0]
             research_path = build_wiki.WIKI / "research" / "content" / f"{slug}.md"
-            researched_properties = research_path.read_text().split("## Properties\n", 1)[1].split("\n## ", 1)[0] \
-                if research_path.is_file() and "## Properties\n" in research_path.read_text() else ""
+            researched_match = re.search(
+                r"(?ms)^## Properties(?: — [^\n]*)?\n(.*?)(?=^## |\Z)",
+                research_path.read_text(encoding="utf-8"),
+            ) if research_path.is_file() else None
+            researched_properties = researched_match.group(1) if researched_match else ""
             global_proof = '::: {.proof}' in researched_properties
             heads = list(re.finditer(r"^### (.+?) \{#(property-[^}]+)\}", properties, re.M))
             for i, head in enumerate(heads):

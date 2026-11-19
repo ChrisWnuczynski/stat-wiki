@@ -1,5 +1,5 @@
 ## Lead context
-A log link writes that mean as an exponential of the linear predictor, so the mean stays positive for every finite covariate pattern. An identity link with the same coefficients need not.
+A log link writes the mean of such a count as an exponential of the linear predictor, so the mean stays positive for every finite covariate pattern. An identity link with the same coefficients need not.
 
 ## Motivating example — A log mean stays positive when the predictor is large
 Take $\log\mu=0.5-0.2x$. At $x=10$,

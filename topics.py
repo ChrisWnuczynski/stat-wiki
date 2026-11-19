@@ -282,6 +282,7 @@ TITLES = dict(tuple(x.strip() for x in line.split("|")) for line in _TITLES.stri
 # The file name is already published. The title can change; this slug stays.
 SLUGS = {
     "sl-18-high-dimensional.qmd#s-regression": "regression-when-p-n",
+    "03-gamma-and-quasi.qmd#s-bids-for-a-bankrupt-firm": "bids-for-a-bankrupt-firm",
 }
 
 # Headings that are an existing article under another name.
