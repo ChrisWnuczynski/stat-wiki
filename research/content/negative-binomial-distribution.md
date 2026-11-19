@@ -1,14 +1,18 @@
-## Motivating example
+## Motivating example — A varying call rate spreads the hourly count
 
 A help desk may receive an average of three calls per hour yet have quiet hours and sudden busy ones. A Poisson model with mean three fixes the variance at three. If the underlying call rate changes from hour to hour, the count can vary more widely even when its overall mean remains three. The negative binomial distribution gives one precise account of that extra variation: it is the count law obtained when a Poisson rate itself follows a gamma distribution.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, count distributions and gamma mixture)
 
 ## Intuition — Gamma mixing creates extra count variation
 
-Think of the conditional Poisson rate as a hidden feature of each hour. Conditional on a low rate, zero calls are common; conditional on a high rate, large counts are more common. Combining these hours creates both more zeros and a heavier upper tail than a single-rate Poisson law with the same average. The dispersion parameter $\nu$ controls how much the hidden rates vary: a small $\nu$ allows substantial variation, while a large $\nu$ concentrates the rate around $\mu$. The two plots above show the mass and cumulative probabilities for one parameter choice; neither plot by itself says why the variation arose.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, mean–variance relation and mixture)
+Think of the conditional Poisson rate as a hidden feature of each hour. Conditional on a low rate, zero calls are common; conditional on a high rate, large counts are more common. Combining these hours creates both more zeros and a heavier upper tail than a single-rate Poisson law with the same average. The dispersion parameter $\nu$ controls how much the hidden rates vary: a small $\nu$ allows substantial variation, while a large $\nu$ concentrates the rate around $\mu$. The mass function and the cumulative distribution function describe that shape; neither summary says why the variation arose.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, mean–variance relation and mixture)
 
 ## Definition
 
-In the mean–dispersion parameterisation, $X\sim\operatorname{NegBin}(\mu,\nu)$ has mean $\mu>0$, dispersion $\nu>0$, and the mass function in the infobox for counts $x=0,1,\ldots$. Another convention uses a success probability $p=\nu/(\mu+\nu)$ and a size $\nu$; for integer size it counts failures before the $\nu$th success. Then $\mu=\nu(1-p)/p$. The gamma function extends the combinatorial coefficient to any positive real $\nu$, so the distribution is useful even when there is no literal sequence of $\nu$ successes. Always check which of the two parameters a software function calls “size” and whether its geometric special case begins at zero or one.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, probability functions and parameterisations){{cite:dodge2008}} (pp. 369–370, “Negative Binomial Distribution,” mathematical aspects)
+In the mean–dispersion parameterisation, $X\sim\operatorname{NegBin}(\mu,\nu)$ has mean $\mu>0$, dispersion $\nu>0$, and mass function
+$$
+p(x)=\frac{\Gamma(x+\nu)}{\Gamma(\nu)\,x!}\left(\frac{\nu}{\mu+\nu}\right)^{\nu}\left(\frac{\mu}{\mu+\nu}\right)^{x}
+$$
+on $x=0,1,\ldots$. Another convention uses a success probability $p=\nu/(\mu+\nu)$ and a size $\nu$; for integer size it counts failures before the $\nu$th success. Then $\mu=\nu(1-p)/p$. The gamma function extends the combinatorial coefficient to any positive real $\nu$, so the distribution is useful even when there is no literal sequence of $\nu$ successes. Always check which of the two parameters a software function calls “size” and whether its geometric special case begins at zero or one.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, probability functions and parameterisations){{cite:dodge2008}} (pp. 369–370, “Negative Binomial Distribution,” mathematical aspects)
 
 ## Properties
 
@@ -26,7 +30,7 @@ For regression, one may let $\mu_i$ depend on predictors and keep the variance $
 
 One comparison asks why the extra $\mu^2/\nu$ term matters. Another begins with the success-probability parameterisation and derives a link for a regression with fixed size. Together they test two distinct steps: recognizing the count variance and translating its parameterisation into an inferential model.
 
-## Worked example
+## Worked example — Mean three and $\nu=1$ against a Poisson benchmark
 
 Suppose daily service requests are modelled with $\mu=3$ and $\nu=1$. Their variance is $3+3^2/1=12$. One quarter of days have no request under this model, whereas a same-mean Poisson model predicts about five percent. The negative binomial probability of seven or more requests is $0.1335$, about four times the Poisson probability $0.0335$. The comparison explains why fitting only an average count could underestimate both idle days and busy-day staffing needs. It does not establish a particular physical reason for the varying rate.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, model probabilities and overdispersion)
 
@@ -36,18 +40,18 @@ Suppose daily service requests are modelled with $\mu=3$ and $\nu=1$. Their vari
 The variance is $2+2^2/2=4$. Here $p=\nu/(\mu+\nu)=1/2$, so $P(X=0)=p^2=1/4$ and $P(X=1)=2p^2(1-p)=1/4$. Both probabilities are equal, but the distribution still has a long positive tail.
 :::
 
-## Common misconceptions
+## Common misconceptions — “Negative” does not mean a negative count
 
 “Negative” does not mean the count can be negative: the support begins at zero. Size $\nu$ is not the mean $\mu$; changing it at fixed mean changes the variance and tails. A negative binomial law with real-valued $\nu$ need not represent a literal count of failures before a noninteger number of successes. Finally, extra variance alone does not identify gamma rate mixing, because dependence, structural zeros and omitted predictors can also spread a count distribution.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, parameterisations and model selection; §3, pp. 6–8, alternative count models)
 
-## Assumptions and limits
+## Assumptions and limits — Mixing does not license impossible counts
 
 The gamma–Poisson story assumes nonnegative counts and a gamma distribution of conditional rates. If calls are capped at four by a scheduling rule, the negative binomial assigns positive probability to impossible counts above four. If each arrival provokes another, dependence between arrivals may produce bursts that do not follow a gamma mixture. If one group has exactly zero exposure, treating its zeros as observations from the same positive-mean distribution confuses exposure with dispersion. A count model should follow the observation mechanism, and residual patterns or held-out frequencies can reveal these failures.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, count-model assumptions; §3, pp. 6–8, excess-zero alternatives)
 
-## Connections
+## Connections — The mixture pieces and the regression setting
 
 [Poisson distribution](poisson-distribution.qmd) supplies the conditional count law in the mixture and the limiting law as $\nu$ grows. [Gamma distribution](gamma-distribution.qmd) supplies the fluctuating rate. [Geometric distribution](geometric-distribution.qmd) is the $\nu=1$ case on the failures-before-success convention. [Overdispersion](overdispersion.qmd) describes the variance diagnostic, while [Poisson regression](poisson-regression.qmd) and [count models beyond the Poisson](count-models-beyond-the-poisson.qmd) put the distribution into an inferential setting.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, distributional relationships and regression)
 
-## History
+## History — From a series to Greenwood and Yule, then to a mixture
 
-The name comes from the negative-binomial series used in the waiting-time mass function. Early applications include counts of accidents, and Greenwood and Yule used the law for repeated accident frequencies in 1920. That history explains why an event-count distribution also has a waiting-for-successes derivation. Modern count regression often uses the gamma–Poisson interpretation instead, because its mean and extra variance are directly useful for data analysis.{{cite:dodge2008}} (pp. 369–370, “Negative Binomial Distribution,” history and mathematical aspects){{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, gamma–Poisson interpretation)
+The name comes from the negative-binomial series used in the waiting-time mass function.{{cite:dodge2008}} (pp. 369–370, “Negative Binomial Distribution,” history and mathematical aspects) Greenwood and Yule studied repeated accidents by giving each person a Poisson count at a liability of their own and letting that liability vary across people. They fitted the compound series from the mean and the second moment.{{cite:greenwood_yule1920}} (§I, pp. 255–257; §IV, pp. 273–276) The same construction, written as a gamma mixture with constant index, has variance $\mu+\mu^2/v$.{{cite:mccullagh_nelder1989}} (§6.2.3, p. 199) Count regression uses that gamma–Poisson reading because the mean and the extra variance are the quantities the regression has to carry.{{cite:zeileis_kleiber_jackman2008}} (§2, pp. 4–5, gamma–Poisson interpretation)

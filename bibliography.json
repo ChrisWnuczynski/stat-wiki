@@ -3355,7 +3355,7 @@
       "venue": "Journal of the Royal Statistical Society",
       "volume": "83",
       "issue": "2",
-      "pages": "255",
+      "pages": "255–279",
       "doi": "10.2307/2341080",
       "verification": {
         "source": "crossref",
@@ -4390,6 +4390,23 @@
       "verification": {
         "source": "crossref",
         "id": "10.2307/2529876"
+      }
+    },
+    "lambert1992_zip": {
+      "authors": [
+        "Lambert, D."
+      ],
+      "year": 1992,
+      "title": "Zero-Inflated Poisson Regression, with an Application to Defects in Manufacturing",
+      "kind": "article",
+      "venue": "Technometrics",
+      "volume": "34",
+      "issue": "1",
+      "pages": "1–14",
+      "doi": "10.2307/1269547",
+      "verification": {
+        "source": "crossref",
+        "id": "10.2307/1269547"
       }
     },
     "lancaster2004_bayesian_econometrics": {
@@ -7449,6 +7466,24 @@
       "verification": {
         "source": "crossref",
         "id": "10.1080/01621459.1987.10478472"
+      }
+    },
+    "sellers_shmueli2010": {
+      "authors": [
+        "Sellers, K. F.",
+        "Shmueli, G."
+      ],
+      "year": 2010,
+      "title": "A Flexible Regression Model for Count Data",
+      "kind": "article",
+      "venue": "The Annals of Applied Statistics",
+      "volume": "4",
+      "issue": "2",
+      "pages": "943–961",
+      "doi": "10.1214/09-AOAS306",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1214/09-AOAS306"
       }
     },
     "selvin1975": {
@@ -11113,6 +11148,24 @@
       "verification": {
         "source": "archival_url",
         "id": "https://iris.who.int/bitstream/handle/10665/43541/9241547073_eng.pdf?sequence=1&isAllowed=y"
+      }
+    },
+    "ver_hoef_boveng2007": {
+      "authors": [
+        "Ver Hoef, J. M.",
+        "Boveng, P. L."
+      ],
+      "year": 2007,
+      "title": "Quasi-Poisson vs. Negative Binomial Regression: How Should We Model Overdispersed Count Data?",
+      "kind": "article",
+      "venue": "Ecology",
+      "volume": "88",
+      "issue": "11",
+      "pages": "2766–2772",
+      "doi": "10.1890/07-0043.1",
+      "verification": {
+        "source": "crossref",
+        "id": "10.1890/07-0043.1"
       }
     },
     "vidgen2017": {

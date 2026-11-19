@@ -20,5 +20,6 @@ for s in ("0.0183", "0.0689", "3.76", "12"):
     assert s in body, s
 assert body.count('title="Proof"') == 1
 assert "**Your turn.**" in body and "## Check yourself" in body
-assert 'data-cite-key="dodge2008"' in body
+for key in ("mccullagh_nelder1989", "greenwood_yule1920", "lambert1992_zip"):
+    assert f'data-cite-key="{key}"' in body, key
 print("count models passed")
